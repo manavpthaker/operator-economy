@@ -1,6 +1,6 @@
 # Content rubric (pre-publish, 100 points)
 
-Merged from 3 craft research reports (`../research/reports/craft-report-*.md` + pasted playbook), July 2026. Applied to every script + package at Gate 1 alongside the rigor evals. Automated subset lives in `studio/scripts/originate/eval_package.py`; the rest is the human pass.
+Merged from 3 craft research reports (`../research/reports/craft-report-1.md`, `craft-report-2.md`, `craft-report-3.md` — all saved in-repo), July 2026. Applied to every script + package at Gate 1 alongside the rigor evals. Automated subset lives in `studio/scripts/originate/eval_package.py`; the rest is the human pass.
 
 **Publish gate: ≥80/100 AND zero kill-list items. Hook and Structure blocks are hard blocks below 15/25.**
 
@@ -16,7 +16,9 @@ Master platform context (highest confidence, YouTube-official): the recommender 
 | On-screen text carries the premise (mute viewers) | 3 | HUMAN (asset_hint on hook beat must specify text/graphic) |
 | No overpromise the body can't cash | 2 | HUMAN |
 
-Approved archetypes: stakes-first cold open (fall-before-rise) · number-first anchor · contrarian snapback · structural paradox · quantitative abstract · open-loop ("I looked at 12; one survived") · authority-led. Write the hook LAST, after the script.
+Approved archetypes: stakes-first cold open (fall-before-rise) · number-first anchor · contrarian snapback · structural paradox · quantitative abstract · open-loop ("I looked at 12; one survived") · authority-led · systemic anatomy (expose the hidden incentive structure). Write the hook LAST, after the script.
+
+Optional (craft-report-1, "psychology of progress"): a 3–5 milestone structural preview as on-screen text around 0:40–0:45 — a *visual* map, not chapter markers, and never a spoiler. Test against retention at that timestamp.
 
 ## II. Title — 15 pts
 
