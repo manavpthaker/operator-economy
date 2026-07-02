@@ -34,6 +34,7 @@ Unlike everyone else saying this, we prove it: real companies, real numbers, rea
 | `topics/scoring.md` | Topic scoring rubric |
 | `videos/` | One folder per published video: status, links, performance |
 | `research/deep-research-prompt.md` | The market-validation research prompt |
+| `research/craft-rubric/` | YouTube craft research + the 100-point pre-publish content rubric |
 | `docs/pipeline.md` | How to produce one video end to end |
 | `docs/kill-criteria.md` | 26-week decision gates |
 
