@@ -10,17 +10,19 @@ All three reports recommended n8n. All three also pattern-matched "solo operator
 
 **Claude-native orchestration: Cowork/Claude Code sessions + scheduled tasks orchestrate; the Python studio does deterministic work (VO, render, publish); the git repo IS the run ledger and artifact store; gates are conversational reviews in Cowork — which the operator is in daily anyway. No new infrastructure. The three human gates are permanent — automation reduces touches BETWEEN gates, never dilutes the gates.**
 
-The gates naturally chunk the pipeline into segments that each fit one agent session — the "durable workflow" problem n8n solves barely exists at 1–2 runs/week with human pauses built in:
+**v3 update (operator direction): gates are CONFIDENCE-SCORED, not mandatory.** `confidence.py` combines rigor evals (40%), craft rubric (35%), and claim-registry verification (25%) into a per-stage score. **≥0.85 → AUTO-PASS** (pipeline advances, everything logged for optional async review); **below threshold or any hard trigger → ESCALATE** to the operator ("operator" = Manav). Hard triggers escalate regardless of score: rigor hard-fail, craft kill-list hit, unverified load-bearing claims at pre-publish. The old Gate 2 (asset review) is deleted as a human step — asset integrity is checks-only (chart sourcing, semantic density, thumbnail legibility QA); consequence: originate asset plans should prefer charts/slides over screen_recs unless a capture is agent-automatable (Playwright, owned surfaces only).
 
-| Segment | Runner | Trigger |
+| Segment | Runner | Human involvement |
 |---|---|---|
-| Research → brief → script draft → evals → commit → notify | **Cowork scheduled task** (weekly). Agent does the web research itself — no Exa/Sonar subscription needed; claim registry built into the brief | Monday cron |
-| GATE 1 | Conversational session: POV pass with the agent, edits applied live, evals re-run | Operator |
-| VO + asset plan (`originate.py continue`) | Studio scripts, run by agent or operator (needs local API keys) | Post-gate |
-| GATE 2 | Review assets_review.md + record screen captures | Operator |
-| Render (Lambda or local) → derive → evals | Studio scripts; long renders are detached processes the agent polls | Post-gate |
-| GATE 3 + publish | Preview → `videos.insert` script (disclosure + publishAt) → ~10-min Studio finishing checklist | Operator |
-| Analytics readback → topic-score suggestions | **Cowork scheduled task** (weekly) once Analytics API wired | Friday cron |
+| Research (Cowork agent + Exa discovery + Sonar cited verification) → brief with claim registry + **nuance requirement** (≥2 non-consensus angles or the brief fails) → script → evals → confidence | **Cowork scheduled task** (weekly) | Only if ESCALATE (weak claims, low eval scores, POV the agent can't confidently draft) |
+| VO → assets → asset checks | Studio scripts, agent-run | None (checks-only) |
+| Render → derive episode library → evals → pre-publish confidence | Studio scripts; renders detached/polled | **Episode library review** — mandatory during training_mode (first ~4–6 weeks); after calibration, only on ESCALATE, else optional |
+| Publish (`videos.insert` + disclosure + schedule) + Studio finishing checklist | Agent + ~10 min human (Studio-only surfaces) | Checklist |
+| Analytics readback → topic-score suggestions | **Cowork scheduled task** (Friday) | Human reweights |
+
+**Episode library** = everything derived from one research run, reviewed as a unit: full video, 3–5 Shorts, LinkedIn posts, newsletter draft, blueprint doc, thumbnail + titles, confidence report. Lives in `originate/<slug>/` + `output/`.
+
+**Calibration protocol (training_mode):** every auto-pass/escalate verdict gets compared to what Manav would have decided at the library review. When verdicts agree ~90%+ over 4–6 weeks, flip `autonomy.training_mode` to false in `studio/config/blueprint.json` and the pre-publish review becomes confidence-gated too. Threshold and weights live in the same config block.
 
 What this deletes from the reports' stack: n8n + VPS (~$10–25/mo), Postgres (git + JSON status files suffice at this scale), Slack gate plumbing, the web form (Cowork handles files), and likely the research API line ($5–30/mo) since agent research replaces it. **Revised cost: ~$60–120/mo at 1 video/week.** What we lose: unattended multi-step resilience — acceptable because every segment ends at a human gate anyway. Revisit only if this becomes multi-channel with >5 runs/week (then Temporal, not n8n).
 

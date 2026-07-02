@@ -82,6 +82,10 @@ def main():
         if draft.exists():
             run_step("eval_script.py", [str(draft), "--mode", "draft"], "Gate 1 Evals (draft)")
             run_step("eval_package.py", [str(draft)], "Craft Rubric (draft)")
+            # Confidence verdict: AUTO-PASS → orchestrating agent may proceed
+            # without operator review; ESCALATE (exit 2) → notify operator.
+            subprocess.run([sys.executable, str(SCRIPTS / "confidence.py"),
+                            str(draft), "--stage", "script"])
 
     elif args.command == "continue":
         d = resolve_dir(args.dir)
@@ -101,6 +105,11 @@ def main():
             run_step("derive_content.py", [script], "Derive LinkedIn/Grapevines Content")
             # Re-run craft evals now that shorts_briefs.json exists (cliffhanger/pin gate)
             run_step("eval_package.py", [script], "Craft Rubric (incl. Shorts checks)")
+            # Pre-publish confidence: decides whether the episode library
+            # (video + shorts + posts + newsletter + blueprint) requires
+            # operator review or auto-advances to publish.
+            subprocess.run([sys.executable, str(SCRIPTS / "confidence.py"),
+                            script, "--stage", "prepublish"])
         props = d / "render_data" / "blueprint.json"
         print(f"""
 GATE 3: preview & render —

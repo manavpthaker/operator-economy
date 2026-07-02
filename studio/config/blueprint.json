@@ -92,5 +92,20 @@
   "compliance": {
     "ai_disclosure": true,
     "notes": "Human POV pass required at Gate 1. Never publish an unedited AI script (YouTube inauthentic content policy, Jan 2026 AI disclosure rules)."
+  },
+  "autonomy": {
+    "confidence_threshold": 0.85,
+    "training_mode": true,
+    "training_note": "training_mode=True forces pre-publish escalation (episode library review) regardless of score. Flip to False after ~4-6 weeks once confidence scores correlate with operator judgments.",
+    "always_escalate": [
+      "rigor hard-fail",
+      "craft kill-list",
+      "unverified load-bearing claims at prepublish"
+    ]
+  },
+  "research": {
+    "sources": "Cowork agent (synthesis + nuance) + Exa (semantic discovery of non-obvious sources) + Perplexity Sonar (cited verification queries)",
+    "nuance_requirement": "Every brief MUST include >=2 non-consensus angles: what common coverage gets wrong, counterintuitive data, or an operator-level insight absent from listicles. A brief that is common knowledge with citations fails.",
+    "claim_registry": "Every load-bearing claim carries source URL + confidence marker (verified/reported/estimate)."
   }
 }
