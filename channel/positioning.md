@@ -4,13 +4,23 @@
 
 The employment ladder broke, but AI collapsed the cost of building — so the credible move is no longer *get hired*, it's *build your own economics*. Unlike everyone else saying that, we prove it: real companies, real numbers, real tools.
 
-## Goal (in order)
+## Goal (in order) — revised July 2026
+
+**This is a pure media play, standalone from BusyLobby and Grapevines.** Success = more than breaking even (~$100–300/mo costs covered), consistent output on minimal weekly time, and content/income diversification — NOT a get-rich target. Benchmark for what "working" looks like: the Grapevines newsletter/LinkedIn trajectory (1,000+ followers in 2–3 months of consistency).
 
 1. Owned audience — email list via blueprint lead magnets (the compounding asset)
-2. Ad / affiliate / sponsor revenue
-3. Grapevines funnel (secondary, always on)
+2. Cover costs, then ad / affiliate / sponsor revenue as it comes
+3. Diversification of content surface and income — optionality, not a revenue mandate
 
 The name is a media property: channel + newsletter + blueprint library.
+
+## Format (revised): thesis-led, not company-led
+
+Each episode is a **thesis** — "this is the kind of business you can build, and here's how easy/hard it really is" — with real companies as *evidence inside the thesis*, deliberately spanning the low end (a solo operator's version, the best-case case study) and the high end (the venture-scale version proving the market). Company deep-dives (Cursor, Anthropic) appear as evidence segments or occasional standalone episodes, not the core format.
+
+## Roadmap: practitioner interviews (Phase 2)
+
+Once the format is established, layer in interviews with real people running these businesses — e.g., a career coach diversifying into content/cohorts, walking through exactly how she did it (always framed as *her* creation, her credit). Interviews compound the evidence library, seed guest audiences, and are the natural evolution from "best-case case study" to "the person who lived it." Not a launch requirement; revisit around upload 12–26.
 
 ## Audiences
 
