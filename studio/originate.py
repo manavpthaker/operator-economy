@@ -99,6 +99,8 @@ def main():
         run_step("prepare_longform.py", [script], "Prepare Render Data")
         if not args.skip_derive:
             run_step("derive_content.py", [script], "Derive LinkedIn/Grapevines Content")
+            # Re-run craft evals now that shorts_briefs.json exists (cliffhanger/pin gate)
+            run_step("eval_package.py", [script], "Craft Rubric (incl. Shorts checks)")
         props = d / "render_data" / "blueprint.json"
         print(f"""
 GATE 3: preview & render —

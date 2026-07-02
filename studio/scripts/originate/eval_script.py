@@ -107,13 +107,28 @@ def main():
         ev.check(f"duration: '{s['id']}' within ±35% of target",
                  ok, f"{words} words vs ~{tgt:.0f} target ({ratio:.0%})", hard=False)
 
-    # 4. Hook: number in first two sentences, tight length
+    # 4. Hook: concrete tension in first two sentences (number OR question OR
+    # quote OR contrast pivot — any approved archetype qualifies; forcing
+    # numbers-only produces formulaic hooks, which is itself a slop signal)
     hook = next((s for s in script["sections"] if s["id"] == "hook"), None)
     if hook and hook.get("beats"):
         hook_text = " ".join(b["vo_text"] for b in hook["beats"])
         first_two = " ".join(re.split(r"(?<=[.!?])\s+", hook_text)[:2])
-        ev.check("hook: contains a real number in first two sentences",
-                 bool(MONEY_RE.search(first_two) or re.search(r"\d", first_two)), first_two[:80])
+        low2 = first_two.lower()
+        signals = []
+        if MONEY_RE.search(first_two) or re.search(r"\d", first_two):
+            signals.append("number")
+        if "?" in first_two:
+            signals.append("question")
+        if re.search(r"[\"“”']{1}[^\"“”']{8,}[\"“”']{1}", first_two):
+            signals.append("quote")
+        if any(w in low2 for w in [" but ", " yet ", "however", "instead", "not because", "isn't ", "is not "]):
+            signals.append("contrast")
+        ev.check("hook: concrete tension in first two sentences (number/question/quote/contrast)",
+                 bool(signals), f"signals: {signals or 'NONE'} — {first_two[:70]}")
+        ev.check("hook: contains a number somewhere (evidence-first house style)",
+                 bool(MONEY_RE.search(hook_text) or re.search(r"\d", hook_text)),
+                 "", hard=False)
         ev.check("hook: <= 60 words", len(hook_text.split()) <= 60,
                  f"{len(hook_text.split())} words", hard=False)
 

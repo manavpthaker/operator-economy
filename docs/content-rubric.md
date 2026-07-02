@@ -12,7 +12,7 @@ Master platform context (highest confidence, YouTube-official): the recommender 
 |---|---|---|
 | Premise/payoff fully stated by 0:15 (~37 words) | 10 | AUTO (graded: ≤15s=10, 15–25s=5, later=0) |
 | Opens with a named archetype, never "hey/welcome/today/in this video" | 5 | AUTO (banned openers) + HUMAN (archetype named in package) |
-| Contains a specific number in first two sentences | 5 | AUTO |
+| Concrete tension in first two sentences — number OR question OR quote OR contrast pivot (any approved archetype qualifies; a numbers-only mandate produces formulaic hooks, itself a slop signal) | 5 | AUTO |
 | On-screen text carries the premise (mute viewers) | 3 | HUMAN (asset_hint on hook beat must specify text/graphic) |
 | No overpromise the body can't cash | 2 | HUMAN |
 
@@ -46,7 +46,7 @@ Faceless reference systems: MagnatesMedia (cinematic single object + 1–2 word 
 |---|---|---|
 | Previewed-payoff arc (tease conclusion in hook, build the mechanism) — not chronological data-dump | 6 | HUMAN |
 | Every non-CTA section ends with a micro-open loop (unresolved question / forward tease) | 6 | AUTO (heuristic) + HUMAN |
-| Visual state changes ≤15s in intro, ≤40s in body (asset variety; no 3+ consecutive same-type assets) | 6 | AUTO (proxy) + HUMAN |
+| SEMANTIC density, not cut-counting: each beat introduces a new evidence artifact or idea (chart, metric, source, dashboard, real asset); no 3+ consecutive b-roll beats; evidence + economics sections must each contain ≥1 proof artifact. Swapping stock b-roll every 15s passes a cuts-counter and still reads as slop | 6 | AUTO (b-roll runs + artifact presence) + HUMAN |
 | No wrap-up signals anywhere ("in conclusion", "thanks for watching", "that's how") | 4 | AUTO |
 | Chapters: only if non-spoilery; skip on narrative-heavy episodes | 3 | HUMAN |
 
@@ -90,4 +90,8 @@ Log every video's scores + these metrics in `videos/<slug>/` — after ~20 video
 
 ## Conflicts resolved across reports
 
-Chapters: reports split (help/hurt/conditional) → we skip chapters on narrative episodes, allow non-spoilery chapters on framework-heavy ones. CTA: mid-video 55–75% (strongest evidence) over final-30s-only. Thumbnail words: ≤3 target, 4 max. The "70% at 0:30" rule is folklore — useful target, not doctrine; our own analytics arbitrate.
+**Chapters:** reports split — craft-report-1 *mandates* 3–5 timestamped chapters (5 pts); craft-report-3 shows chapters hurt narrative content by enabling skip-the-build. **This rubric overrules craft-report-1: chapters are OPTIONAL for Lane 1B, no penalty for omitting them on story-driven episodes; use only when non-spoilery on framework-heavy ones.** CTA: mid-video 55–75% (strongest evidence) over final-30s-only. Thumbnail words: ≤3 target, 4 max. Hook tension: any archetype signal qualifies, not numbers-only. The "70% at 0:30" rule is folklore — useful target, not doctrine; our own analytics arbitrate.
+
+## Shorts derivative checks (Gate: after derive step)
+
+Every shorts brief must end on a cliffhanger (`cliffhanger_line`) — a complete-answer Short kills long-form conversion (kill-list item) — and carry a `pinned_comment` pointing to the full breakdown. AUTO in eval_package.py once `content/shorts_briefs.json` exists.

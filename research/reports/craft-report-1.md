@@ -1,3 +1,5 @@
+> **EDITORIAL NOTE (repo):** Raw research source. Two findings are OVERRULED by docs/content-rubric.md after cross-report reconciliation: the 3–5 chapter mandate (chapters optional on narrative episodes) and any fixed visual-change cadence (replaced by semantic-density criteria). The 85%-at-0:30 threshold here is also stricter than other sources (60–75%); treat as aspirational.
+
 # The Operator Economy: Post-AI Video Craft Playbook and Pre-Publish Content Rubric (2025–2026)
 
 ## Deconstructing the Hook: Engineering the First 30 Seconds

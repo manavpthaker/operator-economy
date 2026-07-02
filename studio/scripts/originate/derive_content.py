@@ -32,7 +32,7 @@ Rules:
 - LinkedIn posts: 120-220 words, one idea each, line breaks for scannability, no hashtag spam (max 2). Each post maps to one theme from the provided list.
 - Newsletter: 400-700 words, has a named takeaway section and links the video + blueprint.
 - Blueprint doc: the actual deliverable promised in the video — idea, evidence table, tool stack with costs, week-by-week playbook, honest economics, sources. Someone should be able to act on it without watching.
-- Shorts briefs: pick moments that are self-contained with a hook in the first line, 30-75s of VO.
+- Shorts briefs: INFORMATION-GAP strategy, strictly. Each Short presents the setup and first insight, then ENDS ON A CLIFFHANGER — it must never resolve the core question (complete-answer Shorts kill long-form conversion). Hook in the first line, 30-75s of VO, and a pinned_comment pointing to the full breakdown.
 - Never promise income. Sourced numbers only."""
 
 
@@ -65,7 +65,7 @@ Return JSON:
   "blueprint_md": str,      // full markdown doc
   "newsletter_md": str,     // full markdown draft
   "linkedin_posts": [{{"theme": str, "post": str}}],
-  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "why": str}}]
+  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cliffhanger_line": str, "pinned_comment": str, "why": str}}]
 }}"""
 
     client = anthropic.Anthropic()

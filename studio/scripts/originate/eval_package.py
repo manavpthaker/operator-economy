@@ -83,22 +83,39 @@ def main():
             r.kill("banned phrase", f"'{p}'")
 
     # ---- HOOK (auto: 20 of 25) ----
+    # Archetype-signal check, NOT numbers-only: any of number / question /
+    # quote / contrast pivot counts (approved archetypes don't all use numbers;
+    # forcing one pattern = formulaic = inauthentic-content risk).
     hook_text = " ".join(b["vo_text"] for b in sections.get("hook", {}).get("beats", []))
-    first37 = " ".join(words(hook_text)[:37])
-    if re.search(r"\d|billion|million|thousand", first37, re.I):
-        r.score("hook: premise+number by 0:15", 10, 10)
-    elif re.search(r"\d|billion|million|thousand", hook_text, re.I):
-        r.score("hook: premise+number by 0:15", 5, 10, "number lands after ~15s")
+    first37 = " ".join(words(hook_text)[:37]).lower()
+
+    def tension_signals(t):
+        sig = []
+        if re.search(r"\d|billion|million|thousand", t, re.I): sig.append("number")
+        if "?" in t: sig.append("question")
+        if re.search(r"[\"“”'][^\"“”']{8,}[\"“”']", t): sig.append("quote")
+        if any(w in t.lower() for w in [" but ", " yet ", "however", "instead",
+                                        "not because", "is not ", "isn't "]):
+            sig.append("contrast")
+        return sig
+
+    sig15 = tension_signals(first37)
+    if sig15:
+        r.score("hook: archetype tension by 0:15", 10, 10, f"signals: {sig15}")
+    elif tension_signals(hook_text):
+        r.score("hook: archetype tension by 0:15", 5, 10,
+                f"tension lands after ~15s: {tension_signals(hook_text)}")
     else:
-        r.score("hook: premise+number by 0:15", 0, 10, "no number in hook")
+        r.score("hook: archetype tension by 0:15", 0, 10,
+                "no number/question/quote/contrast in hook")
     opener = hook_text.lower()[:60]
     bad = [b for b in BANNED_OPENERS if opener.startswith(b) or f" {b}" in opener[:30]]
     r.score("hook: no housekeeping opener", 0 if bad else 5, 5, f"found {bad}" if bad else "")
     if bad:
         r.kill("housekeeping opener", str(bad))
     first2 = " ".join(re.split(r"(?<=[.!?])\s+", hook_text)[:2])
-    r.score("hook: number in first two sentences",
-            5 if re.search(r"\d|billion|million|thousand", first2, re.I) else 0, 5)
+    r.score("hook: tension in first two sentences",
+            5 if tension_signals(first2) else 0, 5, f"{tension_signals(first2)}")
 
     # ---- TITLE (auto: 7 of 15; scored on best option, all options reported) ----
     titles = script.get("title_options", [])
@@ -160,6 +177,23 @@ def main():
     r.score("structure: every chart beat carries a source", 3 if not charts_unsourced else 0, 3,
             f"unsourced charts: {charts_unsourced}" if charts_unsourced else "")
 
+    # Semantic density, not cut-counting: stock b-roll runs are the slop signal.
+    asset_types = [(s["id"], b["beat"], b.get("asset_hint", "").split(":")[0].strip().lower())
+                   for s in script["sections"] for b in s["beats"]]
+    run, worst = 0, 0
+    for _, _, t in asset_types:
+        run = run + 1 if t.startswith("broll") else 0
+        worst = max(worst, run)
+    r.score("semantic density: no 3+ consecutive b-roll beats", 3 if worst < 3 else 0, 3,
+            f"longest b-roll run: {worst}")
+    ARTIFACTS = ("chart", "screen_rec", "screen rec", "document", "slide")
+    missing_artifacts = [sid for sid in ("evidence", "economics") if sid in sections and not any(
+        b.get("asset_hint", "").lower().startswith(ARTIFACTS)
+        for b in sections[sid]["beats"])]
+    r.score("semantic density: evidence artifact in evidence + economics sections",
+            3 if not missing_artifacts else 0, 3,
+            f"sections without artifacts: {missing_artifacts}" if missing_artifacts else "")
+
     # ---- CTA (auto: 7 of 10) ----
     early_ids = [i for i in ("hook", "thesis", "evidence", "stack") if i in sections]
     early_text = " ".join(b["vo_text"].lower() for i in early_ids for b in sections[i]["beats"])
@@ -171,6 +205,28 @@ def main():
     mid_text = " ".join(b["vo_text"].lower() for i in mid_ids for b in sections[i]["beats"])
     r.score("cta: soft blueprint mention in 55–75% window", 3 if "blueprint" in mid_text else 0, 3,
             "" if "blueprint" in mid_text else "no mid-video mention (end-only reaches ~16%)")
+
+    # ---- SHORTS BRIEFS (information-gap strategy) ----
+    shorts_path = Path(args.script).parent / "content" / "shorts_briefs.json"
+    if shorts_path.exists():
+        with open(shorts_path) as f:
+            briefs = json.load(f)
+        no_gap, no_pin = [], []
+        for i, b in enumerate(briefs):
+            cliff = (b.get("cliffhanger_line") or "").strip()
+            pin = (b.get("pinned_comment") or "").lower()
+            if not cliff:
+                no_gap.append(i)
+            if "full" not in pin and "breakdown" not in pin and "link" not in pin:
+                no_pin.append(i)
+        r.score("shorts: every brief ends on a cliffhanger (information gap)",
+                4 if not no_gap else 0, 4, f"briefs missing cliffhanger: {no_gap}" if no_gap else "")
+        r.score("shorts: every brief has a pinned comment pointing to the long-form",
+                3 if not no_pin else 0, 3, f"briefs missing pin: {no_pin}" if no_pin else "")
+        if no_gap:
+            r.kill("complete-answer Short", "a Short that resolves the question kills conversion")
+    else:
+        print("  (shorts_briefs.json not present yet — shorts checks run after derive step)")
 
     human = ("archetype quality, thumbnail art/contrast/legibility, previewed-payoff arc, "
              "on-screen text in hook, honest-title judgment, voice direction, variation")

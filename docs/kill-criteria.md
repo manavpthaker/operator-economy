@@ -11,7 +11,7 @@ Which archetype wins on watch time, saves, email capture: company breakdown, ser
 - No video has broken 10k views
 - Subscriber growth < 100/month
 - Average view duration < 35%
-- Email list < 500 (blueprint capture isn't working — research benchmark: ~3 subs/1,000 views)
+- Email capture RATE < 0.5% of total views (benchmark range: 0.5–2%). **Rate, not absolute count** — a small list with >1% capture means the magnet works and distribution hasn't ramped; that's a reach problem, not a format problem. Never kill a converting format for cold-start impressions.
 
 ## DOUBLE DOWN if ANY of:
 
