@@ -18,7 +18,13 @@ The name is a media property: channel + newsletter + blueprint library.
 
 Each episode is a **thesis** — "this is the kind of business you can build, and here's how easy/hard it really is" — with real companies as *evidence inside the thesis*, deliberately spanning the low end (a solo operator's version, the best-case case study) and the high end (the venture-scale version proving the market). Company deep-dives (Cursor, Anthropic) appear as evidence segments or occasional standalone episodes, not the core format.
 
-## Roadmap: practitioner interviews (Phase 2)
+## Thesis mirror: Codie Sanchez (structural, not tonal)
+
+Codie's "buy boring businesses" is the reference architecture for what a founder-led thesis brand looks like at scale — and our inversion of it is nearly literal: **she buys boring businesses; we show you how to BUILD them**, because AI collapsed the build cost of exactly the dull, cash-flowing operations she acquires. The tagline already carries it: her arc is buy→operate, ours is Build→Own→Operate.
+
+**What we take from the mirror:** (1) one ownable thesis sentence that every piece of content is an instance of — hers generates infinite deal-breakdowns, ours generates infinite build-blueprints; (2) thesis-as-identity — her audience calls *themselves* contrarians, ours call themselves operators; (3) the founder-face arc: she proves a thesis brand can carry a human front. Relevant for the Phase 2+ transition when Manav becomes the visible host — which is deliberately NOT at launch (media-property-first, per comp finding #6: skeptical seniors trust research-like publications or accountable humans with receipts, never guru-funnels).
+
+**What we reject (comp synthesis is unambiguous):** her register. Shareability 2–2.5 for our audience — the income-claim packaging, the r/FakeGuru exposure, the course-ladder economics. The mirror is the *thesis structure*, never the tone. And we don't use the word "boring" — the framing language is TBD (candidates to workshop: "the unglamorous economy," "ordinary businesses, unfair tools," "dull businesses that print"), decided when the face comes forward, not before.
 
 Once the format is established, layer in interviews with real people running these businesses — e.g., a career coach diversifying into content/cohorts, walking through exactly how she did it (always framed as *her* creation, her credit). Interviews compound the evidence library, seed guest audiences, and are the natural evolution from "best-case case study" to "the person who lived it." Not a launch requirement; revisit around upload 12–26.
 
