@@ -1,0 +1,48 @@
+# Setup & operations map (who runs what, keys, triggers)
+
+Companion to `automation-architecture.md`. This is the do-this-now checklist.
+
+## Division of labor
+
+| Layer | Runs | Needs |
+|---|---|---|
+| **Cowork (agent)** | Research briefs (web research + nuance hunting), script drafts, all evals + confidence scoring, queue management, repo hygiene, analytics synthesis, scheduled tasks | Nothing — no API keys. The agent writes scripts directly; evals are pure Python |
+| **Claude Code / terminal (Manav's machine)** | Keyed studio steps: `originate.py continue` (ElevenLabs VO), render, `upload_youtube.py`, anything touching accounts | Local env vars (below) |
+| **Manav (human)** | Escalated reviews, episode-library review (training mode), POV input, Studio finishing checklist (~10 min), screen recordings if an episode truly needs one | Judgment |
+
+Handoff medium = the git repo. The scheduled task commits; you pull and run keyed steps; artifacts commit back.
+
+## Accounts & keys checklist
+
+| # | Tool | Plan / cost | Setup action | Key |
+|---|---|---|---|---|
+| 1 | Anthropic API | usage (~$20–40/mo) | console.anthropic.com → key | `ANTHROPIC_API_KEY` (local env) |
+| 2 | **ElevenLabs** | **Creator $22/mo** (required: commercial rights + Professional Voice Clone) | ✅ have account → upgrade to Creator → record PVC clone (30+ min clean audio) → paste voice_id into `studio/config/blueprint.json` → build pronunciation dictionary (finance terms: ARR, EBITDA, SaaS, tickers) — **model must stay `eleven_v3`** (dictionaries silently ignored on multilingual_v2) | `ELEVENLABS_API_KEY` |
+| 3 | Google Cloud | free | Create project → enable **YouTube Data API v3 + YouTube Analytics API** → OAuth desktop credentials → **submit API compliance audit NOW** (unaudited projects upload private-only; no review timeline) → phone-verify the channel (custom thumbnails) | OAuth `client_secret.json` + token (local) |
+| 4 | Domain | $11.25/yr | Buy theoperatoreconomy.com ([Vercel](https://vercel.com/domains/search?q=theoperatoreconomy.com)) | — |
+| 5 | beehiiv (test) or Kit | $0 to start | Create on free tier → **test whether the draft-creation API works on free** (reports conflict; if Enterprise-gated → Kit) → build blueprint landing page + welcome automation from `brand/copy.md` | API key when chosen |
+| 6 | Buffer | $0–6/mo | Connect LinkedIn personal profile (official API — never extensions) | — (UI/queue) |
+| 7 | *Later:* Templated | $29/mo | Thumbnail templates from design system — only when manual thumbnails become the bottleneck | `TEMPLATED_API_KEY` |
+| 8 | *Later:* AWS + Cloudflare R2 | pennies | Remotion Lambda — only when local render time actually hurts | AWS creds |
+| 9 | *Later:* Exa / Perplexity | $0–20/mo | Only if agent-native research outgrows sessions (volume, not quality) | keys |
+
+**MCPs worth connecting in Cowork:** none required to start. Optional later: a YouTube Analytics connector (or we script the weekly pull locally via OAuth), and email platform MCP if one exists for beehiiv/Kit.
+
+## Triggers & crons
+
+| Trigger | What fires | Mechanism |
+|---|---|---|
+| **Monday morning** | Weekly kickoff: pick top queue topic → agent research (nuance requirement) → brief + claim registry → script draft → rigor + craft evals → confidence verdict → commit → notify (Gate 1 summary + AUTO-PASS/ESCALATE) | **Cowork scheduled task** |
+| Post-Gate-1 | `originate.py continue <slug>` (VO + assets + checks) then `render` | You (or Claude Code) on your machine — takes minutes |
+| Pre-publish | Episode library assembled → confidence `--stage prepublish` → training-mode review → `upload_youtube.py` + Studio checklist | Session with the agent |
+| Publish day | Newsletter send (first hour), Buffer LinkedIn queue, Shorts schedule | beehiiv/Kit automation + Buffer queue (set up once) |
+| **Friday** | Analytics readback: pull 7d/28d metrics → compare to rubric predictions → topic-score suggestions | **Cowork scheduled task** (once OAuth wired; manual export until then) |
+| Monthly | 10-video sameness test + rubric reweight review | Calendar reminder / scheduled task |
+
+## Voice / video / avatar verdicts (July 2026)
+
+**Voice — keep ElevenLabs.** It remains the naturalness leader, which matters more here than anywhere: perceived-synthetic VO carries a measured retention penalty, and our whole brand is trust. Alternatives fail on fit: Cartesia's edge is latency (irrelevant for offline renders), OpenAI TTS has no cloning and lower naturalness, PlayHT is winding down post-Meta acquisition. Non-negotiables: Creator plan (commercial rights), PVC clone of YOUR voice (keeps it human-authored in spirit + Phase 2 face-transition continuity), v3 model, pronunciation dictionary, two-pass loudnorm to −14 LUFS.
+
+**Video creation/editing — Remotion IS the editor for this format.** Our videos are data-driven motion graphics + VO; Remotion renders them from code, which is the entire automation thesis. A timeline editor (Premiere/Descript/CapCut) would reintroduce the manual step we engineered out. Descript becomes relevant only for Phase 2 interview episodes (transcript-based editing of real footage).
+
+**Avatar — not for the flagship, optional for Shorts experiments.** The format is deliberately faceless-documentary; an AI avatar fronting it lands in the uncanny "AI-slop" zone our audience punishes, and a *realistic avatar of a real person* triggers mandatory synthetic-media disclosure in its strongest form. When the face-forward phase comes (Phase 2+), it should be your real face. If you want avatar experiments before that: HeyGen is the current quality leader (Avatar IV, ~$24/mo Creator) vs Synthesia (enterprise-priced, $29/mo for only 120 min/yr) — use it for low-stakes Shorts tests, never the flagship. Your existing avatar test script (the "$40K receptionist") is the right test vehicle.
