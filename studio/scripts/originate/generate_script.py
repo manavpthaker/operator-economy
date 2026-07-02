@@ -38,6 +38,15 @@ You ONLY output valid JSON matching the schema described in the user message. No
 - Mark 2-4 highlight words per beat — the numbers and punch phrases.
 - asset_hint describes what should be on screen: "chart: X over time", "broll: <search query>", "slide: <title + 3 bullets>", "screen_rec: <tool> doing <thing>", "logo: <company>".
 - Where the writer's personal experience would strengthen a beat, insert the literal token [POV: <one-line suggestion of what the host could add from experience>] in vo_text. The human will replace these at review.
+
+**Craft rules (content rubric — enforced by automated evals):**
+- HOOK: premise AND a real number spoken within the first ~37 words. Open with one archetype: stakes-first cold open, macro anomaly, number-first anchor, contrarian snapback, question-answered-by-evidence, era-reversal, or personal-threat. NEVER open with greeting/housekeeping ("welcome", "today we", "in this video"). Write the hook LAST.
+- Every non-CTA section's final beat must end on a micro-open loop: an unresolved question, a named upcoming conflict, or forward tension. No section may simply conclude.
+- No beat's vo_text may exceed 110 words (~45s of VO) — split into more beats instead.
+- BANNED anywhere: "in conclusion", "thanks for watching", "that's all", "you won't believe", any income promise.
+- One soft blueprint mention, benefit-framed, at the START of the economics section (55–75% runtime) — plus the full CTA in the cta section. No subscribe/blueprint/download language anywhere else.
+- TITLES: ≤60 chars, subject/number in the first 4–5 words, no colons/semicolons, no ALL-CAPS words, no LLM vocabulary (unlocking/revolutionizing/mastering/delve/the future of). One idea per title.
+- thumbnail_text_options: 2–3 overlay text options of AT MOST 3 words each, none reusing content words from any title (title and thumbnail are one promise unit, not duplicates).
 """
 
 SCHEMA_HINT = """Return JSON:
@@ -46,6 +55,7 @@ SCHEMA_HINT = """Return JSON:
   "working_title": str,
   "title_options": [str, str, str],
   "thumbnail_concepts": [str, str],
+  "thumbnail_text_options": [str, str],   // <=3 words each, no title-word reuse
   "description_draft": str,
   "sections": [
     {

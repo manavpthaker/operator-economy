@@ -81,12 +81,14 @@ def main():
         draft = ROOT / "originate" / slugify(args.topic) / "script.json"
         if draft.exists():
             run_step("eval_script.py", [str(draft), "--mode", "draft"], "Gate 1 Evals (draft)")
+            run_step("eval_package.py", [str(draft)], "Craft Rubric (draft)")
 
     elif args.command == "continue":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
-        # Hard gate: evals in approved mode (zero POV tokens + all rigor checks)
+        # Hard gate: rigor evals (zero POV tokens) + craft rubric kill-list
         run_step("eval_script.py", [script, "--mode", "approved"], "Gate 1 Evals (approved)")
+        run_step("eval_package.py", [script], "Craft Rubric (kill-list gate)")
         run_step("generate_vo.py", [script], "Generate Voiceover")
         run_step("plan_assets.py", [script], "Plan Assets")
         print("\nGATE 2: review assets_review.md, record screen_recs, then: originate.py render <slug>")
