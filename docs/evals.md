@@ -1,6 +1,8 @@
 # Gates & evals
 
-Three human gates, each backed by automated checks where determinism allows. Automated Gate 1 evals live in `studio/scripts/originate/eval_script.py` and run automatically: `draft` mode after script generation, `approved` mode (hard block) when you run `originate.py continue`.
+> **v3 (July 2026):** gates are now **confidence-scored** (`studio/scripts/originate/confidence.py`: rigor 40% + craft 35% + claim verification 25%; ≥0.85 auto-passes, hard triggers always escalate; pre-publish episode-library review mandatory during `training_mode`). The gate descriptions below define what's checked and what a human reviews **when a stage escalates**. See `automation-architecture.md` for the autonomy model and calibration protocol.
+
+Automated rigor evals live in `studio/scripts/originate/eval_script.py` (draft mode after generation, approved mode as a hard block at `continue`); craft evals in `eval_package.py`; both feed `confidence.py`.
 
 ## Gate 1 — Script (the moat gate)
 

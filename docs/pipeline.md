@@ -2,6 +2,8 @@
 
 Engine lives in `../studio` (vendored from viddy 2026-07-02 — this copy is canonical for OE). Channel config: `studio/config/blueprint.json`.
 
+> **v3 (July 2026): gates are confidence-scored, not mandatory.** `confidence.py` runs automatically after the script draft and after the derive step. AUTO-PASS (≥0.85, no hard triggers) → the orchestrating agent proceeds; ESCALATE → Manav reviews. The old Gate 2 (assets) is checks-only. The pre-publish **episode library review** is mandatory while `autonomy.training_mode=true`. Full model: `automation-architecture.md`. The gate steps below describe what happens WHEN a stage escalates (or during training).
+
 ```bash
 cd studio   # from repo root
 

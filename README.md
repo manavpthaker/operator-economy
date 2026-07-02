@@ -30,12 +30,18 @@ Unlike everyone else saying this, we prove it: real companies, real numbers, rea
 |---|---|
 | `channel/positioning.md` | First-principles foundation (audience, message, naming rationale) |
 | `brand/brand.md` | Voice + visual identity |
-| `topics/queue.md` | Scored topic backlog → feeds `viddy originate.py new` |
-| `topics/scoring.md` | Topic scoring rubric |
-| `videos/` | One folder per published video: status, links, performance |
-| `research/deep-research-prompt.md` | The market-validation research prompt |
-| `docs/pipeline.md` | How to produce one video end to end |
-| `docs/kill-criteria.md` | 26-week decision gates |
+| `topics/queue.md` + `scoring.md` | Scored thesis backlog (v3) + rubric → feeds `studio/originate.py new` |
+| `videos/` | One folder per published video: status, links, 24h/7d/28d metrics |
+| `docs/pipeline.md` | Producing one video end to end (confidence-gated v3) |
+| `docs/evals.md` | Gate rubrics + automated eval catalog + findings log |
+| `docs/content-rubric.md` | 100-point craft rubric (publish gate ≥80 + zero kill-list) |
+| `docs/automation-architecture.md` | v3 decision record: Claude-native orchestration, confidence gating, API-vs-Studio split, build order |
+| `docs/kill-criteria.md` | 26-week decision gates (rate-based) |
+| `research/strategy/` | Original opportunity report + lanes memo (July 2026) |
+| `research/reports/` | 3 strategy + 3 craft + 3 automation deep-research reports |
+| `research/synthesis.md` + `*-prompt.md` | Report syntheses and the reusable research prompts |
+| `studio/` | Production engine: `originate.py` (long-form, evals, confidence), `pipeline.py` (Shorts), Remotion renderer |
+| `studio/originate/<slug>/` | Per-episode working dir: research, script, confidence reports, derived content |
 
 ## Revenue model (in order of build)
 

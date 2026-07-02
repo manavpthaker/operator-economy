@@ -1,8 +1,10 @@
-# Viddy Originate — blueprint video pipeline
+# Originate — blueprint video pipeline (The Operator Economy)
 
-Topic → researched script → your POV pass → VO → assets → 16:9 long-form render → LinkedIn/Grapevines derivatives → shorts (via the existing pipeline).
+Topic → researched script → POV/rigor pass → VO → assets → 16:9 long-form render → LinkedIn/Grapevines derivatives → shorts (via the existing pipeline).
 
-One research run feeds five surfaces: YouTube long-form, Shorts, LinkedIn posts, Monday newsletter, and the downloadable blueprint doc (email capture).
+One research run feeds five surfaces: YouTube long-form, Shorts, LinkedIn posts, newsletter, and the downloadable blueprint doc (email capture).
+
+> **Confidence-gated (v3):** after script generation and after derive, `confidence.py` scores the stage (rigor + craft evals + claim verification). AUTO-PASS → proceed without operator review; ESCALATE (score <0.85 or any hard trigger) → operator reviews. Pre-publish episode-library review is mandatory while `autonomy.training_mode=true` in `config/blueprint.json`. Asset review is checks-only (no human gate) — prefer charts/slides over screen_recs in asset plans.
 
 ## Flow
 
