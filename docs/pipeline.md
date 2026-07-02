@@ -1,9 +1,9 @@
 # Producing one video (end to end)
 
-Engine lives in `../viddy`. Channel config: `viddy/config/blueprint.json` (already set to The Operator Economy).
+Engine lives in `../studio` (vendored from viddy 2026-07-02 — this copy is canonical for OE). Channel config: `studio/config/blueprint.json`.
 
 ```bash
-cd ../viddy
+cd studio   # from repo root
 
 # 0. Research brief (Claude/Cowork deep research → save as md)
 # 1. Script — stops at Gate 1

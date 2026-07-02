@@ -1,6 +1,6 @@
 # Topic queue
 
-Seeds from strategy sessions — re-score after the deep research run (top 20 topics with evidence companies will come from it). Rubric in `scoring.md`. To produce: `cd ../viddy && python originate.py new "<topic>" --research <brief>`.
+Seeds from strategy sessions — re-score after the deep research run (top 20 topics with evidence companies will come from it). Rubric in `scoring.md`. To produce: `cd ../studio && python originate.py new "<topic>" --research <brief>`.
 
 | # | Topic (blueprint) | Evidence candidates | Lane | Score | Status |
 |---|---|---|---|---|---|

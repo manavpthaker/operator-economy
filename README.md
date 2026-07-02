@@ -4,9 +4,9 @@
 
 YouTube channel + newsletter + blueprint library. AI business blueprints for people done with the broken job market.
 
-- Handle: [@operatoreconomy](https://youtube.com/@operatoreconomy) *(claim pending)*
+- Channel: [YouTube Studio](https://studio.youtube.com/channel/UC7WsO7VW1E9vAYY_SCIOr0g) · ID `UC7WsO7VW1E9vAYY_SCIOr0g` · handle @operatoreconomy
 - Domain: theoperatoreconomy.com *(purchase pending — [Vercel](https://vercel.com/domains/search?q=theoperatoreconomy.com), $11.25/yr)*
-- Production engine: [`../viddy`](../viddy) (`originate.py` — see ORIGINATE.md there)
+- Production engine: [`studio/`](studio/) — `originate.py` for long-form blueprints (see `studio/ORIGINATE.md`), `pipeline.py` for cutting Shorts from rendered videos. Vendored from the viddy repo 2026-07-02; this copy is canonical for OE, viddy remains for podcast clips.
 
 ## Thesis
 
