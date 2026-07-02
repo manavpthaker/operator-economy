@@ -1,10 +1,28 @@
-# Automation architecture (decision record) — July 2026
+# Automation architecture (decision record) — July 2026, v2
 
-Synthesized from 3 automation research reports (`../research/reports/automation-report-{1,2,3}.md`). All three independently converged on the same spine; conflicts and their resolutions are logged at the bottom.
+Synthesized from 3 automation research reports (`../research/reports/automation-report-{1,2,3}.md`), then **overruled on orchestration** after operator review.
 
-## The decision
+## Research bias note (why we overruled)
 
-**n8n (self-hosted, queue mode) orchestrates; the existing Python studio does the work; Postgres is the run ledger; Cloudflare R2 holds artifacts; Remotion Lambda renders; Slack carries Gates 1 & 3; a web form carries Gate 2 (it needs file uploads). The three human gates are permanent — automation reduces touches BETWEEN gates, never dilutes the gates themselves.**
+All three reports recommended n8n. All three also pattern-matched "solo operator" to *non-technical creator needing a no-code tool*, and dismissed agent frameworks with an argument ("don't keep production state inside an agent") that doesn't apply here: our state is **files in a git repo**, not agent memory. The operator already runs multiple agentic workflows (Claude Code / Cowork: brownbot, BusyLobby ops). Everything n8n would provide — cron triggers, gate notifications, retries, sequencing — is already native to that stack, and the conversational gate ("rewrite beat 3" instead of an approve/reject button) is strictly better for an editorial pipeline. Lesson recorded for future research prompts: **state the operator's expertise explicitly** ("I operate Claude-based agent systems daily; assume expert; do not optimize for no-code").
+
+## The decision (v2)
+
+**Claude-native orchestration: Cowork/Claude Code sessions + scheduled tasks orchestrate; the Python studio does deterministic work (VO, render, publish); the git repo IS the run ledger and artifact store; gates are conversational reviews in Cowork — which the operator is in daily anyway. No new infrastructure. The three human gates are permanent — automation reduces touches BETWEEN gates, never dilutes the gates.**
+
+The gates naturally chunk the pipeline into segments that each fit one agent session — the "durable workflow" problem n8n solves barely exists at 1–2 runs/week with human pauses built in:
+
+| Segment | Runner | Trigger |
+|---|---|---|
+| Research → brief → script draft → evals → commit → notify | **Cowork scheduled task** (weekly). Agent does the web research itself — no Exa/Sonar subscription needed; claim registry built into the brief | Monday cron |
+| GATE 1 | Conversational session: POV pass with the agent, edits applied live, evals re-run | Operator |
+| VO + asset plan (`originate.py continue`) | Studio scripts, run by agent or operator (needs local API keys) | Post-gate |
+| GATE 2 | Review assets_review.md + record screen captures | Operator |
+| Render (Lambda or local) → derive → evals | Studio scripts; long renders are detached processes the agent polls | Post-gate |
+| GATE 3 + publish | Preview → `videos.insert` script (disclosure + publishAt) → ~10-min Studio finishing checklist | Operator |
+| Analytics readback → topic-score suggestions | **Cowork scheduled task** (weekly) once Analytics API wired | Friday cron |
+
+What this deletes from the reports' stack: n8n + VPS (~$10–25/mo), Postgres (git + JSON status files suffice at this scale), Slack gate plumbing, the web form (Cowork handles files), and likely the research API line ($5–30/mo) since agent research replaces it. **Revised cost: ~$60–120/mo at 1 video/week.** What we lose: unattended multi-step resilience — acceptable because every segment ends at a human gate anyway. Revisit only if this becomes multi-channel with >5 runs/week (then Temporal, not n8n).
 
 ```
 weekly cron → research (Exa + Sonar, adapter-wrapped) → Claude brief w/ claim registry
@@ -37,9 +55,9 @@ Key implementation rule (all 3 reports): **n8n never babysits long jobs inline.*
 
 | Category | Pick | Notes / runner-up |
 |---|---|---|
-| Orchestrator | n8n self-hosted, queue mode | Temporal only if this ever becomes multi-channel/client infra |
-| State / artifacts | Postgres + Cloudflare R2 | run_id spans research→analytics |
-| Research | Exa (discovery) + Perplexity Sonar (cited answers), one adapter | brief = raw material; Gate 1 verifies claims — no API output publishes unread |
+| Orchestrator | **Cowork/Claude Code + scheduled tasks** (v2 — see above) | Temporal only if multi-channel >5 runs/week; n8n rejected |
+| State / artifacts | **Git repo + videos/<slug>/status.json**; R2 only as Lambda asset bucket | reports' Postgres overruled — over-engineered at this scale |
+| Research | **Agent-native research in Cowork** (like the pilot brief); Exa/Sonar only if volume outgrows sessions | brief = raw material; Gate 1 verifies claims — nothing publishes unread |
 | VO | ElevenLabs **v3** + finance pronunciation dictionary + 2-pass loudnorm | Cartesia = latency tool, irrelevant offline; PlayHT = deprecation risk |
 | Render | Remotion Lambda | keep local render as fallback |
 | Thumbnails | Templated ($29/1k renders) + custom 320/180px downscale QA | Bannerbear ($49) if signed URLs needed |
@@ -53,12 +71,12 @@ Key implementation rule (all 3 reports): **n8n never babysits long jobs inline.*
 
 ~**$85–170/mo at 1 video/week**, ~**$130–230/mo at 2/week** — inside budget with headroom. Dominated by fixed SaaS (ElevenLabs $22, Templated $29, email $0–43, VPS ~$10, Buffer $0–6, Claude $20–40); render compute is pennies. Levers: email tier + research volume.
 
-## Build order (4 weekly phases)
+## Build order (v2 — 4 weekly phases)
 
-1. **Spine + audit:** n8n queue mode + Postgres + R2; run-manifest/state model (single run_id, idempotent workers); **submit YouTube API compliance audit + phone verification**; one manual end-to-end pass through n8n, no gates.
-2. **Gates first, depth later:** Gate 1 & 3 Slack approve/reject with resume webhooks (gate message = eval scores + unresolved claim registry, not the whole script); Gate 2 upload form; Error Trigger workflow that DMs on any failure.
-3. **Middle automation:** ElevenLabs v3 + loudnorm chain; Templated + legibility QA; Pexels/Pixabay pulls; Remotion Lambda wired to R2; `videos.insert` with disclosure + scheduling. Threshold: full video reaches Gate 3 with <90 min total human time.
-4. **Distribution + loop:** newsletter drafts + lead-magnet automation; Buffer queue; Shorts derivation handoff; weekly Analytics pull → topic-score suggestions. Threshold to trust the loop: two consecutive weeks where topic ranking correlates with realized CTR×retention. Run the **10-video sameness test** monthly (would an outsider call them one video repeated?).
+1. **Keys + audit + first live run:** set ANTHROPIC/ELEVENLABS keys locally, ElevenLabs Creator plan + PVC voice clone + finance pronunciation dictionary; **submit YouTube API compliance audit + phone verification** (no timeline guarantees — start now); run the pilot through Gates 1–2 for real.
+2. **Weekly kickoff scheduled task:** Cowork task (Monday) — pick top queue topic, agent research → brief with claim registry → script via studio prompts → both eval suites → commit → notify Gate 1 pending. Plus `status.json` per video (stage, scores, dates) as the lightweight ledger.
+3. **Deterministic middle:** loudnorm chain into generate_vo; thumbnail templating (Templated or Remotion stills) + 320/180px legibility QA script; Pexels/Pixabay fetch for originate; `upload_youtube.py` (`videos.insert` + `containsSyntheticMedia` + `publishAt`) + Studio finishing checklist. Threshold: full video reaches Gate 3 with <90 min total human time. Lambda only when local render time actually hurts.
+4. **Distribution + loop:** newsletter draft handoff (test beehiiv API on free tier vs Kit), Buffer queue, Shorts derivation; Friday analytics scheduled task → topic-score suggestions (human reweights). Threshold to trust the loop: two consecutive weeks where topic ranking correlates with realized CTR×retention. Run the **10-video sameness test** monthly (would an outsider call them one video repeated?).
 
 ## Top risks + guardrails (consensus of all three)
 
