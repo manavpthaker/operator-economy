@@ -76,13 +76,17 @@ def main():
         if args.research:
             step_args += ["--research", args.research]
         run_step("generate_script.py", step_args, "Generate Script")
+        # Auto-eval the fresh draft (POV tokens expected at this stage)
+        from scripts.originate.generate_script import slugify  # reuse slug logic
+        draft = ROOT / "originate" / slugify(args.topic) / "script.json"
+        if draft.exists():
+            run_step("eval_script.py", [str(draft), "--mode", "draft"], "Gate 1 Evals (draft)")
 
     elif args.command == "continue":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
-        if "[POV:" in Path(script).read_text():
-            print("Gate 1 incomplete: script.json still has [POV: ...] tokens.", file=sys.stderr)
-            sys.exit(1)
+        # Hard gate: evals in approved mode (zero POV tokens + all rigor checks)
+        run_step("eval_script.py", [script, "--mode", "approved"], "Gate 1 Evals (approved)")
         run_step("generate_vo.py", [script], "Generate Voiceover")
         run_step("plan_assets.py", [script], "Plan Assets")
         print("\nGATE 2: review assets_review.md, record screen_recs, then: originate.py render <slug>")

@@ -134,13 +134,23 @@ def main():
     out_dir = Path(args.output_dir) if args.output_dir else ROOT / "originate" / slug
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    sections_spec = json.dumps(config["format"]["sections"], indent=2)
+    # Convert target_seconds to explicit word budgets — models under-generate
+    # badly from time targets alone (validated by eval_script.py duration checks).
+    sections = []
+    for s in config["format"]["sections"]:
+        s = dict(s)
+        s["word_budget"] = int(s["target_seconds"] * 2.5)
+        sections.append(s)
+    sections_spec = json.dumps(sections, indent=2)
+    total_words = sum(s["word_budget"] for s in sections)
     user_prompt = f"""Channel positioning: {config['channel']['positioning']}
 Audience: {config['channel']['audience']}
 Tone: {config['channel']['tone']}
-Target duration: {config['format']['target_duration_minutes']} minutes.
+Target duration: {config['format']['target_duration_minutes']} minutes ≈ {total_words} spoken words TOTAL.
 
-Section structure (write beats for each, hitting target_seconds of spoken audio at ~150 wpm):
+Section structure. Each section has a word_budget — the sum of that section's beat
+vo_text word counts MUST land within ±20% of it. Add more beats rather than longer
+sentences to hit budget. This is a hard requirement; short sections fail QA:
 {sections_spec}
 
 Topic: {args.topic}
