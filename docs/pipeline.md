@@ -29,12 +29,13 @@ cd remotion && npx remotion render src/index.ts Blueprint ../output/<slug>.mp4 \
 # 4. Shorts — existing viddy pipeline on the rendered long-form
 python pipeline.py output/<slug>.mp4
 
-# 5. Publish
+# 5. Publish (seeding motion — order matters, per research synthesis)
 #   - upload long-form, CHECK THE AI-DISCLOSURE BOX, schedule
-#   - blueprint.md → lead magnet page (email-gated)
-#   - newsletter.md → Monday send
-#   - linkedin_posts.md → Tue-Fri slots (daily-content-engine cadence)
-#   - shorts → YT Shorts + LinkedIn native video
+#   - blueprint.md → email-gated lead magnet page (single-field opt-in; video-SPECIFIC magnet)
+#   - within FIRST HOUR of publish: newsletter send with the video (early watch-time signal)
+#   - LinkedIn: NATIVE document/carousel of the core framework — YT link in COMMENTS only
+#     (external links in post body cost 50-70% reach); text posts Tue-Fri
+#   - shorts → YT Shorts (pinned comment → long-form) + LI native video; shorts ≤40% of uploads
 # 6. Log the video in videos/<slug>/ (links, publish date, then 7/30-day stats)
 ```
 

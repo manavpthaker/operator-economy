@@ -1,13 +1,17 @@
 # Kill criteria (set before launch, decided in advance)
 
-**Commitment: 26 weeks of consistent uploads (~50 videos incl. shorts) before any kill/pivot decision.** Most failures quit months 4–6, right before compounding — so no vibes-based decisions inside the window.
+**Commitment: 26 weekly flagship videos (+ derivatives) before any kill/pivot decision.** Cadence revised to 1 flagship/week per research synthesis — quality is the scarce resource at 8–10 hrs/wk, and most failures quit months 4–6, right before compounding. No vibes-based decisions inside the window.
+
+## Checkpoint at upload 12 (~month 3): archetype review, not kill review
+
+Which archetype wins on watch time, saves, email capture: company breakdown, service blueprint, or tool-category economics? Rebalance the queue toward the winner.
 
 ## At week 26, KILL or PIVOT the format if ALL of:
 
 - No video has broken 10k views
 - Subscriber growth < 100/month
 - Average view duration < 35%
-- Email list < 300 (blueprint capture isn't working)
+- Email list < 500 (blueprint capture isn't working — research benchmark: ~3 subs/1,000 views)
 
 ## DOUBLE DOWN if ANY of:
 
