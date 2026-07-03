@@ -1,7 +1,15 @@
 import s from './page.module.css';
 import { BlueprintForm, LedgerForm } from './CaptureForms';
+import { LatestBlueprint, getLatestLive } from './components/LatestBlueprint';
 
 export default function Home() {
+  const latest = getLatestLive();
+  const num = latest ? latest.number.toString().padStart(3, '0') : '001';
+  const liveChipText = latest
+    ? `Episode №${num} live · ${latest.title}`
+    : 'Episode №001 publishes Monday';
+  const watchHref = latest?.episode_href ?? '#library';
+
   return (
     <main className={s.page}>
       {/* ============ HERO ============ */}
@@ -54,80 +62,17 @@ export default function Home() {
               </div>
               <div className={s.ctaRow}>
                 <a href="#capture" className={s.btnPrimary}>Get the Blueprints →</a>
-                <a href="#library" className={s.btnGhost}>Watch the latest breakdown ↗</a>
+                <a href={watchHref} className={s.btnGhost}>Watch the latest breakdown ↗</a>
               </div>
               <span className={s.liveChip}>
                 <i className={`${s.dot} oe-pulse`} />
-                Episode №001 live · AI implementation as a service
+                {liveChipText}
               </span>
             </div>
           </div>
         </div>
 
-        <aside className={`${s.heroPanel} schematic-grid`}>
-          <div className={s.panelHeader}>
-            <span className={s.panelSheet}>Sheet 01 · №001 — The stack</span>
-            <span className={s.panelRunning}>
-              <i className={`${s.dot} oe-pulse`} />
-              Running
-            </span>
-          </div>
-
-          <div className={s.stack}>
-            <div className={s.node}>
-              <div className={s.nodeMeta}>
-                <span>Step 01 · Intake</span>
-                <span style={{ color: 'var(--status-live)' }}>● Live</span>
-              </div>
-              <div className={s.nodeName}>Airtable client portal</div>
-              <div className={s.nodePrice}>
-                $0<span className={s.nodePriceUnit}>/mo</span>
-              </div>
-            </div>
-            <i className={s.wire} />
-            <div className={s.node}>
-              <div className={s.nodeMeta}>
-                <span>Step 02 · The brain</span>
-                <span style={{ color: 'var(--status-live)' }}>● Running</span>
-              </div>
-              <div className={s.nodeName}>Claude API</div>
-              <div className={s.nodePrice}>
-                $20<span className={s.nodePriceUnit}>/mo</span>
-              </div>
-            </div>
-            <i className={s.wire} />
-            <div className={s.node}>
-              <div className={s.nodeMeta}>
-                <span>Step 03 · Runtime</span>
-              </div>
-              <div className={s.nodeName}>n8n, self-hosted</div>
-              <div className={s.nodePrice}>
-                ~$0<span className={s.nodePriceUnit}>/mo</span>
-              </div>
-            </div>
-            <i className={s.wire} />
-            <div className={s.node}>
-              <div className={s.nodeMeta}>
-                <span>Step 04 · Delivery</span>
-                <span className={s.goldText}>Reported</span>
-              </div>
-              <div className={s.nodeName}>First client project</div>
-              <div className={`${s.nodePrice} ${s.goldText}`}>$2,000</div>
-            </div>
-            <div className={s.bracket}>
-              <span className={s.bracketLabel}>≤ $100/mo tooling</span>
-            </div>
-          </div>
-
-          <div className={s.panelFoot}>
-            <span className={s.reportedChip}>
-              <b>REPORTED</b> Medium · Mar 2026 · unaudited
-            </span>
-            <span className={s.margin90}>
-              Margin ~90% <i className={s.tri}>▲</i>
-            </span>
-          </div>
-        </aside>
+        <LatestBlueprint />
       </section>
 
       {/* ============ HOW EVERY EPISODE WORKS ============ */}
