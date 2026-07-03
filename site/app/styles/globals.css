@@ -22,3 +22,19 @@ em { font-style: italic; }
 
 /* Reading-friendly focus for form inputs on the ledger band. */
 input.oe-input { outline: none; }
+
+/* Anchor-scroll targets shouldn't tuck under a sticky nav (there isn't one yet,
+   but the browser default lands the target flush against the viewport top). */
+html { scroll-behavior: smooth; }
+#capture, #library, #disclosures, #format {
+  scroll-margin-top: 24px;
+}
+
+/* Buttons used as filters — reset native chrome so filter chips read as chips. */
+button.page-module__filterActive,
+button.page-module__filterInactive {
+  font: inherit;
+  background: inherit;
+  border: inherit;
+}
+

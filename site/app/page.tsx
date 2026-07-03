@@ -1,14 +1,56 @@
 import s from './page.module.css';
 import { BlueprintForm, LedgerForm } from './CaptureForms';
-import { LatestBlueprint, getLatestLive } from './components/LatestBlueprint';
+import {
+  LatestBlueprint,
+  getLatestLive,
+  getEpisodes,
+  getChannelUrl,
+  getUpdatedISO,
+  getQueueDepth,
+  pad,
+} from './components/LatestBlueprint';
+import { LibraryClient } from './components/LibraryClient';
+
+// Sources for the format band's "SOURCE: Accenture FY2025" chip.
+// These are the numbers currently on the format band; when the format band
+// starts pulling per-episode figures, this table moves to episodes.json.
+const FORMAT_BAND_SOURCE = {
+  label: 'Accenture FY2025 · CIO Dive',
+  url: 'https://www.ciodive.com/news/accenture-generative-ai-bookings-fy2025/730821/',
+};
+
+// Human-readable "N days ago" from an ISO date; build-time computation.
+function relativeAge(iso: string): string {
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return '';
+  const now = Date.parse(BUILD_DATE);
+  const days = Math.max(0, Math.floor((now - then) / 86_400_000));
+  if (days === 0) return 'today';
+  if (days === 1) return '1d ago';
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  return months === 1 ? '1mo ago' : `${months}mo ago`;
+}
+
+// Frozen build-day for deterministic prerender. The pipeline updates
+// `episodes.json.updated` on every derive; that + this build-day drive
+// the "recomputed Nd ago" label. On each Vercel deploy this string is
+// re-evaluated at build time.
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
 export default function Home() {
   const latest = getLatestLive();
-  const num = latest ? latest.number.toString().padStart(3, '0') : '001';
+  const num = latest ? pad(latest.number) : '001';
   const liveChipText = latest
     ? `Episode №${num} live · ${latest.title}`
     : 'Episode №001 publishes Monday';
-  const watchHref = latest?.episode_href ?? '#library';
+  const channelUrl = getChannelUrl();
+  const watchHref = latest?.youtube_url ?? channelUrl;
+  const updatedISO = getUpdatedISO();
+  const updatedAge = relativeAge(updatedISO);
+  const sourcesLine = latest?.sources_verified
+    ? `${latest.sources_verified} sources verified for №${num}`
+    : 'sources publish with the episode';
 
   return (
     <main className={s.page}>
@@ -26,18 +68,18 @@ export default function Home() {
               <a href="#capture">Newsletter</a>
               <a href="#disclosures">About</a>
             </nav>
-            <span className={s.btnSecondary}>Subscribe</span>
+            <a href="#capture" className={s.btnSecondary}>Subscribe</a>
           </header>
 
           <div className={s.heroBody}>
             <aside className={s.margin}>
-              <span className={s.marginBadge}>V1 · 2026-07-03</span>
+              <span className={s.marginBadge}>V1 · {updatedISO}</span>
               <span className={s.marginNote}>
                 <i className={`${s.dot} oe-pulse`} />
-                8 sources verified for №001
+                {sourcesLine}
               </span>
               <span className={s.marginNote}>
-                fig. 01 recomputed <b>↻ 2d ago</b>
+                fig. 01 recomputed <b>↻ {updatedAge}</b>
               </span>
               <span className={s.marginNote}>
                 estimates marked, never blended into sourced figures
@@ -62,7 +104,14 @@ export default function Home() {
               </div>
               <div className={s.ctaRow}>
                 <a href="#capture" className={s.btnPrimary}>Get the Blueprints →</a>
-                <a href={watchHref} className={s.btnGhost}>Watch the latest breakdown ↗</a>
+                <a
+                  href={watchHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={s.btnGhost}
+                >
+                  Watch the latest breakdown ↗
+                </a>
               </div>
               <span className={s.liveChip}>
                 <i className={`${s.dot} oe-pulse`} />
@@ -93,7 +142,7 @@ export default function Home() {
         <div className={`${s.formatBand} schematic-grid`}>
           <div className={s.formatHeader}>
             <span className={s.panelSheet}>
-              Sheet 00 · The format — running on №001
+              Sheet 00 · The format — running on №{num}
             </span>
             <span className={s.panelRunning}>
               <i className={`${s.dot} oe-pulse`} />
@@ -134,9 +183,15 @@ export default function Home() {
           </div>
 
           <div className={s.formatFoot}>
-            <span className={s.reportedChip}>
-              <b>SOURCE</b> Accenture FY2025 · CIO Dive
-            </span>
+            <a
+              href={FORMAT_BAND_SOURCE.url}
+              target="_blank"
+              rel="noreferrer"
+              className={s.reportedChip}
+              style={{ textDecoration: 'none' }}
+            >
+              <b>SOURCE</b> {FORMAT_BAND_SOURCE.label} ↗
+            </a>
             <span className={s.formatFootRight}>
               estimates marked · never blended ↻
             </span>
@@ -154,69 +209,11 @@ export default function Home() {
           <span className={s.tag}>Every episode ships with its blueprint</span>
         </div>
 
-        <div className={s.filterRow}>
-          <div className={s.filters}>
-            <span className={s.filterActive}>All</span>
-            <span className={s.filterInactive}>Services</span>
-            <span className={s.filterInactive}>Software</span>
-            <span className={s.filterInactive}>Media</span>
-          </div>
-          <span className={s.tag}>№001 live · 18 more in the research queue</span>
-        </div>
-
-        <div className={s.cards}>
-          <article className={`${s.card} ${s.cardLive}`}>
-            <div className={s.cardHead}>
-              <span className={s.cardEpisode}>№001 · Services</span>
-              <span className={s.cardStatus}>
-                <i className={`${s.dot} oe-pulse`} style={{ width: 5, height: 5 }} />
-                Live
-              </span>
-            </div>
-            <h3 className={s.cardTitle}>AI implementation as a service</h3>
-            <div className={s.cardTail}>
-              <div className={s.cardFigure}>
-                $2–8K<span className={s.cardFigureUnit}>/mo</span>
-              </div>
-              <div className={s.cardFigureMeta}>
-                Realistic year one · &lt;$100/mo stack
-              </div>
-              <span className={s.estimateChip}>
-                <b>ESTIMATE</b> №001 honest math
-              </span>
-              <div className={s.cardLinks}>
-                <a href="#capture" className={s.cardLinkPrimary}>Watch the episode ↗</a>
-                <a href="#capture" className={s.cardLinkSecondary}>Blueprint №001 (PDF)</a>
-              </div>
-            </div>
-          </article>
-
-          <article className={`${s.card} ${s.cardQueued}`}>
-            <div className={s.cardHead}>
-              <span className={`${s.cardEpisode} ${s.cardEpisodeMuted}`}>№002 · Services</span>
-              <span className={s.cardStatusMuted}>In research</span>
-            </div>
-            <h3 className={`${s.cardTitle} ${s.cardTitleQueued}`}>The voice-agent agency</h3>
-            <div className={s.cardTail}>
-              <div className={s.queuedNote}>
-                Figures publish with the episode — sourced first, shown second.
-              </div>
-            </div>
-          </article>
-
-          <article className={`${s.card} ${s.cardQueued}`}>
-            <div className={s.cardHead}>
-              <span className={`${s.cardEpisode} ${s.cardEpisodeMuted}`}>№003 · Services</span>
-              <span className={s.cardStatusMuted}>In research</span>
-            </div>
-            <h3 className={`${s.cardTitle} ${s.cardTitleQueued}`}>The boring-automation agency</h3>
-            <div className={s.cardTail}>
-              <div className={s.queuedNote}>
-                Figures publish with the episode — sourced first, shown second.
-              </div>
-            </div>
-          </article>
-        </div>
+        <LibraryClient
+          episodes={getEpisodes().filter((e) => e.status !== 'queued')}
+          channelUrl={channelUrl}
+          queueDepth={getQueueDepth()}
+        />
       </section>
 
       {/* ============ DISCLOSURES ============ */}
@@ -251,7 +248,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className={s.filed}>Filed 2026-07-03 · theoperatoreconomy.com</div>
+        <div className={s.filed}>Filed {updatedISO} · theoperatoreconomy.com</div>
       </section>
 
       {/* ============ CAPTURE ============ */}
@@ -276,7 +273,7 @@ export default function Home() {
             </div>
           </div>
 
-          <BlueprintForm />
+          <BlueprintForm slug={latest?.slug ?? 'newsletter'} number={num} />
         </div>
       </section>
 
@@ -310,19 +307,25 @@ export default function Home() {
             </span>
           </div>
           <nav className={s.footerNav}>
-            <a href="https://www.youtube.com/@TheOperatorEconomy" target="_blank" rel="noreferrer">YouTube ↗</a>
+            <a href={channelUrl} target="_blank" rel="noreferrer">YouTube ↗</a>
             <a href="#capture">Newsletter</a>
-            <a href="https://www.linkedin.com/company/the-operator-economy" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a
+              href="https://www.linkedin.com/company/the-operator-economy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn ↗
+            </a>
             <a href="#library">Blueprints</a>
           </nav>
         </div>
         <div className={s.footerBottom}>
           <span className={s.footerTag}>Build. Own. Operate.</span>
           <div className={s.colophon}>
-            <span>V1 · 2026-07-03</span>
+            <span>V1 · {updatedISO}</span>
             <span>
               <i className={s.dot} />
-              8 sources verified for №001
+              {sourcesLine}
             </span>
             <span>theoperatoreconomy.com</span>
           </div>

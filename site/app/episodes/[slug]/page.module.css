@@ -1,0 +1,446 @@
+/* ============================================================
+   Episode page — upcoming + live states share the shell.
+   ============================================================ */
+
+.page {
+  background: var(--surface-page);
+  color: var(--text-body);
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 44px 80px;
+}
+
+/* --- Masthead --- */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+  gap: 24px;
+}
+
+.brandLink {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brandKicker {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 3px;
+}
+
+.brandName {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink-900);
+  letter-spacing: -0.01em;
+}
+
+.backLink {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.backLink:hover {
+  color: var(--drafting-blue);
+  text-decoration: underline;
+}
+
+/* --- Title block --- */
+
+.titleBlock {
+  border: 1.5px solid var(--rule-strong);
+  background: var(--paper-0);
+  margin-bottom: 40px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--rule-strong);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.epLabel {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--drafting-blue);
+}
+
+.stageInline {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  color: var(--sage-700);
+  background: var(--paper-100);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: var(--tracking-heading);
+  line-height: 1.1;
+  color: var(--ink-900);
+  padding: 24px 22px 20px;
+  margin: 0;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+.metaCell {
+  padding: 10px 16px;
+  border-right: 1px solid var(--border);
+}
+.metaCell:last-child {
+  border-right: none;
+}
+.metaLabel {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 3px;
+}
+.metaValue {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-900);
+}
+
+/* --- Thesis --- */
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionKicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--drafting-blue);
+  margin-bottom: 12px;
+}
+
+.h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: var(--tracking-heading);
+  line-height: 1.15;
+  color: var(--ink-900);
+  margin: 0 0 18px;
+}
+
+.thesis {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-700);
+  max-width: 62ch;
+  margin: 0;
+}
+
+/* --- What ships with it --- */
+
+.shipsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.shipsList li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 24px;
+}
+
+.shipsLabel {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.shipsDesc {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  color: var(--ink-900);
+  line-height: 1.5;
+}
+
+/* --- Pipeline position --- */
+
+.pipeline {
+  background: var(--surface-schematic);
+  padding: 22px 24px;
+  color: var(--paper-100);
+  background-image:
+    repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px);
+}
+
+.pipelineHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pipelineLabel {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 230, 0.65);
+}
+
+.pipelineNodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.pipeNode {
+  flex: 1;
+  border: 1px solid var(--schem-node-border);
+  background: var(--schem-node-bg);
+  padding: 12px 14px;
+  text-align: center;
+}
+.pipeNode.active {
+  border-color: var(--status-live);
+  background: rgba(123, 158, 135, 0.16);
+}
+.pipeNode.done {
+  border-color: rgba(245, 240, 230, 0.42);
+  background: rgba(245, 240, 230, 0.05);
+}
+.pipeNodeLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 230, 0.6);
+  margin-bottom: 4px;
+}
+.pipeNodeName {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--paper-100);
+}
+.pipeNode.active .pipeNodeName {
+  color: var(--status-live);
+}
+.pipeWire {
+  width: 24px;
+  height: 1px;
+  background: var(--schem-wire);
+  flex-shrink: 0;
+}
+
+/* --- Notify form --- */
+
+.notify {
+  border: 1.5px solid var(--rule-strong);
+  background: var(--paper-0);
+  padding: 22px 24px;
+  max-width: 520px;
+}
+
+.notifyHead {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--drafting-blue);
+  margin-bottom: 8px;
+}
+
+.notifyTitle {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: var(--tracking-heading);
+  color: var(--ink-900);
+  margin-bottom: 14px;
+}
+
+.inputLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--ink-900);
+  background: var(--paper-100);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  outline: none;
+  margin-bottom: 10px;
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--blue-tint);
+}
+
+.submit {
+  width: 100%;
+  padding: 12px 20px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--surface-schematic);
+  color: var(--paper-100);
+  border: 1px solid var(--surface-schematic);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fineprint {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.captureStatus {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--sage-700);
+  margin-top: 10px;
+}
+
+.captureError {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--negative);
+  margin-top: 10px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Live episode extras --- */
+
+.honestMathRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1.5px solid var(--rule-strong);
+  background: var(--paper-0);
+  margin-bottom: 32px;
+}
+.honestMathCell {
+  padding: 16px 20px;
+  border-right: 1px solid var(--border);
+}
+.honestMathCell:last-child { border-right: none; }
+.honestMathLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.honestMathValue {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--ink-900);
+}
+
+.sourcesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+.sourcesList li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-700);
+}
+.sourcesList a {
+  color: var(--drafting-blue);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--drafting-blue);
+}
+.sourcesList a:hover {
+  color: var(--blue-500);
+  border-bottom-style: solid;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 720px) {
+  .wrap { padding: 20px 20px 60px; }
+  .title { font-size: 30px; padding: 18px 16px 14px; }
+  .titleRow { padding: 10px 16px; }
+  .metaRow { grid-template-columns: 1fr 1fr; }
+  .metaCell:nth-child(2) { border-right: none; }
+  .metaCell:nth-child(1), .metaCell:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .shipsList li { grid-template-columns: 1fr; gap: 4px; }
+  .pipelineNodes { flex-direction: column; }
+  .pipeWire { width: 1px; height: 20px; }
+  .honestMathRow { grid-template-columns: 1fr; }
+  .honestMathCell { border-right: none; border-bottom: 1px solid var(--border); }
+  .honestMathCell:last-child { border-bottom: none; }
+}

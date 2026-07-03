@@ -1,7 +1,11 @@
+import Link from 'next/link';
 import episodesData from '../../data/episodes.json';
 import s from './LatestBlueprint.module.css';
 
-type EpisodeStatus = 'live' | 'in_research' | 'queued';
+export type EpisodeStatus = 'live' | 'upcoming' | 'queued';
+export type PipelineStage = 'research' | 'scripting' | 'production';
+
+export type EpisodeSource = { label: string; url: string | null };
 
 export type Episode = {
   number: number;
@@ -9,6 +13,9 @@ export type Episode = {
   title: string;
   category: string;
   status: EpisodeStatus;
+  stage?: PipelineStage;
+  expected?: string;
+  thesis?: string;
   rev?: string;
   date?: string;
   sources_verified?: number;
@@ -17,17 +24,28 @@ export type Episode = {
   honest_math_estimate?: boolean;
   playbook_span?: string;
   read_minutes?: number;
+  youtube_url?: string;
   pdf_href?: string;
   episode_href?: string;
+  sources?: EpisodeSource[];
 };
 
 export type EpisodesData = {
   updated: string;
   queue_depth: number;
+  channel_url: string;
   episodes: Episode[];
 };
 
 const data = episodesData as EpisodesData;
+
+export function getEpisodes(): Episode[] {
+  return data.episodes;
+}
+
+export function getEpisodeBySlug(slug: string): Episode | undefined {
+  return data.episodes.find((e) => e.slug === slug);
+}
 
 export function getLatestLive(): Episode | undefined {
   const live = data.episodes.filter((e) => e.status === 'live');
@@ -35,10 +53,10 @@ export function getLatestLive(): Episode | undefined {
   return live.reduce((a, b) => (a.number > b.number ? a : b));
 }
 
-export function getNextInResearch(): Episode | undefined {
+export function getUpcoming(): Episode[] {
   return data.episodes
-    .filter((e) => e.status === 'in_research')
-    .sort((a, b) => a.number - b.number)[0];
+    .filter((e) => e.status === 'upcoming')
+    .sort((a, b) => a.number - b.number);
 }
 
 export function getLiveCount(): number {
@@ -49,25 +67,43 @@ export function getQueueDepth(): number {
   return data.queue_depth;
 }
 
-function pad(n: number): string {
+export function getChannelUrl(): string {
+  return data.channel_url;
+}
+
+export function getUpdatedISO(): string {
+  return data.updated;
+}
+
+export function pad(n: number): string {
   return n.toString().padStart(3, '0');
 }
 
 const MAX_GHOSTS = 4;
-const MIN_GHOSTS = 1; // Show one ghost even at N=1 so the "stack" metaphor reads.
+const MIN_GHOSTS = 1;
+const UPCOMING_ROWS = 3;
+
+const STAGE_LABELS: Record<PipelineStage, string> = {
+  research: '● research',
+  scripting: '● scripting',
+  production: '● production',
+};
+
+const STAGE_CLASSES: Record<PipelineStage, string> = {
+  research: s.stageResearch,
+  scripting: s.stageScripting,
+  production: s.stageProduction,
+};
 
 export function LatestBlueprint() {
   const latest = getLatestLive();
-  const next = getNextInResearch();
+  const upcoming = getUpcoming().slice(0, UPCOMING_ROWS);
   const liveCount = getLiveCount();
   const queueDepth = getQueueDepth();
 
   if (!latest) {
     return (
-      <aside
-        className={`${s.panel} schematic-grid`}
-        aria-label="No blueprint published yet"
-      >
+      <aside className={`${s.panel} schematic-grid`} aria-label="No blueprint published yet">
         <div className={s.header}>
           <span className={s.headerLabel}>The latest blueprint</span>
           <span className={s.headerCadence}>ships every Monday</span>
@@ -98,22 +134,17 @@ export function LatestBlueprint() {
       <figure
         className={s.stackWrap}
         aria-label={`Operator Blueprint No. ${num}: ${latest.title}. ${
-          latest.sources_verified
-            ? `${latest.sources_verified} sources verified. `
-            : ''
+          latest.sources_verified ? `${latest.sources_verified} sources verified. ` : ''
         }${latest.honest_math ? `Honest math: ${latest.honest_math}.` : ''}`}
       >
         {Array.from({ length: ghostCount }, (_, i) => {
-          const step = ghostCount - i; // farthest ghost first
-          const offset = step * 5; // 5px per layer
+          const step = ghostCount - i;
+          const offset = step * 5;
           return (
             <div
               key={i}
               className={s.ghost}
-              style={{
-                transform: `translate(${offset}px, ${offset}px)`,
-                zIndex: 0,
-              }}
+              style={{ transform: `translate(${offset}px, ${offset}px)`, zIndex: 0 }}
               aria-hidden
             />
           );
@@ -142,9 +173,7 @@ export function LatestBlueprint() {
             {latest.stack_cost && (
               <div className={s.specRow}>
                 <span className={s.specLabel}>Stack</span>
-                <span className={s.specValue}>
-                  →&nbsp;&nbsp;{latest.stack_cost}
-                </span>
+                <span className={s.specValue}>→&nbsp;&nbsp;{latest.stack_cost}</span>
               </div>
             )}
             {latest.honest_math && (
@@ -159,38 +188,50 @@ export function LatestBlueprint() {
             {latest.playbook_span && (
               <div className={s.specRow}>
                 <span className={s.specLabel}>Playbook</span>
-                <span className={s.specValue}>
-                  →&nbsp;&nbsp;{latest.playbook_span}
-                </span>
+                <span className={s.specValue}>→&nbsp;&nbsp;{latest.playbook_span}</span>
               </div>
             )}
           </div>
 
           <div className={s.docFoot}>
             <span className={s.docFootLabel}>PDF · every citation</span>
-            <a
-              href={latest.pdf_href ?? '#capture'}
+            <Link
+              href={`/episodes/${latest.slug}`}
               className={s.getBtn}
               aria-label={`Get Operator Blueprint No. ${num}: ${latest.title}`}
             >
               Get №{num} →
-            </a>
+            </Link>
           </div>
         </article>
       </figure>
 
-      <div className={s.ticker}>
-        <span className={s.tickerNext}>
-          {next ? (
-            <>
-              №{pad(next.number)} <b>{next.title}</b> · in research
-            </>
-          ) : (
-            <>Queue empty — new theses added weekly</>
-          )}
-        </span>
-        <span className={s.tickerCount}>{queueDepth} queued</span>
-      </div>
+      {upcoming.length > 0 && (
+        <nav className={s.upcoming} aria-label="Upcoming episodes">
+          <div className={s.upcomingHead}>Upcoming</div>
+          <ul className={s.upcomingList}>
+            {upcoming.map((ep) => {
+              const stage = ep.stage ?? 'research';
+              return (
+                <li key={ep.slug}>
+                  <Link href={`/episodes/${ep.slug}`} className={s.upcomingRow}>
+                    <span className={s.upcomingLabel}>
+                      <span className={s.upcomingNum}>№{pad(ep.number)}</span>{' '}
+                      {ep.title}
+                    </span>
+                    <span className={`${s.stageChip} ${STAGE_CLASSES[stage]}`}>
+                      {STAGE_LABELS[stage]}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <div className={s.queueDepth}>
+            {queueDepth} more in the research queue
+          </div>
+        </nav>
+      )}
     </aside>
   );
 }

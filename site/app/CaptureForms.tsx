@@ -1,16 +1,48 @@
 'use client';
 
+import { useState, type FormEvent } from 'react';
+import { submitCapture, type CaptureTag } from './lib/capture';
 import s from './page.module.css';
 
-export function BlueprintForm() {
+type FormStatus =
+  | { state: 'idle' }
+  | { state: 'submitting' }
+  | { state: 'success'; message: string }
+  | { state: 'error'; message: string };
+
+function useCapture(tag: CaptureTag, slug?: string) {
+  const [status, setStatus] = useState<FormStatus>({ state: 'idle' });
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const email = String(data.get('email') ?? '').trim();
+    const hp = String(data.get('_bee') ?? '');
+    if (!email) return;
+    setStatus({ state: 'submitting' });
+    const res = await submitCapture({ email, tag, slug, hp });
+    setStatus(
+      res.ok
+        ? { state: 'success', message: res.message }
+        : { state: 'error', message: res.message }
+    );
+    if (res.ok) form.reset();
+  }
+
+  return { status, onSubmit };
+}
+
+type BlueprintProps = { slug: string; number: string };
+
+export function BlueprintForm({ slug, number }: BlueprintProps) {
+  const tag: CaptureTag = `blueprint:${slug}`;
+  const { status, onSubmit } = useCapture(tag, slug);
+
   return (
-    <form
-      className={s.captureCard}
-      onSubmit={(e) => e.preventDefault()}
-      action="#"
-    >
+    <form className={s.captureCard} onSubmit={onSubmit} noValidate>
       <div className={s.captureHead}>
-        <span className={s.cardEpisode}>Operator Blueprint №001</span>
+        <span className={s.cardEpisode}>Operator Blueprint №{number}</span>
         <span className={s.tag}>Rev A</span>
       </div>
       <div className={s.captureName}>AI implementation as a service</div>
@@ -28,16 +60,65 @@ export function BlueprintForm() {
           <div className={s.metaValue}>9 min</div>
         </div>
       </div>
-      <div className={s.inputLabel}>Work email</div>
+      <label htmlFor="bp-email" className={s.inputLabel}>Work email</label>
       <input
+        id="bp-email"
         type="email"
+        name="email"
         placeholder="you@company.com"
         className={`${s.input} oe-input`}
         required
+        autoComplete="email"
       />
-      <button type="submit" className={s.submit}>
-        Get Blueprint №001
+      <input
+        type="text"
+        name="_bee"
+        style={{
+          position: 'absolute',
+          left: -9999,
+          width: 1,
+          height: 1,
+          opacity: 0,
+        }}
+        tabIndex={-1}
+        aria-hidden
+        autoComplete="off"
+      />
+      <button
+        type="submit"
+        className={s.submit}
+        disabled={status.state === 'submitting'}
+      >
+        {status.state === 'submitting' ? '…' : `Get Blueprint №${number}`}
       </button>
+      {status.state === 'success' && (
+        <div
+          role="status"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11.5,
+            color: 'var(--sage-700)',
+            marginTop: 10,
+            textAlign: 'center',
+          }}
+        >
+          {status.message}
+        </div>
+      )}
+      {status.state === 'error' && (
+        <div
+          role="alert"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11.5,
+            color: 'var(--negative)',
+            marginTop: 10,
+            textAlign: 'center',
+          }}
+        >
+          {status.message}
+        </div>
+      )}
       <div className={s.captureFineprint}>
         PDF + every citation · straight to your inbox
       </div>
@@ -46,21 +127,70 @@ export function BlueprintForm() {
 }
 
 export function LedgerForm() {
+  const { status, onSubmit } = useCapture('newsletter');
+
   return (
-    <form
-      className={s.ledgerForm}
-      onSubmit={(e) => e.preventDefault()}
-      action="#"
-    >
+    <form className={s.ledgerForm} onSubmit={onSubmit} noValidate>
       <input
         type="email"
+        name="email"
         placeholder="you@company.com"
         className={s.ledgerInput}
         required
+        autoComplete="email"
+        aria-label="Email address for the Monday note"
       />
-      <button type="submit" className={s.ledgerSubmit}>
-        Get the Blueprints
+      <input
+        type="text"
+        name="_bee"
+        style={{
+          position: 'absolute',
+          left: -9999,
+          width: 1,
+          height: 1,
+          opacity: 0,
+        }}
+        tabIndex={-1}
+        aria-hidden
+        autoComplete="off"
+      />
+      <button
+        type="submit"
+        className={s.ledgerSubmit}
+        disabled={status.state === 'submitting'}
+      >
+        {status.state === 'submitting' ? '…' : 'Get the Blueprints'}
       </button>
+      {status.state === 'success' && (
+        <div
+          role="status"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            color: 'var(--paper-100)',
+            marginLeft: 12,
+            whiteSpace: 'nowrap',
+            alignSelf: 'center',
+          }}
+        >
+          {status.message}
+        </div>
+      )}
+      {status.state === 'error' && (
+        <div
+          role="alert"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            color: 'var(--negative)',
+            marginLeft: 12,
+            whiteSpace: 'nowrap',
+            alignSelf: 'center',
+          }}
+        >
+          {status.message}
+        </div>
+      )}
     </form>
   );
 }
