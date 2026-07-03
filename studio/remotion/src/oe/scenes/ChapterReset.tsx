@@ -64,7 +64,7 @@ export const ChapterReset: React.FC<ChapterResetProps> = ({kicker, heading, onIn
       <h2
         style={{
           fontFamily: FONTS.display,
-          fontWeight: 700,
+          fontWeight: 900,
           fontSize: TYPE.h1,
           lineHeight: 1.04,
           letterSpacing: `${TRACK.display}em`,

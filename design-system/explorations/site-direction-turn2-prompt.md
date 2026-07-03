@@ -8,14 +8,14 @@ Turn 2 — assemble the final homepage draft for theoperatoreconomy.com from my 
 
 Build one complete homepage at desktop 1280 and mobile 390 (use the 1j stacking pattern), sections in this order:
 
-1. **Hero — 1a**, with reworked copy (2026-07-03, now canonical in brand/copy.md):
-   - Kicker: "An evidence-first publication · Mondays"
-   - H1: "You've spent years running someone else's business. Build your own."
-   - H2: "One buildable business every Monday — the companies proving it, the exact stack, and the honest math."
+1. **Hero — 1a**, with v4 copy (locked 2026-07-03, canonical in brand/copy.md):
+   - Kicker: "Stop climbing. Start building."
+   - H1: "You can build it now. We show you what's worth building."
+   - H2: "Every Monday: one real business one experienced person can build and run — the companies proving it works, the exact stack and what it costs, the honest math. Plus the free Operator Blueprint to build from."
    - Mono evidence row below the H2: "Real companies. Sourced numbers. Exact stacks. Honest failure modes."
    - Keep "Episode №001 live · AI implementation as a service" as a separate status chip. Chip the $2,000 delivery node REPORTED. The CTA keeps its arrow only because no gap figure shares this composition.
-2. **How every episode works** — adapt 1b's horizontally wired navy band as this section (01 thesis → 02 evidence → 03 stack → 04 honest math), running on №001. "The employment ladder broke. Building didn't." becomes this section's kicker line (it moved out of the hero). The $5.9B → $2K gap figure lives here with the gold arrow — so no arrows on any CTA in this section.
-3. **Latest episodes** — a 3-card row of sheet-style cards (№, title, one sourced figure + citation chip). Use real №001 copy; the other two are "upcoming" from the queue — omit figures entirely rather than invent them. No placeholder numbers anywhere.
+2. **How every episode works** — adapt 1b's horizontally wired navy band as this section (01 thesis → 02 evidence → 03 stack → 04 honest math), running on №001. Section kicker: "The tools got cheap. The judgment didn't." The $5.9B → $2K gap figure lives here with the gold arrow — so no arrows on any CTA in this section.
+3. **The library — businesses you could build** — not a "latest episodes" blog row: a browsable catalog of buildable businesses. Sheet-style cards (№, business name, one sourced headline figure + citation chip, e.g. "$2–8K/mo · <$100 stack"), designed so scanning the grid produces the "I could build that" moment. Use real №001 copy; the other two cards are "upcoming" from the topic queue — omit figures entirely rather than invent them. No placeholder numbers anywhere. Design the grid to scale to 20+ episodes.
 4. **Disclosures — 1e verbatim.**
 5. **Capture — 1g** with the real №001 title block beside the form. Reuse **1h's ledger band** as a slim strip directly above the footer.
 6. **Footer** — wordmark, nav, the tagline "Build. Own. Operate." (footer only — its sole placement on the site), and a title-block-style colophon (V1 · 2026-07-03 · 8 sources verified for №001).

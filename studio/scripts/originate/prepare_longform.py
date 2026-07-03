@@ -41,11 +41,11 @@ def group_words(words: list[dict], per_group: int, highlights: set[str]) -> list
             "start": chunk[0]["start"],
             "end": chunk[-1]["end"],
         })
-    # TILE groups: each caption holds until the next begins. Exact word-range
-    # windows leave gaps at every inter-word pause → caption flicker
-    # (validated on pilot render, 2026-07-03).
-    for g, nxt in zip(groups, groups[1:]):
-        g["end"] = nxt["start"]
+    # NOTE: groups deliberately keep their natural word-range windows.
+    # Bridging inter-group gaps is the renderer's job (Captions.tsx holds a
+    # group up to HOLD_MAX_S past its end, then fades). Data-level tiling
+    # (tried 2026-07-03) made captions linger through every VO pause —
+    # the renderer's capped hold is the correct layer for this.
     return groups
 
 

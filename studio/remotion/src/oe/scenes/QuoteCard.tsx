@@ -100,7 +100,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         <div
           style={{
             fontFamily: FONTS.display,
-            fontWeight: 700,
+            fontWeight: 900,
             fontSize: quote.length > 60 ? TYPE.h1 * 0.72 : TYPE.h1,
             lineHeight: 1.06,
             letterSpacing: `${TRACK.display}em`,

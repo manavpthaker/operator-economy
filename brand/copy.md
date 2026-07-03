@@ -62,15 +62,18 @@ Build. Own. Operate.
 
 ### Hero
 
-**Kicker:** An evidence-first publication · Mondays
-**H1:** You've spent years running someone else's business. Build your own.
-*(v1 was "You already run someone else's machine." — reworked 2026-07-03 for clarity: identity hook now resolves in the H1 itself.)*
-**H2:** One buildable business every Monday — the companies proving it, the exact stack, and the honest math.
+**Kicker:** Stop climbing. Start building.
+**H1:** You can build it now. We show you what's worth building.
+**H2:** Every Monday: one real business one experienced person can build and run — the companies proving it works, the exact stack and what it costs, the honest math. Plus the free Operator Blueprint to build from.
 **Evidence row (mono):** Real companies. Sourced numbers. Exact stacks. Honest failure modes.
+
+*(Copy history: v1 "You already run someone else's machine." → v4 locked 2026-07-03. Frame: Home Depot capability promise ("You can do it. We can help.") updated for AI — the tools got cheap, the judgment is the scarce part, the blueprint is the tangible takeaway. Kicker speaks to the operator/management audience in their own metaphor: climbing → building.)*
 **CTA button:** Get the Blueprints →  *(email capture)*
 **Sub-CTA:** Watch the latest breakdown ↗
 
 ### Section: How every episode works
+
+**Section kicker:** The tools got cheap. The judgment didn't.
 
 **The thesis.** One kind of business you could build — stated plainly, no hype.
 **The evidence.** Who's already making money at it, from solo operators to the venture-scale version. Every number carries its source, on screen.

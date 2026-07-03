@@ -27,7 +27,7 @@ export const SheetCard: React.FC<SheetCardProps> = ({
   subtitle,
   onInk = true,
   startFrame,
-  totalFrames = 42, // ~1.4s @ 30fps
+  totalFrames = 60, // ~2s @ 30fps
 }) => {
   const frame = useCurrentFrame();
   const rel = frame - startFrame;
@@ -46,10 +46,17 @@ export const SheetCard: React.FC<SheetCardProps> = ({
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const overlay = interpolate(rel, [totalFrames - 12, totalFrames], [1, 0], {
+  // Card fades IN over the outgoing scene (no hard cut) and dissolves
+  // out at the end of the hold.
+  const overlayIn = interpolate(rel, [0, 8], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
+  const overlayOut = interpolate(rel, [totalFrames - 12, totalFrames], [1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const overlay = overlayIn * overlayOut;
 
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
   const muted = onInk ? COLORS.onInkMuted : COLORS.ink500;
@@ -61,8 +68,9 @@ export const SheetCard: React.FC<SheetCardProps> = ({
       style={{
         position: 'absolute',
         inset: 0,
-        // Slight scrim so the underlying scene doesn't fight the sheet card.
-        background: onInk ? 'rgba(20,38,62,0.94)' : 'rgba(245,240,230,0.94)',
+        // Fully opaque ground — a translucent scrim ghosts the underlying
+        // scene through the card (Rev C: flat surfaces, no see-through).
+        background: onInk ? COLORS.navy : COLORS.paper,
         opacity: overlay,
         display: 'flex',
         flexDirection: 'column',
