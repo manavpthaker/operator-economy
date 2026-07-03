@@ -1,21 +1,48 @@
 import React from 'react';
-import {
-  AbsoluteFill,
-  Audio,
-  Sequence,
-  interpolate,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
-} from 'remotion';
+import {AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
+
+import {useEnsureFontsLoaded} from './oe/fonts';
+import {COLORS} from './oe/theme';
+import {Captions} from './oe/Captions';
+import {SheetCard} from './oe/primitives/SheetCard';
+import {WorkingSchematic, SchematicNode} from './oe/primitives/WorkingSchematic';
+import {HookGap} from './oe/scenes/HookGap';
+import {ChartScene} from './oe/scenes/ChartScene';
+import {AnnotationScene} from './oe/scenes/AnnotationScene';
+import {BRollScene} from './oe/scenes/BRollScene';
+import {LogoScene} from './oe/scenes/LogoScene';
+import {ScreenRecScene} from './oe/scenes/ScreenRecScene';
 
 /**
- * Blueprint — 16:9 long-form composition.
+ * BlueprintComposition v2 — "The Working Schematic Edition"
  *
- * Sequences per-section VO audio and renders each beat's asset
- * (slide / chart / logo / broll placeholder) with word-timed captions
- * at the bottom. Brand theming comes from config/brand.json via the
- * render data payload.
+ * Design authority: /design-system/ (Rev C). Every visual decision maps
+ * back to /design-system/README.md §4 (Visual foundations) and §6
+ * (Components). No hex codes inline; consume ./oe/theme.
+ *
+ * Same props contract as v1 (flat BlueprintRenderData, no pipeline
+ * change). Scene grammar replaces v1's slide/chart switch:
+ *
+ *   hook section, chart w/ scale gap  → HookGap (GapArrow on ink)
+ *   any chart beat                    → ChartScene (Rev C bar chart)
+ *   slide (title + bullets)           → AnnotationScene (annotation rail)
+ *   broll                             → BRollScene
+ *   logo                              → LogoScene
+ *   screen_rec                        → ScreenRecScene
+ *
+ *   stack section (any beats)         → full-section WorkingSchematic
+ *                                       (nodes drop as each beat begins)
+ *
+ * Auto section transitions: SheetCard overlay covers the first ~1.4s of
+ * every section.
+ *
+ * TODOs picked up from the v2 spec:
+ *   - Progressive assembly of a single episode-wide schematic (needs
+ *     `schematic` block in assets.json — plan_assets.py Phase 2).
+ *   - Music bed + SFX (needs music_bed path in brand config + assets).
+ *   - Real b-roll footage (fetch_broll.py wired to originate/).
+ *   - AnnotationRail across multiple sub-lines against a persistent
+ *     schematic (needs the full episode schematic).
  */
 
 type Word = {word: string; start: number; end: number; highlight: boolean};
@@ -26,7 +53,7 @@ type AssetSpec = {
   title?: string;
   bullets?: string[];
   chart_type?: 'bar' | 'line' | 'waterfall';
-  series?: {label: string; value: number}[];
+  series?: {label: string; value: number; highlight?: boolean}[];
   unit?: string;
   source?: string;
   search_query?: string;
@@ -51,242 +78,260 @@ export type BlueprintRenderData = {
   brand: any;
 };
 
-const FadeIn: React.FC<{children: React.ReactNode; startFrame: number}> = ({children, startFrame}) => {
-  const frame = useCurrentFrame();
-  const opacity = interpolate(frame - startFrame, [0, 12], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const translateY = interpolate(frame - startFrame, [0, 12], [16, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  return <div style={{opacity, transform: `translateY(${translateY}px)`}}>{children}</div>;
+// ---------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------
+
+const SECTION_TITLES: Record<string, {title: string; subtitle?: string; onInk: boolean}> = {
+  hook: {title: 'The gap', subtitle: 'What Accenture books vs. the solo version.', onInk: true},
+  thesis: {title: 'The thesis', subtitle: 'Not building. Installing.', onInk: false},
+  evidence: {title: 'The evidence', subtitle: 'Real companies. Sourced numbers. Range, not averages.', onInk: false},
+  stack: {title: 'The stack', subtitle: 'Every tool. Every real monthly price.', onInk: true},
+  playbook: {title: 'The playbook', subtitle: 'Week one. Weeks two–four. The first project.', onInk: false},
+  economics: {title: 'The economics', subtitle: "What margins actually look like. And what breaks.", onInk: false},
+  cta: {title: 'The blueprint', subtitle: 'Templates + full stack. Free — link below.', onInk: true},
 };
 
-const SlideAsset: React.FC<{spec: AssetSpec; brand: any; startFrame: number}> = ({spec, brand, startFrame}) => (
-  <FadeIn startFrame={startFrame}>
-    <div style={{padding: '120px 160px'}}>
-      <h1
-        style={{
-          fontFamily: brand.fonts.caption,
-          fontWeight: 800,
-          fontSize: 72,
-          color: brand.colors.caption_text,
-          marginBottom: 48,
-          lineHeight: 1.15,
-        }}
-      >
-        {spec.title}
-      </h1>
-      {(spec.bullets || []).map((b, i) => (
-        <div
-          key={i}
-          style={{
-            fontFamily: brand.fonts.caption,
-            fontWeight: 500,
-            fontSize: 44,
-            color: brand.colors.caption_text,
-            opacity: 0.9,
-            marginBottom: 28,
-            display: 'flex',
-            gap: 24,
-          }}
-        >
-          <span style={{color: brand.colors.caption_highlight}}>—</span>
-          {b}
-        </div>
-      ))}
-    </div>
-  </FadeIn>
-);
+const compactCurrency = (v: number, unit = '') => {
+  const abs = Math.abs(v);
+  if (abs >= 1_000_000_000) return `$${(v / 1_000_000_000).toFixed(1).replace(/\.0$/, '')}B${unit}`;
+  if (abs >= 1_000_000) return `$${(v / 1_000_000).toFixed(1).replace(/\.0$/, '')}M${unit}`;
+  if (abs >= 1000) return `$${(v / 1000).toFixed(1).replace(/\.0$/, '')}K${unit}`;
+  return `$${Math.round(v).toLocaleString()}${unit}`;
+};
 
-const ChartAsset: React.FC<{spec: AssetSpec; brand: any; startFrame: number}> = ({spec, brand, startFrame}) => {
-  const frame = useCurrentFrame();
-  const series = spec.series || [];
-  const max = Math.max(...series.map((s) => s.value), 1);
-  const growth = interpolate(frame - startFrame, [6, 40], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  return (
-    <FadeIn startFrame={startFrame}>
-      <div style={{padding: '100px 160px'}}>
-        <h2
-          style={{
-            fontFamily: brand.fonts.caption,
-            fontWeight: 800,
-            fontSize: 52,
-            color: brand.colors.caption_text,
-            marginBottom: 64,
-          }}
+// The hook section's first-beat chart wants GapArrow when the values
+// span multiple orders of magnitude (>1000×).
+function isHookGapChart(beat: Beat): beat is Beat & {asset: AssetSpec & {series: NonNullable<AssetSpec['series']>}} {
+  const s = beat.asset.series;
+  if (!s || s.length !== 2) return false;
+  const [a, b] = s.map((d) => d.value).sort((x, y) => x - y);
+  return b / Math.max(a, 1) > 1000;
+}
+
+function toGap(series: {label: string; value: number}[], unit?: string): {from: string; to: string; label?: string} {
+  const [big, small] = [...series].sort((a, b) => b.value - a.value);
+  if (unit === '$') {
+    return {from: compactCurrency(big.value), to: compactCurrency(small.value), label: 'The gap'};
+  }
+  return {from: `${big.value}${unit ?? ''}`, to: `${small.value}${unit ?? ''}`, label: 'The gap'};
+}
+
+// Derive a schematic node from a stack-section slide beat: label from the
+// beat title's price fragment ("$20–40/mo"), name from what's before the
+// em-dash.
+function deriveStackNode(beat: Beat, i: number, appearFrame: number): SchematicNode {
+  const title = beat.asset.title ?? `Step ${i + 1}`;
+  // Titles look like "The brain — $20–40/mo". Split on em-dash / hyphen.
+  const dashSplit = title.split(/[—–-]\s*/);
+  const name = (dashSplit[0] ?? title).trim();
+  const figure = (dashSplit.slice(1).join(' — ') || (beat.asset.bullets?.[0] ?? '')).trim();
+  const isLast = false;
+  return {
+    id: `stack-${i}`,
+    step: `Step ${String(i + 1).padStart(2, '0')}`,
+    name,
+    figure: figure || '—',
+    appearAtFrame: appearFrame,
+    status: i < 2 ? 'live' : 'running',
+    goldFigure: isLast,
+  };
+}
+
+// ---------------------------------------------------------------------
+// Scene router
+// ---------------------------------------------------------------------
+
+const BeatScene: React.FC<{
+  beat: Beat;
+  section: Section;
+  isSectionFirst: boolean;
+  startFrame: number;
+}> = ({beat, section, isSectionFirst, startFrame}) => {
+  const meta = SECTION_TITLES[section.id];
+  const onInk = meta?.onInk ?? false;
+
+  // Hook-section first-beat gap treatment.
+  if (section.id === 'hook' && isSectionFirst && beat.asset.type === 'chart' && isHookGapChart(beat)) {
+    const {from, to, label} = toGap(beat.asset.series ?? [], beat.asset.unit);
+    return (
+      <HookGap
+        overline="The Operator Economy · Blueprint № · Evidence-first"
+        from={from}
+        to={to}
+        label={label}
+        source={beat.asset.source}
+        startFrame={startFrame}
+      />
+    );
+  }
+
+  switch (beat.asset.type) {
+    case 'chart':
+      return (
+        <ChartScene
+          title={beat.asset.title}
+          series={beat.asset.series ?? []}
+          unit={beat.asset.unit}
+          source={beat.asset.source}
+          estimate={/estimate|reported/i.test(beat.asset.source ?? '') || /estimate|reported/i.test(beat.asset.title ?? '')}
+          onInk={onInk}
+          startFrame={startFrame}
+        />
+      );
+    case 'slide':
+      return (
+        <AnnotationScene
+          title={beat.asset.title}
+          overline={meta?.title?.toUpperCase()}
+          bullets={beat.asset.bullets ?? []}
+          onInk={onInk}
+          startFrame={startFrame}
+        />
+      );
+    case 'broll':
+      return <BRollScene searchQuery={beat.asset.search_query ?? '—'} caption={beat.asset.caption} startFrame={startFrame} />;
+    case 'logo':
+      return (
+        <LogoScene
+          company={beat.asset.company ?? '—'}
+          caption={beat.asset.caption}
+          source={beat.asset.source}
+          onInk={onInk}
+          startFrame={startFrame}
+        />
+      );
+    case 'screen_rec':
+      return (
+        <ScreenRecScene
+          tool={beat.asset.tool ?? '—'}
+          action={beat.asset.action ?? ''}
+          caption={beat.asset.caption}
+          startFrame={startFrame}
+        />
+      );
+    default:
+      return <AbsoluteFill style={{background: COLORS.ink}} />;
+  }
+};
+
+// ---------------------------------------------------------------------
+// Section renderer — the router for whole-section treatments
+// (stack becomes a WorkingSchematic layer; everything else per-beat).
+// ---------------------------------------------------------------------
+
+const SectionLayer: React.FC<{
+  section: Section;
+  sectionIndex: number;
+  totalSections: number;
+  fps: number;
+}> = ({section, sectionIndex, totalSections, fps}) => {
+  const meta = SECTION_TITLES[section.id];
+
+  // Stack section: full-section WorkingSchematic. Nodes appear as each
+  // beat begins so the schematic assembles alongside the VO.
+  if (section.id === 'stack') {
+    const sectionStartFrame = Math.round(section.start * fps);
+    const nodes = section.beats.map((b, i) =>
+      deriveStackNode(b, i, Math.round(b.start * fps) - sectionStartFrame),
+    );
+    // Highlight the last node's figure gold (the "$2K" close of the stack).
+    if (nodes.length > 0) nodes[nodes.length - 1].goldFigure = true;
+
+    return (
+      <>
+        <Sequence
+          from={sectionStartFrame}
+          durationInFrames={Math.max(1, Math.round(section.duration * fps))}
         >
-          {spec.title}
-        </h2>
-        <div style={{display: 'flex', alignItems: 'flex-end', gap: 48, height: 480}}>
-          {series.map((s, i) => (
-            <div key={i} style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%'}}>
-              <div
-                style={{
-                  fontFamily: brand.fonts.caption,
-                  fontSize: 34,
-                  fontWeight: 800,
-                  color: brand.colors.caption_highlight,
-                  textAlign: 'center',
-                  marginBottom: 12,
-                }}
-              >
-                {spec.unit === '$' ? '$' : ''}
-                {Math.round(s.value * growth).toLocaleString()}
-                {spec.unit && spec.unit !== '$' ? spec.unit : ''}
-              </div>
-              <div
-                style={{
-                  height: `${(s.value / max) * 100 * growth}%`,
-                  background: brand.colors.caption_highlight,
-                  borderRadius: 8,
-                  minHeight: 4,
-                }}
-              />
-              <div
-                style={{
-                  fontFamily: brand.fonts.caption,
-                  fontSize: 28,
-                  color: brand.colors.caption_text,
-                  opacity: 0.7,
-                  textAlign: 'center',
-                  marginTop: 16,
-                }}
-              >
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-        {spec.source && (
-          <div style={{fontFamily: brand.fonts.caption, fontSize: 22, opacity: 0.5, color: brand.colors.caption_text, marginTop: 40}}>
-            Source: {spec.source}
-          </div>
-        )}
-      </div>
-    </FadeIn>
+          <AbsoluteFill style={{background: COLORS.navy, padding: '120px 160px 300px'}}>
+            <WorkingSchematic
+              nodes={nodes}
+              sheetLabel={`Sheet ${String(sectionIndex + 1).padStart(2, '0')} of ${String(totalSections).padStart(2, '0')} — The stack`}
+              margin="≤ $100/mo"
+              running
+            />
+          </AbsoluteFill>
+        </Sequence>
+      </>
+    );
+  }
+
+  // Default: per-beat scenes
+  return (
+    <>
+      {section.beats.map((beat, i) => {
+        const from = Math.round(beat.start * fps);
+        const dur = Math.max(1, Math.round((beat.end - beat.start) * fps));
+        return (
+          <Sequence key={beat.beat} from={from} durationInFrames={dur}>
+            <BeatScene beat={beat} section={section} isSectionFirst={i === 0} startFrame={0} />
+          </Sequence>
+        );
+      })}
+    </>
   );
 };
 
-const FallbackAsset: React.FC<{spec: AssetSpec; brand: any; startFrame: number}> = ({spec, brand, startFrame}) => (
-  <FadeIn startFrame={startFrame}>
-    <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
-      <div
-        style={{
-          fontFamily: brand.fonts.caption,
-          fontWeight: 800,
-          fontSize: 56,
-          color: brand.colors.caption_text,
-          opacity: 0.85,
-          maxWidth: 1200,
-          textAlign: 'center',
-        }}
-      >
-        {spec.type === 'logo'
-          ? spec.company
-          : spec.type === 'broll'
-            ? `[B-ROLL: ${spec.search_query}]`
-            : `[SCREEN REC: ${spec.tool} — ${spec.action}]`}
-      </div>
-      {spec.caption && (
-        <div style={{fontFamily: brand.fonts.caption, fontSize: 32, color: brand.colors.caption_highlight, marginTop: 24}}>
-          {spec.caption}
-        </div>
-      )}
-    </AbsoluteFill>
-  </FadeIn>
-);
-
-const Captions: React.FC<{groups: CaptionGroup[]; brand: any}> = ({groups, brand}) => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  const t = frame / fps;
-  const active = groups.find((g) => t >= g.start && t <= g.end);
-  if (!active) return null;
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        bottom: 80,
-        width: '100%',
-        textAlign: 'center',
-        fontFamily: brand.fonts.caption,
-        fontWeight: brand.fonts.caption_weight,
-        fontSize: 42,
-      }}
-    >
-      {active.words.map((w, i) => (
-        <span
-          key={i}
-          style={{
-            color: t >= w.start && w.highlight ? brand.colors.caption_highlight : brand.colors.caption_text,
-            opacity: t >= w.start ? 1 : 0.45,
-            marginRight: 14,
-          }}
-        >
-          {w.word}
-        </span>
-      ))}
-    </div>
-  );
-};
+// ---------------------------------------------------------------------
+// Root composition
+// ---------------------------------------------------------------------
 
 export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) => {
+  useEnsureFontsLoaded();
   const {fps} = useVideoConfig();
-  const {sections, captions, brand} = renderData;
+  const {sections, captions} = renderData;
 
+  // The whole episode floats over Ink so cross-section fades never flash
+  // a caller color between Sequences.
   return (
-    <AbsoluteFill style={{backgroundColor: brand.colors.background}}>
+    <AbsoluteFill style={{background: COLORS.ink}}>
+      {/* Per-section audio */}
       {sections.map((section) => (
         <Sequence
-          key={section.id}
+          key={`audio-${section.id}`}
           from={Math.round(section.start * fps)}
           durationInFrames={Math.max(1, Math.round(section.duration * fps))}
         >
           {section.audio ? <Audio src={staticFile(section.audio)} /> : null}
         </Sequence>
       ))}
-      {sections.flatMap((section) =>
-        section.beats.map((beat) => {
-          const from = Math.round(beat.start * fps);
-          const dur = Math.max(1, Math.round((beat.end - beat.start) * fps));
-          const spec = beat.asset;
-          return (
-            <Sequence key={`${section.id}-${beat.beat}`} from={from} durationInFrames={dur}>
-              {spec.type === 'slide' ? (
-                <SlideAsset spec={spec} brand={brand} startFrame={0} />
-              ) : spec.type === 'chart' ? (
-                <ChartAsset spec={spec} brand={brand} startFrame={0} />
-              ) : (
-                <FallbackAsset spec={spec} brand={brand} startFrame={0} />
-              )}
-            </Sequence>
-          );
-        }),
-      )}
-      <Captions groups={captions.groups} brand={brand} />
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          height: 4,
-          width: '100%',
-          background: brand.colors.progress_bar_bg,
-        }}
-      >
-        <ProgressFill color={brand.colors.progress_bar} total={renderData.total_frames} />
-      </div>
+
+      {/* Per-section visuals (stack becomes the schematic; others route
+          per beat). */}
+      {sections.map((section, i) => (
+        <SectionLayer
+          key={`sec-${section.id}`}
+          section={section}
+          sectionIndex={i}
+          totalSections={sections.length}
+          fps={fps}
+        />
+      ))}
+
+      {/* Section-transition sheet cards on top (first ~1.4s of each). */}
+      {sections.map((section, i) => {
+        const meta = SECTION_TITLES[section.id];
+        if (!meta) return null;
+        const sectionStart = Math.round(section.start * fps);
+        const dur = Math.min(42, Math.max(1, Math.round(section.duration * fps)));
+        return (
+          <Sequence key={`sheet-${section.id}`} from={sectionStart} durationInFrames={dur}>
+            <SheetCard
+              sheet={i + 1}
+              total={sections.length}
+              title={meta.title}
+              subtitle={meta.subtitle}
+              onInk={meta.onInk || section.id === 'stack'}
+              startFrame={0}
+              totalFrames={dur}
+            />
+          </Sequence>
+        );
+      })}
+
+      {/* Captions layer — always on top. */}
+      <Captions groups={captions?.groups ?? []} onInk />
     </AbsoluteFill>
   );
-};
-
-const ProgressFill: React.FC<{color: string; total: number}> = ({color, total}) => {
-  const frame = useCurrentFrame();
-  return <div style={{height: '100%', width: `${(frame / total) * 100}%`, background: color}} />;
 };
