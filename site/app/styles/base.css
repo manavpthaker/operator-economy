@@ -1,0 +1,118 @@
+/* ============================================================
+   The Operator Economy — Base resets & primitive helpers
+   ------------------------------------------------------------
+   Minimal, opt-in. Sets the paper/ink defaults and a few
+   brand-signature utility classes (mono numerals, small-caps
+   labels, hairline rules). Everything else is tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font: var(--type-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+
+h1 {
+  color: var(--text-strong);
+  font-family: var(--font-display); /* Boska — display sizes only */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h2, h3, h4 {
+  color: var(--text-strong);
+  font-family: var(--font-heading); /* Zodiak — the 18–44px workhorse */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-heading);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--gold-tint); color: var(--ink-900); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-xs);
+}
+
+/* --- Signature helpers ------------------------------------- */
+
+/* Every number the channel publishes is mono (Fragment Mono, 400 —
+   scale carries emphasis, never synthetic bold). */
+.oe-mono,
+.tabular {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* Small-caps annotation label (chart labels, kickers, sheet tags) */
+.oe-label {
+  font: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+/* Doc-number / sheet-header caps */
+.oe-caps {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-muted);
+}
+
+/* Hairline drafting rule */
+.oe-rule { border: 0; border-top: var(--border-hair) solid var(--border); margin: 0; }
+
+/* Editorial reading column */
+.oe-measure { max-width: var(--measure); }
+
+/* --- Component interaction states (hover/active on tokens) --- */
+.oe-btn[data-variant="primary"]:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+.oe-btn[data-variant="primary"]:active:not(:disabled) { background: var(--accent-press); border-color: var(--accent-press); }
+.oe-btn[data-variant="secondary"]:hover:not(:disabled) { background: var(--paper-200); border-color: var(--ink-900); }
+.oe-btn[data-variant="secondary"]:active:not(:disabled) { background: var(--paper-300); }
+.oe-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--blue-tint); }
+.oe-btn[data-variant="ghost"]:active:not(:disabled) { background: var(--paper-300); }
+
+.oe-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--blue-tint); }
+.oe-link-row:hover { background: var(--paper-200); }
+
+/* Live-status pulse (sage dots). Safe: 0% keyframe is fully visible. */
+.oe-pulse { animation: oe-pl 2.2s ease-in-out infinite; }
+@keyframes oe-pl { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

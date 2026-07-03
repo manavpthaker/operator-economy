@@ -1,0 +1,66 @@
+/* ============================================================
+   The Operator Economy — Spacing, radii, borders, shadows, motion
+   ------------------------------------------------------------
+   Restrained, document-grade. Corners are near-square (this is a
+   drafting sheet, not a SaaS card). Shadows are minimal — depth
+   comes from hairline rules and paper tone, not drop shadows.
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (4px base) --- */
+  --space-0:  0;
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* Editorial margins */
+  --margin-page:  clamp(1.25rem, 5vw, 6rem);
+  --gutter:       var(--space-6);
+
+  /* --- Radii — 2–3px max (locked); documents, not bubbles --- */
+  --radius-none: 0;
+  --radius-xs:   2px;   /* chips, inputs, most surfaces */
+  --radius-sm:   3px;   /* buttons */
+  --radius-md:   3px;   /* cards (Rev C: capped at 3px) */
+  --radius-pill: 999px; /* rare — status dots only */
+
+  /* --- Border widths --- */
+  --border-hair:   1px;
+  --border-medium: 1.5px;  /* title-block frames, chart axes */
+  --border-thick:  2px;    /* accent underlines, focal rules */
+
+  /* --- Shadows — whisper-quiet; paper doesn't float --- */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(26,26,26,0.05);
+  --shadow-sm: 0 1px 3px rgba(26,26,26,0.07), 0 1px 2px rgba(26,26,26,0.04);
+  --shadow-md: 0 6px 20px -8px rgba(26,26,26,0.14);
+  --shadow-lg: 0 18px 48px -20px rgba(26,26,26,0.22);
+  /* Inset used for pressed inputs / sunken data wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,26,26,0.06);
+
+  /* --- Focus ring --- */
+  --ring: 0 0 0 2px var(--paper-100), 0 0 0 4px var(--drafting-blue);
+
+  /* --- Motion — restrained: slides & fades, no bounce (spec §6) --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-normal: 200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* --- Layout --- */
+  --container:      1120px;  /* editorial max width */
+  --container-text: 720px;   /* single-column reading width */
+  --container-wide: 1320px;  /* full app / dashboard */
+  --z-base: 0;      /* @kind other */
+  --z-sticky: 100;  /* @kind other */
+  --z-overlay: 500; /* @kind other */
+  --z-modal: 1000;  /* @kind other */
+}

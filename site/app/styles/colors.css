@@ -1,0 +1,100 @@
+/* ============================================================
+   The Operator Economy — Color
+   ------------------------------------------------------------
+   One palette, not two (design-system.md §5).
+   Rule: any single frame contains at most Ink + Paper + ONE accent.
+   Drafting Blue is THE brand accent. Ledger Gold is used sparingly
+   (one highlight per chart). Sage is demoted to positive-delta only.
+   ============================================================ */
+
+:root {
+  /* --- Core brand (the five named colors) --- */
+  --ink:            #1A1A1A;  /* near-black charcoal — primary text, video bg */
+  --paper:          #F5F0E6;  /* warm cream — page / blueprint background */
+  --drafting-blue:  #1F3A5F;  /* desaturated Prussian blue — THE accent */
+  --ledger-gold:    #B08D3E;  /* muted gold — key figures, one highlight/chart */
+  --sage:           #7B9E87;  /* legacy accent — positive delta ONLY */
+
+  /* --- Ink ramp (warm-neutral charcoals for text on paper) --- */
+  --ink-900: #1A1A1A;  /* primary text */
+  --ink-700: #3C3A36;  /* strong secondary text */
+  --ink-500: #6B675E;  /* muted / captions / labels */
+  --ink-400: #8A857A;  /* faint meta, placeholders */
+  --ink-300: #B4AE9F;  /* disabled text on paper */
+
+  /* --- Paper ramp (warm cream surfaces + hairlines) --- */
+  --paper-0:   #FBF8F1;  /* lifted surface (card on paper) */
+  --paper-100: #F5F0E6;  /* base page */
+  --paper-200: #EDE7D8;  /* sunken / zebra rows */
+  --paper-300: #E2DAC7;  /* subtle fills */
+  --rule:      #D8CFB9;  /* default hairline / border on paper */
+  --rule-strong: #C4B99E;/* emphasized rule, title-block frame */
+
+  /* --- Drafting Blue ramp --- */
+  --blue-900: #14263E;  /* pressed / darkest */
+  --blue-700: #1F3A5F;  /* base accent */
+  --blue-500: #35608C;  /* hover / lighter accent, links on ink */
+  --blue-tint: #E4E9F0; /* faint blue wash on paper (annotations) */
+
+  /* --- Ledger Gold ramp ---
+     Gold is the accent on dark surfaces; contrast-checked:
+     gold-bright on navy 6.4:1 · on ink 7.3:1 (AA at chip size).
+     gold-700 darkened Rev C (#8F6F2C→#7A5E24) to pass AA on paper (5.3:1). */
+  --gold-700: #7A5E24;  /* gold TEXT on paper (AA 5.3:1) */
+  --gold-500: #B08D3E;  /* gold fills, chart highlight bars */
+  --gold-bright: #C4A45F; /* gold text/accents on navy & ink */
+  --gold-tint: #EFE6CF; /* faint gold wash */
+
+  /* --- Sage (positive delta) --- */
+  --sage-700: #5E7F6A;  /* sage text on paper (AA) */
+  --sage-500: #7B9E87;
+  --negative: #9B3E2E;  /* negative delta — muted brick, never bright red */
+
+  /* ==========================================================
+     Semantic aliases — reference these in components, not raw ramp
+     ========================================================== */
+
+  /* Surfaces */
+  --surface-page:     var(--paper-100);
+  --surface-card:     var(--paper-0);
+  --surface-sunken:   var(--paper-200);
+  --surface-ink:      var(--ink-900);   /* dark surface (video, hero, footer) */
+  --surface-schematic: var(--blue-900); /* the navy working-schematic panel */
+
+  /* Schematic anatomy (drafting grid, nodes, wires) */
+  --schem-grid:        rgba(245,240,230,0.055);
+  --schem-node-border: rgba(245,240,230,0.30);
+  --schem-node-bg:     rgba(31,58,95,0.38);
+  --schem-wire:        rgba(245,240,230,0.32);
+  --status-live:       var(--sage-500);  /* live/verified status ONLY */
+
+  /* Text on paper */
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--ink-700);
+  --text-muted:   var(--ink-500);
+  --text-faint:   var(--ink-400);
+  --text-disabled:var(--ink-300);
+
+  /* Text on ink */
+  --text-on-ink:        #F5F0E6;
+  --text-on-ink-muted:  rgba(245,240,230,0.62);
+  --text-on-ink-faint:  rgba(245,240,230,0.40);
+
+  /* Accent semantics */
+  --accent:        var(--drafting-blue);
+  --accent-hover:  var(--blue-500);
+  --accent-press:  var(--blue-900);
+  --link:          var(--drafting-blue);
+  --data-highlight:var(--ledger-gold);  /* the one gold figure per chart (paper) */
+  --data-highlight-ink: var(--gold-bright); /* the one gold figure on navy/ink */
+  --delta-positive:var(--sage-700);
+  --delta-negative:var(--negative);
+
+  /* Borders */
+  --border:        var(--rule);
+  --border-strong: var(--rule-strong);
+  --border-ink:    rgba(245,240,230,0.16); /* hairline on ink surfaces */
+
+  /* Focus */
+  --focus-ring: var(--drafting-blue);
+}

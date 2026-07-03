@@ -1,0 +1,24 @@
+@import url('./fonts.css');
+@import url('./colors.css');
+@import url('./typography.css');
+@import url('./spacing.css');
+@import url('./base.css');
+
+/* Page-scoped helpers used by the homepage. */
+.schematic-grid {
+  background-color: var(--surface-schematic);
+  background-image:
+    repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px);
+}
+.schematic-grid-h {
+  background-color: var(--surface-schematic);
+  background-image:
+    repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px);
+}
+
+/* One-line reset so raw <em> is italic (Boska italic ships from Fontshare). */
+em { font-style: italic; }
+
+/* Reading-friendly focus for form inputs on the ledger band. */
+input.oe-input { outline: none; }
