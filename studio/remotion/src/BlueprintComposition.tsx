@@ -691,6 +691,7 @@ const ScreenLayer: React.FC<{
       // its body fragments on {kind:'fragment',beat,index} events.
       const lines: SheetLine[] = screen.reveals.map((r) => ({
         beat: r.beat,
+        ordinal: (r as {ordinal?: number}).ordinal,
         title: r.title,
         body: r.body,
         appearAtFrame: Math.round((r.at - screen.start) * fps),

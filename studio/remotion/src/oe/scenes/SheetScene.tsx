@@ -18,6 +18,8 @@ import {COLORS, FONTS, TRACK, TYPE} from '../theme';
 
 export type SheetLine = {
   beat?: number;         // for gating body fragments on {kind:'fragment',beat,index}
+  ordinal?: number;      // per-section running number ACROSS sheet screens
+                         // (prepare_longform) — fixes every screen showing "01"
   title: string;
   body?: string;
   appearAtFrame: number; // relative to scene start
@@ -299,7 +301,7 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
                       color: numColor,
                     }}
                   >
-                    {String(i + 1).padStart(2, '0')}
+                    {String(line.ordinal ?? i + 1).padStart(2, '0')}
                   </span>
                   <span
                     aria-hidden
