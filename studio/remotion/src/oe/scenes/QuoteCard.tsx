@@ -5,23 +5,36 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
 /**
  * QuoteCard — the impact-frame primitive.
  *
- * Full-screen single statement in Boska on ink or navy. HARD cut in
- * (no fade — the parent Sequence has 0 pre-fade for quote screens),
- * spring scale-settle 0.96 → 1, holds 1.2–2.5s for short lines and
- * 3–4s for longer ones. Captions are HIDDEN during the screen (the
- * card IS the caption — duplication is a rubric kill list item).
+ * Full-screen single statement in Boska on one of three grounds. HARD
+ * cut in (no fade — the parent Sequence has 0 pre-fade for quote
+ * screens), spring scale-settle 0.96 → 1, holds 1.2–2.5s for short
+ * lines and 3–4s for longer ones. Captions are HIDDEN during the
+ * screen (the card IS the caption — duplication is a rubric kill list
+ * item).
  *
  * L-cut convention: the VO continues under the card as normal. The
  * parent composition arranges music.intensity=silence and a hit SFX
  * cue at the screen start.
  *
- * Rev C constraints: Boska 700 ≥40px (we go 96–140px), one accent
- * (gold-on-ink) only on the optional accent phrase, corners flat.
+ * Rev C constraint (one accent per frame — rotate GROUNDS, not
+ * accents): the ground rotates by narrative role, gold stays as the
+ * single accent color across all three:
+ *   - ink   (#1A1A1A):  thesis / cold-open impact lines
+ *   - navy  (#14263E):  evidence turning-points — carries the drafting
+ *                       grid so the "we are inside the schematic" world
+ *                       is continuous with the WorkingSchematic panel
+ *   - paper (#F5F0E6):  economics honest-math lines, ink text
+ *
+ * Boska stays weight 900. ChapterReset stays on ink (`ground=ink`).
  */
+export type QuoteGround = 'ink' | 'navy' | 'paper';
+
 export type QuoteCardProps = {
   quote: string;
-  accentPhrase?: string; // an inline fragment rendered in gold-bright
+  accentPhrase?: string; // an inline fragment rendered in gold
   attribution?: string;  // optional small caption below
+  ground?: QuoteGround;
+  /** @deprecated — pass `ground` instead. Kept for storyboard back-compat. */
   onInk?: boolean;
 };
 
@@ -29,10 +42,15 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
   quote,
   accentPhrase,
   attribution,
+  ground,
   onInk = true,
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
+
+  // Resolve ground: explicit `ground` wins; otherwise fall back to the
+  // legacy `onInk` boolean (`true` → ink, `false` → paper).
+  const effectiveGround: QuoteGround = ground ?? (onInk ? 'ink' : 'paper');
 
   // Spring scale-settle: 0.96 → 1 over ~14 frames, spring config sets
   // damping high so the card doesn't overshoot (Rev C — no bounce).
@@ -59,11 +77,28 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
     easing: Easing.bezier(...EASE.standard),
   });
 
-  const bg = onInk ? COLORS.ink : COLORS.paper;
-  const text = onInk ? COLORS.onInk : COLORS.ink900;
-  const rule = onInk ? 'rgba(245,240,230,0.35)' : COLORS.ruleStrong;
-  const gold = onInk ? COLORS.goldBright : COLORS.goldOnPaper;
-  const attrColor = onInk ? COLORS.onInkMuted : COLORS.ink500;
+  // Ground → colors. Gold stays the single accent across all three.
+  const isDarkGround = effectiveGround !== 'paper';
+  const bg =
+    effectiveGround === 'navy' ? COLORS.navy
+    : effectiveGround === 'paper' ? COLORS.paper
+    : COLORS.ink;
+  const text = isDarkGround ? COLORS.onInk : COLORS.ink900;
+  const rule = isDarkGround ? 'rgba(245,240,230,0.35)' : COLORS.ruleStrong;
+  const gold = isDarkGround ? COLORS.goldBright : COLORS.goldOnPaper;
+  const attrColor = isDarkGround ? COLORS.onInkMuted : COLORS.ink500;
+
+  // Navy ground carries the drafting grid — makes the evidence quote
+  // read as an annotation inside the WorkingSchematic world rather
+  // than as a separate title slide (research doc §"impact frames as
+  // continuous with the world, not intercuts").
+  const gridStyle: React.CSSProperties | undefined = effectiveGround === 'navy'
+    ? {
+        backgroundImage:
+          `repeating-linear-gradient(0deg, ${COLORS.schemGrid} 0 1px, transparent 1px 36px), ` +
+          `repeating-linear-gradient(90deg, ${COLORS.schemGrid} 0 1px, transparent 1px 36px)`,
+      }
+    : undefined;
 
   // If the quote has an accent phrase, render it inline with gold.
   const rendered = React.useMemo(() => {
@@ -84,6 +119,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
     <AbsoluteFill
       style={{
         background: bg,
+        ...gridStyle,
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0 160px',

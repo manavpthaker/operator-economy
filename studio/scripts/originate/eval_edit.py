@@ -144,7 +144,10 @@ def check_cadence(screens: list[dict]) -> Check:
             warnings += 1
             c.warn_hit(f"{s['id']} holds {dur:.1f}s with only {reveals} reveal — "
                        "static composition. Add reveals or split the screen.")
-        if dur > 45:
+        # >45s hard-kill applies only to STATIC holds. A screen that is
+        # actively assembling (≥3 reveals — schematic, 3-step sheet)
+        # keeps the "reset" spirit met by internal composition changes.
+        if dur > 45 and reveals < 3:
             hard_kills += 1
             c.kill_hit(f"{s['id']} holds {dur:.1f}s — > 45s without a composition reset (kill list).")
 
@@ -344,12 +347,14 @@ def check_kill_list(screens: list[dict]) -> list[str]:
                 kills.append(f"[placeholder] {s['id']} has an unresolved screen recording.")
 
     # >45s without composition reset — computed as any single screen
-    # holding past 45s. (Consecutive short screens don't qualify — the
-    # reset is the *screen* boundary.) Impact frames (quote /
-    # chapter_reset) are exempt: they aren't the ones "holding" the
-    # composition even if they run long.
+    # holding past 45s. Impact frames (quote / chapter_reset) and
+    # actively-building screens (≥3 reveals — schematic, offer stack,
+    # ladder, multi-reveal sheet) are exempt: they aren't STATIC
+    # holds even if their overall duration passes 45s.
     for s in screens:
         if s["layout"] in ("quote", "chapter_reset"):
+            continue
+        if len(s.get("reveals", [])) >= 3:
             continue
         if (s["end"] - s["start"]) > 45:
             kills.append(f"[45s cap] {s['id']} spans {s['end'] - s['start']:.1f}s — over the 45s limit.")

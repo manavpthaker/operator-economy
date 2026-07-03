@@ -107,7 +107,8 @@ export type ScreenCustom = {
   quote?: string;
   accentPhrase?: string;
   attribution?: string;
-  onInk?: boolean;
+  onInk?: boolean; // legacy; prefer `ground`
+  ground?: 'ink' | 'navy' | 'paper'; // impact-line ground rotation
   // Proof card
   proof?: {
     value: number;
@@ -670,18 +671,33 @@ const ScreenLayer: React.FC<{
       );
       break;
     case 'quote': {
+      // Impact-line ground rotation per Rev C (one accent per frame —
+      // rotate GROUNDS, not accents). Storyboard can pin the ground
+      // via `custom.ground`; otherwise section id is the proxy:
+      //   hook, thesis       → ink  (cold-open, thesis lines)
+      //   evidence           → navy (drafting-grid, evidence
+      //                              turning-points)
+      //   economics          → paper (honest-math lines)
+      //   playbook, stack,
+      //   cta                → ink  (fallback — impact frames here are
+      //                              typically final brand or reversal
+      //                              cards; ink keeps continuity)
+      const groundFromSection: 'ink' | 'navy' | 'paper' =
+        screen.section === 'evidence' ? 'navy'
+        : screen.section === 'economics' ? 'paper'
+        : 'ink';
+      const resolvedGround = screen.custom?.ground ?? groundFromSection;
       const c = screen.custom?.quote
         ? {
             quote: screen.custom.quote,
             accentPhrase: screen.custom.accentPhrase,
             attribution: screen.custom.attribution,
-            onInk: screen.custom.onInk ?? true,
+            ground: resolvedGround,
           }
         : {
-            // Fallback: derive from the reveal's title/body.
             quote: first?.title ?? '',
             attribution: first?.body,
-            onInk: true,
+            ground: resolvedGround,
           };
       content = <QuoteCard {...c} />;
       break;
