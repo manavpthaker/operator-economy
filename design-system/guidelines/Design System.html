@@ -1,0 +1,368 @@
+<!-- @dsCard group="Guidelines" viewport="1280x800" name="Design System — Rev C" subtitle="The published system: foundation, tokens, signatures, bans, surfaces" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Operator Economy — Design System, Rev C</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); color: var(--text-body); }
+  .doc { max-width: 1180px; margin: 0 auto; padding: 56px 40px 120px; }
+
+  /* masthead */
+  .mast { border: 1.5px solid var(--ink-900); background: var(--paper-0); margin-bottom: 72px; }
+  .mast-top { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 20px; border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; }
+  .mast-top .l { color: var(--drafting-blue); }
+  .mast-top .r { color: var(--text-muted); }
+  .mast-main { padding: 36px 20px 32px; border-bottom: 1px solid var(--border); }
+  .mast-main h1 { font-family: var(--font-display); font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: var(--tracking-display); margin: 0; }
+  .mast-main p { font-family: var(--font-sans); font-size: 16px; color: var(--text-muted); margin: 16px 0 0; max-width: 62ch; }
+  .mast-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .mast-grid > div { padding: 10px 20px; border-right: 1px solid var(--border); }
+  .mast-grid > div:last-child { border-right: none; }
+  .mast-grid span { display: block; font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+  .mast-grid b { font-family: var(--font-mono); font-weight: 400; font-size: 13.5px; color: var(--ink-900); }
+
+  /* sections */
+  section.s { margin-bottom: 88px; }
+  .s-tag { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--drafting-blue); margin-bottom: 18px; }
+  .s-tag::after { content: ''; flex: 1; height: 1px; background: var(--rule-strong); }
+  section.s > h2 { font-family: var(--font-heading); font-weight: 700; font-size: 34px; letter-spacing: var(--tracking-heading); margin: 0 0 12px; }
+  .s-intro { font-family: var(--font-sans); font-size: 16.5px; line-height: 1.65; color: var(--ink-700); max-width: 68ch; margin: 0 0 32px; }
+  .s-intro em { font-style: italic; }
+
+  /* generic spec tables */
+  table.spec { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: var(--paper-0); }
+  table.spec th { font-family: var(--font-sans); font-size: 10.5px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); text-align: left; padding: 9px 14px; background: var(--paper-200); border-bottom: 1.5px solid var(--rule-strong); }
+  table.spec td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-family: var(--font-sans); font-size: 14px; color: var(--ink-700); vertical-align: middle; }
+  table.spec tr:last-child td { border-bottom: none; }
+  table.spec td.m { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-900); white-space: nowrap; }
+  .sw { display: inline-block; width: 30px; height: 18px; border: 1px solid rgba(26,26,26,.15); vertical-align: -4px; margin-right: 10px; }
+
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; align-items: start; }
+
+  .rulecard { border: 1px solid var(--border); border-top: 2px solid var(--drafting-blue); background: var(--paper-0); padding: 18px 20px; }
+  .rulecard h4 { font-family: var(--font-sans); font-weight: 500; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--drafting-blue); margin: 0 0 10px; }
+  .rulecard p, .rulecard li { font-family: var(--font-sans); font-size: 14px; line-height: 1.6; color: var(--ink-700); margin: 0; }
+  .rulecard ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .rulecard .ex { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); display: block; margin-top: 10px; }
+
+  /* type specimens */
+  .tspec { border: 1px solid var(--border); background: var(--paper-0); }
+  .tspec .row { display: grid; grid-template-columns: 190px 1fr; gap: 20px; align-items: baseline; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+  .tspec .row:last-child { border-bottom: none; }
+  .tspec .meta { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.6; color: var(--text-muted); letter-spacing: .04em; }
+  .tspec .meta b { color: var(--ink-900); font-weight: 400; display: block; }
+
+  /* anatomy */
+  .anat { border: 1px solid var(--border); background: var(--paper-0); padding: 26px; display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: center; }
+  .anat.dark { background: var(--surface-schematic); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+  .anat-notes { display: flex; flex-direction: column; gap: 10px; }
+  .anat-notes li { list-style: none; font-family: var(--font-mono); font-size: 11px; line-height: 1.55; color: var(--text-muted); display: flex; gap: 9px; }
+  .anat.dark .anat-notes li { color: rgba(245,240,230,.7); }
+  .anat-notes b { font-weight: 400; color: var(--drafting-blue); flex: 0 0 auto; }
+  .anat.dark .anat-notes b { color: var(--gold-bright); }
+
+  /* bans */
+  .bans { border: 1px solid var(--border); border-top: 2px solid var(--negative); background: var(--paper-0); padding: 22px 26px; columns: 2; column-gap: 40px; }
+  .bans li { list-style: none; font-family: var(--font-sans); font-size: 14.5px; line-height: 1.5; color: var(--ink-700); display: flex; gap: 10px; margin-bottom: 10px; break-inside: avoid; }
+  .bans li::before { content: '✕'; color: var(--negative); font-family: var(--font-mono); font-size: 12px; }
+
+  /* surfaces */
+  .comp { margin-bottom: 40px; }
+  .comp-cap { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .comp-cap h3 { font-family: var(--font-heading); font-weight: 700; font-size: 21px; margin: 0; }
+  .comp-cap span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); }
+  .comp-frame { border: 1px solid var(--rule-strong); overflow: hidden; background: var(--paper-0); }
+  .comp-frame iframe { display: block; width: 1280px; border: none; transform: scale(0.8595); transform-origin: top left; pointer-events: none; }
+
+  /* do / don't */
+  .dd { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+  .dd-col { border: 1px solid var(--border); background: var(--paper-0); display: flex; flex-direction: column; }
+  .dd-col.no { border-top: 2px solid var(--negative); }
+  .dd-col.yes { border-top: 2px solid var(--sage-700); }
+  .dd-head { padding: 12px 20px; border-bottom: 1px solid var(--border); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; }
+  .dd-col.yes .dd-head { color: var(--sage-700); }
+  .dd-col.no .dd-head { color: var(--negative); }
+  .dd-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; flex: 1; }
+  .dd-notes { padding: 0 20px 18px; }
+  .dd-notes li { list-style: none; font-family: var(--font-mono); font-size: 11px; line-height: 1.6; }
+  .dd-col.yes .dd-notes li { color: var(--sage-700); }
+  .dd-col.no .dd-notes li { color: var(--negative); }
+
+  .mini-schem { background: var(--surface-schematic); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); padding: 20px 22px; }
+  .node { border: 1px solid var(--schem-node-border); background: var(--schem-node-bg); padding: 12px 14px; max-width: 320px; }
+  .n-top { display: flex; justify-content: space-between; gap: 10px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,240,230,.55); margin-bottom: 7px; }
+  .n-top .st { color: var(--status-live); }
+  .n-name { font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; color: var(--paper-100); margin-bottom: 6px; }
+  .n-price { font-family: var(--font-mono); font-size: 17px; color: rgba(245,240,230,.92); }
+  .n-price span { font-size: 11px; color: rgba(245,240,230,.55); }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-700); border: 1px solid var(--border); border-left: 2px solid var(--drafting-blue); background: var(--paper-0); align-self: flex-start; }
+  .chip b { font-weight: 400; font-size: 10px; letter-spacing: .1em; color: var(--drafting-blue); }
+  .chip.dk { background: rgba(26,26,26,.5); border-color: rgba(245,240,230,.22); border-left: 2px solid var(--gold-bright); color: rgba(245,240,230,.8); }
+  .chip.dk b { color: var(--gold-bright); }
+
+  .ok-t { color: var(--sage-700); font-family: var(--font-mono); }
+  .no-t { color: var(--negative); font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header class="mast">
+    <div class="mast-top">
+      <span class="l">The Operator Economy · Design System</span>
+      <span class="r">Published · supersedes Rev A (editorial) &amp; Rev B (comps)</span>
+    </div>
+    <div class="mast-main">
+      <h1>Design like a blueprint,<br />not like a publication.</h1>
+      <p>Premium-editorial trust + the working schematic of the business you're going to build. Every rule below serves one test: would a 45-year-old VP share this under their real name on LinkedIn?</p>
+    </div>
+    <div class="mast-grid">
+      <div><span>Document</span><b>DS-001</b></div>
+      <div><span>Rev</span><b>C</b></div>
+      <div><span>Date</span><b>2026-07-02</b></div>
+      <div><span>Surfaces</span><b>YT · Site · Email · PDF</b></div>
+      <div><span>Status</span><b>Locked</b></div>
+    </div>
+  </header>
+
+  <!-- ================= 01 FOUNDATION ================= -->
+  <section class="s">
+    <div class="s-tag">01 · Brand foundation</div>
+    <h2>One promise, documentary rigor</h2>
+    <p class="s-intro"><strong>Positioning:</strong> The Operator Economy shows skeptical senior professionals (35–55) the businesses they could <em>actually</em> build now that AI collapsed the cost of building — real companies, sourced numbers, exact playbooks. Tagline: <span class="oe-mono">Build. Own. Operate.</span></p>
+    <div class="cols3">
+      <div class="rulecard">
+        <h4>Voice</h4>
+        <ul>
+          <li>Speak to the reader as "you"; the host is "I", used sparingly and accountably.</li>
+          <li>Sentence case everywhere. UPPERCASE is reserved for labels: <span class="oe-mono">SOURCE:</span>, <span class="oe-mono">SHEET 02 OF 05</span>.</li>
+          <li>Calm, specific, skeptical. Named failure modes. Honest difficulty.</li>
+        </ul>
+      </div>
+      <div class="rulecard">
+        <h4>Numbers</h4>
+        <ul>
+          <li>Every figure is sourced or explicitly marked as an estimate — never blended.</li>
+          <li>Every published number is set in Fragment Mono with a citation chip.</li>
+          <li>Units always attached: <span class="oe-mono">$5.9B</span>, <span class="oe-mono">31%</span>, <span class="oe-mono">$500–5,000/mo</span>.</li>
+        </ul>
+      </div>
+      <div class="rulecard">
+        <h4>Never say</h4>
+        <ul>
+          <li>Hype words: "insane", "secret", "crazy", "you won't believe".</li>
+          <li>Income promises: "$0 → $10K/mo", "quit your job".</li>
+          <li>"Hey guys, welcome back", fake scarcity, countdown urgency.</li>
+        </ul>
+        <span class="ex">Sign-off: "Build it. Own it. Operate it."</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 COLOR ================= -->
+  <section class="s">
+    <div class="s-tag">02 · Color</div>
+    <h2>Ink, paper, navy — and one accent</h2>
+    <p class="s-intro">One palette. Any single composition contains Ink + Paper (or Navy) + at most <strong>one</strong> accent. Gold is the accent of the dark schematic world; Drafting Blue is the accent of the cream editorial world. Sage is not an accent — it exclusively means <em>live / verified</em>.</p>
+    <div class="cols2">
+      <table class="spec">
+        <thead><tr><th>Token</th><th>Hex</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td class="m"><span class="sw" style="background:#1A1A1A"></span>--ink</td><td class="m">#1A1A1A</td><td>Primary text · video &amp; thumbnail ground</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#F5F0E6"></span>--paper</td><td class="m">#F5F0E6</td><td>Page, print, blueprint sheets</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#14263E"></span>--surface-schematic</td><td class="m">#14263E</td><td>The navy working-schematic panel</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#1F3A5F"></span>--drafting-blue</td><td class="m">#1F3A5F</td><td>Accent on paper: links, chips, linework</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#C4A45F"></span>--gold-bright</td><td class="m">#C4A45F</td><td>Gold text/arrow on navy &amp; ink</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#B08D3E"></span>--gold-500</td><td class="m">#B08D3E</td><td>Gold fills, chart highlight bars</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#7A5E24"></span>--gold-700</td><td class="m">#7A5E24</td><td>Gold text on paper</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#7B9E87"></span>--sage</td><td class="m">#7B9E87</td><td>Live / verified status ONLY</td></tr>
+          <tr><td class="m"><span class="sw" style="background:#9B3E2E"></span>--negative</td><td class="m">#9B3E2E</td><td>Negative deltas, violations</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <table class="spec">
+          <thead><tr><th>Contrast check (chip size, 10–11px)</th><th>Ratio</th><th>AA 4.5:1</th></tr></thead>
+          <tbody>
+            <tr><td><span class="oe-mono" style="background:#14263E;color:#C4A45F;padding:2px 8px;">SOURCE Sacra</span> gold-bright on navy</td><td class="m">6.4:1</td><td class="m ok-t">✓ pass</td></tr>
+            <tr><td><span class="oe-mono" style="background:#1A1A1A;color:#C4A45F;padding:2px 8px;">SOURCE Sacra</span> gold-bright on ink</td><td class="m">7.3:1</td><td class="m ok-t">✓ pass</td></tr>
+            <tr><td><span class="oe-mono" style="background:#F5F0E6;color:#7A5E24;padding:2px 8px;">ESTIMATE</span> gold-700 on paper</td><td class="m">5.3:1</td><td class="m ok-t">✓ pass</td></tr>
+            <tr><td><span class="oe-mono" style="background:#F5F0E6;color:#8F6F2C;padding:2px 8px;text-decoration:line-through;">ESTIMATE</span> old gold on paper</td><td class="m">4.1:1</td><td class="m no-t">✕ retired</td></tr>
+          </tbody>
+        </table>
+        <div class="rulecard" style="margin-top:28px;">
+          <h4>The fix, shown</h4>
+          <p>Gold mono passed on navy at chip size (6.4:1), so no lightening was needed there. The audit instead caught the <em>paper-side</em> deep gold at 4.1:1 — it was darkened to <span class="oe-mono">#7A5E24</span> (5.3:1). Chip labels never render below 10px.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 TYPE ================= -->
+  <section class="s">
+    <div class="s-tag">03 · Typography</div>
+    <h2>Two serifs, one job each</h2>
+    <p class="s-intro">Boska is the display voice — drafting-blade contrast that only exists at scale. Zodiak 700 is the workhorse below it (the stress test showed Boska's hairlines sparkle under ~40px). Supreme carries body and UI. Fragment Mono carries <strong>every number and citation</strong> in its single 400 weight — scale, never synthetic bold, carries emphasis.</p>
+    <div class="tspec" style="margin-bottom:28px;">
+      <div class="row"><div class="meta"><b>Display · Boska 700</b>60–104px · −0.01em · ≥40px ONLY</div><div style="font-family:var(--font-display);font-weight:700;font-size:56px;line-height:1;color:var(--ink-900);">Build. Own. Operate.</div></div>
+      <div class="row"><div class="meta"><b>H2 · Zodiak 700</b>20–44px · −0.02em · narrow measure</div><div style="font-family:var(--font-heading);font-weight:700;font-size:32px;line-height:1.1;letter-spacing:-0.02em;color:var(--ink-900);">The gap between knowing and doing</div></div>
+      <div class="row"><div class="meta"><b>Thumbnail support · Zodiak 900</b>dark surfaces, 4 words max</div><div style="font-family:var(--font-heading);font-weight:900;font-size:30px;line-height:1;letter-spacing:-0.02em;color:var(--ink-900);">Same service. Solo scale.</div></div>
+      <div class="row"><div class="meta"><b>Body · Supreme 400</b>15–19px · 1.6–1.65 leading</div><div style="font-family:var(--font-sans);font-size:17px;line-height:1.65;color:var(--ink-700);max-width:58ch;">Every business now knows it's supposed to use AI, and almost none of them know how. That gap is a service business.</div></div>
+      <div class="row"><div class="meta"><b>Data · Fragment Mono 400</b>all numbers · tabular · slashed zero</div><div class="oe-mono" style="font-size:30px;color:var(--ink-900);">$5.9B → $2K · 31% · 0123456789</div></div>
+    </div>
+    <div class="cols3">
+      <div class="rulecard"><h4>The 40px floor</h4><p>Boska never renders below 40px. The moment a heading drops under the floor, it becomes Zodiak 700. No exceptions, including buttons and cards.</p></div>
+      <div class="rulecard"><h4>Italic ration</h4><p>At most <em>one</em> italic phrase per composition — the emphasis beat ("<em>actually</em>", "<em>Solo scale.</em>"). A second italic anywhere in frame is a violation.</p></div>
+      <div class="rulecard"><h4>Mono means published</h4><p>If a number appears in Fragment Mono, it is sourced or marked as an estimate. Never set decorative or unverified figures in mono.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 04 SIGNATURE ELEMENTS ================= -->
+  <section class="s">
+    <div class="s-tag">04 · Signature elements</div>
+    <h2>The five unfakeables</h2>
+    <p class="s-intro">These carry the brand's recognizability — and each one is backed by real research, which is why the guru lane structurally can't copy them.</p>
+
+    <div class="cols2" style="margin-bottom:28px;">
+      <div class="anat">
+        <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+          <span class="chip"><b>SOURCE</b> Accenture FY2025 · CIO Dive</span>
+          <span class="oe-mono" style="font-size:44px;color:var(--ink-900);">$5.9B <span style="color:var(--gold-700);">→ $2K</span></span>
+        </div>
+        <ul class="anat-notes">
+          <li><b>chip</b>Citation chip: mono ≥10px, 2px accent left rule. One beside every figure. ESTIMATE variant in gold.</li>
+          <li><b>arrow</b>The gold arrow marks any before/after economics gap. Origin neutral, destination gold. One per composition.</li>
+        </ul>
+      </div>
+      <div class="anat dark">
+        <div class="node">
+          <div class="n-top"><span>Step 02 · The brain</span><span class="st">● Running</span></div>
+          <div class="n-name">Claude API</div>
+          <div class="n-price">$20<span>/mo</span></div>
+        </div>
+        <ul class="anat-notes">
+          <li><b>node</b>Schematic node: step label, named tool, REAL figure. Placeholder nodes are banned.</li>
+          <li><b>status</b>Sage dot = live/verified only. Panel cites its sources in the footer chip.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols2">
+      <div class="anat">
+        <div class="tb" style="border:1.5px solid var(--ink-900);display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--paper-0);">
+          <div style="padding:9px 12px;border-right:1px solid var(--border);"><span style="display:block;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;">Blueprint</span><b class="oe-mono" style="font-size:13px;">№004</b></div>
+          <div style="padding:9px 12px;border-right:1px solid var(--border);"><span style="display:block;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;">Rev</span><b class="oe-mono" style="font-size:13px;">C</b></div>
+          <div style="padding:9px 12px;"><span style="display:block;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;">Sources</span><b class="oe-mono" style="font-size:13px;">11</b></div>
+        </div>
+        <ul class="anat-notes">
+          <li><b>block</b>Engineering title block on every document: №, Rev, date, sources. 1.5px outer frame, 1px dividers.</li>
+        </ul>
+      </div>
+      <div class="anat">
+        <div style="display:flex;flex-direction:column;gap:12px;border-right:1px solid var(--border);padding-right:16px;max-width:210px;">
+          <span style="align-self:flex-start;white-space:nowrap;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-700);border:1px solid var(--rule-strong);padding:4px 7px;background:var(--paper-0);">Rev C · 2026-07-02</span>
+          <span style="font-family:var(--font-mono);font-size:10.5px;line-height:1.55;color:var(--text-muted);">fig. 01 recomputed <b style="font-weight:400;color:var(--gold-700);">↻ 2d ago</b></span>
+        </div>
+        <ul class="anat-notes">
+          <li><b>rail</b>Margin annotation column: revision tag + mono research notes. Recomputed figures get a dotted gold underline + ↻.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 05 HARD BANS ================= -->
+  <section class="s">
+    <div class="s-tag">05 · Hard bans</div>
+    <h2>Any one of these breaks the brand</h2>
+    <ul class="bans">
+      <li>Instrument Serif, Inter, or any default AI-startup look</li>
+      <li>Neon purples, pinks, electric blues; gradients of any kind</li>
+      <li>Glassmorphism, frosted cards, decorative blur</li>
+      <li>Shocked faces, red arrows, yellow circles</li>
+      <li>Income overlays ("$0 → $10K/mo") and money-stock imagery</li>
+      <li>Emoji on any brand surface</li>
+      <li>Countdown timers, fake scarcity, urgency patterns</li>
+      <li>Placeholder schematic nodes (no figure, "your tool here")</li>
+      <li>Numbers without a citation chip or estimate mark</li>
+      <li>Boska below 40px; synthetic-bold mono; more than one italic per frame</li>
+      <li>Radii above 3px; pills anywhere but status dots</li>
+      <li>More than one accent per composition</li>
+    </ul>
+  </section>
+
+  <!-- ================= 06 SURFACES ================= -->
+  <section class="s">
+    <div class="s-tag">06 · Reference surfaces</div>
+    <h2>The four canonical comps</h2>
+    <p class="s-intro">Final reference for each surface, live from <span class="oe-mono">surfaces/</span>. Open the files at full size to inspect or fork them as starting points.</p>
+
+    <div class="comp">
+      <div class="comp-cap"><h3>Site hero</h3><span>surfaces/hero.html · 1280×880</span></div>
+      <div class="comp-frame" style="height: 757px;"><iframe src="../surfaces/hero.html" style="height:880px;" title="Site hero" loading="lazy"></iframe></div>
+    </div>
+    <div class="comp">
+      <div class="comp-cap"><h3>YouTube thumbnail</h3><span>surfaces/thumbnail.html · 1280×720 · 3–4 words, evidence object</span></div>
+      <div class="comp-frame" style="height: 619px;"><iframe src="../surfaces/thumbnail.html" style="height:720px;" title="YouTube thumbnail" loading="lazy"></iframe></div>
+    </div>
+    <div class="comp">
+      <div class="comp-cap"><h3>Newsletter masthead</h3><span>surfaces/masthead.html · 1280×640 · gap figure in the mast</span></div>
+      <div class="comp-frame" style="height: 550px;"><iframe src="../surfaces/masthead.html" style="height:640px;" title="Newsletter masthead" loading="lazy"></iframe></div>
+    </div>
+    <div class="comp">
+      <div class="comp-cap"><h3>Operator Blueprint cover</h3><span>surfaces/cover.html · 1280×880 · engineering title block</span></div>
+      <div class="comp-frame" style="height: 757px;"><iframe src="../surfaces/cover.html" style="height:880px;" title="Blueprint cover" loading="lazy"></iframe></div>
+    </div>
+  </section>
+
+  <!-- ================= 07 DO / DON'T ================= -->
+  <section class="s" style="margin-bottom:0;">
+    <div class="s-tag">07 · Do / Don't</div>
+    <h2>One correct frame, one violation</h2>
+    <div class="dd">
+      <div class="dd-col yes">
+        <div class="dd-head">✓ Correct — sourced, one accent, one italic</div>
+        <div class="dd-body">
+          <div class="mini-schem">
+            <div class="node">
+              <div class="n-top"><span>Step 02 · The brain</span><span class="st">● Running</span></div>
+              <div class="n-name">Claude API</div>
+              <div class="n-price">$20<span>/mo</span></div>
+            </div>
+          </div>
+          <span class="chip"><b>SOURCE</b> Public pricing · Anthropic</span>
+          <p style="font-family:var(--font-sans);font-size:15px;color:var(--ink-700);margin:0;">The same service, at solo scale, is a <span class="oe-mono">$2,000</span> project — and that's the <em>boring</em> version.</p>
+        </div>
+        <ul class="dd-notes">
+          <li>real figure + named tool + cited source</li>
+          <li>gold reserved for the one key figure</li>
+          <li>exactly one italic phrase</li>
+        </ul>
+      </div>
+      <div class="dd-col no">
+        <div class="dd-head">✕ Violation — placeholder node, unsourced, over-styled</div>
+        <div class="dd-body">
+          <div class="mini-schem">
+            <div class="node" style="border-color:var(--negative);">
+              <div class="n-top"><span>Step ?? · Magic</span><span style="color:var(--negative);">✕ no status</span></div>
+              <div class="n-name" style="font-style:italic;">Your AI tool here ✨</div>
+              <div class="n-price" style="color:var(--negative);">$???</div>
+            </div>
+          </div>
+          <span class="chip" style="border-left-color:var(--negative);"><b style="color:var(--negative);">SOURCE</b> (none given)</span>
+          <p style="font-family:var(--font-sans);font-size:15px;color:var(--ink-700);margin:0;"><em>Insane</em> margins. <em>Secret</em> stack. <span style="color:var(--negative);font-weight:500;">$0 → $10K/mo!</span></p>
+        </div>
+        <ul class="dd-notes">
+          <li>placeholder figure &amp; tool — banned</li>
+          <li>emoji, hype words, income promise</li>
+          <li>three italics, unsourced claim</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

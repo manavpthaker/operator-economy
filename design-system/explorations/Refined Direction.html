@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="design_doc_mode" content="canvas" />
+<title>Refined Direction — Boska × Working Schematic</title>
+<link rel="stylesheet" href="../styles.css" />
+<link href="https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; }
+  .frame-label {
+    position: absolute; font-family: var(--font-mono); font-size: 13px;
+    color: #6B675E; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  }
+  .frame {
+    position: absolute; background: #F5F0E6; overflow: hidden;
+    box-shadow: 0 24px 64px -24px rgba(26,26,26,.35);
+  }
+  .opt-badge {
+    position: absolute; z-index: 20; left: 0; top: 0; width: 40px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: #1A1A1A; color: #F5F0E6; border-right: 1px solid rgba(245,240,230,.3);
+    border-bottom: 1px solid rgba(245,240,230,.3);
+    font-family: var(--font-mono); font-size: 13px; text-decoration: none;
+  }
+
+  /* ===== direction scopes ===== */
+  .dA { --d: 'Boska', serif; --b: 'Supreme', sans-serif; --m: 'Fragment Mono', monospace; --mw: 400; }
+  .dB { --d: 'Zodiak', serif; --b: 'General Sans', sans-serif; --m: 'IBM Plex Mono', monospace; --mw: 600; }
+
+  /* ===== shared drafting bits ===== */
+  .grid-d { background-image:
+    repeating-linear-gradient(0deg, rgba(245,240,230,.055) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(90deg, rgba(245,240,230,.055) 0 1px, transparent 1px 36px); }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px;
+    font-family: var(--m); font-size: 11px; color: #55524B;
+    border: 1px solid #D8CFB9; border-left: 2px solid #1F3A5F; background: #FBF8F1; }
+  .chip b { font-weight: var(--mw); font-size: 9.5px; letter-spacing: .1em; color: #1F3A5F; }
+  .chip.dk { background: rgba(26,26,26,.5); border-color: rgba(245,240,230,.22); border-left: 2px solid #C4A45F; color: rgba(245,240,230,.8); }
+  .chip.dk b { color: #C4A45F; }
+  .dot { width: 6px; height: 6px; border-radius: 99px; background: #7B9E87; display: inline-block; }
+  .pulse { animation: pl 2.2s ease-in-out infinite; }
+  @keyframes pl { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+  .wm { display: flex; flex-direction: column; line-height: 1; }
+  .wm .wm-the { font-family: var(--m); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: #8A857A; margin-bottom: 3px; }
+  .wm .wm-name { font-family: var(--d); font-weight: 700; font-size: 21px; color: #1A1A1A; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 24px;
+    font-family: var(--b); font-size: 14.5px; font-weight: 500; border-radius: 3px; cursor: pointer; white-space: nowrap; }
+  .btn.pri { background: #14263E; color: #F5F0E6; border: 1px solid #14263E; }
+  .btn.ghost { background: transparent; color: #1A1A1A; border: 1px solid #C4B99E; }
+  .btn.sm { padding: 8px 16px; font-size: 12.5px; }
+  .kick { font-family: var(--m); font-size: 11.5px; font-weight: var(--mw); letter-spacing: .12em; text-transform: uppercase; color: #1F3A5F; }
+  .recomp { font-family: var(--m); font-weight: var(--mw); color: #1A1A1A; border-bottom: 1.5px dotted #8F6F2C; white-space: nowrap; }
+  .recomp i { font-style: normal; font-size: .62em; color: #8F6F2C; letter-spacing: .04em; }
+
+  /* ===== margin rail (harvested from 1B) ===== */
+  .rail { display: flex; flex-direction: column; gap: 16px; border-right: 1px solid #D8CFB9; padding-right: 18px; }
+  .rail .rev { align-self: flex-start; white-space: nowrap; font-family: var(--m); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: #55524B; border: 1px solid #C4B99E; padding: 4px 7px; background: #FBF8F1; }
+  .rail .rnote { font-family: var(--m); font-size: 10.5px; line-height: 1.55; color: #6B675E; display: flex; gap: 7px; align-items: baseline; }
+  .rail .rnote b { font-weight: 400; color: #8F6F2C; white-space: nowrap; }
+  .rail .rnote .dot { flex: 0 0 auto; transform: translateY(-1px); }
+
+  /* ===== schematic panel ===== */
+  .schem { background: #14263E; position: relative; }
+  .s-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 26px 0; }
+  .s-sheet { font-family: var(--m); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,240,230,.65); }
+  .s-run { display: inline-flex; gap: 7px; align-items: center; font-family: var(--m); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #7B9E87; }
+  .s-chain { position: relative; padding: 30px 26px 0; width: 340px; }
+  .node { position: relative; border: 1px solid rgba(245,240,230,.3); background: rgba(31,58,95,.38); padding: 12px 14px; }
+  .n-top { display: flex; justify-content: space-between; gap: 10px; font-family: var(--m); font-size: 9px;
+    letter-spacing: .12em; text-transform: uppercase; color: rgba(245,240,230,.55); margin-bottom: 7px; }
+  .n-top .st { color: #7B9E87; }
+  .n-name { font-family: var(--b); font-size: 14.5px; font-weight: 500; color: #F5F0E6; margin-bottom: 6px; }
+  .n-price { font-family: var(--m); font-weight: var(--mw); font-size: 17px; color: rgba(245,240,230,.92); }
+  .n-price span { font-size: 11px; color: rgba(245,240,230,.55); }
+  .n-price.gold { color: #C4A45F; }
+  .wire { display: block; width: 1px; height: 24px; background: rgba(245,240,230,.32); margin-left: 44px; position: relative; }
+  .wire::before, .wire::after { content: ''; position: absolute; left: -2.5px; width: 6px; height: 6px; border-radius: 99px; background: #14263E; border: 1px solid rgba(245,240,230,.5); }
+  .wire::before { top: -3px; } .wire::after { bottom: -3px; }
+  .brk { position: absolute; top: 30px; right: -46px; width: 9px; border: 1px solid rgba(245,240,230,.4); border-left: none; }
+  .brk span { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl;
+    font-family: var(--m); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,230,.6); white-space: nowrap; }
+  .s-foot { position: absolute; left: 26px; right: 26px; bottom: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .s-marg { font-family: var(--m); font-size: 12px; color: rgba(245,240,230,.85); letter-spacing: .04em; }
+  .s-marg i { font-style: normal; color: #7B9E87; }
+
+  /* ===== HERO ===== */
+  .hero { width: 1280px; height: 880px; display: flex; }
+  .h-left { flex: 1; display: flex; flex-direction: column; padding: 30px 44px 40px 44px; }
+  .h-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid #D8CFB9; }
+  .h-links { display: flex; gap: 24px; }
+  .h-links a { font-family: var(--b); font-size: 13.5px; font-weight: 500; color: #6B675E; text-decoration: none; padding-bottom: 4px; }
+  .h-links a.on { color: #1A1A1A; border-bottom: 2px solid #1F3A5F; }
+  .h-body { display: grid; grid-template-columns: 148px 1fr; gap: 30px; padding-top: 54px; flex: 1; }
+  .h-copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .h-h1 { font-family: var(--d); color: #1A1A1A; margin: 20px 0 24px; }
+  .dA .h-h1 { font-weight: 700; font-size: 78px; line-height: .98; letter-spacing: -0.01em; }
+  .dB .h-h1 { font-weight: 900; font-size: 68px; line-height: 1.0; letter-spacing: -0.022em; max-width: 12ch; }
+  .h-h1 em { font-style: italic; font-weight: inherit; }
+  .lead { font-family: var(--b); font-size: 18px; line-height: 1.62; color: #55524B; max-width: 46ch; margin: 0 0 32px; }
+  .cta-row { display: flex; gap: 12px; margin-bottom: 26px; }
+  .hero .rail { padding-top: 6px; }
+
+  /* ===== THUMBNAIL ===== */
+  .thumb { width: 1280px; height: 720px; background: #1A1A1A; padding: 48px 56px; display: flex; flex-direction: column; }
+  .t-tag { align-self: flex-start; font-family: var(--m); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: #F5F0E6; border: 1px solid rgba(245,240,230,.35); border-left: 2px solid #C4A45F; padding: 7px 12px; margin-left: 48px; }
+  .t-fig { font-family: var(--m); font-weight: var(--mw); font-size: 150px; line-height: 1; color: #F5F0E6;
+    letter-spacing: -0.03em; margin: 54px 0 10px; font-feature-settings: 'tnum' 1; }
+  .t-fig .arr, .t-fig .au { color: #C4A45F; }
+  .t-brkh { width: 300px; margin-left: 470px; height: 9px; border: 1px solid rgba(245,240,230,.4); border-top: none; position: relative; }
+  .t-brkh span { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); font-family: var(--m); font-size: 11px;
+    letter-spacing: .16em; text-transform: uppercase; color: rgba(245,240,230,.65); white-space: nowrap; }
+  .t-words { font-family: var(--d); color: #F5F0E6; margin: 44px 0 0; }
+  .dA .t-words { font-weight: 700; font-size: 72px; line-height: 1; letter-spacing: -0.005em; }
+  .dB .t-words { font-weight: 900; font-size: 64px; line-height: 1; letter-spacing: -0.018em; }
+  .t-words em { font-style: italic; }
+  .t-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+  .t-wm { font-family: var(--m); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,240,230,.45); }
+
+  /* ===== NEWSLETTER ===== */
+  .news { width: 1280px; height: 640px; display: flex; flex-direction: column; }
+  .nw-in { padding: 34px 48px 0; flex: 1; }
+  .nw-mast { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 14px; }
+  .nw-title-sm { font-family: var(--d); font-weight: 700; font-size: 24px; color: #1A1A1A; }
+  .nw-meta { font-family: var(--m); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #6B675E; }
+  .nw-meta b { color: #1F3A5F; font-weight: var(--mw); }
+  .nw-rule { border-top: 2.5px solid #1A1A1A; border-bottom: 1px solid #1A1A1A; height: 4px; margin-bottom: 30px; }
+  .nw-grid { display: grid; grid-template-columns: 1fr 190px; gap: 40px; }
+  .nw-h1 { font-family: var(--d); color: #1A1A1A; margin: 14px 0 20px; }
+  .dA .nw-h1 { font-weight: 700; font-size: 52px; line-height: 1.02; letter-spacing: -0.008em; max-width: 21ch; }
+  .dB .nw-h1 { font-weight: 900; font-size: 45px; line-height: 1.05; letter-spacing: -0.02em; max-width: 20ch; }
+  .nw-abs { display: flex; gap: 14px; align-items: baseline; max-width: 66ch; }
+  .nw-abs .al { font-family: var(--m); font-size: 9.5px; letter-spacing: .14em; color: #8A857A; text-transform: uppercase; flex: 0 0 auto; }
+  .nw-abs p { font-family: var(--b); font-size: 15.5px; line-height: 1.6; color: #55524B; margin: 0; }
+  .nw-band { margin-top: auto; background: #14263E; display: flex; align-items: center; gap: 0; padding: 0 48px; height: 74px; }
+  .mini-n { font-family: var(--m); font-size: 11.5px; color: rgba(245,240,230,.85); border: 1px solid rgba(245,240,230,.3);
+    padding: 8px 12px; white-space: nowrap; background: rgba(31,58,95,.38); }
+  .mini-n.gold { color: #C4A45F; border-left: 2px solid #C4A45F; }
+  .mw { width: 34px; height: 1px; background: rgba(245,240,230,.32); }
+  .nw-band .s-run { margin-left: auto; }
+
+  /* ===== COVER ===== */
+  .cover { width: 1280px; height: 880px; background: #E6DECC; display: flex; align-items: center; justify-content: center; }
+  .sheet { width: 620px; height: 800px; background: #FBF8F1; border: 1px solid #D8CFB9; box-shadow: 0 18px 48px -20px rgba(26,26,26,.3);
+    padding: 40px 44px; display: flex; flex-direction: column; }
+  .c-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 64px; }
+  .c-tag { font-family: var(--m); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #8F6F2C;
+    border: 1px solid #C4A45F; padding: 5px 9px; }
+  .c-title { font-family: var(--d); color: #1A1A1A; margin: 0 0 18px; }
+  .dA .c-title { font-weight: 700; font-size: 58px; line-height: 1.0; letter-spacing: -0.01em; }
+  .dB .c-title { font-weight: 900; font-size: 50px; line-height: 1.04; letter-spacing: -0.02em; }
+  .c-sub { font-family: var(--b); font-size: 15.5px; line-height: 1.6; color: #55524B; margin: 0; max-width: 40ch; }
+  .c-schem { margin: auto 0 40px; position: relative; padding-bottom: 34px; }
+  .c-nodes { display: flex; align-items: center; }
+  .cnode { border: 1.5px solid #1F3A5F; color: #1F3A5F; padding: 10px 14px; font-family: var(--m); font-size: 11px;
+    letter-spacing: .06em; text-transform: uppercase; display: flex; flex-direction: column; gap: 4px; background: #F5F0E6; }
+  .cnode b { font-weight: var(--mw); font-size: 14px; letter-spacing: 0; }
+  .cw { width: 36px; height: 1.5px; background: #1F3A5F; }
+  .c-brk { position: absolute; left: 0; right: 96px; bottom: 12px; height: 8px; border: 1px solid #8F6F2C; border-top: none; }
+  .c-brk span { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); font-family: var(--m); font-size: 9.5px;
+    letter-spacing: .14em; text-transform: uppercase; color: #8F6F2C; white-space: nowrap; }
+  .tb { border: 1.5px solid #1A1A1A; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  .tb-c { padding: 10px 14px; border-right: 1px solid #D8CFB9; }
+  .tb-c:nth-child(3n) { border-right: none; }
+  .tb-c:nth-child(-n+3) { border-bottom: 1px solid #D8CFB9; }
+  .tb-c span { display: block; font-family: var(--m); font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: #8A857A; margin-bottom: 4px; }
+  .tb-c b { font-family: var(--m); font-weight: var(--mw); font-size: 14.5px; color: #1A1A1A; }
+
+  /* ===== STRESS TEST ===== */
+  .stress { width: 1280px; height: 880px; padding: 34px 36px; display: flex; flex-direction: column; gap: 22px; }
+  .st-h { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #6B675E; }
+  .st-grid { display: grid; grid-template-columns: 330px 400px 1fr; gap: 26px; flex: 1; }
+  .st-col { display: flex; flex-direction: column; gap: 12px; }
+  .st-cap { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: #8A857A; }
+  .st-thumb { width: 320px; height: 180px; background: #1A1A1A; padding: 18px 20px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+  .st-thumb .f { font-family: var(--m); font-weight: var(--mw); font-size: 34px; color: #F5F0E6; letter-spacing: -0.02em; }
+  .st-thumb .f i { font-style: normal; color: #C4A45F; }
+  .st-thumb .w { font-family: var(--d); font-size: 27px; line-height: 1.02; color: #F5F0E6; }
+  .dA .st-thumb .w, .st-thumb.ta .w { font-weight: 700; }
+  .st-thumb.tz .w { font-family: 'Zodiak', serif; font-weight: 900; letter-spacing: -0.015em; }
+  .st-thumb.tz .f { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+  .st-note { font-family: var(--font-mono); font-size: 10px; line-height: 1.5; color: #6B675E; }
+  .st-note b { font-weight: 400; }
+  .st-note .ok { color: #5E7F6A; } .st-note .warn { color: #9B3E2E; }
+  .st-mob { width: 390px; height: 234px; background: #F5F0E6; border: 1px solid #C4B99E; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .st-mob .k { font-family: 'Fragment Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: #1F3A5F; }
+  .st-mob h3 { margin: 0; color: #1A1A1A; font-size: 37px; line-height: 1.0; }
+  .st-mob.ta h3 { font-family: 'Boska', serif; font-weight: 700; letter-spacing: -0.008em; }
+  .st-mob.tz h3 { font-family: 'Zodiak', serif; font-weight: 900; letter-spacing: -0.02em; }
+  .st-mob p { margin: 0; font-family: 'Supreme', sans-serif; font-size: 13px; line-height: 1.55; color: #6B675E; }
+  .st-rows { display: flex; flex-direction: column; gap: 14px; }
+  .st-row { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: baseline; border-bottom: 1px solid #E2DAC7; padding-bottom: 12px; }
+  .st-row .sz { font-family: var(--font-mono); font-size: 9.5px; color: #8A857A; letter-spacing: .08em; }
+  .st-row .sp { color: #1A1A1A; line-height: 1.05; }
+  .sp.bo { font-family: 'Boska', serif; font-weight: 700; }
+  .sp.zo { font-family: 'Zodiak', serif; font-weight: 700; letter-spacing: -0.012em; }
+  .st-verdict { background: #1A1A1A; padding: 20px 28px; display: grid; grid-template-columns: auto 1fr 1fr 1fr 1fr; gap: 28px; align-items: center; }
+  .st-verdict .vt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #C4A45F; }
+  .st-verdict .vc { display: flex; flex-direction: column; gap: 4px; }
+  .st-verdict .vc b { font-family: 'Fragment Mono', monospace; font-weight: 400; font-size: 12px; color: #F5F0E6; letter-spacing: .02em; }
+  .st-verdict .vc span { font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: rgba(245,240,230,.5); }
+</style>
+</head>
+<body>
+
+<!-- ============ ROW 1 — PRIMARY: BOSKA × WORKING SCHEMATIC ============ -->
+<div class="frame-label" style="left:40px; top:16px;">3a — Primary · Boska × Working Schematic · site hero</div>
+<section class="frame hero dA" id="3a" style="left:40px; top:48px;">
+  <a href="#3a" class="opt-badge">3a</a>
+  <div class="h-left">
+    <header class="h-nav">
+      <div class="wm"><span class="wm-the">The</span><span class="wm-name">Operator Economy</span></div>
+      <nav class="h-links"><a class="on" href="#3a">Episodes</a><a href="#3a">Blueprints</a><a href="#3a">Newsletter</a><a href="#3a">About</a></nav>
+      <span class="btn ghost sm">Subscribe</span>
+    </header>
+    <div class="h-body">
+      <aside class="rail">
+        <span class="rev">Rev B · 2026-07-02</span>
+        <span class="rnote"><i class="dot"></i>11 sources verified against filings</span>
+        <span class="rnote">fig. 01 recomputed <b>↻ 2d ago</b></span>
+        <span class="rnote">estimates marked, never blended into sourced figures</span>
+      </aside>
+      <div class="h-copy">
+        <div class="kick">Operator Blueprint №004 · Evidence-first</div>
+        <h1 class="h-h1">The businesses you could <em>actually</em> build.</h1>
+        <p class="lead">AI collapsed the cost of building. Every Monday: one real company, its <span class="recomp">$5.9B <i>↻</i></span> proof of demand, and exactly how hard the solo version really is.</p>
+        <div class="cta-row"><span class="btn pri">Watch the breakdown</span><span class="btn ghost">Read Blueprint №004</span></div>
+        <span class="chip"><b>SOURCE</b> Accenture FY2025 · CIO Dive</span>
+      </div>
+    </div>
+  </div>
+  <aside class="h-schem schem grid-d" style="width:500px; flex:0 0 auto;">
+    <div class="s-head"><span class="s-sheet">Sheet 01 of 05 — The stack</span><span class="s-run"><i class="dot pulse"></i>Running</span></div>
+    <div class="s-chain">
+      <div class="node" style="animation-delay:.05s">
+        <div class="n-top"><span>Step 01 · Intake</span><span class="st">● Live</span></div>
+        <div class="n-name">Airtable client portal</div>
+        <div class="n-price">$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.15s">
+        <div class="n-top"><span>Step 02 · The brain</span><span class="st">● Running</span></div>
+        <div class="n-name">Claude API</div>
+        <div class="n-price">$20<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.25s">
+        <div class="n-top"><span>Step 03 · Runtime</span></div>
+        <div class="n-name">n8n, self-hosted</div>
+        <div class="n-price">~$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.35s">
+        <div class="n-top"><span>Step 04 · Delivery</span></div>
+        <div class="n-name">First client project</div>
+        <div class="n-price gold">$2,000</div>
+      </div>
+      <div class="brk" style="height:334px;"><span>≤ $100/mo</span></div>
+    </div>
+    <div class="s-foot">
+      <span class="chip dk"><b>SOURCE</b> Sacra · Apr 2026</span>
+      <span class="s-marg">Margin 94% <i>▲</i></span>
+    </div>
+  </aside>
+</section>
+
+<div class="frame-label" style="left:1360px; top:16px;">3b — Primary · YouTube thumbnail · evidence-object focal</div>
+<section class="frame thumb dA grid-d" id="3b" style="left:1360px; top:48px;">
+  <a href="#3b" class="opt-badge">3b</a>
+  <span class="t-tag">Blueprint №004</span>
+  <div class="t-fig">$5.9B <span class="arr">→</span> <span class="au">$2K</span></div>
+  <div class="t-brkh"><span>The gap</span></div>
+  <h2 class="t-words">Same service. <em>Solo scale.</em></h2>
+  <div class="t-foot">
+    <span class="t-wm">The Operator Economy</span>
+    <span class="chip dk"><b>SOURCE</b> Accenture FY25</span>
+  </div>
+</section>
+
+<div class="frame-label" style="left:2680px; top:16px;">3c — Primary · newsletter masthead · research note</div>
+<section class="frame news dA" id="3c" style="left:2680px; top:48px;">
+  <a href="#3c" class="opt-badge">3c</a>
+  <div class="nw-in">
+    <div class="nw-mast">
+      <span class="nw-title-sm">The Operator Economy</span>
+      <span class="nw-meta"><b>№004</b> · 2026-07-06 · 11 sources · 9 min</span>
+    </div>
+    <div class="nw-rule"></div>
+    <div class="nw-grid">
+      <div>
+        <div class="kick">This week's thesis</div>
+        <h1 class="nw-h1">You can sell AI implementation to businesses drowning in it.</h1>
+        <div class="nw-abs">
+          <span class="al">Abstract</span>
+          <p>Accenture booked <span class="recomp">$5.9B <i>↻</i></span> installing AI it didn't build. The same service exists at solo scale — first projects at $2,000, retainers from $500/mo.</p>
+        </div>
+      </div>
+      <aside class="rail" style="border-right:none; border-left:1px solid #D8CFB9; padding-right:0; padding-left:18px;">
+        <span class="rev">Rev B · today</span>
+        <span class="rnote"><i class="dot"></i>All figures re-checked at send</span>
+        <span class="rnote">reply to challenge any number</span>
+      </aside>
+    </div>
+  </div>
+  <div class="nw-band">
+    <span class="mini-n">Intake · $0</span><i class="mw"></i>
+    <span class="mini-n">Brain · $20/mo</span><i class="mw"></i>
+    <span class="mini-n">Runtime · ~$0</span><i class="mw"></i>
+    <span class="mini-n gold">Out · $2,000</span>
+    <span class="s-run"><i class="dot pulse"></i>Running</span>
+  </div>
+</section>
+
+<div class="frame-label" style="left:4000px; top:16px;">3d — Primary · Operator Blueprint cover · engineering title block</div>
+<section class="frame cover dA" id="3d" style="left:4000px; top:48px;">
+  <a href="#3d" class="opt-badge">3d</a>
+  <div class="sheet">
+    <div class="c-top">
+      <div class="wm"><span class="wm-the">The</span><span class="wm-name">Operator Economy</span></div>
+      <span class="c-tag">Operator Blueprint</span>
+    </div>
+    <h1 class="c-title">AI Implementation as a Service</h1>
+    <p class="c-sub">Who pays, the real numbers at both ends of the market, the exact stack, and the plan to a first client.</p>
+    <div class="c-schem">
+      <div class="c-nodes">
+        <div class="cnode">Intake<b>$0</b></div><i class="cw"></i>
+        <div class="cnode">Brain<b>$20/mo</b></div><i class="cw"></i>
+        <div class="cnode">Runtime<b>~$0</b></div><i class="cw"></i>
+        <div class="cnode" style="border-color:#8F6F2C;color:#8F6F2C;">Out<b>$2,000</b></div>
+      </div>
+      <div class="c-brk"><span>The stack · ≤ $100/mo</span></div>
+    </div>
+    <div class="tb">
+      <div class="tb-c"><span>Blueprint</span><b>№004</b></div>
+      <div class="tb-c"><span>Rev</span><b>B</b></div>
+      <div class="tb-c"><span>Date</span><b>2026-07-02</b></div>
+      <div class="tb-c"><span>Sources</span><b>11</b></div>
+      <div class="tb-c"><span>Difficulty</span><b>Med</b></div>
+      <div class="tb-c"><span>Sheet</span><b>01 / 05</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROW 2 — ALTERNATE: ZODIAK SOLO ============ -->
+<div class="frame-label" style="left:40px; top:1000px;">3e — Alternate · Zodiak solo (tighter, narrower measure) · site hero</div>
+<section class="frame hero dB" id="3e" style="left:40px; top:1032px;">
+  <a href="#3e" class="opt-badge">3e</a>
+  <div class="h-left">
+    <header class="h-nav">
+      <div class="wm"><span class="wm-the">The</span><span class="wm-name">Operator Economy</span></div>
+      <nav class="h-links"><a class="on" href="#3e">Episodes</a><a href="#3e">Blueprints</a><a href="#3e">Newsletter</a><a href="#3e">About</a></nav>
+      <span class="btn ghost sm">Subscribe</span>
+    </header>
+    <div class="h-body">
+      <aside class="rail">
+        <span class="rev">Rev B · 2026-07-02</span>
+        <span class="rnote"><i class="dot"></i>11 sources verified against filings</span>
+        <span class="rnote">fig. 01 recomputed <b>↻ 2d ago</b></span>
+        <span class="rnote">estimates marked, never blended into sourced figures</span>
+      </aside>
+      <div class="h-copy">
+        <div class="kick">Operator Blueprint №004 · Evidence-first</div>
+        <h1 class="h-h1">The businesses you could <em>actually</em> build.</h1>
+        <p class="lead">AI collapsed the cost of building. Every Monday: one real company, its <span class="recomp">$5.9B <i>↻</i></span> proof of demand, and exactly how hard the solo version really is.</p>
+        <div class="cta-row"><span class="btn pri">Watch the breakdown</span><span class="btn ghost">Read Blueprint №004</span></div>
+        <span class="chip"><b>SOURCE</b> Accenture FY2025 · CIO Dive</span>
+      </div>
+    </div>
+  </div>
+  <aside class="h-schem schem grid-d" style="width:500px; flex:0 0 auto;">
+    <div class="s-head"><span class="s-sheet">Sheet 01 of 05 — The stack</span><span class="s-run"><i class="dot pulse"></i>Running</span></div>
+    <div class="s-chain">
+      <div class="node" style="animation-delay:.05s">
+        <div class="n-top"><span>Step 01 · Intake</span><span class="st">● Live</span></div>
+        <div class="n-name">Airtable client portal</div>
+        <div class="n-price">$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.15s">
+        <div class="n-top"><span>Step 02 · The brain</span><span class="st">● Running</span></div>
+        <div class="n-name">Claude API</div>
+        <div class="n-price">$20<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.25s">
+        <div class="n-top"><span>Step 03 · Runtime</span></div>
+        <div class="n-name">n8n, self-hosted</div>
+        <div class="n-price">~$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node" style="animation-delay:.35s">
+        <div class="n-top"><span>Step 04 · Delivery</span></div>
+        <div class="n-name">First client project</div>
+        <div class="n-price gold">$2,000</div>
+      </div>
+      <div class="brk" style="height:334px;"><span>≤ $100/mo</span></div>
+    </div>
+    <div class="s-foot">
+      <span class="chip dk"><b>SOURCE</b> Sacra · Apr 2026</span>
+      <span class="s-marg">Margin 94% <i>▲</i></span>
+    </div>
+  </aside>
+</section>
+
+<div class="frame-label" style="left:1360px; top:1000px;">3f — Alternate · Zodiak · YouTube thumbnail</div>
+<section class="frame thumb dB grid-d" id="3f" style="left:1360px; top:1032px;">
+  <a href="#3f" class="opt-badge">3f</a>
+  <span class="t-tag">Blueprint №004</span>
+  <div class="t-fig">$5.9B <span class="arr">→</span> <span class="au">$2K</span></div>
+  <div class="t-brkh"><span>The gap</span></div>
+  <h2 class="t-words">Same service. <em>Solo scale.</em></h2>
+  <div class="t-foot">
+    <span class="t-wm">The Operator Economy</span>
+    <span class="chip dk"><b>SOURCE</b> Accenture FY25</span>
+  </div>
+</section>
+
+<div class="frame-label" style="left:2680px; top:1000px;">3g — Alternate · Zodiak · newsletter masthead</div>
+<section class="frame news dB" id="3g" style="left:2680px; top:1032px;">
+  <a href="#3g" class="opt-badge">3g</a>
+  <div class="nw-in">
+    <div class="nw-mast">
+      <span class="nw-title-sm">The Operator Economy</span>
+      <span class="nw-meta"><b>№004</b> · 2026-07-06 · 11 sources · 9 min</span>
+    </div>
+    <div class="nw-rule"></div>
+    <div class="nw-grid">
+      <div>
+        <div class="kick">This week's thesis</div>
+        <h1 class="nw-h1">You can sell AI implementation to businesses drowning in it.</h1>
+        <div class="nw-abs">
+          <span class="al">Abstract</span>
+          <p>Accenture booked <span class="recomp">$5.9B <i>↻</i></span> installing AI it didn't build. The same service exists at solo scale — first projects at $2,000, retainers from $500/mo.</p>
+        </div>
+      </div>
+      <aside class="rail" style="border-right:none; border-left:1px solid #D8CFB9; padding-right:0; padding-left:18px;">
+        <span class="rev">Rev B · today</span>
+        <span class="rnote"><i class="dot"></i>All figures re-checked at send</span>
+        <span class="rnote">reply to challenge any number</span>
+      </aside>
+    </div>
+  </div>
+  <div class="nw-band">
+    <span class="mini-n">Intake · $0</span><i class="mw"></i>
+    <span class="mini-n">Brain · $20/mo</span><i class="mw"></i>
+    <span class="mini-n">Runtime · ~$0</span><i class="mw"></i>
+    <span class="mini-n gold">Out · $2,000</span>
+    <span class="s-run"><i class="dot pulse"></i>Running</span>
+  </div>
+</section>
+
+<div class="frame-label" style="left:4000px; top:1000px;">3h — Alternate · Zodiak · blueprint cover</div>
+<section class="frame cover dB" id="3h" style="left:4000px; top:1032px;">
+  <a href="#3h" class="opt-badge">3h</a>
+  <div class="sheet">
+    <div class="c-top">
+      <div class="wm"><span class="wm-the">The</span><span class="wm-name">Operator Economy</span></div>
+      <span class="c-tag">Operator Blueprint</span>
+    </div>
+    <h1 class="c-title">AI Implementation as a Service</h1>
+    <p class="c-sub">Who pays, the real numbers at both ends of the market, the exact stack, and the plan to a first client.</p>
+    <div class="c-schem">
+      <div class="c-nodes">
+        <div class="cnode">Intake<b>$0</b></div><i class="cw"></i>
+        <div class="cnode">Brain<b>$20/mo</b></div><i class="cw"></i>
+        <div class="cnode">Runtime<b>~$0</b></div><i class="cw"></i>
+        <div class="cnode" style="border-color:#8F6F2C;color:#8F6F2C;">Out<b>$2,000</b></div>
+      </div>
+      <div class="c-brk"><span>The stack · ≤ $100/mo</span></div>
+    </div>
+    <div class="tb">
+      <div class="tb-c"><span>Blueprint</span><b>№004</b></div>
+      <div class="tb-c"><span>Rev</span><b>B</b></div>
+      <div class="tb-c"><span>Date</span><b>2026-07-02</b></div>
+      <div class="tb-c"><span>Sources</span><b>11</b></div>
+      <div class="tb-c"><span>Difficulty</span><b>Med</b></div>
+      <div class="tb-c"><span>Sheet</span><b>01 / 05</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROW 3 — TYPE STRESS TEST ============ -->
+<div class="frame-label" style="left:40px; top:1984px;">3i — Boska stress test · small sizes + the two-serif hierarchy</div>
+<section class="frame stress" id="3i" style="left:40px; top:2016px;">
+  <a href="#3i" class="opt-badge">3i</a>
+  <div class="st-h" style="padding-left:52px;">Type stress test — where Boska holds, where it breaks</div>
+  <div class="st-grid">
+    <div class="st-col">
+      <span class="st-cap">Thumbnail scale · 320px wide</span>
+      <div class="st-thumb ta dA">
+        <span class="f">$5.9B <i>→ $2K</i></span>
+        <span class="w">Same service. Solo scale.</span>
+      </div>
+      <span class="st-note"><b>Boska 700 @27px</b> — mass holds; italic hairlines <span class="warn">sparkle at 1× mobile feed size</span></span>
+      <div class="st-thumb tz">
+        <span class="f">$5.9B <i>→ $2K</i></span>
+        <span class="w">Same service. Solo scale.</span>
+      </div>
+      <span class="st-note"><b>Zodiak 900 @27px</b> — <span class="ok">solid; darker mass reads at feed size</span></span>
+    </div>
+    <div class="st-col">
+      <span class="st-cap">Mobile hero · 390px</span>
+      <div class="st-mob ta">
+        <span class="k">Blueprint №004</span>
+        <h3>The businesses you could actually build.</h3>
+        <p>Boska 700 at 37px — display voice survives, thin joins acceptable.</p>
+      </div>
+      <div class="st-mob tz">
+        <span class="k">Blueprint №004</span>
+        <h3>The businesses you could actually build.</h3>
+        <p>Zodiak 900 at 37px, −0.02em — heavier, calmer, slightly wider fit.</p>
+      </div>
+    </div>
+    <div class="st-col">
+      <span class="st-cap">Desktop display &amp; midsizes</span>
+      <div class="st-rows">
+        <div class="st-row"><span class="sz">64px · BO 700</span><span class="sp bo" style="font-size:64px;">Build. Own. Operate.</span></div>
+        <div class="st-row"><span class="sz">64px · ZO 900</span><span class="sp zo" style="font-size:64px; font-weight:900;">Build. Own. Operate.</span></div>
+        <div class="st-row"><span class="sz">28px · BO 700</span><span class="sp bo" style="font-size:28px;">What one operator actually keeps</span></div>
+        <div class="st-row"><span class="sz">28px · ZO 700</span><span class="sp zo" style="font-size:28px;">What one operator actually keeps</span></div>
+        <div class="st-row" style="border-bottom:none;"><span class="sz">20px · both</span><span><span class="sp bo" style="font-size:20px;">Boska thins here — </span><span class="st-note warn" style="font-size:10px;">✕ avoid &lt;24px</span>&nbsp;&nbsp;<span class="sp zo" style="font-size:20px;">Zodiak holds — </span><span class="st-note ok" style="font-size:10px;">✓ ok to 18px</span></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="st-verdict">
+    <span class="vt">Recommended<br />hierarchy</span>
+    <div class="vc"><b>Boska 700/900</b><span>Display ≥ 48px only</span></div>
+    <div class="vc"><b>Zodiak 700</b><span>Headings 20–44px · −0.02em</span></div>
+    <div class="vc"><b>Supreme</b><span>Body &amp; UI · 400/500</span></div>
+    <div class="vc"><b>Fragment Mono</b><span>All data &amp; citations</span></div>
+  </div>
+</section>
+
+</body>
+</html>

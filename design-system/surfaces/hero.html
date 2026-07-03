@@ -1,0 +1,130 @@
+<!-- @dsCard group="Surfaces" viewport="1280x880" name="Site hero — final" subtitle="Cream editorial + live navy schematic, margin rail, one italic" -->
+<!-- @startingPoint section="Surfaces" subtitle="The Working Schematic site hero" viewport="1280x880" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Operator Economy — Site hero</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); }
+  .hero { width: 1280px; height: 880px; display: flex; overflow: hidden; }
+
+  .h-left { flex: 1; display: flex; flex-direction: column; padding: 30px 44px 40px; }
+  .h-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+  .wm { display: flex; flex-direction: column; line-height: 1; }
+  .wm-the { font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 3px; }
+  .wm-name { font-family: var(--font-heading); font-weight: 700; font-size: 21px; color: var(--ink-900); letter-spacing: -0.01em; }
+  .h-links { display: flex; gap: 24px; }
+  .h-links a { font-family: var(--font-sans); font-size: 13.5px; font-weight: 500; color: var(--text-muted); text-decoration: none; padding-bottom: 4px; }
+  .h-links a.on { color: var(--ink-900); border-bottom: 2px solid var(--drafting-blue); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 24px; font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap; }
+  .btn.pri { background: var(--surface-schematic); color: var(--paper-100); border: 1px solid var(--surface-schematic); }
+  .btn.ghost { background: transparent; color: var(--ink-900); border: 1px solid var(--rule-strong); }
+  .btn.sm { padding: 8px 16px; font-size: 12.5px; }
+
+  .h-body { display: grid; grid-template-columns: 148px 1fr; gap: 30px; padding-top: 54px; flex: 1; }
+  .rail { display: flex; flex-direction: column; gap: 16px; border-right: 1px solid var(--border); padding-right: 18px; padding-top: 6px; }
+  .rev { align-self: flex-start; white-space: nowrap; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-700); border: 1px solid var(--rule-strong); padding: 4px 7px; background: var(--paper-0); }
+  .rnote { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.55; color: var(--text-muted); display: flex; gap: 7px; align-items: baseline; }
+  .rnote .dot { flex: 0 0 auto; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--status-live); transform: translateY(-1px); }
+  .rnote b { font-weight: 400; color: var(--gold-700); white-space: nowrap; }
+
+  .h-copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .kick { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--drafting-blue); }
+  .h-h1 { font-family: var(--font-display); font-weight: 700; font-size: 78px; line-height: .98; letter-spacing: var(--tracking-display); color: var(--ink-900); margin: 20px 0 24px; }
+  .h-h1 em { font-style: italic; font-weight: inherit; } /* the ONE italic in this composition */
+  .lead { font-family: var(--font-sans); font-size: 18px; line-height: 1.62; color: var(--ink-700); max-width: 46ch; margin: 0 0 32px; }
+  .recomp { font-family: var(--font-mono); color: var(--ink-900); border-bottom: 1.5px dotted var(--gold-700); white-space: nowrap; }
+  .recomp i { font-style: normal; font-size: .62em; color: var(--gold-700); letter-spacing: .04em; }
+  .cta-row { display: flex; gap: 12px; margin-bottom: 26px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-700); border: 1px solid var(--border); border-left: 2px solid var(--drafting-blue); background: var(--paper-0); }
+  .chip b { font-weight: 400; font-size: 10px; letter-spacing: .1em; color: var(--drafting-blue); }
+
+  .schem { width: 500px; flex: 0 0 auto; background: var(--surface-schematic); position: relative; padding: 22px 26px;
+    background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+  .s-head { display: flex; justify-content: space-between; align-items: center; }
+  .s-sheet { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,240,230,.65); }
+  .s-run { display: inline-flex; gap: 7px; align-items: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--status-live); }
+  .s-run .dot { width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--status-live); }
+  .s-chain { position: relative; width: 340px; margin-top: 30px; }
+  .node { border: 1px solid var(--schem-node-border); background: var(--schem-node-bg); padding: 12px 14px; }
+  .n-top { display: flex; justify-content: space-between; gap: 10px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: rgba(245,240,230,.55); margin-bottom: 7px; }
+  .n-top .st { color: var(--status-live); }
+  .n-name { font-family: var(--font-sans); font-size: 14.5px; font-weight: 500; color: var(--paper-100); margin-bottom: 6px; }
+  .n-price { font-family: var(--font-mono); font-size: 17px; color: rgba(245,240,230,.92); }
+  .n-price span { font-size: 11px; color: rgba(245,240,230,.55); }
+  .n-price.gold { color: var(--gold-bright); }
+  .wire { display: block; width: 1px; height: 24px; background: var(--schem-wire); margin-left: 44px; position: relative; }
+  .wire::before, .wire::after { content: ''; position: absolute; left: -2.5px; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--surface-schematic); border: 1px solid rgba(245,240,230,.5); }
+  .wire::before { top: -3px; } .wire::after { bottom: -3px; }
+  .brk { position: absolute; top: 0; right: -46px; width: 9px; height: 334px; border: 1px solid rgba(245,240,230,.4); border-left: none; }
+  .brk span { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: var(--font-mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,240,230,.6); white-space: nowrap; }
+  .s-foot { position: absolute; left: 26px; right: 26px; bottom: 22px; display: flex; justify-content: space-between; align-items: center; }
+  .chip.dk { background: rgba(26,26,26,.5); border-color: rgba(245,240,230,.22); border-left: 2px solid var(--gold-bright); color: rgba(245,240,230,.8); }
+  .chip.dk b { color: var(--gold-bright); }
+  .s-marg { font-family: var(--font-mono); font-size: 12px; color: rgba(245,240,230,.85); letter-spacing: .04em; }
+  .s-marg i { font-style: normal; color: var(--status-live); }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="h-left">
+    <header class="h-nav">
+      <div class="wm"><span class="wm-the">The</span><span class="wm-name">Operator Economy</span></div>
+      <nav class="h-links"><a class="on" href="#">Episodes</a><a href="#">Blueprints</a><a href="#">Newsletter</a><a href="#">About</a></nav>
+      <span class="btn ghost sm">Subscribe</span>
+    </header>
+    <div class="h-body">
+      <aside class="rail">
+        <span class="rev">Rev C · 2026-07-02</span>
+        <span class="rnote"><i class="dot"></i>11 sources verified against filings</span>
+        <span class="rnote">fig. 01 recomputed <b>↻ 2d ago</b></span>
+        <span class="rnote">estimates marked, never blended into sourced figures</span>
+      </aside>
+      <div class="h-copy">
+        <div class="kick">Operator Blueprint №004 · Evidence-first</div>
+        <h1 class="h-h1">The businesses you could <em>actually</em> build.</h1>
+        <p class="lead">AI collapsed the cost of building. Every Monday: one real company, its <span class="recomp">$5.9B <i>↻</i></span> proof of demand, and exactly how hard the solo version really is.</p>
+        <div class="cta-row"><span class="btn pri">Watch the breakdown</span><span class="btn ghost">Read Blueprint №004</span></div>
+        <span class="chip"><b>SOURCE</b> Accenture FY2025 · CIO Dive</span>
+      </div>
+    </div>
+  </div>
+  <aside class="schem">
+    <div class="s-head"><span class="s-sheet">Sheet 01 of 05 — The stack</span><span class="s-run"><i class="dot oe-pulse"></i>Running</span></div>
+    <div class="s-chain">
+      <div class="node">
+        <div class="n-top"><span>Step 01 · Intake</span><span class="st">● Live</span></div>
+        <div class="n-name">Airtable client portal</div>
+        <div class="n-price">$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node">
+        <div class="n-top"><span>Step 02 · The brain</span><span class="st">● Running</span></div>
+        <div class="n-name">Claude API</div>
+        <div class="n-price">$20<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node">
+        <div class="n-top"><span>Step 03 · Runtime</span></div>
+        <div class="n-name">n8n, self-hosted</div>
+        <div class="n-price">~$0<span>/mo</span></div>
+      </div>
+      <i class="wire"></i>
+      <div class="node">
+        <div class="n-top"><span>Step 04 · Delivery</span></div>
+        <div class="n-name">First client project</div>
+        <div class="n-price gold">$2,000</div>
+      </div>
+      <div class="brk"><span>≤ $100/mo</span></div>
+    </div>
+    <div class="s-foot">
+      <span class="chip dk"><b>SOURCE</b> Sacra · Apr 2026</span>
+      <span class="s-marg">Margin 94% <i>▲</i></span>
+    </div>
+  </aside>
+</section>
+</body>
+</html>

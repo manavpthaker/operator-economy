@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Radii" subtitle="Near-square corners — a drafting sheet, not a bubble" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); padding: 22px 26px; font-family: var(--font-sans); }
+  .row { display: flex; gap: 22px; align-items: flex-end; }
+  .item { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+  .box { width: 76px; height: 60px; background: var(--paper-0); border: 1.5px solid var(--rule-strong); }
+  .name { font-family: var(--font-mono); font-size: var(--text-2xs); color: var(--ink-900); }
+  .val { font-family: var(--font-mono); font-size: var(--text-3xs); color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="border-radius:var(--radius-none)"></div><span class="name">none</span><span class="val">0</span></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-xs)"></div><span class="name">xs</span><span class="val">2px</span></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-sm)"></div><span class="name">sm</span><span class="val">3px</span></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-md)"></div><span class="name">md</span><span class="val">3px (cap)</span></div>
+    <div class="item"><div class="box" style="width:60px;border-radius:var(--radius-pill)"></div><span class="name">pill</span><span class="val">dots only</span></div>
+  </div>
+</body>
+</html>

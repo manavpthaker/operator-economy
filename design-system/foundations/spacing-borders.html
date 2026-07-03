@@ -1,0 +1,40 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Borders, rules & shadows" subtitle="Depth from hairlines and paper tone, not float" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); padding: 22px 26px; font-family: var(--font-sans); }
+  .cols { display: grid; grid-template-columns: 1.1fr 1fr; gap: 26px; }
+  .lbl { font: var(--type-label); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: 10px; }
+  .rules { display: flex; flex-direction: column; gap: 10px; }
+  .r { display: flex; align-items: center; gap: 12px; }
+  .r span { font-family: var(--font-mono); font-size: var(--text-3xs); color: var(--text-muted); width: 92px; }
+  .r i { flex: 1; }
+  .shadows { display: flex; gap: 16px; }
+  .card { width: 80px; height: 56px; background: var(--paper-0); border: 1px solid var(--border); border-radius: var(--radius-md); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; font-family: var(--font-mono); font-size: var(--text-3xs); color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="cols">
+    <div>
+      <div class="lbl">Rules</div>
+      <div class="rules">
+        <div class="r"><span>hair 1px</span><i style="border-top:1px solid var(--rule)"></i></div>
+        <div class="r"><span>medium 1.5</span><i style="border-top:1.5px solid var(--rule-strong)"></i></div>
+        <div class="r"><span>thick 2px</span><i style="border-top:2px solid var(--drafting-blue)"></i></div>
+      </div>
+    </div>
+    <div>
+      <div class="lbl">Shadows</div>
+      <div class="shadows">
+        <div class="card" style="box-shadow:var(--shadow-xs)">xs</div>
+        <div class="card" style="box-shadow:var(--shadow-sm)">sm</div>
+        <div class="card" style="box-shadow:var(--shadow-md)">md</div>
+        <div class="card" style="box-shadow:var(--shadow-lg)">lg</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

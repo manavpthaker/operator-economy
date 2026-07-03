@@ -1,0 +1,79 @@
+<!-- @dsCard group="Surfaces" viewport="1280x640" name="Newsletter masthead — final" subtitle="Research note with the gap figure pulled into the mast" -->
+<!-- @startingPoint section="Surfaces" subtitle="Research-note newsletter masthead" viewport="1280x640" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Operator Economy — Newsletter masthead</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); }
+  .news { width: 1280px; height: 640px; display: flex; flex-direction: column; overflow: hidden; }
+  .nw-in { padding: 34px 48px 0; flex: 1; }
+  .nw-mast { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 14px; }
+  .nw-name { font-family: var(--font-heading); font-weight: 700; font-size: 24px; letter-spacing: -0.01em; color: var(--ink-900); }
+  .nw-right { display: flex; align-items: baseline; gap: 22px; }
+  .nw-gap { font-family: var(--font-mono); font-size: 19px; color: var(--ink-900); letter-spacing: -0.01em; }
+  .nw-gap i { font-style: normal; color: var(--gold-700); }
+  .nw-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+  .nw-meta b { color: var(--drafting-blue); font-weight: 400; }
+  .nw-rule { border-top: 2.5px solid var(--ink-900); border-bottom: 1px solid var(--ink-900); height: 4px; margin-bottom: 30px; }
+  .nw-grid { display: grid; grid-template-columns: 1fr 190px; gap: 40px; }
+  .kick { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--drafting-blue); }
+  .nw-h1 { font-family: var(--font-heading); font-weight: 700; font-size: 50px; line-height: 1.05; letter-spacing: var(--tracking-heading); color: var(--ink-900); margin: 14px 0 20px; max-width: 21ch; }
+  .nw-abs { display: flex; gap: 14px; align-items: baseline; max-width: 66ch; }
+  .nw-abs .al { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; color: var(--text-faint); text-transform: uppercase; flex: 0 0 auto; }
+  .nw-abs p { font-family: var(--font-sans); font-size: 15.5px; line-height: 1.6; color: var(--ink-700); margin: 0; }
+  .recomp { font-family: var(--font-mono); color: var(--ink-900); border-bottom: 1.5px dotted var(--gold-700); white-space: nowrap; }
+  .recomp i { font-style: normal; font-size: .62em; color: var(--gold-700); letter-spacing: .04em; }
+  .rail { display: flex; flex-direction: column; gap: 16px; border-left: 1px solid var(--border); padding-left: 18px; }
+  .rev { align-self: flex-start; white-space: nowrap; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-700); border: 1px solid var(--rule-strong); padding: 4px 7px; background: var(--paper-0); }
+  .rnote { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.55; color: var(--text-muted); display: flex; gap: 7px; align-items: baseline; }
+  .rnote .dot { flex: 0 0 auto; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--status-live); transform: translateY(-1px); }
+  .nw-band { margin-top: auto; background: var(--surface-schematic); display: flex; align-items: center; padding: 0 48px; height: 74px;
+    background-image: repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+  .mini-n { font-family: var(--font-mono); font-size: 11.5px; color: rgba(245,240,230,.85); border: 1px solid var(--schem-node-border); padding: 8px 12px; white-space: nowrap; background: var(--schem-node-bg); }
+  .mini-n.gold { color: var(--gold-bright); border-left: 2px solid var(--gold-bright); }
+  .mw { width: 34px; height: 1px; background: var(--schem-wire); }
+  .s-run { margin-left: auto; display: inline-flex; gap: 7px; align-items: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--status-live); }
+  .s-run .dot { width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--status-live); }
+</style>
+</head>
+<body>
+<section class="news">
+  <div class="nw-in">
+    <div class="nw-mast">
+      <span class="nw-name">The Operator Economy</span>
+      <div class="nw-right">
+        <span class="nw-gap">$5.9B <i>→</i> <i>$2K</i></span>
+        <span class="nw-meta"><b>№004</b> · 2026-07-06 · 11 sources · 9 min</span>
+      </div>
+    </div>
+    <div class="nw-rule"></div>
+    <div class="nw-grid">
+      <div>
+        <div class="kick">This week's thesis</div>
+        <h1 class="nw-h1">You can sell AI implementation to businesses drowning in it.</h1>
+        <div class="nw-abs">
+          <span class="al">Abstract</span>
+          <p>Accenture booked <span class="recomp">$5.9B <i>↻</i></span> installing AI it didn't build. The same service exists at solo scale — first projects at $2,000, retainers from $500/mo.</p>
+        </div>
+      </div>
+      <aside class="rail">
+        <span class="rev">Rev C · today</span>
+        <span class="rnote"><i class="dot"></i>All figures re-checked at send</span>
+        <span class="rnote">reply to challenge any number</span>
+      </aside>
+    </div>
+  </div>
+  <div class="nw-band">
+    <span class="mini-n">Intake · $0</span><i class="mw"></i>
+    <span class="mini-n">Brain · $20/mo</span><i class="mw"></i>
+    <span class="mini-n">Runtime · ~$0</span><i class="mw"></i>
+    <span class="mini-n gold">Out · $2,000</span>
+    <span class="s-run"><i class="dot oe-pulse"></i>Running</span>
+  </div>
+</section>
+</body>
+</html>

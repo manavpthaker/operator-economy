@@ -1,0 +1,72 @@
+/* ============================================================
+   The Operator Economy — Typography (Rev C)
+   ------------------------------------------------------------
+   RULES (locked from the type stress test):
+   · Boska is display-only: NEVER below 40px (hairlines sparkle).
+   · Zodiak 700 carries 18–44px headings, tracked -0.02em.
+   · Supreme for body/UI (no real 600 — semibold maps to 500).
+   · Fragment Mono (single 400 weight) for ALL numbers &
+     citations; scale carries emphasis, never synthetic bold.
+   · ITALIC RATION: at most ONE italic phrase per composition.
+   ============================================================ */
+
+:root {
+  /* --- Families --- */
+  --font-display: 'Boska', Georgia, 'Times New Roman', serif;   /* >=40px ONLY */
+  --font-heading: 'Zodiak', Georgia, 'Times New Roman', serif;  /* 18-44px */
+  --font-serif:   var(--font-heading); /* legacy alias */
+  --font-sans:  'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'Fragment Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* --- Weights --- */
+  --w-regular:  400; /* @kind font */
+  --w-medium:   500; /* @kind font */
+  --w-semibold: 500; /* @kind font */ /* Supreme ships no 600; alias to 500 */
+  --w-bold:     700; /* @kind font */ /* Boska & Zodiak workhorse weight */
+  --w-black:    900; /* @kind font */ /* Zodiak thumbnails only */
+  --w-mono:     400; /* @kind font */ /* Fragment Mono's only weight */
+
+  /* --- Type scale (rem, 16px base) --- */
+  --text-3xs: 0.6875rem; /*  11px — micro labels, doc-number caps */
+  --text-2xs: 0.75rem;   /*  12px — citation chips, table meta */
+  --text-xs:  0.8125rem; /*  13px — small UI, annotation labels */
+  --text-sm:  0.9375rem; /*  15px — secondary body, captions */
+  --text-base:1.0625rem; /*  17px — body copy (editorial default) */
+  --text-lg:  1.25rem;   /*  20px — lead paragraph */
+  --text-xl:  1.5rem;    /*  24px — small heading (Zodiak) */
+  --text-2xl: 2rem;      /*  32px — section heading (Zodiak) */
+  --text-3xl: 2.75rem;   /*  44px — page heading (Boska floor is 40px) */
+  --text-4xl: 3.75rem;   /*  60px — hero display (Boska) */
+  --text-5xl: 5rem;      /*  80px — thumbnail / display figures */
+
+  /* --- Line height --- */
+  --leading-tight:   1.04;  /* Boska display */
+  --leading-snug:    1.12;  /* Zodiak headings */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.65;  /* body reading measure */
+
+  /* --- Tracking --- */
+  --tracking-display: -0.01em;  /* Boska display */
+  --tracking-heading: -0.02em;  /* Zodiak 20–44px (kills the wide feel) */
+  --tracking-tight:   -0.01em;  /* legacy alias */
+  --tracking-label:  0.14em;    /* small-caps annotation labels */
+  --tracking-caps:   0.08em;    /* doc numbers, sheet tags */
+  --tracking-mono:   0.01em;    /* mono numerals */
+
+  /* --- Reading measure --- */
+  --measure: 68ch;
+
+  /* ==========================================================
+     Semantic type roles
+     ========================================================== */
+  --type-display:  var(--w-bold)   var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-h1:       var(--w-bold)   var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h2:       var(--w-bold)   var(--text-2xl)/var(--leading-snug)  var(--font-heading);
+  --type-h3:       var(--w-bold)   var(--text-xl)/var(--leading-snug)   var(--font-heading);
+  --type-lead:     var(--w-regular) var(--text-lg)/var(--leading-relaxed) var(--font-sans);
+  --type-body:     var(--w-regular) var(--text-base)/var(--leading-relaxed) var(--font-sans);
+  --type-ui:       var(--w-medium)  var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-data:     var(--w-mono)    var(--text-base)/var(--leading-snug) var(--font-mono);
+  --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
+  --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
+}

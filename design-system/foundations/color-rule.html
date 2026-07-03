@@ -1,0 +1,37 @@
+<!-- @dsCard group="Colors" viewport="700x220" name="The one-accent rule" subtitle="Any frame: Ink + Paper + at most ONE accent" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--surface-page); padding: 22px; font-family: var(--font-sans); }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .frame { border: 1px solid var(--border); border-radius: var(--radius-xs); padding: 16px; height: 128px; display: flex; flex-direction: column; justify-content: space-between; }
+  .tag { font: var(--type-label); text-transform: uppercase; letter-spacing: var(--tracking-label); }
+  .big { font-family: var(--font-mono); font-weight: 600; font-size: 30px; }
+  .ok { position: relative; }
+  .bad { opacity: .96; }
+  .verdict { font-family: var(--font-mono); font-size: var(--text-3xs); letter-spacing: .06em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="frame" style="background:var(--ink);">
+      <span class="tag" style="color:var(--sage-500)">Do</span>
+      <span class="big" style="color:var(--ledger-gold)">$5.9B</span>
+      <span class="verdict" style="color:var(--text-on-ink-muted)">Ink + one gold figure</span>
+    </div>
+    <div class="frame" style="background:var(--paper-0);">
+      <span class="tag" style="color:var(--drafting-blue)">Do</span>
+      <span class="big" style="color:var(--drafting-blue)">31%</span>
+      <span class="verdict" style="color:var(--text-muted)">Paper + one blue accent</span>
+    </div>
+    <div class="frame" style="background:var(--paper-0);">
+      <span class="tag" style="color:var(--negative)">Don't</span>
+      <span class="big"><span style="color:var(--drafting-blue)">$2K</span> <span style="color:var(--ledger-gold)">40%</span> <span style="color:var(--sage-500)">2×</span></span>
+      <span class="verdict" style="color:var(--negative)">Three accents at once</span>
+    </div>
+  </div>
+</body>
+</html>

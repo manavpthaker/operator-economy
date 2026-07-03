@@ -1,0 +1,60 @@
+<!-- @dsCard group="Components" viewport="700x760" name="Brand — Schematic, GapFigure, Citation, TitleBlock, Stat, Sheet" subtitle="The signature working-schematic & documentation elements" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--surface-page); padding: 26px; }
+  .grid { display: flex; flex-direction: column; gap: 22px; max-width: 648px; }
+  .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { CitationChip, TitleBlock, Stat, SheetHeader, GapFigure, Schematic, SchematicNode } = window.TheOperatorEconomyDesignSystem_bf951d;
+  function Demo() {
+    return (
+      <div className="grid">
+        <div className="row">
+          <CitationChip source="Sacra" date="Apr 2026" />
+          <CitationChip source="Creator reports" estimate />
+          <GapFigure from="$5.9B" to="$2K" size="sm" />
+        </div>
+        <div className="two">
+          <Schematic sheet={1} total={5} title="The stack" bracket="≤ $100/mo" source="Sacra · Apr 2026">
+            <SchematicNode step="Step 01 · Intake" name="Airtable portal" figure="$0" unit="/mo" status="Live" />
+            <SchematicNode step="Step 02 · The brain" name="Claude API" figure="$20" unit="/mo" status="Running" />
+            <SchematicNode step="Step 04 · Delivery" name="First project" figure="$2,000" highlight />
+          </Schematic>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div className="row" style={{ gap: 28 }}>
+              <Stat prefix="$" value="5.9" unit="B" label="GenAI bookings" emphasis="gold" size="md" />
+              <Stat value="31" unit="%" label="Margin" delta="2×" deltaDirection="up" size="md" />
+            </div>
+            <TitleBlock
+              docNumber="Operator Blueprint №004"
+              title="AI Implementation as a Service"
+              fields={[
+                { label: 'Rev', value: 'C' },
+                { label: 'Date', value: '2026-07-02' },
+                { label: 'Sources', value: '11' },
+              ]}
+            />
+            <SheetHeader sheet={2} total={5} title="Unit economics" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

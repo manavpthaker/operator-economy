@@ -1,5 +1,7 @@
 # Design system — The Operator Economy
 
+> **SUPERSEDED (2026-07-02).** This v1 proposal has been finalized as **Rev C** and now lives at [`/design-system/`](../design-system/README.md) — that directory is the single source of truth (tokens, components, guidelines, reference surfaces). This file is kept as the strategy rationale behind it. Where the two disagree, `/design-system/` wins.
+
 Source: 4 comp reports (`../research/comp-synthesis.md`) + Manav's positioning take (July 2026). Status: v1 proposal for Manav's design pass.
 
 ## 1. Positioning the brand must express
