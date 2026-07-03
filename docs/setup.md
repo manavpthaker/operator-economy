@@ -15,7 +15,8 @@ Handoff medium = the git repo. The scheduled task commits; you pull and run keye
 ## Status — July 2, 2026 session
 
 DONE: Anthropic key → `studio/.env` (gitignored) · domain bought (Vercel) · YouTube channel branded via browser (name "The Operator Economy", @operatoreconomy, full description published) · GCC project `operator-economy` under brownmanbeard@gmail.com: YouTube Data API v3 + Analytics API enabled, OAuth consent screen (External/testing), Desktop OAuth client created, client-secret JSON in Downloads (→ move to `studio/.secrets/`, gitignored), brownmanbeard added as test user.
-PENDING: ElevenLabs (account lives in a DIFFERENT browser/profile than the Claude extension — log in there or paste API key + voice_id; Creator plan + PVC recording is Manav's) · YouTube API compliance audit form · phone verification for thumbnails · Resend domain DNS · site build on Vercel.
+DONE (later same day): ElevenLabs key → `studio/.env` — account is **Pro tier** (607K chars/mo, commercial rights) and a **Professional Voice Clone already exists**: 'brown man pro' (`q9RtP62PWHxX4IPG7uSM`), now set in `studio/config/blueprint.json`. Smoke-tested the exact pipeline path (PVC + eleven_v3 + with-timestamps endpoint): 5s audio + character alignment returned clean.
+PENDING: YouTube API compliance audit form · phone verification for thumbnails · pronunciation dictionary (build during pilot VO) · Resend domain DNS · site build on Vercel.
 
 ## Accounts & keys checklist
 
