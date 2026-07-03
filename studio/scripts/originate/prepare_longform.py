@@ -136,18 +136,21 @@ def main():
             for r in screen.get("reveals", []):
                 asset = asset_index.get((sid, r["beat"]), {})
                 rng = beat_time.get((sid, r["beat"]))
+                # Prefer explicit reveal timings/titles from the
+                # storyboard (Manav's hand-tune) over the section-level
+                # word-count fallback. This lets a hand-tuned quote card
+                # OVERRIDE the underlying beat's plan_assets title.
+                sb_title = r.get("title")
+                sb_body = r.get("body")
+                sb_at = r.get("at")
+                sb_end = r.get("end")
                 reveals_out.append({
                     "beat": r["beat"],
-                    "at": rng[0] if rng else r.get("at"),
-                    "end": rng[1] if rng else r.get("at"),
-                    # Prefer plan_assets titles when available (Manav-tuned),
-                    # fall back to the storyboard-derived working title.
-                    "title": asset.get("title") or r.get("title", ""),
-                    "body": " · ".join(asset["bullets"]) if asset.get("bullets") else r.get("body", ""),
+                    "at": sb_at if sb_at is not None else (rng[0] if rng else None),
+                    "end": sb_end if sb_end is not None else (rng[1] if rng else None),
+                    "title": sb_title or asset.get("title") or "",
+                    "body": sb_body or (" · ".join(asset["bullets"]) if asset.get("bullets") else ""),
                     "asset": asset,
-                    # Carry the storyboard's tag list + word anchor so
-                    # the composition can land visuals 2–3 frames before
-                    # the anchor word (craft §motion).
                     "tags": r.get("tags", []),
                     "word_anchor": r.get("word_anchor"),
                 })
@@ -164,6 +167,10 @@ def main():
                 # SFX + music cues authored by the storyboard.
                 "sfx": screen.get("sfx", []),
                 "music": screen.get("music", {"intensity": "calm", "duck_db": -16}),
+                # Hand-tuned custom props (quote text, ladder steps,
+                # offer card fields, etc.). Composition prefers these
+                # over derived fields when both are present.
+                "custom": screen.get("custom"),
                 # The audio path per section, so the composition can
                 # sequence Audio without walking `sections`.
                 "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),

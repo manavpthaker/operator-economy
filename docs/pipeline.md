@@ -28,8 +28,18 @@ cp -r originate/<slug>/vo remotion/public/vo   # audio must be reachable by stat
 cd remotion && npx remotion render src/index.ts Blueprint ../output/<slug>.mp4 \
     --props=../originate/<slug>/render_data/blueprint.json
 
+# 3a. Loudness normalization (Rev C rubric §VII — required for publish).
+# YouTube normalizes to -14 LUFS integrated; this pass anchors us there
+# so quiet uploads don't stay quiet. TP ≤ -1 dBTP is the true-peak floor.
+ffmpeg -i ../output/<slug>.mp4 -af 'loudnorm=I=-14:TP=-1:LRA=11' \
+    -c:v copy ../output/<slug>.norm.mp4
+
+# Verify with the edit rubric (uses ffmpeg loudnorm print internally):
+python scripts/originate/eval_edit.py originate/<slug>/script.json \
+    --rendered output/<slug>.norm.mp4
+
 # 4. Shorts — existing viddy pipeline on the rendered long-form
-python pipeline.py output/<slug>.mp4
+python pipeline.py output/<slug>.norm.mp4
 
 # 5. Publish (seeding motion — order matters, per research synthesis)
 #   - upload long-form, CHECK THE AI-DISCLOSURE BOX, schedule

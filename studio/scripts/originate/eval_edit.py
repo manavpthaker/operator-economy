@@ -116,14 +116,30 @@ def check_cadence(screens: list[dict]) -> Check:
     - No static composition >20s unless actively building (≥2 reveals)
     - Composition reset every 25–45s
     - Never >2 consecutive `sheet` screens
+    - Quote / chapter_reset screens are IMPACT FRAMES by design (craft
+      §P1): 1.2–4s short holds are correct there; only sheet/chart-like
+      screens are checked for the 10s hard floor.
     """
     c = Check("Cadence (static holds, resets, sheet runs)", 5)
     warnings = 0
     hard_kills = 0
 
+    IMPACT_LAYOUTS = {"quote", "chapter_reset"}
+
     for s in screens:
         dur = s["end"] - s["start"]
         reveals = len(s.get("reveals", []))
+        layout = s["layout"]
+        if layout in IMPACT_LAYOUTS:
+            if dur < 1.0:
+                warnings += 1
+                c.warn_hit(f"{s['id']} {layout} holds only {dur:.1f}s — even impact frames "
+                           "want ≥1s so the line lands.")
+            elif dur > 6:
+                warnings += 1
+                c.warn_hit(f"{s['id']} {layout} holds {dur:.1f}s — impact frames should be "
+                           "1.2–4s; extended holds turn into title slides.")
+            continue
         if dur > 20 and reveals < 2:
             warnings += 1
             c.warn_hit(f"{s['id']} holds {dur:.1f}s with only {reveals} reveal — "
@@ -329,8 +345,12 @@ def check_kill_list(screens: list[dict]) -> list[str]:
 
     # >45s without composition reset — computed as any single screen
     # holding past 45s. (Consecutive short screens don't qualify — the
-    # reset is the *screen* boundary.)
+    # reset is the *screen* boundary.) Impact frames (quote /
+    # chapter_reset) are exempt: they aren't the ones "holding" the
+    # composition even if they run long.
     for s in screens:
+        if s["layout"] in ("quote", "chapter_reset"):
+            continue
         if (s["end"] - s["start"]) > 45:
             kills.append(f"[45s cap] {s['id']} spans {s['end'] - s['start']:.1f}s — over the 45s limit.")
 
