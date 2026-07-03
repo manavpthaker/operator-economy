@@ -172,3 +172,16 @@ From `faceless-video-editing-research.md` §"Visual cadence" + `faceless-video-c
 
 - Should the episode-wide schematic (plan_assets Phase 2 TODO) become a storyboard `layout: "schematic"` that persists across sections? (Leaning yes; blocked on a `schematic_context` field in the tag map that survives section transitions.)
 - Are `case_file` and `offer_card` two layouts or one polymorphic? (Kept two until we author a second episode and see how the shapes diverge.)
+
+## Step 3.5 — the pacing pass (added 2026-07-03)
+
+After storyboard.py (and any hand-tune), run:
+
+    python scripts/originate/pace_storyboard.py originate/<slug>/script.json
+
+It stages each screen's EXISTING content across its window — body fragments,
+custom-card items, highlight-word pulses (anchored to vo/words.json), chart
+focus cycles — as per-screen `events` the renderer performs. Never invents
+text. Idempotent; always re-run after hand-tuning or VO regeneration.
+Order: storyboard.py → hand-tune → pace_storyboard.py → prepare_longform.py.
+eval_edit.py enforces density (worst dead stretch ≤8s target, >16s kill).

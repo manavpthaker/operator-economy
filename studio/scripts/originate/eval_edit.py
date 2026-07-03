@@ -5,7 +5,7 @@ Runs against `originate/<slug>/storyboard.json` (AUTO checks) plus,
 optionally, the rendered MP4 (loudness only). Feeds `confidence.py`
 under the craft slot alongside `eval_package.py`.
 
-Scoring: 20 pts total; publish gate ≥16 AND zero kill-list hits.
+Scoring: 23 pts total; publish gate ≥18 (kept at 80%) AND zero kill-list hits.
 Exit code: 0 on PASS (or WARN-only), 1 on HARD FAIL.
 
 Usage:
@@ -171,6 +171,54 @@ def check_cadence(screens: list[dict]) -> Check:
         c.score(max(3, 5 - warnings), f"{warnings} warnings")
     else:
         c.score(0, f"{hard_kills} kill-list hits")
+    return c
+
+
+def check_event_density(screens: list[dict]) -> Check:
+    """Rubric criterion 2b — 3 pts (pacing pass, 2026-07-03).
+    Inside every non-impact screen, SOMETHING must move: a reveal, a
+    pacing event (fragment/item/pulse/focus from pace_storyboard.py),
+    or the layout's self-build entrance. The research cadence rule is
+    a visual event every 3–6s in dense sections and 8–15s in the body —
+    we check the worst dead stretch per screen:
+      ≤8s clean · 8–12s warn · >16s kill (that's a static hold the
+      viewer reads as a slide).
+    """
+    c = Check("In-screen event density (pacing pass)", 3)
+    IMPACT = {"quote", "chapter_reset"}
+    SELF_BUILD = {"chart": 6.0, "ladder": 6.0, "gap": 5.0,
+                  "proof_card": 4.0, "schematic": 4.0}
+    warns = kills = 0
+    paced = any(s.get("events") for s in screens)
+
+    for s in screens:
+        if s["layout"] in IMPACT:
+            continue
+        cues = [s["start"] + SELF_BUILD.get(s["layout"], 0.0)]
+        cues += [r["at"] for r in s.get("reveals", [])]
+        cues += [e["at"] for e in s.get("events", [])]
+        cues = sorted(set(round(x, 2) for x in cues if x <= s["end"]))
+        cues.append(s["end"])
+        gap = max(b - a for a, b in zip(cues, cues[1:])) if len(cues) > 1 else 0
+        if gap > 16:
+            kills += 1
+            c.kill_hit(f"{s['id']} has a {gap:.1f}s dead stretch (no reveal/event) — "
+                       "static hold (kill list). Run pace_storyboard.py or split the screen.")
+        elif gap > 12:
+            warns += 2
+            c.warn_hit(f"{s['id']} has a {gap:.1f}s dead stretch — add events or reveals.")
+        elif gap > 8:
+            warns += 1
+            c.warn_hit(f"{s['id']} dead stretch {gap:.1f}s (target ≤8s).")
+
+    if not paced:
+        c.warn_hit("no pacing events found anywhere — pace_storyboard.py has not run.")
+        warns += 1
+
+    if kills:
+        c.score(0, f"{kills} static-hold kill(s)")
+    else:
+        c.score(max(0, 3 - min(warns, 3)), f"{warns} warning(s); paced={paced}")
     return c
 
 
@@ -373,8 +421,8 @@ def check_kill_list(screens: list[dict]) -> list[str]:
 def write_review(base: Path, checks: list[Check], kills_extra: list[str], total: int,
                  max_total: int, screens: list[dict]):
     lines = ["# Edit rubric review", ""]
-    lines.append(f"**Score:** {total}/{max_total}  ·  **Gate:** ≥16")
-    verdict = "PASS" if (total >= 16 and not any(c.kill for c in checks) and not kills_extra) else "ESCALATE"
+    lines.append(f"**Score:** {total}/{max_total}  ·  **Gate:** ≥18")
+    verdict = "PASS" if (total >= 18 and not any(c.kill for c in checks) and not kills_extra) else "ESCALATE"
     lines.append(f"**Verdict:** {verdict}")
     lines.append("")
     lines.append("## Criteria")
@@ -434,6 +482,7 @@ def main():
     checks = [
         check_scene_grammar(screens, total_seconds),
         check_cadence(screens),
+        check_event_density(screens),
         check_broll_and_sources(screens),
         check_hook_density(screens),
         check_sound_cues(screens, args.rendered),
@@ -463,9 +512,9 @@ def main():
         for k in kills_extra:
             print(f"        ✗  {k}")
 
-    print(f"\n  SCORE: {total}/{max_total}  ·  Gate: ≥16")
+    print(f"\n  SCORE: {total}/{max_total}  ·  Gate: ≥18")
     print(f"  KILL-LIST HITS: {kill_hits}" if kill_hits else "  KILL-LIST HITS: 0")
-    verdict = "PASS" if (total >= 16 and kill_hits == 0) else "ESCALATE"
+    verdict = "PASS" if (total >= 18 and kill_hits == 0) else "ESCALATE"
     print(f"  VERDICT: {verdict}")
     print("=" * 74)
 

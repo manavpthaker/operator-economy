@@ -164,6 +164,10 @@ def main():
                 "reveals": reveals_out,
                 "figure": screen.get("figure"),
                 "source": screen.get("source"),
+                # Pacing pass (pace_storyboard.py): timed visual events
+                # the renderer performs inside the screen — fragment
+                # staging, item staging, highlight pulses, focus cycles.
+                "events": screen.get("events", []),
                 # SFX + music cues authored by the storyboard.
                 "sfx": screen.get("sfx", []),
                 "music": screen.get("music", {"intensity": "calm", "duck_db": -16}),
