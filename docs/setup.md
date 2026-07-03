@@ -12,6 +12,11 @@ Companion to `automation-architecture.md`. This is the do-this-now checklist.
 
 Handoff medium = the git repo. The scheduled task commits; you pull and run keyed steps; artifacts commit back.
 
+## Status — July 2, 2026 session
+
+DONE: Anthropic key → `studio/.env` (gitignored) · domain bought (Vercel) · YouTube channel branded via browser (name "The Operator Economy", @operatoreconomy, full description published) · GCC project `operator-economy` under brownmanbeard@gmail.com: YouTube Data API v3 + Analytics API enabled, OAuth consent screen (External/testing), Desktop OAuth client created, client-secret JSON in Downloads (→ move to `studio/.secrets/`, gitignored), brownmanbeard added as test user.
+PENDING: ElevenLabs (account lives in a DIFFERENT browser/profile than the Claude extension — log in there or paste API key + voice_id; Creator plan + PVC recording is Manav's) · YouTube API compliance audit form · phone verification for thumbnails · Resend domain DNS · site build on Vercel.
+
 ## Accounts & keys checklist
 
 | # | Tool | Plan / cost | Setup action | Key |
@@ -20,8 +25,8 @@ Handoff medium = the git repo. The scheduled task commits; you pull and run keye
 | 2 | **ElevenLabs** | **Creator $22/mo** (required: commercial rights + Professional Voice Clone) | ✅ have account → upgrade to Creator → record PVC clone (30+ min clean audio) → paste voice_id into `studio/config/blueprint.json` → build pronunciation dictionary (finance terms: ARR, EBITDA, SaaS, tickers) — **model must stay `eleven_v3`** (dictionaries silently ignored on multilingual_v2) | `ELEVENLABS_API_KEY` |
 | 3 | Google Cloud | free | Create project → enable **YouTube Data API v3 + YouTube Analytics API** → OAuth desktop credentials → **submit API compliance audit NOW** (unaudited projects upload private-only; no review timeline) → phone-verify the channel (custom thumbnails) | OAuth `client_secret.json` + token (local) |
 | 4 | Domain | $11.25/yr | Buy theoperatoreconomy.com ([Vercel](https://vercel.com/domains/search?q=theoperatoreconomy.com)) | — |
-| 5 | beehiiv (test) or Kit | $0 to start | Create on free tier → **test whether the draft-creation API works on free** (reports conflict; if Enterprise-gated → Kit) → build blueprint landing page + welcome automation from `brand/copy.md` | API key when chosen |
-| 6 | Buffer | $0–6/mo | Connect LinkedIn personal profile (official API — never extensions) | — (UI/queue) |
+| 5 | **Resend** (decided) | $0 (3K emails/mo free) | Manav has account. Add theoperatoreconomy.com domain in Resend → set DKIM/SPF DNS records in Vercel → Audiences for the list + Broadcasts for the newsletter; capture form on the Vercel site posts to Resend API | `RESEND_API_KEY` |
+| 6 | ~~Buffer~~ **LinkedIn via existing computer-use workflow** (decided) | $0 | OE posts ride the same Claude-driven LinkedIn workflow as brownbot/Grapevines — weekly volume adds no new risk surface. Human reviews before post | — |
 | 7 | *Later:* Templated | $29/mo | Thumbnail templates from design system — only when manual thumbnails become the bottleneck | `TEMPLATED_API_KEY` |
 | 8 | *Later:* AWS + Cloudflare R2 | pennies | Remotion Lambda — only when local render time actually hurts | AWS creds |
 | 9 | *Later:* Exa / Perplexity | $0–20/mo | Only if agent-native research outgrows sessions (volume, not quality) | keys |
