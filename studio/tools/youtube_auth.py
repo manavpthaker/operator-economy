@@ -37,3 +37,18 @@ out = SECRETS / "token.json"
 out.write_text(json.dumps(token, indent=2))
 print(f"OK — token written to {out}")
 print("refresh_token present:", bool(creds.refresh_token))
+
+# Verify WHICH channel this token is bound to (brand-account gotcha:
+# the consent flow has a second chooser — personal channel vs brand channel).
+import requests as _rq
+_r = _rq.get("https://www.googleapis.com/youtube/v3/channels",
+             params={"part": "snippet", "mine": "true"},
+             headers={"Authorization": f"Bearer {creds.token}"}, timeout=30)
+_items = _r.json().get("items", [])
+if _items:
+    _name = _items[0]["snippet"]["title"]
+    print(f"TOKEN IS BOUND TO CHANNEL: {_name}  (id: {_items[0]['id']})")
+    if "operator" not in _name.lower():
+        print(">>> WRONG CHANNEL — re-run and pick 'Operator Economy' at the SECOND chooser (after the Google account).")
+else:
+    print("Could not verify channel binding:", _r.status_code)
