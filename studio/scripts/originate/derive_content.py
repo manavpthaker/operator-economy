@@ -60,6 +60,18 @@ def _extract_honest_math(text: str) -> tuple[str | None, bool]:
     return value, is_estimate
 
 
+_STAGE_ORDER = {"research": 0, "scripting": 1, "production": 2}
+
+
+def _advance_stage(current: str | None, proposed: str) -> str:
+    """Stages are monotonic — never move an episode backwards."""
+    if not current:
+        return proposed
+    if proposed not in _STAGE_ORDER:
+        return current
+    return proposed if _STAGE_ORDER[proposed] > _STAGE_ORDER.get(current, -1) else current
+
+
 def _extract_playbook_span(plan: str) -> str | None:
     """Extract a 'weeks 1-4' span from the first-customer plan, if stated."""
     if not plan:
@@ -100,6 +112,12 @@ def update_episodes_json(script: dict, config: dict) -> None:
         "category": config.get("category", "Services"),
     }
 
+    # Thesis: prefer an explicit thesis field; else the first sentence of the idea +
+    # who_its_for. This is prose, not figures — safe to derive.
+    thesis_source = script.get("thesis") or bs.get("idea")
+    if thesis_source:
+        entry["thesis"] = thesis_source.strip()
+
     if sources:
         entry["sources_verified"] = len(sources)
 
@@ -117,21 +135,28 @@ def update_episodes_json(script: dict, config: dict) -> None:
     if span:
         entry["playbook_span"] = span
 
+    # Stage advances with the pipeline: derive_content runs post-script (Gate 1
+    # passed), so the natural stage at this point is `production`. `new` sets
+    # `research`; publish.py flips to `live`. See originate.py for the flow.
+    stage = config.get("stage", "production")
+
     episodes = data.setdefault("episodes", [])
     existing = next((e for e in episodes if e.get("slug") == slug), None)
     if existing is None:
         entry["number"] = max((e.get("number", 0) for e in episodes), default=0) + 1
-        entry["status"] = "in_research"
-        entry["pdf_href"] = "#capture"
-        entry["episode_href"] = "#library"
+        entry["status"] = "upcoming"
+        entry["stage"] = stage
         episodes.append(entry)
-        action = f"appended as №{entry['number']:03d}"
+        action = f"appended as №{entry['number']:03d} (stage={stage})"
     else:
         # Fill-if-missing on updates: never overwrite an operator-authored title,
         # href, or a manually-cleaned figure. Fresh derivations show up as new fields.
         for k, v in entry.items():
             existing.setdefault(k, v)
-        action = f"updated (№{existing.get('number', '??'):03d}, status={existing.get('status')})"
+        # Stage IS allowed to advance forward — this is derive stepping the pipeline.
+        if existing.get("status") == "upcoming":
+            existing["stage"] = _advance_stage(existing.get("stage"), stage)
+        action = f"updated (№{existing.get('number', '??'):03d}, status={existing.get('status')}, stage={existing.get('stage', '—')})"
 
     data["updated"] = date.today().isoformat()
 
