@@ -92,6 +92,29 @@ export const DUR = {
 
 export const framesAt30 = (ms: number) => Math.round((ms / 1000) * 30);
 
+// Asymmetric easing tokens (craft §2 motion):
+// - entrance decelerates (things arrive gently)
+// - exit accelerates (things leave with intent)
+// - standard is the general-purpose deceleration-weighted curve
+// Named Bezier control points; the composition wraps them in
+// Remotion's Easing.bezier() at call time.
+export const EASE = {
+  entrance: [0, 0, 0.2, 1] as const,
+  standard: [0.4, 0, 0.2, 1] as const,
+  exit: [0.4, 0, 1, 1] as const,
+} as const;
+
+// Slow-camera drift range for the persistent Ken Burns on every screen
+// (2–4% scale). Direction alternates per screen (in on evens, out on
+// odds), applied at the screen container in the composition.
+export const KEN_BURNS = {
+  scaleMin: 1.0,
+  scaleMax: 1.035,
+  // milliseconds over which the drift plays; screens hold less than this
+  // simply hit their target at end.
+  cycleMs: 12_000,
+} as const;
+
 // Radii — 2-3px max; corners are near-square documents, not SaaS bubbles.
 export const RADIUS = {
   xs: 2,
