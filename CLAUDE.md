@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Content operations for **The Operator Economy** — a YouTube channel + newsletter + blueprint library. Two things live here:
 
 1. **Editorial / strategy docs** (repo root) — positioning, brand, topic queue, kill criteria, research, per-video logs. Markdown, no build step.
-2. **`design-system/`** — the visual design system (**Rev C**, imported 2026-07-02 from Claude Design; "The Working Schematic" direction). **This directory is the single source of truth for all brand visuals.** Token layer (`tokens/*.css` linked via `styles.css`), React components (`components/{core,brand,data}/`), published system doc (`guidelines/Design System.html`), canonical reference comps (`surfaces/`: hero, thumbnail, masthead, cover). `ui_kits/` are Rev-A layouts (token-migrated, layout-superseded — `surfaces/` is canonical). Read `design-system/README.md` first. `brand/design-system.md` is the superseded v1 strategy rationale; legacy tokens in `studio/config/brand.json` predate Rev C and are pending reconciliation.
+2. **`design-system/`** — the visual design system (**Rev C**, imported 2026-07-02 from Claude Design; "The Working Schematic" direction). **This directory is the single source of truth for all brand visuals.** Token layer (`tokens/*.css` linked via `styles.css`), React components (`components/{core,brand,data}/`), published system doc (`guidelines/Design System.html`), canonical reference comps (`surfaces/`: hero, thumbnail, masthead, cover). `ui_kits/` are Rev-A layouts (token-migrated, layout-superseded — `surfaces/` is canonical). Read `design-system/README.md` first. `brand/design-system.md` is the superseded v1 strategy rationale; `studio/config/brand.json` is derived from the Rev C tokens (reconciled 2026-07-02).
 3. **`studio/`** — a Python + Remotion production engine. Two entry points:
    - `studio/originate.py` — originates a long-form blueprint video from a research brief (topic → script → VO → assets → render data + LinkedIn/newsletter/blueprint derivatives).
    - `studio/pipeline.py` — cuts short-form clips from a rendered long-form (or any raw recording).
@@ -89,7 +89,7 @@ No test suite or linter is wired up — the evals are the tests. When a stage es
 ## Config
 
 - `studio/config/blueprint.json` — channel positioning, section structure (hook/thesis/evidence/stack/playbook/economics/cta), models, VO settings, derivation counts, `autonomy.training_mode` flag and confidence weights/thresholds. **This is the file to edit for pipeline behavior.**
-- `studio/config/brand.json` — shared visual style (colors, fonts, caption positioning). Used by both `originate.py` and `pipeline.py`. **Predates Rev C** — when changing visual values here, derive them from `design-system/tokens/` (the source of truth); do not invent new colors/fonts.
+- `studio/config/brand.json` — shared visual style (colors, fonts, caption positioning). Used by both `originate.py` and `pipeline.py`. **Derived from `design-system/tokens/`** (the source of truth; see the `_source_of_truth` key for the token mapping) — never edit values here without deriving them from the token layer.
 - `studio/config/default.json` — shorts pipeline settings (clip duration, count, models).
 - `studio/config/episode.json` — per-episode overrides for the shorts pipeline (title, context for clip selection).
 

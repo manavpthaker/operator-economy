@@ -31,13 +31,13 @@ const defaultBlueprintData: BlueprintRenderData = {
   captions: {groups: [], style: 'highlight', words_per_group: 4},
   brand: {
     colors: {
-      background: '#000000',
-      caption_text: '#FFFFFF',
-      caption_highlight: '#7B9E87',
-      progress_bar: '#7B9E87',
-      progress_bar_bg: 'rgba(255,255,255,0.1)',
+      background: '#1A1A1A',
+      caption_text: '#F5F0E6',
+      caption_highlight: '#C4A45F',
+      progress_bar: '#C4A45F',
+      progress_bar_bg: 'rgba(245,240,230,0.16)',
     },
-    fonts: {caption: 'DM Sans', caption_weight: 800, caption_size_px: 64},
+    fonts: {caption: "Supreme, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif", caption_weight: 700, caption_size_px: 64},
   },
 };
 
@@ -91,15 +91,15 @@ const defaultRenderData: RenderData = {
   },
   brand: {
     colors: {
-      background: '#000000',
-      caption_text: '#FFFFFF',
-      caption_highlight: '#7B9E87',
-      progress_bar: '#7B9E87',
-      progress_bar_bg: 'rgba(255,255,255,0.15)',
+      background: '#1A1A1A',
+      caption_text: '#F5F0E6',
+      caption_highlight: '#C4A45F',
+      progress_bar: '#C4A45F',
+      progress_bar_bg: 'rgba(245,240,230,0.16)',
     },
     fonts: {
-      caption: 'DM Sans',
-      caption_weight: 800,
+      caption: "Supreme, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif",
+      caption_weight: 700,
       caption_size_px: 64,
     },
     caption_position: 'bottom_center',
@@ -112,8 +112,8 @@ const defaultRenderData: RenderData = {
     enabled: true,
     position: 'top',
     height_px: 4,
-    color: '#7B9E87',
-    bg_color: 'rgba(255,255,255,0.15)',
+    color: '#C4A45F',
+    bg_color: 'rgba(245,240,230,0.16)',
     top_offset_px: 230,
   },
 };

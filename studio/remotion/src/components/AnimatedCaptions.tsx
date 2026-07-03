@@ -94,15 +94,16 @@ export const AnimatedCaptions: React.FC<AnimatedCaptionsProps> = ({
             ? interpolate(popSpring, [0, 0.2], [0, 1], {extrapolateRight: 'clamp'})
             : 0;
 
-          // Active word: full white. Past: slightly dimmed. Inactive: hidden
+          // Active word: full paper. Past: slightly dimmed. Inactive: hidden
+          // (Rev C tokens: --text-on-ink #F5F0E6 over ink/video ground)
           const wordColor = isCurrentlySpoken
-            ? '#FFFFFF'
+            ? '#F5F0E6'
             : isActive
-              ? 'rgba(255, 255, 255, 0.7)'
-              : 'rgba(255, 255, 255, 0.3)';
+              ? 'rgba(245, 240, 230, 0.7)'
+              : 'rgba(245, 240, 230, 0.3)';
 
-          // Spoken word gets a subtle underline accent via border
-          const weight = isCurrentlySpoken ? 700 : 600;
+          // Supreme ships 400/500/700 — no 600 (Rev C: --w-semibold maps to 500)
+          const weight = isCurrentlySpoken ? 700 : 500;
 
           return (
             <span
@@ -116,8 +117,8 @@ export const AnimatedCaptions: React.FC<AnimatedCaptionsProps> = ({
                 transform: `scale(${scale}) translateY(${isActive ? translateY : 0}px)`,
                 opacity: isActive ? opacity : 0,
                 display: 'inline-block',
-                WebkitTextStroke: '4px #000000',
-                textShadow: '0 2px 0 rgba(0,0,0,0.5), 0 0 8px rgba(0,0,0,0.3)',
+                WebkitTextStroke: '4px #1A1A1A',
+                textShadow: '0 2px 0 rgba(26,26,26,0.5), 0 0 8px rgba(26,26,26,0.3)',
                 paintOrder: 'stroke fill',
               }}
             >
