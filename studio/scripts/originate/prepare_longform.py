@@ -115,6 +115,60 @@ def main():
             "beats": beats_out,
         })
 
+    # If storyboard.py has run, tuck the screens[] plan into render_data
+    # so BlueprintComposition can prefer it over the run-grouping shim.
+    # We reconcile each screen's beat numbers against the asset_index so
+    # each reveal carries the plan_assets-authoritative title and body
+    # (not the placeholder titles storyboard.py derived from asset_hint).
+    storyboard_path = base / "storyboard.json"
+    screens_out: list[dict] | None = None
+    if storyboard_path.exists():
+        storyboard = load_json(storyboard_path)
+        # Index beat time-range lookups by (section, beat) → (start, end).
+        beat_time = {
+            (s["id"], b["beat"]): (b["start"], b["end"])
+            for s in sections_out for b in s["beats"]
+        }
+        screens_out = []
+        for screen in storyboard.get("screens", []):
+            sid = screen["section"]
+            reveals_out = []
+            for r in screen.get("reveals", []):
+                asset = asset_index.get((sid, r["beat"]), {})
+                rng = beat_time.get((sid, r["beat"]))
+                reveals_out.append({
+                    "beat": r["beat"],
+                    "at": rng[0] if rng else r.get("at"),
+                    "end": rng[1] if rng else r.get("at"),
+                    # Prefer plan_assets titles when available (Manav-tuned),
+                    # fall back to the storyboard-derived working title.
+                    "title": asset.get("title") or r.get("title", ""),
+                    "body": " · ".join(asset["bullets"]) if asset.get("bullets") else r.get("body", ""),
+                    "asset": asset,
+                    # Carry the storyboard's tag list + word anchor so
+                    # the composition can land visuals 2–3 frames before
+                    # the anchor word (craft §motion).
+                    "tags": r.get("tags", []),
+                    "word_anchor": r.get("word_anchor"),
+                })
+            screens_out.append({
+                "id": screen["id"],
+                "section": sid,
+                "layout": screen["layout"],
+                "heading": screen.get("heading"),
+                "start": screen["start"],
+                "end": screen["end"],
+                "reveals": reveals_out,
+                "figure": screen.get("figure"),
+                "source": screen.get("source"),
+                # SFX + music cues authored by the storyboard.
+                "sfx": screen.get("sfx", []),
+                "music": screen.get("music", {"intensity": "calm", "duck_db": -16}),
+                # The audio path per section, so the composition can
+                # sequence Audio without walking `sections`.
+                "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),
+            })
+
     total = timeline["total_seconds"]
     render_data = {
         "slug": script["slug"],
@@ -131,6 +185,8 @@ def main():
         },
         "brand": brand,
     }
+    if screens_out is not None:
+        render_data["screens"] = screens_out
 
     out_dir = base / "render_data"
     out_dir.mkdir(exist_ok=True)

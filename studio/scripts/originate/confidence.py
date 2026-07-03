@@ -18,6 +18,7 @@ Writes originate/<slug>/confidence-<stage>.json
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -54,6 +55,24 @@ def parse_craft(out):
             "kill_hit": kill_hit}
 
 
+def parse_edit(out: str) -> dict:
+    """Parse eval_edit.py's output. The eval prints `SCORE: n/max` and
+    `KILL-LIST HITS: n`; both are captured for craft-weighted rollup.
+    Zero score returned if the eval hasn't been run (storyboard absent)."""
+    score = maxpts = 0
+    kills = 0
+    for l in out.splitlines():
+        m = re.search(r"SCORE:\s*(\d+)/(\d+)", l)
+        if m:
+            score, maxpts = int(m.group(1)), int(m.group(2))
+        m = re.search(r"KILL-LIST HITS:\s*(\d+)", l)
+        if m:
+            kills = int(m.group(1))
+    return {"score": score, "max": maxpts,
+            "ratio": score / maxpts if maxpts else 0,
+            "kill_hit": kills > 0}
+
+
 def claims_confidence(script):
     sources = script.get("sources", [])
     if not sources:
@@ -82,7 +101,23 @@ def main():
     rigor, craft = parse_rigor(out_r), parse_craft(out_c)
     claims = claims_confidence(script)
 
-    confidence = round(0.40 * rigor["score"] + 0.35 * craft["ratio"]
+    # Edit rubric §VII runs at pre-publish (storyboard has to exist);
+    # at script stage the storyboard hasn't been planned yet, so we
+    # count it only when a real result comes back. Its ratio shares the
+    # craft slot with eval_package (60/40 split — package still leads
+    # since edit rubric derives from the storyboard, which derives from
+    # package's asset planning).
+    edit = {"score": 0, "max": 0, "ratio": 0, "kill_hit": False}
+    if args.stage == "prepublish":
+        rc_e, out_e = run_eval(args.script, ["eval_edit.py"])
+        edit = parse_edit(out_e)
+        # eval_edit exits 0 on PASS, 1 on ESCALATE — treat that here.
+        edit_hard_fail = rc_e != 0
+    else:
+        edit_hard_fail = False
+
+    craft_component = (0.60 * craft["ratio"] + 0.40 * edit["ratio"]) if edit["max"] else craft["ratio"]
+    confidence = round(0.40 * rigor["score"] + 0.35 * craft_component
                        + 0.25 * claims["verified_ratio"], 3)
 
     reasons = []
@@ -90,6 +125,8 @@ def main():
         reasons.append("rigor hard-fail")
     if craft["kill_hit"] or rc_c != 0:
         reasons.append("craft kill-list hit")
+    if edit["kill_hit"] or edit_hard_fail:
+        reasons.append("edit-rubric kill-list hit")
     if confidence < threshold:
         reasons.append(f"confidence {confidence} < threshold {threshold}")
     if args.stage == "prepublish":
@@ -101,7 +138,7 @@ def main():
     verdict = "ESCALATE" if reasons else "AUTO-PASS"
     result = {"stage": args.stage, "confidence": confidence, "threshold": threshold,
               "verdict": verdict, "reasons": reasons,
-              "components": {"rigor": rigor, "craft": craft, "claims": claims}}
+              "components": {"rigor": rigor, "craft": craft, "claims": claims, "edit": edit}}
 
     out_path = Path(args.script).parent / f"confidence-{args.stage}.json"
     json.dump(result, open(out_path, "w"), indent=2)

@@ -95,12 +95,32 @@ def main():
         run_step("eval_package.py", [script], "Craft Rubric (kill-list gate)")
         run_step("generate_vo.py", [script], "Generate Voiceover")
         run_step("plan_assets.py", [script], "Plan Assets")
-        print("\nGATE 2: review assets_review.md, record screen_recs, then: originate.py render <slug>")
+        # Storyboard: plan the SCREENS from real VO timings so downstream
+        # (prepare_longform + Remotion) can consume one persistent screen
+        # per coherent stretch of argument instead of one per talking
+        # point. See docs/storyboard-stage.md for the full spec + rules.
+        # Runs after plan_assets during the transitional migration so it
+        # can pick up authoritative asset types; storyboard.py is
+        # order-agnostic and will fall back to script.json's asset_hint
+        # once plan_assets is rewritten to consume storyboard.json.
+        run_step("storyboard.py", [script], "Plan Storyboard")
+        run_step("eval_storyboard.py", [script], "Storyboard Pacing Evals")
+        # Edit rubric §VII — pre-render check that the storyboard has the
+        # scene grammar + cadence the finished video needs. Escalates if
+        # <16/20 or any kill-list hit (unresolved placeholder, abstract
+        # b-roll, unsourced money claim, sheet-run > 2, static hold > 45s).
+        run_step("eval_edit.py", [script], "Edit Rubric §VII")
+        print("\nGATE 2: review assets_review.md + edit_review.md, record screen_recs,"
+              " then: originate.py render <slug>")
 
     elif args.command == "render":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
         run_step("prepare_longform.py", [script], "Prepare Render Data")
+        # Re-run the edit rubric now that assets are finalized (heading,
+        # sources may have shifted). This is the pre-render check that
+        # matches the docs/pipeline.md loudness step run POST-render.
+        run_step("eval_edit.py", [script], "Edit Rubric §VII (pre-render)")
         if not args.skip_derive:
             run_step("derive_content.py", [script], "Derive LinkedIn/Grapevines Content")
             # Re-run craft evals now that shorts_briefs.json exists (cliffhanger/pin gate)
