@@ -22,6 +22,8 @@ The PVC was trained on 4 mismatched sources: 2 noisy quick memos (noise floor �
 
 **Retrain protocol:** (1) Use the two cleaned files (highpass + matched to −19.4 LUFS both, produced 2026-07-02, in Cowork outputs) — ~88 min total, comfortably above PVC minimums. (2) In ElevenLabs → the "Operator Economy" voice → Edit → REMOVE all four old samples → upload the two cleaned files → retrain. (3) Best upgrade beyond cleanup: record 15–20 min of NARRATION-style reading (the pilot script, natural pace, expressive) on a decent mic in a quiet room — the gated 65-min file also taught the clone a flat delivery; new narration-style source fixes tone, not just noise. Add it as a third sample. (4) Re-run the smoke test line and A/B against the old render. Tool for future sample prep: `studio/tools/clean_voice_samples.sh` (two-pass loudnorm version — run locally).
 
+**VOICE LOCKED (2026-07-02): 'Operator Economy Narrator' — `JhQpKkIWYoZ6C57GRz08`**, a DESIGNED voice (Voice Design v3; East Coast + natural-conversational blend, 3 iteration rounds), saved permanently and smoke-tested through the pipeline path (v3 + with-timestamps). Decision: designed publication voice over the muddy PVC; PVC retained for a possible Phase 2 retrain (protocol above stays valid). Disclosure unchanged: containsSyntheticMedia=true on every upload.
+
 PENDING: YouTube API compliance audit form · phone verification for thumbnails · pronunciation dictionary (build during pilot VO) · Resend domain DNS · site build on Vercel.
 
 ## Accounts & keys checklist
