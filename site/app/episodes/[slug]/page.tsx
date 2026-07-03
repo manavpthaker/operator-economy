@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import {
   getEpisodes,
   getEpisodeBySlug,
+  getChannelUrl,
   pad,
   type Episode,
   type PipelineStage,
@@ -39,16 +40,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const STAGES: PipelineStage[] = ['research', 'scripting', 'production'];
 const STAGE_STEP: Record<PipelineStage, number> = { research: 0, scripting: 1, production: 2 };
 
-function Masthead() {
+function Masthead({ watchHref }: { watchHref: string }) {
   return (
     <header className={s.masthead}>
       <Link href="/" className={s.brandLink}>
         <span className={s.brandKicker}>The</span>
         <span className={s.brandName}>Operator Economy</span>
       </Link>
-      <Link href="/#library" className={s.backLink}>
-        ← Back to the library
-      </Link>
+      <nav className={s.mastheadNav} aria-label="Episode navigation">
+        <a
+          href={watchHref}
+          target="_blank"
+          rel="noreferrer"
+          className={s.watchLink}
+        >
+          Watch on YouTube ↗
+        </a>
+        <Link href="/#library" className={s.backLink}>
+          ← Back to the library
+        </Link>
+      </nav>
     </header>
   );
 }
@@ -268,10 +279,14 @@ export default async function EpisodePage({ params }: Props) {
   const ep = getEpisodeBySlug(slug);
   if (!ep || ep.status === 'queued') notFound();
 
+  // Live episodes link to their own video where available; upcoming episodes
+  // link to the channel so viewers can see the format (and the prior receipts).
+  const watchHref = ep.youtube_url ?? getChannelUrl();
+
   return (
     <main className={s.page}>
       <div className={s.wrap}>
-        <Masthead />
+        <Masthead watchHref={watchHref} />
         {ep.status === 'live' ? <LiveView ep={ep} /> : <UpcomingView ep={ep} />}
       </div>
     </main>
