@@ -24,6 +24,8 @@ The PVC was trained on 4 mismatched sources: 2 noisy quick memos (noise floor �
 
 **VOICE LOCKED (2026-07-02): 'Operator Economy Narrator' — `JhQpKkIWYoZ6C57GRz08`**, a DESIGNED voice (Voice Design v3; East Coast + natural-conversational blend, 3 iteration rounds), saved permanently and smoke-tested through the pipeline path (v3 + with-timestamps). Decision: designed publication voice over the muddy PVC; PVC retained for a possible Phase 2 retrain (protocol above stays valid). Disclosure unchanged: containsSyntheticMedia=true on every upload.
 
+**E2E TEST PASSED (2026-07-03):** full path validated — narrator VO (v3+timestamps) → ffmpeg assembly (-14 LUFS) → OAuth (token.json, 3 scopes, refresh working) → `videos.insert` upload → **private AND unlisted both work** (audit lock did NOT bite at this quota tier) → `containsSyntheticMedia: True` confirmed set via API. Test video https://youtu.be/trVrdmT3Hyo — Manav deletes. Post-test hygiene: rotate Anthropic/ElevenLabs keys + the two GOCSPX secrets that passed through chat; disable the wrong-project gen-lang OAuth client.
+
 PENDING: YouTube API compliance audit form · phone verification for thumbnails · pronunciation dictionary (build during pilot VO) · Resend domain DNS · site build on Vercel.
 
 ## Accounts & keys checklist
