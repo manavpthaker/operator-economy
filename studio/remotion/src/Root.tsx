@@ -165,12 +165,12 @@ export const RemotionRoot: React.FC = () => {
         component={BlueprintComposition}
         calculateMetadata={async ({props}) => ({
           durationInFrames:
-            props.renderData.total_frames || Math.ceil(props.renderData.duration_seconds * props.renderData.fps),
-          fps: props.renderData.fps,
-          width: props.renderData.resolution?.[0] ?? 1920,
-          height: props.renderData.resolution?.[1] ?? 1080,
+            props.total_frames || Math.ceil(props.duration_seconds * props.fps),
+          fps: props.fps,
+          width: props.resolution?.[0] ?? 1920,
+          height: props.resolution?.[1] ?? 1080,
         })}
-        defaultProps={{renderData: defaultBlueprintData}}
+        defaultProps={defaultBlueprintData}
       />
     </>
   );

@@ -62,8 +62,11 @@ Build. Own. Operate.
 
 ### Hero
 
-**H1:** You already run someone else's machine.
-**H2:** The Operator Economy is an evidence-first publication about the businesses one experienced professional can build — now that AI collapsed the cost of building. Real companies. Sourced numbers. Exact stacks. Honest failure modes.
+**Kicker:** An evidence-first publication · Mondays
+**H1:** You've spent years running someone else's business. Build your own.
+*(v1 was "You already run someone else's machine." — reworked 2026-07-03 for clarity: identity hook now resolves in the H1 itself.)*
+**H2:** One buildable business every Monday — the companies proving it, the exact stack, and the honest math.
+**Evidence row (mono):** Real companies. Sourced numbers. Exact stacks. Honest failure modes.
 **CTA button:** Get the Blueprints →  *(email capture)*
 **Sub-CTA:** Watch the latest breakdown ↗
 

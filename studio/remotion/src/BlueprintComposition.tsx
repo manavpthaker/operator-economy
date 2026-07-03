@@ -236,7 +236,7 @@ const Captions: React.FC<{groups: CaptionGroup[]; brand: any}> = ({groups, brand
   );
 };
 
-export const BlueprintComposition: React.FC<{renderData: BlueprintRenderData}> = ({renderData}) => {
+export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) => {
   const {fps} = useVideoConfig();
   const {sections, captions, brand} = renderData;
 
@@ -248,7 +248,7 @@ export const BlueprintComposition: React.FC<{renderData: BlueprintRenderData}> =
           from={Math.round(section.start * fps)}
           durationInFrames={Math.max(1, Math.round(section.duration * fps))}
         >
-          <Audio src={staticFile(section.audio)} />
+          {section.audio ? <Audio src={staticFile(section.audio)} /> : null}
         </Sequence>
       ))}
       {sections.flatMap((section) =>
