@@ -92,6 +92,29 @@ Log every video's scores + these metrics in `videos/<slug>/` — after ~20 video
 
 **Chapters:** reports split — craft-report-1 *mandates* 3–5 timestamped chapters (5 pts); craft-report-3 shows chapters hurt narrative content by enabling skip-the-build. **This rubric overrules craft-report-1: chapters are OPTIONAL for Lane 1B, no penalty for omitting them on story-driven episodes; use only when non-spoilery on framework-heavy ones.** CTA: mid-video 55–75% (strongest evidence) over final-30s-only. Thumbnail words: ≤3 target, 4 max. Hook tension: any archetype signal qualifies, not numbers-only. The "70% at 0:30" rule is folklore — useful target, not doctrine; our own analytics arbitrate.
 
+## VII. Edit rubric (Gate 3, applied to the rendered video / storyboard) — 20 pts (hard block <16)
+
+Added 2026-07-03 alongside the storyboard-stage v2 rollout. Encodes `docs/faceless-video-editing-research.md` §"Edit-density eval". Runs on `originate/<slug>/storyboard.json` (AUTO) plus the rendered MP4 (loudness only). A separate 20-pt block on top of the 100-pt craft rubric — it does not replace §IV Structure, it enforces the visual grammar within it. **This is a hard block: any edit-rubric failure ships as ESCALATE, no exceptions.**
+
+| Criterion | Pts | Check |
+|---|---|---|
+| Scene grammar in use: ≥5 quote/punchline moments AND ≥3 artifact/screen_rec/proof screens per 6 min | 5 | AUTO (`eval_edit.py` counts `layout` field in storyboard.json) |
+| Cadence: no static composition >20s unless actively building (has ≥2 reveals); composition reset every 25–45s; never >2 consecutive `sheet` screens | 5 | AUTO (durations + `reveals[]` length + layout runs from storyboard.json) |
+| Every `broll` query names a concrete noun/action (no abstract queries); every money-claim screen carries a `source` or `figure.source` label | 4 | AUTO (regex on `search_query` — allowlist of concrete nouns; presence check on `source`) |
+| Hook: visual event every 4–8s in first 30s; premise proven (shown) not just stated | 3 | AUTO first-30s reveal density from storyboard.json; HUMAN "shown" judgment |
+| Sound: music bed present with per-section change + ducking; SFX cued on reveals/transitions/impacts; master −14 LUFS ±1 integrated, true peak ≤ −1 dBTP | 3 | AUTO `music`/`sfx` cues per screen in storyboard.json + `ffmpeg loudnorm` print on the rendered MP4 |
+
+**Publish gate: ≥16/20 AND zero edit-kill-list items.** The Gate 3 confidence rollup weights the edit rubric alongside the existing rigor (40%) / craft (35%) / claims (25%) split — the edit-rubric ratio is a fourth component in `confidence.py` under the craft weight (see `automation-architecture.md` for the reweighting note).
+
+### Edit kill list (any = no publish)
+
+- Unresolved placeholder screen (any beat with `layout=broll` whose `search_query` is missing / abstract, any beat with `layout=screen_rec` whose `tool`/`action` is missing).
+- Generic/abstract b-roll (`search_query` matches "small business", "office", "typing", "handshake", "AI future", "technology"; also fails if it's the ONLY visual on a claim beat).
+- >45 seconds of runtime without a composition reset (measured as `screen.end - previous_reset.start`).
+- Unsourced money figure on screen (any `layout=proof_card|chart|ladder|gap` with a numeric title/reveal but no `source` and no `figure.source`).
+- Caption text duplicating a quote card verbatim while the card is up (captions must be HIDDEN during `layout=quote` and `layout=chapter_reset`; if captions are still emitting in those windows, the render fails).
+- Music bed configured but the referenced audio file is missing at render time AND the render silently fell back — the failure must be surfaced in the render log (never a placeholder tone).
+
 ## Shorts derivative checks (Gate: after derive step)
 
 Every shorts brief must end on a cliffhanger (`cliffhanger_line`) — a complete-answer Short kills long-form conversion (kill-list item) — and carry a `pinned_comment` pointing to the full breakdown. AUTO in eval_package.py once `content/shorts_briefs.json` exists.
