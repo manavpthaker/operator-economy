@@ -21,10 +21,30 @@ import argparse
 import base64
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
 import requests
+
+# Broadcast-crispness mastering (validated 2026-07-03 A/B): harmonic
+# exciter restores highs, presence + air EQ, de-ess, -14 LUFS. Duration
+# is unchanged, so word timestamps stay aligned. Raw file kept beside it.
+MASTER_CHAIN = (
+    "highpass=f=70,"
+    "aexciter=level_in=1:level_out=1:amount=2.2:drive=6:blend=0:freq=6500:ceil=14000,"
+    "anequalizer=c0 f=3800 w=1600 g=2.5 t=1|c0 f=11000 w=5000 g=3.5 t=1,"
+    "deesser=i=0.3,"
+    "loudnorm=I=-14:TP=-1.5:LRA=9"
+)
+
+
+def master(path: Path) -> None:
+    raw = path.with_suffix(".raw.mp3")
+    path.rename(raw)
+    subprocess.run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                    "-i", str(raw), "-af", MASTER_CHAIN,
+                    "-ar", "44100", "-b:a", "192k", str(path)], check=True)
 
 ROOT = Path(__file__).parent.parent.parent
 API_BASE = "https://api.elevenlabs.io/v1"
@@ -122,6 +142,8 @@ def main():
 
         audio_path = vo_dir / f"{section['id']}.mp3"
         audio_path.write_bytes(base64.b64decode(data["audio_base64"]))
+        if vo_cfg.get("mastering", True):
+            master(audio_path)
 
         words_local = chars_to_words(data["alignment"], 0.0)
         duration_local = data["alignment"]["character_end_times_seconds"][-1]
