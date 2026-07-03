@@ -89,6 +89,19 @@ def main():
         text = section_text(section)
         if not text:
             continue
+        # Resumable: reuse cached section audio + alignment if present
+        cache = vo_dir / f"words-{section['id']}.json"
+        if cache.exists() and (vo_dir / f"{section['id']}.mp3").exists():
+            cached = json.loads(cache.read_text())
+            words = [dict(w, start=w["start"] + offset, end=w["end"] + offset,
+                          section=section["id"]) for w in cached["words"]]
+            all_words.extend(words)
+            timeline.append({"section": section["id"], "start": offset,
+                             "duration": cached["duration"],
+                             "audio": f"{section['id']}.mp3"})
+            offset += cached["duration"]
+            print(f"  VO: {section['id']} (cached, {cached['duration']:.1f}s)")
+            continue
         print(f"  VO: {section['id']} ({len(text)} chars)")
         resp = requests.post(
             f"{API_BASE}/text-to-speech/{vo_cfg['voice_id']}/with-timestamps",
@@ -110,9 +123,12 @@ def main():
         audio_path = vo_dir / f"{section['id']}.mp3"
         audio_path.write_bytes(base64.b64decode(data["audio_base64"]))
 
-        words = chars_to_words(data["alignment"], offset)
-        for w in words:
-            w["section"] = section["id"]
+        words_local = chars_to_words(data["alignment"], 0.0)
+        duration_local = data["alignment"]["character_end_times_seconds"][-1]
+        cache.write_text(json.dumps({"duration": duration_local, "words": words_local}))
+
+        words = [dict(w, start=w["start"] + offset, end=w["end"] + offset,
+                      section=section["id"]) for w in words_local]
         all_words.extend(words)
 
         duration = data["alignment"]["character_end_times_seconds"][-1]
