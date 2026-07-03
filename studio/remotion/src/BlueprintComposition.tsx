@@ -12,6 +12,7 @@ import {ChartScene} from './oe/scenes/ChartScene';
 import {AnnotationScene} from './oe/scenes/AnnotationScene';
 import {BRollScene} from './oe/scenes/BRollScene';
 import {LogoScene} from './oe/scenes/LogoScene';
+import {BrandSting, TitleCard, OutroCard} from './oe/scenes/Bookends';
 import {ScreenRecScene} from './oe/scenes/ScreenRecScene';
 import {SheetScene, SheetLine} from './oe/scenes/SheetScene';
 import {QuoteCard} from './oe/scenes/QuoteCard';
@@ -227,6 +228,17 @@ export type Screen = {
   events?: PaceEvent[];
 };
 
+export type Bookends = {
+  brand_seconds: number;
+  title_seconds: number;
+  outro_seconds: number;
+  title: string;
+  thesis?: string;
+  episode_no?: number | null;
+  brand: {name: string; tagline: string; domain: string};
+  ctas: string[];
+};
+
 export type BlueprintRenderData = {
   slug: string;
   title: string;
@@ -238,6 +250,7 @@ export type BlueprintRenderData = {
   screens?: Screen[]; // optional — prefer when present
   captions: {groups: CaptionGroup[]; style: string; words_per_group: number};
   brand: any;
+  bookends?: Bookends; // brand sting + title card + outro (2026-07-03)
 };
 
 // ---------------------------------------------------------------------
@@ -753,10 +766,10 @@ const ScreenLayer: React.FC<{
       //   cta                → ink  (fallback — impact frames here are
       //                              typically final brand or reversal
       //                              cards; ink keeps continuity)
+      // 2026-07-03: ink retired as a quote ground (read as dead void) —
+      // navy+grid is the default; paper stays for honest-math prints.
       const groundFromSection: 'ink' | 'navy' | 'paper' =
-        screen.section === 'evidence' ? 'navy'
-        : screen.section === 'economics' ? 'paper'
-        : 'ink';
+        screen.section === 'economics' ? 'paper' : 'navy';
       const resolvedGround = screen.custom?.ground ?? groundFromSection;
       const c = screen.custom?.quote
         ? {
@@ -1016,16 +1029,23 @@ function captionsHiddenDuring(
 export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) => {
   useEnsureFontsLoaded();
   const {fps} = useVideoConfig();
-  const {sections, captions, screens} = renderData;
+  const {sections, captions, screens, bookends} = renderData;
   const useScreens = Array.isArray(screens) && screens.length > 0;
   const captionGroups = React.useMemo(
     () => captionsHiddenDuring(captions?.groups ?? [], screens),
     [captions?.groups, screens],
   );
 
+  // Bookends: content shifts right by the intro; outro appends after.
+  const brandFrames = bookends ? Math.round(bookends.brand_seconds * fps) : 0;
+  const titleFrames = bookends ? Math.round(bookends.title_seconds * fps) : 0;
+  const introFrames = brandFrames + titleFrames;
+  const contentFrames = Math.round(renderData.duration_seconds * fps) + 1;
+  const outroFrames = bookends ? Math.round(bookends.outro_seconds * fps) : 0;
+
   // The whole episode floats over Ink so cross-section fades never flash
   // a caller color between Sequences.
-  return (
+  const episode = (
     <AbsoluteFill style={{background: COLORS.ink}}>
       {/* Per-section audio — same in both grammars, since a screen's
           audio still comes from its section's VO. */}
@@ -1073,6 +1093,38 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
 
       {/* Captions layer — always on top, hidden during quote/chapter_reset. */}
       <Captions groups={captionGroups} onInk />
+    </AbsoluteFill>
+  );
+
+  if (!bookends) return episode;
+
+  return (
+    <AbsoluteFill style={{background: COLORS.navy}}>
+      <Sequence from={0} durationInFrames={brandFrames}>
+        <BrandSting name={bookends.brand.name} tagline={bookends.brand.tagline} />
+      </Sequence>
+      <Sequence from={brandFrames} durationInFrames={titleFrames}>
+        <TitleCard
+          overline={
+            bookends.episode_no
+              ? `Operator Blueprint · № ${String(bookends.episode_no).padStart(3, '0')}`
+              : 'Operator Blueprint'
+          }
+          title={bookends.title}
+          thesis={bookends.thesis}
+        />
+      </Sequence>
+      <Sequence from={introFrames} durationInFrames={contentFrames}>
+        {episode}
+      </Sequence>
+      <Sequence from={introFrames + contentFrames} durationInFrames={outroFrames}>
+        <OutroCard
+          brand={bookends.brand.name}
+          tagline={bookends.brand.tagline}
+          url={bookends.brand.domain}
+          ctas={bookends.ctas}
+        />
+      </Sequence>
     </AbsoluteFill>
   );
 };

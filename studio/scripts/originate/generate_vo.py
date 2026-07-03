@@ -21,6 +21,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -67,6 +68,50 @@ API_BASE = "https://api.elevenlabs.io/v1"
 
 def section_text(section: dict) -> str:
     return " ".join(beat["vo_text"].strip() for beat in section.get("beats", []))
+
+
+# ---------------------------------------------------------------------
+# Speech aliases (2026-07-03): eleven_v3 silently ignores pronunciation
+# dictionary locators (verified on the pilot — Airtable/n8n unchanged
+# with the dictionary attached). The model-independent fix: SPEAK a
+# phonetic spelling, then restore the display word in the alignment so
+# captions still show "n8n", not "en eight en".
+# ---------------------------------------------------------------------
+
+def apply_speech_aliases(text: str, aliases: dict) -> str:
+    for display, spoken in aliases.items():
+        text = re.sub(rf"(?<!\w){re.escape(display)}(?!\w)", spoken, text)
+    return text
+
+
+def restore_alias_words(words: list[dict], aliases: dict) -> list[dict]:
+    """Collapse spoken-alias token runs back to the display word, keeping
+    the first token's start, the last token's end, and any punctuation
+    that clung to the run's edges."""
+    def norm(w: str) -> str:
+        return re.sub(r"[^\w']", "", w).lower()
+
+    seqs = [( [norm(t) for t in spoken.split()], display)
+            for display, spoken in aliases.items()]
+    out, i = [], 0
+    while i < len(words):
+        hit = None
+        for toks, display in seqs:
+            n = len(toks)
+            if i + n <= len(words) and [norm(w["word"]) for w in words[i:i + n]] == toks:
+                hit = (n, display)
+                break
+        if hit:
+            n, display = hit
+            lead = re.match(r"^[^\w']*", words[i]["word"]).group(0)
+            trail = re.search(r"[^\w']*$", words[i + n - 1]["word"]).group(0)
+            out.append({"word": lead + display + trail,
+                        "start": words[i]["start"], "end": words[i + n - 1]["end"]})
+            i += n
+        else:
+            out.append(words[i])
+            i += 1
+    return out
 
 
 def chars_to_words(alignment: dict, offset: float) -> list[dict]:
@@ -138,8 +183,11 @@ def main():
             print(f"  VO: {section['id']} (cached, {cached['duration']:.1f}s)")
             continue
         print(f"  VO: {section['id']} ({len(text)} chars)")
+        aliases = {k: v for k, v in (vo_cfg.get("speech_aliases") or {}).items()
+                   if not k.startswith("_")}
+        spoken_text = apply_speech_aliases(text, aliases) if aliases else text
         payload = {
-            "text": text,
+            "text": spoken_text,
             "model_id": vo_cfg["model_id"],
             "voice_settings": {
                 "stability": vo_cfg["stability"],
@@ -170,6 +218,8 @@ def main():
             master(audio_path)
 
         words_local = chars_to_words(data["alignment"], 0.0)
+        if aliases:
+            words_local = restore_alias_words(words_local, aliases)
         duration_local = data["alignment"]["character_end_times_seconds"][-1]
         # Breath between sections: pad the tail with silence and count it
         # in the section duration so every downstream offset carries it.

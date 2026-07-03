@@ -191,12 +191,35 @@ def main():
             })
 
     total = timeline["total_seconds"]
+
+    # Bookends (2026-07-03): brand sting + title/thesis before the hook,
+    # URL/CTA card after the CTA section. The composition offsets all
+    # content by the intro; total_frames covers intro + episode + outro.
+    bk_cfg = r_cfg.get("bookends", {})
+    channel = config.get("channel", {})
+    bookends = {
+        "brand_seconds": bk_cfg.get("brand_seconds", 1.8),
+        "title_seconds": bk_cfg.get("title_seconds", 3.2),
+        "outro_seconds": bk_cfg.get("outro_seconds", 6.0),
+        "title": script.get("working_title", ""),
+        "thesis": script.get("topic", ""),
+        "episode_no": None,  # filled from site/data/episodes.json when known
+        "brand": {
+            "name": channel.get("name", "The Operator Economy"),
+            "tagline": channel.get("tagline", "Build. Own. Operate."),
+            "domain": channel.get("domain", "theoperatoreconomy.com"),
+        },
+        "ctas": bk_cfg.get("outro_ctas", []),
+    }
+    intro_s = bookends["brand_seconds"] + bookends["title_seconds"]
+
     render_data = {
         "slug": script["slug"],
         "title": script["working_title"],
         "duration_seconds": total,
         "fps": fps,
-        "total_frames": int(total * fps) + 1,
+        "total_frames": int((intro_s + total + bookends["outro_seconds"]) * fps) + 1,
+        "bookends": bookends,
         "resolution": r_cfg["resolution"],
         "sections": sections_out,
         "captions": {

@@ -72,7 +72,15 @@
     "pronunciation_dictionary": {
       "id": "jBTFwPkoWoP2ef5F3hCX",
       "version_id": "rIqln2M9sQWlPiyDBOZ9",
-      "note": "'OE terms v1' \u2014 Airtable, n8n, SaaS, ARR, EBITDA aliases. Extend via API (add-from-rules creates a new version; update version_id here). Requires eleven_v3."
+      "note": "'OE terms v1' \u2014 kept attached but eleven_v3 IGNORES dictionary locators (verified on pilot 2026-07-03). speech_aliases below is the enforcement layer."
+    },
+    "speech_aliases": {
+      "Airtable": "air table",
+      "n8n": "en eight en",
+      "Zapier": "zappier",
+      "SaaS": "sass",
+      "EBITDA": "ee bit dah",
+      "_note": "Spoken phonetic replaces the term in TTS text; generate_vo restores the display word in captions. _note is ignored (no underscore keys are matched in prose)."
     }
   },
   "render": {
@@ -83,7 +91,17 @@
     ],
     "fps": 30,
     "caption_style": "highlight",
-    "words_per_group": 4
+    "words_per_group": 4,
+    "bookends": {
+      "brand_seconds": 1.8,
+      "title_seconds": 3.2,
+      "outro_seconds": 6.0,
+      "outro_ctas": [
+        "Get the Operator Blueprint — free, link in the description",
+        "One business blueprint every week — subscribe"
+      ],
+      "note": "Brand sting kept short on purpose: pre-hook branding costs retention. Outro holds 6s for YouTube end-screen overlays."
+    }
   },
   "derivation": {
     "linkedin_posts": 3,
