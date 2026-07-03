@@ -41,6 +41,11 @@ def group_words(words: list[dict], per_group: int, highlights: set[str]) -> list
             "start": chunk[0]["start"],
             "end": chunk[-1]["end"],
         })
+    # TILE groups: each caption holds until the next begins. Exact word-range
+    # windows leave gaps at every inter-word pause → caption flicker
+    # (validated on pilot render, 2026-07-03).
+    for g, nxt in zip(groups, groups[1:]):
+        g["end"] = nxt["start"]
     return groups
 
 
@@ -93,6 +98,15 @@ def main():
                 "asset": asset_index.get((s["id"], b["beat"]),
                                          {"type": "slide", "title": "", "bullets": []}),
             })
+        # TILE beats: each asset holds until the next beat starts; first beat
+        # starts at section start, last holds to section end. Word-range
+        # windows leave gaps (inter-sentence pauses) that render as blank
+        # background (validated on pilot render, 2026-07-03).
+        for bo, nxt in zip(beats_out, beats_out[1:]):
+            bo["end"] = nxt["start"]
+        if beats_out:
+            beats_out[0]["start"] = sec_meta["start"]
+            beats_out[-1]["end"] = sec_meta["start"] + sec_meta["duration"]
         sections_out.append({
             "id": s["id"],
             "start": sec_meta["start"],
