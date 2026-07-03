@@ -15,15 +15,131 @@ Usage:
 Output:
     originate/<slug>/content/
 """
+from __future__ import annotations
 
 import argparse
 import json
 import re
+from datetime import date
 from pathlib import Path
 
 import anthropic
 
 ROOT = Path(__file__).parent.parent.parent
+REPO_ROOT = ROOT.parent
+EPISODES_JSON = REPO_ROOT / "site" / "data" / "episodes.json"
+
+
+def _extract_stack_cost(text: str) -> str | None:
+    """Pull a '<$100/mo'-shaped clause out of an economics blurb."""
+    if not text:
+        return None
+    m = re.search(r"(?:cost[s]?\s+)?(<\s*\$[\d,]+(?:[–\-][\d,]+)?/\w+)", text, re.IGNORECASE)
+    if m:
+        return m.group(1).replace(" ", "")
+    return None
+
+
+def _extract_honest_math(text: str) -> tuple[str | None, bool]:
+    """Pull the year-one revenue range and whether it's flagged as an estimate."""
+    if not text:
+        return None, False
+    m = re.search(
+        r"(\$[\d,]+[–\-]\d+K?/\w+)\s*(?:\(estimate\)|\bestimate\b)?[^.]*?(year[- ]one|yr\s*1|yr\s*one)",
+        text,
+        re.IGNORECASE,
+    )
+    if not m:
+        m = re.search(r"(\$[\d,]+[–\-]\d+K?/\w+)", text)
+    if not m:
+        return None, False
+    raw = m.group(1)
+    # Only append the "yr 1" annotation if the source didn't already say it.
+    value = raw if re.search(r"yr\s*1|year\s*one", raw, re.IGNORECASE) else f"{raw} yr 1"
+    is_estimate = "estimate" in text.lower() or "est." in text.lower()
+    return value, is_estimate
+
+
+def _extract_playbook_span(plan: str) -> str | None:
+    """Extract a 'weeks 1-4' span from the first-customer plan, if stated."""
+    if not plan:
+        return None
+    m = re.search(r"weeks?\s+(\d+[–\-]\d+)", plan, re.IGNORECASE)
+    if m:
+        return f"weeks {m.group(1)}"
+    return None
+
+
+def update_episodes_json(script: dict, config: dict) -> None:
+    """Upsert this episode's entry in site/data/episodes.json.
+
+    Only writes fields we can derive from script.json or config; missing
+    optional fields are omitted so the site component's `!== undefined`
+    checks skip them. Status defaults to `in_research` for new entries;
+    an existing entry's status/date/rev are preserved (use publish.py
+    to flip to `live`).
+    """
+    if not EPISODES_JSON.exists():
+        print(f"⚠ {EPISODES_JSON.relative_to(REPO_ROOT)} not found — skipping.")
+        return
+
+    with open(EPISODES_JSON) as f:
+        data = json.load(f)
+
+    slug = script.get("slug")
+    if not slug:
+        print("⚠ script.json has no slug — skipping episodes.json update.")
+        return
+
+    bs = script.get("blueprint_summary") or {}
+    sources = script.get("sources") or []
+
+    entry = {
+        "slug": slug,
+        "title": bs.get("idea", "").split(":")[0].strip() or script.get("working_title", slug),
+        "category": config.get("category", "Services"),
+    }
+
+    if sources:
+        entry["sources_verified"] = len(sources)
+
+    stack_cost = _extract_stack_cost(bs.get("realistic_economics", ""))
+    if stack_cost:
+        entry["stack_cost"] = stack_cost
+
+    math, is_est = _extract_honest_math(bs.get("realistic_economics", ""))
+    if math:
+        entry["honest_math"] = math
+        if is_est:
+            entry["honest_math_estimate"] = True
+
+    span = _extract_playbook_span(bs.get("first_customer_plan", ""))
+    if span:
+        entry["playbook_span"] = span
+
+    episodes = data.setdefault("episodes", [])
+    existing = next((e for e in episodes if e.get("slug") == slug), None)
+    if existing is None:
+        entry["number"] = max((e.get("number", 0) for e in episodes), default=0) + 1
+        entry["status"] = "in_research"
+        entry["pdf_href"] = "#capture"
+        entry["episode_href"] = "#library"
+        episodes.append(entry)
+        action = f"appended as №{entry['number']:03d}"
+    else:
+        # Fill-if-missing on updates: never overwrite an operator-authored title,
+        # href, or a manually-cleaned figure. Fresh derivations show up as new fields.
+        for k, v in entry.items():
+            existing.setdefault(k, v)
+        action = f"updated (№{existing.get('number', '??'):03d}, status={existing.get('status')})"
+
+    data["updated"] = date.today().isoformat()
+
+    with open(EPISODES_JSON, "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+    print(f"✓ episodes.json: {slug} {action}")
 
 SYSTEM_PROMPT = """You are the content lead for Grapevines (AI career strategy) deriving multi-surface content from a finished YouTube script. The author is Manav Thaker: founder, ex-Head of Product, operator voice — practical, specific, no hype, no emojis, no engagement-bait.
 
@@ -90,6 +206,9 @@ Return JSON:
 
     print(f"\n✓ blueprint.md, newsletter.md, {len(out['linkedin_posts'])} LI posts, "
           f"{len(out['shorts_briefs'])} shorts briefs → {content_dir}")
+
+    update_episodes_json(script, config)
+
     print("\nShorts: after rendering the long-form, run the standard viddy pipeline on it —")
     print("  python pipeline.py output/<slug>/blueprint_final.mp4")
     print("shorts_briefs.json tells the clip selector where to look (pass via --context).")
