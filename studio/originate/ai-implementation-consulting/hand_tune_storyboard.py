@@ -163,7 +163,7 @@ def build() -> dict:
         sfx=[{"cue": "hit", "at": q_impl_s}],
         custom={"quote": "It's called implementation.",
                 "accentPhrase": "implementation",
-                "ground": "ink"},
+                "ground": "navy"},
     ))
     # thesis-03 sheet — between "It's called implementation" and "gap was never"
     screens.append(screen(
@@ -191,7 +191,7 @@ def build() -> dict:
         music={"intensity": "silence", "duck_db": 0},
         sfx=[{"cue": "hit", "at": q_gap_s}],
         custom={"quote": "The gap was never the software.",
-                "ground": "ink"},
+                "ground": "navy"},
     ))
     # thesis-05 quote — "Until it actually ran."
     screens.append(screen(
@@ -206,7 +206,7 @@ def build() -> dict:
         sfx=[{"cue": "hit", "at": q_ran_s}],
         custom={"quote": "Until it actually ran.",
                 "accentPhrase": "actually ran",
-                "ground": "ink"},
+                "ground": "navy"},
     ))
     # thesis-06 sheet — between "actually ran" and "charging billions"
     screens.append(screen(
@@ -235,7 +235,7 @@ def build() -> dict:
         sfx=[{"cue": "hit", "at": q_bill_s}],
         custom={"quote": "Why is Accenture charging billions for it?",
                 "accentPhrase": "billions",
-                "ground": "ink"},
+                "ground": "navy"},
     ))
 
     # ==================================================================
@@ -663,7 +663,7 @@ def build() -> dict:
         custom={"quote": "Build it. Own it. Operate it.",
                 "accentPhrase": "Operate it",
                 "attribution": "The Operator Economy",
-                "ground": "ink"},
+                "ground": "navy"},
     ))
 
     return {

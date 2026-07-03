@@ -13,7 +13,7 @@
 
 ### ⚠️ In-screen event density (pacing pass) — 1/3
 - 2 warning(s); paced=True
-- ⚠️ stack-01 dead stretch 11.0s (target ≤8s).
+- ⚠️ stack-01 dead stretch 11.3s (target ≤8s).
 - ⚠️ playbook-01 dead stretch 9.5s (target ≤8s).
 
 ### ✅ Concrete b-roll + money-claim sources — 4/4

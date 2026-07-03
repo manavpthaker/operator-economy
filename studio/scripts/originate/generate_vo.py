@@ -46,6 +46,21 @@ def master(path: Path) -> None:
                     "-i", str(raw), "-af", MASTER_CHAIN,
                     "-ar", "44100", "-b:a", "192k", str(path)], check=True)
 
+
+def pad_tail(path: Path, pad_s: float) -> None:
+    """Append `pad_s` of silence to the section — the breath between
+    sections (added 2026-07-03: sections read back-to-back with no room
+    to breathe). Runs AFTER mastering so loudnorm sees only speech.
+    Padded duration must be reflected in the cached duration so the
+    timeline offsets carry the breath downstream."""
+    if pad_s <= 0:
+        return
+    tmp = path.with_suffix(".pad.mp3")
+    subprocess.run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                    "-i", str(path), "-af", f"apad=pad_dur={pad_s}",
+                    "-ar", "44100", "-b:a", "192k", str(tmp)], check=True)
+    tmp.replace(path)
+
 ROOT = Path(__file__).parent.parent.parent
 API_BASE = "https://api.elevenlabs.io/v1"
 
@@ -123,18 +138,27 @@ def main():
             print(f"  VO: {section['id']} (cached, {cached['duration']:.1f}s)")
             continue
         print(f"  VO: {section['id']} ({len(text)} chars)")
+        payload = {
+            "text": text,
+            "model_id": vo_cfg["model_id"],
+            "voice_settings": {
+                "stability": vo_cfg["stability"],
+                "similarity_boost": vo_cfg["similarity_boost"],
+            },
+            "output_format": vo_cfg.get("output_format", "mp3_44100_128"),
+        }
+        # Pronunciation dictionary (Airtable, n8n, SaaS…) — requires
+        # eleven_v3; silently ignored on multilingual_v2.
+        pdict = vo_cfg.get("pronunciation_dictionary")
+        if pdict and pdict.get("id"):
+            payload["pronunciation_dictionary_locators"] = [{
+                "pronunciation_dictionary_id": pdict["id"],
+                "version_id": pdict.get("version_id"),
+            }]
         resp = requests.post(
             f"{API_BASE}/text-to-speech/{vo_cfg['voice_id']}/with-timestamps",
             headers={"xi-api-key": api_key, "Content-Type": "application/json"},
-            json={
-                "text": text,
-                "model_id": vo_cfg["model_id"],
-                "voice_settings": {
-                    "stability": vo_cfg["stability"],
-                    "similarity_boost": vo_cfg["similarity_boost"],
-                },
-                "output_format": vo_cfg.get("output_format", "mp3_44100_128"),
-            },
+            json=payload,
             timeout=300,
         )
         resp.raise_for_status()
@@ -147,16 +171,21 @@ def main():
 
         words_local = chars_to_words(data["alignment"], 0.0)
         duration_local = data["alignment"]["character_end_times_seconds"][-1]
+        # Breath between sections: pad the tail with silence and count it
+        # in the section duration so every downstream offset carries it.
+        pad_s = float(vo_cfg.get("section_pad_s", 0.0))
+        if pad_s > 0:
+            pad_tail(audio_path, pad_s)
+            duration_local += pad_s
         cache.write_text(json.dumps({"duration": duration_local, "words": words_local}))
 
         words = [dict(w, start=w["start"] + offset, end=w["end"] + offset,
                       section=section["id"]) for w in words_local]
         all_words.extend(words)
 
-        duration = data["alignment"]["character_end_times_seconds"][-1]
-        timeline.append({"section": section["id"], "start": offset, "duration": duration,
+        timeline.append({"section": section["id"], "start": offset, "duration": duration_local,
                          "audio": str(audio_path.name)})
-        offset += duration
+        offset += duration_local
 
     with open(vo_dir / "words.json", "w") as f:
         json.dump(all_words, f, indent=2)

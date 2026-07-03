@@ -17,15 +17,14 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
  * cue at the screen start.
  *
  * Rev C constraint (one accent per frame — rotate GROUNDS, not
- * accents): the ground rotates by narrative role, gold stays as the
- * single accent color across all three:
- *   - ink   (#1A1A1A):  thesis / cold-open impact lines
- *   - navy  (#14263E):  evidence turning-points — carries the drafting
- *                       grid so the "we are inside the schematic" world
- *                       is continuous with the WorkingSchematic panel
- *   - paper (#F5F0E6):  economics honest-math lines, ink text
+ * accents): gold stays the single accent color across all grounds.
+ * GROUND DECISION (Manav, 2026-07-03): near-black ink read as dead
+ * void on quote callouts — Schematic Navy + drafting grid is the
+ * default ground for ALL quotes and chapter resets (keeps every
+ * impact frame inside the blueprint world). `paper` remains available
+ * for deliberate honest-math prints; `ink` is legacy-only.
  *
- * Boska stays weight 900. ChapterReset stays on ink (`ground=ink`).
+ * Boska stays weight 900.
  */
 export type QuoteGround = 'ink' | 'navy' | 'paper';
 
@@ -48,9 +47,10 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
 
-  // Resolve ground: explicit `ground` wins; otherwise fall back to the
-  // legacy `onInk` boolean (`true` → ink, `false` → paper).
-  const effectiveGround: QuoteGround = ground ?? (onInk ? 'ink' : 'paper');
+  // Resolve ground: explicit `ground` wins; otherwise DEFAULT IS NAVY
+  // (2026-07-03 — ink read as dead void; navy+grid keeps quotes inside
+  // the schematic world). Legacy `onInk=false` still maps to paper.
+  const effectiveGround: QuoteGround = ground ?? (onInk ? 'navy' : 'paper');
 
   // Spring scale-settle: 0.96 → 1 over ~14 frames, spring config sets
   // damping high so the card doesn't overshoot (Rev C — no bounce).

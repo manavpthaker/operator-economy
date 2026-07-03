@@ -6,8 +6,10 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
  * ChapterReset — a short section transition card. Captions are HIDDEN
  * (rubric §VII kill list) because the card IS the caption for the
  * transition moment. Renders a mono kicker + Boska heading centered on
- * ink; hairline expands underneath. Silence in the audio bed timed to
- * this screen makes the reset feel like an edit, not a title slide.
+ * Schematic Navy with the drafting grid (2026-07-03: ink read as dead
+ * void — navy keeps resets inside the blueprint world); hairline
+ * expands underneath. Silence in the audio bed timed to this screen
+ * makes the reset feel like an edit, not a title slide.
  */
 export type ChapterResetProps = {
   kicker?: string; // "SHEET 04 OF 07"
@@ -37,10 +39,20 @@ export const ChapterReset: React.FC<ChapterResetProps> = ({kicker, heading, onIn
     easing: Easing.bezier(...EASE.standard),
   });
 
+  // Dark ground = Schematic Navy + drafting grid (matches QuoteCard).
+  const gridStyle: React.CSSProperties | undefined = onInk
+    ? {
+        backgroundImage:
+          `repeating-linear-gradient(0deg, ${COLORS.schemGrid} 0 1px, transparent 1px 36px), ` +
+          `repeating-linear-gradient(90deg, ${COLORS.schemGrid} 0 1px, transparent 1px 36px)`,
+      }
+    : undefined;
+
   return (
     <AbsoluteFill
       style={{
-        background: onInk ? COLORS.ink : COLORS.paper,
+        background: onInk ? COLORS.navy : COLORS.paper,
+        ...gridStyle,
         justifyContent: 'center',
         alignItems: 'center',
         padding: '0 160px',

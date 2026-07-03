@@ -130,10 +130,19 @@ def main():
             for s in sections_out for b in s["beats"]
         }
         screens_out = []
+        # Sheet-line ordinals run PER SECTION ACROSS screens (fix
+        # 2026-07-03: every sheet screen restarted at "01", so the
+        # section's list never appeared to advance). The renderer shows
+        # reveal.ordinal instead of its local index.
+        sheet_ordinal: dict[str, int] = {}
         for screen in storyboard.get("screens", []):
             sid = screen["section"]
             reveals_out = []
             for r in screen.get("reveals", []):
+                ordinal = None
+                if screen["layout"] == "sheet":
+                    sheet_ordinal[sid] = sheet_ordinal.get(sid, 0) + 1
+                    ordinal = sheet_ordinal[sid]
                 asset = asset_index.get((sid, r["beat"]), {})
                 rng = beat_time.get((sid, r["beat"]))
                 # Prefer explicit reveal timings/titles from the
@@ -146,6 +155,7 @@ def main():
                 sb_end = r.get("end")
                 reveals_out.append({
                     "beat": r["beat"],
+                    "ordinal": ordinal,
                     "at": sb_at if sb_at is not None else (rng[0] if rng else None),
                     "end": sb_end if sb_end is not None else (rng[1] if rng else None),
                     "title": sb_title or asset.get("title") or "",
