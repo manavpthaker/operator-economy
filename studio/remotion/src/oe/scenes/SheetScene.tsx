@@ -17,12 +17,16 @@ import {COLORS, FONTS, TRACK, TYPE} from '../theme';
  */
 
 export type SheetLine = {
+  beat?: number;         // for gating body fragments on {kind:'fragment',beat,index}
   title: string;
   body?: string;
   appearAtFrame: number; // relative to scene start
-  startSec: number; // relative to scene start
-  endSec: number; // relative to scene start
+  startSec: number;
+  endSec: number;
 };
+
+export type SheetFragmentEvent = {atFrame: number; beat: number; index: number};
+export type SheetPulseEvent = {atFrame: number; word: string};
 
 export type SheetSceneProps = {
   overline?: string;
@@ -30,9 +34,139 @@ export type SheetSceneProps = {
   subtitle?: string;
   lines: SheetLine[];
   onInk?: boolean;
+  /** From pace_storyboard: fragment `index` in reveal `beat`'s body
+   *  appears at atFrame (sequence-local). Fragment 0 shows with the
+   *  reveal itself; the rest are ABSENT until their event fires. */
+  fragmentEvents?: SheetFragmentEvent[];
+  /** Brief accent underline flash on the active line. */
+  pulseEvents?: SheetPulseEvent[];
 };
 
-export const SheetScene: React.FC<SheetSceneProps> = ({overline, heading, subtitle, lines, onInk = false}) => {
+const FRAG_IN_FRAMES = 12;
+
+/**
+ * BodyFragments — the body of a sheet line, "·"-separated. Fragment 0
+ * shows with the reveal itself; each subsequent fragment is ABSENT until
+ * its fragment event fires, then fades in with an 8px rise.
+ *
+ * A pulse event flashes a gold underline across the last-active fragment
+ * on the currently-active line — subtle accent, ~60% opacity peak,
+ * settles over 20 frames. Never moves layout.
+ */
+const BodyFragments: React.FC<{
+  body: string;
+  beat: number | undefined;
+  lineInT: number;
+  lineEmphasis: number;
+  color: string;
+  accent: string;
+  frame: number;
+  lineAppearAtFrame: number;
+  fragmentEvents: SheetFragmentEvent[];
+  pulseEvents: SheetPulseEvent[];
+  isActive: boolean;
+}> = ({body, beat, lineInT, lineEmphasis, color, accent, frame, lineAppearAtFrame, fragmentEvents, pulseEvents, isActive}) => {
+  const parts = body.split(' · ');
+  const fragsForBeat = beat !== undefined
+    ? fragmentEvents.filter((e) => e.beat === beat)
+    : [];
+
+  // Pulse: only fires on the ACTIVE line and within a small window of the
+  // pulse event. Underline sweeps in and fades out over ~20 frames.
+  let pulseOpacity = 0;
+  if (isActive) {
+    for (const p of pulseEvents) {
+      const rel = frame - p.atFrame;
+      if (rel >= 0 && rel <= 22) {
+        const o = interpolate(rel, [0, 6, 22], [0, 0.6, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
+        if (o > pulseOpacity) pulseOpacity = o;
+      }
+    }
+  }
+
+  return (
+    <div
+      style={{
+        fontFamily: FONTS.sans,
+        fontWeight: 400,
+        fontSize: TYPE.body,
+        lineHeight: 1.42,
+        color,
+        maxWidth: 1150,
+        // Body base opacity: full strength while active, receding after.
+        opacity: lineInT * (0.3 + 0.7 * lineEmphasis),
+        position: 'relative',
+      }}
+    >
+      {parts.map((part, i) => {
+        // Fragment 0 shows with the reveal; the rest gate on events.
+        let fragT = 0;
+        if (i === 0) {
+          fragT = interpolate(frame, [lineAppearAtFrame, lineAppearAtFrame + FRAG_IN_FRAMES], [0, 1], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+            easing: Easing.out(Easing.cubic),
+          });
+        } else {
+          const evForIndex = fragsForBeat.find((e) => e.index === i);
+          if (evForIndex) {
+            fragT = interpolate(frame, [evForIndex.atFrame, evForIndex.atFrame + FRAG_IN_FRAMES], [0, 1], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+              easing: Easing.out(Easing.cubic),
+            });
+          }
+          // If no event yet, fragT stays 0 → absent (not dimmed).
+        }
+        if (fragT <= 0) return null;
+        return (
+          <React.Fragment key={i}>
+            {i > 0 && (
+              <span style={{opacity: fragT}}> · </span>
+            )}
+            <span
+              style={{
+                display: 'inline-block',
+                opacity: fragT,
+                transform: `translateY(${(1 - fragT) * 8}px)`,
+              }}
+            >
+              {part}
+            </span>
+          </React.Fragment>
+        );
+      })}
+      {pulseOpacity > 0 && (
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: -6,
+            height: 2,
+            background: accent,
+            opacity: pulseOpacity,
+            transformOrigin: 'left',
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+export const SheetScene: React.FC<SheetSceneProps> = ({
+  overline,
+  heading,
+  subtitle,
+  lines,
+  onInk = false,
+  fragmentEvents = [],
+  pulseEvents = [],
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = frame / fps;
@@ -186,22 +320,19 @@ export const SheetScene: React.FC<SheetSceneProps> = ({overline, heading, subtit
                     {line.title}
                   </div>
                   {line.body && (
-                    <div
-                      style={{
-                        fontFamily: FONTS.sans,
-                        fontWeight: 400,
-                        fontSize: TYPE.body,
-                        lineHeight: 1.42,
-                        color: muted,
-                        maxWidth: 1150,
-                        // Supporting text reads full-strength only while
-                        // its point is being spoken; it recedes after so
-                        // the screen never competes with the captions.
-                        opacity: inT * (0.3 + 0.7 * emphasis),
-                      }}
-                    >
-                      {line.body}
-                    </div>
+                    <BodyFragments
+                      body={line.body}
+                      beat={line.beat}
+                      lineInT={inT}
+                      lineEmphasis={emphasis}
+                      color={muted}
+                      accent={accent}
+                      frame={frame}
+                      lineAppearAtFrame={line.appearAtFrame}
+                      fragmentEvents={fragmentEvents}
+                      pulseEvents={pulseEvents}
+                      isActive={emphasis > 0.5}
+                    />
                   )}
                 </div>
               </div>

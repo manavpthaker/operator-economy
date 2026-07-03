@@ -11,6 +11,8 @@ import {CitationChip} from '../primitives/CitationChip';
  * concrete language. Fields flip from placeholder to filled with a
  * mono numeral pop for the price.
  */
+export type OfferItemEvent = {atFrame: number; index: number};
+
 export type OfferCardProps = {
   problem: string;      // "Missed calls at hotels"
   deliverable: string;  // "Callback + booked in Airtable"
@@ -18,6 +20,9 @@ export type OfferCardProps = {
   deadline: string;     // "14 days"
   source?: string;
   onInk?: boolean;
+  /** Gate row[i] on {block:'offer',index:i}. Row 0 lands with the
+   *  card header; rows 1+ wait on their events. */
+  itemEvents?: OfferItemEvent[];
 };
 
 export const OfferCard: React.FC<OfferCardProps> = ({
@@ -27,6 +32,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
   deadline,
   source,
   onInk = false,
+  itemEvents = [],
 }) => {
   const frame = useCurrentFrame();
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
@@ -89,7 +95,13 @@ export const OfferCard: React.FC<OfferCardProps> = ({
           }}
         />
         {rows.map((row, i) => {
-          const startFrame = 14 + i * 8;
+          // Row 0 lands with the card header. Rows 1+ wait on their
+          // pace event; if absent, don't render (paces come in as
+          // Problem→Deliverable→Price→Deadline).
+          let startFrame: number | null = i === 0 ? 14 : null;
+          const ev = itemEvents.find((e) => e.index === i);
+          if (ev) startFrame = ev.atFrame;
+          if (startFrame === null) return null;
           const t = interpolate(frame, [startFrame, startFrame + 14], [0, 1], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',

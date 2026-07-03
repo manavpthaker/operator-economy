@@ -22,6 +22,8 @@ export type ArtifactNode = {
   emphasis?: boolean;
 };
 
+export type ArtifactItemEvent = {atFrame: number; index: number};
+
 export type ArtifactSceneProps = {
   overline?: string; // "Operator asset" / "Attach path"
   title?: string;
@@ -29,6 +31,9 @@ export type ArtifactSceneProps = {
   callout?: string; // small annotation right of the frame
   source?: string;
   onInk?: boolean;
+  /** Gate node[i] on {block:'artifact', index:i}. Node 0 lands with
+   *  the title; nodes 1+ wait on their pace events. */
+  itemEvents?: ArtifactItemEvent[];
 };
 
 export const ArtifactScene: React.FC<ArtifactSceneProps> = ({
@@ -38,6 +43,7 @@ export const ArtifactScene: React.FC<ArtifactSceneProps> = ({
   callout,
   source,
   onInk = false,
+  itemEvents = [],
 }) => {
   const frame = useCurrentFrame();
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
@@ -122,7 +128,12 @@ export const ArtifactScene: React.FC<ArtifactSceneProps> = ({
             }}
           >
             {nodes.map((node, i) => {
-              const nodeStart = 22 + i * 10;
+              // Node 0 lands with the title. Nodes 1+ wait on their
+              // pace event (item index i) — until then, absent.
+              let nodeStart: number | null = i === 0 ? 22 : null;
+              const ev = itemEvents.find((e) => e.index === i);
+              if (ev) nodeStart = ev.atFrame;
+              if (nodeStart === null) return null;
               const t = interpolate(frame, [nodeStart, nodeStart + 14], [0, 1], {
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',

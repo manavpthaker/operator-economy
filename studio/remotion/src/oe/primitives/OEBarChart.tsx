@@ -12,6 +12,7 @@ import {CitationChip} from './CitationChip';
  * Adapts to onInk vs. onPaper surfaces via `onInk`.
  */
 export type BarDatum = {label: string; value: number; highlight?: boolean};
+export type BarFocusEvent = {atFrame: number; index: number};
 export type OEBarChartProps = {
   title?: string;
   data: BarDatum[];
@@ -22,6 +23,11 @@ export type OEBarChartProps = {
   onInk?: boolean;
   startFrame: number;
   chartHeight?: number;
+  /** Bars grow one-at-a-time this many frames apart (default 8). */
+  barStagger?: number;
+  /** Focus events re-read the chart: `index`-th bar lifts + brightens,
+   *  others recede to 70%. Effect lasts ~20 frames. */
+  focusEvents?: BarFocusEvent[];
 };
 
 const compactValue = (v: number, unit = '') => {
@@ -43,11 +49,12 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
   onInk = false,
   startFrame,
   chartHeight = 540,
+  barStagger = 8,
+  focusEvents = [],
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const rel = frame - startFrame;
-  const growth = spring({frame: rel - 8, fps, config: {damping: 200, stiffness: 60}, durationInFrames: 34});
 
   const max = Math.max(...data.map((d) => d.value), 1);
   // If nobody flagged a highlight, gold the largest bar (the "one gold" per DS).
@@ -111,8 +118,38 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
         {data.map((d, i) => {
           const isGold = i === goldIdx;
           const finalH = (d.value / max) * 100;
-          const h = Math.max(finalH * growth, 0.5);
-          const shownValue = d.value * growth;
+          // Sequential growth: bar `i` starts `barStagger` frames after
+          // bar `i-1`, then springs to full over 34 frames.
+          const barStart = 12 + i * barStagger;
+          const barGrowth = spring({
+            frame: rel - barStart,
+            fps,
+            config: {damping: 200, stiffness: 60},
+            durationInFrames: 34,
+          });
+          const h = Math.max(finalH * barGrowth, 0.5);
+          const shownValue = d.value * barGrowth;
+
+          // Focus events lift + brighten one bar; others recede.
+          let focusScale = 1;
+          let focusYOffset = 0;
+          let dimOthers = 0;
+          for (const ev of focusEvents) {
+            const fRel = frame - ev.atFrame;
+            if (fRel < 0 || fRel > 30) continue;
+            const amp = interpolate(fRel, [0, 6, 24, 30], [0, 1, 1, 0], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            });
+            if (ev.index === i) {
+              focusScale = 1 + 0.03 * amp;
+              focusYOffset = -4 * amp;
+            } else {
+              dimOthers = Math.max(dimOthers, amp);
+            }
+          }
+          const barOpacity = 1 - 0.3 * dimOthers;
+
           return (
             <div
               key={i}
@@ -123,6 +160,9 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
                 justifyContent: 'flex-end',
                 alignItems: 'center',
                 height: '100%',
+                opacity: barOpacity,
+                transform: `translateY(${focusYOffset}px) scale(${focusScale})`,
+                transformOrigin: 'bottom center',
               }}
             >
               <div
@@ -134,7 +174,7 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
                   marginBottom: 16,
                   fontFeatureSettings: "'tnum' 1, 'zero' 1",
                   whiteSpace: 'nowrap',
-                  opacity: Math.min(1, growth * 1.3),
+                  opacity: Math.min(1, barGrowth * 1.3),
                 }}
               >
                 {fmt(shownValue)}
@@ -172,7 +212,19 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
         ))}
       </div>
       {source && (
-        <div style={{marginTop: 12, opacity: titleIn}}>
+        <div
+          style={{
+            marginTop: 12,
+            // Chip lands AFTER the last bar's spring settles — sequential
+            // build convention (bars → labels → source last).
+            opacity: interpolate(
+              rel,
+              [12 + data.length * barStagger + 20, 12 + data.length * barStagger + 32],
+              [0, 1],
+              {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+            ),
+          }}
+        >
           <CitationChip source={source} estimate={estimate} onInk={onInk} />
         </div>
       )}

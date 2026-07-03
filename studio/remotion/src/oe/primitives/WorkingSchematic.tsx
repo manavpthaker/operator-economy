@@ -26,17 +26,26 @@ export type SchematicNode = {
   goldFigure?: boolean;
 };
 
+export type SchematicCameraCue = {atFrame: number; nodeIndex: number; isLast: boolean};
+
 export type WorkingSchematicProps = {
   nodes: SchematicNode[];
   sheetLabel?: string; // "Sheet 03 of 07 — The stack"
   margin?: string; // "≤ $100/mo"
   running?: boolean;
   height?: number; // pixels
+  /** Slow camera cues from pace_storyboard: each cue focuses on the
+   *  active reveal's node. isLast=true drifts back to show the whole
+   *  board. Without cues, the camera stays at the top-of-chain default. */
+  cameraCues?: SchematicCameraCue[];
 };
 
 const NODE_H = 96;
 const NODE_W = 340;
 const WIRE_H = 34;
+// Approximate vertical distance between the top of successive nodes —
+// node body (~110px) + wire (34px). Used only for camera framing offsets.
+const NODE_UNIT_H = 144;
 
 export const WorkingSchematic: React.FC<WorkingSchematicProps> = ({
   nodes,
@@ -44,11 +53,43 @@ export const WorkingSchematic: React.FC<WorkingSchematicProps> = ({
   margin,
   running = true,
   height,
+  cameraCues = [],
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
 
   const runningPulse = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin((frame / fps) * 2 * Math.PI * 0.9));
+
+  // Compute camera state at this frame: find the most recently-fired
+  // cue and ease from the previous cue's target. The final cue's
+  // isLast=true drifts to a "show the whole board" pose (scale 1,
+  // translate 0). Intermediate cues zoom to node i (~1.06x, translate
+  // up so the node group frames near center-top).
+  const cameraState = (() => {
+    if (cameraCues.length === 0) return {scale: 1, translateY: 0};
+    // Find current + previous cue.
+    let currentIdx = -1;
+    for (let i = 0; i < cameraCues.length; i++) {
+      if (frame >= cameraCues[i].atFrame) currentIdx = i;
+      else break;
+    }
+    if (currentIdx < 0) return {scale: 1, translateY: 0};
+    const cur = cameraCues[currentIdx];
+    const prev = currentIdx > 0 ? cameraCues[currentIdx - 1] : null;
+    const targetScale = cur.isLast ? 1.0 : 1.06;
+    const targetY = cur.isLast ? 0 : -cur.nodeIndex * NODE_UNIT_H * 0.18;
+    const prevScale = prev ? (prev.isLast ? 1.0 : 1.06) : 1.0;
+    const prevY = prev ? (prev.isLast ? 0 : -prev.nodeIndex * NODE_UNIT_H * 0.18) : 0;
+    const dur = 24; // 24-frame ease between cues (~0.8s at 30fps)
+    const t = interpolate(frame, [cur.atFrame, cur.atFrame + dur], [0, 1], {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+    });
+    return {
+      scale: prevScale + (targetScale - prevScale) * t,
+      translateY: prevY + (targetY - prevY) * t,
+    };
+  })();
 
   return (
     <div
@@ -102,8 +143,19 @@ export const WorkingSchematic: React.FC<WorkingSchematicProps> = ({
           </span>
         )}
       </div>
-      {/* Chain */}
-      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 0, position: 'relative'}}>
+      {/* Chain — wrapped in a camera-transform container that
+          follows the active reveal (cameraCues from pace_storyboard). */}
+      <div
+        style={{
+          transform: `translateY(${cameraState.translateY}px) scale(${cameraState.scale})`,
+          transformOrigin: 'left top',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: 0,
+          position: 'relative',
+        }}
+      >
         {nodes.map((node, i) => {
           const t = spring({
             frame: frame - node.appearAtFrame,

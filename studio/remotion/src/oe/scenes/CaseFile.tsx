@@ -10,6 +10,8 @@ import {CitationChip} from '../primitives/CitationChip';
  * Three rows on a lifted paper card with an engineering-title-block
  * feel: doc-style header, hairline separators, mono labels.
  */
+export type CaseFileItemEvent = {atFrame: number; index: number};
+
 export type CaseFileProps = {
   reference?: string; // "Case 001"
   problem: string;
@@ -17,6 +19,9 @@ export type CaseFileProps = {
   result: string;
   source?: string;
   onInk?: boolean;
+  /** Gate row[i] on {block:'caseFile',index:i}. Row 0 lands with the
+   *  header; rows 1+ wait on their events. Rows: problem, workflow, result. */
+  itemEvents?: CaseFileItemEvent[];
 };
 
 export const CaseFile: React.FC<CaseFileProps> = ({
@@ -26,6 +31,7 @@ export const CaseFile: React.FC<CaseFileProps> = ({
   result,
   source,
   onInk = false,
+  itemEvents = [],
 }) => {
   const frame = useCurrentFrame();
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
@@ -96,7 +102,10 @@ export const CaseFile: React.FC<CaseFileProps> = ({
           </span>
         </div>
         {rows.map((row, i) => {
-          const startFrame = 10 + i * 10;
+          let startFrame: number | null = i === 0 ? 10 : null;
+          const ev = itemEvents.find((e) => e.index === i);
+          if (ev) startFrame = ev.atFrame;
+          if (startFrame === null) return null;
           const t = interpolate(frame, [startFrame, startFrame + 14], [0, 1], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',

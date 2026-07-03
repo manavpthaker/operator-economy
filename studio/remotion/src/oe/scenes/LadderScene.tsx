@@ -21,6 +21,9 @@ export type LadderStep = {
   compactCurrency?: boolean;
 };
 
+export type LadderItemEvent = {atFrame: number; index: number};
+export type LadderFocusEvent = {atFrame: number; index: number};
+
 export type LadderSceneProps = {
   overline?: string;
   heading?: string;
@@ -28,6 +31,10 @@ export type LadderSceneProps = {
   source?: string;
   estimate?: boolean;
   onInk?: boolean;
+  /** Steps 1+ wait on their pace event. Step 0 lands with the heading. */
+  itemEvents?: LadderItemEvent[];
+  /** Re-highlight step `index` — lift + brighten, others recede. */
+  focusEvents?: LadderFocusEvent[];
 };
 
 export const LadderScene: React.FC<LadderSceneProps> = ({
@@ -37,6 +44,8 @@ export const LadderScene: React.FC<LadderSceneProps> = ({
   source,
   estimate,
   onInk = false,
+  itemEvents = [],
+  focusEvents = [],
 }) => {
   const frame = useCurrentFrame();
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
@@ -106,7 +115,13 @@ export const LadderScene: React.FC<LadderSceneProps> = ({
             increasing width, gold on the peak. */}
         <div style={{display: 'flex', flexDirection: 'column', gap: 20, marginTop: 12}}>
           {steps.map((step, i) => {
-            const stepStart = 20 + i * 8;
+            // Step 0 lands with the heading; steps 1+ wait on pace events.
+            // If an event is missing, the step stays ABSENT (spec: never
+            // dimmed-then-appears — viewer reads "faded" as "coming").
+            let stepStart: number | null = i === 0 ? 20 : null;
+            const ev = itemEvents.find((e) => e.index === i);
+            if (ev) stepStart = ev.atFrame;
+            if (stepStart === null) return null;
             const t = interpolate(frame, [stepStart, stepStart + 14], [0, 1], {
               extrapolateLeft: 'clamp',
               extrapolateRight: 'clamp',
@@ -114,6 +129,27 @@ export const LadderScene: React.FC<LadderSceneProps> = ({
             });
             const isPeak = i === steps.length - 1;
             const width = 30 + i * 30; // 30% / 60% / 90%
+
+            // Focus events: this step re-highlights (lift + brighten) OR
+            // recedes with the others.
+            let focusScale = 1;
+            let focusYOffset = 0;
+            let dimAmt = 0;
+            for (const ev2 of focusEvents) {
+              const fRel = frame - ev2.atFrame;
+              if (fRel < 0 || fRel > 30) continue;
+              const amp = interpolate(fRel, [0, 6, 24, 30], [0, 1, 1, 0], {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              });
+              if (ev2.index === i) {
+                focusScale = 1 + 0.02 * amp;
+                focusYOffset = -4 * amp;
+              } else {
+                dimAmt = Math.max(dimAmt, amp);
+              }
+            }
+
             return (
               <div
                 key={i}
@@ -122,8 +158,9 @@ export const LadderScene: React.FC<LadderSceneProps> = ({
                   gridTemplateColumns: '260px 1fr',
                   gap: 40,
                   alignItems: 'center',
-                  opacity: t,
-                  transform: `translateX(${(1 - t) * 14}px)`,
+                  opacity: t * (1 - 0.3 * dimAmt),
+                  transform: `translateX(${(1 - t) * 14}px) translateY(${focusYOffset}px) scale(${focusScale})`,
+                  transformOrigin: 'left center',
                 }}
               >
                 <div

@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {OEBarChart, BarDatum} from '../primitives/OEBarChart';
+import {OEBarChart, BarDatum, BarFocusEvent} from '../primitives/OEBarChart';
 import {COLORS} from '../theme';
 
 /**
@@ -16,6 +16,8 @@ export type ChartSceneProps = {
   estimate?: boolean;
   onInk?: boolean;
   startFrame: number;
+  /** Chart re-read cues from pace_storyboard. */
+  focusEvents?: BarFocusEvent[];
 };
 
 // Any chart series whose max value spans multiple orders of magnitude
@@ -33,6 +35,7 @@ export const ChartScene: React.FC<ChartSceneProps> = ({
   estimate,
   onInk = false,
   startFrame,
+  focusEvents,
 }) => (
   <AbsoluteFill
     style={{
@@ -52,6 +55,7 @@ export const ChartScene: React.FC<ChartSceneProps> = ({
       onInk={onInk}
       startFrame={startFrame}
       chartHeight={540}
+      focusEvents={focusEvents}
     />
   </AbsoluteFill>
 );

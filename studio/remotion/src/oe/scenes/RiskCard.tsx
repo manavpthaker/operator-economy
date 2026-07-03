@@ -9,14 +9,19 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
  *
  * One brick accent + optional short list. Nothing decorative.
  */
+export type ItemEvent = {atFrame: number; index: number};
+
 export type RiskCardProps = {
   title: string;
   body?: string;
   bullets?: string[];
   onInk?: boolean;
+  /** Gate bullet[i] on {block:'risk',index:i}. Bullet 0 always shows
+   *  once the body has landed; subsequent bullets ABSENT until fired. */
+  itemEvents?: ItemEvent[];
 };
 
-export const RiskCard: React.FC<RiskCardProps> = ({title, body, bullets, onInk = false}) => {
+export const RiskCard: React.FC<RiskCardProps> = ({title, body, bullets, onInk = false, itemEvents = []}) => {
   const frame = useCurrentFrame();
   const strong = onInk ? COLORS.onInk : COLORS.ink900;
   const muted = onInk ? COLORS.onInkMuted : COLORS.ink500;
@@ -94,7 +99,16 @@ export const RiskCard: React.FC<RiskCardProps> = ({title, body, bullets, onInk =
         {bullets && bullets.length > 0 && (
           <div style={{marginTop: 32, display: 'flex', flexDirection: 'column', gap: 14}}>
             {bullets.map((b, i) => {
-              const t = interpolate(frame, [32 + i * 6, 32 + i * 6 + 14], [0, 1], {
+              // Bullet 0 lands with the body (frame 32); higher bullets
+              // wait on their pace event. If the event is missing (e.g.
+              // pace pass hasn't emitted enough items yet), the bullet
+              // stays absent — never dimmed-then-appears — so viewers
+              // don't read "faded" as "coming".
+              let anchor: number | null = i === 0 ? 32 : null;
+              const ev = itemEvents.find((e) => e.index === i);
+              if (ev) anchor = ev.atFrame;
+              if (anchor === null) return null;
+              const t = interpolate(frame, [anchor, anchor + 14], [0, 1], {
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',
                 easing: Easing.bezier(...EASE.standard),

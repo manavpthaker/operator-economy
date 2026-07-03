@@ -24,6 +24,19 @@ originate.py continue <slug>
 
 `prepare_longform.py` then reads `storyboard.json` and emits `screens[]` in `render_data/blueprint.json` alongside the legacy `sections[]`. `BlueprintComposition` prefers `screens[]`; the run-grouping shim stays as fallback until every episode ships with a storyboard.
 
+### Order of operations (important for regen)
+
+When VO is regenerated, hand-tuning changes, or `storyboard.py` re-runs, follow this exact sequence — `pace_storyboard.py` MUST run after any change to screen structure or timings:
+
+```
+storyboard.py OR hand_tune_storyboard.py     → storyboard.json
+pace_storyboard.py                           → adds `events` per screen
+prepare_longform.py                          → merges into render_data/blueprint.json
+render
+```
+
+`pace_storyboard.py` is idempotent: it reads `storyboard.json` + `vo/words.json` and stages events (fragment reveals, item drops, pulses, focus cycles) that make screens feel alive inside their holds. If it hasn't run, the renderer's ambient/camera/staggered-build fallbacks still fire, but the pace-derived stagger of body fragments and item drops will be absent — and dead spans past 8s show up as `eval_edit`'s density warnings. **Always re-run `pace_storyboard.py` after hand-tuning or VO regeneration.**
+
 ## Layout vocabulary (16)
 
 The scene grammar from `faceless-video-editing-research.md` §1 — every screen is exactly one of these:

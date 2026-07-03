@@ -5,6 +5,7 @@ import {useEnsureFontsLoaded} from './oe/fonts';
 import {COLORS, EASE, KEN_BURNS} from './oe/theme';
 import {Captions} from './oe/Captions';
 import {SoundBed} from './oe/SoundBed';
+import {AmbientGround} from './oe/AmbientGround';
 import {WorkingSchematic, SchematicNode} from './oe/primitives/WorkingSchematic';
 import {HookGap} from './oe/scenes/HookGap';
 import {ChartScene} from './oe/scenes/ChartScene';
@@ -96,6 +97,26 @@ export type ScreenReveal = {
 
 export type SfxCue = {cue: 'tick' | 'whoosh' | 'hit'; at: number};
 export type MusicCue = {intensity: 'calm' | 'build' | 'silence'; duck_db?: number};
+
+/**
+ * PaceEvent — a timed in-screen visual event authored by
+ * `scripts/originate/pace_storyboard.py`. `at` is absolute seconds
+ * (like reveal.at) — scenes convert it to sequence-local frames
+ * before use. Each kind stages content the screen ALREADY carries:
+ *
+ * - fragment: reveal `beat`'s body (split on " · ") — fragment
+ *   `index` appears now. Fragment 0 shows with the reveal itself.
+ * - item: internal item `index` inside a custom-card block
+ *   (risk/artifact/caseFile/offer/ladder) appears now.
+ * - pulse: brief accent flash on the active line's key `word` —
+ *   subtle. Never moves layout.
+ * - focus: chart/ladder attention cycle — re-highlight data `index`.
+ */
+export type PaceEvent =
+  | {at: number; kind: 'fragment'; beat: number; index: number}
+  | {at: number; kind: 'item'; block: 'risk' | 'artifact' | 'caseFile' | 'offer' | 'ladder'; index: number}
+  | {at: number; kind: 'pulse'; word: string}
+  | {at: number; kind: 'focus'; index: number};
 
 // Custom-props payload for hand-tuned screens. When the storyboard's
 // auto-derived reveal fields aren't rich enough (a quote line that
@@ -202,6 +223,8 @@ export type Screen = {
   sfx?: SfxCue[];
   music?: MusicCue;
   custom?: ScreenCustom;
+  /** Per-screen visual events from pace_storyboard.py. */
+  events?: PaceEvent[];
 };
 
 export type BlueprintRenderData = {
@@ -539,6 +562,31 @@ const Drift: React.FC<{direction: 'in' | 'out'; durationInFrames: number; childr
 // Screen router (preferred path — reads storyboard-derived screens[])
 // ---------------------------------------------------------------------
 
+// Convert a PaceEvent's absolute-seconds `at` to a sequence-local frame
+// (screen.start is the Sequence's `from`, so subtract it from event.at
+// before multiplying by fps). Filtering by kind first keeps each scene's
+// event array small.
+export type LocalEvent<T extends PaceEvent> = T & {atFrame: number};
+
+function localEvents<K extends PaceEvent['kind']>(
+  events: PaceEvent[] | undefined,
+  kind: K,
+  screenStart: number,
+  fps: number,
+): LocalEvent<Extract<PaceEvent, {kind: K}>>[] {
+  if (!events || events.length === 0) return [];
+  const out: LocalEvent<Extract<PaceEvent, {kind: K}>>[] = [];
+  for (const ev of events) {
+    if (ev.kind === kind) {
+      out.push({
+        ...(ev as Extract<PaceEvent, {kind: K}>),
+        atFrame: Math.round((ev.at - screenStart) * fps),
+      });
+    }
+  }
+  return out;
+}
+
 const ScreenLayer: React.FC<{
   screen: Screen;
   screenIndex: number;
@@ -552,6 +600,13 @@ const ScreenLayer: React.FC<{
   const first = screen.reveals[0];
 
   const overline = `Sheet ${String(screenIndex + 1).padStart(2, '0')} of ${String(totalScreens).padStart(2, '0')}`;
+
+  // Pre-filter pace events into local-frame lists per kind. Scenes take
+  // only what they use.
+  const fragmentEvents = localEvents(screen.events, 'fragment', screen.start, fps);
+  const itemEvents = localEvents(screen.events, 'item', screen.start, fps);
+  const pulseEvents = localEvents(screen.events, 'pulse', screen.start, fps);
+  const focusEvents = localEvents(screen.events, 'focus', screen.start, fps);
 
   let content: React.ReactNode;
 
@@ -575,6 +630,14 @@ const ScreenLayer: React.FC<{
           goldFigure: i === screen.reveals.length - 1,
         };
       });
+      // Camera cues: reveal.at → local frame, WorkingSchematic uses
+      // them to slowly frame the active node group. Drift back on the
+      // final reveal so the whole board is visible at the section end.
+      const cameraCues = screen.reveals.map((r, i) => ({
+        atFrame: Math.round((r.at - screen.start) * fps),
+        nodeIndex: i,
+        isLast: i === screen.reveals.length - 1,
+      }));
       content = (
         <AbsoluteFill style={{background: COLORS.navy, padding: '120px 160px 300px'}}>
           <WorkingSchematic
@@ -582,6 +645,7 @@ const ScreenLayer: React.FC<{
             sheetLabel={`${overline} — ${screen.heading ?? ''}`}
             margin="≤ $100/mo"
             running
+            cameraCues={cameraCues}
           />
         </AbsoluteFill>
       );
@@ -617,12 +681,16 @@ const ScreenLayer: React.FC<{
           estimate={/estimate|reported/i.test(first?.asset?.source ?? '') || /estimate|reported/i.test(first?.title ?? '')}
           onInk={onInk}
           startFrame={0}
+          focusEvents={focusEvents}
         />
       );
       break;
     case 'sheet':
     case 'cta': {
+      // Pass each reveal's beat number through so SheetScene can gate
+      // its body fragments on {kind:'fragment',beat,index} events.
       const lines: SheetLine[] = screen.reveals.map((r) => ({
+        beat: r.beat,
         title: r.title,
         body: r.body,
         appearAtFrame: Math.round((r.at - screen.start) * fps),
@@ -636,6 +704,8 @@ const ScreenLayer: React.FC<{
           subtitle={meta?.subtitle}
           lines={lines}
           onInk={screen.layout === 'cta' ? true : onInk}
+          fragmentEvents={fragmentEvents}
+          pulseEvents={pulseEvents}
         />
       );
       break;
@@ -746,6 +816,8 @@ const ScreenLayer: React.FC<{
             source={c.source ?? screen.source ?? undefined}
             estimate={c.estimate}
             onInk={onInk}
+            itemEvents={itemEvents.filter((e) => e.block === 'ladder')}
+            focusEvents={focusEvents}
           />
         );
       } else {
@@ -765,6 +837,8 @@ const ScreenLayer: React.FC<{
               ]}
               source={first?.asset?.source ?? screen.source ?? undefined}
               onInk={onInk}
+              itemEvents={itemEvents.filter((e) => e.block === 'ladder')}
+              focusEvents={focusEvents}
             />
           );
         } else {
@@ -785,6 +859,7 @@ const ScreenLayer: React.FC<{
     }
     case 'offer_card': {
       const c = screen.custom?.offer;
+      const offerItems = itemEvents.filter((e) => e.block === 'offer');
       if (c) {
         content = (
           <OfferCard
@@ -794,6 +869,7 @@ const ScreenLayer: React.FC<{
             deadline={c.deadline}
             source={c.source ?? screen.source ?? undefined}
             onInk={onInk}
+            itemEvents={offerItems}
           />
         );
       } else {
@@ -805,6 +881,7 @@ const ScreenLayer: React.FC<{
             deadline=""
             source={screen.source ?? undefined}
             onInk={onInk}
+            itemEvents={offerItems}
           />
         );
       }
@@ -818,6 +895,7 @@ const ScreenLayer: React.FC<{
           body={c?.body ?? first?.body}
           bullets={c?.bullets ?? first?.asset?.bullets}
           onInk={onInk}
+          itemEvents={itemEvents.filter((e) => e.block === 'risk')}
         />
       );
       break;
@@ -832,6 +910,7 @@ const ScreenLayer: React.FC<{
           callout={c?.callout ?? first?.body}
           source={c?.source ?? first?.asset?.source ?? screen.source ?? undefined}
           onInk={onInk}
+          itemEvents={itemEvents.filter((e) => e.block === 'artifact')}
         />
       );
       break;
@@ -869,6 +948,7 @@ const ScreenLayer: React.FC<{
           result={c?.result ?? ''}
           source={c?.source ?? screen.source ?? undefined}
           onInk={onInk}
+          itemEvents={itemEvents.filter((e) => e.block === 'caseFile')}
         />
       );
       break;
@@ -882,11 +962,28 @@ const ScreenLayer: React.FC<{
   const hardCut = screen.layout === 'quote' || screen.layout === 'chapter_reset';
   const driftDir: 'in' | 'out' = screenIndex % 2 === 0 ? 'in' : 'out';
 
+  // AmbientGround adds the slow scale drift (1.000→1.018) so nothing
+  // sits perfectly still. Impact frames opt OUT — their stillness IS
+  // the effect. Navy grounds also get the grid parallax. Because
+  // schematic screens carry their own painted drafting grid, we only
+  // gridParallax the sheet/cta layers on evidence (whose ground is
+  // navy per the impact-line ground rotation — but sheets don't use
+  // navy; the schematic screens do). Keeping this simple: parallax on
+  // schematic only.
+  const impactStill = hardCut; // quote/chapter_reset — stay dead still
+  const gridParallax = screen.layout === 'schematic';
+
   return (
     <Sequence key={`screen-${screen.id}`} from={from} durationInFrames={dur}>
       <FadeIn hard={hardCut}>
         <Drift direction={driftDir} durationInFrames={dur}>
-          {content}
+          <AmbientGround
+            enabled={!impactStill}
+            durationInFrames={dur}
+            gridParallax={gridParallax}
+          >
+            {content}
+          </AmbientGround>
         </Drift>
       </FadeIn>
     </Sequence>
