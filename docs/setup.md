@@ -16,6 +16,12 @@ Handoff medium = the git repo. The scheduled task commits; you pull and run keye
 
 DONE: Anthropic key → `studio/.env` (gitignored) · domain bought (Vercel) · YouTube channel branded via browser (name "The Operator Economy", @operatoreconomy, full description published) · GCC project `operator-economy` under brownmanbeard@gmail.com: YouTube Data API v3 + Analytics API enabled, OAuth consent screen (External/testing), Desktop OAuth client created, client-secret JSON in Downloads (→ move to `studio/.secrets/`, gitignored), brownmanbeard added as test user.
 DONE (later same day): ElevenLabs key → `studio/.env` — account is **Pro tier** (607K chars/mo, commercial rights) and a **Professional Voice Clone already exists**: 'brown man pro' (`q9RtP62PWHxX4IPG7uSM`), now set in `studio/config/blueprint.json`. Smoke-tested the exact pipeline path (PVC + eleven_v3 + with-timestamps endpoint): 5s audio + character alignment returned clean.
+## Voice clone quality — diagnosis & retrain protocol (July 2026)
+
+The PVC was trained on 4 mismatched sources: 2 noisy quick memos (noise floor −55/−60dB, peaks near clipping — DROP these), one clean 24-min read (−78dB floor, good), and a 65-min file that was noise-gated + heavily compressed (LRA 2.5, digital-zero gaps — the main quality culprit). Mixed acoustic signatures = muddy clone.
+
+**Retrain protocol:** (1) Use the two cleaned files (highpass + matched to −19.4 LUFS both, produced 2026-07-02, in Cowork outputs) — ~88 min total, comfortably above PVC minimums. (2) In ElevenLabs → the "Operator Economy" voice → Edit → REMOVE all four old samples → upload the two cleaned files → retrain. (3) Best upgrade beyond cleanup: record 15–20 min of NARRATION-style reading (the pilot script, natural pace, expressive) on a decent mic in a quiet room — the gated 65-min file also taught the clone a flat delivery; new narration-style source fixes tone, not just noise. Add it as a third sample. (4) Re-run the smoke test line and A/B against the old render. Tool for future sample prep: `studio/tools/clean_voice_samples.sh` (two-pass loudnorm version — run locally).
+
 PENDING: YouTube API compliance audit form · phone verification for thumbnails · pronunciation dictionary (build during pilot VO) · Resend domain DNS · site build on Vercel.
 
 ## Accounts & keys checklist
