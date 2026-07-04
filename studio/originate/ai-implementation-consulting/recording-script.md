@@ -182,4 +182,6 @@ Operate it.
 
 ---
 
-*~1198 words · one read ≈ 8 min · read thesis + evidence twice, then riff off-script 3–4 min.*
+*~1198 words · one clean top-to-bottom read ≈ 8 min.*
+
+**One-take instructions:** read straight through, top to bottom, pausing a beat between sections — the pipeline finds the section boundaries automatically. If you flub a line, just pause and re-say the sentence and keep going (small stumbles are HUMAN — leave them unless they're factual errors). Do NOT include re-reads or riffing in this take. Record those separately (thesis + evidence again with different energy, plus 3–4 min off-script riffing) — that second file is clone-training material only.

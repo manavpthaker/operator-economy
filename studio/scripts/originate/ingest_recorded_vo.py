@@ -89,9 +89,100 @@ def restore_display(words: list[dict], performed_text: str) -> list[dict]:
     return out
 
 
+def section_bounds_from_alignment(words: list[dict], sections: list[dict],
+                                  vo_dir: Path) -> list[tuple[str, float, float]]:
+    """One-take mode: find each section's time range inside a continuous
+    recording by aligning Whisper words against the concatenated
+    performed script. Returns [(section_id, start_s, end_s)] with cut
+    points placed in the silence between sections."""
+    all_tokens: list[str] = []
+    ranges: list[tuple[str, int, int]] = []  # (sid, first_tok, last_tok)
+    for sec in sections:
+        performed = vo_dir / f"performed-{sec['id']}.txt"
+        if not performed.exists():
+            print(f"Error: {performed} missing — one-take mode needs the "
+                  f"performed script for alignment.", file=sys.stderr)
+            sys.exit(1)
+        toks = [t for t in performed.read_text().split()
+                if not (t.startswith("[") or t.endswith("]"))]
+        ranges.append((sec["id"], len(all_tokens), len(all_tokens) + len(toks) - 1))
+        all_tokens += toks
+
+    a = [_norm(w["word"]) for w in words]
+    b = [_norm(t) for t in all_tokens]
+    sm = difflib.SequenceMatcher(a=a, b=b, autojunk=False)
+    tok2word: dict[int, int] = {}
+    for block in sm.get_matching_blocks():
+        for k in range(block.size):
+            tok2word[block.b + k] = block.a + k
+
+    bounds: list[tuple[str, float, float]] = []
+    for sid, t0, t1 in ranges:
+        w_first = next((tok2word[t] for t in range(t0, t1 + 1) if t in tok2word), None)
+        w_last = next((tok2word[t] for t in range(t1, t0 - 1, -1) if t in tok2word), None)
+        if w_first is None or w_last is None:
+            print(f"Error: couldn't locate section '{sid}' in the recording — "
+                  f"was it read? (Only a clean top-to-bottom episode read "
+                  f"should be in this file; retakes/riffs go in a separate "
+                  f"file for clone training.)", file=sys.stderr)
+            sys.exit(1)
+        bounds.append((sid, words[w_first]["start"], words[w_last]["end"]))
+
+    # Cut in the middle of the gap between sections (never clip speech).
+    cuts: list[tuple[str, float, float]] = []
+    for i, (sid, s, e) in enumerate(bounds):
+        start = 0.0 if i == 0 else (bounds[i - 1][2] + s) / 2
+        end = e + 0.35 if i == len(bounds) - 1 else (e + bounds[i + 1][1]) / 2
+        cuts.append((sid, max(start, 0.0), end))
+    return cuts
+
+
+def ingest_single(single: Path, script: dict, vo_cfg: dict, base: Path):
+    vo_dir = base / "vo"
+    vo_dir.mkdir(exist_ok=True)
+    print(f"One-take mode: {single.name}")
+    # Master the WHOLE take once (uniform loudness), then transcribe it.
+    mastered = base / "recorded" / "_mastered_take.mp3"
+    mastered.parent.mkdir(exist_ok=True)
+    subprocess.run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                    "-i", str(single), "-af", MASTER_CHAIN,
+                    "-ar", "44100", "-b:a", "192k", str(mastered)], check=True)
+    words = whisper_words(mastered)
+    print(f"  transcribed: {len(words)} words")
+    cuts = section_bounds_from_alignment(words, script["sections"], vo_dir)
+
+    for sid, start, end in cuts:
+        out_mp3 = vo_dir / f"{sid}.mp3"
+        subprocess.run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                        "-ss", f"{start:.3f}", "-to", f"{end:.3f}",
+                        "-i", str(mastered), "-ar", "44100", "-b:a", "192k",
+                        str(out_mp3)], check=True)
+        pad_s = float(vo_cfg.get("section_pad_s", 0.0))
+        if pad_s > 0:
+            pad_tail(out_mp3, pad_s)
+        if vo_cfg.get("room_tone", True):
+            room_tone(out_mp3)
+        sec_words = [{"word": w["word"], "start": w["start"] - start,
+                      "end": w["end"] - start}
+                     for w in words if start <= w["start"] < end]
+        performed = vo_dir / f"performed-{sid}.txt"
+        if performed.exists():
+            sec_words = restore_display(sec_words, performed.read_text())
+        p = subprocess.run(["ffprobe", "-hide_banner", "-show_entries",
+                            "format=duration", "-of", "csv=p=0", str(out_mp3)],
+                           capture_output=True, text=True)
+        duration = float(p.stdout.strip())
+        (vo_dir / f"words-{sid}.json").write_text(
+            json.dumps({"duration": duration, "words": sec_words}))
+        print(f"  {sid}: {start:7.1f}–{end:7.1f}s → {duration:.1f}s · {len(sec_words)} words")
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Ingest recorded VO sections")
+    ap = argparse.ArgumentParser(description="Ingest recorded VO (per-section files or one take)")
     ap.add_argument("script")
+    ap.add_argument("--single", default=None,
+                    help="One continuous top-to-bottom recording; sections are "
+                         "cut automatically via script alignment")
     ap.add_argument("--recorded-dir", default=None)
     ap.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
     args = ap.parse_args()
@@ -101,10 +192,16 @@ def main():
     script = json.loads(script_path.read_text())
     config = json.loads(Path(args.config).read_text())
     vo_cfg = config["voiceover"]
+
+    if args.single:
+        ingest_single(Path(args.single), script, vo_cfg, base)
+        print("\nNow: generate_vo (assembles) → hand_tune → pace → prepare → arrange → render")
+        return
+
     rec_dir = Path(args.recorded_dir) if args.recorded_dir else base / "recorded"
     if not rec_dir.exists():
         print(f"Error: {rec_dir} not found. Drop one file per section there "
-              f"(hook.wav, thesis.wav, …).", file=sys.stderr)
+              f"(hook.wav, thesis.wav, …) or use --single <file>.", file=sys.stderr)
         sys.exit(1)
 
     vo_dir = base / "vo"
