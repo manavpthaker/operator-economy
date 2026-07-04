@@ -304,13 +304,24 @@ def main():
         aliases = {k: v for k, v in (vo_cfg.get("speech_aliases") or {}).items()
                    if not k.startswith("_")}
         spoken_text = apply_speech_aliases(text, aliases) if aliases else text
+        # Audio tags ([exhales], [short pause], …) are an eleven_v3
+        # feature — every other model reads them as literal text. On
+        # non-v3 models strip them; paragraph breaks + ellipses carry
+        # the pacing instead.
+        if vo_cfg["model_id"] != "eleven_v3":
+            spoken_text = re.sub(r"\[[^\]\n]{1,40}\]", "", spoken_text)
+            spoken_text = re.sub(r"[ \t]{2,}", " ", spoken_text)
+            spoken_text = re.sub(r"\n{3,}", "\n\n", spoken_text).strip()
+        voice_settings = {
+            "stability": vo_cfg["stability"],
+            "similarity_boost": vo_cfg["similarity_boost"],
+        }
+        if vo_cfg.get("style") is not None:
+            voice_settings["style"] = vo_cfg["style"]
         payload = {
             "text": spoken_text,
             "model_id": vo_cfg["model_id"],
-            "voice_settings": {
-                "stability": vo_cfg["stability"],
-                "similarity_boost": vo_cfg["similarity_boost"],
-            },
+            "voice_settings": voice_settings,
             "output_format": vo_cfg.get("output_format", "mp3_44100_128"),
         }
         # Pronunciation dictionary (Airtable, n8n, SaaS…) — requires
