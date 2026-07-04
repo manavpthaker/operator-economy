@@ -1,6 +1,6 @@
 # Edit rubric review
 
-**Score:** 16/23  ·  **Gate:** ≥18
+**Score:** 17/23  ·  **Gate:** ≥18
 **Verdict:** ESCALATE
 
 ## Criteria
@@ -10,18 +10,17 @@
 
 ### ⚠️ Cadence (static holds, resets, sheet runs) — 3/5
 - 7 warnings
-- ⚠️ thesis-03 holds 31.8s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ thesis-06 holds 22.5s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-01 holds 24.0s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-04 holds 42.2s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-07 holds 20.6s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-09 holds 21.1s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ economics-02 holds 26.3s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ hook-01 holds 22.5s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ thesis-03 holds 35.0s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ thesis-06 holds 22.1s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ evidence-01 holds 21.6s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ evidence-04 holds 35.0s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ economics-02 holds 23.8s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ cta-01 holds 25.5s with only 1 reveal — static composition. Add reveals or split the screen.
 
-### ⚠️ In-screen event density (pacing pass) — 1/3
-- 2 warning(s); paced=True
-- ⚠️ evidence-07 dead stretch 8.9s (target ≤8s).
-- ⚠️ stack-01 dead stretch 8.1s (target ≤8s).
+### ⚠️ In-screen event density (pacing pass) — 2/3
+- 1 warning(s); paced=True
+- ⚠️ thesis-06 dead stretch 8.8s (target ≤8s).
 
 ### ✅ Concrete b-roll + money-claim sources — 4/4
 - all b-roll concrete; all money-claim screens sourced
