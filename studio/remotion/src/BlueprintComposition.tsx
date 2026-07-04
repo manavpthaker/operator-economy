@@ -1119,10 +1119,10 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
           dropping bed.mp3 into remotion/public/music/ and tick/whoosh/
           hit into remotion/public/sfx/. Absent files disable the layer
           silently (never a placeholder tone). */}
-      {useScreens && (
-        // Flipped ON 2026-07-03: bed.mp3 (ElevenLabs Music, normalized
-        // −16 LUFS, loops) + tick/whoosh/hit (ElevenLabs SFX) are in
-        // remotion/public/. Ducking + silence pre-laps live in SoundBed.
+      {useScreens && !bookends && (
+        // Without bookends the bed lives inside the episode as before.
+        // WITH bookends it's hoisted to the top level (music from frame
+        // 0 — chords under the brand sting; see the bookends return).
         <SoundBed screens={screens!} musicDir="music" sfxDir="sfx" />
       )}
 
@@ -1139,6 +1139,14 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
   // as edits, not slides.
   return (
     <AbsoluteFill style={{background: COLORS.navy}}>
+      {/* Music from frame 0 (2026-07-04): the bed opens with the brand
+          sting — soft chords under the intro cards, drop keyed to the
+          hook's gap screen by arrange_bed. timeOffsetS maps content
+          times to video time for ducking + SFX. */}
+      {useScreens && (
+        <SoundBed screens={screens!} musicDir="music" sfxDir="sfx"
+                  timeOffsetS={contentFrom / fps} />
+      )}
       <Sequence from={contentFrom} durationInFrames={contentFrames}>
         {episode}
       </Sequence>

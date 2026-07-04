@@ -112,22 +112,43 @@ def build() -> dict:
     screens: list[dict] = []
 
     # ==================================================================
-    # HOOK — gap arrow
+    # HOOK — host card (self-intro, added 2026-07-04) → gap arrow.
+    # The beat DROPS at acc_s (arrange_bed keys the drop to the first
+    # gap-layout screen), so the $5.9B slam and the drums land together.
     # ==================================================================
     hook_start, hook_end = section_bounds("hook")
+    acc_s, _acc_e = find_phrase("hook", "last year accenture")
+    screens.append(screen(
+        id="hook-00",
+        section="hook",
+        layout="sheet",
+        heading="The Operator Economy",
+        start=hook_start, end=acc_s,
+        reveals=[
+            reveal(0, hook_start, hook_start + (acc_s - hook_start) * 0.45,
+                   "Manav — an operator, not a guru",
+                   "A decade building product · Hospitality → retail → grocery → SaaS",
+                   tags=["operator_pov"]),
+            reveal(0, hook_start + (acc_s - hook_start) * 0.45, acc_s,
+                   "One buildable business, every week",
+                   "Real companies · Sourced numbers · Honest math",
+                   tags=["claim"]),
+        ],
+        sfx=[{"cue": "tick", "at": hook_start}],
+    ))
     screens.append(screen(
         id="hook-01",
         section="hook",
         layout="gap",
         heading="The gap",
-        start=hook_start, end=hook_end,
-        reveals=[reveal(1, hook_start, hook_end,
+        start=acc_s, end=hook_end,
+        reveals=[reveal(1, acc_s, hook_end,
                         "AI implementation: same service, three scales",
                         tags=["claim", "number"])],
         figure={"text": "$5.9B → $2K", "source": "CIO Dive / Constellation, FY2025"},
         source="CIO Dive / Constellation, FY2025",
-        music={"intensity": "silence", "duck_db": 0},
-        sfx=[{"cue": "hit", "at": hook_start}],
+        music={"intensity": "build", "duck_db": -8},
+        sfx=[{"cue": "hit", "at": acc_s}],
     ))
 
     # ==================================================================

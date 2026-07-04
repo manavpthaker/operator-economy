@@ -31,14 +31,21 @@ export type SoundBedProps = {
   screens: Screen[];
   musicDir?: string | null;
   sfxDir?: string | null;
+  /** Seconds of video time before content t=0 (bookends J-cut layout).
+   *  When SoundBed sits ABOVE the bookends (music from frame 0), screen
+   *  lookups shift by this much, and t<0 = intro cards (chords, louder). */
+  timeOffsetS?: number;
 };
 
 const dbToLinear = (db: number) => Math.pow(10, db / 20);
+// Levels raised 2026-07-04 ("you can't even tell it's stopping"): the
+// bed must be PRESENT for its silences to register as edits.
 const LEVELS = {
-  calm: dbToLinear(-16),
-  build: dbToLinear(-10),
+  calm: dbToLinear(-13),
+  build: dbToLinear(-8),
   silence: 0,
 } as const;
+const INTRO_LEVEL = dbToLinear(-6); // under brand sting + title card, pre-VO
 const SFX_VOLUME: Record<string, number> = {
   tick: dbToLinear(-18),
   whoosh: dbToLinear(-12),
@@ -49,13 +56,19 @@ export const SoundBed: React.FC<SoundBedProps> = ({
   screens,
   musicDir = null,
   sfxDir = null,
+  timeOffsetS = 0,
 }) => {
   const {fps} = useVideoConfig();
 
   const musicVolume = React.useCallback(
     (frame: number): number => {
-      const t = frame / fps;
+      const t = frame / fps - timeOffsetS;
       const preLap = 0.5;
+      if (t < 0) {
+        // Intro cards: chords carry the open, then hand off as VO enters.
+        return t > -0.6 ? LEVELS.calm + (INTRO_LEVEL - LEVELS.calm) * (-t / 0.6)
+                        : INTRO_LEVEL;
+      }
       const current = screens.find((s) => t >= s.start && t < s.end);
       if (!current) return LEVELS.calm;
       const next = screens.find((s) => s.start >= current.end);
@@ -79,7 +92,7 @@ export const SoundBed: React.FC<SoundBedProps> = ({
       }
       return target;
     },
-    [fps, screens],
+    [fps, screens, timeOffsetS],
   );
 
   return (
@@ -94,7 +107,7 @@ export const SoundBed: React.FC<SoundBedProps> = ({
       {sfxDir &&
         screens.flatMap((screen) =>
           (screen.sfx ?? []).map((cue, i) => {
-            const from = Math.round(cue.at * fps);
+            const from = Math.round((cue.at + timeOffsetS) * fps);
             const durationInFrames = Math.round(fps * 1.5);
             const vol = SFX_VOLUME[cue.cue] ?? 0.2;
             return (
