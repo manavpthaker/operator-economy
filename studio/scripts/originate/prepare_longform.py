@@ -15,6 +15,7 @@ Output:
 
 import argparse
 import json
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
@@ -243,6 +244,19 @@ def main():
     with open(out, "w") as f:
         json.dump(render_data, f, indent=2)
     print(f"✓ Render data → {out} ({total:.0f}s, {len(sections_out)} sections)")
+
+    # Sync VO into remotion/public — Remotion's staticFile() reads from
+    # public/, and a stale manual copy there caused a full-episode
+    # audio/caption desync (2026-07-03: old NY-A1 audio rendered under
+    # LW3 captions). prepare_longform now owns the copy so it can never
+    # go stale: whatever timeline.json points at is what renders.
+    pub_vo = ROOT / "remotion" / "public" / "vo"
+    pub_vo.mkdir(parents=True, exist_ok=True)
+    for stale in pub_vo.glob("*.mp3"):
+        stale.unlink()
+    for t in timeline["sections"]:
+        shutil.copy2(base / "vo" / t["audio"], pub_vo / t["audio"])
+    print(f"✓ Synced {len(timeline['sections'])} VO files → remotion/public/vo/")
 
 
 if __name__ == "__main__":
