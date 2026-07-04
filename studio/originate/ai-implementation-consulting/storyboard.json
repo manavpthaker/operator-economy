@@ -168,12 +168,12 @@
       "layout": "sheet",
       "heading": "The thesis",
       "start": 42.403,
-      "end": 77.41900000000001,
+      "end": 51.67,
       "reveals": [
         {
           "beat": 2,
           "at": 42.403,
-          "end": 77.41900000000001,
+          "end": 51.67,
           "title": "Not building. Installing.",
           "body": "Tools already exist \u00b7 Wire into intake, follow-ups, reporting \u00b7 The install is the product",
           "tags": [
@@ -181,7 +181,7 @@
           ],
           "word_anchor": {
             "start": 42.403,
-            "end": 77.41900000000001
+            "end": 51.67
           }
         }
       ],
@@ -201,26 +201,91 @@
       "custom": null,
       "events": [
         {
-          "at": 50.19,
-          "kind": "pulse",
-          "word": "already"
-        },
-        {
-          "at": 52.91,
+          "at": 45.18,
           "kind": "fragment",
           "beat": 2,
           "index": 1
         },
         {
-          "at": 58.16,
-          "kind": "refocus",
-          "index": 0
-        },
-        {
-          "at": 63.41,
+          "at": 47.96,
           "kind": "fragment",
           "beat": 2,
           "index": 2
+        },
+        {
+          "at": 50.19,
+          "kind": "pulse",
+          "word": "already"
+        }
+      ]
+    },
+    {
+      "id": "thesis-03b",
+      "section": "thesis",
+      "layout": "screen_rec",
+      "heading": "The thesis",
+      "start": 51.67,
+      "end": 77.41900000000001,
+      "reveals": [
+        {
+          "beat": 2,
+          "at": 51.67,
+          "end": 77.41900000000001,
+          "title": "Missed-call rescue \u2014 live run",
+          "body": "",
+          "tags": [
+            "tool",
+            "process"
+          ],
+          "word_anchor": {
+            "start": 51.67,
+            "end": 77.41900000000001
+          }
+        }
+      ],
+      "sfx": [
+        {
+          "cue": "tick",
+          "at": 51.67
+        }
+      ],
+      "custom": {
+        "sim": {
+          "kind": "workflow",
+          "title": "missed-call rescue \u2014 live run",
+          "label": "n8n",
+          "nodes": [
+            {
+              "label": "Missed call",
+              "sub": "webhook trigger"
+            },
+            {
+              "label": "Transcribe",
+              "sub": "voicemail \u2192 text"
+            },
+            {
+              "label": "Claude drafts reply",
+              "sub": "guest gets an answer"
+            },
+            {
+              "label": "Booking logged",
+              "sub": "\u2192 client dashboard"
+            }
+          ]
+        }
+      },
+      "audio": "vo/thesis.mp3",
+      "figure": null,
+      "source": null,
+      "music": {
+        "intensity": "calm",
+        "duck_db": -16
+      },
+      "events": [
+        {
+          "at": 60.55,
+          "kind": "refocus",
+          "index": 0
         },
         {
           "at": 69.42,
@@ -975,12 +1040,12 @@
       "layout": "schematic",
       "heading": "The stack",
       "start": 231.279,
-      "end": 292.849,
+      "end": 260.376,
       "reveals": [
         {
           "beat": 1,
           "at": 231.279,
-          "end": 246.67149999999998,
+          "end": 245.8275,
           "title": "The brain \u2014 $20\u201340/mo",
           "body": "Claude / ChatGPT \u00b7 Analysis, drafts, the build itself",
           "tags": [
@@ -988,13 +1053,13 @@
           ],
           "word_anchor": {
             "start": 231.279,
-            "end": 246.67149999999998
+            "end": 245.8275
           }
         },
         {
           "beat": 2,
-          "at": 246.67149999999998,
-          "end": 262.06399999999996,
+          "at": 245.8275,
+          "end": 260.376,
           "title": "The runtime \u2014 ~$0\u201330/mo",
           "body": "n8n (self-hosted \u2248 free) \u00b7 Make / Zapier \u00b7 Executes workflows",
           "tags": [
@@ -1002,36 +1067,8 @@
             "process"
           ],
           "word_anchor": {
-            "start": 246.67149999999998,
-            "end": 262.06399999999996
-          }
-        },
-        {
-          "beat": 3,
-          "at": 262.06399999999996,
-          "end": 277.4565,
-          "title": "The client-facing layer",
-          "body": "Airtable / Notion dashboard",
-          "tags": [
-            "tool"
-          ],
-          "word_anchor": {
-            "start": 262.06399999999996,
-            "end": 277.4565
-          }
-        },
-        {
-          "beat": 4,
-          "at": 277.4565,
-          "end": 292.849,
-          "title": "Full stack < $100/mo",
-          "body": "Loom for async delivery \u00b7 Free tiers \u00b7 COGS \u2248 zero on a $2K project",
-          "tags": [
-            "number"
-          ],
-          "word_anchor": {
-            "start": 277.4565,
-            "end": 292.849
+            "start": 245.8275,
+            "end": 260.376
           }
         }
       ],
@@ -1051,7 +1088,7 @@
           "word": "hundred"
         },
         {
-          "at": 238.21,
+          "at": 237.83,
           "kind": "fragment",
           "beat": 1,
           "index": 1
@@ -1062,33 +1099,172 @@
           "word": "runtime"
         },
         {
-          "at": 251.29,
+          "at": 250.19,
           "kind": "fragment",
           "beat": 2,
           "index": 1
         },
         {
-          "at": 255.91,
+          "at": 252.16,
+          "kind": "pulse",
+          "word": "client"
+        },
+        {
+          "at": 254.56,
           "kind": "fragment",
           "beat": 2,
           "index": 2
+        }
+      ]
+    },
+    {
+      "id": "stack-02",
+      "section": "stack",
+      "layout": "screen_rec",
+      "heading": "The stack",
+      "start": 260.376,
+      "end": 273.279,
+      "reveals": [
+        {
+          "beat": 3,
+          "at": 260.376,
+          "end": 273.279,
+          "title": "The client-facing layer \u2014 what they log into",
+          "body": "",
+          "tags": [
+            "tool"
+          ],
+          "word_anchor": {
+            "start": 260.376,
+            "end": 273.279
+          }
+        }
+      ],
+      "sfx": [
+        {
+          "cue": "tick",
+          "at": 260.376
+        }
+      ],
+      "custom": {
+        "sim": {
+          "kind": "dashboard",
+          "title": "Bookings \u2014 recovered from missed calls",
+          "label": "Airtable",
+          "columns": [
+            "Guest",
+            "Requested",
+            "Status",
+            "Value"
+          ],
+          "rows": [
+            [
+              "M. Alvarez",
+              "Fri \u00b7 2 nights",
+              "Booked",
+              "$418"
+            ],
+            [
+              "Party of 6",
+              "Sat \u00b7 7:30 pm",
+              "Booked",
+              "$310"
+            ],
+            [
+              "J. Chen",
+              "Tue \u00b7 king room",
+              "Callback sent",
+              "\u2014"
+            ],
+            [
+              "Walk-in inquiry",
+              "tour + tasting",
+              "New",
+              "\u2014"
+            ],
+            [
+              "R. Okafor",
+              "Sun brunch \u00b7 4",
+              "Booked",
+              "$156"
+            ]
+          ]
+        }
+      },
+      "audio": "vo/stack.mp3",
+      "figure": null,
+      "source": null,
+      "music": {
+        "intensity": "calm",
+        "duck_db": -16
+      },
+      "events": [
+        {
+          "at": 260.38,
+          "kind": "pulse",
+          "word": "client-facing"
         },
         {
-          "at": 269.76,
-          "kind": "refocus",
-          "index": 0
+          "at": 266.45,
+          "kind": "pulse",
+          "word": "feel"
+        }
+      ]
+    },
+    {
+      "id": "stack-03",
+      "section": "stack",
+      "layout": "schematic",
+      "heading": "The stack",
+      "start": 273.279,
+      "end": 292.849,
+      "reveals": [
+        {
+          "beat": 4,
+          "at": 273.279,
+          "end": 292.849,
+          "title": "Full stack < $100/mo",
+          "body": "Loom for async delivery \u00b7 Free tiers \u00b7 COGS \u2248 zero on a $2K project",
+          "tags": [
+            "number"
+          ],
+          "word_anchor": {
+            "start": 273.279,
+            "end": 292.849
+          }
+        }
+      ],
+      "source": "Public pricing \u2014 estimate",
+      "audio": "vo/stack.mp3",
+      "figure": null,
+      "music": {
+        "intensity": "calm",
+        "duck_db": -16
+      },
+      "sfx": [],
+      "custom": null,
+      "events": [
+        {
+          "at": 274.16,
+          "kind": "pulse",
+          "word": "async"
         },
         {
-          "at": 282.07,
+          "at": 279.15,
           "kind": "fragment",
           "beat": 4,
           "index": 1
         },
         {
-          "at": 286.69,
+          "at": 285.02,
           "kind": "fragment",
           "beat": 4,
           "index": 2
+        },
+        {
+          "at": 288.8,
+          "kind": "pulse",
+          "word": "client"
         }
       ]
     },
@@ -1098,12 +1274,12 @@
       "layout": "sheet",
       "heading": "The playbook",
       "start": 292.849,
-      "end": 349.162,
+      "end": 324.582,
       "reveals": [
         {
           "beat": 1,
           "at": 292.849,
-          "end": 316.50046,
+          "end": 324.582,
           "title": "Week 1: pick the industry you can argue with",
           "body": "One vertical, not 'small businesses' \u00b7 Problems you can name from memory",
           "tags": [
@@ -1111,36 +1287,7 @@
           ],
           "word_anchor": {
             "start": 292.849,
-            "end": 316.50046
-          }
-        },
-        {
-          "beat": 2,
-          "at": 316.50046,
-          "end": 333.39436,
-          "title": "Weeks 2\u20134: buy proof",
-          "body": "2\u20133 real case studies \u00b7 Cheap or free for people you know \u00b7 Proof is the only marketing",
-          "tags": [
-            "claim",
-            "operator_pov"
-          ],
-          "word_anchor": {
-            "start": 316.50046,
-            "end": 333.39436
-          }
-        },
-        {
-          "beat": 3,
-          "at": 333.39436,
-          "end": 349.162,
-          "title": "Package one named problem",
-          "body": "Fixed scope: $2\u20135K, one deadline",
-          "tags": [
-            "claim"
-          ],
-          "word_anchor": {
-            "start": 333.39436,
-            "end": 349.162
+            "end": 324.582
           }
         }
       ],
@@ -1170,7 +1317,7 @@
           "word": "One"
         },
         {
-          "at": 303.49,
+          "at": 307.13,
           "kind": "fragment",
           "beat": 1,
           "index": 1
@@ -1181,21 +1328,118 @@
           "word": "Vertical"
         },
         {
-          "at": 321.57,
-          "kind": "fragment",
-          "beat": 2,
-          "index": 1
-        },
-        {
-          "at": 326.64,
-          "kind": "fragment",
-          "beat": 2,
-          "index": 2
-        },
-        {
-          "at": 341.28,
+          "at": 316.65,
           "kind": "refocus",
           "index": 0
+        }
+      ]
+    },
+    {
+      "id": "playbook-01b",
+      "section": "playbook",
+      "layout": "screen_rec",
+      "heading": "The playbook",
+      "start": 324.582,
+      "end": 339.56899999999996,
+      "reveals": [
+        {
+          "beat": 2,
+          "at": 324.582,
+          "end": 339.56899999999996,
+          "title": "Weeks 2\u20134: buy proof",
+          "body": "",
+          "tags": [
+            "tool",
+            "operator_pov"
+          ],
+          "word_anchor": {
+            "start": 324.582,
+            "end": 339.56899999999996
+          }
+        }
+      ],
+      "sfx": [
+        {
+          "cue": "tick",
+          "at": 324.582
+        }
+      ],
+      "custom": {
+        "sim": {
+          "kind": "assistant",
+          "title": "Claude \u2014 case study draft",
+          "label": "Claude",
+          "prompt": "Turn the Harbor House install into a one-page case study. Problem, what we wired in, what changed after 30 days. Keep it honest.",
+          "response": "Case Study \u2014 Harbor House Inn (illustrative)\n\nProblem: evening calls went to voicemail. The desk was catching 6 of 10.\n\nThe install: missed call \u2192 transcript \u2192 drafted reply \u2192 booking logged. Live in an afternoon.\n\n30 days in: recovered bookings the desk never touched, and the owner's line: \"it pays for itself the first weekend.\"\n\nNext door, the restaurant wants the same intake fix."
+        }
+      },
+      "audio": "vo/playbook.mp3",
+      "figure": null,
+      "source": null,
+      "music": {
+        "intensity": "calm",
+        "duck_db": -16
+      },
+      "events": [
+        {
+          "at": 326.35,
+          "kind": "pulse",
+          "word": "case"
+        },
+        {
+          "at": 335.13,
+          "kind": "pulse",
+          "word": "buying"
+        }
+      ]
+    },
+    {
+      "id": "playbook-01c",
+      "section": "playbook",
+      "layout": "sheet",
+      "heading": "The playbook",
+      "start": 339.56899999999996,
+      "end": 349.162,
+      "reveals": [
+        {
+          "beat": 3,
+          "at": 339.56899999999996,
+          "end": 349.162,
+          "title": "Package one named problem",
+          "body": "Fixed scope: $2\u20135K, one deadline",
+          "tags": [
+            "claim"
+          ],
+          "word_anchor": {
+            "start": 339.56899999999996,
+            "end": 349.162
+          }
+        }
+      ],
+      "source": "Convergent recommendation across sources",
+      "sfx": [
+        {
+          "cue": "tick",
+          "at": 339.56899999999996
+        }
+      ],
+      "audio": "vo/playbook.mp3",
+      "figure": null,
+      "music": {
+        "intensity": "calm",
+        "duck_db": -16
+      },
+      "custom": null,
+      "events": [
+        {
+          "at": 343.25,
+          "kind": "pulse",
+          "word": "One"
+        },
+        {
+          "at": 348.15,
+          "kind": "pulse",
+          "word": "one"
         }
       ]
     },

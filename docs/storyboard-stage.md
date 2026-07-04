@@ -198,3 +198,15 @@ focus cycles — as per-screen `events` the renderer performs. Never invents
 text. Idempotent; always re-run after hand-tuning or VO regeneration.
 Order: storyboard.py → hand-tune → pace_storyboard.py → prepare_longform.py.
 eval_edit.py enforces density (worst dead stretch ≤8s target, >16s kill).
+
+## Tool shots — SimScreens (added 2026-07-04)
+
+Tool shots are BUILT, not filmed and not AI-video-generated (video models
+garble UI text — instant slop). Three Remotion sims in oe/scenes/SimScreens.tsx,
+attached via `custom.sim` on any screen (overrides layout): `workflow`
+(n8n-style execution canvas), `dashboard` (Airtable-style, rows populate),
+`assistant` (Claude panel, draft streams). Every sim renders a
+"· RECONSTRUCTION" chip — we never pass a simulation off as a capture.
+FROM EP 2: plan sim moments at script stage — generate_script/plan_assets
+should emit a `sim` hint on beats that name a tool doing something
+concrete, so hand-tuning isn't needed to place them.

@@ -165,18 +165,43 @@ def build() -> dict:
                 "accentPhrase": "implementation",
                 "ground": "navy"},
     ))
-    # thesis-03 sheet — between "It's called implementation" and "gap was never"
+    # thesis-03 sheet — between "It's called implementation" and the
+    # WIRING line, where the workflow sim takes over (tool shot #1).
+    wire_s, _wire_e = find_phrase("thesis", "wiring them into how a real business runs")
     screens.append(screen(
         id="thesis-03",
         section="thesis",
         layout="sheet",
         heading="The thesis",
-        start=_pad_end(q_impl_e, th_end), end=q_gap_s,
-        reveals=[reveal(2, _pad_end(q_impl_e, th_end), q_gap_s,
+        start=_pad_end(q_impl_e, th_end), end=wire_s,
+        reveals=[reveal(2, _pad_end(q_impl_e, th_end), wire_s,
                         "Not building. Installing.",
                         "Tools already exist · Wire into intake, follow-ups, reporting · The install is the product",
                         tags=["claim"])],
         sfx=[{"cue": "tick", "at": _pad_end(q_impl_e, th_end)}],
+    ))
+    # thesis-03b SIM — the exact workflow the line describes, executing.
+    screens.append(screen(
+        id="thesis-03b",
+        section="thesis",
+        layout="screen_rec",
+        heading="The thesis",
+        start=wire_s, end=q_gap_s,
+        reveals=[reveal(2, wire_s, q_gap_s,
+                        "Missed-call rescue — live run",
+                        tags=["tool", "process"])],
+        sfx=[{"cue": "tick", "at": wire_s}],
+        custom={"sim": {
+            "kind": "workflow",
+            "title": "missed-call rescue — live run",
+            "label": "n8n",
+            "nodes": [
+                {"label": "Missed call", "sub": "webhook trigger"},
+                {"label": "Transcribe", "sub": "voicemail → text"},
+                {"label": "Claude drafts reply", "sub": "guest gets an answer"},
+                {"label": "Booking logged", "sub": "→ client dashboard"},
+            ],
+        }},
     ))
     # thesis-04 quote — "The gap was never the software."
     screens.append(screen(
@@ -428,31 +453,61 @@ def build() -> dict:
     ))
 
     # ==================================================================
-    # STACK — whole-section schematic (unchanged shape)
+    # STACK — schematic, interrupted by the DASHBOARD sim (tool shot #2)
+    # at the client-facing-layer line, then schematic finale.
     # ==================================================================
     st_start, st_end = section_bounds("stack")
-    # Split the stack section into 4 equal reveals — the specific
-    # phrasing doesn't matter here because it's the schematic that
-    # renders, not the reveal titles.
-    st_dur = st_end - st_start
-    st_marks = [st_start + i * st_dur / 4 for i in range(5)]
+    cf_s, _cf_e = find_phrase("stack", "client-facing layer")
+    loom_s, _loom_e = find_phrase("stack", "loom for async delivery")
+    st_mid = st_start + (cf_s - st_start) / 2
     screens.append(screen(
         id="stack-01",
         section="stack",
         layout="schematic",
         heading="The stack",
-        start=st_start, end=st_end,
+        start=st_start, end=cf_s,
         reveals=[
-            reveal(1, st_marks[0], st_marks[1], "The brain — $20–40/mo",
+            reveal(1, st_start, st_mid, "The brain — $20–40/mo",
                    "Claude / ChatGPT · Analysis, drafts, the build itself",
                    tags=["tool"]),
-            reveal(2, st_marks[1], st_marks[2], "The runtime — ~$0–30/mo",
+            reveal(2, st_mid, cf_s, "The runtime — ~$0–30/mo",
                    "n8n (self-hosted ≈ free) · Make / Zapier · Executes workflows",
                    tags=["tool", "process"]),
-            reveal(3, st_marks[2], st_marks[3], "The client-facing layer",
-                   "Airtable / Notion dashboard",
-                   tags=["tool"]),
-            reveal(4, st_marks[3], st_marks[4], "Full stack < $100/mo",
+        ],
+        source="Public pricing — estimate",
+    ))
+    screens.append(screen(
+        id="stack-02",
+        section="stack",
+        layout="screen_rec",
+        heading="The stack",
+        start=cf_s, end=loom_s,
+        reveals=[reveal(3, cf_s, loom_s,
+                        "The client-facing layer — what they log into",
+                        tags=["tool"])],
+        sfx=[{"cue": "tick", "at": cf_s}],
+        custom={"sim": {
+            "kind": "dashboard",
+            "title": "Bookings — recovered from missed calls",
+            "label": "Airtable",
+            "columns": ["Guest", "Requested", "Status", "Value"],
+            "rows": [
+                ["M. Alvarez", "Fri · 2 nights", "Booked", "$418"],
+                ["Party of 6", "Sat · 7:30 pm", "Booked", "$310"],
+                ["J. Chen", "Tue · king room", "Callback sent", "—"],
+                ["Walk-in inquiry", "tour + tasting", "New", "—"],
+                ["R. Okafor", "Sun brunch · 4", "Booked", "$156"],
+            ],
+        }},
+    ))
+    screens.append(screen(
+        id="stack-03",
+        section="stack",
+        layout="schematic",
+        heading="The stack",
+        start=loom_s, end=st_end,
+        reveals=[
+            reveal(4, loom_s, st_end, "Full stack < $100/mo",
                    "Loom for async delivery · Free tiers · COGS ≈ zero on a $2K project",
                    tags=["number"]),
         ],
@@ -469,31 +524,58 @@ def build() -> dict:
         cred_s, cred_e = find_phrase("playbook", "credibility from the industry")
     except ValueError:
         cred_s, cred_e = find_phrase("playbook", "operators buy from operators")
-    # playbook-01 sheet — first ~3 weeks + package
+    # playbook-01 sheet → ASSISTANT sim at "case studies" (tool shot #3)
+    # → sheet resumes at "Then package".
     pb01_end = off_s - 5.5  # give ~5.5s narration lead to the offer moment
+    cs_s, _cs_e = find_phrase("playbook", "build two or three real case studies")
+    pk_s, _pk_e = find_phrase("playbook", "then package")
     screens.append(screen(
         id="playbook-01",
         section="playbook",
         layout="sheet",
         heading="The playbook",
-        start=pb_start, end=pb01_end,
+        start=pb_start, end=cs_s,
         reveals=[
-            reveal(1, pb_start, pb_start + (pb01_end - pb_start) * 0.42,
+            reveal(1, pb_start, cs_s,
                    "Week 1: pick the industry you can argue with",
                    "One vertical, not 'small businesses' · Problems you can name from memory",
                    tags=["operator_pov"]),
-            reveal(2, pb_start + (pb01_end - pb_start) * 0.42,
-                   pb_start + (pb01_end - pb_start) * 0.72,
-                   "Weeks 2–4: buy proof",
-                   "2–3 real case studies · Cheap or free for people you know · Proof is the only marketing",
-                   tags=["claim", "operator_pov"]),
-            reveal(3, pb_start + (pb01_end - pb_start) * 0.72, pb01_end,
+        ],
+        source="Convergent recommendation across sources",
+        sfx=[{"cue": "tick", "at": pb_start}],
+    ))
+    screens.append(screen(
+        id="playbook-01b",
+        section="playbook",
+        layout="screen_rec",
+        heading="The playbook",
+        start=cs_s, end=pk_s,
+        reveals=[reveal(2, cs_s, pk_s,
+                        "Weeks 2–4: buy proof",
+                        tags=["tool", "operator_pov"])],
+        sfx=[{"cue": "tick", "at": cs_s}],
+        custom={"sim": {
+            "kind": "assistant",
+            "title": "Claude — case study draft",
+            "label": "Claude",
+            "prompt": "Turn the Harbor House install into a one-page case study. Problem, what we wired in, what changed after 30 days. Keep it honest.",
+            "response": "Case Study — Harbor House Inn (illustrative)\n\nProblem: evening calls went to voicemail. The desk was catching 6 of 10.\n\nThe install: missed call → transcript → drafted reply → booking logged. Live in an afternoon.\n\n30 days in: recovered bookings the desk never touched, and the owner's line: \"it pays for itself the first weekend.\"\n\nNext door, the restaurant wants the same intake fix.",
+        }},
+    ))
+    screens.append(screen(
+        id="playbook-01c",
+        section="playbook",
+        layout="sheet",
+        heading="The playbook",
+        start=pk_s, end=pb01_end,
+        reveals=[
+            reveal(3, pk_s, pb01_end,
                    "Package one named problem",
                    "Fixed scope: $2–5K, one deadline",
                    tags=["claim"]),
         ],
         source="Convergent recommendation across sources",
-        sfx=[{"cue": "tick", "at": pb_start}],
+        sfx=[{"cue": "tick", "at": pk_s}],
     ))
     # playbook-02 offer_card — "Missed calls get answered and booked"
     screens.append(screen(

@@ -13,6 +13,7 @@ import {AnnotationScene} from './oe/scenes/AnnotationScene';
 import {BRollScene} from './oe/scenes/BRollScene';
 import {LogoScene} from './oe/scenes/LogoScene';
 import {BrandSting, TitleCard, OutroCard} from './oe/scenes/Bookends';
+import {WorkflowSim, DashboardSim, AssistantSim} from './oe/scenes/SimScreens';
 import {ScreenRecScene} from './oe/scenes/ScreenRecScene';
 import {SheetScene, SheetLine} from './oe/scenes/SheetScene';
 import {QuoteCard} from './oe/scenes/QuoteCard';
@@ -971,6 +972,27 @@ const ScreenLayer: React.FC<{
     }
     default:
       content = <AbsoluteFill style={{background: COLORS.ink}} />;
+  }
+
+  // Simulated tool shots (SimScreens, 2026-07-04): custom.sim OVERRIDES
+  // the layout's content — these are the screen-recording tier for a
+  // channel whose operator runs Claude, not the tools on screen. Honest
+  // by design: every sim carries a "reconstruction" chip.
+  const sim = (screen.custom as any)?.sim;
+  if (sim) {
+    const simFrames = Math.max(1, Math.round((screen.end - screen.start) * fps));
+    if (sim.kind === 'workflow') {
+      content = <WorkflowSim title={sim.title} label={sim.label}
+                             nodes={sim.nodes ?? []} durationFrames={simFrames} />;
+    } else if (sim.kind === 'dashboard') {
+      content = <DashboardSim title={sim.title} label={sim.label}
+                              columns={sim.columns ?? []} rows={sim.rows ?? []}
+                              durationFrames={simFrames} />;
+    } else if (sim.kind === 'assistant') {
+      content = <AssistantSim title={sim.title} label={sim.label}
+                              prompt={sim.prompt ?? ''} response={sim.response ?? ''}
+                              durationFrames={simFrames} />;
+    }
   }
 
   // Quote / chapter_reset use hard cuts (no cross-fade). Everything else
