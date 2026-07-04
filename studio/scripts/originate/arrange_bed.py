@@ -172,9 +172,16 @@ def main():
             d = 0.8 if i == 1 and build else XFADE
             fc += f"[{prev}][{i}:a]acrossfade=d={d}:c1=tri:c2=tri[x{i}];"
             prev = f"x{i}"
+        mixed = tdp / "mixed.mp3"
         run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", *inputs,
              "-filter_complex", fc.rstrip(";"), "-map", f"[{prev}]",
-             "-ar", "44100", "-b:a", "192k", str(out)])
+             "-ar", "44100", "-b:a", "192k", str(mixed)])
+        # Pad the tail with silence out past `total` so SoundBed's loop
+        # can never wrap and restart the melody after the finale fades.
+        cur = duration_of(mixed)
+        pad = max(total - cur + 2.0, 0.0)
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(mixed),
+             "-af", f"apad=pad_dur={pad:.2f}", "-ar", "44100", "-b:a", "192k", str(out)])
 
     final = duration_of(out)
     print(f"✓ Arranged bed (melody + build) → {out}")

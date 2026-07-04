@@ -110,6 +110,10 @@ DENSITY:
 - seasoned (hook, thesis, cta): full treatment — tags at the open, paragraph breathing throughout, one deliberate restatement.
 - light (evidence, stack, playbook, economics): tighter — paragraph breaks and an occasional "right?" / pivot; at most ONE breath tag per ~40s of material; numbers and sources flow clean and uninterrupted.
 
+LENGTH BUDGET (hard):
+- hook: output word count within +10% of the source — the hook is a ≤15s cold open and COMPRESSION IS THE CRAFT. Air comes from one or two short pauses, never from added words.
+- all other sections: within +25% of the source word count.
+
 Throwaway the setups, land the payoffs: the sentence BEFORE a key line can be casual/quick; the key line itself gets space around it."""
 
 SEASONED = {"hook", "thesis", "cta"}
@@ -136,7 +140,7 @@ def perform_section(section: dict, vo_dir: Path, config: dict, text: str) -> str
         messages=[{"role": "user", "content":
                    f"Section: {section['id']} · Density: {density}\n\n{text}"}],
     )
-    performed = resp.content[0].text.strip()
+    performed = next(b.text for b in resp.content if getattr(b, "type", "") == "text").strip()
     cache.write_text(performed)
     print(f"  performed: {section['id']} ({density}, {len(text)}→{len(performed)} chars)")
     return performed

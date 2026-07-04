@@ -217,7 +217,7 @@ Return JSON:
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_prompt}],
     )
-    text = re.sub(r"^```(json)?|```$", "", response.content[0].text.strip(), flags=re.MULTILINE).strip()
+    text = re.sub(r"^```(json)?|```$", "", next(b.text for b in response.content if getattr(b, "type", "") == "text").strip(), flags=re.MULTILINE).strip()
     out = json.loads(text)
 
     (content_dir / "blueprint.md").write_text(out["blueprint_md"])

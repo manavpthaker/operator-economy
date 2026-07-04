@@ -233,7 +233,25 @@ def main():
                   + focus_events(screen))
         # Clamp inside the window and dedupe.
         events = [e for e in events if screen["start"] < e["at"] < screen["end"]]
-        screen["events"] = dedupe(events)
+        events = dedupe(events)
+        # Gap-fill (2026-07-03, performance-pass fallout): slower spoken
+        # delivery stretches screens; any remaining >9s dead stretch gets
+        # a `refocus` event — the renderer re-emphasizes an EXISTING
+        # element (underline sweep on a line, figure pulse), a re-read
+        # of what's on screen, never new content.
+        for _ in range(12):
+            cues = sorted([screen["start"] + SELF_BUILD_S.get(screen["layout"], 0.0)]
+                          + [r["at"] for r in screen.get("reveals", [])]
+                          + [e["at"] for e in events]) + [screen["end"]]
+            gaps = [(b - a, a, b) for a, b in zip(cues, cues[1:])]
+            worst_gap = max(gaps, key=lambda g: g[0])
+            if worst_gap[0] <= 9.0:
+                break
+            mid = round((worst_gap[1] + worst_gap[2]) / 2, 2)
+            events.append({"at": mid, "kind": "refocus",
+                           "index": len([e for e in events if e["kind"] == "refocus"])})
+            events.sort(key=lambda e: e["at"])
+        screen["events"] = events
         g = max_gap(screen)
         worst = max(worst, g)
         dur = screen["end"] - screen["start"]

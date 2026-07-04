@@ -255,7 +255,7 @@ def tag_beats(script: dict, config: dict, cache_path: Path, use_llm: bool) -> di
         system=TAG_SYSTEM,
         messages=[{"role": "user", "content": user_prompt}],
     )
-    raw = resp.content[0].text.strip()
+    raw = next(b.text for b in resp.content if getattr(b, "type", "") == "text").strip()
     raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
     try:
         data = json.loads(raw)
