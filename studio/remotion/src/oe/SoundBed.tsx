@@ -88,6 +88,7 @@ export const SoundBed: React.FC<SoundBedProps> = ({
         <Audio
           src={staticFile(`${musicDir}/bed.mp3`)}
           volume={musicVolume}
+          loop
         />
       )}
       {sfxDir &&

@@ -201,6 +201,10 @@ def main():
         "brand_seconds": bk_cfg.get("brand_seconds", 1.8),
         "title_seconds": bk_cfg.get("title_seconds", 3.2),
         "outro_seconds": bk_cfg.get("outro_seconds", 6.0),
+        # J/L-cuts (2026-07-03): VO runs under the title card and under
+        # the outro card, so the bookends feel like edits, not slides.
+        "j_cut_seconds": bk_cfg.get("j_cut_seconds", bk_cfg.get("title_seconds", 3.2)),
+        "l_cut_seconds": bk_cfg.get("l_cut_seconds", 2.5),
         "title": script.get("working_title", ""),
         "thesis": script.get("topic", ""),
         "episode_no": None,  # filled from site/data/episodes.json when known
@@ -212,13 +216,14 @@ def main():
         "ctas": bk_cfg.get("outro_ctas", []),
     }
     intro_s = bookends["brand_seconds"] + bookends["title_seconds"]
+    overlap_s = bookends["j_cut_seconds"] + bookends["l_cut_seconds"]
 
     render_data = {
         "slug": script["slug"],
         "title": script["working_title"],
         "duration_seconds": total,
         "fps": fps,
-        "total_frames": int((intro_s + total + bookends["outro_seconds"]) * fps) + 1,
+        "total_frames": int((intro_s + total + bookends["outro_seconds"] - overlap_s) * fps) + 1,
         "bookends": bookends,
         "resolution": r_cfg["resolution"],
         "sections": sections_out,

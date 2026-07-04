@@ -232,6 +232,8 @@ export type Bookends = {
   brand_seconds: number;
   title_seconds: number;
   outro_seconds: number;
+  j_cut_seconds?: number; // VO starts this long BEFORE the intro ends (under the title card)
+  l_cut_seconds?: number; // outro card enters this long before the VO ends
   title: string;
   thesis?: string;
   episode_no?: number | null;
@@ -1036,12 +1038,20 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
     [captions?.groups, screens],
   );
 
-  // Bookends: content shifts right by the intro; outro appends after.
+  // Bookends: content shifts right by the intro MINUS the J-cut (VO
+  // starts under the title card); the outro card enters L-cut seconds
+  // before the VO ends and overlays the tail.
   const brandFrames = bookends ? Math.round(bookends.brand_seconds * fps) : 0;
   const titleFrames = bookends ? Math.round(bookends.title_seconds * fps) : 0;
   const introFrames = brandFrames + titleFrames;
+  const jCutFrames = bookends
+    ? Math.min(Math.round((bookends.j_cut_seconds ?? bookends.title_seconds) * fps), titleFrames)
+    : 0;
+  const lCutFrames = bookends ? Math.round((bookends.l_cut_seconds ?? 2.5) * fps) : 0;
   const contentFrames = Math.round(renderData.duration_seconds * fps) + 1;
+  const contentFrom = introFrames - jCutFrames;
   const outroFrames = bookends ? Math.round(bookends.outro_seconds * fps) : 0;
+  const outroFrom = contentFrom + contentFrames - lCutFrames;
 
   // The whole episode floats over Ink so cross-section fades never flash
   // a caller color between Sequences.
@@ -1088,7 +1098,10 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
           hit into remotion/public/sfx/. Absent files disable the layer
           silently (never a placeholder tone). */}
       {useScreens && (
-        <SoundBed screens={screens!} musicDir={null} sfxDir={null} />
+        // Flipped ON 2026-07-03: bed.mp3 (ElevenLabs Music, normalized
+        // −16 LUFS, loops) + tick/whoosh/hit (ElevenLabs SFX) are in
+        // remotion/public/. Ducking + silence pre-laps live in SoundBed.
+        <SoundBed screens={screens!} musicDir="music" sfxDir="sfx" />
       )}
 
       {/* Captions layer — always on top, hidden during quote/chapter_reset. */}
@@ -1098,8 +1111,15 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
 
   if (!bookends) return episode;
 
+  // JSX order = z-order: episode content sits UNDER the bookend cards,
+  // so the J-cut (VO + hook running beneath the title card) and L-cut
+  // (outro covering the final beats while the VO finishes) both read
+  // as edits, not slides.
   return (
     <AbsoluteFill style={{background: COLORS.navy}}>
+      <Sequence from={contentFrom} durationInFrames={contentFrames}>
+        {episode}
+      </Sequence>
       <Sequence from={0} durationInFrames={brandFrames}>
         <BrandSting name={bookends.brand.name} tagline={bookends.brand.tagline} />
       </Sequence>
@@ -1114,10 +1134,7 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
           thesis={bookends.thesis}
         />
       </Sequence>
-      <Sequence from={introFrames} durationInFrames={contentFrames}>
-        {episode}
-      </Sequence>
-      <Sequence from={introFrames + contentFrames} durationInFrames={outroFrames}>
+      <Sequence from={outroFrom} durationInFrames={outroFrames}>
         <OutroCard
           brand={bookends.brand.name}
           tagline={bookends.brand.tagline}
