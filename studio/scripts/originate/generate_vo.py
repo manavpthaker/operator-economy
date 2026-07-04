@@ -95,6 +95,7 @@ PERFORM_SYSTEM = """You transform a YouTube narration section from written prose
 HARD RULES (violating any = failure):
 - Preserve every claim, number, name, source mention, and the ORDER of ideas exactly. No new facts, no dropped facts, no changed figures.
 - Never place a tag or ellipsis inside a number, or between a number and its source/qualifier ("reported", "estimate").
+- NO EM DASHES anywhere in the output. Where prose wants "—", use a new sentence, an ellipsis, or a paragraph break instead.
 - Output plain text only — the performed section, nothing else.
 
 TECHNIQUES (use per the density instruction):
@@ -132,11 +133,20 @@ def perform_section(section: dict, vo_dir: Path, config: dict, text: str) -> str
         print("  (ANTHROPIC_API_KEY not set — skipping performance pass)", file=sys.stderr)
         return text
     density = "seasoned" if section["id"] in SEASONED else "light"
+    # Voice-print: observed speech patterns from Manav's real recording
+    # sessions (config/speech-profile.md). When present it overrides the
+    # generic register — the goal is HIS cadence, not a house style.
+    system = PERFORM_SYSTEM
+    profile = ROOT / "config" / "speech-profile.md"
+    if profile.exists():
+        system += ("\n\nVOICE-PRINT (observed patterns from the narrator's real "
+                   "recordings — these override the generic techniques above; "
+                   "match THIS person):\n\n" + profile.read_text())
     client = anthropic.Anthropic()
     resp = client.messages.create(
         model=config.get("models", {}).get("script", "claude-sonnet-4-20250514"),
         max_tokens=3000,
-        system=PERFORM_SYSTEM,
+        system=system,
         messages=[{"role": "user", "content":
                    f"Section: {section['id']} · Density: {density}\n\n{text}"}],
     )
