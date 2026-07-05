@@ -62,12 +62,12 @@
   "voiceover": {
     "provider": "elevenlabs",
     "voice_id": "l5hGVGHeQhGPUn4tPtCD",
-    "model_id": "eleven_v3",
-    "stability": 0.4,
-    "similarity_boost": 0.75,
+    "model_id": "eleven_multilingual_v2",
+    "stability": 0.5,
+    "similarity_boost": 0.6,
     "output_format": "mp3_44100_192",
     "model_note": "v3 (or flash_v2) required \u2014 pronunciation dictionaries are silently ignored on multilingual_v2. PVC voice needs Creator plan.",
-    "voice_note": "Manav's PVC, retrained 2026-07-04 (l5hGVGHeQhGPUn4tPtCD) \u2014 THE channel voice. eleven_v3 at stability 0.4 (2026-07-04: 0.5 read one-note; performed text carries the cadence, the voice needs room to use it), similarity 0.75, per Manav: '99 percent there'. v3 performs the audio tags ([exhales]/[short pause]) from the performance pass. Bridge IVC yUXeTfC1IFOCSjGc96sQ retained; designed fallbacks LW3/NY-A1/N3 retained. Voice + voice-print script are both HIM \u2014 the loop is closed.",
+    "voice_note": "Manav's PVC (l5hGVGHeQhGPUn4tPtCD) on ELEVEN_MULTILINGUAL_V2 \u2014 switched 2026-07-05 ('woah this is it'): v2 supports request stitching (one continuous session across sections, kills the drift that v3 couldn't avoid), and the performed text's paragraph/ellipsis pacing carries cadence without v3's audio tags (auto-stripped on v2). Settings per Manav's screenshot: stability 0.5, similarity 0.6, style 0.1. Host name: MP (spoken 'Em Pee'). Mastering: CLEAN chain pending the LANDR-curve fit (Warm/Low preferred in his A/B).",
     "mastering": true,
     "section_pad_s": 0.85,
     "pronunciation_dictionary": {
@@ -102,12 +102,13 @@
       "note": "Decoded from Manav's EP001 GarageBand session: music-only bridge (3.5 bars) after the series line, before the hook proper. layout_vo.py applies it post-generate_vo."
     },
     "consistency_guard": {
-      "enabled": true,
+      "enabled": false,
       "max_retries": 2,
       "f0_tolerance": 0.07,
       "centroid_tolerance": 0.18,
-      "note": "v3 has no request stitching \u2014 sections are independent takes and can drift. Guard fingerprints each section (median F0 + spectral centroid) against the batch's first section and regenerates outliers (2026-07-05, 'voices change noticeably between sections')."
-    }
+      "note": "Disabled on v2 \u2014 request stitching solves consistency structurally. Re-enable if ever back on v3."
+    },
+    "style": 0.1
   },
   "render": {
     "format": "wide_16_9",

@@ -67,6 +67,8 @@ def main():
     ap = argparse.ArgumentParser(description="Play Manav's score against the episode anchors")
     ap.add_argument("script")
     ap.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
+    ap.add_argument("--stage", choices=["all", "cut", "mix"], default="all",
+                    help="cut: emit segments + span concat only; mix: crossfade+encode from existing .bedwork")
     args = ap.parse_args()
 
     config = json.loads(Path(args.config).read_text())
@@ -119,8 +121,12 @@ def main():
         (["MP-p3-final-closing"], bars_at(t_cta) + 11),                 # closing
     ]
 
-    with tempfile.TemporaryDirectory() as td:
-        tdp = Path(td)
+    tdp = ROOT / ".bedwork"
+    if args.stage in ("all", "cut"):
+        import shutil
+        shutil.rmtree(tdp, ignore_errors=True)
+    tdp.mkdir(exist_ok=True)
+    if True:
         seg_files: list[str] = []
         cur = 0  # bar cursor
 
@@ -138,27 +144,55 @@ def main():
             return take
 
         idx = 0
-        for cycle, end_bar in plan:
-            if end_bar <= cur:
-                continue
-            ci = 0
-            while cur < end_bar:
-                loop = cycle[ci % len(cycle)]
-                remaining = end_bar - cur
-                lb = BARS[loop]
-                if remaining < lb and len(cycle) > 1:
-                    # find the cycle member that fits best whole
-                    fit = min(cycle, key=lambda l: abs(BARS[l] - remaining))
-                    loop = fit
-                cur += emit(loop, remaining, idx)
-                idx += 1
-                ci += 1
+        span_files: list[Path] = []  # one pre-concatenated file per plan span
+        if args.stage == "mix":
+            span_files = sorted(tdp.glob("span*.wav"))
+            cur = 235  # bar count persisted implicitly; recompute below
+            cur = int(round(sum(duration_of(f) for f in span_files) / BAR))
+        else:
+            for cycle, end_bar in plan:
+                if end_bar <= cur:
+                    continue
+                seg_files.clear()
+                ci = 0
+                while cur < end_bar:
+                    loop = cycle[ci % len(cycle)]
+                    remaining = end_bar - cur
+                    lb = BARS[loop]
+                    if remaining < lb and len(cycle) > 1:
+                        # find the cycle member that fits best whole
+                        fit = min(cycle, key=lambda l: abs(BARS[l] - remaining))
+                        loop = fit
+                    cur += emit(loop, remaining, idx)
+                    idx += 1
+                    ci += 1
+                # Same-family repeats butt-join via the concat demuxer (fast,
+                # seamless — bar-exact cuts + declick fades already applied).
+                sp = tdp / f"span{len(span_files):02d}.wav"
+                lst = tdp / "seq.txt"
+                lst.write_text("\n".join(f"file '{f}'" for f in seg_files))
+                run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-f", "concat",
+                     "-safe", "0", "-i", str(lst), "-c", "copy", str(sp)])
+                span_files.append(sp)
 
-        lst = tdp / "seq.txt"
-        lst.write_text("\n".join(f"file '{f}'" for f in seg_files))
+
+        if args.stage == "cut":
+            print(f"✓ cut stage done: {len(span_files)} spans, {cur} bars in {tdp}")
+            return
+        # Crossfade ONLY at span boundaries (~a dozen joins, not 40+).
         assembled = tdp / "assembled.wav"
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-f", "concat",
-             "-safe", "0", "-i", str(lst), "-c", "copy", str(assembled)])
+        if len(span_files) == 1:
+            span_files[0].replace(assembled)
+        else:
+            inputs2 = []
+            for f in span_files:
+                inputs2 += ["-i", str(f)]
+            fc2, prev2 = "", "0:a"
+            for i in range(1, len(span_files)):
+                fc2 += f"[{prev2}][{i}:a]acrossfade=d=0.35:c1=tri:c2=tri[y{i}];"
+                prev2 = f"y{i}"
+            run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", *inputs2,
+                 "-filter_complex", fc2.rstrip(";"), "-map", f"[{prev2}]", str(assembled)])
 
         # Fast level match (loudnorm is too slow here): measured gain to −16.
         p = subprocess.run(["ffmpeg", "-i", str(assembled), "-af", "volumedetect",
@@ -172,7 +206,7 @@ def main():
 
     print(f"✓ Bed v7 (Manav's score) → {out}")
     print(f"  {cur} bars ({cur * BAR:.1f}s) + tail pad vs video {total - 1:.1f}s · "
-          f"{len(seg_files)} segments")
+          f"{idx} segments in {len(span_files)} spans")
     print(f"  groove @ thesis+2 bars · breakdown → evidence @ {t_evid:.0f}s · bass payoff · "
           f"chords reprise @ stack {t_stack:.0f}s · finale crests @ cta {t_cta:.0f}s")
 

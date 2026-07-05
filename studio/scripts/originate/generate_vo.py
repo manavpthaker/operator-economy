@@ -33,11 +33,14 @@ import requests
 # hyper-crisp diction read as ad-narrator. Softened to roughly half
 # enhancement: warm, present, human. Duration unchanged → timestamps
 # stay aligned. Raw file kept beside the master.
+# Mastering v3 (2026-07-05, "scratchy / bad mic" fix): the exciter and
+# presence EQ — added to rescue v3's dullness — read as grit on v2's
+# cleaner output. CLEAN chain until the LANDR-curve fit replaces it
+# (Manav's A/B: LANDR Warm/Low beat everything; fit its curve here once
+# he downloads a master).
 MASTER_CHAIN = (
-    "highpass=f=70,"
-    "aexciter=level_in=1:level_out=1:amount=1.1:drive=4:blend=0:freq=6500:ceil=13000,"
-    "anequalizer=c0 f=3800 w=1600 g=1.2 t=1|c0 f=11000 w=5000 g=1.8 t=1,"
-    "deesser=i=0.3,"
+    "highpass=f=85,"
+    "deesser=i=0.35,"
     "loudnorm=I=-14:TP=-1.5:LRA=9"
 )
 
