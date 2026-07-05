@@ -9,25 +9,24 @@
 
 ### ⚠️ Cadence (static holds, resets, sheet runs) — 3/5
 - 11 warnings
-- ⚠️ hook-01 holds 27.9s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ thesis-01 holds 23.6s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ thesis-03b holds 31.4s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ thesis-06 holds 25.9s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-01 holds 25.9s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-03 holds 23.3s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ evidence-04 holds 38.2s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ playbook-01 holds 36.5s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ economics-01 holds 24.2s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ economics-02 holds 32.4s with only 1 reveal — static composition. Add reveals or split the screen.
-- ⚠️ economics-04 holds 24.4s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ hook-01 holds 26.5s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ thesis-01 holds 21.6s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ thesis-03b holds 30.2s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ thesis-06 holds 22.5s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ evidence-01 holds 26.7s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ evidence-03 holds 23.2s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ evidence-04 holds 37.9s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ playbook-01 holds 33.2s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ economics-01 holds 21.0s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ economics-02 holds 28.0s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ economics-04 holds 21.1s with only 1 reveal — static composition. Add reveals or split the screen.
 
 ### ⚠️ In-screen event density (pacing pass) — 0/3
-- 5 warning(s); paced=True
-- ⚠️ thesis-03b dead stretch 8.1s (target ≤8s).
-- ⚠️ evidence-04 dead stretch 8.3s (target ≤8s).
-- ⚠️ evidence-07 dead stretch 8.2s (target ≤8s).
-- ⚠️ playbook-01 dead stretch 8.6s (target ≤8s).
-- ⚠️ economics-02 dead stretch 8.4s (target ≤8s).
+- 4 warning(s); paced=True
+- ⚠️ thesis-03b dead stretch 8.0s (target ≤8s).
+- ⚠️ evidence-04 dead stretch 8.4s (target ≤8s).
+- ⚠️ evidence-07 dead stretch 8.1s (target ≤8s).
+- ⚠️ playbook-01 dead stretch 8.7s (target ≤8s).
 
 ### ✅ Concrete b-roll + money-claim sources — 4/4
 - all b-roll concrete; all money-claim screens sourced
