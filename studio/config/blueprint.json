@@ -88,7 +88,17 @@
       "enabled": true,
       "note": "Think-aloud performance pass (loose-E register, locked 2026-07-03): Claude rewrites each section's vo_text into performed speech \u2014 pivots, restatements, paragraph breathing, [exhales]/[inhales]/[short pause] tags, ellipses \u2014 under hard no-new-claims rules. Density: seasoned (hook/thesis/cta) vs light (evidence/stack/playbook/economics). Performed text cached at vo/performed-<id>.txt for gate review. Tags stripped from captions. Mastering softened same day (pharma-ad fix) + room tone under everything."
     },
-    "room_tone": true
+    "room_tone": true,
+    "layout": {
+      "bridges": [
+        {
+          "section": "hook",
+          "after_beat": 0,
+          "bars": 3.5
+        }
+      ],
+      "note": "Decoded from Manav's EP001 GarageBand session: music-only bridge (3.5 bars) after the series line, before the hook proper. layout_vo.py applies it post-generate_vo."
+    }
   },
   "render": {
     "format": "wide_16_9",
@@ -145,47 +155,7 @@
     "claim_registry": "Every load-bearing claim carries source URL + confidence marker (verified/reported/estimate)."
   },
   "music": {
-    "track": "music-src/market-pulse-ext.mp3",
-    "melody_pools": [
-      [
-        0.0,
-        20.0
-      ],
-      [
-        240.0,
-        267.0
-      ]
-    ],
-    "melody_treatment": {
-      "gain_db": -4,
-      "lowpass_hz": 4500
-    },
-    "build": [
-      258.0,
-      276.0
-    ],
-    "finale": [
-      276.0,
-      292.8
-    ],
-    "build_into": "cta",
-    "note": "Market Pulse Extended. v5 arc (2026-07-04, Manav's design): chords open \u2192 CRESCENDO into 'It's called implementation' quote \u2192 beat DROPS on the release and NEVER stops \u2192 variation (beat_b) at the n8n sim screen \u2192 second crescendo through 'one person' cresting at the 'charging billions' quote \u2192 settled beat loop through the body (long region, 2.5s seams \u2014 choppiness fix) \u2192 build crests at cta \u2192 finale fade. All joins \u22652s crossfades except the drop (0.3s).",
-    "chords": [
-      0.0,
-      20.0
-    ],
-    "drop_time_s": 22.0,
-    "beat_a": [
-      22.0,
-      80.0
-    ],
-    "beat_b": [
-      120.0,
-      156.0
-    ],
-    "body_loop": [
-      48.0,
-      140.0
-    ]
+    "kit": "music-src/kit/",
+    "note": "v7 (2026-07-05): arrange_bed plays MANAV'S SCORE, decoded from his EP001 arrangement (bar-by-bar spectral classification). Grammar: intro chords \u2192 rise thru hook+bridge \u2192 groove @ thesis+2 bars \u2192 breakdown into evidence \u2192 body \u2192 bassline payoff \u2192 sting/roll pivot \u2192 chords REPRISE @ stack \u2192 playbook groove \u2192 honest-math breakdown+bass \u2192 ender \u2192 finale crests @ cta \u2192 closing. Continuous music; SoundBed ducks/silences on top. Kit = his hand-cut bar-exact loops (FLAC)."
   }
 }

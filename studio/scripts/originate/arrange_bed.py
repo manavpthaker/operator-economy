@@ -1,29 +1,24 @@
 """
-Arrange the music bed from BAR-EXACT LOOPS (v6, 2026-07-04).
+Arrange the music bed (v7, 2026-07-05) — plays MANAV'S SCORE.
 
-Manav's diagnosis of v5: slicing a finished song at arbitrary timestamps
-cuts mid-phrase — joins and loop-backs sound chopped. v6 assembles from
-a loop KIT cut on the track's own bar grid (99.4 BPM, 2.415s bars,
-downbeat-aligned — see music.loops in config):
+The template was decoded from his EP001 GarageBand session (bar-by-bar
+spectral classification of his instrumental export against his own
+hand-cut kit, music-src/kit/*.flac). His grammar:
 
-  chords-8bar   — soft intro melody (opens the video, loops cleanly)
-  build-8bar    — the crescendo one-shot (crests at its END)
-  beatA-8bar    — main groove (THE DROP, loops)
-  beatB-8bar    — variation groove (the n8n screen switch, loops)
-  body-16bar    — settled groove for the long middle (loops)
-  finale-tail   — the finish + natural fade (one-shot)
+  intro chords (8 bars) under the series line
+  rising loops through the hook + THE BRIDGE (music steps forward)
+  full groove enters ~2 bars after the thesis starts
+  long BREAKDOWN under the dense back half of the argument
+  body loops under the evidence
+  stripped BASSLINE under the evidence payoff (numbers land on bass)
+  sting + roll pivot → INTRO-CHORDS REPRISE when the stack starts
+  [extended past his test score, same grammar:]
+  groove under the playbook · breakdown + bassline for honest math
+  ender → finale cresting at the Blueprint → closing
 
-Assembly rules:
-  - loops repeat WHOLE; same-loop repeats butt-join on the bar (10ms
-    declick) — seamless by construction
-  - family switches happen on the bar boundary nearest the visual
-    anchor (±half a bar tolerance — SoundBed's quote-silences do the
-    frame-exact work)
-  - the DROP is placed exactly at the first quote's release: the chords
-    span is END-ALIGNED by trimming whole bars off its FRONT
-  - crescendos are one-shots whose END lands on the crest anchor
-
-Anchors from storyboard.json; re-fits after any VO regen.
+Continuous music, no dead air; every span is whole bars of his loops;
+spans that must END on an anchor get whole-bar front trims. SoundBed
+still ducks under VO and silences quote cards on top of this.
 
 Usage:
     python scripts/originate/arrange_bed.py originate/<slug>/script.json
@@ -41,18 +36,24 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
-LOOPS = ROOT / "music-src" / "loops"
+KIT = ROOT / "music-src" / "kit"
+BAR = 2.4145
+DECLICK = 0.012
 
-BAR = 2.415          # seconds (99.38 BPM, 4/4 — Market Pulse grid)
-DECLICK = 0.012      # butt-join fade between repeats of the same loop
-SWITCH_FADE = 0.35   # family switches, on a bar boundary
-DROP_FADE = 0.05     # the drop arrival
+BARS = {  # whole-bar lengths of the kit (his cuts are grid-exact)
+    "MP-loop-01": 8, "MP-loop-02": 8, "MP-loop-03": 12, "MP-loop-04": 16,
+    "MP-loop-05": 16, "MP-loop-06": 8, "MP-loop-06-end": 7,
+    "MP-bassline-01": 2, "MP-drum-roll-01": 1, "MP-drum-roll-02": 1,
+    "MP-drum-roll-02-loop-end": 4, "MP-p2-loop-01": 8, "MP-p2-loop-02": 8,
+    "MP-p2-loop-02-end": 5, "MP-p2-breakdown-01": 11, "MP-p2-drum-roll-01": 1,
+    "MP-p3-final-loop-01": 8, "MP-p3-final-closing": 3, "MP-mini-loop-06": 8,
+}
 
 
-def run(cmd: list[str]):
+def run(cmd):
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode != 0:
-        print(p.stderr[-1200:], file=sys.stderr)
+        print(p.stderr[-1000:], file=sys.stderr)
         sys.exit(1)
 
 
@@ -63,7 +64,7 @@ def duration_of(path: Path) -> float:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Arrange the bed from bar-exact loops (v6)")
+    ap = argparse.ArgumentParser(description="Play Manav's score against the episode anchors")
     ap.add_argument("script")
     ap.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
     args = ap.parse_args()
@@ -73,117 +74,107 @@ def main():
     out = ROOT / "remotion" / "public" / "music" / "bed.mp3"
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    kit = {name: LOOPS / f"{name}.wav" for name in
-           ["chords-8bar", "build-8bar", "beatA-8bar", "beatB-8bar", "body-16bar", "finale-tail"]}
-    for n, p in kit.items():
-        if not p.exists():
-            print(f"Error: loop kit incomplete — missing {p}", file=sys.stderr)
+    for n in BARS:
+        if not (KIT / f"{n}.flac").exists():
+            print(f"Error: kit missing {n}.flac", file=sys.stderr)
             sys.exit(1)
-    L = {n: duration_of(p) for n, p in kit.items()}
 
     timeline = json.loads((base / "vo" / "timeline.json").read_text())
-    storyboard = json.loads((base / "storyboard.json").read_text())
     render_data = json.loads((base / "render_data" / "blueprint.json").read_text())
-
     bk = config.get("render", {}).get("bookends", {})
     offset = bk.get("brand_seconds", 0) + bk.get("title_seconds", 0) - bk.get("j_cut_seconds", 0)
     total = render_data["total_frames"] / render_data["fps"] + 1.0
 
-    screens = storyboard["screens"]
-    quotes = [s for s in screens if s["layout"] == "quote"]
-    q1 = quotes[0] if quotes else None
-    thesis_quotes = [s for s in quotes if s["section"] == "thesis"]
-    q_bill = thesis_quotes[-1] if thesis_quotes else None
-    sim1 = next((s for s in screens
-                 if (s.get("custom") or {}).get("sim", {}).get("kind") == "workflow"), None)
-    q1_start = offset + (q1["start"] if q1 else 55.0)
-    q1_end = offset + (q1["end"] if q1 else 58.0)
-    sim_start = offset + (sim1["start"] if sim1 else q1_end + 25.0)
-    bill_start = offset + (q_bill["start"] if q_bill else sim_start + 40.0)
-    cta = next((s for s in timeline["sections"] if s["section"] == build_into_id(config)), None)
-    target = offset + (cta["start"] if cta else total - 16.0)
+    sec = {s["section"]: (offset + s["start"], offset + s["start"] + s["duration"])
+           for s in timeline["sections"]}
+    t_thesis = sec["thesis"][0]
+    t_evid, t_evid_end = sec["evidence"]
+    t_stack = sec["stack"][0]
+    t_econ, t_econ_end = sec["economics"]
+    t_cta = sec["cta"][0]
+
+    def bars_at(t: float) -> int:
+        return max(int(round(t / BAR)), 0)
+
+    # ---- The score: (cycle, target_end_bar) — spans fill with whole
+    # loops from the cycle; the last loop is front-trimmed in whole bars
+    # to land the span exactly on the target bar.
+    plan: list[tuple[list[str], int]] = [
+        (["MP-loop-01"], 8),                                            # intro chords
+        (["MP-loop-02", "MP-loop-05"], bars_at(t_thesis) + 2),          # rise thru hook+bridge
+        (["MP-loop-04", "MP-loop-05"], bars_at(t_evid) - 20),           # full groove
+        (["MP-p2-breakdown-01"], bars_at(t_evid)),                      # breakdown → evidence
+        (["MP-loop-06", "MP-p2-loop-02", "MP-loop-06", "MP-loop-03"],
+         bars_at(t_evid_end) - 10),                                     # evidence body
+        (["MP-bassline-01"], bars_at(t_evid_end) - 4),                  # payoff on bass
+        (["MP-p3-final-closing"], bars_at(t_evid_end) - 1),             # sting
+        (["MP-drum-roll-02-loop-end"], bars_at(t_stack)),               # roll → pivot
+        (["MP-loop-01"], bars_at(t_stack) + 16),                        # CHORDS REPRISE
+        (["MP-loop-02"], bars_at(t_stack) + 24),                        # re-rise
+        (["MP-p2-loop-01", "MP-p2-loop-02"], bars_at(t_econ)),          # playbook groove
+        (["MP-p2-breakdown-01"], bars_at(t_econ) + 11),                 # honest-math breakdown
+        (["MP-bassline-01"], bars_at(t_econ_end) - 5),                  # risk on bass
+        (["MP-p2-loop-02-end"], bars_at(t_econ_end)),                   # ender
+        (["MP-p3-final-loop-01"], bars_at(t_cta) + 8),                  # finale crests thru cta
+        (["MP-p3-final-closing"], bars_at(t_cta) + 11),                 # closing
+    ]
 
     with tempfile.TemporaryDirectory() as td:
         tdp = Path(td)
-        segs: list[tuple[Path, float, float]] = []  # (file, dur, join_fade)
+        seg_files: list[str] = []
+        cur = 0  # bar cursor
 
-        def rep(name: str, loop: str, n_whole: int, front_trim_bars: int = 0) -> Path:
-            """n_whole repeats of a loop, optionally trimming whole BARS
-            off the front of the first repeat (end-alignment). Length is
-            EXPLICIT (-t) — stream_loop output is otherwise unbounded-ish
-            (learned the 62-minute way, 2026-07-04)."""
-            f = tdp / f"{name}.wav"
-            trim = front_trim_bars * BAR
-            need = n_whole * duration_of(kit[loop]) - trim
+        def emit(loop: str, n_bars_needed: int, idx: int):
+            """One loop instance trimmed to whole bars from the FRONT."""
+            lb = BARS[loop]
+            take = min(lb, n_bars_needed)
+            trim = (lb - take) * BAR
+            f = tdp / f"s{idx:03d}-{loop}.wav"
             run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-                 "-stream_loop", str(n_whole + 1), "-i", str(kit[loop]),
-                 "-af", f"atrim=start={trim:.3f},asetpts=PTS-STARTPTS,afade=t=in:d={DECLICK}",
-                 "-t", f"{need:.3f}", str(f)])
-            return f
+                 "-i", str(KIT / f"{loop}.flac"),
+                 "-af", f"atrim=start={trim:.4f},asetpts=PTS-STARTPTS,afade=t=in:d={DECLICK}",
+                 "-ar", "44100", "-ac", "2", "-acodec", "pcm_s16le", str(f)])
+            seg_files.append(str(f))
+            return take
 
-        # ---- span 1: chords, END-ALIGNED so build crest hits q1_start.
-        pre = q1_start - L["build-8bar"]
-        n_bars = max(int(round(pre / BAR)), 1)
-        n_loops = (n_bars + 7) // 8
-        trim_bars = n_loops * 8 - n_bars
-        segs.append((rep("chords", "chords-8bar", n_loops, trim_bars), n_bars * BAR, SWITCH_FADE))
-        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
+        idx = 0
+        for cycle, end_bar in plan:
+            if end_bar <= cur:
+                continue
+            ci = 0
+            while cur < end_bar:
+                loop = cycle[ci % len(cycle)]
+                remaining = end_bar - cur
+                lb = BARS[loop]
+                if remaining < lb and len(cycle) > 1:
+                    # find the cycle member that fits best whole
+                    fit = min(cycle, key=lambda l: abs(BARS[l] - remaining))
+                    loop = fit
+                cur += emit(loop, remaining, idx)
+                idx += 1
+                ci += 1
 
-        # ---- under the quote (ducked to silence anyway): one quiet bar-fill.
-        gap = max(q1_end - q1_start, 0.3)
-        uq = tdp / "underq.wav"
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(kit["chords-8bar"]),
-             "-t", f"{gap:.3f}", "-af", "volume=-9dB", str(uq)])
-        segs.append((uq, gap, DROP_FADE))
+        lst = tdp / "seq.txt"
+        lst.write_text("\n".join(f"file '{f}'" for f in seg_files))
+        assembled = tdp / "assembled.wav"
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-f", "concat",
+             "-safe", "0", "-i", str(lst), "-c", "copy", str(assembled)])
 
-        # ---- THE DROP: beatA whole loops until the bar nearest sim_start.
-        n_a = max(int(round((sim_start - q1_end) / L["beatA-8bar"])), 1)
-        segs.append((rep("beatA", "beatA-8bar", n_a), n_a * L["beatA-8bar"], SWITCH_FADE))
-        t_now = q1_end + n_a * L["beatA-8bar"]
+        # Fast level match (loudnorm is too slow here): measured gain to −16.
+        p = subprocess.run(["ffmpeg", "-i", str(assembled), "-af", "volumedetect",
+                            "-f", "null", "-"], capture_output=True, text=True)
+        mean = next((l.split()[-2] for l in p.stderr.splitlines() if "mean_volume" in l), "-16")
+        gain = -16.0 - float(mean)
+        pad = max(total - cur * BAR + 2.0, 0.0)
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(assembled),
+             "-af", f"volume={gain:.1f}dB,apad=pad_dur={pad:.2f}",
+             "-ar", "44100", "-b:a", "192k", str(out)])
 
-        # ---- variation: beatB until the bar nearest (bill crest - build).
-        c2_start = bill_start - L["build-8bar"]
-        n_b = max(int(round((c2_start - t_now) / L["beatB-8bar"])), 1)
-        segs.append((rep("beatB", "beatB-8bar", n_b), n_b * L["beatB-8bar"], SWITCH_FADE))
-        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
-        t_now = t_now + n_b * L["beatB-8bar"] + L["build-8bar"]
-
-        # ---- settled body until build3 (end-aligned to cta crest).
-        b3_start = target - L["build-8bar"]
-        n_body = max(int(round((b3_start - t_now) / L["body-16bar"])), 1)
-        segs.append((rep("body", "body-16bar", n_body), n_body * L["body-16bar"], SWITCH_FADE))
-        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
-
-        # ---- finale one-shot, then silence to cover total.
-        segs.append((kit["finale-tail"], L["finale-tail"], 0.0))
-
-        inputs = []
-        for f, _, _ in segs:
-            inputs += ["-i", str(f)]
-        fc, prev = "", "0:a"
-        for i in range(1, len(segs)):
-            d = max(segs[i - 1][2], 0.01)
-            fc += f"[{prev}][{i}:a]acrossfade=d={d}:c1=tri:c2=tri[x{i}];"
-            prev = f"x{i}"
-        mixed = tdp / "mixed.mp3"
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", *inputs,
-             "-filter_complex", fc.rstrip(";"), "-map", f"[{prev}]",
-             "-ar", "44100", "-b:a", "192k", str(mixed)])
-        cur = duration_of(mixed)
-        pad = max(total - cur + 2.0, 0.0)
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(mixed),
-             "-af", f"apad=pad_dur={pad:.2f}", "-ar", "44100", "-b:a", "192k", str(out)])
-
-    final = duration_of(out)
-    drop_at = q1_end
-    print(f"✓ Bed v6 (bar-exact loop assembly) → {out}  ({final:.1f}s vs video {total - 1:.1f}s)")
-    print(f"  chords ({n_bars} bars) → crest @ {q1_start:.1f} · DROP @ {drop_at:.1f} · "
-          f"beatA ×{n_a} → beatB ×{n_b} @ ~{sim_start:.1f} · crest2 ~{bill_start:.1f} · "
-          f"body ×{n_body} → crest3 ~{target:.1f} · finale")
-
-
-def build_into_id(config) -> str:
-    return config.get("music", {}).get("build_into", "cta")
+    print(f"✓ Bed v7 (Manav's score) → {out}")
+    print(f"  {cur} bars ({cur * BAR:.1f}s) + tail pad vs video {total - 1:.1f}s · "
+          f"{len(seg_files)} segments")
+    print(f"  groove @ thesis+2 bars · breakdown → evidence @ {t_evid:.0f}s · bass payoff · "
+          f"chords reprise @ stack {t_stack:.0f}s · finale crests @ cta {t_cta:.0f}s")
 
 
 if __name__ == "__main__":
