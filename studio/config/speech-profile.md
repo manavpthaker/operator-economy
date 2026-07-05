@@ -85,3 +85,10 @@ from real recordings, never from taste.
 - No tidy parallel marketing bullets in speech.
 - Doesn't say "utilize", "leverage" (as a verb), "delve", "landscape".
 - Doesn't build long periodic sentences; he'd rather restart.
+
+## Vocabulary consistency (source of truth = Manav's recordings)
+
+- "GenAI", never "generative AI" — he says "Gen AI work" (session
+  transcript). The scripts must match how he actually talks about the
+  domain. When his recordings and the written script disagree on a
+  term, THE RECORDING WINS; update this list each session.

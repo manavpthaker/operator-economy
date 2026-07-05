@@ -156,6 +156,33 @@ def perform_section(section: dict, vo_dir: Path, config: dict, text: str) -> str
     return performed
 
 
+def voice_fingerprint(path: Path) -> dict | None:
+    """Median F0 + spectral centroid of a mid-file slice — enough to
+    catch v3's between-sections voice drift (no stitching on v3)."""
+    try:
+        import librosa
+        import numpy as np
+    except ImportError:
+        return None
+    y, sr = librosa.load(str(path), sr=22050, mono=True, offset=2.0, duration=8.0)
+    if len(y) < sr * 3:
+        y, sr = librosa.load(str(path), sr=22050, mono=True)
+    f0 = librosa.yin(y, fmin=60, fmax=300, sr=sr)
+    f0 = f0[(f0 > 60) & (f0 < 300)]
+    cen = librosa.feature.spectral_centroid(y=y, sr=sr)
+    import numpy as np
+    return {"f0": float(np.median(f0)) if len(f0) else 0.0,
+            "centroid": float(np.median(cen))}
+
+
+def guard_ok(ref: dict, cur: dict, cfg: dict) -> bool:
+    if not ref or not cur or not ref.get("f0") or not cur.get("f0"):
+        return True
+    df0 = abs(cur["f0"] - ref["f0"]) / ref["f0"]
+    dc = abs(cur["centroid"] - ref["centroid"]) / max(ref["centroid"], 1)
+    return df0 <= cfg.get("f0_tolerance", 0.07) and dc <= cfg.get("centroid_tolerance", 0.18)
+
+
 def strip_tag_words(words: list[dict]) -> list[dict]:
     """Remove audio-tag tokens ([exhales], [short pause], …) from the
     word list so they never reach captions. Tags may span tokens
@@ -358,24 +385,41 @@ def main():
                 "pronunciation_dictionary_id": pdict["id"],
                 "version_id": pdict.get("version_id"),
             }]
-        resp = requests.post(
-            f"{API_BASE}/text-to-speech/{vo_cfg['voice_id']}/with-timestamps",
-            headers={"xi-api-key": api_key, "Content-Type": "application/json"},
-            json=payload,
-            timeout=300,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        rid = resp.headers.get("request-id") or resp.headers.get("x-request-id")
-        if rid:
-            request_ids[section["id"]] = rid
-            rid_path.write_text(json.dumps(request_ids))
-        prev_spoken_tail = spoken_text[-280:]
-
+        guard_cfg = vo_cfg.get("consistency_guard", {})
+        ref_path = vo_dir / "voiceprint-ref.json"
+        ref = json.loads(ref_path.read_text()) if ref_path.exists() else None
         audio_path = vo_dir / f"{section['id']}.mp3"
-        audio_path.write_bytes(base64.b64decode(data["audio_base64"]))
-        if vo_cfg.get("mastering", True):
-            master(audio_path)
+        attempts = 1 + (guard_cfg.get("max_retries", 2) if guard_cfg.get("enabled") else 0)
+        for attempt in range(attempts):
+            resp = requests.post(
+                f"{API_BASE}/text-to-speech/{vo_cfg['voice_id']}/with-timestamps",
+                headers={"xi-api-key": api_key, "Content-Type": "application/json"},
+                json=payload,
+                timeout=300,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            rid = resp.headers.get("request-id") or resp.headers.get("x-request-id")
+            if rid:
+                request_ids[section["id"]] = rid
+                rid_path.write_text(json.dumps(request_ids))
+            audio_path.write_bytes(base64.b64decode(data["audio_base64"]))
+            if vo_cfg.get("mastering", True):
+                master(audio_path)
+            if not guard_cfg.get("enabled"):
+                break
+            fp = voice_fingerprint(audio_path)
+            if ref is None:
+                # First section of the batch defines the episode's voice.
+                if fp:
+                    ref_path.write_text(json.dumps(fp))
+                    ref = fp
+                break
+            if guard_ok(ref, fp, guard_cfg):
+                break
+            print(f"    guard: {section['id']} take {attempt + 1} drifted "
+                  f"(f0 {fp['f0']:.0f} vs {ref['f0']:.0f}) — regenerating")
+        prev_spoken_tail = spoken_text[-280:]
 
         words_local = chars_to_words(data["alignment"], 0.0)
         if aliases:
