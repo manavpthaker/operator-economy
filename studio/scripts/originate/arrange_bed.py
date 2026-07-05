@@ -1,25 +1,32 @@
 """
-Arrange the music bed against the episode structure (v5, 2026-07-04).
+Arrange the music bed from BAR-EXACT LOOPS (v6, 2026-07-04).
 
-Manav's arc — instrumental opens, ONE drop, and the beat never stops:
+Manav's diagnosis of v5: slicing a finished song at arbitrary timestamps
+cuts mid-phrase — joins and loop-backs sound chopped. v6 assembles from
+a loop KIT cut on the track's own bar grid (99.4 BPM, 2.415s bars,
+downbeat-aligned — see music.loops in config):
 
-  chords      — soft instrumental from FRAME 0 (sting, title, intro line)
-  crescendo 1 — rises INTO "It's called implementation." (first quote);
-                the quote itself is the SoundBed silence
-  THE DROP    — beat enters on the quote's release and RUNS
-  variation   — beat section B at the n8n sim screen ("something new is
-                on screen")
-  crescendo 2 — through the "one person" build, cresting at the
-                "charging billions" quote; evidence ties back down
-  settled beat— long body region loops (2.5s seams — choppiness fix),
-                SoundBed intensity does the dynamics
-  build → cta — crescendo crests at "The Blueprint", finale + fade
+  chords-8bar   — soft intro melody (opens the video, loops cleanly)
+  build-8bar    — the crescendo one-shot (crests at its END)
+  beatA-8bar    — main groove (THE DROP, loops)
+  beatB-8bar    — variation groove (the n8n screen switch, loops)
+  body-16bar    — settled groove for the long middle (loops)
+  finale-tail   — the finish + natural fade (one-shot)
 
-All joins ≥2s musical crossfades except the drop itself (0.3s).
-Anchors come from storyboard.json, so this re-fits after any VO regen.
+Assembly rules:
+  - loops repeat WHOLE; same-loop repeats butt-join on the bar (10ms
+    declick) — seamless by construction
+  - family switches happen on the bar boundary nearest the visual
+    anchor (±half a bar tolerance — SoundBed's quote-silences do the
+    frame-exact work)
+  - the DROP is placed exactly at the first quote's release: the chords
+    span is END-ALIGNED by trimming whole bars off its FRONT
+  - crescendos are one-shots whose END lands on the crest anchor
+
+Anchors from storyboard.json; re-fits after any VO regen.
 
 Usage:
-    python scripts/originate/arrange_bed.py originate/<slug>/script.json [--no-arrange]
+    python scripts/originate/arrange_bed.py originate/<slug>/script.json
 
 Writes: remotion/public/music/bed.mp3
 """
@@ -34,21 +41,12 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
+LOOPS = ROOT / "music-src" / "loops"
 
-FLAT_CHAIN = (
-    "acompressor=threshold=-28dB:ratio=4:attack=40:release=800:makeup=6,"
-    "anequalizer=c0 f=2800 w=2600 g=-5 t=1|c1 f=2800 w=2600 g=-5 t=1,"
-    "lowpass=f=7500,"
-    "loudnorm=I=-16:TP=-2:LRA=5"
-)
-DYN_CHAIN = (
-    "anequalizer=c0 f=2800 w=2600 g=-4 t=1|c1 f=2800 w=2600 g=-4 t=1,"
-    "lowpass=f=8000,"
-    "loudnorm=I=-16:TP=-2:LRA=9"
-)
-
-XFADE = 2.2      # musical joins — the choppiness fix
-XFADE_DROP = 0.3 # the one hard arrival
+BAR = 2.415          # seconds (99.38 BPM, 4/4 — Market Pulse grid)
+DECLICK = 0.012      # butt-join fade between repeats of the same loop
+SWITCH_FADE = 0.35   # family switches, on a bar boundary
+DROP_FADE = 0.05     # the drop arrival
 
 
 def run(cmd: list[str]):
@@ -65,129 +63,106 @@ def duration_of(path: Path) -> float:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Arrange the music bed (v5: one drop, beat never stops)")
+    ap = argparse.ArgumentParser(description="Arrange the bed from bar-exact loops (v6)")
     ap.add_argument("script")
     ap.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
-    ap.add_argument("--no-arrange", action="store_true")
     args = ap.parse_args()
 
     config = json.loads(Path(args.config).read_text())
-    m = config.get("music", {})
-    track = ROOT / m.get("track", "")
-    if not track.exists():
-        print(f"Error: track not found: {track}", file=sys.stderr)
-        sys.exit(1)
-
     base = Path(args.script).parent
     out = ROOT / "remotion" / "public" / "music" / "bed.mp3"
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    chords = m.get("chords", [0.0, 20.0])
-    build = m.get("build", [258.0, 276.0])
-    beat_a = m.get("beat_a", [22.0, 80.0])
-    beat_b = m.get("beat_b", [120.0, 156.0])
-    body_loop = m.get("body_loop", [48.0, 140.0])
-    finale = m.get("finale")
-    build_into = m.get("build_into", "cta")
-    build_len = build[1] - build[0]
+    kit = {name: LOOPS / f"{name}.wav" for name in
+           ["chords-8bar", "build-8bar", "beatA-8bar", "beatB-8bar", "body-16bar", "finale-tail"]}
+    for n, p in kit.items():
+        if not p.exists():
+            print(f"Error: loop kit incomplete — missing {p}", file=sys.stderr)
+            sys.exit(1)
+    L = {n: duration_of(p) for n, p in kit.items()}
+
+    timeline = json.loads((base / "vo" / "timeline.json").read_text())
+    storyboard = json.loads((base / "storyboard.json").read_text())
+    render_data = json.loads((base / "render_data" / "blueprint.json").read_text())
+
+    bk = config.get("render", {}).get("bookends", {})
+    offset = bk.get("brand_seconds", 0) + bk.get("title_seconds", 0) - bk.get("j_cut_seconds", 0)
+    total = render_data["total_frames"] / render_data["fps"] + 1.0
+
+    screens = storyboard["screens"]
+    quotes = [s for s in screens if s["layout"] == "quote"]
+    q1 = quotes[0] if quotes else None
+    thesis_quotes = [s for s in quotes if s["section"] == "thesis"]
+    q_bill = thesis_quotes[-1] if thesis_quotes else None
+    sim1 = next((s for s in screens
+                 if (s.get("custom") or {}).get("sim", {}).get("kind") == "workflow"), None)
+    q1_start = offset + (q1["start"] if q1 else 55.0)
+    q1_end = offset + (q1["end"] if q1 else 58.0)
+    sim_start = offset + (sim1["start"] if sim1 else q1_end + 25.0)
+    bill_start = offset + (q_bill["start"] if q_bill else sim_start + 40.0)
+    cta = next((s for s in timeline["sections"] if s["section"] == build_into_id(config)), None)
+    target = offset + (cta["start"] if cta else total - 16.0)
 
     with tempfile.TemporaryDirectory() as td:
         tdp = Path(td)
+        segs: list[tuple[Path, float, float]] = []  # (file, dur, join_fade)
 
-        def cut(name: str, start: float, end: float, chain: str, extra: str = "") -> Path:
+        def rep(name: str, loop: str, n_whole: int, front_trim_bars: int = 0) -> Path:
+            """n_whole repeats of a loop, optionally trimming whole BARS
+            off the front of the first repeat (end-alignment). Length is
+            EXPLICIT (-t) — stream_loop output is otherwise unbounded-ish
+            (learned the 62-minute way, 2026-07-04)."""
             f = tdp / f"{name}.wav"
-            af = chain + ("," + extra if extra else "")
+            trim = front_trim_bars * BAR
+            need = n_whole * duration_of(kit[loop]) - trim
             run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-                 "-ss", f"{start:.3f}", "-to", f"{end:.3f}", "-i", str(track),
-                 "-af", af, "-ar", "44100", str(f)])
+                 "-stream_loop", str(n_whole + 1), "-i", str(kit[loop]),
+                 "-af", f"atrim=start={trim:.3f},asetpts=PTS-STARTPTS,afade=t=in:d={DECLICK}",
+                 "-t", f"{need:.3f}", str(f)])
             return f
 
-        def looped(name: str, src: Path, need: float) -> Path:
-            f = tdp / f"{name}.wav"
-            run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-                 "-stream_loop", "30", "-i", str(src), "-t", f"{need:.3f}", str(f)])
-            return f
+        # ---- span 1: chords, END-ALIGNED so build crest hits q1_start.
+        pre = q1_start - L["build-8bar"]
+        n_bars = max(int(round(pre / BAR)), 1)
+        n_loops = (n_bars + 7) // 8
+        trim_bars = n_loops * 8 - n_bars
+        segs.append((rep("chords", "chords-8bar", n_loops, trim_bars), n_bars * BAR, SWITCH_FADE))
+        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
 
-        if args.no_arrange:
-            flat = tdp / "flat.mp3"
-            run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(track),
-                 "-af", FLAT_CHAIN, "-ar", "44100", "-b:a", "192k", str(flat)])
-            flat.replace(out)
-            print(f"✓ Treated bed (unarranged, loops) → {out}")
-            return
+        # ---- under the quote (ducked to silence anyway): one quiet bar-fill.
+        gap = max(q1_end - q1_start, 0.3)
+        uq = tdp / "underq.wav"
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(kit["chords-8bar"]),
+             "-t", f"{gap:.3f}", "-af", "volume=-9dB", str(uq)])
+        segs.append((uq, gap, DROP_FADE))
 
-        timeline = json.loads((base / "vo" / "timeline.json").read_text())
-        storyboard = json.loads((base / "storyboard.json").read_text())
-        render_data = json.loads((base / "render_data" / "blueprint.json").read_text())
+        # ---- THE DROP: beatA whole loops until the bar nearest sim_start.
+        n_a = max(int(round((sim_start - q1_end) / L["beatA-8bar"])), 1)
+        segs.append((rep("beatA", "beatA-8bar", n_a), n_a * L["beatA-8bar"], SWITCH_FADE))
+        t_now = q1_end + n_a * L["beatA-8bar"]
 
-        bk = config.get("render", {}).get("bookends", {})
-        offset = bk.get("brand_seconds", 0) + bk.get("title_seconds", 0) - bk.get("j_cut_seconds", 0)
-        total = render_data["total_frames"] / render_data["fps"] + 1.0
+        # ---- variation: beatB until the bar nearest (bill crest - build).
+        c2_start = bill_start - L["build-8bar"]
+        n_b = max(int(round((c2_start - t_now) / L["beatB-8bar"])), 1)
+        segs.append((rep("beatB", "beatB-8bar", n_b), n_b * L["beatB-8bar"], SWITCH_FADE))
+        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
+        t_now = t_now + n_b * L["beatB-8bar"] + L["build-8bar"]
 
-        screens = storyboard["screens"]
-        quotes = [s for s in screens if s["layout"] == "quote"]
-        q1 = quotes[0] if quotes else None                       # "It's called implementation."
-        thesis_quotes = [s for s in quotes if s["section"] == "thesis"]
-        q_bill = thesis_quotes[-1] if thesis_quotes else None    # "charging billions"
-        sim1 = next((s for s in screens
-                     if (s.get("custom") or {}).get("sim", {}).get("kind") == "workflow"), None)
+        # ---- settled body until build3 (end-aligned to cta crest).
+        b3_start = target - L["build-8bar"]
+        n_body = max(int(round((b3_start - t_now) / L["body-16bar"])), 1)
+        segs.append((rep("body", "body-16bar", n_body), n_body * L["body-16bar"], SWITCH_FADE))
+        segs.append((kit["build-8bar"], L["build-8bar"], SWITCH_FADE))
 
-        q1_start = offset + (q1["start"] if q1 else 55.0)
-        q1_end = offset + (q1["end"] if q1 else 58.0)
-        sim_start = offset + (sim1["start"] if sim1 else q1_end + 25.0)
-        bill_start = offset + (q_bill["start"] if q_bill else sim_start + 40.0)
-
-        cta = next((s for s in timeline["sections"] if s["section"] == build_into), None)
-        target = offset + (cta["start"] if cta else total - 16.0)
-        body_start = bill_start  # crescendo 2 crests here; body runs on under evidence
-        build3_start = max(target - build_len, body_start + 20.0)
-
-        segs: list[tuple[Path, float, str]] = []  # (file, dur, joinmode)
-
-        # 1) chords → crescendo1 crest at q1_start.
-        c1_start = max(q1_start - build_len, 0.0)
-        chords_src = cut("chords_src", chords[0], chords[1], DYN_CHAIN, "volume=-2dB")
-        segs.append((looped("chords", chords_src, c1_start + XFADE), c1_start + XFADE, "x"))
-        segs.append((cut("cresc1", build[0], build[1], DYN_CHAIN), build_len, "x"))
-        # bed content under the quote itself is ducked to silence by
-        # SoundBed — the drop arrives at q1_end.
-        gap1 = q1_end - q1_start
-        segs.append((cut("underq1", chords[0], chords[0] + gap1 + XFADE_DROP, FLAT_CHAIN,
-                         "volume=-8dB"), gap1 + XFADE_DROP, "x"))
-
-        # 2) THE DROP — beat A runs q1_end → sim screen.
-        need_a = sim_start - q1_end + XFADE
-        srcA = cut("beatA_src", beat_a[0], beat_a[1], DYN_CHAIN)
-        segs.append((looped("beatA", srcA, need_a) if need_a > (beat_a[1] - beat_a[0]) else
-                     cut("beatA", beat_a[0], beat_a[0] + need_a, DYN_CHAIN), need_a, "drop"))
-
-        # 3) variation at the n8n screen → crescendo2 into "billions".
-        c2_start = max(bill_start - build_len, sim_start + 6.0)
-        need_b = c2_start - sim_start + XFADE
-        srcB = cut("beatB_src", beat_b[0], beat_b[1], DYN_CHAIN)
-        segs.append((looped("beatB", srcB, need_b) if need_b > (beat_b[1] - beat_b[0]) else
-                     cut("beatB", beat_b[0], beat_b[0] + need_b, DYN_CHAIN), need_b, "x"))
-        segs.append((cut("cresc2", build[0], build[1], DYN_CHAIN), build_len, "x"))
-
-        # 4) settled beat through the body (long region, few seams).
-        need_body = build3_start - bill_start + XFADE
-        body_src = cut("body_src", body_loop[0], body_loop[1], FLAT_CHAIN)
-        segs.append((looped("body", body_src, need_body), need_body, "x"))
-
-        # 5) build → finale (tail keeps its natural fade).
-        segs.append((cut("build3", build[0], build[1], DYN_CHAIN), build_len, "x"))
-        if finale:
-            fin_need = total - target
-            fin_len = finale[1] - finale[0]
-            f_start = finale[0] + max(fin_len - fin_need, 0.0)
-            segs.append((cut("finale", f_start, finale[1], DYN_CHAIN), finale[1] - f_start, "x"))
+        # ---- finale one-shot, then silence to cover total.
+        segs.append((kit["finale-tail"], L["finale-tail"], 0.0))
 
         inputs = []
         for f, _, _ in segs:
             inputs += ["-i", str(f)]
         fc, prev = "", "0:a"
         for i in range(1, len(segs)):
-            d = XFADE_DROP if segs[i][2] == "drop" else XFADE
+            d = max(segs[i - 1][2], 0.01)
             fc += f"[{prev}][{i}:a]acrossfade=d={d}:c1=tri:c2=tri[x{i}];"
             prev = f"x{i}"
         mixed = tdp / "mixed.mp3"
@@ -200,10 +175,15 @@ def main():
              "-af", f"apad=pad_dur={pad:.2f}", "-ar", "44100", "-b:a", "192k", str(out)])
 
     final = duration_of(out)
-    print(f"✓ Arranged bed v5 → {out}  ({final:.1f}s vs video {total - 1:.1f}s)")
-    print(f"  chords → cresc1 crests @ {q1_start:.1f} ('implementation') · DROP @ {q1_end:.1f} · "
-          f"variation @ {sim_start:.1f} (n8n sim) · cresc2 crests @ {bill_start:.1f} ('billions') · "
-          f"settled beat → build3 @ {build3_start:.1f} · crest @ {target:.1f} ('{build_into}') · finale")
+    drop_at = q1_end
+    print(f"✓ Bed v6 (bar-exact loop assembly) → {out}  ({final:.1f}s vs video {total - 1:.1f}s)")
+    print(f"  chords ({n_bars} bars) → crest @ {q1_start:.1f} · DROP @ {drop_at:.1f} · "
+          f"beatA ×{n_a} → beatB ×{n_b} @ ~{sim_start:.1f} · crest2 ~{bill_start:.1f} · "
+          f"body ×{n_body} → crest3 ~{target:.1f} · finale")
+
+
+def build_into_id(config) -> str:
+    return config.get("music", {}).get("build_into", "cta")
 
 
 if __name__ == "__main__":
