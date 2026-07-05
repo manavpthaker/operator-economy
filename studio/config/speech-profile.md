@@ -52,6 +52,26 @@ from real recordings, never from taste.
   paragraph reset.
 - Direct address: "you", "your" everywhere; talks TO one person.
 
+## Colloquial register (Manav, 2026-07-04: "has to feel like just
+## talking this out as I go")
+
+- CONTRACT EVERYTHING natural speech contracts: "wanna", "gonna",
+  "gotta", "kinda", "let's", "that's", "it's", "you're", "don't".
+  Never "want to / going to" where a person would say wanna/gonna.
+- Numbers land conversationally: "five nine billion... that's billion
+  with a B", "two grand", "20 bucks a month, maybe".
+- His hedge-and-commit move: "or whatever you wanna call it", "for
+  lack of a better term", "I don't know, maybe they do in an abstract
+  sense... but", then lands the point anyway.
+- Working-it-out asides (1–2 short ones per section, MORE than the old
+  profile allowed): "and before you go 'wait, free work?'...", "this
+  is not a hey-I'm-on-a-job-interview homework situation".
+- Casual dismissals: "none of that", "that's too broad, too generic",
+  "that's a cop-out", "That's it. That's the ask."
+- It should read like the ad-libbed parts of his session transcript —
+  the thousand unscripted words are the register target, not the
+  written script.
+
 ## Bio facts (corrected on mic — canonical)
 
 - "Over a decade building products" across "hospitality and retail to

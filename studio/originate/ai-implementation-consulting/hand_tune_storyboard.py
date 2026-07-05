@@ -125,13 +125,9 @@ def build() -> dict:
         heading="The Operator Economy",
         start=hook_start, end=acc_s,
         reveals=[
-            reveal(0, hook_start, hook_start + (acc_s - hook_start) * 0.45,
-                   "Manav — an operator, not a guru",
-                   "A decade building product · Hospitality → retail → grocery → SaaS",
-                   tags=["operator_pov"]),
-            reveal(0, hook_start + (acc_s - hook_start) * 0.45, acc_s,
-                   "One buildable business, every week",
-                   "Real companies · Sourced numbers · Honest math",
+            reveal(0, hook_start, acc_s,
+                   "One business you can build. On your own.",
+                   "Every week · Real companies · Sourced numbers · Honest math",
                    tags=["claim"]),
         ],
         sfx=[{"cue": "tick", "at": hook_start}],
@@ -188,7 +184,7 @@ def build() -> dict:
     ))
     # thesis-03 sheet — between "It's called implementation" and the
     # WIRING line, where the workflow sim takes over (tool shot #1).
-    wire_s, _wire_e = find_phrase("thesis", "wiring them into how a real business runs")
+    wire_s, _wire_e = find_phrase("thesis", "wiring them into how a real business actually runs")
     screens.append(screen(
         id="thesis-03",
         section="thesis",
@@ -338,7 +334,7 @@ def build() -> dict:
     # evidence-03 proof_card — $40K/mo REPORTED
     _dollar40 = None
     try:
-        _dollar40 = find_phrase("evidence", "forty thousand")
+        _dollar40 = find_phrase("evidence", "forty grand")
     except ValueError:
         pass
     ev03_start = q_growing_e + 6
@@ -478,7 +474,7 @@ def build() -> dict:
     # at the client-facing-layer line, then schematic finale.
     # ==================================================================
     st_start, st_end = section_bounds("stack")
-    cf_s, _cf_e = find_phrase("stack", "client-facing layer")
+    cf_s, _cf_e = find_phrase("stack", "client facing layer")
     loom_s, _loom_e = find_phrase("stack", "loom for async delivery")
     st_mid = st_start + (cf_s - st_start) / 2
     screens.append(screen(
@@ -549,7 +545,7 @@ def build() -> dict:
     # → sheet resumes at "Then package".
     pb01_end = off_s - 5.5  # give ~5.5s narration lead to the offer moment
     cs_s, _cs_e = find_phrase("playbook", "build two or three real case studies")
-    pk_s, _pk_e = find_phrase("playbook", "then package")
+    pk_s, _pk_e = find_phrase("playbook", "you package it")
     screens.append(screen(
         id="playbook-01",
         section="playbook",
