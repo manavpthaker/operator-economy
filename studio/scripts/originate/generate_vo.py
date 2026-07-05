@@ -276,6 +276,15 @@ def main():
     vo_dir = script_path.parent / "vo"
     vo_dir.mkdir(exist_ok=True)
 
+    # Request stitching (2026-07-04): v3 is non-deterministic take to
+    # take — regenerating one section makes it sound like a different
+    # session. Each call conditions on the previous sections' request
+    # ids + text tail, so the episode reads as ONE continuous recording.
+    # Persisted so resumed runs keep the chain.
+    rid_path = vo_dir / "request-ids.json"
+    request_ids: dict = json.loads(rid_path.read_text()) if rid_path.exists() else {}
+    prev_spoken_tail: str | None = None
+
     all_words, timeline, offset = [], [], 0.0
     for section in script["sections"]:
         text = section_text(section)
@@ -292,6 +301,9 @@ def main():
                              "duration": cached["duration"],
                              "audio": f"{section['id']}.mp3"})
             offset += cached["duration"]
+            # Keep the stitching chain intact across cached sections.
+            perf_cache = vo_dir / f"performed-{section['id']}.txt"
+            prev_spoken_tail = (perf_cache.read_text() if perf_cache.exists() else text)[-280:]
             print(f"  VO: {section['id']} (cached, {cached['duration']:.1f}s)")
             continue
         print(f"  VO: {section['id']} ({len(text)} chars)")
@@ -324,6 +336,20 @@ def main():
             "voice_settings": voice_settings,
             "output_format": vo_cfg.get("output_format", "mp3_44100_128"),
         }
+        # Stitch onto the prior sections' takes (order of the script).
+        # NOTE (2026-07-04): eleven_v3 supports NEITHER previous_request_ids
+        # NOR previous_text yet ("unsupported_model") — stitching only
+        # engages on other models. On v3 the consistency rule is
+        # operational instead: NEVER regenerate a single section in
+        # isolation; clear the whole vo/ cache so the episode is one
+        # batch. (Ids are still captured for when v3 gains support.)
+        if vo_cfg["model_id"] != "eleven_v3":
+            prior_ids = [request_ids[s2["id"]] for s2 in script["sections"]
+                         if s2["id"] in request_ids and s2["id"] != section["id"]]
+            if prior_ids:
+                payload["previous_request_ids"] = prior_ids[-3:]
+            elif prev_spoken_tail:
+                payload["previous_text"] = prev_spoken_tail
         # Pronunciation dictionary (Airtable, n8n, SaaS…) — requires
         # eleven_v3; silently ignored on multilingual_v2.
         pdict = vo_cfg.get("pronunciation_dictionary")
@@ -340,6 +366,11 @@ def main():
         )
         resp.raise_for_status()
         data = resp.json()
+        rid = resp.headers.get("request-id") or resp.headers.get("x-request-id")
+        if rid:
+            request_ids[section["id"]] = rid
+            rid_path.write_text(json.dumps(request_ids))
+        prev_spoken_tail = spoken_text[-280:]
 
         audio_path = vo_dir / f"{section['id']}.mp3"
         audio_path.write_bytes(base64.b64decode(data["audio_base64"]))
