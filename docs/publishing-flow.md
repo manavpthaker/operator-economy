@@ -19,7 +19,10 @@ python scripts/originate/arrange_bed.py originate/<slug>/script.json --stage cut
 python scripts/originate/arrange_bed.py originate/<slug>/script.json --stage mix
 python scripts/originate/derive_content.py originate/<slug>/script.json # LI posts, newsletter, blueprint, shorts briefs
 python scripts/originate/prepare_shorts.py originate/<slug>/script.json # vertical shorts audio + props
+python scripts/originate/render_blueprint.py originate/<slug>/script.json --hero '$X → $Y' --hero-caption '...'  # THE lead magnet
 ```
+
+**The designed blueprint PDF is what email signups receive** — `render_blueprint.py` turns `content/blueprint.md` into the Working-Schematic PDF (Rev C tokens, matches the №001 Claude-Design reference): cover with stack rail + meta block, evidence table with confidence chips, playbook, honest math, numbered sources. Outputs `originate/<slug>/Operator-Blueprint-<NNN>.pdf` + `site/public/blueprints/<slug>.pdf`. Renders via local Chrome headless (or WeasyPrint). `launch.py` refuses `--go` if it's missing.
 
 Render locally (Manav's machine — Remotion only):
 

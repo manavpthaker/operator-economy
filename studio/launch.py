@@ -112,6 +112,15 @@ def main() -> None:
     desc_file = ep_dir / "content" / "youtube_description.txt"
     ep_desc = desc_file.read_text() if desc_file.exists() else ""
 
+    # ---- Blueprint PDF gate: it's what email signups receive ----
+    bp_pdf = next(iter(ep_dir.glob("Operator-Blueprint-*.pdf")), None)
+    if bp_pdf is None:
+        print("⚠ No designed blueprint PDF found. The blueprint IS the lead magnet — render it:\n"
+              f"  python scripts/originate/render_blueprint.py originate/{args.slug}/script.json "
+              "--hero '...' --hero-caption '...'")
+        if args.go:
+            sys.exit("Refusing --go without the blueprint PDF (signups would get nothing).")
+
     # ---- Rubric gate before anything ships ----
     if args.rubric_waiver:
         print(f"⚠ RUBRIC GATE WAIVED: {args.rubric_waiver}")
@@ -152,6 +161,7 @@ def main() -> None:
         "episode_url": ep_url, "episode_publish_et": f"{monday} 11:00 ET",
         "blueprint_url": f"https://theoperatoreconomy.com/episodes/{args.slug}",
         "carousel_pdf": next((str(p) for p in ep_dir.glob("carousel-*.pdf")), None),
+        "blueprint_pdf": str(bp_pdf) if bp_pdf else None,
         "shorts": short_entries,
         "generated": datetime.now(ET).isoformat(),
         "dry_run": not args.go,
