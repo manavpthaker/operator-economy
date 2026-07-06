@@ -49,6 +49,8 @@ Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" 
 
 **Identity rule: all OE content posts from The Operator Economy page.** Personal profile's role is defined in Phase 3.
 
+**Rubric gate: every post, carousel copy, group prompt, and DM passes `docs/post-rubric.md` (hooks, watermark ban, register-by-surface, 7-point sniff test) BEFORE it's scheduled.** No exceptions — the register is the moat.
+
 **LinkedIn scheduler gotchas (learned the hard way):**
 - Media dropped straight onto the composer gets **discarded by any schedule-dialog round trip**. Order that works: set text → set schedule → attach video LAST → Schedule immediately. (Or commit media through the editor's preview + Next.)
 - The time field only commits via dropdown-select or blur; typed values silently don't count.
