@@ -1,5 +1,10 @@
 import s from './page.module.css';
 import { BlueprintForm, LedgerForm } from './CaptureForms';
+
+// Revalidate daily so the "next Monday" ship date on LatestBlueprint stays
+// current between deploys — the homepage otherwise gets baked at build.
+export const revalidate = 86400;
+
 import {
   LatestBlueprint,
   getLatestLive,

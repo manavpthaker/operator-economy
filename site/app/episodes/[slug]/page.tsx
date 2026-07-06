@@ -11,6 +11,7 @@ import {
   type PipelineStage,
 } from '../../components/LatestBlueprint';
 import { NotifyForm, BlueprintCaptureForm } from './EpisodeForms';
+import { YouTubeEmbed } from './YouTubeEmbed';
 import s from './page.module.css';
 
 export function generateStaticParams() {
@@ -211,6 +212,13 @@ function LiveView({ ep }: { ep: Episode }) {
           </div>
         </div>
       </div>
+
+      {ep.youtube_url && (
+        <section className={s.section}>
+          <div className={s.sectionKicker}>Watch</div>
+          <YouTubeEmbed url={ep.youtube_url} title={ep.title} />
+        </section>
+      )}
 
       {ep.thesis && (
         <section className={s.section}>

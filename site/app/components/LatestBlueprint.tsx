@@ -79,6 +79,24 @@ export function pad(n: number): string {
   return n.toString().padStart(3, '0');
 }
 
+// Next Monday from `from`. If `from` is already a Monday, returns +7d — we ship
+// on Mondays, so a same-day rebuild still forecasts the *next* one.
+export function nextMonday(from: Date = new Date()): Date {
+  const d = new Date(from);
+  d.setHours(0, 0, 0, 0);
+  const day = d.getDay(); // 0 Sun, 1 Mon, …
+  const delta = day === 1 ? 7 : (8 - day) % 7 || 7;
+  d.setDate(d.getDate() + delta);
+  return d;
+}
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export function formatNextMondayShort(d: Date = nextMonday()): string {
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+}
+
 const MAX_GHOSTS = 4;
 const MIN_GHOSTS = 1;
 const UPCOMING_ROWS = 3;
@@ -100,6 +118,7 @@ export function LatestBlueprint() {
   const upcoming = getUpcoming().slice(0, UPCOMING_ROWS);
   const liveCount = getLiveCount();
   const queueDepth = getQueueDepth();
+  const nextShip = formatNextMondayShort();
 
   if (!latest) {
     return (
@@ -127,7 +146,7 @@ export function LatestBlueprint() {
         <span className={s.headerLabel}>The latest blueprint</span>
         <span className={s.headerCadence}>
           <i className={`${s.pulseDot} oe-pulse`} />
-          ships every Monday
+          ships every Monday · next {nextShip}
         </span>
       </div>
 
