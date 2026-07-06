@@ -4,7 +4,7 @@
 
 Accenture's overall new bookings were flat last year.
 
-One line item doubled: generative AI work. $5.9 billion of it — and by late 2025 they stopped reporting it separately, because AI touched 80% of large deals.
+One line item doubled: GenAI work. $5.9 billion of it — and by late 2025 they stopped reporting it separately, because AI touched 80% of large deals.
 
 Here's what that means if you're a senior professional wondering where the ground is:
 

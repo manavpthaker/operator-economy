@@ -2,7 +2,7 @@
 
 ## The $5.9 billion business you can start for $100
 
-Accenture had a flat year. Overall new bookings didn't grow at all — except one line, which doubled: **$5.9 billion in generative AI bookings**, with revenue from that work roughly tripling to $2.7B (CIO Dive, Constellation Research). By late 2025 they stopped reporting AI separately because it touched 80% of large deals.
+Accenture had a flat year. Overall new bookings didn't grow at all — except one line, which doubled: **$5.9 billion in GenAI bookings**, with revenue from that work roughly tripling to $2.7B (CIO Dive, Constellation Research). By late 2025 they stopped reporting AI separately because it touched 80% of large deals.
 
 Read that carefully: the world's biggest consultancy is being kept afloat by *installing* AI. Not building it — installing it.
 
