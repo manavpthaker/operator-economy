@@ -80,8 +80,8 @@ Per synthesis finding #8, the first hour concentrates the early watch-time signa
 
 The register rule from `research/comp-synthesis.md`: the audience (35–55 ops/product leaders) detects and punishes undisclosed self-promotion. **Never repeatedly "share" OE as something stumbled upon** — that middle path is the FakeGuru exposure pattern. Two sanctioned framings:
 
-- **Analyst framing (the ONLY framing — Manav's call, July 6, 2026):** share the *finding*, not the channel. "Accenture's only growing line is installation work — here's the unit economics." Own commentary; OE cited neutrally as the source, like any publication. Never claimed as his, never performed as a find. The insight earns the engagement; the curious follow the trail.
-- **Publisher framing: retired.** No "I've been building this" posts. The channel stays unattributed; if someone asks directly, don't lie — deflect or answer privately, but never build content on a false origin story.
+- **Surface model (Manav's call, July 6, 2026 — supersedes analyst posts):** the personal profile carries OE ONLY as **reposts of OE page posts** — no original OE-derived text posts on personal, ever. Reposts are bare or one-line, never commentary about the channel, and are transparent by design (the OE page shows as author, no origin story to perform). Cadence: 1–2 reposts/week, the episode carousel post being the default. Reposts don't collide with Grapevines personal slots (different distribution class), but still max one repost/day.
+- **Original OE analyst posts on personal: retired** along with publisher framing. Grapevines owns the personal feed's original slots. If someone asks about OE directly, don't lie — deflect or answer privately.
 
 **The DM pipeline** (the warm-relationship asset — this is what 1K followers + real relationships buy):
 - **Tier 1 — direct relevance (5–10 people/episode):** people actively facing the episode's problem (career transition, exploring AI income). Personal note, analyst register: "saw this breakdown of the AI implementation business — the honest-math section made me think of your situation." Link the episode. No ask.
@@ -114,19 +114,40 @@ The group solves a real OE problem (warm ICP audience) and OE solves a real grou
 ## Phase 4 — The week (Tue–Fri)
 
 - **Shorts publish daily** (YT 8:30, LI page 8:30) — discovery only; every short's description + pinned comment routes to the long-form (+20% documented watch-hour lift from pinned comments).
-- **2–3 analyst-framing text posts** on personal, derived from script acts + surplus research data points (`content/linkedin_posts.md` is the seed; each stands alone, OE credited).
+- **Personal = reposts only** (1–2/week of OE page posts, bare or one-line). `content/linkedin_posts.md` derivations now feed the OE PAGE's midweek posts and the group, not the personal feed.
 - **Every surface funnels the same way:** blueprint download → email → newsletter → hour-one watch time on the next episode → Grapevines overlap where relevant.
 
-## Automation backlog (in priority order)
+## The automated week (built July 6, 2026)
 
-1. **Carousel generator** — `derive_content.py` gains a `carousel` output: 8–12 slide JSON → branded PDF via the OE design system (navy/paper/gold, Boska/Fragment Mono — same tokens as `remotion/src/oe/theme.ts`). Blocks Phase 2 being automatic.
-2. **Re-auth YouTube token with `youtube.force-ssl` scope** (`tools/youtube_auth.py`) — unlocks captions upload AND posting/pinning the shorts' episode-link comments via API.
-3. **Newsletter send** wired into launch (Resend; blocked on DNS setup from launch checklist).
-4. **`launch.py`** — one command that runs Phase 1 end-to-end from a manifest (upload episode + shorts with computed publish-at times, set thumbnail, write the hour-one checklist). LinkedIn stays manual/browser until an API path exists.
-5. **DM shortlist generator** — per episode, Claude drafts the Tier 1/2 candidate list + message drafts from Manav's relationship notes; he approves and sends.
+Three pieces run the week; humans approve every outbound post.
+
+**1. `studio/launch.py`** — one command, Phase 1 end-to-end:
+
+```
+python launch.py <slug> --monday YYYY-MM-DD --title "..."        # dry run
+python launch.py <slug> --monday YYYY-MM-DD --title "..." --go   # upload + schedule
+```
+
+Rubric-lints all LI copy (`scripts/originate/rubric_check.py` — automated subset of `post-rubric.md`: em-dash/lexicon/opener/income-promise checks; hard fails abort, `--rubric-waiver "reason"` is stamped into the checklist). Schedules YT episode (Mon 11:00 ET) + shorts ×4 (Tue–Fri 8:30 ET), bakes the episode link into shorts descriptions, writes `originate/<slug>/launch/`: `checklist.md`, `links.json` (the manifest the scheduled tasks read), `dm_shortlist.md`.
+
+**2. Cowork scheduled tasks** (approval-gated; LinkedIn via Chrome with the composer gotchas encoded):
+
+| Task | When | Does |
+|---|---|---|
+| `oe-sunday-launch-prep` | Sun 7pm | Asset check → rubric fix-ups → launch.py dry run → hand Manav the `--go` command → draft + schedule OE page posts (approval per click) → DM shortlist candidates |
+| `oe-monday-hour-one` | Mon 10:40 | Verify live → sources comment → newsletter reminder/send → personal repost draft (one-line analyst comment) → site flip → DM reminders |
+| `oe-week-driver` | Tue–Fri 8:15 | Verify short + OE post live → daily personal analyst post draft (3/wk cap enforced) → Tue/Wed group package → Tue DM follow-through + amplifier-ladder logging → Fri week wrap |
+
+**3. Rubric linter** — `scripts/originate/rubric_check.py <file> --surface feed|carousel|dm|group`. Run on anything before it ships; it catches the watermarks, humans still do the read-aloud/byline/tap/guru tests.
+
+## Remaining backlog
+
+1. **Re-auth YouTube token with `youtube.force-ssl` scope** (`tools/youtube_auth.py`) — unlocks captions upload AND posting/pinning the shorts' episode-link comments via API (the week-driver currently just flags unpinned comments).
+2. **Newsletter send** wired into launch (Resend; blocked on DNS setup from launch checklist).
+3. **Thumbnail set via API** — still manual in YT Studio (needs phone-verified channel + force-ssl).
 
 ## Kill criteria & cadence guards
 
 - Episode ships Monday or it ships next Monday — never mid-week (the site promise is the contract).
 - If hour-one assets aren't ready by Sunday night, the episode still ships; carousel follows same-day. Never delay the video for the marketing.
-- Personal profile: max 3 OE-derived posts/week; zero "look what I found" shares.
+- Personal profile: reposts of OE page posts only (max 1-2/week, max 1/day); zero original OE posts, zero "look what I found" shares.

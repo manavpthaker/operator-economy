@@ -11,7 +11,7 @@
 - **The contradiction:** "Accenture's overall bookings were flat last year. One line doubled."
 - **The fact-check:** "There's a number making the rounds: $40K/month. I checked it."
 - **The uncomfortable mechanic:** "The market isn't paying for AI. It's paying for installation."
-- **The specific scene** (personal analyst posts only): "Every install my team ever did surfaced three problems we weren't hired to fix."
+- **The specific scene** (group prompts / DMs): "Every install my team ever did surfaced three problems we weren't hired to fix."
 
 **Banned openers:**
 - "Hot take:" / "Unpopular opinion:" (meme-tier AI LinkedIn)
@@ -53,7 +53,7 @@
 | Surface | Voice | "I" allowed | CTA |
 |---|---|---|---|
 | OE page posts | The publication. Confident, spare, evidence-first. "Episode № 001 breaks down..." | No (the page is not a person) | "In the comments" only |
-| Personal analyst posts | Manav analyzing the material. Peer, not guru. | Yes — required (a real observation or experience per post) | OE cited neutrally as a source (like CIO Dive). NEVER claimed as his, NEVER performed as a discovery ("came across this gem") — no origin story either way |
+| Personal profile | REPOSTS of OE page posts ONLY (bare or one-line). No original OE posts on personal — Grapevines owns those slots. | n/a | Never commentary about the channel; the OE page as visible author IS the attribution. No origin story either way |
 | Group prompts | Host asking a genuine question | Yes | Episode as reference material, question is the point |
 | DMs | Friend who saw something relevant | Yes | No ask. Ever. |
 
