@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { neon } from '@neondatabase/serverless';
+import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getEpisodeBySlug, pad } from '../../components/LatestBlueprint';
@@ -164,31 +164,38 @@ export async function POST(req: Request) {
     'unknown';
   if (tooSoon(ip)) return fail('Slow down — try again in a few seconds.', 429);
 
-  const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
 
-  if (!dbUrl || !resendKey) {
-    // Fail closed: don't pretend it worked if the site is misconfigured.
+  if (!supabaseUrl || !supabaseKey || !resendKey) {
     return fail(
       'Signup is temporarily offline. This is on us — try again in a bit.',
       503
     );
   }
 
-  const sql = neon(dbUrl);
+  const supabase = createClient(supabaseUrl, supabaseKey, {
+    auth: { persistSession: false },
+  });
   const unsubscribeToken = randomBytes(24).toString('hex');
   const slug = body.slug ?? slugFromTag(tag);
 
-  try {
-    await sql`
-      insert into subscribers (email, tag, slug, unsubscribe_token)
-      values (${email}, ${tag}, ${slug ?? null}, ${unsubscribeToken})
-      on conflict (email, tag) do update
-        set unsubscribed_at = null,
-            unsubscribe_token = excluded.unsubscribe_token
-    `;
-  } catch (err) {
-    console.error('subscribe insert failed', err);
+  const { error: upsertError } = await supabase
+    .from('subscribers')
+    .upsert(
+      {
+        email,
+        tag,
+        slug: slug ?? null,
+        unsubscribe_token: unsubscribeToken,
+        unsubscribed_at: null,
+      },
+      { onConflict: 'email,tag' }
+    );
+
+  if (upsertError) {
+    console.error('subscribe upsert failed', upsertError);
     return fail('Storage error. Try again in a minute.', 500);
   }
 
