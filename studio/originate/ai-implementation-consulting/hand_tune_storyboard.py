@@ -754,31 +754,20 @@ def build() -> dict:
     cta_start, cta_end = section_bounds("cta")
     brand_s, brand_e = find_phrase("cta", "build it. own it")
 
+    # ONE cta screen (2026-07-05: duplicate 'Build it. Own it.' card
+    # removed — the OutroCard already carries the sign-off + CTAs).
+    # Episode-specific: blueprint as title, THIS episode underneath.
     screens.append(screen(
         id="cta-01",
         section="cta",
         layout="cta",
-        heading="The blueprint",
-        start=cta_start, end=brand_s,
-        reveals=[reveal(1, cta_start, brand_s, "The Operator Blueprint",
-                        "Offer templates + stack setup · Every source, every number · Free — link below",
+        heading="The Operator Blueprint",
+        start=cta_start, end=cta_end,
+        reveals=[reveal(1, cta_start, cta_end,
+                        "№ 001 — AI Implementation Consulting",
+                        "The missed-calls offer, templated · The exact stack, under $100/mo · "
+                        "Week-by-week plan to your first client · Every number sourced",
                         tags=["cta"])],
-    ))
-    screens.append(screen(
-        id="cta-02",
-        section="cta",
-        layout="quote",
-        heading="The blueprint",
-        start=brand_s, end=cta_end,
-        reveals=[reveal(1, brand_s, brand_e,
-                        "Build it. Own it. Operate it.",
-                        tags=["punchline", "cta"])],
-        music={"intensity": "silence", "duck_db": 0},
-        sfx=[{"cue": "hit", "at": brand_s}],
-        custom={"quote": "Build it. Own it. Operate it.",
-                "accentPhrase": "Operate it",
-                "attribution": "The Operator Economy",
-                "ground": "navy"},
     ))
 
     return {

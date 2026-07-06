@@ -44,7 +44,7 @@ BARS = {  # OE Theme kit (Flow "Final Master" + labeled pieces, 2026-07-05)
     "OE-intro-8bar": 8, "OE-grooveA-16bar": 16, "OE-grooveB-16bar": 16,
     "OE-turn-2bar": 2, "OE-breakdown-8bar": 8, "OE-drums-16bar": 16,
     "OE-hot-16bar": 16, "OE-final-8bar": 8, "OE-outro-tail": 8,
-    "OE-sting": 1, "OE-fill-1bar": 1,
+    "OE-sting": 1, "OE-fill-1bar": 1, "SILENCE": 1,
 }
 
 
@@ -75,6 +75,8 @@ def main():
     out.parent.mkdir(parents=True, exist_ok=True)
 
     for n in BARS:
+        if n == "SILENCE":
+            continue  # generated, not a kit file
         if not (KIT / f"{n}.flac").exists():
             print(f"Error: kit missing {n}.flac", file=sys.stderr)
             sys.exit(1)
@@ -98,6 +100,8 @@ def main():
     t_q1 = offset + (quotes[0]["start"] if quotes else sec["thesis"][0] + 14)
     br = hook_cache.get("_bridge_applied", {})
     t_bridge = offset + br.get("at", 15.0)
+    gap_screen = next((g for g in storyboard["screens"] if g["layout"] == "gap"), None)
+    t_acc = offset + (gap_screen["start"] if gap_screen else t_bridge + 6.0)
 
     def bars_at(t: float) -> int:
         return max(int(round(t / BAR)), 0)
@@ -106,9 +110,9 @@ def main():
     # loops from the cycle; the last loop is front-trimmed in whole bars
     # to land the span exactly on the target bar.
     plan: list[tuple[list[str], int]] = [
-        (["OE-intro-8bar"], bars_at(t_bridge)),                         # theme chords: intro + pitch
-        (["OE-fill-1bar"], bars_at(t_bridge) + 1),                      # drum-roll fill AT the pause
-        (["OE-drums-16bar"], max(bars_at(t_q1) - 8, bars_at(t_bridge) + 3)),  # chill solo drums
+        (["OE-intro-8bar"], bars_at(t_bridge)),                         # theme chords FADE OUT into...
+        (["SILENCE"], bars_at(t_acc)),                                  # ...the break: scratches, dead air
+        (["OE-drums-16bar"], max(bars_at(t_q1) - 8, bars_at(t_acc) + 2)),  # beat walks in with $5.9B
         (["OE-intro-8bar"], bars_at(t_q1)),                             # theme returns = the build-up
         (["OE-grooveA-16bar"], bars_at(t_evid) - 8),                    # BIG BEAT on the quote release
         (["OE-breakdown-8bar"], bars_at(t_evid)),                       # breakdown → evidence
@@ -136,6 +140,14 @@ def main():
 
         def emit(loop: str, n_bars_needed: int, idx: int):
             """One loop instance trimmed to whole bars from the FRONT."""
+            if loop == "SILENCE":
+                take = n_bars_needed
+                f = tdp / f"s{idx:03d}-SILENCE.wav"
+                run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                     "-f", "lavfi", "-i", f"anullsrc=r=44100:cl=stereo:d={take * BAR:.3f}",
+                     "-acodec", "pcm_s16le", str(f)])
+                seg_files.append(str(f))
+                return take
             lb = BARS[loop]
             take = min(lb, n_bars_needed)
             trim = (lb - take) * BAR
@@ -177,6 +189,14 @@ def main():
                 lst.write_text("\n".join(f"file '{f}'" for f in seg_files))
                 run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-f", "concat",
                      "-safe", "0", "-i", str(lst), "-c", "copy", str(sp)])
+                pi = len(span_files)
+                nxt = plan[pi + 1] if pi + 1 < len(plan) else None
+                if nxt and nxt[0] == ["SILENCE"]:
+                    d = duration_of(sp)
+                    faded = sp.with_suffix(".fade.wav")
+                    run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(sp),
+                         "-af", f"afade=t=out:st={d - 1.8:.3f}:d=1.8", str(faded)])
+                    faded.replace(sp)
                 span_files.append(sp)
 
 
@@ -206,12 +226,22 @@ def main():
         pad = max(total - cur * BAR + 2.0, 0.5)  # NEVER 0: apad=pad_dur=0 pads FOREVER (the 62-min bug, found 2026-07-05)
         tag = KIT / "OE-tag.wav"
         if tag.exists():
-            # "Operator... operator" producer stamp over the opening chords.
+            # The tag BOOKENDS the episode: stutter over the opening
+            # chords, a scratch hit at the break, and the last thing you
+            # hear as the screen goes black — "operator."
+            tag_len = duration_of(tag)
+            vid_end = total - 1.0  # total carries +1.0s bed headroom
+            t_end_ms = int(max(vid_end - tag_len - 0.15, 1.0) * 1000)
+            t_break_ms = int(t_bridge * 1000)
             run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-                 "-i", str(assembled), "-i", str(tag), "-filter_complex",
-                 f"[0:a]volume={gain:.1f}dB,apad=pad_dur={pad:.2f}[bed];"
-                 f"[1:a]adelay=600|600,volume=-4dB[t];"
-                 f"[bed][t]amix=inputs=2:duration=first:normalize=0[out]",
+                 "-i", str(assembled), "-i", str(tag), "-i", str(tag), "-i", str(tag),
+                 "-filter_complex",
+                 f"[0:a]volume={gain:.1f}dB,apad=pad_dur={pad:.2f},"
+                 f"afade=t=out:st={vid_end - 2.2:.2f}:d=2.2[bed];"
+                 f"[1:a]adelay=900|900,volume=-4dB[t1];"
+                 f"[2:a]atrim=0:1.5,adelay={t_break_ms}|{t_break_ms},volume=-6dB[t2];"
+                 f"[3:a]adelay={t_end_ms}|{t_end_ms},volume=-3dB[t3];"
+                 f"[bed][t1][t2][t3]amix=inputs=4:duration=first:normalize=0[out]",
                  "-map", "[out]", "-ar", "44100", "-b:a", "192k", str(out)])
         else:
             run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(assembled),

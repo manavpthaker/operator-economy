@@ -1158,28 +1158,34 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       <Sequence from={contentFrom} durationInFrames={contentFrames}>
         {episode}
       </Sequence>
-      <Sequence from={0} durationInFrames={brandFrames}>
-        <BrandSting name={bookends.brand.name} tagline={bookends.brand.tagline} />
-      </Sequence>
-      <Sequence from={brandFrames} durationInFrames={titleFrames}>
-        <TitleCard
-          overline={
-            bookends.episode_no
-              ? `Operator Blueprint · № ${String(bookends.episode_no).padStart(3, '0')}`
-              : 'Operator Blueprint'
-          }
-          title={bookends.title}
-          thesis={bookends.thesis}
-        />
-      </Sequence>
-      <Sequence from={outroFrom} durationInFrames={outroFrames}>
-        <OutroCard
-          brand={bookends.brand.name}
-          tagline={bookends.brand.tagline}
-          url={bookends.brand.domain}
-          ctas={bookends.ctas}
-        />
-      </Sequence>
+      {brandFrames > 0 && (
+        <Sequence from={0} durationInFrames={brandFrames}>
+          <BrandSting name={bookends.brand.name} tagline={bookends.brand.tagline} />
+        </Sequence>
+      )}
+      {titleFrames > 0 && (
+        <Sequence from={brandFrames} durationInFrames={titleFrames}>
+          <TitleCard
+            overline={
+              bookends.episode_no
+                ? `Operator Blueprint · № ${String(bookends.episode_no).padStart(3, '0')}`
+                : 'Operator Blueprint'
+            }
+            title={bookends.title}
+            thesis={bookends.thesis}
+          />
+        </Sequence>
+      )}
+      {outroFrames > 0 && (
+        <Sequence from={outroFrom} durationInFrames={outroFrames}>
+          <OutroCard
+            brand={bookends.brand.name}
+            tagline={bookends.brand.tagline}
+            url={bookends.brand.domain}
+            ctas={bookends.ctas}
+          />
+        </Sequence>
+      )}
     </AbsoluteFill>
   );
 };
