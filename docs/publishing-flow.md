@@ -35,6 +35,14 @@ Review in **VLC, never QuickTime** (QuickTime drifts + pitches down long AAC fil
 
 Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" is on the site), **8:30 AM ET** for daily posts.
 
+**The chain is dependency-ordered — YouTube always schedules first because every downstream surface needs the links:**
+
+1. **Schedule YT episode** (Mon 11:00) → capture episode URL.
+2. **Schedule YT Shorts ×4** (Tue–Fri 8:30, staggered) → capture 4 short URLs.
+3. **Links in hand → build + rubric-gate the carousel**, then **schedule OE page episode post** (Mon 11:00, carousel as the media, YT link held for the sources comment).
+4. **Schedule OE page shorts posts ×4** (Tue–Fri 8:30, native vertical video + standalone insight text).
+5. Everything after this point (personal repost, group, DMs) triggers off the OE page post going LIVE — see Phases 2–3.
+
 | What | Where | When | How |
 |---|---|---|---|
 | Episode | YouTube | Mon 11:00 AM | `upload_youtube.py <file> --title ... --description-file ... --privacy private --publish-at <UTC>` — AI-disclosure flag auto-set |
@@ -64,6 +72,7 @@ Per synthesis finding #8, the first hour concentrates the early watch-time signa
 1. **Native document/carousel on the OE page** — the episode's core framework as a 8–12 page PDF carousel (top LinkedIn format, ~7% engagement). Content: the thesis → the gap chart → the stack → the honest math → last page = blueprint CTA. **YT link in the comments only** (external links in the post body = 50–70% reach penalty).
 2. **Sources comment** under the post: episode link, blueprint link, key sources with confidence flags.
 3. **Newsletter send** — subscribers are the highest-intent hour-one watchers.
+4. **Personal repost of the OE carousel post** — repost WITH a one-line analyst comment (a real observation about the finding, rubric-gated), never a bare repost (bare reposts get near-zero reach) and never commentary about the channel. The repost is transparent by design: the OE page shows as author, so there's no origin story to perform. Counts toward the 3/week personal cap.
 
 > **EP001 gap:** we shipped a text post, no carousel, and the newsletter didn't go. The carousel is the single highest-leverage missing piece. → automation backlog below.
 
@@ -77,8 +86,10 @@ The register rule from `research/comp-synthesis.md`: the audience (35–55 ops/p
 **The DM pipeline** (the warm-relationship asset — this is what 1K followers + real relationships buy):
 - **Tier 1 — direct relevance (5–10 people/episode):** people actively facing the episode's problem (career transition, exploring AI income). Personal note, analyst register: "saw this breakdown of the AI implementation business — the honest-math section made me think of your situation." Link the episode. No ask.
 - **Tier 2 — operators/amplifiers (3–5/episode):** people who run the kind of business covered or have adjacent audiences. Ask for a *reaction to the thesis*, not a share. Their comment is worth 50 impressions.
-- **Tier 3 — the standing list:** anyone who's ever DM'd about "what should I do next" — they're the ICP. One message per episode max; stop if no response twice.
+- **Tier 3 — the standing list:** anyone who's ever DM'd about "what should I do next" — they're the ICP. Seed names (Manav, July 6 2026): Henry, Joni — expand per episode from relationship notes. One message per episode max; stop if no response twice.
+- **Active pitches / people Manav is talking to:** allowed, but the episode must be *relevant to their situation*, and it never rides inside a pitch thread — separate message, analyst register, no ask. Mixing OE distribution into a live pitch reads as funnel behavior and burns both.
 - Rule: DMs carry the analyst framing. The relationship is the moat; never spend it on a blast.
+- Per-episode DM shortlist is drafted at schedule time (backlog item #5) so sends happen Mon–Tue while the episode is fresh.
 
 ### The Product of One group (owned community — highest-trust surface)
 
@@ -87,6 +98,18 @@ The group solves a real OE problem (warm ICP audience) and OE solves a real grou
 - **Neutral citation (Manav's call, July 6, 2026)**: OE is never claimed as his — and never performed as a discovery either. It's cited the way any research source would be: "New breakdown on X. Source: The Operator Economy." The data leads; the source is a footnote. The one banned move inside this framing is active discovery theater ("stumbled onto this," "found this random channel") — passive non-attribution is fine, performed independence is the FakeGuru pattern.
 - **Format: carousel + a genuine question**, never an announcement. The question must be one the host is actually unsure about (e.g. "which entry is realistic for a product-of-one — the $2K first project or a day-one retainer?"). Discussion is the goal; the episode is the reference material.
 - **Cadence**: 1 per episode max, a day or two AFTER the main launch (the group is depth, not hour-one ignition). Member answers feed back into future episode research — the group is also a research instrument.
+
+### The weekly sequence at a glance
+
+| Day | Surface | Action |
+|---|---|---|
+| Sun night | YouTube | Schedule episode + Shorts ×4 (links captured) |
+| Sun night | LinkedIn OE page | Schedule episode post w/ carousel + shorts posts ×4 (all rubric-gated) |
+| Mon 11:00 | — | Episode + OE post live; sources comment; newsletter |
+| Mon hour one | Personal | Repost OE carousel post + one-line analyst comment |
+| Mon–Tue | DMs | Tier 1/2/3 sends from the shortlist |
+| Tue–Wed | Product of One group | Carousel + genuine question (neutral citation) |
+| Tue–Fri | YT + OE page | Shorts daily; 2–3 personal analyst posts |
 
 ## Phase 4 — The week (Tue–Fri)
 
