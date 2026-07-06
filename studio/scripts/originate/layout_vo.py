@@ -71,38 +71,68 @@ def main():
             print(f"  {sid}: bridge already applied — skipping")
             continue
 
-        # Where does the beat end? Words are proportioned by beat word
-        # counts (same rule as prepare_longform).
+        # Where does the beat end? Anchor on the beat's ACTUAL final
+        # words in the alignment (2026-07-05 fix: word-count
+        # proportioning missed the boundary by seconds and produced the
+        # 'captions all off' render — phrase matching is exact).
+        import re as _re
+        def _norm(t):
+            return _re.sub(r"[^\w']", "", t).strip("'").lower()
         sec = next(s for s in script["sections"] if s["id"] == sid)
-        beats = sec["beats"]
-        words = cache["words"]
-        total_w = sum(len(b["vo_text"].split()) for b in beats) or 1
-        cursor = 0
-        cut_t = None
-        for b in beats:
-            n = max(round(len(b["vo_text"].split()) / total_w * len(words)), 1)
-            cursor += n
-            if b["beat"] == after_beat:
-                cut_t = words[min(cursor, len(words)) - 1]["end"] + 0.15
-                break
-        if cut_t is None:
+        beat = next((b for b in sec["beats"] if b["beat"] == after_beat), None)
+        if beat is None:
             print(f"⚠ {sid}: beat {after_beat} not found")
             continue
+        # Prefer the PERFORMED text (that's what was spoken).
+        perf = vo_dir / f"performed-{sid}.txt"
+        source_text = perf.read_text() if perf.exists() else beat["vo_text"]
+        # The last 2 content tokens of the beat's script text, located
+        # in the alignment. Search the performed text for the script
+        # beat's tail is unreliable after rewriting — instead take the
+        # last 2 tokens of the beat's vo_text and find them in words.
+        tail = [_norm(t) for t in beat["vo_text"].split() if _norm(t)][-2:]
+        words = cache["words"]
+        normed = [_norm(w["word"]) for w in words]
+        cut_t = None
+        for i in range(len(normed) - len(tail), -1, -1):
+            if normed[i:i + len(tail)] == tail:
+                cut_t = words[i + len(tail) - 1]["end"] + 0.15
+                break
+        if cut_t is None:
+            print(f"⚠ {sid}: couldn't locate beat-{after_beat} tail {tail} in the "
+                  f"alignment — bridge NOT applied (fix the anchor, don't guess).")
+            continue
 
-        # Splice silence into the audio (room tone keeps the air alive).
-        pre, post, out = vo_dir / "_pre.mp3", vo_dir / "_post.mp3", vo_dir / "_joined.mp3"
+        # Splice silence into the audio — decode once to WAV, cut, pad,
+        # concat, re-encode ONCE (single encoder delay, deterministic).
+        wav = vo_dir / "_full.wav"
+        pre, post, out = vo_dir / "_pre.wav", vo_dir / "_post.wav", vo_dir / "_joined.wav"
         run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(audio_p),
-             "-to", f"{cut_t:.3f}", "-af", f"apad=pad_dur={gap:.3f}", "-ar", "44100",
-             "-b:a", "192k", str(pre)])
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(audio_p),
-             "-ss", f"{cut_t:.3f}", "-ar", "44100", "-b:a", "192k", str(post)])
+             "-ar", "44100", "-ac", "2", str(wav)])
+        # atrim INSIDE the filter graph — an output-side `-to` trims
+        # AFTER filters and silently chops the pad off again (the
+        # original bridge-never-landed bug, 2026-07-05).
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(wav),
+             "-af", f"atrim=end={cut_t:.3f},apad=pad_dur={max(gap, 0.5):.3f}", str(pre)])
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(wav),
+             "-ss", f"{cut_t:.3f}", str(post)])
         lst = vo_dir / "_concat.txt"
         lst.write_text(f"file '{pre.resolve()}'\nfile '{post.resolve()}'\n")
         run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-f", "concat",
              "-safe", "0", "-i", str(lst), "-c", "copy", str(out)])
-        out.replace(audio_p)
-        for f in (pre, post, lst):
+        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(out),
+             "-b:a", "192k", str(audio_p)])
+        # Verify the splice actually landed before recording it.
+        actual = float(subprocess.run(["ffprobe", "-hide_banner", "-show_entries",
+                                       "format=duration", "-of", "csv=p=0", str(audio_p)],
+                                      capture_output=True, text=True).stdout.strip())
+        expected = cache["duration"] + gap
+        for f in (wav, pre, post, out, lst):
             f.unlink(missing_ok=True)
+        if abs(actual - expected) > 0.4:
+            print(f"⚠ {sid}: splice verification FAILED (audio {actual:.2f}s vs expected "
+                  f"{expected:.2f}s) — cache left untouched.")
+            continue
 
         # Shift the cached words after the cut; grow the duration.
         for w in words:

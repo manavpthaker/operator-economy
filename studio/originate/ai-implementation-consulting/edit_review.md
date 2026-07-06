@@ -1,6 +1,6 @@
 # Edit rubric review
 
-**Score:** 16/23  ·  **Gate:** ≥18
+**Score:** 17/23  ·  **Gate:** ≥18
 **Verdict:** ESCALATE
 
 ## Criteria
@@ -9,7 +9,7 @@
 
 ### ⚠️ Cadence (static holds, resets, sheet runs) — 3/5
 - 11 warnings
-- ⚠️ hook-01 holds 27.0s with only 1 reveal — static composition. Add reveals or split the screen.
+- ⚠️ hook-00a chapter_reset holds 8.3s — impact frames should be 1.2–4s; extended holds turn into title slides.
 - ⚠️ thesis-03b holds 26.7s with only 1 reveal — static composition. Add reveals or split the screen.
 - ⚠️ thesis-06 holds 23.8s with only 1 reveal — static composition. Add reveals or split the screen.
 - ⚠️ evidence-01 holds 26.3s with only 1 reveal — static composition. Add reveals or split the screen.
@@ -30,17 +30,18 @@
 ### ✅ Concrete b-roll + money-claim sources — 4/4
 - all b-roll concrete; all money-claim screens sourced
 
-### ⚠️ Hook — visual density + shown premise — 1/3
-- 2 reveals in first 30s; early layouts: gap,sheet
-- ⚠️ only 2 reveals in first 30s (target ≥4 for 4–8s cadence).
+### ⚠️ Hook — visual density + shown premise — 2/3
+- 3 reveals in first 30s; early layouts: chapter_reset,gap,sheet
+- ⚠️ only 3 reveals in first 30s (target ≥4 for 4–8s cadence).
 
 ### ✅ Sound layer + loudness — 3/3
 - (no rendered MP4 provided — LUFS check skipped)
-- intensities=['build', 'calm', 'silence'], sfx cues=26, silence screens=7
+- intensities=['build', 'calm', 'silence'], sfx cues=27, silence screens=7
 
 ## Screen distribution
 - artifact: 1
 - case_file: 2
+- chapter_reset: 1
 - chart: 3
 - cta: 1
 - gap: 1

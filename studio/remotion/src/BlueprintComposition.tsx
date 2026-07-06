@@ -933,7 +933,7 @@ const ScreenLayer: React.FC<{
       break;
     }
     case 'chapter_reset': {
-      const c = screen.custom?.chapter;
+      const c = screen.custom?.chapter ?? (screen.custom as any);
       content = (
         <ChapterReset
           kicker={c?.kicker ?? overline}
@@ -972,6 +972,14 @@ const ScreenLayer: React.FC<{
     }
     default:
       content = <AbsoluteFill style={{background: COLORS.ink}} />;
+  }
+
+  // Title-card screens (2026-07-05): the Operator Blueprint card now
+  // lives IN content (bookend TitleCard retired) so it can span the
+  // episode pitch + the music bridge, anchored to spoken words.
+  const tc = (screen.custom as any)?.titleCard;
+  if (tc) {
+    content = <TitleCard overline={tc.overline} title={tc.title} thesis={tc.thesis} />;
   }
 
   // Simulated tool shots (SimScreens, 2026-07-04): custom.sim OVERRIDES

@@ -118,19 +118,35 @@ def build() -> dict:
     # ==================================================================
     hook_start, hook_end = section_bounds("hook")
     acc_s, _acc_e = find_phrase("hook", "last year accenture")
+    week_s, _week_e = find_phrase("hook", "this week")
+    # hook-00a — BRAND screen while he introduces himself and the show
+    # (2026-07-05: 'Sheet 01 of 34' card killed; brand carries the open).
     screens.append(screen(
-        id="hook-00",
+        id="hook-00a",
+        section="hook",
+        layout="chapter_reset",
+        heading="The Operator Economy",
+        start=hook_start, end=week_s,
+        reveals=[reveal(0, hook_start, week_s, "The Operator Economy",
+                        tags=["claim"])],
+        custom={"kicker": "BUILD · OWN · OPERATE"},
+        sfx=[{"cue": "tick", "at": hook_start}],
+    ))
+    # hook-00b — OPERATOR BLUEPRINT title card from 'This week' through
+    # the episode pitch AND the music bridge, until the hook stats hit.
+    screens.append(screen(
+        id="hook-00b",
         section="hook",
         layout="sheet",
-        heading="The Operator Economy",
-        start=hook_start, end=acc_s,
-        reveals=[
-            reveal(0, hook_start, acc_s,
-                   "One business you can build. On your own.",
-                   "Every week · Real companies · Sourced numbers · Honest math",
-                   tags=["claim"]),
-        ],
-        sfx=[{"cue": "tick", "at": hook_start}],
+        heading="Operator Blueprint",
+        start=week_s, end=acc_s,
+        reveals=[reveal(0, week_s, acc_s, "placeholder", tags=["claim"])],
+        custom={"titleCard": {
+            "overline": "Operator Blueprint · № 001",
+            "title": "The $5.9 Billion Business You Can Start for $100",
+            "thesis": "AI implementation: the same service, at every scale.",
+        }},
+        sfx=[{"cue": "tick", "at": week_s}],
     ))
     screens.append(screen(
         id="hook-01",

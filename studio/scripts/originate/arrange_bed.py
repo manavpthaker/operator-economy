@@ -44,7 +44,7 @@ BARS = {  # OE Theme kit (Flow "Final Master" + labeled pieces, 2026-07-05)
     "OE-intro-8bar": 8, "OE-grooveA-16bar": 16, "OE-grooveB-16bar": 16,
     "OE-turn-2bar": 2, "OE-breakdown-8bar": 8, "OE-drums-16bar": 16,
     "OE-hot-16bar": 16, "OE-final-8bar": 8, "OE-outro-tail": 8,
-    "OE-sting": 1,
+    "OE-sting": 1, "OE-fill-1bar": 1,
 }
 
 
@@ -81,6 +81,8 @@ def main():
 
     timeline = json.loads((base / "vo" / "timeline.json").read_text())
     render_data = json.loads((base / "render_data" / "blueprint.json").read_text())
+    storyboard = json.loads((base / "storyboard.json").read_text())
+    hook_cache = json.loads((base / "vo" / "words-hook.json").read_text())
     bk = config.get("render", {}).get("bookends", {})
     offset = bk.get("brand_seconds", 0) + bk.get("title_seconds", 0) - bk.get("j_cut_seconds", 0)
     total = render_data["total_frames"] / render_data["fps"] + 1.0
@@ -92,6 +94,10 @@ def main():
     t_stack = sec["stack"][0]
     t_econ, t_econ_end = sec["economics"]
     t_cta = sec["cta"][0]
+    quotes = [q for q in storyboard["screens"] if q["layout"] == "quote"]
+    t_q1 = offset + (quotes[0]["start"] if quotes else sec["thesis"][0] + 14)
+    br = hook_cache.get("_bridge_applied", {})
+    t_bridge = offset + br.get("at", 15.0)
 
     def bars_at(t: float) -> int:
         return max(int(round(t / BAR)), 0)
@@ -100,9 +106,11 @@ def main():
     # loops from the cycle; the last loop is front-trimmed in whole bars
     # to land the span exactly on the target bar.
     plan: list[tuple[list[str], int]] = [
-        (["OE-intro-8bar"], 8),                                         # theme chords open
-        (["OE-intro-8bar"], bars_at(t_thesis) + 2),                     # chords carry hook+bridge
-        (["OE-grooveA-16bar"], bars_at(t_evid) - 8),                    # groove enters @ thesis
+        (["OE-intro-8bar"], bars_at(t_bridge)),                         # theme chords: intro + pitch
+        (["OE-fill-1bar"], bars_at(t_bridge) + 1),                      # drum-roll fill AT the pause
+        (["OE-drums-16bar"], max(bars_at(t_q1) - 8, bars_at(t_bridge) + 3)),  # chill solo drums
+        (["OE-intro-8bar"], bars_at(t_q1)),                             # theme returns = the build-up
+        (["OE-grooveA-16bar"], bars_at(t_evid) - 8),                    # BIG BEAT on the quote release
         (["OE-breakdown-8bar"], bars_at(t_evid)),                       # breakdown → evidence
         (["OE-grooveB-16bar", "OE-turn-2bar"], bars_at(t_evid_end) - 16),  # evidence body
         (["OE-drums-16bar"], bars_at(t_evid_end) - 2),                  # payoff stripped to drums
@@ -112,9 +120,9 @@ def main():
         (["OE-breakdown-8bar"], bars_at(t_econ) + 8),                   # honest-math breakdown
         (["OE-drums-16bar"], bars_at(t_econ_end) - 2),                  # risk on drums
         (["OE-turn-2bar"], bars_at(t_econ_end)),                        # ender
-        (["OE-final-8bar"], bars_at(t_cta) + 8),                        # finale crests thru cta
-        (["OE-outro-tail"], bars_at(t_cta) + 14),                       # ring-out
-        (["OE-sting"], bars_at(t_cta) + 15),                            # closing sting
+        (["OE-final-8bar"], bars_at(t_cta) + 4),                        # finale crests @ Blueprint
+        (["OE-breakdown-8bar"], bars_at(t_cta) + 12),                   # OUTRO = the BassDrum Breakdown
+        (["OE-sting"], bars_at(t_cta) + 13),                            # closing sting
     ]
 
     tdp = ROOT / ".bedwork"
@@ -196,9 +204,19 @@ def main():
         mean = next((l.split()[-2] for l in p.stderr.splitlines() if "mean_volume" in l), "-16")
         gain = -16.0 - float(mean)
         pad = max(total - cur * BAR + 2.0, 0.5)  # NEVER 0: apad=pad_dur=0 pads FOREVER (the 62-min bug, found 2026-07-05)
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(assembled),
-             "-af", f"volume={gain:.1f}dB,apad=pad_dur={pad:.2f}",
-             "-ar", "44100", "-b:a", "192k", str(out)])
+        tag = KIT / "OE-tag.wav"
+        if tag.exists():
+            # "Operator... operator" producer stamp over the opening chords.
+            run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                 "-i", str(assembled), "-i", str(tag), "-filter_complex",
+                 f"[0:a]volume={gain:.1f}dB,apad=pad_dur={pad:.2f}[bed];"
+                 f"[1:a]adelay=600|600,volume=-4dB[t];"
+                 f"[bed][t]amix=inputs=2:duration=first:normalize=0[out]",
+                 "-map", "[out]", "-ar", "44100", "-b:a", "192k", str(out)])
+        else:
+            run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(assembled),
+                 "-af", f"volume={gain:.1f}dB,apad=pad_dur={pad:.2f}",
+                 "-ar", "44100", "-b:a", "192k", str(out)])
 
     print(f"✓ Bed v7 (Manav's score) → {out}")
     print(f"  {cur} bars ({cur * BAR:.1f}s) + tail pad vs video {total - 1:.1f}s · "
