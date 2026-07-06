@@ -53,7 +53,7 @@
 | Surface | Voice | "I" allowed | CTA |
 |---|---|---|---|
 | OE page posts | The publication. Confident, spare, evidence-first. "Episode № 001 breaks down..." | No (the page is not a person) | "In the comments" only |
-| Personal analyst posts | Manav analyzing the material. Peer, not guru. | Yes — required (a real observation or experience per post) | Soft credit to OE, no link in body |
+| Personal analyst posts | Manav analyzing the material. Peer, not guru. | Yes — required (a real observation or experience per post) | OE cited neutrally as a source (like CIO Dive). NEVER claimed as his, NEVER performed as a discovery ("came across this gem") — no origin story either way |
 | Group prompts | Host asking a genuine question | Yes | Episode as reference material, question is the point |
 | DMs | Friend who saw something relevant | Yes | No ask. Ever. |
 
@@ -72,7 +72,7 @@
 4. **Check the hook** against §1: banned openers, fact-before-promise.
 5. **Check the flags.** Any number without a confidence level that needs one?
 6. **Tap out the rhythm.** Even spacing = rewrite.
-7. **The guru test (OE-specific).** Would this post survive being screenshot into r/FakeGuru? If any line promises outcomes, hides sourcing, or hypes the channel over the finding — cut it.
+7. **The guru test (OE-specific).** Would this post survive being screenshot into r/FakeGuru? If any line promises outcomes, hypes the channel over the finding, or performs discovery of OE ("stumbled onto," "found this channel") — cut it. Neutral citation only; no origin story in either direction.
 
 ## 5. Ship gate
 

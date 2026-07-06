@@ -71,8 +71,8 @@ Per synthesis finding #8, the first hour concentrates the early watch-time signa
 
 The register rule from `research/comp-synthesis.md`: the audience (35–55 ops/product leaders) detects and punishes undisclosed self-promotion. **Never repeatedly "share" OE as something stumbled upon** — that middle path is the FakeGuru exposure pattern. Two sanctioned framings:
 
-- **Analyst framing (the default, 2–3×/week):** share the *finding*, not the channel. "Accenture's only growing line is installation work — here's the unit economics." Own commentary, OE credited low-key as the source. The insight earns the engagement; the curious follow the trail. These are the Tue–Fri derivation posts — they can live on the personal profile in Manav's voice because they're his analysis *of* the material.
-- **Publisher framing (rare, at milestones):** "I've been building a research property on this thesis." Once at launch (after 2–3 episodes exist, so a click-through finds a library), then at real milestones. Building in public is on-thesis — the channel is its own proof of concept.
+- **Analyst framing (the ONLY framing — Manav's call, July 6, 2026):** share the *finding*, not the channel. "Accenture's only growing line is installation work — here's the unit economics." Own commentary; OE cited neutrally as the source, like any publication. Never claimed as his, never performed as a find. The insight earns the engagement; the curious follow the trail.
+- **Publisher framing: retired.** No "I've been building this" posts. The channel stays unattributed; if someone asks directly, don't lie — deflect or answer privately, but never build content on a false origin story.
 
 **The DM pipeline** (the warm-relationship asset — this is what 1K followers + real relationships buy):
 - **Tier 1 — direct relevance (5–10 people/episode):** people actively facing the episode's problem (career transition, exploring AI income). Personal note, analyst register: "saw this breakdown of the AI implementation business — the honest-math section made me think of your situation." Link the episode. No ask.
@@ -84,7 +84,7 @@ The register rule from `research/comp-synthesis.md`: the audience (35–55 ops/p
 
 The group solves a real OE problem (warm ICP audience) and OE solves a real group problem (it's been one-way broadcast). Rules of engagement:
 
-- **Disclose once, lightly**: first OE share includes one clause — "a research property I publish." In a hosted community, the 'outside source I found' framing is the highest-risk move, not the safest: when members connect it (they will — same design language, reposts on the personal profile), host-promoting-his-own-thing-covertly is the exact trust hit the comp synthesis warns about. After the one disclosure, OE is just a cited source.
+- **Neutral citation (Manav's call, July 6, 2026)**: OE is never claimed as his — and never performed as a discovery either. It's cited the way any research source would be: "New breakdown on X. Source: The Operator Economy." The data leads; the source is a footnote. The one banned move inside this framing is active discovery theater ("stumbled onto this," "found this random channel") — passive non-attribution is fine, performed independence is the FakeGuru pattern.
 - **Format: carousel + a genuine question**, never an announcement. The question must be one the host is actually unsure about (e.g. "which entry is realistic for a product-of-one — the $2K first project or a day-one retainer?"). Discussion is the goal; the episode is the reference material.
 - **Cadence**: 1 per episode max, a day or two AFTER the main launch (the group is depth, not hour-one ignition). Member answers feed back into future episode research — the group is also a research instrument.
 
