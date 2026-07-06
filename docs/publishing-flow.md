@@ -78,6 +78,14 @@ The register rule from `research/comp-synthesis.md`: the audience (35–55 ops/p
 - **Tier 3 — the standing list:** anyone who's ever DM'd about "what should I do next" — they're the ICP. One message per episode max; stop if no response twice.
 - Rule: DMs carry the analyst framing. The relationship is the moat; never spend it on a blast.
 
+### The Product of One group (owned community — highest-trust surface)
+
+The group solves a real OE problem (warm ICP audience) and OE solves a real group problem (it's been one-way broadcast). Rules of engagement:
+
+- **Disclose once, lightly**: first OE share includes one clause — "a research property I publish." In a hosted community, the 'outside source I found' framing is the highest-risk move, not the safest: when members connect it (they will — same design language, reposts on the personal profile), host-promoting-his-own-thing-covertly is the exact trust hit the comp synthesis warns about. After the one disclosure, OE is just a cited source.
+- **Format: carousel + a genuine question**, never an announcement. The question must be one the host is actually unsure about (e.g. "which entry is realistic for a product-of-one — the $2K first project or a day-one retainer?"). Discussion is the goal; the episode is the reference material.
+- **Cadence**: 1 per episode max, a day or two AFTER the main launch (the group is depth, not hour-one ignition). Member answers feed back into future episode research — the group is also a research instrument.
+
 ## Phase 4 — The week (Tue–Fri)
 
 - **Shorts publish daily** (YT 8:30, LI page 8:30) — discovery only; every short's description + pinned comment routes to the long-form (+20% documented watch-hour lift from pinned comments).
