@@ -2,7 +2,19 @@ import React from 'react';
 import {Composition, getInputProps} from 'remotion';
 import {ClipComposition} from './ClipComposition';
 import {BlueprintComposition, type BlueprintRenderData} from './BlueprintComposition';
+import {ShortComposition, type ShortRenderData} from './ShortComposition';
 import type {RenderData} from './types';
+
+const defaultShortData: ShortRenderData = {
+  slug: 'preview',
+  title: 'A short preview title',
+  kicker: 'THE OPERATOR ECONOMY · № 001',
+  audio: '',
+  duration_seconds: 10,
+  fps: 30,
+  groups: [],
+  end_card_seconds: 1.6,
+};
 
 // Minimal default for Blueprint studio preview (real props come via --props)
 const defaultBlueprintData: BlueprintRenderData = {
@@ -171,6 +183,17 @@ export const RemotionRoot: React.FC = () => {
           height: props.resolution?.[1] ?? 1080,
         })}
         defaultProps={defaultBlueprintData}
+      />
+      <Composition
+        id="Short"
+        component={ShortComposition}
+        calculateMetadata={async ({props}) => ({
+          durationInFrames: Math.ceil(props.duration_seconds * props.fps),
+          fps: props.fps,
+          width: 1080,
+          height: 1920,
+        })}
+        defaultProps={defaultShortData}
       />
     </>
   );
