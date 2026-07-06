@@ -30,7 +30,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
-BAR = 2.4145
+BAR = 2.4242424  # 99.00 BPM (OE Theme grid)
 
 
 def run(cmd):

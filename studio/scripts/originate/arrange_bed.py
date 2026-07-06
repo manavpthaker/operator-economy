@@ -36,17 +36,15 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
-KIT = ROOT / "music-src" / "kit"
-BAR = 2.4145
+KIT = ROOT / "music-src" / "kit-oe"
+BAR = 2.4242424  # 99.00 BPM (OE Theme grid; Flow export)
 DECLICK = 0.012
 
-BARS = {  # whole-bar lengths of the kit (his cuts are grid-exact)
-    "MP-loop-01": 8, "MP-loop-02": 8, "MP-loop-03": 12, "MP-loop-04": 16,
-    "MP-loop-05": 16, "MP-loop-06": 8, "MP-loop-06-end": 7,
-    "MP-bassline-01": 2, "MP-drum-roll-01": 1, "MP-drum-roll-02": 1,
-    "MP-drum-roll-02-loop-end": 4, "MP-p2-loop-01": 8, "MP-p2-loop-02": 8,
-    "MP-p2-loop-02-end": 5, "MP-p2-breakdown-01": 11, "MP-p2-drum-roll-01": 1,
-    "MP-p3-final-loop-01": 8, "MP-p3-final-closing": 3, "MP-mini-loop-06": 8,
+BARS = {  # OE Theme kit (Flow "Final Master" + labeled pieces, 2026-07-05)
+    "OE-intro-8bar": 8, "OE-grooveA-16bar": 16, "OE-grooveB-16bar": 16,
+    "OE-turn-2bar": 2, "OE-breakdown-8bar": 8, "OE-drums-16bar": 16,
+    "OE-hot-16bar": 16, "OE-final-8bar": 8, "OE-outro-tail": 8,
+    "OE-sting": 1,
 }
 
 
@@ -102,23 +100,21 @@ def main():
     # loops from the cycle; the last loop is front-trimmed in whole bars
     # to land the span exactly on the target bar.
     plan: list[tuple[list[str], int]] = [
-        (["MP-loop-01"], 8),                                            # intro chords
-        (["MP-loop-02", "MP-loop-05"], bars_at(t_thesis) + 2),          # rise thru hook+bridge
-        (["MP-loop-04", "MP-loop-05"], bars_at(t_evid) - 20),           # full groove
-        (["MP-p2-breakdown-01"], bars_at(t_evid)),                      # breakdown → evidence
-        (["MP-loop-06", "MP-p2-loop-02", "MP-loop-06", "MP-loop-03"],
-         bars_at(t_evid_end) - 10),                                     # evidence body
-        (["MP-bassline-01"], bars_at(t_evid_end) - 4),                  # payoff on bass
-        (["MP-p3-final-closing"], bars_at(t_evid_end) - 1),             # sting
-        (["MP-drum-roll-02-loop-end"], bars_at(t_stack)),               # roll → pivot
-        (["MP-loop-01"], bars_at(t_stack) + 16),                        # CHORDS REPRISE
-        (["MP-loop-02"], bars_at(t_stack) + 24),                        # re-rise
-        (["MP-p2-loop-01", "MP-p2-loop-02"], bars_at(t_econ)),          # playbook groove
-        (["MP-p2-breakdown-01"], bars_at(t_econ) + 11),                 # honest-math breakdown
-        (["MP-bassline-01"], bars_at(t_econ_end) - 5),                  # risk on bass
-        (["MP-p2-loop-02-end"], bars_at(t_econ_end)),                   # ender
-        (["MP-p3-final-loop-01"], bars_at(t_cta) + 8),                  # finale crests thru cta
-        (["MP-p3-final-closing"], bars_at(t_cta) + 11),                 # closing
+        (["OE-intro-8bar"], 8),                                         # theme chords open
+        (["OE-intro-8bar"], bars_at(t_thesis) + 2),                     # chords carry hook+bridge
+        (["OE-grooveA-16bar"], bars_at(t_evid) - 8),                    # groove enters @ thesis
+        (["OE-breakdown-8bar"], bars_at(t_evid)),                       # breakdown → evidence
+        (["OE-grooveB-16bar", "OE-turn-2bar"], bars_at(t_evid_end) - 16),  # evidence body
+        (["OE-drums-16bar"], bars_at(t_evid_end) - 2),                  # payoff stripped to drums
+        (["OE-turn-2bar"], bars_at(t_stack)),                           # turn → pivot
+        (["OE-intro-8bar"], bars_at(t_stack) + 16),                     # THEME REPRISE @ stack
+        (["OE-hot-16bar", "OE-turn-2bar"], bars_at(t_econ)),            # playbook groove (hot)
+        (["OE-breakdown-8bar"], bars_at(t_econ) + 8),                   # honest-math breakdown
+        (["OE-drums-16bar"], bars_at(t_econ_end) - 2),                  # risk on drums
+        (["OE-turn-2bar"], bars_at(t_econ_end)),                        # ender
+        (["OE-final-8bar"], bars_at(t_cta) + 8),                        # finale crests thru cta
+        (["OE-outro-tail"], bars_at(t_cta) + 14),                       # ring-out
+        (["OE-sting"], bars_at(t_cta) + 15),                            # closing sting
     ]
 
     tdp = ROOT / ".bedwork"
@@ -199,7 +195,7 @@ def main():
                             "-f", "null", "-"], capture_output=True, text=True)
         mean = next((l.split()[-2] for l in p.stderr.splitlines() if "mean_volume" in l), "-16")
         gain = -16.0 - float(mean)
-        pad = max(total - cur * BAR + 2.0, 0.0)
+        pad = max(total - cur * BAR + 2.0, 0.5)  # NEVER 0: apad=pad_dur=0 pads FOREVER (the 62-min bug, found 2026-07-05)
         run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", "-i", str(assembled),
              "-af", f"volume={gain:.1f}dB,apad=pad_dur={pad:.2f}",
              "-ar", "44100", "-b:a", "192k", str(out)])
