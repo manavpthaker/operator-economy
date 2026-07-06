@@ -1134,8 +1134,10 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
         <SoundBed screens={screens!} musicDir="music" sfxDir="sfx" />
       )}
 
-      {/* Captions layer — always on top, hidden during quote/chapter_reset. */}
-      <Captions groups={captionGroups} onInk />
+      {/* Captions layer — always on top, hidden during quote/chapter_reset.
+          style "none" = no burned-in captions (platform-native captions
+          instead; EP001 call, 2026-07-06). */}
+      {captions?.style !== 'none' && <Captions groups={captionGroups} onInk />}
     </AbsoluteFill>
   );
 
