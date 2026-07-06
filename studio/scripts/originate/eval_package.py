@@ -86,7 +86,9 @@ def main():
     # Archetype-signal check, NOT numbers-only: any of number / question /
     # quote / contrast pivot counts (approved archetypes don't all use numbers;
     # forcing one pattern = formulaic = inauthentic-content risk).
-    hook_text = " ".join(b["vo_text"] for b in sections.get("hook", {}).get("beats", []))
+    # Beat 0 = series open (brand furniture, 2026-07-05) — excluded from hook checks.
+    hook_text = " ".join(b["vo_text"] for b in sections.get("hook", {}).get("beats", [])
+                         if b.get("beat", 1) != 0)
     first37 = " ".join(words(hook_text)[:37]).lower()
 
     def tension_signals(t):

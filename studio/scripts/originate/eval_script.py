@@ -112,7 +112,10 @@ def main():
     # numbers-only produces formulaic hooks, which is itself a slop signal)
     hook = next((s for s in script["sections"] if s["id"] == "hook"), None)
     if hook and hook.get("beats"):
-        hook_text = " ".join(b["vo_text"] for b in hook["beats"])
+        # Beat 0 is the series open ("Welcome in. This is The Operator
+        # Economy...") — fixed brand furniture added 2026-07-05 (EP001),
+        # not hook content. Hook checks run on beats >= 1.
+        hook_text = " ".join(b["vo_text"] for b in hook["beats"] if b.get("beat", 1) != 0)
         first_two = " ".join(re.split(r"(?<=[.!?])\s+", hook_text)[:2])
         low2 = first_two.lower()
         signals = []

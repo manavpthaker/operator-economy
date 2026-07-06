@@ -1,0 +1,471 @@
+{
+  "topic": "Businesses will pay you to answer their phones with AI",
+  "working_title": "The Phone Call Businesses Never Answer",
+  "title_options": [
+    "The Phone Call Businesses Never Answer",
+    "62 Percent of Calls Go to Voicemail",
+    "Local Businesses Miss Most of Their Calls"
+  ],
+  "thumbnail_concepts": [
+    "Split screen: a ringing phone on a cluttered work van dashboard vs. a clean AI agent dashboard answering the same call \u2014 timestamp overlay showing the missed call",
+    "Close-up of a voicemail screen with '14 missed calls' visible, dollar amounts ticking up beside each one like a lost-revenue counter"
+  ],
+  "thumbnail_text_options": [
+    "14 Missed Calls",
+    "Nobody Picked Up",
+    "Lost to a Competitor"
+  ],
+  "description_draft": "Small businesses miss most of the calls that come into their front line \u2014 and every one of those calls is a customer who then calls a competitor. This episode breaks down the business of building and reselling AI phone agents to local service businesses: what a solo operator can realistically charge, what the venture-scale voice AI market looks like (ElevenLabs, Vapi, Retell), the exact tool stack to build a demo in a week, and the honest economics \u2014 including where this kind of agency can fail. Sourced numbers throughout, hedged where the data is thin. Not an income promise \u2014 a documented blueprint with ranges.",
+  "sections": [
+    {
+      "id": "hook",
+      "beats": [
+        {
+          "beat": 0,
+          "vo_text": "Welcome in. This is The Operator Economy. A series where we break down one business you can build on your own. This week: the businesses that never answer their phones \u2014 and the operators getting paid to fix that with AI.",
+          "highlight_words": [
+            "The Operator Economy",
+            "never answer",
+            "paid to fix"
+          ],
+          "asset_hint": "slide: series title card",
+          "source": null
+        },
+        {
+          "beat": 1,
+          "vo_text": "One study found that only 38 percent of calls to small businesses get answered by a real person \u2014 the other 62 percent go to voicemail or nowhere. Solo operators fix that for $300 to $1,000 a month per client; the infrastructure underneath just raised at an $11 billion valuation.",
+          "highlight_words": [
+            "38 percent",
+            "62 percent",
+            "$300 to $1,000",
+            "$11 billion"
+          ],
+          "asset_hint": "chart: percentage of small-business calls answered vs missed, 38/62 split",
+          "source": "411 Locals 2024 study (vendor-recycled) via getaira.io/skipcalls"
+        }
+      ]
+    },
+    {
+      "id": "thesis",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "This is a service business: you install an AI receptionist for local businesses that live or die by the phone \u2014 plumbers, dentists, salons, florists. The technician is on a roof, the dentist is with a patient, the florist is buried on Valentine's Day. Nobody's answering, and the caller doesn't wait around.",
+          "highlight_words": [
+            "AI receptionist",
+            "phone",
+            "florist",
+            "Valentine's Day"
+          ],
+          "asset_hint": "broll: technician on a roof, phone ringing unanswered in the truck cab",
+          "source": null
+        },
+        {
+          "beat": 2,
+          "vo_text": "Voice AI got good enough and cheap enough in the last two years that one person can build this end to end \u2014 no call center, no dev team. I ran four properties in the Yucatan for two years. At checkout rush the front desk was a queue, the phone rang under it, and I knew some of those unanswered rings were direct bookings we'd never see \u2014 they ended up on a booking site or at the hotel down the road.",
+          "highlight_words": [
+            "good enough",
+            "cheap enough",
+            "one person"
+          ],
+          "asset_hint": "screen_rec: Retell AI dashboard showing a live call transcript in real time",
+          "source": null
+        },
+        {
+          "beat": 3,
+          "vo_text": "In fact, you're listening to the proof right now. This voice \u2014 the one reading you this episode \u2014 is an AI voice, running on the same stack this episode is about. If you didn't notice, that's the point. If you did, you now know exactly how good 'good enough' is \u2014 and where the seams still show.",
+          "highlight_words": [
+            "listening to the proof",
+            "AI voice",
+            "seams still show"
+          ],
+          "asset_hint": "screen_rec: this episode's own ElevenLabs generation dashboard, waveform rendering this exact line",
+          "source": "Direct demonstration \u2014 channel's own production stack"
+        },
+        {
+          "beat": 4,
+          "vo_text": "Built lean, it's a laptop, a phone number, and three subscriptions under $150 a month. Built seriously, it's five to eight local clients on retainer, a documented before-and-after missed-call number for each one, and a repeatable sales demo that closes itself. So what does the evidence actually say?",
+          "highlight_words": [
+            "$150 a month",
+            "five to eight",
+            "closes itself"
+          ],
+          "asset_hint": "slide: Lean build vs Serious build \u2014 cost, client count, deliverable",
+          "source": "public pricing \u2014 tool stack totals (Twilio, ElevenLabs, n8n; research brief)"
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "Start with the low end, and be honest about it: there's no verified public case study of a solo voice-AI agency doing huge numbers, the way there is in some other AI-agency niches. The evidence here is thinner, and mostly comes from the platforms themselves marketing to would-be resellers.",
+          "highlight_words": [
+            "no verified",
+            "thinner",
+            "platforms themselves"
+          ],
+          "asset_hint": "slide: Honest gap \u2014 'No $40K/mo solo case study exists yet'",
+          "source": "Research brief note: no credible public solo case study at scale"
+        },
+        {
+          "beat": 2,
+          "vo_text": "What the platforms do advertise: white-label resellers charging clients $297 to $997 a month while paying $99 to $299 a month in platform fees \u2014 a 50 to 70 percent margin on paper. Setup fees run $500 to $2,000 for a simple receptionist build, more for complex ones. Treat those as marketing numbers \u2014 unverified, published by the platforms selling the shovels.",
+          "highlight_words": [
+            "$297 to $997",
+            "50 to 70 percent",
+            "$500 to $2,000"
+          ],
+          "asset_hint": "chart: reseller pricing vs platform fee, margin band highlighted",
+          "source": "Trillet pricing guide (vendor content, unverified)"
+        },
+        {
+          "beat": 3,
+          "vo_text": "The pitch writes itself with arithmetic, not adjectives: a plumber missing 15 calls a week at $350 a job is leaving six figures a year on the table. A $500-a-month answering service against that number is a rounding error, and that's the exact math low-end agencies run in the sales call.",
+          "highlight_words": [
+            "15 calls a week",
+            "$350 a job",
+            "six figures",
+            "rounding error"
+          ],
+          "asset_hint": "slide: Plumber math \u2014 15 calls x $350 x 52 weeks, annotated",
+          "source": "Illustrative arithmetic from research brief, not audited"
+        },
+        {
+          "beat": 4,
+          "vo_text": "The behavioral numbers explain why that pitch lands. From the same reported research: about 85 percent of callers who hit voicemail never call back, roughly 62 percent of unanswered callers just call a competitor, and 80 percent won't even leave a message. Reported, not audited \u2014 but every owner who hears those numbers nods, because it matches their own missed-call screen.",
+          "highlight_words": [
+            "85 percent",
+            "competitor",
+            "leave a message"
+          ],
+          "asset_hint": "chart: what happens after a missed call \u2014 85 / 62 / 80 breakdown",
+          "source": "411 Locals ecosystem stats \u2014 reported, unaudited"
+        },
+        {
+          "beat": 5,
+          "vo_text": "Now the high end, which is fully sourced. ElevenLabs closed a $500 million round in February 2026 at an $11 billion valuation, reportedly hitting around $500 million in annual revenue by April \u2014 up from $350 million just four months earlier.",
+          "highlight_words": [
+            "$500 million",
+            "$11 billion",
+            "$500 million"
+          ],
+          "asset_hint": "logo: ElevenLabs, chart: ARR growth Dec 2025 to April 2026",
+          "source": "TechCrunch, Feb 4 2026; Sacra estimate"
+        },
+        {
+          "beat": 6,
+          "vo_text": "Vapi, the infrastructure that routes these calls, hit a $500 million valuation in May 2026 after Amazon's Ring chose it over 40 competing platforms. Retell AI, launched only in 2024, reportedly powers more than 50 million AI phone calls a month.",
+          "highlight_words": [
+            "$500 million",
+            "40 competing platforms",
+            "50 million"
+          ],
+          "asset_hint": "logo: Vapi, Retell AI \u2014 side by side with valuation and call-volume stats",
+          "source": "TechCrunch, May 12 2026 (Vapi); Retell press/blog, vendor-reported"
+        },
+        {
+          "beat": 7,
+          "vo_text": "One analyst estimate puts the AI voice agent market at roughly $2.5 to $3.5 billion in 2025, growing 30 to 40 percent a year into the early 2030s. The read: these platforms are raising at software multiples to become infrastructure, and infrastructure needs someone to install it in the dentist's office down the street. That installer is this episode's audience \u2014 so here's what the install actually takes.",
+          "highlight_words": [
+            "$2.5 to $3.5 billion",
+            "30 to 40 percent",
+            "installer"
+          ],
+          "asset_hint": "chart: AI voice agent market size forecast, analyst estimate marker visible",
+          "source": "Grand View Research / Market.us, analyst estimate"
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "The voice itself comes from ElevenLabs \u2014 the same voice you've been listening to this whole episode, so this isn't theoretical. It sounds close to human on clean audio; it still stumbles on proper nouns and heavy accents, and you may have caught one of those seams already.",
+          "highlight_words": [
+            "ElevenLabs",
+            "whole episode",
+            "stumbles"
+          ],
+          "asset_hint": "screen_rec: ElevenLabs Agents dashboard, voice settings panel",
+          "source": "ElevenLabs blog; direct production use (channel's own stack)"
+        },
+        {
+          "beat": 2,
+          "vo_text": "For call orchestration \u2014 the logic that answers, qualifies, and books \u2014 use Retell AI or Vapi, both running roughly 7 to 15 cents a minute. Bland is the alternative if you need outbound calling, though it raised per-minute prices in December 2025, a reminder that you don't control this cost line.",
+          "highlight_words": [
+            "Retell AI",
+            "Vapi",
+            "7 to 15 cents",
+            "raised per-minute prices"
+          ],
+          "asset_hint": "screen_rec: Retell AI call flow builder, drag-and-drop logic",
+          "source": "Research brief: per-minute pricing convergence across vendors"
+        },
+        {
+          "beat": 3,
+          "vo_text": "Twilio provides the phone number itself, about a dollar a month plus usage. Make or n8n handles the handoff into the client's calendar and CRM, and Cal.com or Calendly writes the actual appointment back so the business owner sees a booked slot, not just a transcript.",
+          "highlight_words": [
+            "Twilio",
+            "Make or n8n",
+            "Cal.com"
+          ],
+          "asset_hint": "slide: Stack diagram \u2014 Twilio number \u2192 agent \u2192 n8n \u2192 Cal.com booking",
+          "source": null
+        },
+        {
+          "beat": 4,
+          "vo_text": "All in, before per-minute usage, the solo stack runs under 150 dollars a month. A receptionist handling a few hundred calls costs tens of dollars in usage \u2014 not hundreds \u2014 which is exactly the margin the retainer pricing is built on.",
+          "highlight_words": [
+            "150 dollars a month",
+            "tens of dollars",
+            "margin"
+          ],
+          "asset_hint": "chart: monthly stack cost breakdown, under $150 total",
+          "source": "public pricing \u2014 stack component totals (research brief)"
+        },
+        {
+          "beat": 5,
+          "vo_text": "The full delivery loop matters more than any single tool: the agent answers, qualifies the caller, books straight into the calendar, then texts the owner a summary \u2014 the owner sees a booked job, not a transcript. And the retainer isn't for the software; it's for the maintenance. Prompt updates, new FAQs, a menu change, an integration that breaks \u2014 that upkeep is the moat and the treadmill at once. So how do you actually land the first client?",
+          "highlight_words": [
+            "delivery loop",
+            "booked job",
+            "maintenance"
+          ],
+          "asset_hint": "slide: delivery loop \u2014 answer \u2192 qualify \u2192 book \u2192 text summary",
+          "source": null
+        }
+      ]
+    },
+    {
+      "id": "playbook",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "Week one: pick one local vertical where a missed call is a missed job \u2014 home services, dental, salons, or florists \u2014 ideally one you've worked in or sold into before. I work with over fifteen hundred florists in my day job, and every Valentine's Day it's the same scene: the shop slammed, the phone ringing off the hook, and the orders that can't get through going to the 1-800 competitor.",
+          "highlight_words": [
+            "one local vertical",
+            "missed job"
+          ],
+          "asset_hint": "slide: Vertical shortlist \u2014 Home services / Dental / Salons / Florists",
+          "source": null
+        },
+        {
+          "beat": 2,
+          "vo_text": "Also in week one, build a working demo agent for a real business, not a hypothetical one. Ring their own current missed-call line, let your agent answer it, qualify the caller, and book a fake appointment. The demo is the sales call \u2014 you're not pitching a concept, you're showing them their own phone working correctly for the first time.",
+          "highlight_words": [
+            "real business",
+            "demo is the sales call",
+            "own phone working"
+          ],
+          "asset_hint": "screen_rec: live demo call, agent booking appointment on screen",
+          "source": null
+        },
+        {
+          "beat": 3,
+          "vo_text": "Price it as a receptionist replacement, never as software. A setup fee of $500 to $2,000, plus a flat monthly retainer of $300 to $700. Never quote per-minute pricing to the client \u2014 that's your cost structure, not theirs, and it makes the price feel unpredictable to someone who just wants their calls answered.",
+          "highlight_words": [
+            "receptionist replacement",
+            "$500 to $2,000",
+            "$300 to $700"
+          ],
+          "asset_hint": "slide: Pricing script \u2014 setup fee + flat retainer, no per-minute mention",
+          "source": "Research brief: convergent vendor pricing bands"
+        },
+        {
+          "beat": 4,
+          "vo_text": "Month one: land your first three clients from your own network inside that vertical. Their actual before-and-after missed-call numbers become the case study you use to get the next five \u2014 and inbound-only keeps you out of TCPA territory, which matters, because outbound AI calling is regulated and this isn't the place to test that boundary.",
+          "highlight_words": [
+            "first three clients",
+            "before-and-after",
+            "TCPA territory"
+          ],
+          "asset_hint": "slide: Case study template \u2014 calls missed before vs after, side by side",
+          "source": "Research brief: TCPA / regulatory note on inbound vs outbound"
+        },
+        {
+          "beat": 5,
+          "vo_text": "Month two is about delivery discipline. Set the escalation path before the first live call \u2014 the agent hands anything ambiguous to a human, and the owner gets a text summary either way. Then make the maintenance visible: a short monthly report showing calls answered, appointments booked, and revenue recovered. That report is what renews the retainer, because the owner stops noticing the agent working. Build the FAQ list from real transcripts weekly \u2014 the agent gets better every week, or it quietly gets worse. And that maintenance rhythm is exactly what the economics depend on.",
+          "highlight_words": [
+            "escalation path",
+            "monthly report",
+            "real transcripts"
+          ],
+          "asset_hint": "slide: monthly client report mock \u2014 calls answered / booked / recovered",
+          "source": null
+        }
+      ]
+    },
+    {
+      "id": "economics",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "We built a step-by-step version of exactly this \u2014 vertical selection, demo script, and pricing sheet \u2014 into a blueprint, free, linked below if you want the checklist instead of rebuilding it from a transcript.",
+          "highlight_words": [
+            "blueprint",
+            "free",
+            "checklist"
+          ],
+          "asset_hint": "slide: Blueprint cover mock \u2014 'AI Phone Agency, Step by Step'",
+          "source": null
+        },
+        {
+          "beat": 2,
+          "vo_text": "Realistic year-one income for a solo operator is likely $1,500 to $5,000 a month from three to eight local clients. That's an estimate reasoned from the pricing bands, not audited results \u2014 and it's lower than the ceiling in some other AI-agency niches, mostly because the solo evidence here is thinner and the space is younger.",
+          "highlight_words": [
+            "$1,500 to $5,000",
+            "three to eight",
+            "younger"
+          ],
+          "asset_hint": "chart: realistic monthly income range by client count",
+          "source": "Research brief honesty note, estimate reasoning"
+        },
+        {
+          "beat": 3,
+          "vo_text": "The real failure mode isn't the pitch, it's the first embarrassing call \u2014 an angry customer, a mispronounced name, an accent the agent can't parse. The agent handles roughly 80 percent of calls cleanly; the other 20 percent needs to escalate to a human, and client churn happens exactly when that escalation doesn't exist.",
+          "highlight_words": [
+            "first embarrassing call",
+            "80 percent",
+            "20 percent",
+            "churn"
+          ],
+          "asset_hint": "broll: frustrated caller on phone, cut to agent transcript flagging escalation",
+          "source": "Research brief: honesty note on voice agent limitations"
+        },
+        {
+          "beat": 4,
+          "vo_text": "Platform risk here is higher than in other AI-agency niches, because you're reselling someone else's per-minute margin, and Bland already raised prices once. Retell already sells an AI receptionist directly to small businesses \u2014 the same platforms you build on could squeeze the agency layer out entirely.",
+          "highlight_words": [
+            "higher",
+            "raised prices once",
+            "squeeze the agency layer"
+          ],
+          "asset_hint": "slide: Platform risk \u2014 vendor pricing changes + direct-to-SMB competition",
+          "source": "Research brief: platform risk note, Retell direct-sales mention"
+        },
+        {
+          "beat": 5,
+          "vo_text": "So the open question isn't whether small businesses will pay for this \u2014 the missed-call math already answers that. It's whether the agency layer between the platform and the plumber survives the next eighteen months, or whether ElevenLabs and Retell just sell it themselves.",
+          "highlight_words": [
+            "open question",
+            "eighteen months",
+            "sell it themselves"
+          ],
+          "asset_hint": "slide: Timeline question mark \u2014 Agency layer vs Direct platform sales, 2026-2027",
+          "source": null
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "The full blueprint \u2014 vertical picker, demo script, and pricing sheet \u2014 is linked below, free. Subscribe if you want the next one of these broken down the same way, with the same sourcing.",
+          "highlight_words": [
+            "blueprint",
+            "free",
+            "Subscribe"
+          ],
+          "asset_hint": "slide: Subscribe + blueprint link, channel logo",
+          "source": null
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "claim": "Only ~38% of calls to small businesses answered live, 62% missed",
+      "source": "411 Locals 2024 study (85 businesses, 58 industries), recycled via getaira.io/skipcalls \u2014 vendor-adjacent, mark 'one study found'"
+    },
+    {
+      "claim": "85% of callers who hit voicemail don't call back; 62% of unanswered callers call a competitor",
+      "source": "Same vendor-content ecosystem as 411 Locals study \u2014 reported, unaudited"
+    },
+    {
+      "claim": "ElevenLabs $500M Series D at $11B valuation, Feb 2026; ~$500M ARR by April 2026, up from ~$350M end of 2025",
+      "source": "TechCrunch, Feb 4 2026; ElevenLabs blog; Sacra estimate"
+    },
+    {
+      "claim": "Talks for ElevenLabs secondary at ~$22B within five months of raise",
+      "source": "Tech Funding News \u2014 talks, not closed, hedge explicitly"
+    },
+    {
+      "claim": "Vapi reaches $500M valuation May 2026 after Amazon Ring selected its platform over 40 rivals",
+      "source": "TechCrunch, May 12 2026"
+    },
+    {
+      "claim": "Retell AI reports ~$50M ARR in 2025, powers 50M+ AI phone calls/month",
+      "source": "Retell AI press/blog \u2014 vendor-reported"
+    },
+    {
+      "claim": "AI voice agent market ~$2.5-3.5B in 2025-26, 30-40% CAGR through early 2030s",
+      "source": "Grand View Research / Market.us \u2014 analyst estimate, directional only"
+    },
+    {
+      "claim": "White-label resellers price $297-997/mo against $99-299/mo platform fees, 50-70% margin",
+      "source": "Trillet pricing guide \u2014 vendor content selling to agencies, unverified"
+    },
+    {
+      "claim": "Setup fees $500-2K simple builds, $300-700/mo typical SMB retainers",
+      "source": "Multiple vendor pricing guides, convergent but unaudited"
+    },
+    {
+      "claim": "Per-minute cost floor ~$0.07-0.15/min across Bland, Retell, Vapi",
+      "source": "Research brief vendor pricing convergence; Bland raised prices Dec 2025"
+    },
+    {
+      "claim": "No verified public solo case study at scale for voice-AI agencies",
+      "source": "Research brief honesty note \u2014 absence of evidence, stated explicitly"
+    }
+  ],
+  "blueprint_summary": {
+    "idea": "Build and resell AI voice agents that answer inbound phone calls for local service businesses (plumbers, dentists, salons, florists) that miss most of their calls today.",
+    "who_its_for": "Operators who've worked in or sold into ops-heavy local businesses and want a service business with recurring retainers, not a coding project.",
+    "evidence_companies": [
+      "ElevenLabs",
+      "Vapi",
+      "Retell AI",
+      "Bland",
+      "Amazon Ring (customer proof point via Vapi)"
+    ],
+    "tool_stack": [
+      {
+        "tool": "ElevenLabs Agents",
+        "role": "Voice generation and conversational agent platform",
+        "monthly_cost": "Usage-based, ~$0.05-0.10/1K characters"
+      },
+      {
+        "tool": "Retell AI or Vapi",
+        "role": "Call orchestration: answer, qualify, book",
+        "monthly_cost": "$0.07-0.15/min"
+      },
+      {
+        "tool": "Bland",
+        "role": "Alternative platform, outbound-capable",
+        "monthly_cost": "$0.09-0.14/min"
+      },
+      {
+        "tool": "Twilio",
+        "role": "Phone number provisioning",
+        "monthly_cost": "~$1/mo + usage"
+      },
+      {
+        "tool": "Make or n8n",
+        "role": "Booking and CRM handoff automation",
+        "monthly_cost": "$20-50/mo"
+      },
+      {
+        "tool": "Cal.com or Calendly",
+        "role": "Appointment write-back to client calendar",
+        "monthly_cost": "$0-15/mo"
+      }
+    ],
+    "first_customer_plan": "Pick one vertical you've operated in or sold into, build a working demo agent against a real business's own missed-call line, use the demo itself as the sales pitch, price as a receptionist replacement ($500-2K setup + $300-700/mo retainer, never per-minute), land first 3 clients from your own network, and turn their before/after missed-call numbers into case studies.",
+    "realistic_economics": "Year-one realistic range is $1,500-5,000/mo from 3-8 local clients \u2014 lower ceiling than some other AI-agency niches because no verified solo case study exists yet at scale. Costs stay under $150/mo in tooling before usage. Main risks: platform per-minute pricing changes, platforms selling direct to SMBs (Retell already does), client churn from unescalated bad calls, and TCPA exposure if you go outbound \u2014 stay inbound-only."
+  },
+  "slug": "voice-agent-agency"
+}

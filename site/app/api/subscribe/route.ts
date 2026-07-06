@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
-import { getEpisodeBySlug, pad } from '../../components/LatestBlueprint';
+import { getEpisodeBySlug } from '../../components/LatestBlueprint';
+import { renderWelcomeEmail } from '../../lib/email-templates';
 
 export const runtime = 'nodejs';
 
@@ -73,59 +74,41 @@ async function sendWelcome({
   const ep = slug ? getEpisodeBySlug(slug) : undefined;
 
   if (tag === 'newsletter') {
-    await resend.emails.send({
-      from: fromAddress(),
-      to: email,
-      subject: 'You are on the Monday note.',
-      text: `You'll get one email a week, Monday morning: one business one experienced person can build and run, with the sources.
-
-No drip. No sequence. Unsubscribe any time: ${unsubscribeUrl}
-
-— The Operator Economy`,
-    });
+    const { subject, html, text } = renderWelcomeEmail(
+      { tag: 'newsletter' },
+      unsubscribeUrl
+    );
+    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
   if (tag.startsWith('blueprint:') && ep) {
-    const num = pad(ep.number);
-    const pdfPath = `/blueprints/${ep.slug}.pdf`;
-    const pdfAvailable = ep.status === 'live';
-    const pdfLine = pdfAvailable
-      ? `Operator Blueprint №${num} (PDF): ${baseUrlFromResend()}${pdfPath}`
-      : `The blueprint ships with the episode — I'll email you when the PDF is ready.`;
-    await resend.emails.send({
-      from: fromAddress(),
-      to: email,
-      subject: `Operator Blueprint №${num} — ${ep.title}`,
-      text: `Here it is.
-
-${pdfLine}
-
-You're also on the Monday note. Unsubscribe any time: ${unsubscribeUrl}
-
-— The Operator Economy`,
-    });
+    const { subject, html, text } = renderWelcomeEmail(
+      {
+        tag: tag as `blueprint:${string}`,
+        episode: { number: ep.number, title: ep.title, slug: ep.slug },
+        pdfAvailable: ep.status === 'live',
+        siteUrl: baseUrlFromResend(),
+      },
+      unsubscribeUrl
+    );
+    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
   if (tag.startsWith('notify:') && ep) {
-    const num = pad(ep.number);
-    await resend.emails.send({
-      from: fromAddress(),
-      to: email,
-      subject: `You'll get one email when №${num} is live.`,
-      text: `Filed.
-
-I'll email you the day №${num} — "${ep.title}" — publishes, with the video, the Blueprint PDF, and the sourced honest math.
-
-You're also on the Monday note (one email a week). Unsubscribe any time: ${unsubscribeUrl}
-
-— The Operator Economy`,
-    });
+    const { subject, html, text } = renderWelcomeEmail(
+      {
+        tag: tag as `notify:${string}`,
+        episode: { number: ep.number, title: ep.title, slug: ep.slug },
+      },
+      unsubscribeUrl
+    );
+    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
-  // Unknown tag — send a generic confirmation.
+  // Unknown tag / missing episode — plain confirmation, no template.
   await resend.emails.send({
     from: fromAddress(),
     to: email,
