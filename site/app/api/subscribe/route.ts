@@ -59,6 +59,21 @@ function fromAddress(): string {
   );
 }
 
+// Resend SDK v6 returns { data, error } instead of throwing on API errors.
+// This wrapper turns errors back into exceptions so callers can rely on try/catch.
+async function sendOrThrow(
+  resend: Resend,
+  payload: Parameters<Resend['emails']['send']>[0]
+) {
+  const res = await resend.emails.send(payload);
+  if (res.error) {
+    throw new Error(
+      `Resend send failed: ${res.error.name} — ${res.error.message}`
+    );
+  }
+  return res.data;
+}
+
 async function sendWelcome({
   resend,
   email,
@@ -78,7 +93,7 @@ async function sendWelcome({
       { tag: 'newsletter' },
       unsubscribeUrl
     );
-    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
+    await sendOrThrow(resend, { from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
@@ -92,7 +107,7 @@ async function sendWelcome({
       },
       unsubscribeUrl
     );
-    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
+    await sendOrThrow(resend, { from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
@@ -104,12 +119,12 @@ async function sendWelcome({
       },
       unsubscribeUrl
     );
-    await resend.emails.send({ from: fromAddress(), to: email, subject, html, text });
+    await sendOrThrow(resend, { from: fromAddress(), to: email, subject, html, text });
     return;
   }
 
   // Unknown tag / missing episode — plain confirmation, no template.
-  await resend.emails.send({
+  await sendOrThrow(resend, {
     from: fromAddress(),
     to: email,
     subject: 'Confirmed.',
