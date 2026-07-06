@@ -3,6 +3,7 @@ import {Composition, getInputProps} from 'remotion';
 import {ClipComposition} from './ClipComposition';
 import {BlueprintComposition, type BlueprintRenderData} from './BlueprintComposition';
 import {ShortComposition, type ShortRenderData} from './ShortComposition';
+import {CarouselSlide, type CarouselSlideData} from './CarouselComposition';
 import type {RenderData} from './types';
 
 const defaultShortData: ShortRenderData = {
@@ -183,6 +184,12 @@ export const RemotionRoot: React.FC = () => {
           height: props.resolution?.[1] ?? 1080,
         })}
         defaultProps={defaultBlueprintData}
+      />
+      <Composition
+        id="CarouselSlide"
+        component={CarouselSlide}
+        calculateMetadata={async () => ({durationInFrames: 1, fps: 30, width: 1080, height: 1350})}
+        defaultProps={{layout: 'statement', statement: 'A preview statement.', ground: 'paper'} as CarouselSlideData}
       />
       <Composition
         id="Short"
