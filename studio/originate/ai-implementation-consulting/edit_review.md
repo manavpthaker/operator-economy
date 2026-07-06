@@ -9,7 +9,7 @@
 
 ### ⚠️ Cadence (static holds, resets, sheet runs) — 3/5
 - 11 warnings
-- ⚠️ hook-00a chapter_reset holds 8.3s — impact frames should be 1.2–4s; extended holds turn into title slides.
+- ⚠️ hook-00a chapter_reset holds 7.0s — impact frames should be 1.2–4s; extended holds turn into title slides.
 - ⚠️ thesis-03b holds 26.7s with only 1 reveal — static composition. Add reveals or split the screen.
 - ⚠️ thesis-06 holds 23.8s with only 1 reveal — static composition. Add reveals or split the screen.
 - ⚠️ evidence-01 holds 26.3s with only 1 reveal — static composition. Add reveals or split the screen.
