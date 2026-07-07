@@ -50,7 +50,7 @@ Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" 
 |---|---|---|---|
 | Episode | YouTube | Mon 11:00 AM | `upload_youtube.py <file> --title ... --description-file ... --privacy private --publish-at <UTC>` — AI-disclosure flag auto-set |
 | SRT captions | YouTube Studio | with upload | Generated from alignment (`ep00N.srt`); drag into Subtitles (API lacks force-ssl scope) |
-| Thumbnail | YouTube Studio | with upload | Extract the title-card frame (`ffmpeg -ss ~21.5s`) — it IS the thumbnail. Requires phone-verified channel |
+| Thumbnail | API (`thumbnails/set`) | with upload | `Thumbnail` Remotion composition (1280×720): ONE giant gold number focal point, counter-number, ≤5 words, navy ground (contrast vs YouTube's white UI), complements the title (never repeats it). Faceless channel = the number is the face. Two candidates per episode; winner via Test & Compare when eligible; check CTR **by traffic source** at day 7 before judging (search 5–15% ≠ browse 2–5%) |
 | End screen | YouTube Studio | with upload | Last 6s (outro card) designed for overlays: Subscribe + "Best for viewer" video |
 | Shorts ×4 | YouTube | Tue–Fri 8:30 AM | Same script, `--publish-at` staggered; description carries episode + blueprint links |
 | Episode post | LinkedIn **OE page** | Mon 11:00 AM | Hour-one package, see Phase 2 |
@@ -148,6 +148,13 @@ Rubric-lints all LI copy (`scripts/originate/rubric_check.py` — automated subs
 1. **Re-auth YouTube token with `youtube.force-ssl` scope** (`tools/youtube_auth.py`) — unlocks captions upload AND posting/pinning the shorts' episode-link comments via API (the week-driver currently just flags unpinned comments).
 2. **Newsletter send** wired into launch (Resend; blocked on DNS setup from launch checklist).
 3. **Thumbnail set via API** — still manual in YT Studio (needs phone-verified channel + force-ssl).
+
+## Packaging loop (thumbnail + title, per episode)
+
+- Title: accurate first, number/hook front-loaded (mobile truncation), branding at the end, curiosity the video resolves. Never over-promise: fast abandonment reads as clickbait and suppresses recommendations.
+- Thumbnail: two candidates rendered per episode (`render_data/thumbnail-a/b.json`), reviewed AT SMALL SIZE (320px is the judgment view), winner pushed via API.
+- Day 7: check CTR by traffic source in Studio. Only compare like to like (search vs search). Revisit stale thumbnails on older episodes quarterly.
+- When the channel unlocks Test & Compare: A/B the two candidates against real impressions instead of picking by eye.
 
 ## Kill criteria & cadence guards
 
