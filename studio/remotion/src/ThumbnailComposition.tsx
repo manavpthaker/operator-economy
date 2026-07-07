@@ -14,13 +14,73 @@ import {useEnsureFontsLoaded} from './oe/fonts';
  */
 
 export type ThumbnailData = {
-  variant?: 'numbers' | 'title'; // numbers = two-figure gap; title = big short title card
+  variant?: 'numbers' | 'title' | 'versus'; // numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
+  accentColor?: string; // override goldBright (test punchier accents without leaving the family)
   big: string;          // the hero number, e.g. "$5.9B"
   small: string;        // the counter number, e.g. "$100"
   connector?: string;   // between them, e.g. "vs" | "→"
   label: string;        // ≤4 words (numbers) or the short title lines separated by \n (title)
   accentWord?: string;  // word in label to set gold
   kicker?: string;      // tiny corner mark, default "OPERATOR BLUEPRINT · № 001"
+};
+
+const VersusVariant: React.FC<ThumbnailData> = (p) => {
+  const gold = p.accentColor ?? COLORS.goldBright;
+  return (
+    <>
+      <div
+        style={{
+          position: 'absolute',
+          top: 150,
+          left: 56,
+          right: 56,
+          bottom: 170,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 24,
+        }}
+      >
+        <span style={{fontFamily: FONTS.mono, fontWeight: 700, fontSize: 210, letterSpacing: '-0.04em', color: gold, textShadow: '0 6px 60px rgba(0,0,0,0.45)'}}>
+          {p.big}
+        </span>
+        <span style={{fontFamily: FONTS.display, fontWeight: 700, fontStyle: 'italic', fontSize: 110, color: 'rgba(245,240,230,0.85)'}}>
+          {p.connector ?? 'vs'}
+        </span>
+        <span style={{fontFamily: FONTS.mono, fontWeight: 700, fontSize: 210, letterSpacing: '-0.04em', color: COLORS.paper, textShadow: '0 6px 60px rgba(0,0,0,0.45)'}}>
+          {p.small}
+        </span>
+      </div>
+      {p.label ? (
+        <div
+          style={{
+            position: 'absolute',
+            left: 56,
+            right: 56,
+            bottom: 48,
+            borderTop: '2px solid rgba(245,240,230,0.25)',
+            paddingTop: 24,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+          }}
+        >
+          <span style={{fontFamily: FONTS.display, fontWeight: 600, fontSize: 74, color: COLORS.paper}}>
+            {p.accentWord && p.label.includes(p.accentWord) ? (
+              <>
+                {p.label.split(p.accentWord)[0]}
+                <span style={{color: gold}}>{p.accentWord}</span>
+                {p.label.split(p.accentWord)[1]}
+              </>
+            ) : p.label}
+          </span>
+          <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: gold}}>OE.</span>
+        </div>
+      ) : (
+        <div style={{position: 'absolute', right: 56, bottom: 48, fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: gold}}>OE.</div>
+      )}
+    </>
+  );
 };
 
 const TitleVariant: React.FC<ThumbnailData> = (p) => {
@@ -131,9 +191,10 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       </div>
 
       {p.variant === 'title' ? <TitleVariant {...p} /> : null}
+      {p.variant === 'versus' ? <VersusVariant {...p} /> : null}
 
       {/* the number stack */}
-      {p.variant !== 'title' && (
+      {(!p.variant || p.variant === 'numbers') && (
       <div
         style={{
           position: 'absolute',
@@ -150,7 +211,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
             fontWeight: 700,
             fontSize: 300,
             lineHeight: 0.95,
-            color: COLORS.goldBright,
+            color: p.accentColor ?? COLORS.goldBright,
             letterSpacing: '-0.03em',
             textShadow: '0 6px 60px rgba(0,0,0,0.45)',
           }}
@@ -186,7 +247,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       )}
 
       {/* label band — bottom, full width, paper on navy via a hairline */}
-      {p.variant !== 'title' && (
+      {(!p.variant || p.variant === 'numbers') && (
       <div
         style={{
           position: 'absolute',
