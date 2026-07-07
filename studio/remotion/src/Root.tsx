@@ -4,6 +4,7 @@ import {ClipComposition} from './ClipComposition';
 import {BlueprintComposition, type BlueprintRenderData} from './BlueprintComposition';
 import {ShortComposition, type ShortRenderData} from './ShortComposition';
 import {CarouselSlide, type CarouselSlideData} from './CarouselComposition';
+import {Thumbnail, type ThumbnailData} from './ThumbnailComposition';
 import type {RenderData} from './types';
 
 const defaultShortData: ShortRenderData = {
@@ -184,6 +185,12 @@ export const RemotionRoot: React.FC = () => {
           height: props.resolution?.[1] ?? 1080,
         })}
         defaultProps={defaultBlueprintData}
+      />
+      <Composition
+        id="Thumbnail"
+        component={Thumbnail}
+        calculateMetadata={async () => ({durationInFrames: 1, fps: 30, width: 1280, height: 720})}
+        defaultProps={{big: '$5.9B', small: '$100', label: 'the same service.', accentWord: 'same'} as ThumbnailData}
       />
       <Composition
         id="CarouselSlide"
