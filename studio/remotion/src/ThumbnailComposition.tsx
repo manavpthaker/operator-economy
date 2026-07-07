@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill} from 'remotion';
+import {AbsoluteFill, Img, staticFile} from 'remotion';
 import {COLORS, FONTS} from './oe/theme';
 import {useEnsureFontsLoaded} from './oe/fonts';
 
@@ -14,10 +14,11 @@ import {useEnsureFontsLoaded} from './oe/fonts';
  */
 
 export type ThumbnailData = {
+  bgImage?: string;     // photo variant: image under public/, e.g. "thumbs/ep001-people.png"
   bigLabel?: string;    // actor under the big number, e.g. "ACCENTURE"
   smallLabel?: string;  // actor under the small number, e.g. "YOU"
   rightGold?: boolean;  // split variant: gold right panel instead of paper
-  variant?: 'numbers' | 'title' | 'versus' | 'split'; // numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
+  variant?: 'numbers' | 'title' | 'versus' | 'split' | 'photo'; // numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
   accentColor?: string; // override goldBright (test punchier accents without leaving the family)
   big: string;          // the hero number, e.g. "$5.9B"
   small: string;        // the counter number, e.g. "$100"
@@ -26,6 +27,28 @@ export type ThumbnailData = {
   accentWord?: string;  // word in label to set gold
   kicker?: string;      // tiny corner mark, default "OPERATOR BLUEPRINT · № 001"
 };
+
+const PhotoVariant: React.FC<ThumbnailData> = (p) => (
+  <AbsoluteFill>
+    {p.bgImage ? (
+      <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+    ) : null}
+    {/* legibility scrim: darken bottom + left edge, keep faces clear */}
+    <AbsoluteFill style={{background: 'linear-gradient(to top, rgba(10,18,32,0.82) 0%, rgba(10,18,32,0.25) 38%, rgba(10,18,32,0) 60%)'}} />
+    <div style={{position: 'absolute', top: 36, left: 52, fontFamily: FONTS.mono, fontSize: 24, letterSpacing: '0.16em', color: 'rgba(245,240,230,0.8)', textShadow: '0 2px 12px rgba(0,0,0,0.7)'}}>
+      {p.kicker ?? 'OPERATOR BLUEPRINT · № 001'}
+    </div>
+    {/* the two numbers anchor their halves */}
+    <div style={{position: 'absolute', bottom: 44, left: 52, display: 'flex', flexDirection: 'column'}}>
+      <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 150, lineHeight: 1, color: COLORS.goldBright, textShadow: '0 4px 40px rgba(0,0,0,0.8)'}}>{p.big}</span>
+      <span style={{fontFamily: FONTS.mono, fontSize: 32, letterSpacing: '0.2em', color: COLORS.paper, marginTop: 10, textShadow: '0 2px 12px rgba(0,0,0,0.8)'}}>{p.bigLabel ?? 'ACCENTURE'}</span>
+    </div>
+    <div style={{position: 'absolute', bottom: 44, right: 52, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+      <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 150, lineHeight: 1, color: COLORS.paper, textShadow: '0 4px 40px rgba(0,0,0,0.8)'}}>{p.small}</span>
+      <span style={{fontFamily: FONTS.mono, fontSize: 32, letterSpacing: '0.2em', color: COLORS.goldBright, marginTop: 10, textShadow: '0 2px 12px rgba(0,0,0,0.8)'}}>{p.smallLabel ?? 'YOU'}</span>
+    </div>
+  </AbsoluteFill>
+);
 
 const SplitVariant: React.FC<ThumbnailData> = (p) => {
   const rightBg = p.rightGold ? COLORS.goldFill : COLORS.paper;
@@ -210,7 +233,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       />
 
       {/* kicker */}
-      {p.variant !== 'split' && (
+      {p.variant !== 'split' && p.variant !== 'photo' && (
       <div
         style={{
           position: 'absolute',
@@ -229,6 +252,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       {p.variant === 'title' ? <TitleVariant {...p} /> : null}
       {p.variant === 'versus' ? <VersusVariant {...p} /> : null}
       {p.variant === 'split' ? <SplitVariant {...p} /> : null}
+      {p.variant === 'photo' ? <PhotoVariant {...p} /> : null}
 
       {/* the number stack */}
       {(!p.variant || p.variant === 'numbers') && (
