@@ -33,20 +33,26 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => (
     {p.bgImage ? (
       <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
     ) : null}
-    {/* legibility scrim: darken bottom + left edge, keep faces clear */}
-    <AbsoluteFill style={{background: 'linear-gradient(to top, rgba(10,18,32,0.82) 0%, rgba(10,18,32,0.25) 38%, rgba(10,18,32,0) 60%)'}} />
-    <div style={{position: 'absolute', top: 36, left: 52, fontFamily: FONTS.mono, fontSize: 24, letterSpacing: '0.16em', color: 'rgba(245,240,230,0.8)', textShadow: '0 2px 12px rgba(0,0,0,0.7)'}}>
-      {p.kicker ?? 'OPERATOR BLUEPRINT · № 001'}
+    {/* legibility scrim over the lower-left; faces stay clear. NO kicker,
+        NO mark: channel branding on a thumbnail is wasted curiosity space
+        (thumbnail-rubric rule 1). */}
+    <AbsoluteFill style={{background: 'linear-gradient(to top, rgba(10,18,32,0.85) 0%, rgba(10,18,32,0.3) 34%, rgba(10,18,32,0) 55%)'}} />
+    {/* ONE text block, bottom-left (lower-right = duration stamp).
+        Supreme 800: thick sans survives the 168px shrink test. */}
+    <div style={{position: 'absolute', bottom: 40, left: 52, display: 'flex', flexDirection: 'column'}}>
+      <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 168, lineHeight: 1, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
+      {p.bigLabel ? (
+        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.06em', color: COLORS.paper, marginTop: 8, textShadow: '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
+      ) : null}
     </div>
-    {/* the two numbers anchor their halves */}
-    <div style={{position: 'absolute', bottom: 44, left: 52, display: 'flex', flexDirection: 'column'}}>
-      <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 150, lineHeight: 1, color: COLORS.goldBright, textShadow: '0 4px 40px rgba(0,0,0,0.8)'}}>{p.big}</span>
-      <span style={{fontFamily: FONTS.mono, fontSize: 32, letterSpacing: '0.2em', color: COLORS.paper, marginTop: 10, textShadow: '0 2px 12px rgba(0,0,0,0.8)'}}>{p.bigLabel ?? 'ACCENTURE'}</span>
-    </div>
-    <div style={{position: 'absolute', bottom: 44, right: 52, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-      <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 150, lineHeight: 1, color: COLORS.paper, textShadow: '0 4px 40px rgba(0,0,0,0.8)'}}>{p.small}</span>
-      <span style={{fontFamily: FONTS.mono, fontSize: 32, letterSpacing: '0.2em', color: COLORS.goldBright, marginTop: 10, textShadow: '0 2px 12px rgba(0,0,0,0.8)'}}>{p.smallLabel ?? 'YOU'}</span>
-    </div>
+    {p.small ? (
+      <div style={{position: 'absolute', top: 40, right: 52, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 84, lineHeight: 1, color: COLORS.paper, textShadow: '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.small}</span>
+        {p.smallLabel ? (
+          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 40, letterSpacing: '0.08em', color: COLORS.goldBright, marginTop: 6, textShadow: '0 2px 0 rgba(0,0,0,0.55)'}}>{p.smallLabel}</span>
+        ) : null}
+      </div>
+    ) : null}
   </AbsoluteFill>
 );
 

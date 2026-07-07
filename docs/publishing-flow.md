@@ -50,7 +50,7 @@ Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" 
 |---|---|---|---|
 | Episode | YouTube | Mon 11:00 AM | `upload_youtube.py <file> --title ... --description-file ... --privacy private --publish-at <UTC>` — AI-disclosure flag auto-set |
 | SRT captions | YouTube Studio | with upload | Generated from alignment (`ep00N.srt`); drag into Subtitles (API lacks force-ssl scope) |
-| Thumbnail | API (`thumbnails/set`) | with upload | `Thumbnail` Remotion composition (1280×720): ONE giant gold number focal point, counter-number, ≤5 words, navy ground (contrast vs YouTube's white UI), complements the title (never repeats it). Faceless channel = the number is the face. Two candidates per episode; winner via Test & Compare when eligible; check CTR **by traffic source** at day 7 before judging (search 5–15% ≠ browse 2–5%) |
+| Thumbnail | API (`thumbnails/set`) | with upload | `Thumbnail` Remotion composition (1280×720) gated by **`docs/thumbnail-rubric.md`** — the install-moment concept (this week's business, viewer as hero, expressive faces), ≤3 elements, ≤4 words in Supreme 800, no channel branding, text bottom-left, shrink test at 168px is the ship gate. Concept locks at script gate. Two candidates/episode; Test & Compare when eligible; day-7 CTR by traffic source |
 | End screen | YouTube Studio | with upload | Last 6s (outro card) designed for overlays: Subscribe + "Best for viewer" video |
 | Shorts ×4 | YouTube | Tue–Fri 8:30 AM | Same script, `--publish-at` staggered; description carries episode + blueprint links |
 | Episode post | LinkedIn **OE page** | Mon 11:00 AM | Hour-one package, see Phase 2 |
