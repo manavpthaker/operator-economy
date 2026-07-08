@@ -166,6 +166,120 @@ def update_episodes_json(script: dict, config: dict) -> None:
 
     print(f"✓ episodes.json: {slug} {action}")
 
+# ---------------------------------------------------------------------------
+# YouTube upload metadata (deterministic — no API call)
+# ---------------------------------------------------------------------------
+
+# Human-readable chapter labels for the fixed section structure.
+_CHAPTER_LABELS = {
+    "hook": "The setup",
+    "thesis": "The thesis",
+    "evidence": "The evidence",
+    "stack": "The stack",
+    "playbook": "The playbook",
+    "economics": "The honest math",
+    "cta": "Get the blueprint",
+}
+
+
+def _fmt_ts(seconds: float) -> str:
+    s = int(round(seconds))
+    h, rem = divmod(s, 3600)
+    m, sec = divmod(rem, 60)
+    return f"{h}:{m:02d}:{sec:02d}" if h else f"{m}:{sec:02d}"
+
+
+def _build_chapters(render_data_path: Path) -> list[str] | None:
+    """Chapter lines from render_data/blueprint.json, or None pre-render.
+
+    Section `start` values are VO-relative; the brand/title bookends play
+    before them, so real video time = start + bookend offset. YouTube
+    requires the first chapter at 0:00 — the hook is clamped there.
+    """
+    if not render_data_path.exists():
+        return None
+    with open(render_data_path) as f:
+        rd = json.load(f)
+    bookends = rd.get("bookends") or {}
+    offset = (bookends.get("brand_seconds") or 0) + (bookends.get("title_seconds") or 0)
+    lines = []
+    for i, sec in enumerate(rd.get("sections") or []):
+        label = _CHAPTER_LABELS.get(sec.get("id"), (sec.get("id") or "chapter").title())
+        start = 0.0 if i == 0 else (sec.get("start") or 0) + offset
+        lines.append(f"{_fmt_ts(start)} {label}")
+    return lines or None
+
+
+def write_youtube_metadata(script: dict, content_dir: Path) -> None:
+    """Assemble youtube_metadata.md: title, description (with chapters),
+    tags, pinned comment, and the upload-settings checklist.
+
+    Channel-level boilerplate (subscribe link, channel blurb) lives in
+    Studio upload defaults — do NOT duplicate it here.
+    """
+    slug = script.get("slug", "")
+    title = script.get("working_title", slug)
+    title_options = script.get("title_options") or []
+    desc = (script.get("description_draft") or "").strip()
+    blueprint_url = f"https://theoperatoreconomy.com/#capture"
+
+    chapters = _build_chapters(content_dir.parent / "render_data" / "blueprint.json")
+    chapters_block = (
+        "\n".join(chapters)
+        if chapters
+        else "0:00 The setup\n(run `originate.py render` first — timestamps come from render_data/blueprint.json)"
+    )
+
+    # Topical tags: channel-wide defaults are set in Studio upload defaults;
+    # these are the episode-specific ones to add on top.
+    topic = (script.get("topic") or "").strip()
+    idea = ((script.get("blueprint_summary") or {}).get("idea") or "").split(":")[0].strip()
+    # Keep only phrase-shaped candidates — a thesis sentence is not a tag.
+    tags = [t for t in {topic, idea, slug.replace("-", " ")} if t and len(t) <= 40 and len(t.split()) <= 5]
+
+    md = f"""# YouTube upload metadata: {title}
+
+## Title (pick one)
+
+- {title}
+{chr(10).join(f"- {t}" for t in title_options if t != title)}
+
+## Description
+
+{desc}
+
+Get the full blueprint (free): {blueprint_url}
+
+Chapters:
+{chapters_block}
+
+*(Channel boilerplate — site link, subscribe link — is appended automatically
+by Studio upload defaults. Don't paste it again.)*
+
+## Tags (episode-specific, on top of channel defaults)
+
+{", ".join(tags) if tags else "(add 3-5 topical tags)"}
+
+## Pinned comment
+
+The full blueprint from this breakdown — tool stack, week-by-week playbook,
+and the honest math — is free here: {blueprint_url}
+
+## Upload checklist (settings that are NOT defaults)
+
+- [ ] Schedule, don't publish: set live ≥24h out (processing/checks finish; Gate 3 review window)
+- [ ] Altered content / AI disclosure: YES (synthetic VO) — required
+- [ ] Audience: NOT made for kids
+- [ ] Custom thumbnail (concepts in script.json → thumbnail_text_options)
+- [ ] Upload SRT captions from VO text (don't rely on auto-captions)
+- [ ] End screen: subscribe + next episode
+- [ ] Add to the episodes playlist
+- [ ] Post the pinned comment right after it goes live
+"""
+    (content_dir / "youtube_metadata.md").write_text(md)
+    print(f"✓ youtube_metadata.md → {content_dir}")
+
+
 SYSTEM_PROMPT = """You are the content lead for Grapevines (AI career strategy) deriving multi-surface content from a finished YouTube script. The author is Manav Thaker: founder, ex-Head of Product, operator voice — practical, specific, no hype, no emojis, no engagement-bait.
 
 Rules:
@@ -241,6 +355,8 @@ Return JSON:
 
     print(f"\n✓ blueprint.md, newsletter.md, {len(out['linkedin_posts'])} LI posts, "
           f"{len(out['shorts_briefs'])} shorts briefs → {content_dir}")
+
+    write_youtube_metadata(script, content_dir)
 
     update_episodes_json(script, config)
 

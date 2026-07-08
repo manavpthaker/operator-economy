@@ -430,6 +430,18 @@ def main() -> None:
     pdf_path = ep_dir / f"Operator-Blueprint-{num}.pdf"
     html_to_pdf(html_path, pdf_path)
     print(f"pdf  → {pdf_path}")
+
+    # LinkedIn sampler: first 4 pages (cover, evidence, playbook 01–03,
+    # then whatever page 4 is) — the excerpt IS the ad for the email gate
+    # (publishing-flow "sampler play"). Full blueprint never posts publicly.
+    sampler = ep_dir / f"Operator-Blueprint-{num}-sampler.pdf"
+    try:
+        subprocess.run(["qpdf", str(pdf_path), "--pages", str(pdf_path), "1-4", "--",
+                        str(sampler)], check=True, capture_output=True, timeout=60)
+        print(f"sampler → {sampler} (4 pages, for the LinkedIn document post)")
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"⚠ sampler skipped (qpdf: {e}) — cut pages 1-4 manually if needed",
+              file=sys.stderr)
     if SITE_BLUEPRINTS.parent.exists():
         SITE_BLUEPRINTS.mkdir(exist_ok=True)
         shutil.copy(pdf_path, SITE_BLUEPRINTS / f"{slug}.pdf")

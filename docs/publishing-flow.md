@@ -114,6 +114,15 @@ The group solves a real OE problem (warm ICP audience) and OE solves a real grou
 | Tue–Wed | Product of One group | Carousel + genuine question (neutral citation) |
 | Tue–Fri | YT + OE page | Shorts daily; 2–3 personal analyst posts |
 
+### The sampler play (blueprint excerpt on LinkedIn — NEVER the full PDF)
+
+The full blueprint is the email gate; posting it ungated dismantles the funnel ("email is the destination"). The excerpt is the ad for the gate:
+
+- `render_blueprint.py` auto-outputs `Operator-Blueprint-<NNN>-sampler.pdf` (pages 1–4: cover, evidence table with confidence chips, playbook opening) alongside the full PDF.
+- **Post the sampler as an OE-page document post the FOLLOWING Monday**, alongside the next episode's launch: "this is what № 00N subscribers got last week." Markets the gate AND the back catalog in one post; doesn't compete with launch week's carousel.
+- Copy leads with what's inside (the confidence-flagged evidence table is the differentiator vs every AI-business PDF on LinkedIn); comment carries the full-blueprint link.
+- Hard rule: the full PDF never posts publicly, on any surface. One asset stays scarce.
+
 ## Phase 4 — The week (Tue–Fri)
 
 - **Shorts publish daily** (YT 8:30, LI page 8:30) — discovery only; every short's description + pinned comment routes to the long-form (+20% documented watch-hour lift from pinned comments).
