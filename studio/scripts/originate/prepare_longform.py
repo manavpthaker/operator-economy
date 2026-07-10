@@ -191,6 +191,29 @@ def main():
                 "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),
             })
 
+    # Avatar corner-block clips (generate_avatar.py). Attach per-section
+    # so the composition can sequence the twin exactly over the section's
+    # VO window. Manifest is optional — episodes rendered before the
+    # avatar step (or with avatar.enabled false) carry no avatar fields.
+    avatar_manifest_path = base / "avatars" / "avatars.json"
+    if avatar_manifest_path.exists():
+        av_cfg = config.get("avatar", {})
+        avatar_by_section = {a["section"]: a for a in load_json(avatar_manifest_path)}
+        for so in sections_out:
+            a = avatar_by_section.get(so["id"])
+            if a and (base / a["src"]).exists():
+                dim = av_cfg.get("dimension", {"width": 720, "height": 1280})
+                so["avatar"] = {
+                    "src": a["src"],
+                    "corner": av_cfg.get("corner", "bottom_right"),
+                    "width_pct": av_cfg.get("width_pct", 16),
+                    "margin_px": av_cfg.get("margin_px", 48),
+                    # Block aspect follows the requested clip dimension
+                    # (portrait twin footage → portrait block; objectFit
+                    # cover crops any letter/pillarbox the API bakes in).
+                    "aspect": round(dim["height"] / dim["width"], 4),
+                }
+
     total = timeline["total_seconds"]
 
     # Bookends (2026-07-03): brand sting + title/thesis before the hook,
@@ -257,6 +280,20 @@ def main():
     for t in timeline["sections"]:
         shutil.copy2(base / "vo" / t["audio"], pub_vo / t["audio"])
     print(f"✓ Synced {len(timeline['sections'])} VO files → remotion/public/vo/")
+
+    # Same owned-copy rule for avatar clips → remotion/public/avatars/.
+    pub_av = ROOT / "remotion" / "public" / "avatars"
+    if avatar_manifest_path.exists():
+        pub_av.mkdir(parents=True, exist_ok=True)
+        for stale in pub_av.glob("*.mp4"):
+            stale.unlink()
+        n = 0
+        for so in sections_out:
+            if so.get("avatar"):
+                src = base / so["avatar"]["src"]
+                shutil.copy2(src, pub_av / src.name)
+                n += 1
+        print(f"✓ Synced {n} avatar clips → remotion/public/avatars/")
 
 
 if __name__ == "__main__":

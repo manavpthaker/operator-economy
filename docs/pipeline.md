@@ -15,10 +15,16 @@ python originate.py new "AI receptionists for independent hotels" --research bri
 #   - replace every [POV: ...] token with your experience  ← monetization moat
 #   - verify every number against sources
 
-# 2. VO + asset plan — stops at Gate 2
+# 2. VO + avatar clips + asset plan — stops at Gate 2
 python originate.py continue <slug>
+#   Avatar step (2026-07-08, docs/avatar-decision.md): generates the HeyGen
+#   digital-twin corner-block clips (hook + cta) lip-synced to the section VO.
+#   No-ops if config avatar.enabled=false; resumable per section if the poll
+#   times out (jobs persist in originate/<slug>/avatars/jobs.json — re-run).
+#   Requires HEYGEN_API_KEY (studio/.env) + avatar.avatar_id in blueprint.json.
 
 # GATE 2 (~15-30 min): review assets_review.md, record screen_rec shot list
+#   + eyeball avatars/<section>.mp4 — does the twin pass? (uncanny = disable)
 
 # 3. Render data + derived content (blueprint.md, newsletter.md, LI posts, shorts briefs)
 python originate.py render <slug>

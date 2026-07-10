@@ -110,6 +110,38 @@
     },
     "style": 0.1
   },
+  "avatar": {
+    "provider": "heygen",
+    "enabled": true,
+    "mode": "photo",
+    "mode_note": "photo (default) animates photo_asset_id with AI motion via /v2/videos — real likeness, natural head/eye movement, motion_prompt control. twin replays the trained avatar's footage motion (EP-tested 2026-07-08: exaggerated mouth, static head/eyes — kept as fallback). look animates a generated look image (weaker likeness).",
+    "photo_asset_id": "9577ca0321804863942cbe5e88a7fa37",
+    "photo_note": "Current photo = frame pulled from the twin's hook clip (denim, home office). REPLACE with a deliberate brand photo: charcoal tee, deep navy backdrop, warm key light, half-body, vertical — upload via POST upload.heygen.com/v1/asset (image/png), put the returned id here. The photo IS the wardrobe+backdrop.",
+    "voice": {
+      "source": "elevenlabs_room",
+      "room_chain": "aecho=0.72:0.68:11|19|29:0.16|0.11|0.07,highshelf=f=9500:g=-1.2,equalizer=f=250:t=q:w=1.4:g=0.8,loudnorm=I=-14:TP=-1.5:LRA=9",
+      "voice_id": "e7451052f28143cabf9cfd987f37d4e4",
+      "tail_pad_s": 0.85,
+      "note": "elevenlabs_room (Manav's final call 2026-07-08, second A/B): avatar sections lip-sync his ElevenLabs PVC VO processed through room_chain — subtle early reflections + softened top + slight body — so the studio VO sits in the room like the on-screen face. Real voice likeness (the HeyGen clone was muffled: trained on the avatar footage's distant camera mic), native EL word timestamps stay valid (no Whisper), durations don't shift. The roomized audio is BOTH the lip-sync source and the section VO master; the dry EL original is kept at vo/<id>.dry.mp3. Alternatives: 'heygen' = clone speaks the performed script (kept; voice_id above; muffle caveat), 'elevenlabs_audio' = dry EL, no room processing."
+    },
+    "motion_prompt": "Natural documentary talking head: subtle continual head movement following speech rhythm, engaged eyes with occasional brief glances away and back to camera, eyebrows lifting slightly on emphasis, natural blinks, small lean toward camera on key lines, restrained natural mouth movement, calm and credible, never theatrical.",
+    "expressiveness": "medium",
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "avatar_id": "f9eabab53e2344a89ea865bb671a02e1",
+    "avatar_style": "normal",
+    "group_id": "47cceb4a8d9d47869a371c9ad140bcc9",
+    "look_id": null,
+    "look_note": "look_id set = clips use that prompt-generated look (wardrobe/backdrop, photo-avatar engine) instead of the trained twin's real footage. Manage looks with scripts/originate/avatar_looks.py; per-episode override via generate_avatar.py --look. Keep ONE branded studio look as default; per-episode costumes get gimmicky.",
+    "segments": ["hook", "thesis", "evidence", "stack", "playbook", "economics", "cta"],
+    "segments_note": "Full-episode coverage (Manav, 2026-07-08): consistent floating-head box throughout, incl. over intro/title screens. Resizable, NEVER fullscreen. ~9-10 min avatar video per episode — watch HeyGen credit balance (full EP001 ≈ 1300 credits).",
+    "dimension": {"width": 720, "height": 1280},
+    "background": "#1A1A1A",
+    "corner": "bottom_right",
+    "width_pct": 16,
+    "margin_px": 48,
+    "note": "Digital twin corner block (decision 2026-07-08, docs/avatar-decision.md). Lip-synced to the section's mastered VO via HeyGen audio-driven generation; muted in Remotion (section Audio stays the source of truth). Segments = direct-address moments only, not full runtime. hook+cta ~35s/episode; add thesis (~75s) once the twin passes the eyeball test. avatar_id: run GET /v2/avatars after creating the twin in the HeyGen app. Disclosure: same synthetic-media box as the VO (compliance.ai_disclosure)."
+  },
   "render": {
     "format": "wide_16_9",
     "resolution": [

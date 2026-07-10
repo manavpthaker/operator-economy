@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Easing, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 
 import {useEnsureFontsLoaded} from './oe/fonts';
 import {COLORS, EASE, KEN_BURNS} from './oe/theme';
@@ -77,7 +77,18 @@ type AssetSpec = {
 };
 
 type Beat = {beat: number; start: number; end: number; asset: AssetSpec};
-type Section = {id: string; start: number; duration: number; audio: string; beats: Beat[]};
+/** Corner-block digital-twin clip (generate_avatar.py → prepare_longform).
+ *  Lip-synced to the section's VO; rendered MUTED — the section <Audio>
+ *  stays the single audio source, so twin and VO can never drift apart. */
+export type AvatarClip = {
+  src: string; // relative to remotion/public (e.g. "avatars/hook.mp4")
+  corner?: 'bottom_right' | 'bottom_left' | 'top_right' | 'top_left';
+  width_pct?: number; // of composition width
+  margin_px?: number;
+  aspect?: number; // block height / width (portrait twin footage = 16/9)
+};
+
+type Section = {id: string; start: number; duration: number; audio: string; beats: Beat[]; avatar?: AvatarClip | null};
 
 // ---------------------------------------------------------------------
 // Storyboard screens — the durable v2 grammar
@@ -1040,6 +1051,57 @@ const ScreenLayer: React.FC<{
 // Root composition
 // ---------------------------------------------------------------------
 
+// ---------------------------------------------------------------------
+// Avatar corner block — the operator's digital twin over the section it
+// direct-addresses (hook, cta). Sits ABOVE scene content, BELOW captions.
+// Muted: lip sync comes from the clip, audio from the section VO layer.
+// Framed per Rev C ("Working Schematic"): hairline rule on ink, square
+// corners, no shadow — a schematic inset, not a floating webcam bubble.
+// ---------------------------------------------------------------------
+
+const AvatarBlock: React.FC<{avatar: AvatarClip; fadeFrames?: number; durationInFrames: number}> = ({
+  avatar,
+  fadeFrames = 9,
+  durationInFrames,
+}) => {
+  const frame = useCurrentFrame();
+  const {width} = useVideoConfig();
+  const w = Math.round((avatar.width_pct ?? 16) / 100 * width);
+  const h = Math.round(w * (avatar.aspect ?? 16 / 9));
+  const m = avatar.margin_px ?? 48;
+  const corner = avatar.corner ?? 'bottom_right';
+  const pos: React.CSSProperties = {
+    ...(corner.includes('bottom') ? {bottom: m} : {top: m}),
+    ...(corner.includes('right') ? {right: m} : {left: m}),
+  };
+  const opacity = interpolate(
+    frame,
+    [0, fadeFrames, durationInFrames - fadeFrames, durationInFrames],
+    [0, 1, 1, 0],
+    {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
+  );
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        ...pos,
+        width: w,
+        height: h,
+        opacity,
+        border: `2px solid ${COLORS.ruleStrong}`,
+        background: COLORS.ink,
+        overflow: 'hidden',
+      }}
+    >
+      <OffthreadVideo
+        src={staticFile(avatar.src)}
+        muted
+        style={{width: '100%', height: '100%', objectFit: 'cover'}}
+      />
+    </div>
+  );
+};
+
 // Return the caption groups filtered so nothing renders during quote or
 // chapter_reset windows — the card IS the caption there, and duplicating
 // it is a rubric kill-list item.
@@ -1122,6 +1184,24 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
               fps={fps}
             />
           ))}
+
+      {/* Avatar corner block — per-section digital twin, sequenced over
+          exactly the section's VO window in BOTH grammars (screens don't
+          carry avatar; the section does). */}
+      {sections
+        .filter((s) => s.avatar?.src)
+        .map((section) => {
+          const df = Math.max(1, Math.round(section.duration * fps));
+          return (
+            <Sequence
+              key={`avatar-${section.id}`}
+              from={Math.round(section.start * fps)}
+              durationInFrames={df}
+            >
+              <AvatarBlock avatar={section.avatar!} durationInFrames={df} />
+            </Sequence>
+          );
+        })}
 
       {/* Sound layer — music bed (config-gated) + SFX cues. Enabled by
           dropping bed.mp3 into remotion/public/music/ and tick/whoosh/

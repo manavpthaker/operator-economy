@@ -94,6 +94,15 @@ def main():
         run_step("eval_script.py", [script, "--mode", "approved"], "Gate 1 Evals (approved)")
         run_step("eval_package.py", [script], "Craft Rubric (kill-list gate)")
         run_step("generate_vo.py", [script], "Generate Voiceover")
+        # Avatar corner-block clips (HeyGen digital twin, lip-synced to the
+        # section VO). No-ops unless config avatar.enabled; resumable per
+        # section. See docs/avatar-decision.md.
+        run_step("generate_avatar.py", [script], "Generate Avatar Clips")
+        # HeyGen-voice avatar sections replace their vo/ caches (the clip
+        # audio IS the section voice) — reassemble words.json/timeline.json
+        # from the caches before anything downstream reads timings. All
+        # sections are cached at this point, so this is a fast no-API pass.
+        run_step("generate_vo.py", [script], "Reassemble VO Timeline")
         run_step("plan_assets.py", [script], "Plan Assets")
         # Storyboard: plan the SCREENS from real VO timings so downstream
         # (prepare_longform + Remotion) can consume one persistent screen
