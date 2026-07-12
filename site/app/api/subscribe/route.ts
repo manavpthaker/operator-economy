@@ -132,10 +132,25 @@ async function sendWelcome({
   });
 }
 
+// Production domain, used when NEXT_PUBLIC_SITE_URL is unset or malformed.
+// Emails go out from a background worker with no request context, so we can't
+// infer this from the incoming request the way baseUrl() does.
+const PRODUCTION_URL = 'https://theoperatoreconomy.com';
+
 function baseUrlFromResend(): string {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://operator-economy.vercel.app'
-  );
+  const raw = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!raw) return PRODUCTION_URL;
+  // Guard: a hostname must contain at least one dot with content on both
+  // sides. Catches `https://theoperatoreconomy.` (trailing-dot typo we
+  // shipped once) and other truncations that would land in emails as broken
+  // download links.
+  try {
+    const host = new URL(raw).hostname;
+    if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) return PRODUCTION_URL;
+  } catch {
+    return PRODUCTION_URL;
+  }
+  return raw.replace(/\/$/, '');
 }
 
 export async function POST(req: Request) {
