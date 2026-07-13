@@ -278,7 +278,15 @@ export default function Home() {
             </div>
           </div>
 
-          <BlueprintForm slug={latest?.slug ?? 'newsletter'} number={num} />
+          <BlueprintForm
+            slug={latest?.slug ?? 'newsletter'}
+            number={num}
+            title={latest?.title}
+            rev={latest?.rev}
+            date={latest?.date}
+            sourcesVerified={latest?.sources_verified}
+            readMinutes={latest?.read_minutes}
+          />
         </div>
       </section>
 

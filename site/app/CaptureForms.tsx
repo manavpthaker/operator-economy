@@ -33,9 +33,25 @@ function useCapture(tag: CaptureTag, slug?: string) {
   return { status, onSubmit };
 }
 
-type BlueprintProps = { slug: string; number: string };
+type BlueprintProps = {
+  slug: string;
+  number: string;
+  title?: string;
+  rev?: string;
+  date?: string;
+  sourcesVerified?: number;
+  readMinutes?: number;
+};
 
-export function BlueprintForm({ slug, number }: BlueprintProps) {
+export function BlueprintForm({
+  slug,
+  number,
+  title = 'AI implementation as a service',
+  rev = 'A',
+  date = '2026-07',
+  sourcesVerified = 8,
+  readMinutes = 9,
+}: BlueprintProps) {
   const tag: CaptureTag = `blueprint:${slug}`;
   const { status, onSubmit } = useCapture(tag, slug);
 
@@ -43,21 +59,21 @@ export function BlueprintForm({ slug, number }: BlueprintProps) {
     <form className={s.captureCard} onSubmit={onSubmit} noValidate>
       <div className={s.captureHead}>
         <span className={s.cardEpisode}>Operator Blueprint №{number}</span>
-        <span className={s.tag}>Rev A</span>
+        <span className={s.tag}>Rev {rev}</span>
       </div>
-      <div className={s.captureName}>AI implementation as a service</div>
+      <div className={s.captureName}>{title}</div>
       <div className={s.captureMeta}>
         <div className={s.metaCell}>
           <div className={s.metaLabel}>Date</div>
-          <div className={s.metaValue}>2026-07</div>
+          <div className={s.metaValue}>{date}</div>
         </div>
         <div className={s.metaCell}>
           <div className={s.metaLabel}>Sources</div>
-          <div className={s.metaValue}>8</div>
+          <div className={s.metaValue}>{sourcesVerified}</div>
         </div>
         <div className={s.metaCell}>
           <div className={s.metaLabel}>Read</div>
-          <div className={s.metaValue}>9 min</div>
+          <div className={s.metaValue}>{readMinutes} min</div>
         </div>
       </div>
       <label htmlFor="bp-email" className={s.inputLabel}>Work email</label>
