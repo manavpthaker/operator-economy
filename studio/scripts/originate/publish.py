@@ -31,7 +31,7 @@ def _notify_subscribers(slug: str, ep: dict) -> None:
     """
     try:
         import psycopg
-        from resend import Resend
+        import resend  # 2.x: module-level api_key + resend.Emails.send({...})
     except ImportError as e:
         print(f"error: notify requires psycopg + resend Python packages ({e})", file=sys.stderr)
         print("  pip install 'psycopg[binary]' resend", file=sys.stderr)
@@ -75,12 +75,12 @@ def _notify_subscribers(slug: str, ep: dict) -> None:
         print("Aborted.")
         return
 
-    resend = Resend(api_key=resend_key)
+    resend.api_key = resend_key
     sent = 0
     for email, token in rows:
         unsub = f"{site_url}/api/unsubscribe?token={token}"
         try:
-            resend.emails.send(
+            resend.Emails.send(
                 {
                     "from": resend_from,
                     "to": email,
