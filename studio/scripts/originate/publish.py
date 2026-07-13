@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -39,7 +40,14 @@ def _notify_subscribers(slug: str, ep: dict) -> None:
     db_url = os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL")
     resend_key = os.environ.get("RESEND_API_KEY")
     resend_from = os.environ.get("RESEND_FROM", "The Operator Economy <hello@theoperatoreconomy.com>")
-    site_url = os.environ.get("NEXT_PUBLIC_SITE_URL", "https://operator-economy.vercel.app")
+    # Fallback = the production domain, not the vercel.app preview. If the
+    # env var is set but malformed (shipped once as `https://theoperatoreconomy.`
+    # — no `.com`), also fall back so we don't leak broken URLs into notify
+    # emails.
+    _raw = os.environ.get("NEXT_PUBLIC_SITE_URL", "").strip()
+    site_url = _raw if re.match(r"^https?://[a-z0-9-]+(\.[a-z0-9-]+)+/?$",
+                                _raw, re.I) else "https://theoperatoreconomy.com"
+    site_url = site_url.rstrip("/")
     if not db_url or not resend_key:
         print("error: DATABASE_URL and RESEND_API_KEY must be set for --notify", file=sys.stderr)
         sys.exit(1)
