@@ -25,12 +25,14 @@ Root cause: derive step wrote `items` as plain strings; CarouselSlide's list lay
 - NOTE: LinkedIn document/video attach cannot be fully automated — the upload input lives in an iframe the Chrome extension can't reach, and its composer ignores injected files. Manav does the file-pick click; everything else automates. Optional №001 sampler post (linkedin_package.md §6) NOT scheduled — Manav's call.
 
 ## Hour one — Monday 11:00–12:00
-- [ ] Sources comment under OE post — AUTOMATED: scheduled task ep002-monday-sources-comment fires Mon 11:05 ET
-- [ ] Newsletter send (content/newsletter.md)
-- [ ] Personal repost of OE carousel post + one-line analyst comment (rubric-gated)
+- [x] Sources comment under OE post — verified live 7/14 AM (episode + blueprint + flagged sources, posted from Manav's profile)
+- [ ] Newsletter send (content/newsletter.md) — STILL UNCONFIRMED as of 7/14 AM driver run; verify or send
+- [x] Personal repost of OE carousel post + one-line analyst comment (rubric-gated) — verified live 7/14 AM (posted Mon, ~22h old). Counts as this week's repost slot #1; optional slot #2 held for a breakout short (Fri check)
 - [x] Site flip: python scripts/originate/publish.py voice-agent-agency — done 7/13 11:03 ET by oe-monday-hour-one
 
 ## The week
 - [ ] Mon–Tue: DM sends — AUTOMATED: scheduled task ep002-dm-run fires Mon+Tue 1:00 PM ET (Mon=Tier 1, Tue=Tier 2), approved by Manav 7/12
-- [ ] Tue–Wed: Product of One group — carousel + genuine question (neutral citation)
+- [ ] Tue–Wed: Product of One group — DRAFTED 7/14 by oe-week-driver → `launch/group_package.md`, slotted WEDNESDAY 7/15 (Grapevines group prompt owns Tue 7/14 per one-group-post-per-day rule), awaiting Manav approval
 - [ ] Tue–Fri: verify shorts + pin episode-link comments + LinkedIn episode-link comments — AUTOMATED: scheduled task ep002-shorts-comments fires 8:40 AM ET Tue–Fri. Personal analyst posts (2–3) remain manual
+  - ✅ Tue 7/14 (~9:00 ET): short-01 live (97 views); pinned comment posted + pinned on YT as @operatoreconomy; LinkedIn episode-link comment posted under the 8:30 shorts post as The Operator Economy page. (The 8:50 driver check had caught the run mid-flight — resolved.)
+  - [ ] Wed 7/15 short-02 · [ ] Thu 7/16 short-03 · [ ] Fri 7/17 short-04

@@ -1,0 +1,163 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* Derived from design-system/tokens (Rev C). _source_of_truth: colors.css, fonts.css */
+@import url('https://api.fontshare.com/v2/css?f[]=boska@700&f[]=zodiak@700&f[]=supreme@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap');
+:root{--ink:#1A1A1A;--ink-700:#3C3A36;--ink-500:#6B675E;--paper:#F5F0E6;--paper-0:#FBF8F1;
+--paper-200:#EDE7D8;--rule:#D8CFB9;--rule-strong:#C4B99E;--blue:#1F3A5F;--gold:#7A5E24;
+--gold-500:#B08D3E;--sage:#5E7F6A;
+--disp:'Boska',Georgia,serif;--head:'Zodiak',Georgia,serif;
+--sans:'Supreme',system-ui,sans-serif;--mono:'Fragment Mono',Menlo,monospace}
+@page{size:letter;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink-700);font:14px/1.65 var(--sans);
+-webkit-print-color-adjust:exact;print-color-adjust:exact}
+/* Deliberate pagination: every .sheet starts a new page (page-break-after:
+   always). Content is allowed to spill onto a continuation page when a table
+   or step list is too long — page-break-inside: avoid on rows/steps prevents
+   splits mid-item. Fixed height + overflow:hidden used to clip long tables
+   (EP002 bug: last evidence row and 2 of 3 playbook steps vanished behind
+   the footer). min-height keeps short sheets full-page. */
+.sheet{padding:0.85in 0.95in 1in;page-break-after:always;position:relative;
+min-height:11in;display:flex;flex-direction:column}
+.sheet:last-child{page-break-after:auto}
+h2,h3,h4,.sec-h{page-break-after:avoid;break-after:avoid}
+.foot{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
+padding:0.26in 0.95in;border-top:1px solid var(--gold-500);
+font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(--paper)}
+/* ---- cover ---- */
+.mast{display:flex;align-items:flex-start;justify-content:space-between}
+.mast .the{font:8px/1 var(--mono);letter-spacing:.32em;color:var(--ink-500);margin-bottom:4px}
+.mast .name{font:700 23px/1.1 var(--head);color:var(--ink)}
+.badge{border:1px solid var(--gold-500);color:var(--gold);
+font:9px/1 var(--mono);letter-spacing:.2em;padding:8px 14px;margin-top:4px}
+h1{font:700 46px/1.06 var(--disp);color:var(--ink);margin:.36in 0 .16in;letter-spacing:.005em}
+.lead{font-size:15.5px;line-height:1.7;max-width:5.2in;color:var(--ink-700)}
+.rail{display:flex;align-items:stretch;gap:10px;margin:.32in 0 .08in}
+.node{border:1px solid var(--blue);background:var(--paper-0);padding:10px 13px;min-width:.9in}
+.node.out{border-color:var(--gold-500)}
+.node-l{font:8px/1 var(--mono);letter-spacing:.16em;color:var(--blue);margin-bottom:6px}
+.node.out .node-l{color:var(--gold)}
+.nowrap{white-space:nowrap}
+.node-v{font:12.5px/1 var(--mono);color:var(--ink)}
+.rail-cap{border-left:2px solid var(--gold-500);border-bottom:2px solid var(--gold-500);
+border-right:2px solid var(--gold-500);height:8px;margin:0 0 7px}
+.rail-lbl{text-align:center;font:8px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.3in}
+.meta div{padding:11px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.meta div:nth-child(3n){border-right:none}.meta div:nth-last-child(-n+3){border-bottom:none}
+.meta .l{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);display:block;margin-bottom:8px}
+.meta .v{font:15px/1 var(--mono);color:var(--ink)}
+/* ---- sections ---- */
+.sec{margin-top:.36in}
+.sec.first{margin-top:0}
+.sec.ruled{border-top:2px solid var(--ink);padding-top:.22in;page-break-inside:avoid;break-inside:avoid}
+.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.2in}
+.sec-h .n{font:10px/1 var(--mono);color:var(--gold)}
+.sec-h h2{font:700 29px/1.1 var(--head);color:var(--ink)}
+.sec-h .tag{margin-left:auto;font:9px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
+/* ---- tables ---- */
+table{width:100%;border-collapse:collapse;border:1px solid var(--rule-strong);font-size:12.5px}
+thead{display:table-header-group}
+tr{page-break-inside:avoid;break-inside:avoid}
+thead th{background:var(--paper-200);font:600 8.5px/1 var(--mono);letter-spacing:.16em;
+color:var(--ink-500);text-align:left;padding:8px 14px}
+td{padding:7px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;font-size:12px}
+td.k{font-weight:700;color:var(--ink);width:1.55in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
+td.mono{font:11.5px/1.55 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:11.5px}
+.chip{font:9px/1 var(--mono);letter-spacing:.1em;white-space:nowrap}
+.chip-high{color:var(--sage)}
+.chip-box{border:1px solid var(--rule-strong);padding:4px 8px;color:var(--ink-700);background:var(--paper-0)}
+.chip-note{font:9px/1.4 var(--mono);color:var(--ink-500);margin-top:5px;max-width:1.2in}
+/* ---- evidence hero ---- */
+.hero{font:700 44px/1 var(--mono);color:var(--ink);margin:.14in 0 .1in;letter-spacing:-.01em}
+.hero .gold{color:var(--gold-500)}
+.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.5;margin-bottom:10px}
+.srcflag{display:inline-block;background:var(--paper-200);border-left:3px solid var(--blue);
+font:9px/1 var(--mono);letter-spacing:.14em;color:var(--blue);padding:8px 12px;margin:2px 0 .26in}
+/* ---- playbook ---- */
+.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.15in 0;
+border-bottom:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
+.step:last-child{border-bottom:none}
+.step-n{font:700 22px/1 var(--mono);color:var(--blue)}
+.step-l{font:8px/1.5 var(--mono);letter-spacing:.16em;color:var(--ink-500);padding-top:7px}
+.step-b h4{font:700 18px/1.25 var(--head);color:var(--ink);margin-bottom:6px}
+.step-b p{font-size:13.5px;margin:0}
+.step-b ul{list-style:none;padding:0;margin:2px 0 0}
+.step-b ul li{font-size:13px;line-height:1.55;color:var(--ink-700);
+padding-left:18px;position:relative;margin-bottom:6px}
+.step-b ul li:last-child{margin-bottom:0}
+.step-b ul li::before{content:"—";color:var(--gold);position:absolute;left:0;font-family:var(--mono)}
+.cont{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);
+border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:4px}
+/* ---- honest math ---- */
+.bignum{font:700 48px/1 var(--mono);color:var(--ink);margin:.2in 0 .06in;
+display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px;
+white-space:nowrap}
+.bignum-row{display:flex;align-items:center;gap:14px}
+.bignum-row .chip{margin-top:.14in}
+.fm-label{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);margin:.26in 0 4px}
+.fm{padding:10px 0;font-size:13.5px;line-height:1.55;border-bottom:1px solid var(--paper-200);
+page-break-inside:avoid;break-inside:avoid}
+.fm:last-of-type{border-bottom:none}
+.fm-x{font:11px/1 var(--mono);color:#9B3E2E;margin-right:11px}
+/* ---- sources + colophon ---- */
+.srcline{font:12px/2.3 var(--mono);color:var(--ink-700)}.srcline .mono{color:var(--gold);margin-right:8px}
+.colophon{margin-top:auto;border-top:1.5px solid var(--ink);padding-top:.35in}
+.colophon p{max-width:4.9in;font-size:14px;line-height:1.7}
+.boo-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:.3in;max-width:6.2in}
+.boo{font:700 26px/1 var(--head);color:var(--ink)}
+.site{font:11px/1 var(--mono);color:var(--gold)}
+p{margin-bottom:.15in}
+</style></head><body>
+<div class="foot"><span>THE OPERATOR ECONOMY · OPERATOR BLUEPRINT №002</span>
+<span>REV A · 2026-07-11</span></div>
+
+<!-- p1 · cover + the idea -->
+<div class="sheet">
+  <div class="mast"><div><div class="the">THE</div><div class="name">Operator Economy</div></div>
+    <span class="badge">OPERATOR BLUEPRINT №002</span></div>
+  <h1>The AI Phone Agency Blueprint: Answering Calls Local Businesses Miss</h1>
+  <p class="lead"></p>
+  <div class="rail"><div class="node"><div class="node-l">ELEVENLABS</div><div class="node-v">USAGE-BASED, ~$0.05–0.10 / 1K CHARACTERS</div></div><div class="node"><div class="node-l">RETELL</div><div class="node-v">$0.07–0.15 / MIN</div></div><div class="node"><div class="node-l">BLAND</div><div class="node-v">$0.09–0.14 / MIN (RAISED PRICES DEC 2025)</div></div><div class="node"><div class="node-l">TWILIO</div><div class="node-v">~$1/MO + USAGE</div></div><div class="node"><div class="node-l">MAKE</div><div class="node-v">$20–50/MO</div></div><div class="node"><div class="node-l">CAL.COM</div><div class="node-v">$0–15/MO</div></div></div><div class="rail-cap"></div>
+  <div class="rail-lbl">THE STACK · ≤ $150/MO</div>
+  <div class="meta">
+    <div><span class="l">BLUEPRINT</span><span class="v">№002</span></div>
+    <div><span class="l">REV</span><span class="v">A</span></div>
+    <div><span class="l">DATE</span><span class="v">2026-07-11</span></div>
+    <div><span class="l">SOURCES</span><span class="v">11</span></div>
+    <div><span class="l">DIFFICULTY</span><span class="v">Med</span></div>
+    <div><span class="l">SECTIONS</span><span class="v">06</span></div>
+  </div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">01</span><h2>The idea</h2></div><p>Build and resell AI voice agents that answer inbound phone calls for local service businesses — plumbers, dentists, salons, florists — that miss most of their calls today. You&#x27;re not selling software. You&#x27;re selling a receptionist that never misses a call, and charging a retainer for the maintenance behind it.</p><p><strong>Who this is for:</strong> Operators who&#x27;ve worked in or sold into ops-heavy local businesses and want a service business with recurring retainers, not a coding project.</p></div>
+</div>
+
+<!-- p2 · evidence -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">02</span><h2>The evidence</h2></div>
+    <div class="hero">$11B <span class="gold">→ $500/mo</span></div><p class="hero-cap">The stack behind the answer-every-call agency</p><table><thead><tr><th>CLAIM</th><th>NUMBER</th><th>SOURCE</th><th>CONFIDENCE</th></tr></thead><tbody><tr><td class='k'>Small-business calls answered live</td><td class='mono'>~38% (62% missed)</td><td class='src'>411 Locals 2024 study, vendor-recycled</td><td><span class="chip chip-box">LOW</span><div class="chip-note">one study, vendor-adjacent</div></td></tr><tr><td class='k'>Callers who hit voicemail and never call back</td><td class='mono'>~85%</td><td class='src'>Same vendor ecosystem</td><td><span class="chip chip-box">LOW</span><div class="chip-note">reported, unaudited</div></td></tr><tr><td class='k'>Unanswered callers who call a competitor instead</td><td class='mono'>~62%</td><td class='src'>Same vendor ecosystem</td><td><span class="chip chip-box">LOW</span><div class="chip-note">reported, unaudited</div></td></tr><tr><td class='k'>ElevenLabs valuation / raise</td><td class='mono'>$11B valuation, $500M round, Feb 2026</td><td class='src'>TechCrunch, Feb 4 2026</td><td><span class="chip chip-high">● HIGH</span></td></tr><tr><td class='k'>ElevenLabs ARR growth</td><td class='mono'>~$350M → ~$500M in 4 months</td><td class='src'>Sacra estimate</td><td><span class="chip chip-box">MEDIUM</span></td></tr><tr><td class='k'>Vapi valuation</td><td class='mono'>$500M, May 2026, after Amazon Ring picked it over 40 rivals</td><td class='src'>TechCrunch, May 12 2026</td><td><span class="chip chip-high">● HIGH</span></td></tr><tr><td class='k'>Retell AI call volume</td><td class='mono'>50M+ AI phone calls/month</td><td class='src'>Retell press/blog</td><td><span class="chip chip-box">MEDIUM</span><div class="chip-note">vendor-reported</div></td></tr><tr><td class='k'>AI voice agent market size</td><td class='mono'>$2.5–3.5B (2025), 30–40% CAGR into early 2030s</td><td class='src'>Grand View Research / Market.us</td><td><span class="chip chip-box">MEDIUM</span><div class="chip-note">analyst estimate</div></td></tr><tr><td class='k'>Reseller pricing vs. platform fee</td><td class='mono'>$297–997/mo charged, $99–299/mo paid, 50–70% margin</td><td class='src'>Trillet pricing guide</td><td><span class="chip chip-box">LOW</span><div class="chip-note">vendor content selling to agencies</div></td></tr><tr><td class='k'>No verified solo case study at scale</td><td class='mono'>—</td><td class='src'>Research brief honesty note</td><td><span class="chip chip-box">STATED</span><div class="chip-note">explicitly as a gap</div></td></tr></tbody></table></div>
+</div>
+
+<!-- p3 · stack + playbook 01–03 -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">03</span><h2>The stack</h2>
+    <span class="tag">≤ $150/MO TOTAL</span></div>
+    <table><thead><tr><th>TOOL</th><th>ROLE</th><th>MONTHLY COST</th></tr></thead><tbody><tr><td class='k'>ElevenLabs Agents</td><td>Voice generation + conversational agent</td><td class='mono nowrap'>Usage-based, ~$0.05–0.10 / 1K characters</td><td class='src'></td></tr><tr><td class='k'>Retell AI or Vapi</td><td>Call orchestration: answer, qualify, book</td><td class='mono nowrap'>$0.07–0.15 / min</td><td class='src'></td></tr><tr><td class='k'>Bland (alternative)</td><td>Outbound-capable platform</td><td class='mono nowrap'>$0.09–0.14 / min (raised prices Dec 2025)</td><td class='src'></td></tr><tr><td class='k'>Twilio</td><td>Phone number provisioning</td><td class='mono nowrap'>~$1/mo + usage</td><td class='src'></td></tr><tr><td class='k'>Make or n8n</td><td>Booking + CRM handoff automation</td><td class='mono nowrap'>$20–50/mo</td><td class='src'></td></tr><tr><td class='k'>Cal.com or Calendly</td><td>Appointment write-back</td><td class='mono nowrap'>$0–15/mo</td><td class='src'></td></tr></tbody></table><div class="srcflag">SOURCE: PUBLIC VENDOR LIST PRICING · JUL 2026</div></div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">04</span><h2>The playbook</h2></div><div class="step"><div class="step-n">01</div><div class="step-l">WEEK 1</div><div class="step-b"><h4>Pick a vertical and build a real demo</h4><ul><li>Choose one local vertical where a missed call is a missed job: home services, dental, salons, florists. Ideally one you&#x27;ve worked in or sold into before.</li><li>Build a working demo agent against a <em>real</em> business&#x27;s own current missed-call line — not a hypothetical script. Let it answer, qualify, and book a fake appointment.</li><li>The demo is the sales call. You&#x27;re showing them their own phone working correctly for the first time, not pitching a concept.</li></ul></div></div><div class="step"><div class="step-n">02</div><div class="step-l">MONTH 1</div><div class="step-b"><h4>Price it right, land three clients</h4><ul><li>Price as a receptionist replacement, never as software: $500–2,000 setup fee + $300–700/mo flat retainer.</li><li>Never quote per-minute pricing to the client — that&#x27;s your cost structure, not theirs.</li><li>Land your first three clients from your own network inside the vertical.</li><li>Stay inbound-only. Outbound AI calling is regulated (TCPA) — this is not the place to test that boundary.</li></ul></div></div><div class="step"><div class="step-n">03</div><div class="step-l">MONTH 2</div><div class="step-b"><h4>Delivery discipline</h4><ul><li>Set the escalation path before the first live call: anything ambiguous goes to a human, owner gets a text summary either way.</li><li>Send a short monthly report: calls answered, appointments booked, revenue recovered. This report is what renews the retainer.</li><li>Rebuild the FAQ list from real transcripts weekly. The agent gets better every week or it quietly gets worse.</li><li>Turn each client&#x27;s before/after missed-call numbers into a case study to land the next five.</li></ul></div></div></div>
+</div>
+
+<!-- p4 · playbook continued (only if there are runover steps) + honest math -->
+<div class="sheet">
+  
+  <div class="sec first"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div><div class="bignum-row"><span class="bignum">$1,500–5,000/month</span><span class="chip chip-box">OUR ESTIMATE</span></div><div class="fm-label">RANGE + RISKS</div><div class="fm"><span class="fm-x">×1</span><strong>Realistic year-one range</strong> $1,500–5,000/month from 3–8 local clients. This is an estimate reasoned from pricing bands, not an audited result, and it&#x27;s a lower ceiling than some other AI-agency niches — the solo evidence here is thinner and the space is younger.</div><div class="fm"><span class="fm-x">×2</span><strong>Failure mode #1 — the embarrassing call</strong> The agent handles roughly 80% of calls cleanly; the other 20% needs a human. Churn happens exactly when that escalation path doesn&#x27;t exist.</div><div class="fm"><span class="fm-x">×3</span><strong>Failure mode #2 — platform risk</strong> You&#x27;re reselling someone else&#x27;s per-minute margin. Bland already raised prices once. Retell already sells an AI receptionist directly to small businesses — the platforms you build on could squeeze the agency layer out entirely.</div><div class="fm"><span class="fm-x">×4</span><strong>The open question</strong> not whether small businesses will pay for this (the missed-call math already answers that), but whether the agency layer between platform and plumber survives the next 18 months, or whether ElevenLabs and Retell just sell it themselves.</div></div>
+</div>
+
+<!-- p5 · sources + colophon -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">06</span><h2>Sources</h2></div><div class="srcline"><span class="mono">[01]</span> 411 Locals 2024 study (85 businesses, 58 industries), recycled via getaira.io/skipcalls — vendor-adjacent</div><div class="srcline"><span class="mono">[02]</span> TechCrunch, Feb 4 2026 — ElevenLabs $500M Series D, $11B valuation</div><div class="srcline"><span class="mono">[03]</span> Sacra estimate — ElevenLabs ARR growth</div><div class="srcline"><span class="mono">[04]</span> Tech Funding News — ElevenLabs secondary talks at ~$22B (unclosed, hedge explicitly)</div><div class="srcline"><span class="mono">[05]</span> TechCrunch, May 12 2026 — Vapi $500M valuation, Amazon Ring selection</div><div class="srcline"><span class="mono">[06]</span> Retell AI press/blog — call volume and ARR, vendor-reported</div><div class="srcline"><span class="mono">[07]</span> Grand View Research / Market.us — AI voice agent market size, analyst estimate</div><div class="srcline"><span class="mono">[08]</span> Trillet pricing guide — vendor content, unverified reseller margins</div><div class="srcline"><span class="mono">[09]</span> Research brief — per-minute pricing convergence across Bland, Retell, Vapi</div><div class="srcline"><span class="mono">[10]</span> Research brief — TCPA/regulatory note on inbound vs. outbound calling</div><div class="srcline"><span class="mono">[11]</span> Research brief — explicit honesty note: no verified public solo case study exists at scale</div></div>
+  <div class="colophon"><p>The Operator Economy — evidence-first breakdowns of businesses one
+  person can build. No income promises. Receipts. The next blueprint ships in the Monday
+  newsletter.</p>
+  <div class="boo-row"><span class="boo">Build. Own. Operate.</span>
+  <span class="site">theoperatoreconomy.com</span></div></div>
+</div>
+</body></html>

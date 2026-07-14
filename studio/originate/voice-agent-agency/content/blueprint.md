@@ -6,7 +6,7 @@ Build and resell AI voice agents that answer inbound phone calls for local servi
 
 **Who this is for:** Operators who've worked in or sold into ops-heavy local businesses and want a service business with recurring retainers, not a coding project.
 
-## Why Now — The Evidence
+## The evidence
 
 | Claim | Number | Source | Confidence |
 |---|---|---|---|
@@ -23,7 +23,7 @@ Build and resell AI voice agents that answer inbound phone calls for local servi
 
 **Read the gap honestly:** there is no public, verified solo operator making large numbers at this yet. The infrastructure layer (ElevenLabs, Vapi, Retell) has real, sourced traction. The agency layer on top of it is thin on evidence and mostly marketed by the platforms selling access to it. Build accordingly — validate with your own before/after numbers, don't inherit anyone else's case study.
 
-## Tool Stack & Costs
+## The stack (< $150/mo)
 
 | Tool | Role | Monthly Cost |
 |---|---|---|
@@ -42,7 +42,7 @@ Note: you don't control the per-minute cost line. Bland already raised prices on
 
 Agent answers → qualifies the caller → books directly into the calendar → texts the owner a summary. The owner sees a booked job, not a transcript. The retainer isn't for the software — it's for the maintenance: prompt updates, new FAQs, menu changes, broken integrations. That upkeep is both the moat and the treadmill.
 
-## Week-by-Week Playbook
+## The playbook
 
 **Week 1 — Pick a vertical and build a real demo**
 - Choose one local vertical where a missed call is a missed job: home services, dental, salons, florists. Ideally one you've worked in or sold into before.
@@ -61,7 +61,7 @@ Agent answers → qualifies the caller → books directly into the calendar → 
 - Rebuild the FAQ list from real transcripts weekly. The agent gets better every week or it quietly gets worse.
 - Turn each client's before/after missed-call numbers into a case study to land the next five.
 
-## Honest Economics
+## The honest math
 
 - **Realistic year-one range:** $1,500–5,000/month from 3–8 local clients. This is an estimate reasoned from pricing bands, not an audited result, and it's a lower ceiling than some other AI-agency niches — the solo evidence here is thinner and the space is younger.
 - **Failure mode #1 — the embarrassing call.** The agent handles roughly 80% of calls cleanly; the other 20% needs a human. Churn happens exactly when that escalation path doesn't exist.
