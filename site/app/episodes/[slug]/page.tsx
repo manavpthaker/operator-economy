@@ -111,7 +111,7 @@ function UpcomingView({ ep }: { ep: Episode }) {
     <>
       <div className={s.titleBlock}>
         <div className={s.titleRow}>
-          <span className={s.epLabel}>№{num} · {ep.category} · Upcoming</span>
+          <span className={s.epLabel}>№{num} · {ep.model ?? ep.category} · Upcoming</span>
           <span className={s.stageInline}>● {stage}</span>
         </div>
         <h1 className={s.title}>{ep.title}</h1>
@@ -125,8 +125,8 @@ function UpcomingView({ ep }: { ep: Episode }) {
             <div className={s.metaValue}>{stage}</div>
           </div>
           <div className={s.metaCell}>
-            <div className={s.metaLabel}>Category</div>
-            <div className={s.metaValue}>{ep.category}</div>
+            <div className={s.metaLabel}>Model</div>
+            <div className={s.metaValue}>{ep.model ?? ep.category}</div>
           </div>
           <div className={s.metaCell}>
             <div className={s.metaLabel}>Figures</div>
@@ -186,7 +186,7 @@ function LiveView({ ep }: { ep: Episode }) {
       <div className={s.titleBlock}>
         <div className={s.titleRow}>
           <span className={s.epLabel}>
-            Operator Blueprint №{num} · {ep.category}
+            Operator Blueprint №{num} · {ep.model ?? ep.category}
           </span>
           <span className={s.stageInline} style={{ color: 'var(--gold-700)' }}>
             {ep.rev ? `Rev ${ep.rev}` : ''} · LIVE
@@ -207,8 +207,8 @@ function LiveView({ ep }: { ep: Episode }) {
             <div className={s.metaValue}>{ep.read_minutes ? `${ep.read_minutes} min` : '—'}</div>
           </div>
           <div className={s.metaCell}>
-            <div className={s.metaLabel}>Category</div>
-            <div className={s.metaValue}>{ep.category}</div>
+            <div className={s.metaLabel}>Model</div>
+            <div className={s.metaValue}>{ep.model ?? ep.category}</div>
           </div>
         </div>
       </div>

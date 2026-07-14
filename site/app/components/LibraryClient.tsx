@@ -11,7 +11,10 @@ type Props = {
   queueDepth: number;
 };
 
-const FILTERS = ['All', 'Services', 'Software', 'Media'] as const;
+// Filters are revenue shape, not category — how the money arrives is the
+// decision a reader actually faces. Retainers recur, Projects are one-off
+// fees, Products are built once and sold to many, Audience is media.
+const FILTERS = ['All', 'Retainers', 'Projects', 'Products', 'Audience'] as const;
 type Filter = (typeof FILTERS)[number];
 
 export function LibraryClient({ episodes, channelUrl, queueDepth }: Props) {
@@ -19,17 +22,15 @@ export function LibraryClient({ episodes, channelUrl, queueDepth }: Props) {
 
   const counts = useMemo(() => {
     const map: Record<string, number> = { All: episodes.length };
-    for (const cat of ['Services', 'Software', 'Media']) {
-      map[cat] = episodes.filter((e) => e.category === cat).length;
+    for (const m of ['Retainers', 'Projects', 'Products', 'Audience']) {
+      map[m] = episodes.filter((e) => e.model === m).length;
     }
     return map;
   }, [episodes]);
 
   const shown = useMemo(
     () =>
-      filter === 'All'
-        ? episodes
-        : episodes.filter((e) => e.category === filter),
+      filter === 'All' ? episodes : episodes.filter((e) => e.model === filter),
     [episodes, filter]
   );
 
@@ -86,7 +87,7 @@ export function LibraryClient({ episodes, channelUrl, queueDepth }: Props) {
                       : `${s.cardEpisode} ${s.cardEpisodeMuted}`
                   }
                 >
-                  №{num} · {ep.category}
+                  №{num} · {ep.model ?? ep.category}
                 </span>
                 {isLive ? (
                   <span className={s.cardStatus}>

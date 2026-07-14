@@ -12,6 +12,7 @@ export type Episode = {
   slug: string;
   title: string;
   category: string;
+  model?: string; // revenue shape: Retainers | Projects | Products | Audience
   status: EpisodeStatus;
   stage?: PipelineStage;
   expected?: string;
