@@ -1,0 +1,163 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* Derived from design-system/tokens (Rev C). _source_of_truth: colors.css, fonts.css */
+@import url('https://api.fontshare.com/v2/css?f[]=boska@700&f[]=zodiak@700&f[]=supreme@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap');
+:root{--ink:#1A1A1A;--ink-700:#3C3A36;--ink-500:#6B675E;--paper:#F5F0E6;--paper-0:#FBF8F1;
+--paper-200:#EDE7D8;--rule:#D8CFB9;--rule-strong:#C4B99E;--blue:#1F3A5F;--gold:#7A5E24;
+--gold-500:#B08D3E;--sage:#5E7F6A;
+--disp:'Boska',Georgia,serif;--head:'Zodiak',Georgia,serif;
+--sans:'Supreme',system-ui,sans-serif;--mono:'Fragment Mono',Menlo,monospace}
+@page{size:letter;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink-700);font:14px/1.65 var(--sans);
+-webkit-print-color-adjust:exact;print-color-adjust:exact}
+/* Deliberate pagination: every .sheet starts a new page (page-break-after:
+   always). Content is allowed to spill onto a continuation page when a table
+   or step list is too long — page-break-inside: avoid on rows/steps prevents
+   splits mid-item. Fixed height + overflow:hidden used to clip long tables
+   (EP002 bug: last evidence row and 2 of 3 playbook steps vanished behind
+   the footer). min-height keeps short sheets full-page. */
+.sheet{padding:0.85in 0.95in 1in;page-break-after:always;position:relative;
+min-height:11in;display:flex;flex-direction:column}
+.sheet:last-child{page-break-after:auto}
+h2,h3,h4,.sec-h{page-break-after:avoid;break-after:avoid}
+.foot{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
+padding:0.26in 0.95in;border-top:1px solid var(--gold-500);
+font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(--paper)}
+/* ---- cover ---- */
+.mast{display:flex;align-items:flex-start;justify-content:space-between}
+.mast .the{font:8px/1 var(--mono);letter-spacing:.32em;color:var(--ink-500);margin-bottom:4px}
+.mast .name{font:700 23px/1.1 var(--head);color:var(--ink)}
+.badge{border:1px solid var(--gold-500);color:var(--gold);
+font:9px/1 var(--mono);letter-spacing:.2em;padding:8px 14px;margin-top:4px}
+h1{font:700 46px/1.06 var(--disp);color:var(--ink);margin:.36in 0 .16in;letter-spacing:.005em}
+.lead{font-size:15.5px;line-height:1.7;max-width:5.2in;color:var(--ink-700)}
+.rail{display:flex;align-items:stretch;gap:10px;margin:.32in 0 .08in}
+.node{border:1px solid var(--blue);background:var(--paper-0);padding:10px 13px;min-width:.9in}
+.node.out{border-color:var(--gold-500)}
+.node-l{font:8px/1 var(--mono);letter-spacing:.16em;color:var(--blue);margin-bottom:6px}
+.node.out .node-l{color:var(--gold)}
+.nowrap{white-space:nowrap}
+.node-v{font:12.5px/1 var(--mono);color:var(--ink)}
+.rail-cap{border-left:2px solid var(--gold-500);border-bottom:2px solid var(--gold-500);
+border-right:2px solid var(--gold-500);height:8px;margin:0 0 7px}
+.rail-lbl{text-align:center;font:8px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.3in}
+.meta div{padding:11px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.meta div:nth-child(3n){border-right:none}.meta div:nth-last-child(-n+3){border-bottom:none}
+.meta .l{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);display:block;margin-bottom:8px}
+.meta .v{font:15px/1 var(--mono);color:var(--ink)}
+/* ---- sections ---- */
+.sec{margin-top:.36in}
+.sec.first{margin-top:0}
+.sec.ruled{border-top:2px solid var(--ink);padding-top:.22in;page-break-inside:avoid;break-inside:avoid}
+.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.2in}
+.sec-h .n{font:10px/1 var(--mono);color:var(--gold)}
+.sec-h h2{font:700 29px/1.1 var(--head);color:var(--ink)}
+.sec-h .tag{margin-left:auto;font:9px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
+/* ---- tables ---- */
+table{width:100%;border-collapse:collapse;border:1px solid var(--rule-strong);font-size:12.5px}
+thead{display:table-header-group}
+tr{page-break-inside:avoid;break-inside:avoid}
+thead th{background:var(--paper-200);font:600 8.5px/1 var(--mono);letter-spacing:.16em;
+color:var(--ink-500);text-align:left;padding:8px 14px}
+td{padding:7px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;font-size:12px}
+td.k{font-weight:700;color:var(--ink);width:1.55in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
+td.mono{font:11.5px/1.55 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:11.5px}
+.chip{font:9px/1 var(--mono);letter-spacing:.1em;white-space:nowrap}
+.chip-high{color:var(--sage)}
+.chip-box{border:1px solid var(--rule-strong);padding:4px 8px;color:var(--ink-700);background:var(--paper-0)}
+.chip-note{font:9px/1.4 var(--mono);color:var(--ink-500);margin-top:5px;max-width:1.2in}
+/* ---- evidence hero ---- */
+.hero{font:700 44px/1 var(--mono);color:var(--ink);margin:.14in 0 .1in;letter-spacing:-.01em}
+.hero .gold{color:var(--gold-500)}
+.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.5;margin-bottom:10px}
+.srcflag{display:inline-block;background:var(--paper-200);border-left:3px solid var(--blue);
+font:9px/1 var(--mono);letter-spacing:.14em;color:var(--blue);padding:8px 12px;margin:2px 0 .26in}
+/* ---- playbook ---- */
+.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.15in 0;
+border-bottom:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
+.step:last-child{border-bottom:none}
+.step-n{font:700 22px/1 var(--mono);color:var(--blue)}
+.step-l{font:8px/1.5 var(--mono);letter-spacing:.16em;color:var(--ink-500);padding-top:7px}
+.step-b h4{font:700 18px/1.25 var(--head);color:var(--ink);margin-bottom:6px}
+.step-b p{font-size:13.5px;margin:0}
+.step-b ul{list-style:none;padding:0;margin:2px 0 0}
+.step-b ul li{font-size:13px;line-height:1.55;color:var(--ink-700);
+padding-left:18px;position:relative;margin-bottom:6px}
+.step-b ul li:last-child{margin-bottom:0}
+.step-b ul li::before{content:"—";color:var(--gold);position:absolute;left:0;font-family:var(--mono)}
+.cont{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);
+border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:4px}
+/* ---- honest math ---- */
+.bignum{font:700 48px/1 var(--mono);color:var(--ink);margin:.2in 0 .06in;
+display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px;
+white-space:nowrap}
+.bignum-row{display:flex;align-items:center;gap:14px}
+.bignum-row .chip{margin-top:.14in}
+.fm-label{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);margin:.26in 0 4px}
+.fm{padding:10px 0;font-size:13.5px;line-height:1.55;border-bottom:1px solid var(--paper-200);
+page-break-inside:avoid;break-inside:avoid}
+.fm:last-of-type{border-bottom:none}
+.fm-x{font:11px/1 var(--mono);color:#9B3E2E;margin-right:11px}
+/* ---- sources + colophon ---- */
+.srcline{font:12px/2.3 var(--mono);color:var(--ink-700)}.srcline .mono{color:var(--gold);margin-right:8px}
+.colophon{margin-top:auto;border-top:1.5px solid var(--ink);padding-top:.35in}
+.colophon p{max-width:4.9in;font-size:14px;line-height:1.7}
+.boo-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:.3in;max-width:6.2in}
+.boo{font:700 26px/1 var(--head);color:var(--ink)}
+.site{font:11px/1 var(--mono);color:var(--gold)}
+p{margin-bottom:.15in}
+</style></head><body>
+<div class="foot"><span>THE OPERATOR ECONOMY · OPERATOR BLUEPRINT №000</span>
+<span>REV A · 2026-07-14</span></div>
+
+<!-- p1 · cover + the idea -->
+<div class="sheet">
+  <div class="mast"><div><div class="the">THE</div><div class="name">Operator Economy</div></div>
+    <span class="badge">OPERATOR BLUEPRINT №000</span></div>
+  <h1>The retention consultancy: an AI backend for Tactical Shift</h1>
+  <p class="lead">Companies too small for Culture Amp still bleed money when people quit. One operator with an assessment tool and an AI backend can sell them retention — as an outcome to owners, as analyst capacity to one-person HR teams.</p>
+  <div class="rail"><div class="node"><div class="node-l">CLAUDE</div><div class="node-v">$20–100/MO</div></div><div class="node"><div class="node-l">CERTIFIED</div><div class="node-v">CONTRACTED</div></div><div class="node"><div class="node-l">SHEETS/EXCEL</div><div class="node-v">$0</div></div><div class="node"><div class="node-l">HTML</div><div class="node-v">$0</div></div><div class="node"><div class="node-l">PORTAL</div><div class="node-v">$0–25/MO</div></div><div class="node out"><div class="node-l">OUT</div><div class="node-v">$5–7.5K</div></div></div><div class="rail-cap"></div>
+  <div class="rail-lbl">THE STACK · ≤ $150/MO</div>
+  <div class="meta">
+    <div><span class="l">BLUEPRINT</span><span class="v">№000</span></div>
+    <div><span class="l">REV</span><span class="v">A</span></div>
+    <div><span class="l">DATE</span><span class="v">2026-07-14</span></div>
+    <div><span class="l">SOURCES</span><span class="v">07</span></div>
+    <div><span class="l">DIFFICULTY</span><span class="v">Low</span></div>
+    <div><span class="l">SECTIONS</span><span class="v">06</span></div>
+  </div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">01</span><h2>The idea</h2></div><p>You already built the hard part. The assessments are certified, the methodology lives in your spreadsheets, the website is live, and you&#x27;ve run one engagement end to end. What&#x27;s missing is the delivery layer: the machine that turns raw assessment data into client-ready deliverables — dashboard, 90-day plan, per-leader profiles, the deck — without you rebuilding everything by hand each time. That layer is now cheap to build, and it&#x27;s the difference between a practice you&#x27;re confident pitching and a website that sits unmarketed.</p><p>Two buyers, one machine. At 5–50 employees there is no HR: the owner buys the <em>outcome</em> — attrition insurance, because one departed clinician takes ~$120K/year in revenue with them. At 50–500 there&#x27;s an HR-of-one: she buys <em>capacity</em> — she has the survey data and the mandate but no analyst, and you&#x27;re the analyst she can&#x27;t hire, not her competition. Above 500, walk away: Culture Amp, Gallup, and procurement cycles own that terrain.</p><p><strong>Who this is for:</strong> operators who&#x27;ve managed teams or owned a practice — ex-owners, ex-HR leads, ex-ops managers, clinicians who ran a floor. The assessment provides the instrument, AI provides the analyst, you provide the judgment and the trust. You&#x27;re not selling software; you&#x27;re the consultant whose backend happens to be faster than everyone else&#x27;s.</p></div>
+</div>
+
+<!-- p2 · evidence -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">02</span><h2>The evidence</h2></div>
+    <div class="hero">$120K <span class="gold">→ $5–7.5K</span></div><p class="hero-cap">What one departed clinician costs the practice, against what the 90-day retention engagement costs them.</p><div class="srcflag">SOURCE: OPERATOR P&amp;L, STATED</div><table><thead><tr><th>CLAIM</th><th>NUMBER</th><th>SOURCE</th><th>CONFIDENCE</th></tr></thead><tbody><tr><td class='k'>Revenue lost per departed clinician</td><td class='mono'>~$120K/yr</td><td class='src'>Operator&#x27;s own P&amp;L as a practice owner</td><td><span class="chip chip-box">STATED</span><div class="chip-note">lived number, one practice</div></td></tr><tr><td class='k'>Cost to replace an employee</td><td class='mono'>50–200% of salary</td><td class='src'>SHRM / Gallup replacement-cost ranges</td><td><span class="chip chip-box">MEDIUM</span><div class="chip-note">analyst estimates vary widely</div></td></tr><tr><td class='k'>Cost of disengagement, global</td><td class='mono'>$8.8T/yr claimed</td><td class='src'>Gallup State of the Global Workplace</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">headline figure, use as scale not precision</div></td></tr><tr><td class='k'>Culture Amp valuation</td><td class='mono'>~$1.5B (2021 round)</td><td class='src'>Press coverage of Series F</td><td><span class="chip chip-high">● HIGH</span></td></tr><tr><td class='k'>The alternative the buyer weighs</td><td class='mono'>~$150K/yr loaded, full-time HR hire</td><td class='src'>Market comp</td><td><span class="chip chip-box">MEDIUM</span><div class="chip-note">estimate</div></td></tr><tr><td class='k'>Engagement price this model carries</td><td class='mono'>$5–7.5K / 90 days</td><td class='src'>This blueprint&#x27;s pricing logic</td><td><span class="chip chip-box">STATED</span><div class="chip-note">estimate, unvalidated</div></td></tr><tr><td class='k'>Engagements delivered to date</td><td class='mono'>1 pilot (expedited, unpaid)</td><td class='src'>Operator&#x27;s own ledger</td><td><span class="chip chip-box">STATED</span><div class="chip-note">the honest starting line</div></td></tr></tbody></table></div>
+</div>
+
+<!-- p3 · stack + playbook 01–03 -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">03</span><h2>The stack</h2>
+    <span class="tag">≤ $150/MO TOTAL</span></div>
+    <table><thead><tr><th>TOOL</th><th>ROLE</th><th>MONTHLY COST</th><th>NOTES</th></tr></thead><tbody><tr><td class='k'>Claude Pro/Max</td><td>The analyst: intake → analysis → plan → deck generation</td><td class='mono nowrap'>$20–100/mo</td><td class='src'>A Claude project loaded with your methodology</td></tr><tr><td class='k'>Certified assessment</td><td>The instrument: engagement + individual assessments</td><td class='mono nowrap'>Contracted</td><td class='src'>Verify license terms before building on outputs</td></tr><tr><td class='k'>Sheets/Excel</td><td>Methodology home + standardized intake template</td><td class='mono nowrap'>$0</td><td class='src'>The template is what makes automation possible</td></tr><tr><td class='k'>HTML dashboard</td><td>Client deliverable — one self-contained page per client</td><td class='mono nowrap'>$0</td><td class='src'>Generated, not hand-built</td></tr><tr><td class='k'>Portal (phase 2 only)</td><td>Client login, tracking over time, email cadence</td><td class='mono nowrap'>$0–25/mo</td><td class='src'>Next.js/Supabase/Resend — build when a client asks to log in</td></tr></tbody></table><div class="srcflag">SOURCE: PUBLIC VENDOR LIST PRICING · JUL 2026</div></div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">04</span><h2>The playbook</h2></div><div class="step"><div class="step-n">01</div><div class="step-l">WEEK 1</div><div class="step-b"><h4>Verify the license, standardize intake</h4><ul><li>Confirm what your assessment contract lets you do with the output data. If it&#x27;s restrictive, swap in an instrument you own — the machine doesn&#x27;t care.</li><li>Build ONE intake template: assessment exports, headcount, tenure, turnover history, org structure. If it isn&#x27;t in the template, you don&#x27;t accept it.</li></ul></div></div><div class="step"><div class="step-n">02</div><div class="step-l">WEEK 2</div><div class="step-b"><h4>Build the four generators, dry-run on the pilot</h4><ul><li>A Claude project loaded with your spreadsheets, scoring logic, and an anonymized past engagement.</li><li>Four outputs, one prompt-plus-template each: the dashboard, the 90-day strategic plan, per-leader communication profiles, the client deck.</li><li>Run your pilot engagement&#x27;s data through it start to finish. What comes out is your sales demo.</li></ul></div></div><div class="step"><div class="step-n">03</div><div class="step-l">MONTH 1</div><div class="step-b"><h4>Sell segment one: the owner with no HR</h4><ul><li>Warm network first: owners and administrators you already know. The $120K line is the opener; the days-not-weeks baseline turnaround is the proof.</li><li>Price the founding engagement discounted in exchange for a named case study and the trend-line data.</li></ul></div></div></div>
+</div>
+
+<!-- p4 · playbook continued (only if there are runover steps) + honest math -->
+<div class="sheet">
+  <div class="sec first"><div class="cont">04 · THE PLAYBOOK — CONTINUED</div><div class="step"><div class="step-n">04</div><div class="step-l">MONTHS 2–3</div><div class="step-b"><h4>Run the 90-day loop, then open segment two</h4><ul><li>Weeks 1–2: baseline, dashboard, plan delivered fast. Weeks 3–10: the human part — leadership work, hard conversations. Weeks 11–12: re-measure, updated dashboard, renewal conversation.</li><li>With one trend line in hand, pitch the HR-of-one at 50–500-person companies: her data, your machine, her win.</li><li>Productize only when a paying client asks to log in. Not before.</li></ul></div></div></div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div><div class="bignum-row"><span class="bignum">$15–30K/yr</span><span class="chip chip-box">OUR ESTIMATE</span></div><div class="fm-label">RANGE + RISKS</div><div class="fm"><span class="fm-x">×1</span><strong>Realistic year-one range</strong> $15–30K/yr from 2–3 engagements at $5–7.5K — a strong second income stream, not a startup. This is the operator&#x27;s own stated target, reasoned from one unpaid pilot, and it assumes the warm network produces the first client.</div><div class="fm"><span class="fm-x">×2</span><strong>Failure mode #1 — the license</strong> Building your delivery machine on an assessment you don&#x27;t own is platform risk in a lab coat. Verify terms in week one or swap instruments.</div><div class="fm"><span class="fm-x">×3</span><strong>Failure mode #2 — selling up-market</strong> The 500+ segment looks lucrative and will burn you: procurement cycles, incumbent platforms, security reviews. The named no-go line exists because solos die there.</div><div class="fm"><span class="fm-x">×4</span><strong>Failure mode #3 — distribution</strong> AI compresses delivery from weeks to days; it does nothing for the pipeline. First clients come from people who already trust you, and that part stays boots-on-the-ground.</div><div class="fm"><span class="fm-x">×5</span><strong>The open question</strong> whether the 90-day engagement renews into an ongoing retainer (quarterly re-measures) or stays one-shot. Renewal economics are what turn 3 clients/year into a durable practice — the pilot data will answer this.</div></div>
+</div>
+
+<!-- p5 · sources + colophon -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">06</span><h2>Sources</h2></div><div class="srcline"><span class="mono">[01]</span> Operator&#x27;s own P&amp;L — $120K/yr revenue per clinician, stated from direct experience as a practice owner</div><div class="srcline"><span class="mono">[02]</span> SHRM / Gallup — employee replacement cost ranges, 50–200% of salary, analyst estimates</div><div class="srcline"><span class="mono">[03]</span> Gallup State of the Global Workplace — $8.8T disengagement figure, headline scale only</div><div class="srcline"><span class="mono">[04]</span> Press coverage — Culture Amp Series F, ~$1.5B valuation (2021, dated)</div><div class="srcline"><span class="mono">[05]</span> Market comp — fully loaded cost of a full-time HR hire, estimate</div><div class="srcline"><span class="mono">[06]</span> This blueprint — engagement pricing and year-one range, marked estimates, unvalidated</div><div class="srcline"><span class="mono">[07]</span> Operator&#x27;s ledger — one expedited unpaid pilot engagement delivered to date</div></div>
+  <div class="colophon"><p>The Operator Economy — evidence-first breakdowns of businesses one
+  person can build. No income promises. Receipts. The next blueprint ships in the Monday
+  newsletter.</p>
+  <div class="boo-row"><span class="boo">Build. Own. Operate.</span>
+  <span class="site">theoperatoreconomy.com</span></div></div>
+</div>
+</body></html>
