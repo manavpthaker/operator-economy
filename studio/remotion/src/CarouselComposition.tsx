@@ -19,7 +19,7 @@ export type CarouselSlideData = {
   statement?: string;
   accent?: string; // gold phrase inside statement (exact substring)
   stat?: {value: string; label: string};
-  items?: {lead: string; detail?: string}[];
+  items?: ({lead: string; detail?: string} | string)[];
   source?: string;
   footer?: string;
   page?: string; // "3 / 10"
@@ -116,7 +116,11 @@ export const CarouselSlide: React.FC<CarouselSlideData> = (p) => {
               </div>
             )}
             <div style={{display: 'flex', flexDirection: 'column'}}>
-              {(p.items ?? []).map((it, i) => (
+              {(p.items ?? []).map((raw, i) => {
+                // Tolerate plain-string items (derive step emitted strings for EP002
+                // and the slide rendered numbers with no text — 2026-07-12).
+                const it = typeof raw === 'string' ? {lead: raw} : raw;
+                return (
                 <div key={i} style={{display: 'flex', gap: 30, padding: '30px 0', borderTop: `1px solid ${rule}`, alignItems: 'baseline'}}>
                   <div style={{fontFamily: FONTS.mono, fontSize: 26, color: gold, minWidth: 54}}>
                     {String(i + 1).padStart(2, '0')}
@@ -128,7 +132,8 @@ export const CarouselSlide: React.FC<CarouselSlideData> = (p) => {
                     )}
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </>
         )}

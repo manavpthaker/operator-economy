@@ -69,7 +69,10 @@ def parse_blueprint(md: str) -> dict:
     tm = re.match(r"Operator Blueprint #?(\d+)\s*[—–-]\s*(.+)", title)
     d["number"] = tm.group(1).zfill(3) if tm else "000"
     d["title"] = tm.group(2) if tm else title
-    lead = re.search(r"^\*(.+?)\*\s*$", md, re.M)
+    # Italic subtitle only — must be single *…*, not **bold**. The negative
+    # boundaries stop bold lead-bullets ("**Week 1 — …**") from being
+    # mistaken for the tagline (bug caught on EP002).
+    lead = re.search(r"^\*([^*][^\n]*?[^*])\*\s*$", md, re.M)
     d["lead"] = _inline(lead.group(1)) if lead else ""
 
     parts = re.split(r"^##\s+", md, flags=re.M)[1:]
@@ -87,8 +90,15 @@ def conf_chip(text: str) -> str:
     up = t.upper()
     if up.startswith("HIGH"):
         return '<span class="chip chip-high">● HIGH</span>'
-    tag = "REPORTED" if "REPORTED" in up else ("MEDIUM" if "MEDIUM" in up else up[:12])
-    note = re.sub(r"^(REPORTED|MEDIUM)[,\s—–-]*", "", t, flags=re.I).strip()
+    # Whole-word match against the known tag vocabulary so we never fall
+    # through to the up[:12] truncation ("LOW — ONE ST…") — a bug caught on
+    # EP002 where the confidence column starts with "Low" or "Stated".
+    tag = "REPORTED"
+    for candidate in ("REPORTED", "MEDIUM", "LOW", "STATED"):
+        if re.match(candidate + r"\b", up):
+            tag = candidate
+            break
+    note = re.sub(r"^" + tag + r"[,\s—–-]*", "", t, count=1, flags=re.I).strip()
     extra = f'<div class="chip-note">{html.escape(note.lower())}</div>' if note else ""
     return f'<span class="chip chip-box">{tag}</span>{extra}'
 
@@ -126,37 +136,81 @@ def render_stack(body: str) -> tuple[str, str]:
 
 
 def render_playbook(body: str) -> list[str]:
-    items = re.findall(r"^\d+\.\s+(.+?)(?=^\d+\.|\Z)", body, re.M | re.S)
+    """Parse into a list of (head, body_lines) items and render each as a step.
+
+    Supports two formats produced by derive_content.py across episodes:
+      - EP001-style: `1. **Header** body...` (numbered, single-paragraph body)
+      - EP002-style: `**Week N — Title**\\n- bullet\\n- bullet\\n\\n**Month 1 — ...`
+    """
+    items: list[tuple[str, str]] = []  # (head_line_including_**, remaining_body)
+    numbered = re.findall(r"^\d+\.\s+(.+?)(?=^\d+\.|\Z)", body, re.M | re.S)
+    if numbered:
+        for it in numbered:
+            head_line, _, rest = it.partition("\n")
+            items.append((head_line.strip(), rest.strip()))
+    else:
+        # Bold-header sections. Split on lines that are exactly `**...**`.
+        hdr = re.compile(r"^\*\*(.+?)\*\*\s*$", re.M)
+        matches = list(hdr.finditer(body))
+        for i, m in enumerate(matches):
+            end = matches[i + 1].start() if i + 1 < len(matches) else len(body)
+            items.append((f"**{m.group(1).strip()}**", body[m.end():end].strip()))
+
     out = []
-    for i, it in enumerate(items, 1):
-        it = " ".join(it.split())
-        m = re.match(r"\*\*(.+?)\*\*\s*(.*)", it)
-        head, rest = (m.group(1), m.group(2)) if m else (it, "")
-        hm = re.match(r"(?:(Week[s]?\s*[\d–\-]+)\s*[—–-]\s*)?(.+)", head, re.I)
+    for i, (head_line, rest_block) in enumerate(items, 1):
+        head_line = " ".join(head_line.split())
+        m = re.match(r"\*\*(.+?)\*\*\s*(.*)", head_line)
+        head, inline_rest = (m.group(1), m.group(2)) if m else (head_line, "")
+        hm = re.match(
+            r"(?:((?:Weeks?|Months?)\s*[\d–\-]+)\s*[—–-]\s*)?(.+)", head, re.I)
         label, htext = (hm.group(1) or ""), hm.group(2)
         htext = htext[:1].upper() + htext[1:]
+        # Body: bullet list (EP002) or inline paragraph text (EP001).
+        bullet_lines = [ln.lstrip("-• ").strip()
+                        for ln in rest_block.splitlines()
+                        if ln.strip().startswith(("-", "•"))]
+        if bullet_lines:
+            body_html = "<ul>" + "".join(
+                f"<li>{_inline(ln)}</li>" for ln in bullet_lines) + "</ul>"
+        else:
+            body_html = f"<p>{_inline(inline_rest or rest_block)}</p>"
         out.append(
             f'<div class="step"><div class="step-n">{i:02d}</div>'
             f'<div class="step-l">{html.escape(label.upper())}</div>'
             f'<div class="step-b"><h4>{_inline(htext.rstrip("."))}</h4>'
-            f'<p>{_inline(rest)}</p></div></div>')
+            f'{body_html}</div></div>')
     return out
 
 
 def render_math(body: str) -> str:
-    paras = [p.strip() for p in body.split("\n\n") if p.strip()]
+    # Big number: prefer the year-one $ range wherever it appears.
+    bm = (re.search(r"(\$[\d.,]+\s*[–\-]\s*\$?[\d.,]+K?/mo(?:nth)?)", body)
+          or re.search(r"[Yy]ear[\-\s]one[^\n]*?\*?\*?(\$[\d.,]+[^\s*.,]*(?:/mo)?)", body))
     big = ""
-    # prefer the year-one range (e.g. $2–8K/mo) over incidental $/mo figures
-    bm = re.search(r"(\$[\d.]+\s*[–\-]\s*[\d.]+K/mo)", body) or \
-         re.search(r"[Yy]ear one:?\s*\*{0,2}(\$[^\s*]+/mo)", body)
     if bm:
         big = (f'<div class="bignum-row"><span class="bignum">{html.escape(bm.group(1))}</span>'
                f'<span class="chip chip-box">OUR ESTIMATE</span></div>')
+
+    # EP002-style: "- **Label:** body\n- **Label:** body". Each bullet becomes
+    # a labeled key item; treat this as a whole-section replacement of the
+    # EP001 "Failure modes: (1) ... (2) ..." paragraph.
+    bullets = re.findall(
+        r"^-\s+\*\*(.+?)\*\*\s+(.+?)(?=^-\s+\*\*|\Z)", body, re.M | re.S)
+    if bullets:
+        items = "".join(
+            f'<div class="fm"><span class="fm-x">×{i}</span>'
+            f'<strong>{_inline(label.strip().rstrip(":.")).strip()}</strong> '
+            f'{_inline(" ".join(rest.split()).rstrip("."))}.'
+            f'</div>'
+            for i, (label, rest) in enumerate(bullets, 1))
+        return big + f'<div class="fm-label">RANGE + RISKS</div>{items}'
+
+    # EP001-style: paragraphs with an inline "**Failure modes:**" phrase.
+    paras = [p.strip() for p in body.split("\n\n") if p.strip()]
     out = [big]
     for p in paras:
         if p.lower().startswith("**failure modes"):
             body_f = re.sub(r"\*\*Failure modes:\*\*", "", p, flags=re.I)
-            # split the trailing standalone rule (e.g. "Stay SMB — ...") off the last mode
             tail = ""
             tm2 = re.search(r"(?<=[.;])\s+(Stay [A-Z].+|[A-Z][^.]*kill[^.]*\.)\s*$", body_f)
             if tm2:
@@ -176,9 +230,18 @@ def render_math(body: str) -> str:
 
 def render_sources(body: str) -> str:
     body = re.split(r"\n-{3,}", body)[0]  # drop the trailing footer block
-    parts = [s.strip() for s in re.split(r"\s+·\s+", body.replace("\n", " ")) if s.strip()]
-    return "".join(f'<div class="srcline"><span class="mono">[{i:02d}]</span> {_inline(s.rstrip("."))}</div>'
-                   for i, s in enumerate(parts, 1))
+    # Prefer a numbered list ("1. …\n2. …") because that's what derive_content
+    # produces for EP002+. Fall back to the `·`-separated line format (EP001).
+    numbered = re.findall(r"^\d+\.\s+(.+?)(?=^\d+\.|\Z)", body, re.M | re.S)
+    if numbered:
+        parts = [" ".join(p.split()).rstrip(".") for p in numbered if p.strip()]
+    else:
+        parts = [s.strip().rstrip(".")
+                 for s in re.split(r"\s+·\s+", body.replace("\n", " "))
+                 if s.strip()]
+    return "".join(
+        f'<div class="srcline"><span class="mono">[{i:02d}]</span> {_inline(s)}</div>'
+        for i, s in enumerate(parts, 1))
 
 
 CSS = """
@@ -194,10 +257,16 @@ CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--paper);color:var(--ink-700);font:14px/1.65 var(--sans);
 -webkit-print-color-adjust:exact;print-color-adjust:exact}
-/* Deliberate pagination: every .sheet is one designed page (like the Rev A reference). */
-.sheet{padding:0.85in 0.95in 1.2in;page-break-after:always;position:relative;
-height:11in;overflow:hidden;display:flex;flex-direction:column}
+/* Deliberate pagination: every .sheet starts a new page (page-break-after:
+   always). Content is allowed to spill onto a continuation page when a table
+   or step list is too long — page-break-inside: avoid on rows/steps prevents
+   splits mid-item. Fixed height + overflow:hidden used to clip long tables
+   (EP002 bug: last evidence row and 2 of 3 playbook steps vanished behind
+   the footer). min-height keeps short sheets full-page. */
+.sheet{padding:0.85in 0.95in 1in;page-break-after:always;position:relative;
+min-height:11in;display:flex;flex-direction:column}
 .sheet:last-child{page-break-after:auto}
+h2,h3,h4,.sec-h{page-break-after:avoid;break-after:avoid}
 .foot{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
 padding:0.26in 0.95in;border-top:1px solid var(--gold-500);
 font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(--paper)}
@@ -207,9 +276,9 @@ font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(
 .mast .name{font:700 23px/1.1 var(--head);color:var(--ink)}
 .badge{border:1px solid var(--gold-500);color:var(--gold);
 font:9px/1 var(--mono);letter-spacing:.2em;padding:8px 14px;margin-top:4px}
-h1{font:700 49px/1.06 var(--disp);color:var(--ink);margin:.6in 0 .2in;letter-spacing:.005em}
+h1{font:700 46px/1.06 var(--disp);color:var(--ink);margin:.36in 0 .16in;letter-spacing:.005em}
 .lead{font-size:15.5px;line-height:1.7;max-width:5.2in;color:var(--ink-700)}
-.rail{display:flex;align-items:stretch;gap:10px;margin:.48in 0 .1in}
+.rail{display:flex;align-items:stretch;gap:10px;margin:.32in 0 .08in}
 .node{border:1px solid var(--blue);background:var(--paper-0);padding:10px 13px;min-width:.9in}
 .node.out{border-color:var(--gold-500)}
 .node-l{font:8px/1 var(--mono);letter-spacing:.16em;color:var(--blue);margin-bottom:6px}
@@ -219,53 +288,62 @@ h1{font:700 49px/1.06 var(--disp);color:var(--ink);margin:.6in 0 .2in;letter-spa
 .rail-cap{border-left:2px solid var(--gold-500);border-bottom:2px solid var(--gold-500);
 border-right:2px solid var(--gold-500);height:8px;margin:0 0 7px}
 .rail-lbl{text-align:center;font:8px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
-.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.42in}
-.meta div{padding:14px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.3in}
+.meta div{padding:11px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .meta div:nth-child(3n){border-right:none}.meta div:nth-last-child(-n+3){border-bottom:none}
 .meta .l{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);display:block;margin-bottom:8px}
 .meta .v{font:15px/1 var(--mono);color:var(--ink)}
 /* ---- sections ---- */
-.sec{margin-top:.5in}
+.sec{margin-top:.36in}
 .sec.first{margin-top:0}
-.sec.ruled{border-top:2px solid var(--ink);padding-top:.26in}
-.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.24in}
+.sec.ruled{border-top:2px solid var(--ink);padding-top:.22in;page-break-inside:avoid;break-inside:avoid}
+.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.2in}
 .sec-h .n{font:10px/1 var(--mono);color:var(--gold)}
 .sec-h h2{font:700 29px/1.1 var(--head);color:var(--ink)}
 .sec-h .tag{margin-left:auto;font:9px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
 /* ---- tables ---- */
 table{width:100%;border-collapse:collapse;border:1px solid var(--rule-strong);font-size:12.5px}
+thead{display:table-header-group}
+tr{page-break-inside:avoid;break-inside:avoid}
 thead th{background:var(--paper-200);font:600 8.5px/1 var(--mono);letter-spacing:.16em;
-color:var(--ink-500);text-align:left;padding:11px 14px}
-td{padding:13px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.55}
-td.k{font-weight:700;color:var(--ink);width:1.2in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
-td.mono{font:12px/1.6 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:12px}
+color:var(--ink-500);text-align:left;padding:8px 14px}
+td{padding:7px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;font-size:12px}
+td.k{font-weight:700;color:var(--ink);width:1.55in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
+td.mono{font:11.5px/1.55 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:11.5px}
 .chip{font:9px/1 var(--mono);letter-spacing:.1em;white-space:nowrap}
 .chip-high{color:var(--sage)}
 .chip-box{border:1px solid var(--rule-strong);padding:4px 8px;color:var(--ink-700);background:var(--paper-0)}
-.chip-note{font:9px/1.5 var(--mono);color:var(--ink-500);margin-top:7px;max-width:1in}
+.chip-note{font:9px/1.4 var(--mono);color:var(--ink-500);margin-top:5px;max-width:1.2in}
 /* ---- evidence hero ---- */
-.hero{font:700 50px/1 var(--mono);color:var(--ink);margin:.22in 0 .14in;letter-spacing:-.01em}
+.hero{font:700 44px/1 var(--mono);color:var(--ink);margin:.14in 0 .1in;letter-spacing:-.01em}
 .hero .gold{color:var(--gold-500)}
-.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.6;margin-bottom:14px}
+.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.5;margin-bottom:10px}
 .srcflag{display:inline-block;background:var(--paper-200);border-left:3px solid var(--blue);
 font:9px/1 var(--mono);letter-spacing:.14em;color:var(--blue);padding:8px 12px;margin:2px 0 .26in}
 /* ---- playbook ---- */
-.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.21in 0;
-border-bottom:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.15in 0;
+border-bottom:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
 .step:last-child{border-bottom:none}
 .step-n{font:700 22px/1 var(--mono);color:var(--blue)}
 .step-l{font:8px/1.5 var(--mono);letter-spacing:.16em;color:var(--ink-500);padding-top:7px}
 .step-b h4{font:700 18px/1.25 var(--head);color:var(--ink);margin-bottom:6px}
 .step-b p{font-size:13.5px;margin:0}
+.step-b ul{list-style:none;padding:0;margin:2px 0 0}
+.step-b ul li{font-size:13px;line-height:1.55;color:var(--ink-700);
+padding-left:18px;position:relative;margin-bottom:6px}
+.step-b ul li:last-child{margin-bottom:0}
+.step-b ul li::before{content:"—";color:var(--gold);position:absolute;left:0;font-family:var(--mono)}
 .cont{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);
 border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:4px}
 /* ---- honest math ---- */
 .bignum{font:700 48px/1 var(--mono);color:var(--ink);margin:.2in 0 .06in;
-display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px}
+display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px;
+white-space:nowrap}
 .bignum-row{display:flex;align-items:center;gap:14px}
 .bignum-row .chip{margin-top:.14in}
 .fm-label{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);margin:.26in 0 4px}
-.fm{padding:8px 0;font-size:13.5px;border-bottom:1px solid var(--paper-200)}
+.fm{padding:10px 0;font-size:13.5px;line-height:1.55;border-bottom:1px solid var(--paper-200);
+page-break-inside:avoid;break-inside:avoid}
 .fm:last-of-type{border-bottom:none}
 .fm-x{font:11px/1 var(--mono);color:#9B3E2E;margin-right:11px}
 /* ---- sources + colophon ---- */
@@ -315,10 +393,10 @@ PAGE = """<!doctype html><html><head><meta charset="utf-8"><style>{css}</style><
   <div class="sec ruled"><div class="sec-h"><span class="n">04</span><h2>The playbook</h2></div>{playbook_a}</div>
 </div>
 
-<!-- p4 · playbook 04–05 + honest math -->
+<!-- p4 · playbook continued (only if there are runover steps) + honest math -->
 <div class="sheet">
-  <div class="sec first"><div class="cont">04 · THE PLAYBOOK — CONTINUED</div>{playbook_b}</div>
-  <div class="sec ruled"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div>{math}</div>
+  {playbook_cont}
+  <div class="sec {math_sec_class}"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div>{math}</div>
 </div>
 
 <!-- p5 · sources + colophon -->
@@ -342,16 +420,31 @@ def find_chrome() -> str | None:
 
 def html_to_pdf(html_path: Path, pdf_path: Path) -> None:
     chrome = find_chrome()
+    html_path = html_path.resolve()
+    pdf_path = pdf_path.resolve()
     if chrome:
+        # Chrome headless writes the PDF within seconds but then sometimes hangs
+        # on cleanup on macOS (Fontshare fetch or profile teardown). Treat
+        # TimeoutExpired as "success if the PDF exists," which it almost always
+        # does by the time we time out.
         with tempfile.TemporaryDirectory() as tmp:
-            r = subprocess.run([chrome, "--headless=new", "--disable-gpu",
-                                f"--user-data-dir={tmp}", "--no-pdf-header-footer",
-                                f"--print-to-pdf={pdf_path}", "--virtual-time-budget=8000",
-                                html_path.as_uri()],
-                               capture_output=True, text=True, timeout=120)
-        if pdf_path.exists():
-            return
-        print(f"chrome failed ({r.returncode}): {r.stderr[-300:]}", file=sys.stderr)
+            try:
+                r = subprocess.run(
+                    [chrome, "--headless=new", "--disable-gpu",
+                     f"--user-data-dir={tmp}", "--no-pdf-header-footer",
+                     f"--print-to-pdf={pdf_path}", "--virtual-time-budget=8000",
+                     html_path.as_uri()],
+                    capture_output=True, text=True, timeout=60)
+                if pdf_path.exists():
+                    return
+                print(f"chrome failed ({r.returncode}): {r.stderr[-300:]}",
+                      file=sys.stderr)
+            except subprocess.TimeoutExpired:
+                if pdf_path.exists():
+                    print("(chrome hung on cleanup — PDF already written, continuing)",
+                          file=sys.stderr)
+                    return
+                print("chrome timed out and no PDF was written", file=sys.stderr)
     try:
         from weasyprint import HTML  # fallback
         HTML(filename=str(html_path)).write_pdf(str(pdf_path))
@@ -396,8 +489,24 @@ def main() -> None:
         rail += (f'<div class="node out"><div class="node-l">OUT</div>'
                  f'<div class="node-v">{html.escape(out_val.upper())}</div></div>')
     steps = render_playbook(S.get("the playbook", ("", ""))[1])
-    split = 3 if len(steps) > 3 else len(steps)  # p3 gets 01–03, p4 the rest
-    playbook_a, playbook_b = "".join(steps[:split]), "".join(steps[split:])
+    # p3 always shows "The playbook"; p4 only carries a continuation block if
+    # there are enough steps to spill over. 3 or fewer → all on p3, and p4
+    # becomes honest-math-only (no orphaned "CONTINUED" header, no half-empty
+    # page — bug caught rendering EP002's 3-step playbook).
+    if len(steps) > 3:
+        playbook_a = "".join(steps[:3])
+        playbook_b = "".join(steps[3:])
+    else:
+        playbook_a = "".join(steps)
+        playbook_b = ""
+    if playbook_b:
+        playbook_cont = (
+            '<div class="sec first"><div class="cont">'
+            '04 · THE PLAYBOOK — CONTINUED</div>' + playbook_b + '</div>')
+        math_sec_class = "ruled"
+    else:
+        playbook_cont = ""
+        math_sec_class = "first"
     math_html = render_math(S.get("the honest math", ("", ""))[1])
     sources_html = render_sources(S.get("sources", ("", ""))[1])
     nsources = len(re.findall(r'class="srcline"', sources_html))
@@ -418,7 +527,8 @@ def main() -> None:
         nsources=nsources or 6, difficulty=args.difficulty, nsections=6,
         idea=idea, hero=hero, evidence=evidence, stack=stack_tbl,
         pricing_date=today.strftime("%b %Y").upper(),
-        playbook_a=playbook_a, playbook_b=playbook_b,
+        playbook_a=playbook_a, playbook_cont=playbook_cont,
+        math_sec_class=math_sec_class,
         math=math_html, sources=sources_html)
 
     html_path = ep_dir / "blueprint.html"
