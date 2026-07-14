@@ -94,12 +94,13 @@ export default function Home() {
             <div className={s.heroCopy}>
               <div className={s.kicker}>Stop climbing. Start building.</div>
               <h1 className={s.h1}>
-                You can build it now. We show you what&apos;s <em>worth</em> building.
+                It&apos;s easy to build now. It&apos;s hard to know <em>what</em> to build.
               </h1>
               <p className={s.lead}>
                 Every Monday: one real business one experienced person can build and run —
                 the companies proving it works, the exact stack and what it costs, the
-                honest math. Plus the free Operator Blueprint to build from.
+                honest math. You bring the expertise you already have. The free
+                Operator Blueprint is the rest.
               </p>
               <div className={s.chips}>
                 <span className={s.chip}>Real companies</span>
@@ -209,7 +210,7 @@ export default function Home() {
         <div className={s.libraryHead}>
           <div>
             <div className={s.kicker} style={{ marginBottom: 12 }}>The library</div>
-            <h2 className={s.h2}>Businesses you could build.</h2>
+            <h2 className={s.h2}>One-person businesses you could actually run.</h2>
           </div>
           <span className={s.tag}>Every episode ships with its blueprint</span>
         </div>
@@ -247,6 +248,12 @@ export default function Home() {
             <div className={s.disclosureAns}>None. The library stays up, free.</div>
           </div>
           <div className={s.disclosureRow}>
+            <div className={s.disclosureLabel}>Unicorn ambitions</div>
+            <div className={s.disclosureAns}>
+              None. These are livings: <span className="oe-mono">$2–8K/mo</span>, honestly ranged.
+            </div>
+          </div>
+          <div className={s.disclosureRow}>
             <div className={`${s.disclosureLabel} ${s.disclosureLabelAccent}`}>Business model</div>
             <div className={s.disclosureAns}>
               You trust the numbers enough to come back.
@@ -271,7 +278,7 @@ export default function Home() {
             <p className={s.lead} style={{ maxWidth: '44ch', fontSize: '15.5px' }}>
               Every episode ships with an Operator Blueprint: the sourced working doc behind the
               video — evidence table, tool stack with costs, week-by-week playbook, every
-              citation.
+              citation. Written so you can execute without a technical background.
             </p>
             <div className={s.tag}>
               Free · One email a week · No drip campaigns · Unsubscribe anytime

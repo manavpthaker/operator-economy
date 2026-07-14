@@ -44,6 +44,20 @@ Once the format is established, layer in interviews with real people running the
 
 Names rejected and why: Blueprint/Playbook Economy (name the format, not the viewer); Built Not Hired, Hire Yourself, Economy of One, Exit Blueprint (all taken — each by someone with adjacent positioning, which validates the thesis); portmanteaus like OpsEcon (fail the say-it-out-loud test).
 
+## Canonical thesis language (from the field — Joanie call, July 14 2026)
+
+Manav articulated the thesis unusually clearly on the 7/14 call. This is the language bank; scripts, site copy, and derivatives should draw from these formulations rather than reinventing them.
+
+1. **The blank page problem.** "The big problem with AI is that it's hard to figure out what you can do with it." The channel exists to solve this: "I do the research, figure out the ideas, and give people the blueprints."
+2. **The one-liner:** "It's so easy to build — but it's so hard to figure out what to build." The demand-side inversion of every AI-tools channel. We sell the *what*, not the *how-to-prompt*.
+3. **Expertise is the spec.** "You don't need technical abilities. You have to know the goal. When you're a specialist, you know the problem deep down — Claude will do it for you, and you just refine it. That's what this whole operator economy is." The audience's qualification is having lived a problem, not knowing how to code. ("You've done this. You already know what needs to be done. You just don't know the foundational part — and that part is now the easy part.")
+4. **AI removes the setup, not the human.** "None of this removes the human element. It just removes the setup and gives you a foundation." Hard honesty corollary: "AI can't solve the distribution problem — that's still boots on the ground." Nothing is passive; the behind-the-scenes is what got easy.
+5. **The village economy.** "We're going back to one-person businesses. Back in the day you had a village — someone did shoes, someone did hats. Be the person in your community who helps businesses with their customer service, their backend automation, their niche. Not millions — a living, serving a small group of people you can name."
+6. **Post-unicorn.** "The whole idea of unicorns and billion-dollar businesses is going out the window. We're not trying to build unicorn startups anymore. We're trying to make a living." $2–8K/mo is the honest, sufficient number.
+7. **What the blueprint actually delivers** (validated by Joanie mirroring it back unprompted): *confidence to execute.* "If the blueprint puts out every step, you're using the knowledge you already have, just leveraging it in a different way... having the confidence to have a tool to execute." The product isn't information — it's the removal of the fear that you're missing a technical prerequisite.
+
+Also banked (use sparingly): the land metaphor — "everybody's stuck in these cities, but there's so much land out there... people just don't know what they have access to."
+
 ## Voice
 
 Documentary rigor, operator credibility. Practical, specific, calm. No hype words, no income promises — sourced numbers or clearly-marked estimates. New Yorker-adjacent restraint with MagnatesMedia narrative structure.
