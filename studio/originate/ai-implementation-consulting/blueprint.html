@@ -11,10 +11,16 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--paper);color:var(--ink-700);font:14px/1.65 var(--sans);
 -webkit-print-color-adjust:exact;print-color-adjust:exact}
-/* Deliberate pagination: every .sheet is one designed page (like the Rev A reference). */
-.sheet{padding:0.85in 0.95in 1.2in;page-break-after:always;position:relative;
-height:11in;overflow:hidden;display:flex;flex-direction:column}
+/* Deliberate pagination: every .sheet starts a new page (page-break-after:
+   always). Content is allowed to spill onto a continuation page when a table
+   or step list is too long — page-break-inside: avoid on rows/steps prevents
+   splits mid-item. Fixed height + overflow:hidden used to clip long tables
+   (EP002 bug: last evidence row and 2 of 3 playbook steps vanished behind
+   the footer). min-height keeps short sheets full-page. */
+.sheet{padding:0.85in 0.95in 1in;page-break-after:always;position:relative;
+min-height:11in;display:flex;flex-direction:column}
 .sheet:last-child{page-break-after:auto}
+h2,h3,h4,.sec-h{page-break-after:avoid;break-after:avoid}
 .foot{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
 padding:0.26in 0.95in;border-top:1px solid var(--gold-500);
 font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(--paper)}
@@ -24,9 +30,9 @@ font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(
 .mast .name{font:700 23px/1.1 var(--head);color:var(--ink)}
 .badge{border:1px solid var(--gold-500);color:var(--gold);
 font:9px/1 var(--mono);letter-spacing:.2em;padding:8px 14px;margin-top:4px}
-h1{font:700 49px/1.06 var(--disp);color:var(--ink);margin:.6in 0 .2in;letter-spacing:.005em}
+h1{font:700 46px/1.06 var(--disp);color:var(--ink);margin:.36in 0 .16in;letter-spacing:.005em}
 .lead{font-size:15.5px;line-height:1.7;max-width:5.2in;color:var(--ink-700)}
-.rail{display:flex;align-items:stretch;gap:10px;margin:.48in 0 .1in}
+.rail{display:flex;align-items:stretch;gap:10px;margin:.32in 0 .08in}
 .node{border:1px solid var(--blue);background:var(--paper-0);padding:10px 13px;min-width:.9in}
 .node.out{border-color:var(--gold-500)}
 .node-l{font:8px/1 var(--mono);letter-spacing:.16em;color:var(--blue);margin-bottom:6px}
@@ -36,53 +42,62 @@ h1{font:700 49px/1.06 var(--disp);color:var(--ink);margin:.6in 0 .2in;letter-spa
 .rail-cap{border-left:2px solid var(--gold-500);border-bottom:2px solid var(--gold-500);
 border-right:2px solid var(--gold-500);height:8px;margin:0 0 7px}
 .rail-lbl{text-align:center;font:8px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
-.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.42in}
-.meta div{padding:14px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.3in}
+.meta div{padding:11px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .meta div:nth-child(3n){border-right:none}.meta div:nth-last-child(-n+3){border-bottom:none}
 .meta .l{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);display:block;margin-bottom:8px}
 .meta .v{font:15px/1 var(--mono);color:var(--ink)}
 /* ---- sections ---- */
-.sec{margin-top:.5in}
+.sec{margin-top:.36in}
 .sec.first{margin-top:0}
-.sec.ruled{border-top:2px solid var(--ink);padding-top:.26in}
-.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.24in}
+.sec.ruled{border-top:2px solid var(--ink);padding-top:.22in;page-break-inside:avoid;break-inside:avoid}
+.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.2in}
 .sec-h .n{font:10px/1 var(--mono);color:var(--gold)}
 .sec-h h2{font:700 29px/1.1 var(--head);color:var(--ink)}
 .sec-h .tag{margin-left:auto;font:9px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
 /* ---- tables ---- */
 table{width:100%;border-collapse:collapse;border:1px solid var(--rule-strong);font-size:12.5px}
+thead{display:table-header-group}
+tr{page-break-inside:avoid;break-inside:avoid}
 thead th{background:var(--paper-200);font:600 8.5px/1 var(--mono);letter-spacing:.16em;
-color:var(--ink-500);text-align:left;padding:11px 14px}
-td{padding:13px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.55}
-td.k{font-weight:700;color:var(--ink);width:1.2in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
-td.mono{font:12px/1.6 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:12px}
+color:var(--ink-500);text-align:left;padding:8px 14px}
+td{padding:7px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;font-size:12px}
+td.k{font-weight:700;color:var(--ink);width:1.55in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
+td.mono{font:11.5px/1.55 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:11.5px}
 .chip{font:9px/1 var(--mono);letter-spacing:.1em;white-space:nowrap}
 .chip-high{color:var(--sage)}
 .chip-box{border:1px solid var(--rule-strong);padding:4px 8px;color:var(--ink-700);background:var(--paper-0)}
-.chip-note{font:9px/1.5 var(--mono);color:var(--ink-500);margin-top:7px;max-width:1in}
+.chip-note{font:9px/1.4 var(--mono);color:var(--ink-500);margin-top:5px;max-width:1.2in}
 /* ---- evidence hero ---- */
-.hero{font:700 50px/1 var(--mono);color:var(--ink);margin:.22in 0 .14in;letter-spacing:-.01em}
+.hero{font:700 44px/1 var(--mono);color:var(--ink);margin:.14in 0 .1in;letter-spacing:-.01em}
 .hero .gold{color:var(--gold-500)}
-.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.6;margin-bottom:14px}
+.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.5;margin-bottom:10px}
 .srcflag{display:inline-block;background:var(--paper-200);border-left:3px solid var(--blue);
 font:9px/1 var(--mono);letter-spacing:.14em;color:var(--blue);padding:8px 12px;margin:2px 0 .26in}
 /* ---- playbook ---- */
-.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.21in 0;
-border-bottom:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.15in 0;
+border-bottom:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
 .step:last-child{border-bottom:none}
 .step-n{font:700 22px/1 var(--mono);color:var(--blue)}
 .step-l{font:8px/1.5 var(--mono);letter-spacing:.16em;color:var(--ink-500);padding-top:7px}
 .step-b h4{font:700 18px/1.25 var(--head);color:var(--ink);margin-bottom:6px}
 .step-b p{font-size:13.5px;margin:0}
+.step-b ul{list-style:none;padding:0;margin:2px 0 0}
+.step-b ul li{font-size:13px;line-height:1.55;color:var(--ink-700);
+padding-left:18px;position:relative;margin-bottom:6px}
+.step-b ul li:last-child{margin-bottom:0}
+.step-b ul li::before{content:"—";color:var(--gold);position:absolute;left:0;font-family:var(--mono)}
 .cont{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);
 border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:4px}
 /* ---- honest math ---- */
 .bignum{font:700 48px/1 var(--mono);color:var(--ink);margin:.2in 0 .06in;
-display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px}
+display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px;
+white-space:nowrap}
 .bignum-row{display:flex;align-items:center;gap:14px}
 .bignum-row .chip{margin-top:.14in}
 .fm-label{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);margin:.26in 0 4px}
-.fm{padding:8px 0;font-size:13.5px;border-bottom:1px solid var(--paper-200)}
+.fm{padding:10px 0;font-size:13.5px;line-height:1.55;border-bottom:1px solid var(--paper-200);
+page-break-inside:avoid;break-inside:avoid}
 .fm:last-of-type{border-bottom:none}
 .fm-x{font:11px/1 var(--mono);color:#9B3E2E;margin-right:11px}
 /* ---- sources + colophon ---- */
@@ -95,7 +110,7 @@ display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10p
 p{margin-bottom:.15in}
 </style></head><body>
 <div class="foot"><span>THE OPERATOR ECONOMY · OPERATOR BLUEPRINT №001</span>
-<span>REV A · 2026-07-06</span></div>
+<span>REV A · 2026-07-12</span></div>
 
 <!-- p1 · cover + the idea -->
 <div class="sheet">
@@ -103,12 +118,12 @@ p{margin-bottom:.15in}
     <span class="badge">OPERATOR BLUEPRINT №001</span></div>
   <h1>AI Implementation Services</h1>
   <p class="lead">The sourced working document behind the episode. Act on it without watching. Every number carries its source; estimates are marked.</p>
-  <div class="rail"><div class="node"><div class="node-l">BRAIN</div><div class="node-v">$20–40/MO</div></div><div class="node"><div class="node-l">RUNTIME</div><div class="node-v">$0–30/MO</div></div><div class="node"><div class="node-l">CLIENT</div><div class="node-v">$0–20/MO</div></div><div class="node"><div class="node-l">DELIVERY</div><div class="node-v">$0–15/MO</div></div><div class="node out"><div class="node-l">OUT</div><div class="node-v">$2–5K</div></div></div><div class="rail-cap"></div>
+  <div class="rail"><div class="node"><div class="node-l">BRAIN</div><div class="node-v">$20–40/MO</div></div><div class="node"><div class="node-l">RUNTIME</div><div class="node-v">$0–30/MO</div></div><div class="node"><div class="node-l">CLIENT</div><div class="node-v">$0–20/MO</div></div><div class="node"><div class="node-l">DELIVERY</div><div class="node-v">$0–15/MO</div></div><div class="node out"><div class="node-l">OUT</div><div class="node-v">$2-5K</div></div></div><div class="rail-cap"></div>
   <div class="rail-lbl">THE STACK · ≤ $100/MO</div>
   <div class="meta">
     <div><span class="l">BLUEPRINT</span><span class="v">№001</span></div>
     <div><span class="l">REV</span><span class="v">A</span></div>
-    <div><span class="l">DATE</span><span class="v">2026-07-06</span></div>
+    <div><span class="l">DATE</span><span class="v">2026-07-12</span></div>
     <div><span class="l">SOURCES</span><span class="v">06</span></div>
     <div><span class="l">DIFFICULTY</span><span class="v">Med</span></div>
     <div><span class="l">SECTIONS</span><span class="v">06</span></div>
@@ -130,7 +145,7 @@ p{margin-bottom:.15in}
   <div class="sec ruled"><div class="sec-h"><span class="n">04</span><h2>The playbook</h2></div><div class="step"><div class="step-n">01</div><div class="step-l">WEEK 1</div><div class="step-b"><h4>Pick the industry you can argue with</h4><p>One vertical you&#x27;ve worked in, whose problems you can name from memory. Not &quot;small businesses.&quot;</p></div></div><div class="step"><div class="step-n">02</div><div class="step-l">WEEKS 2–4</div><div class="step-b"><h4>Buy proof</h4><p>Build 2–3 real case studies, cheap or free, for businesses in your network. Proof is the only marketing this business needs.</p></div></div><div class="step"><div class="step-n">03</div><div class="step-l"></div><div class="step-b"><h4>Package one named problem</h4><p>Fixed scope, $2–5K, one deadline. Businesses don&#x27;t buy &quot;automation&quot; — they buy &quot;your missed calls get answered and booked.&quot;</p></div></div></div>
 </div>
 
-<!-- p4 · playbook 04–05 + honest math -->
+<!-- p4 · playbook continued (only if there are runover steps) + honest math -->
 <div class="sheet">
   <div class="sec first"><div class="cont">04 · THE PLAYBOOK — CONTINUED</div><div class="step"><div class="step-n">04</div><div class="step-l"></div><div class="step-b"><h4>First client = your network</h4><p>Operators buy from operators; your credibility from the industry you left is the asset.</p></div></div><div class="step"><div class="step-n">05</div><div class="step-l"></div><div class="step-b"><h4>Convert to retainer</h4><p>Maintenance + one new workflow/month, $500–5K by scope. The first project is designed to surface the second (the attach effect).</p></div></div></div>
   <div class="sec ruled"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div><div class="bignum-row"><span class="bignum">$2–8K/mo</span><span class="chip chip-box">OUR ESTIMATE</span></div><p>Costs: tools under $100/mo plus your time — that&#x27;s how the ~90% margin claims happen (directionally right; Deep-research report 1). <strong>Realistic year one: $2–8K/mo — our estimate</strong>, not the $40K/mo stories, which are marketing artifacts from people selling courses about this exact business.</p><div class="fm-label">FAILURE MODES</div><div class="fm"><span class="fm-x">×1</span>It&#x27;s a service — revenue stops when you stop; retainers soften, don&#x27;t cure.</div><div class="fm"><span class="fm-x">×2</span>At 3–5 clients, losing one is a quarter of your income.</div><div class="fm"><span class="fm-x">×3</span>Every automation you install is something you now maintain when the tools update.</div><p style="margin-top:.18in"><strong>Stay SMB — enterprise sales cycles kill solo operators.</strong></p></div>
