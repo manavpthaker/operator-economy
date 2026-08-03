@@ -1,3 +1,6 @@
+> **SUPERSEDED by content-os:** see `../content-os/rubric.md (operator-economy register profile)`.
+> Rules live in `../content-os/`; this repo is creative. Kept for reference.
+
 # The Post Rubric
 
 **Every LinkedIn post, carousel copy, group prompt, and DM runs through this before it ships.** Adapted July 6, 2026 from the brown-man-content voice system (the battle-tested Grapevines rules), re-tuned for The Operator Economy's register: documentary rigor, operator credibility, evidence-first, never hype. The audience is 35–55 ops/product leaders — they detect synthetic content and marketing register instantly, and the register is the moat.

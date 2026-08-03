@@ -1,3 +1,16 @@
+> **RULES LIVE IN `../content-os/`. Read `../content-os/CLAUDE.md` first.**
+>
+> This repo is CREATIVE: it produces the episode and its artifacts. It does not decide what is
+> true, how content sounds, how it scores, or when it ships. Those are in content-os, and
+> `content-os/bin/doctor.sh --gate` is what gates a release.
+>
+> Superseded here: this file's voice/rubric guidance (-> `content-os/voice.md`, `content-os/rubric.md`),
+> `docs/post-rubric.md` (-> `content-os/rubric.md`, the `operator-economy` register profile), and
+> `docs/publishing-flow.md` phases 1-4 (-> `content-os/flow.md`). Phase 0 and `docs/pipeline.md`
+> remain authoritative -- they are the production chain, which content-os does not own.
+>
+> Only `studio/originate/<slug>/launch/links.json` may state an episode URL. Prose references it.
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.

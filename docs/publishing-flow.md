@@ -1,3 +1,6 @@
+> **SUPERSEDED by content-os:** see `../content-os/flow.md (phases 1-4 only; Phase 0 here is still authoritative)`.
+> Rules live in `../content-os/`; this repo is creative. Kept for reference.
+
 # The Publishing Flow
 
 **Codified from EP001's launch (July 6, 2026).** This is the operating manual for shipping an episode. The engine model, per `research/synthesis.md` finding #8: **YouTube is the engine, LinkedIn is the ignition, email is the destination.** LinkedIn matters most for the first 1,000 subs; the compounding loop is LI seeds early watch time → YouTube suggested takes over → views mint email subs → newsletter drives hour-one watch time on the next video.
