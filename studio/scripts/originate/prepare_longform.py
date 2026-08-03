@@ -231,7 +231,11 @@ def main():
         "l_cut_seconds": bk_cfg.get("l_cut_seconds", 2.5),
         "title": script.get("working_title", ""),
         "thesis": script.get("topic", ""),
-        "episode_no": None,  # filled from site/data/episodes.json when known
+        "episode_no": next(
+            (e.get("number") for e in
+             load_json(ROOT.parent / "site" / "data" / "episodes.json").get("episodes", [])
+             if e.get("slug") == script["slug"]),
+            None),  # filled from site/data/episodes.json
         "brand": {
             "name": channel.get("name", "The Operator Economy"),
             "tagline": channel.get("tagline", "Build. Own. Operate."),

@@ -11,9 +11,15 @@ Per brief in content/shorts_briefs.json:
   3. writes window-relative caption groups + props JSON,
   4. prints the render commands (Remotion renders happen locally).
 
+Trailer mode (--trailer, 2026-07-14): reads content/trailer_brief.json and
+stitches 2-4 NON-CONTIGUOUS beats (jump cuts, 60ms anti-click fades) into one
+~25s pre-launch montage + end card. Caption groups get cumulative offsets so
+the one Short composition renders it unchanged; end-card copy is overridden
+with the Monday-drop announcement from the brief.
+
 Usage:
     python scripts/originate/prepare_shorts.py originate/<slug>/script.json \
-        [--video originate/<slug>/ep001-final.mp4] [--only N]
+        [--video originate/<slug>/ep001-final.mp4] [--only N] [--trailer]
 """
 
 from __future__ import annotations
@@ -26,10 +32,41 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
+EPISODES_JSON = ROOT.parent / "site" / "data" / "episodes.json"
 PAD_IN = 0.25
 PAD_OUT = 0.45
 END_CARD_S = 1.8   # navy end card; tag lands here
+TRAILER_END_CARD_S = 2.6  # trailer card carries the drop date — needs read time
 WORDS_PER_GROUP = 4
+
+
+def episode_number(slug: str) -> int | None:
+    """Resolve this episode's number from the site registry.
+
+    The kicker used to be hardcoded to "№ 001" — every EP003 short shipped
+    with the wrong episode number burned into the title card (found
+    2026-07-31). site/data/episodes.json is the single source of truth for
+    numbering, so read it rather than restating it here.
+    """
+    try:
+        data = json.loads(EPISODES_JSON.read_text())
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"⚠ can't read {EPISODES_JSON}: {e}", file=sys.stderr)
+        return None
+    for ep in data.get("episodes", []):
+        if ep.get("slug") == slug:
+            return ep.get("number")
+    return None
+
+
+def kicker_for(slug: str) -> str:
+    num = episode_number(slug)
+    if num is None:
+        # Don't silently stamp a wrong number — that's the bug this replaced.
+        print(f"⚠ no episodes.json entry for '{slug}' — kicker will omit the "
+              f"episode number. Add the entry, then re-run.", file=sys.stderr)
+        return "THE OPERATOR ECONOMY"
+    return f"THE OPERATOR ECONOMY · № {num:03d}"
 
 
 def run(cmd):
@@ -77,11 +114,90 @@ def group_words(words, t0, t1):
     } for g in groups]
 
 
+def prepare_trailer(base, video, tag, pub, rd_dir, fps, offset, sec_start):
+    """Stitch the trailer montage: non-contiguous beats → one audio + props."""
+    brief_path = base / "content" / "trailer_brief.json"
+    if not brief_path.exists():
+        print("⚠ no trailer_brief.json — run derive_content.py first (derivation.trailer).")
+        return None
+    tb = json.loads(brief_path.read_text())
+
+    # Anchor every segment before cutting anything.
+    segs = []
+    for i, sg in enumerate(tb["segments"], 1):
+        words = json.loads((base / "vo" / f"words-{sg['section']}.json").read_text())["words"]
+        head = find_phrase(words, " ".join(sg["first_line"].split()[:4]))
+        tail = find_phrase(words, " ".join(sg["last_line"].split()[-4:]), from_end=True)
+        if not head or not tail:
+            print(f"⚠ trailer seg {i} ({sg['section']}): couldn't anchor the "
+                  f"{'first' if not head else 'last'} line — fix the brief, don't guess.")
+            return None
+        w0, w1 = head[0] - PAD_IN, tail[1] + PAD_OUT
+        segs.append({"words": words, "w0": w0, "w1": w1,
+                     "v0": w0 + sec_start[sg["section"]] + offset,
+                     "dur": w1 - w0})
+
+    total = sum(s["dur"] for s in segs)
+    dur = total + TRAILER_END_CARD_S
+    tag_at = int(total * 1000)
+
+    # One ffmpeg pass: slice each beat (anti-click fades), concat as jump cuts,
+    # pad the end card, land the tag over it.
+    fc, labels = [], []
+    for i, s in enumerate(segs):
+        fade_out = max(s["dur"] - 0.06, 0)
+        fc.append(f"[0:a]atrim=start={s['v0']:.3f}:end={s['v0'] + s['dur']:.3f},"
+                  f"asetpts=PTS-STARTPTS,afade=t=in:d=0.06,"
+                  f"afade=t=out:st={fade_out:.3f}:d=0.06[s{i}]")
+        labels.append(f"[s{i}]")
+    fc.append(f"{''.join(labels)}concat=n={len(segs)}:v=0:a=1,"
+              f"afade=t=out:st={max(total - 0.15, 0):.2f}:d=1.4,"
+              f"apad=pad_dur={TRAILER_END_CARD_S}[a0]")
+    fc.append(f"[1:a]adelay={tag_at}|{tag_at},volume=-2dB[t]")
+    fc.append("[a0][t]amix=inputs=2:duration=first:normalize=0[a]")
+    run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+         "-i", str(video), "-i", str(tag),
+         "-filter_complex", ";".join(fc),
+         "-map", "[a]", "-c:a", "aac", "-b:a", "192k", str(pub / "trailer.m4a")])
+
+    # Captions: segment-relative groups shifted onto the stitched timeline.
+    groups, t_off = [], 0.0
+    for s in segs:
+        for g in group_words(s["words"], s["w0"], s["w1"]):
+            groups.append({
+                "text": g["text"],
+                "words": [{**w, "start": round(w["start"] + t_off, 3),
+                           "end": round(w["end"] + t_off, 3)} for w in g["words"]],
+                "start": round(g["start"] + t_off, 3),
+                "end": round(g["end"] + t_off, 3),
+            })
+        t_off += s["dur"]
+
+    props = {
+        "slug": f"{base.name}-trailer",
+        "title": tb["title"],
+        "kicker": "THE OPERATOR ECONOMY · TRAILER",
+        "audio": "shorts/trailer.m4a",
+        "duration_seconds": round(dur, 3),
+        "fps": fps,
+        "groups": groups,
+        "end_card_seconds": TRAILER_END_CARD_S,
+        "end_card_title": tb.get("end_card_title", "The full breakdown drops Monday"),
+        "end_card_sub": tb.get("end_card_sub", "MONDAY 11 AM ET"),
+    }
+    pth = rd_dir / "trailer.json"
+    pth.write_text(json.dumps(props))
+    print(f"  ✓ trailer: {dur:.1f}s · {len(segs)} beats · {len(groups)} caption groups · {pth.name}")
+    return f"npx remotion render src/index.ts Short out/trailer.mp4 --props=../originate/{base.name}/render_data/trailer.json"
+
+
 def main():
     ap = argparse.ArgumentParser(description="Prepare native vertical shorts")
     ap.add_argument("script")
     ap.add_argument("--video")
     ap.add_argument("--only", type=int)
+    ap.add_argument("--trailer", action="store_true",
+                    help="also stitch the pre-launch montage trailer from content/trailer_brief.json")
     ap.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
     args = ap.parse_args()
 
@@ -138,7 +254,7 @@ def main():
         props = {
             "slug": f"{base.name}-short-{n:02d}",
             "title": br["title"],
-            "kicker": "THE OPERATOR ECONOMY · № 001",
+            "kicker": kicker_for(base.name),
             "audio": audio_rel,
             "duration_seconds": round(dur, 3),
             "fps": fps,
@@ -150,6 +266,11 @@ def main():
         out = f"out/short-{n:02d}.mp4"
         cmds.append(f"npx remotion render src/index.ts Short {out} --props=../originate/{base.name}/render_data/short-{n:02d}.json")
         print(f"  ✓ short {n}: {dur:.1f}s · {len(props['groups'])} caption groups · {pth.name}")
+
+    if args.trailer:
+        tcmd = prepare_trailer(base, video, tag, pub, rd_dir, fps, offset, sec_start)
+        if tcmd:
+            cmds.append(tcmd)
 
     if cmds:
         print("\nRender locally (from studio/remotion):")

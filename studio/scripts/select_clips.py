@@ -335,12 +335,12 @@ def select_clips_single(transcript_data: dict, layout_data: dict, config: dict,
 
     response = client.messages.create(
         model=clip_config["model"],
-        max_tokens=4000,
+        max_tokens=8000,
         system=SYSTEM_PROMPT + "\n\n" + FEW_SHOT_EXAMPLE,
         messages=[{"role": "user", "content": prompt}]
     )
 
-    return parse_claude_json(response.content[0].text)
+    return parse_claude_json(next((b.text for b in response.content if getattr(b,"type","")=="text"), ""))
 
 
 def select_clips_windowed(transcript_data: dict, layout_data: dict, config: dict,
@@ -386,12 +386,12 @@ def select_clips_windowed(transcript_data: dict, layout_data: dict, config: dict
 
         response = client.messages.create(
             model=clip_config["model"],
-            max_tokens=3000,
+            max_tokens=8000,
             system=SYSTEM_PROMPT + "\n\n" + FEW_SHOT_EXAMPLE,
             messages=[{"role": "user", "content": prompt}]
         )
 
-        result = parse_claude_json(response.content[0].text)
+        _raw = next((b.text for b in response.content if getattr(b,"type","")=="text"), ""); import pathlib; pathlib.Path("/tmp/select_clips_raw.txt").write_text(_raw); print(f"    raw_len={len(_raw)}, stop={response.stop_reason}"); result = parse_claude_json(_raw)
         window_clips = result.get("clips", [])
         print(f"      {len(window_clips)} candidates found")
 
@@ -428,12 +428,12 @@ def select_clips_windowed(transcript_data: dict, layout_data: dict, config: dict
 
     response = client.messages.create(
         model=clip_config["model"],
-        max_tokens=4000,
+        max_tokens=8000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": ranking_prompt}]
     )
 
-    return parse_claude_json(response.content[0].text)
+    return parse_claude_json(next((b.text for b in response.content if getattr(b,"type","")=="text"), ""))
 
 
 def parse_claude_json(text: str) -> dict:

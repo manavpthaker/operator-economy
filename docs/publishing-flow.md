@@ -17,8 +17,8 @@ python scripts/originate/pace_storyboard.py originate/<slug>/script.json
 python scripts/originate/prepare_longform.py originate/<slug>/script.json
 python scripts/originate/arrange_bed.py originate/<slug>/script.json --stage cut
 python scripts/originate/arrange_bed.py originate/<slug>/script.json --stage mix
-python scripts/originate/derive_content.py originate/<slug>/script.json # LI posts, newsletter, blueprint, shorts briefs
-python scripts/originate/prepare_shorts.py originate/<slug>/script.json # vertical shorts audio + props
+python scripts/originate/derive_content.py originate/<slug>/script.json # LI posts, newsletter, blueprint, shorts briefs + trailer brief
+python scripts/originate/prepare_shorts.py originate/<slug>/script.json --trailer # vertical shorts audio + props, + the montage trailer
 python scripts/originate/render_blueprint.py originate/<slug>/script.json --hero '$X → $Y' --hero-caption '...'  # THE lead magnet
 ```
 
@@ -30,6 +30,7 @@ Render locally (Manav's machine — Remotion only):
 cd studio/remotion
 npx remotion render src/index.ts Blueprint out/ep00N.mp4 --props=../originate/<slug>/render_data/blueprint.json
 npx remotion render src/index.ts Short out/short-0K.mp4 --props=../originate/<slug>/render_data/short-0K.json   # ×4
+npx remotion render src/index.ts Short out/trailer.mp4 --props=../originate/<slug>/render_data/trailer.json     # the trailer
 ```
 
 Review in **VLC, never QuickTime** (QuickTime drifts + pitches down long AAC files — verified EP001).
@@ -41,13 +42,17 @@ Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" 
 **The chain is dependency-ordered — YouTube always schedules first because every downstream surface needs the links:**
 
 1. **Schedule YT episode** (Mon 11:00) → capture episode URL.
-2. **Schedule YT Shorts ×4** (Tue–Fri 8:30, staggered) → capture 4 short URLs.
-3. **Links in hand → build + rubric-gate the carousel**, then **schedule OE page episode post** (Mon 11:00, carousel as the media, YT link held for the sources comment).
-4. **Schedule OE page shorts posts ×4** (Tue–Fri 8:30, native vertical video + standalone insight text).
-5. Everything after this point (personal repost, group, DMs) triggers off the OE page post going LIVE — see Phases 2–3.
+2. **Schedule YT trailer** (Sun 18:00) — the pre-launch montage teaser; episode link + drop date baked into the description. Added 2026-07-14: nothing previewed the episode before Monday, so launch day carried the whole discovery load.
+3. **Schedule YT Shorts ×4** (Tue–Fri 8:30, staggered) → capture 4 short URLs.
+4. **Links in hand → build + rubric-gate the carousel**, then **schedule OE page episode post** (Mon 11:00, carousel as the media, YT link held for the sources comment).
+5. **OE page trailer post** — Sunday evening, right after the YT trailer is live (native vertical video, copy from `content/trailer_linkedin.md`, link in first comment).
+6. **Schedule OE page shorts posts ×4** (Tue–Fri 8:30, native vertical video + standalone insight text).
+7. Everything after this point (personal repost, group, DMs) triggers off the OE page post going LIVE — see Phases 2–3.
 
 | What | Where | When | How |
 |---|---|---|---|
+| Trailer | YouTube | Sun 6:00 PM | Montage teaser (`prepare_shorts.py --trailer` → Short comp). Description: drop date + episode link. NEVER resolves the thesis — 100% information gap |
+| Trailer post | LinkedIn **OE page** | Sun evening | Native vertical video + `content/trailer_linkedin.md` copy; link in first comment |
 | Episode | YouTube | Mon 11:00 AM | `upload_youtube.py <file> --title ... --description-file ... --privacy private --publish-at <UTC>` — AI-disclosure flag auto-set |
 | SRT captions | YouTube Studio | with upload | Generated from alignment (`ep00N.srt`); drag into Subtitles (API lacks force-ssl scope) |
 | Thumbnail | API (`thumbnails/set`) | with upload | `Thumbnail` Remotion composition (1280×720) gated by **`docs/thumbnail-rubric.md`** — the install-moment concept (this week's business, viewer as hero, expressive faces), ≤3 elements, ≤4 words in Supreme 800, no channel branding, text bottom-left, shrink test at 168px is the ship gate. Concept locks at script gate. Two candidates/episode; Test & Compare when eligible; day-7 CTR by traffic source |
@@ -106,8 +111,8 @@ The group solves a real OE problem (warm ICP audience) and OE solves a real grou
 
 | Day | Surface | Action |
 |---|---|---|
-| Sun night | YouTube | Schedule episode + Shorts ×4 (links captured) |
-| Sun night | LinkedIn OE page | Schedule episode post w/ carousel + shorts posts ×4 (all rubric-gated) |
+| Sun night | YouTube | Schedule episode + Shorts ×4 (links captured); trailer live 6:00 PM |
+| Sun night | LinkedIn OE page | Trailer post (after YT trailer is live) + schedule episode post w/ carousel + shorts posts ×4 (all rubric-gated) |
 | Mon 11:00 | — | Episode + OE post live; sources comment; newsletter |
 | Mon hour one | Personal | Repost OE carousel post + one-line analyst comment |
 | Mon–Tue | DMs | Tier 1/2/3 sends from the shortlist |
@@ -169,4 +174,5 @@ Rubric-lints all LI copy (`scripts/originate/rubric_check.py` — automated subs
 
 - Episode ships Monday or it ships next Monday — never mid-week (the site promise is the contract).
 - If hour-one assets aren't ready by Sunday night, the episode still ships; carousel follows same-day. Never delay the video for the marketing.
+- The trailer is optional per week: if it isn't rendered by Sunday afternoon, skip it — never slide the episode for it. A trailer that resolves the thesis is worse than no trailer (kill-list logic: complete-answer teasers cannibalize the Monday watch).
 - Personal profile: reposts of OE page posts only (max 1-2/week, max 1/day); zero original OE posts, zero "look what I found" shares.

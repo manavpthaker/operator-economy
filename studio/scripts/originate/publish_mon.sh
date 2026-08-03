@@ -1,16 +1,21 @@
 #!/bin/bash
 # publish_mon.sh — the "Monday 11:00 ET auto-fire" runner.
 #
-# Flips voice-agent-agency to live in site/data/episodes.json, git-pushes so
+# Flips the GIVEN slug to live in site/data/episodes.json, git-pushes so
 # Vercel redeploys with the new state, then emails notify:{slug} subscribers
 # via Resend. Auto-answers the notify confirm prompt (yes) because this runs
 # unattended.
 #
 # Scheduled via macOS `at` (see the at-queue this project's launch registered).
-# All output is appended to studio/originate/voice-agent-agency/launch/publish_mon.log.
+# All output is appended to studio/originate/<slug>/launch/publish_mon.log.
+#
+# USAGE: publish_mon.sh <slug>
+# The slug is REQUIRED and must be passed explicitly. It used to be hardcoded to
+# "voice-agent-agency" (EP002); a stale `at` job firing this would have silently
+# republished EP002. Refusing to run without an explicit slug is the guard.
 
 set -u
-SLUG="voice-agent-agency"
+SLUG="${1:?REFUSING TO RUN: no slug given. Usage: publish_mon.sh <slug>}"
 REPO="/Users/manavthaker/Documents/GitHub/operator-economy"
 LOG="$REPO/studio/originate/$SLUG/launch/publish_mon.log"
 

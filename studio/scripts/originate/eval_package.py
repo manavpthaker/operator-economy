@@ -28,6 +28,11 @@ TITLE_SLOP = ["unlocking", "revolutionizing", "mastering", "delve", "tapestry",
 LOOP_MARKERS = ["?", " but ", "here's", "here is", "that's where", "that's when",
                 "which brings", "to understand", "next", "coming up", "the only",
                 "turns out", "the catch", "and that", "remember"]
+# Spelled-out numerals — kept in sync with eval_script.py's NUMWORD_RE.
+NUMWORD_RE = re.compile(
+    r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|"
+    r"twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|"
+    r"thousand|million|billion|half|double|triple)\b", re.IGNORECASE)
 STOPWORDS = {"the", "a", "an", "of", "to", "in", "for", "and", "you", "your", "is", "it"}
 
 
@@ -93,11 +98,19 @@ def main():
 
     def tension_signals(t):
         sig = []
-        if re.search(r"\d|billion|million|thousand", t, re.I): sig.append("number")
+        if re.search(r"\d|billion|million|thousand", t, re.I):
+            sig.append("number")
+        elif len({m.lower() for m in NUMWORD_RE.findall(t)}) >= 2:
+            # VO spells numerals ("six seats", not "6 seats"). One number word
+            # alone is not a signal — "one of the" would rubber-stamp the check.
+            # Two distinct quantities is a comparison, which is the real signal.
+            # Mirrors eval_script.py's rule; keep the two in sync. (2026-07-31)
+            sig.append("number (spelled)")
         if "?" in t: sig.append("question")
         if re.search(r"[\"“”'][^\"“”']{8,}[\"“”']", t): sig.append("quote")
         if any(w in t.lower() for w in [" but ", " yet ", "however", "instead",
-                                        "not because", "is not ", "isn't "]):
+                                        "not because", "is not ", "isn't ",
+                                        " another ", " while ", " meanwhile "]):
             sig.append("contrast")
         return sig
 
@@ -199,7 +212,11 @@ def main():
     # ---- CTA (auto: 7 of 10) ----
     early_ids = [i for i in ("hook", "thesis", "evidence", "stack") if i in sections]
     early_text = " ".join(b["vo_text"].lower() for i in early_ids for b in sections[i]["beats"])
-    early_cta = any(w in early_text for w in ["subscribe", "blueprint", "link below", "download"])
+    # Word-boundary match, not substring (fixed 2026-07-31). The bare `in`
+    # test fired on "multi-million-SUBSCRIBEr audience" and kill-listed an
+    # episode that had no CTA anywhere before the payoff. For a channel that
+    # covers audience businesses, "subscriber" is going to keep showing up.
+    early_cta = bool(re.search(r"\b(?:subscribe|blueprint|link below|download)\b", early_text))
     r.score("cta: nothing before first payoff (hook→stack clean)", 4 if not early_cta else 0, 4)
     if early_cta:
         r.kill("early CTA", "subscribe/blueprint mention before the payoff sections")
@@ -229,6 +246,33 @@ def main():
             r.kill("complete-answer Short", "a Short that resolves the question kills conversion")
     else:
         print("  (shorts_briefs.json not present yet — shorts checks run after derive step)")
+
+    # ---- TRAILER BRIEF (pre-launch teaser: pure information gap) ----
+    trailer_path = Path(args.script).parent / "content" / "trailer_brief.json"
+    if trailer_path.exists():
+        with open(trailer_path) as f:
+            tb = json.load(f)
+        segs = tb.get("segments") or []
+        sec_ids = {s.get("section") for s in segs}
+        r.score("trailer: 2-4 segments from >=2 different sections",
+                3 if 2 <= len(segs) <= 4 and len(sec_ids) >= 2 else 0, 3,
+                "" if 2 <= len(segs) <= 4 and len(sec_ids) >= 2
+                else f"{len(segs)} segments across {len(sec_ids)} sections")
+        card = f"{tb.get('end_card_title', '')} {tb.get('end_card_sub', '')}".lower()
+        r.score("trailer: end card announces the Monday drop",
+                2 if "monday" in card else 0, 2,
+                "" if "monday" in card else "end card doesn't carry the drop date")
+        # Thesis leakage: the trailer must not contain the thesis section's payoff.
+        thesis_beats = sections.get("thesis", {}).get("beats", [])
+        thesis_text = " ".join(b["vo_text"].lower() for b in thesis_beats)
+        leaked = [i for i, s in enumerate(segs)
+                  if s.get("section") == "thesis"
+                  and (s.get("last_line") or "").lower() in thesis_text
+                  and thesis_text.strip().endswith((s.get("last_line") or "").lower())]
+        if leaked:
+            r.kill("trailer resolves the thesis",
+                   f"segment(s) {leaked} run to the thesis payoff — a trailer that answers "
+                   "the question cannibalizes the Monday watch")
 
     human = ("archetype quality, thumbnail art/contrast/legibility, previewed-payoff arc, "
              "on-screen text in hook, honest-title judgment, voice direction, variation")

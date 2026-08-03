@@ -21,6 +21,13 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube",
     "https://www.googleapis.com/auth/yt-analytics.readonly",
+    # Added 2026-08-03. captions.insert and commentThreads.insert accept ONLY
+    # force-ssl (or youtubepartner) — nothing else unlocks them. This is what
+    # gates automated SRT upload and the shorts' episode-link comment.
+    # NOTE: thumbnails.set does NOT need this — it already accepts youtube.upload
+    # and youtube, both of which are above. If thumbnail push fails it is channel
+    # verification (youtube.com/verify), not a scope problem.
+    "https://www.googleapis.com/auth/youtube.force-ssl",
 ]
 
 flow = InstalledAppFlow.from_client_secrets_file(str(SECRETS / "client_secret.json"), SCOPES)

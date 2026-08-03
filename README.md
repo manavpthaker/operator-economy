@@ -5,7 +5,7 @@
 YouTube channel + newsletter + blueprint library. AI business blueprints for people done with the broken job market.
 
 - Channel: [YouTube Studio](https://studio.youtube.com/channel/UC7WsO7VW1E9vAYY_SCIOr0g) · ID `UC7WsO7VW1E9vAYY_SCIOr0g` · handle @operatoreconomy
-- Domain: theoperatoreconomy.com *(purchase pending — [Vercel](https://vercel.com/domains/search?q=theoperatoreconomy.com), $11.25/yr)*
+- Domain: [theoperatoreconomy.com](https://www.theoperatoreconomy.com) — **live**
 - Production engine: [`studio/`](studio/) — `originate.py` for long-form blueprints (see `studio/ORIGINATE.md`), `pipeline.py` for cutting Shorts from rendered videos. Vendored from the viddy repo 2026-07-02; this copy is canonical for OE, viddy remains for podcast clips.
 
 ## Thesis
@@ -45,4 +45,4 @@ Unlike everyone else saying this, we prove it: real companies, real numbers, rea
 
 ## Revenue model (in order of build)
 
-Email list (blueprint lead magnets) → AdSense (~month 6+) → tool affiliates (20–30% recurring) → sponsors (~month 12+) → Grapevines funnel (secondary, always on).
+Email list (blueprint lead magnets) → AdSense (~month 6+) → tool affiliates (20–30% recurring) → sponsors (~month 12+).

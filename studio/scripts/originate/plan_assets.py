@@ -82,19 +82,37 @@ def main():
         for s in script["sections"]
     ]
 
+    out = script_path.parent / "assets.json"
+    if out.exists():
+        print(f"assets.json already exists at {out} — skipping LLM call.")
+        with open(out) as f:
+            assets = json.load(f)
+        n = sum(len(s["assets"]) for s in assets["sections"])
+        print(f"✓ {n} assets loaded from cache")
+        return
+
     client = anthropic.Anthropic()
     print("Planning assets...")
     response = client.messages.create(
         model=config["models"]["assets"],
-        max_tokens=8000,
+        max_tokens=16000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content":
                    "Expand every beat into one asset spec. Return JSON: "
                    '{"sections":[{"id":str,"assets":[{"beat":int,"spec":{...}}]}]}\n\n'
                    + json.dumps(beats_payload, indent=2)}],
     )
-    text = re.sub(r"^```(json)?|```$", "", response.content[0].text.strip(), flags=re.MULTILINE).strip()
-    assets = json.loads(text)
+    raw = next((b.text for b in response.content if getattr(b, "type", "") == "text"), None)
+    if raw is None:
+        raise RuntimeError(f"No text block in response (stop_reason={response.stop_reason}, blocks={[getattr(b,'type','?') for b in response.content]})")
+    (script_path.parent / "assets.raw.txt").write_text(raw)
+    text = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
+    try:
+        assets = json.loads(text)
+    except json.JSONDecodeError as e:
+        print(f"  JSON parse failed at char {e.pos}: {text[max(0,e.pos-60):e.pos+60]!r}")
+        print(f"  stop_reason={response.stop_reason}, raw length={len(raw)}")
+        raise
 
     out = script_path.parent / "assets.json"
     with open(out, "w") as f:

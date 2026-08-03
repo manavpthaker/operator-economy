@@ -48,6 +48,45 @@ VOICE_AGENT_AGENCY = {
         ],
     },
 
+    # TRAILER — pre-launch montage (hook open → 38%/62% spike → agency-layer
+    # open loop). Each beat gets its own visual so the jump cuts read as cuts.
+    # VO (stitched): "This week... businesses that never answer their phones
+    # ... operators getting paid to fix that. With AI. | One study found only
+    # 38% ... other 62%? Voicemail. Or nowhere. | It's whether the agency
+    # layer ... survives the next eighteen months."
+    "trailer": {
+        "cold_open_seconds": 1.5,
+        "scenes": [
+            # beat 1 — hook
+            {"kind": "waveform", "start": 0.0, "duration": 4.4,
+             "headline": "NO ANSWER", "sub": "CALLS TO SMALL BUSINESSES", "bars": 32},
+            {"kind": "stamp", "start": 4.4, "duration": 2.9,
+             "text": "OPERATORS", "sub": "GETTING PAID TO FIX IT"},
+            {"kind": "bignumber", "start": 7.3, "duration": 1.7,
+             "value": "WITH AI", "size": "medium", "accent": True},
+            # beat 2 — the number spike
+            {"kind": "counter", "start": 9.0, "duration": 2.2,
+             "kicker": "ONE STUDY FOUND", "from": 0, "to": 38,
+             "format": "int", "suffix": "%", "label": "OF CALLS"},
+            {"kind": "barsplit", "start": 11.2, "duration": 3.6,
+             "kicker": "ANSWERED BY A REAL PERSON",
+             "left": {"value": 38, "label": "ANSWERED", "display": "38%"},
+             "right": {"value": 62, "label": "MISSED", "display": "62%"},
+             "highlight": "right"},
+            {"kind": "bignumber", "start": 14.8, "duration": 5.1,
+             "value": "62%", "label": "OF CALLS",
+             "sub": ["Voicemail.", "Or nowhere."]},
+            # beat 3 — the open loop (never resolves)
+            {"kind": "stack", "start": 19.9, "duration": 5.5,
+             "headline": "This week's real question:",
+             "nodes": ["PLATFORM", "AGENCY", "PLUMBER"], "emphasis": 1},
+            {"kind": "stack", "start": 25.4, "duration": 3.7,
+             "headline": "Eighteen months?",
+             "nodes": ["ELEVENLABS · RETELL", "AGENCY", "PLUMBER"],
+             "emphasis": 1, "bypass": [0, 2]},
+        ],
+    },
+
     # SHORT-02 — "This voice is AI"
     # VO: "you're listening to the proof ... this voice ... that's an AI voice
     # ... same stack ... didn't notice / that's the point ... where the seams
@@ -143,8 +182,42 @@ VOICE_AGENT_AGENCY = {
     },
 }
 
+# Shared 3-beat montage: the $5B-for-one-boring-job contrast, the
+# revenue/valuation spike, the honest year-one range. Never resolves — the
+# "how" and "whether it lasts" are the episode. Scene clock matches the
+# stitched caption timings in render_data/trailer.json (identical for teaser).
+_BAA_MONTAGE = [
+    # beat 1 — the contrast (0.2–8.2s of VO)
+    {"kind": "bignumber", "start": 0.0, "duration": 3.0,
+     "kicker": "ZAPIER IS WORTH", "value": "$5B",
+     "label": "FOR ONE BORING JOB", "size": "hero", "accent": True},
+    {"kind": "stack", "start": 3.0, "duration": 5.9,
+     "headline": "Apps that don't talk to each other",
+     "nodes": ["CRM  ✗  INVOICING", "FORM  ✗  INBOX", "SHEET  ✗  SLACK"]},
+    # beat 2 — the number spike (8.9–15.2s)
+    {"kind": "counter", "start": 8.9, "duration": 4.2,
+     "kicker": "ZAPIER · ANNUAL REVENUE", "from": 0, "to": 310000000,
+     "format": "money", "label": "ON ~$1.5M RAISED"},
+    {"kind": "bignumber", "start": 13.1, "duration": 2.8,
+     "kicker": "VALUATION", "value": "$5B", "size": "hero", "accent": True},
+    # beat 3 — the honest-math tease / open loop (15.9–21.7s)
+    {"kind": "bignumber", "start": 15.9, "duration": 6.2,
+     "kicker": "SOLO OPERATOR · REALISTIC YEAR ONE",
+     "value": "$2–6K", "label": "/ MO", "size": "hero"},
+]
+
+BORING_AUTOMATION_AGENCY = {
+    # Pre-launch montage (Sun 6pm): ends on the "drops Monday" card (set in
+    # render_data/trailer.json by prepare_shorts).
+    "trailer": {"cold_open_seconds": 1.5, "scenes": _BAA_MONTAGE},
+    # Post-launch evergreen teaser: same montage, "watch the full breakdown"
+    # end card + live episode link (end card set in render_data/teaser.json).
+    "teaser": {"cold_open_seconds": 1.5, "scenes": _BAA_MONTAGE},
+}
+
 SCENE_SCRIPTS = {
     "voice-agent-agency": VOICE_AGENT_AGENCY,
+    "boring-automation-agency": BORING_AUTOMATION_AGENCY,
 }
 
 

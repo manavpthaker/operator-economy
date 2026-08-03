@@ -43,6 +43,17 @@ MONEY_RE = re.compile(
     r"\$\s?\d|\b(?:\w+\s)?(?:thousand|million|billion)\b|\b\d[\d,.]*\s?(?:dollars|percent margins?)",
     re.IGNORECASE)
 
+# Spelled-out numerals (2026-07-31). VO copy writes "six seats", not "6 seats",
+# so a digit-only test punished hooks for being correctly written for speech.
+# Deliberately NOT treated as a signal on its own — "one of the" would make the
+# hook check a rubber stamp. Only a COMPARISON (two or more distinct quantities
+# in the first two sentences) counts, which is the thing the check is actually
+# looking for.
+NUMWORD_RE = re.compile(
+    r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|"
+    r"twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|"
+    r"thousand|million|billion|half|double|triple)\b", re.IGNORECASE)
+
 
 class Eval:
     def __init__(self):
@@ -121,11 +132,16 @@ def main():
         signals = []
         if MONEY_RE.search(first_two) or re.search(r"\d", first_two):
             signals.append("number")
+        elif len({m.lower() for m in NUMWORD_RE.findall(first_two)}) >= 2:
+            # two distinct spelled quantities = a numeric comparison, e.g.
+            # "exactly one paying student ... filled six seats"
+            signals.append("number (spelled)")
         if "?" in first_two:
             signals.append("question")
         if re.search(r"[\"“”']{1}[^\"“”']{8,}[\"“”']{1}", first_two):
             signals.append("quote")
-        if any(w in low2 for w in [" but ", " yet ", "however", "instead", "not because", "isn't ", "is not "]):
+        if any(w in low2 for w in [" but ", " yet ", "however", "instead", "not because",
+                                   "isn't ", "is not ", " another ", " while ", " meanwhile "]):
             signals.append("contrast")
         ev.check("hook: concrete tension in first two sentences (number/question/quote/contrast)",
                  bool(signals), f"signals: {signals or 'NONE'} — {first_two[:70]}")

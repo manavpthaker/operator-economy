@@ -9,7 +9,7 @@ Usage (from studio/):
     python launch.py <slug> --monday 2026-07-13 --title "..." --go              # actually uploads/schedules via YouTube API
 
 What it does:
-  1. Computes publish-at times (episode Mon 11:00 ET, shorts Tue–Fri 8:30 ET) in UTC.
+  1. Computes publish-at times (trailer Sun 18:00 ET, episode Mon 11:00 ET, shorts Tue–Fri 8:30 ET) in UTC.
   2. Rubric-lints every LinkedIn copy file (scripts/originate/rubric_check.py) — hard fails abort.
   3. --go: uploads episode via scripts/originate/upload_youtube.py (privacy=private + publishAt),
      captures the youtu.be link, then uploads the 4 shorts with the episode link
@@ -37,6 +37,7 @@ ET = ZoneInfo("America/New_York")
 
 EPISODE_TIME = time(11, 0)   # Mon 11:00 ET
 SHORT_TIME = time(8, 30)     # Tue–Fri 8:30 ET
+TRAILER_TIME = time(18, 0)   # Sun 6:00 PM ET — pre-launch montage teaser
 
 STANDING_DM_LIST = ["Henry", "Joni"]  # Tier 3 seeds — expand from relationship notes
 
@@ -106,7 +107,16 @@ def main() -> None:
         iter(sorted(ep_dir.glob("ep*-final.mp4"))), None)
     if video is None or not video.exists():
         sys.exit("episode video not found — pass --video")
-    shorts = sorted((ep_dir / "shorts").glob("short-*.mp4"))
+    # Renders land in remotion/out/ (canonical output), fall back to originate/<slug>/shorts/.
+    render_out = STUDIO / "remotion" / "out"
+    short_src = render_out if list(render_out.glob("short-*.mp4")) else (ep_dir / "shorts")
+    shorts = sorted(short_src.glob("short-*.mp4"))
+    # Idempotency: reuse anything already uploaded so re-runs never duplicate.
+    links_path = ep_dir / "launch" / "links.json"
+    existing = json.loads(links_path.read_text()) if links_path.exists() else {}
+    existing_ep = existing.get("episode_url", "") if not existing.get("dry_run", True) else ""
+    existing_shorts = {s.get("file"): s.get("url") for s in existing.get("shorts", [])
+                       if str(s.get("url", "")).startswith("http")}
     briefs = json.loads((ep_dir / "content" / "shorts_briefs.json").read_text()) \
         if (ep_dir / "content" / "shorts_briefs.json").exists() else []
     desc_file = ep_dir / "content" / "youtube_description.txt"
@@ -129,15 +139,45 @@ def main() -> None:
         rubric_gate([
             (ep_dir / "content" / "launch_linkedin.md", "feed"),
             (ep_dir / "content" / "linkedin_posts.md", "feed"),
+            (ep_dir / "content" / "trailer_linkedin.md", "feed"),
             (ep_dir / "content" / "newsletter.md", "carousel"),  # doc surface: em dash ok, lexicon still banned
         ])
 
-    # ---- 1. Episode ----
+    # ---- 1. Episode (idempotent: reuse an already-uploaded URL) ----
     print("\nEpisode:")
     ep_publish = utc_iso(monday, EPISODE_TIME)
-    ep_url = run_upload(video, args.title, ep_desc, ep_publish, args.go)
+    if args.go and existing_ep.startswith("http"):
+        print(f"  reusing already-uploaded episode: {existing_ep}")
+        ep_url = existing_ep
+    else:
+        ep_url = run_upload(video, args.title, ep_desc, ep_publish, args.go)
 
-    # ---- 2. Shorts (episode link baked into descriptions) ----
+    # ---- 2. Trailer (Sunday evening, episode link baked in) ----
+    trailer_entry = None
+    trailer_video = short_src / "trailer.mp4"
+    trailer_brief = json.loads((ep_dir / "content" / "trailer_brief.json").read_text()) \
+        if (ep_dir / "content" / "trailer_brief.json").exists() else {}
+    sunday = monday - timedelta(days=1)
+    trailer_past = args.go and datetime.now(ET) > datetime.combine(sunday, TRAILER_TIME, tzinfo=ET)
+    if existing.get("trailer"):
+        trailer_entry = existing["trailer"]
+        print(f"\n  reusing already-uploaded trailer: {trailer_entry.get('url')}")
+    elif trailer_video.exists() and trailer_brief and not trailer_past:
+        print("\nTrailer:")
+        t_title = trailer_brief.get("title", f"{args.title} — trailer")[:95]
+        t_desc = (trailer_brief.get("youtube_description", "Full breakdown drops Monday 11 AM ET: [long-form link]")
+                  .replace("[long-form link]", ep_url)
+                  + f"\n\nThe Operator Blueprint (free): https://theoperatoreconomy.com/episodes/{args.slug}")
+        t_url = run_upload(trailer_video, t_title, t_desc, utc_iso(sunday, TRAILER_TIME), args.go)
+        trailer_entry = {"file": trailer_video.name, "title": t_title, "url": t_url,
+                         "publish_et": f"{sunday} 18:00 ET"}
+    elif trailer_past:
+        print("\n(trailer slot Sun 18:00 ET already passed — skipping. Use teaser.mp4 as an evergreen post-launch driver.)")
+    else:
+        print("\n(no trailer — need trailer.mp4 + content/trailer_brief.json; "
+              "see prepare_shorts.py --trailer)")
+
+    # ---- 3. Shorts (episode link baked into descriptions) ----
     print("\nShorts:")
     short_entries = []
     for i, sv in enumerate(shorts[:4]):
@@ -148,12 +188,19 @@ def main() -> None:
             .replace("[long-form link]", ep_url)
         desc = (f"{pinned}\n\nThe Operator Blueprint (free): "
                 f"https://theoperatoreconomy.com/episodes/{args.slug}")
-        url = run_upload(sv, title, desc, utc_iso(day, SHORT_TIME), args.go)
+        if sv.name in existing_shorts:
+            url = existing_shorts[sv.name]
+            print(f"  reusing short {sv.name}: {url}")
+        elif args.go and datetime.now(ET) > datetime.combine(day, SHORT_TIME, tzinfo=ET):
+            print(f"  short {i+1} ({day} 08:30 ET) already passed — skipping upload")
+            continue
+        else:
+            url = run_upload(sv, title, desc, utc_iso(day, SHORT_TIME), args.go)
         short_entries.append({"file": sv.name, "title": title, "url": url,
                               "publish_et": f"{day} 08:30 ET",
                               "pinned_comment": pinned})
 
-    # ---- 3. Launch package ----
+    # ---- 4. Launch package ----
     launch_dir = ep_dir / "launch"
     launch_dir.mkdir(exist_ok=True)
     manifest = {
@@ -162,6 +209,7 @@ def main() -> None:
         "blueprint_url": f"https://theoperatoreconomy.com/episodes/{args.slug}",
         "carousel_pdf": next((str(p) for p in ep_dir.glob("carousel-*.pdf")), None),
         "blueprint_pdf": str(bp_pdf) if bp_pdf else None,
+        "trailer": trailer_entry,
         "shorts": short_entries,
         "generated": datetime.now(ET).isoformat(),
         "dry_run": not args.go,
@@ -174,6 +222,7 @@ Generated by launch.py ({'LIVE' if args.go else 'DRY RUN'}). Flow: docs/publishi
 {f"⚠ RUBRIC WAIVED: {args.rubric_waiver}" if args.rubric_waiver else ""}
 
 ## Scheduled by this script
+{f"- [{'x' if args.go else ' '}] YT trailer — Sun {monday - timedelta(days=1)} 18:00 ET — {trailer_entry['url']}" if trailer_entry else "- [ ] (no trailer this week)"}
 - [{'x' if args.go else ' '}] YT episode — Mon {monday} 11:00 ET — {ep_url}
 """ + "".join(
         f"- [{'x' if args.go else ' '}] YT short {i+1} — {s['publish_et']} — {s['url']}\n"
@@ -184,6 +233,7 @@ Generated by launch.py ({'LIVE' if args.go else 'DRY RUN'}). Flow: docs/publishi
 - [ ] End screen last 6s: Subscribe + best-for-viewer
 
 ## Manual — Sunday night (Chrome / scheduled task drives)
+- [ ] OE page trailer post — Sun evening, right after the YT trailer is live (native vertical video, copy from content/trailer_linkedin.md, link in first comment)
 - [ ] OE page episode post scheduled Mon 11:00 (carousel attached LAST, then Schedule)
 - [ ] OE page shorts posts ×4 scheduled Tue–Fri 8:30 (native vertical video)
 

@@ -180,7 +180,6 @@ def process_clip(video_path: str, threshold_db: float = -40,
                 "removed": round(duration_before - duration_after, 1)}
 
     # Failed — restore original
-    import shutil
     shutil.copy2(str(original_path), video_path)
     return {"file": str(path), "silences": len(silences), "trimmed": False, "reason": "ffmpeg failed"}
 

@@ -34,6 +34,8 @@ export type ShortRenderData = {
   fps: number;
   groups: CaptionGroup[];
   end_card_seconds: number; // tail reserved for the end card
+  end_card_title?: string; // override (trailer: "The full breakdown drops Monday")
+  end_card_sub?: string; // override (trailer: "№ 002 · MONDAY 11 AM ET")
   scenes?: Scene[]; // v2: motion-graphics-native visual timeline
   cold_open_seconds?: number; // when scenes are present, how long before title compacts
 };
@@ -304,9 +306,10 @@ export const ShortComposition: React.FC<ShortRenderData> = (props) => {
             fontSize: 74,
             color: COLORS.paper,
             textAlign: 'center',
+            padding: '0 72px',
           }}
         >
-          The Operator Economy
+          {props.end_card_title ?? 'The Operator Economy'}
         </div>
         <div
           style={{
@@ -314,9 +317,10 @@ export const ShortComposition: React.FC<ShortRenderData> = (props) => {
             fontSize: 27,
             letterSpacing: '0.2em',
             color: COLORS.goldBright,
+            textAlign: 'center',
           }}
         >
-          BUILD · OWN · OPERATE
+          {props.end_card_sub ?? 'BUILD · OWN · OPERATE'}
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

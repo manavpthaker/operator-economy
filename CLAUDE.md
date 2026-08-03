@@ -103,6 +103,7 @@ These aren't style preferences — they're enforced by evals and will fail the p
 - **Evidence must span low end AND high end** (solo/side operator + venture-scale version). Enforced by `eval_script.py`.
 - **AI-disclosure box must be checked on upload** (Jan 2026 policy). This is a human step at Gate 3; `containsSyntheticMedia` will also be set on the API upload path when built.
 - **Shorts must have cliffhanger_line + pinned_comment**; complete-answer Shorts are a kill-list item. Enforced in the derive step's eval re-run.
+- **The trailer (pre-launch montage, Sun 6pm) never resolves the thesis.** 2-4 stitched beats from ≥2 sections, end card carries the Monday drop. A trailer that answers the question is a kill-list item; a missing trailer just gets skipped — it never delays the episode. Config: `derivation.trailer`; brief: `content/trailer_brief.json`; render: `prepare_shorts.py --trailer` → same Short composition, always v2 (each episode's `write_shorts_scenes.py` script gets a `trailer` key alongside `short-01..04` — words-only trailers don't read as montage).
 
 ## Where to read next
 

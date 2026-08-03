@@ -8,6 +8,9 @@ generates:
   - linkedin_posts.md   — N standalone posts mapped to content themes
   - shorts_briefs.json  — moments for the EXISTING viddy pipeline to cut
                           once the long-form is rendered
+  - trailer_brief.json  — pre-launch montage teaser (2-4 stitched beats +
+                          end card + LI post); prepare_shorts.py --trailer
+                          renders it (config: derivation.trailer)
 
 Usage:
     python scripts/originate/derive_content.py originate/<slug>/script.json
@@ -289,6 +292,7 @@ Rules:
 - Newsletter: 400-700 words, has a named takeaway section and links the video + blueprint.
 - Blueprint doc: the actual deliverable promised in the video — idea, evidence table, tool stack with costs, week-by-week playbook, honest economics, sources. Someone should be able to act on it without watching.
 - Shorts briefs: YOUTUBE-ONLY (no LinkedIn clips). INFORMATION-GAP strategy, strictly. Each Short presents the setup and first insight, then ENDS ON A CLIFFHANGER — it must never resolve the core question (complete-answer Shorts kill long-form conversion). Hook in the first line, 30-75s of VO, and a pinned_comment pointing to the full breakdown.
+- Trailer brief: a PRE-LAUNCH montage teaser (~20-30s total) that ships the day BEFORE the episode. Pick 2-4 non-contiguous VO moments from DIFFERENT sections (e.g. the hook's sharpest line, one evidence spike with a number, the honest-math tease). Each segment is 4-10s and must cut mid-tension. Segments are stitched in brief order. HARD RULES: the trailer never states the thesis, never resolves any question, never reveals the playbook — it is 100% information gap. The last segment's final line must leave the biggest open loop. Include end-card copy announcing the Monday drop, a YouTube title/description, and a LinkedIn post (same text-only rules as above) for the OE page announcing the episode drops Monday.
 - Never promise income. Sourced numbers only."""
 
 
@@ -308,10 +312,30 @@ def main():
     content_dir = script_path.parent / "content"
     content_dir.mkdir(exist_ok=True)
 
+    t_cfg = d_cfg.get("trailer") or {}
+    trailer_enabled = bool(t_cfg.get("enabled"))
+    trailer_lines = ""
+    trailer_schema = ""
+    if trailer_enabled:
+        trailer_lines = (
+            f"Trailer: yes — target ~{t_cfg.get('target_seconds', 25)}s total, "
+            f"{t_cfg.get('segments', [2, 4])[0]}-{t_cfg.get('segments', [2, 4])[-1]} segments, "
+            "ships Sunday evening before the Monday 11:00 ET episode.\n")
+        trailer_schema = """,
+  "trailer_brief": {
+    "title": str,                 // YT Short title, <=95 chars, tease not thesis
+    "segments": [{"section": str, "first_line": str, "last_line": str, "why": str}],
+    "end_card_title": str,        // e.g. "The full breakdown drops Monday"
+    "end_card_sub": str,          // e.g. "№ 002 · MONDAY 11 AM ET"
+    "youtube_description": str,   // 1-3 lines, drop date, [long-form link] placeholder
+    "linkedin_post": str,         // OE page pre-launch post, text-only rules apply
+    "linkedin_comment": str       // the one link comment (episode blueprint page)
+  }"""
+
     user_prompt = f"""Themes for LinkedIn posts: {d_cfg['linkedin_themes']}
 Number of LinkedIn posts: {d_cfg['linkedin_posts']}
 Number of shorts briefs: {d_cfg['shorts_briefs']}
-CTA assets: blueprint download (lead magnet), grapevines.ai/intel (secondary).
+{trailer_lines}CTA assets: blueprint download (lead magnet), grapevines.ai/intel (secondary).
 
 Script JSON:
 {json.dumps(script, indent=2)}
@@ -322,19 +346,33 @@ Return JSON:
   "newsletter_md": str,     // full markdown draft
   "linkedin_posts": [{{"theme": str, "post": str, "comment": str}}],
   "repost_blurbs": [str, str],
-  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cliffhanger_line": str, "pinned_comment": str, "why": str}}]
-}}"""
+  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cliffhanger_line": str, "pinned_comment": str, "why": str}}]{trailer_schema}
+}}
+
+Trailer segment rules (if trailer requested): `first_line`/`last_line` are EXACT
+phrases from the section's vo_text (they anchor the audio cut — copy them verbatim,
+4+ words each). Segments must come from >=2 different sections and stitch coherently
+without connective tissue."""
 
     client = anthropic.Anthropic()
     print("Deriving content...")
     response = client.messages.create(
         model=config["models"]["derive"],
-        max_tokens=16000,
+        max_tokens=32000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_prompt}],
     )
-    text = re.sub(r"^```(json)?|```$", "", next(b.text for b in response.content if getattr(b, "type", "") == "text").strip(), flags=re.MULTILINE).strip()
-    out = json.loads(text)
+    raw = next((b.text for b in response.content if getattr(b, "type", "") == "text"), None)
+    if raw is None:
+        raise RuntimeError(f"No text block (stop_reason={response.stop_reason})")
+    (content_dir / "derive.raw.txt").write_text(raw)
+    text = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
+    try:
+        out = json.loads(text, strict=False)
+    except json.JSONDecodeError as e:
+        print(f"  JSON parse failed at char {e.pos}: {text[max(0,e.pos-80):e.pos+80]!r}")
+        print(f"  stop_reason={response.stop_reason}, raw length={len(raw)}")
+        raise
 
     (content_dir / "blueprint.md").write_text(out["blueprint_md"])
     (content_dir / "newsletter.md").write_text(out["newsletter_md"])
@@ -353,8 +391,20 @@ Return JSON:
     with open(content_dir / "shorts_briefs.json", "w") as f:
         json.dump(out["shorts_briefs"], f, indent=2)
 
+    trailer_note = ""
+    if trailer_enabled and out.get("trailer_brief"):
+        tb = out["trailer_brief"]
+        with open(content_dir / "trailer_brief.json", "w") as f:
+            json.dump(tb, f, indent=2)
+        # LI copy as its own file so launch.py's rubric gate can lint it.
+        (content_dir / "trailer_linkedin.md").write_text(
+            f"# Trailer post (OE page, Sunday evening — pre-launch)\n\n"
+            f"{tb['linkedin_post']}\n\n**→ Comment (the only link):**\n\n"
+            f"{tb.get('linkedin_comment', '')}\n")
+        trailer_note = f", trailer brief ({len(tb.get('segments', []))} segments)"
+
     print(f"\n✓ blueprint.md, newsletter.md, {len(out['linkedin_posts'])} LI posts, "
-          f"{len(out['shorts_briefs'])} shorts briefs → {content_dir}")
+          f"{len(out['shorts_briefs'])} shorts briefs{trailer_note} → {content_dir}")
 
     write_youtube_metadata(script, content_dir)
 

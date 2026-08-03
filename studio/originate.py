@@ -34,6 +34,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 SCRIPTS = ROOT / "scripts" / "originate"
+CONFIG_PATH = ROOT / "config" / "blueprint.json"
+
+
+def load_config() -> dict:
+    return json.loads(CONFIG_PATH.read_text())
 
 
 def run_step(script: str, args: list[str], step_name: str) -> None:
@@ -69,6 +74,13 @@ def main():
     p_rend.add_argument("dir", help="originate/<slug> or bare slug")
     p_rend.add_argument("--skip-derive", action="store_true", help="Skip LinkedIn/newsletter derivation")
 
+    p_fin = sub.add_parser("finalize",
+                           help="Post-Remotion: color grade + final loudness master on output/<slug>.mp4")
+    p_fin.add_argument("dir", help="originate/<slug> or bare slug")
+    p_fin.add_argument("--input", help="override input mp4 (default output/<slug>.mp4)")
+    p_fin.add_argument("--no-grade", action="store_true", help="skip color grade regardless of config")
+    p_fin.add_argument("--no-master", action="store_true", help="skip final loudness master regardless of config")
+
     args = parser.parse_args()
 
     if args.command == "new":
@@ -94,9 +106,27 @@ def main():
         run_step("eval_script.py", [script, "--mode", "approved"], "Gate 1 Evals (approved)")
         run_step("eval_package.py", [script], "Craft Rubric (kill-list gate)")
         run_step("generate_vo.py", [script], "Generate Voiceover")
-        # Avatar corner-block clips (HeyGen digital twin, lip-synced to the
-        # section VO). No-ops unless config avatar.enabled; resumable per
-        # section. See docs/avatar-decision.md.
+        # Post-generate_vo mastering. Config-gated by voiceover.mastering_provider:
+        #   "local" (default) + local_chain "broadcast" → master_vo_local.py
+        #        broadcast chain (bright+weighty documentary voice)
+        #   "local" + local_chain "clean"  → skip (generate_vo.py's inline
+        #        CLEAN chain is already the master)
+        #   "auphonic" → master_vo_auphonic.py (adaptive leveler + noise
+        #        reduction; free tier watermarks output)
+        # --commit replaces primary .mp3 so downstream picks up new master.
+        # Runs BEFORE generate_avatar.py so HeyGen syncs to the final VO.
+        cfg = load_config()
+        vo_cfg = cfg.get("voiceover", {})
+        provider = vo_cfg.get("mastering_provider", "local")
+        if provider == "auphonic":
+            run_step("master_vo_auphonic.py",
+                     [str(d / "vo"), "--commit"],
+                     "Master VO via Auphonic")
+        elif provider == "local" and vo_cfg.get("local_chain", "clean") != "clean":
+            run_step("master_vo_local.py",
+                     [str(d / "vo"), "--commit",
+                      "--chain", vo_cfg.get("local_chain", "broadcast")],
+                     f"Master VO via local {vo_cfg.get('local_chain')} chain")
         run_step("generate_avatar.py", [script], "Generate Avatar Clips")
         # HeyGen-voice avatar sections replace their vo/ caches (the clip
         # audio IS the section voice) — reassemble words.json/timeline.json
@@ -126,6 +156,17 @@ def main():
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
         run_step("prepare_longform.py", [script], "Prepare Render Data")
+        # Thumbnail candidates. NOT a run_step: exit 2 means "no scene image
+        # yet", which is a prompt for the operator, not a pipeline failure.
+        # This exists because EP003 shipped with no thumbnail artifact at all
+        # and drew 0.0% CTR on 142 recommended impressions — the absence was
+        # silent. See docs/thumbnail-rubric.md.
+        print(f"\n{'='*60}\n  ORIGINATE: Thumbnail Candidates\n{'='*60}\n")
+        rc = subprocess.run([sys.executable, str(SCRIPTS / "prepare_thumbnail.py"),
+                             script]).returncode
+        if rc == 2:
+            print("\n⚠ THUMBNAIL NOT READY — generate the scene image before publish.\n"
+                  "  The episode can keep rendering; it cannot ship without this.")
         # Re-run the edit rubric now that assets are finalized (heading,
         # sources may have shifted). This is the pre-render check that
         # matches the docs/pipeline.md loudness step run POST-render.
@@ -144,8 +185,59 @@ def main():
 GATE 3: preview & render —
   cd remotion && npx remotion render src/index.ts Blueprint ../output/{d.name}.mp4 --props={props}
 
+Then finalize (color grade + final loudness master):
+  python originate.py finalize {d.name}
+
 Then cut shorts from the long-form:
   python pipeline.py output/{d.name}.mp4
+""")
+
+    elif args.command == "finalize":
+        d = resolve_dir(args.dir)
+        cfg = load_config()
+        mp4 = Path(args.input) if args.input else ROOT / "output" / f"{d.name}.mp4"
+        if not mp4.exists():
+            print(f"Error: {mp4} not found. Render in Remotion first.", file=sys.stderr)
+            sys.exit(1)
+
+        grade_cfg = cfg.get("finalize", {}).get("grade", {})
+        master_cfg = cfg.get("finalize", {}).get("master_final", {})
+
+        if grade_cfg.get("enabled") and not args.no_grade:
+            gargs = [str(mp4), "--commit",
+                     "--contrast", str(grade_cfg.get("contrast", 1.06)),
+                     "--saturation", str(grade_cfg.get("saturation", 0.94)),
+                     "--warmth", str(grade_cfg.get("warmth", 1.0)),
+                     "--shadow-lift", str(grade_cfg.get("shadow_lift", 0.02)),
+                     "--grain", str(grade_cfg.get("grain", 8))]
+            if grade_cfg.get("lut"):
+                gargs += ["--lut", grade_cfg["lut"]]
+            run_step("color_grade.py", gargs, "Color Grade")
+        else:
+            print("  (skipping color grade)")
+
+        if master_cfg.get("enabled") and not args.no_master:
+            run_step("master_final.py",
+                     [str(mp4), "--commit",
+                      "--lufs", str(master_cfg.get("lufs", -14)),
+                      "--tp", str(master_cfg.get("true_peak", -1.5)),
+                      "--lra", str(master_cfg.get("lra", 9))],
+                     "Master Final Loudness")
+        else:
+            print("  (skipping final loudness master)")
+
+        # Verify: eval_edit.py can probe LUFS on the rendered file.
+        # Non-blocking — reports the numbers as a sanity check.
+        run_step("eval_edit.py",
+                 [str(d / "script.json"), "--rendered", str(mp4)],
+                 "Verify (Edit Rubric + LUFS probe)")
+
+        print(f"""
+✓ FINALIZED: {mp4}
+Backups: {mp4.with_suffix('.ungraded.mp4').name}, {mp4.with_suffix('.premaster.mp4').name}
+
+Cut shorts from the finalized long-form:
+  python pipeline.py {mp4}
 """)
 
 

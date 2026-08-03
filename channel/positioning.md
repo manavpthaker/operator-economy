@@ -34,7 +34,7 @@ Once the format is established, layer in interviews with real people running the
 
 **Secondary:** builders/indie hackers who want validated ideas + stacks.
 
-**Monetization audiences:** AI tool affiliates/sponsors; Grapevines prospects (career-transition overlap is total).
+**Monetization audiences:** AI tool affiliates and sponsors.
 
 ## Name rationale
 
