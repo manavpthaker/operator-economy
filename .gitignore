@@ -20,3 +20,11 @@ __pycache__/
 studio/.bedwork/
 .vercel
 .env*
+
+# episode media — large binaries, regenerable from the pipeline, never in git.
+# ep004-final.mp4 alone is 641MB; GitHub hard-fails any file over 100MB.
+studio/originate/*/*.mp4
+studio/originate/*/avatars/
+studio/remotion/public/vo/
+studio/remotion/public/thumbs/
+# (site/public/blueprints/*.pdf IS committed — the deployed site serves it)

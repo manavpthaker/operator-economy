@@ -1,0 +1,166 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* Derived from design-system/tokens (Rev C). _source_of_truth: colors.css, fonts.css */
+@import url('https://api.fontshare.com/v2/css?f[]=boska@700&f[]=zodiak@700&f[]=supreme@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap');
+:root{--ink:#1A1A1A;--ink-700:#3C3A36;--ink-500:#6B675E;--paper:#F5F0E6;--paper-0:#FBF8F1;
+--paper-200:#EDE7D8;--rule:#D8CFB9;--rule-strong:#C4B99E;--blue:#1F3A5F;--gold:#7A5E24;
+--gold-500:#B08D3E;--sage:#5E7F6A;
+--disp:'Boska',Georgia,serif;--head:'Zodiak',Georgia,serif;
+--sans:'Supreme',system-ui,sans-serif;--mono:'Fragment Mono',Menlo,monospace}
+@page{size:letter;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink-700);font:14px/1.65 var(--sans);
+-webkit-print-color-adjust:exact;print-color-adjust:exact}
+/* Deliberate pagination: every .sheet starts a new page (page-break-after:
+   always). Content is allowed to spill onto a continuation page when a table
+   or step list is too long — page-break-inside: avoid on rows/steps prevents
+   splits mid-item. Fixed height + overflow:hidden used to clip long tables
+   (EP002 bug: last evidence row and 2 of 3 playbook steps vanished behind
+   the footer). min-height keeps short sheets full-page. */
+.sheet{padding:0.85in 0.95in 1in;page-break-after:always;position:relative;
+min-height:11in;display:flex;flex-direction:column}
+.sheet:last-child{page-break-after:auto}
+h2,h3,h4,.sec-h{page-break-after:avoid;break-after:avoid}
+.foot{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;
+padding:0.26in 0.95in;border-top:1px solid var(--gold-500);
+font:8px/1 var(--mono);letter-spacing:.16em;color:var(--ink-500);background:var(--paper)}
+/* ---- cover ---- */
+.mast{display:flex;align-items:flex-start;justify-content:space-between}
+.mast .the{font:8px/1 var(--mono);letter-spacing:.32em;color:var(--ink-500);margin-bottom:4px}
+.mast .name{font:700 23px/1.1 var(--head);color:var(--ink)}
+.badge{border:1px solid var(--gold-500);color:var(--gold);
+font:9px/1 var(--mono);letter-spacing:.2em;padding:8px 14px;margin-top:4px}
+h1{font:700 46px/1.06 var(--disp);color:var(--ink);margin:.36in 0 .16in;letter-spacing:.005em}
+.lead{font-size:15.5px;line-height:1.7;max-width:5.2in;color:var(--ink-700)}
+.rail{display:flex;align-items:stretch;gap:10px;margin:.32in 0 .08in}
+.node{border:1px solid var(--blue);background:var(--paper-0);padding:10px 13px;min-width:.9in}
+.node.out{border-color:var(--gold-500)}
+.node-l{font:8px/1 var(--mono);letter-spacing:.16em;color:var(--blue);margin-bottom:6px}
+.node.out .node-l{color:var(--gold)}
+.nowrap{white-space:nowrap}
+.node-v{font:12.5px/1 var(--mono);color:var(--ink)}
+.rail-cap{border-left:2px solid var(--gold-500);border-bottom:2px solid var(--gold-500);
+border-right:2px solid var(--gold-500);height:8px;margin:0 0 7px}
+.rail-lbl{text-align:center;font:8px/1 var(--mono);letter-spacing:.22em;color:var(--gold)}
+.meta{display:grid;grid-template-columns:1fr 1fr 1fr;border:1.5px solid var(--ink);margin-top:.3in}
+.meta div{padding:11px 18px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.meta div:nth-child(3n){border-right:none}.meta div:nth-last-child(-n+3){border-bottom:none}
+.meta .l{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);display:block;margin-bottom:8px}
+.meta .v{font:15px/1 var(--mono);color:var(--ink)}
+/* ---- sections ---- */
+.sec{margin-top:.36in}
+.sec.first{margin-top:0}
+.sec.ruled{border-top:2px solid var(--ink);padding-top:.22in;page-break-inside:avoid;break-inside:avoid}
+.sec-h{display:flex;align-items:baseline;gap:15px;margin-bottom:.2in}
+.sec-h .n{font:10px/1 var(--mono);color:var(--gold)}
+.sec-h h2{font:700 29px/1.1 var(--head);color:var(--ink)}
+.sec-h .tag{margin-left:auto;font:9px/1 var(--mono);letter-spacing:.16em;color:var(--gold)}
+/* ---- tables ---- */
+table{width:100%;border-collapse:collapse;border:1px solid var(--rule-strong);font-size:12.5px}
+thead{display:table-header-group}
+tr{page-break-inside:avoid;break-inside:avoid}
+thead th{background:var(--paper-200);font:600 8.5px/1 var(--mono);letter-spacing:.16em;
+color:var(--ink-500);text-align:left;padding:8px 14px}
+td{padding:7px 14px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;font-size:12px}
+td.k{font-weight:700;color:var(--ink);width:1.55in}td.k .sub{font-weight:400;font-size:11px;color:var(--ink-500);margin-top:2px}
+td.mono{font:11.5px/1.55 var(--mono);color:var(--ink)}td.src{color:var(--ink-500);font-size:11.5px}
+.chip{font:9px/1 var(--mono);letter-spacing:.1em;white-space:nowrap}
+.chip-high{color:var(--sage)}
+.chip-box{border:1px solid var(--rule-strong);padding:4px 8px;color:var(--ink-700);background:var(--paper-0)}
+.chip-note{font:9px/1.4 var(--mono);color:var(--ink-500);margin-top:5px;max-width:1.2in}
+/* ---- evidence hero ---- */
+.hero{font:700 44px/1 var(--mono);color:var(--ink);margin:.14in 0 .1in;letter-spacing:-.01em}
+.hero .gold{color:var(--gold-500)}
+.hero-cap{max-width:4.8in;color:var(--ink-500);font-size:13px;line-height:1.5;margin-bottom:10px}
+.srcflag{display:inline-block;background:var(--paper-200);border-left:3px solid var(--blue);
+font:9px/1 var(--mono);letter-spacing:.14em;color:var(--blue);padding:8px 12px;margin:2px 0 .26in}
+/* ---- playbook ---- */
+.step{display:grid;grid-template-columns:.6in 1.05in 1fr;gap:14px;padding:.15in 0;
+border-bottom:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
+.step:last-child{border-bottom:none}
+.step-n{font:700 22px/1 var(--mono);color:var(--blue)}
+.step-l{font:8px/1.5 var(--mono);letter-spacing:.16em;color:var(--ink-500);padding-top:7px}
+.step-b h4{font:700 18px/1.25 var(--head);color:var(--ink);margin-bottom:6px}
+.step-b p{font-size:13.5px;margin:0}
+.step-b ul{list-style:none;padding:0;margin:2px 0 0}
+.step-b ul li{font-size:13px;line-height:1.55;color:var(--ink-700);
+padding-left:18px;position:relative;margin-bottom:6px}
+.step-b ul li:last-child{margin-bottom:0}
+.step-b ul li::before{content:"—";color:var(--gold);position:absolute;left:0;font-family:var(--mono)}
+.cont{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);
+border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:4px}
+/* ---- honest math ---- */
+.bignum{font:700 48px/1 var(--mono);color:var(--ink);margin:.2in 0 .06in;
+display:inline-block;border-bottom:4px dotted var(--gold-500);padding-bottom:10px;
+white-space:nowrap}
+.bignum-row{display:flex;align-items:center;gap:14px}
+.bignum-row .chip{margin-top:.14in}
+.fm-label{font:8px/1 var(--mono);letter-spacing:.18em;color:var(--ink-500);margin:.26in 0 4px}
+.fm{padding:10px 0;font-size:13.5px;line-height:1.55;border-bottom:1px solid var(--paper-200);
+page-break-inside:avoid;break-inside:avoid}
+.fm:last-of-type{border-bottom:none}
+.fm-x{font:11px/1 var(--mono);color:#9B3E2E;margin-right:11px}
+/* ---- sources + colophon ---- */
+.srcline{font:12px/2.3 var(--mono);color:var(--ink-700)}.srcline .mono{color:var(--gold);margin-right:8px}
+.colophon{margin-top:auto;border-top:1.5px solid var(--ink);padding-top:.35in}
+.colophon p{max-width:4.9in;font-size:14px;line-height:1.7}
+.boo-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:.3in;max-width:6.2in}
+.boo{font:700 26px/1 var(--head);color:var(--ink)}
+.site{font:11px/1 var(--mono);color:var(--gold)}
+p{margin-bottom:.15in}
+</style></head><body>
+<div class="foot"><span>THE OPERATOR ECONOMY · OPERATOR BLUEPRINT №000</span>
+<span>REV A · 2026-08-03</span></div>
+
+<!-- p1 · cover + the idea -->
+<div class="sheet">
+  <div class="mast"><div><div class="the">THE</div><div class="name">Operator Economy</div></div>
+    <span class="badge">OPERATOR BLUEPRINT №000</span></div>
+  <h1>Blueprint: The Solo Subscription Design Agency</h1>
+  <p class="lead">Companion to &quot;One Person, $5,000 a Month, No Employees&quot; — The Operator Economy, Episode № 004</p>
+  <div class="rail"><div class="node"><div class="node-l">FIGMA</div><div class="node-v">FREE TO START, PAID SEATS SCALE</div></div><div class="node"><div class="node-l">RELUME</div><div class="node-v">$38/MO (INDIVIDUAL)</div></div><div class="node"><div class="node-l">V0</div><div class="node-v">FREE (~$5 CREDIT) TO $20/MO</div></div><div class="node"><div class="node-l">LOVABLE</div><div class="node-v">FREE TO ~$25/MO (PRO)</div></div><div class="node"><div class="node-l">FRAMER</div><div class="node-v">$20–40/MO</div></div><div class="node"><div class="node-l">MIDJOURNEY</div><div class="node-v">$10–60/MO</div></div><div class="node"><div class="node-l">CLAUDE</div><div class="node-v">$20–100/MO</div></div></div><div class="rail-cap"></div>
+  <div class="rail-lbl">THE STACK · ≤ $200/MO</div>
+  <div class="meta">
+    <div><span class="l">BLUEPRINT</span><span class="v">№000</span></div>
+    <div><span class="l">REV</span><span class="v">A</span></div>
+    <div><span class="l">DATE</span><span class="v">2026-08-03</span></div>
+    <div><span class="l">SOURCES</span><span class="v">01</span></div>
+    <div><span class="l">DIFFICULTY</span><span class="v">Med</span></div>
+    <div><span class="l">SECTIONS</span><span class="v">06</span></div>
+  </div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">01</span><h2>The idea</h2></div><p>A solo, subscription-based design agency: one operator delivers ongoing design work — landing pages, decks, wireframes, working sites — for a flat monthly fee instead of billing per project. AI tools now cover the production work a studio used to need a team for. The operator&#x27;s job shrinks to judgment: which option is right, for this client, this week.</p><p>Who this is for: senior design, brand, or marketing professionals who want a service business they can run alone, without hiring, without project-based invoicing.</p><p>---</p></div>
+</div>
+
+<!-- p2 · evidence -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">02</span><h2>The evidence</h2></div>
+    <table><thead><tr><th>COMPANY</th><th>WHAT&#x27;S REPORTED</th><th>SOURCE</th><th>CONFIDENCE</th></tr></thead><tbody><tr><td class='k'>Designjoy</td><td class='mono'>0 employees, ~35 concurrent clients, $4,995/mo flat, ~5 hrs/day, started on a $29 template + Product Hunt launch</td><td class='src'>Medium/Zack Liu, startupfounderstories</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">self-reported, unaudited ⚠️</div></td></tr><tr><td class='k'>Designjoy revenue</td><td class='mono'>Reported across sources as $1M, $1.5M, $1.7M, $2M+, and $3.1M/yr — same general window, no consistent figure</td><td class='src'>Starter Story, Startup Stash, startupfounderstories</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">self-reported, unaudited ⚠️ — treat as a range, not a fact</div></td></tr><tr><td class='k'>Designjoy tool cost</td><td class='mono'>~$95/month total</td><td class='src'>startupfounderstories</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">self-reported ⚠️</div></td></tr><tr><td class='k'>Superside</td><td class='mono'>$44.9M ARR (2024), up from $30.8M (2023); ~850 employees; 450+ clients; $35.1M raised</td><td class='src'>getLatka, PitchBook</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">third-party</div></td></tr><tr><td class='k'>Superside pricing</td><td class='mono'>$15,000/mo minimum on an annual contract</td><td class='src'>Vendr</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">third-party</div></td></tr><tr><td class='k'>Figma AI adoption</td><td class='mono'>~70% of active users using AI features (2026)</td><td class='src'>Figma Q1 2026 disclosure</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">verified, company-disclosed</div></td></tr><tr><td class='k'>Figma scale</td><td class='mono'>IPO&#x27;d July 2025 at ~$68B day-one valuation; ~$1B revenue FY2025; guiding ~$1.5B FY2026</td><td class='src'>Figma FY2025 results</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">verified</div></td></tr><tr><td class='k'>US design services industry</td><td class='mono'>~$15.1B/year across thousands of small shops</td><td class='src'>IBISWorld (2026)</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">verified estimate</div></td></tr><tr><td class='k'>BusyLobby <div class="sub">first-party</div></td><td class='mono'>6 cold outreach emails sent, 1 callback, 0 signed clients as of Jul 2026</td><td class='src'>First-party pipeline data</td><td><span class="chip chip-box">REPORTED</span><div class="chip-note">verified, but n=6 — not a statistically meaningful sample</div></td></tr></tbody></table></div>
+</div>
+
+<!-- p3 · stack + playbook 01–03 -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">03</span><h2>The stack</h2>
+    <span class="tag">≤ $200/MO TOTAL</span></div>
+    <table><thead><tr><th>TOOL</th><th>ROLE</th><th>MONTHLY COST</th></tr></thead><tbody><tr><td class='k'>Figma + Figma Make</td><td>Design surface; AI generation inside the file</td><td class='mono nowrap'>Free to start, paid seats scale</td><td class='src'></td></tr><tr><td class='k'>Relume</td><td>Wireframing and sitemap planning</td><td class='mono nowrap'>$38/mo (individual)</td><td class='src'></td></tr><tr><td class='k'>v0</td><td>Prompt-to-code component generation</td><td class='mono nowrap'>Free (~$5 credit) to $20/mo</td><td class='src'></td></tr><tr><td class='k'>Lovable</td><td>Full app/site generation from a prompt</td><td class='mono nowrap'>Free to ~$25/mo (Pro)</td><td class='src'></td></tr><tr><td class='k'>Framer</td><td>Final site hosting and shipping</td><td class='mono nowrap'>$20–40/mo</td><td class='src'></td></tr><tr><td class='k'>Midjourney</td><td>Hero imagery and campaign visuals</td><td class='mono nowrap'>$10–60/mo</td><td class='src'></td></tr><tr><td class='k'>Claude</td><td>Copy and client-facing writing</td><td class='mono nowrap'>$20–100/mo</td><td class='src'></td></tr></tbody></table><div class="srcflag">SOURCE: PUBLIC VENDOR LIST PRICING · AUG 2026</div></div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">04</span><h2>The playbook</h2></div><div class="step"><div class="step-n">01</div><div class="step-l">WEEK 1</div><div class="step-b"><h4>Build before you pitch</h4><ul><li>Pick one narrow niche (e.g., SaaS landing pages, hotel websites, pitch decks). Narrow scope is what lets you charge $5,000 instead of competing at the $549/mo commodity floor.</li><li>Build 3 unsolicited demo pieces for real target companies. No client yet. The demo <em>is</em> the pitch.</li></ul></div></div><div class="step"><div class="step-n">02</div><div class="step-l"></div><div class="step-b"><h4>Week 1 (parallel) — Scout and score</h4><ul><li>Build a short list of target companies.</li><li>Score each one on how badly their current site/deck is underperforming (a simple rubric: load speed, visual dated-ness, conversion clarity, mobile experience).</li><li>Build the fix for your top-scored targets before you ever email them.</li></ul></div></div><div class="step"><div class="step-n">03</div><div class="step-l">WEEKS 2–4</div><div class="step-b"><h4>Demo-first outreach</h4><ul><li>Send the finished demo cold. Lead with the link, not a pitch deck about your services.</li><li>Track who opens it with a lightweight analytics tool (PostHog or similar). Whoever looked twice is your first call.</li><li>Expect low response rates. 2026 cold outreach benchmarks run ~3–5% overall, ~5.8% for lists under 50 recipients. Don&#x27;t round a small sample up into a headline stat.</li></ul></div></div></div>
+</div>
+
+<!-- p4 · playbook continued (only if there are runover steps) + honest math -->
+<div class="sheet">
+  <div class="sec first"><div class="cont">04 · THE PLAYBOOK — CONTINUED</div><div class="step"><div class="step-n">04</div><div class="step-l"></div><div class="step-b"><h4>Pricing the first clients</h4><ul><li>Client 1: price under market (~$2,500) to secure a fast, real case study.</li><li>Client 4+: move into the $4,500–$7,000/mo band once you have a finished project to show.</li></ul></div></div><div class="step"><div class="step-n">05</div><div class="step-l"></div><div class="step-b"><h4>Month 2 onward — Capacity and retention</h4><ul><li>At flat monthly pricing, client six is easier to add than client one — the stack is already built. The ceiling is a function of your promised turnaround, not the tools.</li><li>Build the renewal into month one: send the recap nobody asked for, ship the small thing mentioned in passing. This is a retention business dressed as a creative one.</li><li>Decide early what you refuse to do. Narrow scope, one deliverable type, one turnaround you hit every time — that&#x27;s what separates $5,000/mo from the $549/mo floor.</li></ul></div></div><div class="step"><div class="step-n">06</div><div class="step-l"></div><div class="step-b"><h4>Where the first real client actually comes from</h4><ul><li>Rarely the cold list. Usually someone who already knows you, or the one prospect who opened your demo twice.</li><li>Treat the cold pipeline as a learning system (what messaging works), not the primary revenue engine — at least at first.</li><li></li></ul></div></div></div>
+  <div class="sec ruled"><div class="sec-h"><span class="n">05</span><h2>The honest math</h2></div><div class="bignum-row"><span class="bignum">$2,000–$5,000/mo</span><span class="chip chip-box">OUR ESTIMATE</span></div><p>| Effort level | Hours/week | Realistic range | Basis |
+|---|---|---|---|
+| Side / part-time | 15–20 | ~$2,000–$5,000/mo | Low end of solo pricing band ($2,500–$7,500), partial client load |
+| Full-time, Designjoy&#x27;s reported shape | ~35 hrs (5 hrs/day) | Self-reported $1M–$3.1M/yr | Unaudited — the only public data point at this scale, not a promise |</p><p><strong>Risk 1 — Churn.</strong> At ~35 clients and $4,995/mo, losing 3 clients in a month is roughly $15,000 in lost MRR by that same reported math. Flat pricing means revenue depends on retention, not just closing.</p><p><strong>Risk 2 — Distribution, not delivery.</strong> The pricing page and tool stack are copyable in an afternoon. Designjoy&#x27;s own reported growth engine was roughly 6 million cumulative tweet impressions built over years — the part rarely mentioned alongside the pricing screenshot. The tools got cheap. The audience never did.</p><p><strong>What this actually builds, beyond income:</strong> client acquisition skill, pricing discipline, and AI-tool fluency that transfer to any service business — even if this specific one doesn&#x27;t scale to seven figures.</p><p>---</p></div>
+</div>
+
+<!-- p5 · sources + colophon -->
+<div class="sheet">
+  <div class="sec first"><div class="sec-h"><span class="n">06</span><h2>Sources</h2></div><div class="srcline"><span class="mono">[01]</span> - Figma Q1 2026 disclosure — AI adoption ~70% of active users - Figma FY2025 results — IPO valuation, revenue, FY2026 guidance - Medium/Zack Liu — Designjoy operating shape (self-reported) - Starter Story, Startup Stash, startupfounderstories — Designjoy revenue range (self-reported) - getLatka — Superside ARR and growth - PitchBook — Superside funding, headcount, client count - Vendr — Superside pricing - Brainy Papers — solo pricing band ($2,500–$7,500) - ManyPixels — design subscription commodity floor ($549/mo) - IBISWorld — US graphic design services industry size (~$15.1B, 2026) - buildmvpfast — Relume/v0/Lovable/Framer pricing comparison - First-party — BusyLobby pipeline data (tracking/autopilot-pipeline.csv, PostHog analytics), n=6 as of July 2026  ⚠️ = self-reported / unaudited figure, flagged intentionally rather than presented as fact</div></div>
+  <div class="colophon"><p>The Operator Economy — evidence-first breakdowns of businesses one
+  person can build. No income promises. Receipts. The next blueprint ships in the Monday
+  newsletter.</p>
+  <div class="boo-row"><span class="boo">Build. Own. Operate.</span>
+  <span class="site">theoperatoreconomy.com</span></div></div>
+</div>
+</body></html>
