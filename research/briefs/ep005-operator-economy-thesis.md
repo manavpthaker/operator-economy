@@ -147,9 +147,12 @@ config change:
 - **economics** — the honest math: $674,676 average vs the 400× spread and 70% under $1K MRR;
   BLS survival curve. The episode's credibility lives here.
 - **cta** — the rename argument compressed: the second door. No income promises, no product,
-  no course. (What the email-gated blueprint PDF is for a thesis episode is an OPEN QUESTION —
-  candidates: the sourced evidence pack itself, or a "too-small-to-take market" evaluation
-  sheet. Decide at Gate 2.)
+  no course. (The blueprint-PDF question now has a live candidate: **"Too Small to Bother —
+  Working Paper № 01"**, the manifesto as a 19-page, 8-axiom designed evidence paper, verified
+  figure-by-figure against facts.md on 2026-08-08 and shipping on the personal feed Mon 8/10
+  12:30 as a document post — see `brown-man-content/.../week-of-2026-08-10/monday/`. If it
+  becomes the episode's email-gated PDF, it needs an OE-bylined variant: the shipped one signs
+  MP Thaker / mpthaker.xyz, and one artifact cannot carry two bylines. Decide at Gate 2.)
 
 ## Eval traps known in advance
 
