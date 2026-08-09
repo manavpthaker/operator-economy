@@ -9,6 +9,10 @@ First line of your output: the resolved date and the episodes in scope.
 
 ## Steps
 
+Run every Python command as `.venv/bin/python` from the repo root (or
+`../.venv/bin/python` from `studio/`). Never bare `python`/`python3` — see the
+Python section of `automation/OE_OPS.md`.
+
 1. **Pull YouTube Analytics** using the stored credentials in `.secrets/`
    (`tools/youtube_auth.py` writes them; do not attempt to re-auth headlessly —
    if the token is missing or expired, say so and stop, that is the finding).

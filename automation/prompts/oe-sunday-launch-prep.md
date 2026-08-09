@@ -22,9 +22,11 @@ pre-flighting.
    - the SRT captions
    - the trailer, if `derivation.trailer` is configured. A missing trailer gets
      skipped and never delays the episode — note it, do not escalate it.
-3. **Run the gate.** `python scripts/originate/rubric_check.py` and
-   `python launch.py --dry-run` (dry only). Report the rubric score against the
-   ship threshold and any kill-list hit.
+3. **Run the gate.** From `studio/`: `../.venv/bin/python
+   scripts/originate/rubric_check.py` and `../.venv/bin/python launch.py
+   --dry-run` (dry only). Never bare `python`/`python3` — see the Python section
+   of `automation/OE_OPS.md`. Report the rubric score against the ship threshold
+   and any kill-list hit.
 4. **URL discipline.** Grep the whole repo for `youtu.be` and
    `youtube.com/watch` outside `studio/originate/<slug>/launch/links.json`. Any
    hit is a hard stop: on 2026-08-03 every LinkedIn surface for EP004 carried a

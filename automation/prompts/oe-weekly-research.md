@@ -24,8 +24,10 @@ First line of your output: the resolved date and the topic slug you chose.
    claim gets a source URL and a confidence note. Evidence must span the low end
    (solo or side operator) and the high end (venture-scale). Save it under the
    episode working directory.
-4. **Run Phase 1:** `python originate.py new "<topic>" --research <brief path>`
-   from `studio/`. This produces `originate/<slug>/script.json` and runs
+4. **Run Phase 1:** `cd studio && ../.venv/bin/python originate.py new "<topic>"
+   --research <brief path>`. Never bare `python`/`python3` — see the Python
+   section of `automation/OE_OPS.md`; the dependencies exist only in `.venv`.
+   This produces `originate/<slug>/script.json` and runs
    `eval_script.py --mode draft`, `eval_package.py`, and `confidence.py --stage
    script`.
 5. **Read the confidence report.** Do not attempt to raise a score by softening a

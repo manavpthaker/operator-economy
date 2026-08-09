@@ -51,6 +51,32 @@ entirely); `run_motion` still works while that sentinel is present.
    trigger is a reportable outcome, not something to work around.
 7. **End with `DIGEST_CLEAR` when there is genuinely nothing to report.** A
    quiet success is the normal case for the commit sweep.
+8. **Never invoke bare `python` or `python3`.** See below — it will be the wrong
+   interpreter and nothing will be installed in it.
+
+## Python on the mini
+
+The pipeline runs in a **uv-managed CPython 3.12 virtualenv at `.venv/`**
+(gitignored). Recreate it with:
+
+```bash
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -r studio/requirements.txt
+```
+
+**Always call it explicitly.** Your cwd is the repo root, so that is
+`.venv/bin/python`; if you `cd studio`, it is `../.venv/bin/python`.
+
+This is not a style preference. brownbot is started by launchd with
+`PATH=/usr/bin:/bin:/usr/sbin:/sbin`, which excludes Homebrew, so a bare
+`python3` in a motion resolves to Apple's `/usr/bin/python3` (3.9.6) where none
+of the dependencies exist. It is the same reason `CLAUDE_CODE_BIN` and
+`CLICLICK_BIN` are pinned by absolute path on the brownbot side.
+
+Homebrew's `python@3.14` on this machine is **broken** — its `pyexpat` links
+against a `/usr/lib/libexpat.1.dylib` newer than the one macOS actually ships, so
+`ensurepip`/`pip` cannot run at all. Do not try to fix a motion by falling back
+to it.
 
 ## Required environment
 
