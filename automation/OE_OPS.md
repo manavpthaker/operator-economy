@@ -78,6 +78,75 @@ against a `/usr/lib/libexpat.1.dylib` newer than the one macOS actually ships, s
 `ensurepip`/`pip` cannot run at all. Do not try to fix a motion by falling back
 to it.
 
+## Verified pipeline reference
+
+Checked against the actual CLIs on 2026-08-09, because the first draft of these
+prompts was written from the docs and got several of these wrong. Re-verify with
+`--help` before changing a prompt; do not trust prose (including this file).
+
+**Entry points.** `originate.py {new,continue,render,finalize}`:
+
+| Subcommand | Signature |
+|---|---|
+| `new` | `originate.py new "<topic>" [--research FILE]` — stops at Gate 1 |
+| `continue` | `originate.py continue <slug>` — VO + asset plan, stops at Gate 2 |
+| `render` | `originate.py render <slug> [--skip-derive]` — render data + derived content |
+| `finalize` | `originate.py finalize <slug> [--input MP4] [--no-grade] [--no-master]` — post-Remotion colour grade + loudness master |
+
+**`launch.py` — the two traps.**
+
+```
+launch.py <slug> --monday YYYY-MM-DD --title "..." [--video MP4] [--go] [--rubric-waiver REASON]
+```
+
+1. **There is no `--dry-run`.** Dry run is the default; `--go` is what uploads.
+   Passing `--dry-run` is an argparse error, not a safe no-op.
+2. **A dry run still writes `originate/<slug>/launch/links.json`**, with
+   `episode_url: "[PENDING_UPLOAD]"` and `dry_run: true`. Since `links.json` is
+   the only sanctioned home for an episode URL, running it against a launched
+   episode destroys that URL. Check the existing file's `dry_run` field first.
+
+`launch.py` rubric-lints `content/launch_linkedin.md`,
+`content/linkedin_posts.md` and `content/trailer_linkedin.md` internally and
+hard-fails on a violation. It shells out with `sys.executable`, so it stays
+inside the venv.
+
+**`rubric_check.py` is not an episode gate.** It is a LinkedIn copy linter:
+`rubric_check.py [--surface {feed,carousel,dm,group}] <file>`. Do not invoke it
+standalone in a pre-flight.
+
+**Exit codes are verdicts.**
+
+| Script | 0 | 1 | 2 |
+|---|---|---|---|
+| `eval_script.py` | pass (a `[WARN]` does not fail) | hard fail (e.g. surviving `[POV: ...]`) | — |
+| `eval_package.py` | pass | fail | — |
+| `confidence.py` | AUTO-PASS | — | **ESCALATE** |
+
+A `2` from `confidence.py` is a normal outcome to report, not a crash to fix.
+
+**Per-episode artifact paths** (what `launch.py` actually globs):
+
+```
+originate/<slug>/ep*-final.mp4              episode
+originate/<slug>/ep*.srt                    captions
+originate/<slug>/render_out/short-*.mp4     shorts (fallback: <slug>/shorts/)
+originate/<slug>/Operator-Blueprint-*.pdf   blueprint
+originate/<slug>/carousel-*.pdf             carousel
+originate/<slug>/thumbnail-*.png            thumbnail
+originate/<slug>/content/*.md               derived copy
+originate/<slug>/launch/{checklist.md,links.json,dm_shortlist.md}
+```
+
+Note the blueprint PDF lives in the episode directory, **not** in
+`site/public/blueprints/` — that is the published copy, a later step.
+
+**Committed `links.json` files carry absolute paths under
+`/Users/manavthaker/…`**, the MacBook's home. They do not resolve on the mini
+(`/Users/brownmanbrain/…`). Regenerating on the mini writes mini paths, so
+anything consuming `blueprint_pdf` / `carousel_pdf` across machines should treat
+them as advisory.
+
 ## Required environment
 
 Read from this repo's own `.env` (gitignored, copied to the mini by hand):

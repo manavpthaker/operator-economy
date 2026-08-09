@@ -11,10 +11,23 @@ First line of your output: the resolved date and the topic slug you chose.
 
 ## Steps
 
-1. **Pick the topic.** Read `topics/queue.md` and `topics/scoring.md`. Take the
-   highest-scoring unstarted thesis. If the queue is empty or every entry is
-   already in `studio/originate/`, stop and say so — that is a real finding, not
-   a failure.
+1. **Pick the topic.** Read `topics/queue.md` and `topics/scoring.md`.
+
+   The queue's `Status` column is not a simple started/unstarted flag, so read it
+   carefully. A row is **eligible only if its status is `queued`** and there is
+   no matching directory under `studio/originate/`. Explicitly ineligible:
+   - `GATED on <reason>` — blocked on missing evidence. Never pick one of these,
+     however high it scores. Topic #7 scores 78 and is gated on receipts.
+   - `MERGED into #N` — absorbed by another topic.
+   - `PILOT #N` / `EP 00N` — already in production.
+
+   Several `queued` rows already have a working directory under
+   `studio/originate/` because the queue status was never updated. **The
+   directory wins.** If a topic has a directory, it is started, whatever the
+   table says — and mentioning the drift is a useful line in your digest.
+
+   Among eligible rows, take the highest score. If none are eligible, stop and
+   say so — that is a real finding, not a failure.
 2. **Check the facts authority.** Read `../content-os/facts.md`. Every number you
    put in a brief must appear there with a source, or be marked as an explicit
    estimate. Read its `## Do not state` list. If `../content-os` is not present
@@ -32,6 +45,12 @@ First line of your output: the resolved date and the topic slug you chose.
    script`.
 5. **Read the confidence report.** Do not attempt to raise a score by softening a
    claim or deleting an eval. If it escalates, that is the outcome to report.
+
+   **Exit codes are verdicts, not crashes.** `confidence.py` exits **0 for
+   AUTO-PASS and 2 for ESCALATE**. `eval_script.py` exits 0 on pass — a `[WARN]`
+   line (for example a hook over its target word count) does not fail it — and 1
+   on a hard fail such as surviving `[POV: ...]` tokens. Never re-run one of
+   these hoping for a different number, and never report a `2` as an error.
 6. **Commit and push.** Everything under `studio/originate/<slug>/` except the
    gitignored media paths.
 
