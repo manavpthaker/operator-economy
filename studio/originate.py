@@ -114,7 +114,6 @@ def main():
         #   "auphonic" → master_vo_auphonic.py (adaptive leveler + noise
         #        reduction; free tier watermarks output)
         # --commit replaces primary .mp3 so downstream picks up new master.
-        # Runs BEFORE generate_avatar.py so HeyGen syncs to the final VO.
         cfg = load_config()
         vo_cfg = cfg.get("voiceover", {})
         provider = vo_cfg.get("mastering_provider", "local")
@@ -127,12 +126,6 @@ def main():
                      [str(d / "vo"), "--commit",
                       "--chain", vo_cfg.get("local_chain", "broadcast")],
                      f"Master VO via local {vo_cfg.get('local_chain')} chain")
-        run_step("generate_avatar.py", [script], "Generate Avatar Clips")
-        # HeyGen-voice avatar sections replace their vo/ caches (the clip
-        # audio IS the section voice) — reassemble words.json/timeline.json
-        # from the caches before anything downstream reads timings. All
-        # sections are cached at this point, so this is a fast no-API pass.
-        run_step("generate_vo.py", [script], "Reassemble VO Timeline")
         run_step("plan_assets.py", [script], "Plan Assets")
         # Storyboard: plan the SCREENS from real VO timings so downstream
         # (prepare_longform + Remotion) can consume one persistent screen

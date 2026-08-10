@@ -46,8 +46,8 @@ WARM_CHAIN = (
 
 
 def load_env_file() -> None:
-    """Mirror generate_avatar.py: studio/.env autoload so this works when
-    the shell hasn't sourced it (Cowork runs each call in a fresh shell)."""
+    """studio/.env autoload so this works when the shell hasn't sourced
+    it (Cowork runs each call in a fresh shell)."""
     env_path = Path(__file__).resolve().parents[2] / ".env"
     if not env_path.exists():
         return

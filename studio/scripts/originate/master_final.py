@@ -1,6 +1,6 @@
 """
 Final loudness master on the rendered mp4. Two-pass ffmpeg loudnorm
-locks the mixed audio (VO + bed + SFX + avatar) to broadcast delivery
+locks the mixed audio (VO + bed + SFX) to broadcast delivery
 targets — -14 LUFS integrated / -1.5 dBTP / LRA ~9.
 
 Exists because the per-track masters don't guarantee the COMBINED

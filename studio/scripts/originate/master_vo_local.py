@@ -1,22 +1,15 @@
 """
 Master VO through a bright+weighty broadcast-voice ffmpeg chain. No
-external API, no monthly fee, no watermark. Reads .dry.mp3 (the pre-
-room-chain ElevenLabs master kept by generate_avatar.py's roomize_vo)
-and writes .broadcast.mp3. --commit promotes to primary .mp3.
+external API, no monthly fee, no watermark. Reads .raw.mp3 (the
+ElevenLabs original written by generate_vo.py) and writes
+.broadcast.mp3. --commit promotes to primary .mp3.
 
-Why this exists: the current stack was cumulative-darkening the voice.
-generate_avatar.py's ROOM_MATCH_CHAIN cuts -1.2 dB above 9.5 kHz to
-match the HeyGen avatar's distant camera mic, and the earlier
-master_vo_auphonic.py WARM_CHAIN cut another -1 dB at 10 kHz. Together
-that's ~-2.2 dB across the air/openness band on top of ElevenLabs's
-already-flat output — the "muffled, haphazard-recording" character.
-
-The BROADCAST chain does the opposite: hi-pass, cut the boxy 300-400 Hz
-mud, small bass body shelf for weight, presence lift at 4.5 kHz for
-consonants, air lift at 10-13 kHz for openness, light de-ess, gentle
-compressor for evenness, two-pass loudnorm to -14 LUFS. This is the
-HowMoneyWorks / Bloomberg documentary voice profile — bright with
-weight, not warm and dull.
+The BROADCAST chain: hi-pass, cut the boxy 300-400 Hz mud, small bass
+body shelf for weight, presence lift at 4.5 kHz for consonants, air
+lift at 10-13 kHz for openness, light de-ess, gentle compressor for
+evenness, two-pass loudnorm to -14 LUFS. This is the HowMoneyWorks /
+Bloomberg documentary voice profile — bright with weight, not warm
+and dull.
 
 Usage:
     python scripts/originate/master_vo_local.py originate/<slug>/vo/
@@ -70,16 +63,16 @@ CHAINS = {"broadcast": BROADCAST_CHAIN, "clean": CLEAN_CHAIN}
 SUFFIX = {"broadcast": ".broadcast.mp3", "clean": ".clean.mp3"}
 
 
-def process(dry: Path, chain: str) -> Path:
-    section = dry.name.removesuffix(".dry.mp3")
-    out = dry.parent / f"{section}{SUFFIX[chain]}"
+def process(raw: Path, chain: str) -> Path:
+    section = raw.name.removesuffix(".raw.mp3")
+    out = raw.parent / f"{section}{SUFFIX[chain]}"
     if out.exists():
         print(f"  {section}: cached ({out.name})")
         return out
     print(f"→ {section}: {chain} chain...")
     subprocess.run(
         ["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-         "-i", str(dry), "-af", CHAINS[chain],
+         "-i", str(raw), "-af", CHAINS[chain],
          "-ar", "44100", "-b:a", "192k", str(out)],
         check=True,
     )
@@ -108,7 +101,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("vo_dir", type=Path, help="originate/<slug>/vo/")
     ap.add_argument("--sections", nargs="+",
-                    help="section ids to process (default: all *.dry.mp3)")
+                    help="section ids to process (default: all *.raw.mp3)")
     ap.add_argument("--chain", choices=CHAINS.keys(), default="broadcast",
                     help="which mastering chain (default: broadcast)")
     ap.add_argument("--commit", action="store_true",
@@ -119,18 +112,18 @@ def main() -> None:
         sys.exit(f"Not a directory: {args.vo_dir}")
 
     if args.sections:
-        drys = [args.vo_dir / f"{s}.dry.mp3" for s in args.sections]
-        missing = [d for d in drys if not d.exists()]
+        raws = [args.vo_dir / f"{s}.raw.mp3" for s in args.sections]
+        missing = [r for r in raws if not r.exists()]
         if missing:
-            sys.exit(f"Missing dry files: {[str(m) for m in missing]}")
+            sys.exit(f"Missing raw files: {[str(m) for m in missing]}")
     else:
-        drys = sorted(args.vo_dir.glob("*.dry.mp3"))
-        if not drys:
-            sys.exit(f"No *.dry.mp3 files in {args.vo_dir}")
+        raws = sorted(args.vo_dir.glob("*.raw.mp3"))
+        if not raws:
+            sys.exit(f"No *.raw.mp3 files in {args.vo_dir}")
 
-    print(f"Mastering {len(drys)} section(s) via '{args.chain}' chain")
-    for dry in drys:
-        process(dry, args.chain)
+    print(f"Mastering {len(raws)} section(s) via '{args.chain}' chain")
+    for raw in raws:
+        process(raw, args.chain)
 
     if args.commit:
         print("\nCommitting to primary...")
