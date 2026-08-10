@@ -165,6 +165,49 @@ def main():
         hard=False,
     )
 
+    # -------- Semantic title lint (2026-08-09) --
+    # storyboard.py's auto-generation grabs the first ~44 chars of the beat's
+    # vo_text or asset_hint as the title. That produces gibberish like
+    # "57", "And the number of solo operators clearing", or
+    # "end card with the blueprint cover and the su" — real screens that shipped
+    # in EP005's first render. hand_tune_storyboard.py is required to overwrite
+    # every title with something authored; this lint enforces it.
+    import re as _re
+    _asset_hint_prose = _re.compile(
+        r"\b(end card|brand cover|title card|caption chip|two bars|three bars|"
+        r"cover the|screen rec|shot list|drawn to scale|source chip|"
+        r"axis label|call out|voice over|talking head)\b", _re.I)
+    bad_titles = []
+    # Hard tells of storyboard.py's autogen (grabs first ~44 chars of vo_text /
+    # asset_hint as the title). Kept narrow on purpose: false positives will get
+    # hand_tune written just to silence the lint, which defeats the point. Trust
+    # authored titles by default; only flag things a human wouldn't write.
+    _DANGLERS = {"a", "an", "the", "of", "for", "and", "or", "but", "with", "by", "as"}
+    for s in screens:
+        for r in s.get("reveals", []):
+            title = (r.get("title") or "").strip()
+            if not title:
+                continue
+            issues = []
+            if title[0].islower() and not title.startswith(("iOS", "macOS", "eV", "e.g.", "µ")):
+                issues.append("starts lowercase")
+            # Only flag danglers on long unpunctuated titles — the autogen signature
+            last_word = title.rstrip(".!?…\"'”’)]}·%,").split()[-1].lower().strip(".,;:")
+            if len(title) >= 30 and title[-1].isalnum() and last_word in _DANGLERS:
+                issues.append(f"ends on dangling word {last_word!r}")
+            if _asset_hint_prose.search(title):
+                issues.append("contains asset-hint prose")
+            if len(title.split()) > 22:
+                issues.append(f"{len(title.split())} words (>22)")
+            if issues:
+                bad_titles.append(f"{s['id']}:{title[:36]!r} ({'; '.join(issues)})")
+    ev.check(
+        "titles read as authored text, not auto-fragments",
+        not bad_titles,
+        "; ".join(bad_titles[:6]) + (f" (+{len(bad_titles)-6} more)" if len(bad_titles) > 6 else ""),
+        hard=True,
+    )
+
     # -------- Figure or source on claim screens ---
     unsourced = [
         s for s in screens
