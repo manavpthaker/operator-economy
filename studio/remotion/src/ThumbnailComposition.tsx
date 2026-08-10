@@ -25,8 +25,17 @@ export type ThumbnailData = {
   connector?: string;   // between them, e.g. "vs" | "→"
   label: string;        // ≤4 words (numbers) or the short title lines separated by \n (title)
   accentWord?: string;  // word in label to set gold
-  kicker?: string;      // tiny corner mark, default "OPERATOR BLUEPRINT · № 001"
+  kicker?: string;      // tiny corner mark. OFF unless set — rubric rule 1
+  showMark?: boolean;   // the "OE." mark. OFF by default — rubric rules 1 and 4
 };
+
+// Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
+// the channel name already renders next to the title, so branding spends
+// curiosity space on information the viewer has. Rule 4 additionally reserves
+// the lower-right for YouTube's duration stamp. Until 2026-08-10 every variant
+// except `photo` hardcoded an "OE." mark into that exact corner and defaulted
+// the kicker to "OPERATOR BLUEPRINT · № 001" — a wrong episode number for every
+// episode after the first. Both are now opt-in and off by default.
 
 const PhotoVariant: React.FC<ThumbnailData> = (p) => (
   <AbsoluteFill>
@@ -63,9 +72,11 @@ const SplitVariant: React.FC<ThumbnailData> = (p) => {
       {/* LEFT: navy — the corporate number */}
       <div style={{flex: 11, background: COLORS.navy, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 64, position: 'relative'}}>
         <div style={{position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(245,240,230,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,230,0.05) 1px, transparent 1px)', backgroundSize: '64px 64px'}} />
-        <div style={{position: 'absolute', top: 40, left: 64, fontFamily: FONTS.mono, fontSize: 24, letterSpacing: '0.16em', color: 'rgba(245,240,230,0.55)'}}>
-          {p.kicker ?? 'OPERATOR BLUEPRINT · № 001'}
-        </div>
+        {p.kicker ? (
+          <div style={{position: 'absolute', top: 40, left: 64, fontFamily: FONTS.mono, fontSize: 24, letterSpacing: '0.16em', color: 'rgba(245,240,230,0.55)'}}>
+            {p.kicker}
+          </div>
+        ) : null}
         <div style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 250, lineHeight: 1, color: COLORS.goldBright, textShadow: '0 8px 70px rgba(0,0,0,0.5)'}}>
           {p.big}
         </div>
@@ -81,7 +92,9 @@ const SplitVariant: React.FC<ThumbnailData> = (p) => {
         <div style={{fontFamily: FONTS.mono, fontSize: 40, letterSpacing: '0.24em', color: COLORS.navy, marginTop: 22}}>
           {p.smallLabel ?? 'YOU'}
         </div>
-        <div style={{position: 'absolute', bottom: 36, right: 44, fontFamily: FONTS.display, fontWeight: 700, fontSize: 48, color: COLORS.navy}}>OE.</div>
+        {p.showMark ? (
+          <div style={{position: 'absolute', bottom: 36, right: 44, fontFamily: FONTS.display, fontWeight: 700, fontSize: 48, color: COLORS.navy}}>OE.</div>
+        ) : null}
       </div>
     </AbsoluteFill>
   );
@@ -137,11 +150,13 @@ const VersusVariant: React.FC<ThumbnailData> = (p) => {
               </>
             ) : p.label}
           </span>
-          <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: gold}}>OE.</span>
+          {p.showMark ? (
+            <span style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: gold}}>OE.</span>
+          ) : null}
         </div>
-      ) : (
+      ) : p.showMark ? (
         <div style={{position: 'absolute', right: 56, bottom: 48, fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: gold}}>OE.</div>
-      )}
+      ) : null}
     </>
   );
 };
@@ -203,7 +218,9 @@ const TitleVariant: React.FC<ThumbnailData> = (p) => {
             {p.small}
           </span>
         </div>
-        <div style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: COLORS.goldBright}}>OE.</div>
+        {p.showMark ? (
+          <div style={{fontFamily: FONTS.display, fontWeight: 700, fontSize: 52, color: COLORS.goldBright}}>OE.</div>
+        ) : null}
       </div>
     </>
   );
@@ -238,8 +255,8 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
         }}
       />
 
-      {/* kicker */}
-      {p.variant !== 'split' && p.variant !== 'photo' && (
+      {/* kicker — opt-in only (rule 1) */}
+      {p.kicker && p.variant !== 'split' && p.variant !== 'photo' && (
       <div
         style={{
           position: 'absolute',
@@ -251,7 +268,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
           color: 'rgba(245,240,230,0.55)',
         }}
       >
-        {p.kicker ?? 'OPERATOR BLUEPRINT · № 001'}
+        {p.kicker}
       </div>
       )}
 
