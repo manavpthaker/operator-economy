@@ -49,15 +49,44 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]          # studio/
 REPO = ROOT.parent
 THUMBS = ROOT / "remotion" / "public" / "thumbs"
-# Model bake-off, same prompt, 2026-08-10:
-#   imagen4    best. Genuinely photographic skin and expression, largest face,
-#              honours "subject on the right / plain left". WINNER.
-#   seedream3  close second, very photoreal, busier frames, more garbled signage.
-#   flux-ultra polished but reads rendered rather than photographed.
-#   recraft3   beautiful and cinematic, subject far too small for a thumbnail.
-# Prompt note: imagen4 reads "empty left third" LITERALLY and returns a white
-# block. Say "the background continues as a plain shadowed wall" instead.
-DEFAULT_MODEL = "fal-ai/imagen4/preview"
+# Ten models scored against the scene rubric, 2026-08-10 (model_bakeoff.py):
+#   seedream4      CHOSEN. imagen4-ultra scored marginally higher on face size
+#                  and clean output, but seedream4's frames read as somebody's
+#                  actual workplace rather than a set: t-shirt not a uniform,
+#                  real shop, unstaged. Context beat polish.
+#   imagen4-ultra  best raw quality, largest face, zero artefacts. Alternate.
+#   imagen4        good, smaller face, garbled shirt logos.
+#   seedream3      photoreal but busier frames and more signage.
+#   flux-ultra     reads rendered rather than photographed.
+#   ideogram3      subject turns away, frame busy on both sides.
+#   recraft3       cinematic and lovely, subject far too small for a thumbnail.
+#
+# Per-family quirks worth knowing:
+#   imagen*   reads "empty left third" LITERALLY and returns a white block. Say
+#             "the background continues as a plain shadowed wall".
+#   seedream* takes image_size, not aspect_ratio, and honours negative_prompt.
+DEFAULT_MODEL = "fal-ai/bytedance/seedream/v4/text-to-image"
+ALTERNATE_MODEL = "fal-ai/imagen4/preview/ultra"
+
+# Sizing differs by family. Anything unlisted falls back to aspect_ratio.
+MODEL_PARAMS = {
+    "seedream": {"image_size": {"width": 1280, "height": 720}},
+    "imagen":   {"aspect_ratio": "16:9"},
+    "flux":     {"aspect_ratio": "16:9"},
+    "recraft":  {"image_size": {"width": 1280, "height": 720}},
+    "ideogram": {"image_size": {"width": 1280, "height": 720}},
+}
+
+# Every model invents lettering on clothing and signage, and it is the clearest
+# tell that an image was generated. Two things fix it, and both are needed:
+# a negative prompt where the family supports one, and describing surfaces as
+# positively blank in CONSTRAINTS. Diffusion models follow "plain unbranded
+# t-shirt" far more reliably than "no logos".
+NEGATIVE = (
+    "text, lettering, writing, words, letters, numbers, logos, brand names, "
+    "signage, signs, posters, labels, stickers, banners, printed t-shirt, "
+    "embroidered logo, watermark, captions, license plate"
+)
 
 PREAMBLE = (
     "Candid editorial photograph for a business magazine, available light, "
@@ -88,17 +117,18 @@ PREAMBLE = (
 # adjectives leak into the whole frame; and available light with real skin
 # texture is what sells an image as photographed rather than rendered.
 CONSTRAINTS = (
-    " Waist-up framing, subject toward the right of the frame, caught mid-sentence "
-    "addressing the camera directly, one hand raised mid-gesture in explanation, "
-    "animated, confident and warm without grinning, eye contact with the lens, "
-    "eyebrows and mouth active as though speaking. Bright natural daylight, clean "
-    "true-to-life colour, realistic skin texture with visible pores and fine "
-    "lines, real working clutter behind them. The left third of the frame is "
-    "simpler and less busy, reserved for overlaid text. Absolutely no text, no "
-    "lettering, no numbers, no logos, no watermarks, no signage, no branded "
-    "clothing. Photographed, not rendered: no studio lighting, no rim light, no "
-    "heavy bokeh, no glossy skin retouching. Nobody sad, tired or defeated, and "
-    "nobody posed smiling at a laptop like a stock photograph."
+    " They wear plain unbranded everyday clothes with no printing on them. The "
+    "surfaces behind them are bare: unlabelled boxes, loose parts and plain "
+    "painted walls with nothing hung on them. Waist-up framing, subject toward "
+    "the right of the frame, caught mid-sentence addressing the camera directly, "
+    "one hand raised mid-gesture in explanation, animated, confident and warm "
+    "without grinning, eye contact with the lens, eyebrows and mouth active as "
+    "though speaking. Bright natural daylight, clean true-to-life colour, "
+    "realistic skin texture with visible pores and fine lines. On the left the "
+    "background continues as a plain shadowed wall with little detail, reserved "
+    "for overlaid text. Photographed, not rendered: no studio lighting, no rim "
+    "light, no heavy bokeh, no glossy skin retouching. Nobody sad, tired or "
+    "defeated, and nobody posed smiling at a laptop like a stock photograph."
 )
 
 
@@ -122,14 +152,19 @@ def scene_from_script(slug: str) -> str:
     return concepts[0]
 
 
+def size_params(model: str) -> dict:
+    for family, params in MODEL_PARAMS.items():
+        if family in model:
+            return params
+    return {"aspect_ratio": "16:9"}
+
+
 def generate(prompt: str, model: str, n: int, key: str) -> list[str]:
-    body = json.dumps({
-        "prompt": prompt,
-        "aspect_ratio": "16:9",
-        "num_images": n,
-        "output_format": "jpeg",
-        "safety_tolerance": "5",
-    }).encode()
+    payload = {"prompt": prompt, "num_images": n, **size_params(model)}
+    # Only seedream honours it; sending it elsewhere is a 422.
+    if "seedream" in model:
+        payload["negative_prompt"] = NEGATIVE
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(
         f"https://fal.run/{model}", data=body,
         headers={"Authorization": f"Key {key}", "Content-Type": "application/json"})
