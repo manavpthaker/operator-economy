@@ -29,3 +29,42 @@ People click videos they want to watch, not pretty images. Before opening the co
 ## Symbols (allowed, sparingly)
 
 Arrows/circles to direct the eye at ONE thing; red X / green ✓ only for genuine before/after episodes. Punctuation as emotion is fine. No emojis ever.
+
+## Enforcement (added 2026-08-10)
+
+Everything above is design guidance and was, until now, self-certified. That failed. EP005 shipped
+with a note asserting "Rule 6 ✓ reads at browse-strip size" on a file that was 2272x1198 (not
+16:9), 94% fully transparent, and whose secondary text resolved to roughly 2px of cap height at
+browse width. A note cannot be the gate for a rule that a machine can measure.
+
+Two checks now run, and they cover different things:
+
+| Check | Enforces | Run by |
+|---|---|---|
+| `prepare_thumbnail.py` | the **words**: rule 2 (≤4 words, no title overlap), rule 1 (no kicker/mark/number), and that a scene image exists at all | `originate.py render` |
+| `check_thumbnail.py` | the **pixels**: no alpha channel, 16:9 within 1%, ≥1280x720, and that content survives the shrink to 120px on both a white and a black ground | manual today; wire into `launch.py --go` |
+
+```bash
+.venv/bin/python studio/scripts/originate/check_thumbnail.py <image.png>
+# exit 0 = pass, 1 = at least one FAIL
+```
+
+**The alpha check is not pedantry.** YouTube flattens uploads to JPEG, so a transparent PNG does
+not ship the design you reviewed; transparent regions composite to black. EP005's thumbnail has no
+background in the file at all.
+
+**What is deliberately not checked.** Faces, composition, the curiosity gap, and whether the scene
+actually happens in the episode. Those need eyes, and the mechanical layer is a floor rather than a
+ceiling: EP001's thumbnail is a 9-word serif title card carrying a kicker and an episode number,
+violating rules 1, 2, 3, 5, and 6, and it passes every mechanical check cleanly. Passing the script
+means the file is not broken. It does not mean the thumbnail is good.
+
+**Waivers.** Rules 3 and 4 were both waived on EP005 in a note, silently, which is how a
+figure-only composition with no ground reached upload. A waiver is a real decision and belongs in
+the episode's `thumbnail-note.md` with a reason, and it should be read at Gate 3 rather than
+discovered afterward. Two waivers on one thumbnail is a signal the concept is fighting the format.
+
+**Generate inside the pipeline.** EP005's note records that the image was "generated externally."
+Every mechanical defect above entered at exactly that step, and the same pattern produced the
+launch-ledger defects when the episode was uploaded outside `launch.py`. Externally-produced
+artifacts skip every guard that exists.
