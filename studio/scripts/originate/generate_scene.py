@@ -49,16 +49,32 @@ THUMBS = ROOT / "remotion" / "public" / "thumbs"
 DEFAULT_MODEL = "fal-ai/flux-pro/v1.1-ultra"
 
 PREAMBLE = (
-    "Documentary editorial photograph, photojournalism, shot on a 35mm lens. "
+    "Editorial portrait photograph, shot on an 85mm lens at f/2. "
 )
+# Framing is the whole game, and it is what the first pass got wrong.
+#
+# A wide environmental shot makes the room larger than the person, so the
+# subject reads as someone the situation happened to. That is why the first
+# batch came back depressing on episodes that are about opportunity. A tight
+# head-and-shoulders portrait makes the person larger than the room, and the
+# identical serious expression then reads as someone who knows something.
+#
+# Checked against what YouTube actually surfaces in Wealth and Thoughts on a
+# logged-out feed: the stern tiles outperform, but every one of them is a close
+# portrait with the head filling roughly a third of the frame. Seriousness is
+# fine. Smallness is not.
 CONSTRAINTS = (
-    " The subject's face is in the upper third of the frame with a flat, candid, "
-    "unperformed expression, not smiling, not exaggerated. Natural directional "
-    "light separating the subject from the background, shallow depth of field, "
-    "muted desaturated colour, subtle film grain. The lower-left quadrant is in "
-    "shadow, dark and free of detail. Absolutely no text, no lettering, no "
-    "numbers, no logos, no watermarks, no signage. Not stock photography, not "
-    "advertising, no studio lighting, no glossy retouching."
+    " Tight head-and-shoulders portrait, cropped at the chest, the head filling "
+    "about a third of the frame. The subject is placed toward the right of the "
+    "frame, looking directly into the lens with a composed, self-possessed, "
+    "knowing expression: serious and unsmiling, but confident rather than sad, "
+    "defeated or pitiable. Directional key light with a subtle rim separating "
+    "the head and shoulders from a much darker, heavily out-of-focus background. "
+    "Muted colour, fine film grain. The left third of the frame is dark and free "
+    "of detail, reserved for overlaid text. Absolutely no text, no lettering, no "
+    "numbers, no logos, no watermarks, no signage, no branded clothing. Not stock "
+    "photography, not advertising, no glossy retouching, no exaggerated "
+    "expression."
 )
 
 
