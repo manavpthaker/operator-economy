@@ -27,6 +27,7 @@ export type ThumbnailData = {
   accentWord?: string;  // word in label to set gold
   kicker?: string;      // tiny corner mark. OFF unless set — rubric rule 1
   showMark?: boolean;   // the "OE." mark. OFF by default — rubric rules 1 and 4
+  textStyle?: 'block' | 'scrim'; // photo variant: solid panel (default) or legacy gradient
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -95,33 +96,64 @@ const HeroVariant: React.FC<ThumbnailData> = (p) => {
   );
 };
 
-const PhotoVariant: React.FC<ThumbnailData> = (p) => (
-  <AbsoluteFill>
-    {p.bgImage ? (
-      <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-    ) : null}
-    {/* legibility scrim over the lower-left; faces stay clear. NO kicker,
-        NO mark: channel branding on a thumbnail is wasted curiosity space
-        (thumbnail-rubric rule 1). */}
-    <AbsoluteFill style={{background: 'linear-gradient(to top, rgba(10,18,32,0.85) 0%, rgba(10,18,32,0.3) 34%, rgba(10,18,32,0) 55%)'}} />
-    {/* ONE text block, bottom-left (lower-right = duration stamp).
-        Supreme 800: thick sans survives the 168px shrink test. */}
-    <div style={{position: 'absolute', bottom: 40, left: 52, display: 'flex', flexDirection: 'column'}}>
-      <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 168, lineHeight: 1, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
-      {p.bigLabel ? (
-        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.06em', color: COLORS.paper, marginTop: 8, textShadow: '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
+/**
+ * Photo — text over a photograph.
+ *
+ * `textStyle` decides how the type separates from the picture:
+ *
+ *   'block'  (default) solid panel behind the text. Separation is guaranteed
+ *            regardless of what the photograph does underneath.
+ *   'scrim'  the original soft gradient. Legacy.
+ *
+ * The gradient was fine over an empty navy card and fails over a real
+ * photograph: a soft ramp cannot guarantee contrast against a face, a window
+ * or a pale wall, so the type sits ON the picture instead of IN it. Every
+ * text-bearing tile in a live YouTube feed uses a hard edge — a solid colour
+ * block or a heavy outline — and not one relies on a gradient.
+ */
+const PhotoVariant: React.FC<ThumbnailData> = (p) => {
+  const block = (p.textStyle ?? 'block') === 'block';
+  return (
+    <AbsoluteFill>
+      {p.bgImage ? (
+        <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
       ) : null}
-    </div>
-    {p.small ? (
-      <div style={{position: 'absolute', top: 40, right: 52, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 84, lineHeight: 1, color: COLORS.paper, textShadow: '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.small}</span>
-        {p.smallLabel ? (
-          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 40, letterSpacing: '0.08em', color: COLORS.goldBright, marginTop: 6, textShadow: '0 2px 0 rgba(0,0,0,0.55)'}}>{p.smallLabel}</span>
+      {!block ? (
+        <AbsoluteFill style={{background: 'linear-gradient(to top, rgba(10,18,32,0.85) 0%, rgba(10,18,32,0.3) 34%, rgba(10,18,32,0) 55%)'}} />
+      ) : null}
+      {/* ONE text block, bottom-left (lower-right = duration stamp).
+          Supreme 800: thick sans survives the 168px shrink test. NO kicker,
+          NO mark — branding on a thumbnail is wasted curiosity space (rule 1). */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: block ? 0 : 40,
+          left: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          padding: block ? '30px 44px 34px 52px' : '0 0 0 52px',
+          background: block ? COLORS.navy : 'transparent',
+          borderTop: block ? `6px solid ${COLORS.goldBright}` : 'none',
+          maxWidth: block ? '62%' : 'none',
+        }}
+      >
+        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 168, lineHeight: 0.95, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: block ? 'none' : '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
+        {p.bigLabel ? (
+          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.04em', color: COLORS.paper, marginTop: 6, whiteSpace: 'nowrap', textShadow: block ? 'none' : '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
         ) : null}
       </div>
-    ) : null}
-  </AbsoluteFill>
-);
+      {p.small ? (
+        <div style={{position: 'absolute', top: 40, right: 52, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 84, lineHeight: 1, color: COLORS.paper, textShadow: '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.small}</span>
+          {p.smallLabel ? (
+            <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 40, letterSpacing: '0.08em', color: COLORS.goldBright, marginTop: 6, textShadow: '0 2px 0 rgba(0,0,0,0.55)'}}>{p.smallLabel}</span>
+          ) : null}
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
 
 const SplitVariant: React.FC<ThumbnailData> = (p) => {
   const rightBg = p.rightGold ? COLORS.goldFill : COLORS.paper;
