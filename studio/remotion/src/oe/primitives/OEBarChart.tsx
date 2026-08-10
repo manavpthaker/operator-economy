@@ -73,9 +73,23 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
     extrapolateRight: 'clamp',
   });
 
+  // Unit rendering (2026-08-09):
+  //   compactCurrency mode → compactValue formats as "$2B" / "$706M" (currency prefix baked in)
+  //   unit "$"            → prefix, no space:      "$" + 65   = "$65"
+  //   unit "%"            → suffix, no space:      65 + "%"   = "65%"
+  //   unit ""             → bare number
+  //   anything else       → suffix with space:     65 + " firms" (short units) or fall back
+  // Prior version placed every unit as a prefix, producing "% growth30" / "$ Million1.5"
+  // when the caller passed a prose "unit" string. LLM-planned assets.json specs did that
+  // often; the fix here is to render intelligently rather than trust the caller.
   const fmt = (v: number) => {
-    if (compactCurrency) return compactValue(v, '');
-    return `${unit}${Math.round(v).toLocaleString()}`;
+    if (compactCurrency) return `$${compactValue(v, '')}`;
+    const val = Math.round(v).toLocaleString();
+    if (!unit) return val;
+    if (unit === '$') return `$${val}`;
+    if (unit === '%') return `${val}%`;
+    // Any other unit (prose/description) — render as suffix with space.
+    return `${val} ${unit}`;
   };
 
   return (

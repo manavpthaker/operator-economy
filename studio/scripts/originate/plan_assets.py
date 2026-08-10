@@ -38,7 +38,20 @@ For each beat you receive, expand its asset_hint into exactly one concrete asset
 Rules:
 - Charts must only use numbers present in the beat/source. Never invent data.
 - Prefer slide/chart for economics and playbook sections; broll for narrative moments.
-- screen_rec only where seeing the tool genuinely adds value (max 4 per video)."""
+- screen_rec only where seeing the tool genuinely adds value (max 4 per video).
+
+CHART UNIT CONTRACT (hard requirement, enforced by the renderer):
+- `unit` MUST be one of these EXACT tokens: "", "%", "$", "×" — nothing else.
+- The renderer concatenates `unit` with each bar's value ("$" prefix, "%" suffix, "×" suffix).
+  Prose like "% growth" produces "% growth30" on screen. Prose like "$ million annualized,
+  reported" produces "$ million annualized, reported2000". A description in `unit` is a bug.
+- Convey the axis description via `title` and `label` on each series, NOT `unit`.
+  Right: {"title": "iOS 2025: Apps Added vs Downloads", "series": [{"label": "New apps (+30%)", "value": 30}, {"label": "Downloads (upper bound)", "value": 3}], "unit": "%"}
+  Wrong: {"title": "Supply vs Demand, iOS 2025", "series": [{"label": "New apps added", "value": 30}], "unit": "% growth"}
+- For $ charts, use RAW DOLLARS (not "$M" or "$B" units) — set unit "$" and put actual dollars
+  in values (e.g. $2 billion → value 2_000_000_000). The renderer auto-compacts to "$2B" when
+  max(series) ≥ 1_000_000 via ChartScene's shouldCompact. Doing this any other way breaks the
+  currency compaction path and the gate normalisation of numeric claims against facts.md."""
 
 
 def build_review_md(assets: dict) -> str:

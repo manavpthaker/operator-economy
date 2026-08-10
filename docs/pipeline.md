@@ -15,16 +15,14 @@ python originate.py new "AI receptionists for independent hotels" --research bri
 #   - replace every [POV: ...] token with your experience  ← monetization moat
 #   - verify every number against sources
 
-# 2. VO + avatar clips + asset plan — stops at Gate 2
+# 2. VO + asset plan — stops at Gate 2
 python originate.py continue <slug>
-#   Avatar step (2026-07-08, docs/avatar-decision.md): generates the HeyGen
-#   digital-twin corner-block clips (hook + cta) lip-synced to the section VO.
-#   No-ops if config avatar.enabled=false; resumable per section if the poll
-#   times out (jobs persist in originate/<slug>/avatars/jobs.json — re-run).
-#   Requires HEYGEN_API_KEY (studio/.env) + avatar.avatar_id in blueprint.json.
+#   generate_vo → master_vo_local (broadcast chain, reads .raw.mp3) → plan_assets.
+#   No avatar step (removed 2026-08-08; talking-head never shipped, coupling had
+#   silently broken EP003 mastering). Mastering now sources from .raw.mp3, the
+#   ElevenLabs original written by generate_vo — decoupled from the deleted roomize.
 
 # GATE 2 (~15-30 min): review assets_review.md, record screen_rec shot list
-#   + eyeball avatars/<section>.mp4 — does the twin pass? (uncanny = disable)
 
 # 3. Render data + derived content (blueprint.md, newsletter.md, LI posts, shorts briefs)
 python originate.py render <slug>
@@ -77,6 +75,24 @@ python scripts/originate/prepare_shorts.py originate/<slug>/script.json --traile
 ```
 
 Target: ~60–90 min human time per video across the three gates.
+
+## Storyboard authoring — hard lessons (added 2026-08-09 after EP005)
+
+The pipeline gets you a first-cut storyboard and a valid render, but the ship-quality is set by the per-episode `hand_tune_storyboard.py`. Ignore this and you get the EP005-first-render experience: NaN cards, chart labels reading "% growth30", titles reading "57" or "end card with the blueprint cover and the su".
+
+**Non-negotiables** (enforced by `eval_storyboard.py` + `content-os/bin/gate_cards.py`, but easier to get right the first time):
+
+1. **`hand_tune_storyboard.py` is authoritative — it writes storyboard.json from scratch.** Do NOT run `storyboard.py` again after `hand_tune` — it will clobber your work. `originate.py continue` runs `storyboard.py` unconditionally; after the first `continue`, run hand_tune → pace_storyboard → prepare_longform directly. (EP004's hand_tune shows the pattern; EP005's is a good moat/thesis episode variant.)
+
+2. **`proof.value` must be a Python int or float.** `MonoCounter` spring-interpolates it as a number. `"$5.30B"` (string) → NaN on screen. Put currency in `prefix`, unit in `suffix`. Right: `{"value": 5.30, "prefix": "$", "suffix": "B"}`. Gate check: `gate_cards.py` fails on non-numeric proof.value.
+
+3. **Chart `unit` is one of exactly `""`, `"%"`, `"$"`, `"×"`.** The `OEBarChart` primitive renders it as a raw suffix/prefix onto every bar value. Prose units get concatenated: `"% growth"` + value 30 → "% growth30" on screen. Convey axis descriptions via chart `title` and series `label`. `plan_assets.py`'s LLM prompt now specifies this contract, and `gate_cards.py` fails on any other unit.
+
+4. **For `$` charts, values are RAW DOLLARS.** Set `unit: "$"` and put actual dollars in `series[].value` (e.g., $2 billion → `2_000_000_000`). The renderer auto-compacts via `ChartScene`'s `shouldCompact` at max ≥ 1_000_000 to produce `"$2B"`, `"$706M"`. Don't pre-scale to millions/billions in the value; that breaks compaction and gate normalization against facts.md.
+
+5. **Every on-screen number must match a `content-os/facts.md` row token, character for character.** `10×` in facts.md ≠ `10x` in your card. `$674,676` ≠ `$674K`. Gate normalizes but doesn't equivalence-check units. Copy from facts.md verbatim, or add a facts.md row (with source) if you're stating a new claim.
+
+6. **Preview before you re-render.** Full grade + master round-trip is ~15 min. `cd studio/remotion && npm run studio` opens the composition browser; scrub through screens and catch anything ugly before committing to the final render.
 
 ## Not yet automated (Phase C)
 
