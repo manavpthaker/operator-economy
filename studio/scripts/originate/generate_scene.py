@@ -18,12 +18,15 @@ The overlay is NOT generated here. Text is set in Remotion's `photo` variant,
 where we control the typeface and can guarantee it survives the shrink test.
 Image models set type badly. This step produces the ground only.
 
-The prompt preamble encodes thumbnail-rubric.md so the composition arrives
-usable rather than needing a crop:
-  rule 3 — real scene, expressive face, eyes near the upper third
-  rule 4 — lower-left kept clear, because that is where the text block anchors
-  rule 5 — subject separated from ground, directional light
-  register — documentary, per brand/brand.md. No hype, no stock gloss.
+The prompt encodes the composition so it arrives usable rather than needing a
+rescue crop: subject waist-up on the RIGHT, caught mid-sentence addressing the
+camera, with the LEFT of the frame plain and unbusy because that is where the
+text block sits. Register stays documentary per brand/brand.md — animated and
+direct, never hyped, never stock-posed.
+
+Describe the action, never the mood. Mood adjectives ("worn", "resigned",
+"muted") leak across the whole frame and are what made three earlier passes
+come back depressing.
 
     generate_scene.py <slug> --scene "a plumber in a work van ..." [--n 2]
     generate_scene.py <slug>            # scene from script.json thumbnail_concepts[0]
@@ -60,43 +63,30 @@ PREAMBLE = (
     "Candid editorial photograph for a business magazine, available light, "
     "shot on a 50mm lens. "
 )
-# Framing is the whole game, and it is what the first pass got wrong.
+# Four passes to get here. The failures are worth keeping, because each one
+# looks reasonable in isolation and each produced an unusable thumbnail.
 #
-# A wide environmental shot makes the room larger than the person, so the
-# subject reads as someone the situation happened to. That is why the first
-# batch came back depressing on episodes that are about opportunity. A tight
-# head-and-shoulders portrait makes the person larger than the room, and the
-# identical serious expression then reads as someone who knows something.
+#   1. wide + environmental      the room ends up larger than the person, so
+#                                the subject reads as someone the situation
+#                                happened to. Depressing on episodes about
+#                                opportunity.
+#   2. tight portrait, grim words  still depressing. The vocabulary was grim end
+#                                to end (muted, desaturated, shadow, film grain,
+#                                unsmiling, worn) and asking for "composed and
+#                                knowing" alongside all that does not survive.
+#                                Tone words dominate everything else. The
+#                                rim-light-on-heavy-bokeh also reads as rendered.
+#   3. "absorbed and pleased"    swung to corporate stock: people beaming at a
+#                                laptop. No curiosity gap, reads as an advert.
+#   4. mid-sentence to camera    correct.
 #
-# Checked against what YouTube actually surfaces in Wealth and Thoughts on a
-# logged-out feed: the stern tiles outperform, but every one of them is a close
-# portrait with the head filling roughly a third of the frame. Seriousness is
-# fine. Smallness is not.
-# Third revision, and the first two failures are instructive.
+# What the feed rewards is none of the first three. Hormozi, Adam Ivy, the DOAC
+# tiles: all caught MID-SENTENCE, addressing the viewer, hands moving. An
+# unfinished sentence is interesting. A finished mood is not.
 #
-# Wide environmental framing made subjects look small, so they read as victims
-# of the situation. Fixed that, and they still read as depressing, for two
-# reasons I put in the prompt myself.
-#
-# 1. The vocabulary was grim end to end: muted, desaturated, shadow, dark, film
-#    grain, unsmiling, worn out, resigned. Asking for "composed and knowing"
-#    alongside all that does not survive. Tone words dominate.
-# 2. A portrait of someone CONTEMPLATING their situation is inherently static
-#    and inward. These episodes are about opportunity, so the subject should be
-#    mid-action, already doing the thing the episode teaches, and good at it.
-#
-# The rim-light-on-heavy-bokeh look also reads as AI-rendered rather than
-# photographed. Available light and real skin texture are what sell it as real.
-#   pass 1  wide + environmental  -> subject small, read as a victim
-#   pass 2  tight portrait, grim vocabulary -> still depressing, and the rim
-#           light on heavy bokeh read as AI-rendered rather than photographed
-#   pass 3  "absorbed and pleased" -> swung to corporate stock: two people
-#           beaming at a laptop, zero curiosity gap, reads as an advertisement
-#
-# What the feed actually rewards is none of those. Leila Hormozi, Alex Hormozi
-# mid-gesture, Adam Ivy: all caught MID-SENTENCE, addressing the viewer, hands
-# moving, animated and direct. Not contemplating, not beaming at a screen.
-# Someone talking to you is interesting because the sentence is unfinished.
+# Two lessons that generalise: describe the ACTION, not the mood, because mood
+# adjectives leak into the whole frame; and available light with real skin
+# texture is what sells an image as photographed rather than rendered.
 CONSTRAINTS = (
     " Waist-up framing, subject toward the right of the frame, caught mid-sentence "
     "addressing the camera directly, one hand raised mid-gesture in explanation, "
