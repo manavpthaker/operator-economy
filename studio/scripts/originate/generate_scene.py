@@ -46,10 +46,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]          # studio/
 REPO = ROOT.parent
 THUMBS = ROOT / "remotion" / "public" / "thumbs"
-DEFAULT_MODEL = "fal-ai/flux-pro/v1.1-ultra"
+# Model bake-off, same prompt, 2026-08-10:
+#   imagen4    best. Genuinely photographic skin and expression, largest face,
+#              honours "subject on the right / plain left". WINNER.
+#   seedream3  close second, very photoreal, busier frames, more garbled signage.
+#   flux-ultra polished but reads rendered rather than photographed.
+#   recraft3   beautiful and cinematic, subject far too small for a thumbnail.
+# Prompt note: imagen4 reads "empty left third" LITERALLY and returns a white
+# block. Say "the background continues as a plain shadowed wall" instead.
+DEFAULT_MODEL = "fal-ai/imagen4/preview"
 
 PREAMBLE = (
-    "Editorial portrait photograph, shot on an 85mm lens at f/2. "
+    "Candid editorial photograph for a business magazine, available light, "
+    "shot on a 50mm lens. "
 )
 # Framing is the whole game, and it is what the first pass got wrong.
 #
@@ -63,18 +72,43 @@ PREAMBLE = (
 # logged-out feed: the stern tiles outperform, but every one of them is a close
 # portrait with the head filling roughly a third of the frame. Seriousness is
 # fine. Smallness is not.
+# Third revision, and the first two failures are instructive.
+#
+# Wide environmental framing made subjects look small, so they read as victims
+# of the situation. Fixed that, and they still read as depressing, for two
+# reasons I put in the prompt myself.
+#
+# 1. The vocabulary was grim end to end: muted, desaturated, shadow, dark, film
+#    grain, unsmiling, worn out, resigned. Asking for "composed and knowing"
+#    alongside all that does not survive. Tone words dominate.
+# 2. A portrait of someone CONTEMPLATING their situation is inherently static
+#    and inward. These episodes are about opportunity, so the subject should be
+#    mid-action, already doing the thing the episode teaches, and good at it.
+#
+# The rim-light-on-heavy-bokeh look also reads as AI-rendered rather than
+# photographed. Available light and real skin texture are what sell it as real.
+#   pass 1  wide + environmental  -> subject small, read as a victim
+#   pass 2  tight portrait, grim vocabulary -> still depressing, and the rim
+#           light on heavy bokeh read as AI-rendered rather than photographed
+#   pass 3  "absorbed and pleased" -> swung to corporate stock: two people
+#           beaming at a laptop, zero curiosity gap, reads as an advertisement
+#
+# What the feed actually rewards is none of those. Leila Hormozi, Alex Hormozi
+# mid-gesture, Adam Ivy: all caught MID-SENTENCE, addressing the viewer, hands
+# moving, animated and direct. Not contemplating, not beaming at a screen.
+# Someone talking to you is interesting because the sentence is unfinished.
 CONSTRAINTS = (
-    " Tight head-and-shoulders portrait, cropped at the chest, the head filling "
-    "about a third of the frame. The subject is placed toward the right of the "
-    "frame, looking directly into the lens with a composed, self-possessed, "
-    "knowing expression: serious and unsmiling, but confident rather than sad, "
-    "defeated or pitiable. Directional key light with a subtle rim separating "
-    "the head and shoulders from a much darker, heavily out-of-focus background. "
-    "Muted colour, fine film grain. The left third of the frame is dark and free "
-    "of detail, reserved for overlaid text. Absolutely no text, no lettering, no "
-    "numbers, no logos, no watermarks, no signage, no branded clothing. Not stock "
-    "photography, not advertising, no glossy retouching, no exaggerated "
-    "expression."
+    " Waist-up framing, subject toward the right of the frame, caught mid-sentence "
+    "addressing the camera directly, one hand raised mid-gesture in explanation, "
+    "animated, confident and warm without grinning, eye contact with the lens, "
+    "eyebrows and mouth active as though speaking. Bright natural daylight, clean "
+    "true-to-life colour, realistic skin texture with visible pores and fine "
+    "lines, real working clutter behind them. The left third of the frame is "
+    "simpler and less busy, reserved for overlaid text. Absolutely no text, no "
+    "lettering, no numbers, no logos, no watermarks, no signage, no branded "
+    "clothing. Photographed, not rendered: no studio lighting, no rim light, no "
+    "heavy bokeh, no glossy skin retouching. Nobody sad, tired or defeated, and "
+    "nobody posed smiling at a laptop like a stock photograph."
 )
 
 
