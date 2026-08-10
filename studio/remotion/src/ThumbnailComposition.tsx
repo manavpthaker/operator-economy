@@ -18,7 +18,7 @@ export type ThumbnailData = {
   bigLabel?: string;    // actor under the big number, e.g. "ACCENTURE"
   smallLabel?: string;  // actor under the small number, e.g. "YOU"
   rightGold?: boolean;  // split variant: gold right panel instead of paper
-  variant?: 'numbers' | 'title' | 'versus' | 'split' | 'photo'; // numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
+  variant?: 'hero' | 'numbers' | 'title' | 'versus' | 'split' | 'photo'; // hero = ONE number + interpreting text (preferred); numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
   accentColor?: string; // override goldBright (test punchier accents without leaving the family)
   big: string;          // the hero number, e.g. "$5.9B"
   small: string;        // the counter number, e.g. "$100"
@@ -36,6 +36,64 @@ export type ThumbnailData = {
 // except `photo` hardcoded an "OE." mark into that exact corner and defaulted
 // the kicker to "OPERATOR BLUEPRINT · № 001" — a wrong episode number for every
 // episode after the first. Both are now opt-in and off by default.
+
+/**
+ * Hero — ONE number, plus text that interprets it. Added 2026-08-10.
+ *
+ * Every previous variant puts two numbers on the canvas and asks the viewer
+ * to compare them ($5.9B vs $2K, $11B vs $500, 850 vs 1). A comparison costs
+ * time nobody spends at feed size, and the whole back catalogue does it.
+ * One figure owning the frame is the rule both current thumbnail rubrics
+ * converge on.
+ *
+ * The label INTERPRETS rather than names: "GO TO VOICEMAIL", not "ELEVENLABS".
+ * A bare label makes the viewer supply the meaning; interpretation hands it
+ * to them.
+ *
+ * Type is FONTS.sans at 800 because rule 2 says so and, until now, no text
+ * variant honoured it: split and title used the Didone the rubric explicitly
+ * warns "fails the thin-stroke test at 168px-wide tiles".
+ */
+const HeroVariant: React.FC<ThumbnailData> = (p) => {
+  // Scale to the digit count so a short figure still owns the frame. "$2K"
+  // at a fixed size left half the canvas dead; the rubrics want the number
+  // at roughly 35-50% of the frame regardless of how many characters it has.
+  const n = (p.big ?? '').length;
+  const heroSize = n <= 3 ? 460 : n === 4 ? 400 : n === 5 ? 350 : 300;
+  return (
+    <AbsoluteFill style={{justifyContent: 'center', paddingLeft: 88, paddingRight: 88, paddingBottom: 36}}>
+      <div
+        style={{
+          fontFamily: FONTS.sans,
+          fontWeight: 800,
+          fontSize: heroSize,
+          lineHeight: 0.88,
+          letterSpacing: '-0.035em',
+          color: p.accentColor ?? COLORS.goldBright,
+          textShadow: '0 8px 70px rgba(0,0,0,0.5)',
+        }}
+      >
+        {p.big}
+      </div>
+      {p.label ? (
+        <div
+          style={{
+            fontFamily: FONTS.sans,
+            fontWeight: 800,
+            fontSize: 92,
+            letterSpacing: '0.01em',
+            lineHeight: 1.04,
+            color: COLORS.paper,
+            marginTop: 20,
+            whiteSpace: 'nowrap', // a wrapped label reads as two ideas; keep it to 2-3 words
+          }}
+        >
+          {p.label}
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
 
 const PhotoVariant: React.FC<ThumbnailData> = (p) => (
   <AbsoluteFill>
@@ -272,6 +330,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       </div>
       )}
 
+      {p.variant === 'hero' ? <HeroVariant {...p} /> : null}
       {p.variant === 'title' ? <TitleVariant {...p} /> : null}
       {p.variant === 'versus' ? <VersusVariant {...p} /> : null}
       {p.variant === 'split' ? <SplitVariant {...p} /> : null}

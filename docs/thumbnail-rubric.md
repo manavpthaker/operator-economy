@@ -30,6 +30,66 @@ People click videos they want to watch, not pretty images. Before opening the co
 
 Arrows/circles to direct the eye at ONE thing; red X / green ✓ only for genuine before/after episodes. Punctuation as emotion is fine. No emojis ever.
 
+## Amendments (2026-08-10) — these override the rules above where they conflict
+
+Synthesised from two external data-video thumbnail rubrics evaluated 2026-08-10. Kept only what
+both agreed on, or what one argued convincingly for this register. A third rubric built on a
+"Triple Threat" of glowing brains, AI humanoid silhouettes, and futuristic corporate buildings was
+rejected outright: that is the stock-AI imagery the other two score as a zero, and it violates the
+hype ban in `brand/brand.md`.
+
+**A1. One hero number. Not two.** *(new, and the most important)*
+
+Every OE thumbnail to date puts two figures on the canvas and asks for a comparison: `$5.9B vs
+$2K`, `$11B vs $500`, `850 vs 1`. A comparison costs time nobody spends at feed size. One figure
+should own roughly 35 to 50% of the frame; a second number halves the impact of the first. Use the
+`hero` variant in `ThumbnailComposition.tsx`. The `split`, `versus`, and `numbers` variants all
+violate this by construction and should be treated as legacy.
+
+**A2. The text interprets the number, it does not label it.** *(new)*
+
+`73%` is weak; `COSTS FELL 73%` is strong. `$500` is weak; `$500 EVERY MONTH` is strong. OE's
+existing labels are pure naming: `ACCENTURE`, `YOU`, `A MONTH`, `ELEVENLABS`. A bare label makes
+the viewer supply the meaning. Interpretation hands it to them. Keep to two or three words so it
+sets on one line; a wrapped label reads as two ideas.
+
+**A3. Faces are optional here, and usually wrong.** *(supersedes rule 3)*
+
+Rule 3 mandated real scenes with expressive faces. That is general-audience advice imported from a
+creator checklist, and it fights the register the whole brand runs on. For analytical business
+video, an expressive face reads as hype and costs credibility on an episode that hedges its weak
+sources aloud. Use a human element when it genuinely interprets the number. Do not add one for
+attention. This also removes the scene-sourcing dependency that has left every episode either
+hand-made or falling back to a title card.
+
+**A4. Title and thumbnail split the work.** *(sharpens rule under Process)*
+
+Title carries the subject and mechanism; thumbnail carries the consequence, contrast, or evidence.
+If the thumbnail restates a number already in the title, it has spent the frame on nothing. EP003's
+first draft failed exactly here: title "The 5 Billion Dollar Business That Sounds Boring", thumbnail
+`$5B` and `Dull`.
+
+**A5. Variants test different hypotheses.** *(replaces "two candidates minimum")*
+
+Three variants, each changing one major variable: (A) hero metric, (B) before/after transformation,
+(C) decision or tension. Three near-identical files teach nothing.
+
+**A6. One shrink-test number.** *(resolves rule 6)*
+
+The sources give four different sizes (168x94, 160x90, 10% zoom, 5%). Standardise on **120px wide**,
+which is what `check_thumbnail.py` measures, so the doc and the checker agree.
+
+**Unverified, do not enforce yet.** Both external rubrics claim YouTube raised the desktop thumbnail
+limit to 50MB and now recommends 4K, with the mobile limit staying at 2MB, and they state it with
+different confidence. This has not been checked against YouTube's current documentation. Rule 8's
+`1280x720` stands until someone verifies it. A wrong limit inside a gate is worse than no gate.
+
+**One correction to our own numbers.** Both sources warn against a universal CTR pass/fail target
+and recommend comparing against similar videos and traffic sources on the same channel. The "4% is
+healthy" figure repeated across our docs comes from `growth-strategy.md`, not from any external
+benchmark. EP003's 0.0% on 142 impressions is bad on any reading, but 4% should be treated as an
+internal reference point rather than a threshold.
+
 ## Enforcement (added 2026-08-10)
 
 Everything above is design guidance and was, until now, self-certified. That failed. EP005 shipped
