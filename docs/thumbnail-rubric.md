@@ -17,7 +17,7 @@ People click videos they want to watch, not pretty images. Before opening the co
 5. **Contrast**: scrim/darken behind text, subject visually separated from background (depth of field or masking), bright-warm subject on dark ground — pops against YouTube's white UI.
 6. **Shrink test is the ship gate**: judge at 320px AND 168px. If the text or the emotion doesn't read, revise. Second opinion blink-test when possible: "what do you think this video is about?"
 7. **Good clickbait only**: the scene must literally happen in the episode's playbook. Mismatched expectations = abandonment = suppressed recommendations.
-8. **1280×720 exactly**, high-res source imagery, no hard border frames, no emojis.
+8. **3840×2160 master, 16:9** (see A7 — this supersedes the old "1280×720 exactly"), high-res source imagery, no hard border frames, no emojis.
 
 ## Process rules
 
@@ -79,16 +79,57 @@ Three variants, each changing one major variable: (A) hero metric, (B) before/af
 The sources give four different sizes (168x94, 160x90, 10% zoom, 5%). Standardise on **120px wide**,
 which is what `check_thumbnail.py` measures, so the doc and the checker agree.
 
-**Unverified, do not enforce yet.** Both external rubrics claim YouTube raised the desktop thumbnail
-limit to 50MB and now recommends 4K, with the mobile limit staying at 2MB, and they state it with
-different confidence. This has not been checked against YouTube's current documentation. Rule 8's
-`1280x720` stands until someone verifies it. A wrong limit inside a gate is worse than no gate.
-
 **One correction to our own numbers.** Both sources warn against a universal CTR pass/fail target
 and recommend comparing against similar videos and traffic sources on the same channel. The "4% is
 healthy" figure repeated across our docs comes from `growth-strategy.md`, not from any external
 benchmark. EP003's 0.0% on 142 impressions is bad on any reading, but 4% should be treated as an
 internal reference point rather than a threshold.
+
+## Amendment A7 (2026-08-11) — the spec, verified at source
+
+The previous "unverified, do not enforce yet" note is resolved. Read from YouTube's Help Center,
+[Add custom thumbnails on YouTube](https://support.google.com/youtube/answer/72431), on 2026-08-11.
+Quoted, because this doc has twice recorded a spec that turned out to be someone's blog post:
+
+> "Have a resolution of 3840 x 2160 pixels (with minimum width of 640 pixels). Be uploaded in image
+> formats such as JPG, GIF, or PNG. Remain under MB limits. Limits depend on the device you're using
+> to upload your thumbnail: Mobile: 2 MB for video thumbnails or 10 MB for podcasts. Desktop: 50MB
+> for both video thumbnails and podcast thumbnails. Try to use a 16:9 aspect ratio... For Shorts or
+> Shorts ads, upload a thumbnail with an aspect ratio of 9:16 (2160 x 3840 pixels resolution)."
+
+So: **master at 3840×2160**, 16:9, JPG or PNG, under 50MB uploading from desktop. The three external
+rubrics that claimed this were right, and rule 8's `1280×720 exactly` was a decade-old community
+convention we had been treating as a platform requirement.
+
+**Our floor stays 1280×720 anyway, for a different and now-sourced reason.** YouTube's stated
+minimum is 640px wide, but
+[A/B test titles & thumbnails](https://support.google.com/youtube/answer/16391400) states: "If the
+resolution of any thumbnail is lower than 720p (1280 x 720), all experiment thumbnails will be
+downscaled to 480p (854 x 480)." A sub-720p file silently degrades every variant in a test, so 1280
+is a hard floor and 3840 is the target. `check_thumbnail.py` enforces the floor and warns below the
+target.
+
+**A/B testing mechanics, also verified** — these change how the test in the Process rules should be
+run, so they are recorded rather than left to memory:
+
+- Up to **3 variants**; title-only, thumbnail-only, or title+thumbnail.
+- **The winner is the variant with the highest watch time, not the highest CTR.** This is decisive
+  for us: it means the test rewards packaging that attracts the right viewer, and a thumbnail that
+  wins clicks while losing retention loses the test. It is the same standard the register is already
+  built for.
+- No clear winner → **the first variant uploaded is kept**. Order the upload deliberately.
+- A control group is held out and excluded from the calculation. Tests take days to two weeks.
+- Desktop Studio only, needs advanced features. **Shorts cannot be A/B tested.**
+- "Testing titles and thumbnails that are too similar to each other can cause tests to run for
+  longer" — which is A5's point (three variants must test different hypotheses), now with a
+  mechanical reason attached.
+
+**Still unverified, still not enforced.** The niche CTR bands quoted in craft research (gaming 8.5%,
+education 4.5%, finance 4–9%) come from vendor benchmark studies, not from YouTube. The only
+platform-official figure is that half of all channels sit between **2% and 10%** impressions CTR.
+Browse and Suggested run materially lower than Search on the same video, so an explainer channel
+sitting at 3–4% on browse is not obviously broken. Treat all of these as reference points, never as
+gates.
 
 ## Enforcement (added 2026-08-10)
 

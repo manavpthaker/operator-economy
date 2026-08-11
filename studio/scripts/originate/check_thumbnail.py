@@ -18,6 +18,12 @@ dependencies. Nothing subjective is scored: face, composition, and the
 curiosity gap need eyes, and `thumbnail-rubric.md` still governs them. What
 this refuses to permit is a note claiming a pass on a rule that is measurable.
 
+Covers: alpha channel, aspect ratio, dimensions, file size, and survival of the
+shrink to browse width on both a white and a black ground. Dimension and size
+limits were verified against YouTube's Help Center on 2026-08-11 — see
+thumbnail-rubric.md amendment A7 — after this file spent a month asserting a
+1280x720 minimum that YouTube does not actually impose.
+
     check_thumbnail.py <image.png> [--json] [--min-width N]
 
 Exit 0 = pass, 1 = at least one FAIL. Warnings never fail the run.
@@ -33,11 +39,25 @@ import sys
 import tempfile
 from pathlib import Path
 
-# YouTube's stated minimum is 1280x720; it flattens uploads to JPEG.
+# Spec verified against YouTube's Help Center 2026-08-11 (answer/72431 and
+# answer/16391400); recorded in thumbnail-rubric.md amendment A7.
+#
+# YouTube's stated minimum width is 640 — NOT 1280, which was a community
+# convention this file previously asserted as a platform requirement. 1280 is
+# still our hard floor, for a sourced reason: "If the resolution of any
+# thumbnail is lower than 720p (1280 x 720), all experiment thumbnails will be
+# downscaled to 480p." A sub-720p file silently degrades every variant of an
+# A/B test, so it is a defect even though YouTube would accept it.
 MIN_W, MIN_H = 1280, 720
+RECOMMENDED_W = 3840         # "Have a resolution of 3840 x 2160 pixels"
 TARGET_AR = 16 / 9
 AR_TOLERANCE = 0.01          # 1% — 1.896 (EP005) is 6.6% off and fails
 BROWSE_W = 120               # the browse-strip width the shrink test targets
+
+# Upload ceilings, by the device the upload is made from. We publish from
+# desktop, so 50MB is the binding limit and 2MB is a portability warning.
+MAX_BYTES_DESKTOP = 50 * 1024 * 1024
+MAX_BYTES_MOBILE = 2 * 1024 * 1024
 
 # Composited on white, a thumbnail whose content vanishes at browse width
 # trends toward pure white. EP005 sits at ~250. A dense thumbnail sits far
@@ -52,7 +72,15 @@ class CheckError(RuntimeError):
 
 
 def _run(cmd: list[str]) -> str:
-    p = subprocess.run(cmd, capture_output=True, text=True)
+    try:
+        p = subprocess.run(cmd, capture_output=True, text=True)
+    except FileNotFoundError:
+        # Otherwise a missing binary exits with a raw traceback, which reads as
+        # a broken thumbnail rather than a broken environment.
+        raise CheckError(
+            f"{cmd[0]} not found on PATH. This checker needs ffmpeg/ffprobe, "
+            f"which the pipeline already requires — install ffmpeg."
+        )
     if p.returncode != 0:
         raise CheckError(f"{cmd[0]} failed: {p.stderr.strip()[-400:]}")
     return p.stdout
@@ -125,14 +153,39 @@ def check(path: Path, min_width: int) -> tuple[list[str], list[str], dict]:
         off = 100 * abs(ar - TARGET_AR) / TARGET_AR
         fails.append(
             f"aspect {ar:.3f} is {off:.1f}% off 16:9 ({TARGET_AR:.3f}). "
-            f"YouTube pads or crops it. Export {min_width}x{round(min_width * 9 / 16)}."
+            f"YouTube pads or crops it. Export {RECOMMENDED_W}x{round(RECOMMENDED_W * 9 / 16)}."
         )
 
-    # 3. Dimensions.
+    # 3. Dimensions. The floor is an A/B-test defect, not an upload rejection:
+    #    YouTube accepts 640px wide, but a sub-720p variant downscales every
+    #    thumbnail in the experiment to 480p.
     if w < min_width or h < round(min_width * 9 / 16):
-        fails.append(f"{w}x{h} is under the {min_width}x{round(min_width*9/16)} minimum")
+        fails.append(
+            f"{w}x{h} is under the {min_width}x{round(min_width*9/16)} floor. "
+            f"A sub-720p thumbnail downscales every variant of an A/B test to 480p."
+        )
+    elif w < RECOMMENDED_W:
+        warns.append(
+            f"{w}px wide is under YouTube's recommended {RECOMMENDED_W}x2160. "
+            f"It uploads fine, but TV and large-screen playback is where the "
+            f"difference shows."
+        )
 
-    # 4 + 5. What survives the shrink, resolved on both backgrounds because a
+    # 4. File size. YouTube's ceiling depends on the uploading device.
+    size = path.stat().st_size
+    facts["bytes"] = size
+    if size > MAX_BYTES_DESKTOP:
+        fails.append(
+            f"{size/1024/1024:.1f}MB exceeds the {MAX_BYTES_DESKTOP//1024//1024}MB "
+            f"desktop upload limit"
+        )
+    elif size > MAX_BYTES_MOBILE:
+        warns.append(
+            f"{size/1024/1024:.1f}MB is over the {MAX_BYTES_MOBILE//1024//1024}MB "
+            f"mobile limit; fine from desktop, will be rejected from a phone"
+        )
+
+    # 5 + 6. What survives the shrink, resolved on both backgrounds because a
     #        transparent or near-white thumbnail behaves differently on each.
     with tempfile.TemporaryDirectory() as td:
         for bg in ("white", "black"):
