@@ -116,7 +116,7 @@ PREAMBLE = (
 # Two lessons that generalise: describe the ACTION, not the mood, because mood
 # adjectives leak into the whole frame; and available light with real skin
 # texture is what sells an image as photographed rather than rendered.
-CONSTRAINTS = (
+CONSTRAINTS_PERSON = (
     " They wear plain unbranded everyday clothes with no printing on them. The "
     "surfaces behind them are bare: unlabelled boxes, loose parts and plain "
     "painted walls with nothing hung on them. Waist-up framing, subject toward "
@@ -131,6 +131,55 @@ CONSTRAINTS = (
     "defeated, and nobody posed smiling at a laptop like a stock photograph."
 )
 
+# Added 2026-08-11, because the block above is written entirely for a human
+# subject — clothes, waist-up framing, eye contact, skin texture — and the
+# rubric it now serves has stopped asking for one. Amendment A8 retired the
+# hero number and measurement put `object` and `verdict` at the top of the
+# register lane; run through the person constraints, "a single vintage barber
+# chair" comes back as somebody sitting in a barber chair. The archetype has to
+# pick the block.
+#
+# What carries across all three, because it was expensive to learn: describe the
+# ACTION or the STATE, never the mood, since mood adjectives leak across the
+# whole frame; available light and real material texture is what sells an image
+# as photographed rather than rendered; and every surface is positively blank,
+# because diffusion models garble any lettering they invent.
+CONSTRAINTS_OBJECT = (
+    " No people anywhere in the frame, and no hands. The object is the whole "
+    "subject, filling most of the frame, sitting where it is actually used "
+    "rather than arranged for a photograph. Every surface is bare and "
+    "unlabelled: no signage, no packaging, no printed markings, no screens "
+    "showing anything. Real material texture — worn metal, scuffed paint, dust "
+    "in the seams, marks from use. Bright natural daylight, clean true-to-life "
+    "colour. The object sits in the RIGHT half of the frame and the "
+    "BOTTOM-LEFT quarter is empty floor or plain wall with nothing in it, "
+    "because that is exactly where the text block lands. Photographed, not "
+    "rendered: no studio sweep, no seamless backdrop, no rim light, no heavy "
+    "bokeh, no product-catalogue gloss, no gradient background."
+)
+CONSTRAINTS_SCENE = (
+    " A press photograph of a real working place, not a set. If a person is "
+    "present they are incidental and mid-task, never addressing the camera and "
+    "never centred. Every surface is bare and unlabelled: no signage, no "
+    "printed markings, no screens showing anything, no branded clothing. One "
+    "element is sharp and unmistakably the subject; everything else falls away. "
+    "Available light, clean true-to-life colour, real material texture. The "
+    "sharp subject sits in the RIGHT half of the frame and the BOTTOM-LEFT "
+    "quarter is left empty, because that is where the text block lands. "
+    "Photographed, not rendered: no studio lighting, no rim light, no heavy "
+    "bokeh. Nothing staged, nobody posed, and nobody sad or defeated."
+)
+
+# Archetypes are defined in thumbnail_spec.py; this maps each to the block that
+# can actually render it. Keep in step if that list changes.
+ARCHETYPE_CONSTRAINTS = {
+    "practitioner": CONSTRAINTS_PERSON,
+    "object":       CONSTRAINTS_OBJECT,
+    "product":      CONSTRAINTS_OBJECT,
+    "verdict":      CONSTRAINTS_SCENE,
+    "scene-wide":   CONSTRAINTS_SCENE,
+}
+
 
 def fal_key() -> str:
     env = REPO / ".env"
@@ -139,6 +188,27 @@ def fal_key() -> str:
             if line.startswith("FAL_KEY="):
                 return line.split("=", 1)[1].strip()
     raise SystemExit("no FAL_KEY in .env")
+
+
+def scene_from_spec(slug: str, rank: int) -> tuple[str, str] | None:
+    """Highest-scoring spec from thumbnail_spec.py, with its archetype.
+
+    This is the join between the two halves of the system. thumbnail_spec.py
+    scores concepts and writes them to disk; until now nothing read that file
+    and generation still went via script.json's free-text thumbnail_concepts,
+    so the scored winner was never the thing generated.
+    """
+    f = ROOT / "originate" / slug / "render_data" / "thumbnail_specs.json"
+    if not f.exists():
+        return None
+    specs = sorted(json.loads(f.read_text()).get("specs", []),
+                   key=lambda s: -s.get("total", 0))
+    if rank >= len(specs):
+        raise SystemExit(f"{slug} has {len(specs)} specs; --rank {rank} is out of range")
+    s = specs[rank]
+    print(f"  scene from thumbnail_specs.json rank {rank} "
+          f"({s.get('total')}/100, {s.get('archetype')})")
+    return s.get("scene", ""), s.get("archetype", "")
 
 
 def scene_from_script(slug: str) -> str:
@@ -192,16 +262,38 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug")
-    ap.add_argument("--scene", help="scene description; overrides script.json")
+    ap.add_argument("--scene", help="scene description; overrides the scored spec")
+    ap.add_argument("--archetype", choices=sorted(ARCHETYPE_CONSTRAINTS),
+                    help="which constraint block to use; inferred from the spec "
+                         "when --scene is not given")
+    ap.add_argument("--rank", type=int, default=0,
+                    help="which scored spec to generate, 0 = highest (default 0)")
     ap.add_argument("--n", type=int, default=2, help="candidates (default 2)")
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--dry-run", action="store_true", help="print the prompt, generate nothing")
     a = ap.parse_args()
 
-    scene = a.scene or scene_from_script(a.slug)
-    prompt = PREAMBLE + scene.rstrip(".") + "." + CONSTRAINTS
+    archetype = a.archetype
+    if a.scene:
+        scene = a.scene
+    else:
+        picked = scene_from_spec(a.slug, a.rank)
+        if picked:
+            scene, spec_archetype = picked
+            archetype = archetype or spec_archetype
+        else:
+            scene = scene_from_script(a.slug)
 
-    print(f"{a.slug} — {a.model}")
+    if not archetype:
+        raise SystemExit(
+            "cannot tell what kind of frame this is. Pass --archetype "
+            f"({'|'.join(sorted(ARCHETYPE_CONSTRAINTS))}), or run "
+            f"thumbnail_spec.py on {a.slug} first so the archetype comes with "
+            "the scene. Guessing here produces a person in a barber chair.")
+    constraints = ARCHETYPE_CONSTRAINTS[archetype]
+    prompt = PREAMBLE + scene.rstrip(".") + "." + constraints
+
+    print(f"{a.slug} — {a.model} — {archetype}")
     print(f"  prompt: {prompt[:150]}...")
     if a.dry_run:
         print("\n--- full prompt ---\n" + prompt)

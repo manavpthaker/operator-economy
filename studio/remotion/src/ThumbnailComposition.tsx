@@ -111,8 +111,29 @@ const HeroVariant: React.FC<ThumbnailData> = (p) => {
  * text-bearing tile in a live YouTube feed uses a hard edge — a solid colour
  * block or a heavy outline — and not one relies on a gradient.
  */
+/**
+ * `big` was sized at a flat 168px because it only ever held a short figure
+ * ($4,995, $11B). Amendment A8 retired the hero number on measured evidence,
+ * so `big` now usually holds a verdict — THEY DON'T CALL BACK, THE ROOM ISN'T
+ * EMPTY — and four words at 168px wrap to three lines and run off the frame.
+ *
+ * The ramp keeps a lone figure as large as it ever was and steps a sentence
+ * down to something that still fills the block. Sizes chosen so the smallest
+ * step, 76px, is ~10.5% of frame height and clears the 120px shrink test with
+ * room to spare.
+ */
+const bigFontSize = (text: string): number => {
+  const n = (text ?? '').length;
+  if (n <= 6) return 168;   // a figure
+  if (n <= 12) return 132;
+  if (n <= 18) return 104;
+  if (n <= 26) return 88;
+  return 76;
+};
+
 const PhotoVariant: React.FC<ThumbnailData> = (p) => {
   const block = (p.textStyle ?? 'block') === 'block';
+  const bigSize = bigFontSize(p.big ?? '');
   return (
     <AbsoluteFill>
       {p.bgImage ? (
@@ -135,12 +156,12 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => {
           padding: block ? '30px 44px 34px 52px' : '0 0 0 52px',
           background: block ? COLORS.navy : 'transparent',
           borderTop: block ? `6px solid ${COLORS.goldBright}` : 'none',
-          maxWidth: block ? '62%' : 'none',
+          maxWidth: block ? (bigSize <= 104 ? '74%' : '62%') : 'none',
         }}
       >
-        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 168, lineHeight: 0.95, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: block ? 'none' : '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
+        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: bigSize, lineHeight: 0.95, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: block ? 'none' : '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
         {p.bigLabel ? (
-          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.04em', color: COLORS.paper, marginTop: 6, whiteSpace: 'nowrap', textShadow: block ? 'none' : '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
+          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.04em', color: COLORS.paper, marginTop: 6, textShadow: block ? 'none' : '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
         ) : null}
       </div>
       {p.small ? (
