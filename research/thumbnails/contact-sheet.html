@@ -1,0 +1,1553 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Comp-set thumbnails — top vs bottom quartile</title>
+<style>
+:root{--ink:#12263F;--ink2:#41546B;--ink3:#7A889A;--ground:#F7F4EC;--panel:#fff;
+ --line:#DED6C4;--gold:#9A7B2E;--win:#2E6B4F;--lose:#8C3A2B;
+ --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+ --ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+ --ink:#ECE4D4;--ink2:#B3A992;--ink3:#8A8272;--ground:#141A24;--panel:#1B222E;
+ --line:#2E3846;--gold:#C8A24F;--win:#6FBF95;--lose:#E0836F}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--ui);line-height:1.5}
+.wrap{max-width:1500px;margin:0 auto;padding:38px 22px 90px}
+h1{font-size:28px;margin:0 0 8px;letter-spacing:-.015em}
+.sub{color:var(--ink2);max-width:78ch;margin:0 0 6px}
+.warn{color:var(--lose);font-size:13.5px;max-width:78ch}
+section{margin-top:48px;border-top:2px solid var(--ink);padding-top:12px}
+.chead{display:flex;gap:12px;align-items:baseline}
+.chead h2{font-size:22px;margin:0}
+.chead code{margin-left:auto;font:600 10px/1 var(--mono);letter-spacing:.12em;
+ text-transform:uppercase;color:var(--gold);border:1px solid var(--line);padding:5px 8px}
+.band{font:700 11px/1 var(--mono);letter-spacing:.16em;margin:26px 0 12px;
+ padding-left:9px;border-left:4px solid}
+.band.top{color:var(--win);border-color:var(--win)}
+.band.bottom{color:var(--lose);border-color:var(--lose)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;
+ overflow:hidden;display:flex;flex-direction:column}
+img.big{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
+.shrink{display:flex;align-items:center;gap:9px;padding:8px 10px;border-top:1px solid var(--line);
+ background:linear-gradient(90deg,#fff 50%,#111 50%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .shrink{
+ background:linear-gradient(90deg,#fff 50%,#000 50%)}}
+img.tiny{width:120px;aspect-ratio:16/9;object-fit:cover;display:block}
+.shrinklab{font:600 9px/1 var(--mono);letter-spacing:.1em;color:#888;
+ background:var(--panel);padding:3px 5px;border-radius:3px}
+figcaption{padding:9px 11px 12px;font-size:12px;color:var(--ink3)}
+figcaption b{color:var(--ink);font-size:13.5px}
+.idx{color:var(--gold);font-family:var(--mono);font-size:11px}
+.t{display:block;color:var(--ink2);margin-top:5px;font-size:13px;line-height:1.4}
+a{color:inherit}
+</style>
+<div class="wrap">
+<h1>Comp-set thumbnails — top vs bottom quartile</h1>
+<p class="sub">210 videos across 7 channels. Bands are <b>within-channel</b>: each video
+ranked against its own channel's median views, so subscriber base is controlled. Recent-30 per
+channel, so this is what each channel is doing <em>now</em>. Every tile is shown at reading size and
+again at 120px — the shrink-test width the rubric standardised on (A6).</p>
+<p class="warn">Read down each channel, not across channels. The question is not "which is
+prettier" but: what do the top-quartile tiles share that the bottom-quartile tiles of the same
+channel do not?</p>
+<section>
+  <div class="chead"><h2>Greg Isenberg</h2><code>AI-idea lane</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=BI-MNjm1tTQ" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/BI-MNjm1tTQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BI-MNjm1tTQ/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/BI-MNjm1tTQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BI-MNjm1tTQ/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>169,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">2.06x median</span>
+          <span class="t">The $1M+ Solo AI Agent Business (Full Course)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=EJm8Ka-gVOc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/EJm8Ka-gVOc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/EJm8Ka-gVOc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/EJm8Ka-gVOc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/EJm8Ka-gVOc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>152,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">1.85x median</span>
+          <span class="t">Hermes Agent Desktop: Full Setup + Real Use Cases</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=bdhUBBACglw" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/bdhUBBACglw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/bdhUBBACglw/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/bdhUBBACglw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/bdhUBBACglw/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>148,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">1.8x median</span>
+          <span class="t">Claude Fable 5 is BANNED. What to do?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Qn2c_U-cWQs" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Qn2c_U-cWQs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Qn2c_U-cWQs/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Qn2c_U-cWQs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Qn2c_U-cWQs/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>138,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">1.68x median</span>
+          <span class="t">Hermes Agent: The New OpenClaw?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=zXysLUTLjw4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/zXysLUTLjw4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/zXysLUTLjw4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/zXysLUTLjw4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/zXysLUTLjw4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>132,000</b> views &middot; 3 weeks ago
+          &middot; <span class="idx">1.61x median</span>
+          <span class="t">FDE: The $1M/Year AI Job Explained</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=jJIOA4GroBw" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/jJIOA4GroBw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/jJIOA4GroBw/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/jJIOA4GroBw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/jJIOA4GroBw/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>119,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">1.45x median</span>
+          <span class="t">&quot;Learn AI” Is Bad Advice. Learn This Instead</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=IFLY6L3YPGo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/IFLY6L3YPGo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IFLY6L3YPGo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/IFLY6L3YPGo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IFLY6L3YPGo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>59,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.72x median</span>
+          <span class="t">9 biggest startup ideas right now (AI, B2C, mobile etc)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=5p_BBdfvzgQ" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/5p_BBdfvzgQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/5p_BBdfvzgQ/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/5p_BBdfvzgQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/5p_BBdfvzgQ/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>55,000</b> views &middot; 4 weeks ago
+          &middot; <span class="idx">0.67x median</span>
+          <span class="t">Making $$$ with Loop Engineering</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Ix43w_IssR8" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Ix43w_IssR8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ix43w_IssR8/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Ix43w_IssR8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ix43w_IssR8/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>53,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.65x median</span>
+          <span class="t">Screensharing How to Start an AI Agent Business Today</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=LYomocq6Dpo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/LYomocq6Dpo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/LYomocq6Dpo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/LYomocq6Dpo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/LYomocq6Dpo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>47,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.57x median</span>
+          <span class="t">AI Apps Are Making $10K/Month. Here&#x27;s Exactly How.</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=65IAqRUxg3c" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/65IAqRUxg3c/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/65IAqRUxg3c/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/65IAqRUxg3c/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/65IAqRUxg3c/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>44,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">0.54x median</span>
+          <span class="t">AI Agents run my business and life (Andrew Wilkinson)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=7pVTQSA4s5I" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/7pVTQSA4s5I/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/7pVTQSA4s5I/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/7pVTQSA4s5I/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/7pVTQSA4s5I/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>41,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.5x median</span>
+          <span class="t">GPT 5.6 SOL IS HERE! How to use it.</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>Growth in Reverse</h2><code>design reference</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=cjHUqEXoCAU" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/cjHUqEXoCAU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/cjHUqEXoCAU/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/cjHUqEXoCAU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/cjHUqEXoCAU/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>4,900</b> views &middot; 6 months ago
+          &middot; <span class="idx">9.42x median</span>
+          <span class="t">He Makes $300K/Month From Newsletters (His Playbook)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=-1l7dyBxxwM" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/-1l7dyBxxwM/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/-1l7dyBxxwM/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/-1l7dyBxxwM/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/-1l7dyBxxwM/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>3,700</b> views &middot; 11 months ago
+          &middot; <span class="idx">7.12x median</span>
+          <span class="t">He Makes $1 Million with 1,500 Email Subscribers - Here&#x27;s How</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Sj58Z1osOJ4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Sj58Z1osOJ4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Sj58Z1osOJ4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Sj58Z1osOJ4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Sj58Z1osOJ4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,100</b> views &middot; 6 months ago
+          &middot; <span class="idx">4.04x median</span>
+          <span class="t">The Money Button That Earns MarketBeat $1M a Month (Hint: It’s Not Email)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=enDEM16OeRI" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/enDEM16OeRI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/enDEM16OeRI/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/enDEM16OeRI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/enDEM16OeRI/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,100</b> views &middot; 11 months ago
+          &middot; <span class="idx">4.04x median</span>
+          <span class="t">She Made $9M Selling ONE Product via Email</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=QRtwzvUC7AY" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/QRtwzvUC7AY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QRtwzvUC7AY/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/QRtwzvUC7AY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QRtwzvUC7AY/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,800</b> views &middot; 9 months ago
+          &middot; <span class="idx">3.46x median</span>
+          <span class="t">How He Built a $100M Newsletter Empire</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=AljD-mGUsPs" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/AljD-mGUsPs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/AljD-mGUsPs/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/AljD-mGUsPs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/AljD-mGUsPs/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,200</b> views &middot; 8 months ago
+          &middot; <span class="idx">2.31x median</span>
+          <span class="t">6 of the Best Newsletter Tips We Heard All Year</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Fe7Pw1uvm7Q" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Fe7Pw1uvm7Q/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Fe7Pw1uvm7Q/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Fe7Pw1uvm7Q/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Fe7Pw1uvm7Q/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,200</b> views &middot; 8 months ago
+          &middot; <span class="idx">2.31x median</span>
+          <span class="t">The &quot;Elite&quot; Newsletter Growth Flywheel (25k subs in 4 months)</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=abp0kPE_M9A" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/abp0kPE_M9A/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/abp0kPE_M9A/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/abp0kPE_M9A/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/abp0kPE_M9A/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>366</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.7x median</span>
+          <span class="t">The Underrated Growth Strategy Every Newsletter Creator Is Ignoring</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=SK__D_1mbXk" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/SK__D_1mbXk/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/SK__D_1mbXk/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/SK__D_1mbXk/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/SK__D_1mbXk/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>362</b> views &middot; 4 months ago
+          &middot; <span class="idx">0.7x median</span>
+          <span class="t">5 Expert Newsletter Tactics That Get More Opens</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=OpoGb3JUGmc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/OpoGb3JUGmc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/OpoGb3JUGmc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/OpoGb3JUGmc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/OpoGb3JUGmc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>312</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.6x median</span>
+          <span class="t">The Deliverability Mistakes Killing Newsletter Open Rates</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=c-vEIfDqpdc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/c-vEIfDqpdc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/c-vEIfDqpdc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/c-vEIfDqpdc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/c-vEIfDqpdc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>301</b> views &middot; 10 months ago
+          &middot; <span class="idx">0.58x median</span>
+          <span class="t">We Fixed This Sports Card Newsletter (7 Fast Wins)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=0AXSbmFx43A" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/0AXSbmFx43A/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/0AXSbmFx43A/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/0AXSbmFx43A/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/0AXSbmFx43A/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>282</b> views &middot; 8 months ago
+          &middot; <span class="idx">0.54x median</span>
+          <span class="t">We Answered Your Newsletter Questions LIVE</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Ey7g99A11Wc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Ey7g99A11Wc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ey7g99A11Wc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Ey7g99A11Wc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ey7g99A11Wc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>263</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.51x median</span>
+          <span class="t">The 4-Step Framework To Successfully Try Again</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=rfiqogH0TiA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/rfiqogH0TiA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/rfiqogH0TiA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/rfiqogH0TiA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/rfiqogH0TiA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>219</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.42x median</span>
+          <span class="t">Behind The Scenes of 30 Days of Growth: Was it worth it?</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>UpFlip</h2><code>direct comp</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=9K4v492_dfw" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/9K4v492_dfw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/9K4v492_dfw/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/9K4v492_dfw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/9K4v492_dfw/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,700,000</b> views &middot; 6 months ago
+          &middot; <span class="idx">6.67x median</span>
+          <span class="t">This Is How He Makes $3M a Year Selling Fried Chicken</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=L8kpGiVuwz4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/L8kpGiVuwz4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/L8kpGiVuwz4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/L8kpGiVuwz4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/L8kpGiVuwz4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,800,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">4.45x median</span>
+          <span class="t">This Is How He Makes $1M a Year Selling Fish</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=uXlLScPLfxU" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/uXlLScPLfxU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/uXlLScPLfxU/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/uXlLScPLfxU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/uXlLScPLfxU/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,600,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">3.96x median</span>
+          <span class="t">This Food Truck Shouldn’t Be This Successful ($660K/Year)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=xTigixXmBMQ" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/xTigixXmBMQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/xTigixXmBMQ/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/xTigixXmBMQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/xTigixXmBMQ/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,200,000</b> views &middot; 6 months ago
+          &middot; <span class="idx">2.97x median</span>
+          <span class="t">This Is How People Quietly Get Rich Reselling Clothes</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=BvPAWAdv3Qk" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/BvPAWAdv3Qk/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BvPAWAdv3Qk/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/BvPAWAdv3Qk/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BvPAWAdv3Qk/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,100,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">2.72x median</span>
+          <span class="t">These Teens Make $2800/Day with a Service No One Talks About!</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=J-KCIFG3B5M" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/J-KCIFG3B5M/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/J-KCIFG3B5M/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/J-KCIFG3B5M/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/J-KCIFG3B5M/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,100,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">2.72x median</span>
+          <span class="t">A Kitchen Hobby Turned Into a $320K/Year Business (HOW?!)</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=wtZusjRaBqE" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/wtZusjRaBqE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/wtZusjRaBqE/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/wtZusjRaBqE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/wtZusjRaBqE/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>973,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">2.41x median</span>
+          <span class="t">Her Half-Pound Eggrolls Bring In $1.8M/Year! HOW?!</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=IxjHkWO-7-4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/IxjHkWO-7-4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IxjHkWO-7-4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/IxjHkWO-7-4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IxjHkWO-7-4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>149,000</b> views &middot; 6 months ago
+          &middot; <span class="idx">0.37x median</span>
+          <span class="t">He Started with $20, Now Sells 1,000 Sneakers a Week</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=UDPo9LV8QP0" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/UDPo9LV8QP0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/UDPo9LV8QP0/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/UDPo9LV8QP0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/UDPo9LV8QP0/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>144,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.36x median</span>
+          <span class="t">He Uncovered a Hidden Business Idea that Brings in $5M/Month</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=A8gi3G-B4mg" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/A8gi3G-B4mg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/A8gi3G-B4mg/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/A8gi3G-B4mg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/A8gi3G-B4mg/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>108,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">0.27x median</span>
+          <span class="t">He Gets Paid $3.5M/Year to Think. The Landscapers Do the Work.</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=K3wDBnIEjaw" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/K3wDBnIEjaw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/K3wDBnIEjaw/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/K3wDBnIEjaw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/K3wDBnIEjaw/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>87,000</b> views &middot; 7 months ago
+          &middot; <span class="idx">0.22x median</span>
+          <span class="t">This Cleaning Business Makes $23,013.69 a Week and Here&#x27;s Exactly How They Did It</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=fKmn9EB8LkY" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/fKmn9EB8LkY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/fKmn9EB8LkY/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/fKmn9EB8LkY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/fKmn9EB8LkY/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>85,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.21x median</span>
+          <span class="t">How to Start a Farm Business from Your Home with $50...and NO Land!</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=LfgzWJX6zDE" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/LfgzWJX6zDE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/LfgzWJX6zDE/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/LfgzWJX6zDE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/LfgzWJX6zDE/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>80,000</b> views &middot; 4 weeks ago
+          &middot; <span class="idx">0.2x median</span>
+          <span class="t">She Makes $40K/Month with This Weird Hawaiian Dessert</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=8PpLqTIUf6g" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/8PpLqTIUf6g/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/8PpLqTIUf6g/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/8PpLqTIUf6g/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/8PpLqTIUf6g/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>48,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.12x median</span>
+          <span class="t">Day in the Life of a $2M/Year Embroidery Business She Built in her Teens</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>Starter Story</h2><code>direct comp</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=D4fkiQfzw_I" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/D4fkiQfzw_I/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/D4fkiQfzw_I/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/D4fkiQfzw_I/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/D4fkiQfzw_I/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>285,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">3.28x median</span>
+          <span class="t">How I Work: $77K/Month Solopreneur</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=r4R_Hlw7sbo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/r4R_Hlw7sbo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/r4R_Hlw7sbo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/r4R_Hlw7sbo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/r4R_Hlw7sbo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>271,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">3.11x median</span>
+          <span class="t">I Built a $20K/Month App in 83 Days</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=uvIcGuN2iO8" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/uvIcGuN2iO8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/uvIcGuN2iO8/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/uvIcGuN2iO8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/uvIcGuN2iO8/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>256,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">2.94x median</span>
+          <span class="t">This Insanely Simple App Makes $50K/Month</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=dWeoSKLt_fc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/dWeoSKLt_fc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/dWeoSKLt_fc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/dWeoSKLt_fc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/dWeoSKLt_fc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>256,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">2.94x median</span>
+          <span class="t">I&#x27;m 14 And I Built A $14K/Month App</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=DkmStHS8NP0" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/DkmStHS8NP0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DkmStHS8NP0/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/DkmStHS8NP0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DkmStHS8NP0/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>211,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">2.43x median</span>
+          <span class="t">My App Made $120K in 24 Hours</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=P4QodeA_lQ0" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/P4QodeA_lQ0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/P4QodeA_lQ0/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/P4QodeA_lQ0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/P4QodeA_lQ0/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>180,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">2.07x median</span>
+          <span class="t">I Built A $30K/Month App: Here&#x27;s My Exact Process</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Eg93po_DAYo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Eg93po_DAYo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Eg93po_DAYo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Eg93po_DAYo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Eg93po_DAYo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>55,000</b> views &middot; 4 weeks ago
+          &middot; <span class="idx">0.63x median</span>
+          <span class="t">She Built This $340K/Month App in 60 Days</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=NPpky92ZfjA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/NPpky92ZfjA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/NPpky92ZfjA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/NPpky92ZfjA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/NPpky92ZfjA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>48,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.55x median</span>
+          <span class="t">I Built A $1M SaaS In A Hidden Niche</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=d8PdJJcEtE0" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/d8PdJJcEtE0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/d8PdJJcEtE0/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/d8PdJJcEtE0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/d8PdJJcEtE0/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>41,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.47x median</span>
+          <span class="t">I Turned This Spreadsheet Into a $30K/Month Micro-SaaS</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=DiRxTfnHTaY" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/DiRxTfnHTaY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DiRxTfnHTaY/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/DiRxTfnHTaY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DiRxTfnHTaY/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>40,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.46x median</span>
+          <span class="t">How We Built This $20K/Month AI App</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=-VlJIgj6gM4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/-VlJIgj6gM4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/-VlJIgj6gM4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/-VlJIgj6gM4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/-VlJIgj6gM4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>36,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.41x median</span>
+          <span class="t">I Built a $10K/Month App With This One System</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=2_lpZ503ZGg" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/2_lpZ503ZGg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/2_lpZ503ZGg/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/2_lpZ503ZGg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/2_lpZ503ZGg/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>31,000</b> views &middot; 3 weeks ago
+          &middot; <span class="idx">0.36x median</span>
+          <span class="t">I Quit My Job at Meta to Build a $30K/Month SaaS</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>MagnatesMedia</h2><code>documentary craft</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=fNh_GyRbJDA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/fNh_GyRbJDA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/fNh_GyRbJDA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/fNh_GyRbJDA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/fNh_GyRbJDA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>7,600,000</b> views &middot; 2 years ago
+          &middot; <span class="idx">9.63x median</span>
+          <span class="t">Rockefeller: The World’s First Billionaire</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=MhspjNiER9Q" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/MhspjNiER9Q/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/MhspjNiER9Q/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/MhspjNiER9Q/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/MhspjNiER9Q/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,800,000</b> views &middot; 2 years ago
+          &middot; <span class="idx">3.55x median</span>
+          <span class="t">The CRAZY Truth About McDonald&#x27;s</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=8uNgfFwbziU" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/8uNgfFwbziU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/8uNgfFwbziU/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/8uNgfFwbziU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/8uNgfFwbziU/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,300,000</b> views &middot; 2 years ago
+          &middot; <span class="idx">2.91x median</span>
+          <span class="t">The INSANE Truth About IKEA</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=c9Xm1bT50DQ" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/c9Xm1bT50DQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/c9Xm1bT50DQ/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/c9Xm1bT50DQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/c9Xm1bT50DQ/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,900,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">2.41x median</span>
+          <span class="t">The $47 Billion Cult</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=DoQnniM4MSg" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/DoQnniM4MSg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DoQnniM4MSg/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/DoQnniM4MSg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DoQnniM4MSg/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,800,000</b> views &middot; 2 years ago
+          &middot; <span class="idx">2.28x median</span>
+          <span class="t">The Untold TRUTH Of Nintendo</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=QpNJcAEI-Ts" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/QpNJcAEI-Ts/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QpNJcAEI-Ts/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/QpNJcAEI-Ts/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QpNJcAEI-Ts/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,600,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">2.03x median</span>
+          <span class="t">The Nazi Brothers Who Started Rival Shoe Companies</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=DwTK_VT54OY" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/DwTK_VT54OY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DwTK_VT54OY/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/DwTK_VT54OY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/DwTK_VT54OY/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,600,000</b> views &middot; 2 years ago
+          &middot; <span class="idx">2.03x median</span>
+          <span class="t">The Dark Truth About PayPal</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Aehe_5_C8J0" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Aehe_5_C8J0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Aehe_5_C8J0/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Aehe_5_C8J0/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Aehe_5_C8J0/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>456,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.58x median</span>
+          <span class="t">How 2 Bullied Kids Became Ice Cream Millionaires 🍧</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=IsKDUUnM-e4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/IsKDUUnM-e4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IsKDUUnM-e4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/IsKDUUnM-e4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/IsKDUUnM-e4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>432,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.55x median</span>
+          <span class="t">The Most HATED Airline In The World</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=W0cY0P6VtKE" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/W0cY0P6VtKE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/W0cY0P6VtKE/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/W0cY0P6VtKE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/W0cY0P6VtKE/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>385,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.49x median</span>
+          <span class="t">The World&#x27;s Most Controversial Restaurant</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=2bMYyzO8SnM" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/2bMYyzO8SnM/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/2bMYyzO8SnM/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/2bMYyzO8SnM/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/2bMYyzO8SnM/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>360,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.46x median</span>
+          <span class="t">The Scariest Business In The World</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Vy7DtHs6Qo8" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Vy7DtHs6Qo8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Vy7DtHs6Qo8/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Vy7DtHs6Qo8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Vy7DtHs6Qo8/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>337,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.43x median</span>
+          <span class="t">The Toy That Was Accidentally A Pyramid Scheme</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=I45qsMJbMQU" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/I45qsMJbMQU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/I45qsMJbMQU/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/I45qsMJbMQU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/I45qsMJbMQU/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>323,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.41x median</span>
+          <span class="t">The Family That Drugged America</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=AafeUIwSLvw" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/AafeUIwSLvw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/AafeUIwSLvw/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/AafeUIwSLvw/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/AafeUIwSLvw/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>242,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.31x median</span>
+          <span class="t">Thomas Edison: The IDIOT Who Changed The World</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>How Money Works</h2><code>register benchmark</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=mUBBqAjVuco" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/mUBBqAjVuco/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/mUBBqAjVuco/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/mUBBqAjVuco/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/mUBBqAjVuco/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,800,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">2.38x median</span>
+          <span class="t">WTF Is Happening To The Car Market?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=w-DVTHH1ux8" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/w-DVTHH1ux8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/w-DVTHH1ux8/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/w-DVTHH1ux8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/w-DVTHH1ux8/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,700,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">2.25x median</span>
+          <span class="t">50% Of AI Data Centers Have Quietly Been Cancelled Or &quot;Delayed&quot;</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Nadbj945l-4" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Nadbj945l-4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Nadbj945l-4/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Nadbj945l-4/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Nadbj945l-4/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,500,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">1.98x median</span>
+          <span class="t">The OpenAI Problem Is About To Become OUR Problem</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=yU2raZftgmE" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/yU2raZftgmE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yU2raZftgmE/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/yU2raZftgmE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yU2raZftgmE/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,300,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">1.72x median</span>
+          <span class="t">How Is Everything Outpacing Inflation At The Same Time?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=gWLuTxn2fMI" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/gWLuTxn2fMI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/gWLuTxn2fMI/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/gWLuTxn2fMI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/gWLuTxn2fMI/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,200,000</b> views &middot; 4 months ago
+          &middot; <span class="idx">1.59x median</span>
+          <span class="t">Is Private Credit About To Crash The Global Economy?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=QGjXQwUmGTI" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/QGjXQwUmGTI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QGjXQwUmGTI/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/QGjXQwUmGTI/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/QGjXQwUmGTI/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,100,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">1.45x median</span>
+          <span class="t">bUt ThAt&quot;s mY NeSt eGG!</span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=m192zxKJTBs" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/m192zxKJTBs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/m192zxKJTBs/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/m192zxKJTBs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/m192zxKJTBs/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>485,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.64x median</span>
+          <span class="t">How Epstein Won So Many Friends &amp; Influenced So Many ̶p̶e̶d̶o̶s̶ People</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=e-2GoFws3yE" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/e-2GoFws3yE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/e-2GoFws3yE/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/e-2GoFws3yE/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/e-2GoFws3yE/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>461,000</b> views &middot; 3 weeks ago
+          &middot; <span class="idx">0.61x median</span>
+          <span class="t">Why Haven&#x27;t We Had That Oil Crisis... Yet?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=UgDEyQ1h-EA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/UgDEyQ1h-EA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/UgDEyQ1h-EA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/UgDEyQ1h-EA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/UgDEyQ1h-EA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>457,000</b> views &middot; 2 months ago
+          &middot; <span class="idx">0.6x median</span>
+          <span class="t">bUt wE cAn&quot;T lEt cHinA WiN tHe AI aRmS rAcE!!</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=r4fQzqtqdPo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/r4fQzqtqdPo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/r4fQzqtqdPo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/r4fQzqtqdPo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/r4fQzqtqdPo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>378,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">0.5x median</span>
+          <span class="t">Have We Made The World Too Convenient?</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=qK8tOEWlFKc" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/qK8tOEWlFKc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/qK8tOEWlFKc/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/qK8tOEWlFKc/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/qK8tOEWlFKc/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>371,000</b> views &middot; 6 months ago
+          &middot; <span class="idx">0.49x median</span>
+          <span class="t">How Tech Companies Just... Straight Up Break The Law</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Ts26T7AEHS8" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Ts26T7AEHS8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ts26T7AEHS8/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Ts26T7AEHS8/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ts26T7AEHS8/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>279,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.37x median</span>
+          <span class="t">Why We (Probably) Shouldn&#x27;t Give Iran $300 Billion Dollars</span>
+        </figcaption>
+      </figure></div>
+</section>
+<section>
+  <div class="chead"><h2>Modern MBA</h2><code>register benchmark</code></div>
+  <h3 class="band top">TOP QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Ha2oNXDZuSg" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Ha2oNXDZuSg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ha2oNXDZuSg/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Ha2oNXDZuSg/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ha2oNXDZuSg/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>2,200,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">8.21x median</span>
+          <span class="t">Why Crumbl Cookies Can&#x27;t Survive</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=niQ7mk13xew" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/niQ7mk13xew/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/niQ7mk13xew/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/niQ7mk13xew/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/niQ7mk13xew/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>1,500,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">5.6x median</span>
+          <span class="t">The Crumbling Business of Marijuana</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=BZf5GHsADtY" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/BZf5GHsADtY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BZf5GHsADtY/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/BZf5GHsADtY/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BZf5GHsADtY/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>810,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">3.02x median</span>
+          <span class="t">How Barbers Really Make Money</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=oPeX6FO2zls" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/oPeX6FO2zls/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/oPeX6FO2zls/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/oPeX6FO2zls/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/oPeX6FO2zls/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>708,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">2.64x median</span>
+          <span class="t">Why Self-Checkout Failed to Replace Cashiers</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Gi1GDBEp1yA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Gi1GDBEp1yA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Gi1GDBEp1yA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Gi1GDBEp1yA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Gi1GDBEp1yA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>667,000</b> views &middot; 11 months ago
+          &middot; <span class="idx">2.49x median</span>
+          <span class="t">Why Texas BBQ Joints Rarely Survive</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=BJ3PhlQ609w" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/BJ3PhlQ609w/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BJ3PhlQ609w/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/BJ3PhlQ609w/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/BJ3PhlQ609w/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>611,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">2.28x median</span>
+          <span class="t">How Microsoft Wasted $113 Billion on Xbox</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=Ixv2NTMVidU" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/Ixv2NTMVidU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ixv2NTMVidU/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/Ixv2NTMVidU/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/Ixv2NTMVidU/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>605,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">2.26x median</span>
+          <span class="t">Why Smashburgers Are Everywhere </span>
+        </figcaption>
+      </figure></div><h3 class="band bottom">BOTTOM QUARTILE</h3><div class="grid">
+      <figure>
+        <a href="https://www.youtube.com/watch?v=yAVtDyK4_Vs" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/yAVtDyK4_Vs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yAVtDyK4_Vs/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/yAVtDyK4_Vs/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yAVtDyK4_Vs/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>154,000</b> views &middot; 3 months ago
+          &middot; <span class="idx">0.57x median</span>
+          <span class="t">Why the $5 Movie Ticket Is Never Coming Back</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=evArab8oOoo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/evArab8oOoo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/evArab8oOoo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/evArab8oOoo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/evArab8oOoo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>145,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.54x median</span>
+          <span class="t">How Wall Street Ruined Your Favorite Snacks</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=s-nU3gSUeuQ" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/s-nU3gSUeuQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/s-nU3gSUeuQ/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/s-nU3gSUeuQ/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/s-nU3gSUeuQ/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>143,000</b> views &middot; 5 months ago
+          &middot; <span class="idx">0.53x median</span>
+          <span class="t">Why OpenAI Can&#x27;t Survive</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=NbvPSqAXC1k" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/NbvPSqAXC1k/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/NbvPSqAXC1k/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/NbvPSqAXC1k/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/NbvPSqAXC1k/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>125,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.47x median</span>
+          <span class="t">Why Ukraine&#x27;s Minerals Are Worthless</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=yXlKVghVQbo" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/yXlKVghVQbo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yXlKVghVQbo/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/yXlKVghVQbo/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/yXlKVghVQbo/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>121,000</b> views &middot; 1 month ago
+          &middot; <span class="idx">0.45x median</span>
+          <span class="t">Why U.S. Airlines Stopped Caring</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=vJi0SzEws9s" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/vJi0SzEws9s/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/vJi0SzEws9s/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/vJi0SzEws9s/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/vJi0SzEws9s/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>116,000</b> views &middot; 11 months ago
+          &middot; <span class="idx">0.43x median</span>
+          <span class="t">The Company That Killed GoPro</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <a href="https://www.youtube.com/watch?v=mOEPb8pvsiA" target="_blank" rel="noopener">
+          <img class="big" src="https://i.ytimg.com/vi/mOEPb8pvsiA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/mOEPb8pvsiA/hqdefault.jpg'">
+        </a>
+        <div class="shrink">
+          <img class="tiny" src="https://i.ytimg.com/vi/mOEPb8pvsiA/maxresdefault.jpg" loading="lazy"
+               onerror="this.src='https://i.ytimg.com/vi/mOEPb8pvsiA/hqdefault.jpg'">
+          <span class="shrinklab">120px</span>
+        </div>
+        <figcaption>
+          <b>88,000</b> views &middot; 1 year ago
+          &middot; <span class="idx">0.33x median</span>
+          <span class="t">Inside the Cutthroat Business of Eating</span>
+        </figcaption>
+      </figure></div>
+</section>
+</div>
