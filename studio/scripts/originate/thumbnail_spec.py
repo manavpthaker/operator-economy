@@ -196,6 +196,10 @@ DIMENSIONS = [
 # is a pipeline that does not exist; recorded as a gap in A8 rather than left
 # as an archetype that quietly emits things nothing can render.
 ARCHETYPES = {
+    "flatlay":      "overhead flat-lay of the work itself, hands entering from "
+                    "the bottom edge, objects dense to all four frame edges and "
+                    "overlapping — the house layout, see "
+                    "docs/thumbnail-design-language.md",
     "verdict":      "documentary photograph, editorial verdict in condensed caps "
                     "across the top third, no number anywhere",
     "product":      "a single mass-market manufactured product or machine at "
@@ -319,9 +323,17 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
     user = (f"Title options: {json.dumps(script.get('title_options', []))}\n\n"
             f"Inventory:\n{json.dumps(inventory, indent=2)}\n\n"
             f"Assemble exactly {n} concepts, each a different archetype. "
-            f"At least one must be `verdict` and at least one must be `object` "
-            f"with no person in frame — those two are the register lane's "
-            f"measured winners and every set should test them against each other.")
+            f"One MUST be `flatlay` — it is the house layout and satisfies the "
+            f"density, human-presence and scatter invariants by construction. "
+            f"At least one must be `verdict` and at least one must be `object`, "
+            f"so each set tests a different hypothesis rather than three "
+            f"near-identical files (amendment A5).\n\n"
+            f"For the `flatlay` concept the scene must name the SPECIFIC objects "
+            f"this episode's operator actually handles — the paperwork, tools, "
+            f"parts, or printed artefacts of THIS trade — crowded to every edge "
+            f"and overlapping, with two hands entering from the bottom. Leave "
+            f"bare patches of surface between them; the episode's real tool "
+            f"marks are composited into those patches afterwards.")
     return ask(system, user, model, max_tokens=16000)
 
 
