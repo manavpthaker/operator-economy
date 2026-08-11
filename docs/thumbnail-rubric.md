@@ -2,6 +2,11 @@
 
 **Every episode thumbnail passes this before the API push.** Condensed July 6, 2026 from the r/YouTubeThumbnailHub checklist (the community-maintained CTR guide) + OE adaptations. Companion to `docs/post-rubric.md`; referenced from `publishing-flow.md` Phase 1.
 
+> **Read the amendments first.** A1–A8 override the rules and the standing answers below wherever
+> they conflict, and by now that is most of the load-bearing guidance: the face requirement (A3),
+> the hero number (A1, then retired outright by A8), the title-overlap rule (A8), the master spec
+> (A7). The sections immediately below are kept for the reasoning they record, not as instructions.
+
 ## Theory before design (80/20)
 
 People click videos they want to watch, not pretty images. Before opening the composition, answer in one line each: what grabs **attention** (priority 1), what speaks to the viewer's **interest** (priority 2), what creates the **curiosity gap** (priority 3). For OE the standing answer: attention = an expressive human face in a real small business; interest = "someone like me, doing this"; curiosity = the specific dollar figure that doesn't explain itself.
@@ -130,6 +135,102 @@ platform-official figure is that half of all channels sit between **2% and 10%**
 Browse and Suggested run materially lower than Search on the same video, so an explainer channel
 sitting at 3–4% on browse is not obviously broken. Treat all of these as reference points, never as
 gates.
+
+## Amendment A8 (2026-08-11) — the re-weight, from the images
+
+A7 settled the spec. This settles the rubric. `research/thumbnails/findings.md` closed by saying
+the re-weighting was deliberately not done because the images were unread — egress blocked
+`i.ytimg.com` — and that re-weighting a thumbnail rubric from title data is how the current one was
+built. Egress works from the local clone. All 78 top/bottom-quartile thumbnails were fetched and
+read at reading size and again at 120px. Findings: `research/thumbnails/visual-findings.md`.
+Rebuild: `studio/scripts/research/build_contact_grids.py --out <dir>`.
+
+**Rule 1 (≤3 elements) and rule 6 (shrink test) are promoted; A1 (one hero number) is retired.**
+
+`hero` was the rubric's largest weight at 22 points. **Zero of the twenty top-quartile thumbnails
+in our own register lane — Modern MBA, How Money Works, MagnatesMedia — carry a hero number. Four
+of the twenty bottom-quartile ones do.** In the direct-comp lane the figure appears in both bands
+at the same rate, which is no signal at all. How Money Works' entire top quartile is a flat
+editorial verdict over a press photograph: `WELL…WE TRIED…`, `CANCELLED`, `BIG PROMISES ARE COMING
+DUE…`, `WE NEVER LEARN`. A1 corrected two numbers down to one. The measurement says the register
+lane's winners carry none.
+
+A1's defensible half survives by another route: never two competing figures. That is now enforced
+by `legibility` on element count, not by a dimension that also demands a first figure.
+
+**`unrepeatable` (10 pts) was backwards and is retired.** It scored a concept 0 if it could be
+reused on another episode. Every comp channel reuses its concept every week on purpose — Modern MBA
+runs `THE ECONOMICS OF ___` across five of its seven best. Consistency is the recognisability asset
+the rubric was penalising. The subject must be episode-specific; the format should repeat.
+
+**`complement` (15 pts) failed on winners and is replaced.** It scored 0 for any word shared with
+the title. Modern MBA's `THE ECONOMICS OF TEXAS BBQ` shares "Texas BBQ" verbatim with its title and
+sits at 2.5x its channel median. Replaced by `reexpress` (10 pts), which asks the question the data
+supports: does the thumbnail carry the consequence while the title carries the subject — or restate
+the title's fact in a more believable unit? UpFlip does the latter systematically, converting the
+title's annual figure to a smaller monthly one on the image ("$1M a Year" → `$91,000 PER MONTH`).
+
+**Two dimensions are new**, both from effects large enough to survive the method's limits:
+
+- `recognisable` (25, now the largest) — whether a cold viewer knows what the subject is without
+  reading. This is `findings.md`'s Crumbl-vs-OpenAI result, 15x apart on identical grammar, and the
+  images show it is what MagnatesMedia's whole top quartile is built on.
+- `credible` (12) — believable beats big, 4.9x and 18.8x. Carrying **no** figure scores full.
+
+**`legibility` rises 8 → 15**, re-specified as element count rather than taste. Five multi-node
+compositions appear in the comp set — a scattered logo collage, a five-icon app row, a three-chip
+logo strip, a product vitrine, a map tiled with chain marks — and **all five are bottom quartile,
+none appear in any top quartile.** At 120px they reduce to mush. What survives the shrink is one
+large logo, one large face, one short sentence in condensed caps, or a dense food scene that stops
+being legible but stays categorisable by colour alone.
+
+| dimension | was | now | |
+|---|---|---|---|
+| `recognisable` | — | **25** | new; largest measured effect |
+| `legibility` | 8 | **15** | re-specified as element count |
+| `curiosity` | 15 | 15 | unchanged; the register lane's whole strategy |
+| `subject` | 12 | 12 | unchanged |
+| `credible` | — | **12** | new |
+| `stakes` | 18 | 11 | untested by this data; reduced, not removed |
+| `reexpress` | 15 (`complement`) | 10 | rewritten |
+| `hero` | **22** | **0** | retired |
+| `unrepeatable` | 10 | **0** | retired |
+
+Archetypes were replaced too. `two-shot` is gone — a two-person frame is a comparison, and
+comparisons are a bottom-quartile pattern in every lane. The five are now `verdict`, `product`,
+`object`, `practitioner`, `scene-wide`, and every generated set must include a `verdict` and an
+`object` so the register lane's two measured winners are always tested against each other.
+
+**The one comp-set pattern we cannot currently build.** `product` started as `one-logo`, because
+one recognisable mark at scale is the strongest thing in the measured set — MagnatesMedia's whole
+top quartile, and the best survivor of the shrink. Run across all nine episodes it failed, and
+failed informatively. Twice it emitted an instruction nothing can render (`a single Zapier mark
+centered on a clean neutral background`) because the scene rule forbids naming logos, image models
+garbling them being the reason that rule exists. Twice it emitted a generic gradient app-icon blob —
+the stock-AI imagery this document already rejects outright. Once it produced something real, a
+plain iPhone, because a manufactured product is generatable and a trademark is not.
+
+So the archetype is narrowed to the generatable half, and the scene constraints now ban invented
+icons, glyphs, app tiles and gradient fills by name. **Reaching the actual pattern requires
+compositing a real mark over a generated ground, which no part of the pipeline does.** That is a
+genuine gap between what the evidence says wins and what we can currently make, and it is recorded
+here rather than left as an archetype that quietly emits unrenderable prompts.
+
+**What this re-weight is not.** Views banded within channel, not CTR. It controls for subscriber
+base and cannot separate packaging from topic demand. It is trustworthy where it is negative — a
+feature that cannot separate a channel's own best videos from its own worst is not worth the weight
+a rubric gives it — and weaker where it is positive. `hero` and `unrepeatable` were retired on
+negative results, which is the strong direction. `recognisable` is weighted highest on a positive
+one, which is the weak direction, and the A/B test is what will settle it.
+
+**Where this contradicts the craft report**, `research/reports/thumbnail-craft-report-2026-08.md`:
+that report says a striking number signals magnitude and stakes; the images say our lane's winners
+have no number. It says avoid literal charts; How Money Works' `THE MATH IS NOT MATHING` is a
+five-series line chart at 1.7x its channel median, and a red crashing-oil chart sits in its bottom
+quartile — so charts do not discriminate either way and the rubric stays silent on them. It quotes
+PolyMatter against arrows; Starter Story's top quartile uses a hand-drawn arrow on every tile. The
+report remains the better source on platform mechanics and is unamended there. Its design section
+is aggregated creator convention and is now outranked by measurement wherever the two disagree.
 
 ## Enforcement (added 2026-08-10)
 

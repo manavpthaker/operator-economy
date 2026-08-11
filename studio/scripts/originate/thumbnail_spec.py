@@ -50,48 +50,63 @@ REPO = ROOT.parent
 #
 # `extract` is the question asked of the EPISODE (stage 1).
 # `score`   is the question asked of a CANDIDATE (stage 2).
-# Weights sum to 100 and are the honest part to argue about: they encode a
-# belief about what makes someone click, inferred from what YouTube surfaces
-# on a cold feed. If a dimension is consistently producing concepts that miss,
-# that is a wrong weight or a wrong question, and it is now visible.
+#
+# Re-weighted 2026-08-11 against measurement, not belief. The previous comment
+# here admitted the weights encoded "a belief about what makes someone click,
+# inferred from what YouTube surfaces on a cold feed." They now come from 221
+# comp-set videos banded within channel (research/thumbnails/findings.md) and
+# from reading all 78 top/bottom-quartile thumbnails at reading size and at
+# 120px browse width (research/thumbnails/visual-findings.md). Amendment A8 in
+# docs/thumbnail-rubric.md records what moved and why.
+#
+# What the measurement is and is not: views banded within channel, so it
+# controls for subscriber base but cannot separate packaging from topic demand,
+# and views are not CTR. The results below are trustworthy where they are
+# NEGATIVE — a feature that fails to discriminate between a channel's own best
+# and worst videos is not carrying the weight a rubric assigns it. They are
+# weaker where they are positive. Weighted accordingly: the two largest
+# dimensions are the ones that survived a negative test, and nothing here is
+# weighted on a single expert's teaching.
 DIMENSIONS = [
     {
-        "key": "hero",
-        "name": "Hero figure",
-        "weight": 22,
-        "extract": "Every number, quantity or hard comparison the script states. "
-                   "For each: the value exactly as written, what it measures, and "
-                   "which section it appears in.",
-        "score": "Is there exactly ONE dominant figure, and is it concrete enough "
-                 "to read instantly at browse size? Two competing numbers score 0.",
+        "key": "recognisable",
+        "name": "Recognisable subject",
+        "weight": 25,
+        "extract": "Companies, products, trades, places and everyday objects the "
+                   "script names. For each, say whether a stranger would recognise "
+                   "it with no explanation (household name), only inside the "
+                   "industry, or not at all. Include what is physically handled or "
+                   "made, not just what is discussed.",
+        "score": "Would a cold viewer know what this is about without reading a "
+                 "word? A household-name brand, a familiar trade, or an everyday "
+                 "physical object scores high. An abstract concept, an unfamiliar "
+                 "company name, or a category noun scores 0. This is the largest "
+                 "measured effect in the comp set: identical title grammar, 15x "
+                 "apart on whether the subject was Crumbl Cookies or OpenAI.",
     },
     {
-        "key": "stakes",
-        "name": "Stakes to the viewer",
-        "weight": 18,
-        "extract": "For each number, what it would mean to a viewer who is thinking "
-                   "about building this: money they could earn, time they'd lose, a "
-                   "risk they're running, or a door closing.",
-        "score": "Does the figure imply gain, loss or threat to THIS viewer, rather "
-                 "than being neutral market trivia?",
-    },
-    {
-        "key": "complement",
-        "name": "Title complementarity",
+        "key": "legibility",
+        "name": "One focal mass at 120px",
         "weight": 15,
-        "extract": "What the episode title already asserts, and which of the "
-                   "episode's facts the title does NOT cover.",
-        "score": "Does the thumbnail carry information the title does not? Any word "
-                 "or number shared with the title scores 0.",
+        "extract": "(no extraction — a property of the composition, not the episode)",
+        "score": "Count the elements a viewer must resolve SEPARATELY to get the "
+                 "point. One scores full, two scores half, three or more scores 0. "
+                 "A comparison, a logo row, a map with markers, or a diagram as the "
+                 "subject scores 0 however good it looks at full size — five such "
+                 "compositions appear in the comp set and all five are bottom "
+                 "quartile. Texture that is not meant to be read is not an element.",
     },
     {
         "key": "curiosity",
-        "name": "Unresolved question",
+        "name": "Unresolved verdict",
         "weight": 15,
-        "extract": "Questions the episode poses and then answers, and the point in "
-                   "the script where each is still open.",
-        "score": "Does the image leave a specific question a business viewer cannot "
-                 "answer from looking? Fully self-explanatory scores 0.",
+        "extract": "Judgements the episode reaches about its subject, and the point "
+                   "in the script where each is still open. Prefer the ones that "
+                   "sound like a conclusion but do not explain themselves.",
+        "score": "Does the frame state or imply a VERDICT the viewer cannot resolve "
+                 "by looking, and would want to? The register lane's entire top "
+                 "quartile is this and nothing else — a flat editorial judgement "
+                 "over a press photo. Neutral description scores 0.",
     },
     {
         "key": "subject",
@@ -104,29 +119,91 @@ DIMENSIONS = [
                  "distinctive object? A generic desk or laptop scores 0.",
     },
     {
-        "key": "unrepeatable",
-        "name": "Episode specificity",
-        "weight": 10,
-        "extract": "What is true of THIS episode and no other in the series.",
-        "score": "Could this exact concept be reused on a different episode? If yes, "
-                 "score 0. This is what stops a set collapsing into one look.",
+        "key": "credible",
+        "name": "Believable figure",
+        "weight": 12,
+        "extract": "Every number the script states, with the unit it is stated in "
+                   "and the smallest honest unit it could be restated in (a yearly "
+                   "figure also expressed monthly, a total also expressed per job).",
+        "score": "If the concept carries a figure, is it one a sceptical operator "
+                 "would believe without proof, in the smallest honest unit? "
+                 "Believable beat big by 4.9x and 18.8x in the comp set, and the "
+                 "worst video in its own channel sample carried the biggest number. "
+                 "An implausible headline figure scores 0. CARRYING NO FIGURE AT ALL "
+                 "SCORES FULL: no top-quartile thumbnail in our register lane has "
+                 "one, and absence is not a defect.",
     },
     {
-        "key": "legibility",
-        "name": "Survives browse size",
-        "weight": 8,
-        "extract": "(no extraction — a property of the composition, not the episode)",
-        "score": "At 120px wide, does the anchor remain identifiable and the overlay "
-                 "readable? Busy frames and small faces score low.",
+        "key": "stakes",
+        "name": "Stakes to the viewer",
+        "weight": 11,
+        "extract": "For each fact, what it would mean to a viewer who is thinking "
+                   "about building this: money they could earn, time they'd lose, a "
+                   "risk they're running, or a door closing.",
+        "score": "Does the concept imply gain, loss or threat to THIS viewer, rather "
+                 "than being neutral market trivia?",
+    },
+    {
+        "key": "reexpress",
+        "name": "Splits the work with the title",
+        "weight": 10,
+        "extract": "What the episode title asserts, and which of the episode's facts "
+                   "the title does NOT cover.",
+        "score": "Does the thumbnail carry the CONSEQUENCE or verdict while the "
+                 "title carries the subject and mechanism — or restate the title's "
+                 "own fact in a more believable unit ($1M a year in the title, "
+                 "$91,000 per month on the image)? Repeating the title's claim in "
+                 "the title's own terms scores 0. Sharing a subject word with the "
+                 "title is NOT a penalty: the comp set's winners do it constantly.",
     },
 ]
 
+# Retired 2026-08-11, both to 0 points, both recorded in amendment A8:
+#
+#   hero (was 22, the largest weight) — "exactly ONE dominant figure". Zero of
+#   the twenty top-quartile thumbnails in our own register lane carry a hero
+#   number; four of the twenty bottom-quartile ones do. In the direct-comp lane
+#   the figure appears in both bands at the same rate. It was the rubric's
+#   biggest weight and it scored a feature no winner in our register exhibits.
+#   Its one defensible part — never two competing figures — is now enforced by
+#   `legibility`, which scores any comparison 0 on element count.
+#
+#   unrepeatable (was 10) — "could this be reused on another episode? If yes,
+#   score 0." Every channel in the comp set reuses its concept every week by
+#   design; Modern MBA runs THE ECONOMICS OF ___ across five of its seven best.
+#   Consistency is the recognisability asset and the dimension scored it as a
+#   defect. The SUBJECT must be episode-specific — that is now inside
+#   `recognisable` — and the FORMAT should repeat.
+
+# Derived from what the comp set's top quartiles actually do, replacing five
+# purely compositional slots. `two-shot` is gone: a two-person frame is a
+# comparison, and comparisons are a bottom-quartile pattern in every lane.
+#
+# `product` is the narrowed survivor of what was briefly `one-logo`. The comp
+# evidence is unambiguous that ONE recognisable mark at scale is the strongest
+# pattern in the set — it is MagnatesMedia's entire top quartile and the best
+# survivor of the 120px shrink. It is also unreachable from here: the scene
+# constraint forbids naming logos because image models garble them, so across
+# nine episodes the archetype degraded two ways. Twice it emitted an
+# ungeneratable instruction ("a single Zapier mark centered on a clean neutral
+# background"); twice it emitted a generic gradient app-icon blob, which is the
+# stock-AI imagery thumbnail-rubric.md rejects outright. Once it produced
+# something real — a plain iPhone — because a manufactured PRODUCT is
+# generatable and a trademark is not.
+#
+# So the archetype is narrowed to the generatable half. Reaching the actual
+# comp-set pattern needs a real mark composited over a generated ground, which
+# is a pipeline that does not exist; recorded as a gap in A8 rather than left
+# as an archetype that quietly emits things nothing can render.
 ARCHETYPES = {
-    "subject-left":  "subject hard left, clean right half",
-    "subject-right": "subject hard right, clean left half",
-    "object":        "the object itself, no person in frame",
-    "two-shot":      "two people, the tension between them",
-    "scene-wide":    "the environment is the argument",
+    "verdict":      "documentary photograph, editorial verdict in condensed caps "
+                    "across the top third, no number anywhere",
+    "product":      "a single mass-market manufactured product or machine at "
+                    "scale, unbranded and shown plainly, no person",
+    "object":       "the physical object of the trade filling the frame, no person",
+    "practitioner": "one person mid-action in the real workplace, close crop, "
+                    "clean half of the frame left for the overlay",
+    "scene-wide":   "the working environment is the argument",
 }
 
 MODEL_DEFAULT = "claude-sonnet-5"
@@ -209,13 +286,28 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
         f"RUBRIC (100 points):\n{rubric}\n\n"
         f"ARCHETYPES — every concept picks one, and no two concepts may share one:\n{arche}\n\n"
         "Constraints on the output:\n"
-        "- overlay_big: the single hero figure, exactly as the script states it.\n"
-        "- overlay_label: 2 to 3 words that INTERPRET that figure, never label it. "
-        "\"EVERY MONTH\" not \"REVENUE\". Must share no word with the title.\n"
+        "- overlay_big: the thumbnail's dominant words. A FIGURE IS OPTIONAL AND "
+        "USUALLY WRONG — no top-quartile thumbnail in this register carries one. "
+        "Prefer a flat editorial verdict of one to four words that sounds like a "
+        "conclusion and does not explain itself. If you do use a figure, exactly "
+        "one, quoted as the script states it, in the smallest honest unit.\n"
+        "- overlay_label: 0 to 3 words. Omit it entirely unless it changes the "
+        "meaning of overlay_big — an empty string is a valid and often better "
+        "answer. When present it INTERPRETS, never names: \"EVERY MONTH\" not "
+        "\"REVENUE\". It may share a subject word with the title; it may not "
+        "restate the title's claim in the title's own terms.\n"
+        "- NEVER two figures, two panels, a before/after, a versus, or a row of "
+        "several marks. Every such composition in the comp set is bottom quartile. "
+        "One focal mass, and it must still be one at 120px wide.\n"
         "- scene: one paragraph, composition first. Never mention text, writing, "
         "signage, logos, readable screens or branded clothing — image models render "
         "those garbled. Describe surfaces as positively blank. Describe ACTION, never "
         "mood; mood adjectives leak across the frame and produce grim pictures.\n"
+        "- No invented icon, glyph, app-tile or abstract emblem, and no gradient "
+        "fills. Asked for a recognisable thing you cannot name, describe a REAL "
+        "manufactured object plainly instead — an iPhone, a card reader, a barber "
+        "chair. A rounded square in a teal-to-purple gradient is the stock-AI "
+        "imagery this brand rejects, not a substitute for a mark.\n"
         "- Nobody sad, defeated, or posed smiling at a laptop.\n\n"
         "Score honestly. A concept you assembled scoring 40 is more useful than "
         "flattery. Give each dimension its score, out of that dimension's weight, "
@@ -227,7 +319,9 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
     user = (f"Title options: {json.dumps(script.get('title_options', []))}\n\n"
             f"Inventory:\n{json.dumps(inventory, indent=2)}\n\n"
             f"Assemble exactly {n} concepts, each a different archetype. "
-            f"At least one must be `object` with no person in frame.")
+            f"At least one must be `verdict` and at least one must be `object` "
+            f"with no person in frame — those two are the register lane's "
+            f"measured winners and every set should test them against each other.")
     return ask(system, user, model, max_tokens=16000)
 
 
