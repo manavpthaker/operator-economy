@@ -27,7 +27,8 @@ export type ThumbnailData = {
   accentWord?: string;  // word in label to set gold
   kicker?: string;      // tiny corner mark. OFF unless set — rubric rule 1
   showMark?: boolean;   // the "OE." mark. OFF by default — rubric rules 1 and 4
-  textStyle?: 'block' | 'scrim'; // photo variant: solid panel (default) or legacy gradient
+  textStyle?: 'block' | 'bleed' | 'scrim'; // photo variant: solid panel (default), full-bleed caps with a hard shadow, or legacy gradient
+  logos?: {file: string; hex?: string; name?: string}[]; // photo variant: the episode's stack, as a SUPPORTING row. Never the subject — see LogoStrip.
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -124,16 +125,87 @@ const HeroVariant: React.FC<ThumbnailData> = (p) => {
  */
 const bigFontSize = (text: string): number => {
   const n = (text ?? '').length;
-  if (n <= 6) return 168;   // a figure
-  if (n <= 12) return 132;
-  if (n <= 18) return 104;
-  if (n <= 26) return 88;
-  return 76;
+  if (n <= 6) return 200;   // a figure
+  if (n <= 12) return 168;
+  if (n <= 18) return 140;
+  if (n <= 26) return 118;
+  return 96;
 };
 
+/**
+ * The stack, as a supporting row inside the text block.
+ *
+ * The measured distinction is narrow and this component encodes it. A logo
+ * COLLAGE AS THE SUBJECT loses: five such thumbnails in the comp set, five in
+ * the bottom quartile, none in any top. Marks as a SUPPORTING layer under a
+ * dominant subject win: MagnatesMedia's whole top quartile, and Greg Isenberg's
+ * LOCAL AI IS TAKING OVER at 1.80x its channel median.
+ *
+ * So the row is capped at four, sits below the headline rather than beside it,
+ * and is sized to roughly a fifth of the headline's cap height. If it ever
+ * competes with the subject for the eye, it is wrong.
+ *
+ * Marks whose brand colour is too dark to read against the navy block are
+ * flipped to paper. Simple Icons hands back #000000 for ElevenLabs, Next.js
+ * and Resend, which would otherwise composite to an invisible square.
+ */
+const LogoStrip: React.FC<{logos: NonNullable<ThumbnailData['logos']>; size: number; onPhoto?: boolean}> = ({logos, size, onPhoto}) => {
+  const tooDark = (hex?: string) => {
+    if (!hex) return true;
+    const h = hex.replace('#', '');
+    if (h.length !== 6) return true;
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 70;   // vs COLORS.navy
+  };
+  return (
+    <div style={{display: 'flex', alignItems: 'center', gap: size * 0.42, marginTop: size * 0.5}}>
+      {logos.slice(0, 4).map((l) => (
+        <div
+          key={l.file}
+          style={{
+            width: size, height: size,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            // A dark mark gets a paper disc rather than a recolour, so the
+            // brand's own colour survives wherever it legibly can.
+            background: onPhoto || tooDark(l.hex) ? COLORS.paper : 'transparent',
+            borderRadius: onPhoto || tooDark(l.hex) ? size * 0.22 : 0,
+            padding: onPhoto || tooDark(l.hex) ? size * 0.16 : 0,
+            boxShadow: onPhoto ? '0 4px 18px rgba(0,0,0,0.55)' : 'none',
+            boxSizing: 'border-box',
+          }}
+        >
+          <Img src={staticFile(l.file)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/**
+ * `bleed` — type straight onto the photograph with a hard shadow, no panel.
+ *
+ * The block was introduced because a soft gradient scrim cannot guarantee
+ * contrast against a face or a window, which was correct. But a block large
+ * enough to hold a four-word verdict at the size the comp set sets type covers
+ * most of the frame, and then the photograph it sits on is decorative. How
+ * Money Works — the closest channel to this register, and the one whose entire
+ * top quartile is verdict-over-photo — uses neither: white condensed caps
+ * straight over the picture, hard shadow, spanning nearly the full width.
+ *
+ * So this is the third option rather than a replacement. `block` still wins on
+ * a busy or pale ground where nothing can be guaranteed; `bleed` wins wherever
+ * the ground has a quiet zone, which the generator is now explicitly asked to
+ * leave.
+ */
 const PhotoVariant: React.FC<ThumbnailData> = (p) => {
-  const block = (p.textStyle ?? 'block') === 'block';
+  const style = p.textStyle ?? 'block';
+  const block = style === 'block';
+  const bleed = style === 'bleed';
   const bigSize = bigFontSize(p.big ?? '');
+  // A hard offset shadow plus a tight dark halo. Two shadows, not a blur: a
+  // blur alone goes muddy at 120px, which is the width that decides it.
+  const hardShadow =
+    '0 6px 0 rgba(0,0,0,0.65), 0 0 26px rgba(0,0,0,0.85), 0 2px 4px rgba(0,0,0,0.9)';
   return (
     <AbsoluteFill>
       {p.bgImage ? (
@@ -148,20 +220,23 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => {
       <div
         style={{
           position: 'absolute',
-          bottom: block ? 0 : 40,
+          bottom: block ? 0 : bleed ? 34 : 40,
           left: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-          padding: block ? '30px 44px 34px 52px' : '0 0 0 52px',
+          padding: block ? '30px 44px 34px 52px' : '0 0 0 48px',
           background: block ? COLORS.navy : 'transparent',
           borderTop: block ? `6px solid ${COLORS.goldBright}` : 'none',
-          maxWidth: block ? (bigSize <= 104 ? '74%' : '62%') : 'none',
+          maxWidth: block ? (bigSize <= 140 ? '86%' : '68%') : '92%',
         }}
       >
-        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: bigSize, lineHeight: 0.95, letterSpacing: '-0.02em', color: COLORS.goldBright, textShadow: block ? 'none' : '0 3px 0 rgba(0,0,0,0.55), 0 6px 50px rgba(0,0,0,0.9)'}}>{p.big}</span>
+        <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: bigSize, lineHeight: 0.95, letterSpacing: '-0.02em', color: bleed ? COLORS.paper : COLORS.goldBright, textShadow: block ? 'none' : hardShadow}}>{p.big}</span>
         {p.bigLabel ? (
-          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.04em', color: COLORS.paper, marginTop: 6, textShadow: block ? 'none' : '0 2px 0 rgba(0,0,0,0.55), 0 4px 30px rgba(0,0,0,0.9)'}}>{p.bigLabel}</span>
+          <span style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 58, letterSpacing: '0.04em', color: bleed ? COLORS.goldBright : COLORS.paper, marginTop: 6, textShadow: block ? 'none' : hardShadow}}>{p.bigLabel}</span>
+        ) : null}
+        {p.logos && p.logos.length > 0 ? (
+          <LogoStrip logos={p.logos} size={Math.round(bigSize * 0.60)} onPhoto={!block} />
         ) : null}
       </div>
       {p.small ? (
