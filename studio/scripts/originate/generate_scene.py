@@ -298,6 +298,10 @@ def main() -> int:
     ap.add_argument("--archetype", choices=sorted(ARCHETYPE_CONSTRAINTS),
                     help="which constraint block to use; inferred from the spec "
                          "when --scene is not given")
+    ap.add_argument("--tag",
+                    help="name the output thumbs/<slug>-<tag>.png instead of "
+                         "-a/-b/-c. Required when generating several variants "
+                         "for one episode, which otherwise overwrite each other.")
     ap.add_argument("--rank", type=int, default=0,
                     help="which scored spec to generate, 0 = highest (default 0)")
     ap.add_argument("--n", type=int, default=2, help="candidates (default 2)")
@@ -336,8 +340,14 @@ def main() -> int:
         raise SystemExit("no images returned")
 
     for i, url in enumerate(urls):
+        # Without --tag every run of an episode lands on -a and silently
+        # clobbers the previous variant. That cost 27 generations once.
+        suffix = a.tag if a.tag else ""
         letter = chr(ord("a") + i)
-        dest = THUMBS / f"{a.slug}-{letter}.png"
+        stem = f"{a.slug}-{suffix}" if suffix else f"{a.slug}-{letter}"
+        if suffix and len(urls) > 1:
+            stem = f"{stem}-{letter}"
+        dest = THUMBS / f"{stem}.png"
         fetch_and_fit(url, dest)
         print(f"  wrote {dest.relative_to(REPO)}")
 

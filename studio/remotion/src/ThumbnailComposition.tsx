@@ -348,7 +348,7 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
         style={{
           position: 'absolute', top: 28, left: 0, right: 0,
           display: 'flex', flexDirection: 'column', alignItems: 'center',
-          transform: 'rotate(-2deg)',
+          transform: 'rotate(-2deg)', maxWidth: '94%', textAlign: 'center',
         }}
       >
         {p.overline ? (
@@ -360,7 +360,12 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
           }}>{p.overline}</span>
         ) : null}
         <span style={{
-          fontFamily: FONTS.sans, fontWeight: 800, fontSize: 196, lineHeight: 0.9,
+          fontFamily: FONTS.sans, fontWeight: 800,
+          // Same length ramp the photo variant uses, scaled up because a
+          // flat-lay headline is the whole composition. Fixed at 196 it was
+          // fine for BORING and ran clean off the frame on SHIPPED WITHOUT AN
+          // ENGINEER.
+          fontSize: Math.round(bigFontSize(p.big ?? '') * 1.10), lineHeight: 0.9,
           letterSpacing: '-0.03em', color: fill, marginTop: -6,
           textShadow: `0 10px 0 ${COLORS.goldFill}, 0 15px 0 rgba(0,0,0,0.55), 0 24px 46px rgba(0,0,0,0.45)`,
           ...outline(14),
