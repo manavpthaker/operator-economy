@@ -328,12 +328,24 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
             f"At least one must be `verdict` and at least one must be `object`, "
             f"so each set tests a different hypothesis rather than three "
             f"near-identical files (amendment A5).\n\n"
-            f"For the `flatlay` concept the scene must name the SPECIFIC objects "
-            f"this episode's operator actually handles — the paperwork, tools, "
-            f"parts, or printed artefacts of THIS trade — crowded to every edge "
-            f"and overlapping, with two hands entering from the bottom. Leave "
-            f"bare patches of surface between them; the episode's real tool "
-            f"marks are composited into those patches afterwards.")
+            f"For the `flatlay` concept: THE SURFACE BELONGS TO THE CUSTOMER'S "
+            f"BUSINESS, NOT THE OPERATOR'S OFFICE. This is the rule that matters "
+            f"and it keeps getting broken. Every episode returns 'an overhead "
+            f"flat-lay of a desk', because the operator works at a desk — and "
+            f"nine desks is one photograph with the props swapped. The operator "
+            f"is invisible in this channel anyway; what the viewer recognises is "
+            f"the BUSINESS BEING SERVED. Name that business from the script's own "
+            f"evidence — the florist, the plumber, the barbershop, the clinic, "
+            f"the restaurant, the hotel front desk — and set the frame on ITS "
+            f"working surface: the counter beside the till, the van floor, the "
+            f"stainless kitchen pass, the reception ledge, the workshop bench. "
+            f"Do not write the word desk unless the episode is literally about "
+            f"office work. Then the SPECIFIC objects that business handles — its "
+            f"dockets, parts, stock, order pads, tools — crowded to every edge "
+            f"and overlapping, with hands in frame. Leave bare patches of surface "
+            f"between them; the episode's real tool marks are composited into "
+            f"those patches afterwards. Do not describe the camera: the framing "
+            f"is chosen downstream.")
     return ask(system, user, model, max_tokens=16000)
 
 
