@@ -18,7 +18,7 @@ export type ThumbnailData = {
   bigLabel?: string;    // actor under the big number, e.g. "ACCENTURE"
   smallLabel?: string;  // actor under the small number, e.g. "YOU"
   rightGold?: boolean;  // split variant: gold right panel instead of paper
-  variant?: 'hero' | 'numbers' | 'title' | 'versus' | 'split' | 'photo'; // hero = ONE number + interpreting text (preferred); numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
+  variant?: 'hero' | 'numbers' | 'title' | 'versus' | 'split' | 'photo' | 'flatlay'; // hero = ONE number + interpreting text (preferred); numbers = stacked hierarchy; title = short title card; versus = equal-weight numbers + big divider
   accentColor?: string; // override goldBright (test punchier accents without leaving the family)
   big: string;          // the hero number, e.g. "$5.9B"
   small: string;        // the counter number, e.g. "$100"
@@ -28,6 +28,7 @@ export type ThumbnailData = {
   kicker?: string;      // tiny corner mark. OFF unless set — rubric rule 1
   showMark?: boolean;   // the "OE." mark. OFF by default — rubric rules 1 and 4
   textStyle?: 'block' | 'bleed' | 'scrim'; // photo variant: solid panel (default), full-bleed caps with a hard shadow, or legacy gradient
+  overline?: string;    // flatlay variant: the small tier above `big`
   logos?: {file: string; hex?: string; name?: string}[]; // photo variant: the episode's stack, as a SUPPORTING row. Never the subject — see LogoStrip.
 };
 
@@ -251,6 +252,107 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => {
   );
 };
 
+
+/**
+ * Flatlay — copied structurally from Modern MBA's THE ECONOMICS OF COOKIES,
+ * 8.21x its channel median and the highest multiple anywhere in the register
+ * lane. Copied on purpose rather than reasoned from principles, because four
+ * rounds of reasoning produced single objects centred in empty rooms and
+ * nothing in the 78-image comp set looks remotely like that.
+ *
+ * What the original does, and what this reproduces:
+ *
+ *   - type CENTRED and OVERLAPPING the objects, not sitting in reserved space
+ *   - two tiers, the second several times the first
+ *   - heavy outline plus offset shadow, so it survives any ground underneath
+ *   - the whole block rotated a couple of degrees; nothing is squared up
+ *   - branded packets SCATTERED among the real objects at different sizes and
+ *     angles, never a row
+ *
+ * That last point is the one worth stating plainly, because the previous
+ * attempt got it exactly backwards: a tidy row of equal marks reads as a logo
+ * collage, which is 5 for 5 bottom quartile in the comp set. Scattered at
+ * varied scale and rotation they read as objects on the desk, which is what
+ * Mrs Fields and Famous Amos are doing in the original.
+ *
+ * Positions are fractions of the frame and are tuned to the generated ground's
+ * bare patches. A different ground needs different numbers — they are data, not
+ * layout logic, which is why they sit here rather than being computed.
+ */
+const SCATTER = [
+  {x: 0.610, y: 0.310, s: 1.00, r: -11},
+  {x: 0.780, y: 0.455, s: 0.86, r: 9},
+  {x: 0.655, y: 0.630, s: 0.76, r: -6},
+];
+// Three, not four. The original scatters three branded packets, and the fourth
+// chip had nowhere to land on this ground that was not a hand, the phone or the
+// frame edge. A mark sitting on top of the hand reads as a sticker.
+const SCATTER_MAX = SCATTER.length;
+
+const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
+  // Cream fill, ink outline, gold offset — theme rule is ink + paper + ONE
+  // accent per frame, and the accent is the offset rather than the fill because
+  // gold on warm wood has nothing to separate it from the ground.
+  const outline = (w: number) => ({
+    WebkitTextStrokeWidth: `${w}px`,
+    WebkitTextStrokeColor: COLORS.ink,
+    paintOrder: 'stroke fill' as const,
+  });
+  return (
+    <AbsoluteFill>
+      {p.bgImage ? (
+        <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+      ) : null}
+
+      {p.logos?.slice(0, SCATTER_MAX).map((l, i) => {
+        const c = SCATTER[i];
+        const size = Math.round(150 * c.s);
+        return (
+          <div
+            key={l.file}
+            style={{
+              position: 'absolute',
+              left: `${c.x * 100}%`, top: `${c.y * 100}%`,
+              width: size, height: size,
+              transform: `translate(-50%, -50%) rotate(${c.r}deg)`,
+              background: COLORS.paper,
+              borderRadius: size * 0.16,
+              padding: size * 0.17,
+              boxSizing: 'border-box',
+              boxShadow: '0 10px 26px rgba(0,0,0,0.45), 0 2px 0 rgba(0,0,0,0.3)',
+            }}
+          >
+            <Img src={staticFile(l.file)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+          </div>
+        );
+      })}
+
+      <div
+        style={{
+          position: 'absolute', top: 28, left: 0, right: 0,
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          transform: 'rotate(-2deg)',
+        }}
+      >
+        {p.overline ? (
+          <span style={{
+            fontFamily: FONTS.sans, fontWeight: 800, fontSize: 76,
+            letterSpacing: '0.02em', color: COLORS.paper,
+            textShadow: `0 5px 0 ${COLORS.goldFill}, 0 8px 0 rgba(0,0,0,0.6), 0 14px 30px rgba(0,0,0,0.5)`,
+            ...outline(10),
+          }}>{p.overline}</span>
+        ) : null}
+        <span style={{
+          fontFamily: FONTS.sans, fontWeight: 800, fontSize: 196, lineHeight: 0.9,
+          letterSpacing: '-0.03em', color: COLORS.paper, marginTop: -6,
+          textShadow: `0 10px 0 ${COLORS.goldFill}, 0 14px 0 rgba(0,0,0,0.6), 0 22px 44px rgba(0,0,0,0.5)`,
+          ...outline(14),
+        }}>{p.big}</span>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const SplitVariant: React.FC<ThumbnailData> = (p) => {
   const rightBg = p.rightGold ? COLORS.goldFill : COLORS.paper;
   return (
@@ -463,6 +565,7 @@ export const Thumbnail: React.FC<ThumbnailData> = (p) => {
       {p.variant === 'versus' ? <VersusVariant {...p} /> : null}
       {p.variant === 'split' ? <SplitVariant {...p} /> : null}
       {p.variant === 'photo' ? <PhotoVariant {...p} /> : null}
+      {p.variant === 'flatlay' ? <FlatlayVariant {...p} /> : null}
 
       {/* the number stack */}
       {(!p.variant || p.variant === 'numbers') && (

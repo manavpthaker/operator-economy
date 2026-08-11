@@ -170,6 +170,37 @@ CONSTRAINTS_SCENE = (
     "bokeh. Nothing staged, nobody posed, and nobody sad or defeated."
 )
 
+# Added 2026-08-11, copied deliberately from one measured thumbnail rather than
+# reasoned from principles: Modern MBA's THE ECONOMICS OF COOKIES, 8.21x its
+# channel median and the highest multiple in the register lane.
+#
+# What that frame actually does, decomposed: overhead flat-lay; TWO HANDS
+# entering from the bottom edge, one holding a phone; every object rotated,
+# overlapping and BLEEDING OFF the frame edges so nothing is contained; branded
+# packets scattered among the real objects at different sizes; crumbs and mess
+# on the surface. It is dense to the edges and nothing is squared up. Our four
+# earlier attempts were single objects centred in empty rooms, which is the
+# opposite frame, and no thumbnail in the 78-image comp set looks like that.
+#
+# The branded packets are the part that generalises. In the original they are
+# Mrs Fields, Famous Amos and a Crumbl box; ours are the episode's actual stack,
+# composited by fetch_logos.py rather than generated, since diffusion garbles
+# lettering. The scene must therefore leave surface FOR them.
+CONSTRAINTS_FLATLAY = (
+    " Shot straight down from directly overhead, flat-lay. TWO HANDS enter from "
+    "the bottom edge of the frame, one holding a phone upright with a blank dark "
+    "screen, the other reaching in mid-action toward the objects. The surface is "
+    "crowded to every edge and objects are cut off by all four frame edges, "
+    "rotated at loose angles, overlapping each other, casually placed rather "
+    "than arranged. Leave two or three empty patches of bare surface among the "
+    "objects, each roughly a hand's width. Real mess: crumbs, dust, a stray "
+    "paper clip, marks on the surface. Every surface is bare and unlabelled — no "
+    "signage, no printed text, no packaging copy, no screens showing anything. "
+    "Bright even overhead daylight, clean true-to-life colour, strong material "
+    "texture. Photographed, not rendered: no studio sweep, no seamless backdrop, "
+    "no gradient background, nothing centred or symmetrical."
+)
+
 # Archetypes are defined in thumbnail_spec.py; this maps each to the block that
 # can actually render it. Keep in step if that list changes.
 ARCHETYPE_CONSTRAINTS = {
@@ -178,6 +209,7 @@ ARCHETYPE_CONSTRAINTS = {
     "product":      CONSTRAINTS_OBJECT,
     "verdict":      CONSTRAINTS_SCENE,
     "scene-wide":   CONSTRAINTS_SCENE,
+    "flatlay":      CONSTRAINTS_FLATLAY,
 }
 
 
