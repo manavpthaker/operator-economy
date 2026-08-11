@@ -44,6 +44,7 @@ import sys
 import tempfile
 import urllib.error
 import urllib.request
+import zlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]          # studio/
@@ -186,20 +187,61 @@ CONSTRAINTS_SCENE = (
 # Mrs Fields, Famous Amos and a Crumbl box; ours are the episode's actual stack,
 # composited by fetch_logos.py rather than generated, since diffusion garbles
 # lettering. The scene must therefore leave surface FOR them.
-CONSTRAINTS_FLATLAY = (
-    " Shot straight down from directly overhead, flat-lay. TWO HANDS enter from "
-    "the bottom edge of the frame, one holding a phone upright with a blank dark "
-    "screen, the other reaching in mid-action toward the objects. The surface is "
-    "crowded to every edge and objects are cut off by all four frame edges, "
-    "rotated at loose angles, overlapping each other, casually placed rather "
-    "than arranged. Leave two or three empty patches of bare surface among the "
-    "objects, each roughly a hand's width. Real mess: crumbs, dust, a stray "
-    "paper clip, marks on the surface. Every surface is bare and unlabelled — no "
-    "signage, no printed text, no packaging copy, no screens showing anything. "
-    "Bright even overhead daylight, clean true-to-life colour, strong material "
-    "texture. Photographed, not rendered: no studio sweep, no seamless backdrop, "
-    "no gradient background, nothing centred or symmetrical."
+# The framing was hardcoded to one shot -- straight down, two hands from the
+# bottom edge, phone in the left -- so every flat-lay in the set came back as the
+# same photograph with the props swapped. Similar design, identical image.
+#
+# These are the variations that all still satisfy the invariants: dense to every
+# edge, a human in frame, bare patches left for the marks. What varies is the
+# camera, which hands enter and from where, and how tight the crop is. Chosen
+# deterministically from the slug so an episode keeps its framing across
+# re-runs, and overridable with --framing.
+FLATLAY_FRAMINGS = [
+    "Shot straight down from directly overhead. Two hands enter from the bottom "
+    "edge, one holding a phone upright with a blank dark screen, the other "
+    "reaching in mid-action.",
+
+    "Shot from a high three-quarter angle looking down and across the surface, "
+    "the far edge of the table and a slice of the room visible along the top of "
+    "the frame. One hand enters from the right edge mid-task.",
+
+    "Shot straight down but rotated, so the surface and everything on it runs "
+    "diagonally across the frame. One forearm crosses in from the lower-left "
+    "corner; the other hand steadies an object near the right edge.",
+
+    "Shot low and close over the surface at a shallow angle, almost at the level "
+    "of the objects, the far background falling soft. Two hands work in the near "
+    "third of the frame.",
+
+    "Shot straight down and cropped tight into the middle of the work so no edge "
+    "of the table is visible anywhere. Hands enter from the left edge and the "
+    "bottom, overlapping the objects.",
+
+    "Shot from overhead and slightly off-axis, the surface filling the frame at a "
+    "gentle tilt. One hand enters from the top-left holding a tool mid-use, a "
+    "phone lying face-up among the objects.",
+]
+
+CONSTRAINTS_FLATLAY_TAIL = (
+    " The surface is crowded to every edge and objects are cut off by all four "
+    "frame edges, rotated at loose angles, overlapping each other, casually "
+    "placed rather than arranged. Leave two or three empty patches of bare "
+    "surface among the objects, each roughly a hand's width. Real mess: crumbs, "
+    "dust, a stray paper clip, marks on the surface. Every surface is bare and "
+    "unlabelled — no signage, no printed text, no packaging copy, no screens "
+    "showing anything. Bright even daylight, clean true-to-life colour, strong "
+    "material texture. Photographed, not rendered: no studio sweep, no seamless "
+    "backdrop, no gradient background, nothing centred or symmetrical."
 )
+
+
+def flatlay_constraints(slug: str, framing: int | None) -> str:
+    # crc32 rather than a character sum: the sum clustered three of nine
+    # episodes onto the same framing, which is the problem this exists to fix.
+    i = framing if framing is not None else (
+        zlib.crc32(slug.encode()) % len(FLATLAY_FRAMINGS))
+    return " " + FLATLAY_FRAMINGS[i] + CONSTRAINTS_FLATLAY_TAIL
+
 
 # Archetypes are defined in thumbnail_spec.py; this maps each to the block that
 # can actually render it. Keep in step if that list changes.
@@ -209,7 +251,6 @@ ARCHETYPE_CONSTRAINTS = {
     "product":      CONSTRAINTS_OBJECT,
     "verdict":      CONSTRAINTS_SCENE,
     "scene-wide":   CONSTRAINTS_SCENE,
-    "flatlay":      CONSTRAINTS_FLATLAY,
 }
 
 
@@ -298,6 +339,10 @@ def main() -> int:
     ap.add_argument("--archetype", choices=sorted(ARCHETYPE_CONSTRAINTS),
                     help="which constraint block to use; inferred from the spec "
                          "when --scene is not given")
+    ap.add_argument("--framing", type=int,
+                    help=f"flatlay only: which of the {len(FLATLAY_FRAMINGS)} "
+                         f"camera framings to use. Defaults to one picked from "
+                         f"the slug, so an episode keeps its shot across re-runs.")
     ap.add_argument("--tag",
                     help="name the output thumbs/<slug>-<tag>.png instead of "
                          "-a/-b/-c. Required when generating several variants "
@@ -320,13 +365,18 @@ def main() -> int:
         else:
             scene = scene_from_script(a.slug)
 
+    if archetype == "flatlay":
+        pass
     if not archetype:
         raise SystemExit(
             "cannot tell what kind of frame this is. Pass --archetype "
             f"({'|'.join(sorted(ARCHETYPE_CONSTRAINTS))}), or run "
             f"thumbnail_spec.py on {a.slug} first so the archetype comes with "
             "the scene. Guessing here produces a person in a barber chair.")
-    constraints = ARCHETYPE_CONSTRAINTS[archetype]
+    if archetype == "flatlay":
+        constraints = flatlay_constraints(a.slug, a.framing)
+    else:
+        constraints = ARCHETYPE_CONSTRAINTS[archetype]
     prompt = PREAMBLE + scene.rstrip(".") + "." + constraints
 
     print(f"{a.slug} — {a.model} — {archetype}")
