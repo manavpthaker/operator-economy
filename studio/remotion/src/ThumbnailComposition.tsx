@@ -29,6 +29,7 @@ export type ThumbnailData = {
   showMark?: boolean;   // the "OE." mark. OFF by default — rubric rules 1 and 4
   textStyle?: 'block' | 'bleed' | 'scrim'; // photo variant: solid panel (default), full-bleed caps with a hard shadow, or legacy gradient
   overline?: string;    // flatlay variant: the small tier above `big`
+  groundTone?: 'light' | 'dark'; // flatlay variant: which way to key the type against the photograph
   logos?: {file: string; hex?: string; name?: string}[]; // photo variant: the episode's stack, as a SUPPORTING row. Never the subject — see LogoStrip.
 };
 
@@ -280,22 +281,38 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => {
  * layout logic, which is why they sit here rather than being computed.
  */
 const SCATTER = [
-  {x: 0.610, y: 0.310, s: 1.00, r: -11},
-  {x: 0.780, y: 0.455, s: 0.86, r: 9},
-  {x: 0.655, y: 0.630, s: 0.76, r: -6},
+  {x: 0.150, y: 0.580, s: 1.00, r: -14},
+  {x: 0.830, y: 0.470, s: 0.78, r: 13},
+  {x: 0.660, y: 0.520, s: 0.92, r: -7},
+  {x: 0.885, y: 0.720, s: 0.62, r: 19},
+  {x: 0.300, y: 0.865, s: 0.70, r: -21},
 ];
-// Three, not four. The original scatters three branded packets, and the fourth
-// chip had nowhere to land on this ground that was not a hand, the phone or the
-// frame edge. A mark sitting on top of the hand reads as a sticker.
+// Spread to the corners rather than clustered, scale range widened to 0.62-1.00,
+// rotation to +/-21. The first pass put three marks in one quadrant at similar
+// sizes, which reads as a row however much each one is rotated — and a row is
+// the 5-for-5 bottom-quartile pattern. In the original the packets overlap the
+// cookies and the marble and each other; they are objects on the surface, not a
+// legend, so they are allowed to sit on top of things.
+//
+// The two dead zones are the type at top-centre and the hands at bottom-centre.
+// Everything else is fair ground.
 const SCATTER_MAX = SCATTER.length;
 
 const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
+  // Theme rule is ink + paper (or navy) + ONE accent per frame. Which of ink
+  // and paper carries the fill depends on the ground: cream type vanishes on a
+  // cream drafting table, navy type vanishes on dark wood. The stroke always
+  // takes the opposite, which is also what separates a navy headline from the
+  // navy diagram lines underneath it.
+  const light = (p.groundTone ?? 'dark') === 'light';
+  const fill = light ? COLORS.navy : COLORS.paper;
+  const stroke = light ? COLORS.paper : COLORS.ink;
   // Cream fill, ink outline, gold offset — theme rule is ink + paper + ONE
   // accent per frame, and the accent is the offset rather than the fill because
   // gold on warm wood has nothing to separate it from the ground.
   const outline = (w: number) => ({
     WebkitTextStrokeWidth: `${w}px`,
-    WebkitTextStrokeColor: COLORS.ink,
+    WebkitTextStrokeColor: stroke,
     paintOrder: 'stroke fill' as const,
   });
   return (
@@ -306,7 +323,7 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
 
       {p.logos?.slice(0, SCATTER_MAX).map((l, i) => {
         const c = SCATTER[i];
-        const size = Math.round(150 * c.s);
+        const size = Math.round(172 * c.s);
         return (
           <div
             key={l.file}
@@ -337,15 +354,15 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
         {p.overline ? (
           <span style={{
             fontFamily: FONTS.sans, fontWeight: 800, fontSize: 76,
-            letterSpacing: '0.02em', color: COLORS.paper,
-            textShadow: `0 5px 0 ${COLORS.goldFill}, 0 8px 0 rgba(0,0,0,0.6), 0 14px 30px rgba(0,0,0,0.5)`,
+            letterSpacing: '0.02em', color: light ? COLORS.goldOnPaper : COLORS.paper,
+            textShadow: `0 5px 0 ${light ? COLORS.navy : COLORS.goldFill}, 0 8px 0 rgba(0,0,0,0.45), 0 14px 30px rgba(0,0,0,0.4)`,
             ...outline(10),
           }}>{p.overline}</span>
         ) : null}
         <span style={{
           fontFamily: FONTS.sans, fontWeight: 800, fontSize: 196, lineHeight: 0.9,
-          letterSpacing: '-0.03em', color: COLORS.paper, marginTop: -6,
-          textShadow: `0 10px 0 ${COLORS.goldFill}, 0 14px 0 rgba(0,0,0,0.6), 0 22px 44px rgba(0,0,0,0.5)`,
+          letterSpacing: '-0.03em', color: fill, marginTop: -6,
+          textShadow: `0 10px 0 ${COLORS.goldFill}, 0 15px 0 rgba(0,0,0,0.55), 0 24px 46px rgba(0,0,0,0.45)`,
           ...outline(14),
         }}>{p.big}</span>
       </div>
