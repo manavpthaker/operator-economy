@@ -220,6 +220,33 @@ def main():
         },
         "ctas": bk_cfg.get("outro_ctas", []),
     }
+
+    # Cold open (2026-08-12). The brand sting opens on the episode's OWN
+    # thumbnail ground and dissolves it into the navy over its existing 1.8
+    # seconds — no extra time before the hook, which is the constraint the
+    # sting was built around in the first place.
+    #
+    # Why this is here and not left to the editor: rendering four frames of a
+    # finished episode beside its thumbnail showed the two surfaces share
+    # nothing. Photograph against vector, Supreme 800 at 196px against Boska
+    # serif at ~48px, dense-to-the-edges against 70-85% empty, hands in frame
+    # against no human anywhere. Somebody clicks a tactile overhead photograph
+    # and lands on a silent navy slide, which is the packaging equivalent of an
+    # ad that does not match its landing page.
+    #
+    # The file has to be the SAME one the thumbnail composites over, not a
+    # lookalike, so it is read from the thumbnail props rather than guessed.
+    for cand in ("thumb-flatlay.json", "thumbnail-flatlay.json", "thumbnail-a8.json"):
+        tp = base / "render_data" / cand
+        if not tp.exists():
+            continue
+        bg = load_json(tp).get("bgImage")
+        if bg and (ROOT / "remotion" / "public" / bg).exists():
+            bookends["cold_open_image"] = bg
+            break
+    else:
+        print("  note: no thumbnail ground found; brand sting opens on navy. "
+              "Run generate_scene.py to give this episode a cold open.")
     intro_s = bookends["brand_seconds"] + bookends["title_seconds"]
     overlap_s = bookends["j_cut_seconds"] + bookends["l_cut_seconds"]
 

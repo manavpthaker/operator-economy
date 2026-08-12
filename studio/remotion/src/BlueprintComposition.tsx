@@ -241,6 +241,10 @@ export type Bookends = {
   episode_no?: number | null;
   brand: {name: string; tagline: string; domain: string};
   ctas: string[];
+  /** Cold open (2026-08-12): the episode's own thumbnail ground, under
+   *  public/. The brand sting dissolves it into the navy over its existing
+   *  1.8s, so the first frame after the click is the image that earned it. */
+  cold_open_image?: string;
 };
 
 export type BlueprintRenderData = {
@@ -1163,7 +1167,11 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       </Sequence>
       {brandFrames > 0 && (
         <Sequence from={0} durationInFrames={brandFrames}>
-          <BrandSting name={bookends.brand.name} tagline={bookends.brand.tagline} />
+          <BrandSting
+            name={bookends.brand.name}
+            tagline={bookends.brand.tagline}
+            image={bookends.cold_open_image}
+          />
         </Sequence>
       )}
       {titleFrames > 0 && (
