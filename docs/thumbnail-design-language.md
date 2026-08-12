@@ -1,4 +1,6 @@
-# The Thumbnail Design Language
+# The Packaging Design Language
+
+*(Filename kept as `thumbnail-design-language.md` so existing references resolve. It outgrew the name on 2026-08-12, when the cold open made the thumbnail and the first two seconds of video one surface rather than two.)*
 
 **Derived, not invented.** Written 2026-08-11 from `research/thumbnails/visual-findings.md` — 78
 comp-set thumbnails read at reading size and at 120px browse width — and keyed to `design-system/`
@@ -6,6 +8,12 @@ Rev C. Reference render: `design-system/surfaces/thumbnail-flatlay-reference.png
 
 Companion to `docs/thumbnail-rubric.md`, which governs *what a thumbnail says*. This governs *how it
 is built*. Where they conflict the rubric's amendments win, because those are tied to measurement.
+
+**Scope, as of 2026-08-12.** This covers the two surfaces a cold viewer meets in their first three
+seconds: the thumbnail, and the opening of the video it points at. They are one decision. A
+thumbnail that wins the click and loses the first ten seconds is a net loss under Test & Compare,
+which picks the **watch-time** winner — so packaging that does not carry through is worse than
+packaging that never won the click.
 
 ## Why this exists, and why it is not a style guide
 
@@ -94,6 +102,95 @@ Four, keyed to the archetypes in `thumbnail_spec.py` so generation and rendering
 
 `flatlay` is the default for this channel. It is the only one that satisfies S3, S4 and S6 by
 construction rather than by luck.
+
+## Layer 4 — the join
+
+Rendering four frames of a finished episode beside its thumbnail found two surfaces sharing nothing:
+
+| | thumbnail | video, before the fix |
+|---|---|---|
+| medium | photograph | no photography anywhere — vector cards |
+| typeface | Supreme 800 at 196px | Boska serif at ~48px |
+| density | dense to all four edges | 70–85% empty |
+| colour | cream + navy + real brand marks | navy/ink/cream, hairline gold |
+| cap height | ~15% of frame | body copy ~1.5% of frame |
+| human presence | hands in frame | none, anywhere |
+
+Every variable flips. Somebody clicks a tactile overhead photograph and lands on a silent navy
+slide reading `SHEET 04 OF 56`.
+
+**J1. The first frame is the ground the thumbnail was built on.** Not a lookalike — the same file,
+read from the episode's thumbnail props by `prepare_longform.py`. A different photograph of a
+similar desk does not make the join; it makes a continuity error.
+
+**J2. It costs no extra time.** The cold open lives *inside* the existing 1.8s brand sting, not
+before it. That constraint is load-bearing and predates this work: `Bookends.tsx` sets the sting at
+1.8s because long pre-hook branding is punished by retention. A cold open that adds four seconds
+would trade a fixed retention loss for a speculative continuity gain.
+
+**J3. The ground dissolves into the register rather than cutting.** Photograph holds clean ~10
+frames so the eye registers it as the thing just clicked; navy closes over it; the drafting grid
+draws on top. The viewer watches the thing they clicked *become* the diagram the episode is drawn
+in. A hard cut would read as two shots and make the mismatch louder, not quieter.
+
+**J4. Type arrives with the ground it sits on, never before.** The first build had the wordmark
+fully lit by frame 12 while the scrim was ~20% in — white serif on a cream drafting table. Over a
+photograph, type is keyed to the scrim ramp.
+
+**Unresolved, and the larger half.** J1–J4 fix the first two seconds. The rest of the video still
+runs body copy at ~1.5% of frame height in a serif, which is unreadable on a phone and poor on a
+TV — and TV is ~42% of watch time. That is the `screen` register below, and it is not built.
+
+## Registers — the design-system change this implies
+
+Rev C applies **one register to every surface**, and that is the root cause of the mismatch. A
+blueprint PDF and a YouTube frame have opposite constraints: a PDF is read at arm's length with
+time; a video frame is glanced at on a phone or across a room. The Working Schematic was designed
+for the first and is being asked to do the second.
+
+The fix is not a repaint — everything in the reference render is Rev C, and no new colours were
+needed. It is documented **intensity levels** for the same tokens:
+
+| register | surfaces | type scale | photography | brand marks |
+|---|---|---|---|---|
+| `document` *(exists)* | blueprint PDF, newsletter, site | small, generous margins, hairlines, serif | no | no |
+| `screen` *(not built)* | video frames | 2–3× document | yes | yes |
+| `feed` *(built here)* | thumbnails, Shorts covers | maximum; cap height ~15% of frame | required | scattered, ≤4 |
+
+And one rule across them: **adjacent surfaces in a viewer's journey share at least two of {ground,
+subject medium, type treatment}.** Thumbnail → first five seconds is the join that matters most and
+the one that shared zero.
+
+`design-system/surfaces/thumbnail.html` was replaced on this basis; it specified a card that was
+almost exactly EP002, the worst thumbnail the channel has shipped.
+
+## Re-rendering the back catalogue
+
+The 27 locked candidates live in `research/thumbnails/variants/`, one per episode per archetype,
+each reproducible from `studio/originate/<slug>/render_data/thumb-<archetype>.json`.
+
+**Locked means locked.** Those props carry a `_locked` note because `thumbnail_specs.json` gets
+regenerated whenever the rubric is touched, and newer spec text is a different *sample* from the
+same rubric rather than a better one. Re-render from the props to reproduce; changing them is a
+deliberate act, not a refresh.
+
+**The grounds are the fragile part.** Each render composites over a diffusion image in
+`studio/remotion/public/thumbs/`, gitignored and generated **without a captured seed**. One was
+already lost this way: `boring-automation-agency-a.png` was overwritten by an untagged batch run,
+and the BORING cover survives only because the composed render was committed and a sibling `-b`
+happened to remain. Until `generate_scene.py` records seeds, the composed renders in
+`research/thumbnails/variants/` are the record and the grounds are not reproducible.
+
+To bring an existing episode onto this language:
+
+```bash
+python scripts/originate/fetch_logos.py <slug>            # real marks, --names if the stack is prose
+python scripts/originate/thumbnail_spec.py originate/<slug>/script.json
+python scripts/originate/generate_scene.py <slug> --rank N --tag flatlay
+# write thumb-flatlay.json, render, then:
+python scripts/originate/check_thumbnail.py <render>.png
+python scripts/originate/prepare_longform.py …           # picks up cold_open_image itself
+```
 
 ## What we do not copy
 
