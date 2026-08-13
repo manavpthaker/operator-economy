@@ -34,7 +34,12 @@ export type ThumbnailData = {
   // flatlay variant: where the marks land, as fractions of the frame, with
   // scale and rotation. Tune per ground — the default fits an overhead surface
   // and will drop marks onto the subject at eye level. See SCATTER.
-  scatter?: {x: number; y: number; s: number; r: number}[];
+  // `ar` is the mark's width/height. Square glyph marks (Simple Icons) default
+  // to 1; a WORDMARK is wide — Accenture's is 163x43 — and rendering one inside
+  // a square chip shrinks it to a sliver of padding, which defeats the reason
+  // for using a wordmark at all: the glyph alone is an unrecognisable chevron,
+  // the word is the recognisable thing.
+  scatter?: {x: number; y: number; s: number; r: number; ar?: number}[];
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -337,13 +342,14 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
         // that marks survive as subordinate texture and die as the subject, so
         // the base drops to 132 and the type keeps the focal mass.
         const size = Math.round(132 * c.s);
+        const chipW = Math.round(size * (c.ar ?? 1));
         return (
           <div
             key={l.file}
             style={{
               position: 'absolute',
               left: `${c.x * 100}%`, top: `${c.y * 100}%`,
-              width: size, height: size,
+              width: chipW, height: size,
               transform: `translate(-50%, -50%) rotate(${c.r}deg)`,
               background: COLORS.paper,
               borderRadius: size * 0.16,
