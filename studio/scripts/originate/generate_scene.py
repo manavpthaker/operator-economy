@@ -268,8 +268,33 @@ def flatlay_constraints(slug: str, shot: str | int | None) -> str:
 
 # Archetypes are defined in thumbnail_spec.py; this maps each to the block that
 # can actually render it. Keep in step if that list changes.
+# `practitioner` means two different things in the two halves of this system.
+# thumbnail_spec.py scores it as "a person doing the work"; CONSTRAINTS_PERSON
+# describes a presenter addressing the lens. Handed a scene that said "the hands
+# the only human presence in frame", the constraint won and the model rendered
+# BOTH briefs — a man gesturing at the camera next to a pair of hands under a
+# desk. Two subjects, because two specs.
+#
+# This is the archetype for work being done rather than described: nobody
+# performs to camera, nobody is selling anything, and the action is the subject.
+CONSTRAINTS_AT_WORK = (
+    " One person only, absorbed in the task and unaware of the camera — NO eye "
+    "contact with the lens, no gesturing toward it, no addressing the viewer, "
+    "not posed. Framed close on the work itself: hands, forearms and as much of "
+    "the body as the action needs, the face incidental or out of frame entirely. "
+    "One continuous action, mid-motion, with the tool or device actually in "
+    "contact with the thing being worked on. They wear plain unbranded everyday "
+    "clothes with no printing. Every surface and device is bare and unlabelled — "
+    "no signage, no printed text, no packaging copy, no screens showing anything, "
+    "no brand marks on any equipment. Bright natural daylight, clean true-to-life "
+    "colour, realistic skin texture. Photographed, not rendered: no studio "
+    "lighting, no rim light, no glossy retouching. Nobody sad, tired or defeated, "
+    "and nobody posed smiling at a laptop like a stock photograph."
+)
+
 ARCHETYPE_CONSTRAINTS = {
     "practitioner": CONSTRAINTS_PERSON,
+    "at-work":      CONSTRAINTS_AT_WORK,
     "object":       CONSTRAINTS_OBJECT,
     "product":      CONSTRAINTS_OBJECT,
     "verdict":      CONSTRAINTS_SCENE,

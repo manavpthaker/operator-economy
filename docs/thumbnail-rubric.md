@@ -270,3 +270,39 @@ discovered afterward. Two waivers on one thumbnail is a signal the concept is fi
 Every mechanical defect above entered at exactly that step, and the same pattern produced the
 launch-ledger defects when the episode was uploaded outside `launch.py`. Externally-produced
 artifacts skip every guard that exists.
+
+## Amendment A9 (2026-08-13) — the rubric had the comp lane's polarity
+
+The comp set we derived this rubric from is three CRITIQUE channels. How Money
+Works' entire top quartile is a flat adverse judgement — `CANCELLED`,
+`WE NEVER LEARN`, `THE MATH IS NOT MATHING`. We took the form and imported the
+stance with it, and two dimensions carried it:
+
+- `stakes` scored "gain, loss **or threat**" equally, so a risk framing scored as
+  well as an opportunity.
+- `curiosity` pointed at the register lane's top quartile as the thing to
+  imitate, without noting that those channels are describing decline.
+
+Run on EP001 — an episode about a business you can start — the highest-scoring
+concept was `A QUARTER OF INCOME / ONE CLIENT GONE`. That is the episode's
+failure-modes section rendered as the packaging for the whole thing.
+
+**This channel sells one business the viewer could build.** So `stakes` now asks
+whether the frame shows THIS VIEWER A JOB THEY COULD TAKE, and a concept whose
+subject is a risk, a failure, or a thing going wrong scores at most half however
+sharp it is. `curiosity` keeps the withheld-verdict form and explicitly drops the
+pessimism. The assembly prompt gains a hard rule: the frame shows a job, not a
+problem; the market's pain is why the job exists and is not the picture.
+
+Re-run on EP001 the risk concept disappeared from the set, and the two remaining
+problem-framed concepts were correctly marked down in `stakes` with the reason
+stated — "proves enterprise demand but doesn't show the viewer a job they could
+take".
+
+**A second collision, same run.** `practitioner` means "a person doing the work"
+in `thumbnail_spec.py` and "a presenter addressing the lens" in
+`generate_scene.py` — waist-up, eye contact, mid-sentence, hand raised. Handed a
+scene reading "the hands the only human presence in frame", the constraint won
+and the model rendered BOTH briefs: a man gesturing at the camera beside a pair
+of hands under a desk. `at-work` is now a separate archetype for work being done
+rather than described. The full sequence is in `docs/packaging-process.md`.

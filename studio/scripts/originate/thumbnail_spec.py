@@ -104,7 +104,11 @@ DIMENSIONS = [
                    "in the script where each is still open. Prefer the ones that "
                    "sound like a conclusion but do not explain themselves.",
         "score": "Does the frame state or imply a VERDICT the viewer cannot resolve "
-                 "by looking, and would want to? The register lane's entire top "
+                 "by looking, and would want to? Take the withheld-verdict FORM "
+                 "without the comp lane's pessimism: those are CRITIQUE channels "
+                 "and this is a build channel. \"Easy is expensive\" is the right "
+                 "shape; \"one client gone\" is their stance wearing our clothes. "
+                 "The register lane's entire top "
                  "quartile is this and nothing else — a flat editorial judgement "
                  "over a press photo. Neutral description scores 0.",
     },
@@ -137,11 +141,17 @@ DIMENSIONS = [
         "key": "stakes",
         "name": "Stakes to the viewer",
         "weight": 11,
-        "extract": "For each fact, what it would mean to a viewer who is thinking "
-                   "about building this: money they could earn, time they'd lose, a "
-                   "risk they're running, or a door closing.",
-        "score": "Does the concept imply gain, loss or threat to THIS viewer, rather "
-                 "than being neutral market trivia?",
+        "extract": "For each fact, THE WORK IT IMPLIES SOMEONE IS PAID TO DO, and "
+                   "what a viewer thinking about building this could earn from it. "
+                   "Risks and failure modes belong in the episode, not on the "
+                   "thumbnail.",
+        "score": "Does the concept show THIS VIEWER A JOB THEY COULD TAKE? The "
+                 "channel sells one business you can build on your own, so the "
+                 "thumbnail frames the OPPORTUNITY, not the market's problem — "
+                 "the pain is the setup, not the payload. A concept whose "
+                 "subject is a risk, a failure, or a thing going wrong scores at "
+                 "most half however sharp it is: that is the comp lane's stance, "
+                 "not this channel's. Neutral market trivia scores 0.",
     },
     {
         "key": "reexpress",
@@ -284,7 +294,8 @@ def build_inventory(script: dict, model: str) -> dict:
 
 
 # ── Stage 2 ─────────────────────────────────────────────────────────────────
-def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
+def build_specs(inventory: dict, script: dict, n: int, model: str,
+                locked_title: str | None = None) -> dict:
     rubric = "\n".join(
         f"  {d['key']} ({d['weight']} pts) — {d['name']}: {d['score']}"
         for d in DIMENSIONS)
@@ -306,6 +317,12 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
         "answer. When present it INTERPRETS, never names: \"EVERY MONTH\" not "
         "\"REVENUE\". It may share a subject word with the title; it may not "
         "restate the title's claim in the title's own terms.\n"
+        "- THE FRAME SHOWS A JOB, NOT A PROBLEM. This channel sells one business "
+        "the viewer could build, so the subject is work someone is PAID to do — "
+        "the operator finishing it, the thing finally running, the handover. The "
+        "market's pain is WHY the job exists; it is not the picture. A concept "
+        "whose subject is something broken, abandoned or going wrong is the "
+        "wrong episode.\n"
         "- NEVER two figures, two panels, a before/after, a versus, or a row of "
         "several marks. Every such composition in the comp set is bottom quartile. "
         "One focal mass, and it must still be one at 120px wide.\n"
@@ -326,7 +343,19 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
         "{\"specs\":[{\"archetype\":\"\",\"overlay_big\":\"\",\"overlay_label\":\"\","
         "\"scene\":\"\",\"source_quote\":\"\",\"scores\":{\"<dimension key>\":"
         "{\"score\":0,\"why\":\"\"}},\"total\":0}]}")
-    user = (f"Title options: {json.dumps(script.get('title_options', []))}\n\n"
+    # A thumbnail is half of a PAIR, and it cannot split work with a title that
+    # has not been chosen. Handing the model three candidates asks it to
+    # complement all of them at once, which in practice means complementing none
+    # — EP001 shipped a thumbnail that restated its working title verbatim.
+    # A locked title is scored against; the option list is only a fallback.
+    title_block = (f"THE EPISODE TITLE IS FIXED: {json.dumps(locked_title)}\n"
+                   f"Score `reexpress` against THIS title and nothing else. The "
+                   f"thumbnail must carry what this title cannot.\n\n"
+                   if locked_title else
+                   f"Title options (NOT yet chosen — treat every one as live, and "
+                   f"prefer concepts that complement all of them): "
+                   f"{json.dumps(script.get('title_options', []))}\n\n")
+    user = (title_block +
             f"Inventory:\n{json.dumps(inventory, indent=2)}\n\n"
             f"Assemble exactly {n} concepts, each a different archetype. "
             f"One MUST be `flatlay` — it is the house layout and satisfies the "
@@ -362,6 +391,10 @@ def main() -> int:
     ap.add_argument("--n", type=int, default=4)
     ap.add_argument("--model", default=MODEL_DEFAULT)
     ap.add_argument("--stage", choices=["inventory", "specs", "all"], default="all")
+    ap.add_argument("--title", default=None,
+                    help="the CHOSEN episode title. Locks the pairing: reexpress "
+                         "is scored against this one title instead of against a "
+                         "list of candidates none of which has been picked.")
     a = ap.parse_args()
 
     script = json.loads(a.script.read_text())
@@ -380,7 +413,7 @@ def main() -> int:
     else:
         inv = json.loads(inv_p.read_text())
 
-    specs = build_specs(inv, script, a.n, a.model)
+    specs = build_specs(inv, script, a.n, a.model, a.title)
     spec_p.write_text(json.dumps(specs, indent=2))
 
     print(f"\nspecs → {spec_p.name}   (no images generated)\n")
