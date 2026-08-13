@@ -42,6 +42,13 @@ import os
 import re
 import sys
 from pathlib import Path
+# Both invocation styles have to work: originate.py runs these as scripts
+# (so the file's own dir is sys.path[0]) and also does
+# `from scripts.originate.generate_script import slugify`, where it does not.
+try:
+    from _model import complete, ModelError
+except ImportError:  # imported as part of the scripts.originate package
+    from ._model import complete, ModelError
 
 ROOT = Path(__file__).resolve().parents[2]
 REPO = ROOT.parent
@@ -100,26 +107,12 @@ def episode_digest(s: dict) -> str:
 
 
 def call_claude(digest: str, n: int, model: str) -> dict:
-    try:
-        import anthropic
-    except ImportError:
-        raise SystemExit("pip install anthropic")
-    key = os.environ.get("ANTHROPIC_API_KEY")
-    if not key:
-        for line in (REPO / ".env").read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
-                key = line.split("=", 1)[1].strip()
-    if not key:
-        raise SystemExit("no ANTHROPIC_API_KEY")
-
-    msg = anthropic.Anthropic(api_key=key).messages.create(
-        model=model, max_tokens=4000, system=SYSTEM,
-        messages=[{"role": "user", "content":
-                   f"Episode script:\n\n{digest}\n\n"
-                   f"Return exactly {n} concepts, each a DIFFERENT archetype from: "
-                   f"{', '.join(ARCHETYPES[:n])}. At least one must be `object` "
-                   f"(no person in frame) — a set of talking heads all looks the same."}])
-    text = "".join(b.text for b in msg.content if b.type == "text").strip()
+    text = complete(SYSTEM,
+                    f"Episode script:\n\n{digest}\n\n"
+                    f"Return exactly {n} concepts, each a DIFFERENT archetype from: "
+                    f"{', '.join(ARCHETYPES[:n])}. At least one must be `object` "
+                    f"(no person in frame) — a set of talking heads all looks the same.",
+                    model, max_tokens=4000)
     text = re.sub(r"^```(?:json)?|```$", "", text, flags=re.M).strip()
     return json.loads(text)
 

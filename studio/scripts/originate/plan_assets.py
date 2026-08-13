@@ -22,6 +22,13 @@ import re
 from pathlib import Path
 
 import anthropic
+# Both invocation styles have to work: originate.py runs these as scripts
+# (so the file's own dir is sys.path[0]) and also does
+# `from scripts.originate.generate_script import slugify`, where it does not.
+try:
+    from _model import complete, ModelError
+except ImportError:  # imported as part of the scripts.originate package
+    from ._model import complete, ModelError
 
 ROOT = Path(__file__).parent.parent.parent
 
@@ -104,20 +111,12 @@ def main():
         print(f"✓ {n} assets loaded from cache")
         return
 
-    client = anthropic.Anthropic()
     print("Planning assets...")
-    response = client.messages.create(
-        model=config["models"]["assets"],
-        max_tokens=16000,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content":
+    raw = complete(SYSTEM_PROMPT,
                    "Expand every beat into one asset spec. Return JSON: "
                    '{"sections":[{"id":str,"assets":[{"beat":int,"spec":{...}}]}]}\n\n'
-                   + json.dumps(beats_payload, indent=2)}],
-    )
-    raw = next((b.text for b in response.content if getattr(b, "type", "") == "text"), None)
-    if raw is None:
-        raise RuntimeError(f"No text block in response (stop_reason={response.stop_reason}, blocks={[getattr(b,'type','?') for b in response.content]})")
+                   + json.dumps(beats_payload, indent=2),
+                   config["models"]["assets"], max_tokens=16000)
     (script_path.parent / "assets.raw.txt").write_text(raw)
     text = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
     try:

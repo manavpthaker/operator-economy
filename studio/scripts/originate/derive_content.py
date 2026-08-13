@@ -27,6 +27,13 @@ from datetime import date
 from pathlib import Path
 
 import anthropic
+# Both invocation styles have to work: originate.py runs these as scripts
+# (so the file's own dir is sys.path[0]) and also does
+# `from scripts.originate.generate_script import slugify`, where it does not.
+try:
+    from _model import complete, ModelError
+except ImportError:  # imported as part of the scripts.originate package
+    from ._model import complete, ModelError
 
 ROOT = Path(__file__).parent.parent.parent
 REPO_ROOT = ROOT.parent
@@ -354,17 +361,9 @@ phrases from the section's vo_text (they anchor the audio cut — copy them verb
 4+ words each). Segments must come from >=2 different sections and stitch coherently
 without connective tissue."""
 
-    client = anthropic.Anthropic()
     print("Deriving content...")
-    response = client.messages.create(
-        model=config["models"]["derive"],
-        max_tokens=32000,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
-    raw = next((b.text for b in response.content if getattr(b, "type", "") == "text"), None)
-    if raw is None:
-        raise RuntimeError(f"No text block (stop_reason={response.stop_reason})")
+    raw = complete(SYSTEM_PROMPT, user_prompt,
+                   config["models"]["derive"], max_tokens=32000)
     (content_dir / "derive.raw.txt").write_text(raw)
     text = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
     try:

@@ -223,14 +223,17 @@ def tag_beats(script: dict, config: dict, cache_path: Path, use_llm: bool) -> di
         return cached
 
     # LLM path — one call for all missing beats
+    # Was: no ANTHROPIC_API_KEY in os.environ -> heuristic tags. That degraded
+    # on a signed-in machine, and it never looked in .env, so the good path was
+    # unreachable unless the key happened to be exported. Degrade only when
+    # BOTH routes are gone.
     try:
-        import anthropic
+        from _model import anthropic_key, cli_available
     except ImportError:
-        print("  anthropic SDK not installed; falling back to heuristic tags.", file=sys.stderr)
-        return tag_beats(script, config, cache_path, use_llm=False)
-
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("  ANTHROPIC_API_KEY not set; falling back to heuristic tags.", file=sys.stderr)
+        from ._model import anthropic_key, cli_available
+    if not anthropic_key() and not cli_available():
+        print("  no ANTHROPIC_API_KEY and no `claude` CLI; falling back to "
+              "heuristic tags.", file=sys.stderr)
         return tag_beats(script, config, cache_path, use_llm=False)
 
     beats_desc = []
@@ -248,14 +251,9 @@ def tag_beats(script: dict, config: dict, cache_path: Path, use_llm: bool) -> di
         beats=json.dumps(beats_desc, indent=2),
     )
     print(f"  Tagging {len(beats_desc)} beat(s) via {config['models'].get('script')}…", file=sys.stderr)
-    client = anthropic.Anthropic()
-    resp = client.messages.create(
-        model=config["models"].get("script", "claude-sonnet-4-20250514"),
-        max_tokens=4000,
-        system=TAG_SYSTEM,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
-    raw = next(b.text for b in resp.content if getattr(b, "type", "") == "text").strip()
+    raw = complete(TAG_SYSTEM, user_prompt,
+                   config["models"].get("script", "claude-sonnet-4-20250514"),
+                   max_tokens=4000).strip()
     raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
     try:
         data = json.loads(raw)

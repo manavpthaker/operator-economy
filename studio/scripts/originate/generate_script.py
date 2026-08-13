@@ -21,6 +21,13 @@ import sys
 from pathlib import Path
 
 import anthropic
+# Both invocation styles have to work: originate.py runs these as scripts
+# (so the file's own dir is sys.path[0]) and also does
+# `from scripts.originate.generate_script import slugify`, where it does not.
+try:
+    from _model import complete, ModelError
+except ImportError:  # imported as part of the scripts.originate package
+    from ._model import complete, ModelError
 
 ROOT = Path(__file__).parent.parent.parent
 
@@ -170,15 +177,9 @@ Research brief:
 
 {SCHEMA_HINT}"""
 
-    client = anthropic.Anthropic()
     print(f"Generating script for: {args.topic}")
-    response = client.messages.create(
-        model=config["models"]["script"],
-        max_tokens=8000,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_prompt}],
-    )
-    text = response.content[0].text.strip()
+    text = complete(SYSTEM_PROMPT, user_prompt,
+                    config["models"]["script"], max_tokens=8000).strip()
     # Strip accidental fences
     text = re.sub(r"^```(json)?|```$", "", text, flags=re.MULTILINE).strip()
     script = json.loads(text)
