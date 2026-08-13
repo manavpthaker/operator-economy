@@ -42,11 +42,24 @@ Pick the archetype deliberately. `practitioner` is a PRESENTER addressing the
 lens; `at-work` is somebody absorbed in a task who does not know the camera is
 there. They are not interchangeable and the wrong one fights the scene.
 
-**5. Test the overlay, do not assert it.** One ground, two or three overlays,
-rendered and read side by side at 120px. This is the cheap step and it is the one
-that settles arguments. EP001's two-tier `THEY PAY YOU TO / FINISH IT` beat both
-the single-line version and the rubric's own words, because the payload word gets
-the full type size.
+**5. Test the overlay, do not assert it.** One ground, many overlays, rendered
+and read side by side at 120px. This is the cheap step and it is the one that
+settles arguments. EP001 took eight over the same photograph across three rounds.
+
+Two things that round showed, both generalisable:
+
+- **The two-tier treatment beats one long line.** A single line spans the frame
+  and goes thin at browse width; an overline plus a short `big` gives the payload
+  the full type size. `ONE PERSON` is readable at 120px where
+  `EVERY BUSINESS NEEDS THIS` is not.
+- **Say what the title cannot.** EP001's title carries `$5.9 Billion` and `$100`
+  but never names the company, so the thumbnail naming Accenture ADDS the
+  recognisable subject rather than repeating anything. `ACCENTURE CHARGES
+  BILLIONS` was rejected for the opposite reason — it restates the title's
+  magnitude in the title's own terms, which scores 0 on `reexpress`.
+
+The discarded seven are kept in `research/thumbnails/ep001/`, because the
+comparison is the evidence.
 
 **6. Read it at 120px before you like it.** Everything looks fine at reading
 size. `check_thumbnail.py` is necessary and NOT sufficient — it measures the
