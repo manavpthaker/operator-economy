@@ -40,6 +40,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -229,30 +230,67 @@ ARCHETYPES = {
 MODEL_DEFAULT = "claude-sonnet-5"
 
 
-def anthropic_key() -> str:
+def anthropic_key() -> str | None:
+    """The API key, or None. None is not fatal — see ask()."""
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key and (REPO / ".env").exists():
         for line in (REPO / ".env").read_text().splitlines():
             if line.startswith("ANTHROPIC_API_KEY="):
                 key = line.split("=", 1)[1].strip()
-    if not key:
-        raise SystemExit("no ANTHROPIC_API_KEY")
-    return key
+    return key or None
+
+
+def ask_via_cli(system: str, user: str, model: str) -> str:
+    """Run the prompt through the `claude` CLI on the ACCOUNT's auth.
+
+    The repo's .env key went stale and took the whole pipeline with it, which is
+    a silly way to be blocked when the machine is already signed in to Claude
+    Code. The shell alias here is `env -u ANTHROPIC_API_KEY claude` for exactly
+    this reason, and that unset is load-bearing: a subprocess inherits our
+    environment, so a present-but-invalid key would be picked up by the CLI and
+    401 again. It is stripped explicitly rather than relying on the alias, which
+    a subprocess never sees.
+    """
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+    p = subprocess.run(
+        ["claude", "-p", user, "--append-system-prompt", system,
+         "--model", model, "--output-format", "text"],
+        capture_output=True, text=True, env=env, timeout=900)
+    if p.returncode != 0:
+        raise SystemExit(
+            f"claude CLI failed (rc={p.returncode}). Either sign in with "
+            f"`claude` or put a working key in .env.\n  {p.stderr.strip()[-400:]}")
+    return p.stdout.strip()
 
 
 def ask(system: str, user: str, model: str, max_tokens: int = 6000) -> dict:
-    try:
-        import anthropic
-    except ImportError:
-        raise SystemExit("pip install anthropic")
-    msg = anthropic.Anthropic(api_key=anthropic_key()).messages.create(
-        model=model, max_tokens=max_tokens, system=system,
-        messages=[{"role": "user", "content": user}])
-    text = "".join(b.text for b in msg.content if b.type == "text").strip()
+    key, msg = anthropic_key(), None
+    if key:
+        try:
+            import anthropic
+        except ImportError:
+            raise SystemExit("pip install anthropic")
+        try:
+            msg = anthropic.Anthropic(api_key=key).messages.create(
+                model=model, max_tokens=max_tokens, system=system,
+                messages=[{"role": "user", "content": user}])
+            text = "".join(b.text for b in msg.content if b.type == "text").strip()
+        except anthropic.AuthenticationError:
+            # A stale key in .env should not be more authoritative than a
+            # signed-in machine. Fall through rather than dying on it.
+            print("  ANTHROPIC_API_KEY rejected; falling back to the claude CLI")
+            key = None
+    if not key:
+        text = ask_via_cli(system, user, model)
+
     text = re.sub(r"^```(?:json)?|```$", "", text, flags=re.M).strip()
     try:
         return json.loads(text)
     except json.JSONDecodeError as e:
+        if msg is None:
+            raise SystemExit(
+                f"model did not return JSON ({e})\n  via: claude CLI\n"
+                f"  text[:600]: {text[:600]!r}")
         # max_tokens truncation is the common cause and produces valid-looking
         # JSON that just stops, so say which it was rather than dumping a blob.
         raise SystemExit(
