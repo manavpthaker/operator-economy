@@ -39,6 +39,8 @@ Unlike everyone else saying this, we prove it: real companies, real numbers, rea
 | `docs/kill-criteria.md` | 26-week decision gates (rate-based) |
 | `research/strategy/` | Original opportunity report + lanes memo (July 2026) |
 | `research/reports/` | 3 strategy + 3 craft + 3 automation deep-research reports |
+| `research/craft-rubric/` | YouTube craft research + the 100-point pre-publish rubric (July 2026) — the lineage `docs/content-rubric.md` descends from |
+| `research/thumbnails/` | Comp-set thumbnail measurement, visual findings, and the 27 candidate renders |
 | `research/synthesis.md` + `*-prompt.md` | Report syntheses and the reusable research prompts |
 | `studio/` | Production engine: `originate.py` (long-form, evals, confidence), `pipeline.py` (Shorts), Remotion renderer |
 | `studio/originate/<slug>/` | Per-episode working dir: research, script, confidence reports, derived content |
