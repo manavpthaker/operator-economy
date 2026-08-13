@@ -332,7 +332,11 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
 
       {p.logos?.slice(0, (p.scatter ?? SCATTER).length).map((l, i) => {
         const c = (p.scatter ?? SCATTER)[i];
-        const size = Math.round(172 * c.s);
+        // 172 made the chips outrank the headline at 120px: bright white squares
+        // on a mid-tone photograph read before navy type does. V5 is explicit
+        // that marks survive as subordinate texture and die as the subject, so
+        // the base drops to 132 and the type keeps the focal mass.
+        const size = Math.round(132 * c.s);
         return (
           <div
             key={l.file}
@@ -363,7 +367,12 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
         {p.overline ? (
           <span style={{
             fontFamily: FONTS.sans, fontWeight: 800, fontSize: 76,
-            letterSpacing: '0.02em', color: light ? COLORS.goldOnPaper : COLORS.paper,
+            // Was goldOnPaper on light grounds. That is a paper colour and it
+            // disappeared on a bright PHOTOGRAPH — 'STILL RUNNING', 'QUIETLY'
+            // and 'THE BUSINESS OF' were all gone by 120px. Navy is the same
+            // ink as `big`, so the two tiers read as one mass; the gold stays
+            // as the offset, which is where it has contrast to spend.
+            letterSpacing: '0.02em', color: light ? COLORS.navy : COLORS.paper,
             textShadow: `0 5px 0 ${light ? COLORS.navy : COLORS.goldFill}, 0 8px 0 rgba(0,0,0,0.45), 0 14px 30px rgba(0,0,0,0.4)`,
             ...outline(10),
           }}>{p.overline}</span>
