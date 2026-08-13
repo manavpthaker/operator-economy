@@ -31,6 +31,10 @@ export type ThumbnailData = {
   overline?: string;    // flatlay variant: the small tier above `big`
   groundTone?: 'light' | 'dark'; // flatlay variant: which way to key the type against the photograph
   logos?: {file: string; hex?: string; name?: string}[]; // photo variant: the episode's stack, as a SUPPORTING row. Never the subject — see LogoStrip.
+  // flatlay variant: where the marks land, as fractions of the frame, with
+  // scale and rotation. Tune per ground — the default fits an overhead surface
+  // and will drop marks onto the subject at eye level. See SCATTER.
+  scatter?: {x: number; y: number; s: number; r: number}[];
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -287,6 +291,12 @@ const SCATTER = [
   {x: 0.885, y: 0.720, s: 0.62, r: 19},
   {x: 0.300, y: 0.865, s: 0.70, r: -21},
 ];
+// These are the OVERHEAD ground's bare patches. Once the camera became a free
+// axis they stopped being a default that fits every frame: at eye level the
+// dead zones move — the subject is usually centre or one third, the surface
+// runs as a band rather than filling the frame — so a fixed set drops marks
+// onto faces. `scatter` in the props overrides per ground, which is what the
+// paragraph above means by "they are data, not layout logic".
 // Spread to the corners rather than clustered, scale range widened to 0.62-1.00,
 // rotation to +/-21. The first pass put three marks in one quadrant at similar
 // sizes, which reads as a row however much each one is rotated — and a row is
@@ -296,7 +306,6 @@ const SCATTER = [
 //
 // The two dead zones are the type at top-centre and the hands at bottom-centre.
 // Everything else is fair ground.
-const SCATTER_MAX = SCATTER.length;
 
 const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
   // Theme rule is ink + paper (or navy) + ONE accent per frame. Which of ink
@@ -321,8 +330,8 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
         <Img src={staticFile(p.bgImage)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
       ) : null}
 
-      {p.logos?.slice(0, SCATTER_MAX).map((l, i) => {
-        const c = SCATTER[i];
+      {p.logos?.slice(0, (p.scatter ?? SCATTER).length).map((l, i) => {
+        const c = (p.scatter ?? SCATTER)[i];
         const size = Math.round(172 * c.s);
         return (
           <div

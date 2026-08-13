@@ -359,9 +359,16 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug")
     ap.add_argument("--scene", help="scene description; overrides the scored spec")
-    ap.add_argument("--archetype", choices=sorted(ARCHETYPE_CONSTRAINTS),
+    # `flatlay` is a legal archetype but is NOT a key in ARCHETYPE_CONSTRAINTS —
+    # its constraints are built per-shot by flatlay_constraints(). Deriving the
+    # choices from that dict alone made the house layout the one archetype you
+    # could not ask for, reachable only by whatever thumbnail_specs.json happened
+    # to propose.
+    ap.add_argument("--archetype", choices=sorted([*ARCHETYPE_CONSTRAINTS, "flatlay"]),
                     help="which constraint block to use; inferred from the spec "
-                         "when --scene is not given")
+                         "when --scene is not given. `flatlay` means the busy, "
+                         "crowded-to-the-edges ground — pair it with --shot to "
+                         "get that treatment WITHOUT the overhead camera")
     ap.add_argument("--shot", choices=[n for n, _ in SHOTS],
                     help="which shot type to use. Assign these ACROSS the set "
                          "with assign_shots.py rather than per episode: nine "
@@ -389,8 +396,6 @@ def main() -> int:
         else:
             scene = scene_from_script(a.slug)
 
-    if archetype == "flatlay":
-        pass
     if not archetype:
         raise SystemExit(
             "cannot tell what kind of frame this is. Pass --archetype "

@@ -195,11 +195,27 @@ DIMENSIONS = [
 # comp-set pattern needs a real mark composited over a generated ground, which
 # is a pipeline that does not exist; recorded as a gap in A8 rather than left
 # as an archetype that quietly emits things nothing can render.
+# `flatlay` is a TREATMENT, not a camera. The name is historical and is kept
+# because nine episodes' props, assign_shots.py and prepare_longform.py all key
+# on `thumb-flatlay.json`; read it as "crowded working surface".
+#
+# It used to say "overhead flat-lay ... hands entering from the bottom edge",
+# which baked the camera into the scene text. That made --shot unusable: the
+# scene said overhead, the shot constraint said low-raking, and the two fought
+# inside one prompt. Every flatlay ground came back overhead however the shot
+# was set, which read as one photograph with the props swapped.
+#
+# The treatment is the density, the overlap, the informality and the human
+# presence. The camera is a separate axis, chosen ACROSS the set by
+# assign_shots.py and passed to generate_scene.py as --shot.
 ARCHETYPES = {
-    "flatlay":      "overhead flat-lay of the work itself, hands entering from "
-                    "the bottom edge, objects dense to all four frame edges and "
-                    "overlapping — the house layout, see "
-                    "docs/thumbnail-design-language.md",
+    "flatlay":      "the crowded working surface itself, objects dense to all "
+                    "four frame edges and overlapping, hands present in the "
+                    "frame mid-action — the house layout, see "
+                    "docs/thumbnail-design-language.md. Do NOT state the camera "
+                    "position, the angle, or where hands enter from: the shot is "
+                    "chosen separately and your scene must read correctly from "
+                    "any of them",
     "verdict":      "documentary photograph, editorial verdict in condensed caps "
                     "across the top third, no number anywhere",
     "product":      "a single mass-market manufactured product or machine at "
@@ -330,8 +346,8 @@ def build_specs(inventory: dict, script: dict, n: int, model: str) -> dict:
             f"near-identical files (amendment A5).\n\n"
             f"For the `flatlay` concept: THE SURFACE BELONGS TO THE CUSTOMER'S "
             f"BUSINESS, NOT THE OPERATOR'S OFFICE. This is the rule that matters "
-            f"and it keeps getting broken. Every episode returns 'an overhead "
-            f"flat-lay of a desk', because the operator works at a desk — and "
+            f"and it keeps getting broken. Every episode returns some view of a "
+            f"desk, because the operator works at a desk — and "
             f"nine desks is one photograph with the props swapped. The operator "
             f"is invisible in this channel anyway; what the viewer recognises is "
             f"the BUSINESS BEING SERVED. Name that business from the script's own "
