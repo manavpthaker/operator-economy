@@ -120,15 +120,25 @@ def main() -> int:
     ap.add_argument("slug")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--models", default="seedream4,imagen4-ultra")
+    ap.add_argument("--top", type=int, default=0, help="only the N highest-scoring specs")
     a = ap.parse_args()
 
     models = [m.strip() for m in a.models.split(",") if m.strip() in MODELS]
     if not models:
         raise SystemExit(f"no valid models; pick from {', '.join(MODELS)}")
 
-    prompts = json.loads(
-        (ROOT / "originate" / a.slug / "render_data" / "thumbnail_prompts.json").read_text())
-    concepts = prompts["concepts"]
+    # thumbnail_spec.py writes `specs` (scored); the older derive step wrote
+    # `concepts`. Prefer specs, and take them in score order.
+    rd = ROOT / "originate" / a.slug / "render_data"
+    src = rd / "thumbnail_specs.json"
+    if not src.exists():
+        src = rd / "thumbnail_prompts.json"
+    payload = json.loads(src.read_text())
+    concepts = payload.get("specs") or payload["concepts"]
+    concepts = sorted(concepts, key=lambda c: -c.get("total", 0))
+    if a.top:
+        concepts = concepts[:a.top]
+    print(f"  source: {src.name}, {len(concepts)} concept(s)")
     key = fal_key()
     rows = []
 

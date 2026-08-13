@@ -100,8 +100,25 @@ Four, keyed to the archetypes in `thumbnail_spec.py` so generation and rendering
 | `block` | the ground is busy or pale and contrast cannot be guaranteed | any | one tier in a navy panel |
 | `product` | one manufactured object is the whole argument | object at scale, real texture | one tier |
 
-`flatlay` is the default for this channel. It is the only one that satisfies S3, S4 and S6 by
-construction rather than by luck.
+**`flatlay` is NOT the default, and calling it one was a mistake worth recording.** It satisfies S3,
+S4 and S6 by construction, which made it look like the house layout — so all nine episodes were
+built on it, and the contact sheet was nine variations of looking down at a work surface.
+
+Two attempts to fix that inside the archetype both failed the same way. Six camera framings, then
+six genuinely different shot types — and each time the output converged, because the archetype's own
+constraints (surface crowded to every edge, hands in frame, bare patches for the marks) describe the
+frame far more strongly than the camera does. Tuning the camera was tuning the wrong variable.
+
+**S10. Spread the ARCHETYPE across the set, not the camera within one.** `verdict` gives a
+documentary photograph, `object` gives the thing at scale, `flatlay` gives the work from above:
+three different pictures, not three crops of one. Assigned by
+`studio/scripts/originate/assign_shots.py --dimension archetype`, which holds the whole set, because
+sameness is invisible from inside an episode and only appears in the grid. Each episode's choice is
+recorded in `render_data/thumbnail-primary.json`, and the cold open follows the primary.
+
+This is also the cross-episode check A8 left open when it retired `unrepeatable`: the subject must
+stay episode-specific while the format repeats, and nothing enforced the first half. Three flat-lays
+across nine episodes read as a recurring format. Nine read as one photograph.
 
 ## Layer 4 — the join
 

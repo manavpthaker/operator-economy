@@ -196,31 +196,47 @@ CONSTRAINTS_SCENE = (
 # camera, which hands enter and from where, and how tight the crop is. Chosen
 # deterministically from the slug so an episode keeps its framing across
 # re-runs, and overridable with --framing.
-FLATLAY_FRAMINGS = [
-    "Shot straight down from directly overhead. Two hands enter from the bottom "
-    "edge, one holding a phone upright with a blank dark screen, the other "
-    "reaching in mid-action.",
+# Six framings were added here first, and they were all variations on ONE shot:
+# overhead, hands from the bottom. Nine episodes came back as nine overhead
+# flat-lays, because that is what the archetype means. Moving the camera within
+# a flat-lay does not make a different photograph.
+#
+# These are actual shot types. A flat-lay is now one of six rather than the
+# house style, and which one an episode gets is decided by
+# `assign_shots.py` across the whole set, not per episode in isolation -- the
+# sameness was never visible from inside a single episode, only from the sheet.
+SHOTS = [
+    ("flatlay",
+     "Shot straight down from directly overhead, flat-lay. Two hands enter from "
+     "the bottom edge, one holding a phone upright, the other reaching in "
+     "mid-action."),
 
-    "Shot from a high three-quarter angle looking down and across the surface, "
-    "the far edge of the table and a slice of the room visible along the top of "
-    "the frame. One hand enters from the right edge mid-task.",
+    ("over-shoulder",
+     "Shot at eye level from just behind and over the shoulder of a person at "
+     "work, their shoulder and upper arm soft in the near foreground, what they "
+     "are working on sharp beyond it, the room falling away behind."),
 
-    "Shot straight down but rotated, so the surface and everything on it runs "
-    "diagonally across the frame. One forearm crosses in from the lower-left "
-    "corner; the other hand steadies an object near the right edge.",
+    ("low-raking",
+     "Shot low and raking across the working surface, lens almost level with it, "
+     "one object large and sharp in the immediate foreground and the rest of the "
+     "scene compressing away behind it into soft focus."),
 
-    "Shot low and close over the surface at a shallow angle, almost at the level "
-    "of the objects, the far background falling soft. Two hands work in the near "
-    "third of the frame.",
+    ("macro-detail",
+     "Shot very close on a single detail of the work — a hand on a tool, a mark "
+     "on a docket, a connector being seated — filling most of the frame, the "
+     "wider room reduced to soft shape and colour behind it."),
 
-    "Shot straight down and cropped tight into the middle of the work so no edge "
-    "of the table is visible anywhere. Hands enter from the left edge and the "
-    "bottom, overlapping the objects.",
+    ("wide-room",
+     "Shot wide from across the room at standing height, the whole working space "
+     "visible with the person small inside it and their work legible on the "
+     "surface, foreground objects cutting into the bottom of the frame."),
 
-    "Shot from overhead and slightly off-axis, the surface filling the frame at a "
-    "gentle tilt. One hand enters from the top-left holding a tool mid-use, a "
-    "phone lying face-up among the objects.",
+    ("frontal-counter",
+     "Shot straight on at working height from the customer's side of the "
+     "counter, as if standing at it, the surface running left to right across "
+     "the frame and the person behind it mid-task."),
 ]
+SHOT_INDEX = {name: i for i, (name, _) in enumerate(SHOTS)}
 
 CONSTRAINTS_FLATLAY_TAIL = (
     " The surface is crowded to every edge and objects are cut off by all four "
@@ -235,12 +251,19 @@ CONSTRAINTS_FLATLAY_TAIL = (
 )
 
 
-def flatlay_constraints(slug: str, framing: int | None) -> str:
-    # crc32 rather than a character sum: the sum clustered three of nine
-    # episodes onto the same framing, which is the problem this exists to fix.
-    i = framing if framing is not None else (
-        zlib.crc32(slug.encode()) % len(FLATLAY_FRAMINGS))
-    return " " + FLATLAY_FRAMINGS[i] + CONSTRAINTS_FLATLAY_TAIL
+def flatlay_constraints(slug: str, shot: str | int | None) -> str:
+    """Shot description + the invariants that hold whatever the camera does."""
+    if shot is None:
+        # Falling back to a hash is what produced nine overhead flat-lays. Say so
+        # rather than silently picking one.
+        i = zlib.crc32(slug.encode()) % len(SHOTS)
+        print(f"  note: no --shot given, defaulting to `{SHOTS[i][0]}`. Shot "
+              f"variety is a property of the SET, so prefer assign_shots.py.")
+    elif isinstance(shot, int):
+        i = shot % len(SHOTS)
+    else:
+        i = SHOT_INDEX[shot]
+    return " " + SHOTS[i][1] + CONSTRAINTS_FLATLAY_TAIL
 
 
 # Archetypes are defined in thumbnail_spec.py; this maps each to the block that
@@ -339,10 +362,11 @@ def main() -> int:
     ap.add_argument("--archetype", choices=sorted(ARCHETYPE_CONSTRAINTS),
                     help="which constraint block to use; inferred from the spec "
                          "when --scene is not given")
-    ap.add_argument("--framing", type=int,
-                    help=f"flatlay only: which of the {len(FLATLAY_FRAMINGS)} "
-                         f"camera framings to use. Defaults to one picked from "
-                         f"the slug, so an episode keeps its shot across re-runs.")
+    ap.add_argument("--shot", choices=[n for n, _ in SHOTS],
+                    help="which shot type to use. Assign these ACROSS the set "
+                         "with assign_shots.py rather than per episode: nine "
+                         "episodes each independently picking a sensible shot "
+                         "is how they all ended up overhead.")
     ap.add_argument("--tag",
                     help="name the output thumbs/<slug>-<tag>.png instead of "
                          "-a/-b/-c. Required when generating several variants "
@@ -374,7 +398,7 @@ def main() -> int:
             f"thumbnail_spec.py on {a.slug} first so the archetype comes with "
             "the scene. Guessing here produces a person in a barber chair.")
     if archetype == "flatlay":
-        constraints = flatlay_constraints(a.slug, a.framing)
+        constraints = flatlay_constraints(a.slug, a.shot)
     else:
         constraints = ARCHETYPE_CONSTRAINTS[archetype]
     prompt = PREAMBLE + scene.rstrip(".") + "." + constraints
