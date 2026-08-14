@@ -25,28 +25,10 @@ inauthentic-content-policy shield.
 
 ## Production queue
 
+*(empty — EP006 was promoted and then held the same day; see `intake-2026-08-14.md`)*
+
 | # | Episode thesis | Target query (volume/mo) | Low-end evidence | High-end evidence | Score | Status |
 |---|---|---|---|---|---|---|
-| 006 | Content management and ghostwriting — writing is the smallest part of the job | `linkedin ghostwriter` (**volume TBC**) | $1–5K/mo retainer, exec tier $6–15K+ ([Foundera](https://www.foundera.co/blog/linkedin-ghostwriting-pricing-guide-2026)) | Substack $1.1B / beehiiv $225M ([Sacra](https://sacra.com/c/substack/)) | 53/65 + owner override | **In production** |
-
-**EP006 is an owner override, recorded as one.** `scoring.md` reserves this
-explicitly — *"The rubric ranks candidates; it does not outrank the person
-running the channel"* — and requires it be written down so a later re-score does
-not mistake it for a scoring result. It is not a 65+ row: search demand is 35
-points and could not be scored, because the Ahrefs plan carries no API access.
-Full intake in `intake-2026-08-14.md`.
-
-The override is on stronger ground than EP005's was. D led the researched
-candidates on the 65 points that *could* be scored, and it leads on the one
-factor the intake process cannot manufacture: Manav is running one of these
-engagements this month, so the POV is present tense rather than recalled.
-
-**Not guest-dependent, deliberately.** The client is not named, does not appear,
-and no client results are cited. Per `parked.md`, a guest needs browse CTR near
-4% and three figures of views before appearing is worth their time — EP002 ran
-0.7% on 3 views. The episode uses Manav's own workflow and rates as POV, which
-needs nobody's permission and no waiting. A documented before-and-after is worth
-capturing later as a Short, once there is reach to justify asking.
 
 ## Intake rules
 
