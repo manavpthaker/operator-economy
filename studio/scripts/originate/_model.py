@@ -80,6 +80,28 @@ def complete_via_cli(system: str, user: str, model: str, timeout: int = 900) -> 
     return out
 
 
+def complete_json(system: str, user: str, model: str, max_tokens: int = 8000) -> dict:
+    """complete(), for callers that need JSON back.
+
+    The CLI path narrates. Asked for strict JSON it will still sometimes open
+    with a sentence about what it did — on EP006 it prefaced a clean object with
+    a note about file reads timing out, referencing a path that does not exist.
+    A caller that only strips code fences gets a JSONDecodeError and blames the
+    prompt. So the object is extracted rather than assumed to start at index 0.
+    """
+    import json as _json
+    import re as _re
+    text = complete(system, user, model, max_tokens=max_tokens)
+    text = _re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=_re.M).strip()
+    try:
+        return _json.loads(text)
+    except _json.JSONDecodeError:
+        m = _re.search(r"\{[\s\S]*\}", text)
+        if not m:
+            raise ModelError(f"no JSON object in model output; got: {text[:400]!r}")
+        return _json.loads(m.group(0))
+
+
 def complete(system: str, user: str, model: str, max_tokens: int = 8000,
              quiet: bool = False) -> str:
     """Return the model's text for one system+user turn, by whichever route works."""
