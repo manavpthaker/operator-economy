@@ -213,7 +213,18 @@ def main():
     if ev_section:
         txt = " ".join(b["vo_text"].lower() for b in ev_section["beats"])
         has_high = "billion" in txt or "enterprise" in txt
-        has_low = any(w in txt for w in ["solo", "freelancer", "one person", "small"])
+        # Stems, not whole words. This failed EP006 because the script said
+        # "Freelance remote hotel revenue managers" and the list held
+        # "freelancer" — a low-end figure of $129,482/yr sitting right there,
+        # invisible to the check over one letter.
+        #
+        # Known weakness left in place: "small" still matches anything, so a beat
+        # saying "small business" in passing passes the span check. Tightening it
+        # would re-run every shipped episode against a stricter gate, which is a
+        # separate decision from fixing a false negative.
+        has_low = bool(re.search(
+            r"\b(solo|freelanc\w*|one[- ]person|single operator|individual operator|small)\b",
+            txt))
         ev.check("thesis format: evidence spans low end AND high end",
                  has_high and has_low, f"high={has_high}, low={has_low}")
 
