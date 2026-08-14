@@ -236,13 +236,30 @@ def main():
     #
     # The file has to be the SAME one the thumbnail composites over, not a
     # lookalike, so it is read from the thumbnail props rather than guessed.
-    for cand in ("thumb-flatlay.json", "thumbnail-flatlay.json", "thumbnail-a8.json"):
-        tp = base / "render_data" / cand
+    # An episode can carry several thumbnail props — one per archetype tested,
+    # plus whichever one was actually chosen. The chosen one is marked
+    # `"_chosen": true` and wins, because otherwise this silently opens the
+    # video on a REJECTED candidate: EP001's thumbnail is a tower in a palm and
+    # this list would have opened it on a hotel-desk flat-lay. That is not a
+    # lookalike, which J1 already forbids — it is a different subject, and worse
+    # than having no cold open at all.
+    rd = base / "render_data"
+    chosen = [f for f in sorted(rd.glob("thumb-*.json"))
+              if load_json(f).get("_chosen") is True]
+    order = chosen + [rd / c for c in
+                      ("thumb-flatlay.json", "thumbnail-flatlay.json", "thumbnail-a8.json")]
+    for tp in order:
         if not tp.exists():
             continue
         bg = load_json(tp).get("bgImage")
         if bg and (ROOT / "remotion" / "public" / bg).exists():
             bookends["cold_open_image"] = bg
+            if tp in chosen:
+                print(f"  cold open ← {tp.name} (chosen thumbnail)")
+            else:
+                print(f"  note: no thumbnail marked _chosen; falling back to "
+                      f"{tp.name}. The video will open on a candidate that may "
+                      f"not be the one shipped.")
             break
     else:
         print("  note: no thumbnail ground found; brand sting opens on navy. "
