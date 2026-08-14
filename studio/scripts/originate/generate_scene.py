@@ -292,9 +292,32 @@ CONSTRAINTS_AT_WORK = (
     "and nobody posed smiling at a laptop like a stock photograph."
 )
 
+# Added 2026-08-13. Every block above ends "photographed, not rendered", which is
+# right for documentary frames and fatal for a deliberate SCALE METAPHOR — the
+# one composition where the picture is supposed to be impossible. `object` also
+# bans hands outright, so "a tower in a palm" cannot be asked for at all.
+#
+# This exists because the register's honest documentary frames kept reading as
+# too implicit at browse width: the surprise was a thing you had to notice.
+# A scale collision is legible in one glance, which is all 120px gives you.
+CONSTRAINTS_GRAPHIC = (
+    " A deliberate scale collision, photographed convincingly rather than drawn: "
+    "the large thing rendered small and solid and physically present, held in or "
+    "resting on the human hand, with true contact shadows where they meet and "
+    "consistent daylight across both. ONE hand and ONE object, nothing else in "
+    "frame. Sharp focus throughout, real material texture on both the skin and "
+    "the object. The background is a single plain uncluttered surface in one flat "
+    "tone — a plain wall or open sky — with nothing else in it, so the silhouette "
+    "reads at a glance and the upper third is clear for a text block. Every "
+    "surface is bare and unlabelled: no signage, no printed markings, no screens "
+    "showing anything. Clean true-to-life colour, no gradient background, no "
+    "studio sweep, no glow, no lens flare, not a cartoon and not an illustration."
+)
+
 ARCHETYPE_CONSTRAINTS = {
     "practitioner": CONSTRAINTS_PERSON,
     "at-work":      CONSTRAINTS_AT_WORK,
+    "graphic":      CONSTRAINTS_GRAPHIC,
     "object":       CONSTRAINTS_OBJECT,
     "product":      CONSTRAINTS_OBJECT,
     "verdict":      CONSTRAINTS_SCENE,
