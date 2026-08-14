@@ -74,7 +74,23 @@ results that generalise:
   spent the overlay on something the viewer could already see. The text says what
   the picture cannot.
 
-**7. Read it at 120px before you like it.** Everything looks fine at reading size.
+**7. Render at 4K, through the wrapper.**
+
+    render_thumbnail.py <props.json> <out.png>
+
+It renders at `--scale 3` (3840x2160, the size A7 verified) and runs
+`check_thumbnail.py` afterwards, because a thumbnail that has never been shrunk
+to browse width has not been reviewed.
+
+Do NOT fix the resolution by changing the Composition in `Root.tsx` to 3840x2160.
+The layout is full of pixel constants and the checker shrinks to 120px to
+simulate browse width; both only mean anything relative to a 1280-wide frame, so
+tripling the composition silently changes what the shrink test tests. `--scale`
+multiplies the output while rendering the same layout — verified at a mean
+difference of 1.2/255 against a native 1280 render, which is antialiasing on type
+edges, not movement.
+
+**8. Read it at 120px before you like it.** Everything looks fine at reading size.
 `check_thumbnail.py` is necessary and NOT sufficient — see Open problems.
 
 ## What the picture has to do
@@ -141,8 +157,6 @@ right" and "clear of the bottom right" were about thirty pixels apart.
   cluttered photograph maxes out. Built against EP005's near-empty frame, blind
   to the opposite failure. A real fix measures the type region against its local
   ground.
-- **Renders are 1280x720**, against the 3840x2160 verified in A7. One line in
-  `Root.tsx`, but it rescales all type, so do it BEFORE the next episode.
 - **Grounds are not reproducible.** `generate_scene.py` captures no seed and
   `remotion/public/thumbs/` is gitignored, so a deleted ground can only be
   replaced, never recreated.
