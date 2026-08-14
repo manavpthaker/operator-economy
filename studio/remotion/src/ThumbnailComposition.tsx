@@ -39,7 +39,12 @@ export type ThumbnailData = {
   // a square chip shrinks it to a sliver of padding, which defeats the reason
   // for using a wordmark at all: the glyph alone is an unrecognisable chevron,
   // the word is the recognisable thing.
-  scatter?: {x: number; y: number; s: number; r: number; ar?: number}[];
+  // `plate: false` drops the paper chip and sets the mark straight onto the
+  // photograph. The chip is right for a glyph that needs a ground to sit on;
+  // on a wordmark it reads as a sticker applied afterwards, which is the
+  // losing form — brand as vector chip rather than brand as object in the
+  // scene. Without it the mark needs its own separation, so it gets a shadow.
+  scatter?: {x: number; y: number; s: number; r: number; ar?: number; plate?: boolean}[];
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -351,11 +356,15 @@ const FlatlayVariant: React.FC<ThumbnailData> = (p) => {
               left: `${c.x * 100}%`, top: `${c.y * 100}%`,
               width: chipW, height: size,
               transform: `translate(-50%, -50%) rotate(${c.r}deg)`,
-              background: COLORS.paper,
-              borderRadius: size * 0.16,
-              padding: size * 0.17,
-              boxSizing: 'border-box',
-              boxShadow: '0 10px 26px rgba(0,0,0,0.45), 0 2px 0 rgba(0,0,0,0.3)',
+              ...(c.plate === false
+                ? {filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.55)) drop-shadow(0 1px 2px rgba(0,0,0,0.6))'}
+                : {
+                    background: COLORS.paper,
+                    borderRadius: size * 0.16,
+                    padding: size * 0.17,
+                    boxSizing: 'border-box' as const,
+                    boxShadow: '0 10px 26px rgba(0,0,0,0.45), 0 2px 0 rgba(0,0,0,0.3)',
+                  }),
             }}
           >
             <Img src={staticFile(l.file)} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
