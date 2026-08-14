@@ -31,15 +31,27 @@ class ModelError(RuntimeError):
     pass
 
 
-def anthropic_key() -> str | None:
-    """The API key from the environment or .env, or None. None is not fatal."""
-    key = os.environ.get("ANTHROPIC_API_KEY")
+def env_key(name: str) -> str | None:
+    """A credential from the environment, falling back to the repo .env.
+
+    Generalised from anthropic_key() on 2026-08-14, when EP006 could not generate
+    voiceover: generate_vo.py read ELEVENLABS_API_KEY from os.environ only, and
+    nothing exports it. The key was sitting in .env the whole time. That is the
+    same defect four Anthropic scripts had — worth one function rather than five
+    copies of the same lookup.
+    """
+    key = os.environ.get(name)
     if not key and (REPO / ".env").exists():
         for line in (REPO / ".env").read_text().splitlines():
-            if line.startswith("ANTHROPIC_API_KEY="):
+            if line.startswith(f"{name}="):
                 key = line.split("=", 1)[1].strip().strip('"').strip("'")
                 break
     return key or None
+
+
+def anthropic_key() -> str | None:
+    """The API key from the environment or .env, or None. None is not fatal."""
+    return env_key("ANTHROPIC_API_KEY")
 
 
 def cli_available() -> bool:

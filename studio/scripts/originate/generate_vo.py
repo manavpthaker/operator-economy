@@ -132,7 +132,11 @@ def perform_section(section: dict, vo_dir: Path, config: dict, text: str) -> str
     except ImportError:
         print("  (anthropic SDK missing — skipping performance pass)", file=sys.stderr)
         return text
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    try:
+        from _model import env_key as _ek
+    except ImportError:
+        from ._model import env_key as _ek
+    if not _ek("ANTHROPIC_API_KEY"):
         print("  (ANTHROPIC_API_KEY not set — skipping performance pass)", file=sys.stderr)
         return text
     density = "seasoned" if section["id"] in SEASONED else "light"
@@ -145,15 +149,24 @@ def perform_section(section: dict, vo_dir: Path, config: dict, text: str) -> str
         system += ("\n\nVOICE-PRINT (observed patterns from the narrator's real "
                    "recordings — these override the generic techniques above; "
                    "match THIS person):\n\n" + profile.read_text())
-    client = anthropic.Anthropic()
-    resp = client.messages.create(
-        model=config.get("models", {}).get("script", "claude-sonnet-4-20250514"),
-        max_tokens=3000,
-        system=system,
-        messages=[{"role": "user", "content":
-                   f"Section: {section['id']} · Density: {density}\n\n{text}"}],
-    )
-    performed = next(b.text for b in resp.content if getattr(b, "type", "") == "text").strip()
+    # Routed through _model so this falls back to the signed-in CLI. Previously
+    # it built an Anthropic client directly, which meant the performance pass
+    # needed a working API key or it raised; the guard above only checked that a
+    # key EXISTED, so a stale one got past the guard and blew up here.
+    try:
+        from _model import complete, ModelError
+    except ImportError:
+        from ._model import complete, ModelError
+    try:
+        performed = complete(
+            system,
+            f"Section: {section['id']} · Density: {density}\n\n{text}",
+            config.get("models", {}).get("script", "claude-sonnet-4-20250514"),
+            max_tokens=3000).strip()
+    except ModelError as e:
+        print(f"  (performance pass unavailable: {e} — using the script as written)",
+              file=sys.stderr)
+        return text
     cache.write_text(performed)
     print(f"  performed: {section['id']} ({density}, {len(text)}→{len(performed)} chars)")
     return performed
@@ -283,7 +296,11 @@ def main():
     parser.add_argument("--config", default=str(ROOT / "config" / "blueprint.json"))
     args = parser.parse_args()
 
-    api_key = os.environ.get("ELEVENLABS_API_KEY")
+    try:  # run as a script (originate.py subprocess) or as a package member
+        from _model import env_key
+    except ImportError:
+        from ._model import env_key
+    api_key = env_key("ELEVENLABS_API_KEY")
     if not api_key:
         print("Error: ELEVENLABS_API_KEY not set.", file=sys.stderr)
         sys.exit(1)

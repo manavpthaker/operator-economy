@@ -228,9 +228,9 @@ def tag_beats(script: dict, config: dict, cache_path: Path, use_llm: bool) -> di
     # unreachable unless the key happened to be exported. Degrade only when
     # BOTH routes are gone.
     try:
-        from _model import anthropic_key, cli_available
+        from _model import anthropic_key, cli_available, complete, ModelError
     except ImportError:
-        from ._model import anthropic_key, cli_available
+        from ._model import anthropic_key, cli_available, complete, ModelError
     if not anthropic_key() and not cli_available():
         print("  no ANTHROPIC_API_KEY and no `claude` CLI; falling back to "
               "heuristic tags.", file=sys.stderr)
