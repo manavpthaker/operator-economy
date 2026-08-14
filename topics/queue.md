@@ -25,10 +25,34 @@ inauthentic-content-policy shield.
 
 ## Production queue
 
-*(empty — EP006 was promoted and then held the same day; see `intake-2026-08-14.md`)*
-
 | # | Episode thesis | Target query (volume/mo) | Low-end evidence | High-end evidence | Score | Status |
 |---|---|---|---|---|---|---|
+| 006 | Independent hotels pay 18–30% to fill their own rooms — the operator who wins the bookings back | `direct booking hotel` (**volume TBC**) | Freelance hotel revenue mgmt $129K/yr ([ZipRecruiter](https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management)) — income, not price | Mews $300M Series D, **$2.5B** ([PR Newswire](https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html)) | 52/65 + owner override | **In production** |
+
+**EP006 is an owner override, recorded as one.** `scoring.md` reserves this
+explicitly — *"The rubric ranks candidates; it does not outrank the person
+running the channel"* — and requires it be written down so a later re-score does
+not read it as a scoring result. It is not a 65+ row and cannot be: search demand
+is 35 points and the Ahrefs plan carries no API access. Full intake, including the
+three candidates it beat, is in `intake-2026-08-14.md`.
+
+**Why this one over the higher-scoring row.** Ghostwriting scored 53 and was held
+the same day: its entire margin was first-party POV, and those figures are not to
+hand. This row's POV is 15/15 and already in hand — Manav ran four properties in
+the Yucatán and has been the person paying the commission rather than the person
+selling the fix. It is the only eligible candidate whose operator experience needs
+nothing from anybody else.
+
+**Not guest-dependent.** No hotelier appears and no client is named. Per
+`parked.md`, a guest needs browse CTR near 4% and three figures of views before
+appearing is worth their time; EP002 ran 0.7% on 3 views.
+
+**Known evidence gap, carried deliberately.** No provider in this market publishes
+a per-property retainer — every one checked quotes privately. There is no
+equivalent of EP002's "$300–1,000/mo per client" to cite, and the brief instructs
+naming that aloud rather than inventing a figure. The opacity is itself part of
+the thesis.
+
 
 ## Intake rules
 
