@@ -1,82 +1,148 @@
 # Packaging an episode: title and thumbnail as one unit
 
-Established on EP001, 2026-08-13, because nine episodes packaged in a batch came
-back as nine siblings. The sameness was structural, not a taste failure: one
-archetype run nine times produces one photograph with the props swapped.
+Established on EP001 over ten rounds, 2026-08-13. Nine episodes packaged in a
+batch came back as nine siblings; the sameness was structural, not a taste
+failure, because one archetype run nine times is one photograph with the props
+swapped.
 
 **One episode at a time, and the title first.** The thumbnail is half of a pair
 and cannot split work with a title nobody has chosen.
 
 ## The steps
 
-**1. Context.** Read the script, not the topic line. What does the episode
-actually claim, which numbers are load-bearing, and what is the POV that only
-this operator could have written? EP001: Accenture's $5.9B is audited and public,
-their other bookings are flat, the solo equivalent is a ~$2K project, and the
-$40K/month figure is debunked on camera.
+**1. Context.** Read the script, not the topic line. What does the episode claim,
+which numbers are load-bearing, and what is the POV only this operator could have
+written? EP001: Accenture's $5.9B is audited and public, their other bookings are
+flat, the solo equivalent is a ~$2K project, and the $40K/month figure is debunked
+on camera.
 
-**2. Lock the title.** Not a shortlist — one string. The split follows from a
-measurement: a title can carry a number credibly because text is legible at any
-size, and 0 of 20 register-lane winners carry a number on the image. So the
-numbers go in the title and the thumbnail is freed to carry the job.
+**2. Lock the title.** Not a shortlist — one string.
 
     thumbnail_spec.py <script.json> --stage specs --title "<the chosen title>"
 
-`--title` scores `reexpress` against that one title. Without it the model is
-handed three candidates and asked to complement all of them, which means
+`--title` scores `reexpress` against that one title. Without it the model gets
+three candidates and is asked to complement all of them, which means
 complementing none: EP001 shipped a thumbnail restating its working title
 verbatim, kicker and episode number included.
 
+The split follows from a measurement. A title carries a number credibly because
+text is legible at any size, and 0 of 20 register-lane winners carry one on the
+image. **So the numbers go in the title and the picture is freed to carry the
+idea.**
+
 **3. Read the scores, then disagree with them.** The rubric ranks concepts; it
 does not choose. On EP001 the top-scoring concept had the right SCENE and the
-wrong WORDS — hands installing an automation box behind a hotel front desk,
-captioned `PICK ONE INDUSTRY / NOT ALL OF THEM`, which is playbook advice rather
-than the episode's spine. Scene and overlay are scored together and can be taken
-apart.
+wrong WORDS. Scene and overlay are scored together and can be taken apart.
 
-**4. Generate the ground from the winning scene.**
+**4. Decide what KIND of picture this is.** This is the step that was missing for
+six rounds, and it is where most of the leverage sits.
 
-    generate_scene.py <slug> --archetype at-work --rank 0 --tag <tag> --n 2
+| archetype | what it is | when |
+|---|---|---|
+| `graphic` | a deliberate scale collision, photographed convincingly | **default for this channel** |
+| `at-work` | one person absorbed in a task, unaware of the camera | the work is physical and photogenic |
+| `flatlay` | crowded working surface, dense to all four edges | the customer's business is the subject |
+| `object` | the thing itself, no people, no hands | there is a real recognisable object |
+| `practitioner` | a PRESENTER addressing the lens | almost never — see below |
 
-Pick the archetype deliberately. `practitioner` is a PRESENTER addressing the
-lens; `at-work` is somebody absorbed in a task who does not know the camera is
-there. They are not interchangeable and the wrong one fights the scene.
+`practitioner` means "a person doing the work" in `thumbnail_spec.py` and "a
+presenter talking to camera" in `generate_scene.py`. Given a scene reading "the
+hands the only human presence in frame", the constraint won and the model
+rendered both briefs at once — a man gesturing at the lens beside a pair of hands
+under a desk. Two subjects, because two specs.
 
-**5. Test the overlay, do not assert it.** One ground, many overlays, rendered
-and read side by side at 120px. This is the cheap step and it is the one that
-settles arguments. EP001 took eight over the same photograph across three rounds.
+**5. Generate the ground, then check it for defects before you judge it.**
 
-Two things that round showed, both generalisable:
+    generate_scene.py <slug> --archetype graphic --scene "..." --tag <tag> --n 4
 
-- **The two-tier treatment beats one long line.** A single line spans the frame
-  and goes thin at browse width; an overline plus a short `big` gives the payload
-  the full type size. `ONE PERSON` is readable at 120px where
-  `EVERY BUSINESS NEEDS THIS` is not.
-- **Say what the title cannot.** EP001's title carries `$5.9 Billion` and `$100`
-  but never names the company, so the thumbnail naming Accenture ADDS the
-  recognisable subject rather than repeating anything. `ACCENTURE CHARGES
-  BILLIONS` was rejected for the opposite reason — it restates the title's
-  magnitude in the title's own terms, which scores 0 on `reexpress`.
+Always `--n 4`. Two things go wrong often enough to be checked every time:
 
-The discarded seven are kept in `research/thumbnails/ep001/`, because the
-comparison is the evidence.
+- **Hand count.** EP001 lost two rounds to three-handed anatomy — two hands on
+  the device and a third forearm above. Count them.
+- **People who were not asked for.** One of four "no person in frame" grounds came
+  back with a person in it.
 
-**6. Read it at 120px before you like it.** Everything looks fine at reading
-size. `check_thumbnail.py` is necessary and NOT sufficient — it measures the
-whole frame's luma range, which any cluttered photograph maxes out whether or not
-the type survives.
+**6. Test the overlay, do not assert it.** One ground, many overlays, rendered and
+read side by side at 120px. EP001 took more than twenty across ten rounds. Two
+results that generalise:
 
-## The rule that generates the words
+- **Two tiers beat one long line.** A single line spans the frame and goes thin at
+  browse width; an overline plus a short `big` gives the payload the full type
+  size. `ONE PERSON` is legible at 120px where `EVERY BUSINESS NEEDS THIS` is not,
+  and it is only one word shorter.
+- **Never restate the image.** The photograph showed one person, so `ONE PERSON`
+  spent the overlay on something the viewer could already see. The text says what
+  the picture cannot.
 
-The channel sells one business the viewer could build, so the frame shows **a job
-someone is paid to do**, never the market's problem that makes the job exist. The
-pain is the setup; it is not the picture.
+**7. Read it at 120px before you like it.** Everything looks fine at reading size.
+`check_thumbnail.py` is necessary and NOT sufficient — see Open problems.
 
-This had to be written into the rubric because the comp set fought it. The
-register lane we measured — How Money Works, MagnatesMedia, Modern MBA — are
-CRITIQUE channels, and their top quartile is flat editorial judgement:
-`CANCELLED`, `WE NEVER LEARN`, `THE MATH IS NOT MATHING`. Copying that form
-imports its pessimism. EP001's first pass scored `A QUARTER OF INCOME / ONE
-CLIENT GONE` highest, which is the comp lane's stance wearing our clothes.
+## What the picture has to do
 
-Take the withheld-verdict FORM without the stance. Amendment A9.
+**Familiar but unexpected, and both halves in the same glance.** `recognisable`
+(25) and `curiosity` (15) are scored independently and never tested for
+COLLISION, so a concept passes both while the image itself is entirely expected
+and all the surprise sits in the caption.
+
+The failure mode this produces is subtle and cost four rounds: **a surprise the
+viewer has to find.** An unattended hotel desk is genuinely unexpected, but the
+unexpectedness is an ABSENCE, and absence needs a second glance. So does a small
+object being installed. Browse width only ever gives one glance.
+
+A scale collision is legible immediately, which is why `graphic` is the default:
+a corporate tower standing in an open palm reads before you have decided to look
+at it. Every episode has an incumbent that fits in a palm.
+
+**The frame shows a job, not a problem.** This channel sells one business the
+viewer could build, so the subject is work someone is paid to do. The market's
+pain is why the job exists; it is not the picture. Amendment A9 — the rubric was
+derived from CRITIQUE channels and imported their stance with their form.
+
+**The words are a verdict, not a label.** `THE BUSINESS OF BORING` works because
+boring is a surprising verdict. `THE BUSINESS OF SETUP` failed because setup is
+just the noun for what the episode is about. If the payload word could appear in
+the episode's own description, it is a label.
+
+## Brands
+
+Two rules, both learned the expensive way, both from the Modern MBA sheet.
+
+**Brand as OBJECT IN THE SCENE, never as vector chip.** Their winning tiles are
+full of brands — a Crumbl box, Mrs Fields, McDonald's arches, four eras of Xbox —
+as physical product inside the frame. Our finding V5 ("logo collage is 5-for-5
+bottom quartile") got applied as *avoid brands*, which is the wrong lesson. The
+losing form is the floating rounded chip. Use `plate: false` and set the mark on
+the photograph.
+
+**The wordmark, not the glyph.** `fetch_logos.py` pulls Simple Icons, which ships
+Accenture's bare chevron. Rendered, that is a purple `>` — it reads as a play
+button and contributes nothing to the recognisability it was added for. Fetch the
+wordmark separately.
+
+Mechanics that follow: wordmarks are wide, so a scatter entry takes `ar`
+(width/height, default 1) or a square chip shrinks it to a sliver. Put the mark
+somewhere with a **light, low-detail ground** — on EP001 the palm gives black
+type separation for free, where over a blurred street it needed the chip that was
+the problem in the first place.
+
+## Safe zone
+
+Compute it, do not eyeball it. YouTube stamps duration in the bottom-right; keep
+marks and type out of `x > 0.85 AND y > 0.85`. On EP001 "close to the bottom
+right" and "clear of the bottom right" were about thirty pixels apart.
+
+    w = 132 * s * ar / 1280 ;  right_edge = x + w/2   # must stay under 0.85
+
+## Open problems
+
+- **`check_thumbnail.py` cannot see type drowning.** It passed all nine batch
+  thumbnails at `browse_range_on_white` 255/255 while most headlines were
+  illegible at 120px. It measures the whole frame's luma range, which any
+  cluttered photograph maxes out. Built against EP005's near-empty frame, blind
+  to the opposite failure. A real fix measures the type region against its local
+  ground.
+- **Renders are 1280x720**, against the 3840x2160 verified in A7. One line in
+  `Root.tsx`, but it rescales all type, so do it BEFORE the next episode.
+- **Grounds are not reproducible.** `generate_scene.py` captures no seed and
+  `remotion/public/thumbs/` is gitignored, so a deleted ground can only be
+  replaced, never recreated.
