@@ -245,7 +245,11 @@ def main():
                           + [e["at"] for e in events]) + [screen["end"]]
             gaps = [(b - a, a, b) for a, b in zip(cues, cues[1:])]
             worst_gap = max(gaps, key=lambda g: g[0])
-            if worst_gap[0] <= 9.0:
+            # 8.0, not 9.0. eval_edit.py warns above 8s and this pass exists to
+            # satisfy that gate, so filling to 9 guaranteed a warning on every
+            # long screen — five of them on EP006, every run, by construction.
+            # Two scripts in one pipeline disagreeing about the same number.
+            if worst_gap[0] <= 8.0:
                 break
             mid = round((worst_gap[1] + worst_gap[2]) / 2, 2)
             events.append({"at": mid, "kind": "refocus",
@@ -255,13 +259,13 @@ def main():
         g = max_gap(screen)
         worst = max(worst, g)
         dur = screen["end"] - screen["start"]
-        flag = "  ⚠" if g > 10 else ""
+        flag = "  ⚠" if g > 8.0 else ""
         print(f"  {screen['id']:<16} {screen['layout']:<12} {dur:5.1f}s "
               f"{len(screen['events']):>7} {g:7.1f}s{flag}")
 
     sb_path.write_text(json.dumps(sb, indent=2))
     print(f"✓ events written · worst dead stretch: {worst:.1f}s "
-          f"(target ≤10s; renderer ambient drift covers the residue)")
+          f"(target ≤8s — the threshold eval_edit.py scores against)")
 
 
 if __name__ == "__main__":

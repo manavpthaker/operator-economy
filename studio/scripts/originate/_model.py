@@ -135,6 +135,19 @@ def complete(system: str, user: str, model: str, max_tokens: int = 8000,
                     f"blocks={[getattr(b,'type','?') for b in msg.content]})")
             return text
         except anthropic.AuthenticationError:
+            # A stale key in .env should not outrank a signed-in machine.
             if not quiet:
                 print("  ANTHROPIC_API_KEY rejected; falling back to the claude CLI")
+        except ValueError as e:
+            # The SDK refuses a non-streaming request whose max_tokens implies a
+            # >10 minute operation, and raises BEFORE sending anything.
+            # derive_content.py asks for 32000 and hit exactly that. It is a
+            # client-side guard rather than a failed request, and the CLI has no
+            # equivalent limit — a reason to change route, not to stop. Anything
+            # else keeps propagating.
+            if "streaming is required" not in str(e).lower():
+                raise
+            if not quiet:
+                print(f"  SDK refused a non-streaming {max_tokens}-token request; "
+                      f"falling back to the claude CLI")
     return complete_via_cli(system, user, model)
