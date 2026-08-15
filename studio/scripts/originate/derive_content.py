@@ -31,9 +31,9 @@ import anthropic
 # (so the file's own dir is sys.path[0]) and also does
 # `from scripts.originate.generate_script import slugify`, where it does not.
 try:
-    from _model import complete, ModelError
+    from _model import complete, complete_json, ModelError
 except ImportError:  # imported as part of the scripts.originate package
-    from ._model import complete, ModelError
+    from ._model import complete, complete_json, ModelError
 
 ROOT = Path(__file__).parent.parent.parent
 REPO_ROOT = ROOT.parent
@@ -362,16 +362,19 @@ phrases from the section's vo_text (they anchor the audio cut — copy them verb
 without connective tissue."""
 
     print("Deriving content...")
-    raw = complete(SYSTEM_PROMPT, user_prompt,
-                   config["models"]["derive"], max_tokens=32000)
-    (content_dir / "derive.raw.txt").write_text(raw)
-    text = re.sub(r"^```(json)?|```$", "", raw.strip(), flags=re.MULTILINE).strip()
+    # complete_json, not complete + json.loads. The CLI fallback narrates: it has
+    # opened a reply to this exact prompt with "One thing first: a notion-fetch
+    # tool result and a Figma server notice just appeared" before a clean object.
+    # Parsing from index 0 turns that into a JSONDecodeError blamed on the model.
+    # The old handler also referenced `response`, which no longer exists on this
+    # path — the error path itself raised NameError.
     try:
-        out = json.loads(text, strict=False)
-    except json.JSONDecodeError as e:
-        print(f"  JSON parse failed at char {e.pos}: {text[max(0,e.pos-80):e.pos+80]!r}")
-        print(f"  stop_reason={response.stop_reason}, raw length={len(raw)}")
+        out = complete_json(SYSTEM_PROMPT, user_prompt,
+                            config["models"]["derive"], max_tokens=32000)
+    except ModelError as e:
+        print(f"  derive failed: {e}")
         raise
+    (content_dir / "derive.raw.txt").write_text(json.dumps(out, indent=2))
 
     (content_dir / "blueprint.md").write_text(out["blueprint_md"])
     (content_dir / "newsletter.md").write_text(out["newsletter_md"])

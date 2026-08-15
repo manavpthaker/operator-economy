@@ -1,23 +1,26 @@
-# Hotels pay 18–30% commission to book their own rooms
+# Hotels Pay 30% to Book Their Own Rooms
 
-Independent hotels hand about two-thirds of their bookings to Booking.com and Expedia — and pay 18 to 30% in commission once loyalty programs get factored in. That's higher than the 15–25% most operators think they're paying. Run the arithmetic on a 20-room hotel at $180 average rate and 70% occupancy, and the illustrative loss lands around $135,000 a year. One property, one year.
+Independent hotels hand away roughly two-thirds of their bookings to Booking.com and Expedia. Once you add in the loyalty programs — Genius, Visibility Booster, Accelerator — the real commission on those bookings runs 18-30%, not the 15-25% most owners think they're paying. That's from Cloudbeds' 2026 State of Independent Hotels report, built on nearly 90 million bookings.
 
-Cloudbeds pulled this from 90 million bookings for their 2026 State of Independent Hotels report. The same dataset found something worse than the commission itself: OTA bookings cancel at 21.8%, almost double the 10.6% rate for direct bookings. The commission doesn't just cost money — it buys a less reliable reservation.
+Run the arithmetic on a real property — 20 rooms, $180 average rate, 70% occupancy — and that math costs roughly $135,000 a year. That figure is an illustrative model built from stated assumptions, not a universal number, but the shape of it holds across the segment: a ten-to-forty-room hotel is big enough that commission is real money, and small enough that nobody on staff owns revenue management.
 
-Nobody on staff is usually watching that number, and it's rarely negligence. A ten-to-forty-room hotel leans on OTAs because it doesn't have the manpower to build direct booking, not because direct booking doesn't work. And direct booking isn't a website you launch once. It's marketing — putting yourself in front of guests continuously, on every channel they might use to find you. That's the job nobody on a small property has time for.
+That's not negligence. A small property leans on OTAs because it doesn't have the manpower to build a direct channel, and usually nobody on staff has ever done it before. "Build a website and they will come" doesn't apply here — direct booking is marketing, continuous outreach, not a one-time build.
 
-The infrastructure to do that job just got seriously funded. Mews raised $300M at a $2.5B valuation in January 2026 — the largest round in hospitality software history — and now moves $19.7B a year across 42 million bookings. Cloudbeds has raised $250M including SoftBank and serves 27,000 properties. Both are building toward the same thing: the plumbing that lets one person run revenue management for a dozen properties at once, instead of a channel-manager contract and a consultant on retainer.
+**Where the money's moving**
 
-## The takeaway
+The infrastructure to fix this just got heavily funded. Mews raised $300 million at a $2.5 billion valuation in January 2026 — the largest funding round in hospitality software history — and now moves $19.7 billion a year across 42 million bookings and 15,000 customers. Cloudbeds has raised $250 million, including SoftBank, and serves 27,000 properties. Both are earmarking new capital for AI agents that automate hotel operations.
 
-The fix isn't a better booking engine. Rate parity, a faster site, a tool that catches the guest already looking — none of that generates demand on its own. What actually works is a small set of agents running continuously: one maintaining the property's profile everywhere a guest might search, one running outreach to past guests and lookalikes, one managing reviews and engagement. None of them just answers the phone. The booking engine and the website are the destination the demand lands on — not the thing generating it.
+But that money solves the software layer, not the demand layer. Someone still has to install the plumbing in a 20-room property that has never had a revenue manager — and on the services side of this, almost nobody prices in public. Outsourced revenue-management shops like TCRM, Revenuenaire, and HotelMinder claim 5-15% RevPAR uplift, but every one of them quotes privately.
 
-And the market itself has a hole in it worth naming: none of the outsourced revenue-management providers commonly used for this work — TCRM, Revenuenaire, Catala, HotelMinder — publish a price. Every one quotes privately, deal by deal. In a market where nobody prices in public, a published number isn't just pricing. It's the pitch.
+## The Takeaway
 
-Software for a stack like this runs a few hundred dollars a month per property — cheap against six-figure commission exposure on a single mid-size hotel. The real cost most operators underprice is the labor: someone still has to direct the agents, check their output, and prove the commission number actually moved before the client renews.
+The opportunity isn't building another booking engine — Mews, Cloudbeds, and SiteMinder already solved that. It's building the demand layer on top of it: a small task force of agents that keeps a hotel's Google Business Profile current, runs a re-book flow to past guests, and prompts reviews after checkout. None of them answers the phone. All of them push traffic toward a booking that doesn't carry a commission.
 
-Running this for 10–12 client properties tracks toward the freelance revenue-management range of roughly $95,000–$140,000/year as a full-time equivalent — salaried pay data reframed as a workload estimate, not a client rate. What it actually diversifies is skills and optionality: revenue-management literacy, a resellable channel-manager-and-agent stack, and a client roster that doesn't disappear if one OTA relationship breaks.
+Priced right, the software underneath — Make or n8n for orchestration, Claude or any model with an API for drafting, Beehiiv or Resend for the re-book flow — runs a few hundred dollars a month per property. The real cost is labor: someone has to direct the agents, correct the tone, and decide what the outreach says. That's the line operators underprice, and it's also the line worth charging for, in a market where the four most-named vendors in this space still don't publish a rate.
 
-The full audit template, the pricing structure, and the outreach approach — the same checklist used to build this episode — are in the blueprint below.
+Run this for 3-4 properties and it's realistic supplemental income. Run it for 10-12 and the workload tracks toward the freelance revenue-management range reported by ZipRecruiter — roughly $95,000-$140,000 a year. That's salaried pay data reframed as a workload estimate, not a promise of what any single hotel pays.
 
-[Watch the episode](VIDEO_URL) · [Download the blueprint](BLUEPRINT_URL)
+**Full episode:** [video link]
+**The audit template, pricing structure, and outreach script:** [blueprint link]
+
+More breakdowns like this at grapevines.ai/intel.

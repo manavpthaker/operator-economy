@@ -1,13 +1,13 @@
 # Trailer post (OE page, Sunday evening — pre-launch)
 
-Independent hotels lose about two-thirds of their bookings to Booking.com and Expedia, and pay commission well above what most owners think they're paying once loyalty programs get added in.
+Independent hotels are losing an estimated two-thirds of their bookings to Booking.com and Expedia, and paying 18-30% commission on the ones they lose.
 
-Monday we're breaking down what it actually takes to build the stack that pulls those bookings back — the audit, the pricing, and why almost nobody in this market publishes a price for the work.
+Nobody on staff is watching that number. Not because they don't care — because a ten-to-forty-room hotel doesn't have the manpower to build a direct channel and rarely has anyone on the team who's done it before.
 
-This is the second episode in a series on commission-heavy markets: one person, one industry, built out step by step. Hotels this week.
+Monday, I'm breaking down direct booking recovery: the audit, the agent stack, and what it actually costs to run — priced against the commission it replaces, in a market where almost nobody publishes a price.
 
-New episode drops Monday at 11 AM ET.
+Full episode + blueprint out Monday at 11 AM ET.
 
 **→ Comment (the only link):**
 
-More on the series (and the blueprints from past episodes) here: grapevines.ai/intel
+Full audit template, tool stack, and pricing structure: [blueprint link]

@@ -153,52 +153,52 @@
       "beats": [
         {
           "beat": 1,
-          "vo_text": "The old idea was a better booking engine \u2014 rate parity, a faster site, a tool that catches the guest already looking. The new idea is a standing task force. A booking engine doesn't generate demand on its own. Someone, or something, has to keep pushing traffic toward it, every single day, without a payroll line for a full-time marketing hire.",
+          "vo_text": "The product is a standing task force that generates demand, and the software it runs on is assembled rather than bought. A booking engine does not generate demand on its own \u2014 it catches the guest who is already looking. Something has to keep pushing traffic toward it, every day, without a payroll line for a full-time marketing hire.",
           "source": null,
           "highlight_words": [
-            "standing task force",
-            "doesn't generate demand",
+            "a standing task force",
+            "assembled rather than bought",
             "without a payroll line"
           ]
         },
         {
           "beat": 2,
-          "vo_text": "That task force is a set of agents, not one bot answering a screen. One agent tracks reviews and mentions across platforms. One builds and updates the property's profile \u2014 photos, descriptions, pricing signals \u2014 everywhere a guest might search. One runs outreach to past guests and lookalike audiences. None of them just answer the phone.",
-          "source": null,
+          "vo_text": "Underneath the task force are two boring pieces. Make or n8n is the orchestration layer \u2014 the thing that runs a sequence on a schedule without anyone opening a laptop. Claude, or any model with an API, is the drafting layer. Neither is hospitality software. That is the point: this stack is assembled, not bought.",
+          "source": "Public tool pricing",
           "highlight_words": [
-            "a set of agents, not one bot",
-            "outreach to past guests",
-            "just answer the phone"
+            "Make or n8n",
+            "the drafting layer",
+            "assembled, not bought"
           ]
         },
         {
           "beat": 3,
-          "vo_text": "The booking engine and the website are the destination, not the product being sold. The job is the flow \u2014 the path from a social post to the site to a booked room to check-in \u2014 staying open and continuous, so the demand the task force generates actually has somewhere to land instead of leaking back to an OTA.",
-          "source": null,
+          "vo_text": "Then the roles get split across the surfaces that actually decide whether a property gets found. One agent keeps the Google Business Profile current \u2014 hours, photos, rates, the things that go stale and quietly cost rankings. One runs the re-book flow to past guests through Beehiiv or Resend, which is the cheapest booking a hotel will ever get. One prompts reviews after checkout. None of them is a receptionist.",
+          "source": "Public tool pricing",
           "highlight_words": [
-            "the destination, not the product",
-            "staying open and continuous",
-            "somewhere to land"
+            "Google Business Profile",
+            "Beehiiv or Resend",
+            "None of them is a receptionist"
           ]
         },
         {
           "beat": 4,
-          "vo_text": "Licensing for a stack like this runs a few hundred dollars a month, by rough estimate \u2014 not the labor to run it well. That's the cost most operators underprice: someone still has to direct the agents, check their output, correct their tone, and decide what the outreach actually says.",
-          "source": "estimate",
+          "vo_text": "Mews or Cloudbeds sits at the end of that, and it gets one line here on purpose: it is the destination, not the product being sold. The demand the task force generates has to land somewhere that takes a booking without a commission attached. Note what the free tier covers \u2014 the Google profile costs nothing, and it is where most independents are leaking discovery.",
+          "source": null,
           "highlight_words": [
-            "a few hundred dollars a month",
-            "by rough estimate",
-            "underprice"
+            "the destination, not the product",
+            "without a commission attached",
+            "costs nothing"
           ]
         },
         {
           "beat": 5,
-          "vo_text": "None of the four vendors most often named for this work \u2014 TCRM, Revenuenaire, Catala, HotelMinder \u2014 publish a price on their site. Each quotes privately, deal by deal, after a sales call. That opacity is itself a finding: there is no list price an operator can hold up against the commission line item it's meant to replace.",
-          "source": "vendor pricing checked directly \u2014 none publish rates",
+          "vo_text": "Licensed together the software runs a few hundred dollars a month, by rough estimate \u2014 and that is not the real cost. Someone still has to direct these agents, read their output, correct the tone, and decide what the outreach says. That is the line operators underprice, and none of the four vendors most often named for this work \u2014 TCRM, Revenuenaire, Catala, HotelMinder \u2014 publish a price to compare it against.",
+          "source": "Estimate: aggregate SMB tool licensing; vendor pricing checked directly \u2014 none publish rates",
           "highlight_words": [
-            "publish a price",
-            "quotes privately, deal by deal",
-            "no list price"
+            "a few hundred dollars a month",
+            "operators underprice",
+            "publish a price"
           ]
         }
       ]
@@ -378,7 +378,7 @@
     }
   ],
   "blueprint_summary": {
-    "idea": "Install and operate the direct-booking recovery stack for independent hotels \u2014 rate parity, booking engine, missed-call recovery, and past-guest re-book flows \u2014 priced against the OTA commission saved instead of hours worked.",
+    "idea": "Build and run a standing agent task force that generates direct demand for independent hotels \u2014 profile upkeep where guests search, outreach to past and lookalike guests, review and referral prompting \u2014 and price it against the OTA commission it displaces, not the hours it takes. The booking engine is the destination the demand lands on, not the product being sold.",
     "who_its_for": "Independent hotel owners with roughly 10-40 rooms who have no in-house revenue manager and are losing an estimated 18-30% of two-thirds of their bookings to OTA commission.",
     "evidence_companies": [
       "Mews",
@@ -387,38 +387,33 @@
     ],
     "tool_stack": [
       {
+        "tool": "Make or n8n",
+        "role": "Orchestration \u2014 runs each agent's sequence on a schedule",
+        "monthly_cost": "free tier to ~$50/mo (public pricing)"
+      },
+      {
+        "tool": "Claude (or any model with an API)",
+        "role": "Drafting layer \u2014 outreach copy, profile text, review replies",
+        "monthly_cost": "usage-based (public pricing)"
+      },
+      {
+        "tool": "Google Business Profile",
+        "role": "Where being findable actually happens \u2014 hours, photos, rates kept current",
+        "monthly_cost": "free"
+      },
+      {
+        "tool": "Beehiiv or Resend",
+        "role": "Re-book flow to past guests \u2014 the cheapest booking a hotel gets",
+        "monthly_cost": "free tier to ~$49/mo (public pricing)"
+      },
+      {
         "tool": "Mews or Cloudbeds",
-        "role": "PMS + booking engine \u2014 captures the direct reservation",
+        "role": "The destination, NOT the product \u2014 takes the direct booking with no commission",
         "monthly_cost": "$150-400/mo, property-dependent (estimate)"
-      },
-      {
-        "tool": "SiteMinder",
-        "role": "Channel manager + rate-parity monitoring across OTAs",
-        "monthly_cost": "$100-300/mo (estimate)"
-      },
-      {
-        "tool": "Little Hotelier",
-        "role": "Lighter PMS tier for properties under ~30 rooms",
-        "monthly_cost": "~$100/mo (estimate)"
-      },
-      {
-        "tool": "Twilio + voice agent",
-        "role": "Answers missed calls \u2014 the phone-side booking recovery, callback to episode two",
-        "monthly_cost": "$50-150/mo, usage-based (estimate)"
-      },
-      {
-        "tool": "Cal.com",
-        "role": "Direct booking widget for the hotel's own site",
-        "monthly_cost": "Free-$12/mo"
-      },
-      {
-        "tool": "Beehiiv",
-        "role": "Re-book email flow to past guests",
-        "monthly_cost": "$0-49/mo depending on list size"
       }
     ],
-    "first_customer_plan": "Audit an independent hotel's OTA booking mix, compute its annual commission exposure using the property's real numbers, and use that figure as the sales pitch. Fix rate parity first \u2014 it's the fastest visible win \u2014 then the booking engine, missed-call line, and re-book flow. First dollar typically lands three to six weeks after signing.",
-    "realistic_economics": "No public per-property price exists in this market, which is itself the opportunity. Running the stack for 10-12 client properties tracks toward the freelance revenue-management range of roughly $95,000-$140,000/year (ZipRecruiter) as a full-time equivalent \u2014 but that figure reflects salaried work, not a published client rate. Software costs run a few hundred dollars a month per property against commission exposure that can reach six figures annually for a single mid-size independent hotel."
+    "first_customer_plan": "Audit the demand funnel before selling anything: where a guest first finds the property, and where they fall away instead of booking direct. Compute the property's annual commission exposure from its real OTA mix \u2014 that figure is the sales call. Get the destination holding up first (brand, site, and the path from a social post through to check-in as one continuous conversation), then stand up the agents one role at a time. Publish your price, which none of the named vendors do.",
+    "realistic_economics": "No public per-property price exists in this market, which is itself the opportunity. Software runs a few hundred dollars a month by rough estimate; the real cost is the labour to direct the agents \u2014 reading output, correcting tone, deciding what the outreach says \u2014 which is the line operators underprice. Running this for 10-12 properties tracks toward the freelance revenue-management range of roughly $95,000-$140,000/year (ZipRecruiter), though that figure is salaried pay data rather than a client rate."
   },
   "slug": "direct-booking-recovery"
 }

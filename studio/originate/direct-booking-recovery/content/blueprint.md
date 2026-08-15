@@ -1,77 +1,81 @@
-# Direct Booking Recovery: Audit, Pricing, and Outreach Playbook
+# Direct Booking Recovery: The Blueprint
 
-*The build plan behind the episode "Hotels Pay 30% to Book Their Own Rooms." Everything here is actionable without watching the video.*
+## The Idea
 
-## The idea
+Build and run a standing agent task force that generates direct demand for independent hotels — profile upkeep where guests search, outreach to past and lookalike guests, review and referral prompting — and price it against the OTA commission it displaces, not the hours it takes. The booking engine (Mews, Cloudbeds, SiteMinder) is the destination the demand lands on. It is not the product being sold.
 
-Install and operate the direct-booking recovery stack for independent hotels — rate parity monitoring, a real booking engine, missed-call recovery, and a past-guest re-book flow — priced against the OTA commission it saves, not the hours it takes to run.
+**Who it's for:** Independent hotel owners with roughly 10-40 rooms who have no in-house revenue manager and are losing an estimated 18-30% commission on the roughly two-thirds of their bookings that go through OTAs.
 
-## Who it's for
-
-Independent hotels in the **10–40 room** range that have no one on staff dedicated to revenue management, and are losing an estimated **18–30% commission** on roughly **two-thirds of their bookings** to Booking.com and Expedia. Big enough that the commission is real money. Small enough that nobody owns the problem.
-
-## The evidence
+## The Evidence
 
 | Claim | Number | Source |
 |---|---|---|
-| Bookings lost to OTAs | 63.4% | Cloudbeds, 2026 State of Independent Hotels (~90M bookings) |
-| All-in commission, Booking.com w/ Genius + Visibility Booster | 18–30% | Cloudbeds |
-| All-in commission, Expedia w/ Accelerator | 17–23% | Cloudbeds |
-| OTA cancellation rate vs. direct | 21.8% vs. 10.6% | Cloudbeds |
-| Illustrative annual commission loss (20-room, $180 ADR, 70% occ.) | ~$135,000/yr | Estimate built on Cloudbeds rates — not vendor-reported |
-| Mews Series D, Jan 2026 | $300M raised at $2.5B valuation | PR Newswire; Hotel Dive |
-| Mews scale | $19.7B txn volume, 42M bookings, 15,000 customers, 85 countries | Mews press release |
-| Cloudbeds scale | $250M raised (incl. SoftBank), 27,000 properties | Company reporting |
-| Freelance hotel revenue manager, average salary | $129,482/yr | ZipRecruiter |
-| Independent consultant hourly rate | $400–700/hr | Generic cross-industry benchmark, not hotel-specific — estimate |
-| Vendor-claimed RevPAR uplift | 5–15% | Reported by vendors selling the service, not independently verified |
-| Public per-property pricing in this market | None found | Direct check of TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality |
+| Independents lose bookings to OTAs | 63.4% of reservations | Cloudbeds, 2026 State of Independent Hotels (~90M bookings) |
+| All-in OTA commission, loyalty programs included | 18-30% (vs. 15-25% headline rate) | Cloudbeds, 2026 report |
+| OTA cancellation rate vs. direct | 21.8% vs. 10.6% | Cloudbeds, 2026 report |
+| Illustrative commission loss — 20-room / $180 ADR / 70% occupancy | ~$135,000/year | Estimate — arithmetic model, not a reported figure |
+| Mews Series D | $300M at $2.5B valuation, Jan 2026 — largest funding round in hospitality software history | Mews press release / PR Newswire; Hotel Dive |
+| Mews scale | $19.7B annual transaction volume, 42M+ bookings, 15,000 customers, 85 countries | Mews press release |
+| Cloudbeds scale | $250M raised (incl. SoftBank), 27,000 properties | Cloudbeds company reporting |
+| Freelance hotel revenue management, salaried | avg $129,482/yr ($94,500-$140,000 range) | ZipRecruiter |
+| Outsourced revenue-management consultants | $400-700/hr — generic benchmark, not hotel-specific | Estimate |
+| Reported RevPAR uplift, outsourced revenue management | 5-15% (vendor-claimed, unverified) | TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality |
+| Public per-property pricing from any named vendor | None found | Direct vendor-site scan |
 
-The $135,000 figure is an illustrative model, not a universal number — rerun it on your property's actual room count, ADR, and occupancy before using it in a pitch.
+## The Tool Stack
 
-## The tool stack
-
-| Tool | Role | Monthly cost (estimate) |
+| Tool | Role | Monthly Cost |
 |---|---|---|
-| Mews or Cloudbeds | PMS + booking engine — captures the direct reservation | $150–400/mo, property-dependent |
-| SiteMinder | Channel manager + rate-parity monitoring across OTAs | $100–300/mo |
-| Little Hotelier | Lighter PMS tier for properties under ~30 rooms | ~$100/mo |
-| Twilio + voice agent | Answers missed calls — the phone-side booking recovery | $50–150/mo, usage-based |
-| Cal.com | Direct booking widget for the hotel's own site | Free–$12/mo |
-| Beehiiv | Re-book email flow to past guests | $0–49/mo, list-size dependent |
+| Make or n8n | Orchestration — runs each agent's sequence on a schedule | Free tier to ~$50/mo |
+| Claude (or any model with an API) | Drafting layer — outreach copy, profile text, review replies | Usage-based |
+| Google Business Profile | Where discovery actually happens — hours, photos, rates | Free |
+| Beehiiv or Resend | Re-book flow to past guests — the cheapest booking a hotel gets | Free tier to ~$49/mo |
+| Mews or Cloudbeds | The destination — takes the direct booking, no commission | $150-400/mo, property-dependent (estimate) |
 
-Total software licensing runs roughly a few hundred dollars a month per property. That's not the real cost — the real cost is the labor to direct the agents, check their output, and correct their tone. Budget for that separately.
+All prices are public list pricing as of the research date, except where marked estimate.
 
-## The week-by-week playbook
+**Total, licensed together:** roughly a few hundred dollars a month, by rough estimate. That number is not the real cost. The real cost is labor — someone has to direct the agents, read their output, correct the tone, and decide what the outreach actually says.
 
-**Week 1 — Audit, not purchase.** Map where a guest first finds the property (organic search, OTA listing, referral, review site) and the exact point they fall away instead of landing on a direct booking. Compute the property's actual annual commission exposure using its real room count, ADR, and occupancy — this number is the sales pitch, not a proposal deck.
+## The Playbook
 
-**Week 2 — Fix the destination first.** Before any outreach runs, the brand and website have to hold up, and the full path — social post → website → phone call or booking → check-in — has to read as one continuous conversation, not four disconnected systems. Fix rate parity here too; it's the fastest visible win and buys trust for everything after it.
+**Week 1 — Audit, not purchase.**
+Map where a guest first finds the property: organic search, an OTA listing, a friend's post, a review site. Find the point where they fall away instead of landing on a direct booking. Pull the property's real OTA mix and compute its actual annual commission exposure. That number is the business case — for the hotel, and for you.
 
-**Week 3 — Install the booking infrastructure.** PMS/booking engine (Mews or Cloudbeds), channel manager (SiteMinder), and the missed-call system (Twilio + voice agent) go live in that order. This is plumbing, not marketing — get it working before adding demand generation on top.
+**Week 2 — Fix the destination first.**
+Before any agent runs outreach, the thing it's driving traffic to has to hold up. Brand and website first. Then check that the full path — a social post to the website, the website to a phone call or booking, the booking through to check-in — reads as one continuous conversation instead of four disconnected systems.
 
-**Week 4 — Stand up the agent task force.** Split roles, don't build one bot that answers the phone: one agent maintains the property's profile (photos, descriptions, pricing signals) everywhere a guest might search; one runs outreach to past guests and lookalike audiences; one manages guest engagement — reviews, referrals, follow-up. None of them is a receptionist.
+**Week 3 — Stand up the agents, one role at a time.**
+- Profile agent: keeps Google Business Profile (and other platforms guests search) current — photos, descriptions, pricing signals.
+- Outreach agent: runs the re-book flow to past and lookalike guests through Beehiiv or Resend.
+- Engagement agent: prompts reviews and referrals after checkout.
 
-**Week 5 — Launch the re-book flow and publish your price.** Turn on the Beehiiv flow to past guests. Then do the thing none of the four named vendors (TCRM, Revenuenaire, Catala, HotelMinder) do: publish your pricing. In a market where nobody prices in public, a number on your site isn't just pricing — it's the pitch.
+None of them answers the phone. That's not what this stack is for.
 
-**Week 6+ — First dollar and proof.** First dollar typically lands 3–6 weeks after signing. The renewal conversation is the actual test: come back to the client with the commission-saved number, not a vague "it's working." If you can't show the number moved, the account won't renew regardless of how the software performed.
+**Week 4 — Price it, and publish it.**
+None of the four vendors most commonly named in this space — TCRM, Revenuenaire, Catala, HotelMinder — post a price. Every one quotes privately after a sales call. Publish yours. In a market where nobody prices in public, a number on your website is the pitch.
 
-The goal isn't to get a property off the OTAs — they still bring discovery no small hotel can buy on its own. It's to shift the mix, one repeat or referred booking at a time, toward the channel where no commission gets taken.
+**Ongoing — Shift the mix, don't cut the OTAs.**
+The goal isn't to leave Booking.com and Expedia — they still bring discovery no small property can buy on its own. It's to shift the mix, pulling repeat and referred guests back to the direct channel one booking at a time.
 
-## Honest economics
+## Honest Economics
 
-There is no public per-property price in this market — that absence is the opportunity, not a research gap. Running the audit and stack for **3–4 properties** as a side operation is realistic supplemental income. Running it for **10–12 client properties** tracks toward the freelance revenue-management range of roughly **$95,000–$140,000/year** as a full-time equivalent (ZipRecruiter) — but that figure is salaried pay data reframed as a workload estimate, not a client rate you can quote directly.
+No public per-property price exists for this service today — that absence is itself the opportunity, not a gap in the research.
 
-What this actually builds is optionality more than a single income stream: revenue-management literacy, a channel-manager-and-voice-agent stack that resells into other verticals, and a client roster that doesn't disappear if one OTA algorithm change wipes out a single relationship.
+Software runs a few hundred dollars a month per property, by rough estimate. The real cost is labor: directing the agents, correcting tone, deciding what outreach says. That's the line most operators underprice.
 
-Costs stay real. Software licenses run a few hundred dollars a month per property. The failure mode is a hotel that signs, sees one good month, and doesn't renew because nobody proved the number moved — plan the Week 6 review around proving exactly that.
+Running this as a side operation for 3-4 properties is realistic supplemental income. Running it for 10-12 properties tracks toward the freelance revenue-management range reported by ZipRecruiter — roughly $95,000-$140,000/year. That figure is salaried pay data reframed as a full-time-equivalent workload, not a client rate, and not a promise of what any single engagement pays.
+
+**The failure mode:** a hotel signs, sees one good month, and doesn't renew because nobody proved the number moved. Whether your pricing model survives that renewal conversation is the actual test — track and report the commission-avoided number monthly, not just the booking count.
 
 ## Sources
 
-- Cloudbeds, 2026 State of Independent Hotels report (~90M bookings analyzed): https://www.cloudbeds.com/online-travel-agencies/commissions/
-- Mews press release via PR Newswire: https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html
-- Hotel Dive, Mews Series D coverage: https://www.hoteldive.com/news/mews-series-d-300-million-funding/810338/
-- ZipRecruiter, freelance remote hotel revenue management salary data: https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management
-- Cloudbeds company reporting (funding, customer count) as compiled in the research brief
-- Vendor pricing scan: TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality — checked directly, none publish per-property rates
-- The $135,000 annual loss figure and the $95,000–$140,000 income range are illustrative estimates built on the sourced data above, not company- or vendor-reported numbers. Rebuild both with your own or your client's real numbers before using them in a pitch.
+1. Cloudbeds, 2026 State of Independent Hotels report (~90M bookings analyzed) — https://www.cloudbeds.com/online-travel-agencies/commissions/
+2. Mews Series D press release — PR Newswire — https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html
+3. Hotel Dive, Mews Series D coverage — https://www.hoteldive.com/news/mews-series-d-300-million-funding/810338/
+4. Cloudbeds company reporting (funding, customer count), as compiled in research
+5. ZipRecruiter, Freelance Remote Hotel Revenue Management — https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management
+6. Vendor pricing scan: TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality — no public per-property pricing found on any site
+
+---
+
+Full episode and more breakdowns like this: grapevines.ai/intel

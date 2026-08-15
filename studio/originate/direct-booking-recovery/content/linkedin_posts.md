@@ -4,64 +4,70 @@
 
 **Theme: The Broken Market**
 
-Independent hotels lose about two-thirds of their bookings to Booking.com and Expedia.
+Independent hotels don't lose money to OTAs by choice. They lose it because nobody on staff owns the number.
 
-Everyone quotes 15-25% commission on that. The real number is higher.
+Cloudbeds analyzed close to 90 million bookings for its 2026 State of Independent Hotels report. Independents lose 63.4% of reservations to Booking.com and Expedia. Once you add Genius, Visibility Booster, and Accelerator on top of the headline rate, the real commission runs 18-30%, not the 15-25% most hotels think they're paying.
 
-Once you add Booking.com's Genius program and Visibility Booster, or Expedia's Accelerator, all-in commission runs 18-30%. Not a footnote — the actual rate hotels pay to book their own rooms.
+Same dataset: OTA bookings cancel at 21.8%. Direct bookings cancel at 10.6%. The commission doesn't just cost money. It buys a less reliable booking.
 
-Cloudbeds pulled this from 90 million bookings for their 2026 State of Independent Hotels report. Same dataset: OTA bookings cancel at 21.8%, almost double the 10.6% rate for direct bookings. The commission doesn't just cost money. It buys a less reliable reservation.
+Run it on a real property: 20 rooms, $180 average rate, 70% occupancy. That's roughly $135,000 a year handed to a booking channel the hotel could run itself — an illustrative model, not a universal number, but the shape holds across the segment.
 
-Run the arithmetic on a real property — 20 rooms, $180 average rate, 70% occupancy — and the illustrative loss lands around $135,000 a year. One property. One year.
+Nobody built this on purpose. A ten-to-forty-room hotel doesn't have the manpower to build a direct channel and doesn't have anyone whose job it is to try.
 
-Nobody on staff is watching that number, and it's usually not negligence. Small hotels lean on OTAs because they don't have the manpower to build direct, not because direct booking doesn't work.
-
-That gap, between commission paid and commission necessary, is where this gets interesting.
+That gap is the opportunity.
 
 **→ Comment (the only link):**
 
-Full source breakdown and the illustrative math behind the $135K figure are in the blueprint: grapevines.ai/intel
+The full evidence table and sources are in the blueprint: [blueprint link]
 
 ---
 
 **Theme: Building with AI**
 
-The old idea for fixing hotel commission bleed was a better booking engine. Rate parity, a faster site, a tool that catches the guest already looking.
+The direct-booking problem for independent hotels isn't a booking-engine problem. Mews and Cloudbeds already built that. The problem is nobody's pushing traffic toward it.
 
-That's not the fix. A booking engine doesn't generate demand — it just receives it. Someone still has to keep pushing traffic toward it, every day, without a payroll line for a full-time marketing hire.
+The fix is a small stack of agents, not a new piece of software:
 
-What actually does the work is a small set of agents, not one bot answering the phone. One tracks reviews and mentions. One builds and maintains the property's profile — photos, pricing signals, descriptions — everywhere a guest might search. One runs outreach to past guests and lookalike audiences.
+One keeps the Google Business Profile current — hours, photos, rates. The listing that quietly costs rankings when it goes stale.
 
-None of them just answer the phone. That's the part people get wrong when "AI for hotels" gets reduced to a smarter voicemail.
+One runs a re-book flow to past guests through Beehiiv or Resend. The cheapest booking a hotel will ever get.
 
-The booking engine and the website are the destination, not the product. The actual product is the flow — from a social post to the site to a booked room to check-in — staying open long enough for the demand those agents generate to have somewhere to land.
+One prompts reviews after checkout.
+
+None of them is a receptionist. Make or n8n handles the scheduling. Claude, or any model with an API, drafts the copy. The booking engine sits at the end of that chain — it's the destination, not the product being sold.
+
+Licensed together, this runs a few hundred dollars a month, by rough estimate. That's not the real cost. The real cost is someone directing the agents — reading the output, fixing the tone, deciding what the outreach actually says.
+
+That's the job. Not answering the phone. Building the growth engine nobody had time to build.
 
 **→ Comment (the only link):**
 
-Wrote up the actual agent stack — what each one does, what it costs — in the blueprint: grapevines.ai/intel
+Full tool stack with costs, week by week: [blueprint link]
 
 ---
 
 **Theme: Founder/Personal**
 
-At Coqui Coqui, the first thing I fixed was the brand and the site. The harder part came after: making the whole flow hold together. Social to the website. The website to a call or a booking. The booking through to check-in. One continuous conversation instead of four disconnected handoffs.
+At Coqui Coqui, the first thing I did was get the brand and the site into good shape. That part is obvious.
 
-I could pull that off because I had fifty people on property and the time to actually think about it.
+The harder part was making the whole flow hold together — social to the website, the website to a call or a booking, the booking through to check-in. One continued conversation instead of four disconnected systems.
 
-A B&B owner running the place alone does not have that. Not the headcount, not the hours, not a marketing team to lean on. That gap — between what a resort with fifty employees can build and what a ten-room independent hotel can afford to hire — is the whole opportunity in this space.
+I could do that because I had fifty people on property and the time to think about it.
 
-Direct booking is not a website you launch once and forget. It's marketing: putting yourself out there, continuously, on every channel a guest might use to find you. That's the job nobody on a small property has time for.
+A bed-and-breakfast operator running the place alone cannot do that. Not because they don't understand marketing. Because there's no manpower and usually no one on staff who's built this kind of system before.
 
-It's also, increasingly, the job that's buildable for one person to run behind the scenes for a dozen properties at once.
+That gap between what a fifty-person team can hold together and what a solo operator can hold together — that's not a staffing problem you solve by hiring. It's a problem a small stack of agents can close, cheaply, if someone sets it up correctly.
+
+I spent the last few weeks mapping exactly what that stack looks like for independent hotels losing 18-30% of their bookings to commission. Full breakdown is out this week.
 
 **→ Comment (the only link):**
 
-The audit template I used to map this out is in the blueprint, if it's useful: grapevines.ai/intel
+The audit template and outreach script are in the blueprint: [blueprint link]
 
 ---
 
 ## Personal repost blurbs
 
-- Didn't realize the "commission" hotels quote is basically fiction once loyalty programs get added in.
+- The math on OTA commissions here is worse than I remembered — 18-30% all-in once you stack the loyalty programs on top.
 
-- The line that stuck with me: a booking engine doesn't generate demand, it just receives it. Different problem than most people think they're solving.
+- This one's about the gap between what a big team can hold together and what a solo operator can't — hits close to home.

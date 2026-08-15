@@ -23,9 +23,9 @@ Chapters:
 0:22 The thesis
 1:54 The evidence
 4:58 The stack
-7:22 The playbook
-10:04 The honest math
-11:32 Get the blueprint
+7:11 The playbook
+9:53 The honest math
+11:20 Get the blueprint
 
 *(Channel boilerplate — site link, subscribe link — is appended automatically
 by Studio upload defaults. Don't paste it again.)*
