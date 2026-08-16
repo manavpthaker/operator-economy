@@ -136,6 +136,10 @@ def main():
         # order-agnostic and will fall back to script.json's asset_hint
         # once plan_assets is rewritten to consume storyboard.json.
         run_step("storyboard.py", [script], "Plan Storyboard")
+        # pace_storyboard was never wired in. Without it every screen carries a
+        # single reveal, which is 20 kill-list hits on EP006 and the error text
+        # naming this script as the remedy.
+        run_step("pace_storyboard.py", [script], "Pacing Pass")
         run_step("eval_storyboard.py", [script], "Storyboard Pacing Evals")
         # Edit rubric §VII — pre-render check that the storyboard has the
         # scene grammar + cadence the finished video needs. Escalates if

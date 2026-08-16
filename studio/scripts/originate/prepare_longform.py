@@ -243,6 +243,19 @@ def main():
     # this list would have opened it on a hotel-desk flat-lay. That is not a
     # lookalike, which J1 already forbids — it is a different subject, and worse
     # than having no cold open at all.
+    # A storyboard older than the script is a correctness bug, not a warning.
+    # EP006 rendered 12 minutes of video carrying "The old idea was a better
+    # booking" on screen — wording removed from the script hours earlier — because
+    # storyboard.py runs in `continue` and nothing re-runs it in `render`. Silent
+    # staleness is worse than a stop.
+    sb_p = base / "storyboard.json"
+    if sb_p.exists() and sb_p.stat().st_mtime < script_path.stat().st_mtime:
+        raise SystemExit(
+            f"storyboard.json is older than script.json — the render would put "
+            f"retired wording on screen.\n"
+            f"  re-run:  storyboard.py {script_path}\n"
+            f"  then:    pace_storyboard.py {script_path}")
+
     rd = base / "render_data"
     chosen = [f for f in sorted(rd.glob("thumb-*.json"))
               if load_json(f).get("_chosen") is True]

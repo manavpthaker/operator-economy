@@ -408,7 +408,17 @@ def _has_gap_contrast(series: list[dict]) -> bool:
 # Screen packing — collapse consecutive `sheet` layouts
 # ---------------------------------------------------------------------
 
-def derive_reveal_title(beat: dict, hint: str, layout: str) -> str:
+def derive_reveal_title(beat: dict, hint: str, layout: str,
+                        broll_query: str | None = None) -> str:
+    # A broll screen's title IS its stock-footage search query — eval_edit reads
+    # it as one. The generic fallbacks below produce things like "At Coqui Coqui I
+    # ran this flow" and "The pitch isn't to leave the OTAs", which name no
+    # searchable subject. plan_assets already wrote a clean one ("hotel front
+    # desk", "hotel guest checkin"), so use it rather than re-deriving from prose.
+    # Hand-editing storyboard.json did not survive: this function regenerates the
+    # same broken titles on every run.
+    if layout == "broll" and broll_query:
+        return broll_query
     # First quoted phrase in the hint (author-authored working title).
     if hint:
         m = re.search(r"['‘’\"“”]([^'’\"”]{2,80})['’\"”]", hint)
@@ -437,6 +447,7 @@ def pack_screens(
     ranges: dict,
     tags_by_beat: dict,
     override_types: dict,
+    asset_specs: dict | None = None,
 ) -> list[dict]:
     screens: list[dict] = []
 
@@ -449,14 +460,14 @@ def pack_screens(
             beats = section["beats"]
             first_start = ranges[(sid, beats[0]["beat"])][0]
             last_end = ranges[(sid, beats[-1]["beat"])][1]
-            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "schematic") for b in beats]
+            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "schematic", asset_specs) for b in beats]
             screens.append(_make_screen(sid, "schematic", meta, first_start, last_end, reveals,
                                         source=_first_source(beats)))
             continue
         if sid == "cta":
             b = section["beats"][0]
             start, end = ranges[(sid, b["beat"])]
-            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "cta")]
+            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "cta", asset_specs)]
             screens.append(_make_screen(sid, "cta", meta, start, end, reveals,
                                         source=b.get("source")))
             continue
@@ -473,7 +484,7 @@ def pack_screens(
             beats = pending_sheet
             first_start = ranges[(sid, beats[0]["beat"])][0]
             last_end = ranges[(sid, beats[-1]["beat"])][1]
-            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "sheet") for b in beats]
+            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, "sheet", asset_specs) for b in beats]
             screens.append(_make_screen(sid, "sheet", meta, first_start, last_end, reveals,
                                         source=_first_source(beats)))
             pending_sheet = None
@@ -503,7 +514,7 @@ def pack_screens(
             flush_sheet()
 
             start, end = ranges[(sid, b["beat"])]
-            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, layout)]
+            reveals = [_make_reveal(sid, b, ranges, tags_by_beat, layout, asset_specs)]
             screens.append(_make_screen(sid, layout, meta, start, end, reveals,
                                         source=b.get("source")))
 
@@ -531,8 +542,13 @@ def pack_screens(
 # Screen / reveal builders
 # ---------------------------------------------------------------------
 
-def _make_reveal(sid: str, beat: dict, ranges: dict, tags_by_beat: dict, layout: str) -> dict:
+def _make_reveal(sid: str, beat: dict, ranges: dict, tags_by_beat: dict, layout: str,
+                 asset_specs: dict | None = None) -> dict:
     start, end = ranges[(sid, beat["beat"])]
+    broll_q = None
+    if layout == "broll":
+        spec = (asset_specs or {}).get((sid, beat["beat"]), {})
+        broll_q = spec.get("search_query")
     hint_body = ""
     hint = beat.get("asset_hint") or ""
     if ":" in hint:
@@ -541,7 +557,8 @@ def _make_reveal(sid: str, beat: dict, ranges: dict, tags_by_beat: dict, layout:
         "beat": beat["beat"],
         "at": start,
         "end": end,
-        "title": derive_reveal_title(beat, hint_body or hint, layout),
+        "title": derive_reveal_title(beat, hint_body or hint, layout,
+                                     broll_query=broll_q),
         "body": derive_reveal_body(beat),
         "tags": tags_by_beat.get((sid, beat["beat"]), ["claim"]),
         "word_anchor": {"start": start, "end": end},
@@ -671,7 +688,10 @@ def main():
     config = json.loads(Path(args.config).read_text())
 
     ranges = beat_time_ranges(script, words, timeline)
-    override_types, _specs = load_asset_overrides(base, script)
+    # _specs was discarded here. plan_assets writes a clean broll search_query
+    # per beat and storyboard.py loaded it and threw it away, which is why every
+    # broll title fell back to the first seven words of vo_text.
+    override_types, asset_specs = load_asset_overrides(base, script)
 
     tags_by_beat = tag_beats(
         script, config,
@@ -679,7 +699,7 @@ def main():
         use_llm=not args.no_tag_llm,
     )
 
-    screens = pack_screens(script, ranges, tags_by_beat, override_types)
+    screens = pack_screens(script, ranges, tags_by_beat, override_types, asset_specs)
 
     # Re-number screen IDs now that the ordinal is known.
     per_section_counter: dict = {}
