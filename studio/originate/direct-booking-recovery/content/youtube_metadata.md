@@ -20,12 +20,12 @@ Get the full blueprint (free): https://theoperatoreconomy.com/#capture
 
 Chapters:
 0:00 The setup
-0:22 The thesis
-1:54 The evidence
-4:58 The stack
-7:11 The playbook
-9:53 The honest math
-11:20 Get the blueprint
+0:27 The thesis
+1:59 The evidence
+5:30 The stack
+7:43 The playbook
+10:25 The honest math
+11:50 Get the blueprint
 
 *(Channel boilerplate — site link, subscribe link — is appended automatically
 by Studio upload defaults. Don't paste it again.)*

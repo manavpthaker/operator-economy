@@ -4,70 +4,78 @@
 
 **Theme: The Broken Market**
 
-Independent hotels don't lose money to OTAs by choice. They lose it because nobody on staff owns the number.
+Independent hotels lose about two-thirds of their bookings to Booking.com and Expedia.
 
-Cloudbeds analyzed close to 90 million bookings for its 2026 State of Independent Hotels report. Independents lose 63.4% of reservations to Booking.com and Expedia. Once you add Genius, Visibility Booster, and Accelerator on top of the headline rate, the real commission runs 18-30%, not the 15-25% most hotels think they're paying.
+Not to bad marketing. Not to a worse product. To commission — 18 to 30% once you count Booking.com's Genius program and Expedia's Accelerator, well above the 15-25% headline rate most hotel owners think they're paying.
 
-Same dataset: OTA bookings cancel at 21.8%. Direct bookings cancel at 10.6%. The commission doesn't just cost money. It buys a less reliable booking.
+Run the arithmetic on a 20-room hotel at a $180 average rate and 70% occupancy (an illustrative model, not a universal number) and that's roughly $135,000 a year. Gone before it ever touches the hotel's own website.
 
-Run it on a real property: 20 rooms, $180 average rate, 70% occupancy. That's roughly $135,000 a year handed to a booking channel the hotel could run itself — an illustrative model, not a universal number, but the shape holds across the segment.
+The data comes from Cloudbeds' 2026 State of Independent Hotels report — 90 million bookings analyzed. Same dataset: OTA bookings cancel at 21.8%, almost double the 10.6% rate for direct bookings. The commission doesn't just cost money. It buys a less reliable booking.
 
-Nobody built this on purpose. A ten-to-forty-room hotel doesn't have the manpower to build a direct channel and doesn't have anyone whose job it is to try.
+Meanwhile the infrastructure to fix this just got heavily funded — Mews raised $300M in January at a $2.5B valuation, the largest round hospitality software has ever seen.
+
+The software exists. Almost nobody on staff at a 20-room independent has the bandwidth to install it.
 
 That gap is the opportunity.
 
+#Hospitality #IndependentHotels
+
 **→ Comment (the only link):**
 
-The full evidence table and sources are in the blueprint: [blueprint link]
+Wrote up the full commission math and the fix here, if useful: [blueprint link]
 
 ---
 
 **Theme: Building with AI**
 
-The direct-booking problem for independent hotels isn't a booking-engine problem. Mews and Cloudbeds already built that. The problem is nobody's pushing traffic toward it.
+The fix for hotel OTA commission isn't a better website. It's three narrow agents running in the background.
 
-The fix is a small stack of agents, not a new piece of software:
+One keeps the property's profile current everywhere a guest might search — photos, descriptions, pricing signals. Starting with Google Business Profile, which is free and where most independents are quietly leaking discovery.
 
-One keeps the Google Business Profile current — hours, photos, rates. The listing that quietly costs rankings when it goes stale.
+One runs outreach to past and lookalike guests through Make or n8n and Claude, so it goes out on schedule whether or not anyone opens a laptop.
 
-One runs a re-book flow to past guests through Beehiiv or Resend. The cheapest booking a hotel will ever get.
+One prompts reviews and referrals after checkout.
 
-One prompts reviews after checkout.
+None of them answers the phone. None of them is a receptionist. The booking engine — Mews, Cloudbeds, whatever's already in place — is the destination this demand lands on. It was never the product being built.
 
-None of them is a receptionist. Make or n8n handles the scheduling. Claude, or any model with an API, drafts the copy. The booking engine sits at the end of that chain — it's the destination, not the product being sold.
+Licensed together, the stack runs a few hundred dollars a month by rough estimate. That's not the real cost. The real cost is the labor to direct these agents — reading the output, correcting the tone, deciding what the outreach actually says.
 
-Licensed together, this runs a few hundred dollars a month, by rough estimate. That's not the real cost. The real cost is someone directing the agents — reading the output, fixing the tone, deciding what the outreach actually says.
+That's the line most operators underprice when they think "AI agent" means "set it and forget it."
 
-That's the job. Not answering the phone. Building the growth engine nobody had time to build.
+It doesn't. It means someone still has to run the room.
+
+#AIagents #Hospitality
 
 **→ Comment (the only link):**
 
-Full tool stack with costs, week by week: [blueprint link]
+Broke down the full agent stack (and what it actually costs) here: [blueprint link]
 
 ---
 
-**Theme: Founder/Personal**
+**Theme: Career as Product**
 
-At Coqui Coqui, the first thing I did was get the brand and the site into good shape. That part is obvious.
+Nobody publishes a price for outsourced hotel revenue management.
 
-The harder part was making the whole flow hold together — social to the website, the website to a call or a booking, the booking through to check-in. One continued conversation instead of four disconnected systems.
+TCRM, Revenuenaire, Catala, HotelMinder — the names that come up most for this work — all quote privately, after a sales call. In a market where nobody prices in public, that's not a research gap. It's a finding. A number on a website isn't just pricing there. It's the pitch.
 
-I could do that because I had fifty people on property and the time to think about it.
+Here's the honest range, from ZipRecruiter's freelance hotel revenue management data: averages $129,482 a year, most between $94,500 and $140,000. That's salaried, full-time-equivalent pay — not a client rate, and not a promise of what any single hotel will pay you.
 
-A bed-and-breakfast operator running the place alone cannot do that. Not because they don't understand marketing. Because there's no manpower and usually no one on staff who's built this kind of system before.
+Run this for 3-4 independent hotels as a side operation and it's realistic supplemental income. Run it for 10-12 and the workload starts tracking toward that range.
 
-That gap between what a fifty-person team can hold together and what a solo operator can hold together — that's not a staffing problem you solve by hiring. It's a problem a small stack of agents can close, cheaply, if someone sets it up correctly.
+But the number isn't really the product. The product is what building it teaches you: revenue-management literacy, a resellable agent stack, a client roster that doesn't evaporate if one OTA algorithm change wipes out a single relationship.
 
-I spent the last few weeks mapping exactly what that stack looks like for independent hotels losing 18-30% of their bookings to commission. Full breakdown is out this week.
+That's optionality. It compounds differently than a salary line does.
+
+#CareerGrowth #RevenueManagement
 
 **→ Comment (the only link):**
 
-The audit template and outreach script are in the blueprint: [blueprint link]
+Full economics — the honest range, not the pitch — are in here: [blueprint link]
 
 ---
 
 ## Personal repost blurbs
 
-- The math on OTA commissions here is worse than I remembered — 18-30% all-in once you stack the loyalty programs on top.
+- The $135K number here is the kind of thing every independent hotel owner should actually go compute for their own property.
 
-- This one's about the gap between what a big team can hold together and what a solo operator can't — hits close to home.
+- Been thinking about this a lot — 'nobody in a market publishes a price' is such an underrated signal for where to build.
