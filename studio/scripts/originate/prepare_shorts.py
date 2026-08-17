@@ -153,12 +153,17 @@ def prepare_trailer(base, video, tag, pub, rd_dir, fps, offset, sec_start):
     fc.append(f"{''.join(labels)}concat=n={len(segs)}:v=0:a=1,"
               f"afade=t=out:st={max(total - 0.15, 0):.2f}:d=1.4,"
               f"apad=pad_dur={TRAILER_END_CARD_S}[a0]")
-    fc.append(f"[1:a]adelay={tag_at}|{tag_at},volume=-2dB[t]")
-    fc.append("[a0][t]amix=inputs=2:duration=first:normalize=0[a]")
-    run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-         "-i", str(video), "-i", str(tag),
+    if tag.exists():
+        fc.append(f"[1:a]adelay={tag_at}|{tag_at},volume=-2dB[t]")
+        fc.append("[a0][t]amix=inputs=2:duration=first:normalize=0[a]")
+        inputs = ["-i", str(video), "-i", str(tag)]
+        outlabel = "[a]"
+    else:
+        inputs = ["-i", str(video)]
+        outlabel = "[a0]"
+    run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error", *inputs,
          "-filter_complex", ";".join(fc),
-         "-map", "[a]", "-c:a", "aac", "-b:a", "192k", str(pub / "trailer.m4a")])
+         "-map", outlabel, "-c:a", "aac", "-b:a", "192k", str(pub / "trailer.m4a")])
 
     # Captions: segment-relative groups shifted onto the stitched timeline.
     groups, t_off = [], 0.0
@@ -242,14 +247,21 @@ def main():
 
         audio_rel = f"shorts/short-{n:02d}.m4a"
         tag_at = int((v1 - v0) * 1000)
-        run(["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-             "-ss", f"{v0:.3f}", "-t", f"{dur:.3f}", "-i", str(video),
-             "-i", str(tag),
-             "-filter_complex",
-             f"[0:a]afade=t=out:st={(v1 - v0) - 0.15:.2f}:d=1.4[a0];"
-             f"[1:a]adelay={tag_at}|{tag_at},volume=-2dB[t];"
-             "[a0][t]amix=inputs=2:duration=first:normalize=0[a]",
-             "-map", "[a]", "-c:a", "aac", "-b:a", "192k", str(pub / f"short-{n:02d}.m4a")])
+        base_fc = f"[0:a]afade=t=out:st={(v1 - v0) - 0.15:.2f}:d=1.4[a0]"
+        if tag.exists():
+            cmd = ["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                   "-ss", f"{v0:.3f}", "-t", f"{dur:.3f}", "-i", str(video),
+                   "-i", str(tag),
+                   "-filter_complex",
+                   base_fc + ";"
+                   f"[1:a]adelay={tag_at}|{tag_at},volume=-2dB[t];"
+                   "[a0][t]amix=inputs=2:duration=first:normalize=0[a]"]
+        else:
+            cmd = ["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
+                   "-ss", f"{v0:.3f}", "-t", f"{dur:.3f}", "-i", str(video),
+                   "-filter_complex", base_fc]
+        run(cmd + ["-map", "[a0]" if not tag.exists() else "[a]",
+                   "-c:a", "aac", "-b:a", "192k", str(pub / f"short-{n:02d}.m4a")])
 
         props = {
             "slug": f"{base.name}-short-{n:02d}",

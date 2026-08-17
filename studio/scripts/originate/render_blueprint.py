@@ -233,8 +233,15 @@ def render_sources(body: str) -> str:
     # Prefer a numbered list ("1. …\n2. …") because that's what derive_content
     # produces for EP002+. Fall back to the `·`-separated line format (EP001).
     numbered = re.findall(r"^\d+\.\s+(.+?)(?=^\d+\.|\Z)", body, re.M | re.S)
+    # derive_content actually emits "- " bullets (every episode from EP003 on),
+    # not the numbered list this function was written against. Without this
+    # branch the `·` fallback finds no separator, collapses all sources into a
+    # single blob and the cover reads "SOURCES: 01".
+    bulleted = re.findall(r"^[-*]\s+(.+?)(?=^[-*]\s|\Z)", body, re.M | re.S)
     if numbered:
         parts = [" ".join(p.split()).rstrip(".") for p in numbered if p.strip()]
+    elif bulleted:
+        parts = [" ".join(p.split()).rstrip(".") for p in bulleted if p.strip()]
     else:
         parts = [s.strip().rstrip(".")
                  for s in re.split(r"\s+·\s+", body.replace("\n", " "))

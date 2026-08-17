@@ -21,7 +21,7 @@ This is built for independent hotels in the 10-40 room range: big enough that th
 | Vendor-reported RevPAR uplift | 5-15% in 6-12 months | TCRM, Revenuenaire, Catala, HotelMinder — vendor claims, unverified |
 | Public per-property pricing among named vendors | None found | Direct vendor-site scan |
 
-## The stack (< $500/mo)
+## The tool stack
 
 | Tool | Role | Monthly cost |
 |---|---|---|
@@ -43,7 +43,7 @@ Licensed together, this runs a few hundred dollars a month by rough estimate. Th
 
 **Week 4 — Publish your price and pitch the shift.** None of the vendors most commonly named for this work — TCRM, Revenuenaire, Catala, HotelMinder — post a price. Publish yours. In a market where nobody prices in public, a number on a website isn't just pricing — it's the pitch. And the pitch isn't "leave the OTAs" — they still bring discovery a small property can't buy on its own. It's shifting the mix: let the task force pull repeat and referred guests back to the direct channel, one booking at a time.
 
-## The honest math
+## The honest economics
 
 No public per-property price exists in this market — that's the opportunity, not a gap in the research. Software costs a few hundred dollars a month by rough estimate; running it for 3-4 properties as a side operation is realistic supplemental income. At 10-12 clients, the workload tracks toward the freelance revenue-management range of roughly $95,000-$140,000/year — but that's salaried full-time-equivalent pay data (ZipRecruiter), not a promise of what any single hotel will pay you.
 

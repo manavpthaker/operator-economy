@@ -44,7 +44,7 @@ export type ThumbnailData = {
   // on a wordmark it reads as a sticker applied afterwards, which is the
   // losing form — brand as vector chip rather than brand as object in the
   // scene. Without it the mark needs its own separation, so it gets a shadow.
-  scatter?: {x: number; y: number; s: number; r: number; ar?: number; plate?: boolean}[];
+  scatter?: ScatterMark[];
 };
 
 // Rule 1 bans a kicker, a channel mark and an episode number on a thumbnail:
@@ -294,7 +294,16 @@ const PhotoVariant: React.FC<ThumbnailData> = (p) => {
  * bare patches. A different ground needs different numbers — they are data, not
  * layout logic, which is why they sit here rather than being computed.
  */
-const SCATTER = [
+// One composited mark. `ar` is the aspect ratio for wordmarks wider than they
+// are tall; `plate: false` drops the paper plate so the mark sits straight on
+// the surface. Both were already read below via `?? 1` and `=== false` but had
+// no home in the type, so no caller could pass them.
+type ScatterMark = {
+  x: number; y: number; s: number; r: number;
+  ar?: number; plate?: boolean;
+};
+
+const SCATTER: ScatterMark[] = [
   {x: 0.150, y: 0.580, s: 1.00, r: -14},
   {x: 0.830, y: 0.470, s: 0.78, r: 13},
   {x: 0.660, y: 0.520, s: 0.92, r: -7},
