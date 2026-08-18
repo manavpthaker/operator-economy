@@ -142,7 +142,7 @@ def build_manifest(script_path: Path) -> dict:
                 "role": screen.get("footage_role") or screen.get("preview_role", "human_context"),
                 "narration_anchor": source_beat.get("vo_text", "")[:160],
                 "preview_eligible": bool(screen.get("preview_eligible") or screen.get("start", 999) < 30),
-                "query_variants": (screen.get("custom") or {}).get("query_variants") or [query],
+                "query_variants": screen.get("query_variants") or (screen.get("custom") or {}).get("query_variants") or [query],
                 "approved": False, "provider": "", "asset_id": "", "page_url": "",
                 "creator": "", "license": "", "license_checked_at": "",
                 "downloaded_at": "", "local_path": "", "sha256": "",
@@ -235,8 +235,22 @@ def main() -> None:
             manifest = {
                 **planned,
                 "created_at": existing.get("created_at", planned["created_at"]),
-                "entries": [{**entry, **old_by_id.get(entry["id"], {})}
-                            for entry in planned["entries"]],
+                "entries": [
+                    {
+                        **entry,
+                        **old_by_id.get(entry["id"], {}),
+                        # Storyboard-owned planning fields must evolve even
+                        # after a candidate has been reviewed. Selection and
+                        # rights fields above survive; the production brief
+                        # below stays current.
+                        **{key: entry[key] for key in (
+                            "screen_id", "section", "beat", "role",
+                            "narration_anchor", "preview_eligible",
+                            "query_variants", "crop", "focal_point",
+                        ) if key in entry},
+                    }
+                    for entry in planned["entries"]
+                ],
             }
             manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
             added = len(set(entry_index(manifest)) - set(old_by_id))

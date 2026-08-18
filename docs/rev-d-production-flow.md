@@ -19,8 +19,9 @@ Each `studio/originate/<slug>/` directory carries:
 4. Approve visual intent before sourcing. Prioritize original screen capture and real operating artifacts; use licensed stock only for exact human actions and outcomes.
 5. Review footage candidates and write approved selections into the manifest. Unresolved B-roll remains a visible render blocker.
 6. Generate two instrumental score candidates inside the **Operator Economy** Google Flow Music project. Record the session URL; do not silently select a candidate.
-7. Regenerate the complete VO batch with the configured narrator. Never mix narrator IDs.
-8. Render the cold-open preview, then the complete episode. Run edit, footage, facts, graphics, and release gates.
+7. Select one candidate and run `arrange_episode_score.py`. The arrangement follows storyboard score states and preserves authored silence; it is not a wall-to-wall loop.
+8. Regenerate the complete VO batch with the configured narrator. Never mix narrator IDs.
+9. Render the cold-open preview, then the complete episode. Run edit, footage, facts, graphics, and release gates.
 
 ## Opening contract
 

@@ -244,6 +244,7 @@ def main():
                 "preview_eligible": bool(screen.get("preview_eligible")),
                 "visual_intent": screen.get("visual_intent"),
                 "search_query": screen.get("search_query"),
+                "query_variants": screen.get("query_variants", []),
                 "heading": screen.get("heading"),
                 "start": screen["start"],
                 "end": screen["end"],

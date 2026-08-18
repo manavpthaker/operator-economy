@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-APPROVED = {"candidate_selected", "approved", "arranged"}
+APPROVED = {"arranged"}
 
 
 def main() -> None:
@@ -54,7 +54,10 @@ def main() -> None:
         raise SystemExit(f"MUSIC GATE: BLOCKED\n- missing {brief_path.name}; run music_brief.py init")
     brief = json.loads(brief_path.read_text())
     if brief.get("status") not in APPROVED or not brief.get("selected_candidate"):
-        raise SystemExit("MUSIC GATE: BLOCKED\n- generate candidates in the Operator Economy Flow project, review them, then set selected_candidate and status=candidate_selected")
+        raise SystemExit("MUSIC GATE: BLOCKED\n- generate and select a Flow candidate, then run arrange_episode_score.py")
+    arrangement = episode / str(brief.get("arrangement", ""))
+    if not arrangement.is_file():
+        raise SystemExit("MUSIC GATE: BLOCKED\n- arranged score metadata is missing")
     print(f"Music gate passed: {brief['selected_candidate']}")
 
 
