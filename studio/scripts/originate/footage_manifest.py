@@ -143,6 +143,7 @@ def build_manifest(script_path: Path) -> dict:
                 "narration_anchor": source_beat.get("vo_text", "")[:160],
                 "preview_eligible": bool(screen.get("preview_eligible") or screen.get("start", 999) < 30),
                 "query_variants": screen.get("query_variants") or (screen.get("custom") or {}).get("query_variants") or [query],
+                "visual_exclusions": screen.get("visual_exclusions", []),
                 "approved": False, "provider": "", "asset_id": "", "page_url": "",
                 "creator": "", "license": "", "license_checked_at": "",
                 "downloaded_at": "", "local_path": "", "sha256": "",
@@ -247,6 +248,7 @@ def main() -> None:
                             "screen_id", "section", "beat", "role",
                             "narration_anchor", "preview_eligible",
                             "query_variants", "crop", "focal_point",
+                            "visual_exclusions",
                         ) if key in entry},
                     }
                     for entry in planned["entries"]

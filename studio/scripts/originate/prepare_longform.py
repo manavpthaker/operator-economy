@@ -245,6 +245,7 @@ def main():
                 "visual_intent": screen.get("visual_intent"),
                 "search_query": screen.get("search_query"),
                 "query_variants": screen.get("query_variants", []),
+                "visual_exclusions": screen.get("visual_exclusions", []),
                 "heading": screen.get("heading"),
                 "start": screen["start"],
                 "end": screen["end"],

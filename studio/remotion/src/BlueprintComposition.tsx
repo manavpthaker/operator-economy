@@ -71,6 +71,7 @@ type AssetSpec = {
   source?: string;
   search_query?: string;
   query_variants?: string[];
+  visual_exclusions?: string[];
   source_video?: string;
   source_in?: number;
   source_out?: number;
