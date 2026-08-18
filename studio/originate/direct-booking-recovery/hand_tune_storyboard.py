@@ -110,6 +110,12 @@ PLAN: list[dict] = [
        heading="The caveat", accent="My estimate"),
 
   # ---- THESIS
+  dict(id="thesis-00", layout="chapter_reset", section="thesis",
+       heading="Direct booking recovery",
+       beats=[("This is The Operator Economy", "Direct booking recovery",
+               "This week", [])],
+       custom={"chapter": {"kicker": "This is The Operator Economy · This week",
+                            "heading": "Direct booking recovery"}}),
   dict(id="thesis-01", layout="sheet", section="thesis", donor="thesis-01",
        heading="The thesis", beats=[
     ("Okay so this is direct booking recovery",

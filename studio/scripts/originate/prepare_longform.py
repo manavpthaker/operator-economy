@@ -323,8 +323,11 @@ def main():
     bookends = {
         "brand_seconds": bk_cfg.get("brand_seconds", 1.8),
         "title_seconds": bk_cfg.get("title_seconds", 3.2),
+        "thumbnail_lead_seconds": bk_cfg.get("thumbnail_lead_seconds", 0.0),
         "brand_at_seconds": bk_cfg.get("brand_at_seconds", 0.0),
+        "brand_after_section": bk_cfg.get("brand_after_section"),
         "overlay_on_content": bk_cfg.get("overlay_on_content", False),
+        "pause_content_during_identity": bk_cfg.get("pause_content_during_identity", False),
         "sting_audio": bk_cfg.get("sting_audio"),
         "outro_seconds": bk_cfg.get("outro_seconds", 6.0),
         # J/L-cuts (2026-07-03): VO runs under the title card and under
@@ -402,6 +405,54 @@ def main():
     else:
         print("  note: no thumbnail ground found; brand sting opens on navy. "
               "Run generate_scene.py to give this episode a cold open.")
+
+    # Rev D identity break. The cold open runs as editorial content first; the
+    # brand sting and episode title then occupy their own time before the next
+    # section starts. Shift every downstream render-time event instead of
+    # letting narration continue invisibly under the logo.
+    insert_s = 0.0
+    if bookends["overlay_on_content"] and bookends["pause_content_during_identity"]:
+        after_id = bookends.get("brand_after_section")
+        anchor = next((s for s in sections_out if s["id"] == after_id), None)
+        if anchor is None:
+            raise SystemExit(f"bookends.brand_after_section={after_id!r} does not exist")
+        insert_at = anchor["start"] + anchor["duration"]
+        insert_s = bookends["brand_seconds"] + bookends["title_seconds"]
+        bookends["brand_at_seconds"] = insert_at
+
+        def shift_time(value):
+            return value + insert_s if value is not None and value >= insert_at - 0.001 else value
+
+        for section in sections_out:
+            if section["start"] >= insert_at - 0.001 and section["id"] != after_id:
+                section["start"] += insert_s
+            for beat in section["beats"]:
+                beat["start"] = shift_time(beat["start"])
+                beat["end"] = shift_time(beat["end"])
+        if screens_out is not None:
+            for screen in screens_out:
+                if screen["start"] >= insert_at - 0.001:
+                    screen["start"] += insert_s
+                    screen["end"] += insert_s
+                    for reveal in screen.get("reveals", []):
+                        reveal["at"] = shift_time(reveal.get("at"))
+                        reveal["end"] = shift_time(reveal.get("end"))
+                        anchor_range = reveal.get("word_anchor")
+                        if anchor_range:
+                            anchor_range["start"] = shift_time(anchor_range.get("start"))
+                            anchor_range["end"] = shift_time(anchor_range.get("end"))
+                    for event in screen.get("events", []):
+                        event["at"] = shift_time(event.get("at"))
+                    for cue in screen.get("sfx", []):
+                        cue["at"] = shift_time(cue.get("at"))
+        render_words = [
+            {**word, "start": shift_time(word["start"]), "end": shift_time(word["end"])}
+            for word in words
+        ]
+        total += insert_s
+        print(f"  identity break ← after {after_id} at {insert_at:.3f}s (+{insert_s:.1f}s)")
+    else:
+        render_words = words
     # Rev D overlays identity on story motion after the cold open has begun.
     # Legacy episodes still prepend their bookends.
     intro_s = (0.0 if bookends["overlay_on_content"] else
@@ -418,7 +469,7 @@ def main():
         "resolution": r_cfg["resolution"],
         "sections": sections_out,
         "captions": {
-            "groups": group_words(words, r_cfg["words_per_group"], highlights),
+            "groups": group_words(render_words, r_cfg["words_per_group"], highlights),
             "style": r_cfg["caption_style"],
             "words_per_group": r_cfg["words_per_group"],
         },

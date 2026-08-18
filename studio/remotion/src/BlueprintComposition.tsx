@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 
 import {useEnsureFontsLoaded} from './oe/fonts';
 import {COLORS, EASE, KEN_BURNS} from './oe/theme';
@@ -250,6 +250,7 @@ export type Screen = {
 export type Bookends = {
   brand_seconds: number;
   title_seconds: number;
+  thumbnail_lead_seconds?: number;
   brand_at_seconds?: number;
   overlay_on_content?: boolean;
   sting_audio?: string;
@@ -1114,6 +1115,9 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
   // before the VO ends and overlays the tail.
   const brandFrames = bookends ? Math.round(bookends.brand_seconds * fps) : 0;
   const titleFrames = bookends ? Math.round(bookends.title_seconds * fps) : 0;
+  const thumbnailLeadFrames = bookends
+    ? Math.round((bookends.thumbnail_lead_seconds ?? 0) * fps)
+    : 0;
   const overlayBookends = Boolean(bookends?.overlay_on_content);
   const brandAtFrames = bookends ? Math.round((bookends.brand_at_seconds ?? 0) * fps) : 0;
   const introFrames = overlayBookends ? 0 : brandFrames + titleFrames;
@@ -1203,6 +1207,16 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       <Sequence from={contentFrom} durationInFrames={contentFrames}>
         {episode}
       </Sequence>
+      {bookends.cold_open_image && thumbnailLeadFrames > 0 && (
+        <Sequence from={0} durationInFrames={thumbnailLeadFrames}>
+          <AbsoluteFill style={{background: COLORS.ink}}>
+            <Img
+              src={staticFile(bookends.cold_open_image)}
+              style={{width: '100%', height: '100%', objectFit: 'cover'}}
+            />
+          </AbsoluteFill>
+        </Sequence>
+      )}
       {bookends.sting_audio && brandFrames > 0 && (
         <Sequence from={brandAtFrames} durationInFrames={brandFrames}>
           <Audio src={staticFile(bookends.sting_audio)} />
@@ -1213,7 +1227,6 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
           <BrandSting
             name={bookends.brand.name}
             tagline={bookends.brand.tagline}
-            image={bookends.cold_open_image}
           />
         </Sequence>
       )}

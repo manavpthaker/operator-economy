@@ -4,9 +4,8 @@ import {OEBarChart, BarDatum, BarFocusEvent} from '../primitives/OEBarChart';
 import {COLORS} from '../theme';
 
 /**
- * ChartScene — paper-world bar chart. Uses OEBarChart primitive with the
- * DS's one-gold-bar rule. Title + optional citation baked in. Reserved
- * space at the bottom for captions.
+ * ChartScene — screen-register evidence chart. The chart owns the frame;
+ * source metadata stays subordinate at the bottom edge.
  */
 export type ChartSceneProps = {
   title?: string;
@@ -42,7 +41,7 @@ export const ChartScene: React.FC<ChartSceneProps> = ({
       background: onInk ? COLORS.ink : COLORS.paper,
       justifyContent: 'center',
       alignItems: 'flex-start',
-      padding: '120px 160px 260px',
+      padding: '72px 120px 96px',
     }}
   >
     <OEBarChart
@@ -54,7 +53,7 @@ export const ChartScene: React.FC<ChartSceneProps> = ({
       estimate={estimate}
       onInk={onInk}
       startFrame={startFrame}
-      chartHeight={540}
+      chartHeight={640}
       focusEvents={focusEvents}
     />
   </AbsoluteFill>

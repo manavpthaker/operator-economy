@@ -63,18 +63,18 @@ export const ProofCard: React.FC<ProofCardProps> = ({
         background: onInk ? COLORS.ink : COLORS.paper,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '0 160px',
+        padding: '0 120px',
       }}
     >
       {label && (
         <div
           style={{
             fontFamily: FONTS.mono,
-            fontSize: TYPE.microLabel,
+            fontSize: TYPE.small,
             letterSpacing: `${TRACK.caps}em`,
             textTransform: 'uppercase',
             color: muted,
-            marginBottom: 32,
+            marginBottom: 24,
             opacity: labelT,
           }}
         >
@@ -86,7 +86,7 @@ export const ProofCard: React.FC<ProofCardProps> = ({
         prefix={prefix}
         suffix={suffix}
         startFrame={2}
-        fontSize={TYPE.displayLg}
+        fontSize={220}
         color={gold}
         compactCurrency={compactCurrency}
         align="center"
@@ -98,7 +98,7 @@ export const ProofCard: React.FC<ProofCardProps> = ({
             display: 'inline-flex',
             padding: '8px 16px',
             fontFamily: FONTS.mono,
-            fontSize: TYPE.small,
+            fontSize: TYPE.bodyLg,
             letterSpacing: `${TRACK.mono}em`,
             color: COLORS.negative,
             background: onInk ? 'rgba(155,62,46,0.08)' : 'rgba(155,62,46,0.06)',

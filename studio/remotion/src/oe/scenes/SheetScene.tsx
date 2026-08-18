@@ -193,10 +193,10 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
         background: onInk ? COLORS.ink : COLORS.paper,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        padding: '120px 200px 260px',
+        padding: '80px 140px 100px',
       }}
     >
-      <div style={{width: '100%', maxWidth: 1520, display: 'flex', flexDirection: 'column', gap: 40}}>
+      <div style={{width: '100%', maxWidth: 1640, display: 'flex', flexDirection: 'column', gap: 32}}>
         {overline && (
           <div style={{display: 'flex', alignItems: 'center', gap: 24, opacity: overlineT}}>
             <span
@@ -228,7 +228,7 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
             style={{
               fontFamily: TYPE.h2 >= 40 ? FONTS.display : FONTS.heading,
               fontWeight: 800,
-              fontSize: TYPE.h2,
+              fontSize: 84,
               lineHeight: 1.08,
               letterSpacing: `${TRACK.heading}em`,
               color: strong,
@@ -254,7 +254,7 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
             {subtitle}
           </p>
         )}
-        <div style={{display: 'flex', flexDirection: 'column', gap: 36, marginTop: 8}}>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 30, marginTop: 4}}>
           {lines.map((line, i) => {
             // Reveal when this line's VO beat begins (frame-derived, eased).
             const inT = interpolate(frame, [line.appearAtFrame, line.appearAtFrame + 14], [0, 1], {
@@ -313,7 +313,7 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
                     style={{
                       fontFamily: FONTS.heading,
                       fontWeight: 700,
-                      fontSize: TYPE.bodyLg,
+                      fontSize: 46,
                       lineHeight: 1.2,
                       letterSpacing: `${TRACK.heading}em`,
                       color: titleColor,
