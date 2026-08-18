@@ -596,16 +596,17 @@ SECTION_STATE = {
 }
 
 REV_D_SCREEN: dict[str, dict] = {
-    "hook-01": dict(layout="broll", role="human_context", camera="human",
+    "hook-01": dict(layout="broll", role="outcome", camera="human",
                     preview_eligible=True,
                     intent="Innkeeper places a physical room key in a guest's hand; tactile, daylight, no generic lobby glamour.",
                     query="independent hotel innkeeper handing room key to guest close up",
-                    queries=["independent hotel innkeeper handing room key to guest close up", "boutique hotel owner gives key to couple", "small hotel reception key handoff guest"]),
+                    queries=["independent hotel innkeeper handing room key to guest close up", "boutique hotel owner gives key to couple", "small hotel reception key handoff guest"],
+                    exclude=["face masks", "passport paperwork", "corporate chain lobby"]),
     "hook-02": dict(role="market_force", camera="system", preview_eligible=True,
                     intent="The human booking collapses into the OTA share and commission mechanism; branded surfaces are evidence, not decoration."),
     "hook-03": dict(role="proof", camera="system", preview_eligible=True,
                     intent="Make the annual commission loss physically legible before explaining the arithmetic."),
-    "hook-04": dict(role="proof", camera="human", preview_eligible=True,
+    "hook-04": dict(role="human_context", camera="human", preview_eligible=True,
                     state="reversal", score="silence",
                     intent="Hold the estimate caveat cleanly, then let silence make room for the thesis."),
     "thesis-02": dict(layout="broll", role="human_context", camera="human",

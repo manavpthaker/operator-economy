@@ -294,7 +294,7 @@ def main():
             for screen in screens_out:
                 if screen.get("start", 999) >= 30:
                     continue
-                if screen.get("preview_role") in {"market_force", "proof", "process", "outcome"}:
+                if screen.get("preview_role") in {"human_context", "market_force", "proof", "process", "outcome"}:
                     opening_roles.add(screen["preview_role"])
                 elif screen.get("layout") in {"chart", "proof_card", "artifact", "source_card"}:
                     opening_roles.add("proof")
