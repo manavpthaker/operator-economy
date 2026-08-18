@@ -15,16 +15,22 @@ Target runtime: 9–11 minutes. The opening through the first thesis beat should
 **0:00–0:01 — Thumbnail hold**  
 Exact approved `WIN THEM BACK` image. No added title or crop animation.
 
-**0:01–0:08 — The relationship leaves**  
-VO: “A guest can find an independent hotel, love the stay, and leave without the hotel ever earning the return trip.”  
+**0:01–0:08 — The relationship leaves**
+
+VO: “Guests can love an independent hotel and leave without the hotel earning the return trip.”
+
 Visual: warm key handoff. The key and guest drift down and right toward Booking.com and Expedia. The innkeeper remains in frame.
 
-**0:08–0:15 — Gravity becomes measurable**  
-VO: “Cloudbeds looked at roughly ninety million bookings and reports that independent properties receive 63.4 percent of reservations through online travel agencies.”  
+**0:08–0:15 — Gravity becomes measurable**
+
+VO: “Cloudbeds reports 63.4 percent of independent reservations arrive through OTAs.”
+
 Visual: 100 booking tokens; 63 pulled into OTA-blue gravity wells. Source remains visible.
 
-**0:15–0:22 — The cost lands**  
-VO: “On an illustrative twenty-room hotel, the commission can reach about $135,000 a year. That is my estimate, with the assumptions on screen. The larger loss is the relationship.”  
+**0:15–0:22 — The cost lands**
+
+VO: “At an illustrative twenty-room hotel, commission can reach $135,000 a year. My estimate. The larger loss is the relationship.”
+
 Visual: `20 rooms × $180 ADR × 70% occupancy × 63.4% OTA × 22% commission ≈ $135K`. Mark **ILLUSTRATIVE ESTIMATE** before the result resolves.
 
 ## 01. Universal Ident — 0:22–0:25
