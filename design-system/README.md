@@ -1,5 +1,7 @@
 # The Operator Economy — Design System (Rev C)
 
+> **Rev D working direction:** the human-first, outcome-led narrative system is being developed in [`REV-D-NARRATIVE-SYSTEM.md`](REV-D-NARRATIVE-SYSTEM.md). Open the [interactive visual system, silent cold-open, and B-roll preview prototype](guidelines/Rev%20D%20Human%20Outcome%20System.html), and use the [universal sting specification](OE-STING-SPEC.md) when generating the audio logo. Rev C remains the production token and component authority until that direction passes cross-episode validation.
+
 > **Build. Own. Operate.** — Documentary-grade evidence for the businesses experienced professionals could actually build now that AI collapsed the cost of building.
 
 This design system encodes the visual and verbal language of **The Operator Economy**, a YouTube channel + newsletter + blueprint library aimed at skeptical senior professionals (35–55). The north-star test for every decision: *would a 45-year-old VP of Product share this under their real name on LinkedIn?*
