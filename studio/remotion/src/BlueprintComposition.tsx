@@ -353,7 +353,7 @@ function deriveStackNode(beat: Beat, i: number, appearFrame: number): SchematicN
 // extended by this much so the outgoing scene is still mounted underneath
 // while the incoming scene (rendered later in the tree, therefore on top)
 // eases in — a true cross-transition, never a hard cut or an ink flash.
-const XFADE_FRAMES = 14;
+const XFADE_FRAMES = 20;
 
 // DS motion spec: fades/slides only, eased. The incoming scene fades AND
 // settles upward ~24px with an ease-out — the "document sliding onto the
@@ -374,7 +374,7 @@ const FadeIn: React.FC<{frames?: number; hard?: boolean; children: React.ReactNo
     easing: Easing.out(Easing.cubic),
   });
   return (
-    <AbsoluteFill style={{opacity: p, transform: `translateY(${(1 - p) * 24}px)`}}>
+    <AbsoluteFill style={{opacity: p, transform: `translateY(${(1 - p) * 10}px)`}}>
       {children}
     </AbsoluteFill>
   );
@@ -775,6 +775,15 @@ const ScreenLayer: React.FC<{
           sourceOut={first?.asset?.source_out}
           crop={first?.asset?.crop}
           focalPosition={first?.asset?.focal_position}
+          playbackRate={(() => {
+            const sourceDuration = first?.asset?.source_out === undefined
+              ? undefined
+              : Math.max(0.01, first.asset.source_out - (first.asset.source_in ?? 0));
+            const screenDuration = Math.max(0.01, screen.end - screen.start);
+            return sourceDuration && sourceDuration < screenDuration
+              ? Math.max(0.72, sourceDuration / screenDuration)
+              : 1;
+          })()}
         />
       );
       break;

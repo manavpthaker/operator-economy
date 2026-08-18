@@ -16,6 +16,7 @@ export type BRollSceneProps = {
   sourceOut?: number;
   crop?: string;
   focalPosition?: string;
+  playbackRate?: number;
 };
 
 const isExternalSource = (source: string) => /^(https?:|data:|blob:)/i.test(source);
@@ -44,6 +45,7 @@ export const BRollScene: React.FC<BRollSceneProps> = ({
   sourceOut,
   crop,
   focalPosition,
+  playbackRate = 1,
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -54,7 +56,15 @@ export const BRollScene: React.FC<BRollSceneProps> = ({
   if (sourceVideo) {
     const src = isExternalSource(sourceVideo) ? sourceVideo : staticFile(sourceVideo.replace(/^\/+/, ''));
     const startFrom = Math.max(0, Math.round(sourceIn * fps));
-    const endAt = sourceOut === undefined ? undefined : Math.max(startFrom + 1, Math.round(sourceOut * fps));
+    // `endAt` is evaluated on the composition timeline. When a short source is
+    // slowed to fill a longer screen, scale the cutoff too; otherwise Remotion
+    // removes the video at the unscaled out-point and exposes the ink ground.
+    const endAt = sourceOut === undefined
+      ? undefined
+      : Math.max(
+          startFrom + 1,
+          startFrom + Math.round(((sourceOut - sourceIn) / playbackRate) * fps),
+        );
     const objectPosition = positionFromCrop(focalPosition) || focalPosition || positionFromCrop(crop) || 'center center';
 
     return (
@@ -63,6 +73,7 @@ export const BRollScene: React.FC<BRollSceneProps> = ({
           src={src}
           startFrom={startFrom}
           endAt={endAt}
+          playbackRate={playbackRate}
           muted
           style={{
             width: '100%',

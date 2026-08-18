@@ -11,10 +11,12 @@ ROOT = Path(__file__).resolve().parents[2]
 
 SOURCE_OFFSETS = {
     "human": 0.0,
-    "constraint": 8.0,
-    "tension": 28.0,
-    "counter": 62.0,
-    "build": 78.0,
+    "constraint": 0.0,
+    "tension": 18.0,
+    "counter": 96.0,
+    "build": 108.0,
+    "agency": 118.0,
+    "resolution": 138.0,
     "resolve": 138.0,
     "calm": 0.0,
 }
@@ -64,7 +66,7 @@ def main() -> None:
                 offset = SOURCE_OFFSETS.get(span["state"], 0.0)
                 fade = min(.45, duration / 4)
                 run(["ffmpeg", "-y", "-loglevel", "error", "-stream_loop", "-1", "-ss", str(offset), "-i", str(source),
-                     "-t", f"{duration:.3f}", "-af", f"atrim=duration={duration:.3f},asetpts=N/SR/TB,afade=t=in:st=0:d={fade},afade=t=out:st={max(0,duration-fade):.3f}:d={fade}",
+                     "-t", f"{duration:.3f}", "-af", f"atrim=duration={duration:.3f},asetpts=N/SR/TB,highpass=f=95,equalizer=f=160:t=q:w=0.8:g=-5,equalizer=f=4200:t=q:w=0.7:g=2,afade=t=in:st=0:d={fade},afade=t=out:st={max(0,duration-fade):.3f}:d={fade}",
                      "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(piece)])
             pieces.append(piece)
         concat = temp / "concat.txt"

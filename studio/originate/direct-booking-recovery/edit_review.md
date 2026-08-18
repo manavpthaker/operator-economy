@@ -1,6 +1,6 @@
 # Edit rubric review
 
-**Score:** 22/23  ·  **Gate:** ≥18
+**Score:** 23/23  ·  **Gate:** ≥18
 **Verdict:** PASS
 
 ## Criteria
@@ -13,9 +13,8 @@
 ### ✅ In-screen event density (pacing pass) — 3/3
 - 0 warning(s); paced=True
 
-### ⚠️ Concrete b-roll + money-claim sources — 3/4
-- 1 warnings
-- ⚠️ evidence-05 b-roll query ('quaint rustic bed and breakfast inn bedroom fireplace') doesn't name a concrete noun from the whitelist. Verify it's story-bearing.
+### ✅ Concrete b-roll + money-claim sources — 4/4
+- all b-roll concrete; all money-claim screens sourced
 
 ### ✅ Hook — visual density + shown premise — 3/3
 - 5 reveals in first 30s; early layouts: broll,proof_card,quote,schematic

@@ -41,20 +41,24 @@ const dbToLinear = (db: number) => Math.pow(10, db / 20);
 // Levels raised 2026-07-04 ("you can't even tell it's stopping"): the
 // bed must be PRESENT for its silences to register as edits.
 const LEVELS = {
-  calm: dbToLinear(-13),
-  human: dbToLinear(-15),
-  constraint: dbToLinear(-13),
-  tension: dbToLinear(-11),
-  counter: dbToLinear(-12),
-  build: dbToLinear(-8),
-  resolve: dbToLinear(-14),
+  calm: dbToLinear(-18),
+  human: dbToLinear(-20),
+  constraint: dbToLinear(-18),
+  tension: dbToLinear(-17),
+  counter: dbToLinear(-19),
+  build: dbToLinear(-16),
+  agency: dbToLinear(-18),
+  resolution: dbToLinear(-20),
+  resolve: dbToLinear(-20),
   silence: 0,
 } as const;
-const INTRO_LEVEL = dbToLinear(-6); // under brand sting + title card, pre-VO
+// The fixed sting must remain a signature, not become a trailer impact when
+// summed with the score. Keep the bed well below it during the identity card.
+const INTRO_LEVEL = dbToLinear(-20);
 const SFX_VOLUME: Record<string, number> = {
   tick: dbToLinear(-18),
   whoosh: dbToLinear(-12),
-  hit: dbToLinear(-6),
+  hit: dbToLinear(-14),
 };
 
 export const SoundBed: React.FC<SoundBedProps> = ({
