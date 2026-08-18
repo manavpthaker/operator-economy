@@ -236,7 +236,14 @@ def main():
                 "id": screen["id"],
                 "section": sid,
                 "layout": screen["layout"],
-                "preview_role": screen.get("preview_role"),
+                "preview_role": screen.get("preview_role") or screen.get("footage_role"),
+                "narrative_state": screen.get("narrative_state"),
+                "score_state": screen.get("score_state"),
+                "footage_role": screen.get("footage_role"),
+                "camera": screen.get("camera"),
+                "preview_eligible": bool(screen.get("preview_eligible")),
+                "visual_intent": screen.get("visual_intent"),
+                "search_query": screen.get("search_query"),
                 "heading": screen.get("heading"),
                 "start": screen["start"],
                 "end": screen["end"],
@@ -314,6 +321,9 @@ def main():
     bookends = {
         "brand_seconds": bk_cfg.get("brand_seconds", 1.8),
         "title_seconds": bk_cfg.get("title_seconds", 3.2),
+        "brand_at_seconds": bk_cfg.get("brand_at_seconds", 0.0),
+        "overlay_on_content": bk_cfg.get("overlay_on_content", False),
+        "sting_audio": bk_cfg.get("sting_audio"),
         "outro_seconds": bk_cfg.get("outro_seconds", 6.0),
         # J/L-cuts (2026-07-03): VO runs under the title card and under
         # the outro card, so the bookends feel like edits, not slides.
@@ -390,7 +400,10 @@ def main():
     else:
         print("  note: no thumbnail ground found; brand sting opens on navy. "
               "Run generate_scene.py to give this episode a cold open.")
-    intro_s = bookends["brand_seconds"] + bookends["title_seconds"]
+    # Rev D overlays identity on story motion after the cold open has begun.
+    # Legacy episodes still prepend their bookends.
+    intro_s = (0.0 if bookends["overlay_on_content"] else
+               bookends["brand_seconds"] + bookends["title_seconds"])
     overlap_s = bookends["j_cut_seconds"] + bookends["l_cut_seconds"]
 
     render_data = {

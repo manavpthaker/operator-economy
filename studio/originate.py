@@ -144,6 +144,8 @@ def main():
         # single reveal, which is 20 kill-list hits on EP006 and the error text
         # naming this script as the remedy.
         run_step("pace_storyboard.py", [script], "Pacing Pass")
+        run_step("storyboard_review.py", [str(d / "storyboard.json")], "Build Storyboard Review")
+        run_step("music_brief.py", ["init", script], "Initialize Episode Score Brief")
         run_step("eval_storyboard.py", [script], "Storyboard Pacing Evals")
         # Edit rubric §VII — pre-render check that the storyboard has the
         # scene grammar + cadence the finished video needs. Escalates if
@@ -156,6 +158,9 @@ def main():
     elif args.command == "render":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
+        storyboard = json.loads((d / "storyboard.json").read_text())
+        if str(storyboard.get("storyboard_version", "")).startswith("rev-d"):
+            run_step("music_brief.py", ["check", script], "Episode Score Gate")
         run_step("prepare_longform.py", [script], "Prepare Render Data")
         # Thumbnail candidates. NOT a run_step: exit 2 means "no scene image
         # yet", which is a prompt for the operator, not a pipeline failure.

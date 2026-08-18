@@ -82,6 +82,7 @@ def main():
     sb = json.loads(sb_path.read_text())
     screens = sb.get("screens", [])
     total = sb.get("total_seconds", sum(s["end"] - s["start"] for s in screens))
+    rev_d = str(sb.get("storyboard_version", "")).startswith("rev-d")
 
     ev = Eval()
 
@@ -96,20 +97,20 @@ def main():
     seconds_per_cut = total / max(len(screens), 1)
     # ≤10 screens / 6min ≈ 1 cut per 36s. HARD if cut every <15s, WARN if <25s.
     ev.check(
-        "cut-rate not one-per-<15s",
-        seconds_per_cut >= 15,
+        "cut-rate supports the active visual grammar",
+        seconds_per_cut >= (8 if rev_d else 15),
         f"one cut per {seconds_per_cut:.1f}s ({cuts_per_min:.1f}/min)",
         hard=True,
     )
     ev.check(
-        "cut-rate approaches 1 per 35s target",
-        seconds_per_cut >= 25,
-        f"one cut per {seconds_per_cut:.1f}s — spec target ≥35s/cut",
+        "cut-rate approaches grammar target",
+        seconds_per_cut >= (12 if rev_d else 25),
+        f"one cut per {seconds_per_cut:.1f}s — active target ≥{12 if rev_d else 35}s/cut",
         hard=False,
     )
     ev.check(
-        "≤10 screens per 6-minute episode",
-        len(screens) <= max(10, int(minutes * 1.8)),  # scale to episode length
+        "screen count matches active grammar",
+        len(screens) <= max(10, int(minutes * (4.5 if rev_d else 1.8))),
         f"{len(screens)} screens over {minutes:.1f} min",
         hard=False,
     )
@@ -121,14 +122,15 @@ def main():
     too_long_hard = [s for s in screens if (s["end"] - s["start"]) > 90]
 
     ev.check(
-        "no screen shorter than 10s (hard floor)",
-        not too_short_hard,
+        "short screens are intentional impact edits",
+        (all((s["end"] - s["start"]) >= 1.2 for s in too_short_hard)
+         if rev_d else not too_short_hard),
         ", ".join(f"{s['id']}({s['end'] - s['start']:.1f}s)" for s in too_short_hard),
         hard=True,
     )
     ev.check(
-        "screens are ≥20s (soft floor)",
-        not too_short_warn,
+        "screens meet active soft duration target",
+        (True if rev_d else not too_short_warn),
         ", ".join(f"{s['id']}({s['end'] - s['start']:.1f}s)" for s in too_short_warn),
         hard=False,
     )

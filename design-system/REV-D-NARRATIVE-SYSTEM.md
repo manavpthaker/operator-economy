@@ -209,7 +209,7 @@ Generation/composer prompt:
 
 ### Selected narrator remix
 
-**Voice 1.3 is the production selection.** Retain its generated audio as the comparison reference and save the resulting derivative voice ID before changing the production configuration. Do not silently replace the source voice ID.
+**Voice `R6ClLkxg1OKV20WN04jS` is the production selection as of 2026-08-18.** Voice 1.3 remains the comparison reference; do not mix the two identities inside an episode. Regenerate every section as one batch when changing narrator IDs.
 
 If voice `yUXeTfC1IFOCSjGc96sQ` is owned or otherwise eligible for ElevenLabs remixing, generate a separate derivative at low prompt strength first. Preserve the source voice; do not replace it. Recommended prompt:
 

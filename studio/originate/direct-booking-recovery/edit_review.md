@@ -5,7 +5,7 @@
 
 ## Criteria
 ### ✅ Scene grammar mix — 5/5
-- 14/10 quote|proof screens, 10/6 artifact|screen_rec|proof screens
+- 13/10 quote|proof screens, 10/6 artifact|screen_rec|proof screens
 
 ### ✅ Cadence (static holds, resets, sheet runs) — 5/5
 - no static holds; sheet runs ≤2; all screens reset within 45s
@@ -17,19 +17,19 @@
 - all b-roll concrete; all money-claim screens sourced
 
 ### ✅ Hook — visual density + shown premise — 3/3
-- 8 reveals in first 30s; early layouts: broll,chart,proof_card,quote,sheet
+- 7 reveals in first 30s; early layouts: broll,chart,proof_card,quote,sheet
 
 ### ✅ Sound layer + loudness — 3/3
 - (no rendered MP4 provided — LUFS check skipped)
-- intensities=['build', 'calm', 'human', 'silence'], sfx cues=86, silence screens=8
+- intensities=['build', 'constraint', 'counter', 'human', 'resolve', 'silence', 'tension'], sfx cues=86, silence screens=8
 
 ## Screen distribution
-- artifact: 4
-- broll: 1
+- artifact: 2
+- broll: 9
 - chart: 4
-- cta: 1
-- proof_card: 6
+- proof_card: 5
 - quote: 8
 - risk_card: 1
-- schematic: 9
-- sheet: 12
+- schematic: 6
+- screen_rec: 3
+- sheet: 8

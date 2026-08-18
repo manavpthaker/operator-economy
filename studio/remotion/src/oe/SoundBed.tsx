@@ -42,7 +42,12 @@ const dbToLinear = (db: number) => Math.pow(10, db / 20);
 // bed must be PRESENT for its silences to register as edits.
 const LEVELS = {
   calm: dbToLinear(-13),
+  human: dbToLinear(-15),
+  constraint: dbToLinear(-13),
+  tension: dbToLinear(-11),
+  counter: dbToLinear(-12),
   build: dbToLinear(-8),
+  resolve: dbToLinear(-14),
   silence: 0,
 } as const;
 const INTRO_LEVEL = dbToLinear(-6); // under brand sting + title card, pre-VO

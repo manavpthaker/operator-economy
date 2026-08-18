@@ -134,13 +134,14 @@ def build_manifest(script_path: Path) -> dict:
             sid, beat = screen["section"], reveal["beat"]
             source_beat = beats.get((sid, beat), {})
             footage_id = f"{script['slug']}-{screen['id']}"
-            query = ((screen.get("custom") or {}).get("search_query") or
+            query = (screen.get("search_query") or
+                     (screen.get("custom") or {}).get("search_query") or
                      reveal.get("body") or reveal.get("title") or "")
             entries.append({
                 "id": footage_id, "screen_id": screen["id"], "section": sid, "beat": beat,
-                "role": screen.get("preview_role", "human_context"),
+                "role": screen.get("footage_role") or screen.get("preview_role", "human_context"),
                 "narration_anchor": source_beat.get("vo_text", "")[:160],
-                "preview_eligible": screen.get("start", 999) < 30,
+                "preview_eligible": bool(screen.get("preview_eligible") or screen.get("start", 999) < 30),
                 "query_variants": (screen.get("custom") or {}).get("query_variants") or [query],
                 "approved": False, "provider": "", "asset_id": "", "page_url": "",
                 "creator": "", "license": "", "license_checked_at": "",
@@ -226,8 +227,22 @@ def main() -> None:
     manifest_path = episode_dir / "footage_manifest.json"
     if args.command == "init":
         if manifest_path.exists():
-            print(f"Keeping existing {manifest_path}")
-            manifest = load_json(manifest_path)
+            existing = load_json(manifest_path)
+            planned = build_manifest(script_path)
+            old_by_id = entry_index(existing)
+            # Storyboard is authoritative for the required footage beats;
+            # reviewed selections survive when their stable screen id survives.
+            manifest = {
+                **planned,
+                "created_at": existing.get("created_at", planned["created_at"]),
+                "entries": [{**entry, **old_by_id.get(entry["id"], {})}
+                            for entry in planned["entries"]],
+            }
+            manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+            added = len(set(entry_index(manifest)) - set(old_by_id))
+            retired = len(set(old_by_id) - set(entry_index(manifest)))
+            print(f"Synced {manifest_path}: {len(manifest['entries'])} required, "
+                  f"{added} added, {retired} retired")
         else:
             manifest = build_manifest(script_path)
             if not manifest["entries"]:

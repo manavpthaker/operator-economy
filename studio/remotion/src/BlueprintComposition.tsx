@@ -104,7 +104,10 @@ export type ScreenReveal = {
 };
 
 export type SfxCue = {cue: 'tick' | 'whoosh' | 'hit'; at: number};
-export type MusicCue = {intensity: 'calm' | 'build' | 'silence'; duck_db?: number};
+export type MusicCue = {
+  intensity: 'calm' | 'human' | 'constraint' | 'tension' | 'counter' | 'build' | 'resolve' | 'silence';
+  duck_db?: number;
+};
 
 /**
  * PaceEvent — a timed in-screen visual event authored by
@@ -222,6 +225,13 @@ export type Screen = {
     | 'source_card'
     | 'case_file';
   heading?: string;
+  narrative_state?: 'peril' | 'absurdity' | 'reversal' | 'build' | 'agency';
+  score_state?: MusicCue['intensity'];
+  footage_role?: 'human_context' | 'market_force' | 'proof' | 'process' | 'outcome' | 'evidence';
+  camera?: 'human' | 'system';
+  preview_eligible?: boolean;
+  visual_intent?: string;
+  search_query?: string;
   start: number;
   end: number;
   reveals: ScreenReveal[];
@@ -238,6 +248,9 @@ export type Screen = {
 export type Bookends = {
   brand_seconds: number;
   title_seconds: number;
+  brand_at_seconds?: number;
+  overlay_on_content?: boolean;
+  sting_audio?: string;
   outro_seconds: number;
   j_cut_seconds?: number; // VO starts this long BEFORE the intro ends (under the title card)
   l_cut_seconds?: number; // outro card enters this long before the VO ends
@@ -1099,7 +1112,9 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
   // before the VO ends and overlays the tail.
   const brandFrames = bookends ? Math.round(bookends.brand_seconds * fps) : 0;
   const titleFrames = bookends ? Math.round(bookends.title_seconds * fps) : 0;
-  const introFrames = brandFrames + titleFrames;
+  const overlayBookends = Boolean(bookends?.overlay_on_content);
+  const brandAtFrames = bookends ? Math.round((bookends.brand_at_seconds ?? 0) * fps) : 0;
+  const introFrames = overlayBookends ? 0 : brandFrames + titleFrames;
   const jCutFrames = bookends
     ? Math.min(Math.round((bookends.j_cut_seconds ?? bookends.title_seconds) * fps), titleFrames)
     : 0;
@@ -1186,8 +1201,13 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       <Sequence from={contentFrom} durationInFrames={contentFrames}>
         {episode}
       </Sequence>
+      {bookends.sting_audio && brandFrames > 0 && (
+        <Sequence from={brandAtFrames} durationInFrames={brandFrames}>
+          <Audio src={staticFile(bookends.sting_audio)} />
+        </Sequence>
+      )}
       {brandFrames > 0 && (
-        <Sequence from={0} durationInFrames={brandFrames}>
+        <Sequence from={brandAtFrames} durationInFrames={brandFrames}>
           <BrandSting
             name={bookends.brand.name}
             tagline={bookends.brand.tagline}
@@ -1196,7 +1216,7 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
         </Sequence>
       )}
       {titleFrames > 0 && (
-        <Sequence from={brandFrames} durationInFrames={titleFrames}>
+        <Sequence from={brandAtFrames + brandFrames} durationInFrames={titleFrames}>
           <TitleCard
             overline={
               bookends.episode_no

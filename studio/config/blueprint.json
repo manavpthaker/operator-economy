@@ -61,13 +61,13 @@
   },
   "voiceover": {
     "provider": "elevenlabs",
-    "voice_id": "l5hGVGHeQhGPUn4tPtCD",
+    "voice_id": "R6ClLkxg1OKV20WN04jS",
     "model_id": "eleven_multilingual_v2",
     "stability": 0.5,
     "similarity_boost": 0.6,
     "output_format": "mp3_44100_192",
     "model_note": "v3 (or flash_v2) required \u2014 pronunciation dictionaries are silently ignored on multilingual_v2. PVC voice needs Creator plan.",
-    "voice_note": "Manav's PVC (l5hGVGHeQhGPUn4tPtCD) on ELEVEN_MULTILINGUAL_V2 \u2014 switched 2026-07-05 ('woah this is it'): v2 supports request stitching (one continuous session across sections, kills the drift that v3 couldn't avoid), and the performed text's paragraph/ellipsis pacing carries cadence without v3's audio tags (auto-stripped on v2). Settings per Manav's screenshot: stability 0.5, similarity 0.6, style 0.1. Host name: MP (spoken 'Em Pee'). Mastering: CLEAN chain pending the LANDR-curve fit (Warm/Low preferred in his A/B).",
+    "voice_note": "Rev D production narrator R6ClLkxg1OKV20WN04jS, selected 2026-08-18. Documentary rigor with lived urgency: contained peril, conversational disbelief, decisive build, warm resolution. Generate a whole episode as one batch; never mix narrator IDs inside an episode.",
     "mastering": true,
     "mastering_provider": "local",
     "local_chain": "broadcast",
@@ -142,17 +142,20 @@
     "caption_style": "none",
     "words_per_group": 4,
     "bookends": {
-      "brand_seconds": 1.8,
-      "title_seconds": 0.0,
+      "brand_seconds": 2.4,
+      "title_seconds": 1.6,
+      "brand_at_seconds": 2.0,
+      "overlay_on_content": true,
+      "sting_audio": "music/oe-sting-rev-d.mp3",
       "outro_seconds": 6.0,
       "j_cut_seconds": 0.0,
       "l_cut_seconds": 2.5,
-      "cut_note": "2026-07-05: bookend TitleCard removed \u2014 the intro visuals now live in content screens (brand reset until 'This week', then the Operator Blueprint title card until 'Last year'). Brand sting 1.8s stays; content starts right after it.",
+      "cut_note": "Rev D: story motion starts at frame zero. At 0:02 the 2.4s universal sting overlays that motion; a 1.6s episode-title lock follows. Neither delays or restarts the cold open.",
       "outro_ctas": [
         "Get the Operator Blueprint \u2014 free, link in the description",
         "One business blueprint every week \u2014 subscribe"
       ],
-      "note": "Brand sting kept short on purpose: pre-hook branding costs retention. Outro holds 6s for YouTube end-screen overlays."
+      "note": "The cold open earns attention before identity appears. Brand and title overlay continuing story motion; outro holds 6s for YouTube end-screen overlays."
     },
     "caption_note": "2026-07-06: burned-in captions OFF for EP001 \u2014 in/out timing not solid yet; YouTube/LinkedIn native captions cover it. Set back to 'highlight' when fixed."
   },
@@ -195,7 +198,8 @@
     "claim_registry": "Every load-bearing claim carries source URL + confidence marker (verified/reported/estimate)."
   },
   "music": {
-    "kit": "music-src/kit/",
-    "note": "v7 (2026-07-05): arrange_bed plays MANAV'S SCORE, decoded from his EP001 arrangement (bar-by-bar spectral classification). Grammar: intro chords \u2192 rise thru hook+bridge \u2192 groove @ thesis+2 bars \u2192 breakdown into evidence \u2192 body \u2192 bassline payoff \u2192 sting/roll pivot \u2192 chords REPRISE @ stack \u2192 playbook groove \u2192 honest-math breakdown+bass \u2192 ender \u2192 finale crests @ cta \u2192 closing. Continuous music; SoundBed ducks/silences on top. Kit = his hand-cut bar-exact loops (FLAC)."
+    "kit": "music-src/episodes/",
+    "states": ["human", "constraint", "tension", "silence", "counter", "build", "resolve"],
+    "note": "Rev D: every episode gets a unique score generated from an approved music brief. The universal 2.4s OE sting stays fixed. Music follows narrative states and may stop between them; it is no longer a continuous channel-wide loop."
   }
 }
