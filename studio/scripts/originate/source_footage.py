@@ -28,10 +28,14 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def search_pexels(query: str, api_key: str, per_page: int = 5) -> list[dict]:
+def search_pexels(query: str, api_key: str, per_page: int = 15) -> list[dict]:
     url = PEXELS_API + "?" + urllib.parse.urlencode({
         "query": query, "per_page": per_page, "orientation": "landscape"})
-    request = urllib.request.Request(url, headers={"Authorization": api_key})
+    request = urllib.request.Request(url, headers={
+        "Authorization": api_key,
+        "User-Agent": "OperatorEconomy/1.0 (+https://theoperatoreconomy.com)",
+        "Accept": "application/json",
+    })
     with urllib.request.urlopen(request, timeout=30) as response:
         payload = json.load(response)
     results = []
@@ -128,7 +132,20 @@ def search(script_path: Path, limit: int) -> None:
             for candidate in search_pexels(query, api_key):
                 candidate.setdefault("matched_queries", []).append(query)
                 candidates_by_id.setdefault(candidate["candidate_id"], candidate)
-        candidates = sorted(candidates_by_id.values(), key=candidate_score, reverse=True)[:limit]
+        ranked = sorted(candidates_by_id.values(), key=candidate_score, reverse=True)
+        # A single staged shoot often occupies most of Pexels' first page.
+        # Cap each creator so the review surface contains genuinely distinct
+        # visual hypotheses rather than nine angles from one production.
+        creator_counts: dict[str, int] = {}
+        candidates = []
+        for candidate in ranked:
+            creator = candidate.get("creator", "Unknown")
+            if creator_counts.get(creator, 0) >= 2:
+                continue
+            candidates.append(candidate)
+            creator_counts[creator] = creator_counts.get(creator, 0) + 1
+            if len(candidates) >= limit:
+                break
         for candidate in candidates:
             destination = output_dir / f"{entry['id']}--{candidate['candidate_id']}.mp4"
             if not destination.exists():

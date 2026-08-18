@@ -51,10 +51,16 @@ def entry_index(manifest: dict) -> dict[str, dict]:
     return {entry["id"]: entry for entry in manifest.get("entries", []) if entry.get("id")}
 
 
-def resolve_entry(manifest: dict, section: str, beat: int, asset: dict) -> dict | None:
+def resolve_entry(manifest: dict, section: str, beat: int, asset: dict,
+                  screen_id: str | None = None) -> dict | None:
     explicit = asset.get("manifest_id") or asset.get("footage_id")
     if explicit:
         return entry_index(manifest).get(explicit)
+    if screen_id:
+        by_screen = next((e for e in manifest.get("entries", [])
+                          if e.get("screen_id") == screen_id), None)
+        if by_screen:
+            return by_screen
     return next((e for e in manifest.get("entries", [])
                  if e.get("section") == section and e.get("beat") == beat), None)
 
@@ -115,25 +121,41 @@ def build_manifest(script_path: Path) -> dict:
     script = load_json(script_path)
     assets = load_json(episode_dir / "assets.json")
     storyboard_path = episode_dir / "storyboard.json"
-    used_broll: set[tuple[str, int]] | None = None
+    storyboard = None
     if storyboard_path.exists():
         storyboard = load_json(storyboard_path)
-        used_broll = {
-            (screen["section"], reveal["beat"])
-            for screen in storyboard.get("screens", []) if screen.get("layout") == "broll"
-            for reveal in screen.get("reveals", [])
-        }
     beats = {(s["id"], b["beat"]): b for s in script["sections"] for b in s.get("beats", [])}
     entries = []
-    for section in assets.get("sections", []):
-        for item in section.get("assets", []):
+    if storyboard is not None:
+        for screen in storyboard.get("screens", []):
+            if screen.get("layout") != "broll" or not screen.get("reveals"):
+                continue
+            reveal = screen["reveals"][0]
+            sid, beat = screen["section"], reveal["beat"]
+            source_beat = beats.get((sid, beat), {})
+            footage_id = f"{script['slug']}-{screen['id']}"
+            query = ((screen.get("custom") or {}).get("search_query") or
+                     reveal.get("body") or reveal.get("title") or "")
+            entries.append({
+                "id": footage_id, "screen_id": screen["id"], "section": sid, "beat": beat,
+                "role": screen.get("preview_role", "human_context"),
+                "narration_anchor": source_beat.get("vo_text", "")[:160],
+                "preview_eligible": screen.get("start", 999) < 30,
+                "query_variants": (screen.get("custom") or {}).get("query_variants") or [query],
+                "approved": False, "provider": "", "asset_id": "", "page_url": "",
+                "creator": "", "license": "", "license_checked_at": "",
+                "downloaded_at": "", "local_path": "", "sha256": "",
+                "faces_review": "needs_review", "synthetic": False,
+                "source_in": 0, "source_out": None, "crop": "cover",
+                "focal_point": (screen.get("custom") or {}).get("focal_point", "center"),
+            })
+    else:
+        for section in assets.get("sections", []):
+          for item in section.get("assets", []):
             spec = item.get("spec", {})
             sid, beat = section["id"], item["beat"]
-            if used_broll is None and spec.get("type") != "broll":
+            if spec.get("type") != "broll":
                 continue
-            if used_broll is not None and (sid, beat) not in used_broll:
-                continue
-            spec["type"] = "broll"
             source_beat = beats.get((sid, beat), {})
             footage_id = f"{script['slug']}-{sid}-{beat:02d}"
             spec["manifest_id"] = footage_id

@@ -84,16 +84,18 @@ def main():
     public_footage = ROOT / "remotion" / "public" / "footage" / script["slug"]
     staged_footage: dict[str, dict] = {}
 
-    def render_asset(section_id: str, beat: int, asset: dict) -> dict:
+    def render_asset(section_id: str, beat: int, asset: dict,
+                     screen_id: str | None = None, force_broll: bool = False) -> dict:
         """Resolve an approved manifest entry and stage it for Remotion."""
-        if asset.get("type") != "broll":
+        if asset.get("type") != "broll" and not force_broll:
             return asset
+        asset = {**asset, "type": "broll"}
         if footage is None:
             raise SystemExit(
                 f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} requests b-roll "
                 f"but {footage_path.name} does not exist\n"
                 f"  run: python scripts/originate/footage_manifest.py init {script_path}")
-        entry = resolve_entry(footage, section_id, beat, asset)
+        entry = resolve_entry(footage, section_id, beat, asset, screen_id)
         if entry is None:
             raise SystemExit(
                 f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} has no matching "
@@ -202,8 +204,14 @@ def main():
                 if screen["layout"] == "sheet":
                     sheet_ordinal[sid] = sheet_ordinal.get(sid, 0) + 1
                     ordinal = sheet_ordinal[sid]
-                asset = render_asset(
-                    sid, r["beat"], asset_index.get((sid, r["beat"]), {}))
+                planned_asset = asset_index.get((sid, r["beat"]), {})
+                # The final storyboard owns layout. A stale plan_assets b-roll
+                # hint must not resurrect footage after a screen was hand-tuned
+                # into an artifact/chart/etc.
+                asset = (render_asset(
+                    sid, r["beat"], planned_asset,
+                    screen_id=screen["id"], force_broll=True)
+                    if screen["layout"] == "broll" else planned_asset)
                 rng = beat_time.get((sid, r["beat"]))
                 # Prefer explicit reveal timings/titles from the
                 # storyboard (Manav's hand-tune) over the section-level
@@ -228,6 +236,7 @@ def main():
                 "id": screen["id"],
                 "section": sid,
                 "layout": screen["layout"],
+                "preview_role": screen.get("preview_role"),
                 "heading": screen.get("heading"),
                 "start": screen["start"],
                 "end": screen["end"],
@@ -272,6 +281,16 @@ def main():
             staged_footage[mid]["role"] for mid in opening_ids
             if mid in staged_footage and staged_footage[mid].get("preview_eligible")
         }
+        if screens_out is not None:
+            for screen in screens_out:
+                if screen.get("start", 999) >= 30:
+                    continue
+                if screen.get("preview_role") in {"market_force", "proof", "process", "outcome"}:
+                    opening_roles.add(screen["preview_role"])
+                elif screen.get("layout") in {"chart", "proof_card", "artifact", "source_card"}:
+                    opening_roles.add("proof")
+                elif screen.get("layout") in {"screen_rec", "schematic"}:
+                    opening_roles.add("process")
         missing_groups = []
         if "human_context" not in opening_roles:
             missing_groups.append("human_context")

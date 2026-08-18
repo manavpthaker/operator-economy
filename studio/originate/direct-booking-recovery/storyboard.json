@@ -5,14 +5,58 @@
     {
       "id": "hook-01",
       "section": "hook",
-      "layout": "chart",
-      "heading": "The gap",
+      "layout": "broll",
+      "preview_role": "human_context",
+      "heading": "Independent hotels",
       "start": 0.0,
-      "end": 24.813,
+      "end": 4.8,
       "reveals": [
         {
           "beat": 1,
           "at": 0.0,
+          "end": 4.8,
+          "title": "The hotel does the work",
+          "body": "Independent hotel owner greeting a guest at a small front desk",
+          "tags": [
+            "claim",
+            "number"
+          ],
+          "word_anchor": {
+            "start": 0.0,
+            "end": 4.8
+          }
+        }
+      ],
+      "figure": null,
+      "source": null,
+      "sfx": [],
+      "music": {
+        "intensity": "human",
+        "duck_db": -16
+      },
+      "custom": {
+        "search_query": "independent hotel owner greeting guest",
+        "query_variants": [
+          "independent hotel owner greeting guest",
+          "boutique hotel guest receiving room key",
+          "small hotel front desk check in"
+        ],
+        "focal_point": "center-right"
+      },
+      "events": []
+    },
+    {
+      "id": "hook-02",
+      "section": "hook",
+      "layout": "chart",
+      "preview_role": "proof",
+      "heading": "The gap",
+      "start": 4.8,
+      "end": 11.958,
+      "reveals": [
+        {
+          "beat": 1,
+          "at": 4.8,
           "end": 6.943,
           "title": "Two thirds of bookings go to the OTAs",
           "body": "Booking.com \u00b7 Expedia",
@@ -21,12 +65,12 @@
             "number"
           ],
           "word_anchor": {
-            "start": 0.0,
+            "start": 4.8,
             "end": 6.943
           }
         },
         {
-          "beat": 2,
+          "beat": 1,
           "at": 6.943,
           "end": 11.958,
           "title": "18 to 30 percent commission to do it",
@@ -37,48 +81,6 @@
           "word_anchor": {
             "start": 6.943,
             "end": 11.958
-          }
-        },
-        {
-          "beat": 3,
-          "at": 11.958,
-          "end": 16.695,
-          "title": "20 rooms \u00b7 70 percent occupancy",
-          "body": "their own published rates",
-          "tags": [
-            "number"
-          ],
-          "word_anchor": {
-            "start": 11.958,
-            "end": 16.695
-          }
-        },
-        {
-          "beat": 4,
-          "at": 16.695,
-          "end": 20.236,
-          "title": "About $135,000 a year",
-          "body": "commission, gone",
-          "tags": [
-            "number"
-          ],
-          "word_anchor": {
-            "start": 16.695,
-            "end": 20.236
-          }
-        },
-        {
-          "beat": 5,
-          "at": 20.236,
-          "end": 24.813,
-          "title": "My estimate",
-          "body": "built from published rates, not reported",
-          "tags": [
-            "claim"
-          ],
-          "word_anchor": {
-            "start": 20.236,
-            "end": 24.813
           }
         }
       ],
@@ -91,18 +93,6 @@
         {
           "cue": "tick",
           "at": 6.943
-        },
-        {
-          "cue": "tick",
-          "at": 11.958
-        },
-        {
-          "cue": "tick",
-          "at": 16.695
-        },
-        {
-          "cue": "tick",
-          "at": 20.236
         }
       ],
       "music": {
@@ -112,37 +102,97 @@
       "custom": null,
       "events": [
         {
-          "at": 3.12,
-          "kind": "fragment",
-          "beat": 1,
-          "index": 1
-        },
-        {
           "at": 8.68,
           "kind": "focus",
           "index": 0
-        },
-        {
-          "at": 15.75,
-          "kind": "focus",
-          "index": 1
-        },
-        {
-          "at": 20.24,
-          "kind": "pulse",
-          "word": "My"
-        },
-        {
-          "at": 22.81,
-          "kind": "focus",
-          "index": 2
         }
       ]
+    },
+    {
+      "id": "hook-03",
+      "section": "hook",
+      "layout": "proof_card",
+      "preview_role": "proof",
+      "heading": "The annual consequence",
+      "start": 11.958,
+      "end": 20.236,
+      "reveals": [
+        {
+          "beat": 1,
+          "at": 11.958,
+          "end": 16.695,
+          "title": "20 rooms \u00b7 70 percent occupancy",
+          "body": "their own published rates",
+          "tags": ["number"],
+          "word_anchor": {"start": 11.958, "end": 16.695}
+        },
+        {
+          "beat": 1,
+          "at": 16.695,
+          "end": 20.236,
+          "title": "About $135,000 a year",
+          "body": "commission, gone",
+          "tags": ["number"],
+          "word_anchor": {"start": 16.695, "end": 20.236}
+        }
+      ],
+      "figure": {
+        "text": "$135,000",
+        "source": "Illustrative arithmetic model using published rates; not a vendor-reported number"
+      },
+      "source": "Cloudbeds 2026 report; illustrative arithmetic model using published rates",
+      "sfx": [{"cue": "tick", "at": 16.695}],
+      "music": {"intensity": "build", "duck_db": -10},
+      "custom": {
+        "proof": {
+          "value": 135000,
+          "prefix": "$",
+          "compactCurrency": true,
+          "label": "illustrative annual commission",
+          "source": "Cloudbeds 2026 report; model built from published rates",
+          "estimate": true
+        }
+      },
+      "events": []
+    },
+    {
+      "id": "hook-04",
+      "section": "hook",
+      "layout": "quote",
+      "preview_role": "proof",
+      "heading": "The caveat",
+      "start": 20.236,
+      "end": 24.813,
+      "reveals": [
+        {
+          "beat": 1,
+          "at": 20.236,
+          "end": 24.813,
+          "title": "My estimate",
+          "body": "built from published rates, not reported",
+          "tags": ["claim"],
+          "word_anchor": {"start": 20.236, "end": 24.813}
+        }
+      ],
+      "figure": {
+        "text": "ESTIMATE",
+        "source": "Assumptions stated on screen"
+      },
+      "source": "Illustrative arithmetic model; not a vendor-reported number",
+      "sfx": [],
+      "music": {"intensity": "silence", "duck_db": 0},
+      "custom": {
+        "quote": "My estimate — built from published rates, not reported.",
+        "attribution": "The Operator Economy",
+        "ground": "ink"
+      },
+      "events": [{"at": 20.24, "kind": "pulse", "word": "My"}]
     },
     {
       "id": "thesis-01",
       "section": "thesis",
       "layout": "sheet",
+      "preview_role": "process",
       "heading": "The thesis",
       "start": 24.813,
       "end": 48.985,
