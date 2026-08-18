@@ -5,7 +5,7 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
 /**
  * QuoteCard — the impact-frame primitive.
  *
- * Full-screen single statement in Boska on one of three grounds. HARD
+ * Full-screen single statement in the heavy screen-register face on one of three grounds. HARD
  * cut in (no fade — the parent Sequence has 0 pre-fade for quote
  * screens), spring scale-settle 0.96 → 1, holds 1.2–2.5s for short
  * lines and 3–4s for longer ones. Captions are HIDDEN during the
@@ -24,7 +24,7 @@ import {COLORS, EASE, FONTS, TRACK, TYPE} from '../theme';
  * impact frame inside the blueprint world). `paper` remains available
  * for deliberate honest-math prints; `ink` is legacy-only.
  *
- * Boska stays weight 900.
+ * Supreme stays heavy and compact so impact frames remain readable at a glance.
  */
 export type QuoteGround = 'ink' | 'navy' | 'paper';
 
@@ -136,7 +136,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         <div
           style={{
             fontFamily: FONTS.display,
-            fontWeight: 900,
+            fontWeight: 800,
             fontSize: quote.length > 60 ? TYPE.h1 * 0.72 : TYPE.h1,
             lineHeight: 1.06,
             letterSpacing: `${TRACK.display}em`,

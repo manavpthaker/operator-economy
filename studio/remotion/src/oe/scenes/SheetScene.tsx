@@ -227,7 +227,7 @@ export const SheetScene: React.FC<SheetSceneProps> = ({
           <h2
             style={{
               fontFamily: TYPE.h2 >= 40 ? FONTS.display : FONTS.heading,
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: TYPE.h2,
               lineHeight: 1.08,
               letterSpacing: `${TRACK.heading}em`,
