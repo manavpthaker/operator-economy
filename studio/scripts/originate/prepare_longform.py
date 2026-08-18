@@ -18,6 +18,13 @@ import json
 import shutil
 from pathlib import Path
 
+try:
+    from footage_manifest import (resolve_entry, resolve_local_path,
+                                  validate_manifest)
+except ImportError:
+    from .footage_manifest import (resolve_entry, resolve_local_path,
+                                   validate_manifest)
+
 ROOT = Path(__file__).parent.parent.parent
 
 
@@ -64,6 +71,52 @@ def main():
     words = load_json(base / "vo" / "words.json")
     timeline = load_json(base / "vo" / "timeline.json")
     assets = load_json(base / "assets.json")
+    storyboard_path = base / "storyboard.json"
+    use_storyboard = storyboard_path.exists()
+    footage_path = base / "footage_manifest.json"
+    footage = load_json(footage_path) if footage_path.exists() else None
+    if footage is not None:
+        footage_errors = validate_manifest(footage, base, require_files=True)
+        if footage_errors:
+            raise SystemExit("FOOTAGE GATE: BLOCKED\n" +
+                             "\n".join(f"- {error}" for error in footage_errors))
+
+    public_footage = ROOT / "remotion" / "public" / "footage" / script["slug"]
+    staged_footage: dict[str, dict] = {}
+
+    def render_asset(section_id: str, beat: int, asset: dict) -> dict:
+        """Resolve an approved manifest entry and stage it for Remotion."""
+        if asset.get("type") != "broll":
+            return asset
+        if footage is None:
+            raise SystemExit(
+                f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} requests b-roll "
+                f"but {footage_path.name} does not exist\n"
+                f"  run: python scripts/originate/footage_manifest.py init {script_path}")
+        entry = resolve_entry(footage, section_id, beat, asset)
+        if entry is None:
+            raise SystemExit(
+                f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} has no matching "
+                "footage manifest entry")
+        source = resolve_local_path(entry, base)
+        assert source is not None  # validate_manifest proved it exists
+        public_footage.mkdir(parents=True, exist_ok=True)
+        staged = public_footage / f"{entry['id']}{source.suffix.lower()}"
+        shutil.copy2(source, staged)
+        resolved = {
+            **asset,
+            "manifest_id": entry["id"],
+            "footage_role": entry["role"],
+            "source_video": f"footage/{script['slug']}/{staged.name}",
+            "source_in": float(entry.get("source_in", 0)),
+            "source_out": entry.get("source_out"),
+            "crop": entry.get("crop", "cover"),
+            "focal_position": entry.get("focal_point", "center"),
+            "caption": entry.get("caption") or asset.get("caption"),
+            "preview_eligible": bool(entry.get("preview_eligible")),
+        }
+        staged_footage[entry["id"]] = {**entry, "asset": resolved}
+        return resolved
 
     r_cfg = config["render"]
     fps = r_cfg["fps"]
@@ -96,8 +149,14 @@ def main():
                 "beat": b["beat"],
                 "start": chunk[0]["start"],
                 "end": chunk[-1]["end"],
-                "asset": asset_index.get((s["id"], b["beat"]),
-                                         {"type": "slide", "title": "", "bullets": []}),
+                # `screens[]` is the preferred renderer. Do not require or
+                # stage a legacy beat asset that the final storyboard removed.
+                "asset": (asset_index.get((s["id"], b["beat"]),
+                                          {"type": "slide", "title": "", "bullets": []})
+                          if use_storyboard else render_asset(
+                              s["id"], b["beat"],
+                              asset_index.get((s["id"], b["beat"]),
+                                              {"type": "slide", "title": "", "bullets": []}))),
             })
         # TILE beats: each asset holds until the next beat starts; first beat
         # starts at section start, last holds to section end. Word-range
@@ -121,7 +180,6 @@ def main():
     # We reconcile each screen's beat numbers against the asset_index so
     # each reveal carries the plan_assets-authoritative title and body
     # (not the placeholder titles storyboard.py derived from asset_hint).
-    storyboard_path = base / "storyboard.json"
     screens_out: list[dict] | None = None
     if storyboard_path.exists():
         storyboard = load_json(storyboard_path)
@@ -144,7 +202,8 @@ def main():
                 if screen["layout"] == "sheet":
                     sheet_ordinal[sid] = sheet_ordinal.get(sid, 0) + 1
                     ordinal = sheet_ordinal[sid]
-                asset = asset_index.get((sid, r["beat"]), {})
+                asset = render_asset(
+                    sid, r["beat"], asset_index.get((sid, r["beat"]), {}))
                 rng = beat_time.get((sid, r["beat"]))
                 # Prefer explicit reveal timings/titles from the
                 # storyboard (Manav's hand-tune) over the section-level
@@ -190,6 +249,41 @@ def main():
                 # sequence Audio without walking `sections`.
                 "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),
             })
+
+
+    # Rev D preview-proof gate. A manifest opts the episode into the footage
+    # contract; both storyboard and legacy beat render paths are supported.
+    if footage and footage.get("enforce_preview_gate", True):
+        if screens_out is not None:
+            opening_ids = {
+                r["asset"].get("manifest_id")
+                for screen in screens_out if screen.get("start", 999) < 30
+                for r in screen.get("reveals", [])
+                if r.get("asset", {}).get("type") == "broll"
+            }
+        else:
+            opening_ids = {
+                b["asset"].get("manifest_id")
+                for section in sections_out
+                for b in section.get("beats", []) if b.get("start", 999) < 30
+                if b.get("asset", {}).get("type") == "broll"
+            }
+        opening_roles = {
+            staged_footage[mid]["role"] for mid in opening_ids
+            if mid in staged_footage and staged_footage[mid].get("preview_eligible")
+        }
+        missing_groups = []
+        if "human_context" not in opening_roles:
+            missing_groups.append("human_context")
+        if not opening_roles.intersection({"market_force", "proof"}):
+            missing_groups.append("market_force|proof")
+        if not opening_roles.intersection({"process", "outcome"}):
+            missing_groups.append("process|outcome")
+        if missing_groups:
+            raise SystemExit(
+                "FOOTAGE PREVIEW GATE: BLOCKED\n"
+                f"- first 30 seconds lacks preview-eligible: {', '.join(missing_groups)}\n"
+                f"- observed roles: {', '.join(sorted(opening_roles)) or 'none'}")
 
     total = timeline["total_seconds"]
 

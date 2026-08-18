@@ -1,26 +1,98 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, interpolate, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {COLORS, FONTS, TRACK, TYPE} from '../theme';
 
 /**
- * BRollScene — until Phase 2 wires actual footage in, this is a legible
- * placeholder styled Rev C: ink ground, monochrome mono "PENDING B-ROLL"
- * label with the search query framed like a shot list ticket. Slight
- * scale drift so it doesn't sit dead. Once fetch_broll.py is wired to
- * originate/*, this scene will accept a source_video URL and render an
- * OffthreadVideo desaturated + tinted ink.
+ * BRollScene renders approved long-form footage. Missing media remains a
+ * deliberately conspicuous render blocker so a search-query ticket cannot be
+ * mistaken for a finished scene during review.
  */
 export type BRollSceneProps = {
   searchQuery: string;
   caption?: string;
   startFrame: number;
+  sourceVideo?: string;
+  sourceIn?: number;
+  sourceOut?: number;
+  crop?: string;
+  focalPosition?: string;
 };
 
-export const BRollScene: React.FC<BRollSceneProps> = ({searchQuery, caption, startFrame}) => {
+const isExternalSource = (source: string) => /^(https?:|data:|blob:)/i.test(source);
+
+const positionFromCrop = (crop?: string): string | undefined => {
+  if (!crop) return undefined;
+  const normalized = crop.toLowerCase().replace(/[_-]+/g, ' ');
+  if (/\btop left\b/.test(normalized)) return 'left top';
+  if (/\btop right\b/.test(normalized)) return 'right top';
+  if (/\bbottom left\b/.test(normalized)) return 'left bottom';
+  if (/\bbottom right\b/.test(normalized)) return 'right bottom';
+  if (/\bcenter left\b|\bleft\b/.test(normalized)) return 'left center';
+  if (/\bcenter right\b|\bright\b/.test(normalized)) return 'right center';
+  if (/\btop\b/.test(normalized)) return 'center top';
+  if (/\bbottom\b/.test(normalized)) return 'center bottom';
+  if (/\bcenter\b/.test(normalized)) return 'center center';
+  return undefined;
+};
+
+export const BRollScene: React.FC<BRollSceneProps> = ({
+  searchQuery,
+  caption,
+  startFrame,
+  sourceVideo,
+  sourceIn = 0,
+  sourceOut,
+  crop,
+  focalPosition,
+}) => {
   const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
   const rel = frame - startFrame;
   const fadeIn = interpolate(rel, [0, 14], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const drift = interpolate(rel, [0, 120], [1.0, 1.04], {extrapolateRight: 'clamp'});
+
+  if (sourceVideo) {
+    const src = isExternalSource(sourceVideo) ? sourceVideo : staticFile(sourceVideo.replace(/^\/+/, ''));
+    const startFrom = Math.max(0, Math.round(sourceIn * fps));
+    const endAt = sourceOut === undefined ? undefined : Math.max(startFrom + 1, Math.round(sourceOut * fps));
+    const objectPosition = positionFromCrop(focalPosition) || focalPosition || positionFromCrop(crop) || 'center center';
+
+    return (
+      <AbsoluteFill style={{background: COLORS.ink, overflow: 'hidden'}}>
+        <OffthreadVideo
+          src={src}
+          startFrom={startFrom}
+          endAt={endAt}
+          muted
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition,
+          }}
+        />
+        {caption ? (
+          <div
+            style={{
+              position: 'absolute',
+              right: 72,
+              bottom: 56,
+              maxWidth: 720,
+              padding: '14px 20px',
+              background: 'rgba(11, 21, 35, 0.78)',
+              borderLeft: `4px solid ${COLORS.goldBright}`,
+              color: COLORS.onInk,
+              fontFamily: FONTS.sans,
+              fontSize: TYPE.body,
+              lineHeight: 1.25,
+            }}
+          >
+            {caption}
+          </div>
+        ) : null}
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill
@@ -48,11 +120,11 @@ export const BRollScene: React.FC<BRollSceneProps> = ({searchQuery, caption, sta
             fontSize: TYPE.microLabel,
             letterSpacing: `${TRACK.caps}em`,
             textTransform: 'uppercase',
-            color: COLORS.goldBright,
+            color: '#ff6b5f',
             marginBottom: 28,
           }}
         >
-          Pending b-roll
+          Media required · render blocker
         </div>
         <div
           style={{

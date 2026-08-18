@@ -70,6 +70,11 @@ type AssetSpec = {
   unit?: string;
   source?: string;
   search_query?: string;
+  source_video?: string;
+  source_in?: number;
+  source_out?: number;
+  crop?: string;
+  focal_position?: string;
   company?: string;
   caption?: string;
   tool?: string;
@@ -411,7 +416,18 @@ const BeatScene: React.FC<{
         />
       );
     case 'broll':
-      return <BRollScene searchQuery={beat.asset.search_query ?? '—'} caption={beat.asset.caption} startFrame={0} />;
+      return (
+        <BRollScene
+          searchQuery={beat.asset.search_query ?? '—'}
+          caption={beat.asset.caption}
+          startFrame={0}
+          sourceVideo={beat.asset.source_video}
+          sourceIn={beat.asset.source_in}
+          sourceOut={beat.asset.source_out}
+          crop={beat.asset.crop}
+          focalPosition={beat.asset.focal_position}
+        />
+      );
     case 'logo':
       return (
         <LogoScene
@@ -738,6 +754,11 @@ const ScreenLayer: React.FC<{
           searchQuery={first?.asset?.search_query ?? first?.title ?? ''}
           caption={first?.asset?.caption}
           startFrame={0}
+          sourceVideo={first?.asset?.source_video}
+          sourceIn={first?.asset?.source_in}
+          sourceOut={first?.asset?.source_out}
+          crop={first?.asset?.crop}
+          focalPosition={first?.asset?.focal_position}
         />
       );
       break;

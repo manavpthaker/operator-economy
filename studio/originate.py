@@ -127,6 +127,10 @@ def main():
                       "--chain", vo_cfg.get("local_chain", "broadcast")],
                      f"Master VO via local {vo_cfg.get('local_chain')} chain")
         run_step("plan_assets.py", [script], "Plan Assets")
+        # Any long-form b-roll beat now receives a durable manifest entry for
+        # sourcing, rights, face review, timecodes, crop, and render mapping.
+        # Episodes with no b-roll remain unchanged.
+        run_step("footage_manifest.py", ["init", script], "Initialize Footage Manifest")
         # Storyboard: plan the SCREENS from real VO timings so downstream
         # (prepare_longform + Remotion) can consume one persistent screen
         # per coherent stretch of argument instead of one per talking

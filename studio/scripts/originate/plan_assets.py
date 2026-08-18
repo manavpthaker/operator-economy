@@ -38,13 +38,18 @@ For each beat you receive, expand its asset_hint into exactly one concrete asset
 
 - slide:      {"type":"slide","title":str,"bullets":[str] (max 3, <=8 words each)}
 - chart:      {"type":"chart","chart_type":"bar"|"line"|"waterfall","title":str,"series":[{"label":str,"value":float}],"unit":str,"source":str}
-- broll:      {"type":"broll","search_query":str (2-4 words, Pexels-friendly),"reason":str}
+- broll:      {"type":"broll","role":"human_context"|"market_force"|"proof"|"process"|"outcome","search_query":str (specific subject + action + setting),"query_variants":[str,str,str],"reason":str}
 - screen_rec: {"type":"screen_rec","tool":str,"action":str,"est_seconds":int}   // human captures this
 - logo:       {"type":"logo","company":str,"caption":str}
 
 Rules:
 - Charts must only use numbers present in the beat/source. Never invent data.
 - Prefer slide/chart for economics and playbook sections; broll for narrative moments.
+- B-roll must do a story job. Use human_context for a person doing the work,
+  market_force for a material branded/platform surface, proof for a receipt/source/dashboard,
+  process for a workflow or screen recording, and outcome for the visible result.
+- Make all three queries concrete. Ban generic office, typing, handshake, abstract technology,
+  decorative drone, and semantically adjacent atmosphere.
 - screen_rec only where seeing the tool genuinely adds value (max 4 per video).
 
 CHART UNIT CONTRACT (hard requirement, enforced by the renderer):
