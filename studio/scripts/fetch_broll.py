@@ -25,6 +25,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from originate._model import env_key
+
 
 def load_config() -> dict:
     root = Path(__file__).parent.parent
@@ -276,7 +278,7 @@ def main():
     parser.add_argument("--output-dir", help="Output directory (default: same as clips.json)")
     args = parser.parse_args()
 
-    api_key = os.environ.get("PEXELS_API_KEY")
+    api_key = env_key("PEXELS_API_KEY")
     if not api_key:
         print("Warning: PEXELS_API_KEY not set. Skipping B-roll fetch.", file=sys.stderr)
         print("  Get a free key at https://www.pexels.com/api/", file=sys.stderr)
