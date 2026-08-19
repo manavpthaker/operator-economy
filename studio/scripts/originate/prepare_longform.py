@@ -268,6 +268,89 @@ def main():
                 "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),
             })
 
+    # VO-first coverage timeline. Once an episode has an approved coverage
+    # map, it is the visual source of truth: do not collapse 3–10 second
+    # transcript decisions back into the older one-screen-per-script-beat
+    # storyboard. Selected media is staged; unresolved media remains an
+    # explicit render blocker rather than silently becoming a generic slide.
+    coverage_path = base / "coverage_map.json"
+    asset_manifest_path = base / "asset_manifest.json"
+    if coverage_path.exists() and asset_manifest_path.exists():
+        coverage = load_json(coverage_path)
+        manifest = load_json(asset_manifest_path)
+        if coverage.get("status") == "approved":
+            assets_by_id = {entry["id"]: entry for entry in manifest.get("entries", [])}
+            public_coverage = ROOT / "remotion" / "public" / "coverage" / script["slug"]
+            public_coverage.mkdir(parents=True, exist_ok=True)
+            coverage_screens = []
+            for index, beat in enumerate(coverage.get("beats", []), 1):
+                asset_ids = beat.get("asset_ids", [])
+                selected = next((assets_by_id.get(asset_id) for asset_id in asset_ids
+                                 if assets_by_id.get(asset_id, {}).get("status") == "selected"), None)
+                primary = selected or next((assets_by_id.get(asset_id) for asset_id in asset_ids
+                                            if assets_by_id.get(asset_id)), None)
+                media_path = None
+                if selected and selected.get("local_path"):
+                    source = base / selected["local_path"]
+                    if source.exists():
+                        staged = public_coverage / f"{selected['id']}{source.suffix.lower()}"
+                        shutil.copy2(source, staged)
+                        media_path = f"coverage/{script['slug']}/{staged.name}"
+                # Editorial platform visuals may intentionally represent a
+                # set of captures rather than one manifest file. Use the
+                # approved logged-out Booking results capture as the visible
+                # representative; the manifest remains unresolved until the
+                # final Booking/Expedia sequence is cut.
+                if media_path is None and beat.get("asset_type") == "platform_visual":
+                    fallback = base / "source_captures" / "booking-results-merida-2026-10-12.png"
+                    if fallback.exists():
+                        staged = public_coverage / f"{asset_ids[0] if asset_ids else beat['id']}-booking-results.png"
+                        shutil.copy2(fallback, staged)
+                        media_path = f"coverage/{script['slug']}/{staged.name}"
+                coverage_screens.append({
+                    "id": beat["id"],
+                    "section": beat["section"],
+                    "layout": "coverage",
+                    "heading": beat.get("narration", ""),
+                    "start": beat["start"],
+                    "end": beat["end"],
+                    "reveals": [],
+                    "preview_role": beat.get("story_role"),
+                    "footage_role": beat.get("story_role"),
+                    "preview_eligible": bool(beat.get("preview_eligible")),
+                    "visual_intent": beat.get("intended_shot"),
+                    "coverage_asset_type": beat.get("asset_type"),
+                    "coverage_narration": beat.get("narration"),
+                    "coverage_purpose": beat.get("visual_purpose"),
+                    "coverage_asset_ids": asset_ids,
+                    "coverage_asset": primary,
+                    "coverage_media": media_path,
+                    "coverage_index": index,
+                    "coverage_total": len(coverage.get("beats", [])),
+                    "audio": next((s["audio"] for s in sections_out
+                                   if s["id"] == beat["section"]), None),
+                    "events": [],
+                    "sfx": [],
+                    "music": {"intensity": "calm", "duck_db": -16},
+                })
+            # Visuals hold through breaths and sentence gaps. Coverage beats
+            # mark narration decisions, not edit-black instructions.
+            section_ranges = {
+                section["id"]: (section["start"], section["start"] + section["duration"])
+                for section in sections_out
+            }
+            for section_id in section_ranges:
+                section_screens = [s for s in coverage_screens if s["section"] == section_id]
+                if not section_screens:
+                    continue
+                section_screens[0]["start"] = section_ranges[section_id][0]
+                for current, following in zip(section_screens, section_screens[1:]):
+                    current["end"] = following["start"]
+                section_screens[-1]["end"] = section_ranges[section_id][1]
+            screens_out = coverage_screens
+            print(f"✓ Coverage timeline → {len(screens_out)} screens "
+                  f"({sum(1 for s in screens_out if s['coverage_media'])} media staged)")
+
 
     # Rev D preview-proof gate. A manifest opts the episode into the footage
     # contract; both storyboard and legacy beat render paths are supported.

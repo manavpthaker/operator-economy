@@ -26,6 +26,7 @@ import {ChapterReset} from './oe/scenes/ChapterReset';
 import {SourceCard} from './oe/scenes/SourceCard';
 import {CaseFile} from './oe/scenes/CaseFile';
 import {ApprovedEpisodeScene, isApprovedEpisodeScreen} from './oe/scenes/ApprovedEpisodeScene';
+import {CoverageScene} from './oe/scenes/CoverageScene';
 
 /**
  * BlueprintComposition v2 — "The Working Schematic Edition"
@@ -226,7 +227,8 @@ export type Screen = {
     | 'artifact'
     | 'chapter_reset'
     | 'source_card'
-    | 'case_file';
+    | 'case_file'
+    | 'coverage';
   heading?: string;
   narrative_state?: 'peril' | 'absurdity' | 'reversal' | 'build' | 'agency';
   score_state?: MusicCue['intensity'];
@@ -246,6 +248,14 @@ export type Screen = {
   custom?: ScreenCustom;
   /** Per-screen visual events from pace_storyboard.py. */
   events?: PaceEvent[];
+  coverage_asset_type?: string;
+  coverage_narration?: string;
+  coverage_purpose?: string;
+  coverage_asset_ids?: string[];
+  coverage_asset?: Record<string, any> | null;
+  coverage_media?: string | null;
+  coverage_index?: number;
+  coverage_total?: number;
 };
 
 export type Bookends = {
@@ -677,7 +687,9 @@ const ScreenLayer: React.FC<{
 
   let content: React.ReactNode;
 
-  if (approvedEpisodeSystem && isApprovedEpisodeScreen(screen)) {
+  if (screen.layout === 'coverage') {
+    content = <CoverageScene screen={screen} />;
+  } else if (approvedEpisodeSystem && isApprovedEpisodeScreen(screen)) {
     content = <ApprovedEpisodeScene screen={screen} />;
   } else {
 
