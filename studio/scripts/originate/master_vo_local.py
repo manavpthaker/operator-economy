@@ -1,7 +1,8 @@
 """
 Master VO through a bright+weighty broadcast-voice ffmpeg chain. No
-external API, no monthly fee, no watermark. Reads .raw.mp3 (the
-ElevenLabs original written by generate_vo.py) and writes
+external API, no monthly fee, no watermark. Uses the padded, room-toned
+clean master written by generate_vo.py (falling back to .raw.mp3 only
+for legacy batches) and writes
 .broadcast.mp3. --commit promotes to primary .mp3.
 
 The BROADCAST chain: hi-pass, cut the boxy 300-400 Hz mud, small bass
@@ -69,10 +70,19 @@ def process(raw: Path, chain: str) -> Path:
     if out.exists():
         print(f"  {section}: cached ({out.name})")
         return out
-    print(f"→ {section}: {chain} chain...")
+    # generate_vo.py's .raw.mp3 is captured by its first mastering pass before
+    # section_pad_s and room tone are added. Mastering that file used to remove
+    # every approved breath between sections while timeline.json retained the
+    # padding, creating cumulative caption/visual drift. The clean primary is
+    # the correct first-run source; after a promotion, .legacy.mp3 preserves it
+    # for deterministic remastering.
+    legacy = raw.parent / f"{section}.legacy.mp3"
+    primary = raw.parent / f"{section}.mp3"
+    source = legacy if legacy.exists() else primary if primary.exists() else raw
+    print(f"→ {section}: {chain} chain from {source.name}...")
     subprocess.run(
         ["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-         "-i", str(raw), "-af", CHAINS[chain],
+         "-i", str(source), "-af", CHAINS[chain],
          "-ar", "44100", "-b:a", "192k", str(out)],
         check=True,
     )
