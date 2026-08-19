@@ -2,6 +2,21 @@
 
 This is the authoritative production order after research and the initial episode brief. The final narration is the spine of the edit. A storyboard is a transcript coverage plan, not a collection of finished-looking slides.
 
+## Rolling Development Cadence
+
+Episode development starts on Monday, one full release cycle before the episode is expected to launch. Publishing the current show triggers development of the next one; it does not mark the beginning of an empty week.
+
+Maintain a rolling slate rather than one episode moving through every stage alone:
+
+| Lane | Normal Monday state |
+|---|---|
+| Current episode | Launch and release verification |
+| Next episode | VO, coverage, sourcing, and rough cut |
+| Following episode | Research complete; script under review |
+| Later candidates | Briefs and evidence gathering |
+
+Several episodes may be in research and script development at the same time. Script locks, VO, coverage approvals, and visual locks remain episode-specific; work on one show never advances another show's state. During a catch-up week, develop multiple research briefs and scripts to establish at least a two-episode buffer. Do not create VO merely to make the slate look ahead: each script still passes the human lock gate first.
+
 ## State Machine
 
 | State | Required artifact | Approval meaning |

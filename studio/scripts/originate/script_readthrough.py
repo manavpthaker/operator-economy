@@ -23,7 +23,8 @@ def main() -> None:
         paragraphs = [paragraph for paragraph in paragraphs if paragraph]
         count = sum(len(paragraph.split()) for paragraph in paragraphs)
         total += count
-        label = str(section.get("id", "section")).replace("_", " ").title()
+        section_id = str(section.get("id", "section"))
+        label = "Cold Open" if section_id == "hook" else section_id.replace("_", " ").title()
         sections.append(f"## {label}\n\n*{count} words*\n\n" + "\n\n".join(paragraphs))
     document = (
         f"# {title}\n\n"

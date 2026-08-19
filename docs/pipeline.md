@@ -2,6 +2,8 @@
 
 > **Current order: VO-first v1.** `docs/vo-first-production-flow.md` is authoritative for all production after research and the initial brief. The script is explicitly locked, final VO establishes the timeline, transcript coverage is approved, assets are selected, and a coverage-first rough cut is reviewed before visual design, music, or final rendering. The legacy `originate.py continue` command is disabled because it combined too many stages.
 
+> **Cadence:** development of the next episode begins on the Monday before its release cycle, as the current episode launches. Keep a rolling slate with the next episode in production, the following episode in script review, and later candidates in research. Use catch-up weeks to build at least a two-episode buffer.
+
 Engine lives in `../studio` (vendored from viddy 2026-07-02 — this copy is canonical for OE). Channel config: `studio/config/blueprint.json`.
 
 > **v3 (July 2026): gates are confidence-scored, not mandatory.** `confidence.py` runs automatically after the script draft and after the derive step. AUTO-PASS (≥0.85, no hard triggers) → the orchestrating agent proceeds; ESCALATE → Manav reviews. The old Gate 2 (assets) is checks-only. The pre-publish **episode library review** is mandatory while `autonomy.training_mode=true`. Full model: `automation-architecture.md`. The gate steps below describe what happens WHEN a stage escalates (or during training).
