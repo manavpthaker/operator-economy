@@ -60,6 +60,26 @@ TURN_TAGS = {
     "And if you want more practical": "excited",
 }
 
+PERFORMANCE_MARKUP = {
+    "Hotels keep paying to meet the same guest.": "Hotels keep PAYING to meet the SAME guest.",
+    "A guest finds the property on Booking, has a beautiful stay, and returns to Booking next time.": "A guest finds the property on Booking, has a beautiful stay... and returns to Booking next time.",
+    "Today, I'll show you how an operator can help the hotel earn that return visit directly.": "Today, I'll show you how an operator can help the hotel earn that return visit DIRECTLY.",
+    "Sure, the first booking may belong to the platform.": "Sure... the first booking may belong to the platform.",
+    "But the relationship after the stay should belong to the property.": "But the relationship AFTER THE STAY should belong to the property.",
+    "And follow-up happens if somebody remembers.": "And follow-up happens... if somebody remembers.",
+    "It's less a system than a group project where everyone assumes someone else did their part.": "It's less a system than a GROUP PROJECT where everyone assumes someone else did their part.",
+    "The hotel pays for that demand through commission.": "The hotel PAYS for that demand through commission.",
+    "And the base rate is only the menu price.": "And the base rate is only the MENU price.",
+    "So the hotel may pay more for a booking with a shakier RSVP.": "So the hotel may pay MORE for a booking with a shakier RSVP.",
+    "It's like paying a matchmaker every time you want a second date with the same person.": "It's like paying a MATCHMAKER every time you want a second date with the same person.",
+    "A beautiful website over a broken handoff is just a fresh coat of paint on a door that doesn't open.": "A beautiful website over a broken handoff is just a fresh coat of paint... on a door that DOESN'T OPEN.",
+    "But software is a power tool, not the contractor.": "But software is a POWER TOOL... not the contractor.",
+    "Without it, this is a junk drawer with monthly billing.": "Without it, this is a JUNK DRAWER with monthly billing.",
+    "That's a newsletter wearing a name tag.": "That's a newsletter... wearing a name tag.",
+    "A dashboard can make a flat tire look busy.": "A dashboard can make a FLAT TIRE look busy.",
+    "Summer is not your case study just because you happened to be standing there.": "Summer is NOT your case study just because you happened to be standing there.",
+}
+
 
 def sentences(text: str) -> list[str]:
     return re.split(r"(?<=[.!?])\s+", text.strip())
@@ -71,6 +91,12 @@ def strip_tags(text: str) -> str:
 
 def normalized(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
+
+
+def lexical_tokens(text: str) -> list[str]:
+    text = strip_tags(text)
+    return [token.lower() for token in
+            re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)?", text)]
 
 
 def main() -> None:
@@ -92,18 +118,19 @@ def main() -> None:
                             if sentence.startswith(prefix)), None)
                 if sentence_index == 0:
                     tag = tag or openers[beat_index]
-                lines.append(f"[{tag}] {sentence}" if tag else sentence)
+                performed = PERFORMANCE_MARKUP.get(sentence, sentence)
+                lines.append(f"[{tag}] {performed}" if tag else performed)
                 tag_count += bool(tag)
             blocks.append("\n".join(lines))
         text = "\n\n".join(blocks)
         approved = " ".join(b["vo_text"].strip() for b in section["beats"])
-        if normalized(strip_tags(text)) != normalized(approved):
+        if lexical_tokens(text) != lexical_tokens(approved):
             raise SystemExit(f"tagging changed approved words in {section['id']}")
         directed[section["id"]] = text
     payload = {
         "schema_version": "oe-v3-direction-v1",
         "script_revision": script.get("revision"),
-        "rule": "Tags and whitespace only; stripping tags must reproduce locked vo_text exactly.",
+        "rule": "Tags, case, punctuation, and whitespace may direct delivery; lexical word sequence must reproduce locked vo_text exactly.",
         "tag_count": tag_count,
         "sections": directed,
     }

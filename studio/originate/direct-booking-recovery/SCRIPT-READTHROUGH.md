@@ -1,6 +1,6 @@
 # Hotels Keep Paying to Meet the Same Guest
 
-> Script review copy · `rev-h` · 1812 words. Edit narration here conceptually; `script.json` remains canonical until approval.
+> Script review copy · `rev-i` · 1924 words. Edit narration here conceptually; `script.json` remains canonical until approval.
 
 ## Cold Open
 
@@ -13,9 +13,9 @@ Today, I'll show you how an operator can help the hotel earn that return visit d
 
 ## Show Intro
 
-*67 words*
+*85 words*
 
-This is The Operator Economy.\
+This is The Operator Economy, where we break down overlooked business problems and show you how to build a practical service around them.\
 Today, we're looking at direct-booking recovery.\
 The idea isn't to replace Booking or Expedia.\
 Small hotels need the reach.\
@@ -25,7 +25,7 @@ But the relationship after the stay should belong to the property.
 
 ## Thesis
 
-*129 words*
+*145 words*
 
 At a ten-to-forty-room hotel, no one person owns that whole journey.\
 One person updates Google.\
@@ -33,6 +33,7 @@ Someone else handles the website.\
 The front desk answers the phone when it can.\
 Guest information sits in the booking system.\
 And follow-up happens if somebody remembers.\
+It's less a system than a group project where everyone assumes someone else did their part.\
 So direct booking isn't really a website feature.\
 It's what happens when all of those small jobs work together.
 
@@ -44,7 +45,7 @@ Different tools, one outcome: more repeat business the hotel doesn't have to buy
 
 ## Evidence
 
-*475 words*
+*522 words*
 
 First, why do hotels rely on these platforms so much?\
 Cloudbeds looked at roughly ninety million bookings and found that more than 60 percent of reservations at independent hotels came through OTAs.\
@@ -52,14 +53,14 @@ Now, Cloudbeds sells hotel software, so treat that as company research, not gosp
 But it still gives us a useful picture of where the bookings come from.
 
 The hotel pays for that demand through commission.\
-And the base rate is only part of it.\
-Loyalty programs and visibility boosts can push the total higher.\
+And the base rate is only the menu price.\
+Loyalty programs and visibility boosts are the add-ons, and they can push the total higher.\
 The deal is simple: Booking or Expedia brings the audience, helps turn the search into a reservation, and takes a cut.\
 For a small hotel without a real marketing team, that can be a perfectly reasonable trade.
 
 But commission isn't the only cost.\
 In the same report, OTA reservations cancelled at about twice the rate of direct reservations.\
-So the hotel may pay more for a booking that's also less likely to stick.\
+So the hotel may pay more for a booking with a shakier RSVP.\
 That doesn't make the OTA the enemy.\
 It just means the hotel should know what that dependence is really costing.
 
@@ -74,10 +75,12 @@ Put a dollar figure next to the problem.
 And don't blame the hotel for using the platforms.\
 An OTA gives a small property global reach, translated listings, paid marketing, comparison shopping, and a checkout flow it couldn't build on its own.\
 The missed opportunity comes after the stay.\
-The hotel served the guest, but there's no useful follow-up, no clear reason to return direct, and no one responsible for fixing that.
+The hotel served the guest, but there's no useful follow-up, no clear reason to return direct, and no one responsible for fixing that.\
+It's like paying a matchmaker every time you want a second date with the same person.
 
 At Coqui Coqui, I learned that the brand and the website were the easy part.\
 The hard part was making the social post, the site, the phone call, the reservation, and check-in feel like one conversation.\
+A beautiful website over a broken handoff is just a fresh coat of paint on a door that doesn't open.\
 I had a team of more than fifty people across the operation.\
 A small innkeeper doesn't.\
 They don't need another idea.\
@@ -87,13 +90,14 @@ There's plenty of money going into the software underneath all of this.\
 Mews announced a $300 million funding round in January 2026 at a $2.5 billion valuation, and AI-driven hotel operations were part of the pitch.\
 That doesn't prove this service will work for every hotel.\
 It tells us the tools are getting better.\
-But software still can't walk into a property, understand the guest journey, and run the operation by itself.\
+But software is a power tool, not the contractor.\
+It still can't walk into a property, understand the guest journey, and run the operation by itself.\
 If you want more business ideas broken down this way, subscribe to The Operator Economy.\
 And now let's turn this one into an offer.
 
 ## Stack
 
-*327 words*
+*323 words*
 
 So what would you actually offer?\
 Start with the jobs that need to get done, not a slide full of logos.\
@@ -130,7 +134,7 @@ A model can write a first draft.\
 An automation can move information around.\
 But neither one should own the guest relationship.\
 Your oversight is the service.\
-Without it, this is just a pile of subscriptions the hotel could've bought itself.
+Without it, this is a junk drawer with monthly billing.
 
 Put those jobs together and the offer is pretty easy to explain.\
 Help the hotel get found.\
@@ -144,12 +148,12 @@ You're selling the work of winning guests back, not software setup and not gener
 
 ## Playbook
 
-*371 words*
+*392 words*
 
 Your first engagement should start with an audit, not a software purchase.\
 Pull the hotel's booking mix, commission, cancellations, missed calls, website conversion, repeat stays, and referrals.\
 You need a clear before picture.\
-Otherwise, three months from now, you won't be able to tell the owner if your work changed anything.\
+Otherwise, three months from now, you'll be calling every breeze a tailwind because you can't tell the owner if your work changed anything.\
 Your first deliverable is a map of where the guest relationship falls apart.
 
 Next, fix where the guest lands.\
@@ -164,6 +168,7 @@ More outreach will just show the same broken handoff to more people.
 Then start with the easiest audience: guests the hotel has already served and has permission to contact.\
 Build the thank-you, the review request, a seasonal reason to come back, and a simple referral prompt.\
 And don't pretend a cold automated blast is hospitality.\
+That's a newsletter wearing a name tag.\
 A few relevant messages are better than a long sequence nobody at the hotel would be proud to send.
 
 Once that path works, you can widen the discovery work.\
@@ -185,12 +190,13 @@ A buyer should understand the service before getting on a sales call.
 Every month, report one main outcome: the hotel's share of direct bookings, before and after.\
 Commission, cancellations, missed calls, website conversion, repeat stays, and reviews can explain what happened.\
 But don't hide behind a dashboard full of activity.\
+A dashboard can make a flat tire look busy.\
 If the percentage coming in direct isn't improving, figure out what's broken.\
 Don't decorate the report.
 
 ## Economics
 
-*312 words*
+*326 words*
 
 When you talk about the economics, start with the hotel's commission bill, not a promise about what you can earn.\
 In our twenty-room example, using a $180 average daily rate and 70 percent occupancy, my estimate is roughly $135,000 a year.\
@@ -211,6 +217,7 @@ Automate everything without review and the guest experience stops feeling like h
 
 Renewal is where the offer proves itself.\
 A hotel can have a strong month for reasons that have nothing to do with your work.\
+Summer is not your case study just because you happened to be standing there.\
 Seasonality moves the numbers.\
 An OTA promotion can change the mix.\
 So keep the baseline.\

@@ -234,10 +234,11 @@ def directed_section_text(section: dict, script_path: Path, vo_cfg: dict) -> str
     payload = json.loads(direction_path.read_text())
     directed = payload["sections"][section["id"]]
     stripped = re.sub(r"\[[^\]\n]{1,80}\]\s*", "", directed)
-    normalize = lambda value: re.sub(r"\s+", " ", value).strip()
-    if normalize(stripped) != normalize(section_text(section)):
+    lexical = lambda value: [token.lower() for token in re.findall(
+        r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)?", value)]
+    if lexical(stripped) != lexical(section_text(section)):
         raise ValueError(
-            f"reviewed tags changed locked words in section {section['id']}: {direction_path}"
+            f"reviewed direction changed locked word sequence in section {section['id']}: {direction_path}"
         )
     return directed
 
