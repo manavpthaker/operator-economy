@@ -61,7 +61,7 @@ TURN_TAGS = {
 }
 
 PERFORMANCE_MARKUP = {
-    "Hotels keep paying to meet the same guest.": "Hotels keep PAYING to meet the SAME guest.",
+    "Hotels keep paying to meet the same guest.": "Hotels keep paying to meet the SAME guest.",
     "A guest finds the property on Booking, has a beautiful stay, and returns to Booking next time.": "A guest finds the property on Booking, has a beautiful stay... and returns to Booking next time.",
     "Today, I'll show you how an operator can help the hotel earn that return visit directly.": "Today, I'll show you how an operator can help the hotel earn that return visit DIRECTLY.",
     "Sure, the first booking may belong to the platform.": "Sure... the first booking may belong to the platform.",
@@ -78,6 +78,35 @@ PERFORMANCE_MARKUP = {
     "That's a newsletter wearing a name tag.": "That's a newsletter... wearing a name tag.",
     "A dashboard can make a flat tire look busy.": "A dashboard can make a FLAT TIRE look busy.",
     "Summer is not your case study just because you happened to be standing there.": "Summer is NOT your case study just because you happened to be standing there.",
+}
+
+LONG_PAUSE_AFTER = {
+    "Today, I'll show you how an operator can help the hotel earn that return visit directly.",
+    "But the relationship after the stay should belong to the property.",
+    "It's what happens when all of those small jobs work together.",
+}
+
+SHORT_PAUSE_AFTER = {
+    "Hotels keep paying to meet the same guest.",
+    "More than 60 percent of independent-hotel reservations come through online travel agencies, or OTAs.",
+    "A guest finds the property on Booking, has a beautiful stay, and returns to Booking next time.",
+    "This is The Operator Economy, where we show you how to use AI and practical workflows to build and run a one-person business.",
+    "Today, we're looking at direct-booking recovery.",
+    "Small hotels need the reach.",
+    "The opportunity is to help a hotel turn a guest it met through an OTA into a guest it can welcome back directly.",
+    "Sure, the first booking may belong to the platform.",
+    "Guest information sits in the booking system.",
+    "And follow-up happens if somebody remembers.",
+    "It's less a system than a group project where everyone assumes someone else did their part.",
+    "A booking engine can't build that system.",
+    "That's where the operator comes in.",
+    "A beautiful website over a broken handoff is just a fresh coat of paint on a door that doesn't open.",
+    "It's like paying a matchmaker every time you want a second date with the same person.",
+    "But software is a power tool, not the contractor.",
+    "Without it, this is a junk drawer with monthly billing.",
+    "That's a newsletter wearing a name tag.",
+    "A dashboard can make a flat tire look busy.",
+    "Summer is not your case study just because you happened to be standing there.",
 }
 
 
@@ -119,7 +148,12 @@ def main() -> None:
                 if sentence_index == 0:
                     tag = tag or openers[beat_index]
                 performed = PERFORMANCE_MARKUP.get(sentence, sentence)
-                lines.append(f"[{tag}] {performed}" if tag else performed)
+                line = f"[{tag}] {performed}" if tag else performed
+                if sentence in LONG_PAUSE_AFTER:
+                    line += " [long pause]"
+                elif sentence in SHORT_PAUSE_AFTER:
+                    line += " [short pause]"
+                lines.append(line)
                 tag_count += bool(tag)
             blocks.append("\n".join(lines))
         text = "\n\n".join(blocks)

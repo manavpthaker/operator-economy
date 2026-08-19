@@ -1,13 +1,13 @@
 # Hotels Keep Paying to Meet the Same Guest
 
-> Script review copy · `rev-i` · 1924 words. Edit narration here conceptually; `script.json` remains canonical until approval.
+> Script review copy · `rev-j` · 1922 words. Edit narration here conceptually; `script.json` remains canonical until approval.
 
 ## Cold Open
 
-*57 words*
+*55 words*
 
 Hotels keep paying to meet the same guest.\
-More than 60 percent of independent-hotel reservations come through online travel agencies, also known as OTAs.\
+More than 60 percent of independent-hotel reservations come through online travel agencies, or OTAs.\
 A guest finds the property on Booking, has a beautiful stay, and returns to Booking next time.\
 Today, I'll show you how an operator can help the hotel earn that return visit directly.
 
@@ -15,7 +15,7 @@ Today, I'll show you how an operator can help the hotel earn that return visit d
 
 *85 words*
 
-This is The Operator Economy, where we break down overlooked business problems and show you how to build a practical service around them.\
+This is The Operator Economy, where we show you how to use AI and practical workflows to build and run a one-person business.\
 Today, we're looking at direct-booking recovery.\
 The idea isn't to replace Booking or Expedia.\
 Small hotels need the reach.\
