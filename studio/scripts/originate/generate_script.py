@@ -56,7 +56,7 @@ You ONLY output valid JSON matching the schema described in the user message. No
 - Every non-CTA section's final beat must end on a micro-open loop: an unresolved question, a named upcoming conflict, or forward tension. No section may simply conclude.
 - No beat's vo_text may exceed 110 words (~45s of VO) — split into more beats instead.
 - BANNED anywhere: "in conclusion", "thanks for watching", "that's all", "you won't believe", any income promise.
-- One soft blueprint mention, benefit-framed, at the START of the economics section (55–75% runtime) — plus the full CTA in the cta section. No subscribe/blueprint/download language anywhere else.
+- After the first major evidence payoff, include one short, benefit-framed mid-video subscribe prompt. Keep the blueprint mention in the 55–75% window, then close with the blueprint benefit plus one final subscribe prompt. Never invent or tease a specific next episode unless it is already locked in the production slate.
 - TITLES: ≤60 chars, subject/number in the first 4–5 words, no colons/semicolons, no ALL-CAPS words, no LLM vocabulary (unlocking/revolutionizing/mastering/delve/the future of). One idea per title.
 - thumbnail_text_options: 2–3 overlay text options of AT MOST 3 words each, none reusing content words from any title (title and thumbnail are one promise unit, not duplicates).
 """

@@ -1,6 +1,6 @@
 # Hotels Keep Paying to Meet the Same Guest
 
-> Script review copy · `rev-g` · 1781 words. Edit narration here conceptually; `script.json` remains canonical until approval.
+> Script review copy · `rev-h` · 1812 words. Edit narration here conceptually; `script.json` remains canonical until approval.
 
 ## Cold Open
 
@@ -44,7 +44,7 @@ Different tools, one outcome: more repeat business the hotel doesn't have to buy
 
 ## Evidence
 
-*451 words*
+*475 words*
 
 First, why do hotels rely on these platforms so much?\
 Cloudbeds looked at roughly ninety million bookings and found that more than 60 percent of reservations at independent hotels came through OTAs.\
@@ -87,11 +87,13 @@ There's plenty of money going into the software underneath all of this.\
 Mews announced a $300 million funding round in January 2026 at a $2.5 billion valuation, and AI-driven hotel operations were part of the pitch.\
 That doesn't prove this service will work for every hotel.\
 It tells us the tools are getting better.\
-But software still can't walk into a property, understand the guest journey, and run the operation by itself.
+But software still can't walk into a property, understand the guest journey, and run the operation by itself.\
+If you want more business ideas broken down this way, subscribe to The Operator Economy.\
+And now let's turn this one into an offer.
 
 ## Stack
 
-*325 words*
+*327 words*
 
 So what would you actually offer?\
 Start with the jobs that need to get done, not a slide full of logos.\
@@ -138,11 +140,11 @@ Earn the return visit.\
 Measure the change.\
 The tools support that promise.\
 They aren't the promise.\
-You're selling a managed recovery system, not software setup and not generic hotel marketing.
+You're selling the work of winning guests back, not software setup and not generic hotel marketing.
 
 ## Playbook
 
-*364 words*
+*371 words*
 
 Your first engagement should start with an audit, not a software purchase.\
 Pull the hotel's booking mix, commission, cancellations, missed calls, website conversion, repeat stays, and referrals.\
@@ -150,7 +152,7 @@ You need a clear before picture.\
 Otherwise, three months from now, you won't be able to tell the owner if your work changed anything.\
 Your first deliverable is a map of where the guest relationship falls apart.
 
-Next, fix the destination.\
+Next, fix where the guest lands.\
 Search for the hotel on your phone.\
 Compare its direct rate with the OTA rate.\
 Try to book a room.\
@@ -169,7 +171,7 @@ Keep the profile current.\
 Show the actual hotel instead of posting generic travel content.\
 Ask happy guests for specific reviews.\
 Build referral partnerships that fit the stay.\
-Everything should point to the same direct destination.\
+Everything should point to the hotel's own booking page.\
 And every automated message should have a person who reads it.\
 The blueprint below turns this into an audit and installation checklist you can use.
 
@@ -183,7 +185,7 @@ A buyer should understand the service before getting on a sales call.
 Every month, report one main outcome: the hotel's share of direct bookings, before and after.\
 Commission, cancellations, missed calls, website conversion, repeat stays, and reviews can explain what happened.\
 But don't hide behind a dashboard full of activity.\
-If direct share isn't improving, diagnose the system.\
+If the percentage coming in direct isn't improving, figure out what's broken.\
 Don't decorate the report.
 
 ## Economics
@@ -225,10 +227,10 @@ It's making sure the hotel doesn't have to buy that same introduction forever.
 
 ## Cta
 
-*76 words*
+*74 words*
 
 The direct-booking recovery blueprint includes the audit, the setup, and the monthly scorecard.\
 Use it to assess a hotel, shape the offer, and decide if this is something you want to build.\
 Let the OTAs do what they do best: introduce the guest.\
 Your job is to help the hotel turn that introduction into a relationship it can keep.\
-And next, we'll look at the missed-call system, one of the most expensive breaks in that path.
+And if you want more practical business ideas like this, subscribe to The Operator Economy.

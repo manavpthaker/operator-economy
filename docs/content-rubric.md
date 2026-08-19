@@ -64,9 +64,9 @@ Retention benchmarks (directional): 70%+ at 0:30 = push signal; APV 40–55% hea
 
 | Criterion | Pts | Check |
 |---|---|---|
-| ONE soft blueprint mention at 55–75% runtime after a value peak, benefit-framed (mid-CTA beats end-only: only ~16% reach final 10s) | 5 | AUTO (position) + HUMAN (framing) |
+| ONE short subscribe prompt after the first major evidence payoff, plus a soft blueprint mention at 55–75% runtime (mid-CTA beats end-only: only ~16% reach final 10s) | 5 | AUTO (position) + HUMAN (framing) |
 | Blueprint link: description first line + pinned comment | 3 | HUMAN (publish checklist) |
-| End bridges to OUR next video (session contribution), never bare "subscribe" | 2 | AUTO (kill-phrases) + HUMAN |
+| End closes with the blueprint benefit and a benefit-framed subscribe prompt; never invents an unlocked next episode or uses a bare "subscribe" | 2 | AUTO (kill-phrases) + HUMAN |
 
 ## Kill list (any = no publish)
 
