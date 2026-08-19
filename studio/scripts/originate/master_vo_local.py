@@ -20,6 +20,7 @@ Usage:
 """
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -107,6 +108,45 @@ def commit(vo_dir: Path, chain: str) -> int:
     return promoted
 
 
+def media_duration(path: Path) -> float:
+    return float(subprocess.check_output(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(path)], text=True).strip())
+
+
+def reconcile_timeline(vo_dir: Path) -> None:
+    """Rebuild global offsets from promoted masters.
+
+    MP3 encoding and loudnorm can add or remove encoder padding, especially on
+    longer, pause-heavy v3 sections. The API alignment remains correct within
+    each section, but downstream section starts must use the duration of the
+    actual mastered file rather than the pre-master API duration.
+    """
+    timeline_path = vo_dir / "timeline.json"
+    if not timeline_path.exists():
+        return
+    old = json.loads(timeline_path.read_text())
+    sections, words, offset = [], [], 0.0
+    for entry in old["sections"]:
+        section = entry["section"]
+        audio = vo_dir / entry["audio"]
+        cache_path = vo_dir / f"words-{section}.json"
+        cache = json.loads(cache_path.read_text())
+        duration = media_duration(audio)
+        cache["duration"] = duration
+        cache_path.write_text(json.dumps(cache))
+        words.extend(dict(word, start=word["start"] + offset,
+                          end=word["end"] + offset, section=section)
+                     for word in cache["words"])
+        sections.append({"section": section, "start": offset,
+                         "duration": duration, "audio": entry["audio"]})
+        offset += duration
+    (vo_dir / "words.json").write_text(json.dumps(words, indent=2))
+    timeline_path.write_text(json.dumps(
+        {"total_seconds": offset, "sections": sections}, indent=2))
+    print(f"  ✓ reconciled mastered timeline: {offset:.3f}s")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("vo_dir", type=Path, help="originate/<slug>/vo/")
@@ -138,6 +178,7 @@ def main() -> None:
     if args.commit:
         print("\nCommitting to primary...")
         n = commit(args.vo_dir, args.chain)
+        reconcile_timeline(args.vo_dir)
         print(f"Promoted {n} section(s). Legacy masters kept as *.legacy.mp3.")
     else:
         print("\nA/B ready. Compare:")
