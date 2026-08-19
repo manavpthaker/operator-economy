@@ -27,7 +27,7 @@ def build(base: Path) -> Path:
     for source in data["sources"]:
         source_cards.append(
             f"""<article class=\"source-card\">
-  <div class=\"eyebrow\">{h(source['kind'].replace('_', ' '))} · {h(source['id'])}</div>
+  <div class=\"eyebrow\">{h(source['kind'].replace('_', ' '))} · {h(source['id'])} · {h(source['status'].replace('_', ' '))}</div>
   <h2>{h(source['title'])}</h2>
   <p>{h(source['use'])}</p>
   <dl><dt>Publisher</dt><dd>{h(source['publisher'])}</dd><dt>Rights</dt><dd>{h(source['rights_status'].replace('_', ' '))}</dd><dt>Coverage</dt><dd>{h(', '.join(source['asset_ids']))}</dd></dl>
