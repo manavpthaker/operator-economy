@@ -44,6 +44,10 @@ python originate.py lock-script <slug>
 # Run only after the script is explicitly approved.
 python originate.py voice <slug>
 
+# Build the exact-VO visual pass and planned asset manifest. This remains a
+# draft until a human reviews every beat and approves coverage.
+python scripts/originate/build_coverage_map.py originate/<slug>/script.json
+
 # Downstream approvals are recorded as the work is reviewed.
 python originate.py mark <slug> coverage_approved
 python originate.py mark <slug> assets_selected
