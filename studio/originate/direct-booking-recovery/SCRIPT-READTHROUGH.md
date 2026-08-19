@@ -1,221 +1,234 @@
 # Hotels Keep Paying to Meet the Same Guest
 
-> Script review copy · `rev-f` · 1911 words. Edit narration here conceptually; `script.json` remains canonical until approval.
+> Script review copy · `rev-g` · 1781 words. Edit narration here conceptually; `script.json` remains canonical until approval.
 
 ## Cold Open
 
 *57 words*
 
 Hotels keep paying to meet the same guest.\
-Cloudbeds reports that more than 60 percent of independent-hotel reservations come through online travel agencies.\
-A guest finds the property on Booking.com, has a beautiful stay, and returns to Booking.com next year.\
-Today, I will show you how an operator can help the hotel earn that return visit directly.
+More than 60 percent of independent-hotel reservations come through online travel agencies, also known as OTAs.\
+A guest finds the property on Booking, has a beautiful stay, and returns to Booking next time.\
+Today, I'll show you how an operator can help the hotel earn that return visit directly.
 
 ## Show Intro
 
-*70 words*
+*67 words*
 
 This is The Operator Economy.\
-Today, we are looking at direct-booking recovery.\
-The idea is not to replace Booking.com or Expedia.\
-Small hotels need the reach those platforms provide.\
+Today, we're looking at direct-booking recovery.\
+The idea isn't to replace Booking or Expedia.\
+Small hotels need the reach.\
 The opportunity is to help a hotel turn a guest it met through an OTA into a guest it can welcome back directly.\
-The first booking may belong to the platform.\
-The relationship after the stay should belong to the property.
+Sure, the first booking may belong to the platform.\
+But the relationship after the stay should belong to the property.
 
 ## Thesis
 
-*142 words*
+*129 words*
 
-At a ten-to-forty-room property, nobody usually owns that whole journey.\
+At a ten-to-forty-room hotel, no one person owns that whole journey.\
 One person updates Google.\
 Someone else handles the website.\
 The front desk answers the phone when it can.\
 Guest information sits in the booking system.\
-Follow-up happens when somebody remembers.\
-So direct booking is not really a website feature.\
-It is what happens when all of those small jobs work together.
+And follow-up happens if somebody remembers.\
+So direct booking isn't really a website feature.\
+It's what happens when all of those small jobs work together.
 
-A booking engine cannot create that system by itself.\
+A booking engine can't build that system.\
 It can only take a reservation from someone who reaches it.\
-The operator's job is to manage the path around it: keep the property easy to find, make the direct option trustworthy, follow up with guests the hotel already served, and track whether more of them come back direct.\
-That is the offer.\
-Several tools, one outcome: a larger share of repeat business that the hotel does not have to buy again.
+That's where the operator comes in.\
+You keep the property easy to find, make the direct option trustworthy, follow up with guests the hotel has already served, and track whether more of them come back direct.\
+Different tools, one outcome: more repeat business the hotel doesn't have to buy again.
 
 ## Evidence
 
-*486 words*
+*451 words*
 
-Start with why hotels lean so heavily on these platforms.\
-Cloudbeds reports that, across roughly ninety million bookings, more than 60 percent of reservations at independent hotels came through online travel agencies.\
-Cloudbeds sells hotel software, so this is company-published research, not an independent census.\
-Still, it gives us a useful picture of how much demand flows through the OTAs.
+First, why do hotels rely on these platforms so much?\
+Cloudbeds looked at roughly ninety million bookings and found that more than 60 percent of reservations at independent hotels came through OTAs.\
+Now, Cloudbeds sells hotel software, so treat that as company research, not gospel.\
+But it still gives us a useful picture of where the bookings come from.
 
 The hotel pays for that demand through commission.\
-The base rate is only part of it.\
-Loyalty programs and extra-visibility products can push the total higher.\
-The trade is straightforward: Booking.com or Expedia brings the audience, helps convert the booking, and takes a cut.\
-For a small property without a serious marketing operation, that can be a perfectly rational deal.
+And the base rate is only part of it.\
+Loyalty programs and visibility boosts can push the total higher.\
+The deal is simple: Booking or Expedia brings the audience, helps turn the search into a reservation, and takes a cut.\
+For a small hotel without a real marketing team, that can be a perfectly reasonable trade.
 
-But commission is not the only cost.\
-In the same Cloudbeds report, OTA reservations cancelled at about twice the rate of direct reservations.\
-So the hotel may pay more for a booking that is also less likely to hold.\
-Again, that does not make the OTA the enemy.\
-It just means the hotel should understand the full cost of depending on it.
+But commission isn't the only cost.\
+In the same report, OTA reservations cancelled at about twice the rate of direct reservations.\
+So the hotel may pay more for a booking that's also less likely to stick.\
+That doesn't make the OTA the enemy.\
+It just means the hotel should know what that dependence is really costing.
 
-Here is a simple way to make that dependence visible.\
-Take a twenty-room property, a $180 average daily rate, and 70 percent occupancy.\
-If more than 60 percent of its reservations come through OTAs and the all-in commission lands in the low twenties, my estimate of annual commission exposure is roughly $135,000.\
-Your property may look nothing like this model.\
-That is fine.\
-The point is to run the hotel's real numbers and put an actual dollar figure next to the problem.
+Here's a simple way to see it.\
+Take a twenty-room hotel, a $180 average daily rate, and 70 percent occupancy.\
+If more than 60 percent of its reservations come through OTAs and the commission lands in the low twenties, my estimate is roughly $135,000 a year.\
+Your hotel may look completely different.\
+That's fine.\
+Run the real numbers.\
+Put a dollar figure next to the problem.
 
-And do not blame the hotel for using the platforms.\
-An OTA gives a small property global discovery, translated listings, paid acquisition, comparison shopping, and a checkout flow it would struggle to build alone.\
+And don't blame the hotel for using the platforms.\
+An OTA gives a small property global reach, translated listings, paid marketing, comparison shopping, and a checkout flow it couldn't build on its own.\
 The missed opportunity comes after the stay.\
-The hotel served the guest, but often leaves with no useful follow-up, no clear reason for that guest to return direct, and no one responsible for fixing it.
+The hotel served the guest, but there's no useful follow-up, no clear reason to return direct, and no one responsible for fixing that.
 
-At Coqui Coqui, I learned that the brand and website were the easy part.\
-The real work was making the social post, the website, the phone call, the reservation, and the check-in feel like one conversation.\
+At Coqui Coqui, I learned that the brand and the website were the easy part.\
+The hard part was making the social post, the site, the phone call, the reservation, and check-in feel like one conversation.\
 I had a team of more than fifty people across the operation.\
-A small innkeeper does not.\
-What they are missing is not another idea.\
-It is someone with the time and judgment to keep the whole path working.
+A small innkeeper doesn't.\
+They don't need another idea.\
+They need someone with the time and judgment to keep the whole path working.
 
-There is plenty of money going into the software underneath this shift.\
-Mews announced a $300 million funding round in January 2026 at a $2.5 billion valuation, with AI-driven hotel operations as part of the story.\
-That does not prove this service will work for every hotel.\
-It tells us the infrastructure is getting better and more valuable.\
-But software still does not walk into a property, understand the guest journey, and run the operation on its own.
+There's plenty of money going into the software underneath all of this.\
+Mews announced a $300 million funding round in January 2026 at a $2.5 billion valuation, and AI-driven hotel operations were part of the pitch.\
+That doesn't prove this service will work for every hotel.\
+It tells us the tools are getting better.\
+But software still can't walk into a property, understand the guest journey, and run the operation by itself.
 
 ## Stack
 
-*345 words*
+*325 words*
 
-If you wanted to offer this as a service, start with the jobs that need to get done, not a slide full of logos.\
-The first job is keeping the property easy to find.\
-That means a current Google profile, good photography, accurate descriptions, relevant offers, and a search result that does not look abandoned.\
-You are not promising to make the hotel famous.\
-You are making sure existing interest has somewhere credible to land.
+So what would you actually offer?\
+Start with the jobs that need to get done, not a slide full of logos.\
+Job one is keeping the hotel easy to find.\
+That means a current Google profile, good photography, accurate descriptions, relevant offers, and a search result that doesn't look abandoned.\
+You're not promising to make the hotel famous.\
+You're making sure the interest that's already there has somewhere credible to land.
 
-The second job is repairing the direct path.\
-Check the rate against the OTA.\
-Try the booking flow on a phone.\
-Read the cancellation policy like a guest would.\
+Job two is fixing the direct path.\
+Check the hotel's rate against the OTA.\
+Try booking on your phone.\
+Read the cancellation policy like a guest.\
 Call when the front desk is busy and see what happens.\
 Mews, Cloudbeds, SiteMinder, or Little Hotelier may handle the reservation.\
-Twilio or a voice agent may help with missed calls.\
-Those products can change.\
-Your responsibility is making the handoff work.
+Twilio or a voice agent may pick up a missed call.\
+The tools can change.\
+Your job is to make the handoff work.
 
-The third job starts after checkout.\
-With the guest's permission, capture enough information to make the next message useful.\
+Job three starts after checkout.\
+With the guest's permission, save enough information to make the next message useful.\
 Send a real thank-you.\
 Ask for a review at the right time.\
-Give the guest a reason to return that fits the stay they just had.\
-Resend can deliver the email.\
+Give them a reason to return that fits the stay they just had.\
+Resend can send the email.\
 Make or n8n can trigger it.\
-The automation remembers to follow up.\
+The automation remembers.\
 You still decide what good hospitality sounds like.
 
-Then you sit above the system and handle the judgment calls.\
+And then you handle the judgment calls.\
 You approve the voice and the offers.\
 You review anything sensitive.\
 You decide when not to send.\
-A model can write a first draft, and an automation can move information around, but neither one should own the guest relationship.\
-That human oversight is the service.\
-Without it, this is just a pile of subscriptions the hotel could have bought itself.
+A model can write a first draft.\
+An automation can move information around.\
+But neither one should own the guest relationship.\
+Your oversight is the service.\
+Without it, this is just a pile of subscriptions the hotel could've bought itself.
 
-Put those jobs together and the offer is easy to explain: help the hotel get found, make the direct path work, remember the guest, earn the return visit, and measure the change.\
-The tools sit underneath that promise.\
-They are not the promise.\
-You are selling an operated recovery system, not software setup and not generic hotel marketing.
+Put those jobs together and the offer is pretty easy to explain.\
+Help the hotel get found.\
+Make the direct path work.\
+Remember the guest.\
+Earn the return visit.\
+Measure the change.\
+The tools support that promise.\
+They aren't the promise.\
+You're selling a managed recovery system, not software setup and not generic hotel marketing.
 
 ## Playbook
 
-*394 words*
+*364 words*
 
-Your first engagement should begin with an audit, not a software purchase.\
-Pull the hotel's booking mix, commission, cancellations, missed calls, website conversion, repeat stays, and referral bookings.\
+Your first engagement should start with an audit, not a software purchase.\
+Pull the hotel's booking mix, commission, cancellations, missed calls, website conversion, repeat stays, and referrals.\
 You need a clear before picture.\
-Otherwise, three months from now, you will have no honest way to tell the owner whether your work changed anything.\
-The first deliverable is a map of where the guest relationship currently falls apart.
+Otherwise, three months from now, you won't be able to tell the owner if your work changed anything.\
+Your first deliverable is a map of where the guest relationship falls apart.
 
 Next, fix the destination.\
-Search for the property on your phone.\
+Search for the hotel on your phone.\
 Compare its direct rate with the OTA rate.\
-Book a room as far as you can without paying.\
+Try to book a room.\
 Read the cancellation terms.\
 Call after the desk gets busy.\
-Do not start sending guests toward a direct path you have not tested.\
-More outreach will only expose the same broken handoff to more people.
+Don't send guests toward a direct path you haven't tested.\
+More outreach will just show the same broken handoff to more people.
 
 Then start with the easiest audience: guests the hotel has already served and has permission to contact.\
-Build the post-stay thank-you, the review request, a seasonal reason to return, and a simple referral prompt.\
-Do not pretend a cold automated blast is hospitality.\
-A smaller number of relevant messages is better than a large sequence nobody at the property would be proud to receive.
+Build the thank-you, the review request, a seasonal reason to come back, and a simple referral prompt.\
+And don't pretend a cold automated blast is hospitality.\
+A few relevant messages are better than a long sequence nobody at the hotel would be proud to send.
 
-Once that path works, you can expand the discovery work.\
+Once that path works, you can widen the discovery work.\
 Keep the profile current.\
-Show the actual property instead of posting generic travel content.\
-Ask satisfied guests for specific reviews.\
-Build referral partnerships that make sense for the stay.\
-Everything should point toward the same direct destination, and every automated message should have a person who reads the output.\
-The blueprint below turns this into an audit and installation checklist you can follow.
+Show the actual hotel instead of posting generic travel content.\
+Ask happy guests for specific reviews.\
+Build referral partnerships that fit the stay.\
+Everything should point to the same direct destination.\
+And every automated message should have a person who reads it.\
+The blueprint below turns this into an audit and installation checklist you can use.
 
-The providers I reviewed for this episode do not publish simple per-property pricing.\
-That does not mean you should make up a market rate.\
-It means you have room to be unusually clear.\
-Separate the one-time audit and installation from the monthly operation.\
-Spell out what you manage, what the hotel still owns, and which result you will report.\
+The providers I reviewed don't publish simple per-hotel pricing.\
+That doesn't mean you should invent a market rate.\
+It means you have room to be clear.\
+Separate the one-time audit and setup from the monthly work.\
+Say what you manage, what the hotel still owns, and what result you'll report.\
 A buyer should understand the service before getting on a sales call.
 
 Every month, report one main outcome: the hotel's share of direct bookings, before and after.\
-Commission, cancellations, missed calls, website conversion, repeat stays, and reviews can help explain what happened.\
-But do not hide behind a dashboard full of activity.\
-If direct share is not improving, diagnose the system.\
-Do not decorate the report.
+Commission, cancellations, missed calls, website conversion, repeat stays, and reviews can explain what happened.\
+But don't hide behind a dashboard full of activity.\
+If direct share isn't improving, diagnose the system.\
+Don't decorate the report.
 
 ## Economics
 
-*335 words*
+*312 words*
 
-When you talk about the economics, begin with the hotel's commission line, not a promise about what you can earn.\
-In our twenty-room model, using a $180 average daily rate and 70 percent occupancy, my estimate of annual OTA commission exposure is roughly $135,000.\
+When you talk about the economics, start with the hotel's commission bill, not a promise about what you can earn.\
+In our twenty-room example, using a $180 average daily rate and 70 percent occupancy, my estimate is roughly $135,000 a year.\
 That gives the owner a real cost to compare against.\
-It does not tell you how much your service will recover, and you should never present it that way.
+It doesn't tell you how much your service will recover.\
+Don't present it that way.
 
-There is also evidence that hotels already pay for this kind of operational judgment.\
-ZipRecruiter reports a $94,500 to $140,000 salary range for full-time-equivalent freelance remote hotel revenue-management work.\
-That is salary data.\
-It is not a client price, and it is definitely not a promise about what you will earn.\
-It simply tells us this work already has recognized labor value.
+Hotels already pay people to do this kind of work.\
+ZipRecruiter reports a $94,500 to $140,000 salary range for full-time freelance remote hotel revenue-management work.\
+That's salary data.\
+It isn't a client price, and it isn't a promise about what you'll earn.\
+It just tells us the work has real labor value.
 
-The expensive part is not the software.\
-It is your time directing the system, reviewing its output, protecting the property's voice, managing consent, fixing exceptions, and explaining the result to the owner.\
-Price only the subscriptions and you will build yourself an unpaid support job.\
-Automate everything without review and the guest experience will stop feeling like hospitality.
+The expensive part isn't the software.\
+It's your time directing the system, reviewing the output, protecting the hotel's voice, managing consent, fixing exceptions, and explaining the result to the owner.\
+Price only the subscriptions and you'll build yourself an unpaid support job.\
+Automate everything without review and the guest experience stops feeling like hospitality.
 
 Renewal is where the offer proves itself.\
 A hotel can have a strong month for reasons that have nothing to do with your work.\
 Seasonality moves the numbers.\
 An OTA promotion can change the mix.\
-Keep the baseline, document what you changed, and be careful about claiming credit.\
-If you cannot explain your contribution, the owner will eventually treat the service like another subscription to cancel.
+So keep the baseline.\
+Write down what you changed.\
+And be careful about claiming credit.\
+If you can't explain your contribution, the owner will treat the service like another subscription to cancel.
 
 Now go back to the guest from the opening.\
 The first stay came through an OTA.\
-After checkout, the hotel earns permission to stay in touch, remembers what made the visit matter, and gives the guest a useful reason to return.\
+After checkout, the hotel earns permission to stay in touch, remembers what mattered about the visit, and gives the guest a reason to come back.\
 The next booking takes the direct path.\
-The win is not getting rid of the platform that made the introduction.\
-It is making sure the hotel does not have to buy that same introduction forever.
+The win isn't getting rid of the platform that made the introduction.\
+It's making sure the hotel doesn't have to buy that same introduction forever.
 
 ## Cta
 
-*82 words*
+*76 words*
 
-The direct-booking recovery blueprint includes the audit, the installation sequence, and the monthly scorecard.\
-Use it to assess a property, shape the offer, and decide whether this is an operation you want to build.\
-Let the OTAs keep doing what they do best: introducing the guest.\
+The direct-booking recovery blueprint includes the audit, the setup, and the monthly scorecard.\
+Use it to assess a hotel, shape the offer, and decide if this is something you want to build.\
+Let the OTAs do what they do best: introduce the guest.\
 Your job is to help the hotel turn that introduction into a relationship it can keep.\
-And next, we will look at the missed-call system that repairs one of the most expensive breaks in that path.
+And next, we'll look at the missed-call system, one of the most expensive breaks in that path.
