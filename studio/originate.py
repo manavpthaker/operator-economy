@@ -13,8 +13,9 @@ Usage:
     # Phase 1 — script (stops at Gate 1)
     python originate.py new "AI receptionists for hotels" --research notes.md
 
-    # Phase 2 — after editing script.json: VO + asset plan (stops at Gate 2)
-    python originate.py continue originate/<slug>
+    # Phase 2 — approve the script, then create the final VO. Each command stops.
+    python originate.py lock-script originate/<slug>
+    python originate.py voice originate/<slug>
 
     # Phase 3 — render data + derived content (LI posts, newsletter, blueprint)
     python originate.py render originate/<slug>
@@ -67,8 +68,21 @@ def main():
     p_new.add_argument("topic")
     p_new.add_argument("--research", help="Research brief file (md/txt)")
 
-    p_cont = sub.add_parser("continue", help="After Gate 1: VO + asset plan (stops at Gate 2)")
+    p_cont = sub.add_parser("continue", help="Deprecated: use lock-script, then voice")
     p_cont.add_argument("dir", help="originate/<slug> or bare slug")
+
+    p_lock = sub.add_parser("lock-script", help="Approve script and pin its SHA-256 before VO")
+    p_lock.add_argument("dir", help="originate/<slug> or bare slug")
+
+    p_voice = sub.add_parser("voice", help="Generate and master final VO from the locked script, then stop")
+    p_voice.add_argument("dir", help="originate/<slug> or bare slug")
+
+    p_state = sub.add_parser("state", help="Show the VO-first production state ledger")
+    p_state.add_argument("dir", help="originate/<slug> or bare slug")
+
+    p_mark = sub.add_parser("mark", help="Record a reviewed downstream production stage")
+    p_mark.add_argument("dir", help="originate/<slug> or bare slug")
+    p_mark.add_argument("stage", choices=["coverage_approved", "assets_selected", "rough_cut_approved", "visual_lock", "final_mix_complete"])
 
     p_rend = sub.add_parser("render", help="After Gate 2: render data + derived content")
     p_rend.add_argument("dir", help="originate/<slug> or bare slug")
@@ -100,11 +114,26 @@ def main():
                             str(draft), "--stage", "script"])
 
     elif args.command == "continue":
+        print("BLOCKED: `originate.py continue` mixed VO, asset planning, storyboard design,"
+              " music, and edit evaluation in one command.\n\n"
+              "Use the VO-first sequence instead:\n"
+              "  python originate.py lock-script <slug>\n"
+              "  python originate.py voice <slug>\n\n"
+              "Then build and approve transcript coverage before sourcing assets.", file=sys.stderr)
+        sys.exit(2)
+
+    elif args.command == "lock-script":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
-        # Hard gate: rigor evals (zero POV tokens) + craft rubric kill-list
         run_step("eval_script.py", [script, "--mode", "approved"], "Gate 1 Evals (approved)")
         run_step("eval_package.py", [script], "Craft Rubric (kill-list gate)")
+        run_step("production_state.py", ["complete", script, "script_locked"], "Lock Script")
+        print("\nSCRIPT LOCKED. Stop here until VO generation is explicitly requested.")
+
+    elif args.command == "voice":
+        d = resolve_dir(args.dir)
+        script = str(d / "script.json")
+        run_step("production_state.py", ["require", script, "script_locked"], "Verify Script Lock")
         run_step("generate_vo.py", [script], "Generate Voiceover")
         # Post-generate_vo mastering. Config-gated by voiceover.mastering_provider:
         #   "local" (default) + local_chain "broadcast" → master_vo_local.py
@@ -126,38 +155,21 @@ def main():
                      [str(d / "vo"), "--commit",
                       "--chain", vo_cfg.get("local_chain", "broadcast")],
                      f"Master VO via local {vo_cfg.get('local_chain')} chain")
-        run_step("plan_assets.py", [script], "Plan Assets")
-        # Any long-form b-roll beat now receives a durable manifest entry for
-        # sourcing, rights, face review, timecodes, crop, and render mapping.
-        # Episodes with no b-roll remain unchanged.
-        run_step("footage_manifest.py", ["init", script], "Initialize Footage Manifest")
-        # Storyboard: plan the SCREENS from real VO timings so downstream
-        # (prepare_longform + Remotion) can consume one persistent screen
-        # per coherent stretch of argument instead of one per talking
-        # point. See docs/storyboard-stage.md for the full spec + rules.
-        # Runs after plan_assets during the transitional migration so it
-        # can pick up authoritative asset types; storyboard.py is
-        # order-agnostic and will fall back to script.json's asset_hint
-        # once plan_assets is rewritten to consume storyboard.json.
-        run_step("storyboard.py", [script], "Plan Storyboard")
-        # pace_storyboard was never wired in. Without it every screen carries a
-        # single reveal, which is 20 kill-list hits on EP006 and the error text
-        # naming this script as the remedy.
-        run_step("pace_storyboard.py", [script], "Pacing Pass")
-        run_step("storyboard_review.py", [str(d / "storyboard.json")], "Build Storyboard Review")
-        run_step("music_brief.py", ["init", script], "Initialize Episode Score Brief")
-        run_step("eval_storyboard.py", [script], "Storyboard Pacing Evals")
-        # Edit rubric §VII — pre-render check that the storyboard has the
-        # scene grammar + cadence the finished video needs. Escalates if
-        # <16/20 or any kill-list hit (unresolved placeholder, abstract
-        # b-roll, unsourced money claim, sheet-run > 2, static hold > 45s).
-        run_step("eval_edit.py", [script], "Edit Rubric §VII")
-        print("\nGATE 2: review assets_review.md + edit_review.md, record screen_recs,"
-              " then: originate.py render <slug>")
+        run_step("production_state.py", ["complete", script, "vo_complete"], "Record Final VO")
+        print("\nVO COMPLETE. Stop. Next stage: transcript coverage map; no assets or animation yet.")
+
+    elif args.command == "state":
+        d = resolve_dir(args.dir)
+        run_step("production_state.py", ["status", str(d / "script.json")], "Production State")
+
+    elif args.command == "mark":
+        d = resolve_dir(args.dir)
+        run_step("production_state.py", ["complete", str(d / "script.json"), args.stage], f"Mark {args.stage}")
 
     elif args.command == "render":
         d = resolve_dir(args.dir)
         script = str(d / "script.json")
+        run_step("production_state.py", ["require", script, "visual_lock"], "Verify Visual Lock")
         storyboard = json.loads((d / "storyboard.json").read_text())
         if str(storyboard.get("storyboard_version", "")).startswith("rev-d"):
             run_step("music_brief.py", ["check", script], "Episode Score Gate")

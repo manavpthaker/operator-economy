@@ -1,5 +1,7 @@
 # Producing one video (end to end)
 
+> **Current order: VO-first v1.** `docs/vo-first-production-flow.md` is authoritative for all production after research and the initial brief. The script is explicitly locked, final VO establishes the timeline, transcript coverage is approved, assets are selected, and a coverage-first rough cut is reviewed before visual design, music, or final rendering. The legacy `originate.py continue` command is disabled because it combined too many stages.
+
 Engine lives in `../studio` (vendored from viddy 2026-07-02 — this copy is canonical for OE). Channel config: `studio/config/blueprint.json`.
 
 > **v3 (July 2026): gates are confidence-scored, not mandatory.** `confidence.py` runs automatically after the script draft and after the derive step. AUTO-PASS (≥0.85, no hard triggers) → the orchestrating agent proceeds; ESCALATE → Manav reviews. The old Gate 2 (assets) is checks-only. The pre-publish **episode library review** is mandatory while `autonomy.training_mode=true`. Full model: `automation-architecture.md`. The gate steps below describe what happens WHEN a stage escalates (or during training).
@@ -8,23 +10,29 @@ Engine lives in `../studio` (vendored from viddy 2026-07-02 — this copy is can
 cd studio   # from repo root
 
 # 0. Research brief (Claude/Cowork deep research → save as md)
-# 1. Script — stops at Gate 1
+# 1. Script — stop for human review
 python originate.py new "AI receptionists for independent hotels" --research brief.md
 
 # GATE 1 (~30-45 min): edit originate/<slug>/script.json
 #   - replace every [POV: ...] token with your experience  ← monetization moat
 #   - verify every number against sources
 
-# 2. VO + asset plan — stops at Gate 2
-python originate.py continue <slug>
-#   generate_vo → master_vo_local (broadcast chain, reads .raw.mp3) → plan_assets.
+# 2. Pin the approved script, then generate the final VO. Both commands stop.
+python originate.py lock-script <slug>
+python originate.py voice <slug>
+#   generate_vo → master_vo_local (broadcast chain, reads .raw.mp3).
 #   No avatar step (removed 2026-08-08; talking-head never shipped, coupling had
 #   silently broken EP003 mastering). Mastering now sources from .raw.mp3, the
 #   ElevenLabs original written by generate_vo — decoupled from the deleted roomize.
 
-# GATE 2 (~15-30 min): review assets_review.md, record screen_rec shot list
+# 3. Exact-VO transcript coverage → asset manifest → batch sourcing → rough cut.
+# See docs/vo-first-production-flow.md. Record approvals sequentially:
+python originate.py mark <slug> coverage_approved
+python originate.py mark <slug> assets_selected
+python originate.py mark <slug> rough_cut_approved
+python originate.py mark <slug> visual_lock
 
-# 3. Render data + derived content (blueprint.md, newsletter.md, LI posts, shorts briefs)
+# 4. Render data + derived content, only after visual lock
 python originate.py render <slug>
 
 # GATE 3: preview in Remotion Studio, then:
