@@ -225,6 +225,23 @@ def section_text(section: dict) -> str:
     return " ".join(beat["vo_text"].strip() for beat in section.get("beats", []))
 
 
+def directed_section_text(section: dict, script_path: Path, vo_cfg: dict) -> str:
+    """Load reviewed v3 tags without permitting a post-lock rewrite."""
+    perf = vo_cfg.get("performance", {})
+    if not perf.get("enabled") or perf.get("mode") != "reviewed_tags":
+        return section_text(section)
+    direction_path = script_path.parent / perf["direction_file"]
+    payload = json.loads(direction_path.read_text())
+    directed = payload["sections"][section["id"]]
+    stripped = re.sub(r"\[[^\]\n]{1,80}\]\s*", "", directed)
+    normalize = lambda value: re.sub(r"\s+", " ", value).strip()
+    if normalize(stripped) != normalize(section_text(section)):
+        raise ValueError(
+            f"reviewed tags changed locked words in section {section['id']}: {direction_path}"
+        )
+    return directed
+
+
 # ---------------------------------------------------------------------
 # Speech aliases (2026-07-03): eleven_v3 silently ignores pronunciation
 # dictionary locators (verified on the pilot — Airtable/n8n unchanged
@@ -334,7 +351,7 @@ def main():
 
     all_words, timeline, offset = [], [], 0.0
     for section in script["sections"]:
-        text = section_text(section)
+        text = directed_section_text(section, script_path, vo_cfg)
         if not text:
             continue
         # Resumable: reuse cached section audio + alignment if present
@@ -356,7 +373,8 @@ def main():
         print(f"  VO: {section['id']} ({len(text)} chars)")
         # Performance pass: prose → performed think-aloud (cached for
         # gate review at vo/performed-<id>.txt).
-        if vo_cfg.get("performance", {}).get("enabled", False):
+        if (vo_cfg.get("performance", {}).get("enabled", False)
+                and vo_cfg.get("performance", {}).get("mode") != "reviewed_tags"):
             with open(args.config) as _f:
                 full_config = json.load(_f)
             text = perform_section(section, vo_dir, full_config, text)

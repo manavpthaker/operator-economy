@@ -61,13 +61,13 @@
   },
   "voiceover": {
     "provider": "elevenlabs",
-    "voice_id": "R6ClLkxg1OKV20WN04jS",
-    "model_id": "eleven_multilingual_v2",
-    "stability": 0.5,
+    "voice_id": "GAYrE4BDKkay8VOR0l3L",
+    "model_id": "eleven_v3",
+    "stability": 1.0,
     "similarity_boost": 0.6,
     "output_format": "mp3_44100_192",
-    "model_note": "v3 (or flash_v2) required \u2014 pronunciation dictionaries are silently ignored on multilingual_v2. PVC voice needs Creator plan.",
-    "voice_note": "Rev D production narrator R6ClLkxg1OKV20WN04jS, selected 2026-08-18. Documentary rigor with lived urgency: contained peril, conversational disbelief, decisive build, warm resolution. Generate a whole episode as one batch; never mix narrator IDs inside an episode.",
+    "model_note": "Eleven v3 Robust selected 2026-08-19 after cold-open A/B tests. Robust supplied firmer authority while single documented emotion tags remained audible. Generate a whole episode as one batch; never mix narrator IDs inside an episode.",
+    "voice_note": "OE Narrator Firmer v3 Test 2, remixed at 40 percent strength from Manav's original yUXeTfC1IFOCSjGc96sQ voice. Narrower pitch range, firmer downward endings, reduced breathiness, controlled irritation, dry disbelief, and warm confidence.",
     "mastering": true,
     "mastering_provider": "local",
     "local_chain": "broadcast",
@@ -90,8 +90,10 @@
       "GenAI": "Gen A.I."
     },
     "performance": {
-      "enabled": false,
-      "note": "Disabled for the VO-first workflow: script lock is literal, so no model may rewrite approved words after the hash is pinned. Conversational cadence, breath breaks, contractions, and performance direction must be resolved in script review before lock. ElevenLabs speaks the locked vo_text exactly; local mastering may change sound but never wording or timing structure."
+      "enabled": true,
+      "mode": "reviewed_tags",
+      "direction_file": "vo-direction-v3.json",
+      "note": "A reviewed tag-only layer may insert documented Eleven v3 vocal tags and whitespace after lock. generate_vo.py strips those additions and proves the remaining words exactly match locked vo_text before calling ElevenLabs. No model rewrite is permitted after script lock."
     },
     "room_tone": true,
     "layout": {
