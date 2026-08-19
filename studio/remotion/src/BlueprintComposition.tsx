@@ -25,6 +25,7 @@ import {ArtifactScene, ArtifactNode} from './oe/scenes/ArtifactScene';
 import {ChapterReset} from './oe/scenes/ChapterReset';
 import {SourceCard} from './oe/scenes/SourceCard';
 import {CaseFile} from './oe/scenes/CaseFile';
+import {ApprovedEpisodeScene, isApprovedEpisodeScreen} from './oe/scenes/ApprovedEpisodeScene';
 
 /**
  * BlueprintComposition v2 — "The Working Schematic Edition"
@@ -380,6 +381,18 @@ const FadeIn: React.FC<{frames?: number; hard?: boolean; children: React.ReactNo
   );
 };
 
+const ApprovedTitleExit: React.FC = () => {
+  const frame = useCurrentFrame();
+  const scaleX = interpolate(frame, [0, 17], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.cubic),
+  });
+  return (
+    <AbsoluteFill style={{background: COLORS.draftingBlue, transform: `scaleX(${scaleX})`, transformOrigin: 'left center'}} />
+  );
+};
+
 // ---------------------------------------------------------------------
 // Scene router
 // ---------------------------------------------------------------------
@@ -645,7 +658,8 @@ const ScreenLayer: React.FC<{
   screenIndex: number;
   totalScreens: number;
   fps: number;
-}> = ({screen, screenIndex, totalScreens, fps}) => {
+  approvedEpisodeSystem?: boolean;
+}> = ({screen, screenIndex, totalScreens, fps, approvedEpisodeSystem = false}) => {
   const from = Math.round(screen.start * fps);
   const dur = Math.max(1, Math.round((screen.end - screen.start) * fps)) + XFADE_FRAMES;
   const meta = SECTION_TITLES[screen.section];
@@ -662,6 +676,10 @@ const ScreenLayer: React.FC<{
   const focusEvents = localEvents(screen.events, 'focus', screen.start, fps);
 
   let content: React.ReactNode;
+
+  if (approvedEpisodeSystem && isApprovedEpisodeScreen(screen)) {
+    content = <ApprovedEpisodeScene screen={screen} />;
+  } else {
 
   switch (screen.layout) {
     case 'schematic': {
@@ -1024,6 +1042,7 @@ const ScreenLayer: React.FC<{
     default:
       content = <AbsoluteFill style={{background: COLORS.ink}} />;
   }
+  }
 
   // Title-card screens (2026-07-05): the Operator Blueprint card now
   // lives IN content (bookend TitleCard retired) so it can span the
@@ -1167,6 +1186,7 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
               screenIndex={i}
               totalScreens={screens!.length}
               fps={fps}
+              approvedEpisodeSystem={renderData.slug === 'direct-booking-recovery'}
             />
           ))
         : sections.map((section, i) => (
@@ -1242,14 +1262,24 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       {titleFrames > 0 && (
         <Sequence from={brandAtFrames + brandFrames} durationInFrames={titleFrames}>
           <TitleCard
-            overline={
+            overline={renderData.slug === 'direct-booking-recovery' ? undefined : (
               bookends.episode_no
                 ? `Operator Blueprint · № ${String(bookends.episode_no).padStart(3, '0')}`
                 : 'Operator Blueprint'
-            }
-            title={bookends.title}
-            thesis={bookends.thesis}
+            )}
+            title={renderData.slug === 'direct-booking-recovery' ? 'Direct-booking recovery' : bookends.title}
+            thesis={renderData.slug === 'direct-booking-recovery'
+              ? 'AI and practical workflows for building a one-person business.'
+              : bookends.thesis}
           />
+        </Sequence>
+      )}
+      {renderData.slug === 'direct-booking-recovery' && titleFrames > 18 && (
+        <Sequence
+          from={brandAtFrames + brandFrames + titleFrames - 18}
+          durationInFrames={18}
+        >
+          <ApprovedTitleExit />
         </Sequence>
       )}
       {outroFrames > 0 && (
