@@ -436,7 +436,9 @@ def main():
     # therefore the universal OE logo/sting only; a second silent title card
     # before the spoken title duplicates and scrambles the opening hierarchy.
     if script["slug"] == "direct-booking-recovery":
+        bookends["brand_seconds"] = 0.0
         bookends["title_seconds"] = 0.0
+        bookends["sting_audio"] = None
 
     # Cold open (2026-08-12). The brand sting opens on the episode's OWN
     # thumbnail ground and dissolves it into the navy over its existing 1.8

@@ -77,12 +77,16 @@ const ColdOpenScene: React.FC<{screen: Screen}> = ({screen}) => {
   const t = motion(frame, 3, 18);
   const media = screen.coverage_media;
   return <AbsoluteFill style={{background:COLORS.ink,overflow:'hidden'}}>
-    {media ? <OffthreadVideo src={staticFile(media)} muted style={{width:'100%',height:'100%',objectFit:'cover'}}/> : null}
-    <div style={{position:'absolute',left:0,top:0,bottom:0,width:'58%',background:'rgba(18,19,18,.86)'}}/>
-    <div style={{position:'absolute',left:88,top:185,width:900,opacity:t,transform:`translateX(${(1-t)*-24}px)`}}>
-      <div style={{fontFamily:FONTS.display,fontWeight:800,fontSize:105,lineHeight:.9,letterSpacing:'-.055em',color:COLORS.onInk}}>Hotels keep paying<br/>to meet the<br/><span style={{color:COLORS.goldBright}}>same guest.</span></div>
-      <div style={{height:4,width:interpolate(frame,[15,38],[0,620],clamp),background:COLORS.goldBright,marginTop:34}}/>
+    {media ? <>
+      <div style={{position:'absolute',left:0,top:0,bottom:0,width:'50%',overflow:'hidden'}}><OffthreadVideo src={staticFile(media)} muted style={{width:'200%',height:'100%',objectFit:'cover',objectPosition:'left center'}}/></div>
+      <div style={{position:'absolute',right:0,top:0,bottom:0,width:'50%',overflow:'hidden',borderLeft:`5px solid ${COLORS.goldBright}`}}><OffthreadVideo src={staticFile(media)} muted style={{width:'200%',height:'100%',objectFit:'cover',objectPosition:'left center',transform:'translateX(0) scaleX(-1)'}}/></div>
+    </> : null}
+    <div style={{position:'absolute',inset:0,background:'rgba(18,19,18,.42)'}}/>
+    <div style={{position:'absolute',left:0,right:0,top:250,textAlign:'center',opacity:t,transform:`scale(${.88+t*.12})`}}>
+      <div style={{fontFamily:FONTS.sans,fontWeight:800,fontSize:198,lineHeight:.8,letterSpacing:'-.075em',color:COLORS.onInk}}>SAME GUEST</div>
+      <div style={{display:'inline-block',fontFamily:FONTS.sans,fontWeight:700,fontSize:38,letterSpacing:'-.02em',color:COLORS.ink,background:COLORS.goldBright,padding:'12px 24px',marginTop:36}}>THE HOTEL PAYS TO MEET THEM AGAIN</div>
     </div>
+    <div style={{position:'absolute',left:'50%',top:0,bottom:0,width:interpolate(frame,[20,42],[0,5],clamp),background:COLORS.goldBright}}/>
     <Kicker screen={screen} dark/>
   </AbsoluteFill>;
 };
@@ -119,9 +123,9 @@ const BrandScene: React.FC<{screen: Screen}> = ({screen}) => {
   const line = interpolate(frame, [8, 42], [0, 1180], clamp);
   return (
     <AbsoluteFill style={{background: COLORS.navy, ...grid, color: COLORS.onInk, alignItems: 'center', justifyContent: 'center'}}>
-      <div style={{fontFamily: FONTS.display, fontSize: 82, fontWeight: 800, letterSpacing: '-.05em',textAlign:'center'}}>Build and run<br/>a one-person business.</div>
+      <div style={{fontFamily: FONTS.display, fontSize: 92, fontWeight: 800, letterSpacing: '-.055em',textAlign:'center'}}>The Operator Economy</div>
       <div style={{height: 3, width: line, margin: '28px 0 24px', background: COLORS.goldBright}}/>
-      <div style={{fontFamily: FONTS.sans, fontSize: 31, maxWidth: 1240, textAlign: 'center', lineHeight: 1.3}}>Practical workflows. Useful AI. One accountable operator.</div>
+      <div style={{fontFamily: FONTS.sans, fontSize: 34, maxWidth: 1240, textAlign: 'center', lineHeight: 1.3}}>Build and run a one-person business with useful AI and practical workflows.</div>
       <Kicker screen={screen} dark/>
     </AbsoluteFill>
   );
@@ -223,9 +227,45 @@ const DocumentScene: React.FC<{screen: Screen}> = ({screen}) => {
   );
 };
 
+const KineticTypeScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame();
+  const text=screen.coverage_narration || '';
+  const emphasis=(text.match(/\b[A-Z][A-Z\s-]{3,}\b/)?.[0] || text.split(/[,.:]/)[0] || 'THE HANDOFF').trim();
+  const t=motion(frame,0,16);
+  const echo=interpolate(frame,[8,40],[120,0],clamp);
+  return <AbsoluteFill style={{background:COLORS.ink,color:COLORS.onInk,overflow:'hidden'}}>
+    {[0,1,2].map((i)=><div key={i} style={{position:'absolute',left:60+i*12,top:150+i*echo,fontFamily:FONTS.sans,fontWeight:800,fontSize:Math.min(176,1550/Math.max(8,emphasis.length)*10),lineHeight:.82,letterSpacing:'-.075em',color:i===0?COLORS.onInk:`rgba(245,240,230,${.12-i*.03})`,opacity:t}}>{emphasis}</div>)}
+    <div style={{position:'absolute',left:80,right:80,bottom:150,borderTop:`5px solid ${COLORS.goldBright}`,paddingTop:26,fontFamily:FONTS.sans,fontSize:31,lineHeight:1.25}}>{short(text,150)}</div>
+    <Kicker screen={screen} dark/>
+  </AbsoluteFill>;
+};
+
+const ChecklistScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame();
+  const seeds=(screen.visual_intent || '').split(/[;,.]|\band\b/i).map(v=>v.trim()).filter(v=>v.length>5).slice(0,5);
+  const items=seeds.length>=3?seeds:['Find the friction','Name the owner','Test the handoff','Record the baseline'];
+  return <AbsoluteFill style={{background:COLORS.paper,color:COLORS.ink900}}>
+    <div style={{position:'absolute',left:82,top:72,width:720,fontFamily:FONTS.display,fontSize:72,fontWeight:800,lineHeight:.98,letterSpacing:'-.05em'}}>{short(screen.coverage_narration,105)}</div>
+    <div style={{position:'absolute',left:900,right:80,top:100,bottom:100,border:`2px solid ${COLORS.ruleStrong}`,background:'#fff'}}>
+      <div style={{height:62,borderBottom:`1px solid ${COLORS.ruleStrong}`,padding:'20px 26px',fontFamily:FONTS.mono,fontSize:16,textTransform:'uppercase',color:COLORS.draftingBlue}}>Operator control surface · live pass</div>
+      {items.map((item,i)=>{const t=motion(frame,7+i*9,20+i*9);return <div key={item} style={{display:'grid',gridTemplateColumns:'68px 1fr',alignItems:'center',padding:'21px 26px',borderBottom:`1px solid ${COLORS.rule}`,opacity:t,transform:`translateX(${(1-t)*22}px)`}}><div style={{width:30,height:30,border:`2px solid ${COLORS.draftingBlue}`,background:t>.96?COLORS.draftingBlue:'transparent',color:'#fff',fontFamily:FONTS.sans,textAlign:'center',lineHeight:'27px'}}>✓</div><div style={{fontFamily:FONTS.sans,fontSize:27,fontWeight:700}}>{short(item,76)}</div></div>})}
+    </div><Kicker screen={screen}/>
+  </AbsoluteFill>;
+};
+
+const CtaScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame();const t=motion(frame,0,18);
+  return <AbsoluteFill style={{background:COLORS.navy,...grid,color:COLORS.onInk,alignItems:'center',justifyContent:'center'}}>
+    <div style={{fontFamily:FONTS.sans,fontSize:30,color:COLORS.goldBright,marginBottom:28}}>THE NEXT OPERATING ADVANTAGE</div>
+    <div style={{fontFamily:FONTS.display,fontSize:108,fontWeight:800,lineHeight:.9,letterSpacing:'-.06em',textAlign:'center',opacity:t}}>Build it.<br/>Own it. Operate it.</div>
+    <div style={{height:5,width:interpolate(frame,[14,44],[0,980],clamp),background:COLORS.goldBright,marginTop:40}}/>
+    <Kicker screen={screen} dark/>
+  </AbsoluteFill>;
+};
+
 const mediaTypes = new Set(['hospitality_footage','platform_visual','interface_capture','source_document','headline_document']);
 const dataTypes = new Set(['custom_chart','comparison_chart','evidence_card']);
-const processTypes = new Set(['process_diagram','stack_diagram','checklist_motion']);
+const processTypes = new Set(['process_diagram','stack_diagram']);
 const documentTypes = new Set(['document_template']);
 
 export const CoverageScene: React.FC<{screen: Screen}> = ({screen}) => {
@@ -240,7 +280,9 @@ export const CoverageScene: React.FC<{screen: Screen}> = ({screen}) => {
   if (type === 'brand_ident') return <BrandScene screen={screen}/>;
   if (dataTypes.has(type)) return <DataScene screen={screen}/>;
   if (processTypes.has(type)) return <ProcessScene screen={screen}/>;
+  if (type === 'checklist_motion') return <ChecklistScene screen={screen}/>;
   if (documentTypes.has(type)) return <DocumentScene screen={screen}/>;
-  if (type === 'cta_card' || type === 'outcome_card' || type === 'visual_metaphor') return <ProcessScene screen={screen}/>;
+  if (type === 'cta_card') return <CtaScene screen={screen}/>;
+  if (type === 'outcome_card' || type === 'visual_metaphor') return <KineticTypeScene screen={screen}/>;
   return <DocumentScene screen={screen}/>;
 };
