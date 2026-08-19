@@ -301,7 +301,8 @@ def main():
                 # approved logged-out Booking results capture as the visible
                 # representative; the manifest remains unresolved until the
                 # final Booking/Expedia sequence is cut.
-                if media_path is None and beat.get("asset_type") == "platform_visual":
+                if (media_path is None and beat.get("asset_type") == "platform_visual"
+                        and any(asset_id in {"A003", "A011"} for asset_id in asset_ids)):
                     fallback = base / "source_captures" / "booking-results-merida-2026-10-12.png"
                     if fallback.exists():
                         staged = public_coverage / f"{asset_ids[0] if asset_ids else beat['id']}-booking-results.png"
@@ -431,6 +432,11 @@ def main():
         },
         "ctas": bk_cfg.get("outro_ctas", []),
     }
+    # EP006 names the episode inside the locked VO. The identity break is
+    # therefore the universal OE logo/sting only; a second silent title card
+    # before the spoken title duplicates and scrambles the opening hierarchy.
+    if script["slug"] == "direct-booking-recovery":
+        bookends["title_seconds"] = 0.0
 
     # Cold open (2026-08-12). The brand sting opens on the episode's OWN
     # thumbnail ground and dissolves it into the navy over its existing 1.8

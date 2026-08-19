@@ -50,30 +50,41 @@ const MediaScene: React.FC<{screen: Screen}> = ({screen}) => {
     objectPosition: asset.focal_point || 'center',
     transform: `scale(${1.025 + frame * 0.00008})`,
   };
-  return (
+  if (isVideo) return (
     <AbsoluteFill style={{background: COLORS.ink, overflow: 'hidden'}}>
-      {isVideo ? (
-        <OffthreadVideo src={staticFile(media)} muted startFrom={startFrom} style={common}/>
-      ) : (
-        <Img src={staticFile(media)} style={{...common, objectFit: 'contain', transform: `scale(${.96 + t * .04})`}}/>
-      )}
-      <div style={{position: 'absolute', inset: 0, background: 'rgba(18,19,18,.18)'}}/>
-      <div style={{
-        position: 'absolute', left: 72, bottom: 82, maxWidth: 1240,
-        padding: '22px 28px 24px', background: 'rgba(18,19,18,.88)',
-        borderLeft: `5px solid ${COLORS.goldBright}`, opacity: t,
-        transform: `translateY(${(1 - t) * 18}px)`,
-      }}>
-        <div style={{fontFamily: FONTS.sans, fontSize: 42, lineHeight: 1.12, fontWeight: 700, color: COLORS.onInk}}>
-          {short(screen.coverage_narration, 104)}
-        </div>
-        <div style={{fontFamily: FONTS.mono, fontSize: 14, marginTop: 14, color: COLORS.onInkMuted, textTransform: 'uppercase'}}>
-          {asset.provider || 'Editorial source'} · {asset.creator || asset.asset_type || 'selected asset'}
-        </div>
-      </div>
+      <OffthreadVideo src={staticFile(media)} muted startFrom={startFrom} style={common}/>
       <Kicker screen={screen} dark/>
     </AbsoluteFill>
   );
+  return (
+    <AbsoluteFill style={{background: COLORS.paper, color: COLORS.ink900}}>
+      <div style={{position: 'absolute', left: 82, right: 82, top: 62, bottom: 82, border: `2px solid ${COLORS.ruleStrong}`, background: '#fff', opacity: t, transform: `translateY(${(1-t)*14}px)`}}>
+        <div style={{height: 38, borderBottom: `1px solid ${COLORS.ruleStrong}`, display: 'flex', alignItems: 'center', gap: 10, padding: '0 15px'}}>
+          {[0,1,2].map((dot) => <span key={dot} style={{width: 9,height:9,borderRadius:'50%',background:dot===0?COLORS.goldOnPaper:COLORS.ruleStrong}}/>)}
+          <span style={{fontFamily:FONTS.mono,fontSize:12,marginLeft:14,color:COLORS.ink500}}>{asset.provider || 'Editorial capture'} · reviewed source window</span>
+        </div>
+        <div style={{position:'absolute',left:22,right:22,top:60,bottom:22,overflow:'hidden',background:COLORS.paper}}>
+          <Img src={staticFile(media)} style={{width:'100%',height:'100%',objectFit:'contain',objectPosition:'center'}}/>
+        </div>
+      </div>
+      <Kicker screen={screen}/>
+    </AbsoluteFill>
+  );
+};
+
+const ColdOpenScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame = useCurrentFrame();
+  const t = motion(frame, 3, 18);
+  const media = screen.coverage_media;
+  return <AbsoluteFill style={{background:COLORS.ink,overflow:'hidden'}}>
+    {media ? <OffthreadVideo src={staticFile(media)} muted style={{width:'100%',height:'100%',objectFit:'cover'}}/> : null}
+    <div style={{position:'absolute',left:0,top:0,bottom:0,width:'58%',background:'rgba(18,19,18,.86)'}}/>
+    <div style={{position:'absolute',left:88,top:185,width:900,opacity:t,transform:`translateX(${(1-t)*-24}px)`}}>
+      <div style={{fontFamily:FONTS.display,fontWeight:800,fontSize:105,lineHeight:.9,letterSpacing:'-.055em',color:COLORS.onInk}}>Hotels keep paying<br/>to meet the<br/><span style={{color:COLORS.goldBright}}>same guest.</span></div>
+      <div style={{height:4,width:interpolate(frame,[15,38],[0,620],clamp),background:COLORS.goldBright,marginTop:34}}/>
+    </div>
+    <Kicker screen={screen} dark/>
+  </AbsoluteFill>;
 };
 
 const MissingMedia: React.FC<{screen: Screen}> = ({screen}) => {
@@ -108,14 +119,47 @@ const BrandScene: React.FC<{screen: Screen}> = ({screen}) => {
   const line = interpolate(frame, [8, 42], [0, 1180], clamp);
   return (
     <AbsoluteFill style={{background: COLORS.navy, ...grid, color: COLORS.onInk, alignItems: 'center', justifyContent: 'center'}}>
-      <div style={{fontFamily: FONTS.display, fontSize: 92, fontWeight: 800, letterSpacing: '-.05em'}}>The Operator Economy</div>
+      <div style={{fontFamily: FONTS.display, fontSize: 82, fontWeight: 800, letterSpacing: '-.05em',textAlign:'center'}}>Build and run<br/>a one-person business.</div>
       <div style={{height: 3, width: line, margin: '28px 0 24px', background: COLORS.goldBright}}/>
-      <div style={{fontFamily: FONTS.sans, fontSize: 34, maxWidth: 1240, textAlign: 'center', lineHeight: 1.3}}>
-        AI and practical workflows for building and running a one-person business.
-      </div>
+      <div style={{fontFamily: FONTS.sans, fontSize: 31, maxWidth: 1240, textAlign: 'center', lineHeight: 1.3}}>Practical workflows. Useful AI. One accountable operator.</div>
       <Kicker screen={screen} dark/>
     </AbsoluteFill>
   );
+};
+
+const EpisodeTitleScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame(); const t=motion(frame,0,18);
+  return <AbsoluteFill style={{background:COLORS.paper,color:COLORS.ink900}}>
+    <div style={{position:'absolute',left:105,top:220,right:105,opacity:t,transform:`translateY(${(1-t)*22}px)`}}>
+      <div style={{fontFamily:FONTS.display,fontWeight:800,fontSize:112,lineHeight:.9,letterSpacing:'-.06em'}}>Direct-booking<br/>recovery</div>
+      <div style={{height:5,width:interpolate(frame,[12,38],[0,920],clamp),background:COLORS.draftingBlue,marginTop:42}}/>
+      <div style={{fontFamily:FONTS.sans,fontSize:31,color:COLORS.ink500,marginTop:28}}>Use the platforms for reach. Help the property earn the return.</div>
+    </div>
+    <Kicker screen={screen}/>
+  </AbsoluteFill>;
+};
+
+const PlatformPathScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame(); const direct=screen.id==='V009';
+  const nodes=['Platform reach','A good stay','Property relationship'];
+  return <AbsoluteFill style={{background:COLORS.navy,...grid,color:COLORS.onInk}}>
+    <div style={{position:'absolute',left:90,top:95,right:90,fontFamily:FONTS.display,fontSize:72,fontWeight:800,lineHeight:.98,letterSpacing:'-.05em'}}>{direct?'The stay belongs to the hotel. So should the relationship.':'Keep the reach. Change who owns the return.'}</div>
+    <div style={{position:'absolute',left:130,right:130,top:470,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:90}}>
+      {nodes.map((n,i)=>{const t=motion(frame,8+i*10,24+i*10);return <div key={n} style={{position:'relative',padding:'34px 20px',border:`2px solid ${i===2?COLORS.goldBright:COLORS.schemNodeBorder}`,fontFamily:FONTS.sans,fontSize:30,fontWeight:700,textAlign:'center',opacity:t,color:i===2?COLORS.goldBright:COLORS.onInk}}>{n}{i<2?<span style={{position:'absolute',right:-62,color:COLORS.goldBright}}>→</span>:null}</div>})}
+    </div><Kicker screen={screen} dark/>
+  </AbsoluteFill>;
+};
+
+const JourneyScene: React.FC<{screen: Screen}> = ({screen}) => {
+  const frame=useCurrentFrame();
+  const stages=['Discovered','Booked','Welcomed','Remembered','Returned'];
+  const active=Math.min(4,Math.max(0,screen.id==='V010'?0:screen.id==='V011'?1:screen.id==='V012'?2:screen.id==='V013'||screen.id==='V014'?3:4));
+  return <AbsoluteFill style={{background:COLORS.navy,...grid,color:COLORS.onInk}}>
+    <div style={{position:'absolute',left:86,top:78,right:86,fontFamily:FONTS.display,fontSize:68,fontWeight:800,lineHeight:.98,letterSpacing:'-.045em'}}>{short(screen.coverage_narration,100)}</div>
+    <div style={{position:'absolute',left:95,right:95,top:465,display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:36}}>
+      {stages.map((stage,i)=>{const t=motion(frame,6+i*6,18+i*6);const on=i<=active;return <div key={stage} style={{position:'relative',minHeight:168,padding:'30px 16px',border:`2px solid ${on?(i===active?COLORS.goldBright:'#78a4cf'):COLORS.schemNodeBorder}`,background:on?COLORS.schemNodeBg:'transparent',opacity:t,fontFamily:FONTS.sans,fontSize:34,fontWeight:700,textAlign:'center',color:i===active?COLORS.goldBright:COLORS.onInk}}><div style={{fontFamily:FONTS.mono,fontSize:16,marginBottom:22,opacity:.7}}>{String(i+1).padStart(2,'0')}</div>{stage}{i<4?<span style={{position:'absolute',right:-28,top:68,color:on?COLORS.goldBright:COLORS.schemNodeBorder}}>→</span>:null}</div>})}
+    </div><Kicker screen={screen} dark/>
+  </AbsoluteFill>;
 };
 
 const ProcessScene: React.FC<{screen: Screen}> = ({screen}) => {
@@ -186,6 +230,11 @@ const documentTypes = new Set(['document_template']);
 
 export const CoverageScene: React.FC<{screen: Screen}> = ({screen}) => {
   const type = screen.coverage_asset_type || 'visual_metaphor';
+  if (screen.id === 'V001') return <ColdOpenScene screen={screen}/>;
+  if (screen.id === 'V005') return <BrandScene screen={screen}/>;
+  if (screen.id === 'V006') return <EpisodeTitleScene screen={screen}/>;
+  if (screen.id === 'V007' || screen.id === 'V009') return <PlatformPathScene screen={screen}/>;
+  if (/^V0(?:10|11|12|13|14|15|16|17|18|19)$/.test(screen.id)) return <JourneyScene screen={screen}/>;
   if (screen.coverage_media) return <MediaScene screen={screen}/>;
   if (mediaTypes.has(type)) return <MissingMedia screen={screen}/>;
   if (type === 'brand_ident') return <BrandScene screen={screen}/>;

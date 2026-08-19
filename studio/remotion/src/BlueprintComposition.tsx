@@ -1286,7 +1286,8 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
           />
         </Sequence>
       )}
-      {renderData.slug === 'direct-booking-recovery' && titleFrames > 18 && (
+      {renderData.slug === 'direct-booking-recovery' &&
+        (titleFrames > 18 || (titleFrames === 0 && brandFrames > 18)) && (
         <Sequence
           from={brandAtFrames + brandFrames + titleFrames - 18}
           durationInFrames={18}
