@@ -1,0 +1,68 @@
+# ARCHIVED — Topic queue v3 (July 2026), retired 2026-08-10
+
+**Why this was retired.** After five shipped episodes the operator was not sold on any remaining
+row. The queue was built once, in July 2026, from three deep-research reports, and drawn down
+every week since without anything refilling it. By 2026-08-10 the unblocked inventory at or above
+the ≥65 produce bar was five rows (#8, #10, #13, #15, #16), roughly five weeks of runway, with
+the tail falling to 63 and 62 which are under the bar.
+
+Retiring it is a reset of topic *selection*, not of the format. The diagnosis behind the reset:
+the channel is discovery-constrained (EP002 0.7% CTR, EP003 0.0% on 142 impressions), so the next
+run scores candidates on search demand first. See `../scoring.md` for the re-weight and
+`../queue.md` for the new intake rules.
+
+## Disposition of every row
+
+| Rows | Disposition |
+|---|---|
+| 1, 2, 3, 12, 22 | **Shipped** as EP001 through EP005 |
+| 6, 11, 21 | **Parked**, guest-dependent. See `../parked.md` |
+| 5, 20 | Already merged into 14 and 4 respectively |
+| 7 | Dropped. Was gated on receipts that never arrived |
+| 4, 8, 9, 10, 13, 14, 15, 16, 17, 18, 19 | Dropped in the reset |
+
+Nothing here is deleted. Any row can be re-proposed through the new intake, where it will be
+scored against the re-weighted rubric rather than inherited at its old score. Rows 9, 14, and 21
+have partial working directories under `studio/originate/` (`avatar-localization`, `vibe-coding`,
+`tactical-shift`) containing scripts that were never produced; those directories are untouched.
+
+---
+
+# Topic queue (v3 — thesis-led format, July 2026)
+
+Every episode is a thesis: **"this is the kind of business you can build"** — with evidence spanning the low end (solo operator, best-case case study) and high end (venture-scale proof of market). Sources: 3 deep-research reports (`../research/reports/`), scored per `scoring.md`. To produce: `cd ../studio && python originate.py new "<thesis>" --research <brief>`.
+
+## Production queue
+
+| # | Episode thesis | Low-end evidence | High-end evidence | Tools/stack | Score | Status |
+|---|---|---|---|---|---|---|
+| 1 | **You can sell AI implementation to businesses that are drowning in it** (~90%-margin consulting/productized service) | Boutique AI agencies, productized consultancies | Late Checkout, Scale AI (adjacent) | Claude/GPT, n8n, Notion | 90 | **PILOT #1** — strongest POV (Manav lived it), thesis-native |
+| 2 | Businesses will pay you to answer their phones with AI (voice-agent agency) | Solo voice-AI agencies for local biz | ElevenLabs, Retell, Bland | ElevenLabs (22% recurring affiliate), Twilio | 88 | queued — ties to avatar/VO experiments |
+| 3 | The boring-automation agency: SMBs pay real money for workflows | Solo n8n/Make agencies | Zapier, n8n | n8n, Make, Airtable | 86 | queued — concept-led, decay-proof |
+| 4 | Content automation is the business: one research run → five surfaces (this channel is the working demo) | This channel's own pipeline + growth receipts (confidence-gated pipeline, evals, per-episode cost) | Starter Story (HubSpot exit), MagnatesMedia | Whisper, Claude, ElevenLabs, Remotion | 84 | queued — meta episode. HARD GATE: growth numbers must carry the thesis on screen (threshold TBD — set a subs/views bar the episode can say out loud). Angle sharpened 7/6: the confidence-gated pipeline is the star, not the tools. Absorbs #20 (7/13): the content-farm collapse is the industry/cautionary section — why the faceless version died, why the POV-gated version survives |
+| 5 | AI coding tools went $0→$4B in 18 months — and the one-person version is real | Solo devtool micro-SaaS founders | Cursor/Anysphere, GitHub Copilot | Claude Code, Cursor | 83 | **MERGED into #14** (7/14) — solo SaaS violates the channel's own distribution thesis (cold distribution to strangers); the Cursor $0→$4B story becomes #14's market evidence |
+| 6 | **Your expertise is the product: the small-cohort business (15 people × $2K) is how independents monetize what they know** | Reframe & Ready (Joanie Johnson — cleared numbers, ON EPISODE) | Maven ($25M a16z), Reforge, Section | Circle/Kajabi/Kit (affiliates) or owned stack (Next.js, Stripe/Square, Resend, Supabase) | 80 | was №004, renumbered №005 in production, **displaced from №005 on 2026-08-08 by #22 (Manav's call)** — script + Gate-1 punchlist intact in `studio/originate/small-cohort-business/`, next slot TBD. Absorbs old expertise-is-a-product topic. Structure: C→B (career-is-the-curriculum hook → small-cohort economics w/ Joanie's real numbers), anti-platform wave as the "why now" industry section. First Phase 2 interview. POV note: Manav built the R&R platform — episode story is Joanie's, POV is builder-behind-the-infrastructure |
+| 7 | "Buy a boring business and bolt on AI" is the quiet wealth play | Solo acquisition operators | Codie Sanchez portfolio (high-end reference ONLY — self-reported, register we rejected) | acquisition + retrofit stack | 78 | queued — **GATED on receipts** (7/14): needs a documented low-end case before production. Evidence paths: Acquire.com closed-deal data (real multiples), SBA lending data (financing math), ideally a guest operator who bought + AI-retrofitted with numbers they'll say on camera (Phase 2 interview pipeline). Would open an Ownership/Acquisition category on the site |
+| 8 | Meetings are a business: AI note-takers and who pays for them | Indie meeting-tool builders | Granola, Otter, Fireflies | AssemblyAI, Whisper | 76 | queued — re-tagged 7/14: agency/service play (deploy + maintain meeting AI for businesses), NOT build-a-SaaS. Solo SaaS framing violates the distribution thesis |
+| 9 | You can sell AI avatars/localization to companies that will never film | Freelance avatar/localization services | Synthesia, HeyGen | HeyGen, ElevenLabs | 75 | queued — added to site coming-soon 7/14 as №009. POV moat: Manav's own HeyGen twin pipeline runs this channel — the demo is on screen every episode |
+| 10 | Customer support agents: the first AI employees businesses actually buy | Agencies deploying support bots | Intercom Fin, Sierra, Gorgias | Intercom, Chatwoot + LLM | 74 | queued — re-tagged 7/14: agency/service play, same logic as #8 |
+| 11 | Recruiting is broken enough to be a business opportunity | Mike Giunta (independent recruiting agency — guest outreach sent 7/6, awaiting reply; economics TBD) | Ashby, HireVue, Metaview | Grapevines-adjacent stack | 72 | queued — Grapevines synergy. Guest seed: Mike as the buildable low-end blueprint; backup seats: Eric (Poozle founder, warm 4/10 call) for platform-side high-end, Josh Baez (TA consulting) for hiring-side insider. Re-score once Mike's agency numbers land |
+| 12 | **The solo design agency: AI collapsed the studio — one person can sell what used to take a team** | Designjoy (solo, ~$1M/yr self-reported) + BusyLobby (Manav's live pipeline: 1 callback from 6 outreach, first close in progress 7/7) | Superside, Canva ecosystem | Figma Make, Lovable, v0, Framer + Relume (both pay affiliates), Midjourney | 72 | queued — BusyLobby is the documented-in-real-time POV thread; full evidence trail already exists in the busylobby repo (tracking/autopilot-pipeline.csv, per-account email files scored vs outreach-rubric, PostHog demo analytics). First close in play: Tony Haddad, Tower Cottage (scored 9, TA 5.0/184, demo live 6/16). No revenue receipts yet — Designjoy carries sourced economics until then. The scout→score→demo-first→outreach→PostHog→call loop IS the blueprint section. Hotel war stories stay in the hotels episode |
+| 13 | The AI gold rush pays the shovel-sellers (where the money actually flows) | Small infra/tooling plays | NVIDIA, CoreWeave, Scale AI | — | 70 | queued — evidence-heavy episode |
+| 14 | Vibe-coding is real: non-devs are shipping paid products | Solo Lovable/Bolt builders w/ revenue | Replit, Lovable, Bolt + Cursor/Anysphere (absorbed from #5) | Lovable, Replit, Bolt, Claude Code | 74 | queued — reframed 7/14 as THE CAPABILITY EPISODE: the enabling layer under every other blueprint ("you don't need technical abilities, you need to know the goal"). Absorbs #5's Cursor story as market evidence. Score bumped 70→74 with the merged evidence |
+| 15 | Hotels and restaurants are 10 years behind — that's the opportunity | BusyLobby story + small hotel-tech operators | Cloudbeds, Toast ecosystem | voice AI, PMS integrations | 68 | queued — unique POV moat |
+| 16 | The newsletter is still the best small media business | Solo B2B newsletters at $50–200 sponsor CPM | beehiiv, Morning Brew | beehiiv/Kit (50% affiliates) | 65 | queued |
+| 17 | Legal/compliance AI: high-trust niches pay the most | Spellbook-adjacent solo services | Harvey, Ironclad | Claude API | 63 | queued |
+| 18 | Healthcare documentation: painkiller economics, real moats | Small clinical-scribe services | Abridge, Nabla, Suki | AssemblyAI, Deepgram | 62 | queued — weakest POV fit |
+| 19 | How Anthropic/OpenAI actually make money (evidence standalone) | — | Anthropic, OpenAI, Microsoft | — | 60 | bench — pure-breakdown episode, use sparingly |
+| 21 | **Companies too small for Culture Amp still bleed money when people quit — one operator with an assessment tool and an AI backend can sell them retention** (outcome to owners, analyst capacity to one-person HR teams) | Joanie Johnson / Tactical Shift (live test subject; blueprint drafted 7/14, engagement documented in real time; her stat: $120K/yr revenue lost per departed clinician) | Culture Amp, Lattice, Gallup engagement practice | certified assessment tool + Claude pipeline; R&R-pattern stack (Next.js/Supabase/Resend) at productize stage | 76 | queued — added 7/14 from Joanie call. Buyer matrix: 5–50 employees/no HR → owner buys the outcome; 50–500/HR-of-one → HR leader buys analyst capacity; 500+ = named failure mode (enterprise platforms + procurement). Operator = ex-owner/ex-HR/ex-ops; laid-off HR people are prime operators (on-thesis for audience). Service first — selling the software to HR departments is explicitly NOT the play. Distinct from #6: cohort = expertise taught; this = expertise delivered as a system |
+| 20 | The content-farm economy YouTube killed — and what survived | demonetized farm post-mortems | NexLev/Noah Morris | — | 58 | **MERGED into #4** (7/13) — too much overlap as a standalone; lives on as #4's cautionary industry section |
+| 22 | **The Operator Economy thesis: the floor collapsed, not the ceiling — the barbershop question, the moat correction, the honest median** | Census SUSB micro-firms (5,060→7,857, avg $674,676) | Medvi ($401M, 2 people); toolmakers (Cursor/Replit/Lovable, reported) | — (thesis episode, no stack to sell) | — | **EP 005** — decided 2026-08-08 by Manav, not scored (owner's call supersedes the ≥65 rule). The channel-thesis episode: the 8/10 manifesto with the receipts on screen. Brief: `research/briefs/ep005-operator-economy-thesis.md`. **Production paused pending the viddy rebuild** — the brief unblocks `originate.py new` the moment it settles |
+
+## Sequencing logic
+
+Open with #1 (max POV credibility — the "I've done this" episode sets the channel's authority) → #2/#3 (most buildable theses, affiliate-ready) → **EP 004 = #6 (small-cohort business, Joanie Johnson guest)** — opens the Phase 2 interview pipeline early, evidence already cleared. Meta episode (#4 row) shifts to ~#5-6 once the channel has receipts. Review at upload 12: which thesis archetype wins (service business / product business / market-story), rebalance.
+
+## Scoring shorthand
+
+Score = demand ÷ competition, weighted by evidence availability (need BOTH a low-end and high-end example), affiliate potential, POV strength, derivation richness. Rubric in `scoring.md`. Re-score monthly against retention + capture analytics.
