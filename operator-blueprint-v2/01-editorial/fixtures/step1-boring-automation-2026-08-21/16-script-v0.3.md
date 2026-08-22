@@ -1,0 +1,247 @@
+# Script v0.3: workflow-reliability service
+
+Status: editorial-voice recovery fixture; production lock prohibited
+
+Episode: unassigned fixture
+
+Content OS `voice.md` SHA-256: `ff7886abc18c5c815bcc045e0e5dca625cdd0b61e649e518eada8e26f508a1b9`
+
+Studio `speech-profile.md` SHA-256: `75913da0bc5d5b360c88f18c70b60d8d4af14128184e8164872edd56f71ceddc`
+
+## S01: The client signed. Then nothing happened.
+
+### Narration
+
+Okay, picture this.
+
+A client signs a proposal with a small agency.
+
+Sales marks the deal complete. Operations is waiting for an intake form. Finance hasn't created the invoice. The project manager doesn't know the kickoff needs to be scheduled.
+
+The client thinks the work has started.
+
+Inside the agency, five people are waiting for five different signals.
+
+Now, this is a hypothetical workflow. It isn't a measured agency case.
+
+But it shows the business.
+
+You're not selling a connection between two apps.
+
+You're following one important handoff. You're exposing every missing state. You're deciding whether this process should be automated in the first place.
+
+And only if the answer is yes, you're building something the client can test, observe, and own.
+
+The product isn't the automation.
+
+The product is a reliable handoff.
+
+## S02: The people are carrying the system
+
+### Narration
+
+Here's what's happening inside our hypothetical process.
+
+The firm keeps adding forms, calendars, CRMs, project tools, spreadsheets, inboxes, and billing systems.
+
+Every tool in this example holds one piece of the client.
+
+The people are the glue.
+
+They copy the name. Re-enter the date. Catch the missing field. Remember that this account needs a different approval. Send the message that finally makes the next tool useful.
+
+KfW reported that German SMEs spend an average of thirty-two hours a month on bureaucratic processes, at a cost equal to 3.9 percent of annual personnel costs.
+
+That's broad administrative burden in Germany. It is not a measure of disconnected software, and you can't claim those hours are recoverable here.
+
+UK government research separately found information gaps among small businesses adopting productivity technology, along with value in reliable, personalized support.
+
+So what's missing?
+
+Not another app.
+
+What's missing is the operating logic between the apps.
+
+## S03: The category is real. Your business is still unproven.
+
+### Narration
+
+Now, people already sell this kind of work.
+
+Zapier operates a partner program for hands-on automation services.
+
+n8n's expert-partner pilot describes selected agencies and systems integrators that earn their main revenue from automation and AI services.
+
+Those partners already serve at least three active customers.
+
+A Zapier-published case also shows the delivery shape: cross-tool implementation, documentation, training, and support.
+
+Does that prove the category exists? Yes.
+
+Does it prove a new independent operator will win the work? No.
+
+It doesn't prove representative demand. It doesn't prove the price, the margin, or the client result in this model either.
+
+So don't start by selling a broad automation retainer.
+
+Start with one paid diagnostic around one handoff.
+
+## S04: Earn the right to build
+
+### Narration
+
+For our hypothetical agency, the handoff starts when the proposal is signed. It ends when one named person clearly owns the kickoff.
+
+Watch the people do the work.
+
+Map what comes in, what state it moves through, which decision changes the path, which system holds the data, who has access, what can go wrong, and who owns the consequence.
+
+Then choose one acceptance measure: time from signed proposal to acknowledged kickoff ownership.
+
+And now ask the question you can't skip.
+
+Should you build this at all?
+
+Are the rules stable?
+
+Does the handoff happen often enough to matter?
+
+Can you bound the access?
+
+Do you understand the exceptions?
+
+Can the buyer measure the starting point?
+
+Does one person own recovery?
+
+If the answer is no, the diagnostic ends with the map and a recommendation not to build.
+
+That's not a failed sale.
+
+That's the first proof you're selling judgment instead of software.
+
+## S05: Build the minimum safe path
+
+### Narration
+
+If the handoff passes, build the stable path. Just the stable path.
+
+Keep ambiguous, sensitive, and material decisions human. Use client-controlled accounts where practical, least-privilege access, and test data.
+
+Then bring the signed client back through the system.
+
+What happens when intake information is missing?
+
+What happens when the same acceptance event arrives twice?
+
+What happens when billing or the project system is down?
+
+The full test matrix lives in the Canvas. The spoken rule is simpler.
+
+Normal flow isn't enough.
+
+Failure needs a visible state and a human owner.
+
+Add logs and alerts. Decide when the system retries, when it stops, and who takes over.
+
+Train the team. Transfer the runbook and access inventory. Monitor it for thirty days.
+
+Then recommend maintain, expand, redesign, or retire.
+
+## S06: Use the economics as a stress test
+
+### Narration
+
+Okay. How does the math work?
+
+This model assumes a three-thousand-dollar fixed sprint, two new sprints a month, and twenty-four delivery hours for each one.
+
+Start with the cash view.
+
+Six thousand dollars of modeled gross revenue. Subtract two hundred dollars of software and six hundred dollars of acquisition and listed overhead.
+
+That leaves five thousand two hundred dollars before owner compensation and tax.
+
+Now count the operator's time.
+
+Assign forty-eight hours of labor at a modeled sixty dollars an hour. Modeled contribution falls to two thousand three hundred twenty dollars.
+
+And now stress it.
+
+If each sprint takes thirty-two hours, modeled contribution falls again, to one thousand three hundred sixty dollars.
+
+Modeled scenario. Not observed performance. Not an earnings forecast.
+
+The business only survives if the buyer pays for discovery, exception design, testing, documentation, and handoff.
+
+If they're paying for a connection between two tools, this math probably doesn't hold.
+
+## S07: Don't invent a retainer
+
+### Narration
+
+Here's the tempting part.
+
+You finish the project, add a monthly fee, and call it recurring revenue.
+
+But recurring revenue for what?
+
+Did incidents happen during monitoring?
+
+Who responds? How quickly?
+
+Which vendor failures are included?
+
+What happens when the client changes a field, replaces a tool, or revokes access?
+
+If the responsibility is real and the buyer will fund it, monitoring can become a separate offer.
+
+If it isn't, transfer ownership and stop billing.
+
+Recurring revenue isn't a reason to invent recurring responsibility.
+
+And look, some processes should never enter a generalist pilot.
+
+Health, employment, credit, insurance, legal, safety, or any workflow where an automated mistake creates a high-impact decision without qualified review.
+
+## S08: Sell discovery before architecture
+
+### Narration
+
+So what do you do in the first thirty days?
+
+Not build an agency website.
+
+Talk to ten owners or operations leads in one service segment you can actually reach.
+
+Require a real process walk-through.
+
+Map three handoffs.
+
+Reject unstable rules, high-risk judgment, inaccessible systems, missing ownership, and anything without a measurable baseline.
+
+Offer two paid diagnostics.
+
+Only offer the paid sprint after the diagnostic says the build is responsible. Use the price and scope you declared before the test.
+
+Track the outreach, discovery, proposal, delivery, tests, failures, support, and buyer acceptance.
+
+Continue only if buyers expose a recurring consequential handoff, authorize safe discovery, and one of them funds the full reliability job.
+
+Stop or narrow if nobody pays, the process can't be bounded, or support breaks the model.
+
+The first deliverable isn't an automation.
+
+It's evidence that one handoff deserves to be automated, and that somebody will pay to make it reliable.
+
+## Integrated totals
+
+Spoken words: 1,096
+
+Word-count method: `awk` extraction of every `### Narration` block piped to `wc -w`
+
+Claims used: C001-C009
+
+Unresolved placeholders: zero
+
+Voice findings addressed: WFR-VO-01 through WFR-VO-04

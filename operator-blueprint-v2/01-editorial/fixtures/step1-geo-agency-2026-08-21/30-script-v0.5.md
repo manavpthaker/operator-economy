@@ -1,0 +1,279 @@
+# Script v0.5: AI visibility diagnostic
+
+Status: v1.3 structure-and-voice regression fixture; production lock prohibited
+
+Episode: unassigned fixture
+
+Illustrative thread: archetypal consumer-travel brand; no documented company, metric, quotation, or outcome is implied
+
+Structure test: concrete cold open → silent brand sting → fixed brand line → episode promise → context runway → earned thesis → operator blueprint → economics and risks → first test → opening callback
+
+Content OS voice.md SHA-256: ff7886abc18c5c815bcc045e0e5dca625cdd0b61e649e518eada8e26f508a1b9
+
+V2 SCRIPT-BEAT-RESEARCH.md SHA-256: b2eac816884204f88d591c0beffcbd82eb6c78b909c629111b0cdf293f0c8262
+
+V2 VOICE-ARCHITECTURE.md SHA-256: 5f4c630ecaa5a518dd219abf14d634497c69bc37530ded50f4215a18434a0a0e
+
+Studio speech-profile.md SHA-256: 75913da0bc5d5b360c88f18c70b60d8d4af14128184e8164872edd56f71ceddc
+
+## S00: The report is green
+
+Claim IDs: none; illustrative setup only
+
+### Narration
+
+You run marketing for a travel company.
+
+Google traffic is steady. Sales have not fallen off a cliff. The dashboard is green, which usually means everyone can get on with their day.
+
+Then a customer asks AI for a recommendation.
+
+Your company does not appear.
+
+Or it does appear, but the description sounds like it came from a website nobody has used in years.
+
+The dashboard is still green.
+
+So which thing is wrong: the answer, the company, or the report?
+
+## S01: Silent identity sting
+
+Narration: none
+
+Editorial direction: preserve a distinct 3–6 second no-narration boundary. Downstream production owns the final treatment.
+
+## S02: Show and episode string
+
+Claim IDs: C007
+
+### Narration
+
+This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+
+Today, we're looking at the business of helping companies understand how they appear in AI answers, what one operator would actually sell, and what would have to be true for the work to support a business of one.
+
+## S03: A new doorway
+
+Claim IDs: C001, C002, C006
+
+### Narration
+
+Search reporting is familiar.
+
+A page ranks for a query. Someone clicks it. The visit appears in analytics. Maybe the visitor buys something, and now everybody has a chain of events they can point to.
+
+Imperfect, but familiar.
+
+AI added another doorway.
+
+In an August 2025 survey of 1,927 U.S. consumers, McKinsey found that half said they intentionally used search tools with generative AI. Gartner separately reported changes in how surveyed consumers research products.
+
+That does not mean everybody abandoned traditional search. It means some customers have added another doorway, and the usual reports may not show what happened inside it.
+
+An AI answer may draw from the company's own site, but it may also use publishers, reviews, forums, or comparison pages. McKinsey's source analysis found that the mix can change by category and platform. Academic GEO research also suggests that visibility can be measured in a benchmark, although the effects varied by domain.
+
+This is not another ranking.
+
+It is closer to a meeting summary. The company's website may have a seat at the table, several outside sources may have seats too, and the final answer reflects some combination of them without giving the marketing team the minutes.
+
+No one has to be incompetent for this gap to exist, because the old report may be answering the question it was designed to answer while the customer has started asking a different question somewhere else.
+
+## S04: The business hidden inside the gap
+
+Claim IDs: C005, C006, C007
+
+### Narration
+
+This is where it is easy to sprint into the wrong business.
+
+You could sell companies a promise that you will make them rank in AI answers. It sounds exciting. It also asks you to guarantee a result across systems you do not control.
+
+I would test something narrower and more useful.
+
+A fixed-scope diagnostic that answers three questions for the buyer:
+
+How are we showing up?
+
+What appears to be shaping the answer?
+
+And which parts, if any, deserve action?
+
+The diagnostic would cover one brand, one market, ten buyer-approved questions, and two answer surfaces.
+
+It would produce a recorded baseline, a source-and-fact-gap analysis, and a practical recommendation. Correct this owned fact. Strengthen this source if the company reasonably can. Investigate this outside gap. Monitor the result. Or leave it alone because the evidence does not justify more work.
+
+Current products can already collect prompts, brand mentions, competitors, citations, and source patterns, and those capabilities are useful because they help assemble the evidence.
+
+The buyer pays for judgment.
+
+If every diagnostic somehow concludes that the client needs to buy more optimization, you have not built a diagnostic. You have built a sales pitch with a clipboard.
+
+## S05: How the operator delivers it
+
+Claim IDs: C002, C005, C006, C007
+
+### Narration
+
+Start with the decision, not the software.
+
+Ask the marketing lead what they might change if the evidence showed a real problem. It could be a content decision, a factual correction, a source issue, a reputation question, or a measurement gap.
+
+If they cannot name a decision, stop there. An unusual screenshot may be interesting, but interesting is not the same as useful.
+
+Then run the diagnostic in three passes.
+
+First, record what happened.
+
+Agree on the ten questions before testing. For each one, capture the platform, date, response, brand presence, competitors mentioned, important claims, and cited sources where they are available.
+
+Second, check the important parts.
+
+Compare significant statements with documents the client has approved as factual. Record conflicts and missing information without assuming that every difference is an error.
+
+Third, decide what kind of gap you are looking at.
+
+Some facts belong to the company and can be corrected directly. Some outside sources may be influenced through normal content, public relations, or reputation work. Other results sit outside the company's control and should simply be watched.
+
+That distinction is part of the service because it keeps the operator from promising ownership of a system that belongs to somebody else.
+
+Tools can help collect and compare the material, while the operator still owns the question design, fact-checking, source judgment, permissions, and final recommendation.
+
+## S06: Choose a test bench
+
+Claim IDs: C004, C005, C007, C009
+
+### Narration
+
+Now we need a buyer, and the neighboring SEO market gives us a useful starting point because companies already pay for audits, competitive analysis, projects, and recurring reporting.
+
+That does not prove they will buy this particular diagnostic.
+
+AI-visibility products also show that the underlying data can be collected, but again, that gives us components rather than proof that somebody wants to buy this service.
+
+Demand still needs a buyer.
+
+For the first test, use consumer-travel brands. Digital discovery already matters to the category, the questions are easy to understand, and the buyer is likely to sit somewhere in marketing, content, or search.
+
+Travel is the test bench for this first pass, not a declaration that travel is somehow the winning vertical.
+
+Build a list of twenty-five brands where you can identify the person responsible for one of those functions.
+
+Before asking for a meeting, prepare a small public-information screen using three questions. Show the responses, the sources you found, and the limits of the sample.
+
+Then ask the buyer a plain question:
+
+Would this evidence change anything your team is responsible for?
+
+If it would, offer the fixed-scope diagnostic.
+
+If it would not, do not manufacture urgency by announcing that the company is vanishing into the machine. Thank them, record why it did not matter, and move on.
+
+## S07: Make the model carry its own weight
+
+Claim IDs: C008
+
+### Narration
+
+Here is one planning model for the test, using assumptions rather than market benchmarks, typical pricing, or an income forecast.
+
+Start with a two-thousand-dollar validation price.
+
+Allow sixteen hours for delivery and assign nine hundred sixty dollars to that labor. Add ninety-nine dollars for measurement software and three hundred dollars for acquisition and the overhead listed in the model.
+
+That leaves six hundred forty-one dollars before tax and before anything we failed to include.
+
+Now take a working case of two diagnostics at three thousand dollars each.
+
+Allow twenty-four delivery hours for each client. Using the same software and listed-overhead assumptions, modeled contribution across the two projects is two thousand three hundred twenty-two dollars.
+
+That number is not impressive or disappointing on its own because, at this stage, its only job is to pressure-test the assumptions.
+
+It does not yet tell you that one operator can live on the business. It tells you how much room this version leaves and which assumptions have to improve before you can call it sustainable.
+
+If the work takes longer, the tools cost more, client acquisition is harder, or every engagement needs specialist review, the contribution can disappear quickly. A refund or one buyer demanding an outcome guarantee can make it disappear even faster.
+
+This is why you model the business before you decorate the website.
+
+The question is not whether six thousand dollars of revenue looks good on a slide. It is whether responsible delivery leaves enough room for a company after the operator does all the work the promise requires.
+
+## S08: Know what can break
+
+Claim IDs: C002, C005, C007, C008
+
+### Narration
+
+There are four ways this offer fails early.
+
+The first is simple: buyers see ordinary SEO work and will not pay for it separately.
+
+The second is repeatability. If the same approved questions produce results that are too unstable to compare responsibly, you do not have a useful baseline.
+
+The third is operator value. A tool may already give the buyer everything they need. If your interpretation does not improve the decision, adding a report and a meeting does not create a business.
+
+The fourth is the sale itself. If buyers only care when you promise traffic, revenue, or control over an AI answer, walk away. The service cannot responsibly make that promise.
+
+Platform behavior, coverage, terms, and pricing will continue to move, and comparative or regulated claims may also require specialist review.
+
+Those are not disclaimers to hide at the bottom of the proposal. They are conditions that tell you whether the offer is sound enough to sell in the first place.
+
+## S09: The first thirty days
+
+Claim IDs: C002, C005, C007, C008, C009
+
+### Narration
+
+Do not begin by buying a large tool stack or building an agency site.
+
+The first month tests demand.
+
+Talk to five marketing leaders in one segment you can reach. Ask how they currently check AI answers, what they do when an answer looks wrong, who owns the response, and what would justify paying for outside help.
+
+With one consenting brand, run the manual ten-question diagnostic across two answer surfaces.
+
+Track every hour.
+
+Preserve the responses and source evidence.
+
+Deliver the baseline, the fact-and-source review, and the recommended actions without selling optimization.
+
+Then offer the same fixed scope at the validation price.
+
+Continue only if buyers can name a decision the evidence changes, at least one accepts a paid diagnostic or gives you a specific budget-backed purchase condition, and you can complete the work responsibly within twenty-four hours.
+
+Stop or redesign the offer if buyers see no additional value beyond existing SEO, the sample cannot support a responsible comparison, the sale depends on an outcome guarantee, or the price cannot cover the work.
+
+If the diagnostic repeats, test monitoring next.
+
+If monitoring repeatedly changes a real decision, then you may have earned a recurring service.
+
+## S10: What the green report missed
+
+Claim IDs: C007, C008
+
+### Narration
+
+Go back to the marketing lead at the beginning.
+
+The search dashboard can still be green without lying, because it was looking at one doorway while the customer walked through another.
+
+Your job is not to promise control over the room. It is to show the buyer what the room said, where that information seems to have come from, and whether anything deserves a response.
+
+That is a smaller promise than “we will make AI recommend you.”
+
+It is also a promise a serious operator can keep.
+
+The Operator Blueprint for this episode includes the question set, evidence log, decision categories, economics model, and thirty-day validation test.
+
+Build the diagnostic first. Earn the recurring service later.
+
+Build it. Own it. Operate it.
+
+## Integrated totals
+
+Spoken words: 1,754
+
+Word-count method: every `### Narration` block extracted with `awk`, then counted with `wc -w`
+
+Claims used: C001, C002, C004, C005, C006, C007, C008, C009
+
+Unresolved placeholders: zero
