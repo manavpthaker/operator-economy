@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-provider-authorization-v1.json",
+  "title": "OE Step 2 bounded provider-call authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "capture_plan_sha256", "script_sha256", "spoken_text_sha256", "provider", "model_id", "voice_id",
+    "preferred_output_format", "fallback_output_format", "max_calls", "consumption",
+    "approved_by", "approved_at", "expires_at"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-provider-authorization-v1"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "status": {"const": "active"},
+    "approved": {"const": true},
+    "scope": {"enum": ["calibration", "full"]},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "episode"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "capture_plan_sha256": {"$ref": "#/$defs/sha256"},
+    "script_sha256": {"$ref": "#/$defs/sha256"},
+    "spoken_text_sha256": {"$ref": "#/$defs/sha256"},
+    "provider": {"const": "elevenlabs"},
+    "model_id": {"type": "string", "minLength": 1},
+    "voice_id": {"type": "string", "minLength": 1},
+    "preferred_output_format": {"const": "pcm_48000"},
+    "fallback_output_format": {"const": "mp3_44100_192"},
+    "max_calls": {"type": "integer", "minimum": 1},
+    "max_characters": {"type": "integer", "minimum": 1},
+    "max_spend_usd": {"type": "number", "exclusiveMinimum": 0},
+    "consumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "calls_used", "record_path"],
+      "properties": {
+        "status": {"const": "unconsumed"},
+        "calls_used": {"const": 0},
+        "record_path": {"type": "string", "minLength": 1}
+      }
+    },
+    "approved_by": {"type": "string", "minLength": 1},
+    "approved_at": {"type": "string", "minLength": 1},
+    "expires_at": {"type": "string", "minLength": 1}
+  },
+  "anyOf": [
+    {"required": ["max_characters"]},
+    {"required": ["max_spend_usd"]}
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

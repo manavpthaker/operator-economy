@@ -1,6 +1,7 @@
 # Operator Economy Narrator Profile
 
-Status: proposed Step 2 calibration baseline; not yet owner-approved or canonical
+Status: owner-selected Step 2 v0.2 calibration baseline; calibration and rights verification pending;
+not canonical
 
 ## Boundary
 
@@ -14,7 +15,7 @@ Step 2 may add non-spoken direction supported by the selected model. It may not 
 - Reviewed source SHA-256: `1a1d691561a2aac703fa3532aed48cae3c36b4f68abcda227292762c98e326f8`
 - Source configuration section: `voiceover`
 - Selection evidence date recorded in V1: 2026-08-19
-- Source authority status: V1 production evidence; proposed V2 calibration baseline
+- Source authority status: V1 production evidence; owner-selected V2 calibration baseline only
 
 ## Proposed primary narrator
 
@@ -43,10 +44,12 @@ That history supports testing this profile first. It does not replace a fresh V2
 - Use selective capitalization, ellipses, punctuation, whitespace, and paragraph resets only as non-lexical direction.
 - Do not add routine synthetic breaths.
 - Do not add, remove, replace, or reorder spoken words.
-- Generate a complete episode as one controlled batch while the selected model lacks reliable request stitching.
+- Generate the complete episode as one controlled batch; use several recorded requests only when
+  provider limits require them and the V2 chunk/continuity protocol is followed.
 - Do not regenerate one section in isolation and silently splice it into the episode.
 - Never mix narrator IDs inside an episode.
 - Preserve raw provider outputs, request identifiers, settings, and alignment metadata.
+- Do not invoke or import V1 `studio/scripts/originate/generate_vo.py`.
 
 ## Pronunciation baseline
 
@@ -65,11 +68,18 @@ V1 currently records:
 
 The V1 pronunciation-dictionary locator is retained as provenance, but V1 reports that Eleven v3 ignores it. Episode-specific aliases must therefore be reviewed and logged in the Step 2 capture lock without changing canonical on-screen spelling.
 
-## Acquisition-format issue to test
+## Locked acquisition-format order
 
-The V1 configuration requests `mp3_44100_192`. That is the current source format, not an approved V2 production-master standard. The V2 proposal calls for a 48 kHz, 24-bit mono WAV narration master, but transcoding a lossy 44.1 kHz MP3 does not restore source fidelity.
+Request native PCM first and inspect the actual returned codec. If the current ElevenLabs account
+and `eleven_v3` path cannot return native PCM, accept only the existing `mp3_44100_192` output with
+fallback reason `pcm_capability_unavailable`.
 
-Before Step 2 is approved, calibration must decide whether the provider can supply an acceptable PCM source under the current account and model. If not, the V2 master must disclose the actual acquisition format rather than implying native 48 kHz, 24-bit quality.
+The raw provider file remains immutable. A fallback MP3 must be labeled audio origin `lossy_mp3`,
+pass an audible codec-artifact review, and be decoded/resampled exactly once to 48 kHz, 24-bit, mono
+PCM. No later lossy intermediate is allowed. The resulting WAV is a lossless working/delivery file
+with lossy origin, never native PCM acquisition.
+
+The default delivery master remains 48 kHz, 24-bit, mono PCM WAV regardless of source origin.
 
 ## Missing approval evidence
 
@@ -79,7 +89,8 @@ Before Step 2 is approved, calibration must decide whether the provider can supp
 - Dense-evidence calibration: pending
 - Economics/uncertainty calibration: pending
 - Pronunciation calibration: pending
-- Source-format decision: pending
+- Native PCM capability check: pending
+- Fallback audible artifact review, if needed: pending
 
 ## Approval
 
@@ -88,4 +99,5 @@ Before Step 2 is approved, calibration must decide whether the provider can supp
 - Approval date:
 - Approved profile SHA-256:
 
-No provider call is authorized by this document.
+No provider call is authorized by this document. Calibration and full capture each require a
+separate `PROVIDER-CALL-AUTHORIZATION`.

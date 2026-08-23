@@ -1,6 +1,6 @@
 # V2 Narration Production Standard
 
-Status: proposed v0.1; test before approval.
+Status: proposed v0.2; test before approval.
 
 ## Purpose
 
@@ -11,6 +11,11 @@ The target is an experienced operator explaining a serious opportunity in plain 
 ## 1. The script is lexically locked
 
 The approved Step 1 script is the word authority.
+
+Step 2 reproduces the Step 1 v1.5 ordered narration identity as whitespace-delimited `W` tokens.
+That lexical identity is authoritative even when an aligner later represents one `W` token with
+several subordinate acoustic parts. An ASR transcript, provider prompt, pronunciation alias, or
+performance-marked copy may not replace the `W` sequence.
 
 Step 2 may change:
 
@@ -76,14 +81,16 @@ Performance direction is created before full capture. It should identify:
 
 Do not annotate every word. Direction should make the argument more legible, not produce a robotic emphasis map.
 
-## 4. Lock one narration identity
+## 4. Freeze one narration identity and acquisition configuration
 
 An episode has one primary narration identity. It may be:
 
 - an authorized human narrator; or
 - an authorized synthetic voice with documented usage rights and consent.
 
-The voice-and-capture lock must be approved before the full run.
+N3 freezes a proposed narrator identity and acquisition configuration before any calibration call
+or recording. The freeze makes the test reproducible; it is not creative approval. N4A approves
+the calibration performance, and only then may N4B full capture begin.
 
 For a human narrator, freeze at minimum:
 
@@ -107,9 +114,20 @@ For a synthetic narrator, freeze at minimum:
 
 Do not clone a third party, imitate a living person without authorization, or mix narration identities to conceal a continuity problem. A voice change requires an explicit exception decision and a new consistency review.
 
+Synthetic generation, chunking, and regeneration follow
+[`02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md`](02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md).
+Neither this standard nor an N3 configuration freeze authorizes a provider call. Every external
+call requires a separate explicit authorization naming the episode or fixture, voice,
+provider/model, and whether the scope is calibration or full capture.
+
+The V1 `studio/scripts/originate/generate_vo.py` path is prohibited in V2. It may rewrite or
+performance-mark lexical content and does not enforce the V2 source-format, authorization, state,
+or invalidation contracts. V2 must neither invoke nor import it.
+
 ## 5. Calibrate before the full run
 
-Approve short calibration reads before generating or recording the full script. The calibration set must include:
+Approve short calibration reads at N4A before generating or recording the full script. The
+calibration set must include:
 
 1. the cold open or a comparable high-attention passage;
 2. a dense evidence passage;
@@ -125,7 +143,9 @@ Review calibration for:
 - consistency with the frozen capture setup; and
 - technical cleanliness.
 
-Full capture starts only after the calibration decision is recorded.
+Each calibration passage receives separate lexical and technical findings plus an owner creative
+decision. A technically clean output with the wrong delivery does not pass calibration. Full
+capture starts at N4B only after N4A approval is recorded against the frozen N3 configuration.
 
 ## 6. Preserve raw takes and provenance
 
@@ -139,6 +159,8 @@ Each take record must identify:
 - file path and SHA-256;
 - creation date;
 - human session or provider job identifier;
+- native acquisition container, codec, sample rate, bit depth when meaningful, channel count, and
+  lossy or lossless status;
 - known defects; and
 - review state.
 
@@ -172,7 +194,26 @@ Every candidate take is evaluated independently for:
 
 A technically clean take is not automatically a good performance. A strong performance with a truth-changing word error cannot pass.
 
-## 8. Use pickups narrowly
+## 8. Use interim ASR only as a diagnostic
+
+Interim ASR may run after calibration acquisition and after each full take, synthetic chunk, or
+pickup. Its job is to find likely additions, omissions, substitutions, repeats, truncations, and
+pronunciation risks early enough to repair them efficiently.
+
+Interim ASR output:
+
+- is tied to the raw file or take hash it reviewed;
+- remains explicitly `diagnostic` and non-authoritative;
+- cannot establish lexical conformity;
+- cannot become the Step 3 word-level transcript; and
+- never replaces the required human disposition of a suspected mismatch.
+
+After the dialogue edit, freeze one narration-master candidate. Generate the final-master ASR and
+alignment from that exact hash, run lexical conformity, then finalize the word-level transcript and
+intentional-pause map. If a pickup or edit changes any sample, discard those final results and rerun
+them from the new master candidate.
+
+## 9. Use pickups narrowly
 
 Pickups repair a bounded performance, lexical, pronunciation, or technical defect. They must preserve the same locked words and voice-and-capture identity.
 
@@ -187,7 +228,13 @@ The pickup log records:
 
 A pickup that requires new wording is a Step 1 change, not a pickup.
 
-## 9. Edit dialogue without flattening it
+For synthetic narration, a pickup is a new immutable provider output with its own job identity. It
+must use the same locked words, narrator, model, settings, pronunciation rules, and approved
+context method. A one-line regeneration may not be hidden inside an earlier batch when its timbre,
+pace, acoustic character, or prosody does not match. Regenerate a larger bounded chunk or the full
+batch when continuity cannot be proven.
+
+## 10. Edit dialogue without flattening it
 
 The narration edit may:
 
@@ -209,9 +256,20 @@ The narration edit should not:
 
 Every splice and source selection must be represented in the narration edit decision list.
 
-## 10. Deliver a clean narration master
+## 11. Separate native acquisition from the delivery master
 
-Preferred production master:
+The native acquisition file is the exact human-recorder or provider output before local format
+conversion or destructive processing. Its actual container, codec, sample rate, bit depth when
+meaningful, channel count, and lossy or lossless status must be recorded from inspection rather
+than inferred from a filename or requested setting.
+
+Request native PCM first. If the selected ElevenLabs account and model cannot return it, the only
+permitted fallback is `mp3_44100_192`. Preserve that MP3 unchanged, hash it, disclose its lossy
+origin, and complete an audible artifact review. Decode and resample it exactly once into the PCM
+working path. No later lossy intermediate may enter the editorial chain. A codec-damaged fallback
+does not pass merely because it can be converted.
+
+The delivery master is the clean editorial export used downstream. Its default contract is:
 
 - PCM WAV;
 - 48 kHz;
@@ -222,11 +280,16 @@ Preferred production master:
 - no music, sound effects, ambience, or baked-in scene treatment; and
 - no final-program limiter.
 
+Converting `mp3_44100_192` into a 48 kHz, 24-bit WAV satisfies only the delivery-container contract.
+It does not create native PCM quality. The source-format record must name the lossy acquisition and
+the single conversion. A WAV derived from MP3 is a lossless delivery file with lossy origin; it may
+never be represented as native lossless acquisition.
+
 Measure and record integrated loudness, loudness range, true peak, duration, channel count, sample rate, and bit depth. Integrated loudness is a diagnostic here, not the final episode target. Resolve/Fairlight owns the final program mix and delivery loudness.
 
 An MP3 may be created for convenient review, but it must be marked non-master and must never replace the WAV authority.
 
-## 11. Conform the final master to the script
+## 12. Conform the final master to the script
 
 Lexical conformity is run against the final edited master—not merely the raw takes.
 
@@ -239,9 +302,10 @@ The report must account for:
 - all detected additions, omissions, substitutions, repeats, and truncations; and
 - the human disposition of every mismatch.
 
-The default passing condition is zero unresolved spoken-word mismatches. Tool uncertainty may be resolved by a documented human listen; a confirmed lexical mismatch cannot be waived inside Step 2.
+The default passing condition is zero unresolved `W`-token mismatches. Tool uncertainty may be
+resolved by a documented human listen; a confirmed lexical mismatch cannot be waived inside Step 2.
 
-## 12. Time the words from the final master
+## 13. Time words and intentional pauses from the final master
 
 The word-level transcript is derived from the exact narration master named in the narration lock.
 
@@ -252,14 +316,37 @@ Timing rules:
 - `start_ms < end_ms` for every word;
 - monotonically increasing, non-overlapping word intervals;
 - all intervals bounded by the master duration;
-- canonical spoken token plus any normalized display form kept separately; and
+- canonical Step 1 `W` token plus any normalized display form kept separately;
+- optional `alignment_parts` subordinate to one `W` token when acoustic realization requires it;
 - confidence or review state recorded where alignment is uncertain.
+
+The intentional-pause map records approved semantic pauses separately from gaps inferred by the
+aligner. It carries the same master hash and duration as the transcript. Silence is not a missing
+word, and a pause label may not modify the lexical identity.
 
 Raw provider timestamps, draft transcript timing, or timing from pre-edit takes cannot become the Step 3 authority.
 
-Any sample-level change to the narration master invalidates the word-level transcript, narration lock, and Step 3 timing handoff. A byte-identical copy does not.
+Any sample-level change to the narration master invalidates the final alignment, lexical result,
+word-level transcript, intentional-pause map, technical pass, creative approval, narration lock,
+and Step 3 timing handoff. A byte-identical copy does not.
 
-## 13. Lock only after independent review
+## 14. Separate technical pass from creative approval
+
+`technical_pass` applies only to one exact master hash. It requires:
+
+- complete raw and edit provenance;
+- truthful native-acquisition and delivery-format disclosure;
+- the delivery-master technical contract;
+- zero unresolved spoken-word mismatches;
+- a valid final-master transcript and intentional-pause map; and
+- passing technical measurements and listening inspection.
+
+`creative_approved` is a separate named-owner decision about whether the performance feels human,
+credible, understandable, appropriately paced, and trustworthy over the complete episode. It
+requires a current `technical_pass` and the independent eyes-closed listen. Automated validation,
+provider success, export success, or a technical review cannot grant it.
+
+## 15. Lock only after independent review
 
 The Step 2 lock requires:
 
@@ -267,6 +354,7 @@ The Step 2 lock requires:
 - zero unresolved lexical mismatches;
 - a technically conforming narration master;
 - a valid word-level transcript tied to that master hash;
+- a valid intentional-pause map tied to that master hash;
 - resolved pickup and edit records;
 - an independent eyes-closed listen; and
 - explicit owner approval.
@@ -274,3 +362,7 @@ The Step 2 lock requires:
 The independent listener asks one practical question: does the episode work, remain understandable, and preserve trust when heard without visuals?
 
 The lock names every authoritative file and hash. Step 3 receives those exact artifacts and may not retime speech, choose alternate takes, or replace the narrator.
+
+The machine-validation and state contract is defined in
+[`CLI-VALIDATION-CONTRACT.md`](CLI-VALIDATION-CONTRACT.md). A narration lock requires
+`technical_pass` and `creative_approved` against the same master hash.

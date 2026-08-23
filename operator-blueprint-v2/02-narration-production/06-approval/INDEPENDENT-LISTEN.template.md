@@ -1,6 +1,6 @@
 # Independent Eyes-Closed Listen
 
-Template version: proposed Step 2 v0.1.
+Template version: proposed Step 2 v0.2.
 
 The reviewer listens to the complete narration without visuals, music, production notes, or coaching from the episode team.
 
@@ -8,6 +8,8 @@ The reviewer listens to the complete narration without visuals, music, productio
 
 - Episode:
 - Narration master path/hash:
+- Current N6 `technical_pass` record path/hash:
+- Word transcript and intentional-pause-map paths/hashes:
 - Reviewer:
 - Reviewer relationship to project:
 - Review date:
@@ -44,3 +46,6 @@ The reviewer listens to the complete narration without visuals, music, productio
 - Reviewer/signature/date:
 
 Visuals may reinforce narration. They must not be used to rescue a spoken argument that cannot be followed on its own.
+
+The listener recommends; the named owner alone may set `creative_approved`. This record cannot
+modify `technical_pass` or authorize Step 3.

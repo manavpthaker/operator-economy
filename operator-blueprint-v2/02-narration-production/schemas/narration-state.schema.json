@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-narration-state-v1.json",
+  "title": "OE Step 2 narration state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "base_dir", "workflow_status", "gates", "technical_pass", "creative_approval", "active_invalidations", "identities", "audio_origin", "fallback_reason", "master", "transcript", "intentional_pause_map"],
+  "properties": {
+    "schema_version": {"const": "oe-narration-state-v1"},
+    "base_dir": {"type": "string", "minLength": 1},
+    "workflow_status": {"enum": ["draft", "blocked", "returned_to_editorial", "abandoned", "in_progress", "locked"]},
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["N1", "N2", "N3", "N4", "N5", "N6", "N7"],
+      "properties": {
+        "N1": {"$ref": "#/$defs/gate"}, "N2": {"$ref": "#/$defs/gate"},
+        "N3": {"$ref": "#/$defs/gate"}, "N4": {"$ref": "#/$defs/gate"},
+        "N5": {"$ref": "#/$defs/gate"}, "N6": {"$ref": "#/$defs/gate"},
+        "N7": {"$ref": "#/$defs/gate"}
+      }
+    },
+    "technical_pass": {"type": "boolean"},
+    "audio_origin": {"type": ["string", "null"], "enum": ["native_pcm", "lossy_mp3", null]},
+    "fallback_reason": {"type": ["string", "null"], "enum": ["pcm_capability_unavailable", null]},
+    "creative_approval": {
+      "type": "object",
+      "required": ["approved"],
+      "properties": {
+        "approved": {"type": "boolean"},
+        "set_by_type": {"enum": ["human"]},
+        "approved_by": {"type": "string", "minLength": 1},
+        "approved_at": {"type": "string", "minLength": 1}
+      }
+    },
+    "active_invalidations": {"type": "array", "items": {"type": "string"}},
+    "identities": {
+      "type": "object",
+      "required": ["script_sha256", "spoken_text_sha256"],
+      "properties": {
+        "script_sha256": {"$ref": "#/$defs/sha256"},
+        "spoken_text_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "master": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/file"}]},
+    "transcript": {"oneOf": [
+      {"type": "null"},
+      {
+        "allOf": [
+          {"$ref": "#/$defs/file"},
+          {
+            "type": "object",
+            "required": ["master_sha256", "spoken_text_sha256"],
+            "properties": {
+              "master_sha256": {"$ref": "#/$defs/sha256"},
+              "spoken_text_sha256": {"$ref": "#/$defs/sha256"}
+            }
+          }
+        ]
+      }
+    ]},
+    "intentional_pause_map": {"oneOf": [
+      {"type": "null"},
+      {
+        "allOf": [
+          {"$ref": "#/$defs/file"},
+          {
+            "type": "object",
+            "required": ["master_sha256"],
+            "properties": {"master_sha256": {"$ref": "#/$defs/sha256"}}
+          }
+        ]
+      }
+    ]}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gate": {
+      "type": "object",
+      "required": ["result"],
+      "properties": {"result": {"enum": ["pending", "passed", "failed", "invalidated"]}}
+    },
+    "file": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

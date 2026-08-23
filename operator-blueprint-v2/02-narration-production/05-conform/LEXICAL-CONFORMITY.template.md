@@ -1,6 +1,6 @@
 # Lexical Conformity Report
 
-Template version: proposed Step 2 v0.1.
+Template version: proposed Step 2 v0.2.
 
 ## Authority pair
 
@@ -8,13 +8,15 @@ Template version: proposed Step 2 v0.1.
 - Locked script path/revision:
 - Locked script SHA-256:
 - Locked spoken-word count:
+- Ordered `W`-token SHA-256:
 - Narration master path:
 - Narration master SHA-256:
 - Narration master duration:
 - Comparison method/tool/version:
+- Final-master alignment/transcript path/SHA-256:
 - Reviewer/date:
 
-## Normalization rules
+## Acoustic-comparison rules
 
 - Case:
 - Punctuation:
@@ -25,12 +27,15 @@ Template version: proposed Step 2 v0.1.
 - Approved pronunciation aliases:
 - Non-spoken annotations excluded:
 
-Normalization may compare equivalent forms. It may not excuse a change in spoken language or meaning.
+Acoustic comparison may recognize an approved pronunciation realization. It may not change,
+retokenize, or excuse a mismatch in the canonical whitespace-delimited `W` sequence. Any
+`alignment_parts` remain subordinate to one `W` token.
 
 ## Automated result
 
-- Script tokens after normalization:
-- Master transcript tokens after normalization:
+- Canonical script `W` tokens:
+- Aligned master `W` records:
+- Ordered `W` identity match:
 - Additions detected:
 - Omissions detected:
 - Substitutions detected:
@@ -48,8 +53,8 @@ Normalization may compare equivalent forms. It may not excuse a change in spoken
 
 - Zero unresolved spoken-word mismatches: yes / no
 - Every qualification and negation preserved: yes / no
-- Final spoken-word count confirmed:
-- Gate N6 lexical result: pass / pickup / return to editorial / blocked
+- Final canonical `W` count confirmed:
+- Gate N6 lexical result: passed / failed / return_to_editorial / blocked
 - Conformity editor/signature/date:
 
 A human may resolve an alignment or normalization error. A human may not waive a confirmed spoken-word mismatch inside Step 2.

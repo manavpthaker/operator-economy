@@ -1,0 +1,137 @@
+"""Command-line interface for the Step 2 narration runtime."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any, Sequence
+
+from .audio import convert_working, inspect_audio, inspect_provider_raw_pcm
+from .core import (
+    ValidationError,
+    extract_step1_script,
+    validate_capture_plan,
+    validate_state,
+    validate_transcript,
+    verify_package,
+    write_extraction,
+)
+from .provider import dry_run_capture, execute_capture
+
+
+def _path(value: str) -> Path:
+    return Path(value).expanduser().resolve()
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="oe-narration", description="Operator Blueprint V2 narration controls")
+    parser.add_argument("--version", action="version", version="oe-narration 0.2.0")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    extract = sub.add_parser("extract", help="derive canonical W from a locked Step 1 script")
+    extract.add_argument("--script", type=_path, required=True)
+    extract.add_argument("--out", type=_path)
+
+    package = sub.add_parser("verify-package", help="verify hashes and the single spoken-text authority")
+    package.add_argument("--manifest", type=_path, required=True)
+
+    plan = sub.add_parser("validate-capture-plan", help="validate bounded calibration or full capture")
+    plan.add_argument("--plan", type=_path, required=True)
+    plan.add_argument("--canonical-w", type=_path, required=True)
+
+    inspect = sub.add_parser("inspect-audio", help="inspect the actual codec and production properties")
+    inspect.add_argument("--input", type=_path, required=True)
+    inspect.add_argument("--receipt", type=_path, help="required only for headerless provider PCM")
+    inspect.add_argument("--part-id")
+
+    convert = sub.add_parser("convert-working", help="perform the one permitted raw-to-working WAV conversion")
+    convert.add_argument("--input", type=_path, required=True)
+    convert.add_argument("--output", type=_path, required=True)
+    convert.add_argument("--receipt", type=_path)
+    convert.add_argument("--part-id")
+    convert.add_argument("--record", type=_path)
+
+    transcript = sub.add_parser("validate-transcript", help="bind exact W timing to the exact master")
+    transcript.add_argument("--transcript", type=_path, required=True)
+    transcript.add_argument("--canonical-w", type=_path, required=True)
+    transcript.add_argument("--master", type=_path)
+
+    state = sub.add_parser("validate-state", help="validate gates, invalidation, technical pass, and human approval")
+    state.add_argument("--state", type=_path, required=True)
+
+    capture = sub.add_parser("capture-elevenlabs", help="dry-run by default; provider calls require --execute and authorization")
+    capture.add_argument("--plan", type=_path, required=True)
+    capture.add_argument("--canonical-w", type=_path, required=True)
+    capture.add_argument("--output-dir", type=_path)
+    capture.add_argument("--execute", action="store_true")
+    capture.add_argument("--authorization", type=_path)
+    capture.add_argument("--timeout", type=float, default=60.0)
+    return parser
+
+
+def _write_json(path: Path, value: dict[str, Any]) -> None:
+    if path.exists():
+        raise ValidationError(f"refusing to overwrite record: {path}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def dispatch(args: argparse.Namespace) -> dict[str, Any]:
+    if args.command == "extract":
+        extraction = extract_step1_script(args.script)
+        if args.out:
+            return write_extraction(extraction, args.out, args.script)
+        return extraction.as_dict(str(args.script))
+    if args.command == "verify-package":
+        return verify_package(args.manifest)
+    if args.command == "validate-capture-plan":
+        return validate_capture_plan(args.plan, args.canonical_w)
+    if args.command == "inspect-audio":
+        if args.receipt:
+            return inspect_provider_raw_pcm(args.input, args.receipt, args.part_id)
+        return inspect_audio(args.input)
+    if args.command == "convert-working":
+        result = convert_working(args.input, args.output, args.receipt, args.part_id)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "validate-transcript":
+        return validate_transcript(args.transcript, args.canonical_w, args.master)
+    if args.command == "validate-state":
+        return validate_state(args.state)
+    if args.command == "capture-elevenlabs":
+        if not args.execute:
+            return dry_run_capture(args.plan, args.canonical_w)
+        if args.authorization is None:
+            raise ValidationError("--execute requires --authorization")
+        if args.output_dir is None:
+            raise ValidationError("--execute requires --output-dir")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_capture(
+            args.plan,
+            args.canonical_w,
+            args.output_dir,
+            args.authorization,
+            args.timeout,
+        )
+    raise ValidationError(f"unsupported command: {args.command}")
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        result = dispatch(args)
+    except ValidationError as exc:
+        print(json.dumps({"valid": False, "errors": exc.errors}, indent=2), file=sys.stderr)
+        return 2
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

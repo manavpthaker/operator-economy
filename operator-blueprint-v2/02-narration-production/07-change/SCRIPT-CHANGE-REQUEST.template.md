@@ -1,6 +1,6 @@
 # Step 2 Script Change Request
 
-Template version: proposed Step 2 v0.1.
+Template version: proposed Step 2 v0.2.
 
 Use this record when the locked words—not merely the performance—must change. Step 2 cannot approve the change.
 
@@ -9,12 +9,14 @@ Use this record when the locked words—not merely the performance—must change
 - Episode:
 - Current editorial-lock revision/hash:
 - Current script revision/hash:
+- Current ordered `W`-token count/SHA-256:
 - Requester and Step 2 role:
 - Request date:
 
 ## Trigger
 
 - Script anchor and exact locked wording:
+- Exact affected `W` range:
 - Problem found during: direction / calibration / take / edit / conformity / independent listen
 - Why pace, emphasis, pause, pronunciation, or a same-word pickup cannot solve it:
 - Evidence or production consequence:
@@ -35,6 +37,7 @@ Use this record when the locked words—not merely the performance—must change
 - New script revision/hash, if approved:
 - New editorial-lock revision/hash, if approved:
 - Affected Step 2 artifacts invalidated:
+- State fields invalidated: N1-N7 / `technical_pass` / `creative_approved` / locked workflow status
 - Step 1 approver/date:
 
 ## Step 2 resumption
@@ -44,3 +47,6 @@ Use this record when the locked words—not merely the performance—must change
 - Required new direction/calibration/takes:
 - Gate to resume from:
 - Narration producer/date:
+
+Step 2 cannot update the canonical `W` sequence. A Step 1 revision creates a new script identity,
+not an acoustic alias or pickup.

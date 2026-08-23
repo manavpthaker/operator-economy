@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-capture-plan-v1.json",
+  "title": "OE Step 2 capture plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "capture_phase", "target", "script_sha256", "spoken_identity", "bindings", "provider", "format_policy", "parts"],
+  "properties": {
+    "schema_version": {"const": "oe-capture-plan-v1"},
+    "capture_phase": {"enum": ["calibration", "full"]},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "episode"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "script_sha256": {"$ref": "#/$defs/sha256"},
+    "spoken_identity": {"$ref": "#/$defs/spokenIdentity"},
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package_manifest_sha256", "performance_direction_sha256", "voice_capture_lock_sha256"],
+      "properties": {
+        "package_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "performance_direction_sha256": {"$ref": "#/$defs/sha256"},
+        "voice_capture_lock_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "creative_approved": {"const": false},
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "voice_id", "model_id", "voice_settings"],
+      "properties": {
+        "name": {"const": "elevenlabs"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "model_id": {"type": "string", "minLength": 1},
+        "voice_settings": {
+          "type": "object",
+          "required": ["stability", "similarity_boost", "style"],
+          "properties": {
+            "stability": {"type": "number", "minimum": 0, "maximum": 1},
+            "similarity_boost": {"type": "number", "minimum": 0, "maximum": 1},
+            "style": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        }
+      }
+    },
+    "format_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preferred", "fallback", "fallback_requires"],
+      "properties": {
+        "preferred": {"const": "pcm_48000"},
+        "fallback": {"const": "mp3_44100_192"},
+        "fallback_requires": {"const": "pcm_capability_unavailable"}
+      }
+    },
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "start_token", "end_token", "spoken_text_sha256"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "start_token": {"type": "integer", "minimum": 0},
+          "end_token": {"type": "integer", "minimum": 1},
+          "spoken_text_sha256": {"$ref": "#/$defs/sha256"},
+          "calibration_mode": {"enum": ["cold_open", "evidence", "economics", "pronunciation"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "spokenIdentity": {
+      "type": "object",
+      "required": ["schema_version", "token_count", "sha256"],
+      "properties": {
+        "schema_version": {"const": "oe-spoken-text-v1"},
+        "token_count": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}
