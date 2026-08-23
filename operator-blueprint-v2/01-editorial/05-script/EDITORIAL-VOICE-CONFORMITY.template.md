@@ -1,8 +1,8 @@
 # Editorial structure and voice conformity: [episode working name]
 
-Status: draft / pass / revise / superseded
+Status: draft / clear for owner voice test / owner voice pass / revise / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 ## Authority identity
 
@@ -17,6 +17,9 @@ Template version: approved `operator-blueprint-v2-step1-v1.4`
 - SCRIPT-BEAT-RESEARCH.md path and SHA-256:
 - V2 VOICE-ARCHITECTURE.md path and SHA-256:
 - Studio speech-profile.md path and SHA-256:
+- Proposed hosted-long-form routing applied: documentary evidence rigor plus observed Manav lexical surface / no
+- Live Content OS routing conflict: unresolved / authorized resolution attached
+- Authorized resolution path and SHA-256, or `none`:
 - Reviewer:
 - Review date:
 
@@ -33,6 +36,7 @@ Template version: approved `operator-blueprint-v2-step1-v1.4`
 | Public and spoken company-name identity | | exact Investment Thesis match required |
 | One-sentence company definition | | clear on first listen and evidence-safe |
 | Opening order | | cold open → silent sting → brand → promise → context → question → earned thesis |
+| Pre-sting operator or business payoff | | specific and useful; mechanism, proof, and complete thesis withheld |
 | Opportunity/build architecture | | roughly balanced, not an exact timer |
 | Complete company before entry wedge | | required |
 | Opportunity-to-build transition | | conversational and earned |
@@ -44,11 +48,20 @@ Template version: approved `operator-blueprint-v2-step1-v1.4`
 | Three consecutive sentences of six words or fewer | | every cluster reviewed |
 | Sentences of four words or fewer | | roughly 15 percent or less unless justified |
 | Repeated aphorisms or mic-drop endings | | no punch-line metronome |
+| Repeated discourse-marker scene openings | | zero required; repeated “Okay,” “look,” or equivalent opening fails |
 | First-listen load | | no beat combines several abstractions, statistics, analogy, and joke |
+| Narrative seam continuity | | every adjacent narrated seam passes the exact last-two-lines to first-two-lines test, excluding the recorded identity reset |
+| Evidence-delivery layers | | conversational and audio-honest VO, exact source receipt, and full show-note citation required for material external facts |
+| Operator-market selection | | experience, relationships, earned access, buyer understanding, and reachable decision-makers lead; example industry is not universalized |
+| Horizontal buyer definition | | qualified and unsuitable buyer rules are clear without an example industry |
+| Example independence | | company, cold open, market, prospect denominator, and economics survive removal of every example industry |
+| Opportunity-pitch share | | 52 to 58 percent unless an owner-approved exception is recorded |
+| Opportunity-scale proof | | adjacent budget or responsibility plus at least two observed operating layers; synthesis remains labeled |
 | Governing analogy consistency | | one mapped family with meaningful development |
-| Opening callback | | resolves or reinterprets the opening |
+| Opening callback | | resolves or reinterprets the opening and delivers the teased payoff |
+| Final audience ask | | one earned like-and-subscribe sentence; final spoken beat; no stacked ask or new promise |
 
-Mechanical checks locate risks. They cannot approve comprehension, voice, or story.
+Mechanical checks locate risks. They cannot approve comprehension, story, lexical performability, or positive hosted-voice identity. Zero violations means only that no listed hygiene blocker was found.
 
 ## Opening and orientation evidence
 
@@ -59,7 +72,9 @@ Mechanical checks locate risks. They cannot approve comprehension, voice, or sto
 - What appears normal:
 - What becomes strange, costly, or unresolved:
 - Question left open:
-- Abstract thesis correctly withheld: yes / no
+- Specific operator or business payoff clear before the sting:
+- Strong reason to stay clear on first listen: yes / no
+- Mechanism, proof, and complete thesis correctly withheld: yes / no
 - Finding:
 
 ### Show identity and episode promise
@@ -143,6 +158,16 @@ Mechanical checks locate risks. They cannot approve comprehension, voice, or sto
 - Client-level sub-decisions kept separate:
 - Finding:
 
+### Operator-market selection
+
+- Relevant experience or judgment the viewer is told to use:
+- Relationships, network, or earned access the viewer is told to use:
+- Buyer understanding and reachable decision-makers:
+- Industry used as the episode's concrete example:
+- Example classified as illustrative or recommended:
+- Exact language that prevents universalizing the example:
+- Finding:
+
 ### Business-of-one promise
 
 - What AI enables:
@@ -184,18 +209,36 @@ The reviewer hears or reads the clean narration once, without annotations, befor
 
 ## Voice, analogy, and humor evidence
 
-### Manav language pattern 1
+### Positive hosted-voice identity
 
-- Pattern:
-- Script evidence:
-- Why it feels natural rather than inserted:
-- Finding:
+Manav-hosted OE authority route verified: yes / no
 
-### Manav language pattern 2
+Warm strategist relationship present across the episode: yes / no
 
-- Pattern:
-- Script evidence:
-- Why it feels natural rather than inserted:
+Investigative movement advances from consequence through evidence to verdict: yes / no
+
+Dry skepticism has an earned systemic target: yes / no
+
+Analogy clarifies a mechanism rather than decorating it: yes / no
+
+Commercial conviction answers who pays, why now, what the operator owns, and whether to BUILD: yes / no
+
+Named-reference, ratio, persona, or imitation instruction present: yes / no
+
+Quote exact positive evidence. A row cannot be satisfied by clarity alone, a clean mechanical result, the absence of a banned phrase, or the absence of imitation.
+
+| Episode function | Exact script evidence and location | Observed Manav function | Why it is natural and episode-specific | Neutral documentary substitution challenge | Decision |
+|---|---|---|---|---|---|
+| Opening | | | | Would a neutral rewrite leave the host relationship unchanged? | clear for owner test / revise |
+| Opportunity case | | | | Would a neutral rewrite leave the host relationship unchanged? | clear for owner test / revise |
+| Operator build | | | | Would a neutral rewrite leave the host relationship unchanged? | clear for owner test / revise |
+| Economics | | | | Would a neutral rewrite leave the host relationship unchanged? | clear for owner test / revise |
+| Ending | | | | Would a neutral rewrite leave the host relationship unchanged? | clear for owner test / revise |
+
+- Positive identity carried across the complete script rather than isolated in one or two lines: yes / no
+- Observed functions used without catchphrase or mannerism insertion: yes / no
+- Individual profile moves deliberately absent because they would feel forced:
+- Exact evidence that would disappear in a generic documentary rewrite:
 - Finding:
 
 ### Governing analogy and callback
@@ -205,6 +248,10 @@ The reviewer hears or reads the clean narration once, without annotations, befor
 - First use:
 - Meaningful development:
 - Ending callback:
+- Payoff delivered at the callback:
+- Final like-and-subscribe sentence:
+- Why the audience ask is earned rather than appended:
+- Competing asks omitted or combined:
 - Finding:
 
 ### Understatement, humor, or justified restraint
@@ -226,6 +273,16 @@ The reviewer hears or reads the clean narration once, without annotations, befor
 - Repeated disclaimer found:
 - Finding:
 
+### Evidence-delivery layers
+
+| Claim ID | Conversational VO attribution and material audible caveat | On-screen source receipt complete | Full show-note citation complete | Honest for audio-only listener | Finding |
+|---|---|---|---|---|---|
+| C### | | pass / revise | pass / revise | pass / revise | |
+
+- Report-title, date, sample, methodology, or locator metadata unnecessarily recited in VO:
+- Spoken claim relying on the visual to become honest:
+- Finding:
+
 ### Cadence
 
 - Longer explanatory passage:
@@ -233,6 +290,18 @@ The reviewer hears or reads the clean narration once, without annotations, befor
 - Natural connective tissue:
 - Short-sentence cluster:
 - Repeated polished landing:
+- Finding:
+
+### Narrative seam test
+
+Read each adjacent narrated seam without headings. Exclude only the approved silent identity sting and brand reset, and record that exception.
+
+| Seam | Last two spoken lines of outgoing sequence | First two spoken lines of incoming sequence | Inherited noun, question, decision, image, or consequence | How the incoming sequence advances it | Reset, redefinition, or generic-heading failure | Decision |
+|---|---|---|---|---|---|---|
+| S00 → S02 | | | approved identity and brand reset | | recorded exception | pass / revise |
+| S## → S## | | | | | none / describe | pass / revise |
+
+- Repeated scene-opening discourse marker and locations:
 - Finding:
 
 ## Challenges
@@ -294,29 +363,37 @@ The reviewer hears or reads the clean narration once, without annotations, befor
 
 ## Full-script dimensions
 
-| Dimension | Pass / revise | Evidence-backed finding |
+| Dimension | Decision | Evidence-backed finding |
 |---|---|---|
 | Opening orientation | | |
+| Pre-sting payoff strength | | |
 | Show identity | | |
 | Naming clarity | | |
 | Reporting spine | | |
+| Narrative seams | | |
 | Business context | | |
 | Investment-thesis integrity | | |
 | Opportunity/build architecture | | |
 | Company/wedge separation | | |
 | First-listen clarity | | |
+| Lexical performability | | |
 | Operator-advisor base | | |
 | Business-of-one clarity | | |
-| Manav voiceprint | | |
+| Positive hosted-voice identity | | |
 | Conviction | | |
 | Evidence integrity | | |
+| Evidence delivery | | |
+| Operator-market fit | | |
 | Humor temperature | | |
 | Cadence | | |
 | Ending payoff | | |
+| Audience ask | | |
 | Affirmative BUILD verdict | | |
 | Non-imitation | | |
 
 One failed dimension returns the script for revision.
+
+For `Positive hosted-voice identity`, the reviewer records `clear for owner voice test` or `revise`. Only the owner's direct `yes` after the complete cold read may convert that row to `owner voice pass`.
 
 ## Read-aloud result
 
@@ -326,16 +403,33 @@ One failed dimension returns the script for revision.
 - Opportunity-to-build and company-to-wedge turns remained understandable in one pass: yes / no
 - Numbers and qualifications remained understandable: yes / no
 - Final BUILD verdict sounded confident without becoming promotional: yes / no
-- Voice remained consistent across the complete script: yes / no
+- Exact words remained lexically performable across the complete script: yes / no
+- Positive hosted-voice relationship remained recognizable across the complete script: yes / no / owner decision required
 - Lines the reader instinctively changed:
 - Fatiguing, repetitive, dense, or forced passages:
+- Narrative seams lost or reset during continuous reading:
+- Repeated discourse-marker scene openings heard as a pattern:
+- Report-style source language that interrupted the conversation:
+- Example industry heard as universal advice:
 
 ## Decision
 
-- Gate E5V recommendation: pass / revise
+- Mechanical and hygiene disposition: no lane-specific blocker / revise
+- First-listen clarity disposition: no lane-specific blocker / revise
+- Lexical performability disposition: no lane-specific blocker / revise
+- Positive hosted-voice recommendation: clear for owner voice test / revise
 - Findings requiring disposition:
 - Reviewer/signature/date:
+- Owner cold-read script SHA-256:
+- Owner completed one continuous clean read without annotations: yes / no
+- Owner answer to “Does this sound like me talking, not merely like a good Operator Economy script?”: yes / no
+- Owner answer to “Is the opportunity broader than the examples, and can I explain who it is actually for?”: yes / no
+- Owner answer to “Does the first act make the opportunity worth investigating before the blueprint begins?”: yes / no
 - Owner decision: pass / revise
+- Lines the owner instinctively rewrote, or `none`:
+- Seam, voice, or comprehension point the owner rejected, or `none`:
 - Owner/signature/date:
 
-This review approves neither narrator identity nor audio performance. Those belong to Step 2.
+The owner cold-read decision is decisive. Positive hosted-voice identity passes only when the five-function evidence is complete and the owner answers the direct voice-match question `yes`. An owner `no`, `revise`, spontaneous rewrite, lost seam, or rejected voice cannot be overridden by a pattern score, mechanical pass, reviewer recommendation, or agent consensus. A pass requires a new complete cold read of the exact revised hash.
+
+This review controls the lexical identity of the Step 1 script. It approves neither narrator casting nor recorded audio performance. Those belong to Step 2.

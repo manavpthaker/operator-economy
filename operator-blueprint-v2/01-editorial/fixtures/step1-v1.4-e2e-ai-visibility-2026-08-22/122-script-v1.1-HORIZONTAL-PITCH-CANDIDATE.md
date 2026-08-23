@@ -1,0 +1,443 @@
+# Script v1.1: AI Visibility
+
+Status: fixture candidate for independent review and owner cold read. Not locked. Step 2 unauthorized.
+
+Company: AI Visibility company
+
+Research basis: `115-step0-amendment-research-response.md`
+
+Claims basis: `116-claims-map-v0.4-market-opportunity.md`
+
+Investment thesis: `117-investment-thesis-v0.2-market-opportunity.md`
+
+Narrative basis: `118-narrative-spine-v0.3-horizontal-pitch.md`
+
+Beat basis: `119-beat-sheet-v0.3-horizontal-pitch.md`
+
+Outline basis: `120-outline-v0.3-horizontal-pitch.md`
+
+Voice basis: `121-voice-map-v0.4-hosted-horizontal.md`
+
+## S00: the answer before the website
+
+### Narration
+
+A customer has a meaningful decision to make.
+
+Which software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.
+
+So they ask an AI.
+
+Your company is missing from the answer.
+
+Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.
+
+You open the search dashboard. Everything is green.
+
+And the dashboard may be right. It is just watching a different doorway.
+
+That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.
+
+But before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.
+
+Let's work that out.
+
+## S01: silent identity sting
+
+Narration: none
+
+## S02: show and episode promise
+
+### Narration
+
+This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
+
+We're building an AI Visibility company.
+
+It helps businesses understand how they appear when customers use AI to discover, compare, shortlist, or verify providers. Then it helps the person responsible decide what, if anything, to do about it.
+
+We're going to establish who actually needs this, how much business activity already exists around it, what one operator can own, and what the first paid version has to prove before you call it a company.
+
+## S03: the second doorway
+
+### Narration
+
+Start with the system marketing teams already understand.
+
+Someone types a question into search. A page appears. They click it. Analytics records the visit. Maybe they buy. The trail is imperfect, but at least the company can follow it.
+
+Now the customer opens ChatGPT, Gemini, Perplexity, or another answer tool and asks the whole question at once.
+
+McKinsey found that roughly half the people it surveyed were deliberately using AI-assisted search. Regular search did not disappear. The people in that survey had added another place to research the decision.
+
+That matters because the answer does not have to come from the company's website.
+
+It might use the site. It might also use a review, a trade publication, a forum, a comparison page, or a source nobody inside the company has looked at since the intern who created the account left.
+
+And the mix can change with the question, the category, and the platform.
+
+So the company may have a very good report for clicks and rankings while the customer is forming an opinion somewhere the report barely describes.
+
+That is the second doorway.
+
+Now, a second doorway is not automatically a second budget. This only becomes commercially interesting when the decision on the other side is valuable enough for someone to care.
+
+If a customer is choosing a four-dollar snack, the company probably does not need an investigative unit standing by.
+
+If the customer is choosing software for a department, a professional they may trust for years, or a trip that costs several paychecks, being absent or misrepresented becomes a different kind of problem.
+
+The purchase has enough weight. The customer does research. And somebody inside the business is already responsible for being found and understood.
+
+That is the buyer rule.
+
+Not every business. High-consideration businesses with an accountable owner and a customer decision that might actually change.
+
+## S04: three versions of the same problem
+
+### Narration
+
+You can see the rule more clearly if we move it across three markets.
+
+Take B2B software.
+
+A buyer asks an AI to compare three platforms. One company never makes the list. Another appears, but the description uses positioning the company abandoned two launches ago.
+
+The decision is a shortlist. The risk is not that the AI hurt somebody's feelings. The risk is that the sales team never learns it was excluded from a buying process.
+
+Now take professional services.
+
+A prospective client asks which firms handle a certain kind of work in a certain place. The answer uses directories, articles, reviews, and whatever else it trusts. One firm has the right expertise, but the sources describe it badly or not at all.
+
+The decision there is qualification. Does this provider look credible enough to contact?
+
+Then take travel.
+
+A guest asks where to stay for a particular trip. The property appears through reviews and third-party pages, but the answer misses the thing the property actually wants to be known for.
+
+That decision is recommendation and comparison.
+
+Three markets. Three different purchases. Same operating question.
+
+When customers ask AI about this category, what appears, where did it come from, and does any of it deserve action?
+
+Travel is not the market recommendation. Neither is software. Neither is professional services.
+
+They are examples of the buyer rule.
+
+Your first market should be one where the purchase matters, the customer researches, the company already owns some form of discoverability, and you understand the buyer well enough to know which questions are consequential.
+
+That last part matters. Access to an AI account is not an industry advantage. Everybody has the same login page.
+
+Your advantage is knowing which answer would make the responsible buyer lean forward, which one is merely weird, and who inside the company can do something about it.
+
+So the problem crosses categories. Good. But is there enough actual business around it to support a company?
+
+This is where we have to follow the money without adding unrelated numbers together and calling the result a market.
+
+## S05: follow the responsibility across the market
+
+### Narration
+
+The first layer already exists.
+
+Companies pay for search visibility, content, brand, public relations, reputation, competitive research, and customer acquisition. Those are different budgets with different owners, so we cannot pour them into one measuring cup and announce that we found the AI Visibility market.
+
+What they establish is more useful anyway.
+
+Businesses already pay people to help customers find them, understand them, and choose them.
+
+AI-assisted discovery changes part of that responsibility. It does not create the responsibility from nothing.
+
+Now look at the top of the service market.
+
+Accenture is hiring senior people to lead generative-engine optimization and AI-search work for clients. The job covers measurement, content, technical search, and roadmaps.
+
+A job posting does not tell us Accenture's revenue from this work. It does tell us a major consultancy thinks the responsibility is real enough to staff.
+
+Then look at the platform layer.
+
+Semrush reported 443.6 million dollars in total company revenue for 2025. That is the broader online-visibility business, not an AI Visibility market-size figure.
+
+The more relevant signal is smaller. By the middle of 2025, Semrush said its recently launched AI portfolio had reached 10 million dollars in annual recurring revenue.
+
+That does not prove a buyer wants our diagnostic. It proves customers are already paying for products around the new doorway.
+
+Then you have specialist platforms.
+
+Profound and AirOps have raised substantial venture funding and named recognizable organizations using their products. Again, funding is not demand. A term sheet has never had to renew a software subscription.
+
+But investment, named customers, and product development tell us serious companies are trying to own measurement and action in this category.
+
+And below the software layer, agencies are packaging the work.
+
+Foundation sells AI Visibility services. iPullRank publishes an enterprise case around AI-search visibility. One agency case is not a market average, but it confirms that related work is being delivered as a service, not just discussed at conferences by people wearing very clean sneakers.
+
+So we now have four operating layers.
+
+A major consultancy is staffing the work. A public visibility platform reports emerging AI revenue. Specialist platforms are attracting capital and organizational users. Agencies are selling and delivering services.
+
+That is not a clean TAM calculation.
+
+It is a better answer to the question we actually care about.
+
+Is there enough commercial activity around AI-assisted discovery to justify testing a focused service?
+
+Yes.
+
+Do we know that companies will buy this exact service, at our modeled price, from one operator?
+
+No.
+
+That is the opening. The category activity is observed. The operator company is the thesis we still have to earn.
+
+## S06: the company is not the dashboard
+
+### Narration
+
+The tools can already do a lot.
+
+They can sample prompts, record brand mentions, compare competitors, track citations, and show which sources appear. That is useful collection.
+
+Collection is not the whole job.
+
+Put yourself in the responsible buyer's chair.
+
+One report shows search traffic. Another shows AI mentions. Another shows citations. The content team knows the pages it owns. Public relations knows the publishers it has worked with. Brand knows what the company wants to stand for.
+
+Nobody has to be doing bad work. Everybody can be doing exactly what they were hired to do and still be holding a different piece of the answer.
+
+At some point, somebody has to decide which questions matter, whether an important statement is actually wrong, what the company can change, what it can only influence, and when the evidence is too weak to justify more activity.
+
+A taller pile of screenshots is still a pile.
+
+The company we are building owns the decision record around that pile.
+
+For an agreed set of customer questions, it records what appeared, which sources supported it, and where important claims differ from facts the client has approved.
+
+Then the operator tells the buyer what to act on, investigate, monitor, or leave alone.
+
+You're not selling control of the answer. You do not control the model, the sources it retrieves, the customer, or the outcome.
+
+You're selling a better decision about what the sample means.
+
+That is the mature AI Visibility company.
+
+It may eventually maintain this record for a focused portfolio. But another month on the calendar does not earn a monitoring fee. Another meaningful decision does.
+
+Now the interesting part for the viewer is not whether Accenture can staff a team or Semrush can build a platform.
+
+It is whether one experienced operator can own a useful slice of the responsibility without quietly becoming an agency, a software company, and a public-relations firm inside the same invoice.
+
+## S07: why one operator can enter
+
+### Narration
+
+This is where AI changes the operating model.
+
+The collection work can be heavy. Run the questions, save the answers, extract the claims, group the sources, compare the differences, and prepare the record.
+
+AI can help carry those boxes.
+
+The operator still decides which room they belong in.
+
+Which customer questions deserve to be in the sample. Which client fact settles a disagreement. Which source is relevant. Which difference changes a buyer decision. Which conclusion needs to be narrower. When the honest recommendation is to leave it alone.
+
+That judgment comes from experience.
+
+If you have worked in search, content, brand, public relations, research, product marketing, strategy, or competitive intelligence, you have probably seen a result that was technically interesting and commercially useless.
+
+You have also seen the opposite. One small fact changes the whole decision because you understand what the buyer is trying to do.
+
+That is the operator advantage.
+
+So do not choose your first market because somebody posted a list of hot AI niches.
+
+Choose a high-consideration market where you understand the purchase, speak the buyer's language, and can reach the person responsible.
+
+The big market argument gets the company onto the table.
+
+Your experience and access decide which chair you can credibly sit in.
+
+And now we can bring the company down to the first thing a buyer can inspect and pay for.
+
+## S08: the first paid diagnostic
+
+### Narration
+
+Here is the first test model. These are assumptions to test, not observed buyer behavior or results.
+
+Start with one qualified business, one market, ten questions the buyer approves before collection, and two answer surfaces.
+
+Before you collect anything, ask what decision might change.
+
+If the buyer cannot name one, stop. An odd answer is not automatically a paid problem.
+
+Record each answer, the date, important claims, competitors, and sources. Check the important statements against facts the client has approved.
+
+Then sort each gap into four decisions: act, investigate, monitor, or leave it alone.
+
+Leave it alone has to be real. If every report ends with more work for the person who wrote it, the buyer did not purchase independent judgment. They purchased the opening scene of the next sales call.
+
+Implementation stays outside the first invoice. So does ongoing monitoring.
+
+The job ends with a clear record and a recommendation the buyer can evaluate.
+
+For validation, begin with five qualified conversations. Not five random businesses. Five people who own search, brand, content, reputation, or acquisition inside a high-consideration company.
+
+Use a three-question public preview to earn the conversation. Show what appeared, where it came from, and where the sample stops.
+
+Then ask whether it changes a decision they are responsible for.
+
+You are not predicting how many will say yes. You are measuring whether the problem becomes a purchase when the right buyer sees it.
+
+## S09: make the model earn its confidence
+
+### Narration
+
+The first sale still has to fit inside one person's week.
+
+So here is the model. It is not a forecast.
+
+For validation, say you charge two thousand dollars and cap delivery at 16 hours.
+
+Set aside 960 dollars for your time, 99 for software, and 300 for finding the client and the other listed costs in this model.
+
+That leaves 641 dollars before tax and unlisted costs.
+
+The important decision is not whether 641 looks attractive in a spreadsheet. It is whether you can finish the work in 16 hours without making the buyer fund your education.
+
+Then take the working case.
+
+Three thousand dollars and 24 delivery hours. Set aside 1,440 dollars for your time and 399 in listed costs. That leaves 1,161 dollars before tax and unlisted costs.
+
+The annual model uses that case.
+
+The planning target is 48 thousand dollars for owner labor and support before tax and unlisted costs. Each three-thousand-dollar engagement leaves 2,601 dollars for that labor and support after listed costs.
+
+Eighteen engagements fall short. Nineteen gets past the target.
+
+So the model requires 19 paid diagnostics in a year.
+
+That is a requirement. It is not a customer forecast, and it is definitely not a sentence the spreadsheet is authorized to tell your landlord.
+
+Can one person deliver 19?
+
+At 24 hours each, delivery takes 456 hours.
+
+The model gives the operator 960 hours across the year. That leaves 504 hours for selling, administration, support, exceptions, and specialist help.
+
+The delivery arithmetic fits. The business is still unproven.
+
+We do not know how many qualified conversations produce one paid diagnostic. That means we do not know the prospect pool required to produce 19.
+
+The old version of this model picked an example prospect list and divided 19 by it. The arithmetic was correct and the conclusion was useless. It measured a list before we had measured whether anyone buys.
+
+First observe the acceptance rate with qualified buyers. Then calculate the reach you need.
+
+The spreadsheet cannot make a customer say yes. It can only tell you how many yeses the business eventually needs.
+
+## S10: what breaks the company
+
+### Narration
+
+And this is how a promising category becomes a bad business.
+
+The buyer may see the diagnostic as ordinary SEO work and refuse a separate budget.
+
+The answer sample may move too much to support a responsible comparison.
+
+The software may improve until it gives the buyer enough interpretation without an operator.
+
+Or the scope may expand from measurement into research, content, public relations, legal review, implementation, and software support.
+
+That is not a business of one. It is a team wearing one invoice.
+
+Walk away from any buyer who needs a promise of placement, traffic, leads, or revenue. You do not control those outcomes.
+
+If the work takes longer than the model allows, narrow the scope, change the price, or stop.
+
+If every engagement needs several specialists, choose a narrower market or admit the model needs a team.
+
+If another measurement does not support another decision, do not invent a retainer around the calendar.
+
+Every failure becomes a question for the first 30 days.
+
+## S11: the first 30 and 90 days
+
+### Narration
+
+So test the questions that can kill the business.
+
+In the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach.
+
+Talk to five of them.
+
+Ask what decision the evidence could change and who owns it.
+
+When a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.
+
+Ask first. Deliver second.
+
+If one accepts, run the paid work.
+
+If nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.
+
+Before you continue, three things have to be true.
+
+At least three of the five buyers independently describe the problem as consequential.
+
+At least one accepts a paid diagnostic, or names the budget and what would have to be true for approval.
+
+And the manual delivery produces repeatable evidence within 24 hours of work.
+
+If that gate fails, change the offer or stop.
+
+If it passes, the next 60 days are funded work only.
+
+Record delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer.
+
+Add monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time.
+
+That is construction. You are replacing the market story with evidence from your own business.
+
+## S12: the second doorway, measured honestly
+
+### Narration
+
+The original search report can stay green.
+
+It was not lying. It was watching one doorway while the customer used another.
+
+The AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.
+
+The market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator.
+
+The market case does not make the first customer appear.
+
+So the verdict is BUILD, bounded by the test.
+
+Choose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.
+
+If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.
+
+## Required non-spoken model receipts
+
+- `MODELED VALIDATION CASE | $2,000 - $960 owner-time allowance - $99 software - $300 acquisition and listed overhead = $641 before tax and unlisted costs | 16 delivery hours`
+- `MODELED WORKING CASE | $3,000 - $1,440 owner-time allowance - $99 software - $300 acquisition and listed overhead = $1,161 before tax and unlisted costs | 24 delivery hours`
+- `MODELED ANNUAL DECISION | $48,000 owner labor and support target before tax and unlisted costs | $3,000 - $99 - $300 = $2,601 per engagement | $48,000 / $2,601 = 18.45, rounded up to 19 paid diagnostics`
+- `MODELED CAPACITY | 20 hours x 48 weeks = 960 owner hours | 19 x 24 hours = 456 delivery hours | 960 - 456 = 504 non-delivery hours`
+- `MODELED VALIDATION | Five qualified buyer conversations | No expected conversion rate | Required prospect pool unknown until acceptance is observed`
+
+## Production boundary
+
+This is a fixture script. Named-company claims, public numbers, and modeled economics have not passed the live Content OS facts gate. The owner cold read is pending. Step 2 is unauthorized.
+
+## Script totals
+
+Spoken words: 3,019
+
+Opportunity pitch, S00 and S02 through S06: 1,648 words, 54.6 percent
+
+Operator blueprint, S07 through S12: 1,371 words, 45.4 percent
+
+Classification note: S07 begins the blueprint because it converts the category argument into operator advantage, market selection, and the path to the first purchase.

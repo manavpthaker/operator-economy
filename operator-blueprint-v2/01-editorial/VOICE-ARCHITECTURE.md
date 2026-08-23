@@ -1,16 +1,12 @@
 # Operator Economy long-form voice architecture
 
-Status: approved V2 Step 1 v1.4 authority.
+Status: approved V2 Step 1 v1.5 authority.
 
 ## The architecture in one line
 
-An experienced operator reports a business story with serious context, ordinary language, patient curiosity, dry understatement, a clear point of view, and a practical blueprint.
+Manav hosts a rigorous business investigation as a warm strategist with investigative wit: he begins with a consequence, follows the money and responsibility, uses ordinary analogies to make the mechanism visible, and ends with a clear operator verdict.
 
-The user's shorthand is useful:
-
-> Nate Bargatze doing 60 Minutes.
-
-That means reporting bones with a plainspoken and mildly bemused human surface. It does not mean an impression, a comedy set, or a copy of either person's wording, persona, timing, or mannerisms.
+This is an original voice. Named creators and programs remain private calibration history only. Production prompts use the distilled functions and never request an impression, ratio, persona, routine, timing pattern, or recognizable mannerism.
 
 ## Why v1.2 was not enough
 
@@ -32,20 +28,30 @@ V1.4 preserves that orientation repair and adds the investment case: first make 
 ```text
 truth and documentary rigor
         ↓
-seasoned operator / career strategist
+Manav as seasoned operator and career strategist
         ↓
-60 Minutes reporting spine
+recognizable consequence and investigative movement
         ↓
-plainspoken, patient, mildly bemused surface
+plainspoken explanation and ordinary analogy
         ↓
-Modern MBA business context and causal economics
+market context, comparable businesses, and causal economics
         ↓
-restrained Last Week Tonight reveal and callback
+fair steelman, dry systemic reveal, and commercial judgment
         ↓
-Manav's analogy, cadence, judgment, and practical decision
+practical operator decision and bounded BUILD verdict
 ```
 
-The named programs and creators are internal craft references. Use the functions. Do not reproduce recognizable language, jokes, routines, performance, or persona.
+The five positive voice functions are viewer relationship, investigative curiosity, analogy-led reasoning, dry systemic reaction, and decisive commercial guidance. A script must distribute them across the opening, opportunity case, blueprint, economics, and ending. Negative hygiene cannot substitute for positive identity.
+
+## Proposed hosted-long-form routing
+
+For an Operator Economy episode with Manav as the host, this proposal separates two jobs:
+
+- Content OS documentary rigor governs evidence, attribution, uncertainty, fairness, and release hygiene.
+- The observed Manav speech profile governs the lexical surface: how the host addresses the viewer, works through a thought, uses analogy, reacts, rules, and gives practical direction.
+- The approved episode contract, investment thesis, narrative, beats, outline, and claims map continue to govern meaning. Voice may clarify those decisions but may not change them.
+
+This is a proposed Step 1 routing rule, not a claim that the live authority already says the same thing. Live `content-os/voice.md` assigns Operator Economy a documentary register and reserves its personal-register blend for personal surfaces, while the live rubric routes YouTube voiceover outside its two written profiles. This repository is not authorized to resolve that conflict. Record it as unresolved in the proposal and editorial lock until Content OS receives an authorized hosted-long-form rule. Do not cite this local note as superseding Content OS.
 
 ## Layer 0: truth is the floor
 
@@ -133,9 +139,9 @@ The second version takes longer, but it gives the listener the thought instead o
 
 ## Layer 4: business context and causal economics
 
-Modern MBA is the high-level reference for explaining how an industry or business actually works.
+The host explains how an industry or business actually works without sounding like a lecture or a market report.
 
-Use its useful functions:
+Use these functions:
 
 - start with a familiar customer or operator experience;
 - explain the normal system and why it exists;
@@ -148,7 +154,7 @@ Do not copy its information density. Operator Economy needs fewer new facts per 
 
 ## Layer 5: restrained reveal and payoff
 
-Last Week Tonight is a secondary structural reference for four moves:
+The reveal structure uses four moves:
 
 1. Steelman the legitimate job or incentive.
 2. Add evidence until the hidden consequence becomes visible.
@@ -178,17 +184,39 @@ Useful observed moves include:
 
 Do not scatter “Okay,” “right?”, “here's the thing,” fragments, or double-tap conclusions through every section. A script that checks the profile mechanically will sound less like a person, not more.
 
+### Positive identity across the episode
+
+Clear, performable, and recognizably Manav are three different findings:
+
+- **Clear** means a first-time listener can follow the words once.
+- **Performable** means the locked words can be spoken without repairing them during delivery.
+- **Positive voice identity** means exact wording carries observed Manav functions strongly enough that the script does not collapse into a generic documentary voice.
+
+Positive voice identity must be designed and later evidenced across five episode functions:
+
+| Episode function | Positive voice job |
+|---|---|
+| Opening | Establish a direct human relationship through a natural observation, question, reaction, or invitation into the case. |
+| Opportunity case | Explain why the problem matters using episode-specific analogy, curiosity, causal reasoning, or a fair but opinionated reaction. |
+| Operator build | Speak peer to peer, work through the practical choice, and give a clear commercial instruction or ruling. |
+| Economics | Translate the model into familiar money and operating language, then judge what the numbers do and do not justify. |
+| Ending | Resolve the host's opening perspective, make the earned BUILD ruling, and give the first action in language that belongs to the same conversation. |
+
+This is not a quota for catchphrases, contractions, jokes, self-repairs, sentence lengths, or named techniques. One natural move may serve more than one function, and an individual mannerism may be absent. The requirement is positive, distributed evidence that the lexical surface carries a real host relationship. Zero banned words, clean punctuation, correct claims, smooth seams, and a script that can be read aloud only clear other risks. They cannot establish voice identity.
+
+The owner cold read is the final identity test. The direct question is: “Does this sound like me talking, not merely like a good Operator Economy script?” A `no`, an instinctive rewrite, or a passage the owner would never naturally say fails the exact hash.
+
 ## The required opening grammar
 
 ### 1. Concrete cold open
 
 Target range: 20–40 seconds.
 
-Begin with one recognizable situation, transaction, customer, or failure. Establish what looks normal, introduce one strange or costly consequence, and end on an unresolved question.
+Begin with one recognizable situation, transaction, customer, or failure. Establish what looks normal and introduce one strange or costly consequence. Before the sting, preview the specific operator or business payoff: the company the viewer could build, the responsibility they could own, or the practical decision they will learn to make. End on an unresolved question or open loop that the post-sting episode promise can pick up.
 
 The cold open is not:
 
-- the main thesis;
+- the complete main thesis or its proof;
 - a definition;
 - an evidence dump;
 - a list of what the episode will cover;
@@ -205,7 +233,7 @@ No narration. This creates a clean boundary between the opening situation and th
 
 Use exactly:
 
-> This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+> This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
 
 The fixed line carries the show identity. The underlying brand doctrine is:
 
@@ -213,13 +241,15 @@ The fixed line carries the show identity. The underlying brand doctrine is:
 
 Do not force the doctrine into every introduction word for word. The episode must prove it through the buyer, problem, AI-enabled operating model, capacity, economics, and first test.
 
+The pre-sting payoff tease and final like-and-subscribe sentence are part of the locked Step 1 language. Narration production may shape their pace, emphasis, energy, and silence, but it may not invent, rewrite, or improvise either one.
+
 ### 4. Episode-specific promise
 
 Use the approved short spoken company name, then one plain sentence to explain the useful result the buyer receives. Keep the precise internal operating description in planning unless its extra detail becomes necessary after the listener has a concrete picture.
 
 It should sound like:
 
-> Today, we're looking at how a workflow operations company could keep important client work from disappearing between business tools, what one operator would own, and where to start building it.
+> We're building a workflow operations company. It keeps important client work from disappearing between business tools. By the end, you'll know what one operator owns and where to start building it.
 
 It should not sound like a table of contents.
 
@@ -283,7 +313,7 @@ The mapping must answer:
 | Who owns the consequence? | Buyer, operator, worker, or customer |
 | What changes? | Decision, handoff, path, or control |
 
-Use the analogy after the literal situation is clear. Return to it only when the mapping gains new meaning. The ending callback should resolve the opening, not merely repeat a clever phrase.
+Use the analogy after the literal situation is clear. Return to it only when the mapping gains new meaning. The ending callback should resolve the opening, not merely repeat a clever phrase. After that resolution, deliver the promised operator payoff, land the evidence-safe BUILD verdict, give the first construction action, and close on one natural sentence asking the viewer to like and subscribe for more Operator Economy blueprints.
 
 ## Humor temperature
 
@@ -348,7 +378,7 @@ Do not repeat “hypothetical,” “this does not prove,” or “this is not r
 Before drafting, lock:
 
 - Episode Investment Thesis path, hash, and Gate E3I approval.
-- Cold-open situation and unresolved question.
+- Cold-open situation, operator or business payoff tease, and unresolved question.
 - Silent identity break.
 - Exact brand string.
 - Episode-specific promise.
@@ -365,15 +395,21 @@ Before drafting, lock:
 - First 30 and 90 days of construction.
 - Target of any earned contempt.
 - Final operator BUILD decision.
+- Final like-and-subscribe sentence and the value-based reason it is earned.
 
 The investment case is locked in `04-narrative/EPISODE-INVESTMENT-THESIS.template.md`. The episode order is locked in `04-narrative/EPISODE-BEAT-SHEET.template.md`. The voice-and-comedy map is completed after the beat sheet, not instead of it.
 
 ## Failure modes
 
 - **Verdict before case:** the episode begins with a conclusion the viewer has not earned.
-- **Cold open as thesis:** the hook is an abstract reframe with no person, transaction, or consequence.
+- **Cold open as thesis:** the hook explains or claims to prove the full reframe before the viewer understands the case.
+- **Mystery-only hook:** the opening creates a question but never tells the operator what useful business payoff is worth staying for.
+- **Bolted-on audience ask:** like, subscribe, Canvas, download, and slogan requests stack up before or after an ending that has not delivered the promised value.
 - **Context vacuum:** the script assumes the viewer already understands the industry.
 - **Written-not-spoken:** the sentence is elegant on paper and unnatural in conversation.
+- **Hygiene mistaken for identity:** the script has no banned words or forced mannerisms, so a reviewer incorrectly labels the voice itself a pass.
+- **Documentary default:** the evidence is responsible and the explanation is competent, but the lexical surface could belong to any calm business narrator.
+- **Isolated voice garnish:** one analogy, question, or dry line is treated as proof that the complete episode carries the host's voice.
 - **First-listen overload:** several new ideas arrive before the first one becomes visible.
 - **Punch-line metronome:** every paragraph lands a short, quotable verdict.
 - **Cautious explainer:** evidence boundaries become a running apology.
@@ -394,3 +430,5 @@ A passing viewer should be able to say:
 > I knew what was happening before the episode told me what to think. I understood why the system works this way, what complete company belongs in the gap, why my experience could matter, and what I would start building first.
 
 If the viewer remembers only the clever lines, the architecture failed.
+
+If the script remains equally plausible after every host-specific reaction, analogy, working-through move, and ruling is replaced with neutral documentary prose, positive voice identity has not been established.

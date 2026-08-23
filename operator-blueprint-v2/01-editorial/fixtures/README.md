@@ -1,6 +1,6 @@
 # Step 1 fixtures
 
-Status: accepted v1.0 calibration evidence; rejected v1.1; v1.2 materially improved but not approved; v1.3 structure-and-voice recovery accepted through the owner-approved v1.4 investment-narrative and naming calibration; production boundaries unchanged.
+Status: historical v1.0 through v1.4 calibration preserved; Step 1 v1.5 approved. AI Visibility v1.1 is the exact locked Step 2 narration-system fixture control, not a promoted or numbered production episode. Workflow Operations remains blocked.
 
 ## Completed dry runs
 
@@ -54,13 +54,15 @@ The owner then returned v1.2 for structural revision. The v0.4 scripts had more 
 
 The owner then accepted the larger investment narratives and locked the Step 1 v1.4 naming calibration. Future public and spoken work uses `AI Visibility` / `AI visibility company` and `Workflow Operations` / `workflow operations company`. Internal documents may use `AI visibility-intelligence function` and `business-reliability and outsourced workflow-operations function` only as explicit operating descriptions. On first use, plain explanations should say that the AI visibility company helps brands understand how they appear in AI answers and decide what deserves action, and that the workflow operations company keeps important client work from disappearing between business tools.
 
+The later AI Visibility end-to-end fixture produced the accepted Step 1 v1.5 controls: original Manav-hosted long-form voice, horizontal qualified-buyer framing, evidence-bounded opportunity scale, a 52-to-58-percent opportunity-pitch target, decisive owner cold-read approval, and pitch-deck coverage across voiceover, visuals, and the Operator Canvas. The owner approved script v1.1, its exact clean read-through, and Canvas v0.3 as a narration-system control. The current fixture lock is `step1-v1.4-e2e-ai-visibility-2026-08-22/133-fixture-editorial-lock-v1.1.md`; its receiving handoff is `134-narration-handoff-v1.1.md`.
+
 Files `35`–`37` in the GEO and boring-automation fixture directories remain frozen V0.6 test artifacts. Their longer provisional company terms are historical test language superseded for future public and spoken use. See `STEP1-INVESTMENT-NARRATIVE-TEST-RESULTS.md` for the owner-approved decision, stored hashes, evidence limits, and continuing authorization boundaries.
 
 ## Fixture-mode boundary
 
 - The user must authorize a named fixture test.
 - Record the test result separately from the production result.
-- Do not assign an episode number, advance the queue, issue a production lock, or authorize narration.
+- Do not assign an episode number, advance the queue, or issue a production lock. Narration-system testing requires a separate exact-hash owner authorization; AI Visibility v1.1 is the only currently approved exception.
 - Label every output as a fixture or dry run.
 
 ## Accepted regression backlog
@@ -78,5 +80,6 @@ The owner locked Step 1 v1.0 with the following coverage record. Completed cases
 9. Completed for proposed v1.2: cautious explainers now fail; evidence-safe conviction, governing analogy, informative entertainment, contempt targeting, and rhythmic cadence recover in two full fixtures without adding claims.
 10. Completed for proposed v1.3: structurally abrupt v0.4 scripts fail; two v0.5 recoveries add the complete opening ladder, corrected business-of-one identity, earned thesis, first-listen controls, preserved claims, and an ending that resolves the opening.
 11. Completed and owner-approved for v1.4: two frozen V0.6 controls separate the mature company from its entry wedge, divide the episode between opportunity and blueprint, retain claims boundaries, end with an affirmative build verdict, and establish shorter public names without rewriting the test evidence.
+12. Completed and owner-approved for v1.5: AI Visibility v1.1 proves the horizontal opportunity pitch, positive hosted-voice review, decisive owner cold read, exact script/read-through identity, refreshed Canvas, pitch-deck coverage map, live Content OS routing impact review, and fixture-only Step 2 handoff without promoting or numbering the control.
 
 The acceptance set must preserve artifact hashes, named reviewer decisions, failure reasons, and the final owner ruling. Testing may use candidate fixtures without assigning an episode number. No dry run may be described as a produced episode.

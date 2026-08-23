@@ -2,7 +2,7 @@
 
 Status: draft / locked / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -290,6 +290,29 @@ Maximum time and cash at risk:
 |---|---|---|---|---|---|
 | U001 | | | | Step 0 amendment / editorial clarification / test later | yes / no |
 
+## Pitch-deck and episode coverage map
+
+The Canvas is the complete business record. The episode does not have to read every field aloud. Map every pitch question to the layer that communicates it best, while preserving enough spoken context for an audio-only listener to understand the opportunity and construction path.
+
+| Pitch question | Canvas source | VO obligation | Visual opportunity | Downloadable detail | Coverage status |
+|---|---|---|---|---|---|
+| Why now? | costly problem and evidence | behavior change and consequence | before/after customer journey, evidence receipt, market signal | citations, caveats, source registry | complete / gap |
+| What is the problem? | buyer and costly problem | buyer, failure, and cost | broken workflow, comparison, consequence chain | full problem evidence | complete / gap |
+| What is the company? | offer and investment thesis | spoken name, plain definition, owned responsibility | company boundary, responsibility map | precise internal definition | complete / gap |
+| Who buys and who does not? | buyer and go-to-market | qualified-buyer rule and trigger | buyer cards, fit/no-fit filter | segment criteria and prospect method | complete / gap |
+| Why is the opportunity large enough? | evidence and economics | adjacent budget, operating layers, and honest inference | market ladder, budget migration, comparable layers | full sources and analogy limits | complete / gap |
+| Why can one operator win? | operator and business-of-one design | earned advantage, AI role, and retained judgment | AI/operator split, capacity diagram | capability and staffing boundaries | complete / gap |
+| What is sold first? | entry wedge and result | first paid offer, acceptance event, and exclusion | offer card, sample deliverable, decision states | scope, handoff, and terms | complete / gap |
+| How is it delivered? | delivery system and stack | causal workflow and human control | process loop, stack by capability, exception route | detailed SOP and tool options | complete / gap |
+| How are customers reached? | go-to-market path | first segment, credibility artifact, conversation, and paid ask | first-25 funnel, outreach path, proof artifact | scripts, qualification, objection handling | complete / gap |
+| Can it support one operator? | economics model | assumptions, required transactions, capacity, and uncertainty | unit-economics build, sensitivity, capacity gauge | full model and formulas | complete / gap |
+| What can break it? | risks and unknowns | load-bearing risks and stop rules | failure tree, red flags, scope boundary | complete risk register | complete / gap |
+| What happens first? | 30-day plan | first construction action and continuation gate | 30/60/90 timeline, checklist, decision gate | complete test plan | complete / gap |
+
+Audio-only rule: visuals may carry exact citations, secondary calculations, tool examples, comparison detail, and repeated labels. They may not carry the only explanation of the buyer, problem, company, paid offer, human responsibility, economics boundary, risk, or first action.
+
+Visual-truth rule: a polished diagram cannot resolve an `UNKNOWN`, turn a parallel into observed demand, or imply that simultaneous capabilities exist in the entry offer. Every visual inherits the Canvas evidence label and expansion boundary.
+
 ## Public Canvas layer
 
 Short public category title:
@@ -356,6 +379,9 @@ Biggest risk:
 - [ ] Expansion stages require new proof and do not treat service learning as automatic product demand.
 - [ ] Every unknown is a safe first-test question, a later-stage blocker, or a current E3 blocker.
 - [ ] No narrative, analogy, demo, or revenue scenario is being used as a substitute for an unresolved operating decision.
+- [ ] Every pitch-deck question has a declared VO, visual, and downloadable-Canvas treatment.
+- [ ] The audio-only episode still explains the buyer, problem, company, first offer, human responsibility, economics boundary, principal risk, and first action.
+- [ ] Visual coverage adds comprehension or proof without inventing certainty, collapsing expansion stages, or becoming the only place a load-bearing claim is explained.
 
 ## Canvas lock
 

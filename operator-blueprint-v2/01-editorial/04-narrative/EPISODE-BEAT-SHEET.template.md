@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -40,7 +40,7 @@ Identity-sting duration range: 3–6 seconds unless downstream production approv
 
 Fixed brand string:
 
-> This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+> This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
 
 Episode-specific promise:
 
@@ -60,6 +60,14 @@ What would have to be true for the model to support a sustainable business of on
 
 Reachable-share logic: the small part of a large, costly problem this operator actually needs:
 
+Qualified buyer rule stated without an example industry:
+
+Unsuitable buyer rule:
+
+Three explanatory markets and the different buying decision each clarifies:
+
+Company definition with all example industries removed:
+
 The episode-specific promise should use the short spoken company name and explain the useful result in one plain sentence. It must not become a list of every section or force the internal operating definition into the first listen.
 
 ## Opening ladder
@@ -78,11 +86,17 @@ What looks normal at first:
 
 What becomes strange, costly, or unresolved:
 
+Specific operator or business payoff teased before the sting:
+
+Why that payoff is concrete enough to create a reason to stay:
+
+Mechanism, proof, and final ruling deliberately withheld:
+
 Final question or consequence left open:
 
 Facts or outcomes this illustration is prohibited from inventing:
 
-Why this is a situation rather than an abstract thesis:
+Why this is a situation and payoff teaser rather than a fully argued thesis:
 
 ### B01: silent identity sting
 
@@ -146,7 +160,7 @@ Operator implication:
 
 ## Two-act body map
 
-Target approximately half the episode for the opportunity case and half for the operator blueprint. The target is narrative balance, not a rigid timestamp. Add, divide, combine, or reorder beats when causality requires it, but do not let either act disappear.
+Target 55 percent of the episode for the opportunity pitch and 45 percent for the operator blueprint. An opportunity share from 52 to 58 percent passes without an exception. The target is narrative balance, not a rigid timestamp, but the detailed offer may not begin before the market, comparable-business ladder, missing responsibility, and one-operator opening have been earned.
 
 ### Act I: believe in the opportunity
 
@@ -159,6 +173,14 @@ Act I must make the mature company worth the viewer's attention before the first
 | B08 | High-end or established proof | Is the problem, category, or delivery shape real? | | | | | | |
 | B09 | Missing ownership | What remains unowned after the existing system does its job? | | | | | | |
 | B10 | Complete company | What company belongs in that gap? | | | | | opportunity thesis | Turn to operator |
+
+Act I must also establish:
+
+- the established budget, spend, or responsibility adjacent to the opportunity;
+- a scale-proof pattern using at least two observed operating layers;
+- a precise qualified-buyer rule;
+- up to three explanatory cases with different customer decisions; and
+- the analogy breaks and unknowns that keep the proposed offer from being presented as proven demand.
 
 Act I turning point:
 
@@ -200,6 +222,8 @@ Opening object, person, question, or consequence revisited:
 
 What the viewer now understands differently:
 
+How the payoff teased before the sting has now been delivered:
+
 Final operator verdict:
 
 First action:
@@ -211,6 +235,12 @@ Operator Blueprint value:
 Final brand sign-off, if used:
 
 > Build it. Own it. Operate it.
+
+Final natural like-and-subscribe sentence:
+
+Value-based reason the audience ask is earned:
+
+Canvas, download, sign-off, or other asks omitted or combined to avoid a stack:
 
 ## First-listen load map
 
@@ -233,13 +263,19 @@ By the end of B03, a new viewer must be able to answer in everyday language:
 
 ## Beat checks
 
-- [ ] The cold open is a concrete situation, not a thesis, definition, market statistic, or channel introduction.
+- [ ] The cold open is a concrete situation that teases a specific operator or business payoff before the sting; it is not a fully argued thesis, definition, market statistic, channel introduction, or audience ask.
 - [ ] The cold open and context runway perform different jobs.
+- [ ] Before B01, a first-time viewer can say why the episode is worth staying for without yet being given the mechanism, proof, or final ruling.
 - [ ] The silent identity sting is distinct and contains no narration.
 - [ ] The fixed brand string is exact.
 - [ ] The episode explains what AI enables, what the operator still owns, and why the entry model can be run by one accountable person.
 - [ ] Sustainability is a modeled condition with owner labor and required customer count, not an income promise.
 - [ ] The market argument depends on a reachable share of a large, costly problem rather than venture-scale share.
+- [ ] Market scale is triangulated through behavior, existing budget or responsibility, comparable businesses, and bottom-up operator requirements rather than one decorative TAM figure.
+- [ ] Funding, valuation, total company revenue, vendor marketing, or a generic market report is not used alone as proof of demand.
+- [ ] A horizontal company has a precise high-consideration buyer rule and an unsuitable-buyer rule.
+- [ ] No illustrative market controls the cold open, company definition, prospect denominator, or economics.
+- [ ] The planned opportunity-pitch share is 52 to 58 percent unless a written exception is approved.
 - [ ] The episode promise describes the useful outcome without narrating an agenda.
 - [ ] The public and spoken company name is short, understandable on a first listen, and followed by one plain definition.
 - [ ] The longer internal operating definition is not forced into the first mention.
@@ -255,8 +291,9 @@ By the end of B03, a new viewer must be able to answer in everyday language:
 - [ ] Humor follows comprehension and has one clear job.
 - [ ] One governing analogy develops without becoming a second explanation track.
 - [ ] Each major evidence block produces a plain operator implication.
-- [ ] The ending resolves or reinterprets the cold open.
+- [ ] The ending resolves or reinterprets the cold open and delivers the payoff teased before the sting.
 - [ ] The ending delivers an affirmative, evidence-safe BUILD verdict and a bounded first construction step.
+- [ ] One natural like-and-subscribe sentence is the final spoken beat, follows delivered value, and introduces no new promise or stacked ask.
 
 ## Approval
 

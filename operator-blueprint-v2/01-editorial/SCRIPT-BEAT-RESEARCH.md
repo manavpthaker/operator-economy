@@ -1,6 +1,6 @@
 # Script beat research
 
-Status: approved craft reference inherited by `operator-blueprint-v2-step1-v1.4`.
+Status: approved V2 Step 1 v1.5 craft authority.
 
 Reviewed: 2026-08-22
 
@@ -13,6 +13,8 @@ This review asks a narrower question:
 > How do strong reported explainers introduce a subject, orient a new viewer, earn a thesis, teach a mechanism, and close the loop?
 
 The references below are craft studies, not voices to reproduce. Operator Economy must use its own language, judgment, recurring identity, and episode promise.
+
+Named references remain private calibration history. Production prompts use the distilled Manav-hosted functions only: warm strategist relationship, investigative movement, analogy-led reasoning, dry systemic skepticism, and decisive commercial guidance.
 
 ## Reference sample
 
@@ -47,6 +49,22 @@ familiar experience
 Modern MBA is useful for business context, market structure, and causal explanation. Its sampled openings also run at a high information rate, roughly 175 to 210 spoken words per minute. Operator Economy should borrow the orientation ladder, not that compression.
 
 Modern MBA's own site describes its work as long-form business analysis built from primary and secondary research, financials, market dynamics, and field reporting. That reinforces the structural lesson: the authority comes from understanding the system, not from announcing a clever thesis in the first sentence. See [Modern MBA](https://www.modern-mba.com/).
+
+## Opportunity-pitch finding
+
+The strongest Operator Economy controls do more than describe a problem and teach a service. They prove that the opportunity deserves the viewer's attention before asking the viewer to invest time, credibility, and money in building it.
+
+The reusable scale ladder is:
+
+1. Show the costly behavior or responsibility.
+2. Identify the established budget or operating owner beside it.
+3. Show observed businesses handling related work at multiple scales.
+4. Name what those businesses still leave unresolved.
+5. Explain what AI compresses for one operator.
+6. Reduce the opportunity to a bounded first purchase and bottom-up owner requirement.
+7. State where the analogy breaks and what paid validation must prove.
+
+The outcome is required; the evidence route is adaptive. A new AI business may use valid parallels, but a script may not manufacture an enterprise analogue or treat funding, valuation, total company revenue, vendor marketing, or a market forecast as demand for the exact offer.
 
 ### 60 Minutes: reported story bones
 
@@ -124,7 +142,9 @@ In the user's shorthand, this is “Nate Bargatze doing 60 Minutes.” That phra
 ## Required opening grammar
 
 ```text
-concrete cold open
+concrete hook
+→ operator or business payoff tease
+→ unresolved question or open loop
 → silent identity sting
 → fixed brand string
 → episode-specific promise
@@ -133,17 +153,30 @@ concrete cold open
 → earned thesis
 ```
 
-The cold open is not the thesis. It gives the viewer a person, situation, transaction, or consequence they can understand before they know the business model.
+The cold open is not the complete thesis. It gives the viewer a person, situation, transaction, or consequence they can understand, then previews the practical destination before the sting: the company they could build, the responsibility they could own, or the useful decision they will learn to make. It withholds the mechanism, proof, and final ruling until the report earns them.
 
 The context runway explains how the normal system works, what changed, who is affected, and why the issue matters now. Only then should the episode deliver its main reframe or verdict.
 
 ## Required fixed brand string
 
-> This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+> This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
 
 The brand doctrine underneath that line is: the viewer does not need a huge market share; they need a reachable share of a problem large and costly enough to support one operator. “Sustainable” remains a model to test, not an income promise.
 
 The next sentence is episode-specific. It must identify the business being examined, the role one operator plays, and the useful result the viewer will receive. It should not read like a narrated agenda.
+
+## Required ending grammar
+
+```text
+opening callback
+→ promised payoff delivered
+→ evidence-safe BUILD verdict
+→ first construction action
+→ optional Canvas mention or brand sign-off
+→ one natural like-and-subscribe sentence as the final spoken beat
+```
+
+The audience ask comes only after the episode has delivered its value. It should give the viewer a reason to subscribe for more Operator Economy blueprints, not stack separate Canvas, download, like, subscribe, and slogan requests.
 
 ## Language findings
 

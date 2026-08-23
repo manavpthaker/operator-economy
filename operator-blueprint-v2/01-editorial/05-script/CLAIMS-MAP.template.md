@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -71,6 +71,23 @@ Reason the shorter public name remains accurate:
 |---|---|---|---|---|---|---|---|---|---|
 | C001 | | observed / parallel / synthesis / modeled / illustrative / unknown | | verified / reported / estimate / unresolved | | | | | |
 
+## Evidence-delivery registry
+
+Claim eligibility and citation delivery are separate decisions. This table does not approve a claim; it routes an already approved claim so the narrator can speak naturally while the audience can inspect the evidence.
+
+| Claim ID | Conversational VO wording and material audible boundary | On-screen source receipt | Full show-note citation | Audio-only meaning remains honest | Reviewer finding |
+|---|---|---|---|---|---|
+| C001 | | source, artifact, date, population or sample when relevant, exact figure, locator, claim ID | full title, direct link, publication details, access date, locator, methodology note, known limitation, Step 0 provenance | yes / no | |
+
+Rules:
+
+- The spoken layer states the finding in ordinary language. Name the source or population when credibility or scope requires it, but do not recite the report title, date, sample size, methodology, or locator unless that detail changes the conclusion.
+- The on-screen receipt records the citation precision that would interrupt the conversation. Step 1 supplies its approved content, not its layout, timing, or animation.
+- The show-note layer provides enough provenance for independent review, including the access date and Step 0 locator.
+- The visual and show-note layers cannot repair a misleading or materially incomplete spoken claim.
+- A rounded spoken figure must preserve the meaning of the exact receipt figure.
+- If a claim needs no spoken attribution, record why the audio-only listener still receives an honest statement.
+
 ## Economics assumptions
 
 | ID | Assumption | Value or range | Class | Reasoning or source | Public disclosure | Sensitivity |
@@ -82,6 +99,40 @@ Reason the shorter public name remains accurate:
 | ID | Company or parallel | What it establishes | What it does not establish | Allowed use | Prohibited inference |
 |---|---|---|---|---|---|
 | P001 | | | | | |
+
+## Opportunity-scale registry
+
+This registry separates market context from proof of the proposed offer. Do not add unlike values together or call an adjacent budget the exact market size of the new company.
+
+| ID | Scale layer | Claim or figure | Evidence class | Step 0 locator | What it establishes | What it cannot establish | Allowed spoken wording |
+|---|---|---|---|---|---|---|---|
+| M001 | Underlying behavior or costly responsibility | | observed / parallel / modeled / unknown | | | | |
+| M002 | Established adjacent budget or spend | | observed / parallel / modeled / unknown | | | | |
+| M003 | Enterprise or institutional operation | | observed / parallel / modeled / unknown | | | | |
+| M004 | Platform or product-category operation | | observed / parallel / modeled / unknown | | | | |
+| M005 | Specialist or agency operation | | observed / parallel / modeled / unknown | | | | |
+| M006 | Reachable operator parallel | | observed / parallel / modeled / unknown | | | | |
+| M007 | Proposed business-of-one synthesis | | synthesis / modeled / unknown | | | | |
+
+Scale-proof pattern: same job across scales / budget migration / fragmented buyer pool / combination
+
+At least two observed operating layers present: yes / no
+
+Funding, valuation, total company revenue, vendor marketing, and top-down estimates kept inside their actual meaning: yes / no
+
+## Horizontal-buyer and example registry
+
+Qualified buyer rule:
+
+Unsuitable buyer rule:
+
+| Example ID | Market | Customer decision clarified | Evidence class | Approved language | Meaning that transfers | Meaning prohibited from transfer |
+|---|---|---|---|---|---|---|
+| X001 | | | observed / parallel / illustrative | | | |
+
+Company definition remains accurate with every example removed: yes / no
+
+Example industry used as cold-open default, total market, prospect denominator, or economics denominator: yes / no
 
 ## Personal or host claims
 
@@ -117,6 +168,11 @@ Audit checks:
 - [ ] Illustrative scenes introduce no fabricated identity, metric, quotation, market fact, or outcome.
 - [ ] Spoken disclosure is required only when a reasonable viewer could mistake an illustrative scene for a documented or measured case; routine status labeling may live in metadata, a source card, or a visual label.
 - [ ] An evidence boundary is repeated only when the meaning, population, confidence, or decision changes.
+- [ ] Every material external fact appears in the evidence-delivery registry.
+- [ ] Spoken attribution is conversational and includes every caveat that changes the conclusion without reciting receipt metadata.
+- [ ] Every on-screen source receipt carries the exact source, artifact, date, population or sample when relevant, figure, locator, and claim ID.
+- [ ] Every show-note entry carries the full citation, direct link, publication details, access date, locator, methodology note, known limitation, and Step 0 provenance needed for review.
+- [ ] The spoken claim remains honest without the picture, and the source receipt does not rely on the voice to supply its identity.
 - [ ] Every unsupported nonessential claim is removed.
 - [ ] Every unsupported essential claim has a bounded Step 0 amendment request.
 - [ ] The public title and spoken company name match the approved Episode Investment Thesis.
@@ -125,6 +181,12 @@ Audit checks:
 - [ ] The longer internal description does not silently add services, recurring duties, or capabilities.
 - [ ] The BUILD verdict remains an editorial recommendation rather than evidence of demand, results, livelihood, or validation.
 - [ ] Company-level BUILD language remains distinct from any no-build, refuse, narrow, defer, or stop result inside a buyer engagement.
+- [ ] The market case distinguishes underlying behavior, adjacent spend, operating comparables, and the proposed company synthesis.
+- [ ] At least two observed operating layers support the scale argument before the operator synthesis is presented.
+- [ ] Funding, valuation, total company revenue, vendor marketing, or a top-down market estimate is not used alone as demand proof.
+- [ ] A horizontal company has a precise qualified-buyer rule and unsuitable-buyer rule.
+- [ ] Explanatory cases clarify different buying decisions and do not silently define the company or market.
+- [ ] No unobserved conversion rate is used to invent a reachable prospect pool or market-share claim.
 
 ## Approval
 

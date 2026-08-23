@@ -1,6 +1,6 @@
 # Step 1 reference and authority map
 
-Status: approved V2 Step 1 v1.4 authority routing. V1.0 remains historical authority; v1.1 was rejected; v1.2 and v1.3 were never canonical and are superseded by v1.4.
+Status: approved V2 Step 1 v1.5 authority routing. V1.4 and earlier versions remain frozen history.
 
 ## Live and local authorities: route, do not copy
 
@@ -9,12 +9,12 @@ External live sources remain authoritative at their original locations. Approved
 | Authority | Role in Step 1 | Routing rule |
 |---|---|---|
 | [`content-os/facts.md`](../../../content-os/facts.md) | Eligibility of public numbers and host claims | A host or cross-brand fact absent from this ledger is blocked. Episode research still requires its approved Step 0 locator. |
-| [`content-os/voice.md`](../../../content-os/voice.md) | Universal truth hygiene, banned language, rhythm principles, and the Operator Economy documentary register | Apply the universal constraints and OE register before script lock. V1.4 does not import the personal-register percentage formula into OE long-form. This is not narrator identity, voice ID, timbre, or audio-performance authority. |
+| [`content-os/voice.md`](../../../content-os/voice.md) | Universal truth hygiene and the original Operator Economy hosted-long-form register; v1.5 reviewed SHA-256 `ec65d503a9973ec77919ca8edf37d37f18e6762c696d931690a86b179017574a` | Apply the universal constraints and hosted register before script lock. Named-reference blends remain private calibration history, not production prompts. This is not narrator identity, voice ID, timbre, or audio-capture authority. |
 | [`SCRIPT-BEAT-RESEARCH.md`](SCRIPT-BEAT-RESEARCH.md) | Approved craft study supporting the opening ladder, context runway, earned thesis, plainspoken language, and ending callback | Use as rationale and calibration, not as evidence for an episode claim and never as authority to imitate a creator. |
 | [`VOICE-ARCHITECTURE.md`](VOICE-ARCHITECTURE.md) | Approved V2 long-form application: reporting spine, plainspoken surface, business context, restrained reveal, operator judgment, show identity, first-listen clarity, analogy, and cadence | Apply through the beat sheet and voice-and-comedy map, then test at Gates E4B and E5V. Named references are high-level craft functions, never imitation authority. |
 | [`04-narrative/EPISODE-INVESTMENT-THESIS.template.md`](04-narrative/EPISODE-INVESTMENT-THESIS.template.md) | Approved Gate E3I contract for the complete company, five thesis layers, short spoken name, precise operating definition, entry wedge, opportunity-to-build architecture, and BUILD verdict | Complete and approve only after Gate E3 locks the Canvas. Gate E3I authorizes narrative development, not a script, narration, production, publication, or an evidence upgrade. |
 | [`studio/config/speech-profile.md`](../../studio/config/speech-profile.md) | Observed Manav spoken-language fingerprint: sentence mechanics, vocabulary, conversational moves, and phrasing | Apply word-changing patterns before script lock. Bio statements still require facts and claims-map authority. Step 2 may not use this file to rewrite locked words. |
-| [`content-os/rubric.md`](../../../content-os/rubric.md) | Written-surface routing and boundary clarification | It explicitly excludes video scripts; do not score a YouTube script with the written-surface rubric. |
+| [`content-os/rubric.md`](../../../content-os/rubric.md) | Written-surface routing and boundary clarification; v1.5 reviewed SHA-256 `41f4468128061205285313e9cff6815d682e0e4bbe278a82697b3c700ba697fa` | It explicitly excludes Operator Blueprint V2 video scripts; do not score a YouTube script with the written-surface rubric. |
 | [`content-os/flow.md`](../../../content-os/flow.md) | Downstream release authority | Reference only. Publishing operations do not enter Step 1. |
 
 The external links resolve from this V2 document into the sibling `content-os` repository. The V2 research, architecture, and Episode Investment Thesis contract are approved local Step 1 authority. Every episode records the exact reviewed hashes in its dependent artifacts and editorial lock.

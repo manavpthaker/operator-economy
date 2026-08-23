@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -33,6 +33,10 @@ One-sentence working promise:
 Episode-specific show string in plain language:
 
 Concrete situation suitable for a cold open:
+
+Specific operator or business payoff the cold open will tease before the silent sting:
+
+Mechanism, proof, and final thesis the cold open must withhold:
 
 Normal system the viewer needs explained before the central thesis:
 
@@ -68,6 +72,24 @@ What “sustainable” means in this episode without promising income:
 
 Reachable-share thesis: how a small share of a large, costly problem could support the modeled business:
 
+Underlying established budget, spend, or responsibility:
+
+Enterprise, platform, specialist, and operator-scale parallels:
+
+Scale-proof pattern: same job across scales / budget migration / fragmented buyer pool / combination
+
+What the scale argument proves:
+
+What it does not prove about the exact offer:
+
+Qualified buyer rule stated without an example industry:
+
+Unsuitable buyer rule:
+
+Three explanatory cases and the distinct buying decision each clarifies:
+
+Why none of those cases defines the company or market:
+
 The aspirational business the operator may ultimately build:
 
 The entry wedge this episode makes concrete:
@@ -83,6 +105,12 @@ The first responsible action the viewer should be able to take:
 Intended company-level verdict: BUILD / RETURN / PARK
 
 Why an affirmative BUILD verdict is evidence-safe:
+
+Value that must be delivered before any audience ask:
+
+Natural final like-and-subscribe reason tied to that delivered value:
+
+Other asks to omit or combine so the ending does not stack CTAs:
 
 ## Operator Economy point of view
 
@@ -145,6 +173,10 @@ A skeptical viewer finishes this episode able to:
 7. Explain how the entry wedge could expand into the larger business and what would have to be proven first.
 8. Repeat the short company name and explain its job in one plain sentence.
 9. State what to begin building without mistaking the recommendation for proof or an income promise.
+10. Explain the market opportunity without relying on one example industry.
+11. Name the established budget or responsibility, at least two comparable operating scales, and the proposed operator opening.
+12. Distinguish a qualified high-consideration buyer from a business that is unlikely to value the service.
+13. Explain why the operator's required sales activity cannot be derived from an invented conversion rate.
 
 ## Approval
 

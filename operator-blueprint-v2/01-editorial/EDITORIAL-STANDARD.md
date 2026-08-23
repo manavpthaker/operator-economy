@@ -1,6 +1,6 @@
 # Editorial standard
 
-Status: approved V2 Step 1 v1.4 authority. V1.4 incorporates the tested v1.3 opening and voice controls and adds the Episode Investment Thesis, opportunity-to-build architecture, build-only editorial rule, and short public naming standard.
+Status: approved V2 Step 1 v1.5 authority.
 
 ## The job of Step 1
 
@@ -75,6 +75,10 @@ Early narrative exploration must be labeled and quarantined. Preserve useful sto
 
 The familiar pitch-deck questions are a completeness test, not a mandatory sequence and not a visual instruction. Every episode should address the problem, why now, solution, buyer, market proof, delivery, stack, go-to-market path, economics, risks, and first validation test. The narrative may reorder or combine them.
 
+Market proof is a required argument, not one decorative number. It must connect the underlying costly behavior or responsibility, an established adjacent budget, at least two observed operating layers, the proposed operator synthesis, and bottom-up owner requirements. The evidence path may adapt, but funding, valuation, total company revenue, vendor marketing, or one top-down estimate cannot establish the exact opportunity alone.
+
+A horizontal opportunity requires a precise qualified-buyer rule. It may use up to three short examples to clarify different customer decisions, but no example may define the company, cold open, total market, prospect denominator, or economics unless the approved thesis selects that market.
+
 A strong story has:
 
 - A protagonist: the potential operator or the buyer they serve.
@@ -106,7 +110,7 @@ The mature company must be named before the first offer becomes the center of at
 
 ### Opportunity half and build half
 
-The episode should spend roughly half its narrative energy making the opportunity worth believing and roughly half showing the operator how to build it. This is a pacing target, not a mechanical timer.
+The episode should target 55 percent of its spoken words making the opportunity worth believing and 45 percent showing the operator how to build it. An opportunity share from 52 to 58 percent passes without an exception.
 
 The opportunity half establishes the normal system, market change, costly problem, fair incumbent case, high-end or established proof, evidence limits, missing ownership, and complete company. The build half establishes operator advantage, mature operating model, entry wedge, delivery, go to market, economics, required share, expansion conditions, hard part, refusal boundaries, first 30 and 90 days, and final verdict.
 
@@ -131,7 +135,9 @@ Pitch-deck completeness does not determine the listener's first two minutes. The
 Every episode begins with these distinct functions:
 
 ```text
-concrete cold open
+concrete hook
+→ operator or business payoff tease
+→ unresolved question or open loop
 → silent identity sting
 → fixed Operator Economy brand string
 → episode-specific promise
@@ -140,17 +146,17 @@ concrete cold open
 → earned thesis
 ```
 
-The cold open is one recognizable person, transaction, workflow, customer consequence, or strange result. It ends with something unresolved. It is not the central thesis, a market definition, a statistic without context, or a compressed agenda.
+The cold open is one recognizable person, transaction, workflow, customer consequence, or strange result. Before the sting, it previews the specific operator or business payoff that makes the episode worth watching, then leaves an unresolved question or open loop. It does not explain the mechanism, claim proof, deliver the full central thesis, define a market, lead with a statistic without context, or compress the episode into an agenda.
 
 The context runway explains how the normal system works, why reasonable people use it, what changed, who feels the consequence, and why it matters. The main thesis arrives only after the viewer understands the nouns and has enough evidence to evaluate the ruling.
 
 The fixed brand string is:
 
-> This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+> This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
 
 The next sentence is episode-specific. It names the business being examined and the useful result the viewer will receive.
 
-The required `EPISODE-BEAT-SHEET` separates these opening functions before the sequence outline is approved. It also checks first-listen load, the recurring human or operating carrier, fair context, the earned reveal, and the ending callback. This is editorial structure, not visual direction.
+The required `EPISODE-BEAT-SHEET` separates these opening functions before the sequence outline is approved. It also checks first-listen load, the recurring human or operating carrier, fair context, the earned reveal, and the ending callback. The close resolves the opening, delivers the promised payoff, lands BUILD, gives the first construction action, and ends on one earned like-and-subscribe sentence. This is editorial structure, not visual direction.
 
 ## Earn the next commercial step
 
@@ -211,7 +217,7 @@ These sources do different jobs:
 - `SCRIPT-BEAT-RESEARCH.md` records the craft sample behind the V2 opening, orientation, reveal, and wording rules.
 - `VOICE-ARCHITECTURE.md` applies those findings to V2 long-form: reporting spine, plainspoken surface, business context, restrained reveal, operator judgment, governing analogy, brand identity, and Manav cadence.
 - `speech-profile.md` governs the observed sentence mechanics, vocabulary, conversational moves, and phrasing that make the words plausible in Manav's mouth.
-- Step 2 governs narrator identity, vocal performance, capture, and audio. It cannot add personality by changing locked words.
+- Step 2 governs narrator identity, vocal performance, capture, and audio. The pre-sting payoff tease and final audience ask are Step 1 editorial decisions. Step 2 cannot add personality by changing locked words or invent, rewrite, or improvise either one.
 
 The dedicated editorial-voice gate requires evidence from the exact script, an approved beat sheet and voice-and-comedy map, a clean first-listen read, and a non-imitation judgment. A script does not pass because it has many short sentences, polished verdicts, or good cadence metrics. A cautious script does not pass merely because every disclaimer is accurate. A script stuffed with signature phrases does not pass merely because it resembles the profile superficially.
 
@@ -248,13 +254,15 @@ Step 1 is done only when:
 - The Episode Investment Thesis separates the show, opportunity, operator, entry-wedge, and BUILD theses.
 - The short public and spoken company name passes a first-listen test, while the precise operating definition remains available internally.
 - The opportunity case earns belief in the mature company before the first offer becomes the center of the episode.
-- The narrative gives material weight to both the opportunity case and the operator blueprint.
+- The opportunity pitch occupies 52 to 58 percent of the spoken script unless an owner-approved exception is recorded.
+- The opportunity case separates adjacent spend, observed operating activity, proposed offer demand, and bottom-up owner requirements.
+- A horizontal company remains understandable after every example industry is removed.
 - The narrative has causal movement, not just section coverage.
-- A concrete cold open, silent identity break, fixed brand string, episode promise, context runway, central question, and earned thesis are separately approved in the beat sheet.
+- A concrete cold open, specific pre-sting operator or business payoff, silent identity break, fixed brand string, episode promise, context runway, central question, and earned thesis are separately approved in the beat sheet.
 - A new viewer can explain the subject, normal system, change, affected person, stakes, and episode question before the script reaches its main verdict.
 - The script is natural when read aloud.
 - The exact words pass editorial-voice conformity against the reviewed `voice.md` and observed speech-profile identities.
-- The exact words also pass the V2 voice architecture for opening orientation, first-listen clarity, reporting structure, business context, conviction, analogy, understated humor, cadence, ending payoff, and non-imitation.
+- The exact words also pass the V2 voice architecture for opening orientation, payoff strength, first-listen clarity, reporting structure, business context, conviction, analogy, understated humor, cadence, ending payoff, earned audience ask, and non-imitation.
 - Every load-bearing public claim maps to approved evidence.
 - Observed facts and modeled possibilities are clearly distinguished.
 - No unresolved placeholder, citation task, owner decision, or research gap remains.
@@ -262,5 +270,6 @@ Step 1 is done only when:
 - The exact spoken-word count matches the clean performance read-through.
 - The owner approves the exact script revision and its hash.
 - The final script reaches an affirmative, evidence-safe BUILD verdict or the candidate is returned before production.
+- The ending resolves the opening and delivers the promised payoff before one natural like-and-subscribe sentence closes the narration.
 - Step 2 can perform the script without deciding what the episode means.
 - The narration handoff is created after the editorial lock and records that lock's hash without creating a circular dependency.

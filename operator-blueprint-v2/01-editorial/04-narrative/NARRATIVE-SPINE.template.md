@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -84,6 +84,10 @@ What appears normal:
 
 What becomes strange, costly, or unresolved:
 
+Specific operator or business payoff teased before the identity sting:
+
+Mechanism, proof, and final ruling deliberately withheld:
+
 Question left open before the identity sting:
 
 Normal system the context runway must explain:
@@ -124,7 +128,7 @@ Where the mature operating model is described before narrowing to the wedge:
 
 ## Opportunity-to-build architecture
 
-Opportunity-half commitment:
+Opportunity-pitch commitment: establish the behavioral shift, economic consequence, adjacent budget, comparable-business ladder, missing responsibility, company thesis, and one-operator opening before the detailed offer.
 
 Opportunity evidence and beliefs that must be earned before the turn:
 
@@ -138,11 +142,25 @@ Company-to-wedge turn:
 
 First 30 days as construction rather than indefinite consideration:
 
-Final BUILD verdict and opening callback:
+Final BUILD verdict, opening callback, and delivered payoff:
 
-Target balance: approximately half opportunity case / half operator blueprint
+First construction action:
 
-Reasoned exception, if the planned balance falls outside a roughly 40–60 split:
+Final like-and-subscribe sentence and why it is earned:
+
+Target balance: 55 percent opportunity pitch / 45 percent operator blueprint
+
+Allowed opportunity range: 52 to 58 percent
+
+Reasoned exception, if the planned balance falls outside the approved range:
+
+Qualified buyer rule stated without an example market:
+
+Unsuitable buyer rule:
+
+Three explanatory cases and distinct customer decisions:
+
+Test that the company remains understandable with every example industry removed:
 
 ## Causal spine
 
@@ -206,6 +224,8 @@ Every required Canvas question must appear, but the order may change.
 | Operator advantage | | | |
 | Offer and result | | | |
 | Market proof and parallels | | | |
+| Qualified buyer and unsuitable buyer | | | |
+| Three explanatory cases | | | |
 | Delivery system | | | |
 | Capabilities and stack | | | |
 | Go-to-market path | | | |
@@ -220,7 +240,7 @@ Do not treat these as mandatory chapter names. Add, remove, combine, or reorder 
 
 | Sequence | Viewer question | New understanding | Evidence or mechanism | Comedic decode or analogy | Stance or verdict | Handoff to next sequence |
 |---|---|---|---|---|---|---|
-| S00 | What is happening to this person or transaction? | | | | no ruling yet | |
+| S00 | What is happening, and what operator or business payoff makes it worth staying? | | | | payoff teased, final ruling withheld | |
 | S01 | What is this show and what will this episode help me understand? | | | | episode promise | |
 | S02 | How does the normal system work, and what changed? | | | | | |
 | S03 | What question are we actually investigating? | | | | earned thesis after context | |
@@ -233,7 +253,7 @@ Do not treat these as mandatory chapter names. Add, remove, combine, or reorder 
 | S10 | How would an operator reach the first customer? | | | | | |
 | S11 | What might the economics and required share look like? | | | | | |
 | S12 | What could break? | | | | | |
-| S13 | What should I build first, and how does it resolve the opening? | | | | BUILD verdict | |
+| S13 | What should I build first, and how does it resolve the opening? | | | | BUILD verdict | opening resolved, then earned like-and-subscribe CTA |
 
 ## Narrative quality checks
 
@@ -249,19 +269,24 @@ Do not treat these as mandatory chapter names. Add, remove, combine, or reorder 
 - [ ] The entry wedge carries the story without silently redefining the full business.
 - [ ] The complete company is named before the diagnostic, sprint, audit, or other entry offer becomes the center of the story.
 - [ ] The opportunity half earns belief in the company, and the build half earns belief that this operator can begin.
+- [ ] The opportunity case establishes an adjacent budget or costly responsibility and at least two observed operating scales before proposing the operator synthesis.
+- [ ] A horizontal company has a precise qualified-buyer rule rather than an `all businesses` claim.
+- [ ] No example industry defines the cold open, company, total market, prospect denominator, or economics unless the approved thesis explicitly selects it.
+- [ ] The listener can explain the company after every example industry is removed.
 - [ ] The public or spoken company name is short enough for a first listen, while the precise operating definition remains available internally.
 - [ ] Future offers or capabilities appear as conditional expansion, not a simultaneous package or inevitable roadmap.
 - [ ] The aspirational destination is understandable and still visibly unproven where evidence is missing.
 - [ ] Removing the specific buyer and mechanism would break the episode; it is not a reusable generic script.
 - [ ] The sequence does not feel like ten narrated slides.
-- [ ] The opening begins with a concrete situation and leaves a question unresolved rather than announcing the thesis.
+- [ ] The opening begins with a concrete situation, previews a specific operator or business payoff before the sting, and leaves a question unresolved without explaining or claiming to prove the complete thesis.
 - [ ] The narrative separately identifies the silent identity break, fixed brand string, episode promise, context runway, central question, and earned thesis.
 - [ ] A new viewer can understand the normal system, change, affected person, and stakes before the central ruling.
 - [ ] Each major evidence block ends with a ruling or operating implication.
 - [ ] One governing analogy makes the mechanism easier to remember and develops through callbacks.
 - [ ] Humor or contempt, when used, clarifies the system and is aimed at a valid target.
-- [ ] The ending resolves or reinterprets the opening situation.
+- [ ] The ending resolves or reinterprets the opening situation and delivers the payoff teased before the sting.
 - [ ] The ending gives an affirmative, evidence-safe BUILD verdict and one bounded construction step.
+- [ ] One natural like-and-subscribe sentence is the final spoken beat, follows delivered value, and does not stack or introduce a new promise.
 
 ## Approval
 

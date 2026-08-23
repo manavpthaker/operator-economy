@@ -2,7 +2,7 @@
 
 Status: draft / review / locked / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -62,13 +62,33 @@ Modeled livelihood condition and required customer count:
 
 Reachable-share assumption:
 
+Operator-market selection rule:
+
+Qualified buyer rule stated without an example industry:
+
+Unsuitable buyer rule:
+
+Three explanatory cases and the customer decision each clarifies:
+
+Company definition with all example industries removed:
+
+Adjacent budget or costly responsibility:
+
+Observed operating layers:
+
+Scale-proof pattern:
+
+Industry used as the concrete example:
+
+Example status: illustrative example / approved recommendation
+
 Entry wedge:
 
 Mature company:
 
 Proof required before expansion:
 
-Target opportunity/build narrative balance:
+Target opportunity/build narrative balance: 55 / 45, with opportunity allowed from 52 to 58 percent
 
 Expected duration range:
 
@@ -76,11 +96,15 @@ Expected duration range:
 
 The narration blocks contain only words intended to be spoken. Claim IDs and editorial notes live outside the narration blocks. The silent identity sting is recorded as metadata and contains no narration. Read every narration block continuously, in order, and aloud. Do not approve the script from the annotations alone.
 
+Material external evidence uses three delivery layers recorded in the claims map: conversational and audio-honest narration, an exact on-screen source receipt, and a full show-note citation. Do not place receipt metadata into the spoken words merely because the citation must be complete.
+
+For every adjacent narrated sequence except the recorded silent identity and brand reset, read the last two spoken lines of the outgoing sequence directly into the first two of the incoming sequence without headings. The incoming lines must inherit and advance a specific noun, question, decision, image, or consequence. A deck-heading reset or company redefinition requires revision.
+
 The opening functions below remain distinct and follow the approved beat sheet. Duplicate the later sequence block as required by the approved outline.
 
 ## S00: cold open
 
-Purpose: create a recognizable situation and unresolved question without giving the main thesis
+Purpose: create an immediate recognizable hook, tease a specific operator or business payoff before the sting, and leave an open loop without explaining or claiming to prove the main thesis
 
 Claim IDs:
 
@@ -88,16 +112,22 @@ Required qualification:
 
 Prohibited abstraction or verdict:
 
+Operator or business payoff to tease:
+
+Mechanism, proof, and final thesis to withhold:
+
 ### Narration
 
-[Exact spoken words. Begin with a person, transaction, workflow, customer, or consequence. End with the unresolved question or result.]
+[Exact spoken words. Begin with a person, transaction, workflow, customer, or consequence. Make the useful operator or business destination concrete before the sting. End with the unresolved question or open loop.]
 
 ### Editorial check
 
 - Concrete situation established:
 - What looked normal:
 - What became strange, costly, or unresolved:
-- Main thesis withheld: yes / no
+- Specific operator or business payoff clear before the sting:
+- Reason to stay clear on first listen:
+- Complete thesis and proof withheld: yes / no
 
 ## S01: silent identity sting
 
@@ -113,7 +143,7 @@ Claim IDs:
 
 ### Narration
 
-This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.
+This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.
 
 [One episode-specific sentence using the approved short spoken company name and one-sentence plain definition. Name the useful viewer result without narrating an agenda.]
 
@@ -175,12 +205,14 @@ Analogy or comedy job:
 - Forward handoff:
 - Open concern:
 - Voice-map job completed:
+- Incoming seam inherits and advances the prior sequence: yes / no / approved identity reset
+- Outgoing noun, question, decision, image, or consequence handed forward:
 
 ## Act I: opportunity case
 
 Purpose: earn the investment case before narrowing the company to its first offer
 
-Required functions: fair normal system, market change, costly problem, high-end or established proof, evidence limits, missing ownership, and complete company
+Required functions: fair normal system, market change, costly problem, adjacent budget or responsibility, at least two observed operating layers, qualified buyer, evidence limits, missing ownership, and complete company
 
 Planned sequence IDs:
 
@@ -238,6 +270,14 @@ Planned sequence IDs:
 
 Target share of narrative time or words:
 
+Operator-market selection instruction:
+
+Observed acceptance rate, or `unknown until tested`:
+
+Prospect-pool calculation omitted until acceptance is observed: yes / no
+
+Industry example remains illustrative unless approved otherwise: yes / no
+
 ### Mature-company-to-entry-wedge transition
 
 Complete company stated first:
@@ -289,10 +329,12 @@ Analogy, humor, or callback job:
 - Open concern:
 - Sentence that may sound written rather than spoken:
 - Beat overloaded with new information: yes / no
+- Incoming seam exact last-two-lines to first-two-lines result: pass / revise
+- Repeated discourse-marker scene opening: none / revise
 
 ## S##: ending callback
 
-Purpose: resolve or reinterpret the opening, give the first construction action, land the BUILD verdict, and close the show
+Purpose: resolve or reinterpret the opening, deliver the payoff teased before the sting, land the BUILD verdict, give the first construction action, and close with one earned like-and-subscribe sentence
 
 Claim IDs:
 
@@ -308,19 +350,28 @@ First 90-day proof condition:
 
 Client-level no-build or refusal decision preserved where applicable:
 
+Optional Canvas mention or brand sign-off before the audience ask:
+
+Exact final like-and-subscribe sentence:
+
+Other asks omitted or combined:
+
 ### Narration
 
-[Exact spoken words. Include the Operator Blueprint only after its value has been delivered. Use “Build it. Own it. Operate it.” only when approved.]
+[Exact spoken words. Resolve the opening, deliver the promised value, land BUILD, and give the first action. Include the Operator Blueprint only after its value has been delivered. Use “Build it. Own it. Operate it.” only when approved and before the final audience ask. End with one natural sentence asking the viewer to like and subscribe for more Operator Economy blueprints.]
 
 ### Editorial check
 
 - Viewer question answered:
 - New understanding delivered:
 - Opening resolved or reinterpreted:
+- Pre-sting payoff delivered:
 - First action clear:
 - Uncertainty retained:
 - Final company-level verdict is BUILD: yes / no
 - BUILD sounds confident without implying validation, income, or certainty: yes / no
+- Final like-and-subscribe sentence follows delivered value: yes / no
+- No stacked ask or new promise: yes / no
 
 ## Script totals
 

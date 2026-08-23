@@ -1,6 +1,6 @@
 # Step 1 stage gates
 
-Status: approved V2 Step 1 v1.4 authority.
+Status: approved V2 Step 1 v1.5 authority.
 
 ## States
 
@@ -89,6 +89,8 @@ Required:
 - The livelihood case counts owner labor, tools, acquisition, support, delivery capacity, and the customers or transactions required. It remains a modeled sustainability test, not an income promise.
 - The required buyer share is compared with a sufficiently large and costly problem in a way that can be tested without pretending a total market automatically becomes reachable demand.
 - Every unresolved unknown is classified as a safe test question, later-stage blocker, or current lock blocker.
+- Every pitch-deck question is mapped to its best communication layer: spoken episode, visual coverage, and downloadable Canvas.
+- The audio-only episode retains the load-bearing buyer, problem, company, first offer, human responsibility, economics boundary, principal risk, and first action. Visuals may compress support but cannot hide a missing argument.
 - Named human approval and Canvas hash.
 
 The Step 0 feasibility pass is necessary but does not substitute for this authored Canvas review.
@@ -107,15 +109,20 @@ Required:
 - The spoken name can be understood and repeated on a first listen without carrying a stack of abstract nouns.
 - The public name is treated as an editorial label unless approved evidence establishes an existing market category.
 - The opportunity case names the normal system, market change, costly problem, fair incumbent case, high-end or established proof, what that evidence does not prove, and the missing ownership layer.
+- The opportunity case records the underlying behavior or costly responsibility, the adjacent established budget, and a comparable-business ladder with at least two observed operating layers before proposing the business-of-one synthesis.
+- The scale-proof pattern is explicit: same job across scales, budget migration, fragmented buyer pool, or a documented combination. Funding, valuation, total company revenue, vendor marketing, or a top-down estimate cannot pass the gate alone.
+- A horizontal company has a precise qualified-buyer rule, an unsuitable-buyer rule, and no more than three explanatory cases that clarify different customer decisions without defining the company or market.
 - The complete mature company is understandable before the diagnostic, audit, sprint, installation, or other first offer becomes the focus.
 - The operator advantage comes from experience, judgment, access, relationships, or operating ability rather than tool access alone.
+- The first-market rule begins with at least one earned advantage from relevant experience, adjacent work, a trusted relationship, or a real network, then requires buyer understanding and reachable decision-makers. Any fixture or illustrative industry is not universalized unless the approved thesis makes it the recommendation.
 - AI and software responsibilities remain distinct from operator, buyer, specialist, permission, quality, exception, recovery, and accountability responsibilities.
 - The entry wedge has one buyer, purchase trigger, bounded result, acceptance event, completion boundary, and valid no-build or stop route when relevant.
 - Go to market identifies a reachable first segment, prospect path, first conversation, credibility artifact, and first paid ask.
 - Modeled economics count price, owner labor, tools, acquisition, support, capacity, required customer or transaction count, and the share of a reachable buyer set that would be needed.
 - The hard operating, distribution, trust, access, exception, safety, or support constraint is stated plainly.
 - The first 30 and 90 days begin constructing the company while replacing the weakest assumptions with paid evidence.
-- The narrative commitment gives material weight to both the opportunity case and the operator blueprint, targeting roughly half the episode for each unless the owner approves a reasoned exception.
+- The narrative commitment targets 55 percent opportunity pitch and 45 percent operator blueprint. An opportunity share from 52 to 58 percent passes; anything outside that range requires an owner-approved reasoned exception.
+- The operator capture model states required engagements and capacity first. It does not infer a reachable prospect pool or market share from an unobserved conversion rate.
 - The final company-level recommendation is `BUILD`. If the evidence supports only `RETURN` or `PARK`, the candidate does not proceed to narrative development for production.
 - `BUILD` remains an editorial recommendation to begin bounded construction, not proof of demand, pricing, recurring purchase, sustainable economics, or income.
 - Named human approval and Episode Investment Thesis hash.
@@ -135,18 +142,22 @@ Required:
 - The business mechanism causes the promised result in understandable steps.
 - Evidence enters where it changes understanding, not as a detached research dump.
 - The outline answers all required Canvas questions without following a rigid template merely for symmetry.
+- The outline and visual coverage notes together fill the approved pitch-deck map. A field delegated to visuals names the exact visual job and evidence label rather than saying only `show this`.
 - The opportunity case earns the complete company before the entry wedge carries the build story.
+- A listener can explain the company after every illustrative industry is removed.
+- The cold open, company definition, prospect denominator, and economics do not default to an example industry unless the approved thesis selects it.
 - The entry wedge remains a credible entrance without being mistaken for the business ceiling.
 - The aspirational destination is earned through conditional expansion logic rather than presented as a simultaneous offer or inevitable roadmap.
 - The ending gives a responsible first action and preserves uncertainty.
 - The proposed cold open has a concrete person, transaction, workflow, customer consequence, or strange result rather than an abstract thesis.
+- Before the silent sting, the cold open previews a specific operator or business payoff while withholding the mechanism, proof, and final thesis.
 - The narrative identifies the normal system, what changed, who feels the consequence, why it matters, and which central question the report will answer.
 - The main thesis is positioned after the context and evidence required to understand it. It is not delivered as the first explanation.
 - The strongest fair counterargument receives an explicit ruling.
 - Each major evidence block ends with an operating implication or verdict.
 - One governing analogy family maps the mechanism and develops through at least one meaningful callback.
 - Any planned humor or contempt clarifies the mechanism, has an explicit valid target, and does not substitute for evidence.
-- The ending resolves or reinterprets the opening situation.
+- The ending resolves or reinterprets the opening situation, delivers the promised payoff, lands BUILD, gives the first construction action, and closes on one earned like-and-subscribe sentence.
 - Named human approval.
 
 ## Gate E4B: episode beats and outline
@@ -157,9 +168,9 @@ Required:
 
 - An approved episode beat sheet and episode outline tied to the same narrative, Canvas, and claims-map revisions.
 - The Episode Investment Thesis hash, short spoken company name, plain definition, internal operating description, and BUILD verdict match across the beat sheet and outline.
-- A concrete cold open of approximately 20–40 seconds that ends on an unresolved question or consequence and contains no show greeting, abstract thesis, evidence dump, or agenda.
+- A concrete cold open of approximately 20–40 seconds that creates immediate tension, previews the specific operator or business payoff, ends on an unresolved question or open loop, and contains no show greeting, fully argued thesis, evidence dump, agenda, or audience ask.
 - A distinct silent identity sting, planned at approximately 3–6 seconds, with no narration.
-- The exact fixed brand string: “This is The Operator Economy, where we show you how to build, own, and operate a sustainable business of one using AI.”
+- The exact fixed brand string: “This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.”
 - One episode-specific promise that names the business, the role of one accountable operator, and the useful viewer result without narrating a table of contents.
 - A context runway of approximately 60–120 seconds that explains the normal system, why it exists, what changed, who is affected, and why the issue matters.
 - One central investigation question asked only after the viewer has the vocabulary to understand it.
@@ -170,10 +181,12 @@ Required:
 - The first-listen load map identifies and revises beats that combine several new abstractions, statistics, analogies, and jokes.
 - The body covers the business opportunity, buyer, offer, result, delivery, stack, go-to-market, economics, boundaries, and first test without becoming ten narrated Canvas headings.
 - The body contains a visible opportunity-to-build turn. The opportunity side establishes why the mature company matters; the build side establishes how the operator enters and begins construction.
+- Every adjacent narrated sequence has a planned causal seam that inherits and advances a specific noun, question, decision, image, or consequence. The approved silent identity sting and brand reset are recorded as the only routine exception.
 - The mature company appears before the first offer is allowed to define the business.
 - The body explains what AI enables, what judgment the operator retains, the modeled conditions for one-person sustainability, and the reachable share of a large costly problem required by the model.
 - The ending callback changes or resolves the opening rather than merely repeating a phrase.
-- The ending delivers an affirmative, evidence-safe BUILD verdict and a bounded first construction step.
+- The ending delivers the payoff teased before the sting, an affirmative evidence-safe BUILD verdict, and a bounded first construction step.
+- The final spoken beat is one natural sentence asking the viewer to like and subscribe for more Operator Economy blueprints. It follows delivered value, introduces no new promise, and does not stack separate asks.
 - An approved voice-and-comedy map built from the beat sheet, not used as a substitute for it.
 - Named human approval.
 
@@ -194,30 +207,40 @@ Required:
 - Every new or changed number, population, prevalence, demand, market-price, typical-performance, company, comparative, causal, outcome, legal, or regulatory claim has an approved locator and wording boundary.
 - Modeled scenarios have not been upgraded through words such as `typical`, `conservative`, `realistic`, `reasonable`, or `achievable` without supporting evidence.
 - The cold open, silent identity break, fixed brand string, episode promise, context runway, central question, and earned thesis match the approved beat sheet.
-- The cold open creates tension without trying to deliver the entire working promise; the brand and episode string state the promise after the identity break.
+- The cold open creates tension and previews the specific operator or business payoff without explaining the mechanism, claiming proof, or delivering the entire working promise; the brand and episode string sharpen that promise after the identity break.
 - A first-listen review identifies any sentence that is understandable on paper but unnatural or overloaded when heard once.
 - Independent adversarial read checks clarity, credibility, and assumption drift.
 - Every adversarial finding has an accepted, modified, rejected, or preserve disposition against the integrated revision.
 - Owner revisions are incorporated before lock.
+- Every material external fact has a conversational and audio-honest VO layer, an exact on-screen source receipt, and a full show-note citation. Citation metadata does not interrupt the narration unless it changes the claim's meaning.
+- The viewer's first-market instruction starts from relevant experience, relationships, earned access, buyer understanding, and reachable decision-makers rather than prescribing the episode's example industry.
+- The opportunity pitch occupies 52 to 58 percent of the spoken script unless a reasoned exception is approved and recorded.
+- The market-size language preserves the difference between adjacent spend, category operation, proposed offer demand, and bottom-up owner requirements.
+- Every adjacent narrated-sequence seam passes the exact last-two-lines to first-two-lines test, excluding the recorded silent identity and brand reset.
+- The same discourse marker does not open multiple scenes.
+- The ending resolves the opening, delivers the promised payoff, lands BUILD, gives the first construction action, and ends with one earned like-and-subscribe sentence.
 
 If E5 finds an unsupported claim, the disposition is either removal or a bounded Step 0 amendment request for the exact wording. Hedging an unsupported claim is not a third path. E5 failure invalidates the derived read-through and prohibits script lock, narration, and downstream production work.
 
 ## Gate E5V: editorial voice conformity
 
-Decision: Do these exact words sound like a seasoned, opinionated Operator Economy advisor and plausibly sound like Manav, with informative entertainment, conviction, analogy, and rhythm, without weakening truth or imitating a reference?
+Decision: Are these exact words clear, lexically performable, and supported by positive evidence that they sound like a seasoned, opinionated Operator Economy advisor and plausibly like Manav, without weakening truth or imitating a reference?
+
+E5V records three separate findings: first-listen clarity, lexical performability, and positive hosted-voice identity. A clean finding in one lane cannot stand in for another.
 
 Required:
 
 - The reviewed `content-os/voice.md` path and SHA-256.
 - The reviewed `VOICE-ARCHITECTURE.md` path and SHA-256.
 - The reviewed `studio/config/speech-profile.md` path and SHA-256.
+- A recorded hosted-long-form routing status. Documentary rigor governs evidence and uncertainty; the observed Manav speech profile governs the proposed lexical surface. The live Content OS conflict remains unresolved unless an authorized Content OS change says otherwise, and this local gate may not mark it resolved.
 - An approved voice-and-comedy map tied to the narrative, claims map, and reviewed authority hashes.
 - A clean read-through derived from the same immutable script hash.
-- Mechanical support showing zero unresolved em dashes, semicolons, prohibited report vocabulary, acting tags, production notes, or lexical drift, plus a disclaimer audit, hedge review, and cadence diagnostics.
-- Quoted evidence for the concrete cold open, exact brand string, context runway, operator-advisor relationship, earned thesis, and at least three act-level implications or verdicts.
+- Mechanical support showing zero unresolved em dashes, semicolons, prohibited report vocabulary, acting tags, production notes, lexical drift, or repeated discourse-marker scene openings, plus a disclaimer audit, hedge review, citation-delivery audit, exact narrative-seam audit, operator-market-fit audit, and cadence diagnostics. This clears hygiene risks only and is not positive voice evidence.
+- Quoted evidence for the concrete cold open, pre-sting operator or business payoff, exact brand string, context runway, operator-advisor relationship, earned thesis, and at least three act-level implications or verdicts.
 - Quoted evidence that reporting structure, business context, plainspoken explanation, operator judgment, and restrained reveal perform distinct jobs.
 - A governing analogy with explicit mechanism mapping and at least one meaningful callback.
-- At least two distinct observed Manav speech patterns used naturally, including rhythmic variation rather than phrase insertion alone.
+- A positive hosted-voice evidence table covering the opening, opportunity case, operator build, economics, and ending. Each row quotes exact script language, names the observed Manav function it performs, explains why it belongs in this episode, and challenges whether neutral documentary wording would produce the same result.
 - Evidence and uncertainty stated accurately in familiar spoken language without a repeated disclaimer spiral.
 - A fair counterargument followed by an explicit ruling.
 - Humor that compresses, decodes, or exposes the mechanism rather than decorating it.
@@ -225,10 +248,16 @@ Required:
 - A generic-language challenge identifying and resolving passages that could belong unchanged in another explainer.
 - A first-listen load challenge identifying any beat with too many new ideas and any elegant sentence a colleague would not naturally say.
 - A challenge to the weakest stance line and to any joke or analogy removable without loss of understanding.
-- Separate pass decisions for opening orientation, show identity, reporting spine, business context, first-listen clarity, operator-advisor base, business-of-one clarity, Manav voiceprint, conviction, evidence integrity, humor temperature, cadence, ending payoff, and non-imitation.
-- Independent editorial-voice reviewer recommendation and named owner decision.
+- Separate decisions for opening orientation, pre-sting payoff strength, show identity, reporting spine, narrative seams, business context, first-listen clarity, lexical performability, operator-advisor base, operator market fit, business-of-one clarity, positive hosted-voice identity, conviction, evidence integrity, evidence delivery, humor temperature, cadence, ending payoff, audience ask, and non-imitation.
+- Independent editorial-voice reviewer recommendation stated as `revise` or `clear for owner voice test`, not an owner-level voice pass.
+- A named owner cold read of the complete clean script hash, performed continuously and without annotations, with any spontaneous rewrite, lost seam, rejected voice, or `revise` decision recorded.
+- The owner's explicit answer to: “Does this sound like me talking, not merely like a good Operator Economy script?” Only `yes` can complete the positive hosted-voice decision.
 
-The observed patterns are diagnostic, not a phrase quota. A script fails when it opens with a conclusion before context, repeatedly announces what it cannot prove, refuses to reach a verdict after the evidence, or depends on Step 2 to add conversational words. It also fails when jokes are decorative, analogies do not map, contempt outruns evidence, sentence rhythm becomes a punch-line metronome, or recognizable mannerisms turn the speaker into a parody.
+The observed patterns are diagnostic, not a phrase quota. Do not force fillers, contractions, self-repairs, jokes, sentence lengths, or borrowed mannerisms. A script fails when it opens with a conclusion before context, repeatedly announces what it cannot prove, refuses to reach a verdict after the evidence, or depends on Step 2 to add conversational words. It also fails when jokes are decorative, analogies do not map, contempt outruns evidence, sentence rhythm becomes a punch-line metronome, recognizable mannerisms turn the speaker into a parody, or the same discourse marker is reused to open multiple scenes.
+
+E5V also fails when positive identity is inferred only from zero banned words, clean punctuation, exact hashes, readable cadence, lack of repeated fillers, no imitation, or reviewer confidence. Those results can establish hygiene or readiness for the owner test. They cannot establish whose voice the words carry.
+
+The owner cold-read decision is decisive. Pattern scores, mechanical checks, reviewer consensus, or agent recommendations cannot override an owner `revise`, spontaneous rewrite, lost seam, or rejected voice. Only a new complete cold read of the exact revised hash can replace that failure.
 
 Word-changing corrections return to script revision and rerun claims review, performance read-through, review disposition, and E5V as affected. Step 2 may not repair an E5V failure.
 
@@ -243,9 +272,13 @@ Required:
 - Named owner, decision, and timestamp.
 - Exact spoken-word count, a clean performance read-through with the same words, and an expected-duration range.
 - A passed E5V editorial-voice conformity report tied to the final script and reviewed authority hashes.
+- A passed owner cold-read record tied to the exact final script and read-through hashes.
+- Positive hosted-voice evidence is complete across all five episode functions, and the owner answered the direct voice-match question `yes`.
+- The reviewed Content OS authority explicitly routes YouTube VO to the Manav-hosted Operator Economy long-form register.
+- The exact pre-sting operator or business payoff tease and exact final like-and-subscribe sentence are present in the locked words.
 - No unresolved change request.
 
-After this gate, calculate and record the editorial-lock hash, then create the narration handoff against that frozen lock. Step 2 may add non-lexical performance direction but may not change words.
+After this gate, calculate and record the editorial-lock hash, then create the narration handoff against that frozen lock. Step 2 may add non-lexical performance direction but may not change words, invent a payoff tease, or improvise an audience ask.
 
 ## Amendment and invalidation rules
 
@@ -254,7 +287,7 @@ After this gate, calculate and record the editorial-lock hash, then create the n
 - A changed Episode Investment Thesis invalidates the narrative spine, beat sheet, outline, voice-and-comedy map, script, and narration handoff unless a written impact review proves the change non-material.
 - A changed narrative spine invalidates the beat sheet, outline, voice-and-comedy map, and script.
 - A changed beat sheet invalidates the outline, voice-and-comedy map, and script unless an impact review proves the change non-material.
-- A changed public or spoken company name, one-sentence definition, BUILD verdict, fixed brand string, episode promise, cold-open order, opportunity-to-build turn, context runway, or thesis placement creates a new beat-sheet and script revision.
+- A changed public or spoken company name, one-sentence definition, BUILD verdict, fixed brand string, episode promise, pre-sting payoff tease, cold-open order, final audience ask, opportunity-to-build turn, context runway, or thesis placement creates a new beat-sheet and script revision.
 - Any added, removed, reordered, or rewritten spoken word creates a new script revision and hash.
 - A pronunciation spelling or performance tag may live in the narration layer only if the spoken lexical sequence remains identical.
 - If Step 2 discovers an unperformable or misleading sentence, it issues a change request; Step 1 revises and relocks the script before narration resumes.

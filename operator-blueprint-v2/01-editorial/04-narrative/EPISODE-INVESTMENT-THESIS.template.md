@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -157,6 +157,70 @@ This build-only rule applies to the company thesis. An individual diagnostic or 
 
 ## Opportunity case
 
+### Opportunity scale argument
+
+The episode must prove scale without pretending a broad category number proves demand for the proposed offer.
+
+Underlying costly behavior or responsibility:
+
+Established budget, spend, or operating duty adjacent to the problem:
+
+Why that adjacent pool is relevant:
+
+Why it is not the exact market size of the proposed company:
+
+Observed enterprise or institutional proof:
+
+Observed platform or product-category proof:
+
+Observed specialist, agency, or boutique proof:
+
+Reachable operator-scale parallel:
+
+Proposed business-of-one synthesis:
+
+Where the comparison is strong:
+
+Where the comparison breaks:
+
+Unknowns that prevent a demand, pricing, outcome, or livelihood claim:
+
+Scale-proof pattern used: same job across scales / budget migration / fragmented buyer pool / combination
+
+Scale-proof decision: pass / bounded Step 0 amendment / return / park
+
+### Qualified buyer universe
+
+The company is horizontal only when the buyer rule is precise. Do not replace an industry recommendation with `all businesses`.
+
+Customer discovery or buying decision affected:
+
+Purchase consequence large enough to matter:
+
+Existing accountable budget or owner:
+
+Evidence that customers use AI during discovery, comparison, shortlisting, or verification:
+
+Conditions that make a buyer suitable:
+
+Conditions that make a buyer unsuitable:
+
+Operator experience, access, or buyer fluency required:
+
+### Explanatory case set
+
+Use no more than three short cases. Each must clarify a different buying decision. None may define the company, total market, prospect denominator, or economics unless the thesis explicitly selects it as the market.
+
+| Case | Market | Customer decision | Why the problem matters | What transfers to other markets | What does not transfer | Evidence class |
+|---|---|---|---|---|---|---|
+| 1 | | | | | | OBSERVED / PARALLEL / ILLUSTRATIVE |
+| 2 | | | | | | OBSERVED / PARALLEL / ILLUSTRATIVE |
+| 3 | | | | | | OBSERVED / PARALLEL / ILLUSTRATIVE |
+
+Company definition without an example industry:
+
+Viewer market-selection rule:
+
 ### Normal system
 
 How buyers currently handle the job:
@@ -213,6 +277,17 @@ Why this missing responsibility could be a company rather than a feature or one-
 
 Plainspoken opportunity ruling:
 
+### Comparable-business ladder
+
+| Scale | Company or provider | Buyer | Related paid job | Evidence of operation or spend | What it proves | What it cannot prove |
+|---|---|---|---|---|---|---|
+| Enterprise or institutional | | | | | | |
+| Platform or product category | | | | | | |
+| Specialist or agency | | | | | | |
+| Reachable operator parallel | | | | | | |
+
+The ladder fails if it relies only on funding, valuation, total company revenue, vendor marketing, or a top-down market estimate. At least two observed paid or operating layers must support the category before the operator synthesis is presented.
+
 ## Evidence ladder
 
 Every material part of the investment case must trace to approved evidence or be labeled as a proposed synthesis, model, or unknown.
@@ -252,7 +327,31 @@ Bridge from the large case to the reachable operator case:
 
 Evidence or paid test needed to prove that bridge:
 
+Annual engagements required by the modeled owner case:
+
+Maximum delivery capacity:
+
+Qualified conversations required during the first validation cycle:
+
+Observed acceptance rate: unknown until tested / [measured value and source]
+
+Reachable prospect pool needed after an acceptance rate exists:
+
+Why no conversion rate or market share is invented before that evidence:
+
 Reason this is a focused company rather than a diminished version of the larger opportunity:
+
+## Opportunity-to-blueprint narrative contract
+
+Target opportunity-pitch share: 55 percent
+
+Allowed opportunity-pitch range: 52 to 58 percent
+
+Target operator-blueprint share: 45 percent
+
+The opportunity act must establish the behavioral change, economic consequence, adjacent budget, comparable-business ladder, missing responsibility, company thesis, and one-operator opening before the detailed first offer begins.
+
+Reasoned exception, if any:
 
 ## Mature business of one
 

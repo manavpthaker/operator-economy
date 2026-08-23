@@ -2,7 +2,7 @@
 
 Status: draft / approved / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -44,6 +44,12 @@ What appears normal:
 
 What becomes strange, costly, or unresolved:
 
+Specific operator or business payoff teased before the silent sting:
+
+Why the payoff gives the viewer a strong reason to stay:
+
+Mechanism, proof, and final thesis deliberately withheld:
+
 Question left open:
 
 Silent identity sting present with no narration: yes / no
@@ -78,7 +84,43 @@ First understated observation, if useful:
 
 Governing analogy introduction point after the literal mechanism is clear:
 
-The cold open earns attention before the show identity. The context runway earns the thesis before the episode asks the viewer to accept it. The opportunity case earns the complete company before the script narrows to the entry wedge.
+The cold open earns attention by making a concrete operator or business payoff visible before the show identity, while withholding the mechanism, proof, and complete thesis. The context runway earns the thesis before the episode asks the viewer to accept it. The opportunity case earns the complete company before the script narrows to the entry wedge.
+
+## Operator-market selection
+
+Relevant experience or operating judgment the viewer can transfer:
+
+Trusted relationships or network:
+
+Earned access or credibility with buyers:
+
+Buyer language, workflow, or constraint the operator already understands:
+
+Decision-makers the operator can realistically reach:
+
+Approved first-market selection rule:
+
+Qualified buyer rule stated without an example industry:
+
+Unsuitable buyer rule:
+
+Three explanatory cases and the distinct customer decision each clarifies:
+
+Company definition with all example industries removed:
+
+Adjacent budget or costly responsibility:
+
+Observed operating layers:
+
+Scale-proof pattern:
+
+Industry used to make the episode concrete:
+
+Industry status: illustrative example / approved recommendation
+
+Plain line preventing the example industry from becoming universal advice:
+
+The episode should teach the viewer to begin with at least one earned advantage, then require buyer understanding and reachable decision-makers. A fixture or illustrative industry is not the default recommendation.
 
 ## Sequence table
 
@@ -142,6 +184,10 @@ Open thread carried forward:
 
 Transition logic:
 
+Specific noun, question, decision, image, or consequence inherited from the prior sequence:
+
+Specific noun, question, decision, image, or consequence handed to the next sequence:
+
 Target time range:
 
 Target word range:
@@ -149,6 +195,15 @@ Target word range:
 Out of scope for this sequence:
 
 Do not include camera direction, animation instructions, asset searches, shot types, transitions, screen layouts, or visual timing in this outline. Those belong after final narration.
+
+## Narrative seam plan
+
+Plan each adjacent narrated-sequence handoff before scripting. The script review will replace these planned phrases with the exact last two spoken lines and first two spoken lines. Exclude only the approved silent identity sting and brand reset, and record that exception.
+
+| Seam | Outgoing idea | Inherited noun, question, decision, image, or consequence | Incoming advance | Causal relationship | Reset or redefinition risk | Plan decision |
+|---|---|---|---|---|---|---|
+| S00 → S02 | | approved silent identity and brand reset | | | exempt, recorded | pass / revise |
+| S## → S## | | | | because / therefore / complication / decision / consequence / other | none / describe | pass / revise |
 
 ## Two-act completeness map
 
@@ -181,7 +236,7 @@ Mature-company-to-entry-wedge transition:
 
 Why the wedge now feels like an entrance rather than the whole ambition:
 
-Estimated opportunity share of time or words:
+Estimated opportunity share of spoken words, target 52 to 58 percent:
 
 Estimated build share of time or words:
 
@@ -195,11 +250,19 @@ Why the public Operator Canvas is useful after the episode:
 
 Approved mention point, if any:
 
-The CTA must not interrupt the reasoning, overstate the Canvas, or introduce a new promise.
+Natural final like-and-subscribe sentence:
+
+Why subscribing follows from the value this episode delivered:
+
+Canvas, download, brand sign-off, or other asks omitted or combined:
+
+The CTA must not interrupt the reasoning, overstate the Canvas, introduce a new promise, or become a stack of separate asks. The final spoken beat is one natural sentence that asks the viewer to like and subscribe because they want more Operator Economy blueprints.
 
 ## Ending
 
 Decision or understanding resolved:
+
+Opening payoff delivered:
 
 Uncertainty retained:
 
@@ -221,17 +284,22 @@ Exact final BUILD verdict:
 
 Final practical line:
 
+Optional Canvas mention or brand sign-off before the final audience ask:
+
+Exact final like-and-subscribe sentence:
+
 ## Outline checks
 
 - [ ] Every sequence changes the viewer's understanding.
 - [ ] The approved Episode Investment Thesis hash is recorded and current.
 - [ ] The opening sequence matches the approved beat sheet.
 - [ ] Cold open, silent identity sting, brand string, episode promise, context runway, central question, and earned thesis remain distinct.
+- [ ] The cold open previews a specific operator or business payoff before the silent sting without explaining the mechanism, claiming proof, or spending the complete thesis.
 - [ ] The fixed brand string is exact.
 - [ ] The short spoken company name is clear on first listen and followed by its one-sentence plain definition.
 - [ ] The longer internal operating description does not replace the short spoken name.
 - [ ] A first-time viewer understands the subject, normal system, change, affected person, stakes, and investigation question before the central thesis.
-- [ ] The cold open is a situation rather than an abstraction, statistic, or agenda.
+- [ ] The cold open is a situation and useful payoff teaser rather than an abstraction, statistic, agenda, or audience ask.
 - [ ] The recurring human or transaction thread survives long enough to show the mechanism, not just decorate the opening.
 - [ ] Any illustrative thread avoids invented proof and receives a spoken disclosure only when a reasonable viewer could mistake it for a measured case.
 - [ ] Every load-bearing claim has a claim ID.
@@ -243,16 +311,23 @@ Final practical line:
 - [ ] The initial offer is not confused with the permanent business ceiling.
 - [ ] Broader scope is framed as an earned, conditional destination.
 - [ ] The ending resolves the working promise without claiming success.
-- [ ] The opportunity and build acts receive roughly equal narrative attention without being forced into an exact ratio.
+- [ ] The opportunity pitch occupies 52 to 58 percent of the spoken script unless an owner-approved exception is recorded.
 - [ ] The opportunity-to-build transition changes the viewer's question from whether the company matters to how the operator enters.
 - [ ] The first 30 days construct a business asset, buyer motion, or paid delivery capability while testing the weakest assumptions.
 - [ ] The ending gives an affirmative BUILD verdict for the company while preserving valid no-build decisions inside an individual engagement.
 - [ ] The outline contains a clear but earned thesis, a fair counterargument, and an explicit ruling.
 - [ ] Each major act moves from evidence to implication rather than stopping at information.
+- [ ] Every adjacent narrated-sequence handoff inherits and advances a specific noun, question, decision, image, or consequence; no sequence opens like an unrelated deck heading.
+- [ ] The operator-market instruction begins with relevant experience, relationships, earned access, buyer understanding, and reachable decision-makers rather than prescribing the example industry.
+- [ ] A horizontal company remains understandable after every example industry is removed.
+- [ ] The market case establishes an adjacent budget or costly responsibility and at least two observed operating layers.
+- [ ] No example industry defines the cold open, company, total market, prospect denominator, or economics.
+- [ ] Any industry carrying the episode is explicitly classified as an illustrative example or an approved recommendation.
 - [ ] The governing analogy develops rather than becoming decorative metaphor.
 - [ ] Humor and contempt clarify the operating system and never substitute for evidence.
 - [ ] No beat combines several unfamiliar abstractions, statistics, analogies, and jokes merely to sound efficient.
-- [ ] The ending resolves or reinterprets the opening.
+- [ ] The ending resolves or reinterprets the opening and delivers the payoff teased before the sting.
+- [ ] The final spoken beat is one earned like-and-subscribe sentence with no stacked ask or new promise.
 
 ## Approval
 

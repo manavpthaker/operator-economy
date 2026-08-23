@@ -1,6 +1,6 @@
 # Step 1: editorial
 
-Status: approved V2 Step 1 v1.4 authority. V1.4 incorporates the tested v1.3 opening and voice controls and adds the Episode Investment Thesis, opportunity-to-build architecture, build-only editorial rule, and short public naming standard.
+Status: approved V2 Step 1 v1.5 authority. V1.5 adds the original Manav-hosted long-form register, evidence-bounded opportunity-scale pitch, horizontal qualified-buyer controls, decisive owner voice review, and pitch-deck coverage across VO, visuals, and the downloadable Operator Canvas.
 
 Step 1 turns one promoted opportunity into the exact business blueprint and spoken story the episode will teach. It owns the Operator Canvas, viewer promise, narrative architecture, episode outline, claims-to-language map, performance-ready script, and script lock.
 
@@ -60,7 +60,7 @@ Every future episode must leave Step 1 with:
 ## Authority files
 
 - [`EDITORIAL-STANDARD.md`](EDITORIAL-STANDARD.md) defines what Step 1 is trying to produce.
-- [`SCRIPT-BEAT-RESEARCH.md`](SCRIPT-BEAT-RESEARCH.md) records the reported-explainer craft review inherited by the approved v1.4 structure and wording rules.
+- [`SCRIPT-BEAT-RESEARCH.md`](SCRIPT-BEAT-RESEARCH.md) records the reported-explainer craft review inherited by the approved v1.5 structure and wording rules.
 - [`STAGE-GATES.md`](STAGE-GATES.md) defines the states, approvals, returns, and invalidation rules.
 - [`TEAM-WORKFLOW.md`](TEAM-WORKFLOW.md) defines editorial roles, safe parallel work, review independence, and agent handoffs.
 - [`01-handoff/STEP0-HANDOFF-CHECKLIST.md`](01-handoff/STEP0-HANDOFF-CHECKLIST.md) verifies the input package.
@@ -99,6 +99,6 @@ Every future episode must leave Step 1 with:
 
 ## Authority boundary
 
-Step 1 v1.4 is owner-approved V2 Editorial authority after a valid Step 0.2 promotion. The frozen v1.0 identities in `STEP1-APPROVAL.md` remain historical evidence. V1.1 was rejected and never became canonical. V1.2 and v1.3 were never canonical and are superseded by v1.4. No Step 1 version supersedes Step 0.2, Content OS universal truth rules, V1 episode artifacts, or downstream production systems. Calibration fixtures remain test evidence and never become episodes or public claims. The BUILD verdict is an editorial recommendation inside the approved workflow, not evidence, a promotion decision, a script lock, or permission to bypass any gate.
+Step 1 v1.5 is owner-approved V2 Editorial authority after a valid Step 0.2 promotion. V1.4 remains frozen historical authority. No Step 1 version supersedes Step 0.2, Content OS universal truth rules, V1 episode artifacts, or downstream production systems. Calibration fixtures remain test evidence and never become episodes or public claims. The AI Visibility v1.1 control may enter Step 2 fixture testing but is not a production episode. The BUILD verdict is an editorial recommendation inside the approved workflow, not evidence, a promotion decision, or permission to bypass any gate.
 
-The historical v1.0 lock and authority hashes are recorded in [`STEP1-APPROVAL.md`](STEP1-APPROVAL.md). The rejected intermediate is recorded in [`STEP1-v1.1-CHANGE-PROPOSAL.md`](STEP1-v1.1-CHANGE-PROPOSAL.md). The v1.2 attempt is preserved in [`STEP1-v1.2-CHANGE-PROPOSAL.md`](STEP1-v1.2-CHANGE-PROPOSAL.md). The superseded v1.3 proposal and its frozen hashes remain in [`STEP1-v1.3-CHANGE-PROPOSAL.md`](STEP1-v1.3-CHANGE-PROPOSAL.md). The current full-snapshot decision and v1.4 hashes are recorded in [`STEP1-v1.4-APPROVAL.md`](STEP1-v1.4-APPROVAL.md).
+The historical v1.0 lock and authority hashes are recorded in [`STEP1-APPROVAL.md`](STEP1-APPROVAL.md). The v1.1 through v1.3 proposals and v1.4 approval remain frozen history. The accepted v1.5 proposal is recorded in [`STEP1-v1.5-CHANGE-PROPOSAL.md`](STEP1-v1.5-CHANGE-PROPOSAL.md). The current full-snapshot decision and hashes are recorded in [`STEP1-v1.5-APPROVAL.md`](STEP1-v1.5-APPROVAL.md).

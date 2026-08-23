@@ -2,7 +2,7 @@
 
 Status: draft / submitted / approved / denied / withdrawn
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode or fixture:
 
@@ -41,6 +41,32 @@ Evidence that is explicitly insufficient:
 ## Narrow research question
 
 [One answerable question.]
+
+## Opportunity-scale amendment, when applicable
+
+Underlying behavior, costly responsibility, or established budget requiring evidence:
+
+Enterprise or institutional operating layer requiring evidence:
+
+Platform or product-category layer requiring evidence:
+
+Specialist, agency, boutique, or operator-scale layer requiring evidence:
+
+Qualified buyer rule requiring evidence:
+
+Example markets proposed for explanation only:
+
+What each example is allowed to clarify:
+
+What no example may establish:
+
+Scale-proof pattern to test: same job across scales / budget migration / fragmented buyer pool / combination
+
+Evidence that must not be treated as exact-offer demand proof: funding / valuation / total company revenue / vendor marketing / top-down estimate / other
+
+Bottom-up model inputs permitted before validation:
+
+Conversion, market-share, or reachability claims prohibited until observed:
 
 ## Allowed outcomes
 

@@ -1,6 +1,6 @@
 # V2 Step 1 approval: Editorial
 
-Status: approved historical authority for v1.0. Current Step 1 authority is approved v1.4 and is recorded in `STEP1-v1.4-APPROVAL.md`.
+Status: approved historical authority for v1.0. Current Step 1 authority is approved v1.5 and is recorded in `STEP1-v1.5-APPROVAL.md`.
 
 Version: `operator-blueprint-v2-step1-v1.0`
 
@@ -14,11 +14,11 @@ Prior tested proposal: v0.5
 
 Decision: lock Step 1 as V2 authority
 
-Current authority record: `STEP1-v1.4-APPROVAL.md`. `STEP1-v1.1-CHANGE-PROPOSAL.md` records the rejected first voice revision. `STEP1-v1.2-CHANGE-PROPOSAL.md` records the materially improved but unapproved conviction revision. `STEP1-v1.3-CHANGE-PROPOSAL.md` records the tested but never-canonical structure revision that v1.4 supersedes. The current working authority files differ from the frozen v1.0 hashes below because v1.4 is now the approved full snapshot.
+Current authority record: `STEP1-v1.5-APPROVAL.md`. V1.1 through v1.3 remain rejected or never-canonical proposals. V1.4 remains the prior approved snapshot. The current working authority files differ from the frozen v1.0 hashes below because v1.5 is now the approved full snapshot.
 
 ## Historical authority granted by v1.0
 
-Step 1 v1.0 governed new Operator Blueprint V2 editorial development after a valid Step 0.2 promotion until v1.4 superseded it. It owned:
+Step 1 v1.0 governed new Operator Blueprint V2 editorial development after a valid Step 0.2 promotion until later approved versions superseded it. It owned:
 
 - Step 0 handoff integrity.
 - Episode-number assignment after promotion.
@@ -93,21 +93,25 @@ The final item becomes a required Step 2 acceptance test. The others remain regr
 
 - Content OS remains authority for facts, universal voice hygiene, and release.
 - Step 0.2 remains authority for candidate research, validation, and promotion.
-- Step 1 v1.0 governed V2 editorial after a valid promotion until the approved v1.4 full snapshot superseded it.
-- `STEP1-v1.4-APPROVAL.md` records the current authority, final hashes, regression evidence, and unchanged downstream boundary.
+- Step 1 v1.0 governed V2 editorial after a valid promotion until later approved full snapshots superseded it.
+- `STEP1-v1.5-APPROVAL.md` records the current authority, final hashes, regression evidence, and downstream boundary.
 - V1 episode artifacts remain unchanged and do not become V2 locks automatically.
 - A change to a locked Step 1 authority file requires a recorded reason, affected-file hashes, regression impact, owner approval, and a new Step 1 version. Silent edits do not alter this approval.
 
 ## Production effect
 
-Historical v1.0 Editorial authority: superseded by approved v1.4
+Historical v1.0 Editorial authority: superseded
 
-Current V2 Editorial authority: see `STEP1-v1.4-APPROVAL.md`
+Current V2 Editorial authority: see `STEP1-v1.5-APPROVAL.md`
 
 Existing fixture promoted to episode: no
 
 Episode number assigned: no
 
-Narration Production authorized for any fixture: no
+Historical v1.0 narration authorization: no
+
+Current AI Visibility v1.1 narration-system fixture authorization: yes, under the exact fixture-only lock and handoff recorded by v1.5
+
+Production-episode narration authorization: no
 
 Step 2 documentation design authorized: yes

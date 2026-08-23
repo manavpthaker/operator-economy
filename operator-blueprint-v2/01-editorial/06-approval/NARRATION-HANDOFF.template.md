@@ -2,7 +2,7 @@
 
 Status: draft / ready / invalidated / superseded
 
-Template version: approved `operator-blueprint-v2-step1-v1.4`
+Template version: approved `operator-blueprint-v2-step1-v1.5`
 
 Episode: EP###
 
@@ -46,6 +46,10 @@ Emotional progression:
 
 Cold-open temperature: curious / mildly confused / concerned / other
 
+Pre-sting operator or business payoff treatment:
+
+Final pre-sting open-loop treatment:
+
 Silent identity break duration:
 
 Brand and episode string treatment:
@@ -62,6 +66,10 @@ Mature-company-to-entry-wedge transition treatment:
 
 Final BUILD-verdict treatment:
 
+Opening-payoff resolution treatment:
+
+Final like-and-subscribe sentence treatment:
+
 Moments that require restraint:
 
 Moments that require conviction:
@@ -70,7 +78,9 @@ Moments where uncertainty must remain audible:
 
 The direction describes delivery. It does not authorize changing words.
 
-The locked script already contains the approved opening order, fixed brand string, episode promise, short spoken company name, plain definition, opportunity case, operator blueprint, company-to-wedge turn, BUILD verdict, stance, analogies, callbacks, humor, cadence, editorial voice, and Manav spoken-language fingerprint. Step 2 must not add or rewrite conversational vocabulary, company labels, verdicts, catchphrases, jokes, asides, contractions, or connective words to recreate them.
+The locked script already contains the approved opening order, pre-sting operator or business payoff tease, open loop, fixed brand string, episode promise, short spoken company name, plain definition, opportunity case, operator blueprint, company-to-wedge turn, opening resolution, BUILD verdict, first construction action, final like-and-subscribe sentence, stance, analogies, callbacks, humor, cadence, editorial voice, and Manav spoken-language fingerprint. Step 2 must not add or rewrite conversational vocabulary, company labels, verdicts, catchphrases, jokes, asides, contractions, connective words, payoff language, or audience asks to recreate them.
+
+Step 2 may shape pace, emphasis, energy, and silence around the locked payoff tease and final audience ask. It may not invent, rewrite, reorder, replace, or improvise either one.
 
 Narration must not substitute the longer internal operating description for the approved short spoken name. It must not soften BUILD into a noncommittal company verdict or turn a client-level no-build decision into a recommendation against building the company.
 
