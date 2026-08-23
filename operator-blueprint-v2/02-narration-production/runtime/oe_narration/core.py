@@ -220,10 +220,18 @@ def write_extraction(extraction: SpokenExtraction, out_dir: Path, script_path: P
     w_path = out_dir / "canonical-w.txt"
     identity_path = out_dir / "spoken-identity.json"
     w_path.write_bytes(canonical_w_bytes(list(extraction.tokens)))
-    identity = extraction.as_dict(str(script_path))
+    # Keep the tracked identity receipt portable across worktrees. The locked
+    # source is identified by its SHA-256 and the package manifest, not by a
+    # machine-specific absolute path.
+    identity = extraction.as_dict()
     identity["canonical_w_sha256"] = sha256_file(w_path)
     identity_path.write_text(json.dumps(identity, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    return {"canonical_w": str(w_path), "identity": str(identity_path), **identity}
+    return {
+        "canonical_w": str(w_path),
+        "identity": str(identity_path),
+        "source_script": str(script_path),
+        **identity,
+    }
 
 
 def read_canonical_w(path: Path) -> list[str]:
@@ -457,10 +465,28 @@ def validate_capture_plan(plan_path: Path, canonical_w_path: Path) -> dict[str, 
     if not isinstance(bindings, dict):
         errors.append("bindings must freeze the N1, N2, and N3 artifacts")
         bindings = {}
-    for field in ("package_manifest_sha256", "performance_direction_sha256", "voice_capture_lock_sha256"):
-        value = bindings.get(field)
-        if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value):
-            errors.append(f"bindings.{field} must be a lowercase SHA-256")
+    plan_base = plan_path.parent.resolve()
+    for field in ("package_manifest", "performance_direction", "voice_capture_lock"):
+        binding = bindings.get(field)
+        if not isinstance(binding, dict):
+            errors.append(f"bindings.{field} must be a path/hash object")
+            continue
+        expected_hash = binding.get("sha256")
+        if not isinstance(expected_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_hash):
+            errors.append(f"bindings.{field}.sha256 must be a lowercase SHA-256")
+        try:
+            bound_path = _resolve_under_base(plan_base, binding.get("path"), f"bindings.{field}.path")
+        except ValidationError as exc:
+            errors.extend(exc.errors)
+            continue
+        if not bound_path.is_file():
+            errors.append(f"bindings.{field}.path is missing: {bound_path}")
+        elif isinstance(expected_hash, str):
+            actual_hash = sha256_file(bound_path)
+            if actual_hash != expected_hash:
+                errors.append(
+                    f"bindings.{field} hash mismatch: expected {expected_hash}, got {actual_hash}"
+                )
 
     provider = plan.get("provider")
     if not isinstance(provider, dict):

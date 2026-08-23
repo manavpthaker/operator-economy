@@ -72,7 +72,8 @@ The `oe-capture-plan-v1` plan binds:
 
 - a fixture or episode target;
 - locked script and W identities;
-- the N1 package manifest, N2 performance direction, and N3 voice/capture lock hashes;
+- traversal-safe paths and current hashes for the N1 package manifest, N2 performance direction,
+  and N3 voice/capture lock;
 - provider, model, voice, and non-lexical settings;
 - PCM-first and MP3-fallback policy; and
 - exact subordinate W ranges.
@@ -83,11 +84,16 @@ Calibration requires cold-open, evidence, economics, and pronunciation modes. A 
 
 ```text
 oe-narration capture-elevenlabs --plan PLAN --canonical-w W
+oe-narration capture-elevenlabs --plan PLAN --canonical-w W --record DRY_RUN.json
 oe-narration capture-elevenlabs --plan PLAN --canonical-w W --execute \
   --authorization AUTHORIZATION --output-dir EMPTY_DIRECTORY
 ```
 
-The first form is always a dry run. It makes zero network calls, does not require an API key, and prints credential-free request envelopes. Each envelope exposes URL/query, bounded W range, text hash, body hash, and character count. `output_format` is a URL query parameter, never a JSON body field.
+The first two forms are always dry runs. They make zero network calls, do not require an API key,
+and print credential-free request envelopes. `--record` writes the same result exclusively and
+refuses to overwrite an existing receipt. Each envelope exposes URL/query, bounded W range, text
+hash, body hash, and character count. `output_format` is a URL query parameter, never a JSON body
+field. Execution writes its own run or failure receipt and therefore rejects `--record`.
 
 `--execute` requires all of the following before network access:
 

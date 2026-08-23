@@ -22,11 +22,11 @@
     "bindings": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["package_manifest_sha256", "performance_direction_sha256", "voice_capture_lock_sha256"],
+      "required": ["package_manifest", "performance_direction", "voice_capture_lock"],
       "properties": {
-        "package_manifest_sha256": {"$ref": "#/$defs/sha256"},
-        "performance_direction_sha256": {"$ref": "#/$defs/sha256"},
-        "voice_capture_lock_sha256": {"$ref": "#/$defs/sha256"}
+        "package_manifest": {"$ref": "#/$defs/artifactBinding"},
+        "performance_direction": {"$ref": "#/$defs/artifactBinding"},
+        "voice_capture_lock": {"$ref": "#/$defs/artifactBinding"}
       }
     },
     "creative_approved": {"const": false},
@@ -78,6 +78,15 @@
   },
   "$defs": {
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifactBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
     "spokenIdentity": {
       "type": "object",
       "required": ["schema_version", "token_count", "sha256"],

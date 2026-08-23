@@ -34,6 +34,15 @@ class CapturePlanTests(unittest.TestCase):
         self.w_path = self.root / "canonical-w.txt"
         self.w_path.write_bytes(canonical_w_bytes(self.tokens))
         identity = token_identity(self.tokens)
+        self.bound_files = {}
+        for name, content in (
+            ("package.json", "package"),
+            ("direction.md", "direction"),
+            ("voice-lock.md", "voice lock"),
+        ):
+            path = self.root / name
+            path.write_text(content, encoding="utf-8")
+            self.bound_files[name] = path
         self.plan = {
             "schema_version": "oe-capture-plan-v1",
             "capture_phase": "calibration",
@@ -41,9 +50,18 @@ class CapturePlanTests(unittest.TestCase):
             "script_sha256": "a" * 64,
             "spoken_identity": identity,
             "bindings": {
-                "package_manifest_sha256": "b" * 64,
-                "performance_direction_sha256": "c" * 64,
-                "voice_capture_lock_sha256": "d" * 64,
+                "package_manifest": {
+                    "path": "package.json",
+                    "sha256": sha256_file(self.bound_files["package.json"]),
+                },
+                "performance_direction": {
+                    "path": "direction.md",
+                    "sha256": sha256_file(self.bound_files["direction.md"]),
+                },
+                "voice_capture_lock": {
+                    "path": "voice-lock.md",
+                    "sha256": sha256_file(self.bound_files["voice-lock.md"]),
+                },
             },
             "provider": {
                 "name": "elevenlabs",
@@ -103,6 +121,11 @@ class CapturePlanTests(unittest.TestCase):
         self.plan["authorization"] = {"approved": True}
         self.write_plan()
         with self.assertRaisesRegex(ValidationError, "separate hashed artifact"):
+            validate_capture_plan(self.plan_path, self.w_path)
+
+    def test_bound_n1_n2_n3_artifact_tamper_fails(self) -> None:
+        self.bound_files["direction.md"].write_text("changed", encoding="utf-8")
+        with self.assertRaisesRegex(ValidationError, "performance_direction hash mismatch"):
             validate_capture_plan(self.plan_path, self.w_path)
 
     def authorization(self) -> dict:

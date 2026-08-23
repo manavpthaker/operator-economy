@@ -16,6 +16,7 @@ from oe_narration.core import (
     sha256_file,
     token_identity,
     verify_package,
+    write_extraction,
 )
 
 
@@ -79,6 +80,22 @@ class IdentityTests(unittest.TestCase):
             path.write_text(tiny_script("Cafe\u0301"), encoding="utf-8")
             with self.assertRaisesRegex(ValidationError, "not Unicode NFC"):
                 extract_step1_script(path)
+
+    def test_written_identity_is_portable_and_deterministic(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            script = root / "script.md"
+            script.write_text(tiny_script(), encoding="utf-8")
+            extraction = extract_step1_script(script)
+            first = root / "first"
+            second = root / "second"
+            write_extraction(extraction, first, script.resolve())
+            write_extraction(extraction, second, script.resolve())
+            first_receipt = (first / "spoken-identity.json").read_bytes()
+            second_receipt = (second / "spoken-identity.json").read_bytes()
+            self.assertEqual(first_receipt, second_receipt)
+            self.assertNotIn(b"script_path", first_receipt)
+            self.assertNotIn(str(root).encode("utf-8"), first_receipt)
 
 
 class PackageTests(unittest.TestCase):

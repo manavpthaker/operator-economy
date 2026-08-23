@@ -1,0 +1,83 @@
+{
+  "schema_version": "oe-capture-plan-v1",
+  "capture_phase": "calibration",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.2-ai-visibility-v1.1"
+  },
+  "script_sha256": "74048b55ed15ed6ed679abb5a6c892def8a8a40e75e7cebeafdfde319dd67efa",
+  "spoken_identity": {
+    "schema_version": "oe-spoken-text-v1",
+    "tokenization": "python-str-split-whitespace",
+    "serialization": "utf8-one-token-per-lf-with-terminal-lf",
+    "token_count": 3019,
+    "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a"
+  },
+  "bindings": {
+    "package_manifest": {
+      "path": "package-manifest.json",
+      "sha256": "8d628064647c829094146ad1c7f653436ad5e7ec29ca7adb03e1a4014c451fa0"
+    },
+    "performance_direction": {
+      "path": "PERFORMANCE-DIRECTION.md",
+      "sha256": "cb99b6dd120acab205e2eec7eadbc40e11b7a75e6f226b3f0723110d690e67db"
+    },
+    "voice_capture_lock": {
+      "path": "VOICE-AND-CAPTURE-LOCK.md",
+      "sha256": "27a4ccfc440ecfc17d941ff5c4805b4a25d3d087dccd68b6114d87df2b3ce1de"
+    }
+  },
+  "creative_approved": false,
+  "provider": {
+    "name": "elevenlabs",
+    "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+    "model_id": "eleven_v3",
+    "voice_settings": {
+      "stability": 0.5,
+      "similarity_boost": 0.6,
+      "style": 0.1
+    }
+  },
+  "format_policy": {
+    "preferred": "pcm_48000",
+    "fallback": "mp3_44100_192",
+    "fallback_requires": "pcm_capability_unavailable"
+  },
+  "parts": [
+    {
+      "id": "C01A-cold-open",
+      "start_token": 0,
+      "end_token": 139,
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "calibration_mode": "cold_open"
+    },
+    {
+      "id": "C01B-post-sting-promise",
+      "start_token": 139,
+      "end_token": 236,
+      "spoken_text_sha256": "65e71ca55e571a3c249a6749ffd5dabd22f47b4b21fd25371c6e64d44b422c25",
+      "calibration_mode": "cold_open"
+    },
+    {
+      "id": "C02-dense-evidence",
+      "start_token": 236,
+      "end_token": 544,
+      "spoken_text_sha256": "6b2d3fa56a658f62dcdb1d09f233c2717308108d363db00e89d53f684588a674",
+      "calibration_mode": "evidence"
+    },
+    {
+      "id": "C03-economics",
+      "start_token": 2111,
+      "end_token": 2462,
+      "spoken_text_sha256": "bcfc02b8340fcc3554ea716147d1fcb685e1e79daa7574bde744b9c24183de03",
+      "calibration_mode": "economics"
+    },
+    {
+      "id": "C04-pronunciation",
+      "start_token": 890,
+      "end_token": 1326,
+      "spoken_text_sha256": "4c7a912dbe65c9d0b041d089aaf82712c1c233bf47e1aa2dd8f955cafb6a3a47",
+      "calibration_mode": "pronunciation"
+    }
+  ]
+}

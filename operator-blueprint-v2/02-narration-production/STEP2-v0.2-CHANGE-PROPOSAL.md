@@ -121,6 +121,22 @@ repair it.
 
 ## Current boundary
 
+Local preflight as of 2026-08-23:
+
+- 33 runtime and adversarial tests pass;
+- the 16-source AI Visibility package passes N1;
+- two independent extractions produce byte-identical 3,019-token receipts;
+- the five-payload calibration plan validates and dry-runs with `network_called: false`;
+- the draft authorization fails before output creation or network access;
+- native raw PCM, strict 192 kbps MP3 fallback, one-conversion lineage, master mutation,
+  transcript timing, pause-map binding, and human-only creative approval are covered locally; and
+- Workflow Operations remains an expected N1 failure by rule and was not upgraded.
+
+The remaining acceptance work is real audio work: owner approval of the N2 performance direction,
+a separately authorized N4A provider calibration, owner listening approval, a separately authorized
+full capture, exact-master edit/conform/QC, and the N7 owner decision. Step 2 therefore remains
+proposed, not locked.
+
 The documentation and local fixture setup may prepare text, direction, identities, expected
 decisions, and validation contracts. It does not itself call a provider, spend credits, record a
 human, create an episode, grant either approval state, authorize Step 3, or release anything.

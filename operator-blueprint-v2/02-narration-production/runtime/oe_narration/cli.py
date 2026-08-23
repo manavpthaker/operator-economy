@@ -67,6 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
     capture.add_argument("--output-dir", type=_path)
     capture.add_argument("--execute", action="store_true")
     capture.add_argument("--authorization", type=_path)
+    capture.add_argument("--record", type=_path, help="write an immutable dry-run receipt")
     capture.add_argument("--timeout", type=float, default=60.0)
     return parser
 
@@ -104,7 +105,13 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         return validate_state(args.state)
     if args.command == "capture-elevenlabs":
         if not args.execute:
-            return dry_run_capture(args.plan, args.canonical_w)
+            result = dry_run_capture(args.plan, args.canonical_w)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution writes its own capture receipt")
         if args.authorization is None:
             raise ValidationError("--execute requires --authorization")
         if args.output_dir is None:
