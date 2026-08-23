@@ -1,7 +1,7 @@
 # Step 2 v0.2 fixture: AI Visibility v1.1
 
-Status: N1 passed. N2 owner direction approval is pending. N3 configuration preflight is frozen.
-No provider call is authorized.
+Status: N1 passed. N2 owner direction is approved. N3 configuration is frozen. The one authorized
+N4A calibration batch completed on native PCM and is ready for owner listening. N4A remains pending.
 
 This fixture tests the Step 2 narration controls against the exact AI Visibility v1.1 package locked at Operator Blueprint V2 Step 1 commit `27c90fd628fe3972fea556c1d9ed189f1b657867`.
 
@@ -14,13 +14,19 @@ It is not an episode. It has no episode number, does not clear the live Content 
 | `package-manifest.json` | Hash-bound Step 1 and live-authority inputs | 16 sources verified; fixture-only boundary explicit |
 | `identity/` | Canonical W and portable identity receipt | generated twice identically; N1 identity passes |
 | `N1-EDITORIAL-HANDOFF-CHECKLIST.md` | Human-readable N1 receipt | **N1 PASS** |
-| `PERFORMANCE-DIRECTION.md` | Nonlexical episode performance map | prepared for owner review |
-| `VOICE-AND-CAPTURE-LOCK.md` | Existing OE narrator and PCM-first capture freeze | configuration frozen; external call unauthorized |
-| `CALIBRATION-PLAN.md` | Four calibration modes using exact locked words | prepared; no audio generated |
+| `PERFORMANCE-DIRECTION.md` | Nonlexical episode performance map | frozen preapproval input; approved separately at N2 |
+| `N2-OWNER-PERFORMANCE-APPROVAL.md` | Owner decision bound to the frozen direction | **N2 PASS for bounded N4A calibration only** |
+| `VOICE-AND-CAPTURE-LOCK.md` | Existing OE narrator and PCM-first capture freeze | configuration frozen; no further call authorized |
+| `CALIBRATION-PLAN.md` | Four calibration modes using exact locked words | executed as five payloads |
 | `capture-plan.json` | Five exact machine payloads across four review modes | validates; PCM-first dry run passes |
 | `dry-run-receipt.json` | Credential-free request-envelope receipt | `network_called: false` |
 | `CALIBRATION-PROVIDER-AUTHORIZATION.DRAFT.md` | Separate external-call gate | **DRAFT / NOT AUTHORIZED** |
 | `provider-authorization.DRAFT.json` | Hash-bound machine authorization draft | fail-closed; cannot execute |
+| `N4A-PROVIDER-AUTHORIZATION.md` | Human-readable bounded call authority | consumed by the completed calibration batch |
+| `provider-authorization.N4A-20260823T200928Z.json` | Exact machine call authority | consumed; cannot be reused |
+| `N4A-AUTHORIZATION-CONSUMED.md` | Human-readable current authorization state | **CONSUMED / NO REPLAY AUTHORITY** |
+| `calibration/20260823T200928Z/` | Immutable raw PCM, lossless working WAVs, and receipts | five native-PCM takes; no fallback |
+| `N4A-CALIBRATION-TECHNICAL-REVIEW.md` | Machine and format review | technical preflight passes; owner listen pending |
 
 The positive hosted-voice review is the fixture's lock-bound editorial-voice conformity record. Step 2 may perform those words; it may not rewrite them.
 
@@ -41,6 +47,13 @@ The five-payload calibration plan validates at SHA-256
 exact payload characters, requests `pcm_48000`, records every text/body hash, and makes no network
 call. The dry-run receipt SHA-256 is
 `79488760f1941d684b3884bcc0d7f02c3ffddda01bcac5f271b889da68edd46e`.
+
+The owner later approved N2 and one N4A calibration batch. That authorization was consumed on
+2026-08-23. The batch used five calls and 8,155 characters. Every response was native
+`pcm_48000`; the MP3 exception was not used. The acquisition receipt SHA-256 is
+`784140a2f68b287df1b01ce7ff9dadf5588788b5f0d1701d41e77ed9b19ad4a5`. The generated audio is
+technically ready for the owner listen, but `creative_approved` remains false and N4A remains
+pending.
 
 ## Audio-source rule
 
