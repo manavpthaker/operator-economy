@@ -6,8 +6,9 @@ Proposal date: 2026-08-24
 
 Prior proposal: Step 2 v0.2, retained unchanged as historical design and calibration evidence
 
-External-action authorization: AUTH-01 issued and consumed; blocked after one metadata call because
-the bound ElevenLabs voice returned multiple source samples. No sample was downloaded.
+External-action authorization: AUTH-01 issued and consumed; blocked on multiple samples. Corrective
+AUTH-01B issued and consumed; complete three-sample metadata inventory recorded. No sample was
+selected or downloaded.
 
 ## Why v0.3 is required
 
