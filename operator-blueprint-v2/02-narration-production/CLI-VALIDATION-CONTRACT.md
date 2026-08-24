@@ -429,6 +429,6 @@ the earlier consumed authorization.
 AUTH-01C is a separately approved local-review retrieval boundary, not a change to that N4A state.
 Its technical result—successful or failed—cannot set `creative_approved`, clear provenance,
 authorize AUTH-02, or unblock Hume without the owner's explicit listen and exact-sample disposition.
-At the time of this documentation update, no active AUTH-01C artifact has been materialized and no
-AUTH-01C provider request has occurred. The command's existence and dry-run behavior grant no
-execution authority.
+AUTH-01C has now been materialized as a hash-bound, active, one-use authorization. Its credential-
+free validation and three-request dry run pass. No AUTH-01C provider request has occurred at this
+boundary; the authorization must be committed before its single execution.
