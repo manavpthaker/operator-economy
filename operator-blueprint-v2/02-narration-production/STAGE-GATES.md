@@ -1,6 +1,7 @@
 # Step 2 Stage Gates
 
-Status: proposed v0.2; test before approval.
+Status: proposed v0.3 provider-selection revision; test before approval. V0.2 fixture evidence is
+retained unchanged.
 
 Each gate is a real decision. Creating a file does not pass a gate.
 
@@ -29,6 +30,10 @@ Pass only when:
 - pronunciation and number risks are listed; and
 - the performance direction adds no spoken language.
 
+N2 also freezes a provider-agnostic performance envelope. Provider tags, descriptions, model
+settings, voice IDs, and replacement text are forbidden in that envelope; they belong in separately
+hashed provider adapters.
+
 For the authorized AI Visibility v1.1 fixture, the expected `W` identity is 3,019 tokens at
 `096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a`. Workflow Operations is
 historical and must fail N1 unless Step 1 later issues a current lock and ready handoff.
@@ -44,9 +49,34 @@ Pass only when:
 - continuity risks are understood; and
 - owner and voice custodian approve the configuration freeze.
 
+When the narration method is not yet creatively accepted, N3 uses the provider-selection loop in
+[`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md):
+
+1. freeze provisional ElevenLabs and Hume request envelopes against one performance
+   envelope;
+2. pass the original-human-sample provenance and commercial-rights gates;
+3. obtain and consume four separate authorizations for the exact read/retrieval, UI clone, Eleven
+   short calibration, and Hume short calibration actions;
+4. freeze the owner and independent-listener blind scorecards, then create a separate curator
+   consolidation bound to both scorecard hashes and the sealed-map hash; only that consolidation
+   unseals providers, selects each provider's highest hard-gate-passing generation independently for
+   P1 and P2, and averages those passage selects into its provider score;
+5. advance the eligible leader and only a runner-up within 5.0 points to a separately authorized
+   long-form continuity and pickup test; and
+6. treat long-form/pickup as pass/fail confirmation, apply the asymmetric final rule using only the
+   frozen short provider scores, and then freeze the selected N3 method.
+
+Unselected failures and generation variance are operational metrics, not creative-score penalties.
+A disqualified generation can never be a passage select. If both generations fail for either
+passage, that provider is ineligible.
+
+Provisional candidate freezes are test inputs, not an N3 pass. N3 passes only after the owner signs
+one selected method and its exact provider/model/voice/settings/source-format configuration.
+
 An N3 pass makes calibration reproducible. It is not creative approval and does not authorize an
-external call. The exact episode or fixture, voice, provider/model, scope, and spend-bearing action
-require separate explicit authorization before any provider call.
+external call. The exact fixture or episode, voice, provider/model, scope, format, and spend-bearing
+action require separate explicit authorization before every external action. A logged-in provider
+session, completed template, earlier calibration authorization, or selected method grants none.
 
 ## N4A — Calibration accepted
 
@@ -55,12 +85,21 @@ Pass only when:
 - the bounded calibration recording or provider calls were separately authorized;
 - all four calibration modes were acquired under the frozen N3 configuration;
 - native acquisition files are immutable, registered, hashed, and truthfully inspected;
-- native PCM was requested first, or `mp3_44100_192` is recorded as the only fallback;
+- provider-native PCM or PCM WAV was requested first, or `mp3_44100_192` is recorded as the only
+  explicitly authorized capability-unavailable fallback;
 - a fallback MP3 passed the audible codec-artifact review and its single PCM conversion is recorded;
 - interim ASR is labeled diagnostic and every likely lexical defect is dispositioned;
 - each passage has a lexical finding and technical result;
 - continuity, intelligibility, pronunciation, and argument-mode differentiation pass; and
 - the owner records the calibration creative decision.
+
+The current AI Visibility v1.1 N4A evidence is **technical PASS / owner creative REVISE**. N4A is
+therefore not passed. Preserve the batch as technical evidence and route the performance/provider
+problem through N2/N3 selection. Do not reopen Step 1 unless the owner identifies an actual wording
+change or editorial defect.
+
+A provider bakeoff score or method-selection lock cannot pass N4A. After N3 selects a method, the
+chosen calibration still requires the explicit owner creative decision at this gate.
 
 ## N4B — Full capture accepted
 
@@ -77,6 +116,10 @@ Pass only when:
 
 The machine state records one N4 gate. N4 is `passed` only when both N4A calibration and N4B full
 capture pass. A failure or invalidation of either subgate makes N4 `failed` or `invalidated`.
+
+No provider-bakeoff authorization, blind score, long-form test, or N3 method selection grants N4B
+authority. N4B always requires a new, separately bounded full-capture authorization after N4A has
+passed for the selected method.
 
 ## N5 — Selects, pickups, and narration edit approved
 
@@ -129,6 +172,12 @@ Pass only when:
 - A script-hash change invalidates affected direction, takes, edit decisions, conformity, transcript, and handoff.
 - Previously recorded takes may be reused only when their complete spoken-word sequence is identical in the new locked script and a written impact review approves reuse.
 - A narrator, provider/model, generation-setting, room, microphone, capture-chain, sample-rate, or bit-depth change returns the work to N3 and requires renewed calibration.
+- A performance-only creative revision returns to N2/N3; it does not reopen Step 1 while the exact
+  approved words remain unchanged.
+- A sample-provenance, consent, account-tier, commercial-use, or blind-code failure blocks provider
+  selection and cannot be waived by a creative score.
+- Materially tuning only one provider, changing a scored `W` range, or unblinding before signed
+  scoring invalidates the entire comparison round.
 - A change after N3 invalidates N4A; N4B may not begin until renewed calibration passes.
 - Any sample-level narration-master change returns the work to N6 and invalidates final alignment,
   lexical conformity, transcript, intentional-pause map, `technical_pass`, `creative_approved`,
@@ -143,6 +192,8 @@ Pass only when:
 - `creative_approved` is a named-owner state only. It cannot be inferred from technical success or
   assigned by an agent, provider, exporter, validator, or independent listener.
 - `workflow_status: locked` requires both states against one identical master hash.
+- A provider-method selection is neither `technical_pass` nor `creative_approved`. It freezes an N3
+  input only.
 
 ## Alternate exits
 

@@ -1,10 +1,18 @@
 # Step 2 CLI Validation Contract
 
-Status: proposed v0.2 runtime contract; no provider call is authorized by this document.
+Status: proposed v0.3 contract with an implemented credential-free validation and request-compilation
+surface. Frozen v0.2 capture evidence remains history. No external action is authorized by this
+document.
 
 ## Purpose and boundary
 
 `oe-narration` is the repository-local, Python 3.11-or-newer validator and bounded capture client for V2 Narration Production. It has no import from `studio/`, no legacy script-rewrite prompt, and no command that can approve performance or set `creative_approved`.
+
+The runtime now implements v0.3 offline validation for the provider-agnostic performance envelope,
+provider adapters, provider-bakeoff plan, compiled dry run, and the four initial action-
+authorization shapes. It compiles credential-free ElevenLabs and Hume request envelopes but never
+executes them. The bounded v0.2 ElevenLabs capture client remains a separate, retained surface; it
+cannot execute a v0.3 bakeoff plan or reuse the consumed fixture authorization.
 
 Run it from the Step 2 folder as:
 
@@ -37,6 +45,42 @@ W SHA-256: 096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a
 
 Block, acoustic, capture, and alignment ranges are subordinate parts of W. They may carry hashes for their bounded W slices, but they cannot declare another authoritative word count or identity. In particular, the historical 3,043-word acoustic count is not a competing authority.
 
+## V0.3 provider-bakeoff implementation boundary
+
+The current CLI can validate the locked package, derive canonical `W`, validate the v0.2
+ElevenLabs capture contract, and validate and compile the proposed v0.3 cross-provider bakeoff
+without credentials, network, UI automation, or audio creation. It has no bakeoff command that may:
+
+- read ElevenLabs voice metadata or retrieve original sample bytes;
+- upload a human sample through the Hume Platform or create a Hume clone;
+- synthesize Hume narration;
+- generate or unseal blind candidate codes;
+- score creative performance;
+- select a provider method;
+- authorize the later long-form continuity/pickup test; or
+- grant N4B full capture or Step 3 authority.
+
+Those are deliberate authority boundaries, not claims that Hume can never be executed by a later
+reviewed adapter. V0.3 records external actions with separate human authorization, immutable hashes,
+provider/UI receipts, and fail-closed review. Offline validation proves only that a record matches
+the machine contract. A completed Markdown template or valid JSON is not authority or execution.
+
+The four initial authorization scopes are exactly:
+
+1. `elevenlabs_sample_retrieval` — read-only metadata and exactly one original-sample retrieval;
+2. `hume_clone_creation` — one provenance-bound UI upload and exactly one clone creation;
+3. `elevenlabs_calibration` — P1/P2 by E1/E2; and
+4. `hume_calibration` — P1/P2 by H1/H2.
+
+The 3.5-to-4.5-minute long-form continuity and several-hours-later same-word pickup test is a fifth,
+later human authorization scope. It is not one of the initial machine enum values. None of these
+scopes is `full`; never encode one as full capture merely to fit a schema.
+
+The provider-agnostic performance envelope and each provider adapter are separately hashed v0.3
+review inputs governed by their own schemas. The bakeoff plan binds them directly; the v0.2
+`capture-plan.schema.json` remains unchanged and may not be overloaded. Provider direction never
+enters canonical `W`.
+
 ## Commands
 
 ### `extract`
@@ -61,6 +105,70 @@ oe-narration verify-package --manifest package-manifest.json
 The manifest uses `oe-narration-package-v1`. It declares portable roots relative to the manifest and gives every source a `root_id`, traversal-free relative path, and SHA-256. Absolute source paths, source `..` segments, undeclared roots, and symlink escapes fail. This permits the OE repository and sibling `content-os` repository to be named explicitly without checkout-specific absolute paths.
 
 Verification hashes every source, re-extracts W from the locked script, verifies the clean read-through is token-identical, verifies the block identity, and rejects alternate word authorities. An owner approval in prose does not bypass a mismatch.
+
+### `validate-performance-envelope`
+
+```text
+oe-narration validate-performance-envelope --envelope ENVELOPE.json --canonical-w W
+```
+
+Validate `oe-performance-envelope-v1` against canonical `W`. The envelope must stay provider-
+neutral, bind exact P1/P2 ranges and thought boundaries, carry no credential-shaped fields, and
+grant no external action, public-fact clearance, Step 3 authority, or creative approval.
+
+### `validate-provider-adapter`
+
+```text
+oe-narration validate-provider-adapter --adapter ADAPTER.json \
+  --envelope ENVELOPE.json --canonical-w W
+```
+
+Validate one `oe-provider-adapter-v1` translation against the exact envelope and `W`. The Eleven
+adapter may insert only the allowlisted, non-spoken v3 tags at declared boundaries; stripping those
+tags must reproduce the exact passage words. The Hume Octave 1 adapter keeps text separate from
+bounded natural-language descriptions and may not add dialogue.
+
+### `validate-provider-bakeoff-plan`
+
+```text
+oe-narration validate-provider-bakeoff-plan --plan PLAN.json \
+  --envelope ENVELOPE.json --canonical-w W
+```
+
+Validate `oe-provider-bakeoff-plan-v1`, its envelope and adapter hashes, exact P1/P2 partitions,
+provider identities, candidate equality, destinations, PCM/WAV-first policies, permitted fallback,
+and call/character accounting. Eleven defines two identical-body calls per passage that differ only
+in candidate generation metadata. Hume defines one `POST /v0/tts` JSON call per passage with
+`num_generations: 2`.
+
+### `dry-run-provider-bakeoff`
+
+```text
+oe-narration dry-run-provider-bakeoff --plan PLAN.json \
+  --envelope ENVELOPE.json --canonical-w W [--record DRY_RUN.json]
+```
+
+Compile `oe-provider-bakeoff-dry-run-v1` without credentials, network, account reads, UI control, or
+audio. Eleven transport uses double-LF paragraph joining, separate canonical/provider-text hashes,
+and the 5,000-character v3 ceiling. Hume compiles `POST /v0/tts` bodies with separate utterance text
+and acting descriptions, `format.type: wav`, and `num_generations: 2`. The result records primary
+and fallback accounting and explicit execution blockers. `--record` writes exclusively and refuses
+to overwrite an existing receipt.
+
+### `validate-provider-action-authorization`
+
+```text
+oe-narration validate-provider-action-authorization --authorization AUTHORIZATION.json
+```
+
+Validate one `oe-provider-action-authorization-v1` against its bound envelope, plan, compiled dry
+run, target, provider identity, scope-specific operations, and caps. A safe draft may validate while
+reporting `execution_ready: false` and `network_authorized: false`; validity is not approval. An
+active record must additionally be human-approved, unexpired, unconsumed, and fully bounded before
+it can report ready. The only initial machine scopes are `elevenlabs_sample_retrieval`,
+`hume_clone_creation`, `elevenlabs_calibration`, and `hume_calibration`. This command never consumes
+or executes an authorization. AUTH-05 remains a separate human record, not an initial machine
+scope.
 
 ### `validate-capture-plan`
 
@@ -108,6 +216,14 @@ field. Execution writes its own run or failure receipt and therefore rejects `--
 Execution consumes the authorization with an exclusive record before the first request. A retry requires a new authorization. Every PCM attempt and every fallback attempt consumes one call and repeats the part's payload-character count; the runtime stops before exceeding either ceiling. A USD value is recorded only as an authorization ceiling, never as observed provider billing. Provider outputs are written exclusively and never overwritten. Run and failure receipts exclude credentials and include the attempted call/character totals, request envelopes, provider request/job identifiers exposed in known response headers, raw hashes, plan/auth hashes, and `creative_approved: false`.
 
 The first request always uses `?output_format=pcm_48000`. The runtime may retry a part as `mp3_44100_192` only after preserving an explicit, non-retryable HTTP 400, 404, or 422 response that specifically says PCM/output-format capability is unavailable. Authentication errors, timeouts, TLS/DNS/network failures, HTTP 408, 429, or any 5xx response cannot trigger fallback.
+
+This remains the separate executable ElevenLabs v0.2 capture rule. It cannot accept a v0.3 bakeoff
+plan or action authorization. The cross-provider v0.3 doctrine requests
+provider-native PCM or PCM WAV first and permits only the separately authorized
+`mp3_44100_192` capability-unavailable exception. A future Hume executor must enforce equivalent
+raw preservation, actual-codec inspection, bounded retry, character/call accounting, and consumed
+authorization before it can be used. A Hume UI download or a file with a `.wav` extension is not,
+by itself, proof of a lossless acquisition.
 
 ### `inspect-audio`
 
@@ -169,6 +285,10 @@ Machine-readable shapes live in `schemas/`:
 - `package-manifest.schema.json`;
 - `capture-plan.schema.json`;
 - `provider-authorization.schema.json`;
+- `performance-envelope.schema.json`;
+- `provider-adapter.schema.json`;
+- `provider-bakeoff-plan.schema.json`;
+- `provider-action-authorization.schema.json`;
 - `word-transcript.schema.json`; and
 - `narration-state.schema.json`.
 
@@ -178,4 +298,21 @@ The standard-library `unittest` suite is run with:
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=runtime python3 -m unittest discover -s runtime/tests -v
 ```
 
-The acceptance suite covers the locked 12-block/3,019-token identity, deterministic extraction, forbidden narration artifacts, hash tampering, a missing negation, path traversal and symlink escape, dry-run isolation, query/body separation, authorization tampering/expiry/consumption, renamed MP3, 128 kbps rejection, forbidden fallback failures, native raw PCM conversion, lossy-origin persistence, transcript timing, master mutation, pause-map binding, and the prohibition on automated creative approval. Tests never make a real provider call.
+The acceptance suite covers the locked 12-block/3,019-token identity, deterministic extraction,
+forbidden narration artifacts, hash tampering, a missing negation, path traversal and symlink
+escape, v0.2 dry-run isolation, query/body separation, authorization tampering/expiry/consumption,
+renamed MP3, 128 kbps rejection, forbidden fallback failures, native raw PCM conversion, lossy-
+origin persistence, transcript timing, master mutation, pause-map binding, and the prohibition on
+automated creative approval. V0.3 tests additionally cover provider-neutral envelope enforcement,
+adapter word preservation, equal P1/P2 request compilation, Eleven double-LF/tag behavior, Hume
+description expansion and `num_generations: 2`, primary/fallback accounting, authorization scope
+and bound-hash tampering, credential rejection, and zero-network dry runs. Tests never make a real
+provider call.
+
+## Current state interpretation
+
+The retained AI Visibility v1.1 N4A batch is a v0.2 technical **PASS** and owner creative
+**REVISE**. That combination does not set N4A to passed, does not set `creative_approved`, and does
+not satisfy `workflow_status: locked`. The CLI must not reopen Step 1 because of a performance
+revision, and it must not infer provider-bakeoff, long-form, full-capture, or Step 3 authority from
+the earlier consumed authorization.

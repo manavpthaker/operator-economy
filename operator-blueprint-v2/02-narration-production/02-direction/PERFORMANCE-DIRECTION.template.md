@@ -1,6 +1,6 @@
 # Performance Direction
 
-Template version: proposed Step 2 v0.2.
+Template version: proposed Step 2 v0.3.
 
 ## Authority
 
@@ -9,10 +9,15 @@ Template version: proposed Step 2 v0.2.
 - Locked script SHA-256:
 - Ordered `W`-token count/SHA-256:
 - Direction revision:
+- Provider-agnostic performance-envelope path/SHA-256:
 - Performance director:
 - Owner approval/date:
 
 This document directs delivery only. It contains no replacement script language.
+
+Complete `PERFORMANCE-ENVELOPE.template.md` from this direction before provider adaptation. Keep
+Eleven tags, Hume descriptions, provider IDs, models, and settings out of both the locked script and
+this direction record.
 
 Every anchor below resolves to the locked `W` sequence. Direction, punctuation copies, and provider
 controls are nonlexical and may not change that sequence.

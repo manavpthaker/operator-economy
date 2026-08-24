@@ -1,0 +1,179 @@
+{
+  "schema_version": "oe-provider-bakeoff-plan-v1",
+  "plan_id": "ai-visibility-v1.1-eleven-v3-vs-hume-octave-1-v1",
+  "status": "dry_run_only",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "performance_envelope": {
+    "path": "performance-envelope.json",
+    "sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d"
+  },
+  "canonical_w": {
+    "path": "../step2-v0.2-ai-visibility-v1.1/identity/canonical-w.txt",
+    "token_count": 3019,
+    "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a"
+  },
+  "provider_adapters": {
+    "elevenlabs": {
+      "path": "adapters/elevenlabs-v3.json",
+      "sha256": "4ba00f41ab6abac49b7fdaa1ce9728b1d9ea12713c8259b0337deb0f1028ecdb"
+    },
+    "hume": {
+      "path": "adapters/hume-octave-1.json",
+      "sha256": "25e3625ff1dae9e883a48700ccf52eb91f2334d4cec860a03b807adf31e62759"
+    }
+  },
+  "passage_ids": [
+    "P01-S00",
+    "P02-S11-S12"
+  ],
+  "candidates_per_passage_per_provider": 2,
+  "expected_candidate_count": 8,
+  "providers": [
+    {
+      "provider_id": "elevenlabs-v3-manav-existing",
+      "provider": "elevenlabs",
+      "model_id": "eleven_v3",
+      "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+      "identity_state": "existing_owner_selected_voice_pending_read_only_current_metadata_audit",
+      "request_mode": "one_call_per_candidate",
+      "generation_variance": "separate_provider_generation_only",
+      "same_direction_for_both_candidates": true,
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.6,
+        "style": 0.1
+      },
+      "format_policy": {
+        "requested": "pcm_48000",
+        "raw_origin_if_returned": "native_pcm",
+        "fallback_policy_enabled": true,
+        "only_permitted_fallback": "mp3_44100_192",
+        "fallback_reason_required": "pcm_capability_unavailable",
+        "fallback_requires_new_bound_request": true,
+        "fallback_requires_capability_rejection_receipt": true,
+        "fallback_requires_actual_codec_bitrate_verification": true,
+        "fallback_request_call_ceiling": 4,
+        "immutable_raw": true,
+        "fallback_audible_artifact_review": true,
+        "delivery_conversion": "exactly_once_to_pcm_wav_48000_24_mono",
+        "lossy_intermediates_after_raw": false
+      },
+      "requests": [
+        {
+          "request_id": "EL-P01-A",
+          "passage_id": "P01-S00",
+          "candidate_id": "P01-EL-A",
+          "candidate_index": 0,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P01-S00/candidate-A.pcm"
+        },
+        {
+          "request_id": "EL-P01-B",
+          "passage_id": "P01-S00",
+          "candidate_id": "P01-EL-B",
+          "candidate_index": 1,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P01-S00/candidate-B.pcm"
+        },
+        {
+          "request_id": "EL-P02-A",
+          "passage_id": "P02-S11-S12",
+          "candidate_id": "P02-EL-A",
+          "candidate_index": 0,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P02-S11-S12/candidate-A.pcm"
+        },
+        {
+          "request_id": "EL-P02-B",
+          "passage_id": "P02-S11-S12",
+          "candidate_id": "P02-EL-B",
+          "candidate_index": 1,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P02-S11-S12/candidate-B.pcm"
+        }
+      ],
+      "pricing_model": {
+        "status": "estimate_only_refresh_before_authorization",
+        "currency": "USD",
+        "public_rate_per_1000_text_characters": 0.1,
+        "billable_character_convention": "exact_compiled_provider_text_characters_per_request_including_nonlexical_tags",
+        "authorized_spend_usd": 0
+      }
+    },
+    {
+      "provider_id": "hume-octave-1-manav-pending-clone",
+      "provider": "hume",
+      "model_id": "octave-1",
+      "voice_id": "__HUME_CLONE_ID_PENDING__",
+      "identity_state": "blocked_pending_separately_authorized_ui_clone_and_provenance_receipt",
+      "execution_ready": false,
+      "request_mode": "one_call_per_passage_two_generations",
+      "generation_variance": "num_generations_2",
+      "same_direction_for_both_candidates": true,
+      "account_tier": "unverified",
+      "commercial_use_eligibility": "unverified",
+      "format_policy": {
+        "requested": "wav",
+        "actual_container_and_codec_inspection_required": true,
+        "fallback_policy_enabled": true,
+        "only_permitted_fallback": "mp3_44100_192",
+        "fallback_reason_required": "lossless_capability_unavailable",
+        "fallback_requires_new_bound_request": true,
+        "fallback_requires_capability_rejection_receipt": true,
+        "fallback_requires_actual_codec_bitrate_verification": true,
+        "fallback_request_call_ceiling": 2,
+        "fallback_audible_artifact_review": true,
+        "immutable_raw": true,
+        "delivery_conversion": "exactly_once_to_pcm_wav_48000_24_mono_after_origin_inspection",
+        "lossy_intermediates_after_raw": false
+      },
+      "requests": [
+        {
+          "request_id": "HU-P01",
+          "passage_id": "P01-S00",
+          "candidate_outputs": [
+            {
+              "candidate_id": "P01-HU-A",
+              "generation_index": 0,
+              "destination": "outputs/raw/hume/P01-S00/generation-0.wav"
+            },
+            {
+              "candidate_id": "P01-HU-B",
+              "generation_index": 1,
+              "destination": "outputs/raw/hume/P01-S00/generation-1.wav"
+            }
+          ]
+        },
+        {
+          "request_id": "HU-P02",
+          "passage_id": "P02-S11-S12",
+          "candidate_outputs": [
+            {
+              "candidate_id": "P02-HU-A",
+              "generation_index": 0,
+              "destination": "outputs/raw/hume/P02-S11-S12/generation-0.wav"
+            },
+            {
+              "candidate_id": "P02-HU-B",
+              "generation_index": 1,
+              "destination": "outputs/raw/hume/P02-S11-S12/generation-1.wav"
+            }
+          ]
+        }
+      ],
+      "pricing_model": {
+        "status": "conservative_estimate_only_refresh_before_authorization",
+        "currency": "USD",
+        "public_creator_overage_rate_per_1000_text_characters": 0.15,
+        "billable_character_convention": "sum_utterance_text_characters_times_num_generations_descriptions_excluded",
+        "authorized_spend_usd": 0
+      }
+    }
+  ],
+  "external_action_authorized": false,
+  "credentials_may_be_accessed": false,
+  "audio_may_be_generated": false
+}

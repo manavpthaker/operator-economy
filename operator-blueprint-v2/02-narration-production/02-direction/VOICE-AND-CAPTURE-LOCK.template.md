@@ -1,6 +1,6 @@
 # Narrator Identity and Acquisition Configuration Freeze
 
-Template version: proposed Step 2 v0.2.
+Template version: proposed Step 2 v0.3.
 
 This is the N3 configuration freeze. It makes calibration reproducible; it does not approve a
 performance and does not authorize an external provider call.
@@ -13,6 +13,9 @@ performance and does not authorize an external provider call.
 - Ordered `W`-token count/SHA-256:
 - Approved narrator-profile path:
 - Approved narrator-profile revision and SHA-256:
+- Provider-method selection path/SHA-256, when v0.3 bakeoff was required:
+- Provider-agnostic performance-envelope path/SHA-256:
+- Selected provider-adapter path/SHA-256:
 - Primary narration path: human / synthetic
 - Narrator or authorized voice identity:
 - Identity owner:
@@ -50,7 +53,7 @@ Complete when the narration path is synthetic.
 - Settings and seed, when exposed:
 - Context/chunking method:
 - Pronunciation-alias method:
-- Requested native acquisition: PCM
+- Requested native acquisition: provider-native PCM or PCM WAV
 - Permitted fallback: `mp3_44100_192` only
 - Permitted fallback reason: `pcm_capability_unavailable` only
 - Actual audio origin vocabulary: `native_pcm` / `lossy_mp3`
@@ -85,6 +88,7 @@ Do not place credentials or secret keys in this file.
 
 - Calibration authorization record required separately: yes / no
 - Full-capture authorization record required separately: yes / no
+- Provider-selection authorizations, when used, are separate from N4A/N4B: yes / no / not applicable
 - Legacy `studio/scripts/originate/generate_vo.py` invocation/import prohibited: acknowledged / not acknowledged
 
 ## Gate N3 configuration decision
@@ -92,6 +96,7 @@ Do not place credentials or secret keys in this file.
 - Configuration frozen: yes / no
 - Rights basis verified for calibration: yes / no
 - This document grants provider-call authority: no
+- This document grants sample retrieval, upload, clone, bakeoff, long-form, N4B, or Step 3 authority: no
 - N3 gate result: pending / passed / failed / invalidated
 - Workflow outcome: in_progress / blocked
 - Owner:

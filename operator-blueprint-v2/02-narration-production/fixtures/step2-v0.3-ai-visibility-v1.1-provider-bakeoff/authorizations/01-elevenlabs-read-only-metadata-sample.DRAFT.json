@@ -1,0 +1,61 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "DRAFT-ai-visibility-v1.1-eleven-read-only-identity-audit",
+  "status": "draft",
+  "approved": false,
+  "scope": "elevenlabs_sample_retrieval",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "provider": "elevenlabs",
+  "action": {
+    "kind": "read_only_voice_metadata_and_named_sample_retrieval",
+    "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+    "metadata_endpoint": "pending_exact_binding",
+    "sample_ids": [],
+    "sample_selection_rule": "only_single_original_human_sample_attached_to_bound_voice",
+    "selection_fails_if_zero_or_multiple_samples": true,
+    "metadata_must_confirm_original_human_source": true,
+    "metadata_receipt_destination": "pending_safe_local_receipt_path",
+    "selected_sample_receipt_destination": "pending_safe_local_receipt_path",
+    "destinations": []
+  },
+  "purpose": "Confirm current voice identity metadata and, only if specifically named and rights-cleared, retrieve an owner-authorized reference sample for the bakeoff provenance record.",
+  "bindings": {
+    "performance_envelope_sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d",
+    "provider_bakeoff_plan_sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333",
+    "compiled_dry_run_sha256": "1ab5b95edfeb223acc84540930a663d04b46b53af65933479b6b363d634dbda5",
+    "provider_adapter_sha256": "4ba00f41ab6abac49b7fdaa1ce9728b1d9ea12713c8259b0337deb0f1028ecdb"
+  },
+  "requested_limits": {
+    "max_metadata_calls": null,
+    "max_sample_download_calls": null,
+    "max_download_bytes": null,
+    "max_spend_usd": null
+  },
+  "authorized_limits": {
+    "max_calls": 0,
+    "max_downloads": 0,
+    "max_download_bytes": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "calls_used": 0,
+    "downloads_used": 0,
+    "spend_used_usd": 0,
+    "record_path": ""
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "owner_approval_absent",
+    "exact_metadata_endpoint_not_bound",
+    "sample_ids_and_destinations_not_bound",
+    "sample_rights_and_consent_not_bound",
+    "bounded_active_limits_not_set"
+  ]
+}

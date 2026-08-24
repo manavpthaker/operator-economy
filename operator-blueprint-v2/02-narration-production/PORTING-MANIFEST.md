@@ -1,6 +1,6 @@
 # Step 2 Reference Porting Manifest
 
-Status: proposed v0.2.
+Status: frozen v0.2 local-reference hashes with proposed v0.3 provider-selection additions.
 
 No V1 source was moved or edited for this documentation pass. The sources below remain in place and are referenced rather than copied. SHA-256 values freeze the versions reviewed while designing Step 2.
 
@@ -27,6 +27,29 @@ No V1 source was moved or edited for this documentation pass. The sources below 
 - word timings must describe the final narration edit; and
 - downstream work needs a stable narration hash and duration.
 
+## V0.3 additions are new doctrine, not a V1 port
+
+The following controls were authored for the v0.3 proposal and do not inherit authority from V1:
+
+- provider-agnostic performance envelope plus separately hashed provider adapters;
+- the audit finding that the v0.2 Eleven transport space-joined canonical words without carrying
+  the approved acting direction, so its creative revise is not a provider-comparison verdict;
+- exact-one-original-sample provenance and retrieval gate;
+- four separately authorized initial ElevenLabs/Hume external actions;
+- UI-mediated Hume upload/clone receipt and the prohibition on treating Create Voice from a
+  generation ID as a human-audio upload API;
+- equal two-passage/two-generation candidates, sealed blind codes, six-dimension 100-point scoring,
+  and hard gates;
+- provider score from the mean of its highest hard-gate-passing P1 and P2 generation selects;
+- short advancement at 80 points with the runner-up added only within 5.0 points;
+- a separately authorized 3.5-to-4.5-minute continuity and several-hours-later pickup test; and
+- pass/fail long-form/pickup confirmation with the asymmetric final rule applied only to frozen
+  short scores: retain ElevenLabs within 5.0 points and adopt Hume only when it scores at least 80,
+  leads by more than 5.0 points, and passes confirmation.
+
+Live provider documentation is listed in `REFERENCE-MAP.md`. It is intentionally not assigned a
+local SHA-256 in this manifest. Recheck it and the active account terms before each authorization.
+
 ## What was deliberately left behind
 
 - provider lock-in and existing account-specific identifiers;
@@ -39,12 +62,12 @@ No V1 source was moved or edited for this documentation pass. The sources below 
 - any V2 execution or import of legacy `generate_vo.py`; and
 - any claim that Workflow Operations is a current positive Step 2 control.
 
-## Proposed narrator-profile exception
+## Retained narrator-profile comparison baseline
 
-The current Studio voice ID and generation settings are placed in
-`02-direction/OE-NARRATOR-PROFILE.md` as an owner-selected calibration baseline, not silently
-inherited authority. The selected source policy requests native PCM first and permits only
-`mp3_44100_192` with strict handling when capability is unavailable. The profile must still pass
-rights, reference-clip, calibration, continuity, and owner-review gates before Step 2 approval.
+The current Studio voice ID and generation settings remain in
+`02-direction/OE-NARRATOR-PROFILE.md` as the technically proven but creatively revised ElevenLabs
+comparison baseline, not silently inherited authority. The v0.2 calibration receipts remain
+frozen. V0.3 may not replay them, treat them as N4A approval, or infer sample retrieval, Hume clone,
+short-bakeoff, long-form, full-capture, or Step 3 authority.
 
 Recalculate the source hash and review the difference before relying on a newer V1 source revision.

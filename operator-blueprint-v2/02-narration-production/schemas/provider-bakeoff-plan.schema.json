@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://operatoreconomy.com/schemas/provider-bakeoff-plan.schema.json",
+  "title": "Credential-free provider bakeoff plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "status",
+    "target",
+    "performance_envelope",
+    "provider_adapters",
+    "canonical_w",
+    "passage_ids",
+    "candidates_per_passage_per_provider",
+    "expected_candidate_count",
+    "providers",
+    "external_action_authorized",
+    "credentials_may_be_accessed",
+    "audio_may_be_generated"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-provider-bakeoff-plan-v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "status": {"const": "dry_run_only"},
+    "target": {"$ref": "#/$defs/target"},
+    "performance_envelope": {"$ref": "#/$defs/pathHash"},
+    "provider_adapters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["elevenlabs", "hume"],
+      "properties": {
+        "elevenlabs": {"$ref": "#/$defs/pathHash"},
+        "hume": {"$ref": "#/$defs/pathHash"}
+      }
+    },
+    "canonical_w": {"$ref": "#/$defs/pathHash"},
+    "passage_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "candidates_per_passage_per_provider": {"const": 2},
+    "expected_candidate_count": {"type": "integer", "minimum": 4},
+    "providers": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"oneOf": [{"$ref": "#/$defs/elevenProvider"}, {"$ref": "#/$defs/humeProvider"}]}
+    },
+    "external_action_authorized": {"const": false},
+    "credentials_may_be_accessed": {"const": false},
+    "audio_may_be_generated": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {"kind": {"enum": ["fixture", "episode"]}, "id": {"type": "string", "minLength": 1}}
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "token_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "formatPolicy": {
+      "type": "object",
+      "required": [
+        "requested",
+        "fallback_policy_enabled",
+        "only_permitted_fallback",
+        "fallback_reason_required",
+        "fallback_requires_new_bound_request",
+        "fallback_requires_capability_rejection_receipt",
+        "fallback_requires_actual_codec_bitrate_verification",
+        "fallback_request_call_ceiling",
+        "immutable_raw",
+        "fallback_audible_artifact_review",
+        "delivery_conversion",
+        "lossy_intermediates_after_raw"
+      ],
+      "properties": {
+        "requested": {"enum": ["pcm_48000", "wav"]},
+        "raw_origin_if_returned": {"type": "string", "minLength": 1},
+        "actual_container_and_codec_inspection_required": {"type": "boolean"},
+        "fallback_policy_enabled": {"type": "boolean"},
+        "only_permitted_fallback": {"enum": ["mp3_44100_192", null]},
+        "fallback_reason_required": {"enum": ["pcm_capability_unavailable", "lossless_capability_unavailable", null]},
+        "fallback_requires_new_bound_request": {"const": true},
+        "fallback_requires_capability_rejection_receipt": {"const": true},
+        "fallback_requires_actual_codec_bitrate_verification": {"const": true},
+        "fallback_request_call_ceiling": {"type": "integer", "minimum": 0},
+        "immutable_raw": {"const": true},
+        "fallback_audible_artifact_review": {"type": "boolean"},
+        "delivery_conversion": {"type": "string", "minLength": 1},
+        "lossy_intermediates_after_raw": {"const": false}
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {"properties": {"requested": {"const": "pcm_48000"}}},
+          "then": {
+            "properties": {
+              "only_permitted_fallback": {"const": "mp3_44100_192"},
+              "fallback_reason_required": {"const": "pcm_capability_unavailable"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"requested": {"const": "wav"}}},
+          "then": {
+            "properties": {
+              "only_permitted_fallback": {"const": "mp3_44100_192"},
+              "fallback_reason_required": {"const": "lossless_capability_unavailable"}
+            }
+          }
+        }
+      ]
+    },
+    "elevenRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "passage_id", "candidate_id", "candidate_index", "direction_variant", "destination"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "passage_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": "string", "minLength": 1},
+        "candidate_index": {"enum": [0, 1]},
+        "direction_variant": {"const": "approved_identical"},
+        "destination": {"type": "string", "pattern": "^outputs/.+\\.pcm$"}
+      }
+    },
+    "humeCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "generation_index", "destination"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "generation_index": {"enum": [0, 1]},
+        "destination": {"type": "string", "pattern": "^outputs/.+\\.wav$"}
+      }
+    },
+    "humeRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "passage_id", "candidate_outputs"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "passage_id": {"type": "string", "minLength": 1},
+        "candidate_outputs": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/humeCandidate"}}
+      }
+    },
+    "voiceSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stability", "similarity_boost", "style"],
+      "properties": {
+        "stability": {"type": "number", "minimum": 0, "maximum": 1},
+        "similarity_boost": {"type": "number", "minimum": 0, "maximum": 1},
+        "style": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "elevenPricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "currency", "public_rate_per_1000_text_characters", "billable_character_convention", "authorized_spend_usd"],
+      "properties": {
+        "status": {"type": "string", "minLength": 1},
+        "currency": {"const": "USD"},
+        "public_rate_per_1000_text_characters": {"type": "number", "minimum": 0},
+        "billable_character_convention": {"type": "string", "minLength": 1},
+        "authorized_spend_usd": {"const": 0}
+      }
+    },
+    "humePricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "currency", "public_creator_overage_rate_per_1000_text_characters", "billable_character_convention", "authorized_spend_usd"],
+      "properties": {
+        "status": {"type": "string", "minLength": 1},
+        "currency": {"const": "USD"},
+        "public_creator_overage_rate_per_1000_text_characters": {"type": "number", "minimum": 0},
+        "billable_character_convention": {"type": "string", "minLength": 1},
+        "authorized_spend_usd": {"const": 0}
+      }
+    },
+    "elevenProvider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "provider", "model_id", "voice_id", "identity_state", "request_mode", "generation_variance", "same_direction_for_both_candidates", "voice_settings", "format_policy", "requests", "pricing_model"],
+      "properties": {
+        "provider_id": {"type": "string", "minLength": 1},
+        "provider": {"const": "elevenlabs"},
+        "model_id": {"const": "eleven_v3"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "identity_state": {"type": "string", "minLength": 1},
+        "request_mode": {"const": "one_call_per_candidate"},
+        "generation_variance": {"type": "string", "minLength": 1},
+        "same_direction_for_both_candidates": {"const": true},
+        "voice_settings": {"$ref": "#/$defs/voiceSettings"},
+        "format_policy": {"$ref": "#/$defs/formatPolicy"},
+        "requests": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/elevenRequest"}},
+        "pricing_model": {"$ref": "#/$defs/elevenPricing"}
+      }
+    },
+    "humeProvider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "provider", "model_id", "voice_id", "identity_state", "execution_ready", "request_mode", "generation_variance", "same_direction_for_both_candidates", "account_tier", "commercial_use_eligibility", "format_policy", "requests", "pricing_model"],
+      "properties": {
+        "provider_id": {"type": "string", "minLength": 1},
+        "provider": {"const": "hume"},
+        "model_id": {"const": "octave-1"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "identity_state": {"type": "string", "minLength": 1},
+        "execution_ready": {"const": false},
+        "request_mode": {"const": "one_call_per_passage_two_generations"},
+        "generation_variance": {"const": "num_generations_2"},
+        "same_direction_for_both_candidates": {"const": true},
+        "account_tier": {"type": "string", "minLength": 1},
+        "commercial_use_eligibility": {"type": ["string", "boolean"]},
+        "format_policy": {"$ref": "#/$defs/formatPolicy"},
+        "requests": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/humeRequest"}},
+        "pricing_model": {"$ref": "#/$defs/humePricing"}
+      }
+    }
+  }
+}

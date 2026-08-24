@@ -1,6 +1,7 @@
 # V2 Narration Production Standard
 
-Status: proposed v0.2; test before approval.
+Status: proposed v0.3 provider-selection revision; test before approval. The v0.2 fixture and
+change proposal remain frozen history.
 
 ## Purpose
 
@@ -37,6 +38,11 @@ Step 2 may not silently:
 Spoken fillers such as “well,” “so,” “you know,” or “basically” are lexical additions unless they already exist in the locked script. A natural performance is created through phrasing, not unapproved words.
 
 If a wording problem appears during performance, record it as a Step 1 change request. Do not repair it inside the audio edit.
+
+A poor or synthetic-sounding performance is not, by itself, a wording problem. Revise direction,
+provider translation, narrator method, or acquisition configuration inside Step 2 while the exact
+approved `W` sequence remains unchanged. Do not reopen Step 1 merely to make a provider sound more
+natural.
 
 ## 2. Perform the locked editorial voice; do not recreate it
 
@@ -81,6 +87,23 @@ Performance direction is created before full capture. It should identify:
 
 Do not annotate every word. Direction should make the argument more legible, not produce a robotic emphasis map.
 
+### Provider-agnostic performance envelope
+
+V0.3 freezes one provider-agnostic performance envelope at N2. It is the shared creative control
+for a human narrator, ElevenLabs, Hume, or a future eligible method. It records:
+
+- listener relationship, central promise, and final landing;
+- identity, trust, camera-ready energy, warmth, restraint, pace, and sustainability;
+- the documented opening, promise, build, validation, verdict, and CTA turns;
+- audible distinctions between evidence, caveats, action, and verdict;
+- pause, emphasis, pronunciation, continuity, and same-word pickup intent; and
+- anti-targets and failure examples.
+
+The envelope contains no provider tags, descriptions, voice IDs, model settings, or alternate
+spoken copy. A separately hashed provider adapter translates it into supported nonlexical controls.
+Unsupported instructions are disclosed; they may not be approximated by adding words. A fair
+provider comparison keeps the same envelope, exact `W` ranges, and processing across candidates.
+
 ## 4. Freeze one narration identity and acquisition configuration
 
 An episode has one primary narration identity. It may be:
@@ -111,6 +134,33 @@ For a synthetic narrator, freeze at minimum:
 - chunking strategy and context method;
 - output format; and
 - provider job or generation identifiers.
+
+When the current narration method is not creatively accepted, freeze provisional candidate
+envelopes and run the provider-selection process in
+[`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md) before the final N3 method freeze. The
+initial comparison uses exactly four separate external-action authorizations:
+
+1. `elevenlabs_sample_retrieval` — ElevenLabs read-only voice metadata and original-sample
+   retrieval;
+2. `hume_clone_creation` — Hume UI upload of the provenance-bound sample and exactly one clone;
+3. `elevenlabs_calibration` — ElevenLabs short calibration using two exact passages and two
+   generations; and
+4. `hume_calibration` — Hume short calibration using the same passages and generation count.
+
+The later 3.5-to-4.5-minute continuity and several-hours-later pickup test requires a fifth
+authorization. Provider selection, every bakeoff authorization, and the long-form test grant no N4B
+full capture or Step 3 authority.
+
+An original owner recording must pass provenance, retrieval, consent, custody, and commercial-use
+checks before Hume upload. Zero matching Eleven samples blocks retrieval. More than one matching
+sample also blocks until a new authorization names one exact provider sample ID. Do not substitute
+generated TTS, a remix, a YouTube rip, an episode mix, or unknown-source audio.
+
+Hume's current public human-audio cloning guidance uses the Platform upload flow. Its public Create
+Voice API saves a voice from a TTS generation ID; it is not treated as a human-audio upload-clone
+endpoint. A logged-in Hume browser session does not authorize upload or clone creation. The
+UI-mediated action must be separately approved and produce a receipt tied to the original sample
+hash and resulting clone ID.
 
 Do not clone a third party, imitate a living person without authorization, or mix narration identities to conceal a continuity problem. A voice change requires an explicit exception decision and a new consistency review.
 
@@ -146,6 +196,11 @@ Review calibration for:
 Each calibration passage receives separate lexical and technical findings plus an owner creative
 decision. A technically clean output with the wrong delivery does not pass calibration. Full
 capture starts at N4B only after N4A approval is recorded against the frozen N3 configuration.
+
+The retained AI Visibility v1.1 v0.2 calibration is the current example: acquisition and technical
+preflight **PASS**, owner creative decision **REVISE**, N4A not passed. Preserve it as evidence. Route
+the revision through the provider-agnostic envelope and N3 provider-selection loop without changing
+Step 1 words. No earlier authorization may be replayed.
 
 ## 6. Preserve raw takes and provenance
 
@@ -263,11 +318,16 @@ conversion or destructive processing. Its actual container, codec, sample rate, 
 meaningful, channel count, and lossy or lossless status must be recorded from inspection rather
 than inferred from a filename or requested setting.
 
-Request native PCM first. If the selected ElevenLabs account and model cannot return it, the only
-permitted fallback is `mp3_44100_192`. Preserve that MP3 unchanged, hash it, disclose its lossy
-origin, and complete an audible artifact review. Decode and resample it exactly once into the PCM
-working path. No later lossy intermediate may enter the editorial chain. A codec-damaged fallback
-does not pass merely because it can be converted.
+Request provider-native PCM or PCM WAV first. If the separately authorized provider/account/model
+cannot return either, the only permitted lossy fallback is `mp3_44100_192`. Preserve that MP3
+unchanged, hash it, disclose its lossy origin, and complete an audible artifact review. Decode and
+resample it exactly once into the PCM working path. No later lossy intermediate may enter the
+editorial chain. A codec-damaged fallback does not pass merely because it can be converted.
+
+Fallback requires an explicit capability-unavailable result covered by the action authorization.
+Authentication, timeout, rate-limit, transport, and server errors stop the action; they cannot
+trigger fallback. A provider that offers neither the lossless first choice nor the exact authorized
+192 kbps MP3 exception fails the production-format gate.
 
 The delivery master is the clean editorial export used downstream. Its default contract is:
 
@@ -362,6 +422,20 @@ The Step 2 lock requires:
 The independent listener asks one practical question: does the episode work, remain understandable, and preserve trust when heard without visuals?
 
 The lock names every authoritative file and hash. Step 3 receives those exact artifacts and may not retime speech, choose alternate takes, or replace the narrator.
+
+A blind bakeoff score or provider-method selection is not this lock. Score all eight clips. Keep
+each signed scorer sheet blind and immutable; a separate curator consolidation binds both scorecard
+hashes and the sealed-map hash before unblinding. In that consolidation, select each provider's
+highest hard-gate-passing P1 generation and highest hard-gate-passing P2 generation, then average
+those two passage scores. Unselected failures and variance remain
+operational metrics rather than creative-score penalties. Every eligible provider must pass the
+hard gates and score at least 80. The top provider advances to the separately authorized long-form
+test; a runner-up advances only when its frozen short score is within 5.0 points. Long-form/pickup
+is pass/fail confirmation, not a rescore. Retain ElevenLabs when it passes confirmation and its
+short score is within 5.0 points of Hume or leads. Adopt Hume only when its short score is at least
+80, more than 5.0 points above ElevenLabs, and it passes both continuity and pickup. If neither provider
+qualifies, stop before N4B; a Gemini stock-voice diagnostic would require new authority and could not
+silently become production narration.
 
 The machine-validation and state contract is defined in
 [`CLI-VALIDATION-CONTRACT.md`](CLI-VALIDATION-CONTRACT.md). A narration lock requires

@@ -1,0 +1,872 @@
+{
+  "audio_files_created": 0,
+  "bindings": {
+    "canonical_w": {
+      "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+      "token_count": 3019
+    },
+    "performance_envelope": {
+      "sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d"
+    },
+    "provider_adapters": {
+      "elevenlabs": {
+        "sha256": "4ba00f41ab6abac49b7fdaa1ce9728b1d9ea12713c8259b0337deb0f1028ecdb"
+      },
+      "hume": {
+        "sha256": "25e3625ff1dae9e883a48700ccf52eb91f2334d4cec860a03b807adf31e62759"
+      }
+    },
+    "provider_bakeoff_plan": {
+      "sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333"
+    }
+  },
+  "compilation_id": "ai-visibility-v1.1-eleven-v3-vs-hume-octave-1-v1-compiled",
+  "compiler_contract": {
+    "eleven_candidate_rule": "same_words_same_tags_same_body_separate_generation",
+    "hume_candidate_rule": "same_request_num_generations_2",
+    "hume_clone_method": "manual_platform_ui_only_no_upload_api_asserted",
+    "hume_endpoint": "/v0/tts",
+    "hume_placeholder": "__HUME_CLONE_ID_PENDING__",
+    "hume_recompile_rule": "Bind a real clone/provenance receipt, then regenerate and rehash before authorization.",
+    "request_body_hash_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+    "token_ranges": "absolute_half_open_canonical_w"
+  },
+  "credentials_accessed": false,
+  "mode": "dry_run",
+  "network_called": false,
+  "notices": [
+    "No provider request was made.",
+    "No credential was read.",
+    "No voice sample was retrieved or uploaded.",
+    "No clone or audio was created.",
+    "Each external action requires its own active, unconsumed, hash-bound authorization."
+  ],
+  "provider_calls_made": 0,
+  "request_set_sha256": "4c246ab5587306ca6298d8bf4a918a9633fa1141a417e200c5de4e42736026d6",
+  "requests": [
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-EL-A"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P01-S00/candidate-A.pcm"
+      ],
+      "end_token": 139,
+      "estimated_billable_character_count": 842,
+      "estimated_public_rate_cost_usd": 0.0842,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P01-S00/candidate-A.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 842,
+        "estimated_additional_public_rate_cost_usd": 0.0842,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "d1a4fa1e4f6322f1890e4180a6b6c19326a88001ac869679de844cd6dde365f6",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-existing",
+      "provider_text_character_count": 842,
+      "provider_text_sha256": "e957dfacc91f6acdffa4858223fc154cae193466e186621f4703e78316281b8b",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "d1a4fa1e4f6322f1890e4180a6b6c19326a88001ac869679de844cd6dde365f6",
+      "request_id": "EL-P01-A",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "tag_insertions": [
+        {
+          "at_token": 0,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 37,
+          "tag": "[sarcastic]"
+        },
+        {
+          "at_token": 78,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 135,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+    },
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-EL-B"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P01-S00/candidate-B.pcm"
+      ],
+      "end_token": 139,
+      "estimated_billable_character_count": 842,
+      "estimated_public_rate_cost_usd": 0.0842,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P01-S00/candidate-B.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 842,
+        "estimated_additional_public_rate_cost_usd": 0.0842,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "d1a4fa1e4f6322f1890e4180a6b6c19326a88001ac869679de844cd6dde365f6",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-existing",
+      "provider_text_character_count": 842,
+      "provider_text_sha256": "e957dfacc91f6acdffa4858223fc154cae193466e186621f4703e78316281b8b",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "d1a4fa1e4f6322f1890e4180a6b6c19326a88001ac869679de844cd6dde365f6",
+      "request_id": "EL-P01-B",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "tag_insertions": [
+        {
+          "at_token": 0,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 37,
+          "tag": "[sarcastic]"
+        },
+        {
+          "at_token": 78,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 135,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+    },
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P02-EL-A"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P02-S11-S12/candidate-A.pcm"
+      ],
+      "end_token": 3019,
+      "estimated_billable_character_count": 2428,
+      "estimated_public_rate_cost_usd": 0.2428,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P02-S11-S12/candidate-A.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 2428,
+        "estimated_additional_public_rate_cost_usd": 0.2428,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "text": "[curious] So test the questions that can kill the business.\n\nIn the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach.\n\nTalk to five of them.\n\nAsk what decision the evidence could change and who owns it.\n\nWhen a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.\n\nAsk first. Deliver second.\n\nIf one accepts, run the paid work.\n\nIf nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.\n\n[pause] Before you continue, three things have to be true.\n\nAt least three of the five buyers independently describe the problem as consequential.\n\nAt least one accepts a paid diagnostic, or names the budget and what would have to be true for approval.\n\nAnd the manual delivery produces repeatable evidence within 24 hours of work.\n\nIf that gate fails, change the offer or stop.\n\nIf it passes, the next 60 days are funded work only.\n\nRecord delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer.\n\nAdd monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time.\n\n[excited] That is construction. You are replacing the market story with evidence from your own business.\n\nThe original search report can stay green.\n\nIt was not lying. It was watching one doorway while the customer used another.\n\nThe AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.\n\nThe market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator.\n\nThe market case does not make the first customer appear.\n\n[pause] So the verdict is BUILD, bounded by the test.\n\nChoose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.\n\n[warmly] If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "731906ddaad17d686c3ce3f5b8117fa13ebbd58117a8076efaddb5a221cc0565",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+      },
+      "method": "POST",
+      "passage_id": "P02-S11-S12",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-existing",
+      "provider_text_character_count": 2428,
+      "provider_text_sha256": "3a9908e0de89b0c9db1be73c6fa8d2f82d97702988e1eef431eefc9bca9a07ea",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "text": "[curious] So test the questions that can kill the business.\n\nIn the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach.\n\nTalk to five of them.\n\nAsk what decision the evidence could change and who owns it.\n\nWhen a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.\n\nAsk first. Deliver second.\n\nIf one accepts, run the paid work.\n\nIf nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.\n\n[pause] Before you continue, three things have to be true.\n\nAt least three of the five buyers independently describe the problem as consequential.\n\nAt least one accepts a paid diagnostic, or names the budget and what would have to be true for approval.\n\nAnd the manual delivery produces repeatable evidence within 24 hours of work.\n\nIf that gate fails, change the offer or stop.\n\nIf it passes, the next 60 days are funded work only.\n\nRecord delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer.\n\nAdd monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time.\n\n[excited] That is construction. You are replacing the market story with evidence from your own business.\n\nThe original search report can stay green.\n\nIt was not lying. It was watching one doorway while the customer used another.\n\nThe AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.\n\nThe market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator.\n\nThe market case does not make the first customer appear.\n\n[pause] So the verdict is BUILD, bounded by the test.\n\nChoose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.\n\n[warmly] If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "731906ddaad17d686c3ce3f5b8117fa13ebbd58117a8076efaddb5a221cc0565",
+      "request_id": "EL-P02-A",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "54c3f3bc7c63a1f0ad8d23176d75b235290d153f19932d72f6413095e8bfd235",
+      "start_token": 2627,
+      "tag_insertions": [
+        {
+          "at_token": 2627,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 2746,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 2861,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 2968,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 3001,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+    },
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P02-EL-B"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P02-S11-S12/candidate-B.pcm"
+      ],
+      "end_token": 3019,
+      "estimated_billable_character_count": 2428,
+      "estimated_public_rate_cost_usd": 0.2428,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P02-S11-S12/candidate-B.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 2428,
+        "estimated_additional_public_rate_cost_usd": 0.2428,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "text": "[curious] So test the questions that can kill the business.\n\nIn the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach.\n\nTalk to five of them.\n\nAsk what decision the evidence could change and who owns it.\n\nWhen a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.\n\nAsk first. Deliver second.\n\nIf one accepts, run the paid work.\n\nIf nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.\n\n[pause] Before you continue, three things have to be true.\n\nAt least three of the five buyers independently describe the problem as consequential.\n\nAt least one accepts a paid diagnostic, or names the budget and what would have to be true for approval.\n\nAnd the manual delivery produces repeatable evidence within 24 hours of work.\n\nIf that gate fails, change the offer or stop.\n\nIf it passes, the next 60 days are funded work only.\n\nRecord delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer.\n\nAdd monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time.\n\n[excited] That is construction. You are replacing the market story with evidence from your own business.\n\nThe original search report can stay green.\n\nIt was not lying. It was watching one doorway while the customer used another.\n\nThe AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.\n\nThe market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator.\n\nThe market case does not make the first customer appear.\n\n[pause] So the verdict is BUILD, bounded by the test.\n\nChoose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.\n\n[warmly] If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "731906ddaad17d686c3ce3f5b8117fa13ebbd58117a8076efaddb5a221cc0565",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+      },
+      "method": "POST",
+      "passage_id": "P02-S11-S12",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-existing",
+      "provider_text_character_count": 2428,
+      "provider_text_sha256": "3a9908e0de89b0c9db1be73c6fa8d2f82d97702988e1eef431eefc9bca9a07ea",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "text": "[curious] So test the questions that can kill the business.\n\nIn the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach.\n\nTalk to five of them.\n\nAsk what decision the evidence could change and who owns it.\n\nWhen a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.\n\nAsk first. Deliver second.\n\nIf one accepts, run the paid work.\n\nIf nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.\n\n[pause] Before you continue, three things have to be true.\n\nAt least three of the five buyers independently describe the problem as consequential.\n\nAt least one accepts a paid diagnostic, or names the budget and what would have to be true for approval.\n\nAnd the manual delivery produces repeatable evidence within 24 hours of work.\n\nIf that gate fails, change the offer or stop.\n\nIf it passes, the next 60 days are funded work only.\n\nRecord delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer.\n\nAdd monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time.\n\n[excited] That is construction. You are replacing the market story with evidence from your own business.\n\nThe original search report can stay green.\n\nIt was not lying. It was watching one doorway while the customer used another.\n\nThe AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.\n\nThe market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator.\n\nThe market case does not make the first customer appear.\n\n[pause] So the verdict is BUILD, bounded by the test.\n\nChoose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.\n\n[warmly] If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "731906ddaad17d686c3ce3f5b8117fa13ebbd58117a8076efaddb5a221cc0565",
+      "request_id": "EL-P02-B",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "54c3f3bc7c63a1f0ad8d23176d75b235290d153f19932d72f6413095e8bfd235",
+      "start_token": 2627,
+      "tag_insertions": [
+        {
+          "at_token": 2627,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 2746,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 2861,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 2968,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 3001,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/yUXeTfC1IFOCSjGc96sQ"
+    },
+    {
+      "acting_description_sha256": "acd75031a89f5e4ef0f3bf38aca12c1d122c06d986837c8f3ac0ce4169af8c8a",
+      "blockers": [
+        "hume_clone_id_and_provenance_receipt_absent",
+        "hume_account_tier_unverified",
+        "hume_commercial_use_eligibility_unverified",
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-HU-A",
+        "P01-HU-B"
+      ],
+      "destinations": [
+        "outputs/raw/hume/P01-S00/generation-0.wav",
+        "outputs/raw/hume/P01-S00/generation-1.wav"
+      ],
+      "dialogue_text_sha256": "6724b3c2ac5d4daf3cdbda409413012c42ad51a9849b4bc6e6ecf9a7229134f4",
+      "end_token": 139,
+      "estimated_billable_character_count": 1576,
+      "estimated_public_rate_cost_usd": 0.2364,
+      "estimated_public_rate_usd_per_1000_characters": 0.15,
+      "execution_ready": false,
+      "fallback_request": {
+        "destinations": [
+          "outputs/raw/hume/P01-S00/generation-0.mp3",
+          "outputs/raw/hume/P01-S00/generation-1.mp3"
+        ],
+        "enabled": true,
+        "estimated_additional_billable_character_count": 1576,
+        "estimated_additional_public_rate_cost_usd": 0.2364,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {},
+        "request_body": {
+          "format": {
+            "type": "mp3"
+          },
+          "num_generations": 2,
+          "split_utterances": false,
+          "strip_headers": true,
+          "utterances": [
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: A calm, experienced operator opening a serious question for one capable listener. Natural conversational pace. Alert, not dramatic.",
+              "text": "A customer has a meaningful decision to make. Which software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call. So they ask an AI.",
+              "trailing_silence": 0.45,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Understate the bad news. Dry disbelief, with the humor coming from the stale 2022 detail. Do not sound amused with the customer.",
+              "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Matter-of-fact recognition, then a small pause as the dashboard contradiction becomes clear.",
+              "text": "You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway.",
+              "trailing_silence": 0.5,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Warm strategic confidence. Make the business possibility legible without pitching or promising it.",
+              "text": "That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Candid skepticism. Leave the market question genuinely open, then invite the listener to work it out.",
+              "text": "But before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee. Let's work that out.",
+              "trailing_silence": 0.8,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            }
+          ],
+          "version": "1"
+        },
+        "request_body_sha256": "2b66ad9185016394bcff46668ef080352054695ad5e9b3870794de4f62fe8aed",
+        "requires": [
+          "documented_lossless_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v0/tts"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 2,
+      "provider": "hume",
+      "provider_id": "hume-octave-1-manav-pending-clone",
+      "query": {},
+      "request_body": {
+        "format": {
+          "type": "wav"
+        },
+        "num_generations": 2,
+        "split_utterances": false,
+        "strip_headers": true,
+        "utterances": [
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: A calm, experienced operator opening a serious question for one capable listener. Natural conversational pace. Alert, not dramatic.",
+            "text": "A customer has a meaningful decision to make. Which software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call. So they ask an AI.",
+            "trailing_silence": 0.45,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Understate the bad news. Dry disbelief, with the humor coming from the stale 2022 detail. Do not sound amused with the customer.",
+            "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Matter-of-fact recognition, then a small pause as the dashboard contradiction becomes clear.",
+            "text": "You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway.",
+            "trailing_silence": 0.5,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Warm strategic confidence. Make the business possibility legible without pitching or promising it.",
+            "text": "That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Candid skepticism. Leave the market question genuinely open, then invite the listener to work it out.",
+            "text": "But before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee. Let's work that out.",
+            "trailing_silence": 0.8,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          }
+        ],
+        "version": "1"
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "14f2e0c7a31eb22048bf941719da59fbe1b16cec253b7652a182f1015600cef8",
+      "request_id": "HU-P01",
+      "required_header_names": [
+        "Content-Type",
+        "X-Hume-Api-Key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "url_path": "/v0/tts"
+    },
+    {
+      "acting_description_sha256": "20c5b0876618fc4bab4344cf56deca1e6864211d40fca0ae6bfc3de12cba4625",
+      "blockers": [
+        "hume_clone_id_and_provenance_receipt_absent",
+        "hume_account_tier_unverified",
+        "hume_commercial_use_eligibility_unverified",
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P02-HU-A",
+        "P02-HU-B"
+      ],
+      "destinations": [
+        "outputs/raw/hume/P02-S11-S12/generation-0.wav",
+        "outputs/raw/hume/P02-S11-S12/generation-1.wav"
+      ],
+      "dialogue_text_sha256": "aa8b257bd2ee361a7a8a49fb990b612c30087b1eef394e217d3710bb150ff7cb",
+      "end_token": 3019,
+      "estimated_billable_character_count": 4702,
+      "estimated_public_rate_cost_usd": 0.7053,
+      "estimated_public_rate_usd_per_1000_characters": 0.15,
+      "execution_ready": false,
+      "fallback_request": {
+        "destinations": [
+          "outputs/raw/hume/P02-S11-S12/generation-0.mp3",
+          "outputs/raw/hume/P02-S11-S12/generation-1.mp3"
+        ],
+        "enabled": true,
+        "estimated_additional_billable_character_count": 4702,
+        "estimated_additional_public_rate_cost_usd": 0.7053,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {},
+        "request_body": {
+          "format": {
+            "type": "mp3"
+          },
+          "num_generations": 2,
+          "split_utterances": false,
+          "strip_headers": true,
+          "utterances": [
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Practical and direct. Shift from analysis into construction. Build momentum without a motivational cadence.",
+              "text": "So test the questions that can kill the business. In the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach. Talk to five of them. Ask what decision the evidence could change and who owns it. When a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.",
+              "trailing_silence": 0.45,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Firm and memorable on the ask-first rule. Keep the unpaid learning boundary candid, not punitive.",
+              "text": "Ask first. Deliver second. If one accepts, run the paid work. If nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Slow for the three gates. Make each condition distinct and preserve the difference between paid demand and useful learning.",
+              "text": "Before you continue, three things have to be true. At least three of the five buyers independently describe the problem as consequential. At least one accepts a paid diagnostic, or names the budget and what would have to be true for approval. And the manual delivery produces repeatable evidence within 24 hours of work.",
+              "trailing_silence": 0.6,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Decisive stop-or-go discipline. No drama; this is an operating rule.",
+              "text": "If that gate fails, change the offer or stop. If it passes, the next 60 days are funded work only.",
+              "trailing_silence": 0.5,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Steady construction energy. Sound like an experienced operator assigning the next measured work.",
+              "text": "Record delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer. Add monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time. That is construction. You are replacing the market story with evidence from your own business.",
+              "trailing_silence": 0.65,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Return to the opening image with calm recognition. Let the second-doorway callback resolve naturally.",
+              "text": "The original search report can stay green. It was not lying. It was watching one doorway while the customer used another. The AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Earned market conviction, then clear restraint on what the market case cannot produce.",
+              "text": "The market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator. The market case does not make the first customer appear.",
+              "trailing_silence": 0.65,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Firm commercial verdict. Land BUILD with confidence, then give the first actions as practical instructions, not a slogan.",
+              "text": "So the verdict is BUILD, bounded by the test. Choose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.",
+              "trailing_silence": 0.7,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Warm, brief final invitation after the payoff. No announcer voice and no extra flourish.",
+              "text": "If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+              "trailing_silence": 0.8,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            }
+          ],
+          "version": "1"
+        },
+        "request_body_sha256": "e25cced76be8dc0fc928314bf17468cb7e67f6def94cf8e15ea53193f8f8ca92",
+        "requires": [
+          "documented_lossless_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v0/tts"
+      },
+      "method": "POST",
+      "passage_id": "P02-S11-S12",
+      "planned_call_count": 1,
+      "planned_output_count": 2,
+      "provider": "hume",
+      "provider_id": "hume-octave-1-manav-pending-clone",
+      "query": {},
+      "request_body": {
+        "format": {
+          "type": "wav"
+        },
+        "num_generations": 2,
+        "split_utterances": false,
+        "strip_headers": true,
+        "utterances": [
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Practical and direct. Shift from analysis into construction. Build momentum without a motivational cadence.",
+            "text": "So test the questions that can kill the business. In the first 30 days, build the question template, the decision record, the scope, the three-question preview, and a list of qualified people you can actually reach. Talk to five of them. Ask what decision the evidence could change and who owns it. When a buyer names a consequential decision, ask them to pay for the ten-question diagnostic across two answer surfaces.",
+            "trailing_silence": 0.45,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Firm and memorable on the ask-first rule. Keep the unpaid learning boundary candid, not punitive.",
+            "text": "Ask first. Deliver second. If one accepts, run the paid work. If nobody accepts but one buyer names a budget and tells you what would have to be true for approval, run one manual test with a willing business. That is useful learning. It is not paid demand.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Slow for the three gates. Make each condition distinct and preserve the difference between paid demand and useful learning.",
+            "text": "Before you continue, three things have to be true. At least three of the five buyers independently describe the problem as consequential. At least one accepts a paid diagnostic, or names the budget and what would have to be true for approval. And the manual delivery produces repeatable evidence within 24 hours of work.",
+            "trailing_silence": 0.6,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Decisive stop-or-go discipline. No drama; this is an operating rule.",
+            "text": "If that gate fails, change the offer or stop. If it passes, the next 60 days are funded work only.",
+            "trailing_silence": 0.5,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Steady construction energy. Sound like an experienced operator assigning the next measured work.",
+            "text": "Record delivery time, acquisition time, costs, specialist help, support, and the buyer's decision. Then repeat the work for another qualified buyer. Add monitoring only when a second look changes something. Add customers only when the scope repeats without hiding your time. That is construction. You are replacing the market story with evidence from your own business.",
+            "trailing_silence": 0.65,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Return to the opening image with calm recognition. Let the second-doorway callback resolve naturally.",
+            "text": "The original search report can stay green. It was not lying. It was watching one doorway while the customer used another. The AI Visibility company fills in the missing view. It records what appeared, checks the evidence, and gives the responsible buyer a clear call on what deserves action.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Earned market conviction, then clear restraint on what the market case cannot produce.",
+            "text": "The market case says this is worth testing. Established budgets sit beside it. Large consultancies, platforms, and agencies are already operating around it. AI makes the collection work feasible for one experienced operator. The market case does not make the first customer appear.",
+            "trailing_silence": 0.65,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Firm commercial verdict. Land BUILD with confidence, then give the first actions as practical instructions, not a slogan.",
+            "text": "So the verdict is BUILD, bounded by the test. Choose one high-consideration market you understand and can reach. Sell one paid diagnostic. Measure the real work. Then earn every larger responsibility after that.",
+            "trailing_silence": 0.7,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Direct peer instruction with constructive momentum and earned conviction. Slow only for the validation gates and truth boundaries, then recover energy immediately. Make the plan feel usable rather than procedural. Rise from eight to nine out of ten through the BUILD ruling and finish the CTA warmly and decisively. No stage pitch, hype cadence, or artificial cheerfulness. Thought direction: Warm, brief final invitation after the payoff. No announcer voice and no extra flourish.",
+            "text": "If you want more business blueprints built this way, like the video and subscribe to The Operator Economy.",
+            "trailing_silence": 0.8,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          }
+        ],
+        "version": "1"
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "2aac17c5b1c782496e958495106e983b93efc6c319e5de8ca685b3a9924b774b",
+      "request_id": "HU-P02",
+      "required_header_names": [
+        "Content-Type",
+        "X-Hume-Api-Key"
+      ],
+      "spoken_text_sha256": "54c3f3bc7c63a1f0ad8d23176d75b235290d153f19932d72f6413095e8bfd235",
+      "start_token": 2627,
+      "url_path": "/v0/tts"
+    }
+  ],
+  "schema_version": "oe-provider-bakeoff-dry-run-v1",
+  "status": "non_executable",
+  "totals": {
+    "by_provider": {
+      "elevenlabs": {
+        "execution_ready": false,
+        "maximum_with_one_fallback_per_request": {
+          "expected_output_count": 4,
+          "max_billable_character_count": 13080,
+          "max_call_count": 8,
+          "max_modeled_public_rate_cost_usd": 1.308
+        },
+        "primary_lossless": {
+          "estimated_billable_character_count": 6540,
+          "estimated_public_rate_cost_usd": 0.654,
+          "expected_output_count": 4,
+          "planned_call_count": 4
+        }
+      },
+      "hume": {
+        "execution_ready": false,
+        "maximum_with_one_fallback_per_request": {
+          "expected_output_count": 4,
+          "max_billable_character_count": 12556,
+          "max_call_count": 4,
+          "max_modeled_public_rate_cost_usd": 1.8834
+        },
+        "primary_lossless": {
+          "estimated_billable_character_count": 6278,
+          "estimated_public_rate_cost_usd": 0.9417,
+          "expected_output_count": 4,
+          "planned_call_count": 2
+        }
+      }
+    },
+    "maximum_with_one_fallback_per_request": {
+      "expected_output_count": 8,
+      "max_billable_character_count": 25636,
+      "max_call_count": 12,
+      "max_modeled_public_rate_cost_usd": 3.1914
+    },
+    "primary_lossless": {
+      "estimated_billable_character_count": 12818,
+      "estimated_public_rate_cost_usd": 1.5957,
+      "expected_output_count": 8,
+      "planned_call_count": 6
+    }
+  }
+}

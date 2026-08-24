@@ -2,6 +2,12 @@
 
 Template version: proposed Step 2 v0.2.
 
+V0.3 boundary: this remains the v0.2 machine-paired ElevenLabs `calibration`/`full` call template.
+Do not overload it for account reads, original-sample retrieval, Hume UI upload/clone, blind
+short-bakeoff scoring, or the later long-form selection test. Use
+`PROVIDER-EXTERNAL-ACTION-AUTHORIZATION.template.md` for each of those distinct proposed v0.3
+actions. No provider-selection scope may be mislabeled `full`.
+
 This record authorizes one bounded external action. It does not approve the resulting audio or any
 later phase.
 

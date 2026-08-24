@@ -1,6 +1,6 @@
 # Synthetic Narration Capture Protocol
 
-Status: proposed Step 2 v0.2; test before approval.
+Status: proposed Step 2 v0.3 provider-selection revision; test before approval.
 
 This protocol makes synthetic narration reproducible without allowing the provider, prompt, or
 legacy tooling to become a second script editor.
@@ -10,14 +10,21 @@ legacy tooling to become a second script editor.
 No provider request may be sent until:
 
 - N1 accepted the current Step 1 v1.5 package and reproduced its `W` identity;
-- N2 approved nonlexical performance direction;
-- N3 froze narrator rights, voice ID, provider/model, generation settings, pronunciation method,
-  context method, source-format policy, and job-receipt method; and
-- a separate `PROVIDER-CALL-AUTHORIZATION` names the fixture or episode, exact frozen
-  configuration, bounded phase, expiration, and authorized human.
+- N2 approved nonlexical performance direction and froze the provider-agnostic performance
+  envelope;
+- for N4A or N4B, N3 froze narrator rights, voice ID, provider/model, generation settings,
+  pronunciation method, context method, source-format policy, and job-receipt method; or, for the
+  v0.3 method-selection round only, an approved provisional request envelope freezes those same
+  fields without claiming an N3 pass; and
+- a separate external-action authorization names the fixture or episode, exact frozen
+  configuration, bounded action, expiration, limits, and authorized human.
 
 Calibration and full capture require separate authorizations. An N3 freeze, completed template,
 available credential, or successful dry run grants no external-call authority.
+
+When the provider method is unresolved, the short provider bakeoff occurs as bounded N3 selection
+evidence under [`../TOOL-AUDIT-AND-BAKEOFF.md`](../TOOL-AUDIT-AND-BAKEOFF.md). It does not count as
+N4A and cannot authorize N4B.
 
 ## Prohibited legacy path
 
@@ -32,7 +39,10 @@ Every request in one capture batch records and matches:
 
 - Step 1 script SHA-256 and ordered `W`-token SHA-256;
 - performance-direction revision and SHA-256;
-- narrator-profile and N3 lock revisions and SHA-256 values;
+- provider-agnostic performance-envelope revision and SHA-256;
+- provider-adapter revision and SHA-256;
+- narrator-profile and N3 lock revisions and SHA-256 values, or the approved provisional
+  request-envelope identity for the v0.3 method-selection round;
 - provider, model/version, voice ID, and every exposed generation setting;
 - pronunciation-map revision and SHA-256;
 - context/chunking protocol revision;
@@ -43,6 +53,30 @@ Every request in one capture batch records and matches:
 
 A material envelope change invalidates N4A and returns to N3. Credentials remain outside manifests,
 logs, prompts, and repository files.
+
+## Provider-selection request equality
+
+The initial provider bakeoff uses four separate external-action authorizations, followed by a fifth
+authorization only for eligible long-form methods. Short narration requests obey these equality
+rules:
+
+- Eleven E1 and E2 use identical `W` text, allowlisted non-spoken tags, model, voice, settings,
+  output policy, and adapter. They differ only by seed/generation; the seed is best-effort.
+- Within each passage, Hume H1 and H2 are two generations from one identical `POST /v0/tts` JSON
+  request with `num_generations: 2`, text, description, model, clone, output policy, and adapter.
+- P1 is the same cold-open/promise range for every candidate.
+- P2 is the same build/validation/verdict/CTA range for every candidate.
+- No provider receives an extra creative retry, altered description, third passage, cleanup, or
+  mastering advantage.
+
+Provider-specific tags or descriptions never become canonical direction. Spoken tags, added
+directorial text, damaged names, numbers, negations, qualifications, or a confirmed `W` mismatch
+are hard failures before scoring.
+
+The current public Hume human-audio clone path is UI-mediated. The public Create Voice API creates
+a voice from a TTS generation ID and is not treated as an audio-upload clone endpoint. Hume upload
+and exactly one clone creation require their own authorization and a provenance-bound receipt.
+Existing login state is not authority.
 
 ## Exact-word request construction
 
@@ -68,6 +102,9 @@ Each raw response is preserved before local processing. Interim ASR remains diag
 passage receives lexical, technical, and performance review. The owner must approve the calibration
 performance before a full-capture authorization may be issued.
 
+Do not confuse that four-mode N4A batch with the earlier two-passage provider-selection round. After
+a method is selected and frozen at N3, it still must pass N4A under a new authorization.
+
 ## Full-capture chunk map
 
 Prefer one controlled full-script batch. When provider limits require multiple requests:
@@ -86,10 +123,11 @@ sessions.
 
 ## Source-format policy
 
-1. Request native PCM when the current provider/account/model supports it.
+1. Request provider-native PCM or PCM WAV when the current provider/account/model supports it.
 2. Inspect the actual returned container and codec; never trust the filename or request alone.
-3. When native PCM is unavailable, accept only `mp3_44100_192` and record fallback reason
-   `pcm_capability_unavailable`.
+3. When both native PCM and PCM WAV are unavailable, accept only `mp3_44100_192` and record the
+   authorized capability-unavailable fallback reason. For the v0.2 Eleven runtime, the exact value
+   remains `pcm_capability_unavailable`.
 4. Preserve the returned file byte-for-byte as immutable raw and record audio origin
    `native_pcm` or `lossy_mp3`.
 5. A fallback MP3 must pass an audible review for swirls, watery tails, pre-echo, harsh sibilance,
@@ -97,6 +135,9 @@ sessions.
 6. Decode/resample the fallback exactly once into 48 kHz, 24-bit, mono PCM for all editorial work.
 7. Do not introduce MP3, AAC, or another lossy intermediate afterward.
 8. Never label a PCM file derived from MP3 as native PCM acquisition.
+
+Authentication, timeout, rate-limit, transport, and server failures stop the action and never
+trigger lossy fallback. A returned `.wav` filename is insufficient; inspect the actual codec.
 
 ## Immutable raw and receipts
 
@@ -132,8 +173,13 @@ Stop without substituting another voice or format when:
 
 - authorization is absent, expired, consumed, or mismatched;
 - provider output cannot be tied to a job and request envelope;
-- returned audio is neither native PCM nor permitted `mp3_44100_192`;
+- returned audio is neither native PCM/PCM WAV nor permitted `mp3_44100_192`;
+- an original sample cannot be resolved to exactly one authorized owner recording;
+- Hume upload, clone creation, short generation, or long-form generation exceeds its separate
+  authorization;
 - lossy artifacts are audible enough to compromise the narration;
+- watery consonants, brittle sibilance, synthetic artifacts, or dependence on visuals or music
+  makes the passage unusable;
 - exact-word payload identity fails;
 - provider behavior adds or removes words;
 - continuity cannot be proven; or

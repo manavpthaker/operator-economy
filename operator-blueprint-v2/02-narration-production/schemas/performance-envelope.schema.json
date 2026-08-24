@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://operatoreconomy.com/schemas/performance-envelope.schema.json",
+  "title": "Provider-neutral narration performance envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "envelope_id",
+    "status",
+    "target",
+    "episode_number",
+    "step3_authorized",
+    "script",
+    "canonical_w",
+    "public_fact_clearance",
+    "performance",
+    "passages"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-performance-envelope-v1"},
+    "envelope_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "dry_run_frozen", "frozen"]},
+    "target": {"$ref": "#/$defs/target"},
+    "episode_number": {"type": ["integer", "null"], "minimum": 1},
+    "step3_authorized": {"const": false},
+    "script": {"$ref": "#/$defs/pathHash"},
+    "canonical_w": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "schema_version", "tokenization", "serialization", "token_count"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "schema_version": {"const": "oe-spoken-text-v1"},
+        "tokenization": {"const": "python-str-split-whitespace"},
+        "serialization": {"const": "utf8-one-token-per-lf-with-terminal-lf"},
+        "token_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "public_fact_clearance": {"const": false},
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["listener", "relationship", "identity_target", "energy_arc", "must_preserve", "must_avoid", "states"],
+      "properties": {
+        "listener": {"type": "string", "minLength": 1},
+        "relationship": {"type": "string", "minLength": 1},
+        "identity_target": {"type": "string", "minLength": 1},
+        "energy_arc": {"type": "string", "minLength": 1},
+        "must_preserve": {"$ref": "#/$defs/nonEmptyStrings"},
+        "must_avoid": {"$ref": "#/$defs/nonEmptyStrings"},
+        "states": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "sound"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "sound": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "passages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/passage"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "episode"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "partition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "start_token", "end_token", "spoken_text_sha256"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "start_token": {"type": "integer", "minimum": 0},
+        "end_token": {"type": "integer", "minimum": 1},
+        "spoken_text_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "passage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_blocks",
+        "start_token",
+        "end_token",
+        "token_count",
+        "spoken_text_sha256",
+        "transport_text",
+        "performance_function",
+        "objective",
+        "state_arc",
+        "energy",
+        "required_anchors",
+        "anti_targets",
+        "paragraph_boundaries",
+        "thought_boundaries"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "source_blocks": {"$ref": "#/$defs/nonEmptyStrings"},
+        "start_token": {"type": "integer", "minimum": 0},
+        "end_token": {"type": "integer", "minimum": 1},
+        "token_count": {"type": "integer", "minimum": 1},
+        "spoken_text_sha256": {"$ref": "#/$defs/sha256"},
+        "transport_text": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "serialization", "character_count", "sha256"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "serialization": {"const": "utf8-whitespace-normalized-single-space-no-terminal-lf"},
+            "character_count": {"type": "integer", "minimum": 1},
+            "sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "performance_function": {"type": "string", "minLength": 1},
+        "objective": {"type": "string", "minLength": 1},
+        "state_arc": {"$ref": "#/$defs/nonEmptyStrings"},
+        "anti_targets": {"$ref": "#/$defs/nonEmptyStrings"},
+        "energy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scale", "start", "peak", "finish", "instruction"],
+          "properties": {
+            "scale": {"const": "0_to_10"},
+            "start": {"type": "number", "minimum": 0, "maximum": 10},
+            "peak": {"type": "number", "minimum": 0, "maximum": 10},
+            "finish": {"type": "number", "minimum": 0, "maximum": 10},
+            "instruction": {"type": "string", "minLength": 1}
+          }
+        },
+        "required_anchors": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["at_token", "kind", "instruction"],
+            "properties": {
+              "at_token": {"type": "integer", "minimum": 0},
+              "kind": {"enum": ["emphasis", "pause", "qualification", "landing", "transition", "verdict"]},
+              "instruction": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "paragraph_boundaries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/partition"}
+        },
+        "thought_boundaries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/partition"}
+        }
+      }
+    }
+  }
+}

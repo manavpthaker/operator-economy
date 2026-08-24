@@ -1,6 +1,9 @@
 # N4A Calibration Review
 
-Template version: proposed Step 2 v0.2.
+Template version: proposed Step 2 v0.3.
+
+The two-passage provider bakeoff is N3 method-selection evidence, not this N4A review. Use this
+template only after one method is selected and separately authorized for N4A.
 
 ## Authority
 
@@ -69,3 +72,6 @@ Workflow outcome: in_progress / blocked
 
 N4A passes only when the technical recommendation passes and the owner approves the calibration.
 This decision does not authorize full capture; a separate full-capture authorization is required.
+
+A result of technical `pass` and owner `revise` is valid evidence but leaves N4A unpassed. Route a
+performance-only revision through N2/N3 without reopening Step 1.

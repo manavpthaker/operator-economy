@@ -1,0 +1,64 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "DRAFT-ai-visibility-v1.1-hume-ui-upload-clone",
+  "status": "draft",
+  "approved": false,
+  "scope": "hume_clone_creation",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "provider": "hume",
+  "action": {
+    "kind": "manual_platform_ui_sample_upload_and_voice_clone",
+    "interface": "hume_platform_ui",
+    "api_upload_endpoint": null,
+    "source_sample_path": "pending",
+    "source_sample_sha256": "pending",
+    "source_sample_rights_record": "pending",
+    "clone_display_name": "OE Narrator Manav Hume Bakeoff v1",
+    "expected_clone_id": "__HUME_CLONE_ID_PENDING__",
+    "clone_receipt_destination": "receipts/hume/voice-clone-receipt.json"
+  },
+  "purpose": "Create one rights-cleared Manav comparison voice through the documented Hume Platform UI path. No upload API is asserted or fabricated.",
+  "bindings": {
+    "performance_envelope_sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d",
+    "provider_bakeoff_plan_sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333",
+    "compiled_dry_run_sha256": "1ab5b95edfeb223acc84540930a663d04b46b53af65933479b6b363d634dbda5",
+    "provider_adapter_sha256": "25e3625ff1dae9e883a48700ccf52eb91f2334d4cec860a03b807adf31e62759"
+  },
+  "account_requirements": {
+    "account_tier": "unverified",
+    "commercial_use_eligibility": "unverified",
+    "logged_in_session_is_authorization": false
+  },
+  "requested_limits": {
+    "max_ui_uploads": 1,
+    "max_voice_clones": 1,
+    "max_spend_usd": null
+  },
+  "authorized_limits": {
+    "max_ui_uploads": 0,
+    "max_voice_clones": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "uploads_used": 0,
+    "clones_created": 0,
+    "spend_used_usd": 0,
+    "record_path": ""
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "owner_approval_absent",
+    "source_sample_identity_and_sha256_not_bound",
+    "voice_rights_and_consent_record_absent",
+    "hume_account_tier_unverified",
+    "hume_commercial_use_eligibility_unverified",
+    "bounded_active_limits_not_set"
+  ]
+}

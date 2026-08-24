@@ -9,6 +9,13 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from .audio import convert_working, inspect_audio, inspect_provider_raw_pcm
+from .bakeoff import (
+    dry_run_provider_bakeoff,
+    validate_performance_envelope,
+    validate_provider_action_authorization,
+    validate_provider_adapter,
+    validate_provider_bakeoff_plan,
+)
 from .core import (
     ValidationError,
     extract_step1_script,
@@ -27,7 +34,7 @@ def _path(value: str) -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="oe-narration", description="Operator Blueprint V2 narration controls")
-    parser.add_argument("--version", action="version", version="oe-narration 0.2.0")
+    parser.add_argument("--version", action="version", version="oe-narration 0.3.0")
     sub = parser.add_subparsers(dest="command", required=True)
 
     extract = sub.add_parser("extract", help="derive canonical W from a locked Step 1 script")
@@ -69,6 +76,44 @@ def build_parser() -> argparse.ArgumentParser:
     capture.add_argument("--authorization", type=_path)
     capture.add_argument("--record", type=_path, help="write an immutable dry-run receipt")
     capture.add_argument("--timeout", type=float, default=60.0)
+
+    envelope = sub.add_parser(
+        "validate-performance-envelope",
+        help="validate a provider-neutral performance envelope against canonical W",
+    )
+    envelope.add_argument("--envelope", type=_path, required=True)
+    envelope.add_argument("--canonical-w", type=_path, required=True)
+
+    adapter = sub.add_parser(
+        "validate-provider-adapter",
+        help="validate one provider adapter without accessing credentials",
+    )
+    adapter.add_argument("--adapter", type=_path, required=True)
+    adapter.add_argument("--envelope", type=_path, required=True)
+    adapter.add_argument("--canonical-w", type=_path, required=True)
+
+    bakeoff_plan = sub.add_parser(
+        "validate-provider-bakeoff-plan",
+        help="validate and compile-check a provider bakeoff plan without external action",
+    )
+    bakeoff_plan.add_argument("--plan", type=_path, required=True)
+    bakeoff_plan.add_argument("--envelope", type=_path, required=True)
+    bakeoff_plan.add_argument("--canonical-w", type=_path, required=True)
+
+    bakeoff = sub.add_parser(
+        "dry-run-provider-bakeoff",
+        help="compile credential-free provider request bodies; never calls a provider",
+    )
+    bakeoff.add_argument("--plan", type=_path, required=True)
+    bakeoff.add_argument("--envelope", type=_path, required=True)
+    bakeoff.add_argument("--canonical-w", type=_path, required=True)
+    bakeoff.add_argument("--record", type=_path)
+
+    action_auth = sub.add_parser(
+        "validate-provider-action-authorization",
+        help="validate one exact provider action scope and its unconsumed authority",
+    )
+    action_auth.add_argument("--authorization", type=_path, required=True)
     return parser
 
 
@@ -125,6 +170,20 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
             args.authorization,
             args.timeout,
         )
+    if args.command == "validate-performance-envelope":
+        return validate_performance_envelope(args.envelope, args.canonical_w)
+    if args.command == "validate-provider-adapter":
+        return validate_provider_adapter(args.adapter, args.envelope, args.canonical_w)
+    if args.command == "validate-provider-bakeoff-plan":
+        return validate_provider_bakeoff_plan(args.plan, args.envelope, args.canonical_w)
+    if args.command == "dry-run-provider-bakeoff":
+        result = dry_run_provider_bakeoff(args.plan, args.envelope, args.canonical_w)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "validate-provider-action-authorization":
+        return validate_provider_action_authorization(args.authorization)
     raise ValidationError(f"unsupported command: {args.command}")
 
 

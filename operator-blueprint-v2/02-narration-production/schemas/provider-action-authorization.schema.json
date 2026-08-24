@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://operatoreconomy.com/schemas/provider-action-authorization.schema.json",
+  "title": "Single-scope provider action authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "status",
+    "approved",
+    "scope",
+    "target",
+    "provider",
+    "action",
+    "bindings",
+    "authorized_limits",
+    "consumption",
+    "approved_by",
+    "approved_at",
+    "expires_at",
+    "execution_ready",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-provider-action-authorization-v1"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {
+      "enum": [
+        "elevenlabs_sample_retrieval",
+        "hume_clone_creation",
+        "elevenlabs_calibration",
+        "hume_calibration"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "required": ["kind", "id"],
+      "additionalProperties": false,
+      "properties": {"kind": {"enum": ["fixture", "episode"]}, "id": {"type": "string", "minLength": 1}}
+    },
+    "provider": {"enum": ["elevenlabs", "hume"]},
+    "action": {"type": "object"},
+    "purpose": {"type": "string", "minLength": 1},
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "performance_envelope_sha256",
+        "provider_adapter_sha256",
+        "provider_bakeoff_plan_sha256",
+        "compiled_dry_run_sha256"
+      ],
+      "properties": {
+        "performance_envelope_sha256": {"$ref": "#/$defs/sha256"},
+        "provider_adapter_sha256": {"$ref": "#/$defs/sha256"},
+        "provider_bakeoff_plan_sha256": {"$ref": "#/$defs/sha256"},
+        "compiled_dry_run_sha256": {"$ref": "#/$defs/sha256"},
+        "script_sha256": {"$ref": "#/$defs/sha256"},
+        "spoken_text_sha256": {"$ref": "#/$defs/sha256"},
+        "clone_receipt_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"const": "pending"}]},
+        "clone_receipt_path": {"type": "string", "minLength": 1},
+        "compiled_hash_state": {"type": "string", "minLength": 1}
+      }
+    },
+    "account_requirements": {"$ref": "#/$defs/accountRequirements"},
+    "requested_limits": {"$ref": "#/$defs/requestedLimits"},
+    "authorized_limits": {"$ref": "#/$defs/authorizedLimits"},
+    "consumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "record_path"],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "record_path": {"type": "string"},
+        "calls_used": {"type": "integer", "minimum": 0},
+        "downloads_used": {"type": "integer", "minimum": 0},
+        "uploads_used": {"type": "integer", "minimum": 0},
+        "clones_created": {"type": "integer", "minimum": 0},
+        "characters_used": {"type": "integer", "minimum": 0},
+        "outputs_received": {"type": "integer", "minimum": 0},
+        "spend_used_usd": {"type": "number", "minimum": 0}
+      }
+    },
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "execution_ready": {"const": false},
+          "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "blockers": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "execution_ready": {"const": true},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "blockers": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"const": "elevenlabs_sample_retrieval"}}},
+      "then": {
+        "properties": {
+          "provider": {"const": "elevenlabs"},
+          "action": {"$ref": "#/$defs/retrievalAction"},
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["script_sha256"]},
+              {"required": ["spoken_text_sha256"]},
+              {"required": ["compiled_hash_state"]},
+              {"required": ["clone_receipt_sha256"]},
+              {"required": ["clone_receipt_path"]}
+            ]}
+          },
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_calls"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]},
+              {"required": ["primary_lossless_calls"]},
+              {"required": ["primary_lossless_characters"]},
+              {"required": ["primary_lossless_outputs"]},
+              {"required": ["primary_modeled_public_rate_cost_usd"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["uploads_used"]},
+              {"required": ["clones_created"]},
+              {"required": ["characters_used"]},
+              {"required": ["outputs_received"]}
+            ]}
+          }
+        },
+        "not": {"required": ["account_requirements"]}
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"const": "hume_clone_creation"}}},
+      "then": {
+        "required": ["account_requirements"],
+        "properties": {
+          "provider": {"const": "hume"},
+          "action": {"$ref": "#/$defs/cloneAction"},
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["script_sha256"]},
+              {"required": ["spoken_text_sha256"]},
+              {"required": ["compiled_hash_state"]},
+              {"required": ["clone_receipt_sha256"]},
+              {"required": ["clone_receipt_path"]}
+            ]}
+          },
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_metadata_calls"]},
+              {"required": ["max_sample_download_calls"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_calls"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]},
+              {"required": ["primary_lossless_calls"]},
+              {"required": ["primary_lossless_characters"]},
+              {"required": ["primary_lossless_outputs"]},
+              {"required": ["primary_modeled_public_rate_cost_usd"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_calls"]},
+              {"required": ["max_downloads"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["calls_used"]},
+              {"required": ["downloads_used"]},
+              {"required": ["characters_used"]},
+              {"required": ["outputs_received"]}
+            ]}
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"const": "elevenlabs_calibration"}}},
+      "then": {
+        "properties": {
+          "provider": {"const": "elevenlabs"},
+          "action": {"$ref": "#/$defs/elevenCalibrationAction"},
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["compiled_hash_state"]},
+              {"required": ["clone_receipt_sha256"]},
+              {"required": ["clone_receipt_path"]}
+            ]}
+          },
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_metadata_calls"]},
+              {"required": ["max_sample_download_calls"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_downloads"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["downloads_used"]},
+              {"required": ["uploads_used"]},
+              {"required": ["clones_created"]}
+            ]}
+          }
+        },
+        "not": {"required": ["account_requirements"]}
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"const": "hume_calibration"}}},
+      "then": {
+        "required": ["account_requirements"],
+        "properties": {
+          "provider": {"const": "hume"},
+          "action": {"$ref": "#/$defs/humeCalibrationAction"},
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_metadata_calls"]},
+              {"required": ["max_sample_download_calls"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_downloads"]},
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["downloads_used"]},
+              {"required": ["uploads_used"]},
+              {"required": ["clones_created"]}
+            ]}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "elevenlabs_sample_retrieval"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "required": [
+              "metadata_receipt_destination",
+              "selected_sample_receipt_destination",
+              "rights_and_consent"
+            ],
+            "properties": {
+              "destinations": {"type": "array", "minItems": 1, "maxItems": 1},
+              "rights_and_consent": {
+                "properties": {"provider_disclosure_approved": {"const": true}}
+              }
+            }
+          },
+          "authorized_limits": {
+            "required": ["max_calls", "max_downloads", "max_download_bytes", "max_spend_usd"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "hume_clone_creation"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "required": [
+              "source_sample_mime_type",
+              "source_sample_duration_seconds",
+              "rights_and_consent"
+            ],
+            "properties": {
+              "source_sample_sha256": {"$ref": "#/$defs/sha256"},
+              "source_sample_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+              "rights_and_consent": {
+                "properties": {"provider_disclosure_approved": {"const": true}}
+              }
+            }
+          },
+          "account_requirements": {
+            "required": [
+              "account_tier",
+              "commercial_use_eligibility",
+              "logged_in_session_is_authorization",
+              "commercial_terms_receipt_path",
+              "commercial_terms_receipt_sha256"
+            ],
+            "properties": {"logged_in_session_is_authorization": {"const": false}}
+          },
+          "authorized_limits": {
+            "required": ["max_ui_uploads", "max_voice_clones", "max_spend_usd"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "hume_calibration"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "properties": {
+              "fallback_requires_capability_rejection_receipt": {"const": true},
+              "fallback_requires_actual_codec_bitrate_verification": {"const": true}
+            }
+          },
+          "bindings": {
+            "required": [
+              "script_sha256",
+              "spoken_text_sha256",
+              "clone_receipt_path",
+              "clone_receipt_sha256",
+              "compiled_hash_state"
+            ],
+            "properties": {
+              "clone_receipt_sha256": {"$ref": "#/$defs/sha256"},
+              "compiled_hash_state": {"const": "final_real_clone_id_bound"}
+            }
+          },
+          "account_requirements": {
+            "required": [
+              "account_tier",
+              "commercial_use_eligibility",
+              "logged_in_session_is_authorization",
+              "commercial_terms_receipt_path",
+              "commercial_terms_receipt_sha256"
+            ],
+            "properties": {"logged_in_session_is_authorization": {"const": false}}
+          },
+          "authorized_limits": {
+            "required": ["max_calls", "max_outputs", "max_characters", "max_spend_usd"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "elevenlabs_calibration"}}}
+        ]
+      },
+      "then": {
+        "properties": {
+          "action": {
+            "properties": {
+              "fallback_requires_capability_rejection_receipt": {"const": true},
+              "fallback_requires_actual_codec_bitrate_verification": {"const": true}
+            }
+          },
+          "bindings": {"required": ["script_sha256", "spoken_text_sha256"]},
+          "authorized_limits": {"required": ["max_calls", "max_outputs", "max_characters", "max_spend_usd"]}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableNonnegative": {"type": ["integer", "number", "null"], "minimum": 0},
+    "rightsAndConsent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["voice_owner", "provider_disclosure_approved", "record_path", "record_sha256"],
+      "properties": {
+        "voice_owner": {"type": "string", "minLength": 1},
+        "provider_disclosure_approved": {"type": "boolean"},
+        "record_path": {"type": "string", "minLength": 1},
+        "record_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "retrievalAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "voice_id", "metadata_endpoint", "sample_ids", "destinations"],
+      "properties": {
+        "kind": {"const": "read_only_voice_metadata_and_named_sample_retrieval"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "metadata_endpoint": {"type": "string"},
+        "sample_ids": {"type": "array", "maxItems": 1, "items": {"type": "string", "minLength": 1}},
+        "destinations": {"type": "array", "maxItems": 1, "items": {"type": "string"}},
+        "sample_selection_rule": {"const": "only_single_original_human_sample_attached_to_bound_voice"},
+        "selection_fails_if_zero_or_multiple_samples": {"type": "boolean"},
+        "metadata_must_confirm_original_human_source": {"type": "boolean"},
+        "metadata_receipt_destination": {"type": "string"},
+        "selected_sample_receipt_destination": {"type": "string"},
+        "rights_and_consent": {"$ref": "#/$defs/rightsAndConsent"}
+      }
+    },
+    "cloneAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "interface", "api_upload_endpoint", "source_sample_path", "source_sample_sha256", "source_sample_rights_record", "clone_display_name", "expected_clone_id", "clone_receipt_destination"],
+      "properties": {
+        "kind": {"const": "manual_platform_ui_sample_upload_and_voice_clone"},
+        "interface": {"const": "hume_platform_ui"},
+        "api_upload_endpoint": {"type": "null"},
+        "source_sample_path": {"type": "string"},
+        "source_sample_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"const": "pending"}]},
+        "source_sample_rights_record": {"type": "string"},
+        "source_sample_mime_type": {"type": "string"},
+        "source_sample_duration_seconds": {"type": "number", "minimum": 0},
+        "rights_and_consent": {"$ref": "#/$defs/rightsAndConsent"},
+        "clone_display_name": {"type": "string", "minLength": 1},
+        "expected_clone_id": {"type": "string", "minLength": 1},
+        "clone_receipt_destination": {"type": "string", "minLength": 1}
+      }
+    },
+    "elevenCalibrationAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "voice_id", "model_id", "request_ids", "preferred_output_format", "only_permitted_fallback", "fallback_reason_required", "fallback_request_call_ceiling", "fallback_requires_capability_rejection_receipt", "fallback_requires_actual_codec_bitrate_verification"],
+      "properties": {
+        "kind": {"const": "bounded_tts_calibration"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "model_id": {"const": "eleven_v3"},
+        "request_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "preferred_output_format": {"const": "pcm_48000"},
+        "only_permitted_fallback": {"const": "mp3_44100_192"},
+        "fallback_reason_required": {"const": "pcm_capability_unavailable"},
+        "fallback_request_call_ceiling": {"type": "integer", "minimum": 0},
+        "fallback_requires_capability_rejection_receipt": {"type": "boolean"},
+        "fallback_requires_actual_codec_bitrate_verification": {"type": "boolean"}
+      }
+    },
+    "humeCalibrationAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "voice_id", "model_id", "request_ids", "num_generations_per_request", "requested_format", "only_permitted_fallback", "fallback_reason_required", "fallback_request_call_ceiling", "fallback_requires_capability_rejection_receipt", "fallback_requires_actual_codec_bitrate_verification"],
+      "properties": {
+        "kind": {"const": "bounded_tts_calibration"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "model_id": {"const": "octave-1"},
+        "request_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "num_generations_per_request": {"const": 2},
+        "requested_format": {"const": "wav"},
+        "only_permitted_fallback": {"const": "mp3_44100_192"},
+        "fallback_reason_required": {"const": "lossless_capability_unavailable"},
+        "fallback_request_call_ceiling": {"type": "integer", "minimum": 0},
+        "fallback_requires_capability_rejection_receipt": {"type": "boolean"},
+        "fallback_requires_actual_codec_bitrate_verification": {"type": "boolean"}
+      }
+    },
+    "accountRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "account_tier": {"type": "string", "minLength": 1},
+        "commercial_use_eligibility": {"type": ["string", "boolean"]},
+        "logged_in_session_is_authorization": {"type": "boolean"},
+        "commercial_terms_receipt_path": {"type": "string"},
+        "commercial_terms_receipt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "requestedLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_metadata_calls": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_sample_download_calls": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_download_bytes": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_ui_uploads": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_voice_clones": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_calls": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_characters": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_outputs": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_spend_usd": {"$ref": "#/$defs/nullableNonnegative"},
+        "primary_lossless_calls": {"$ref": "#/$defs/nullableNonnegative"},
+        "primary_lossless_characters": {"$ref": "#/$defs/nullableNonnegative"},
+        "primary_lossless_outputs": {"$ref": "#/$defs/nullableNonnegative"},
+        "primary_modeled_public_rate_cost_usd": {"$ref": "#/$defs/nullableNonnegative"}
+      }
+    },
+    "authorizedLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_calls": {"type": ["integer", "number"], "minimum": 0},
+        "max_downloads": {"type": ["integer", "number"], "minimum": 0},
+        "max_download_bytes": {"type": ["integer", "number"], "minimum": 0},
+        "max_ui_uploads": {"type": ["integer", "number"], "minimum": 0},
+        "max_voice_clones": {"type": ["integer", "number"], "minimum": 0},
+        "max_characters": {"type": ["integer", "number"], "minimum": 0},
+        "max_outputs": {"type": ["integer", "number"], "minimum": 0},
+        "max_spend_usd": {"type": ["integer", "number"], "minimum": 0}
+      }
+    }
+  }
+}

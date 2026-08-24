@@ -1,7 +1,7 @@
 # Operator Economy Narrator Profile
 
-Status: owner-selected Step 2 v0.2 calibration baseline; calibration and rights verification pending;
-not canonical
+Status: retained Step 2 v0.2 ElevenLabs baseline under proposed v0.3 provider review; technical
+calibration passed, owner creative decision is revise; not canonical
 
 ## Boundary
 
@@ -36,7 +36,9 @@ Step 2 may add non-spoken direction supported by the selected model. It may not 
 
 The current V1 note says this voice was restored after a firmer remix over-enunciated and flattened long-form delivery. The selected identity plus Eleven v3 Natural, supported emotion tags, and explicit thought-boundary pauses produced the closest tested match to Manav's conversational cadence.
 
-That history supports testing this profile first. It does not replace a fresh V2 calibration and owner listen.
+That history supported testing this profile first. The retained v0.2 batch passed technical
+acquisition but received an owner creative **REVISE**, so this profile is now one controlled
+ElevenLabs baseline in the v0.3 bakeoff. It is not the selected production method.
 
 ## Proposed non-lexical performance rules
 
@@ -83,14 +85,14 @@ The default delivery master remains 48 kHz, 24-bit, mono PCM WAV regardless of s
 
 ## Missing approval evidence
 
-- Owner-selected reference clip and SHA-256: pending
+- Original owner sample metadata and exactly-one-sample retrieval: pending separate AUTH-01
+- Original owner sample path/SHA-256: pending provenance gate; audio remains outside Git
+- Hume UI upload and one clone creation: pending separate AUTH-02
 - Rights/consent record path: pending V2 record
-- Fresh cold-open calibration: pending
-- Dense-evidence calibration: pending
-- Economics/uncertainty calibration: pending
-- Pronunciation calibration: pending
-- Native PCM capability check: pending
-- Fallback audible artifact review, if needed: pending
+- Retained v0.2 native-PCM technical calibration: pass
+- Retained v0.2 owner creative calibration: revise
+- Blind two-passage/two-generation Eleven/Hume bakeoff: pending AUTH-03 and AUTH-04
+- Later eligible-method long-form/pickup test: pending separate AUTH-05
 
 ## Approval
 
@@ -99,5 +101,7 @@ The default delivery master remains 48 kHz, 24-bit, mono PCM WAV regardless of s
 - Approval date:
 - Approved profile SHA-256:
 
-No provider call is authorized by this document. Calibration and full capture each require a
-separate `PROVIDER-CALL-AUTHORIZATION`.
+No provider read, sample retrieval, upload, clone, generation, or full capture is authorized by
+this document. The exact v0.3 separation is defined in
+[`../TOOL-AUDIT-AND-BAKEOFF.md`](../TOOL-AUDIT-AND-BAKEOFF.md). A selected method must still pass
+N4A, and N4B full capture then requires a new authorization.

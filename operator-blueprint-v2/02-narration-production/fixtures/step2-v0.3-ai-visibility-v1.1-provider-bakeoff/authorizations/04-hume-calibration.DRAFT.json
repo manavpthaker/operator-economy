@@ -1,0 +1,80 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "DRAFT-ai-visibility-v1.1-hume-calibration-bakeoff",
+  "status": "draft",
+  "approved": false,
+  "scope": "hume_calibration",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "provider": "hume",
+  "action": {
+    "kind": "bounded_tts_calibration",
+    "voice_id": "__HUME_CLONE_ID_PENDING__",
+    "model_id": "octave-1",
+    "request_ids": [
+      "HU-P01",
+      "HU-P02"
+    ],
+    "num_generations_per_request": 2,
+    "requested_format": "wav",
+    "only_permitted_fallback": "mp3_44100_192",
+    "fallback_reason_required": "lossless_capability_unavailable",
+    "fallback_requires_capability_rejection_receipt": true,
+    "fallback_requires_actual_codec_bitrate_verification": true,
+    "fallback_request_call_ceiling": 2
+  },
+  "purpose": "After a separately authorized and receipted Manav clone exists, generate exactly two candidates for each frozen passage from the exact thought-partitioned request bodies.",
+  "bindings": {
+    "script_sha256": "74048b55ed15ed6ed679abb5a6c892def8a8a40e75e7cebeafdfde319dd67efa",
+    "spoken_text_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "performance_envelope_sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d",
+    "provider_bakeoff_plan_sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333",
+    "compiled_dry_run_sha256": "1ab5b95edfeb223acc84540930a663d04b46b53af65933479b6b363d634dbda5",
+    "provider_adapter_sha256": "25e3625ff1dae9e883a48700ccf52eb91f2334d4cec860a03b807adf31e62759",
+    "compiled_hash_state": "provisional_pending_clone_id_replacement",
+    "clone_receipt_sha256": "pending"
+  },
+  "account_requirements": {
+    "account_tier": "unverified",
+    "commercial_use_eligibility": "unverified"
+  },
+  "requested_limits": {
+    "primary_lossless_calls": 2,
+    "primary_lossless_outputs": 4,
+    "primary_lossless_characters": 6278,
+    "primary_modeled_public_rate_cost_usd": 0.9417,
+    "max_calls": 4,
+    "max_outputs": 4,
+    "max_characters": 12556,
+    "max_spend_usd": 1.8834
+  },
+  "authorized_limits": {
+    "max_calls": 0,
+    "max_outputs": 0,
+    "max_characters": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "calls_used": 0,
+    "outputs_received": 0,
+    "characters_used": 0,
+    "spend_used_usd": 0,
+    "record_path": ""
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "owner_approval_absent",
+    "hume_clone_id_and_provenance_receipt_absent",
+    "request_bodies_not_recompiled_with_real_clone_id",
+    "hume_account_tier_unverified",
+    "hume_commercial_use_eligibility_unverified",
+    "bounded_active_spend_cap_not_set",
+    "expiration_not_set"
+  ]
+}
