@@ -90,6 +90,9 @@ produces a provenance receipt and immutable clone ID.
 - `reviews/BLIND-SCORING.template.md` separates listening evidence from provider identity.
 - `reviews/LONG-FORM-CONFIRMATION.template.md` prevents a short-passage winner from being treated as
   a production narrator without a continuity test.
+- `reviews/public/AUTH-01C-ivc_1-phone-review-12s.m4a` is the single owner-approved public phone
+  review proxy. Its publication does not clear provenance or authorize Hume; the full source stays
+  private and ignored.
 - `RESULTS.md` is the current human-readable state and eventual decision surface.
 
 ## Required sequence before any audio can exist

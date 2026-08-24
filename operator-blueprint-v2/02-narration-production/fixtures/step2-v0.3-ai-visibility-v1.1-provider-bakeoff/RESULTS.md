@@ -70,6 +70,10 @@ Those technical properties do not clear identity or provenance. AUTH-01C cannot 
 owner may listen to the blocked first response; retrieving either remaining sample requires a new
 decision and authorization. Hume remains blocked.
 
+At the owner's explicit request, one 12-second AAC review proxy was published for mobile listening.
+Only that proxy is public. Its publication does not approve the sample, clear provenance, or expose
+the six-minute source.
+
 ## Planned comparison inventory
 
 | Passage | Eleven candidate A | Eleven candidate B | Hume candidate A | Hume candidate B |
