@@ -46,7 +46,15 @@ class ProviderBakeoffTests(unittest.TestCase):
         blueprint = Path(temporary.name) / "operator-blueprint-v2"
         copied_fixtures = blueprint / "02-narration-production" / "fixtures"
         copied_fixtures.mkdir(parents=True)
-        shutil.copytree(self.fixture, copied_fixtures / self.fixture.name)
+        # Build tests from the tracked contract surface, never from local or
+        # post-execution evidence produced by a real provider action.
+        shutil.copytree(
+            self.fixture,
+            copied_fixtures / self.fixture.name,
+            ignore=shutil.ignore_patterns(
+                "local-media", "receipts", "consumed", "*.ACTIVE.*"
+            ),
+        )
         copied_identity = copied_fixtures / self.base_fixture.name / "identity"
         copied_identity.mkdir(parents=True)
         shutil.copy2(self.w, copied_identity / self.w.name)

@@ -1,11 +1,12 @@
 # Provider Bakeoff Results
 
-Status: `dry_run_only`
+Status: `auth01_blocked_multiple_samples`
 
 ## Current result
 
-No listening result exists. The fixture currently proves only that the locked passages and planned
-provider payloads can be inspected without accessing credentials or providers.
+No listening result exists. The fixture proves the locked passages and planned provider payloads
+can be inspected offline. It also records one bounded AUTH-01 execution that stopped after
+ElevenLabs reported multiple source samples for the bound voice.
 
 | State | Result |
 | --- | --- |
@@ -15,12 +16,12 @@ provider payloads can be inspected without accessing credentials or providers.
 | Bakeoff plan | runtime-validated: 6 primary calls, 8 expected outputs, no external authority |
 | ElevenLabs dry-run compilation | CLI-generated and non-executable: 4 primary calls, 4 outputs |
 | Hume dry-run compilation | provisionally complete; pending clone binding and mandatory recompile; non-executable |
-| ElevenLabs read-only identity audit | not authorized; not run |
+| ElevenLabs read-only identity audit | AUTH-01 consumed; blocked on multiple source samples after one metadata call |
 | Hume UI upload/clone | not authorized; not run |
 | ElevenLabs calibration | not authorized; not run |
 | Hume calibration | not authorized; not run |
-| Provider calls made | `0` |
-| Credentials accessed | `0` |
+| Provider calls made | `1` read-only ElevenLabs metadata call |
+| Credentials accessed | environment-only for AUTH-01; not persisted |
 | Samples retrieved or uploaded | `0` |
 | Voices cloned | `0` |
 | Audio files produced | `0` |
@@ -28,6 +29,17 @@ provider payloads can be inspected without accessing credentials or providers.
 | Long-form confirmation | not available |
 | Selected provider | none |
 | Owner creative decision | pending |
+
+## AUTH-01 execution result
+
+The single authorized metadata call returned multiple attached samples. The runner did not choose
+among them and did not make the permitted download call. The authorization was consumed before
+network access and cannot be retried. No local voice media exists, and Hume remains untouched.
+
+The failed-closed metadata receipt preserved the multiple-sample reason but not the safe sample
+inventory needed for owner selection. The runtime repair is required before another metadata
+authorization. Recovering sample IDs later would require a new explicit owner authorization; it is
+not implied by this result.
 
 ## Planned comparison inventory
 

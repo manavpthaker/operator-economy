@@ -1,7 +1,7 @@
 # AI Visibility v1.1 Provider Bakeoff Fixture
 
-Status: dry-run package only; no provider action, audio, voice clone, creative verdict, episode, or
-Step 3 authority
+Status: AUTH-01 stopped safely on multiple source samples; no sample download, audio, voice clone,
+creative verdict, episode, or Step 3 authority
 
 ## Purpose
 
@@ -41,11 +41,15 @@ produces a provenance receipt and immutable clone ID.
 
 ## Fail-closed state
 
-- No credentials were read.
-- No provider metadata or samples were retrieved.
+- The ElevenLabs API key was read from the process environment for the authorized call and was not
+  written to any repository artifact, receipt, path, or command result.
+- One separately authorized ElevenLabs metadata call was made. It returned multiple attached
+  source samples, so the one-use authorization was consumed and the runner stopped.
+- No sample was selected or downloaded. The metadata failure receipt preserved the block reason but
+  not the returned sample inventory; that receipt defect is recorded and is not a retry authority.
 - No sample was uploaded and no voice was cloned.
 - No TTS request was sent and no audio exists.
-- All four provider-action authorizations are drafts with zero authority.
+- AUTH-01 is consumed. AUTH-02 through AUTH-04 remain drafts with zero authority.
 - The Hume request records contain a pending clone placeholder and are not execution-ready.
 - Hume account tier and commercial-use eligibility are unverified. They must be checked before any
   Hume calibration approval; a logged-in session alone is not evidence.
@@ -78,9 +82,11 @@ produces a provenance receipt and immutable clone ID.
 1. Validate the frozen W ranges, provider-neutral envelope, both provider adapters, plan,
    compilation hashes, primary and conditional-fallback call limits, destinations, and pricing
    model.
-2. Separately approve Eleven read-only metadata/sample retrieval if a current identity audit is
-   needed.
-3. Separately approve the UI-mediated Hume sample upload/clone and record rights, consent, source
+2. Repair and test the multiple-sample inventory receipt, then issue a new read-only metadata
+   authorization if the owner wants to enumerate the exact sample IDs. Do not reuse AUTH-01.
+3. After owner selection, separately authorize one exact sample download and complete provenance
+   review. Only then may the UI-mediated Hume sample upload/clone be considered under its own
+   authorization, with rights, consent, source
    sample hash, account tier, commercial-use eligibility, clone ID, and clone receipt.
 4. Replace the Hume placeholder, regenerate its bodies, recompute every affected hash, and re-run
    the dry run.

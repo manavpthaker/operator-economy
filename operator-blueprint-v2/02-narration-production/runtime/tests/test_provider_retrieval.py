@@ -94,7 +94,16 @@ class ProviderRetrievalTests(unittest.TestCase):
             / self.source_fixture.name
         )
         fixture.parent.mkdir(parents=True)
-        shutil.copytree(self.source_fixture, fixture)
+        # The canonical fixture may contain ignored, post-execution local
+        # evidence. Tests must never inspect, copy into assertions, or mutate
+        # those records, so build from the tracked contract surface only.
+        shutil.copytree(
+            self.source_fixture,
+            fixture,
+            ignore=shutil.ignore_patterns(
+                "local-media", "receipts", "consumed", "*.ACTIVE.*"
+            ),
+        )
         identity = (
             blueprint
             / "02-narration-production"
@@ -279,7 +288,25 @@ class ProviderRetrievalTests(unittest.TestCase):
                 opened.assert_not_called()
 
     def test_zero_or_multiple_samples_stops_after_one_call_with_receipt(self) -> None:
-        for samples, expected_reason in (([], "zero_samples"), ([{"sample_id": "a"}, {"sample_id": "b"}], "multiple_samples")):
+        multiple = [
+            {
+                "sample_id": "a",
+                "file_name": "../../owner-a.wav",
+                "mime_type": "audio/wav",
+                "category": "cloned",
+                "source": "user_upload",
+                "hash": "provider-hash-a",
+                "size_bytes": 123,
+                "is_generated": False,
+                "is_original": True,
+            },
+            {
+                "sample_id": "b",
+                "file_name": "test-secret-do-not-store.wav",
+                "source": "test-secret-do-not-store",
+            },
+        ]
+        for samples, expected_reason in (([], "zero_samples"), (multiple, "multiple_samples")):
             with self.subTest(expected_reason=expected_reason):
                 temporary, fixture, auth_path = self._active_authorization()
                 self.addCleanup(temporary.cleanup)
@@ -305,6 +332,35 @@ class ProviderRetrievalTests(unittest.TestCase):
                 self.assertEqual(receipt["reason"], expected_reason)
                 self.assertEqual(receipt["attempted_calls"], 1)
                 self.assertEqual(receipt["provider_identifiers"]["x-request-id"], "selection-request")
+                self.assertEqual(receipt["outcome"], "failed_closed")
+                evidence = receipt["metadata_evidence"]
+                self.assertEqual(evidence["voice_id"], authorization["action"]["voice_id"])
+                self.assertEqual(evidence["sample_count"], len(samples))
+                self.assertEqual(evidence["response"]["mime_type"], "application/json")
+                self.assertEqual(evidence["response"]["byte_count"], len(data))
+                self.assertEqual(evidence["response"]["sha256"], sha256_bytes(data))
+                self.assertFalse(evidence["selection_made"])
+                self.assertFalse(evidence["download_attempted"])
+                self.assertEqual(len(evidence["samples"]), len(samples))
+                if expected_reason == "multiple_samples":
+                    self.assertEqual(
+                        [item["sample_id"] for item in evidence["samples"]], ["a", "b"]
+                    )
+                    self.assertEqual(
+                        evidence["samples"][0]["original_filename"], "owner-a.wav"
+                    )
+                    self.assertEqual(evidence["samples"][0]["category"], "cloned")
+                    self.assertEqual(evidence["samples"][0]["source"], "user_upload")
+                    self.assertEqual(evidence["samples"][0]["declared_mime_type"], "audio/wav")
+                    self.assertEqual(evidence["samples"][0]["provider_size_bytes"], 123)
+                    self.assertFalse(evidence["samples"][0]["is_generated"])
+                    self.assertTrue(evidence["samples"][0]["is_original"])
+                    self.assertIsNone(evidence["samples"][1]["original_filename"])
+                    self.assertIsNone(evidence["samples"][1]["source"])
+                    self.assertNotIn(
+                        "test-secret-do-not-store",
+                        receipt_path.read_text(encoding="utf-8"),
+                    )
                 self.assertFalse((fixture / authorization["action"]["destinations"][0]).exists())
 
     def test_download_cap_overrun_and_size_ambiguity_fail_closed(self) -> None:

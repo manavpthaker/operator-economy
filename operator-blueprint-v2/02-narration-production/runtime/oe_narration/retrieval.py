@@ -281,6 +281,28 @@ def _normalized_sample_metadata(sample: dict[str, Any], credential: str) -> dict
     return result
 
 
+def _normalized_sample_inventory(
+    samples: list[Any], credential: str
+) -> list[dict[str, Any]]:
+    """Preserve bounded, credential-free evidence without selecting a sample."""
+
+    inventory: list[dict[str, Any]] = []
+    for index, sample in enumerate(samples):
+        if isinstance(sample, dict):
+            normalized = _normalized_sample_metadata(sample, credential)
+            inventory.append({"metadata_index": index, **normalized})
+        else:
+            inventory.append(
+                {
+                    "metadata_index": index,
+                    "invalid_sample_entry": True,
+                    "sample_id": None,
+                    "original_filename": None,
+                }
+            )
+    return inventory
+
+
 def _probe_audio(path: Path) -> dict[str, Any]:
     """Require ffprobe to parse at least one positive-duration audio stream."""
 
@@ -512,6 +534,7 @@ def _write_failure_receipt(
     http_status: int | None = None,
     provider_identifiers: dict[str, str] | None = None,
     blocked_evidence: dict[str, Any] | None = None,
+    metadata_evidence: dict[str, Any] | None = None,
 ) -> None:
     receipt = {
         "schema_version": RETRIEVAL_SCHEMA,
@@ -527,6 +550,7 @@ def _write_failure_receipt(
         "http_status": http_status,
         "provider_identifiers": provider_identifiers or {},
         "blocked_local_evidence": blocked_evidence,
+        "metadata_evidence": metadata_evidence,
         "failed_at": _utc_now(),
         "provenance_verification": "not_completed",
         "human_source_confirmed": False,
@@ -771,6 +795,20 @@ def execute_retrieval(authorization_path: Path, timeout: float = 60.0) -> dict[s
         raise ValidationError(f"ElevenLabs metadata retrieval failed closed: {reason}")
     if len(samples) != 1:
         reason = "zero_samples" if len(samples) == 0 else "multiple_samples"
+        metadata_evidence = {
+            "voice_id": voice_id,
+            "sample_count": len(samples),
+            "samples": _normalized_sample_inventory(samples, api_key),
+            "response": {
+                "mime_type": metadata_response.mime_type,
+                "byte_count": len(metadata_response.data),
+                "sha256": sha256_bytes(metadata_response.data),
+                "provider_identifiers": metadata_response.provider_identifiers,
+            },
+            "selection_made": False,
+            "download_attempted": False,
+            "provenance_verification": "not_completed",
+        }
         _write_failure_receipt(
             metadata_receipt_path,
             authorization=authorization,
@@ -781,6 +819,7 @@ def execute_retrieval(authorization_path: Path, timeout: float = 60.0) -> dict[s
             downloads_attempted=downloads_attempted,
             voice_id=voice_id,
             provider_identifiers=metadata_response.provider_identifiers,
+            metadata_evidence=metadata_evidence,
         )
         raise ValidationError(f"ElevenLabs metadata retrieval failed closed: {reason}")
     sample = samples[0]
