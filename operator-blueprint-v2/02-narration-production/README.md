@@ -39,6 +39,13 @@ V0.3 therefore adds a provider-agnostic performance envelope and a bounded Eleve
 bakeoff before another N4A decision. The bakeoff grants no N4B full capture or Step 3 authority.
 See [`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md).
 
+AUTH-01 stopped on multiple attached samples, and consumed AUTH-01B recorded the complete three-
+sample metadata inventory without selecting or downloading audio. The owner has now approved a
+separate AUTH-01C local-review retrieval for exactly those three inventory-bound samples. That
+approval is a bounded read action only: it is not provenance approval, Hume authority, calibration,
+or production narration. The active authorization artifact has not yet been materialized, and no
+AUTH-01C provider request has occurred.
+
 ## Production flow
 
 ```text
@@ -46,6 +53,7 @@ locked editorial handoff
 → handoff verification
 → performance direction and provider-agnostic performance envelope
 → when the current method is unapproved: original-sample provenance gate
+→ when one source cannot be selected from metadata: exact named-sample local review
 → four separately authorized short-bakeoff actions
 → blind short scoring
 → separately authorized long-form continuity and pickup test for eligible methods
@@ -125,18 +133,28 @@ Synthetic capture additionally follows
 Machine-checkable identities, validation states, and exit semantics follow
 [`CLI-VALIDATION-CONTRACT.md`](CLI-VALIDATION-CONTRACT.md).
 
-The v0.3 CLI can validate the envelope, provider adapters, bakeoff plan, and four initial action-
-authorization shapes, then compile credential-free ElevenLabs and Hume dry runs. Its one narrow
-external-action client can consume a separately approved `AUTH-01`, read the exact ElevenLabs voice
-metadata, and retrieve the single selected source sample into ignored local custody. It cannot
-operate the Hume UI, create a clone, execute a bakeoff generation request, score a performance,
-select a provider, or grant any downstream authority. A retrieved sample remains blocked from Hume
-until an owner provenance listen and a separate `AUTH-02`.
+The v0.3 CLI can validate the envelope, provider adapters, bakeoff plan, and action-authorization
+shapes, then compile credential-free ElevenLabs and Hume dry runs. Its narrow read-only clients may
+act only under a separately approved authorization: AUTH-01 for one exact metadata-and-single-
+sample attempt, AUTH-01B for one metadata-only inventory, or AUTH-01C for the exact three-sample
+local-review batch described below. It cannot operate the Hume UI, create a clone, execute a
+bakeoff generation request, score a performance, select a provider, or grant downstream authority.
+Downloaded bytes remain blocked from Hume until an owner provenance listen and a separate AUTH-02.
 
 When AUTH-01 stops because the voice has multiple attached samples, the corrective scope
 `elevenlabs_sample_metadata_inventory` may be separately authorized. It permits one metadata call
 that records a safe sample inventory for owner review, with zero selection, downloads, generation,
 spend, or Hume access. It is not one of the four initial bakeoff actions and cannot replace them.
+
+When that complete inventory still cannot support a safe metadata-only choice, the separate scope
+`elevenlabs_named_sample_batch_retrieval` with action kind
+`read_only_named_sample_batch_retrieval` may authorize local review of the whole named set. For
+AUTH-01C that means exactly the three AUTH-01B samples, exactly three sample `GET` calls and three
+downloads on success, a 20,000,000-byte aggregate ceiling, and `$0` spend. The authorization is
+consumed before network access and permits no metadata/discovery call, retry, redirect, upload,
+TTS, or Hume action. Exact raw MP3 responses stay immutable and excluded from Git under local
+custody. Technical inspection cannot establish identity or provenance; the owner must listen and
+approve one usable original human sample before Hume can be considered.
 
 ## Source-format policy
 
@@ -200,3 +218,7 @@ behavior are tested and the owner explicitly locks it.
 The separately authorized corrective inventory scope
 `elevenlabs_sample_metadata_inventory` is outside that four-action bakeoff sequence. It exists only
 to enumerate safe metadata after a multiple-sample stop and grants no selection or download.
+
+The separately authorized AUTH-01C scope `elevenlabs_named_sample_batch_retrieval` is also outside
+the four-action sequence. It grants only the exact three inventory-bound local-review downloads and
+cannot approve provenance, select production audio, disclose anything to Hume, or authorize AUTH-02.

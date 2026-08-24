@@ -32,6 +32,10 @@ PROVIDER_ACTION_AUTHORIZATION_SCHEMA = "oe-provider-action-authorization-v1"
 ELEVEN_METADATA_INVENTORY_SCOPE = "elevenlabs_sample_metadata_inventory"
 ELEVEN_METADATA_INVENTORY_KIND = "read_only_voice_metadata_inventory"
 MAX_METADATA_INVENTORY_RESPONSE_BYTES = 2_000_000
+ELEVEN_NAMED_SAMPLE_BATCH_SCOPE = "elevenlabs_named_sample_batch_retrieval"
+ELEVEN_NAMED_SAMPLE_BATCH_KIND = "read_only_named_sample_batch_retrieval"
+MAX_NAMED_SAMPLE_REVIEW_COUNT = 3
+MAX_NAMED_SAMPLE_REVIEW_BYTES = 20_000_000
 
 ELEVEN_ALLOWED_TAGS = frozenset(
     {"[curious]", "[sarcastic]", "[excited]", "[pause]", "[warmly]"}
@@ -40,6 +44,7 @@ ACTION_SCOPES = frozenset(
     {
         "elevenlabs_sample_retrieval",
         ELEVEN_METADATA_INVENTORY_SCOPE,
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE,
         "hume_clone_creation",
         "elevenlabs_calibration",
         "hume_calibration",
@@ -47,6 +52,7 @@ ACTION_SCOPES = frozenset(
 )
 HUME_CLONE_PLACEHOLDER = "__HUME_CLONE_ID_PENDING__"
 HEX64_RE = re.compile(r"[0-9a-f]{64}\Z")
+OPAQUE_PROVIDER_HASH_RE = re.compile(r"[0-9a-f]{32}\Z")
 BRACKET_DIRECTION_RE = re.compile(r"\[[^\]\r\n]+\]")
 FORBIDDEN_SECRET_KEYS = frozenset(
     {
@@ -2056,6 +2062,28 @@ def validate_provider_action_authorization(
             "download_permitted",
             "raw_payload_storage_permitted",
         },
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: {
+            "kind",
+            "voice_id",
+            "source_inventory_receipt_path",
+            "source_inventory_receipt_sha256",
+            "samples",
+            "batch_receipt_destination",
+            "metadata_call_permitted",
+            "discovery_permitted",
+            "selection_permitted",
+            "retries_permitted",
+            "redirects_permitted",
+            "stop_on_first_failure",
+            "preserve_exact_returned_bytes",
+            "provenance_review_required",
+            "downstream_use_permitted",
+            "tts_generation_permitted",
+            "voice_mutation_permitted",
+            "hume_disclosure_permitted",
+            "hume_clone_creation_permitted",
+            "rights_and_consent",
+        },
         "hume_clone_creation": {
             "kind",
             "interface",
@@ -2117,6 +2145,7 @@ def validate_provider_action_authorization(
     binding_keys = {
         "elevenlabs_sample_retrieval": base_bindings,
         ELEVEN_METADATA_INVENTORY_SCOPE: base_bindings,
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: base_bindings,
         "hume_clone_creation": base_bindings,
         "elevenlabs_calibration": base_bindings | {"script_sha256", "spoken_text_sha256"},
         "hume_calibration": base_bindings
@@ -2145,6 +2174,12 @@ def validate_provider_action_authorization(
             "max_metadata_calls",
             "max_sample_download_calls",
             "max_metadata_response_bytes",
+            "max_spend_usd",
+        },
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: {
+            "max_metadata_calls",
+            "max_sample_download_calls",
+            "max_download_bytes",
             "max_spend_usd",
         },
         "hume_clone_creation": {"max_ui_uploads", "max_voice_clones", "max_spend_usd"},
@@ -2188,6 +2223,12 @@ def validate_provider_action_authorization(
             "max_metadata_response_bytes",
             "max_spend_usd",
         },
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: {
+            "max_calls",
+            "max_downloads",
+            "max_download_bytes",
+            "max_spend_usd",
+        },
         "hume_clone_creation": {"max_ui_uploads", "max_voice_clones", "max_spend_usd"},
         "elevenlabs_calibration": {
             "max_calls",
@@ -2217,6 +2258,13 @@ def validate_provider_action_authorization(
             "record_path",
         },
         ELEVEN_METADATA_INVENTORY_SCOPE: {
+            "status",
+            "calls_used",
+            "downloads_used",
+            "spend_used_usd",
+            "record_path",
+        },
+        ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: {
             "status",
             "calls_used",
             "downloads_used",
@@ -2430,6 +2478,235 @@ def validate_provider_action_authorization(
             errors.append(
                 "metadata inventory consumption.spend_used_usd must be exactly 0 before execution"
             )
+
+    elif scope == ELEVEN_NAMED_SAMPLE_BATCH_SCOPE:
+        if action.get("kind") != ELEVEN_NAMED_SAMPLE_BATCH_KIND:
+            errors.append("named-sample local-review action.kind mismatch")
+        provider_plan = _provider_from_plan(plan, "elevenlabs")
+        voice_id = action.get("voice_id")
+        if not provider_plan or voice_id != provider_plan.get("voice_id"):
+            errors.append("named-sample local-review voice_id does not match the bakeoff plan")
+        for field in (
+            "metadata_call_permitted",
+            "discovery_permitted",
+            "selection_permitted",
+            "retries_permitted",
+            "redirects_permitted",
+            "downstream_use_permitted",
+            "tts_generation_permitted",
+            "voice_mutation_permitted",
+            "hume_disclosure_permitted",
+            "hume_clone_creation_permitted",
+        ):
+            if action.get(field) is not False:
+                errors.append(f"named-sample local-review action.{field} must be false")
+        for field in ("stop_on_first_failure", "preserve_exact_returned_bytes"):
+            if action.get(field) is not True:
+                errors.append(f"named-sample local-review action.{field} must be true")
+        if action.get("provenance_review_required") is not True:
+            errors.append("named-sample local review must require unresolved human provenance review")
+
+        inventory_path = _verify_existing_local_binding(
+            artifact_root,
+            action.get("source_inventory_receipt_path"),
+            action.get("source_inventory_receipt_sha256"),
+            "action.source_inventory_receipt",
+            errors,
+            required_prefix="receipts",
+        )
+        inventory: dict[str, Any] | None = None
+        if inventory_path is not None:
+            try:
+                loaded_inventory = read_json(inventory_path)
+            except ValidationError as exc:
+                errors.extend(
+                    f"bound source inventory: {error}" for error in exc.errors
+                )
+            else:
+                if isinstance(loaded_inventory, dict):
+                    inventory = loaded_inventory
+                else:
+                    errors.append("bound source inventory must be a JSON object")
+
+        descriptors = action.get("samples")
+        if not isinstance(descriptors, list) or len(descriptors) != MAX_NAMED_SAMPLE_REVIEW_COUNT:
+            errors.append(
+                f"named-sample local review must bind exactly {MAX_NAMED_SAMPLE_REVIEW_COUNT} ordered samples"
+            )
+            descriptors = []
+        descriptor_keys = {
+            "sample_id",
+            "original_filename",
+            "endpoint",
+            "destination",
+            "receipt_destination",
+            "expected_mime_type",
+            "expected_size_bytes",
+            "expected_provider_hash",
+        }
+        sample_ids: list[str] = []
+        endpoints: list[str] = []
+        output_paths: list[str] = []
+        expected_total_bytes = 0
+        for index, descriptor in enumerate(descriptors):
+            label = f"action.samples[{index}]"
+            if not isinstance(descriptor, dict):
+                errors.append(f"{label} must be an object")
+                continue
+            _reject_unknown_keys(descriptor, descriptor_keys, label, errors)
+            sample_id = descriptor.get("sample_id")
+            if (
+                not isinstance(sample_id, str)
+                or not sample_id
+                or "pending" in sample_id.lower()
+            ):
+                errors.append(f"{label}.sample_id must be an exact non-pending provider sample ID")
+                sample_id = ""
+            sample_ids.append(sample_id)
+            expected_endpoint = (
+                f"https://api.elevenlabs.io/v1/voices/{quote(str(voice_id), safe='')}/"
+                f"samples/{quote(sample_id, safe='')}/audio"
+            )
+            endpoint = descriptor.get("endpoint")
+            if endpoint != expected_endpoint:
+                errors.append(f"{label}.endpoint must exactly equal the official bound sample endpoint")
+            if isinstance(endpoint, str):
+                endpoints.append(endpoint)
+            original_filename = descriptor.get("original_filename")
+            if (
+                not isinstance(original_filename, str)
+                or not original_filename
+                or Path(original_filename.replace("\\", "/")).name != original_filename
+            ):
+                errors.append(f"{label}.original_filename must be one safe provider basename")
+            expected_mime = descriptor.get("expected_mime_type")
+            if not isinstance(expected_mime, str) or not expected_mime.startswith("audio/"):
+                errors.append(f"{label}.expected_mime_type must identify audio")
+            expected_size = descriptor.get("expected_size_bytes")
+            if not _is_int(expected_size) or expected_size <= 0:
+                errors.append(f"{label}.expected_size_bytes must be a positive integer")
+            else:
+                expected_total_bytes += expected_size
+            provider_hash = descriptor.get("expected_provider_hash")
+            if (
+                not isinstance(provider_hash, str)
+                or OPAQUE_PROVIDER_HASH_RE.fullmatch(provider_hash) is None
+            ):
+                errors.append(
+                    f"{label}.expected_provider_hash must preserve the 32-hex opaque provider value"
+                )
+            for field, prefix in (
+                ("destination", "local-media"),
+                ("receipt_destination", "receipts"),
+            ):
+                value = descriptor.get(field)
+                _validate_new_local_destination(
+                    artifact_root,
+                    value,
+                    f"{label}.{field}",
+                    errors,
+                    required_prefix=prefix,
+                )
+                if isinstance(value, str):
+                    output_paths.append(value)
+
+        batch_receipt = action.get("batch_receipt_destination")
+        _validate_new_local_destination(
+            artifact_root,
+            batch_receipt,
+            "action.batch_receipt_destination",
+            errors,
+            required_prefix="receipts",
+        )
+        if isinstance(batch_receipt, str):
+            output_paths.append(batch_receipt)
+
+        if len(sample_ids) != len(set(sample_ids)):
+            errors.append("named-sample local-review sample IDs must be unique")
+        if len(endpoints) != len(set(endpoints)):
+            errors.append("named-sample local-review endpoints must be unique")
+        if len(output_paths) != len(set(output_paths)):
+            errors.append("named-sample local-review raw and receipt destinations must all be distinct")
+
+        if inventory is not None:
+            inventory_samples = inventory.get("samples")
+            completeness = inventory.get("inventory_completeness")
+            if inventory.get("schema_version") != "oe-elevenlabs-sample-metadata-inventory-v1":
+                errors.append("bound source inventory has the wrong schema")
+            if inventory.get("outcome") != "normalized_inventory_recorded":
+                errors.append("bound source inventory is not a completed normalized inventory")
+            if inventory.get("voice_id") != voice_id:
+                errors.append("bound source inventory voice_id does not match the action")
+            if inventory.get("sample_count") != len(descriptors):
+                errors.append("bound source inventory sample_count does not match the complete batch")
+            if inventory.get("selection_made") is not False:
+                errors.append("bound source inventory must not contain a prior selection")
+            if inventory.get("provider_metadata_is_provenance_proof") not in (False, None):
+                errors.append("bound source inventory may not assert provider metadata as provenance proof")
+            if not isinstance(completeness, dict) or completeness.get("inventory_complete") is not True:
+                errors.append("bound source inventory is incomplete")
+            if not isinstance(inventory_samples, list) or len(inventory_samples) != len(descriptors):
+                errors.append("action samples must cover the complete bound source inventory")
+            else:
+                for index, (descriptor, source) in enumerate(zip(descriptors, inventory_samples)):
+                    if not isinstance(descriptor, dict) or not isinstance(source, dict):
+                        errors.append(f"source inventory sample {index} is malformed")
+                        continue
+                    comparisons = (
+                        ("sample_id", "sample_id"),
+                        ("original_filename", "original_filename"),
+                        ("expected_mime_type", "declared_mime_type"),
+                        ("expected_size_bytes", "provider_size_bytes"),
+                        ("expected_provider_hash", "provider_hash"),
+                    )
+                    for descriptor_field, source_field in comparisons:
+                        if descriptor.get(descriptor_field) != source.get(source_field):
+                            errors.append(
+                                f"action.samples[{index}].{descriptor_field} does not match the bound inventory"
+                            )
+
+        requested = authorization.get("requested_limits")
+        if not isinstance(requested, dict):
+            errors.append("named-sample local review requires requested_limits")
+            requested = {}
+        if not _is_int(requested.get("max_metadata_calls")) or requested.get("max_metadata_calls") != 0:
+            errors.append("named-sample local review requested max_metadata_calls must be exactly 0")
+        if (
+            not _is_int(requested.get("max_sample_download_calls"))
+            or requested.get("max_sample_download_calls") != len(descriptors)
+        ):
+            errors.append("named-sample local review requested download calls must equal the sample count")
+        if (
+            not _is_int(requested.get("max_download_bytes"))
+            or requested.get("max_download_bytes") != MAX_NAMED_SAMPLE_REVIEW_BYTES
+        ):
+            errors.append(
+                f"named-sample local review requested max_download_bytes must be exactly {MAX_NAMED_SAMPLE_REVIEW_BYTES}"
+            )
+        if not _is_number(requested.get("max_spend_usd")) or requested.get("max_spend_usd") != 0:
+            errors.append("named-sample local review requested max_spend_usd must be exactly 0")
+        if not _is_int(limits.get("max_calls")) or limits.get("max_calls") != len(descriptors):
+            errors.append("named-sample local review authorized max_calls must equal the sample count")
+        if not _is_int(limits.get("max_downloads")) or limits.get("max_downloads") != len(descriptors):
+            errors.append("named-sample local review authorized max_downloads must equal the sample count")
+        if (
+            not _is_int(limits.get("max_download_bytes"))
+            or limits.get("max_download_bytes") != MAX_NAMED_SAMPLE_REVIEW_BYTES
+        ):
+            errors.append(
+                f"named-sample local review authorized max_download_bytes must be exactly {MAX_NAMED_SAMPLE_REVIEW_BYTES}"
+            )
+        if not _is_number(limits.get("max_spend_usd")) or limits.get("max_spend_usd") != 0:
+            errors.append("named-sample local review authorized max_spend_usd must be exactly 0")
+        if expected_total_bytes > MAX_NAMED_SAMPLE_REVIEW_BYTES:
+            errors.append("bound provider sample sizes exceed the total authorized byte ceiling")
+        if not _is_int(consumption.get("calls_used")) or consumption.get("calls_used") != 0:
+            errors.append("named-sample local review consumption.calls_used must be exactly 0")
+        if not _is_int(consumption.get("downloads_used")) or consumption.get("downloads_used") != 0:
+            errors.append("named-sample local review consumption.downloads_used must be exactly 0")
+        if not _is_number(consumption.get("spend_used_usd")) or consumption.get("spend_used_usd") != 0:
+            errors.append("named-sample local review consumption.spend_used_usd must be exactly 0")
+        _active_rights_record(action, artifact_root, errors)
 
     elif scope == "elevenlabs_sample_retrieval":
         if action.get("kind") != "read_only_voice_metadata_and_named_sample_retrieval":

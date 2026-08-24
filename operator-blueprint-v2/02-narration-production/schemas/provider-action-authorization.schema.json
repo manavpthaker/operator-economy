@@ -31,6 +31,7 @@
       "enum": [
         "elevenlabs_sample_retrieval",
         "elevenlabs_sample_metadata_inventory",
+        "elevenlabs_named_sample_batch_retrieval",
         "hume_clone_creation",
         "elevenlabs_calibration",
         "hume_calibration"
@@ -219,6 +220,57 @@
       }
     },
     {
+      "if": {"properties": {"scope": {"const": "elevenlabs_named_sample_batch_retrieval"}}},
+      "then": {
+        "required": ["requested_limits"],
+        "properties": {
+          "provider": {"const": "elevenlabs"},
+          "action": {"$ref": "#/$defs/namedSampleBatchRetrievalAction"},
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["script_sha256"]},
+              {"required": ["spoken_text_sha256"]},
+              {"required": ["compiled_hash_state"]},
+              {"required": ["clone_receipt_sha256"]},
+              {"required": ["clone_receipt_path"]}
+            ]}
+          },
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_metadata_response_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_calls"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]},
+              {"required": ["primary_lossless_calls"]},
+              {"required": ["primary_lossless_characters"]},
+              {"required": ["primary_lossless_outputs"]},
+              {"required": ["primary_modeled_public_rate_cost_usd"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_metadata_response_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["uploads_used"]},
+              {"required": ["clones_created"]},
+              {"required": ["characters_used"]},
+              {"required": ["outputs_received"]}
+            ]}
+          }
+        },
+        "not": {"required": ["account_requirements"]}
+      }
+    },
+    {
       "if": {"properties": {"scope": {"const": "hume_clone_creation"}}},
       "then": {
         "required": ["account_requirements"],
@@ -383,6 +435,101 @@
           },
           "authorized_limits": {
             "required": ["max_calls", "max_downloads", "max_download_bytes", "max_spend_usd"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "elevenlabs_named_sample_batch_retrieval"}}},
+          {
+            "properties": {
+              "action": {
+                "required": ["kind"],
+                "properties": {"kind": {"const": "read_only_named_sample_batch_retrieval"}}
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "required": ["requested_limits"],
+        "properties": {
+          "action": {
+            "required": [
+              "source_inventory_receipt_path",
+              "source_inventory_receipt_sha256",
+              "samples",
+              "batch_receipt_destination",
+              "metadata_call_permitted",
+              "discovery_permitted",
+              "selection_permitted",
+              "retries_permitted",
+              "redirects_permitted",
+              "stop_on_first_failure",
+              "preserve_exact_returned_bytes",
+              "provenance_review_required",
+              "downstream_use_permitted",
+              "tts_generation_permitted",
+              "voice_mutation_permitted",
+              "hume_disclosure_permitted",
+              "hume_clone_creation_permitted",
+              "rights_and_consent"
+            ],
+            "properties": {
+              "samples": {"minItems": 3, "maxItems": 3},
+              "batch_receipt_destination": {"type": "string", "minLength": 1},
+              "metadata_call_permitted": {"const": false},
+              "discovery_permitted": {"const": false},
+              "selection_permitted": {"const": false},
+              "retries_permitted": {"const": false},
+              "redirects_permitted": {"const": false},
+              "stop_on_first_failure": {"const": true},
+              "preserve_exact_returned_bytes": {"const": true},
+              "provenance_review_required": {"const": true},
+              "downstream_use_permitted": {"const": false},
+              "tts_generation_permitted": {"const": false},
+              "voice_mutation_permitted": {"const": false},
+              "hume_disclosure_permitted": {"const": false},
+              "hume_clone_creation_permitted": {"const": false},
+              "rights_and_consent": {
+                "properties": {"provider_disclosure_approved": {"const": true}}
+              }
+            }
+          },
+          "requested_limits": {
+            "required": [
+              "max_metadata_calls",
+              "max_sample_download_calls",
+              "max_download_bytes",
+              "max_spend_usd"
+            ],
+            "properties": {
+              "max_metadata_calls": {"const": 0},
+              "max_sample_download_calls": {"const": 3},
+              "max_download_bytes": {"const": 20000000},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "authorized_limits": {
+            "required": ["max_calls", "max_downloads", "max_download_bytes", "max_spend_usd"],
+            "properties": {
+              "max_calls": {"const": 3},
+              "max_downloads": {"const": 3},
+              "max_download_bytes": {"const": 20000000},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "consumption": {
+            "required": ["status", "calls_used", "downloads_used", "spend_used_usd", "record_path"],
+            "properties": {
+              "status": {"const": "unconsumed"},
+              "calls_used": {"const": 0},
+              "downloads_used": {"const": 0},
+              "spend_used_usd": {"const": 0}
+            }
           }
         }
       }
@@ -618,6 +765,83 @@
         "selection_permitted": {"const": false},
         "download_permitted": {"const": false},
         "raw_payload_storage_permitted": {"const": false}
+      }
+    },
+    "namedSampleBatchRetrievalAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "voice_id",
+        "source_inventory_receipt_path",
+        "source_inventory_receipt_sha256",
+        "samples",
+        "batch_receipt_destination",
+        "metadata_call_permitted",
+        "discovery_permitted",
+        "selection_permitted",
+        "retries_permitted",
+        "redirects_permitted",
+        "stop_on_first_failure",
+        "preserve_exact_returned_bytes",
+        "provenance_review_required",
+        "downstream_use_permitted",
+        "tts_generation_permitted",
+        "voice_mutation_permitted",
+        "hume_disclosure_permitted",
+        "hume_clone_creation_permitted",
+        "rights_and_consent"
+      ],
+      "properties": {
+        "kind": {"const": "read_only_named_sample_batch_retrieval"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "source_inventory_receipt_path": {"type": "string", "minLength": 1},
+        "source_inventory_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "samples": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/namedSampleDescriptor"}
+        },
+        "batch_receipt_destination": {"type": "string", "minLength": 1},
+        "metadata_call_permitted": {"const": false},
+        "discovery_permitted": {"const": false},
+        "selection_permitted": {"const": false},
+        "retries_permitted": {"const": false},
+        "redirects_permitted": {"const": false},
+        "stop_on_first_failure": {"const": true},
+        "preserve_exact_returned_bytes": {"const": true},
+        "provenance_review_required": {"const": true},
+        "downstream_use_permitted": {"const": false},
+        "tts_generation_permitted": {"const": false},
+        "voice_mutation_permitted": {"const": false},
+        "hume_disclosure_permitted": {"const": false},
+        "hume_clone_creation_permitted": {"const": false},
+        "rights_and_consent": {"$ref": "#/$defs/rightsAndConsent"}
+      }
+    },
+    "namedSampleDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sample_id",
+        "original_filename",
+        "endpoint",
+        "destination",
+        "receipt_destination",
+        "expected_mime_type",
+        "expected_size_bytes",
+        "expected_provider_hash"
+      ],
+      "properties": {
+        "sample_id": {"type": "string", "minLength": 1},
+        "original_filename": {"type": "string", "minLength": 1},
+        "endpoint": {"type": "string", "minLength": 1},
+        "destination": {"type": "string", "minLength": 1},
+        "receipt_destination": {"type": "string", "minLength": 1},
+        "expected_mime_type": {"type": "string", "pattern": "^audio/"},
+        "expected_size_bytes": {"type": "integer", "minimum": 1},
+        "expected_provider_hash": {"type": "string", "pattern": "^[0-9a-f]{32}$"}
       }
     },
     "cloneAction": {

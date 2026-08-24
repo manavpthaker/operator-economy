@@ -18,6 +18,12 @@ The retained AI Visibility v1.1 N4A batch has:
 - N4B full-capture authority: **none**; and
 - Step 3 authority: **none**.
 
+At the source-provenance subgate, AUTH-01 and AUTH-01B are consumed. AUTH-01B proved that the bound
+voice has exactly three named samples but exposed no basis for choosing one from metadata. The owner
+has approved a separate, least-privilege AUTH-01C to retrieve that exact three-sample set for local
+listening. Its active authorization artifact has not yet been materialized and the action is
+unexecuted. This does not clear provenance or unblock Hume.
+
 The problem to solve is the performed voice, not the approved words. The v0.3 test therefore uses
 the same Step 1 v1.5 script identity and the same nonlexical performance intent. A candidate may not
 gain an advantage by rewriting, paraphrasing, adding fillers, or removing qualifications.
@@ -169,8 +175,48 @@ If AUTH-01 stops because the bound voice exposes multiple samples, do not weaken
 do not reuse it. A separately approved corrective action may use machine scope
 `elevenlabs_sample_metadata_inventory` to make one metadata request and preserve a safe sample
 inventory for the owner. That action allows zero selection, zero downloads, zero generation, zero
-spend, and no Hume access. A later download still requires a new authorization naming one exact
-sample ID.
+spend, and no Hume access. Any later download requires a new authorization binding the exact sample
+ID or complete review set; AUTH-01C uses the latter form because metadata cannot safely choose among
+the three inventory entries.
+
+### AUTH-01C — Exact named-sample batch retrieval for local review
+
+Machine scope: `elevenlabs_named_sample_batch_retrieval`.
+
+Action kind: `read_only_named_sample_batch_retrieval`.
+
+AUTH-01C exists because the complete AUTH-01B inventory is structurally valid but its generic
+filenames and missing provenance fields cannot support choosing one sample without listening. It
+binds the exact voice ID `yUXeTfC1IFOCSjGc96sQ`, the AUTH-01B inventory receipt at SHA-256
+`fee1a15184e0bac1f628211dd70df9c109b1d374bcd66573703608f95852e199`, and all three inventory entries:
+
+| Filename | Provider sample ID | Inventory-declared bytes |
+| --- | --- | ---: |
+| `ivc_1.mp3` | `rHrnt10vbIpD444OcGVZ` | 5,760,813 |
+| `ivc_3.mp3` | `snRkGS2XRR1nJW0hIGJP` | 5,592,621 |
+| `ivc_2.mp3` | `W8D70GbyW9cfeYGLRWQF` | 5,760,813 |
+
+Allowed only:
+
+- consume AUTH-01C before the first network request;
+- make exactly one official sample-audio `GET` for each bound sample ID—three calls and three
+  downloads on successful completion;
+- enforce a 20,000,000-byte aggregate download ceiling and `$0` spend;
+- preserve each provider response byte-for-byte as an immutable raw MP3 in owner-only, Git-ignored
+  local custody; and
+- create credential-free per-file and batch receipts plus technical inspection evidence.
+
+Not allowed: voice metadata or discovery, automatic sample selection, additional sample IDs,
+partial-success approval, retry, redirect following, upload, account mutation, TTS, Hume access, or
+any reuse of AUTH-01/AUTH-01B. Failure leaves AUTH-01C consumed and requires a new owner decision;
+the agent may not resume the remaining files or repeat a call.
+
+Technical QA may confirm exact bytes, actual MP3/container characteristics, decodability, duration,
+clipping, corruption, and review readiness. It cannot decide that a sample is Manav, wholly human,
+single-speaker, original, consented for cloning, or production-suitable. The owner must listen to
+all three and explicitly approve one exact sample—or reject all three. Until that disposition and
+a later separate AUTH-02, no local file may be disclosed or uploaded to Hume and clone creation
+remains blocked.
 
 ### AUTH-02 — Hume UI sample upload and one clone creation
 

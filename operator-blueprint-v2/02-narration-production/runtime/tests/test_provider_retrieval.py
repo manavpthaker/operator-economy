@@ -17,9 +17,12 @@ from oe_narration.core import ValidationError, sha256_bytes, sha256_file
 from oe_narration.cli import build_parser, dispatch
 from oe_narration.retrieval import (
     MAX_AUTHORIZED_DOWNLOAD_BYTES,
+    MAX_NAMED_SAMPLE_REVIEW_BYTES,
     dry_run_metadata_inventory,
+    dry_run_named_sample_batch,
     dry_run_retrieval,
     execute_metadata_inventory,
+    execute_named_sample_batch,
     execute_retrieval,
 )
 
@@ -224,6 +227,128 @@ class ProviderRetrievalTests(unittest.TestCase):
         self._write_json(auth_path, authorization)
         return temporary, fixture, auth_path
 
+    def _active_named_batch_authorization(
+        self,
+        *,
+        sample_sizes: tuple[int, int, int] = (67, 71, 73),
+    ) -> tuple[tempfile.TemporaryDirectory, Path, Path]:
+        temporary, fixture, auth_path = self._active_authorization()
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        voice_id = authorization["action"]["voice_id"]
+        samples = []
+        for index, size in enumerate(sample_sizes, start=1):
+            samples.append(
+                {
+                    "metadata_index": index - 1,
+                    "sample_id": f"sample-{index}",
+                    "original_filename": f"ivc_{index}.mp3",
+                    "declared_mime_type": "audio/mpeg",
+                    "category": None,
+                    "source": None,
+                    "provider_hash": f"{index}" * 32,
+                    "provider_size_bytes": size,
+                    "is_generated": None,
+                    "is_original": None,
+                }
+            )
+        inventory = {
+            "schema_version": "oe-elevenlabs-sample-metadata-inventory-v1",
+            "outcome": "normalized_inventory_recorded",
+            "voice_id": voice_id,
+            "selection_made": False,
+            "sample_count": 3,
+            "samples": samples,
+            "inventory_completeness": {"inventory_complete": True},
+        }
+        inventory_path = fixture / "receipts" / "elevenlabs" / "AUTH-01B-inventory.json"
+        self._write_json(inventory_path, inventory)
+        descriptors = []
+        for sample in samples:
+            sample_id = sample["sample_id"]
+            descriptors.append(
+                {
+                    "sample_id": sample_id,
+                    "original_filename": sample["original_filename"],
+                    "endpoint": (
+                        f"https://api.elevenlabs.io/v1/voices/{voice_id}/"
+                        f"samples/{sample_id}/audio"
+                    ),
+                    "destination": f"local-media/elevenlabs/{sample_id}.mp3",
+                    "receipt_destination": f"receipts/elevenlabs/{sample_id}.json",
+                    "expected_mime_type": sample["declared_mime_type"],
+                    "expected_size_bytes": sample["provider_size_bytes"],
+                    "expected_provider_hash": sample["provider_hash"],
+                }
+            )
+        authorization.update(
+            {
+                "authorization_id": "AUTH-01C-test-named-sample-batch",
+                "scope": "elevenlabs_named_sample_batch_retrieval",
+            }
+        )
+        authorization["action"] = {
+            "kind": "read_only_named_sample_batch_retrieval",
+            "voice_id": voice_id,
+            "source_inventory_receipt_path": "receipts/elevenlabs/AUTH-01B-inventory.json",
+            "source_inventory_receipt_sha256": sha256_file(inventory_path),
+            "samples": descriptors,
+            "batch_receipt_destination": "receipts/elevenlabs/AUTH-01C-batch.json",
+            "metadata_call_permitted": False,
+            "discovery_permitted": False,
+            "selection_permitted": False,
+            "retries_permitted": False,
+            "redirects_permitted": False,
+            "stop_on_first_failure": True,
+            "preserve_exact_returned_bytes": True,
+            "provenance_review_required": True,
+            "downstream_use_permitted": False,
+            "tts_generation_permitted": False,
+            "voice_mutation_permitted": False,
+            "hume_disclosure_permitted": False,
+            "hume_clone_creation_permitted": False,
+            "rights_and_consent": authorization["action"]["rights_and_consent"],
+        }
+        authorization["requested_limits"] = {
+            "max_metadata_calls": 0,
+            "max_sample_download_calls": 3,
+            "max_download_bytes": MAX_NAMED_SAMPLE_REVIEW_BYTES,
+            "max_spend_usd": 0,
+        }
+        authorization["authorized_limits"] = {
+            "max_calls": 3,
+            "max_downloads": 3,
+            "max_download_bytes": MAX_NAMED_SAMPLE_REVIEW_BYTES,
+            "max_spend_usd": 0,
+        }
+        authorization["consumption"] = {
+            "status": "unconsumed",
+            "calls_used": 0,
+            "downloads_used": 0,
+            "spend_used_usd": 0,
+            "record_path": "consumed/AUTH-01C.json",
+        }
+        self._write_json(auth_path, authorization)
+        return temporary, fixture, auth_path
+
+    @staticmethod
+    def _mp3_fixture_bytes(size: int, marker: int) -> bytes:
+        if size < 3:
+            raise AssertionError("test MP3 fixture must have room for an ID3 signature")
+        return b"ID3" + bytes([marker]) * (size - 3)
+
+    @staticmethod
+    def _successful_mp3_probe() -> dict:
+        return {
+            "probe": "ffprobe",
+            "audio_stream_count": 1,
+            "duration_seconds": 1.25,
+            "codec_name": "mp3",
+            "sample_rate_hz": 44_100,
+            "channels": 1,
+            "bitrate_bps": 192_000,
+            "format_name": "mp3",
+        }
+
     @staticmethod
     def _metadata_bytes(samples: list[dict], voice_id: str) -> bytes:
         return json.dumps({"voice_id": voice_id, "samples": samples}).encode("utf-8")
@@ -263,6 +388,446 @@ class ProviderRetrievalTests(unittest.TestCase):
                 headers={"request-id": "sample-request-1"},
             ),
         ]
+
+    def test_named_batch_default_is_exact_credential_free_three_get_preflight(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization()
+        self.addCleanup(temporary.cleanup)
+        with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+            "oe_narration.retrieval._open_request"
+        ) as opened:
+            result = dry_run_named_sample_batch(auth_path)
+            cli_result = dispatch(
+                build_parser().parse_args(
+                    [
+                        "retrieve-elevenlabs-named-sample-batch",
+                        "--authorization",
+                        str(auth_path),
+                    ]
+                )
+            )
+        for candidate in (result, cli_result):
+            self.assertEqual(candidate["scope"], "elevenlabs_named_sample_batch_retrieval")
+            self.assertFalse(candidate["network_called"])
+            self.assertFalse(candidate["credentials_accessed"])
+            self.assertEqual(candidate["metadata_calls_made"], 0)
+            requests = candidate["executor_preflight"]["requests"]
+            self.assertEqual(len(requests), 3)
+            self.assertTrue(all(request["method"] == "GET" for request in requests))
+            self.assertEqual(
+                [request["sample_id"] for request in requests],
+                ["sample-1", "sample-2", "sample-3"],
+            )
+            self.assertFalse(candidate["executor_preflight"]["downstream_use_authorized"])
+        opened.assert_not_called()
+        self.assertFalse((auth_path.parent / "consumed" / "AUTH-01C.json").exists())
+
+    def test_named_batch_contract_drift_fails_before_credential_network_or_consumption(self) -> None:
+        mutations = (
+            "reordered",
+            "missing",
+            "duplicate",
+            "extra",
+            "wrong_filename",
+            "wrong_size",
+            "wrong_provider_hash",
+            "wrong_endpoint",
+            "wrong_inventory_hash",
+            "wrong_inventory_voice",
+            "wrong_inventory_schema",
+            "metadata_allowed",
+            "retry_allowed",
+            "downstream_allowed",
+            "boolean_zero_limit",
+            "wrong_total_cap",
+            "colliding_output",
+            "traversal_output",
+        )
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                temporary, fixture, auth_path = self._active_named_batch_authorization()
+                self.addCleanup(temporary.cleanup)
+                authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+                action = authorization["action"]
+                if mutation == "reordered":
+                    action["samples"][0], action["samples"][1] = (
+                        action["samples"][1],
+                        action["samples"][0],
+                    )
+                elif mutation == "missing":
+                    action["samples"].pop()
+                elif mutation == "duplicate":
+                    action["samples"][2] = dict(action["samples"][1])
+                elif mutation == "extra":
+                    action["samples"].append(dict(action["samples"][2]))
+                elif mutation == "wrong_filename":
+                    action["samples"][0]["original_filename"] = "other.mp3"
+                elif mutation == "wrong_size":
+                    action["samples"][0]["expected_size_bytes"] += 1
+                elif mutation == "wrong_provider_hash":
+                    action["samples"][0]["expected_provider_hash"] = "f" * 32
+                elif mutation == "wrong_endpoint":
+                    action["samples"][0]["endpoint"] += "?drift=1"
+                elif mutation == "wrong_inventory_hash":
+                    action["source_inventory_receipt_sha256"] = "0" * 64
+                elif mutation in {"wrong_inventory_voice", "wrong_inventory_schema"}:
+                    inventory_path = fixture / action["source_inventory_receipt_path"]
+                    inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+                    if mutation == "wrong_inventory_voice":
+                        inventory["voice_id"] = "wrong-voice"
+                    else:
+                        inventory["schema_version"] = "wrong-schema"
+                    self._write_json(inventory_path, inventory)
+                    action["source_inventory_receipt_sha256"] = sha256_file(inventory_path)
+                elif mutation == "metadata_allowed":
+                    action["metadata_call_permitted"] = True
+                elif mutation == "retry_allowed":
+                    action["retries_permitted"] = True
+                elif mutation == "downstream_allowed":
+                    action["downstream_use_permitted"] = True
+                elif mutation == "boolean_zero_limit":
+                    authorization["requested_limits"]["max_metadata_calls"] = False
+                elif mutation == "wrong_total_cap":
+                    authorization["authorized_limits"]["max_download_bytes"] -= 1
+                elif mutation == "colliding_output":
+                    action["samples"][1]["receipt_destination"] = action["samples"][0]["destination"]
+                elif mutation == "traversal_output":
+                    action["samples"][0]["destination"] = "local-media/../escape.mp3"
+                self._write_json(auth_path, authorization)
+                with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+                    "oe_narration.retrieval._open_request"
+                ) as opened:
+                    with self.assertRaises(ValidationError):
+                        dry_run_named_sample_batch(auth_path)
+                opened.assert_not_called()
+                self.assertFalse((auth_path.parent / "consumed" / "AUTH-01C.json").exists())
+
+    def test_named_batch_missing_credential_does_not_consume_or_call(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization()
+        self.addCleanup(temporary.cleanup)
+        with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+            "oe_narration.retrieval._open_request"
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "required only for authorized"):
+                execute_named_sample_batch(auth_path)
+        opened.assert_not_called()
+        self.assertFalse((auth_path.parent / "consumed" / "AUTH-01C.json").exists())
+
+    def test_named_batch_symlink_escape_is_rejected_before_credential_or_consumption(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization()
+        self.addCleanup(temporary.cleanup)
+        escape = fixture / "receipts" / "media-escape"
+        escape.mkdir(parents=True)
+        (fixture / "local-media").symlink_to(escape, target_is_directory=True)
+        with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+            "oe_narration.retrieval._open_request"
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "symlink"):
+                dry_run_named_sample_batch(auth_path)
+        opened.assert_not_called()
+        self.assertFalse((auth_path.parent / "consumed" / "AUTH-01C.json").exists())
+        self.assertEqual(list(escape.iterdir()), [])
+
+    def test_named_batch_three_get_success_consumes_first_and_preserves_owner_only_exact_bytes(self) -> None:
+        sizes = (67, 71, 73)
+        temporary, fixture, auth_path = self._active_named_batch_authorization(sample_sizes=sizes)
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        bodies = [self._mp3_fixture_bytes(size, index) for index, size in enumerate(sizes, 1)]
+        responses = [
+            _FakeResponse(
+                body,
+                content_type="audio/mpeg",
+                url=descriptor["endpoint"],
+                headers={"request-id": f"sample-request-{index}"},
+            )
+            for index, (body, descriptor) in enumerate(
+                zip(bodies, authorization["action"]["samples"]), 1
+            )
+        ]
+        requests = []
+        remaining_budgets = []
+        consumption = auth_path.parent / "consumed" / "AUTH-01C.json"
+
+        def open_response(request, timeout):
+            self.assertTrue(consumption.is_file(), "authority must be consumed before first GET")
+            self.assertEqual(stat.S_IMODE(consumption.stat().st_mode), 0o600)
+            requests.append(request)
+            return responses[len(requests) - 1]
+
+        original_http_get = __import__(
+            "oe_narration.retrieval", fromlist=["_http_get"]
+        )._http_get
+
+        def bounded_http_get(url, api_key, **kwargs):
+            remaining_budgets.append(kwargs["max_bytes"])
+            return original_http_get(url, api_key, **kwargs)
+
+        secret = "AUTH01C-DO-NOT-LEAK"
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": secret}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", side_effect=open_response
+        ) as opened, mock.patch(
+            "oe_narration.retrieval._http_get", side_effect=bounded_http_get
+        ), mock.patch(
+            "oe_narration.retrieval._probe_audio",
+            return_value=self._successful_mp3_probe(),
+        ):
+            result = execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 3)
+        self.assertEqual(result["provider_calls_made"], 3)
+        self.assertEqual(result["downloads_made"], 3)
+        self.assertEqual(result["metadata_calls_made"], 0)
+        self.assertEqual(
+            remaining_budgets,
+            [
+                MAX_NAMED_SAMPLE_REVIEW_BYTES,
+                MAX_NAMED_SAMPLE_REVIEW_BYTES - sizes[0],
+                MAX_NAMED_SAMPLE_REVIEW_BYTES - sizes[0] - sizes[1],
+            ],
+        )
+        self.assertEqual([request.method for request in requests], ["GET", "GET", "GET"])
+        self.assertEqual(
+            [request.full_url for request in requests],
+            [item["endpoint"] for item in authorization["action"]["samples"]],
+        )
+        for index, (body, descriptor) in enumerate(
+            zip(bodies, authorization["action"]["samples"])
+        ):
+            raw = fixture / descriptor["destination"]
+            receipt_path = fixture / descriptor["receipt_destination"]
+            self.assertEqual(raw.read_bytes(), body)
+            self.assertEqual(stat.S_IMODE(raw.stat().st_mode), 0o600)
+            self.assertEqual(stat.S_IMODE(receipt_path.stat().st_mode), 0o600)
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            self.assertEqual(receipt["response"]["sha256"], sha256_file(raw))
+            self.assertEqual(receipt["response"]["byte_count"], sizes[index])
+            self.assertEqual(receipt["response"]["actual_media"]["codec_name"], "mp3")
+            self.assertEqual(receipt["response"]["actual_media"]["bitrate_bps"], 192_000)
+            self.assertFalse(receipt["downstream_use_authorized"])
+            self.assertFalse(
+                receipt["expected_identity"].get(
+                    "opaque_provider_hash_compared_to_audio_bytes", False
+                )
+            )
+        batch_path = Path(result["batch_receipt"])
+        batch = json.loads(batch_path.read_text(encoding="utf-8"))
+        self.assertEqual(stat.S_IMODE(batch_path.stat().st_mode), 0o600)
+        self.assertEqual(batch["outcome"], "downloaded_for_local_review_only")
+        self.assertEqual(batch["stop_reason"], "provenance_ambiguous_pending_owner_listen")
+        self.assertFalse(batch["downstream_use_authorized"])
+        self.assertFalse(batch["hume_disclosure_authorized"])
+        self.assertFalse(batch["tts_generation_authorized"])
+        for artifact in [consumption, batch_path] + [
+            fixture / descriptor["receipt_destination"]
+            for descriptor in authorization["action"]["samples"]
+        ]:
+            self.assertNotIn(secret, artifact.read_text(encoding="utf-8"))
+
+    def test_named_batch_second_failure_stops_without_retry_and_preserves_first(self) -> None:
+        sizes = (67, 71, 73)
+        temporary, fixture, auth_path = self._active_named_batch_authorization(sample_sizes=sizes)
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        first = _FakeResponse(
+            self._mp3_fixture_bytes(sizes[0], 1),
+            content_type="audio/mpeg",
+            url=authorization["action"]["samples"][0]["endpoint"],
+        )
+        secret = "AUTH01C-TRANSPORT-SECRET"
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": secret}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request",
+            side_effect=[first, urllib.error.URLError(f"must redact {secret}")],
+        ) as opened, mock.patch(
+            "oe_narration.retrieval._probe_audio",
+            return_value=self._successful_mp3_probe(),
+        ):
+            with self.assertRaises(ValidationError) as caught:
+                execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 2)
+        self.assertNotIn(secret, str(caught.exception))
+        first_raw = fixture / authorization["action"]["samples"][0]["destination"]
+        third_raw = fixture / authorization["action"]["samples"][2]["destination"]
+        self.assertTrue(first_raw.is_file())
+        self.assertFalse(third_raw.exists())
+        batch_path = fixture / authorization["action"]["batch_receipt_destination"]
+        batch = json.loads(batch_path.read_text(encoding="utf-8"))
+        self.assertEqual(batch["attempted_calls"], 2)
+        self.assertEqual(batch["retries_attempted"], 0)
+        self.assertTrue(batch["stopped_on_first_failure"])
+        self.assertFalse(batch["downstream_use_authorized"])
+        for artifact in fixture.rglob("*.json"):
+            self.assertNotIn(secret, artifact.read_text(encoding="utf-8"))
+
+    def test_named_batch_redirect_is_forbidden_and_never_retried(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization()
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        redirected = _FakeResponse(
+            self._mp3_fixture_bytes(67, 1),
+            content_type="audio/mpeg",
+            url="https://example.invalid/redirected",
+        )
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": "secret"}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", return_value=redirected
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "provider_redirect_forbidden"):
+                execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 1)
+        batch = json.loads(
+            (fixture / authorization["action"]["batch_receipt_destination"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(batch["redirects_followed"], 0)
+        self.assertEqual(batch["retries_attempted"], 0)
+        self.assertFalse(
+            (fixture / authorization["action"]["samples"][0]["destination"]).exists()
+        )
+
+    def test_named_batch_content_length_mismatch_fails_before_raw_storage(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization()
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        descriptor = authorization["action"]["samples"][0]
+        response = _FakeResponse(
+            self._mp3_fixture_bytes(67, 1),
+            content_type="audio/mpeg",
+            content_length=68,
+            url=descriptor["endpoint"],
+        )
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": "secret"}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", return_value=response
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "response_size_ambiguous"):
+                execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 1)
+        self.assertFalse((fixture / descriptor["destination"]).exists())
+        batch = json.loads(
+            (fixture / authorization["action"]["batch_receipt_destination"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(batch["stop_reason"], "response_size_ambiguous")
+
+    def test_named_batch_malformed_or_identity_drift_is_preserved_but_blocked(self) -> None:
+        cases = (
+            ("empty", b"", "audio/mpeg", None, "sample_size_identity_mismatch"),
+            ("fake", b"<html>" * 10, "audio/mpeg", None, "sample_audio_signature_unrecognized"),
+            ("aac", self._mp3_fixture_bytes(67, 2), "audio/mpeg", "aac", "sample_codec_identity_mismatch"),
+            ("wrong_mime", self._mp3_fixture_bytes(67, 2), "audio/aac", "mp3", "sample_mime_identity_mismatch"),
+        )
+        for name, body, mime, codec, expected_reason in cases:
+            with self.subTest(name=name):
+                first_size = len(body) if body else 67
+                temporary, fixture, auth_path = self._active_named_batch_authorization(
+                    sample_sizes=(first_size, 71, 73)
+                )
+                self.addCleanup(temporary.cleanup)
+                authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+                descriptor = authorization["action"]["samples"][0]
+                response = _FakeResponse(
+                    body,
+                    content_type=mime,
+                    url=descriptor["endpoint"],
+                )
+                probe = self._successful_mp3_probe()
+                if codec is not None:
+                    probe["codec_name"] = codec
+                    probe["format_name"] = codec
+                with mock.patch.dict(
+                    os.environ, {"ELEVENLABS_API_KEY": "secret"}, clear=True
+                ), mock.patch(
+                    "oe_narration.retrieval._open_request", return_value=response
+                ) as opened, mock.patch(
+                    "oe_narration.retrieval._probe_audio", return_value=probe
+                ):
+                    with self.assertRaisesRegex(ValidationError, expected_reason):
+                        execute_named_sample_batch(auth_path)
+                self.assertEqual(opened.call_count, 1)
+                raw = fixture / descriptor["destination"]
+                self.assertEqual(raw.read_bytes(), body)
+                receipt = json.loads(
+                    (fixture / descriptor["receipt_destination"]).read_text(encoding="utf-8")
+                )
+                self.assertEqual(receipt["reason"], expected_reason)
+                self.assertEqual(receipt["blocked_local_evidence"]["sha256"], sha256_file(raw))
+                self.assertFalse(receipt["downstream_use_authorized"])
+
+    def test_named_batch_id3_header_only_fails_actual_media_probe(self) -> None:
+        temporary, fixture, auth_path = self._active_named_batch_authorization(
+            sample_sizes=(3, 71, 73)
+        )
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        descriptor = authorization["action"]["samples"][0]
+        response = _FakeResponse(
+            b"ID3",
+            content_type="audio/mpeg",
+            url=descriptor["endpoint"],
+        )
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": "secret"}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", return_value=response
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "sample_audio_unparseable"):
+                execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 1)
+        raw = fixture / descriptor["destination"]
+        self.assertEqual(raw.read_bytes(), b"ID3")
+        receipt = json.loads(
+            (fixture / descriptor["receipt_destination"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(receipt["reason"], "sample_audio_unparseable")
+
+    def test_named_batch_third_response_cannot_exceed_remaining_total_budget(self) -> None:
+        sizes = (9_000_000, 9_000_000, 2_000_000)
+        temporary, fixture, auth_path = self._active_named_batch_authorization(sample_sizes=sizes)
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        responses = [
+            _FakeResponse(
+                self._mp3_fixture_bytes(size, index),
+                content_type="audio/mpeg",
+                url=authorization["action"]["samples"][index - 1]["endpoint"],
+            )
+            for index, size in enumerate(sizes[:2], 1)
+        ]
+        responses.append(
+            _FakeResponse(
+                b"ID3",
+                content_type="audio/mpeg",
+                content_length=2_000_001,
+                url=authorization["action"]["samples"][2]["endpoint"],
+            )
+        )
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": "secret"}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", side_effect=responses
+        ) as opened, mock.patch(
+            "oe_narration.retrieval._probe_audio",
+            return_value=self._successful_mp3_probe(),
+        ):
+            with self.assertRaisesRegex(ValidationError, "authorized_size_ceiling_exceeded"):
+                execute_named_sample_batch(auth_path)
+        self.assertEqual(opened.call_count, 3)
+        batch = json.loads(
+            (fixture / authorization["action"]["batch_receipt_destination"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(batch["cumulative_download_bytes"], 18_000_000)
+        self.assertEqual(batch["remaining_authorized_bytes"], 2_000_000)
+        self.assertEqual(batch["attempted_calls"], 3)
+        self.assertEqual(batch["retries_attempted"], 0)
 
     def test_default_is_credential_free_dry_run(self) -> None:
         temporary, fixture, auth_path = self._active_authorization()

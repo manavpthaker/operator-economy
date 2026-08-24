@@ -8,7 +8,9 @@ Prior proposal: Step 2 v0.2, retained unchanged as historical design and calibra
 
 External-action authorization: AUTH-01 issued and consumed; blocked on multiple samples. Corrective
 AUTH-01B issued and consumed; complete three-sample metadata inventory recorded. No sample was
-selected or downloaded.
+selected or downloaded. AUTH-01C is separately owner-approved to retrieve exactly those three named
+samples for local provenance review; its active authorization artifact is not yet materialized and
+this documentation pass performs no provider call.
 
 ## Why v0.3 is required
 
@@ -29,8 +31,9 @@ episode more effectively.
 
 1. Freeze one provider-agnostic performance envelope and translate it through separately hashed
    ElevenLabs and Hume adapters.
-2. Retrieve exactly one original owner recording under read-only ElevenLabs authority and prove its
-   provenance, consent, custody, and commercial-use basis.
+2. Resolve one original owner recording under read-only ElevenLabs authority. When metadata cannot
+   distinguish the complete named set, retrieve that exact bounded set for local owner listening,
+   then prove one sample's provenance, consent, custody, and commercial-use basis before Hume.
 3. Upload that hash-bound sample through Hume's documented UI-mediated clone flow and create exactly
    one clone under a separate authorization.
 4. Generate a fair short comparison: two exact passages and two generations per provider.
@@ -69,6 +72,15 @@ one metadata request only, with zero selection, downloads, generation, spend, or
 exists only to give the owner the sample IDs and safe metadata required for a later exact-sample
 decision.
 
+Because AUTH-01B's complete three-sample inventory still did not establish provenance, AUTH-01C
+introduces a second corrective scope, `elevenlabs_named_sample_batch_retrieval`, with action kind
+`read_only_named_sample_batch_retrieval`. It binds all three AUTH-01B filenames and sample IDs and
+permits exactly three sample `GET` calls/downloads on success, no metadata or discovery request, a
+20,000,000-byte aggregate ceiling, and `$0` spend. It is consumed before network access and permits
+no retry, redirect, upload, TTS, or Hume action. Exact raw MP3s remain local and excluded from Git.
+Technical QA cannot clear human provenance; Hume remains blocked until the owner listens and
+approves one exact sample under a later decision.
+
 ## Frozen history
 
 - `STEP2-v0.2-CHANGE-PROPOSAL.md` remains the v0.2 design record.
@@ -85,19 +97,23 @@ ElevenLabs and Hume dry-run requests. It verifies exact `W` ranges, Eleven tag s
 double-LF transport, Hume `POST /v0/tts` description expansion with `num_generations: 2`, output
 policy, and bounded call/character accounting.
 
-The sole new external-action client is the fail-closed `AUTH-01` reader. After a separate active
-authorization is validated, it consumes that authorization before network access, reads the exact
-bound ElevenLabs voice metadata, and retrieves at most one sample into owner-only ignored local
-custody. It cannot operate the Hume UI, create a Hume clone, execute either provider's bakeoff
-generation request, blind-review candidates, score performance, or select a method. The retained
-v0.2 ElevenLabs capture client is a different contract and may not execute a v0.3 plan. These are
-authority and implementation boundaries, not permissions to improvise. Offline validity does not
-authorize or consume an external action.
+The runtime's external-action surface is restricted to separately authorized, fail-closed
+ElevenLabs reads: AUTH-01 metadata plus a single-sample attempt, AUTH-01B metadata-only inventory,
+and AUTH-01C exact named-sample batch retrieval. Each executor consumes its authorization before
+network access and enforces its own exact calls, bytes, destinations, and zero-dollar ceiling. None
+can operate the Hume UI, create a clone, execute a provider bakeoff generation, blind-review
+candidates, score performance, or select a method. The retained v0.2 ElevenLabs capture client is a
+different contract and may not execute a v0.3 plan. These are authority and implementation
+boundaries, not permissions to improvise. Offline validity does not authorize or consume an
+external action.
 
 ## Acceptance before v0.3 can become authority
 
 - Original-sample selector fails closed on zero or multiple samples without an exact new
   authorization.
+- A multiple-sample review binds the complete AUTH-01B inventory, consumes AUTH-01C before network,
+  makes exactly three bound downloads under 20,000,000 bytes and `$0`, and leaves provenance to the
+  owner rather than technical QA.
 - Hume UI clone receipt ties one clone ID to the one authorized source hash.
 - All four initial authorizations are separate, bounded, consumed, and independently reviewable.
 - E1/E2 are identical Eleven requests except seed/generation; H1/H2 are two generations from one

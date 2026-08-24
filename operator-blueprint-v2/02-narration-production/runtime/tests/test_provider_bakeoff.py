@@ -765,6 +765,8 @@ class ProviderBakeoffTests(unittest.TestCase):
         for definition in (
             "retrievalAction",
             "metadataInventoryAction",
+            "namedSampleBatchRetrievalAction",
+            "namedSampleDescriptor",
             "cloneAction",
             "elevenCalibrationAction",
             "humeCalibrationAction",

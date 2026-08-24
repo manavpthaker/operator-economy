@@ -28,8 +28,10 @@ from .core import (
 from .provider import dry_run_capture, execute_capture
 from .retrieval import (
     dry_run_metadata_inventory,
+    dry_run_named_sample_batch,
     dry_run_retrieval,
     execute_metadata_inventory,
+    execute_named_sample_batch,
     execute_retrieval,
 )
 
@@ -138,6 +140,15 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--execute", action="store_true")
     inventory.add_argument("--record", type=_path, help="write an immutable dry-run record")
     inventory.add_argument("--timeout", type=float, default=60.0)
+
+    named_batch = sub.add_parser(
+        "retrieve-elevenlabs-named-sample-batch",
+        help="dry-run by default; consume exact AUTH-01C before three named sample GETs",
+    )
+    named_batch.add_argument("--authorization", type=_path, required=True)
+    named_batch.add_argument("--execute", action="store_true")
+    named_batch.add_argument("--record", type=_path, help="write an immutable dry-run record")
+    named_batch.add_argument("--timeout", type=float, default=60.0)
     return parser
 
 
@@ -232,6 +243,18 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         if args.timeout <= 0:
             raise ValidationError("--timeout must be positive")
         return execute_metadata_inventory(args.authorization, args.timeout)
+    if args.command == "retrieve-elevenlabs-named-sample-batch":
+        if not args.execute:
+            result = dry_run_named_sample_batch(args.authorization)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution uses authorized receipt destinations")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_named_sample_batch(args.authorization, args.timeout)
     raise ValidationError(f"unsupported command: {args.command}")
 
 

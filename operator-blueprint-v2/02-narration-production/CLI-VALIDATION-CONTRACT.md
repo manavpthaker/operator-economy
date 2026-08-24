@@ -10,12 +10,11 @@ document.
 
 The runtime implements v0.3 offline validation for the provider-agnostic performance envelope,
 provider adapters, provider-bakeoff plan, compiled dry run, and the four initial action-
-authorization shapes. It also contains one deliberately narrow external-action client for
-`AUTH-01`: read the exact bound ElevenLabs voice metadata and, only when that metadata resolves to
-exactly one sample, retrieve that sample's original bytes. The client cannot generate speech,
-modify a voice, upload a sample, create a clone, call Hume, or authorize later work. The bounded
-v0.2 ElevenLabs capture client remains a separate, retained surface; it cannot execute a v0.3
-bakeoff plan or reuse a consumed authorization.
+authorization shapes. It also contains separately bounded read-only ElevenLabs clients for
+AUTH-01 metadata plus a single-sample attempt, AUTH-01B metadata-only inventory, and AUTH-01C exact
+named-sample batch retrieval. None can generate speech, modify a voice, upload a sample, create a
+clone, call Hume, or authorize later work. The bounded v0.2 ElevenLabs capture client remains a
+separate, retained surface; it cannot execute a v0.3 bakeoff plan or reuse a consumed authorization.
 
 Run it from the Step 2 folder as:
 
@@ -52,9 +51,9 @@ Block, acoustic, capture, and alignment ranges are subordinate parts of W. They 
 
 The current CLI can validate the locked package, derive canonical `W`, validate the v0.2
 ElevenLabs capture contract, and validate and compile the proposed v0.3 cross-provider bakeoff
-without credentials, network, UI automation, or audio creation. Its sole v0.3 network exception is
-the separately authorized `retrieve-elevenlabs-sample` client described below. It has no command
-that may:
+without credentials, network, UI automation, or audio creation. Its only v0.3 network exceptions
+are the separately authorized read-only AUTH-01, AUTH-01B, and AUTH-01C clients described below. It
+has no command that may:
 
 - upload a human sample through the Hume Platform or create a Hume clone;
 - synthesize Hume narration;
@@ -81,6 +80,13 @@ scope `elevenlabs_sample_metadata_inventory`. It is not a fifth bakeoff-generati
 make one read-only metadata request, preserve a safe inventory for owner selection, and do nothing
 else. It cannot select or download a sample and cannot be substituted for any of the four initial
 scopes.
+
+Because the complete AUTH-01B inventory did not establish which of its three samples was a usable
+original human recording, the owner separately approved corrective scope
+`elevenlabs_named_sample_batch_retrieval` and action kind
+`read_only_named_sample_batch_retrieval`. AUTH-01C binds the complete inventory and may download
+only those three named samples for local review. It is outside the four initial bakeoff actions and
+cannot approve provenance, authorize Hume, or substitute for AUTH-02.
 
 The 3.5-to-4.5-minute long-form continuity and several-hours-later same-word pickup test is a fifth,
 later human authorization scope. It is not one of the initial machine enum values. None of these
@@ -177,8 +183,10 @@ reporting `execution_ready: false` and `network_authorized: false`; validity is 
 active record must additionally be human-approved, unexpired, unconsumed, and fully bounded before
 it can report ready. The only initial machine scopes are `elevenlabs_sample_retrieval`,
 `hume_clone_creation`, `elevenlabs_calibration`, and `hume_calibration`. This command never consumes
-or executes an authorization. AUTH-05 remains a separate human record, not an initial machine
-scope.
+or executes an authorization. The corrective machine scopes
+`elevenlabs_sample_metadata_inventory` and `elevenlabs_named_sample_batch_retrieval` are separate
+least-privilege actions outside that initial set. AUTH-05 remains a separate human record, not an
+initial machine scope.
 
 ### `retrieve-elevenlabs-sample`
 
@@ -235,6 +243,38 @@ sample IDs, base filenames, provider category/source fields, MIME/size/hash fiel
 original/generated flags when the provider exposes them, plus the raw response hash and byte count.
 Unknown fields and raw metadata payloads are discarded. Recording an inventory is not sample
 selection, provenance approval, download permission, or downstream authority.
+
+### `retrieve-elevenlabs-named-sample-batch`
+
+```text
+oe-narration retrieve-elevenlabs-named-sample-batch --authorization AUTH-01C.json
+oe-narration retrieve-elevenlabs-named-sample-batch --authorization AUTH-01C.json \
+  --record DRY_RUN.json
+oe-narration retrieve-elevenlabs-named-sample-batch --authorization AUTH-01C.json \
+  --execute [--timeout SECONDS]
+```
+
+The first two forms are credential-free, zero-network dry runs. They validate the exact active
+authorization and compile the three bound sample-audio requests, destinations, expected identities,
+and aggregate accounting. `--record` is dry-run-only and refuses to overwrite an existing record.
+
+Execution accepts only scope `elevenlabs_named_sample_batch_retrieval` and action kind
+`read_only_named_sample_batch_retrieval`. It binds the complete AUTH-01B inventory receipt and
+exactly three ordered filename/sample-ID descriptors. The limits are exactly zero metadata calls,
+three sample `GET` calls, three downloads, 20,000,000 aggregate bytes, and `$0` spend. It writes the
+owner-only consumption record before the first request. There is no retry, redirect following,
+discovery, selection, upload, TTS, voice mutation, Hume disclosure, or clone authority.
+
+Each successful response must match its bound MIME and byte-count identity, decode as one MP3 audio
+stream, and be preserved byte-for-byte under the Git-ignored `local-media/` tree. The runtime writes
+credential-free per-sample receipts and one batch receipt under schema
+`oe-elevenlabs-named-sample-batch-retrieval-v1`. Any request, cap, identity, path, or media failure
+stops the batch; AUTH-01C remains consumed and cannot be resumed or retried.
+
+Even a fully downloaded, technically clean batch stops at `pending_owner_listen`. Runtime QA cannot
+confirm Manav's identity, human originality, single-speaker provenance, consent for cloning, or
+production suitability. No file may be disclosed or uploaded to Hume until the owner listens to all
+three, approves one exact sample, and separately authorizes AUTH-02.
 
 ### `validate-capture-plan`
 
@@ -372,8 +412,11 @@ origin persistence, transcript timing, master mutation, pause-map binding, and t
 automated creative approval. V0.3 tests additionally cover provider-neutral envelope enforcement,
 adapter word preservation, equal P1/P2 request compilation, Eleven double-LF/tag behavior, Hume
 description expansion and `num_generations: 2`, primary/fallback accounting, authorization scope
-and bound-hash tampering, credential rejection, and zero-network dry runs. Tests never make a real
-provider call.
+and bound-hash tampering, credential rejection, and zero-network dry runs. Retrieval tests also
+cover AUTH-01B inventory binding, exact three-sample AUTH-01C preflight, consumed-before-network
+state, zero metadata/discovery, aggregate-byte enforcement, MIME/size/codec mismatch, path
+collision, no-retry/redirect behavior, partial-batch failure, local raw-byte preservation, and the
+hard stop at pending owner provenance review. Tests never make a real provider call.
 
 ## Current state interpretation
 
@@ -382,3 +425,10 @@ The retained AI Visibility v1.1 N4A batch is a v0.2 technical **PASS** and owner
 not satisfy `workflow_status: locked`. The CLI must not reopen Step 1 because of a performance
 revision, and it must not infer provider-bakeoff, long-form, full-capture, or Step 3 authority from
 the earlier consumed authorization.
+
+AUTH-01C is a separately approved local-review retrieval boundary, not a change to that N4A state.
+Its technical result—successful or failed—cannot set `creative_approved`, clear provenance,
+authorize AUTH-02, or unblock Hume without the owner's explicit listen and exact-sample disposition.
+At the time of this documentation update, no active AUTH-01C artifact has been materialized and no
+AUTH-01C provider request has occurred. The command's existence and dry-run behavior grant no
+execution authority.

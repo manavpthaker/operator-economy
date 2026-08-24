@@ -153,16 +153,38 @@ full capture or Step 3 authority.
 
 An original owner recording must pass provenance, retrieval, consent, custody, and commercial-use
 checks before Hume upload. Zero matching Eleven samples blocks retrieval. More than one matching
-sample also blocks until a new authorization names one exact provider sample ID. Do not substitute
-generated TTS, a remix, a YouTube rip, an episode mix, or unknown-source audio. A retrieved sample
-with multiple speakers or unresolved human provenance cannot advance to Hume. Metadata may select
-the bytes, but only the owner listen can clear speaker identity and single-speaker provenance.
+sample also blocks the original selector. Do not substitute generated TTS, a remix, a YouTube rip,
+an episode mix, or unknown-source audio. A retrieved sample with multiple speakers or unresolved
+human provenance cannot advance to Hume. Metadata may bind the bytes, but only the owner listen can
+clear speaker identity, originality, and single-speaker provenance.
 
 After a multiple-sample stop, the owner may separately authorize
 `elevenlabs_sample_metadata_inventory`: one metadata call, a safe normalized inventory, and no
 selection, download, generation, spend, or Hume access. That corrective scope does not replace the
-original-sample retrieval authorization. Any later download must name one exact sample ID under a
-new authorization.
+original-sample retrieval authorization.
+
+When the complete inventory still does not establish which recording is the usable original, the
+owner may separately authorize scope `elevenlabs_named_sample_batch_retrieval` and action kind
+`read_only_named_sample_batch_retrieval`. The action must bind the complete AUTH-01B inventory and,
+for the current fixture, exactly these three filenames and provider sample IDs:
+
+| Filename | Provider sample ID |
+| --- | --- |
+| `ivc_1.mp3` | `rHrnt10vbIpD444OcGVZ` |
+| `ivc_3.mp3` | `snRkGS2XRR1nJW0hIGJP` |
+| `ivc_2.mp3` | `W8D70GbyW9cfeYGLRWQF` |
+
+A successful batch is exactly three bound sample `GET` calls and exactly three downloads under one
+20,000,000-byte aggregate limit and `$0` spend. There is no metadata/discovery request, automatic
+selection, retry, redirect, upload, TTS, or Hume access. Consume the authorization before the first
+network request. Preserve each exact provider MP3 byte-for-byte under the ignored local-media
+policy; do not commit raw or derived audio. A failed or partial batch remains consumed and blocked.
+
+Format inspection, hashing, decode checks, duration, and other technical QA prove only that the
+downloaded files are intact and reviewable. They do not prove that a recording is Manav, wholly
+human, single-speaker, original, owned for cloning, or suitable for production. Hume remains blocked
+until the owner listens to all three, explicitly clears provenance for one exact sample, and later
+approves a separate AUTH-02.
 
 Hume's current public human-audio cloning guidance uses the Platform upload flow. Its public Create
 Voice API saves a voice from a TTS generation ID; it is not treated as a human-audio upload-clone

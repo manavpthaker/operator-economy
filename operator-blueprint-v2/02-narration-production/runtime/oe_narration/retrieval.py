@@ -24,7 +24,11 @@ from typing import Any, BinaryIO
 from .bakeoff import (
     ELEVEN_METADATA_INVENTORY_KIND,
     ELEVEN_METADATA_INVENTORY_SCOPE,
+    ELEVEN_NAMED_SAMPLE_BATCH_KIND,
+    ELEVEN_NAMED_SAMPLE_BATCH_SCOPE,
     MAX_METADATA_INVENTORY_RESPONSE_BYTES,
+    MAX_NAMED_SAMPLE_REVIEW_BYTES,
+    MAX_NAMED_SAMPLE_REVIEW_COUNT,
     validate_provider_action_authorization,
 )
 from .core import ValidationError, read_json, sha256_bytes, sha256_file
@@ -33,6 +37,7 @@ from .core import ValidationError, read_json, sha256_bytes, sha256_file
 RETRIEVAL_SCOPE = "elevenlabs_sample_retrieval"
 RETRIEVAL_SCHEMA = "oe-elevenlabs-sample-retrieval-v1"
 METADATA_INVENTORY_SCHEMA = "oe-elevenlabs-sample-metadata-inventory-v1"
+NAMED_SAMPLE_REVIEW_SCHEMA = "oe-elevenlabs-named-sample-batch-retrieval-v1"
 CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v1"
 METADATA_API_ROOT = "https://api.elevenlabs.io/v1/voices"
 MAX_AUTHORIZED_DOWNLOAD_BYTES = 50_000_000
@@ -369,7 +374,7 @@ def _probe_audio(path: Path) -> dict[str, Any]:
         "-v",
         "error",
         "-show_entries",
-        "format=duration,format_name:stream=codec_type,codec_name,sample_rate,channels,duration",
+        "format=duration,format_name,bit_rate:stream=codec_type,codec_name,sample_rate,channels,duration,bit_rate",
         "-of",
         "json",
         str(path),
@@ -428,6 +433,18 @@ def _probe_audio(path: Path) -> dict[str, Any]:
         else None
     )
     format_name = format_value.get("format_name") if isinstance(format_value, dict) else None
+    bitrate_candidates = [primary.get("bit_rate")]
+    if isinstance(format_value, dict):
+        bitrate_candidates.append(format_value.get("bit_rate"))
+    parsed_bitrate = None
+    for bitrate_value in bitrate_candidates:
+        try:
+            candidate_bitrate = int(bitrate_value)
+        except (TypeError, ValueError):
+            continue
+        if candidate_bitrate > 0:
+            parsed_bitrate = candidate_bitrate
+            break
     return {
         "probe": "ffprobe",
         "audio_stream_count": len(audio_streams),
@@ -435,6 +452,7 @@ def _probe_audio(path: Path) -> dict[str, Any]:
         "codec_name": _safe_metadata_text(primary.get("codec_name"), ""),
         "sample_rate_hz": parsed_sample_rate,
         "channels": parsed_channels,
+        "bitrate_bps": parsed_bitrate,
         "format_name": _safe_metadata_text(format_name, ""),
     }
 
@@ -546,7 +564,7 @@ def _http_get(
                     ),
                 )
             final_url_getter = getattr(response, "geturl", None)
-            if callable(final_url_getter) and final_url_getter() != url:
+            if not callable(final_url_getter) or final_url_getter() != url:
                 raise _ProviderFailure("provider_redirect_forbidden")
             return _read_response(
                 response,
@@ -1365,4 +1383,676 @@ def execute_metadata_inventory(
         "metadata_receipt_sha256": sha256_file(metadata_receipt_path),
         "consumption_record": str(consumption_path),
         "next_external_action_authorized": False,
+    }
+
+
+def _validate_named_sample_batch_runner_contract(
+    authorization_path: Path,
+    authorization: dict[str, Any],
+    validation: dict[str, Any],
+) -> tuple[list[tuple[dict[str, Any], Path, Path]], Path, Path]:
+    """Resolve every immutable AUTH-01C output before a credential is read."""
+
+    errors: list[str] = []
+    if validation.get("status") != "active" or validation.get("execution_ready") is not True:
+        errors.append("named-sample batch requires an active, execution-ready authorization")
+    if (
+        validation.get("scope") != ELEVEN_NAMED_SAMPLE_BATCH_SCOPE
+        or authorization.get("scope") != ELEVEN_NAMED_SAMPLE_BATCH_SCOPE
+    ):
+        errors.append(
+            f"named-sample batch requires exact scope {ELEVEN_NAMED_SAMPLE_BATCH_SCOPE}"
+        )
+    if authorization.get("provider") != "elevenlabs":
+        errors.append("named-sample batch is restricted to ElevenLabs")
+    action = authorization.get("action")
+    if not isinstance(action, dict):
+        errors.append("named-sample batch action must be an object")
+        action = {}
+    if action.get("kind") != ELEVEN_NAMED_SAMPLE_BATCH_KIND:
+        errors.append(f"named-sample batch requires exact kind {ELEVEN_NAMED_SAMPLE_BATCH_KIND}")
+    for field in (
+        "metadata_call_permitted",
+        "discovery_permitted",
+        "selection_permitted",
+        "retries_permitted",
+        "redirects_permitted",
+        "downstream_use_permitted",
+        "tts_generation_permitted",
+        "voice_mutation_permitted",
+        "hume_disclosure_permitted",
+        "hume_clone_creation_permitted",
+    ):
+        if action.get(field) is not False:
+            errors.append(f"named-sample batch action.{field} must be false")
+    for field in (
+        "stop_on_first_failure",
+        "preserve_exact_returned_bytes",
+        "provenance_review_required",
+    ):
+        if action.get(field) is not True:
+            errors.append(f"named-sample batch action.{field} must be true")
+
+    descriptors = action.get("samples")
+    if not isinstance(descriptors, list) or len(descriptors) != MAX_NAMED_SAMPLE_REVIEW_COUNT:
+        errors.append(
+            f"named-sample batch requires exactly {MAX_NAMED_SAMPLE_REVIEW_COUNT} descriptors"
+        )
+        descriptors = []
+    voice_id = action.get("voice_id")
+    for index, descriptor in enumerate(descriptors):
+        if not isinstance(descriptor, dict):
+            errors.append(f"action.samples[{index}] must be an object")
+            continue
+        sample_id = descriptor.get("sample_id")
+        expected_endpoint = _sample_audio_endpoint(str(voice_id), str(sample_id))
+        if descriptor.get("endpoint") != expected_endpoint:
+            errors.append(f"action.samples[{index}].endpoint is not the exact official endpoint")
+    requested = authorization.get("requested_limits")
+    if not isinstance(requested, dict):
+        errors.append("named-sample batch requested_limits must be an object")
+        requested = {}
+    limits = authorization.get("authorized_limits")
+    if not isinstance(limits, dict):
+        errors.append("named-sample batch authorized_limits must be an object")
+        limits = {}
+    strict_integer_limits = (
+        (requested, "max_metadata_calls", 0),
+        (requested, "max_sample_download_calls", MAX_NAMED_SAMPLE_REVIEW_COUNT),
+        (requested, "max_download_bytes", MAX_NAMED_SAMPLE_REVIEW_BYTES),
+        (limits, "max_calls", MAX_NAMED_SAMPLE_REVIEW_COUNT),
+        (limits, "max_downloads", MAX_NAMED_SAMPLE_REVIEW_COUNT),
+        (limits, "max_download_bytes", MAX_NAMED_SAMPLE_REVIEW_BYTES),
+    )
+    for container, field, expected in strict_integer_limits:
+        value = container.get(field)
+        if not isinstance(value, int) or isinstance(value, bool) or value != expected:
+            errors.append(f"named-sample batch {field} must be exactly {expected}")
+    for container, label in ((requested, "requested"), (limits, "authorized")):
+        spend = container.get("max_spend_usd")
+        if (
+            not isinstance(spend, (int, float))
+            or isinstance(spend, bool)
+            or spend != 0
+        ):
+            errors.append(f"named-sample batch {label} max_spend_usd must be exactly 0")
+    expected_total = sum(
+        descriptor.get("expected_size_bytes", 0)
+        for descriptor in descriptors
+        if isinstance(descriptor, dict)
+        and isinstance(descriptor.get("expected_size_bytes"), int)
+        and not isinstance(descriptor.get("expected_size_bytes"), bool)
+    )
+    if expected_total > MAX_NAMED_SAMPLE_REVIEW_BYTES:
+        errors.append("named-sample batch expected bytes exceed the total authorization ceiling")
+    if errors:
+        raise ValidationError(errors)
+
+    root = _artifact_root(authorization_path)
+    resolved: list[tuple[dict[str, Any], Path, Path]] = []
+    for index, descriptor in enumerate(descriptors):
+        raw_path = _safe_new_path(
+            root,
+            descriptor.get("destination"),
+            f"action.samples[{index}].destination",
+            "local-media",
+        )
+        receipt_path = _safe_new_path(
+            root,
+            descriptor.get("receipt_destination"),
+            f"action.samples[{index}].receipt_destination",
+            "receipts",
+        )
+        resolved.append((descriptor, raw_path, receipt_path))
+    batch_receipt_path = _safe_new_path(
+        root,
+        action.get("batch_receipt_destination"),
+        "action.batch_receipt_destination",
+        "receipts",
+    )
+    consumption_path = _safe_consumption_path(
+        authorization_path, authorization.get("consumption", {}).get("record_path")
+    )
+    all_paths = [batch_receipt_path, consumption_path]
+    for _, raw_path, receipt_path in resolved:
+        all_paths.extend((raw_path, receipt_path))
+    canonical_paths = {path.resolve(strict=False) for path in all_paths}
+    if len(canonical_paths) != len(all_paths):
+        raise ValidationError("named-sample batch artifacts must use distinct paths")
+    return resolved, batch_receipt_path, consumption_path
+
+
+def dry_run_named_sample_batch(authorization_path: Path) -> dict[str, Any]:
+    """Compile the three exact GETs without reading a credential or using the network."""
+
+    validation = validate_provider_action_authorization(authorization_path)
+    authorization = read_json(authorization_path)
+    if validation.get("status") == "active":
+        resolved, batch_receipt, consumption = _validate_named_sample_batch_runner_contract(
+            authorization_path, authorization, validation
+        )
+        requests = [
+            {
+                "method": "GET",
+                "endpoint": descriptor["endpoint"],
+                "sample_id": descriptor["sample_id"],
+                "expected_size_bytes": descriptor["expected_size_bytes"],
+                "expected_mime_type": descriptor["expected_mime_type"],
+                "opaque_provider_hash": descriptor["expected_provider_hash"],
+                "raw_destination": str(raw_path),
+                "receipt_destination": str(receipt_path),
+            }
+            for descriptor, raw_path, receipt_path in resolved
+        ]
+        preflight: dict[str, Any] = {
+            "valid": True,
+            "requests": requests,
+            "metadata_requests": 0,
+            "expected_total_bytes": sum(
+                request["expected_size_bytes"] for request in requests
+            ),
+            "authorized_total_bytes": authorization["authorized_limits"]["max_download_bytes"],
+            "batch_receipt_destination": str(batch_receipt),
+            "consumption_record": str(consumption),
+            "stop_on_first_failure": True,
+            "downstream_use_authorized": False,
+        }
+    else:
+        preflight = {
+            "valid": False,
+            "reason": "draft_authorization_is_not_executable",
+            "unresolved": authorization.get("blockers", []),
+        }
+    return {
+        "schema_version": NAMED_SAMPLE_REVIEW_SCHEMA,
+        "mode": "dry-run",
+        "authorization_validation": validation,
+        "scope": authorization.get("scope"),
+        "network_called": False,
+        "credentials_accessed": False,
+        "provider_calls_made": 0,
+        "downloads_made": 0,
+        "metadata_calls_made": 0,
+        "executor_preflight": preflight,
+        "notice": "No provider action occurred. --execute requires active unconsumed AUTH-01C authority.",
+    }
+
+
+def _named_sample_blocked_evidence(
+    raw_path: Path,
+    response: _Response,
+    descriptor: dict[str, Any],
+    *,
+    detected_container: str | None = None,
+    actual_media: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    return {
+        "path": str(raw_path),
+        "status": "blocked_not_usable",
+        "byte_count": len(response.data),
+        "sha256": sha256_file(raw_path),
+        "response_mime_type": response.mime_type,
+        "detected_container": detected_container,
+        "actual_media": actual_media,
+        "expected_identity": {
+            "sample_id": descriptor["sample_id"],
+            "original_filename": descriptor["original_filename"],
+            "expected_mime_type": descriptor["expected_mime_type"],
+            "expected_size_bytes": descriptor["expected_size_bytes"],
+            "opaque_provider_hash": descriptor["expected_provider_hash"],
+            "opaque_provider_hash_compared_to_audio_bytes": False,
+        },
+    }
+
+
+def _write_named_sample_receipt(
+    destination: Path,
+    *,
+    authorization: dict[str, Any],
+    authorization_path: Path,
+    consumption_path: Path,
+    descriptor: dict[str, Any],
+    outcome: str,
+    attempted_calls: int,
+    downloads_attempted: int,
+    cumulative_bytes: int,
+    reason: str | None = None,
+    response: _Response | None = None,
+    raw_path: Path | None = None,
+    detected_container: str | None = None,
+    actual_media: dict[str, Any] | None = None,
+    http_status: int | None = None,
+    provider_identifiers: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    blocked_evidence = None
+    if response is not None and raw_path is not None and raw_path.is_file() and outcome != "downloaded_for_owner_review":
+        blocked_evidence = _named_sample_blocked_evidence(
+            raw_path,
+            response,
+            descriptor,
+            detected_container=detected_container,
+            actual_media=actual_media,
+        )
+    receipt: dict[str, Any] = {
+        "schema_version": NAMED_SAMPLE_REVIEW_SCHEMA,
+        "outcome": outcome,
+        "reason": reason,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": sha256_file(authorization_path),
+        "authorization_consumption_record": str(consumption_path),
+        "authorization_consumption_sha256": sha256_file(consumption_path),
+        "voice_id": authorization["action"]["voice_id"],
+        "sample_id": descriptor["sample_id"],
+        "original_filename": descriptor["original_filename"],
+        "request": {"method": "GET", "endpoint": descriptor["endpoint"]},
+        "expected_identity": {
+            "mime_type": descriptor["expected_mime_type"],
+            "byte_count": descriptor["expected_size_bytes"],
+            "opaque_provider_hash": descriptor["expected_provider_hash"],
+            "opaque_provider_hash_semantics": "undocumented_by_provider_not_used_as_audio_checksum",
+            "opaque_provider_hash_compared_to_audio_bytes": False,
+        },
+        "response": None,
+        "blocked_local_evidence": blocked_evidence,
+        "attempted_calls": attempted_calls,
+        "downloads_attempted": downloads_attempted,
+        "cumulative_download_bytes": cumulative_bytes,
+        "http_status": http_status,
+        "provider_identifiers": provider_identifiers or {},
+        "recorded_at": _utc_now(),
+        "provenance_verification": "pending_owner_listen",
+        "human_source_confirmed": False,
+        "manav_identity_confirmed": False,
+        "single_speaker_confirmed": False,
+        "synthetic_source_excluded": False,
+        "downstream_use_authorized": False,
+        "hume_disclosure_authorized": False,
+        "hume_clone_authorized": False,
+        "tts_generation_authorized": False,
+        "voice_mutation_authorized": False,
+    }
+    if response is not None:
+        receipt["response"] = {
+            "mime_type": response.mime_type,
+            "byte_count": len(response.data),
+            "sha256": sha256_bytes(response.data),
+            "detected_container": detected_container,
+            "actual_media": actual_media,
+            "provider_identifiers": response.provider_identifiers,
+            "exact_returned_bytes_preserved": raw_path is not None and raw_path.is_file(),
+            "raw_path": str(raw_path) if raw_path is not None and raw_path.is_file() else None,
+        }
+    _exclusive_write(destination, _json_bytes(receipt))
+    return receipt
+
+
+def _write_named_batch_receipt(
+    destination: Path,
+    *,
+    authorization: dict[str, Any],
+    authorization_path: Path,
+    consumption_path: Path,
+    outcome: str,
+    sample_results: list[dict[str, Any]],
+    attempted_calls: int,
+    downloads_attempted: int,
+    cumulative_bytes: int,
+    stop_reason: str,
+) -> dict[str, Any]:
+    downloads_completed = sum(
+        1
+        for result in sample_results
+        if result.get("outcome") == "downloaded_for_owner_review"
+    )
+    receipt = {
+        "schema_version": NAMED_SAMPLE_REVIEW_SCHEMA,
+        "outcome": outcome,
+        "stop_reason": stop_reason,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": sha256_file(authorization_path),
+        "authorization_consumption_record": str(consumption_path),
+        "authorization_consumption_sha256": sha256_file(consumption_path),
+        "voice_id": authorization["action"]["voice_id"],
+        "bound_source_inventory": {
+            "path": authorization["action"]["source_inventory_receipt_path"],
+            "sha256": authorization["action"]["source_inventory_receipt_sha256"],
+        },
+        "bound_sample_ids": [
+            descriptor["sample_id"] for descriptor in authorization["action"]["samples"]
+        ],
+        "sample_results": sample_results,
+        "attempted_calls": attempted_calls,
+        "downloads_attempted": downloads_attempted,
+        "downloads_completed": downloads_completed,
+        "metadata_calls_attempted": 0,
+        "cumulative_download_bytes": cumulative_bytes,
+        "authorized_download_bytes": authorization["authorized_limits"]["max_download_bytes"],
+        "remaining_authorized_bytes": (
+            authorization["authorized_limits"]["max_download_bytes"] - cumulative_bytes
+        ),
+        "retries_attempted": 0,
+        "redirects_followed": 0,
+        "stopped_on_first_failure": outcome == "failed_closed",
+        "recorded_at": _utc_now(),
+        "provenance_verification": "pending_owner_listen",
+        "human_source_confirmed": False,
+        "manav_identity_confirmed": False,
+        "single_speaker_confirmed": False,
+        "synthetic_source_excluded": False,
+        "downstream_use_authorized": False,
+        "hume_disclosure_authorized": False,
+        "hume_clone_authorized": False,
+        "tts_generation_authorized": False,
+        "voice_mutation_authorized": False,
+    }
+    _exclusive_write(destination, _json_bytes(receipt))
+    return receipt
+
+
+def execute_named_sample_batch(
+    authorization_path: Path, timeout: float = 60.0
+) -> dict[str, Any]:
+    """Consume AUTH-01C and make only its three exact, no-retry sample GETs."""
+
+    if timeout <= 0:
+        raise ValidationError("timeout must be positive")
+    validation = validate_provider_action_authorization(authorization_path)
+    authorization = read_json(authorization_path)
+    resolved, batch_receipt_path, consumption_path = (
+        _validate_named_sample_batch_runner_contract(
+            authorization_path, authorization, validation
+        )
+    )
+    api_key = os.environ.get("ELEVENLABS_API_KEY")
+    if not api_key:
+        raise ValidationError("ELEVENLABS_API_KEY is required only for authorized --execute")
+
+    authorization_hash = sha256_file(authorization_path)
+    max_total_bytes = authorization["authorized_limits"]["max_download_bytes"]
+    consumption = {
+        "schema_version": CONSUMPTION_SCHEMA,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": authorization_hash,
+        "scope": ELEVEN_NAMED_SAMPLE_BATCH_SCOPE,
+        "status": "consumed",
+        "consumed_before_network": True,
+        "consumed_at": _utc_now(),
+        "reason": "named-sample batch retrieval started; no retry is permitted",
+        "authorized_limits": {
+            "max_calls": MAX_NAMED_SAMPLE_REVIEW_COUNT,
+            "max_downloads": MAX_NAMED_SAMPLE_REVIEW_COUNT,
+            "max_download_bytes": max_total_bytes,
+            "max_spend_usd": 0,
+        },
+        "bound_sample_ids": [descriptor["sample_id"] for descriptor, _, _ in resolved],
+        "bound_source_inventory_sha256": authorization["action"][
+            "source_inventory_receipt_sha256"
+        ],
+        "metadata_calls_authorized": 0,
+        "retries_authorized": 0,
+        "redirects_authorized": 0,
+    }
+    _exclusive_write(consumption_path, _json_bytes(consumption))
+
+    attempted_calls = 0
+    downloads_attempted = 0
+    cumulative_bytes = 0
+    sample_results: list[dict[str, Any]] = []
+    for descriptor, raw_path, receipt_path in resolved:
+        remaining = max_total_bytes - cumulative_bytes
+        if remaining <= 0 or descriptor["expected_size_bytes"] > remaining:
+            reason = "cumulative_authorized_size_ceiling_exhausted"
+            receipt = _write_named_sample_receipt(
+                receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                descriptor=descriptor,
+                outcome="failed_closed",
+                reason=reason,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+            )
+            sample_results.append(
+                {"sample_id": descriptor["sample_id"], "outcome": receipt["outcome"], "reason": reason}
+            )
+            _write_named_batch_receipt(
+                batch_receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                outcome="failed_closed",
+                sample_results=sample_results,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                stop_reason=reason,
+            )
+            raise ValidationError(f"ElevenLabs named-sample batch failed closed: {reason}")
+
+        attempted_calls += 1
+        downloads_attempted += 1
+        try:
+            response = _http_get(
+                descriptor["endpoint"],
+                api_key,
+                timeout=timeout,
+                max_bytes=remaining,
+                require_content_length=True,
+                expected_kind="audio",
+            )
+        except _ProviderFailure as exc:
+            receipt = _write_named_sample_receipt(
+                receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                descriptor=descriptor,
+                outcome="failed_closed",
+                reason=exc.code,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                http_status=exc.http_status,
+                provider_identifiers=exc.provider_identifiers,
+            )
+            sample_results.append(
+                {"sample_id": descriptor["sample_id"], "outcome": receipt["outcome"], "reason": exc.code}
+            )
+            _write_named_batch_receipt(
+                batch_receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                outcome="failed_closed",
+                sample_results=sample_results,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                stop_reason=exc.code,
+            )
+            raise ValidationError(
+                f"ElevenLabs named-sample batch failed closed: {exc.code}"
+            ) from exc
+
+        try:
+            _exclusive_write(raw_path, response.data)
+        except ValidationError:
+            reason = "raw_destination_unavailable"
+            receipt = _write_named_sample_receipt(
+                receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                descriptor=descriptor,
+                outcome="failed_closed",
+                reason=reason,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                response=response,
+            )
+            sample_results.append(
+                {"sample_id": descriptor["sample_id"], "outcome": receipt["outcome"], "reason": reason}
+            )
+            _write_named_batch_receipt(
+                batch_receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                outcome="failed_closed",
+                sample_results=sample_results,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                stop_reason=reason,
+            )
+            raise
+
+        cumulative_bytes += len(response.data)
+        detected_container: str | None = None
+        actual_media: dict[str, Any] | None = None
+        reason: str | None = None
+        if response.mime_type != descriptor["expected_mime_type"]:
+            reason = "sample_mime_identity_mismatch"
+        elif len(response.data) != descriptor["expected_size_bytes"]:
+            reason = "sample_size_identity_mismatch"
+        else:
+            try:
+                detected_container = _detect_audio_container(response.data, response.mime_type)
+                actual_media = _probe_audio(raw_path)
+            except _ProviderFailure as exc:
+                reason = exc.code
+            else:
+                if actual_media.get("audio_stream_count") != 1:
+                    reason = "sample_audio_stream_count_ambiguous"
+                elif descriptor["expected_mime_type"] == "audio/mpeg" and (
+                    actual_media.get("codec_name") != "mp3"
+                    or "mp3" not in str(actual_media.get("format_name", "")).split(",")
+                ):
+                    reason = "sample_codec_identity_mismatch"
+                elif (
+                    not isinstance(actual_media.get("sample_rate_hz"), int)
+                    or actual_media["sample_rate_hz"] <= 0
+                    or not isinstance(actual_media.get("channels"), int)
+                    or actual_media["channels"] <= 0
+                    or not isinstance(actual_media.get("bitrate_bps"), int)
+                    or actual_media["bitrate_bps"] <= 0
+                ):
+                    reason = "sample_audio_properties_ambiguous"
+
+        if reason is not None:
+            receipt = _write_named_sample_receipt(
+                receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                descriptor=descriptor,
+                outcome="failed_closed",
+                reason=reason,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                response=response,
+                raw_path=raw_path,
+                detected_container=detected_container,
+                actual_media=actual_media,
+                provider_identifiers=response.provider_identifiers,
+            )
+            sample_results.append(
+                {
+                    "sample_id": descriptor["sample_id"],
+                    "outcome": receipt["outcome"],
+                    "reason": reason,
+                    "raw_path": str(raw_path),
+                    "raw_sha256": sha256_file(raw_path),
+                }
+            )
+            _write_named_batch_receipt(
+                batch_receipt_path,
+                authorization=authorization,
+                authorization_path=authorization_path,
+                consumption_path=consumption_path,
+                outcome="failed_closed",
+                sample_results=sample_results,
+                attempted_calls=attempted_calls,
+                downloads_attempted=downloads_attempted,
+                cumulative_bytes=cumulative_bytes,
+                stop_reason=reason,
+            )
+            raise ValidationError(f"ElevenLabs named-sample batch failed closed: {reason}")
+
+        receipt = _write_named_sample_receipt(
+            receipt_path,
+            authorization=authorization,
+            authorization_path=authorization_path,
+            consumption_path=consumption_path,
+            descriptor=descriptor,
+            outcome="downloaded_for_owner_review",
+            attempted_calls=attempted_calls,
+            downloads_attempted=downloads_attempted,
+            cumulative_bytes=cumulative_bytes,
+            response=response,
+            raw_path=raw_path,
+            detected_container=detected_container,
+            actual_media=actual_media,
+            provider_identifiers=response.provider_identifiers,
+        )
+        sample_results.append(
+            {
+                "sample_id": descriptor["sample_id"],
+                "outcome": receipt["outcome"],
+                "raw_path": str(raw_path),
+                "raw_sha256": sha256_file(raw_path),
+                "byte_count": len(response.data),
+                "actual_media": actual_media,
+                "receipt_path": str(receipt_path),
+                "receipt_sha256": sha256_file(receipt_path),
+            }
+        )
+
+    batch_receipt = _write_named_batch_receipt(
+        batch_receipt_path,
+        authorization=authorization,
+        authorization_path=authorization_path,
+        consumption_path=consumption_path,
+        outcome="downloaded_for_local_review_only",
+        sample_results=sample_results,
+        attempted_calls=attempted_calls,
+        downloads_attempted=downloads_attempted,
+        cumulative_bytes=cumulative_bytes,
+        stop_reason="provenance_ambiguous_pending_owner_listen",
+    )
+    return {
+        "schema_version": NAMED_SAMPLE_REVIEW_SCHEMA,
+        "mode": "execute",
+        "network_called": True,
+        "scope": ELEVEN_NAMED_SAMPLE_BATCH_SCOPE,
+        "provider_calls_made": attempted_calls,
+        "downloads_made": sum(
+            1
+            for sample_result in sample_results
+            if sample_result.get("outcome") == "downloaded_for_owner_review"
+        ),
+        "metadata_calls_made": 0,
+        "voice_id": authorization["action"]["voice_id"],
+        "sample_results": sample_results,
+        "cumulative_download_bytes": cumulative_bytes,
+        "remaining_authorized_bytes": max_total_bytes - cumulative_bytes,
+        "batch_receipt": str(batch_receipt_path),
+        "batch_receipt_sha256": sha256_file(batch_receipt_path),
+        "consumption_record": str(consumption_path),
+        "consumption_record_sha256": sha256_file(consumption_path),
+        "pipeline_stop_reason": batch_receipt["stop_reason"],
+        "provenance_verification": "pending_owner_listen",
+        "human_source_confirmed": False,
+        "manav_identity_confirmed": False,
+        "single_speaker_confirmed": False,
+        "synthetic_source_excluded": False,
+        "downstream_use_authorized": False,
+        "hume_disclosure_authorized": False,
+        "hume_clone_authorized": False,
+        "tts_generation_authorized": False,
+        "voice_mutation_authorized": False,
     }

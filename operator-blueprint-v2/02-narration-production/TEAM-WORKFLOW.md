@@ -84,6 +84,9 @@ required by `02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md`.
   authorization;
 - when separately authorized after a multiple-sample stop, may record one safe metadata inventory
   under `elevenlabs_sample_metadata_inventory`, but may not select or download a sample;
+- when that complete inventory cannot support a safe choice, may retrieve exactly its three named
+  samples under `elevenlabs_named_sample_batch_retrieval` for local owner review, but may not treat
+  technical QA as provenance approval or release any sample to Hume;
 - preserves sensitive audio outside Git; and
 - does not substitute generated, remixed, ripped, mixed-program, or unknown-source audio.
 
@@ -94,6 +97,12 @@ required by `02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md`.
 - consumes the authorization before mutation, generation, or retrieval begins;
 - records immutable provider or UI receipts and uncertain external state; and
 - stops before retry, clone replacement, extra generation, long-form work, or full capture.
+
+For AUTH-01C, the operator is limited to action kind
+`read_only_named_sample_batch_retrieval`: exactly three inventory-bound sample `GET` calls and
+downloads, 20,000,000 aggregate bytes, and `$0` spend. There is no metadata/discovery call, retry,
+redirect, upload, TTS, or Hume access. Raw exact MP3s remain owner-only and excluded from Git. A
+technical pass leaves human provenance and Hume eligibility unresolved.
 
 The Hume clone action may be UI-mediated. The operator records the provenance-bound source hash and
 resulting clone identity. The public Create Voice API must not be represented as a human-audio
@@ -198,6 +207,10 @@ final conformity ─ transcript/pause alignment ─ technical measurement
   `elevenlabs_calibration`, and `hume_calibration`.
 - The corrective scope `elevenlabs_sample_metadata_inventory` is outside those four initial actions
   and grants one metadata call only. It cannot select, download, upload, clone, or generate.
+- The corrective scope `elevenlabs_named_sample_batch_retrieval` is also outside those four actions.
+  It binds the complete AUTH-01B inventory and grants exactly three local-review downloads under
+  one consumed-before-network AUTH-01C. It cannot discover, retry, redirect, select, upload, clone,
+  generate, approve provenance, or contact Hume.
 - The later long-form continuity/pickup test is a fifth authorization. N4B full capture requires a
   new authorization after N4A passes.
 - V2 agents and tooling must not invoke or import V1
