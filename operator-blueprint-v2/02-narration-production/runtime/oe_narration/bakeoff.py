@@ -2037,6 +2037,7 @@ def validate_provider_action_authorization(
             "destinations",
             "sample_selection_rule",
             "selection_fails_if_zero_or_multiple_samples",
+            "selection_fails_if_mixed_speaker",
             "metadata_must_confirm_original_human_source",
             "metadata_receipt_destination",
             "selected_sample_receipt_destination",
@@ -2345,6 +2346,8 @@ def validate_provider_action_authorization(
                 errors.append("dynamic sample selection must fail unless provenance confirms original human audio")
         else:
             errors.append("sample retrieval must bind one exact sample_id or the bounded metadata selection rule")
+        if action.get("selection_fails_if_mixed_speaker") is not True:
+            errors.append("sample retrieval must stop when the selected sample contains multiple speakers")
         for field in ("metadata_receipt_destination", "selected_sample_receipt_destination"):
             _validate_new_local_destination(
                 artifact_root,

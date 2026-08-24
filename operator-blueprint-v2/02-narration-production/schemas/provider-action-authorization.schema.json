@@ -438,7 +438,7 @@
     "retrievalAction": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["kind", "voice_id", "metadata_endpoint", "sample_ids", "destinations"],
+      "required": ["kind", "voice_id", "metadata_endpoint", "sample_ids", "destinations", "selection_fails_if_mixed_speaker"],
       "properties": {
         "kind": {"const": "read_only_voice_metadata_and_named_sample_retrieval"},
         "voice_id": {"type": "string", "minLength": 1},
@@ -447,6 +447,7 @@
         "destinations": {"type": "array", "maxItems": 1, "items": {"type": "string"}},
         "sample_selection_rule": {"const": "only_single_original_human_sample_attached_to_bound_voice"},
         "selection_fails_if_zero_or_multiple_samples": {"type": "boolean"},
+        "selection_fails_if_mixed_speaker": {"type": "boolean"},
         "metadata_must_confirm_original_human_source": {"type": "boolean"},
         "metadata_receipt_destination": {"type": "string"},
         "selected_sample_receipt_destination": {"type": "string"},

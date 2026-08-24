@@ -26,6 +26,7 @@ from .core import (
     write_extraction,
 )
 from .provider import dry_run_capture, execute_capture
+from .retrieval import dry_run_retrieval, execute_retrieval
 
 
 def _path(value: str) -> Path:
@@ -114,6 +115,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="validate one exact provider action scope and its unconsumed authority",
     )
     action_auth.add_argument("--authorization", type=_path, required=True)
+
+    retrieval = sub.add_parser(
+        "retrieve-elevenlabs-sample",
+        help="dry-run by default; consume one exact AUTH-01 before two read-only GETs",
+    )
+    retrieval.add_argument("--authorization", type=_path, required=True)
+    retrieval.add_argument("--execute", action="store_true")
+    retrieval.add_argument("--record", type=_path, help="write an immutable dry-run record")
+    retrieval.add_argument("--timeout", type=float, default=60.0)
     return parser
 
 
@@ -184,6 +194,18 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         return result
     if args.command == "validate-provider-action-authorization":
         return validate_provider_action_authorization(args.authorization)
+    if args.command == "retrieve-elevenlabs-sample":
+        if not args.execute:
+            result = dry_run_retrieval(args.authorization)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution uses authorized receipt destinations")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_retrieval(args.authorization, args.timeout)
     raise ValidationError(f"unsupported command: {args.command}")
 
 

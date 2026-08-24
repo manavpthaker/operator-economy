@@ -46,6 +46,7 @@ file authorizes only its stated action and cannot approve its output.
 - Maximum spend, if used:
 - Retry rule: none unless separately stated and capped
 - Stop behavior for unknown external state:
+- Zero/multiple-sample, synthetic, ambiguous, or mixed-speaker stop rule, when applicable:
 
 ## Explicit exclusions
 

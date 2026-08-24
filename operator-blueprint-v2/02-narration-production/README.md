@@ -126,9 +126,12 @@ Machine-checkable identities, validation states, and exit semantics follow
 [`CLI-VALIDATION-CONTRACT.md`](CLI-VALIDATION-CONTRACT.md).
 
 The v0.3 CLI can validate the envelope, provider adapters, bakeoff plan, and four initial action-
-authorization shapes, then compile credential-free ElevenLabs and Hume dry runs. It cannot retrieve
-a sample, operate the Hume UI, create a clone, execute a bakeoff request, score a performance,
-select a provider, or grant any downstream authority.
+authorization shapes, then compile credential-free ElevenLabs and Hume dry runs. Its one narrow
+external-action client can consume a separately approved `AUTH-01`, read the exact ElevenLabs voice
+metadata, and retrieve the single selected source sample into ignored local custody. It cannot
+operate the Hume UI, create a clone, execute a bakeoff generation request, score a performance,
+select a provider, or grant any downstream authority. A retrieved sample remains blocked from Hume
+until an owner provenance listen and a separate `AUTH-02`.
 
 ## Source-format policy
 

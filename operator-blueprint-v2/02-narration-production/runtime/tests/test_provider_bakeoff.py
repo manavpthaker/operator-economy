@@ -431,6 +431,7 @@ class ProviderBakeoffTests(unittest.TestCase):
                 "destinations": ["local-media/elevenlabs/original-sample.wav"],
                 "sample_selection_rule": "only_single_original_human_sample_attached_to_bound_voice",
                 "selection_fails_if_zero_or_multiple_samples": True,
+                "selection_fails_if_mixed_speaker": True,
                 "metadata_must_confirm_original_human_source": True,
                 "metadata_receipt_destination": "receipts/elevenlabs/metadata.json",
                 "selected_sample_receipt_destination": "receipts/elevenlabs/selected-sample.json",
@@ -460,6 +461,12 @@ class ProviderBakeoffTests(unittest.TestCase):
         wrong_endpoint["action"]["metadata_endpoint"] += "/samples"
         self._write_json(auth_path, wrong_endpoint)
         with self.assertRaisesRegex(ValidationError, "exactly equal"):
+            validate_provider_action_authorization(auth_path, now=now)
+
+        mixed_speaker_drift = copy.deepcopy(authorization)
+        mixed_speaker_drift["action"]["selection_fails_if_mixed_speaker"] = False
+        self._write_json(auth_path, mixed_speaker_drift)
+        with self.assertRaisesRegex(ValidationError, "multiple speakers"):
             validate_provider_action_authorization(auth_path, now=now)
 
         existing_receipt = fixture / authorization["action"]["metadata_receipt_destination"]

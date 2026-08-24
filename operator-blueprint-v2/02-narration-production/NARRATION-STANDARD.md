@@ -154,7 +154,9 @@ full capture or Step 3 authority.
 An original owner recording must pass provenance, retrieval, consent, custody, and commercial-use
 checks before Hume upload. Zero matching Eleven samples blocks retrieval. More than one matching
 sample also blocks until a new authorization names one exact provider sample ID. Do not substitute
-generated TTS, a remix, a YouTube rip, an episode mix, or unknown-source audio.
+generated TTS, a remix, a YouTube rip, an episode mix, or unknown-source audio. A retrieved sample
+with multiple speakers or unresolved human provenance cannot advance to Hume. Metadata may select
+the bytes, but only the owner listen can clear speaker identity and single-speaker provenance.
 
 Hume's current public human-audio cloning guidance uses the Platform upload flow. Its public Create
 Voice API saves a voice from a TTS generation ID; it is not treated as a human-audio upload-clone

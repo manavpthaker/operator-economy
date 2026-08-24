@@ -77,11 +77,14 @@ ElevenLabs and Hume dry-run requests. It verifies exact `W` ranges, Eleven tag s
 double-LF transport, Hume `POST /v0/tts` description expansion with `num_generations: 2`, output
 policy, and bounded call/character accounting.
 
-It does not retrieve Eleven samples, operate the Hume UI, create a Hume clone, execute either
-provider's bakeoff request, blind-review candidates, score performance, or select a method. The
-retained v0.2 ElevenLabs capture client is a different contract and may not execute a v0.3 plan.
-These are authority and implementation boundaries, not permissions to improvise. Offline validity
-does not authorize or consume an external action.
+The sole new external-action client is the fail-closed `AUTH-01` reader. After a separate active
+authorization is validated, it consumes that authorization before network access, reads the exact
+bound ElevenLabs voice metadata, and retrieves at most one sample into owner-only ignored local
+custody. It cannot operate the Hume UI, create a Hume clone, execute either provider's bakeoff
+generation request, blind-review candidates, score performance, or select a method. The retained
+v0.2 ElevenLabs capture client is a different contract and may not execute a v0.3 plan. These are
+authority and implementation boundaries, not permissions to improvise. Offline validity does not
+authorize or consume an external action.
 
 ## Acceptance before v0.3 can become authority
 

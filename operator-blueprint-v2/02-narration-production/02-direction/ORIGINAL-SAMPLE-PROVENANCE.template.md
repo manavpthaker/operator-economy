@@ -19,6 +19,7 @@ This record gates Hume clone creation. It contains no credential, audio bytes, o
 - Provider sample IDs returned:
 - Exact authorized sample ID:
 - Selector result: exactly_one / zero_blocked / multiple_blocked
+- Mixed-speaker stop rule bound in authorization: yes / no
 - If multiple, path/SHA-256 of new owner authorization naming one exact sample ID:
 
 Zero samples block retrieval. More than one sample blocks retrieval until a new authorization names
@@ -37,6 +38,7 @@ one exact sample ID. The operator may not choose among several samples.
 - Sample rate/bit depth/channels/duration:
 - Lossless/lossy and processing history:
 - Clipping, noise, music, other speakers, or sensitive-content findings:
+- Single human speaker confirmed by owner listen: yes / no / unresolved
 
 Do not commit the recording to Git. Record only safe metadata, hash, and an approved locator.
 

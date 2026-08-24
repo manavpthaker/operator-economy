@@ -8,11 +8,14 @@ document.
 
 `oe-narration` is the repository-local, Python 3.11-or-newer validator and bounded capture client for V2 Narration Production. It has no import from `studio/`, no legacy script-rewrite prompt, and no command that can approve performance or set `creative_approved`.
 
-The runtime now implements v0.3 offline validation for the provider-agnostic performance envelope,
+The runtime implements v0.3 offline validation for the provider-agnostic performance envelope,
 provider adapters, provider-bakeoff plan, compiled dry run, and the four initial action-
-authorization shapes. It compiles credential-free ElevenLabs and Hume request envelopes but never
-executes them. The bounded v0.2 ElevenLabs capture client remains a separate, retained surface; it
-cannot execute a v0.3 bakeoff plan or reuse the consumed fixture authorization.
+authorization shapes. It also contains one deliberately narrow external-action client for
+`AUTH-01`: read the exact bound ElevenLabs voice metadata and, only when that metadata resolves to
+exactly one sample, retrieve that sample's original bytes. The client cannot generate speech,
+modify a voice, upload a sample, create a clone, call Hume, or authorize later work. The bounded
+v0.2 ElevenLabs capture client remains a separate, retained surface; it cannot execute a v0.3
+bakeoff plan or reuse a consumed authorization.
 
 Run it from the Step 2 folder as:
 
@@ -49,9 +52,10 @@ Block, acoustic, capture, and alignment ranges are subordinate parts of W. They 
 
 The current CLI can validate the locked package, derive canonical `W`, validate the v0.2
 ElevenLabs capture contract, and validate and compile the proposed v0.3 cross-provider bakeoff
-without credentials, network, UI automation, or audio creation. It has no bakeoff command that may:
+without credentials, network, UI automation, or audio creation. Its sole v0.3 network exception is
+the separately authorized `retrieve-elevenlabs-sample` client described below. It has no command
+that may:
 
-- read ElevenLabs voice metadata or retrieve original sample bytes;
 - upload a human sample through the Hume Platform or create a Hume clone;
 - synthesize Hume narration;
 - generate or unseal blind candidate codes;
@@ -169,6 +173,38 @@ it can report ready. The only initial machine scopes are `elevenlabs_sample_retr
 `hume_clone_creation`, `elevenlabs_calibration`, and `hume_calibration`. This command never consumes
 or executes an authorization. AUTH-05 remains a separate human record, not an initial machine
 scope.
+
+### `retrieve-elevenlabs-sample`
+
+```text
+oe-narration retrieve-elevenlabs-sample --authorization AUTH-01.json
+oe-narration retrieve-elevenlabs-sample --authorization AUTH-01.json \
+  --record DRY_RUN.json
+oe-narration retrieve-elevenlabs-sample --authorization AUTH-01.json --execute
+```
+
+The first two forms are credential-free dry runs. They validate the authorization and executor
+preflight while making zero provider calls. `--record` writes an immutable dry-run record and may
+not be combined with `--execute`.
+
+Execution is restricted to scope `elevenlabs_sample_retrieval` and requires the API key in the
+process environment plus an active, approved, unexpired, unconsumed authorization with a zero-dollar
+spend ceiling. The runner writes the owner-only consumption record before constructing or opening
+the first request. Once that record exists, the authorization is permanently consumed even if
+metadata, selection, transport, storage, or provenance later fails. There is no automatic retry.
+
+The runner can make only two `GET` requests: the exact plan-bound voice metadata endpoint, then the
+official sample-audio endpoint derived from the single returned sample ID. Zero samples or multiple
+samples stop after the metadata call. Redirects, symlinked custody paths, ambiguous response sizes
+or MIME types, existing destinations, cap overruns, response mismatches, and unparseable or
+zero-duration audio fail closed. The original bytes and all receipts are created owner-only; the
+sample remains under the ignored `local-media/` tree. Credentials are never written to a request
+body, receipt, path, or command result.
+
+A successful download remains `pending_human_review`. Provider metadata, an audio MIME label, and
+parseable bytes do not prove that the recording is Manav, entirely human, or single-speaker, and do
+not authorize Hume disclosure or upload. A human provenance listen and a new `AUTH-02` are required
+before the sample can leave local custody.
 
 ### `validate-capture-plan`
 

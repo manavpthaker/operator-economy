@@ -138,7 +138,9 @@ from another surface. Unknown provenance is a rights failure, not an invitation 
 
 The read-only selector must resolve exactly one original sample before retrieval. Zero samples
 blocks the gate. More than one candidate sample also blocks the gate until the owner issues a new
-authorization naming the exact sample ID; an agent may not choose among several recordings.
+authorization naming the exact sample ID; an agent may not choose among several recordings. A
+sample with multiple speakers, synthetic speech, or ambiguous human provenance may be retained only
+as blocked evidence. It cannot advance to Hume upload or clone creation.
 
 ## Four separately authorized external actions
 
@@ -159,7 +161,9 @@ Allowed only:
 Not allowed: TTS generation, voice edit, deletion, retraining, remixing, cloning, sample upload,
 or changing account state. The authorization names exact read-call and download ceilings, expires,
 and is consumed when the retrieval attempt begins. An unavailable download is recorded as blocked;
-it is not retried through an undocumented route.
+it is not retried through an undocumented route. The bounded runner stores raw bytes only in
+ignored local media and leaves identity, originality, and single-speaker approval pending until a
+human listens to the retrieved sample.
 
 ### AUTH-02 — Hume UI sample upload and one clone creation
 
