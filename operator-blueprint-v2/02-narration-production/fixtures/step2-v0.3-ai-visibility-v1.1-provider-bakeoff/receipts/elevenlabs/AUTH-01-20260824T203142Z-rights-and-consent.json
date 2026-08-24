@@ -1,0 +1,49 @@
+{
+  "schema_version": "oe-voice-source-rights-and-consent-v1",
+  "record_id": "AUTH-01-20260824T203142Z-rights-and-consent",
+  "recorded_at": "2026-08-24T20:31:42Z",
+  "voice_owner": "Manav Thaker",
+  "consent_owner": "Manav Thaker",
+  "target_voice_id": "yUXeTfC1IFOCSjGc96sQ",
+  "approved_action": {
+    "provider": "elevenlabs",
+    "scope": "elevenlabs_sample_retrieval",
+    "purpose": "Read the existing voice metadata and retrieve its single original human source sample into excluded local custody for provenance review.",
+    "metadata_calls_maximum": 1,
+    "sample_download_calls_maximum": 1,
+    "sample_downloads_maximum": 1,
+    "download_bytes_maximum": 50000000,
+    "spend_usd_maximum": 0,
+    "expires_no_later_than": "2026-08-25T20:31:42Z"
+  },
+  "provider_disclosure": {
+    "elevenlabs_existing_provider_read_only_handling": true,
+    "hume_disclosure_or_upload": false,
+    "any_other_provider_disclosure_or_upload": false
+  },
+  "explicitly_not_authorized": [
+    "tts_generation",
+    "voice_modification",
+    "voice_deletion",
+    "voice_retraining",
+    "voice_remixing",
+    "hume_upload",
+    "hume_clone_creation",
+    "any_other_provider_action"
+  ],
+  "stop_conditions": [
+    "zero_samples",
+    "multiple_samples",
+    "ambiguous_provenance",
+    "synthetic_source",
+    "mixed_speaker_source"
+  ],
+  "review_boundary": {
+    "metadata_can_select_bytes_but_cannot_clear_provenance": true,
+    "download_can_confirm_parseable_audio_but_cannot_clear_identity": true,
+    "owner_listen_required_to_confirm_manav_human_single_speaker": true,
+    "downstream_use_authorized": false
+  },
+  "approval_source": "Owner authorization recorded in the active Codex task on 2026-08-24.",
+  "owner_approval": true
+}
