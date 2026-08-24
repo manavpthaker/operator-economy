@@ -8,9 +8,9 @@ Prior proposal: Step 2 v0.2, retained unchanged as historical design and calibra
 
 External-action authorization: AUTH-01 issued and consumed; blocked on multiple samples. Corrective
 AUTH-01B issued and consumed; complete three-sample metadata inventory recorded. No sample was
-selected or downloaded. AUTH-01C is separately owner-approved to retrieve exactly those three named
-samples for local provenance review; its active authorization artifact is not yet materialized and
-this documentation pass performs no provider call.
+selected or downloaded. AUTH-01C was separately owner-approved, committed, and consumed. Its first
+sample response failed the inventory-bound byte-count identity, so the batch stopped after one call;
+samples two and three were not requested and Hume remains untouched.
 
 ## Why v0.3 is required
 

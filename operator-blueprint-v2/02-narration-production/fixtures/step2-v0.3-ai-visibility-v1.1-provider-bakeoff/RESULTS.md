@@ -1,12 +1,14 @@
 # Provider Bakeoff Results
 
-Status: `auth01b_inventory_complete_owner_selection_pending`
+Status: `auth01c_failed_closed_first_sample_size_identity_mismatch`
 
 ## Current result
 
-No listening result exists. The fixture proves the locked passages and planned provider payloads
-can be inspected offline. AUTH-01 stopped after finding multiple samples. The corrective AUTH-01B
-then recorded a complete three-sample metadata inventory without selecting or downloading audio.
+No provider comparison result exists. AUTH-01 stopped after finding multiple samples. AUTH-01B
+recorded a complete three-sample metadata inventory. AUTH-01C then attempted the separately
+authorized exact three-sample local review, but the first response did not match its inventory-
+bound byte count. The action stopped after that one call and preserved the response as blocked
+evidence for owner listening.
 
 | State | Result |
 | --- | --- |
@@ -16,15 +18,15 @@ then recorded a complete three-sample metadata inventory without selecting or do
 | Bakeoff plan | runtime-validated: 6 primary calls, 8 expected outputs, no external authority |
 | ElevenLabs dry-run compilation | CLI-generated and non-executable: 4 primary calls, 4 outputs |
 | Hume dry-run compilation | provisionally complete; pending clone binding and mandatory recompile; non-executable |
-| ElevenLabs read-only identity audit | AUTH-01 consumed; multiple-sample stop; AUTH-01B consumed; complete three-sample inventory |
+| ElevenLabs read-only identity audit | AUTH-01 and AUTH-01B consumed; AUTH-01C consumed; first sample size mismatch; samples two and three untouched |
 | Hume UI upload/clone | not authorized; not run |
 | ElevenLabs calibration | not authorized; not run |
 | Hume calibration | not authorized; not run |
-| Provider calls made | `2` cumulative read-only ElevenLabs metadata calls: AUTH-01 and AUTH-01B |
-| Credentials accessed | environment-only for AUTH-01 and AUTH-01B; not persisted |
-| Samples retrieved or uploaded | `0` |
+| Provider calls made | `3` cumulative read-only ElevenLabs calls: two metadata calls, then one sample-audio call |
+| Credentials accessed | environment-only for AUTH-01, AUTH-01B, and AUTH-01C; not persisted |
+| Samples retrieved or uploaded | one exact response preserved as blocked evidence; zero eligible sources; zero uploads |
 | Voices cloned | `0` |
-| Audio files produced | `0` |
+| Audio files produced | one provider response stored locally for review; zero narration or bakeoff candidates |
 | Blind scores | not available |
 | Long-form confirmation | not available |
 | Selected provider | none |
@@ -53,6 +55,20 @@ The inventory is structurally complete: three well-formed entries, three unique 
 filenames. It is not provenance proof. The generic filenames and absent provider provenance fields
 do not support choosing one sample. A later local-only download requires a new exact authorization;
 Hume remains untouched.
+
+## AUTH-01C execution result
+
+AUTH-01C was committed, consumed before network access, and limited to the three exact inventory
+entries. The first endpoint returned an 8,641,768-byte MP3 instead of the inventory-bound
+5,760,813-byte identity. The runner preserved those bytes as blocked evidence, wrote immutable
+receipts, and stopped with `sample_size_identity_mismatch`. It made no metadata call, redirect,
+retry, second-sample request, or third-sample request.
+
+The preserved response is a technically decodable six-minute, 44.1 kHz, mono, 192 kbps MP3. Its
+SHA-256 is `dd3f0887acb5bc4c623476eb053136d3f0ce7d6828168874911f8b0dcecd64f9`.
+Those technical properties do not clear identity or provenance. AUTH-01C cannot be resumed. The
+owner may listen to the blocked first response; retrieving either remaining sample requires a new
+decision and authorization. Hume remains blocked.
 
 ## Planned comparison inventory
 

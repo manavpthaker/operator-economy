@@ -1,7 +1,8 @@
 # AI Visibility v1.1 Provider Bakeoff Fixture
 
-Status: AUTH-01B recorded a complete three-sample metadata inventory; owner selection pending; no
-sample download, audio, voice clone, creative verdict, episode, or Step 3 authority
+Status: AUTH-01C consumed and failed closed on the first sample's size identity mismatch; one exact
+response is preserved as blocked local evidence; samples two and three were not requested; owner
+review pending; no voice clone, creative verdict, episode, or Step 3 authority
 
 ## Purpose
 
@@ -50,11 +51,19 @@ produces a provenance receipt and immutable clone ID.
   safe inventory: `ivc_1.mp3`, `ivc_3.mp3`, and `ivc_2.mp3`, each with a unique provider sample ID.
 - AUTH-01B selected nothing, constructed no sample-audio endpoint, downloaded nothing, and stored
   no raw provider payload. Its one-use authorization is consumed.
+- AUTH-01C was separately authorized for the exact three-sample inventory. It consumed before
+  network access and stopped after the first sample returned 8,641,768 bytes rather than the
+  inventory-bound 5,760,813 bytes. It made one sample-audio call, no metadata call, no retry, and no
+  request for samples two or three.
+- The exact first response is retained in ignored local custody as blocked evidence. It is a
+  decodable six-minute, 44.1 kHz, mono, 192 kbps MP3, but its identity and provenance remain
+  unresolved. It is not a production or Hume source.
 - ElevenLabs exposed no category, source, `is_original`, or `is_generated` value for any sample.
   Generic filenames are not enough to choose a Hume source.
 - No sample was uploaded and no voice was cloned.
-- No TTS request was sent and no audio exists.
-- AUTH-01 and AUTH-01B are consumed. AUTH-02 through AUTH-04 remain drafts with zero authority.
+- No TTS request was sent and no narration or bakeoff-candidate audio exists.
+- AUTH-01, AUTH-01B, and AUTH-01C are consumed. AUTH-02 through AUTH-04 remain drafts with zero
+  authority.
 - The Hume request records contain a pending clone placeholder and are not execution-ready.
 - Hume account tier and commercial-use eligibility are unverified. They must be checked before any
   Hume calibration approval; a logged-in session alone is not evidence.
@@ -76,8 +85,8 @@ produces a provenance receipt and immutable clone ID.
 - `compiled/` contains the credential-free runtime's inspectable primary and conditional-fallback
   request bodies, hashes, counts, costs, destinations, and bound compilation record. A dry-run body
   is not a provider-call authorization.
-- `authorizations/` contains the four original draft action records, the consumed AUTH-01 and
-  AUTH-01B evidence, and no reusable provider authority.
+- `authorizations/` contains the four original draft action records, the consumed AUTH-01,
+  AUTH-01B, and AUTH-01C evidence, and no reusable provider authority.
 - `reviews/BLIND-SCORING.template.md` separates listening evidence from provider identity.
 - `reviews/LONG-FORM-CONFIRMATION.template.md` prevents a short-passage winner from being treated as
   a production narrator without a continuity test.

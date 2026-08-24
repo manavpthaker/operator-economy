@@ -429,6 +429,7 @@ the earlier consumed authorization.
 AUTH-01C is a separately approved local-review retrieval boundary, not a change to that N4A state.
 Its technical result—successful or failed—cannot set `creative_approved`, clear provenance,
 authorize AUTH-02, or unblock Hume without the owner's explicit listen and exact-sample disposition.
-AUTH-01C has now been materialized as a hash-bound, active, one-use authorization. Its credential-
-free validation and three-request dry run pass. No AUTH-01C provider request has occurred at this
-boundary; the authorization must be committed before its single execution.
+AUTH-01C was materialized, validated, committed, and consumed before its first provider request.
+The first sample response failed its inventory-bound byte-count identity, so the runner preserved
+the exact response as blocked evidence and stopped without requesting samples two or three.
+AUTH-01C cannot be resumed or retried.
