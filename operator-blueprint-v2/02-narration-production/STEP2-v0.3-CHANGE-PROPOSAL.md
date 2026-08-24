@@ -62,6 +62,12 @@ The four initial authorizations are exactly:
 The long-form/pickup test is a fifth later authorization. N4B full capture is a later, different
 authorization available only after the selected method passes N4A. No v0.3 record grants Step 3.
 
+AUTH-01's multiple-sample stop introduced one corrective least-privilege scope:
+`elevenlabs_sample_metadata_inventory`. It is outside the four initial bakeoff actions and permits
+one metadata request only, with zero selection, downloads, generation, spend, or Hume access. It
+exists only to give the owner the sample IDs and safe metadata required for a later exact-sample
+decision.
+
 ## Frozen history
 
 - `STEP2-v0.2-CHANGE-PROPOSAL.md` remains the v0.2 design record.

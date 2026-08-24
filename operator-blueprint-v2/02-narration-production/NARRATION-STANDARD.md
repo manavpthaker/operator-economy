@@ -158,6 +158,12 @@ generated TTS, a remix, a YouTube rip, an episode mix, or unknown-source audio. 
 with multiple speakers or unresolved human provenance cannot advance to Hume. Metadata may select
 the bytes, but only the owner listen can clear speaker identity and single-speaker provenance.
 
+After a multiple-sample stop, the owner may separately authorize
+`elevenlabs_sample_metadata_inventory`: one metadata call, a safe normalized inventory, and no
+selection, download, generation, spend, or Hume access. That corrective scope does not replace the
+original-sample retrieval authorization. Any later download must name one exact sample ID under a
+new authorization.
+
 Hume's current public human-audio cloning guidance uses the Platform upload flow. Its public Create
 Voice API saves a voice from a TTS generation ID; it is not treated as a human-audio upload-clone
 endpoint. A logged-in Hume browser session does not authorize upload or clone creation. The

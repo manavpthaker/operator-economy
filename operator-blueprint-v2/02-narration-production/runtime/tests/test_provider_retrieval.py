@@ -17,7 +17,9 @@ from oe_narration.core import ValidationError, sha256_bytes, sha256_file
 from oe_narration.cli import build_parser, dispatch
 from oe_narration.retrieval import (
     MAX_AUTHORIZED_DOWNLOAD_BYTES,
+    dry_run_metadata_inventory,
     dry_run_retrieval,
+    execute_metadata_inventory,
     execute_retrieval,
 )
 
@@ -180,6 +182,45 @@ class ProviderRetrievalTests(unittest.TestCase):
                 "record_path": "consumed/AUTH-01.json",
             }
         )
+        self._write_json(auth_path, authorization)
+        return temporary, fixture, auth_path
+
+    def _active_inventory_authorization(
+        self,
+    ) -> tuple[tempfile.TemporaryDirectory, Path, Path]:
+        temporary, fixture, auth_path = self._active_authorization()
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        voice_id = authorization["action"]["voice_id"]
+        authorization["authorization_id"] = "AUTH-01B-test-metadata-inventory"
+        authorization["scope"] = "elevenlabs_sample_metadata_inventory"
+        authorization["action"] = {
+            "kind": "read_only_voice_metadata_inventory",
+            "voice_id": voice_id,
+            "metadata_endpoint": f"https://api.elevenlabs.io/v1/voices/{voice_id}",
+            "metadata_receipt_destination": "receipts/elevenlabs/inventory.json",
+            "selection_permitted": False,
+            "download_permitted": False,
+            "raw_payload_storage_permitted": False,
+        }
+        authorization["requested_limits"] = {
+            "max_metadata_calls": 1,
+            "max_sample_download_calls": 0,
+            "max_metadata_response_bytes": 2_000_000,
+            "max_spend_usd": 0,
+        }
+        authorization["authorized_limits"] = {
+            "max_calls": 1,
+            "max_downloads": 0,
+            "max_metadata_response_bytes": 2_000_000,
+            "max_spend_usd": 0,
+        }
+        authorization["consumption"] = {
+            "status": "unconsumed",
+            "calls_used": 0,
+            "downloads_used": 0,
+            "spend_used_usd": 0,
+            "record_path": "consumed/AUTH-01B.json",
+        }
         self._write_json(auth_path, authorization)
         return temporary, fixture, auth_path
 
@@ -593,6 +634,250 @@ class ProviderRetrievalTests(unittest.TestCase):
         ):
             self.assertNotIn(secret, artifact.read_text(encoding="utf-8"))
             self.assertEqual(stat.S_IMODE(artifact.stat().st_mode), 0o600)
+
+    def test_metadata_inventory_dry_run_and_cli_have_no_sample_or_credential_path(self) -> None:
+        temporary, fixture, auth_path = self._active_inventory_authorization()
+        self.addCleanup(temporary.cleanup)
+        with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+            "oe_narration.retrieval._open_request"
+        ) as opened, mock.patch(
+            "oe_narration.retrieval._sample_audio_endpoint",
+            side_effect=AssertionError("sample endpoint must be unreachable"),
+        ) as sample_endpoint:
+            result = dry_run_metadata_inventory(auth_path)
+            cli_result = dispatch(
+                build_parser().parse_args(
+                    ["inventory-elevenlabs-samples", "--authorization", str(auth_path)]
+                )
+            )
+        for candidate in (result, cli_result):
+            self.assertFalse(candidate["network_called"])
+            self.assertFalse(candidate["credentials_accessed"])
+            self.assertEqual(candidate["scope"], "elevenlabs_sample_metadata_inventory")
+            preflight = candidate["executor_preflight"]
+            self.assertEqual(preflight["authorized_limits"]["max_calls"], 1)
+            self.assertEqual(preflight["authorized_limits"]["max_downloads"], 0)
+            self.assertFalse(preflight["selection_permitted"])
+            self.assertFalse(preflight["download_permitted"])
+            self.assertFalse(preflight["sample_audio_endpoint_constructed"])
+            self.assertFalse(preflight["raw_provider_payload_storage_permitted"])
+            self.assertNotIn("sample_request", preflight)
+            self.assertNotIn("raw_sample", preflight["destinations"])
+        opened.assert_not_called()
+        sample_endpoint.assert_not_called()
+        self.assertFalse((auth_path.parent / "consumed" / "AUTH-01B.json").exists())
+
+    def test_metadata_inventory_one_get_records_normalized_inventory_without_stdout_payload(self) -> None:
+        temporary, fixture, auth_path = self._active_inventory_authorization()
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        endpoint = authorization["action"]["metadata_endpoint"]
+        secret = "AUTH01B-SUPER-SECRET"
+        samples = [
+            {
+                "sample_id": "sample-a",
+                "file_name": "../../owner-a.wav",
+                "mime_type": "audio/wav",
+                "category": "cloned",
+                "source": "user_upload",
+                "hash": "provider-a",
+                "size_bytes": 123,
+                "is_generated": False,
+                "is_original": True,
+            },
+            {
+                "sample_id": "sample-a",
+                "file_name": "..\\..\\private\\owner-b.mp3",
+            },
+            {"file_name": f"{secret}.wav", "source": secret},
+            "malformed-entry",
+            {"sample_id": "sample-c"},
+        ]
+        data = json.dumps(
+            {"voice_id": authorization["action"]["voice_id"], "samples": samples}
+        ).encode("utf-8")
+        response = _FakeResponse(
+            data,
+            content_type="application/json",
+            url=endpoint,
+            headers={"x-request-id": "inventory-request-1"},
+        )
+        requests = []
+
+        def open_response(request, timeout):
+            consumption = auth_path.parent / "consumed" / "AUTH-01B.json"
+            self.assertTrue(consumption.exists(), "authorization must be consumed before network")
+            requests.append(request)
+            return response
+
+        with mock.patch.dict(
+            os.environ, {"ELEVENLABS_API_KEY": secret}, clear=True
+        ), mock.patch(
+            "oe_narration.retrieval._open_request", side_effect=open_response
+        ) as opened, mock.patch(
+            "oe_narration.retrieval._sample_audio_endpoint",
+            side_effect=AssertionError("sample endpoint must be unreachable"),
+        ) as sample_endpoint:
+            result = execute_metadata_inventory(auth_path)
+        self.assertEqual(opened.call_count, 1)
+        sample_endpoint.assert_not_called()
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(requests[0].method, "GET")
+        self.assertEqual(requests[0].full_url, endpoint)
+        self.assertEqual(result["provider_calls_made"], 1)
+        self.assertEqual(result["downloads_made"], 0)
+        self.assertEqual(result["sample_count"], 5)
+        self.assertFalse(result["inventory_complete"])
+        self.assertNotIn("samples", result)
+        self.assertNotIn("sample-a", json.dumps(result))
+        self.assertFalse(result["sample_audio_endpoint_constructed"])
+        self.assertFalse(result["raw_provider_payload_stored"])
+        receipt_path = Path(result["metadata_receipt"])
+        receipt_text = receipt_path.read_text(encoding="utf-8")
+        self.assertNotIn(secret, receipt_text)
+        receipt = json.loads(receipt_text)
+        self.assertEqual(receipt["response"]["provider_identifiers"]["x-request-id"], "inventory-request-1")
+        self.assertEqual(receipt["samples"][0]["sample_id"], "sample-a")
+        self.assertEqual(receipt["samples"][0]["original_filename"], "owner-a.wav")
+        self.assertEqual(receipt["samples"][1]["original_filename"], "owner-b.mp3")
+        self.assertFalse(receipt["provider_metadata_is_provenance_proof"])
+        completeness = receipt["inventory_completeness"]
+        self.assertFalse(completeness["sample_entries_well_formed"])
+        self.assertFalse(completeness["all_sample_ids_present"])
+        self.assertFalse(completeness["all_original_filenames_present"])
+        self.assertFalse(completeness["sample_ids_unique"])
+        self.assertFalse(completeness["inventory_complete"])
+        self.assertEqual(completeness["malformed_entry_indices"], [3])
+        self.assertEqual(completeness["missing_sample_id_indices"], [2, 3])
+        self.assertEqual(
+            completeness["missing_original_filename_indices"], [2, 3, 4]
+        )
+        self.assertEqual(
+            completeness["duplicate_sample_id_groups"],
+            [{"sample_id": "sample-a", "metadata_indices": [0, 1]}],
+        )
+        self.assertFalse(receipt["selection_made"])
+        self.assertFalse(receipt["download_permitted"])
+        self.assertFalse(receipt["raw_provider_payload_stored"])
+        self.assertFalse((fixture / "local-media").exists())
+        self.assertEqual(stat.S_IMODE(receipt_path.stat().st_mode), 0o600)
+
+    def test_metadata_inventory_contract_mutations_fail_before_credential_or_network(self) -> None:
+        mutations = {
+            "wrong_scope": lambda document: document.update(
+                {"scope": "elevenlabs_sample_retrieval"}
+            ),
+            "wrong_endpoint": lambda document: document["action"].update(
+                {"metadata_endpoint": "https://api.elevenlabs.io/v1/voices/wrong"}
+            ),
+            "selection_enabled": lambda document: document["action"].update(
+                {"selection_permitted": True}
+            ),
+            "download_enabled": lambda document: document["action"].update(
+                {"download_permitted": True}
+            ),
+            "raw_storage_enabled": lambda document: document["action"].update(
+                {"raw_payload_storage_permitted": True}
+            ),
+            "two_calls": lambda document: document["authorized_limits"].update(
+                {"max_calls": 2}
+            ),
+            "boolean_call_cap": lambda document: document["authorized_limits"].update(
+                {"max_calls": True}
+            ),
+            "one_download": lambda document: document["authorized_limits"].update(
+                {"max_downloads": 1}
+            ),
+            "oversized_metadata": lambda document: document["authorized_limits"].update(
+                {"max_metadata_response_bytes": 2_000_001}
+            ),
+            "requested_authorized_mismatch": lambda document: document[
+                "requested_limits"
+            ].update({"max_metadata_response_bytes": 1_000_000}),
+            "missing_consumption_count": lambda document: document["consumption"].pop(
+                "downloads_used"
+            ),
+            "sample_field": lambda document: document["action"].update(
+                {"sample_ids": ["forbidden"]}
+            ),
+            "local_media_receipt": lambda document: document["action"].update(
+                {"metadata_receipt_destination": "local-media/inventory.json"}
+            ),
+        }
+        for name, mutation in mutations.items():
+            with self.subTest(name=name):
+                temporary, fixture, auth_path = self._active_inventory_authorization()
+                self.addCleanup(temporary.cleanup)
+                authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+                mutation(authorization)
+                self._write_json(auth_path, authorization)
+                with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+                    "oe_narration.retrieval._open_request"
+                ) as opened:
+                    with self.assertRaises(ValidationError):
+                        dry_run_metadata_inventory(auth_path)
+                opened.assert_not_called()
+                self.assertFalse((auth_path.parent / "consumed" / "AUTH-01B.json").exists())
+
+    def test_metadata_inventory_transport_and_size_failures_consume_once_without_retry(self) -> None:
+        for mode in ("transport", "oversized"):
+            with self.subTest(mode=mode):
+                temporary, fixture, auth_path = self._active_inventory_authorization()
+                self.addCleanup(temporary.cleanup)
+                authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+                endpoint = authorization["action"]["metadata_endpoint"]
+                secret = "AUTH01B-DO-NOT-LEAK"
+                if mode == "transport":
+                    side_effect = urllib.error.URLError(f"transport contained {secret}")
+                    expected_reason = "provider_transport_failure"
+                else:
+                    side_effect = _FakeResponse(
+                        b"{}",
+                        content_type="application/json",
+                        content_length=2_000_001,
+                        url=endpoint,
+                    )
+                    expected_reason = "authorized_size_ceiling_exceeded"
+                open_kwargs = (
+                    {"side_effect": side_effect}
+                    if mode == "transport"
+                    else {"return_value": side_effect}
+                )
+                with mock.patch.dict(
+                    os.environ, {"ELEVENLABS_API_KEY": secret}, clear=True
+                ), mock.patch(
+                    "oe_narration.retrieval._open_request", **open_kwargs
+                ) as opened, mock.patch(
+                    "oe_narration.retrieval._sample_audio_endpoint",
+                    side_effect=AssertionError("sample endpoint must be unreachable"),
+                ) as sample_endpoint:
+                    with self.assertRaisesRegex(ValidationError, expected_reason) as caught:
+                        execute_metadata_inventory(auth_path)
+                self.assertEqual(opened.call_count, 1)
+                sample_endpoint.assert_not_called()
+                self.assertNotIn(secret, str(caught.exception))
+                consumption = auth_path.parent / "consumed" / "AUTH-01B.json"
+                self.assertTrue(consumption.exists())
+                failure_path = fixture / authorization["action"]["metadata_receipt_destination"]
+                failure_text = failure_path.read_text(encoding="utf-8")
+                self.assertNotIn(secret, failure_text)
+                failure = json.loads(failure_text)
+                self.assertEqual(failure["reason"], expected_reason)
+                self.assertEqual(failure["attempted_calls"], 1)
+                self.assertEqual(failure["downloads_attempted"], 0)
+                self.assertFalse(failure["sample_audio_endpoint_constructed"])
+                self.assertFalse(failure["raw_provider_payload_stored"])
+
+    def test_metadata_inventory_missing_credential_does_not_consume(self) -> None:
+        temporary, fixture, auth_path = self._active_inventory_authorization()
+        self.addCleanup(temporary.cleanup)
+        with mock.patch.dict(os.environ, {}, clear=True), mock.patch(
+            "oe_narration.retrieval._open_request"
+        ) as opened:
+            with self.assertRaisesRegex(ValidationError, "required only for authorized"):
+                execute_metadata_inventory(auth_path)
+        opened.assert_not_called()
+        self.assertFalse((auth_path.parent / "consumed" / "AUTH-01B.json").exists())
 
 
 if __name__ == "__main__":

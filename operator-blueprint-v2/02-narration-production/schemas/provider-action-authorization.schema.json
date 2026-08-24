@@ -30,6 +30,7 @@
     "scope": {
       "enum": [
         "elevenlabs_sample_retrieval",
+        "elevenlabs_sample_metadata_inventory",
         "hume_clone_creation",
         "elevenlabs_calibration",
         "hume_calibration"
@@ -133,6 +134,7 @@
           },
           "requested_limits": {
             "not": {"anyOf": [
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]},
               {"required": ["max_calls"]},
@@ -146,6 +148,58 @@
           },
           "authorized_limits": {
             "not": {"anyOf": [
+              {"required": ["max_metadata_response_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]}
+            ]}
+          },
+          "consumption": {
+            "not": {"anyOf": [
+              {"required": ["uploads_used"]},
+              {"required": ["clones_created"]},
+              {"required": ["characters_used"]},
+              {"required": ["outputs_received"]}
+            ]}
+          }
+        },
+        "not": {"required": ["account_requirements"]}
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"const": "elevenlabs_sample_metadata_inventory"}}},
+      "then": {
+        "required": ["requested_limits"],
+        "properties": {
+          "provider": {"const": "elevenlabs"},
+          "action": {"$ref": "#/$defs/metadataInventoryAction"},
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["script_sha256"]},
+              {"required": ["spoken_text_sha256"]},
+              {"required": ["compiled_hash_state"]},
+              {"required": ["clone_receipt_sha256"]},
+              {"required": ["clone_receipt_path"]}
+            ]}
+          },
+          "requested_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_download_bytes"]},
+              {"required": ["max_ui_uploads"]},
+              {"required": ["max_voice_clones"]},
+              {"required": ["max_calls"]},
+              {"required": ["max_characters"]},
+              {"required": ["max_outputs"]},
+              {"required": ["primary_lossless_calls"]},
+              {"required": ["primary_lossless_characters"]},
+              {"required": ["primary_lossless_outputs"]},
+              {"required": ["primary_modeled_public_rate_cost_usd"]}
+            ]}
+          },
+          "authorized_limits": {
+            "not": {"anyOf": [
+              {"required": ["max_download_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]},
               {"required": ["max_characters"]},
@@ -184,6 +238,7 @@
             "not": {"anyOf": [
               {"required": ["max_metadata_calls"]},
               {"required": ["max_sample_download_calls"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_calls"]},
               {"required": ["max_characters"]},
@@ -198,6 +253,7 @@
             "not": {"anyOf": [
               {"required": ["max_calls"]},
               {"required": ["max_downloads"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_characters"]},
               {"required": ["max_outputs"]}
@@ -231,6 +287,7 @@
             "not": {"anyOf": [
               {"required": ["max_metadata_calls"]},
               {"required": ["max_sample_download_calls"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]}
@@ -239,6 +296,7 @@
           "authorized_limits": {
             "not": {"anyOf": [
               {"required": ["max_downloads"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]}
@@ -266,6 +324,7 @@
             "not": {"anyOf": [
               {"required": ["max_metadata_calls"]},
               {"required": ["max_sample_download_calls"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]}
@@ -274,6 +333,7 @@
           "authorized_limits": {
             "not": {"anyOf": [
               {"required": ["max_downloads"]},
+              {"required": ["max_metadata_response_bytes"]},
               {"required": ["max_download_bytes"]},
               {"required": ["max_ui_uploads"]},
               {"required": ["max_voice_clones"]}
@@ -293,7 +353,17 @@
       "if": {
         "allOf": [
           {"properties": {"status": {"const": "active"}}},
-          {"properties": {"scope": {"const": "elevenlabs_sample_retrieval"}}}
+          {"properties": {"scope": {"const": "elevenlabs_sample_retrieval"}}},
+          {
+            "properties": {
+              "action": {
+                "required": ["kind"],
+                "properties": {
+                  "kind": {"const": "read_only_voice_metadata_and_named_sample_retrieval"}
+                }
+              }
+            }
+          }
         ]
       },
       "then": {
@@ -313,6 +383,80 @@
           },
           "authorized_limits": {
             "required": ["max_calls", "max_downloads", "max_download_bytes", "max_spend_usd"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"status": {"const": "active"}}},
+          {"properties": {"scope": {"const": "elevenlabs_sample_metadata_inventory"}}},
+          {
+            "properties": {
+              "action": {
+                "required": ["kind"],
+                "properties": {
+                  "kind": {"const": "read_only_voice_metadata_inventory"}
+                }
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "required": ["requested_limits"],
+        "properties": {
+          "action": {
+            "required": [
+              "metadata_receipt_destination",
+              "selection_permitted",
+              "download_permitted",
+              "raw_payload_storage_permitted"
+            ],
+            "properties": {
+              "selection_permitted": {"const": false},
+              "download_permitted": {"const": false},
+              "raw_payload_storage_permitted": {"const": false}
+            }
+          },
+          "requested_limits": {
+            "required": [
+              "max_metadata_calls",
+              "max_sample_download_calls",
+              "max_metadata_response_bytes",
+              "max_spend_usd"
+            ],
+            "properties": {
+              "max_metadata_calls": {"const": 1},
+              "max_sample_download_calls": {"const": 0},
+              "max_metadata_response_bytes": {"type": "integer", "minimum": 1, "maximum": 2000000},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "authorized_limits": {
+            "required": ["max_calls", "max_downloads", "max_metadata_response_bytes", "max_spend_usd"],
+            "properties": {
+              "max_calls": {"const": 1},
+              "max_downloads": {"const": 0},
+              "max_metadata_response_bytes": {"type": "integer", "minimum": 1, "maximum": 2000000},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "consumption": {
+            "required": [
+              "status",
+              "calls_used",
+              "downloads_used",
+              "spend_used_usd",
+              "record_path"
+            ],
+            "properties": {
+              "status": {"const": "unconsumed"},
+              "calls_used": {"const": 0},
+              "downloads_used": {"const": 0},
+              "spend_used_usd": {"const": 0}
+            }
           }
         }
       }
@@ -454,6 +598,28 @@
         "rights_and_consent": {"$ref": "#/$defs/rightsAndConsent"}
       }
     },
+    "metadataInventoryAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "voice_id",
+        "metadata_endpoint",
+        "metadata_receipt_destination",
+        "selection_permitted",
+        "download_permitted",
+        "raw_payload_storage_permitted"
+      ],
+      "properties": {
+        "kind": {"const": "read_only_voice_metadata_inventory"},
+        "voice_id": {"type": "string", "minLength": 1},
+        "metadata_endpoint": {"type": "string"},
+        "metadata_receipt_destination": {"type": "string", "minLength": 1},
+        "selection_permitted": {"const": false},
+        "download_permitted": {"const": false},
+        "raw_payload_storage_permitted": {"const": false}
+      }
+    },
     "cloneAction": {
       "type": "object",
       "additionalProperties": false,
@@ -525,6 +691,7 @@
       "properties": {
         "max_metadata_calls": {"$ref": "#/$defs/nullableNonnegative"},
         "max_sample_download_calls": {"$ref": "#/$defs/nullableNonnegative"},
+        "max_metadata_response_bytes": {"$ref": "#/$defs/nullableNonnegative"},
         "max_download_bytes": {"$ref": "#/$defs/nullableNonnegative"},
         "max_ui_uploads": {"$ref": "#/$defs/nullableNonnegative"},
         "max_voice_clones": {"$ref": "#/$defs/nullableNonnegative"},
@@ -545,6 +712,7 @@
         "max_calls": {"type": ["integer", "number"], "minimum": 0},
         "max_downloads": {"type": ["integer", "number"], "minimum": 0},
         "max_download_bytes": {"type": ["integer", "number"], "minimum": 0},
+        "max_metadata_response_bytes": {"type": ["integer", "number"], "minimum": 0},
         "max_ui_uploads": {"type": ["integer", "number"], "minimum": 0},
         "max_voice_clones": {"type": ["integer", "number"], "minimum": 0},
         "max_characters": {"type": ["integer", "number"], "minimum": 0},

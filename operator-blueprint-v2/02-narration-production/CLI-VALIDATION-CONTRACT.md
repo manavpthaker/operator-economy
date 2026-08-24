@@ -76,6 +76,12 @@ The four initial authorization scopes are exactly:
 3. `elevenlabs_calibration` — P1/P2 by E1/E2; and
 4. `hume_calibration` — P1/P2 by H1/H2.
 
+After AUTH-01 stopped on multiple attached samples, the owner separately authorized the corrective
+scope `elevenlabs_sample_metadata_inventory`. It is not a fifth bakeoff-generation action. It can
+make one read-only metadata request, preserve a safe inventory for owner selection, and do nothing
+else. It cannot select or download a sample and cannot be substituted for any of the four initial
+scopes.
+
 The 3.5-to-4.5-minute long-form continuity and several-hours-later same-word pickup test is a fifth,
 later human authorization scope. It is not one of the initial machine enum values. None of these
 scopes is `full`; never encode one as full capture merely to fit a schema.
@@ -205,6 +211,30 @@ A successful download remains `pending_human_review`. Provider metadata, an audi
 parseable bytes do not prove that the recording is Manav, entirely human, or single-speaker, and do
 not authorize Hume disclosure or upload. A human provenance listen and a new `AUTH-02` are required
 before the sample can leave local custody.
+
+### `inventory-elevenlabs-samples`
+
+```text
+oe-narration inventory-elevenlabs-samples --authorization AUTH-01B.json
+oe-narration inventory-elevenlabs-samples --authorization AUTH-01B.json \
+  --record DRY_RUN.json
+oe-narration inventory-elevenlabs-samples --authorization AUTH-01B.json --execute
+```
+
+This separate corrective client accepts only scope `elevenlabs_sample_metadata_inventory` and
+action kind `read_only_voice_metadata_inventory`. Dry-run is credential-free and uses the same
+executor preflight. Execution consumes the authorization before one exact voice-metadata `GET`.
+The caps are one call, zero downloads, zero spend, and at most 2,000,000 response bytes.
+
+The action must state `selection_permitted: false`, `download_permitted: false`, and
+`raw_payload_storage_permitted: false`. It
+has no sample endpoint, sample ID selector, download destination, Hume field, local-media path, or
+generation path. Its local receipt is created mode `0600` and contains only a credential-filtered,
+normalized inventory:
+sample IDs, base filenames, provider category/source fields, MIME/size/hash fields, and explicit
+original/generated flags when the provider exposes them, plus the raw response hash and byte count.
+Unknown fields and raw metadata payloads are discarded. Recording an inventory is not sample
+selection, provenance approval, download permission, or downstream authority.
 
 ### `validate-capture-plan`
 

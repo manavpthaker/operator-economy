@@ -701,7 +701,7 @@ class ProviderBakeoffTests(unittest.TestCase):
         self._write_json(auth_path, authorization)
         with self.assertRaises(ValidationError) as caught:
             validate_provider_action_authorization(auth_path)
-        self.assertIn("four exact provider action enums", str(caught.exception))
+        self.assertIn("exact provider action enums", str(caught.exception))
         self.assertIn("credentials", str(caught.exception))
 
     def test_authorization_rejects_rehashed_but_tampered_compiled_dry_run(self) -> None:
@@ -764,6 +764,7 @@ class ProviderBakeoffTests(unittest.TestCase):
             self.assertFalse(plan["$defs"][definition]["additionalProperties"])
         for definition in (
             "retrievalAction",
+            "metadataInventoryAction",
             "cloneAction",
             "elevenCalibrationAction",
             "humeCalibrationAction",

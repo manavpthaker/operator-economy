@@ -82,6 +82,8 @@ required by `02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md`.
 - verifies owner consent, provenance, commercial-use basis, hash, and custody;
 - stops when the account exposes zero samples or more than one sample without a new exact-sample
   authorization;
+- when separately authorized after a multiple-sample stop, may record one safe metadata inventory
+  under `elevenlabs_sample_metadata_inventory`, but may not select or download a sample;
 - preserves sensitive audio outside Git; and
 - does not substitute generated, remixed, ripped, mixed-program, or unknown-source audio.
 
@@ -194,6 +196,8 @@ final conformity ─ transcript/pause alignment ─ technical measurement
   two-generation short calibration; and Hume two-passage, two-generation short calibration.
 - The exact machine scopes are `elevenlabs_sample_retrieval`, `hume_clone_creation`,
   `elevenlabs_calibration`, and `hume_calibration`.
+- The corrective scope `elevenlabs_sample_metadata_inventory` is outside those four initial actions
+  and grants one metadata call only. It cannot select, download, upload, clone, or generate.
 - The later long-form continuity/pickup test is a fifth authorization. N4B full capture requires a
   new authorization after N4A passes.
 - V2 agents and tooling must not invoke or import V1

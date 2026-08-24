@@ -26,7 +26,12 @@ from .core import (
     write_extraction,
 )
 from .provider import dry_run_capture, execute_capture
-from .retrieval import dry_run_retrieval, execute_retrieval
+from .retrieval import (
+    dry_run_metadata_inventory,
+    dry_run_retrieval,
+    execute_metadata_inventory,
+    execute_retrieval,
+)
 
 
 def _path(value: str) -> Path:
@@ -124,6 +129,15 @@ def build_parser() -> argparse.ArgumentParser:
     retrieval.add_argument("--execute", action="store_true")
     retrieval.add_argument("--record", type=_path, help="write an immutable dry-run record")
     retrieval.add_argument("--timeout", type=float, default=60.0)
+
+    inventory = sub.add_parser(
+        "inventory-elevenlabs-samples",
+        help="dry-run by default; consume one exact AUTH-01B before one metadata-only GET",
+    )
+    inventory.add_argument("--authorization", type=_path, required=True)
+    inventory.add_argument("--execute", action="store_true")
+    inventory.add_argument("--record", type=_path, help="write an immutable dry-run record")
+    inventory.add_argument("--timeout", type=float, default=60.0)
     return parser
 
 
@@ -206,6 +220,18 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         if args.timeout <= 0:
             raise ValidationError("--timeout must be positive")
         return execute_retrieval(args.authorization, args.timeout)
+    if args.command == "inventory-elevenlabs-samples":
+        if not args.execute:
+            result = dry_run_metadata_inventory(args.authorization)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution uses the authorized receipt destination")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_metadata_inventory(args.authorization, args.timeout)
     raise ValidationError(f"unsupported command: {args.command}")
 
 

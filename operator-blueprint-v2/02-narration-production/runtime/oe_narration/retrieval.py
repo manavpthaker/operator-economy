@@ -1,9 +1,10 @@
-"""One-shot, read-only ElevenLabs source-sample retrieval.
+"""One-shot, read-only ElevenLabs metadata inventory and sample retrieval.
 
-The runner is deliberately narrower than the general provider runtime.  It can
-only read the one plan-bound voice metadata document and, when that document
-contains exactly one sample, read that sample's original audio bytes.  It has
-no TTS, voice mutation, clone, upload, retry, or Hume code path.
+The runners are deliberately narrower than the general provider runtime.  The
+inventory path reads and normalizes only the plan-bound metadata document.  A
+separate, legacy-compatible retrieval path may read one sample only when its
+own stronger authorization permits that second call.  Neither path has TTS,
+voice mutation, clone, upload, retry, or Hume capabilities.
 """
 
 from __future__ import annotations
@@ -20,12 +21,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, BinaryIO
 
-from .bakeoff import validate_provider_action_authorization
+from .bakeoff import (
+    ELEVEN_METADATA_INVENTORY_KIND,
+    ELEVEN_METADATA_INVENTORY_SCOPE,
+    MAX_METADATA_INVENTORY_RESPONSE_BYTES,
+    validate_provider_action_authorization,
+)
 from .core import ValidationError, read_json, sha256_bytes, sha256_file
 
 
 RETRIEVAL_SCOPE = "elevenlabs_sample_retrieval"
 RETRIEVAL_SCHEMA = "oe-elevenlabs-sample-retrieval-v1"
+METADATA_INVENTORY_SCHEMA = "oe-elevenlabs-sample-metadata-inventory-v1"
 CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v1"
 METADATA_API_ROOT = "https://api.elevenlabs.io/v1/voices"
 MAX_AUTHORIZED_DOWNLOAD_BYTES = 50_000_000
@@ -261,7 +268,9 @@ def _normalized_sample_metadata(sample: dict[str, Any], credential: str) -> dict
 
     filename = _safe_metadata_text(sample.get("file_name"), credential)
     if filename is not None:
-        filename = Path(filename).name
+        # Provider filenames are untrusted and may use either platform's path
+        # separator regardless of the host running this code.
+        filename = Path(filename.replace("\\", "/")).name
     result: dict[str, Any] = {
         "sample_id": _safe_metadata_text(sample.get("sample_id"), credential),
         "original_filename": filename,
@@ -301,6 +310,55 @@ def _normalized_sample_inventory(
                 }
             )
     return inventory
+
+
+def _metadata_inventory_with_completeness(
+    samples: list[Any], credential: str
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Build a bounded inventory while making malformed identity data explicit."""
+
+    inventory = _normalized_sample_inventory(samples, credential)
+    malformed_indices = [
+        item["metadata_index"]
+        for item in inventory
+        if item.get("invalid_sample_entry") is True
+    ]
+    missing_id_indices = [
+        item["metadata_index"]
+        for item in inventory
+        if not isinstance(item.get("sample_id"), str) or not item.get("sample_id")
+    ]
+    missing_filename_indices = [
+        item["metadata_index"]
+        for item in inventory
+        if not isinstance(item.get("original_filename"), str)
+        or not item.get("original_filename")
+    ]
+    id_to_indices: dict[str, list[int]] = {}
+    for item in inventory:
+        sample_id = item.get("sample_id")
+        if isinstance(sample_id, str) and sample_id:
+            id_to_indices.setdefault(sample_id, []).append(item["metadata_index"])
+    duplicate_groups = [
+        {"sample_id": sample_id, "metadata_indices": indices}
+        for sample_id, indices in sorted(id_to_indices.items())
+        if len(indices) > 1
+    ]
+    completeness = {
+        "sample_entries_well_formed": not malformed_indices,
+        "all_sample_ids_present": not missing_id_indices,
+        "all_original_filenames_present": not missing_filename_indices,
+        "sample_ids_unique": not duplicate_groups,
+        "inventory_complete": not malformed_indices
+        and not missing_id_indices
+        and not missing_filename_indices
+        and not duplicate_groups,
+        "malformed_entry_indices": malformed_indices,
+        "missing_sample_id_indices": missing_id_indices,
+        "missing_original_filename_indices": missing_filename_indices,
+        "duplicate_sample_id_groups": duplicate_groups,
+    }
+    return inventory, completeness
 
 
 def _probe_audio(path: Path) -> dict[str, Any]:
@@ -1000,4 +1058,311 @@ def execute_retrieval(authorization_path: Path, timeout: float = 60.0) -> dict[s
         "human_source_confirmed": False,
         "single_speaker_confirmed": False,
         "hume_upload_authorized": False,
+    }
+
+
+def _write_inventory_failure_receipt(
+    destination: Path,
+    *,
+    authorization: dict[str, Any],
+    authorization_path: Path,
+    reason: str,
+    voice_id: str,
+    http_status: int | None = None,
+    provider_identifiers: dict[str, str] | None = None,
+    response_evidence: dict[str, Any] | None = None,
+) -> None:
+    receipt = {
+        "schema_version": METADATA_INVENTORY_SCHEMA,
+        "outcome": "failed_closed",
+        "reason": reason,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": sha256_file(authorization_path),
+        "voice_id": voice_id,
+        "attempted_calls": 1,
+        "downloads_attempted": 0,
+        "selection_made": False,
+        "sample_audio_endpoint_constructed": False,
+        "raw_provider_payload_stored": False,
+        "http_status": http_status,
+        "provider_identifiers": provider_identifiers or {},
+        "response_evidence": response_evidence,
+        "failed_at": _utc_now(),
+    }
+    _exclusive_write(destination, _json_bytes(receipt))
+
+
+def _validate_inventory_runner_contract(
+    authorization_path: Path,
+    authorization: dict[str, Any],
+    validation: dict[str, Any],
+) -> tuple[Path, Path]:
+    errors: list[str] = []
+    if validation.get("status") != "active" or validation.get("execution_ready") is not True:
+        errors.append("metadata inventory execution requires an active, execution-ready authorization")
+    if (
+        validation.get("scope") != ELEVEN_METADATA_INVENTORY_SCOPE
+        or authorization.get("scope") != ELEVEN_METADATA_INVENTORY_SCOPE
+    ):
+        errors.append(
+            f"metadata inventory execution requires exact scope {ELEVEN_METADATA_INVENTORY_SCOPE}"
+        )
+    if authorization.get("provider") != "elevenlabs":
+        errors.append("metadata inventory execution is restricted to ElevenLabs")
+    action = authorization.get("action", {})
+    if action.get("kind") != ELEVEN_METADATA_INVENTORY_KIND:
+        errors.append("metadata inventory action kind mismatch")
+    voice_id = action.get("voice_id")
+    expected_metadata = f"{METADATA_API_ROOT}/{urllib.parse.quote(str(voice_id), safe='')}"
+    if action.get("metadata_endpoint") != expected_metadata:
+        errors.append("metadata inventory endpoint is not the exact official endpoint for the bound voice")
+    for field in (
+        "selection_permitted",
+        "download_permitted",
+        "raw_payload_storage_permitted",
+    ):
+        if action.get(field) is not False:
+            errors.append(f"metadata inventory action.{field} must be false")
+    limits = authorization.get("authorized_limits", {})
+    if (
+        not isinstance(limits.get("max_calls"), int)
+        or isinstance(limits.get("max_calls"), bool)
+        or limits.get("max_calls") != 1
+    ):
+        errors.append("metadata inventory authorized max_calls must be exactly 1")
+    if (
+        not isinstance(limits.get("max_downloads"), int)
+        or isinstance(limits.get("max_downloads"), bool)
+        or limits.get("max_downloads") != 0
+    ):
+        errors.append("metadata inventory authorized max_downloads must be exactly 0")
+    if (
+        not isinstance(limits.get("max_spend_usd"), (int, float))
+        or isinstance(limits.get("max_spend_usd"), bool)
+        or limits.get("max_spend_usd") != 0
+    ):
+        errors.append("metadata inventory authorized max_spend_usd must be exactly 0")
+    max_metadata_bytes = limits.get("max_metadata_response_bytes")
+    if (
+        not isinstance(max_metadata_bytes, int)
+        or isinstance(max_metadata_bytes, bool)
+        or max_metadata_bytes <= 0
+        or max_metadata_bytes > MAX_METADATA_INVENTORY_RESPONSE_BYTES
+    ):
+        errors.append(
+            "metadata inventory max_metadata_response_bytes must be between 1 and 2000000"
+        )
+    if errors:
+        raise ValidationError(errors)
+    root = _artifact_root(authorization_path)
+    metadata_receipt = _safe_new_path(
+        root,
+        action.get("metadata_receipt_destination"),
+        "action.metadata_receipt_destination",
+        "receipts",
+    )
+    consumption_path = _safe_consumption_path(
+        authorization_path, authorization.get("consumption", {}).get("record_path")
+    )
+    if metadata_receipt.resolve(strict=False) == consumption_path.resolve(strict=False):
+        raise ValidationError("metadata inventory receipt and consumption record must be distinct")
+    return metadata_receipt, consumption_path
+
+
+def dry_run_metadata_inventory(authorization_path: Path) -> dict[str, Any]:
+    """Validate metadata-only authority without reading credentials or networking."""
+
+    validation = validate_provider_action_authorization(authorization_path)
+    authorization = read_json(authorization_path)
+    if validation.get("status") == "active":
+        metadata_receipt, consumption = _validate_inventory_runner_contract(
+            authorization_path, authorization, validation
+        )
+        action = authorization["action"]
+        preflight: dict[str, Any] = {
+            "valid": True,
+            "metadata_request": {
+                "method": "GET",
+                "endpoint": action["metadata_endpoint"],
+            },
+            "authorized_limits": authorization["authorized_limits"],
+            "destinations": {
+                "normalized_metadata_receipt": str(metadata_receipt),
+                "consumption_record": str(consumption),
+            },
+            "selection_permitted": False,
+            "download_permitted": False,
+            "sample_audio_endpoint_constructed": False,
+            "raw_provider_payload_storage_permitted": False,
+        }
+    else:
+        preflight = {
+            "valid": False,
+            "reason": "draft_authorization_is_not_executable",
+            "unresolved": authorization.get("blockers", []),
+        }
+    return {
+        "schema_version": METADATA_INVENTORY_SCHEMA,
+        "mode": "dry-run",
+        "authorization_validation": validation,
+        "scope": authorization.get("scope"),
+        "network_called": False,
+        "credentials_accessed": False,
+        "provider_calls_made": 0,
+        "downloads_made": 0,
+        "executor_preflight": preflight,
+        "notice": "No provider action occurred. --execute requires active unconsumed metadata-inventory authority.",
+    }
+
+
+def execute_metadata_inventory(
+    authorization_path: Path, timeout: float = 60.0
+) -> dict[str, Any]:
+    """Consume one authorization and perform exactly one metadata-only GET."""
+
+    if timeout <= 0:
+        raise ValidationError("timeout must be positive")
+    validation = validate_provider_action_authorization(authorization_path)
+    authorization = read_json(authorization_path)
+    metadata_receipt_path, consumption_path = _validate_inventory_runner_contract(
+        authorization_path, authorization, validation
+    )
+    api_key = os.environ.get("ELEVENLABS_API_KEY")
+    if not api_key:
+        raise ValidationError("ELEVENLABS_API_KEY is required only for authorized --execute")
+
+    action = authorization["action"]
+    voice_id = action["voice_id"]
+    max_metadata_bytes = authorization["authorized_limits"]["max_metadata_response_bytes"]
+    authorization_hash = sha256_file(authorization_path)
+    consumption = {
+        "schema_version": CONSUMPTION_SCHEMA,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": authorization_hash,
+        "scope": ELEVEN_METADATA_INVENTORY_SCOPE,
+        "status": "consumed",
+        "consumed_before_network": True,
+        "consumed_at": _utc_now(),
+        "reason": "one-shot metadata inventory started; no retry is permitted",
+        "authorized_limits": {
+            "max_calls": 1,
+            "max_downloads": 0,
+            "max_metadata_response_bytes": max_metadata_bytes,
+            "max_spend_usd": 0,
+        },
+    }
+    _exclusive_write(consumption_path, _json_bytes(consumption))
+
+    try:
+        metadata_response = _http_get(
+            action["metadata_endpoint"],
+            api_key,
+            timeout=timeout,
+            max_bytes=max_metadata_bytes,
+            require_content_length=False,
+            expected_kind="json",
+        )
+    except _ProviderFailure as exc:
+        _write_inventory_failure_receipt(
+            metadata_receipt_path,
+            authorization=authorization,
+            authorization_path=authorization_path,
+            reason=exc.code,
+            voice_id=voice_id,
+            http_status=exc.http_status,
+            provider_identifiers=exc.provider_identifiers,
+        )
+        raise ValidationError(
+            f"ElevenLabs metadata inventory failed closed: {exc.code}"
+        ) from exc
+
+    response_evidence = {
+        "mime_type": metadata_response.mime_type,
+        "byte_count": len(metadata_response.data),
+        "sha256": sha256_bytes(metadata_response.data),
+        "provider_identifiers": metadata_response.provider_identifiers,
+    }
+    try:
+        metadata = json.loads(metadata_response.data.decode("utf-8"))
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        _write_inventory_failure_receipt(
+            metadata_receipt_path,
+            authorization=authorization,
+            authorization_path=authorization_path,
+            reason="metadata_json_invalid",
+            voice_id=voice_id,
+            provider_identifiers=metadata_response.provider_identifiers,
+            response_evidence=response_evidence,
+        )
+        raise ValidationError(
+            "ElevenLabs metadata inventory failed closed: metadata_json_invalid"
+        ) from exc
+    if not isinstance(metadata, dict) or metadata.get("voice_id") != voice_id:
+        reason = "metadata_voice_id_missing_or_mismatched"
+        _write_inventory_failure_receipt(
+            metadata_receipt_path,
+            authorization=authorization,
+            authorization_path=authorization_path,
+            reason=reason,
+            voice_id=voice_id,
+            provider_identifiers=metadata_response.provider_identifiers,
+            response_evidence=response_evidence,
+        )
+        raise ValidationError(f"ElevenLabs metadata inventory failed closed: {reason}")
+    samples = metadata.get("samples")
+    if not isinstance(samples, list):
+        reason = "metadata_samples_missing_or_invalid"
+        _write_inventory_failure_receipt(
+            metadata_receipt_path,
+            authorization=authorization,
+            authorization_path=authorization_path,
+            reason=reason,
+            voice_id=voice_id,
+            provider_identifiers=metadata_response.provider_identifiers,
+            response_evidence=response_evidence,
+        )
+        raise ValidationError(f"ElevenLabs metadata inventory failed closed: {reason}")
+
+    inventory, completeness = _metadata_inventory_with_completeness(samples, api_key)
+    receipt = {
+        "schema_version": METADATA_INVENTORY_SCHEMA,
+        "outcome": "normalized_inventory_recorded",
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": authorization_hash,
+        "authorization_consumption_record": str(consumption_path),
+        "authorization_consumption_sha256": sha256_file(consumption_path),
+        "voice_id": voice_id,
+        "request": {"method": "GET", "endpoint": action["metadata_endpoint"]},
+        "response": response_evidence,
+        "sample_count": len(samples),
+        "samples": inventory,
+        "inventory_completeness": completeness,
+        "selection_made": False,
+        "selection_permitted": False,
+        "downloads_attempted": 0,
+        "download_permitted": False,
+        "sample_audio_endpoint_constructed": False,
+        "raw_provider_payload_stored": False,
+        "provider_metadata_is_provenance_proof": False,
+        "recorded_at": _utc_now(),
+        "next_external_action_authorized": False,
+    }
+    _exclusive_write(metadata_receipt_path, _json_bytes(receipt))
+    return {
+        "schema_version": METADATA_INVENTORY_SCHEMA,
+        "mode": "execute",
+        "network_called": True,
+        "scope": ELEVEN_METADATA_INVENTORY_SCOPE,
+        "provider_calls_made": 1,
+        "downloads_made": 0,
+        "voice_id": voice_id,
+        "sample_count": len(samples),
+        "inventory_complete": completeness["inventory_complete"],
+        "selection_made": False,
+        "sample_audio_endpoint_constructed": False,
+        "raw_provider_payload_stored": False,
+        "metadata_receipt": str(metadata_receipt_path),
+        "metadata_receipt_sha256": sha256_file(metadata_receipt_path),
+        "consumption_record": str(consumption_path),
+        "next_external_action_authorized": False,
     }

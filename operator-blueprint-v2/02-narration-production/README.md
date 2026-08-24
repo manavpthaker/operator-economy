@@ -133,6 +133,11 @@ operate the Hume UI, create a clone, execute a bakeoff generation request, score
 select a provider, or grant any downstream authority. A retrieved sample remains blocked from Hume
 until an owner provenance listen and a separate `AUTH-02`.
 
+When AUTH-01 stops because the voice has multiple attached samples, the corrective scope
+`elevenlabs_sample_metadata_inventory` may be separately authorized. It permits one metadata call
+that records a safe sample inventory for owner review, with zero selection, downloads, generation,
+spend, or Hume access. It is not one of the four initial bakeoff actions and cannot replace them.
+
 ## Source-format policy
 
 Request provider-native PCM or PCM WAV first. If the separately authorized provider/account/model
@@ -191,3 +196,7 @@ calibration. Their machine scopes are `elevenlabs_sample_retrieval`, `hume_clone
 a fifth human authorization and is not an initial machine scope. None grants
 N4B full capture or Step 3. Step 2 remains proposed until its normal case, edge case, and failure
 behavior are tested and the owner explicitly locks it.
+
+The separately authorized corrective inventory scope
+`elevenlabs_sample_metadata_inventory` is outside that four-action bakeoff sequence. It exists only
+to enumerate safe metadata after a multiple-sample stop and grants no selection or download.

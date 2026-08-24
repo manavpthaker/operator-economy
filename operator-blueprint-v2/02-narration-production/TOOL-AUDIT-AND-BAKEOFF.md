@@ -165,6 +165,13 @@ it is not retried through an undocumented route. The bounded runner stores raw b
 ignored local media and leaves identity, originality, and single-speaker approval pending until a
 human listens to the retrieved sample.
 
+If AUTH-01 stops because the bound voice exposes multiple samples, do not weaken its selector and
+do not reuse it. A separately approved corrective action may use machine scope
+`elevenlabs_sample_metadata_inventory` to make one metadata request and preserve a safe sample
+inventory for the owner. That action allows zero selection, zero downloads, zero generation, zero
+spend, and no Hume access. A later download still requires a new authorization naming one exact
+sample ID.
+
 ### AUTH-02 — Hume UI sample upload and one clone creation
 
 Machine scope: `hume_clone_creation`.

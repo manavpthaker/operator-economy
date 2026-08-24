@@ -29,6 +29,9 @@ PROVIDER_BAKEOFF_PLAN_SCHEMA = "oe-provider-bakeoff-plan-v1"
 PROVIDER_ADAPTER_SCHEMA = "oe-provider-adapter-v1"
 PROVIDER_BAKEOFF_DRY_RUN_SCHEMA = "oe-provider-bakeoff-dry-run-v1"
 PROVIDER_ACTION_AUTHORIZATION_SCHEMA = "oe-provider-action-authorization-v1"
+ELEVEN_METADATA_INVENTORY_SCOPE = "elevenlabs_sample_metadata_inventory"
+ELEVEN_METADATA_INVENTORY_KIND = "read_only_voice_metadata_inventory"
+MAX_METADATA_INVENTORY_RESPONSE_BYTES = 2_000_000
 
 ELEVEN_ALLOWED_TAGS = frozenset(
     {"[curious]", "[sarcastic]", "[excited]", "[pause]", "[warmly]"}
@@ -36,6 +39,7 @@ ELEVEN_ALLOWED_TAGS = frozenset(
 ACTION_SCOPES = frozenset(
     {
         "elevenlabs_sample_retrieval",
+        ELEVEN_METADATA_INVENTORY_SCOPE,
         "hume_clone_creation",
         "elevenlabs_calibration",
         "hume_calibration",
@@ -1980,7 +1984,7 @@ def validate_provider_action_authorization(
         errors.append("authorization_id is required")
     scope = authorization.get("scope")
     if scope not in ACTION_SCOPES:
-        errors.append("scope must be one of the four exact provider action enums")
+        errors.append("scope must be one of the exact provider action enums")
     _validate_target(authorization.get("target"), "target", errors)
     expected_provider = "elevenlabs" if str(scope).startswith("elevenlabs_") else "hume"
     if authorization.get("provider") != expected_provider:
@@ -2043,6 +2047,15 @@ def validate_provider_action_authorization(
             "selected_sample_receipt_destination",
             "rights_and_consent",
         },
+        ELEVEN_METADATA_INVENTORY_SCOPE: {
+            "kind",
+            "voice_id",
+            "metadata_endpoint",
+            "metadata_receipt_destination",
+            "selection_permitted",
+            "download_permitted",
+            "raw_payload_storage_permitted",
+        },
         "hume_clone_creation": {
             "kind",
             "interface",
@@ -2103,6 +2116,7 @@ def validate_provider_action_authorization(
     }
     binding_keys = {
         "elevenlabs_sample_retrieval": base_bindings,
+        ELEVEN_METADATA_INVENTORY_SCOPE: base_bindings,
         "hume_clone_creation": base_bindings,
         "elevenlabs_calibration": base_bindings | {"script_sha256", "spoken_text_sha256"},
         "hume_calibration": base_bindings
@@ -2125,6 +2139,12 @@ def validate_provider_action_authorization(
             "max_metadata_calls",
             "max_sample_download_calls",
             "max_download_bytes",
+            "max_spend_usd",
+        },
+        ELEVEN_METADATA_INVENTORY_SCOPE: {
+            "max_metadata_calls",
+            "max_sample_download_calls",
+            "max_metadata_response_bytes",
             "max_spend_usd",
         },
         "hume_clone_creation": {"max_ui_uploads", "max_voice_clones", "max_spend_usd"},
@@ -2162,6 +2182,12 @@ def validate_provider_action_authorization(
             "max_download_bytes",
             "max_spend_usd",
         },
+        ELEVEN_METADATA_INVENTORY_SCOPE: {
+            "max_calls",
+            "max_downloads",
+            "max_metadata_response_bytes",
+            "max_spend_usd",
+        },
         "hume_clone_creation": {"max_ui_uploads", "max_voice_clones", "max_spend_usd"},
         "elevenlabs_calibration": {
             "max_calls",
@@ -2184,6 +2210,13 @@ def validate_provider_action_authorization(
     )
     consumption_keys = {
         "elevenlabs_sample_retrieval": {
+            "status",
+            "calls_used",
+            "downloads_used",
+            "spend_used_usd",
+            "record_path",
+        },
+        ELEVEN_METADATA_INVENTORY_SCOPE: {
             "status",
             "calls_used",
             "downloads_used",
@@ -2314,7 +2347,91 @@ def validate_provider_action_authorization(
         if bindings.get("spoken_text_sha256") != envelope.get("canonical_w", {}).get("sha256"):
             errors.append("calibration bindings.spoken_text_sha256 does not match canonical W")
 
-    if scope == "elevenlabs_sample_retrieval":
+    if scope == ELEVEN_METADATA_INVENTORY_SCOPE:
+        if action.get("kind") != ELEVEN_METADATA_INVENTORY_KIND:
+            errors.append("metadata inventory action.kind mismatch")
+        provider_plan = _provider_from_plan(plan, "elevenlabs")
+        if not provider_plan or action.get("voice_id") != provider_plan.get("voice_id"):
+            errors.append("metadata inventory voice_id does not match the bakeoff plan")
+        endpoint = action.get("metadata_endpoint")
+        expected_endpoint = (
+            f"https://api.elevenlabs.io/v1/voices/"
+            f"{quote(str(action.get('voice_id')), safe='')}"
+        )
+        if endpoint != expected_endpoint:
+            errors.append(
+                "metadata inventory endpoint must exactly equal the official endpoint for the bound voice_id"
+            )
+        for field in (
+            "selection_permitted",
+            "download_permitted",
+            "raw_payload_storage_permitted",
+        ):
+            if action.get(field) is not False:
+                errors.append(f"metadata inventory action.{field} must be false")
+        _validate_new_local_destination(
+            artifact_root,
+            action.get("metadata_receipt_destination"),
+            "action.metadata_receipt_destination",
+            errors,
+            required_prefix="receipts",
+        )
+        requested = authorization.get("requested_limits")
+        if not isinstance(requested, dict):
+            errors.append("metadata inventory requested_limits must be an object")
+            requested = {}
+        if not _is_int(requested.get("max_metadata_calls")) or requested.get("max_metadata_calls") != 1:
+            errors.append("metadata inventory requested_limits.max_metadata_calls must be exactly 1")
+        if not _is_int(requested.get("max_sample_download_calls")) or requested.get("max_sample_download_calls") != 0:
+            errors.append(
+                "metadata inventory requested_limits.max_sample_download_calls must be exactly 0"
+            )
+        if not _is_number(requested.get("max_spend_usd")) or requested.get("max_spend_usd") != 0:
+            errors.append("metadata inventory requested_limits.max_spend_usd must be exactly 0")
+        requested_bytes = requested.get("max_metadata_response_bytes")
+        if (
+            not _is_int(requested_bytes)
+            or requested_bytes <= 0
+            or requested_bytes > MAX_METADATA_INVENTORY_RESPONSE_BYTES
+        ):
+            errors.append(
+                "metadata inventory requested_limits.max_metadata_response_bytes must be an integer between 1 and 2000000"
+            )
+        if not _is_int(limits.get("max_calls")) or limits.get("max_calls") != 1:
+            errors.append("metadata inventory authorized_limits.max_calls must be exactly 1")
+        if not _is_int(limits.get("max_downloads")) or limits.get("max_downloads") != 0:
+            errors.append("metadata inventory authorized_limits.max_downloads must be exactly 0")
+        if not _is_number(limits.get("max_spend_usd")) or limits.get("max_spend_usd") != 0:
+            errors.append("metadata inventory authorized_limits.max_spend_usd must be exactly 0")
+        authorized_bytes = limits.get("max_metadata_response_bytes")
+        if (
+            not _is_int(authorized_bytes)
+            or authorized_bytes <= 0
+            or authorized_bytes > MAX_METADATA_INVENTORY_RESPONSE_BYTES
+        ):
+            errors.append(
+                "metadata inventory authorized_limits.max_metadata_response_bytes must be an integer between 1 and 2000000"
+            )
+        if (
+            _is_int(requested_bytes)
+            and _is_int(authorized_bytes)
+            and requested_bytes != authorized_bytes
+        ):
+            errors.append(
+                "metadata inventory requested and authorized metadata byte ceilings must match"
+            )
+        if not _is_int(consumption.get("calls_used")) or consumption.get("calls_used") != 0:
+            errors.append("metadata inventory consumption.calls_used must be exactly 0 before execution")
+        if not _is_int(consumption.get("downloads_used")) or consumption.get("downloads_used") != 0:
+            errors.append(
+                "metadata inventory consumption.downloads_used must be exactly 0 before execution"
+            )
+        if not _is_number(consumption.get("spend_used_usd")) or consumption.get("spend_used_usd") != 0:
+            errors.append(
+                "metadata inventory consumption.spend_used_usd must be exactly 0 before execution"
+            )
+
+    elif scope == "elevenlabs_sample_retrieval":
         if action.get("kind") != "read_only_voice_metadata_and_named_sample_retrieval":
             errors.append("sample retrieval action.kind mismatch")
         provider_plan = _provider_from_plan(plan, "elevenlabs")
