@@ -151,6 +151,30 @@ The later 3.5-to-4.5-minute continuity and several-hours-later pickup test requi
 authorization. Provider selection, every bakeoff authorization, and the long-form test grant no N4B
 full capture or Step 3 authority.
 
+### 2026-08-24 Hume capability gate
+
+The four-scope design remains the historical v0.3 comparison structure, but its current Hume
+candidate is **non-executable**. Hume's official error reference says instant voice cloning requires
+Octave 2 ([`E0814`](https://dev.hume.ai/docs/resources/errors)) and an Octave 2-created voice cannot
+be used with Octave 1 ([`E0813`](https://dev.hume.ai/docs/resources/errors)). Hume's
+[acting-instructions guide](https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions)
+simultaneously limits utterance `description` acting instructions to Octave 1. The frozen Hume
+adapter therefore cannot deliver both its planned clone identity and its planned description-based
+performance direction through one currently documented model path.
+
+Fail closed before source disclosure. Preserve the adapter, plan, compiled dry run, and draft
+authorizations as historical evidence, but do not activate AUTH-02 or AUTH-04 from them. A future
+Hume candidate needs a new model-compatible design, an equal-treatment review against the shared
+performance envelope, new local hashes/compilation, and explicit owner approval. The account must
+also be verified at Creator or above for cloned-voice access and commercial use under Hume's
+[error reference](https://dev.hume.ai/docs/resources/errors),
+[FAQ](https://dev.hume.ai/docs/text-to-speech-tts/faq), and
+[Terms of Use](https://www.hume.ai/terms-of-use). That tier check is necessary but not sufficient.
+
+No active AUTH-02 exists. No Hume upload, clone, TTS, calibration, bakeoff generation, long-form
+test, N4B full capture, Step 2 lock, Step 3 handoff, or publication action is authorized by the
+historical candidate or this standard.
+
 An original owner recording must pass provenance, retrieval, consent, custody, and commercial-use
 checks before Hume upload. Zero matching Eleven samples blocks retrieval. More than one matching
 sample also blocks the original selector. Do not substitute generated TTS, a remix, a YouTube rip,

@@ -1,8 +1,10 @@
 # AI Visibility v1.1 Provider Bakeoff Fixture
 
-Status: AUTH-01C consumed and failed closed on the first sample's size identity mismatch; one exact
-response is preserved as blocked local evidence; samples two and three were not requested; owner
-review pending; no voice clone, creative verdict, episode, or Step 3 authority
+Status: AUTH-01C consumed and failed closed on the first sample's size identity mismatch; owner
+confirmed the exact preserved response is his original human, single-speaker source and approved
+one Hume upload/clone in principle; AUTH-02 remains draft because current Hume model compatibility,
+account tier, commercial terms, source-content rights, browser access, and UI-action consumption are
+not cleared; no voice clone, creative verdict, episode, or Step 3 authority
 
 ## Purpose
 
@@ -32,7 +34,7 @@ Each provider must return exactly two candidates for each passage:
 | Provider | Candidate production | Calls if later authorized | Output target |
 | --- | --- | ---: | --- |
 | ElevenLabs v3 | two generations per passage using the same exact approved nonlexical tag anchors | 4 primary; 8 maximum with one conditional fallback per primary | native `pcm_48000`; only `mp3_44100_192` after a receipted PCM-capability rejection and a separately bound fallback request |
-| Hume Octave 1 | one thought-partitioned request per passage with `num_generations: 2` | 2 primary; 4 maximum with one conditional fallback per primary | WAV first; only `mp3_44100_192` after a receipted lossless-capability rejection and a separately bound fallback request |
+| Hume Octave 1 | historical planned challenger; currently non-executable because Hume directs instant cloning to Octave 2 while separate acting descriptions remain Octave 1 only | 2 primary; 4 maximum with one conditional fallback per primary, if a compatible method is approved later | WAV first; only `mp3_44100_192` after a receipted lossless-capability rejection and a separately bound fallback request |
 
 That yields eight blinded candidates: two providers × two passages × two candidates. Candidate
 generation may vary; the locked words and approved passage-level direction may not. The
@@ -55,9 +57,10 @@ produces a provenance receipt and immutable clone ID.
   network access and stopped after the first sample returned 8,641,768 bytes rather than the
   inventory-bound 5,760,813 bytes. It made one sample-audio call, no metadata call, no retry, and no
   request for samples two or three.
-- The exact first response is retained in ignored local custody as blocked evidence. It is a
-  decodable six-minute, 44.1 kHz, mono, 192 kbps MP3, but its identity and provenance remain
-  unresolved. It is not a production or Hume source.
+- The exact first response is retained in ignored local custody. It is a decodable six-minute,
+  44.1 kHz, mono, 192 kbps MP3. The owner confirmed that the exact SHA is his original human,
+  single-speaker source and approved one Hume upload/clone in principle. The AUTH-01C size failure
+  remains unchanged; the source is still blocked from upload until every AUTH-02 gate passes.
 - ElevenLabs exposed no category, source, `is_original`, or `is_generated` value for any sample.
   Generic filenames are not enough to choose a Hume source.
 - No sample was uploaded and no voice was cloned.
@@ -67,6 +70,9 @@ produces a provenance receipt and immutable clone ID.
 - The Hume request records contain a pending clone placeholder and are not execution-ready.
 - Hume account tier and commercial-use eligibility are unverified. They must be checked before any
   Hume calibration approval; a logged-in session alone is not evidence.
+- Current Hume documentation blocks the frozen challenger: Hume directs instant voice cloning to
+  Octave 2, an Octave 2 clone cannot be used with Octave 1, and the separate acting `description`
+  remains Octave 1 only. The owner must approve a redesigned Hume test before AUTH-02 can activate.
 - Modeled public rates are planning inputs, not account quotes or spend authority: ElevenLabs v3
   at `$0.10 / 1,000` text characters and Hume at a conservative Creator overage rate of
   `$0.15 / 1,000` text characters. Both must be refreshed before approval.
@@ -100,19 +106,20 @@ produces a provenance receipt and immutable clone ID.
 1. Validate the frozen W ranges, provider-neutral envelope, both provider adapters, plan,
    compilation hashes, primary and conditional-fallback call limits, destinations, and pricing
    model.
-2. Have the owner identify one exact sample from prior knowledge, or separately authorize local-only
-   retrieval of specifically named samples for listening. Do not infer a choice from `ivc_1`,
-   `ivc_2`, or `ivc_3`.
-3. After owner selection, complete the exact-sample provenance review. Only then may the
-   UI-mediated Hume sample upload/clone be considered under its own authorization, with rights,
-   consent, source
-   sample hash, account tier, commercial-use eligibility, clone ID, and clone receipt.
-4. Replace the Hume placeholder, regenerate its bodies, recompute every affected hash, and re-run
+2. Preserve the completed exact-source owner provenance disposition and clear any remaining
+   third-party music or rights question.
+3. Redesign and separately approve a technically possible Hume method. Do not spend the one
+   upload/clone authority on an Octave 2 voice that cannot run the frozen Octave 1 acting test.
+4. Verify Creator-or-higher account status and commercial-use terms, restore controlled browser
+   access, and add an independently reviewed pre-UI authorization consumer.
+5. Only then may the UI-mediated Hume upload/clone be considered under a new active AUTH-02 with
+   exact source, rights, limits, account evidence, clone ID destination, and consumption path.
+6. Replace the Hume placeholder, regenerate its bodies, recompute every affected hash, and re-run
    the dry run.
-5. Issue bounded, expiring calibration authorizations independently for ElevenLabs and Hume.
-6. Acquire immutable raw outputs, blind them, verify exact words and technical provenance, and run
+7. Issue bounded, expiring calibration authorizations independently for ElevenLabs and Hume.
+8. Acquire immutable raw outputs, blind them, verify exact words and technical provenance, and run
    the blind review.
-7. Run the long-form confirmation before selecting a production path.
+9. Run the long-form confirmation before selecting a production path.
 
 Passing JSON validation, a successful dry run, or a winning score cannot authorize provider
 spend, full capture, production narration, or Step 3.

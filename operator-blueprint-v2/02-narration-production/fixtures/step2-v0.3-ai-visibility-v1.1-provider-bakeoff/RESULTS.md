@@ -1,6 +1,6 @@
 # Provider Bakeoff Results
 
-Status: `auth01c_failed_closed_first_sample_size_identity_mismatch`
+Status: `auth02_blocked_before_upload_on_hume_model_compatibility_and_external_gates`
 
 ## Current result
 
@@ -8,7 +8,11 @@ No provider comparison result exists. AUTH-01 stopped after finding multiple sam
 recorded a complete three-sample metadata inventory. AUTH-01C then attempted the separately
 authorized exact three-sample local review, but the first response did not match its inventory-
 bound byte count. The action stopped after that one call and preserved the response as blocked
-evidence for owner listening.
+evidence for owner listening. The owner has since confirmed that exact SHA as his original human,
+single-speaker recording and approved one Hume upload/clone in principle. No upload occurred:
+current Hume documentation makes the frozen Octave 1 clone-plus-acting-description challenger
+unavailable, and the account, commercial-terms, source-content-rights, browser, and consumption
+gates remain open.
 
 | State | Result |
 | --- | --- |
@@ -17,20 +21,20 @@ evidence for owner listening.
 | Provider adapters | runtime-validated: ElevenLabs and Hume each bind both passages |
 | Bakeoff plan | runtime-validated: 6 primary calls, 8 expected outputs, no external authority |
 | ElevenLabs dry-run compilation | CLI-generated and non-executable: 4 primary calls, 4 outputs |
-| Hume dry-run compilation | provisionally complete; pending clone binding and mandatory recompile; non-executable |
+| Hume dry-run compilation | historical provisional Octave 1 compilation; current clone-plus-description method is incompatible and non-executable |
 | ElevenLabs read-only identity audit | AUTH-01 and AUTH-01B consumed; AUTH-01C consumed; first sample size mismatch; samples two and three untouched |
-| Hume UI upload/clone | not authorized; not run |
+| Hume UI upload/clone | owner consent recorded; AUTH-02 draft and blocked; not run |
 | ElevenLabs calibration | not authorized; not run |
 | Hume calibration | not authorized; not run |
 | Provider calls made | `3` cumulative read-only ElevenLabs calls: two metadata calls, then one sample-audio call |
 | Credentials accessed | environment-only for AUTH-01, AUTH-01B, and AUTH-01C; not persisted |
-| Samples retrieved or uploaded | one exact response preserved as blocked evidence; zero eligible sources; zero uploads |
+| Samples retrieved or uploaded | one exact response preserved; owner provenance confirmed for its exact SHA; zero uploads |
 | Voices cloned | `0` |
 | Audio files produced | one provider response stored locally for review; zero narration or bakeoff candidates |
 | Blind scores | not available |
 | Long-form confirmation | not available |
 | Selected provider | none |
-| Owner creative decision | pending |
+| Owner creative decision | exact source confirmed; revised Hume test decision pending |
 
 ## AUTH-01 execution result
 
@@ -66,13 +70,28 @@ retry, second-sample request, or third-sample request.
 
 The preserved response is a technically decodable six-minute, 44.1 kHz, mono, 192 kbps MP3. Its
 SHA-256 is `dd3f0887acb5bc4c623476eb053136d3f0ce7d6828168874911f8b0dcecd64f9`.
-Those technical properties do not clear identity or provenance. AUTH-01C cannot be resumed. The
-owner may listen to the blocked first response; retrieving either remaining sample requires a new
-decision and authorization. Hume remains blocked.
+Those technical properties alone did not clear identity or provenance. The owner subsequently
+confirmed the exact SHA as his original human recording containing only him, and approved one Hume
+upload/clone in principle. That owner disposition does not repair or resume AUTH-01C. Hume remains
+blocked on a separate active AUTH-02 and the current compatibility, account, terms, source-content,
+browser, and consumption gates.
 
 At the owner's explicit request, one 12-second AAC review proxy was published for mobile listening.
 Only that proxy is public. Its publication does not approve the sample, clear provenance, or expose
 the six-minute source.
+
+## AUTH-02 pre-upload result
+
+No Hume upload or clone occurred. The owner-source provenance record binds the exact local SHA and
+preserves the provider metadata discrepancy. Current official Hume documentation now says:
+
+- Hume directs instant voice cloning to Octave 2;
+- a voice created with Octave 2 cannot be used with Octave 1; and
+- the separate natural-language acting `description` remains available only in Octave 1.
+
+That prevents the frozen fixture from combining Manav identity with the acting-control method it
+was designed to test. Creating a clone anyway would consume the one approved upload/clone action
+without creating the planned challenger. AUTH-02 therefore remains draft and non-executable.
 
 ## Planned comparison inventory
 

@@ -7,6 +7,37 @@ V0.2 remains the frozen record of the first AI Visibility narration calibration.
 provider-selection test because that batch proved the acquisition path technically but did not
 meet the owner's creative standard.
 
+## 2026-08-24 vendor-drift stop: the current Hume candidate is non-executable
+
+The frozen v0.3 Hume candidate combines a cloned Manav voice with Octave 1 `description` acting
+instructions. Hume's current official documentation no longer supports that combination:
+
+- error [`E0814`](https://dev.hume.ai/docs/resources/errors) says instant voice cloning is not
+  available for Octave 1 and requires Octave 2;
+- error [`E0813`](https://dev.hume.ai/docs/resources/errors), reinforced by the
+  [voice guide](https://dev.hume.ai/docs/text-to-speech-tts/voice), says a voice created with
+  Octave 2 cannot be used with Octave 1;
+- the [acting-instructions guide](https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions)
+  says the utterance `description` field remains Octave 1-only; and
+- cloned-voice access and commercial use require a verified Creator-or-higher account under the
+  current [error reference](https://dev.hume.ai/docs/resources/errors),
+  [FAQ](https://dev.hume.ai/docs/text-to-speech-tts/faq), and
+  [Terms of Use](https://www.hume.ai/terms-of-use). The pricing table's broad cloning label does
+  not override those account and commercial-use gates.
+
+There is therefore no currently documented Hume path that gives this candidate both the approved
+Octave 2 clone identity and its planned Octave 1 natural-language acting descriptions. The existing
+Hume adapter, plan, compiled dry run, and draft authorizations remain frozen historical evidence,
+but they are **not executable**. They may not support AUTH-02 activation or any provider action.
+
+The Hume leg must be redesigned, compared for equal-treatment consequences, recompiled, and
+explicitly owner-approved before a new authorization can exist. Possible designs are decision
+inputs, not approvals: an Octave 2 clone using only controls currently supported by Octave 2, a
+different Hume voice method, or removal of Hume from this round. No active AUTH-02 exists. No Hume
+upload, clone, TTS, calibration, bakeoff generation, long-form test, full capture, or Step 3 action
+is authorized. A verified Creator-or-higher account would clear only the access/commercial gate;
+it would not cure the model incompatibility.
+
 ## Current decision
 
 The retained AI Visibility v1.1 N4A batch has:
@@ -49,11 +80,13 @@ The corrected Eleven comparison path must:
   at least four independent parts, so full-length identity and prosody continuity remain unproven
   until the separately authorized long-form test.
 
-Hume Octave 1 is the selected challenger, not a presumed winner. It is suitable for this test
+Historical plan, now non-executable: Hume Octave 1 was the selected challenger, not a presumed
+winner. It was considered suitable for this test
 because the utterance text stays separate from a natural-language acting description, continuation
 is documented, and WAV/48 kHz PCM output is available. Octave 1 does not provide the Octave 2 word
 timestamps, so every Octave 1 result requires local forced alignment against canonical `W`; raw
-provider timing cannot be assumed.
+provider timing cannot be assumed. The 2026-08-24 vendor-drift stop above supersedes that candidate's
+execution eligibility without deleting its design history.
 
 This audit verdict makes the short round deliberately asymmetric in transport but symmetric in
 intent: Eleven receives the corrected v3-native expression of the envelope; Hume receives the same
@@ -63,7 +96,9 @@ different creative goals.
 ## Provider capability boundary
 
 The bakeoff compares the current ElevenLabs path with one Hume clone made from an owner-controlled
-original human recording. Product capabilities are live references, not permanent V2 canon.
+original human recording. Product capabilities are live references, not permanent V2 canon. The
+table below preserves the capability assumptions under which the v0.3 candidate was designed; its
+Hume column is historical and non-executable under the 2026-08-24 vendor-drift stop.
 
 | Area | ElevenLabs boundary | Hume boundary | V2 consequence |
 | --- | --- | --- | --- |
@@ -90,12 +125,17 @@ Current official references reviewed for this proposal:
   [JSON synthesis endpoint](https://dev.hume.ai/reference/text-to-speech-tts/synthesize-json),
   [file synthesis endpoint](https://dev.hume.ai/reference/text-to-speech-tts/synthesize-file),
   [voice-cloning guide](https://dev.hume.ai/docs/voice/voice-cloning),
+  [voice/model compatibility guide](https://dev.hume.ai/docs/text-to-speech-tts/voice),
+  [error reference](https://dev.hume.ai/docs/resources/errors),
+  [TTS FAQ](https://dev.hume.ai/docs/text-to-speech-tts/faq),
   [Create Voice API](https://dev.hume.ai/reference/voices/create), and
-  [pricing and commercial-use boundary](https://www.hume.ai/pricing).
+  [pricing](https://www.hume.ai/pricing) plus the
+  [commercial-use terms](https://www.hume.ai/terms-of-use).
 
-The compiled Hume calibration request uses `POST /v0/tts` JSON with `num_generations: 2`; the file
-endpoint is retained only as an additional output-format reference. Recheck these live documents
-and the active account terms before any authorization. A documentation
+The frozen, non-executable Hume calibration request uses `POST /v0/tts` JSON with
+`num_generations: 2`; the file endpoint is retained only as an additional output-format reference.
+It may not be authorized or executed unless a redesigned, owner-approved candidate replaces it.
+Recheck these live documents and the active account terms before any future authorization. A documentation
 URL does not prove that the owner's account has a capability or that an output is commercially
 licensed.
 
@@ -221,6 +261,10 @@ remains blocked.
 ### AUTH-02 — Hume UI sample upload and one clone creation
 
 Machine scope: `hume_clone_creation`.
+
+Current status after the 2026-08-24 vendor-drift review: **blocked before upload**. The scope below
+describes the maximum boundary of a future, redesigned authorization; it is not authority to use
+the historical Octave 1 clone-plus-description candidate. No active AUTH-02 exists.
 
 Allowed only after the provenance gate passes:
 

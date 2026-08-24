@@ -12,6 +12,34 @@ selected or downloaded. AUTH-01C was separately owner-approved, committed, and c
 sample response failed the inventory-bound byte-count identity, so the batch stopped after one call;
 samples two and three were not requested and Hume remains untouched.
 
+## 2026-08-24 vendor-drift amendment: Hume leg stopped before upload
+
+The proposal's frozen Hume candidate assumed one Manav clone running on Octave 1 so the same
+provider request could use natural-language `description` acting instructions. Current official
+Hume documentation makes that candidate internally incompatible:
+
+- [`E0814`](https://dev.hume.ai/docs/resources/errors) requires Octave 2 for instant voice cloning;
+- [`E0813`](https://dev.hume.ai/docs/resources/errors) and the
+  [voice guide](https://dev.hume.ai/docs/text-to-speech-tts/voice) prevent an Octave 2-created clone
+  from running on Octave 1;
+- the [acting-instructions guide](https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions)
+  keeps `description` on Octave 1 only; and
+- cloned-voice access and commercial use require verified Creator-or-higher eligibility under the
+  current [error reference](https://dev.hume.ai/docs/resources/errors),
+  [FAQ](https://dev.hume.ai/docs/text-to-speech-tts/faq), and
+  [Terms of Use](https://www.hume.ai/terms-of-use).
+
+The existing Hume adapter, provider plan, compiled dry run, AUTH-02 draft, and AUTH-04 draft remain
+frozen historical proposal artifacts. They are **not executable** and must not be silently changed
+to fit the vendor. Before Hume can re-enter the comparison, the candidate must be redesigned,
+checked for equal-treatment consequences, recompiled, and explicitly approved by the owner. A
+Creator-or-higher account would clear only access/commercial eligibility, not the model mismatch.
+
+There is no active AUTH-02. No Hume source upload, clone, TTS request, calibration, bakeoff
+generation, long-form test, full capture, Step 3 action, account purchase, or tier change is
+authorized. Step 1 remains locked; vendor drift is a Step 2 tool-fit failure, not an editorial
+rewrite request.
+
 ## Why v0.3 is required
 
 V0.2 proved the AI Visibility narration path could preserve locked words, enforce a bounded
@@ -52,6 +80,10 @@ episode more effectively.
 
 The complete doctrine is in
 [`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md).
+
+Steps 3 through 9 above preserve the original proposal logic. Their Hume-dependent branch is now
+non-executable under the dated vendor-drift amendment and cannot resume without the replacement
+design and owner approval described there.
 
 ## Authority separation
 
@@ -109,6 +141,11 @@ external action.
 
 ## Acceptance before v0.3 can become authority
 
+- The Hume challenger, if retained, is redesigned around one currently compatible model/control
+  path, receives an equal-treatment review, is recompiled, and is explicitly owner-approved; the
+  frozen Octave 1 clone-plus-description artifacts remain non-executable.
+- Creator-or-higher account access and commercial eligibility are verified before any future Hume
+  action; that verification does not waive the model-compatibility gate.
 - Original-sample selector fails closed on zero or multiple samples without an exact new
   authorization.
 - A multiple-sample review binds the complete AUTH-01B inventory, consumes AUTH-01C before network,

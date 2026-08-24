@@ -39,6 +39,24 @@ V0.3 therefore adds a provider-agnostic performance envelope and a bounded Eleve
 bakeoff before another N4A decision. The bakeoff grants no N4B full capture or Step 3 authority.
 See [`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md).
 
+### 2026-08-24 vendor-drift stop
+
+The current Hume leg is blocked before upload. The frozen candidate expects a cloned voice plus
+Octave 1 `description` acting instructions, but Hume's current
+[`E0814`](https://dev.hume.ai/docs/resources/errors) requires Octave 2 for instant cloning,
+[`E0813`](https://dev.hume.ai/docs/resources/errors) prevents an Octave 2-created clone from running
+on Octave 1, and the
+[acting-instructions guide](https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions)
+still limits `description` to Octave 1. Hume's
+[Terms of Use](https://www.hume.ai/terms-of-use) and error guidance also require verified
+Creator-or-higher access for the usable cloned voice and commercial OE work.
+
+The existing Hume adapter, plan, compiled request, and draft authorizations are preserved as
+historical design evidence, not an executable path. The candidate must be redesigned and explicitly
+owner-approved before any new Hume authorization. No active AUTH-02 exists, and no Hume upload,
+clone, TTS, calibration, bakeoff generation, long-form test, full capture, or Step 3 action is
+authorized. Account eligibility alone would not resolve the Octave 1/Octave 2 incompatibility.
+
 AUTH-01 stopped on multiple attached samples, and consumed AUTH-01B recorded the complete three-
 sample metadata inventory without selecting or downloading audio. The owner has now approved a
 separate AUTH-01C local-review retrieval for exactly those three inventory-bound samples. That
@@ -71,6 +89,9 @@ locked editorial handoff
 → narration lock
 → Step 3 handoff
 ```
+
+This remains the target flow. The Hume branch of the provider-selection loop is suspended at the
+vendor-drift stop above; it may not advance merely because the remaining generic flow is documented.
 
 Interim ASR may flag likely mistakes in calibration, takes, chunks, and pickups. It is diagnostic
 only. The authoritative transcript and pause map are derived from the exact final master candidate.
