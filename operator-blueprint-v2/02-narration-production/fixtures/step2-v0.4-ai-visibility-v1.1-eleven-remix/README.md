@@ -1,7 +1,8 @@
 # Step 2 v0.4 AI Visibility ElevenLabs performance-voice experiment
 
-Status: owner-authorized bounded experiment in progress. This fixture does not authorize a full
-episode capture, Step 2 lock, Step 3, publication, or replacement of the incumbent narrator.
+Status: remix preview batch generated; owner listening decision pending. This fixture does not
+authorize a library-voice save, directed TTS calibration, full episode capture, Step 2 lock,
+Step 3, publication, or replacement of the incumbent narrator.
 
 ## Question
 
@@ -69,3 +70,13 @@ The remixed voice advances only when it:
 
 No preview result alone authorizes library save, directed calibration, full capture, or production
 selection.
+
+## Current result
+
+AUTH-R1 was consumed once and returned three private previews. The success receipt and all three
+provider files hash-match. They are mono 44.1 kHz, 192 kbps MP3 audition evidence, not narration
+masters. Full decode and codec checks pass; lexical and creative approval remain pending the owner
+listen. The incumbent voice was not modified and no new library voice was created.
+
+The owner review uses four loudness-matched labels: three remix previews plus the historical
+incumbent C01B control. The sealed mapping is in `reviews/AUTH-R1-LISTENING-ORDER.json`.
