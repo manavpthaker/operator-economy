@@ -245,6 +245,25 @@ class VoiceRemixTests(unittest.TestCase):
         self.assertFalse((fixture / "local-media").exists())
         self.assertFalse((fixture / "authorizations" / "consumed").exists())
 
+    def test_active_preview_rejects_future_dated_approval(self) -> None:
+        temporary, fixture, auth_path, authorization = self._fixture()
+        self.addCleanup(temporary.cleanup)
+        validation_now = datetime.now(timezone.utc)
+        authorization["approved_at"] = (
+            validation_now + timedelta(minutes=5)
+        ).isoformat()
+        authorization["expires_at"] = (
+            validation_now + timedelta(hours=1)
+        ).isoformat()
+        self._write_json(auth_path, authorization)
+
+        with self.assertRaisesRegex(ValidationError, "approved_at may not be in the future"):
+            vr.validate_voice_remix_preview_authorization(
+                auth_path,
+                now=validation_now,
+            )
+        self.assertFalse((fixture / "authorizations" / "consumed").exists())
+
     def test_preview_preserves_every_returned_candidate_without_selecting_or_saving(self) -> None:
         temporary, fixture, auth_path, authorization = self._fixture()
         self.addCleanup(temporary.cleanup)
@@ -412,6 +431,9 @@ class VoiceRemixTests(unittest.TestCase):
         )
         self.assertEqual(failure["reason"], "redirect_forbidden")
         self.assertFalse(failure["retry_permitted"])
+        self.assertFalse(failure["voice_created"])
+        self.assertNotIn("voice_creation_status", failure)
+        self.assertNotIn("reconciliation_required", failure)
         self.assertFalse(failure["raw_provider_payload_stored"])
         self.assertNotIn("valid-eleven-key", json.dumps(failure))
 
@@ -585,6 +607,31 @@ class VoiceRemixTests(unittest.TestCase):
         self.assertFalse(result["source_voice_modified"])
         self.assertNotEqual(result["new_voice_id"], result["source_voice_id"])
 
+    def test_active_save_rejects_future_dated_approval(self) -> None:
+        temporary, fixture, preview_auth_path, preview_authorization = self._fixture()
+        self.addCleanup(temporary.cleanup)
+        preview_result = self._execute_preview(
+            fixture, preview_auth_path, preview_authorization
+        )
+        save_path, save_authorization = self._save_authorization(
+            fixture, preview_result, preview_authorization
+        )
+        validation_now = datetime.now(timezone.utc)
+        save_authorization["approved_at"] = (
+            validation_now + timedelta(minutes=5)
+        ).isoformat()
+        save_authorization["expires_at"] = (
+            validation_now + timedelta(hours=1)
+        ).isoformat()
+        self._write_json(save_path, save_authorization)
+
+        with self.assertRaisesRegex(ValidationError, "approved_at may not be in the future"):
+            vr.validate_voice_remix_save_authorization(
+                save_path,
+                now=validation_now,
+            )
+        self.assertFalse((fixture / "authorizations" / "consumed" / "save.json").exists())
+
     def test_save_rejects_review_telemetry_or_selection_drift_before_network(self) -> None:
         mutations = (
             lambda auth: auth["action"].__setitem__(
@@ -637,9 +684,19 @@ class VoiceRemixTests(unittest.TestCase):
                     vr.execute_voice_remix_save(save_path)
         post.assert_called_once()
         self.assertTrue((fixture / "authorizations" / "consumed" / "save.json").exists())
-        self.assertTrue(
-            (fixture / "receipts" / "elevenlabs" / "remix-save-failure.json").exists()
+        failure_path = (
+            fixture / "receipts" / "elevenlabs" / "remix-save-failure.json"
         )
+        self.assertTrue(failure_path.exists())
+        failure = json.loads(failure_path.read_text(encoding="utf-8"))
+        self.assertEqual(failure["attempted_calls"], 1)
+        self.assertFalse(failure["retry_permitted"])
+        self.assertNotIn("voice_created", failure)
+        self.assertEqual(
+            failure["voice_creation_status"],
+            "indeterminate_after_attempt",
+        )
+        self.assertTrue(failure["reconciliation_required"])
 
 
 if __name__ == "__main__":

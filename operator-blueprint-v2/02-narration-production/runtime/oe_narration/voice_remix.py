@@ -544,8 +544,11 @@ def _validate_common_authorization(
     effective_now = now or datetime.now(timezone.utc)
     if effective_now.tzinfo is None:
         errors.append("validation time must include a timezone")
-    elif status == "active" and expires_at is not None and expires_at <= effective_now:
-        errors.append("active authorization is expired")
+    elif status == "active":
+        if approved_at is not None and approved_at > effective_now:
+            errors.append("active authorization approved_at may not be in the future")
+        if expires_at is not None and expires_at <= effective_now:
+            errors.append("active authorization is expired")
     owner = authorization.get("approved_by")
     if not isinstance(owner, str) or not owner:
         errors.append("approved_by is required")
@@ -1112,10 +1115,23 @@ def _write_failure_receipt(
         "failed_at": _utc_now(),
         "retry_permitted": False,
         "source_voice_modified": False,
-        "voice_created": False,
         "owner_decision": "pending" if scope == PREVIEW_SCOPE else "not_completed",
         "raw_provider_payload_stored": False,
     }
+    if scope == SAVE_SCOPE and attempted_calls > 0:
+        # Once the mutating create request has been attempted, a timeout, transport
+        # failure, or invalid response cannot prove that the provider did not create
+        # the voice. Reconciliation must precede any newly authorized retry.
+        receipt.update(
+            {
+                "voice_creation_status": "indeterminate_after_attempt",
+                "reconciliation_required": True,
+            }
+        )
+    else:
+        # A remix-preview request cannot create a library voice. Preserve that
+        # stronger preview-only failure assertion.
+        receipt["voice_created"] = False
     _exclusive_write(path, _json_bytes(receipt))
 
 
