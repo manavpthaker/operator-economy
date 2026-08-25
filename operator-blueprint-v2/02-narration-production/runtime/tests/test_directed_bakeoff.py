@@ -5,6 +5,7 @@ import io
 import json
 import os
 import shutil
+import stat
 import tempfile
 import unittest
 import urllib.error
@@ -12,10 +13,12 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
+import oe_narration.audio as audio_runtime
 from oe_narration.bakeoff import (
     dry_run_provider_bakeoff,
     validate_provider_action_authorization,
 )
+from oe_narration.audio import convert_working, inspect_provider_raw_pcm
 from oe_narration.core import ValidationError, sha256_file
 from oe_narration.directed_bakeoff import (
     _HttpFailure,
@@ -49,7 +52,7 @@ class DirectedBakeoffTests(unittest.TestCase):
 
     def _copy_system(self) -> tuple[tempfile.TemporaryDirectory, Path, Path]:
         temporary = tempfile.TemporaryDirectory()
-        blueprint = Path(temporary.name) / "operator-blueprint-v2"
+        blueprint = Path(temporary.name).resolve() / "operator-blueprint-v2"
         fixtures = blueprint / "02-narration-production" / "fixtures"
         fixtures.mkdir(parents=True)
         fixture = fixtures / self.source_fixture.name
@@ -398,6 +401,277 @@ class DirectedBakeoffTests(unittest.TestCase):
         self.assertFalse(receipt["creative_approved"])
         self.assertFalse(receipt["step3_authorized"])
         self.assertFalse(receipt["full_episode_authorized"])
+
+    def test_directed_native_pcm_inspects_and_converts_once(self) -> None:
+        temporary, fixture, _w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate(fixture)
+        with mock.patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}), mock.patch(
+            "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+        ):
+            result = execute_directed_bakeoff(active)
+        receipt = fixture / result["receipt"]
+        first = result["results"][0]
+        raw = fixture / first["raw_output"]["path"]
+        before = sha256_file(raw)
+
+        inspected = inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+        self.assertEqual(inspected["part_id"], first["request_id"])
+        self.assertEqual(inspected["sha256"], before)
+        self.assertEqual(inspected["codec_name"], "pcm_s16le")
+
+        working = fixture / "outputs" / "working" / "candidate-A.wav"
+        record = fixture / "receipts" / "conversion" / "candidate-A.json"
+        with self.assertRaisesRegex(ValidationError, "requires an immutable"):
+            convert_working(raw, working, receipt, first["request_id"])
+        converted = convert_working(
+            raw, working, receipt, first["request_id"], record
+        )
+        self.assertEqual(converted["conversion_count_from_raw"], 1)
+        self.assertFalse(converted["lossy_origin"])
+        self.assertTrue(converted["working"]["is_working_master"])
+        self.assertEqual(sha256_file(raw), before)
+        self.assertEqual(stat.S_IMODE(working.stat().st_mode), 0o600)
+        self.assertEqual(stat.S_IMODE(record.stat().st_mode), 0o600)
+        recorded = json.loads(record.read_text(encoding="utf-8"))
+        self.assertEqual(recorded["raw_immutable_sha256"], before)
+        self.assertEqual(recorded["working"]["sha256"], sha256_file(working))
+        with self.assertRaisesRegex(ValidationError, "refusing to overwrite"):
+            convert_working(raw, working, receipt, first["request_id"], record)
+
+        second_working = working.with_name("candidate-A-second.wav")
+        with self.assertRaisesRegex(ValidationError, "conversion record"):
+            convert_working(raw, second_working, receipt, first["request_id"], record)
+        self.assertFalse(second_working.exists())
+
+    def test_directed_pcm_rejects_source_receipt_and_request_mismatch(self) -> None:
+        temporary, fixture, _w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate(fixture)
+        with mock.patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}), mock.patch(
+            "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+        ):
+            result = execute_directed_bakeoff(active)
+        receipt = fixture / result["receipt"]
+        original_receipt = receipt.read_bytes()
+        first, second = result["results"][:2]
+        raw = fixture / first["raw_output"]["path"]
+        original_raw = raw.read_bytes()
+
+        with self.assertRaisesRegex(ValidationError, "source/hash/request"):
+            inspect_provider_raw_pcm(raw, receipt, second["request_id"])
+
+        copied = raw.with_name("same-bytes-wrong-path.pcm")
+        copied.write_bytes(original_raw)
+        with self.assertRaisesRegex(ValidationError, "source/hash/request"):
+            inspect_provider_raw_pcm(copied, receipt, first["request_id"])
+
+        raw.write_bytes(original_raw + b"\x00\x00")
+        with self.assertRaisesRegex(ValidationError, "source/hash/request"):
+            inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+        raw.write_bytes(original_raw)
+
+        tampered = json.loads(original_receipt)
+        tampered["results"][0]["execution_request_body_sha256"] = "f" * 64
+        self._write_json(receipt, tampered)
+        with self.assertRaisesRegex(ValidationError, "request binding mismatch"):
+            inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+        receipt.write_bytes(original_receipt)
+
+        compiled = fixture / "compiled" / "provider-bakeoff-dry-run.json"
+        compiled.write_text(compiled.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValidationError, "compiled-request hash"):
+            inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+
+    def test_directed_pcm_conversion_rejects_symlink_destinations(self) -> None:
+        temporary, fixture, _w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate(fixture)
+        with mock.patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}), mock.patch(
+            "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+        ):
+            result = execute_directed_bakeoff(active)
+        receipt = fixture / result["receipt"]
+        first = result["results"][0]
+        raw = fixture / first["raw_output"]["path"]
+        destinations = fixture / "outputs" / "working"
+        destinations.mkdir(parents=True)
+        outside = fixture / "outside"
+        outside.mkdir()
+
+        failed_working = destinations / "failed.wav"
+        failed_record = fixture / "receipts" / "conversion" / "failed.json"
+        failed_probe = mock.Mock(returncode=1, stdout="", stderr="not headered audio")
+        failed_conversion = mock.Mock(returncode=1, stdout="", stderr="conversion failed")
+        with mock.patch(
+            "oe_narration.audio._run",
+            side_effect=[failed_probe, failed_conversion],
+        ):
+            with self.assertRaisesRegex(ValidationError, "ffmpeg conversion failed"):
+                convert_working(
+                    raw,
+                    failed_working,
+                    receipt,
+                    first["request_id"],
+                    failed_record,
+                )
+        self.assertFalse(failed_working.exists())
+        self.assertFalse(failed_record.exists())
+
+        working_link = destinations / "working-link.wav"
+        working_link.symlink_to(outside / "working.wav")
+        record = fixture / "receipts" / "conversion" / "working-link.json"
+        with self.assertRaisesRegex(ValidationError, "working audio"):
+            convert_working(raw, working_link, receipt, first["request_id"], record)
+        self.assertFalse(record.exists())
+
+        working = destinations / "record-link.wav"
+        record_link = fixture / "receipts" / "record-link.json"
+        record_link.symlink_to(outside / "record.json")
+        with self.assertRaisesRegex(ValidationError, "conversion record"):
+            convert_working(raw, working, receipt, first["request_id"], record_link)
+        self.assertFalse(working.exists())
+
+    def test_directed_pcm_requires_actual_authorization_consumption_chain(self) -> None:
+        for mutation in (
+            "authorization_hash",
+            "consumption_hash",
+            "consumption_missing",
+            "consumption_semantics",
+        ):
+            with self.subTest(mutation=mutation):
+                temporary, fixture, _w = self._copy_system()
+                self.addCleanup(temporary.cleanup)
+                active = self._activate(fixture)
+                with mock.patch.dict(
+                    os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}
+                ), mock.patch(
+                    "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+                ):
+                    result = execute_directed_bakeoff(active)
+                receipt = fixture / result["receipt"]
+                receipt_value = json.loads(receipt.read_text(encoding="utf-8"))
+                first = result["results"][0]
+                raw = fixture / first["raw_output"]["path"]
+                consumption = active.parent / receipt_value["authorization_consumption"][
+                    "path"
+                ]
+
+                if mutation == "authorization_hash":
+                    receipt_value["authorization_sha256"] = "f" * 64
+                    self._write_json(receipt, receipt_value)
+                elif mutation == "consumption_hash":
+                    consumption.write_text(
+                        consumption.read_text(encoding="utf-8") + "\n",
+                        encoding="utf-8",
+                    )
+                elif mutation == "consumption_missing":
+                    consumption.unlink()
+                else:
+                    consumption_value = json.loads(
+                        consumption.read_text(encoding="utf-8")
+                    )
+                    consumption_value["request_set_sha256"] = "f" * 64
+                    self._write_json(consumption, consumption_value)
+                    receipt_value["authorization_consumption"]["sha256"] = sha256_file(
+                        consumption
+                    )
+                    self._write_json(receipt, receipt_value)
+
+                with self.assertRaises(ValidationError):
+                    inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+
+    def test_directed_pcm_rejects_every_symlinked_parent(self) -> None:
+        for mutation in ("receipt", "raw", "consumption", "output", "record"):
+            with self.subTest(mutation=mutation):
+                temporary, fixture, _w = self._copy_system()
+                self.addCleanup(temporary.cleanup)
+                active = self._activate(fixture)
+                with mock.patch.dict(
+                    os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}
+                ), mock.patch(
+                    "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+                ):
+                    result = execute_directed_bakeoff(active)
+                receipt = fixture / result["receipt"]
+                first = result["results"][0]
+                raw = fixture / first["raw_output"]["path"]
+
+                if mutation == "receipt":
+                    linked_parent = receipt.parent
+                    real_parent = fixture / "real-elevenlabs-receipts"
+                    linked_parent.rename(real_parent)
+                    linked_parent.symlink_to(real_parent, target_is_directory=True)
+                    receipt = linked_parent / receipt.name
+                elif mutation == "raw":
+                    linked_parent = raw.parent
+                    real_parent = fixture / "real-directed-raw"
+                    linked_parent.rename(real_parent)
+                    linked_parent.symlink_to(real_parent, target_is_directory=True)
+                    raw = linked_parent / raw.name
+                elif mutation == "consumption":
+                    linked_parent = active.parent / "consumed"
+                    real_parent = fixture / "real-consumption"
+                    linked_parent.rename(real_parent)
+                    linked_parent.symlink_to(real_parent, target_is_directory=True)
+                elif mutation == "output":
+                    outside = fixture / "outside-working"
+                    outside.mkdir()
+                    linked_parent = fixture / "outputs" / "linked-working"
+                    linked_parent.symlink_to(outside, target_is_directory=True)
+                    working = linked_parent / "candidate.wav"
+                    record = fixture / "receipts" / "conversion" / "candidate.json"
+                    with self.assertRaisesRegex(ValidationError, "symlink component"):
+                        convert_working(raw, working, receipt, first["request_id"], record)
+                    self.assertFalse((outside / "candidate.wav").exists())
+                    self.assertFalse(record.exists())
+                    continue
+                else:
+                    outside = fixture / "outside-record"
+                    outside.mkdir()
+                    linked_parent = fixture / "receipts" / "linked-conversion"
+                    linked_parent.symlink_to(outside, target_is_directory=True)
+                    working = fixture / "outputs" / "working" / "candidate.wav"
+                    record = linked_parent / "candidate.json"
+                    with self.assertRaisesRegex(ValidationError, "symlink component"):
+                        convert_working(raw, working, receipt, first["request_id"], record)
+                    self.assertFalse(working.exists())
+                    self.assertFalse((outside / "candidate.json").exists())
+                    continue
+
+                with self.assertRaisesRegex(ValidationError, "symlink component"):
+                    inspect_provider_raw_pcm(raw, receipt, first["request_id"])
+
+    def test_directed_conversion_fd_cannot_be_redirected_by_symlink_swap(self) -> None:
+        temporary, fixture, _w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate(fixture)
+        with mock.patch.dict(os.environ, {"ELEVENLABS_API_KEY": "test-only-key"}), mock.patch(
+            "oe_narration.directed_bakeoff._post_once", return_value=self._pcm()
+        ):
+            result = execute_directed_bakeoff(active)
+        receipt = fixture / result["receipt"]
+        first = result["results"][0]
+        raw = fixture / first["raw_output"]["path"]
+        working = fixture / "outputs" / "working" / "swap.wav"
+        record = fixture / "receipts" / "conversion" / "swap.json"
+        outside = fixture / "outside-swap.wav"
+        sentinel = b"must-not-change"
+        outside.write_bytes(sentinel)
+        real_run = audio_runtime._run
+
+        def swap_before_ffmpeg(command, **kwargs):
+            if command[0] == "ffmpeg":
+                working.unlink()
+                working.symlink_to(outside)
+            return real_run(command, **kwargs)
+
+        with mock.patch("oe_narration.audio._run", side_effect=swap_before_ffmpeg):
+            with self.assertRaisesRegex(ValidationError, "symlink component"):
+                convert_working(raw, working, receipt, first["request_id"], record)
+        self.assertEqual(outside.read_bytes(), sentinel)
+        self.assertTrue(working.is_symlink())
+        self.assertFalse(record.exists())
 
     def test_authorization_is_one_shot(self) -> None:
         temporary, fixture, _w = self._copy_system()

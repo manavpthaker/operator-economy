@@ -16,6 +16,7 @@ from oe_narration.audio import (
     inspect_provider_raw_pcm,
     validate_pcm_failure_receipt,
 )
+from oe_narration.cli import build_parser
 from oe_narration.core import (
     ValidationError,
     canonical_w_bytes,
@@ -29,7 +30,7 @@ from oe_narration.provider import dry_run_capture, execute_capture, request_url,
 class CapturePlanTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         self.tokens = ["Cold", "open.", "Evidence", "matters.", "Model", "not", "forecast.", "McKinsey"]
         self.w_path = self.root / "canonical-w.txt"
         self.w_path.write_bytes(canonical_w_bytes(self.tokens))
@@ -262,7 +263,7 @@ def run_ffmpeg(args: list[str]) -> None:
 class AudioTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
 
     def tearDown(self) -> None:
         self.temp.cleanup()
@@ -271,6 +272,18 @@ class AudioTests(unittest.TestCase):
         path = self.root / name
         run_ffmpeg(["-f", "lavfi", "-i", "sine=frequency=440:duration=1", "-ar", "44100", "-ac", "1", "-b:a", bitrate, str(path)])
         return path
+
+    def test_audio_cli_preserves_symlink_components_for_runtime_rejection(self) -> None:
+        real = self.root / "real"
+        real.mkdir()
+        linked = self.root / "linked"
+        linked.symlink_to(real, target_is_directory=True)
+        requested = linked / "raw.pcm"
+        args = build_parser().parse_args(
+            ["inspect-audio", "--input", str(requested)]
+        )
+        self.assertEqual(args.input, requested)
+        self.assertNotEqual(args.input, requested.resolve(strict=False))
 
     def failure_receipt(self, raw: Path, status: int = 422, kind: str = "pcm_capability_unavailable") -> Path:
         path = self.root / f"{raw.stem}-failure.json"
@@ -315,6 +328,18 @@ class AudioTests(unittest.TestCase):
         self.assertEqual(result["conversion_count_from_raw"], 1)
         self.assertTrue(result["working"]["is_working_master"])
         self.assertEqual(sha256_file(raw), result["raw_immutable_sha256"])
+
+    def test_directed_run_receipt_does_not_replace_mp3_capability_receipt(self) -> None:
+        raw = self.make_mp3("directed-fallback.mp3", "192k")
+        directed = self.root / "directed-run.json"
+        directed.write_text(
+            json.dumps(
+                {"schema_version": "oe-elevenlabs-directed-bakeoff-run-v1"}
+            ),
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(ValidationError, "fallback receipt must use"):
+            convert_working(raw, self.root / "working.wav", directed, "EL-P01-A")
 
     def test_auth_rate_limit_timeout_or_server_receipt_cannot_enable_fallback(self) -> None:
         raw = self.make_mp3("raw.mp3", "192k")

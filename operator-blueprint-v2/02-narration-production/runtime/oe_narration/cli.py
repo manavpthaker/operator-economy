@@ -52,6 +52,12 @@ def _path(value: str) -> Path:
     return Path(value).expanduser().resolve()
 
 
+def _audio_path(value: str) -> Path:
+    """Preserve path components so audio safety checks can detect symlinks."""
+
+    return Path(value).expanduser().absolute()
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="oe-narration", description="Operator Blueprint V2 narration controls")
     parser.add_argument("--version", action="version", version="oe-narration 0.4.0")
@@ -69,16 +75,16 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--canonical-w", type=_path, required=True)
 
     inspect = sub.add_parser("inspect-audio", help="inspect the actual codec and production properties")
-    inspect.add_argument("--input", type=_path, required=True)
-    inspect.add_argument("--receipt", type=_path, help="required only for headerless provider PCM")
+    inspect.add_argument("--input", type=_audio_path, required=True)
+    inspect.add_argument("--receipt", type=_audio_path, help="required only for headerless provider PCM")
     inspect.add_argument("--part-id")
 
     convert = sub.add_parser("convert-working", help="perform the one permitted raw-to-working WAV conversion")
-    convert.add_argument("--input", type=_path, required=True)
-    convert.add_argument("--output", type=_path, required=True)
-    convert.add_argument("--receipt", type=_path)
+    convert.add_argument("--input", type=_audio_path, required=True)
+    convert.add_argument("--output", type=_audio_path, required=True)
+    convert.add_argument("--receipt", type=_audio_path)
     convert.add_argument("--part-id")
-    convert.add_argument("--record", type=_path)
+    convert.add_argument("--record", type=_audio_path)
 
     transcript = sub.add_parser("validate-transcript", help="bind exact W timing to the exact master")
     transcript.add_argument("--transcript", type=_path, required=True)
@@ -212,11 +218,13 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
             return inspect_provider_raw_pcm(args.input, args.receipt, args.part_id)
         return inspect_audio(args.input)
     if args.command == "convert-working":
-        result = convert_working(args.input, args.output, args.receipt, args.part_id)
-        if args.record:
-            _write_json(args.record, result)
-            result["record"] = str(args.record)
-        return result
+        return convert_working(
+            args.input,
+            args.output,
+            args.receipt,
+            args.part_id,
+            args.record,
+        )
     if args.command == "validate-transcript":
         return validate_transcript(args.transcript, args.canonical_w, args.master)
     if args.command == "validate-state":
