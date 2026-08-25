@@ -1,8 +1,8 @@
 # Step 2 v0.4 AI Visibility ElevenLabs performance-voice experiment
 
-Status: owner selected C and saved it as a separate private voice. A first over-limit performance
-prompt failed closed; the repaired 440-character request returned three private candidates that
-passed technical QA and await owner audition. This fixture does not authorize a replay, candidate
+Status: owner selected Original C as the voice to advance. A first over-limit performance prompt
+failed closed; the repaired 440-character request returned three private candidates, but the owner
+rejected all three and retained Original C. This fixture does not authorize a replay, candidate
 save, directed TTS calibration, full episode capture, Step 2 lock, Step 3, publication, or
 replacement of the incumbent narrator.
 
@@ -95,5 +95,7 @@ voice. The bounded disposition is in
 The owner then authorized one materially repaired request using the exact 440-character prompt in
 [`remix/voice-remix-direction-v3.txt`](remix/voice-remix-direction-v3.txt). AUTH-R4 returned three
 private candidates from saved C. All three receipt hashes match, fully decode, are mono 44.1 kHz
-192 kbps MP3, and measure within `0.4` LU of one another. No candidate was selected or saved. The
-technical review is in [`reviews/AUTH-R4-TECHNICAL-QA.md`](reviews/AUTH-R4-TECHNICAL-QA.md).
+192 kbps MP3, and measure within `0.4` LU of one another. The owner rejected all three and retained
+Original C. No R4 candidate was saved. The technical review is in
+[`reviews/AUTH-R4-TECHNICAL-QA.md`](reviews/AUTH-R4-TECHNICAL-QA.md), and the owner decision is in
+[`reviews/AUTH-R4-OWNER-CREATIVE-DISPOSITION.md`](reviews/AUTH-R4-OWNER-CREATIVE-DISPOSITION.md).

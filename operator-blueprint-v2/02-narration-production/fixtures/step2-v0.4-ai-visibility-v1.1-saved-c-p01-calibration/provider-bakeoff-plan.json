@@ -1,0 +1,148 @@
+{
+  "schema_version": "oe-provider-bakeoff-plan-v1",
+  "plan_id": "ai-visibility-v1.1-saved-c-p01-eleven-v3-calibration-v1",
+  "status": "dry_run_only",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration"
+  },
+  "performance_envelope": {
+    "path": "performance-envelope.json",
+    "sha256": "36cc45786d2d1b8819d4f74fc284ca75e8c8ef87fdce0d55bcd78c41e03984b9"
+  },
+  "canonical_w": {
+    "path": "../step2-v0.2-ai-visibility-v1.1/identity/canonical-w.txt",
+    "token_count": 3019,
+    "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a"
+  },
+  "provider_adapters": {
+    "elevenlabs": {
+      "path": "adapters/elevenlabs-v3.json",
+      "sha256": "3834fbd860ff8275e68f227929b31e382a813e7ff010551899bd82f2c8b22cb2"
+    },
+    "hume": {
+      "path": "adapters/hume-octave-1.json",
+      "sha256": "92f9fa382c36ed500dc886c9e34616541e3e86d2550a69db251b52c6b14923f4"
+    }
+  },
+  "passage_ids": [
+    "P01-S00"
+  ],
+  "candidates_per_passage_per_provider": 2,
+  "expected_candidate_count": 4,
+  "providers": [
+    {
+      "provider_id": "elevenlabs-v3-manav-saved-c",
+      "provider": "elevenlabs",
+      "model_id": "eleven_v3",
+      "voice_id": "scMbPZwQjr40V1MzL3Nj",
+      "identity_state": "owner_selected_preview_C_saved_as_separate_private_voice_selection_and_save_evidence_only_tts_calibration_rights_pending",
+      "request_mode": "one_call_per_candidate",
+      "generation_variance": "paired_fixed_seed_separate_generation",
+      "same_direction_for_both_candidates": true,
+      "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.6,
+        "style": 0.1
+      },
+      "format_policy": {
+        "requested": "pcm_48000",
+        "raw_origin_if_returned": "native_pcm",
+        "fallback_policy_enabled": true,
+        "only_permitted_fallback": "mp3_44100_192",
+        "fallback_reason_required": "pcm_capability_unavailable",
+        "fallback_requires_new_bound_request": true,
+        "fallback_requires_capability_rejection_receipt": true,
+        "fallback_requires_actual_codec_bitrate_verification": true,
+        "fallback_request_call_ceiling": 2,
+        "immutable_raw": true,
+        "fallback_audible_artifact_review": true,
+        "delivery_conversion": "exactly_once_to_pcm_wav_48000_24_mono",
+        "lossy_intermediates_after_raw": false
+      },
+      "requests": [
+        {
+          "request_id": "EL-C-P01-A",
+          "passage_id": "P01-S00",
+          "candidate_id": "P01-C-A",
+          "candidate_index": 0,
+          "fixed_seed": 2026082401,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P01-S00/candidate-A.pcm"
+        },
+        {
+          "request_id": "EL-C-P01-B",
+          "passage_id": "P01-S00",
+          "candidate_id": "P01-C-B",
+          "candidate_index": 1,
+          "fixed_seed": 2026082402,
+          "direction_variant": "approved_identical",
+          "destination": "outputs/raw/elevenlabs/P01-S00/candidate-B.pcm"
+        }
+      ],
+      "pricing_model": {
+        "status": "estimate_only_refresh_before_authorization",
+        "currency": "USD",
+        "public_rate_per_1000_text_characters": 0.1,
+        "billable_character_convention": "exact_compiled_provider_text_characters_per_request_including_nonlexical_tags",
+        "authorized_spend_usd": 0
+      }
+    },
+    {
+      "provider_id": "hume-inert-schema-entry",
+      "provider": "hume",
+      "model_id": "octave-1",
+      "voice_id": "__HUME_CLONE_ID_PENDING__",
+      "identity_state": "inert_schema_entry_no_hume_action_planned_or_authorized",
+      "execution_ready": false,
+      "request_mode": "one_call_per_passage_two_generations",
+      "generation_variance": "num_generations_2",
+      "same_direction_for_both_candidates": true,
+      "account_tier": "unverified",
+      "commercial_use_eligibility": "unverified",
+      "format_policy": {
+        "requested": "wav",
+        "actual_container_and_codec_inspection_required": true,
+        "fallback_policy_enabled": true,
+        "only_permitted_fallback": "mp3_44100_192",
+        "fallback_reason_required": "lossless_capability_unavailable",
+        "fallback_requires_new_bound_request": true,
+        "fallback_requires_capability_rejection_receipt": true,
+        "fallback_requires_actual_codec_bitrate_verification": true,
+        "fallback_request_call_ceiling": 1,
+        "fallback_audible_artifact_review": true,
+        "immutable_raw": true,
+        "delivery_conversion": "exactly_once_to_pcm_wav_48000_24_mono_after_origin_inspection",
+        "lossy_intermediates_after_raw": false
+      },
+      "requests": [
+        {
+          "request_id": "HU-P01-INERT",
+          "passage_id": "P01-S00",
+          "candidate_outputs": [
+            {
+              "candidate_id": "P01-HU-INERT-A",
+              "generation_index": 0,
+              "destination": "outputs/raw/hume/P01-S00/generation-0.wav"
+            },
+            {
+              "candidate_id": "P01-HU-INERT-B",
+              "generation_index": 1,
+              "destination": "outputs/raw/hume/P01-S00/generation-1.wav"
+            }
+          ]
+        }
+      ],
+      "pricing_model": {
+        "status": "inert_estimate_only_no_hume_authority",
+        "currency": "USD",
+        "public_creator_overage_rate_per_1000_text_characters": 0.15,
+        "billable_character_convention": "sum_utterance_text_characters_times_num_generations_descriptions_excluded",
+        "authorized_spend_usd": 0
+      }
+    }
+  ],
+  "external_action_authorized": false,
+  "credentials_may_be_accessed": false,
+  "audio_may_be_generated": false
+}

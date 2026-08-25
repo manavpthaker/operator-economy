@@ -2,7 +2,9 @@
 
 Status: `PASS_FOR_OWNER_AUDITION`
 
-Creative selection: pending
+Creative selection: resolved by
+[`AUTH-R4-OWNER-CREATIVE-DISPOSITION.md`](AUTH-R4-OWNER-CREATIVE-DISPOSITION.md). The owner retained
+Original C and rejected all three AUTH-R4 candidates.
 
 ## Bound result
 
