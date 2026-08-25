@@ -1,13 +1,14 @@
 # Saved-C P01 calibration results
 
-Status: `dry_run_only_not_authorized`
+Status: `captured_technical_pass_owner_audition_pending`
 
 | State | Result |
 | --- | --- |
-| Saved-C owner selection | exact local copy hash-matches v0.4 source; selection evidence only |
-| Saved-C library save | exact local copy hash-matches v0.4 source; save-event evidence only |
-| Provider-reported ownership | not established; save receipt reports the field as unavailable |
-| TTS calibration rights | pending; no rights receipt or reusable R2 permission |
+| Saved-C owner selection | exact local copy hash-matches v0.4 source; original C selected |
+| Saved-C library save | exact local copy hash-matches v0.4 source; voice `scMbPZwQjr40V1MzL3Nj` |
+| Voice ownership and consent | Manav Thaker confirmed as owner and consent owner in the bounded calibration-rights receipt |
+| Provider-reported ownership | unreported in the R2 save response; not inferred |
+| TTS calibration rights | owner-approved 24-hour authority was consumed before the first request; no reusable authority remains |
 | Exact P01 identity | runtime-validated against canonical W `[0,139)` |
 | Provider-neutral envelope | runtime-validated; one passage |
 | ElevenLabs adapter | runtime-validated; saved C, `eleven_v3`, exact tags/settings |
@@ -15,15 +16,20 @@ Status: `dry_run_only_not_authorized`
 | Deterministic compilation | CLI-generated; request set `70ae263d4a2d843df2ab072179af63916b50de6cb2b8864c2255204d30f7d75d` |
 | Primary Eleven scope | 2 calls; 1,684 characters; 2 native-PCM outputs |
 | Absolute Eleven ceiling | 4 calls; 3,368 characters; 2 outputs; conditional MP3 fallback only |
-| Draft authorization | unapproved; provenance/rights fields omitted; zero calls, characters, outputs, and spend |
-| Credentials accessed | no |
-| Provider calls | 0 |
-| Audio outputs | 0 |
-| Creative decision | none |
+| Frozen request set | `70ae263d4a2d843df2ab072179af63916b50de6cb2b8864c2255204d30f7d75d`; two fixed seeds |
+| Provider execution | 2 calls; 1,684 transport characters; 2 native `pcm_48000` outputs; $0.1684 modeled |
+| Fallback, retry, redirect | none |
+| Provider-reported character-cost | 510 per request; 1,020 total; recorded separately from conservative authorization accounting |
+| Corrected working masters | A and B `.v2.wav`; 48 kHz, 24-bit, mono PCM; strict full decode pass |
+| First WAV wrappers | retained as failed evidence; explicitly superseded and ineligible for listening/scoring |
+| Offline lexical diagnostic | A exact normalized 139/139 in beam and greedy; B is 131/139 in beam and 107/139 in greedy; no direction tags detected |
+| Human exact-word gate | pending owner listen; B's two ASR-flagged sentence regions require explicit confirmation |
+| Creative decision | pending owner choice: A, B, or reject both |
 
-R2 selection and save permission cannot be reused as TTS permission. No technical validation,
-dry-run compilation, or later provider response may silently advance this fixture to creative
-approval, full capture, Step 2 lock, Step 3, or publication.
+R2 selection and save permission were not reused as TTS permission. The calibration-specific
+authority is consumed and cannot be replayed. Technical validation and offline ASR do not silently
+advance this fixture to creative approval, full capture, Step 2 lock, Step 3, sharing, or
+publication.
 
 ## Frozen hashes
 
@@ -37,3 +43,15 @@ approval, full capture, Step 2 lock, Step 3, or publication.
 | Zero-authority draft | `8aa1614623204ce13aa9c2cbd9174f6fa27e21cd931ffecb65118fb8592ff0f4` |
 | Owner-selection event record | `850b47a5419424fee37e9bff73a96b9e1da1c31feee13d20013869e4f3092702` |
 | Saved-voice event record | `859b80a525d1d59ad531420f4c4ee496a0e41f6d91f0ee34ba895eb171dc7885` |
+| Calibration-rights receipt | `5c46c6385f81ea8c15bf902957da7ba12ba6bf0313b7af23777dd031bafe5aa6` |
+| Consumed active authorization | `b2bb22edf27860beac5c53b1b759fb0da6f8b970a26fb4905db2bc1ebd651978` |
+| Authorization consumption | `740654672842741bf295b27c1d91b924bb5e9f3b1f1a9caeb5315eb14287c41b` |
+| Provider run receipt | `c8305697c9468e0f3091241ef277dd32680f2a3c7bbdb18a8840173205594968` |
+| Candidate A raw PCM | `d0faf8f9a577af44cb890721d817f9666e33387bd7a5bc99cabb5c963d44ec29` |
+| Candidate B raw PCM | `2f899556dd1fd4c21da0aeb7944d764c987d1c9c56f014bfefd576777cacc244` |
+| Candidate A nominated `.v2.wav` | `e7d01f1c443d6da19b5dbc5561ae2d133544241a81f90fc74345c0bd765e88d9` |
+| Candidate B nominated `.v2.wav` | `8f0d66551035045b99bcd869f28ef71dd5093fe96d22ea1c6473c9bdbebba1ad` |
+| Candidate A v2 conversion receipt | `e9e674d0429bae9ce6aa18c23b2a8cd0e99552f4360dbbba4de51fc886a9eeba` |
+| Candidate B v2 conversion receipt | `8ed92001681fad30c3e802dbf52ac6428de06c88cec4a0f430e61e39dc1c2f52` |
+| Invalid-wrapper disposition | `00b87099604e980fb378252059f0d9f245f19179426348609fe2d9b243c7ca8d` |
+| Technical and lexical QA | `1525cfa862b3a924d53945a6546e8ef7ab674ebb9234004513ba928ab7999888` |

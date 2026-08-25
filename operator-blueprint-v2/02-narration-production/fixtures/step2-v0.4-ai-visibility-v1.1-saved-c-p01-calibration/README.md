@@ -1,6 +1,7 @@
 # Saved-C P01 directed calibration fixture
 
-Status: credential-free dry run only; provider execution is not authorized.
+Status: bounded calibration captured and technically cleared for private owner audition. Creative
+approval, full-episode capture, Step 2 lock, Step 3, sharing, and publication remain unauthorized.
 
 ## Question
 
@@ -30,32 +31,35 @@ authorize publication.
 ## Selection and save evidence
 
 The R2 records establish that the owner selected preview C and that ElevenLabs created a separate
-library voice with ID `scMbPZwQjr40V1MzL3Nj` from that selected preview. They do not establish
-provider-reported voice ownership, original-human source provenance, or permission for this TTS
-calibration. The save receipt itself records the provider ownership field as unreported.
+library voice with ID `scMbPZwQjr40V1MzL3Nj` from that selected preview. The exact calibration
+rights receipt records Manav Thaker as voice owner and consent owner and permits only the bounded
+P01 TTS calibration that has now been consumed. The save receipt's provider ownership field remains
+unreported; owner consent, not a provider metadata inference, is the authority used here.
 
-Exact byte-for-byte copies are stored under this fixture's `receipts/provenance/` directory because
-a future active calibration authorization must bind the selection/save chain by path and SHA-256.
-The current draft intentionally does not bind them:
+Exact byte-for-byte copies are stored under this fixture's `receipts/provenance/` directory. The
+consumed active calibration authorization binds the selection/save chain by path and SHA-256:
 
 - `../step2-v0.4-ai-visibility-v1.1-eleven-remix/receipts/elevenlabs/AUTH-R2-20260825T102051Z-owner-selection-C.json`
 - `../step2-v0.4-ai-visibility-v1.1-eleven-remix/receipts/elevenlabs/AUTH-R2-20260825T102051Z-remix-save.json`
 
-The R2 source-voice rights record is deliberately not treated as TTS permission: it authorizes the
-one private library save, explicitly sets directed TTS to false, and requires separate TTS
-authorization.
+The R2 source-voice rights record was not reused as TTS permission. A new calibration-specific
+rights receipt and a new 24-hour active authorization supplied that authority.
 
-## TTS rights boundary
+## TTS rights and execution boundary
 
-No calibration-rights receipt exists yet. The zero-authority draft omits all provenance and rights
-binding fields rather than using ambiguous `pending` placeholders. Creating a false-valued
-rights-shaped record would risk making a non-decision look durable; the exact receipt and complete
-saved-remix selection/save/rights binding chain should be created only with a separately
-owner-approved active authorization for this request set.
+The owner approved the exact compiled request set, two native-PCM primary calls, the bounded
+capability-only fallback ceiling, and a 24-hour calibration-only window. The active authorization
+was consumed before the first network request. Execution used two calls, 1,684 transport
+characters, and two native PCM outputs; it used no fallback, retry, redirect, Remix, save, or voice
+mutation.
 
-The selection/save records are evidence, not authority. The authorization remains unapproved and
-zero-cap until the owner separately approves the exact compiled requests, calibration-only use,
-nonzero ceilings, and expiration.
+That authority is exhausted. The result permits local QA and private owner audition only. It is not
+reusable for another calibration, a pickup, long-form confirmation, or full-episode capture.
+
+The first local WAV wrappers were malformed because FFmpeg wrote an unseekable pipe header. They
+are retained only as failed evidence and are excluded by an immutable disposition. The raw PCM was
+intact, and the corrected `.v2.wav` pair was produced locally without another provider call. Only
+that pair is eligible for owner review.
 
 ## Files
 
@@ -67,4 +71,12 @@ nonzero ceilings, and expiration.
 - `compiled/provider-bakeoff-dry-run.json` is deterministic request evidence, not authorization.
 - `authorizations/01-elevenlabs-saved-c-p01-calibration.DRAFT.json` records the proposed request
   scope and explicit blockers, but no provenance/rights bindings or execution authority.
-- `RESULTS.md` is the state and eventual owner decision surface.
+- `authorizations/02-elevenlabs-saved-c-p01-calibration.ACTIVE.20260825T145935Z.json` is the exact
+  consumed 24-hour authority; `authorizations/consumed/` proves one-shot consumption.
+- `receipts/elevenlabs/AUTH-SC-P01-ai-visibility-v1.1-calibration-20260825T145935Z-directed-bakeoff-run.json`
+  records the two native-PCM provider results.
+- `receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-invalid-pipe-wav-disposition.json` excludes the
+  two malformed first wrappers and nominates only the corrected `.v2.wav` pair.
+- `reviews/SAVED-C-P01-TECHNICAL-AND-LEXICAL-QA.md` records technical and offline lexical evidence
+  plus the unresolved owner-listen gates.
+- `RESULTS.md` is the current state and eventual owner decision surface.

@@ -1,0 +1,99 @@
+{
+  "schema_version": "oe-local-conversion-disposition-v1",
+  "created_at": "2026-08-25T17:07:37Z",
+  "authorization_id": "AUTH-SC-P01-ai-visibility-v1.1-calibration-20260825T145935Z",
+  "provider_action": {
+    "additional_provider_calls": 0,
+    "additional_provider_characters": 0,
+    "additional_provider_outputs": 0,
+    "retry_performed": false
+  },
+  "capture": {
+    "run_receipt_path": "receipts/elevenlabs/AUTH-SC-P01-ai-visibility-v1.1-calibration-20260825T145935Z-directed-bakeoff-run.json",
+    "run_receipt_sha256": "c8305697c9468e0f3091241ef277dd32680f2a3c7bbdb18a8840173205594968",
+    "authorization_consumption_path": "authorizations/consumed/AUTH-SC-P01-20260825T145935Z.consumed.json",
+    "authorization_consumption_sha256": "740654672842741bf295b27c1d91b924bb5e9f3b1f1a9caeb5315eb14287c41b"
+  },
+  "disposition": "superseded_invalid_container",
+  "reason": "The first local PCM-to-WAV converter wrote through a non-seekable pipe. FFmpeg emitted 0xffffffff RIFF and data sizes, and strict full-file decoding failed at EOF even though the immutable raw PCM remained intact.",
+  "invalid_conversions": [
+    {
+      "request_id": "EL-C-P01-A",
+      "raw_path": "outputs/raw/elevenlabs/P01-S00/candidate-A.pcm",
+      "raw_sha256": "d0faf8f9a577af44cb890721d817f9666e33387bd7a5bc99cabb5c963d44ec29",
+      "wav_path": "outputs/working/elevenlabs/P01-S00/candidate-A.wav",
+      "wav_sha256": "3e3abc6223f5d91277e7ff347d8db2cefafbdf2854671184dda33706dcf527c4",
+      "wav_bytes": 7591782,
+      "conversion_receipt_path": "receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-candidate-A-conversion.json",
+      "conversion_receipt_sha256": "06e4155065d5a1cd53f981fdae44cde68dae8500c606d811fd93edc22997d138",
+      "riff_size_field": 4294967295,
+      "expected_riff_size": 7591774,
+      "data_size_field": 4294967295,
+      "expected_data_size": 7591680,
+      "strict_decode_exit_code": 183,
+      "strict_decode_result": "corrupt input packet; invalid data found when processing input",
+      "eligible_as_working_master": false,
+      "eligible_for_listening_or_scoring": false
+    },
+    {
+      "request_id": "EL-C-P01-B",
+      "raw_path": "outputs/raw/elevenlabs/P01-S00/candidate-B.pcm",
+      "raw_sha256": "2f899556dd1fd4c21da0aeb7944d764c987d1c9c56f014bfefd576777cacc244",
+      "wav_path": "outputs/working/elevenlabs/P01-S00/candidate-B.wav",
+      "wav_sha256": "aaa264a5c76424823187c6e022d58db9422ddf8c45cd49107c4b6713c8ef2248",
+      "wav_bytes": 6958182,
+      "conversion_receipt_path": "receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-candidate-B-conversion.json",
+      "conversion_receipt_sha256": "3ddacf6a3c70cb7e6c6659407c7d208f76b84e186add85218fa777d81f10867f",
+      "riff_size_field": 4294967295,
+      "expected_riff_size": 6958174,
+      "data_size_field": 4294967295,
+      "expected_data_size": 6958080,
+      "strict_decode_exit_code": 183,
+      "strict_decode_result": "corrupt input packet; invalid data found when processing input",
+      "eligible_as_working_master": false,
+      "eligible_for_listening_or_scoring": false
+    }
+  ],
+  "nominated_working_masters": [
+    {
+      "request_id": "EL-C-P01-A",
+      "raw_sha256": "d0faf8f9a577af44cb890721d817f9666e33387bd7a5bc99cabb5c963d44ec29",
+      "wav_path": "outputs/working/elevenlabs/P01-S00/candidate-A.v2.wav",
+      "wav_sha256": "e7d01f1c443d6da19b5dbc5561ae2d133544241a81f90fc74345c0bd765e88d9",
+      "wav_bytes": 7591782,
+      "conversion_receipt_path": "receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-candidate-A-conversion-v2.json",
+      "conversion_receipt_sha256": "e9e674d0429bae9ce6aa18c23b2a8cd0e99552f4360dbbba4de51fc886a9eeba",
+      "strict_decode_exit_code": 0,
+      "format": "pcm_s24le_48000_hz_mono_wav",
+      "eligible_as_working_master": true,
+      "eligible_for_private_owner_review": true
+    },
+    {
+      "request_id": "EL-C-P01-B",
+      "raw_sha256": "2f899556dd1fd4c21da0aeb7944d764c987d1c9c56f014bfefd576777cacc244",
+      "wav_path": "outputs/working/elevenlabs/P01-S00/candidate-B.v2.wav",
+      "wav_sha256": "8f0d66551035045b99bcd869f28ef71dd5093fe96d22ea1c6473c9bdbebba1ad",
+      "wav_bytes": 6958182,
+      "conversion_receipt_path": "receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-candidate-B-conversion-v2.json",
+      "conversion_receipt_sha256": "8ed92001681fad30c3e802dbf52ac6428de06c88cec4a0f430e61e39dc1c2f52",
+      "strict_decode_exit_code": 0,
+      "format": "pcm_s24le_48000_hz_mono_wav",
+      "eligible_as_working_master": true,
+      "eligible_for_private_owner_review": true
+    }
+  ],
+  "preservation": {
+    "invalid_files_deleted": false,
+    "invalid_files_overwritten": false,
+    "invalid_files_retained_as_failed_local_conversion_evidence": true,
+    "raw_pcm_changed": false,
+    "only_v2_nominated_downstream": true
+  },
+  "authority_boundary": {
+    "creative_approved": false,
+    "full_episode_authorized": false,
+    "step2_locked": false,
+    "step3_authorized": false,
+    "sharing_or_publication_authorized": false
+  }
+}
