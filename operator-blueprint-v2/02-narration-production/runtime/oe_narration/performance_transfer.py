@@ -1,0 +1,2385 @@
+"""Offline contract for a directed synthetic guide and one later voice transfer.
+
+This module deliberately contains no network transport and never reads a
+credential.  It freezes the P01 words, compiles the exact Google Cloud TTS
+request, validates a separately authorized guide-generation scope, and keeps
+the ElevenLabs Voice Changer scope blocked until one exact guide has passed
+lexical, technical, creative, ownership, data-use, and voice-rights gates.
+
+The two authorities are intentionally non-fungible: a guide authorization can
+never authorize disclosure to ElevenLabs, and a voice-transfer authorization
+can never generate or select a guide.
+"""
+
+from __future__ import annotations
+
+import io
+import json
+import math
+import os
+import re
+import stat
+import wave
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+from .core import (
+    ValidationError,
+    read_canonical_w,
+    read_json,
+    sha256_bytes,
+    sha256_file,
+    token_identity,
+)
+
+
+PLAN_SCHEMA = "oe-performance-transfer-plan-v1"
+GUIDE_AUTH_SCHEMA = "oe-synthetic-guide-authorization-v1"
+TRANSFER_AUTH_SCHEMA = "oe-voice-transfer-authorization-v1"
+GUIDE_SCOPE = "synthetic_guide_generation"
+TRANSFER_SCOPE = "elevenlabs_voice_transfer"
+
+GUIDE_PROVIDER = "google_cloud_text_to_speech"
+GUIDE_ENDPOINT = "https://us-texttospeech.googleapis.com/v1/text:synthesize"
+GUIDE_MODEL = "gemini-2.5-pro-tts"
+GUIDE_VOICE = "Achird"
+GUIDE_LANGUAGE = "en-US"
+GUIDE_AUDIO_ENCODING = "LINEAR16"
+GUIDE_SAMPLE_RATE_HZ = 24_000
+GUIDE_REQUEST_COUNT = 2
+GUIDE_MAX_CALLS = 2
+GUIDE_MAX_OUTPUTS = 2
+GUIDE_MAX_SPEND_USD = 0.66
+GUIDE_MAX_REQUEST_BODY_BYTES = 1_440
+GUIDE_MAX_TOTAL_REQUEST_BYTES = 2_880
+GUIDE_MAX_OUTPUT_DURATION_SECONDS = 50
+GUIDE_MAX_OUTPUT_WAV_BYTES = 2_500_000
+GUIDE_MAX_TOTAL_AUDIO_BYTES = 5_000_000
+GUIDE_MAX_RESPONSE_BYTES_PER_CALL = 4_000_000
+GUIDE_COMBINED_INPUT_LIMIT_BYTES = 5_000
+GUIDE_COMPONENT_INPUT_LIMIT_BYTES = 4_000
+GUIDE_DESTINATIONS = (
+    "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+    "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+)
+
+MICROTEST_PASSAGE_ID = "P01"
+MICROTEST_START_TOKEN = 30
+MICROTEST_END_TOKEN = 110
+MICROTEST_TOKEN_COUNT = 80
+MICROTEST_TOKEN_SLICE_SHA256 = (
+    "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a"
+)
+MICROTEST_TEXT_SHA256 = (
+    "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"
+)
+MICROTEST_TEXT_CHARACTER_COUNT = 465
+MICROTEST_TEXT = (
+    "Your company is missing from the answer. Or worse, it is there, confidently "
+    "described by someone who apparently met the company in 2022 and never checked "
+    "back. You open the search dashboard. Everything is green. And the dashboard may "
+    "be right. It is just watching a different doorway. That missing view is where "
+    "this business starts. One experienced operator can use AI to map the answers, "
+    "check the sources, and give the buyer a clear call on what deserves action."
+)
+GUIDE_ACTING_PROMPT = (
+    "An experienced operator sits across a table from one smart peer. He is camera-ready, "
+    "personally engaged, and working through a real puzzle, not reading copy. Speak the "
+    "text exactly as written: add, omit, repeat, or paraphrase nothing. Start with the "
+    "consequence. Let \"Or worse\" carry dry, knowing irritation; make \"Everything is "
+    "green\" briefly deadpan; then turn at \"That missing view\" into genuine curiosity "
+    "and practical excitement. Keep forward momentum, with thought-space at each turn. "
+    "Energy eight of ten. Natural American conversation; emphasis follows meaning. Never "
+    "sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. "
+    "Pronounce \"2022\" as \"twenty twenty-two.\" Do not vocalize these directions."
+)
+GUIDE_ACTING_PROMPT_SHA256 = (
+    "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416"
+)
+GUIDE_REQUEST_BODY_SHA256 = (
+    "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53"
+)
+
+TRANSFER_PROVIDER = "elevenlabs"
+TRANSFER_TARGET_VOICE_ID = "scMbPZwQjr40V1MzL3Nj"
+TRANSFER_ENDPOINT_PATH = f"/v1/speech-to-speech/{TRANSFER_TARGET_VOICE_ID}"
+TRANSFER_ENDPOINT = f"https://api.elevenlabs.io{TRANSFER_ENDPOINT_PATH}"
+TRANSFER_MODEL = "eleven_multilingual_sts_v2"
+TRANSFER_SEED = 2_026_082_501
+TRANSFER_PRIMARY_FORMAT = "pcm_48000"
+TRANSFER_FALLBACK_FORMAT = "mp3_44100_192"
+TRANSFER_DESTINATION = "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"
+TRANSFER_MAX_CALLS = 2
+TRANSFER_MAX_OUTPUTS = 1
+TRANSFER_MAX_SOURCE_BYTES = 50_000_000
+TRANSFER_MAX_SOURCE_DURATION_SECONDS = 50
+TRANSFER_MAX_SUBMITTED_SECONDS = 100
+TRANSFER_MAX_SPEND_USD = 0.24
+TRANSFER_VOICE_SETTINGS = {
+    "similarity_boost": 0.80,
+    "speed": 1.0,
+    "stability": 0.40,
+    "style": 0.0,
+    "use_speaker_boost": True,
+}
+ACCOUNT_TRAINING_OPT_OUT_PROTECTION = "account_training_opt_out_processed"
+ENTERPRISE_ZRM_PROTECTION = "enterprise_zrm"
+
+_SHA_RE = re.compile(r"^[0-9a-f]{64}$")
+_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$")
+_SECRET_KEY_RE = re.compile(
+    r"(?:api[_-]?key|authorization[_-]?header|bearer|password|secret|access[_-]?token|refresh[_-]?token|credential[_-]?value|project[_-]?id|account[_-]?id)",
+    re.I,
+)
+_SECRET_VALUE_RE = re.compile(
+    r"(?:AIza[0-9A-Za-z_-]{20,}|ya29\.[0-9A-Za-z._-]+|xi[_-][0-9A-Za-z_-]{12,}|sk[_-][0-9A-Za-z_-]{12,})"
+)
+
+
+def _compact_json_bytes(value: Any) -> bytes:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+
+
+def _json_exact(actual: Any, expected: Any) -> bool:
+    """Compare JSON-like values without Python's bool/int numeric coercion."""
+
+    if type(actual) is not type(expected):
+        return False
+    if isinstance(expected, dict):
+        return set(actual) == set(expected) and all(
+            _json_exact(actual[key], expected[key]) for key in expected
+        )
+    if isinstance(expected, (list, tuple)):
+        return len(actual) == len(expected) and all(
+            _json_exact(left, right)
+            for left, right in zip(actual, expected, strict=True)
+        )
+    return actual == expected
+
+
+def _strict_object(value: Any, allowed: set[str], required: set[str], label: str) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise ValidationError(f"{label} must be an object")
+    unknown = sorted(set(value) - allowed)
+    missing = sorted(required - set(value))
+    errors: list[str] = []
+    if unknown:
+        errors.append(f"{label} contains unsupported keys: {', '.join(unknown)}")
+    if missing:
+        errors.append(f"{label} is missing required keys: {', '.join(missing)}")
+    if errors:
+        raise ValidationError(errors)
+    return value
+
+
+def _require(value: bool, message: str, errors: list[str]) -> None:
+    if not value:
+        errors.append(message)
+
+
+def _is_number(value: Any) -> bool:
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(float(value))
+    )
+
+
+def _scan_for_secrets(value: Any, label: str = "document") -> list[str]:
+    errors: list[str] = []
+
+    def visit(current: Any, path: str) -> None:
+        if isinstance(current, dict):
+            for key, nested in current.items():
+                key_text = str(key)
+                if _SECRET_KEY_RE.search(key_text) and key_text not in {
+                    "quota_project_sha256",
+                    "credential_source",
+                }:
+                    errors.append(f"{path}.{key_text} may disclose protected account or credential material")
+                visit(nested, f"{path}.{key_text}")
+        elif isinstance(current, list):
+            for index, nested in enumerate(current):
+                visit(nested, f"{path}[{index}]")
+        elif isinstance(current, str) and _SECRET_VALUE_RE.search(current):
+            errors.append(f"{path} appears to contain credential material")
+
+    visit(value, label)
+    return errors
+
+
+def _parse_time(value: Any, label: str, errors: list[str]) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        errors.append(f"{label} is required")
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        errors.append(f"{label} must be ISO-8601")
+        return None
+    if parsed.tzinfo is None:
+        errors.append(f"{label} must include a timezone")
+        return None
+    return parsed.astimezone(timezone.utc)
+
+
+def _document_root(document_path: Path) -> Path:
+    """Return the fixture root for a document below it."""
+
+    document_path = Path(document_path).absolute()
+
+    def checked(root: Path) -> Path:
+        try:
+            relative = document_path.relative_to(root)
+        except ValueError as exc:
+            raise ValidationError("document path is not below its fixture root") from exc
+        current = root
+        if current.is_symlink():
+            raise ValidationError("fixture root may not be a symlink")
+        for component in relative.parts:
+            current = current / component
+            if current.is_symlink():
+                raise ValidationError("document path may not traverse a symlink")
+        if not document_path.is_file():
+            raise ValidationError("document path must be an existing regular file")
+        return root.resolve(strict=True)
+
+    for candidate in (document_path.parent, *document_path.parents):
+        if candidate.parent.name == "fixtures":
+            return checked(candidate)
+    # Temporary unit fixtures may not reproduce the complete repository tree.
+    if document_path.parent.name in {"authorizations", "compiled", "reviews"}:
+        return checked(document_path.parent.parent)
+    return checked(document_path.parent)
+
+
+def _safe_relative(
+    root: Path,
+    value: Any,
+    label: str,
+    *,
+    must_exist: bool,
+    suffix: str | None = None,
+) -> Path:
+    if not isinstance(value, str) or not value:
+        raise ValidationError(f"{label} must be a non-empty relative path")
+    relative = Path(value)
+    if relative.is_absolute() or any(part in {"", ".", "..", "~"} for part in relative.parts):
+        raise ValidationError(f"{label} must be a safe relative path")
+    if suffix is not None and relative.suffix.lower() != suffix:
+        raise ValidationError(f"{label} must end in {suffix}")
+    candidate = root / relative
+    resolved_root = root.resolve(strict=True)
+    current = root
+    for component in relative.parts:
+        current = current / component
+        if current.is_symlink():
+            raise ValidationError(f"{label} may not traverse a symlink")
+    try:
+        resolved = candidate.resolve(strict=must_exist)
+    except OSError as exc:
+        raise ValidationError(f"cannot resolve {label}") from exc
+    if not resolved.is_relative_to(resolved_root):
+        raise ValidationError(f"{label} escapes the fixture root")
+    if must_exist and (not candidate.is_file() or candidate.is_symlink()):
+        raise ValidationError(f"{label} must be an existing regular file")
+    return candidate
+
+
+def _canonical_w_binding(plan_path: Path, value: Any, supplied_path: Path) -> dict[str, Any]:
+    """Resolve the one canonical W across sibling fixtures, never outside fixtures/."""
+
+    binding = _strict_object(
+        value,
+        {"path", "sha256", "token_count"},
+        {"path", "sha256", "token_count"},
+        "canonical_w",
+    )
+    raw = binding.get("path")
+    if not isinstance(raw, str) or not raw or Path(raw).is_absolute():
+        raise ValidationError("canonical_w.path must be a non-empty relative path")
+    fixture_root = _document_root(plan_path)
+    fixtures_root = fixture_root.parent
+    current = plan_path.parent
+    for component in Path(raw).parts:
+        current = current / component
+        if current.is_symlink():
+            raise ValidationError("canonical_w.path may not traverse a symlink")
+    try:
+        resolved = (plan_path.parent / raw).resolve(strict=True)
+        supplied = supplied_path.resolve(strict=True)
+        allowed = fixtures_root.resolve(strict=True)
+    except OSError as exc:
+        raise ValidationError("cannot resolve canonical_w.path") from exc
+    if not resolved.is_relative_to(allowed):
+        raise ValidationError("canonical_w.path escapes the narration fixtures root")
+    if resolved != supplied or not resolved.is_file() or resolved.is_symlink():
+        raise ValidationError("canonical_w.path does not bind the supplied canonical W")
+    return binding
+
+
+def _path_hash(
+    root: Path,
+    value: Any,
+    label: str,
+    *,
+    suffix: str | None = None,
+) -> tuple[Path, dict[str, Any]]:
+    binding = _strict_object(value, {"path", "sha256"}, {"path", "sha256"}, label)
+    path = _safe_relative(root, binding["path"], f"{label}.path", must_exist=True, suffix=suffix)
+    if not isinstance(binding["sha256"], str) or not _SHA_RE.fullmatch(binding["sha256"]):
+        raise ValidationError(f"{label}.sha256 must be lowercase SHA-256")
+    if sha256_file(path) != binding["sha256"]:
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    return path, binding
+
+
+def _target(value: Any, label: str = "target") -> dict[str, Any]:
+    target = _strict_object(value, {"kind", "id"}, {"kind", "id"}, label)
+    errors: list[str] = []
+    _require(target.get("kind") in {"fixture", "experiment"}, f"{label}.kind must be fixture or experiment", errors)
+    _require(isinstance(target.get("id"), str) and bool(target["id"]), f"{label}.id is required", errors)
+    if errors:
+        raise ValidationError(errors)
+    return target
+
+
+def _guide_body(text: str) -> dict[str, Any]:
+    return {
+        "advancedVoiceOptions": {"enableTextnorm": False},
+        "audioConfig": {
+            "audioEncoding": GUIDE_AUDIO_ENCODING,
+            "sampleRateHertz": GUIDE_SAMPLE_RATE_HZ,
+        },
+        "input": {"prompt": GUIDE_ACTING_PROMPT, "text": text},
+        "voice": {
+            "languageCode": GUIDE_LANGUAGE,
+            "modelName": GUIDE_MODEL,
+            "name": GUIDE_VOICE,
+        },
+    }
+
+
+def _validate_frozen_guide_body(text: str) -> tuple[dict[str, Any], bytes]:
+    body = _guide_body(text)
+    body_bytes = _compact_json_bytes(body)
+    errors: list[str] = []
+    _require(sha256_bytes(GUIDE_ACTING_PROMPT.encode("utf-8")) == GUIDE_ACTING_PROMPT_SHA256, "frozen guide prompt constant drifted", errors)
+    _require(len(body_bytes) == GUIDE_MAX_REQUEST_BODY_BYTES, "frozen guide request byte count drifted", errors)
+    _require(sha256_bytes(body_bytes) == GUIDE_REQUEST_BODY_SHA256, "frozen guide request body hash drifted", errors)
+    prompt_bytes = len(GUIDE_ACTING_PROMPT.encode("utf-8"))
+    text_bytes = len(text.encode("utf-8"))
+    _require(prompt_bytes <= GUIDE_COMPONENT_INPUT_LIMIT_BYTES, "guide prompt exceeds component input cap", errors)
+    _require(text_bytes <= GUIDE_COMPONENT_INPUT_LIMIT_BYTES, "guide text exceeds component input cap", errors)
+    _require(prompt_bytes + text_bytes <= GUIDE_COMBINED_INPUT_LIMIT_BYTES, "guide prompt plus text exceeds combined input cap", errors)
+    if errors:
+        raise ValidationError(errors)
+    return body, body_bytes
+
+
+def _blueprint_root(path: Path) -> Path:
+    for candidate in (path.parent, *path.parents):
+        if candidate.name == "operator-blueprint-v2":
+            return candidate.resolve(strict=True)
+    raise ValidationError("performance envelope must live below operator-blueprint-v2")
+
+
+def _safe_blueprint_file(
+    document_path: Path,
+    value: Any,
+    expected_sha256: Any,
+    label: str,
+) -> Path:
+    if not isinstance(value, str) or not value or Path(value).is_absolute():
+        raise ValidationError(f"{label}.path must be relative")
+    blueprint = _blueprint_root(document_path)
+    current = document_path.parent
+    for component in Path(value).parts:
+        current = current / component
+        if current.is_symlink():
+            raise ValidationError(f"{label}.path may not traverse a symlink")
+    try:
+        resolved = (document_path.parent / value).resolve(strict=True)
+    except OSError as exc:
+        raise ValidationError(f"cannot resolve {label}.path") from exc
+    if not resolved.is_relative_to(blueprint) or not resolved.is_file() or resolved.is_symlink():
+        raise ValidationError(f"{label}.path must be a regular file below operator-blueprint-v2")
+    if not isinstance(expected_sha256, str) or sha256_file(resolved) != expected_sha256:
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    return resolved
+
+
+def _safe_blueprint_relative_file(
+    document_path: Path,
+    value: Any,
+    expected_sha256: Any,
+    label: str,
+) -> Path:
+    if not isinstance(value, str) or not value or Path(value).is_absolute():
+        raise ValidationError(f"{label}.path must be operator-blueprint-v2-relative")
+    relative = Path(value)
+    if any(part in {"", ".", "..", "~"} for part in relative.parts):
+        raise ValidationError(f"{label}.path contains an unsafe component")
+    blueprint = _blueprint_root(document_path)
+    candidate = blueprint / relative
+    current = blueprint
+    for component in relative.parts:
+        current = current / component
+        if current.is_symlink():
+            raise ValidationError(f"{label}.path may not traverse a symlink")
+    try:
+        resolved = candidate.resolve(strict=True)
+    except OSError as exc:
+        raise ValidationError(f"cannot resolve {label}.path") from exc
+    if not resolved.is_relative_to(blueprint) or not resolved.is_file() or resolved.is_symlink():
+        raise ValidationError(f"{label}.path must be a regular file below operator-blueprint-v2")
+    if not isinstance(expected_sha256, str) or sha256_file(resolved) != expected_sha256:
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    return resolved
+
+
+def _validate_partition_map(
+    values: Any,
+    label: str,
+    expected: list[tuple[int, int, str]],
+) -> None:
+    if not isinstance(values, list) or len(values) != len(expected):
+        raise ValidationError(f"{label} must contain the exact frozen partition count")
+    errors: list[str] = []
+    for index, (value, frozen) in enumerate(zip(values, expected, strict=True)):
+        try:
+            item = _strict_object(
+                value,
+                {"id", "start_token", "end_token", "spoken_text_sha256"},
+                {"id", "start_token", "end_token", "spoken_text_sha256"},
+                f"{label}[{index}]",
+            )
+        except ValidationError as exc:
+            errors.extend(exc.errors)
+            continue
+        start, end, digest = frozen
+        _require(isinstance(item.get("id"), str) and bool(item["id"]), f"{label}[{index}].id is required", errors)
+        _require(
+            _json_exact(
+                (item.get("start_token"), item.get("end_token"), item.get("spoken_text_sha256")),
+                (start, end, digest),
+            ),
+            f"{label}[{index}] does not match frozen W[{start},{end})",
+            errors,
+        )
+    if errors:
+        raise ValidationError(errors)
+
+
+def _validate_performance_envelope(
+    envelope_path: Path,
+    canonical_w_path: Path,
+    tokens: list[str],
+    target: dict[str, Any],
+) -> None:
+    envelope = read_json(envelope_path)
+    _strict_object(
+        envelope,
+        {
+            "schema_version", "envelope_id", "status", "target", "episode_number",
+            "public_fact_clearance", "step3_authorized", "script", "canonical_w",
+            "performance", "passages",
+        },
+        {
+            "schema_version", "envelope_id", "status", "target", "episode_number",
+            "public_fact_clearance", "step3_authorized", "script", "canonical_w",
+            "performance", "passages",
+        },
+        "performance envelope",
+    )
+    errors = _scan_for_secrets(envelope, "performance_envelope")
+    _require(envelope.get("schema_version") == "oe-performance-envelope-v1", "performance envelope schema drifted", errors)
+    _require(envelope.get("status") == "dry_run_frozen", "performance envelope must be dry_run_frozen", errors)
+    _require(envelope.get("target") == target, "performance envelope target mismatch", errors)
+    _require(envelope.get("episode_number") is None, "microtest envelope must not assign an episode number", errors)
+    _require(envelope.get("public_fact_clearance") is False, "public fact clearance must remain false", errors)
+    _require(envelope.get("step3_authorized") is False, "Step 3 must remain unauthorized", errors)
+    script = _strict_object(envelope.get("script"), {"path", "sha256"}, {"path", "sha256"}, "performance envelope script")
+    try:
+        _safe_blueprint_file(envelope_path, script.get("path"), script.get("sha256"), "performance envelope script")
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    canonical = _strict_object(
+        envelope.get("canonical_w"),
+        {"path", "schema_version", "tokenization", "serialization", "token_count", "sha256"},
+        {"path", "schema_version", "tokenization", "serialization", "token_count", "sha256"},
+        "performance envelope canonical_w",
+    )
+    expected_canonical = {
+        "schema_version": "oe-spoken-text-v1",
+        "tokenization": "python-str-split-whitespace",
+        "serialization": "utf8-one-token-per-lf-with-terminal-lf",
+        "token_count": len(tokens),
+        "sha256": sha256_file(canonical_w_path),
+    }
+    for key, expected in expected_canonical.items():
+        _require(_json_exact(canonical.get(key), expected), f"performance envelope canonical_w.{key} mismatch", errors)
+    try:
+        raw_w_path = canonical.get("path")
+        if not isinstance(raw_w_path, str) or not raw_w_path or Path(raw_w_path).is_absolute():
+            raise ValidationError("performance envelope canonical_w.path must be relative")
+        current_w_path = envelope_path.parent
+        for component in Path(raw_w_path).parts:
+            current_w_path = current_w_path / component
+            if current_w_path.is_symlink():
+                raise ValidationError("performance envelope canonical_w.path may not traverse a symlink")
+        resolved_w = (envelope_path.parent / raw_w_path).resolve(strict=True)
+        _require(resolved_w == canonical_w_path.resolve(strict=True), "performance envelope canonical_w.path mismatch", errors)
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    except OSError:
+        errors.append("cannot resolve performance envelope canonical_w.path")
+
+    performance = _strict_object(
+        envelope.get("performance"),
+        {"listener", "relationship", "identity_target", "energy_arc", "must_preserve", "must_avoid", "states"},
+        {"listener", "relationship", "identity_target", "energy_arc", "must_preserve", "must_avoid", "states"},
+        "performance envelope performance",
+    )
+    for key in ("listener", "relationship", "identity_target", "energy_arc"):
+        _require(isinstance(performance.get(key), str) and bool(performance[key]), f"performance.{key} is required", errors)
+    for key in ("must_preserve", "must_avoid"):
+        value = performance.get(key)
+        _require(isinstance(value, list) and bool(value) and all(isinstance(item, str) and item for item in value), f"performance.{key} must be non-empty strings", errors)
+    states = performance.get("states")
+    if not isinstance(states, list) or len(states) != 4:
+        errors.append("performance.states must contain the four frozen acting states")
+    else:
+        state_ids: list[Any] = []
+        for index, state in enumerate(states):
+            try:
+                state = _strict_object(state, {"id", "sound"}, {"id", "sound"}, f"performance.states[{index}]")
+                state_ids.append(state.get("id"))
+                _require(isinstance(state.get("sound"), str) and bool(state["sound"]), f"performance.states[{index}].sound is required", errors)
+            except ValidationError as exc:
+                errors.extend(exc.errors)
+        _require(_json_exact(state_ids, ["consequence", "dry_recognition", "diagnostic_reset", "possibility"]), "performance state order drifted", errors)
+
+    passages = envelope.get("passages")
+    if not isinstance(passages, list) or len(passages) != 1:
+        errors.append("performance envelope must contain exactly one P01 microtest passage")
+        if errors:
+            raise ValidationError(errors)
+        return
+    passage = _strict_object(
+        passages[0],
+        {
+            "id", "source_blocks", "start_token", "end_token", "token_count", "spoken_text_sha256",
+            "transport_text", "performance_function", "objective", "state_arc", "energy",
+            "required_anchors", "anti_targets", "paragraph_boundaries", "thought_boundaries",
+        },
+        {
+            "id", "source_blocks", "start_token", "end_token", "token_count", "spoken_text_sha256",
+            "transport_text", "performance_function", "objective", "state_arc", "energy",
+            "required_anchors", "anti_targets", "paragraph_boundaries", "thought_boundaries",
+        },
+        "performance envelope passage",
+    )
+    _require(passage.get("id") == "P01-W0030-W0110", "performance envelope passage ID drifted", errors)
+    _require(_json_exact(passage.get("source_blocks"), ["S00"]), "performance envelope source block drifted", errors)
+    _require(_json_exact((passage.get("start_token"), passage.get("end_token"), passage.get("token_count")), (30, 110, 80)), "performance envelope passage range drifted", errors)
+    _require(passage.get("spoken_text_sha256") == MICROTEST_TOKEN_SLICE_SHA256, "performance envelope passage token hash drifted", errors)
+    for key in ("performance_function", "objective"):
+        _require(isinstance(passage.get(key), str) and bool(passage[key]), f"passage.{key} is required", errors)
+    _require(_json_exact(passage.get("state_arc"), ["consequence", "dry_recognition", "diagnostic_reset", "possibility"]), "passage state arc drifted", errors)
+    anti_targets = passage.get("anti_targets")
+    _require(isinstance(anti_targets, list) and bool(anti_targets) and all(isinstance(item, str) and item for item in anti_targets), "passage anti-targets are required", errors)
+    energy = _strict_object(
+        passage.get("energy"),
+        {"scale", "start", "peak", "finish", "instruction"},
+        {"scale", "start", "peak", "finish", "instruction"},
+        "passage.energy",
+    )
+    _require(_json_exact((energy.get("scale"), energy.get("start"), energy.get("peak"), energy.get("finish")), ("0_to_10", 8, 8, 8)), "passage energy binding drifted", errors)
+    _require(isinstance(energy.get("instruction"), str) and bool(energy["instruction"]), "passage energy instruction is required", errors)
+
+    transport = _strict_object(
+        passage.get("transport_text"),
+        {"path", "serialization", "character_count", "sha256"},
+        {"path", "serialization", "character_count", "sha256"},
+        "passage.transport_text",
+    )
+    _require(transport.get("serialization") == "utf8-whitespace-normalized-single-space-no-terminal-lf", "transport serialization drifted", errors)
+    _require(transport.get("character_count") == 465 and transport.get("sha256") == MICROTEST_TEXT_SHA256, "transport text binding drifted", errors)
+    try:
+        transport_path = _safe_relative(_document_root(envelope_path), transport.get("path"), "transport_text.path", must_exist=True, suffix=".txt")
+        transport_bytes = transport_path.read_bytes()
+        _require(transport_bytes == MICROTEST_TEXT.encode("utf-8"), "transport text bytes drifted", errors)
+    except (ValidationError, OSError) as exc:
+        errors.extend(exc.errors if isinstance(exc, ValidationError) else ["cannot read transport text"])
+
+    anchors = passage.get("required_anchors")
+    expected_anchors = [(30, "landing"), (37, "emphasis"), (57, "transition"), (65, "landing"), (78, "transition")]
+    if not isinstance(anchors, list) or len(anchors) != len(expected_anchors):
+        errors.append("passage anchors must equal the frozen 30/37/57/65/78 map")
+    else:
+        for index, (anchor, expected) in enumerate(zip(anchors, expected_anchors, strict=True)):
+            try:
+                anchor = _strict_object(anchor, {"at_token", "kind", "instruction"}, {"at_token", "kind", "instruction"}, f"required_anchors[{index}]")
+                _require(_json_exact((anchor.get("at_token"), anchor.get("kind")), expected), f"required_anchors[{index}] drifted", errors)
+                _require(isinstance(anchor.get("instruction"), str) and bool(anchor["instruction"]), f"required_anchors[{index}].instruction is required", errors)
+            except ValidationError as exc:
+                errors.extend(exc.errors)
+
+    try:
+        _validate_partition_map(
+            passage.get("paragraph_boundaries"),
+            "paragraph_boundaries",
+            [
+                (30, 37, "ed9fca4fe6b739dec4e383e8e3d39d0ee2abd41e9680e857ce2b9d8583e0f5e9"),
+                (37, 57, "4b6d93aee26659cb693486ba3c7585fb7f6cd7d1c828737f2d487a60c76f9d14"),
+                (57, 65, "39109a971904a8361aaefcd63ee7d36ca5b496c3268f0a1dab188e5a2930fa2c"),
+                (65, 78, "60993213b04479fe5e8965c3d5089124285e67ba842bb60eae9f903c56fc0e41"),
+                (78, 110, "38844419a0bf1b8014636678a01f8d83570aa68e88f5e9746ed1c85663280439"),
+            ],
+        )
+        _validate_partition_map(
+            passage.get("thought_boundaries"),
+            "thought_boundaries",
+            [
+                (30, 57, "2cdd9b822f348c88d23990cc5647829fe31bdd2f2566c52dfc131004fdbad19c"),
+                (57, 78, "15beee36c709f70955779f944bb32fbff61aad44a20b392fee26aba7ddf2b575"),
+                (78, 110, "38844419a0bf1b8014636678a01f8d83570aa68e88f5e9746ed1c85663280439"),
+            ],
+        )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    if errors:
+        raise ValidationError(errors)
+
+
+def _validate_provider_adapters(
+    root: Path,
+    value: Any,
+) -> dict[str, dict[str, str]]:
+    bindings = _strict_object(
+        value,
+        {"google", "elevenlabs_voice_changer"},
+        {"google", "elevenlabs_voice_changer"},
+        "provider_adapters",
+    )
+    google_path, google_binding = _path_hash(
+        root,
+        bindings["google"],
+        "provider_adapters.google",
+        suffix=".json",
+    )
+    eleven_path, eleven_binding = _path_hash(
+        root,
+        bindings["elevenlabs_voice_changer"],
+        "provider_adapters.elevenlabs_voice_changer",
+        suffix=".json",
+    )
+    google = read_json(google_path)
+    expected_google = {
+        "record_type": "credential_free_provider_adapter",
+        "status": "dry_run_only",
+        "provider": GUIDE_PROVIDER,
+        "endpoint": GUIDE_ENDPOINT,
+        "method": "POST",
+        "model_id": GUIDE_MODEL,
+        "voice": {"name": GUIDE_VOICE, "language_code": GUIDE_LANGUAGE},
+        "dialogue": {
+            "canonical_range": "W[30,110)",
+            "token_count": MICROTEST_TOKEN_COUNT,
+            "path": "../passages/P01-W0030-W0110.locked.txt",
+            "sha256": MICROTEST_TEXT_SHA256,
+        },
+        "acting_prompt": {
+            "utf8_bytes": len(GUIDE_ACTING_PROMPT.encode("utf-8")),
+            "sha256": GUIDE_ACTING_PROMPT_SHA256,
+            "location": "request_body.input.prompt",
+        },
+        "request": {
+            "canonical_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+            "body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+            "body_sha256": GUIDE_REQUEST_BODY_SHA256,
+            "count": GUIDE_REQUEST_COUNT,
+            "identical_unseeded_stochastic": True,
+            "retry": False,
+            "redirect": False,
+            "fallback": None,
+        },
+        "output": {
+            "audio_encoding": GUIDE_AUDIO_ENCODING,
+            "container": "wav",
+            "sample_rate_hz": GUIDE_SAMPLE_RATE_HZ,
+            "channels": 1,
+            "preserve_original_bytes_for_qa_selection_and_transfer": True,
+            "listening_derivative_transfer_eligible": False,
+        },
+        "credentials_accessed": False,
+        "network_called": False,
+        "audio_generated": False,
+    }
+    if not _json_exact(google, expected_google):
+        raise ValidationError("Google provider adapter semantics drifted")
+    dialogue_path = (google_path.parent / google["dialogue"]["path"]).resolve(strict=True)
+    expected_dialogue = (root / "passages" / "P01-W0030-W0110.locked.txt").resolve(strict=True)
+    if (
+        dialogue_path != expected_dialogue
+        or dialogue_path.is_symlink()
+        or sha256_file(dialogue_path) != MICROTEST_TEXT_SHA256
+        or dialogue_path.read_bytes() != MICROTEST_TEXT.encode("utf-8")
+    ):
+        raise ValidationError("Google provider adapter dialogue binding mismatch")
+
+    eleven = read_json(eleven_path)
+    expected_eleven = {
+        "record_type": "blocked_future_provider_adapter",
+        "status": "blocked_pending_exact_selected_guide_chain",
+        "provider": TRANSFER_PROVIDER,
+        "endpoint": TRANSFER_ENDPOINT,
+        "method": "POST",
+        "target_voice_id": TRANSFER_TARGET_VOICE_ID,
+        "model_id": TRANSFER_MODEL,
+        "seed": TRANSFER_SEED,
+        "query_policy": {
+            "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+            "output_format": TRANSFER_PRIMARY_FORMAT,
+        },
+        "multipart_fields": {
+            "audio": "__EXACT_SELECTED_ORIGINAL_PROVIDER_WAV_PENDING__",
+            "file_format": "other",
+            "model_id": TRANSFER_MODEL,
+            "remove_background_noise": False,
+            "seed": TRANSFER_SEED,
+            "voice_settings": TRANSFER_VOICE_SETTINGS,
+        },
+        "source_guide": {
+            "path": None,
+            "sha256": None,
+            "byte_count": None,
+            "duration_seconds": None,
+            "required_container": "wav",
+            "required_codec": "pcm_s16le",
+            "required_sample_rate_hz": GUIDE_SAMPLE_RATE_HZ,
+            "required_channels": 1,
+            "must_be_original_provider_bytes": True,
+        },
+        "conditional_fallback": {
+            "output_format": TRANSFER_FALLBACK_FORMAT,
+            "enabled": False,
+            "requires": "documented_unambiguous_pcm_capability_rejection_before_any_audio_is_accepted",
+            "forbidden_for_timeout_disconnect_dns_tls_authentication_408_429_5xx_malformed_or_ambiguous_outcome": True,
+            "comparison_eligible": False,
+        },
+        "blockers": [
+            "exact selected original-provider guide absent",
+            "guide lexical technical and performance QA absent",
+            "owner guide selection absent",
+            "ElevenLabs no-training or ZRM evidence absent",
+            "cross-provider guide disclosure and target-voice rights absent",
+            "separate active AUTH-V1 absent",
+        ],
+        "request_compiled": False,
+        "network_authorized": False,
+        "network_called": False,
+        "audio_generated": False,
+    }
+    if not _json_exact(eleven, expected_eleven):
+        raise ValidationError("ElevenLabs Voice Changer adapter semantics drifted")
+    return {
+        "google": {
+            "path": str(google_path),
+            "sha256": google_binding["sha256"],
+        },
+        "elevenlabs_voice_changer": {
+            "path": str(eleven_path),
+            "sha256": eleven_binding["sha256"],
+        },
+    }
+
+
+def validate_performance_transfer_plan(plan_path: Path, canonical_w_path: Path) -> dict[str, Any]:
+    """Validate and compile the frozen, credential-free two-stage plan."""
+
+    plan_path = Path(plan_path).absolute()
+    canonical_w_path = Path(canonical_w_path).absolute()
+    root = _document_root(plan_path)
+    plan = read_json(plan_path)
+    _strict_object(
+        plan,
+        {
+            "schema_version", "plan_id", "status", "target", "canonical_w",
+            "microtest", "performance_envelope", "provider_adapters", "guide", "voice_transfer", "authority",
+        },
+        {
+            "schema_version", "plan_id", "status", "target", "canonical_w",
+            "microtest", "performance_envelope", "provider_adapters", "guide", "voice_transfer", "authority",
+        },
+        "performance-transfer plan",
+    )
+    errors = _scan_for_secrets(plan, "plan")
+    _require(plan.get("schema_version") == PLAN_SCHEMA, f"schema_version must be {PLAN_SCHEMA}", errors)
+    _require(isinstance(plan.get("plan_id"), str) and bool(plan["plan_id"]), "plan_id is required", errors)
+    _require(plan.get("status") == "dry_run_only", "plan.status must be dry_run_only", errors)
+    target = _target(plan.get("target"))
+
+    try:
+        canonical = _canonical_w_binding(plan_path, plan.get("canonical_w"), canonical_w_path)
+        same_file = True
+    except ValidationError as exc:
+        errors.extend(exc.errors if isinstance(exc, ValidationError) else ["cannot resolve canonical W"])
+        canonical = {}
+        same_file = False
+    _require(same_file, "canonical_w.path does not bind the supplied canonical W", errors)
+    tokens = read_canonical_w(canonical_w_path)
+    actual_w_sha = sha256_file(canonical_w_path)
+    _require(canonical.get("sha256") == actual_w_sha, "canonical_w.sha256 mismatch", errors)
+    _require(canonical.get("token_count") == len(tokens), "canonical_w.token_count mismatch", errors)
+    if len(tokens) < MICROTEST_END_TOKEN:
+        errors.append("canonical W is too short for frozen P01 range")
+        passage_tokens: list[str] = []
+    else:
+        passage_tokens = tokens[MICROTEST_START_TOKEN:MICROTEST_END_TOKEN]
+    spoken_text = " ".join(passage_tokens)
+    _require(spoken_text == MICROTEST_TEXT, "frozen P01 spoken text drifted", errors)
+    if passage_tokens:
+        _require(token_identity(passage_tokens)["sha256"] == MICROTEST_TOKEN_SLICE_SHA256, "frozen P01 token hash drifted", errors)
+    _require(sha256_bytes(spoken_text.encode("utf-8")) == MICROTEST_TEXT_SHA256, "frozen P01 transport hash drifted", errors)
+
+    micro = _strict_object(
+        plan.get("microtest"),
+        {"passage_id", "start_token", "end_token", "token_count", "token_slice_sha256", "spoken_text_sha256", "spoken_text_character_count"},
+        {"passage_id", "start_token", "end_token", "token_count", "token_slice_sha256", "spoken_text_sha256", "spoken_text_character_count"},
+        "microtest",
+    )
+    frozen_micro = {
+        "passage_id": MICROTEST_PASSAGE_ID,
+        "start_token": MICROTEST_START_TOKEN,
+        "end_token": MICROTEST_END_TOKEN,
+        "token_count": MICROTEST_TOKEN_COUNT,
+        "token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+        "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+        "spoken_text_character_count": MICROTEST_TEXT_CHARACTER_COUNT,
+    }
+    _require(_json_exact(micro, frozen_micro), "microtest must equal the frozen P01 binding", errors)
+
+    try:
+        envelope_path, envelope_binding = _path_hash(root, plan.get("performance_envelope"), "performance_envelope", suffix=".json")
+        _validate_performance_envelope(
+            envelope_path,
+            canonical_w_path,
+            tokens,
+            target,
+        )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+        envelope_path = root / "missing"
+        envelope_binding = {}
+
+    try:
+        provider_adapters = _validate_provider_adapters(
+            root,
+            plan.get("provider_adapters"),
+        )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+        provider_adapters = {}
+
+    guide = _strict_object(
+        plan.get("guide"),
+        {
+            "provider", "endpoint", "method", "model_id", "voice_name", "language_code",
+            "acting_prompt", "acting_prompt_sha256", "request_body_sha256", "request_body_bytes",
+            "request_count", "identical_unseeded_requests", "input_limits", "format", "destinations",
+        },
+        {
+            "provider", "endpoint", "method", "model_id", "voice_name", "language_code",
+            "acting_prompt", "acting_prompt_sha256", "request_body_sha256", "request_body_bytes",
+            "request_count", "identical_unseeded_requests", "input_limits", "format", "destinations",
+        },
+        "guide",
+    )
+    expected_guide_scalars = {
+        "provider": GUIDE_PROVIDER, "endpoint": GUIDE_ENDPOINT, "method": "POST",
+        "model_id": GUIDE_MODEL, "voice_name": GUIDE_VOICE, "language_code": GUIDE_LANGUAGE,
+        "acting_prompt": GUIDE_ACTING_PROMPT, "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+        "request_body_sha256": GUIDE_REQUEST_BODY_SHA256, "request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+        "request_count": GUIDE_REQUEST_COUNT, "identical_unseeded_requests": True,
+    }
+    for key, expected in expected_guide_scalars.items():
+        _require(_json_exact(guide.get(key), expected), f"guide.{key} must equal the frozen value", errors)
+    input_limits = _strict_object(
+        guide.get("input_limits"), {"combined_utf8_bytes", "prompt_utf8_bytes", "text_utf8_bytes"}, {"combined_utf8_bytes", "prompt_utf8_bytes", "text_utf8_bytes"}, "guide.input_limits"
+    )
+    _require(_json_exact(input_limits, {"combined_utf8_bytes": 5000, "prompt_utf8_bytes": 4000, "text_utf8_bytes": 4000}), "guide.input_limits drifted", errors)
+    guide_format = _strict_object(
+        guide.get("format"), {"audio_encoding", "sample_rate_hz", "container", "channels"}, {"audio_encoding", "sample_rate_hz", "container", "channels"}, "guide.format"
+    )
+    _require(_json_exact(guide_format, {"audio_encoding": "LINEAR16", "sample_rate_hz": 24000, "container": "wav", "channels": 1}), "guide.format drifted", errors)
+    destinations = guide.get("destinations")
+    if destinations != list(GUIDE_DESTINATIONS):
+        errors.append("guide.destinations must equal the frozen candidate-A/B paths")
+        destinations = []
+    else:
+        for index, destination in enumerate(destinations):
+            try:
+                path = _safe_relative(root, destination, f"guide.destinations[{index}]", must_exist=False, suffix=".wav")
+                _require(path.relative_to(root).parts[0] == "outputs", f"guide.destinations[{index}] must remain under outputs/", errors)
+                _require(not path.is_symlink(), f"guide.destinations[{index}] may not be a symlink", errors)
+            except (ValidationError, ValueError) as exc:
+                errors.extend(exc.errors if isinstance(exc, ValidationError) else [f"guide.destinations[{index}] is unsafe"])
+
+    transfer = _strict_object(
+        plan.get("voice_transfer"),
+        {
+            "provider", "status", "endpoint", "method", "target_voice_id", "model_id", "seed",
+            "query_policy", "voice_settings", "remove_background_noise", "file_format",
+            "preferred_output_format", "conditional_fallback_output_format", "source_limits", "destination",
+        },
+        {
+            "provider", "status", "endpoint", "method", "target_voice_id", "model_id", "seed",
+            "query_policy", "voice_settings", "remove_background_noise", "file_format",
+            "preferred_output_format", "conditional_fallback_output_format", "source_limits", "destination",
+        },
+        "voice_transfer",
+    )
+    expected_transfer = {
+        "provider": TRANSFER_PROVIDER,
+        "status": "blocked_pending_selected_guide",
+        "endpoint": TRANSFER_ENDPOINT,
+        "method": "POST",
+        "target_voice_id": TRANSFER_TARGET_VOICE_ID,
+        "model_id": TRANSFER_MODEL,
+        "seed": TRANSFER_SEED,
+        "query_policy": {
+            "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+            "output_format": TRANSFER_PRIMARY_FORMAT,
+        },
+        "voice_settings": TRANSFER_VOICE_SETTINGS,
+        "remove_background_noise": False,
+        "file_format": "other",
+        "preferred_output_format": TRANSFER_PRIMARY_FORMAT,
+        "conditional_fallback_output_format": TRANSFER_FALLBACK_FORMAT,
+        "source_limits": {"max_bytes": TRANSFER_MAX_SOURCE_BYTES, "max_duration_seconds": 300},
+    }
+    for key, expected in expected_transfer.items():
+        _require(_json_exact(transfer.get(key), expected), f"voice_transfer.{key} must equal the frozen value", errors)
+    try:
+        transfer_destination = _safe_relative(root, transfer.get("destination"), "voice_transfer.destination", must_exist=False, suffix=".pcm")
+        _require(transfer.get("destination") == TRANSFER_DESTINATION, "voice_transfer.destination must equal the frozen path", errors)
+        _require(transfer_destination.relative_to(root).parts[0] == "outputs", "voice_transfer.destination must remain under outputs/", errors)
+        _require(not transfer_destination.is_symlink(), "voice_transfer.destination may not be a symlink", errors)
+    except (ValidationError, ValueError) as exc:
+        errors.extend(exc.errors if isinstance(exc, ValidationError) else ["voice_transfer.destination is unsafe"])
+
+    authority = _strict_object(
+        plan.get("authority"),
+        {
+            "guide_authorization_required", "voice_transfer_authorization_required", "joint_authorization_forbidden",
+            "guide_must_be_selected_and_pass_qa", "external_action_authorized", "credentials_may_be_accessed",
+            "audio_may_be_generated", "full_capture_authorized", "step3_authorized", "publication_authorized",
+        },
+        {
+            "guide_authorization_required", "voice_transfer_authorization_required", "joint_authorization_forbidden",
+            "guide_must_be_selected_and_pass_qa", "external_action_authorized", "credentials_may_be_accessed",
+            "audio_may_be_generated", "full_capture_authorized", "step3_authorized", "publication_authorized",
+        },
+        "authority",
+    )
+    expected_authority = {
+        "guide_authorization_required": True,
+        "voice_transfer_authorization_required": True,
+        "joint_authorization_forbidden": True,
+        "guide_must_be_selected_and_pass_qa": True,
+        "external_action_authorized": False,
+        "credentials_may_be_accessed": False,
+        "audio_may_be_generated": False,
+        "full_capture_authorized": False,
+        "step3_authorized": False,
+        "publication_authorized": False,
+    }
+    _require(_json_exact(authority, expected_authority), "authority must remain credential-free and non-authorizing", errors)
+    if errors:
+        raise ValidationError(errors)
+
+    body, body_bytes = _validate_frozen_guide_body(spoken_text)
+    compiled_requests = []
+    for index, destination in enumerate(destinations, start=1):
+        compiled_requests.append(
+            {
+                "request_id": f"gemini-guide-{index:02d}",
+                "generation_index": index - 1,
+                "provider": GUIDE_PROVIDER,
+                "method": "POST",
+                "endpoint": GUIDE_ENDPOINT,
+                "required_header_names": ["Authorization", "Content-Type", "X-Goog-User-Project"],
+                "request_body": body,
+                "request_body_bytes": len(body_bytes),
+                "request_body_sha256": sha256_bytes(body_bytes),
+                "destination": destination,
+            }
+        )
+    request_set_sha256 = sha256_bytes(_compact_json_bytes(compiled_requests))
+    return {
+        "schema_version": "oe-performance-transfer-dry-run-v1",
+        "valid": True,
+        "plan_sha256": sha256_file(plan_path),
+        "target": target,
+        "canonical_w_sha256": actual_w_sha,
+        "performance_envelope": {"path": str(envelope_path), "sha256": envelope_binding["sha256"]},
+        "provider_adapters": provider_adapters,
+        "microtest": frozen_micro,
+        "guide": {
+            "requests": compiled_requests,
+            "request_set_sha256": request_set_sha256,
+            "maximum": {
+                "calls": GUIDE_MAX_CALLS,
+                "outputs": GUIDE_MAX_OUTPUTS,
+                "output_duration_seconds": GUIDE_MAX_OUTPUT_DURATION_SECONDS,
+                "output_wav_bytes": GUIDE_MAX_OUTPUT_WAV_BYTES,
+                "total_audio_bytes": GUIDE_MAX_TOTAL_AUDIO_BYTES,
+                "response_bytes_per_call": GUIDE_MAX_RESPONSE_BYTES_PER_CALL,
+                "total_request_bytes": GUIDE_MAX_TOTAL_REQUEST_BYTES,
+                "modeled_spend_usd": GUIDE_MAX_SPEND_USD,
+            },
+            "fallback": None,
+            "stochastic_unseeded": True,
+        },
+        "voice_transfer": {
+            "status": "blocked_pending_exact_selected_guide_chain",
+            "blockers": [
+                "one generated guide has not been selected by the owner",
+                "the exact selected guide has not passed lexical, technical, and performance QA",
+                "ElevenLabs no-training/account handling has not been verified for the exact upload",
+                "a separate exact voice-transfer authorization does not exist",
+            ],
+            "request_compiled": False,
+            "network_authorized": False,
+        },
+        "network_called": False,
+        "credentials_accessed": False,
+        "audio_files_created": 0,
+        "creative_approved": False,
+        "full_capture_authorized": False,
+        "step3_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def dry_run_synthetic_guide(plan_path: Path, canonical_w_path: Path) -> dict[str, Any]:
+    """Compile the two frozen guide requests without validating execution authority."""
+
+    result = validate_performance_transfer_plan(plan_path, canonical_w_path)
+    return {
+        "schema_version": "oe-synthetic-guide-dry-run-v1",
+        "valid": True,
+        "plan_sha256": result["plan_sha256"],
+        "canonical_w_sha256": result["canonical_w_sha256"],
+        "microtest": result["microtest"],
+        "requests": result["guide"]["requests"],
+        "request_set_sha256": result["guide"]["request_set_sha256"],
+        "maximum": result["guide"]["maximum"],
+        "fallback": None,
+        "provider_action_authorized": False,
+        "network_authorized": False,
+        "execution_transport_available": False,
+        "network_called": False,
+        "credentials_accessed": False,
+        "audio_files_created": 0,
+    }
+
+
+def _validate_common_authorization(
+    authorization: dict[str, Any],
+    *,
+    authorization_path: Path,
+    schema: str,
+    scope: str,
+    target: dict[str, Any],
+) -> tuple[str, list[str]]:
+    errors = _scan_for_secrets(authorization, "authorization")
+    _require(authorization.get("schema_version") == schema, f"schema_version must be {schema}", errors)
+    auth_id = authorization.get("authorization_id")
+    _require(isinstance(auth_id, str) and bool(_ID_RE.fullmatch(auth_id)), "authorization_id is invalid", errors)
+    _require(authorization.get("scope") == scope, f"scope must be {scope}", errors)
+    try:
+        _require(_target(authorization.get("target")) == target, "authorization target does not match plan", errors)
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    status = authorization.get("status")
+    _require(status in {"draft", "active"}, "status must be draft or active", errors)
+    approved = authorization.get("approved")
+    execution_ready = authorization.get("execution_ready")
+    blockers = authorization.get("blockers")
+    _require(isinstance(blockers, list) and all(isinstance(item, str) and item for item in blockers), "blockers must be an array of non-empty strings", errors)
+    consumption = authorization.get("consumption")
+    if not isinstance(consumption, dict):
+        errors.append("consumption must be an object")
+    else:
+        _strict_object(consumption, {"status", "calls_used", "outputs_received", "spend_used_usd", "record_path"}, {"status", "calls_used", "outputs_received", "spend_used_usd", "record_path"}, "consumption")
+        _require(type(consumption.get("calls_used")) is int and consumption["calls_used"] == 0, "consumption.calls_used must be integer zero", errors)
+        _require(type(consumption.get("outputs_received")) is int and consumption["outputs_received"] == 0, "consumption.outputs_received must be integer zero", errors)
+        _require(type(consumption.get("spend_used_usd")) in {int, float} and consumption["spend_used_usd"] == 0, "consumption.spend_used_usd must be numeric zero", errors)
+        _require(isinstance(consumption.get("record_path"), str) and bool(consumption["record_path"]), "consumption.record_path is required", errors)
+        if isinstance(consumption.get("record_path"), str) and consumption["record_path"]:
+            try:
+                fixture_root = _document_root(authorization_path)
+                consumption_path = _safe_relative(
+                    fixture_root,
+                    consumption["record_path"],
+                    "consumption.record_path",
+                    must_exist=False,
+                    suffix=".json",
+                )
+                relative = consumption_path.relative_to(fixture_root)
+                _require(
+                    len(relative.parts) == 3
+                    and relative.parts[:2] == ("authorizations", "consumed"),
+                    "consumption.record_path must be authorizations/consumed/*.json",
+                    errors,
+                )
+                _require(
+                    not consumption_path.exists(),
+                    "unconsumed authorization may not have an existing consumption record",
+                    errors,
+                )
+                if status == "active" and isinstance(auth_id, str):
+                    _require(
+                        relative.name == f"{auth_id}.consumed.json",
+                        "active consumption record filename must match authorization_id",
+                        errors,
+                    )
+            except (ValidationError, ValueError) as exc:
+                errors.extend(
+                    exc.errors
+                    if isinstance(exc, ValidationError)
+                    else ["consumption.record_path is unsafe"]
+                )
+    if status == "draft":
+        _require(approved is False, "draft authorization must not be approved", errors)
+        _require(execution_ready is False, "draft authorization must not be execution-ready", errors)
+        _require(isinstance(blockers, list) and len(blockers) > 0, "draft authorization requires blockers", errors)
+        if isinstance(consumption, dict):
+            _require(consumption.get("status") == "not_authorized", "draft consumption must be not_authorized", errors)
+    elif status == "active":
+        _require(approved is True, "active authorization must be approved", errors)
+        _require(execution_ready is True, "active authorization must be execution-ready", errors)
+        _require(blockers == [], "active authorization must have no blockers", errors)
+        if isinstance(consumption, dict):
+            _require(consumption.get("status") == "unconsumed", "active consumption must be unconsumed", errors)
+        approved_at = _parse_time(authorization.get("approved_at"), "approved_at", errors)
+        expires_at = _parse_time(authorization.get("expires_at"), "expires_at", errors)
+        now = datetime.now(timezone.utc)
+        if approved_at and expires_at:
+            _require(approved_at <= now < expires_at, "active authorization is not within its validity window", errors)
+            _require((expires_at - approved_at).total_seconds() <= 86_400, "authorization window may not exceed 24 hours", errors)
+        _require(isinstance(authorization.get("approved_by"), str) and bool(authorization["approved_by"]), "approved_by is required for active authorization", errors)
+    if errors:
+        raise ValidationError(errors)
+    return str(status), []
+
+
+def validate_synthetic_guide_authorization(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+) -> dict[str, Any]:
+    """Validate one exact guide-only authority without reading credentials."""
+
+    authorization_path = Path(authorization_path).absolute()
+    plan_path = Path(plan_path).absolute()
+    authorization_root = _document_root(authorization_path)
+    plan_root = _document_root(plan_path)
+    if authorization_root != plan_root:
+        raise ValidationError("guide authorization must live in the exact plan fixture root")
+    authorization = read_json(authorization_path)
+    _strict_object(
+        authorization,
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        "synthetic-guide authorization",
+    )
+    dry = dry_run_synthetic_guide(plan_path, canonical_w_path)
+    plan = read_json(Path(plan_path))
+    status, _ = _validate_common_authorization(
+        authorization,
+        authorization_path=authorization_path,
+        schema=GUIDE_AUTH_SCHEMA,
+        scope=GUIDE_SCOPE,
+        target=plan["target"],
+    )
+    errors: list[str] = []
+    bindings = _strict_object(
+        authorization.get("bindings"),
+        {
+            "performance_transfer_plan_sha256", "canonical_w_sha256", "microtest_token_slice_sha256",
+            "spoken_text_sha256", "acting_prompt_sha256", "request_body_sha256", "request_set_sha256",
+        },
+        {
+            "performance_transfer_plan_sha256", "canonical_w_sha256", "microtest_token_slice_sha256",
+            "spoken_text_sha256", "acting_prompt_sha256", "request_body_sha256", "request_set_sha256",
+        },
+        "bindings",
+    )
+    expected_bindings = {
+        "performance_transfer_plan_sha256": dry["plan_sha256"],
+        "canonical_w_sha256": dry["canonical_w_sha256"],
+        "microtest_token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+        "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+        "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+        "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+        "request_set_sha256": dry["request_set_sha256"],
+    }
+    _require(_json_exact(bindings, expected_bindings), "guide authorization bindings do not match compiled requests", errors)
+    action = _strict_object(
+        authorization.get("action"),
+        {
+            "provider", "endpoint", "method", "model_id", "voice_name", "language_code", "request_count",
+            "identical_unseeded_requests", "output_encoding", "sample_rate_hz", "no_retry", "no_redirect",
+            "no_fallback", "disclosure",
+        },
+        {
+            "provider", "endpoint", "method", "model_id", "voice_name", "language_code", "request_count",
+            "identical_unseeded_requests", "output_encoding", "sample_rate_hz", "no_retry", "no_redirect",
+            "no_fallback", "disclosure",
+        },
+        "action",
+    )
+    expected_action = {
+        "provider": GUIDE_PROVIDER, "endpoint": GUIDE_ENDPOINT, "method": "POST", "model_id": GUIDE_MODEL,
+        "voice_name": GUIDE_VOICE, "language_code": GUIDE_LANGUAGE, "request_count": 2,
+        "identical_unseeded_requests": True, "output_encoding": "LINEAR16", "sample_rate_hz": 24000,
+        "no_retry": True, "no_redirect": True, "no_fallback": True,
+        "disclosure": "exact_locked_words_and_nonlexical_acting_prompt_to_google_cloud_tts",
+    }
+    _require(_json_exact(action, expected_action), "guide authorization action drifted", errors)
+    billing = _strict_object(
+        authorization.get("billing_project_binding"),
+        {"required", "raw_identifier_stored", "quota_project_sha256", "credential_source"},
+        {"required", "raw_identifier_stored", "quota_project_sha256", "credential_source"},
+        "billing_project_binding",
+    )
+    _require(billing.get("required") is True, "billing project binding is required", errors)
+    _require(billing.get("raw_identifier_stored") is False, "raw billing project identifier must not be stored", errors)
+    _require(billing.get("credential_source") == "local_untracked_google_adc", "credential_source must be local_untracked_google_adc", errors)
+    if status == "active":
+        _require(isinstance(billing.get("quota_project_sha256"), str) and bool(_SHA_RE.fullmatch(billing["quota_project_sha256"])), "active guide authorization requires a hashed quota project binding", errors)
+    else:
+        _require(billing.get("quota_project_sha256") == "pending", "draft quota project binding must be pending", errors)
+    limits = _strict_object(
+        authorization.get("authorized_limits"),
+        {
+            "max_calls", "max_outputs", "max_request_body_bytes", "max_total_request_bytes",
+            "max_output_duration_seconds", "max_output_wav_bytes", "max_total_audio_bytes",
+            "max_response_bytes_per_call", "max_spend_usd",
+        },
+        {
+            "max_calls", "max_outputs", "max_request_body_bytes", "max_total_request_bytes",
+            "max_output_duration_seconds", "max_output_wav_bytes", "max_total_audio_bytes",
+            "max_response_bytes_per_call", "max_spend_usd",
+        },
+        "authorized_limits",
+    )
+    expected_limits = (
+        {
+            "max_calls": 2,
+            "max_outputs": 2,
+            "max_request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+            "max_total_request_bytes": GUIDE_MAX_TOTAL_REQUEST_BYTES,
+            "max_output_duration_seconds": GUIDE_MAX_OUTPUT_DURATION_SECONDS,
+            "max_output_wav_bytes": GUIDE_MAX_OUTPUT_WAV_BYTES,
+            "max_total_audio_bytes": GUIDE_MAX_TOTAL_AUDIO_BYTES,
+            "max_response_bytes_per_call": GUIDE_MAX_RESPONSE_BYTES_PER_CALL,
+            "max_spend_usd": GUIDE_MAX_SPEND_USD,
+        }
+        if status == "active"
+        else {
+            "max_calls": 0,
+            "max_outputs": 0,
+            "max_request_body_bytes": 0,
+            "max_total_request_bytes": 0,
+            "max_output_duration_seconds": 0,
+            "max_output_wav_bytes": 0,
+            "max_total_audio_bytes": 0,
+            "max_response_bytes_per_call": 0,
+            "max_spend_usd": 0,
+        }
+    )
+    _require(_json_exact(limits, expected_limits), "guide authorized limits do not match authorization status", errors)
+    if errors:
+        raise ValidationError(errors)
+    return {
+        **dry,
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": sha256_file(authorization_path),
+        "authorization_status": status,
+        "provider_action_authorized": status == "active",
+        "network_authorized": False,
+        "execution_transport_available": False,
+        "quota_project_runtime_check_required": status == "active",
+        "credentials_accessed": False,
+        "network_called": False,
+    }
+
+
+def _read_bound_wav(
+    path: Path,
+    expected_bytes: int,
+    expected_sha256: str,
+    expected_duration: float,
+) -> tuple[bytes, dict[str, Any]]:
+    """Read one immutable descriptor and validate the exact original guide bytes."""
+
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    try:
+        descriptor = os.open(path, flags)
+    except OSError as exc:
+        raise ValidationError("cannot safely open selected guide") from exc
+    try:
+        before = os.fstat(descriptor)
+        if not stat.S_ISREG(before.st_mode):
+            raise ValidationError("selected guide must be a regular file")
+        if before.st_size != expected_bytes or before.st_size > GUIDE_MAX_OUTPUT_WAV_BYTES:
+            raise ValidationError("selected guide byte count mismatch")
+        with os.fdopen(descriptor, "rb", closefd=False) as handle:
+            data = handle.read(GUIDE_MAX_OUTPUT_WAV_BYTES + 1)
+        after = os.fstat(descriptor)
+        if (
+            before.st_dev,
+            before.st_ino,
+            before.st_size,
+            before.st_mtime_ns,
+        ) != (
+            after.st_dev,
+            after.st_ino,
+            after.st_size,
+            after.st_mtime_ns,
+        ):
+            raise ValidationError("selected guide changed while it was being read")
+    finally:
+        os.close(descriptor)
+    if len(data) != expected_bytes or sha256_bytes(data) != expected_sha256:
+        raise ValidationError("selected guide content binding mismatch")
+    try:
+        with wave.open(io.BytesIO(data), "rb") as handle:
+            channels = handle.getnchannels()
+            sample_width = handle.getsampwidth()
+            sample_rate = handle.getframerate()
+            frames = handle.getnframes()
+            compression = handle.getcomptype()
+            decoded_payload = handle.readframes(frames)
+            trailing_audio = handle.readframes(1)
+    except (OSError, EOFError, wave.Error) as exc:
+        raise ValidationError("selected guide is not a readable WAV") from exc
+    duration = frames / sample_rate if sample_rate else 0.0
+    errors: list[str] = []
+    _require(channels == 1, "selected guide must be mono", errors)
+    _require(sample_width == 2, "selected guide must be 16-bit PCM", errors)
+    _require(sample_rate == GUIDE_SAMPLE_RATE_HZ, "selected guide must be 24 kHz", errors)
+    _require(compression == "NONE", "selected guide must be uncompressed PCM", errors)
+    _require(frames > 0, "selected guide must contain PCM frames", errors)
+    _require(
+        len(decoded_payload) == frames * channels * sample_width,
+        "selected guide PCM payload is truncated or inconsistent with its WAV header",
+        errors,
+    )
+    _require(trailing_audio == b"", "selected guide contains undeclared trailing PCM frames", errors)
+    _require(20.0 <= duration <= 50.0, "selected guide duration must be between 20 and 50 seconds", errors)
+    _require(abs(duration - expected_duration) <= 0.001, "selected guide duration binding mismatch", errors)
+    if errors:
+        raise ValidationError(errors)
+    return data, {"container": "wav", "codec": "pcm_s16le", "sample_rate_hz": sample_rate, "channels": channels, "duration_seconds": duration}
+
+
+def _verified_prerequisite(
+    root: Path,
+    value: Any,
+    label: str,
+    *,
+    expected_schema: str,
+) -> tuple[Path, dict[str, Any]]:
+    item = _strict_object(value, {"state", "path", "sha256"}, {"state", "path", "sha256"}, label)
+    if item.get("state") != "verified":
+        raise ValidationError(f"{label}.state must be verified")
+    path = _safe_relative(root, item.get("path"), f"{label}.path", must_exist=True, suffix=".json")
+    if not isinstance(item.get("sha256"), str) or not _SHA_RE.fullmatch(item["sha256"]) or sha256_file(path) != item["sha256"]:
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    document = read_json(path)
+    if document.get("schema_version") != expected_schema:
+        raise ValidationError(f"{label} has the wrong schema")
+    return path, document
+
+
+def _compile_multipart(
+    selected_audio: bytes,
+    selected_sha: str,
+    output_format: str,
+    *,
+    enable_logging: bool,
+) -> dict[str, Any]:
+    """Compile an exact deterministic multipart body for review, never transport it."""
+
+    boundary = f"oe-v05-{selected_sha[:32]}"
+    delimiter = b"\r\n--" + boundary.encode("ascii")
+    if delimiter in selected_audio or (b"--" + boundary.encode("ascii")) in selected_audio:
+        raise ValidationError("selected guide collides with the deterministic multipart boundary")
+    fields = [
+        ("model_id", TRANSFER_MODEL),
+        ("voice_settings", json.dumps(TRANSFER_VOICE_SETTINGS, sort_keys=True, separators=(",", ":"))),
+        ("seed", str(TRANSFER_SEED)),
+        ("remove_background_noise", "false"),
+        ("file_format", "other"),
+    ]
+    chunks: list[bytes] = []
+    for name, value in fields:
+        chunks.extend(
+            [
+                f"--{boundary}\r\n".encode(),
+                f'Content-Disposition: form-data; name="{name}"\r\n\r\n'.encode(),
+                value.encode("utf-8"),
+                b"\r\n",
+            ]
+        )
+    chunks.extend(
+        [
+            f"--{boundary}\r\n".encode(),
+            b'Content-Disposition: form-data; name="audio"; filename="selected-guide.wav"\r\n',
+            b"Content-Type: audio/wav\r\n\r\n",
+            selected_audio,
+            b"\r\n",
+            f"--{boundary}--\r\n".encode(),
+        ]
+    )
+    body = b"".join(chunks)
+    query = {
+        "enable_logging": "true" if enable_logging else "false",
+        "output_format": output_format,
+    }
+    return {
+        "method": "POST",
+        "endpoint": TRANSFER_ENDPOINT,
+        "query": query,
+        "content_type": f"multipart/form-data; boundary={boundary}",
+        "multipart_body_bytes": len(body),
+        "multipart_body_sha256": sha256_bytes(body),
+        "source_audio_sha256": selected_sha,
+        "fields": {
+            "model_id": TRANSFER_MODEL,
+            "voice_settings": TRANSFER_VOICE_SETTINGS,
+            "seed": TRANSFER_SEED,
+            "remove_background_noise": False,
+            "file_format": "other",
+        },
+    }
+
+
+def _validate_consumed_guide_authority(
+    root: Path,
+    run_receipt: dict[str, Any],
+    plan_dry: dict[str, Any],
+    target: dict[str, Any],
+    active_owner: str,
+    errors: list[str],
+) -> tuple[datetime | None, datetime | None, datetime | None]:
+    """Bind a guide run to one exact G1 authority consumed before its first call."""
+
+    guide_auth_path = _safe_relative(
+        root,
+        run_receipt.get("guide_authorization_path"),
+        "guide run authorization path",
+        must_exist=True,
+        suffix=".json",
+    )
+    _require(
+        guide_auth_path.relative_to(root).parts[0] == "authorizations",
+        "guide authorization must remain under authorizations/",
+        errors,
+    )
+    _require(
+        run_receipt.get("guide_authorization_sha256")
+        == sha256_file(guide_auth_path),
+        "guide authorization SHA-256 mismatch",
+        errors,
+    )
+    guide_auth = read_json(guide_auth_path)
+    _strict_object(
+        guide_auth,
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        "consumed guide authorization",
+    )
+    errors.extend(_scan_for_secrets(guide_auth, "consumed_guide_authorization"))
+    _require(guide_auth.get("schema_version") == GUIDE_AUTH_SCHEMA, "consumed guide authorization schema mismatch", errors)
+    _require(guide_auth.get("authorization_id") == run_receipt.get("authorization_id"), "guide run authorization ID mismatch", errors)
+    _require(guide_auth.get("status") == "active" and guide_auth.get("approved") is True, "guide authorization was not active and approved", errors)
+    _require(guide_auth.get("scope") == GUIDE_SCOPE, "guide authorization scope mismatch", errors)
+    _require(guide_auth.get("target") == target, "guide authorization target mismatch", errors)
+    _require(guide_auth.get("approved_by") == active_owner, "guide and transfer authorizers must match", errors)
+    _require(guide_auth.get("execution_ready") is True and guide_auth.get("blockers") == [], "guide authorization was not execution-ready", errors)
+    expected_bindings = {
+        "performance_transfer_plan_sha256": plan_dry["plan_sha256"],
+        "canonical_w_sha256": plan_dry["canonical_w_sha256"],
+        "microtest_token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+        "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+        "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+        "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+        "request_set_sha256": plan_dry["guide"]["request_set_sha256"],
+    }
+    _require(_json_exact(guide_auth.get("bindings"), expected_bindings), "consumed guide authorization bindings mismatch", errors)
+    expected_action = {
+        "provider": GUIDE_PROVIDER, "endpoint": GUIDE_ENDPOINT, "method": "POST", "model_id": GUIDE_MODEL,
+        "voice_name": GUIDE_VOICE, "language_code": GUIDE_LANGUAGE, "request_count": 2,
+        "identical_unseeded_requests": True, "output_encoding": "LINEAR16", "sample_rate_hz": 24000,
+        "no_retry": True, "no_redirect": True, "no_fallback": True,
+        "disclosure": "exact_locked_words_and_nonlexical_acting_prompt_to_google_cloud_tts",
+    }
+    _require(_json_exact(guide_auth.get("action"), expected_action), "consumed guide authorization action mismatch", errors)
+    billing = guide_auth.get("billing_project_binding")
+    _require(
+        isinstance(billing, dict)
+        and set(billing) == {"required", "raw_identifier_stored", "quota_project_sha256", "credential_source"}
+        and billing.get("required") is True
+        and billing.get("raw_identifier_stored") is False
+        and isinstance(billing.get("quota_project_sha256"), str)
+        and bool(_SHA_RE.fullmatch(billing["quota_project_sha256"]))
+        and billing.get("credential_source") == "local_untracked_google_adc",
+        "consumed guide authorization billing-project binding is invalid",
+        errors,
+    )
+    reserved_limits = {
+        "max_calls": 2,
+        "max_outputs": 2,
+        "max_request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+        "max_total_request_bytes": GUIDE_MAX_TOTAL_REQUEST_BYTES,
+        "max_output_duration_seconds": GUIDE_MAX_OUTPUT_DURATION_SECONDS,
+        "max_output_wav_bytes": GUIDE_MAX_OUTPUT_WAV_BYTES,
+        "max_total_audio_bytes": GUIDE_MAX_TOTAL_AUDIO_BYTES,
+        "max_response_bytes_per_call": GUIDE_MAX_RESPONSE_BYTES_PER_CALL,
+        "max_spend_usd": GUIDE_MAX_SPEND_USD,
+    }
+    _require(_json_exact(guide_auth.get("authorized_limits"), reserved_limits), "consumed guide authorization limits mismatch", errors)
+    guide_approved_at = _parse_time(guide_auth.get("approved_at"), "guide authorization approved_at", errors)
+    guide_expires_at = _parse_time(guide_auth.get("expires_at"), "guide authorization expires_at", errors)
+    if guide_approved_at and guide_expires_at:
+        _require((guide_expires_at - guide_approved_at).total_seconds() <= 86_400, "guide authorization window exceeded 24 hours", errors)
+
+    guide_consumption_path = _safe_relative(
+        root,
+        run_receipt.get("guide_consumption_record_path"),
+        "guide consumption record path",
+        must_exist=True,
+        suffix=".json",
+    )
+    relative_consumption = guide_consumption_path.relative_to(root)
+    _require(
+        len(relative_consumption.parts) == 3
+        and relative_consumption.parts[:2] == ("authorizations", "consumed")
+        and relative_consumption.name
+        == f"{guide_auth.get('authorization_id')}.consumed.json",
+        "guide consumption record path is not authorization-ID-bound",
+        errors,
+    )
+    _require(
+        run_receipt.get("guide_consumption_record_sha256")
+        == sha256_file(guide_consumption_path),
+        "guide consumption record SHA-256 mismatch",
+        errors,
+    )
+    guide_consumption = read_json(guide_consumption_path)
+    _strict_object(
+        guide_consumption,
+        {
+            "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
+            "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
+            "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
+            "credentials_recorded",
+        },
+        {
+            "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
+            "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
+            "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
+            "credentials_recorded",
+        },
+        "guide consumption record",
+    )
+    _require(guide_consumption.get("schema_version") == "oe-provider-authorization-consumption-v1", "guide consumption record schema mismatch", errors)
+    _require(guide_consumption.get("authorization_id") == guide_auth.get("authorization_id"), "guide consumption authorization ID mismatch", errors)
+    _require(guide_consumption.get("authorization_sha256") == sha256_file(guide_auth_path), "guide consumption authorization hash mismatch", errors)
+    _require(guide_consumption.get("scope") == GUIDE_SCOPE and guide_consumption.get("provider") == GUIDE_PROVIDER, "guide consumption scope/provider mismatch", errors)
+    _require(guide_consumption.get("status") == "consumed_before_network", "guide authorization was not consumed before network", errors)
+    _require(guide_consumption.get("consumed_before_network") is True and guide_consumption.get("network_called_at_consumption") is False, "guide consumption ordering assertion is invalid", errors)
+    _require(guide_consumption.get("performance_transfer_plan_sha256") == plan_dry["plan_sha256"], "guide consumption plan mismatch", errors)
+    _require(guide_consumption.get("request_set_sha256") == plan_dry["guide"]["request_set_sha256"], "guide consumption request set mismatch", errors)
+    _require(_json_exact(guide_consumption.get("reserved_limits"), reserved_limits), "guide consumption reserved limits mismatch", errors)
+    _require(guide_consumption.get("credentials_recorded") is False, "guide consumption record may not contain credentials", errors)
+    guide_consumed_at = _parse_time(guide_consumption.get("consumed_at"), "guide authorization consumed_at", errors)
+    auth_consumption = guide_auth.get("consumption")
+    _require(
+        isinstance(auth_consumption, dict)
+        and set(auth_consumption)
+        == {"status", "calls_used", "outputs_received", "spend_used_usd", "record_path"}
+        and auth_consumption.get("status") == "unconsumed"
+        and type(auth_consumption.get("calls_used")) is int
+        and auth_consumption.get("calls_used") == 0
+        and type(auth_consumption.get("outputs_received")) is int
+        and auth_consumption.get("outputs_received") == 0
+        and type(auth_consumption.get("spend_used_usd")) in {int, float}
+        and auth_consumption.get("spend_used_usd") == 0
+        and auth_consumption.get("record_path")
+        == relative_consumption.as_posix(),
+        "guide authorization does not bind its exact consumption record path",
+        errors,
+    )
+    if guide_approved_at and guide_consumed_at and guide_expires_at:
+        _require(guide_approved_at <= guide_consumed_at < guide_expires_at, "guide authorization was consumed outside its active window", errors)
+    return guide_consumed_at, guide_approved_at, guide_expires_at
+
+
+def dry_run_voice_transfer(
+    plan_path: Path,
+    canonical_w_path: Path,
+    authorization_path: Path | None = None,
+) -> dict[str, Any]:
+    """Return a blocked manifest, or compile one exact authorized transfer request."""
+
+    plan_dry = validate_performance_transfer_plan(plan_path, canonical_w_path)
+    if authorization_path is None:
+        return {
+            "schema_version": "oe-elevenlabs-voice-transfer-dry-run-v1",
+            "valid": True,
+            "status": "blocked_pending_exact_selected_guide_chain",
+            "plan_sha256": plan_dry["plan_sha256"],
+            "blockers": plan_dry["voice_transfer"]["blockers"],
+            "request_compiled": False,
+            "provider_action_authorized": False,
+            "network_authorized": False,
+            "execution_transport_available": False,
+            "network_called": False,
+            "credentials_accessed": False,
+            "audio_files_created": 0,
+        }
+    return validate_voice_transfer_authorization(authorization_path, plan_path, canonical_w_path)
+
+
+def validate_voice_transfer_authorization(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+) -> dict[str, Any]:
+    """Validate the exact selected-guide chain and compile one Voice Changer POST."""
+
+    authorization_path = Path(authorization_path).absolute()
+    plan_path = Path(plan_path).absolute()
+    authorization_root = _document_root(authorization_path)
+    plan_root = _document_root(plan_path)
+    if authorization_root != plan_root:
+        raise ValidationError("voice-transfer authorization must live in the exact plan fixture root")
+    authorization = read_json(authorization_path)
+    _strict_object(
+        authorization,
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "prerequisites", "action", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "prerequisites", "action", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        "voice-transfer authorization",
+    )
+    plan_dry = validate_performance_transfer_plan(plan_path, canonical_w_path)
+    plan = read_json(Path(plan_path))
+    status, _ = _validate_common_authorization(
+        authorization,
+        authorization_path=authorization_path,
+        schema=TRANSFER_AUTH_SCHEMA,
+        scope=TRANSFER_SCOPE,
+        target=plan["target"],
+    )
+    bindings = _strict_object(
+        authorization.get("bindings"),
+        {
+            "performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256",
+            "selected_guide_sha256", "primary_request_sha256", "primary_multipart_body_sha256",
+            "primary_multipart_body_bytes", "conditional_fallback_request_sha256",
+            "conditional_fallback_multipart_body_sha256", "conditional_fallback_multipart_body_bytes",
+            "enable_logging",
+        },
+        {"performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256"},
+        "bindings",
+    )
+    errors: list[str] = []
+    for key, expected in {
+        "performance_transfer_plan_sha256": plan_dry["plan_sha256"],
+        "canonical_w_sha256": plan_dry["canonical_w_sha256"],
+        "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+    }.items():
+        _require(_json_exact(bindings.get(key), expected), f"voice-transfer bindings.{key} mismatch", errors)
+    if status == "draft":
+        _require(
+            set(bindings)
+            == {"performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256"},
+            "draft voice-transfer bindings may not pre-authorize an unknown multipart body",
+            errors,
+        )
+    action = _strict_object(
+        authorization.get("action"),
+        {
+            "provider", "endpoint", "method", "target_voice_id", "model_id", "seed", "query_policy",
+            "voice_settings", "remove_background_noise", "file_format", "primary_output_format",
+            "conditional_fallback_output_format", "fallback_requires_documented_pcm_capability_rejection",
+            "no_retry", "no_redirect", "disclosure",
+        },
+        {
+            "provider", "endpoint", "method", "target_voice_id", "model_id", "seed", "query_policy",
+            "voice_settings", "remove_background_noise", "file_format", "primary_output_format",
+            "conditional_fallback_output_format", "fallback_requires_documented_pcm_capability_rejection",
+            "no_retry", "no_redirect", "disclosure",
+        },
+        "action",
+    )
+    expected_action = {
+        "provider": "elevenlabs", "endpoint": TRANSFER_ENDPOINT, "method": "POST",
+        "target_voice_id": TRANSFER_TARGET_VOICE_ID, "model_id": TRANSFER_MODEL, "seed": TRANSFER_SEED,
+        "query_policy": {
+            "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+            "output_format": TRANSFER_PRIMARY_FORMAT,
+        },
+        "voice_settings": TRANSFER_VOICE_SETTINGS, "remove_background_noise": False, "file_format": "other",
+        "primary_output_format": TRANSFER_PRIMARY_FORMAT,
+        "conditional_fallback_output_format": TRANSFER_FALLBACK_FORMAT,
+        "fallback_requires_documented_pcm_capability_rejection": True,
+        "no_retry": True, "no_redirect": True,
+        "disclosure": "one_exact_owner_selected_google_guide_to_elevenlabs_voice_changer",
+    }
+    _require(_json_exact(action, expected_action), "voice-transfer action drifted", errors)
+    limits = _strict_object(
+        authorization.get("authorized_limits"),
+        {"max_calls", "max_outputs", "max_source_bytes", "max_source_duration_seconds", "max_submitted_seconds", "max_spend_usd"},
+        {"max_calls", "max_outputs", "max_source_bytes", "max_source_duration_seconds", "max_submitted_seconds", "max_spend_usd"},
+        "authorized_limits",
+    )
+    expected_limits = (
+        {
+            "max_calls": TRANSFER_MAX_CALLS,
+            "max_outputs": TRANSFER_MAX_OUTPUTS,
+            "max_source_bytes": TRANSFER_MAX_SOURCE_BYTES,
+            "max_source_duration_seconds": TRANSFER_MAX_SOURCE_DURATION_SECONDS,
+            "max_submitted_seconds": TRANSFER_MAX_SUBMITTED_SECONDS,
+            "max_spend_usd": TRANSFER_MAX_SPEND_USD,
+        }
+        if status == "active"
+        else {"max_calls": 0, "max_outputs": 0, "max_source_bytes": 0, "max_source_duration_seconds": 0, "max_submitted_seconds": 0, "max_spend_usd": 0}
+    )
+    _require(_json_exact(limits, expected_limits), "voice-transfer authorized limits do not match authorization status", errors)
+    prerequisites = _strict_object(
+        authorization.get("prerequisites"),
+        {"selected_guide", "guide_qa", "owner_selection", "elevenlabs_data_use", "target_voice_rights"},
+        {"selected_guide", "guide_qa", "owner_selection", "elevenlabs_data_use", "target_voice_rights"},
+        "prerequisites",
+    )
+    if status == "draft":
+        for name, value in prerequisites.items():
+            if not isinstance(value, dict) or value != {"state": "pending"}:
+                errors.append(f"draft prerequisites.{name} must be exactly pending")
+        if errors:
+            raise ValidationError(errors)
+        return {
+            "schema_version": "oe-elevenlabs-voice-transfer-dry-run-v1",
+            "valid": True,
+            "status": "blocked_pending_exact_selected_guide_chain",
+            "authorization_id": authorization["authorization_id"],
+            "authorization_sha256": sha256_file(authorization_path),
+            "plan_sha256": plan_dry["plan_sha256"],
+            "blockers": authorization["blockers"],
+            "request_compiled": False,
+            "provider_action_authorized": False,
+            "network_authorized": False,
+            "execution_transport_available": False,
+            "network_called": False,
+            "credentials_accessed": False,
+            "audio_files_created": 0,
+        }
+    if errors:
+        raise ValidationError(errors)
+
+    root = _document_root(authorization_path)
+    active_approved_at = _parse_time(
+        authorization.get("approved_at"),
+        "active voice-transfer approved_at",
+        errors,
+    )
+    selected = _strict_object(
+        prerequisites.get("selected_guide"),
+        {
+            "state", "path", "sha256", "byte_count", "duration_seconds", "container", "codec",
+            "sample_rate_hz", "channels", "guide_request_id", "guide_run_receipt_path", "guide_run_receipt_sha256",
+        },
+        {
+            "state", "path", "sha256", "byte_count", "duration_seconds", "container", "codec",
+            "sample_rate_hz", "channels", "guide_request_id", "guide_run_receipt_path", "guide_run_receipt_sha256",
+        },
+        "prerequisites.selected_guide",
+    )
+    _require(selected.get("state") == "verified", "selected guide must be verified", errors)
+    selected_path = _safe_relative(root, selected.get("path"), "selected guide path", must_exist=True, suffix=".wav")
+    _require(
+        selected_path.relative_to(root).parts[:3] == ("outputs", "raw", "google"),
+        "selected guide must be the original Google provider WAV under outputs/raw/google/",
+        errors,
+    )
+    selected_sha = selected.get("sha256")
+    _require(isinstance(selected_sha, str) and bool(_SHA_RE.fullmatch(selected_sha)), "selected guide SHA-256 is invalid", errors)
+    _require(type(selected.get("byte_count")) is int and 0 < selected["byte_count"] <= TRANSFER_MAX_SOURCE_BYTES, "selected guide byte count is invalid", errors)
+    _require(_is_number(selected.get("duration_seconds")) and 20.0 <= float(selected["duration_seconds"]) <= 50.0, "selected guide duration declaration must be between 20 and 50 seconds", errors)
+    _require(selected.get("container") == "wav" and selected.get("codec") == "pcm_s16le", "selected guide format declaration is invalid", errors)
+    _require(_json_exact((selected.get("sample_rate_hz"), selected.get("channels")), (24000, 1)), "selected guide geometry declaration is invalid", errors)
+    _require(selected.get("guide_request_id") in {"gemini-guide-01", "gemini-guide-02"}, "selected guide request ID is not in the compiled set", errors)
+    compiled_guide_destinations = {
+        request["request_id"]: request["destination"]
+        for request in plan_dry["guide"]["requests"]
+    }
+    selected_relative = selected_path.relative_to(root).as_posix()
+    _require(
+        compiled_guide_destinations.get(selected.get("guide_request_id"))
+        == selected_relative,
+        "selected guide path does not equal its compiled request destination",
+        errors,
+    )
+    selected_audio = b""
+    if not errors:
+        selected_audio, _selected_geometry = _read_bound_wav(
+            selected_path,
+            selected["byte_count"],
+            selected_sha,
+            float(selected["duration_seconds"]),
+        )
+
+    run_binding = {"state": "verified", "path": selected.get("guide_run_receipt_path"), "sha256": selected.get("guide_run_receipt_sha256")}
+    _run_path, run_receipt = _verified_prerequisite(root, run_binding, "selected guide run receipt", expected_schema="oe-synthetic-guide-run-receipt-v1")
+    _strict_object(
+        run_receipt,
+        {
+            "schema_version", "provider", "outcome", "authorization_id", "request_set_sha256",
+            "request_body_sha256", "provider_calls_made", "provider_spend_usd",
+            "authorization_consumed", "outputs",
+            "guide_authorization_path", "guide_authorization_sha256",
+            "guide_consumption_record_path", "guide_consumption_record_sha256",
+            "started_at", "completed_at", "full_capture_authorized", "step3_authorized",
+        },
+        {
+            "schema_version", "provider", "outcome", "authorization_id", "request_set_sha256",
+            "request_body_sha256", "provider_calls_made", "provider_spend_usd",
+            "authorization_consumed", "outputs",
+            "guide_authorization_path", "guide_authorization_sha256",
+            "guide_consumption_record_path", "guide_consumption_record_sha256",
+            "started_at", "completed_at", "full_capture_authorized", "step3_authorized",
+        },
+        "selected guide run receipt",
+    )
+    _require(run_receipt.get("provider") == GUIDE_PROVIDER and run_receipt.get("outcome") == "success", "guide run receipt must record successful Google generation", errors)
+    _require(run_receipt.get("request_set_sha256") == plan_dry["guide"]["request_set_sha256"], "guide run receipt request set mismatch", errors)
+    _require(run_receipt.get("request_body_sha256") == GUIDE_REQUEST_BODY_SHA256, "guide run receipt body mismatch", errors)
+    _require(type(run_receipt.get("provider_calls_made")) is int and run_receipt["provider_calls_made"] == 2, "guide run receipt must record exactly two provider calls", errors)
+    _require(
+        _is_number(run_receipt.get("provider_spend_usd"))
+        and 0 <= float(run_receipt["provider_spend_usd"]) <= GUIDE_MAX_SPEND_USD,
+        "guide run receipt exceeds its spend authority",
+        errors,
+    )
+    _require(run_receipt.get("authorization_consumed") is True, "guide authorization must have been consumed", errors)
+    _require(run_receipt.get("full_capture_authorized") is False and run_receipt.get("step3_authorized") is False, "guide receipt may not authorize downstream production", errors)
+    guide_started_at = _parse_time(
+        run_receipt.get("started_at"),
+        "guide run started_at",
+        errors,
+    )
+    guide_completed_at = _parse_time(
+        run_receipt.get("completed_at"),
+        "guide run completed_at",
+        errors,
+    )
+    guide_consumed_at, guide_approved_at, guide_expires_at = _validate_consumed_guide_authority(
+        root,
+        run_receipt,
+        plan_dry,
+        plan["target"],
+        str(authorization.get("approved_by")),
+        errors,
+    )
+    if (
+        guide_approved_at
+        and guide_consumed_at
+        and guide_started_at
+        and guide_completed_at
+        and guide_expires_at
+    ):
+        _require(
+            guide_approved_at
+            <= guide_consumed_at
+            <= guide_started_at
+            <= guide_completed_at
+            < guide_expires_at,
+            "guide generation must start and finish inside the consumed G1 authorization window",
+            errors,
+        )
+    outputs = run_receipt.get("outputs")
+    if not isinstance(outputs, list) or len(outputs) != 2:
+        errors.append("guide run receipt must contain exactly two outputs")
+        outputs = []
+    else:
+        output_ids: list[Any] = []
+        declared_total_audio_bytes = 0
+        for index, entry in enumerate(outputs):
+            try:
+                item = _strict_object(
+                    entry,
+                    {
+                        "request_id", "path", "sha256", "byte_count", "duration_seconds",
+                        "provider_response_bytes", "container", "codec", "sample_rate_hz", "channels",
+                    },
+                    {
+                        "request_id", "path", "sha256", "byte_count", "duration_seconds",
+                        "provider_response_bytes", "container", "codec", "sample_rate_hz", "channels",
+                    },
+                    f"guide run receipt outputs[{index}]",
+                )
+                output_ids.append(item.get("request_id"))
+                _require(item.get("request_id") in {"gemini-guide-01", "gemini-guide-02"}, f"guide output {index} request ID is invalid", errors)
+                _require(
+                    compiled_guide_destinations.get(item.get("request_id"))
+                    == item.get("path"),
+                    f"guide output {index} path does not equal its compiled destination",
+                    errors,
+                )
+                _require(isinstance(item.get("sha256"), str) and bool(_SHA_RE.fullmatch(item["sha256"])), f"guide output {index} SHA-256 is invalid", errors)
+                byte_count = item.get("byte_count")
+                _require(
+                    type(byte_count) is int
+                    and 0 < byte_count <= GUIDE_MAX_OUTPUT_WAV_BYTES,
+                    f"guide output {index} exceeds its WAV-byte authority",
+                    errors,
+                )
+                if type(byte_count) is int and byte_count > 0:
+                    declared_total_audio_bytes += byte_count
+                _require(
+                    _is_number(item.get("duration_seconds"))
+                    and 0 < float(item["duration_seconds"]) <= GUIDE_MAX_OUTPUT_DURATION_SECONDS,
+                    f"guide output {index} exceeds its duration authority",
+                    errors,
+                )
+                _require(
+                    type(item.get("provider_response_bytes")) is int
+                    and 0 < item["provider_response_bytes"] <= GUIDE_MAX_RESPONSE_BYTES_PER_CALL,
+                    f"guide output {index} exceeds its provider-response authority",
+                    errors,
+                )
+                _require(_json_exact((item.get("container"), item.get("codec"), item.get("sample_rate_hz"), item.get("channels")), ("wav", "pcm_s16le", 24000, 1)), f"guide output {index} media geometry is invalid", errors)
+                output_path = _safe_relative(
+                    root,
+                    item.get("path"),
+                    f"guide run receipt outputs[{index}].path",
+                    must_exist=True,
+                    suffix=".wav",
+                )
+                if (
+                    type(byte_count) is int
+                    and byte_count > 0
+                    and isinstance(item.get("sha256"), str)
+                    and bool(_SHA_RE.fullmatch(item["sha256"]))
+                    and _is_number(item.get("duration_seconds"))
+                ):
+                    _read_bound_wav(
+                        output_path,
+                        byte_count,
+                        item["sha256"],
+                        float(item["duration_seconds"]),
+                    )
+            except ValidationError as exc:
+                errors.extend(exc.errors)
+        _require(set(output_ids) == {"gemini-guide-01", "gemini-guide-02"}, "guide run receipt output set is incomplete", errors)
+        _require(
+            declared_total_audio_bytes <= GUIDE_MAX_TOTAL_AUDIO_BYTES,
+            "guide run receipt exceeds total audio-byte authority",
+            errors,
+        )
+    matching = [] if not isinstance(outputs, list) else [
+        entry
+        for entry in outputs
+        if isinstance(entry, dict)
+        and entry.get("request_id") == selected.get("guide_request_id")
+        and entry.get("sha256") == selected_sha
+        and entry.get("path") == selected_relative
+        and _json_exact(entry.get("byte_count"), selected.get("byte_count"))
+        and _json_exact(entry.get("duration_seconds"), selected.get("duration_seconds"))
+        and entry.get("container") == selected.get("container")
+        and entry.get("codec") == selected.get("codec")
+        and _json_exact(entry.get("sample_rate_hz"), selected.get("sample_rate_hz"))
+        and _json_exact(entry.get("channels"), selected.get("channels"))
+    ]
+    _require(len(matching) == 1, "selected guide is not bound to exactly one guide run output", errors)
+
+    qa_path, qa = _verified_prerequisite(root, prerequisites.get("guide_qa"), "prerequisites.guide_qa", expected_schema="oe-synthetic-guide-qa-v1")
+    _strict_object(
+        qa,
+        {
+            "schema_version", "selected_guide_sha256", "spoken_text_sha256", "lexical_exact",
+            "technical_pass", "performance_pass", "understandable_without_music_or_visuals",
+            "reviewed_by", "reviewed_at",
+        },
+        {
+            "schema_version", "selected_guide_sha256", "spoken_text_sha256", "lexical_exact",
+            "technical_pass", "performance_pass", "understandable_without_music_or_visuals",
+            "reviewed_by", "reviewed_at",
+        },
+        "guide QA receipt",
+    )
+    _require(qa.get("selected_guide_sha256") == selected_sha, "guide QA selected-guide hash mismatch", errors)
+    _require(qa.get("spoken_text_sha256") == MICROTEST_TEXT_SHA256, "guide QA spoken-text hash mismatch", errors)
+    for key in ("lexical_exact", "technical_pass", "performance_pass", "understandable_without_music_or_visuals"):
+        _require(qa.get(key) is True, f"guide QA requires {key}=true", errors)
+    _require(isinstance(qa.get("reviewed_by"), str) and bool(qa["reviewed_by"]), "guide QA reviewer is required", errors)
+    qa_reviewed_at = _parse_time(qa.get("reviewed_at"), "guide QA reviewed_at", errors)
+
+    selection_path, selection = _verified_prerequisite(root, prerequisites.get("owner_selection"), "prerequisites.owner_selection", expected_schema="oe-synthetic-guide-owner-selection-v1")
+    _strict_object(
+        selection,
+        {"schema_version", "selected_guide_sha256", "guide_qa_sha256", "selected_by", "selected_at", "approved_for_voice_transfer"},
+        {"schema_version", "selected_guide_sha256", "guide_qa_sha256", "selected_by", "selected_at", "approved_for_voice_transfer"},
+        "guide owner-selection receipt",
+    )
+    _require(selection.get("selected_guide_sha256") == selected_sha, "owner selection guide hash mismatch", errors)
+    _require(selection.get("guide_qa_sha256") == sha256_file(qa_path), "owner selection QA hash mismatch", errors)
+    _require(selection.get("approved_for_voice_transfer") is True, "owner did not approve the exact guide for voice transfer", errors)
+    _require(selection.get("selected_by") == authorization.get("approved_by"), "guide owner selection must match the active authorizer", errors)
+    guide_selected_at = _parse_time(
+        selection.get("selected_at"),
+        "guide owner selection selected_at",
+        errors,
+    )
+
+    data_path, data_use = _verified_prerequisite(root, prerequisites.get("elevenlabs_data_use"), "prerequisites.elevenlabs_data_use", expected_schema="oe-elevenlabs-data-use-assurance-v1")
+    _strict_object(
+        data_use,
+        {
+            "schema_version", "provider", "exact_guide_sha256", "cross_provider_upload_permitted",
+            "improve_models_for_everyone", "zero_retention_mode", "chosen_enable_logging",
+            "protection_mode", "opt_out_processed", "protection_effective_for_new_submissions",
+            "zrm_eligible_and_confirmed",
+            "account_scope_binding_sha256", "verified_by", "verified_at", "evidence",
+        },
+        {
+            "schema_version", "provider", "exact_guide_sha256", "cross_provider_upload_permitted",
+            "improve_models_for_everyone", "zero_retention_mode", "chosen_enable_logging",
+            "protection_mode", "opt_out_processed", "protection_effective_for_new_submissions",
+            "zrm_eligible_and_confirmed",
+            "account_scope_binding_sha256", "verified_by", "verified_at", "evidence",
+        },
+        "ElevenLabs data-use assurance",
+    )
+    _require(data_use.get("provider") == "elevenlabs", "data-use assurance provider mismatch", errors)
+    _require(data_use.get("exact_guide_sha256") == selected_sha, "data-use assurance guide hash mismatch", errors)
+    _require(data_use.get("cross_provider_upload_permitted") is True, "cross-provider upload is not permitted", errors)
+    _require(isinstance(data_use.get("improve_models_for_everyone"), bool), "training setting must be boolean", errors)
+    _require(isinstance(data_use.get("zero_retention_mode"), bool), "ZRM setting must be boolean", errors)
+    protection_mode = data_use.get("protection_mode")
+    _require(
+        protection_mode in {ACCOUNT_TRAINING_OPT_OUT_PROTECTION, ENTERPRISE_ZRM_PROTECTION},
+        "ElevenLabs protection mode is not recognized",
+        errors,
+    )
+    _require(
+        data_use.get("protection_effective_for_new_submissions") is True,
+        "ElevenLabs protection is not effective for new submissions",
+        errors,
+    )
+    if protection_mode == ACCOUNT_TRAINING_OPT_OUT_PROTECTION:
+        _require(data_use.get("improve_models_for_everyone") is False, "account training opt-out setting is not disabled", errors)
+        _require(data_use.get("zero_retention_mode") is False, "account opt-out mode may not claim ZRM", errors)
+        _require(data_use.get("opt_out_processed") is True, "account training opt-out has not been processed", errors)
+        _require(data_use.get("zrm_eligible_and_confirmed") is False, "account opt-out mode may not claim enterprise ZRM confirmation", errors)
+        enable_logging = True
+    elif protection_mode == ENTERPRISE_ZRM_PROTECTION:
+        _require(data_use.get("zero_retention_mode") is True, "enterprise ZRM mode is not enabled", errors)
+        _require(data_use.get("opt_out_processed") is False, "enterprise ZRM mode may not masquerade as an account opt-out", errors)
+        _require(data_use.get("zrm_eligible_and_confirmed") is True, "enterprise ZRM eligibility is not confirmed", errors)
+        enable_logging = False
+    else:
+        enable_logging = False
+    _require(isinstance(data_use.get("account_scope_binding_sha256"), str) and bool(_SHA_RE.fullmatch(data_use["account_scope_binding_sha256"])), "data-use assurance needs a hashed account binding", errors)
+    _require(isinstance(data_use.get("verified_by"), str) and bool(data_use["verified_by"]), "data-use verifier is required", errors)
+    data_verified_at = _parse_time(
+        data_use.get("verified_at"),
+        "data-use verified_at",
+        errors,
+    )
+    _require(data_use.get("chosen_enable_logging") is enable_logging, "data-use assurance chosen logging mode is inconsistent", errors)
+    evidence_binding = _strict_object(
+        data_use.get("evidence"), {"path", "sha256"}, {"path", "sha256"}, "data-use evidence binding"
+    )
+    evidence_path = _safe_relative(root, evidence_binding.get("path"), "data-use evidence path", must_exist=True, suffix=".json")
+    _require(evidence_binding.get("sha256") == sha256_file(evidence_path), "data-use evidence SHA-256 mismatch", errors)
+    evidence = read_json(evidence_path)
+    _strict_object(
+        evidence,
+        {
+            "schema_version", "provider", "account_scope_binding_sha256", "captured_at",
+            "improve_models_for_everyone", "zero_retention_mode", "chosen_enable_logging",
+            "protection_mode", "opt_out_processed", "protection_effective_for_new_submissions",
+            "zrm_eligible_and_confirmed",
+        },
+        {
+            "schema_version", "provider", "account_scope_binding_sha256", "captured_at",
+            "improve_models_for_everyone", "zero_retention_mode", "chosen_enable_logging",
+            "protection_mode", "opt_out_processed", "protection_effective_for_new_submissions",
+            "zrm_eligible_and_confirmed",
+        },
+        "data-use evidence",
+    )
+    _require(evidence.get("schema_version") == "oe-elevenlabs-account-data-use-evidence-v1", "data-use evidence schema mismatch", errors)
+    _require(evidence.get("provider") == "elevenlabs", "data-use evidence provider mismatch", errors)
+    _require(evidence.get("account_scope_binding_sha256") == data_use.get("account_scope_binding_sha256"), "data-use evidence account binding mismatch", errors)
+    _require(_json_exact(evidence.get("improve_models_for_everyone"), data_use.get("improve_models_for_everyone")), "data-use evidence training setting mismatch", errors)
+    _require(_json_exact(evidence.get("zero_retention_mode"), data_use.get("zero_retention_mode")), "data-use evidence ZRM setting mismatch", errors)
+    _require(_json_exact(evidence.get("chosen_enable_logging"), data_use.get("chosen_enable_logging")), "data-use evidence chosen logging mode mismatch", errors)
+    for key in (
+        "protection_mode",
+        "opt_out_processed",
+        "protection_effective_for_new_submissions",
+        "zrm_eligible_and_confirmed",
+    ):
+        _require(_json_exact(evidence.get(key), data_use.get(key)), f"data-use evidence {key} mismatch", errors)
+    evidence_captured_at = _parse_time(
+        evidence.get("captured_at"),
+        "data-use evidence captured_at",
+        errors,
+    )
+
+    primary = _compile_multipart(
+        selected_audio,
+        selected_sha,
+        TRANSFER_PRIMARY_FORMAT,
+        enable_logging=enable_logging,
+    )
+    fallback = _compile_multipart(
+        selected_audio,
+        selected_sha,
+        TRANSFER_FALLBACK_FORMAT,
+        enable_logging=enable_logging,
+    )
+    compiled_bindings = {
+        "selected_guide_sha256": selected_sha,
+        "primary_request_sha256": sha256_bytes(_compact_json_bytes(primary)),
+        "primary_multipart_body_sha256": primary["multipart_body_sha256"],
+        "primary_multipart_body_bytes": primary["multipart_body_bytes"],
+        "conditional_fallback_request_sha256": sha256_bytes(_compact_json_bytes(fallback)),
+        "conditional_fallback_multipart_body_sha256": fallback["multipart_body_sha256"],
+        "conditional_fallback_multipart_body_bytes": fallback["multipart_body_bytes"],
+        "enable_logging": enable_logging,
+    }
+    for key, expected in compiled_bindings.items():
+        _require(_json_exact(bindings.get(key), expected), f"active voice-transfer bindings.{key} mismatch", errors)
+    _require(set(bindings) == {
+        "performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256",
+        *compiled_bindings.keys(),
+    }, "active voice-transfer bindings must authorize the exact multipart bodies", errors)
+
+    rights_path, rights = _verified_prerequisite(root, prerequisites.get("target_voice_rights"), "prerequisites.target_voice_rights", expected_schema="oe-elevenlabs-voice-transfer-rights-v1")
+    _strict_object(
+        rights,
+        {
+            "schema_version", "provider", "authorization_id", "performance_transfer_plan_sha256",
+            "primary_request_sha256", "primary_multipart_body_sha256", "target_voice_id", "voice_owner", "consent_owner",
+            "exact_guide_sha256", "owner_approval", "voice_changer_permitted",
+            "approved_at", "bounded_microtest_only", "full_capture_permitted", "original_c_provenance",
+        },
+        {
+            "schema_version", "provider", "authorization_id", "performance_transfer_plan_sha256",
+            "primary_request_sha256", "primary_multipart_body_sha256", "target_voice_id", "voice_owner", "consent_owner",
+            "exact_guide_sha256", "owner_approval", "voice_changer_permitted",
+            "approved_at", "bounded_microtest_only", "full_capture_permitted", "original_c_provenance",
+        },
+        "target voice rights receipt",
+    )
+    _require(rights.get("provider") == "elevenlabs" and rights.get("target_voice_id") == TRANSFER_TARGET_VOICE_ID, "target voice rights binding mismatch", errors)
+    _require(rights.get("authorization_id") == authorization.get("authorization_id"), "target voice rights authorization ID mismatch", errors)
+    _require(rights.get("performance_transfer_plan_sha256") == plan_dry["plan_sha256"], "target voice rights plan mismatch", errors)
+    _require(rights.get("primary_request_sha256") == compiled_bindings["primary_request_sha256"], "target voice rights compiled request mismatch", errors)
+    _require(rights.get("primary_multipart_body_sha256") == primary["multipart_body_sha256"], "target voice rights multipart body mismatch", errors)
+    _require(rights.get("voice_owner") == authorization.get("approved_by") and rights.get("consent_owner") == authorization.get("approved_by"), "voice owner, consent owner, and active authorizer must match", errors)
+    _require(rights.get("exact_guide_sha256") == selected_sha, "target voice rights guide hash mismatch", errors)
+    _require(rights.get("owner_approval") is True and rights.get("voice_changer_permitted") is True, "voice transfer rights are not approved", errors)
+    _require(rights.get("bounded_microtest_only") is True and rights.get("full_capture_permitted") is False, "voice rights must remain microtest-only", errors)
+    rights_approved_at = _parse_time(
+        rights.get("approved_at"),
+        "target voice rights approved_at",
+        errors,
+    )
+    provenance = _strict_object(
+        rights.get("original_c_provenance"),
+        {"owner_selection_path", "owner_selection_sha256", "saved_voice_receipt_path", "saved_voice_receipt_sha256"},
+        {"owner_selection_path", "owner_selection_sha256", "saved_voice_receipt_path", "saved_voice_receipt_sha256"},
+        "Original C provenance",
+    )
+    prior_selection_path = _safe_blueprint_relative_file(
+        rights_path,
+        provenance.get("owner_selection_path"),
+        provenance.get("owner_selection_sha256"),
+        "Original C owner selection",
+    )
+    prior_selection = read_json(prior_selection_path)
+    _strict_object(
+        prior_selection,
+        {
+            "schema_version", "preview_receipt_sha256", "source_voice_id",
+            "selected_generated_voice_id", "selected_audio_sha256", "selected_by", "selected_at",
+            "owner_approved_save", "voice_name", "voice_description",
+        },
+        {
+            "schema_version", "preview_receipt_sha256", "source_voice_id",
+            "selected_generated_voice_id", "selected_audio_sha256", "selected_by", "selected_at",
+            "owner_approved_save", "voice_name", "voice_description",
+        },
+        "Original C owner selection receipt",
+    )
+    _require(prior_selection.get("schema_version") == "oe-elevenlabs-voice-remix-owner-selection-v1", "Original C owner selection schema mismatch", errors)
+    _require(prior_selection.get("selected_generated_voice_id") == TRANSFER_TARGET_VOICE_ID, "Original C owner selection voice mismatch", errors)
+    _require(prior_selection.get("selected_by") == authorization.get("approved_by") and prior_selection.get("owner_approved_save") is True, "Original C was not selected by the active authorizer", errors)
+    original_c_selected_at = _parse_time(
+        prior_selection.get("selected_at"),
+        "Original C selected_at",
+        errors,
+    )
+
+    prior_save_path = _safe_blueprint_relative_file(
+        rights_path,
+        provenance.get("saved_voice_receipt_path"),
+        provenance.get("saved_voice_receipt_sha256"),
+        "Original C saved voice receipt",
+    )
+    prior_save = read_json(prior_save_path)
+    _strict_object(
+        prior_save,
+        {
+            "schema_version", "authorization_consumption_record", "authorization_consumption_sha256",
+            "authorization_id", "authorization_sha256", "created_at", "new_voice_category",
+            "new_voice_created", "new_voice_id", "new_voice_is_owner", "new_voice_is_owner_status",
+            "new_voice_name", "outcome", "owner_selection_record_sha256", "provider",
+            "provider_calls_made", "provider_character_cost", "provider_identifiers", "readback",
+            "request_body_sha256", "scope", "selected_audio_sha256", "selected_generated_voice_id",
+            "source_voice_id", "source_voice_modified", "spend",
+        },
+        {
+            "schema_version", "new_voice_created", "new_voice_id", "outcome",
+            "owner_selection_record_sha256", "provider", "provider_calls_made",
+            "selected_generated_voice_id", "source_voice_modified",
+        },
+        "Original C saved voice receipt",
+    )
+    _require(prior_save.get("schema_version") == "oe-elevenlabs-voice-remix-save-receipt-v1", "Original C save receipt schema mismatch", errors)
+    _require(prior_save.get("provider") == "elevenlabs" and prior_save.get("new_voice_id") == TRANSFER_TARGET_VOICE_ID, "Original C save receipt voice mismatch", errors)
+    _require(prior_save.get("selected_generated_voice_id") == TRANSFER_TARGET_VOICE_ID, "Original C saved selection mismatch", errors)
+    _require(prior_save.get("owner_selection_record_sha256") == sha256_file(prior_selection_path), "Original C save receipt does not bind owner selection", errors)
+    _require(
+        prior_save.get("new_voice_created") is True
+        and prior_save.get("source_voice_modified") is False
+        and type(prior_save.get("provider_calls_made")) is int
+        and prior_save.get("provider_calls_made") == 1,
+        "Original C save outcome is invalid",
+        errors,
+    )
+    original_c_saved_at = _parse_time(
+        prior_save.get("created_at"),
+        "Original C saved voice created_at",
+        errors,
+    )
+    ordered_times = (
+        guide_completed_at,
+        qa_reviewed_at,
+        guide_selected_at,
+        evidence_captured_at,
+        data_verified_at,
+        rights_approved_at,
+        active_approved_at,
+        original_c_selected_at,
+        original_c_saved_at,
+    )
+    if all(value is not None for value in ordered_times):
+        assert guide_completed_at is not None
+        assert qa_reviewed_at is not None
+        assert guide_selected_at is not None
+        assert evidence_captured_at is not None
+        assert data_verified_at is not None
+        assert rights_approved_at is not None
+        assert active_approved_at is not None
+        assert original_c_selected_at is not None
+        assert original_c_saved_at is not None
+        _require(guide_completed_at <= qa_reviewed_at <= guide_selected_at, "guide run, QA, and owner-selection timestamps are incoherent", errors)
+        _require(evidence_captured_at <= data_verified_at, "data-use evidence must precede verification", errors)
+        _require(max(guide_selected_at, data_verified_at) <= rights_approved_at <= active_approved_at, "selection, data-use, rights, and active authorization timestamps are incoherent", errors)
+        _require(original_c_selected_at <= original_c_saved_at <= active_approved_at, "Original C provenance timestamps are incoherent", errors)
+    if errors:
+        raise ValidationError(errors)
+    return {
+        "schema_version": "oe-elevenlabs-voice-transfer-dry-run-v1",
+        "valid": True,
+        "status": "active_exact_authority_validated",
+        "authorization_id": authorization["authorization_id"],
+        "authorization_sha256": sha256_file(authorization_path),
+        "plan_sha256": plan_dry["plan_sha256"],
+        "selected_guide_sha256": selected_sha,
+        "guide_qa_sha256": sha256_file(qa_path),
+        "owner_selection_sha256": sha256_file(selection_path),
+        "primary_request": primary,
+        "conditional_fallback_request": {
+            **fallback,
+            "enabled": False,
+            "requires": "documented_unambiguous_pcm_capability_rejection_before_any_audio_is_accepted",
+            "forbidden_on": ["timeout", "disconnect", "429", "5xx", "malformed_response", "ambiguous_charge"],
+        },
+        "maximum": limits,
+        "request_compiled": True,
+        "provider_action_authorized": True,
+        "network_authorized": False,
+        "execution_transport_available": False,
+        "network_called": False,
+        "credentials_accessed": False,
+        "audio_files_created": 0,
+        "creative_approved": False,
+        "full_capture_authorized": False,
+        "step3_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+__all__ = [
+    "dry_run_synthetic_guide",
+    "dry_run_voice_transfer",
+    "validate_performance_transfer_plan",
+    "validate_synthetic_guide_authorization",
+    "validate_voice_transfer_authorization",
+]

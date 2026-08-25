@@ -1,8 +1,8 @@
 # Step 2 CLI Validation Contract
 
-Status: proposed v0.3 contract with an implemented credential-free validation and request-compilation
-surface. Frozen v0.2 capture evidence remains history. No external action is authorized by this
-document.
+Status: proposed v0.5 contract with an implemented credential-free synthetic-guide and
+voice-transfer validation/compilation surface. Frozen v0.2 through v0.4 evidence remains history.
+No v0.5 external-action transport or authority exists.
 
 ## Purpose and boundary
 
@@ -15,6 +15,13 @@ AUTH-01 metadata plus a single-sample attempt, AUTH-01B metadata-only inventory,
 named-sample batch retrieval. None can generate speech, modify a voice, upload a sample, create a
 clone, call Hume, or authorize later work. The bounded v0.2 ElevenLabs capture client remains a
 separate, retained surface; it cannot execute a v0.3 bakeoff plan or reuse a consumed authorization.
+
+V0.5 adds an isolated offline contract for exact AI Visibility `W[30,110)`: two identical Google
+Cloud Gemini guide requests, followed only after exact guide QA and owner selection by compilation
+of one ElevenLabs Voice Changer multipart request into Original C. The two authorization schemas
+are non-fungible. This version deliberately implements no Google or Voice Changer network
+transport: both commands reject `--execute`, never read credentials, and never consume an
+authorization.
 
 Run it from the Step 2 folder as:
 
@@ -96,6 +103,52 @@ The provider-agnostic performance envelope and each provider adapter are separat
 review inputs governed by their own schemas. The bakeoff plan binds them directly; the v0.2
 `capture-plan.schema.json` remains unchanged and may not be overloaded. Provider direction never
 enters canonical `W`.
+
+## V0.5 performance-transfer implementation boundary
+
+V0.5 freezes one microtest rather than reopening the v0.3 bakeoff or v0.4 direct-TTS result:
+
+- exact absolute `W[30,110)`, 80 tokens, token SHA-256
+  `790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a`;
+- exact 465-character transport SHA-256
+  `db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb`;
+- Google Cloud TTS `gemini-2.5-pro-tts`, `Achird`, `en-US`, `LINEAR16` at 24 kHz mono;
+- exact separate prompt hash
+  `8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416`;
+- exact 1,440-byte compact request-body hash
+  `4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53`;
+- two identical, unseeded, stochastic request envelopes with no retry, redirect, or fallback;
+- exact path/SHA-256 bindings to both provider adapters, whose complete semantics must match the
+  frozen guide and blocked-transfer contracts; and
+- a blocked future Original C Voice Changer contract that cannot name source audio before an exact
+  original provider guide passes QA and the owner selects it.
+
+`oe-performance-transfer-plan-v1` is credential-free and must keep every authority/output flag
+false. `oe-synthetic-guide-authorization-v1` drafts have zero authorized caps. A future active G1
+record would bind exact request hashes, two calls, 2,880 total request bytes, two outputs, 50
+seconds and 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000 provider-response
+bytes per call, `$0.66` modeled spend, a hashed quota-project identity, and at most 24 hours. The
+current runtime can validate such a record but cannot execute it.
+
+`oe-voice-transfer-authorization-v1` drafts also have zero caps and five exactly pending
+prerequisites: selected original guide, guide QA, owner selection, ElevenLabs data-use assurance,
+and target-voice rights. An active record cannot compile unless all five are verified and
+cross-hash consistently to the exact 24 kHz mono PCM provider WAV. That original WAV is the upload
+source; a resampled or listening derivative is ineligible. The data-use receipt determines
+`enable_logging`: `false` only for confirmed enterprise Zero Retention Mode; otherwise `true` only
+after the account-wide model-improvement opt-out is verified processed and effective for new
+submissions. The evidence and assurance receipts must agree on the exact protection mode, opt-out
+processing, effective protection, ZRM eligibility, account hash, and chosen logging value. An
+ambiguous state fails closed. The active authorization must bind the resulting logging value, both
+compiled-request SHA-256 values, and both multipart-body byte counts and SHA-256 values. Runtime
+compilation must reproduce all seven transport values before reporting the provider action
+authorized.
+
+Even a valid active record remains non-executable in v0.5. The result reports
+`provider_action_authorized` separately from `network_authorized` and
+`execution_transport_available`; the latter two remain false. No offline result can create audio,
+select a guide, disclose Google-derived audio to ElevenLabs, pass creative review, select a method,
+authorize full capture, or advance Step 3.
 
 ## Commands
 
@@ -187,6 +240,68 @@ or executes an authorization. The corrective machine scopes
 `elevenlabs_sample_metadata_inventory` and `elevenlabs_named_sample_batch_retrieval` are separate
 least-privilege actions outside that initial set. AUTH-05 remains a separate human record, not an
 initial machine scope.
+
+### `validate-performance-transfer-plan`
+
+```text
+oe-narration validate-performance-transfer-plan --plan PLAN.json --canonical-w W
+```
+
+Validate and compile `oe-performance-transfer-plan-v1`. The validator re-derives exact
+`W[30,110)`, verifies the frozen prompt and canonical Gemini request-body bytes, binds the current
+performance-envelope and provider-adapter hashes, rejects adapter semantic drift, checks two new
+collision-free output paths, and records that Voice Changer is blocked. It emits both exact guide
+requests and their request-set hash while reporting zero credentials, network calls, or audio.
+Validate the referenced provider-neutral envelope separately with `validate-performance-envelope`.
+
+### `synthetic-guide`
+
+```text
+oe-narration synthetic-guide --plan PLAN.json --canonical-w W
+oe-narration synthetic-guide --plan PLAN.json --canonical-w W \
+  --authorization AUTH-G1.json [--record DRY_RUN.json]
+```
+
+Without an authorization, compile the two identical guide requests. With an authorization,
+validate either the zero-cap draft or one exact active G1 record. A draft remains
+`provider_action_authorized: false`; an active record may prove owner authority and caps but still
+reports `network_authorized: false` and `execution_transport_available: false` because v0.5 has no
+provider transport. `--record` writes exclusively and refuses an existing destination.
+
+`synthetic-guide --execute` always fails closed. It never reads Google ADC, resolves a quota
+project, consumes an authorization, opens a network connection, or writes audio. Adding transport
+requires a separately reviewed implementation and the exact owner authorization requested after
+this dry-run package is presented.
+
+### `elevenlabs-voice-transfer`
+
+```text
+oe-narration elevenlabs-voice-transfer --plan PLAN.json --canonical-w W
+oe-narration elevenlabs-voice-transfer --plan PLAN.json --canonical-w W \
+  --authorization AUTH-V1.json [--record DRY_RUN.json]
+```
+
+Without an authorization, return the generic exact-guide blockers. With the committed draft,
+validate that all five prerequisites remain pending and compile no request. Only a future active
+record with verified guide-run receipt, strict 24 kHz PCM WAV geometry, lexical/technical/
+performance QA, owner selection, Eleven data-use assurance, and Original C transfer rights can
+compile the deterministic multipart primary and conditional fallback manifests. The rights chain
+must bind the historical Original C owner-selection and saved-voice receipts. The active
+authorization must already bind the chosen logging value, both complete compiled-request hashes,
+and both multipart-body hashes and byte counts. The guide run must bind the consumed `AUTH-G1` and
+consumption record, finish inside its active window, record spend and response bytes, and bind both
+strict-decoded original WAVs to the compiled destinations. Any byte, hash, timing, cap, provenance,
+or policy mismatch fails.
+
+The primary requests `pcm_48000`. The MP3-192 manifest is disabled and may become eligible only
+after an explicit, unambiguous PCM-capability rejection before audio is accepted. Timeout,
+disconnect, DNS/TLS, authentication, `408`, `429`, `5xx`, malformed, or ambiguous outcomes never
+enable it. The compiled policy has an absolute later ceiling of two calls, one output, a
+50,000,000-byte and 50-second source, 100 submitted seconds, and `$0.24`, but a draft authorizes
+zero.
+
+`elevenlabs-voice-transfer --execute` always fails closed in v0.5. No API key, source audio, account
+state, network, provider credit, output, or consumption record is touched.
 
 ### `retrieve-elevenlabs-sample`
 
@@ -395,6 +510,9 @@ Machine-readable shapes live in `schemas/`:
 - `provider-adapter.schema.json`;
 - `provider-bakeoff-plan.schema.json`;
 - `provider-action-authorization.schema.json`;
+- `performance-transfer-plan.schema.json`;
+- `synthetic-guide-authorization.schema.json`;
+- `voice-transfer-authorization.schema.json`;
 - `word-transcript.schema.json`; and
 - `narration-state.schema.json`.
 
@@ -418,6 +536,13 @@ state, zero metadata/discovery, aggregate-byte enforcement, MIME/size/codec mism
 collision, no-retry/redirect behavior, partial-batch failure, local raw-byte preservation, and the
 hard stop at pending owner provenance review. Tests never make a real provider call.
 
+V0.5 tests additionally freeze the 80-token microtest, prompt/body/request-set hashes, two
+identical unseeded Gemini bodies, 24 kHz original-guide preservation, zero-cap draft authority,
+hash-only quota-project binding, path/collision/symlink safety, secret rejection, non-replayable
+authority boundaries, exact selected-guide prerequisite chains, data-use-dependent
+`enable_logging`, deterministic multipart compilation, capability-only MP3 fallback, and explicit
+failure of both `--execute` surfaces. They make no Google or ElevenLabs request.
+
 ## Current state interpretation
 
 The retained AI Visibility v1.1 N4A batch is a v0.2 technical **PASS** and owner creative
@@ -433,3 +558,9 @@ AUTH-01C was materialized, validated, committed, and consumed before its first p
 The first sample response failed its inventory-bound byte-count identity, so the runner preserved
 the exact response as blocked evidence and stopped without requesting samples two or three.
 AUTH-01C cannot be resumed or retried.
+
+The later v0.4 direct Saved-C P01 pair is also terminal: both candidates remain technically
+captured and owner-rejected as flat, with no inflection or emotion. V0.5 does not retry either
+request. Its current fixture state is plan-only: G1 and V1 are zero-authority drafts, no guide
+exists, Voice Changer remains blocked, and no short result can infer N4A, full capture, narration
+lock, Step 3, sharing, or publication.

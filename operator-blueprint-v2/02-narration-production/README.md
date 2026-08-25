@@ -1,7 +1,7 @@
 # Step 2: Narration Production
 
-Status: proposed V2 Step 2 v0.3 provider-selection revision; not yet authoritative. The v0.2
-calibration record remains frozen history.
+Status: proposed V2 Step 2 v0.5 synthetic-guide-to-Saved-C transfer microtest; not yet
+authoritative. The v0.2 through v0.4 records remain frozen history.
 
 Step 2 turns the exact, owner-approved Step 1 script into the final spoken spine of the episode. It controls performance direction, narrator and capture consistency, takes, pickups, dialogue editing, lexical conformity, the clean narration master, word-level timing, and the handoff to visual translation.
 
@@ -31,38 +31,24 @@ Fixtures may test the system without creating an episode. They are never product
 
 ## Current fixture decision
 
-The retained AI Visibility v1.1 N4A batch is a **technical PASS** and an owner **creative REVISE**.
-The audio and receipts remain valid technical evidence, but N4A did not pass. The approved Step 1
-words remain locked: this is a performance/provider problem, not an editorial rewrite request.
+The retained AI Visibility v1.1 N4A batch remains a **technical PASS** and owner **creative
+REVISE**. V0.3's Hume clone-plus-description challenger was stopped before upload by its model and
+clone incompatibility. V0.4 then preserved the owner-selected Original C identity and technically
+captured two direct Eleven v3 P01 candidates. The owner rejected both as flat, with no inflection or
+emotion. No candidate is selected and no prior authorization can be replayed.
 
-V0.3 therefore adds a provider-agnostic performance envelope and a bounded ElevenLabs-versus-Hume
-bakeoff before another N4A decision. The bakeoff grants no N4B full capture or Step 3 authority.
-See [`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md).
+V0.5 tests a materially different acting layer without changing the locked script or Original C:
+first generate two directed Gemini guide performances for exact `W[30,110)`, then, only after guide
+QA and an explicit owner selection, consider one separately authorized ElevenLabs Voice Changer
+transfer into Original C. The Google and Eleven actions are independent authority gates. The
+Eleven action remains blocked until an exact selected guide, rights, data-use protection, and a new
+authorization exist. See
+[`STEP2-v0.5-CHANGE-PROPOSAL.md`](STEP2-v0.5-CHANGE-PROPOSAL.md) and the
+[`v0.5 fixture`](fixtures/step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest/).
 
-### 2026-08-24 vendor-drift stop
-
-The current Hume leg is blocked before upload. The frozen candidate expects a cloned voice plus
-Octave 1 `description` acting instructions, but Hume's current
-[`E0814`](https://dev.hume.ai/docs/resources/errors) requires Octave 2 for instant cloning,
-[`E0813`](https://dev.hume.ai/docs/resources/errors) prevents an Octave 2-created clone from running
-on Octave 1, and the
-[acting-instructions guide](https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions)
-still limits `description` to Octave 1. Hume's
-[Terms of Use](https://www.hume.ai/terms-of-use) and error guidance also require verified
-Creator-or-higher access for the usable cloned voice and commercial OE work.
-
-The existing Hume adapter, plan, compiled request, and draft authorizations are preserved as
-historical design evidence, not an executable path. The candidate must be redesigned and explicitly
-owner-approved before any new Hume authorization. No active AUTH-02 exists, and no Hume upload,
-clone, TTS, calibration, bakeoff generation, long-form test, full capture, or Step 3 action is
-authorized. Account eligibility alone would not resolve the Octave 1/Octave 2 incompatibility.
-
-AUTH-01 stopped on multiple attached samples, and consumed AUTH-01B recorded the complete three-
-sample metadata inventory without selecting or downloading audio. The owner has now approved a
-separate AUTH-01C local-review retrieval for exactly those three inventory-bound samples. That
-approval is a bounded read action only: it is not provenance approval, Hume authority, calibration,
-or production narration. The active authorization artifact has not yet been materialized, and no
-AUTH-01C provider request has occurred.
+This is a method microtest, not another N4A. A passing short transfer would authorize nothing by
+itself; it could only support a later owner decision about a separately authorized long-form and
+pickup test.
 
 ## Production flow
 
@@ -90,8 +76,13 @@ locked editorial handoff
 → Step 3 handoff
 ```
 
-This remains the target flow. The Hume branch of the provider-selection loop is suspended at the
-vendor-drift stop above; it may not advance merely because the remaining generic flow is documented.
+This remains the target flow. The frozen v0.3 Hume branch stays suspended by its recorded
+vendor-drift stop; it may not advance merely because the remaining generic flow is documented.
+
+The isolated v0.5 method subloop is stricter: exact plan and dry run, separate `AUTH-G1`, guide
+capture and QA, explicit owner selection, then a newly compiled exact-guide transfer, verified
+Eleven no-training or ZRM state, and separate `AUTH-V1`. A failed guide stops before Eleven. A
+failed transfer stops before any settings iteration or long-form work.
 
 Interim ASR may flag likely mistakes in calibration, takes, chunks, and pickups. It is diagnostic
 only. The authoritative transcript and pause map are derived from the exact final master candidate.
@@ -149,6 +140,19 @@ The proposed v0.3 record set is:
 - the final N3 method decision in
   [`06-approval/PROVIDER-METHOD-SELECTION.template.md`](06-approval/PROVIDER-METHOD-SELECTION.template.md).
 
+The isolated v0.5 record set adds:
+
+- one `oe-performance-transfer-plan-v1` binding exact locked words, guide request, media policy,
+  blocked transfer contract, and zero downstream authority;
+- one `oe-synthetic-guide-authorization-v1` for Gemini guide generation only;
+- one later `oe-voice-transfer-authorization-v1` for one exact selected guide only;
+- immutable guide and transfer raw-media receipts outside Git plus credential-free committed
+  summaries;
+- separate guide lexical/technical QA, guide performance review, owner guide selection, transfer
+  lexical/identity/technical QA, and owner creative disposition; and
+- a long-form/pickup authorization only if the short microtest passes and the owner separately
+  chooses to continue.
+
 Synthetic capture additionally follows
 [`02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md`](02-direction/SYNTHETIC-CAPTURE-PROTOCOL.md).
 Machine-checkable identities, validation states, and exit semantics follow
@@ -161,6 +165,14 @@ sample attempt, AUTH-01B for one metadata-only inventory, or AUTH-01C for the ex
 local-review batch described below. It cannot operate the Hume UI, create a clone, execute a
 bakeoff generation request, score a performance, select a provider, or grant downstream authority.
 Downloaded bytes remain blocked from Hume until an owner provenance listen and a separate AUTH-02.
+
+The v0.5 CLI extension separately validates and compiles the performance-transfer plan, Gemini
+guide requests, bound provider adapters, and the blocked exact-guide Voice Changer request. Dry
+runs access no credentials, network, account, or audio. V0.5 intentionally has no provider
+transport and both `--execute` surfaces fail closed. A later executor would require a separately
+reviewed consumed-before-network implementation plus the exact active one-shot authorization; no
+guide selection, effective data-protection state, or cross-provider disclosure permission may be
+inferred.
 
 When AUTH-01 stops because the voice has multiple attached samples, the corrective scope
 `elevenlabs_sample_metadata_inventory` may be separately authorized. It permits one metadata call
@@ -220,6 +232,8 @@ If the words must change, Step 2 stops and sends a script-change request to Step
 - `CLI-VALIDATION-CONTRACT.md` defines machine state, validation, and invalidation.
 - `TOOL-AUDIT-AND-BAKEOFF.md` defines the proposed v0.3 provider-selection controls and the exact
   ElevenLabs/Hume external-action boundaries.
+- `STEP2-v0.5-CHANGE-PROPOSAL.md` defines the isolated sequential Gemini-guide and Saved-C transfer
+  microtest without altering the canonical stage gates.
 - `STEP2-v0.3-CHANGE-PROPOSAL.md` records the proposed semantic delta while
   `STEP2-v0.2-CHANGE-PROPOSAL.md` remains the frozen prior proposal.
 - Numbered subfolders contain reusable checklists and templates.
@@ -243,3 +257,8 @@ to enumerate safe metadata after a multiple-sample stop and grants no selection 
 The separately authorized AUTH-01C scope `elevenlabs_named_sample_batch_retrieval` is also outside
 the four-action sequence. It grants only the exact three inventory-bound local-review downloads and
 cannot approve provenance, select production audio, disclose anything to Hume, or authorize AUTH-02.
+
+The proposed v0.5 `AUTH-G1` and `AUTH-V1` scopes are also outside the frozen v0.3 bakeoff sequence.
+Neither is active. They may not be combined: guide-generation authority does not permit disclosure
+to ElevenLabs, and a transfer draft cannot become executable until it binds one owner-selected,
+passing guide and verified current data-use protection.

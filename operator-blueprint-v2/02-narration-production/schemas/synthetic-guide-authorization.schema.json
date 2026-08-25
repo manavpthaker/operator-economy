@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-synthetic-guide-authorization-v1.json",
+  "title": "OE Step 2 exact synthetic-guide generation authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+    "approved_by", "approved_at", "expires_at", "execution_ready", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-synthetic-guide-authorization-v1"},
+    "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {"const": "synthetic_guide_generation"},
+    "target": {"$ref": "#/$defs/target"},
+    "bindings": {"$ref": "#/$defs/bindings"},
+    "action": {"$ref": "#/$defs/action"},
+    "billing_project_binding": {"$ref": "#/$defs/billingProjectBinding"},
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "consumption": {"$ref": "#/$defs/consumption"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "execution_ready": {"const": false},
+          "billing_project_binding": {
+            "properties": {"quota_project_sha256": {"const": "pending"}}
+          },
+          "authorized_limits": {
+            "properties": {
+              "max_calls": {"const": 0},
+              "max_outputs": {"const": 0},
+              "max_request_body_bytes": {"const": 0},
+              "max_total_request_bytes": {"const": 0},
+              "max_output_duration_seconds": {"const": 0},
+              "max_output_wav_bytes": {"const": 0},
+              "max_total_audio_bytes": {"const": 0},
+              "max_response_bytes_per_call": {"const": 0},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "blockers": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "execution_ready": {"const": true},
+          "billing_project_binding": {
+            "properties": {"quota_project_sha256": {"$ref": "#/$defs/sha256"}}
+          },
+          "authorized_limits": {
+            "properties": {
+              "max_calls": {"const": 2},
+              "max_outputs": {"const": 2},
+              "max_request_body_bytes": {"const": 1440},
+              "max_total_request_bytes": {"const": 2880},
+              "max_output_duration_seconds": {"const": 50},
+              "max_output_wav_bytes": {"const": 2500000},
+              "max_total_audio_bytes": {"const": 5000000},
+              "max_response_bytes_per_call": {"const": 4000000},
+              "max_spend_usd": {"const": 0.66}
+            }
+          },
+          "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "blockers": {"maxItems": 0}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "experiment"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "performance_transfer_plan_sha256", "canonical_w_sha256", "microtest_token_slice_sha256",
+        "spoken_text_sha256", "acting_prompt_sha256", "request_body_sha256", "request_set_sha256"
+      ],
+      "properties": {
+        "performance_transfer_plan_sha256": {"$ref": "#/$defs/sha256"},
+        "canonical_w_sha256": {"$ref": "#/$defs/sha256"},
+        "microtest_token_slice_sha256": {"const": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a"},
+        "spoken_text_sha256": {"const": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"},
+        "acting_prompt_sha256": {"const": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416"},
+        "request_body_sha256": {"const": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53"},
+        "request_set_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "provider", "endpoint", "method", "model_id", "voice_name", "language_code",
+        "request_count", "identical_unseeded_requests", "output_encoding", "sample_rate_hz",
+        "no_retry", "no_redirect", "no_fallback", "disclosure"
+      ],
+      "properties": {
+        "provider": {"const": "google_cloud_text_to_speech"},
+        "endpoint": {"const": "https://us-texttospeech.googleapis.com/v1/text:synthesize"},
+        "method": {"const": "POST"},
+        "model_id": {"const": "gemini-2.5-pro-tts"},
+        "voice_name": {"const": "Achird"},
+        "language_code": {"const": "en-US"},
+        "request_count": {"const": 2},
+        "identical_unseeded_requests": {"const": true},
+        "output_encoding": {"const": "LINEAR16"},
+        "sample_rate_hz": {"const": 24000},
+        "no_retry": {"const": true},
+        "no_redirect": {"const": true},
+        "no_fallback": {"const": true},
+        "disclosure": {"const": "exact_locked_words_and_nonlexical_acting_prompt_to_google_cloud_tts"}
+      }
+    },
+    "billingProjectBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required", "raw_identifier_stored", "quota_project_sha256", "credential_source"],
+      "properties": {
+        "required": {"const": true},
+        "raw_identifier_stored": {"const": false},
+        "quota_project_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"const": "pending"}]},
+        "credential_source": {"const": "local_untracked_google_adc"}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "max_calls", "max_outputs", "max_request_body_bytes", "max_total_request_bytes",
+        "max_output_duration_seconds", "max_output_wav_bytes", "max_total_audio_bytes",
+        "max_response_bytes_per_call", "max_spend_usd"
+      ],
+      "properties": {
+        "max_calls": {"type": "integer", "minimum": 0, "maximum": 2},
+        "max_outputs": {"type": "integer", "minimum": 0, "maximum": 2},
+        "max_request_body_bytes": {"type": "integer", "minimum": 0, "maximum": 1440},
+        "max_total_request_bytes": {"type": "integer", "minimum": 0, "maximum": 2880},
+        "max_output_duration_seconds": {"type": "number", "minimum": 0, "maximum": 50},
+        "max_output_wav_bytes": {"type": "integer", "minimum": 0, "maximum": 2500000},
+        "max_total_audio_bytes": {"type": "integer", "minimum": 0, "maximum": 5000000},
+        "max_response_bytes_per_call": {"type": "integer", "minimum": 0, "maximum": 4000000},
+        "max_spend_usd": {"type": "number", "minimum": 0, "maximum": 0.66}
+      }
+    },
+    "consumption": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "calls_used", "outputs_received", "spend_used_usd", "record_path"],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "calls_used": {"const": 0},
+        "outputs_received": {"const": 0},
+        "spend_used_usd": {"const": 0},
+        "record_path": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

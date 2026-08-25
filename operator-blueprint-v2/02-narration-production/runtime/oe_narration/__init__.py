@@ -20,8 +20,15 @@ from .voice_remix import (
     validate_voice_remix_preview_authorization,
     validate_voice_remix_save_authorization,
 )
+from .performance_transfer import (
+    dry_run_synthetic_guide,
+    dry_run_voice_transfer,
+    validate_performance_transfer_plan,
+    validate_synthetic_guide_authorization,
+    validate_voice_transfer_authorization,
+)
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 __all__ = [
     "dry_run_metadata_inventory",
@@ -38,4 +45,9 @@ __all__ = [
     "execute_voice_remix_save",
     "validate_voice_remix_preview_authorization",
     "validate_voice_remix_save_authorization",
+    "dry_run_synthetic_guide",
+    "dry_run_voice_transfer",
+    "validate_performance_transfer_plan",
+    "validate_synthetic_guide_authorization",
+    "validate_voice_transfer_authorization",
 ]

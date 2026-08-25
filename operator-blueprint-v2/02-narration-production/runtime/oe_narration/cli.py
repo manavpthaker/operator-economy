@@ -30,6 +30,12 @@ from .directed_bakeoff import (
     validate_directed_bakeoff_execution,
 )
 from .provider import dry_run_capture, execute_capture
+from .performance_transfer import (
+    dry_run_synthetic_guide,
+    dry_run_voice_transfer,
+    validate_performance_transfer_plan,
+    validate_synthetic_guide_authorization,
+)
 from .retrieval import (
     dry_run_metadata_inventory,
     dry_run_named_sample_batch,
@@ -58,9 +64,15 @@ def _audio_path(value: str) -> Path:
     return Path(value).expanduser().absolute()
 
 
+def _contract_path(value: str) -> Path:
+    """Preserve components so authority validators can reject symlink traversal."""
+
+    return Path(value).expanduser().absolute()
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="oe-narration", description="Operator Blueprint V2 narration controls")
-    parser.add_argument("--version", action="version", version="oe-narration 0.4.0")
+    parser.add_argument("--version", action="version", version="oe-narration 0.5.0")
     sub = parser.add_subparsers(dest="command", required=True)
 
     extract = sub.add_parser("extract", help="derive canonical W from a locked Step 1 script")
@@ -193,6 +205,33 @@ def build_parser() -> argparse.ArgumentParser:
     directed_bakeoff.add_argument("--authorization", type=_path, required=True)
     directed_bakeoff.add_argument("--execute", action="store_true")
     directed_bakeoff.add_argument("--timeout", type=float, default=60.0)
+
+    transfer_plan = sub.add_parser(
+        "validate-performance-transfer-plan",
+        help="validate and compile the credential-free synthetic-guide to voice-transfer plan",
+    )
+    transfer_plan.add_argument("--plan", type=_contract_path, required=True)
+    transfer_plan.add_argument("--canonical-w", type=_contract_path, required=True)
+
+    synthetic_guide = sub.add_parser(
+        "synthetic-guide",
+        help="dry-run the two exact Gemini guide requests; external execution is not implemented",
+    )
+    synthetic_guide.add_argument("--plan", type=_contract_path, required=True)
+    synthetic_guide.add_argument("--canonical-w", type=_contract_path, required=True)
+    synthetic_guide.add_argument("--authorization", type=_contract_path)
+    synthetic_guide.add_argument("--record", type=_path)
+    synthetic_guide.add_argument("--execute", action="store_true")
+
+    voice_transfer = sub.add_parser(
+        "elevenlabs-voice-transfer",
+        help="dry-run the blocked or exact selected-guide Voice Changer request; external execution is not implemented",
+    )
+    voice_transfer.add_argument("--plan", type=_contract_path, required=True)
+    voice_transfer.add_argument("--canonical-w", type=_contract_path, required=True)
+    voice_transfer.add_argument("--authorization", type=_contract_path)
+    voice_transfer.add_argument("--record", type=_path)
+    voice_transfer.add_argument("--execute", action="store_true")
     return parser
 
 
@@ -333,6 +372,41 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         if args.timeout <= 0:
             raise ValidationError("--timeout must be positive")
         return execute_directed_bakeoff(args.authorization, timeout=args.timeout)
+    if args.command == "validate-performance-transfer-plan":
+        return validate_performance_transfer_plan(args.plan, args.canonical_w)
+    if args.command == "synthetic-guide":
+        if args.execute:
+            raise ValidationError(
+                "synthetic-guide external execution is intentionally unavailable in v0.5; "
+                "this runtime performs credential-free validation and dry-run only"
+            )
+        if args.authorization:
+            result = validate_synthetic_guide_authorization(
+                args.authorization,
+                args.plan,
+                args.canonical_w,
+            )
+        else:
+            result = dry_run_synthetic_guide(args.plan, args.canonical_w)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "elevenlabs-voice-transfer":
+        if args.execute:
+            raise ValidationError(
+                "elevenlabs-voice-transfer external execution is intentionally unavailable in v0.5; "
+                "this runtime performs credential-free validation and dry-run only"
+            )
+        result = dry_run_voice_transfer(
+            args.plan,
+            args.canonical_w,
+            args.authorization,
+        )
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
     raise ValidationError(f"unsupported command: {args.command}")
 
 
