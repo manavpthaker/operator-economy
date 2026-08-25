@@ -29,6 +29,21 @@ PROVIDER_BAKEOFF_PLAN_SCHEMA = "oe-provider-bakeoff-plan-v1"
 PROVIDER_ADAPTER_SCHEMA = "oe-provider-adapter-v1"
 PROVIDER_BAKEOFF_DRY_RUN_SCHEMA = "oe-provider-bakeoff-dry-run-v1"
 PROVIDER_ACTION_AUTHORIZATION_SCHEMA = "oe-provider-action-authorization-v1"
+ELEVEN_REMIX_OWNER_SELECTION_SCHEMA = "oe-elevenlabs-voice-remix-owner-selection-v1"
+ELEVEN_REMIX_SAVE_RECEIPT_SCHEMA = "oe-elevenlabs-voice-remix-save-receipt-v1"
+ELEVEN_CALIBRATION_RIGHTS_SCHEMA = "oe-elevenlabs-calibration-rights-v1"
+ELEVEN_VOICE_PROVENANCE_KINDS = frozenset({"saved_remix", "existing_ivc"})
+ELEVEN_CALIBRATION_PROVENANCE_FIELDS = frozenset(
+    {
+        "voice_provenance_kind",
+        "calibration_rights_receipt_path",
+        "calibration_rights_receipt_sha256",
+        "owner_selection_record_path",
+        "owner_selection_record_sha256",
+        "saved_voice_receipt_path",
+        "saved_voice_receipt_sha256",
+    }
+)
 ELEVEN_METADATA_INVENTORY_SCOPE = "elevenlabs_sample_metadata_inventory"
 ELEVEN_METADATA_INVENTORY_KIND = "read_only_voice_metadata_inventory"
 MAX_METADATA_INVENTORY_RESPONSE_BYTES = 2_000_000
@@ -167,6 +182,338 @@ def _verify_existing_local_binding(
     if hash_valid and sha256_file(candidate) != hash_value:
         errors.append(f"{label}.sha256 does not match the existing file")
     return candidate
+
+
+def _load_verified_json_binding(
+    root: Path,
+    bindings: dict[str, Any],
+    *,
+    path_key: str,
+    sha_key: str,
+    label: str,
+    errors: list[str],
+) -> dict[str, Any] | None:
+    """Load one immutable, receipt-rooted JSON provenance record."""
+    path = _verify_existing_local_binding(
+        root,
+        bindings.get(path_key),
+        bindings.get(sha_key),
+        label,
+        errors,
+        required_prefix="receipts",
+    )
+    if path is None:
+        return None
+    try:
+        relative_parts = path.relative_to(root).parts
+    except ValueError:
+        errors.append(f"{label}.path must remain inside the artifact root")
+        return None
+    cursor = root
+    for part in relative_parts:
+        cursor = cursor / part
+        if cursor.is_symlink():
+            errors.append(f"{label}.path must not contain symlink components")
+            return None
+    if path.suffix.lower() != ".json":
+        errors.append(f"{label}.path must identify a JSON receipt")
+        return None
+    try:
+        return read_json(path)
+    except ValidationError as exc:
+        errors.extend(f"{label}: {error}" for error in exc.errors)
+        return None
+
+
+def _validate_eleven_calibration_voice_provenance(
+    authorization: dict[str, Any],
+    action: dict[str, Any],
+    plan_voice_id: Any,
+    artifact_root: Path,
+    errors: list[str],
+    *,
+    required: bool,
+) -> None:
+    bindings = authorization.get("bindings")
+    if not isinstance(bindings, dict):
+        bindings = {}
+    present = ELEVEN_CALIBRATION_PROVENANCE_FIELDS.intersection(bindings)
+    if not present:
+        if required:
+            errors.append(
+                "active ElevenLabs calibration requires complete voice provenance bindings"
+            )
+        return
+
+    common_fields = {
+        "voice_provenance_kind",
+        "calibration_rights_receipt_path",
+        "calibration_rights_receipt_sha256",
+    }
+    missing_common = sorted(common_fields.difference(bindings))
+    if missing_common:
+        errors.append(
+            "ElevenLabs calibration provenance bindings are incomplete: missing "
+            + ", ".join(missing_common)
+        )
+    provenance_kind = bindings.get("voice_provenance_kind")
+    if provenance_kind not in ELEVEN_VOICE_PROVENANCE_KINDS:
+        errors.append(
+            "ElevenLabs calibration bindings.voice_provenance_kind must be "
+            "saved_remix or existing_ivc"
+        )
+
+    calibration_rights = _load_verified_json_binding(
+        artifact_root,
+        bindings,
+        path_key="calibration_rights_receipt_path",
+        sha_key="calibration_rights_receipt_sha256",
+        label="bindings.calibration_rights_receipt",
+        errors=errors,
+    )
+    if calibration_rights is not None:
+        rights_keys = {
+            "schema_version",
+            "provider",
+            "authorization_id",
+            "compiled_dry_run_sha256",
+            "authorized_limits",
+            "voice_provenance_kind",
+            "voice_owner",
+            "consent_owner",
+            "target_voice_id",
+            "owner_approval",
+            "tts_generation_permitted",
+            "permitted_use",
+            "full_capture_permitted",
+        }
+        if provenance_kind == "saved_remix":
+            rights_keys.add("saved_voice_receipt_sha256")
+        _reject_unknown_keys(
+            calibration_rights,
+            rights_keys,
+            "bound calibration rights receipt",
+            errors,
+        )
+        if calibration_rights.get("schema_version") != ELEVEN_CALIBRATION_RIGHTS_SCHEMA:
+            errors.append("bound calibration rights receipt has the wrong schema")
+        if calibration_rights.get("provider") != "elevenlabs":
+            errors.append("bound calibration rights receipt provider must be elevenlabs")
+        if calibration_rights.get("authorization_id") != authorization.get(
+            "authorization_id"
+        ):
+            errors.append("bound calibration rights receipt authorization_id mismatch")
+        if calibration_rights.get("compiled_dry_run_sha256") != bindings.get(
+            "compiled_dry_run_sha256"
+        ):
+            errors.append(
+                "bound calibration rights receipt compiled request-set hash mismatch"
+            )
+        rights_limits = calibration_rights.get("authorized_limits")
+        _reject_unknown_keys(
+            rights_limits,
+            {"max_calls", "max_outputs", "max_characters", "max_spend_usd"},
+            "bound calibration rights receipt authorized_limits",
+            errors,
+        )
+        if rights_limits != authorization.get("authorized_limits"):
+            errors.append(
+                "bound calibration rights receipt limits must exactly equal authorization limits"
+            )
+        if calibration_rights.get("voice_provenance_kind") != provenance_kind:
+            errors.append("bound calibration rights receipt provenance kind mismatch")
+        approved_by = authorization.get("approved_by")
+        if (
+            not isinstance(approved_by, str)
+            or not approved_by
+            or calibration_rights.get("voice_owner") != approved_by
+            or calibration_rights.get("consent_owner") != approved_by
+        ):
+            errors.append(
+                "calibration voice_owner and consent_owner must equal authorization approved_by"
+            )
+        if (
+            calibration_rights.get("target_voice_id") != plan_voice_id
+            or calibration_rights.get("target_voice_id") != action.get("voice_id")
+        ):
+            errors.append(
+                "bound calibration rights target voice must equal the plan and authorization voice ID"
+            )
+        if calibration_rights.get("owner_approval") is not True:
+            errors.append("bound calibration rights receipt requires owner_approval true")
+        if calibration_rights.get("tts_generation_permitted") is not True:
+            errors.append(
+                "bound calibration rights receipt requires tts_generation_permitted true"
+            )
+        if calibration_rights.get("permitted_use") != "bounded_calibration_only":
+            errors.append("bound calibration rights receipt must permit bounded calibration only")
+        if calibration_rights.get("full_capture_permitted") is not False:
+            errors.append("bound calibration rights receipt must forbid full capture")
+
+    remix_fields = {
+        "owner_selection_record_path",
+        "owner_selection_record_sha256",
+        "saved_voice_receipt_path",
+        "saved_voice_receipt_sha256",
+    }
+    if provenance_kind == "existing_ivc":
+        present_remix = sorted(remix_fields.intersection(bindings))
+        if present_remix:
+            errors.append(
+                "existing_ivc provenance must not carry remix receipt bindings: "
+                + ", ".join(present_remix)
+            )
+        return
+    if provenance_kind != "saved_remix":
+        return
+
+    missing_remix = sorted(remix_fields.difference(bindings))
+    if missing_remix:
+        errors.append(
+            "saved_remix provenance bindings are incomplete: missing "
+            + ", ".join(missing_remix)
+        )
+    owner_selection = _load_verified_json_binding(
+        artifact_root,
+        bindings,
+        path_key="owner_selection_record_path",
+        sha_key="owner_selection_record_sha256",
+        label="bindings.owner_selection_record",
+        errors=errors,
+    )
+    saved_voice = _load_verified_json_binding(
+        artifact_root,
+        bindings,
+        path_key="saved_voice_receipt_path",
+        sha_key="saved_voice_receipt_sha256",
+        label="bindings.saved_voice_receipt",
+        errors=errors,
+    )
+    if owner_selection is not None:
+        _reject_unknown_keys(
+            owner_selection,
+            {
+                "schema_version",
+                "preview_receipt_sha256",
+                "source_voice_id",
+                "selected_generated_voice_id",
+                "selected_audio_sha256",
+                "selected_by",
+                "selected_at",
+                "owner_approved_save",
+                "voice_name",
+                "voice_description",
+            },
+            "bound owner selection",
+            errors,
+        )
+        if owner_selection.get("schema_version") != ELEVEN_REMIX_OWNER_SELECTION_SCHEMA:
+            errors.append("bound owner selection has the wrong schema")
+        if owner_selection.get("owner_approved_save") is not True:
+            errors.append("bound owner selection does not approve saving the selected voice")
+        selected_voice_id = owner_selection.get("selected_generated_voice_id")
+        if (
+            not isinstance(selected_voice_id, str)
+            or not selected_voice_id
+            or selected_voice_id != plan_voice_id
+            or selected_voice_id != action.get("voice_id")
+        ):
+            errors.append(
+                "bound owner selection voice ID must equal the plan and authorization voice ID"
+            )
+        if (
+            not isinstance(owner_selection.get("source_voice_id"), str)
+            or not owner_selection.get("source_voice_id")
+        ):
+            errors.append("bound owner selection source_voice_id is required")
+        _hash_value(
+            owner_selection.get("selected_audio_sha256"),
+            "bound owner selection selected_audio_sha256",
+            errors,
+        )
+    if saved_voice is not None:
+        _reject_unknown_keys(
+            saved_voice,
+            {
+                "schema_version",
+                "outcome",
+                "authorization_id",
+                "authorization_sha256",
+                "authorization_consumption_record",
+                "authorization_consumption_sha256",
+                "provider",
+                "scope",
+                "source_voice_id",
+                "selected_generated_voice_id",
+                "selected_audio_sha256",
+                "owner_selection_record_sha256",
+                "request_body_sha256",
+                "new_voice_id",
+                "new_voice_name",
+                "new_voice_category",
+                "new_voice_is_owner",
+                "new_voice_is_owner_status",
+                "source_voice_modified",
+                "new_voice_created",
+                "provider_calls_made",
+                "provider_identifiers",
+                "readback",
+                "provider_character_cost",
+                "spend",
+                "created_at",
+            },
+            "bound saved-voice receipt",
+            errors,
+        )
+        if saved_voice.get("schema_version") != ELEVEN_REMIX_SAVE_RECEIPT_SCHEMA:
+            errors.append("bound saved-voice receipt has the wrong schema")
+        if saved_voice.get("provider") != "elevenlabs":
+            errors.append("bound saved-voice receipt provider must be elevenlabs")
+        if saved_voice.get("scope") != "elevenlabs_voice_remix_save":
+            errors.append("bound saved-voice receipt scope mismatch")
+        if saved_voice.get("provider_calls_made") != 1:
+            errors.append("bound saved-voice receipt must report exactly one provider call")
+        if saved_voice.get("outcome") != "new_voice_created_from_owner_selected_preview":
+            errors.append("bound saved-voice receipt does not prove the selected preview was saved")
+        if saved_voice.get("new_voice_created") is not True:
+            errors.append("bound saved-voice receipt does not confirm creation of a new voice")
+        if saved_voice.get("source_voice_modified") is not False:
+            errors.append("bound saved-voice receipt must confirm source_voice_modified false")
+        if saved_voice.get("new_voice_is_owner") is False:
+            errors.append("bound saved-voice receipt reports the new voice is not owner-controlled")
+        for field in ("new_voice_id", "selected_generated_voice_id"):
+            if (
+                saved_voice.get(field) != plan_voice_id
+                or saved_voice.get(field) != action.get("voice_id")
+            ):
+                errors.append(
+                    f"bound saved-voice receipt {field} must equal the plan and authorization voice ID"
+                )
+        if saved_voice.get("owner_selection_record_sha256") != bindings.get(
+            "owner_selection_record_sha256"
+        ):
+            errors.append(
+                "bound saved-voice receipt does not bind the exact owner-selection record"
+            )
+    if owner_selection is not None and saved_voice is not None:
+        if saved_voice.get("selected_generated_voice_id") != owner_selection.get(
+            "selected_generated_voice_id"
+        ):
+            errors.append("saved voice does not match the owner-selected preview voice ID")
+        if saved_voice.get("selected_audio_sha256") != owner_selection.get(
+            "selected_audio_sha256"
+        ):
+            errors.append("saved voice does not match the owner-selected preview audio")
+        if saved_voice.get("source_voice_id") != owner_selection.get("source_voice_id"):
+            errors.append("saved voice source does not match the owner-selection record")
+    if (
+        calibration_rights is not None
+        and calibration_rights.get("saved_voice_receipt_sha256")
+        != bindings.get("saved_voice_receipt_sha256")
+    ):
+        errors.append(
+            "bound calibration rights receipt does not bind the exact saved-voice receipt"
+        )
 
 
 def _validate_new_local_destination(
@@ -2171,7 +2518,18 @@ def validate_provider_action_authorization(
         ELEVEN_METADATA_INVENTORY_SCOPE: base_bindings,
         ELEVEN_NAMED_SAMPLE_BATCH_SCOPE: base_bindings,
         "hume_clone_creation": base_bindings,
-        "elevenlabs_calibration": base_bindings | {"script_sha256", "spoken_text_sha256"},
+        "elevenlabs_calibration": base_bindings
+        | {
+            "script_sha256",
+            "spoken_text_sha256",
+            "voice_provenance_kind",
+            "calibration_rights_receipt_path",
+            "calibration_rights_receipt_sha256",
+            "owner_selection_record_path",
+            "owner_selection_record_sha256",
+            "saved_voice_receipt_path",
+            "saved_voice_receipt_sha256",
+        },
         "hume_calibration": base_bindings
         | {
             "script_sha256",
@@ -2354,6 +2712,21 @@ def validate_provider_action_authorization(
                 f"bindings.provider_adapter_sha256 does not bind the {expected_provider} adapter"
             )
 
+    artifact_root = _artifact_root(authorization_path)
+    if status == "draft" and scope == "elevenlabs_calibration":
+        draft_provider_plan = _provider_from_plan(plan, "elevenlabs")
+        draft_plan_voice_id = (
+            draft_provider_plan.get("voice_id") if isinstance(draft_provider_plan, dict) else None
+        )
+        _validate_eleven_calibration_voice_provenance(
+            authorization,
+            action,
+            draft_plan_voice_id,
+            artifact_root,
+            errors,
+            required=False,
+        )
+
     if status == "draft":
         if authorization.get("approved") is not False:
             errors.append("draft authorization approved must be false")
@@ -2375,8 +2748,6 @@ def validate_provider_action_authorization(
             "network_authorized": False,
             "blocker_count": len(authorization["blockers"]),
         }
-
-    artifact_root = _artifact_root(authorization_path)
 
     if authorization.get("approved") is not True:
         errors.append("active authorization approved must be true")
@@ -2861,11 +3232,22 @@ def validate_provider_action_authorization(
             errors.append("ElevenLabs calibration action.kind mismatch")
         requests = _requests_from_dry_run(dry_run, "elevenlabs")
         provider_plan = _provider_from_plan(plan, "elevenlabs")
+        plan_voice_id: str | None = None
         if not provider_plan:
             errors.append("bound plan is missing ElevenLabs")
         else:
+            plan_voice_id = provider_plan.get("voice_id")
             if action.get("voice_id") != provider_plan.get("voice_id") or action.get("model_id") != "eleven_v3":
                 errors.append("ElevenLabs calibration voice/model mismatch")
+
+        _validate_eleven_calibration_voice_provenance(
+            authorization,
+            action,
+            plan_voice_id,
+            artifact_root,
+            errors,
+            required=True,
+        )
         if action.get("request_ids") != [request.get("request_id") for request in requests]:
             errors.append("ElevenLabs calibration request_ids do not match the compiled dry run")
         if action.get("preferred_output_format") != "pcm_48000":

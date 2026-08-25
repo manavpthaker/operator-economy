@@ -62,6 +62,13 @@
         "compiled_dry_run_sha256": {"$ref": "#/$defs/sha256"},
         "script_sha256": {"$ref": "#/$defs/sha256"},
         "spoken_text_sha256": {"$ref": "#/$defs/sha256"},
+        "voice_provenance_kind": {"enum": ["saved_remix", "existing_ivc"]},
+        "calibration_rights_receipt_path": {"type": "string", "minLength": 1},
+        "calibration_rights_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "owner_selection_record_path": {"type": "string", "minLength": 1},
+        "owner_selection_record_sha256": {"$ref": "#/$defs/sha256"},
+        "saved_voice_receipt_path": {"type": "string", "minLength": 1},
+        "saved_voice_receipt_sha256": {"$ref": "#/$defs/sha256"},
         "clone_receipt_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"const": "pending"}]},
         "clone_receipt_path": {"type": "string", "minLength": 1},
         "compiled_hash_state": {"type": "string", "minLength": 1}
@@ -403,6 +410,119 @@
     },
     {
       "if": {
+        "properties": {"scope": {"not": {"const": "elevenlabs_calibration"}}},
+        "required": ["scope"]
+      },
+      "then": {
+        "properties": {
+          "bindings": {
+            "not": {"anyOf": [
+              {"required": ["voice_provenance_kind"]},
+              {"required": ["calibration_rights_receipt_path"]},
+              {"required": ["calibration_rights_receipt_sha256"]},
+              {"required": ["owner_selection_record_path"]},
+              {"required": ["owner_selection_record_sha256"]},
+              {"required": ["saved_voice_receipt_path"]},
+              {"required": ["saved_voice_receipt_sha256"]}
+            ]}
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"scope": {"const": "elevenlabs_calibration"}}, "required": ["scope"]},
+          {
+            "properties": {
+              "bindings": {
+                "anyOf": [
+                  {"required": ["voice_provenance_kind"]},
+                  {"required": ["calibration_rights_receipt_path"]},
+                  {"required": ["calibration_rights_receipt_sha256"]},
+                  {"required": ["owner_selection_record_path"]},
+                  {"required": ["owner_selection_record_sha256"]},
+                  {"required": ["saved_voice_receipt_path"]},
+                  {"required": ["saved_voice_receipt_sha256"]}
+                ]
+              }
+            },
+            "required": ["bindings"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "bindings": {
+            "required": [
+              "voice_provenance_kind",
+              "calibration_rights_receipt_path",
+              "calibration_rights_receipt_sha256"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"scope": {"const": "elevenlabs_calibration"}}, "required": ["scope"]},
+          {
+            "properties": {
+              "bindings": {
+                "properties": {"voice_provenance_kind": {"const": "saved_remix"}},
+                "required": ["voice_provenance_kind"]
+              }
+            },
+            "required": ["bindings"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "bindings": {
+            "required": [
+              "owner_selection_record_path",
+              "owner_selection_record_sha256",
+              "saved_voice_receipt_path",
+              "saved_voice_receipt_sha256"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"scope": {"const": "elevenlabs_calibration"}}, "required": ["scope"]},
+          {
+            "properties": {
+              "bindings": {
+                "properties": {"voice_provenance_kind": {"const": "existing_ivc"}},
+                "required": ["voice_provenance_kind"]
+              }
+            },
+            "required": ["bindings"]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "bindings": {
+            "not": {
+              "anyOf": [
+                {"required": ["owner_selection_record_path"]},
+                {"required": ["owner_selection_record_sha256"]},
+                {"required": ["saved_voice_receipt_path"]},
+                {"required": ["saved_voice_receipt_sha256"]}
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
         "allOf": [
           {"properties": {"status": {"const": "active"}}},
           {"properties": {"scope": {"const": "elevenlabs_sample_retrieval"}}},
@@ -706,7 +826,15 @@
               "fallback_requires_actual_codec_bitrate_verification": {"const": true}
             }
           },
-          "bindings": {"required": ["script_sha256", "spoken_text_sha256"]},
+          "bindings": {
+            "required": [
+              "script_sha256",
+              "spoken_text_sha256",
+              "voice_provenance_kind",
+              "calibration_rights_receipt_path",
+              "calibration_rights_receipt_sha256"
+            ]
+          },
           "authorized_limits": {"required": ["max_calls", "max_outputs", "max_characters", "max_spend_usd"]}
         }
       }

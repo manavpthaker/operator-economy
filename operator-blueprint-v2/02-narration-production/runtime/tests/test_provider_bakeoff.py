@@ -96,6 +96,130 @@ class ProviderBakeoffTests(unittest.TestCase):
             self._write_json(authorization_path, authorization)
         return result
 
+    def _bind_saved_eleven_voice_provenance(
+        self,
+        fixture: Path,
+        authorization: dict,
+    ) -> tuple[Path, Path, Path]:
+        plan = json.loads((fixture / "provider-bakeoff-plan.json").read_text(encoding="utf-8"))
+        provider = next(item for item in plan["providers"] if item["provider"] == "elevenlabs")
+        voice_id = provider["voice_id"]
+        source_voice_id = "test-owner-source-voice"
+        audio_sha256 = "a" * 64
+        receipt_dir = fixture / "receipts" / "elevenlabs"
+        receipt_dir.mkdir(parents=True, exist_ok=True)
+        selection_path = receipt_dir / "test-owner-selection.json"
+        selection = {
+            "schema_version": "oe-elevenlabs-voice-remix-owner-selection-v1",
+            "preview_receipt_sha256": "b" * 64,
+            "source_voice_id": source_voice_id,
+            "selected_generated_voice_id": voice_id,
+            "selected_audio_sha256": audio_sha256,
+            "selected_by": "Owner",
+            "selected_at": "2026-08-24T14:00:00+00:00",
+            "owner_approved_save": True,
+            "voice_name": "Test saved voice",
+            "voice_description": "Synthetic test provenance only.",
+        }
+        self._write_json(selection_path, selection)
+        selection_sha256 = sha256_file(selection_path)
+        saved_path = receipt_dir / "test-saved-voice.json"
+        saved = {
+            "schema_version": "oe-elevenlabs-voice-remix-save-receipt-v1",
+            "outcome": "new_voice_created_from_owner_selected_preview",
+            "provider": "elevenlabs",
+            "scope": "elevenlabs_voice_remix_save",
+            "source_voice_id": source_voice_id,
+            "selected_generated_voice_id": voice_id,
+            "selected_audio_sha256": audio_sha256,
+            "owner_selection_record_sha256": selection_sha256,
+            "new_voice_id": voice_id,
+            "new_voice_created": True,
+            "source_voice_modified": False,
+            "provider_calls_made": 1,
+        }
+        self._write_json(saved_path, saved)
+        saved_sha256 = sha256_file(saved_path)
+        rights_path = receipt_dir / "test-calibration-rights.json"
+        rights = {
+            "schema_version": "oe-elevenlabs-calibration-rights-v1",
+            "provider": "elevenlabs",
+            "authorization_id": authorization["authorization_id"],
+            "compiled_dry_run_sha256": authorization["bindings"][
+                "compiled_dry_run_sha256"
+            ],
+            "authorized_limits": copy.deepcopy(authorization["authorized_limits"]),
+            "voice_provenance_kind": "saved_remix",
+            "voice_owner": authorization["approved_by"],
+            "consent_owner": authorization["approved_by"],
+            "target_voice_id": voice_id,
+            "owner_approval": True,
+            "tts_generation_permitted": True,
+            "permitted_use": "bounded_calibration_only",
+            "full_capture_permitted": False,
+            "saved_voice_receipt_sha256": saved_sha256,
+        }
+        self._write_json(rights_path, rights)
+        authorization["bindings"].update(
+            {
+                "voice_provenance_kind": "saved_remix",
+                "calibration_rights_receipt_path": rights_path.relative_to(fixture).as_posix(),
+                "calibration_rights_receipt_sha256": sha256_file(rights_path),
+                "owner_selection_record_path": selection_path.relative_to(fixture).as_posix(),
+                "owner_selection_record_sha256": selection_sha256,
+                "saved_voice_receipt_path": saved_path.relative_to(fixture).as_posix(),
+                "saved_voice_receipt_sha256": saved_sha256,
+            }
+        )
+        return selection_path, saved_path, rights_path
+
+    def _activate_eleven_calibration(
+        self,
+        fixture: Path,
+        envelope: Path,
+        w: Path,
+    ) -> tuple[Path, dict, datetime, dict, Path, Path, Path]:
+        dry_run = self._refresh_compiled_and_auth_bindings(fixture, envelope, w)
+        auth_path = fixture / "authorizations" / "03-elevenlabs-calibration.DRAFT.json"
+        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
+        now = datetime(2026, 8, 24, 16, 0, tzinfo=timezone.utc)
+        authorization.update(
+            {
+                "status": "active",
+                "approved": True,
+                "execution_ready": True,
+                "blockers": [],
+                "approved_by": "Manav",
+                "approved_at": (now - timedelta(hours=1)).isoformat(),
+                "expires_at": (now + timedelta(hours=1)).isoformat(),
+            }
+        )
+        maximum = dry_run["totals"]["by_provider"]["elevenlabs"][
+            "maximum_with_one_fallback_per_request"
+        ]
+        authorization["authorized_limits"] = {
+            "max_calls": maximum["max_call_count"],
+            "max_outputs": maximum["expected_output_count"],
+            "max_characters": maximum["max_billable_character_count"],
+            "max_spend_usd": maximum["max_modeled_public_rate_cost_usd"],
+        }
+        authorization["action"].update(
+            {
+                "fallback_requires_capability_rejection_receipt": True,
+                "fallback_requires_actual_codec_bitrate_verification": True,
+            }
+        )
+        for key in list(authorization["consumption"]):
+            if key.endswith("_used") or key.endswith("_used_usd"):
+                authorization["consumption"][key] = 0
+        authorization["consumption"]["status"] = "unconsumed"
+        authorization["consumption"]["record_path"] = "consumed/elevenlabs-calibration.json"
+        selection_path, saved_path, rights_path = self._bind_saved_eleven_voice_provenance(
+            fixture, authorization
+        )
+        self._write_json(auth_path, authorization)
+        return auth_path, authorization, now, dry_run, selection_path, saved_path, rights_path
+
     def test_fixture_envelope_and_adapters_validate(self) -> None:
         envelope = validate_performance_envelope(self.envelope, self.w)
         eleven = validate_provider_adapter(self.eleven_adapter, self.envelope, self.w)
@@ -342,45 +466,19 @@ class ProviderBakeoffTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "rights_and_consent contains unsupported keys"):
             validate_provider_action_authorization(retrieval_path)
 
+        calibration_path = fixture / "authorizations" / "03-elevenlabs-calibration.DRAFT.json"
+        calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+        calibration["bindings"]["voice_provenance_kind"] = "existing_ivc"
+        self._write_json(calibration_path, calibration)
+        with self.assertRaisesRegex(ValidationError, "provenance bindings are incomplete"):
+            validate_provider_action_authorization(calibration_path)
+
     def test_active_calibration_requires_24h_window_unconsumed_record_and_fallback_caps(self) -> None:
         temporary, fixture, envelope, w = self._copy_system()
         self.addCleanup(temporary.cleanup)
-        dry_run = self._refresh_compiled_and_auth_bindings(fixture, envelope, w)
-        auth_path = fixture / "authorizations" / "03-elevenlabs-calibration.DRAFT.json"
-        authorization = json.loads(auth_path.read_text(encoding="utf-8"))
-        now = datetime(2026, 8, 24, 16, 0, tzinfo=timezone.utc)
-        authorization.update(
-            {
-                "status": "active",
-                "approved": True,
-                "execution_ready": True,
-                "blockers": [],
-                "approved_by": "Manav",
-                "approved_at": (now - timedelta(hours=1)).isoformat(),
-                "expires_at": (now + timedelta(hours=1)).isoformat(),
-            }
+        auth_path, authorization, now, _dry_run, _selection, _saved, _rights = (
+            self._activate_eleven_calibration(fixture, envelope, w)
         )
-        maximum = dry_run["totals"]["by_provider"]["elevenlabs"][
-            "maximum_with_one_fallback_per_request"
-        ]
-        authorization["authorized_limits"] = {
-            "max_calls": maximum["max_call_count"],
-            "max_outputs": maximum["expected_output_count"],
-            "max_characters": maximum["max_billable_character_count"],
-            "max_spend_usd": maximum["max_modeled_public_rate_cost_usd"],
-        }
-        authorization["action"].update(
-            {
-                "fallback_requires_capability_rejection_receipt": True,
-                "fallback_requires_actual_codec_bitrate_verification": True,
-            }
-        )
-        for key in list(authorization["consumption"]):
-            if key.endswith("_used") or key.endswith("_used_usd"):
-                authorization["consumption"][key] = 0
-        authorization["consumption"]["status"] = "unconsumed"
-        authorization["consumption"]["record_path"] = "consumed/elevenlabs-calibration.json"
-        self._write_json(auth_path, authorization)
         result = validate_provider_action_authorization(auth_path, now=now)
         self.assertTrue(result["execution_ready"])
         self.assertTrue(result["consumption_record_absent"])
@@ -420,6 +518,172 @@ class ProviderBakeoffTests(unittest.TestCase):
         consumed.parent.mkdir(parents=True)
         consumed.write_text("{}\n", encoding="utf-8")
         with self.assertRaisesRegex(ValidationError, "already exists"):
+            validate_provider_action_authorization(auth_path, now=now)
+
+    def test_active_eleven_calibration_requires_untampered_saved_voice_provenance(self) -> None:
+        temporary, fixture, envelope, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        auth_path, authorization, now, _dry_run, selection_path, saved_path, rights_path = (
+            self._activate_eleven_calibration(fixture, envelope, w)
+        )
+        validate_provider_action_authorization(auth_path, now=now)
+        consumption_path = auth_path.parent / authorization["consumption"]["record_path"]
+
+        provenance_fields = (
+            "voice_provenance_kind",
+            "calibration_rights_receipt_path",
+            "calibration_rights_receipt_sha256",
+            "owner_selection_record_path",
+            "owner_selection_record_sha256",
+            "saved_voice_receipt_path",
+            "saved_voice_receipt_sha256",
+        )
+        for field in provenance_fields:
+            with self.subTest(missing=field):
+                missing = copy.deepcopy(authorization)
+                missing["bindings"].pop(field)
+                self._write_json(auth_path, missing)
+                with self.assertRaises(ValidationError):
+                    validate_provider_action_authorization(auth_path, now=now)
+                self.assertFalse(consumption_path.exists())
+
+        unknown = copy.deepcopy(authorization)
+        unknown["bindings"]["selected_voice_receipt_path"] = "receipts/forged.json"
+        self._write_json(auth_path, unknown)
+        with self.assertRaisesRegex(ValidationError, "bindings contains unsupported keys"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        rights = json.loads(rights_path.read_text(encoding="utf-8"))
+        rights["voice_owner"] = "Not the approver"
+        self._write_json(rights_path, rights)
+        authorization["bindings"]["calibration_rights_receipt_sha256"] = sha256_file(
+            rights_path
+        )
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "voice_owner and consent_owner"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        rights = json.loads(rights_path.read_text(encoding="utf-8"))
+        rights["authorized_limits"]["max_calls"] += 1
+        self._write_json(rights_path, rights)
+        authorization["bindings"]["calibration_rights_receipt_sha256"] = sha256_file(
+            rights_path
+        )
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "limits must exactly equal"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        selection = json.loads(selection_path.read_text(encoding="utf-8"))
+        selection["voice_description"] = "tampered without rebinding"
+        self._write_json(selection_path, selection)
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "owner_selection_record.sha256"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        saved = json.loads(saved_path.read_text(encoding="utf-8"))
+        saved["new_voice_created"] = False
+        self._write_json(saved_path, saved)
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "saved_voice_receipt.sha256"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        selection = json.loads(selection_path.read_text(encoding="utf-8"))
+        saved = json.loads(saved_path.read_text(encoding="utf-8"))
+        selection["selected_generated_voice_id"] = "forged-owner-selection"
+        self._write_json(selection_path, selection)
+        authorization["bindings"]["owner_selection_record_sha256"] = sha256_file(selection_path)
+        saved["owner_selection_record_sha256"] = sha256_file(selection_path)
+        self._write_json(saved_path, saved)
+        authorization["bindings"]["saved_voice_receipt_sha256"] = sha256_file(saved_path)
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "owner selection voice ID"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        saved = json.loads(saved_path.read_text(encoding="utf-8"))
+        saved["new_voice_id"] = "forged-saved-voice"
+        self._write_json(saved_path, saved)
+        authorization["bindings"]["saved_voice_receipt_sha256"] = sha256_file(saved_path)
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "new_voice_id"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+        for field, value, message in (
+            ("source_voice_modified", True, "source_voice_modified false"),
+            ("unexpected_permission", True, "saved-voice receipt contains unsupported keys"),
+        ):
+            with self.subTest(saved_receipt_attack=field):
+                self._bind_saved_eleven_voice_provenance(fixture, authorization)
+                saved = json.loads(saved_path.read_text(encoding="utf-8"))
+                saved[field] = value
+                self._write_json(saved_path, saved)
+                saved_sha256 = sha256_file(saved_path)
+                authorization["bindings"]["saved_voice_receipt_sha256"] = saved_sha256
+                rights = json.loads(rights_path.read_text(encoding="utf-8"))
+                rights["saved_voice_receipt_sha256"] = saved_sha256
+                self._write_json(rights_path, rights)
+                authorization["bindings"]["calibration_rights_receipt_sha256"] = sha256_file(
+                    rights_path
+                )
+                self._write_json(auth_path, authorization)
+                with self.assertRaisesRegex(ValidationError, message):
+                    validate_provider_action_authorization(auth_path, now=now)
+                self.assertFalse(consumption_path.exists())
+
+        self._bind_saved_eleven_voice_provenance(fixture, authorization)
+        real_dir = fixture / "receipts" / "real-rights"
+        real_dir.mkdir(parents=True)
+        real_rights = real_dir / "rights.json"
+        shutil.copy2(rights_path, real_rights)
+        linked_dir = fixture / "receipts" / "linked-rights"
+        linked_dir.symlink_to(real_dir, target_is_directory=True)
+        authorization["bindings"]["calibration_rights_receipt_path"] = (
+            "receipts/linked-rights/rights.json"
+        )
+        authorization["bindings"]["calibration_rights_receipt_sha256"] = sha256_file(real_rights)
+        self._write_json(auth_path, authorization)
+        with self.assertRaisesRegex(ValidationError, "symlink components"):
+            validate_provider_action_authorization(auth_path, now=now)
+        self.assertFalse(consumption_path.exists())
+
+    def test_active_eleven_calibration_supports_existing_ivc_without_remix_receipts(self) -> None:
+        temporary, fixture, envelope, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        auth_path, authorization, now, _dry_run, _selection, _saved, rights_path = (
+            self._activate_eleven_calibration(fixture, envelope, w)
+        )
+        for field in (
+            "owner_selection_record_path",
+            "owner_selection_record_sha256",
+            "saved_voice_receipt_path",
+            "saved_voice_receipt_sha256",
+        ):
+            authorization["bindings"].pop(field)
+        authorization["bindings"]["voice_provenance_kind"] = "existing_ivc"
+        rights = json.loads(rights_path.read_text(encoding="utf-8"))
+        rights["voice_provenance_kind"] = "existing_ivc"
+        rights.pop("saved_voice_receipt_sha256")
+        self._write_json(rights_path, rights)
+        authorization["bindings"]["calibration_rights_receipt_sha256"] = sha256_file(rights_path)
+        self._write_json(auth_path, authorization)
+        result = validate_provider_action_authorization(auth_path, now=now)
+        self.assertTrue(result["execution_ready"])
+
+        forbidden = copy.deepcopy(authorization)
+        forbidden["bindings"]["saved_voice_receipt_path"] = "receipts/forged.json"
+        self._write_json(auth_path, forbidden)
+        with self.assertRaisesRegex(ValidationError, "must not carry remix receipt bindings"):
             validate_provider_action_authorization(auth_path, now=now)
 
     def test_active_retrieval_binds_exact_endpoint_and_non_overwriting_receipts(self) -> None:
@@ -770,6 +1034,30 @@ class ProviderBakeoffTests(unittest.TestCase):
         self.assertFalse(plan["additionalProperties"])
         self.assertFalse(authorization["additionalProperties"])
         self.assertFalse(plan["$defs"]["pathHash"]["additionalProperties"])
+        provenance_bindings = {
+            "voice_provenance_kind",
+            "calibration_rights_receipt_path",
+            "calibration_rights_receipt_sha256",
+            "owner_selection_record_path",
+            "owner_selection_record_sha256",
+            "saved_voice_receipt_path",
+            "saved_voice_receipt_sha256",
+        }
+        self.assertTrue(
+            provenance_bindings.issubset(authorization["properties"]["bindings"]["properties"])
+        )
+        active_binding_requirements = [
+            set(rule.get("then", {}).get("properties", {}).get("bindings", {}).get("required", []))
+            for rule in authorization["allOf"]
+        ]
+        common = {
+            "voice_provenance_kind",
+            "calibration_rights_receipt_path",
+            "calibration_rights_receipt_sha256",
+        }
+        remix = provenance_bindings.difference(common)
+        self.assertTrue(any(common.issubset(required) for required in active_binding_requirements))
+        self.assertTrue(any(remix.issubset(required) for required in active_binding_requirements))
         for definition in ("elevenPassage", "humePassage", "thoughtDirection"):
             self.assertFalse(adapter["$defs"][definition]["additionalProperties"])
         for definition in ("elevenRequest", "humeRequest", "humeCandidate", "formatPolicy"):

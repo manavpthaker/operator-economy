@@ -1,6 +1,6 @@
 """Execute the frozen ElevenLabs directed bakeoff, and nothing broader.
 
-The v0.3 bakeoff compiler is the authority for words, tags, paragraph
+The bound bakeoff compiler is the authority for words, tags, paragraph
 boundaries, voice, model, settings, destinations, and fallback requests.  This
 module is deliberately only a transport: it recompiles that contract, requires
 an exact active authorization, consumes it before the first network call, and
@@ -504,7 +504,15 @@ def validate_directed_bakeoff_execution(
     authorization_path = Path(authorization_path)
     if authorization_path.is_symlink() or not authorization_path.is_file():
         raise ValidationError("authorization must be a regular, non-symlink file")
-    validate_provider_action_authorization(authorization_path, now=now)
+    authorization_gate = validate_provider_action_authorization(authorization_path, now=now)
+    if (
+        authorization_gate.get("status") != "active"
+        or authorization_gate.get("execution_ready") is not True
+        or authorization_gate.get("network_authorized_for_scope_only") is not True
+    ):
+        raise ValidationError(
+            "directed bakeoff requires an active, execution-ready, network-authorized provider action"
+        )
     authorization = read_json(authorization_path)
     if authorization.get("scope") != AUTHORIZATION_SCOPE:
         raise ValidationError(f"directed bakeoff requires exact scope {AUTHORIZATION_SCOPE}")
@@ -830,7 +838,7 @@ def execute_directed_bakeoff(
     *,
     timeout: float = 60.0,
 ) -> dict[str, Any]:
-    """Execute only the four frozen ElevenLabs calibration requests.
+    """Execute only the frozen ElevenLabs calibration requests.
 
     The exact authorization is consumed before ``_post_once`` can run.  A
     network, HTTP, MIME, codec, cap, or filesystem failure aborts the run; no

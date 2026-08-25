@@ -12,7 +12,10 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest import mock
 
-from oe_narration.bakeoff import dry_run_provider_bakeoff
+from oe_narration.bakeoff import (
+    dry_run_provider_bakeoff,
+    validate_provider_action_authorization,
+)
 from oe_narration.core import ValidationError, sha256_file
 from oe_narration.directed_bakeoff import (
     _HttpFailure,
@@ -124,6 +127,72 @@ class DirectedBakeoffTests(unittest.TestCase):
             "spend_used_usd": 0,
             "record_path": "consumed/AUTH-test-directed-bakeoff.consumed.json",
         }
+        voice_id = authorization["action"]["voice_id"]
+        source_voice_id = "test-owner-source-voice"
+        audio_sha256 = "a" * 64
+        selection_path = fixture / "receipts" / "elevenlabs" / "test-owner-selection.json"
+        selection = {
+            "schema_version": "oe-elevenlabs-voice-remix-owner-selection-v1",
+            "preview_receipt_sha256": "b" * 64,
+            "source_voice_id": source_voice_id,
+            "selected_generated_voice_id": voice_id,
+            "selected_audio_sha256": audio_sha256,
+            "selected_by": "Owner",
+            "selected_at": (now - timedelta(minutes=2)).isoformat(),
+            "owner_approved_save": True,
+            "voice_name": "Test saved voice",
+            "voice_description": "Synthetic test provenance only.",
+        }
+        self._write_json(selection_path, selection)
+        selection_sha256 = sha256_file(selection_path)
+        saved_path = fixture / "receipts" / "elevenlabs" / "test-saved-voice.json"
+        saved = {
+            "schema_version": "oe-elevenlabs-voice-remix-save-receipt-v1",
+            "outcome": "new_voice_created_from_owner_selected_preview",
+            "provider": "elevenlabs",
+            "scope": "elevenlabs_voice_remix_save",
+            "source_voice_id": source_voice_id,
+            "selected_generated_voice_id": voice_id,
+            "selected_audio_sha256": audio_sha256,
+            "owner_selection_record_sha256": selection_sha256,
+            "new_voice_id": voice_id,
+            "new_voice_created": True,
+            "source_voice_modified": False,
+            "provider_calls_made": 1,
+        }
+        self._write_json(saved_path, saved)
+        saved_sha256 = sha256_file(saved_path)
+        rights_path = fixture / "receipts" / "elevenlabs" / "test-calibration-rights.json"
+        rights = {
+            "schema_version": "oe-elevenlabs-calibration-rights-v1",
+            "provider": "elevenlabs",
+            "authorization_id": authorization["authorization_id"],
+            "compiled_dry_run_sha256": authorization["bindings"][
+                "compiled_dry_run_sha256"
+            ],
+            "authorized_limits": copy.deepcopy(authorization["authorized_limits"]),
+            "voice_provenance_kind": "saved_remix",
+            "voice_owner": authorization["approved_by"],
+            "consent_owner": authorization["approved_by"],
+            "target_voice_id": voice_id,
+            "owner_approval": True,
+            "tts_generation_permitted": True,
+            "permitted_use": "bounded_calibration_only",
+            "full_capture_permitted": False,
+            "saved_voice_receipt_sha256": saved_sha256,
+        }
+        self._write_json(rights_path, rights)
+        authorization["bindings"].update(
+            {
+                "voice_provenance_kind": "saved_remix",
+                "calibration_rights_receipt_path": rights_path.relative_to(fixture).as_posix(),
+                "calibration_rights_receipt_sha256": sha256_file(rights_path),
+                "owner_selection_record_path": selection_path.relative_to(fixture).as_posix(),
+                "owner_selection_record_sha256": selection_sha256,
+                "saved_voice_receipt_path": saved_path.relative_to(fixture).as_posix(),
+                "saved_voice_receipt_sha256": saved_sha256,
+            }
+        )
         active = fixture / "authorizations" / "03-elevenlabs-calibration.ACTIVE.test.json"
         self._write_json(active, authorization)
         return active
@@ -158,6 +227,57 @@ class DirectedBakeoffTests(unittest.TestCase):
         self.assertEqual(public["primary_request_count"], 4)
         self.assertEqual(public["passage_count"], 2)
         self.assertIsNotNone(public["seed_map_sha256"])
+
+    def test_schema_valid_draft_cannot_enter_directed_execution_preflight(self) -> None:
+        temporary, fixture, _w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        authorization_path = self._activate(fixture)
+        authorization = json.loads(authorization_path.read_text(encoding="utf-8"))
+        authorization.update(
+            {
+                "status": "draft",
+                "approved": False,
+                "approved_by": "",
+                "approved_at": "",
+                "expires_at": "",
+                "execution_ready": False,
+                "blockers": ["Owner authorization is intentionally absent."],
+            }
+        )
+        authorization["consumption"]["status"] = "not_authorized"
+        authorization["consumption"]["record_path"] = "consumed/draft-placeholder.json"
+        for field in (
+            "voice_provenance_kind",
+            "calibration_rights_receipt_path",
+            "calibration_rights_receipt_sha256",
+            "owner_selection_record_path",
+            "owner_selection_record_sha256",
+            "saved_voice_receipt_path",
+            "saved_voice_receipt_sha256",
+        ):
+            authorization["bindings"].pop(field)
+        self.assertGreater(authorization["authorized_limits"]["max_calls"], 0)
+        self._write_json(authorization_path, authorization)
+
+        provider_result = validate_provider_action_authorization(authorization_path)
+        self.assertEqual(provider_result["status"], "draft")
+        self.assertFalse(provider_result["execution_ready"])
+        self.assertFalse(provider_result["network_authorized"])
+
+        with mock.patch(
+            "oe_narration.directed_bakeoff._safe_consumption_path"
+        ) as consumption_path, mock.patch(
+            "oe_narration.directed_bakeoff._safe_new_relative"
+        ) as output_path:
+            with self.assertRaisesRegex(
+                ValidationError,
+                "active, execution-ready, network-authorized",
+            ):
+                validate_directed_bakeoff_execution(authorization_path)
+        consumption_path.assert_not_called()
+        output_path.assert_not_called()
+        self.assertFalse((authorization_path.parent / "consumed").exists())
+        self.assertFalse((fixture / "outputs").exists())
 
     def test_draft_tamper_unknown_field_and_token_drift_fail_before_network(self) -> None:
         for mutation in ("draft", "unknown", "token_drift"):
