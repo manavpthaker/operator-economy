@@ -54,13 +54,13 @@ class VoiceRemixTests(unittest.TestCase):
         ]
         preview_text = " ".join(preview_tokens)
         prompt = (
-            "Preserve Manav's recognizable identity, American accent, age, timbre, and "
-            "conversational rhythm. Make this a camera-ready version of his normal voice: "
-            "more intentional and alert, with energy from curiosity, contrast, and earned "
-            "conviction. He is an experienced operator speaking across the table to one capable "
-            "person. Use dry understatement for broken systems, plain confidence for evidence, "
-            "and constructive momentum for instructions. Avoid announcer, trailer, motivational, "
-            "sales, corporate-training, theatrical, sing-song, and artificially cheerful delivery."
+            "Preserve Manav's identity, accent, age, pitch, timbre, and conversational "
+            "rhythm. Make him camera-ready: alert, intentional, and fifteen percent more "
+            "energetic. Build momentum through curiosity, contrast, recognition, and earned "
+            "conviction—not speed, volume, or hype. He is an experienced operator speaking "
+            "across the table to one capable person. Keep thinking pauses and sentence "
+            "shapes. Avoid announcer, trailer, sales, corporate-training, theatrical, "
+            "sing-song, and artificial cheerfulness."
         )
         ownership = fixture / "receipts" / "ownership.json"
         self._write_json(
@@ -242,6 +242,10 @@ class VoiceRemixTests(unittest.TestCase):
         self.assertEqual(validation["request"]["body"]["seed"], 1_907_202_026)
         self.assertEqual(validation["request"]["body_sha256"], authorization["bindings"]["request_body_sha256"])
         self.assertEqual(validation["eligibility_check"]["provider_get_calls_permitted"], 0)
+        self.assertLessEqual(
+            validation["request"]["prompt_characters"],
+            vr.MAX_REMIX_PROMPT_CHARACTERS,
+        )
         self.assertFalse((fixture / "local-media").exists())
         self.assertFalse((fixture / "authorizations" / "consumed").exists())
 
@@ -360,10 +364,10 @@ class VoiceRemixTests(unittest.TestCase):
                 with self.assertRaises(ValidationError):
                     vr.dry_run_voice_remix_preview(auth_path)
 
-    def test_prompt_must_leave_headroom_below_provider_ceiling(self) -> None:
+    def test_prompt_rejects_501_characters_above_observed_provider_ceiling(self) -> None:
         temporary, _, auth_path, authorization = self._fixture()
         self.addCleanup(temporary.cleanup)
-        prompt = "p" * 951
+        prompt = "p" * 501
         authorization["action"]["voice_description"] = prompt
         authorization["bindings"]["voice_description_sha256"] = sha256_bytes(prompt.encode())
         authorization["authorized_limits"]["max_prompt_characters"] = len(prompt)
@@ -372,7 +376,7 @@ class VoiceRemixTests(unittest.TestCase):
             vr._canonical_body(vr._preview_request_body(authorization["action"]))
         )
         self._write_json(auth_path, authorization)
-        with self.assertRaisesRegex(ValidationError, "950"):
+        with self.assertRaisesRegex(ValidationError, "500"):
             vr.dry_run_voice_remix_preview(auth_path)
 
     def test_preview_get_preflight_and_user_endpoint_cannot_be_enabled(self) -> None:
