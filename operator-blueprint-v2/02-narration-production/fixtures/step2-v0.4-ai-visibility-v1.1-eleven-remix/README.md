@@ -1,9 +1,10 @@
 # Step 2 v0.4 AI Visibility ElevenLabs performance-voice experiment
 
-Status: owner selected C; C was saved as a separate private voice; one bounded performance-remix
-attempt was rejected by the provider with HTTP `403` and failed closed. This fixture does not
-authorize a retry, directed TTS calibration, full episode capture, Step 2 lock, Step 3,
-publication, or replacement of the incumbent narrator.
+Status: owner selected C and saved it as a separate private voice. A first over-limit performance
+prompt failed closed; the repaired 440-character request returned three private candidates that
+passed technical QA and await owner audition. This fixture does not authorize a replay, candidate
+save, directed TTS calibration, full episode capture, Step 2 lock, Step 3, publication, or
+replacement of the incumbent narrator.
 
 ## Question
 
@@ -90,3 +91,9 @@ then attempted one separately authorized low-strength performance refinement fro
 voice. The provider returned HTTP `403`; the runtime did not retry and created no audio or further
 voice. The bounded disposition is in
 [`reviews/AUTH-R3-PERFORMANCE-REFINEMENT-DISPOSITION.md`](reviews/AUTH-R3-PERFORMANCE-REFINEMENT-DISPOSITION.md).
+
+The owner then authorized one materially repaired request using the exact 440-character prompt in
+[`remix/voice-remix-direction-v3.txt`](remix/voice-remix-direction-v3.txt). AUTH-R4 returned three
+private candidates from saved C. All three receipt hashes match, fully decode, are mono 44.1 kHz
+192 kbps MP3, and measure within `0.4` LU of one another. No candidate was selected or saved. The
+technical review is in [`reviews/AUTH-R4-TECHNICAL-QA.md`](reviews/AUTH-R4-TECHNICAL-QA.md).
