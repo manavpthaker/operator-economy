@@ -1,7 +1,7 @@
 # V2 Step 2 v0.5 change proposal: Synthetic Guide to Saved-C Transfer
 
-Status: proposed; G1 one-shot transport implemented, independently replayed, and inactive pending
-an exact owner authorization
+Status: proposed; G1 one-shot transport implemented and independently replayed; exact 24-hour G1
+authorization active and unconsumed through `2026-08-26T23:37:57Z`
 
 Proposal date: 2026-08-25
 
@@ -10,13 +10,14 @@ owner creative `FAIL / REVISE`. Both candidates were rejected as flat, with no i
 emotion. The locked AI Visibility words, Step 1 structure, Original C voice identity, and earlier
 evidence remain unchanged.
 
-External-action authority: none. `AUTH-G1` and `AUTH-V1` are zero-authority drafts. No credential,
-network, account, browser, provider, audio-generation, or cross-provider upload action is granted by
-this proposal.
+External-action authority: one exact G1 guide-generation authorization is active and unconsumed.
+The zero-cap G1 draft is preserved, and `AUTH-V1` remains a zero-authority blocked draft. No provider
+call, audio generation, cross-provider upload, guide selection, full capture, or downstream action
+has occurred.
 
-Runtime boundary: v0.5 implements only the Google G1 guide transport. The committed `AUTH-G1` has
-zero caps, a pending quota-project hash, and no authority, so that transport cannot run from this
-fixture. ElevenLabs Voice Changer remains validation/compilation-only and rejects `--execute`.
+Runtime boundary: v0.5 implements only the Google G1 guide transport. The exact active G1 binds the
+frozen requests, local ceilings, private quota-project hash, one-shot consumption, and 24-hour
+window. ElevenLabs Voice Changer remains validation/compilation-only and rejects `--execute`.
 
 ## Decision under test
 
@@ -111,15 +112,14 @@ Receipts record `$0.33` of modeled authorization spend per attempted call, not o
 billing or an invoice.
 
 Cloud credentials, raw quota-project identity, account identity, tokens, and headers stay outside
-Git. A later active authorization must bind the SHA-256 of the private
+Git. The active authorization binds the SHA-256 of the private
 `GOOGLE_CLOUD_QUOTA_PROJECT` value. The executor preflights symlink-free local ADC metadata, then,
 only after writing the immutable consumption record, runs exactly
-`gcloud auth application-default print-access-token --scopes=https://www.googleapis.com/auth/cloud-platform --quiet`
+`gcloud auth application-default print-access-token --quiet` without passing a `--scopes` override
 under an environment containing only `PATH`, `HOME`, `CLOUDSDK_CONFIG`, `LANG`, `LC_ALL`, and
 `LC_CTYPE`, plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`. It never serializes the token, raw project,
-credential path or content, provider body, or `gcloud` stderr. A valid dry run remains zero
-authority until the owner sees the exact request and separately materializes a bounded, expiring
-`AUTH-G1`.
+credential path or content, provider body, or `gcloud` stderr. The dry run remains zero authority;
+the separate active `AUTH-G1` is the only provider-action authority.
 
 An authorized execution has four fixed artifact classes:
 

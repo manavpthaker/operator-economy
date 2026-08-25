@@ -2,7 +2,8 @@
 
 Status: proposed v0.5 contract with an independently replayed G1 one-shot transport plus
 credential-free guide and voice-transfer validation/compilation. Frozen v0.2 through v0.4 evidence
-remains history. No v0.5 external-action authority is currently materialized.
+remains history. One exact G1 authorization is active and unconsumed; no V1 or downstream authority
+is materialized.
 
 ## Purpose and boundary
 
@@ -20,8 +21,8 @@ V0.5 adds an isolated contract for exact AI Visibility `W[30,110)`: two identica
 Gemini guide requests, followed only after exact guide QA and owner selection by compilation of one
 ElevenLabs Voice Changer multipart request into Original C. The two authorization schemas are
 non-fungible. Google G1 now has one fail-closed executor; Voice Changer has none. The committed G1
-draft has zero caps and a pending quota-project hash, so it cannot access ADC, consume authority,
-call Google, or write audio.
+draft remains zero-authority beside one separate, exact, active 24-hour record. No provider action
+has occurred under that active record.
 
 Run it from the Step 2 folder as:
 
@@ -124,8 +125,8 @@ V0.5 freezes one microtest rather than reopening the v0.3 bakeoff or v0.4 direct
   original provider guide passes QA and the owner selects it.
 
 `oe-performance-transfer-plan-v1` is credential-free and must keep every authority/output flag
-false. `oe-synthetic-guide-authorization-v1` drafts have zero authorized caps. A future active G1
-record binds exact request hashes, two calls, 2,880 total request bytes, two outputs, 50
+false. `oe-synthetic-guide-authorization-v1` drafts have zero authorized caps. The separately
+materialized active G1 record binds exact request hashes, two calls, 2,880 total request bytes, two outputs, 50
 seconds and 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000 provider-response
 bytes per call, `$0.66` modeled spend, a hashed quota-project identity, and at most 24 hours. Only
 such an exact active record may enter the implemented executor.
@@ -147,7 +148,7 @@ authorized.
 For G1, installed executor code is a code-level capability, while `execution_transport_available`
 is an exact executable-state result. The committed draft and the authorization-free compiled dry
 run report `execution_transport_available`, `provider_action_authorized`, and `network_authorized`
-as false; only an exact active executable G1 makes all three true. For V1, network authority and
+as false; the current exact active G1 makes all three true until expiry or consumption. For V1, network authority and
 execution transport remain false even when an exact future active record validates. No dry run or
 G1 execution can select a guide, disclose Google-derived audio to ElevenLabs, pass creative review,
 select a method, authorize full capture, or advance Step 3.
@@ -284,7 +285,7 @@ zero-collision paths, private quota-project hash, and symlink-free ADC metadata 
 Execution exclusively writes
 `authorizations/consumed/<authorization_id>.consumed.json` before credential refresh or provider
 network, then runs exact argv
-`gcloud auth application-default print-access-token --scopes=https://www.googleapis.com/auth/cloud-platform --quiet`
+`gcloud auth application-default print-access-token --quiet` without passing a `--scopes` override
 under an environment containing only `PATH`, `HOME`, `CLOUDSDK_CONFIG`, `LANG`, `LC_ALL`, and
 `LC_CTYPE`, plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`. It submits exactly two independently
 one-shot, identical 1,440-byte POSTs. Redirects, retries, fallback, alternate model/voice, and resume

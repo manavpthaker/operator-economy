@@ -1126,8 +1126,15 @@ class PerformanceTransferTests(unittest.TestCase):
         args, kwargs = runner.call_args
         self.assertEqual(
             args[0],
-            ["/safe/bin/gcloud", *pt.GUIDE_GCLOUD_TOKEN_COMMAND],
+            [
+                "/safe/bin/gcloud",
+                "auth",
+                "application-default",
+                "print-access-token",
+                "--quiet",
+            ],
         )
+        self.assertFalse(any(argument.startswith("--scopes=") for argument in args[0]))
         self.assertFalse(kwargs["text"])
         self.assertEqual(kwargs["timeout"], 30)
         self.assertNotIn("ELEVENLABS_API_KEY", kwargs["env"])

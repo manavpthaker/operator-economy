@@ -173,7 +173,9 @@ The v0.5 CLI extension separately validates and compiles the performance-transfe
 guide requests, bound provider adapters, and the blocked exact-guide Voice Changer request. Dry
 runs access no credentials, network, account, or audio. V0.5 now includes an independently replayed,
 consume-before-network G1 executor for exactly two Google guide requests; the committed G1 draft
-has zero caps and cannot enter it. Voice Changer still has no executor and rejects `--execute`.
+has zero caps and cannot enter it, while a separate exact 24-hour G1 authorization is now active and
+unconsumed. No provider action has occurred under it. Voice Changer still has no executor and
+rejects `--execute`.
 Neither installed code nor a successful guide run can infer guide selection, effective
 data-protection state, cross-provider disclosure, full capture, or downstream authority.
 

@@ -1,10 +1,10 @@
 # Synthetic-guide to Saved-C transfer microtest
 
-Status: credential-free, zero-authority fixture with an installed but inactive G1 executor.
-`AUTH-G1` is a draft with zero caps and a pending quota-project hash. `AUTH-V1` is a blocked draft
-that cannot become executable until one generated guide passes QA, the owner selects its exact
-original-provider WAV hash, ElevenLabs data-use protection is verified, rights are rebound, and a
-separate authorization is issued.
+Status: exact G1 authorization active and unconsumed; no provider action yet. The zero-cap
+`AUTH-G1` draft is preserved beside the separate 24-hour active record. `AUTH-V1` remains a blocked
+draft that cannot become executable until one generated guide passes QA, the owner selects its
+exact original-provider WAV hash, ElevenLabs data-use protection is verified, rights are rebound,
+and a separate authorization is issued.
 
 ## Question
 
@@ -75,20 +75,21 @@ capped in the request itself; the installed executor enforces every bound locall
 raw billing-project identity remain outside Git.
 `authorizations/01-google-synthetic-guide.DRAFT.json` grants zero calls, bytes, outputs, and spend.
 
-## Installed but inactive G1 executor
+## Installed G1 executor and active one-shot authority
 
 The runtime can execute only a separately materialized, active, unexpired `AUTH-G1` whose exact
 caps, request hashes, consumption path, and SHA-256 of the private quota-project value all validate.
-The raw quota project comes only from `GOOGLE_CLOUD_QUOTA_PROJECT`; this draft deliberately stores
-`pending`. Local ADC metadata is preflighted from the configured `gcloud` location without storing
-its path or content. Only after immutable authorization consumption may the runtime run exact argv
-`gcloud auth application-default print-access-token --scopes=https://www.googleapis.com/auth/cloud-platform --quiet`.
+The raw quota project comes only from `GOOGLE_CLOUD_QUOTA_PROJECT`; the preserved draft stores
+`pending`, while the active record stores only the approved SHA-256 binding. Local ADC metadata is
+preflighted from the configured `gcloud` location without storing its path or content. Only after
+immutable authorization consumption may the runtime run exact argv
+`gcloud auth application-default print-access-token --quiet` without passing a `--scopes` override.
 That subprocess receives only `PATH`, `HOME`, `CLOUDSDK_CONFIG`, `LANG`, `LC_ALL`, and `LC_CTYPE`,
 plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`.
 Tokens, raw project identity, credential material, response bodies, and `gcloud` stderr never enter
 committed artifacts.
 
-The later active authorization ID deterministically names its local evidence:
+The active authorization ID deterministically names its local evidence:
 
 - `authorizations/consumed/<authorization_id>.consumed.json` before token refresh or provider
   network;
@@ -154,23 +155,28 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
 - `compiled/elevenlabs-voice-transfer.BLOCKED.json` proves why no exact multipart request can yet
   exist.
 - `authorizations/01-google-synthetic-guide.DRAFT.json` is zero-authority pending owner review.
+- `authorizations/01-google-synthetic-guide.ACTIVE.20260825T233757Z.json` is the exact, unconsumed
+  G1 authority through `2026-08-26T23:37:57Z`, unless consumed first.
+- `evidence/G1-OWNER-AUTHORIZATION-AND-READINESS.20260825T233757Z.md` records the bounded owner
+  decision, operator-reported cloud readiness, immutable hashes, and evidence limits.
 - `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is blocked pending the exact selected
   guide, all prerequisite evidence, and a later separate owner decision.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
   templates.
-- A later active G1 derives one credential-free consumption record and exactly one run-or-failure
-  receipt at the paths above; none exists in the current fixture.
+- The active G1 derives one credential-free consumption record and exactly one run-or-failure
+  receipt at the paths above; none exists yet.
 - `.gitignore` excludes provider audio, local media, and private receipts. Credential-free active
   and consumed authorization evidence must remain reviewable and committed when it exists.
 
 ## Hard boundary
 
-Dry-run validity is not authorization. This fixture has made zero provider calls, accessed zero
+Dry-run validity is not authorization; the separate active G1 record is. This fixture has made zero provider calls, accessed zero
 credentials, generated zero audio, uploaded zero cross-provider bytes, mutated zero voices, and
-spent `$0`. Neither draft may be activated by inference from “go,” a prior authorization, provider
-login, guide quality, a successful dry run, or the existence of Original C.
+spent `$0`. The active G1 exists only because of the explicit bounded owner decision recorded in
+`evidence/`; no prior authorization, provider login, guide quality, dry run, or Original C state
+could activate it by inference.
 
-The G1 transport is implemented, but this committed draft cannot authorize it: all caps are zero,
-the quota-project hash is pending, and `execution_ready` is false. Voice Changer remains
-validation/compilation-only and rejects `--execute`. No credential read, authorization consumption,
-provider call, receipt, or audio write has occurred for this fixture.
+The active G1 authorizes only the exact two-call guide microtest before expiry or consumption. The
+preserved G1 draft remains zero-authority. Voice Changer remains validation/compilation-only and
+rejects `--execute`. No credential read, authorization consumption, provider call, receipt, or audio
+write has occurred for this fixture.

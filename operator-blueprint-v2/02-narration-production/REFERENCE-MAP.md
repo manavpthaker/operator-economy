@@ -1,7 +1,8 @@
 # Step 2 Authority and Reference Map
 
-Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. G1 transport is installed but
-has no active authority; V1 remains blocked. V0.3 and v0.4 remain frozen historical evidence.
+Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. Exact G1 authority is active
+and unconsumed through `2026-08-26T23:37:57Z`; V1 remains blocked. V0.3 and v0.4 remain frozen
+historical evidence.
 
 This map prevents useful V1 narration practice from silently becoming V2 canon.
 
@@ -15,7 +16,7 @@ This map prevents useful V1 narration practice from silently becoming V2 canon.
 | Per-episode `01-editorial/editorial-voice-conformity.md` | Proves the locked words already satisfy the reviewed OE/Manav editorial-language authorities. |
 | [`02-direction/OE-NARRATOR-PROFILE.md`](02-direction/OE-NARRATOR-PROFILE.md) | Retains the technically proven but creatively revised ElevenLabs baseline as one v0.3 comparison method. |
 | [`TOOL-AUDIT-AND-BAKEOFF.md`](TOOL-AUDIT-AND-BAKEOFF.md) | Defines the v0.3 performance envelope, sample gate, four initial authorizations, blind scoring, later long-form test, and asymmetric method-selection rule. |
-| [`STEP2-v0.5-CHANGE-PROPOSAL.md`](STEP2-v0.5-CHANGE-PROPOSAL.md) | Defines the isolated, non-authorizing Gemini-guide and Original-C Voice Changer method test. It does not change `STAGE-GATES.md`. |
+| [`STEP2-v0.5-CHANGE-PROPOSAL.md`](STEP2-v0.5-CHANGE-PROPOSAL.md) | Defines the isolated Gemini-guide and blocked Original-C Voice Changer method test. Only the separate exact active G1 record authorizes its two guide calls; it does not change `STAGE-GATES.md`. |
 
 The AI Visibility v1.1 fixture has an authorized fixture lock and ready narration handoff without
 being promoted or numbered. A real episode still requires valid Step 0 promotion and full Step 1.

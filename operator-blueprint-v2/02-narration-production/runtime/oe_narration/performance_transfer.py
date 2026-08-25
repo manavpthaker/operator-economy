@@ -77,12 +77,10 @@ GUIDE_CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v1"
 GUIDE_RUN_RECEIPT_SCHEMA = "oe-synthetic-guide-run-receipt-v1"
 GUIDE_FAILURE_RECEIPT_SCHEMA = "oe-synthetic-guide-run-failure-v1"
 GUIDE_QUOTA_PROJECT_ENV = "GOOGLE_CLOUD_QUOTA_PROJECT"
-GUIDE_GCLOUD_SCOPE = "https://www.googleapis.com/auth/cloud-platform"
 GUIDE_GCLOUD_TOKEN_COMMAND = (
     "auth",
     "application-default",
     "print-access-token",
-    f"--scopes={GUIDE_GCLOUD_SCOPE}",
     "--quiet",
 )
 

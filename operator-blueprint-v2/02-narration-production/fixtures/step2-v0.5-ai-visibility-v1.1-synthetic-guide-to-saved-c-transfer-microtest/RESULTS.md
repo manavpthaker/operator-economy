@@ -1,6 +1,6 @@
 # Synthetic-guide to Saved-C transfer microtest results
 
-Status: `plan_only_zero_authority`
+Status: `g1_active_unconsumed_no_provider_action`
 
 | State | Result |
 | --- | --- |
@@ -9,12 +9,12 @@ Status: `plan_only_zero_authority`
 | Exact microtest | `W[30,110)`; 80 tokens; 465 transport characters |
 | Provider-neutral performance map | frozen for consequence, dry irritation, diagnostic reset, and possibility lift |
 | Gemini guide body | exact body compiled twice; identical, unseeded, stochastic requests |
-| AUTH-G1 | `DRAFT`; zero calls, outputs, and spend authorized |
-| G1 executor | implemented and independently replayed; inactive because no exact active authority or quota-project hash exists |
-| G1 consumption destination | `authorizations/consumed/<authorization_id>.consumed.json`; not materialized |
-| G1 success destination | `receipts/google/<authorization_id>.run.json`; not materialized |
-| G1 failure destination | `receipts/google/<authorization_id>.failure.json`; not materialized |
-| Google credentials/account | not accessed; no project or credential value committed |
+| AUTH-G1 | zero-cap `DRAFT` preserved; exact 24-hour `ACTIVE` record materialized, validated, and unconsumed |
+| G1 executor | implemented and independently replayed; exact active authorization validates offline |
+| G1 consumption destination | `authorizations/consumed/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.consumed.json`; not materialized |
+| G1 success destination | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.run.json`; not materialized |
+| G1 failure destination | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json`; not materialized |
+| Google readiness | ADC authentication, billing, and Text-to-Speech API enablement reported ready; this patch did not access credentials or Google |
 | Guide audio | none generated |
 | G1 consumption / run / failure receipts | none materialized |
 | Guide QA and owner selection | not possible until separately authorized guide capture exists |
@@ -51,12 +51,14 @@ These hashes identify credential-free plan artifacts, not authorization or provi
 | Synthetic-guide dry run | `33fe792f4f9b858e9a3a388dc2480a1bd9d0a57ad3b0c2a74165feb6ac01cee9` |
 | Blocked transfer compilation | `8ddfd9ba77fca38940bbf26342e7c8e14477b96e72fc21176fb2975803b0127c` |
 | Zero-authority AUTH-G1 draft | `eae5bcca9df42835b5d9f447db64d389c8c109ad9eeb00716d191326fe0540e5` |
+| Active unconsumed AUTH-G1 | `6d5ae0e6719bae8100cd437b8faa875cbd3f9b3969e09749544d5e5ab06366ea` |
+| G1 owner authorization and readiness record | `c7e1a78ab060540cab1ae70ae861a6f177c0ed03818be6a480d012de1f689a66` |
 | Blocked zero-authority AUTH-V1 draft | `1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036` |
 
 ## Runtime schema hashes
 
-These hashes bind the closed validation shapes used for this fixture. They do not activate either
-draft authorization or authorize use of the installed G1 transport.
+These hashes bind the closed validation shapes used for this fixture. They do not activate a draft
+or expand the separate exact G1 authorization.
 
 | Schema | SHA-256 |
 | --- | --- |
@@ -71,10 +73,10 @@ grant no authority.
 
 | Runtime artifact | SHA-256 |
 | --- | --- |
-| `runtime/oe_narration/performance_transfer.py` | `2bb265cb3b70e410979c60a68fc152110b151ab1cb51a0397aa1a903844ae9d9` |
+| `runtime/oe_narration/performance_transfer.py` | `ed76a0fb147bd2f849a681698b34d9d637a1bcd19adb6b3034d8336edb51c34a` |
 | `runtime/oe_narration/cli.py` | `f3c2efd78183da9c39e96883f4e6a35b1526b4f95bc2316fbb18daa7ab310508` |
 | `runtime/oe_narration/__init__.py` | `58dcdf45e0bee7904ab3b9cbb9e5ab22d153eed64346697907b3077126ce32f6` |
-| `runtime/tests/test_performance_transfer.py` | `99a29d0e1d54f1c2e133e0d0b2c889aca8672fe41e1e07deae3de08cf63cef11` |
+| `runtime/tests/test_performance_transfer.py` | `7a6d44883efd007091dfe271a1b2c8cf09ea268a3f8d543724058b1f816b9eb0` |
 
 No plan, validation, or hash in this file may be interpreted as permission to access credentials,
 call Google, generate audio, disclose a guide to ElevenLabs, call Voice Changer, select a provider,
