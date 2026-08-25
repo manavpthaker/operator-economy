@@ -6,6 +6,7 @@ import json
 import os
 import shutil
 import stat
+import subprocess
 import tempfile
 import unittest
 import urllib.error
@@ -436,6 +437,28 @@ class DirectedBakeoffTests(unittest.TestCase):
         recorded = json.loads(record.read_text(encoding="utf-8"))
         self.assertEqual(recorded["raw_immutable_sha256"], before)
         self.assertEqual(recorded["working"]["sha256"], sha256_file(working))
+        wav_header = working.read_bytes()[:8]
+        self.assertEqual(wav_header[:4], b"RIFF")
+        self.assertEqual(int.from_bytes(wav_header[4:8], "little"), working.stat().st_size - 8)
+        strict_decode = subprocess.run(
+            [
+                "ffmpeg",
+                "-nostdin",
+                "-v",
+                "error",
+                "-xerror",
+                "-i",
+                str(working),
+                "-f",
+                "null",
+                "-",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(strict_decode.returncode, 0, strict_decode.stderr)
+        self.assertNotIn("maximum wav data size", strict_decode.stderr.lower())
         with self.assertRaisesRegex(ValidationError, "refusing to overwrite"):
             convert_working(raw, working, receipt, first["request_id"], record)
 
@@ -659,11 +682,13 @@ class DirectedBakeoffTests(unittest.TestCase):
         sentinel = b"must-not-change"
         outside.write_bytes(sentinel)
         real_run = audio_runtime._run
+        swapped = False
 
         def swap_before_ffmpeg(command, **kwargs):
-            if command[0] == "ffmpeg":
-                working.unlink()
+            nonlocal swapped
+            if command[0] == "ffmpeg" and not swapped:
                 working.symlink_to(outside)
+                swapped = True
             return real_run(command, **kwargs)
 
         with mock.patch("oe_narration.audio._run", side_effect=swap_before_ffmpeg):

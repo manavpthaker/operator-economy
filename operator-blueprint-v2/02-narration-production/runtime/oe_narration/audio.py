@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import secrets
 import stat
 import subprocess
 from pathlib import Path
@@ -88,6 +89,122 @@ def _unlink_reserved_if_same(path: Path | None, descriptor: int | None) -> None:
             path.unlink()
         except OSError:
             pass
+
+
+def _unlink_at_if_same(
+    directory_descriptor: int | None,
+    name: str | None,
+    file_descriptor: int | None,
+) -> None:
+    if directory_descriptor is None or name is None or file_descriptor is None:
+        return
+    try:
+        path_stat = os.stat(
+            name, dir_fd=directory_descriptor, follow_symlinks=False
+        )
+        descriptor_stat = os.fstat(file_descriptor)
+    except OSError:
+        return
+    if (path_stat.st_dev, path_stat.st_ino) == (
+        descriptor_stat.st_dev,
+        descriptor_stat.st_ino,
+    ):
+        try:
+            os.unlink(name, dir_fd=directory_descriptor)
+        except OSError:
+            pass
+
+
+def _prepare_private_destination(path: Path, label: str) -> tuple[Path, int]:
+    absolute = _no_symlink_path(path, label, must_exist=False)
+    if absolute.exists() or absolute.is_symlink():
+        raise ValidationError(f"refusing to overwrite {label}: {absolute}")
+    absolute.parent.mkdir(parents=True, exist_ok=True)
+    absolute = _no_symlink_path(absolute, label, must_exist=False)
+    if absolute.exists() or absolute.is_symlink() or not absolute.parent.is_dir():
+        raise ValidationError(f"refusing unsafe {label}: {absolute}")
+    flags = os.O_RDONLY
+    if hasattr(os, "O_DIRECTORY"):
+        flags |= os.O_DIRECTORY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    try:
+        directory_descriptor = os.open(absolute.parent, flags)
+    except OSError as exc:
+        raise ValidationError(f"cannot open {label} parent securely") from exc
+    descriptor_stat = os.fstat(directory_descriptor)
+    try:
+        parent_stat = os.stat(absolute.parent, follow_symlinks=False)
+    except OSError as exc:
+        os.close(directory_descriptor)
+        raise ValidationError(f"cannot verify {label} parent securely") from exc
+    if (
+        not stat.S_ISDIR(descriptor_stat.st_mode)
+        or not stat.S_ISDIR(parent_stat.st_mode)
+        or (descriptor_stat.st_dev, descriptor_stat.st_ino)
+        != (parent_stat.st_dev, parent_stat.st_ino)
+    ):
+        os.close(directory_descriptor)
+        raise ValidationError(f"{label} parent changed during secure open")
+    return absolute, directory_descriptor
+
+
+def _reserve_private_temp(
+    directory: Path,
+    directory_descriptor: int,
+    destination_name: str,
+) -> tuple[Path, str, int]:
+    flags = os.O_RDWR | os.O_CREAT | os.O_EXCL
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    for _attempt in range(16):
+        name = f".{destination_name}.{secrets.token_hex(16)}.tmp"
+        try:
+            descriptor = os.open(
+                name,
+                flags,
+                0o600,
+                dir_fd=directory_descriptor,
+            )
+        except FileExistsError:
+            continue
+        except OSError as exc:
+            raise ValidationError("cannot reserve private working-audio temp file") from exc
+        os.fchmod(descriptor, 0o600)
+        path = directory / name
+        _same_open_regular_file(path, descriptor, "working-audio temp file")
+        return path, name, descriptor
+    raise ValidationError("cannot reserve a unique working-audio temp file")
+
+
+def _validate_full_decode(path: Path) -> None:
+    with path.open("rb") as handle:
+        header = handle.read(12)
+    if (
+        len(header) != 12
+        or header[:4] != b"RIFF"
+        or header[8:12] != b"WAVE"
+        or int.from_bytes(header[4:8], "little") != path.stat().st_size - 8
+    ):
+        raise ValidationError("working WAV lacks a normal seekable RIFF size")
+    result = _run(
+        [
+            "ffmpeg",
+            "-nostdin",
+            "-v",
+            "error",
+            "-xerror",
+            "-i",
+            str(path),
+            "-f",
+            "null",
+            "-",
+        ]
+    )
+    if result.returncode != 0 or result.stderr.strip():
+        raise ValidationError(
+            f"working WAV failed full strict decode: {result.stderr.strip()}"
+        )
 
 
 def _validate_directed_authorization_chain(
@@ -635,7 +752,11 @@ def convert_working(
     ):
         raise ValidationError("working audio and conversion record must be different files")
 
-    reserved_output: Path | None = None
+    destination_output: Path | None = None
+    output_directory_descriptor: int | None = None
+    output_temp_path: Path | None = None
+    output_temp_name: str | None = None
+    output_finalized = False
     reserved_record: Path | None = None
     output_descriptor: int | None = None
     record_descriptor: int | None = None
@@ -644,12 +765,18 @@ def convert_working(
             reserved_record, record_descriptor = _reserve_private_file(
                 record_path, "conversion record"
             )
-        reserved_output, output_descriptor = _reserve_private_file(
+        destination_output, output_directory_descriptor = _prepare_private_destination(
             output_path, "working audio"
+        )
+        output_temp_path, output_temp_name, output_descriptor = _reserve_private_temp(
+            destination_output.parent,
+            output_directory_descriptor,
+            destination_output.name,
         )
         command = [
             "ffmpeg",
             "-nostdin",
+            "-y",
             "-v",
             "error",
         ]
@@ -669,19 +796,25 @@ def convert_working(
             "pcm_s24le",
             "-f",
             "wav",
-            f"pipe:{output_descriptor}",
+            f"/dev/fd/{output_descriptor}",
         ])
         result = _run(command, pass_fds=(output_descriptor,))
         if result.returncode != 0:
             raise ValidationError(f"ffmpeg conversion failed: {result.stderr.strip()}")
         os.fsync(output_descriptor)
-        _same_open_regular_file(reserved_output, output_descriptor, "working audio")
+        _same_open_regular_file(
+            output_temp_path, output_descriptor, "working-audio temp file"
+        )
         if sha256_file(raw_path) != before_hash:
             raise ValidationError("raw source changed during conversion")
-        converted = inspect_audio(reserved_output)
+        converted = inspect_audio(output_temp_path)
         if not converted["is_working_master"]:
             raise ValidationError("converted output is not 48 kHz, 24-bit, mono PCM WAV")
-        _same_open_regular_file(reserved_output, output_descriptor, "working audio")
+        _validate_full_decode(output_temp_path)
+        _same_open_regular_file(
+            output_temp_path, output_descriptor, "working-audio temp file"
+        )
+        converted["path"] = str(destination_output)
         conversion = {
             "schema_version": "oe-working-conversion-v1",
             "raw": source,
@@ -691,6 +824,28 @@ def convert_working(
             "conversion_count_from_raw": 1,
             "working": converted,
         }
+        _no_symlink_path(destination_output, "working audio", must_exist=False)
+        if destination_output.exists() or destination_output.is_symlink():
+            raise ValidationError(f"refusing to overwrite working audio: {destination_output}")
+        try:
+            os.link(
+                output_temp_name,
+                destination_output.name,
+                src_dir_fd=output_directory_descriptor,
+                dst_dir_fd=output_directory_descriptor,
+                follow_symlinks=False,
+            )
+        except FileExistsError as exc:
+            raise ValidationError(
+                f"refusing to overwrite working audio: {destination_output}"
+            ) from exc
+        except OSError as exc:
+            raise ValidationError("cannot exclusively finalize working audio") from exc
+        output_finalized = True
+        _same_open_regular_file(destination_output, output_descriptor, "working audio")
+        os.unlink(output_temp_name, dir_fd=output_directory_descriptor)
+        output_temp_name = None
+        output_temp_path = None
         if record_descriptor is not None and reserved_record is not None:
             _same_open_regular_file(
                 reserved_record, record_descriptor, "conversion record"
@@ -706,18 +861,32 @@ def convert_working(
                 reserved_record, record_descriptor, "conversion record"
             )
             conversion["record"] = str(reserved_record)
-        _same_open_regular_file(reserved_output, output_descriptor, "working audio")
+        _same_open_regular_file(destination_output, output_descriptor, "working audio")
         os.close(output_descriptor)
         output_descriptor = None
+        os.close(output_directory_descriptor)
+        output_directory_descriptor = None
         if record_descriptor is not None:
             os.close(record_descriptor)
             record_descriptor = None
         return conversion
     except BaseException:
-        _unlink_reserved_if_same(reserved_output, output_descriptor)
+        if output_finalized and destination_output is not None:
+            _unlink_at_if_same(
+                output_directory_descriptor,
+                destination_output.name,
+                output_descriptor,
+            )
+        _unlink_at_if_same(
+            output_directory_descriptor,
+            output_temp_name,
+            output_descriptor,
+        )
         _unlink_reserved_if_same(reserved_record, record_descriptor)
         if output_descriptor is not None:
             os.close(output_descriptor)
+        if output_directory_descriptor is not None:
+            os.close(output_directory_descriptor)
         if record_descriptor is not None:
             os.close(record_descriptor)
         raise
