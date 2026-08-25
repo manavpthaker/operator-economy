@@ -18,8 +18,7 @@ saved no further voice, and did not modify the C base or incumbent.
 ## What the result proves
 
 - The owner-selected C preview is preserved and now exists as a separate private library voice.
-- This exact API request was not permitted by ElevenLabs for the account and saved source at the
-  time of the call.
+- ElevenLabs rejected this exact API request with HTTP `403` at the time of the call.
 - The R3 call is consumed and may not be replayed.
 
 ## What the result does not prove
