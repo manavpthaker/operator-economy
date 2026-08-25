@@ -1,7 +1,9 @@
 # Saved-C P01 directed calibration fixture
 
-Status: bounded calibration captured and technically cleared for private owner audition. Creative
-approval, full-episode capture, Step 2 lock, Step 3, sharing, and publication remain unauthorized.
+Status: bounded calibration technically passed, but the owner rejected both candidates as flat,
+with no inflection or emotion. No candidate is selected. The tested calibration method is a
+creative `FAIL / REVISE`; full-episode capture, Step 2 lock, Step 3, sharing, and publication
+remain unauthorized.
 
 ## Question
 
@@ -9,6 +11,11 @@ Can the owner-selected and separately saved voice `OE Narrator Manav C Base v1`
 (`scMbPZwQjr40V1MzL3Nj`) deliver the locked AI Visibility cold open with the existing
 ElevenLabs v3 performance transport while retaining the relaxed, natural Manav identity selected
 by the owner?
+
+For this exact two-take calibration, no. The owner rejected both nominated `.v2.wav` candidates
+because both were flat and lacked inflection and emotion. That fails the tested performance method;
+it does not, by itself, establish that the Saved-C voice asset cannot work under a materially
+different method.
 
 This fixture does not compare voice-remix candidates. It does not reopen the script, create or
 mutate a voice, authorize a retry, generate a full episode, lock Step 2, authorize Step 3, or
@@ -59,7 +66,9 @@ reusable for another calibration, a pickup, long-form confirmation, or full-epis
 The first local WAV wrappers were malformed because FFmpeg wrote an unseekable pipe header. They
 are retained only as failed evidence and are excluded by an immutable disposition. The raw PCM was
 intact, and the corrected `.v2.wav` pair was produced locally without another provider call. Only
-that pair is eligible for owner review.
+that pair was eligible for owner review. The owner has now rejected both nominated candidates on
+creative grounds. Both are ineligible for advancement; candidate B's recorded lexical uncertainty
+also remains unresolved.
 
 ## Files
 
@@ -78,5 +87,7 @@ that pair is eligible for owner review.
 - `receipts/elevenlabs/AUTH-SC-P01-20260825T145935Z-invalid-pipe-wav-disposition.json` excludes the
   two malformed first wrappers and nominates only the corrected `.v2.wav` pair.
 - `reviews/SAVED-C-P01-TECHNICAL-AND-LEXICAL-QA.md` records technical and offline lexical evidence
-  plus the unresolved owner-listen gates.
-- `RESULTS.md` is the current state and eventual owner decision surface.
+  plus candidate B's unresolved exact-word gate.
+- `reviews/SAVED-C-P01-OWNER-CREATIVE-DISPOSITION.md` records the owner's rejection of both
+  candidates and the resulting creative `FAIL / REVISE` boundary.
+- `RESULTS.md` is the current terminal state for this bounded calibration.

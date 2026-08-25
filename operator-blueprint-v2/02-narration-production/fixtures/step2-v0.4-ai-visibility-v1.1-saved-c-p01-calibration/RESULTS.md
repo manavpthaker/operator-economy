@@ -1,6 +1,6 @@
 # Saved-C P01 calibration results
 
-Status: `captured_technical_pass_owner_audition_pending`
+Status: `captured_technical_pass_creative_fail_revise`
 
 | State | Result |
 | --- | --- |
@@ -23,13 +23,18 @@ Status: `captured_technical_pass_owner_audition_pending`
 | Corrected working masters | A and B `.v2.wav`; 48 kHz, 24-bit, mono PCM; strict full decode pass |
 | First WAV wrappers | retained as failed evidence; explicitly superseded and ineligible for listening/scoring |
 | Offline lexical diagnostic | A exact normalized 139/139 in beam and greedy; B is 131/139 in beam and 107/139 in greedy; no direction tags detected |
-| Human exact-word gate | pending owner listen; B's two ASR-flagged sentence regions require explicit confirmation |
-| Creative decision | pending owner choice: A, B, or reject both |
+| Human exact-word gate | no candidate advances; B remains uncertain and its two ASR-flagged sentence regions were not explicitly cleared |
+| Owner creative decision | reject both: both are flat, with no inflection or emotion |
+| Selected candidate | none |
+| Calibration-method verdict | creative `FAIL / REVISE`; both candidates are ineligible for advancement |
 
 R2 selection and save permission were not reused as TTS permission. The calibration-specific
 authority is consumed and cannot be replayed. Technical validation and offline ASR do not silently
-advance this fixture to creative approval, full capture, Step 2 lock, Step 3, sharing, or
-publication.
+advance this fixture to creative approval. The owner's rejection grants no new provider authority,
+retry, pickup, or generation permission. Neither candidate may advance to long-form confirmation
+or full-episode capture, and this result does not lock Step 2 or authorize Step 3, sharing, or
+publication. Candidate B's lexical uncertainty remains recorded despite its independent creative
+rejection.
 
 ## Frozen hashes
 
@@ -55,3 +60,4 @@ publication.
 | Candidate B v2 conversion receipt | `8ed92001681fad30c3e802dbf52ac6428de06c88cec4a0f430e61e39dc1c2f52` |
 | Invalid-wrapper disposition | `00b87099604e980fb378252059f0d9f245f19179426348609fe2d9b243c7ca8d` |
 | Technical and lexical QA | `1525cfa862b3a924d53945a6546e8ef7ab674ebb9234004513ba928ab7999888` |
+| Owner creative disposition | `de18e0f6384ddd09052d7df108b26348a350c79d2d7d66da46828aa9a17b5f01` |
