@@ -172,7 +172,7 @@ class ProviderBakeoffTests(unittest.TestCase):
         self.assertIn("passages[0] contains unsupported keys", message)
         self.assertIn("tag_insertions[0] contains unsupported keys", message)
 
-    def test_dry_run_preserves_paragraphs_words_and_identical_candidates(self) -> None:
+    def test_dry_run_preserves_words_direction_and_frozen_paired_seeds(self) -> None:
         result = dry_run_provider_bakeoff(self.plan, self.envelope, self.w)
         self.assertFalse(result["network_called"])
         self.assertFalse(result["credentials_accessed"])
@@ -192,9 +192,21 @@ class ProviderBakeoffTests(unittest.TestCase):
             ]
             self.assertEqual(stripped.split(), expected)
         by_passage: dict[str, list[str]] = {}
+        text_by_passage: dict[str, list[str]] = {}
+        seeds_by_candidate: dict[str, set[int]] = {"A": set(), "B": set()}
         for request in eleven:
             by_passage.setdefault(request["passage_id"], []).append(request["request_body_sha256"])
-        self.assertTrue(all(len(set(hashes)) == 1 for hashes in by_passage.values()))
+            text_by_passage.setdefault(request["passage_id"], []).append(
+                request["provider_text_sha256"]
+            )
+            suffix = request["request_id"].rsplit("-", 1)[-1]
+            seeds_by_candidate[suffix].add(request["request_body"]["seed"])
+        self.assertTrue(all(len(set(hashes)) == 2 for hashes in by_passage.values()))
+        self.assertTrue(all(len(set(hashes)) == 1 for hashes in text_by_passage.values()))
+        self.assertTrue(all(len(seeds) == 1 for seeds in seeds_by_candidate.values()))
+        self.assertNotEqual(
+            next(iter(seeds_by_candidate["A"])), next(iter(seeds_by_candidate["B"]))
+        )
 
     def test_hume_compilation_keeps_dialogue_and_direction_separate(self) -> None:
         result = dry_run_provider_bakeoff(self.plan, self.envelope, self.w)

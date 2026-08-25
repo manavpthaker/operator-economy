@@ -124,12 +124,13 @@
     "elevenRequest": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["request_id", "passage_id", "candidate_id", "candidate_index", "direction_variant", "destination"],
+      "required": ["request_id", "passage_id", "candidate_id", "candidate_index", "fixed_seed", "direction_variant", "destination"],
       "properties": {
         "request_id": {"type": "string", "minLength": 1},
         "passage_id": {"type": "string", "minLength": 1},
         "candidate_id": {"type": "string", "minLength": 1},
         "candidate_index": {"enum": [0, 1]},
+        "fixed_seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
         "direction_variant": {"const": "approved_identical"},
         "destination": {"type": "string", "pattern": "^outputs/.+\\.pcm$"}
       }
@@ -199,7 +200,7 @@
         "voice_id": {"type": "string", "minLength": 1},
         "identity_state": {"type": "string", "minLength": 1},
         "request_mode": {"const": "one_call_per_candidate"},
-        "generation_variance": {"type": "string", "minLength": 1},
+        "generation_variance": {"const": "paired_fixed_seed_separate_generation"},
         "same_direction_for_both_candidates": {"const": true},
         "voice_settings": {"$ref": "#/$defs/voiceSettings"},
         "format_policy": {"$ref": "#/$defs/formatPolicy"},

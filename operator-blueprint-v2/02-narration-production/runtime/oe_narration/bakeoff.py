@@ -1185,6 +1185,10 @@ def _validate_plan_and_compile(
             errors.append("ElevenLabs voice_id does not match its provider adapter")
         if eleven.get("request_mode") != "one_call_per_candidate":
             errors.append("ElevenLabs request_mode must be one_call_per_candidate")
+        if eleven.get("generation_variance") != "paired_fixed_seed_separate_generation":
+            errors.append(
+                "ElevenLabs generation_variance must be paired_fixed_seed_separate_generation"
+            )
         if eleven.get("same_direction_for_both_candidates") is not True:
             errors.append("ElevenLabs candidates must use identical direction")
         settings = eleven.get("voice_settings")
@@ -1284,6 +1288,7 @@ def _validate_plan_and_compile(
         passage_counts = {passage_id: 0 for passage_id in passage_ids}
         bodies_by_passage: dict[str, list[str]] = {passage_id: [] for passage_id in passage_ids}
         indexes_by_passage: dict[str, set[int]] = {passage_id: set() for passage_id in passage_ids}
+        seeds_by_candidate_index: dict[int, set[int]] = {0: set(), 1: set()}
         for index, request in enumerate(requests):
             label = f"providers[elevenlabs].requests[{index}]"
             if not isinstance(request, dict):
@@ -1296,6 +1301,7 @@ def _validate_plan_and_compile(
                     "passage_id",
                     "candidate_id",
                     "candidate_index",
+                    "fixed_seed",
                     "direction_variant",
                     "destination",
                 },
@@ -1317,6 +1323,15 @@ def _validate_plan_and_compile(
                 errors.append(f"{label}.candidate_index must be 0 or 1")
             else:
                 indexes_by_passage[passage_id].add(candidate_index)
+            fixed_seed = request.get("fixed_seed")
+            if (
+                not _is_int(fixed_seed)
+                or fixed_seed < 0
+                or fixed_seed > 4_294_967_295
+            ):
+                errors.append(f"{label}.fixed_seed must be an integer from 0 through 4294967295")
+            elif candidate_index in {0, 1}:
+                seeds_by_candidate_index[candidate_index].add(fixed_seed)
             if request.get("direction_variant") != "approved_identical":
                 errors.append(f"{label}.direction_variant must be approved_identical")
             destination = _validate_destination(request.get("destination"), f"{label}.destination", ".pcm", errors)
@@ -1330,6 +1345,7 @@ def _validate_plan_and_compile(
                 continue
             body = {
                 "model_id": "eleven_v3",
+                "seed": fixed_seed,
                 "text": provider_text,
                 "voice_settings": settings,
             }
@@ -1397,8 +1413,16 @@ def _validate_plan_and_compile(
         for passage_id in passage_ids:
             if passage_counts[passage_id] != 2 or indexes_by_passage[passage_id] != {0, 1}:
                 errors.append(f"ElevenLabs passage {passage_id} must define candidate indexes 0 and 1 exactly once")
-            if len(set(bodies_by_passage[passage_id])) > 1:
-                errors.append(f"ElevenLabs passage {passage_id} candidates do not have identical request bodies")
+            if len(set(bodies_by_passage[passage_id])) != 2:
+                errors.append(
+                    f"ElevenLabs passage {passage_id} candidates must use two distinct fixed-seed bodies"
+                )
+        if any(len(seeds) != 1 for seeds in seeds_by_candidate_index.values()):
+            errors.append(
+                "ElevenLabs candidate A and B must each reuse one fixed seed across passages"
+            )
+        elif next(iter(seeds_by_candidate_index[0])) == next(iter(seeds_by_candidate_index[1])):
+            errors.append("ElevenLabs candidate A and B fixed seeds must differ")
 
     hume = provider_map.get("hume", {})
     if hume:
@@ -1791,7 +1815,7 @@ def dry_run_provider_bakeoff(
         "compiler_contract": {
             "request_body_hash_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
             "token_ranges": "absolute_half_open_canonical_w",
-            "eleven_candidate_rule": "same_words_same_tags_same_body_separate_generation",
+            "eleven_candidate_rule": "same_words_same_tags_paired_fixed_seeds_separate_generation",
             "hume_candidate_rule": "same_request_num_generations_2",
             "hume_endpoint": "/v0/tts",
             "hume_clone_method": "manual_platform_ui_only_no_upload_api_asserted",

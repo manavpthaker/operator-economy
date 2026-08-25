@@ -25,6 +25,10 @@ from .core import (
     verify_package,
     write_extraction,
 )
+from .directed_bakeoff import (
+    execute_directed_bakeoff,
+    validate_directed_bakeoff_execution,
+)
 from .provider import dry_run_capture, execute_capture
 from .retrieval import (
     dry_run_metadata_inventory,
@@ -34,6 +38,14 @@ from .retrieval import (
     execute_named_sample_batch,
     execute_retrieval,
 )
+from .voice_remix import (
+    dry_run_voice_remix_preview,
+    dry_run_voice_remix_save,
+    execute_voice_remix_preview,
+    execute_voice_remix_save,
+    validate_voice_remix_preview_authorization,
+    validate_voice_remix_save_authorization,
+)
 
 
 def _path(value: str) -> Path:
@@ -42,7 +54,7 @@ def _path(value: str) -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="oe-narration", description="Operator Blueprint V2 narration controls")
-    parser.add_argument("--version", action="version", version="oe-narration 0.3.0")
+    parser.add_argument("--version", action="version", version="oe-narration 0.4.0")
     sub = parser.add_subparsers(dest="command", required=True)
 
     extract = sub.add_parser("extract", help="derive canonical W from a locked Step 1 script")
@@ -149,6 +161,32 @@ def build_parser() -> argparse.ArgumentParser:
     named_batch.add_argument("--execute", action="store_true")
     named_batch.add_argument("--record", type=_path, help="write an immutable dry-run record")
     named_batch.add_argument("--timeout", type=float, default=60.0)
+
+    remix_preview = sub.add_parser(
+        "remix-elevenlabs-voice",
+        help="dry-run by default; consume one exact authorization for one private remix-preview batch",
+    )
+    remix_preview.add_argument("--authorization", type=_path, required=True)
+    remix_preview.add_argument("--execute", action="store_true")
+    remix_preview.add_argument("--record", type=_path, help="write an immutable dry-run record")
+    remix_preview.add_argument("--timeout", type=float, default=60.0)
+
+    remix_save = sub.add_parser(
+        "save-elevenlabs-remix",
+        help="dry-run by default; save one explicitly owner-selected remix as a new voice",
+    )
+    remix_save.add_argument("--authorization", type=_path, required=True)
+    remix_save.add_argument("--execute", action="store_true")
+    remix_save.add_argument("--record", type=_path, help="write an immutable dry-run record")
+    remix_save.add_argument("--timeout", type=float, default=60.0)
+
+    directed_bakeoff = sub.add_parser(
+        "directed-elevenlabs-bakeoff",
+        help="dry-run by default; an exact active authorization binds every voice, seed, request, and output",
+    )
+    directed_bakeoff.add_argument("--authorization", type=_path, required=True)
+    directed_bakeoff.add_argument("--execute", action="store_true")
+    directed_bakeoff.add_argument("--timeout", type=float, default=60.0)
     return parser
 
 
@@ -255,6 +293,38 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         if args.timeout <= 0:
             raise ValidationError("--timeout must be positive")
         return execute_named_sample_batch(args.authorization, args.timeout)
+    if args.command == "remix-elevenlabs-voice":
+        if not args.execute:
+            validate_voice_remix_preview_authorization(args.authorization)
+            result = dry_run_voice_remix_preview(args.authorization)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution uses authorized receipt destinations")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_voice_remix_preview(args.authorization, timeout=args.timeout)
+    if args.command == "save-elevenlabs-remix":
+        if not args.execute:
+            validate_voice_remix_save_authorization(args.authorization)
+            result = dry_run_voice_remix_save(args.authorization)
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
+        if args.record is not None:
+            raise ValidationError("--record is for dry runs; execution uses authorized receipt destinations")
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_voice_remix_save(args.authorization, timeout=args.timeout)
+    if args.command == "directed-elevenlabs-bakeoff":
+        if not args.execute:
+            return validate_directed_bakeoff_execution(args.authorization).public_dict()
+        if args.timeout <= 0:
+            raise ValidationError("--timeout must be positive")
+        return execute_directed_bakeoff(args.authorization, timeout=args.timeout)
     raise ValidationError(f"unsupported command: {args.command}")
 
 
