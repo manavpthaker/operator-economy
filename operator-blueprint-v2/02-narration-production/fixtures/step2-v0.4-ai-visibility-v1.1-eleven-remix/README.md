@@ -1,8 +1,9 @@
 # Step 2 v0.4 AI Visibility ElevenLabs performance-voice experiment
 
-Status: remix preview batch generated; owner listening decision pending. This fixture does not
-authorize a library-voice save, directed TTS calibration, full episode capture, Step 2 lock,
-Step 3, publication, or replacement of the incumbent narrator.
+Status: owner selected C; C was saved as a separate private voice; one bounded performance-remix
+attempt was rejected by the provider with HTTP `403` and failed closed. This fixture does not
+authorize a retry, directed TTS calibration, full episode capture, Step 2 lock, Step 3,
+publication, or replacement of the incumbent narrator.
 
 ## Question
 
@@ -75,8 +76,17 @@ selection.
 
 AUTH-R1 was consumed once and returned three private previews. The success receipt and all three
 provider files hash-match. They are mono 44.1 kHz, 192 kbps MP3 audition evidence, not narration
-masters. Full decode and codec checks pass; lexical and creative approval remain pending the owner
-listen. The incumbent voice was not modified and no new library voice was created.
+masters. Full decode and codec checks pass. The incumbent voice was not modified, and AUTH-R1 did
+not create a library voice.
 
-The owner review uses four loudness-matched labels: three remix previews plus the historical
-incumbent C01B control. The sealed mapping is in `reviews/AUTH-R1-LISTENING-ORDER.json`.
+The owner review used four loudness-matched labels: three remix previews plus the historical
+incumbent C01B control. The sealed mapping is in `reviews/AUTH-R1-LISTENING-ORDER.json`. The owner
+selected C, which resolves to preview 01, generated voice ID `scMbPZwQjr40V1MzL3Nj`, and audio
+SHA-256 `d46f8335e71bac3cf6c2b6396d3da7bdab4d82bd11db64f696fda8b5ede18392`.
+
+AUTH-R2 saved that exact preview as the separate private voice `OE Narrator Manav C Base v1`.
+The provider returned a successful new-voice receipt and did not modify the incumbent. AUTH-R3
+then attempted one separately authorized low-strength performance refinement from the saved C
+voice. The provider returned HTTP `403`; the runtime did not retry and created no audio or further
+voice. The bounded disposition is in
+[`reviews/AUTH-R3-PERFORMANCE-REFINEMENT-DISPOSITION.md`](reviews/AUTH-R3-PERFORMANCE-REFINEMENT-DISPOSITION.md).
