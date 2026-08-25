@@ -23,6 +23,7 @@ from .voice_remix import (
 from .performance_transfer import (
     dry_run_synthetic_guide,
     dry_run_voice_transfer,
+    execute_synthetic_guide,
     validate_performance_transfer_plan,
     validate_synthetic_guide_authorization,
     validate_voice_transfer_authorization,
@@ -47,6 +48,7 @@ __all__ = [
     "validate_voice_remix_save_authorization",
     "dry_run_synthetic_guide",
     "dry_run_voice_transfer",
+    "execute_synthetic_guide",
     "validate_performance_transfer_plan",
     "validate_synthetic_guide_authorization",
     "validate_voice_transfer_authorization",

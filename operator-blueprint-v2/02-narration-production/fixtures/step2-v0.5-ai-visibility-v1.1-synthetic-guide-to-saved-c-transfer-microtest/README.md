@@ -1,9 +1,10 @@
 # Synthetic-guide to Saved-C transfer microtest
 
-Status: plan-only, credential-free, zero-provider-action fixture. `AUTH-G1` is a draft with zero
-authority. `AUTH-V1` is a blocked draft that cannot become executable until one generated guide
-passes QA, the owner selects its exact original-provider WAV hash, ElevenLabs data-use protection
-is verified, rights are rebound, and a separate authorization is issued.
+Status: credential-free, zero-authority fixture with an installed but inactive G1 executor.
+`AUTH-G1` is a draft with zero caps and a pending quota-project hash. `AUTH-V1` is a blocked draft
+that cannot become executable until one generated guide passes QA, the owner selects its exact
+original-provider WAV hash, ElevenLabs data-use protection is verified, rights are rebound, and a
+separate authorization is issued.
 
 ## Question
 
@@ -70,9 +71,35 @@ runtime compilation.
 The requested authorization ceiling is exactly two calls, 2,880 submitted request-body bytes, two
 outputs, 50 seconds and 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000
 provider-response bytes per call, and a modeled maximum of `$0.66`. Provider billing cannot be
-capped in the request itself; a future executor must enforce every bound locally. Credentials and
+capped in the request itself; the installed executor enforces every bound locally. Credentials and
 raw billing-project identity remain outside Git.
 `authorizations/01-google-synthetic-guide.DRAFT.json` grants zero calls, bytes, outputs, and spend.
+
+## Installed but inactive G1 executor
+
+The runtime can execute only a separately materialized, active, unexpired `AUTH-G1` whose exact
+caps, request hashes, consumption path, and SHA-256 of the private quota-project value all validate.
+The raw quota project comes only from `GOOGLE_CLOUD_QUOTA_PROJECT`; this draft deliberately stores
+`pending`. Local ADC metadata is preflighted from the configured `gcloud` location without storing
+its path or content. Only after immutable authorization consumption may the runtime run exact argv
+`gcloud auth application-default print-access-token --scopes=https://www.googleapis.com/auth/cloud-platform --quiet`.
+That subprocess receives only `PATH`, `HOME`, `CLOUDSDK_CONFIG`, `LANG`, `LC_ALL`, and `LC_CTYPE`,
+plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`.
+Tokens, raw project identity, credential material, response bodies, and `gcloud` stderr never enter
+committed artifacts.
+
+The later active authorization ID deterministically names its local evidence:
+
+- `authorizations/consumed/<authorization_id>.consumed.json` before token refresh or provider
+  network;
+- `receipts/google/<authorization_id>.run.json` after both outputs pass; or
+- `receipts/google/<authorization_id>.failure.json` after any post-consumption failure.
+
+The two WAV destinations remain the exact candidate-A and candidate-B paths compiled in this
+fixture. All writes are new, owner-only, symlink-resistant, and immutable. There is no redirect,
+retry, fallback, alternate request, or resume. If call two fails after call one succeeds, the first
+WAV remains as a receipt-bound partial output and the consumed authorization cannot be reused.
+Attempted calls accrue `$0.33` each only as modeled authorization spend, never observed billing.
 
 ## Guide gate and selection
 
@@ -131,6 +158,8 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
   guide, all prerequisite evidence, and a later separate owner decision.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
   templates.
+- A later active G1 derives one credential-free consumption record and exactly one run-or-failure
+  receipt at the paths above; none exists in the current fixture.
 - `.gitignore` excludes provider audio, local media, and private receipts. Credential-free active
   and consumed authorization evidence must remain reviewable and committed when it exists.
 
@@ -141,6 +170,7 @@ credentials, generated zero audio, uploaded zero cross-provider bytes, mutated z
 spent `$0`. Neither draft may be activated by inference from “go,” a prior authorization, provider
 login, guide quality, a successful dry run, or the existence of Original C.
 
-The v0.5 runtime is validation/compilation-only. Both provider commands reject `--execute`; no
-transport, credential read, authorization consumption, provider call, or audio write is available
-from this package.
+The G1 transport is implemented, but this committed draft cannot authorize it: all caps are zero,
+the quota-project hash is pending, and `execution_ready` is false. Voice Changer remains
+validation/compilation-only and rejects `--execute`. No credential read, authorization consumption,
+provider call, receipt, or audio write has occurred for this fixture.

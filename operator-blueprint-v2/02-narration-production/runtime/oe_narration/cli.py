@@ -33,6 +33,7 @@ from .provider import dry_run_capture, execute_capture
 from .performance_transfer import (
     dry_run_synthetic_guide,
     dry_run_voice_transfer,
+    execute_synthetic_guide,
     validate_performance_transfer_plan,
     validate_synthetic_guide_authorization,
 )
@@ -215,13 +216,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     synthetic_guide = sub.add_parser(
         "synthetic-guide",
-        help="dry-run the two exact Gemini guide requests; external execution is not implemented",
+        help="dry-run by default; consume one exact active G1 for two one-shot Gemini guide requests",
     )
     synthetic_guide.add_argument("--plan", type=_contract_path, required=True)
     synthetic_guide.add_argument("--canonical-w", type=_contract_path, required=True)
     synthetic_guide.add_argument("--authorization", type=_contract_path)
     synthetic_guide.add_argument("--record", type=_path)
     synthetic_guide.add_argument("--execute", action="store_true")
+    synthetic_guide.add_argument("--timeout", type=float, default=60.0)
 
     voice_transfer = sub.add_parser(
         "elevenlabs-voice-transfer",
@@ -376,9 +378,17 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
         return validate_performance_transfer_plan(args.plan, args.canonical_w)
     if args.command == "synthetic-guide":
         if args.execute:
-            raise ValidationError(
-                "synthetic-guide external execution is intentionally unavailable in v0.5; "
-                "this runtime performs credential-free validation and dry-run only"
+            if args.record is not None:
+                raise ValidationError("--record is for dry runs; execution writes its own immutable receipt")
+            if args.authorization is None:
+                raise ValidationError("--execute requires --authorization")
+            if args.timeout <= 0 or args.timeout > 300:
+                raise ValidationError("--timeout must be greater than zero and at most 300 seconds")
+            return execute_synthetic_guide(
+                args.authorization,
+                args.plan,
+                args.canonical_w,
+                timeout=args.timeout,
             )
         if args.authorization:
             result = validate_synthetic_guide_authorization(

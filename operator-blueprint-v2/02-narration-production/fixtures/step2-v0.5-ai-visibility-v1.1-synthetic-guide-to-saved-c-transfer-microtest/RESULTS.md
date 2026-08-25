@@ -10,15 +10,20 @@ Status: `plan_only_zero_authority`
 | Provider-neutral performance map | frozen for consequence, dry irritation, diagnostic reset, and possibility lift |
 | Gemini guide body | exact body compiled twice; identical, unseeded, stochastic requests |
 | AUTH-G1 | `DRAFT`; zero calls, outputs, and spend authorized |
+| G1 executor | implemented and independently replayed; inactive because no exact active authority or quota-project hash exists |
+| G1 consumption destination | `authorizations/consumed/<authorization_id>.consumed.json`; not materialized |
+| G1 success destination | `receipts/google/<authorization_id>.run.json`; not materialized |
+| G1 failure destination | `receipts/google/<authorization_id>.failure.json`; not materialized |
 | Google credentials/account | not accessed; no project or credential value committed |
 | Guide audio | none generated |
+| G1 consumption / run / failure receipts | none materialized |
 | Guide QA and owner selection | not possible until separately authorized guide capture exists |
 | Eleven transfer adapter | blocked future contract only; Original C `scMbPZwQjr40V1MzL3Nj` |
 | Cross-provider disclosure | not authorized |
 | Eleven data-use protection | pending live verification before any upload |
 | AUTH-V1 | `DRAFT`; blocked and zero-authority; exact guide absent |
 | Voice Changer request | no exact multipart request can exist until a guide is selected and all prerequisites pass |
-| Offline runtime acceptance | `165/165` tests pass; no provider transport exists for either v0.5 action |
+| Runtime acceptance | `181/181` tests pass; G1 transport exists, V1 transport does not |
 | Provider calls / outputs / spend | `0 / 0 / $0` |
 | N4A, full capture, Step 2 lock, Step 3, sharing, publication | not authorized |
 
@@ -51,13 +56,25 @@ These hashes identify credential-free plan artifacts, not authorization or provi
 ## Runtime schema hashes
 
 These hashes bind the closed validation shapes used for this fixture. They do not activate either
-draft authorization or add provider transport.
+draft authorization or authorize use of the installed G1 transport.
 
 | Schema | SHA-256 |
 | --- | --- |
 | `performance-transfer-plan.schema.json` | `e9759d10aaa2b426e02f9fdecd7c11499f8e02c152a0275dc1e9f6c61bbd844c` |
 | `synthetic-guide-authorization.schema.json` | `54e084f134a942a826093fcdb90f09da9c085ebaabd8fda2a2ce96e55da4e715` |
 | `voice-transfer-authorization.schema.json` | `04d7e2ebfc39a501ecea4dbd12627f0f00696c4d18b8cdffc5c9daab6ac4eb30` |
+
+## Runtime implementation hashes
+
+These are the independently replayed G1 executor bytes. The hashes identify installed code; they
+grant no authority.
+
+| Runtime artifact | SHA-256 |
+| --- | --- |
+| `runtime/oe_narration/performance_transfer.py` | `2bb265cb3b70e410979c60a68fc152110b151ab1cb51a0397aa1a903844ae9d9` |
+| `runtime/oe_narration/cli.py` | `f3c2efd78183da9c39e96883f4e6a35b1526b4f95bc2316fbb18daa7ab310508` |
+| `runtime/oe_narration/__init__.py` | `58dcdf45e0bee7904ab3b9cbb9e5ab22d153eed64346697907b3077126ce32f6` |
+| `runtime/tests/test_performance_transfer.py` | `99a29d0e1d54f1c2e133e0d0b2c889aca8672fe41e1e07deae3de08cf63cef11` |
 
 No plan, validation, or hash in this file may be interpreted as permission to access credentials,
 call Google, generate audio, disclose a guide to ElevenLabs, call Voice Changer, select a provider,

@@ -146,8 +146,11 @@ The isolated v0.5 record set adds:
   blocked transfer contract, and zero downstream authority;
 - one `oe-synthetic-guide-authorization-v1` for Gemini guide generation only;
 - one later `oe-voice-transfer-authorization-v1` for one exact selected guide only;
-- immutable guide and transfer raw-media receipts outside Git plus credential-free committed
-  summaries;
+- for an exact active G1 only, immutable
+  `authorizations/consumed/<authorization_id>.consumed.json` and exactly one
+  `receipts/google/<authorization_id>.run.json` or
+  `receipts/google/<authorization_id>.failure.json`, plus the two bound raw guide destinations;
+- transfer raw-media receipts outside Git plus credential-free committed summaries;
 - separate guide lexical/technical QA, guide performance review, owner guide selection, transfer
   lexical/identity/technical QA, and owner creative disposition; and
 - a long-form/pickup authorization only if the short microtest passes and the owner separately
@@ -168,11 +171,11 @@ Downloaded bytes remain blocked from Hume until an owner provenance listen and a
 
 The v0.5 CLI extension separately validates and compiles the performance-transfer plan, Gemini
 guide requests, bound provider adapters, and the blocked exact-guide Voice Changer request. Dry
-runs access no credentials, network, account, or audio. V0.5 intentionally has no provider
-transport and both `--execute` surfaces fail closed. A later executor would require a separately
-reviewed consumed-before-network implementation plus the exact active one-shot authorization; no
-guide selection, effective data-protection state, or cross-provider disclosure permission may be
-inferred.
+runs access no credentials, network, account, or audio. V0.5 now includes an independently replayed,
+consume-before-network G1 executor for exactly two Google guide requests; the committed G1 draft
+has zero caps and cannot enter it. Voice Changer still has no executor and rejects `--execute`.
+Neither installed code nor a successful guide run can infer guide selection, effective
+data-protection state, cross-provider disclosure, full capture, or downstream authority.
 
 When AUTH-01 stops because the voice has multiple attached samples, the corrective scope
 `elevenlabs_sample_metadata_inventory` may be separately authorized. It permits one metadata call

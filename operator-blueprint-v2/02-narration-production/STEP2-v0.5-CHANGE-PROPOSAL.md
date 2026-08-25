@@ -1,6 +1,7 @@
 # V2 Step 2 v0.5 change proposal: Synthetic Guide to Saved-C Transfer
 
-Status: proposed; documentation plus credential-free validation and request compilation only
+Status: proposed; G1 one-shot transport implemented, independently replayed, and inactive pending
+an exact owner authorization
 
 Proposal date: 2026-08-25
 
@@ -13,9 +14,9 @@ External-action authority: none. `AUTH-G1` and `AUTH-V1` are zero-authority draf
 network, account, browser, provider, audio-generation, or cross-provider upload action is granted by
 this proposal.
 
-Runtime boundary: v0.5 validates and compiles only. Google and Voice Changer transports are not
-implemented; both `--execute` surfaces fail closed. External execution would require a later
-reviewed transport and a new exact active authorization.
+Runtime boundary: v0.5 implements only the Google G1 guide transport. The committed `AUTH-G1` has
+zero caps, a pending quota-project hash, and no authority, so that transport cannot run from this
+fixture. ElevenLabs Voice Changer remains validation/compilation-only and rejects `--execute`.
 
 ## Decision under test
 
@@ -105,13 +106,34 @@ changed meaning fails.
 The planned `AUTH-G1` ceiling is two calls, 2,880 total request bytes, two outputs, 50 seconds and
 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000 provider-response bytes per
 call, and a modeled maximum of `$0.66`. Google does not provide in-request caps for all of those
-dimensions, so a future executor must enforce them locally and stop after the second call. Pricing
-is an authorization model; a successful run receipt must separately record actual provider spend.
+dimensions, so the installed executor enforces them locally and stops after the second call.
+Receipts record `$0.33` of modeled authorization spend per attempted call, not observed provider
+billing or an invoice.
 
-Cloud credentials, quota-project identity, account identity, tokens, and headers stay outside Git.
-The committed request evidence records required header names and credential mechanisms only. A
-valid dry run remains zero authority until the owner sees the exact request and activates a bounded,
-expiring `AUTH-G1`.
+Cloud credentials, raw quota-project identity, account identity, tokens, and headers stay outside
+Git. A later active authorization must bind the SHA-256 of the private
+`GOOGLE_CLOUD_QUOTA_PROJECT` value. The executor preflights symlink-free local ADC metadata, then,
+only after writing the immutable consumption record, runs exactly
+`gcloud auth application-default print-access-token --scopes=https://www.googleapis.com/auth/cloud-platform --quiet`
+under an environment containing only `PATH`, `HOME`, `CLOUDSDK_CONFIG`, `LANG`, `LC_ALL`, and
+`LC_CTYPE`, plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`. It never serializes the token, raw project,
+credential path or content, provider body, or `gcloud` stderr. A valid dry run remains zero
+authority until the owner sees the exact request and separately materializes a bounded, expiring
+`AUTH-G1`.
+
+An authorized execution has four fixed artifact classes:
+
+- two original provider WAV outputs at the compiled candidate-A and candidate-B destinations;
+- `authorizations/consumed/<authorization_id>.consumed.json`, written before token refresh or
+  provider network;
+- `receipts/google/<authorization_id>.run.json` on complete success; or
+- `receipts/google/<authorization_id>.failure.json` on any post-consumption failure.
+
+All use directory descriptors, `O_EXCL`, `O_NOFOLLOW`, `fsync`, and mode `0600`. There is no
+redirect, retry, fallback, or resume. A failure after the first successful call preserves that
+immutable first WAV, records it as a partial output, writes only the failure receipt, and leaves the
+authorization consumed. Receipt spend is modeled from attempted calls; no receipt may claim
+observed provider billing.
 
 ## Selected-guide gate
 

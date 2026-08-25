@@ -1,10 +1,14 @@
-"""Offline contract for a directed synthetic guide and one later voice transfer.
+"""Contract for a directed synthetic guide and one later voice transfer.
 
-This module deliberately contains no network transport and never reads a
-credential.  It freezes the P01 words, compiles the exact Google Cloud TTS
-request, validates a separately authorized guide-generation scope, and keeps
-the ElevenLabs Voice Changer scope blocked until one exact guide has passed
-lexical, technical, creative, ownership, data-use, and voice-rights gates.
+It freezes the P01 words, compiles the exact Google Cloud TTS request, and
+validates a separately authorized guide-generation scope.  The sole external
+transport is the fail-closed G1 Google guide microtest.  It is unavailable
+without an exact active authorization, consumes that authorization before
+credential refresh or provider network, performs exactly two one-shot POSTs,
+and never records a token or raw quota-project identifier.  The later
+ElevenLabs Voice Changer scope remains validation-only and blocked until one
+exact guide has passed lexical, technical, creative, ownership, data-use, and
+voice-rights gates.
 
 The two authorities are intentionally non-fungible: a guide authorization can
 never authorize disclosure to ElevenLabs, and a voice-transfer authorization
@@ -13,16 +17,21 @@ can never generate or select a guide.
 
 from __future__ import annotations
 
-import io
+import base64
+import binascii
 import json
 import math
 import os
 import re
+import shutil
 import stat
-import wave
+import subprocess
+import urllib.error
+import urllib.request
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, BinaryIO
 
 from .core import (
     ValidationError,
@@ -57,11 +66,24 @@ GUIDE_MAX_OUTPUT_DURATION_SECONDS = 50
 GUIDE_MAX_OUTPUT_WAV_BYTES = 2_500_000
 GUIDE_MAX_TOTAL_AUDIO_BYTES = 5_000_000
 GUIDE_MAX_RESPONSE_BYTES_PER_CALL = 4_000_000
+GUIDE_MODELED_SPEND_PER_CALL_USD = 0.33
 GUIDE_COMBINED_INPUT_LIMIT_BYTES = 5_000
 GUIDE_COMPONENT_INPUT_LIMIT_BYTES = 4_000
 GUIDE_DESTINATIONS = (
     "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
     "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+)
+GUIDE_CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v1"
+GUIDE_RUN_RECEIPT_SCHEMA = "oe-synthetic-guide-run-receipt-v1"
+GUIDE_FAILURE_RECEIPT_SCHEMA = "oe-synthetic-guide-run-failure-v1"
+GUIDE_QUOTA_PROJECT_ENV = "GOOGLE_CLOUD_QUOTA_PROJECT"
+GUIDE_GCLOUD_SCOPE = "https://www.googleapis.com/auth/cloud-platform"
+GUIDE_GCLOUD_TOKEN_COMMAND = (
+    "auth",
+    "application-default",
+    "print-access-token",
+    f"--scopes={GUIDE_GCLOUD_SCOPE}",
+    "--quiet",
 )
 
 MICROTEST_PASSAGE_ID = "P01"
@@ -1326,12 +1348,1433 @@ def validate_synthetic_guide_authorization(
         "authorization_sha256": sha256_file(authorization_path),
         "authorization_status": status,
         "provider_action_authorized": status == "active",
-        "network_authorized": False,
-        "execution_transport_available": False,
+        "network_authorized": status == "active",
+        "execution_transport_available": status == "active",
         "quota_project_runtime_check_required": status == "active",
         "credentials_accessed": False,
         "network_called": False,
     }
+
+
+@dataclass(frozen=True)
+class _GuideExecutionContract:
+    root: Path
+    authorization_path: Path
+    authorization: dict[str, Any]
+    authorization_sha256: str
+    plan_path: Path
+    canonical_w_path: Path
+    dry_run: dict[str, Any]
+    consumption_relative: str
+    success_receipt_relative: str
+    failure_receipt_relative: str
+    approved_at: datetime
+    expires_at: datetime
+
+
+@dataclass(frozen=True)
+class _GoogleResponse:
+    response_bytes: int
+    response_sha256: str
+    wav_bytes: bytes
+    geometry: dict[str, Any]
+    provider_identifiers: dict[str, str]
+    provider_usage: dict[str, int]
+
+
+class _GuideExecutionFailure(Exception):
+    """A provider or local execution failure with only redacted metadata."""
+
+    def __init__(
+        self,
+        code: str,
+        *,
+        http_status: int | None = None,
+        response_bytes: int = 0,
+        provider_identifiers: dict[str, str] | None = None,
+        provider_usage: dict[str, int] | None = None,
+    ) -> None:
+        super().__init__(code)
+        self.code = code
+        self.http_status = http_status
+        self.response_bytes = response_bytes
+        self.provider_identifiers = provider_identifiers or {}
+        self.provider_usage = provider_usage or {}
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Make every redirect terminal; a redirected request is never authorized."""
+
+    def redirect_request(  # type: ignore[override]
+        self,
+        request: urllib.request.Request,
+        file_pointer: BinaryIO,
+        code: int,
+        message: str,
+        headers: Any,
+        new_url: str,
+    ) -> None:
+        return None
+
+
+def _execution_now() -> datetime:
+    """Clock seam used by adversarial expiry tests."""
+
+    return datetime.now(timezone.utc)
+
+
+def _iso_utc(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat()
+
+
+def _receipt_bytes(value: dict[str, Any]) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
+def _strict_json_bytes(data: bytes, label: str) -> dict[str, Any]:
+    """Decode an object while rejecting duplicate JSON member names."""
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("duplicate member")
+            result[key] = value
+        return result
+
+    invalid = False
+    value: Any = None
+    try:
+        text = data.decode("utf-8", errors="strict")
+        value = json.loads(text, object_pairs_hook=reject_duplicates)
+    except (UnicodeError, json.JSONDecodeError, ValueError):
+        invalid = True
+    if invalid:
+        raise ValidationError(f"{label} is not strict UTF-8 JSON") from None
+    if not isinstance(value, dict):
+        raise ValidationError(f"{label} must be a JSON object")
+    return value
+
+
+def _safe_execution_relative(root: Path, value: str, label: str, suffix: str) -> Path:
+    path = _safe_relative(root, value, label, must_exist=False, suffix=suffix)
+    if path.exists() or path.is_symlink():
+        raise ValidationError(f"{label} must not already exist")
+    return path
+
+
+def _preflight_execution_paths(contract: _GuideExecutionContract) -> None:
+    """Prove every possible execution destination is new and fixture-local."""
+
+    output_relatives = [request["destination"] for request in contract.dry_run["requests"]]
+    if output_relatives != list(GUIDE_DESTINATIONS):
+        raise ValidationError("compiled guide destinations drifted")
+    for index, relative in enumerate(output_relatives):
+        path = _safe_execution_relative(
+            contract.root,
+            relative,
+            f"guide output {index + 1}",
+            ".wav",
+        )
+        if path.relative_to(contract.root).parts[0] != "outputs":
+            raise ValidationError("guide output must remain below outputs/")
+    consumption = _safe_execution_relative(
+        contract.root,
+        contract.consumption_relative,
+        "guide consumption record",
+        ".json",
+    )
+    if consumption.relative_to(contract.root).parts[:2] != ("authorizations", "consumed"):
+        raise ValidationError("guide consumption record must remain below authorizations/consumed/")
+    for label, relative in (
+        ("guide success receipt", contract.success_receipt_relative),
+        ("guide failure receipt", contract.failure_receipt_relative),
+    ):
+        path = _safe_execution_relative(contract.root, relative, label, ".json")
+        if path.relative_to(contract.root).parts[:2] != ("receipts", "google"):
+            raise ValidationError(f"{label} must remain below receipts/google/")
+
+
+def _open_parent_descriptor(
+    root: Path,
+    relative: str,
+    *,
+    create_parents: bool,
+) -> tuple[int, str]:
+    """Open a path's parent through O_NOFOLLOW directory descriptors."""
+
+    parts = Path(relative).parts
+    if (
+        not parts
+        or Path(relative).is_absolute()
+        or any(part in {"", ".", "..", "~"} for part in parts)
+    ):
+        raise ValidationError("execution destination is not a safe relative path")
+    directory_flags = os.O_RDONLY
+    if hasattr(os, "O_DIRECTORY"):
+        directory_flags |= os.O_DIRECTORY
+    if hasattr(os, "O_NOFOLLOW"):
+        directory_flags |= os.O_NOFOLLOW
+    try:
+        current_fd = os.open(root, directory_flags)
+    except OSError as exc:
+        raise ValidationError("cannot safely open execution fixture root") from exc
+    try:
+        root_stat = os.fstat(current_fd)
+        if not stat.S_ISDIR(root_stat.st_mode):
+            raise ValidationError("execution fixture root is not a directory")
+        for component in parts[:-1]:
+            try:
+                next_fd = os.open(component, directory_flags, dir_fd=current_fd)
+            except FileNotFoundError:
+                if not create_parents:
+                    raise ValidationError("execution destination parent does not exist")
+                try:
+                    os.mkdir(component, mode=0o700, dir_fd=current_fd)
+                    os.fsync(current_fd)
+                except FileExistsError:
+                    pass
+                except OSError as exc:
+                    raise ValidationError("cannot safely create execution destination parent") from exc
+                try:
+                    next_fd = os.open(component, directory_flags, dir_fd=current_fd)
+                except OSError as exc:
+                    raise ValidationError("cannot safely open execution destination parent") from exc
+            except OSError as exc:
+                raise ValidationError("execution destination may not traverse a symlink") from exc
+            os.close(current_fd)
+            current_fd = next_fd
+            opened = os.fstat(current_fd)
+            if not stat.S_ISDIR(opened.st_mode):
+                raise ValidationError("execution destination parent is not a directory")
+        return current_fd, parts[-1]
+    except Exception:
+        os.close(current_fd)
+        raise
+
+
+def _ensure_execution_parents(root: Path, relatives: list[str]) -> None:
+    for relative in relatives:
+        descriptor, _name = _open_parent_descriptor(
+            root,
+            relative,
+            create_parents=True,
+        )
+        os.close(descriptor)
+
+
+def _exclusive_fixture_write(root: Path, relative: str, data: bytes) -> Path:
+    """Create one immutable private artifact without following a symlink."""
+
+    parent_fd, name = _open_parent_descriptor(root, relative, create_parents=False)
+    flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor: int | None = None
+    try:
+        descriptor = os.open(name, flags, 0o600, dir_fd=parent_fd)
+        os.fchmod(descriptor, 0o600)
+        view = memoryview(data)
+        written = 0
+        while written < len(view):
+            count = os.write(descriptor, view[written:])
+            if count <= 0:
+                raise OSError("short write")
+            written += count
+        os.fsync(descriptor)
+        created = os.fstat(descriptor)
+        if not stat.S_ISREG(created.st_mode) or created.st_size != len(data):
+            raise OSError("created artifact geometry mismatch")
+        os.fsync(parent_fd)
+    except FileExistsError as exc:
+        raise ValidationError("execution destination collision") from exc
+    except OSError as exc:
+        raise ValidationError("cannot create immutable execution artifact") from exc
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
+    return root / relative
+
+
+def _verify_private_fixture_artifact(
+    root: Path,
+    relative: str,
+    expected_bytes: bytes,
+    label: str,
+) -> None:
+    """Re-read an immutable latch/output path through a no-follow descriptor."""
+
+    parent_fd, name = _open_parent_descriptor(root, relative, create_parents=False)
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor: int | None = None
+    try:
+        descriptor = os.open(name, flags, dir_fd=parent_fd)
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or stat.S_IMODE(before.st_mode) != 0o600
+            or before.st_size != len(expected_bytes)
+        ):
+            raise ValidationError(f"{label} geometry or permissions drifted")
+        chunks: list[bytes] = []
+        received = 0
+        while True:
+            chunk = os.read(descriptor, min(65_536, len(expected_bytes) + 1 - received))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > len(expected_bytes):
+                raise ValidationError(f"{label} content drifted")
+        actual = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if (
+            actual != expected_bytes
+            or (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+            != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+        ):
+            raise ValidationError(f"{label} content drifted")
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError(f"{label} is missing or unsafe") from None
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
+
+
+def _verify_execution_output(root: Path, item: dict[str, Any]) -> None:
+    path = _safe_relative(
+        root,
+        item.get("path"),
+        "written guide output",
+        must_exist=True,
+        suffix=".wav",
+    )
+    try:
+        mode = stat.S_IMODE(path.lstat().st_mode)
+    except OSError as exc:
+        raise ValidationError("cannot inspect written guide output") from exc
+    if mode != 0o600:
+        raise ValidationError("written guide output permissions drifted")
+    _read_bound_wav(
+        path,
+        item["byte_count"],
+        item["sha256"],
+        float(item["duration_seconds"]),
+    )
+
+
+def _build_guide_execution_contract(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+) -> _GuideExecutionContract:
+    authorization_path = Path(authorization_path).absolute()
+    plan_path = Path(plan_path).absolute()
+    canonical_w_path = Path(canonical_w_path).absolute()
+    validation = validate_synthetic_guide_authorization(
+        authorization_path,
+        plan_path,
+        canonical_w_path,
+    )
+    if validation.get("authorization_status") != "active":
+        raise ValidationError("synthetic-guide execution requires an exact active G1 authorization")
+    authorization = read_json(authorization_path)
+    errors: list[str] = []
+    approved_at = _parse_time(authorization.get("approved_at"), "approved_at", errors)
+    expires_at = _parse_time(authorization.get("expires_at"), "expires_at", errors)
+    if errors or approved_at is None or expires_at is None:
+        raise ValidationError(errors or "active G1 authorization window is invalid")
+    now = _execution_now()
+    if not approved_at <= now < expires_at:
+        raise ValidationError("active G1 authorization is outside its execution window")
+    root = _document_root(authorization_path)
+    auth_id = authorization["authorization_id"]
+    consumption_relative = authorization["consumption"]["record_path"]
+    success_relative = f"receipts/google/{auth_id}.run.json"
+    failure_relative = f"receipts/google/{auth_id}.failure.json"
+    contract = _GuideExecutionContract(
+        root=root,
+        authorization_path=authorization_path,
+        authorization=authorization,
+        authorization_sha256=sha256_file(authorization_path),
+        plan_path=plan_path,
+        canonical_w_path=canonical_w_path,
+        dry_run=dry_run_synthetic_guide(plan_path, canonical_w_path),
+        consumption_relative=consumption_relative,
+        success_receipt_relative=success_relative,
+        failure_receipt_relative=failure_relative,
+        approved_at=approved_at,
+        expires_at=expires_at,
+    )
+    _preflight_execution_paths(contract)
+    return contract
+
+
+def _quota_project_for_execution(authorization: dict[str, Any]) -> str:
+    """Read and hash-match the private quota-project value without exposing it."""
+
+    value = os.environ.get(GUIDE_QUOTA_PROJECT_ENV)
+    failure_message: str | None = None
+    malformed = (
+        not isinstance(value, str)
+        or not value
+        or value != value.strip()
+        or len(value) > 255
+        or any(character.isspace() or ord(character) < 33 or ord(character) > 126 for character in value)
+    )
+    if malformed:
+        failure_message = "the private Google quota-project binding is absent or malformed"
+    elif sha256_bytes(value.encode("utf-8")) != authorization["billing_project_binding"]["quota_project_sha256"]:
+        failure_message = "the private Google quota-project binding does not match AUTH-G1"
+    if failure_message is not None:
+        # Keep the raw project identifier out of the raised exception's frame.
+        value = None
+        raise ValidationError(failure_message) from None
+    assert isinstance(value, str)
+    return value
+
+
+def _open_absolute_directory_no_symlink(path: Path) -> int:
+    """Descriptor-walk an absolute directory without following any component."""
+
+    absolute = Path(path).absolute()
+    parts = absolute.parts
+    if not absolute.is_absolute() or not parts:
+        raise ValidationError("local gcloud ADC path is unsafe")
+    flags = os.O_RDONLY
+    if hasattr(os, "O_DIRECTORY"):
+        flags |= os.O_DIRECTORY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    try:
+        current_fd = os.open(absolute.anchor, flags)
+    except OSError:
+        raise ValidationError("local gcloud ADC path is unavailable or unsafe") from None
+    try:
+        for component in parts[1:]:
+            try:
+                next_fd = os.open(component, flags, dir_fd=current_fd)
+            except OSError:
+                raise ValidationError("local gcloud ADC path is unavailable or unsafe") from None
+            os.close(current_fd)
+            current_fd = next_fd
+        info = os.fstat(current_fd)
+        if not stat.S_ISDIR(info.st_mode):
+            raise ValidationError("local gcloud ADC path is unavailable or unsafe")
+        return current_fd
+    except Exception:
+        os.close(current_fd)
+        raise
+
+
+def _preflight_google_adc() -> str:
+    """Check local gcloud ADC material without refreshing a token or using network."""
+
+    executable = shutil.which("gcloud")
+    if not executable:
+        raise ValidationError("gcloud is unavailable for the authorized ADC credential mechanism")
+    config_value = os.environ.get("CLOUDSDK_CONFIG")
+    config_parts: tuple[str, ...] = ()
+    if isinstance(config_value, str) and config_value:
+        config_parts = Path(config_value).expanduser().parts
+        if any(part in {"", ".", "..", "~"} for part in config_parts):
+            config_value = None
+            config_parts = ()
+            raise ValidationError("local gcloud ADC path is unsafe")
+    config_root = (
+        Path(config_value).expanduser().absolute()
+        if isinstance(config_value, str) and config_value
+        else Path.home() / ".config" / "gcloud"
+    )
+    adc_name = "application_default_credentials.json"
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    failure_message: str | None = None
+    config_descriptor: int | None = None
+    descriptor: int | None = None
+    recheck_descriptor: int | None = None
+    config_identity: Any = None
+    chunks: list[bytes] = []
+    chunk = b""
+    data = b""
+    value: Any = None
+    credential_type: Any = None
+    try:
+        config_descriptor = _open_absolute_directory_no_symlink(config_root)
+        config_identity = os.fstat(config_descriptor)
+        descriptor = os.open(adc_name, flags, dir_fd=config_descriptor)
+        try:
+            info = os.fstat(descriptor)
+            if not stat.S_ISREG(info.st_mode) or info.st_size <= 1 or info.st_size > 1_000_000:
+                raise ValidationError("local gcloud ADC material is unavailable or malformed")
+            received = 0
+            while True:
+                chunk = os.read(descriptor, min(65_536, 1_000_001 - received))
+                if not chunk:
+                    break
+                chunks.append(chunk)
+                received += len(chunk)
+                if received > 1_000_000:
+                    raise ValidationError("local gcloud ADC material is unavailable or malformed")
+            data = b"".join(chunks)
+            after = os.fstat(descriptor)
+            if (
+                (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns)
+                != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                or len(data) != info.st_size
+            ):
+                raise ValidationError("local gcloud ADC material changed during preflight")
+        finally:
+            os.close(descriptor)
+            descriptor = None
+        recheck_descriptor = _open_absolute_directory_no_symlink(config_root)
+        try:
+            rechecked = os.fstat(recheck_descriptor)
+            if (config_identity.st_dev, config_identity.st_ino) != (
+                rechecked.st_dev,
+                rechecked.st_ino,
+            ):
+                raise ValidationError("local gcloud ADC path changed during preflight")
+        finally:
+            os.close(recheck_descriptor)
+            recheck_descriptor = None
+        value = _strict_json_bytes(data, "local gcloud ADC material")
+        credential_type = value.get("type")
+        if credential_type not in {
+            "authorized_user",
+            "service_account",
+            "external_account",
+            "impersonated_service_account",
+        }:
+            raise ValidationError("local gcloud ADC material is unavailable or malformed")
+    except (ValidationError, OSError, UnicodeError):
+        # ADC JSON can contain client secrets or private keys. Convert every
+        # parse/path failure into one fresh generic error after clearing locals.
+        failure_message = "local gcloud ADC material or path is unavailable or unsafe or malformed"
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                failure_message = "local gcloud ADC material or path is unavailable or unsafe or malformed"
+        if recheck_descriptor is not None:
+            try:
+                os.close(recheck_descriptor)
+            except OSError:
+                failure_message = "local gcloud ADC material or path is unavailable or unsafe or malformed"
+        if config_descriptor is not None:
+            try:
+                os.close(config_descriptor)
+            except OSError:
+                failure_message = "local gcloud ADC material or path is unavailable or unsafe or malformed"
+    if failure_message is not None:
+        config_value = None
+        config_parts = ()
+        config_root = None
+        adc_name = ""
+        chunks = []
+        chunk = b""
+        data = b""
+        value = None
+        credential_type = None
+        config_identity = None
+        raise ValidationError(failure_message) from None
+    return executable
+
+
+def _minimal_gcloud_environment() -> dict[str, str]:
+    """Allow only non-secret process settings required by the gcloud wrapper."""
+
+    allowed = ("PATH", "HOME", "CLOUDSDK_CONFIG", "LANG", "LC_ALL", "LC_CTYPE")
+    environment = {
+        key: value
+        for key in allowed
+        if isinstance((value := os.environ.get(key)), str) and value
+    }
+    environment["CLOUDSDK_CORE_DISABLE_PROMPTS"] = "1"
+    return environment
+
+
+def _load_google_access_token(gcloud_executable: str, timeout: float) -> str:
+    """Refresh one ADC token after authority consumption; never expose output."""
+
+    command = [gcloud_executable, *GUIDE_GCLOUD_TOKEN_COMMAND]
+    failure_code: str | None = None
+    result: Any = None
+    raw = b""
+    stripped = b""
+    token: str | None = None
+    try:
+        result = subprocess.run(
+            command,
+            check=False,
+            capture_output=True,
+            text=False,
+            timeout=timeout,
+            env=_minimal_gcloud_environment(),
+        )
+    except Exception:
+        failure_code = "google_adc_token_refresh_failed"
+    if failure_code is None:
+        try:
+            if type(result.returncode) is not int or result.returncode != 0:
+                failure_code = "google_adc_token_refresh_failed"
+            else:
+                raw = result.stdout
+                if not isinstance(raw, bytes) or len(raw) > 8_194:
+                    failure_code = "google_adc_access_token_malformed"
+                else:
+                    stripped = raw.rstrip(b"\r\n")
+                    try:
+                        token = stripped.decode("ascii", errors="strict")
+                    except UnicodeError:
+                        token = None
+                    if (
+                        token is None
+                        or len(token) < 16
+                        or len(token) > 8_192
+                        or token != token.strip()
+                        or any(
+                            character.isspace() or ord(character) < 33 or ord(character) > 126
+                            for character in token
+                        )
+                    ):
+                        failure_code = "google_adc_access_token_malformed"
+        except Exception:
+            failure_code = "google_adc_access_token_malformed"
+    if failure_code is not None:
+        # CompletedProcess and TimeoutExpired can both retain stdout/stderr.
+        # Discard every provider-controlled local before raising the safe code.
+        result = None
+        raw = b""
+        stripped = b""
+        token = None
+        raise _GuideExecutionFailure(failure_code) from None
+    assert isinstance(token, str)
+    return token
+
+
+def _open_google_request(request: urllib.request.Request, timeout: float) -> Any:
+    """One no-redirect opener seam. It performs no retry."""
+
+    opener = urllib.request.build_opener(_NoRedirect())
+    return opener.open(request, timeout=timeout)
+
+
+def _validate_google_wav_bytes(data: bytes) -> dict[str, Any]:
+    """Strictly decode the exact provider WAV; never trust declared geometry."""
+
+    if len(data) > GUIDE_MAX_OUTPUT_WAV_BYTES:
+        raise _GuideExecutionFailure("provider_wav_byte_cap_exceeded")
+    if len(data) < 44 or data[:4] != b"RIFF" or data[8:12] != b"WAVE":
+        raise _GuideExecutionFailure("provider_wav_container_invalid")
+    declared_riff_size = int.from_bytes(data[4:8], "little")
+    if declared_riff_size + 8 != len(data):
+        raise _GuideExecutionFailure("provider_wav_payload_truncated_or_trailing")
+
+    offset = 12
+    chunks: list[tuple[bytes, bytes]] = []
+    while offset < len(data):
+        if offset + 8 > len(data):
+            raise _GuideExecutionFailure("provider_wav_chunk_header_truncated")
+        chunk_id = data[offset : offset + 4]
+        chunk_size = int.from_bytes(data[offset + 4 : offset + 8], "little")
+        offset += 8
+        end = offset + chunk_size
+        if end > len(data):
+            raise _GuideExecutionFailure("provider_wav_payload_truncated_or_trailing")
+        chunks.append((chunk_id, data[offset:end]))
+        offset = end
+        if chunk_size % 2:
+            if offset >= len(data) or data[offset] != 0:
+                raise _GuideExecutionFailure("provider_wav_chunk_padding_invalid")
+            offset += 1
+    if offset != len(data) or [chunk_id for chunk_id, _chunk in chunks] != [b"fmt ", b"data"]:
+        raise _GuideExecutionFailure("provider_wav_chunk_layout_invalid")
+
+    format_bytes = chunks[0][1]
+    pcm = chunks[1][1]
+    if len(format_bytes) != 16:
+        raise _GuideExecutionFailure("provider_wav_format_invalid")
+    audio_format = int.from_bytes(format_bytes[0:2], "little")
+    channels = int.from_bytes(format_bytes[2:4], "little")
+    sample_rate = int.from_bytes(format_bytes[4:8], "little")
+    byte_rate = int.from_bytes(format_bytes[8:12], "little")
+    block_align = int.from_bytes(format_bytes[12:14], "little")
+    bits_per_sample = int.from_bytes(format_bytes[14:16], "little")
+    if (
+        audio_format != 1
+        or channels != 1
+        or sample_rate != GUIDE_SAMPLE_RATE_HZ
+        or byte_rate != GUIDE_SAMPLE_RATE_HZ * 2
+        or block_align != 2
+        or bits_per_sample != 16
+    ):
+        raise _GuideExecutionFailure("provider_wav_media_geometry_invalid")
+    if not pcm or len(pcm) % block_align:
+        raise _GuideExecutionFailure("provider_wav_pcm_payload_invalid")
+    frame_count = len(pcm) // block_align
+    duration = frame_count / sample_rate
+    if duration < 20.0 or duration > 50.0:
+        raise _GuideExecutionFailure("provider_wav_duration_out_of_bounds")
+    return {
+        "container": "wav",
+        "codec": "pcm_s16le",
+        "sample_rate_hz": sample_rate,
+        "channels": channels,
+        "bit_depth": bits_per_sample,
+        "frame_count": frame_count,
+        "duration_seconds": duration,
+    }
+
+
+def _response_headers(value: Any) -> dict[str, str]:
+    result: dict[str, str] = {}
+    try:
+        items = value.items()
+    except Exception:
+        return result
+    for key, item in items:
+        if isinstance(key, str) and isinstance(item, str):
+            lowered = key.lower()
+            if lowered in result and lowered in {
+                "content-length",
+                "content-type",
+                "content-encoding",
+            }:
+                raise _GuideExecutionFailure("provider_response_headers_duplicated")
+            result[lowered] = item
+    return result
+
+
+def _safe_provider_evidence(
+    headers: dict[str, str],
+    access_token: str,
+    quota_project: str,
+) -> tuple[dict[str, str], dict[str, int]]:
+    identifiers: dict[str, str] = {}
+    for name in ("x-goog-request-id", "x-request-id", "x-cloud-trace-context"):
+        value = headers.get(name)
+        if (
+            isinstance(value, str)
+            and 0 < len(value) <= 256
+            and bool(re.fullmatch(r"[A-Za-z0-9._:/;=+\-]+", value))
+            and not _SECRET_VALUE_RE.search(value)
+            and access_token not in value
+            and quota_project not in value
+        ):
+            identifiers[name] = value
+    usage: dict[str, int] = {}
+    for name in (
+        "x-goog-quota-used",
+        "x-ratelimit-limit",
+        "x-ratelimit-remaining",
+        "x-ratelimit-reset",
+    ):
+        value = headers.get(name)
+        if isinstance(value, str) and value.isascii() and value.isdigit():
+            number = int(value)
+            if 0 <= number <= 10**15:
+                usage[name] = number
+    return identifiers, usage
+
+
+def _perform_google_post(
+    body: bytes,
+    access_token: str,
+    quota_project: str,
+    timeout: float,
+) -> _GoogleResponse:
+    request: Any = None
+    response: Any = None
+    pending_failure: _GuideExecutionFailure | None = None
+    status_getter: Any = None
+    final_url_getter: Any = None
+    close: Any = None
+    headers: dict[str, str] = {}
+    chunks: list[bytes] = []
+    chunk = b""
+    raw = b""
+    payload: Any = None
+    encoded = b""
+    wav_bytes = b""
+    geometry: Any = None
+    content_type = ""
+    content_encoding = ""
+    if len(body) != GUIDE_MAX_REQUEST_BODY_BYTES or sha256_bytes(body) != GUIDE_REQUEST_BODY_SHA256:
+        pending_failure = _GuideExecutionFailure("compiled_request_body_binding_failed")
+    else:
+        try:
+            request = urllib.request.Request(GUIDE_ENDPOINT, data=body, method="POST")
+            request.add_header("Authorization", f"Bearer {access_token}")
+            request.add_header("Content-Type", "application/json")
+            request.add_header("X-Goog-User-Project", quota_project)
+            response = _open_google_request(request, timeout)
+            status_getter = getattr(response, "getcode", None)
+            status = status_getter() if callable(status_getter) else getattr(response, "status", None)
+            headers = _response_headers(getattr(response, "headers", {}))
+            identifiers, usage = _safe_provider_evidence(headers, access_token, quota_project)
+            if type(status) is not int or status != 200:
+                raise _GuideExecutionFailure(
+                    "provider_http_failure",
+                    http_status=status if type(status) is int else None,
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            final_url_getter = getattr(response, "geturl", None)
+            if not callable(final_url_getter) or final_url_getter() != GUIDE_ENDPOINT:
+                raise _GuideExecutionFailure(
+                    "provider_redirect_forbidden",
+                    http_status=status,
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
+            if content_type != "application/json":
+                raise _GuideExecutionFailure(
+                    "provider_response_mime_invalid",
+                    http_status=status,
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            content_encoding = headers.get("content-encoding", "identity").strip().lower()
+            if content_encoding not in {"", "identity"}:
+                raise _GuideExecutionFailure(
+                    "provider_response_encoding_forbidden",
+                    http_status=status,
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            declared_length = headers.get("content-length")
+            if declared_length is not None:
+                if not declared_length.isascii() or not declared_length.isdigit():
+                    raise _GuideExecutionFailure("provider_content_length_invalid")
+                if int(declared_length) > GUIDE_MAX_RESPONSE_BYTES_PER_CALL:
+                    raise _GuideExecutionFailure("provider_response_byte_cap_exceeded")
+            received = 0
+            while True:
+                remaining = GUIDE_MAX_RESPONSE_BYTES_PER_CALL + 1 - received
+                if remaining <= 0:
+                    raise _GuideExecutionFailure("provider_response_byte_cap_exceeded")
+                chunk = response.read(min(65_536, remaining))
+                if not isinstance(chunk, bytes):
+                    raise _GuideExecutionFailure("provider_response_stream_invalid")
+                if not chunk:
+                    break
+                chunks.append(chunk)
+                received += len(chunk)
+                if received > GUIDE_MAX_RESPONSE_BYTES_PER_CALL:
+                    raise _GuideExecutionFailure("provider_response_byte_cap_exceeded")
+            raw = b"".join(chunks)
+            if declared_length is not None and len(raw) != int(declared_length):
+                raise _GuideExecutionFailure(
+                    "provider_response_truncated",
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            try:
+                payload = _strict_json_bytes(raw, "Google Cloud TTS response")
+            except ValidationError:
+                raise _GuideExecutionFailure(
+                    "provider_response_json_invalid",
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                ) from None
+            if set(payload) != {"audioContent"} or not isinstance(payload.get("audioContent"), str) or not payload["audioContent"]:
+                raise _GuideExecutionFailure(
+                    "provider_audio_content_invalid",
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            try:
+                encoded = payload["audioContent"].encode("ascii", errors="strict")
+                wav_bytes = base64.b64decode(encoded, validate=True)
+            except (UnicodeError, binascii.Error, ValueError):
+                raise _GuideExecutionFailure(
+                    "provider_audio_base64_invalid",
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                ) from None
+            if len(wav_bytes) > GUIDE_MAX_OUTPUT_WAV_BYTES:
+                raise _GuideExecutionFailure(
+                    "provider_wav_byte_cap_exceeded",
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                )
+            try:
+                geometry = _validate_google_wav_bytes(wav_bytes)
+            except _GuideExecutionFailure as exc:
+                raise _GuideExecutionFailure(
+                    exc.code,
+                    response_bytes=len(raw),
+                    provider_identifiers=identifiers,
+                    provider_usage=usage,
+                ) from None
+            return _GoogleResponse(
+                response_bytes=len(raw),
+                response_sha256=sha256_bytes(raw),
+                wav_bytes=wav_bytes,
+                geometry=geometry,
+                provider_identifiers=identifiers,
+                provider_usage=usage,
+            )
+        except _GuideExecutionFailure as exc:
+            exc.__cause__ = None
+            exc.__context__ = None
+            exc.__suppress_context__ = True
+            pending_failure = exc
+        except urllib.error.HTTPError as exc:
+            try:
+                try:
+                    headers = _response_headers(exc.headers)
+                    identifiers, usage = _safe_provider_evidence(headers, access_token, quota_project)
+                    code = "provider_redirect_forbidden" if 300 <= exc.code < 400 else "provider_http_failure"
+                    pending_failure = _GuideExecutionFailure(
+                        code,
+                        http_status=exc.code,
+                        provider_identifiers=identifiers,
+                        provider_usage=usage,
+                    )
+                except _GuideExecutionFailure as header_failure:
+                    pending_failure = _GuideExecutionFailure(header_failure.code)
+            finally:
+                try:
+                    exc.close()
+                except Exception:
+                    pass
+        except (urllib.error.URLError, TimeoutError, OSError):
+            pending_failure = _GuideExecutionFailure("provider_transport_failure")
+        except Exception:
+            # Provider objects can carry credential-bearing headers. Never copy an
+            # arbitrary exception or response body into an error or receipt.
+            pending_failure = _GuideExecutionFailure("provider_transport_failure")
+        finally:
+            if response is not None:
+                close = getattr(response, "close", None)
+                if callable(close):
+                    try:
+                        close()
+                    except Exception:
+                        pass
+    if pending_failure is None:
+        raise _GuideExecutionFailure("provider_transport_failure") from None
+    pending_failure.__cause__ = None
+    pending_failure.__context__ = None
+    pending_failure.__suppress_context__ = True
+    # The raised redacted failure must not retain credentials or raw provider
+    # material through traceback-frame locals inspected by a crash collector.
+    body = b""
+    access_token = ""
+    quota_project = ""
+    request = None
+    response = None
+    status_getter = None
+    final_url_getter = None
+    close = None
+    headers = {}
+    chunks = []
+    chunk = b""
+    raw = b""
+    payload = None
+    encoded = b""
+    wav_bytes = b""
+    geometry = None
+    content_type = ""
+    content_encoding = ""
+    raise pending_failure from None
+
+
+def _guide_authority_false_fields() -> dict[str, bool]:
+    return {
+        "creative_approved": False,
+        "cross_provider_transfer_authorized": False,
+        "voice_transfer_authorized": False,
+        "full_capture_authorized": False,
+        "step3_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def execute_synthetic_guide(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+    *,
+    timeout: float = 60.0,
+) -> dict[str, Any]:
+    """Consume one exact AUTH-G1 and perform its two one-shot Google POSTs.
+
+    No fallback, redirect, retry, alternate model, alternate voice, or resume is
+    possible.  Quota-project and credential-source failures happen before any
+    write.  Token refresh happens only after the immutable consumption record.
+    """
+
+    if not _is_number(timeout) or float(timeout) <= 0 or float(timeout) > 300:
+        raise ValidationError("timeout must be greater than zero and at most 300 seconds")
+
+    # Authority and every possible destination are proven before any private
+    # quota-project or ADC material is accessed.
+    contract = _build_guide_execution_contract(
+        authorization_path,
+        plan_path,
+        canonical_w_path,
+    )
+    quota_project = ""
+    gcloud_executable = ""
+    private_preflight_failed = False
+    try:
+        quota_project = _quota_project_for_execution(contract.authorization)
+        gcloud_executable = _preflight_google_adc()
+    except Exception:
+        private_preflight_failed = True
+    if private_preflight_failed:
+        quota_project = ""
+        gcloud_executable = ""
+        contract = None
+        raise ValidationError("private Google execution binding or ADC preflight failed") from None
+
+    # Revalidate after private preflight and before the first write.  Any auth,
+    # plan, W, or destination race remains non-consuming. The whole span is a
+    # scrub boundary because it necessarily holds the private project value.
+    setup_failed = False
+    refreshed: _GuideExecutionContract | None = None
+    consumed_at: datetime | None = None
+    reserved_limits: dict[str, Any] = {}
+    consumption: dict[str, Any] = {}
+    consumption_bytes = b""
+    consumption_sha256 = ""
+    try:
+        refreshed = _build_guide_execution_contract(
+            authorization_path,
+            plan_path,
+            canonical_w_path,
+        )
+        if (
+            refreshed.authorization_sha256 != contract.authorization_sha256
+            or refreshed.dry_run["request_set_sha256"] != contract.dry_run["request_set_sha256"]
+            or refreshed.root != contract.root
+        ):
+            raise ValidationError("AUTH-G1 execution bindings changed during preflight")
+        contract = refreshed
+        _ensure_execution_parents(
+            contract.root,
+            [
+                contract.consumption_relative,
+                contract.success_receipt_relative,
+                contract.failure_receipt_relative,
+                *[request["destination"] for request in contract.dry_run["requests"]],
+            ],
+        )
+        _preflight_execution_paths(contract)
+        if (
+            sha256_file(contract.authorization_path) != contract.authorization_sha256
+            or sha256_file(contract.plan_path) != contract.dry_run["plan_sha256"]
+            or sha256_file(contract.canonical_w_path) != contract.dry_run["canonical_w_sha256"]
+        ):
+            raise ValidationError("AUTH-G1 execution bindings changed before consumption")
+
+        consumed_at = _execution_now()
+        if not contract.approved_at <= consumed_at < contract.expires_at:
+            raise ValidationError("AUTH-G1 expired before authority consumption")
+        reserved_limits = contract.authorization["authorized_limits"]
+        consumption = {
+            "schema_version": GUIDE_CONSUMPTION_SCHEMA,
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_sha256": contract.authorization_sha256,
+            "scope": GUIDE_SCOPE,
+            "provider": GUIDE_PROVIDER,
+            "status": "consumed_before_network",
+            "consumed_at": _iso_utc(consumed_at),
+            "consumed_before_network": True,
+            "network_called_at_consumption": False,
+            "performance_transfer_plan_sha256": contract.dry_run["plan_sha256"],
+            "request_set_sha256": contract.dry_run["request_set_sha256"],
+            "reserved_limits": reserved_limits,
+            "credentials_recorded": False,
+        }
+        consumption_bytes = _receipt_bytes(consumption)
+        _exclusive_fixture_write(
+            contract.root,
+            contract.consumption_relative,
+            consumption_bytes,
+        )
+        consumption_sha256 = sha256_bytes(consumption_bytes)
+        _verify_private_fixture_artifact(
+            contract.root,
+            contract.consumption_relative,
+            consumption_bytes,
+            "AUTH-G1 consumption latch",
+        )
+    except Exception:
+        setup_failed = True
+    if setup_failed or contract is None or consumed_at is None:
+        quota_project = ""
+        gcloud_executable = ""
+        contract = None
+        refreshed = None
+        consumed_at = None
+        reserved_limits = {}
+        consumption = {}
+        consumption_bytes = b""
+        consumption_sha256 = ""
+        raise ValidationError("AUTH-G1 execution setup failed closed before provider access") from None
+
+    attempted_calls = 0
+    total_request_bytes = 0
+    total_response_bytes = 0
+    modeled_spend = 0.0
+    outputs: list[dict[str, Any]] = []
+    run_started_at: datetime | None = None
+    current_request_id: str | None = None
+    current_identifiers: dict[str, str] = {}
+    current_usage: dict[str, int] = {}
+    current_http_status: int | None = None
+    current_response_bytes = 0
+    current_response_counted = False
+    previous_call_completed_at: datetime | None = None
+    credential_refresh_attempted = False
+    final_failure_message: str | None = None
+
+    def write_failure(reason_code: str) -> None:
+        failed_at = _execution_now()
+        failure = {
+            "schema_version": GUIDE_FAILURE_RECEIPT_SCHEMA,
+            "provider": GUIDE_PROVIDER,
+            "endpoint": GUIDE_ENDPOINT,
+            "model_id": GUIDE_MODEL,
+            "voice_name": GUIDE_VOICE,
+            "language_code": GUIDE_LANGUAGE,
+            "outcome": "failed_closed",
+            "reason_code": reason_code,
+            "failed_request_id": current_request_id,
+            "http_status": current_http_status,
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_consumed": True,
+            "guide_authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+            "guide_authorization_sha256": contract.authorization_sha256,
+            "guide_consumption_record_path": contract.consumption_relative,
+            "guide_consumption_record_sha256": consumption_sha256,
+            "performance_transfer_plan_sha256": contract.dry_run["plan_sha256"],
+            "canonical_w_sha256": contract.dry_run["canonical_w_sha256"],
+            "microtest_token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+            "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+            "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+            "request_set_sha256": contract.dry_run["request_set_sha256"],
+            "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+            "request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+            "total_request_bytes": total_request_bytes,
+            "provider_calls_made": attempted_calls,
+            "provider_outputs_received": len(outputs),
+            "provider_response_bytes_total": total_response_bytes,
+            "failed_response_bytes": current_response_bytes,
+            "provider_spend_usd": modeled_spend,
+            "provider_spend_semantics": "modeled_authorized_ceiling_per_attempt_not_provider_invoice",
+            "credential_mechanism": "gcloud_application_default_print_access_token",
+            "credential_refresh_attempted": credential_refresh_attempted,
+            "quota_project_sha256": contract.authorization["billing_project_binding"]["quota_project_sha256"],
+            "provider_identifiers": current_identifiers,
+            "provider_usage": current_usage,
+            "outputs": outputs,
+            "started_at": _iso_utc(run_started_at or consumed_at),
+            "failed_at": _iso_utc(failed_at),
+            "retries_made": 0,
+            "redirects_followed": 0,
+            "fallbacks_used": 0,
+            "credentials_recorded": False,
+            "network_called": credential_refresh_attempted or attempted_calls > 0,
+            **_guide_authority_false_fields(),
+        }
+        secret_errors = _scan_for_secrets(failure, "synthetic_guide_failure_receipt")
+        if secret_errors:
+            raise ValidationError("refusing to serialize a credential-bearing guide failure receipt")
+        _exclusive_fixture_write(
+            contract.root,
+            contract.failure_receipt_relative,
+            _receipt_bytes(failure),
+        )
+
+    try:
+        credential_refresh_attempted = True
+        _verify_private_fixture_artifact(
+            contract.root,
+            contract.consumption_relative,
+            consumption_bytes,
+            "AUTH-G1 consumption latch",
+        )
+        access_token = _load_google_access_token(gcloud_executable, float(timeout))
+        after_refresh = _execution_now()
+        if after_refresh < consumed_at or after_refresh >= contract.expires_at:
+            raise _GuideExecutionFailure("authorization_expired_after_token_refresh")
+
+        for index, compiled in enumerate(contract.dry_run["requests"]):
+            current_request_id = compiled["request_id"]
+            current_identifiers = {}
+            current_usage = {}
+            current_http_status = None
+            current_response_bytes = 0
+            current_response_counted = False
+            for existing_output in outputs:
+                _verify_execution_output(contract.root, existing_output)
+            _verify_private_fixture_artifact(
+                contract.root,
+                contract.consumption_relative,
+                consumption_bytes,
+                "AUTH-G1 consumption latch",
+            )
+            if current_request_id != f"gemini-guide-{index + 1:02d}":
+                raise _GuideExecutionFailure("compiled_request_order_invalid")
+            destination = compiled["destination"]
+            _safe_execution_relative(
+                contract.root,
+                destination,
+                f"{current_request_id} destination",
+                ".wav",
+            )
+            _safe_execution_relative(
+                contract.root,
+                contract.success_receipt_relative,
+                "guide success receipt",
+                ".json",
+            )
+            _safe_execution_relative(
+                contract.root,
+                contract.failure_receipt_relative,
+                "guide failure receipt",
+                ".json",
+            )
+            body = _compact_json_bytes(compiled["request_body"])
+            if (
+                compiled["endpoint"] != GUIDE_ENDPOINT
+                or compiled["method"] != "POST"
+                or compiled["provider"] != GUIDE_PROVIDER
+                or compiled["request_body_bytes"] != GUIDE_MAX_REQUEST_BODY_BYTES
+                or compiled["request_body_sha256"] != GUIDE_REQUEST_BODY_SHA256
+                or len(body) != GUIDE_MAX_REQUEST_BODY_BYTES
+                or sha256_bytes(body) != GUIDE_REQUEST_BODY_SHA256
+            ):
+                raise _GuideExecutionFailure("compiled_request_binding_failed")
+            next_calls = attempted_calls + 1
+            next_request_bytes = total_request_bytes + len(body)
+            next_spend = round(modeled_spend + GUIDE_MODELED_SPEND_PER_CALL_USD, 2)
+            if (
+                next_calls > reserved_limits["max_calls"]
+                or next_calls > GUIDE_MAX_CALLS
+                or next_request_bytes > reserved_limits["max_total_request_bytes"]
+                or next_request_bytes > GUIDE_MAX_TOTAL_REQUEST_BYTES
+                or next_spend > float(reserved_limits["max_spend_usd"]) + 1e-9
+            ):
+                raise _GuideExecutionFailure("authorization_ceiling_exhausted_before_network")
+            call_started_at = _execution_now()
+            if (
+                call_started_at < consumed_at
+                or (
+                    previous_call_completed_at is not None
+                    and call_started_at < previous_call_completed_at
+                )
+                or call_started_at >= contract.expires_at
+            ):
+                raise _GuideExecutionFailure("authorization_expired_before_provider_call")
+            if run_started_at is None:
+                run_started_at = call_started_at
+            attempted_calls = next_calls
+            total_request_bytes = next_request_bytes
+            modeled_spend = next_spend
+            response = _perform_google_post(
+                body,
+                access_token,
+                quota_project,
+                float(timeout),
+            )
+            call_completed_at = _execution_now()
+            current_identifiers = response.provider_identifiers
+            current_usage = response.provider_usage
+            current_response_bytes = response.response_bytes
+            total_response_bytes += response.response_bytes
+            current_response_counted = True
+            if call_completed_at < call_started_at or call_completed_at >= contract.expires_at:
+                raise _GuideExecutionFailure(
+                    "authorization_expired_before_provider_response_completed",
+                    response_bytes=response.response_bytes,
+                    provider_identifiers=response.provider_identifiers,
+                    provider_usage=response.provider_usage,
+                )
+            next_audio_total = sum(item["byte_count"] for item in outputs) + len(response.wav_bytes)
+            if (
+                len(outputs) + 1 > reserved_limits["max_outputs"]
+                or len(outputs) + 1 > GUIDE_MAX_OUTPUTS
+                or len(response.wav_bytes) > reserved_limits["max_output_wav_bytes"]
+                or next_audio_total > reserved_limits["max_total_audio_bytes"]
+                or next_audio_total > GUIDE_MAX_TOTAL_AUDIO_BYTES
+            ):
+                raise _GuideExecutionFailure("authorization_audio_ceiling_exceeded")
+            _safe_execution_relative(
+                contract.root,
+                destination,
+                f"{current_request_id} destination",
+                ".wav",
+            )
+            _exclusive_fixture_write(contract.root, destination, response.wav_bytes)
+            output = {
+                "request_id": current_request_id,
+                "path": destination,
+                "sha256": sha256_bytes(response.wav_bytes),
+                "byte_count": len(response.wav_bytes),
+                "duration_seconds": response.geometry["duration_seconds"],
+                "provider_response_bytes": response.response_bytes,
+                "response_sha256": response.response_sha256,
+                "request_started_at": _iso_utc(call_started_at),
+                "request_completed_at": _iso_utc(call_completed_at),
+                "provider_identifiers": response.provider_identifiers,
+                "provider_usage": response.provider_usage,
+                "container": response.geometry["container"],
+                "codec": response.geometry["codec"],
+                "sample_rate_hz": response.geometry["sample_rate_hz"],
+                "channels": response.geometry["channels"],
+                "bit_depth": response.geometry["bit_depth"],
+                "frame_count": response.geometry["frame_count"],
+            }
+            outputs.append(output)
+            previous_call_completed_at = call_completed_at
+
+        if attempted_calls != 2 or len(outputs) != 2 or total_request_bytes != GUIDE_MAX_TOTAL_REQUEST_BYTES:
+            raise _GuideExecutionFailure("guide_execution_incomplete")
+        for completed_output in outputs:
+            _verify_execution_output(contract.root, completed_output)
+        _verify_private_fixture_artifact(
+            contract.root,
+            contract.consumption_relative,
+            consumption_bytes,
+            "AUTH-G1 consumption latch",
+        )
+        completed_at = datetime.fromisoformat(outputs[-1]["request_completed_at"])
+        if not contract.approved_at <= consumed_at <= (run_started_at or consumed_at) <= completed_at < contract.expires_at:
+            raise _GuideExecutionFailure("guide_execution_time_order_invalid")
+        success = {
+            "schema_version": GUIDE_RUN_RECEIPT_SCHEMA,
+            "provider": GUIDE_PROVIDER,
+            "endpoint": GUIDE_ENDPOINT,
+            "model_id": GUIDE_MODEL,
+            "voice_name": GUIDE_VOICE,
+            "language_code": GUIDE_LANGUAGE,
+            "outcome": "success",
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_consumed": True,
+            "guide_authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+            "guide_authorization_sha256": contract.authorization_sha256,
+            "guide_consumption_record_path": contract.consumption_relative,
+            "guide_consumption_record_sha256": consumption_sha256,
+            "performance_transfer_plan_sha256": contract.dry_run["plan_sha256"],
+            "canonical_w_sha256": contract.dry_run["canonical_w_sha256"],
+            "microtest_token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+            "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+            "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+            "request_set_sha256": contract.dry_run["request_set_sha256"],
+            "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+            "request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+            "total_request_bytes": total_request_bytes,
+            "provider_calls_made": attempted_calls,
+            "provider_outputs_received": len(outputs),
+            "provider_response_bytes_total": total_response_bytes,
+            "provider_spend_usd": modeled_spend,
+            "provider_spend_semantics": "modeled_authorized_ceiling_per_attempt_not_provider_invoice",
+            "credential_mechanism": "gcloud_application_default_print_access_token",
+            "credential_refresh_attempted": True,
+            "quota_project_sha256": contract.authorization["billing_project_binding"]["quota_project_sha256"],
+            "outputs": outputs,
+            "started_at": _iso_utc(run_started_at or consumed_at),
+            "completed_at": _iso_utc(completed_at),
+            "retries_made": 0,
+            "redirects_followed": 0,
+            "fallbacks_used": 0,
+            "credentials_recorded": False,
+            "network_called": True,
+            **_guide_authority_false_fields(),
+        }
+        secret_errors = _scan_for_secrets(success, "synthetic_guide_run_receipt")
+        if secret_errors:
+            raise _GuideExecutionFailure("receipt_secret_scan_failed")
+        success_bytes = _receipt_bytes(success)
+        _exclusive_fixture_write(
+            contract.root,
+            contract.success_receipt_relative,
+            success_bytes,
+        )
+        return {
+            "schema_version": "oe-synthetic-guide-execution-result-v1",
+            "valid": True,
+            "outcome": "success",
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_consumed": True,
+            "provider_calls_made": attempted_calls,
+            "outputs_received": len(outputs),
+            "run_receipt": {
+                "path": contract.success_receipt_relative,
+                "sha256": sha256_bytes(success_bytes),
+            },
+            "network_called": True,
+            "credentials_accessed": True,
+            **_guide_authority_false_fields(),
+        }
+    except _GuideExecutionFailure as exc:
+        failed_response_was_counted = current_response_counted
+        current_identifiers = exc.provider_identifiers or current_identifiers
+        current_usage = exc.provider_usage or current_usage
+        current_http_status = exc.http_status
+        current_response_bytes = exc.response_bytes or current_response_bytes
+        if exc.response_bytes and not failed_response_was_counted:
+            total_response_bytes += exc.response_bytes
+        try:
+            write_failure(exc.code)
+            final_failure_message = (
+                f"synthetic-guide execution stopped without retry: {exc.code}"
+            )
+        except ValidationError:
+            final_failure_message = (
+                "synthetic-guide execution stopped without retry: failure_receipt_write_failed"
+            )
+    except ValidationError:
+        try:
+            write_failure("local_validation_or_filesystem_failure")
+            final_failure_message = (
+                "synthetic-guide execution stopped without retry: local_validation_or_filesystem_failure"
+            )
+        except ValidationError:
+            final_failure_message = (
+                "synthetic-guide execution stopped without retry: failure_receipt_write_failed"
+            )
+
+    if final_failure_message is None:
+        final_failure_message = "synthetic-guide execution stopped without retry: unknown_failure"
+    quota_project = ""
+    access_token = ""
+    gcloud_executable = ""
+    body = b""
+    response = None
+    compiled = {}
+    output = {}
+    outputs = []
+    current_identifiers = {}
+    current_usage = {}
+    contract = None
+    refreshed = None
+    consumption = {}
+    consumption_bytes = b""
+    success = {}
+    success_bytes = b""
+    write_failure = None
+    raise ValidationError(final_failure_message) from None
 
 
 def _read_bound_wav(
@@ -1375,34 +2818,21 @@ def _read_bound_wav(
     if len(data) != expected_bytes or sha256_bytes(data) != expected_sha256:
         raise ValidationError("selected guide content binding mismatch")
     try:
-        with wave.open(io.BytesIO(data), "rb") as handle:
-            channels = handle.getnchannels()
-            sample_width = handle.getsampwidth()
-            sample_rate = handle.getframerate()
-            frames = handle.getnframes()
-            compression = handle.getcomptype()
-            decoded_payload = handle.readframes(frames)
-            trailing_audio = handle.readframes(1)
-    except (OSError, EOFError, wave.Error) as exc:
-        raise ValidationError("selected guide is not a readable WAV") from exc
-    duration = frames / sample_rate if sample_rate else 0.0
-    errors: list[str] = []
-    _require(channels == 1, "selected guide must be mono", errors)
-    _require(sample_width == 2, "selected guide must be 16-bit PCM", errors)
-    _require(sample_rate == GUIDE_SAMPLE_RATE_HZ, "selected guide must be 24 kHz", errors)
-    _require(compression == "NONE", "selected guide must be uncompressed PCM", errors)
-    _require(frames > 0, "selected guide must contain PCM frames", errors)
-    _require(
-        len(decoded_payload) == frames * channels * sample_width,
-        "selected guide PCM payload is truncated or inconsistent with its WAV header",
-        errors,
-    )
-    _require(trailing_audio == b"", "selected guide contains undeclared trailing PCM frames", errors)
-    _require(20.0 <= duration <= 50.0, "selected guide duration must be between 20 and 50 seconds", errors)
-    _require(abs(duration - expected_duration) <= 0.001, "selected guide duration binding mismatch", errors)
-    if errors:
-        raise ValidationError(errors)
-    return data, {"container": "wav", "codec": "pcm_s16le", "sample_rate_hz": sample_rate, "channels": channels, "duration_seconds": duration}
+        geometry = _validate_google_wav_bytes(data)
+    except _GuideExecutionFailure as exc:
+        if exc.code in {
+            "provider_wav_payload_truncated_or_trailing",
+            "provider_wav_chunk_header_truncated",
+        }:
+            message = "selected guide PCM payload is truncated or inconsistent with its WAV header"
+        elif exc.code == "provider_wav_duration_out_of_bounds":
+            message = "selected guide duration must be between 20 and 50 seconds"
+        else:
+            message = "selected guide is not an exact 24 kHz mono PCM WAV"
+        raise ValidationError(message) from exc
+    if abs(float(geometry["duration_seconds"]) - expected_duration) > 0.001:
+        raise ValidationError("selected guide duration binding mismatch")
+    return data, geometry
 
 
 def _verified_prerequisite(
@@ -1568,6 +2998,13 @@ def _validate_consumed_guide_authority(
         "consumed guide authorization billing-project binding is invalid",
         errors,
     )
+    if isinstance(billing, dict):
+        _require(
+            run_receipt.get("quota_project_sha256")
+            == billing.get("quota_project_sha256"),
+            "guide run quota-project binding mismatch",
+            errors,
+        )
     reserved_limits = {
         "max_calls": 2,
         "max_outputs": 2,
@@ -1884,35 +3321,98 @@ def validate_voice_transfer_authorization(
     _strict_object(
         run_receipt,
         {
-            "schema_version", "provider", "outcome", "authorization_id", "request_set_sha256",
-            "request_body_sha256", "provider_calls_made", "provider_spend_usd",
-            "authorization_consumed", "outputs",
+            "schema_version", "provider", "endpoint", "model_id", "voice_name", "language_code",
+            "outcome", "authorization_id", "authorization_consumed", "outputs",
             "guide_authorization_path", "guide_authorization_sha256",
             "guide_consumption_record_path", "guide_consumption_record_sha256",
-            "started_at", "completed_at", "full_capture_authorized", "step3_authorized",
+            "performance_transfer_plan_sha256", "canonical_w_sha256",
+            "microtest_token_slice_sha256", "spoken_text_sha256", "acting_prompt_sha256",
+            "request_set_sha256", "request_body_sha256", "request_body_bytes",
+            "total_request_bytes", "provider_calls_made", "provider_outputs_received",
+            "provider_response_bytes_total", "provider_spend_usd", "provider_spend_semantics",
+            "credential_mechanism", "credential_refresh_attempted", "quota_project_sha256", "started_at", "completed_at",
+            "retries_made", "redirects_followed", "fallbacks_used", "credentials_recorded",
+            "network_called", "creative_approved", "cross_provider_transfer_authorized",
+            "voice_transfer_authorized", "full_capture_authorized", "step3_authorized",
+            "publication_authorized",
         },
         {
-            "schema_version", "provider", "outcome", "authorization_id", "request_set_sha256",
-            "request_body_sha256", "provider_calls_made", "provider_spend_usd",
-            "authorization_consumed", "outputs",
+            "schema_version", "provider", "endpoint", "model_id", "voice_name", "language_code",
+            "outcome", "authorization_id", "authorization_consumed", "outputs",
             "guide_authorization_path", "guide_authorization_sha256",
             "guide_consumption_record_path", "guide_consumption_record_sha256",
-            "started_at", "completed_at", "full_capture_authorized", "step3_authorized",
+            "performance_transfer_plan_sha256", "canonical_w_sha256",
+            "microtest_token_slice_sha256", "spoken_text_sha256", "acting_prompt_sha256",
+            "request_set_sha256", "request_body_sha256", "request_body_bytes",
+            "total_request_bytes", "provider_calls_made", "provider_outputs_received",
+            "provider_response_bytes_total", "provider_spend_usd", "provider_spend_semantics",
+            "credential_mechanism", "credential_refresh_attempted", "quota_project_sha256", "started_at", "completed_at",
+            "retries_made", "redirects_followed", "fallbacks_used", "credentials_recorded",
+            "network_called", "creative_approved", "cross_provider_transfer_authorized",
+            "voice_transfer_authorized", "full_capture_authorized", "step3_authorized",
+            "publication_authorized",
         },
         "selected guide run receipt",
     )
-    _require(run_receipt.get("provider") == GUIDE_PROVIDER and run_receipt.get("outcome") == "success", "guide run receipt must record successful Google generation", errors)
-    _require(run_receipt.get("request_set_sha256") == plan_dry["guide"]["request_set_sha256"], "guide run receipt request set mismatch", errors)
-    _require(run_receipt.get("request_body_sha256") == GUIDE_REQUEST_BODY_SHA256, "guide run receipt body mismatch", errors)
-    _require(type(run_receipt.get("provider_calls_made")) is int and run_receipt["provider_calls_made"] == 2, "guide run receipt must record exactly two provider calls", errors)
+    errors.extend(_scan_for_secrets(run_receipt, "selected_guide_run_receipt"))
     _require(
-        _is_number(run_receipt.get("provider_spend_usd"))
-        and 0 <= float(run_receipt["provider_spend_usd"]) <= GUIDE_MAX_SPEND_USD,
-        "guide run receipt exceeds its spend authority",
+        _json_exact(
+            (
+                run_receipt.get("provider"), run_receipt.get("endpoint"),
+                run_receipt.get("model_id"), run_receipt.get("voice_name"),
+                run_receipt.get("language_code"), run_receipt.get("outcome"),
+            ),
+            (GUIDE_PROVIDER, GUIDE_ENDPOINT, GUIDE_MODEL, GUIDE_VOICE, GUIDE_LANGUAGE, "success"),
+        ),
+        "guide run receipt must record the exact successful Google generation",
         errors,
     )
+    _require(run_receipt.get("performance_transfer_plan_sha256") == plan_dry["plan_sha256"], "guide run receipt plan mismatch", errors)
+    _require(run_receipt.get("canonical_w_sha256") == plan_dry["canonical_w_sha256"], "guide run receipt canonical W mismatch", errors)
+    _require(run_receipt.get("microtest_token_slice_sha256") == MICROTEST_TOKEN_SLICE_SHA256, "guide run receipt token-slice mismatch", errors)
+    _require(run_receipt.get("spoken_text_sha256") == MICROTEST_TEXT_SHA256, "guide run receipt spoken-text mismatch", errors)
+    _require(run_receipt.get("acting_prompt_sha256") == GUIDE_ACTING_PROMPT_SHA256, "guide run receipt acting-prompt mismatch", errors)
+    _require(run_receipt.get("request_set_sha256") == plan_dry["guide"]["request_set_sha256"], "guide run receipt request set mismatch", errors)
+    _require(run_receipt.get("request_body_sha256") == GUIDE_REQUEST_BODY_SHA256, "guide run receipt body mismatch", errors)
+    _require(type(run_receipt.get("request_body_bytes")) is int and run_receipt["request_body_bytes"] == GUIDE_MAX_REQUEST_BODY_BYTES, "guide run receipt request-body byte count mismatch", errors)
+    _require(type(run_receipt.get("total_request_bytes")) is int and run_receipt["total_request_bytes"] == GUIDE_MAX_TOTAL_REQUEST_BYTES, "guide run receipt total request-byte count mismatch", errors)
+    _require(type(run_receipt.get("provider_calls_made")) is int and run_receipt["provider_calls_made"] == 2, "guide run receipt must record exactly two provider calls", errors)
+    _require(type(run_receipt.get("provider_outputs_received")) is int and run_receipt["provider_outputs_received"] == 2, "guide run receipt must record exactly two provider outputs", errors)
+    _require(type(run_receipt.get("provider_response_bytes_total")) is int and 0 < run_receipt["provider_response_bytes_total"] <= 2 * GUIDE_MAX_RESPONSE_BYTES_PER_CALL, "guide run receipt total response-byte count is invalid", errors)
+    _require(
+        _is_number(run_receipt.get("provider_spend_usd"))
+        and float(run_receipt["provider_spend_usd"]) == GUIDE_MAX_SPEND_USD,
+        "guide run receipt modeled spend mismatch",
+        errors,
+    )
+    _require(run_receipt.get("provider_spend_semantics") == "modeled_authorized_ceiling_per_attempt_not_provider_invoice", "guide run receipt spend semantics mismatch", errors)
+    _require(run_receipt.get("credential_mechanism") == "gcloud_application_default_print_access_token", "guide run receipt credential mechanism mismatch", errors)
+    _require(run_receipt.get("credential_refresh_attempted") is True, "guide run receipt must record the consumed credential refresh", errors)
     _require(run_receipt.get("authorization_consumed") is True, "guide authorization must have been consumed", errors)
-    _require(run_receipt.get("full_capture_authorized") is False and run_receipt.get("step3_authorized") is False, "guide receipt may not authorize downstream production", errors)
+    _require(
+        all(
+            run_receipt.get(key) is False
+            for key in (
+                "creative_approved", "cross_provider_transfer_authorized",
+                "voice_transfer_authorized", "full_capture_authorized",
+                "step3_authorized", "publication_authorized",
+            )
+        ),
+        "guide receipt may not authorize creative approval or downstream production",
+        errors,
+    )
+    _require(
+        run_receipt.get("retries_made") == 0
+        and type(run_receipt.get("retries_made")) is int
+        and run_receipt.get("redirects_followed") == 0
+        and type(run_receipt.get("redirects_followed")) is int
+        and run_receipt.get("fallbacks_used") == 0
+        and type(run_receipt.get("fallbacks_used")) is int
+        and run_receipt.get("credentials_recorded") is False
+        and run_receipt.get("network_called") is True,
+        "guide receipt transport controls are invalid",
+        errors,
+    )
     guide_started_at = _parse_time(
         run_receipt.get("started_at"),
         "guide run started_at",
@@ -1954,17 +3454,22 @@ def validate_voice_transfer_authorization(
     else:
         output_ids: list[Any] = []
         declared_total_audio_bytes = 0
+        output_times: list[tuple[datetime, datetime]] = []
         for index, entry in enumerate(outputs):
             try:
                 item = _strict_object(
                     entry,
                     {
                         "request_id", "path", "sha256", "byte_count", "duration_seconds",
-                        "provider_response_bytes", "container", "codec", "sample_rate_hz", "channels",
+                        "provider_response_bytes", "response_sha256", "request_started_at",
+                        "request_completed_at", "provider_identifiers", "provider_usage",
+                        "container", "codec", "sample_rate_hz", "channels", "bit_depth", "frame_count",
                     },
                     {
                         "request_id", "path", "sha256", "byte_count", "duration_seconds",
-                        "provider_response_bytes", "container", "codec", "sample_rate_hz", "channels",
+                        "provider_response_bytes", "response_sha256", "request_started_at",
+                        "request_completed_at", "provider_identifiers", "provider_usage",
+                        "container", "codec", "sample_rate_hz", "channels", "bit_depth", "frame_count",
                     },
                     f"guide run receipt outputs[{index}]",
                 )
@@ -1998,7 +3503,42 @@ def validate_voice_transfer_authorization(
                     f"guide output {index} exceeds its provider-response authority",
                     errors,
                 )
-                _require(_json_exact((item.get("container"), item.get("codec"), item.get("sample_rate_hz"), item.get("channels")), ("wav", "pcm_s16le", 24000, 1)), f"guide output {index} media geometry is invalid", errors)
+                _require(isinstance(item.get("response_sha256"), str) and bool(_SHA_RE.fullmatch(item["response_sha256"])), f"guide output {index} response hash is invalid", errors)
+                output_started_at = _parse_time(item.get("request_started_at"), f"guide output {index} request_started_at", errors)
+                output_completed_at = _parse_time(item.get("request_completed_at"), f"guide output {index} request_completed_at", errors)
+                if output_started_at and output_completed_at:
+                    _require(output_started_at <= output_completed_at, f"guide output {index} request time order is invalid", errors)
+                    output_times.append((output_started_at, output_completed_at))
+                identifiers = item.get("provider_identifiers")
+                _require(
+                    isinstance(identifiers, dict)
+                    and set(identifiers).issubset({"x-goog-request-id", "x-request-id", "x-cloud-trace-context"})
+                    and all(
+                        isinstance(value, str)
+                        and 0 < len(value) <= 256
+                        and all(32 <= ord(character) <= 126 for character in value)
+                        for value in identifiers.values()
+                    ),
+                    f"guide output {index} provider identifiers are invalid",
+                    errors,
+                )
+                usage = item.get("provider_usage")
+                _require(
+                    isinstance(usage, dict)
+                    and set(usage).issubset({"x-goog-quota-used", "x-ratelimit-limit", "x-ratelimit-remaining", "x-ratelimit-reset"})
+                    and all(type(value) is int and 0 <= value <= 10**15 for value in usage.values()),
+                    f"guide output {index} provider usage is invalid",
+                    errors,
+                )
+                _require(
+                    _json_exact(
+                        (item.get("container"), item.get("codec"), item.get("sample_rate_hz"), item.get("channels"), item.get("bit_depth")),
+                        ("wav", "pcm_s16le", 24000, 1, 16),
+                    ),
+                    f"guide output {index} media geometry is invalid",
+                    errors,
+                )
+                _require(type(item.get("frame_count")) is int and item["frame_count"] > 0, f"guide output {index} frame count is invalid", errors)
                 output_path = _safe_relative(
                     root,
                     item.get("path"),
@@ -2027,6 +3567,29 @@ def validate_voice_transfer_authorization(
             "guide run receipt exceeds total audio-byte authority",
             errors,
         )
+        _require(
+            sum(
+                entry.get("provider_response_bytes", 0)
+                for entry in outputs
+                if isinstance(entry, dict) and type(entry.get("provider_response_bytes")) is int
+            )
+            == run_receipt.get("provider_response_bytes_total"),
+            "guide run receipt response-byte total does not match its outputs",
+            errors,
+        )
+        if len(output_times) == 2:
+            _require(
+                output_times[0][1] <= output_times[1][0],
+                "guide provider calls overlap or run out of order",
+                errors,
+            )
+            if guide_started_at and guide_completed_at:
+                _require(
+                    output_times[0][0] == guide_started_at
+                    and output_times[-1][1] == guide_completed_at,
+                    "guide run top-level times do not bind its exact provider calls",
+                    errors,
+                )
     matching = [] if not isinstance(outputs, list) else [
         entry
         for entry in outputs
@@ -2379,6 +3942,7 @@ def validate_voice_transfer_authorization(
 __all__ = [
     "dry_run_synthetic_guide",
     "dry_run_voice_transfer",
+    "execute_synthetic_guide",
     "validate_performance_transfer_plan",
     "validate_synthetic_guide_authorization",
     "validate_voice_transfer_authorization",

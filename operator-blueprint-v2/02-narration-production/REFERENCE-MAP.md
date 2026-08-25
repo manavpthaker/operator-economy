@@ -1,7 +1,7 @@
 # Step 2 Authority and Reference Map
 
-Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. V0.3 and v0.4 remain frozen
-historical evidence.
+Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. G1 transport is installed but
+has no active authority; V1 remains blocked. V0.3 and v0.4 remain frozen historical evidence.
 
 This map prevents useful V1 narration practice from silently becoming V2 canon.
 
@@ -26,7 +26,7 @@ authorities. Step 2 receives their result through the locked words; it does not 
 
 | V1 source | Durable lesson retained | V2 limitation |
 | --- | --- | --- |
-| [`../../docs/vo-first-production-flow.md`](../../docs/vo-first-production-flow.md) | Lock final narration and word timing before visual translation. | Its wider production discussion is not a Step 2 stage contract. |
+| `../../docs/vo-first-production-flow.md` | Lock final narration and word timing before visual translation. | Historical source path; it is not present in this isolated branch and its wider production discussion is not a Step 2 stage contract. |
 | [`../../studio/ORIGINATE.md`](../../studio/ORIGINATE.md) | Separate script approval, voice production, transcription, and downstream visual work. | Old stage names, state values, and provider assumptions are not V2 authority. |
 | `../../studio/scripts/originate/build_v3_direction.py` | Performance notation must not alter spoken lexical content. | The old parser and tag vocabulary are not automatically adopted. |
 | `../../studio/scripts/originate/generate_vo.py` | Historical evidence that raw provider output and job metadata matter. | **Prohibited V2 execution/import.** Its rewrite behavior and contracts are incompatible with V2 Step 2. |
@@ -78,7 +78,7 @@ V2 authority, prove account access, confer commercial rights, or authorize an ac
 | [Hume voice cloning](https://dev.hume.ai/docs/voice/voice-cloning) | Human-audio clone flow. | Current public path is UI-mediated; login is not upload/clone authority. |
 | [Hume Create Voice API](https://dev.hume.ai/reference/voices/create) | Documents saving a voice from a TTS generation ID. | Do not misrepresent it as a public human-audio upload-clone API. |
 | [Hume pricing](https://www.hume.ai/pricing) | Commercial-tier gate. | Free/Starter is not accepted for OE commercial production; verify current paid terms before action. |
-| [Google Cloud Gemini TTS](https://cloud.google.com/text-to-speech/docs/gemini-tts), [Text-to-Speech synthesize API](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize), and [pricing](https://cloud.google.com/text-to-speech/pricing) | Separate acting prompt and exact dialogue through the Cloud GA endpoint, `LINEAR16` guide acquisition, request limits, and modeled authorization ceiling. | Two identical requests remain stochastic; provider success is not lexical or creative approval; no in-request spend cap is assumed. |
+| [Google Cloud Gemini TTS](https://cloud.google.com/text-to-speech/docs/gemini-tts), [Text-to-Speech synthesize API](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize), and [pricing](https://cloud.google.com/text-to-speech/pricing) | Separate acting prompt and exact dialogue through the Cloud GA endpoint, `LINEAR16` guide acquisition, request limits, modeled authorization ceiling, and the installed G1 transport. | The executor enforces the reviewed caps locally, but the committed G1 draft authorizes zero; two requests remain stochastic, and provider success is not lexical or creative approval. |
 | [ElevenLabs Voice Changer](https://elevenlabs.io/docs/overview/capabilities/voice-changer) and [speech-to-speech API](https://elevenlabs.io/docs/api-reference/speech-to-speech/convert) | Best-effort transfer of a selected guide's performance into the existing Original C identity, with native PCM requested first. | It accepts audio rather than an acting prompt or transcript. Exact words, identity, and performance transfer require new QA. Upload is blocked until the exact guide, rights, current opt-out or ZRM state, and separate authorization are verified. |
 
 Recheck every live source and active account term before issuing an authorization.
