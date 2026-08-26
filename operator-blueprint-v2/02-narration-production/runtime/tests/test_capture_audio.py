@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import copy
 import json
 import io
@@ -11,14 +12,17 @@ import tempfile
 import unittest
 import urllib.error
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 import oe_narration.audio as audio_module
 import oe_narration.performance_transfer as performance_transfer_module
 import oe_narration.voice_transfer as voice_transfer_module
 from oe_narration.audio import (
+    convert_recovery_evidence_working,
     convert_working,
     inspect_audio,
+    inspect_recovery_evidence_raw_pcm,
     inspect_provider_raw_pcm,
     validate_pcm_failure_receipt,
 )
@@ -26,6 +30,7 @@ from oe_narration.cli import build_parser
 from oe_narration.core import (
     ValidationError,
     canonical_w_bytes,
+    sha256_bytes,
     sha256_file,
     token_identity,
     validate_capture_plan,
@@ -1833,6 +1838,333 @@ class AudioTests(unittest.TestCase):
         result = convert_working(raw, self.root / "native-working.wav", receipt, "part")
         self.assertFalse(result["lossy_origin"])
         self.assertTrue(result["working"]["is_working_master"])
+
+    def test_recovery_evidence_conversion_is_distinct_one_time_and_private(self) -> None:
+        raw = self.root / "saved-c-transfer.pcm"
+        raw.write_bytes(b"\x01\x00" * (48_000 * 30))
+        raw.chmod(0o600)
+        run = self.root / "run.json"
+        run.write_text("{}\n", encoding="utf-8")
+        run.chmod(0o600)
+        working = self.root / "saved-c-transfer.wav"
+        record = self.root / "conversion.json"
+        source = {
+            "path": str(raw),
+            "sha256": sha256_file(raw),
+            "byte_count": raw.stat().st_size,
+            "requested_output_format": "pcm_48000",
+            "container_interpretation": "raw",
+            "codec_interpretation": "pcm_s16le",
+            "sample_rate_hz_interpretation": 48_000,
+            "channel_count_interpretation": 1,
+            "bit_depth_interpretation": 16,
+            "frame_count_under_mono_contract_interpretation": 48_000 * 30,
+            "duration_seconds_under_mono_contract_interpretation": 30.0,
+            "output_to_source_duration_ratio_under_mono_contract_interpretation": 1.0,
+            "format_parameters_intrinsically_verified": False,
+            "channel_count_intrinsically_verified": False,
+            "frame_and_duration_computed_under_mono_contract_interpretation": True,
+            "lossy_interpretation": False,
+            "capture_receipt_schema_version": (
+                "oe-elevenlabs-recovery-evidence-voice-transfer-run-v1"
+            ),
+            "capture_receipt_sha256": sha256_file(run),
+            "part_id": "P01-W0030-W0110",
+            "authorization_sha256": "a" * 64,
+            "consumption_record_sha256": "b" * 64,
+            "authorized_working_output_path": str(working),
+            "authorized_conversion_receipt_path": str(record),
+        }
+        runtime = {
+            "ffmpeg_binary_path": "/usr/bin/false",
+            "ffmpeg_binary_sha256": "c" * 64,
+            "ffmpeg_version": "unit",
+            "ffprobe_binary_path": "/usr/bin/false",
+            "ffprobe_binary_sha256": "d" * 64,
+            "ffprobe_version": "unit",
+        }
+
+        def inspect_raw(*_args, _runtime_bindings_out=None, **_kwargs):
+            _runtime_bindings_out.update(runtime)
+            return copy.deepcopy(source)
+
+        def media_run(tool, command, _runtime, *, pass_fds=(), **_kwargs):
+            if tool == "ffmpeg":
+                os.write(pass_fds[0], b"unit-private-working-wave")
+            return subprocess.CompletedProcess(command, 0, "", "")
+
+        def inspect_converted(path, **_kwargs):
+            return {
+                "path": str(path),
+                "sha256": sha256_file(path),
+                "codec_name": "pcm_s24le",
+                "container": "wav",
+                "sample_rate_hz": 48_000,
+                "channels": 1,
+                "bit_depth": 24,
+                "bit_rate_bps": 1_152_000,
+                "duration_seconds": 30.0,
+                "origin_class": "native_pcm",
+                "is_approved_mp3_fallback": False,
+                "is_working_master": True,
+            }
+
+        with (
+            mock.patch.object(
+                audio_module,
+                "inspect_recovery_evidence_raw_pcm",
+                side_effect=inspect_raw,
+            ) as inspect_source,
+            mock.patch.object(
+                audio_module,
+                "_run_transfer_media_tool",
+                side_effect=media_run,
+            ),
+            mock.patch.object(audio_module, "inspect_audio", side_effect=inspect_converted),
+            mock.patch.object(audio_module, "_validate_full_decode"),
+        ):
+            result = convert_recovery_evidence_working(
+                raw,
+                working,
+                receipt_path=run,
+                part_id="P01-W0030-W0110",
+                record_path=record,
+            )
+            with self.assertRaisesRegex(ValidationError, "failed closed"):
+                convert_recovery_evidence_working(
+                    raw,
+                    working,
+                    receipt_path=run,
+                    part_id="P01-W0030-W0110",
+                    record_path=record,
+                )
+
+        inspect_source.assert_called_once()
+        self.assertEqual(
+            result["schema_version"],
+            "oe-elevenlabs-recovery-evidence-voice-transfer-conversion-v1",
+        )
+        self.assertEqual(result["conversion_count_from_raw"], 1)
+        self.assertEqual(result["raw_immutable_sha256"], sha256_file(raw))
+        self.assertFalse(result["lossy_interpretation"])
+        for path in (working, record):
+            self.assertTrue(path.is_file())
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+        persisted = json.loads(record.read_text(encoding="utf-8"))
+        self.assertEqual(persisted["schema_version"], result["schema_version"])
+        self.assertFalse(persisted["creative_approved"])
+        self.assertFalse(persisted["step2_lock_authorized"])
+        self.assertFalse(persisted["step3_authorized"])
+        self.assertFalse(persisted["sharing_authorized"])
+        self.assertFalse(persisted["publication_authorized"])
+
+    def test_recovery_evidence_source_replay_binds_committed_active_and_semantics(self) -> None:
+        repository = performance_transfer_module._guide_repository_root()
+        temporary = tempfile.TemporaryDirectory(dir=repository)
+        self.addCleanup(temporary.cleanup)
+        fixture = Path(temporary.name).resolve()
+        authorization_path = fixture / "authorizations" / "unit.ACTIVE.json"
+        latch_path = fixture / voice_transfer_module.TRANSFER_SCOPE_LATCH_PATH
+        run_path = fixture / "receipts" / "elevenlabs" / "unit.run.json"
+        for path in (authorization_path, latch_path, run_path):
+            path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_commit = "c" * 40
+        active_commit = "d" * 40
+        runtime_commit = "e" * 40
+        authorization_id = voice_transfer_module.RECOVERY_TRANSFER_ACTIVE_ID
+        authorization = {
+            "schema_version": voice_transfer_module.RECOVERY_TRANSFER_AUTH_SCHEMA,
+            "authorization_id": authorization_id,
+            "status": "active",
+            "provider_action_authorized": True,
+            "scope": "elevenlabs_recovery_evidence_voice_transfer_execution",
+            "artifacts": voice_transfer_module._recovery_transfer_artifacts(True),
+            "consumption": voice_transfer_module._recovery_transfer_consumption(True),
+            "runtime_bindings": {"state": "verified"},
+            "evidence_baseline": {"evidence_commit": evidence_commit},
+        }
+        authorization_path.write_text(
+            json.dumps(authorization, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        authorization_path.chmod(0o600)
+        latch = {
+            "schema_version": voice_transfer_module.RECOVERY_TRANSFER_CONSUMPTION_SCHEMA,
+            "authorization_id": authorization_id,
+            "generation_post_budget_consumed": True,
+            "retry_or_replay_permitted": False,
+        }
+        latch_path.write_text(json.dumps(latch, sort_keys=True) + "\n", encoding="utf-8")
+        latch_path.chmod(0o600)
+        receipt = {
+            "authorization_path": authorization_path.relative_to(fixture).as_posix(),
+            "authorization_id": authorization_id,
+            "authorization_sha256": sha256_file(authorization_path),
+            "consumption_record_path": latch_path.relative_to(fixture).as_posix(),
+            "consumption_record_sha256": sha256_file(latch_path),
+            "source_proof": {
+                "active_commit": active_commit,
+                "runtime_commit": runtime_commit,
+                "evidence_commit": evidence_commit,
+                "source_revalidated_after_latch": True,
+                "post_latch_revalidation_completed": True,
+                "remote_state_checked": False,
+                "git_network_called": False,
+            },
+        }
+        run_path.write_text(json.dumps(receipt, sort_keys=True) + "\n", encoding="utf-8")
+        run_path.chmod(0o600)
+        receipt_bound = audio_module._open_bound_input(
+            run_path,
+            "unit recovery run",
+            byte_cap=audio_module._TRANSFER_JSON_BYTE_CAP,
+            required_mode=0o600,
+        )
+        held = [receipt_bound]
+        runtime = {"git_commit": runtime_commit}
+        authorization_relative = authorization_path.relative_to(repository).as_posix()
+        latch_relative = latch_path.relative_to(repository).as_posix()
+        run_relative = run_path.relative_to(repository).as_posix()
+        raw_relative = (fixture / audio_module._TRANSFER_RAW_PATH).relative_to(
+            repository
+        ).as_posix()
+
+        def bound_git(_runtime, arguments, **_kwargs):
+            if arguments == ["rev-parse", "HEAD"]:
+                return (active_commit + "\n").encode()
+            if arguments[:3] == ["rev-list", "--parents", "-n"]:
+                return f"{active_commit} {evidence_commit}\n".encode()
+            if arguments and arguments[0] == "diff":
+                return b"A\x00" + authorization_relative.encode() + b"\x00"
+            if arguments and arguments[0] == "show":
+                return authorization_path.read_bytes()
+            raise AssertionError(arguments)
+
+        plan_bound = SimpleNamespace(path=fixture / "performance-transfer-plan.json")
+        canonical_bound = SimpleNamespace(
+            path=fixture / "passages" / "P01-W0030-W0110.locked.txt"
+        )
+        semantic_result = {
+            "valid": True,
+            "authorization_status": "active",
+            "provider_action_authorized": True,
+            "authorization_sha256": sha256_file(authorization_path),
+        }
+        try:
+            with (
+                mock.patch.object(
+                    performance_transfer_module,
+                    "_document_root",
+                    return_value=fixture,
+                ),
+                mock.patch.object(
+                    voice_transfer_module,
+                    "_validate_recovery_transfer_runtime_bindings",
+                    return_value=runtime,
+                ),
+                mock.patch.object(
+                    voice_transfer_module,
+                    "_bound_git",
+                    side_effect=bound_git,
+                ),
+                mock.patch.object(
+                    audio_module,
+                    "_transfer_canonical_w_inputs",
+                    return_value=(plan_bound, canonical_bound),
+                ),
+                mock.patch.object(
+                    voice_transfer_module,
+                    "validate_recovery_evidence_voice_transfer_authorization",
+                    return_value=semantic_result,
+                ) as validate_active,
+            ):
+                root, _authorization, _runtime, _active_bound, _latch_bound = (
+                    audio_module._replay_recovery_evidence_source_proof(
+                        receipt,
+                        receipt_bound,
+                        held,
+                    )
+                )
+            self.assertEqual(root, fixture)
+            validate_active.assert_called_once_with(
+                authorization_path,
+                plan_bound.path,
+                canonical_bound.path,
+                _allowed_generated_status_paths=frozenset(
+                    {latch_relative, run_relative}
+                ),
+                _allowed_ignored_generated_paths=frozenset({raw_relative}),
+            )
+
+            forged_bound = audio_module._open_bound_input(
+                run_path,
+                "unit forged recovery run",
+                byte_cap=audio_module._TRANSFER_JSON_BYTE_CAP,
+                required_mode=0o600,
+            )
+            forged_held = [forged_bound]
+
+            def forged_git(_runtime, arguments, **kwargs):
+                if arguments and arguments[0] == "show":
+                    return b"{}\n"
+                return bound_git(_runtime, arguments, **kwargs)
+
+            try:
+                with (
+                    mock.patch.object(
+                        performance_transfer_module,
+                        "_document_root",
+                        return_value=fixture,
+                    ),
+                    mock.patch.object(
+                        voice_transfer_module,
+                        "_validate_recovery_transfer_runtime_bindings",
+                        return_value=runtime,
+                    ),
+                    mock.patch.object(
+                        voice_transfer_module,
+                        "_bound_git",
+                        side_effect=forged_git,
+                    ),
+                ):
+                    with self.assertRaisesRegex(
+                        ValidationError,
+                        "committed ACTIVE proof",
+                    ):
+                        audio_module._replay_recovery_evidence_source_proof(
+                            receipt,
+                            forged_bound,
+                            forged_held,
+                        )
+            finally:
+                for bound in reversed(forged_held):
+                    audio_module._close_bound_input(bound)
+        finally:
+            for bound in reversed(held):
+                audio_module._close_bound_input(bound)
+
+    def test_recovery_additions_preserve_frozen_legacy_audio_functions(self) -> None:
+        expected = {
+            "_validate_transfer_provider_evidence": "bec29f295052b10cbb835d43b0d10084bd0ea6c4809ec0da8a578b6d8346aa46",
+            "_replay_transfer_source_proof": "c2818c8d4bc4aebf3568344a772569635aaf4f9c2dfd7c17029d2ff5ec68463f",
+            "_transfer_canonical_w_inputs": "c7ff45761cca05606c2123a92434d8fc3fc765b7431c37a443234ae29e151171",
+            "_inspect_voice_transfer_raw_pcm": "44be09b928220b2aa8638a670c7df4fe764512d71fb613275f72b1af40b613e2",
+            "_inspect_voice_transfer_raw_pcm_impl": "db73fd30248b358d575f6b356692cc4526093661c8c2d428c396ae44efa4cf3f",
+            "inspect_provider_raw_pcm": "1a34031e89cb31098794d44e9a1d96fc88e552615b7dd66ca24617b65cd68fca",
+            "convert_working": "a15b21b15cc47c0749ac0e4f1dad2e467b9cea822faf976a1bc7cece9e72db39",
+            "_convert_working_impl": "f24530cf46be6529c7270386e0fd986c063fb214f79d102e2651e11a2e0d5571",
+        }
+        source = Path(audio_module.__file__).read_text(encoding="utf-8")
+        nodes = {
+            node.name: node
+            for node in ast.parse(source).body
+            if isinstance(node, ast.FunctionDef)
+        }
+        actual = {
+            name: sha256_bytes(ast.get_source_segment(source, nodes[name]).encode())
+            for name in expected
+        }
+        self.assertEqual(actual, expected)
 
 
 if __name__ == "__main__":

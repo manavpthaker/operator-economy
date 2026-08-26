@@ -11,12 +11,18 @@ settings, authorizes full capture, or grants any publication authority.
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import re
+import resource
+import selectors
 import shutil
+import signal
 import ssl
 import stat
+import struct
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.parse
@@ -92,6 +98,156 @@ TRANSFER_EXEC_SCOPE = "elevenlabs_voice_transfer_execution"
 TRANSFER_RUN_SCHEMA = "oe-elevenlabs-voice-transfer-run-v1"
 TRANSFER_FAILURE_SCHEMA = "oe-elevenlabs-voice-transfer-failure-v1"
 TRANSFER_CONSUMPTION_SCHEMA = "oe-elevenlabs-voice-transfer-consumption-v1"
+
+# Additive transfer authority that accepts only the terminal recovery HTTP-200
+# chain as calibrated credential-authentication evidence.  It never upgrades
+# the unread account body to a user/account/equality claim and cannot reuse the
+# consumed GET authority.
+RECOVERY_TRANSFER_AUTH_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-authorization-v1"
+)
+RECOVERY_TRANSFER_SCOPE = "elevenlabs_recovery_evidence_voice_transfer_execution"
+RECOVERY_TRANSFER_DRY_RUN_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-dry-run-v1"
+)
+RECOVERY_TRANSFER_RUN_SCHEMA = "oe-elevenlabs-recovery-evidence-voice-transfer-run-v1"
+RECOVERY_TRANSFER_FAILURE_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-failure-v1"
+)
+RECOVERY_TRANSFER_CONSUMPTION_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-consumption-v1"
+)
+RECOVERY_TRANSFER_RESULT_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-execution-result-v1"
+)
+RECOVERY_TRANSFER_CONVERSION_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-conversion-v1"
+)
+RECOVERY_TRANSFER_AUTHENTICATION_CONCLUSION = (
+    "HTTP 200 supports, but does not independently prove, that the credential-bearing "
+    "request was accepted at this endpoint."
+)
+RECOVERY_TRANSFER_AUTHENTICATION_INFERENCE_STATE = (
+    "supported_by_http_200_not_independently_verified"
+)
+RECOVERY_TRANSFER_SAFE_CONCLUSION = (
+    "HTTP 200 supports only the calibrated credential-authentication inference above. "
+    "With zero response-body bytes read, this attempt establishes no specific user ID, "
+    "account identity, account data, response schema or contents, subscription state, "
+    "exact UI/API account equality, or target-voice accessibility."
+)
+RECOVERY_TRANSFER_OUTCOME_COMMIT = "38802d8a5bf221bbf259fcef43d93b247197320e"
+RECOVERY_TRANSFER_TRANSACTION_BASIS_ID = (
+    "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER"
+)
+RECOVERY_TRANSFER_OWNER = "Manav Thaker"
+RECOVERY_TRANSFER_DRAFT_ID = (
+    "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+)
+RECOVERY_TRANSFER_ACTIVE_ID = (
+    "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+)
+RECOVERY_TRANSFER_DRAFT_PATH = (
+    "authorizations/15-elevenlabs-recovery-evidence-voice-transfer.DRAFT.json"
+)
+RECOVERY_TRANSFER_ACTIVE_PATH = (
+    "authorizations/16-elevenlabs-recovery-evidence-voice-transfer.ACTIVE.authorization.json"
+)
+RECOVERY_TRANSFER_DRAFT_BLOCKERS = [
+    "evidence_baseline_r1_commit_pending",
+    "separate_short_lived_active_authorization_required",
+    "credential_access_and_provider_action_not_authorized",
+]
+RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH = (
+    "authorizations/14-elevenlabs-account-recovery.ACTIVE.20260826T133955Z.json"
+)
+RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256 = (
+    "e16537a274c9b4f54a9c50c248b1757f7510f05b8092eb6d10e78a07d7cf1eae"
+)
+RECOVERY_TRANSFER_CREDENTIAL_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot."
+    "consumed.json"
+)
+RECOVERY_TRANSFER_CREDENTIAL_LATCH_SHA256 = (
+    "4992d2a318584efc7d6bf483931d4a777f659e9c5d6e1f893ef61aa620c53157"
+)
+RECOVERY_TRANSFER_PROVIDER_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot."
+    "consumed.json"
+)
+RECOVERY_TRANSFER_PROVIDER_LATCH_SHA256 = (
+    "dedb2de93b876fdc3a0ef6f36e68cefe7b8f99cad01b811eebe80caff6a378ca"
+)
+RECOVERY_TRANSFER_FAILURE_PATH = (
+    "receipts/elevenlabs-account/"
+    "AUTH-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-"
+    "20260826T133955Z.recovery-failure.json"
+)
+RECOVERY_TRANSFER_FAILURE_SHA256 = (
+    "5340db5eabe90110479001ea4b0d3f697971978fc1d83f45f3e77cf0c1a7c654"
+)
+RECOVERY_TRANSFER_DISPOSITION_PATH = (
+    "evidence/V1-ELEVENLABS-ACCOUNT-RECOVERY-HTTP-200-ZERO-BODY-FAILURE-"
+    "DISPOSITION.20260826T135047Z.json"
+)
+RECOVERY_TRANSFER_DISPOSITION_SHA256 = (
+    "eb2db5e420fcc8ea7c19d878e781759cc6a0c874a260d0bdb2ed20e80799c877"
+)
+RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH = (
+    "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json"
+)
+RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH = (
+    "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"
+)
+RECOVERY_TRANSFER_TARGET_RIGHTS_PATH = (
+    "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json"
+)
+RECOVERY_TRANSFER_HISTORICAL_BROWSER_PATH = (
+    "evidence/browser-readiness/"
+    "V1-ELEVENLABS-ACCOUNT-RECOVERY-BROWSER-READINESS.20260826T132827Z.json"
+)
+RECOVERY_TRANSFER_HISTORICAL_BROWSER_SHA256 = (
+    "35895c45441d796cf63539af6ee3761c1e087e322c4e5e60425a12c0d4d17995"
+)
+RECOVERY_TRANSFER_HISTORICAL_CAPTURE_PATH = (
+    "evidence/browser-readiness/"
+    "V1-ELEVENLABS-ACCOUNT-RECOVERY-BROWSER-READINESS.20260826T132827Z.png"
+)
+RECOVERY_TRANSFER_HISTORICAL_CAPTURE_SHA256 = (
+    "f1da6038e674fe4313bf829bb1f9a880b334c729453b3472c22742376156a2e4"
+)
+RECOVERY_TRANSFER_OWNER_APPROVAL_PATH = (
+    "evidence/V1-OWNER-AUDITION-AND-BOUNDED-TRANSFER-APPROVAL.20260826T061117Z.json"
+)
+RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256 = (
+    "c90783e767d6d9f8ebbd408fc4bc88ef4d69138c5547b95e99fbcacd49e216f0"
+)
+RECOVERY_TRANSFER_GUIDE_QA_PATH = (
+    "reviews/GUIDE-QA.candidate-B.20260826T061117Z.json"
+)
+RECOVERY_TRANSFER_GUIDE_QA_SHA256 = (
+    "aa56ed77ec7bac54c8bfe4c3f71954824ede6ffd74f9489246d031945d3e0909"
+)
+RECOVERY_TRANSFER_GUIDE_SELECTION_PATH = (
+    "reviews/GUIDE-OWNER-SELECTION.candidate-B.20260826T061117Z.json"
+)
+RECOVERY_TRANSFER_GUIDE_SELECTION_SHA256 = (
+    "eb1a33aa270b97f5f31c3fdaf37bfe49b242786fe29be9082a67124076443236"
+)
+RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH = (
+    "02-narration-production/fixtures/step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration/"
+    "receipts/provenance/AUTH-R2-owner-selection-C.json"
+)
+RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_SHA256 = (
+    "850b47a5419424fee37e9bff73a96b9e1da1c31feee13d20013869e4f3092702"
+)
+RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH = (
+    "02-narration-production/fixtures/step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration/"
+    "receipts/provenance/AUTH-R2-remix-save.json"
+)
+RECOVERY_TRANSFER_ORIGINAL_C_SAVE_SHA256 = (
+    "859b80a525d1d59ad531420f4c4ee496a0e41f6d91f0ee34ba895eb171dc7885"
+)
 
 API_KEY_ENV = "ELEVENLABS_API_KEY"
 API_KEY_DOMAIN = b"oe-elevenlabs-api-key-v1\x00"
@@ -169,6 +325,9 @@ TRANSFER_CONTENT_TYPE = (
 )
 TRANSFER_OPT_OUT_REQUEST_SHA256 = "ccce1a1a46476c6a5b340416a7c97ccff34aac8a54edb454e9b411dcdfaa8c76"
 TRANSFER_ZRM_REQUEST_SHA256 = "ff695baff6ea7ba9bd901c7091fd85701da035e614d19ebee6bde9a7a0b95773"
+TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256 = (
+    "878e7810bdddec3073cc6eee4d08072da6e312a4969bfc94a0daade19f321995"
+)
 
 TRANSFER_MAX_GENERATION_POST_CALLS = 1
 TRANSFER_MAX_ACCOUNT_GET_CALLS = 0
@@ -234,6 +393,15 @@ ACCOUNT_VERIFICATION_MAX_AGE_SECONDS = 3_600
 
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 _GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+_RECOVERY_TRANSFER_RFC3339_UTC_RE = re.compile(
+    r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+    r"(?:\.[0-9]{1,6})?(?:Z|\+00:00)$"
+)
+_RECOVERY_TRANSFER_BROWSER_PATH_RE = re.compile(
+    r"^evidence/browser-readiness/"
+    r"V1-ELEVENLABS-RECOVERY-TRANSFER-BROWSER-READINESS\."
+    r"[0-9]{8}T[0-9]{6}Z\.json$"
+)
 _SAFE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$")
 _SAFE_HEADER_VALUE_RE = re.compile(r"^[A-Za-z0-9._:/;=+\-]{1,256}$")
 _AUDIO_MIMES = frozenset({"audio/pcm", "audio/mpeg"})
@@ -307,6 +475,22 @@ def _strict(
 
 def _parse_time(value: Any, label: str, errors: list[str]) -> datetime | None:
     return pt._parse_time(value, label, errors)
+
+
+def _parse_recovery_transfer_time(
+    value: Any,
+    label: str,
+    errors: list[str],
+) -> datetime | None:
+    """Parse only the additive schema's exact UTC RFC3339 lexical form."""
+
+    if (
+        not isinstance(value, str)
+        or not _RECOVERY_TRANSFER_RFC3339_UTC_RE.fullmatch(value)
+    ):
+        errors.append(f"{label} must use exact UTC RFC3339 syntax")
+        return None
+    return _parse_time(value, label, errors)
 
 
 def _raise_errors(errors: list[str]) -> None:
@@ -710,12 +894,14 @@ def _bound_git(
     arguments: list[str],
     *,
     max_bytes: int = 2_000_000,
+    allowed_returncodes: tuple[int, ...] = (0,),
 ) -> bytes:
     return pt._guide_git(
         arguments,
         max_bytes=max_bytes,
         git_path=runtime_bindings["git_binary_path"],
         git_sha256=runtime_bindings["git_binary_sha256"],
+        allowed_returncodes=allowed_returncodes,
     )
 
 
@@ -986,6 +1172,231 @@ def _read_recovery_dotenv_key() -> str:
     """The executor's only credential-delivery path; never reads the environment."""
 
     return _read_bounded_recovery_dotenv_key(RECOVERY_DOTENV_PATH)
+
+
+def _recovery_transfer_utf8_valid(value: bytearray) -> bool:
+    """Validate UTF-8 without materializing an immutable copy of dotenv bytes."""
+
+    index = 0
+    length = len(value)
+    while index < length:
+        first = value[index]
+        if first <= 0x7F:
+            index += 1
+            continue
+        if 0xC2 <= first <= 0xDF:
+            width = 2
+        elif 0xE0 <= first <= 0xEF:
+            width = 3
+        elif 0xF0 <= first <= 0xF4:
+            width = 4
+        else:
+            return False
+        if index + width > length:
+            return False
+        second = value[index + 1]
+        if second < 0x80 or second > 0xBF:
+            return False
+        if first == 0xE0 and second < 0xA0:
+            return False
+        if first == 0xED and second > 0x9F:
+            return False
+        if first == 0xF0 and second < 0x90:
+            return False
+        if first == 0xF4 and second > 0x8F:
+            return False
+        for offset in range(2, width):
+            continuation = value[index + offset]
+            if continuation < 0x80 or continuation > 0xBF:
+                return False
+        index += width
+    return True
+
+
+def _recovery_transfer_segment_equals(
+    value: bytearray,
+    start: int,
+    end: int,
+    literal: bytes,
+) -> bool:
+    if end - start != len(literal):
+        return False
+    return all(value[start + offset] == byte for offset, byte in enumerate(literal))
+
+
+def _parse_recovery_transfer_dotenv_key(raw: bytearray) -> bytearray:
+    """Return one mutable exact assignment and erase the mutable dotenv buffer."""
+
+    prefix = (API_KEY_ENV + "=").encode("ascii")
+    variable = API_KEY_ENV.encode("ascii")
+    assignment: tuple[int, int] | None = None
+    held = bytearray()
+    try:
+        if not isinstance(raw, bytearray) or not 0 < len(raw) <= RECOVERY_DOTENV_MAX_BYTES:
+            raise ValidationError("fixed recovery dotenv is empty or exceeds its byte ceiling")
+        if 0 in raw or 13 in raw or not _recovery_transfer_utf8_valid(raw):
+            raise ValidationError("fixed recovery dotenv is not strict UTF-8")
+        start = 0
+        while start <= len(raw):
+            newline = raw.find(10, start)
+            end = len(raw) if newline < 0 else newline
+            if end - start >= len(prefix) and _recovery_transfer_segment_equals(
+                raw,
+                start,
+                start + len(prefix),
+                prefix,
+            ):
+                if assignment is not None:
+                    raise ValidationError(
+                        "fixed recovery dotenv must contain exactly one literal ELEVENLABS_API_KEY assignment"
+                    )
+                assignment = (start + len(prefix), end)
+            else:
+                cursor = start
+                while cursor < end and raw[cursor] in {32, 9}:
+                    cursor += 1
+                export_end = cursor + len(b"export")
+                if (
+                    export_end < end
+                    and _recovery_transfer_segment_equals(raw, cursor, export_end, b"export")
+                    and raw[export_end] in {32, 9}
+                ):
+                    cursor = export_end
+                    while cursor < end and raw[cursor] in {32, 9}:
+                        cursor += 1
+                variable_end = cursor + len(variable)
+                if (
+                    variable_end <= end
+                    and _recovery_transfer_segment_equals(
+                        raw,
+                        cursor,
+                        variable_end,
+                        variable,
+                    )
+                ):
+                    cursor = variable_end
+                    while cursor < end and raw[cursor] in {32, 9}:
+                        cursor += 1
+                    if cursor < end and raw[cursor] == 61:
+                        raise ValidationError(
+                            "fixed recovery dotenv contains a non-literal or ambiguous ELEVENLABS_API_KEY assignment"
+                        )
+            if newline < 0:
+                break
+            start = newline + 1
+        if assignment is None:
+            raise ValidationError(
+                "fixed recovery dotenv must contain exactly one literal ELEVENLABS_API_KEY assignment"
+            )
+        value_start, value_end = assignment
+        if not 1 <= value_end - value_start <= 512:
+            raise ValidationError("fixed recovery dotenv key assignment is malformed")
+        for index in range(value_start, value_end):
+            held.append(raw[index])
+        if any(byte < 33 or byte > 126 for byte in held):
+            raise ValidationError("fixed recovery dotenv key assignment is malformed")
+        result = held
+        held = bytearray()
+        return result
+    except BaseException:
+        _zero_mutable_buffer(held)
+        raise
+    finally:
+        _zero_mutable_buffer(raw)
+
+
+class _RecoveryTransferCredentialReadFailure(ValidationError):
+    def __init__(self, state: str) -> None:
+        super().__init__("fixed recovery dotenv read stopped safely")
+        self.credential_bytes_read_state = state
+
+
+def _read_recovery_transfer_dotenv_key() -> bytearray:
+    """Descriptor-read the fixed dotenv exactly once into mutable storage."""
+
+    path = RECOVERY_DOTENV_PATH
+    parent_fd = os.open(
+        "/",
+        os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_CLOEXEC", 0),
+    )
+    descriptor: int | None = None
+    raw = bytearray()
+    view: memoryview | None = None
+    received = 0
+    try:
+        for component in path.parts[1:-1]:
+            next_fd = os.open(
+                component,
+                os.O_RDONLY
+                | getattr(os, "O_DIRECTORY", 0)
+                | getattr(os, "O_NOFOLLOW", 0)
+                | getattr(os, "O_CLOEXEC", 0),
+                dir_fd=parent_fd,
+            )
+            os.close(parent_fd)
+            parent_fd = next_fd
+        descriptor = os.open(
+            path.name,
+            os.O_RDONLY
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NONBLOCK", 0),
+            dir_fd=parent_fd,
+        )
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or stat.S_IMODE(before.st_mode) != 0o600
+            or before.st_uid != os.getuid()
+            or before.st_nlink != 1
+            or not 0 < before.st_size <= RECOVERY_DOTENV_MAX_BYTES
+        ):
+            raise ValidationError(
+                "fixed recovery dotenv must be a bounded current-UID mode-0600 single-link regular file"
+            )
+        raw = bytearray(before.st_size)
+        view = memoryview(raw)
+        while received < before.st_size:
+            try:
+                count = os.readv(descriptor, [view[received:]])
+            except InterruptedError:
+                continue
+            if count <= 0:
+                break
+            received += count
+        after = os.fstat(descriptor)
+        identity_fields = (
+            "st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns",
+            "st_mode", "st_uid", "st_gid", "st_nlink",
+        )
+        if (
+            received != before.st_size
+            or len(raw) != before.st_size
+            or tuple(getattr(before, field) for field in identity_fields)
+            != tuple(getattr(after, field) for field in identity_fields)
+        ):
+            raise ValidationError("fixed recovery dotenv changed during its descriptor read")
+        return _parse_recovery_transfer_dotenv_key(raw)
+    except ValidationError as exc:
+        state = "bytes_read_not_accepted" if received else "no_credential_bytes_read"
+        exc.__traceback__ = None
+        exc.__cause__ = None
+        exc.__context__ = None
+        raise _RecoveryTransferCredentialReadFailure(state) from None
+    except OSError as exc:
+        state = "bytes_read_not_accepted" if received else "no_credential_bytes_read"
+        exc.__traceback__ = None
+        exc.__cause__ = None
+        exc.__context__ = None
+        raise _RecoveryTransferCredentialReadFailure(state) from None
+    finally:
+        if view is not None:
+            view.release()
+        view = None
+        _zero_mutable_buffer(raw)
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
 
 
 def _validate_browser_readiness(
@@ -1465,6 +1876,14 @@ def _transfer_artifacts(authorization_id: str) -> dict[str, str]:
         "failure_receipt_path": f"receipts/elevenlabs/{authorization_id}.failure.json",
         "conversion_receipt_path": f"receipts/elevenlabs/{authorization_id}.conversion.json",
     }
+
+
+def _recovery_transfer_artifacts(active: bool) -> dict[str, str]:
+    """Return the status-bound paths for the additive one-transaction branch."""
+
+    return _transfer_artifacts(
+        RECOVERY_TRANSFER_ACTIVE_ID if active else RECOVERY_TRANSFER_DRAFT_ID
+    )
 
 
 def _account_consumption_path(authorization_id: str) -> str:
@@ -3506,6 +3925,2111 @@ def _open_elevenlabs_request(request: urllib.request.Request, timeout: float) ->
         pt._NoRedirect(),
     )
     return opener.open(request, timeout=timeout)
+
+
+_TRANSFER_WORKER_SOURCE_PATH = Path(__file__).with_name("elevenlabs_transfer_worker.py")
+_TRANSFER_WORKER_READY_TIMEOUT_SECONDS = 10.0
+_TRANSFER_WORKER_TERM_GRACE_SECONDS = 0.02
+_TRANSFER_WORKER_REAP_TIMEOUT_SECONDS = 1.0
+_TRANSFER_WORKER_SOURCE_MAX_BYTES = 1_000_000
+_TRANSFER_WORKER_INTERPRETER_MAX_BYTES = 100_000_000
+_TRANSFER_WORKER_ENV = {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "__CF_USER_TEXT_ENCODING": f"0x{os.getuid():X}:0x0:0x0",
+}
+_TRANSFER_WORKER_INTERPRETER_PATH = (
+    "/Library/Developer/CommandLineTools/Library/Frameworks/"
+    "Python3.framework/Versions/3.9/bin/python3.9"
+)
+_TRANSFER_WORKER_INTERPRETER_SHA256 = (
+    "8e598855de9a6648bc670d5fe7a3a653f1fa967b74373ed7c4ca16fbc40c0de1"
+)
+_TRANSFER_WORKER_INTERPRETER_VERSION = (
+    "3.9.6 (default, Dec  2 2025, 07:27:58) \n"
+    "[Clang 17.0.0 (clang-1700.6.3.2)]"
+)
+_TRANSFER_WORKER_INTERPRETER_MODE = 0o755
+_TRANSFER_WORKER_INTERPRETER_UID = 0
+_TRANSFER_WORKER_INTERPRETER_NLINK = 1
+_TRANSFER_WORKER_PROTOCOL = "oe-elevenlabs-exact-transfer-worker-v1"
+_TRANSFER_WORKER_FRAME_LENGTH_STRUCT = struct.Struct("!I")
+_TRANSFER_WORKER_READY_FRAME_MAX_BYTES = 4_096
+_TRANSFER_WORKER_COMMAND_FRAME_MAX_BYTES = 2_048
+_TRANSFER_WORKER_KEY_FRAME_MAX_BYTES = 512
+_TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES = 2_048
+_TRANSFER_WORKER_RESULT_FRAME_MAX_BYTES = 8_192
+_TRANSFER_WORKER_RESULT_BODY_MAX_BYTES = 4_800_000
+_TRANSFER_WORKER_MAX_TRANSACTION_SECONDS = 300.0
+_TRANSFER_WORKER_MAX_READY_AGE_SECONDS = 30.0
+_TRANSFER_WORKER_EXCHANGE_MAX_BYTES = (
+    3 * _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+    + 2 * _TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES
+    + _TRANSFER_WORKER_RESULT_FRAME_MAX_BYTES
+    + _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+    + _TRANSFER_WORKER_RESULT_BODY_MAX_BYTES
+)
+_TRANSFER_WORKER_READY_KEYS = frozenset(
+    {
+        "body_bytes_read",
+        "command_received",
+        "core_hard_limit",
+        "core_soft_limit",
+        "credential_bytes_read",
+        "environment_keys",
+        "environment_sha256",
+        "executed_source_sha256",
+        "interpreter_mode",
+        "interpreter_nlink",
+        "interpreter_path",
+        "interpreter_sha256",
+        "interpreter_uid",
+        "logical_source_path",
+        "message",
+        "monotonic_ns_at_ready",
+        "network_called",
+        "parent_pid",
+        "pid",
+        "process_group_id",
+        "protocol",
+        "python_version",
+        "session_id",
+    }
+)
+_TRANSFER_WORKER_COMMAND_KEYS = frozenset(
+    {
+        "action",
+        "application_http_attempt_limit",
+        "body_bytes",
+        "body_sha256",
+        "child_deadline_monotonic_ns",
+        "protocol",
+    }
+)
+_TRANSFER_WORKER_REQUEST_STARTING_PHASE_KEYS = frozenset(
+    {
+        "application_http_attempts",
+        "message",
+        "network_state",
+        "phase",
+        "protocol",
+        "request_state",
+        "response_state",
+        "sequence",
+    }
+)
+_TRANSFER_WORKER_RESPONSE_HEADERS_PHASE_KEYS = frozenset(
+    {
+        "application_http_attempts",
+        "content_encoding_state",
+        "content_length_state",
+        "content_type",
+        "http_status",
+        "message",
+        "network_state",
+        "phase",
+        "protocol",
+        "request_state",
+        "response_state",
+        "sequence",
+    }
+)
+_TRANSFER_WORKER_RESULT_KEYS = frozenset(
+    {
+        "application_fallbacks_used",
+        "application_http_attempts",
+        "application_redirects_followed",
+        "application_retries_made",
+        "content_encoding",
+        "content_type",
+        "failure_code",
+        "http_status",
+        "message",
+        "network_stack_address_selection_state",
+        "network_state",
+        "outcome",
+        "protocol",
+        "provider_identifiers",
+        "provider_usage",
+        "request_state",
+        "response_body_disposition",
+        "response_byte_count_state",
+        "response_bytes",
+        "response_sha256",
+        "response_state",
+        "success_body_follows",
+    }
+)
+_TRANSFER_WORKER_ALLOWED_FAILURE_CODES = frozenset(
+    {
+        "worker_command_invalid",
+        "worker_command_trailing_data",
+        "worker_deadline_invalid",
+        "worker_deadline_expired_before_request",
+        "worker_key_invalid",
+        "worker_key_trailing_data",
+        "worker_body_invalid",
+        "worker_body_trailing_data",
+        "compiled_request_body_binding_failed",
+        "provider_post_timeout_ambiguous",
+        "provider_transport_failure",
+        "provider_http_failure",
+        "provider_redirect_forbidden",
+        "provider_response_headers_invalid",
+        "provider_content_length_invalid",
+        "provider_response_byte_cap_exceeded",
+        "provider_response_truncated",
+        "provider_response_stream_invalid",
+        "provider_response_encoding_forbidden",
+        "provider_response_mime_invalid",
+        "provider_response_contains_credential",
+        "worker_internal_failure",
+    }
+)
+_PARENT_TRANSFER_WORKER_FAILURE_CODES = _TRANSFER_WORKER_ALLOWED_FAILURE_CODES | frozenset(
+    {
+        "isolated_worker_command_channel_failure",
+        "isolated_worker_command_frame_invalid",
+        "isolated_worker_deadline_invalid",
+        "isolated_worker_exchange_contract_invalid",
+        "isolated_worker_exit_failure",
+        "isolated_worker_failure_result_invalid",
+        "isolated_worker_key_invalid",
+        "isolated_worker_not_ready",
+        "isolated_worker_phase_sequence_invalid",
+        "isolated_worker_protocol_failure",
+        "isolated_worker_reap_failure",
+        "isolated_worker_result_cap_exceeded",
+        "isolated_worker_secret_echo_detected",
+        "isolated_worker_success_body_invalid",
+        "isolated_worker_success_result_invalid",
+        "isolated_worker_terminal_result_missing",
+        "provider_request_elapsed_cap_exceeded",
+    }
+)
+_TRANSFER_WORKER_BOOTSTRAP = """\
+import hashlib
+import os
+import sys
+source_fd = int(sys.argv[1], 10)
+logical_path = sys.argv[2]
+expected_sha256 = sys.argv[3]
+source = bytearray()
+try:
+    while len(source) <= 1000000:
+        chunk = os.read(source_fd, min(65536, 1000001 - len(source)))
+        if not chunk:
+            break
+        source.extend(chunk)
+finally:
+    os.close(source_fd)
+if not source or len(source) > 1000000:
+    raise SystemExit(126)
+actual_sha256 = hashlib.sha256(source).hexdigest()
+if actual_sha256 != expected_sha256:
+    raise SystemExit(126)
+code = compile(bytes(source), logical_path, "exec", dont_inherit=True)
+for index in range(len(source)):
+    source[index] = 0
+source = bytearray()
+sys.argv = [logical_path, *sys.argv[4:]]
+namespace = {
+    "__name__": "__main__",
+    "__file__": logical_path,
+    "__package__": None,
+    "__spec__": None,
+    "__cached__": None,
+    "__OE_EXECUTED_SOURCE_SHA256__": actual_sha256,
+    "__OE_LOGICAL_SOURCE_PATH__": logical_path,
+}
+exec(code, namespace, namespace)
+"""
+
+
+@dataclass(repr=False)
+class _PreparedVoiceTransferWorker:
+    process: subprocess.Popen[bytes] | None
+    command_fd: int
+    result_fd: int
+    key_fd: int
+    body_fd: int
+    worker_source_path: str
+    worker_source_sha256: str
+    interpreter_path: str
+    interpreter_sha256: str
+    python_version: str
+    interpreter_identity: tuple[int, int, int, int, int, int, int, int]
+    pid: int
+    process_group_id: int
+    child_monotonic_ns_at_ready: int = 0
+    parent_ready_received_ns: int = 0
+    state: str = "ready"
+
+
+def _read_exact_regular_file_identity(
+    path: Path,
+    *,
+    cap: int,
+    require_current_uid: bool,
+    require_executable: bool,
+    label: str,
+) -> tuple[str, str]:
+    """Hash exact resolved descriptor bytes without following a final symlink."""
+
+    try:
+        resolved = path.resolve(strict=True)
+    except (OSError, RuntimeError):
+        raise ValidationError(f"{label} exact path is unavailable") from None
+    flags = os.O_RDONLY
+    if hasattr(os, "O_CLOEXEC"):
+        flags |= os.O_CLOEXEC
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor = -1
+    chunks: list[bytes] = []
+    try:
+        descriptor = os.open(resolved, flags)
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1
+            or before.st_size < 1
+            or before.st_size > cap
+            or (require_current_uid and before.st_uid != os.getuid())
+            or (require_executable and before.st_mode & 0o111 == 0)
+            or before.st_mode & 0o022 != 0
+        ):
+            raise ValidationError(f"{label} descriptor shape is unsafe")
+        remaining = cap + 1
+        while remaining > 0:
+            chunk = os.read(descriptor, min(65_536, remaining))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if (
+            len(raw) != before.st_size
+            or len(raw) > cap
+            or (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+            != (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+        ):
+            raise ValidationError(f"{label} changed during descriptor read")
+        return str(resolved), sha256_bytes(raw)
+    except ValidationError:
+        raise
+    except (OSError, ValueError):
+        raise ValidationError(f"{label} descriptor read failed") from None
+    finally:
+        chunks = []
+        if descriptor >= 0:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+
+
+def _open_bound_transfer_worker_source() -> tuple[int, str, str]:
+    """Open, hash, rewind, and retain the exact worker descriptor for exec."""
+
+    try:
+        resolved = _TRANSFER_WORKER_SOURCE_PATH.resolve(strict=True)
+    except (OSError, RuntimeError):
+        raise ValidationError("isolated transfer worker exact path is unavailable") from None
+    flags = os.O_RDONLY
+    if hasattr(os, "O_CLOEXEC"):
+        flags |= os.O_CLOEXEC
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor = -1
+    chunks: list[bytes] = []
+    try:
+        descriptor = os.open(resolved, flags)
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1
+            or before.st_uid != os.getuid()
+            or before.st_size < 1
+            or before.st_size > _TRANSFER_WORKER_SOURCE_MAX_BYTES
+            or before.st_mode & 0o022 != 0
+        ):
+            raise ValidationError("isolated transfer worker descriptor shape is unsafe")
+        remaining = _TRANSFER_WORKER_SOURCE_MAX_BYTES + 1
+        while remaining > 0:
+            chunk = os.read(descriptor, min(65_536, remaining))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if (
+            len(raw) != before.st_size
+            or len(raw) > _TRANSFER_WORKER_SOURCE_MAX_BYTES
+            or (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+            != (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+        ):
+            raise ValidationError("isolated transfer worker changed during descriptor read")
+        os.lseek(descriptor, 0, os.SEEK_SET)
+        return descriptor, str(resolved), sha256_bytes(raw)
+    except ValidationError:
+        if descriptor >= 0:
+            _close_transfer_worker_fd(descriptor)
+        raise
+    except (OSError, ValueError):
+        if descriptor >= 0:
+            _close_transfer_worker_fd(descriptor)
+        raise ValidationError("isolated transfer worker descriptor read failed") from None
+    finally:
+        chunks = []
+
+
+def _system_transfer_worker_interpreter_identity(
+) -> tuple[str, str, str, tuple[int, int, int, int, int, int, int, int]]:
+    """Bind the root-owned system interpreter and every path ancestor."""
+
+    path = Path(_TRANSFER_WORKER_INTERPRETER_PATH)
+    try:
+        if str(path.resolve(strict=True)) != _TRANSFER_WORKER_INTERPRETER_PATH:
+            raise ValidationError("isolated transfer worker interpreter path is indirect")
+        for ancestor in reversed(path.parents):
+            info = os.stat(ancestor, follow_symlinks=False)
+            if (
+                not stat.S_ISDIR(info.st_mode)
+                or info.st_uid != 0
+                or info.st_gid != 0
+                or info.st_mode & 0o022 != 0
+            ):
+                raise ValidationError("isolated transfer worker interpreter ancestry is unsafe")
+        flags = os.O_RDONLY
+        if hasattr(os, "O_CLOEXEC"):
+            flags |= os.O_CLOEXEC
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        descriptor = os.open(path, flags)
+    except ValidationError:
+        raise
+    except (OSError, RuntimeError):
+        raise ValidationError("isolated transfer worker interpreter is unavailable") from None
+    chunks: list[bytes] = []
+    try:
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or stat.S_IMODE(before.st_mode) != _TRANSFER_WORKER_INTERPRETER_MODE
+            or before.st_uid != _TRANSFER_WORKER_INTERPRETER_UID
+            or before.st_gid != 0
+            or before.st_nlink != _TRANSFER_WORKER_INTERPRETER_NLINK
+            or before.st_size < 1
+            or before.st_size > _TRANSFER_WORKER_INTERPRETER_MAX_BYTES
+        ):
+            raise ValidationError("isolated transfer worker interpreter identity is unsafe")
+        remaining = _TRANSFER_WORKER_INTERPRETER_MAX_BYTES + 1
+        while remaining > 0:
+            chunk = os.read(descriptor, min(65_536, remaining))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        identity = (
+            before.st_dev,
+            before.st_ino,
+            before.st_size,
+            before.st_mtime_ns,
+            before.st_mode,
+            before.st_uid,
+            before.st_gid,
+            before.st_nlink,
+        )
+        if (
+            len(raw) != before.st_size
+            or len(raw) > _TRANSFER_WORKER_INTERPRETER_MAX_BYTES
+            or sha256_bytes(raw) != _TRANSFER_WORKER_INTERPRETER_SHA256
+            or identity
+            != (
+                after.st_dev,
+                after.st_ino,
+                after.st_size,
+                after.st_mtime_ns,
+                after.st_mode,
+                after.st_uid,
+                after.st_gid,
+                after.st_nlink,
+            )
+        ):
+            raise ValidationError("isolated transfer worker interpreter bytes changed")
+        return (
+            _TRANSFER_WORKER_INTERPRETER_PATH,
+            _TRANSFER_WORKER_INTERPRETER_SHA256,
+            _TRANSFER_WORKER_INTERPRETER_VERSION,
+            identity,
+        )
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError("isolated transfer worker interpreter read failed") from None
+    finally:
+        chunks = []
+        os.close(descriptor)
+
+
+def _close_transfer_worker_fd(descriptor: int) -> None:
+    if descriptor < 0:
+        return
+    try:
+        os.close(descriptor)
+    except OSError:
+        pass
+
+
+def _signal_transfer_worker_group(
+    process: subprocess.Popen[bytes],
+    process_group_id: int,
+    signum: int,
+) -> None:
+    """Signal the spawn-time verified group even if its leader already exited."""
+
+    try:
+        if process_group_id == process.pid and process_group_id > 1:
+            os.killpg(process_group_id, signum)
+        elif process.poll() is None:
+            os.kill(process.pid, signum)
+    except (OSError, ProcessLookupError):
+        pass
+
+
+def _kill_and_reap_transfer_worker(
+    process: subprocess.Popen[bytes] | None,
+    *,
+    process_group_id: int | None = None,
+    immediate: bool = False,
+) -> bool:
+    """Terminate the whole isolated process group and bound every wait."""
+
+    if process is None:
+        return True
+    stored_group = process.pid if process_group_id is None else process_group_id
+    if process.poll() is None and immediate:
+        _signal_transfer_worker_group(process, stored_group, signal.SIGKILL)
+    elif immediate:
+        _signal_transfer_worker_group(process, stored_group, signal.SIGKILL)
+    elif process.poll() is None:
+        _signal_transfer_worker_group(process, stored_group, signal.SIGTERM)
+        try:
+            process.wait(timeout=_TRANSFER_WORKER_TERM_GRACE_SECONDS)
+        except subprocess.TimeoutExpired:
+            pass
+        # TERM is only a courtesy before GO.  Always follow with a group KILL
+        # so a descendant cannot survive a quickly exiting leader.
+        _signal_transfer_worker_group(process, stored_group, signal.SIGKILL)
+    else:
+        _signal_transfer_worker_group(process, stored_group, signal.SIGKILL)
+    try:
+        process.wait(timeout=_TRANSFER_WORKER_REAP_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        _signal_transfer_worker_group(process, stored_group, signal.SIGKILL)
+        try:
+            process.wait(timeout=_TRANSFER_WORKER_REAP_TIMEOUT_SECONDS)
+        except subprocess.TimeoutExpired:
+            return False
+    return process.poll() is not None
+
+
+def _dispose_prepared_transfer_worker(worker: _PreparedVoiceTransferWorker) -> bool:
+    for name in ("command_fd", "result_fd", "key_fd", "body_fd"):
+        descriptor = getattr(worker, name)
+        _close_transfer_worker_fd(descriptor)
+        setattr(worker, name, -1)
+    reaped = _kill_and_reap_transfer_worker(
+        worker.process,
+        process_group_id=worker.process_group_id,
+        immediate=worker.state == "go_consumed",
+    )
+    if reaped:
+        worker.process = None
+        worker.state = "closed"
+    return reaped
+
+
+def _post_go_worker_failure(
+    code: str,
+    *,
+    response_state: str = "unknown",
+    http_status: int | None = None,
+    response_bytes: int = 0,
+    response_sha256: str | None = None,
+    provider_identifiers: dict[str, str] | None = None,
+    provider_usage: dict[str, int] | None = None,
+) -> pt._GuideExecutionFailure:
+    """Build a conservative, permanently nonretryable post-GO failure."""
+
+    failure = _eleven_failure(
+        code,
+        response_received=response_state == "confirmed",
+        http_status=http_status,
+        response_bytes=response_bytes,
+        response_sha256=response_sha256,
+        provider_identifiers=provider_identifiers,
+        provider_usage=provider_usage,
+    )
+    failure.post_budget_consumed = True
+    failure.provider_request_state = (
+        "confirmed_started" if response_state == "confirmed" else "unknown_after_go"
+    )
+    failure.provider_response_state = response_state
+    failure.provider_mutation_state = "potentially_ambiguous"
+    failure.provider_output_state = "potentially_ambiguous"
+    failure.retry_or_replay_permitted = False
+    failure.application_http_attempt_limit = 1
+    return failure
+
+
+def _pre_go_worker_failure(code: str) -> pt._GuideExecutionFailure:
+    failure = _eleven_failure(code, response_received=False)
+    failure.post_budget_consumed = False
+    failure.provider_request_state = "not_started"
+    failure.provider_response_state = "none"
+    failure.provider_mutation_state = "none"
+    failure.provider_output_state = "none"
+    failure.retry_or_replay_permitted = False
+    failure.application_http_attempt_limit = 1
+    return failure
+
+
+def _worker_reap_failure(
+    primary: pt._GuideExecutionFailure,
+) -> pt._GuideExecutionFailure:
+    failure = _post_go_worker_failure(
+        "isolated_worker_reap_failure",
+        response_state=(
+            "confirmed" if getattr(primary, "response_received", False) else "unknown"
+        ),
+        http_status=primary.http_status,
+        response_bytes=primary.response_bytes,
+        response_sha256=primary.response_sha256,
+        provider_identifiers=dict(primary.provider_identifiers),
+        provider_usage=dict(primary.provider_usage),
+    )
+    failure.primary_failure_code = primary.code
+    failure.provider_request_state = getattr(
+        primary,
+        "provider_request_state",
+        "unknown_after_go",
+    )
+    failure.provider_response_state = getattr(
+        primary,
+        "provider_response_state",
+        "unknown",
+    )
+    failure.application_http_attempts = getattr(
+        primary,
+        "application_http_attempts",
+        0,
+    )
+    failure.child_containment_state = "sigkill_sent_reap_unconfirmed"
+    return failure
+
+
+def _canonical_worker_json(document: dict[str, Any]) -> bytes:
+    return json.dumps(
+        document,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode("ascii")
+
+
+def _decode_strict_worker_json(
+    payload: bytes | bytearray | memoryview,
+    cap: int,
+    label: str,
+) -> dict[str, Any]:
+    if not payload or len(payload) > cap:
+        raise ValidationError(f"{label} frame length is invalid")
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for name, value in pairs:
+            if not isinstance(name, str) or name in result:
+                raise ValueError("duplicate or non-string JSON key")
+            result[name] = value
+        return result
+
+    def reject_constant(_value: str) -> None:
+        raise ValueError("non-finite JSON number")
+
+    try:
+        payload_bytes = bytes(payload)
+        document = json.loads(
+            payload_bytes.decode("ascii"),
+            object_pairs_hook=reject_duplicates,
+            parse_constant=reject_constant,
+        )
+    except (UnicodeError, ValueError, TypeError):
+        raise ValidationError(f"{label} frame JSON is invalid") from None
+    if (
+        not isinstance(document, dict)
+        or _canonical_worker_json(document) != payload_bytes
+    ):
+        raise ValidationError(f"{label} frame is not exact canonical JSON")
+    return document
+
+
+def _complete_transfer_worker_frames(
+    raw: bytes | bytearray,
+    *,
+    max_frames: int = 4,
+) -> tuple[list[memoryview], bool]:
+    frames: list[memoryview] = []
+    view = memoryview(raw)
+    offset = 0
+    while len(frames) < max_frames:
+        if len(raw) - offset < _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size:
+            return frames, offset == len(raw)
+        size = _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.unpack(
+            view[offset : offset + _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size]
+        )[0]
+        if size < 1 or size > _TRANSFER_WORKER_RESULT_BODY_MAX_BYTES:
+            return frames, False
+        end = offset + _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size + size
+        if end > len(raw):
+            return frames, False
+        frames.append(view[offset + _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size : end])
+        offset = end
+        if offset == len(raw):
+            return frames, True
+    return frames, offset == len(raw)
+
+
+def _request_starting_phase_valid(document: dict[str, Any]) -> bool:
+    return (
+        set(document) == _TRANSFER_WORKER_REQUEST_STARTING_PHASE_KEYS
+        and document.get("protocol") == _TRANSFER_WORKER_PROTOCOL
+        and document.get("message") == "phase"
+        and document.get("phase") == "request_starting"
+        and document.get("sequence") == 1
+        and type(document.get("sequence")) is int
+        and document.get("application_http_attempts") == 1
+        and type(document.get("application_http_attempts")) is int
+        and document.get("network_state") == "application_request_starting"
+        and document.get("request_state") == "outcome_unknown"
+        and document.get("response_state") == "none"
+    )
+
+
+def _response_headers_phase_valid(document: dict[str, Any]) -> bool:
+    content_type = document.get("content_type")
+    return (
+        set(document) == _TRANSFER_WORKER_RESPONSE_HEADERS_PHASE_KEYS
+        and document.get("protocol") == _TRANSFER_WORKER_PROTOCOL
+        and document.get("message") == "phase"
+        and document.get("phase") == "response_headers_confirmed"
+        and document.get("sequence") == 2
+        and type(document.get("sequence")) is int
+        and document.get("application_http_attempts") == 1
+        and type(document.get("application_http_attempts")) is int
+        and document.get("network_state") == "application_request_started"
+        and document.get("request_state") == "response_confirmed"
+        and document.get("response_state") == "headers_confirmed"
+        and (
+            document.get("http_status") is None
+            or (
+                type(document.get("http_status")) is int
+                and 100 <= document["http_status"] <= 599
+            )
+        )
+        and document.get("content_encoding_state")
+        in {"identity", "forbidden"}
+        and document.get("content_length_state")
+        in {"absent", "valid_within_cap", "invalid", "over_cap"}
+        and (
+            content_type is None
+            or (
+                isinstance(content_type, str)
+                and len(content_type) <= 127
+                and content_type.isascii()
+                and not pt._SECRET_VALUE_RE.search(content_type)
+            )
+        )
+    )
+
+
+def _apply_partial_worker_phase_evidence(
+    failure: pt._GuideExecutionFailure,
+    raw: bytes | bytearray,
+) -> None:
+    frames, _complete = _complete_transfer_worker_frames(raw, max_frames=2)
+    try:
+        if not frames:
+            return
+        try:
+            first = _decode_strict_worker_json(
+                frames[0],
+                _TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES,
+                "isolated transfer worker phase",
+            )
+        except ValidationError:
+            return
+        if not _request_starting_phase_valid(first):
+            return
+        failure.provider_request_state = "outcome_unknown"
+        failure.application_http_attempts = 1
+        if len(frames) < 2:
+            return
+        try:
+            second = _decode_strict_worker_json(
+                frames[1],
+                _TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES,
+                "isolated transfer worker phase",
+            )
+        except ValidationError:
+            return
+        if _response_headers_phase_valid(second):
+            failure.provider_request_state = "response_confirmed"
+            failure.provider_response_state = "headers_confirmed"
+            failure.response_received = True
+            failure.http_status = second["http_status"]
+    finally:
+        for frame in frames:
+            frame.release()
+
+
+def _read_preflight_worker_frame(
+    process: subprocess.Popen[bytes],
+    descriptor: int,
+    *,
+    cap: int,
+    deadline_ns: int,
+) -> bytes:
+    buffer = bytearray()
+    expected_size: int | None = None
+    selector = selectors.DefaultSelector()
+    try:
+        os.set_blocking(descriptor, False)
+        selector.register(descriptor, selectors.EVENT_READ)
+        while True:
+            if process.poll() is not None:
+                raise ValidationError("isolated transfer worker exited before READY")
+            remaining_ns = deadline_ns - time.monotonic_ns()
+            if remaining_ns <= 0:
+                raise ValidationError("isolated transfer worker READY deadline expired")
+            events = selector.select(min(remaining_ns / 1_000_000_000, 0.05))
+            if not events:
+                continue
+            try:
+                chunk = os.read(
+                    descriptor,
+                    min(
+                        65_536,
+                        _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size + cap + 1 - len(buffer),
+                    ),
+                )
+            except BlockingIOError:
+                continue
+            except OSError:
+                raise ValidationError("isolated transfer worker READY pipe failed") from None
+            if not chunk:
+                raise ValidationError("isolated transfer worker closed before READY")
+            buffer.extend(chunk)
+            if expected_size is None and len(buffer) >= _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size:
+                expected_size = _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.unpack(
+                    buffer[: _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size]
+                )[0]
+                if expected_size < 1 or expected_size > cap:
+                    raise ValidationError("isolated transfer worker READY frame length is invalid")
+            if expected_size is not None:
+                total = _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size + expected_size
+                if len(buffer) > total:
+                    raise ValidationError("isolated transfer worker sent pre-GO trailing data")
+                if len(buffer) == total:
+                    if process.poll() is not None:
+                        raise ValidationError("isolated transfer worker was not waiting after READY")
+                    return bytes(buffer[_TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size :])
+    finally:
+        selector.close()
+        buffer = bytearray()
+
+
+def _validate_transfer_worker_ready(
+    worker: _PreparedVoiceTransferWorker,
+    ready: dict[str, Any],
+) -> None:
+    try:
+        interpreter_info = os.stat(worker.interpreter_path, follow_symlinks=False)
+        live_process_group = os.getpgid(worker.pid)
+        live_session = os.getsid(worker.pid)
+    except (OSError, ProcessLookupError):
+        raise ValidationError("isolated transfer worker READY identity is unavailable") from None
+    if (
+        set(ready) != _TRANSFER_WORKER_READY_KEYS
+        or ready.get("protocol") != _TRANSFER_WORKER_PROTOCOL
+        or ready.get("message") != "ready"
+        or ready.get("command_received") is not False
+        or ready.get("core_soft_limit") != 0
+        or type(ready.get("core_soft_limit")) is not int
+        or ready.get("core_hard_limit") != 0
+        or type(ready.get("core_hard_limit")) is not int
+        or ready.get("environment_keys") != sorted(_TRANSFER_WORKER_ENV)
+        or ready.get("environment_sha256")
+        != sha256_bytes(_canonical_worker_json(dict(_TRANSFER_WORKER_ENV)))
+        or type(ready.get("monotonic_ns_at_ready")) is not int
+        or ready.get("monotonic_ns_at_ready") <= 0
+        or ready.get("credential_bytes_read") != 0
+        or type(ready.get("credential_bytes_read")) is not int
+        or ready.get("body_bytes_read") != 0
+        or type(ready.get("body_bytes_read")) is not int
+        or ready.get("network_called") is not False
+        or ready.get("executed_source_sha256") != worker.worker_source_sha256
+        or ready.get("logical_source_path") != worker.worker_source_path
+        or ready.get("interpreter_path") != worker.interpreter_path
+        or ready.get("interpreter_sha256") != worker.interpreter_sha256
+        or ready.get("python_version") != worker.python_version
+        or ready.get("interpreter_mode") != stat.S_IMODE(interpreter_info.st_mode)
+        or type(ready.get("interpreter_mode")) is not int
+        or ready.get("interpreter_uid") != interpreter_info.st_uid
+        or type(ready.get("interpreter_uid")) is not int
+        or ready.get("interpreter_nlink") != interpreter_info.st_nlink
+        or type(ready.get("interpreter_nlink")) is not int
+        or ready.get("pid") != worker.pid
+        or type(ready.get("pid")) is not int
+        or ready.get("parent_pid") != os.getpid()
+        or type(ready.get("parent_pid")) is not int
+        or ready.get("process_group_id") != worker.process_group_id
+        or type(ready.get("process_group_id")) is not int
+        or ready.get("session_id") != worker.pid
+        or type(ready.get("session_id")) is not int
+        or live_process_group != worker.pid
+        or live_session != worker.pid
+        or worker.process is None
+        or worker.process.poll() is not None
+    ):
+        raise ValidationError("isolated transfer worker READY evidence is invalid")
+
+
+def _prepare_voice_transfer_worker(
+    *,
+    ready_timeout: float = _TRANSFER_WORKER_READY_TIMEOUT_SECONDS,
+) -> _PreparedVoiceTransferWorker:
+    """Spawn a credential-free exact worker and require READY before any latch."""
+
+    if type(ready_timeout) not in {int, float} or not 0 < float(ready_timeout) <= 30.0:
+        raise ValidationError("isolated transfer worker READY timeout is invalid")
+    source_fd = -1
+    child_command_fd = -1
+    parent_command_fd = -1
+    child_key_fd = -1
+    parent_key_fd = -1
+    child_body_fd = -1
+    parent_body_fd = -1
+    parent_result_fd = -1
+    child_result_fd = -1
+    process: subprocess.Popen[bytes] | None = None
+    prepared: _PreparedVoiceTransferWorker | None = None
+    try:
+        source_fd, source_path, source_sha256 = _open_bound_transfer_worker_source()
+        (
+            interpreter_path,
+            interpreter_sha256,
+            interpreter_version,
+            interpreter_identity,
+        ) = _system_transfer_worker_interpreter_identity()
+        child_command_fd, parent_command_fd = os.pipe()
+        child_key_fd, parent_key_fd = os.pipe()
+        child_body_fd, parent_body_fd = os.pipe()
+        parent_result_fd, child_result_fd = os.pipe()
+        inherited = (
+            source_fd,
+            child_command_fd,
+            child_key_fd,
+            child_body_fd,
+            child_result_fd,
+        )
+        if len(set(inherited)) != len(inherited):
+            raise ValidationError("isolated transfer worker descriptor set is not distinct")
+        arguments = [
+            interpreter_path,
+            "-I",
+            "-S",
+            "-B",
+            "-c",
+            _TRANSFER_WORKER_BOOTSTRAP,
+            str(source_fd),
+            source_path,
+            source_sha256,
+            "--command-fd",
+            str(child_command_fd),
+            "--key-fd",
+            str(child_key_fd),
+            "--body-fd",
+            str(child_body_fd),
+            "--result-fd",
+            str(child_result_fd),
+        ]
+        process = subprocess.Popen(
+            arguments,
+            executable=interpreter_path,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True,
+            pass_fds=inherited,
+            cwd="/",
+            env=dict(_TRANSFER_WORKER_ENV),
+            start_new_session=True,
+            restore_signals=True,
+            text=False,
+            umask=0o077,
+        )
+        for descriptor in (
+            source_fd,
+            child_command_fd,
+            child_key_fd,
+            child_body_fd,
+            child_result_fd,
+        ):
+            _close_transfer_worker_fd(descriptor)
+        source_fd = -1
+        child_command_fd = -1
+        child_key_fd = -1
+        child_body_fd = -1
+        child_result_fd = -1
+        try:
+            process_group_id = os.getpgid(process.pid)
+            session_id = os.getsid(process.pid)
+        except (OSError, ProcessLookupError):
+            raise ValidationError("isolated transfer worker session could not be verified") from None
+        if process_group_id != process.pid or session_id != process.pid:
+            raise ValidationError("isolated transfer worker does not own its process group")
+        prepared = _PreparedVoiceTransferWorker(
+            process=process,
+            command_fd=parent_command_fd,
+            result_fd=parent_result_fd,
+            key_fd=parent_key_fd,
+            body_fd=parent_body_fd,
+            worker_source_path=source_path,
+            worker_source_sha256=source_sha256,
+            interpreter_path=interpreter_path,
+            interpreter_sha256=interpreter_sha256,
+            python_version=interpreter_version,
+            interpreter_identity=interpreter_identity,
+            pid=process.pid,
+            process_group_id=process_group_id,
+        )
+        parent_command_fd = -1
+        parent_result_fd = -1
+        parent_key_fd = -1
+        parent_body_fd = -1
+        ready_deadline_ns = time.monotonic_ns() + int(float(ready_timeout) * 1e9)
+        ready_payload = _read_preflight_worker_frame(
+            process,
+            prepared.result_fd,
+            cap=_TRANSFER_WORKER_READY_FRAME_MAX_BYTES,
+            deadline_ns=ready_deadline_ns,
+        )
+        parent_ready_received_ns = time.monotonic_ns()
+        ready = _decode_strict_worker_json(
+            ready_payload,
+            _TRANSFER_WORKER_READY_FRAME_MAX_BYTES,
+            "isolated transfer worker READY",
+        )
+        _validate_transfer_worker_ready(prepared, ready)
+        prepared.child_monotonic_ns_at_ready = ready["monotonic_ns_at_ready"]
+        prepared.parent_ready_received_ns = parent_ready_received_ns
+        current_source_path, current_source_sha = _read_exact_regular_file_identity(
+            Path(source_path),
+            cap=_TRANSFER_WORKER_SOURCE_MAX_BYTES,
+            require_current_uid=True,
+            require_executable=False,
+            label="isolated transfer worker source",
+        )
+        (
+            current_interpreter_path,
+            current_interpreter_sha,
+            current_interpreter_version,
+            current_interpreter_identity,
+        ) = _system_transfer_worker_interpreter_identity(
+        )
+        if (
+            current_source_path != source_path
+            or current_source_sha != source_sha256
+            or current_interpreter_path != interpreter_path
+            or current_interpreter_sha != interpreter_sha256
+            or current_interpreter_version != interpreter_version
+            or current_interpreter_identity != interpreter_identity
+        ):
+            raise ValidationError("isolated transfer worker source changed before READY")
+        return prepared
+    except ValidationError:
+        if prepared is not None:
+            _dispose_prepared_transfer_worker(prepared)
+            prepared = None
+            process = None
+        else:
+            _kill_and_reap_transfer_worker(
+                process,
+                process_group_id=process.pid if process is not None else None,
+            )
+        raise
+    except BaseException:
+        if prepared is not None:
+            _dispose_prepared_transfer_worker(prepared)
+            prepared = None
+            process = None
+        else:
+            _kill_and_reap_transfer_worker(
+                process,
+                process_group_id=process.pid if process is not None else None,
+            )
+        raise ValidationError("isolated transfer worker readiness failed") from None
+    finally:
+        for descriptor in (
+            source_fd,
+            child_command_fd,
+            parent_command_fd,
+            child_key_fd,
+            parent_key_fd,
+            child_body_fd,
+            parent_body_fd,
+            parent_result_fd,
+            child_result_fd,
+        ):
+            _close_transfer_worker_fd(descriptor)
+
+
+def _revalidate_prepared_transfer_worker(
+    worker: _PreparedVoiceTransferWorker,
+) -> None:
+    """Recheck the exact READY process and bound source identities in place."""
+
+    process = worker.process
+    try:
+        process_group_id = os.getpgid(worker.pid)
+        session_id = os.getsid(worker.pid)
+        current_source_path, current_source_sha = _read_exact_regular_file_identity(
+            Path(worker.worker_source_path),
+            cap=_TRANSFER_WORKER_SOURCE_MAX_BYTES,
+            require_current_uid=True,
+            require_executable=False,
+            label="isolated transfer worker source",
+        )
+        (
+            current_interpreter_path,
+            current_interpreter_sha,
+            current_interpreter_version,
+            current_interpreter_identity,
+        ) = _system_transfer_worker_interpreter_identity()
+    except (OSError, ProcessLookupError, ValidationError):
+        raise ValidationError("isolated transfer worker identity revalidation failed") from None
+    if (
+        worker.state != "ready"
+        or process is None
+        or process.poll() is not None
+        or worker.pid <= 1
+        or worker.process_group_id != worker.pid
+        or process.pid != worker.pid
+        or process_group_id != worker.process_group_id
+        or session_id != worker.pid
+        or type(worker.child_monotonic_ns_at_ready) is not int
+        or worker.child_monotonic_ns_at_ready <= 0
+        or type(worker.parent_ready_received_ns) is not int
+        or worker.parent_ready_received_ns <= 0
+        or worker.parent_ready_received_ns > time.monotonic_ns()
+        or current_source_path != worker.worker_source_path
+        or current_source_sha != worker.worker_source_sha256
+        or current_interpreter_path != worker.interpreter_path
+        or current_interpreter_sha != worker.interpreter_sha256
+        or current_interpreter_version != worker.python_version
+        or current_interpreter_identity != worker.interpreter_identity
+    ):
+        raise ValidationError("isolated transfer worker identity changed after READY")
+
+
+def _map_transfer_worker_child_deadline(
+    worker: _PreparedVoiceTransferWorker,
+    parent_deadline_ns: int,
+    *,
+    parent_now_ns: int | None = None,
+) -> int:
+    """Map a parent deadline to the child's distinct monotonic epoch early."""
+
+    if (
+        type(parent_deadline_ns) is not int
+        or type(worker.parent_ready_received_ns) is not int
+        or type(worker.child_monotonic_ns_at_ready) is not int
+        or worker.parent_ready_received_ns <= 0
+        or worker.child_monotonic_ns_at_ready <= 0
+    ):
+        raise ValidationError("isolated transfer worker deadline samples are invalid")
+    if parent_now_ns is None:
+        parent_now_ns = time.monotonic_ns()
+    if type(parent_now_ns) is not int:
+        raise ValidationError("isolated transfer worker parent clock sample is invalid")
+    ready_age_ns = parent_now_ns - worker.parent_ready_received_ns
+    remaining_at_mapping_ns = parent_deadline_ns - parent_now_ns
+    if (
+        ready_age_ns < 0
+        or ready_age_ns > int(_TRANSFER_WORKER_MAX_READY_AGE_SECONDS * 1_000_000_000)
+        or remaining_at_mapping_ns <= 0
+        or remaining_at_mapping_ns
+        > int(_TRANSFER_WORKER_MAX_TRANSACTION_SECONDS * 1_000_000_000)
+    ):
+        raise ValidationError("isolated transfer worker deadline mapping is stale")
+    remaining_from_ready_ns = parent_deadline_ns - worker.parent_ready_received_ns
+    child_deadline_ns = worker.child_monotonic_ns_at_ready + remaining_from_ready_ns
+    if (
+        child_deadline_ns <= worker.child_monotonic_ns_at_ready
+        or child_deadline_ns > (1 << 63) - 1
+    ):
+        raise ValidationError("isolated transfer worker deadline mapping overflowed")
+    return child_deadline_ns
+
+
+def _exchange_with_transfer_worker(
+    worker: _PreparedVoiceTransferWorker,
+    *,
+    command_frame: bytes,
+    key_frame: bytearray,
+    body: bytearray,
+    result_cap: int,
+    deadline_ns: int,
+) -> bytearray:
+    """Nonblocking pipe exchange bounded by one original monotonic deadline."""
+
+    process = worker.process
+    if process is None or worker.state != "ready" or process.poll() is not None:
+        raise _pre_go_worker_failure("isolated_worker_not_ready")
+    descriptor_set = {
+        worker.command_fd,
+        worker.result_fd,
+        worker.key_fd,
+        worker.body_fd,
+    }
+    now_ns = time.monotonic_ns()
+    if (
+        type(deadline_ns) is not int
+        or deadline_ns <= now_ns
+        or deadline_ns - now_ns > int(TRANSFER_MAX_ELAPSED_SECONDS * 1_000_000_000)
+        or result_cap != _TRANSFER_WORKER_EXCHANGE_MAX_BYTES
+        or type(result_cap) is not int
+        or len(descriptor_set) != 4
+        or any(descriptor < 0 for descriptor in descriptor_set)
+        or not isinstance(command_frame, bytes)
+        or len(command_frame) < _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+        or _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.unpack(
+            command_frame[: _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size]
+        )[0]
+        != len(command_frame) - _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+        or len(command_frame) - _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+        > _TRANSFER_WORKER_COMMAND_FRAME_MAX_BYTES
+        or not isinstance(key_frame, bytearray)
+        or len(key_frame) < _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size + 1
+        or _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.unpack(
+            key_frame[: _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size]
+        )[0]
+        != len(key_frame) - _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+        or len(key_frame) - _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size
+        > _TRANSFER_WORKER_KEY_FRAME_MAX_BYTES
+        or not isinstance(body, bytearray)
+        or len(body) != _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size + TRANSFER_BODY_BYTES
+        or _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.unpack(
+            body[: _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size]
+        )[0]
+        != TRANSFER_BODY_BYTES
+    ):
+        raise _pre_go_worker_failure("isolated_worker_exchange_contract_invalid")
+    outbound: dict[int, tuple[str, memoryview, int]] = {}
+    result = bytearray()
+    selector: selectors.BaseSelector | None = None
+    result_eof = False
+    failure: pt._GuideExecutionFailure | None = None
+    worker.state = "go_consumed"
+    try:
+        outbound = {
+            worker.command_fd: ("command_fd", memoryview(command_frame), 0),
+            worker.key_fd: ("key_fd", memoryview(key_frame), 0),
+            worker.body_fd: ("body_fd", memoryview(body), 0),
+        }
+        selector = selectors.DefaultSelector()
+        for descriptor in (*outbound, worker.result_fd):
+            os.set_blocking(descriptor, False)
+        selector.register(worker.result_fd, selectors.EVENT_READ, "result")
+        for descriptor in outbound:
+            selector.register(descriptor, selectors.EVENT_WRITE, "write")
+        while True:
+            remaining_ns = deadline_ns - time.monotonic_ns()
+            if remaining_ns <= 0:
+                failure = _post_go_worker_failure(
+                    "provider_request_elapsed_cap_exceeded",
+                    response_state="unknown",
+                )
+                break
+            if result_eof and not outbound:
+                return_code = process.poll()
+                if return_code is not None:
+                    if return_code != 0:
+                        failure = _post_go_worker_failure(
+                            "isolated_worker_exit_failure",
+                            response_state="unknown",
+                        )
+                        break
+                    return result
+            wait_seconds = min(remaining_ns / 1_000_000_000, 0.05)
+            events = selector.select(wait_seconds)
+            if not events and process.poll() is not None and not result_eof:
+                # Give the result pipe one final nonblocking drain; a clean
+                # worker must still supply EOF after exactly one result.
+                try:
+                    chunk = os.read(worker.result_fd, min(65_536, result_cap + 1 - len(result)))
+                except BlockingIOError:
+                    chunk = None
+                except OSError:
+                    chunk = b""
+                if chunk:
+                    result.extend(chunk)
+                elif chunk == b"":
+                    result_eof = True
+                    try:
+                        selector.unregister(worker.result_fd)
+                    except Exception:
+                        pass
+                    _close_transfer_worker_fd(worker.result_fd)
+                    worker.result_fd = -1
+                continue
+            for key, mask in events:
+                descriptor = key.fd
+                if key.data == "result" and mask & selectors.EVENT_READ:
+                    remaining = result_cap + 1 - len(result)
+                    if remaining <= 0:
+                        failure = _post_go_worker_failure(
+                            "isolated_worker_result_cap_exceeded",
+                            response_state="unknown",
+                        )
+                        break
+                    try:
+                        chunk = os.read(descriptor, min(65_536, remaining))
+                    except BlockingIOError:
+                        continue
+                    except OSError:
+                        chunk = b""
+                    if chunk:
+                        result.extend(chunk)
+                        if len(result) > result_cap:
+                            failure = _post_go_worker_failure(
+                                "isolated_worker_result_cap_exceeded",
+                                response_state="unknown",
+                            )
+                            break
+                    else:
+                        result_eof = True
+                        try:
+                            selector.unregister(descriptor)
+                        except Exception:
+                            pass
+                        _close_transfer_worker_fd(descriptor)
+                        worker.result_fd = -1
+                elif key.data == "write" and mask & selectors.EVENT_WRITE:
+                    name, view, offset = outbound[descriptor]
+                    try:
+                        written = os.write(descriptor, view[offset : offset + 65_536])
+                    except BlockingIOError:
+                        continue
+                    except (BrokenPipeError, OSError):
+                        failure = _post_go_worker_failure(
+                            "isolated_worker_command_channel_failure",
+                            response_state="unknown",
+                        )
+                        break
+                    if written <= 0:
+                        failure = _post_go_worker_failure(
+                            "isolated_worker_command_channel_failure",
+                            response_state="unknown",
+                        )
+                        break
+                    offset += written
+                    if offset == len(view):
+                        try:
+                            selector.unregister(descriptor)
+                        except Exception:
+                            pass
+                        _close_transfer_worker_fd(descriptor)
+                        setattr(worker, name, -1)
+                        view.release()
+                        del outbound[descriptor]
+                    else:
+                        outbound[descriptor] = (name, view, offset)
+            if failure is not None:
+                break
+        assert failure is not None
+        # GO permanently consumes the sole POST budget.  Any ambiguous
+        # post-GO failure must stop credential-bearing activity at once; do not
+        # grant a TERM grace period beyond the absolute provider deadline.
+        reaped = _kill_and_reap_transfer_worker(
+            process,
+            process_group_id=worker.process_group_id,
+            immediate=True,
+        )
+        _apply_partial_worker_phase_evidence(failure, result)
+        if not reaped:
+            raise _worker_reap_failure(failure)
+        worker.process = None
+        worker.state = "closed"
+        raise failure
+    except BaseException:
+        if worker.state == "go_consumed":
+            reaped = _kill_and_reap_transfer_worker(
+                process,
+                process_group_id=worker.process_group_id,
+                immediate=True,
+            )
+            if reaped:
+                worker.process = None
+                worker.state = "closed"
+        raise
+    finally:
+        if selector is not None:
+            selector.close()
+        for descriptor, (name, view, _offset) in list(outbound.items()):
+            view.release()
+            _close_transfer_worker_fd(descriptor)
+            setattr(worker, name, -1)
+        outbound = {}
+        if worker.state == "closed" and worker.result_fd >= 0:
+            _close_transfer_worker_fd(worker.result_fd)
+            worker.result_fd = -1
+        for index in range(len(key_frame)):
+            key_frame[index] = 0
+        if failure is not None:
+            result[:] = b"\x00" * len(result)
+            result.clear()
+
+
+def _validate_transfer_worker_result_common(document: dict[str, Any]) -> None:
+    identifiers = document.get("provider_identifiers")
+    usage = document.get("provider_usage")
+    evidence_errors: list[str] = []
+    _validate_persisted_provider_evidence(
+        identifiers,
+        usage,
+        evidence_errors,
+        "isolated transfer worker result",
+    )
+    if (
+        set(document) != _TRANSFER_WORKER_RESULT_KEYS
+        or document.get("protocol") != _TRANSFER_WORKER_PROTOCOL
+        or document.get("message") != "result"
+        or document.get("application_http_attempts") not in {0, 1}
+        or type(document.get("application_http_attempts")) is not int
+        or document.get("application_retries_made") != 0
+        or type(document.get("application_retries_made")) is not int
+        or document.get("application_redirects_followed") != 0
+        or type(document.get("application_redirects_followed")) is not int
+        or document.get("application_fallbacks_used") != 0
+        or type(document.get("application_fallbacks_used")) is not int
+        or document.get("network_stack_address_selection_state")
+        != "stdlib_internal_connection_selection_possible"
+        or document.get("network_state")
+        not in {
+            "not_started",
+            "application_request_starting",
+            "application_request_started",
+        }
+        or document.get("request_state")
+        not in {"not_started", "outcome_unknown", "response_confirmed"}
+        or document.get("response_state")
+        not in {
+            "none",
+            "headers_confirmed",
+            "headers_rejected",
+            "body_complete",
+            "body_rejected",
+        }
+        or document.get("response_body_disposition")
+        not in {"not_read", "hash_count_only", "discarded_credential_echo", "raw_success_frame"}
+        or document.get("response_byte_count_state")
+        not in {"none", "exact", "bounded_prefix"}
+        or document.get("response_bytes") < 0
+        or type(document.get("response_bytes")) is not int
+        or document.get("response_bytes") > _TRANSFER_WORKER_RESULT_BODY_MAX_BYTES
+        or evidence_errors
+    ):
+        raise ValidationError("isolated transfer worker result metadata is invalid")
+    digest = document.get("response_sha256")
+    if digest is not None and (not isinstance(digest, str) or not _SHA_RE.fullmatch(digest)):
+        raise ValidationError("isolated transfer worker result digest is invalid")
+    status = document.get("http_status")
+    if status is not None and (type(status) is not int or not 100 <= status <= 599):
+        raise ValidationError("isolated transfer worker result status is invalid")
+
+
+def _validate_transfer_worker_result_relations(
+    document: dict[str, Any],
+    *,
+    phase_count: int,
+) -> None:
+    """Reject individually safe fields whose combined evidence overclaims state."""
+
+    attempts = document["application_http_attempts"]
+    network_state = document["network_state"]
+    request_state = document["request_state"]
+    response_state = document["response_state"]
+    disposition = document["response_body_disposition"]
+    count_state = document["response_byte_count_state"]
+    response_bytes = document["response_bytes"]
+    response_sha = document["response_sha256"]
+    outcome = document["outcome"]
+    invalid = False
+
+    if attempts == 0:
+        invalid = (
+            phase_count != 0
+            or network_state != "not_started"
+            or request_state != "not_started"
+            or response_state != "none"
+            or document["http_status"] is not None
+            or document["content_type"] is not None
+            or document["content_encoding"] is not None
+            or document["provider_identifiers"]
+            or document["provider_usage"]
+        )
+    elif phase_count == 1:
+        invalid = (
+            network_state != "application_request_started"
+            or response_state not in {"none", "headers_rejected"}
+            or (
+                response_state == "none"
+                and (
+                    request_state != "outcome_unknown"
+                    or document["http_status"] is not None
+                    or document["content_type"] is not None
+                    or document["content_encoding"] is not None
+                    or document["provider_identifiers"]
+                    or document["provider_usage"]
+                )
+            )
+            or (
+                response_state == "headers_rejected"
+                and (
+                    request_state != "response_confirmed"
+                    or document["content_type"] is not None
+                    or document["content_encoding"] is not None
+                    or document["provider_identifiers"]
+                    or document["provider_usage"]
+                )
+            )
+        )
+    elif phase_count == 2:
+        invalid = (
+            network_state != "application_request_started"
+            or request_state != "response_confirmed"
+            or response_state
+            not in {"headers_confirmed", "body_complete", "body_rejected"}
+        )
+    else:
+        invalid = True
+
+    if outcome == "failure" and response_state == "body_complete":
+        invalid = True
+    if response_state in {"none", "headers_rejected", "headers_confirmed"} and (
+        disposition != "not_read"
+        or response_bytes != 0
+        or response_sha is not None
+    ):
+        invalid = True
+    if disposition == "not_read" and (response_bytes != 0 or response_sha is not None):
+        invalid = True
+    if disposition == "hash_count_only" and (
+        response_bytes <= 0
+        or response_sha is None
+        or count_state not in {"exact", "bounded_prefix"}
+    ):
+        invalid = True
+    if disposition == "discarded_credential_echo" and (
+        response_sha is not None
+        or response_bytes <= 0
+        or count_state not in {"exact", "bounded_prefix"}
+    ):
+        invalid = True
+    if disposition == "raw_success_frame" and (
+        outcome != "success"
+        or response_state != "body_complete"
+        or count_state != "exact"
+        or response_bytes <= 0
+        or response_sha is None
+    ):
+        invalid = True
+    if response_bytes == 0 and disposition not in {"not_read"}:
+        invalid = True
+    if invalid:
+        raise ValidationError("isolated transfer worker result state relation is invalid")
+
+
+@dataclass(frozen=True)
+class _TransferWorkerFailureSnapshot:
+    code: str
+    post_budget_consumed: bool = True
+    response_state: str = "unknown"
+    request_state: str = "unknown_after_go"
+    http_status: int | None = None
+    response_bytes: int = 0
+    response_sha256: str | None = None
+    provider_identifiers: dict[str, str] | None = None
+    provider_usage: dict[str, int] | None = None
+    application_http_attempts: int = 0
+    primary_failure_code: str | None = None
+    child_containment_state: str | None = None
+
+
+def _failure_from_transfer_worker_snapshot(
+    snapshot: _TransferWorkerFailureSnapshot,
+) -> pt._GuideExecutionFailure:
+    response_confirmed = snapshot.response_state in {
+        "headers_confirmed",
+        "headers_rejected",
+        "body_complete",
+        "body_rejected",
+    }
+    failure = (
+        _post_go_worker_failure(
+            snapshot.code,
+            response_state="confirmed" if response_confirmed else "unknown",
+            http_status=snapshot.http_status,
+            response_bytes=snapshot.response_bytes,
+            response_sha256=snapshot.response_sha256,
+            provider_identifiers=dict(snapshot.provider_identifiers or {}),
+            provider_usage=dict(snapshot.provider_usage or {}),
+        )
+        if snapshot.post_budget_consumed
+        else _pre_go_worker_failure(snapshot.code)
+    )
+    failure.provider_request_state = snapshot.request_state
+    failure.provider_response_state = snapshot.response_state
+    failure.application_http_attempts = snapshot.application_http_attempts
+    failure.primary_failure_code = snapshot.primary_failure_code
+    failure.child_containment_state = snapshot.child_containment_state
+    return failure
+
+
+class _TransferWorkerParseAbort(Exception):
+    pass
+
+
+def _snapshot_from_worker_failure(
+    failure: pt._GuideExecutionFailure,
+) -> _TransferWorkerFailureSnapshot:
+    response_state = getattr(failure, "provider_response_state", "unknown")
+    if response_state not in {
+        "none",
+        "unknown",
+        "headers_confirmed",
+        "headers_rejected",
+        "body_complete",
+        "body_rejected",
+    }:
+        response_state = "unknown"
+    request_state = getattr(failure, "provider_request_state", "unknown_after_go")
+    if request_state not in {
+        "not_started",
+        "unknown_after_go",
+        "outcome_unknown",
+        "response_confirmed",
+    }:
+        request_state = "unknown_after_go"
+    attempts = getattr(failure, "application_http_attempts", 0)
+    if type(attempts) is not int or attempts not in {0, 1}:
+        attempts = 0
+    status = failure.http_status
+    if status is not None and (type(status) is not int or not 100 <= status <= 599):
+        status = None
+    response_bytes = failure.response_bytes
+    if type(response_bytes) is not int or not 0 <= response_bytes <= _TRANSFER_WORKER_RESULT_BODY_MAX_BYTES:
+        response_bytes = 0
+    response_sha = failure.response_sha256
+    if response_sha is not None and (
+        not isinstance(response_sha, str) or not _SHA_RE.fullmatch(response_sha)
+    ):
+        response_sha = None
+    return _TransferWorkerFailureSnapshot(
+        code=(
+            failure.code
+            if isinstance(failure.code, str)
+            and failure.code in _PARENT_TRANSFER_WORKER_FAILURE_CODES
+            else "isolated_worker_protocol_failure"
+        ),
+        post_budget_consumed=getattr(failure, "post_budget_consumed", True) is True,
+        response_state=response_state,
+        request_state=request_state,
+        http_status=status,
+        response_bytes=response_bytes,
+        response_sha256=response_sha,
+        provider_identifiers=dict(failure.provider_identifiers),
+        provider_usage=dict(failure.provider_usage),
+        application_http_attempts=attempts,
+        primary_failure_code=getattr(failure, "primary_failure_code", None),
+        child_containment_state=getattr(failure, "child_containment_state", None),
+    )
+
+
+def _buffer_contains(
+    haystack: bytearray,
+    needle: bytearray,
+) -> bool:
+    """Scan mutable exchange storage once with CPython's linear-time C search."""
+
+    return bool(needle) and len(needle) <= len(haystack) and haystack.find(needle) >= 0
+
+
+def _zero_mutable_buffer(value: bytearray) -> None:
+    if value:
+        value[:] = b"\x00" * len(value)
+        value.clear()
+
+
+def _parse_abort_snapshot(
+    code: str,
+    validated_phases: list[dict[str, Any]],
+) -> _TransferWorkerFailureSnapshot:
+    """Preserve the last independently validated phase on terminal corruption."""
+
+    if len(validated_phases) >= 2:
+        return _TransferWorkerFailureSnapshot(
+            code=code,
+            response_state="headers_confirmed",
+            request_state="response_confirmed",
+            http_status=validated_phases[1]["http_status"],
+            application_http_attempts=1,
+        )
+    if validated_phases:
+        return _TransferWorkerFailureSnapshot(
+            code=code,
+            response_state="none",
+            request_state="outcome_unknown",
+            application_http_attempts=1,
+        )
+    return _TransferWorkerFailureSnapshot(code=code)
+
+
+def _snapshot_with_code(
+    snapshot: _TransferWorkerFailureSnapshot,
+    code: str,
+) -> _TransferWorkerFailureSnapshot:
+    return _TransferWorkerFailureSnapshot(
+        code=code,
+        post_budget_consumed=snapshot.post_budget_consumed,
+        response_state=snapshot.response_state,
+        request_state=snapshot.request_state,
+        http_status=snapshot.http_status,
+        response_bytes=snapshot.response_bytes,
+        response_sha256=snapshot.response_sha256,
+        provider_identifiers=dict(snapshot.provider_identifiers or {}),
+        provider_usage=dict(snapshot.provider_usage or {}),
+        application_http_attempts=snapshot.application_http_attempts,
+        primary_failure_code=snapshot.primary_failure_code,
+        child_containment_state=snapshot.child_containment_state,
+    )
+
+
+def _snapshot_with_reap_failure(
+    snapshot: _TransferWorkerFailureSnapshot,
+) -> _TransferWorkerFailureSnapshot:
+    return _TransferWorkerFailureSnapshot(
+        code="isolated_worker_reap_failure",
+        post_budget_consumed=snapshot.post_budget_consumed,
+        response_state=snapshot.response_state,
+        request_state=snapshot.request_state,
+        http_status=snapshot.http_status,
+        response_bytes=snapshot.response_bytes,
+        response_sha256=snapshot.response_sha256,
+        provider_identifiers=dict(snapshot.provider_identifiers or {}),
+        provider_usage=dict(snapshot.provider_usage or {}),
+        application_http_attempts=snapshot.application_http_attempts,
+        primary_failure_code=snapshot.code,
+        child_containment_state="sigkill_sent_reap_unconfirmed",
+    )
+
+
+def _parse_transfer_worker_exchange(
+    raw: bytearray,
+    *,
+    key_material: bytearray,
+) -> tuple[_ElevenResponse | None, _TransferWorkerFailureSnapshot | None]:
+    response: _ElevenResponse | None = None
+    snapshot: _TransferWorkerFailureSnapshot | None = None
+    frames: list[memoryview] = []
+    body_frames: list[memoryview] = []
+    validated_phases: list[dict[str, Any]] = []
+    result: dict[str, Any] = {}
+    secret_echo = False
+    try:
+        if not isinstance(raw, bytearray) or not isinstance(key_material, bytearray):
+            raise _TransferWorkerParseAbort("isolated_worker_protocol_failure")
+        if len(raw) > _TRANSFER_WORKER_EXCHANGE_MAX_BYTES:
+            raise _TransferWorkerParseAbort("isolated_worker_result_cap_exceeded")
+        # Scan the whole mutable exchange exactly once before any framing.  A
+        # terminal frame that echoes the held key may still follow valid phase
+        # evidence, so retain only independently validated leading phases.
+        secret_echo = _buffer_contains(raw, key_material)
+        frames, complete = _complete_transfer_worker_frames(raw)
+        if not complete or not frames:
+            raise _TransferWorkerParseAbort("isolated_worker_protocol_failure")
+
+        cursor = 0
+        try:
+            first = _decode_strict_worker_json(
+                frames[cursor],
+                _TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES,
+                "isolated transfer worker message",
+            )
+        except ValidationError:
+            raise _TransferWorkerParseAbort(
+                "isolated_worker_secret_echo_detected"
+                if secret_echo
+                else "isolated_worker_protocol_failure"
+            ) from None
+        if first.get("message") == "phase":
+            if not _request_starting_phase_valid(first):
+                raise _TransferWorkerParseAbort("isolated_worker_protocol_failure")
+            validated_phases.append(first)
+            cursor += 1
+            if cursor >= len(frames):
+                raise _TransferWorkerParseAbort("isolated_worker_terminal_result_missing")
+            try:
+                second = _decode_strict_worker_json(
+                    frames[cursor],
+                    _TRANSFER_WORKER_PHASE_FRAME_MAX_BYTES,
+                    "isolated transfer worker message",
+                )
+            except ValidationError:
+                raise _TransferWorkerParseAbort(
+                    "isolated_worker_secret_echo_detected"
+                    if secret_echo
+                    else "isolated_worker_protocol_failure"
+                ) from None
+            if second.get("message") == "phase":
+                if not _response_headers_phase_valid(second):
+                    raise _TransferWorkerParseAbort("isolated_worker_protocol_failure")
+                validated_phases.append(second)
+                cursor += 1
+                if cursor >= len(frames):
+                    raise _TransferWorkerParseAbort("isolated_worker_terminal_result_missing")
+
+        if secret_echo:
+            raise _TransferWorkerParseAbort("isolated_worker_secret_echo_detected")
+
+        try:
+            result = _decode_strict_worker_json(
+                frames[cursor],
+                _TRANSFER_WORKER_RESULT_FRAME_MAX_BYTES,
+                "isolated transfer worker result",
+            )
+        except ValidationError:
+            raise _TransferWorkerParseAbort("isolated_worker_protocol_failure") from None
+        if result.get("message") != "result":
+            raise _TransferWorkerParseAbort("isolated_worker_terminal_result_missing")
+        try:
+            _validate_transfer_worker_result_common(result)
+            _validate_transfer_worker_result_relations(
+                result,
+                phase_count=len(validated_phases),
+            )
+        except ValidationError:
+            raise _TransferWorkerParseAbort("isolated_worker_protocol_failure") from None
+        if result.get("application_http_attempts") == 1 and not validated_phases:
+            raise _TransferWorkerParseAbort("isolated_worker_phase_sequence_invalid")
+        if validated_phases and result.get("application_http_attempts") != 1:
+            raise _TransferWorkerParseAbort("isolated_worker_phase_sequence_invalid")
+        if len(validated_phases) == 2 and result.get("response_state") == "none":
+            raise _TransferWorkerParseAbort("isolated_worker_phase_sequence_invalid")
+        body_frames = frames[cursor + 1 :]
+        outcome = result.get("outcome")
+        if outcome == "success":
+            if (
+                len(validated_phases) != 2
+                or len(body_frames) != 1
+                or result.get("failure_code") is not None
+                or result.get("success_body_follows") is not True
+                or result.get("application_http_attempts") != 1
+                or result.get("http_status") != 200
+                or result.get("request_state") != "response_confirmed"
+                or result.get("network_state") != "application_request_started"
+                or result.get("response_state") != "body_complete"
+                or result.get("response_body_disposition") != "raw_success_frame"
+                or result.get("response_byte_count_state") != "exact"
+                or result.get("content_type") not in _AUDIO_MIMES
+                or result.get("content_encoding") not in {"", "identity"}
+            ):
+                raise _TransferWorkerParseAbort("isolated_worker_success_result_invalid")
+            payload_view = body_frames[0]
+            if (
+                len(payload_view) != result["response_bytes"]
+                or sha256_bytes(payload_view) != result.get("response_sha256")
+            ):
+                raise _TransferWorkerParseAbort("isolated_worker_success_body_invalid")
+            payload = bytes(payload_view)
+            response = _ElevenResponse(
+                response_bytes=len(payload),
+                response_sha256=result["response_sha256"],
+                content_type=result["content_type"],
+                content_encoding=result["content_encoding"] or "identity",
+                payload=payload,
+                provider_identifiers=dict(result["provider_identifiers"]),
+                provider_usage=dict(result["provider_usage"]),
+            )
+        else:
+            if (
+                outcome != "failure"
+                or body_frames
+                or result.get("success_body_follows") is not False
+            ):
+                raise _TransferWorkerParseAbort("isolated_worker_failure_result_invalid")
+            failure_code = result.get("failure_code")
+            if (
+                failure_code not in _TRANSFER_WORKER_ALLOWED_FAILURE_CODES
+                or not isinstance(failure_code, str)
+                or (
+                    result.get("content_type") is not None
+                    and (
+                        not isinstance(result.get("content_type"), str)
+                        or not result["content_type"].isascii()
+                        or len(result["content_type"]) > 127
+                        or not _SAFE_HEADER_VALUE_RE.fullmatch(result["content_type"])
+                    )
+                )
+                or result.get("content_encoding") not in {None, "identity", "forbidden"}
+                or (
+                    result.get("response_body_disposition") == "discarded_credential_echo"
+                    and result.get("response_sha256") is not None
+                )
+            ):
+                raise _TransferWorkerParseAbort("isolated_worker_failure_result_invalid")
+            snapshot = _TransferWorkerFailureSnapshot(
+                code=failure_code,
+                response_state=result["response_state"],
+                request_state=result["request_state"],
+                http_status=result.get("http_status"),
+                response_bytes=result["response_bytes"],
+                response_sha256=result.get("response_sha256"),
+                provider_identifiers=dict(result["provider_identifiers"]),
+                provider_usage=dict(result["provider_usage"]),
+                application_http_attempts=result["application_http_attempts"],
+            )
+    except _TransferWorkerParseAbort as abort:
+        response = None
+        snapshot = _parse_abort_snapshot(str(abort), validated_phases)
+        abort.__traceback__ = None
+        abort.__cause__ = None
+        abort.__context__ = None
+    except BaseException as unexpected:
+        response = None
+        snapshot = _parse_abort_snapshot(
+            "isolated_worker_protocol_failure",
+            validated_phases,
+        )
+        unexpected.__traceback__ = None
+        unexpected.__cause__ = None
+        unexpected.__context__ = None
+    finally:
+        for frame in frames:
+            frame.release()
+        frames = []
+        body_frames = []
+        validated_phases = []
+        result = {}
+        _zero_mutable_buffer(raw)
+        _zero_mutable_buffer(key_material)
+    return response, snapshot
+
+
+def _perform_prepared_voice_transfer(
+    worker: _PreparedVoiceTransferWorker,
+    *,
+    api_key_material: bytearray,
+    body: bytearray,
+    timeout: float,
+    absolute_deadline_ns: int | None = None,
+) -> _ElevenResponse:
+    """Release one exact POST to a READY child under a parent hard deadline."""
+
+    response: _ElevenResponse | None = None
+    snapshot: _TransferWorkerFailureSnapshot | None = None
+    key_frame = bytearray()
+    body_frame = bytearray()
+    raw = bytearray()
+    command_payload = b""
+    command_frame = b""
+    deadline_ns = 0
+    child_deadline_ns = 0
+    post_budget_consumed = False
+    try:
+        _revalidate_prepared_transfer_worker(worker)
+        if (
+            type(timeout) not in {int, float}
+            or not 0 < float(timeout) <= TRANSFER_MAX_ELAPSED_SECONDS
+        ):
+            raise _pre_go_worker_failure("isolated_worker_deadline_invalid")
+        if (
+            not isinstance(api_key_material, bytearray)
+            or not api_key_material
+            or len(api_key_material) > _TRANSFER_WORKER_KEY_FRAME_MAX_BYTES
+            or any(value < 33 or value > 126 for value in api_key_material)
+        ):
+            raise _pre_go_worker_failure("isolated_worker_key_invalid")
+        if (
+            not isinstance(body, bytearray)
+            or len(body) != TRANSFER_BODY_BYTES
+            or sha256_bytes(body) != TRANSFER_BODY_SHA256
+        ):
+            raise _pre_go_worker_failure("compiled_request_body_binding_failed")
+
+        # The one absolute request deadline begins before any GO frame byte is
+        # constructed or written.  Setup time can only shorten, never extend,
+        # the provider transaction window.
+        now_ns = time.monotonic_ns()
+        requested_deadline_ns = now_ns + int(float(timeout) * 1_000_000_000)
+        if absolute_deadline_ns is None:
+            deadline_ns = requested_deadline_ns
+        elif (
+            type(absolute_deadline_ns) is not int
+            or absolute_deadline_ns <= now_ns
+            or absolute_deadline_ns > requested_deadline_ns
+        ):
+            raise _pre_go_worker_failure("isolated_worker_deadline_invalid")
+        else:
+            deadline_ns = absolute_deadline_ns
+        # Different Python runtimes on macOS can expose different monotonic
+        # epochs.  READY binds one sample from each process; subtracting the
+        # parent READY-receipt sample makes the child's deadline conservative
+        # by the READY pipe transit time instead of assuming shared epochs.
+        try:
+            child_deadline_ns = _map_transfer_worker_child_deadline(worker, deadline_ns)
+        except ValidationError:
+            raise _pre_go_worker_failure("isolated_worker_deadline_invalid")
+        key_frame.extend(_TRANSFER_WORKER_FRAME_LENGTH_STRUCT.pack(len(api_key_material)))
+        key_frame.extend(api_key_material)
+        body_frame.extend(_TRANSFER_WORKER_FRAME_LENGTH_STRUCT.pack(len(body)))
+        body_frame.extend(body)
+        command_payload = _canonical_worker_json(
+            {
+                "action": "release_exact_transfer",
+                "application_http_attempt_limit": 1,
+                "body_bytes": TRANSFER_BODY_BYTES,
+                "body_sha256": TRANSFER_BODY_SHA256,
+                "child_deadline_monotonic_ns": child_deadline_ns,
+                "protocol": _TRANSFER_WORKER_PROTOCOL,
+            }
+        )
+        if len(command_payload) > _TRANSFER_WORKER_COMMAND_FRAME_MAX_BYTES:
+            raise _pre_go_worker_failure("isolated_worker_command_frame_invalid")
+        command_frame = (
+            _TRANSFER_WORKER_FRAME_LENGTH_STRUCT.pack(len(command_payload))
+            + command_payload
+        )
+        raw = _exchange_with_transfer_worker(
+            worker,
+            command_frame=command_frame,
+            key_frame=key_frame,
+            body=body_frame,
+            result_cap=_TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+            deadline_ns=deadline_ns,
+        )
+        post_budget_consumed = True
+        response, snapshot = _parse_transfer_worker_exchange(
+            raw,
+            key_material=api_key_material,
+        )
+        if time.monotonic_ns() > deadline_ns:
+            if snapshot is None:
+                snapshot = _TransferWorkerFailureSnapshot(
+                    code="provider_request_elapsed_cap_exceeded",
+                    response_state="body_complete",
+                    request_state="response_confirmed",
+                    http_status=200,
+                    response_bytes=(response.response_bytes if response is not None else 0),
+                    response_sha256=(response.response_sha256 if response is not None else None),
+                    provider_identifiers=(
+                        dict(response.provider_identifiers) if response is not None else {}
+                    ),
+                    provider_usage=(
+                        dict(response.provider_usage) if response is not None else {}
+                    ),
+                    application_http_attempts=1,
+                )
+            else:
+                snapshot = _snapshot_with_code(
+                    snapshot,
+                    "provider_request_elapsed_cap_exceeded",
+                )
+            response = None
+    except pt._GuideExecutionFailure as failure:
+        response = None
+        snapshot = _snapshot_from_worker_failure(failure)
+        failure.__traceback__ = None
+        failure.__cause__ = None
+        failure.__context__ = None
+    except BaseException as unexpected:
+        post_budget_consumed = worker.state != "ready"
+        response = None
+        snapshot = _TransferWorkerFailureSnapshot(
+            code="isolated_worker_protocol_failure",
+            post_budget_consumed=post_budget_consumed,
+            response_state="unknown" if post_budget_consumed else "none",
+            request_state="unknown_after_go" if post_budget_consumed else "not_started",
+        )
+        unexpected.__traceback__ = None
+        unexpected.__cause__ = None
+        unexpected.__context__ = None
+    finally:
+        post_budget_consumed = post_budget_consumed or worker.state != "ready"
+        try:
+            if not _dispose_prepared_transfer_worker(worker):
+                response = None
+                if snapshot is not None:
+                    snapshot = _snapshot_with_reap_failure(snapshot)
+                else:
+                    snapshot = _TransferWorkerFailureSnapshot(
+                        code="isolated_worker_reap_failure",
+                        post_budget_consumed=post_budget_consumed,
+                        response_state="unknown" if post_budget_consumed else "none",
+                        request_state="unknown_after_go" if post_budget_consumed else "not_started",
+                        primary_failure_code="isolated_worker_protocol_failure",
+                        child_containment_state="sigkill_sent_reap_unconfirmed",
+                    )
+        except BaseException as cleanup_error:
+            response = None
+            if snapshot is not None:
+                snapshot = _snapshot_with_reap_failure(snapshot)
+            else:
+                snapshot = _TransferWorkerFailureSnapshot(
+                    code="isolated_worker_reap_failure",
+                    post_budget_consumed=post_budget_consumed,
+                    response_state="unknown" if post_budget_consumed else "none",
+                    request_state="unknown_after_go" if post_budget_consumed else "not_started",
+                    primary_failure_code="isolated_worker_protocol_failure",
+                    child_containment_state="sigkill_sent_reap_unconfirmed",
+                )
+            cleanup_error.__traceback__ = None
+            cleanup_error.__cause__ = None
+            cleanup_error.__context__ = None
+        if isinstance(api_key_material, bytearray):
+            _zero_mutable_buffer(api_key_material)
+        if isinstance(body, bytearray):
+            _zero_mutable_buffer(body)
+        _zero_mutable_buffer(key_frame)
+        _zero_mutable_buffer(body_frame)
+        _zero_mutable_buffer(raw)
+        command_payload = b""
+        command_frame = b""
+    if snapshot is not None:
+        raise _failure_from_transfer_worker_snapshot(snapshot) from None
+    if response is None:
+        raise _failure_from_transfer_worker_snapshot(
+            _TransferWorkerFailureSnapshot(code="isolated_worker_protocol_failure")
+        ) from None
+    return response
 
 
 def _set_response_deadline_timeout(response: Any, remaining: float) -> bool:
@@ -6595,3 +9119,4037 @@ def execute_account_recovery(
     source_proof = {}
     contract = None
     raise ValidationError(f"ElevenLabs account recovery stopped without retry: {code}") from None
+
+
+# ---------------------------------------------------------------------------
+# Recovery-evidence Voice Changer transaction
+# ---------------------------------------------------------------------------
+
+
+def _recovery_transfer_runtime_files() -> dict[str, tuple[str, Path]]:
+    """Runtime surface owned only by the additive isolated-worker branch."""
+
+    narration_root = Path(__file__).resolve().parents[2]
+    package = narration_root / "runtime" / "oe_narration"
+    tests = narration_root / "runtime" / "tests"
+    schemas = narration_root / "schemas"
+    prefix = "operator-blueprint-v2/02-narration-production/"
+    return {
+        "voice_transfer_runtime": (
+            prefix + "runtime/oe_narration/voice_transfer.py",
+            package / "voice_transfer.py",
+        ),
+        "transfer_worker_runtime": (
+            prefix + "runtime/oe_narration/elevenlabs_transfer_worker.py",
+            package / "elevenlabs_transfer_worker.py",
+        ),
+        "performance_transfer_runtime": (
+            prefix + "runtime/oe_narration/performance_transfer.py",
+            package / "performance_transfer.py",
+        ),
+        "cli_runtime": (prefix + "runtime/oe_narration/cli.py", package / "cli.py"),
+        "core_runtime": (prefix + "runtime/oe_narration/core.py", package / "core.py"),
+        "audio_runtime": (prefix + "runtime/oe_narration/audio.py", package / "audio.py"),
+        "init_runtime": (prefix + "runtime/oe_narration/__init__.py", package / "__init__.py"),
+        "recovery_transfer_schema": (
+            prefix
+            + "schemas/elevenlabs-recovery-evidence-voice-transfer-authorization.schema.json",
+            schemas
+            / "elevenlabs-recovery-evidence-voice-transfer-authorization.schema.json",
+        ),
+        "voice_transfer_tests": (
+            prefix + "runtime/tests/test_voice_transfer.py",
+            tests / "test_voice_transfer.py",
+        ),
+        "transfer_worker_tests": (
+            prefix + "runtime/tests/test_elevenlabs_transfer_worker.py",
+            tests / "test_elevenlabs_transfer_worker.py",
+        ),
+        "capture_audio_tests": (
+            prefix + "runtime/tests/test_capture_audio.py",
+            tests / "test_capture_audio.py",
+        ),
+    }
+
+
+def expected_recovery_transfer_runtime_bindings(*, draft: bool) -> dict[str, Any]:
+    del draft
+    result: dict[str, Any] = {"state": "verified", "git_commit": "pending"}
+    for name, (_relative, path) in _recovery_transfer_runtime_files().items():
+        result[f"{name}_sha256"] = sha256_file(path)
+    git_path, git_sha = _read_git_identity()
+    ffprobe_path, ffprobe_sha = _read_ffprobe_identity()
+    ffmpeg_path, ffmpeg_sha = _read_ffmpeg_identity()
+    result.update(
+        {
+            "git_binary_path": git_path,
+            "git_binary_sha256": git_sha,
+            "git_version": _read_git_version(git_path, git_sha),
+            "worker_interpreter_path": _TRANSFER_WORKER_INTERPRETER_PATH,
+            "worker_interpreter_sha256": _TRANSFER_WORKER_INTERPRETER_SHA256,
+            "worker_interpreter_version": _TRANSFER_WORKER_INTERPRETER_VERSION,
+            "worker_interpreter_mode": _TRANSFER_WORKER_INTERPRETER_MODE,
+            "worker_interpreter_uid": _TRANSFER_WORKER_INTERPRETER_UID,
+            "worker_interpreter_nlink": _TRANSFER_WORKER_INTERPRETER_NLINK,
+            "ffprobe_binary_path": ffprobe_path,
+            "ffprobe_binary_sha256": ffprobe_sha,
+            "ffprobe_version": _read_ffprobe_version(ffprobe_path, ffprobe_sha),
+            "ffmpeg_binary_path": ffmpeg_path,
+            "ffmpeg_binary_sha256": ffmpeg_sha,
+            "ffmpeg_version": _read_ffmpeg_version(ffmpeg_path, ffmpeg_sha),
+        }
+    )
+    return result
+
+
+def _recovery_transfer_bindings(plan_dry: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **_base_transfer_bindings(plan_dry),
+        "primary_request_sha256": TRANSFER_OPT_OUT_REQUEST_SHA256,
+        "multipart_content_type": TRANSFER_CONTENT_TYPE,
+        "enable_logging": True,
+        "normalized_http_request_sha256": TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256,
+    }
+
+
+def _recovery_transfer_prerequisites(active: bool) -> dict[str, Any]:
+    names = (
+        "selected_guide",
+        "guide_qa",
+        "owner_selection",
+        "owner_audition_confirmation",
+        "elevenlabs_data_use",
+        "target_voice_rights",
+        "official_media_contract",
+    )
+    if not active:
+        return {name: {"state": "pending"} for name in names}
+    # ACTIVE paths and hashes are supplied by the independently reviewed
+    # authorization and then descriptor/hash/semantic checked at runtime.
+    return {name: None for name in names}
+
+
+def _recovery_transfer_account_evidence(
+    active: bool,
+    *,
+    assurance_sha256: str | None = None,
+) -> dict[str, Any]:
+    if not active:
+        return {"state": "pending"}
+    return {
+        "state": "verified",
+        "calibrated_account_assurance": {
+            "state": "verified",
+            "path": RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+            "sha256": assurance_sha256,
+        },
+        "credential_authentication_inference": (
+            RECOVERY_TRANSFER_AUTHENTICATION_INFERENCE_STATE
+        ),
+        "authentication_conclusion": RECOVERY_TRANSFER_AUTHENTICATION_CONCLUSION,
+        "response_body_contents_state": "unknown_not_read",
+        "account_data_observed": False,
+        "identity_observed": False,
+        "valid_user_id_observed": False,
+        "subscription_state_observed": False,
+        "target_voice_accessibility_state": "unknown",
+        "ui_api_account_equality_state": "unknown",
+        "exact_ui_api_account_equality_verified": False,
+        "exact_ui_api_account_equality_claimed": False,
+        "account_verified_claimed": False,
+        "second_account_get_authorized": False,
+    }
+
+
+def _recovery_transfer_credential_delivery(
+    active: bool,
+    *,
+    fingerprint: str | None = None,
+    suffix_sha256: str | None = None,
+) -> dict[str, Any]:
+    base = {
+        "state": "verified" if active else "pending",
+        "mechanism": "post_latch_descriptor_read_fixed_dotenv_exact_assignment",
+        "dotenv_path": str(RECOVERY_DOTENV_PATH),
+        "assignment_name": API_KEY_ENV,
+    }
+    if not active:
+        return base
+    return {
+        **base,
+        "required_file_type": "regular",
+        "required_mode": "0600",
+        "current_uid_required": True,
+        "required_link_count": 1,
+        "max_file_bytes": RECOVERY_DOTENV_MAX_BYTES,
+        "max_assignment_count": 1,
+        "environment_inheritance_used": False,
+        "shell_source_forbidden": True,
+        "dotenv_reread_forbidden": True,
+        "domain_separation": API_KEY_DOMAIN_TEXT,
+        "api_key_fingerprint_sha256": fingerprint,
+        "browser_suffix_sha256": suffix_sha256,
+    }
+
+
+def _recovery_transfer_consumption(active: bool) -> dict[str, Any]:
+    return {
+        "status": "unconsumed" if active else "not_authorized",
+        "generation_post_calls_used": 0,
+        "outputs_received": 0,
+        "spend_used_usd": 0,
+        "record_path": TRANSFER_SCOPE_LATCH_PATH,
+        "shared_global_transfer_latch": True,
+    }
+
+
+def _recovery_transfer_zero_authority() -> dict[str, bool]:
+    """Exact denial block shared by each standalone evidence record."""
+
+    return {
+        "this_record_authorizes_provider_action": False,
+        "credential_access_authorized": False,
+        "network_authorized": False,
+        "account_get_authorized": False,
+        "generation_post_authorized": False,
+        "account_mutation_authorized": False,
+        "audio_upload_authorized": False,
+        "spend_authorized": False,
+        "voice_transfer_authorized": False,
+        "creative_approval_conferred": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def _recovery_transfer_scope_approval() -> dict[str, Any]:
+    """Calibrate owner scope separately from later machine materialization."""
+
+    return {
+        "owner": RECOVERY_TRANSFER_OWNER,
+        "sole_exact_provider_action_authority": {
+            "path": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+            "sha256": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+        },
+        "approval_event_timestamp_available": False,
+        "later_draft_and_active_bytes_owner_reviewed": False,
+        "implementation_only_narrows_or_enforces_c907": True,
+        "c907_alone_confers_runtime_execution_authority": False,
+        "new_owner_prompt_required": False,
+    }
+
+
+def _verify_recovery_transfer_selected_guide_git_state(
+    runtime_bindings: dict[str, Any],
+    repository: Path,
+    root: Path,
+    selected_path: Path,
+) -> None:
+    """Prove candidate B is local-only under the committed fixture ignore rule."""
+
+    try:
+        relative = selected_path.relative_to(repository).as_posix()
+        ignore_path = root / ".gitignore"
+        ignore_relative = ignore_path.relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("recovery-evidence selected guide is outside repository") from None
+    if _bound_git(runtime_bindings, ["ls-files", "--stage", "--", relative]):
+        raise ValidationError("recovery-evidence selected guide must remain untracked")
+    try:
+        ignored = _bound_git(
+            runtime_bindings,
+            ["check-ignore", "--no-index", "-v", "--", relative],
+        ).decode("utf-8", errors="strict")
+    except (UnicodeError, ValidationError):
+        raise ValidationError("recovery-evidence selected guide ignore proof failed") from None
+    if ignored != f"{ignore_relative}:1:outputs/raw/\t{relative}\n":
+        raise ValidationError(
+            "recovery-evidence selected guide must use exact fixture outputs/raw ignore"
+        )
+    ignore_raw, ignore_sha = _read_bound_blob(
+        repository,
+        ignore_path,
+        "recovery-evidence fixture gitignore",
+        max_bytes=65_536,
+    )
+    runtime_commit = runtime_bindings.get("git_commit")
+    if not isinstance(runtime_commit, str) or not _GIT_SHA_RE.fullmatch(runtime_commit):
+        raise ValidationError("recovery-evidence selected guide runtime commit is invalid")
+    for commit_value in (RECOVERY_TRANSFER_OUTCOME_COMMIT, runtime_commit):
+        if _bound_git(
+            runtime_bindings,
+            ["ls-tree", "--name-only", commit_value, "--", relative],
+        ):
+            raise ValidationError("recovery-evidence selected guide appears in Git history")
+        committed_ignore = _bound_git(
+            runtime_bindings,
+            ["show", f"{commit_value}:{ignore_relative}"],
+            max_bytes=65_536,
+        )
+        if committed_ignore != ignore_raw or sha256_bytes(committed_ignore) != ignore_sha:
+            raise ValidationError("recovery-evidence fixture gitignore drifted")
+
+
+def _validate_recovery_transfer_runtime_bindings(
+    value: Any,
+    *,
+    active: bool,
+    errors: list[str],
+) -> dict[str, Any]:
+    expected_keys = {"state"}
+    if active:
+        expected_keys |= {
+            "git_commit",
+            "git_binary_path",
+            "git_binary_sha256",
+            "git_version",
+            "worker_interpreter_path",
+            "worker_interpreter_sha256",
+            "worker_interpreter_version",
+            "worker_interpreter_mode",
+            "worker_interpreter_uid",
+            "worker_interpreter_nlink",
+            "ffprobe_binary_path",
+            "ffprobe_binary_sha256",
+            "ffprobe_version",
+            "ffmpeg_binary_path",
+            "ffmpeg_binary_sha256",
+            "ffmpeg_version",
+            *(f"{name}_sha256" for name in _recovery_transfer_runtime_files()),
+        }
+    item = _strict(value, expected_keys, "recovery-evidence transfer runtime_bindings")
+    if not active:
+        if item != {"state": "pending"}:
+            errors.append("draft recovery-evidence transfer runtime must remain pending")
+        return item
+    commit = item.get("git_commit")
+    if (
+        item.get("state") != "verified"
+        or not isinstance(commit, str)
+        or not _GIT_SHA_RE.fullmatch(commit)
+    ):
+        errors.append("active recovery-evidence transfer runtime requires a Git commit")
+    try:
+        repository = pt._guide_repository_root()
+    except ValidationError:
+        repository = Path("/invalid-recovery-transfer-repository")
+        errors.append("recovery-evidence transfer repository identity is unavailable")
+    for name, (_relative, path) in _recovery_transfer_runtime_files().items():
+        expected_sha = item.get(f"{name}_sha256")
+        try:
+            _current, current_sha = _read_bound_blob(
+                repository,
+                path,
+                f"recovery-evidence transfer runtime {name}",
+                max_bytes=5_000_000,
+            )
+        except ValidationError:
+            current_sha = None
+        if (
+            not isinstance(expected_sha, str)
+            or not _SHA_RE.fullmatch(expected_sha)
+            or current_sha != expected_sha
+        ):
+            errors.append(f"recovery-evidence transfer runtime {name} bytes drifted")
+    try:
+        interpreter = _system_transfer_worker_interpreter_identity()
+        git_path, git_sha = _read_git_identity(item.get("git_binary_path"))
+        ffprobe_path, ffprobe_sha = _read_ffprobe_identity(item.get("ffprobe_binary_path"))
+        ffmpeg_path, ffmpeg_sha = _read_ffmpeg_identity(item.get("ffmpeg_binary_path"))
+    except ValidationError:
+        errors.append("recovery-evidence transfer executable binding is unavailable")
+    else:
+        interpreter_info = os.stat(interpreter[0], follow_symlinks=False)
+        if (
+            item.get("worker_interpreter_path") != interpreter[0]
+            or item.get("worker_interpreter_sha256") != interpreter[1]
+            or item.get("worker_interpreter_version") != interpreter[2]
+            or item.get("worker_interpreter_mode") != stat.S_IMODE(interpreter_info.st_mode)
+            or item.get("worker_interpreter_uid") != interpreter_info.st_uid
+            or item.get("worker_interpreter_nlink") != interpreter_info.st_nlink
+            or item.get("git_binary_path") != git_path
+            or item.get("git_binary_sha256") != git_sha
+            or item.get("git_version") != _read_git_version(git_path, git_sha)
+            or item.get("ffprobe_binary_path") != ffprobe_path
+            or item.get("ffprobe_binary_sha256") != ffprobe_sha
+            or item.get("ffprobe_version") != _read_ffprobe_version(ffprobe_path, ffprobe_sha)
+            or item.get("ffmpeg_binary_path") != ffmpeg_path
+            or item.get("ffmpeg_binary_sha256") != ffmpeg_sha
+            or item.get("ffmpeg_version") != _read_ffmpeg_version(ffmpeg_path, ffmpeg_sha)
+        ):
+            errors.append("recovery-evidence transfer executable identity drifted")
+    if isinstance(commit, str) and _GIT_SHA_RE.fullmatch(commit):
+        try:
+            _verify_local_git_object_store(item)
+            _bound_git(item, ["cat-file", "-e", f"{commit}^{{commit}}"])
+            r0_parents = _bound_git(
+                item,
+                ["rev-list", "--parents", "-n", "1", commit],
+            ).strip().split()
+            if r0_parents != [
+                commit.encode("ascii"),
+                RECOVERY_TRANSFER_OUTCOME_COMMIT.encode("ascii"),
+            ]:
+                raise ValidationError(
+                    "recovery-evidence transfer R0 must directly follow the outcome commit"
+                )
+            r0_delta = _bound_git(
+                item,
+                [
+                    "diff", "--no-ext-diff", "--no-textconv", "--no-renames",
+                    "--name-status", "--diff-filter=ACDMRTUXB", "-z",
+                    f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}..{commit}",
+                ],
+            )
+            r0_parts = r0_delta.split(b"\x00")
+            if not r0_parts or r0_parts[-1] != b"" or (len(r0_parts) - 1) % 2:
+                raise ValidationError("recovery-evidence transfer R0 delta is malformed")
+            r0_entries = list(zip(r0_parts[0:-1:2], r0_parts[1:-1:2]))
+            try:
+                r0_paths = [path.decode("utf-8") for _status, path in r0_entries]
+            except UnicodeError:
+                raise ValidationError("recovery-evidence transfer R0 paths are invalid") from None
+            allowed_r0_paths = {
+                relative for relative, _path in _recovery_transfer_runtime_files().values()
+            }
+            required_r0_paths = {
+                _recovery_transfer_runtime_files()[name][0]
+                for name in (
+                    "voice_transfer_runtime", "transfer_worker_runtime",
+                    "cli_runtime", "audio_runtime", "init_runtime",
+                    "recovery_transfer_schema", "voice_transfer_tests",
+                    "transfer_worker_tests", "capture_audio_tests",
+                )
+            }
+            if (
+                any(status not in {b"A", b"M"} for status, _path in r0_entries)
+                or len(r0_paths) != len(set(r0_paths))
+                or not set(r0_paths) <= allowed_r0_paths
+                or not required_r0_paths <= set(r0_paths)
+            ):
+                raise ValidationError("recovery-evidence transfer R0 delta is not exact")
+            head = _bound_git(item, ["rev-parse", "HEAD"]).strip()
+            if not re.fullmatch(rb"[0-9a-f]{40}", head):
+                raise ValidationError("recovery-evidence transfer HEAD is invalid")
+            _bound_git(
+                item,
+                ["merge-base", "--is-ancestor", commit, head.decode("ascii")],
+            )
+            for name, (relative, path) in _recovery_transfer_runtime_files().items():
+                committed = _bound_git(item, ["show", f"{commit}:{relative}"], max_bytes=5_000_000)
+                expected_sha = item.get(f"{name}_sha256")
+                current, current_sha = _read_bound_blob(
+                    repository,
+                    path,
+                    f"recovery-evidence transfer bound R0 runtime {name}",
+                    max_bytes=5_000_000,
+                )
+                if (
+                    not isinstance(expected_sha, str)
+                    or sha256_bytes(committed) != expected_sha
+                    or current_sha != expected_sha
+                    or current != committed
+                ):
+                    raise ValidationError(
+                        "recovery-evidence transfer R0 runtime bytes drifted"
+                    )
+        except (OSError, UnicodeError, ValidationError):
+            errors.append("recovery-evidence transfer R0 Git source proof is invalid")
+    return item
+
+
+def _recovery_transfer_runtime_baseline(bindings: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "git_commit": bindings.get("git_commit"),
+        "voice_transfer_runtime_sha256": bindings.get("voice_transfer_runtime_sha256"),
+        "transfer_worker_runtime_sha256": bindings.get("transfer_worker_runtime_sha256"),
+        "authorization_schema_sha256": bindings.get("recovery_transfer_schema_sha256"),
+        "voice_transfer_tests_sha256": bindings.get("voice_transfer_tests_sha256"),
+        "transfer_worker_tests_sha256": bindings.get("transfer_worker_tests_sha256"),
+    }
+
+
+def _validate_recovery_transfer_evidence_baseline(
+    value: Any,
+    *,
+    active: bool,
+    authorization_path: Path,
+    authorization_raw: bytes,
+    plan_path: Path,
+    canonical_w_path: Path,
+    active_materialized_at: datetime | None,
+    root: Path,
+    runtime_bindings: dict[str, Any],
+    account_evidence: dict[str, Any],
+    prerequisite_result: dict[str, Any],
+    errors: list[str],
+    allowed_generated_status_paths: frozenset[str] | None = None,
+    allowed_ignored_generated_paths: frozenset[str] | None = None,
+) -> dict[str, Any]:
+    """Bind the later R1 evidence commit without conflating it with runtime R0."""
+
+    if not active:
+        item = _strict(value, {"state"}, "recovery-evidence transfer evidence_baseline")
+        if item != {"state": "pending"}:
+            errors.append("draft recovery-evidence transfer R1 baseline must remain pending")
+        return item
+    item = _strict(
+        value,
+        {
+            "state", "evidence_commit", "draft_authorization",
+            "calibrated_account_assurance", "data_use_assurance", "target_rights",
+            "fresh_browser_readiness",
+        },
+        "recovery-evidence transfer evidence_baseline",
+    )
+    for name in (
+        "draft_authorization", "calibrated_account_assurance", "data_use_assurance",
+        "target_rights", "fresh_browser_readiness",
+    ):
+        _strict(item.get(name), {"path", "sha256"}, f"evidence_baseline {name}")
+    evidence_commit = item.get("evidence_commit")
+    runtime_commit = runtime_bindings.get("git_commit")
+    records = prerequisite_result.get("records")
+    if not isinstance(records, dict):
+        records = {}
+    account_records = account_evidence.get("records")
+    if not isinstance(account_records, dict):
+        account_records = {}
+
+    def _record_binding(
+        records_value: dict[str, Any], name: str, exact_path: str | None = None
+    ) -> dict[str, Any] | None:
+        record = records_value.get(name)
+        if (
+            not isinstance(record, tuple)
+            or len(record) != 3
+            or not isinstance(record[0], Path)
+            or not isinstance(record[1], bytes)
+            or not isinstance(record[2], str)
+        ):
+            return None
+        try:
+            relative = record[0].relative_to(root).as_posix()
+        except ValueError:
+            return None
+        if exact_path is not None and relative != exact_path:
+            return None
+        return {"path": relative, "sha256": record[2]}
+
+    expected = {
+        "calibrated_account_assurance": _record_binding(
+            account_records,
+            "calibrated_account_assurance",
+            RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+        ),
+        "data_use_assurance": _record_binding(
+            records,
+            "elevenlabs_data_use",
+            RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+        ),
+        "target_rights": _record_binding(
+            records,
+            "target_voice_rights",
+            RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+        ),
+        "fresh_browser_readiness": _record_binding(records, "fresh_browser_readiness"),
+    }
+    if (
+        item.get("state") != "verified"
+        or not isinstance(evidence_commit, str)
+        or not _GIT_SHA_RE.fullmatch(evidence_commit)
+        or not isinstance(runtime_commit, str)
+        or not _GIT_SHA_RE.fullmatch(runtime_commit)
+        or evidence_commit == runtime_commit
+        or item.get("draft_authorization", {}).get("path")
+        != RECOVERY_TRANSFER_DRAFT_PATH
+        or any(expected[name] is None or item.get(name) != expected[name] for name in expected)
+    ):
+        errors.append("active recovery-evidence transfer R1 binding is not exact")
+        return item
+
+    try:
+        repository = pt._guide_repository_root()
+        _verify_local_git_object_store(runtime_bindings)
+        _bound_git(runtime_bindings, ["cat-file", "-e", f"{evidence_commit}^{{commit}}"])
+        _bound_git(
+            runtime_bindings,
+            [
+                "merge-base", "--is-ancestor",
+                RECOVERY_TRANSFER_OUTCOME_COMMIT, runtime_commit,
+            ],
+        )
+        for recovery_name in (
+            "recovery_authorization", "credential_read_latch", "provider_call_latch",
+            "http_200_failure_receipt", "terminal_disposition",
+        ):
+            recovery_path, recovery_raw, recovery_sha = account_records[recovery_name]
+            recovery_relative = recovery_path.relative_to(repository).as_posix()
+            historical = _bound_git(
+                runtime_bindings,
+                ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{recovery_relative}"],
+                max_bytes=2_000_000,
+            )
+            if historical != recovery_raw or sha256_bytes(historical) != recovery_sha:
+                raise ValidationError(
+                    "recovery-evidence transfer consumed recovery chain drifted"
+                )
+        _bound_git(
+            runtime_bindings,
+            ["merge-base", "--is-ancestor", runtime_commit, evidence_commit],
+        )
+        evidence_parents = _bound_git(
+            runtime_bindings,
+            ["rev-list", "--parents", "-n", "1", evidence_commit],
+        ).strip().split()
+        if evidence_parents != [
+            evidence_commit.encode("ascii"),
+            runtime_commit.encode("ascii"),
+        ]:
+            raise ValidationError(
+                "recovery-evidence transfer R1 must be the direct single-parent child of R0"
+            )
+        head = _bound_git(runtime_bindings, ["rev-parse", "HEAD"]).strip().decode("ascii")
+        if not _GIT_SHA_RE.fullmatch(head) or head == evidence_commit:
+            raise ValidationError("recovery-evidence transfer ACTIVE commit is invalid")
+        _bound_git(
+            runtime_bindings,
+            ["merge-base", "--is-ancestor", evidence_commit, head],
+        )
+        head_parents = _bound_git(
+            runtime_bindings,
+            ["rev-list", "--parents", "-n", "1", head],
+        ).strip().split()
+        if head_parents != [head.encode("ascii"), evidence_commit.encode("ascii")]:
+            raise ValidationError(
+                "recovery-evidence transfer ACTIVE must be the direct single-parent child of R1"
+            )
+
+        draft_binding = item["draft_authorization"]
+        draft_bytes, draft_sha = _read_bound_blob(
+            root,
+            root / draft_binding["path"],
+            "recovery-evidence transfer R1 DRAFT",
+            max_bytes=2_000_000,
+        )
+        if draft_sha != draft_binding["sha256"]:
+            raise ValidationError("recovery-evidence transfer R1 DRAFT hash drifted")
+        draft_validation = validate_recovery_evidence_voice_transfer_authorization(
+            root / draft_binding["path"],
+            plan_path,
+            canonical_w_path,
+        )
+        draft_time_errors: list[str] = []
+        draft_materialized_at = _parse_recovery_transfer_time(
+            draft_validation.get("materialized_at"),
+            "recovery-evidence transfer R1 DRAFT materialized_at",
+            draft_time_errors,
+        )
+        if (
+            draft_validation.get("valid") is not True
+            or draft_validation.get("authorization_status") != "draft"
+            or draft_validation.get("provider_action_authorized") is not False
+            or draft_validation.get("generation_post_calls_authorized") != 0
+            or draft_validation.get("authorization_sha256") != draft_sha
+            or draft_time_errors
+            or not isinstance(draft_materialized_at, datetime)
+            or not isinstance(active_materialized_at, datetime)
+            or draft_materialized_at > active_materialized_at
+        ):
+            raise ValidationError(
+                "recovery-evidence transfer R1 DRAFT is not the validated zero-authority draft"
+            )
+        bound_records: dict[str, tuple[Path, bytes, str]] = {
+            "draft_authorization": (
+                root / draft_binding["path"],
+                draft_bytes,
+                draft_sha,
+            ),
+            "calibrated_account_assurance": account_records[
+                "calibrated_account_assurance"
+            ],
+            "data_use_assurance": records["elevenlabs_data_use"],
+            "target_rights": records["target_voice_rights"],
+            "fresh_browser_readiness": records["fresh_browser_readiness"],
+        }
+        expected_r1_paths: dict[str, tuple[bytes, str]] = {}
+        for name, (path, raw, digest) in bound_records.items():
+            relative = path.relative_to(repository).as_posix()
+            binding = item.get(name)
+            if (
+                not isinstance(binding, dict)
+                or binding.get("sha256") != digest
+                or sha256_bytes(raw) != digest
+            ):
+                raise ValidationError("recovery-evidence transfer R1 binding drifted")
+            expected_r1_paths[relative] = (raw, digest)
+        delta = _bound_git(
+            runtime_bindings,
+            [
+                "diff", "--no-ext-diff", "--no-textconv", "--no-renames",
+                "--name-status", "--diff-filter=ACDMRTUXB", "-z",
+                f"{runtime_commit}..{evidence_commit}",
+            ],
+        )
+        r1_parts = delta.split(b"\x00")
+        if not r1_parts or r1_parts[-1] != b"" or (len(r1_parts) - 1) % 2:
+            raise ValidationError("recovery-evidence transfer R1 delta is malformed")
+        r1_entries = list(zip(r1_parts[0:-1:2], r1_parts[1:-1:2]))
+        actual_r1_paths = [path.decode("utf-8") for status, path in r1_entries]
+        if (
+            any(status != b"A" for status, _path in r1_entries)
+            or len(actual_r1_paths) != len(set(actual_r1_paths))
+            or set(actual_r1_paths) != set(expected_r1_paths)
+        ):
+            raise ValidationError("recovery-evidence transfer R1 delta is not exact")
+        for relative, (raw, digest) in expected_r1_paths.items():
+            committed = _bound_git(
+                runtime_bindings,
+                ["show", f"{evidence_commit}:{relative}"],
+                max_bytes=10_000_000,
+            )
+            if committed != raw or sha256_bytes(committed) != digest:
+                raise ValidationError("recovery-evidence transfer R1 bytes drifted")
+        private_capture = records["fresh_browser_capture"]
+        private_capture_relative = private_capture[0].relative_to(repository).as_posix()
+        selected_relative = (root / SELECTED_GUIDE_PATH).relative_to(repository).as_posix()
+        for private_relative in (private_capture_relative, selected_relative):
+            for commit_value in (runtime_commit, evidence_commit, head):
+                if _bound_git(
+                    runtime_bindings,
+                    ["ls-tree", "--name-only", commit_value, "--", private_relative],
+                ):
+                    raise ValidationError(
+                        "local-only recovery-evidence bytes must be absent from Git history"
+                    )
+
+        active_relative = authorization_path.relative_to(repository).as_posix()
+        if authorization_path.relative_to(root).as_posix() != RECOVERY_TRANSFER_ACTIVE_PATH:
+            raise ValidationError("recovery-evidence transfer ACTIVE path drifted")
+        active_delta = _bound_git(
+            runtime_bindings,
+            [
+                "diff", "--no-ext-diff", "--no-textconv", "--no-renames",
+                "--name-status", "--diff-filter=ACDMRTUXB", "-z",
+                f"{evidence_commit}..{head}",
+            ],
+        )
+        if active_delta != b"A\x00" + active_relative.encode("utf-8") + b"\x00":
+            raise ValidationError("recovery-evidence transfer ACTIVE delta is not exact")
+        if _bound_git(runtime_bindings, ["show", f"{head}:{active_relative}"]) != authorization_raw:
+            raise ValidationError("recovery-evidence transfer ACTIVE bytes are not exact")
+        status_bytes = _bound_git(
+            runtime_bindings,
+            ["status", "--porcelain=v1", "--untracked-files=all", "-z"],
+        )
+        if allowed_generated_status_paths is None:
+            if status_bytes:
+                raise ValidationError("recovery-evidence transfer worktree is not clean")
+        else:
+            entries = status_bytes.split(b"\x00")
+            if not entries or entries[-1] != b"":
+                raise ValidationError("recovery-evidence generated status is malformed")
+            try:
+                actual_generated = {
+                    entry[3:].decode("utf-8")
+                    for entry in entries[:-1]
+                    if entry.startswith(b"?? ")
+                }
+            except UnicodeError:
+                raise ValidationError("recovery-evidence generated status is invalid") from None
+            if (
+                len(actual_generated) != len(entries) - 1
+                or actual_generated != set(allowed_generated_status_paths)
+            ):
+                raise ValidationError("recovery-evidence generated status is not exact")
+            ignored_generated = set(allowed_ignored_generated_paths or ())
+            ignore_relative = (root / ".gitignore").relative_to(repository).as_posix()
+            for ignored_relative in ignored_generated:
+                if _bound_git(
+                    runtime_bindings,
+                    ["ls-files", "--stage", "--", ignored_relative],
+                ):
+                    raise ValidationError("recovery-evidence generated raw output is tracked")
+                ignore_proof = _bound_git(
+                    runtime_bindings,
+                    ["check-ignore", "--no-index", "-v", "--", ignored_relative],
+                )
+                expected_ignore = (
+                    f"{ignore_relative}:1:outputs/raw/\t{ignored_relative}\n".encode(
+                        "utf-8"
+                    )
+                )
+                if ignore_proof != expected_ignore:
+                    raise ValidationError(
+                        "recovery-evidence generated raw ignore proof is not exact"
+                    )
+    except (KeyError, OSError, UnicodeError, ValidationError, ValueError):
+        errors.append("active recovery-evidence transfer R1 Git source proof is invalid")
+    return item
+
+
+def _validate_recovery_transfer_account_evidence(
+    root: Path,
+    value: Any,
+    errors: list[str],
+) -> dict[str, Any]:
+    item = _strict(
+        value,
+        {
+            "state", "calibrated_account_assurance",
+            "credential_authentication_inference", "authentication_conclusion",
+            "response_body_contents_state", "account_data_observed",
+            "identity_observed", "valid_user_id_observed",
+            "subscription_state_observed", "target_voice_accessibility_state",
+            "ui_api_account_equality_state", "exact_ui_api_account_equality_verified",
+            "exact_ui_api_account_equality_claimed", "account_verified_claimed",
+            "second_account_get_authorized",
+        },
+        "recovery-evidence transfer account evidence",
+    )
+    assurance_binding = _strict(
+        item.get("calibrated_account_assurance"),
+        {"state", "path", "sha256"},
+        "calibrated account assurance binding",
+    )
+    assurance_sha = assurance_binding.get("sha256")
+    expected = _recovery_transfer_account_evidence(
+        True,
+        assurance_sha256=assurance_sha if isinstance(assurance_sha, str) else None,
+    )
+    if not _exact(item, expected):
+        errors.append("recovery-evidence transfer account assurance binding drifted")
+    records: dict[str, tuple[Path, bytes, str]] = {}
+    documents: dict[str, dict[str, Any]] = {}
+    try:
+        assurance_path, assurance, assurance_raw, assurance_actual_sha = (
+            _read_recovery_private_json_record(
+            root,
+            assurance_binding.get("path"),
+            assurance_sha,
+            "recovery calibrated account assurance",
+            )
+        )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+        return {"records": records}
+    records["calibrated_account_assurance"] = (
+        assurance_path,
+        assurance_raw,
+        assurance_actual_sha,
+    )
+    _strict(
+        assurance,
+        {
+            "schema_version", "record_id", "status", "provider", "recorded_at",
+            "outcome_commit", "recovery_evidence", "observed_outcome",
+            "calibrated_interpretation", "terminality", "authority",
+        },
+        "recovery calibrated account assurance",
+    )
+    assurance_records = _strict(
+        assurance.get("recovery_evidence"),
+        {
+            "recovery_authorization", "credential_read_latch", "provider_call_latch",
+            "http_200_failure_receipt", "terminal_disposition",
+        },
+        "recovery calibrated account assurance evidence",
+    )
+    assurance_interpretation = _strict(
+        assurance.get("calibrated_interpretation"),
+        {
+            "credential_authentication_inference", "authentication_conclusion",
+            "response_body_contents_state", "account_payload_parsed",
+            "account_data_observed", "identity_observed",
+            "valid_user_id_observed", "subscription_state_observed",
+            "target_voice_accessibility_state", "ui_api_account_equality_state",
+            "exact_ui_api_account_equality_verified",
+            "exact_ui_api_account_equality_claimed", "account_verified_claimed",
+            "key_verified_claimed", "account_linkage_strength", "safe_conclusion",
+        },
+        "recovery calibrated account assurance interpretation",
+    )
+    assurance_outcome = _strict(
+        assurance.get("observed_outcome"),
+        {
+            "provider_response_received", "http_status",
+            "provider_get_attempts_consumed", "provider_post_attempts_consumed",
+            "failure_code", "response_body_bytes_read", "raw_response_stored",
+            "response_body_stored", "response_hash_stored", "response_mime_type",
+            "response_content_encoding",
+        },
+        "recovery calibrated account assurance outcome",
+    )
+    assurance_terminality = _strict(
+        assurance.get("terminality"),
+        {
+            "automatic_retry_permitted", "retry_or_resumption",
+            "recovery_authorization_reusable", "credential_read_latch_reusable",
+            "provider_call_latch_reusable",
+            "future_action_requires_separate_reviewed_committed_transaction_basis",
+        },
+        "recovery calibrated account assurance terminality",
+    )
+    assurance_authority = _strict(
+        assurance.get("authority"),
+        set(_recovery_transfer_zero_authority()),
+        "recovery calibrated account assurance authority",
+    )
+    expected_bindings = {
+        "recovery_authorization": {
+            "path": RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH,
+            "sha256": RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256,
+        },
+        "credential_read_latch": {
+            "path": RECOVERY_TRANSFER_CREDENTIAL_LATCH_PATH,
+            "sha256": RECOVERY_TRANSFER_CREDENTIAL_LATCH_SHA256,
+        },
+        "provider_call_latch": {
+            "path": RECOVERY_TRANSFER_PROVIDER_LATCH_PATH,
+            "sha256": RECOVERY_TRANSFER_PROVIDER_LATCH_SHA256,
+        },
+        "http_200_failure_receipt": {
+            "path": RECOVERY_TRANSFER_FAILURE_PATH,
+            "sha256": RECOVERY_TRANSFER_FAILURE_SHA256,
+        },
+        "terminal_disposition": {
+            "path": RECOVERY_TRANSFER_DISPOSITION_PATH,
+            "sha256": RECOVERY_TRANSFER_DISPOSITION_SHA256,
+        },
+    }
+    expected_interpretation = {
+        "credential_authentication_inference": expected[
+            "credential_authentication_inference"
+        ],
+        "authentication_conclusion": expected["authentication_conclusion"],
+        "response_body_contents_state": expected["response_body_contents_state"],
+        "account_payload_parsed": False,
+        "account_data_observed": False,
+        "identity_observed": False,
+        "valid_user_id_observed": False,
+        "subscription_state_observed": False,
+        "target_voice_accessibility_state": "unknown",
+        "account_linkage_strength": "contextual_non_cryptographic",
+        "ui_api_account_equality_state": "unknown",
+        "exact_ui_api_account_equality_verified": False,
+        "exact_ui_api_account_equality_claimed": False,
+        "account_verified_claimed": False,
+        "key_verified_claimed": False,
+        "safe_conclusion": RECOVERY_TRANSFER_SAFE_CONCLUSION,
+    }
+    if (
+        assurance.get("schema_version")
+        != "oe-elevenlabs-recovery-calibrated-account-assurance-v1"
+        or assurance.get("record_id")
+        != "V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE"
+        or assurance.get("status") != "calibrated_non_authorizing"
+        or assurance.get("provider") != "elevenlabs"
+        or assurance.get("outcome_commit") != RECOVERY_TRANSFER_OUTCOME_COMMIT
+        or not _exact(assurance_records, expected_bindings)
+        or assurance_outcome
+        != {
+            "provider_response_received": True,
+            "http_status": 200,
+            "provider_get_attempts_consumed": 1,
+            "provider_post_attempts_consumed": 0,
+            "failure_code": "provider_total_deadline_unenforceable",
+            "response_body_bytes_read": 0,
+            "raw_response_stored": False,
+            "response_body_stored": False,
+            "response_hash_stored": False,
+            "response_mime_type": None,
+            "response_content_encoding": None,
+        }
+        or not _exact(assurance_interpretation, expected_interpretation)
+        or assurance_terminality
+        != {
+            "automatic_retry_permitted": False,
+            "retry_or_resumption": False,
+            "recovery_authorization_reusable": False,
+            "credential_read_latch_reusable": False,
+            "provider_call_latch_reusable": False,
+            "future_action_requires_separate_reviewed_committed_transaction_basis": True,
+        }
+        or assurance_authority
+        != _recovery_transfer_zero_authority()
+    ):
+        errors.append("standalone recovery account assurance is not exact and non-authorizing")
+    assurance_recorded_at = _parse_recovery_transfer_time(
+        assurance.get("recorded_at"),
+        "recovery calibrated account assurance recorded_at",
+        errors,
+    )
+    bindings = (
+        (
+            "recovery_authorization",
+            RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH,
+            RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256,
+            0o600,
+        ),
+        (
+            "credential_read_latch",
+            RECOVERY_TRANSFER_CREDENTIAL_LATCH_PATH,
+            RECOVERY_TRANSFER_CREDENTIAL_LATCH_SHA256,
+            0o600,
+        ),
+        (
+            "provider_call_latch",
+            RECOVERY_TRANSFER_PROVIDER_LATCH_PATH,
+            RECOVERY_TRANSFER_PROVIDER_LATCH_SHA256,
+            0o600,
+        ),
+        (
+            "http_200_failure_receipt",
+            RECOVERY_TRANSFER_FAILURE_PATH,
+            RECOVERY_TRANSFER_FAILURE_SHA256,
+            0o600,
+        ),
+        (
+            "terminal_disposition",
+            RECOVERY_TRANSFER_DISPOSITION_PATH,
+            RECOVERY_TRANSFER_DISPOSITION_SHA256,
+            0o644,
+        ),
+    )
+    for name, path, digest, mode in bindings:
+        bound = assurance_records.get(name)
+        if not isinstance(bound, dict) or bound != {"path": path, "sha256": digest}:
+            errors.append(f"standalone account assurance {name} binding drifted")
+        try:
+            if mode == 0o600:
+                record_path, document, raw, actual = _read_recovery_private_json_record(
+                    root,
+                    path,
+                    digest,
+                    f"recovery-evidence transfer {name}",
+                )
+            else:
+                record_path, document, raw, actual = _read_record(
+                    root,
+                    path,
+                    digest,
+                    f"recovery-evidence transfer {name}",
+                    mode=mode,
+                )
+        except ValidationError as exc:
+            errors.extend(exc.errors)
+            continue
+        records[name] = (record_path, raw, actual)
+        documents[name] = document
+    if set(documents) != {item[0] for item in bindings}:
+        return {"records": records}
+
+    authorization = documents["recovery_authorization"]
+    credential_latch = documents["credential_read_latch"]
+    provider_latch = documents["provider_call_latch"]
+    failure = documents["http_200_failure_receipt"]
+    disposition = documents["terminal_disposition"]
+    interpretation = disposition.get("interpretation", {})
+    outcome = disposition.get("observed_outcome", {})
+    terminality = disposition.get("terminality", {})
+    if (
+        authorization.get("schema_version") != RECOVERY_AUTH_SCHEMA
+        or authorization.get("status") != "active"
+        or authorization.get("approved") is not True
+        or credential_latch.get("schema_version")
+        != RECOVERY_CREDENTIAL_READ_CONSUMPTION_SCHEMA
+        or credential_latch.get("authorization_sha256")
+        != RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256
+        or credential_latch.get("network_called_at_consumption") is not False
+        or provider_latch.get("schema_version") != RECOVERY_CONSUMPTION_SCHEMA
+        or provider_latch.get("authorization_sha256") != RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256
+        or provider_latch.get("credential_read_latch_sha256")
+        != RECOVERY_TRANSFER_CREDENTIAL_LATCH_SHA256
+        or provider_latch.get("browser_suffix_matches_held_credential") is not True
+        or provider_latch.get("network_called_at_consumption") is not False
+        or failure.get("schema_version") != RECOVERY_FAILURE_SCHEMA
+        or failure.get("failure_code") != "provider_total_deadline_unenforceable"
+        or failure.get("method") != "GET"
+        or failure.get("endpoint") != ACCOUNT_ENDPOINT
+        or failure.get("http_status") != 200
+        or failure.get("provider_response_received") is not True
+        or failure.get("provider_get_attempts_consumed") != 1
+        or failure.get("provider_post_attempts_consumed") != 0
+        or failure.get("response_bytes") != 0
+        or failure.get("raw_response_stored") is not False
+        or failure.get("account_data_stored") is not False
+        or failure.get("retry_permitted") is not False
+        or disposition.get("schema_version")
+        != "oe-elevenlabs-account-recovery-http-200-zero-body-failure-disposition-v1"
+        or interpretation.get("credential_authentication_inference")
+        != RECOVERY_TRANSFER_AUTHENTICATION_INFERENCE_STATE
+        or interpretation.get("credential_authentication_inference_statement")
+        != RECOVERY_TRANSFER_AUTHENTICATION_CONCLUSION
+        or interpretation.get("response_body_contents_state") != "unknown_not_read"
+        or interpretation.get("account_data_observed") is not False
+        or interpretation.get("identity_observed") is not False
+        or interpretation.get("valid_user_id_observed") is not False
+        or interpretation.get("subscription_state_observed") is not False
+        or interpretation.get("target_voice_accessibility_observed_from_api") is not False
+        or interpretation.get("ui_api_account_equality_state") != "unknown"
+        or interpretation.get("exact_ui_api_account_equality_verified") is not False
+        or interpretation.get("account_verified_claimed") is not False
+        or outcome.get("provider_response_received") is not True
+        or outcome.get("response_body_bytes_read") != 0
+        or outcome.get("provider_get_attempts_consumed") != 1
+        or outcome.get("provider_post_attempts_consumed") != 0
+        or terminality.get("retry_authorized") is True
+        or terminality.get("automatic_retry_permitted") is not False
+        or terminality.get("provider_call_latch_reusable") is not False
+        or terminality.get("credential_read_latch_reusable") is not False
+        or terminality.get("this_record_authorizes_provider_action") is not False
+    ):
+        errors.append("recovery HTTP-200 evidence semantics are not exact and calibrated")
+    recovery_chain_times = [
+        _parse_time(
+            credential_latch.get("consumed_at"),
+            "recovery credential latch consumed_at",
+            errors,
+        ),
+        _parse_time(
+            provider_latch.get("consumed_at"),
+            "recovery provider latch consumed_at",
+            errors,
+        ),
+        _parse_time(failure.get("failed_at"), "recovery failure failed_at", errors),
+        _parse_time(
+            disposition.get("recorded_at"),
+            "recovery disposition recorded_at",
+            errors,
+        ),
+    ]
+    if (
+        isinstance(assurance_recorded_at, datetime)
+        and all(isinstance(item, datetime) for item in recovery_chain_times)
+        and assurance_recorded_at
+        < max(item for item in recovery_chain_times if isinstance(item, datetime))
+    ):
+        errors.append("calibrated account assurance predates its terminal recovery chain")
+    fingerprint = provider_latch.get("credential_fingerprint_sha256")
+    suffix_sha = provider_latch.get("browser_suffix_sha256")
+    if not isinstance(fingerprint, str) or not _SHA_RE.fullmatch(fingerprint):
+        errors.append("recovery provider latch credential fingerprint is invalid")
+    if not isinstance(suffix_sha, str) or not _SHA_RE.fullmatch(suffix_sha):
+        errors.append("recovery provider latch browser suffix binding is invalid")
+    return {
+        "records": records,
+        "api_key_fingerprint_sha256": fingerprint,
+        "browser_suffix_sha256": suffix_sha,
+        "account_assurance_sha256": assurance_actual_sha,
+        "account_assurance_recorded_at": assurance_recorded_at,
+    }
+
+
+def _validate_recovery_transfer_prerequisites(
+    root: Path,
+    value: Any,
+    authorization: dict[str, Any],
+    plan_dry: dict[str, Any],
+    account_evidence: dict[str, Any],
+    runtime_bindings: dict[str, Any],
+    errors: list[str],
+) -> dict[str, Any]:
+    expected_names = set(_recovery_transfer_prerequisites(False))
+    prerequisites = _strict(value, expected_names, "recovery-evidence transfer prerequisites")
+    approved_by = authorization.get("evidence_owner")
+    selected = _strict(
+        prerequisites.get("selected_guide"),
+        {
+            "state", "path", "sha256", "byte_count", "duration_seconds", "container",
+            "codec", "sample_rate_hz", "channels", "guide_request_id",
+            "guide_run_receipt_path", "guide_run_receipt_sha256",
+        },
+        "recovery-evidence selected_guide",
+    )
+    selected_audio, _geometry, run_path, _run, run_raw, run_sha, guide_at = (
+        _validate_selected_guide_and_run(
+            root,
+            selected,
+            plan_dry,
+            approved_by,
+            errors,
+        )
+    )
+    private_run_raw = run_raw
+    private_run_sha = run_sha
+    try:
+        private_selected_audio, private_selected_sha = _read_recovery_private_bytes(
+            root,
+            root / SELECTED_GUIDE_PATH,
+            "recovery-evidence selected guide",
+            max_bytes=50_000_000,
+        )
+        if (
+            private_selected_audio != selected_audio
+            or private_selected_sha != SELECTED_GUIDE_SHA256
+        ):
+            raise ValidationError(
+                "recovery-evidence selected guide descriptor-bound bytes drifted"
+            )
+        selected_audio = private_selected_audio
+        (
+            private_run_path,
+            _private_run,
+            private_run_raw,
+            private_run_sha,
+        ) = _read_recovery_private_json_record(
+            root,
+            run_path.relative_to(root).as_posix(),
+            run_sha,
+            "recovery-evidence guide run receipt",
+        )
+        if (
+            private_run_path != run_path
+            or private_run_raw != run_raw
+            or private_run_sha != SELECTED_GUIDE_RUN_SHA256
+        ):
+            raise ValidationError(
+                "recovery-evidence guide run descriptor-bound bytes drifted"
+            )
+        repository = pt._guide_repository_root()
+        _verify_recovery_transfer_selected_guide_git_state(
+            runtime_bindings,
+            repository,
+            root,
+            root / SELECTED_GUIDE_PATH,
+        )
+        run_relative = run_path.relative_to(repository).as_posix()
+        historical_run = _bound_git(
+            runtime_bindings,
+            ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{run_relative}"],
+            max_bytes=2_000_000,
+        )
+        if (
+            historical_run != private_run_raw
+            or sha256_bytes(historical_run) != SELECTED_GUIDE_RUN_SHA256
+        ):
+            raise ValidationError(
+                "recovery-evidence guide run Git source proof drifted"
+            )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    except (KeyError, OSError, ValueError):
+        errors.append("recovery-evidence guide input source proof is invalid")
+    records: dict[str, tuple[Path, bytes, str]] = {
+        "selected_guide": (root / SELECTED_GUIDE_PATH, selected_audio, SELECTED_GUIDE_SHA256),
+        "guide_run": (run_path, private_run_raw, private_run_sha),
+    }
+    documents: dict[str, dict[str, Any]] = {}
+    for name in sorted(expected_names - {"selected_guide"}):
+        try:
+            binding = _strict(
+                prerequisites.get(name),
+                {"state", "path", "sha256"},
+                f"recovery-evidence {name}",
+            )
+            if binding.get("state") != "verified":
+                raise ValidationError(f"recovery-evidence {name}.state must be verified")
+            expected_path = {
+                "guide_qa": RECOVERY_TRANSFER_GUIDE_QA_PATH,
+                "owner_selection": RECOVERY_TRANSFER_GUIDE_SELECTION_PATH,
+                "elevenlabs_data_use": RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+                "target_voice_rights": RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                "owner_audition_confirmation": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+                "official_media_contract": MEDIA_CONTRACT_BASIS_PATH,
+            }.get(name)
+            if expected_path is not None and binding.get("path") != expected_path:
+                raise ValidationError(f"recovery-evidence {name} path is not exact")
+            expected_sha = {
+                "guide_qa": RECOVERY_TRANSFER_GUIDE_QA_SHA256,
+                "owner_selection": RECOVERY_TRANSFER_GUIDE_SELECTION_SHA256,
+                "owner_audition_confirmation": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+                "official_media_contract": MEDIA_CONTRACT_BASIS_SHA256,
+            }.get(name)
+            if expected_sha is not None and binding.get("sha256") != expected_sha:
+                raise ValidationError(f"recovery-evidence {name} SHA-256 is not exact")
+            if name in {
+                "guide_qa", "owner_selection", "owner_audition_confirmation",
+                "elevenlabs_data_use", "target_voice_rights",
+            }:
+                path, document, raw, digest = _read_recovery_private_json_record(
+                    root,
+                    binding.get("path"),
+                    binding.get("sha256"),
+                    f"recovery-evidence {name}",
+                )
+            else:
+                path, document, raw, digest = _read_record(
+                    root,
+                    binding.get("path"),
+                    binding.get("sha256"),
+                    f"recovery-evidence {name}",
+                )
+        except ValidationError as exc:
+            errors.extend(exc.errors)
+            continue
+        records[name] = (path, raw, digest)
+        documents[name] = document
+    if set(documents) != expected_names - {"selected_guide"}:
+        return {"records": records, "selected_audio": selected_audio}
+
+    try:
+        repository = pt._guide_repository_root()
+        c907_path, c907_raw, c907_sha = records["owner_audition_confirmation"]
+        c907_relative = c907_path.relative_to(repository).as_posix()
+        c907_historical = _bound_git(
+            runtime_bindings,
+            ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{c907_relative}"],
+            max_bytes=2_000_000,
+        )
+        if (
+            c907_sha != RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256
+            or c907_historical != c907_raw
+            or sha256_bytes(c907_historical) != RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256
+        ):
+            raise ValidationError("recovery-evidence transfer c907 source drifted")
+    except (KeyError, OSError, ValidationError, ValueError):
+        errors.append("recovery-evidence transfer c907 Git source proof is invalid")
+
+    qa = documents["guide_qa"]
+    selection = documents["owner_selection"]
+    audition = documents["owner_audition_confirmation"]
+    data_use = documents["elevenlabs_data_use"]
+    rights = documents["target_voice_rights"]
+    media = documents["official_media_contract"]
+    data_top = _strict(
+        data_use,
+        {
+            "schema_version", "record_id", "status", "provider", "recorded_at",
+            "owner", "transaction_basis_id", "exact_guide", "evidence",
+            "fresh_observation", "configuration_intent", "runtime_baseline",
+            "authority",
+        },
+        "recovery-evidence data-use assurance",
+    )
+    data_guide = _strict(
+        data_use.get("exact_guide"),
+        {"path", "sha256", "byte_count", "duration_seconds"},
+        "recovery-evidence data-use exact guide",
+    )
+    data_evidence = _strict(
+        data_use.get("evidence"),
+        {
+            "fresh_browser_readiness", "fresh_browser_capture",
+            "official_data_use_basis", "calibrated_account_assurance",
+            "target_rights", "terminal_disposition",
+            "owner_audition_and_bounded_transfer_approval",
+        },
+        "recovery-evidence data-use source chain",
+    )
+    for name in data_evidence:
+        _strict(data_evidence.get(name), {"path", "sha256"}, f"data-use {name}")
+    data_observation = _strict(
+        data_use.get("fresh_observation"),
+        {
+            "observed_at", "improve_models_for_everyone", "update_completed",
+            "protection_mode", "protection_effective_for_new_submissions",
+            "fresh_at_recorded_at", "freshness_reference", "freshness_window_seconds",
+            "account_linkage_strength",
+            "ui_api_account_equality_state", "exact_ui_api_account_equality_verified",
+        },
+        "recovery-evidence fresh browser observation",
+    )
+    data_intent = _strict(
+        data_use.get("configuration_intent"),
+        {
+            "chosen_enable_logging", "cross_provider_upload_owner_permission_observed",
+            "zero_retention_mode_claimed", "descriptive_only_not_execution_authority",
+        },
+        "recovery-evidence data-use configuration intent",
+    )
+    data_authority = _strict(
+        data_use.get("authority"),
+        set(_recovery_transfer_zero_authority()),
+        "recovery-evidence data-use authority",
+    )
+    data_runtime_baseline = _strict(
+        data_use.get("runtime_baseline"),
+        set(_recovery_transfer_runtime_baseline(runtime_bindings)),
+        "recovery-evidence data-use runtime baseline",
+    )
+    rights_top = _strict(
+        rights,
+        {
+            "schema_version", "record_id", "status", "provider", "recorded_at",
+            "owner", "transaction_basis_id", "evidence", "original_c_provenance",
+            "exact_scope", "owner_authority_calibration", "authority",
+        },
+        "recovery-evidence target-rights record",
+    )
+    rights_evidence = _strict(
+        rights.get("evidence"),
+        {
+            "owner_audition_and_bounded_transfer_approval", "guide_qa",
+            "owner_selection", "performance_transfer_plan", "official_media_contract",
+        },
+        "recovery-evidence target-rights evidence",
+    )
+    for name in rights_evidence:
+        _strict(rights_evidence.get(name), {"path", "sha256"}, f"target-rights {name}")
+    rights_provenance = _strict(
+        rights.get("original_c_provenance"),
+        {"owner_selection", "saved_voice_receipt"},
+        "recovery-evidence Original C provenance",
+    )
+    for name in rights_provenance:
+        _strict(rights_provenance.get(name), {"path", "sha256"}, f"Original C {name}")
+    rights_scope = _strict(
+        rights.get("exact_scope"),
+        {
+            "method", "endpoint", "target_voice_id", "voice_owner", "consent_owner",
+            "exact_guide_sha256", "owner_scope_voice_changer_permitted",
+            "bounded_microtest_only", "primary_request_sha256",
+            "primary_multipart_body_sha256", "primary_multipart_body_bytes",
+            "normalized_http_request_sha256", "model_id", "seed", "voice_settings",
+            "output_format", "enable_logging", "remove_background_noise",
+            "file_format", "max_provider_posts", "max_outputs", "no_retry",
+            "no_redirect", "no_application_fallback", "full_capture_permitted",
+        },
+        "recovery-evidence target-rights exact scope",
+    )
+    rights_owner_authority = _strict(
+        rights.get("owner_authority_calibration"),
+        set(_recovery_transfer_scope_approval()),
+        "recovery-evidence target-rights owner authority calibration",
+    )
+    rights_authority = _strict(
+        rights.get("authority"),
+        set(_recovery_transfer_zero_authority()),
+        "recovery-evidence target-rights authority",
+    )
+    expected_account_assurance_sha = account_evidence.get("account_assurance_sha256")
+    data_binding = prerequisites.get("elevenlabs_data_use", {})
+    rights_binding = prerequisites.get("target_voice_rights", {})
+    expected_data_evidence = {
+        "calibrated_account_assurance": {
+            "path": RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+            "sha256": expected_account_assurance_sha,
+        },
+        "target_rights": {
+            "path": RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+            "sha256": rights_binding.get("sha256"),
+        },
+        "terminal_disposition": {
+            "path": RECOVERY_TRANSFER_DISPOSITION_PATH,
+            "sha256": RECOVERY_TRANSFER_DISPOSITION_SHA256,
+        },
+        "owner_audition_and_bounded_transfer_approval": {
+            "path": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+            "sha256": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+        },
+    }
+    expected_rights_evidence = {
+        "owner_audition_and_bounded_transfer_approval": {
+            "path": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+            "sha256": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+        },
+        "guide_qa": {
+            "path": prerequisites.get("guide_qa", {}).get("path"),
+            "sha256": prerequisites.get("guide_qa", {}).get("sha256"),
+        },
+        "owner_selection": {
+            "path": prerequisites.get("owner_selection", {}).get("path"),
+            "sha256": prerequisites.get("owner_selection", {}).get("sha256"),
+        },
+        "performance_transfer_plan": {
+            "path": "performance-transfer-plan.json",
+            "sha256": plan_dry["plan_sha256"],
+        },
+        "official_media_contract": {
+            "path": MEDIA_CONTRACT_BASIS_PATH,
+            "sha256": MEDIA_CONTRACT_BASIS_SHA256,
+        },
+    }
+    expected_rights_provenance = {
+        "owner_selection": {
+            "path": RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH,
+            "sha256": RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_SHA256,
+        },
+        "saved_voice_receipt": {
+            "path": RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH,
+            "sha256": RECOVERY_TRANSFER_ORIGINAL_C_SAVE_SHA256,
+        },
+    }
+    if (
+        data_top.get("schema_version")
+        != "oe-elevenlabs-recovery-evidence-data-use-assurance-v1"
+        or data_top.get("record_id")
+        != "V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE"
+        or data_top.get("status") != "verified_fresh_non_authorizing"
+        or data_top.get("provider") != "elevenlabs"
+        or data_top.get("owner") != approved_by
+        or data_top.get("transaction_basis_id") != RECOVERY_TRANSFER_TRANSACTION_BASIS_ID
+        or data_guide
+        != {
+            "path": SELECTED_GUIDE_PATH,
+            "sha256": SELECTED_GUIDE_SHA256,
+            "byte_count": SELECTED_GUIDE_BYTES,
+            "duration_seconds": SELECTED_GUIDE_DURATION_SECONDS,
+        }
+        or any(data_evidence.get(name) != binding for name, binding in expected_data_evidence.items())
+        or data_observation.get("improve_models_for_everyone") is not False
+        or data_observation.get("update_completed") is not True
+        or data_observation.get("protection_mode") != pt.ACCOUNT_TRAINING_OPT_OUT_PROTECTION
+        or data_observation.get("protection_effective_for_new_submissions") is not True
+        or data_observation.get("fresh_at_recorded_at") is not True
+        or data_observation.get("freshness_reference") != "recorded_at"
+        or data_observation.get("freshness_window_seconds") != DATA_USE_MAX_AGE_SECONDS
+        or data_observation.get("account_linkage_strength")
+        != "contextual_non_cryptographic"
+        or data_observation.get("ui_api_account_equality_state") != "unknown"
+        or data_observation.get("exact_ui_api_account_equality_verified") is not False
+        or data_intent
+        != {
+            "chosen_enable_logging": True,
+            "cross_provider_upload_owner_permission_observed": True,
+            "zero_retention_mode_claimed": False,
+            "descriptive_only_not_execution_authority": True,
+        }
+        or data_runtime_baseline != _recovery_transfer_runtime_baseline(runtime_bindings)
+        or data_authority != _recovery_transfer_zero_authority()
+    ):
+        errors.append("fresh data-use assurance is not exact, direct, and non-authorizing")
+    if (
+        rights_top.get("schema_version")
+        != "oe-elevenlabs-recovery-evidence-voice-transfer-rights-v1"
+        or rights_top.get("record_id")
+        != "V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS"
+        or rights_top.get("status") != "owner_scope_recorded_non_authorizing"
+        or rights_top.get("provider") != "elevenlabs"
+        or rights_top.get("owner") != approved_by
+        or rights_top.get("transaction_basis_id") != RECOVERY_TRANSFER_TRANSACTION_BASIS_ID
+        or not _exact(rights_evidence, expected_rights_evidence)
+        or not _exact(rights_provenance, expected_rights_provenance)
+        or rights_owner_authority != _recovery_transfer_scope_approval()
+        or rights_scope
+        != {
+            "method": "POST",
+            "endpoint": pt.TRANSFER_ENDPOINT,
+            "target_voice_id": pt.TRANSFER_TARGET_VOICE_ID,
+            "voice_owner": approved_by,
+            "consent_owner": approved_by,
+            "exact_guide_sha256": SELECTED_GUIDE_SHA256,
+            "owner_scope_voice_changer_permitted": True,
+            "bounded_microtest_only": True,
+            "primary_request_sha256": TRANSFER_OPT_OUT_REQUEST_SHA256,
+            "primary_multipart_body_sha256": TRANSFER_BODY_SHA256,
+            "primary_multipart_body_bytes": TRANSFER_BODY_BYTES,
+            "normalized_http_request_sha256": TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256,
+            "model_id": pt.TRANSFER_MODEL,
+            "seed": pt.TRANSFER_SEED,
+            "voice_settings": pt.TRANSFER_VOICE_SETTINGS,
+            "output_format": pt.TRANSFER_PRIMARY_FORMAT,
+            "enable_logging": True,
+            "remove_background_noise": False,
+            "file_format": "other",
+            "max_provider_posts": 1,
+            "max_outputs": 1,
+            "no_retry": True,
+            "no_redirect": True,
+            "no_application_fallback": True,
+            "full_capture_permitted": False,
+        }
+        or rights_authority != _recovery_transfer_zero_authority()
+    ):
+        errors.append("target-rights record is not exact, cross-bound, and non-authorizing")
+    blueprint_root = root.parents[2]
+    try:
+        original_selection_path = pt._safe_relative(
+            blueprint_root,
+            RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH,
+            "recovery-evidence Original C owner selection",
+            must_exist=True,
+            suffix=".json",
+        )
+        original_selection_root = pt._document_root(original_selection_path)
+        (
+            original_selection_path,
+            original_selection,
+            original_selection_raw,
+            original_selection_sha,
+        ) = _read_recovery_private_json_record(
+            original_selection_root,
+            original_selection_path.relative_to(original_selection_root).as_posix(),
+            RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_SHA256,
+            "recovery-evidence Original C owner selection",
+        )
+        original_save_path = pt._safe_relative(
+            blueprint_root,
+            RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH,
+            "recovery-evidence Original C saved voice",
+            must_exist=True,
+            suffix=".json",
+        )
+        original_save_root = pt._document_root(original_save_path)
+        (
+            original_save_path,
+            original_save,
+            original_save_raw,
+            original_save_sha,
+        ) = _read_recovery_private_json_record(
+            original_save_root,
+            original_save_path.relative_to(original_save_root).as_posix(),
+            RECOVERY_TRANSFER_ORIGINAL_C_SAVE_SHA256,
+            "recovery-evidence Original C saved voice",
+        )
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+    else:
+        try:
+            repository = pt._guide_repository_root()
+            for provenance_path, provenance_raw, provenance_sha in (
+                (
+                    original_selection_path,
+                    original_selection_raw,
+                    original_selection_sha,
+                ),
+                (original_save_path, original_save_raw, original_save_sha),
+            ):
+                provenance_relative = provenance_path.relative_to(repository).as_posix()
+                historical = _bound_git(
+                    runtime_bindings,
+                    [
+                        "show",
+                        f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{provenance_relative}",
+                    ],
+                    max_bytes=2_000_000,
+                )
+                if historical != provenance_raw or sha256_bytes(historical) != provenance_sha:
+                    raise ValidationError(
+                        "recovery-evidence Original C historical bytes drifted"
+                    )
+        except (KeyError, OSError, UnicodeError, ValidationError, ValueError):
+            errors.append("recovery-evidence Original C Git source proof is invalid")
+        if (
+            original_selection_sha != RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_SHA256
+            or original_save_sha != RECOVERY_TRANSFER_ORIGINAL_C_SAVE_SHA256
+            or original_selection.get("schema_version")
+            != "oe-elevenlabs-voice-remix-owner-selection-v1"
+            or original_selection.get("selected_generated_voice_id")
+            != pt.TRANSFER_TARGET_VOICE_ID
+            or original_selection.get("selected_by") != approved_by
+            or original_selection.get("owner_approved_save") is not True
+            or original_save.get("schema_version")
+            != "oe-elevenlabs-voice-remix-save-receipt-v1"
+            or original_save.get("provider") != "elevenlabs"
+            or original_save.get("new_voice_id") != pt.TRANSFER_TARGET_VOICE_ID
+            or original_save.get("selected_generated_voice_id")
+            != pt.TRANSFER_TARGET_VOICE_ID
+            or original_save.get("owner_selection_record_sha256")
+            != original_selection_sha
+            or original_save.get("new_voice_created") is not True
+            or original_save.get("source_voice_modified") is not False
+            or original_save.get("provider_calls_made") != 1
+        ):
+            errors.append("recovery-evidence Original C provenance is invalid")
+        records["original_c_selection"] = (
+            original_selection_path,
+            original_selection_raw,
+            original_selection_sha,
+        )
+        records["original_c_save"] = (
+            original_save_path,
+            original_save_raw,
+            original_save_sha,
+        )
+    if (
+        qa.get("schema_version") != "oe-synthetic-guide-qa-v1"
+        or qa.get("selected_guide_sha256") != SELECTED_GUIDE_SHA256
+        or qa.get("spoken_text_sha256") != pt.MICROTEST_TEXT_SHA256
+        or any(
+            qa.get(key) is not True
+            for key in (
+                "lexical_exact",
+                "technical_pass",
+                "performance_pass",
+                "understandable_without_music_or_visuals",
+            )
+        )
+        or selection.get("schema_version") != "oe-synthetic-guide-owner-selection-v1"
+        or selection.get("selected_guide_sha256") != SELECTED_GUIDE_SHA256
+        or selection.get("guide_qa_sha256") != records["guide_qa"][2]
+        or selection.get("selected_by") != approved_by
+        or selection.get("approved_for_voice_transfer") is not True
+        or audition.get("schema_version")
+        != "oe-elevenlabs-voice-transfer-owner-approval-evidence-v1"
+        or audition.get("owner") != approved_by
+        or audition.get("selected_guide", {}).get("sha256") != SELECTED_GUIDE_SHA256
+        or audition.get("selected_guide", {}).get("approved_for_voice_changer_transfer")
+        is not True
+        or audition.get("approved_scope", {}).get("private_voice_changer_microtest")
+        is not True
+        or audition.get("approved_scope", {}).get("endpoint") != pt.TRANSFER_ENDPOINT
+        or audition.get("approved_scope", {}).get("target_voice_id")
+        != pt.TRANSFER_TARGET_VOICE_ID
+        or audition.get("approved_scope", {}).get("max_provider_calls") != 1
+        or audition.get("approved_scope", {}).get("no_retry") is not True
+        or audition.get("approved_scope", {}).get("no_redirect") is not True
+        or audition.get("approved_scope", {}).get("no_fallback") is not True
+        or media.get("schema_version") != MEDIA_CONTRACT_BASIS_SCHEMA
+        or records["official_media_contract"][2] != MEDIA_CONTRACT_BASIS_SHA256
+    ):
+        errors.append("recovery-evidence transfer non-account prerequisites are invalid")
+    browser_path = root
+    browser_raw = b""
+    browser_sha = ""
+    browser_at: datetime | None = None
+    browser_capture: tuple[Path, bytes, str] = (root, b"", "")
+    browser_official: tuple[Path, bytes, str] = (root, b"", "")
+    fresh_binding = data_evidence.get("fresh_browser_readiness", {})
+    try:
+        (
+            browser_path,
+            browser_document,
+            browser_raw,
+            browser_sha,
+            browser_at,
+            browser_capture,
+            browser_official,
+        ) = _validate_browser_readiness(
+            root,
+            {"state": "verified", **fresh_binding},
+            errors,
+            expected_observer=approved_by,
+        )
+        browser_relative = browser_path.relative_to(root).as_posix()
+        capture_relative = browser_capture[0].relative_to(root).as_posix()
+        if (
+            not _RECOVERY_TRANSFER_BROWSER_PATH_RE.fullmatch(browser_relative)
+            or capture_relative != browser_relative.removesuffix(".json") + ".png"
+        ):
+            raise ValidationError(
+                "fresh browser JSON/PNG paths are not the exact additive same-stem pair"
+            )
+        private_browser_raw, private_browser_sha = _read_recovery_private_bytes(
+            root,
+            browser_path,
+            "fresh browser readiness JSON",
+            max_bytes=2_000_000,
+        )
+        private_capture_raw, private_capture_sha = _read_recovery_private_capture(
+            root,
+            browser_capture[0],
+        )
+        if (
+            private_browser_raw != browser_raw
+            or private_browser_sha != browser_sha
+            or private_capture_raw != browser_capture[1]
+            or private_capture_sha != browser_capture[2]
+        ):
+            raise ValidationError(
+                "fresh browser JSON/PNG descriptor-bound bytes drifted"
+            )
+        _verify_recovery_private_capture_git_state(
+            runtime_bindings,
+            pt._guide_repository_root(),
+            browser_capture[0],
+        )
+        strict_browser_at = _parse_recovery_transfer_time(
+            browser_document.get("observed_at"),
+            "fresh browser readiness observed_at",
+            errors,
+        )
+        if strict_browser_at != browser_at:
+            raise ValidationError(
+                "fresh browser readiness timestamp parsing is not exact"
+            )
+        browser_at = strict_browser_at
+    except ValidationError as exc:
+        errors.extend(exc.errors)
+        browser_document = {}
+    if (
+        data_evidence.get("fresh_browser_capture")
+        != {"path": browser_capture[0].relative_to(root).as_posix(), "sha256": browser_capture[2]}
+        or data_evidence.get("official_data_use_basis")
+        != {"path": browser_official[0].relative_to(root).as_posix(), "sha256": browser_official[2]}
+        or browser_document.get("api_key", {}).get("preview_sha256")
+        != account_evidence.get("browser_suffix_sha256")
+        or data_observation.get("observed_at") != (
+            browser_document.get("observed_at") if browser_document else None
+        )
+    ):
+        errors.append("data-use assurance does not bind the exact fresh JSON/PNG/basis/account preview")
+    data_recorded_at = _parse_recovery_transfer_time(
+        data_use.get("recorded_at"),
+        "recovery data-use assurance recorded_at",
+        errors,
+    )
+    rights_recorded_at = _parse_recovery_transfer_time(
+        rights.get("recorded_at"),
+        "recovery target-rights recorded_at",
+        errors,
+    )
+    qa_at = _parse_time(qa.get("reviewed_at"), "guide QA reviewed_at", errors)
+    selection_at = _parse_time(
+        selection.get("selected_at"),
+        "owner selection selected_at",
+        errors,
+    )
+    c907_finalized_at = _parse_time(
+        audition.get("finalized_at"),
+        "owner audition authority finalized_at",
+        errors,
+    )
+    account_recorded_at = account_evidence.get("account_assurance_recorded_at")
+    if all(
+        isinstance(item, datetime)
+        for item in (
+            guide_at,
+            qa_at,
+            selection_at,
+            c907_finalized_at,
+            account_recorded_at,
+            rights_recorded_at,
+            browser_at,
+            data_recorded_at,
+        )
+    ):
+        assert isinstance(guide_at, datetime)
+        assert isinstance(qa_at, datetime)
+        assert isinstance(selection_at, datetime)
+        assert isinstance(c907_finalized_at, datetime)
+        assert isinstance(account_recorded_at, datetime)
+        assert isinstance(rights_recorded_at, datetime)
+        assert isinstance(browser_at, datetime)
+        assert isinstance(data_recorded_at, datetime)
+        if not (
+            guide_at <= qa_at <= selection_at
+            and c907_finalized_at <= rights_recorded_at
+            and account_recorded_at <= browser_at
+            and rights_recorded_at <= browser_at
+            and browser_at <= data_recorded_at
+        ):
+            errors.append("recovery-evidence transfer record chronology is invalid")
+        if not 0 <= (
+            data_recorded_at - browser_at
+        ).total_seconds() <= DATA_USE_MAX_AGE_SECONDS:
+            errors.append(
+                "fresh data-use assurance exceeds its recorded browser-evidence window"
+            )
+    records.update(
+        {
+            "fresh_browser_readiness": (browser_path, browser_raw, browser_sha),
+            "fresh_browser_capture": browser_capture,
+            "official_data_use_basis": browser_official,
+        }
+    )
+    for record_name, record in records.items():
+        if (
+            not isinstance(record, tuple)
+            or len(record) != 3
+            or not isinstance(record[0], Path)
+            or not isinstance(record[1], bytes)
+            or not isinstance(record[2], str)
+            or not _SHA_RE.fullmatch(record[2])
+            or sha256_bytes(record[1]) != record[2]
+        ):
+            errors.append(
+                f"recovery-evidence transfer {record_name} record tuple is invalid"
+            )
+    try:
+        repository = pt._guide_repository_root()
+        for record_name in (
+            "guide_run", "guide_qa", "owner_selection",
+            "owner_audition_confirmation", "official_media_contract",
+            "original_c_selection", "original_c_save", "official_data_use_basis",
+        ):
+            record_path, record_raw, record_sha = records[record_name]
+            relative = record_path.relative_to(repository).as_posix()
+            committed = _bound_git(
+                runtime_bindings,
+                ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{relative}"],
+                max_bytes=2_000_000,
+            )
+            if committed != record_raw or sha256_bytes(committed) != record_sha:
+                raise ValidationError(
+                    f"recovery-evidence transfer historical {record_name} drifted"
+                )
+    except (KeyError, OSError, UnicodeError, ValidationError, ValueError):
+        errors.append(
+            "recovery-evidence transfer pre-R0 tracked source proof is invalid"
+        )
+    return {
+        "records": records,
+        "selected_audio": selected_audio,
+        "guide_completed_at": guide_at,
+        "browser_observed_at": browser_at,
+        "data_verified_at": data_recorded_at,
+        "rights_recorded_at": rights_recorded_at,
+    }
+
+
+def _validate_recovery_transfer_private_phase(
+    *,
+    root: Path,
+    authorization_path: Path,
+    authorization_raw: bytes,
+    authorization_sha: str,
+    authorization: dict[str, Any],
+    plan_path: Path,
+    canonical_w_path: Path,
+    plan_dry: dict[str, Any],
+    runtime_bindings: dict[str, Any],
+    active: bool,
+    blockers: Any,
+    materialized_at: datetime | None,
+    expires_at: datetime | None,
+    errors: list[str],
+    allowed_generated_status_paths: frozenset[str] | None = None,
+    allowed_ignored_generated_paths: frozenset[str] | None = None,
+) -> None:
+    """Validate private records without retaining them in a public traceback.
+
+    The caller receives only mutations to ``errors``.  Every exception from the
+    private phase is detached and mapped to a fixed diagnostic after all raw
+    record, capture, guide, and multipart references have been released.
+    """
+
+    account_evidence: dict[str, Any] = {}
+    prerequisite_result: dict[str, Any] = {}
+    selected_audio = b""
+    body = b""
+    compiled: dict[str, Any] = {}
+    normalized: dict[str, Any] = {}
+    private_raw = b""
+    expected_delivery: dict[str, Any] = {}
+    unexpected_failure = False
+    try:
+        try:
+            account_evidence = _validate_recovery_transfer_account_evidence(
+                root,
+                authorization.get("account_authentication_evidence"),
+                errors,
+            )
+        except ValidationError as exc:
+            exc.__traceback__ = None
+            exc.__cause__ = None
+            exc.__context__ = None
+            errors.append("recovery-evidence account validation stopped safely")
+        try:
+            prerequisite_result = _validate_recovery_transfer_prerequisites(
+                root,
+                authorization.get("prerequisites"),
+                authorization,
+                plan_dry,
+                account_evidence,
+                runtime_bindings,
+                errors,
+            )
+        except ValidationError as exc:
+            exc.__traceback__ = None
+            exc.__cause__ = None
+            exc.__context__ = None
+            errors.append("recovery-evidence prerequisite validation stopped safely")
+        try:
+            _validate_recovery_transfer_evidence_baseline(
+                authorization.get("evidence_baseline"),
+                active=active,
+                authorization_path=authorization_path,
+                authorization_raw=authorization_raw,
+                plan_path=plan_path,
+                canonical_w_path=canonical_w_path,
+                active_materialized_at=materialized_at,
+                root=root,
+                runtime_bindings=runtime_bindings,
+                account_evidence=account_evidence,
+                prerequisite_result=prerequisite_result,
+                errors=errors,
+                allowed_generated_status_paths=allowed_generated_status_paths,
+                allowed_ignored_generated_paths=allowed_ignored_generated_paths,
+            )
+        except ValidationError as exc:
+            exc.__traceback__ = None
+            exc.__cause__ = None
+            exc.__context__ = None
+            errors.append("recovery-evidence baseline validation stopped safely")
+
+        selected_audio = prerequisite_result.get("selected_audio", b"")
+        if isinstance(selected_audio, bytes):
+            compiled, body = pt._compile_multipart_bytes(
+                selected_audio,
+                SELECTED_GUIDE_SHA256,
+                pt.TRANSFER_PRIMARY_FORMAT,
+                enable_logging=True,
+            )
+            _url, normalized, normalized_sha = _normalized_transfer_request(compiled)
+            if (
+                len(body) != TRANSFER_BODY_BYTES
+                or sha256_bytes(body) != TRANSFER_BODY_SHA256
+                or sha256_bytes(_compact(compiled)) != TRANSFER_OPT_OUT_REQUEST_SHA256
+                or normalized_sha != TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256
+                or normalized.get("method") != "POST"
+            ):
+                errors.append("recovery-evidence transfer compiled request drifted")
+        else:
+            errors.append("recovery-evidence transfer selected guide bytes are unavailable")
+
+        browser_at = prerequisite_result.get("browser_observed_at")
+        data_at = prerequisite_result.get("data_verified_at")
+        rights_at = prerequisite_result.get("rights_recorded_at")
+        account_at = account_evidence.get("account_assurance_recorded_at")
+        try:
+            private_raw, private_sha = _read_recovery_private_bytes(
+                root,
+                authorization_path,
+                "recovery-evidence transfer authorization",
+                max_bytes=2_000_000,
+            )
+            if private_raw != authorization_raw or private_sha != authorization_sha:
+                errors.append("recovery-evidence transfer private bytes drifted")
+        except ValidationError as exc:
+            exc.__traceback__ = None
+            exc.__cause__ = None
+            exc.__context__ = None
+            errors.append("recovery-evidence authorization reread stopped safely")
+
+        current = _execution_now()
+        if not active:
+            if not _exact(
+                authorization.get("credential_delivery"),
+                _recovery_transfer_credential_delivery(False),
+            ):
+                errors.append("draft recovery-evidence credential delivery must be pending")
+            if (
+                authorization.get("provider_action_authorized") is not False
+                or authorization.get("execution_ready") is not False
+                or authorization.get("expires_at") != ""
+                or blockers != RECOVERY_TRANSFER_DRAFT_BLOCKERS
+            ):
+                errors.append("draft recovery-evidence transfer must retain zero authority")
+            if (
+                not isinstance(account_at, datetime)
+                or not isinstance(rights_at, datetime)
+                or not isinstance(browser_at, datetime)
+                or not isinstance(data_at, datetime)
+                or not isinstance(materialized_at, datetime)
+                or max(account_at, rights_at) > browser_at
+                or browser_at > data_at
+                or data_at > materialized_at
+            ):
+                errors.append(
+                    "draft recovery-evidence transfer chronology is incomplete or invalid"
+                )
+            if isinstance(materialized_at, datetime) and materialized_at > current:
+                errors.append("draft recovery-evidence transfer materialization is in the future")
+        else:
+            if (
+                authorization.get("provider_action_authorized") is not True
+                or authorization.get("execution_ready") is not True
+                or blockers != []
+            ):
+                errors.append("active recovery-evidence transfer is not exactly authorized")
+            expected_delivery = _recovery_transfer_credential_delivery(
+                True,
+                fingerprint=account_evidence.get("api_key_fingerprint_sha256"),
+                suffix_sha256=account_evidence.get("browser_suffix_sha256"),
+            )
+            if not _exact(authorization.get("credential_delivery"), expected_delivery):
+                errors.append(
+                    "active fixed-dotenv delivery does not bind held recovery credential"
+                )
+            if (
+                materialized_at is None
+                or expires_at is None
+                or not all(
+                    isinstance(item, datetime)
+                    for item in (account_at, browser_at, data_at, rights_at)
+                )
+            ):
+                errors.append(
+                    "active recovery-evidence transfer freshness chain is incomplete"
+                )
+            else:
+                assert isinstance(browser_at, datetime)
+                assert isinstance(data_at, datetime)
+                assert isinstance(rights_at, datetime)
+                assert isinstance(account_at, datetime)
+                if (
+                    not isinstance(materialized_at, datetime)
+                    or not (
+                        max(account_at, rights_at) <= browser_at
+                        <= data_at <= materialized_at < expires_at
+                    )
+                ):
+                    errors.append(
+                        "active recovery-evidence transfer materialization chronology is invalid"
+                    )
+                if (
+                    materialized_at - browser_at
+                ).total_seconds() > DATA_USE_MAX_AGE_SECONDS:
+                    errors.append(
+                        "fresh browser evidence was too old at additive materialization"
+                    )
+                if expires_at > browser_at + timedelta(seconds=DATA_USE_MAX_AGE_SECONDS):
+                    errors.append(
+                        "additive authority expiry exceeds the fresh browser window"
+                    )
+                if not materialized_at <= current < expires_at:
+                    errors.append("additive authority is not current at validation")
+                if (
+                    current < browser_at
+                    or (current - browser_at).total_seconds() > DATA_USE_MAX_AGE_SECONDS
+                ):
+                    errors.append("fresh browser evidence is stale at additive validation")
+    except BaseException as exc:
+        exc.__traceback__ = None
+        exc.__cause__ = None
+        exc.__context__ = None
+        unexpected_failure = True
+    finally:
+        account_evidence.clear()
+        prerequisite_result.clear()
+        selected_audio = b""
+        body = b""
+        compiled.clear()
+        normalized.clear()
+        private_raw = b""
+        expected_delivery.clear()
+    if unexpected_failure:
+        errors.append("recovery-evidence transfer private validation stopped safely")
+
+
+def validate_recovery_evidence_voice_transfer_authorization(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+    *,
+    _allowed_generated_status_paths: frozenset[str] | None = None,
+    _allowed_ignored_generated_paths: frozenset[str] | None = None,
+) -> dict[str, Any]:
+    """Validate the additive authority without credentials, writes, or network."""
+
+    authorization_path = Path(authorization_path).absolute()
+    plan_path = Path(plan_path).absolute()
+    canonical_w_path = Path(canonical_w_path).absolute()
+    root = pt._document_root(authorization_path)
+    if pt._document_root(plan_path) != root:
+        raise ValidationError("recovery-evidence transfer must use the exact plan fixture root")
+    authorization, authorization_raw, authorization_sha = pt._read_bound_fixture_json(
+        root,
+        authorization_path,
+        "recovery-evidence voice-transfer authorization",
+    )
+    _strict(
+        authorization,
+        {
+            "schema_version", "authorization_id", "status",
+            "provider_action_authorized", "scope",
+            "target", "transaction_basis_id", "evidence_owner", "v1_lineage",
+            "bindings", "prerequisites", "action",
+            "account_authentication_evidence", "credential_delivery",
+            "runtime_bindings", "evidence_baseline", "authorized_limits",
+            "artifacts", "consumption", "scope_approval", "materialized_by",
+            "materialized_at", "expires_at",
+            "execution_ready", "blockers",
+        },
+        "recovery-evidence voice-transfer authorization",
+    )
+    errors: list[str] = []
+    status = authorization.get("status")
+    active = status == "active"
+    if status not in {"draft", "active"}:
+        errors.append("recovery-evidence transfer status must be draft or active")
+    _validate_authorization_location(
+        authorization_path,
+        root,
+        status,
+        "recovery-evidence transfer authorization",
+        errors,
+    )
+    if authorization.get("schema_version") != RECOVERY_TRANSFER_AUTH_SCHEMA:
+        errors.append("recovery-evidence transfer schema mismatch")
+    if authorization.get("scope") != RECOVERY_TRANSFER_SCOPE:
+        errors.append("recovery-evidence transfer scope mismatch")
+    if (
+        authorization.get("transaction_basis_id")
+        != RECOVERY_TRANSFER_TRANSACTION_BASIS_ID
+        or authorization.get("evidence_owner") != RECOVERY_TRANSFER_OWNER
+        or authorization.get("scope_approval") != _recovery_transfer_scope_approval()
+        or authorization.get("materialized_by") != "Codex"
+    ):
+        errors.append("recovery-evidence transfer transaction/scope basis drifted")
+    expected_authorization_id = (
+        RECOVERY_TRANSFER_ACTIVE_ID if active else RECOVERY_TRANSFER_DRAFT_ID
+    )
+    expected_authorization_path = (
+        RECOVERY_TRANSFER_ACTIVE_PATH if active else RECOVERY_TRANSFER_DRAFT_PATH
+    )
+    authorization_id = authorization.get("authorization_id")
+    try:
+        actual_authorization_path = authorization_path.relative_to(root).as_posix()
+    except ValueError:
+        actual_authorization_path = "invalid"
+    if (
+        authorization_id != expected_authorization_id
+        or actual_authorization_path != expected_authorization_path
+    ):
+        errors.append("recovery-evidence transfer authorization identity is not exact")
+        authorization_id = expected_authorization_id
+    _target(authorization.get("target"), root, errors)
+    plan_dry = pt.validate_performance_transfer_plan(plan_path, canonical_w_path)
+    lineage_path, _lineage, lineage_raw, lineage_sha = _validate_lineage(
+        root,
+        authorization.get("v1_lineage"),
+        plan_path,
+        canonical_w_path,
+    )
+    expected_bindings = _recovery_transfer_bindings(plan_dry)
+    bindings = _strict(
+        authorization.get("bindings"),
+        set(expected_bindings),
+        "recovery-evidence transfer bindings",
+    )
+    if not _exact(bindings, expected_bindings):
+        errors.append("recovery-evidence transfer exact request bindings drifted")
+    if not _exact(authorization.get("action"), _action_transfer(True)):
+        errors.append("recovery-evidence transfer exact action drifted")
+    runtime_bindings = _validate_recovery_transfer_runtime_bindings(
+        authorization.get("runtime_bindings"),
+        active=True,
+        errors=errors,
+    )
+    try:
+        repository = pt._guide_repository_root()
+        plan_raw, plan_sha = _read_bound_blob(
+            repository,
+            plan_path,
+            "recovery-evidence transfer performance plan",
+            max_bytes=2_000_000,
+        )
+        canonical_raw, canonical_sha = _read_bound_blob(
+            repository,
+            canonical_w_path,
+            "recovery-evidence transfer canonical W",
+            max_bytes=2_000_000,
+        )
+        preexisting = (
+            (plan_path, plan_raw, plan_sha, expected_bindings["performance_transfer_plan_sha256"]),
+            (canonical_w_path, canonical_raw, canonical_sha, expected_bindings["canonical_w_sha256"]),
+            (lineage_path, lineage_raw, lineage_sha, V1_LINEAGE_SHA256),
+        )
+        for source_path, source_raw, source_sha, expected_sha in preexisting:
+            relative = source_path.relative_to(repository).as_posix()
+            historical = _bound_git(
+                runtime_bindings,
+                ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{relative}"],
+                max_bytes=2_000_000,
+            )
+            if (
+                source_sha != expected_sha
+                or historical != source_raw
+                or sha256_bytes(historical) != expected_sha
+            ):
+                raise ValidationError(
+                    "recovery-evidence transfer preexisting input drifted"
+                )
+    except (KeyError, OSError, UnicodeError, ValidationError, ValueError):
+        errors.append(
+            "recovery-evidence transfer plan/canonical/lineage Git proof is invalid"
+        )
+    if not _exact(authorization.get("authorized_limits"), _transfer_limits(active)):
+        errors.append("recovery-evidence transfer limits drifted")
+    if not _exact(authorization.get("artifacts"), _recovery_transfer_artifacts(active)):
+        errors.append("recovery-evidence transfer artifact paths drifted")
+    if not _exact(authorization.get("consumption"), _recovery_transfer_consumption(active)):
+        errors.append("recovery-evidence transfer shared latch state drifted")
+    blockers = authorization.get("blockers")
+    if not isinstance(blockers, list) or any(
+        not isinstance(item, str) or not item for item in blockers
+    ):
+        errors.append("recovery-evidence transfer blockers must be strings")
+    materialized_at = _parse_recovery_transfer_time(
+        authorization.get("materialized_at"),
+        "recovery-evidence transfer materialized_at",
+        errors,
+    )
+    expires_at = (
+        _parse_recovery_transfer_time(
+            authorization.get("expires_at"),
+            "recovery-evidence transfer expires_at",
+            errors,
+        )
+        if active
+        else None
+    )
+    if (
+        active
+        and isinstance(materialized_at, datetime)
+        and isinstance(expires_at, datetime)
+        and not materialized_at < expires_at
+    ):
+        errors.append("recovery-evidence transfer expiry must follow materialization")
+
+    _validate_recovery_transfer_private_phase(
+        root=root,
+        authorization_path=authorization_path,
+        authorization_raw=authorization_raw,
+        authorization_sha=authorization_sha,
+        authorization=authorization,
+        plan_path=plan_path,
+        canonical_w_path=canonical_w_path,
+        plan_dry=plan_dry,
+        runtime_bindings=runtime_bindings,
+        active=active,
+        blockers=blockers,
+        materialized_at=materialized_at,
+        expires_at=expires_at,
+        errors=errors,
+        allowed_generated_status_paths=_allowed_generated_status_paths,
+        allowed_ignored_generated_paths=_allowed_ignored_generated_paths,
+    )
+    if errors:
+        authorization.clear()
+        authorization_raw = b""
+        plan_dry.clear()
+        _lineage.clear()
+        lineage_raw = b""
+    _raise_errors(errors)
+    return {
+        "schema_version": RECOVERY_TRANSFER_DRY_RUN_SCHEMA,
+        "valid": True,
+        "status": (
+            "active_exact_isolated_worker_authority_validated"
+            if active
+            else "blocked_pending_active_recovery_evidence_transfer_authorization"
+        ),
+        "authorization_status": status,
+        "authorization_id": authorization_id,
+        "authorization_sha256": authorization_sha,
+        "materialized_at": _iso(materialized_at) if materialized_at else None,
+        "expires_at": _iso(expires_at) if expires_at else None,
+        "v1_lineage_sha256": lineage_sha,
+        "bindings": bindings,
+        "action": authorization.get("action"),
+        "account_authentication_evidence": authorization.get(
+            "account_authentication_evidence"
+        ),
+        "credential_delivery": authorization.get("credential_delivery"),
+        "maximum": _transfer_limits(active),
+        "artifacts": _recovery_transfer_artifacts(active),
+        "provider_action_authorized": active,
+        "account_get_calls_authorized": 0,
+        "generation_post_calls_authorized": 1 if active else 0,
+        "credentials_accessed": False,
+        "network_called": False,
+        "provider_calls_made": 0,
+        "retry_permitted": False,
+        "replay_permitted": False,
+        "redirect_permitted": False,
+        "application_fallback_permitted": False,
+        "network_stack_address_selection_state": (
+            "stdlib_internal_connection_selection_possible" if active else "not_applicable"
+        ),
+        "identity_observed": False,
+        "ui_api_account_equality_state": "unknown",
+        "exact_ui_api_account_equality_verified": False,
+        "exact_ui_api_account_equality_claimed": False,
+        "target_voice_accessibility_state": "unknown",
+        "creative_approved": False,
+        "full_capture_authorized": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def dry_run_recovery_evidence_voice_transfer(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+) -> dict[str, Any]:
+    return validate_recovery_evidence_voice_transfer_authorization(
+        authorization_path,
+        plan_path,
+        canonical_w_path,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Additive recovery-evidence transfer execution
+# ---------------------------------------------------------------------------
+
+
+RECOVERY_TRANSFER_EXECUTION_FAILURE_CODES = frozenset(
+    {
+        *_PARENT_TRANSFER_WORKER_FAILURE_CODES,
+        "active_authority_revalidation_failed",
+        "authorization_expired_before_go",
+        "compiled_request_body_binding_failed",
+        "core_dump_protection_failed",
+        "credential_fingerprint_mismatch",
+        "credential_suffix_mismatch",
+        "fixed_dotenv_read_failed",
+        "immutable_latch_revalidation_failed",
+        "local_conversion_failed_closed",
+        "local_destination_or_receipt_failure",
+        "local_source_revalidation_failed",
+        "provider_pcm_compressed_signature_forbidden",
+        "provider_pcm_container_signature_forbidden",
+        "provider_pcm_duration_out_of_bounds",
+        "provider_pcm_payload_invalid",
+        "provider_pcm_payload_silent",
+        "provider_pcm_source_duration_coherence_failed",
+        "response_completed_outside_authority",
+        "unexpected_local_failure",
+        "worker_identity_revalidation_failed",
+    }
+)
+
+
+@dataclass(frozen=True, repr=False)
+class _RecoveryTransferInputBinding:
+    name: str
+    path: Path
+    sha256: str
+    byte_count: int
+    mode: int
+    uid: int
+    nlink: int
+    private: bool
+
+
+@dataclass(repr=False)
+class _RecoveryTransferExecutionContract:
+    root: Path
+    authorization_path: Path
+    authorization: dict[str, Any]
+    authorization_sha256: str
+    plan_path: Path
+    canonical_w_path: Path
+    body: bytearray
+    normalized_request: dict[str, Any]
+    inputs: tuple[_RecoveryTransferInputBinding, ...]
+    materialized_at: datetime
+    expires_at: datetime
+    browser_observed_at: datetime
+    account_recorded_at: datetime
+    data_recorded_at: datetime
+    rights_recorded_at: datetime
+    expected_fingerprint_sha256: str
+    expected_suffix_sha256: str
+    git_head: str
+    consumption_relative: str
+    raw_relative: str
+    working_relative: str
+    success_relative: str
+    failure_relative: str
+    conversion_relative: str
+
+
+@dataclass(frozen=True)
+class _RecoveryTransferCoreLimit:
+    soft: int
+    hard: int
+
+
+_RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE: list[_PreparedVoiceTransferWorker] = []
+
+
+def _dispose_recovery_transfer_worker(
+    worker: _PreparedVoiceTransferWorker,
+) -> bool:
+    for _attempt in range(3):
+        if _dispose_prepared_transfer_worker(worker):
+            return True
+    if all(item is not worker for item in _RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE):
+        _RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE.append(worker)
+    return False
+
+
+def _require_recovery_transfer_containment_clear() -> None:
+    pending = list(_RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE)
+    _RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE.clear()
+    retained: list[_PreparedVoiceTransferWorker] = []
+    for worker in pending:
+        reaped = False
+        for _attempt in range(3):
+            if _dispose_prepared_transfer_worker(worker):
+                reaped = True
+                break
+        if not reaped:
+            retained.append(worker)
+    _RECOVERY_TRANSFER_CONTAINMENT_QUARANTINE.extend(retained)
+    if retained:
+        raise ValidationError("an isolated recovery-transfer worker remains containment-unconfirmed")
+
+
+def _recovery_transfer_hash(domain: bytes, value: bytearray) -> str:
+    digest = hashlib.sha256()
+    digest.update(domain)
+    digest.update(value)
+    return digest.hexdigest()
+
+
+def _recovery_transfer_suffix_hash(value: bytearray) -> str:
+    if len(value) < 4:
+        return ""
+    digest = hashlib.sha256()
+    digest.update(API_KEY_PREVIEW_DOMAIN)
+    view = memoryview(value)
+    try:
+        digest.update(view[len(value) - 4 :])
+    finally:
+        view.release()
+    return digest.hexdigest()
+
+
+def _preflight_recovery_transfer_core_limit() -> _RecoveryTransferCoreLimit:
+    """Prove RLIMIT_CORE can be lowered and restored before authority burns."""
+
+    try:
+        soft, hard = resource.getrlimit(resource.RLIMIT_CORE)
+        resource.setrlimit(resource.RLIMIT_CORE, (0, hard))
+        if resource.getrlimit(resource.RLIMIT_CORE) != (0, hard):
+            raise OSError("core limit did not lower")
+        resource.setrlimit(resource.RLIMIT_CORE, (soft, hard))
+        if resource.getrlimit(resource.RLIMIT_CORE) != (soft, hard):
+            raise OSError("core limit did not restore")
+    except (OSError, ValueError):
+        raise ValidationError("recovery transfer core-dump protection is unavailable") from None
+    return _RecoveryTransferCoreLimit(soft=soft, hard=hard)
+
+
+def _enter_recovery_transfer_core_limit(limit: _RecoveryTransferCoreLimit) -> None:
+    try:
+        if resource.getrlimit(resource.RLIMIT_CORE) != (limit.soft, limit.hard):
+            raise OSError("core limit changed after preflight")
+        resource.setrlimit(resource.RLIMIT_CORE, (0, limit.hard))
+        if resource.getrlimit(resource.RLIMIT_CORE) != (0, limit.hard):
+            raise OSError("core limit did not lower")
+    except (OSError, ValueError):
+        raise pt._GuideExecutionFailure("core_dump_protection_failed") from None
+
+
+def _restore_recovery_transfer_core_limit(limit: _RecoveryTransferCoreLimit) -> bool:
+    try:
+        resource.setrlimit(resource.RLIMIT_CORE, (limit.soft, limit.hard))
+        return resource.getrlimit(resource.RLIMIT_CORE) == (limit.soft, limit.hard)
+    except (OSError, ValueError):
+        return False
+
+
+def _recovery_transfer_input_binding(
+    name: str,
+    path: Path,
+    raw: bytes,
+    digest: str,
+) -> _RecoveryTransferInputBinding:
+    try:
+        metadata = os.stat(path, follow_symlinks=False)
+    except OSError:
+        raise ValidationError(f"recovery transfer input {name} is unavailable") from None
+    if (
+        not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_nlink != 1
+        or metadata.st_uid != os.getuid()
+        or not raw
+        or len(raw) != metadata.st_size
+        or sha256_bytes(raw) != digest
+    ):
+        raise ValidationError(f"recovery transfer input {name} identity is unsafe")
+    mode = stat.S_IMODE(metadata.st_mode)
+    if mode not in {0o600, 0o644}:
+        raise ValidationError(f"recovery transfer input {name} mode is unsafe")
+    return _RecoveryTransferInputBinding(
+        name=name,
+        path=path.absolute(),
+        sha256=digest,
+        byte_count=len(raw),
+        mode=mode,
+        uid=metadata.st_uid,
+        nlink=metadata.st_nlink,
+        private=mode == 0o600,
+    )
+
+
+def _revalidate_recovery_transfer_input(
+    contract: _RecoveryTransferExecutionContract,
+    binding: _RecoveryTransferInputBinding,
+) -> None:
+    if binding.private:
+        raw, digest = _read_recovery_private_bytes(
+            pt._guide_repository_root(),
+            binding.path,
+            f"held recovery transfer input {binding.name}",
+            max_bytes=max(binding.byte_count, 1),
+        )
+    else:
+        raw, digest = _read_bound_blob(
+            pt._guide_repository_root(),
+            binding.path,
+            f"held recovery transfer input {binding.name}",
+            max_bytes=max(binding.byte_count, 1),
+            required_mode=binding.mode,
+            required_uid=binding.uid,
+        )
+    try:
+        metadata = os.stat(binding.path, follow_symlinks=False)
+    except OSError:
+        raw = b""
+        raise ValidationError(f"held recovery transfer input {binding.name} disappeared") from None
+    if (
+        digest != binding.sha256
+        or len(raw) != binding.byte_count
+        or not stat.S_ISREG(metadata.st_mode)
+        or stat.S_IMODE(metadata.st_mode) != binding.mode
+        or metadata.st_uid != binding.uid
+        or metadata.st_nlink != binding.nlink
+        or metadata.st_size != binding.byte_count
+    ):
+        raw = b""
+        raise ValidationError(f"held recovery transfer input {binding.name} drifted")
+    raw = b""
+
+
+def _build_recovery_transfer_execution_contract(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+) -> _RecoveryTransferExecutionContract:
+    """Validate, compile, and reduce private inputs to safe immutable bindings."""
+
+    validation = validate_recovery_evidence_voice_transfer_authorization(
+        authorization_path,
+        plan_path,
+        canonical_w_path,
+    )
+    if (
+        validation.get("valid") is not True
+        or validation.get("authorization_status") != "active"
+        or validation.get("provider_action_authorized") is not True
+    ):
+        raise ValidationError("recovery transfer execution requires exact committed ACTIVE authority")
+    authorization_path = Path(authorization_path).absolute()
+    plan_path = Path(plan_path).absolute()
+    canonical_w_path = Path(canonical_w_path).absolute()
+    root = pt._document_root(authorization_path)
+    authorization_raw = b""
+    selected_audio = b""
+    compiled_body = b""
+    body = bytearray()
+    account_evidence: dict[str, Any] = {}
+    prerequisite_result: dict[str, Any] = {}
+    compiled: dict[str, Any] = {}
+    normalized: dict[str, Any] = {}
+    authorization: dict[str, Any] = {}
+    plan_dry: dict[str, Any] = {}
+    all_records: dict[str, tuple[Path, bytes, str]] = {}
+    records: dict[str, tuple[Path, bytes, str]] = {}
+    result: dict[str, Any] = {}
+    record: tuple[Path, bytes, str] | None = None
+    raw = b""
+    digest = ""
+    draft_raw = b""
+    draft_sha = ""
+    contract: _RecoveryTransferExecutionContract | None = None
+    inputs: list[_RecoveryTransferInputBinding] = []
+    build_failed = False
+    try:
+        authorization_raw, authorization_sha = _read_recovery_private_bytes(
+            root,
+            authorization_path,
+            "active recovery-evidence transfer authorization",
+            max_bytes=2_000_000,
+        )
+        if authorization_sha != validation.get("authorization_sha256"):
+            raise ValidationError("active recovery transfer authorization changed after validation")
+        authorization = pt._strict_json_bytes(
+            authorization_raw,
+            "active recovery-evidence transfer authorization",
+        )
+        plan_dry = pt.validate_performance_transfer_plan(plan_path, canonical_w_path)
+        errors: list[str] = []
+        account_evidence = _validate_recovery_transfer_account_evidence(
+            root,
+            authorization.get("account_authentication_evidence"),
+            errors,
+        )
+        prerequisite_result = _validate_recovery_transfer_prerequisites(
+            root,
+            authorization.get("prerequisites"),
+            authorization,
+            plan_dry,
+            account_evidence,
+            authorization["runtime_bindings"],
+            errors,
+        )
+        _raise_errors(errors)
+        selected_audio = prerequisite_result.get("selected_audio", b"")
+        if not isinstance(selected_audio, bytes):
+            raise ValidationError("recovery transfer selected guide bytes are unavailable")
+        compiled, compiled_body = pt._compile_multipart_bytes(
+            selected_audio,
+            SELECTED_GUIDE_SHA256,
+            pt.TRANSFER_PRIMARY_FORMAT,
+            enable_logging=True,
+        )
+        _url, normalized, normalized_sha = _normalized_transfer_request(compiled)
+        if (
+            len(compiled_body) != TRANSFER_BODY_BYTES
+            or sha256_bytes(compiled_body) != TRANSFER_BODY_SHA256
+            or sha256_bytes(_compact(compiled)) != TRANSFER_OPT_OUT_REQUEST_SHA256
+            or normalized_sha != TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256
+        ):
+            raise ValidationError("recovery transfer compiled request body drifted")
+        body.extend(compiled_body)
+
+        for prefix, result in (
+            ("account", account_evidence),
+            ("prerequisite", prerequisite_result),
+        ):
+            records = result.get("records")
+            if not isinstance(records, dict):
+                raise ValidationError(f"recovery transfer {prefix} records are unavailable")
+            for name, record in records.items():
+                if (
+                    not isinstance(record, tuple)
+                    or len(record) != 3
+                    or not isinstance(record[0], Path)
+                    or not isinstance(record[1], bytes)
+                    or not isinstance(record[2], str)
+                ):
+                    raise ValidationError(f"recovery transfer {prefix} record shape is invalid")
+                all_records[f"{prefix}:{name}"] = record
+        all_records["authorization:active"] = (
+            authorization_path,
+            authorization_raw,
+            authorization_sha,
+        )
+        for name, path in (("plan", plan_path), ("canonical_w", canonical_w_path)):
+            raw, digest = _read_bound_blob(
+                pt._guide_repository_root(),
+                path,
+                f"recovery transfer {name}",
+                max_bytes=2_000_000,
+            )
+            all_records[f"source:{name}"] = (path, raw, digest)
+        draft_binding = authorization["evidence_baseline"]["draft_authorization"]
+        draft_path = root / draft_binding["path"]
+        draft_raw, draft_sha = _read_recovery_private_bytes(
+            root,
+            draft_path,
+            "recovery transfer R1 DRAFT",
+            max_bytes=2_000_000,
+        )
+        if draft_sha != draft_binding["sha256"]:
+            raise ValidationError("recovery transfer R1 DRAFT changed after validation")
+        all_records["authorization:draft"] = (draft_path, draft_raw, draft_sha)
+        for name, (path, raw, digest) in sorted(all_records.items()):
+            inputs.append(_recovery_transfer_input_binding(name, path, raw, digest))
+        all_records.clear()
+
+        time_errors: list[str] = []
+        materialized_at = _parse_recovery_transfer_time(
+            authorization.get("materialized_at"),
+            "active recovery transfer materialized_at",
+            time_errors,
+        )
+        expires_at = _parse_recovery_transfer_time(
+            authorization.get("expires_at"),
+            "active recovery transfer expires_at",
+            time_errors,
+        )
+        browser_at = prerequisite_result.get("browser_observed_at")
+        data_at = prerequisite_result.get("data_verified_at")
+        rights_at = prerequisite_result.get("rights_recorded_at")
+        account_at = account_evidence.get("account_assurance_recorded_at")
+        if (
+            time_errors
+            or not all(
+                isinstance(item, datetime)
+                for item in (
+                    materialized_at,
+                    expires_at,
+                    browser_at,
+                    data_at,
+                    rights_at,
+                    account_at,
+                )
+            )
+        ):
+            raise ValidationError("recovery transfer execution chronology is unavailable")
+        credential_delivery = authorization["credential_delivery"]
+        expected_fingerprint = credential_delivery.get("api_key_fingerprint_sha256")
+        expected_suffix = credential_delivery.get("browser_suffix_sha256")
+        if (
+            not isinstance(expected_fingerprint, str)
+            or not _SHA_RE.fullmatch(expected_fingerprint)
+            or not isinstance(expected_suffix, str)
+            or not _SHA_RE.fullmatch(expected_suffix)
+        ):
+            raise ValidationError("recovery transfer credential hash bindings are invalid")
+        git_head = _bound_git(
+            authorization["runtime_bindings"],
+            ["rev-parse", "HEAD"],
+        ).strip().decode("ascii", errors="strict")
+        if not _GIT_SHA_RE.fullmatch(git_head):
+            raise ValidationError("recovery transfer execution HEAD is invalid")
+        artifacts = authorization["artifacts"]
+        contract = _RecoveryTransferExecutionContract(
+            root=root,
+            authorization_path=authorization_path,
+            authorization=authorization,
+            authorization_sha256=authorization_sha,
+            plan_path=plan_path,
+            canonical_w_path=canonical_w_path,
+            body=body,
+            normalized_request=dict(normalized),
+            inputs=tuple(inputs),
+            materialized_at=materialized_at,
+            expires_at=expires_at,
+            browser_observed_at=browser_at,
+            account_recorded_at=account_at,
+            data_recorded_at=data_at,
+            rights_recorded_at=rights_at,
+            expected_fingerprint_sha256=expected_fingerprint,
+            expected_suffix_sha256=expected_suffix,
+            git_head=git_head,
+            consumption_relative=authorization["consumption"]["record_path"],
+            raw_relative=artifacts["raw_output_path"],
+            working_relative=artifacts["working_output_path"],
+            success_relative=artifacts["success_receipt_path"],
+            failure_relative=artifacts["failure_receipt_path"],
+            conversion_relative=artifacts["conversion_receipt_path"],
+        )
+        body = bytearray()
+        returned_contract = contract
+        contract = None
+        authorization = {}
+        return returned_contract
+    except BaseException as exc:
+        if isinstance(exc, ValidationError):
+            code = "recovery transfer execution contract did not validate"
+        else:
+            code = "recovery transfer execution contract stopped safely"
+        exc.__traceback__ = None
+        exc.__cause__ = None
+        exc.__context__ = None
+        build_failed = True
+    finally:
+        authorization_raw = b""
+        selected_audio = b""
+        compiled_body = b""
+        compiled.clear()
+        normalized.clear()
+        authorization.clear()
+        plan_dry.clear()
+        validation.clear()
+        account_evidence.clear()
+        prerequisite_result.clear()
+        all_records.clear()
+        records.clear()
+        result.clear()
+        record = None
+        raw = b""
+        digest = ""
+        draft_raw = b""
+        draft_sha = ""
+        if contract is not None:
+            _zero_mutable_buffer(contract.body)
+        contract = None
+        inputs = []
+        if build_failed:
+            _zero_mutable_buffer(body)
+    raise ValidationError(code) from None
+
+
+def _recovery_transfer_destination_path(
+    contract: _RecoveryTransferExecutionContract,
+    relative: str,
+    suffix: str,
+) -> Path:
+    return pt._safe_relative(
+        contract.root,
+        relative,
+        "recovery-evidence transfer destination",
+        must_exist=False,
+        suffix=suffix,
+    )
+
+
+@dataclass(frozen=True)
+class _RecoveryTransferWriteState:
+    created: bool
+    verified_complete: bool
+    sha256: str | None
+    byte_count: int | None
+
+
+def _exclusive_recovery_transfer_write(
+    root: Path,
+    relative: str,
+    data: bytes,
+) -> _RecoveryTransferWriteState:
+    """Expose O_EXCL creation separately from full durable verification."""
+
+    parent_fd, name = pt._open_parent_descriptor(root, relative, create_parents=False)
+    descriptor: int | None = None
+    created = False
+    verified = False
+    observed_size: int | None = None
+    try:
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL
+        flags |= getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_CLOEXEC", 0)
+        descriptor = os.open(name, flags, 0o600, dir_fd=parent_fd)
+        created = True
+        os.fchmod(descriptor, 0o600)
+        view = memoryview(data)
+        try:
+            written = 0
+            while written < len(view):
+                count = os.write(descriptor, view[written:])
+                if count <= 0:
+                    raise OSError("short private artifact write")
+                written += count
+        finally:
+            view.release()
+        os.fsync(descriptor)
+        metadata = os.fstat(descriptor)
+        observed_size = metadata.st_size
+        if (
+            not stat.S_ISREG(metadata.st_mode)
+            or stat.S_IMODE(metadata.st_mode) != 0o600
+            or metadata.st_uid != os.getuid()
+            or metadata.st_nlink != 1
+            or metadata.st_size != len(data)
+        ):
+            raise OSError("created private artifact identity mismatch")
+        os.fsync(parent_fd)
+        verified = True
+    except BaseException as write_failure:
+        verified = False
+        if descriptor is not None:
+            try:
+                observed_size = os.fstat(descriptor).st_size
+            except OSError:
+                observed_size = None
+        write_failure.__traceback__ = None
+        write_failure.__cause__ = None
+        write_failure.__context__ = None
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
+    return _RecoveryTransferWriteState(
+        created=created,
+        verified_complete=verified,
+        sha256=sha256_bytes(data) if verified else None,
+        byte_count=observed_size,
+    )
+
+
+def _preflight_recovery_transfer_destinations(
+    contract: _RecoveryTransferExecutionContract,
+    *,
+    latch_exists: bool,
+) -> None:
+    relatives = [
+        contract.consumption_relative,
+        contract.raw_relative,
+        contract.working_relative,
+        contract.success_relative,
+        contract.failure_relative,
+        contract.conversion_relative,
+    ]
+    pt._ensure_execution_parents(contract.root, relatives)
+    expected = (
+        (contract.consumption_relative, ".json", ("authorizations", "consumed")),
+        (contract.raw_relative, ".pcm", ("outputs", "raw", "elevenlabs")),
+        (contract.working_relative, ".wav", ("outputs", "working", "elevenlabs")),
+        (contract.success_relative, ".json", ("receipts", "elevenlabs")),
+        (contract.failure_relative, ".json", ("receipts", "elevenlabs")),
+        (contract.conversion_relative, ".json", ("receipts", "elevenlabs")),
+    )
+    if len(set(relatives)) != len(relatives):
+        raise ValidationError("recovery transfer destinations are not globally distinct")
+    for relative, suffix, prefix in expected:
+        path = _recovery_transfer_destination_path(contract, relative, suffix)
+        if path.relative_to(contract.root).parts[: len(prefix)] != prefix:
+            raise ValidationError("recovery transfer destination escaped its artifact class")
+        should_exist = latch_exists and relative == contract.consumption_relative
+        try:
+            os.stat(path, follow_symlinks=False)
+            exists = True
+        except FileNotFoundError:
+            exists = False
+        except OSError:
+            raise ValidationError("recovery transfer destination state is unsafe") from None
+        if exists != should_exist:
+            raise ValidationError("recovery transfer destination collision or missing latch")
+
+
+def _recovery_transfer_consumption_receipt(
+    contract: _RecoveryTransferExecutionContract,
+    worker: _PreparedVoiceTransferWorker,
+    consumed_at: datetime,
+) -> dict[str, Any]:
+    return {
+        "schema_version": RECOVERY_TRANSFER_CONSUMPTION_SCHEMA,
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "scope": RECOVERY_TRANSFER_SCOPE,
+        "status": "consumed_before_credential_and_network",
+        "consumed_at": _iso(consumed_at),
+        "consumed_before_credential_access": True,
+        "credential_accessed_at_consumption": False,
+        "network_called_at_consumption": False,
+        "account_get_calls_used": 0,
+        "generation_post_budget_consumed": True,
+        "generation_post_calls_observed": 0,
+        "outputs_received": 0,
+        "spend_used_usd": 0,
+        "primary_request_sha256": contract.authorization["bindings"]["primary_request_sha256"],
+        "multipart_body_sha256": TRANSFER_BODY_SHA256,
+        "worker_ready_before_consumption": True,
+        "worker_source_sha256": worker.worker_source_sha256,
+        "worker_interpreter_sha256": worker.interpreter_sha256,
+        "retry_or_replay_permitted": False,
+    }
+
+
+def _verify_recovery_transfer_latch(
+    contract: _RecoveryTransferExecutionContract,
+    expected: bytes,
+) -> None:
+    path = contract.root / contract.consumption_relative
+    raw, digest = _read_recovery_private_bytes(
+        contract.root,
+        path,
+        "recovery transfer shared global latch",
+        max_bytes=2_000_000,
+    )
+    if raw != expected or digest != sha256_bytes(expected):
+        raw = b""
+        raise ValidationError("recovery transfer shared global latch drifted")
+    raw = b""
+
+
+def _verify_recovery_transfer_post_latch_git_scope(
+    contract: _RecoveryTransferExecutionContract,
+    runtime: dict[str, Any],
+) -> str:
+    """Require the exact untracked, nonignored latch as the sole local delta."""
+
+    repository = pt._guide_repository_root()
+    try:
+        relative = (contract.root / contract.consumption_relative).relative_to(
+            repository
+        ).as_posix()
+    except ValueError:
+        raise ValidationError("recovery transfer latch is outside the repository") from None
+    status = _bound_git(
+        runtime,
+        ["status", "--porcelain=v1", "--untracked-files=all", "-z"],
+    )
+    if status != b"?? " + relative.encode("utf-8") + b"\x00":
+        raise ValidationError("recovery transfer post-latch worktree scope is not exact")
+    if _bound_git(runtime, ["ls-files", "--stage", "--", relative]) != b"":
+        raise ValidationError("recovery transfer latch unexpectedly entered the index")
+    ignore_state = _bound_git(
+        runtime,
+        ["check-ignore", "--no-index", "-v", "--non-matching", "--", relative],
+        allowed_returncodes=(1,),
+    )
+    if ignore_state != b"::\t" + relative.encode("utf-8") + b"\n":
+        raise ValidationError("recovery transfer latch is unexpectedly ignored")
+    return relative
+
+
+def _verify_recovery_transfer_pre_latch_git_scope(
+    contract: _RecoveryTransferExecutionContract,
+    runtime: dict[str, Any],
+) -> str:
+    repository = pt._guide_repository_root()
+    try:
+        relative = (contract.root / contract.consumption_relative).relative_to(
+            repository
+        ).as_posix()
+    except ValueError:
+        raise ValidationError("recovery transfer latch is outside the repository") from None
+    if _bound_git(
+        runtime,
+        ["status", "--porcelain=v1", "--untracked-files=all", "-z"],
+    ) != b"":
+        raise ValidationError("recovery transfer pre-latch worktree is not clean")
+    if _bound_git(runtime, ["ls-files", "--stage", "--", relative]) != b"":
+        raise ValidationError("recovery transfer latch path unexpectedly exists in the index")
+    ignore_state = _bound_git(
+        runtime,
+        ["check-ignore", "--no-index", "-v", "--non-matching", "--", relative],
+        allowed_returncodes=(1,),
+    )
+    if ignore_state != b"::\t" + relative.encode("utf-8") + b"\n":
+        raise ValidationError("recovery transfer latch path is unexpectedly ignored")
+    return relative
+
+
+def _revalidate_recovery_transfer_contract(
+    contract: _RecoveryTransferExecutionContract,
+    worker: _PreparedVoiceTransferWorker,
+    latch_bytes: bytes,
+    *,
+    current: datetime,
+) -> dict[str, Any]:
+    errors: list[str] = []
+    runtime = _validate_recovery_transfer_runtime_bindings(
+        contract.authorization.get("runtime_bindings"),
+        active=True,
+        errors=errors,
+    )
+    if errors:
+        raise ValidationError("recovery transfer runtime binding changed after latch")
+    head = _bound_git(runtime, ["rev-parse", "HEAD"]).strip().decode("ascii", errors="strict")
+    if head != contract.git_head:
+        raise ValidationError("recovery transfer Git HEAD changed after latch")
+    _verify_recovery_transfer_latch(contract, latch_bytes)
+    _revalidate_prepared_transfer_worker(worker)
+    latch_repository_relative = _verify_recovery_transfer_post_latch_git_scope(
+        contract,
+        runtime,
+    )
+    for binding in contract.inputs:
+        _revalidate_recovery_transfer_input(contract, binding)
+    _preflight_recovery_transfer_destinations(contract, latch_exists=True)
+    if (
+        current < contract.browser_observed_at
+        or (current - contract.browser_observed_at).total_seconds()
+        > DATA_USE_MAX_AGE_SECONDS
+        or not contract.materialized_at <= current < contract.expires_at
+        or sha256_bytes(contract.body) != TRANSFER_BODY_SHA256
+        or len(contract.body) != TRANSFER_BODY_BYTES
+    ):
+        raise ValidationError("recovery transfer authority or held body is no longer current")
+    return {
+        "runtime_commit": runtime["git_commit"],
+        "evidence_commit": contract.authorization["evidence_baseline"]["evidence_commit"],
+        "active_commit": head,
+        "worker_source_sha256": worker.worker_source_sha256,
+        "worker_interpreter_sha256": worker.interpreter_sha256,
+        "input_sha256s": {
+            binding.name: binding.sha256 for binding in contract.inputs
+        },
+        "remote_state_checked": False,
+        "git_network_called": False,
+        "post_latch_git_status_path": latch_repository_relative,
+        "post_latch_git_status_state": "sole_untracked_nonignored_latch",
+        "post_latch_revalidation_completed": True,
+        "source_revalidated_after_latch": True,
+    }
+
+
+def _revalidate_recovery_transfer_before_latch(
+    contract: _RecoveryTransferExecutionContract,
+    worker: _PreparedVoiceTransferWorker,
+) -> dict[str, Any]:
+    errors: list[str] = []
+    runtime = _validate_recovery_transfer_runtime_bindings(
+        contract.authorization.get("runtime_bindings"),
+        active=True,
+        errors=errors,
+    )
+    if errors:
+        raise ValidationError("recovery transfer runtime changed before latch")
+    head = _bound_git(runtime, ["rev-parse", "HEAD"]).strip().decode("ascii", errors="strict")
+    if head != contract.git_head:
+        raise ValidationError("recovery transfer Git HEAD changed before latch")
+    latch_repository_relative = _verify_recovery_transfer_pre_latch_git_scope(
+        contract,
+        runtime,
+    )
+    for binding in contract.inputs:
+        _revalidate_recovery_transfer_input(contract, binding)
+    _revalidate_prepared_transfer_worker(worker)
+    _preflight_recovery_transfer_destinations(contract, latch_exists=False)
+    current = _execution_now()
+    if (
+        not contract.materialized_at <= current < contract.expires_at
+        or current < contract.browser_observed_at
+        or (current - contract.browser_observed_at).total_seconds()
+        > DATA_USE_MAX_AGE_SECONDS
+        or len(contract.body) != TRANSFER_BODY_BYTES
+        or sha256_bytes(contract.body) != TRANSFER_BODY_SHA256
+    ):
+        raise ValidationError("recovery transfer authority expired before latch")
+    return {
+        "runtime_commit": runtime["git_commit"],
+        "evidence_commit": contract.authorization["evidence_baseline"]["evidence_commit"],
+        "active_commit": head,
+        "worker_source_sha256": worker.worker_source_sha256,
+        "worker_interpreter_sha256": worker.interpreter_sha256,
+        "input_sha256s": {
+            binding.name: binding.sha256 for binding in contract.inputs
+        },
+        "remote_state_checked": False,
+        "git_network_called": False,
+        "pre_latch_git_status_path": latch_repository_relative,
+        "pre_latch_git_status_state": "clean_and_latch_untracked_nonignored",
+        "post_latch_revalidation_completed": False,
+        "source_revalidated_before_latch": True,
+    }
+
+
+def _recovery_transfer_execution_failure(
+    code: str,
+    *,
+    go_released: bool,
+    response: _ElevenResponse | None = None,
+) -> pt._GuideExecutionFailure:
+    if code not in RECOVERY_TRANSFER_EXECUTION_FAILURE_CODES:
+        code = "unexpected_local_failure"
+    failure = (
+        _post_go_worker_failure(
+            code,
+            response_state="confirmed" if response is not None else "unknown",
+            http_status=200 if response is not None else None,
+            response_bytes=response.response_bytes if response is not None else 0,
+            response_sha256=response.response_sha256 if response is not None else None,
+            provider_identifiers=(
+                dict(response.provider_identifiers) if response is not None else {}
+            ),
+            provider_usage=dict(response.provider_usage) if response is not None else {},
+        )
+        if go_released
+        else _pre_go_worker_failure(code)
+    )
+    if response is not None:
+        failure.provider_request_state = "response_confirmed"
+        failure.provider_response_state = "body_complete"
+        failure.application_http_attempts = 1
+        failure.provider_output_state = "received_not_persisted"
+    else:
+        failure.application_http_attempts = 0
+    return failure
+
+
+def _recovery_transfer_failure_receipt(
+    contract: _RecoveryTransferExecutionContract,
+    *,
+    latch_sha256: str | None,
+    latch_verified_complete: bool,
+    source_proof: dict[str, Any],
+    failure: pt._GuideExecutionFailure,
+    credential_read_attempts: int,
+    credential_access_state: str,
+    started_at: datetime | None,
+    failed_at: datetime | None,
+    raw_state: _RecoveryTransferWriteState,
+    run_state: _RecoveryTransferWriteState,
+    conversion_completed: bool,
+) -> dict[str, Any]:
+    code = failure.code
+    if code not in RECOVERY_TRANSFER_EXECUTION_FAILURE_CODES:
+        code = "unexpected_local_failure"
+    go_released = getattr(failure, "post_budget_consumed", False) is True
+    request_state = getattr(
+        failure,
+        "provider_request_state",
+        "unknown_after_go" if go_released else "not_started",
+    )
+    response_state = getattr(
+        failure,
+        "provider_response_state",
+        "unknown" if go_released else "none",
+    )
+    attempts = getattr(failure, "application_http_attempts", 0)
+    if type(attempts) is not int or attempts not in {0, 1}:
+        attempts = 0
+    response_confirmed = response_state in {
+        "headers_confirmed",
+        "headers_rejected",
+        "body_complete",
+        "body_rejected",
+        "confirmed",
+    }
+    return {
+        "schema_version": RECOVERY_TRANSFER_FAILURE_SCHEMA,
+        "outcome": "failed_closed",
+        "provider": "elevenlabs",
+        "scope": RECOVERY_TRANSFER_SCOPE,
+        "method": "POST",
+        "endpoint": pt.TRANSFER_ENDPOINT,
+        "part_id": "P01-W0030-W0110",
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "consumption_record_path": contract.consumption_relative,
+        "consumption_record_sha256": latch_sha256,
+        "consumption_record_verified_complete": latch_verified_complete,
+        "source_proof": source_proof,
+        "primary_request_sha256": contract.authorization["bindings"]["primary_request_sha256"],
+        "normalized_http_request_sha256": contract.authorization["bindings"][
+            "normalized_http_request_sha256"
+        ],
+        "multipart_body_sha256": TRANSFER_BODY_SHA256,
+        "multipart_body_bytes": TRANSFER_BODY_BYTES,
+        "failure_code": code,
+        "primary_failure_code": getattr(failure, "primary_failure_code", None),
+        "child_containment_state": getattr(
+            failure,
+            "child_containment_state",
+            "confirmed_reaped" if go_released else "credential_free_worker_closed",
+        ),
+        "credential_descriptor_read_attempts": credential_read_attempts,
+        "credential_access_state": credential_access_state,
+        "credential_accessed": credential_access_state
+        in {"bytes_read_not_accepted", "bytes_read_held_unverified", "held_and_verified"},
+        "credential_fingerprint_sha256": contract.expected_fingerprint_sha256,
+        "account_get_calls_made": 0,
+        "generation_post_budget_consumed": True,
+        "go_released": go_released,
+        "application_http_attempt_limit": 1,
+        "application_http_attempts": attempts,
+        "application_retries_made": 0,
+        "application_redirects_followed": 0,
+        "application_fallbacks_used": 0,
+        "network_stack_address_selection_state": (
+            "stdlib_internal_connection_selection_possible"
+            if go_released
+            else "not_applicable"
+        ),
+        "network_call_state": (
+            "application_request_started"
+            if attempts == 1
+            else ("unknown_after_go" if go_released else "not_called")
+        ),
+        "provider_request_state": request_state,
+        "provider_response_state": response_state,
+        "provider_mutation_state": (
+            "potentially_ambiguous" if go_released else "none"
+        ),
+        "provider_output_state": (
+            "potentially_ambiguous" if go_released else "none"
+        ),
+        "provider_response_received": response_confirmed,
+        "http_status": failure.http_status,
+        "response_bytes": failure.response_bytes,
+        "response_sha256": failure.response_sha256,
+        "provider_identifiers": dict(failure.provider_identifiers),
+        "provider_usage": dict(failure.provider_usage),
+        "outputs_received": 1 if response_state == "body_complete" else 0,
+        "raw_output_created": raw_state.created,
+        "raw_output_verified_complete": raw_state.verified_complete,
+        "raw_output_observed_byte_count": raw_state.byte_count,
+        "run_receipt_created": run_state.created,
+        "run_receipt_verified_complete": run_state.verified_complete,
+        "working_output_and_conversion_receipt_verified_complete": conversion_completed,
+        "started_at": _iso(started_at) if started_at is not None else None,
+        "failed_at": _iso(failed_at) if failed_at is not None else None,
+        "retry_permitted": False,
+        "replay_permitted": False,
+        "reconciliation_required": go_released
+        and not (
+            raw_state.verified_complete
+            and run_state.verified_complete
+            and conversion_completed
+        ),
+        "modeled_spend_state": "potentially_incurred" if go_released else "none",
+        "modeled_spend_ceiling_usd": TRANSFER_MAX_SPEND_USD,
+        "modeled_spend_provider_enforced": False,
+        "credentials_recorded": False,
+        "raw_credential_stored": False,
+        "raw_provider_body_stored": raw_state.created,
+        "creative_approved": False,
+        "full_capture_authorized": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def _recovery_transfer_success_receipt(
+    contract: _RecoveryTransferExecutionContract,
+    *,
+    latch_sha256: str,
+    source_proof: dict[str, Any],
+    response: _ElevenResponse,
+    geometry: dict[str, Any],
+    raw_sha256: str,
+    started_at: datetime,
+    completed_at: datetime,
+) -> dict[str, Any]:
+    prerequisites = {
+        name: binding["sha256"]
+        for name, binding in sorted(contract.authorization["prerequisites"].items())
+    }
+    return {
+        "schema_version": RECOVERY_TRANSFER_RUN_SCHEMA,
+        "outcome": "success",
+        "provider": "elevenlabs",
+        "scope": RECOVERY_TRANSFER_SCOPE,
+        "method": "POST",
+        "endpoint": pt.TRANSFER_ENDPOINT,
+        "part_id": "P01-W0030-W0110",
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "consumption_record_path": contract.consumption_relative,
+        "consumption_record_sha256": latch_sha256,
+        "source_proof": source_proof,
+        "plan_sha256": contract.authorization["bindings"]["performance_transfer_plan_sha256"],
+        "canonical_w_sha256": contract.authorization["bindings"]["canonical_w_sha256"],
+        "spoken_text_sha256": contract.authorization["bindings"]["spoken_text_sha256"],
+        "selected_guide_sha256": SELECTED_GUIDE_SHA256,
+        "selected_guide_run_receipt_sha256": SELECTED_GUIDE_RUN_SHA256,
+        "prerequisite_sha256s": prerequisites,
+        "account_authentication_evidence": dict(
+            contract.authorization["account_authentication_evidence"]
+        ),
+        "credential_fingerprint_sha256": contract.expected_fingerprint_sha256,
+        "browser_suffix_sha256": contract.expected_suffix_sha256,
+        "credential_descriptor_read_attempts": 1,
+        "credential_access_state": "held_and_verified",
+        "child_containment_state": "confirmed_reaped",
+        "request": {
+            "part_id": "P01-W0030-W0110",
+            "primary_request_sha256": contract.authorization["bindings"]["primary_request_sha256"],
+            "normalized_http_request_sha256": contract.authorization["bindings"][
+                "normalized_http_request_sha256"
+            ],
+            "method": "POST",
+            "exact_url": contract.normalized_request["url"],
+            "multipart_body_sha256": TRANSFER_BODY_SHA256,
+            "multipart_body_bytes": TRANSFER_BODY_BYTES,
+            "content_type": TRANSFER_CONTENT_TYPE,
+            "credential_header_name": "xi-api-key",
+            "accept": "application/octet-stream",
+            "accept_encoding": "identity",
+        },
+        "provider_evidence": {
+            "account_get_calls_made": 0,
+            "generation_post_budget_consumed": True,
+            "generation_post_calls_made": 1,
+            "application_http_attempt_limit": 1,
+            "application_http_attempts": 1,
+            "application_retries_made": 0,
+            "application_redirects_followed": 0,
+            "application_fallbacks_used": 0,
+            "network_stack_address_selection_state": (
+                "stdlib_internal_connection_selection_possible"
+            ),
+            "outputs_received": 1,
+            "request_ids": dict(response.provider_identifiers),
+            "usage": dict(response.provider_usage),
+        },
+        "response": {
+            "http_status": 200,
+            "provider_request_state": "response_confirmed",
+            "provider_response_state": "body_complete",
+            "response_bytes": response.response_bytes,
+            "response_sha256": response.response_sha256,
+            "declared_mime_type": response.content_type,
+            "content_encoding": response.content_encoding,
+            "media_interpretation": {
+                "classification": "interpreted_pcm_under_exact_format_contract",
+                "output_format": "pcm_48000",
+                "declared_mime_allowlist": ["audio/pcm", "audio/mpeg"],
+                "compressed_or_container_signature_detected": False,
+                "negative_ffprobe_detected_format": False,
+                "headerless_bytes_intrinsically_prove_codec_geometry": False,
+                "official_media_contract_sha256": MEDIA_CONTRACT_BASIS_SHA256,
+            },
+        },
+        "raw_output": {
+            "part_id": "P01-W0030-W0110",
+            "path": contract.raw_relative,
+            "sha256": raw_sha256,
+            "byte_count": response.response_bytes,
+            **geometry,
+        },
+        "working_output_path": contract.working_relative,
+        "conversion_receipt_path": contract.conversion_relative,
+        "started_at": _iso(started_at),
+        "completed_at": _iso(completed_at),
+        "modeled_spend_usd": TRANSFER_MAX_SPEND_USD,
+        "modeled_spend_basis": "voice_changer_full_minute_worst_case",
+        "modeled_spend_provider_enforced": False,
+        "taxes_included": False,
+        "credentials_recorded": False,
+        "raw_credential_stored": False,
+        "creative_approved": False,
+        "full_capture_authorized": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def _finalize_recovery_transfer_failure(
+    contract: _RecoveryTransferExecutionContract,
+    *,
+    latch_sha256: str | None,
+    latch_verified_complete: bool,
+    source_proof: dict[str, Any],
+    failure: pt._GuideExecutionFailure,
+    credential_read_attempts: int,
+    credential_access_state: str,
+    started_at: datetime | None,
+    raw_state: _RecoveryTransferWriteState,
+    run_state: _RecoveryTransferWriteState,
+    conversion_completed: bool,
+) -> tuple[str, _RecoveryTransferWriteState]:
+    """Serialize terminal evidence without exposing sensitive caller locals."""
+
+    failure_receipt: dict[str, Any] = {}
+    failure_bytes = b""
+    write_state = _RecoveryTransferWriteState(False, False, None, None)
+    code = (
+        failure.code
+        if failure.code in RECOVERY_TRANSFER_EXECUTION_FAILURE_CODES
+        else "unexpected_local_failure"
+    )
+    try:
+        try:
+            failed_at = _execution_now()
+        except BaseException as clock_failure:
+            clock_failure.__traceback__ = None
+            clock_failure.__cause__ = None
+            clock_failure.__context__ = None
+            failed_at = None
+        failure_receipt = _recovery_transfer_failure_receipt(
+            contract,
+            latch_sha256=latch_sha256,
+            latch_verified_complete=latch_verified_complete,
+            source_proof=source_proof,
+            failure=failure,
+            credential_read_attempts=credential_read_attempts,
+            credential_access_state=credential_access_state,
+            started_at=started_at,
+            failed_at=failed_at,
+            raw_state=raw_state,
+            run_state=run_state,
+            conversion_completed=conversion_completed,
+        )
+        failure_bytes = _receipt_bytes(failure_receipt)
+        if pt._scan_for_secrets(failure_receipt):
+            return code, write_state
+        write_state = _exclusive_recovery_transfer_write(
+            contract.root,
+            contract.failure_relative,
+            failure_bytes,
+        )
+        return code, write_state
+    except BaseException as terminal_failure:
+        terminal_failure.__traceback__ = None
+        terminal_failure.__cause__ = None
+        terminal_failure.__context__ = None
+        return code, write_state
+    finally:
+        failure_receipt.clear()
+        failure_bytes = b""
+
+
+def execute_recovery_evidence_voice_transfer(
+    authorization_path: Path,
+    plan_path: Path,
+    canonical_w_path: Path,
+    *,
+    timeout: float = 60.0,
+) -> dict[str, Any]:
+    """Consume one shared latch and release at most one isolated POST."""
+
+    if (
+        type(timeout) not in {int, float}
+        or not 0 < float(timeout) <= TRANSFER_MAX_ELAPSED_SECONDS
+    ):
+        raise ValidationError("recovery transfer timeout must be greater than zero and at most 300 seconds")
+    _require_recovery_transfer_containment_clear()
+    core_limit = _preflight_recovery_transfer_core_limit()
+    contract: _RecoveryTransferExecutionContract | None = None
+    worker: _PreparedVoiceTransferWorker | None = None
+    key_material = bytearray()
+    response: _ElevenResponse | None = None
+    failure: pt._GuideExecutionFailure | None = None
+    source_proof: dict[str, Any] = {}
+    geometry: dict[str, Any] = {}
+    conversion: dict[str, Any] = {}
+    success_result: dict[str, Any] | None = None
+    latch_bytes = b""
+    latch_sha256: str | None = None
+    run_bytes = b""
+    raw_sha256 = ""
+    consumed_at: datetime | None = None
+    started_at: datetime | None = None
+    credential_read_attempts = 0
+    credential_access_state = "not_attempted"
+    latch_state = _RecoveryTransferWriteState(False, False, None, None)
+    raw_state = _RecoveryTransferWriteState(False, False, None, None)
+    run_state = _RecoveryTransferWriteState(False, False, None, None)
+    failure_write_state = _RecoveryTransferWriteState(False, False, None, None)
+    conversion_completed = False
+    core_limit_entered = False
+    pre_latch_failure = "recovery transfer pre-latch readiness failed"
+    pre_latch_containment_unconfirmed = False
+    try:
+        # Everything through READY and final destination/source checks is
+        # credential-free and reversible.  No latch exists on any failure here.
+        contract = _build_recovery_transfer_execution_contract(
+            authorization_path,
+            plan_path,
+            canonical_w_path,
+        )
+        worker = _prepare_voice_transfer_worker()
+        _preflight_recovery_transfer_destinations(contract, latch_exists=False)
+        source_proof = _revalidate_recovery_transfer_before_latch(contract, worker)
+
+        consumed_at = _execution_now()
+        latch = _recovery_transfer_consumption_receipt(contract, worker, consumed_at)
+        latch_bytes = _receipt_bytes(latch)
+        if pt._scan_for_secrets(latch):
+            raise ValidationError("recovery transfer latch secret scan failed")
+        latch_state = _exclusive_recovery_transfer_write(
+            contract.root,
+            contract.consumption_relative,
+            latch_bytes,
+        )
+        if not latch_state.created:
+            raise ValidationError("recovery transfer latch could not be exclusively created")
+        if not latch_state.verified_complete:
+            raise _pre_go_worker_failure("immutable_latch_revalidation_failed")
+        latch_sha256 = latch_state.sha256
+        try:
+            _verify_recovery_transfer_latch(contract, latch_bytes)
+        except ValidationError:
+            raise _pre_go_worker_failure("immutable_latch_revalidation_failed") from None
+        try:
+            _verify_recovery_transfer_post_latch_git_scope(
+                contract,
+                contract.authorization["runtime_bindings"],
+            )
+        except ValidationError:
+            raise _pre_go_worker_failure("local_source_revalidation_failed") from None
+
+        _enter_recovery_transfer_core_limit(core_limit)
+        core_limit_entered = True
+        try:
+            credential_read_attempts = 1
+            try:
+                key_material = _read_recovery_transfer_dotenv_key()
+                credential_access_state = "bytes_read_held_unverified"
+            except _RecoveryTransferCredentialReadFailure as credential_failure:
+                credential_access_state = credential_failure.credential_bytes_read_state
+                credential_failure.__traceback__ = None
+                credential_failure.__cause__ = None
+                credential_failure.__context__ = None
+                raise _pre_go_worker_failure("fixed_dotenv_read_failed") from None
+            if (
+                _recovery_transfer_hash(API_KEY_DOMAIN, key_material)
+                != contract.expected_fingerprint_sha256
+            ):
+                raise _pre_go_worker_failure("credential_fingerprint_mismatch")
+            if (
+                _recovery_transfer_suffix_hash(key_material)
+                != contract.expected_suffix_sha256
+            ):
+                raise _pre_go_worker_failure("credential_suffix_mismatch")
+            credential_access_state = "held_and_verified"
+
+            # The held mutable credential is never re-read.  Recheck exact
+            # sources, ACTIVE freshness, latch bytes, destinations, and READY
+            # process immediately before GO.
+            try:
+                _verify_recovery_transfer_latch(contract, latch_bytes)
+            except ValidationError:
+                raise _pre_go_worker_failure("immutable_latch_revalidation_failed") from None
+            try:
+                _revalidate_prepared_transfer_worker(worker)
+            except ValidationError:
+                raise _pre_go_worker_failure("worker_identity_revalidation_failed") from None
+            try:
+                post_latch_proof = _revalidate_recovery_transfer_contract(
+                    contract,
+                    worker,
+                    latch_bytes,
+                    current=_execution_now(),
+                )
+            except ValidationError:
+                raise _pre_go_worker_failure("local_source_revalidation_failed") from None
+            source_proof.update(post_latch_proof)
+            post_latch_proof.clear()
+
+            # Bind the parent hard deadline to the earliest caller cap, ACTIVE
+            # expiry, or one-hour browser-evidence expiry.  Sampling monotonic
+            # before wall time is conservative under scheduling delay.
+            go_monotonic_ns = time.monotonic_ns()
+            started_at = _execution_now()
+            authority_deadline = min(
+                contract.expires_at,
+                contract.browser_observed_at
+                + timedelta(seconds=DATA_USE_MAX_AGE_SECONDS),
+            )
+            remaining_authority = (authority_deadline - started_at).total_seconds()
+            effective_timeout = min(float(timeout), remaining_authority)
+            if (
+                not contract.materialized_at <= started_at < authority_deadline
+                or effective_timeout <= 0
+            ):
+                raise _pre_go_worker_failure("authorization_expired_before_go")
+            absolute_deadline_ns = go_monotonic_ns + max(
+                1,
+                int(effective_timeout * 1_000_000_000),
+            )
+            response = _perform_prepared_voice_transfer(
+                worker,
+                api_key_material=key_material,
+                body=contract.body,
+                timeout=float(timeout),
+                absolute_deadline_ns=absolute_deadline_ns,
+            )
+            worker = None
+        except pt._GuideExecutionFailure as credential_or_worker_failure:
+            failure = credential_or_worker_failure
+            credential_or_worker_failure.__traceback__ = None
+            credential_or_worker_failure.__cause__ = None
+            credential_or_worker_failure.__context__ = None
+        except BaseException as credential_phase_failure:
+            credential_phase_failure.__traceback__ = None
+            credential_phase_failure.__cause__ = None
+            credential_phase_failure.__context__ = None
+            failure = _recovery_transfer_execution_failure(
+                "unexpected_local_failure",
+                go_released=False,
+            )
+        finally:
+            _zero_mutable_buffer(key_material)
+            if contract is not None:
+                _zero_mutable_buffer(contract.body)
+            if core_limit_entered:
+                restored = _restore_recovery_transfer_core_limit(core_limit)
+                core_limit_entered = False
+                if not restored:
+                    primary_failure = failure
+                    go_released = response is not None or (
+                        primary_failure is not None
+                        and getattr(primary_failure, "post_budget_consumed", False) is True
+                    )
+                    replacement = _recovery_transfer_execution_failure(
+                        "core_dump_protection_failed",
+                        go_released=go_released,
+                        response=response,
+                    )
+                    if primary_failure is not None:
+                        replacement.primary_failure_code = primary_failure.code
+                        replacement.provider_request_state = getattr(
+                            primary_failure,
+                            "provider_request_state",
+                            replacement.provider_request_state,
+                        )
+                        replacement.provider_response_state = getattr(
+                            primary_failure,
+                            "provider_response_state",
+                            replacement.provider_response_state,
+                        )
+                        replacement.application_http_attempts = getattr(
+                            primary_failure,
+                            "application_http_attempts",
+                            replacement.application_http_attempts,
+                        )
+                        replacement.http_status = primary_failure.http_status
+                        replacement.response_bytes = primary_failure.response_bytes
+                        replacement.response_sha256 = primary_failure.response_sha256
+                        replacement.provider_identifiers = dict(
+                            primary_failure.provider_identifiers
+                        )
+                        replacement.provider_usage = dict(primary_failure.provider_usage)
+                    failure = replacement
+
+        if failure is not None:
+            raise failure
+
+        assert contract is not None
+        assert response is not None
+        completed_at = _execution_now()
+        authority_deadline = min(
+            contract.expires_at,
+            contract.browser_observed_at + timedelta(seconds=DATA_USE_MAX_AGE_SECONDS),
+        )
+        if started_at is None or not started_at <= completed_at <= authority_deadline:
+            raise _recovery_transfer_execution_failure(
+                "response_completed_outside_authority",
+                go_released=True,
+                response=response,
+            )
+        if response.content_type not in {"audio/pcm", "audio/mpeg"} or response.content_encoding != "identity":
+            raise _recovery_transfer_execution_failure(
+                "provider_pcm_payload_invalid",
+                go_released=True,
+                response=response,
+            )
+        try:
+            geometry = _validate_raw_pcm(
+                response.payload,
+                ffprobe_path=contract.authorization["runtime_bindings"]["ffprobe_binary_path"],
+                ffprobe_sha256=contract.authorization["runtime_bindings"]["ffprobe_binary_sha256"],
+                ffprobe_version=contract.authorization["runtime_bindings"]["ffprobe_version"],
+            )
+        except pt._GuideExecutionFailure as media_failure:
+            code = media_failure.code
+            media_failure.__traceback__ = None
+            raise _recovery_transfer_execution_failure(
+                code,
+                go_released=True,
+                response=response,
+            ) from None
+        _preflight_recovery_transfer_destinations(contract, latch_exists=True)
+        raw_state = _exclusive_recovery_transfer_write(
+            contract.root,
+            contract.raw_relative,
+            response.payload,
+        )
+        if not raw_state.verified_complete:
+            raise _recovery_transfer_execution_failure(
+                "local_destination_or_receipt_failure",
+                go_released=True,
+                response=response,
+            )
+        pt._verify_private_fixture_artifact(
+            contract.root,
+            contract.raw_relative,
+            response.payload,
+            "recovery transfer raw PCM output",
+        )
+        raw_sha256 = sha256_bytes(response.payload)
+        run = _recovery_transfer_success_receipt(
+            contract,
+            latch_sha256=latch_sha256,
+            source_proof=source_proof,
+            response=response,
+            geometry=geometry,
+            raw_sha256=raw_sha256,
+            started_at=started_at,
+            completed_at=completed_at,
+        )
+        run_bytes = _receipt_bytes(run)
+        if pt._scan_for_secrets(run):
+            raise _recovery_transfer_execution_failure(
+                "local_destination_or_receipt_failure",
+                go_released=True,
+                response=response,
+            )
+        run_state = _exclusive_recovery_transfer_write(
+            contract.root,
+            contract.success_relative,
+            run_bytes,
+        )
+        if not run_state.verified_complete:
+            raise _recovery_transfer_execution_failure(
+                "local_destination_or_receipt_failure",
+                go_released=True,
+                response=response,
+            )
+        from .audio import convert_recovery_evidence_working
+
+        try:
+            conversion = convert_recovery_evidence_working(
+                contract.root / contract.raw_relative,
+                contract.root / contract.working_relative,
+                receipt_path=contract.root / contract.success_relative,
+                part_id="P01-W0030-W0110",
+                record_path=contract.root / contract.conversion_relative,
+            )
+        except ValidationError:
+            raise _recovery_transfer_execution_failure(
+                "local_conversion_failed_closed",
+                go_released=True,
+                response=response,
+            ) from None
+        conversion_completed = True
+        success_result = {
+            "schema_version": RECOVERY_TRANSFER_RESULT_SCHEMA,
+            "valid": True,
+            "outcome": "success",
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_consumed": True,
+            "credential_descriptor_read_attempts": 1,
+            "account_get_calls_made": 0,
+            "generation_post_budget_consumed": True,
+            "generation_post_calls_made": 1,
+            "application_retries_made": 0,
+            "application_redirects_followed": 0,
+            "application_fallbacks_used": 0,
+            "network_stack_address_selection_state": (
+                "stdlib_internal_connection_selection_possible"
+            ),
+            "outputs_received": 1,
+            "modeled_spend_usd": TRANSFER_MAX_SPEND_USD,
+            "modeled_spend_basis": "voice_changer_full_minute_worst_case",
+            "modeled_spend_provider_enforced": False,
+            "taxes_included": False,
+            "run_receipt": {
+                "path": contract.success_relative,
+                "sha256": sha256_bytes(run_bytes),
+            },
+            "raw_output": {"path": contract.raw_relative, "sha256": raw_sha256},
+            "working_output": {
+                "path": contract.working_relative,
+                "sha256": conversion["working"]["sha256"],
+            },
+            "conversion_receipt": {
+                "path": contract.conversion_relative,
+                "sha256": sha256_file(contract.root / contract.conversion_relative),
+            },
+            "network_called": True,
+            "credential_access_state": "held_and_verified",
+            "credentials_accessed": True,
+            "child_containment_state": "confirmed_reaped",
+            "retry_permitted": False,
+            "replay_permitted": False,
+            "creative_approved": False,
+            "full_capture_authorized": False,
+            "step2_lock_authorized": False,
+            "step3_authorized": False,
+            "sharing_authorized": False,
+            "publication_authorized": False,
+        }
+    except pt._GuideExecutionFailure as execution_failure:
+        failure = execution_failure
+        execution_failure.__traceback__ = None
+        execution_failure.__cause__ = None
+        execution_failure.__context__ = None
+    except ValidationError as validation_failure:
+        if not latch_state.created:
+            validation_failure.__traceback__ = None
+            validation_failure.__cause__ = None
+            validation_failure.__context__ = None
+            pre_latch_failure = "recovery transfer pre-latch readiness failed"
+        validation_failure.__traceback__ = None
+        validation_failure.__cause__ = None
+        validation_failure.__context__ = None
+        if latch_state.created:
+            failure = _recovery_transfer_execution_failure(
+                "local_destination_or_receipt_failure",
+                go_released=response is not None,
+                response=response,
+            )
+    except BaseException as unexpected:
+        unexpected.__traceback__ = None
+        unexpected.__cause__ = None
+        unexpected.__context__ = None
+        if not latch_state.created:
+            pre_latch_failure = "recovery transfer pre-latch readiness stopped safely"
+        else:
+            failure = _recovery_transfer_execution_failure(
+                "unexpected_local_failure",
+                go_released=response is not None,
+                response=response,
+            )
+    finally:
+        _zero_mutable_buffer(key_material)
+        if contract is not None:
+            _zero_mutable_buffer(contract.body)
+        if core_limit_entered:
+            _restore_recovery_transfer_core_limit(core_limit)
+            core_limit_entered = False
+        if worker is not None:
+            worker_go_released = worker.state != "ready"
+            reaped = _dispose_recovery_transfer_worker(worker)
+            if not reaped and latch_state.created:
+                primary_failure_code = (
+                    failure.code if failure is not None else "unexpected_local_failure"
+                )
+                containment_failure = _recovery_transfer_execution_failure(
+                    "isolated_worker_reap_failure",
+                    go_released=worker_go_released
+                    or (
+                        failure is not None
+                        and getattr(failure, "post_budget_consumed", False) is True
+                    ),
+                    response=response,
+                )
+                containment_failure.primary_failure_code = primary_failure_code
+                containment_failure.child_containment_state = (
+                    "sigkill_sent_reap_unconfirmed"
+                )
+                if failure is not None:
+                    containment_failure.provider_request_state = getattr(
+                        failure,
+                        "provider_request_state",
+                        containment_failure.provider_request_state,
+                    )
+                    containment_failure.provider_response_state = getattr(
+                        failure,
+                        "provider_response_state",
+                        containment_failure.provider_response_state,
+                    )
+                    containment_failure.application_http_attempts = getattr(
+                        failure,
+                        "application_http_attempts",
+                        containment_failure.application_http_attempts,
+                    )
+                    containment_failure.http_status = failure.http_status
+                    containment_failure.response_bytes = failure.response_bytes
+                    containment_failure.response_sha256 = failure.response_sha256
+                    containment_failure.provider_identifiers = dict(
+                        failure.provider_identifiers
+                    )
+                    containment_failure.provider_usage = dict(failure.provider_usage)
+                failure = containment_failure
+                success_result = None
+                conversion_completed = False
+            elif not reaped:
+                pre_latch_containment_unconfirmed = True
+            worker = None
+
+    if success_result is not None:
+        response = None
+        geometry.clear()
+        conversion.clear()
+        source_proof.clear()
+        run_bytes = b""
+        latch_bytes = b""
+        contract = None
+        return success_result
+    if contract is None or failure is None or not latch_state.created:
+        if contract is not None:
+            _zero_mutable_buffer(contract.body)
+        response = None
+        failure = None
+        geometry.clear()
+        conversion.clear()
+        source_proof.clear()
+        run_bytes = b""
+        latch_bytes = b""
+        contract = None
+        if pre_latch_containment_unconfirmed:
+            raise ValidationError(
+                "recovery transfer pre-latch worker containment is unconfirmed"
+            ) from None
+        raise ValidationError(pre_latch_failure) from None
+    code, failure_write_state = _finalize_recovery_transfer_failure(
+        contract,
+        latch_sha256=latch_sha256,
+        latch_verified_complete=latch_state.verified_complete,
+        source_proof=source_proof,
+        failure=failure,
+        credential_read_attempts=credential_read_attempts,
+        credential_access_state=credential_access_state,
+        started_at=started_at,
+        raw_state=raw_state,
+        run_state=run_state,
+        conversion_completed=conversion_completed,
+    )
+    response = None
+    failure = None
+    run_bytes = b""
+    latch_bytes = b""
+    geometry.clear()
+    conversion.clear()
+    source_proof.clear()
+    contract = None
+    suffix = (
+        "failure receipt persisted"
+        if failure_write_state.verified_complete
+        else (
+            "failure receipt created but not verified complete"
+            if failure_write_state.created
+            else "failure receipt unavailable"
+        )
+    )
+    raise ValidationError(
+        f"recovery transfer stopped permanently without retry: {code}; {suffix}"
+    ) from None

@@ -4,15 +4,17 @@ import ast
 import copy
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
 import tempfile
+import time
 import unittest
 import urllib.request
 import uuid
 from contextlib import nullcontext
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
@@ -84,6 +86,178 @@ class _DuplicateHeaders:
             ("Content-Type", "application/json"),
             ("content-type", "text/plain"),
         ]
+
+
+def _worker_json_frame(document: dict) -> bytes:
+    payload = vt._canonical_worker_json(document)
+    return vt._TRANSFER_WORKER_FRAME_LENGTH_STRUCT.pack(len(payload)) + payload
+
+
+def _worker_body_frame(payload: bytes) -> bytes:
+    return vt._TRANSFER_WORKER_FRAME_LENGTH_STRUCT.pack(len(payload)) + payload
+
+
+def _worker_request_phase() -> dict:
+    return {
+        "application_http_attempts": 1,
+        "message": "phase",
+        "network_state": "application_request_starting",
+        "phase": "request_starting",
+        "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+        "request_state": "outcome_unknown",
+        "response_state": "none",
+        "sequence": 1,
+    }
+
+
+def _worker_headers_phase(*, status: int = 200, content_type: str = "audio/pcm") -> dict:
+    return {
+        "application_http_attempts": 1,
+        "content_encoding_state": "identity",
+        "content_length_state": "valid_within_cap",
+        "content_type": content_type,
+        "http_status": status,
+        "message": "phase",
+        "network_state": "application_request_started",
+        "phase": "response_headers_confirmed",
+        "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+        "request_state": "response_confirmed",
+        "response_state": "headers_confirmed",
+        "sequence": 2,
+    }
+
+
+def _json_value_equal(left: object, right: object) -> bool:
+    if (
+        type(left) in {int, float}
+        and type(right) in {int, float}
+        and not isinstance(left, bool)
+        and not isinstance(right, bool)
+    ):
+        return left == right
+    if type(left) is not type(right):
+        return False
+    if isinstance(right, dict):
+        return set(left) == set(right) and all(
+            _json_value_equal(left[key], right[key]) for key in right
+        )
+    if isinstance(right, list):
+        return len(left) == len(right) and all(
+            _json_value_equal(a, b) for a, b in zip(left, right, strict=True)
+        )
+    return left == right
+
+
+def _local_schema_errors(
+    document: object,
+    schema: dict,
+    *,
+    root_schema: dict | None = None,
+    path: str = "$",
+) -> list[str]:
+    """Small dependency-free evaluator for every keyword used by this schema."""
+
+    root_schema = schema if root_schema is None else root_schema
+    errors: list[str] = []
+    reference = schema.get("$ref")
+    if reference is not None:
+        if not isinstance(reference, str) or not reference.startswith("#/"):
+            return [f"{path}: unsupported reference"]
+        target: object = root_schema
+        for token in reference[2:].split("/"):
+            token = token.replace("~1", "/").replace("~0", "~")
+            if not isinstance(target, dict) or token not in target:
+                return [f"{path}: unresolved reference"]
+            target = target[token]
+        if not isinstance(target, dict):
+            return [f"{path}: reference is not a schema"]
+        errors.extend(
+            _local_schema_errors(document, target, root_schema=root_schema, path=path)
+        )
+    expected_type = schema.get("type")
+    type_ok = {
+        "object": isinstance(document, dict),
+        "array": isinstance(document, list),
+        "string": isinstance(document, str),
+        "boolean": isinstance(document, bool),
+        "integer": type(document) is int,
+        "number": type(document) in {int, float},
+        "null": document is None,
+    }.get(expected_type, True)
+    if not type_ok:
+        errors.append(f"{path}: expected {expected_type}")
+        return errors
+    if "const" in schema and not _json_value_equal(document, schema["const"]):
+        errors.append(f"{path}: const mismatch")
+    if "enum" in schema and not any(
+        _json_value_equal(document, candidate) for candidate in schema["enum"]
+    ):
+        errors.append(f"{path}: enum mismatch")
+    if isinstance(document, dict):
+        required = schema.get("required", [])
+        for key in required:
+            if key not in document:
+                errors.append(f"{path}: missing {key}")
+        properties = schema.get("properties", {})
+        if schema.get("additionalProperties") is False:
+            for key in set(document) - set(properties):
+                errors.append(f"{path}: extra {key}")
+        for key, subschema in properties.items():
+            if key in document:
+                errors.extend(
+                    _local_schema_errors(
+                        document[key],
+                        subschema,
+                        root_schema=root_schema,
+                        path=f"{path}.{key}",
+                    )
+                )
+    if isinstance(document, list):
+        if isinstance(schema.get("maxItems"), int) and len(document) > schema["maxItems"]:
+            errors.append(f"{path}: too many items")
+        item_schema = schema.get("items")
+        if isinstance(item_schema, dict):
+            for index, item in enumerate(document):
+                errors.extend(
+                    _local_schema_errors(
+                        item,
+                        item_schema,
+                        root_schema=root_schema,
+                        path=f"{path}[{index}]",
+                    )
+                )
+    if isinstance(document, str):
+        if isinstance(schema.get("minLength"), int) and len(document) < schema["minLength"]:
+            errors.append(f"{path}: too short")
+        if isinstance(schema.get("maxLength"), int) and len(document) > schema["maxLength"]:
+            errors.append(f"{path}: too long")
+        pattern = schema.get("pattern")
+        if isinstance(pattern, str) and re.search(pattern, document) is None:
+            errors.append(f"{path}: pattern mismatch")
+    for subschema in schema.get("allOf", []):
+        errors.extend(
+            _local_schema_errors(document, subschema, root_schema=root_schema, path=path)
+        )
+    branches = schema.get("oneOf")
+    if isinstance(branches, list):
+        matches = sum(
+            not _local_schema_errors(document, branch, root_schema=root_schema, path=path)
+            for branch in branches
+        )
+        if matches != 1:
+            errors.append(f"{path}: oneOf matched {matches} branches")
+    condition = schema.get("if")
+    if isinstance(condition, dict) and not _local_schema_errors(
+        document, condition, root_schema=root_schema, path=path
+    ):
+        consequence = schema.get("then")
+        if isinstance(consequence, dict):
+            errors.extend(
+                _local_schema_errors(
+                    document, consequence, root_schema=root_schema, path=path
+                )
+            )
+    return errors
 
 
 class VoiceTransferTests(unittest.TestCase):
@@ -2080,6 +2254,3086 @@ class VoiceTransferTests(unittest.TestCase):
         ):
             vt._load_elevenlabs_api_key("0" * 64)
         self.assertNotIn(secret, str(captured.exception))
+
+    def _blocked_prepared_worker(
+        self,
+        *,
+        script: str = "import time; time.sleep(30)",
+        extra_pass_fds: tuple[int, ...] = (),
+    ) -> tuple[vt._PreparedVoiceTransferWorker, subprocess.Popen[bytes]]:
+        child_command, parent_command = os.pipe()
+        child_key, parent_key = os.pipe()
+        child_body, parent_body = os.pipe()
+        parent_result, child_result = os.pipe()
+        inherited = (child_command, child_key, child_body, child_result, *extra_pass_fds)
+        script = script.format(
+            command_fd=child_command,
+            key_fd=child_key,
+            body_fd=child_body,
+            result_fd=child_result,
+            extra_fd=extra_pass_fds[0] if extra_pass_fds else -1,
+        )
+        process = subprocess.Popen(
+            [
+                vt._TRANSFER_WORKER_INTERPRETER_PATH,
+                "-I",
+                "-S",
+                "-B",
+                "-c",
+                script,
+            ],
+            executable=vt._TRANSFER_WORKER_INTERPRETER_PATH,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True,
+            pass_fds=inherited,
+            env=dict(vt._TRANSFER_WORKER_ENV),
+            start_new_session=True,
+            text=False,
+        )
+        for descriptor in (child_command, child_key, child_body, child_result):
+            os.close(descriptor)
+        interpreter = vt._system_transfer_worker_interpreter_identity()
+        worker = vt._PreparedVoiceTransferWorker(
+            process=process,
+            command_fd=parent_command,
+            result_fd=parent_result,
+            key_fd=parent_key,
+            body_fd=parent_body,
+            worker_source_path="/bound/worker.py",
+            worker_source_sha256="a" * 64,
+            interpreter_path=interpreter[0],
+            interpreter_sha256=interpreter[1],
+            python_version=interpreter[2],
+            interpreter_identity=interpreter[3],
+            pid=process.pid,
+            process_group_id=process.pid,
+        )
+        self.addCleanup(vt._dispose_prepared_transfer_worker, worker)
+        return worker, process
+
+    def _valid_exchange_inputs(
+        self,
+        key: str = "unit-secret-abcd",
+    ) -> tuple[bytes, bytearray, bytearray]:
+        command = _worker_json_frame(
+            {
+                "action": "release_exact_transfer",
+                "application_http_attempt_limit": 1,
+                "body_bytes": vt.TRANSFER_BODY_BYTES,
+                "body_sha256": vt.TRANSFER_BODY_SHA256,
+                "child_deadline_monotonic_ns": time.monotonic_ns() + 1_000_000_000,
+                "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+            }
+        )
+        key_frame = bytearray(_worker_body_frame(key.encode("ascii")))
+        body_frame = bytearray(_worker_body_frame(b"\x00" * vt.TRANSFER_BODY_BYTES))
+        return command, key_frame, body_frame
+
+    def _worker_failure_result(self, **overrides: object) -> dict:
+        value: dict[str, object] = {
+            "application_fallbacks_used": 0,
+            "application_http_attempts": 1,
+            "application_redirects_followed": 0,
+            "application_retries_made": 0,
+            "content_encoding": None,
+            "content_type": None,
+            "failure_code": "provider_transport_failure",
+            "http_status": None,
+            "message": "result",
+            "network_stack_address_selection_state": (
+                "stdlib_internal_connection_selection_possible"
+            ),
+            "network_state": "application_request_started",
+            "outcome": "failure",
+            "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+            "provider_identifiers": {},
+            "provider_usage": {},
+            "request_state": "outcome_unknown",
+            "response_body_disposition": "not_read",
+            "response_byte_count_state": "none",
+            "response_bytes": 0,
+            "response_sha256": None,
+            "response_state": "none",
+            "success_body_follows": False,
+        }
+        value.update(overrides)
+        return value
+
+    def test_exact_worker_ready_is_pre_go_credential_free_and_reaped(self) -> None:
+        before_fds = set(os.listdir("/dev/fd"))
+        worker = vt._prepare_voice_transfer_worker(ready_timeout=3.0)
+        process = worker.process
+        self.assertIsNotNone(process)
+        assert process is not None
+        self.assertEqual(worker.state, "ready")
+        self.assertEqual(worker.worker_source_sha256, sha256_file(vt._TRANSFER_WORKER_SOURCE_PATH))
+        self.assertEqual(worker.interpreter_path, vt._TRANSFER_WORKER_INTERPRETER_PATH)
+        self.assertEqual(worker.interpreter_sha256, vt._TRANSFER_WORKER_INTERPRETER_SHA256)
+        self.assertEqual(worker.process_group_id, worker.pid)
+        self.assertEqual(os.getsid(worker.pid), worker.pid)
+        serialized_arguments = " ".join(str(item) for item in process.args)
+        self.assertNotIn(vt.API_KEY_ENV, serialized_arguments)
+        self.assertNotIn("xi-api-key", serialized_arguments)
+        self.assertNotIn(vt.TRANSFER_BODY_SHA256, str(vt._TRANSFER_WORKER_ENV))
+        self.assertTrue(vt._dispose_prepared_transfer_worker(worker))
+        self.assertIsNotNone(process.poll())
+        self.assertEqual(worker.state, "closed")
+        self.assertEqual(set(os.listdir("/dev/fd")), before_fds)
+
+    def test_parent_does_not_import_worker_before_descriptor_execution(self) -> None:
+        source = Path(vt.__file__).read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        imported = {
+            alias.name
+            for node in ast.walk(tree)
+            if isinstance(node, (ast.Import, ast.ImportFrom))
+            for alias in node.names
+        }
+        self.assertNotIn("elevenlabs_transfer_worker", imported)
+        self.assertNotIn("oe_narration.elevenlabs_transfer_worker", imported)
+
+    def test_worker_source_cannot_spawn_or_exec_descendants(self) -> None:
+        source = vt._TRANSFER_WORKER_SOURCE_PATH.read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        imported = {
+            alias.name
+            for node in ast.walk(tree)
+            if isinstance(node, (ast.Import, ast.ImportFrom))
+            for alias in node.names
+        }
+        called_names = {
+            node.func.attr if isinstance(node.func, ast.Attribute) else node.func.id
+            for node in ast.walk(tree)
+            if isinstance(node, ast.Call)
+            and isinstance(node.func, (ast.Attribute, ast.Name))
+        }
+        self.assertTrue({"subprocess", "multiprocessing"}.isdisjoint(imported))
+        self.assertTrue(
+            {
+                "exec",
+                "execv",
+                "execve",
+                "execl",
+                "fork",
+                "forkpty",
+                "posix_spawn",
+                "posix_spawnp",
+                "Popen",
+                "system",
+            }.isdisjoint(called_names)
+        )
+
+    def test_worker_protocol_success_round_trip_uses_exact_shared_vocabulary(self) -> None:
+        payload = b"safe-pcm"
+        result = {
+            "application_fallbacks_used": 0,
+            "application_http_attempts": 1,
+            "application_redirects_followed": 0,
+            "application_retries_made": 0,
+            "content_encoding": "identity",
+            "content_type": "audio/pcm",
+            "failure_code": None,
+            "http_status": 200,
+            "message": "result",
+            "network_stack_address_selection_state": (
+                "stdlib_internal_connection_selection_possible"
+            ),
+            "network_state": "application_request_started",
+            "outcome": "success",
+            "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+            "provider_identifiers": {"request-id": "safe-1"},
+            "provider_usage": {"request-cost": 1},
+            "request_state": "response_confirmed",
+            "response_body_disposition": "raw_success_frame",
+            "response_byte_count_state": "exact",
+            "response_bytes": len(payload),
+            "response_sha256": sha256_bytes(payload),
+            "response_state": "body_complete",
+            "success_body_follows": True,
+        }
+        raw = bytearray(b"".join(
+            (
+                _worker_json_frame(_worker_request_phase()),
+                _worker_json_frame(_worker_headers_phase()),
+                _worker_json_frame(result),
+                _worker_body_frame(payload),
+            )
+        ))
+        key_material = bytearray(b"unit-secret-abcd")
+        response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=key_material,
+        )
+        self.assertIsNone(snapshot)
+        assert response is not None
+        self.assertEqual(response.payload, payload)
+        self.assertEqual(response.response_sha256, sha256_bytes(payload))
+        self.assertEqual(raw, bytearray())
+        self.assertEqual(key_material, bytearray())
+
+    def test_worker_protocol_failure_preserves_safe_header_evidence_without_body(self) -> None:
+        body_digest = sha256_bytes(b"private-provider-error")
+        result = {
+            "application_fallbacks_used": 0,
+            "application_http_attempts": 1,
+            "application_redirects_followed": 0,
+            "application_retries_made": 0,
+            "content_encoding": "identity",
+            "content_type": "text/plain",
+            "failure_code": "provider_http_failure",
+            "http_status": 401,
+            "message": "result",
+            "network_stack_address_selection_state": (
+                "stdlib_internal_connection_selection_possible"
+            ),
+            "network_state": "application_request_started",
+            "outcome": "failure",
+            "protocol": vt._TRANSFER_WORKER_PROTOCOL,
+            "provider_identifiers": {"request-id": "safe-2"},
+            "provider_usage": {},
+            "request_state": "response_confirmed",
+            "response_body_disposition": "hash_count_only",
+            "response_byte_count_state": "exact",
+            "response_bytes": len(b"private-provider-error"),
+            "response_sha256": body_digest,
+            "response_state": "body_rejected",
+            "success_body_follows": False,
+        }
+        raw = bytearray(b"".join(
+            (
+                _worker_json_frame(_worker_request_phase()),
+                _worker_json_frame(
+                    _worker_headers_phase(status=401, content_type="text/plain")
+                ),
+                _worker_json_frame(result),
+            )
+        ))
+        key_material = bytearray(b"unit-secret-abcd")
+        response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=key_material,
+        )
+        self.assertIsNone(response)
+        assert snapshot is not None
+        failure = vt._failure_from_transfer_worker_snapshot(snapshot)
+        self.assertEqual(failure.code, "provider_http_failure")
+        self.assertEqual(failure.provider_response_state, "body_rejected")
+        self.assertEqual(failure.response_sha256, body_digest)
+        self.assertTrue(failure.response_received)
+        self.assertEqual(raw, bytearray())
+        self.assertEqual(key_material, bytearray())
+
+    def test_post_go_blocked_write_hits_absolute_deadline_and_immediate_kill(self) -> None:
+        worker, process = self._blocked_prepared_worker()
+        command, key_frame, body_frame = self._valid_exchange_inputs()
+        started = time.monotonic()
+        with self.assertRaises(pt._GuideExecutionFailure) as captured:
+            vt._exchange_with_transfer_worker(
+                worker,
+                command_frame=command,
+                key_frame=key_frame,
+                body=body_frame,
+                result_cap=vt._TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+                deadline_ns=time.monotonic_ns() + 50_000_000,
+            )
+        elapsed = time.monotonic() - started
+        self.assertEqual(captured.exception.code, "provider_request_elapsed_cap_exceeded")
+        self.assertTrue(captured.exception.post_budget_consumed)
+        self.assertEqual(captured.exception.provider_request_state, "unknown_after_go")
+        self.assertEqual(captured.exception.provider_response_state, "unknown")
+        self.assertFalse(captured.exception.retry_or_replay_permitted)
+        self.assertLess(elapsed, 0.35)
+        self.assertIsNotNone(process.poll())
+        self.assertIsNone(worker.process)
+        self.assertTrue(all(value == 0 for value in key_frame))
+        self.assertEqual(
+            (worker.command_fd, worker.key_fd, worker.body_fd, worker.result_fd),
+            (-1, -1, -1, -1),
+        )
+
+    def test_post_go_selector_allocation_failure_kills_locally_and_zeros_key(self) -> None:
+        worker, process = self._blocked_prepared_worker()
+        command, key_frame, body_frame = self._valid_exchange_inputs()
+        with (
+            mock.patch.object(vt.selectors, "DefaultSelector", side_effect=MemoryError),
+            self.assertRaises(MemoryError),
+        ):
+            vt._exchange_with_transfer_worker(
+                worker,
+                command_frame=command,
+                key_frame=key_frame,
+                body=body_frame,
+                result_cap=vt._TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+                deadline_ns=time.monotonic_ns() + 1_000_000_000,
+            )
+        self.assertIsNotNone(process.poll())
+        self.assertIsNone(worker.process)
+        self.assertTrue(all(value == 0 for value in key_frame))
+        self.assertEqual(
+            (worker.command_fd, worker.key_fd, worker.body_fd, worker.result_fd),
+            (-1, -1, -1, -1),
+        )
+
+    def test_unconfirmed_reap_preserves_live_handle_and_surfaces_containment_failure(self) -> None:
+        worker, process = self._blocked_prepared_worker()
+        command, key_frame, body_frame = self._valid_exchange_inputs()
+        with (
+            mock.patch.object(vt, "_kill_and_reap_transfer_worker", return_value=False) as reap,
+            self.assertRaises(pt._GuideExecutionFailure) as captured,
+        ):
+            vt._exchange_with_transfer_worker(
+                worker,
+                command_frame=command,
+                key_frame=key_frame,
+                body=body_frame,
+                result_cap=vt._TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+                deadline_ns=time.monotonic_ns() + 20_000_000,
+            )
+        self.assertEqual(captured.exception.code, "isolated_worker_reap_failure")
+        self.assertEqual(
+            captured.exception.child_containment_state,
+            "sigkill_sent_reap_unconfirmed",
+        )
+        self.assertTrue(captured.exception.post_budget_consumed)
+        self.assertIs(worker.process, process)
+        self.assertEqual(worker.state, "go_consumed")
+        self.assertGreaterEqual(reap.call_count, 2)
+        self.assertTrue(all(value == 0 for value in key_frame))
+
+    def test_headers_rejected_is_received_without_claiming_validated_headers(self) -> None:
+        result = self._worker_failure_result(
+            failure_code="provider_response_headers_invalid",
+            http_status=200,
+            request_state="response_confirmed",
+            response_state="headers_rejected",
+        )
+        raw = bytearray(
+            _worker_json_frame(_worker_request_phase()) + _worker_json_frame(result)
+        )
+        response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=bytearray(b"unit-secret-abcd"),
+        )
+        self.assertIsNone(response)
+        assert snapshot is not None
+        failure = vt._failure_from_transfer_worker_snapshot(snapshot)
+        self.assertTrue(failure.response_received)
+        self.assertEqual(failure.http_status, 200)
+        self.assertEqual(failure.provider_request_state, "response_confirmed")
+        self.assertEqual(failure.provider_response_state, "headers_rejected")
+
+    def test_unknown_worker_state_never_implies_response_received(self) -> None:
+        failure = vt._failure_from_transfer_worker_snapshot(
+            vt._TransferWorkerFailureSnapshot(
+                code="isolated_worker_protocol_failure",
+                response_state="unknown",
+                request_state="unknown_after_go",
+            )
+        )
+        self.assertFalse(failure.response_received)
+        self.assertEqual(failure.provider_response_state, "unknown")
+
+    def test_malformed_terminal_preserves_last_validated_phase_and_status(self) -> None:
+        malformed_terminal = _worker_json_frame(
+            {"message": "not-a-result", "protocol": vt._TRANSFER_WORKER_PROTOCOL}
+        )
+        raw = bytearray(
+            _worker_json_frame(_worker_request_phase())
+            + _worker_json_frame(_worker_headers_phase(status=202))
+            + malformed_terminal
+        )
+        response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=bytearray(b"unit-secret-abcd"),
+        )
+        self.assertIsNone(response)
+        assert snapshot is not None
+        self.assertEqual(snapshot.application_http_attempts, 1)
+        self.assertEqual(snapshot.request_state, "response_confirmed")
+        self.assertEqual(snapshot.response_state, "headers_confirmed")
+        self.assertEqual(snapshot.http_status, 202)
+
+    def test_secret_terminal_preserves_phase_one_but_never_secret(self) -> None:
+        secret = bytearray(b"unit-secret-never-serialize")
+        raw = bytearray(
+            _worker_json_frame(_worker_request_phase())
+            + _worker_body_frame(b"malformed-terminal-" + bytes(secret))
+        )
+        response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=secret,
+        )
+        self.assertIsNone(response)
+        assert snapshot is not None
+        self.assertEqual(snapshot.code, "isolated_worker_secret_echo_detected")
+        self.assertEqual(snapshot.application_http_attempts, 1)
+        self.assertEqual(snapshot.request_state, "outcome_unknown")
+        self.assertEqual(snapshot.response_state, "none")
+        self.assertEqual(raw, bytearray())
+        self.assertEqual(secret, bytearray())
+
+    def test_worker_key_scan_is_bounded_on_large_adversarial_near_match(self) -> None:
+        raw = bytearray(b"a" * vt._TRANSFER_WORKER_RESULT_BODY_MAX_BYTES)
+        key = bytearray(b"a" * (vt._TRANSFER_WORKER_KEY_FRAME_MAX_BYTES - 1) + b"b")
+        started = time.monotonic()
+        self.assertFalse(vt._buffer_contains(raw, key))
+        self.assertLess(time.monotonic() - started, 0.5)
+        vt._zero_mutable_buffer(raw)
+        vt._zero_mutable_buffer(key)
+
+    def test_child_deadline_mapping_is_conservative_across_offset_epochs(self) -> None:
+        child_ready_before_send = 16_000_000
+        ready_transit_ns = 5_000_000
+        parent_ready_received = 95_000_000_000_000
+        parent_deadline = parent_ready_received + 1_000_000_000
+        worker = SimpleNamespace(
+            child_monotonic_ns_at_ready=child_ready_before_send,
+            parent_ready_received_ns=parent_ready_received,
+        )
+        mapped = vt._map_transfer_worker_child_deadline(
+            worker,
+            parent_deadline,
+            parent_now_ns=parent_ready_received,
+        )
+        true_child_clock_at_parent_deadline = (
+            child_ready_before_send + ready_transit_ns + 1_000_000_000
+        )
+        self.assertEqual(mapped, child_ready_before_send + 1_000_000_000)
+        self.assertLessEqual(mapped, true_child_clock_at_parent_deadline)
+        with self.assertRaises(ValidationError):
+            vt._map_transfer_worker_child_deadline(
+                worker,
+                parent_ready_received,
+                parent_now_ns=parent_ready_received,
+            )
+        inclusive_now = parent_ready_received + 29_000_000_000
+        inclusive_deadline = inclusive_now + 300_000_000_000
+        self.assertEqual(
+            vt._map_transfer_worker_child_deadline(
+                worker,
+                inclusive_deadline,
+                parent_now_ns=inclusive_now,
+            ),
+            child_ready_before_send + 329_000_000_000,
+        )
+        with self.assertRaises(ValidationError):
+            vt._map_transfer_worker_child_deadline(
+                worker,
+                inclusive_deadline + 1,
+                parent_now_ns=inclusive_now,
+            )
+        with self.assertRaises(ValidationError):
+            vt._map_transfer_worker_child_deadline(
+                worker,
+                parent_ready_received + 32_000_000_000,
+                parent_now_ns=parent_ready_received + 31_000_000_000,
+            )
+        worker.child_monotonic_ns_at_ready = 0
+        with self.assertRaises(ValidationError):
+            vt._map_transfer_worker_child_deadline(
+                worker,
+                parent_deadline,
+                parent_now_ns=parent_ready_received,
+            )
+
+    def test_parent_exchange_keeps_parent_deadline_and_sends_mapped_child_deadline(self) -> None:
+        parent_ready_received = time.monotonic_ns() - 1_000_000
+        child_ready = 16_000_000
+        worker = SimpleNamespace(
+            state="ready",
+            process=object(),
+            child_monotonic_ns_at_ready=child_ready,
+            parent_ready_received_ns=parent_ready_received,
+        )
+        terminal = self._worker_failure_result(
+            application_http_attempts=0,
+            failure_code="worker_internal_failure",
+            network_state="not_started",
+            request_state="not_started",
+        )
+        captured: dict[str, object] = {}
+
+        def release(*_args: object, **kwargs: object) -> bytearray:
+            captured["parent_deadline_ns"] = kwargs["deadline_ns"]
+            command_frame = kwargs["command_frame"]
+            assert isinstance(command_frame, bytes)
+            captured["command"] = vt._decode_strict_worker_json(
+                command_frame[vt._TRANSFER_WORKER_FRAME_LENGTH_STRUCT.size :],
+                vt._TRANSFER_WORKER_COMMAND_FRAME_MAX_BYTES,
+                "test command",
+            )
+            worker.state = "go_consumed"
+            return bytearray(_worker_json_frame(terminal))
+
+        key = bytearray(b"unit-key-offset-clock")
+        body = bytearray(b"x" * vt.TRANSFER_BODY_BYTES)
+        with (
+            mock.patch.object(vt, "_revalidate_prepared_transfer_worker"),
+            mock.patch.object(vt, "sha256_bytes", return_value=vt.TRANSFER_BODY_SHA256),
+            mock.patch.object(vt, "_exchange_with_transfer_worker", side_effect=release),
+            mock.patch.object(vt, "_dispose_prepared_transfer_worker", return_value=True),
+            self.assertRaises(pt._GuideExecutionFailure) as failure,
+        ):
+            vt._perform_prepared_voice_transfer(
+                worker,
+                api_key_material=key,
+                body=body,
+                timeout=1.0,
+            )
+        self.assertEqual(failure.exception.code, "worker_internal_failure")
+        command = captured["command"]
+        assert isinstance(command, dict)
+        self.assertEqual(set(command), vt._TRANSFER_WORKER_COMMAND_KEYS)
+        parent_deadline = captured["parent_deadline_ns"]
+        assert isinstance(parent_deadline, int)
+        self.assertEqual(
+            command["child_deadline_monotonic_ns"],
+            child_ready + (parent_deadline - parent_ready_received),
+        )
+        self.assertGreater(parent_deadline, time.monotonic_ns() - 2_000_000_000)
+
+    def test_result_state_relations_reject_overclaim_after_phase_one(self) -> None:
+        result = self._worker_failure_result(
+            request_state="response_confirmed",
+            response_state="headers_confirmed",
+        )
+        raw = bytearray(
+            _worker_json_frame(_worker_request_phase()) + _worker_json_frame(result)
+        )
+        _response, snapshot = vt._parse_transfer_worker_exchange(
+            raw,
+            key_material=bytearray(b"unit-secret-abcd"),
+        )
+        assert snapshot is not None
+        self.assertEqual(snapshot.code, "isolated_worker_protocol_failure")
+        self.assertEqual(snapshot.application_http_attempts, 1)
+        self.assertEqual(snapshot.request_state, "outcome_unknown")
+        self.assertEqual(snapshot.response_state, "none")
+
+    def test_unexpected_child_exit_after_go_is_terminal_and_reaped(self) -> None:
+        worker, process = self._blocked_prepared_worker(
+            script=(
+                "import os\n"
+                "for descriptor in ({command_fd}, {key_fd}, {body_fd}):\n"
+                "    while os.read(descriptor, 65536):\n"
+                "        pass\n"
+                "os._exit(7)\n"
+            )
+        )
+        command, key_frame, body_frame = self._valid_exchange_inputs()
+        with self.assertRaises(pt._GuideExecutionFailure) as captured:
+            vt._exchange_with_transfer_worker(
+                worker,
+                command_frame=command,
+                key_frame=key_frame,
+                body=body_frame,
+                result_cap=vt._TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+                deadline_ns=time.monotonic_ns() + 1_000_000_000,
+            )
+        self.assertEqual(captured.exception.code, "isolated_worker_exit_failure")
+        self.assertTrue(captured.exception.post_budget_consumed)
+        self.assertIsNotNone(process.poll())
+        self.assertIsNone(worker.process)
+        self.assertTrue(all(value == 0 for value in key_frame))
+
+    def test_immediate_cleanup_kills_same_group_descendant(self) -> None:
+        pid_reader, pid_writer = os.pipe()
+        self.addCleanup(vt._close_transfer_worker_fd, pid_reader)
+        self.addCleanup(vt._close_transfer_worker_fd, pid_writer)
+        worker, _process = self._blocked_prepared_worker(
+            script=(
+                "import os, time\n"
+                "child = os.fork()\n"
+                "if child == 0:\n"
+                "    time.sleep(30)\n"
+                "else:\n"
+                "    os.write({extra_fd}, str(child).encode('ascii'))\n"
+                "    time.sleep(30)\n"
+            ),
+            extra_pass_fds=(pid_writer,),
+        )
+        os.close(pid_writer)
+        pid_writer = -1
+        descendant_pid = int(os.read(pid_reader, 32).decode("ascii"))
+        os.close(pid_reader)
+        pid_reader = -1
+        command, key_frame, body_frame = self._valid_exchange_inputs()
+        with self.assertRaises(pt._GuideExecutionFailure):
+            vt._exchange_with_transfer_worker(
+                worker,
+                command_frame=command,
+                key_frame=key_frame,
+                body=body_frame,
+                result_cap=vt._TRANSFER_WORKER_EXCHANGE_MAX_BYTES,
+                deadline_ns=time.monotonic_ns() + 50_000_000,
+            )
+        descendant_gone = False
+        for _ in range(100):
+            try:
+                os.kill(descendant_pid, 0)
+            except ProcessLookupError:
+                descendant_gone = True
+                break
+            time.sleep(0.01)
+        self.assertTrue(descendant_gone, "same-group descendant survived immediate cleanup")
+
+    def test_sensitive_wrapper_traceback_holds_only_scrubbed_buffers(self) -> None:
+        key = bytearray(b"unit-key-traceback-sentinel-9876")
+        output = b"private-output-traceback-sentinel-5432"
+        raw = bytearray(
+            _worker_json_frame(_worker_request_phase())
+            + _worker_body_frame(output + bytes(key))
+        )
+        body = bytearray(b"x" * vt.TRANSFER_BODY_BYTES)
+        parent_ready_ns = time.monotonic_ns()
+        worker = SimpleNamespace(
+            state="ready",
+            process=object(),
+            child_monotonic_ns_at_ready=10_000_000,
+            parent_ready_received_ns=parent_ready_ns,
+        )
+
+        def release(*_args: object, **_kwargs: object) -> bytearray:
+            worker.state = "go_consumed"
+            return raw
+
+        with (
+            mock.patch.object(vt, "_revalidate_prepared_transfer_worker"),
+            mock.patch.object(vt, "sha256_bytes", return_value=vt.TRANSFER_BODY_SHA256),
+            mock.patch.object(vt, "_exchange_with_transfer_worker", side_effect=release),
+            mock.patch.object(vt, "_dispose_prepared_transfer_worker", return_value=True),
+            self.assertRaises(pt._GuideExecutionFailure) as captured,
+        ):
+            vt._perform_prepared_voice_transfer(
+                worker,
+                api_key_material=key,
+                body=body,
+                timeout=1.0,
+            )
+        self.assertEqual(captured.exception.code, "isolated_worker_secret_echo_detected")
+        self.assertEqual(key, bytearray())
+        self.assertEqual(body, bytearray())
+        self.assertEqual(raw, bytearray())
+        traceback_frame = captured.exception.__traceback__
+        while traceback_frame is not None:
+            if Path(traceback_frame.tb_frame.f_code.co_filename) == Path(vt.__file__):
+                local_text = repr(traceback_frame.tb_frame.f_locals)
+                self.assertNotIn("unit-key-traceback-sentinel", local_text)
+                self.assertNotIn("private-output-traceback-sentinel", local_text)
+            traceback_frame = traceback_frame.tb_next
+
+    @staticmethod
+    def _write_private_json(path: Path, document: dict, *, mode: int = 0o600) -> str:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        payload = (
+            json.dumps(document, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        ).encode("utf-8")
+        path.write_bytes(payload)
+        path.chmod(mode)
+        return sha256_bytes(payload)
+
+    def _recovery_transfer_source_proof(
+        self,
+        bundle: SimpleNamespace,
+        *,
+        override: object | None = None,
+    ):
+        runtime_commit = bundle.runtime_bindings["git_commit"]
+        head_commit = "b" * 40
+        repository = pt._guide_repository_root()
+        runtime_paths = {
+            relative: path
+            for relative, path in vt._recovery_transfer_runtime_files().values()
+        }
+
+        def bound_git(_bindings: dict, arguments: list[str], **_kwargs: object) -> bytes:
+            if callable(override):
+                overridden = override(arguments)
+                if overridden is not None:
+                    return overridden
+            if arguments[:2] == ["cat-file", "-e"]:
+                return b""
+            if arguments[:3] == ["rev-list", "--parents", "-n"]:
+                commit = arguments[-1]
+                if commit == runtime_commit:
+                    return f"{runtime_commit} {vt.RECOVERY_TRANSFER_OUTCOME_COMMIT}\n".encode()
+                raise AssertionError(arguments)
+            if arguments and arguments[0] == "diff":
+                revision = arguments[-1]
+                if revision != f"{vt.RECOVERY_TRANSFER_OUTCOME_COMMIT}..{runtime_commit}":
+                    raise AssertionError(arguments)
+                return b"".join(
+                    b"M\x00" + relative.encode("utf-8") + b"\x00"
+                    for relative in sorted(runtime_paths)
+                )
+            if arguments == ["rev-parse", "HEAD"]:
+                return (head_commit + "\n").encode()
+            if arguments[:2] == ["merge-base", "--is-ancestor"]:
+                return b""
+            if arguments[:2] == ["ls-files", "--stage"]:
+                return b""
+            if arguments[:3] == ["check-ignore", "--no-index", "-v"]:
+                relative = arguments[-1]
+                selected_path = repository / relative
+                fixture_root = pt._document_root(selected_path)
+                ignore_relative = (fixture_root / ".gitignore").relative_to(repository).as_posix()
+                return f"{ignore_relative}:1:outputs/raw/\t{relative}\n".encode()
+            if arguments and arguments[0] == "ls-tree":
+                return b""
+            if arguments and arguments[0] == "show":
+                _commit, separator, relative = arguments[-1].partition(":")
+                if not separator:
+                    raise AssertionError(arguments)
+                path = runtime_paths.get(relative, repository / relative)
+                return path.read_bytes()
+            raise AssertionError(arguments)
+
+        return (
+            mock.patch.object(vt, "_verify_local_git_object_store"),
+            mock.patch.object(vt, "_bound_git", side_effect=bound_git),
+            mock.patch.object(vt, "_verify_recovery_private_capture_git_state"),
+        )
+
+    def _validate_recovery_transfer_bundle(
+        self,
+        bundle: SimpleNamespace,
+        *,
+        git_override: object | None = None,
+    ) -> dict:
+        source_patches = self._recovery_transfer_source_proof(
+            bundle,
+            override=git_override,
+        )
+        with (
+            source_patches[0],
+            source_patches[1],
+            source_patches[2],
+            mock.patch.object(
+                vt,
+                "_target",
+                return_value=bundle.authorization["target"],
+            ),
+            mock.patch.object(
+                vt,
+                "_read_recovery_dotenv_key",
+                side_effect=AssertionError("validation read a credential"),
+            ),
+            mock.patch.object(
+                urllib.request,
+                "build_opener",
+                side_effect=AssertionError("validation attempted network"),
+            ),
+        ):
+            return vt.validate_recovery_evidence_voice_transfer_authorization(
+                bundle.authorization_path,
+                bundle.plan,
+                bundle.canonical,
+            )
+
+    def _rewrite_recovery_transfer_data_and_authorization(
+        self,
+        bundle: SimpleNamespace,
+    ) -> None:
+        data_sha = self._write_private_json(bundle.data_path, bundle.data_document)
+        bundle.authorization["prerequisites"]["elevenlabs_data_use"]["sha256"] = data_sha
+        self._write_private_json(bundle.authorization_path, bundle.authorization)
+
+    def _rewrite_recovery_transfer_account_chain(
+        self,
+        bundle: SimpleNamespace,
+    ) -> None:
+        account_sha = self._write_private_json(bundle.account_path, bundle.account_document)
+        bundle.authorization["account_authentication_evidence"][
+            "calibrated_account_assurance"
+        ]["sha256"] = account_sha
+        bundle.data_document["evidence"]["calibrated_account_assurance"][
+            "sha256"
+        ] = account_sha
+        self._rewrite_recovery_transfer_data_and_authorization(bundle)
+
+    def _rewrite_recovery_transfer_rights_chain(
+        self,
+        bundle: SimpleNamespace,
+    ) -> None:
+        rights_sha = self._write_private_json(bundle.rights_path, bundle.rights_document)
+        bundle.authorization["prerequisites"]["target_voice_rights"][
+            "sha256"
+        ] = rights_sha
+        bundle.data_document["evidence"]["target_rights"]["sha256"] = rights_sha
+        self._rewrite_recovery_transfer_data_and_authorization(bundle)
+
+    def _activate_recovery_transfer_bundle(
+        self,
+        bundle: SimpleNamespace,
+    ) -> SimpleNamespace:
+        draft_sha = sha256_file(bundle.authorization_path)
+        provider_latch = pt._strict_json_bytes(
+            (bundle.fixture / vt.RECOVERY_TRANSFER_PROVIDER_LATCH_PATH).read_bytes(),
+            "unit provider latch",
+        )
+        bundle.authorization.update(
+            {
+                "authorization_id": vt.RECOVERY_TRANSFER_ACTIVE_ID,
+                "status": "active",
+                "provider_action_authorized": True,
+                "credential_delivery": vt._recovery_transfer_credential_delivery(
+                    True,
+                    fingerprint=provider_latch["credential_fingerprint_sha256"],
+                    suffix_sha256=provider_latch["browser_suffix_sha256"],
+                ),
+                "evidence_baseline": {
+                    "state": "verified",
+                    "evidence_commit": "c" * 40,
+                    "draft_authorization": {
+                        "path": vt.RECOVERY_TRANSFER_DRAFT_PATH,
+                        "sha256": draft_sha,
+                    },
+                    "calibrated_account_assurance": {
+                        "path": vt.RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+                        "sha256": sha256_file(bundle.account_path),
+                    },
+                    "data_use_assurance": {
+                        "path": vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+                        "sha256": sha256_file(bundle.data_path),
+                    },
+                    "target_rights": {
+                        "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                        "sha256": sha256_file(bundle.rights_path),
+                    },
+                    "fresh_browser_readiness": {
+                        "path": bundle.browser_path.relative_to(bundle.fixture).as_posix(),
+                        "sha256": sha256_file(bundle.browser_path),
+                    },
+                },
+                "authorized_limits": vt._transfer_limits(True),
+                "artifacts": vt._recovery_transfer_artifacts(True),
+                "consumption": vt._recovery_transfer_consumption(True),
+                "materialized_at": "2026-08-26T14:22:00Z",
+                "expires_at": "2026-08-26T14:50:00Z",
+                "execution_ready": True,
+                "blockers": [],
+            }
+        )
+        active_path = bundle.fixture / vt.RECOVERY_TRANSFER_ACTIVE_PATH
+        self._write_private_json(active_path, bundle.authorization)
+        bundle.authorization_path = active_path.resolve(strict=True)
+        return bundle
+
+    def _assert_recovery_transfer_traceback_scrubbed(
+        self,
+        error: BaseException,
+        bundle: SimpleNamespace,
+    ) -> None:
+        selected_raw = (bundle.fixture / vt.SELECTED_GUIDE_PATH).read_bytes()
+        selected_chunk = next(
+            selected_raw[offset : offset + 32]
+            for offset in range(44, len(selected_raw) - 32, 997)
+            if len(set(selected_raw[offset : offset + 32])) >= 12
+        )
+        selected_probe = repr(selected_chunk)[2:-1]
+        self.assertIn(selected_probe, repr(selected_raw))
+        probes = (
+            selected_probe,
+            "unit-redacted-browser-capture",
+            "V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE",
+        )
+        traceback_frame = error.__traceback__
+        runtime_frames = 0
+        while traceback_frame is not None:
+            if Path(traceback_frame.tb_frame.f_code.co_filename) == Path(vt.__file__):
+                runtime_frames += 1
+                local_text = repr(traceback_frame.tb_frame.f_locals)
+                for index, probe in enumerate(probes):
+                    if probe in local_text:
+                        self.fail(
+                            "private traceback probe "
+                            f"{index} retained in {traceback_frame.tb_frame.f_code.co_name}"
+                        )
+            traceback_frame = traceback_frame.tb_next
+        self.assertGreater(runtime_frames, 0, "injected failure exposed no runtime traceback frame")
+
+    def _recovery_transfer_draft_bundle(self) -> SimpleNamespace:
+        # Keep the disposable fixture below the repository so descriptor-bound
+        # Git-path proofs can still express every copied record as a repo-relative path.
+        temporary = tempfile.TemporaryDirectory(dir=pt._guide_repository_root())
+        self.addCleanup(temporary.cleanup)
+        blueprint = Path(temporary.name) / "operator-blueprint-v2"
+        narration = blueprint / "02-narration-production"
+        fixtures = narration / "fixtures"
+        fixture = fixtures / vt.FIXTURE_ID
+        shutil.copytree(self.fixture, fixture, copy_function=shutil.copy2)
+
+        canonical = fixtures / "step2-v0.2-ai-visibility-v1.1" / "identity" / "canonical-w.txt"
+        canonical.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(self.canonical_w, canonical)
+        for relative in (
+            vt.RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH,
+            vt.RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH,
+        ):
+            source = self.root.parent / relative
+            destination = blueprint / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+
+        source_envelope = self.fixture / "performance-envelope.json"
+        envelope_document = pt._strict_json_bytes(
+            source_envelope.read_bytes(),
+            "unit performance envelope",
+        )
+        script_relative = envelope_document["script"]["path"]
+        source_script = (source_envelope.parent / script_relative).resolve(strict=True)
+        destination_script = fixture / script_relative
+        destination_script.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_script, destination_script)
+
+        plan = fixture / "performance-transfer-plan.json"
+        plan_dry = pt.validate_performance_transfer_plan(plan, canonical)
+        runtime_bindings = vt.expected_recovery_transfer_runtime_bindings(draft=True)
+        runtime_bindings["git_commit"] = "a" * 40
+        authority = vt._recovery_transfer_zero_authority()
+        scope_approval = vt._recovery_transfer_scope_approval()
+
+        account_recorded_at = "2026-08-26T14:10:00Z"
+        rights_recorded_at = "2026-08-26T14:10:00Z"
+        browser_observed_at = "2026-08-26T14:20:00Z"
+        data_recorded_at = "2026-08-26T14:21:00Z"
+        materialized_at = "2026-08-26T14:22:00Z"
+
+        account_document = {
+            "schema_version": "oe-elevenlabs-recovery-calibrated-account-assurance-v1",
+            "record_id": "V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE",
+            "status": "calibrated_non_authorizing",
+            "provider": "elevenlabs",
+            "recorded_at": account_recorded_at,
+            "outcome_commit": vt.RECOVERY_TRANSFER_OUTCOME_COMMIT,
+            "recovery_evidence": {
+                "recovery_authorization": {
+                    "path": vt.RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_ACCOUNT_AUTH_SHA256,
+                },
+                "credential_read_latch": {
+                    "path": vt.RECOVERY_TRANSFER_CREDENTIAL_LATCH_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_CREDENTIAL_LATCH_SHA256,
+                },
+                "provider_call_latch": {
+                    "path": vt.RECOVERY_TRANSFER_PROVIDER_LATCH_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_PROVIDER_LATCH_SHA256,
+                },
+                "http_200_failure_receipt": {
+                    "path": vt.RECOVERY_TRANSFER_FAILURE_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_FAILURE_SHA256,
+                },
+                "terminal_disposition": {
+                    "path": vt.RECOVERY_TRANSFER_DISPOSITION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_DISPOSITION_SHA256,
+                },
+            },
+            "observed_outcome": {
+                "provider_response_received": True,
+                "http_status": 200,
+                "provider_get_attempts_consumed": 1,
+                "provider_post_attempts_consumed": 0,
+                "failure_code": "provider_total_deadline_unenforceable",
+                "response_body_bytes_read": 0,
+                "raw_response_stored": False,
+                "response_body_stored": False,
+                "response_hash_stored": False,
+                "response_mime_type": None,
+                "response_content_encoding": None,
+            },
+            "calibrated_interpretation": {
+                "credential_authentication_inference": (
+                    vt.RECOVERY_TRANSFER_AUTHENTICATION_INFERENCE_STATE
+                ),
+                "authentication_conclusion": vt.RECOVERY_TRANSFER_AUTHENTICATION_CONCLUSION,
+                "response_body_contents_state": "unknown_not_read",
+                "account_payload_parsed": False,
+                "account_data_observed": False,
+                "identity_observed": False,
+                "valid_user_id_observed": False,
+                "subscription_state_observed": False,
+                "target_voice_accessibility_state": "unknown",
+                "account_linkage_strength": "contextual_non_cryptographic",
+                "ui_api_account_equality_state": "unknown",
+                "exact_ui_api_account_equality_verified": False,
+                "exact_ui_api_account_equality_claimed": False,
+                "account_verified_claimed": False,
+                "key_verified_claimed": False,
+                "safe_conclusion": vt.RECOVERY_TRANSFER_SAFE_CONCLUSION,
+            },
+            "terminality": {
+                "automatic_retry_permitted": False,
+                "retry_or_resumption": False,
+                "recovery_authorization_reusable": False,
+                "credential_read_latch_reusable": False,
+                "provider_call_latch_reusable": False,
+                "future_action_requires_separate_reviewed_committed_transaction_basis": True,
+            },
+            "authority": copy.deepcopy(authority),
+        }
+        account_path = fixture / vt.RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH
+        account_sha = self._write_private_json(account_path, account_document)
+
+        png_path = (
+            fixture
+            / "evidence/browser-readiness/"
+            "V1-ELEVENLABS-RECOVERY-TRANSFER-BROWSER-READINESS.20260826T142000Z.png"
+        )
+        png_path.parent.mkdir(parents=True, exist_ok=True)
+        png_bytes = b"\x89PNG\r\n\x1a\nunit-redacted-browser-capture"
+        png_path.write_bytes(png_bytes)
+        png_path.chmod(0o600)
+        png_sha = sha256_bytes(png_bytes)
+
+        historical_browser = fixture / vt.RECOVERY_TRANSFER_HISTORICAL_BROWSER_PATH
+        browser_document = pt._strict_json_bytes(
+            historical_browser.read_bytes(),
+            "unit historical browser readiness",
+        )
+        browser_document["observed_at"] = browser_observed_at
+        browser_document["capture"] = {
+            "path": png_path.relative_to(fixture).as_posix(),
+            "sha256": png_sha,
+        }
+        browser_path = png_path.with_suffix(".json")
+        browser_sha = self._write_private_json(browser_path, browser_document)
+
+        rights_document = {
+            "schema_version": "oe-elevenlabs-recovery-evidence-voice-transfer-rights-v1",
+            "record_id": "V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS",
+            "status": "owner_scope_recorded_non_authorizing",
+            "provider": "elevenlabs",
+            "recorded_at": rights_recorded_at,
+            "owner": vt.RECOVERY_TRANSFER_OWNER,
+            "transaction_basis_id": vt.RECOVERY_TRANSFER_TRANSACTION_BASIS_ID,
+            "evidence": {
+                "owner_audition_and_bounded_transfer_approval": {
+                    "path": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+                },
+                "guide_qa": {
+                    "path": vt.RECOVERY_TRANSFER_GUIDE_QA_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_GUIDE_QA_SHA256,
+                },
+                "owner_selection": {
+                    "path": vt.RECOVERY_TRANSFER_GUIDE_SELECTION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_GUIDE_SELECTION_SHA256,
+                },
+                "performance_transfer_plan": {
+                    "path": "performance-transfer-plan.json",
+                    "sha256": plan_dry["plan_sha256"],
+                },
+                "official_media_contract": {
+                    "path": vt.MEDIA_CONTRACT_BASIS_PATH,
+                    "sha256": vt.MEDIA_CONTRACT_BASIS_SHA256,
+                },
+            },
+            "original_c_provenance": {
+                "owner_selection": {
+                    "path": vt.RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_SHA256,
+                },
+                "saved_voice_receipt": {
+                    "path": vt.RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_ORIGINAL_C_SAVE_SHA256,
+                },
+            },
+            "exact_scope": {
+                "method": "POST",
+                "endpoint": pt.TRANSFER_ENDPOINT,
+                "target_voice_id": pt.TRANSFER_TARGET_VOICE_ID,
+                "voice_owner": vt.RECOVERY_TRANSFER_OWNER,
+                "consent_owner": vt.RECOVERY_TRANSFER_OWNER,
+                "exact_guide_sha256": vt.SELECTED_GUIDE_SHA256,
+                "owner_scope_voice_changer_permitted": True,
+                "bounded_microtest_only": True,
+                "primary_request_sha256": vt.TRANSFER_OPT_OUT_REQUEST_SHA256,
+                "primary_multipart_body_sha256": vt.TRANSFER_BODY_SHA256,
+                "primary_multipart_body_bytes": vt.TRANSFER_BODY_BYTES,
+                "normalized_http_request_sha256": (
+                    vt.TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256
+                ),
+                "model_id": pt.TRANSFER_MODEL,
+                "seed": pt.TRANSFER_SEED,
+                "voice_settings": pt.TRANSFER_VOICE_SETTINGS,
+                "output_format": pt.TRANSFER_PRIMARY_FORMAT,
+                "enable_logging": True,
+                "remove_background_noise": False,
+                "file_format": "other",
+                "max_provider_posts": 1,
+                "max_outputs": 1,
+                "no_retry": True,
+                "no_redirect": True,
+                "no_application_fallback": True,
+                "full_capture_permitted": False,
+            },
+            "owner_authority_calibration": copy.deepcopy(scope_approval),
+            "authority": copy.deepcopy(authority),
+        }
+        rights_path = fixture / vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH
+        rights_sha = self._write_private_json(rights_path, rights_document)
+
+        official_path = fixture / "evidence/V1-ELEVENLABS-DATA-USE-OFFICIAL-BASIS.20260826T104709Z.json"
+        data_document = {
+            "schema_version": "oe-elevenlabs-recovery-evidence-data-use-assurance-v1",
+            "record_id": "V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE",
+            "status": "verified_fresh_non_authorizing",
+            "provider": "elevenlabs",
+            "recorded_at": data_recorded_at,
+            "owner": vt.RECOVERY_TRANSFER_OWNER,
+            "transaction_basis_id": vt.RECOVERY_TRANSFER_TRANSACTION_BASIS_ID,
+            "exact_guide": {
+                "path": vt.SELECTED_GUIDE_PATH,
+                "sha256": vt.SELECTED_GUIDE_SHA256,
+                "byte_count": vt.SELECTED_GUIDE_BYTES,
+                "duration_seconds": vt.SELECTED_GUIDE_DURATION_SECONDS,
+            },
+            "evidence": {
+                "fresh_browser_readiness": {
+                    "path": browser_path.relative_to(fixture).as_posix(),
+                    "sha256": browser_sha,
+                },
+                "fresh_browser_capture": {
+                    "path": png_path.relative_to(fixture).as_posix(),
+                    "sha256": png_sha,
+                },
+                "official_data_use_basis": {
+                    "path": official_path.relative_to(fixture).as_posix(),
+                    "sha256": sha256_file(official_path),
+                },
+                "calibrated_account_assurance": {
+                    "path": vt.RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+                    "sha256": account_sha,
+                },
+                "target_rights": {
+                    "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                    "sha256": rights_sha,
+                },
+                "terminal_disposition": {
+                    "path": vt.RECOVERY_TRANSFER_DISPOSITION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_DISPOSITION_SHA256,
+                },
+                "owner_audition_and_bounded_transfer_approval": {
+                    "path": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+                },
+            },
+            "fresh_observation": {
+                "observed_at": browser_observed_at,
+                "improve_models_for_everyone": False,
+                "update_completed": True,
+                "protection_mode": pt.ACCOUNT_TRAINING_OPT_OUT_PROTECTION,
+                "protection_effective_for_new_submissions": True,
+                "fresh_at_recorded_at": True,
+                "freshness_reference": "recorded_at",
+                "freshness_window_seconds": vt.DATA_USE_MAX_AGE_SECONDS,
+                "account_linkage_strength": "contextual_non_cryptographic",
+                "ui_api_account_equality_state": "unknown",
+                "exact_ui_api_account_equality_verified": False,
+            },
+            "configuration_intent": {
+                "chosen_enable_logging": True,
+                "cross_provider_upload_owner_permission_observed": True,
+                "zero_retention_mode_claimed": False,
+                "descriptive_only_not_execution_authority": True,
+            },
+            "runtime_baseline": vt._recovery_transfer_runtime_baseline(runtime_bindings),
+            "authority": copy.deepcopy(authority),
+        }
+        data_path = fixture / vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH
+        data_sha = self._write_private_json(data_path, data_document)
+
+        authorization = {
+            "schema_version": vt.RECOVERY_TRANSFER_AUTH_SCHEMA,
+            "authorization_id": vt.RECOVERY_TRANSFER_DRAFT_ID,
+            "status": "draft",
+            "provider_action_authorized": False,
+            "scope": vt.RECOVERY_TRANSFER_SCOPE,
+            "target": {"kind": "fixture", "id": vt.FIXTURE_ID},
+            "transaction_basis_id": vt.RECOVERY_TRANSFER_TRANSACTION_BASIS_ID,
+            "evidence_owner": vt.RECOVERY_TRANSFER_OWNER,
+            "v1_lineage": {
+                "path": vt.V1_LINEAGE_PATH,
+                "sha256": vt.V1_LINEAGE_SHA256,
+                "authorization_id": vt.V1_LINEAGE_ID,
+                "status": "draft",
+                "approved": False,
+                "max_calls": 0,
+                "max_spend_usd": 0,
+            },
+            "bindings": vt._recovery_transfer_bindings(plan_dry),
+            "prerequisites": {
+                "selected_guide": {
+                    "state": "verified",
+                    "path": vt.SELECTED_GUIDE_PATH,
+                    "sha256": vt.SELECTED_GUIDE_SHA256,
+                    "byte_count": vt.SELECTED_GUIDE_BYTES,
+                    "duration_seconds": vt.SELECTED_GUIDE_DURATION_SECONDS,
+                    "container": "wav",
+                    "codec": "pcm_s16le",
+                    "sample_rate_hz": 24000,
+                    "channels": 1,
+                    "guide_request_id": vt.SELECTED_GUIDE_REQUEST_ID,
+                    "guide_run_receipt_path": vt.SELECTED_GUIDE_RUN_PATH,
+                    "guide_run_receipt_sha256": vt.SELECTED_GUIDE_RUN_SHA256,
+                },
+                "guide_qa": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_GUIDE_QA_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_GUIDE_QA_SHA256,
+                },
+                "owner_selection": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_GUIDE_SELECTION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_GUIDE_SELECTION_SHA256,
+                },
+                "owner_audition_confirmation": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+                },
+                "elevenlabs_data_use": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+                    "sha256": data_sha,
+                },
+                "target_voice_rights": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                    "sha256": rights_sha,
+                },
+                "official_media_contract": {
+                    "state": "verified",
+                    "path": vt.MEDIA_CONTRACT_BASIS_PATH,
+                    "sha256": vt.MEDIA_CONTRACT_BASIS_SHA256,
+                },
+            },
+            "action": vt._action_transfer(True),
+            "account_authentication_evidence": vt._recovery_transfer_account_evidence(
+                True,
+                assurance_sha256=account_sha,
+            ),
+            "credential_delivery": vt._recovery_transfer_credential_delivery(False),
+            "runtime_bindings": runtime_bindings,
+            "evidence_baseline": {"state": "pending"},
+            "authorized_limits": vt._transfer_limits(False),
+            "artifacts": vt._recovery_transfer_artifacts(False),
+            "consumption": vt._recovery_transfer_consumption(False),
+            "scope_approval": copy.deepcopy(scope_approval),
+            "materialized_by": "Codex",
+            "materialized_at": materialized_at,
+            "expires_at": "",
+            "execution_ready": False,
+            "blockers": list(vt.RECOVERY_TRANSFER_DRAFT_BLOCKERS),
+        }
+        authorization_path = fixture / vt.RECOVERY_TRANSFER_DRAFT_PATH
+        self._write_private_json(authorization_path, authorization)
+        schema_path = self.root / "schemas/elevenlabs-recovery-evidence-voice-transfer-authorization.schema.json"
+        schema = pt._strict_json_bytes(schema_path.read_bytes(), "recovery transfer schema")
+        return SimpleNamespace(
+            temporary=temporary,
+            blueprint=blueprint,
+            fixture=fixture.resolve(strict=True),
+            plan=plan.resolve(strict=True),
+            canonical=canonical.resolve(strict=True),
+            authorization=authorization,
+            authorization_path=authorization_path.resolve(strict=True),
+            schema=schema,
+            runtime_bindings=runtime_bindings,
+            account_document=account_document,
+            account_path=account_path,
+            rights_document=rights_document,
+            rights_path=rights_path,
+            data_document=data_document,
+            data_path=data_path,
+            browser_document=browser_document,
+            browser_path=browser_path,
+            png_path=png_path,
+        )
+
+    def test_recovery_evidence_draft_is_schema_valid_and_zero_authority(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        self.assertEqual(_local_schema_errors(bundle.authorization, bundle.schema), [])
+        capture_relative, capture_path = vt._recovery_transfer_runtime_files()[
+            "capture_audio_tests"
+        ]
+        self.assertEqual(
+            capture_relative,
+            "operator-blueprint-v2/02-narration-production/runtime/tests/test_capture_audio.py",
+        )
+        self.assertEqual(
+            bundle.runtime_bindings["capture_audio_tests_sha256"],
+            sha256_file(capture_path),
+        )
+        self.assertIn(
+            "capture_audio_tests_sha256",
+            bundle.schema["$defs"]["verifiedRuntime"]["required"],
+        )
+        dry = self._validate_recovery_transfer_bundle(bundle)
+        self.assertTrue(dry["valid"])
+        self.assertEqual(dry["authorization_status"], "draft")
+        self.assertFalse(dry["provider_action_authorized"])
+        self.assertEqual(dry["generation_post_calls_authorized"], 0)
+        self.assertFalse(dry["credentials_accessed"])
+        self.assertFalse(dry["network_called"])
+        self.assertEqual(bundle.authorization["authorized_limits"], vt._transfer_limits(False))
+        self.assertTrue(all(value is False for value in vt._recovery_transfer_zero_authority().values()))
+
+    def test_recovery_evidence_schema_rejects_authority_and_scope_mutations(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        mutations = (
+            ("provider authority", ("provider_action_authorized",), True),
+            ("post budget", ("authorized_limits", "max_generation_post_calls"), 1),
+            ("credential state", ("credential_delivery", "state"), "verified"),
+            ("owner review", ("scope_approval", "later_draft_and_active_bytes_owner_reviewed"), True),
+            ("c907 runtime authority", ("scope_approval", "c907_alone_confers_runtime_execution_authority"), True),
+            (
+                "alternate c907 prerequisite",
+                ("prerequisites", "owner_audition_confirmation", "sha256"),
+                "0" * 64,
+            ),
+            (
+                "alternate media prerequisite",
+                ("prerequisites", "official_media_contract", "sha256"),
+                "0" * 64,
+            ),
+            ("extra key", ("unexpected",), False),
+        )
+        for label, keys, value in mutations:
+            with self.subTest(label=label):
+                document = copy.deepcopy(bundle.authorization)
+                target = document
+                for key in keys[:-1]:
+                    target = target[key]
+                target[keys[-1]] = value
+                self.assertTrue(_local_schema_errors(document, bundle.schema))
+
+    def test_recovery_evidence_strict_json_rejects_duplicates_nonfinite_and_secret_values(self) -> None:
+        corruptions = (
+            (
+                "duplicate",
+                lambda raw: raw.replace(
+                    b'"status": "draft",',
+                    b'"status": "draft",\n  "status": "active",',
+                    1,
+                ),
+            ),
+            (
+                "nonfinite",
+                lambda raw: raw.replace(
+                    b'"provider_action_authorized": false,',
+                    b'"provider_action_authorized": false,\n  "numeric_probe": NaN,',
+                    1,
+                ),
+            ),
+            (
+                "secret",
+                lambda raw: raw.replace(
+                    b'"provider_action_authorized": false,',
+                    b'"provider_action_authorized": false,\n  "api_key": "unit-secret-sentinel",',
+                    1,
+                ),
+            ),
+        )
+        for label, corrupt in corruptions:
+            with self.subTest(label=label):
+                bundle = self._recovery_transfer_draft_bundle()
+                bundle.authorization_path.write_bytes(
+                    corrupt(bundle.authorization_path.read_bytes())
+                )
+                bundle.authorization_path.chmod(0o600)
+                with self.assertRaises(ValidationError) as captured:
+                    self._validate_recovery_transfer_bundle(bundle)
+                self.assertNotIn("unit-secret-sentinel", str(captured.exception))
+
+    def test_recovery_evidence_record_results_are_canonical_three_tuples(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        captured: dict[str, dict] = {}
+        account_validator = vt._validate_recovery_transfer_account_evidence
+        prerequisite_validator = vt._validate_recovery_transfer_prerequisites
+
+        def capture_account(*args: object, **kwargs: object) -> dict:
+            result = account_validator(*args, **kwargs)
+            captured["account"] = copy.deepcopy(result)
+            return result
+
+        def capture_prerequisites(*args: object, **kwargs: object) -> dict:
+            result = prerequisite_validator(*args, **kwargs)
+            captured["prerequisites"] = copy.deepcopy(result)
+            return result
+
+        with (
+            mock.patch.object(
+                vt,
+                "_validate_recovery_transfer_account_evidence",
+                side_effect=capture_account,
+            ),
+            mock.patch.object(
+                vt,
+                "_validate_recovery_transfer_prerequisites",
+                side_effect=capture_prerequisites,
+            ),
+        ):
+            self._validate_recovery_transfer_bundle(bundle)
+        for result in captured.values():
+            for record in result["records"].values():
+                self.assertIsInstance(record, tuple)
+                self.assertEqual(len(record), 3)
+                self.assertIsInstance(record[0], Path)
+                self.assertIsInstance(record[1], bytes)
+                self.assertRegex(record[2], r"^[0-9a-f]{64}$")
+
+    def test_recovery_evidence_draft_rejects_historical_browser_as_fresh(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        historical_path = bundle.fixture / vt.RECOVERY_TRANSFER_HISTORICAL_BROWSER_PATH
+        historical = pt._strict_json_bytes(
+            historical_path.read_bytes(),
+            "historical recovery browser evidence",
+        )
+        bundle.data_document["evidence"]["fresh_browser_readiness"] = {
+            "path": vt.RECOVERY_TRANSFER_HISTORICAL_BROWSER_PATH,
+            "sha256": vt.RECOVERY_TRANSFER_HISTORICAL_BROWSER_SHA256,
+        }
+        bundle.data_document["evidence"]["fresh_browser_capture"] = {
+            "path": historical["capture"]["path"],
+            "sha256": historical["capture"]["sha256"],
+        }
+        bundle.data_document["fresh_observation"]["observed_at"] = historical[
+            "observed_at"
+        ]
+        self._rewrite_recovery_transfer_data_and_authorization(bundle)
+        with self.assertRaisesRegex(
+            ValidationError,
+            "historical|fresh browser|fresh data-use|record chronology",
+        ):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_draft_rejects_data_recorded_after_freshness_window(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        bundle.data_document["recorded_at"] = "2026-08-26T15:20:01Z"
+        bundle.authorization["materialized_at"] = "2026-08-26T15:21:00Z"
+        self._rewrite_recovery_transfer_data_and_authorization(bundle)
+        with self.assertRaisesRegex(ValidationError, "fresh|window|stale"):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_draft_rejects_rights_before_c907_finalization(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        bundle.rights_document["recorded_at"] = "2026-08-26T06:20:52Z"
+        self._rewrite_recovery_transfer_rights_chain(bundle)
+        with self.assertRaisesRegex(ValidationError, "rights|c907|chronology"):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_draft_rejects_future_materialization(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        bundle.authorization["materialized_at"] = "2099-01-01T00:00:00Z"
+        self._write_private_json(bundle.authorization_path, bundle.authorization)
+        with self.assertRaisesRegex(ValidationError, "materialized|future|current"):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_authorization_times_require_exact_utc_rfc3339(self) -> None:
+        malformed_draft_times = (
+            "2026-08-26 14:22:00+00:00",
+            "2026-08-26T10:22:00-04:00",
+            "2026-08-26T14:22:00.1234567Z",
+        )
+        for value in malformed_draft_times:
+            with self.subTest(status="draft", value=value):
+                bundle = self._recovery_transfer_draft_bundle()
+                bundle.authorization["materialized_at"] = value
+                self.assertTrue(_local_schema_errors(bundle.authorization, bundle.schema))
+                self._write_private_json(bundle.authorization_path, bundle.authorization)
+                with self.assertRaisesRegex(ValidationError, "exact UTC RFC3339"):
+                    self._validate_recovery_transfer_bundle(bundle)
+
+        def validate_active(bundle: SimpleNamespace) -> None:
+            source_patches = self._recovery_transfer_source_proof(bundle)
+            with (
+                source_patches[0],
+                source_patches[1],
+                source_patches[2],
+                mock.patch.object(
+                    vt,
+                    "_target",
+                    return_value=bundle.authorization["target"],
+                ),
+                mock.patch.object(
+                    vt,
+                    "_validate_recovery_transfer_evidence_baseline",
+                    return_value=bundle.authorization["evidence_baseline"],
+                ),
+                mock.patch.object(
+                    vt,
+                    "_execution_now",
+                    return_value=datetime(2026, 8, 26, 14, 30, tzinfo=timezone.utc),
+                ),
+                mock.patch.object(
+                    vt,
+                    "_read_recovery_dotenv_key",
+                    side_effect=AssertionError("ACTIVE validation read a credential"),
+                ),
+                mock.patch.object(
+                    urllib.request,
+                    "build_opener",
+                    side_effect=AssertionError("ACTIVE validation attempted network"),
+                ),
+            ):
+                vt.validate_recovery_evidence_voice_transfer_authorization(
+                    bundle.authorization_path,
+                    bundle.plan,
+                    bundle.canonical,
+                )
+
+        malformed_active_times = (
+            "2026-08-26 14:50:00+00:00",
+            "2026-08-26T10:50:00-04:00",
+            "2026-08-26T14:50:00.1234567Z",
+        )
+        for value in malformed_active_times:
+            with self.subTest(status="active", value=value):
+                bundle = self._activate_recovery_transfer_bundle(
+                    self._recovery_transfer_draft_bundle()
+                )
+                bundle.authorization["expires_at"] = value
+                self.assertTrue(_local_schema_errors(bundle.authorization, bundle.schema))
+                self._write_private_json(bundle.authorization_path, bundle.authorization)
+                with self.assertRaisesRegex(ValidationError, "exact UTC RFC3339"):
+                    validate_active(bundle)
+
+    def test_recovery_evidence_record_times_require_exact_utc_rfc3339(self) -> None:
+        cases = (
+            (
+                "account assurance",
+                "2026-08-26 14:10:00+00:00",
+                lambda bundle, value: bundle.account_document.__setitem__(
+                    "recorded_at", value
+                ),
+                self._rewrite_recovery_transfer_account_chain,
+            ),
+            (
+                "data-use assurance",
+                "2026-08-26T10:21:00-04:00",
+                lambda bundle, value: bundle.data_document.__setitem__(
+                    "recorded_at", value
+                ),
+                self._rewrite_recovery_transfer_data_and_authorization,
+            ),
+            (
+                "target rights",
+                "2026-08-26T14:10:00.0000000Z",
+                lambda bundle, value: bundle.rights_document.__setitem__(
+                    "recorded_at", value
+                ),
+                self._rewrite_recovery_transfer_rights_chain,
+            ),
+        )
+        for label, value, mutate, rewrite in cases:
+            with self.subTest(label=label, value=value):
+                bundle = self._recovery_transfer_draft_bundle()
+                mutate(bundle, value)
+                rewrite(bundle)
+                with self.assertRaisesRegex(ValidationError, "exact UTC RFC3339"):
+                    self._validate_recovery_transfer_bundle(bundle)
+
+        bundle = self._recovery_transfer_draft_bundle()
+        noncanonical_browser_time = "2026-08-26T10:20:00-04:00"
+        bundle.browser_document["observed_at"] = noncanonical_browser_time
+        browser_sha = self._write_private_json(
+            bundle.browser_path,
+            bundle.browser_document,
+        )
+        bundle.data_document["evidence"]["fresh_browser_readiness"][
+            "sha256"
+        ] = browser_sha
+        bundle.data_document["fresh_observation"][
+            "observed_at"
+        ] = noncanonical_browser_time
+        self._rewrite_recovery_transfer_data_and_authorization(bundle)
+        with self.assertRaisesRegex(ValidationError, "exact UTC RFC3339"):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_fresh_browser_paths_require_exact_same_stem(self) -> None:
+        def rewrite_paths(
+            bundle: SimpleNamespace,
+            *,
+            json_name: str,
+            png_name: str,
+        ) -> None:
+            old_browser = bundle.browser_path
+            old_png = bundle.png_path
+            new_browser = old_browser.with_name(json_name)
+            new_png = old_png.with_name(png_name)
+            png_bytes = old_png.read_bytes()
+            new_png.write_bytes(png_bytes)
+            new_png.chmod(0o600)
+            bundle.browser_document["capture"] = {
+                "path": new_png.relative_to(bundle.fixture).as_posix(),
+                "sha256": sha256_bytes(png_bytes),
+            }
+            browser_sha = self._write_private_json(
+                new_browser,
+                bundle.browser_document,
+            )
+            if new_browser != old_browser:
+                old_browser.unlink()
+            if new_png != old_png:
+                old_png.unlink()
+            bundle.browser_path = new_browser.resolve(strict=True)
+            bundle.png_path = new_png.resolve(strict=True)
+            bundle.data_document["evidence"]["fresh_browser_readiness"] = {
+                "path": new_browser.relative_to(bundle.fixture).as_posix(),
+                "sha256": browser_sha,
+            }
+            bundle.data_document["evidence"]["fresh_browser_capture"] = {
+                "path": new_png.relative_to(bundle.fixture).as_posix(),
+                "sha256": sha256_bytes(png_bytes),
+            }
+            self._rewrite_recovery_transfer_data_and_authorization(bundle)
+
+        def validate_active(bundle: SimpleNamespace) -> None:
+            source_patches = self._recovery_transfer_source_proof(bundle)
+            with (
+                source_patches[0],
+                source_patches[1],
+                source_patches[2],
+                mock.patch.object(
+                    vt,
+                    "_target",
+                    return_value=bundle.authorization["target"],
+                ),
+                mock.patch.object(
+                    vt,
+                    "_validate_recovery_transfer_evidence_baseline",
+                    return_value=bundle.authorization["evidence_baseline"],
+                ),
+                mock.patch.object(
+                    vt,
+                    "_execution_now",
+                    return_value=datetime(2026, 8, 26, 14, 30, tzinfo=timezone.utc),
+                ),
+            ):
+                vt.validate_recovery_evidence_voice_transfer_authorization(
+                    bundle.authorization_path,
+                    bundle.plan,
+                    bundle.canonical,
+                )
+
+        alias_bundle = self._recovery_transfer_draft_bundle()
+        rewrite_paths(
+            alias_bundle,
+            json_name="fresh-browser-alias.json",
+            png_name="fresh-browser-alias.png",
+        )
+        with self.assertRaisesRegex(ValidationError, "same-stem pair"):
+            self._validate_recovery_transfer_bundle(alias_bundle)
+        alias_active = self._activate_recovery_transfer_bundle(alias_bundle)
+        self.assertTrue(
+            _local_schema_errors(alias_active.authorization, alias_active.schema)
+        )
+        with self.assertRaisesRegex(ValidationError, "same-stem pair"):
+            validate_active(alias_active)
+
+        mismatch_bundle = self._recovery_transfer_draft_bundle()
+        rewrite_paths(
+            mismatch_bundle,
+            json_name=mismatch_bundle.browser_path.name,
+            png_name="V1-ELEVENLABS-RECOVERY-TRANSFER-BROWSER-READINESS.20260826T142001Z.png",
+        )
+        with self.assertRaisesRegex(ValidationError, "same-stem pair"):
+            self._validate_recovery_transfer_bundle(mismatch_bundle)
+        mismatch_active = self._activate_recovery_transfer_bundle(mismatch_bundle)
+        self.assertEqual(
+            _local_schema_errors(mismatch_active.authorization, mismatch_active.schema),
+            [],
+        )
+        with self.assertRaisesRegex(ValidationError, "same-stem pair"):
+            validate_active(mismatch_active)
+
+    def test_recovery_evidence_validator_rejects_account_overclaims(self) -> None:
+        mutations = (
+            (
+                "body bytes read",
+                lambda document: document["observed_outcome"].__setitem__(
+                    "response_body_bytes_read", 1
+                ),
+            ),
+            (
+                "account equality verified",
+                lambda document: document["calibrated_interpretation"].__setitem__(
+                    "exact_ui_api_account_equality_verified", True
+                ),
+            ),
+            (
+                "identity observed",
+                lambda document: document["calibrated_interpretation"].__setitem__(
+                    "identity_observed", True
+                ),
+            ),
+            (
+                "retry allowed",
+                lambda document: document["terminality"].__setitem__(
+                    "automatic_retry_permitted", True
+                ),
+            ),
+            (
+                "record grants transfer authority",
+                lambda document: document["authority"].__setitem__(
+                    "voice_transfer_authorized", True
+                ),
+            ),
+        )
+        for label, mutate in mutations:
+            with self.subTest(label=label):
+                bundle = self._recovery_transfer_draft_bundle()
+                mutate(bundle.account_document)
+                self._rewrite_recovery_transfer_account_chain(bundle)
+                with self.assertRaises(ValidationError):
+                    self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_validator_rejects_rights_authority_drift(self) -> None:
+        mutations = (
+            (
+                "alternate c907 hash",
+                lambda document: document["owner_authority_calibration"][
+                    "sole_exact_provider_action_authority"
+                ].__setitem__("sha256", "0" * 64),
+            ),
+            (
+                "unseen bytes called reviewed",
+                lambda document: document["owner_authority_calibration"].__setitem__(
+                    "later_draft_and_active_bytes_owner_reviewed", True
+                ),
+            ),
+            (
+                "c907 called runtime authority",
+                lambda document: document["owner_authority_calibration"].__setitem__(
+                    "c907_alone_confers_runtime_execution_authority", True
+                ),
+            ),
+            (
+                "recovery-only 549 context reused",
+                lambda document: document["owner_authority_calibration"].__setitem__(
+                    "recovery_only_context_evidence",
+                    {
+                        "path": vt.RECOVERY_OWNER_APPROVAL_PATH,
+                        "sha256": vt.RECOVERY_OWNER_APPROVAL_SHA256,
+                    },
+                ),
+            ),
+            (
+                "rights record grants provider action",
+                lambda document: document["authority"].__setitem__(
+                    "this_record_authorizes_provider_action", True
+                ),
+            ),
+        )
+        for label, mutate in mutations:
+            with self.subTest(label=label):
+                bundle = self._recovery_transfer_draft_bundle()
+                mutate(bundle.rights_document)
+                self._rewrite_recovery_transfer_rights_chain(bundle)
+                with self.assertRaises(ValidationError):
+                    self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_validator_rejects_data_use_and_chronology_drift(self) -> None:
+        cases = (
+            (
+                "data record grants network",
+                lambda bundle: bundle.data_document["authority"].__setitem__(
+                    "network_authorized", True
+                ),
+                "data",
+            ),
+            (
+                "UI API equality upgraded",
+                lambda bundle: bundle.data_document["fresh_observation"].__setitem__(
+                    "ui_api_account_equality_state", "verified"
+                ),
+                "data",
+            ),
+            (
+                "data predates browser",
+                lambda bundle: bundle.data_document.__setitem__(
+                    "recorded_at", "2026-08-26T14:19:59Z"
+                ),
+                "data",
+            ),
+            (
+                "rights follows browser",
+                lambda bundle: bundle.rights_document.__setitem__(
+                    "recorded_at", "2026-08-26T14:20:01Z"
+                ),
+                "rights",
+            ),
+            (
+                "account follows browser",
+                lambda bundle: bundle.account_document.__setitem__(
+                    "recorded_at", "2026-08-26T14:20:01Z"
+                ),
+                "account",
+            ),
+        )
+        for label, mutate, chain in cases:
+            with self.subTest(label=label):
+                bundle = self._recovery_transfer_draft_bundle()
+                mutate(bundle)
+                if chain == "account":
+                    self._rewrite_recovery_transfer_account_chain(bundle)
+                elif chain == "rights":
+                    self._rewrite_recovery_transfer_rights_chain(bundle)
+                else:
+                    self._rewrite_recovery_transfer_data_and_authorization(bundle)
+                with self.assertRaises(ValidationError):
+                    self._validate_recovery_transfer_bundle(bundle)
+
+    def test_recovery_evidence_private_records_reject_mode_and_hardlinks(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        private_paths = (
+            bundle.fixture / vt.SELECTED_GUIDE_PATH,
+            bundle.fixture / vt.SELECTED_GUIDE_RUN_PATH,
+            bundle.fixture / vt.RECOVERY_TRANSFER_GUIDE_QA_PATH,
+            bundle.fixture / vt.RECOVERY_TRANSFER_GUIDE_SELECTION_PATH,
+            bundle.fixture / vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
+            bundle.account_path,
+            bundle.rights_path,
+            bundle.data_path,
+            bundle.browser_path,
+            bundle.png_path,
+            bundle.blueprint / vt.RECOVERY_TRANSFER_ORIGINAL_C_SELECTION_PATH,
+            bundle.blueprint / vt.RECOVERY_TRANSFER_ORIGINAL_C_SAVE_PATH,
+        )
+        for path in private_paths:
+            root = pt._document_root(path.resolve(strict=True))
+            relative = path.resolve(strict=True).relative_to(root).as_posix()
+            with self.subTest(path=relative, attack="mode"):
+                path.chmod(0o644)
+                with self.assertRaises(ValidationError):
+                    vt._read_recovery_private_bytes(
+                        root,
+                        path.resolve(strict=True),
+                        "unit private record",
+                        max_bytes=50_000_000,
+                    )
+                path.chmod(0o600)
+            with self.subTest(path=relative, attack="hardlink"):
+                link = path.with_name(path.name + ".unit-hardlink")
+                os.link(path, link)
+                try:
+                    with self.assertRaises(ValidationError):
+                        vt._read_recovery_private_bytes(
+                            root,
+                            path.resolve(strict=True),
+                            "unit private record",
+                            max_bytes=50_000_000,
+                        )
+                finally:
+                    link.unlink()
+
+    def test_recovery_evidence_selected_guide_rejects_symlink_and_identity_swap(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        selected = bundle.fixture / vt.SELECTED_GUIDE_PATH
+        backup = selected.with_name("candidate-B.unit-backup.wav")
+        selected.rename(backup)
+        selected.symlink_to(backup.name)
+        try:
+            with self.assertRaises(ValidationError):
+                vt._read_recovery_private_bytes(
+                    bundle.fixture,
+                    selected,
+                    "unit selected guide",
+                    max_bytes=50_000_000,
+                )
+        finally:
+            selected.unlink()
+            backup.rename(selected)
+
+        original_fstat = os.fstat
+        target_inode = selected.stat(follow_symlinks=False).st_ino
+        target_calls = 0
+
+        def changed_fstat(descriptor: int):
+            nonlocal target_calls
+            result = original_fstat(descriptor)
+            if result.st_ino != target_inode:
+                return result
+            target_calls += 1
+            if target_calls != 2:
+                return result
+            values = {
+                name: getattr(result, name)
+                for name in (
+                    "st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns",
+                    "st_mode", "st_uid", "st_gid", "st_nlink",
+                )
+            }
+            values["st_ctime_ns"] += 1
+            return SimpleNamespace(**values)
+
+        with (
+            mock.patch.object(os, "fstat", side_effect=changed_fstat),
+            self.assertRaisesRegex(ValidationError, "changed during descriptor read"),
+        ):
+            vt._read_recovery_private_bytes(
+                bundle.fixture,
+                selected,
+                "unit selected guide",
+                max_bytes=50_000_000,
+            )
+
+    def test_recovery_evidence_execution_destinations_are_absent_and_reject_symlinks(self) -> None:
+        artifacts = vt._recovery_transfer_artifacts(True)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            contract = SimpleNamespace(
+                root=root,
+                consumption_relative=vt.TRANSFER_SCOPE_LATCH_PATH,
+                raw_relative=artifacts["raw_output_path"],
+                working_relative=artifacts["working_output_path"],
+                success_relative=artifacts["success_receipt_path"],
+                failure_relative=artifacts["failure_receipt_path"],
+                conversion_relative=artifacts["conversion_receipt_path"],
+            )
+            relatives = (
+                contract.consumption_relative,
+                contract.raw_relative,
+                contract.working_relative,
+                contract.success_relative,
+                contract.failure_relative,
+                contract.conversion_relative,
+            )
+            vt._preflight_transfer_paths(contract)
+            for relative in relatives:
+                destination = root / relative
+                self.assertFalse(destination.exists())
+                self.assertFalse(destination.is_symlink())
+
+            target = root / "unit-existing-destination"
+            target.write_bytes(b"unit")
+            for relative in relatives:
+                destination = root / relative
+                destination.symlink_to(target)
+                try:
+                    with self.subTest(relative=relative), self.assertRaisesRegex(
+                        ValidationError,
+                        "must not already exist|may not traverse a symlink",
+                    ):
+                        vt._preflight_transfer_paths(contract)
+                finally:
+                    destination.unlink()
+
+    def test_recovery_evidence_selected_guide_git_privacy_attacks_fail(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        repository = pt._guide_repository_root()
+        selected = bundle.fixture / vt.SELECTED_GUIDE_PATH
+        relative = selected.relative_to(repository).as_posix()
+        ignore = bundle.fixture / ".gitignore"
+        ignore_relative = ignore.relative_to(repository).as_posix()
+        exact_ignore = f"{ignore_relative}:1:outputs/raw/\t{relative}\n".encode()
+
+        def check(attack: str, arguments: list[str]) -> bytes:
+            if arguments[:2] == ["ls-files", "--stage"]:
+                return b"100600 tracked\n" if attack == "tracked" else b""
+            if arguments[:3] == ["check-ignore", "--no-index", "-v"]:
+                if attack == "global-ignore":
+                    return f"/Users/unit/.config/git/ignore:1:outputs/raw/\t{relative}\n".encode()
+                if attack == "info-exclude":
+                    return f"/unit/.git/info/exclude:1:{relative}\t{relative}\n".encode()
+                if attack == "unrelated-rule":
+                    return f"{ignore_relative}:2:*.wav\t{relative}\n".encode()
+                return exact_ignore
+            if arguments and arguments[0] == "ls-tree":
+                return relative.encode() if attack == "historically-tracked" else b""
+            if arguments and arguments[0] == "show":
+                return ignore.read_bytes()
+            raise AssertionError(arguments)
+
+        for attack in (
+            "tracked",
+            "global-ignore",
+            "info-exclude",
+            "unrelated-rule",
+            "historically-tracked",
+        ):
+            with self.subTest(attack=attack), mock.patch.object(
+                vt,
+                "_bound_git",
+                side_effect=lambda bindings, arguments, **kwargs: check(attack, arguments),
+            ), self.assertRaises(ValidationError):
+                vt._verify_recovery_transfer_selected_guide_git_state(
+                    bundle.runtime_bindings,
+                    repository,
+                    bundle.fixture,
+                    selected,
+                )
+
+    def test_recovery_evidence_r0_requires_direct_parent_exact_delta_and_bytes(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        runtime_commit = bundle.runtime_bindings["git_commit"]
+        voice_relative = vt._recovery_transfer_runtime_files()[
+            "voice_transfer_runtime"
+        ][0]
+
+        def wrong_parent(arguments: list[str]) -> bytes | None:
+            if arguments[:3] == ["rev-list", "--parents", "-n"]:
+                return f"{runtime_commit} {'c' * 40}\n".encode()
+            return None
+
+        def deleted_delta(arguments: list[str]) -> bytes | None:
+            if arguments and arguments[0] == "diff":
+                return b"D\x00" + voice_relative.encode() + b"\x00"
+            return None
+
+        def tampered_blob(arguments: list[str]) -> bytes | None:
+            if arguments == ["show", f"{runtime_commit}:{voice_relative}"]:
+                return b"tampered runtime bytes"
+            return None
+
+        for label, override in (
+            ("non-direct parent", wrong_parent),
+            ("deletion in delta", deleted_delta),
+            ("committed blob drift", tampered_blob),
+        ):
+            with self.subTest(label=label):
+                errors: list[str] = []
+                patches = self._recovery_transfer_source_proof(
+                    bundle,
+                    override=override,
+                )
+                with patches[0], patches[1]:
+                    vt._validate_recovery_transfer_runtime_bindings(
+                        bundle.runtime_bindings,
+                        active=True,
+                        errors=errors,
+                    )
+                self.assertIn(
+                    "recovery-evidence transfer R0 Git source proof is invalid",
+                    errors,
+                )
+
+    def test_recovery_evidence_r1_and_active_commit_boundaries_fail_closed(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        repository = pt._guide_repository_root()
+        runtime_commit = bundle.runtime_bindings["git_commit"]
+        evidence_commit = "c" * 40
+        active_commit = "d" * 40
+        active_path = bundle.fixture / vt.RECOVERY_TRANSFER_ACTIVE_PATH
+        active_raw = b"{}\n"
+        active_path.write_bytes(active_raw)
+        active_path.chmod(0o600)
+
+        def record(path: Path) -> tuple[Path, bytes, str]:
+            resolved = path.resolve(strict=True)
+            raw = resolved.read_bytes()
+            return resolved, raw, sha256_bytes(raw)
+
+        account_records = {
+            "calibrated_account_assurance": record(bundle.account_path),
+            "recovery_authorization": record(
+                bundle.fixture / vt.RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH
+            ),
+            "credential_read_latch": record(
+                bundle.fixture / vt.RECOVERY_TRANSFER_CREDENTIAL_LATCH_PATH
+            ),
+            "provider_call_latch": record(
+                bundle.fixture / vt.RECOVERY_TRANSFER_PROVIDER_LATCH_PATH
+            ),
+            "http_200_failure_receipt": record(
+                bundle.fixture / vt.RECOVERY_TRANSFER_FAILURE_PATH
+            ),
+            "terminal_disposition": record(
+                bundle.fixture / vt.RECOVERY_TRANSFER_DISPOSITION_PATH
+            ),
+        }
+        prerequisite_records = {
+            "elevenlabs_data_use": record(bundle.data_path),
+            "target_voice_rights": record(bundle.rights_path),
+            "fresh_browser_readiness": record(bundle.browser_path),
+            "fresh_browser_capture": record(bundle.png_path),
+        }
+        draft = record(bundle.authorization_path)
+        baseline = {
+            "state": "verified",
+            "evidence_commit": evidence_commit,
+            "draft_authorization": {
+                "path": vt.RECOVERY_TRANSFER_DRAFT_PATH,
+                "sha256": draft[2],
+            },
+            "calibrated_account_assurance": {
+                "path": vt.RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+                "sha256": account_records["calibrated_account_assurance"][2],
+            },
+            "data_use_assurance": {
+                "path": vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+                "sha256": prerequisite_records["elevenlabs_data_use"][2],
+            },
+            "target_rights": {
+                "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                "sha256": prerequisite_records["target_voice_rights"][2],
+            },
+            "fresh_browser_readiness": {
+                "path": bundle.browser_path.relative_to(bundle.fixture).as_posix(),
+                "sha256": prerequisite_records["fresh_browser_readiness"][2],
+            },
+        }
+        r1_records = {
+            bundle.authorization_path.resolve(strict=True),
+            bundle.account_path.resolve(strict=True),
+            bundle.data_path.resolve(strict=True),
+            bundle.rights_path.resolve(strict=True),
+            bundle.browser_path.resolve(strict=True),
+        }
+        r1_delta = b"".join(
+            b"A\x00"
+            + path.relative_to(repository).as_posix().encode("utf-8")
+            + b"\x00"
+            for path in sorted(r1_records)
+        )
+        active_relative = active_path.relative_to(repository).as_posix()
+        png_relative = bundle.png_path.relative_to(repository).as_posix()
+
+        def bound_git(arguments: list[str], attack: str | None) -> bytes:
+            if arguments[:2] == ["cat-file", "-e"]:
+                return b""
+            if arguments[:2] == ["merge-base", "--is-ancestor"]:
+                return b""
+            if arguments[:3] == ["rev-list", "--parents", "-n"]:
+                commit = arguments[-1]
+                if commit == evidence_commit:
+                    parents = (
+                        f"{evidence_commit} {runtime_commit} {'e' * 40}\n"
+                        if attack == "R1 merge"
+                        else f"{evidence_commit} {runtime_commit}\n"
+                    )
+                    return parents.encode()
+                if commit == active_commit:
+                    parents = (
+                        f"{active_commit} {runtime_commit}\n"
+                        if attack == "A parent"
+                        else f"{active_commit} {evidence_commit}\n"
+                    )
+                    return parents.encode()
+                raise AssertionError(arguments)
+            if arguments == ["rev-parse", "HEAD"]:
+                value = evidence_commit if attack == "uncommitted ACTIVE" else active_commit
+                return (value + "\n").encode()
+            if arguments and arguments[0] == "diff":
+                revision = arguments[-1]
+                if revision == f"{runtime_commit}..{evidence_commit}":
+                    if attack == "R1 modified path":
+                        first = next(iter(sorted(r1_records)))
+                        return (
+                            b"M\x00"
+                            + first.relative_to(repository).as_posix().encode()
+                            + b"\x00"
+                            + b"".join(
+                                b"A\x00"
+                                + path.relative_to(repository).as_posix().encode()
+                                + b"\x00"
+                                for path in sorted(r1_records - {first})
+                            )
+                        )
+                    if attack == "R1 extra path":
+                        return r1_delta + b"A\x00unexpected.json\x00"
+                    return r1_delta
+                if revision == f"{evidence_commit}..{active_commit}":
+                    status = b"M" if attack == "A modified path" else b"A"
+                    return status + b"\x00" + active_relative.encode() + b"\x00"
+                raise AssertionError(arguments)
+            if arguments and arguments[0] == "ls-tree":
+                return png_relative.encode() if attack == "PNG tracked" else b""
+            if arguments and arguments[0] == "status":
+                return b" M unrelated\x00" if attack == "dirty A" else b""
+            if arguments and arguments[0] == "show":
+                _commit, separator, relative = arguments[-1].partition(":")
+                if not separator:
+                    raise AssertionError(arguments)
+                return (repository / relative).read_bytes()
+            raise AssertionError(arguments)
+
+        def validate(
+            attack: str | None,
+            *,
+            active_materialized_at: datetime = datetime(
+                2026, 8, 26, 14, 23, tzinfo=timezone.utc
+            ),
+        ) -> list[str]:
+            errors: list[str] = []
+            def override(arguments: list[str]) -> bytes | None:
+                try:
+                    return bound_git(arguments, attack)
+                except AssertionError:
+                    return None
+
+            source_patches = self._recovery_transfer_source_proof(
+                bundle,
+                override=override,
+            )
+            with (
+                source_patches[0],
+                source_patches[1],
+                source_patches[2],
+                mock.patch.object(
+                    vt,
+                    "_target",
+                    return_value=bundle.authorization["target"],
+                ),
+            ):
+                vt._validate_recovery_transfer_evidence_baseline(
+                    baseline,
+                    active=True,
+                    authorization_path=active_path,
+                    authorization_raw=active_raw,
+                    root=bundle.fixture,
+                    plan_path=bundle.plan,
+                    canonical_w_path=bundle.canonical,
+                    active_materialized_at=active_materialized_at,
+                    runtime_bindings=bundle.runtime_bindings,
+                    account_evidence={"records": account_records},
+                    prerequisite_result={"records": prerequisite_records},
+                    errors=errors,
+                )
+            return errors
+
+        self.assertEqual(validate(None), [])
+        for attack in (
+            "R1 merge",
+            "R1 modified path",
+            "R1 extra path",
+            "PNG tracked",
+            "uncommitted ACTIVE",
+            "A parent",
+            "A modified path",
+            "dirty A",
+        ):
+            with self.subTest(attack=attack):
+                self.assertIn(
+                    "active recovery-evidence transfer R1 Git source proof is invalid",
+                    validate(attack),
+                )
+        invalid_draft = {
+            "status": "active",
+            "provider_action_authorized": True,
+            "execution_ready": True,
+        }
+        invalid_draft_sha = self._write_private_json(
+            bundle.authorization_path,
+            invalid_draft,
+        )
+        baseline["draft_authorization"]["sha256"] = invalid_draft_sha
+        with self.subTest(attack="schema-invalid committed DRAFT bytes"):
+            self.assertIn(
+                "active recovery-evidence transfer R1 Git source proof is invalid",
+                validate(None),
+            )
+
+        chronological_bundle = self._recovery_transfer_draft_bundle()
+        chronological_draft = record(chronological_bundle.authorization_path)
+        bundle.authorization_path.write_bytes(chronological_draft[1])
+        bundle.authorization_path.chmod(0o600)
+        baseline["draft_authorization"]["sha256"] = chronological_draft[2]
+        with self.subTest(attack="DRAFT materialized after ACTIVE"):
+            self.assertIn(
+                "active recovery-evidence transfer R1 Git source proof is invalid",
+                validate(
+                    None,
+                    active_materialized_at=datetime(
+                        2026, 8, 26, 14, 21, 59, tzinfo=timezone.utc
+                    ),
+                ),
+            )
+
+    def test_recovery_evidence_active_rejects_future_materialization_and_expiry(self) -> None:
+        baseline_now = datetime(2026, 8, 26, 14, 30, tzinfo=timezone.utc)
+
+        def active_bundle() -> SimpleNamespace:
+            bundle = self._recovery_transfer_draft_bundle()
+            draft_raw = bundle.authorization_path.read_bytes()
+            draft_sha = sha256_bytes(draft_raw)
+            provider_latch = pt._strict_json_bytes(
+                (
+                    bundle.fixture / vt.RECOVERY_TRANSFER_PROVIDER_LATCH_PATH
+                ).read_bytes(),
+                "unit provider latch",
+            )
+            bundle.authorization.update(
+                {
+                    "authorization_id": vt.RECOVERY_TRANSFER_ACTIVE_ID,
+                    "status": "active",
+                    "provider_action_authorized": True,
+                    "credential_delivery": vt._recovery_transfer_credential_delivery(
+                        True,
+                        fingerprint=provider_latch["credential_fingerprint_sha256"],
+                        suffix_sha256=provider_latch["browser_suffix_sha256"],
+                    ),
+                    "evidence_baseline": {
+                        "state": "verified",
+                        "evidence_commit": "c" * 40,
+                        "draft_authorization": {
+                            "path": vt.RECOVERY_TRANSFER_DRAFT_PATH,
+                            "sha256": draft_sha,
+                        },
+                        "calibrated_account_assurance": {
+                            "path": vt.RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH,
+                            "sha256": sha256_file(bundle.account_path),
+                        },
+                        "data_use_assurance": {
+                            "path": vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
+                            "sha256": sha256_file(bundle.data_path),
+                        },
+                        "target_rights": {
+                            "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                            "sha256": sha256_file(bundle.rights_path),
+                        },
+                        "fresh_browser_readiness": {
+                            "path": bundle.browser_path.relative_to(bundle.fixture).as_posix(),
+                            "sha256": sha256_file(bundle.browser_path),
+                        },
+                    },
+                    "authorized_limits": vt._transfer_limits(True),
+                    "artifacts": vt._recovery_transfer_artifacts(True),
+                    "consumption": vt._recovery_transfer_consumption(True),
+                    "materialized_at": "2026-08-26T14:22:00Z",
+                    "expires_at": "2026-08-26T14:50:00Z",
+                    "execution_ready": True,
+                    "blockers": [],
+                }
+            )
+            active_path = bundle.fixture / vt.RECOVERY_TRANSFER_ACTIVE_PATH
+            self._write_private_json(active_path, bundle.authorization)
+            bundle.authorization_path = active_path.resolve(strict=True)
+            return bundle
+
+        def validate(bundle: SimpleNamespace) -> dict:
+            source_patches = self._recovery_transfer_source_proof(bundle)
+            with (
+                source_patches[0],
+                source_patches[1],
+                source_patches[2],
+                mock.patch.object(
+                    vt,
+                    "_target",
+                    return_value=bundle.authorization["target"],
+                ),
+                mock.patch.object(
+                    vt,
+                    "_validate_recovery_transfer_evidence_baseline",
+                    return_value=bundle.authorization["evidence_baseline"],
+                ),
+                mock.patch.object(vt, "_execution_now", return_value=baseline_now),
+                mock.patch.object(
+                    vt,
+                    "_read_recovery_dotenv_key",
+                    side_effect=AssertionError("ACTIVE validation read a credential"),
+                ),
+                mock.patch.object(
+                    urllib.request,
+                    "build_opener",
+                    side_effect=AssertionError("ACTIVE validation attempted network"),
+                ),
+            ):
+                return vt.validate_recovery_evidence_voice_transfer_authorization(
+                    bundle.authorization_path,
+                    bundle.plan,
+                    bundle.canonical,
+                )
+
+        valid = active_bundle()
+        self.assertEqual(_local_schema_errors(valid.authorization, valid.schema), [])
+        self.assertTrue(validate(valid)["provider_action_authorized"])
+
+        future = active_bundle()
+        future.authorization["materialized_at"] = "2026-08-26T14:31:00Z"
+        self._write_private_json(future.authorization_path, future.authorization)
+        with self.assertRaisesRegex(ValidationError, "current"):
+            validate(future)
+
+        expired = active_bundle()
+        expired.authorization["expires_at"] = "2026-08-26T14:29:59Z"
+        self._write_private_json(expired.authorization_path, expired.authorization)
+        with self.assertRaisesRegex(ValidationError, "current"):
+            validate(expired)
+
+    def test_recovery_evidence_late_failures_scrub_private_traceback_locals(self) -> None:
+        def assert_draft_failure(patcher: mock._patch) -> None:
+            bundle = self._recovery_transfer_draft_bundle()
+            with patcher:
+                try:
+                    self._validate_recovery_transfer_bundle(bundle)
+                except Exception as error:
+                    self._assert_recovery_transfer_traceback_scrubbed(error, bundle)
+                else:
+                    self.fail("injected late failure did not propagate")
+
+        assert_draft_failure(
+            mock.patch.object(
+                pt,
+                "_compile_multipart_bytes",
+                side_effect=RuntimeError("unit late compile failure"),
+            )
+        )
+        assert_draft_failure(
+            mock.patch.object(
+                vt,
+                "_normalized_transfer_request",
+                side_effect=RuntimeError("unit late normalization failure"),
+            )
+        )
+
+        private_bundle = self._recovery_transfer_draft_bundle()
+        private_reader = vt._read_recovery_private_bytes
+
+        def fail_private_authorization(
+            root: Path,
+            path: Path,
+            label: str,
+            *,
+            max_bytes: int,
+        ) -> tuple[bytes, str]:
+            if Path(path).resolve(strict=True) == private_bundle.authorization_path:
+                raise RuntimeError("unit late private authorization reread failure")
+            return private_reader(root, path, label, max_bytes=max_bytes)
+
+        with mock.patch.object(
+            vt,
+            "_read_recovery_private_bytes",
+            side_effect=fail_private_authorization,
+        ):
+            try:
+                self._validate_recovery_transfer_bundle(private_bundle)
+            except Exception as error:
+                self._assert_recovery_transfer_traceback_scrubbed(error, private_bundle)
+            else:
+                self.fail("private authorization reread failure did not propagate")
+
+        accumulated_bundle = self._recovery_transfer_draft_bundle()
+        accumulated_bundle.account_document["observed_outcome"][
+            "response_body_bytes_read"
+        ] = 1
+        self._rewrite_recovery_transfer_account_chain(accumulated_bundle)
+        try:
+            self._validate_recovery_transfer_bundle(accumulated_bundle)
+        except ValidationError as error:
+            self._assert_recovery_transfer_traceback_scrubbed(error, accumulated_bundle)
+        else:
+            self.fail("accumulated semantic failure did not propagate")
+
+        active_bundle = self._activate_recovery_transfer_bundle(
+            self._recovery_transfer_draft_bundle()
+        )
+        source_patches = self._recovery_transfer_source_proof(active_bundle)
+        with (
+            source_patches[0],
+            source_patches[1],
+            source_patches[2],
+            mock.patch.object(
+                vt,
+                "_target",
+                return_value=active_bundle.authorization["target"],
+            ),
+            mock.patch.object(
+                vt,
+                "_validate_recovery_transfer_evidence_baseline",
+                return_value=active_bundle.authorization["evidence_baseline"],
+            ),
+            mock.patch.object(
+                vt,
+                "_execution_now",
+                side_effect=RuntimeError("unit late clock failure"),
+            ),
+            mock.patch.object(
+                vt,
+                "_read_recovery_dotenv_key",
+                side_effect=AssertionError("validation read a credential"),
+            ),
+            mock.patch.object(
+                urllib.request,
+                "build_opener",
+                side_effect=AssertionError("validation attempted network"),
+            ),
+        ):
+            try:
+                vt.validate_recovery_evidence_voice_transfer_authorization(
+                    active_bundle.authorization_path,
+                    active_bundle.plan,
+                    active_bundle.canonical,
+                )
+            except Exception as error:
+                self._assert_recovery_transfer_traceback_scrubbed(error, active_bundle)
+            else:
+                self.fail("late clock failure did not propagate")
+
+    def _recovery_executor_fixture(
+        self,
+        *,
+        credential_binding: str = "valid",
+    ) -> SimpleNamespace:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name).resolve()
+        authorization_path = root / "authorizations" / "unit.ACTIVE.json"
+        authorization_path.parent.mkdir(parents=True)
+        authorization_path.write_text("{}\n", encoding="utf-8")
+        authorization_path.chmod(0o600)
+        plan_path = root / "performance-transfer-plan.json"
+        canonical_path = root / "passages" / "P01-W0030-W0110.locked.txt"
+        plan_path.write_text("{}\n", encoding="utf-8")
+        canonical_path.parent.mkdir(parents=True)
+        canonical_path.write_text("unit\n", encoding="utf-8")
+
+        selected_audio = (self.fixture / vt.SELECTED_GUIDE_PATH).read_bytes()
+        _manifest, body_bytes = pt._compile_multipart_bytes(
+            selected_audio,
+            vt.SELECTED_GUIDE_SHA256,
+            pt.TRANSFER_PRIMARY_FORMAT,
+            enable_logging=True,
+        )
+        self.assertEqual(len(body_bytes), vt.TRANSFER_BODY_BYTES)
+        self.assertEqual(sha256_bytes(body_bytes), vt.TRANSFER_BODY_SHA256)
+
+        secret = b"unit-executor-private-key-1234"
+        fingerprint = vt._recovery_transfer_hash(
+            vt.API_KEY_DOMAIN,
+            bytearray(secret),
+        )
+        suffix = vt._recovery_transfer_suffix_hash(bytearray(secret))
+        if credential_binding == "fingerprint":
+            fingerprint = "0" * 64
+        elif credential_binding == "suffix":
+            suffix = "0" * 64
+        elif credential_binding != "valid":
+            raise AssertionError(credential_binding)
+
+        artifacts = vt._recovery_transfer_artifacts(True)
+        authorization = {
+            "authorization_id": vt.RECOVERY_TRANSFER_ACTIVE_ID,
+            "bindings": {
+                "primary_request_sha256": vt.TRANSFER_OPT_OUT_REQUEST_SHA256,
+                "normalized_http_request_sha256": (
+                    vt.TRANSFER_OPT_OUT_NORMALIZED_REQUEST_SHA256
+                ),
+                "performance_transfer_plan_sha256": "1" * 64,
+                "canonical_w_sha256": "2" * 64,
+                "spoken_text_sha256": "3" * 64,
+            },
+            "runtime_bindings": {
+                "git_commit": "a" * 40,
+                "ffprobe_binary_path": "/usr/bin/false",
+                "ffprobe_binary_sha256": "4" * 64,
+                "ffprobe_version": "unit",
+            },
+            "prerequisites": {
+                "selected_guide": {"sha256": vt.SELECTED_GUIDE_SHA256},
+            },
+            "account_authentication_evidence": {},
+            "evidence_baseline": {"evidence_commit": "c" * 40},
+        }
+        now = datetime(2026, 8, 26, 14, 30, tzinfo=timezone.utc)
+
+        def contract_factory() -> vt._RecoveryTransferExecutionContract:
+            return vt._RecoveryTransferExecutionContract(
+                root=root,
+                authorization_path=authorization_path,
+                authorization=copy.deepcopy(authorization),
+                authorization_sha256=sha256_file(authorization_path),
+                plan_path=plan_path,
+                canonical_w_path=canonical_path,
+                body=bytearray(body_bytes),
+                normalized_request={
+                    "url": (
+                        f"{pt.TRANSFER_ENDPOINT}?enable_logging=true"
+                        f"&output_format={pt.TRANSFER_PRIMARY_FORMAT}"
+                    )
+                },
+                inputs=(),
+                materialized_at=now - timedelta(minutes=20),
+                expires_at=now + timedelta(minutes=30),
+                browser_observed_at=now - timedelta(minutes=10),
+                account_recorded_at=now - timedelta(minutes=20),
+                data_recorded_at=now - timedelta(minutes=9),
+                rights_recorded_at=now - timedelta(minutes=20),
+                expected_fingerprint_sha256=fingerprint,
+                expected_suffix_sha256=suffix,
+                git_head="b" * 40,
+                consumption_relative=vt.TRANSFER_SCOPE_LATCH_PATH,
+                raw_relative=artifacts["raw_output_path"],
+                working_relative=artifacts["working_output_path"],
+                success_relative=artifacts["success_receipt_path"],
+                failure_relative=artifacts["failure_receipt_path"],
+                conversion_relative=artifacts["conversion_receipt_path"],
+            )
+
+        return SimpleNamespace(
+            root=root,
+            authorization_path=authorization_path,
+            plan_path=plan_path,
+            canonical_path=canonical_path,
+            contract_factory=contract_factory,
+            secret=secret,
+            body_bytes=body_bytes,
+            now=now,
+            artifacts=artifacts,
+        )
+
+    @staticmethod
+    def _recovery_executor_worker() -> SimpleNamespace:
+        return SimpleNamespace(
+            worker_source_sha256="5" * 64,
+            interpreter_sha256="6" * 64,
+            state="ready",
+        )
+
+    @staticmethod
+    def _recovery_executor_source_proof() -> dict:
+        return {
+            "runtime_commit": "a" * 40,
+            "evidence_commit": "c" * 40,
+            "active_commit": "b" * 40,
+            "worker_source_sha256": "5" * 64,
+            "worker_interpreter_sha256": "6" * 64,
+            "input_sha256s": {},
+            "remote_state_checked": False,
+            "git_network_called": False,
+            "post_latch_revalidation_completed": True,
+            "source_revalidated_before_latch": True,
+            "source_revalidated_after_latch": True,
+        }
+
+    def test_recovery_executor_revalidates_private_sibling_fixture_input(self) -> None:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        repository = Path(temporary.name).resolve()
+        contract_root = repository / "fixture-v05"
+        sibling = (
+            repository
+            / "fixture-v04"
+            / "receipts"
+            / "provenance"
+            / "AUTH-R2-remix-save.json"
+        )
+        contract_root.mkdir()
+        sibling.parent.mkdir(parents=True)
+        raw = b'{"schema_version":"unit-private-provenance"}\n'
+        sibling.write_bytes(raw)
+        sibling.chmod(0o600)
+        binding = vt._recovery_transfer_input_binding(
+            "prerequisite:original_c_save",
+            sibling,
+            raw,
+            sha256_bytes(raw),
+        )
+        contract = SimpleNamespace(root=contract_root)
+
+        with mock.patch.object(pt, "_guide_repository_root", return_value=repository):
+            vt._revalidate_recovery_transfer_input(contract, binding)
+            sibling.write_bytes(b"x" * len(raw))
+            sibling.chmod(0o600)
+            with self.assertRaisesRegex(ValidationError, "drifted"):
+                vt._revalidate_recovery_transfer_input(contract, binding)
+
+    def test_recovery_executor_one_exact_post_and_complete_private_outputs(self) -> None:
+        fixture = self._recovery_executor_fixture()
+        events: list[str] = []
+        key_reference: bytearray | None = None
+        body_reference: bytearray | None = None
+        payload = b"\x01\x00" * 128
+
+        def prepare_worker() -> SimpleNamespace:
+            events.append("ready")
+            return self._recovery_executor_worker()
+
+        def before_latch(contract, _worker):
+            self.assertEqual(events, ["ready"])
+            self.assertFalse((contract.root / contract.consumption_relative).exists())
+            events.append("before_latch")
+            return self._recovery_executor_source_proof()
+
+        def read_key() -> bytearray:
+            self.assertTrue(
+                (fixture.root / vt.TRANSFER_SCOPE_LATCH_PATH).is_file(),
+                "credential read occurred before the shared latch",
+            )
+            events.append("key")
+            return bytearray(fixture.secret)
+
+        def perform(worker, *, api_key_material, body, timeout, absolute_deadline_ns):
+            nonlocal key_reference, body_reference
+            events.append("post")
+            self.assertEqual(worker.state, "ready")
+            self.assertEqual(bytes(api_key_material), fixture.secret)
+            self.assertEqual(bytes(body), fixture.body_bytes)
+            self.assertEqual(timeout, 30.0)
+            self.assertEqual(absolute_deadline_ns, 31_000_000_000)
+            key_reference = api_key_material
+            body_reference = body
+            worker.state = "closed"
+            return vt._ElevenResponse(
+                response_bytes=len(payload),
+                response_sha256=sha256_bytes(payload),
+                content_type="audio/pcm",
+                content_encoding="identity",
+                payload=payload,
+                provider_identifiers={"request-id": "unit-request"},
+                provider_usage={"character-count": 1},
+            )
+
+        def convert(raw_path, output_path, *, receipt_path, part_id, record_path):
+            events.append("convert")
+            self.assertEqual(raw_path.read_bytes(), payload)
+            self.assertEqual(part_id, "P01-W0030-W0110")
+            self.assertTrue(receipt_path.is_file())
+            output_path.write_bytes(b"unit-working-wave")
+            output_path.chmod(0o600)
+            record_path.write_text('{"schema_version":"unit-conversion"}\n', encoding="utf-8")
+            record_path.chmod(0o600)
+            return {"working": {"sha256": sha256_file(output_path)}}
+
+        geometry = {
+            "container_interpretation": "raw",
+            "codec_interpretation": "pcm_s16le",
+            "sample_rate_hz_interpretation": 48_000,
+            "channel_count_interpretation": 1,
+            "bit_depth_interpretation": 16,
+            "frame_count_under_mono_contract_interpretation": len(payload) // 2,
+            "duration_seconds_under_mono_contract_interpretation": len(payload) / 96_000,
+            "output_to_source_duration_ratio_under_mono_contract_interpretation": 1.0,
+            "format_parameters_intrinsically_verified": False,
+            "channel_count_intrinsically_verified": False,
+            "frame_and_duration_computed_under_mono_contract_interpretation": True,
+            "lossy_interpretation": False,
+        }
+        with (
+            mock.patch.object(vt, "_require_recovery_transfer_containment_clear"),
+            mock.patch.object(
+                vt,
+                "_preflight_recovery_transfer_core_limit",
+                return_value=vt._RecoveryTransferCoreLimit(0, 0),
+            ),
+            mock.patch.object(vt, "_enter_recovery_transfer_core_limit"),
+            mock.patch.object(vt, "_restore_recovery_transfer_core_limit", return_value=True),
+            mock.patch.object(
+                vt,
+                "_build_recovery_transfer_execution_contract",
+                side_effect=lambda *_args: fixture.contract_factory(),
+            ),
+            mock.patch.object(vt, "_prepare_voice_transfer_worker", side_effect=prepare_worker),
+            mock.patch.object(
+                vt,
+                "_revalidate_recovery_transfer_before_latch",
+                side_effect=before_latch,
+            ),
+            mock.patch.object(vt, "_verify_recovery_transfer_post_latch_git_scope"),
+            mock.patch.object(vt, "_read_recovery_transfer_dotenv_key", side_effect=read_key) as key_read,
+            mock.patch.object(vt, "_revalidate_prepared_transfer_worker"),
+            mock.patch.object(
+                vt,
+                "_revalidate_recovery_transfer_contract",
+                return_value=self._recovery_executor_source_proof(),
+            ),
+            mock.patch.object(vt, "_execution_now", return_value=fixture.now),
+            mock.patch.object(vt.time, "monotonic_ns", return_value=1_000_000_000),
+            mock.patch.object(vt, "_perform_prepared_voice_transfer", side_effect=perform) as post,
+            mock.patch.object(vt, "_validate_raw_pcm", return_value=geometry),
+            mock.patch(
+                "oe_narration.audio.convert_recovery_evidence_working",
+                side_effect=convert,
+            ),
+            mock.patch.object(
+                urllib.request,
+                "build_opener",
+                side_effect=AssertionError("executor used a legacy or direct network path"),
+            ),
+        ):
+            result = vt.execute_recovery_evidence_voice_transfer(
+                fixture.authorization_path,
+                fixture.plan_path,
+                fixture.canonical_path,
+                timeout=30.0,
+            )
+
+        self.assertEqual(events, ["ready", "before_latch", "key", "post", "convert"])
+        self.assertEqual(key_read.call_count, 1)
+        self.assertEqual(post.call_count, 1)
+        self.assertIsNotNone(key_reference)
+        self.assertIsNotNone(body_reference)
+        self.assertTrue(all(value == 0 for value in key_reference))
+        self.assertTrue(all(value == 0 for value in body_reference))
+        self.assertEqual(result["account_get_calls_made"], 0)
+        self.assertEqual(result["generation_post_calls_made"], 1)
+        self.assertEqual(result["application_retries_made"], 0)
+        self.assertEqual(result["outputs_received"], 1)
+        self.assertFalse(result["retry_permitted"])
+        self.assertFalse(result["replay_permitted"])
+        for relative in (
+            vt.TRANSFER_SCOPE_LATCH_PATH,
+            fixture.artifacts["raw_output_path"],
+            fixture.artifacts["working_output_path"],
+            fixture.artifacts["success_receipt_path"],
+            fixture.artifacts["conversion_receipt_path"],
+        ):
+            path = fixture.root / relative
+            self.assertTrue(path.is_file(), relative)
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+        run = pt._strict_json_bytes(
+            (fixture.root / fixture.artifacts["success_receipt_path"]).read_bytes(),
+            "unit recovery transfer run",
+        )
+        self.assertEqual(run["provider_evidence"]["account_get_calls_made"], 0)
+        self.assertEqual(run["provider_evidence"]["generation_post_calls_made"], 1)
+        self.assertEqual(run["provider_evidence"]["application_retries_made"], 0)
+
+    def test_recovery_executor_credential_binding_burns_latch_and_blocks_replay(self) -> None:
+        for binding in ("fingerprint", "suffix"):
+            with self.subTest(binding=binding):
+                fixture = self._recovery_executor_fixture(credential_binding=binding)
+                key_references: list[bytearray] = []
+
+                def read_key() -> bytearray:
+                    self.assertTrue((fixture.root / vt.TRANSFER_SCOPE_LATCH_PATH).is_file())
+                    value = bytearray(fixture.secret)
+                    key_references.append(value)
+                    return value
+
+                with (
+                    mock.patch.object(vt, "_require_recovery_transfer_containment_clear"),
+                    mock.patch.object(
+                        vt,
+                        "_preflight_recovery_transfer_core_limit",
+                        return_value=vt._RecoveryTransferCoreLimit(0, 0),
+                    ),
+                    mock.patch.object(vt, "_enter_recovery_transfer_core_limit"),
+                    mock.patch.object(vt, "_restore_recovery_transfer_core_limit", return_value=True),
+                    mock.patch.object(
+                        vt,
+                        "_build_recovery_transfer_execution_contract",
+                        side_effect=lambda *_args: fixture.contract_factory(),
+                    ),
+                    mock.patch.object(
+                        vt,
+                        "_prepare_voice_transfer_worker",
+                        side_effect=lambda: self._recovery_executor_worker(),
+                    ),
+                    mock.patch.object(
+                        vt,
+                        "_revalidate_recovery_transfer_before_latch",
+                        return_value=self._recovery_executor_source_proof(),
+                    ),
+                    mock.patch.object(vt, "_verify_recovery_transfer_post_latch_git_scope"),
+                    mock.patch.object(
+                        vt,
+                        "_read_recovery_transfer_dotenv_key",
+                        side_effect=read_key,
+                    ) as key_read,
+                    mock.patch.object(vt, "_dispose_recovery_transfer_worker", return_value=True),
+                    mock.patch.object(vt, "_execution_now", return_value=fixture.now),
+                    mock.patch.object(
+                        vt,
+                        "_perform_prepared_voice_transfer",
+                        side_effect=AssertionError("credential mismatch released GO"),
+                    ) as post,
+                ):
+                    with self.assertRaisesRegex(
+                        ValidationError,
+                        f"credential_{binding}_mismatch",
+                    ):
+                        vt.execute_recovery_evidence_voice_transfer(
+                            fixture.authorization_path,
+                            fixture.plan_path,
+                            fixture.canonical_path,
+                        )
+                    failure = pt._strict_json_bytes(
+                        (fixture.root / fixture.artifacts["failure_receipt_path"]).read_bytes(),
+                        "unit credential-binding failure",
+                    )
+                    self.assertFalse(failure["go_released"])
+                    self.assertEqual(failure["application_http_attempts"], 0)
+                    self.assertEqual(failure["account_get_calls_made"], 0)
+                    self.assertTrue(failure["generation_post_budget_consumed"])
+                    with self.assertRaisesRegex(ValidationError, "pre-latch readiness"):
+                        vt.execute_recovery_evidence_voice_transfer(
+                            fixture.authorization_path,
+                            fixture.plan_path,
+                            fixture.canonical_path,
+                        )
+                self.assertEqual(key_read.call_count, 1)
+                post.assert_not_called()
+                self.assertEqual(len(key_references), 1)
+                self.assertTrue(all(value == 0 for value in key_references[0]))
+
+    def test_recovery_executor_deadline_failure_is_reaped_and_nonretryable(self) -> None:
+        fixture = self._recovery_executor_fixture()
+        observed_deadlines: list[int] = []
+        disposed: list[str] = []
+
+        def timeout_failure(worker, **kwargs):
+            observed_deadlines.append(kwargs["absolute_deadline_ns"])
+            worker.state = "closed"
+            failure = vt._post_go_worker_failure(
+                "provider_request_elapsed_cap_exceeded",
+                response_state="unknown",
+            )
+            failure.application_http_attempts = 1
+            failure.child_containment_state = "confirmed_reaped"
+            raise failure
+
+        def dispose(worker) -> bool:
+            disposed.append(worker.state)
+            return True
+
+        with (
+            mock.patch.object(vt, "_require_recovery_transfer_containment_clear"),
+            mock.patch.object(
+                vt,
+                "_preflight_recovery_transfer_core_limit",
+                return_value=vt._RecoveryTransferCoreLimit(0, 0),
+            ),
+            mock.patch.object(vt, "_enter_recovery_transfer_core_limit"),
+            mock.patch.object(vt, "_restore_recovery_transfer_core_limit", return_value=True),
+            mock.patch.object(
+                vt,
+                "_build_recovery_transfer_execution_contract",
+                side_effect=lambda *_args: fixture.contract_factory(),
+            ),
+            mock.patch.object(
+                vt,
+                "_prepare_voice_transfer_worker",
+                side_effect=lambda: self._recovery_executor_worker(),
+            ),
+            mock.patch.object(
+                vt,
+                "_revalidate_recovery_transfer_before_latch",
+                return_value=self._recovery_executor_source_proof(),
+            ),
+            mock.patch.object(vt, "_verify_recovery_transfer_post_latch_git_scope"),
+            mock.patch.object(
+                vt,
+                "_read_recovery_transfer_dotenv_key",
+                return_value=bytearray(fixture.secret),
+            ),
+            mock.patch.object(vt, "_revalidate_prepared_transfer_worker"),
+            mock.patch.object(
+                vt,
+                "_revalidate_recovery_transfer_contract",
+                return_value=self._recovery_executor_source_proof(),
+            ),
+            mock.patch.object(vt, "_execution_now", return_value=fixture.now),
+            mock.patch.object(vt.time, "monotonic_ns", return_value=2_000_000_000),
+            mock.patch.object(
+                vt,
+                "_perform_prepared_voice_transfer",
+                side_effect=timeout_failure,
+            ) as post,
+            mock.patch.object(
+                vt,
+                "_dispose_recovery_transfer_worker",
+                side_effect=dispose,
+            ),
+        ):
+            with self.assertRaisesRegex(
+                ValidationError,
+                "provider_request_elapsed_cap_exceeded",
+            ):
+                vt.execute_recovery_evidence_voice_transfer(
+                    fixture.authorization_path,
+                    fixture.plan_path,
+                    fixture.canonical_path,
+                    timeout=7.0,
+                )
+        self.assertEqual(observed_deadlines, [9_000_000_000])
+        self.assertEqual(post.call_count, 1)
+        self.assertEqual(disposed, ["closed"])
+        failure = pt._strict_json_bytes(
+            (fixture.root / fixture.artifacts["failure_receipt_path"]).read_bytes(),
+            "unit deadline failure",
+        )
+        self.assertTrue(failure["go_released"])
+        self.assertEqual(failure["application_http_attempts"], 1)
+        self.assertEqual(failure["child_containment_state"], "confirmed_reaped")
+        self.assertFalse(failure["retry_permitted"])
+        self.assertFalse(failure["replay_permitted"])
+
+    def test_recovery_executor_cli_is_dry_by_default_and_execute_is_explicit(self) -> None:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        paths = []
+        for name in ("authorization.json", "plan.json", "canonical.txt"):
+            path = root / name
+            path.write_text("{}\n", encoding="utf-8")
+            paths.append(path)
+        base = [
+            "elevenlabs-voice-transfer-recovery",
+            "--authorization", str(paths[0]),
+            "--plan", str(paths[1]),
+            "--canonical-w", str(paths[2]),
+        ]
+        parser = cli.build_parser()
+        with (
+            mock.patch.object(
+                cli,
+                "dry_run_recovery_evidence_voice_transfer",
+                return_value={"valid": True, "network_called": False},
+            ) as dry,
+            mock.patch.object(
+                cli,
+                "execute_recovery_evidence_voice_transfer",
+                return_value={"valid": True, "network_called": True},
+            ) as execute,
+        ):
+            dry_result = cli.dispatch(parser.parse_args(base))
+            self.assertFalse(dry_result["network_called"])
+            dry.assert_called_once_with(*paths)
+            execute.assert_not_called()
+
+            execute_result = cli.dispatch(
+                parser.parse_args([*base, "--execute", "--timeout", "12"])
+            )
+            self.assertTrue(execute_result["network_called"])
+            execute.assert_called_once_with(*paths, timeout=12.0)
+            with self.assertRaisesRegex(ValidationError, "--record is for dry runs"):
+                cli.dispatch(
+                    parser.parse_args(
+                        [*base, "--execute", "--record", str(root / "record.json")]
+                    )
+                )
+            with self.assertRaisesRegex(ValidationError, "at most 300"):
+                cli.dispatch(parser.parse_args([*base, "--execute", "--timeout", "301"]))
+
+    def test_recovery_capture_audio_test_binding_is_required_and_exact(self) -> None:
+        bundle = self._recovery_transfer_draft_bundle()
+        missing = copy.deepcopy(bundle.authorization)
+        missing["runtime_bindings"].pop("capture_audio_tests_sha256")
+        self.assertTrue(_local_schema_errors(missing, bundle.schema))
+
+        bundle.authorization["runtime_bindings"]["capture_audio_tests_sha256"] = "0" * 64
+        self._write_private_json(bundle.authorization_path, bundle.authorization)
+        with self.assertRaises(ValidationError):
+            self._validate_recovery_transfer_bundle(bundle)
+
+    def test_additive_branch_preserves_frozen_legacy_transfer_functions(self) -> None:
+        expected = {
+            "_action_transfer": "e2823bac58a75d76d7afdc245938602cb17e7023e11cad0b753320dbd2666495",
+            "_transfer_limits": "8a773e877022301208408a568b0d80ee55ea1926e78967ad3c64bdbc19b102c0",
+            "_transfer_artifacts": "95b319bd487c4cdb812771cb796f1097947520685ee2e16959dbb774b50b7434",
+            "validate_voice_transfer_execution_authorization": "fc4af9b7411def297d7b09324986a8923482e43904503da515791d368dbbaa6f",
+            "dry_run_voice_transfer_execution": "7ab8fcc38853d43f171fecf1b9a5d5478bdf82d393bc3cb3d8e3818bf06015b0",
+            "_build_transfer_contract": "7de62617c622cb4c9d34ea69ad6e32c502a0d89d1bbb3792e75e7cce022de61a",
+            "_require_transfer_evidence_fresh": "7ac17d2578c985f52d688fe7b7cf550f67070c7257b6b1fb29353f4159353b9c",
+            "_preflight_transfer_paths": "60283f73ce773662759ea4a084000aaebfd12abc9ec4c4167d20e346f7d76554",
+            "execute_voice_transfer": "a7acc718fb02cabd7f743cab62a0379350cf7dbb761268e03d5f0b5cdca6862d",
+            "_perform_elevenlabs_request": "cf5930432ae42ef35a0958371b0c8033575c414762534ce175c193677d0f0f48",
+        }
+        source = Path(vt.__file__).read_text(encoding="utf-8")
+        nodes = {
+            node.name: node
+            for node in ast.parse(source).body
+            if isinstance(node, ast.FunctionDef)
+        }
+        actual = {
+            name: sha256_bytes(ast.get_source_segment(source, nodes[name]).encode())
+            for name in expected
+        }
+        self.assertEqual(actual, expected)
 
 
 if __name__ == "__main__":
