@@ -3,7 +3,9 @@
 Status: fresh recovery-bound G1R2 is consumed and succeeded with both exact provider WAVs. Candidate
 A passes technical QA but is lexically unresolved and ineligible; both offline decodes heard `this`
 where locked `W` requires `the`. Candidate B passes technical and offline lexical QA (`80/80`) and
-is ready only for private owner audition. No guide is selected, and `AUTH-V1` remains blocked.
+the owner selected it for guide-transfer evaluation with the exact decision `B is definitely
+better`. Candidate A is not selected and independently remains ineligible for this method.
+`AUTH-V1` remains blocked and zero-authority.
 
 ## Question
 
@@ -115,7 +117,10 @@ retry, redirect, or fallback and consumed the full modeled `$0.66` ceiling.
 Candidate A is excluded from owner performance review because its exact words are not established:
 both offline decoding modes returned the same possible `the`/`this` substitution. Candidate B is the
 only current audition candidate; both offline modes matched all 80 locked tokens after normalization.
-That result clears private owner audition, not selection or transfer.
+The owner then selected exact candidate B for guide-transfer evaluation. Candidate A is not selected
+and independently remains ineligible for this method. That local comparison selection does not
+clear human exact-word or pronunciation review and does not authorize disclosure, upload, or
+transfer.
 
 Each original provider WAV must pass exact-word human review, nonempty full decode, exact declared
 PCM-frame payload with no trailing audio, 24 kHz mono media inspection, 20-to-50-second duration,
@@ -148,6 +153,12 @@ selected audio must already contain the performance.
    `enable_logging=true`, or confirmed enterprise ZRM protection with `enable_logging=false`; and
 5. renewed owner rights and consent for the selected guide disclosure and Original C transfer,
    bound to the historical Original C owner-selection and saved-voice receipts.
+
+The candidate-B selection now supplies the exact local guide identity and the owner's binary
+comparison preference. It is not the validator's `oe-synthetic-guide-owner-selection-v1`
+prerequisite and does not approve Voice Changer transfer. Human exact-word and “twenty twenty-two”
+pronunciation confirmation, current data-use evidence, renewed rights and consent, exact multipart
+compilation, a V1-compatible owner-selection approval, and a separate active V1 remain open.
 
 Only then may an exact multipart request be recompiled, rehashed, shown to the owner, and separately
 authorized. The active record must bind the chosen `enable_logging` value plus exact primary and
@@ -196,8 +207,14 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
   token comparisons. It is diagnostic evidence, not human review or authority.
 - `evidence/G1R2-GUIDE-SUCCESS-AND-PRIVATE-AUDITION-DISPOSITION.20260826T045943Z.json` cross-binds
   the successful run, both raw WAVs, both QA records, and the still-closed downstream authority.
-- `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is blocked pending the exact selected
-  guide, all prerequisite evidence, and a later separate owner decision.
+- `reviews/GUIDE-SELECTION.candidate-B.20260826T052611Z.md` records the owner's exact decision
+  `B is definitely better`, selects unchanged candidate B for local guide-transfer evaluation, and
+  leaves candidate A not selected and independently ineligible without authorizing upload or
+  transfer.
+- `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is the preserved historical,
+  pre-selection zero-authority draft. Its embedded all-pending blocker list is not a statement of
+  current readiness; the candidate-B selection record and the current remaining gates above govern
+  the present state.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
   templates.
 - G1R2 produced the bound consumption record, successful run receipt, and both original provider
@@ -214,8 +231,8 @@ requests after the separate service-enablement transaction. That sequence does n
 prove the earlier provider cause.
 
 All three guide authorizations are consumed and authorize nothing further. Candidate A is
-ineligible, while candidate B is available only for private owner audition of its exact raw bytes.
-No owner selection or creative approval exists. The preserved G1 draft and `AUTH-V1` remain
-zero-authority; Voice Changer remains validation/compilation-only and rejects `--execute`. No
-regeneration, upload, transfer, full capture, Step 2 lock, Step 3, external sharing, or publication
-is authorized.
+ineligible and not selected for this method. Candidate B is selected only for local guide-transfer
+evaluation of its exact raw bytes. That preference is not cross-provider disclosure or transfer
+approval. The preserved G1 draft and `AUTH-V1` remain zero-authority; Voice Changer remains
+validation/compilation-only and rejects `--execute`. No regeneration, upload, transfer, full
+capture, Step 2 lock, Step 3, external sharing, or publication is authorized.

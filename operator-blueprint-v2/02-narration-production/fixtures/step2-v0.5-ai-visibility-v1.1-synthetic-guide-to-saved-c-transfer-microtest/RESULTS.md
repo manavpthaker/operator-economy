@@ -1,6 +1,6 @@
 # Synthetic-guide to Saved-C transfer microtest results
 
-Status: `g1r2_success_candidate_b_ready_for_private_owner_audition_only`
+Status: `g1r2_candidate_b_owner_selected_for_transfer_evaluation_v1_blocked`
 
 | State | Result |
 | --- | --- |
@@ -26,13 +26,13 @@ Status: `g1r2_success_candidate_b_ready_for_private_owner_audition_only`
 | G1R2 run receipt | `receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json`; exact successful two-output evidence |
 | Guide audio | candidate A and B original provider WAVs generated; both strict PCM/WAV 24 kHz mono and preserved unchanged |
 | Candidate A QA | technical pass; lexical exactness not established because both offline decodes heard `this` where locked `W` requires `the`; ineligible |
-| Candidate B QA | technical and offline lexical pass, `80/80` tokens in both decoding modes; eligible only for private owner audition |
-| Owner selection | absent; no creative or exact-word owner verdict has been inferred |
+| Candidate B QA | technical and offline lexical pass, `80/80` tokens in both decoding modes; owner-selected for guide-transfer evaluation only |
+| Owner selection | exact decision `B is definitely better`; unchanged candidate B selected for local evaluation, while candidate A is not selected and independently remains ineligible for this method; no V1-compatible owner-selection approval exists |
 | Eleven transfer adapter | blocked future contract only; Original C `scMbPZwQjr40V1MzL3Nj` |
 | Cross-provider disclosure | not authorized |
 | Eleven data-use protection | pending live verification before any upload |
-| AUTH-V1 | `DRAFT`; blocked and zero-authority; selected guide and owner approval absent |
-| Voice Changer request | no exact multipart request can exist until a guide is selected and all prerequisites pass |
+| AUTH-V1 | `DRAFT`; blocked and zero-authority; local B identity/preference exists, but a V1-compatible owner-selection approval, human pronunciation confirmation, data-use evidence, rights/consent, exact multipart identity, and separate active authority remain absent |
+| Voice Changer request | no exact multipart request can exist until the selected guide has all remaining verified prerequisites |
 | Runtime acceptance | `66/66` focused and `239/239` full tests pass; recovery-bound G1 transport exists, V1 transport does not |
 | Provider calls / outputs / spend | `4 / 2 / $1.32 total modeled attempted spend` across G1, G1R1, and G1R2 |
 | N4A, full capture, Step 2 lock, Step 3, sharing, publication | not authorized |
@@ -83,6 +83,7 @@ These hashes bind the frozen plan, authorization, and provider-execution evidenc
 | Candidate A lexical and technical QA | `7529b156ab17ac23f48666a343d6678f8ca211c9cf6a88fc2d5caa24b65718ab` |
 | Candidate B lexical and technical QA | `e9e65eab04cda98e648973f6ca20825d4c7a7d3fc9784c7557601086e7b18de2` |
 | G1R2 success and private-audition disposition | `485ce6db50852055abbd2f620d8cc5979982415042ff2afcc0a4ac2be97227df` |
+| Candidate B owner selection for guide-transfer evaluation | `c1a5ef4fdac5ca320ca3890eec08953ce3ce4300918c2aa80552cc179964ec44` |
 | Blocked zero-authority AUTH-V1 draft | `1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036` |
 
 ## Runtime schema hashes
@@ -111,6 +112,7 @@ grant no authority.
 | `runtime/oe_narration/g1r1_transaction.py` | `3cb8e434f0b10b1087087d2a6810885c1f1cd00e17e6846a8937955e05bd90c1` |
 | `runtime/tests/test_g1r1_transaction.py` | `51d3d6a11e733e30b17f3bb81423e3c79f5e9bdbf1900ae2420d1d65b6eb4f77` |
 
-No plan, validation, or hash in this file may be interpreted as permission to access credentials,
-call Google, generate audio, disclose a guide to ElevenLabs, call Voice Changer, select a provider,
-or advance production state.
+The explicit owner record selects candidate B only for local guide-transfer evaluation. No plan,
+validation, selection, or hash in this file may be interpreted as permission to access credentials,
+call Google, regenerate audio, disclose a guide to ElevenLabs, call Voice Changer, execute V1, or
+advance downstream production state.
