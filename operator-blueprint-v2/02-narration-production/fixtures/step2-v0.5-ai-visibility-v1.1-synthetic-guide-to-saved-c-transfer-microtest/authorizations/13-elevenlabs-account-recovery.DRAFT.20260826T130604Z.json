@@ -1,0 +1,103 @@
+{
+  "schema_version": "oe-elevenlabs-account-recovery-authorization-v1",
+  "authorization_id": "DRAFT-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T130604Z",
+  "status": "draft",
+  "approved": false,
+  "scope": "elevenlabs_account_recovery_verification",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "prior_failure_chain": {
+    "outcome_commit": "dc8fb34730c8751d3eafd0c2e86ba83db883e409",
+    "active_authorization": {
+      "path": "authorizations/12-elevenlabs-account-verification.ACTIVE.20260826T105051Z.json",
+      "sha256": "328c14036caabbceb07b9516679c1518ca0689e9c6c68e974cb29c32755626a8"
+    },
+    "consumption_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json",
+      "sha256": "359bad8d5821fe45ff20febc2b06cc81df16b043404cddc7f1d46ed5bc9f2b91"
+    },
+    "failure_receipt": {
+      "path": "receipts/elevenlabs-account/AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z.failure.json",
+      "sha256": "f3b2c461a803d1f32d58ec5b112adb1081dd1175dc6f071122b303abe7ea8deb"
+    },
+    "failure_disposition": {
+      "path": "evidence/V1-ELEVENLABS-ACCOUNT-ZERO-NETWORK-FAILURE-DISPOSITION.20260826T110834Z.json",
+      "sha256": "fe840ec4f510c5b261b6579c22f1a88749de7fa72de21b02d9e3a5d16d2f3d9a"
+    },
+    "prior_authority_reusable": false,
+    "prior_latch_reusable": false,
+    "prior_latch_deletable": false,
+    "retry_or_resumption": false
+  },
+  "owner_approval": {
+    "state": "pending"
+  },
+  "browser_readiness": {
+    "state": "pending"
+  },
+  "action": {
+    "provider": "elevenlabs",
+    "endpoint": "https://api.elevenlabs.io/v1/user",
+    "method": "GET",
+    "credential_header_name": "xi-api-key",
+    "accept": "application/json",
+    "accept_encoding": "identity",
+    "read_only": true,
+    "no_post": true,
+    "no_mutation": true,
+    "no_retry": true,
+    "no_redirect": true,
+    "no_fallback": true,
+    "no_audio_upload": true,
+    "no_paid_call": true,
+    "no_voice_changer_request": true,
+    "raw_response_storage_forbidden": true
+  },
+  "credential_delivery": {
+    "state": "pending",
+    "mechanism": "descriptor_read_fixed_dotenv_exact_assignment",
+    "dotenv_path": "/Users/brownmanbrain/GitHub/operator-economy/.env",
+    "assignment_name": "ELEVENLABS_API_KEY"
+  },
+  "runtime_bindings": {
+    "state": "pending"
+  },
+  "authorized_limits": {
+    "max_credential_preflight_reads": 0,
+    "max_execution_credential_reads": 0,
+    "max_get_calls": 0,
+    "max_post_calls": 0,
+    "max_provider_mutations": 0,
+    "max_audio_uploads": 0,
+    "max_voice_changer_requests": 0,
+    "max_response_bytes": 0,
+    "max_error_response_bytes": 0,
+    "max_request_elapsed_seconds": 0,
+    "max_spend_usd": 0
+  },
+  "artifacts": {
+    "success_receipt_path": "receipts/elevenlabs-account/DRAFT-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T130604Z.recovery-run.json",
+    "failure_receipt_path": "receipts/elevenlabs-account/DRAFT-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T130604Z.recovery-failure.json"
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "credential_preflight_reads_used": 0,
+    "execution_credential_reads_used": 0,
+    "get_calls_used": 0,
+    "post_calls_used": 0,
+    "credential_read_latch_path": "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot.consumed.json",
+    "provider_call_latch_path": "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot.consumed.json"
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "owner approval evidence exists at evidence/V1-ELEVENLABS-ACCOUNT-RECOVERY-OWNER-APPROVAL.20260826T115516Z.json with sha256 549340266691d0e309e534049452b3c76e6a8674989208874d41def842779113, but this zero-authority DRAFT deliberately keeps owner_approval pending until separate ACTIVE-only materialization",
+    "fresh same-session browser readiness evidence remains pending; no credential read, latch creation, provider call, retry, mutation, upload, paid action, or Voice Changer request is authorized",
+    "DRAFT runtime_bindings must remain pending; frozen recovery bytes observed for later committed ACTIVE binding are recovery_schema_sha256 d706703243dd30cb9458481c1d4327804af47f178912e3e21d11bd7528e6cc4e, voice_transfer_runtime_sha256 af1b1653b40315d59f6940a5c7e27d42022f22ed7270c69dd8e04f623a0802c2, cli_runtime_sha256 8e2de00db023d97a9a747eed849b1189af358caf981fc90d4c25c0a11de4c0a2, init_runtime_sha256 7b120ec39d20ff35d768cfc3faba16344d2e488c286ec3b5d2aa04e32a9ddb6f, and voice_transfer_tests_sha256 cd5e560fb84394c3c2a04934c45048235435cbc7d0049b819132872ae6abc975",
+    "recovery runtime/evidence baseline commit, independent acceptance, and a separately committed short-lived ACTIVE authorization remain required"
+  ]
+}

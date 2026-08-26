@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-elevenlabs-account-recovery-authorization-v1.json",
+  "title": "OE isolated ElevenLabs account recovery authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "prior_failure_chain", "owner_approval", "browser_readiness", "action",
+    "credential_delivery", "runtime_bindings", "authorized_limits", "artifacts",
+    "consumption", "approved_by", "approved_at", "expires_at", "execution_ready",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-elevenlabs-account-recovery-authorization-v1"},
+    "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {"const": "elevenlabs_account_recovery_verification"},
+    "target": {"$ref": "#/$defs/target"},
+    "prior_failure_chain": {"$ref": "#/$defs/priorFailureChain"},
+    "owner_approval": {
+      "oneOf": [
+        {"$ref": "#/$defs/pending"},
+        {"$ref": "#/$defs/recoveryOwnerApproval"}
+      ]
+    },
+    "browser_readiness": {
+      "oneOf": [
+        {"$ref": "#/$defs/pending"},
+        {"$ref": "#/$defs/verifiedPath"}
+      ]
+    },
+    "action": {"$ref": "#/$defs/action"},
+    "credential_delivery": {
+      "oneOf": [
+        {"$ref": "#/$defs/pendingCredential"},
+        {"$ref": "#/$defs/verifiedCredential"}
+      ]
+    },
+    "runtime_bindings": {
+      "oneOf": [
+        {"$ref": "#/$defs/pendingRuntime"},
+        {"$ref": "#/$defs/verifiedRuntime"}
+      ]
+    },
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "artifacts": {"$ref": "#/$defs/artifacts"},
+    "consumption": {"$ref": "#/$defs/consumption"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "owner_approval": {"$ref": "#/$defs/pending"},
+          "browser_readiness": {"$ref": "#/$defs/pending"},
+          "credential_delivery": {"$ref": "#/$defs/pendingCredential"},
+          "runtime_bindings": {"$ref": "#/$defs/pendingRuntime"},
+          "authorized_limits": {"$ref": "#/$defs/zeroLimits"},
+          "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "approved_by": {"const": ""},
+          "approved_at": {"const": ""},
+          "expires_at": {"const": ""},
+          "execution_ready": {"const": false},
+          "blockers": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "owner_approval": {"$ref": "#/$defs/recoveryOwnerApproval"},
+          "browser_readiness": {"$ref": "#/$defs/verifiedPath"},
+          "credential_delivery": {"$ref": "#/$defs/verifiedCredential"},
+          "runtime_bindings": {"$ref": "#/$defs/verifiedRuntime"},
+          "authorized_limits": {"$ref": "#/$defs/activeLimits"},
+          "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "execution_ready": {"const": true},
+          "blockers": {"maxItems": 0}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "pending": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "verifiedPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fixedRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"const": "fixture"},
+        "id": {"const": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"}
+      }
+    },
+    "priorFailureChain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome_commit", "active_authorization", "consumption_latch",
+        "failure_receipt", "failure_disposition", "prior_authority_reusable",
+        "prior_latch_reusable", "prior_latch_deletable", "retry_or_resumption"
+      ],
+      "properties": {
+        "outcome_commit": {"const": "dc8fb34730c8751d3eafd0c2e86ba83db883e409"},
+        "active_authorization": {
+          "allOf": [
+            {"$ref": "#/$defs/fixedRecord"},
+            {"properties": {
+              "path": {"const": "authorizations/12-elevenlabs-account-verification.ACTIVE.20260826T105051Z.json"},
+              "sha256": {"const": "328c14036caabbceb07b9516679c1518ca0689e9c6c68e974cb29c32755626a8"}
+            }}
+          ]
+        },
+        "consumption_latch": {
+          "allOf": [
+            {"$ref": "#/$defs/fixedRecord"},
+            {"properties": {
+              "path": {"const": "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json"},
+              "sha256": {"const": "359bad8d5821fe45ff20febc2b06cc81df16b043404cddc7f1d46ed5bc9f2b91"}
+            }}
+          ]
+        },
+        "failure_receipt": {
+          "allOf": [
+            {"$ref": "#/$defs/fixedRecord"},
+            {"properties": {
+              "path": {"const": "receipts/elevenlabs-account/AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z.failure.json"},
+              "sha256": {"const": "f3b2c461a803d1f32d58ec5b112adb1081dd1175dc6f071122b303abe7ea8deb"}
+            }}
+          ]
+        },
+        "failure_disposition": {
+          "allOf": [
+            {"$ref": "#/$defs/fixedRecord"},
+            {"properties": {
+              "path": {"const": "evidence/V1-ELEVENLABS-ACCOUNT-ZERO-NETWORK-FAILURE-DISPOSITION.20260826T110834Z.json"},
+              "sha256": {"const": "fe840ec4f510c5b261b6579c22f1a88749de7fa72de21b02d9e3a5d16d2f3d9a"}
+            }}
+          ]
+        },
+        "prior_authority_reusable": {"const": false},
+        "prior_latch_reusable": {"const": false},
+        "prior_latch_deletable": {"const": false},
+        "retry_or_resumption": {"const": false}
+      }
+    },
+    "recoveryOwnerApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-ACCOUNT-RECOVERY-OWNER-APPROVAL.20260826T115516Z.json"},
+        "sha256": {"const": "549340266691d0e309e534049452b3c76e6a8674989208874d41def842779113"}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider", "endpoint", "method", "credential_header_name", "accept",
+        "accept_encoding", "read_only", "no_post", "no_mutation", "no_retry",
+        "no_redirect", "no_fallback", "no_audio_upload", "no_paid_call",
+        "no_voice_changer_request", "raw_response_storage_forbidden"
+      ],
+      "properties": {
+        "provider": {"const": "elevenlabs"},
+        "endpoint": {"const": "https://api.elevenlabs.io/v1/user"},
+        "method": {"const": "GET"},
+        "credential_header_name": {"const": "xi-api-key"},
+        "accept": {"const": "application/json"},
+        "accept_encoding": {"const": "identity"},
+        "read_only": {"const": true},
+        "no_post": {"const": true},
+        "no_mutation": {"const": true},
+        "no_retry": {"const": true},
+        "no_redirect": {"const": true},
+        "no_fallback": {"const": true},
+        "no_audio_upload": {"const": true},
+        "no_paid_call": {"const": true},
+        "no_voice_changer_request": {"const": true},
+        "raw_response_storage_forbidden": {"const": true}
+      }
+    },
+    "pendingCredential": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "mechanism", "dotenv_path", "assignment_name"],
+      "properties": {
+        "state": {"const": "pending"},
+        "mechanism": {"const": "descriptor_read_fixed_dotenv_exact_assignment"},
+        "dotenv_path": {"const": "/Users/brownmanbrain/GitHub/operator-economy/.env"},
+        "assignment_name": {"const": "ELEVENLABS_API_KEY"}
+      }
+    },
+    "verifiedCredential": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state", "mechanism", "dotenv_path", "assignment_name", "required_file_type",
+        "required_mode", "current_uid_required", "required_link_count", "max_file_bytes",
+        "max_assignment_count", "environment_inheritance_used", "shell_source_forbidden",
+        "dotenv_re_read_after_latch_forbidden", "domain_separation"
+      ],
+      "properties": {
+        "state": {"const": "verified"},
+        "mechanism": {"const": "descriptor_read_fixed_dotenv_exact_assignment"},
+        "dotenv_path": {"const": "/Users/brownmanbrain/GitHub/operator-economy/.env"},
+        "assignment_name": {"const": "ELEVENLABS_API_KEY"},
+        "required_file_type": {"const": "regular"},
+        "required_mode": {"const": "0600"},
+        "current_uid_required": {"const": true},
+        "required_link_count": {"const": 1},
+        "max_file_bytes": {"const": 65536},
+        "max_assignment_count": {"const": 1},
+        "environment_inheritance_used": {"const": false},
+        "shell_source_forbidden": {"const": true},
+        "dotenv_re_read_after_latch_forbidden": {"const": true},
+        "domain_separation": {"const": "oe-elevenlabs-api-key-v1\u0000"}
+      }
+    },
+    "pendingRuntime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "verifiedRuntime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state", "git_commit", "voice_transfer_runtime_sha256",
+        "performance_transfer_runtime_sha256", "cli_runtime_sha256", "core_runtime_sha256",
+        "init_runtime_sha256", "recovery_schema_sha256", "voice_transfer_tests_sha256",
+        "git_binary_path", "git_binary_sha256", "git_version"
+      ],
+      "properties": {
+        "state": {"const": "verified"},
+        "git_commit": {"$ref": "#/$defs/gitSha"},
+        "voice_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "performance_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "cli_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "core_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "init_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "recovery_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "voice_transfer_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "git_binary_path": {"const": "/usr/bin/git"},
+        "git_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "git_version": {"type": "string", "pattern": "^[0-9][A-Za-z0-9.+-]{0,63}$"}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_credential_preflight_reads", "max_execution_credential_reads", "max_get_calls",
+        "max_post_calls", "max_provider_mutations", "max_audio_uploads",
+        "max_voice_changer_requests", "max_response_bytes", "max_error_response_bytes",
+        "max_request_elapsed_seconds", "max_spend_usd"
+      ],
+      "properties": {
+        "max_credential_preflight_reads": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_execution_credential_reads": {"const": 0},
+        "max_get_calls": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_post_calls": {"const": 0},
+        "max_provider_mutations": {"const": 0},
+        "max_audio_uploads": {"const": 0},
+        "max_voice_changer_requests": {"const": 0},
+        "max_response_bytes": {"type": "integer", "minimum": 0, "maximum": 1000000},
+        "max_error_response_bytes": {"type": "integer", "minimum": 0, "maximum": 65536},
+        "max_request_elapsed_seconds": {"type": "number", "minimum": 0, "maximum": 30},
+        "max_spend_usd": {"const": 0}
+      }
+    },
+    "zeroLimits": {
+      "allOf": [
+        {"$ref": "#/$defs/limits"},
+        {"properties": {
+          "max_credential_preflight_reads": {"const": 0},
+          "max_get_calls": {"const": 0},
+          "max_response_bytes": {"const": 0},
+          "max_error_response_bytes": {"const": 0},
+          "max_request_elapsed_seconds": {"const": 0}
+        }}
+      ]
+    },
+    "activeLimits": {
+      "allOf": [
+        {"$ref": "#/$defs/limits"},
+        {"properties": {
+          "max_credential_preflight_reads": {"const": 1},
+          "max_get_calls": {"const": 1},
+          "max_response_bytes": {"const": 1000000},
+          "max_error_response_bytes": {"const": 65536},
+          "max_request_elapsed_seconds": {"const": 30}
+        }}
+      ]
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["success_receipt_path", "failure_receipt_path"],
+      "properties": {
+        "success_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs-account/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.recovery-run\\.json$"},
+        "failure_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs-account/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.recovery-failure\\.json$"}
+      }
+    },
+    "consumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "credential_preflight_reads_used", "execution_credential_reads_used",
+        "get_calls_used", "post_calls_used", "credential_read_latch_path",
+        "provider_call_latch_path"
+      ],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "credential_preflight_reads_used": {"const": 0},
+        "execution_credential_reads_used": {"const": 0},
+        "get_calls_used": {"const": 0},
+        "post_calls_used": {"const": 0},
+        "credential_read_latch_path": {"const": "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot.consumed.json"},
+        "provider_call_latch_path": {"const": "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot.consumed.json"}
+      }
+    }
+  }
+}

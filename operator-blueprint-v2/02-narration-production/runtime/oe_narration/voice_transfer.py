@@ -37,6 +37,54 @@ ACCOUNT_ENDPOINT = "https://api.elevenlabs.io/v1/user"
 ACCOUNT_RUN_SCHEMA = "oe-elevenlabs-account-verification-run-v1"
 ACCOUNT_FAILURE_SCHEMA = "oe-elevenlabs-account-verification-failure-v1"
 ACCOUNT_CONSUMPTION_SCHEMA = "oe-elevenlabs-account-verification-consumption-v1"
+
+# Additive recovery transaction.  These names and its fixed latch are
+# intentionally disjoint from the consumed legacy account-verification path.
+RECOVERY_AUTH_SCHEMA = "oe-elevenlabs-account-recovery-authorization-v1"
+RECOVERY_SCOPE = "elevenlabs_account_recovery_verification"
+RECOVERY_RUN_SCHEMA = "oe-elevenlabs-account-recovery-run-v1"
+RECOVERY_FAILURE_SCHEMA = "oe-elevenlabs-account-recovery-failure-v1"
+RECOVERY_CONSUMPTION_SCHEMA = "oe-elevenlabs-account-recovery-consumption-v1"
+RECOVERY_CREDENTIAL_READ_CONSUMPTION_SCHEMA = (
+    "oe-elevenlabs-account-recovery-credential-read-consumption-v1"
+)
+RECOVERY_DRY_RUN_SCHEMA = "oe-elevenlabs-account-recovery-dry-run-v1"
+RECOVERY_RESULT_SCHEMA = "oe-elevenlabs-account-recovery-execution-result-v1"
+RECOVERY_DOTENV_PATH = Path("/Users/brownmanbrain/GitHub/operator-economy/.env")
+RECOVERY_DOTENV_MAX_BYTES = 65_536
+RECOVERY_OWNER_APPROVAL_PATH = (
+    "evidence/V1-ELEVENLABS-ACCOUNT-RECOVERY-OWNER-APPROVAL.20260826T115516Z.json"
+)
+RECOVERY_OWNER_APPROVAL_SHA256 = (
+    "549340266691d0e309e534049452b3c76e6a8674989208874d41def842779113"
+)
+RECOVERY_OWNER_APPROVAL_COMMIT = "32446e10cee1acd5dddd78feedffe57bbf030439"
+RECOVERY_PRIOR_OUTCOME_COMMIT = "dc8fb34730c8751d3eafd0c2e86ba83db883e409"
+RECOVERY_PRIOR_ACTIVE_PATH = (
+    "authorizations/12-elevenlabs-account-verification.ACTIVE.20260826T105051Z.json"
+)
+RECOVERY_PRIOR_ACTIVE_SHA256 = (
+    "328c14036caabbceb07b9516679c1518ca0689e9c6c68e974cb29c32755626a8"
+)
+RECOVERY_PRIOR_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json"
+)
+RECOVERY_PRIOR_LATCH_SHA256 = (
+    "359bad8d5821fe45ff20febc2b06cc81df16b043404cddc7f1d46ed5bc9f2b91"
+)
+RECOVERY_PRIOR_FAILURE_PATH = (
+    "receipts/elevenlabs-account/"
+    "AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z.failure.json"
+)
+RECOVERY_PRIOR_FAILURE_SHA256 = (
+    "f3b2c461a803d1f32d58ec5b112adb1081dd1175dc6f071122b303abe7ea8deb"
+)
+RECOVERY_PRIOR_DISPOSITION_PATH = (
+    "evidence/V1-ELEVENLABS-ACCOUNT-ZERO-NETWORK-FAILURE-DISPOSITION.20260826T110834Z.json"
+)
+RECOVERY_PRIOR_DISPOSITION_SHA256 = (
+    "fe840ec4f510c5b261b6579c22f1a88749de7fa72de21b02d9e3a5d16d2f3d9a"
+)
 FIXTURE_ID = "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
 
 TRANSFER_EXEC_AUTH_SCHEMA = "oe-voice-transfer-execution-authorization-v2"
@@ -137,6 +185,12 @@ TRANSFER_RAW_PATH = "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm
 TRANSFER_WORKING_PATH = "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer.wav"
 ACCOUNT_SCOPE_LATCH_PATH = (
     "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json"
+)
+RECOVERY_SCOPE_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot.consumed.json"
+)
+RECOVERY_CREDENTIAL_READ_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot.consumed.json"
 )
 TRANSFER_SCOPE_LATCH_PATH = (
     "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot."
@@ -790,6 +844,148 @@ def _read_bound_blob(
         if descriptor is not None:
             os.close(descriptor)
         os.close(parent_fd)
+
+
+def _parse_recovery_dotenv_key(raw: bytes) -> str:
+    """Parse one literal, unexpanded key assignment without dotenv execution."""
+
+    prefix = (API_KEY_ENV + "=").encode("ascii")
+    ambiguous = re.compile(
+        rb"^[ \t]*(?:export[ \t]+)?ELEVENLABS_API_KEY[ \t]*="
+    )
+    assignments: list[bytes] = []
+    value_bytes = b""
+    line = b""
+    utf8_invalid = False
+    try:
+        if not isinstance(raw, bytes) or not 0 < len(raw) <= RECOVERY_DOTENV_MAX_BYTES:
+            raise ValidationError("fixed recovery dotenv is empty or exceeds its byte ceiling")
+        if b"\x00" in raw or b"\r" in raw:
+            raise ValidationError("fixed recovery dotenv contains forbidden bytes")
+        try:
+            raw.decode("utf-8", errors="strict")
+        except UnicodeError as exc:
+            exc.__cause__ = None
+            exc.__context__ = None
+            exc.__suppress_context__ = True
+            exc.__traceback__ = None
+            utf8_invalid = True
+        if utf8_invalid:
+            raise ValidationError("fixed recovery dotenv is not strict UTF-8")
+        for line in raw.split(b"\n"):
+            if line.startswith(prefix):
+                assignments.append(line[len(prefix) :])
+            elif ambiguous.match(line):
+                raise ValidationError(
+                    "fixed recovery dotenv contains a non-literal or ambiguous ELEVENLABS_API_KEY assignment"
+                )
+        if len(assignments) != 1:
+            raise ValidationError(
+                "fixed recovery dotenv must contain exactly one literal ELEVENLABS_API_KEY assignment"
+            )
+        value_bytes = assignments[0]
+        if (
+            not 1 <= len(value_bytes) <= 512
+            or value_bytes != value_bytes.strip()
+            or any(byte < 33 or byte > 126 for byte in value_bytes)
+        ):
+            raise ValidationError("fixed recovery dotenv key assignment is malformed")
+        return value_bytes.decode("ascii", errors="strict")
+    finally:
+        assignments = []
+        value_bytes = b""
+        line = b""
+        utf8_invalid = False
+        raw = b""
+
+
+def _read_bounded_recovery_dotenv_key(path: Path) -> str:
+    """Descriptor-read one current-UID, mode-0600, single-link dotenv file."""
+
+    path = Path(path).absolute()
+    if not path.is_absolute() or not path.name or "\x00" in str(path):
+        raise ValidationError("fixed recovery dotenv path is invalid")
+    parent_fd = os.open(
+        "/",
+        os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_CLOEXEC", 0),
+    )
+    descriptor: int | None = None
+    chunks: list[bytes] = []
+    chunk = b""
+    raw = b""
+    try:
+        for component in path.parts[1:-1]:
+            next_fd = os.open(
+                component,
+                os.O_RDONLY
+                | getattr(os, "O_DIRECTORY", 0)
+                | getattr(os, "O_NOFOLLOW", 0)
+                | getattr(os, "O_CLOEXEC", 0),
+                dir_fd=parent_fd,
+            )
+            os.close(parent_fd)
+            parent_fd = next_fd
+        descriptor = os.open(
+            path.name,
+            os.O_RDONLY
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NONBLOCK", 0),
+            dir_fd=parent_fd,
+        )
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or stat.S_IMODE(before.st_mode) != 0o600
+            or before.st_uid != os.getuid()
+            or before.st_nlink != 1
+            or not 0 < before.st_size <= RECOVERY_DOTENV_MAX_BYTES
+        ):
+            raise ValidationError(
+                "fixed recovery dotenv must be a bounded current-UID mode-0600 single-link regular file"
+            )
+        received = 0
+        while True:
+            chunk = os.read(
+                descriptor,
+                min(65_536, RECOVERY_DOTENV_MAX_BYTES + 1 - received),
+            )
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > RECOVERY_DOTENV_MAX_BYTES:
+                raise ValidationError("fixed recovery dotenv exceeds its byte ceiling")
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        identity_fields = (
+            "st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns",
+            "st_mode", "st_uid", "st_gid", "st_nlink",
+        )
+        if (
+            len(raw) != before.st_size
+            or tuple(getattr(before, field) for field in identity_fields)
+            != tuple(getattr(after, field) for field in identity_fields)
+        ):
+            raise ValidationError("fixed recovery dotenv changed during its descriptor read")
+        return _parse_recovery_dotenv_key(raw)
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError("fixed recovery dotenv is missing or unsafe") from None
+    finally:
+        chunks = []
+        chunk = b""
+        raw = b""
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
+
+
+def _read_recovery_dotenv_key() -> str:
+    """The executor's only credential-delivery path; never reads the environment."""
+
+    return _read_bounded_recovery_dotenv_key(RECOVERY_DOTENV_PATH)
 
 
 def _validate_browser_readiness(
@@ -4571,3 +4767,1831 @@ def execute_voice_transfer(
     failure_receipt = {}
     failure_bytes = b""
     raise ValidationError(f"Voice Changer execution stopped without retry or fallback: {code}") from None
+
+
+# ---------------------------------------------------------------------------
+# Isolated account-recovery transaction
+# ---------------------------------------------------------------------------
+
+
+def _recovery_runtime_files() -> dict[str, tuple[str, Path]]:
+    """Runtime surface frozen only for recovery; legacy bindings stay unchanged."""
+
+    narration_root = Path(__file__).resolve().parents[2]
+    package = narration_root / "runtime" / "oe_narration"
+    tests = narration_root / "runtime" / "tests"
+    schemas = narration_root / "schemas"
+    prefix = "operator-blueprint-v2/02-narration-production/"
+    return {
+        "voice_transfer_runtime": (
+            prefix + "runtime/oe_narration/voice_transfer.py",
+            package / "voice_transfer.py",
+        ),
+        "performance_transfer_runtime": (
+            prefix + "runtime/oe_narration/performance_transfer.py",
+            package / "performance_transfer.py",
+        ),
+        "cli_runtime": (prefix + "runtime/oe_narration/cli.py", package / "cli.py"),
+        "core_runtime": (prefix + "runtime/oe_narration/core.py", package / "core.py"),
+        "init_runtime": (prefix + "runtime/oe_narration/__init__.py", package / "__init__.py"),
+        "recovery_schema": (
+            prefix + "schemas/elevenlabs-account-recovery-authorization.schema.json",
+            schemas / "elevenlabs-account-recovery-authorization.schema.json",
+        ),
+        "voice_transfer_tests": (
+            prefix + "runtime/tests/test_voice_transfer.py",
+            tests / "test_voice_transfer.py",
+        ),
+    }
+
+
+def expected_recovery_runtime_bindings(*, draft: bool) -> dict[str, Any]:
+    if draft:
+        return {"state": "pending"}
+    result: dict[str, Any] = {"state": "verified", "git_commit": "pending"}
+    for name, (_relative, path) in _recovery_runtime_files().items():
+        result[f"{name}_sha256"] = sha256_file(path)
+    git_path, git_sha = _read_git_identity()
+    result.update(
+        {
+            "git_binary_path": git_path,
+            "git_binary_sha256": git_sha,
+            "git_version": _read_git_version(git_path, git_sha),
+        }
+    )
+    return result
+
+
+def _validate_recovery_runtime_bindings(
+    value: Any,
+    *,
+    active: bool,
+    errors: list[str],
+) -> dict[str, Any]:
+    expected_keys = {"state"}
+    if active:
+        expected_keys |= {
+            "git_commit",
+            "git_binary_path",
+            "git_binary_sha256",
+            "git_version",
+            *(f"{name}_sha256" for name in _recovery_runtime_files()),
+        }
+    item = _strict(value, expected_keys, "recovery runtime_bindings")
+    if not active:
+        if item != {"state": "pending"}:
+            errors.append("draft recovery runtime bindings must remain pending")
+        return item
+    commit = item.get("git_commit")
+    if item.get("state") != "verified" or not isinstance(commit, str) or not _GIT_SHA_RE.fullmatch(commit):
+        errors.append("active recovery runtime bindings require a verified Git commit")
+    for name, (_relative, path) in _recovery_runtime_files().items():
+        expected = item.get(f"{name}_sha256")
+        if (
+            not isinstance(expected, str)
+            or not _SHA_RE.fullmatch(expected)
+            or not path.is_file()
+            or sha256_file(path) != expected
+        ):
+            errors.append(f"active recovery runtime binding {name} does not match loaded bytes")
+    expected_git_sha = item.get("git_binary_sha256")
+    try:
+        git_path, git_sha = _read_git_identity(item.get("git_binary_path"))
+        git_version = _read_git_version(git_path, expected_git_sha)
+    except ValidationError:
+        errors.append("active recovery runtime Git binding is unavailable or unsafe")
+    else:
+        if (
+            git_path != item.get("git_binary_path")
+            or not isinstance(expected_git_sha, str)
+            or not _SHA_RE.fullmatch(expected_git_sha)
+            or git_sha != expected_git_sha
+            or git_version != item.get("git_version")
+        ):
+            errors.append("active recovery runtime Git binding does not match loaded bytes")
+    return item
+
+
+def _recovery_prior_failure_chain() -> dict[str, Any]:
+    return {
+        "outcome_commit": RECOVERY_PRIOR_OUTCOME_COMMIT,
+        "active_authorization": {
+            "path": RECOVERY_PRIOR_ACTIVE_PATH,
+            "sha256": RECOVERY_PRIOR_ACTIVE_SHA256,
+        },
+        "consumption_latch": {
+            "path": RECOVERY_PRIOR_LATCH_PATH,
+            "sha256": RECOVERY_PRIOR_LATCH_SHA256,
+        },
+        "failure_receipt": {
+            "path": RECOVERY_PRIOR_FAILURE_PATH,
+            "sha256": RECOVERY_PRIOR_FAILURE_SHA256,
+        },
+        "failure_disposition": {
+            "path": RECOVERY_PRIOR_DISPOSITION_PATH,
+            "sha256": RECOVERY_PRIOR_DISPOSITION_SHA256,
+        },
+        "prior_authority_reusable": False,
+        "prior_latch_reusable": False,
+        "prior_latch_deletable": False,
+        "retry_or_resumption": False,
+    }
+
+
+def _action_recovery() -> dict[str, Any]:
+    return {
+        "provider": "elevenlabs",
+        "endpoint": ACCOUNT_ENDPOINT,
+        "method": "GET",
+        "credential_header_name": "xi-api-key",
+        "accept": "application/json",
+        "accept_encoding": "identity",
+        "read_only": True,
+        "no_post": True,
+        "no_mutation": True,
+        "no_retry": True,
+        "no_redirect": True,
+        "no_fallback": True,
+        "no_audio_upload": True,
+        "no_paid_call": True,
+        "no_voice_changer_request": True,
+        "raw_response_storage_forbidden": True,
+    }
+
+
+def _recovery_credential_delivery(active: bool) -> dict[str, Any]:
+    base = {
+        "state": "verified" if active else "pending",
+        "mechanism": "descriptor_read_fixed_dotenv_exact_assignment",
+        "dotenv_path": str(RECOVERY_DOTENV_PATH),
+        "assignment_name": API_KEY_ENV,
+    }
+    if not active:
+        return base
+    return {
+        **base,
+        "required_file_type": "regular",
+        "required_mode": "0600",
+        "current_uid_required": True,
+        "required_link_count": 1,
+        "max_file_bytes": RECOVERY_DOTENV_MAX_BYTES,
+        "max_assignment_count": 1,
+        "environment_inheritance_used": False,
+        "shell_source_forbidden": True,
+        "dotenv_re_read_after_latch_forbidden": True,
+        "domain_separation": API_KEY_DOMAIN_TEXT,
+    }
+
+
+def _recovery_limits(active: bool) -> dict[str, Any]:
+    if not active:
+        return {
+            "max_credential_preflight_reads": 0,
+            "max_execution_credential_reads": 0,
+            "max_get_calls": 0,
+            "max_post_calls": 0,
+            "max_provider_mutations": 0,
+            "max_audio_uploads": 0,
+            "max_voice_changer_requests": 0,
+            "max_response_bytes": 0,
+            "max_error_response_bytes": 0,
+            "max_request_elapsed_seconds": 0,
+            "max_spend_usd": 0,
+        }
+    return {
+        "max_credential_preflight_reads": 1,
+        "max_execution_credential_reads": 0,
+        "max_get_calls": ACCOUNT_MAX_GET_CALLS,
+        "max_post_calls": 0,
+        "max_provider_mutations": 0,
+        "max_audio_uploads": 0,
+        "max_voice_changer_requests": 0,
+        "max_response_bytes": ACCOUNT_MAX_RESPONSE_BYTES,
+        "max_error_response_bytes": ACCOUNT_MAX_ERROR_RESPONSE_BYTES,
+        "max_request_elapsed_seconds": ACCOUNT_MAX_ELAPSED_SECONDS,
+        "max_spend_usd": 0,
+    }
+
+
+def _recovery_artifacts(authorization_id: str) -> dict[str, str]:
+    return {
+        "success_receipt_path": (
+            f"receipts/elevenlabs-account/{authorization_id}.recovery-run.json"
+        ),
+        "failure_receipt_path": (
+            f"receipts/elevenlabs-account/{authorization_id}.recovery-failure.json"
+        ),
+    }
+
+
+def _recovery_consumption(active: bool) -> dict[str, Any]:
+    return {
+        "status": "unconsumed" if active else "not_authorized",
+        "credential_preflight_reads_used": 0,
+        "execution_credential_reads_used": 0,
+        "get_calls_used": 0,
+        "post_calls_used": 0,
+        "credential_read_latch_path": RECOVERY_CREDENTIAL_READ_LATCH_PATH,
+        "provider_call_latch_path": RECOVERY_SCOPE_LATCH_PATH,
+    }
+
+
+def _validate_recovery_prior_records(
+    root: Path,
+    chain: Any,
+    errors: list[str],
+) -> dict[str, tuple[Path, bytes, str]]:
+    if not _exact(chain, _recovery_prior_failure_chain()):
+        errors.append("recovery prior zero-network failure chain drifted")
+        return {}
+    records: dict[str, tuple[Path, bytes, str]] = {}
+    for name, binding in (
+        ("active_authorization", chain["active_authorization"]),
+        ("consumption_latch", chain["consumption_latch"]),
+        ("failure_receipt", chain["failure_receipt"]),
+        ("failure_disposition", chain["failure_disposition"]),
+    ):
+        if name in {"active_authorization", "consumption_latch", "failure_receipt"}:
+            path, document, raw, digest = _read_recovery_private_json_record(
+                root,
+                binding["path"],
+                binding["sha256"],
+                f"recovery prior {name}",
+            )
+        else:
+            path, document, raw, digest = _read_record(
+                root,
+                binding["path"],
+                binding["sha256"],
+                f"recovery prior {name}",
+                mode=0o644,
+            )
+        records[name] = (path, raw, digest)
+        if name == "active_authorization" and (
+            document.get("schema_version") != ACCOUNT_AUTH_SCHEMA
+            or document.get("status") != "active"
+            or document.get("approved") is not True
+            or document.get("authorization_id")
+            != "AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z"
+            or document.get("consumption", {}).get("record_path")
+            != RECOVERY_PRIOR_LATCH_PATH
+        ):
+            errors.append("recovery prior ACTIVE authorization semantics drifted")
+        elif name == "consumption_latch" and (
+            document.get("schema_version") != ACCOUNT_CONSUMPTION_SCHEMA
+            or document.get("status") != "consumed_before_credential_and_network"
+            or document.get("authorization_path") != RECOVERY_PRIOR_ACTIVE_PATH
+            or document.get("authorization_sha256") != RECOVERY_PRIOR_ACTIVE_SHA256
+            or document.get("get_calls_used") != 0
+            or document.get("post_calls_used") != 0
+            or document.get("network_called_at_consumption") is not False
+        ):
+            errors.append("recovery prior immutable latch semantics drifted")
+        elif name == "failure_receipt" and (
+            document.get("schema_version") != ACCOUNT_FAILURE_SCHEMA
+            or document.get("authorization_path") != RECOVERY_PRIOR_ACTIVE_PATH
+            or document.get("authorization_sha256") != RECOVERY_PRIOR_ACTIVE_SHA256
+            or document.get("consumption_record_path") != RECOVERY_PRIOR_LATCH_PATH
+            or document.get("consumption_record_sha256") != RECOVERY_PRIOR_LATCH_SHA256
+            or document.get("network_called") is not False
+            or document.get("provider_get_attempts_consumed") != 0
+            or document.get("provider_post_attempts_consumed") != 0
+            or document.get("provider_response_received") is not False
+            or document.get("retry_permitted") is not False
+            or document.get("raw_response_stored") is not False
+            or document.get("account_settings_changed") is not False
+        ):
+            errors.append("recovery prior zero-network failure semantics drifted")
+        elif name == "failure_disposition" and (
+            document.get("schema_version")
+            != "oe-elevenlabs-account-verification-failure-disposition-v1"
+            or document.get("attempt_binding", {}).get("authorization_sha256")
+            != RECOVERY_PRIOR_ACTIVE_SHA256
+            or document.get("attempt_binding", {}).get("consumption_sha256")
+            != RECOVERY_PRIOR_LATCH_SHA256
+            or document.get("attempt_binding", {}).get("failure_receipt_sha256")
+            != RECOVERY_PRIOR_FAILURE_SHA256
+            or document.get("observed_outcome", {}).get("network_called") is not False
+            or document.get("observed_outcome", {}).get("provider_get_attempts_consumed")
+            != 0
+            or document.get("interpretation", {}).get("existing_authorization_reusable")
+            is not False
+            or document.get("interpretation", {}).get("automatic_retry_permitted")
+            is not False
+            or document.get("repair_gate", {}).get("prior_latch_reuse_or_deletion_permitted")
+            is not False
+            or document.get("repair_gate", {}).get("automatic_retry_permitted") is not False
+            or document.get("repair_gate", {}).get("execution_semantics")
+            != "fresh_transaction_after_zero_provider_call_not_retry_or_resumption"
+        ):
+            errors.append("recovery prior failure disposition semantics drifted")
+    return records
+
+
+def _validate_recovery_owner_approval(
+    root: Path,
+    value: Any,
+    errors: list[str],
+    *,
+    expected_owner: str,
+) -> tuple[Path, bytes, str, datetime | None]:
+    expected = {
+        "state": "verified",
+        "path": RECOVERY_OWNER_APPROVAL_PATH,
+        "sha256": RECOVERY_OWNER_APPROVAL_SHA256,
+    }
+    if not _exact(value, expected):
+        errors.append("recovery owner approval binding drifted")
+    path, document, raw, digest = _read_recovery_private_json_record(
+        root,
+        RECOVERY_OWNER_APPROVAL_PATH,
+        RECOVERY_OWNER_APPROVAL_SHA256,
+        "recovery owner approval",
+    )
+    scope = document.get("contextually_approved_recovery_scope")
+    gate = document.get("execution_gate")
+    prior = document.get("prior_zero_network_failure_chain")
+    if (
+        document.get("schema_version")
+        != "oe-elevenlabs-account-verification-recovery-owner-approval-evidence-v1"
+        or document.get("provider") != "elevenlabs"
+        or document.get("owner") != expected_owner
+        or document.get("approval_basis", {}).get("contextual_assent_accepted") is not True
+        or scope is None
+        or scope.get("transaction_semantics")
+        != "fresh_account_verification_transaction_not_retry_or_resumption"
+        or scope.get("limits", {}).get("max_credential_preflight_reads") != 1
+        or scope.get("limits", {}).get("max_execution_credential_reads") != 0
+        or scope.get("limits", {}).get("max_get_calls") != 1
+        or scope.get("limits", {}).get("max_post_calls") != 0
+        or scope.get("action", {}).get("raw_key_storage_forbidden") is not True
+        or scope.get("action", {}).get("key_suffix_storage_forbidden") is not True
+        or scope.get("action", {}).get("user_id_storage_forbidden") is not True
+        or gate is None
+        or gate.get("this_record_is_an_active_provider_authorization") is not False
+        or gate.get("separate_recovery_authorization_required") is not True
+        or gate.get("fresh_browser_processed_off_readback_required") is not True
+        or gate.get("voice_transfer_authorized") is not False
+        or prior is None
+        or prior.get("outcome_commit") != RECOVERY_PRIOR_OUTCOME_COMMIT
+        or prior.get("active_authorization", {}).get("sha256")
+        != RECOVERY_PRIOR_ACTIVE_SHA256
+        or prior.get("consumption_latch", {}).get("sha256")
+        != RECOVERY_PRIOR_LATCH_SHA256
+        or prior.get("failure_receipt", {}).get("sha256")
+        != RECOVERY_PRIOR_FAILURE_SHA256
+        or prior.get("failure_disposition", {}).get("sha256")
+        != RECOVERY_PRIOR_DISPOSITION_SHA256
+    ):
+        errors.append("recovery owner approval does not bind the exact approved transaction")
+    recorded_at = _parse_time(
+        document.get("recorded_at"),
+        "recovery owner approval recorded_at",
+        errors,
+    )
+    return path, raw, digest, recorded_at
+
+
+def validate_account_recovery_authorization(authorization_path: Path) -> dict[str, Any]:
+    """Validate recovery authority without credential access, writes, or network."""
+
+    authorization_path = Path(authorization_path).absolute()
+    root = pt._document_root(authorization_path)
+    authorization, authorization_raw, authorization_sha = pt._read_bound_fixture_json(
+        root,
+        authorization_path,
+        "ElevenLabs account-recovery authorization",
+    )
+    keys = {
+        "schema_version", "authorization_id", "status", "approved", "scope", "target",
+        "prior_failure_chain", "owner_approval", "browser_readiness", "action",
+        "credential_delivery", "runtime_bindings", "authorized_limits", "artifacts",
+        "consumption", "approved_by", "approved_at", "expires_at", "execution_ready",
+        "blockers",
+    }
+    _strict(authorization, keys, "ElevenLabs account-recovery authorization")
+    errors: list[str] = []
+    status = authorization.get("status")
+    active = status == "active"
+    if status not in {"draft", "active"}:
+        errors.append("account-recovery authorization status must be draft or active")
+    _validate_authorization_location(
+        authorization_path,
+        root,
+        status,
+        "account-recovery authorization",
+        errors,
+    )
+    if authorization.get("schema_version") != RECOVERY_AUTH_SCHEMA:
+        errors.append("account-recovery authorization schema mismatch")
+    if authorization.get("scope") != RECOVERY_SCOPE:
+        errors.append("account-recovery authorization scope mismatch")
+    authorization_id = authorization.get("authorization_id")
+    if not isinstance(authorization_id, str) or not _SAFE_ID_RE.fullmatch(authorization_id):
+        errors.append("account-recovery authorization ID is invalid")
+        authorization_id = "invalid"
+    _target(authorization.get("target"), root, errors)
+    chain = authorization.get("prior_failure_chain")
+    if not _exact(chain, _recovery_prior_failure_chain()):
+        errors.append("account-recovery prior failure chain drifted")
+    if not _exact(authorization.get("action"), _action_recovery()):
+        errors.append("account-recovery action drifted")
+    if not _exact(
+        authorization.get("credential_delivery"),
+        _recovery_credential_delivery(active),
+    ):
+        errors.append("account-recovery credential delivery drifted")
+    _validate_recovery_runtime_bindings(
+        authorization.get("runtime_bindings"),
+        active=active,
+        errors=errors,
+    )
+    if not _exact(authorization.get("authorized_limits"), _recovery_limits(active)):
+        errors.append("account-recovery authorized limits drifted")
+    if not _exact(authorization.get("artifacts"), _recovery_artifacts(authorization_id)):
+        errors.append("account-recovery artifact paths drifted")
+    if not _exact(authorization.get("consumption"), _recovery_consumption(active)):
+        errors.append("account-recovery consumption state or latch paths drifted")
+
+    owner_record: tuple[Path, bytes, str, datetime | None] | None = None
+    browser_record: tuple[Any, ...] | None = None
+    if active:
+        try:
+            private_authorization_raw, private_authorization_sha = (
+                _read_recovery_private_bytes(
+                    root,
+                    authorization_path,
+                    "active ElevenLabs account-recovery authorization",
+                    max_bytes=2_000_000,
+                )
+            )
+            if (
+                private_authorization_raw != authorization_raw
+                or private_authorization_sha != authorization_sha
+            ):
+                errors.append("active account-recovery private authority bytes drifted")
+        except ValidationError:
+            errors.append(
+                "active account-recovery authorization must be exact current-UID "
+                "mode-0600 single-link private authority"
+            )
+        _validate_recovery_prior_records(root, chain, errors)
+        approved_by = authorization.get("approved_by")
+        if not isinstance(approved_by, str) or not approved_by:
+            errors.append("active account recovery requires approved_by")
+            approved_by = "invalid"
+        owner_record = _validate_recovery_owner_approval(
+            root,
+            authorization.get("owner_approval"),
+            errors,
+            expected_owner=approved_by,
+        )
+        browser_record = _validate_browser_readiness(
+            root,
+            authorization.get("browser_readiness"),
+            errors,
+            expected_observer=approved_by,
+        )
+        try:
+            browser_private, browser_private_sha = _read_recovery_private_bytes(
+                root,
+                browser_record[0],
+                "recovery browser-readiness JSON",
+                max_bytes=1_000_000,
+            )
+            if (
+                browser_private != browser_record[2]
+                or browser_private_sha != browser_record[3]
+            ):
+                errors.append("recovery browser-readiness private bytes drifted")
+            capture_bytes, capture_sha = _read_recovery_private_capture(
+                root,
+                browser_record[5][0],
+            )
+            if (
+                capture_bytes != browser_record[5][1]
+                or capture_sha != browser_record[5][2]
+            ):
+                errors.append("recovery local-private browser capture bytes drifted")
+            _verify_recovery_private_capture_git_state(
+                authorization["runtime_bindings"],
+                pt._guide_repository_root(),
+                browser_record[5][0],
+            )
+        except ValidationError:
+            errors.append("recovery browser capture is not exact local-only evidence")
+    else:
+        if not _exact(authorization.get("owner_approval"), {"state": "pending"}):
+            errors.append("draft recovery owner approval must remain pending")
+        if not _exact(authorization.get("browser_readiness"), {"state": "pending"}):
+            errors.append("draft recovery browser readiness must remain pending")
+
+    approved_at, expires_at = _parse_window(authorization, active=active, errors=errors)
+    if active and owner_record is not None and browser_record is not None:
+        owner_at = owner_record[3]
+        browser_at = browser_record[4]
+        if (
+            owner_at is None
+            or browser_at is None
+            or approved_at is None
+            or expires_at is None
+            or not owner_at <= browser_at <= approved_at < expires_at
+        ):
+            errors.append("recovery owner, fresh browser, and approval chronology is invalid")
+        elif (approved_at - browser_at).total_seconds() > ACCOUNT_VERIFICATION_MAX_AGE_SECONDS:
+            errors.append("recovery browser readiness is stale at approval")
+        elif expires_at > browser_at + timedelta(seconds=ACCOUNT_VERIFICATION_MAX_AGE_SECONDS):
+            errors.append("recovery expiry exceeds fresh browser-readiness window")
+    blockers = authorization.get("blockers")
+    if not isinstance(blockers, list) or any(
+        not isinstance(item, str) or not item for item in blockers
+    ):
+        errors.append("account-recovery blockers must be non-empty strings")
+    if active:
+        if authorization.get("approved") is not True or authorization.get("execution_ready") is not True:
+            errors.append("active account recovery must be approved and execution-ready")
+        if blockers != []:
+            errors.append("active account recovery may not retain blockers")
+    else:
+        if authorization.get("approved") is not False or authorization.get("execution_ready") is not False:
+            errors.append("draft account recovery has zero authority")
+        if (
+            authorization.get("approved_by") != ""
+            or authorization.get("approved_at") != ""
+            or authorization.get("expires_at") != ""
+        ):
+            errors.append("draft account recovery approval fields must be empty")
+        if not blockers:
+            errors.append("draft account recovery must state blockers")
+    _raise_errors(errors)
+    return {
+        "schema_version": RECOVERY_DRY_RUN_SCHEMA,
+        "valid": True,
+        "status": (
+            "active_exact_recovery_authority_validated"
+            if active
+            else "blocked_pending_active_recovery_authorization"
+        ),
+        "authorization_status": status,
+        "authorization_id": authorization_id,
+        "authorization_sha256": authorization_sha,
+        "approved_at": _iso(approved_at) if approved_at else None,
+        "expires_at": _iso(expires_at) if expires_at else None,
+        "prior_failure_chain_sha256": sha256_bytes(_compact(_recovery_prior_failure_chain())),
+        "action": _action_recovery(),
+        "maximum": _recovery_limits(active),
+        "provider_action_authorized": active,
+        "credential_read_authorized": active,
+        "network_authorized": active,
+        "credentials_accessed": False,
+        "network_called": False,
+        "provider_calls_made": 0,
+        "retry_permitted": False,
+        "redirect_permitted": False,
+        "fallback_permitted": False,
+        "fallback_used": False,
+        "legacy_authority_reused": False,
+        "legacy_latch_reused_or_deleted": False,
+        "retry_or_resumption": False,
+        "account_settings_changed": False,
+        "voice_transfer_authorized": False,
+        "audio_upload_authorized": False,
+        "full_capture_authorized": False,
+        "creative_approved": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+    }
+
+
+def dry_run_account_recovery(authorization_path: Path) -> dict[str, Any]:
+    return validate_account_recovery_authorization(authorization_path)
+
+
+@dataclass(frozen=True)
+class _RecoveryExecutionContract:
+    root: Path
+    authorization_path: Path
+    authorization: dict[str, Any]
+    authorization_raw: bytes
+    authorization_sha256: str
+    approved_at: datetime
+    expires_at: datetime
+    credential_latch_relative: str
+    provider_latch_relative: str
+    success_relative: str
+    failure_relative: str
+    owner_approval_path: Path
+    owner_approval_raw: bytes
+    owner_approval_sha256: str
+    owner_approval_recorded_at: datetime
+    browser_readiness_path: Path
+    browser_readiness_raw: bytes
+    browser_readiness_sha256: str
+    expected_preview_sha256: str
+    browser_observed_at: datetime
+    browser_capture_path: Path
+    browser_capture_raw: bytes
+    browser_capture_sha256: str
+    official_basis_path: Path
+    official_basis_raw: bytes
+    official_basis_sha256: str
+    prior_records: dict[str, tuple[Path, bytes, str]]
+
+
+def _build_recovery_contract(authorization_path: Path) -> _RecoveryExecutionContract:
+    authorization_path = Path(authorization_path).absolute()
+    validation = validate_account_recovery_authorization(authorization_path)
+    if validation.get("authorization_status") != "active":
+        raise ValidationError("account recovery execution requires exact ACTIVE authority")
+    root = pt._document_root(authorization_path)
+    raw, digest = _read_recovery_private_bytes(
+        root,
+        authorization_path,
+        "active ElevenLabs account-recovery authorization",
+        max_bytes=2_000_000,
+    )
+    authorization = pt._strict_json_bytes(
+        raw,
+        "active ElevenLabs account-recovery authorization",
+    )
+    if digest != validation.get("authorization_sha256"):
+        raise ValidationError("account-recovery authorization changed after validation")
+    errors: list[str] = []
+    approved_at = _parse_time(authorization.get("approved_at"), "approved_at", errors)
+    expires_at = _parse_time(authorization.get("expires_at"), "expires_at", errors)
+    now = _execution_now()
+    if (
+        errors
+        or approved_at is None
+        or expires_at is None
+        or not approved_at <= now < expires_at
+    ):
+        raise ValidationError(errors or "account-recovery authority is outside its active window")
+    owner_path, owner_raw, owner_sha, owner_at = _validate_recovery_owner_approval(
+        root,
+        authorization["owner_approval"],
+        errors,
+        expected_owner=authorization["approved_by"],
+    )
+    (
+        browser_path,
+        _browser,
+        browser_raw,
+        browser_sha,
+        browser_at,
+        browser_capture,
+        official_basis,
+    ) = _validate_browser_readiness(
+        root,
+        authorization["browser_readiness"],
+        errors,
+        expected_observer=authorization["approved_by"],
+    )
+    prior_records = _validate_recovery_prior_records(
+        root,
+        authorization["prior_failure_chain"],
+        errors,
+    )
+    _raise_errors(errors)
+    if owner_at is None or browser_at is None:
+        raise ValidationError("recovery evidence timestamps are invalid")
+    now = _execution_now()
+    if (
+        now < browser_at
+        or (now - browser_at).total_seconds() > ACCOUNT_VERIFICATION_MAX_AGE_SECONDS
+    ):
+        raise ValidationError("recovery browser readiness is stale at execution")
+    browser_document = pt._strict_json_bytes(
+        browser_raw,
+        "ElevenLabs recovery browser readiness",
+    )
+    expected_preview = browser_document["api_key"]["preview_sha256"]
+    artifacts = authorization["artifacts"]
+    consumption = authorization["consumption"]
+    return _RecoveryExecutionContract(
+        root=root,
+        authorization_path=authorization_path,
+        authorization=authorization,
+        authorization_raw=raw,
+        authorization_sha256=digest,
+        approved_at=approved_at,
+        expires_at=expires_at,
+        credential_latch_relative=consumption["credential_read_latch_path"],
+        provider_latch_relative=consumption["provider_call_latch_path"],
+        success_relative=artifacts["success_receipt_path"],
+        failure_relative=artifacts["failure_receipt_path"],
+        owner_approval_path=owner_path,
+        owner_approval_raw=owner_raw,
+        owner_approval_sha256=owner_sha,
+        owner_approval_recorded_at=owner_at,
+        browser_readiness_path=browser_path,
+        browser_readiness_raw=browser_raw,
+        browser_readiness_sha256=browser_sha,
+        expected_preview_sha256=expected_preview,
+        browser_observed_at=browser_at,
+        browser_capture_path=browser_capture[0],
+        browser_capture_raw=browser_capture[1],
+        browser_capture_sha256=browser_capture[2],
+        official_basis_path=official_basis[0],
+        official_basis_raw=official_basis[1],
+        official_basis_sha256=official_basis[2],
+        prior_records=prior_records,
+    )
+
+
+def _recovery_contract_snapshot(contract: _RecoveryExecutionContract) -> tuple[Any, ...]:
+    return (
+        contract.authorization_sha256,
+        contract.owner_approval_sha256,
+        contract.browser_readiness_sha256,
+        contract.browser_capture_sha256,
+        contract.official_basis_sha256,
+        tuple((name, item[2]) for name, item in sorted(contract.prior_records.items())),
+        contract.expected_preview_sha256,
+    )
+
+
+def _read_recovery_private_bytes(
+    root: Path,
+    path: Path,
+    label: str,
+    *,
+    max_bytes: int,
+) -> tuple[bytes, str]:
+    """Read one private recovery artifact with UID/mode/link/inode guards."""
+
+    try:
+        relative = path.absolute().relative_to(root).as_posix()
+    except ValueError:
+        raise ValidationError(f"{label} is outside the bound root") from None
+    parent_fd, name = pt._open_parent_descriptor(root, relative, create_parents=False)
+    descriptor: int | None = None
+    chunks: list[bytes] = []
+    chunk = b""
+    raw = b""
+    try:
+        descriptor = os.open(
+            name,
+            os.O_RDONLY
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NONBLOCK", 0),
+            dir_fd=parent_fd,
+        )
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or stat.S_IMODE(before.st_mode) != 0o600
+            or before.st_uid != os.getuid()
+            or before.st_nlink != 1
+            or not 0 < before.st_size <= max_bytes
+        ):
+            raise ValidationError(
+                f"{label} must be a bounded current-UID mode-0600 single-link regular file"
+            )
+        received = 0
+        while True:
+            chunk = os.read(descriptor, min(65_536, max_bytes + 1 - received))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > max_bytes:
+                raise ValidationError(f"{label} exceeds its byte ceiling")
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        identity_fields = (
+            "st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns",
+            "st_mode", "st_uid", "st_gid", "st_nlink",
+        )
+        if (
+            len(raw) != before.st_size
+            or tuple(getattr(before, field) for field in identity_fields)
+            != tuple(getattr(after, field) for field in identity_fields)
+        ):
+            raise ValidationError(f"{label} changed during descriptor read")
+        return raw, sha256_bytes(raw)
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError(f"{label} is missing or unsafe") from None
+    finally:
+        chunks = []
+        chunk = b""
+        raw = b""
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
+
+
+def _read_recovery_private_json_record(
+    root: Path,
+    relative: Any,
+    expected_sha256: Any,
+    label: str,
+) -> tuple[Path, dict[str, Any], bytes, str]:
+    path = pt._safe_relative(
+        root,
+        relative,
+        f"{label} path",
+        must_exist=True,
+        suffix=".json",
+    )
+    raw, digest = _read_recovery_private_bytes(
+        root,
+        path,
+        label,
+        max_bytes=2_000_000,
+    )
+    if (
+        not isinstance(expected_sha256, str)
+        or not _SHA_RE.fullmatch(expected_sha256)
+        or digest != expected_sha256
+    ):
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    return path, pt._strict_json_bytes(raw, label), raw, digest
+
+
+def _verify_recovery_active_authority_private(
+    contract: _RecoveryExecutionContract,
+) -> None:
+    raw, digest = _read_recovery_private_bytes(
+        contract.root,
+        contract.authorization_path,
+        "active ElevenLabs account-recovery authorization",
+        max_bytes=2_000_000,
+    )
+    if raw != contract.authorization_raw or digest != contract.authorization_sha256:
+        raise ValidationError("active account-recovery private authority bytes drifted")
+
+
+def _verify_recovery_private_latch(
+    contract: _RecoveryExecutionContract,
+    relative: str,
+    expected_raw: bytes,
+    label: str,
+) -> None:
+    path = pt._safe_relative(
+        contract.root,
+        relative,
+        f"{label} path",
+        must_exist=True,
+        suffix=".json",
+    )
+    raw, digest = _read_recovery_private_bytes(
+        contract.root,
+        path,
+        label,
+        max_bytes=2_000_000,
+    )
+    if raw != expected_raw or digest != sha256_bytes(expected_raw):
+        raise ValidationError(f"{label} immutable bytes drifted")
+
+
+def _read_recovery_private_capture(
+    root: Path,
+    path: Path,
+) -> tuple[bytes, str]:
+    raw, digest = _read_recovery_private_bytes(
+        root,
+        path,
+        "recovery browser capture",
+        max_bytes=10_000_000,
+    )
+    if not raw.startswith(b"\x89PNG\r\n\x1a\n"):
+        raw = b""
+        raise ValidationError("recovery browser capture is not PNG")
+    return raw, digest
+
+
+def _verify_recovery_private_capture_git_state(
+    runtime_bindings: dict[str, Any],
+    repository: Path,
+    capture_path: Path,
+) -> dict[str, Any]:
+    """Prove the one redacted PNG is untracked and ignored only by info/exclude."""
+
+    try:
+        relative = capture_path.relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("recovery browser capture is outside repository") from None
+    if _bound_git(runtime_bindings, ["ls-files", "--stage", "--", relative]) != b"":
+        raise ValidationError("recovery browser capture must remain untracked")
+    try:
+        exclude_path = _bound_git(
+            runtime_bindings,
+            ["rev-parse", "--path-format=absolute", "--git-path", "info/exclude"],
+        ).strip().decode("utf-8", errors="strict")
+        ignored = _bound_git(
+            runtime_bindings,
+            ["check-ignore", "--no-index", "-v", "--", relative],
+        ).decode("utf-8", errors="strict")
+    except (UnicodeError, ValidationError):
+        raise ValidationError("recovery browser capture exact local ignore proof failed") from None
+    if not exclude_path or "\x00" in exclude_path or "\n" in exclude_path:
+        raise ValidationError("recovery Git info/exclude path is invalid")
+    prefix = exclude_path + ":"
+    if not ignored.startswith(prefix) or not ignored.endswith("\t" + relative + "\n"):
+        raise ValidationError("recovery browser capture is not ignored by exact Git info/exclude")
+    middle = ignored[len(prefix) : -len("\t" + relative + "\n")]
+    line_number, separator, pattern = middle.partition(":")
+    if (
+        separator != ":"
+        or not line_number.isascii()
+        or not line_number.isdigit()
+        or int(line_number) <= 0
+        or pattern != "/" + relative
+    ):
+        raise ValidationError("recovery browser capture ignore rule is not exact and root-anchored")
+    return {
+        "path": relative,
+        "tracked": False,
+        "committed": False,
+        "ignore_source": "git_info_exclude",
+        "ignore_pattern_exact_root_anchored": True,
+        "local_private": True,
+    }
+
+
+def _verify_recovery_committed_source(
+    contract: _RecoveryExecutionContract,
+    *,
+    allowed_latches: frozenset[str],
+) -> dict[str, Any]:
+    repository = pt._guide_repository_root()
+    _verify_recovery_active_authority_private(contract)
+    bindings = contract.authorization["runtime_bindings"]
+    runtime_commit = bindings["git_commit"]
+    _verify_local_git_object_store(bindings)
+    try:
+        head = _bound_git(bindings, ["rev-parse", "HEAD"]).strip().decode("ascii", errors="strict")
+    except (UnicodeError, ValidationError):
+        raise ValidationError("recovery source proof could not read exact Git identities") from None
+    if not _GIT_SHA_RE.fullmatch(head):
+        raise ValidationError("recovery local execution HEAD is invalid")
+    _bound_git(bindings, ["merge-base", "--is-ancestor", runtime_commit, head])
+    _bound_git(
+        bindings,
+        ["merge-base", "--is-ancestor", RECOVERY_PRIOR_OUTCOME_COMMIT, runtime_commit],
+    )
+    _bound_git(
+        bindings,
+        ["merge-base", "--is-ancestor", RECOVERY_OWNER_APPROVAL_COMMIT, runtime_commit],
+    )
+    try:
+        authorization_relative = contract.authorization_path.relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("recovery ACTIVE authority is outside the repository") from None
+    delta = _bound_git(
+        bindings,
+        [
+            "diff", "--no-ext-diff", "--no-textconv", "--no-renames", "--name-only",
+            "--diff-filter=ACDMRTUXB", "-z", f"{runtime_commit}..{head}",
+        ],
+    )
+    if delta != authorization_relative.encode("utf-8") + b"\x00":
+        raise ValidationError("recovery runtime commit to HEAD delta must be exactly the ACTIVE authority")
+    if (
+        _bound_git(bindings, ["show", f"HEAD:{authorization_relative}"])
+        != contract.authorization_raw
+        or sha256_bytes(contract.authorization_raw) != contract.authorization_sha256
+    ):
+        raise ValidationError("recovery ACTIVE authority is not committed exactly")
+    for name, (relative, path) in _recovery_runtime_files().items():
+        current, current_sha = _read_bound_blob(
+            repository,
+            path,
+            f"bound recovery runtime {name}",
+            max_bytes=5_000_000,
+        )
+        expected_sha = bindings[f"{name}_sha256"]
+        committed = _bound_git(bindings, ["show", f"{runtime_commit}:{relative}"])
+        if (
+            current_sha != expected_sha
+            or sha256_bytes(committed) != expected_sha
+            or current != committed
+        ):
+            raise ValidationError("bound recovery runtime is not exact at runtime commit")
+    for name, (path, raw, expected_sha) in contract.prior_records.items():
+        if name in {"active_authorization", "consumption_latch", "failure_receipt"}:
+            current, current_sha = _read_recovery_private_bytes(
+                repository,
+                path,
+                f"recovery prior-chain {name}",
+                max_bytes=2_000_000,
+            )
+        else:
+            current, current_sha = _read_bound_blob(
+                repository,
+                path,
+                f"recovery prior-chain {name}",
+                max_bytes=2_000_000,
+                required_mode=0o644,
+                required_uid=os.getuid(),
+            )
+        try:
+            relative = path.relative_to(repository).as_posix()
+        except ValueError:
+            raise ValidationError("recovery prior-chain record is outside repository") from None
+        historical = _bound_git(
+            bindings,
+            ["show", f"{RECOVERY_PRIOR_OUTCOME_COMMIT}:{relative}"],
+        )
+        if (
+            current_sha != expected_sha
+            or current != raw
+            or historical != raw
+            or sha256_bytes(historical) != expected_sha
+        ):
+            raise ValidationError("recovery prior zero-network chain is not exact at outcome commit")
+    committed_evidence = (
+        (
+            "recovery owner approval",
+            contract.owner_approval_path,
+            contract.owner_approval_raw,
+            contract.owner_approval_sha256,
+        ),
+        (
+            "recovery browser readiness",
+            contract.browser_readiness_path,
+            contract.browser_readiness_raw,
+            contract.browser_readiness_sha256,
+        ),
+    )
+    for label, path, raw, expected_sha in committed_evidence:
+        current, current_sha = _read_recovery_private_bytes(
+            repository,
+            path,
+            label,
+            max_bytes=10_000_000,
+        )
+        if current_sha != expected_sha or current != raw:
+            raise ValidationError(f"{label} local-private bytes drifted")
+        try:
+            relative = path.relative_to(repository).as_posix()
+        except ValueError:
+            raise ValidationError(f"{label} is outside repository") from None
+        if _bound_git(bindings, ["show", f"{runtime_commit}:{relative}"]) != raw:
+            raise ValidationError(f"{label} is not exact at recovery runtime commit")
+        if label == "recovery owner approval" and (
+            _bound_git(bindings, ["show", f"{RECOVERY_OWNER_APPROVAL_COMMIT}:{relative}"])
+            != raw
+        ):
+            raise ValidationError("recovery owner approval baseline commit drifted")
+    capture_current, capture_sha = _read_recovery_private_capture(
+        repository,
+        contract.browser_capture_path,
+    )
+    if (
+        capture_current != contract.browser_capture_raw
+        or capture_sha != contract.browser_capture_sha256
+    ):
+        raise ValidationError("recovery local-private browser capture bytes drifted")
+    capture_git_state = _verify_recovery_private_capture_git_state(
+        bindings,
+        repository,
+        contract.browser_capture_path,
+    )
+    capture_git_state = {
+        **capture_git_state,
+        "sha256": capture_sha,
+        "mode": "0600",
+        "current_uid": True,
+        "link_count": 1,
+        "descriptor_identity_stable": True,
+    }
+    official_current, official_sha = _read_bound_blob(
+        repository,
+        contract.official_basis_path,
+        "recovery official data-use basis",
+        max_bytes=1_000_000,
+    )
+    try:
+        official_relative = contract.official_basis_path.relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("recovery official basis is outside repository") from None
+    if (
+        official_current != contract.official_basis_raw
+        or official_sha != contract.official_basis_sha256
+        or _bound_git(bindings, ["show", f"{runtime_commit}:{official_relative}"])
+        != contract.official_basis_raw
+    ):
+        raise ValidationError("recovery official basis is not exact at runtime commit")
+    if not allowed_latches <= {
+        contract.credential_latch_relative,
+        contract.provider_latch_relative,
+    }:
+        raise ValidationError("recovery source proof latch allowance is invalid")
+    dirty = _bound_git(
+        bindings,
+        ["status", "--porcelain=v1", "--untracked-files=all", "-z"],
+    )
+    expected_dirty_paths: list[str] = []
+    for relative in allowed_latches:
+        try:
+            expected_dirty_paths.append(
+                (contract.root / relative).relative_to(repository).as_posix()
+            )
+        except ValueError:
+            raise ValidationError(
+                "recovery source proof latch path is outside repository"
+            ) from None
+    expected_dirty = b"".join(
+        b"?? " + relative.encode("utf-8") + b"\x00"
+        for relative in sorted(expected_dirty_paths)
+    )
+    if dirty != expected_dirty:
+        raise ValidationError("Git index and unignored worktree must be exact for recovery execution")
+    return {
+        "git_head": head,
+        "runtime_commit": runtime_commit,
+        "prior_outcome_commit": RECOVERY_PRIOR_OUTCOME_COMMIT,
+        "remote_state_checked": False,
+        "git_network_called": False,
+        "head_delta_policy": "exact_active_recovery_authorization_path_only",
+        "head_delta_path": authorization_relative,
+        "active_authorization_mode": "0600",
+        "active_authorization_current_uid": True,
+        "active_authorization_link_count": 1,
+        "active_authorization_descriptor_identity_stable": True,
+        "legacy_latch_reused_or_deleted": False,
+        "owner_approval_baseline_commit": RECOVERY_OWNER_APPROVAL_COMMIT,
+        "owner_approval_committed_at_runtime": True,
+        "browser_readiness_json_committed_at_runtime": True,
+        "browser_capture": capture_git_state,
+    }
+
+
+def _preflight_recovery_paths(
+    contract: _RecoveryExecutionContract,
+    *,
+    allow_credential_latch: bool,
+    allow_provider_latch: bool,
+) -> None:
+    entries = (
+        (
+            "recovery credential-read latch",
+            contract.credential_latch_relative,
+            ("authorizations", "consumed"),
+        ),
+        (
+            "recovery provider-call latch",
+            contract.provider_latch_relative,
+            ("authorizations", "consumed"),
+        ),
+        (
+            "recovery success receipt",
+            contract.success_relative,
+            ("receipts", "elevenlabs-account"),
+        ),
+        (
+            "recovery failure receipt",
+            contract.failure_relative,
+            ("receipts", "elevenlabs-account"),
+        ),
+    )
+    if len({relative for _label, relative, _prefix in entries}) != len(entries):
+        raise ValidationError("recovery destinations must be globally distinct")
+    allowed = {
+        contract.credential_latch_relative if allow_credential_latch else "",
+        contract.provider_latch_relative if allow_provider_latch else "",
+    }
+    for label, relative, prefix in entries:
+        path = contract.root / relative
+        if relative in allowed:
+            if not path.is_file() or path.is_symlink():
+                raise ValidationError(f"{label} expected immutable artifact is absent")
+        else:
+            path = pt._safe_execution_relative(contract.root, relative, label, ".json")
+        if path.relative_to(contract.root).parts[: len(prefix)] != prefix:
+            raise ValidationError(f"{label} escaped its exact artifact class")
+        parent_fd, _name = pt._open_parent_descriptor(
+            contract.root,
+            relative,
+            create_parents=False,
+        )
+        os.close(parent_fd)
+
+
+def _recovery_credential_read_latch(
+    contract: _RecoveryExecutionContract,
+    consumed_at: datetime,
+) -> dict[str, Any]:
+    return {
+        "schema_version": RECOVERY_CREDENTIAL_READ_CONSUMPTION_SCHEMA,
+        "scope": RECOVERY_SCOPE,
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "owner_approval_sha256": contract.owner_approval_sha256,
+        "browser_readiness_sha256": contract.browser_readiness_sha256,
+        "prior_failure_chain_sha256": sha256_bytes(_compact(_recovery_prior_failure_chain())),
+        "status": "credential_read_attempt_consumed_before_dotenv_read",
+        "consumed_at": _iso(consumed_at),
+        "credential_preflight_reads_reserved": 1,
+        "credential_read_completed_at_latch": False,
+        "provider_call_latch_created_at_consumption": False,
+        "network_called_at_consumption": False,
+        "get_calls_used": 0,
+        "post_calls_used": 0,
+        "legacy_latch_reused_or_deleted": False,
+        "retry_or_resumption": False,
+    }
+
+
+def _recovery_provider_latch(
+    contract: _RecoveryExecutionContract,
+    consumed_at: datetime,
+    *,
+    credential_latch_sha256: str,
+    credential_fingerprint_sha256: str,
+) -> dict[str, Any]:
+    return {
+        "schema_version": RECOVERY_CONSUMPTION_SCHEMA,
+        "scope": RECOVERY_SCOPE,
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "credential_read_latch_path": contract.credential_latch_relative,
+        "credential_read_latch_sha256": credential_latch_sha256,
+        "owner_approval_sha256": contract.owner_approval_sha256,
+        "browser_readiness_sha256": contract.browser_readiness_sha256,
+        "credential_fingerprint_sha256": credential_fingerprint_sha256,
+        "browser_suffix_sha256": contract.expected_preview_sha256,
+        "status": "provider_get_authority_consumed_after_credential_readiness",
+        "consumed_at": _iso(consumed_at),
+        "credential_preflight_reads_used": 1,
+        "execution_credential_reads_used": 0,
+        "browser_suffix_matches_held_credential": True,
+        "network_called_at_consumption": False,
+        "get_calls_used": 0,
+        "post_calls_used": 0,
+        "legacy_latch_reused_or_deleted": False,
+        "retry_permitted": False,
+    }
+
+
+def _safe_recovery_document(
+    document: dict[str, Any],
+    *,
+    secret_values: tuple[str, ...] = (),
+) -> bytes:
+    raw = _receipt_bytes(document)
+    if pt._scan_for_secrets(document):
+        raise ValidationError("recovery persistence document failed structural secret scan")
+    for value in secret_values:
+        if value and value.encode("utf-8") in raw:
+            raise ValidationError("recovery persistence document contains forbidden raw material")
+    return raw
+
+
+def _parse_recovery_account_payload(
+    raw: bytes,
+    api_key: str,
+    suffix: str,
+) -> tuple[bool, str, str]:
+    """Validate `/v1/user` without deriving any persistent account identifier."""
+
+    payload: dict[str, Any] | None = None
+    user_id = ""
+    user_value: Any = None
+    echoed_key: Any = None
+    echoed_suffix: Any = None
+    key_echo_state = "absent_or_null"
+    suffix_echo_state = "absent_or_null"
+    failure_code: str | None = None
+    result: tuple[bool, str, str] | None = None
+    try:
+        try:
+            payload = pt._strict_json_bytes(raw, "ElevenLabs recovery /v1/user response")
+        except Exception:
+            raise _eleven_failure("account_response_json_invalid", response_received=True) from None
+        user_value = payload.get("user_id")
+        if (
+            not isinstance(user_value, str)
+            or not 1 <= len(user_value) <= 256
+            or user_value != user_value.strip()
+            or any(ord(character) < 33 or ord(character) > 126 for character in user_value)
+        ):
+            raise _eleven_failure("account_user_id_invalid", response_received=True)
+        user_id = user_value
+        echoed_key = payload.get("xi_api_key")
+        if echoed_key is not None and (not isinstance(echoed_key, str) or echoed_key != api_key):
+            raise _eleven_failure("account_optional_api_key_echo_mismatch", response_received=True)
+        if echoed_key is not None:
+            key_echo_state = "present_exact_match"
+        echoed_suffix = payload.get("xi_api_key_preview")
+        if echoed_suffix is not None:
+            if (
+                not isinstance(echoed_suffix, str)
+                or not 1 <= len(echoed_suffix) <= 256
+                or any(ord(character) < 32 or ord(character) > 126 for character in echoed_suffix)
+                or not echoed_suffix.endswith(suffix)
+            ):
+                raise _eleven_failure("account_optional_api_key_preview_invalid", response_received=True)
+            suffix_echo_state = "present_last4_match"
+        result = (True, key_echo_state, suffix_echo_state)
+    except pt._GuideExecutionFailure as exc:
+        failure_code = exc.code
+        exc.__cause__ = None
+        exc.__context__ = None
+        exc.__suppress_context__ = True
+        exc.__traceback__ = None
+    finally:
+        raw = b""
+        api_key = ""
+        suffix = ""
+        payload = None
+        user_id = ""
+        user_value = None
+        echoed_key = None
+        echoed_suffix = None
+        key_echo_state = ""
+        suffix_echo_state = ""
+    if failure_code is not None:
+        pending = _eleven_failure(failure_code, response_received=True)
+        pending.__cause__ = None
+        pending.__context__ = None
+        pending.__suppress_context__ = True
+        pending.__traceback__ = None
+        failure_code = None
+        result = None
+        raise pending from None
+    if result is None:
+        raise _eleven_failure("account_response_validation_failed", response_received=True) from None
+    return result
+
+
+def execute_account_recovery(
+    authorization_path: Path,
+    *,
+    timeout: float = 30.0,
+) -> dict[str, Any]:
+    """Consume two isolated latches around one dotenv read and one `/v1/user` GET."""
+
+    if type(timeout) not in {int, float} or not 0 < float(timeout) <= ACCOUNT_MAX_ELAPSED_SECONDS:
+        raise ValidationError("account-recovery timeout must be >0 and <=30 seconds")
+    contract = _build_recovery_contract(authorization_path)
+    _preflight_tls_environment()
+    _preflight_recovery_paths(
+        contract,
+        allow_credential_latch=False,
+        allow_provider_latch=False,
+    )
+    source_proof = _verify_recovery_committed_source(contract, allowed_latches=frozenset())
+    # All nonsecret gates are checked before the immutable credential-read latch.
+    refreshed = _build_recovery_contract(authorization_path)
+    if _recovery_contract_snapshot(refreshed) != _recovery_contract_snapshot(contract):
+        raise ValidationError("account-recovery source changed before credential-read consumption")
+    _verify_recovery_committed_source(refreshed, allowed_latches=frozenset())
+    _preflight_recovery_paths(
+        contract,
+        allow_credential_latch=False,
+        allow_provider_latch=False,
+    )
+    _verify_recovery_active_authority_private(contract)
+    credential_latched_at = _execution_now()
+    if not contract.approved_at <= credential_latched_at < contract.expires_at:
+        raise ValidationError("account-recovery authority expired before credential-read consumption")
+    credential_latch = _recovery_credential_read_latch(contract, credential_latched_at)
+    credential_latch_bytes = _safe_recovery_document(credential_latch)
+    pt._exclusive_fixture_write(
+        contract.root,
+        contract.credential_latch_relative,
+        credential_latch_bytes,
+    )
+    credential_latch_sha = sha256_bytes(credential_latch_bytes)
+
+    api_key = ""
+    key_fingerprint = ""
+    key_suffix = ""
+    credential_accessed = False
+    network_called = False
+    get_calls = 0
+    provider_latch_bytes = b""
+    provider_latch_sha: str | None = None
+    provider_latch_created = False
+    response: _ElevenResponse | None = None
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
+    failure: pt._GuideExecutionFailure | None = None
+    credential_read_failure: pt._GuideExecutionFailure | None = None
+    pending_read_failure: pt._GuideExecutionFailure | None = None
+    pending_parse_failure: pt._GuideExecutionFailure | None = None
+    parse_failure_code: str | None = None
+    provider_latch: dict[str, Any] = {}
+    run: dict[str, Any] = {}
+    run_bytes = b""
+    failure_bytes = b""
+    try:
+        pt._verify_private_fixture_artifact(
+            contract.root,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        _verify_recovery_private_latch(
+            contract,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        _verify_recovery_committed_source(
+            contract,
+            allowed_latches=frozenset({contract.credential_latch_relative}),
+        )
+        credential_accessed = True
+        try:
+            api_key = _read_recovery_dotenv_key()
+        except ValidationError as exc:
+            exc.__cause__ = None
+            exc.__context__ = None
+            exc.__suppress_context__ = True
+            exc.__traceback__ = None
+            credential_read_failure = _eleven_failure("credential_preflight_read_failed")
+        if credential_read_failure is not None:
+            pending_read_failure = credential_read_failure
+            credential_read_failure = None
+            raise pending_read_failure from None
+        key_fingerprint = _key_fingerprint(api_key)
+        if len(api_key) < 4 or not re.fullmatch(r"[A-Za-z0-9]{4}", api_key[-4:]):
+            raise _eleven_failure("credential_suffix_shape_unavailable")
+        key_suffix = api_key[-4:]
+        if _preview_hash(key_suffix) != contract.expected_preview_sha256:
+            raise _eleven_failure("credential_suffix_does_not_match_fresh_browser_readiness")
+
+        # Rebuild every authority/evidence binding without re-reading the dotenv.
+        refreshed = _build_recovery_contract(authorization_path)
+        if _recovery_contract_snapshot(refreshed) != _recovery_contract_snapshot(contract):
+            raise _eleven_failure("recovery_source_drift_after_credential_read")
+        _verify_recovery_committed_source(
+            refreshed,
+            allowed_latches=frozenset({contract.credential_latch_relative}),
+        )
+        pt._verify_private_fixture_artifact(
+            contract.root,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        _verify_recovery_private_latch(
+            contract,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        _preflight_recovery_paths(
+            contract,
+            allow_credential_latch=True,
+            allow_provider_latch=False,
+        )
+        _verify_recovery_active_authority_private(contract)
+        provider_latched_at = _execution_now()
+        if not credential_latched_at <= provider_latched_at < contract.expires_at:
+            raise _eleven_failure("authorization_expired_before_provider_latch")
+        provider_latch = _recovery_provider_latch(
+            contract,
+            provider_latched_at,
+            credential_latch_sha256=credential_latch_sha,
+            credential_fingerprint_sha256=key_fingerprint,
+        )
+        provider_latch_bytes = _safe_recovery_document(
+            provider_latch,
+            secret_values=(api_key, key_suffix),
+        )
+        pt._exclusive_fixture_write(
+            contract.root,
+            contract.provider_latch_relative,
+            provider_latch_bytes,
+        )
+        provider_latch_sha = sha256_bytes(provider_latch_bytes)
+        provider_latch_created = True
+
+        refreshed = _build_recovery_contract(authorization_path)
+        if _recovery_contract_snapshot(refreshed) != _recovery_contract_snapshot(contract):
+            raise _eleven_failure("recovery_source_drift_after_provider_latch")
+        _verify_recovery_committed_source(
+            refreshed,
+            allowed_latches=frozenset(
+                {contract.credential_latch_relative, contract.provider_latch_relative}
+            ),
+        )
+        pt._verify_private_fixture_artifact(
+            contract.root,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        pt._verify_private_fixture_artifact(
+            contract.root,
+            contract.provider_latch_relative,
+            provider_latch_bytes,
+            "recovery provider-call latch",
+        )
+        _preflight_recovery_paths(
+            contract,
+            allow_credential_latch=True,
+            allow_provider_latch=True,
+        )
+        _verify_recovery_active_authority_private(contract)
+        _verify_recovery_private_latch(
+            contract,
+            contract.credential_latch_relative,
+            credential_latch_bytes,
+            "recovery credential-read latch",
+        )
+        _verify_recovery_private_latch(
+            contract,
+            contract.provider_latch_relative,
+            provider_latch_bytes,
+            "recovery provider-call latch",
+        )
+        started_at = _execution_now()
+        if (
+            started_at < contract.browser_observed_at
+            or (started_at - contract.browser_observed_at).total_seconds()
+            > ACCOUNT_VERIFICATION_MAX_AGE_SECONDS
+        ):
+            raise _eleven_failure("fresh_browser_readiness_stale_before_recovery_get")
+        if not provider_latched_at <= started_at < contract.expires_at:
+            raise _eleven_failure("authorization_expired_before_recovery_get")
+        get_calls = 1
+        network_called = True
+        response = _perform_elevenlabs_request(
+            method="GET",
+            url=ACCOUNT_ENDPOINT,
+            api_key=api_key,
+            timeout=float(timeout),
+            accept="application/json",
+            body=None,
+            content_type=None,
+            response_cap=ACCOUNT_MAX_RESPONSE_BYTES,
+            expected_mimes=frozenset({"application/json"}),
+        )
+        completed_at = _execution_now()
+        if not started_at <= completed_at < contract.expires_at:
+            raise _eleven_failure("recovery_response_completed_outside_authority")
+        try:
+            valid_user_id_present, key_echo_state, suffix_echo_state = _parse_recovery_account_payload(
+                response.payload,
+                api_key,
+                key_suffix,
+            )
+        except pt._GuideExecutionFailure as parse_failure:
+            parse_failure_code = parse_failure.code
+            parse_failure.__cause__ = None
+            parse_failure.__context__ = None
+            parse_failure.__suppress_context__ = True
+            parse_failure.__traceback__ = None
+        if parse_failure_code is not None:
+            pending_parse_failure = _eleven_failure(
+                parse_failure_code,
+                response_received=True,
+                http_status=200,
+                response_bytes=response.response_bytes,
+                response_sha256=response.response_sha256,
+            )
+            parse_failure_code = None
+            raise pending_parse_failure from None
+        run = {
+            "schema_version": RECOVERY_RUN_SCHEMA,
+            "provider": "elevenlabs",
+            "scope": RECOVERY_SCOPE,
+            "outcome": "success",
+            "endpoint": ACCOUNT_ENDPOINT,
+            "method": "GET",
+            "accept": "application/json",
+            "accept_encoding": "identity",
+            "authorization_id": contract.authorization["authorization_id"],
+            "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+            "authorization_sha256": contract.authorization_sha256,
+            "credential_read_latch_path": contract.credential_latch_relative,
+            "credential_read_latch_sha256": credential_latch_sha,
+            "provider_call_latch_path": contract.provider_latch_relative,
+            "provider_call_latch_sha256": provider_latch_sha,
+            "owner_approval_sha256": contract.owner_approval_sha256,
+            "browser_readiness_sha256": contract.browser_readiness_sha256,
+            "prior_failure_chain_sha256": sha256_bytes(_compact(_recovery_prior_failure_chain())),
+            "source_proof": source_proof,
+            "credential_fingerprint_sha256": key_fingerprint,
+            "browser_suffix_sha256": contract.expected_preview_sha256,
+            "http_status": 200,
+            "response_bytes": response.response_bytes,
+            "response_mime_type": response.content_type,
+            "response_content_encoding": response.content_encoding,
+            "valid_user_id_present": valid_user_id_present,
+            "credential_read_from_fixed_dotenv": True,
+            "environment_inheritance_used": False,
+            "shell_source_used": False,
+            "dotenv_reread_after_credential_latch": False,
+            "browser_suffix_matches_held_credential": True,
+            "provider_key_echo_state": key_echo_state,
+            "provider_suffix_echo_state": suffix_echo_state,
+            "account_linkage_strength": "contextual_non_cryptographic",
+            "exact_ui_api_account_equality_claimed": False,
+            "raw_response_stored": False,
+            "raw_account_data_stored": False,
+            "account_data_stored": False,
+            "response_hash_stored": False,
+            "response_derived_identifier_stored": False,
+            "raw_credential_stored": False,
+            "raw_credential_suffix_stored": False,
+            "raw_user_identifier_stored": False,
+            "provider_get_calls_made": 1,
+            "provider_post_calls_made": 0,
+            "retries_made": 0,
+            "redirects_followed": 0,
+            "retry_permitted": False,
+            "redirect_permitted": False,
+            "fallback_permitted": False,
+            "fallback_used": False,
+            "account_settings_changed": False,
+            "audio_uploaded": False,
+            "spend_incurred": False,
+            "voice_transfer_authorized": False,
+            "audio_upload_authorized": False,
+            "full_capture_authorized": False,
+            "creative_approved": False,
+            "step2_lock_authorized": False,
+            "step3_authorized": False,
+            "sharing_authorized": False,
+            "publication_authorized": False,
+            "started_at": _iso(started_at),
+            "completed_at": _iso(completed_at),
+        }
+        run_bytes = _safe_recovery_document(
+            run,
+            secret_values=(api_key, key_suffix),
+        )
+        if response.payload in run_bytes:
+            raise pt._GuideExecutionFailure("recovery_run_contains_raw_account_response")
+        pt._exclusive_fixture_write(contract.root, contract.success_relative, run_bytes)
+        result = {
+            "schema_version": RECOVERY_RESULT_SCHEMA,
+            "valid": True,
+            "outcome": "success",
+            "authorization_consumed": True,
+            "credential_read_consumed": True,
+            "provider_get_authority_consumed": True,
+            "provider_get_calls_made": 1,
+            "provider_post_calls_made": 0,
+            "run_receipt": {
+                "path": contract.success_relative,
+                "sha256": sha256_bytes(run_bytes),
+            },
+            "network_called": True,
+            "retry_permitted": False,
+            "redirect_permitted": False,
+            "fallback_permitted": False,
+            "fallback_used": False,
+            "raw_sensitive_material_persisted": False,
+            "account_data_stored": False,
+            "response_hash_stored": False,
+            "response_derived_identifier_stored": False,
+            "account_settings_changed": False,
+            "voice_transfer_authorized": False,
+            "audio_upload_authorized": False,
+            "full_capture_authorized": False,
+            "creative_approved": False,
+            "step2_lock_authorized": False,
+            "step3_authorized": False,
+            "sharing_authorized": False,
+            "publication_authorized": False,
+        }
+        api_key = ""
+        key_fingerprint = ""
+        key_suffix = ""
+        response = None
+        run = {}
+        run_bytes = b""
+        return result
+    except pt._GuideExecutionFailure as exc:
+        exc.__cause__ = None
+        exc.__context__ = None
+        exc.__suppress_context__ = True
+        exc.__traceback__ = None
+        failure = exc
+    except ValidationError as exc:
+        exc.__cause__ = None
+        exc.__context__ = None
+        exc.__suppress_context__ = True
+        exc.__traceback__ = None
+        failure = _eleven_failure(
+            "local_validation_or_filesystem_failure",
+            response_received=response is not None,
+            http_status=200 if response is not None else None,
+            response_bytes=response.response_bytes if response is not None else 0,
+            response_sha256=response.response_sha256 if response is not None else None,
+        )
+    except Exception as exc:
+        exc.__cause__ = None
+        exc.__context__ = None
+        exc.__suppress_context__ = True
+        exc.__traceback__ = None
+        failure = _eleven_failure(
+            "unexpected_local_failure",
+            response_received=response is not None,
+            http_status=200 if response is not None else None,
+            response_bytes=response.response_bytes if response is not None else 0,
+            response_sha256=response.response_sha256 if response is not None else None,
+        )
+    if failure is None:
+        failure = _eleven_failure("unknown_failure")
+    failed_at = _execution_now()
+    failure_document = {
+        "schema_version": RECOVERY_FAILURE_SCHEMA,
+        "provider": "elevenlabs",
+        "scope": RECOVERY_SCOPE,
+        "outcome": "failed_closed",
+        "endpoint": ACCOUNT_ENDPOINT,
+        "method": "GET",
+        "authorization_id": contract.authorization["authorization_id"],
+        "authorization_path": contract.authorization_path.relative_to(contract.root).as_posix(),
+        "authorization_sha256": contract.authorization_sha256,
+        "credential_read_latch_path": contract.credential_latch_relative,
+        "credential_read_latch_sha256": credential_latch_sha,
+        "provider_call_latch_created": provider_latch_created,
+        "provider_call_latch_path": (
+            contract.provider_latch_relative if provider_latch_created else None
+        ),
+        "provider_call_latch_sha256": provider_latch_sha,
+        "owner_approval_sha256": contract.owner_approval_sha256,
+        "browser_readiness_sha256": contract.browser_readiness_sha256,
+        "prior_failure_chain_sha256": sha256_bytes(_compact(_recovery_prior_failure_chain())),
+        "source_proof": source_proof,
+        "failure_code": failure.code,
+        "http_status": failure.http_status,
+        "response_bytes": failure.response_bytes,
+        "response_mime_type": response.content_type if response is not None else None,
+        "response_content_encoding": response.content_encoding if response is not None else None,
+        "provider_response_received": bool(
+            getattr(failure, "response_received", False) or response is not None
+        ),
+        "provider_get_receipt_state": (
+            "confirmed_response"
+            if getattr(failure, "response_received", False) or response is not None
+            else ("ambiguous_transport" if get_calls else "not_attempted")
+        ),
+        "credential_read_consumed": True,
+        "credential_accessed": credential_accessed,
+        "network_called": network_called,
+        "provider_get_attempts_consumed": get_calls,
+        "provider_post_attempts_consumed": 0,
+        "retry_permitted": False,
+        "redirect_permitted": False,
+        "fallback_permitted": False,
+        "fallback_used": False,
+        "raw_response_stored": False,
+        "raw_account_data_stored": False,
+        "account_data_stored": False,
+        "response_hash_stored": False,
+        "response_derived_identifier_stored": False,
+        "raw_credential_stored": False,
+        "raw_credential_suffix_stored": False,
+        "raw_user_identifier_stored": False,
+        "account_settings_changed": False,
+        "audio_uploaded": False,
+        "spend_incurred": False,
+        "voice_transfer_authorized": False,
+        "audio_upload_authorized": False,
+        "full_capture_authorized": False,
+        "creative_approved": False,
+        "step2_lock_authorized": False,
+        "step3_authorized": False,
+        "sharing_authorized": False,
+        "publication_authorized": False,
+        "started_at": _iso(started_at) if started_at else None,
+        "failed_at": _iso(failed_at),
+    }
+    try:
+        failure_bytes = _safe_recovery_document(
+            failure_document,
+            secret_values=(api_key, key_suffix),
+        )
+        pt._exclusive_fixture_write(contract.root, contract.failure_relative, failure_bytes)
+    except ValidationError:
+        pass
+    code = failure.code
+    api_key = ""
+    key_fingerprint = ""
+    key_suffix = ""
+    response = None
+    provider_latch_bytes = b""
+    credential_latch_bytes = b""
+    failure = None
+    failure_document = {}
+    failure_bytes = b""
+    credential_latch = {}
+    provider_latch = {}
+    run = {}
+    run_bytes = b""
+    pending_read_failure = None
+    pending_parse_failure = None
+    credential_read_failure = None
+    parse_failure_code = None
+    refreshed = None
+    source_proof = {}
+    contract = None
+    raise ValidationError(f"ElevenLabs account recovery stopped without retry: {code}") from None

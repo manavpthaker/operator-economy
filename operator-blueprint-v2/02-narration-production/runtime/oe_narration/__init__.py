@@ -34,10 +34,13 @@ from .google_service_enablement import (
     validate_google_service_enablement_authorization,
 )
 from .voice_transfer import (
+    dry_run_account_recovery,
     dry_run_account_verification,
     dry_run_voice_transfer_execution,
+    execute_account_recovery,
     execute_account_verification,
     execute_voice_transfer,
+    validate_account_recovery_authorization,
     validate_account_verification_authorization,
     validate_voice_transfer_execution_authorization,
 )
@@ -69,9 +72,12 @@ __all__ = [
     "execute_google_service_enablement",
     "validate_google_service_enablement_authorization",
     "dry_run_account_verification",
+    "dry_run_account_recovery",
     "dry_run_voice_transfer_execution",
     "execute_account_verification",
+    "execute_account_recovery",
     "execute_voice_transfer",
     "validate_account_verification_authorization",
+    "validate_account_recovery_authorization",
     "validate_voice_transfer_execution_authorization",
 ]

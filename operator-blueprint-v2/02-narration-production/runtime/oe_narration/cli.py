@@ -43,8 +43,10 @@ from .google_service_enablement import (
 )
 from .voice_transfer import (
     dry_run_account_verification,
+    dry_run_account_recovery,
     dry_run_voice_transfer_execution,
     execute_account_verification,
+    execute_account_recovery,
     execute_voice_transfer,
 )
 from .retrieval import (
@@ -264,6 +266,18 @@ def build_parser() -> argparse.ArgumentParser:
     account_verify.add_argument("--record", type=_path)
     account_verify.add_argument("--execute", action="store_true")
     account_verify.add_argument("--timeout", type=float, default=30.0)
+
+    account_recover = sub.add_parser(
+        "elevenlabs-account-recover",
+        help=(
+            "dry-run by default; consume isolated credential-read and provider latches "
+            "for one fixed-dotenv read and one read-only /v1/user GET"
+        ),
+    )
+    account_recover.add_argument("--authorization", type=_contract_path, required=True)
+    account_recover.add_argument("--record", type=_path)
+    account_recover.add_argument("--execute", action="store_true")
+    account_recover.add_argument("--timeout", type=float, default=30.0)
     return parser
 
 
@@ -493,6 +507,18 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
                 raise ValidationError("--timeout must be greater than zero and at most 30 seconds")
             return execute_account_verification(args.authorization, timeout=args.timeout)
         result = dry_run_account_verification(args.authorization)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "elevenlabs-account-recover":
+        if args.execute:
+            if args.record is not None:
+                raise ValidationError("--record is for dry runs; execution writes immutable receipts")
+            if args.timeout <= 0 or args.timeout > 30:
+                raise ValidationError("--timeout must be greater than zero and at most 30 seconds")
+            return execute_account_recovery(args.authorization, timeout=args.timeout)
+        result = dry_run_account_recovery(args.authorization)
         if args.record:
             _write_json(args.record, result)
             result["record"] = str(args.record)
