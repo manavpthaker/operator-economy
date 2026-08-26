@@ -3207,7 +3207,7 @@ class VoiceTransferTests(unittest.TestCase):
             "status": "calibrated_non_authorizing",
             "provider": "elevenlabs",
             "recorded_at": account_recorded_at,
-            "outcome_commit": vt.RECOVERY_TRANSFER_OUTCOME_COMMIT,
+            "outcome_commit": vt.RECOVERY_TRANSFER_HISTORICAL_ACCOUNT_OUTCOME_COMMIT,
             "recovery_evidence": {
                 "recovery_authorization": {
                     "path": vt.RECOVERY_TRANSFER_ACCOUNT_AUTH_PATH,
@@ -3307,7 +3307,7 @@ class VoiceTransferTests(unittest.TestCase):
             "provider": "elevenlabs",
             "recorded_at": rights_recorded_at,
             "owner": vt.RECOVERY_TRANSFER_OWNER,
-            "transaction_basis_id": vt.RECOVERY_TRANSFER_TRANSACTION_BASIS_ID,
+            "transaction_basis_id": vt.RECOVERY_TRANSFER_RIGHTS_TRANSACTION_BASIS_ID,
             "evidence": {
                 "owner_audition_and_bounded_transfer_approval": {
                     "path": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
@@ -3378,7 +3378,7 @@ class VoiceTransferTests(unittest.TestCase):
         official_path = fixture / "evidence/V1-ELEVENLABS-DATA-USE-OFFICIAL-BASIS.20260826T104709Z.json"
         data_document = {
             "schema_version": "oe-elevenlabs-recovery-evidence-data-use-assurance-v1",
-            "record_id": "V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE",
+            "record_id": vt.RECOVERY_TRANSFER_DATA_USE_ASSURANCE_ID,
             "status": "verified_fresh_non_authorizing",
             "provider": "elevenlabs",
             "recorded_at": data_recorded_at,
@@ -3414,6 +3414,10 @@ class VoiceTransferTests(unittest.TestCase):
                 "terminal_disposition": {
                     "path": vt.RECOVERY_TRANSFER_DISPOSITION_PATH,
                     "sha256": vt.RECOVERY_TRANSFER_DISPOSITION_SHA256,
+                },
+                "prior_zero_provider_transfer_disposition": {
+                    "path": vt.RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256,
                 },
                 "owner_audition_and_bounded_transfer_approval": {
                     "path": vt.RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
@@ -3503,6 +3507,11 @@ class VoiceTransferTests(unittest.TestCase):
                     "state": "verified",
                     "path": vt.RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
                     "sha256": rights_sha,
+                },
+                "prior_zero_provider_transfer_disposition": {
+                    "state": "verified",
+                    "path": vt.RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH,
+                    "sha256": vt.RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256,
                 },
                 "official_media_contract": {
                     "state": "verified",
@@ -4378,9 +4387,7 @@ class VoiceTransferTests(unittest.TestCase):
         }
         r1_records = {
             bundle.authorization_path.resolve(strict=True),
-            bundle.account_path.resolve(strict=True),
             bundle.data_path.resolve(strict=True),
-            bundle.rights_path.resolve(strict=True),
             bundle.browser_path.resolve(strict=True),
         }
         r1_delta = b"".join(
@@ -4930,6 +4937,122 @@ class VoiceTransferTests(unittest.TestCase):
             sibling.chmod(0o600)
             with self.assertRaisesRegex(ValidationError, "drifted"):
                 vt._revalidate_recovery_transfer_input(contract, binding)
+
+    def test_recovery_transfer_dotenv_reader_releases_view_and_calibrates_failure(self) -> None:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        dotenv = Path(temporary.name).resolve() / ".env"
+        dotenv.write_bytes(b"ELEVENLABS_API_KEY=unit-private-key-1234\n")
+        dotenv.chmod(0o600)
+        captured: list[bytearray] = []
+        parser = vt._parse_recovery_transfer_dotenv_key
+
+        def observe(raw: bytearray) -> bytearray:
+            captured.append(raw)
+            return parser(raw)
+
+        with (
+            mock.patch.object(vt, "RECOVERY_DOTENV_PATH", dotenv),
+            mock.patch.object(
+                vt,
+                "_parse_recovery_transfer_dotenv_key",
+                side_effect=observe,
+            ),
+        ):
+            held = vt._read_recovery_transfer_dotenv_key()
+        self.assertEqual(held, bytearray(b"unit-private-key-1234"))
+        self.assertEqual(captured, [bytearray()])
+        vt._zero_mutable_buffer(held)
+
+        captured.clear()
+
+        def fail_after_read(raw: bytearray) -> bytearray:
+            captured.append(raw)
+            raise RuntimeError("unit parser failure after descriptor read")
+
+        with (
+            mock.patch.object(vt, "RECOVERY_DOTENV_PATH", dotenv),
+            mock.patch.object(
+                vt,
+                "_parse_recovery_transfer_dotenv_key",
+                side_effect=fail_after_read,
+            ),
+        ):
+            with self.assertRaises(vt._RecoveryTransferCredentialReadFailure) as stopped:
+                vt._read_recovery_transfer_dotenv_key()
+        self.assertEqual(
+            stopped.exception.credential_bytes_read_state,
+            "bytes_read_not_accepted",
+        )
+        self.assertEqual(captured, [bytearray()])
+
+    def test_recovery_executor_records_post_read_dotenv_failure_truthfully(self) -> None:
+        fixture = self._recovery_executor_fixture()
+        with (
+            mock.patch.object(vt, "_require_recovery_transfer_containment_clear"),
+            mock.patch.object(
+                vt,
+                "_preflight_recovery_transfer_core_limit",
+                return_value=vt._RecoveryTransferCoreLimit(0, 0),
+            ),
+            mock.patch.object(vt, "_enter_recovery_transfer_core_limit"),
+            mock.patch.object(
+                vt,
+                "_restore_recovery_transfer_core_limit",
+                return_value=True,
+            ),
+            mock.patch.object(
+                vt,
+                "_build_recovery_transfer_execution_contract",
+                side_effect=lambda *_args: fixture.contract_factory(),
+            ),
+            mock.patch.object(
+                vt,
+                "_prepare_voice_transfer_worker",
+                side_effect=lambda: self._recovery_executor_worker(),
+            ),
+            mock.patch.object(
+                vt,
+                "_revalidate_recovery_transfer_before_latch",
+                return_value=self._recovery_executor_source_proof(),
+            ),
+            mock.patch.object(vt, "_verify_recovery_transfer_post_latch_git_scope"),
+            mock.patch.object(
+                vt,
+                "_read_recovery_transfer_dotenv_key",
+                side_effect=vt._RecoveryTransferCredentialReadFailure(
+                    "bytes_read_not_accepted"
+                ),
+            ),
+            mock.patch.object(
+                vt,
+                "_dispose_recovery_transfer_worker",
+                return_value=True,
+            ),
+            mock.patch.object(vt, "_execution_now", return_value=fixture.now),
+            mock.patch.object(
+                vt,
+                "_perform_prepared_voice_transfer",
+                side_effect=AssertionError("dotenv failure released GO"),
+            ) as post,
+        ):
+            with self.assertRaisesRegex(ValidationError, "fixed_dotenv_read_failed"):
+                vt.execute_recovery_evidence_voice_transfer(
+                    fixture.authorization_path,
+                    fixture.plan_path,
+                    fixture.canonical_path,
+                )
+        post.assert_not_called()
+        failure = pt._strict_json_bytes(
+            (fixture.root / fixture.artifacts["failure_receipt_path"]).read_bytes(),
+            "unit post-read dotenv failure",
+        )
+        self.assertEqual(failure["credential_descriptor_read_attempts"], 1)
+        self.assertEqual(failure["credential_access_state"], "bytes_read_not_accepted")
+        self.assertTrue(failure["credential_accessed"])
+        self.assertFalse(failure["go_released"])
+        self.assertEqual(failure["application_http_attempts"], 0)
+        self.assertEqual(failure["network_call_state"], "not_called")
 
     def test_recovery_executor_one_exact_post_and_complete_private_outputs(self) -> None:
         fixture = self._recovery_executor_fixture()

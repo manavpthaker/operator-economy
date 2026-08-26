@@ -15,14 +15,14 @@
   "properties": {
     "schema_version": {"const": "oe-elevenlabs-recovery-evidence-voice-transfer-authorization-v1"},
     "authorization_id": {"enum": [
-      "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01",
-      "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+      "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01",
+      "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01"
     ]},
     "status": {"enum": ["draft", "active"]},
     "provider_action_authorized": {"type": "boolean"},
     "scope": {"const": "elevenlabs_recovery_evidence_voice_transfer_execution"},
     "target": {"$ref": "#/$defs/target"},
-    "transaction_basis_id": {"const": "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER"},
+    "transaction_basis_id": {"const": "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER-POST-READ-REPAIR"},
     "evidence_owner": {"const": "Manav Thaker"},
     "v1_lineage": {"$ref": "#/$defs/v1Lineage"},
     "bindings": {"$ref": "#/$defs/bindings"},
@@ -52,7 +52,7 @@
     {
       "if": {"properties": {"status": {"const": "draft"}}, "required": ["status"]},
       "then": {"properties": {
-        "authorization_id": {"const": "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"},
+        "authorization_id": {"const": "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01"},
         "provider_action_authorized": {"const": false},
         "credential_delivery": {"$ref": "#/$defs/pendingCredential"},
         "evidence_baseline": {"$ref": "#/$defs/pending"},
@@ -74,7 +74,7 @@
     {
       "if": {"properties": {"status": {"const": "active"}}, "required": ["status"]},
       "then": {"properties": {
-        "authorization_id": {"const": "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"},
+        "authorization_id": {"const": "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01"},
         "provider_action_authorized": {"const": true},
         "credential_delivery": {"$ref": "#/$defs/verifiedCredential"},
         "evidence_baseline": {"$ref": "#/$defs/verifiedEvidenceBaseline"},
@@ -236,7 +236,7 @@
       "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
       "properties": {
         "state": {"const": "verified"},
-        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"},
+        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-DATA-USE-ASSURANCE.json"},
         "sha256": {"$ref": "#/$defs/sha256"}
       }
     },
@@ -256,9 +256,17 @@
         "sha256": {"$ref": "#/$defs/sha256"}
       }
     },
+    "fixedPriorZeroProviderDisposition": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-EVIDENCE-VOICE-TRANSFER-CREDENTIAL-READ-FAILURE-DISPOSITION.20260826T201339Z.json"},
+        "sha256": {"const": "6d0c12aee89d3184af304ba96104cd9168bda44cc29eca24d9de2ee006bacb23"}
+      }
+    },
     "prerequisites": {
       "type": "object", "additionalProperties": false,
-      "required": ["selected_guide", "guide_qa", "owner_selection", "owner_audition_confirmation", "elevenlabs_data_use", "target_voice_rights", "official_media_contract"],
+      "required": ["selected_guide", "guide_qa", "owner_selection", "owner_audition_confirmation", "elevenlabs_data_use", "target_voice_rights", "prior_zero_provider_transfer_disposition", "official_media_contract"],
       "properties": {
         "selected_guide": {"$ref": "#/$defs/selectedGuide"},
         "guide_qa": {"$ref": "#/$defs/fixedGuideQA"},
@@ -266,6 +274,7 @@
         "owner_audition_confirmation": {"$ref": "#/$defs/fixedOwnerApproval"},
         "elevenlabs_data_use": {"$ref": "#/$defs/fixedDataUse"},
         "target_voice_rights": {"$ref": "#/$defs/fixedRights"},
+        "prior_zero_provider_transfer_disposition": {"$ref": "#/$defs/fixedPriorZeroProviderDisposition"},
         "official_media_contract": {"$ref": "#/$defs/fixedMedia"}
       }
     },
@@ -351,7 +360,7 @@
         "state": {"const": "verified"}, "evidence_commit": {"$ref": "#/$defs/gitSha"},
         "draft_authorization": {"allOf": [
           {"$ref": "#/$defs/binding"},
-          {"properties": {"path": {"const": "authorizations/15-elevenlabs-recovery-evidence-voice-transfer.DRAFT.json"}}}
+          {"properties": {"path": {"const": "authorizations/17-elevenlabs-recovery-evidence-voice-transfer-post-read-repair.DRAFT.json"}}}
         ]},
         "calibrated_account_assurance": {"allOf": [
           {"$ref": "#/$defs/binding"},
@@ -359,7 +368,7 @@
         ]},
         "data_use_assurance": {"allOf": [
           {"$ref": "#/$defs/binding"},
-          {"properties": {"path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"}}}
+          {"properties": {"path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-DATA-USE-ASSURANCE.json"}}}
         ]},
         "target_rights": {"allOf": [
           {"$ref": "#/$defs/binding"},
@@ -445,8 +454,8 @@
       "type": "object", "additionalProperties": false,
       "required": ["raw_output_path", "working_output_path", "success_receipt_path", "failure_receipt_path", "conversion_receipt_path"],
       "properties": {
-        "raw_output_path": {"const": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"},
-        "working_output_path": {"const": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer.wav"},
+        "raw_output_path": {"const": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.pcm"},
+        "working_output_path": {"const": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.wav"},
         "success_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.run\\.json$"},
         "failure_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.failure\\.json$"},
         "conversion_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.conversion\\.json$"}
@@ -454,16 +463,16 @@
     },
     "draftArtifacts": {
       "allOf": [{"$ref": "#/$defs/artifacts"}, {"properties": {
-        "success_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.run.json"},
-        "failure_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.failure.json"},
-        "conversion_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.conversion.json"}
+        "success_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.run.json"},
+        "failure_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.failure.json"},
+        "conversion_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.conversion.json"}
       }}]
     },
     "activeArtifacts": {
       "allOf": [{"$ref": "#/$defs/artifacts"}, {"properties": {
-        "success_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.run.json"},
-        "failure_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.failure.json"},
-        "conversion_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.conversion.json"}
+        "success_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.run.json"},
+        "failure_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.failure.json"},
+        "conversion_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.conversion.json"}
       }}]
     },
     "consumption": {
@@ -473,7 +482,7 @@
         "status": {"enum": ["not_authorized", "unconsumed"]},
         "generation_post_calls_used": {"const": 0}, "outputs_received": {"const": 0},
         "spend_used_usd": {"const": 0},
-        "record_path": {"const": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot.voice-transfer-execution.consumed.json"},
+        "record_path": {"const": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-post-read-repair-one-shot.voice-transfer-execution.consumed.json"},
         "shared_global_transfer_latch": {"const": true}
       }
     }

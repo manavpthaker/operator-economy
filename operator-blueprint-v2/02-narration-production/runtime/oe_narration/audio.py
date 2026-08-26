@@ -3007,6 +3007,13 @@ _RECOVERY_TRANSFER_CONVERSION_SCHEMA = (
     "oe-elevenlabs-recovery-evidence-voice-transfer-conversion-v1"
 )
 _RECOVERY_TRANSFER_SCOPE = "elevenlabs_recovery_evidence_voice_transfer_execution"
+_RECOVERY_TRANSFER_RAW_PATH = (
+    "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.pcm"
+)
+_RECOVERY_TRANSFER_WORKING_PATH = (
+    "outputs/working/elevenlabs/P01-W0030-W0110/"
+    "saved-c-transfer-post-read-repair.wav"
+)
 
 
 def _require_recovery_transfer_private_bound(bound: _BoundInput) -> None:
@@ -3114,7 +3121,9 @@ def _replay_recovery_evidence_source_proof(
         authorization_relative = authorization_path.relative_to(repository).as_posix()
         latch_relative = latch_path.relative_to(repository).as_posix()
         run_relative = receipt_bound.path.relative_to(repository).as_posix()
-        raw_relative = (root / _TRANSFER_RAW_PATH).relative_to(repository).as_posix()
+        raw_relative = (root / _RECOVERY_TRANSFER_RAW_PATH).relative_to(
+            repository
+        ).as_posix()
     except ValueError:
         raise ValidationError("recovery transfer generated evidence left the repository") from None
     evidence_commit = authorization.get("evidence_baseline", {}).get("evidence_commit")
@@ -3210,7 +3219,7 @@ def inspect_recovery_evidence_raw_pcm(
         response = receipt.get("response")
         if not isinstance(raw_output, dict) or not isinstance(provider, dict) or not isinstance(response, dict):
             raise ValidationError("recovery transfer run evidence is incomplete")
-        expected_raw = root / _TRANSFER_RAW_PATH
+        expected_raw = root / _RECOVERY_TRANSFER_RAW_PATH
         if (
             receipt.get("schema_version") != _RECOVERY_TRANSFER_RUN_SCHEMA
             or receipt.get("outcome") != "success"
@@ -3220,7 +3229,7 @@ def inspect_recovery_evidence_raw_pcm(
             or receipt.get("part_id") != _TRANSFER_PART_ID
             or part_id not in {None, _TRANSFER_PART_ID}
             or raw_bound.path != expected_raw.absolute()
-            or raw_output.get("path") != _TRANSFER_RAW_PATH
+            or raw_output.get("path") != _RECOVERY_TRANSFER_RAW_PATH
             or raw_output.get("sha256") != raw_bound.sha256
             or raw_output.get("byte_count") != len(raw_bound.data)
             or response.get("http_status") != 200
@@ -3238,7 +3247,7 @@ def inspect_recovery_evidence_raw_pcm(
             or provider.get("application_redirects_followed") != 0
             or provider.get("application_fallbacks_used") != 0
             or provider.get("outputs_received") != 1
-            or receipt.get("working_output_path") != _TRANSFER_WORKING_PATH
+            or receipt.get("working_output_path") != _RECOVERY_TRANSFER_WORKING_PATH
             or receipt.get("conversion_receipt_path")
             != authorization["artifacts"]["conversion_receipt_path"]
         ):
@@ -3312,7 +3321,7 @@ def inspect_recovery_evidence_raw_pcm(
             "part_id": _TRANSFER_PART_ID,
             "authorization_sha256": receipt["authorization_sha256"],
             "consumption_record_sha256": receipt["consumption_record_sha256"],
-            "authorized_working_output_path": str(root / _TRANSFER_WORKING_PATH),
+            "authorized_working_output_path": str(root / _RECOVERY_TRANSFER_WORKING_PATH),
             "authorized_conversion_receipt_path": str(
                 root / authorization["artifacts"]["conversion_receipt_path"]
             ),

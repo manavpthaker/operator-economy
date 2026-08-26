@@ -136,22 +136,32 @@ RECOVERY_TRANSFER_SAFE_CONCLUSION = (
     "account identity, account data, response schema or contents, subscription state, "
     "exact UI/API account equality, or target-voice accessibility."
 )
-RECOVERY_TRANSFER_OUTCOME_COMMIT = "38802d8a5bf221bbf259fcef43d93b247197320e"
+RECOVERY_TRANSFER_HISTORICAL_ACCOUNT_OUTCOME_COMMIT = (
+    "38802d8a5bf221bbf259fcef43d93b247197320e"
+)
+RECOVERY_TRANSFER_OUTCOME_COMMIT = "08eac3729833803089ce08bb54d32a07007d14ca"
 RECOVERY_TRANSFER_TRANSACTION_BASIS_ID = (
+    "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER-POST-READ-REPAIR"
+)
+RECOVERY_TRANSFER_RIGHTS_TRANSACTION_BASIS_ID = (
     "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER"
 )
 RECOVERY_TRANSFER_OWNER = "Manav Thaker"
 RECOVERY_TRANSFER_DRAFT_ID = (
-    "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+    "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-"
+    "ai-visibility-v1.1-p01"
 )
 RECOVERY_TRANSFER_ACTIVE_ID = (
-    "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+    "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-"
+    "ai-visibility-v1.1-p01"
 )
 RECOVERY_TRANSFER_DRAFT_PATH = (
-    "authorizations/15-elevenlabs-recovery-evidence-voice-transfer.DRAFT.json"
+    "authorizations/17-elevenlabs-recovery-evidence-voice-transfer-post-read-repair."
+    "DRAFT.json"
 )
 RECOVERY_TRANSFER_ACTIVE_PATH = (
-    "authorizations/16-elevenlabs-recovery-evidence-voice-transfer.ACTIVE.authorization.json"
+    "authorizations/18-elevenlabs-recovery-evidence-voice-transfer-post-read-repair."
+    "ACTIVE.authorization.json"
 )
 RECOVERY_TRANSFER_DRAFT_BLOCKERS = [
     "evidence_baseline_r1_commit_pending",
@@ -197,10 +207,51 @@ RECOVERY_TRANSFER_ACCOUNT_ASSURANCE_PATH = (
     "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json"
 )
 RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH = (
-    "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"
+    "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-"
+    "DATA-USE-ASSURANCE.json"
+)
+RECOVERY_TRANSFER_DATA_USE_ASSURANCE_ID = (
+    "V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-DATA-USE-ASSURANCE"
 )
 RECOVERY_TRANSFER_TARGET_RIGHTS_PATH = (
     "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json"
+)
+RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH = (
+    "evidence/V1-ELEVENLABS-RECOVERY-EVIDENCE-VOICE-TRANSFER-CREDENTIAL-READ-"
+    "FAILURE-DISPOSITION.20260826T201339Z.json"
+)
+RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256 = (
+    "6d0c12aee89d3184af304ba96104cd9168bda44cc29eca24d9de2ee006bacb23"
+)
+RECOVERY_TRANSFER_PRIOR_ACTIVE_COMMIT = (
+    "c390ab82552a6583376e69d4e69f600c887261b6"
+)
+RECOVERY_TRANSFER_PRIOR_RUNTIME_COMMIT = (
+    "68b35aec846b0b14fc37b2e5e169c205106bd6f3"
+)
+RECOVERY_TRANSFER_PRIOR_EVIDENCE_COMMIT = (
+    "faeeeac79bfe18ca23d4219ff3ec787e15f6b033"
+)
+RECOVERY_TRANSFER_PRIOR_ACTIVE_PATH = (
+    "authorizations/16-elevenlabs-recovery-evidence-voice-transfer."
+    "ACTIVE.authorization.json"
+)
+RECOVERY_TRANSFER_PRIOR_ACTIVE_SHA256 = (
+    "8ecb679bd3db0d06ade33c45968b55e2a19d5e04f108a075cfdef1822a6b218a"
+)
+RECOVERY_TRANSFER_PRIOR_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot."
+    "voice-transfer-execution.consumed.json"
+)
+RECOVERY_TRANSFER_PRIOR_LATCH_SHA256 = (
+    "6f9479c54892862cdc53080ad8d774c451f6c0305f79d9f4f074385c0ebb99ba"
+)
+RECOVERY_TRANSFER_PRIOR_FAILURE_PATH = (
+    "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-"
+    "ai-visibility-v1.1-p01.failure.json"
+)
+RECOVERY_TRANSFER_PRIOR_FAILURE_SHA256 = (
+    "e999e3199f6b6437fe74267cc5f51861f6260ff814c1b666fa08f160aff6bfe0"
 )
 RECOVERY_TRANSFER_HISTORICAL_BROWSER_PATH = (
     "evidence/browser-readiness/"
@@ -342,6 +393,13 @@ TRANSFER_MAX_ELAPSED_SECONDS = 300
 TRANSFER_MAX_SPEND_USD = 0.12
 TRANSFER_RAW_PATH = "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"
 TRANSFER_WORKING_PATH = "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer.wav"
+RECOVERY_TRANSFER_RAW_PATH = (
+    "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.pcm"
+)
+RECOVERY_TRANSFER_WORKING_PATH = (
+    "outputs/working/elevenlabs/P01-W0030-W0110/"
+    "saved-c-transfer-post-read-repair.wav"
+)
 ACCOUNT_SCOPE_LATCH_PATH = (
     "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json"
 )
@@ -354,6 +412,10 @@ RECOVERY_CREDENTIAL_READ_LATCH_PATH = (
 TRANSFER_SCOPE_LATCH_PATH = (
     "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot."
     "voice-transfer-execution.consumed.json"
+)
+RECOVERY_TRANSFER_SCOPE_LATCH_PATH = (
+    "authorizations/consumed/elevenlabs-candidate-b-to-original-c-post-read-repair-"
+    "one-shot.voice-transfer-execution.consumed.json"
 )
 
 # Only public/non-sensitive contract inputs are required in the local Git DAG.
@@ -1376,14 +1438,10 @@ def _read_recovery_transfer_dotenv_key() -> bytearray:
             != tuple(getattr(after, field) for field in identity_fields)
         ):
             raise ValidationError("fixed recovery dotenv changed during its descriptor read")
+        view.release()
+        view = None
         return _parse_recovery_transfer_dotenv_key(raw)
-    except ValidationError as exc:
-        state = "bytes_read_not_accepted" if received else "no_credential_bytes_read"
-        exc.__traceback__ = None
-        exc.__cause__ = None
-        exc.__context__ = None
-        raise _RecoveryTransferCredentialReadFailure(state) from None
-    except OSError as exc:
+    except BaseException as exc:
         state = "bytes_read_not_accepted" if received else "no_credential_bytes_read"
         exc.__traceback__ = None
         exc.__cause__ = None
@@ -1881,9 +1939,18 @@ def _transfer_artifacts(authorization_id: str) -> dict[str, str]:
 def _recovery_transfer_artifacts(active: bool) -> dict[str, str]:
     """Return the status-bound paths for the additive one-transaction branch."""
 
-    return _transfer_artifacts(
+    authorization_id = (
         RECOVERY_TRANSFER_ACTIVE_ID if active else RECOVERY_TRANSFER_DRAFT_ID
     )
+    return {
+        "raw_output_path": RECOVERY_TRANSFER_RAW_PATH,
+        "working_output_path": RECOVERY_TRANSFER_WORKING_PATH,
+        "success_receipt_path": f"receipts/elevenlabs/{authorization_id}.run.json",
+        "failure_receipt_path": f"receipts/elevenlabs/{authorization_id}.failure.json",
+        "conversion_receipt_path": (
+            f"receipts/elevenlabs/{authorization_id}.conversion.json"
+        ),
+    }
 
 
 def _account_consumption_path(authorization_id: str) -> str:
@@ -9220,6 +9287,7 @@ def _recovery_transfer_prerequisites(active: bool) -> dict[str, Any]:
         "owner_audition_confirmation",
         "elevenlabs_data_use",
         "target_voice_rights",
+        "prior_zero_provider_transfer_disposition",
         "official_media_contract",
     )
     if not active:
@@ -9298,7 +9366,7 @@ def _recovery_transfer_consumption(active: bool) -> dict[str, Any]:
         "generation_post_calls_used": 0,
         "outputs_received": 0,
         "spend_used_usd": 0,
-        "record_path": TRANSFER_SCOPE_LATCH_PATH,
+        "record_path": RECOVERY_TRANSFER_SCOPE_LATCH_PATH,
         "shared_global_transfer_latch": True,
     }
 
@@ -9517,10 +9585,9 @@ def _validate_recovery_transfer_runtime_bindings(
             required_r0_paths = {
                 _recovery_transfer_runtime_files()[name][0]
                 for name in (
-                    "voice_transfer_runtime", "transfer_worker_runtime",
-                    "cli_runtime", "audio_runtime", "init_runtime",
+                    "voice_transfer_runtime", "audio_runtime",
                     "recovery_transfer_schema", "voice_transfer_tests",
-                    "transfer_worker_tests", "capture_audio_tests",
+                    "capture_audio_tests",
                 )
             }
             if (
@@ -9784,7 +9851,22 @@ def _validate_recovery_transfer_evidence_baseline(
                 or sha256_bytes(raw) != digest
             ):
                 raise ValidationError("recovery-evidence transfer R1 binding drifted")
-            expected_r1_paths[relative] = (raw, digest)
+            if name in {
+                "draft_authorization", "data_use_assurance",
+                "fresh_browser_readiness",
+            }:
+                expected_r1_paths[relative] = (raw, digest)
+            else:
+                for commit_value in (RECOVERY_TRANSFER_OUTCOME_COMMIT, evidence_commit):
+                    committed_stable = _bound_git(
+                        runtime_bindings,
+                        ["show", f"{commit_value}:{relative}"],
+                        max_bytes=10_000_000,
+                    )
+                    if committed_stable != raw or sha256_bytes(committed_stable) != digest:
+                        raise ValidationError(
+                            "stable recovery-evidence transfer R1 binding drifted"
+                        )
         delta = _bound_git(
             runtime_bindings,
             [
@@ -10046,7 +10128,8 @@ def _validate_recovery_transfer_account_evidence(
         != "V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE"
         or assurance.get("status") != "calibrated_non_authorizing"
         or assurance.get("provider") != "elevenlabs"
-        or assurance.get("outcome_commit") != RECOVERY_TRANSFER_OUTCOME_COMMIT
+        or assurance.get("outcome_commit")
+        != RECOVERY_TRANSFER_HISTORICAL_ACCOUNT_OUTCOME_COMMIT
         or not _exact(assurance_records, expected_bindings)
         or assurance_outcome
         != {
@@ -10242,6 +10325,292 @@ def _validate_recovery_transfer_account_evidence(
     }
 
 
+def _validate_recovery_transfer_prior_zero_provider_disposition(
+    root: Path,
+    disposition: dict[str, Any],
+    disposition_raw: bytes,
+    disposition_sha: str,
+    runtime_bindings: dict[str, Any],
+    errors: list[str],
+) -> None:
+    """Prove the consumed predecessor stopped before GO and cannot be reused."""
+
+    try:
+        top = _strict(
+            disposition,
+            {
+                "schema_version", "record_id", "status", "provider", "recorded_at",
+                "materialized_by", "transaction_basis_id", "source_chain", "chronology",
+                "failure_receipt_correction", "credential_handling", "local_diagnosis",
+                "provider_and_output_outcome", "terminality", "authority",
+            },
+            "prior zero-provider transfer disposition",
+        )
+        source_chain = _strict(
+            top.get("source_chain"),
+            {
+                "runtime_commit", "evidence_commit", "active_commit",
+                "active_authorization", "consumption_latch", "failure_receipt",
+                "bound_source_artifacts_unchanged",
+            },
+            "prior zero-provider transfer source chain",
+        )
+        for name in ("active_authorization", "consumption_latch", "failure_receipt"):
+            _strict(
+                source_chain.get(name),
+                {"path", "sha256"},
+                f"prior zero-provider transfer {name}",
+            )
+        outcome = _strict(
+            top.get("provider_and_output_outcome"),
+            {
+                "worker_ready_before_latch", "child_containment_state", "go_released",
+                "account_get_calls_made", "application_http_attempts",
+                "provider_post_attempts", "application_retries_made",
+                "application_redirects_followed", "application_fallbacks_used",
+                "network_call_state", "network_stack_address_selection_state",
+                "provider_request_state", "provider_response_received", "http_status",
+                "response_bytes", "provider_mutation_state", "provider_output_state",
+                "outputs_received", "raw_output_created", "working_output_created",
+                "run_receipt_created", "conversion_receipt_created", "spend_used_usd",
+            },
+            "prior zero-provider transfer outcome",
+        )
+        terminality = _strict(
+            top.get("terminality"),
+            {
+                "transaction_consumed", "active_authorization_reusable",
+                "consumption_latch_reusable", "consumption_latch_deletable_for_retry",
+                "retry_permitted", "replay_permitted", "resumption_permitted",
+                "automatic_retry_permitted",
+                "future_action_requires_fresh_reviewed_committed_transaction_basis",
+                "future_action_requires_separate_active_authorization",
+            },
+            "prior zero-provider transfer terminality",
+        )
+        correction = _strict(
+            top.get("failure_receipt_correction"),
+            {
+                "receipt_preserved_unchanged", "credential_descriptor_read_attempts",
+                "credential_access_state", "credential_accessed",
+                "credential_accessed_definition",
+                "receipt_credential_state_is_not_authoritative_after_this_disposition",
+            },
+            "prior zero-provider transfer receipt correction",
+        )
+        for name in (
+            "credential_descriptor_read_attempts", "credential_access_state",
+            "credential_accessed",
+        ):
+            _strict(
+                correction.get(name),
+                {"recorded_value", "corrected_value"},
+                f"prior zero-provider transfer correction {name}",
+            )
+        handling = _strict(
+            top.get("credential_handling"),
+            {
+                "fixed_dotenv_descriptor_read_attempts", "whole_dotenv_descriptor_read",
+                "assignment_copied_transiently_into_mutable_result",
+                "outer_raw_buffer_zeroed_before_buffer_error",
+                "buffer_clear_raised_while_memoryview_exported",
+                "outer_cleanup_released_memoryview", "outer_cleanup_cleared_raw_buffer",
+                "pending_return_cancelled", "executor_accepted_credential",
+                "credential_fingerprint_verified", "browser_suffix_verified",
+                "credential_sent_to_worker", "credential_sent_to_provider",
+                "raw_credential_persisted", "extracted_result_deallocated",
+                "extracted_result_explicitly_zeroed", "freed_heap_residual_state",
+                "scrubbing_conclusion",
+            },
+            "prior zero-provider transfer credential handling",
+        )
+        chronology = _strict(
+            top.get("chronology"),
+            {
+                "active_materialized_at", "active_committed_at", "latch_consumed_at",
+                "failure_recorded_at", "disposition_recorded_at", "ordered",
+            },
+            "prior zero-provider transfer chronology",
+        )
+        local_diagnosis = _strict(
+            top.get("local_diagnosis"),
+            {
+                "state", "failure_code_recorded",
+                "exception_class_supported_by_offline_reproduction",
+                "best_supported_trigger", "live_traceback_persisted",
+                "diagnosis_is_provider_derived", "diagnosis_is_execution_authority",
+            },
+            "prior zero-provider transfer local diagnosis",
+        )
+        authority = _strict(
+            top.get("authority"),
+            set(_recovery_transfer_zero_authority()),
+            "prior zero-provider transfer authority",
+        )
+        expected_source = {
+            "runtime_commit": RECOVERY_TRANSFER_PRIOR_RUNTIME_COMMIT,
+            "evidence_commit": RECOVERY_TRANSFER_PRIOR_EVIDENCE_COMMIT,
+            "active_commit": RECOVERY_TRANSFER_PRIOR_ACTIVE_COMMIT,
+            "active_authorization": {
+                "path": RECOVERY_TRANSFER_PRIOR_ACTIVE_PATH,
+                "sha256": RECOVERY_TRANSFER_PRIOR_ACTIVE_SHA256,
+            },
+            "consumption_latch": {
+                "path": RECOVERY_TRANSFER_PRIOR_LATCH_PATH,
+                "sha256": RECOVERY_TRANSFER_PRIOR_LATCH_SHA256,
+            },
+            "failure_receipt": {
+                "path": RECOVERY_TRANSFER_PRIOR_FAILURE_PATH,
+                "sha256": RECOVERY_TRANSFER_PRIOR_FAILURE_SHA256,
+            },
+            "bound_source_artifacts_unchanged": True,
+        }
+        if (
+            disposition_sha != RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256
+            or sha256_bytes(disposition_raw) != disposition_sha
+            or top.get("schema_version")
+            != "oe-elevenlabs-recovery-evidence-voice-transfer-corrective-disposition-v1"
+            or top.get("record_id")
+            != "V1-ELEVENLABS-RECOVERY-EVIDENCE-VOICE-TRANSFER-CREDENTIAL-READ-"
+            "FAILURE-DISPOSITION-20260826T201339Z"
+            or top.get("status") != "consumed_failure_corrected_non_authorizing"
+            or top.get("provider") != "elevenlabs"
+            or top.get("materialized_by") != "Codex"
+            or top.get("transaction_basis_id")
+            != RECOVERY_TRANSFER_RIGHTS_TRANSACTION_BASIS_ID
+            or not _exact(source_chain, expected_source)
+            or chronology.get("ordered") is not True
+            or correction.get("receipt_preserved_unchanged") is not True
+            or correction.get("credential_descriptor_read_attempts")
+            != {"recorded_value": 1, "corrected_value": 1}
+            or correction.get("credential_access_state")
+            != {
+                "recorded_value": "not_attempted",
+                "corrected_value": "bytes_read_not_accepted",
+            }
+            or correction.get("credential_accessed")
+            != {"recorded_value": False, "corrected_value": True}
+            or correction.get(
+                "receipt_credential_state_is_not_authoritative_after_this_disposition"
+            )
+            is not True
+            or handling.get("fixed_dotenv_descriptor_read_attempts") != 1
+            or handling.get("whole_dotenv_descriptor_read") is not True
+            or handling.get("executor_accepted_credential") is not False
+            or handling.get("credential_fingerprint_verified") is not False
+            or handling.get("browser_suffix_verified") is not False
+            or handling.get("credential_sent_to_worker") is not False
+            or handling.get("credential_sent_to_provider") is not False
+            or handling.get("raw_credential_persisted") is not False
+            or outcome
+            != {
+                "worker_ready_before_latch": True,
+                "child_containment_state": "credential_free_worker_closed",
+                "go_released": False,
+                "account_get_calls_made": 0,
+                "application_http_attempts": 0,
+                "provider_post_attempts": 0,
+                "application_retries_made": 0,
+                "application_redirects_followed": 0,
+                "application_fallbacks_used": 0,
+                "network_call_state": "not_called",
+                "network_stack_address_selection_state": "not_applicable",
+                "provider_request_state": "not_started",
+                "provider_response_received": False,
+                "http_status": None,
+                "response_bytes": 0,
+                "provider_mutation_state": "none",
+                "provider_output_state": "none",
+                "outputs_received": 0,
+                "raw_output_created": False,
+                "working_output_created": False,
+                "run_receipt_created": False,
+                "conversion_receipt_created": False,
+                "spend_used_usd": 0,
+            }
+            or terminality
+            != {
+                "transaction_consumed": True,
+                "active_authorization_reusable": False,
+                "consumption_latch_reusable": False,
+                "consumption_latch_deletable_for_retry": False,
+                "retry_permitted": False,
+                "replay_permitted": False,
+                "resumption_permitted": False,
+                "automatic_retry_permitted": False,
+                "future_action_requires_fresh_reviewed_committed_transaction_basis": True,
+                "future_action_requires_separate_active_authorization": True,
+            }
+            or authority != _recovery_transfer_zero_authority()
+            or local_diagnosis.get("failure_code_recorded") != "unexpected_local_failure"
+            or local_diagnosis.get("diagnosis_is_provider_derived") is not False
+            or local_diagnosis.get("diagnosis_is_execution_authority") is not False
+        ):
+            raise ValidationError(
+                "prior transfer disposition does not prove a terminal zero-provider outcome"
+            )
+
+        repository = pt._guide_repository_root()
+        disposition_relative = (root / RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH).relative_to(
+            repository
+        ).as_posix()
+        committed_disposition = _bound_git(
+            runtime_bindings,
+            ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{disposition_relative}"],
+            max_bytes=2_000_000,
+        )
+        if committed_disposition != disposition_raw:
+            raise ValidationError("prior transfer disposition Git bytes drifted")
+        for label, binding in (
+            ("ACTIVE", expected_source["active_authorization"]),
+            ("latch", expected_source["consumption_latch"]),
+            ("failure receipt", expected_source["failure_receipt"]),
+        ):
+            assert isinstance(binding, dict)
+            path, document, raw, digest = _read_recovery_private_json_record(
+                root,
+                binding["path"],
+                binding["sha256"],
+                f"prior transfer {label}",
+            )
+            relative = path.relative_to(repository).as_posix()
+            committed = _bound_git(
+                runtime_bindings,
+                ["show", f"{RECOVERY_TRANSFER_OUTCOME_COMMIT}:{relative}"],
+                max_bytes=2_000_000,
+            )
+            if committed != raw or sha256_bytes(committed) != digest:
+                raise ValidationError(f"prior transfer {label} Git bytes drifted")
+            if label == "latch" and (
+                document.get("generation_post_budget_consumed") is not True
+                or document.get("generation_post_calls_observed") != 0
+                or document.get("network_called_at_consumption") is not False
+                or document.get("outputs_received") != 0
+                or document.get("spend_used_usd") != 0
+                or document.get("retry_or_replay_permitted") is not False
+            ):
+                raise ValidationError("prior transfer latch is not a zero-provider terminal burn")
+            if label == "failure receipt" and (
+                document.get("go_released") is not False
+                or document.get("application_http_attempts") != 0
+                or document.get("network_call_state") != "not_called"
+                or document.get("provider_request_state") != "not_started"
+                or document.get("provider_response_received") is not False
+                or document.get("outputs_received") != 0
+                or document.get("raw_output_created") is not False
+                or document.get("retry_permitted") is not False
+                or document.get("replay_permitted") is not False
+            ):
+                raise ValidationError(
+                    "prior transfer failure receipt does not prove zero provider calls"
+                )
+    except (KeyError, OSError, UnicodeError, ValidationError, ValueError) as exc:
+        if isinstance(exc, ValidationError):
+            errors.extend(exc.errors)
+        else:
+            errors.append("prior zero-provider transfer disposition validation failed")
+
+
 def _validate_recovery_transfer_prerequisites(
     root: Path,
     value: Any,
@@ -10351,6 +10720,9 @@ def _validate_recovery_transfer_prerequisites(
                 "owner_selection": RECOVERY_TRANSFER_GUIDE_SELECTION_PATH,
                 "elevenlabs_data_use": RECOVERY_TRANSFER_DATA_USE_ASSURANCE_PATH,
                 "target_voice_rights": RECOVERY_TRANSFER_TARGET_RIGHTS_PATH,
+                "prior_zero_provider_transfer_disposition": (
+                    RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH
+                ),
                 "owner_audition_confirmation": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
                 "official_media_contract": MEDIA_CONTRACT_BASIS_PATH,
             }.get(name)
@@ -10360,6 +10732,9 @@ def _validate_recovery_transfer_prerequisites(
                 "guide_qa": RECOVERY_TRANSFER_GUIDE_QA_SHA256,
                 "owner_selection": RECOVERY_TRANSFER_GUIDE_SELECTION_SHA256,
                 "owner_audition_confirmation": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
+                "prior_zero_provider_transfer_disposition": (
+                    RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256
+                ),
                 "official_media_contract": MEDIA_CONTRACT_BASIS_SHA256,
             }.get(name)
             if expected_sha is not None and binding.get("sha256") != expected_sha:
@@ -10367,6 +10742,7 @@ def _validate_recovery_transfer_prerequisites(
             if name in {
                 "guide_qa", "owner_selection", "owner_audition_confirmation",
                 "elevenlabs_data_use", "target_voice_rights",
+                "prior_zero_provider_transfer_disposition",
             }:
                 path, document, raw, digest = _read_recovery_private_json_record(
                     root,
@@ -10412,7 +10788,17 @@ def _validate_recovery_transfer_prerequisites(
     audition = documents["owner_audition_confirmation"]
     data_use = documents["elevenlabs_data_use"]
     rights = documents["target_voice_rights"]
+    prior_disposition = documents["prior_zero_provider_transfer_disposition"]
     media = documents["official_media_contract"]
+    prior_disposition_record = records["prior_zero_provider_transfer_disposition"]
+    _validate_recovery_transfer_prior_zero_provider_disposition(
+        root,
+        prior_disposition,
+        prior_disposition_record[1],
+        prior_disposition_record[2],
+        runtime_bindings,
+        errors,
+    )
     data_top = _strict(
         data_use,
         {
@@ -10434,6 +10820,7 @@ def _validate_recovery_transfer_prerequisites(
             "fresh_browser_readiness", "fresh_browser_capture",
             "official_data_use_basis", "calibrated_account_assurance",
             "target_rights", "terminal_disposition",
+            "prior_zero_provider_transfer_disposition",
             "owner_audition_and_bounded_transfer_approval",
         },
         "recovery-evidence data-use source chain",
@@ -10535,6 +10922,10 @@ def _validate_recovery_transfer_prerequisites(
             "path": RECOVERY_TRANSFER_DISPOSITION_PATH,
             "sha256": RECOVERY_TRANSFER_DISPOSITION_SHA256,
         },
+        "prior_zero_provider_transfer_disposition": {
+            "path": RECOVERY_TRANSFER_PRIOR_DISPOSITION_PATH,
+            "sha256": RECOVERY_TRANSFER_PRIOR_DISPOSITION_SHA256,
+        },
         "owner_audition_and_bounded_transfer_approval": {
             "path": RECOVERY_TRANSFER_OWNER_APPROVAL_PATH,
             "sha256": RECOVERY_TRANSFER_OWNER_APPROVAL_SHA256,
@@ -10576,7 +10967,7 @@ def _validate_recovery_transfer_prerequisites(
         data_top.get("schema_version")
         != "oe-elevenlabs-recovery-evidence-data-use-assurance-v1"
         or data_top.get("record_id")
-        != "V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE"
+        != RECOVERY_TRANSFER_DATA_USE_ASSURANCE_ID
         or data_top.get("status") != "verified_fresh_non_authorizing"
         or data_top.get("provider") != "elevenlabs"
         or data_top.get("owner") != approved_by
@@ -10619,7 +11010,8 @@ def _validate_recovery_transfer_prerequisites(
         or rights_top.get("status") != "owner_scope_recorded_non_authorizing"
         or rights_top.get("provider") != "elevenlabs"
         or rights_top.get("owner") != approved_by
-        or rights_top.get("transaction_basis_id") != RECOVERY_TRANSFER_TRANSACTION_BASIS_ID
+        or rights_top.get("transaction_basis_id")
+        != RECOVERY_TRANSFER_RIGHTS_TRANSACTION_BASIS_ID
         or not _exact(rights_evidence, expected_rights_evidence)
         or not _exact(rights_provenance, expected_rights_provenance)
         or rights_owner_authority != _recovery_transfer_scope_approval()

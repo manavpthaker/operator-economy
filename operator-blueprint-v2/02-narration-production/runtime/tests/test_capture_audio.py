@@ -1964,7 +1964,7 @@ class AudioTests(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         fixture = Path(temporary.name).resolve()
         authorization_path = fixture / "authorizations" / "unit.ACTIVE.json"
-        latch_path = fixture / voice_transfer_module.TRANSFER_SCOPE_LATCH_PATH
+        latch_path = fixture / voice_transfer_module.RECOVERY_TRANSFER_SCOPE_LATCH_PATH
         run_path = fixture / "receipts" / "elevenlabs" / "unit.run.json"
         for path in (authorization_path, latch_path, run_path):
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -2025,7 +2025,7 @@ class AudioTests(unittest.TestCase):
         authorization_relative = authorization_path.relative_to(repository).as_posix()
         latch_relative = latch_path.relative_to(repository).as_posix()
         run_relative = run_path.relative_to(repository).as_posix()
-        raw_relative = (fixture / audio_module._TRANSFER_RAW_PATH).relative_to(
+        raw_relative = (fixture / audio_module._RECOVERY_TRANSFER_RAW_PATH).relative_to(
             repository
         ).as_posix()
 
