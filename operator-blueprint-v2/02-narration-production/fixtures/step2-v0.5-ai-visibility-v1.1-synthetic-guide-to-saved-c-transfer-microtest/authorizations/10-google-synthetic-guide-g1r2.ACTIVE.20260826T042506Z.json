@@ -1,0 +1,123 @@
+{
+  "schema_version": "oe-synthetic-guide-authorization-v2",
+  "authorization_id": "AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z",
+  "status": "active",
+  "approved": true,
+  "scope": "synthetic_guide_generation",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "recovery_binding": {
+    "recovery_id": "G1R2-AIPLATFORM-SERVICE-ENABLED",
+    "execution_semantics": "fresh_authorization_not_retry_or_resumption",
+    "prior_failures": [
+      {
+        "attempt_id": "G1",
+        "failure_receipt_path": "receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json",
+        "failure_receipt_sha256": "3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1"
+      },
+      {
+        "attempt_id": "G1R1",
+        "failure_receipt_path": "receipts/google/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.failure.json",
+        "failure_receipt_sha256": "df00adefe5e3215ff0c60ed19fe7835d2056a78ba2130e46b18a0d66de2161af"
+      }
+    ],
+    "diagnosis": {
+      "path": "evidence/G1R2-403-DIAGNOSIS.20260826T014109Z.json",
+      "sha256": "335c7d6e29052f179dac19f868acea2430d3c99fcaedd6baf2c69cff7f7496d0",
+      "cause_before_service_enablement": "unknown"
+    },
+    "service_enablement": {
+      "authorization_path": "authorizations/08-google-aiplatform-service-enablement-partial-response-repair.ACTIVE.20260826T033333Z.json",
+      "authorization_sha256": "c98d4ec1e12485fedda5f87df46e52b66bac99a916fb8a00632108efc3311d4b",
+      "consumption_record_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.consumed.json",
+      "consumption_record_sha256": "45ee119e1ee5e258152226be72a435c1d0bd61e851295b4d311f5c24a20ee246",
+      "run_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.run.json",
+      "run_receipt_sha256": "a439c64c0b58f6bc7eee22ee15f21bfe5d77da5d0f88712797f7f9b0c2f98b60",
+      "success_disposition_path": "evidence/G1R2-AIPLATFORM-SERVICE-SUCCESS-AND-GUIDE-READINESS.20260826T034027Z.json",
+      "success_disposition_sha256": "4497327fd3bac9c751f56c325ebf27d41b5413b92b05206177cf05fa73df86f6",
+      "service": "aiplatform.googleapis.com",
+      "final_state": "ENABLED"
+    },
+    "safe_error_capture_runtime_sha256": "27cf742ac8c169c05474269f6a40af642091c8180e8412cc410d2b8ab72ae6d9",
+    "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba",
+    "fresh_output_paths": [
+      "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+      "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"
+    ],
+    "prior_outputs_received": 0,
+    "prior_authorizations_reusable": false,
+    "retry_or_resumption_authorized": false
+  },
+  "runtime_bindings": {
+    "git_commit": "9d0ec893290c18136989c345e276c6452f58c4ab",
+    "executor_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/performance_transfer.py",
+    "executor_sha256": "ac1f6b48b3c9ac60ecff6281d1b7d0850b24efd06ae387b934ed16920c326a77",
+    "cli_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/cli.py",
+    "cli_sha256": "f72012acec35efc2c2d301c1a83db5931566f484c3eb140d3b8d4b60b111b0d4",
+    "core_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/core.py",
+    "core_sha256": "7ccb3dce6b927f3f3f0646be8ebff5b639d30eaf0993987340b18de187e33898",
+    "init_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/__init__.py",
+    "init_sha256": "78c23aac4140989c640a0627c1dce5e049f52b055732e55f4eebcad4001e10b0",
+    "schema_path": "operator-blueprint-v2/02-narration-production/schemas/synthetic-guide-authorization.schema.json",
+    "schema_sha256": "67b67d24a518ba6da5721a88dbe162fe92c2aefc0bf27820291a824587c21db4",
+    "tests_path": "operator-blueprint-v2/02-narration-production/runtime/tests/test_performance_transfer.py",
+    "tests_sha256": "b858a68afb10d5d4bc7979b3d36a66a22e3f42abcd7109bb78cdd385121683a7"
+  },
+  "bindings": {
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "microtest_token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "acting_prompt_sha256": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416",
+    "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba"
+  },
+  "action": {
+    "provider": "google_cloud_text_to_speech",
+    "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+    "method": "POST",
+    "model_id": "gemini-2.5-pro-tts",
+    "voice_name": "Achird",
+    "language_code": "en-US",
+    "request_count": 2,
+    "identical_unseeded_requests": true,
+    "output_encoding": "LINEAR16",
+    "sample_rate_hz": 24000,
+    "no_retry": true,
+    "no_redirect": true,
+    "no_fallback": true,
+    "disclosure": "exact_locked_words_and_nonlexical_acting_prompt_to_google_cloud_tts"
+  },
+  "billing_project_binding": {
+    "required": true,
+    "raw_identifier_stored": false,
+    "quota_project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+    "credential_source": "local_untracked_google_adc"
+  },
+  "authorized_limits": {
+    "max_calls": 2,
+    "max_outputs": 2,
+    "max_output_duration_seconds": 50,
+    "max_output_wav_bytes": 2500000,
+    "max_total_audio_bytes": 5000000,
+    "max_response_bytes_per_call": 4000000,
+    "max_request_body_bytes": 1440,
+    "max_total_request_bytes": 2880,
+    "max_spend_usd": 0.66
+  },
+  "consumption": {
+    "status": "unconsumed",
+    "calls_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": "authorizations/consumed/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.consumed.json"
+  },
+  "approved_by": "Manav Thaker",
+  "approved_at": "2026-08-26T04:25:06Z",
+  "expires_at": "2026-08-27T04:25:06Z",
+  "execution_ready": true,
+  "blockers": []
+}
