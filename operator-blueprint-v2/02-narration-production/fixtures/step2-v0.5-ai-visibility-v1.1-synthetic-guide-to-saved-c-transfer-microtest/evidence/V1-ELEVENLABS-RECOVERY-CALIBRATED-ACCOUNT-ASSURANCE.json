@@ -1,0 +1,85 @@
+{
+  "schema_version": "oe-elevenlabs-recovery-calibrated-account-assurance-v1",
+  "record_id": "V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE",
+  "status": "calibrated_non_authorizing",
+  "provider": "elevenlabs",
+  "recorded_at": "2026-08-26T19:31:38Z",
+  "outcome_commit": "38802d8a5bf221bbf259fcef43d93b247197320e",
+  "recovery_evidence": {
+    "recovery_authorization": {
+      "path": "authorizations/14-elevenlabs-account-recovery.ACTIVE.20260826T133955Z.json",
+      "sha256": "e16537a274c9b4f54a9c50c248b1757f7510f05b8092eb6d10e78a07d7cf1eae"
+    },
+    "credential_read_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot.consumed.json",
+      "sha256": "4992d2a318584efc7d6bf483931d4a777f659e9c5d6e1f893ef61aa620c53157"
+    },
+    "provider_call_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot.consumed.json",
+      "sha256": "dedb2de93b876fdc3a0ef6f36e68cefe7b8f99cad01b811eebe80caff6a378ca"
+    },
+    "http_200_failure_receipt": {
+      "path": "receipts/elevenlabs-account/AUTH-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T133955Z.recovery-failure.json",
+      "sha256": "5340db5eabe90110479001ea4b0d3f697971978fc1d83f45f3e77cf0c1a7c654"
+    },
+    "terminal_disposition": {
+      "path": "evidence/V1-ELEVENLABS-ACCOUNT-RECOVERY-HTTP-200-ZERO-BODY-FAILURE-DISPOSITION.20260826T135047Z.json",
+      "sha256": "eb2db5e420fcc8ea7c19d878e781759cc6a0c874a260d0bdb2ed20e80799c877"
+    }
+  },
+  "observed_outcome": {
+    "provider_response_received": true,
+    "http_status": 200,
+    "provider_get_attempts_consumed": 1,
+    "provider_post_attempts_consumed": 0,
+    "failure_code": "provider_total_deadline_unenforceable",
+    "response_body_bytes_read": 0,
+    "raw_response_stored": false,
+    "response_body_stored": false,
+    "response_hash_stored": false,
+    "response_mime_type": null,
+    "response_content_encoding": null
+  },
+  "calibrated_interpretation": {
+    "credential_authentication_inference": "supported_by_http_200_not_independently_verified",
+    "authentication_conclusion": "HTTP 200 supports, but does not independently prove, that the credential-bearing request was accepted at this endpoint.",
+    "response_body_contents_state": "unknown_not_read",
+    "account_payload_parsed": false,
+    "account_data_observed": false,
+    "identity_observed": false,
+    "valid_user_id_observed": false,
+    "subscription_state_observed": false,
+    "target_voice_accessibility_state": "unknown",
+    "account_linkage_strength": "contextual_non_cryptographic",
+    "ui_api_account_equality_state": "unknown",
+    "exact_ui_api_account_equality_verified": false,
+    "exact_ui_api_account_equality_claimed": false,
+    "account_verified_claimed": false,
+    "key_verified_claimed": false,
+    "safe_conclusion": "HTTP 200 supports only the calibrated credential-authentication inference above. With zero response-body bytes read, this attempt establishes no specific user ID, account identity, account data, response schema or contents, subscription state, exact UI/API account equality, or target-voice accessibility."
+  },
+  "terminality": {
+    "automatic_retry_permitted": false,
+    "retry_or_resumption": false,
+    "recovery_authorization_reusable": false,
+    "credential_read_latch_reusable": false,
+    "provider_call_latch_reusable": false,
+    "future_action_requires_separate_reviewed_committed_transaction_basis": true
+  },
+  "authority": {
+    "account_get_authorized": false,
+    "account_mutation_authorized": false,
+    "audio_upload_authorized": false,
+    "creative_approval_conferred": false,
+    "credential_access_authorized": false,
+    "generation_post_authorized": false,
+    "network_authorized": false,
+    "publication_authorized": false,
+    "sharing_authorized": false,
+    "spend_authorized": false,
+    "step2_lock_authorized": false,
+    "step3_authorized": false,
+    "this_record_authorizes_provider_action": false,
+    "voice_transfer_authorized": false
+  }
+}
