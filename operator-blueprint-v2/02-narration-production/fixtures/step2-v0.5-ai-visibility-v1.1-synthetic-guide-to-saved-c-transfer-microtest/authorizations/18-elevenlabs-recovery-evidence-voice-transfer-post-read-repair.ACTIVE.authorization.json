@@ -1,0 +1,258 @@
+{
+  "schema_version": "oe-elevenlabs-recovery-evidence-voice-transfer-authorization-v1",
+  "authorization_id": "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01",
+  "status": "active",
+  "provider_action_authorized": true,
+  "scope": "elevenlabs_recovery_evidence_voice_transfer_execution",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "transaction_basis_id": "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER-POST-READ-REPAIR",
+  "evidence_owner": "Manav Thaker",
+  "v1_lineage": {
+    "path": "authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json",
+    "sha256": "1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036",
+    "authorization_id": "DRAFT-V1-ai-visibility-v1.1-p01-saved-c-transfer",
+    "status": "draft",
+    "approved": false,
+    "max_calls": 0,
+    "max_spend_usd": 0
+  },
+  "bindings": {
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "selected_guide_sha256": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915",
+    "selected_guide_byte_count": 1646010,
+    "selected_guide_duration_seconds": 34.290958333333336,
+    "guide_run_receipt_sha256": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f",
+    "primary_multipart_body_sha256": "6b57da1e6d1dc62b8ec31d34b6629da087be15f51b59998a83109f25403931dc",
+    "primary_multipart_body_bytes": 1646839,
+    "primary_request_sha256": "ccce1a1a46476c6a5b340416a7c97ccff34aac8a54edb454e9b411dcdfaa8c76",
+    "multipart_content_type": "multipart/form-data; boundary=oe-v05-04448e9fdd50c8de67912b454e8d396f",
+    "enable_logging": true,
+    "normalized_http_request_sha256": "878e7810bdddec3073cc6eee4d08072da6e312a4969bfc94a0daade19f321995"
+  },
+  "prerequisites": {
+    "selected_guide": {
+      "state": "verified",
+      "path": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+      "sha256": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915",
+      "byte_count": 1646010,
+      "duration_seconds": 34.290958333333336,
+      "container": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "guide_request_id": "gemini-guide-02",
+      "guide_run_receipt_path": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json",
+      "guide_run_receipt_sha256": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f"
+    },
+    "guide_qa": {
+      "state": "verified",
+      "path": "reviews/GUIDE-QA.candidate-B.20260826T061117Z.json",
+      "sha256": "aa56ed77ec7bac54c8bfe4c3f71954824ede6ffd74f9489246d031945d3e0909"
+    },
+    "owner_selection": {
+      "state": "verified",
+      "path": "reviews/GUIDE-OWNER-SELECTION.candidate-B.20260826T061117Z.json",
+      "sha256": "eb1a33aa270b97f5f31c3fdaf37bfe49b242786fe29be9082a67124076443236"
+    },
+    "owner_audition_confirmation": {
+      "state": "verified",
+      "path": "evidence/V1-OWNER-AUDITION-AND-BOUNDED-TRANSFER-APPROVAL.20260826T061117Z.json",
+      "sha256": "c90783e767d6d9f8ebbd408fc4bc88ef4d69138c5547b95e99fbcacd49e216f0"
+    },
+    "elevenlabs_data_use": {
+      "state": "verified",
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-DATA-USE-ASSURANCE.json",
+      "sha256": "aea0c2820f027bdd058cea8dc6f4723dbad1e0dd4a73dc2d45fbd6199f62cc15"
+    },
+    "target_voice_rights": {
+      "state": "verified",
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json",
+      "sha256": "27b54095f99582ccba4df8b502cdefb08f17e4b0db5c4a8274e9a13f7f4c1e68"
+    },
+    "prior_zero_provider_transfer_disposition": {
+      "state": "verified",
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-EVIDENCE-VOICE-TRANSFER-CREDENTIAL-READ-FAILURE-DISPOSITION.20260826T201339Z.json",
+      "sha256": "6d0c12aee89d3184af304ba96104cd9168bda44cc29eca24d9de2ee006bacb23"
+    },
+    "official_media_contract": {
+      "state": "verified",
+      "path": "evidence/V1-ELEVENLABS-PCM48000-MEDIA-CONTRACT-BASIS.20260826T073836Z.json",
+      "sha256": "175feb4d640d48a0fa4fc4f8e8e278478e8c5bd32bb89c9087974ebb149d78a9"
+    }
+  },
+  "action": {
+    "provider": "elevenlabs",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "method": "POST",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_multilingual_sts_v2",
+    "seed": 2026082501,
+    "query": {
+      "enable_logging": true,
+      "output_format": "pcm_48000"
+    },
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "file_format": "other",
+    "credential_header_name": "xi-api-key",
+    "accept": "application/octet-stream",
+    "accept_encoding": "identity",
+    "no_fallback": true,
+    "no_retry": true,
+    "no_redirect": true,
+    "disclosure": "one_private_exact_candidate_b_to_saved_original_c_voice_changer_test"
+  },
+  "account_authentication_evidence": {
+    "state": "verified",
+    "calibrated_account_assurance": {
+      "state": "verified",
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json",
+      "sha256": "375a491c2ac2da51fadfd237efceade01bfbace5c4229b6caac9bfffd925de53"
+    },
+    "credential_authentication_inference": "supported_by_http_200_not_independently_verified",
+    "authentication_conclusion": "HTTP 200 supports, but does not independently prove, that the credential-bearing request was accepted at this endpoint.",
+    "response_body_contents_state": "unknown_not_read",
+    "account_data_observed": false,
+    "identity_observed": false,
+    "valid_user_id_observed": false,
+    "subscription_state_observed": false,
+    "target_voice_accessibility_state": "unknown",
+    "ui_api_account_equality_state": "unknown",
+    "exact_ui_api_account_equality_verified": false,
+    "exact_ui_api_account_equality_claimed": false,
+    "account_verified_claimed": false,
+    "second_account_get_authorized": false
+  },
+  "credential_delivery": {
+    "state": "verified",
+    "mechanism": "post_latch_descriptor_read_fixed_dotenv_exact_assignment",
+    "dotenv_path": "/Users/brownmanbrain/GitHub/operator-economy/.env",
+    "assignment_name": "ELEVENLABS_API_KEY",
+    "required_file_type": "regular",
+    "required_mode": "0600",
+    "current_uid_required": true,
+    "required_link_count": 1,
+    "max_file_bytes": 65536,
+    "max_assignment_count": 1,
+    "environment_inheritance_used": false,
+    "shell_source_forbidden": true,
+    "dotenv_reread_forbidden": true,
+    "domain_separation": "oe-elevenlabs-api-key-v1\u0000",
+    "api_key_fingerprint_sha256": "18e73ecea25c787c8891f434d5ef3a651a123c4bd273d69363de1eba1ca04150",
+    "browser_suffix_sha256": "782a3ddb048279c90e745fb8a093c2379126e04d12b2db61d6d927942e81746e"
+  },
+  "runtime_bindings": {
+    "state": "verified",
+    "git_commit": "1c0c6e9b8ccb6cb3dfa4cdb2b64e2d4693a61c6e",
+    "voice_transfer_runtime_sha256": "696eeae6445798e9c2e577902e9a2cc5a7a9d20802a029b133574dccd0bbe428",
+    "transfer_worker_runtime_sha256": "83bcc4aafd10841b9c981be9f09863322e78e58528325cc5ee4a2106f4fdd698",
+    "performance_transfer_runtime_sha256": "55113e58ad8626bed6a5d6ba99af3c35929314a65fbd34e7154cae279af206c4",
+    "cli_runtime_sha256": "ad9cc00eedf450a164374c3f588cc49c8b8baa129169d0ca7adb2104034bfae0",
+    "core_runtime_sha256": "7ccb3dce6b927f3f3f0646be8ebff5b639d30eaf0993987340b18de187e33898",
+    "audio_runtime_sha256": "8bf3cd1623d2027996fbb461314331767ffb16e0c09cc8bf4204900a72595a49",
+    "init_runtime_sha256": "19627d707c816d5c5c96a0a372abf2593fcb6d72d29980a6703383d152d7425f",
+    "recovery_transfer_schema_sha256": "c5f6300486acc3ebb437c3fe3647c976472aaee742935cfce2e8c18a85e2dca1",
+    "voice_transfer_tests_sha256": "5fc879a938855c364b22cfb317900a421aec51529bef86fb8e511c736b607b89",
+    "transfer_worker_tests_sha256": "c468b8faa0858fc4a15a68d6c9fd6bd3e5e9471bd3fa214151c383ac717296ce",
+    "capture_audio_tests_sha256": "c5b6c1b2171bbeadae52e4a6dc6f6222173472575194a64ef93a61fc5618f921",
+    "git_binary_path": "/usr/bin/git",
+    "git_binary_sha256": "3e7d30871a9740446f33a907b14d28f10ebe6d4e1c146a4c0788308f573a6609",
+    "git_version": "2.50.1",
+    "worker_interpreter_path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+    "worker_interpreter_sha256": "8e598855de9a6648bc670d5fe7a3a653f1fa967b74373ed7c4ca16fbc40c0de1",
+    "worker_interpreter_version": "3.9.6 (default, Dec  2 2025, 07:27:58) \n[Clang 17.0.0 (clang-1700.6.3.2)]",
+    "worker_interpreter_mode": 493,
+    "worker_interpreter_uid": 0,
+    "worker_interpreter_nlink": 1,
+    "ffprobe_binary_path": "/opt/homebrew/Cellar/ffmpeg/8.1.1/bin/ffprobe",
+    "ffprobe_binary_sha256": "daba6e06838d10260602536a676069cef6d756345e1c6d66268ceb7f2d5e7c39",
+    "ffprobe_version": "8.1.1",
+    "ffmpeg_binary_path": "/opt/homebrew/Cellar/ffmpeg/8.1.1/bin/ffmpeg",
+    "ffmpeg_binary_sha256": "00d01197255300c02122c783dd0126a9e7f47d6c6a19faafae2e6610efd071d3",
+    "ffmpeg_version": "8.1.1"
+  },
+  "evidence_baseline": {
+    "state": "verified",
+    "evidence_commit": "9215a85de1f0dc1538603757d5770de71d5ce213",
+    "draft_authorization": {
+      "path": "authorizations/17-elevenlabs-recovery-evidence-voice-transfer-post-read-repair.DRAFT.json",
+      "sha256": "e483b61aa79376a994c3a0923d5b02b931f0b08e21dafdf4c8f0ab94c3ce9748"
+    },
+    "calibrated_account_assurance": {
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json",
+      "sha256": "375a491c2ac2da51fadfd237efceade01bfbace5c4229b6caac9bfffd925de53"
+    },
+    "data_use_assurance": {
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-POST-READ-REPAIR-DATA-USE-ASSURANCE.json",
+      "sha256": "aea0c2820f027bdd058cea8dc6f4723dbad1e0dd4a73dc2d45fbd6199f62cc15"
+    },
+    "target_rights": {
+      "path": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json",
+      "sha256": "27b54095f99582ccba4df8b502cdefb08f17e4b0db5c4a8274e9a13f7f4c1e68"
+    },
+    "fresh_browser_readiness": {
+      "path": "evidence/browser-readiness/V1-ELEVENLABS-RECOVERY-TRANSFER-BROWSER-READINESS.20260826T204308Z.json",
+      "sha256": "844fa80ab01e7fc0c0e70880ec224babab7a5dd105d388441fa5d4f1b0833521"
+    }
+  },
+  "authorized_limits": {
+    "max_account_get_calls": 0,
+    "max_generation_post_calls": 1,
+    "max_outputs": 1,
+    "max_source_bytes": 1646010,
+    "max_source_duration_seconds": 34.290958333333336,
+    "max_submitted_seconds": 34.290958333333336,
+    "max_request_body_bytes": 1646839,
+    "max_response_bytes": 4800000,
+    "min_output_duration_seconds": 20.0,
+    "max_output_duration_seconds": 50.0,
+    "min_output_to_source_duration_ratio": 0.8,
+    "max_output_to_source_duration_ratio": 1.2,
+    "max_error_response_bytes": 65536,
+    "max_request_elapsed_seconds": 300,
+    "max_spend_usd": 0.12
+  },
+  "artifacts": {
+    "raw_output_path": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.pcm",
+    "working_output_path": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.wav",
+    "success_receipt_path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.run.json",
+    "failure_receipt_path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.failure.json",
+    "conversion_receipt_path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.conversion.json"
+  },
+  "consumption": {
+    "status": "unconsumed",
+    "generation_post_calls_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-post-read-repair-one-shot.voice-transfer-execution.consumed.json",
+    "shared_global_transfer_latch": true
+  },
+  "scope_approval": {
+    "owner": "Manav Thaker",
+    "sole_exact_provider_action_authority": {
+      "path": "evidence/V1-OWNER-AUDITION-AND-BOUNDED-TRANSFER-APPROVAL.20260826T061117Z.json",
+      "sha256": "c90783e767d6d9f8ebbd408fc4bc88ef4d69138c5547b95e99fbcacd49e216f0"
+    },
+    "approval_event_timestamp_available": false,
+    "later_draft_and_active_bytes_owner_reviewed": false,
+    "implementation_only_narrows_or_enforces_c907": true,
+    "c907_alone_confers_runtime_execution_authority": false,
+    "new_owner_prompt_required": false
+  },
+  "materialized_by": "Codex",
+  "materialized_at": "2026-08-26T20:55:36Z",
+  "expires_at": "2026-08-26T21:10:36Z",
+  "execution_ready": true,
+  "blockers": []
+}
