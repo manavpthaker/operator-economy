@@ -41,6 +41,12 @@ from .google_service_enablement import (
     dry_run_google_service_enablement,
     execute_google_service_enablement,
 )
+from .voice_transfer import (
+    dry_run_account_verification,
+    dry_run_voice_transfer_execution,
+    execute_account_verification,
+    execute_voice_transfer,
+)
 from .retrieval import (
     dry_run_metadata_inventory,
     dry_run_named_sample_batch,
@@ -240,13 +246,24 @@ def build_parser() -> argparse.ArgumentParser:
 
     voice_transfer = sub.add_parser(
         "elevenlabs-voice-transfer",
-        help="dry-run the blocked or exact selected-guide Voice Changer request; external execution is not implemented",
+        help="dry-run legacy V1, or validate/consume one exact PCM-only V2 execution authority",
     )
     voice_transfer.add_argument("--plan", type=_contract_path, required=True)
     voice_transfer.add_argument("--canonical-w", type=_contract_path, required=True)
     voice_transfer.add_argument("--authorization", type=_contract_path)
+    voice_transfer.add_argument("--execution-authorization", type=_contract_path)
     voice_transfer.add_argument("--record", type=_path)
     voice_transfer.add_argument("--execute", action="store_true")
+    voice_transfer.add_argument("--timeout", type=float, default=60.0)
+
+    account_verify = sub.add_parser(
+        "elevenlabs-account-verify",
+        help="dry-run by default; consume one exact authority for one read-only /v1/user GET",
+    )
+    account_verify.add_argument("--authorization", type=_contract_path, required=True)
+    account_verify.add_argument("--record", type=_path)
+    account_verify.add_argument("--execute", action="store_true")
+    account_verify.add_argument("--timeout", type=float, default=30.0)
     return parser
 
 
@@ -431,16 +448,51 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
             result["record"] = str(args.record)
         return result
     if args.command == "elevenlabs-voice-transfer":
+        if args.execution_authorization is not None and args.authorization is not None:
+            raise ValidationError("choose legacy --authorization or additive --execution-authorization, not both")
+        if args.execution_authorization is not None:
+            if args.execute:
+                if args.record is not None:
+                    raise ValidationError("--record is for dry runs; execution writes immutable receipts")
+                if args.timeout <= 0 or args.timeout > 300:
+                    raise ValidationError("--timeout must be greater than zero and at most 300 seconds")
+                return execute_voice_transfer(
+                    args.execution_authorization,
+                    args.plan,
+                    args.canonical_w,
+                    timeout=args.timeout,
+                )
+            result = dry_run_voice_transfer_execution(
+                args.execution_authorization,
+                args.plan,
+                args.canonical_w,
+            )
+            if args.record:
+                _write_json(args.record, result)
+                result["record"] = str(args.record)
+            return result
         if args.execute:
             raise ValidationError(
-                "elevenlabs-voice-transfer external execution is intentionally unavailable in v0.5; "
-                "this runtime performs credential-free validation and dry-run only"
+                "legacy V1 execution remains unavailable; exact PCM execution requires "
+                "--execution-authorization"
             )
         result = dry_run_voice_transfer(
             args.plan,
             args.canonical_w,
             args.authorization,
         )
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "elevenlabs-account-verify":
+        if args.execute:
+            if args.record is not None:
+                raise ValidationError("--record is for dry runs; execution writes immutable receipts")
+            if args.timeout <= 0 or args.timeout > 30:
+                raise ValidationError("--timeout must be greater than zero and at most 30 seconds")
+            return execute_account_verification(args.authorization, timeout=args.timeout)
+        result = dry_run_account_verification(args.authorization)
         if args.record:
             _write_json(args.record, result)
             result["record"] = str(args.record)

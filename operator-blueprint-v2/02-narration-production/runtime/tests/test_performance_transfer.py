@@ -1141,7 +1141,18 @@ class PerformanceTransferTests(unittest.TestCase):
                     if arguments[:2] == ["merge-base", "--is-ancestor"]:
                         self.assertEqual(arguments[2:], [runtime_commit, head])
                         return b""
-                    if arguments[:2] == ["diff", "--name-only"]:
+                    if (
+                        arguments[:7]
+                        == [
+                            "diff",
+                            "--no-ext-diff",
+                            "--no-textconv",
+                            "--no-renames",
+                            "--name-only",
+                            "--diff-filter=ACDMRTUXB",
+                            "-z",
+                        ]
+                    ):
                         return (
                             b"operator-blueprint-v2/02-narration-production/runtime/oe_narration/audio.py\x00"
                             if mutation == "descendant_runtime"
@@ -1190,7 +1201,20 @@ class PerformanceTransferTests(unittest.TestCase):
         ), mock.patch.object(pt.subprocess, "run", side_effect=run):
             result = pt._guide_git(["rev-parse", "HEAD"])
         self.assertEqual(result, b"a" * 40 + b"\n")
-        self.assertEqual(captured["command"], ["git", "rev-parse", "HEAD"])
+        self.assertEqual(captured["command"][0], "/usr/bin/git")
+        self.assertEqual(
+            captured["command"][1:],
+            [
+                "-c",
+                "core.fsmonitor=false",
+                "-c",
+                "core.untrackedCache=false",
+                "-c",
+                "core.hooksPath=/dev/null",
+                "rev-parse",
+                "HEAD",
+            ],
+        )
         environment = captured["kwargs"]["env"]
         for key in (
             "ELEVENLABS_API_KEY",
@@ -1200,6 +1224,7 @@ class PerformanceTransferTests(unittest.TestCase):
             self.assertNotIn(key, environment)
         self.assertEqual(environment["GIT_OPTIONAL_LOCKS"], "0")
         self.assertEqual(environment["GIT_NO_REPLACE_OBJECTS"], "1")
+        self.assertEqual(environment["GIT_NO_LAZY_FETCH"], "1")
         self.assertEqual(environment["GIT_TERMINAL_PROMPT"], "0")
         self.assertEqual(environment["GIT_PAGER"], "cat")
 

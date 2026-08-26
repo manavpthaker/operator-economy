@@ -1,0 +1,28 @@
+{
+  "schema_version": "oe-elevenlabs-voice-changer-pcm-media-contract-basis-v1",
+  "provider": "elevenlabs",
+  "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+  "output_format": "pcm_48000",
+  "declared_mime_allowlist": [
+    "audio/pcm",
+    "audio/mpeg"
+  ],
+  "sources": [
+    {
+      "url": "https://api.elevenlabs.io/openapi.json",
+      "proposition": "The current exact /v1/speech-to-speech/{voice_id} operation allows output_format=pcm_48000 and declares HTTP 200 content as audio/mpeg."
+    },
+    {
+      "url": "https://elevenlabs.io/docs/overview/capabilities/text-to-speech",
+      "proposition": "Supported output formats define PCM as S16LE, include 48 kHz, and specify 16-bit depth."
+    },
+    {
+      "url": "https://elevenlabs.io/docs/api-reference/speech-to-speech/convert",
+      "proposition": "The exact Speech-to-Speech endpoint describes generated streaming audio and supports the output_format enum."
+    }
+  ],
+  "canonical_interpretation": "The sources do not prove the response payload codec or channel count. For the exact pcm_48000 request, runtime may interpret a declared audio/pcm or audio/mpeg response as headerless PCM S16LE with one channel only when no recognized compressed or container format is detected, byte geometry passes, and the mono-interpreted duration is within a 0.8-to-1.2 ratio of the exact source duration. Codec, mono channel count, frame count, and duration remain contract interpretations, not intrinsic media verification.",
+  "canonical_interpretation_sha256": "b03e6b95ac973ccddc0bdbb6ba882b387a3b7ef1745cc5b9db4af4495671d9a1",
+  "accessed_at": "2026-08-26",
+  "raw_provider_response_recorded": false
+}

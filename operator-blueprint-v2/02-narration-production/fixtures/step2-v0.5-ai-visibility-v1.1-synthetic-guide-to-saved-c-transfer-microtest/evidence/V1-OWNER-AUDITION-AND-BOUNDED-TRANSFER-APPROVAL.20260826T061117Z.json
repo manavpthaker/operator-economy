@@ -1,0 +1,179 @@
+{
+  "schema_version": "oe-elevenlabs-voice-transfer-owner-approval-evidence-v1",
+  "record_id": "OWNER-V1-ai-visibility-v1.1-p01-candidate-b-to-original-c-20260826T061117Z",
+  "status": "owner_approval_recorded_execution_blocked",
+  "recorded_at": "2026-08-26T06:11:17Z",
+  "finalized_at": "2026-08-26T06:20:53Z",
+  "owner": "Manav Thaker",
+  "approval_basis": {
+    "source": "current_codex_thread_owner_messages",
+    "event_order": [
+      "owner_selected_candidate_b_over_candidate_a",
+      "owner_confirmed_use_with_his_elevenlabs_voice",
+      "assistant_requested_exact_word_pronunciation_and_one_private_transfer_confirmation",
+      "owner_replied_approved"
+    ],
+    "owner_statements": [
+      "B is definitely better",
+      "so we're going to use this in conjuction with my elevenlabs voice",
+      "Approved"
+    ],
+    "assistant_confirmation_prompt": "Before I run the private transfer, confirm that B audibly says ‘the search dashboard’ and pronounces ‘2022’ as ‘twenty twenty-two,’ then say: Approved for one private B → Original C Voice Changer test.",
+    "approval_event_timestamp_available": false,
+    "owner_approval_expiry_explicitly_stated": false,
+    "record_materialization_time_is_not_claimed_as_message_time": true
+  },
+  "selected_guide": {
+    "candidate_id": "candidate-B",
+    "guide_request_id": "gemini-guide-02",
+    "provider": "google_cloud_text_to_speech",
+    "path": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+    "sha256": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915",
+    "byte_count": 1646010,
+    "duration_seconds": 34.290958333333336,
+    "container": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "bit_depth": 16,
+    "frame_count": 822983,
+    "original_provider_bytes_unchanged": true,
+    "listening_derivative_selected": false,
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "human_exact_word_confirmation": true,
+    "confirmed_phrase": "the search dashboard",
+    "twenty_twenty_two_pronunciation_confirmed": true,
+    "approved_for_voice_changer_transfer": true
+  },
+  "selected_guide_evidence": {
+    "guide_generation_consumption_path": "authorizations/consumed/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.consumed.json",
+    "guide_generation_consumption_sha256": "3c4f9354dec64af0637911e89242784ca4e9a8d63053d315db100abd27ffa35b",
+    "guide_run_receipt_path": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json",
+    "guide_run_receipt_sha256": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f",
+    "offline_asr_diagnostic_path": "evidence/G1R2-OFFLINE-ASR-DIAGNOSTIC.20260826T045358Z.json",
+    "offline_asr_diagnostic_sha256": "8331aae1c422c72f87b71e637f1685a661c841a0560c92bbf40b0b1eeb8b5e77",
+    "prior_technical_qa_path": "reviews/GUIDE-LEXICAL-AND-TECHNICAL-QA.candidate-B.20260826T045942Z.md",
+    "prior_technical_qa_sha256": "e9e65eab04cda98e648973f6ca20825d4c7a7d3fc9784c7557601086e7b18de2",
+    "machine_qa_path": "reviews/GUIDE-QA.candidate-B.20260826T061117Z.json",
+    "machine_qa_sha256": "aa56ed77ec7bac54c8bfe4c3f71954824ede6ffd74f9489246d031945d3e0909",
+    "machine_owner_selection_path": "reviews/GUIDE-OWNER-SELECTION.candidate-B.20260826T061117Z.json",
+    "machine_owner_selection_sha256": "eb1a33aa270b97f5f31c3fdaf37bfe49b242786fe29be9082a67124076443236",
+    "historical_local_selection_path": "reviews/GUIDE-SELECTION.candidate-B.20260826T052611Z.md",
+    "historical_local_selection_sha256": "c1a5ef4fdac5ca320ca3890eec08953ce3ce4300918c2aa80552cc179964ec44",
+    "historical_local_selection_preserved_unchanged": true,
+    "later_owner_approval_expands_only_the_bounded_transfer_scope": true
+  },
+  "target_voice": {
+    "provider": "elevenlabs",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "voice_name": "OE Narrator Manav C Base v1",
+    "voice_owner": "Manav Thaker",
+    "consent_owner": "Manav Thaker",
+    "owner_approval": true,
+    "voice_changer_permitted": true,
+    "original_c_provenance": {
+      "owner_selection_path": "02-narration-production/fixtures/step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration/receipts/provenance/AUTH-R2-owner-selection-C.json",
+      "owner_selection_sha256": "850b47a5419424fee37e9bff73a96b9e1da1c31feee13d20013869e4f3092702",
+      "saved_voice_receipt_path": "02-narration-production/fixtures/step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration/receipts/provenance/AUTH-R2-remix-save.json",
+      "saved_voice_receipt_sha256": "859b80a525d1d59ad531420f4c4ee496a0e41f6d91f0ee34ba895eb171dc7885"
+    }
+  },
+  "approved_scope": {
+    "cross_provider_disclosure_of_exact_guide_to_elevenlabs": true,
+    "private_voice_changer_microtest": true,
+    "method": "POST",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_multilingual_sts_v2",
+    "seed": 2026082501,
+    "voice_settings": {
+      "stability": 0.4,
+      "similarity_boost": 0.8,
+      "style": 0.0,
+      "speed": 1.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "file_format": "other",
+    "output_format": "pcm_48000",
+    "max_provider_calls": 1,
+    "max_outputs": 1,
+    "max_source_bytes": 1646010,
+    "max_source_duration_seconds": 34.290958333333336,
+    "max_submitted_seconds": 34.290958333333336,
+    "no_retry": true,
+    "no_redirect": true,
+    "no_fallback": true,
+    "fallback_authorized": false,
+    "bounded_microtest_only": true
+  },
+  "explicitly_not_authorized": {
+    "account_setting_changes": true,
+    "additional_provider_calls": true,
+    "retry": true,
+    "redirect": true,
+    "fallback": true,
+    "mp3_request": true,
+    "guide_regeneration": true,
+    "full_capture": true,
+    "step2_lock": true,
+    "step3": true,
+    "external_sharing": true,
+    "publication": true
+  },
+  "known_compiled_body_identity": {
+    "multipart_boundary": "oe-v05-04448e9fdd50c8de67912b454e8d396f",
+    "multipart_body_bytes": 1646839,
+    "multipart_body_sha256": "6b57da1e6d1dc62b8ec31d34b6629da087be15f51b59998a83109f25403931dc",
+    "primary_request_sha256": null,
+    "primary_request_binding_state": "pending_verified_data_use_mode_and_final_runtime"
+  },
+  "execution_gate": {
+    "this_record_is_an_active_provider_authorization": false,
+    "credentials_may_be_accessed_from_this_record": false,
+    "network_may_be_called_from_this_record": false,
+    "runtime_execution_authority_conferred": false,
+    "elevenlabs_improve_models_for_everyone_observed_on": true,
+    "effective_training_opt_out_claimed": false,
+    "zero_retention_mode_claimed": false,
+    "data_use_prerequisite": "blocked",
+    "read_only_elevenlabs_readiness_observation": {
+      "source": "parent_task_read_only_chrome_inspection",
+      "observation_timestamp_available": false,
+      "attached_to_record_at": "2026-08-26T06:19:08Z",
+      "data_use_dialog": {
+        "setting_label": "Improve the models for everyone",
+        "switch_checked": true,
+        "interpreted_state": "on",
+        "update_choice_disabled_before_change": true
+      },
+      "api_key_readiness": {
+        "key_label": "operator-economy-v1",
+        "key_value_read": false,
+        "masked_suffix_recorded": false,
+        "restrict_key_on": true,
+        "speech_to_speech_access_selected": true,
+        "user_access_selected": true,
+        "auto_disable_if_leaked_on": true
+      },
+      "not_established": [
+        "account-to-key equality",
+        "credential fingerprint",
+        "completed account training-setting update",
+        "protection effective for new submissions",
+        "enterprise zero retention eligibility"
+      ],
+      "account_email_recorded": false,
+      "account_setting_changed": false,
+      "provider_api_called": false
+    },
+    "required_before_execution": [
+      "current read-only post-update UI evidence that Improve the models for everyone is OFF and the Update action completed, plus official-documentation basis that new submissions are excluded, or confirmed eligible enterprise ZRM",
+      "exact credential-to-account binding without recording the credential",
+      "final committed runtime and schema hashes",
+      "exact request hash for the verified data-use mode",
+      "strict target-voice-rights receipt derived from this owner approval",
+      "fresh active V2 one-call execution authorization"
+    ]
+  }
+}

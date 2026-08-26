@@ -28,9 +28,11 @@ import stat
 import subprocess
 import urllib.error
 import urllib.request
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+import tempfile
 from typing import Any, BinaryIO
 
 from .core import (
@@ -2260,7 +2262,7 @@ def _receipt_bytes(value: dict[str, Any]) -> bytes:
 
 
 def _strict_json_bytes(data: bytes, label: str) -> dict[str, Any]:
-    """Decode an object while rejecting duplicate JSON member names."""
+    """Decode an RFC 8259 object, rejecting duplicate names and JSON constants."""
 
     def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
         result: dict[str, Any] = {}
@@ -2270,11 +2272,18 @@ def _strict_json_bytes(data: bytes, label: str) -> dict[str, Any]:
             result[key] = value
         return result
 
+    def reject_constant(_value: str) -> None:
+        raise ValueError("non-standard JSON constant")
+
     invalid = False
     value: Any = None
     try:
         text = data.decode("utf-8", errors="strict")
-        value = json.loads(text, object_pairs_hook=reject_duplicates)
+        value = json.loads(
+            text,
+            object_pairs_hook=reject_duplicates,
+            parse_constant=reject_constant,
+        )
     except (UnicodeError, json.JSONDecodeError, ValueError):
         invalid = True
     if invalid:
@@ -2630,49 +2639,406 @@ def _guide_repository_root() -> Path:
     return Path(__file__).resolve().parents[4]
 
 
-def _guide_git(arguments: list[str], *, max_bytes: int = 2_000_000) -> bytes:
+def _open_bound_executable_descriptor(
+    path_value: str,
+    expected_sha256: str | None,
+    label: str,
+    *,
+    max_bytes: int = 16_000_000,
+) -> tuple[int, str]:
+    """Open and hash one exact executable inode without following path symlinks."""
+
+    if (
+        not isinstance(path_value, str)
+        or not path_value
+        or "\x00" in path_value
+        or not isinstance(label, str)
+        or not label
+        or type(max_bytes) is not int
+        or not 0 < max_bytes <= 64_000_000
+        or (
+            expected_sha256 is not None
+            and (
+                not isinstance(expected_sha256, str)
+                or not _SHA_RE.fullmatch(expected_sha256)
+            )
+        )
+    ):
+        raise ValidationError("bound executable identity contract is invalid")
+    try:
+        path = Path(path_value)
+        if not path.is_absolute() or path.resolve(strict=True) != path:
+            raise ValidationError(f"bound {label} path must be an exact resolved absolute path")
+    except (OSError, RuntimeError):
+        raise ValidationError(f"bound {label} path is missing or unsafe") from None
+
+    parent_fd: int | None = None
+    descriptor: int | None = None
+    chunks: list[bytes] = []
+    chunk = b""
+    try:
+        parent_fd = os.open("/", os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+        for component in path.parts[1:-1]:
+            next_fd = os.open(
+                component,
+                os.O_RDONLY
+                | getattr(os, "O_DIRECTORY", 0)
+                | getattr(os, "O_NOFOLLOW", 0),
+                dir_fd=parent_fd,
+            )
+            os.close(parent_fd)
+            parent_fd = next_fd
+        descriptor = os.open(
+            path.name,
+            os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+            dir_fd=parent_fd,
+        )
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or not stat.S_IMODE(before.st_mode) & 0o111
+            or not 0 < before.st_size <= max_bytes
+        ):
+            raise ValidationError(f"bound {label} is not a bounded executable regular file")
+        received = 0
+        while True:
+            chunk = os.read(descriptor, min(1_048_576, max_bytes + 1 - received))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > max_bytes:
+                raise ValidationError(f"bound {label} exceeds its executable byte cap")
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if (
+            len(raw) != before.st_size
+            or (
+                before.st_dev,
+                before.st_ino,
+                before.st_size,
+                before.st_mtime_ns,
+                before.st_mode,
+                before.st_uid,
+            )
+            != (
+                after.st_dev,
+                after.st_ino,
+                after.st_size,
+                after.st_mtime_ns,
+                after.st_mode,
+                after.st_uid,
+            )
+        ):
+            raise ValidationError(f"bound {label} changed during executable identity read")
+        digest = sha256_bytes(raw)
+        raw = b""
+        if expected_sha256 is not None and digest != expected_sha256:
+            raise ValidationError(f"bound {label} SHA-256 drifted")
+        os.lseek(descriptor, 0, os.SEEK_SET)
+        returned = descriptor
+        descriptor = None
+        return returned, digest
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError(f"bound {label} is missing or unsafe") from None
+    finally:
+        chunks = []
+        chunk = b""
+        if descriptor is not None:
+            os.close(descriptor)
+        if parent_fd is not None:
+            os.close(parent_fd)
+
+
+@contextmanager
+def _private_executable_copy(
+    path_value: str,
+    expected_sha256: str,
+    label: str,
+):
+    """Yield a 0500 private exact-byte executable copy in a fresh 0700 directory."""
+
+    source_fd: int | None = None
+    post_source_fd: int | None = None
+    copy_fd: int | None = None
+    verify_fd: int | None = None
+    directory: str | None = None
+    copy_path: str | None = None
+    chunk = b""
+    source_identity: tuple[int, int, int, int, int, int] | None = None
+    post_verified = False
+    try:
+        source_fd, _source_sha = _open_bound_executable_descriptor(
+            path_value,
+            expected_sha256,
+            label,
+        )
+        source_before = os.fstat(source_fd)
+        source_identity = (
+            source_before.st_dev,
+            source_before.st_ino,
+            source_before.st_size,
+            source_before.st_mtime_ns,
+            source_before.st_mode,
+            source_before.st_uid,
+        )
+        temporary_root = str(Path("/tmp").resolve(strict=True))
+        directory = tempfile.mkdtemp(prefix="oe-bound-media-tool-", dir=temporary_root)
+        os.chmod(directory, 0o700)
+        directory_stat = os.stat(directory, follow_symlinks=False)
+        if (
+            not stat.S_ISDIR(directory_stat.st_mode)
+            or stat.S_IMODE(directory_stat.st_mode) != 0o700
+            or directory_stat.st_uid != os.getuid()
+        ):
+            raise ValidationError("private executable-copy directory is unsafe")
+        copy_path = str(Path(directory) / "tool")
+        copy_fd = os.open(
+            copy_path,
+            os.O_WRONLY
+            | os.O_CREAT
+            | os.O_EXCL
+            | getattr(os, "O_NOFOLLOW", 0),
+            0o500,
+        )
+        while True:
+            chunk = os.read(source_fd, 1_048_576)
+            if not chunk:
+                break
+            offset = 0
+            while offset < len(chunk):
+                written = os.write(copy_fd, chunk[offset:])
+                if written <= 0:
+                    raise ValidationError("private executable copy short-write failed")
+                offset += written
+        os.fchmod(copy_fd, 0o500)
+        os.fsync(copy_fd)
+        os.close(copy_fd)
+        copy_fd = None
+        verify_fd, copy_sha = _open_bound_executable_descriptor(
+            copy_path,
+            expected_sha256,
+            f"private {label} copy",
+        )
+        copy_stat = os.fstat(verify_fd)
+        if (
+            copy_sha != expected_sha256
+            or stat.S_IMODE(copy_stat.st_mode) != 0o500
+            or copy_stat.st_uid != os.getuid()
+            or copy_stat.st_nlink != 1
+        ):
+            raise ValidationError("private executable copy identity is unsafe")
+        os.close(verify_fd)
+        verify_fd = None
+        yield copy_path
+        verify_fd, copy_sha = _open_bound_executable_descriptor(
+            copy_path,
+            expected_sha256,
+            f"private {label} copy",
+        )
+        copy_stat = os.fstat(verify_fd)
+        post_source_fd, _post_source_sha = _open_bound_executable_descriptor(
+            path_value,
+            expected_sha256,
+            label,
+        )
+        source_after = os.fstat(post_source_fd)
+        if (
+            copy_sha != expected_sha256
+            or stat.S_IMODE(copy_stat.st_mode) != 0o500
+            or copy_stat.st_uid != os.getuid()
+            or copy_stat.st_nlink != 1
+            or source_identity
+            != (
+                source_after.st_dev,
+                source_after.st_ino,
+                source_after.st_size,
+                source_after.st_mtime_ns,
+                source_after.st_mode,
+                source_after.st_uid,
+            )
+        ):
+            raise ValidationError("bound executable or private copy changed during execution")
+        post_verified = True
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError("private executable copy failed closed") from None
+    finally:
+        chunk = b""
+        cleanup_failed = False
+        if not post_verified and copy_path is not None and source_identity is not None:
+            try:
+                if verify_fd is not None:
+                    os.close(verify_fd)
+                    verify_fd = None
+                if post_source_fd is not None:
+                    os.close(post_source_fd)
+                    post_source_fd = None
+                verify_fd, copy_sha = _open_bound_executable_descriptor(
+                    copy_path,
+                    expected_sha256,
+                    f"private {label} copy",
+                )
+                copy_stat = os.fstat(verify_fd)
+                post_source_fd, _post_source_sha = _open_bound_executable_descriptor(
+                    path_value,
+                    expected_sha256,
+                    label,
+                )
+                source_after = os.fstat(post_source_fd)
+                if (
+                    copy_sha != expected_sha256
+                    or stat.S_IMODE(copy_stat.st_mode) != 0o500
+                    or copy_stat.st_uid != os.getuid()
+                    or copy_stat.st_nlink != 1
+                    or source_identity
+                    != (
+                        source_after.st_dev,
+                        source_after.st_ino,
+                        source_after.st_size,
+                        source_after.st_mtime_ns,
+                        source_after.st_mode,
+                        source_after.st_uid,
+                    )
+                ):
+                    cleanup_failed = True
+            except (OSError, ValidationError):
+                cleanup_failed = True
+        for descriptor in (verify_fd, copy_fd, post_source_fd, source_fd):
+            if descriptor is not None:
+                try:
+                    os.close(descriptor)
+                except OSError:
+                    cleanup_failed = True
+        if copy_path is not None:
+            try:
+                os.unlink(copy_path)
+            except FileNotFoundError:
+                pass
+            except OSError:
+                cleanup_failed = True
+        if directory is not None:
+            try:
+                os.rmdir(directory)
+            except OSError:
+                cleanup_failed = True
+        if cleanup_failed:
+            raise ValidationError("private executable-copy cleanup failed closed") from None
+
+
+def _guide_git(
+    arguments: list[str],
+    *,
+    max_bytes: int = 2_000_000,
+    git_path: str | None = None,
+    git_sha256: str | None = None,
+    allowed_returncodes: tuple[int, ...] = (0,),
+) -> bytes:
     """Run one bounded, local-only Git read with no inherited provider secrets."""
 
+    candidate = git_path
+    if candidate is None:
+        candidate = shutil.which("git", path="/usr/bin:/bin:/opt/homebrew/bin:/usr/local/bin")
+        if candidate is not None:
+            try:
+                candidate = str(Path(candidate).resolve(strict=True))
+            except (OSError, RuntimeError):
+                candidate = None
+    if not isinstance(candidate, str):
+        raise ValidationError("committed synthetic-guide runtime preflight failed") from None
+    executable_fd: int | None = None
+    post_fd: int | None = None
+    before_identity: tuple[int, int, int, int, int, int] | None = None
+    try:
+        executable_fd, _digest = _open_bound_executable_descriptor(
+            candidate,
+            git_sha256,
+            "Git executable",
+        )
+        before = os.fstat(executable_fd)
+        before_identity = (
+            before.st_dev,
+            before.st_ino,
+            before.st_size,
+            before.st_mtime_ns,
+            before.st_mode,
+            before.st_uid,
+        )
+    except ValidationError:
+        raise ValidationError("committed synthetic-guide runtime preflight failed") from None
+
     environment: dict[str, str] = {
+        "PATH": "/usr/bin:/bin",
+        "TMPDIR": "/tmp",
         "LC_ALL": "C",
         "LANG": "C",
         "GIT_CONFIG_NOSYSTEM": "1",
         "GIT_CONFIG_GLOBAL": "/dev/null",
         "GIT_NO_REPLACE_OBJECTS": "1",
+        "GIT_NO_LAZY_FETCH": "1",
         "GIT_OPTIONAL_LOCKS": "0",
         "GIT_PAGER": "cat",
         "GIT_TERMINAL_PROMPT": "0",
     }
-    for key in ("PATH", "HOME", "TMPDIR"):
-        value = os.environ.get(key)
-        if isinstance(value, str) and value:
-            environment[key] = value
     result: Any = None
     stdout = b""
     failed = False
     try:
         result = subprocess.run(
-            ["git", *arguments],
+            [
+                candidate,
+                "-c",
+                "core.fsmonitor=false",
+                "-c",
+                "core.untrackedCache=false",
+                "-c",
+                "core.hooksPath=/dev/null",
+                *arguments,
+            ],
             cwd=_guide_repository_root(),
             check=False,
             capture_output=True,
             text=False,
             timeout=15,
             env=environment,
+            close_fds=True,
         )
         stdout = result.stdout if isinstance(result.stdout, bytes) else b""
         stderr = result.stderr if isinstance(result.stderr, bytes) else b""
         failed = (
             type(result.returncode) is not int
-            or result.returncode != 0
+            or result.returncode not in allowed_returncodes
             or len(stdout) > max_bytes
             or len(stderr) > max_bytes
+        )
+        post_fd, _post_digest = _open_bound_executable_descriptor(
+            candidate,
+            git_sha256,
+            "Git executable",
+        )
+        after = os.fstat(post_fd)
+        failed = failed or before_identity != (
+            after.st_dev,
+            after.st_ino,
+            after.st_size,
+            after.st_mtime_ns,
+            after.st_mode,
+            after.st_uid,
         )
     except Exception:
         failed = True
     result = None
     stderr = b""
     environment = {}
+    if executable_fd is not None:
+        os.close(executable_fd)
+        executable_fd = None
+    if post_fd is not None:
+        os.close(post_fd)
+        post_fd = None
     if failed:
         stdout = b""
         raise ValidationError("committed synthetic-guide runtime preflight failed") from None
@@ -2710,6 +3076,9 @@ def _verify_guide_recovery_source(
     delta = _guide_git(
         [
             "diff",
+            "--no-ext-diff",
+            "--no-textconv",
+            "--no-renames",
             "--name-only",
             "--diff-filter=ACDMRTUXB",
             "-z",
@@ -4162,14 +4531,19 @@ def _verified_prerequisite(
     return path, document
 
 
-def _compile_multipart(
+def _compile_multipart_bytes(
     selected_audio: bytes,
     selected_sha: str,
     output_format: str,
     *,
     enable_logging: bool,
-) -> dict[str, Any]:
-    """Compile an exact deterministic multipart body for review, never transport it."""
+) -> tuple[dict[str, Any], bytes]:
+    """Compile one exact deterministic multipart manifest and its bound body.
+
+    Dry-run callers discard the returned body.  The separately authorized
+    one-shot transfer executor sends these exact bytes without reconstructing
+    the multipart request after authority validation.
+    """
 
     boundary = f"oe-v05-{selected_sha[:32]}"
     delimiter = b"\r\n--" + boundary.encode("ascii")
@@ -4207,7 +4581,7 @@ def _compile_multipart(
         "enable_logging": "true" if enable_logging else "false",
         "output_format": output_format,
     }
-    return {
+    manifest = {
         "method": "POST",
         "endpoint": TRANSFER_ENDPOINT,
         "query": query,
@@ -4223,6 +4597,25 @@ def _compile_multipart(
             "file_format": "other",
         },
     }
+    return manifest, body
+
+
+def _compile_multipart(
+    selected_audio: bytes,
+    selected_sha: str,
+    output_format: str,
+    *,
+    enable_logging: bool,
+) -> dict[str, Any]:
+    """Compile the existing review-only manifest without exposing body bytes."""
+
+    manifest, _body = _compile_multipart_bytes(
+        selected_audio,
+        selected_sha,
+        output_format,
+        enable_logging=enable_logging,
+    )
+    return manifest
 
 
 def _validate_consumed_guide_authority(
