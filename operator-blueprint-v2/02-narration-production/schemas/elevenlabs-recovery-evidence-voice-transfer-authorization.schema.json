@@ -1,0 +1,481 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-elevenlabs-recovery-evidence-voice-transfer-authorization-v1.json",
+  "title": "OE exact one-shot ElevenLabs transfer from calibrated recovery evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "provider_action_authorized", "scope", "target",
+    "transaction_basis_id", "evidence_owner", "v1_lineage", "bindings",
+    "prerequisites", "action", "account_authentication_evidence",
+    "credential_delivery", "runtime_bindings", "evidence_baseline",
+    "authorized_limits", "artifacts", "consumption", "scope_approval",
+    "materialized_by", "materialized_at", "expires_at", "execution_ready", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-elevenlabs-recovery-evidence-voice-transfer-authorization-v1"},
+    "authorization_id": {"enum": [
+      "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01",
+      "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"
+    ]},
+    "status": {"enum": ["draft", "active"]},
+    "provider_action_authorized": {"type": "boolean"},
+    "scope": {"const": "elevenlabs_recovery_evidence_voice_transfer_execution"},
+    "target": {"$ref": "#/$defs/target"},
+    "transaction_basis_id": {"const": "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER"},
+    "evidence_owner": {"const": "Manav Thaker"},
+    "v1_lineage": {"$ref": "#/$defs/v1Lineage"},
+    "bindings": {"$ref": "#/$defs/bindings"},
+    "prerequisites": {"$ref": "#/$defs/prerequisites"},
+    "action": {"$ref": "#/$defs/action"},
+    "account_authentication_evidence": {"$ref": "#/$defs/accountEvidence"},
+    "credential_delivery": {"oneOf": [
+      {"$ref": "#/$defs/pendingCredential"},
+      {"$ref": "#/$defs/verifiedCredential"}
+    ]},
+    "runtime_bindings": {"$ref": "#/$defs/verifiedRuntime"},
+    "evidence_baseline": {"oneOf": [
+      {"$ref": "#/$defs/pending"},
+      {"$ref": "#/$defs/verifiedEvidenceBaseline"}
+    ]},
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "artifacts": {"$ref": "#/$defs/artifacts"},
+    "consumption": {"$ref": "#/$defs/consumption"},
+    "scope_approval": {"$ref": "#/$defs/scopeApproval"},
+    "materialized_by": {"const": "Codex"},
+    "materialized_at": {"$ref": "#/$defs/rfc3339"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}, "required": ["status"]},
+      "then": {"properties": {
+        "authorization_id": {"const": "DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"},
+        "provider_action_authorized": {"const": false},
+        "credential_delivery": {"$ref": "#/$defs/pendingCredential"},
+        "evidence_baseline": {"$ref": "#/$defs/pending"},
+        "authorized_limits": {"$ref": "#/$defs/zeroLimits"},
+        "consumption": {"allOf": [
+          {"$ref": "#/$defs/consumption"},
+          {"properties": {"status": {"const": "not_authorized"}}}
+        ]},
+        "expires_at": {"const": ""},
+        "artifacts": {"$ref": "#/$defs/draftArtifacts"},
+        "execution_ready": {"const": false},
+        "blockers": {"const": [
+          "evidence_baseline_r1_commit_pending",
+          "separate_short_lived_active_authorization_required",
+          "credential_access_and_provider_action_not_authorized"
+        ]}
+      }}
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}, "required": ["status"]},
+      "then": {"properties": {
+        "authorization_id": {"const": "AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01"},
+        "provider_action_authorized": {"const": true},
+        "credential_delivery": {"$ref": "#/$defs/verifiedCredential"},
+        "evidence_baseline": {"$ref": "#/$defs/verifiedEvidenceBaseline"},
+        "authorized_limits": {"$ref": "#/$defs/activeLimits"},
+        "consumption": {"allOf": [
+          {"$ref": "#/$defs/consumption"},
+          {"properties": {"status": {"const": "unconsumed"}}}
+        ]},
+        "expires_at": {"$ref": "#/$defs/rfc3339"},
+        "artifacts": {"$ref": "#/$defs/activeArtifacts"},
+        "execution_ready": {"const": true},
+        "blockers": {"maxItems": 0}
+      }}
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "rfc3339": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?(?:Z|\\+00:00)$"
+    },
+    "pending": {
+      "type": "object", "additionalProperties": false, "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "binding": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1, "maxLength": 512},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "verifiedPath": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"type": "string", "minLength": 1, "maxLength": 512},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"const": "fixture"},
+        "id": {"const": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"}
+      }
+    },
+    "scopeApproval": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "owner", "sole_exact_provider_action_authority",
+        "approval_event_timestamp_available", "later_draft_and_active_bytes_owner_reviewed",
+        "implementation_only_narrows_or_enforces_c907",
+        "c907_alone_confers_runtime_execution_authority", "new_owner_prompt_required"
+      ],
+      "properties": {
+        "owner": {"const": "Manav Thaker"},
+        "sole_exact_provider_action_authority": {
+          "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+          "properties": {
+            "path": {"const": "evidence/V1-OWNER-AUDITION-AND-BOUNDED-TRANSFER-APPROVAL.20260826T061117Z.json"},
+            "sha256": {"const": "c90783e767d6d9f8ebbd408fc4bc88ef4d69138c5547b95e99fbcacd49e216f0"}
+          }
+        },
+        "approval_event_timestamp_available": {"const": false},
+        "later_draft_and_active_bytes_owner_reviewed": {"const": false},
+        "implementation_only_narrows_or_enforces_c907": {"const": true},
+        "c907_alone_confers_runtime_execution_authority": {"const": false},
+        "new_owner_prompt_required": {"const": false}
+      }
+    },
+    "v1Lineage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "authorization_id", "status", "approved", "max_calls", "max_spend_usd"],
+      "properties": {
+        "path": {"const": "authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json"},
+        "sha256": {"const": "1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036"},
+        "authorization_id": {"const": "DRAFT-V1-ai-visibility-v1.1-p01-saved-c-transfer"},
+        "status": {"const": "draft"}, "approved": {"const": false},
+        "max_calls": {"const": 0}, "max_spend_usd": {"const": 0}
+      }
+    },
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256",
+        "selected_guide_sha256", "selected_guide_byte_count", "selected_guide_duration_seconds",
+        "guide_run_receipt_sha256", "primary_request_sha256",
+        "primary_multipart_body_sha256", "primary_multipart_body_bytes",
+        "multipart_content_type", "enable_logging", "normalized_http_request_sha256"
+      ],
+      "properties": {
+        "performance_transfer_plan_sha256": {"const": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53"},
+        "canonical_w_sha256": {"const": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a"},
+        "spoken_text_sha256": {"const": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"},
+        "selected_guide_sha256": {"const": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915"},
+        "selected_guide_byte_count": {"const": 1646010},
+        "selected_guide_duration_seconds": {"const": 34.290958333333336},
+        "guide_run_receipt_sha256": {"const": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f"},
+        "primary_request_sha256": {"const": "ccce1a1a46476c6a5b340416a7c97ccff34aac8a54edb454e9b411dcdfaa8c76"},
+        "primary_multipart_body_sha256": {"const": "6b57da1e6d1dc62b8ec31d34b6629da087be15f51b59998a83109f25403931dc"},
+        "primary_multipart_body_bytes": {"const": 1646839},
+        "multipart_content_type": {"const": "multipart/form-data; boundary=oe-v05-04448e9fdd50c8de67912b454e8d396f"},
+        "enable_logging": {"const": true},
+        "normalized_http_request_sha256": {"const": "878e7810bdddec3073cc6eee4d08072da6e312a4969bfc94a0daade19f321995"}
+      }
+    },
+    "selectedGuide": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "path", "sha256", "byte_count", "duration_seconds", "container", "codec", "sample_rate_hz", "channels", "guide_request_id", "guide_run_receipt_path", "guide_run_receipt_sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"},
+        "sha256": {"const": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915"},
+        "byte_count": {"const": 1646010}, "duration_seconds": {"const": 34.290958333333336},
+        "container": {"const": "wav"}, "codec": {"const": "pcm_s16le"},
+        "sample_rate_hz": {"const": 24000}, "channels": {"const": 1},
+        "guide_request_id": {"const": "gemini-guide-02"},
+        "guide_run_receipt_path": {"const": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json"},
+        "guide_run_receipt_sha256": {"const": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f"}
+      }
+    },
+    "fixedOwnerApproval": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-OWNER-AUDITION-AND-BOUNDED-TRANSFER-APPROVAL.20260826T061117Z.json"},
+        "sha256": {"const": "c90783e767d6d9f8ebbd408fc4bc88ef4d69138c5547b95e99fbcacd49e216f0"}
+      }
+    },
+    "fixedGuideQA": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "reviews/GUIDE-QA.candidate-B.20260826T061117Z.json"},
+        "sha256": {"const": "aa56ed77ec7bac54c8bfe4c3f71954824ede6ffd74f9489246d031945d3e0909"}
+      }
+    },
+    "fixedGuideSelection": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "reviews/GUIDE-OWNER-SELECTION.candidate-B.20260826T061117Z.json"},
+        "sha256": {"const": "eb1a33aa270b97f5f31c3fdaf37bfe49b242786fe29be9082a67124076443236"}
+      }
+    },
+    "fixedMedia": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-PCM48000-MEDIA-CONTRACT-BASIS.20260826T073836Z.json"},
+        "sha256": {"const": "175feb4d640d48a0fa4fc4f8e8e278478e8c5bd32bb89c9087974ebb149d78a9"}
+      }
+    },
+    "fixedDataUse": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fixedRights": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fixedAccountAssurance": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "prerequisites": {
+      "type": "object", "additionalProperties": false,
+      "required": ["selected_guide", "guide_qa", "owner_selection", "owner_audition_confirmation", "elevenlabs_data_use", "target_voice_rights", "official_media_contract"],
+      "properties": {
+        "selected_guide": {"$ref": "#/$defs/selectedGuide"},
+        "guide_qa": {"$ref": "#/$defs/fixedGuideQA"},
+        "owner_selection": {"$ref": "#/$defs/fixedGuideSelection"},
+        "owner_audition_confirmation": {"$ref": "#/$defs/fixedOwnerApproval"},
+        "elevenlabs_data_use": {"$ref": "#/$defs/fixedDataUse"},
+        "target_voice_rights": {"$ref": "#/$defs/fixedRights"},
+        "official_media_contract": {"$ref": "#/$defs/fixedMedia"}
+      }
+    },
+    "voiceSettings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["stability", "similarity_boost", "style", "use_speaker_boost", "speed"],
+      "properties": {
+        "stability": {"const": 0.4}, "similarity_boost": {"const": 0.8},
+        "style": {"const": 0.0}, "use_speaker_boost": {"const": true},
+        "speed": {"const": 1.0}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "endpoint", "method", "target_voice_id", "model_id", "seed", "query", "voice_settings", "remove_background_noise", "file_format", "credential_header_name", "accept", "accept_encoding", "no_fallback", "no_retry", "no_redirect", "disclosure"],
+      "properties": {
+        "provider": {"const": "elevenlabs"},
+        "endpoint": {"const": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj"},
+        "method": {"const": "POST"}, "target_voice_id": {"const": "scMbPZwQjr40V1MzL3Nj"},
+        "model_id": {"const": "eleven_multilingual_sts_v2"}, "seed": {"const": 2026082501},
+        "query": {
+          "type": "object", "additionalProperties": false,
+          "required": ["enable_logging", "output_format"],
+          "properties": {"enable_logging": {"const": true}, "output_format": {"const": "pcm_48000"}}
+        },
+        "voice_settings": {"$ref": "#/$defs/voiceSettings"},
+        "remove_background_noise": {"const": false}, "file_format": {"const": "other"},
+        "credential_header_name": {"const": "xi-api-key"},
+        "accept": {"const": "application/octet-stream"}, "accept_encoding": {"const": "identity"},
+        "no_fallback": {"const": true}, "no_retry": {"const": true}, "no_redirect": {"const": true},
+        "disclosure": {"const": "one_private_exact_candidate_b_to_saved_original_c_voice_changer_test"}
+      }
+    },
+    "accountEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "calibrated_account_assurance", "credential_authentication_inference", "authentication_conclusion", "response_body_contents_state", "account_data_observed", "identity_observed", "valid_user_id_observed", "subscription_state_observed", "target_voice_accessibility_state", "ui_api_account_equality_state", "exact_ui_api_account_equality_verified", "exact_ui_api_account_equality_claimed", "account_verified_claimed", "second_account_get_authorized"],
+      "properties": {
+        "state": {"const": "verified"},
+        "calibrated_account_assurance": {"$ref": "#/$defs/fixedAccountAssurance"},
+        "credential_authentication_inference": {"const": "supported_by_http_200_not_independently_verified"},
+        "authentication_conclusion": {"const": "HTTP 200 supports, but does not independently prove, that the credential-bearing request was accepted at this endpoint."},
+        "response_body_contents_state": {"const": "unknown_not_read"},
+        "account_data_observed": {"const": false}, "identity_observed": {"const": false},
+        "valid_user_id_observed": {"const": false}, "subscription_state_observed": {"const": false},
+        "target_voice_accessibility_state": {"const": "unknown"},
+        "ui_api_account_equality_state": {"const": "unknown"},
+        "exact_ui_api_account_equality_verified": {"const": false},
+        "exact_ui_api_account_equality_claimed": {"const": false},
+        "account_verified_claimed": {"const": false}, "second_account_get_authorized": {"const": false}
+      }
+    },
+    "pendingCredential": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "mechanism", "dotenv_path", "assignment_name"],
+      "properties": {
+        "state": {"const": "pending"},
+        "mechanism": {"const": "post_latch_descriptor_read_fixed_dotenv_exact_assignment"},
+        "dotenv_path": {"const": "/Users/brownmanbrain/GitHub/operator-economy/.env"},
+        "assignment_name": {"const": "ELEVENLABS_API_KEY"}
+      }
+    },
+    "verifiedCredential": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "mechanism", "dotenv_path", "assignment_name", "required_file_type", "required_mode", "current_uid_required", "required_link_count", "max_file_bytes", "max_assignment_count", "environment_inheritance_used", "shell_source_forbidden", "dotenv_reread_forbidden", "domain_separation", "api_key_fingerprint_sha256", "browser_suffix_sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "mechanism": {"const": "post_latch_descriptor_read_fixed_dotenv_exact_assignment"},
+        "dotenv_path": {"const": "/Users/brownmanbrain/GitHub/operator-economy/.env"},
+        "assignment_name": {"const": "ELEVENLABS_API_KEY"}, "required_file_type": {"const": "regular"},
+        "required_mode": {"const": "0600"}, "current_uid_required": {"const": true},
+        "required_link_count": {"const": 1}, "max_file_bytes": {"const": 65536},
+        "max_assignment_count": {"const": 1}, "environment_inheritance_used": {"const": false},
+        "shell_source_forbidden": {"const": true}, "dotenv_reread_forbidden": {"const": true},
+        "domain_separation": {"const": "oe-elevenlabs-api-key-v1\u0000"},
+        "api_key_fingerprint_sha256": {"$ref": "#/$defs/sha256"},
+        "browser_suffix_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "verifiedEvidenceBaseline": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "evidence_commit", "draft_authorization", "calibrated_account_assurance", "data_use_assurance", "target_rights", "fresh_browser_readiness"],
+      "properties": {
+        "state": {"const": "verified"}, "evidence_commit": {"$ref": "#/$defs/gitSha"},
+        "draft_authorization": {"allOf": [
+          {"$ref": "#/$defs/binding"},
+          {"properties": {"path": {"const": "authorizations/15-elevenlabs-recovery-evidence-voice-transfer.DRAFT.json"}}}
+        ]},
+        "calibrated_account_assurance": {"allOf": [
+          {"$ref": "#/$defs/binding"},
+          {"properties": {"path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-CALIBRATED-ACCOUNT-ASSURANCE.json"}}}
+        ]},
+        "data_use_assurance": {"allOf": [
+          {"$ref": "#/$defs/binding"},
+          {"properties": {"path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-DATA-USE-ASSURANCE.json"}}}
+        ]},
+        "target_rights": {"allOf": [
+          {"$ref": "#/$defs/binding"},
+          {"properties": {"path": {"const": "evidence/V1-ELEVENLABS-RECOVERY-TRANSFER-TARGET-RIGHTS.json"}}}
+        ]},
+        "fresh_browser_readiness": {"allOf": [
+          {"$ref": "#/$defs/binding"},
+          {"properties": {"path": {"pattern": "^evidence/browser-readiness/V1-ELEVENLABS-RECOVERY-TRANSFER-BROWSER-READINESS\\.[0-9]{8}T[0-9]{6}Z\\.json$"}}}
+        ]}
+      }
+    },
+    "verifiedRuntime": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "git_commit", "git_binary_path", "git_binary_sha256", "git_version", "worker_interpreter_path", "worker_interpreter_sha256", "worker_interpreter_version", "worker_interpreter_mode", "worker_interpreter_uid", "worker_interpreter_nlink", "voice_transfer_runtime_sha256", "transfer_worker_runtime_sha256", "performance_transfer_runtime_sha256", "cli_runtime_sha256", "core_runtime_sha256", "audio_runtime_sha256", "init_runtime_sha256", "recovery_transfer_schema_sha256", "voice_transfer_tests_sha256", "transfer_worker_tests_sha256", "capture_audio_tests_sha256", "ffprobe_binary_path", "ffprobe_binary_sha256", "ffprobe_version", "ffmpeg_binary_path", "ffmpeg_binary_sha256", "ffmpeg_version"],
+      "properties": {
+        "state": {"const": "verified"}, "git_commit": {"$ref": "#/$defs/gitSha"},
+        "git_binary_path": {"const": "/usr/bin/git"}, "git_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "git_version": {"type": "string", "minLength": 1, "maxLength": 64},
+        "worker_interpreter_path": {"const": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9"},
+        "worker_interpreter_sha256": {"const": "8e598855de9a6648bc670d5fe7a3a653f1fa967b74373ed7c4ca16fbc40c0de1"},
+        "worker_interpreter_version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "worker_interpreter_mode": {"const": 493}, "worker_interpreter_uid": {"const": 0},
+        "worker_interpreter_nlink": {"const": 1},
+        "voice_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "transfer_worker_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "performance_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "cli_runtime_sha256": {"$ref": "#/$defs/sha256"}, "core_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "audio_runtime_sha256": {"$ref": "#/$defs/sha256"}, "init_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "recovery_transfer_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "voice_transfer_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "transfer_worker_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "capture_audio_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "ffprobe_binary_path": {"type": "string", "pattern": "^/", "maxLength": 512},
+        "ffprobe_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "ffprobe_version": {"type": "string", "minLength": 1, "maxLength": 64},
+        "ffmpeg_binary_path": {"type": "string", "pattern": "^/", "maxLength": 512},
+        "ffmpeg_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "ffmpeg_version": {"type": "string", "minLength": 1, "maxLength": 64}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_account_get_calls", "max_generation_post_calls", "max_outputs", "max_source_bytes", "max_source_duration_seconds", "max_submitted_seconds", "max_request_body_bytes", "max_response_bytes", "min_output_duration_seconds", "max_output_duration_seconds", "min_output_to_source_duration_ratio", "max_output_to_source_duration_ratio", "max_error_response_bytes", "max_request_elapsed_seconds", "max_spend_usd"],
+      "properties": {
+        "max_account_get_calls": {"const": 0}, "max_generation_post_calls": {"enum": [0, 1]},
+        "max_outputs": {"enum": [0, 1]}, "max_source_bytes": {"enum": [0, 1646010]},
+        "max_source_duration_seconds": {"enum": [0, 34.290958333333336]},
+        "max_submitted_seconds": {"enum": [0, 34.290958333333336]},
+        "max_request_body_bytes": {"enum": [0, 1646839]},
+        "max_response_bytes": {"enum": [0, 4800000]},
+        "min_output_duration_seconds": {"enum": [0, 20]}, "max_output_duration_seconds": {"enum": [0, 50]},
+        "min_output_to_source_duration_ratio": {"enum": [0, 0.8]},
+        "max_output_to_source_duration_ratio": {"enum": [0, 1.2]},
+        "max_error_response_bytes": {"enum": [0, 65536]},
+        "max_request_elapsed_seconds": {"enum": [0, 300]}, "max_spend_usd": {"enum": [0, 0.12]}
+      }
+    },
+    "zeroLimits": {
+      "allOf": [{"$ref": "#/$defs/limits"}, {"properties": {
+        "max_generation_post_calls": {"const": 0}, "max_outputs": {"const": 0},
+        "max_source_bytes": {"const": 0}, "max_source_duration_seconds": {"const": 0},
+        "max_submitted_seconds": {"const": 0}, "max_request_body_bytes": {"const": 0},
+        "max_response_bytes": {"const": 0}, "min_output_duration_seconds": {"const": 0},
+        "max_output_duration_seconds": {"const": 0}, "min_output_to_source_duration_ratio": {"const": 0},
+        "max_output_to_source_duration_ratio": {"const": 0}, "max_error_response_bytes": {"const": 0},
+        "max_request_elapsed_seconds": {"const": 0}, "max_spend_usd": {"const": 0}
+      }}]
+    },
+    "activeLimits": {
+      "allOf": [{"$ref": "#/$defs/limits"}, {"properties": {
+        "max_generation_post_calls": {"const": 1}, "max_outputs": {"const": 1},
+        "max_source_bytes": {"const": 1646010}, "max_source_duration_seconds": {"const": 34.290958333333336},
+        "max_submitted_seconds": {"const": 34.290958333333336},
+        "max_request_body_bytes": {"const": 1646839}, "max_response_bytes": {"const": 4800000},
+        "min_output_duration_seconds": {"const": 20}, "max_output_duration_seconds": {"const": 50},
+        "min_output_to_source_duration_ratio": {"const": 0.8},
+        "max_output_to_source_duration_ratio": {"const": 1.2},
+        "max_error_response_bytes": {"const": 65536}, "max_request_elapsed_seconds": {"const": 300},
+        "max_spend_usd": {"const": 0.12}
+      }}]
+    },
+    "artifacts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_output_path", "working_output_path", "success_receipt_path", "failure_receipt_path", "conversion_receipt_path"],
+      "properties": {
+        "raw_output_path": {"const": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"},
+        "working_output_path": {"const": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer.wav"},
+        "success_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.run\\.json$"},
+        "failure_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.failure\\.json$"},
+        "conversion_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.conversion\\.json$"}
+      }
+    },
+    "draftArtifacts": {
+      "allOf": [{"$ref": "#/$defs/artifacts"}, {"properties": {
+        "success_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.run.json"},
+        "failure_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.failure.json"},
+        "conversion_receipt_path": {"const": "receipts/elevenlabs/DRAFT-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.conversion.json"}
+      }}]
+    },
+    "activeArtifacts": {
+      "allOf": [{"$ref": "#/$defs/artifacts"}, {"properties": {
+        "success_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.run.json"},
+        "failure_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.failure.json"},
+        "conversion_receipt_path": {"const": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-ai-visibility-v1.1-p01.conversion.json"}
+      }}]
+    },
+    "consumption": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "generation_post_calls_used", "outputs_received", "spend_used_usd", "record_path", "shared_global_transfer_latch"],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "generation_post_calls_used": {"const": 0}, "outputs_received": {"const": 0},
+        "spend_used_usd": {"const": 0},
+        "record_path": {"const": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot.voice-transfer-execution.consumed.json"},
+        "shared_global_transfer_latch": {"const": true}
+      }
+    }
+  }
+}

@@ -2993,3 +2993,536 @@ def _convert_working_impl(
         if record_descriptor is not None:
             os.close(record_descriptor)
         raise
+
+
+# ---------------------------------------------------------------------------
+# Additive recovery-evidence Voice Changer conversion
+# ---------------------------------------------------------------------------
+
+
+_RECOVERY_TRANSFER_RUN_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-run-v1"
+)
+_RECOVERY_TRANSFER_CONVERSION_SCHEMA = (
+    "oe-elevenlabs-recovery-evidence-voice-transfer-conversion-v1"
+)
+_RECOVERY_TRANSFER_SCOPE = "elevenlabs_recovery_evidence_voice_transfer_execution"
+
+
+def _require_recovery_transfer_private_bound(bound: _BoundInput) -> None:
+    metadata = os.fstat(bound.descriptor)
+    if (
+        stat.S_IMODE(metadata.st_mode) != 0o600
+        or metadata.st_uid != os.getuid()
+        or metadata.st_nlink != 1
+    ):
+        raise ValidationError(f"{bound.label} must remain current-UID mode-0600 single-link")
+
+
+def _replay_recovery_evidence_source_proof(
+    receipt: dict[str, Any],
+    receipt_bound: _BoundInput,
+    held_inputs: list[_BoundInput],
+) -> tuple[Path, dict[str, Any], dict[str, Any], _BoundInput, _BoundInput]:
+    """Replay the ACTIVE, latch, runtime, and committed-head bindings locally."""
+
+    from . import performance_transfer as pt
+    from . import voice_transfer as vt
+
+    root = pt._document_root(receipt_bound.path)
+    authorization_path = _bound_existing_file(
+        root,
+        receipt.get("authorization_path"),
+        "recovery transfer ACTIVE authorization",
+        prefix="authorizations",
+        suffix=".json",
+    )
+    authorization_bound = _open_bound_input(
+        authorization_path,
+        "recovery transfer ACTIVE authorization",
+        byte_cap=_TRANSFER_JSON_BYTE_CAP,
+        required_mode=0o600,
+    )
+    held_inputs.append(authorization_bound)
+    _require_recovery_transfer_private_bound(authorization_bound)
+    authorization = _strict_json_bytes(
+        authorization_bound.data,
+        "recovery transfer ACTIVE authorization",
+    )
+    if (
+        receipt.get("authorization_sha256") != authorization_bound.sha256
+        or authorization.get("schema_version") != vt.RECOVERY_TRANSFER_AUTH_SCHEMA
+        or authorization.get("status") != "active"
+        or authorization.get("provider_action_authorized") is not True
+        or authorization.get("authorization_id") != receipt.get("authorization_id")
+        or authorization.get("scope") != _RECOVERY_TRANSFER_SCOPE
+        or authorization.get("artifacts") != vt._recovery_transfer_artifacts(True)
+        or authorization.get("consumption") != vt._recovery_transfer_consumption(True)
+    ):
+        raise ValidationError("recovery transfer ACTIVE source binding is invalid")
+    errors: list[str] = []
+    runtime = vt._validate_recovery_transfer_runtime_bindings(
+        authorization.get("runtime_bindings"),
+        active=True,
+        errors=errors,
+    )
+    if errors:
+        raise ValidationError("recovery transfer runtime source binding drifted")
+    source_proof = receipt.get("source_proof")
+    if not isinstance(source_proof, dict):
+        raise ValidationError("recovery transfer run source proof is unavailable")
+    head = vt._bound_git(runtime, ["rev-parse", "HEAD"]).strip().decode(
+        "ascii", errors="strict"
+    )
+    if (
+        head != source_proof.get("active_commit")
+        or runtime.get("git_commit") != source_proof.get("runtime_commit")
+        or authorization.get("evidence_baseline", {}).get("evidence_commit")
+        != source_proof.get("evidence_commit")
+        or source_proof.get("source_revalidated_after_latch") is not True
+        or source_proof.get("post_latch_revalidation_completed") is not True
+        or source_proof.get("remote_state_checked") is not False
+        or source_proof.get("git_network_called") is not False
+    ):
+        raise ValidationError("recovery transfer run source proof did not replay")
+    latch_path = _bound_existing_file(
+        root,
+        receipt.get("consumption_record_path"),
+        "recovery transfer shared latch",
+        prefix="authorizations",
+        suffix=".json",
+    )
+    latch_bound = _open_bound_input(
+        latch_path,
+        "recovery transfer shared latch",
+        byte_cap=_TRANSFER_JSON_BYTE_CAP,
+        required_mode=0o600,
+    )
+    held_inputs.append(latch_bound)
+    _require_recovery_transfer_private_bound(latch_bound)
+    latch = _strict_json_bytes(latch_bound.data, "recovery transfer shared latch")
+    if (
+        latch_bound.sha256 != receipt.get("consumption_record_sha256")
+        or latch.get("schema_version") != vt.RECOVERY_TRANSFER_CONSUMPTION_SCHEMA
+        or latch.get("authorization_id") != receipt.get("authorization_id")
+        or latch.get("generation_post_budget_consumed") is not True
+        or latch.get("retry_or_replay_permitted") is not False
+    ):
+        raise ValidationError("recovery transfer shared latch binding is invalid")
+    repository = pt._guide_repository_root()
+    try:
+        authorization_relative = authorization_path.relative_to(repository).as_posix()
+        latch_relative = latch_path.relative_to(repository).as_posix()
+        run_relative = receipt_bound.path.relative_to(repository).as_posix()
+        raw_relative = (root / _TRANSFER_RAW_PATH).relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("recovery transfer generated evidence left the repository") from None
+    evidence_commit = authorization.get("evidence_baseline", {}).get("evidence_commit")
+    parents = vt._bound_git(
+        runtime,
+        ["rev-list", "--parents", "-n", "1", head],
+    ).strip().split()
+    active_delta = vt._bound_git(
+        runtime,
+        [
+            "diff", "--no-ext-diff", "--no-textconv", "--no-renames",
+            "--name-status", "--diff-filter=ACDMRTUXB", "-z",
+            f"{evidence_commit}..{head}",
+        ],
+    )
+    committed_active = vt._bound_git(
+        runtime,
+        ["show", f"{head}:{authorization_relative}"],
+        max_bytes=_TRANSFER_JSON_BYTE_CAP,
+    )
+    if (
+        not isinstance(evidence_commit, str)
+        or parents != [head.encode("ascii"), evidence_commit.encode("ascii")]
+        or active_delta
+        != b"A\x00" + authorization_relative.encode("utf-8") + b"\x00"
+        or committed_active != authorization_bound.data
+        or sha256_bytes(committed_active) != authorization_bound.sha256
+    ):
+        raise ValidationError("recovery transfer committed ACTIVE proof did not replay")
+    plan_bound, canonical_w_bound = _transfer_canonical_w_inputs(root, held_inputs)
+    semantic = vt.validate_recovery_evidence_voice_transfer_authorization(
+        authorization_path,
+        plan_bound.path,
+        canonical_w_bound.path,
+        _allowed_generated_status_paths=frozenset({latch_relative, run_relative}),
+        _allowed_ignored_generated_paths=frozenset({raw_relative}),
+    )
+    if (
+        semantic.get("valid") is not True
+        or semantic.get("authorization_status") != "active"
+        or semantic.get("provider_action_authorized") is not True
+        or semantic.get("authorization_sha256") != authorization_bound.sha256
+    ):
+        semantic.clear()
+        raise ValidationError("recovery transfer committed ACTIVE semantics did not replay")
+    semantic.clear()
+    _revalidate_bound_input(authorization_bound)
+    _revalidate_bound_input(latch_bound)
+    return root, authorization, runtime, authorization_bound, latch_bound
+
+
+def inspect_recovery_evidence_raw_pcm(
+    path: Path,
+    receipt_path: Path,
+    part_id: str | None = None,
+    *,
+    _raw_bound: _BoundInput | None = None,
+    _runtime_bindings_out: dict[str, Any] | None = None,
+    _held_inputs: list[_BoundInput] | None = None,
+) -> dict[str, Any]:
+    """Inspect exact recovery-transfer raw PCM without entering legacy routing."""
+
+    own_inputs = _held_inputs is None
+    held_inputs = [] if _held_inputs is None else _held_inputs
+    raw_bound = _raw_bound
+    receipt_bound: _BoundInput | None = None
+    authorization: dict[str, Any] = {}
+    receipt: dict[str, Any] = {}
+    try:
+        if raw_bound is None:
+            raw_bound = _open_bound_input(
+                path,
+                "recovery transfer raw PCM",
+                byte_cap=_TRANSFER_RAW_BYTE_CAP,
+                required_mode=0o600,
+            )
+            held_inputs.append(raw_bound)
+        _require_recovery_transfer_private_bound(raw_bound)
+        receipt_bound = _open_bound_input(
+            receipt_path,
+            "recovery transfer run receipt",
+            byte_cap=_TRANSFER_JSON_BYTE_CAP,
+            required_mode=0o600,
+        )
+        held_inputs.append(receipt_bound)
+        _require_recovery_transfer_private_bound(receipt_bound)
+        receipt = _strict_json_bytes(receipt_bound.data, "recovery transfer run receipt")
+        root, authorization, runtime, _authorization_bound, _latch_bound = (
+            _replay_recovery_evidence_source_proof(receipt, receipt_bound, held_inputs)
+        )
+        raw_output = receipt.get("raw_output")
+        provider = receipt.get("provider_evidence")
+        response = receipt.get("response")
+        if not isinstance(raw_output, dict) or not isinstance(provider, dict) or not isinstance(response, dict):
+            raise ValidationError("recovery transfer run evidence is incomplete")
+        expected_raw = root / _TRANSFER_RAW_PATH
+        if (
+            receipt.get("schema_version") != _RECOVERY_TRANSFER_RUN_SCHEMA
+            or receipt.get("outcome") != "success"
+            or receipt.get("provider") != "elevenlabs"
+            or receipt.get("scope") != _RECOVERY_TRANSFER_SCOPE
+            or receipt.get("method") != "POST"
+            or receipt.get("part_id") != _TRANSFER_PART_ID
+            or part_id not in {None, _TRANSFER_PART_ID}
+            or raw_bound.path != expected_raw.absolute()
+            or raw_output.get("path") != _TRANSFER_RAW_PATH
+            or raw_output.get("sha256") != raw_bound.sha256
+            or raw_output.get("byte_count") != len(raw_bound.data)
+            or response.get("http_status") != 200
+            or response.get("provider_request_state") != "response_confirmed"
+            or response.get("provider_response_state") != "body_complete"
+            or response.get("response_sha256") != raw_bound.sha256
+            or response.get("response_bytes") != len(raw_bound.data)
+            or response.get("declared_mime_type") not in _TRANSFER_DECLARED_MIME_ALLOWLIST
+            or response.get("content_encoding") != "identity"
+            or provider.get("account_get_calls_made") != 0
+            or provider.get("generation_post_budget_consumed") is not True
+            or provider.get("generation_post_calls_made") != 1
+            or provider.get("application_http_attempts") != 1
+            or provider.get("application_retries_made") != 0
+            or provider.get("application_redirects_followed") != 0
+            or provider.get("application_fallbacks_used") != 0
+            or provider.get("outputs_received") != 1
+            or receipt.get("working_output_path") != _TRANSFER_WORKING_PATH
+            or receipt.get("conversion_receipt_path")
+            != authorization["artifacts"]["conversion_receipt_path"]
+        ):
+            raise ValidationError("recovery transfer run/raw binding is invalid")
+        _validate_transfer_provider_evidence(
+            {
+                "account_get_calls_made": provider["account_get_calls_made"],
+                "generation_post_calls_made": provider["generation_post_calls_made"],
+                "outputs_received": provider["outputs_received"],
+                "request_ids": provider.get("request_ids"),
+                "usage": provider.get("usage"),
+            }
+        )
+        if not raw_bound.data or len(raw_bound.data) % 2:
+            raise ValidationError("recovery transfer raw PCM is empty or misaligned")
+        frame_count = len(raw_bound.data) // 2
+        duration = len(raw_bound.data) / (_TRANSFER_SAMPLE_RATE_HZ * 2)
+        if not _TRANSFER_MIN_DURATION_SECONDS <= duration <= _TRANSFER_MAX_DURATION_SECONDS:
+            raise ValidationError("recovery transfer raw PCM duration is outside its bound")
+        expected_interpretation = {
+            "container_interpretation": "raw",
+            "codec_interpretation": "pcm_s16le",
+            "sample_rate_hz_interpretation": 48_000,
+            "channel_count_interpretation": 1,
+            "bit_depth_interpretation": 16,
+            "frame_count_under_mono_contract_interpretation": frame_count,
+            "duration_seconds_under_mono_contract_interpretation": duration,
+            "output_to_source_duration_ratio_under_mono_contract_interpretation": (
+                duration / _TRANSFER_SELECTED_GUIDE_DURATION_SECONDS
+            ),
+            "format_parameters_intrinsically_verified": False,
+            "channel_count_intrinsically_verified": False,
+            "frame_and_duration_computed_under_mono_contract_interpretation": True,
+            "lossy_interpretation": False,
+        }
+        if any(raw_output.get(key) != value for key, value in expected_interpretation.items()):
+            raise ValidationError("recovery transfer PCM interpretation evidence drifted")
+        _revalidate_bound_input(raw_bound)
+        _revalidate_bound_input(receipt_bound)
+        if _runtime_bindings_out is not None:
+            _runtime_bindings_out.update(runtime)
+        return {
+            "path": str(raw_bound.path),
+            "sha256": raw_bound.sha256,
+            "byte_count": len(raw_bound.data),
+            "requested_output_format": "pcm_48000",
+            "container_interpretation": raw_output["container_interpretation"],
+            "codec_interpretation": raw_output["codec_interpretation"],
+            "sample_rate_hz_interpretation": raw_output[
+                "sample_rate_hz_interpretation"
+            ],
+            "channel_count_interpretation": raw_output[
+                "channel_count_interpretation"
+            ],
+            "bit_depth_interpretation": raw_output["bit_depth_interpretation"],
+            "frame_count_under_mono_contract_interpretation": raw_output[
+                "frame_count_under_mono_contract_interpretation"
+            ],
+            "duration_seconds_under_mono_contract_interpretation": raw_output[
+                "duration_seconds_under_mono_contract_interpretation"
+            ],
+            "output_to_source_duration_ratio_under_mono_contract_interpretation": raw_output[
+                "output_to_source_duration_ratio_under_mono_contract_interpretation"
+            ],
+            "format_parameters_intrinsically_verified": False,
+            "channel_count_intrinsically_verified": False,
+            "frame_and_duration_computed_under_mono_contract_interpretation": True,
+            "lossy_interpretation": False,
+            "capture_receipt_schema_version": _RECOVERY_TRANSFER_RUN_SCHEMA,
+            "capture_receipt_sha256": receipt_bound.sha256,
+            "part_id": _TRANSFER_PART_ID,
+            "authorization_sha256": receipt["authorization_sha256"],
+            "consumption_record_sha256": receipt["consumption_record_sha256"],
+            "authorized_working_output_path": str(root / _TRANSFER_WORKING_PATH),
+            "authorized_conversion_receipt_path": str(
+                root / authorization["artifacts"]["conversion_receipt_path"]
+            ),
+        }
+    finally:
+        authorization.clear()
+        receipt.clear()
+        if own_inputs:
+            for bound in reversed(held_inputs):
+                _close_bound_input(bound)
+                bound.data = b""
+            held_inputs.clear()
+
+
+def convert_recovery_evidence_working(
+    raw_path: Path,
+    output_path: Path,
+    *,
+    receipt_path: Path,
+    part_id: str,
+    record_path: Path,
+) -> dict[str, Any]:
+    """Convert one recovery-transfer raw PCM result through its own provenance path."""
+
+    held_inputs: list[_BoundInput] = []
+    result: dict[str, Any] | None = None
+    code: str | None = None
+    try:
+        result = _convert_recovery_evidence_working_impl(
+            raw_path,
+            output_path,
+            receipt_path=receipt_path,
+            part_id=part_id,
+            record_path=record_path,
+            held_inputs=held_inputs,
+        )
+    except BaseException as failure:
+        code = "recovery transfer conversion failed closed"
+        failure.__traceback__ = None
+        failure.__cause__ = None
+        failure.__context__ = None
+    finally:
+        for bound in reversed(held_inputs):
+            _close_bound_input(bound)
+            bound.data = b""
+        held_inputs.clear()
+    if result is None:
+        raise ValidationError(code or "recovery transfer conversion failed closed") from None
+    return result
+
+
+def _convert_recovery_evidence_working_impl(
+    raw_path: Path,
+    output_path: Path,
+    *,
+    receipt_path: Path,
+    part_id: str,
+    record_path: Path,
+    held_inputs: list[_BoundInput],
+) -> dict[str, Any]:
+    raw_path = _no_symlink_path(raw_path, "recovery transfer raw PCM", must_exist=True)
+    receipt_path = _no_symlink_path(
+        receipt_path, "recovery transfer run receipt", must_exist=True
+    )
+    output_path = _no_symlink_path(
+        output_path, "recovery transfer working audio", must_exist=False
+    )
+    record_path = _no_symlink_path(
+        record_path, "recovery transfer conversion record", must_exist=False
+    )
+    if output_path.exists() or output_path.is_symlink() or record_path.exists() or record_path.is_symlink():
+        raise ValidationError("recovery transfer conversion destination already exists")
+    raw_bound = _open_bound_input(
+        raw_path,
+        "recovery transfer raw PCM",
+        byte_cap=_TRANSFER_RAW_BYTE_CAP,
+        required_mode=0o600,
+    )
+    held_inputs.append(raw_bound)
+    _require_recovery_transfer_private_bound(raw_bound)
+    runtime: dict[str, Any] = {}
+    source = inspect_recovery_evidence_raw_pcm(
+        raw_path,
+        receipt_path,
+        part_id,
+        _raw_bound=raw_bound,
+        _runtime_bindings_out=runtime,
+        _held_inputs=held_inputs,
+    )
+    if Path(source["authorized_working_output_path"]) != Path(os.path.abspath(output_path)):
+        raise ValidationError("recovery transfer working output path is not authorized")
+    if Path(source["authorized_conversion_receipt_path"]) != Path(os.path.abspath(record_path)):
+        raise ValidationError("recovery transfer conversion record path is not authorized")
+
+    destination_output: Path | None = None
+    output_directory_descriptor: int | None = None
+    output_temp_path: Path | None = None
+    output_temp_name: str | None = None
+    output_descriptor: int | None = None
+    reserved_record: Path | None = None
+    record_descriptor: int | None = None
+    output_finalized = False
+    try:
+        reserved_record, record_descriptor = _reserve_private_file(
+            record_path, "recovery transfer conversion record"
+        )
+        destination_output, output_directory_descriptor = _prepare_private_destination(
+            output_path, "recovery transfer working audio"
+        )
+        output_temp_path, output_temp_name, output_descriptor = _reserve_private_temp(
+            destination_output.parent,
+            output_directory_descriptor,
+            destination_output.name,
+        )
+        _revalidate_bound_input(raw_bound)
+        arguments = [
+            "-nostdin", "-y", "-v", "error",
+            "-f", "s16le", "-ar", "48000", "-ac", "1",
+            "-i", f"/dev/fd/{raw_bound.descriptor}",
+            "-map_metadata", "-1", "-vn", "-ac", "1", "-ar", "48000",
+            "-c:a", "pcm_s24le", "-f", "wav", f"/dev/fd/{output_descriptor}",
+        ]
+        process = _run_transfer_media_tool(
+            "ffmpeg",
+            arguments,
+            runtime,
+            pass_fds=(output_descriptor, raw_bound.descriptor),
+            timeout_seconds=_TRANSFER_FFMPEG_TIMEOUT_SECONDS,
+        )
+        if process.returncode != 0:
+            raise ValidationError("recovery transfer ffmpeg conversion failed")
+        os.fsync(output_descriptor)
+        _same_open_regular_file(output_temp_path, output_descriptor, "recovery working temp")
+        _revalidate_bound_input(raw_bound)
+        converted = inspect_audio(
+            output_temp_path,
+            _transfer_runtime_bindings=runtime,
+        )
+        if not converted["is_working_master"]:
+            raise ValidationError("recovery transfer working output geometry is invalid")
+        _validate_full_decode(output_temp_path, _transfer_runtime_bindings=runtime)
+        _same_open_regular_file(output_temp_path, output_descriptor, "recovery working temp")
+        converted["path"] = str(destination_output)
+        conversion = {
+            "schema_version": _RECOVERY_TRANSFER_CONVERSION_SCHEMA,
+            "scope": _RECOVERY_TRANSFER_SCOPE,
+            "part_id": _TRANSFER_PART_ID,
+            "run_receipt_sha256": source["capture_receipt_sha256"],
+            "authorization_sha256": source["authorization_sha256"],
+            "consumption_record_sha256": source["consumption_record_sha256"],
+            "raw": source,
+            "raw_immutable_sha256": raw_bound.sha256,
+            "conversion_count_from_raw": 1,
+            "working": converted,
+            "lossy_interpretation": False,
+            "lossy_origin_intrinsically_verified": False,
+            "creative_approved": False,
+            "step2_lock_authorized": False,
+            "step3_authorized": False,
+            "sharing_authorized": False,
+            "publication_authorized": False,
+        }
+        os.link(
+            output_temp_name,
+            destination_output.name,
+            src_dir_fd=output_directory_descriptor,
+            dst_dir_fd=output_directory_descriptor,
+            follow_symlinks=False,
+        )
+        output_finalized = True
+        _same_open_regular_file(destination_output, output_descriptor, "recovery working audio")
+        os.unlink(output_temp_name, dir_fd=output_directory_descriptor)
+        output_temp_name = None
+        output_temp_path = None
+        payload = (json.dumps(conversion, indent=2, sort_keys=True) + "\n").encode("utf-8")
+        written = 0
+        while written < len(payload):
+            count = os.write(record_descriptor, payload[written:])
+            if count <= 0:
+                raise OSError("short recovery conversion record write")
+            written += count
+        os.fsync(record_descriptor)
+        _same_open_regular_file(reserved_record, record_descriptor, "recovery conversion record")
+        _same_open_regular_file(destination_output, output_descriptor, "recovery working audio")
+        if (
+            stat.S_IMODE(os.fstat(output_descriptor).st_mode) != 0o600
+            or stat.S_IMODE(os.fstat(record_descriptor).st_mode) != 0o600
+        ):
+            raise ValidationError("recovery transfer conversion outputs must remain mode 0600")
+        conversion["record"] = str(reserved_record)
+        conversion["record_sha256"] = sha256_bytes(payload)
+        return conversion
+    except BaseException:
+        if output_finalized and destination_output is not None:
+            _unlink_at_if_same(
+                output_directory_descriptor,
+                destination_output.name,
+                output_descriptor,
+            )
+        _unlink_at_if_same(
+            output_directory_descriptor,
+            output_temp_name,
+            output_descriptor,
+        )
+        _unlink_reserved_if_same(reserved_record, record_descriptor)
+        raise
+    finally:
+        if output_descriptor is not None:
+            os.close(output_descriptor)
+        if output_directory_descriptor is not None:
+            os.close(output_directory_descriptor)
+        if record_descriptor is not None:
+            os.close(record_descriptor)

@@ -44,9 +44,11 @@ from .google_service_enablement import (
 from .voice_transfer import (
     dry_run_account_verification,
     dry_run_account_recovery,
+    dry_run_recovery_evidence_voice_transfer,
     dry_run_voice_transfer_execution,
     execute_account_verification,
     execute_account_recovery,
+    execute_recovery_evidence_voice_transfer,
     execute_voice_transfer,
 )
 from .retrieval import (
@@ -278,6 +280,20 @@ def build_parser() -> argparse.ArgumentParser:
     account_recover.add_argument("--record", type=_path)
     account_recover.add_argument("--execute", action="store_true")
     account_recover.add_argument("--timeout", type=float, default=30.0)
+
+    recovery_transfer = sub.add_parser(
+        "elevenlabs-voice-transfer-recovery",
+        help=(
+            "dry-run by default; consume the shared one-shot transfer latch and "
+            "release one isolated recovery-evidence Voice Changer POST"
+        ),
+    )
+    recovery_transfer.add_argument("--authorization", type=_contract_path, required=True)
+    recovery_transfer.add_argument("--plan", type=_contract_path, required=True)
+    recovery_transfer.add_argument("--canonical-w", type=_contract_path, required=True)
+    recovery_transfer.add_argument("--record", type=_path)
+    recovery_transfer.add_argument("--execute", action="store_true")
+    recovery_transfer.add_argument("--timeout", type=float, default=60.0)
     return parser
 
 
@@ -519,6 +535,27 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
                 raise ValidationError("--timeout must be greater than zero and at most 30 seconds")
             return execute_account_recovery(args.authorization, timeout=args.timeout)
         result = dry_run_account_recovery(args.authorization)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "elevenlabs-voice-transfer-recovery":
+        if args.execute:
+            if args.record is not None:
+                raise ValidationError("--record is for dry runs; execution writes immutable receipts")
+            if args.timeout <= 0 or args.timeout > 300:
+                raise ValidationError("--timeout must be greater than zero and at most 300 seconds")
+            return execute_recovery_evidence_voice_transfer(
+                args.authorization,
+                args.plan,
+                args.canonical_w,
+                timeout=args.timeout,
+            )
+        result = dry_run_recovery_evidence_voice_transfer(
+            args.authorization,
+            args.plan,
+            args.canonical_w,
+        )
         if args.record:
             _write_json(args.record, result)
             result["record"] = str(args.record)
