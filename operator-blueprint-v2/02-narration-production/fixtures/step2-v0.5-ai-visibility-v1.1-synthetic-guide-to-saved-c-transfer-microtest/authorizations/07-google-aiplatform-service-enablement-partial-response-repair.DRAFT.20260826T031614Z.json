@@ -1,0 +1,180 @@
+{
+  "schema_version": "oe-google-service-enablement-authorization-v2",
+  "authorization_id": "AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T031614Z",
+  "status": "draft",
+  "approved": false,
+  "scope": "enable_one_exact_google_service",
+  "target": {
+    "project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+    "project_number_sha256": "b69b2f361c3a065b3490318c25095102307f4d27aa228922c0787b58cf32d76b",
+    "service": "aiplatform.googleapis.com"
+  },
+  "diagnosis_binding": {
+    "path": "evidence/G1R2-403-DIAGNOSIS.20260826T014109Z.json",
+    "sha256": "335c7d6e29052f179dac19f868acea2430d3c99fcaedd6baf2c69cff7f7496d0",
+    "project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+    "reported_current_state": "DISABLED",
+    "causal_status": "only_confirmed_configuration_anomaly_not_proven_403_cause"
+  },
+  "readiness_binding": {
+    "path": "evidence/G1R2-AIPLATFORM-SERVICE-ENABLEMENT-READINESS.20260826T015909Z.json",
+    "sha256": "91b68560b7408825e6fb3937eb5c9d14d18605961aafede79dfdb018be9eecd6",
+    "project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+    "project_number_sha256": "b69b2f361c3a065b3490318c25095102307f4d27aa228922c0787b58cf32d76b",
+    "permission": "serviceusage.services.enable",
+    "permission_granted": true
+  },
+  "prior_attempt_binding": {
+    "authorization_id": "AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z",
+    "authorization_path": "authorizations/06-google-aiplatform-service-enablement.ACTIVE.20260826T025746Z.json",
+    "authorization_sha256": "1b7f50bdf713426d49dd62a4f69a8b6494326ae29b4b0f883098b9fd52d72747",
+    "authorization_commit": "1c29c00a63ebc89e26098b19694f7b75dedf1cec",
+    "consumption_record_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.consumed.json",
+    "consumption_record_sha256": "8b6111804bc43e5c994498052f6d26639f42136efffc3229a0dd64011ed856a5",
+    "failure_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.failure.json",
+    "failure_receipt_sha256": "7b37764ed391803d94e42797947f49b8db5735a939155124ce2e249e8126f7b8",
+    "disposition_path": "evidence/G1R2-SERVICE-PRE-READ-FAILURE-DISPOSITION.20260826T030504Z.json",
+    "disposition_sha256": "27d8dd2af6cef0f7e8b44708a42708cc01f74451ec94874dc6ea4a6e07f96d23",
+    "prior_runtime_commit": "445964088a53d814361fe434277818603f276326",
+    "outcome": "failed_closed",
+    "reason_code": "provider_response_byte_cap_exceeded",
+    "failed_phase": "pre_enable_readback",
+    "http_status": 200,
+    "bounded_response_bytes_read": 1000001,
+    "captured_cap_plus_one_prefix_sha256": "5465996bb1ee858dd3fc2db43228fb6f6089353bc9d9361e5ae0d532a697ca79",
+    "mutation_attempted": false,
+    "service_enable_request_sent": false,
+    "service_mutation_occurred": false,
+    "full_provider_response_length_known": false,
+    "execution_semantics": "fresh_transaction_after_zero_mutation_not_retry_or_resumption"
+  },
+  "runtime_bindings": {
+    "git_commit": "pending",
+    "executor_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/google_service_enablement.py",
+    "executor_sha256": "pending",
+    "credential_runtime_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/performance_transfer.py",
+    "credential_runtime_sha256": "pending",
+    "cli_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/cli.py",
+    "cli_sha256": "pending",
+    "core_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/core.py",
+    "core_sha256": "pending",
+    "init_path": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/__init__.py",
+    "init_sha256": "pending",
+    "schema_path": "operator-blueprint-v2/02-narration-production/schemas/google-service-enablement-authorization.schema.json",
+    "schema_sha256": "pending"
+  },
+  "action": {
+    "provider": "google_cloud_service_usage",
+    "service": "aiplatform.googleapis.com",
+    "project_identity_source": "private_hash_bound_environment_value",
+    "credential_mechanism": "gcloud_application_default_print_access_token_without_scopes_override",
+    "pre_enable_readback": {
+      "method": "GET",
+      "endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com?fields=name,state",
+      "fields": "name,state",
+      "required_state": "DISABLED"
+    },
+    "enable": {
+      "method": "POST",
+      "endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com:enable",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    "operation_poll": {
+      "method": "GET",
+      "endpoint_template": "https://serviceusage.googleapis.com/v1/{operation_name}",
+      "required_terminal_done": true
+    },
+    "post_enable_readback": {
+      "method": "GET",
+      "endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com?fields=name,state",
+      "fields": "name,state",
+      "required_state": "ENABLED"
+    },
+    "no_retry": true,
+    "no_redirect": true,
+    "disable_after_test": false,
+    "no_other_mutation": true
+  },
+  "prospective_active_limits": {
+    "max_pre_enable_state_readbacks": 1,
+    "max_enable_attempts": 1,
+    "max_operation_polls": 12,
+    "max_post_enable_state_readbacks": 1,
+    "max_http_calls": 15,
+    "max_response_bytes_per_call": 1000000,
+    "max_total_response_bytes": 15000000,
+    "request_timeout_seconds": 30,
+    "poll_interval_seconds": 5,
+    "max_operation_elapsed_seconds": 120,
+    "max_other_service_mutations": 0,
+    "max_iam_mutations": 0,
+    "max_billing_mutations": 0,
+    "max_project_hierarchy_mutations": 0,
+    "max_synthesis_calls": 0
+  },
+  "authorized_limits": {
+    "max_pre_enable_state_readbacks": 0,
+    "max_enable_attempts": 0,
+    "max_operation_polls": 0,
+    "max_post_enable_state_readbacks": 0,
+    "max_http_calls": 0,
+    "max_response_bytes_per_call": 0,
+    "max_total_response_bytes": 0,
+    "request_timeout_seconds": 0,
+    "poll_interval_seconds": 0,
+    "max_operation_elapsed_seconds": 0,
+    "max_other_service_mutations": 0,
+    "max_iam_mutations": 0,
+    "max_billing_mutations": 0,
+    "max_project_hierarchy_mutations": 0,
+    "max_synthesis_calls": 0
+  },
+  "artifacts": {
+    "consumption_record_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T031614Z.consumed.json",
+    "success_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T031614Z.run.json",
+    "failure_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T031614Z.failure.json"
+  },
+  "required_success_evidence": {
+    "pre_enable_service_state": "DISABLED",
+    "pre_enable_response_sha256_required": true,
+    "enable_operation_response_sha256_required": true,
+    "operation_completion_response_sha256_required": true,
+    "post_enable_service_state": "ENABLED",
+    "post_enable_response_sha256_required": true,
+    "timestamps_required": true,
+    "raw_project_identifier_forbidden": true,
+    "raw_project_number_forbidden": true,
+    "raw_credentials_forbidden": true,
+    "raw_billing_identity_forbidden": true,
+    "raw_provider_responses_forbidden": true
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "the consumed service-attempt outcome disposition and partial-response repair runtime have not been committed as one frozen evidence boundary",
+    "the v2 repair runtime and schema have not received independent final acceptance",
+    "the owner has not approved a fresh 24-hour active partial-response service-enablement transaction",
+    "credential access network access service readback and service enablement remain unauthorized"
+  ],
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "service_readback_authorized": false,
+    "service_enablement_authorized": false,
+    "service_disablement_authorized": false,
+    "other_service_mutation_authorized": false,
+    "iam_mutation_authorized": false,
+    "billing_mutation_authorized": false,
+    "project_hierarchy_mutation_authorized": false,
+    "synthetic_guide_generation_authorized": false,
+    "retry_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

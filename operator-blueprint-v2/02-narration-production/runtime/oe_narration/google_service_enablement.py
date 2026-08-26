@@ -28,14 +28,19 @@ from .core import ValidationError, sha256_bytes, sha256_file
 from . import performance_transfer as pt
 
 
-AUTH_SCHEMA = "oe-google-service-enablement-authorization-v1"
-DRY_RUN_SCHEMA = "oe-google-service-enablement-dry-run-v1"
-CONSUMPTION_SCHEMA = "oe-google-service-enablement-consumption-v1"
-RUN_RECEIPT_SCHEMA = "oe-google-service-enablement-run-receipt-v1"
-FAILURE_RECEIPT_SCHEMA = "oe-google-service-enablement-failure-v1"
+AUTH_SCHEMA = "oe-google-service-enablement-authorization-v2"
+DRY_RUN_SCHEMA = "oe-google-service-enablement-dry-run-v2"
+CONSUMPTION_SCHEMA = "oe-google-service-enablement-consumption-v2"
+RUN_RECEIPT_SCHEMA = "oe-google-service-enablement-run-receipt-v2"
+FAILURE_RECEIPT_SCHEMA = "oe-google-service-enablement-failure-v2"
+PRIOR_AUTH_SCHEMA = "oe-google-service-enablement-authorization-v1"
+PRIOR_CONSUMPTION_SCHEMA = "oe-google-service-enablement-consumption-v1"
+PRIOR_FAILURE_RECEIPT_SCHEMA = "oe-google-service-enablement-failure-v1"
+PRIOR_DISPOSITION_SCHEMA = "oe-google-service-enablement-failure-disposition-v1"
 SCOPE = "enable_one_exact_google_service"
 PROVIDER = "google_cloud_service_usage"
 SERVICE = "aiplatform.googleapis.com"
+READBACK_FIELDS = "name,state"
 BASE_ENDPOINT = "https://serviceusage.googleapis.com/v1"
 PROJECT_ENV = pt.GUIDE_QUOTA_PROJECT_ENV
 PROJECT_NUMBER_ENV = "GOOGLE_CLOUD_PROJECT_NUMBER"
@@ -139,7 +144,11 @@ _ACTION = {
     "credential_mechanism": CREDENTIAL_MECHANISM,
     "pre_enable_readback": {
         "method": "GET",
-        "endpoint_template": f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}",
+        "endpoint_template": (
+            f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}"
+            f"?fields={READBACK_FIELDS}"
+        ),
+        "fields": READBACK_FIELDS,
         "required_state": "DISABLED",
     },
     "enable": {
@@ -155,7 +164,11 @@ _ACTION = {
     },
     "post_enable_readback": {
         "method": "GET",
-        "endpoint_template": f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}",
+        "endpoint_template": (
+            f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}"
+            f"?fields={READBACK_FIELDS}"
+        ),
+        "fields": READBACK_FIELDS,
         "required_state": "ENABLED",
     },
     "no_retry": True,
@@ -163,6 +176,41 @@ _ACTION = {
     "disable_after_test": False,
     "no_other_mutation": True,
 }
+
+_PRIOR_V1_ACTION = {
+    **_ACTION,
+    "pre_enable_readback": {
+        "method": "GET",
+        "endpoint_template": f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}",
+        "required_state": "DISABLED",
+    },
+    "post_enable_readback": {
+        "method": "GET",
+        "endpoint_template": f"{BASE_ENDPOINT}/projects/{{project}}/services/{SERVICE}",
+        "required_state": "ENABLED",
+    },
+}
+
+_PRIOR_FAILURE_CALLS = {
+    "pre_enable_state_readbacks": 1,
+    "enable_attempts": 0,
+    "operation_polls": 0,
+    "post_enable_state_readbacks": 0,
+    "http_calls_total": 1,
+}
+_PRIOR_FAILURE_RESPONSE_BYTES = MAX_RESPONSE_BYTES_PER_CALL + 1
+_PRIOR_EXECUTION_SEMANTICS = (
+    "fresh_transaction_after_zero_mutation_not_retry_or_resumption"
+)
+_PRIOR_ESTABLISHED = (
+    "the single HTTP 200 pre-enable response crossed the authorized 1000000-byte "
+    "read ceiling and the runtime stopped after reading the sentinel byte at 1000001 bytes"
+)
+_PRIOR_SAFE_CONCLUSION = (
+    "a response-handling limit failed before the authorized enablement mutation; this is "
+    "not evidence that the service was enabled or that the provider response was exactly "
+    "1000001 bytes long"
+)
 
 _REQUIRED_SUCCESS_EVIDENCE = {
     "pre_enable_service_state": "DISABLED",
@@ -190,6 +238,14 @@ class _Contract:
     diagnosis_sha256: str
     readiness_path: Path
     readiness_sha256: str
+    prior_authorization_path: Path
+    prior_authorization_sha256: str
+    prior_consumption_path: Path
+    prior_consumption_sha256: str
+    prior_failure_path: Path
+    prior_failure_sha256: str
+    disposition_path: Path
+    disposition_sha256: str
     consumption_relative: str
     success_relative: str
     failure_relative: str
@@ -278,6 +334,7 @@ def _read_fixture_json(
     label: str,
     *,
     max_bytes: int = 1_000_000,
+    required_mode: int | None = None,
 ) -> tuple[dict[str, Any], bytes, str]:
     """Descriptor-bind and strict-decode one fixture-local JSON document."""
 
@@ -297,6 +354,10 @@ def _read_fixture_json(
             not stat.S_ISREG(before.st_mode)
             or before.st_size <= 1
             or before.st_size > max_bytes
+            or (
+                required_mode is not None
+                and stat.S_IMODE(before.st_mode) != required_mode
+            )
         ):
             raise ValidationError(f"{label} is not a bounded regular file")
         received = 0
@@ -312,8 +373,8 @@ def _read_fixture_json(
         after = os.fstat(descriptor)
         if (
             len(raw) != before.st_size
-            or (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
-            != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+            or (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns, before.st_mode)
+            != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_mode)
         ):
             raise ValidationError(f"{label} changed during its bound read")
         value = pt._strict_json_bytes(raw, label)
@@ -554,6 +615,449 @@ def _validate_readiness(root: Path, binding: dict[str, Any]) -> tuple[Path, str]
     return path, actual_sha
 
 
+def _validate_prior_attempt(
+    root: Path,
+    binding_value: Any,
+    *,
+    target: dict[str, Any],
+    diagnosis_relative: str,
+    diagnosis_sha256: str,
+    readiness_relative: str,
+    readiness_sha256: str,
+) -> tuple[Path, str, Path, str, Path, str, Path, str]:
+    """Validate the immutable, zero-mutation v1 attempt that justifies this repair."""
+
+    binding = _strict(
+        binding_value,
+        {
+            "authorization_id",
+            "authorization_path",
+            "authorization_sha256",
+            "authorization_commit",
+            "consumption_record_path",
+            "consumption_record_sha256",
+            "failure_receipt_path",
+            "failure_receipt_sha256",
+            "disposition_path",
+            "disposition_sha256",
+            "prior_runtime_commit",
+            "outcome",
+            "reason_code",
+            "failed_phase",
+            "http_status",
+            "bounded_response_bytes_read",
+            "captured_cap_plus_one_prefix_sha256",
+            "mutation_attempted",
+            "service_enable_request_sent",
+            "service_mutation_occurred",
+            "full_provider_response_length_known",
+            "execution_semantics",
+        },
+        "prior_attempt_binding",
+    )
+    errors: list[str] = []
+    prior_id = binding.get("authorization_id")
+    _require(
+        isinstance(prior_id, str) and bool(_ID_RE.fullmatch(prior_id)),
+        "prior attempt authorization_id is invalid",
+        errors,
+    )
+    for key in (
+        "authorization_sha256",
+        "consumption_record_sha256",
+        "failure_receipt_sha256",
+        "disposition_sha256",
+        "captured_cap_plus_one_prefix_sha256",
+    ):
+        _require(
+            isinstance(binding.get(key), str) and bool(_SHA_RE.fullmatch(binding[key])),
+            f"prior_attempt_binding.{key} must be exact",
+            errors,
+        )
+    for key in ("authorization_commit", "prior_runtime_commit"):
+        _require(
+            isinstance(binding.get(key), str)
+            and bool(_GIT_COMMIT_RE.fullmatch(binding[key])),
+            f"prior_attempt_binding.{key} must be exact",
+            errors,
+        )
+    expected_summary = {
+        "outcome": "failed_closed",
+        "reason_code": "provider_response_byte_cap_exceeded",
+        "failed_phase": "pre_enable_readback",
+        "http_status": 200,
+        "bounded_response_bytes_read": _PRIOR_FAILURE_RESPONSE_BYTES,
+        "mutation_attempted": False,
+        "service_enable_request_sent": False,
+        "service_mutation_occurred": False,
+        "full_provider_response_length_known": False,
+        "execution_semantics": _PRIOR_EXECUTION_SEMANTICS,
+    }
+    for key, expected in expected_summary.items():
+        _require(
+            _exact(binding.get(key), expected),
+            f"prior_attempt_binding.{key} drifted",
+            errors,
+        )
+    if errors:
+        raise ValidationError(errors)
+
+    path_specs = (
+        (
+            "authorization_path",
+            "authorization_sha256",
+            ("authorizations",),
+            "prior service authorization",
+        ),
+        (
+            "consumption_record_path",
+            "consumption_record_sha256",
+            ("authorizations", "consumed"),
+            "prior service consumption",
+        ),
+        (
+            "failure_receipt_path",
+            "failure_receipt_sha256",
+            ("receipts", "google-service-usage"),
+            "prior service failure receipt",
+        ),
+        (
+            "disposition_path",
+            "disposition_sha256",
+            ("evidence",),
+            "prior failure disposition",
+        ),
+    )
+    documents: dict[str, tuple[Path, dict[str, Any], str]] = {}
+    for path_key, sha_key, prefix, label in path_specs:
+        path = pt._safe_relative(
+            root,
+            binding[path_key],
+            f"prior_attempt_binding.{path_key}",
+            must_exist=True,
+            suffix=".json",
+        )
+        relative_parts = path.relative_to(root).parts
+        if relative_parts[: len(prefix)] != prefix:
+            raise ValidationError(f"prior_attempt_binding.{path_key} is outside its exact directory")
+        value, _raw, actual_sha = _read_fixture_json(
+            root,
+            path,
+            label,
+            required_mode=(0o600 if path_key in {"consumption_record_path", "failure_receipt_path"} else None),
+        )
+        if actual_sha != binding[sha_key]:
+            raise ValidationError(f"prior_attempt_binding.{sha_key} does not match {label}")
+        documents[path_key] = (path, value, actual_sha)
+
+    authorization_path, authorization, authorization_sha = documents["authorization_path"]
+    consumption_path, consumption, consumption_sha = documents["consumption_record_path"]
+    failure_path, failure, failure_sha = documents["failure_receipt_path"]
+    disposition_path, disposition, disposition_sha = documents["disposition_path"]
+
+    if authorization_path.relative_to(root).parts[:2] == ("authorizations", "consumed"):
+        raise ValidationError("prior authorization cannot be a consumption record")
+    if ".ACTIVE." not in authorization_path.name:
+        raise ValidationError("prior authorization path must identify the consumed ACTIVE authority")
+    expected_prior_artifacts = _expected_artifacts(prior_id)
+    if (
+        binding["consumption_record_path"]
+        != expected_prior_artifacts["consumption_record_path"]
+        or binding["failure_receipt_path"]
+        != expected_prior_artifacts["failure_receipt_path"]
+    ):
+        raise ValidationError("prior consumption and failure paths must derive from prior authorization_id")
+
+    _strict(
+        authorization,
+        {
+            "schema_version",
+            "authorization_id",
+            "status",
+            "approved",
+            "scope",
+            "target",
+            "diagnosis_binding",
+            "readiness_binding",
+            "runtime_bindings",
+            "action",
+            "prospective_active_limits",
+            "authorized_limits",
+            "artifacts",
+            "required_success_evidence",
+            "approved_by",
+            "approved_at",
+            "expires_at",
+            "execution_ready",
+            "blockers",
+            "authority",
+        },
+        "prior service authorization",
+    )
+    prior_errors: list[str] = []
+    _require(authorization.get("schema_version") == PRIOR_AUTH_SCHEMA, "prior authorization schema drifted", prior_errors)
+    _require(authorization.get("authorization_id") == prior_id, "prior authorization ID drifted", prior_errors)
+    _require(authorization.get("status") == "active", "prior authorization was not active", prior_errors)
+    _require(authorization.get("approved") is True, "prior authorization was not approved", prior_errors)
+    _require(authorization.get("execution_ready") is True, "prior authorization was not execution-ready", prior_errors)
+    _require(authorization.get("scope") == SCOPE, "prior authorization scope drifted", prior_errors)
+    _require(_exact(authorization.get("target"), target), "prior authorization target drifted", prior_errors)
+    _require(_exact(authorization.get("action"), _PRIOR_V1_ACTION), "prior authorization action drifted", prior_errors)
+    _require(_exact(authorization.get("prospective_active_limits"), _ACTIVE_LIMITS), "prior prospective limits drifted", prior_errors)
+    _require(_exact(authorization.get("authorized_limits"), _ACTIVE_LIMITS), "prior authorized limits drifted", prior_errors)
+    _require(_exact(authorization.get("artifacts"), expected_prior_artifacts), "prior artifact paths drifted", prior_errors)
+    _require(_exact(authorization.get("required_success_evidence"), _REQUIRED_SUCCESS_EVIDENCE), "prior success-evidence contract drifted", prior_errors)
+    _require(_exact(authorization.get("authority"), _ACTIVE_AUTHORITY), "prior authority drifted", prior_errors)
+    _require(authorization.get("blockers") == [], "prior authorization had blockers", prior_errors)
+    _require(isinstance(authorization.get("approved_by"), str) and bool(authorization["approved_by"]), "prior approved_by is missing", prior_errors)
+    prior_diagnosis = _strict(
+        authorization.get("diagnosis_binding"),
+        {"path", "sha256", "project_sha256", "reported_current_state", "causal_status"},
+        "prior diagnosis_binding",
+    )
+    prior_readiness = _strict(
+        authorization.get("readiness_binding"),
+        {"path", "sha256", "project_sha256", "project_number_sha256", "permission", "permission_granted"},
+        "prior readiness_binding",
+    )
+    _require(
+        _exact(
+            prior_diagnosis,
+            {
+                "path": diagnosis_relative,
+                "sha256": diagnosis_sha256,
+                "project_sha256": target["project_sha256"],
+                "reported_current_state": "DISABLED",
+                "causal_status": "only_confirmed_configuration_anomaly_not_proven_403_cause",
+            },
+        ),
+        "prior diagnosis binding drifted",
+        prior_errors,
+    )
+    _require(
+        _exact(
+            prior_readiness,
+            {
+                "path": readiness_relative,
+                "sha256": readiness_sha256,
+                "project_sha256": target["project_sha256"],
+                "project_number_sha256": target["project_number_sha256"],
+                "permission": "serviceusage.services.enable",
+                "permission_granted": True,
+            },
+        ),
+        "prior readiness binding drifted",
+        prior_errors,
+    )
+    prior_runtime = _strict(
+        authorization.get("runtime_bindings"),
+        set(_expected_runtime_bindings(draft=True)),
+        "prior runtime_bindings",
+    )
+    _require(prior_runtime.get("git_commit") == binding["prior_runtime_commit"], "prior runtime commit drifted", prior_errors)
+    for key in ("executor_sha256", "credential_runtime_sha256", "cli_sha256", "core_sha256", "init_sha256", "schema_sha256"):
+        _require(isinstance(prior_runtime.get(key), str) and bool(_SHA_RE.fullmatch(prior_runtime[key])), f"prior runtime {key} is invalid", prior_errors)
+    prior_approved = _parse_timestamp(authorization.get("approved_at"), "prior approved_at", prior_errors)
+    prior_expires = _parse_timestamp(authorization.get("expires_at"), "prior expires_at", prior_errors)
+    if prior_errors:
+        raise ValidationError(prior_errors)
+
+    consumption_keys = {
+        "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
+        "service", "project_sha256", "project_number_sha256", "diagnosis_path",
+        "diagnosis_sha256", "readiness_path", "readiness_sha256", "runtime_bindings",
+        "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
+        "reserved_limits", "credentials_recorded", *_authority_false_fields().keys(),
+    }
+    _strict(consumption, consumption_keys, "prior service consumption")
+    consumed_errors: list[str] = []
+    _require(consumption.get("schema_version") == PRIOR_CONSUMPTION_SCHEMA, "prior consumption schema drifted", consumed_errors)
+    _require(consumption.get("authorization_id") == prior_id, "prior consumption authorization ID drifted", consumed_errors)
+    _require(consumption.get("authorization_sha256") == authorization_sha, "prior consumption authorization hash drifted", consumed_errors)
+    _require(consumption.get("scope") == SCOPE and consumption.get("provider") == PROVIDER and consumption.get("service") == SERVICE, "prior consumption provider scope drifted", consumed_errors)
+    _require(consumption.get("project_sha256") == target["project_sha256"] and consumption.get("project_number_sha256") == target["project_number_sha256"], "prior consumption target drifted", consumed_errors)
+    _require(consumption.get("diagnosis_path") == diagnosis_relative and consumption.get("diagnosis_sha256") == diagnosis_sha256, "prior consumption diagnosis binding drifted", consumed_errors)
+    _require(consumption.get("readiness_path") == readiness_relative and consumption.get("readiness_sha256") == readiness_sha256, "prior consumption readiness binding drifted", consumed_errors)
+    _require(_exact(consumption.get("runtime_bindings"), prior_runtime), "prior consumption runtime binding drifted", consumed_errors)
+    _require(consumption.get("status") == "consumed_before_network" and consumption.get("consumed_before_network") is True and consumption.get("network_called_at_consumption") is False, "prior authority was not consumed before network", consumed_errors)
+    _require(_exact(consumption.get("reserved_limits"), _ACTIVE_LIMITS), "prior consumption limits drifted", consumed_errors)
+    _require(consumption.get("credentials_recorded") is False, "prior consumption recorded credentials", consumed_errors)
+    _require(all(consumption.get(key) is False for key in _authority_false_fields()), "prior consumption leaked downstream authority", consumed_errors)
+    consumed_at = _parse_timestamp(consumption.get("consumed_at"), "prior consumed_at", consumed_errors)
+    if prior_approved is not None and prior_expires is not None and consumed_at is not None:
+        _require(prior_approved <= consumed_at < prior_expires, "prior consumption was outside its authority window", consumed_errors)
+    if consumed_errors:
+        raise ValidationError(consumed_errors)
+
+    failure_keys = {
+        "schema_version", "outcome", "reason_code", "failed_phase", "http_status",
+        "authorization_id", "authorization_path", "authorization_sha256",
+        "authorization_consumed", "consumption_record_path", "consumption_record_sha256",
+        "diagnosis_path", "diagnosis_sha256", "readiness_path", "readiness_sha256",
+        "provider", "service", "project_sha256", "project_number_sha256",
+        "runtime_bindings", "source_proof", "credential_mechanism",
+        "credential_refresh_attempted", "network_called", "calls",
+        "provider_response_bytes_total", "failed_response_bytes", "failed_response_sha256",
+        "provider_error", "provider_identifiers", "provider_usage", "primary_failure",
+        "pre_enable_readback", "enable_operation", "operation_completion",
+        "post_enable_readback", "resolution_readback_failure", "mutation_attempted",
+        "service_state_resolution", "enablement_may_have_completed",
+        "operation_may_still_be_running", "manual_readback_required", "consumed_at",
+        "started_at", "failed_at", "retries_made", "redirects_followed",
+        "credentials_recorded", "raw_provider_responses_recorded",
+        *_authority_false_fields().keys(),
+    }
+    _strict(failure, failure_keys, "prior service failure receipt")
+    primary = _strict(
+        failure.get("primary_failure"),
+        {
+            "phase", "http_status", "response_bytes", "response_sha256",
+            "provider_error", "provider_identifiers", "provider_usage",
+            "request_started_at", "request_completed_at",
+        },
+        "prior primary_failure",
+    )
+    source_proof = _strict(
+        failure.get("source_proof"),
+        {"git_head", "runtime_commit", "head_delta_policy", "head_delta_path"},
+        "prior source_proof",
+    )
+    try:
+        prior_head_delta_path = authorization_path.relative_to(_repository_root()).as_posix()
+    except ValueError:
+        prior_head_delta_path = authorization_path.relative_to(root).as_posix()
+    failure_errors: list[str] = []
+    _require(failure.get("schema_version") == PRIOR_FAILURE_RECEIPT_SCHEMA, "prior failure schema drifted", failure_errors)
+    _require(failure.get("outcome") == "failed_closed" and failure.get("reason_code") == "provider_response_byte_cap_exceeded" and failure.get("failed_phase") == "pre_enable_readback" and failure.get("http_status") == 200, "prior failure classification drifted", failure_errors)
+    _require(failure.get("authorization_id") == prior_id and failure.get("authorization_path") == binding["authorization_path"] and failure.get("authorization_sha256") == authorization_sha and failure.get("authorization_consumed") is True, "prior failure authorization binding drifted", failure_errors)
+    _require(failure.get("consumption_record_path") == binding["consumption_record_path"] and failure.get("consumption_record_sha256") == consumption_sha, "prior failure consumption binding drifted", failure_errors)
+    _require(failure.get("diagnosis_path") == diagnosis_relative and failure.get("diagnosis_sha256") == diagnosis_sha256 and failure.get("readiness_path") == readiness_relative and failure.get("readiness_sha256") == readiness_sha256, "prior failure evidence binding drifted", failure_errors)
+    _require(failure.get("provider") == PROVIDER and failure.get("service") == SERVICE and failure.get("project_sha256") == target["project_sha256"] and failure.get("project_number_sha256") == target["project_number_sha256"], "prior failure target drifted", failure_errors)
+    _require(_exact(failure.get("runtime_bindings"), prior_runtime), "prior failure runtime binding drifted", failure_errors)
+    _require(source_proof.get("git_head") == binding["authorization_commit"] and source_proof.get("runtime_commit") == binding["prior_runtime_commit"] and source_proof.get("head_delta_policy") == "exact_active_authorization_path_only" and source_proof.get("head_delta_path") == prior_head_delta_path, "prior failure source proof drifted", failure_errors)
+    _require(failure.get("credential_mechanism") == CREDENTIAL_MECHANISM and failure.get("credential_refresh_attempted") is True and failure.get("network_called") is True, "prior failure provider boundary drifted", failure_errors)
+    _require(_exact(failure.get("calls"), _PRIOR_FAILURE_CALLS), "prior failure call counts do not prove zero mutation", failure_errors)
+    prefix_sha = failure.get("failed_response_sha256")
+    _require(failure.get("provider_response_bytes_total") == _PRIOR_FAILURE_RESPONSE_BYTES and failure.get("failed_response_bytes") == _PRIOR_FAILURE_RESPONSE_BYTES and isinstance(prefix_sha, str) and bool(_SHA_RE.fullmatch(prefix_sha)) and prefix_sha == binding["captured_cap_plus_one_prefix_sha256"], "prior bounded cap-plus-one prefix evidence drifted", failure_errors)
+    _require(failure.get("provider_error") is None and failure.get("provider_identifiers") == {} and failure.get("provider_usage") == {}, "prior failure safe provider evidence drifted", failure_errors)
+    _require(failure.get("pre_enable_readback") is None and failure.get("enable_operation") is None and failure.get("operation_completion") is None and failure.get("post_enable_readback") is None and failure.get("resolution_readback_failure") is None, "prior failure contains ineligible service evidence", failure_errors)
+    _require(failure.get("mutation_attempted") is False and failure.get("service_state_resolution") == "not_attempted" and failure.get("enablement_may_have_completed") is False and failure.get("operation_may_still_be_running") is False and failure.get("manual_readback_required") is False, "prior failure does not prove a pre-mutation stop", failure_errors)
+    _require(_exact(failure.get("retries_made"), 0) and _exact(failure.get("redirects_followed"), 0) and failure.get("credentials_recorded") is False and failure.get("raw_provider_responses_recorded") is False, "prior failure containment drifted", failure_errors)
+    _require(all(failure.get(key) is False for key in _authority_false_fields()), "prior failure leaked downstream authority", failure_errors)
+    _require(primary.get("phase") == "pre_enable_readback" and primary.get("http_status") == 200 and primary.get("response_bytes") == _PRIOR_FAILURE_RESPONSE_BYTES and primary.get("response_sha256") == prefix_sha and primary.get("provider_error") is None and primary.get("provider_identifiers") == {} and primary.get("provider_usage") == {}, "prior primary failure evidence drifted", failure_errors)
+    failure_consumed = _parse_timestamp(failure.get("consumed_at"), "prior failure consumed_at", failure_errors)
+    failure_started = _parse_timestamp(failure.get("started_at"), "prior failure started_at", failure_errors)
+    request_started = _parse_timestamp(primary.get("request_started_at"), "prior request_started_at", failure_errors)
+    request_completed = _parse_timestamp(primary.get("request_completed_at"), "prior request_completed_at", failure_errors)
+    failed_at = _parse_timestamp(failure.get("failed_at"), "prior failed_at", failure_errors)
+    if all(value is not None for value in (consumed_at, failure_consumed, failure_started, request_started, request_completed, failed_at, prior_expires)):
+        assert consumed_at is not None and failure_consumed is not None and failure_started is not None
+        assert request_started is not None and request_completed is not None and failed_at is not None and prior_expires is not None
+        _require(consumed_at == failure_consumed <= failure_started == request_started <= request_completed <= failed_at < prior_expires, "prior failure timestamps are incoherent", failure_errors)
+    if failure_errors:
+        raise ValidationError(failure_errors)
+
+    _strict(
+        disposition,
+        {"schema_version", "record_id", "status", "recorded_at", "attempt_binding", "observed_outcome", "interpretation", "repair_gate", "authority"},
+        "prior failure disposition",
+    )
+    attempt = _strict(
+        disposition.get("attempt_binding"),
+        {"authorization_path", "authorization_sha256", "authorization_commit", "runtime_commit", "consumption_path", "consumption_sha256", "failure_receipt_path", "failure_receipt_sha256"},
+        "prior disposition attempt_binding",
+    )
+    observed = _strict(
+        disposition.get("observed_outcome"),
+        {"authorization_consumed", "outcome", "reason_code", "failed_phase", "http_status", "calls", "bounded_response_bytes_read", "provider_response_bytes_total_recorded", "captured_cap_plus_one_prefix_sha256", "mutation_attempted", "service_state_resolution", "enablement_may_have_completed", "operation_may_still_be_running", "manual_readback_required", "retries_made", "redirects_followed", "raw_provider_response_stored"},
+        "prior disposition observed_outcome",
+    )
+    interpretation = _strict(
+        disposition.get("interpretation"),
+        {"established", "safe_conclusion", "cause_of_large_response", "full_provider_response_length_known", "service_state_parsed_from_this_attempt", "target_service_state_after_this_attempt", "service_enable_request_sent", "service_mutation_occurred", "provider_managed_enablement_side_effect_possible_for_this_attempt", "direct_iam_api_call_or_mutation_occurred"},
+        "prior disposition interpretation",
+    )
+    repair_gate = _strict(
+        disposition.get("repair_gate"),
+        {"repair_class", "execution_semantics", "existing_authorization_reusable", "automatic_retry_permitted", "new_active_authorization_required", "prior_outcome_commit_required", "new_runtime_and_adversarial_audit_required", "g1r2_synthetic_guide_authorized"},
+        "prior disposition repair_gate",
+    )
+    disposition_errors: list[str] = []
+    _require(disposition.get("schema_version") == PRIOR_DISPOSITION_SCHEMA and disposition.get("status") == "immutable_local_disposition" and isinstance(disposition.get("record_id"), str) and bool(disposition["record_id"]), "prior disposition identity drifted", disposition_errors)
+    expected_attempt = {
+        "authorization_path": binding["authorization_path"],
+        "authorization_sha256": authorization_sha,
+        "authorization_commit": binding["authorization_commit"],
+        "runtime_commit": binding["prior_runtime_commit"],
+        "consumption_path": binding["consumption_record_path"],
+        "consumption_sha256": consumption_sha,
+        "failure_receipt_path": binding["failure_receipt_path"],
+        "failure_receipt_sha256": failure_sha,
+    }
+    _require(_exact(attempt, expected_attempt), "prior disposition artifact chain drifted", disposition_errors)
+    expected_observed = {
+        "authorization_consumed": True,
+        "outcome": "failed_closed",
+        "reason_code": "provider_response_byte_cap_exceeded",
+        "failed_phase": "pre_enable_readback",
+        "http_status": 200,
+        "calls": _PRIOR_FAILURE_CALLS,
+        "bounded_response_bytes_read": _PRIOR_FAILURE_RESPONSE_BYTES,
+        "provider_response_bytes_total_recorded": _PRIOR_FAILURE_RESPONSE_BYTES,
+        "captured_cap_plus_one_prefix_sha256": prefix_sha,
+        "mutation_attempted": False,
+        "service_state_resolution": "not_attempted",
+        "enablement_may_have_completed": False,
+        "operation_may_still_be_running": False,
+        "manual_readback_required": False,
+        "retries_made": 0,
+        "redirects_followed": 0,
+        "raw_provider_response_stored": False,
+    }
+    _require(_exact(observed, expected_observed), "prior disposition observed outcome drifted", disposition_errors)
+    expected_interpretation = {
+        "established": _PRIOR_ESTABLISHED,
+        "safe_conclusion": _PRIOR_SAFE_CONCLUSION,
+        "cause_of_large_response": "unknown",
+        "full_provider_response_length_known": False,
+        "service_state_parsed_from_this_attempt": False,
+        "target_service_state_after_this_attempt": "unknown_from_this_attempt",
+        "service_enable_request_sent": False,
+        "service_mutation_occurred": False,
+        "provider_managed_enablement_side_effect_possible_for_this_attempt": False,
+        "direct_iam_api_call_or_mutation_occurred": False,
+    }
+    _require(_exact(interpretation, expected_interpretation), "prior disposition interpretation drifted", disposition_errors)
+    expected_gate = {
+        "repair_class": "bounded_partial_response_handling",
+        "execution_semantics": _PRIOR_EXECUTION_SEMANTICS,
+        "existing_authorization_reusable": False,
+        "automatic_retry_permitted": False,
+        "new_active_authorization_required": True,
+        "prior_outcome_commit_required": True,
+        "new_runtime_and_adversarial_audit_required": True,
+        "g1r2_synthetic_guide_authorized": False,
+    }
+    _require(_exact(repair_gate, expected_gate), "prior disposition repair gate drifted", disposition_errors)
+    _require(_exact(disposition.get("authority"), _DRAFT_AUTHORITY), "prior disposition carries authority", disposition_errors)
+    disposition_recorded = _parse_timestamp(disposition.get("recorded_at"), "prior disposition recorded_at", disposition_errors)
+    if disposition_recorded is not None and failed_at is not None:
+        _require(failed_at <= disposition_recorded <= _now(), "prior disposition timestamp is incoherent", disposition_errors)
+    if disposition_errors:
+        raise ValidationError(disposition_errors)
+
+    return (
+        authorization_path,
+        authorization_sha,
+        consumption_path,
+        consumption_sha,
+        failure_path,
+        failure_sha,
+        disposition_path,
+        disposition_sha,
+    )
+
+
 def _validate_authorization(
     authorization_path: Path,
     *,
@@ -577,6 +1081,7 @@ def _validate_authorization(
             "target",
             "diagnosis_binding",
             "readiness_binding",
+            "prior_attempt_binding",
             "runtime_bindings",
             "action",
             "prospective_active_limits",
@@ -689,6 +1194,7 @@ def _validate_authorization(
         "readiness permission must be exact and granted",
         errors,
     )
+    prior_attempt_binding = authorization.get("prior_attempt_binding")
 
     runtime_bindings = _strict(
         authorization.get("runtime_bindings"),
@@ -897,6 +1403,24 @@ def _validate_authorization(
         raise ValidationError(errors)
     diagnosis_path, diagnosis_sha = _validate_diagnosis(root, diagnosis_binding)
     readiness_path, readiness_sha = _validate_readiness(root, readiness_binding)
+    (
+        prior_authorization_path,
+        prior_authorization_sha,
+        prior_consumption_path,
+        prior_consumption_sha,
+        prior_failure_path,
+        prior_failure_sha,
+        disposition_path,
+        disposition_sha,
+    ) = _validate_prior_attempt(
+        root,
+        prior_attempt_binding,
+        target=target,
+        diagnosis_relative=diagnosis_path.relative_to(root).as_posix(),
+        diagnosis_sha256=diagnosis_sha,
+        readiness_relative=readiness_path.relative_to(root).as_posix(),
+        readiness_sha256=readiness_sha,
+    )
     if require_active and status != "active":
         raise ValidationError("service enablement execution requires an exact active authorization")
     return _Contract(
@@ -908,6 +1432,14 @@ def _validate_authorization(
         diagnosis_sha256=diagnosis_sha,
         readiness_path=readiness_path,
         readiness_sha256=readiness_sha,
+        prior_authorization_path=prior_authorization_path,
+        prior_authorization_sha256=prior_authorization_sha,
+        prior_consumption_path=prior_consumption_path,
+        prior_consumption_sha256=prior_consumption_sha,
+        prior_failure_path=prior_failure_path,
+        prior_failure_sha256=prior_failure_sha,
+        disposition_path=disposition_path,
+        disposition_sha256=disposition_sha,
         consumption_relative=artifacts["consumption_record_path"],
         success_relative=artifacts["success_receipt_path"],
         failure_relative=artifacts["failure_receipt_path"],
@@ -946,6 +1478,7 @@ def validate_google_service_enablement_authorization(authorization_path: Path) -
             "permission": "serviceusage.services.enable",
             "permission_granted": True,
         },
+        "prior_attempt_binding": contract.authorization["prior_attempt_binding"],
         "runtime_bindings": contract.authorization["runtime_bindings"],
         "action": _ACTION,
         "authorized_limits": contract.authorization["authorized_limits"],
@@ -1051,9 +1584,44 @@ def _verify_committed_runtime(contract: _Contract) -> dict[str, str]:
         auth_relative = contract.authorization_path.relative_to(repository).as_posix()
         diagnosis_relative = contract.diagnosis_path.relative_to(repository).as_posix()
         readiness_relative = contract.readiness_path.relative_to(repository).as_posix()
+        prior_authorization_relative = contract.prior_authorization_path.relative_to(repository).as_posix()
+        prior_consumption_relative = contract.prior_consumption_path.relative_to(repository).as_posix()
+        prior_failure_relative = contract.prior_failure_path.relative_to(repository).as_posix()
+        disposition_relative = contract.disposition_path.relative_to(repository).as_posix()
     except ValueError:
         raise ValidationError("authority chain is outside the committed repository") from None
     _git(["merge-base", "--is-ancestor", commit, head])
+    prior_binding = contract.authorization["prior_attempt_binding"]
+    prior_runtime_commit = prior_binding["prior_runtime_commit"]
+    prior_authorization_commit = prior_binding["authorization_commit"]
+    _git(["merge-base", "--is-ancestor", prior_runtime_commit, prior_authorization_commit])
+    _git(["merge-base", "--is-ancestor", prior_authorization_commit, commit])
+    prior_delta = _git(
+        [
+            "diff",
+            "--name-only",
+            "--diff-filter=ACDMRTUXB",
+            "-z",
+            f"{prior_runtime_commit}..{prior_authorization_commit}",
+        ]
+    )
+    if prior_delta != prior_authorization_relative.encode("utf-8") + b"\x00":
+        raise ValidationError(
+            "prior runtime-to-authorization delta must be exactly the prior ACTIVE path"
+        )
+    prior_committed_authorization = _git(
+        ["show", f"{prior_authorization_commit}:{prior_authorization_relative}"]
+    )
+    _prior_value, prior_authorization_bytes, prior_authorization_sha = _read_fixture_json(
+        contract.root,
+        contract.prior_authorization_path,
+        "prior active service authorization",
+    )
+    if (
+        prior_committed_authorization != prior_authorization_bytes
+        or prior_authorization_sha != contract.prior_authorization_sha256
+    ):
+        raise ValidationError("prior ACTIVE authorization history is not exact")
     head_delta = _git(
         [
             "diff",
@@ -1087,6 +1655,30 @@ def _verify_committed_runtime(contract: _Contract) -> dict[str, str]:
             readiness_relative,
             contract.readiness_sha256,
             "readiness evidence",
+        ),
+        (
+            contract.prior_authorization_path,
+            prior_authorization_relative,
+            contract.prior_authorization_sha256,
+            "prior active service authorization",
+        ),
+        (
+            contract.prior_consumption_path,
+            prior_consumption_relative,
+            contract.prior_consumption_sha256,
+            "prior service consumption",
+        ),
+        (
+            contract.prior_failure_path,
+            prior_failure_relative,
+            contract.prior_failure_sha256,
+            "prior service failure receipt",
+        ),
+        (
+            contract.disposition_path,
+            disposition_relative,
+            contract.disposition_sha256,
+            "prior failure disposition",
         ),
     ):
         _value, current_bytes, current_sha = _read_fixture_json(
@@ -1386,8 +1978,9 @@ def _perform_request(
 
 def _service_urls(project_number: str) -> tuple[str, str]:
     encoded = urllib.parse.quote(project_number, safe="")
-    service_url = f"{BASE_ENDPOINT}/projects/{encoded}/services/{SERVICE}"
-    return service_url, f"{service_url}:enable"
+    resource_url = f"{BASE_ENDPOINT}/projects/{encoded}/services/{SERVICE}"
+    readback_url = f"{resource_url}?fields={READBACK_FIELDS}"
+    return readback_url, f"{resource_url}:enable"
 
 
 def _observed_service_state(
@@ -1398,6 +1991,15 @@ def _observed_service_state(
     payload = response.payload
     name = payload.get("name")
     state = payload.get("state")
+    if set(payload) != {"name", "state"}:
+        payload = {}
+        raise _ServiceFailure(
+            "service_readback_fields_invalid",
+            response_bytes=response.response_bytes,
+            response_sha256=response.response_sha256,
+            provider_identifiers=response.provider_identifiers,
+            provider_usage=response.provider_usage,
+        ) from None
     if (
         not isinstance(name, str)
         or not bool(_RESOURCE_RE.fullmatch(name))
@@ -1606,6 +2208,10 @@ def execute_google_service_enablement(
             or refreshed.root != contract.root
             or refreshed.diagnosis_sha256 != contract.diagnosis_sha256
             or refreshed.readiness_sha256 != contract.readiness_sha256
+            or refreshed.prior_authorization_sha256 != contract.prior_authorization_sha256
+            or refreshed.prior_consumption_sha256 != contract.prior_consumption_sha256
+            or refreshed.prior_failure_sha256 != contract.prior_failure_sha256
+            or refreshed.disposition_sha256 != contract.disposition_sha256
         ):
             raise ValidationError("service authority bindings changed during preflight")
         contract = refreshed
@@ -1636,6 +2242,7 @@ def execute_google_service_enablement(
             "diagnosis_sha256": contract.diagnosis_sha256,
             "readiness_path": contract.readiness_path.relative_to(contract.root).as_posix(),
             "readiness_sha256": contract.readiness_sha256,
+            "prior_attempt_binding": contract.authorization["prior_attempt_binding"],
             "runtime_bindings": contract.authorization["runtime_bindings"],
             "status": "consumed_before_network",
             "consumed_at": _iso(consumed_at),
@@ -1823,6 +2430,7 @@ def execute_google_service_enablement(
             "diagnosis_sha256": contract.diagnosis_sha256,
             "readiness_path": contract.readiness_path.relative_to(contract.root).as_posix(),
             "readiness_sha256": contract.readiness_sha256,
+            "prior_attempt_binding": contract.authorization["prior_attempt_binding"],
             "provider": PROVIDER,
             "service": SERVICE,
             "project_sha256": contract.authorization["target"]["project_sha256"],
@@ -2018,6 +2626,7 @@ def execute_google_service_enablement(
             "diagnosis_sha256": contract.diagnosis_sha256,
             "readiness_path": contract.readiness_path.relative_to(contract.root).as_posix(),
             "readiness_sha256": contract.readiness_sha256,
+            "prior_attempt_binding": contract.authorization["prior_attempt_binding"],
             "provider": PROVIDER,
             "service": SERVICE,
             "project_sha256": contract.authorization["target"]["project_sha256"],
@@ -2064,7 +2673,7 @@ def execute_google_service_enablement(
             "service enablement success receipt",
         )
         result = {
-            "schema_version": "oe-google-service-enablement-execution-result-v1",
+            "schema_version": "oe-google-service-enablement-execution-result-v2",
             "valid": True,
             "outcome": "success",
             "authorization_id": contract.authorization["authorization_id"],
@@ -2072,6 +2681,7 @@ def execute_google_service_enablement(
             "service": SERVICE,
             "project_sha256": contract.authorization["target"]["project_sha256"],
             "project_number_sha256": contract.authorization["target"]["project_number_sha256"],
+            "prior_attempt_binding": contract.authorization["prior_attempt_binding"],
             "calls": calls,
             "run_receipt": {
                 "path": contract.success_relative,

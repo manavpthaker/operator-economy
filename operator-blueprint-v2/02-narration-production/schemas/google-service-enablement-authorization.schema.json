@@ -1,18 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://theoperatoreconomy.com/schemas/oe-google-service-enablement-authorization-v1.json",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-google-service-enablement-authorization-v2.json",
   "title": "OE one-shot Google service enablement authorization",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schema_version", "authorization_id", "status", "approved", "scope", "target",
-    "diagnosis_binding", "readiness_binding", "runtime_bindings", "action",
+    "diagnosis_binding", "readiness_binding", "prior_attempt_binding", "runtime_bindings", "action",
     "prospective_active_limits", "authorized_limits", "artifacts",
     "required_success_evidence", "approved_by", "approved_at", "expires_at",
     "execution_ready", "blockers", "authority"
   ],
   "properties": {
-    "schema_version": {"const": "oe-google-service-enablement-authorization-v1"},
+    "schema_version": {"const": "oe-google-service-enablement-authorization-v2"},
     "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
     "status": {"enum": ["draft", "active"]},
     "approved": {"type": "boolean"},
@@ -20,6 +20,7 @@
     "target": {"$ref": "#/$defs/target"},
     "diagnosis_binding": {"$ref": "#/$defs/diagnosisBinding"},
     "readiness_binding": {"$ref": "#/$defs/readinessBinding"},
+    "prior_attempt_binding": {"$ref": "#/$defs/priorAttemptBinding"},
     "runtime_bindings": {"$ref": "#/$defs/runtimeBindings"},
     "action": {"$ref": "#/$defs/action"},
     "prospective_active_limits": {"$ref": "#/$defs/limits"},
@@ -121,6 +122,34 @@
         "permission_granted": {"const": true}
       }
     },
+    "priorAttemptBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["authorization_id", "authorization_path", "authorization_sha256", "authorization_commit", "consumption_record_path", "consumption_record_sha256", "failure_receipt_path", "failure_receipt_sha256", "disposition_path", "disposition_sha256", "prior_runtime_commit", "outcome", "reason_code", "failed_phase", "http_status", "bounded_response_bytes_read", "captured_cap_plus_one_prefix_sha256", "mutation_attempted", "service_enable_request_sent", "service_mutation_occurred", "full_provider_response_length_known", "execution_semantics"],
+      "properties": {
+        "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+        "authorization_path": {"type": "string", "pattern": "^authorizations/[^/]*\\.ACTIVE\\.[^/]+\\.json$"},
+        "authorization_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_commit": {"type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"},
+        "consumption_record_path": {"type": "string", "pattern": "^authorizations/consumed/[A-Za-z0-9._-]+\\.consumed\\.json$"},
+        "consumption_record_sha256": {"$ref": "#/$defs/sha256"},
+        "failure_receipt_path": {"type": "string", "pattern": "^receipts/google-service-usage/[A-Za-z0-9._-]+\\.failure\\.json$"},
+        "failure_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "disposition_path": {"type": "string", "pattern": "^evidence/[^/]+\\.json$"},
+        "disposition_sha256": {"$ref": "#/$defs/sha256"},
+        "prior_runtime_commit": {"type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"},
+        "outcome": {"const": "failed_closed"},
+        "reason_code": {"const": "provider_response_byte_cap_exceeded"},
+        "failed_phase": {"const": "pre_enable_readback"},
+        "http_status": {"const": 200},
+        "bounded_response_bytes_read": {"const": 1000001},
+        "captured_cap_plus_one_prefix_sha256": {"$ref": "#/$defs/sha256"},
+        "mutation_attempted": {"const": false},
+        "service_enable_request_sent": {"const": false},
+        "service_mutation_occurred": {"const": false},
+        "full_provider_response_length_known": {"const": false},
+        "execution_semantics": {"const": "fresh_transaction_after_zero_mutation_not_retry_or_resumption"}
+      }
+    },
     "runtimeBindings": {
       "type": "object", "additionalProperties": false,
       "required": ["git_commit", "executor_path", "executor_sha256", "credential_runtime_path", "credential_runtime_sha256", "cli_path", "cli_sha256", "core_path", "core_sha256", "init_path", "init_sha256", "schema_path", "schema_sha256"],
@@ -149,7 +178,7 @@
         "project_identity_source": {"const": "private_hash_bound_environment_value"},
         "credential_mechanism": {"const": "gcloud_application_default_print_access_token_without_scopes_override"},
         "pre_enable_readback": {
-          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com", "method": "GET", "required_state": "DISABLED"}
+          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com?fields=name,state", "fields": "name,state", "method": "GET", "required_state": "DISABLED"}
         },
         "enable": {
           "const": {"body_bytes": 0, "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com:enable", "method": "POST"}
@@ -158,7 +187,7 @@
           "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/{operation_name}", "method": "GET", "required_terminal_done": true}
         },
         "post_enable_readback": {
-          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com", "method": "GET", "required_state": "ENABLED"}
+          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com?fields=name,state", "fields": "name,state", "method": "GET", "required_state": "ENABLED"}
         },
         "no_retry": {"const": true},
         "no_redirect": {"const": true},

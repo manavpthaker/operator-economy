@@ -96,6 +96,164 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
+    def _make_prior_attempt(
+        self,
+        fixture: Path,
+        *,
+        project_sha: str,
+        number_sha: str,
+        diagnosis_path: Path,
+        readiness_path: Path,
+    ) -> dict:
+        prior_id = "AUTH-SVC-G1R2-AIPLATFORM-test-prior"
+        prior_runtime_commit = "4" * 40
+        prior_authorization_commit = "5" * 40
+        now = datetime.now(timezone.utc)
+        approved_at = now - timedelta(minutes=10)
+        consumed_at = now - timedelta(minutes=8)
+        request_started_at = now - timedelta(minutes=7)
+        request_completed_at = now - timedelta(minutes=6, seconds=30)
+        failed_at = now - timedelta(minutes=6)
+
+        source_authorization = self.source_fixture / "authorizations" / "06-google-aiplatform-service-enablement.ACTIVE.20260826T025746Z.json"
+        authorization = json.loads(source_authorization.read_text(encoding="utf-8"))
+        authorization.update(
+            {
+                "authorization_id": prior_id,
+                "approved_at": approved_at.isoformat(),
+                "expires_at": (now + timedelta(minutes=10)).isoformat(),
+                "target": {
+                    "project_sha256": project_sha,
+                    "project_number_sha256": number_sha,
+                    "service": se.SERVICE,
+                },
+                "diagnosis_binding": {
+                    **authorization["diagnosis_binding"],
+                    "path": diagnosis_path.relative_to(fixture).as_posix(),
+                    "sha256": sha256_file(diagnosis_path),
+                    "project_sha256": project_sha,
+                },
+                "readiness_binding": {
+                    **authorization["readiness_binding"],
+                    "path": readiness_path.relative_to(fixture).as_posix(),
+                    "sha256": sha256_file(readiness_path),
+                    "project_sha256": project_sha,
+                    "project_number_sha256": number_sha,
+                },
+                "runtime_bindings": {
+                    **authorization["runtime_bindings"],
+                    "git_commit": prior_runtime_commit,
+                },
+                "artifacts": se._expected_artifacts(prior_id),
+            }
+        )
+        authorization_relative = "authorizations/prior-service.ACTIVE.test.json"
+        authorization_path = fixture / authorization_relative
+        self._write_json(authorization_path, authorization)
+        authorization_sha = sha256_file(authorization_path)
+
+        source_consumption = self.source_fixture / "authorizations" / "consumed" / "AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.consumed.json"
+        consumption = json.loads(source_consumption.read_text(encoding="utf-8"))
+        consumption.update(
+            {
+                "authorization_id": prior_id,
+                "authorization_sha256": authorization_sha,
+                "project_sha256": project_sha,
+                "project_number_sha256": number_sha,
+                "diagnosis_path": diagnosis_path.relative_to(fixture).as_posix(),
+                "diagnosis_sha256": sha256_file(diagnosis_path),
+                "readiness_path": readiness_path.relative_to(fixture).as_posix(),
+                "readiness_sha256": sha256_file(readiness_path),
+                "runtime_bindings": authorization["runtime_bindings"],
+                "consumed_at": consumed_at.isoformat(),
+            }
+        )
+        consumption_relative = se._expected_artifacts(prior_id)["consumption_record_path"]
+        consumption_path = fixture / consumption_relative
+        self._write_json(consumption_path, consumption)
+        os.chmod(consumption_path, 0o600)
+        consumption_sha = sha256_file(consumption_path)
+
+        source_failure = self.source_fixture / "receipts" / "google-service-usage" / "AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.failure.json"
+        failure = json.loads(source_failure.read_text(encoding="utf-8"))
+        failure.update(
+            {
+                "authorization_id": prior_id,
+                "authorization_path": authorization_relative,
+                "authorization_sha256": authorization_sha,
+                "consumption_record_path": consumption_relative,
+                "consumption_record_sha256": consumption_sha,
+                "project_sha256": project_sha,
+                "project_number_sha256": number_sha,
+                "diagnosis_path": diagnosis_path.relative_to(fixture).as_posix(),
+                "diagnosis_sha256": sha256_file(diagnosis_path),
+                "readiness_path": readiness_path.relative_to(fixture).as_posix(),
+                "readiness_sha256": sha256_file(readiness_path),
+                "runtime_bindings": authorization["runtime_bindings"],
+                "source_proof": {
+                    "git_head": prior_authorization_commit,
+                    "runtime_commit": prior_runtime_commit,
+                    "head_delta_policy": "exact_active_authorization_path_only",
+                    "head_delta_path": authorization_relative,
+                },
+                "consumed_at": consumed_at.isoformat(),
+                "started_at": request_started_at.isoformat(),
+                "failed_at": failed_at.isoformat(),
+                "primary_failure": {
+                    **failure["primary_failure"],
+                    "request_started_at": request_started_at.isoformat(),
+                    "request_completed_at": request_completed_at.isoformat(),
+                },
+            }
+        )
+        failure_relative = se._expected_artifacts(prior_id)["failure_receipt_path"]
+        failure_path = fixture / failure_relative
+        self._write_json(failure_path, failure)
+        os.chmod(failure_path, 0o600)
+        failure_sha = sha256_file(failure_path)
+
+        source_disposition = self.source_fixture / "evidence" / "G1R2-SERVICE-PRE-READ-FAILURE-DISPOSITION.20260826T030504Z.json"
+        disposition = json.loads(source_disposition.read_text(encoding="utf-8"))
+        disposition["recorded_at"] = (now - timedelta(minutes=5)).isoformat()
+        disposition["attempt_binding"] = {
+            "authorization_path": authorization_relative,
+            "authorization_sha256": authorization_sha,
+            "authorization_commit": prior_authorization_commit,
+            "runtime_commit": prior_runtime_commit,
+            "consumption_path": consumption_relative,
+            "consumption_sha256": consumption_sha,
+            "failure_receipt_path": failure_relative,
+            "failure_receipt_sha256": failure_sha,
+        }
+        disposition_relative = "evidence/prior-failure-disposition.json"
+        disposition_path = fixture / disposition_relative
+        self._write_json(disposition_path, disposition)
+
+        return {
+            "authorization_id": prior_id,
+            "authorization_path": authorization_relative,
+            "authorization_sha256": authorization_sha,
+            "authorization_commit": prior_authorization_commit,
+            "consumption_record_path": consumption_relative,
+            "consumption_record_sha256": consumption_sha,
+            "failure_receipt_path": failure_relative,
+            "failure_receipt_sha256": failure_sha,
+            "disposition_path": disposition_relative,
+            "disposition_sha256": sha256_file(disposition_path),
+            "prior_runtime_commit": prior_runtime_commit,
+            "outcome": "failed_closed",
+            "reason_code": "provider_response_byte_cap_exceeded",
+            "failed_phase": "pre_enable_readback",
+            "http_status": 200,
+            "bounded_response_bytes_read": se._PRIOR_FAILURE_RESPONSE_BYTES,
+            "captured_cap_plus_one_prefix_sha256": failure["failed_response_sha256"],
+            "mutation_attempted": False,
+            "service_enable_request_sent": False,
+            "service_mutation_occurred": False,
+            "full_provider_response_length_known": False,
+            "execution_semantics": se._PRIOR_EXECUTION_SEMANTICS,
+        }
+
     def _system(self) -> tuple[tempfile.TemporaryDirectory, Path, Path]:
         temporary = tempfile.TemporaryDirectory()
         fixture = Path(temporary.name).resolve() / "fixture"
@@ -125,6 +283,14 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         readiness_path = fixture / "evidence" / "readiness.json"
         self._write_json(readiness_path, readiness)
 
+        prior_attempt_binding = self._make_prior_attempt(
+            fixture,
+            project_sha=project_sha,
+            number_sha=number_sha,
+            diagnosis_path=diagnosis_path,
+            readiness_path=readiness_path,
+        )
+
         auth_id = "DRAFT-SVC-test-aiplatform"
         authorization = {
             "schema_version": se.AUTH_SCHEMA,
@@ -152,6 +318,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
                 "permission": "serviceusage.services.enable",
                 "permission_granted": True,
             },
+            "prior_attempt_binding": prior_attempt_binding,
             "runtime_bindings": se._expected_runtime_bindings(draft=True),
             "action": copy.deepcopy(se._ACTION),
             "prospective_active_limits": copy.deepcopy(se._ACTIVE_LIMITS),
@@ -318,6 +485,99 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         adc.assert_not_called()
         network.assert_not_called()
 
+    def test_prior_attempt_binding_is_required_strict_and_propagated(self) -> None:
+        temporary, fixture, draft = self._system()
+        self.addCleanup(temporary.cleanup)
+        authorization = json.loads(draft.read_text(encoding="utf-8"))
+        binding = copy.deepcopy(authorization["prior_attempt_binding"])
+        result = se.validate_google_service_enablement_authorization(draft)
+        self.assertEqual(result["prior_attempt_binding"], binding)
+
+        active = self._activate(fixture, draft)
+        run, _calls = self._execute(fixture, active, self._response_set(polls=0))
+        artifacts = se._expected_artifacts("AUTH-SVC-test-aiplatform")
+        consumption = json.loads((fixture / artifacts["consumption_record_path"]).read_text())
+        receipt = json.loads((fixture / artifacts["success_receipt_path"]).read_text())
+        self.assertEqual(consumption["schema_version"], se.CONSUMPTION_SCHEMA)
+        self.assertEqual(receipt["schema_version"], se.RUN_RECEIPT_SCHEMA)
+        self.assertEqual(consumption["prior_attempt_binding"], binding)
+        self.assertEqual(receipt["prior_attempt_binding"], binding)
+        self.assertEqual(run["outcome"], "success")
+        self.assertEqual(run["schema_version"], "oe-google-service-enablement-execution-result-v2")
+        self.assertEqual(run["prior_attempt_binding"], binding)
+
+        for mutation in ("missing", "unknown"):
+            with self.subTest(mutation=mutation):
+                other_temporary, _other_fixture, other_draft = self._system()
+                try:
+                    value = json.loads(other_draft.read_text(encoding="utf-8"))
+                    if mutation == "missing":
+                        del value["prior_attempt_binding"]
+                    else:
+                        value["prior_attempt_binding"]["retry_override"] = True
+                    self._write_json(other_draft, value)
+                    with self.assertRaises(ValidationError):
+                        se.validate_google_service_enablement_authorization(other_draft)
+                finally:
+                    other_temporary.cleanup()
+
+    def test_rehashed_prior_zero_mutation_and_disposition_semantics_are_enforced(self) -> None:
+        cases = ("enable_attempt", "full_length_claim", "prefix_mismatch")
+        for case in cases:
+            with self.subTest(case=case):
+                temporary, fixture, draft = self._system()
+                try:
+                    authorization = json.loads(draft.read_text(encoding="utf-8"))
+                    binding = authorization["prior_attempt_binding"]
+                    failure_path = fixture / binding["failure_receipt_path"]
+                    disposition_path = fixture / binding["disposition_path"]
+                    failure = json.loads(failure_path.read_text(encoding="utf-8"))
+                    disposition = json.loads(disposition_path.read_text(encoding="utf-8"))
+                    if case == "enable_attempt":
+                        failure["calls"]["enable_attempts"] = 1
+                        failure["mutation_attempted"] = True
+                    elif case == "full_length_claim":
+                        disposition["interpretation"]["full_provider_response_length_known"] = True
+                    else:
+                        binding["captured_cap_plus_one_prefix_sha256"] = "0" * 64
+
+                    if case == "enable_attempt":
+                        self._write_json(failure_path, failure)
+                        os.chmod(failure_path, 0o600)
+                        binding["failure_receipt_sha256"] = sha256_file(failure_path)
+                        disposition["attempt_binding"]["failure_receipt_sha256"] = binding[
+                            "failure_receipt_sha256"
+                        ]
+                    self._write_json(disposition_path, disposition)
+                    binding["disposition_sha256"] = sha256_file(disposition_path)
+                    self._write_json(draft, authorization)
+                    with self.assertRaises(ValidationError):
+                        se.validate_google_service_enablement_authorization(draft)
+                finally:
+                    temporary.cleanup()
+
+    def test_prior_private_receipt_modes_and_symlink_paths_are_enforced(self) -> None:
+        for case in ("consumption_mode", "failure_mode", "disposition_symlink"):
+            with self.subTest(case=case):
+                temporary, fixture, draft = self._system()
+                try:
+                    authorization = json.loads(draft.read_text(encoding="utf-8"))
+                    binding = authorization["prior_attempt_binding"]
+                    if case == "consumption_mode":
+                        os.chmod(fixture / binding["consumption_record_path"], 0o644)
+                    elif case == "failure_mode":
+                        os.chmod(fixture / binding["failure_receipt_path"], 0o644)
+                    else:
+                        original = fixture / binding["disposition_path"]
+                        outside = Path(temporary.name) / "outside-disposition.json"
+                        outside.write_bytes(original.read_bytes())
+                        original.unlink()
+                        original.symlink_to(outside)
+                    with self.assertRaises(ValidationError):
+                        se.validate_google_service_enablement_authorization(draft)
+                finally:
+                    temporary.cleanup()
+
     def test_active_success_exact_calls_urls_headers_and_private_artifacts(self) -> None:
         temporary, fixture, draft = self._system()
         self.addCleanup(temporary.cleanup)
@@ -329,6 +589,20 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         self.assertEqual(result["calls"]["enable_attempts"], 1)
         self.assertEqual([request.get_method() for request in calls], ["GET", "POST", "GET", "GET"])
         service_url, enable_url = se._service_urls(self.PROJECT_NUMBER)
+        self.assertEqual(
+            service_url,
+            (
+                "https://serviceusage.googleapis.com/v1/projects/123456789012/"
+                "services/aiplatform.googleapis.com?fields=name,state"
+            ),
+        )
+        self.assertEqual(
+            enable_url,
+            (
+                "https://serviceusage.googleapis.com/v1/projects/123456789012/"
+                "services/aiplatform.googleapis.com:enable"
+            ),
+        )
         self.assertEqual(
             [request.full_url for request in calls],
             [service_url, enable_url, f"{se.BASE_ENDPOINT}/operations/acat.test", service_url],
@@ -384,12 +658,89 @@ class GoogleServiceEnablementTests(unittest.TestCase):
             self._execute(fixture, active, self._response_set(pre_number="999999999999"))
         artifacts = se._expected_artifacts("AUTH-SVC-test-aiplatform")
         failure = json.loads((fixture / artifacts["failure_receipt_path"]).read_text())
+        self.assertEqual(failure["schema_version"], se.FAILURE_RECEIPT_SCHEMA)
         self.assertEqual(failure["calls"]["http_calls_total"], 1)
         self.assertEqual(failure["calls"]["enable_attempts"], 0)
+        self.assertEqual(
+            failure["prior_attempt_binding"],
+            json.loads(active.read_text())["prior_attempt_binding"],
+        )
         self.assertEqual(
             failure["provider_response_bytes_total"],
             failure["failed_response_bytes"],
         )
+
+    def test_missing_wrong_or_extra_partial_response_fields_fail_before_enable(self) -> None:
+        cases = (
+            (
+                {
+                    "name": f"projects/{self.PROJECT_NUMBER}/services/{se.SERVICE}",
+                },
+                "service_readback_fields_invalid",
+            ),
+            ({"state": "DISABLED"}, "service_readback_fields_invalid"),
+            (
+                {
+                    "name": f"projects/{self.PROJECT_NUMBER}/services/{se.SERVICE}",
+                    "state": "DISABLED",
+                    "config": {},
+                },
+                "service_readback_fields_invalid",
+            ),
+            (
+                {
+                    "name": f"projects/{self.PROJECT_NUMBER}/services/{se.SERVICE}",
+                    "state": "UNKNOWN",
+                },
+                "service_readback_state_invalid",
+            ),
+        )
+        for payload, reason in cases:
+            with self.subTest(payload=payload):
+                temporary, fixture, draft = self._system()
+                try:
+                    active = self._activate(fixture, draft)
+                    service_url, _enable_url = se._service_urls(self.PROJECT_NUMBER)
+                    with self.assertRaisesRegex(ValidationError, reason):
+                        self._execute(
+                            fixture,
+                            active,
+                            [_Response(self._json_bytes(payload), url=service_url)],
+                        )
+                    failure = json.loads(
+                        (
+                            fixture
+                            / se._expected_artifacts("AUTH-SVC-test-aiplatform")[
+                                "failure_receipt_path"
+                            ]
+                        ).read_text()
+                    )
+                    self.assertEqual(failure["calls"]["http_calls_total"], 1)
+                    self.assertEqual(failure["calls"]["enable_attempts"], 0)
+                    self.assertFalse(failure["mutation_attempted"])
+                finally:
+                    temporary.cleanup()
+
+    def test_unfiltered_or_reordered_readback_url_is_rejected_before_network(self) -> None:
+        filtered_url, _enable_url = se._service_urls(self.PROJECT_NUMBER)
+        for wrong_url in (
+            filtered_url.split("?", 1)[0],
+            filtered_url.replace("fields=name,state", "fields=state,name"),
+        ):
+            with self.subTest(wrong_url=wrong_url), mock.patch.object(
+                se,
+                "_open_service_usage_request",
+            ) as network, self.assertRaisesRegex(se._ServiceFailure, "request_binding_failed"):
+                se._perform_request(
+                    method="GET",
+                    url=wrong_url,
+                    expected_url=filtered_url,
+                    body=None,
+                    token=self.TOKEN,
+                    project=self.PROJECT,
+                    timeout=30,
+                )
+            network.assert_not_called()
 
     def test_pre_enabled_state_refuses_mutation(self) -> None:
         temporary, fixture, draft = self._system()
@@ -882,7 +1233,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         self.assertEqual(receipt["calls"]["post_enable_state_readbacks"], 1)
         self.assertEqual(receipt["service_state_resolution"], "enabled_confirmed")
 
-    def test_oversize_response_fails_at_one_call(self) -> None:
+    def test_filtered_readback_still_rejects_unfiltered_oversized_response(self) -> None:
         temporary, fixture, draft = self._system()
         self.addCleanup(temporary.cleanup)
         active = self._activate(fixture, draft)
@@ -892,6 +1243,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
             url=service_url,
             headers={"Content-Type": "application/json"},
         )
+        self.assertTrue(service_url.endswith("?fields=name,state"))
         with self.assertRaisesRegex(ValidationError, "provider_response_byte_cap_exceeded"):
             self._execute(fixture, active, [response])
         failure = json.loads(
@@ -899,6 +1251,10 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         )
         self.assertEqual(failure["calls"]["http_calls_total"], 1)
         self.assertEqual(failure["calls"]["enable_attempts"], 0)
+        self.assertEqual(
+            failure["provider_response_bytes_total"],
+            se.MAX_RESPONSE_BYTES_PER_CALL + 1,
+        )
 
     def test_missing_or_mismatched_private_bindings_fail_before_consumption(self) -> None:
         for environment in (
@@ -953,6 +1309,8 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         contract = se._validate_authorization(active, require_active=True)
         repository = Path(temporary.name).resolve()
         auth_relative = active.relative_to(repository).as_posix()
+        prior_relative = contract.prior_authorization_path.relative_to(repository).as_posix()
+        prior_delta = prior_relative.encode("utf-8") + b"\x00"
         forbidden_delta = (
             auth_relative.encode("utf-8")
             + b"\x00"
@@ -964,7 +1322,15 @@ class GoogleServiceEnablementTests(unittest.TestCase):
             mock.patch.object(
                 se,
                 "_git",
-                side_effect=[b"b" * 40 + b"\n", b"", forbidden_delta],
+                side_effect=[
+                    b"b" * 40 + b"\n",
+                    b"",
+                    b"",
+                    b"",
+                    prior_delta,
+                    contract.prior_authorization_path.read_bytes(),
+                    forbidden_delta,
+                ],
             ),
             self.assertRaisesRegex(
                 ValidationError,
@@ -972,6 +1338,30 @@ class GoogleServiceEnablementTests(unittest.TestCase):
             ),
         ):
             se._verify_committed_runtime(contract)
+
+    def test_prior_runtime_authorization_history_is_required_exactly(self) -> None:
+        for case in ("wrong_delta", "wrong_prior_authorization_bytes"):
+            with self.subTest(case=case):
+                temporary, fixture, draft = self._system()
+                try:
+                    active = self._activate(fixture, draft)
+                    contract = se._validate_authorization(active, require_active=True)
+                    repository = Path(temporary.name).resolve()
+                    prior_relative = contract.prior_authorization_path.relative_to(repository).as_posix()
+                    prior_delta = prior_relative.encode("utf-8") + b"\x00"
+                    outputs = [b"b" * 40 + b"\n", b"", b"", b""]
+                    if case == "wrong_delta":
+                        outputs.append(b"runtime/other.py\x00")
+                    else:
+                        outputs.extend([prior_delta, b"{}\n"])
+                    with (
+                        mock.patch.object(se, "_repository_root", return_value=repository),
+                        mock.patch.object(se, "_git", side_effect=outputs),
+                        self.assertRaises(ValidationError),
+                    ):
+                        se._verify_committed_runtime(contract)
+                finally:
+                    temporary.cleanup()
 
     def test_failure_receipt_timestamp_rejects_backward_clock(self) -> None:
         baseline = datetime.now(timezone.utc)
@@ -1010,7 +1400,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         active = self._activate(fixture, draft)
         failure_path = fixture / se._expected_artifacts("AUTH-SVC-test-aiplatform")["failure_receipt_path"]
-        failure_path.parent.mkdir(parents=True)
+        failure_path.parent.mkdir(parents=True, exist_ok=True)
         failure_path.write_text("collision")
         with (
             mock.patch.object(se.pt, "_preflight_google_adc") as adc,
@@ -1054,6 +1444,16 @@ class GoogleServiceEnablementTests(unittest.TestCase):
                     se.validate_google_service_enablement_authorization(draft)
                 temporary.cleanup()
 
+    def test_active_authority_cannot_expand_beyond_one_enable_mutation(self) -> None:
+        temporary, fixture, draft = self._system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate(fixture, draft)
+        value = json.loads(active.read_text(encoding="utf-8"))
+        value["authorized_limits"]["max_enable_attempts"] = 2
+        self._write_json(active, value)
+        with self.assertRaisesRegex(ValidationError, "active authorized limits drifted"):
+            se.validate_google_service_enablement_authorization(active)
+
     def test_readiness_hash_semantics_and_symlink_are_enforced(self) -> None:
         temporary, fixture, draft = self._system()
         self.addCleanup(temporary.cleanup)
@@ -1075,7 +1475,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
             se.validate_google_service_enablement_authorization(draft)
 
     def test_duplicate_keys_in_authority_and_evidence_fail_closed(self) -> None:
-        for target in ("authorization", "diagnosis", "readiness"):
+        for target in ("authorization", "diagnosis", "readiness", "prior_disposition"):
             with self.subTest(target=target):
                 temporary, fixture, draft = self._system()
                 try:
@@ -1088,7 +1488,7 @@ class GoogleServiceEnablementTests(unittest.TestCase):
                             1,
                         )
                         draft.write_text(raw, encoding="utf-8")
-                    else:
+                    elif target in {"diagnosis", "readiness"}:
                         binding_key = f"{target}_binding"
                         evidence_path = fixture / authorization[binding_key]["path"]
                         raw = evidence_path.read_text(encoding="utf-8")
@@ -1103,6 +1503,21 @@ class GoogleServiceEnablementTests(unittest.TestCase):
                         )
                         evidence_path.write_text(raw, encoding="utf-8")
                         authorization[binding_key]["sha256"] = sha256_file(evidence_path)
+                        self._write_json(draft, authorization)
+                    else:
+                        binding = authorization["prior_attempt_binding"]
+                        evidence_path = fixture / binding["disposition_path"]
+                        raw = evidence_path.read_text(encoding="utf-8")
+                        raw = raw.replace(
+                            '  "schema_version": "oe-google-service-enablement-failure-disposition-v1",',
+                            (
+                                '  "schema_version": "oe-google-service-enablement-failure-disposition-v1",\n'
+                                '  "schema_version": "oe-google-service-enablement-failure-disposition-v1",'
+                            ),
+                            1,
+                        )
+                        evidence_path.write_text(raw, encoding="utf-8")
+                        binding["disposition_sha256"] = sha256_file(evidence_path)
                         self._write_json(draft, authorization)
                     with self.assertRaises(ValidationError):
                         se.validate_google_service_enablement_authorization(draft)
@@ -1153,16 +1568,31 @@ class GoogleServiceEnablementTests(unittest.TestCase):
         schema = self.production_root / "schemas" / "google-service-enablement-authorization.schema.json"
         value = json.loads(schema.read_text(encoding="utf-8"))
         self.assertEqual(value["properties"]["schema_version"]["const"], se.AUTH_SCHEMA)
+        self.assertEqual(se.AUTH_SCHEMA, "oe-google-service-enablement-authorization-v2")
+        self.assertEqual(se.DRY_RUN_SCHEMA, "oe-google-service-enablement-dry-run-v2")
+        self.assertIn("prior_attempt_binding", value["required"])
         self.assertIn("cli_path", value["$defs"]["runtimeBindings"]["required"])
         self.assertIn("init_path", value["$defs"]["runtimeBindings"]["required"])
         self.assertEqual(
             value["$defs"]["action"]["properties"]["enable"]["const"]["body_bytes"],
             0,
         )
+        self.assertEqual(
+            value["$defs"]["action"]["properties"]["pre_enable_readback"]["const"],
+            se._ACTION["pre_enable_readback"],
+        )
+        self.assertEqual(
+            value["$defs"]["action"]["properties"]["post_enable_readback"]["const"],
+            se._ACTION["post_enable_readback"],
+        )
         from oe_narration.cli import build_parser, dispatch
 
         temporary, _fixture, draft = self._system()
         self.addCleanup(temporary.cleanup)
+        self.assertEqual(
+            set(value["$defs"]["priorAttemptBinding"]["required"]),
+            set(json.loads(draft.read_text())["prior_attempt_binding"]),
+        )
         args = build_parser().parse_args(["google-service-enablement", "--authorization", str(draft)])
         with mock.patch.object(se, "_open_service_usage_request") as network:
             result = dispatch(args)
