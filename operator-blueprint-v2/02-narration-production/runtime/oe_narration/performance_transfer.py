@@ -45,6 +45,7 @@ from .core import (
 
 PLAN_SCHEMA = "oe-performance-transfer-plan-v1"
 GUIDE_AUTH_SCHEMA = "oe-synthetic-guide-authorization-v1"
+GUIDE_RECOVERY_AUTH_SCHEMA = "oe-synthetic-guide-authorization-v2"
 TRANSFER_AUTH_SCHEMA = "oe-voice-transfer-authorization-v1"
 GUIDE_SCOPE = "synthetic_guide_generation"
 TRANSFER_SCOPE = "elevenlabs_voice_transfer"
@@ -74,6 +75,7 @@ GUIDE_DESTINATIONS = (
     "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
 )
 GUIDE_CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v1"
+GUIDE_RECOVERY_CONSUMPTION_SCHEMA = "oe-provider-authorization-consumption-v2"
 GUIDE_RUN_RECEIPT_SCHEMA = "oe-synthetic-guide-run-receipt-v1"
 GUIDE_FAILURE_RECEIPT_SCHEMA = "oe-synthetic-guide-run-failure-v1"
 GUIDE_QUOTA_PROJECT_ENV = "GOOGLE_CLOUD_QUOTA_PROJECT"
@@ -120,6 +122,103 @@ GUIDE_ACTING_PROMPT_SHA256 = (
 GUIDE_REQUEST_BODY_SHA256 = (
     "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53"
 )
+GUIDE_REQUEST_SET_SHA256 = (
+    "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba"
+)
+GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256 = (
+    "27cf742ac8c169c05474269f6a40af642091c8180e8412cc410d2b8ab72ae6d9"
+)
+GUIDE_RUNTIME_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/runtime/oe_narration/"
+    "performance_transfer.py"
+)
+GUIDE_CLI_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/runtime/oe_narration/cli.py"
+)
+GUIDE_CORE_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/runtime/oe_narration/core.py"
+)
+GUIDE_INIT_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/runtime/oe_narration/__init__.py"
+)
+GUIDE_SCHEMA_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/schemas/"
+    "synthetic-guide-authorization.schema.json"
+)
+GUIDE_TESTS_RELATIVE = (
+    "operator-blueprint-v2/02-narration-production/runtime/tests/"
+    "test_performance_transfer.py"
+)
+GUIDE_RECOVERY_BINDING = {
+    "recovery_id": "G1R2-AIPLATFORM-SERVICE-ENABLED",
+    "execution_semantics": "fresh_authorization_not_retry_or_resumption",
+    "prior_failures": [
+        {
+            "attempt_id": "G1",
+            "failure_receipt_path": (
+                "receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-"
+                "20260825T233757Z.failure.json"
+            ),
+            "failure_receipt_sha256": (
+                "3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1"
+            ),
+        },
+        {
+            "attempt_id": "G1R1",
+            "failure_receipt_path": (
+                "receipts/google/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-"
+                "20260826T003835Z.failure.json"
+            ),
+            "failure_receipt_sha256": (
+                "df00adefe5e3215ff0c60ed19fe7835d2056a78ba2130e46b18a0d66de2161af"
+            ),
+        },
+    ],
+    "diagnosis": {
+        "path": "evidence/G1R2-403-DIAGNOSIS.20260826T014109Z.json",
+        "sha256": "335c7d6e29052f179dac19f868acea2430d3c99fcaedd6baf2c69cff7f7496d0",
+        "cause_before_service_enablement": "unknown",
+    },
+    "service_enablement": {
+        "authorization_path": (
+            "authorizations/08-google-aiplatform-service-enablement-partial-response-"
+            "repair.ACTIVE.20260826T033333Z.json"
+        ),
+        "authorization_sha256": (
+            "c98d4ec1e12485fedda5f87df46e52b66bac99a916fb8a00632108efc3311d4b"
+        ),
+        "consumption_record_path": (
+            "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-"
+            "20260826T033333Z.consumed.json"
+        ),
+        "consumption_record_sha256": (
+            "45ee119e1ee5e258152226be72a435c1d0bd61e851295b4d311f5c24a20ee246"
+        ),
+        "run_receipt_path": (
+            "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-"
+            "20260826T033333Z.run.json"
+        ),
+        "run_receipt_sha256": (
+            "a439c64c0b58f6bc7eee22ee15f21bfe5d77da5d0f88712797f7f9b0c2f98b60"
+        ),
+        "success_disposition_path": (
+            "evidence/G1R2-AIPLATFORM-SERVICE-SUCCESS-AND-GUIDE-READINESS."
+            "20260826T034027Z.json"
+        ),
+        "success_disposition_sha256": (
+            "4497327fd3bac9c751f56c325ebf27d41b5413b92b05206177cf05fa73df86f6"
+        ),
+        "service": "aiplatform.googleapis.com",
+        "final_state": "ENABLED",
+    },
+    "safe_error_capture_runtime_sha256": GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256,
+    "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+    "request_set_sha256": GUIDE_REQUEST_SET_SHA256,
+    "fresh_output_paths": list(GUIDE_DESTINATIONS),
+    "prior_outputs_received": 0,
+    "prior_authorizations_reusable": False,
+    "retry_or_resumption_authorized": False,
+}
 
 TRANSFER_PROVIDER = "elevenlabs"
 TRANSFER_TARGET_VOICE_ID = "scMbPZwQjr40V1MzL3Nj"
@@ -147,6 +246,7 @@ ACCOUNT_TRAINING_OPT_OUT_PROTECTION = "account_training_opt_out_processed"
 ENTERPRISE_ZRM_PROTECTION = "enterprise_zrm"
 
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
+_GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 _ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$")
 _SECRET_KEY_RE = re.compile(
     r"(?:api[_-]?key|authorization[_-]?header|bearer|password|secret|access[_-]?token|refresh[_-]?token|credential[_-]?value|project[_-]?id|account[_-]?id)",
@@ -1176,6 +1276,77 @@ def dry_run_synthetic_guide(plan_path: Path, canonical_w_path: Path) -> dict[str
     }
 
 
+def _guide_runtime_files() -> dict[str, tuple[str, Path]]:
+    module = Path(__file__).absolute()
+    narration_root = module.resolve().parents[2]
+    return {
+        "executor": (GUIDE_RUNTIME_RELATIVE, module),
+        "cli": (GUIDE_CLI_RELATIVE, module.with_name("cli.py")),
+        "core": (GUIDE_CORE_RELATIVE, module.with_name("core.py")),
+        "init": (GUIDE_INIT_RELATIVE, module.with_name("__init__.py")),
+        "schema": (
+            GUIDE_SCHEMA_RELATIVE,
+            narration_root / "schemas" / "synthetic-guide-authorization.schema.json",
+        ),
+        "tests": (
+            GUIDE_TESTS_RELATIVE,
+            narration_root / "runtime" / "tests" / "test_performance_transfer.py",
+        ),
+    }
+
+
+def _expected_guide_runtime_bindings(*, draft: bool) -> dict[str, str]:
+    pending = "pending"
+    result = {"git_commit": pending}
+    for name, (relative, path) in _guide_runtime_files().items():
+        result[f"{name}_path"] = relative
+        result[f"{name}_sha256"] = pending if draft else sha256_file(path)
+    return result
+
+
+def _validate_guide_runtime_bindings(
+    value: Any,
+    *,
+    status: str,
+    errors: list[str],
+) -> dict[str, Any]:
+    expected_keys = set(_expected_guide_runtime_bindings(draft=True))
+    bindings = _strict_object(
+        value,
+        expected_keys,
+        expected_keys,
+        "runtime_bindings",
+    )
+    expected_paths = _expected_guide_runtime_bindings(draft=True)
+    for key, expected in expected_paths.items():
+        if key.endswith("_path"):
+            _require(bindings.get(key) == expected, f"runtime_bindings.{key} drifted", errors)
+    if status == "draft":
+        _require(
+            _json_exact(bindings, expected_paths),
+            "draft recovery runtime bindings must be pending and path-exact",
+            errors,
+        )
+        return bindings
+    _require(
+        isinstance(bindings.get("git_commit"), str)
+        and bool(_GIT_SHA_RE.fullmatch(bindings["git_commit"])),
+        "active recovery runtime_bindings.git_commit must be exact",
+        errors,
+    )
+    for name, (_relative, path) in _guide_runtime_files().items():
+        key = f"{name}_sha256"
+        value_sha = bindings.get(key)
+        _require(
+            isinstance(value_sha, str)
+            and bool(_SHA_RE.fullmatch(value_sha))
+            and value_sha == sha256_file(path),
+            f"active recovery runtime_bindings.{key} does not match loaded bytes",
+            errors,
+        )
+    return bindings
+
+
 def _validate_common_authorization(
     authorization: dict[str, Any],
     *,
@@ -1266,6 +1437,567 @@ def _validate_common_authorization(
     return str(status), []
 
 
+def _recovery_record(
+    root: Path,
+    relative: str,
+    expected_sha256: str,
+    label: str,
+    *,
+    directory_prefix: tuple[str, ...],
+    required_mode: int | None = None,
+) -> tuple[Path, dict[str, Any]]:
+    path = _safe_relative(root, relative, f"{label}.path", must_exist=True, suffix=".json")
+    if path.relative_to(root).parts[: len(directory_prefix)] != directory_prefix:
+        raise ValidationError(f"{label} is outside its exact directory")
+    value, _raw, actual_sha256 = _read_bound_fixture_json(
+        root,
+        path,
+        label,
+        required_mode=required_mode,
+    )
+    if actual_sha256 != expected_sha256:
+        raise ValidationError(f"{label} SHA-256 mismatch")
+    return path, value
+
+
+def _validate_prior_guide_failure(
+    root: Path,
+    item: dict[str, Any],
+    *,
+    dry: dict[str, Any],
+    target: dict[str, Any],
+) -> tuple[datetime, str]:
+    _path, receipt = _recovery_record(
+        root,
+        item["failure_receipt_path"],
+        item["failure_receipt_sha256"],
+        f"{item['attempt_id']} failure receipt",
+        directory_prefix=("receipts", "google"),
+        required_mode=0o600,
+    )
+    receipt_keys = {
+        "schema_version", "provider", "endpoint", "model_id", "voice_name",
+        "language_code", "outcome", "reason_code", "failed_request_id", "http_status",
+        "authorization_id", "authorization_consumed", "guide_authorization_path",
+        "guide_authorization_sha256", "guide_consumption_record_path",
+        "guide_consumption_record_sha256", "performance_transfer_plan_sha256",
+        "canonical_w_sha256", "microtest_token_slice_sha256", "spoken_text_sha256",
+        "acting_prompt_sha256", "request_set_sha256", "request_body_sha256",
+        "request_body_bytes", "total_request_bytes", "provider_calls_made",
+        "provider_outputs_received", "provider_response_bytes_total",
+        "failed_response_bytes", "provider_spend_usd", "provider_spend_semantics",
+        "credential_mechanism", "credential_refresh_attempted", "quota_project_sha256",
+        "provider_identifiers", "provider_usage", "outputs", "started_at", "failed_at",
+        "retries_made", "redirects_followed", "fallbacks_used", "credentials_recorded",
+        "network_called", "creative_approved", "cross_provider_transfer_authorized",
+        "voice_transfer_authorized", "full_capture_authorized", "step3_authorized",
+        "publication_authorized",
+    }
+    _strict_object(receipt, receipt_keys, receipt_keys, f"{item['attempt_id']} failure receipt")
+    errors: list[str] = []
+    expected_identity = {
+        "schema_version": GUIDE_FAILURE_RECEIPT_SCHEMA,
+        "provider": GUIDE_PROVIDER,
+        "endpoint": GUIDE_ENDPOINT,
+        "model_id": GUIDE_MODEL,
+        "voice_name": GUIDE_VOICE,
+        "language_code": GUIDE_LANGUAGE,
+        "outcome": "failed_closed",
+        "reason_code": "provider_http_failure",
+        "failed_request_id": "gemini-guide-01",
+        "http_status": 403,
+        "authorization_consumed": True,
+        "performance_transfer_plan_sha256": dry["plan_sha256"],
+        "canonical_w_sha256": dry["canonical_w_sha256"],
+        "microtest_token_slice_sha256": MICROTEST_TOKEN_SLICE_SHA256,
+        "spoken_text_sha256": MICROTEST_TEXT_SHA256,
+        "acting_prompt_sha256": GUIDE_ACTING_PROMPT_SHA256,
+        "request_set_sha256": GUIDE_REQUEST_SET_SHA256,
+        "request_body_sha256": GUIDE_REQUEST_BODY_SHA256,
+        "request_body_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+        "total_request_bytes": GUIDE_MAX_REQUEST_BODY_BYTES,
+        "provider_calls_made": 1,
+        "provider_outputs_received": 0,
+        "provider_response_bytes_total": 0,
+        "failed_response_bytes": 0,
+        "provider_spend_usd": GUIDE_MODELED_SPEND_PER_CALL_USD,
+        "provider_spend_semantics": "modeled_authorized_ceiling_per_attempt_not_provider_invoice",
+        "credential_mechanism": "gcloud_application_default_print_access_token",
+        "credential_refresh_attempted": True,
+        "provider_identifiers": {},
+        "provider_usage": {},
+        "outputs": [],
+        "retries_made": 0,
+        "redirects_followed": 0,
+        "fallbacks_used": 0,
+        "credentials_recorded": False,
+        "network_called": True,
+        "creative_approved": False,
+        "cross_provider_transfer_authorized": False,
+        "voice_transfer_authorized": False,
+        "full_capture_authorized": False,
+        "step3_authorized": False,
+        "publication_authorized": False,
+    }
+    for key, expected in expected_identity.items():
+        _require(
+            _json_exact(receipt.get(key), expected),
+            f"{item['attempt_id']} failure {key} drifted",
+            errors,
+        )
+    _require(
+        isinstance(receipt.get("quota_project_sha256"), str)
+        and bool(_SHA_RE.fullmatch(receipt["quota_project_sha256"])),
+        f"{item['attempt_id']} failure quota-project binding is invalid",
+        errors,
+    )
+    auth_id = receipt.get("authorization_id")
+    _require(
+        isinstance(auth_id, str) and bool(_ID_RE.fullmatch(auth_id)),
+        f"{item['attempt_id']} failure authorization ID is invalid",
+        errors,
+    )
+    started = _parse_time(receipt.get("started_at"), f"{item['attempt_id']} started_at", errors)
+    failed = _parse_time(receipt.get("failed_at"), f"{item['attempt_id']} failed_at", errors)
+    if started is not None and failed is not None:
+        _require(started <= failed <= datetime.now(timezone.utc), f"{item['attempt_id']} failure time order drifted", errors)
+    if errors:
+        raise ValidationError(errors)
+
+    auth_path, prior_auth = _recovery_record(
+        root,
+        receipt["guide_authorization_path"],
+        receipt["guide_authorization_sha256"],
+        f"{item['attempt_id']} authorization",
+        directory_prefix=("authorizations",),
+    )
+    if auth_path.relative_to(root).parts[:2] == ("authorizations", "consumed"):
+        raise ValidationError(f"{item['attempt_id']} authorization path is invalid")
+    _strict_object(
+        prior_auth,
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        {
+            "schema_version", "authorization_id", "status", "approved", "scope", "target",
+            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        },
+        f"{item['attempt_id']} authorization",
+    )
+    prior_errors: list[str] = []
+    _require(prior_auth.get("schema_version") == GUIDE_AUTH_SCHEMA, f"{item['attempt_id']} authorization schema drifted", prior_errors)
+    _require(prior_auth.get("authorization_id") == auth_id, f"{item['attempt_id']} authorization ID drifted", prior_errors)
+    _require(prior_auth.get("status") == "active" and prior_auth.get("approved") is True and prior_auth.get("execution_ready") is True, f"{item['attempt_id']} authorization was not active", prior_errors)
+    _require(prior_auth.get("scope") == GUIDE_SCOPE and _json_exact(prior_auth.get("target"), target), f"{item['attempt_id']} target drifted", prior_errors)
+    _require(prior_auth.get("bindings", {}).get("performance_transfer_plan_sha256") == dry["plan_sha256"] and prior_auth.get("bindings", {}).get("request_set_sha256") == GUIDE_REQUEST_SET_SHA256, f"{item['attempt_id']} request binding drifted", prior_errors)
+    _require(prior_auth.get("consumption", {}).get("record_path") == receipt["guide_consumption_record_path"], f"{item['attempt_id']} consumption path drifted", prior_errors)
+    _require(prior_auth.get("billing_project_binding", {}).get("quota_project_sha256") == receipt["quota_project_sha256"], f"{item['attempt_id']} quota-project hash drifted", prior_errors)
+    if prior_errors:
+        raise ValidationError(prior_errors)
+
+    _consumption_path, consumption = _recovery_record(
+        root,
+        receipt["guide_consumption_record_path"],
+        receipt["guide_consumption_record_sha256"],
+        f"{item['attempt_id']} consumption",
+        directory_prefix=("authorizations", "consumed"),
+        required_mode=0o600,
+    )
+    consumption_keys = {
+        "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
+        "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
+        "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
+        "credentials_recorded",
+    }
+    _strict_object(consumption, consumption_keys, consumption_keys, f"{item['attempt_id']} consumption")
+    consumed_errors: list[str] = []
+    _require(consumption.get("schema_version") == GUIDE_CONSUMPTION_SCHEMA, f"{item['attempt_id']} consumption schema drifted", consumed_errors)
+    _require(consumption.get("authorization_id") == auth_id and consumption.get("authorization_sha256") == receipt["guide_authorization_sha256"], f"{item['attempt_id']} consumption authorization drifted", consumed_errors)
+    _require(consumption.get("scope") == GUIDE_SCOPE and consumption.get("provider") == GUIDE_PROVIDER and consumption.get("status") == "consumed_before_network", f"{item['attempt_id']} consumption identity drifted", consumed_errors)
+    _require(consumption.get("consumed_before_network") is True and consumption.get("network_called_at_consumption") is False and consumption.get("credentials_recorded") is False, f"{item['attempt_id']} consumption boundary drifted", consumed_errors)
+    _require(consumption.get("performance_transfer_plan_sha256") == dry["plan_sha256"] and consumption.get("request_set_sha256") == GUIDE_REQUEST_SET_SHA256, f"{item['attempt_id']} consumption request binding drifted", consumed_errors)
+    consumed = _parse_time(consumption.get("consumed_at"), f"{item['attempt_id']} consumed_at", consumed_errors)
+    if consumed is not None and started is not None:
+        _require(consumed <= started, f"{item['attempt_id']} consumed-after-start drifted", consumed_errors)
+    if consumed_errors:
+        raise ValidationError(consumed_errors)
+    assert failed is not None
+    return failed, receipt["quota_project_sha256"]
+
+
+def _validate_guide_recovery_binding(
+    root: Path,
+    value: Any,
+    *,
+    dry: dict[str, Any],
+    target: dict[str, Any],
+) -> dict[str, Any]:
+    if not _json_exact(value, GUIDE_RECOVERY_BINDING):
+        raise ValidationError("guide recovery_binding drifted")
+    binding = value
+    prior_results = [
+        _validate_prior_guide_failure(root, item, dry=dry, target=target)
+        for item in binding["prior_failures"]
+    ]
+    if not prior_results[0][0] < prior_results[1][0]:
+        raise ValidationError("G1 and G1R1 failure chronology drifted")
+    quota_hashes = {result[1] for result in prior_results}
+    if len(quota_hashes) != 1:
+        raise ValidationError("prior guide attempts used different quota-project bindings")
+
+    _diagnosis_path, diagnosis = _recovery_record(
+        root,
+        binding["diagnosis"]["path"],
+        binding["diagnosis"]["sha256"],
+        "G1R2 diagnosis",
+        directory_prefix=("evidence",),
+    )
+    diagnosis_keys = {
+        "schema_version", "record_id", "status", "recorded_at", "evidence_boundary",
+        "prior_attempt_bindings", "live_readback", "diagnosis", "authority",
+    }
+    _strict_object(diagnosis, diagnosis_keys, diagnosis_keys, "G1R2 diagnosis")
+    errors: list[str] = []
+    _require(diagnosis.get("schema_version") == "oe-google-g1-403-diagnosis-v1" and diagnosis.get("status") == "operator_reported_live_readback", "G1R2 diagnosis identity drifted", errors)
+    prior = diagnosis.get("prior_attempt_bindings")
+    _require(
+        isinstance(prior, dict)
+        and prior.get("canonical_request_body_sha256") == GUIDE_REQUEST_BODY_SHA256
+        and prior.get("canonical_two_request_set_sha256") == GUIDE_REQUEST_SET_SHA256
+        and prior.get("g1", {}).get("failure_receipt_sha256") == binding["prior_failures"][0]["failure_receipt_sha256"]
+        and prior.get("g1r1", {}).get("failure_receipt_sha256") == binding["prior_failures"][1]["failure_receipt_sha256"],
+        "G1R2 diagnosis prior-attempt binding drifted",
+        errors,
+    )
+    conclusion = diagnosis.get("diagnosis")
+    _require(
+        isinstance(conclusion, dict)
+        and conclusion.get("current_cause") == "unknown"
+        and conclusion.get("blind_retry_permitted") is False
+        and conclusion.get("aiplatform_service_disablement_is_proven_403_cause") is False,
+        "G1R2 diagnosis causal boundary drifted",
+        errors,
+    )
+    live = diagnosis.get("live_readback")
+    _require(
+        isinstance(live, dict)
+        and live.get("services", {}).get("aiplatform.googleapis.com") == "DISABLED"
+        and live.get("project", {}).get("project_sha256") in quota_hashes,
+        "G1R2 diagnosis project or service state drifted",
+        errors,
+    )
+    authority = diagnosis.get("authority")
+    _require(isinstance(authority, dict) and all(item is False for item in authority.values()), "G1R2 diagnosis carries authority", errors)
+    diagnosed_at = _parse_time(diagnosis.get("recorded_at"), "G1R2 diagnosis recorded_at", errors)
+    if diagnosed_at is not None:
+        _require(prior_results[-1][0] <= diagnosed_at <= datetime.now(timezone.utc), "G1R2 diagnosis chronology drifted", errors)
+    if errors:
+        raise ValidationError(errors)
+
+    service = binding["service_enablement"]
+    _service_auth_path, service_auth = _recovery_record(
+        root,
+        service["authorization_path"],
+        service["authorization_sha256"],
+        "service-enablement authorization",
+        directory_prefix=("authorizations",),
+    )
+    _service_consumption_path, service_consumption = _recovery_record(
+        root,
+        service["consumption_record_path"],
+        service["consumption_record_sha256"],
+        "service-enablement consumption",
+        directory_prefix=("authorizations", "consumed"),
+        required_mode=0o600,
+    )
+    _service_run_path, service_run = _recovery_record(
+        root,
+        service["run_receipt_path"],
+        service["run_receipt_sha256"],
+        "service-enablement run receipt",
+        directory_prefix=("receipts", "google-service-usage"),
+        required_mode=0o600,
+    )
+    _service_disposition_path, service_disposition = _recovery_record(
+        root,
+        service["success_disposition_path"],
+        service["success_disposition_sha256"],
+        "service-success disposition",
+        directory_prefix=("evidence",),
+    )
+    service_errors: list[str] = []
+    _require(service_auth.get("schema_version") == "oe-google-service-enablement-authorization-v2" and service_auth.get("status") == "active" and service_auth.get("approved") is True, "service-enablement authorization drifted", service_errors)
+    _require(service_auth.get("target", {}).get("service") == service["service"] and service_auth.get("target", {}).get("project_sha256") in quota_hashes, "service-enablement target drifted", service_errors)
+    _require(service_auth.get("runtime_bindings", {}).get("credential_runtime_sha256") == GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256, "safe-error capture runtime binding drifted", service_errors)
+    _require(service_consumption.get("schema_version") == "oe-google-service-enablement-consumption-v2" and service_consumption.get("authorization_id") == service_auth.get("authorization_id") and service_consumption.get("authorization_sha256") == service["authorization_sha256"], "service-enablement consumption authorization drifted", service_errors)
+    _require(service_consumption.get("status") == "consumed_before_network" and service_consumption.get("consumed_before_network") is True and service_consumption.get("network_called_at_consumption") is False and service_consumption.get("credentials_recorded") is False, "service-enablement consumption boundary drifted", service_errors)
+    _require(service_run.get("schema_version") == "oe-google-service-enablement-run-receipt-v2" and service_run.get("outcome") == "success", "service-enablement run identity drifted", service_errors)
+    _require(service_run.get("authorization_id") == service_auth.get("authorization_id") and service_run.get("authorization_sha256") == service["authorization_sha256"] and service_run.get("consumption_record_path") == service["consumption_record_path"] and service_run.get("consumption_record_sha256") == service["consumption_record_sha256"], "service-enablement run provenance drifted", service_errors)
+    _require(service_run.get("diagnosis_path") == binding["diagnosis"]["path"] and service_run.get("diagnosis_sha256") == binding["diagnosis"]["sha256"], "service-enablement diagnosis binding drifted", service_errors)
+    _require(service_run.get("service") == service["service"] and service_run.get("service_state_resolution") == "enabled_confirmed" and service_run.get("post_enable_readback", {}).get("state") == service["final_state"], "service-enablement final state drifted", service_errors)
+    _require(_json_exact(service_run.get("calls"), {"pre_enable_state_readbacks": 1, "enable_attempts": 1, "operation_polls": 1, "post_enable_state_readbacks": 1, "http_calls_total": 4}), "service-enablement call counts drifted", service_errors)
+    _require(service_run.get("mutation_attempted") is True and service_run.get("enablement_may_have_completed") is True and service_run.get("operation_may_still_be_running") is False and service_run.get("manual_readback_required") is False, "service-enablement resolution drifted", service_errors)
+    _require(_json_exact(service_run.get("retries_made"), 0) and _json_exact(service_run.get("redirects_followed"), 0) and service_run.get("credentials_recorded") is False and service_run.get("raw_provider_responses_recorded") is False, "service-enablement containment drifted", service_errors)
+    _require(service_run.get("runtime_bindings", {}).get("credential_runtime_sha256") == GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256, "service run safe-error runtime drifted", service_errors)
+    for key in (
+        "service_disablement_authorized", "other_service_mutation_authorized",
+        "iam_mutation_authorized", "billing_mutation_authorized",
+        "project_hierarchy_mutation_authorized", "synthetic_guide_generation_authorized",
+        "retry_authorized", "voice_transfer_authorized", "full_capture_authorized",
+        "step3_authorized", "sharing_authorized", "publication_authorized",
+    ):
+        _require(service_run.get(key) is False, f"service-enablement run {key} drifted", service_errors)
+    service_consumed_at = _parse_time(service_consumption.get("consumed_at"), "service consumed_at", service_errors)
+    service_started_at = _parse_time(service_run.get("started_at"), "service started_at", service_errors)
+    service_completed_at = _parse_time(service_run.get("completed_at"), "service completed_at", service_errors)
+    if all(item is not None for item in (diagnosed_at, service_consumed_at, service_started_at, service_completed_at)):
+        assert diagnosed_at is not None and service_consumed_at is not None and service_started_at is not None and service_completed_at is not None
+        _require(diagnosed_at <= service_consumed_at <= service_started_at <= service_completed_at <= datetime.now(timezone.utc), "service-enablement chronology drifted", service_errors)
+
+    disposition_keys = {
+        "schema_version", "record_id", "status", "recorded_at",
+        "service_transaction_binding", "service_outcome", "mutation_boundary",
+        "synthetic_guide_readiness", "authority",
+    }
+    _strict_object(
+        service_disposition,
+        disposition_keys,
+        disposition_keys,
+        "service-success disposition",
+    )
+    _require(
+        service_disposition.get("schema_version")
+        == "oe-google-service-success-and-synthetic-guide-readiness-v1"
+        and service_disposition.get("status")
+        == "immutable_local_disposition_and_zero_authority_readiness",
+        "service-success disposition identity drifted",
+        service_errors,
+    )
+    transaction_binding = _strict_object(
+        service_disposition.get("service_transaction_binding"),
+        {
+            "authorization_path", "authorization_sha256", "authorization_commit",
+            "runtime_commit", "consumption_record_path", "consumption_record_sha256",
+            "run_receipt_path", "run_receipt_sha256",
+        },
+        {
+            "authorization_path", "authorization_sha256", "authorization_commit",
+            "runtime_commit", "consumption_record_path", "consumption_record_sha256",
+            "run_receipt_path", "run_receipt_sha256",
+        },
+        "service-success disposition transaction binding",
+    )
+    _require(
+        _json_exact(
+            {
+                "authorization_path": transaction_binding.get("authorization_path"),
+                "authorization_sha256": transaction_binding.get("authorization_sha256"),
+                "consumption_record_path": transaction_binding.get("consumption_record_path"),
+                "consumption_record_sha256": transaction_binding.get("consumption_record_sha256"),
+                "run_receipt_path": transaction_binding.get("run_receipt_path"),
+                "run_receipt_sha256": transaction_binding.get("run_receipt_sha256"),
+            },
+            {
+                "authorization_path": service["authorization_path"],
+                "authorization_sha256": service["authorization_sha256"],
+                "consumption_record_path": service["consumption_record_path"],
+                "consumption_record_sha256": service["consumption_record_sha256"],
+                "run_receipt_path": service["run_receipt_path"],
+                "run_receipt_sha256": service["run_receipt_sha256"],
+            },
+        )
+        and isinstance(transaction_binding.get("authorization_commit"), str)
+        and bool(_GIT_SHA_RE.fullmatch(transaction_binding["authorization_commit"]))
+        and isinstance(transaction_binding.get("runtime_commit"), str)
+        and bool(_GIT_SHA_RE.fullmatch(transaction_binding["runtime_commit"])),
+        "service-success disposition transaction binding drifted",
+        service_errors,
+    )
+    disposition_outcome = _strict_object(
+        service_disposition.get("service_outcome"),
+        {
+            "outcome", "authorization_consumed", "calls", "pre_enable_readback",
+            "enable_operation", "operation_completion", "post_enable_readback",
+            "provider_response_bytes_total", "mutation_attempted",
+            "service_state_resolution", "enablement_may_have_completed",
+            "operation_may_still_be_running", "manual_readback_required",
+            "retries_made", "redirects_followed", "raw_provider_responses_stored",
+        },
+        {
+            "outcome", "authorization_consumed", "calls", "pre_enable_readback",
+            "enable_operation", "operation_completion", "post_enable_readback",
+            "provider_response_bytes_total", "mutation_attempted",
+            "service_state_resolution", "enablement_may_have_completed",
+            "operation_may_still_be_running", "manual_readback_required",
+            "retries_made", "redirects_followed", "raw_provider_responses_stored",
+        },
+        "service-success disposition outcome",
+    )
+    _require(
+        disposition_outcome.get("outcome") == "success"
+        and disposition_outcome.get("authorization_consumed") is True
+        and _json_exact(disposition_outcome.get("calls"), service_run.get("calls"))
+        and disposition_outcome.get("post_enable_readback", {}).get("state")
+        == service["final_state"]
+        and disposition_outcome.get("mutation_attempted") is True
+        and disposition_outcome.get("service_state_resolution") == "enabled_confirmed"
+        and disposition_outcome.get("enablement_may_have_completed") is True
+        and disposition_outcome.get("operation_may_still_be_running") is False
+        and disposition_outcome.get("manual_readback_required") is False
+        and _json_exact(disposition_outcome.get("retries_made"), 0)
+        and _json_exact(disposition_outcome.get("redirects_followed"), 0)
+        and disposition_outcome.get("raw_provider_responses_stored") is False,
+        "service-success disposition outcome drifted",
+        service_errors,
+    )
+    mutation_boundary = _strict_object(
+        service_disposition.get("mutation_boundary"),
+        {
+            "exact_service_enabled", "other_service_mutation_requested",
+            "service_disablement_requested", "direct_iam_api_call_or_mutation_by_executor",
+            "provider_managed_service_agent_or_role_side_effects_observed",
+            "billing_mutation_requested", "project_hierarchy_mutation_requested",
+            "synthetic_guide_call_made",
+        },
+        {
+            "exact_service_enabled", "other_service_mutation_requested",
+            "service_disablement_requested", "direct_iam_api_call_or_mutation_by_executor",
+            "provider_managed_service_agent_or_role_side_effects_observed",
+            "billing_mutation_requested", "project_hierarchy_mutation_requested",
+            "synthetic_guide_call_made",
+        },
+        "service-success disposition mutation boundary",
+    )
+    _require(
+        mutation_boundary.get("exact_service_enabled") == service["service"]
+        and mutation_boundary.get("provider_managed_service_agent_or_role_side_effects_observed")
+        == "unknown"
+        and all(
+            mutation_boundary.get(key) is False
+            for key in (
+                "other_service_mutation_requested", "service_disablement_requested",
+                "direct_iam_api_call_or_mutation_by_executor", "billing_mutation_requested",
+                "project_hierarchy_mutation_requested", "synthetic_guide_call_made",
+            )
+        ),
+        "service-success disposition mutation boundary drifted",
+        service_errors,
+    )
+    guide_readiness = _strict_object(
+        service_disposition.get("synthetic_guide_readiness"),
+        {
+            "execution_semantics", "service_prerequisite", "service_success_receipt_sha256",
+            "performance_transfer_plan_path", "performance_transfer_plan_sha256",
+            "compiled_synthetic_guide_path", "compiled_synthetic_guide_sha256",
+            "canonical_w_sha256", "microtest_token_slice_sha256", "spoken_text_sha256",
+            "acting_prompt_sha256", "request_body_sha256", "request_body_bytes",
+            "request_set_sha256", "request_count", "maximum_modeled_spend_usd",
+            "safe_error_runtime", "safe_error_tests", "cli",
+            "machine_authorization_schema", "service_evidence_commit_required",
+            "independent_service_evidence_audit_required",
+            "fresh_active_synthetic_guide_authorization_required",
+            "quota_project_hash_binding_required_at_activation",
+        },
+        {
+            "execution_semantics", "service_prerequisite", "service_success_receipt_sha256",
+            "performance_transfer_plan_path", "performance_transfer_plan_sha256",
+            "compiled_synthetic_guide_path", "compiled_synthetic_guide_sha256",
+            "canonical_w_sha256", "microtest_token_slice_sha256", "spoken_text_sha256",
+            "acting_prompt_sha256", "request_body_sha256", "request_body_bytes",
+            "request_set_sha256", "request_count", "maximum_modeled_spend_usd",
+            "safe_error_runtime", "safe_error_tests", "cli",
+            "machine_authorization_schema", "service_evidence_commit_required",
+            "independent_service_evidence_audit_required",
+            "fresh_active_synthetic_guide_authorization_required",
+            "quota_project_hash_binding_required_at_activation",
+        },
+        "service-success disposition guide readiness",
+    )
+    _require(
+        guide_readiness.get("execution_semantics")
+        == "fresh_execution_of_original_two_candidate_plan_not_resumption_or_automatic_retry"
+        and guide_readiness.get("service_prerequisite")
+        == "aiplatform.googleapis.com_enabled_confirmed"
+        and guide_readiness.get("service_success_receipt_sha256")
+        == service["run_receipt_sha256"]
+        and guide_readiness.get("performance_transfer_plan_path")
+        == "performance-transfer-plan.json"
+        and guide_readiness.get("performance_transfer_plan_sha256") == dry["plan_sha256"]
+        and guide_readiness.get("canonical_w_sha256") == dry["canonical_w_sha256"]
+        and guide_readiness.get("microtest_token_slice_sha256")
+        == MICROTEST_TOKEN_SLICE_SHA256
+        and guide_readiness.get("spoken_text_sha256") == MICROTEST_TEXT_SHA256
+        and guide_readiness.get("acting_prompt_sha256") == GUIDE_ACTING_PROMPT_SHA256
+        and guide_readiness.get("request_body_sha256") == GUIDE_REQUEST_BODY_SHA256
+        and _json_exact(guide_readiness.get("request_body_bytes"), GUIDE_MAX_REQUEST_BODY_BYTES)
+        and guide_readiness.get("request_set_sha256") == GUIDE_REQUEST_SET_SHA256
+        and _json_exact(guide_readiness.get("request_count"), GUIDE_REQUEST_COUNT)
+        and _json_exact(guide_readiness.get("maximum_modeled_spend_usd"), GUIDE_MAX_SPEND_USD)
+        and _json_exact(
+            guide_readiness.get("safe_error_runtime"),
+            {
+                "path": "runtime/oe_narration/performance_transfer.py",
+                "sha256": GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256,
+            },
+        )
+        and guide_readiness.get("service_evidence_commit_required") is True
+        and guide_readiness.get("independent_service_evidence_audit_required") is True
+        and guide_readiness.get("fresh_active_synthetic_guide_authorization_required") is True
+        and guide_readiness.get("quota_project_hash_binding_required_at_activation") is True,
+        "service-success disposition guide readiness drifted",
+        service_errors,
+    )
+    disposition_authority = _strict_object(
+        service_disposition.get("authority"),
+        {
+            "credential_access_authorized", "network_access_authorized",
+            "provider_action_authorized", "synthetic_guide_generation_authorized",
+            "retry_authorized", "service_enablement_authorized",
+            "service_disablement_authorized", "iam_mutation_authorized",
+            "voice_transfer_authorized", "full_capture_authorized", "step3_authorized",
+            "sharing_authorized", "publication_authorized",
+        },
+        {
+            "credential_access_authorized", "network_access_authorized",
+            "provider_action_authorized", "synthetic_guide_generation_authorized",
+            "retry_authorized", "service_enablement_authorized",
+            "service_disablement_authorized", "iam_mutation_authorized",
+            "voice_transfer_authorized", "full_capture_authorized", "step3_authorized",
+            "sharing_authorized", "publication_authorized",
+        },
+        "service-success disposition authority",
+    )
+    _require(
+        all(item is False for item in disposition_authority.values()),
+        "service-success disposition carries authority",
+        service_errors,
+    )
+    disposition_recorded_at = _parse_time(
+        service_disposition.get("recorded_at"),
+        "service-success disposition recorded_at",
+        service_errors,
+    )
+    if service_completed_at is not None and disposition_recorded_at is not None:
+        _require(
+            service_completed_at <= disposition_recorded_at <= datetime.now(timezone.utc),
+            "service-success disposition chronology drifted",
+            service_errors,
+        )
+    if service_errors:
+        raise ValidationError(service_errors)
+    return {
+        "state": "verified",
+        "recovery_id": binding["recovery_id"],
+        "diagnosis_sha256": binding["diagnosis"]["sha256"],
+        "service_run_receipt_sha256": service["run_receipt_sha256"],
+        "service_success_disposition_sha256": service["success_disposition_sha256"],
+        "safe_error_capture_runtime_sha256": GUIDE_SAFE_ERROR_CAPTURE_RUNTIME_SHA256,
+    }
+
+
 def validate_synthetic_guide_authorization(
     authorization_path: Path,
     plan_path: Path,
@@ -1279,19 +2011,29 @@ def validate_synthetic_guide_authorization(
     plan_root = _document_root(plan_path)
     if authorization_root != plan_root:
         raise ValidationError("guide authorization must live in the exact plan fixture root")
-    authorization = read_json(authorization_path)
+    authorization, _authorization_bytes, authorization_sha256 = _read_bound_fixture_json(
+        authorization_root,
+        authorization_path,
+        "synthetic-guide authorization",
+    )
+    schema_version = authorization.get("schema_version")
+    if schema_version not in {GUIDE_AUTH_SCHEMA, GUIDE_RECOVERY_AUTH_SCHEMA}:
+        raise ValidationError("synthetic-guide authorization schema is unsupported")
+    recovery_keys = (
+        {"recovery_binding", "runtime_bindings"}
+        if schema_version == GUIDE_RECOVERY_AUTH_SCHEMA
+        else set()
+    )
+    authorization_keys = {
+        "schema_version", "authorization_id", "status", "approved", "scope", "target",
+        "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+        "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        *recovery_keys,
+    }
     _strict_object(
         authorization,
-        {
-            "schema_version", "authorization_id", "status", "approved", "scope", "target",
-            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
-            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
-        },
-        {
-            "schema_version", "authorization_id", "status", "approved", "scope", "target",
-            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
-            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
-        },
+        authorization_keys,
+        authorization_keys,
         "synthetic-guide authorization",
     )
     dry = dry_run_synthetic_guide(plan_path, canonical_w_path)
@@ -1299,7 +2041,7 @@ def validate_synthetic_guide_authorization(
     status, _ = _validate_common_authorization(
         authorization,
         authorization_path=authorization_path,
-        schema=GUIDE_AUTH_SCHEMA,
+        schema=schema_version,
         scope=GUIDE_SCOPE,
         target=plan["target"],
     )
@@ -1403,15 +2145,36 @@ def validate_synthetic_guide_authorization(
     _require(_json_exact(limits, expected_limits), "guide authorized limits do not match authorization status", errors)
     if errors:
         raise ValidationError(errors)
+    recovery_validation = None
+    runtime_validation = None
+    if schema_version == GUIDE_RECOVERY_AUTH_SCHEMA:
+        runtime_validation = _validate_guide_runtime_bindings(
+            authorization["runtime_bindings"],
+            status=status,
+            errors=errors,
+        )
+        recovery_validation = _validate_guide_recovery_binding(
+            authorization_root,
+            authorization["recovery_binding"],
+            dry=dry,
+            target=plan["target"],
+        )
+        if errors:
+            raise ValidationError(errors)
     return {
         **dry,
         "authorization_id": authorization["authorization_id"],
-        "authorization_sha256": sha256_file(authorization_path),
+        "authorization_sha256": authorization_sha256,
         "authorization_status": status,
         "provider_action_authorized": status == "active",
         "network_authorized": status == "active",
         "execution_transport_available": status == "active",
         "quota_project_runtime_check_required": status == "active",
+        "recovery_binding": recovery_validation,
+        "runtime_bindings": runtime_validation,
+        "committed_source_proof_required": (
+            status == "active" and schema_version == GUIDE_RECOVERY_AUTH_SCHEMA
+        ),
         "credentials_accessed": False,
         "network_called": False,
     }
@@ -1519,6 +2282,80 @@ def _strict_json_bytes(data: bytes, label: str) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValidationError(f"{label} must be a JSON object")
     return value
+
+
+def _read_bound_fixture_json(
+    root: Path,
+    path: Path,
+    label: str,
+    *,
+    required_mode: int | None = None,
+    max_bytes: int = 1_000_000,
+) -> tuple[dict[str, Any], bytes, str]:
+    """Descriptor-bind and strict-decode one bounded fixture-local JSON record."""
+
+    try:
+        relative = Path(path).absolute().relative_to(root).as_posix()
+    except ValueError:
+        raise ValidationError(f"{label} is outside the fixture root") from None
+    parent_fd, name = _open_parent_descriptor(root, relative, create_parents=False)
+    descriptor: int | None = None
+    chunks: list[bytes] = []
+    chunk = b""
+    try:
+        flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+        descriptor = os.open(name, flags, dir_fd=parent_fd)
+        before = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_size <= 1
+            or before.st_size > max_bytes
+            or (
+                required_mode is not None
+                and stat.S_IMODE(before.st_mode) != required_mode
+            )
+        ):
+            raise ValidationError(f"{label} is not a bounded regular file with exact permissions")
+        received = 0
+        while True:
+            chunk = os.read(descriptor, min(65_536, max_bytes + 1 - received))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > max_bytes:
+                raise ValidationError(f"{label} exceeds its byte ceiling")
+        raw = b"".join(chunks)
+        after = os.fstat(descriptor)
+        if (
+            len(raw) != before.st_size
+            or (
+                before.st_dev,
+                before.st_ino,
+                before.st_size,
+                before.st_mtime_ns,
+                before.st_mode,
+            )
+            != (
+                after.st_dev,
+                after.st_ino,
+                after.st_size,
+                after.st_mtime_ns,
+                after.st_mode,
+            )
+        ):
+            raise ValidationError(f"{label} changed during its bound read")
+        return _strict_json_bytes(raw, label), raw, sha256_bytes(raw)
+    except ValidationError:
+        raise
+    except OSError:
+        raise ValidationError(f"{label} is missing or unsafe") from None
+    finally:
+        chunks = []
+        chunk = b""
+        if descriptor is not None:
+            os.close(descriptor)
+        os.close(parent_fd)
 
 
 def _safe_execution_relative(root: Path, value: str, label: str, suffix: str) -> Path:
@@ -1749,7 +2586,16 @@ def _build_guide_execution_contract(
     )
     if validation.get("authorization_status") != "active":
         raise ValidationError("synthetic-guide execution requires an exact active G1 authorization")
-    authorization = read_json(authorization_path)
+    root = _document_root(authorization_path)
+    authorization, _authorization_bytes, authorization_sha256 = _read_bound_fixture_json(
+        root,
+        authorization_path,
+        "active synthetic-guide authorization",
+    )
+    if authorization_sha256 != validation.get("authorization_sha256"):
+        raise ValidationError(
+            "active synthetic-guide authorization changed after validation"
+        )
     errors: list[str] = []
     approved_at = _parse_time(authorization.get("approved_at"), "approved_at", errors)
     expires_at = _parse_time(authorization.get("expires_at"), "expires_at", errors)
@@ -1758,7 +2604,6 @@ def _build_guide_execution_contract(
     now = _execution_now()
     if not approved_at <= now < expires_at:
         raise ValidationError("active G1 authorization is outside its execution window")
-    root = _document_root(authorization_path)
     auth_id = authorization["authorization_id"]
     consumption_relative = authorization["consumption"]["record_path"]
     success_relative = f"receipts/google/{auth_id}.run.json"
@@ -1767,7 +2612,7 @@ def _build_guide_execution_contract(
         root=root,
         authorization_path=authorization_path,
         authorization=authorization,
-        authorization_sha256=sha256_file(authorization_path),
+        authorization_sha256=authorization_sha256,
         plan_path=plan_path,
         canonical_w_path=canonical_w_path,
         dry_run=dry_run_synthetic_guide(plan_path, canonical_w_path),
@@ -1779,6 +2624,215 @@ def _build_guide_execution_contract(
     )
     _preflight_execution_paths(contract)
     return contract
+
+
+def _guide_repository_root() -> Path:
+    return Path(__file__).resolve().parents[4]
+
+
+def _guide_git(arguments: list[str], *, max_bytes: int = 2_000_000) -> bytes:
+    """Run one bounded, local-only Git read with no inherited provider secrets."""
+
+    environment: dict[str, str] = {
+        "LC_ALL": "C",
+        "LANG": "C",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_CONFIG_GLOBAL": "/dev/null",
+        "GIT_NO_REPLACE_OBJECTS": "1",
+        "GIT_OPTIONAL_LOCKS": "0",
+        "GIT_PAGER": "cat",
+        "GIT_TERMINAL_PROMPT": "0",
+    }
+    for key in ("PATH", "HOME", "TMPDIR"):
+        value = os.environ.get(key)
+        if isinstance(value, str) and value:
+            environment[key] = value
+    result: Any = None
+    stdout = b""
+    failed = False
+    try:
+        result = subprocess.run(
+            ["git", *arguments],
+            cwd=_guide_repository_root(),
+            check=False,
+            capture_output=True,
+            text=False,
+            timeout=15,
+            env=environment,
+        )
+        stdout = result.stdout if isinstance(result.stdout, bytes) else b""
+        stderr = result.stderr if isinstance(result.stderr, bytes) else b""
+        failed = (
+            type(result.returncode) is not int
+            or result.returncode != 0
+            or len(stdout) > max_bytes
+            or len(stderr) > max_bytes
+        )
+    except Exception:
+        failed = True
+    result = None
+    stderr = b""
+    environment = {}
+    if failed:
+        stdout = b""
+        raise ValidationError("committed synthetic-guide runtime preflight failed") from None
+    return stdout
+
+
+def _verify_guide_recovery_source(
+    contract: _GuideExecutionContract,
+    *,
+    allow_consumption_latch: bool = False,
+) -> dict[str, Any]:
+    """Prove v2 executes exact reviewed bytes from a pushed ACTIVE-only DAG."""
+
+    if contract.authorization.get("schema_version") != GUIDE_RECOVERY_AUTH_SCHEMA:
+        return {}
+    bindings = contract.authorization["runtime_bindings"]
+    repository = _guide_repository_root()
+    head = _guide_git(["rev-parse", "HEAD"]).strip().decode("ascii", errors="strict")
+    upstream = _guide_git(["rev-parse", "@{upstream}"]).strip().decode(
+        "ascii",
+        errors="strict",
+    )
+    runtime_commit = bindings["git_commit"]
+    if (
+        not _GIT_SHA_RE.fullmatch(head)
+        or not _GIT_SHA_RE.fullmatch(upstream)
+        or head != upstream
+    ):
+        raise ValidationError("synthetic-guide HEAD must equal its configured upstream")
+    _guide_git(["merge-base", "--is-ancestor", runtime_commit, head])
+    try:
+        authorization_relative = contract.authorization_path.relative_to(repository).as_posix()
+    except ValueError:
+        raise ValidationError("synthetic-guide authority is outside the committed repository") from None
+    delta = _guide_git(
+        [
+            "diff",
+            "--name-only",
+            "--diff-filter=ACDMRTUXB",
+            "-z",
+            f"{runtime_commit}..{head}",
+        ]
+    )
+    if delta != authorization_relative.encode("utf-8") + b"\x00":
+        raise ValidationError(
+            "recovery runtime commit to HEAD delta must be exactly the active authorization path"
+        )
+    _active_value, active_bytes, active_sha256 = _read_bound_fixture_json(
+        contract.root,
+        contract.authorization_path,
+        "active recovery guide authorization",
+    )
+    if (
+        active_sha256 != contract.authorization_sha256
+        or _guide_git(["show", f"HEAD:{authorization_relative}"]) != active_bytes
+    ):
+        raise ValidationError("active recovery guide authorization is not committed exactly")
+
+    evidence_paths: list[Path] = [contract.plan_path, contract.canonical_w_path]
+    recovery = contract.authorization["recovery_binding"]
+    for item in recovery["prior_failures"]:
+        failure_path = _safe_relative(
+            contract.root,
+            item["failure_receipt_path"],
+            f"{item['attempt_id']} committed failure",
+            must_exist=True,
+            suffix=".json",
+        )
+        failure, _failure_bytes, _failure_sha = _read_bound_fixture_json(
+            contract.root,
+            failure_path,
+            f"{item['attempt_id']} committed failure",
+            required_mode=0o600,
+        )
+        evidence_paths.extend(
+            [
+                failure_path,
+                _safe_relative(
+                    contract.root,
+                    failure["guide_authorization_path"],
+                    f"{item['attempt_id']} committed authorization",
+                    must_exist=True,
+                    suffix=".json",
+                ),
+                _safe_relative(
+                    contract.root,
+                    failure["guide_consumption_record_path"],
+                    f"{item['attempt_id']} committed consumption",
+                    must_exist=True,
+                    suffix=".json",
+                ),
+            ]
+        )
+    service = recovery["service_enablement"]
+    for relative, label in (
+        (recovery["diagnosis"]["path"], "committed G1R2 diagnosis"),
+        (service["authorization_path"], "committed service authorization"),
+        (service["consumption_record_path"], "committed service consumption"),
+        (service["run_receipt_path"], "committed service run receipt"),
+        (service["success_disposition_path"], "committed service-success disposition"),
+    ):
+        evidence_paths.append(
+            _safe_relative(
+                contract.root,
+                relative,
+                label,
+                must_exist=True,
+                suffix=".json",
+            )
+        )
+
+    seen: set[str] = set()
+    for path in evidence_paths:
+        try:
+            relative = path.relative_to(repository).as_posix()
+        except ValueError:
+            raise ValidationError("recovery authority evidence is outside the repository") from None
+        if relative in seen:
+            continue
+        seen.add(relative)
+        try:
+            current = path.read_bytes()
+        except OSError:
+            raise ValidationError("recovery authority evidence is unavailable") from None
+        if _guide_git(["show", f"{runtime_commit}:{relative}"]) != current:
+            raise ValidationError("recovery authority evidence is not exact at runtime commit")
+
+    for name, (relative, path) in _guide_runtime_files().items():
+        expected_sha256 = bindings[f"{name}_sha256"]
+        try:
+            current = path.read_bytes()
+        except OSError:
+            raise ValidationError("bound recovery runtime is unavailable") from None
+        committed = _guide_git(["show", f"{runtime_commit}:{relative}"])
+        if (
+            sha256_bytes(current) != expected_sha256
+            or sha256_bytes(committed) != expected_sha256
+            or committed != current
+        ):
+            raise ValidationError("bound recovery runtime is not exact at runtime commit")
+    dirty = _guide_git(
+        ["status", "--porcelain=v1", "--untracked-files=all", "-z"]
+    )
+    allowed_dirty = b""
+    if allow_consumption_latch:
+        consumption_path = contract.root / contract.consumption_relative
+        try:
+            consumption_relative = consumption_path.relative_to(repository).as_posix()
+        except ValueError:
+            raise ValidationError("G1R2 consumption latch is outside the repository") from None
+        allowed_dirty = b"?? " + consumption_relative.encode("utf-8") + b"\x00"
+    if dirty != allowed_dirty:
+        raise ValidationError("repository worktree must be globally clean before G1R2")
+    return {
+        "git_head": head,
+        "runtime_commit": runtime_commit,
+        "upstream_equal": True,
+        "head_delta_policy": "exact_active_authorization_path_only",
+        "head_delta_path": authorization_relative,
+    }
 
 
 def _quota_project_for_execution(authorization: dict[str, Any]) -> str:
@@ -2523,6 +3577,15 @@ def execute_synthetic_guide(
         plan_path,
         canonical_w_path,
     )
+    source_proof: dict[str, Any] = {}
+    try:
+        source_proof = _verify_guide_recovery_source(contract)
+    except Exception:
+        contract = None
+        source_proof = {}
+        raise ValidationError(
+            "committed G1R2 source preflight failed before private access"
+        ) from None
     quota_project = ""
     gcloud_executable = ""
     private_preflight_failed = False
@@ -2560,6 +3623,9 @@ def execute_synthetic_guide(
         ):
             raise ValidationError("AUTH-G1 execution bindings changed during preflight")
         contract = refreshed
+        refreshed_source_proof = _verify_guide_recovery_source(contract)
+        if not _json_exact(refreshed_source_proof, source_proof):
+            raise ValidationError("committed G1R2 source proof changed during preflight")
         _ensure_execution_parents(
             contract.root,
             [
@@ -2581,10 +3647,26 @@ def execute_synthetic_guide(
         if not contract.approved_at <= consumed_at < contract.expires_at:
             raise ValidationError("AUTH-G1 expired before authority consumption")
         reserved_limits = contract.authorization["authorized_limits"]
+        recovery_consumption_fields = (
+            {
+                "authorization_path": contract.authorization_path.relative_to(
+                    contract.root
+                ).as_posix(),
+                "authorization_schema_version": GUIDE_RECOVERY_AUTH_SCHEMA,
+            }
+            if contract.authorization.get("schema_version")
+            == GUIDE_RECOVERY_AUTH_SCHEMA
+            else {}
+        )
         consumption = {
-            "schema_version": GUIDE_CONSUMPTION_SCHEMA,
+            "schema_version": (
+                GUIDE_RECOVERY_CONSUMPTION_SCHEMA
+                if recovery_consumption_fields
+                else GUIDE_CONSUMPTION_SCHEMA
+            ),
             "authorization_id": contract.authorization["authorization_id"],
             "authorization_sha256": contract.authorization_sha256,
+            **recovery_consumption_fields,
             "scope": GUIDE_SCOPE,
             "provider": GUIDE_PROVIDER,
             "status": "consumed_before_network",
@@ -2621,6 +3703,7 @@ def execute_synthetic_guide(
         consumption = {}
         consumption_bytes = b""
         consumption_sha256 = ""
+        source_proof = {}
         raise ValidationError("AUTH-G1 execution setup failed closed before provider access") from None
 
     attempted_calls = 0
@@ -2702,13 +3785,21 @@ def execute_synthetic_guide(
         )
 
     try:
-        credential_refresh_attempted = True
+        if not _json_exact(
+            _verify_guide_recovery_source(
+                contract,
+                allow_consumption_latch=True,
+            ),
+            source_proof,
+        ):
+            raise _GuideExecutionFailure("committed_source_proof_changed_before_token_refresh")
         _verify_private_fixture_artifact(
             contract.root,
             contract.consumption_relative,
             consumption_bytes,
             "AUTH-G1 consumption latch",
         )
+        credential_refresh_attempted = True
         access_token = _load_google_access_token(gcloud_executable, float(timeout))
         after_refresh = _execution_now()
         if after_refresh < consumed_at or after_refresh >= contract.expires_at:
@@ -2774,6 +3865,20 @@ def execute_synthetic_guide(
                 or next_spend > float(reserved_limits["max_spend_usd"]) + 1e-9
             ):
                 raise _GuideExecutionFailure("authorization_ceiling_exhausted_before_network")
+            if not _json_exact(
+                _verify_guide_recovery_source(
+                    contract,
+                    allow_consumption_latch=True,
+                ),
+                source_proof,
+            ):
+                raise _GuideExecutionFailure("committed_source_proof_changed_before_provider_call")
+            _verify_private_fixture_artifact(
+                contract.root,
+                contract.consumption_relative,
+                consumption_bytes,
+                "AUTH-G1 consumption latch",
+            )
             call_started_at = _execution_now()
             if (
                 call_started_at < consumed_at
@@ -2973,6 +4078,7 @@ def execute_synthetic_guide(
     refreshed = None
     consumption = {}
     consumption_bytes = b""
+    source_proof = {}
     success = {}
     success_bytes = b""
     write_failure = None
@@ -3141,29 +4247,40 @@ def _validate_consumed_guide_authority(
         "guide authorization must remain under authorizations/",
         errors,
     )
+    guide_auth, _guide_auth_bytes, guide_auth_sha256 = _read_bound_fixture_json(
+        root,
+        guide_auth_path,
+        "consumed guide authorization",
+    )
     _require(
-        run_receipt.get("guide_authorization_sha256")
-        == sha256_file(guide_auth_path),
+        run_receipt.get("guide_authorization_sha256") == guide_auth_sha256,
         "guide authorization SHA-256 mismatch",
         errors,
     )
-    guide_auth = read_json(guide_auth_path)
+    guide_schema = guide_auth.get("schema_version")
+    recovery_keys = (
+        {"recovery_binding", "runtime_bindings"}
+        if guide_schema == GUIDE_RECOVERY_AUTH_SCHEMA
+        else set()
+    )
+    guide_authorization_keys = {
+        "schema_version", "authorization_id", "status", "approved", "scope", "target",
+        "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
+        "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
+        *recovery_keys,
+    }
     _strict_object(
         guide_auth,
-        {
-            "schema_version", "authorization_id", "status", "approved", "scope", "target",
-            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
-            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
-        },
-        {
-            "schema_version", "authorization_id", "status", "approved", "scope", "target",
-            "bindings", "action", "billing_project_binding", "authorized_limits", "consumption",
-            "approved_by", "approved_at", "expires_at", "execution_ready", "blockers",
-        },
+        guide_authorization_keys,
+        guide_authorization_keys,
         "consumed guide authorization",
     )
     errors.extend(_scan_for_secrets(guide_auth, "consumed_guide_authorization"))
-    _require(guide_auth.get("schema_version") == GUIDE_AUTH_SCHEMA, "consumed guide authorization schema mismatch", errors)
+    _require(
+        guide_schema in {GUIDE_AUTH_SCHEMA, GUIDE_RECOVERY_AUTH_SCHEMA},
+        "consumed guide authorization schema mismatch",
+        errors,
+    )
     _require(guide_auth.get("authorization_id") == run_receipt.get("authorization_id"), "guide run authorization ID mismatch", errors)
     _require(guide_auth.get("status") == "active" and guide_auth.get("approved") is True, "guide authorization was not active and approved", errors)
     _require(guide_auth.get("scope") == GUIDE_SCOPE, "guide authorization scope mismatch", errors)
@@ -3219,6 +4336,45 @@ def _validate_consumed_guide_authority(
         "max_spend_usd": GUIDE_MAX_SPEND_USD,
     }
     _require(_json_exact(guide_auth.get("authorized_limits"), reserved_limits), "consumed guide authorization limits mismatch", errors)
+    if guide_schema == GUIDE_RECOVERY_AUTH_SCHEMA:
+        recorded_runtime = _strict_object(
+            guide_auth["runtime_bindings"],
+            set(_expected_guide_runtime_bindings(draft=True)),
+            set(_expected_guide_runtime_bindings(draft=True)),
+            "consumed guide runtime_bindings",
+        )
+        expected_runtime_paths = _expected_guide_runtime_bindings(draft=True)
+        for key, expected in expected_runtime_paths.items():
+            if key.endswith("_path"):
+                _require(
+                    recorded_runtime.get(key) == expected,
+                    f"consumed guide runtime_bindings.{key} drifted",
+                    errors,
+                )
+            elif key == "git_commit":
+                _require(
+                    isinstance(recorded_runtime.get(key), str)
+                    and bool(_GIT_SHA_RE.fullmatch(recorded_runtime[key])),
+                    "consumed guide runtime commit is invalid",
+                    errors,
+                )
+            else:
+                _require(
+                    isinstance(recorded_runtime.get(key), str)
+                    and bool(_SHA_RE.fullmatch(recorded_runtime[key])),
+                    f"consumed guide runtime_bindings.{key} is invalid",
+                    errors,
+                )
+        _validate_guide_recovery_binding(
+            root,
+            guide_auth["recovery_binding"],
+            dry={
+                "plan_sha256": plan_dry["plan_sha256"],
+                "canonical_w_sha256": plan_dry["canonical_w_sha256"],
+                "request_set_sha256": plan_dry["guide"]["request_set_sha256"],
+            },
+            target=target,
+        )
     guide_approved_at = _parse_time(guide_auth.get("approved_at"), "guide authorization approved_at", errors)
     guide_expires_at = _parse_time(guide_auth.get("expires_at"), "guide authorization expires_at", errors)
     if guide_approved_at and guide_expires_at:
@@ -3240,32 +4396,53 @@ def _validate_consumed_guide_authority(
         "guide consumption record path is not authorization-ID-bound",
         errors,
     )
+    guide_consumption, _guide_consumption_bytes, guide_consumption_sha256 = (
+        _read_bound_fixture_json(
+            root,
+            guide_consumption_path,
+            "guide consumption record",
+        )
+    )
     _require(
         run_receipt.get("guide_consumption_record_sha256")
-        == sha256_file(guide_consumption_path),
+        == guide_consumption_sha256,
         "guide consumption record SHA-256 mismatch",
         errors,
     )
-    guide_consumption = read_json(guide_consumption_path)
+    recovery_consumption_keys = (
+        {"authorization_path", "authorization_schema_version"}
+        if guide_schema == GUIDE_RECOVERY_AUTH_SCHEMA
+        else set()
+    )
+    guide_consumption_keys = {
+        "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
+        "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
+        "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
+        "credentials_recorded", *recovery_consumption_keys,
+    }
     _strict_object(
         guide_consumption,
-        {
-            "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
-            "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
-            "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
-            "credentials_recorded",
-        },
-        {
-            "schema_version", "authorization_id", "authorization_sha256", "scope", "provider",
-            "status", "consumed_at", "consumed_before_network", "network_called_at_consumption",
-            "performance_transfer_plan_sha256", "request_set_sha256", "reserved_limits",
-            "credentials_recorded",
-        },
+        guide_consumption_keys,
+        guide_consumption_keys,
         "guide consumption record",
     )
-    _require(guide_consumption.get("schema_version") == "oe-provider-authorization-consumption-v1", "guide consumption record schema mismatch", errors)
+    expected_consumption_schema = (
+        GUIDE_RECOVERY_CONSUMPTION_SCHEMA
+        if guide_schema == GUIDE_RECOVERY_AUTH_SCHEMA
+        else GUIDE_CONSUMPTION_SCHEMA
+    )
+    _require(guide_consumption.get("schema_version") == expected_consumption_schema, "guide consumption record schema mismatch", errors)
+    if guide_schema == GUIDE_RECOVERY_AUTH_SCHEMA:
+        _require(
+            guide_consumption.get("authorization_path")
+            == run_receipt.get("guide_authorization_path")
+            and guide_consumption.get("authorization_schema_version")
+            == GUIDE_RECOVERY_AUTH_SCHEMA,
+            "guide recovery consumption does not bind the exact v2 authorization path",
+            errors,
+        )
     _require(guide_consumption.get("authorization_id") == guide_auth.get("authorization_id"), "guide consumption authorization ID mismatch", errors)
-    _require(guide_consumption.get("authorization_sha256") == sha256_file(guide_auth_path), "guide consumption authorization hash mismatch", errors)
+    _require(guide_consumption.get("authorization_sha256") == guide_auth_sha256, "guide consumption authorization hash mismatch", errors)
     _require(guide_consumption.get("scope") == GUIDE_SCOPE and guide_consumption.get("provider") == GUIDE_PROVIDER, "guide consumption scope/provider mismatch", errors)
     _require(guide_consumption.get("status") == "consumed_before_network", "guide authorization was not consumed before network", errors)
     _require(guide_consumption.get("consumed_before_network") is True and guide_consumption.get("network_called_at_consumption") is False, "guide consumption ordering assertion is invalid", errors)

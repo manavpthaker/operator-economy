@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://theoperatoreconomy.com/schemas/oe-synthetic-guide-authorization-v1.json",
-  "title": "OE Step 2 exact synthetic-guide generation authorization",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-synthetic-guide-authorization-v2.json",
+  "title": "OE Step 2 exact synthetic-guide generation authorization v1/v2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,7 +10,12 @@
     "approved_by", "approved_at", "expires_at", "execution_ready", "blockers"
   ],
   "properties": {
-    "schema_version": {"const": "oe-synthetic-guide-authorization-v1"},
+    "schema_version": {
+      "enum": [
+        "oe-synthetic-guide-authorization-v1",
+        "oe-synthetic-guide-authorization-v2"
+      ]
+    },
     "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
     "status": {"enum": ["draft", "active"]},
     "approved": {"type": "boolean"},
@@ -25,9 +30,32 @@
     "approved_at": {"type": "string"},
     "expires_at": {"type": "string"},
     "execution_ready": {"type": "boolean"},
-    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "recovery_binding": {"$ref": "#/$defs/recoveryBinding"},
+    "runtime_bindings": {"$ref": "#/$defs/runtimeBindings"}
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {"const": "oe-synthetic-guide-authorization-v1"}
+        }
+      },
+      "then": {
+        "not": {"anyOf": [
+          {"required": ["recovery_binding"]},
+          {"required": ["runtime_bindings"]}
+        ]}
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {"const": "oe-synthetic-guide-authorization-v2"}
+        }
+      },
+      "then": {"required": ["recovery_binding", "runtime_bindings"]}
+    },
     {
       "if": {"properties": {"status": {"const": "draft"}}},
       "then": {
@@ -51,6 +79,17 @@
             }
           },
           "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "runtime_bindings": {
+            "properties": {
+              "git_commit": {"const": "pending"},
+              "executor_sha256": {"const": "pending"},
+              "cli_sha256": {"const": "pending"},
+              "core_sha256": {"const": "pending"},
+              "init_sha256": {"const": "pending"},
+              "schema_sha256": {"const": "pending"},
+              "tests_sha256": {"const": "pending"}
+            }
+          },
           "blockers": {"minItems": 1}
         }
       }
@@ -81,13 +120,127 @@
             }
           },
           "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "runtime_bindings": {
+            "properties": {
+              "git_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+              "executor_sha256": {"$ref": "#/$defs/sha256"},
+              "cli_sha256": {"$ref": "#/$defs/sha256"},
+              "core_sha256": {"$ref": "#/$defs/sha256"},
+              "init_sha256": {"$ref": "#/$defs/sha256"},
+              "schema_sha256": {"$ref": "#/$defs/sha256"},
+              "tests_sha256": {"$ref": "#/$defs/sha256"}
+            }
+          },
           "blockers": {"maxItems": 0}
         }
       }
     }
   ],
   "$defs": {
+    "runtimeBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "git_commit", "executor_path", "executor_sha256", "cli_path", "cli_sha256",
+        "core_path", "core_sha256", "init_path", "init_sha256", "schema_path",
+        "schema_sha256", "tests_path", "tests_sha256"
+      ],
+      "properties": {
+        "git_commit": {
+          "oneOf": [
+            {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+            {"const": "pending"}
+          ]
+        },
+        "executor_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/performance_transfer.py"},
+        "executor_sha256": {"$ref": "#/$defs/sha256OrPending"},
+        "cli_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/cli.py"},
+        "cli_sha256": {"$ref": "#/$defs/sha256OrPending"},
+        "core_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/core.py"},
+        "core_sha256": {"$ref": "#/$defs/sha256OrPending"},
+        "init_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/__init__.py"},
+        "init_sha256": {"$ref": "#/$defs/sha256OrPending"},
+        "schema_path": {"const": "operator-blueprint-v2/02-narration-production/schemas/synthetic-guide-authorization.schema.json"},
+        "schema_sha256": {"$ref": "#/$defs/sha256OrPending"},
+        "tests_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/tests/test_performance_transfer.py"},
+        "tests_sha256": {"$ref": "#/$defs/sha256OrPending"}
+      }
+    },
+    "recoveryBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recovery_id", "execution_semantics", "prior_failures", "diagnosis",
+        "service_enablement", "safe_error_capture_runtime_sha256",
+        "request_body_sha256", "request_set_sha256", "fresh_output_paths",
+        "prior_outputs_received", "prior_authorizations_reusable",
+        "retry_or_resumption_authorized"
+      ],
+      "properties": {
+        "recovery_id": {"const": "G1R2-AIPLATFORM-SERVICE-ENABLED"},
+        "execution_semantics": {"const": "fresh_authorization_not_retry_or_resumption"},
+        "prior_failures": {
+          "const": [
+            {
+              "attempt_id": "G1",
+              "failure_receipt_path": "receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json",
+              "failure_receipt_sha256": "3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1"
+            },
+            {
+              "attempt_id": "G1R1",
+              "failure_receipt_path": "receipts/google/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.failure.json",
+              "failure_receipt_sha256": "df00adefe5e3215ff0c60ed19fe7835d2056a78ba2130e46b18a0d66de2161af"
+            }
+          ]
+        },
+        "diagnosis": {
+          "const": {
+            "path": "evidence/G1R2-403-DIAGNOSIS.20260826T014109Z.json",
+            "sha256": "335c7d6e29052f179dac19f868acea2430d3c99fcaedd6baf2c69cff7f7496d0",
+            "cause_before_service_enablement": "unknown"
+          }
+        },
+        "service_enablement": {
+          "const": {
+            "authorization_path": "authorizations/08-google-aiplatform-service-enablement-partial-response-repair.ACTIVE.20260826T033333Z.json",
+            "authorization_sha256": "c98d4ec1e12485fedda5f87df46e52b66bac99a916fb8a00632108efc3311d4b",
+            "consumption_record_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.consumed.json",
+            "consumption_record_sha256": "45ee119e1ee5e258152226be72a435c1d0bd61e851295b4d311f5c24a20ee246",
+            "run_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.run.json",
+            "run_receipt_sha256": "a439c64c0b58f6bc7eee22ee15f21bfe5d77da5d0f88712797f7f9b0c2f98b60",
+            "success_disposition_path": "evidence/G1R2-AIPLATFORM-SERVICE-SUCCESS-AND-GUIDE-READINESS.20260826T034027Z.json",
+            "success_disposition_sha256": "4497327fd3bac9c751f56c325ebf27d41b5413b92b05206177cf05fa73df86f6",
+            "service": "aiplatform.googleapis.com",
+            "final_state": "ENABLED"
+          }
+        },
+        "safe_error_capture_runtime_sha256": {
+          "const": "27cf742ac8c169c05474269f6a40af642091c8180e8412cc410d2b8ab72ae6d9"
+        },
+        "request_body_sha256": {
+          "const": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53"
+        },
+        "request_set_sha256": {
+          "const": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba"
+        },
+        "fresh_output_paths": {
+          "const": [
+            "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+            "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"
+          ]
+        },
+        "prior_outputs_received": {"const": 0},
+        "prior_authorizations_reusable": {"const": false},
+        "retry_or_resumption_authorized": {"const": false}
+      }
+    },
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sha256OrPending": {
+      "oneOf": [
+        {"$ref": "#/$defs/sha256"},
+        {"const": "pending"}
+      ]
+    },
     "target": {
       "type": "object", "additionalProperties": false, "required": ["kind", "id"],
       "properties": {

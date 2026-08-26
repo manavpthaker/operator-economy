@@ -243,6 +243,84 @@ class PerformanceTransferTests(unittest.TestCase):
         self._write_json(active, value)
         return active
 
+    def _install_guide_recovery_chain(self, fixture: Path) -> None:
+        for relative in (
+            "receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json",
+            "receipts/google/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.failure.json",
+            "authorizations/consumed/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.consumed.json",
+            "authorizations/consumed/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.consumed.json",
+            "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.consumed.json",
+            "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.run.json",
+        ):
+            source = self.source_fixture / relative
+            destination = fixture / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+
+    def _recovery_guide(
+        self,
+        fixture: Path,
+        plan: Path,
+        w: Path,
+        *,
+        active: bool = False,
+    ) -> Path:
+        self._refresh_draft_hashes(fixture, plan, w)
+        self._install_guide_recovery_chain(fixture)
+        source = fixture / "authorizations" / "01-google-synthetic-guide.DRAFT.json"
+        value = json.loads(source.read_text(encoding="utf-8"))
+        value["schema_version"] = pt.GUIDE_RECOVERY_AUTH_SCHEMA
+        value["authorization_id"] = (
+            "AUTH-G1R2-test-exact-guide" if active else "DRAFT-G1R2-test-exact-guide"
+        )
+        value["recovery_binding"] = copy.deepcopy(pt.GUIDE_RECOVERY_BINDING)
+        value["runtime_bindings"] = pt._expected_guide_runtime_bindings(draft=not active)
+        if active:
+            now = datetime.now(timezone.utc)
+            value.update(
+                {
+                    "status": "active",
+                    "approved": True,
+                    "approved_by": "Manav Thaker",
+                    "approved_at": (now - timedelta(minutes=1)).isoformat(),
+                    "expires_at": (now + timedelta(hours=1)).isoformat(),
+                    "execution_ready": True,
+                    "blockers": [],
+                }
+            )
+            value["runtime_bindings"]["git_commit"] = "a" * 40
+            value["billing_project_binding"]["quota_project_sha256"] = "b" * 64
+            value["authorized_limits"] = {
+                "max_calls": 2,
+                "max_outputs": 2,
+                "max_request_body_bytes": 1440,
+                "max_total_request_bytes": 2880,
+                "max_output_duration_seconds": 50,
+                "max_output_wav_bytes": 2500000,
+                "max_total_audio_bytes": 5000000,
+                "max_response_bytes_per_call": 4000000,
+                "max_spend_usd": 0.66,
+            }
+            value["consumption"]["status"] = "unconsumed"
+        value["consumption"]["record_path"] = (
+            f"authorizations/consumed/{value['authorization_id']}.consumed.json"
+        )
+        name = (
+            "09-google-synthetic-guide-g1r2.ACTIVE.test.json"
+            if active
+            else "09-google-synthetic-guide-g1r2.DRAFT.test.json"
+        )
+        path = fixture / "authorizations" / name
+        self._write_json(path, value)
+        return path
+
+    def _install_recovery_runtime_tree(self, temporary_root: Path) -> None:
+        repository = temporary_root.resolve()
+        for _name, (relative, source) in pt._guide_runtime_files().items():
+            destination = repository / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+
     @staticmethod
     def _wav_bytes(
         duration_seconds: float = 25.0,
@@ -294,6 +372,7 @@ class PerformanceTransferTests(unittest.TestCase):
         w: Path,
         *,
         zrm: bool = False,
+        recovery_guide: bool = False,
     ) -> tuple[Path, dict[str, Path]]:
         self._refresh_draft_hashes(fixture, plan, w)
         timeline_now = datetime.now(timezone.utc)
@@ -323,6 +402,12 @@ class PerformanceTransferTests(unittest.TestCase):
         dry = pt.validate_performance_transfer_plan(plan, w)
         guide_auth_path = self._activate_guide(fixture, plan, w)
         guide_auth = json.loads(guide_auth_path.read_text(encoding="utf-8"))
+        if recovery_guide:
+            self._install_guide_recovery_chain(fixture)
+            guide_auth["schema_version"] = pt.GUIDE_RECOVERY_AUTH_SCHEMA
+            guide_auth["recovery_binding"] = copy.deepcopy(pt.GUIDE_RECOVERY_BINDING)
+            guide_auth["runtime_bindings"] = pt._expected_guide_runtime_bindings(draft=False)
+            guide_auth["runtime_bindings"]["git_commit"] = "a" * 40
         guide_auth["approved_at"] = guide_approved_at.isoformat()
         guide_auth["expires_at"] = (timeline_now + timedelta(minutes=30)).isoformat()
         self._write_json(guide_auth_path, guide_auth)
@@ -333,7 +418,11 @@ class PerformanceTransferTests(unittest.TestCase):
             / "AUTH-G1-test-exact-guide.consumed.json"
         )
         guide_consumption = {
-            "schema_version": "oe-provider-authorization-consumption-v1",
+            "schema_version": (
+                pt.GUIDE_RECOVERY_CONSUMPTION_SCHEMA
+                if recovery_guide
+                else pt.GUIDE_CONSUMPTION_SCHEMA
+            ),
             "authorization_id": "AUTH-G1-test-exact-guide",
             "authorization_sha256": sha256_file(guide_auth_path),
             "scope": pt.GUIDE_SCOPE,
@@ -357,6 +446,13 @@ class PerformanceTransferTests(unittest.TestCase):
             },
             "credentials_recorded": False,
         }
+        if recovery_guide:
+            guide_consumption.update(
+                {
+                    "authorization_path": guide_auth_path.relative_to(fixture).as_posix(),
+                    "authorization_schema_version": pt.GUIDE_RECOVERY_AUTH_SCHEMA,
+                }
+            )
         self._write_json(guide_consumption_path, guide_consumption)
         receipt_path = fixture / "receipts" / "google" / "guide-run.json"
         receipt = {
@@ -855,6 +951,442 @@ class PerformanceTransferTests(unittest.TestCase):
                 self._write_json(active, auth)
                 with self.assertRaises(ValidationError):
                     pt.validate_synthetic_guide_authorization(active, plan, w)
+
+    def test_guide_contract_rejects_authorization_swap_after_bound_validation(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._activate_guide(fixture, plan, w)
+        original_reader = pt._read_bound_fixture_json
+        swapped = False
+
+        def reader(root, path, label, **kwargs):
+            nonlocal swapped
+            result = original_reader(root, path, label, **kwargs)
+            if (
+                not swapped
+                and Path(path).absolute() == active.absolute()
+                and label == "synthetic-guide authorization"
+            ):
+                swapped = True
+                replacement = json.loads(active.read_text(encoding="utf-8"))
+                replacement["authorized_limits"]["max_calls"] = 99
+                self._write_json(active, replacement)
+            return result
+
+        with mock.patch.object(
+            pt,
+            "_read_bound_fixture_json",
+            side_effect=reader,
+        ):
+            with self.assertRaisesRegex(
+                ValidationError,
+                "changed after validation",
+            ):
+                pt._build_guide_execution_contract(active, plan, w)
+        self.assertTrue(swapped)
+        self.assertFalse(any((fixture / path).exists() for path in pt.GUIDE_DESTINATIONS))
+
+    def test_g1r2_draft_binds_recovery_chain_without_changing_requests_or_authority(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        draft = self._recovery_guide(fixture, plan, w)
+        original = pt.dry_run_synthetic_guide(plan, w)
+        with mock.patch.object(
+            pt,
+            "_guide_git",
+            side_effect=AssertionError("draft validation may not invoke Git or network"),
+        ), mock.patch.dict(
+            os.environ,
+            {
+                pt.GUIDE_QUOTA_PROJECT_ENV: "must-not-be-read",
+                "ELEVENLABS_API_KEY": "must-not-be-read",
+            },
+            clear=True,
+        ):
+            result = pt.validate_synthetic_guide_authorization(draft, plan, w)
+        self.assertEqual(result["authorization_status"], "draft")
+        self.assertFalse(result["provider_action_authorized"])
+        self.assertFalse(result["network_authorized"])
+        self.assertFalse(result["committed_source_proof_required"])
+        self.assertEqual(result["recovery_binding"]["state"], "verified")
+        self.assertEqual(
+            result["recovery_binding"]["service_success_disposition_sha256"],
+            pt.GUIDE_RECOVERY_BINDING["service_enablement"]["success_disposition_sha256"],
+        )
+        self.assertEqual(result["runtime_bindings"]["git_commit"], "pending")
+        self.assertEqual(result["requests"], original["requests"])
+        self.assertEqual(result["request_set_sha256"], pt.GUIDE_REQUEST_SET_SHA256)
+        self.assertEqual(result["maximum"], original["maximum"])
+        self.assertEqual(
+            [item["destination"] for item in result["requests"]],
+            list(pt.GUIDE_DESTINATIONS),
+        )
+        self.assertFalse(any((fixture / path).exists() for path in pt.GUIDE_DESTINATIONS))
+
+    def test_g1r2_cli_dry_run_is_credential_and_network_free(self) -> None:
+        from oe_narration.cli import main
+
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        draft = self._recovery_guide(fixture, plan, w)
+        with mock.patch.object(
+            pt,
+            "_guide_git",
+            side_effect=AssertionError("dry run may not inspect execution source state"),
+        ), mock.patch.object(
+            pt,
+            "_preflight_google_adc",
+            side_effect=AssertionError("dry run may not access ADC"),
+        ), mock.patch.object(
+            pt,
+            "_open_google_request",
+            side_effect=AssertionError("dry run may not call the provider"),
+        ), mock.patch("builtins.print") as output:
+            code = main(
+                [
+                    "synthetic-guide",
+                    "--plan",
+                    str(plan),
+                    "--canonical-w",
+                    str(w),
+                    "--authorization",
+                    str(draft),
+                ]
+            )
+        self.assertEqual(code, 0)
+        self.assertTrue(output.called)
+        self.assertFalse(any((fixture / path).exists() for path in pt.GUIDE_DESTINATIONS))
+
+    def test_g1r2_recovery_binding_omission_and_tamper_fail_closed(self) -> None:
+        mutations = (
+            "missing_recovery",
+            "missing_runtime",
+            "prior_failure",
+            "diagnosis",
+            "service_run",
+            "service_disposition",
+            "safe_runtime",
+            "fresh_output",
+            "bool_as_int",
+            "unknown",
+        )
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                temporary, fixture, plan, w = self._copy_system()
+                self.addCleanup(temporary.cleanup)
+                draft = self._recovery_guide(fixture, plan, w)
+                value = json.loads(draft.read_text(encoding="utf-8"))
+                recovery = value["recovery_binding"]
+                if mutation == "missing_recovery":
+                    value.pop("recovery_binding")
+                elif mutation == "missing_runtime":
+                    value.pop("runtime_bindings")
+                elif mutation == "prior_failure":
+                    recovery["prior_failures"][0]["failure_receipt_sha256"] = "0" * 64
+                elif mutation == "diagnosis":
+                    recovery["diagnosis"]["sha256"] = "0" * 64
+                elif mutation == "service_run":
+                    recovery["service_enablement"]["run_receipt_sha256"] = "0" * 64
+                elif mutation == "service_disposition":
+                    recovery["service_enablement"]["success_disposition_sha256"] = "0" * 64
+                elif mutation == "safe_runtime":
+                    recovery["safe_error_capture_runtime_sha256"] = "0" * 64
+                elif mutation == "fresh_output":
+                    recovery["fresh_output_paths"][0] = "outputs/raw/google/not-planned.wav"
+                elif mutation == "bool_as_int":
+                    recovery["prior_authorizations_reusable"] = 0
+                else:
+                    recovery["also_authorizes_retry"] = False
+                self._write_json(draft, value)
+                with self.assertRaises(ValidationError):
+                    pt.validate_synthetic_guide_authorization(draft, plan, w)
+
+    def test_g1r2_bound_artifact_tamper_and_private_mode_widening_fail(self) -> None:
+        for mutation in ("disposition_content", "prior_failure_mode"):
+            with self.subTest(mutation=mutation):
+                temporary, fixture, plan, w = self._copy_system()
+                self.addCleanup(temporary.cleanup)
+                draft = self._recovery_guide(fixture, plan, w)
+                if mutation == "disposition_content":
+                    path = fixture / pt.GUIDE_RECOVERY_BINDING["service_enablement"]["success_disposition_path"]
+                    value = json.loads(path.read_text(encoding="utf-8"))
+                    value["authority"]["synthetic_guide_generation_authorized"] = True
+                    self._write_json(path, value)
+                else:
+                    path = fixture / pt.GUIDE_RECOVERY_BINDING["prior_failures"][0]["failure_receipt_path"]
+                    path.chmod(0o644)
+                with self.assertRaises(ValidationError):
+                    pt.validate_synthetic_guide_authorization(draft, plan, w)
+
+    def test_g1r2_active_source_proof_rejects_runtime_delta_dirty_and_upstream_drift(self) -> None:
+        for mutation in ("none", "descendant_runtime", "dirty", "upstream", "evidence"):
+            with self.subTest(mutation=mutation):
+                temporary, fixture, plan, w = self._copy_system()
+                self.addCleanup(temporary.cleanup)
+                repository = Path(temporary.name).resolve()
+                self._install_recovery_runtime_tree(repository)
+                active = self._recovery_guide(fixture, plan, w, active=True)
+                contract = pt._build_guide_execution_contract(active, plan, w)
+                head = "b" * 40
+                runtime_commit = "a" * 40
+                auth_relative = active.relative_to(repository).as_posix()
+                plan_relative = plan.relative_to(repository).as_posix()
+
+                def git_read(arguments: list[str], *, max_bytes: int = 2_000_000) -> bytes:
+                    del max_bytes
+                    if arguments == ["rev-parse", "HEAD"]:
+                        return (head + "\n").encode()
+                    if arguments == ["rev-parse", "@{upstream}"]:
+                        return (("c" * 40 if mutation == "upstream" else head) + "\n").encode()
+                    if arguments[:2] == ["merge-base", "--is-ancestor"]:
+                        self.assertEqual(arguments[2:], [runtime_commit, head])
+                        return b""
+                    if arguments[:2] == ["diff", "--name-only"]:
+                        return (
+                            b"operator-blueprint-v2/02-narration-production/runtime/oe_narration/audio.py\x00"
+                            if mutation == "descendant_runtime"
+                            else auth_relative.encode() + b"\x00"
+                        )
+                    if arguments[0] == "show":
+                        _commit, relative = arguments[1].split(":", 1)
+                        if mutation == "evidence" and relative == plan_relative:
+                            return b"drift"
+                        return (repository / relative).read_bytes()
+                    if arguments[:2] == ["status", "--porcelain=v1"]:
+                        return b" M tracked.py\n" if mutation == "dirty" else b""
+                    raise AssertionError(f"unexpected git arguments: {arguments}")
+
+                with mock.patch.object(pt, "_guide_repository_root", return_value=repository), mock.patch.object(
+                    pt,
+                    "_guide_git",
+                    side_effect=git_read,
+                ):
+                    if mutation == "none":
+                        proof = pt._verify_guide_recovery_source(contract)
+                        self.assertTrue(proof["upstream_equal"])
+                        self.assertEqual(proof["head_delta_path"], auth_relative)
+                    else:
+                        with self.assertRaises(ValidationError):
+                            pt._verify_guide_recovery_source(contract)
+
+    def test_g1r2_git_proof_is_read_only_and_does_not_inherit_provider_secrets(self) -> None:
+        captured: dict = {}
+
+        def run(command, **kwargs):
+            captured["command"] = command
+            captured["kwargs"] = kwargs
+            return SimpleNamespace(returncode=0, stdout=b"a" * 40 + b"\n", stderr=b"")
+
+        with mock.patch.dict(
+            os.environ,
+            {
+                "PATH": "/safe/bin",
+                "HOME": "/safe/home",
+                "ELEVENLABS_API_KEY": "xi-must-not-inherit",
+                pt.GUIDE_QUOTA_PROJECT_ENV: "must-not-inherit",
+                "GOOGLE_APPLICATION_CREDENTIALS": "/must/not/inherit.json",
+            },
+            clear=True,
+        ), mock.patch.object(pt.subprocess, "run", side_effect=run):
+            result = pt._guide_git(["rev-parse", "HEAD"])
+        self.assertEqual(result, b"a" * 40 + b"\n")
+        self.assertEqual(captured["command"], ["git", "rev-parse", "HEAD"])
+        environment = captured["kwargs"]["env"]
+        for key in (
+            "ELEVENLABS_API_KEY",
+            pt.GUIDE_QUOTA_PROJECT_ENV,
+            "GOOGLE_APPLICATION_CREDENTIALS",
+        ):
+            self.assertNotIn(key, environment)
+        self.assertEqual(environment["GIT_OPTIONAL_LOCKS"], "0")
+        self.assertEqual(environment["GIT_NO_REPLACE_OBJECTS"], "1")
+        self.assertEqual(environment["GIT_TERMINAL_PROMPT"], "0")
+        self.assertEqual(environment["GIT_PAGER"], "cat")
+
+    def test_g1r2_source_failure_precedes_private_bindings_consumption_and_network(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._recovery_guide(fixture, plan, w, active=True)
+        consumption = fixture / "authorizations" / "consumed" / "AUTH-G1R2-test-exact-guide.consumed.json"
+        with mock.patch.object(
+            pt,
+            "_verify_guide_recovery_source",
+            side_effect=ValidationError("source drift"),
+        ), mock.patch.object(pt, "_quota_project_for_execution") as quota, mock.patch.object(
+            pt,
+            "_preflight_google_adc",
+        ) as adc, mock.patch.object(pt, "_open_google_request") as provider:
+            with self.assertRaisesRegex(ValidationError, "source preflight failed"):
+                pt.execute_synthetic_guide(active, plan, w)
+        quota.assert_not_called()
+        adc.assert_not_called()
+        provider.assert_not_called()
+        self.assertFalse(consumption.exists())
+
+    def test_g1r2_post_consumption_source_failure_truthfully_precedes_token_and_network(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._recovery_guide(fixture, plan, w, active=True)
+        quota_project = "oe-g1r2-source-drift-project"
+        value = json.loads(active.read_text(encoding="utf-8"))
+        value["billing_project_binding"]["quota_project_sha256"] = pt.sha256_bytes(
+            quota_project.encode()
+        )
+        self._write_json(active, value)
+        consumption = fixture / value["consumption"]["record_path"]
+        failure = (
+            fixture
+            / "receipts"
+            / "google"
+            / f"{value['authorization_id']}.failure.json"
+        )
+        proof = {
+            "git_head": "b" * 40,
+            "runtime_commit": "a" * 40,
+            "upstream_equal": True,
+            "head_delta_policy": "exact_active_authorization_path_only",
+            "head_delta_path": active.name,
+        }
+        checks = 0
+
+        def source_check(_contract, *, allow_consumption_latch=False):
+            nonlocal checks
+            checks += 1
+            if checks == 3:
+                self.assertTrue(allow_consumption_latch)
+                self.assertTrue(consumption.is_file())
+                raise ValidationError("source drift after consumption")
+            return proof
+
+        with mock.patch.dict(
+            os.environ,
+            {pt.GUIDE_QUOTA_PROJECT_ENV: quota_project},
+            clear=True,
+        ), mock.patch.object(
+            pt,
+            "_verify_guide_recovery_source",
+            side_effect=source_check,
+        ), mock.patch.object(
+            pt,
+            "_preflight_google_adc",
+            return_value="/test/gcloud",
+        ), mock.patch.object(pt, "_load_google_access_token") as token, mock.patch.object(
+            pt,
+            "_open_google_request",
+        ) as provider:
+            with self.assertRaises(ValidationError):
+                pt.execute_synthetic_guide(active, plan, w)
+        self.assertEqual(checks, 3)
+        self.assertTrue(consumption.is_file())
+        self.assertTrue(failure.is_file())
+        token.assert_not_called()
+        provider.assert_not_called()
+        receipt = json.loads(failure.read_text(encoding="utf-8"))
+        self.assertFalse(receipt["credential_refresh_attempted"])
+        self.assertFalse(receipt["network_called"])
+        self.assertEqual(receipt["provider_calls_made"], 0)
+        self.assertEqual(receipt["provider_outputs_received"], 0)
+
+    def test_g1r2_revalidates_source_and_latch_before_token_and_each_exact_post(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active = self._recovery_guide(fixture, plan, w, active=True)
+        quota_project = "oe-g1r2-test-project"
+        value = json.loads(active.read_text(encoding="utf-8"))
+        value["billing_project_binding"]["quota_project_sha256"] = pt.sha256_bytes(
+            quota_project.encode()
+        )
+        self._write_json(active, value)
+        paths = {
+            "consumption": fixture / value["consumption"]["record_path"],
+            "a": fixture / pt.GUIDE_DESTINATIONS[0],
+            "b": fixture / pt.GUIDE_DESTINATIONS[1],
+        }
+        proof = {
+            "git_head": "b" * 40,
+            "runtime_commit": "a" * 40,
+            "upstream_equal": True,
+            "head_delta_policy": "exact_active_authorization_path_only",
+            "head_delta_path": active.name,
+        }
+        source_checks: list[tuple[bool, bool, bool]] = []
+        posts: list[bytes] = []
+
+        def source_check(contract, *, allow_consumption_latch=False):
+            del contract
+            source_checks.append(
+                (
+                    allow_consumption_latch,
+                    paths["consumption"].exists(),
+                    paths["a"].exists(),
+                )
+            )
+            if allow_consumption_latch:
+                self.assertTrue(paths["consumption"].is_file())
+            else:
+                self.assertFalse(paths["consumption"].exists())
+            return proof
+
+        def token_loader(_executable: str, _timeout: float) -> str:
+            self.assertTrue(paths["consumption"].is_file())
+            self.assertEqual(len(source_checks), 3)
+            return "ya29.g1r2-test-token"
+
+        def provider(request, _timeout: float):
+            self.assertTrue(paths["consumption"].is_file())
+            self.assertEqual(len(source_checks), 4 + len(posts))
+            posts.append(request.data)
+            return _FakeGoogleResponse(self._google_json_response())
+
+        with mock.patch.dict(
+            os.environ,
+            {pt.GUIDE_QUOTA_PROJECT_ENV: quota_project},
+            clear=True,
+        ), mock.patch.object(
+            pt,
+            "_verify_guide_recovery_source",
+            side_effect=source_check,
+        ), mock.patch.object(
+            pt,
+            "_preflight_google_adc",
+            return_value="/test/gcloud",
+        ), mock.patch.object(
+            pt,
+            "_load_google_access_token",
+            side_effect=token_loader,
+        ), mock.patch.object(
+            pt,
+            "_open_google_request",
+            side_effect=provider,
+        ):
+            result = pt.execute_synthetic_guide(active, plan, w)
+
+        self.assertEqual(len(source_checks), 5)
+        self.assertEqual(source_checks[:2], [(False, False, False), (False, False, False)])
+        self.assertEqual(source_checks[2], (True, True, False))
+        self.assertEqual(source_checks[3], (True, True, False))
+        self.assertEqual(source_checks[4], (True, True, True))
+        self.assertEqual(len(posts), 2)
+        self.assertEqual(posts[0], posts[1])
+        self.assertEqual(len(posts[0]), 1440)
+        self.assertEqual(pt.sha256_bytes(posts[0]), pt.GUIDE_REQUEST_BODY_SHA256)
+        self.assertEqual(result["provider_calls_made"], 2)
+        self.assertTrue(paths["a"].is_file())
+        self.assertTrue(paths["b"].is_file())
+        consumed = json.loads(paths["consumption"].read_text(encoding="utf-8"))
+        self.assertEqual(consumed["schema_version"], pt.GUIDE_RECOVERY_CONSUMPTION_SCHEMA)
+        self.assertEqual(
+            consumed["authorization_path"],
+            active.relative_to(fixture).as_posix(),
+        )
+        self.assertEqual(
+            consumed["authorization_sha256"],
+            sha256_file(active),
+        )
+        self.assertEqual(
+            consumed["authorization_schema_version"],
+            pt.GUIDE_RECOVERY_AUTH_SCHEMA,
+        )
 
     def test_g1_execution_consumes_before_token_and_makes_exactly_two_posts(self) -> None:
         temporary, fixture, plan, w = self._copy_system()
@@ -2144,6 +2676,31 @@ class PerformanceTransferTests(unittest.TestCase):
         self.assertEqual(result["maximum"]["max_submitted_seconds"], 100)
         self.assertFalse(result["full_capture_authorized"])
         self.assertFalse(result["step3_authorized"])
+
+    def test_g1r2_run_receipt_remains_eligible_only_through_separate_v1_owner_chain(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        active, _paths = self._activate_transfer(
+            fixture,
+            plan,
+            w,
+            recovery_guide=True,
+        )
+        result = pt.validate_voice_transfer_authorization(active, plan, w)
+        self.assertTrue(result["provider_action_authorized"])
+        self.assertTrue(result["request_compiled"])
+        guide_auth = json.loads(
+            (
+                fixture
+                / "authorizations"
+                / "01-google-synthetic-guide.ACTIVE.test.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(guide_auth["schema_version"], pt.GUIDE_RECOVERY_AUTH_SCHEMA)
+        self.assertEqual(
+            guide_auth["recovery_binding"]["service_enablement"]["success_disposition_sha256"],
+            pt.GUIDE_RECOVERY_BINDING["service_enablement"]["success_disposition_sha256"],
+        )
 
     def test_zrm_forces_enable_logging_false(self) -> None:
         temporary, fixture, plan, w = self._copy_system()
