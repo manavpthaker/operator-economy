@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-google-service-enablement-authorization-v1.json",
+  "title": "OE one-shot Google service enablement authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "diagnosis_binding", "readiness_binding", "runtime_bindings", "action",
+    "prospective_active_limits", "authorized_limits", "artifacts",
+    "required_success_evidence", "approved_by", "approved_at", "expires_at",
+    "execution_ready", "blockers", "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-google-service-enablement-authorization-v1"},
+    "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {"const": "enable_one_exact_google_service"},
+    "target": {"$ref": "#/$defs/target"},
+    "diagnosis_binding": {"$ref": "#/$defs/diagnosisBinding"},
+    "readiness_binding": {"$ref": "#/$defs/readinessBinding"},
+    "runtime_bindings": {"$ref": "#/$defs/runtimeBindings"},
+    "action": {"$ref": "#/$defs/action"},
+    "prospective_active_limits": {"$ref": "#/$defs/limits"},
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "artifacts": {"$ref": "#/$defs/artifacts"},
+    "required_success_evidence": {"$ref": "#/$defs/successEvidence"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "authority": {"$ref": "#/$defs/authority"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "execution_ready": {"const": false},
+          "approved_by": {"const": ""},
+          "approved_at": {"const": ""},
+          "expires_at": {"const": ""},
+          "blockers": {"minItems": 1},
+          "runtime_bindings": {
+            "properties": {
+              "git_commit": {"const": "pending"},
+              "executor_sha256": {"const": "pending"},
+              "credential_runtime_sha256": {"const": "pending"},
+              "cli_sha256": {"const": "pending"},
+              "core_sha256": {"const": "pending"},
+              "init_sha256": {"const": "pending"},
+              "schema_sha256": {"const": "pending"}
+            }
+          },
+          "authorized_limits": {"$ref": "#/$defs/zeroLimits"},
+          "authority": {"$ref": "#/$defs/draftAuthority"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "execution_ready": {"const": true},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "blockers": {"maxItems": 0},
+          "runtime_bindings": {
+            "properties": {
+              "git_commit": {"type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"},
+              "executor_sha256": {"$ref": "#/$defs/sha256"},
+              "credential_runtime_sha256": {"$ref": "#/$defs/sha256"},
+              "cli_sha256": {"$ref": "#/$defs/sha256"},
+              "core_sha256": {"$ref": "#/$defs/sha256"},
+              "init_sha256": {"$ref": "#/$defs/sha256"},
+              "schema_sha256": {"$ref": "#/$defs/sha256"}
+            }
+          },
+          "authorized_limits": {"$ref": "#/$defs/activeLimits"},
+          "authority": {"$ref": "#/$defs/activeAuthority"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["project_sha256", "project_number_sha256", "service"],
+      "properties": {
+        "project_sha256": {"$ref": "#/$defs/sha256"},
+        "project_number_sha256": {"$ref": "#/$defs/sha256"},
+        "service": {"const": "aiplatform.googleapis.com"}
+      }
+    },
+    "diagnosisBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "project_sha256", "reported_current_state", "causal_status"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^evidence/[^/]+\\.json$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "project_sha256": {"$ref": "#/$defs/sha256"},
+        "reported_current_state": {"const": "DISABLED"},
+        "causal_status": {"const": "only_confirmed_configuration_anomaly_not_proven_403_cause"}
+      }
+    },
+    "readinessBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "project_sha256", "project_number_sha256", "permission", "permission_granted"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^evidence/[^/]+\\.json$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "project_sha256": {"$ref": "#/$defs/sha256"},
+        "project_number_sha256": {"$ref": "#/$defs/sha256"},
+        "permission": {"const": "serviceusage.services.enable"},
+        "permission_granted": {"const": true}
+      }
+    },
+    "runtimeBindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["git_commit", "executor_path", "executor_sha256", "credential_runtime_path", "credential_runtime_sha256", "cli_path", "cli_sha256", "core_path", "core_sha256", "init_path", "init_sha256", "schema_path", "schema_sha256"],
+      "properties": {
+        "git_commit": {"type": "string"},
+        "executor_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/google_service_enablement.py"},
+        "executor_sha256": {"type": "string"},
+        "credential_runtime_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/performance_transfer.py"},
+        "credential_runtime_sha256": {"type": "string"},
+        "cli_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/cli.py"},
+        "cli_sha256": {"type": "string"},
+        "core_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/core.py"},
+        "core_sha256": {"type": "string"},
+        "init_path": {"const": "operator-blueprint-v2/02-narration-production/runtime/oe_narration/__init__.py"},
+        "init_sha256": {"type": "string"},
+        "schema_path": {"const": "operator-blueprint-v2/02-narration-production/schemas/google-service-enablement-authorization.schema.json"},
+        "schema_sha256": {"type": "string"}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "service", "project_identity_source", "credential_mechanism", "pre_enable_readback", "enable", "operation_poll", "post_enable_readback", "no_retry", "no_redirect", "disable_after_test", "no_other_mutation"],
+      "properties": {
+        "provider": {"const": "google_cloud_service_usage"},
+        "service": {"const": "aiplatform.googleapis.com"},
+        "project_identity_source": {"const": "private_hash_bound_environment_value"},
+        "credential_mechanism": {"const": "gcloud_application_default_print_access_token_without_scopes_override"},
+        "pre_enable_readback": {
+          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com", "method": "GET", "required_state": "DISABLED"}
+        },
+        "enable": {
+          "const": {"body_bytes": 0, "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com:enable", "method": "POST"}
+        },
+        "operation_poll": {
+          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/{operation_name}", "method": "GET", "required_terminal_done": true}
+        },
+        "post_enable_readback": {
+          "const": {"endpoint_template": "https://serviceusage.googleapis.com/v1/projects/{project}/services/aiplatform.googleapis.com", "method": "GET", "required_state": "ENABLED"}
+        },
+        "no_retry": {"const": true},
+        "no_redirect": {"const": true},
+        "disable_after_test": {"const": false},
+        "no_other_mutation": {"const": true}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_pre_enable_state_readbacks", "max_enable_attempts", "max_operation_polls", "max_post_enable_state_readbacks", "max_http_calls", "max_response_bytes_per_call", "max_total_response_bytes", "request_timeout_seconds", "poll_interval_seconds", "max_operation_elapsed_seconds", "max_other_service_mutations", "max_iam_mutations", "max_billing_mutations", "max_project_hierarchy_mutations", "max_synthesis_calls"],
+      "properties": {
+        "max_pre_enable_state_readbacks": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_enable_attempts": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_operation_polls": {"type": "integer", "minimum": 0, "maximum": 12},
+        "max_post_enable_state_readbacks": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_http_calls": {"type": "integer", "minimum": 0, "maximum": 15},
+        "max_response_bytes_per_call": {"type": "integer", "minimum": 0, "maximum": 1000000},
+        "max_total_response_bytes": {"type": "integer", "minimum": 0, "maximum": 15000000},
+        "request_timeout_seconds": {"type": "number", "minimum": 0, "maximum": 30},
+        "poll_interval_seconds": {"type": "number", "minimum": 0, "maximum": 5},
+        "max_operation_elapsed_seconds": {"type": "number", "minimum": 0, "maximum": 120},
+        "max_other_service_mutations": {"const": 0},
+        "max_iam_mutations": {"const": 0},
+        "max_billing_mutations": {"const": 0},
+        "max_project_hierarchy_mutations": {"const": 0},
+        "max_synthesis_calls": {"const": 0}
+      }
+    },
+    "activeLimits": {
+      "const": {"max_billing_mutations": 0, "max_enable_attempts": 1, "max_http_calls": 15, "max_iam_mutations": 0, "max_operation_elapsed_seconds": 120, "max_operation_polls": 12, "max_other_service_mutations": 0, "max_post_enable_state_readbacks": 1, "max_pre_enable_state_readbacks": 1, "max_project_hierarchy_mutations": 0, "max_response_bytes_per_call": 1000000, "max_synthesis_calls": 0, "max_total_response_bytes": 15000000, "poll_interval_seconds": 5, "request_timeout_seconds": 30}
+    },
+    "zeroLimits": {
+      "const": {"max_billing_mutations": 0, "max_enable_attempts": 0, "max_http_calls": 0, "max_iam_mutations": 0, "max_operation_elapsed_seconds": 0, "max_operation_polls": 0, "max_other_service_mutations": 0, "max_post_enable_state_readbacks": 0, "max_pre_enable_state_readbacks": 0, "max_project_hierarchy_mutations": 0, "max_response_bytes_per_call": 0, "max_synthesis_calls": 0, "max_total_response_bytes": 0, "poll_interval_seconds": 0, "request_timeout_seconds": 0}
+    },
+    "artifacts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["consumption_record_path", "success_receipt_path", "failure_receipt_path"],
+      "properties": {
+        "consumption_record_path": {"type": "string", "pattern": "^authorizations/consumed/[A-Za-z0-9._-]+\\.consumed\\.json$"},
+        "success_receipt_path": {"type": "string", "pattern": "^receipts/google-service-usage/[A-Za-z0-9._-]+\\.run\\.json$"},
+        "failure_receipt_path": {"type": "string", "pattern": "^receipts/google-service-usage/[A-Za-z0-9._-]+\\.failure\\.json$"}
+      }
+    },
+    "successEvidence": {
+      "const": {"enable_operation_response_sha256_required": true, "operation_completion_response_sha256_required": true, "post_enable_response_sha256_required": true, "post_enable_service_state": "ENABLED", "pre_enable_response_sha256_required": true, "pre_enable_service_state": "DISABLED", "raw_billing_identity_forbidden": true, "raw_credentials_forbidden": true, "raw_project_identifier_forbidden": true, "raw_project_number_forbidden": true, "raw_provider_responses_forbidden": true, "timestamps_required": true}
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["credential_access_authorized", "network_access_authorized", "service_readback_authorized", "service_enablement_authorized", "service_disablement_authorized", "other_service_mutation_authorized", "iam_mutation_authorized", "billing_mutation_authorized", "project_hierarchy_mutation_authorized", "synthetic_guide_generation_authorized", "retry_authorized", "voice_transfer_authorized", "full_capture_authorized", "step3_authorized", "sharing_authorized", "publication_authorized"],
+      "properties": {
+        "credential_access_authorized": {"type": "boolean"},
+        "network_access_authorized": {"type": "boolean"},
+        "service_readback_authorized": {"type": "boolean"},
+        "service_enablement_authorized": {"type": "boolean"},
+        "service_disablement_authorized": {"const": false},
+        "other_service_mutation_authorized": {"const": false},
+        "iam_mutation_authorized": {"const": false},
+        "billing_mutation_authorized": {"const": false},
+        "project_hierarchy_mutation_authorized": {"const": false},
+        "synthetic_guide_generation_authorized": {"const": false},
+        "retry_authorized": {"const": false},
+        "voice_transfer_authorized": {"const": false},
+        "full_capture_authorized": {"const": false},
+        "step3_authorized": {"const": false},
+        "sharing_authorized": {"const": false},
+        "publication_authorized": {"const": false}
+      }
+    },
+    "draftAuthority": {
+      "const": {"billing_mutation_authorized": false, "credential_access_authorized": false, "full_capture_authorized": false, "iam_mutation_authorized": false, "network_access_authorized": false, "other_service_mutation_authorized": false, "project_hierarchy_mutation_authorized": false, "publication_authorized": false, "retry_authorized": false, "service_disablement_authorized": false, "service_enablement_authorized": false, "service_readback_authorized": false, "sharing_authorized": false, "step3_authorized": false, "synthetic_guide_generation_authorized": false, "voice_transfer_authorized": false}
+    },
+    "activeAuthority": {
+      "const": {"billing_mutation_authorized": false, "credential_access_authorized": true, "full_capture_authorized": false, "iam_mutation_authorized": false, "network_access_authorized": true, "other_service_mutation_authorized": false, "project_hierarchy_mutation_authorized": false, "publication_authorized": false, "retry_authorized": false, "service_disablement_authorized": false, "service_enablement_authorized": true, "service_readback_authorized": true, "sharing_authorized": false, "step3_authorized": false, "synthetic_guide_generation_authorized": false, "voice_transfer_authorized": false}
+    }
+  }
+}

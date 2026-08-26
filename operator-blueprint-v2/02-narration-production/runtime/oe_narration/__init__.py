@@ -28,6 +28,11 @@ from .performance_transfer import (
     validate_synthetic_guide_authorization,
     validate_voice_transfer_authorization,
 )
+from .google_service_enablement import (
+    dry_run_google_service_enablement,
+    execute_google_service_enablement,
+    validate_google_service_enablement_authorization,
+)
 
 __version__ = "0.5.0"
 
@@ -52,4 +57,7 @@ __all__ = [
     "validate_performance_transfer_plan",
     "validate_synthetic_guide_authorization",
     "validate_voice_transfer_authorization",
+    "dry_run_google_service_enablement",
+    "execute_google_service_enablement",
+    "validate_google_service_enablement_authorization",
 ]

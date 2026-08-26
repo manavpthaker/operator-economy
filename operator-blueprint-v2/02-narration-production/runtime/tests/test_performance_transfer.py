@@ -1414,6 +1414,232 @@ class PerformanceTransferTests(unittest.TestCase):
                 self.assertEqual(receipt["redirects_followed"], 0)
                 self.assertEqual(receipt["fallbacks_used"], 0)
 
+    def test_google_http_error_receipt_keeps_only_safe_structured_diagnostics(self) -> None:
+        temporary, fixture, plan, w = self._copy_system()
+        self.addCleanup(temporary.cleanup)
+        quota_project = "oe-test-quota-project"
+        access_token = "ya29.private-test-access-token"
+        raw_member = "user:private-principal@example.invalid"
+        active = self._activate_executable_guide(fixture, plan, w, quota_project=quota_project)
+        paths = self._execution_artifacts(fixture)
+        error_body = json.dumps(
+            {
+                "error": {
+                    "code": 403,
+                    "message": f"private {access_token} {quota_project} {raw_member}",
+                    "status": "PERMISSION_DENIED",
+                    "details": [
+                        {
+                            "@type": pt._GOOGLE_ERROR_INFO_TYPE,
+                            "reason": "IAM_PERMISSION_DENIED",
+                            "domain": "googleapis.com",
+                            "metadata": {
+                                "service": "texttospeech.googleapis.com",
+                                "permission": "aiplatform.endpoints.predict",
+                                "consumer": quota_project,
+                                "principal": raw_member,
+                            },
+                        },
+                        {
+                            "@type": pt._GOOGLE_ERROR_INFO_TYPE,
+                            "reason": access_token,
+                            "domain": raw_member,
+                            "metadata": {
+                                "service": access_token,
+                                "permission": quota_project,
+                            },
+                        },
+                    ],
+                }
+            },
+            separators=(",", ":"),
+        ).encode("utf-8")
+        calls = 0
+
+        def forbidden(request, timeout: float):
+            nonlocal calls
+            calls += 1
+            raise urllib.error.HTTPError(
+                pt.GUIDE_ENDPOINT,
+                403,
+                "private provider message",
+                {
+                    "Content-Type": "application/json; charset=UTF-8",
+                    "Content-Length": str(len(error_body)),
+                    "X-Goog-Request-Id": "safe-diagnostic-request-id",
+                },
+                io.BytesIO(error_body),
+            )
+
+        with mock.patch.dict(
+            os.environ,
+            {pt.GUIDE_QUOTA_PROJECT_ENV: quota_project},
+            clear=True,
+        ), mock.patch.object(
+            pt, "_preflight_google_adc", return_value="/test/gcloud"
+        ), mock.patch.object(
+            pt, "_load_google_access_token", return_value=access_token
+        ), mock.patch.object(
+            pt, "_open_google_request", side_effect=forbidden
+        ):
+            with self.assertRaisesRegex(ValidationError, "provider_http_failure"):
+                pt.execute_synthetic_guide(active, plan, w)
+
+        self.assertEqual(calls, 1)
+        receipt_bytes = paths["failure"].read_bytes()
+        receipt = json.loads(receipt_bytes)
+        self.assertEqual(receipt["failed_response_bytes"], len(error_body))
+        self.assertEqual(receipt["provider_response_bytes_total"], len(error_body))
+        self.assertEqual(receipt["failed_response_sha256"], pt.sha256_bytes(error_body))
+        self.assertEqual(
+            receipt["provider_error"],
+            {
+                "code": 403,
+                "status": "PERMISSION_DENIED",
+                "error_info": [
+                    {
+                        "reason": "IAM_PERMISSION_DENIED",
+                        "domain": "googleapis.com",
+                        "service": "texttospeech.googleapis.com",
+                        "permission": "aiplatform.endpoints.predict",
+                    }
+                ],
+            },
+        )
+        self.assertEqual(
+            receipt["provider_identifiers"],
+            {"x-goog-request-id": "safe-diagnostic-request-id"},
+        )
+        self.assertEqual(receipt["provider_calls_made"], 1)
+        self.assertEqual(receipt["retries_made"], 0)
+        for forbidden_value in (error_body, access_token.encode(), quota_project.encode(), raw_member.encode()):
+            self.assertNotIn(forbidden_value, receipt_bytes)
+
+    def test_google_error_diagnostic_allowlists_relevant_error_info(self) -> None:
+        headers = {"content-type": "application/json", "content-encoding": "identity"}
+        cases = (
+            ("SERVICE_DISABLED", "texttospeech.googleapis.com", None),
+            ("ACCESS_TOKEN_SCOPE_INSUFFICIENT", None, None),
+            ("USER_PROJECT_DENIED", "serviceusage.googleapis.com", "serviceusage.services.use"),
+            ("IAM_PERMISSION_DENIED", "serviceusage.googleapis.com", "serviceusage.services.enable"),
+        )
+        for reason, service, permission in cases:
+            with self.subTest(reason=reason):
+                metadata = {}
+                if service is not None:
+                    metadata["service"] = service
+                if permission is not None:
+                    metadata["permission"] = permission
+                raw = json.dumps(
+                    {
+                        "error": {
+                            "code": 403,
+                            "status": "PERMISSION_DENIED",
+                            "message": "never persisted",
+                            "details": [
+                                {
+                                    "@type": pt._GOOGLE_ERROR_INFO_TYPE,
+                                    "reason": reason,
+                                    "domain": "googleapis.com",
+                                    "metadata": metadata,
+                                }
+                            ],
+                        }
+                    }
+                ).encode("utf-8")
+                diagnostic = pt._safe_google_error_diagnostic(raw, headers)
+                expected_detail = {"reason": reason, "domain": "googleapis.com"}
+                if service is not None:
+                    expected_detail["service"] = service
+                if permission is not None:
+                    expected_detail["permission"] = permission
+                self.assertEqual(
+                    diagnostic,
+                    {
+                        "code": 403,
+                        "status": "PERMISSION_DENIED",
+                        "error_info": [expected_detail],
+                    },
+                )
+
+    def test_google_http_error_bodies_fail_closed_when_oversize_or_unparseable(self) -> None:
+        body = pt._compact_json_bytes(pt._guide_body(pt.MICROTEST_TEXT))
+        cases = (
+            ("malformed", b"{", "provider_http_failure", None),
+            (
+                "duplicate_key",
+                b'{"error":{"code":403,"code":401,"status":"PERMISSION_DENIED"}}',
+                "provider_http_failure",
+                None,
+            ),
+            (
+                "secret_shaped_fields",
+                b'{"error":{"code":403,"status":"PERMISSION_DENIED","details":['
+                b'{"@type":"type.googleapis.com/google.rpc.ErrorInfo",'
+                b'"reason":"ya29.private-reason","domain":"ya29.private-domain",'
+                b'"metadata":{"service":"ya29.private-service",'
+                b'"permission":"ya29.private-permission"}}]}}',
+                "provider_http_failure",
+                {"code": 403, "status": "PERMISSION_DENIED"},
+            ),
+        )
+        for label, error_body, expected_code, expected_diagnostic in cases:
+            with self.subTest(case=label):
+                provider_error = urllib.error.HTTPError(
+                    pt.GUIDE_ENDPOINT,
+                    403,
+                    "private provider message",
+                    {
+                        "Content-Type": "application/json",
+                        "Content-Length": str(len(error_body)),
+                    },
+                    io.BytesIO(error_body),
+                )
+                with mock.patch.object(pt, "_open_google_request", side_effect=provider_error):
+                    raised, provider_locals = self._capture_failure(
+                        lambda: pt._perform_google_post(
+                            body,
+                            "ya29.private-test-access-token",
+                            "oe-test-quota-project",
+                            30,
+                        ),
+                        pt._GuideExecutionFailure,
+                        "_perform_google_post",
+                    )
+                self.assertEqual(raised.code, expected_code)
+                self.assertEqual(raised.response_bytes, len(error_body))
+                self.assertEqual(raised.response_sha256, pt.sha256_bytes(error_body))
+                self.assertEqual(raised.provider_error, expected_diagnostic)
+                self.assertEqual(provider_locals["error_raw"], b"")
+                self.assertIsNone(provider_locals["error_diagnostic"])
+                self.assertIsNone(provider_locals["error_response_sha256"])
+                self.assertNotIn(repr(error_body), repr(provider_locals))
+
+        oversized = b"x" * 65
+        provider_error = urllib.error.HTTPError(
+            pt.GUIDE_ENDPOINT,
+            403,
+            "private provider message",
+            {"Content-Type": "application/json"},
+            io.BytesIO(oversized),
+        )
+        with mock.patch.object(pt, "GUIDE_MAX_RESPONSE_BYTES_PER_CALL", 64), mock.patch.object(
+            pt, "_open_google_request", side_effect=provider_error
+        ):
+            with self.assertRaisesRegex(
+                pt._GuideExecutionFailure,
+                "provider_response_byte_cap_exceeded",
+            ) as raised:
+                pt._perform_google_post(
+                    body,
+                    "ya29.private-test-access-token",
+                    "oe-test-quota-project",
+                    30,
+                )
+        self.assertEqual(raised.exception.response_bytes, 65)
+        self.assertIsNone(raised.exception.response_sha256)
+        self.assertIsNone(raised.exception.provider_error)
+
     def test_provider_exception_chain_does_not_retain_error_body_or_headers(self) -> None:
         raw_token = "ya29.private-provider-token"
         raw_project = "oe-private-provider-project"
@@ -1454,6 +1680,10 @@ class PerformanceTransferTests(unittest.TestCase):
         self.assertEqual(provider_locals["encoded"], b"")
         self.assertEqual(provider_locals["wav_bytes"], b"")
         self.assertIsNone(provider_locals["geometry"])
+        self.assertEqual(provider_locals["error_raw"], b"")
+        self.assertIsNone(provider_locals["error_response_sha256"])
+        self.assertIsNone(provider_locals["error_diagnostic"])
+        self.assertIsNone(provider_locals["error_read_failure"])
         self.assertNotIn(raw_token, repr(provider_locals))
         self.assertNotIn(raw_project, repr(provider_locals))
 

@@ -1,0 +1,129 @@
+{
+  "schema_version": "oe-google-g1-403-diagnosis-v1",
+  "record_id": "G1R2-403-DIAGNOSIS-20260826T014109Z",
+  "status": "operator_reported_live_readback",
+  "recorded_at": "2026-08-26T01:41:09Z",
+  "evidence_boundary": {
+    "same_live_adc_used_for_checks": true,
+    "underlying_provider_responses_stored": false,
+    "underlying_provider_response_hashes_available": false,
+    "raw_access_token_stored": false,
+    "raw_adc_material_stored": false,
+    "raw_principal_stored": false,
+    "raw_project_identifier_stored": false,
+    "raw_project_number_stored": false,
+    "raw_billing_account_stored": false,
+    "credentials_accessed_during_record_materialization": false,
+    "network_called_during_record_materialization": false,
+    "cloud_state_mutated_during_record_materialization": false
+  },
+  "prior_attempt_bindings": {
+    "g1": {
+      "authorization_sha256": "6d5ae0e6719bae8100cd437b8faa875cbd3f9b3969e09749544d5e5ab06366ea",
+      "consumption_sha256": "e7a257dd30128122d3e40b44d7119cb534cf47c70a33db145327f1474c36c4b3",
+      "failure_receipt_sha256": "3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1",
+      "failed_request_id": "gemini-guide-01",
+      "http_status": 403,
+      "provider_calls_made": 1,
+      "provider_response_bytes": 0,
+      "provider_outputs_received": 0,
+      "modeled_spend_usd": 0.33
+    },
+    "g1r1": {
+      "authorization_sha256": "4dca079b5022d184d080b401225fd819d988851ef40f08d80e3df62ae9825310",
+      "consumption_sha256": "bfd943d5f221f7f10e7aacab206078da2963b5e6790305b6257f823c3233fba1",
+      "failure_receipt_sha256": "df00adefe5e3215ff0c60ed19fe7835d2056a78ba2130e46b18a0d66de2161af",
+      "iam_and_guide_transaction_sha256": "644f0835a0ae9b931e8762714e49ef7b070dd2ba0923fdbb240199611eaab09b",
+      "failure_and_cleanup_disposition_sha256": "430550483aca42fef3b5079d3c687a2b8083218f98806439f2b939822963fbb3",
+      "failed_request_id": "gemini-guide-01",
+      "http_status": 403,
+      "provider_calls_made": 1,
+      "provider_response_bytes": 0,
+      "provider_outputs_received": 0,
+      "modeled_spend_usd": 0.33
+    },
+    "canonical_request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "canonical_request_body_bytes": 1440,
+    "canonical_two_request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba"
+  },
+  "live_readback": {
+    "project": {
+      "project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+      "project_number_sha256": "b69b2f361c3a065b3490318c25095102307f4d27aa228922c0787b58cf32d76b",
+      "project_number_decimal_digit_count": 12,
+      "project_number_recorded": false,
+      "lifecycle_state": "ACTIVE",
+      "organization_or_folder_parent_present": false
+    },
+    "credential": {
+      "cloud_platform_scope_present": true,
+      "principal_identity_recorded": false,
+      "principal_equals_prior_hash_bound_member_claimed": false,
+      "principal_equality_required_for_present_access_conclusion": false,
+      "present_access_basis": "the_same_live_adc_token_directly_passed_both_required_testIamPermissions_checks"
+    },
+    "permissions": {
+      "test_iam_permissions_method": "projects.testIamPermissions",
+      "aiplatform.endpoints.predict": true,
+      "serviceusage.services.use": true,
+      "serviceusage.services.enable": true
+    },
+    "services": {
+      "texttospeech.googleapis.com": "ENABLED",
+      "serviceusage.googleapis.com": "ENABLED",
+      "cloudresourcemanager.googleapis.com": "ENABLED",
+      "aiplatform.googleapis.com": "DISABLED"
+    },
+    "billing": {
+      "billing_enabled": true,
+      "billing_account_bound": true,
+      "billing_account_identity_recorded": false
+    },
+    "regional_capability": {
+      "endpoint": "https://us-texttospeech.googleapis.com/v1/voices",
+      "http_status": 200,
+      "language_code": "en-US",
+      "voice_name": "Achird",
+      "voice_present": true
+    },
+    "logging": {
+      "attempts_bound_by_failure_receipts": true,
+      "matching_denial_entries": 0,
+      "absence_of_matching_entries_proves_no_denial": false
+    }
+  },
+  "diagnosis": {
+    "confirmed_checks_passed": [
+      "cloud_platform_scope",
+      "project_active",
+      "aiplatform.endpoints.predict",
+      "serviceusage.services.use",
+      "serviceusage.services.enable",
+      "texttospeech_service_enabled",
+      "serviceusage_service_enabled",
+      "cloudresourcemanager_service_enabled",
+      "billing_enabled_and_account_bound",
+      "regional_voices_list_http_200",
+      "achird_present"
+    ],
+    "only_confirmed_configuration_anomaly": "aiplatform.googleapis.com is DISABLED",
+    "aiplatform_service_disablement_is_proven_403_cause": false,
+    "current_cause": "unknown",
+    "next_test": "separately authorize and verify exact aiplatform.googleapis.com enablement, then use a separately authorized fresh G1R2 whose failure path captures safe bounded Google error evidence",
+    "blind_retry_permitted": false
+  },
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "service_enablement_authorized": false,
+    "service_disablement_authorized": false,
+    "iam_mutation_authorized": false,
+    "synthetic_guide_generation_authorized": false,
+    "retry_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

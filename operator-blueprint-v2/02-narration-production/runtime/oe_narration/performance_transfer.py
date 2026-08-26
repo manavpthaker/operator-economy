@@ -155,6 +155,69 @@ _SECRET_KEY_RE = re.compile(
 _SECRET_VALUE_RE = re.compile(
     r"(?:AIza[0-9A-Za-z_-]{20,}|ya29\.[0-9A-Za-z._-]+|xi[_-][0-9A-Za-z_-]{12,}|sk[_-][0-9A-Za-z_-]{12,})"
 )
+_GOOGLE_ERROR_STATUSES = frozenset(
+    {
+        "ABORTED",
+        "ALREADY_EXISTS",
+        "CANCELLED",
+        "DATA_LOSS",
+        "DEADLINE_EXCEEDED",
+        "FAILED_PRECONDITION",
+        "INTERNAL",
+        "INVALID_ARGUMENT",
+        "NOT_FOUND",
+        "OUT_OF_RANGE",
+        "PERMISSION_DENIED",
+        "RESOURCE_EXHAUSTED",
+        "UNAUTHENTICATED",
+        "UNAVAILABLE",
+        "UNIMPLEMENTED",
+        "UNKNOWN",
+    }
+)
+_GOOGLE_ERROR_INFO_REASONS = frozenset(
+    {
+        "ACCESS_TOKEN_EXPIRED",
+        "ACCESS_TOKEN_SCOPE_INSUFFICIENT",
+        "ACCOUNT_STATE_INVALID",
+        "BILLING_DISABLED",
+        "CONSUMER_INVALID",
+        "CONSUMER_SUSPENDED",
+        "IAM_PERMISSION_DENIED",
+        "LOCATION_POLICY_VIOLATED",
+        "ORG_RESTRICTION_VIOLATION",
+        "RESOURCE_QUOTA_EXCEEDED",
+        "SECURITY_POLICY_VIOLATED",
+        "SERVICE_DISABLED",
+        "SERVICE_USAGE_DENIED",
+        "USER_PROJECT_DENIED",
+    }
+)
+_GOOGLE_ERROR_INFO_DOMAINS = frozenset(
+    {
+        "googleapis.com",
+        "iam.googleapis.com",
+        "serviceusage.googleapis.com",
+    }
+)
+_GOOGLE_ERROR_SERVICES = frozenset(
+    {
+        "aiplatform.googleapis.com",
+        "cloudresourcemanager.googleapis.com",
+        "serviceusage.googleapis.com",
+        "texttospeech.googleapis.com",
+        "us-texttospeech.googleapis.com",
+    }
+)
+_GOOGLE_ERROR_PERMISSIONS = frozenset(
+    {
+        "aiplatform.endpoints.predict",
+        "serviceusage.services.enable",
+        "serviceusage.services.use",
+        "texttospeech.synthesize",
+    }
+)
+_GOOGLE_ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo"
 
 
 def _compact_json_bytes(value: Any) -> bytes:
@@ -1389,6 +1452,8 @@ class _GuideExecutionFailure(Exception):
         *,
         http_status: int | None = None,
         response_bytes: int = 0,
+        response_sha256: str | None = None,
+        provider_error: dict[str, Any] | None = None,
         provider_identifiers: dict[str, str] | None = None,
         provider_usage: dict[str, int] | None = None,
     ) -> None:
@@ -1396,6 +1461,8 @@ class _GuideExecutionFailure(Exception):
         self.code = code
         self.http_status = http_status
         self.response_bytes = response_bytes
+        self.response_sha256 = response_sha256
+        self.provider_error = provider_error
         self.provider_identifiers = provider_identifiers or {}
         self.provider_usage = provider_usage or {}
 
@@ -2052,6 +2119,109 @@ def _response_headers(value: Any) -> dict[str, str]:
     return result
 
 
+def _read_google_http_error_body(
+    response: Any,
+    headers: dict[str, str],
+) -> tuple[bytes, str | None]:
+    """Read one HTTP error body to EOF under the existing response ceiling.
+
+    The raw bytes remain ephemeral.  A safe failure code is returned rather
+    than raised so a provider exception cannot retain the response through an
+    exception chain.
+    """
+
+    declared_length = headers.get("content-length")
+    if declared_length is not None:
+        if not declared_length.isascii() or not declared_length.isdigit():
+            return b"", "provider_content_length_invalid"
+        if int(declared_length) > GUIDE_MAX_RESPONSE_BYTES_PER_CALL:
+            return b"", "provider_response_byte_cap_exceeded"
+
+    chunks: list[bytes] = []
+    received = 0
+    failure_code: str | None = None
+    try:
+        while True:
+            remaining = GUIDE_MAX_RESPONSE_BYTES_PER_CALL + 1 - received
+            if remaining <= 0:
+                failure_code = "provider_response_byte_cap_exceeded"
+                break
+            chunk = response.read(min(65_536, remaining))
+            if not isinstance(chunk, bytes):
+                failure_code = "provider_response_stream_invalid"
+                break
+            if not chunk:
+                break
+            chunks.append(chunk)
+            received += len(chunk)
+            if received > GUIDE_MAX_RESPONSE_BYTES_PER_CALL:
+                failure_code = "provider_response_byte_cap_exceeded"
+                break
+    except Exception:
+        failure_code = "provider_response_stream_invalid"
+
+    raw = b"".join(chunks)
+    chunks = []
+    chunk = b""
+    if failure_code is None and declared_length is not None and len(raw) != int(declared_length):
+        failure_code = "provider_response_truncated"
+    return raw, failure_code
+
+
+def _safe_google_error_diagnostic(
+    raw: bytes,
+    headers: dict[str, str],
+) -> dict[str, Any] | None:
+    """Reduce a Google JSON error to explicitly allowlisted non-secret fields."""
+
+    content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
+    content_encoding = headers.get("content-encoding", "identity").strip().lower()
+    if not raw or content_type != "application/json" or content_encoding not in {"", "identity"}:
+        return None
+    try:
+        payload = _strict_json_bytes(raw, "Google Cloud TTS error response")
+    except ValidationError:
+        return None
+    if not isinstance(payload, dict) or not isinstance(payload.get("error"), dict):
+        return None
+
+    error = payload["error"]
+    diagnostic: dict[str, Any] = {}
+    code = error.get("code")
+    if type(code) is int and 100 <= code <= 599:
+        diagnostic["code"] = code
+    status = error.get("status")
+    if isinstance(status, str) and status in _GOOGLE_ERROR_STATUSES:
+        diagnostic["status"] = status
+
+    safe_details: list[dict[str, str]] = []
+    details = error.get("details")
+    if isinstance(details, list) and len(details) <= 32:
+        for detail in details:
+            if not isinstance(detail, dict) or detail.get("@type") != _GOOGLE_ERROR_INFO_TYPE:
+                continue
+            safe_detail: dict[str, str] = {}
+            reason = detail.get("reason")
+            if isinstance(reason, str) and reason in _GOOGLE_ERROR_INFO_REASONS:
+                safe_detail["reason"] = reason
+            domain = detail.get("domain")
+            if isinstance(domain, str) and domain in _GOOGLE_ERROR_INFO_DOMAINS:
+                safe_detail["domain"] = domain
+            metadata = detail.get("metadata")
+            if isinstance(metadata, dict):
+                service = metadata.get("service")
+                if isinstance(service, str) and service in _GOOGLE_ERROR_SERVICES:
+                    safe_detail["service"] = service
+                permission = metadata.get("permission")
+                if isinstance(permission, str) and permission in _GOOGLE_ERROR_PERMISSIONS:
+                    safe_detail["permission"] = permission
+            if safe_detail and safe_detail not in safe_details:
+                safe_details.append(safe_detail)
+    if safe_details:
+        diagnostic["error_info"] = safe_details
+    return diagnostic or None
+
+
 def _safe_provider_evidence(
     headers: dict[str, str],
     access_token: str,
@@ -2106,6 +2276,10 @@ def _perform_google_post(
     geometry: Any = None
     content_type = ""
     content_encoding = ""
+    error_raw = b""
+    error_response_sha256: str | None = None
+    error_diagnostic: dict[str, Any] | None = None
+    error_read_failure: str | None = None
     if len(body) != GUIDE_MAX_REQUEST_BODY_BYTES or sha256_bytes(body) != GUIDE_REQUEST_BODY_SHA256:
         pending_failure = _GuideExecutionFailure("compiled_request_body_binding_failed")
     else:
@@ -2120,9 +2294,17 @@ def _perform_google_post(
             headers = _response_headers(getattr(response, "headers", {}))
             identifiers, usage = _safe_provider_evidence(headers, access_token, quota_project)
             if type(status) is not int or status != 200:
+                error_raw, error_read_failure = _read_google_http_error_body(response, headers)
+                if error_read_failure in {None, "provider_response_truncated"}:
+                    error_response_sha256 = sha256_bytes(error_raw)
+                if error_read_failure is None:
+                    error_diagnostic = _safe_google_error_diagnostic(error_raw, headers)
                 raise _GuideExecutionFailure(
-                    "provider_http_failure",
+                    error_read_failure or "provider_http_failure",
                     http_status=status if type(status) is int else None,
+                    response_bytes=len(error_raw),
+                    response_sha256=error_response_sha256,
+                    provider_error=error_diagnostic,
                     provider_identifiers=identifiers,
                     provider_usage=usage,
                 )
@@ -2239,9 +2421,17 @@ def _perform_google_post(
                     headers = _response_headers(exc.headers)
                     identifiers, usage = _safe_provider_evidence(headers, access_token, quota_project)
                     code = "provider_redirect_forbidden" if 300 <= exc.code < 400 else "provider_http_failure"
+                    error_raw, error_read_failure = _read_google_http_error_body(exc, headers)
+                    if error_read_failure in {None, "provider_response_truncated"}:
+                        error_response_sha256 = sha256_bytes(error_raw)
+                    if error_read_failure is None:
+                        error_diagnostic = _safe_google_error_diagnostic(error_raw, headers)
                     pending_failure = _GuideExecutionFailure(
-                        code,
+                        error_read_failure or code,
                         http_status=exc.code,
+                        response_bytes=len(error_raw),
+                        response_sha256=error_response_sha256,
+                        provider_error=error_diagnostic,
                         provider_identifiers=identifiers,
                         provider_usage=usage,
                     )
@@ -2291,6 +2481,10 @@ def _perform_google_post(
     geometry = None
     content_type = ""
     content_encoding = ""
+    error_raw = b""
+    error_response_sha256 = None
+    error_diagnostic = None
+    error_read_failure = None
     raise pending_failure from None
 
 
@@ -2440,6 +2634,8 @@ def execute_synthetic_guide(
     current_usage: dict[str, int] = {}
     current_http_status: int | None = None
     current_response_bytes = 0
+    current_response_sha256: str | None = None
+    current_provider_error: dict[str, Any] | None = None
     current_response_counted = False
     previous_call_completed_at: datetime | None = None
     credential_refresh_attempted = False
@@ -2477,6 +2673,8 @@ def execute_synthetic_guide(
             "provider_outputs_received": len(outputs),
             "provider_response_bytes_total": total_response_bytes,
             "failed_response_bytes": current_response_bytes,
+            "failed_response_sha256": current_response_sha256,
+            "provider_error": current_provider_error,
             "provider_spend_usd": modeled_spend,
             "provider_spend_semantics": "modeled_authorized_ceiling_per_attempt_not_provider_invoice",
             "credential_mechanism": "gcloud_application_default_print_access_token",
@@ -2522,6 +2720,8 @@ def execute_synthetic_guide(
             current_usage = {}
             current_http_status = None
             current_response_bytes = 0
+            current_response_sha256 = None
+            current_provider_error = None
             current_response_counted = False
             for existing_output in outputs:
                 _verify_execution_output(contract.root, existing_output)
@@ -2731,6 +2931,8 @@ def execute_synthetic_guide(
         current_usage = exc.provider_usage or current_usage
         current_http_status = exc.http_status
         current_response_bytes = exc.response_bytes or current_response_bytes
+        current_response_sha256 = exc.response_sha256 or current_response_sha256
+        current_provider_error = exc.provider_error or current_provider_error
         if exc.response_bytes and not failed_response_was_counted:
             total_response_bytes += exc.response_bytes
         try:
@@ -2765,6 +2967,8 @@ def execute_synthetic_guide(
     outputs = []
     current_identifiers = {}
     current_usage = {}
+    current_response_sha256 = None
+    current_provider_error = None
     contract = None
     refreshed = None
     consumption = {}

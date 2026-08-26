@@ -37,6 +37,10 @@ from .performance_transfer import (
     validate_performance_transfer_plan,
     validate_synthetic_guide_authorization,
 )
+from .google_service_enablement import (
+    dry_run_google_service_enablement,
+    execute_google_service_enablement,
+)
 from .retrieval import (
     dry_run_metadata_inventory,
     dry_run_named_sample_batch,
@@ -225,6 +229,15 @@ def build_parser() -> argparse.ArgumentParser:
     synthetic_guide.add_argument("--execute", action="store_true")
     synthetic_guide.add_argument("--timeout", type=float, default=60.0)
 
+    service_enablement = sub.add_parser(
+        "google-service-enablement",
+        help="dry-run by default; consume one exact active authority to enable only aiplatform.googleapis.com",
+    )
+    service_enablement.add_argument("--authorization", type=_contract_path, required=True)
+    service_enablement.add_argument("--record", type=_path)
+    service_enablement.add_argument("--execute", action="store_true")
+    service_enablement.add_argument("--timeout", type=float, default=30.0)
+
     voice_transfer = sub.add_parser(
         "elevenlabs-voice-transfer",
         help="dry-run the blocked or exact selected-guide Voice Changer request; external execution is not implemented",
@@ -398,6 +411,21 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
             )
         else:
             result = dry_run_synthetic_guide(args.plan, args.canonical_w)
+        if args.record:
+            _write_json(args.record, result)
+            result["record"] = str(args.record)
+        return result
+    if args.command == "google-service-enablement":
+        if args.execute:
+            if args.record is not None:
+                raise ValidationError("--record is for dry runs; execution writes its own immutable receipt")
+            if args.timeout <= 0 or args.timeout > 30:
+                raise ValidationError("--timeout must be greater than zero and at most 30 seconds")
+            return execute_google_service_enablement(
+                args.authorization,
+                timeout=args.timeout,
+            )
+        result = dry_run_google_service_enablement(args.authorization)
         if args.record:
             _write_json(args.record, result)
             result["record"] = str(args.record)
