@@ -613,7 +613,7 @@ def execute() -> dict[str, Any]:
                     try:
                         counted_set_policy(changed)
                     except TransactionError as exc:
-                        if exc.http_status in {409, 412} and attempts == 0:
+                        if exc.http_status == 412 and attempts == 0:
                             attempts += 1
                             cleanup_retry_count = 1
                             continue

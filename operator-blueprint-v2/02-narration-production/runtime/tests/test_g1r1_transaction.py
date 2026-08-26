@@ -174,6 +174,33 @@ class G1R1TransactionTests(unittest.TestCase):
         self.assertTrue(captured["security_block_role_still_possible"])
         self.assertEqual(captured["iam_calls"]["cleanup_retry_count"], 0)
 
+    def test_http_409_cleanup_failure_is_not_retried(self) -> None:
+        captured: dict = {}
+
+        def capture_receipt(value: dict) -> str:
+            captured.update(copy.deepcopy(value))
+            return "9" * 64
+
+        conflict = transaction.TransactionError("iam_http_failure", http_status=409)
+        with (
+            patch.object(transaction, "MEMBER_SHA256", MEMBER_SHA),
+            patch.object(transaction, "_preflight_local_state", return_value={"project": "fixture-project", "head": "8" * 40, "executor_source_sha256": "7" * 64}),
+            patch.object(transaction, "_preflight_google_adc", return_value="/safe/gcloud"),
+            patch.object(transaction, "_load_google_access_token", return_value="fixture-token-never-emitted"),
+            patch.object(transaction, "_get_policy", side_effect=[policy_with_role(), policy_with_role(etag="revoke-etag")]),
+            patch.object(transaction, "_invoke_g1_once", return_value={"invoked": True, "exit_code": 0, "outcome": "executor_returned_success"}),
+            patch.object(transaction, "_set_policy", side_effect=conflict) as set_policy,
+            patch.object(transaction, "_collect_and_validate_artifacts", return_value=({"run_receipt": {"exists": True}}, None, True)),
+            patch.object(transaction, "_write_private_receipt", side_effect=capture_receipt),
+        ):
+            with self.assertRaisesRegex(transaction.TransactionError, "SECURITY_BLOCK_ROLE_STILL_POSSIBLE"):
+                transaction.execute()
+
+        self.assertEqual(set_policy.call_count, 1)
+        self.assertEqual(captured["iam_calls"]["set_policy"], 1)
+        self.assertEqual(captured["iam_calls"]["cleanup_retry_count"], 0)
+        self.assertTrue(captured["security_block_role_still_possible"])
+
     def test_committed_source_contains_no_raw_principal(self) -> None:
         source = Path(transaction.__file__).read_text(encoding="utf-8")
         self.assertNotIn("@mpthaker", source)
