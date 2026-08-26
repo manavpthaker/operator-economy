@@ -1,8 +1,8 @@
 # Step 2 Authority and Reference Map
 
-Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. Exact G1 authority is active
-and unconsumed through `2026-08-26T23:37:57Z`; V1 remains blocked. V0.3 and v0.4 remain frozen
-historical evidence.
+Status: proposed v0.5 synthetic-guide-to-Saved-C transfer microtest. Exact G1 authority is consumed
+after one HTTP `403` request and no audio; V1 remains blocked. V0.3 and v0.4 remain frozen historical
+evidence.
 
 This map prevents useful V1 narration practice from silently becoming V2 canon.
 
@@ -79,7 +79,7 @@ V2 authority, prove account access, confer commercial rights, or authorize an ac
 | [Hume voice cloning](https://dev.hume.ai/docs/voice/voice-cloning) | Human-audio clone flow. | Current public path is UI-mediated; login is not upload/clone authority. |
 | [Hume Create Voice API](https://dev.hume.ai/reference/voices/create) | Documents saving a voice from a TTS generation ID. | Do not misrepresent it as a public human-audio upload-clone API. |
 | [Hume pricing](https://www.hume.ai/pricing) | Commercial-tier gate. | Free/Starter is not accepted for OE commercial production; verify current paid terms before action. |
-| [Google Cloud Gemini TTS](https://cloud.google.com/text-to-speech/docs/gemini-tts), [Text-to-Speech synthesize API](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize), and [pricing](https://cloud.google.com/text-to-speech/pricing) | Separate acting prompt and exact dialogue through the Cloud GA endpoint, `LINEAR16` guide acquisition, request limits, modeled authorization ceiling, and the installed G1 transport. | The executor enforces the reviewed caps locally, but the committed G1 draft authorizes zero; two requests remain stochastic, and provider success is not lexical or creative approval. |
+| [Google Cloud Gemini TTS](https://cloud.google.com/text-to-speech/docs/gemini-tts), [Text-to-Speech synthesize API](https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize), and [pricing](https://cloud.google.com/text-to-speech/pricing) | Separate acting prompt and exact dialogue through the Cloud GA endpoint, `LINEAR16` guide acquisition, request limits, modeled authorization ceiling, and the installed G1 transport. | Candidate A returned HTTP `403` and G1 stopped with no audio; the exact cause is unknown. Google documents `aiplatform.endpoints.predict` as required, but any IAM change or new request needs separate authority. |
 | [ElevenLabs Voice Changer](https://elevenlabs.io/docs/overview/capabilities/voice-changer) and [speech-to-speech API](https://elevenlabs.io/docs/api-reference/speech-to-speech/convert) | Best-effort transfer of a selected guide's performance into the existing Original C identity, with native PCM requested first. | It accepts audio rather than an acting prompt or transcript. Exact words, identity, and performance transfer require new QA. Upload is blocked until the exact guide, rights, current opt-out or ZRM state, and separate authorization are verified. |
 
 Recheck every live source and active account term before issuing an authorization.

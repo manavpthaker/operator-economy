@@ -2,8 +2,8 @@
 
 Status: proposed v0.5 contract with an independently replayed G1 one-shot transport plus
 credential-free guide and voice-transfer validation/compilation. Frozen v0.2 through v0.4 evidence
-remains history. One exact G1 authorization is active and unconsumed; no V1 or downstream authority
-is materialized.
+remains history. The exact G1 authorization is consumed after one failed-closed HTTP `403` request;
+no V1 or downstream authority is materialized.
 
 ## Purpose and boundary
 

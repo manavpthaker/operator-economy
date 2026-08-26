@@ -1,7 +1,7 @@
 # V2 Step 2 v0.5 change proposal: Synthetic Guide to Saved-C Transfer
 
-Status: proposed; G1 one-shot transport implemented and independently replayed; exact 24-hour G1
-authorization active and unconsumed through `2026-08-26T23:37:57Z`
+Status: proposed; G1 one-shot transport implemented and independently replayed; exact G1
+authorization consumed after candidate A returned HTTP `403`; no audio generated
 
 Proposal date: 2026-08-25
 
@@ -10,10 +10,10 @@ owner creative `FAIL / REVISE`. Both candidates were rejected as flat, with no i
 emotion. The locked AI Visibility words, Step 1 structure, Original C voice identity, and earlier
 evidence remain unchanged.
 
-External-action authority: one exact G1 guide-generation authorization is active and unconsumed.
-The zero-cap G1 draft is preserved, and `AUTH-V1` remains a zero-authority blocked draft. No provider
-call, audio generation, cross-provider upload, guide selection, full capture, or downstream action
-has occurred.
+External-action authority: the exact G1 guide-generation authorization is consumed and authorizes
+nothing further. The zero-cap G1 draft is preserved, and `AUTH-V1` remains a zero-authority blocked
+draft. One provider call failed closed; no audio, cross-provider upload, guide selection, full
+capture, or downstream action occurred.
 
 Runtime boundary: v0.5 implements only the Google G1 guide transport. The exact active G1 binds the
 frozen requests, local ceilings, private quota-project hash, one-shot consumption, and 24-hour

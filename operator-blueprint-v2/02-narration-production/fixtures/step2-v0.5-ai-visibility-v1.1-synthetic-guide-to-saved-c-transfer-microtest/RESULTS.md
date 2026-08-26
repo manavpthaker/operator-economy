@@ -1,6 +1,6 @@
 # Synthetic-guide to Saved-C transfer microtest results
 
-Status: `g1_active_unconsumed_no_provider_action`
+Status: `g1_failed_closed_http_403_no_audio`
 
 | State | Result |
 | --- | --- |
@@ -9,14 +9,14 @@ Status: `g1_active_unconsumed_no_provider_action`
 | Exact microtest | `W[30,110)`; 80 tokens; 465 transport characters |
 | Provider-neutral performance map | frozen for consequence, dry irritation, diagnostic reset, and possibility lift |
 | Gemini guide body | exact body compiled twice; identical, unseeded, stochastic requests |
-| AUTH-G1 | zero-cap `DRAFT` preserved; exact 24-hour `ACTIVE` record materialized, validated, and unconsumed |
-| G1 executor | implemented and independently replayed; exact active authorization validates offline |
-| G1 consumption destination | `authorizations/consumed/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.consumed.json`; not materialized |
-| G1 success destination | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.run.json`; not materialized |
-| G1 failure destination | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json`; not materialized |
-| Google readiness | ADC authentication, billing, and Text-to-Speech API enablement reported ready; this patch did not access credentials or Google |
+| AUTH-G1 | zero-cap `DRAFT` preserved; exact `ACTIVE` record permanently consumed |
+| G1 executor | one exact candidate-A request reached Google and returned HTTP `403`; stopped without retry |
+| G1 consumption record | `authorizations/consumed/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.consumed.json`; materialized before credential refresh/network |
+| G1 success receipt | absent |
+| G1 failure receipt | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json`; immutable failed-closed evidence |
+| Google result | authenticated request rejected with HTTP `403`; exact provider cause unknown because the error body was not retained |
 | Guide audio | none generated |
-| G1 consumption / run / failure receipts | none materialized |
+| G1 consumption / run / failure receipts | consumption and failure materialized; run absent |
 | Guide QA and owner selection | not possible until separately authorized guide capture exists |
 | Eleven transfer adapter | blocked future contract only; Original C `scMbPZwQjr40V1MzL3Nj` |
 | Cross-provider disclosure | not authorized |
@@ -24,7 +24,7 @@ Status: `g1_active_unconsumed_no_provider_action`
 | AUTH-V1 | `DRAFT`; blocked and zero-authority; exact guide absent |
 | Voice Changer request | no exact multipart request can exist until a guide is selected and all prerequisites pass |
 | Runtime acceptance | `181/181` tests pass; G1 transport exists, V1 transport does not |
-| Provider calls / outputs / spend | `0 / 0 / $0` |
+| Provider calls / outputs / spend | `1 / 0 / $0.33 modeled attempted spend` |
 | N4A, full capture, Step 2 lock, Step 3, sharing, publication | not authorized |
 
 ## Frozen identities
@@ -40,7 +40,7 @@ Status: `g1_active_unconsumed_no_provider_action`
 
 ## Artifact hashes
 
-These hashes identify credential-free plan artifacts, not authorization or provider execution.
+These hashes bind the frozen plan, authorization, and provider-execution evidence.
 
 | Artifact | SHA-256 |
 | --- | --- |
@@ -51,8 +51,11 @@ These hashes identify credential-free plan artifacts, not authorization or provi
 | Synthetic-guide dry run | `33fe792f4f9b858e9a3a388dc2480a1bd9d0a57ad3b0c2a74165feb6ac01cee9` |
 | Blocked transfer compilation | `8ddfd9ba77fca38940bbf26342e7c8e14477b96e72fc21176fb2975803b0127c` |
 | Zero-authority AUTH-G1 draft | `eae5bcca9df42835b5d9f447db64d389c8c109ad9eeb00716d191326fe0540e5` |
-| Active unconsumed AUTH-G1 | `6d5ae0e6719bae8100cd437b8faa875cbd3f9b3969e09749544d5e5ab06366ea` |
+| Active, now-consumed AUTH-G1 | `6d5ae0e6719bae8100cd437b8faa875cbd3f9b3969e09749544d5e5ab06366ea` |
 | G1 owner authorization and readiness record | `c7e1a78ab060540cab1ae70ae861a6f177c0ed03818be6a480d012de1f689a66` |
+| G1 consumption record | `e7a257dd30128122d3e40b44d7119cb534cf47c70a33db145327f1474c36c4b3` |
+| G1 failure receipt | `3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1` |
+| G1 failed-closed disposition | `b05ce0296f4df644b333f74f6e150c8ae46a621844864285847c2532f014daf2` |
 | Blocked zero-authority AUTH-V1 draft | `1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036` |
 
 ## Runtime schema hashes

@@ -1,7 +1,7 @@
 # Synthetic-guide to Saved-C transfer microtest
 
-Status: exact G1 authorization active and unconsumed; no provider action yet. The zero-cap
-`AUTH-G1` draft is preserved beside the separate 24-hour active record. `AUTH-V1` remains a blocked
+Status: exact G1 authorization consumed and failed closed on candidate A with HTTP `403`; no audio
+was generated and no retry occurred. The zero-cap `AUTH-G1` draft is preserved. `AUTH-V1` remains a blocked
 draft that cannot become executable until one generated guide passes QA, the owner selects its
 exact original-provider WAV hash, ElevenLabs data-use protection is verified, rights are rebound,
 and a separate authorization is issued.
@@ -75,7 +75,7 @@ capped in the request itself; the installed executor enforces every bound locall
 raw billing-project identity remain outside Git.
 `authorizations/01-google-synthetic-guide.DRAFT.json` grants zero calls, bytes, outputs, and spend.
 
-## Installed G1 executor and active one-shot authority
+## Installed G1 executor and consumed one-shot authority
 
 The runtime can execute only a separately materialized, active, unexpired `AUTH-G1` whose exact
 caps, request hashes, consumption path, and SHA-256 of the private quota-project value all validate.
@@ -89,7 +89,7 @@ plus fixed `CLOUDSDK_CORE_DISABLE_PROMPTS=1`.
 Tokens, raw project identity, credential material, response bodies, and `gcloud` stderr never enter
 committed artifacts.
 
-The active authorization ID deterministically names its local evidence:
+The consumed authorization ID deterministically names its local evidence:
 
 - `authorizations/consumed/<authorization_id>.consumed.json` before token refresh or provider
   network;
@@ -155,28 +155,28 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
 - `compiled/elevenlabs-voice-transfer.BLOCKED.json` proves why no exact multipart request can yet
   exist.
 - `authorizations/01-google-synthetic-guide.DRAFT.json` is zero-authority pending owner review.
-- `authorizations/01-google-synthetic-guide.ACTIVE.20260825T233757Z.json` is the exact, unconsumed
-  G1 authority through `2026-08-26T23:37:57Z`, unless consumed first.
+- `authorizations/01-google-synthetic-guide.ACTIVE.20260825T233757Z.json` is the exact G1 authority
+  that was consumed before the failed request.
 - `evidence/G1-OWNER-AUTHORIZATION-AND-READINESS.20260825T233757Z.md` records the bounded owner
   decision, operator-reported cloud readiness, immutable hashes, and evidence limits.
+- `evidence/G1-FAILURE-DISPOSITION.20260825T235236Z.md` binds the consumed authorization and HTTP
+  `403` failure without claiming an unproven provider cause.
 - `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is blocked pending the exact selected
   guide, all prerequisite evidence, and a later separate owner decision.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
   templates.
-- The active G1 derives one credential-free consumption record and exactly one run-or-failure
-  receipt at the paths above; none exists yet.
-- `.gitignore` excludes provider audio, local media, and private receipts. Credential-free active
-  and consumed authorization evidence must remain reviewable and committed when it exists.
+- G1 produced the bound consumption record and failure receipt. The run receipt and both candidate
+  WAVs are absent.
+- `.gitignore` excludes provider audio and local media. Credential-free authorization, consumption,
+  and redacted provider receipts remain reviewable and committed when they exist.
 
 ## Hard boundary
 
-Dry-run validity is not authorization; the separate active G1 record is. This fixture has made zero provider calls, accessed zero
-credentials, generated zero audio, uploaded zero cross-provider bytes, mutated zero voices, and
-spent `$0`. The active G1 exists only because of the explicit bounded owner decision recorded in
-`evidence/`; no prior authorization, provider login, guide quality, dry run, or Original C state
-could activate it by inference.
+Dry-run validity is not authorization; the separate active G1 record was. This fixture made one
+authorized Google request, generated zero audio, uploaded zero cross-provider bytes, mutated zero
+voices, and recorded `$0.33` modeled attempted spend. The exact provider cause of HTTP `403` is
+unknown; the redacted receipt does not prove a missing IAM role or any other explanation.
 
-The active G1 authorizes only the exact two-call guide microtest before expiry or consumption. The
-preserved G1 draft remains zero-authority. Voice Changer remains validation/compilation-only and
-rejects `--execute`. No credential read, authorization consumption, provider call, receipt, or audio
-write has occurred for this fixture.
+The consumed G1 authorizes nothing further. The preserved G1 draft remains zero-authority. Voice
+Changer remains validation/compilation-only and rejects `--execute`. No retry, replacement request,
+IAM mutation, transfer, or downstream production action is authorized.
