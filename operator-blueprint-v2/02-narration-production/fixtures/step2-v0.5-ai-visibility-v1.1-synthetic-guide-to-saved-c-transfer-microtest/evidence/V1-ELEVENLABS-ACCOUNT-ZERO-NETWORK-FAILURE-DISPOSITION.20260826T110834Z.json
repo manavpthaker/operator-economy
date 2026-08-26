@@ -1,0 +1,83 @@
+{
+  "schema_version": "oe-elevenlabs-account-verification-failure-disposition-v1",
+  "record_id": "V1-ELEVENLABS-ACCOUNT-ZERO-NETWORK-FAILURE-DISPOSITION-20260826T110834Z",
+  "status": "immutable_local_disposition",
+  "recorded_at": "2026-08-26T11:14:29Z",
+  "attempt_binding": {
+    "authorization_id": "AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z",
+    "authorization_path": "authorizations/12-elevenlabs-account-verification.ACTIVE.20260826T105051Z.json",
+    "authorization_sha256": "328c14036caabbceb07b9516679c1518ca0689e9c6c68e974cb29c32755626a8",
+    "authorization_commit": "008742c5e9e4f6a8b61b86a9b726cd1eebf73bea",
+    "runtime_commit": "d03f7d7279a80670b355549309503683cce1098d",
+    "consumption_path": "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json",
+    "consumption_sha256": "359bad8d5821fe45ff20febc2b06cc81df16b043404cddc7f1d46ed5bc9f2b91",
+    "failure_receipt_path": "receipts/elevenlabs-account/AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z.failure.json",
+    "failure_receipt_sha256": "f3b2c461a803d1f32d58ec5b112adb1081dd1175dc6f071122b303abe7ea8deb",
+    "consumed_at": "2026-08-26T11:04:46.806929+00:00",
+    "failed_at": "2026-08-26T11:04:46.987609+00:00"
+  },
+  "observed_outcome": {
+    "authorization_consumed": true,
+    "outcome": "failed_closed",
+    "reason_code": "local_validation_or_filesystem_failure",
+    "failure_phase_boundary": "after_credential_loading_boundary_before_account_get",
+    "credential_loading_boundary_crossed": true,
+    "provider_get_attempts_consumed": 0,
+    "provider_post_attempts_consumed": 0,
+    "network_called": false,
+    "provider_response_received": false,
+    "http_status": null,
+    "response_bytes": 0,
+    "raw_provider_response_stored": false,
+    "account_setting_changed": false,
+    "retries_made": 0,
+    "redirects_followed": 0
+  },
+  "credential_source_diagnostic": {
+    "checked_at": "2026-08-26T11:12:42Z",
+    "environment_variable_name": "ELEVENLABS_API_KEY",
+    "environment_check_method": "codex_runner_nonempty_boolean_only",
+    "environment_check_result": "missing_or_empty",
+    "diagnosis_status": "strong_local_diagnosis_not_independently_proven_by_generic_failure_receipt",
+    "private_dotenv_check_scope": "exact_assignment_name_and_path_presence_only",
+    "existing_assignment_detected_in_main_checkout_private_dotenv": true,
+    "private_value_printed": false,
+    "private_value_persisted": false,
+    "credential_fingerprint_computed": false,
+    "user_scope_established": false,
+    "safe_conclusion": "the same task runner did not expose a nonempty key to the executor environment, while a private main-checkout assignment exists; this supports but does not independently prove the generic receipt's precise local cause"
+  },
+  "interpretation": {
+    "established": "the runtime consumed the fixed authority, crossed its credential-loading boundary, and stopped before starting any HTTP request",
+    "likely_cause": "the executor did not inherit the existing private main-checkout key assignment",
+    "provider_contacted": false,
+    "account_verified": false,
+    "credential_validity_known": false,
+    "existing_authorization_reusable": false,
+    "automatic_retry_permitted": false,
+    "safe_conclusion": "this is a zero-network local credential-delivery failure, not evidence about the ElevenLabs account or key validity"
+  },
+  "repair_gate": {
+    "execution_semantics": "fresh_transaction_after_zero_provider_call_not_retry_or_resumption",
+    "credential_delivery_remediation_required": true,
+    "prior_outcome_commit_required": true,
+    "new_scope_latch_and_runtime_audit_required": true,
+    "new_active_authorization_required": true,
+    "renewed_literal_owner_approval_required": true,
+    "existing_owner_approval_reusable": false,
+    "prior_latch_reuse_or_deletion_permitted": false,
+    "pre_latch_credential_readiness_preflight_required": true,
+    "automatic_retry_permitted": false
+  },
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "account_readback_authorized": false,
+    "account_setting_mutation_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}
