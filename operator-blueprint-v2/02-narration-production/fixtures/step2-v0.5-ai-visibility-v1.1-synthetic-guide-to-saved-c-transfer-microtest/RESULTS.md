@@ -1,6 +1,6 @@
 # Synthetic-guide to Saved-C transfer microtest results
 
-Status: `g1_failed_closed_http_403_no_audio`
+Status: `g1_and_g1r1_failed_closed_http_403_no_audio_iam_cleanup_verified`
 
 | State | Result |
 | --- | --- |
@@ -11,10 +11,15 @@ Status: `g1_failed_closed_http_403_no_audio`
 | Gemini guide body | exact body compiled twice; identical, unseeded, stochastic requests |
 | AUTH-G1 | zero-cap `DRAFT` preserved; exact `ACTIVE` record permanently consumed |
 | G1 executor | one exact candidate-A request reached Google and returned HTTP `403`; stopped without retry |
+| G1R1 recovery | fresh same-scope authorization consumed; exact temporary role present before the request and removed with final absence readback afterward |
+| G1R1 executor | one exact candidate-A request again returned HTTP `403`; stopped without retry |
 | G1 consumption record | `authorizations/consumed/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.consumed.json`; materialized before credential refresh/network |
 | G1 success receipt | absent |
 | G1 failure receipt | `receipts/google/AUTH-G1-ai-visibility-v1.1-p01-synthetic-guide-20260825T233757Z.failure.json`; immutable failed-closed evidence |
-| Google result | authenticated request rejected with HTTP `403`; exact provider cause unknown because the error body was not retained |
+| G1R1 consumption record | `authorizations/consumed/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.consumed.json`; materialized before credential refresh/network |
+| G1R1 failure receipt | `receipts/google/AUTH-G1R1-ai-visibility-v1.1-p01-synthetic-guide-20260826T003835Z.failure.json`; immutable failed-closed evidence |
+| G1R1 IAM transaction | `3` policy reads, `1` revoke write, `0` cleanup retries; final readback records zero target-role entries |
+| Google result | both authenticated candidate-A requests returned HTTP `403`; exact provider cause unknown because the error bodies were not retained |
 | Guide audio | none generated |
 | G1 consumption / run / failure receipts | consumption and failure materialized; run absent |
 | Guide QA and owner selection | not possible until separately authorized guide capture exists |
@@ -23,8 +28,8 @@ Status: `g1_failed_closed_http_403_no_audio`
 | Eleven data-use protection | pending live verification before any upload |
 | AUTH-V1 | `DRAFT`; blocked and zero-authority; exact guide absent |
 | Voice Changer request | no exact multipart request can exist until a guide is selected and all prerequisites pass |
-| Runtime acceptance | `181/181` tests pass; G1 transport exists, V1 transport does not |
-| Provider calls / outputs / spend | `1 / 0 / $0.33 modeled attempted spend` |
+| Runtime acceptance | `189/189` tests pass; G1 transport and bounded recovery wrapper exist, V1 transport does not |
+| Provider calls / outputs / spend | `2 / 0 / $0.66 total modeled attempted spend` |
 | N4A, full capture, Step 2 lock, Step 3, sharing, publication | not authorized |
 
 ## Frozen identities
@@ -56,6 +61,13 @@ These hashes bind the frozen plan, authorization, and provider-execution evidenc
 | G1 consumption record | `e7a257dd30128122d3e40b44d7119cb534cf47c70a33db145327f1474c36c4b3` |
 | G1 failure receipt | `3cf567c2b8947f11166112ae63c7c652010f97d5095f7d042cd3f0f354d25ee1` |
 | G1 failed-closed disposition | `b05ce0296f4df644b333f74f6e150c8ae46a621844864285847c2532f014daf2` |
+| G1R1 temporary-IAM authority/state | `c2468d049eebd7098df66eb685a9a6f43a0754c6631bd0dcccfd59ffe2eb9809` |
+| G1R1 owner recovery authorization | `e7547e62f2227ea3deec70fa7ba136c5738dff52e3823cf03f9e1b3dd89541be` |
+| Active, now-consumed G1R1 authorization | `4dca079b5022d184d080b401225fd819d988851ef40f08d80e3df62ae9825310` |
+| G1R1 consumption record | `bfd943d5f221f7f10e7aacab206078da2963b5e6790305b6257f823c3233fba1` |
+| G1R1 failure receipt | `df00adefe5e3215ff0c60ed19fe7835d2056a78ba2130e46b18a0d66de2161af` |
+| G1R1 IAM-and-guide transaction receipt | `644f0835a0ae9b931e8762714e49ef7b070dd2ba0923fdbb240199611eaab09b` |
+| G1R1 failure and cleanup disposition | `430550483aca42fef3b5079d3c687a2b8083218f98806439f2b939822963fbb3` |
 | Blocked zero-authority AUTH-V1 draft | `1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036` |
 
 ## Runtime schema hashes
@@ -80,6 +92,8 @@ grant no authority.
 | `runtime/oe_narration/cli.py` | `f3c2efd78183da9c39e96883f4e6a35b1526b4f95bc2316fbb18daa7ab310508` |
 | `runtime/oe_narration/__init__.py` | `58dcdf45e0bee7904ab3b9cbb9e5ab22d153eed64346697907b3077126ce32f6` |
 | `runtime/tests/test_performance_transfer.py` | `7a6d44883efd007091dfe271a1b2c8cf09ea268a3f8d543724058b1f816b9eb0` |
+| `runtime/oe_narration/g1r1_transaction.py` | `3cb8e434f0b10b1087087d2a6810885c1f1cd00e17e6846a8937955e05bd90c1` |
+| `runtime/tests/test_g1r1_transaction.py` | `51d3d6a11e733e30b17f3bb81423e3c79f5e9bdbf1900ae2420d1d65b6eb4f77` |
 
 No plan, validation, or hash in this file may be interpreted as permission to access credentials,
 call Google, generate audio, disclose a guide to ElevenLabs, call Voice Changer, select a provider,

@@ -46,6 +46,10 @@ authorization exist. See
 [`STEP2-v0.5-CHANGE-PROPOSAL.md`](STEP2-v0.5-CHANGE-PROPOSAL.md) and the
 [`v0.5 fixture`](fixtures/step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest/).
 
+Both G1 and recovery G1R1 are now consumed after one candidate-A HTTP `403` each; neither produced
+audio or called candidate B. G1R1 verified the exact temporary role before the request and its
+removal afterward. The actual Google rejection cause remains unknown, and V1 stays blocked.
+
 This is a method microtest, not another N4A. A passing short transfer would authorize nothing by
 itself; it could only support a later owner decision about a separately authorized long-form and
 pickup test.
@@ -173,9 +177,10 @@ The v0.5 CLI extension separately validates and compiles the performance-transfe
 guide requests, bound provider adapters, and the blocked exact-guide Voice Changer request. Dry
 runs access no credentials, network, account, or audio. V0.5 now includes an independently replayed,
 consume-before-network G1 executor for exactly two Google guide requests; the committed G1 draft
-has zero caps and cannot enter it. A separate exact G1 authorization was consumed when candidate A
-returned HTTP `403`; no audio was produced and no retry occurred. Voice Changer still has no
-executor and rejects `--execute`.
+has zero caps and cannot enter it. Separate exact G1 and recovery G1R1 authorizations are consumed;
+each candidate-A request returned HTTP `403`, no audio was produced, and no retry occurred. G1R1's
+bounded wrapper verified temporary-role cleanup. Voice Changer still has no executor and rejects
+`--execute`.
 Neither installed code nor a successful guide run can infer guide selection, effective
 data-protection state, cross-provider disclosure, full capture, or downstream authority.
 

@@ -1,10 +1,9 @@
 # Synthetic-guide to Saved-C transfer microtest
 
-Status: exact G1 authorization consumed and failed closed on candidate A with HTTP `403`; no audio
-was generated and no retry occurred. The zero-cap `AUTH-G1` draft is preserved. `AUTH-V1` remains a blocked
-draft that cannot become executable until one generated guide passes QA, the owner selects its
-exact original-provider WAV hash, ElevenLabs data-use protection is verified, rights are rebound,
-and a separate authorization is issued.
+Status: both exact G1 and recovery G1R1 authorizations are consumed. Each stopped after its one
+candidate-A request returned HTTP `403`; no audio, retry, redirect, fallback, or candidate-B call
+occurred. G1R1 independently read back the temporary `roles/aiplatform.user` entry before the
+request and verified its exact removal afterward. `AUTH-V1` remains blocked because no guide exists.
 
 ## Question
 
@@ -102,6 +101,12 @@ retry, fallback, alternate request, or resume. If call two fails after call one 
 WAV remains as a receipt-bound partial output and the consumed authorization cannot be reused.
 Attempted calls accrue `$0.33` each only as modeled authorization spend, never observed billing.
 
+The separately committed G1R1 recovery wrapper added no grant path. It verified the already-present
+hash-bound role, invoked the same G1 executor once, and removed the role in a mandatory `finally`
+path. Its final readback recorded zero target-role entries. G1R1 nevertheless returned the same HTTP
+`403`, so absence of that direct role is not a sufficient explanation for the second failure. The
+actual Google cause remains unknown.
+
 ## Guide gate and selection
 
 Each original provider WAV must pass exact-word human review, nonempty full decode, exact declared
@@ -161,6 +166,15 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
   decision, operator-reported cloud readiness, immutable hashes, and evidence limits.
 - `evidence/G1-FAILURE-DISPOSITION.20260825T235236Z.md` binds the consumed authorization and HTTP
   `403` failure without claiming an unproven provider cause.
+- `authorizations/03-google-synthetic-guide-recovery.ACTIVE.20260826T003835Z.json` is the fresh,
+  now-consumed same-scope G1R1 authority.
+- `evidence/G1R1-TEMPORARY-IAM-AUTHORITY-AND-STATE.20260826T003835Z.md` and
+  `evidence/G1R1-OWNER-RECOVERY-AUTHORIZATION.20260826T003835Z.md` disclose the pre-record grant
+  ordering deviation and bind the mandatory cleanup transaction.
+- `evidence/G1R1-IAM-AND-GUIDE-TRANSACTION.20260826T003835Z.json` proves the exact role readback,
+  one failed-closed G1 child invocation, and final role absence.
+- `evidence/G1R1-FAILURE-AND-IAM-CLEANUP-DISPOSITION.20260826T011214Z.md` records the second HTTP
+  `403`, verified cleanup, and zero downstream authority.
 - `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is blocked pending the exact selected
   guide, all prerequisite evidence, and a later separate owner decision.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
@@ -172,11 +186,13 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
 
 ## Hard boundary
 
-Dry-run validity is not authorization; the separate active G1 record was. This fixture made one
-authorized Google request, generated zero audio, uploaded zero cross-provider bytes, mutated zero
-voices, and recorded `$0.33` modeled attempted spend. The exact provider cause of HTTP `403` is
-unknown; the redacted receipt does not prove a missing IAM role or any other explanation.
+Dry-run validity is not authorization; the two separate active records were. Across G1 and G1R1,
+this fixture made two authorized candidate-A Google requests, generated zero audio, uploaded zero
+cross-provider bytes, mutated zero voices, and recorded `$0.66` total modeled attempted spend. The
+exact provider cause of HTTP `403` is unknown. G1R1 does establish that the second request failed
+while the exact direct `roles/aiplatform.user` entry was present and that the entry was removed
+afterward.
 
-The consumed G1 authorizes nothing further. The preserved G1 draft remains zero-authority. Voice
-Changer remains validation/compilation-only and rejects `--execute`. No retry, replacement request,
-IAM mutation, transfer, or downstream production action is authorized.
+The consumed G1 and G1R1 authorize nothing further. The preserved G1 draft remains zero-authority.
+Voice Changer remains validation/compilation-only and rejects `--execute`. No retry, replacement
+request, IAM mutation, transfer, or downstream production action is authorized.
