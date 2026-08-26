@@ -1,9 +1,9 @@
 # Synthetic-guide to Saved-C transfer microtest
 
-Status: both exact G1 and recovery G1R1 authorizations are consumed. Each stopped after its one
-candidate-A request returned HTTP `403`; no audio, retry, redirect, fallback, or candidate-B call
-occurred. G1R1 independently read back the temporary `roles/aiplatform.user` entry before the
-request and verified its exact removal afterward. `AUTH-V1` remains blocked because no guide exists.
+Status: fresh recovery-bound G1R2 is consumed and succeeded with both exact provider WAVs. Candidate
+A passes technical QA but is lexically unresolved and ineligible; both offline decodes heard `this`
+where locked `W` requires `the`. Candidate B passes technical and offline lexical QA (`80/80`) and
+is ready only for private owner audition. No guide is selected, and `AUTH-V1` remains blocked.
 
 ## Question
 
@@ -105,9 +105,17 @@ The separately committed G1R1 recovery wrapper added no grant path. It verified 
 hash-bound role, invoked the same G1 executor once, and removed the role in a mandatory `finally`
 path. Its final readback recorded zero target-role entries. G1R1 nevertheless returned the same HTTP
 `403`, so absence of that direct role is not a sufficient explanation for the second failure. The
-actual Google cause remains unknown.
+actual Google cause remains unknown. A later bounded service transaction enabled the one confirmed
+configuration anomaly, `aiplatform.googleapis.com`, and a fresh recovery-bound G1R2 authorization
+then completed both original requests. It produced two unchanged 24 kHz mono provider WAVs with no
+retry, redirect, or fallback and consumed the full modeled `$0.66` ceiling.
 
 ## Guide gate and selection
+
+Candidate A is excluded from owner performance review because its exact words are not established:
+both offline decoding modes returned the same possible `the`/`this` substitution. Candidate B is the
+only current audition candidate; both offline modes matched all 80 locked tokens after normalization.
+That result clears private owner audition, not selection or transfer.
 
 Each original provider WAV must pass exact-word human review, nonempty full decode, exact declared
 PCM-frame payload with no trailing audio, 24 kHz mono media inspection, 20-to-50-second duration,
@@ -175,24 +183,39 @@ calls, one output, a 50,000,000-byte and 50-second source, 100 submitted seconds
   one failed-closed G1 child invocation, and final role absence.
 - `evidence/G1R1-FAILURE-AND-IAM-CLEANUP-DISPOSITION.20260826T011214Z.md` records the second HTTP
   `403`, verified cleanup, and zero downstream authority.
+- `authorizations/10-google-synthetic-guide-g1r2.ACTIVE.20260826T042506Z.json` is the exact,
+  now-consumed recovery-bound authority that produced both original provider WAVs.
+- `authorizations/consumed/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.consumed.json`
+  and `receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json`
+  are the immutable one-shot consumption and successful run evidence.
+- `reviews/GUIDE-LEXICAL-AND-TECHNICAL-QA.candidate-A.20260826T045942Z.md` fails candidate A closed
+  on lexical certainty; `reviews/GUIDE-LEXICAL-AND-TECHNICAL-QA.candidate-B.20260826T045942Z.md`
+  clears candidate B only for private owner audition.
+- `evidence/G1R2-OFFLINE-ASR-DIAGNOSTIC.20260826T045358Z.json` binds the local Whisper binary and
+  model hashes, network-denied beam and greedy settings, normalization rule, transcripts, and exact
+  token comparisons. It is diagnostic evidence, not human review or authority.
+- `evidence/G1R2-GUIDE-SUCCESS-AND-PRIVATE-AUDITION-DISPOSITION.20260826T045943Z.json` cross-binds
+  the successful run, both raw WAVs, both QA records, and the still-closed downstream authority.
 - `authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json` is blocked pending the exact selected
   guide, all prerequisite evidence, and a later separate owner decision.
 - `reviews/` contains separate guide QA, performance, selection, transfer QA, and owner-disposition
   templates.
-- G1 produced the bound consumption record and failure receipt. The run receipt and both candidate
-  WAVs are absent.
+- G1R2 produced the bound consumption record, successful run receipt, and both original provider
+  WAVs. The WAVs remain local excluded media and must not be rewritten or replaced by derivatives.
 - `.gitignore` excludes provider audio and local media. Credential-free authorization, consumption,
   and redacted provider receipts remain reviewable and committed when they exist.
 
 ## Hard boundary
 
-Dry-run validity is not authorization; the two separate active records were. Across G1 and G1R1,
-this fixture made two authorized candidate-A Google requests, generated zero audio, uploaded zero
-cross-provider bytes, mutated zero voices, and recorded `$0.66` total modeled attempted spend. The
-exact provider cause of HTTP `403` is unknown. G1R1 does establish that the second request failed
-while the exact direct `roles/aiplatform.user` entry was present and that the entry was removed
-afterward.
+Across G1, G1R1, and G1R2, this fixture made four authorized Google calls, generated two provider
+WAVs, uploaded zero cross-provider bytes, mutated zero voices, and recorded `$1.32` total modeled
+attempted spend. G1 and G1R1 failed with HTTP `403`; G1R2 later completed both exact original-plan
+requests after the separate service-enablement transaction. That sequence does not retroactively
+prove the earlier provider cause.
 
-The consumed G1 and G1R1 authorize nothing further. The preserved G1 draft remains zero-authority.
-Voice Changer remains validation/compilation-only and rejects `--execute`. No retry, replacement
-request, IAM mutation, transfer, or downstream production action is authorized.
+All three guide authorizations are consumed and authorize nothing further. Candidate A is
+ineligible, while candidate B is available only for private owner audition of its exact raw bytes.
+No owner selection or creative approval exists. The preserved G1 draft and `AUTH-V1` remain
+zero-authority; Voice Changer remains validation/compilation-only and rejects `--execute`. No
+regeneration, upload, transfer, full capture, Step 2 lock, Step 3, external sharing, or publication
+is authorized.
