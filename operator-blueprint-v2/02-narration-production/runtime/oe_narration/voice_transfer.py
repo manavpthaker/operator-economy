@@ -89,9 +89,9 @@ ACCOUNT_OWNER_APPROVAL_PROMPT = (
     "models for everyone’ and save it; **(2)** make exactly one read-only `GET /v1/user` "
     "using the existing key. No upload or paid call happens in either step."
 )
-# Deliberately unset until the owner supplies a literal reply to the exact
-# prompt above.  This makes ACTIVE account execution impossible in the interim.
-ACCOUNT_OWNER_APPROVAL_REPLY: str | None = None
+# Literal owner reply to the exact prompt above.  The reply records contextual
+# assent only; a separate exact ACTIVE authorization remains required.
+ACCOUNT_OWNER_APPROVAL_REPLY = "Approved for both"
 
 ACCOUNT_MAX_GET_CALLS = 1
 ACCOUNT_MAX_POST_CALLS = 0

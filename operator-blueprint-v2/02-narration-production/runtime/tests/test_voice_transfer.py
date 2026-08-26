@@ -226,8 +226,8 @@ class VoiceTransferTests(unittest.TestCase):
         self.assertFalse(result["provider_action_authorized"])
         self.assertEqual(result["maximum"]["max_generation_post_calls"], 0)
 
-    def test_literal_account_owner_reply_is_an_active_blocker(self) -> None:
-        document = {
+    def _account_owner_approval_evidence(self) -> dict:
+        return {
             "schema_version": "oe-elevenlabs-account-verification-owner-approval-evidence-v1",
             "provider": "elevenlabs",
             "source": "current_codex_thread_contextual_assent",
@@ -236,7 +236,7 @@ class VoiceTransferTests(unittest.TestCase):
             "owner": "Manav",
             "approval_basis": {
                 "assistant_confirmation_prompt": vt.ACCOUNT_OWNER_APPROVAL_PROMPT,
-                "owner_reply": None,
+                "owner_reply": vt.ACCOUNT_OWNER_APPROVAL_REPLY,
                 "approval_event_timestamp_available": False,
                 "record_materialization_time_is_not_claimed_as_message_time": True,
             },
@@ -252,7 +252,9 @@ class VoiceTransferTests(unittest.TestCase):
                 "voice_transfer_authorized": False,
             },
         }
-        raw = json.dumps(document).encode()
+
+    def _validate_account_owner_approval_evidence(self, document: dict) -> list[str]:
+        raw = json.dumps(document, sort_keys=True, separators=(",", ":")).encode()
         errors: list[str] = []
         with mock.patch.object(
             vt,
@@ -265,8 +267,32 @@ class VoiceTransferTests(unittest.TestCase):
                 errors,
                 expected_owner="Manav",
             )
-        self.assertIsNone(vt.ACCOUNT_OWNER_APPROVAL_REPLY)
-        self.assertIn("literal owner reply", " ".join(errors))
+        return errors
+
+    def test_exact_literal_account_owner_prompt_and_reply_are_accepted(self) -> None:
+        self.assertEqual(vt.ACCOUNT_OWNER_APPROVAL_REPLY, "Approved for both")
+        self.assertEqual(
+            self._validate_account_owner_approval_evidence(
+                self._account_owner_approval_evidence()
+            ),
+            [],
+        )
+
+    def test_account_owner_prompt_or_reply_drift_is_rejected(self) -> None:
+        cases = {
+            "prompt": ("assistant_confirmation_prompt", vt.ACCOUNT_OWNER_APPROVAL_PROMPT + " "),
+            "reply": ("owner_reply", "Approved"),
+            "null_reply": ("owner_reply", None),
+        }
+        for label, (field, value) in cases.items():
+            with self.subTest(label=label):
+                document = self._account_owner_approval_evidence()
+                document["approval_basis"][field] = value
+                errors = self._validate_account_owner_approval_evidence(document)
+                self.assertIn(
+                    "does not bind the exact one-GET prompt and literal reply",
+                    " ".join(errors),
+                )
 
     def test_fixed_scope_latches_ignore_fresh_authorization_ids(self) -> None:
         self.assertEqual(vt._account_consumption_path("first"), vt._account_consumption_path("fresh"))
