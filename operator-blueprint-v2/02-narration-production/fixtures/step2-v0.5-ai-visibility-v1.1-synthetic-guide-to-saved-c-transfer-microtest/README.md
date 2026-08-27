@@ -69,7 +69,7 @@ The canonical compact request body is 1,440 bytes with SHA-256
 The two-call request-set identity and committed artifact hashes are listed in `RESULTS.md` after
 runtime compilation.
 
-### Candidate C manual style refinement
+### Candidate C and D manual style refinements
 
 The prompt above remains frozen history for candidates A and B. The proposed next manual Google
 pass uses
@@ -78,6 +78,15 @@ It keeps the locked words unchanged, removes the instruction that made the openi
 headline, keeps both uses of `missing` light inside their phrases, and replaces designed
 thought-space with brief, irregular, idea-led pauses. Any output must be a new `candidate-C.wav`;
 candidates A and B remain unchanged. The prompt record grants zero provider authority.
+
+The owner-supplied candidate C audition still over-stressed the target word. Naming that word and
+several exact beats in the prompt likely made them more salient, while instructions for deliberate
+irregularity still produced designed timing. The replacement
+[`prompts/P01-W0030-W0110.candidate-D.google-gemini-tts.style-instructions.json`](prompts/P01-W0030-W0110.candidate-D.google-gemini-tts.style-instructions.json)
+removes every word-specific direction, named line anchor, energy score, and constructed pause
+pattern. It asks only for connected, matter-of-fact, thought-led conversation. Candidate C remains
+unchanged; any new output must be `candidate-D.wav`. This prompt record also grants zero provider
+authority.
 
 The requested authorization ceiling is exactly two calls, 2,880 submitted request-body bytes, two
 outputs, 50 seconds and 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000
