@@ -84,9 +84,10 @@ several exact beats in the prompt likely made them more salient, while instructi
 irregularity still produced designed timing. The replacement
 [`prompts/P01-W0030-W0110.candidate-D.google-gemini-tts.style-instructions.json`](prompts/P01-W0030-W0110.candidate-D.google-gemini-tts.style-instructions.json)
 removes every word-specific direction, named line anchor, energy score, and constructed pause
-pattern. It asks only for connected, matter-of-fact, thought-led conversation. Candidate C remains
-unchanged; any new output must be `candidate-D.wav`. This prompt record also grants zero provider
-authority.
+pattern. Rather than describing delivery, it establishes the preceding question, concrete buyer
+risk, dashboard knowledge gap, peer relationship, and reason for speaking; prosody is left as a
+side effect of that situation. Candidate C remains unchanged; any new output must be
+`candidate-D.wav`. This prompt record also grants zero provider authority.
 
 The requested authorization ceiling is exactly two calls, 2,880 submitted request-body bytes, two
 outputs, 50 seconds and 2,500,000 WAV bytes per output, 5,000,000 total audio bytes, 4,000,000
