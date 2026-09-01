@@ -232,3 +232,23 @@ Rev-direction candidate):
 
 Verified at 1280 and 375, no overflow. Step 7 proposal hashes refreshed for B1/B4/B6
 (proposal remains unapproved).
+
+## 2026-09-01 — Owner review round 4: navy kept, palette spent harder
+
+Asked whether to change the dark blue or add accents, the recommendation (applied) was
+neither: the navy is a cross-surface brand constant and new hues would break the
+one-accent rule and dilute the evidence-class color coding. Instead the existing system
+was used at greater intensity:
+
+- **Deep-navy layering.** Proposed token candidate `--blue-950: #0D1A2C` (the LP mockup's
+  navy-deep, previously flattened away). Page-level canvas bands (format band, newsletter
+  band, capability map) drop to the deep layer; nodes and tabs sit on solid `--blue-900`,
+  producing real depth inside navy. Declared artboard-locally as `--blue-950-candidate`;
+  adopting it into `design-system/tokens/colors.css` is the design-system owner's call.
+- **Tint washes.** The Canvas page's decision summary sits on a `--blue-tint` band.
+- **The gold gap figure.** The design system's licensed big-accent idiom, previously
+  unused on any artboard: `5 sheets → 1 decision` in gold mono bridges the explainer into
+  the format band (a structural method figure, no sourcing burden; the paper
+  composition's single gold accent).
+
+Verified at 1280; hashes refreshed in the Step 7 proposal (still unapproved).

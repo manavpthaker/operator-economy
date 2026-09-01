@@ -13,7 +13,7 @@ only `var(--*)` references, `.oe-*` base helpers, and the `--type-*` role shorth
 | `--blue: #315f92` | `--drafting-blue: #1F3A5F` (text/accents on paper) or `--blue-500: #35608C` (hover/lighter accent) | Pick by role, not by nearest hex |
 | `--gold-deep: #765921` | `--gold-700: #7A5E24` | The AA-tuned gold text on paper (5.3:1) |
 | `--gold: #c4a45f` | `--gold-bright: #C4A45F` on navy/ink; `--gold-500: #B08D3E` for fills | Same hex, correct alias + surface rule |
-| `--navy: #14263e` / `--navy-deep: #0d1a2c` | `--surface-schematic: #14263E` (aliases `--blue-900`) for both | No darker navy token exists; the mockup's #0d1a2c surfaces flatten onto `--blue-900` rather than adding a token |
+| `--navy: #14263e` / `--navy-deep: #0d1a2c` | `--surface-schematic: #14263E` (aliases `--blue-900`); the deep value is now carried as the **proposed token candidate `--blue-950: #0D1A2C`** (declared artboard-locally as `--blue-950-candidate`) | Owner review round 4: page-level canvas bands go deep so blue-900 components sit on them; adopting the token is the design-system owner's call |
 | SF Mono | Fragment Mono 400 | Mono means published; single weight, no synthetic bold |
 | `--shadow: 0 24px 60px rgba(13,26,44,.12)` | `--shadow-md` / `--shadow-lg` | Token shadows whisper; the 60px shadow is banned |
 | `--content: min(1380px, 100vw - 56px)` | `--container-wide: 1320px` + `--margin-page` | |

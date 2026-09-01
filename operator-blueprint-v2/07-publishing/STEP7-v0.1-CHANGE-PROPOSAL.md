@@ -76,10 +76,10 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/explorations/site-redesign-2026-09/00-product-contract.md` | `b09ca647ae0fb14da8a5d0fd24f5f34db57d7d34f7fdb3ab89a16899f72cca67` |
 | `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `6c1dbf68f3a36188ea4dc8983ddc7f385f7b11348492bf619662086d581e8ee8` |
 | `design-system/explorations/site-redesign-2026-09/02-canvas-data-contract.md` | `20dcd546b855b60b35d53e99ab9dc518f7a893245a84e21cfa1ec339945a366d` |
-| `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `3c5b33219ce9a6f4fe28ab864615dd09f0cc010e996e1a6f9a4b3cdc40357543` |
-| `…/artboards/B1-canvas-page.html` | `3b2eafbfe5a37f655ac192571cf87d666882dd35a51961f1e13cc9ad6d714011` |
+| `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `087fca70ec91d307a1be7427766adee97f7942548f023665c556a1b3b0182e52` |
+| `…/artboards/B1-canvas-page.html` | `f338ab78188aebcff47180ce4a36a33da2b223d8601743667b542ffca526798a` |
 | `…/artboards/B3-method.html` | `0d2dacf47d15d871e120fe9f61f355829352bcc2b79feae1ef14b81fe2f97c6f` |
-| `…/artboards/B4-homepage.html` | `cdbee220eda889299240517f8371bfc8cb2eba474181a564a1e3631165d695be` |
+| `…/artboards/B4-homepage.html` | `ecff362822b47523907c8694a4d59a70a9a5a4f03608b5596ffdb356bdd07755` |
 | `…/artboards/B6-library.html` | `17b568705f9b9d492d7d8bd3c2753349dbf835897a0ae9a79d00a3544b657b1a` |
 | `…/artboards/B7-legacy-episode.html` | `3f7119da42f435a88b5230aa7eaa0c428ba1ad8e5f8da3d8b35a5e8f6564af45` |
 | `…/artboards/B8-components.html` | `2e0c321df0517f41eac6d89ade7a119e7b8875dd36ee377a16836fcf1915c3fa` |

@@ -394,7 +394,7 @@ a:hover { text-decoration: underline; }
 <style>
 /* artboard-local aliases: the token layer defines --text-strong/--text-body/--text-muted;
    these names are used throughout the artboards and must resolve (audit fix) */
-:root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); }
+:root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); --blue-950-candidate: #0D1A2C; /* proposed DS token candidate; see decision log */ }
 
 /* ============================================================
    B1/B2 -- Canvas page prototype (desktop + mobile in one file)
@@ -465,7 +465,7 @@ a.chip { text-decoration: none; }
 .receipt b { color: var(--text-secondary); font-weight: var(--w-mono); }
 
 /* ============ decision summary ============ */
-.summary { margin-top: var(--space-6); }
+.summary { margin-top: var(--space-6); background: var(--blue-tint); border-radius: var(--radius-sm); padding: var(--space-5); }
 .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
 .summary-cell { background: var(--surface-card); border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
 .summary-cell p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
@@ -539,9 +539,9 @@ a.chip { text-decoration: none; }
 .ladder-step p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
 
 /* sheet 01 -- navy capability map */
-.cap-wrap { background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: radial-gradient(circle, var(--schem-wire) 1.2px, transparent 1.2px); background-size: 32px 32px; }
+.cap-wrap { background: var(--blue-950-candidate); border-radius: var(--radius-sm); padding: var(--space-5); background-image: radial-gradient(circle, var(--schem-wire) 1.2px, transparent 1.2px); background-size: 32px 32px; }
 .cap-tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-.cap-tabs button { flex: 1 1 120px; text-align: left; border: var(--border-hair) solid var(--schem-node-border); background: var(--schem-node-bg); color: var(--paper-100); border-radius: var(--radius-sm); padding: var(--space-3); min-height: 44px; display: flex; flex-direction: column; gap: 2px; }
+.cap-tabs button { flex: 1 1 120px; text-align: left; border: var(--border-hair) solid var(--schem-node-border); background: var(--blue-900); color: var(--paper-100); border-radius: var(--radius-sm); padding: var(--space-3); min-height: 44px; display: flex; flex-direction: column; gap: 2px; }
 .cap-tabs button .mono { font-size: var(--text-2xs); color: var(--text-on-ink-muted); }
 .cap-tabs button strong { font-family: var(--font-heading); }
 .cap-tabs button small { font: var(--type-citation); color: var(--text-on-ink-muted); }
