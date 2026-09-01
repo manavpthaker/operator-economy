@@ -1,0 +1,3455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta
+    name="description"
+    content="Landing-page mockup for The Operator Economy's Rev D narrative and Rev C Operator Canvas workbench."
+  />
+  <title>Operator Economy — Operator Canvas landing-page mockup</title>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("../../../site/public/fonts/boska-700.woff2") format("woff2");
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Zodiak";
+      src: url("../../../site/public/fonts/zodiak-700.woff2") format("woff2");
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("../../../site/public/fonts/supreme-400.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("../../../site/public/fonts/supreme-500.woff2") format("woff2");
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    :root {
+      --paper: #f5f0e6;
+      --paper-raised: #fbf8f1;
+      --ink: #1a1a1a;
+      --ink-soft: #55534f;
+      --navy: #14263e;
+      --navy-deep: #0d1a2c;
+      --blue: #315f92;
+      --gold: #c4a45f;
+      --gold-deep: #765921;
+      --sage: #7b9e87;
+      --brick: #9b3e2e;
+      --rule: rgba(26, 26, 26, 0.16);
+      --rule-dark: rgba(245, 240, 230, 0.18);
+      --content: min(1380px, calc(100vw - 56px));
+      --reading: 720px;
+      --mono: "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+      --body: "Supreme", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display: "Boska", Georgia, serif;
+      --serif: "Zodiak", Georgia, serif;
+      --shadow: 0 24px 60px rgba(13, 26, 44, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .page-progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 100;
+      width: var(--page-progress, 0%);
+      height: 3px;
+      background: var(--gold);
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      border-bottom: 1px solid var(--rule);
+      background: color-mix(in srgb, var(--paper) 94%, transparent);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      width: var(--content);
+      min-height: 76px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      min-height: 44px;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .wordmark-the {
+      font: 10px/1 var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .wordmark-name {
+      font: 700 24px/1 var(--serif);
+      letter-spacing: -0.02em;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .main-nav a,
+    .audit-toggle,
+    .menu-toggle {
+      min-height: 44px;
+      padding: 11px 13px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .main-nav a:hover {
+      color: var(--ink);
+      border-color: var(--rule);
+    }
+
+    .audit-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border-color: var(--ink);
+      color: var(--ink);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .audit-toggle::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brick);
+    }
+
+    body[data-audit="off"] .audit-toggle::before {
+      background: transparent;
+      border: 1px solid currentColor;
+    }
+
+    .menu-toggle {
+      display: none;
+      border-color: var(--rule);
+      color: var(--ink);
+    }
+
+    .prototype-flag {
+      width: var(--content);
+      margin: 18px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--ink-soft);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .prototype-flag strong {
+      color: var(--brick);
+      font-weight: 500;
+    }
+
+    .hero {
+      width: var(--content);
+      min-height: calc(100svh - 98px);
+      margin: 0 auto;
+      padding: clamp(54px, 7vw, 104px) 0 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(520px, 1.1fr);
+      gap: clamp(48px, 7vw, 108px);
+      align-items: start;
+    }
+
+    .eyebrow,
+    .section-label,
+    .metric-label,
+    .canvas-meta,
+    .audit-note,
+    .source-chip,
+    .status-chip {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin: 18px 0 26px;
+      font: 700 clamp(52px, 5.4vw, 88px)/0.93 var(--display);
+      letter-spacing: -0.055em;
+    }
+
+    .hero h1 em {
+      color: var(--gold-deep);
+      font-style: italic;
+    }
+
+    .hero-lead {
+      max-width: 640px;
+      margin: 0;
+      color: #383733;
+      font-size: clamp(18px, 1.5vw, 23px);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 13px 19px;
+      border: 1px solid var(--navy);
+      border-radius: 2px;
+      background: var(--navy);
+      color: var(--paper);
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: var(--navy-deep);
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: var(--navy);
+    }
+
+    .button-secondary:hover {
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .hero-proof {
+      margin-top: 38px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .source-chip,
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid var(--rule);
+      background: rgba(255, 255, 255, 0.25);
+      color: var(--ink-soft);
+      font-size: 9px;
+      text-decoration: none;
+    }
+
+    .source-chip::before {
+      content: "Source";
+      color: var(--navy);
+    }
+
+    .source-chip {
+      min-height: 44px;
+    }
+
+    .status-chip::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    .episode-window {
+      position: relative;
+      min-height: 660px;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--navy-deep);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .episode-window::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(13, 26, 44, 0.28);
+      pointer-events: none;
+    }
+
+    .episode-window img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% center;
+      filter: saturate(0.85) contrast(1.04);
+    }
+
+    .episode-window-head,
+    .episode-window-copy,
+    .concept-label {
+      position: absolute;
+      z-index: 3;
+    }
+
+    .episode-window-head {
+      inset: 20px 20px auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--paper);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .episode-window-copy {
+      inset: auto 28px 34px;
+      max-width: 580px;
+      padding: 22px 24px;
+      border-left: 3px solid var(--gold);
+      background: rgba(13, 26, 44, 0.88);
+      color: var(--paper);
+    }
+
+    .episode-window-copy .latest {
+      color: var(--gold);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .episode-window-copy h2 {
+      margin: 12px 0 13px;
+      font: 700 clamp(34px, 3.3vw, 56px)/1 var(--serif);
+      letter-spacing: -0.03em;
+    }
+
+    .episode-window-copy p {
+      max-width: 490px;
+      margin: 0 0 20px;
+      color: rgba(245, 240, 230, 0.84);
+      font-size: 16px;
+    }
+
+    .episode-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--paper);
+      font-weight: 500;
+      text-underline-offset: 5px;
+      text-decoration-color: var(--gold);
+    }
+
+    .concept-label {
+      top: 55px;
+      right: 18px;
+      padding: 7px 9px;
+      border: 1px solid rgba(245, 240, 230, 0.45);
+      background: rgba(13, 26, 44, 0.76);
+      color: var(--paper);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .return-trace {
+      position: absolute;
+      inset: 25% 0 auto;
+      z-index: 2;
+      width: 100%;
+      height: 45%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .return-trace path {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 3;
+      stroke-dasharray: 10 8;
+      filter: drop-shadow(0 0 6px rgba(196, 164, 95, 0.6));
+      animation: trace-return 5s linear infinite;
+    }
+
+    .return-trace circle {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 8px rgba(196, 164, 95, 0.9));
+    }
+
+    @keyframes trace-return {
+      to { stroke-dashoffset: -72; }
+    }
+
+    .audit-note {
+      position: absolute;
+      z-index: 12;
+      width: min(245px, 42vw);
+      padding: 11px 13px;
+      border-left: 3px solid var(--brick);
+      background: var(--paper-raised);
+      color: var(--brick);
+      box-shadow: 0 8px 30px rgba(26, 26, 26, 0.15);
+      font-size: 9px;
+      line-height: 1.55;
+      pointer-events: none;
+    }
+
+    body[data-audit="off"] .audit-note {
+      display: none;
+    }
+
+    .audit-note b {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hero .audit-note {
+      right: 18px;
+      bottom: 18px;
+    }
+
+    .audit-summary {
+      border-block: 1px solid var(--rule);
+      background: var(--paper-raised);
+    }
+
+    .audit-summary-inner {
+      width: var(--content);
+      margin: 0 auto;
+      padding: 26px 0;
+      display: grid;
+      grid-template-columns: 180px repeat(5, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .audit-summary-title,
+    .audit-response {
+      padding: 8px 18px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .audit-summary-title {
+      padding-left: 0;
+      color: var(--brick);
+      font: 500 10px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .audit-response:last-child {
+      border-right: 0;
+    }
+
+    .audit-response b {
+      display: block;
+      margin-bottom: 5px;
+      font: 500 10px/1.3 var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .audit-response span {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    body[data-audit="off"] .audit-summary {
+      display: none;
+    }
+
+    .story {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy-deep);
+      color: var(--paper);
+    }
+
+    .story-inner {
+      width: var(--content);
+      min-height: 820px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(360px, 0.75fr) minmax(0, 1.25fr);
+      gap: clamp(50px, 8vw, 128px);
+      align-items: center;
+      padding: 96px 0;
+    }
+
+    .story-copy {
+      position: relative;
+      z-index: 4;
+    }
+
+    .story .section-label {
+      color: var(--gold);
+    }
+
+    .story h2,
+    .canvas-intro h2,
+    .download-copy h2,
+    .library h2 {
+      margin: 16px 0 24px;
+      font: 700 clamp(44px, 5vw, 78px)/0.98 var(--serif);
+      letter-spacing: -0.045em;
+    }
+
+    .story-copy > p {
+      max-width: 610px;
+      color: rgba(245, 240, 230, 0.76);
+      font-size: 19px;
+    }
+
+    .story-qualifier {
+      margin-top: 26px;
+      padding-left: 16px;
+      border-left: 2px solid var(--gold);
+      color: var(--paper) !important;
+      font-weight: 500;
+    }
+
+    .relationship-map {
+      position: relative;
+      z-index: 3;
+      min-height: 570px;
+      padding: 54px;
+      border: 1px solid var(--rule-dark);
+      background:
+        linear-gradient(rgba(245, 240, 230, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 240, 230, 0.045) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    .map-label {
+      color: rgba(245, 240, 230, 0.62);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .journey {
+      margin-top: 54px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      gap: 0;
+    }
+
+    .journey-node {
+      position: relative;
+      min-height: 122px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: 15px;
+      border: 1px solid rgba(245, 240, 230, 0.22);
+      background: rgba(13, 26, 44, 0.82);
+      text-align: center;
+    }
+
+    .journey-node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      z-index: 3;
+      width: 1px;
+      height: 1px;
+      border-top: 2px solid var(--gold);
+    }
+
+    .journey-node .num {
+      color: var(--gold);
+      font: 10px/1 var(--mono);
+    }
+
+    .journey-node strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .journey-node span:last-child {
+      margin-top: 4px;
+      color: rgba(245, 240, 230, 0.56);
+      font-size: 11px;
+    }
+
+    .map-diversion {
+      width: 58%;
+      margin: 42px 0 0 auto;
+      padding: 20px;
+      border: 1px solid rgba(49, 95, 146, 0.7);
+      background: rgba(49, 95, 146, 0.15);
+    }
+
+    .map-diversion strong,
+    .map-return strong {
+      display: block;
+      font: 700 22px/1.2 var(--serif);
+    }
+
+    .map-diversion span,
+    .map-return span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(245, 240, 230, 0.62);
+      font-size: 13px;
+    }
+
+    .map-return {
+      width: 72%;
+      margin-top: 18px;
+      padding: 22px;
+      border-left: 3px solid var(--gold);
+      background: rgba(196, 164, 95, 0.1);
+    }
+
+    .story .audit-note {
+      right: 32px;
+      bottom: 32px;
+    }
+
+    .canvas {
+      position: relative;
+      padding: 112px 0 120px;
+    }
+
+    .canvas-intro {
+      width: var(--content);
+      margin: 0 auto 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.6fr);
+      gap: 80px;
+      align-items: end;
+    }
+
+    .canvas-intro h2 {
+      max-width: 840px;
+      margin-bottom: 0;
+    }
+
+    .canvas-intro-copy {
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .canvas-value {
+      width: var(--content);
+      margin: -18px auto 34px;
+      display: grid;
+      grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1.28fr);
+      border: 1px solid var(--ink);
+      background: var(--paper-raised);
+      box-shadow: var(--shadow);
+    }
+
+    .canvas-value-lead {
+      padding: 32px;
+      border-right: 1px solid var(--rule);
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .canvas-value-lead .canvas-meta {
+      color: var(--gold);
+    }
+
+    .canvas-value-lead h3 {
+      margin: 14px 0 14px;
+      font: 700 clamp(29px, 3vw, 42px)/1.02 var(--serif);
+      letter-spacing: -0.025em;
+    }
+
+    .canvas-value-lead p {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.72);
+      font-size: 15px;
+    }
+
+    .canvas-value-body {
+      padding: 28px 30px 30px;
+    }
+
+    .canvas-outcomes {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      list-style: none;
+      counter-reset: canvas-outcome;
+    }
+
+    .canvas-outcomes li {
+      min-height: 128px;
+      padding: 10px 16px 16px;
+      border-left: 1px solid var(--rule);
+      counter-increment: canvas-outcome;
+    }
+
+    .canvas-outcomes li:first-child {
+      border-left: 0;
+    }
+
+    .canvas-outcomes li::before {
+      content: "0" counter(canvas-outcome);
+      display: block;
+      margin-bottom: 24px;
+      color: var(--gold-deep);
+      font: 9px/1 var(--mono);
+    }
+
+    .canvas-outcomes strong {
+      display: block;
+      font: 700 17px/1.1 var(--serif);
+    }
+
+    .canvas-outcomes span {
+      display: block;
+      margin-top: 7px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .canvas-mode-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .canvas-mode-actions .button-secondary {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .canvas-mode-actions .text-action {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 8px;
+      border: 0;
+      background: transparent;
+      color: var(--navy);
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .canvas-shell {
+      width: var(--content);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      border: 1px solid var(--ink);
+      background: var(--paper-raised);
+      box-shadow: var(--shadow);
+    }
+
+    .canvas-index {
+      position: relative;
+      border-right: 1px solid var(--rule);
+      background: #efe8da;
+    }
+
+    .canvas-index-inner {
+      position: sticky;
+      top: 77px;
+      padding: 24px;
+    }
+
+    .canvas-meta {
+      color: var(--navy);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .canvas-index h3 {
+      margin: 14px 0 26px;
+      font: 700 27px/1.05 var(--serif);
+    }
+
+    .canvas-index nav {
+      display: grid;
+      gap: 3px;
+    }
+
+    .canvas-index nav a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .canvas-index nav a:hover {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .canvas-index nav span {
+      color: var(--gold-deep);
+      font: 9px/1 var(--mono);
+    }
+
+    .guide-index {
+      display: grid;
+      gap: 4px;
+    }
+
+    .guide-step-button {
+      min-height: 54px;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 9px;
+      align-items: center;
+      padding: 9px 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-soft);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .guide-step-button span {
+      color: var(--gold-deep);
+      font: 9px/1 var(--mono);
+    }
+
+    .guide-step-button strong {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .guide-step-button:hover,
+    .guide-step-button[aria-current="step"] {
+      border-color: var(--gold-deep);
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .guide-step-button[aria-current="step"] {
+      box-shadow: inset 3px 0 0 var(--gold);
+    }
+
+    .canvas-status {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font: 9px/1.6 var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .canvas-main {
+      min-width: 0;
+    }
+
+    .guide-toolbar {
+      position: sticky;
+      top: 77px;
+      z-index: 20;
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper-raised);
+    }
+
+    .guide-progress {
+      display: grid;
+      gap: 4px;
+    }
+
+    .guide-progress span {
+      color: var(--gold-deep);
+      font: 9px/1.3 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .guide-progress strong {
+      font: 700 17px/1.1 var(--serif);
+    }
+
+    .guide-toolbar-action,
+    .guide-steps-toggle,
+    .guide-control {
+      min-height: 44px;
+      padding: 9px 13px;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    a.guide-toolbar-action {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .guide-steps-toggle {
+      display: none;
+    }
+
+    .canvas-titleblock {
+      display: grid;
+      grid-template-columns: 1fr repeat(3, 150px);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .canvas-titlecell,
+    .canvas-spec {
+      padding: 20px 24px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .canvas-titlecell {
+      min-height: 120px;
+    }
+
+    .canvas-titlecell .canvas-meta {
+      display: block;
+      margin-bottom: 13px;
+    }
+
+    .canvas-titlecell strong {
+      font: 700 31px/1.05 var(--serif);
+    }
+
+    .canvas-spec:last-child {
+      border-right: 0;
+    }
+
+    .canvas-spec span {
+      display: block;
+      color: var(--ink-soft);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .canvas-spec strong {
+      display: block;
+      margin-top: 12px;
+      font: 500 14px/1.3 var(--mono);
+    }
+
+    .canvas-section {
+      position: relative;
+      padding: 54px;
+      border-bottom: 1px solid var(--rule);
+      scroll-margin-top: 92px;
+    }
+
+    .guide-explainer {
+      display: none;
+      align-self: start;
+      padding: 28px;
+      border-left: 3px solid var(--gold);
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .guide-explainer .guide-question {
+      margin: 10px 0 12px;
+      font: 700 clamp(27px, 2.2vw, 34px)/1.04 var(--serif);
+      letter-spacing: -0.02em;
+    }
+
+    .guide-explainer .canvas-meta,
+    .guide-complete .canvas-meta {
+      color: var(--gold);
+    }
+
+    .guide-explainer > p {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.72);
+      font-size: 14px;
+    }
+
+    .guide-read,
+    .guide-decision {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(245, 240, 230, 0.2);
+    }
+
+    .guide-read span,
+    .guide-decision span {
+      display: block;
+      color: var(--gold);
+      font: 9px/1.3 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .guide-read ul {
+      margin: 11px 0 0;
+      padding-left: 18px;
+      color: rgba(245, 240, 230, 0.76);
+      font-size: 13px;
+    }
+
+    .guide-read li + li {
+      margin-top: 7px;
+    }
+
+    .guide-decision strong {
+      display: block;
+      margin-top: 9px;
+      font: 700 18px/1.18 var(--serif);
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .canvas-section {
+      min-height: 610px;
+      display: grid;
+      grid-template-columns: minmax(270px, 0.7fr) minmax(0, 1.3fr);
+      gap: 34px;
+      padding: 42px;
+      align-content: start;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .canvas-titleblock {
+      display: none;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .guide-explainer {
+      display: block;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .canvas-section > :not(.guide-explainer):not(.audit-note) {
+      grid-column: 2;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .canvas-section .audit-note {
+      display: none;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .canvas-section-head {
+      grid-template-columns: 1fr;
+      gap: 7px;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .capability-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .capability-map {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .evidence-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .canvas-shell[data-canvas-mode="guide"] .evidence-card.estimate {
+      grid-column: 1 / -1;
+    }
+
+    .opportunity-board {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+    }
+
+    .opportunity-side {
+      min-height: 250px;
+      padding: 28px;
+    }
+
+    .opportunity-side:first-child {
+      background: #efe8da;
+    }
+
+    .opportunity-side span {
+      color: var(--gold-deep);
+      font: 9px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .opportunity-side strong {
+      display: block;
+      margin: 20px 0 11px;
+      font: 700 27px/1.05 var(--serif);
+    }
+
+    .opportunity-side p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .opportunity-transfer {
+      width: 66px;
+      display: grid;
+      place-items: center;
+      border-inline: 1px solid var(--rule);
+      background: var(--navy);
+      color: var(--gold);
+      font: 500 22px/1 var(--mono);
+    }
+
+    .guide-controls {
+      position: sticky;
+      bottom: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-top: 1px solid var(--ink);
+      background: var(--paper-raised);
+    }
+
+    .guide-control.next {
+      min-width: 190px;
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .guide-control:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .guide-control-hint {
+      color: var(--ink-soft);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .guide-complete {
+      min-height: 610px;
+      padding: 70px;
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .guide-complete h3 {
+      max-width: 780px;
+      margin: 16px 0 18px;
+      font: 700 clamp(40px, 5vw, 68px)/0.98 var(--serif);
+      letter-spacing: -0.035em;
+    }
+
+    .guide-complete > p {
+      max-width: 650px;
+      color: rgba(245, 240, 230, 0.72);
+    }
+
+    .guide-complete .button-secondary {
+      color: var(--paper);
+      border-color: rgba(245, 240, 230, 0.65);
+    }
+
+    .guide-complete .canvas-mode-actions .text-action {
+      color: var(--paper);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .canvas-section:last-child {
+      border-bottom: 0;
+    }
+
+    .canvas-section-head {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 28px;
+      align-items: baseline;
+      margin-bottom: 34px;
+    }
+
+    .canvas-section-head span {
+      color: var(--gold-deep);
+      font: 10px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .canvas-section-head h3 {
+      margin: 0;
+      font: 700 clamp(31px, 3vw, 46px)/1.05 var(--serif);
+      letter-spacing: -0.025em;
+    }
+
+    .capability-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+      gap: 28px;
+    }
+
+    .capability-map {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(110px, 1fr));
+      gap: 8px;
+    }
+
+    .capability-button {
+      position: relative;
+      min-height: 138px;
+      padding: 18px 14px;
+      border: 1px solid rgba(245, 240, 230, 0.2);
+      border-radius: 2px;
+      background: var(--navy);
+      color: var(--paper);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .capability-button:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+    }
+
+    .capability-button[aria-selected="true"] {
+      background: var(--navy-deep);
+      border-color: var(--gold);
+      box-shadow: inset 0 -4px 0 var(--gold);
+    }
+
+    .capability-button .cap-number {
+      display: block;
+      color: var(--gold);
+      font: 9px/1 var(--mono);
+    }
+
+    .capability-button strong {
+      display: block;
+      margin-top: 32px;
+      font: 700 18px/1.1 var(--serif);
+    }
+
+    .capability-button small {
+      display: block;
+      margin-top: 7px;
+      color: rgba(245, 240, 230, 0.6);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .capability-detail {
+      min-height: 330px;
+      padding: 28px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+    }
+
+    .detail-kicker {
+      color: var(--gold-deep);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .capability-detail h4 {
+      margin: 12px 0 10px;
+      font: 700 29px/1.05 var(--serif);
+    }
+
+    .capability-detail > p {
+      margin-top: 0;
+      color: var(--ink-soft);
+    }
+
+    .detail-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--rule);
+    }
+
+    .detail-item {
+      padding: 15px 14px 15px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .detail-item:nth-child(odd) {
+      border-right: 1px solid var(--rule);
+    }
+
+    .detail-item:nth-child(even) {
+      padding-left: 14px;
+    }
+
+    .detail-item span {
+      display: block;
+      color: var(--ink-soft);
+      font: 8px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .detail-item strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+
+    .canvas-section .audit-note {
+      top: 20px;
+      right: 20px;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .evidence-card {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+    }
+
+    .evidence-card.estimate {
+      border-color: rgba(118, 89, 33, 0.58);
+      background: #f2ead8;
+    }
+
+    .metric-label {
+      color: var(--ink-soft);
+      font-size: 9px;
+    }
+
+    .metric-value {
+      margin: 16px 0 14px;
+      color: var(--navy);
+      font: 500 clamp(34px, 4vw, 58px)/1 var(--mono);
+      letter-spacing: -0.07em;
+    }
+
+    .evidence-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .evidence-card .source-chip {
+      width: fit-content;
+      margin-top: auto;
+      padding-inline: 0;
+      border: 0;
+      border-bottom: 1px dotted var(--gold-deep);
+      background: transparent;
+    }
+
+    .scenario-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .scenario-button {
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+      font: 500 10px/1 var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .scenario-button[aria-selected="true"] {
+      border-color: var(--gold-deep);
+      background: var(--gold-deep);
+      color: var(--paper);
+    }
+
+    .scenario-display {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.65fr) 1fr;
+      border: 1px solid var(--rule);
+    }
+
+    .scenario-result,
+    .scenario-assumptions {
+      padding: 30px;
+    }
+
+    .scenario-result {
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .scenario-result span,
+    .scenario-assumptions span {
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scenario-result strong {
+      display: block;
+      margin: 24px 0 12px;
+      color: var(--gold);
+      font: 500 clamp(35px, 4vw, 54px)/1 var(--mono);
+      letter-spacing: -0.07em;
+    }
+
+    .scenario-result p {
+      margin: 0;
+      color: rgba(245, 240, 230, 0.68);
+      font-size: 13px;
+    }
+
+    .scenario-assumptions ul {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scenario-assumptions li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .scenario-assumptions li b {
+      color: var(--ink);
+      font: 500 13px/1.4 var(--mono);
+    }
+
+    .guardrail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .guardrail-card {
+      padding: 26px;
+      border: 1px solid var(--rule);
+    }
+
+    .guardrail-card h4 {
+      margin: 0 0 16px;
+      font: 700 24px/1.1 var(--serif);
+    }
+
+    .guardrail-card ul,
+    .guardrail-card ol {
+      margin: 0;
+      padding-left: 21px;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .guardrail-card li + li {
+      margin-top: 8px;
+    }
+
+    .download {
+      position: relative;
+      padding: 100px 0;
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .download-inner {
+      width: var(--content);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(420px, 0.7fr);
+      gap: 100px;
+      align-items: center;
+    }
+
+    .download .section-label {
+      color: var(--gold);
+    }
+
+    .download-copy h2 {
+      max-width: 720px;
+    }
+
+    .download-copy p {
+      max-width: 640px;
+      color: rgba(245, 240, 230, 0.72);
+      font-size: 18px;
+    }
+
+    .download-list {
+      margin: 28px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      list-style: none;
+      color: rgba(245, 240, 230, 0.74);
+      font-size: 14px;
+    }
+
+    .download-list li::before {
+      content: "→";
+      margin-right: 9px;
+      color: var(--gold);
+    }
+
+    .download-card {
+      padding: 34px;
+      border: 1px solid var(--rule-dark);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .download-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 17px;
+      border-bottom: 1px solid var(--rule);
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .download-card h3 {
+      margin: 25px 0 8px;
+      font: 700 31px/1.05 var(--serif);
+    }
+
+    .download-card > p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .download-form {
+      margin-top: 26px;
+    }
+
+    .download-form label {
+      display: block;
+      margin-bottom: 8px;
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+
+    .download-form input[type="email"] {
+      min-width: 0;
+      min-height: 52px;
+      padding: 13px 15px;
+      border: 1px solid var(--ink);
+      border-right: 0;
+      border-radius: 0;
+      background: white;
+      color: var(--ink);
+    }
+
+    .download-form button {
+      min-height: 52px;
+      padding: 12px 17px;
+      border: 1px solid var(--navy);
+      border-radius: 0;
+      background: var(--navy);
+      color: var(--paper);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .consent-row {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 9px;
+      align-items: start;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+
+    .consent-row input {
+      width: 18px;
+      height: 18px;
+      margin: 1px 0 0;
+      accent-color: var(--navy);
+    }
+
+    .form-note,
+    .form-status {
+      margin-top: 13px;
+      color: var(--ink-soft);
+      font: 9px/1.5 var(--mono);
+    }
+
+    .form-status {
+      display: none;
+      padding: 10px;
+      border-left: 3px solid var(--sage);
+      background: #e9efe9;
+      color: #254333;
+    }
+
+    .form-status.visible {
+      display: block;
+    }
+
+    .download .audit-note {
+      top: 28px;
+      right: 28px;
+    }
+
+    .library {
+      width: var(--content);
+      margin: 0 auto;
+      padding: 105px 0 120px;
+    }
+
+    .library-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 48px;
+    }
+
+    .library h2 {
+      max-width: 760px;
+      margin-bottom: 0;
+    }
+
+    .library-head p {
+      max-width: 410px;
+      color: var(--ink-soft);
+    }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .library-card {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+      border: 1px solid var(--rule);
+      background: var(--paper-raised);
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease;
+    }
+
+    .library-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--ink);
+    }
+
+    .library-card.featured {
+      background: var(--navy);
+      color: var(--paper);
+    }
+
+    .library-card .card-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font: 9px/1.4 var(--mono);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .library-card.featured .card-meta {
+      color: var(--gold);
+    }
+
+    .library-card h3 {
+      margin: 44px 0 14px;
+      font: 700 29px/1.08 var(--serif);
+    }
+
+    .library-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .library-card.featured p {
+      color: rgba(245, 240, 230, 0.67);
+    }
+
+    .library-card .card-action {
+      margin-top: auto;
+      padding-top: 26px;
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+      text-underline-offset: 5px;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--rule);
+    }
+
+    .footer-inner {
+      width: var(--content);
+      min-height: 160px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .footer-line {
+      font: 700 25px/1.1 var(--serif);
+    }
+
+    .footer-meta {
+      color: var(--ink-soft);
+      font: 9px/1.6 var(--mono);
+      letter-spacing: 0.08em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1160px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        gap: 42px;
+      }
+
+      .episode-window {
+        min-height: 600px;
+      }
+
+      .audit-summary-inner {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .audit-summary-title,
+      .audit-response {
+        min-height: 100px;
+        padding: 14px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .story-inner,
+      .canvas-intro,
+      .download-inner {
+        gap: 52px;
+      }
+
+      .capability-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .capability-map {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .canvas-titleblock {
+        grid-template-columns: 1fr repeat(3, 120px);
+      }
+
+      .canvas-titlecell,
+      .canvas-spec {
+        padding: 18px;
+      }
+
+      .canvas-outcomes {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .canvas-outcomes li:nth-child(4) {
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --content: min(100% - 36px, 760px);
+      }
+
+      .header-inner {
+        grid-template-columns: 1fr auto auto;
+        gap: 10px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .main-nav {
+        position: absolute;
+        top: 76px;
+        left: 18px;
+        right: 18px;
+        display: none;
+        padding: 10px;
+        border: 1px solid var(--ink);
+        background: var(--paper-raised);
+        box-shadow: var(--shadow);
+      }
+
+      .main-nav.open {
+        display: grid;
+      }
+
+      .main-nav a {
+        width: 100%;
+      }
+
+      .audit-toggle {
+        padding-inline: 10px;
+      }
+
+      .audit-toggle span {
+        display: none;
+      }
+
+      .prototype-flag span:last-child {
+        display: none;
+      }
+
+      .hero,
+      .story-inner,
+      .canvas-intro,
+      .download-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        max-width: 680px;
+      }
+
+      .episode-window {
+        min-height: 610px;
+      }
+
+      .audit-summary-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .story-inner {
+        padding-block: 80px;
+      }
+
+      .relationship-map {
+        min-height: auto;
+        padding: 30px;
+      }
+
+      .journey {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .journey-node {
+        min-height: 84px;
+      }
+
+      .journey-node:not(:last-child)::after {
+        display: none;
+      }
+
+      .map-diversion,
+      .map-return {
+        width: 100%;
+      }
+
+      .canvas-intro {
+        margin-bottom: 42px;
+      }
+
+      .canvas-value {
+        grid-template-columns: 1fr;
+      }
+
+      .canvas-value-lead {
+        border-right: 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .canvas-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .canvas-index {
+        display: none;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"].steps-open .canvas-index {
+        display: block;
+      }
+
+      .canvas-index {
+        border-right: 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .canvas-index-inner {
+        position: static;
+      }
+
+      .canvas-index nav {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .guide-index {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .guide-step-button {
+        grid-template-columns: 1fr;
+      }
+
+      .guide-toolbar {
+        top: 76px;
+        grid-template-columns: 1fr auto auto auto;
+      }
+
+      .guide-steps-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .canvas-titleblock {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .canvas-titlecell {
+        grid-column: 1 / -1;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .canvas-spec {
+        min-height: 94px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .canvas-spec:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .evidence-grid,
+      .library-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .scenario-display {
+        grid-template-columns: 1fr;
+      }
+
+      .download-inner {
+        gap: 46px;
+      }
+
+      .library-head {
+        display: block;
+      }
+
+      .library-head p {
+        margin-top: 20px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      :root {
+        --content: calc(100% - 28px);
+      }
+
+      body {
+        font-size: 16px;
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .wordmark-name {
+        font-size: 20px;
+      }
+
+      .wordmark-the {
+        display: none;
+      }
+
+      .main-nav {
+        top: 68px;
+        left: 14px;
+        right: 14px;
+      }
+
+      .prototype-flag {
+        margin-top: 13px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 56px 0 40px;
+        gap: 48px;
+      }
+
+      .hero h1 {
+        margin-block: 14px 20px;
+        font-size: clamp(50px, 16vw, 70px);
+      }
+
+      .hero-lead {
+        font-size: 17px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .episode-window {
+        min-height: 520px;
+      }
+
+      .episode-window-head {
+        inset: 14px 14px auto;
+      }
+
+      .episode-window-copy {
+        inset: auto 18px 22px;
+      }
+
+      .concept-label {
+        top: 46px;
+        right: 12px;
+      }
+
+      .audit-note {
+        position: static !important;
+        width: auto;
+        margin-top: 18px;
+      }
+
+      .audit-summary-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .audit-summary-title,
+      .audit-response {
+        min-height: auto;
+        padding: 14px 0;
+        border-right: 0;
+      }
+
+      .story-inner {
+        min-height: auto;
+        padding: 70px 0;
+      }
+
+      .story h2,
+      .canvas-intro h2,
+      .download-copy h2,
+      .library h2 {
+        font-size: 42px;
+      }
+
+      .relationship-map {
+        padding: 22px;
+      }
+
+      .canvas {
+        padding-block: 74px;
+      }
+
+      .canvas-value {
+        width: var(--content);
+        margin-top: -8px;
+      }
+
+      .canvas-value-lead,
+      .canvas-value-body {
+        padding: 24px;
+      }
+
+      .canvas-outcomes {
+        grid-template-columns: 1fr;
+      }
+
+      .canvas-outcomes li,
+      .canvas-outcomes li:nth-child(4) {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: 28px 92px 1fr;
+        gap: 10px;
+        align-items: baseline;
+        padding: 14px 0;
+        border-left: 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .canvas-outcomes li::before {
+        margin: 0;
+      }
+
+      .canvas-outcomes span {
+        margin: 0;
+      }
+
+      .canvas-mode-actions {
+        display: grid;
+      }
+
+      .canvas-mode-actions .text-action {
+        justify-content: center;
+      }
+
+      .canvas-shell {
+        width: 100%;
+        border-inline: 0;
+      }
+
+      .canvas-index nav {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .canvas-titleblock {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .canvas-titlecell strong {
+        font-size: 25px;
+      }
+
+      .guide-toolbar {
+        top: 68px;
+        grid-template-columns: 1fr auto auto;
+        padding: 9px 14px;
+      }
+
+      .guide-toolbar .view-full-action {
+        display: none;
+      }
+
+      .guide-toolbar .download-action {
+        padding-inline: 12px;
+        font-size: 0;
+      }
+
+      .guide-toolbar .download-action::before {
+        content: "PDF ↓";
+        font: 500 10px/1 var(--mono);
+        letter-spacing: 0.05em;
+      }
+
+      .canvas-section {
+        padding: 34px 20px;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .canvas-section {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 20px;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .guide-explainer,
+      .canvas-shell[data-canvas-mode="guide"] .canvas-section > :not(.guide-explainer):not(.audit-note) {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .guide-explainer {
+        padding: 24px;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .capability-map {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .canvas-shell[data-canvas-mode="guide"] .evidence-card.estimate {
+        grid-column: auto;
+      }
+
+      .opportunity-board {
+        grid-template-columns: 1fr;
+      }
+
+      .opportunity-side {
+        min-height: auto;
+        padding: 23px;
+      }
+
+      .opportunity-transfer {
+        width: auto;
+        min-height: 54px;
+        border: 0;
+        border-block: 1px solid var(--rule);
+      }
+
+      .guide-controls {
+        grid-template-columns: minmax(92px, 0.72fr) minmax(0, 1.28fr);
+        padding: 10px 14px;
+      }
+
+      .guide-control.next {
+        min-width: 0;
+      }
+
+      .guide-control-hint {
+        display: none;
+      }
+
+      .guide-complete {
+        min-height: 520px;
+        padding: 48px 24px;
+      }
+
+      .canvas-section-head {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .capability-map {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .capability-button:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .detail-grid,
+      .guardrail-grid,
+      .download-list {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-item:nth-child(odd) {
+        border-right: 0;
+      }
+
+      .detail-item:nth-child(even) {
+        padding-left: 0;
+      }
+
+      .scenario-assumptions li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .download {
+        padding-block: 72px;
+      }
+
+      .download-card {
+        padding: 24px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .download-form input[type="email"] {
+        border-right: 1px solid var(--ink);
+        border-bottom: 0;
+      }
+
+      .footer-inner {
+        display: grid;
+        padding-block: 32px;
+      }
+
+      .footer-meta {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body data-audit="on">
+  <a class="skip-link" href="#main">Skip to the prototype</a>
+  <div class="page-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="#top" aria-label="The Operator Economy home">
+        <span class="wordmark-the">The</span>
+        <span class="wordmark-name">Operator Economy</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
+        <a href="#latest">Latest Canvas</a>
+        <a href="#canvas">Inside the Canvas</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#library">Library</a>
+      </nav>
+
+      <button class="audit-toggle" id="audit-toggle" type="button" aria-pressed="true">
+        <span>Hide audit lens</span>
+        Audit
+      </button>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-controls="main-nav"
+        aria-expanded="false"
+      >
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="prototype-flag" id="top">
+      <strong>Interactive mockup · not production</strong>
+      <span>Rev D narrative × Rev C evidence workbench</span>
+    </div>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">Build · own · operate</div>
+        <h1 id="hero-title">Build the business your experience prepared you to <em>run.</em></h1>
+        <p class="hero-lead">
+          Every episode begins with one costly problem, shows who feels it, and opens the
+          operating system one experienced person could build around it.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#canvas">Explore the latest Canvas <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="#latest">See the human problem</a>
+        </div>
+        <div class="hero-proof" aria-label="Publication standards">
+          <span class="status-chip">Evidence classified</span>
+          <span class="status-chip">Estimates marked</span>
+          <span class="status-chip">Failure modes included</span>
+        </div>
+      </div>
+
+      <figure class="episode-window" aria-labelledby="latest-title">
+        <img
+          src="./hotel-ota-gravity-concept.png"
+          alt="Conceptual scene of an independent hotel operator trying to retain a guest relationship while an online travel platform pulls the booking away."
+        />
+        <svg class="return-trace" viewBox="0 0 760 300" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M700,220 C590,275 515,268 430,208 C345,150 274,114 72,126" />
+          <circle cx="72" cy="126" r="6" />
+        </svg>
+        <div class="episode-window-head">
+          <span>Latest field case · №006</span>
+          <span>Operator Canvas</span>
+        </div>
+        <span class="concept-label">Synthetic concept plate · not evidence</span>
+        <figcaption class="episode-window-copy">
+          <span class="latest">Direct booking recovery</span>
+          <h2 id="latest-title">The hotel serves the guest. The platform keeps the relationship.</h2>
+          <p>Use the platform for discovery. Build the operation that earns the return booking direct.</p>
+          <a class="episode-link" href="#latest">Open the conflict →</a>
+        </figcaption>
+      </figure>
+
+      <aside class="audit-note" aria-label="Audit response">
+        <b>Audit response 01</b>
+        One permanent brand promise. One primary action. The newest episode creates relevance without turning the whole site into a hotel campaign.
+      </aside>
+    </section>
+
+    <aside class="audit-summary" aria-label="How the audit changed this mockup">
+      <div class="audit-summary-inner">
+        <div class="audit-summary-title">Audit → response</div>
+        <div class="audit-response">
+          <b>Blueprint was abstract</b>
+          <span>Begin with a person, loss, and desired outcome.</span>
+        </div>
+        <div class="audit-response">
+          <b>CTA led to capture</b>
+          <span>Let visitors use the Canvas before asking for email.</span>
+        </div>
+        <div class="audit-response">
+          <b>Episode page was metadata</b>
+          <span>Make the operating model the page itself.</span>
+        </div>
+        <div class="audit-response">
+          <b>Mobile nav disappeared</b>
+          <span>Keep navigation explicit and touch-safe.</span>
+        </div>
+        <div class="audit-response">
+          <b>Status drift broke trust</b>
+          <span>Show revision, evidence class, and release state together.</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="story" id="latest" aria-labelledby="story-title">
+      <div class="story-inner">
+        <div class="story-copy">
+          <div class="section-label">The human consequence</div>
+          <h2 id="story-title">The first booking can come from an OTA. The relationship does not have to stay there.</h2>
+          <p>
+            Online travel agencies give an independent hotel reach it could not reproduce alone.
+            The problem starts after the stay, when no one owns the work of remembering the guest,
+            earning permission, and creating a relevant reason to return.
+          </p>
+          <p class="story-qualifier">
+            The opportunity is not “replace the OTA.” It is to operate the return path.
+          </p>
+          <div class="hero-proof">
+            <a
+              class="source-chip"
+              href="https://www.cloudbeds.com/online-travel-agencies/commissions/"
+              target="_blank"
+              rel="noreferrer"
+            >Cloudbeds · 2026 vendor-published report ↗</a>
+          </div>
+        </div>
+
+        <div class="relationship-map" aria-label="Guest journey from discovery to direct return">
+          <div class="map-label">Human view → system view</div>
+          <div class="journey">
+            <div class="journey-node"><span class="num">01</span><strong>Discovered</strong><span>Reach</span></div>
+            <div class="journey-node"><span class="num">02</span><strong>Booked</strong><span>Conversion</span></div>
+            <div class="journey-node"><span class="num">03</span><strong>Welcomed</strong><span>Experience</span></div>
+            <div class="journey-node"><span class="num">04</span><strong>Remembered</strong><span>Permission</span></div>
+            <div class="journey-node"><span class="num">05</span><strong>Returned</strong><span>Direct</span></div>
+          </div>
+          <div class="map-diversion">
+            <strong>Discovery has a price.</strong>
+            <span>Useful distribution becomes dependency when every future stay has to be reacquired.</span>
+          </div>
+          <div class="map-return">
+            <strong>The gold path returns control.</strong>
+            <span>Capture → permission → message → offer → book → measure.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="audit-note" aria-label="Audit response">
+        <b>Audit response 02</b>
+        Rev D earns attention here. The existing system is steelmanned before the counter-system appears.
+      </aside>
+    </section>
+
+    <section class="canvas" id="canvas" aria-labelledby="canvas-heading">
+      <header class="canvas-intro">
+        <div>
+          <div class="section-label">The Operator Canvas</div>
+          <h2 id="canvas-heading">The story opens the door. The Canvas helps you decide.</h2>
+        </div>
+        <p class="canvas-intro-copy">
+          Use the full workbench on your own, or take the five-step walkthrough. Either way,
+          the evidence, assumptions, human judgment, economics, and failure modes stay visible.
+        </p>
+      </header>
+
+      <section class="canvas-value" aria-labelledby="canvas-value-heading">
+        <div class="canvas-value-lead">
+          <div class="canvas-meta">What this Canvas gives you</div>
+          <h3 id="canvas-value-heading">In five steps, decide whether this is a business you could credibly operate.</h3>
+          <p>
+            Not a tool list. Not a promise. A structured way to judge the opportunity before
+            you invest time, reputation, or money in it.
+          </p>
+        </div>
+        <div class="canvas-value-body">
+          <ol class="canvas-outcomes">
+            <li><strong>Opportunity</strong><span>See where value is trapped.</span></li>
+            <li><strong>System</strong><span>Know what has to run.</span></li>
+            <li><strong>Proof</strong><span>Separate facts from estimates.</span></li>
+            <li><strong>Economics</strong><span>Judge where value could move.</span></li>
+            <li><strong>First test</strong><span>Learn without overcommitting.</span></li>
+          </ol>
+          <div class="canvas-mode-actions">
+            <button class="button button-primary" type="button" id="start-guide">Start guided walkthrough ↓</button>
+            <a class="button button-secondary" href="#canvas" id="explore-full-canvas">Explore the full Canvas</a>
+            <a class="text-action" href="#download">Download Canvas PDF →</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="canvas-shell" id="canvas-shell" data-canvas-mode="full" tabindex="-1">
+        <aside class="canvas-index">
+          <div class="canvas-index-inner">
+            <div class="canvas-meta">Canvas №006 · Rev A</div>
+            <h3>Direct booking recovery</h3>
+            <nav class="full-canvas-index" aria-label="Canvas sections">
+              <a href="#opportunity"><span>00</span> Opportunity</a>
+              <a href="#system"><span>01</span> System</a>
+              <a href="#evidence"><span>02</span> Evidence</a>
+              <a href="#economics"><span>03</span> Economics</a>
+              <a href="#guardrails"><span>04</span> Guardrails</a>
+              <a href="#download"><span>05</span> Download</a>
+            </nav>
+            <nav class="guide-index" id="guide-index" aria-label="Walkthrough steps" hidden>
+              <button class="guide-step-button" type="button" data-guide-target="opportunity">
+                <span>01</span><strong>Opportunity</strong>
+              </button>
+              <button class="guide-step-button" type="button" data-guide-target="system">
+                <span>02</span><strong>Operating system</strong>
+              </button>
+              <button class="guide-step-button" type="button" data-guide-target="evidence">
+                <span>03</span><strong>Evidence</strong>
+              </button>
+              <button class="guide-step-button" type="button" data-guide-target="economics">
+                <span>04</span><strong>Economics</strong>
+              </button>
+              <button class="guide-step-button" type="button" data-guide-target="guardrails">
+                <span>05</span><strong>First test</strong>
+              </button>
+            </nav>
+            <div class="canvas-status">
+              Evidence class<br />vendor-published + modeled<br /><br />
+              Prototype state<br />not release approved
+            </div>
+          </div>
+        </aside>
+
+        <article class="canvas-main">
+          <header class="canvas-titleblock">
+            <div class="canvas-titlecell">
+              <span class="canvas-meta">Operator Canvas · the operating model behind the episode</span>
+              <strong>Turn a discovered guest into a relationship the property can keep.</strong>
+            </div>
+            <div class="canvas-spec"><span>Operator</span><strong>Independent hotel</strong></div>
+            <div class="canvas-spec"><span>Outcome</span><strong>Repeat booking · direct</strong></div>
+            <div class="canvas-spec"><span>State</span><strong>Prototype</strong></div>
+          </header>
+
+          <div class="guide-toolbar" id="guide-toolbar" hidden>
+            <div class="guide-progress" aria-live="polite">
+              <span id="guide-progress-count">Step 1 of 5</span>
+              <strong id="guide-progress-title">Opportunity</strong>
+            </div>
+            <button class="guide-steps-toggle" id="guide-steps-toggle" type="button" aria-expanded="false">
+              Steps
+            </button>
+            <button class="guide-toolbar-action view-full-action" id="view-full-canvas" type="button">View full Canvas</button>
+            <a class="guide-toolbar-action download-action" href="#download">Download PDF ↓</a>
+          </div>
+
+          <section class="canvas-section" id="opportunity" aria-labelledby="opportunity-heading" data-guide-step="opportunity">
+            <aside class="guide-explainer">
+              <div class="canvas-meta">Step 01 · Opportunity</div>
+              <h4 class="guide-question" tabindex="-1">Is there a real problem worth operating?</h4>
+              <p>
+                Start with the tension, not the tools. OTAs provide valuable discovery; the opportunity
+                appears when the hotel must pay to reacquire a guest it has already served.
+              </p>
+              <div class="guide-read">
+                <span>What to look at</span>
+                <ul>
+                  <li>Who already solves discovery well.</li>
+                  <li>Where the relationship breaks after the stay.</li>
+                  <li>What changes if the second booking becomes direct.</li>
+                </ul>
+              </div>
+              <div class="guide-decision">
+                <span>Your decision</span>
+                <strong>Is the return path valuable enough to deserve an operator?</strong>
+              </div>
+            </aside>
+
+            <div class="canvas-section-head">
+              <span>Sheet 00 · Opportunity</span>
+              <h3 id="opportunity-heading">Do not replace discovery. Keep the relationship it creates.</h3>
+            </div>
+
+            <div class="opportunity-board">
+              <div class="opportunity-side">
+                <span>What already works</span>
+                <strong>The first booking can come through an OTA.</strong>
+                <p>Distribution gives an independent property reach it could not efficiently reproduce alone.</p>
+              </div>
+              <div class="opportunity-transfer" aria-hidden="true">→</div>
+              <div class="opportunity-side">
+                <span>What the operator changes</span>
+                <strong>Earn the second booking direct.</strong>
+                <p>Permission, useful guest context, a relevant reason to return, and a destination that completes the promise.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="canvas-section" id="system" aria-labelledby="system-heading" data-guide-step="system">
+            <aside class="guide-explainer">
+              <div class="canvas-meta">Step 02 · Operating system</div>
+              <h4 class="guide-question" tabindex="-1">What has to run every week?</h4>
+              <p>
+                A business is more than a collection of tools. These five capabilities describe the
+                recurring work, the inputs it needs, and the judgment that cannot be automated away.
+              </p>
+              <div class="guide-read">
+                <span>What to look at</span>
+                <ul>
+                  <li>Select each capability to see its operating contract.</li>
+                  <li>Notice where human approval still matters.</li>
+                  <li>Read the failure mode before the implementation.</li>
+                </ul>
+              </div>
+              <div class="guide-decision">
+                <span>Your decision</span>
+                <strong>Does your experience fit the work this system requires?</strong>
+              </div>
+            </aside>
+            <div class="canvas-section-head">
+              <span>Sheet 01 · System</span>
+              <h3 id="system-heading">Five capabilities, one guest relationship.</h3>
+            </div>
+
+            <div class="capability-layout">
+              <div class="capability-map" role="tablist" aria-label="Direct booking capabilities">
+                <button class="capability-button" type="button" role="tab" aria-selected="true" data-capability="find">
+                  <span class="cap-number">01</span><strong>Find</strong><small>Keep discovery accurate</small>
+                </button>
+                <button class="capability-button" type="button" role="tab" aria-selected="false" data-capability="convert">
+                  <span class="cap-number">02</span><strong>Convert</strong><small>Complete the promise</small>
+                </button>
+                <button class="capability-button" type="button" role="tab" aria-selected="false" data-capability="remember">
+                  <span class="cap-number">03</span><strong>Remember</strong><small>Earn useful context</small>
+                </button>
+                <button class="capability-button" type="button" role="tab" aria-selected="false" data-capability="return">
+                  <span class="cap-number">04</span><strong>Return</strong><small>Create relevance</small>
+                </button>
+                <button class="capability-button" type="button" role="tab" aria-selected="false" data-capability="measure">
+                  <span class="cap-number">05</span><strong>Measure</strong><small>Prove the mix moved</small>
+                </button>
+              </div>
+
+              <div class="capability-detail" id="capability-detail" role="tabpanel" aria-live="polite">
+                <div class="detail-kicker" id="detail-kicker">Capability 01 · Discovery keeper</div>
+                <h4 id="detail-title">Keep the property findable and truthful.</h4>
+                <p id="detail-description">Maintain the listing, photos, descriptions, availability signals, and current reason to visit.</p>
+                <div class="detail-grid">
+                  <div class="detail-item"><span>Human judgment</span><strong id="detail-human">Approve what is true and current</strong></div>
+                  <div class="detail-item"><span>Implementation</span><strong id="detail-tools">Google Business Profile · OTA listings</strong></div>
+                  <div class="detail-item"><span>Input</span><strong id="detail-input">Property facts · imagery · offer</strong></div>
+                  <div class="detail-item"><span>Failure mode</span><strong id="detail-risk">Inconsistent or stale promises</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="audit-note" aria-label="Audit response">
+              <b>Audit response 03</b>
+              The Canvas is useful before capture. Tools sit under jobs; they do not own the page or the business model.
+            </aside>
+          </section>
+
+          <section class="canvas-section" id="evidence" aria-labelledby="evidence-heading" data-guide-step="evidence">
+            <aside class="guide-explainer">
+              <div class="canvas-meta">Step 03 · Evidence</div>
+              <h4 class="guide-question" tabindex="-1">What do we know, and what are we assuming?</h4>
+              <p>
+                Evidence earns the right to continue investigating. It does not turn an illustrative
+                model into a property-specific result or prove that every hotel has the same problem.
+              </p>
+              <div class="guide-read">
+                <span>What to look at</span>
+                <ul>
+                  <li>The evidence class attached to every figure.</li>
+                  <li>The difference between reported facts and arithmetic.</li>
+                  <li>The assumptions carried with the $135K model.</li>
+                </ul>
+              </div>
+              <div class="guide-decision">
+                <span>Your decision</span>
+                <strong>Is the case strong enough to test without claiming it is already proven?</strong>
+              </div>
+            </aside>
+            <div class="canvas-section-head">
+              <span>Sheet 02 · Evidence</span>
+              <h3 id="evidence-heading">Proof and uncertainty share the same surface.</h3>
+            </div>
+
+            <div class="evidence-grid">
+              <article class="evidence-card">
+                <span class="metric-label">Verified · vendor-published</span>
+                <strong class="metric-value">63.4%</strong>
+                <p>Share of independent-hotel reservations attributed to Booking.com and Expedia in the cited Cloudbeds report.</p>
+                <a class="source-chip" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer">Cloudbeds · 2026 ↗</a>
+              </article>
+
+              <article class="evidence-card">
+                <span class="metric-label">Verified · vendor-published</span>
+                <strong class="metric-value">21.8 → 10.6</strong>
+                <p>Reported cancellation-rate comparison: OTA booking versus direct booking. Percent, not percentage-point improvement.</p>
+                <a class="source-chip" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer">Cloudbeds · 2026 ↗</a>
+              </article>
+
+              <article class="evidence-card estimate">
+                <span class="metric-label">Illustrative estimate</span>
+                <strong class="metric-value">$135K</strong>
+                <p>Annual commission-exposure model using 20 rooms, $180 ADR, 70% occupancy, 63.4% OTA share, and 22% commission.</p>
+                <span class="source-chip">Arithmetic model · assumptions shown</span>
+              </article>
+            </div>
+
+            <aside class="audit-note" aria-label="Audit response">
+              <b>Audit response 04</b>
+              No figure floats free. Evidence class, source, assumptions, and caveat travel with the number.
+            </aside>
+          </section>
+
+          <section class="canvas-section" id="economics" aria-labelledby="economics-heading" data-guide-step="economics">
+            <aside class="guide-explainer">
+              <div class="canvas-meta">Step 04 · Economics</div>
+              <h4 class="guide-question" tabindex="-1">Where could value move—and what is still unpriced?</h4>
+              <p>
+                The market pressure, hotel model, and operator workload answer different questions.
+                Switch between them; never collapse them into one confident revenue claim.
+              </p>
+              <div class="guide-read">
+                <span>What to look at</span>
+                <ul>
+                  <li>Observed commission pressure in the cited report.</li>
+                  <li>The assumptions behind the illustrative hotel model.</li>
+                  <li>The missing delivery capacity, pricing, and renewal data.</li>
+                </ul>
+              </div>
+              <div class="guide-decision">
+                <span>Your decision</span>
+                <strong>Is there plausible room for an offer—and which unknown must you price first?</strong>
+              </div>
+            </aside>
+            <div class="canvas-section-head">
+              <span>Sheet 03 · Economics</span>
+              <h3 id="economics-heading">Switch the lens. Never blend the scenarios.</h3>
+            </div>
+
+            <div class="scenario-bar" role="tablist" aria-label="Economic views">
+              <button class="scenario-button" type="button" role="tab" aria-selected="true" data-scenario="market">Observed market pressure</button>
+              <button class="scenario-button" type="button" role="tab" aria-selected="false" data-scenario="illustrative">Illustrative hotel model</button>
+              <button class="scenario-button" type="button" role="tab" aria-selected="false" data-scenario="operator">Operator workload</button>
+            </div>
+
+            <div class="scenario-display" aria-live="polite">
+              <div class="scenario-result">
+                <span id="scenario-label">Observed market pressure</span>
+                <strong id="scenario-value">18–30%</strong>
+                <p id="scenario-note">All-in Booking.com commission range reported by Cloudbeds when loyalty and visibility programs are included.</p>
+              </div>
+              <div class="scenario-assumptions">
+                <span id="scenario-class">Evidence class · vendor-published</span>
+                <ul id="scenario-assumptions">
+                  <li><span>Base commission</span><b>Included</b></li>
+                  <li><span>Genius / visibility programs</span><b>Included</b></li>
+                  <li><span>Property-specific result</span><b>Unknown</b></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="canvas-section" id="guardrails" aria-labelledby="guardrails-heading" data-guide-step="guardrails">
+            <aside class="guide-explainer">
+              <div class="canvas-meta">Step 05 · First test</div>
+              <h4 class="guide-question" tabindex="-1">What can you test before making a bigger claim?</h4>
+              <p>
+                The first engagement should reduce uncertainty, not hide it. Establish the baseline,
+                repair the destination, respect permission, and define the result that would justify continuing.
+              </p>
+              <div class="guide-read">
+                <span>What to look at</span>
+                <ul>
+                  <li>The baseline required before intervention.</li>
+                  <li>The booking and phone path that must work first.</li>
+                  <li>The stop conditions that prevent activity theater.</li>
+                </ul>
+              </div>
+              <div class="guide-decision">
+                <span>Your decision</span>
+                <strong>Can a bounded test produce a credible yes, no, or redesign signal?</strong>
+              </div>
+            </aside>
+            <div class="canvas-section-head">
+              <span>Sheet 04 · Guardrails</span>
+              <h3 id="guardrails-heading">The first test is bounded. So is the claim.</h3>
+            </div>
+
+            <div class="guardrail-grid">
+              <article class="guardrail-card">
+                <h4>Start with permission and a baseline.</h4>
+                <ol>
+                  <li>Measure booking mix, commission, cancellations, missed calls, and repeat stays.</li>
+                  <li>Repair the mobile booking and phone path before running outreach.</li>
+                  <li>Begin with past guests who have permission to hear from the property.</li>
+                  <li>Track direct share before and after; use other metrics to diagnose the path.</li>
+                </ol>
+              </article>
+              <article class="guardrail-card">
+                <h4>Stop or redesign when:</h4>
+                <ul>
+                  <li>The property cannot establish a credible baseline.</li>
+                  <li>Guest permission or data access is unclear.</li>
+                  <li>The destination cannot complete the promise.</li>
+                  <li>Activity rises while direct share does not move.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="guide-complete" id="guide-complete" aria-labelledby="guide-complete-heading" hidden>
+            <div class="canvas-meta">Walkthrough complete · five decisions</div>
+            <h3 id="guide-complete-heading" tabindex="-1">
+              You can now judge the opportunity, the operation, the evidence, the economics, and the first test.
+            </h3>
+            <p>
+              The downloadable Canvas keeps those five decisions together with the sources,
+              assumptions, failure modes, and operating details you just reviewed.
+            </p>
+            <div class="canvas-mode-actions">
+              <a class="button button-primary" href="#download">Download Canvas PDF ↓</a>
+              <button class="button button-secondary" id="complete-view-full" type="button">Explore full Canvas</button>
+              <button class="text-action" id="restart-guide" type="button">Restart walkthrough ↺</button>
+            </div>
+          </section>
+
+          <div class="guide-controls" id="guide-controls" hidden>
+            <button class="guide-control" id="guide-back" type="button">← Back</button>
+            <span class="guide-control-hint">Jump to any step from the decision rail</span>
+            <button class="guide-control next" id="guide-next" type="button">Next: Operating system →</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="download" id="download" aria-labelledby="download-heading">
+      <div class="download-inner">
+        <div class="download-copy">
+          <div class="section-label">Take the operating model</div>
+          <h2 id="download-heading">Download the Canvas after you have seen what is inside it.</h2>
+          <p>
+            The PDF is the print version of this same system—not a teaser. Evidence, assumptions,
+            workflow, risks, and the first test travel together.
+          </p>
+          <ul class="download-list">
+            <li>Guest-journey audit</li>
+            <li>Capability map</li>
+            <li>Evidence registry</li>
+            <li>Scenario assumptions</li>
+            <li>Risk boundaries</li>
+            <li>30-day test</li>
+          </ul>
+        </div>
+
+        <article class="download-card">
+          <div class="download-card-head">
+            <span>Operator Canvas №006</span>
+            <span>Rev A · PDF</span>
+          </div>
+          <h3>Direct booking recovery</h3>
+          <p>Email unlocks the download. The newsletter is a separate choice.</p>
+
+          <form class="download-form" id="download-form">
+            <label for="email">Work email</label>
+            <div class="form-row">
+              <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              <button type="submit">Unlock the Canvas</button>
+            </div>
+            <label class="consent-row" for="newsletter-opt-in">
+              <input id="newsletter-opt-in" name="newsletter" type="checkbox" />
+              <span>Also send me the Monday note. One email a week; optional and unchecked by default.</span>
+            </label>
+            <div class="form-note">Prototype only. This form does not transmit or store your email.</div>
+            <div class="form-status" id="form-status" role="status">
+              Prototype state: the verified PDF download would unlock here and arrive by email.
+            </div>
+          </form>
+        </article>
+      </div>
+
+      <aside class="audit-note" aria-label="Audit response">
+        <b>Audit response 05</b>
+        The page delivers value before the gate. Canvas delivery and recurring newsletter consent are separate actions.
+      </aside>
+    </section>
+
+    <section class="library" id="library" aria-labelledby="library-heading">
+      <header class="library-head">
+        <div>
+          <div class="section-label">The library</div>
+          <h2 id="library-heading">One library. Honest artifact states.</h2>
+        </div>
+        <p>Existing documents stay labeled as Blueprints until their interactive Canvas passes the new content and evidence gate.</p>
+      </header>
+
+      <div class="library-grid">
+        <a class="library-card featured" href="#canvas">
+          <div class="card-meta"><span>№006 · Operator Canvas</span><span>Prototype</span></div>
+          <h3>Direct booking recovery</h3>
+          <p>Human conflict, operating model, evidence, economics, risks, and first test.</p>
+          <span class="card-action">Explore the Canvas →</span>
+        </a>
+
+        <a class="library-card" href="#library" aria-label="The voice-agent agency legacy Blueprint mock card">
+          <div class="card-meta"><span>№002 · Legacy Blueprint</span><span>Live</span></div>
+          <h3>The voice-agent agency</h3>
+          <p>Episode page and downloadable Blueprint. Canvas migration not yet approved.</p>
+          <span class="card-action">View the episode →</span>
+        </a>
+
+        <a class="library-card" href="#library" aria-label="The boring-automation agency legacy Blueprint mock card">
+          <div class="card-meta"><span>№003 · Legacy Blueprint</span><span>Live</span></div>
+          <h3>The boring-automation agency</h3>
+          <p>Episode page and downloadable Blueprint. Canvas migration not yet approved.</p>
+          <span class="card-action">View the episode →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-line">Human consequence. Operating clarity.</div>
+      <div class="footer-meta">
+        LP mockup · 2026-08-23<br />
+        Rev D narrative · Rev C evidence system
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const auditToggle = document.getElementById("audit-toggle");
+    const auditToggleLabel = auditToggle.querySelector("span");
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainNav = document.getElementById("main-nav");
+
+    auditToggle.addEventListener("click", () => {
+      const enabled = body.dataset.audit !== "off";
+      body.dataset.audit = enabled ? "off" : "on";
+      auditToggle.setAttribute("aria-pressed", String(!enabled));
+      auditToggleLabel.textContent = enabled ? "Show audit lens" : "Hide audit lens";
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const open = mainNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.textContent = open ? "Close" : "Menu";
+    });
+
+    function closeMenu() {
+      mainNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "Menu";
+    }
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest('a[href^="#"]')) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mainNav.classList.contains("open")) {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+
+    const guideSteps = [
+      { id: "opportunity", label: "Opportunity" },
+      { id: "system", label: "Operating system" },
+      { id: "evidence", label: "Evidence" },
+      { id: "economics", label: "Economics" },
+      { id: "guardrails", label: "First test" }
+    ];
+
+    const canvasShell = document.getElementById("canvas-shell");
+    const canvasSections = guideSteps.map((step) => document.querySelector(`[data-guide-step="${step.id}"]`));
+    const fullCanvasIndex = document.querySelector(".full-canvas-index");
+    const guideIndex = document.getElementById("guide-index");
+    const guideStepButtons = [...document.querySelectorAll("[data-guide-target]")];
+    const startGuideButton = document.getElementById("start-guide");
+    const exploreFullCanvasLink = document.getElementById("explore-full-canvas");
+    const viewFullCanvasButton = document.getElementById("view-full-canvas");
+    const completeViewFullButton = document.getElementById("complete-view-full");
+    const restartGuideButton = document.getElementById("restart-guide");
+    const guideToolbar = document.getElementById("guide-toolbar");
+    const guideControls = document.getElementById("guide-controls");
+    const guideComplete = document.getElementById("guide-complete");
+    const guideCompleteHeading = document.getElementById("guide-complete-heading");
+    const guideProgressCount = document.getElementById("guide-progress-count");
+    const guideProgressTitle = document.getElementById("guide-progress-title");
+    const guideBackButton = document.getElementById("guide-back");
+    const guideNextButton = document.getElementById("guide-next");
+    const guideStepsToggle = document.getElementById("guide-steps-toggle");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let activeGuideStep = 0;
+
+    function scrollCanvasIntoView() {
+      canvasShell.scrollIntoView({
+        behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+
+    function updateCanvasHash(hash) {
+      if (window.location.hash === hash) return;
+      window.history.pushState(null, "", hash);
+    }
+
+    function closeGuideSteps() {
+      canvasShell.classList.remove("steps-open");
+      guideStepsToggle.setAttribute("aria-expanded", "false");
+      guideStepsToggle.textContent = "Steps";
+    }
+
+    function setGuideChrome(enabled) {
+      canvasShell.dataset.canvasMode = enabled ? "guide" : "full";
+      fullCanvasIndex.hidden = enabled;
+      guideIndex.hidden = !enabled;
+      guideToolbar.hidden = !enabled;
+      if (!enabled) closeGuideSteps();
+    }
+
+    function showGuideStep(index, options = {}) {
+      const { focus = true, updateUrl = true, scroll = false } = options;
+      activeGuideStep = Math.max(0, Math.min(guideSteps.length - 1, index));
+      const active = guideSteps[activeGuideStep];
+
+      setGuideChrome(true);
+      guideComplete.hidden = true;
+      guideControls.hidden = false;
+      canvasSections.forEach((section, sectionIndex) => {
+        section.hidden = sectionIndex !== activeGuideStep;
+      });
+
+      guideStepButtons.forEach((button) => {
+        if (button.dataset.guideTarget === active.id) button.setAttribute("aria-current", "step");
+        else button.removeAttribute("aria-current");
+      });
+
+      guideProgressCount.textContent = `Step ${activeGuideStep + 1} of ${guideSteps.length}`;
+      guideProgressTitle.textContent = active.label;
+      guideBackButton.disabled = activeGuideStep === 0;
+      guideNextButton.textContent = activeGuideStep === guideSteps.length - 1
+        ? "Finish walkthrough →"
+        : `Next: ${guideSteps[activeGuideStep + 1].label} →`;
+      closeGuideSteps();
+
+      if (updateUrl) updateCanvasHash(`#canvas-step-${active.id}`);
+      if (scroll) scrollCanvasIntoView();
+      if (focus) window.setTimeout(() => canvasSections[activeGuideStep].querySelector(".guide-question")?.focus(), 180);
+    }
+
+    function showFullCanvas(options = {}) {
+      const { focus = true, updateUrl = true, scroll = false } = options;
+      setGuideChrome(false);
+      guideControls.hidden = true;
+      guideComplete.hidden = true;
+      canvasSections.forEach((section) => { section.hidden = false; });
+      guideStepButtons.forEach((button) => button.removeAttribute("aria-current"));
+
+      if (updateUrl) updateCanvasHash("#canvas");
+      if (scroll) scrollCanvasIntoView();
+      if (focus) window.setTimeout(() => canvasShell.focus(), 180);
+    }
+
+    function finishGuide(options = {}) {
+      const { focus = true, updateUrl = true } = options;
+      setGuideChrome(true);
+      canvasSections.forEach((section) => { section.hidden = true; });
+      guideStepButtons.forEach((button) => button.removeAttribute("aria-current"));
+      guideControls.hidden = true;
+      guideComplete.hidden = false;
+      guideProgressCount.textContent = "Walkthrough complete";
+      guideProgressTitle.textContent = "Five decisions reviewed";
+      closeGuideSteps();
+
+      if (updateUrl) updateCanvasHash("#canvas-complete");
+      if (focus) window.setTimeout(() => guideCompleteHeading.focus(), 180);
+    }
+
+    startGuideButton.addEventListener("click", () => showGuideStep(0, { scroll: true }));
+    exploreFullCanvasLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      showFullCanvas({ scroll: true });
+    });
+    viewFullCanvasButton.addEventListener("click", () => showFullCanvas({ scroll: true }));
+    completeViewFullButton.addEventListener("click", () => showFullCanvas({ scroll: true }));
+    restartGuideButton.addEventListener("click", () => showGuideStep(0));
+    guideBackButton.addEventListener("click", () => showGuideStep(activeGuideStep - 1));
+    guideNextButton.addEventListener("click", () => {
+      if (activeGuideStep === guideSteps.length - 1) finishGuide();
+      else showGuideStep(activeGuideStep + 1);
+    });
+
+    guideStepButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const index = guideSteps.findIndex((step) => step.id === button.dataset.guideTarget);
+        showGuideStep(index);
+      });
+    });
+
+    guideStepsToggle.addEventListener("click", () => {
+      const open = canvasShell.classList.toggle("steps-open");
+      guideStepsToggle.setAttribute("aria-expanded", String(open));
+      guideStepsToggle.textContent = open ? "Close steps" : "Steps";
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && canvasShell.classList.contains("steps-open")) {
+        closeGuideSteps();
+        guideStepsToggle.focus();
+      }
+    });
+
+    function syncCanvasFromHash() {
+      const stepId = window.location.hash.replace("#canvas-step-", "");
+      const stepIndex = guideSteps.findIndex((step) => step.id === stepId);
+
+      if (stepIndex >= 0) showGuideStep(stepIndex, { focus: false, updateUrl: false, scroll: true });
+      else if (window.location.hash === "#canvas-complete") finishGuide({ focus: false, updateUrl: false });
+      else if (window.location.hash === "#canvas") showFullCanvas({ focus: false, updateUrl: false });
+    }
+
+    window.addEventListener("popstate", syncCanvasFromHash);
+    window.addEventListener("hashchange", syncCanvasFromHash);
+    syncCanvasFromHash();
+
+    const capabilities = {
+      find: {
+        kicker: "Capability 01 · Discovery keeper",
+        title: "Keep the property findable and truthful.",
+        description: "Maintain the listing, photos, descriptions, availability signals, and current reason to visit.",
+        human: "Approve what is true and current",
+        tools: "Google Business Profile · OTA listings",
+        input: "Property facts · imagery · offer",
+        risk: "Inconsistent or stale promises"
+      },
+      convert: {
+        kicker: "Capability 02 · Destination keeper",
+        title: "Make the direct path complete the promise.",
+        description: "Align rate parity, mobile booking, availability, cancellation language, and phone coverage from search result to check-in.",
+        human: "Own exceptions and guest experience",
+        tools: "Hotel site · booking engine · phone",
+        input: "Rates · rooms · policies · availability",
+        risk: "Outreach sends demand into a broken path"
+      },
+      remember: {
+        kicker: "Capability 03 · Relationship keeper",
+        title: "Remember enough to be relevant—only with permission.",
+        description: "Preserve useful guest context and consent so follow-up feels like hospitality rather than cold automation.",
+        human: "Approve consent, context, and tone",
+        tools: "Guest list · CRM · permission record",
+        input: "Stay context · consent · preferences",
+        risk: "Privacy breach or generic outreach"
+      },
+      return: {
+        kicker: "Capability 04 · Return path",
+        title: "Create a real reason to come back.",
+        description: "Send a reviewed post-stay, seasonal, referral, or return offer that resolves on the property’s direct booking path.",
+        human: "Choose offer and approve the message",
+        tools: "Resend or equivalent · Make or n8n",
+        input: "Permission · timing · relevant offer",
+        risk: "Discounting without relationship value"
+      },
+      measure: {
+        kicker: "Capability 05 · Operator scorecard",
+        title: "Prove whether the booking mix moved.",
+        description: "Track direct share before and after. Use commission, cancellations, missed calls, repeat stays, and reviews to diagnose the path.",
+        human: "Interpret the result and redesign the flow",
+        tools: "Booking reports · monthly scorecard",
+        input: "Baseline · direct share · period",
+        risk: "Activity rises while the outcome stays flat"
+      }
+    };
+
+    const capabilityButtons = [...document.querySelectorAll("[data-capability]")];
+    const detail = {
+      kicker: document.getElementById("detail-kicker"),
+      title: document.getElementById("detail-title"),
+      description: document.getElementById("detail-description"),
+      human: document.getElementById("detail-human"),
+      tools: document.getElementById("detail-tools"),
+      input: document.getElementById("detail-input"),
+      risk: document.getElementById("detail-risk")
+    };
+
+    capabilityButtons.forEach((button, index) => {
+      button.addEventListener("click", () => selectCapability(button));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+        event.preventDefault();
+        const delta = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
+        const next = capabilityButtons[(index + delta + capabilityButtons.length) % capabilityButtons.length];
+        next.focus();
+        selectCapability(next);
+      });
+    });
+
+    function selectCapability(button) {
+      capabilityButtons.forEach((candidate) => {
+        const selected = candidate === button;
+        candidate.setAttribute("aria-selected", String(selected));
+        candidate.tabIndex = selected ? 0 : -1;
+      });
+      const value = capabilities[button.dataset.capability];
+      Object.keys(detail).forEach((key) => detail[key].textContent = value[key]);
+    }
+
+    selectCapability(capabilityButtons.find((button) => button.getAttribute("aria-selected") === "true"));
+
+    const scenarios = {
+      market: {
+        label: "Observed market pressure",
+        value: "18–30%",
+        note: "All-in Booking.com commission range reported by Cloudbeds when loyalty and visibility programs are included.",
+        classification: "Evidence class · vendor-published",
+        assumptions: [
+          ["Base commission", "Included"],
+          ["Genius / visibility programs", "Included"],
+          ["Property-specific result", "Unknown"]
+        ]
+      },
+      illustrative: {
+        label: "Illustrative hotel model",
+        value: "$135K/yr",
+        note: "Arithmetic estimate of annual commission exposure. It is not a reported hotel result or a universal loss figure.",
+        classification: "Evidence class · modeled estimate",
+        assumptions: [
+          ["Rooms × ADR", "20 × $180"],
+          ["Occupancy × OTA share", "70% × 63.4%"],
+          ["Commission assumption", "22%"]
+        ]
+      },
+      operator: {
+        label: "Operator workload",
+        value: "Unknown",
+        note: "The market proves the work exists, but public provider pricing does not establish what a hotel will pay for this specific service.",
+        classification: "Evidence class · open question",
+        assumptions: [
+          ["Five providers scanned", "No public price"],
+          ["Delivery capacity", "Must be tested"],
+          ["Renewal threshold", "Must be measured"]
+        ]
+      }
+    };
+
+    const scenarioButtons = [...document.querySelectorAll("[data-scenario]")];
+    const scenarioLabel = document.getElementById("scenario-label");
+    const scenarioValue = document.getElementById("scenario-value");
+    const scenarioNote = document.getElementById("scenario-note");
+    const scenarioClass = document.getElementById("scenario-class");
+    const scenarioAssumptions = document.getElementById("scenario-assumptions");
+
+    scenarioButtons.forEach((button, index) => {
+      button.addEventListener("click", () => selectScenario(button));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+        event.preventDefault();
+        const delta = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
+        const next = scenarioButtons[(index + delta + scenarioButtons.length) % scenarioButtons.length];
+        next.focus();
+        selectScenario(next);
+      });
+    });
+
+    function selectScenario(button) {
+      scenarioButtons.forEach((candidate) => {
+        const selected = candidate === button;
+        candidate.setAttribute("aria-selected", String(selected));
+        candidate.tabIndex = selected ? 0 : -1;
+      });
+      const scenario = scenarios[button.dataset.scenario];
+      scenarioLabel.textContent = scenario.label;
+      scenarioValue.textContent = scenario.value;
+      scenarioNote.textContent = scenario.note;
+      scenarioClass.textContent = scenario.classification;
+      scenarioAssumptions.replaceChildren(...scenario.assumptions.map(([label, value]) => {
+        const item = document.createElement("li");
+        const labelNode = document.createElement("span");
+        const valueNode = document.createElement("b");
+        labelNode.textContent = label;
+        valueNode.textContent = value;
+        item.append(labelNode, valueNode);
+        return item;
+      }));
+    }
+
+    selectScenario(scenarioButtons.find((button) => button.getAttribute("aria-selected") === "true"));
+
+    const downloadForm = document.getElementById("download-form");
+    const formStatus = document.getElementById("form-status");
+    downloadForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      formStatus.classList.add("visible");
+      formStatus.focus?.();
+    });
+
+    function updateProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      document.documentElement.style.setProperty("--page-progress", `${progress}%`);
+    }
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+  </script>
+</body>
+</html>
