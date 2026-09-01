@@ -200,3 +200,11 @@ unknown register gained ledger zebra rows, and the titleblock spec grid sits sun
 One accent per composition holds: blue carries structure on paper, gold carries the one
 highlight per navy band. Verified at 1280 and 375 (no overflow; Boska hero at 42px on
 mobile). Step 7 proposal hashes refreshed for B1/B4/B6 (proposal remains unapproved).
+
+## 2026-09-01 — H1 settled: locked v4
+
+After seeing the live-site line rendered, the owner selected the locked v4 H1: "You can
+build it now. We show you what's worth building." (italic on "worth", the hero's one
+italic). This closes the H1 question with the line brand/copy.md always recorded as
+locked; the review's fresh candidates stay in the copy deck as history. B4 hash refreshed
+in the Step 7 proposal (still unapproved).
