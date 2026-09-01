@@ -12,8 +12,8 @@ Operator Blueprint V2 is the planned end-to-end system for turning a validated b
 |---|---|---|
 | `00-intake/` | Queue, opportunity research, scoring, Canvas feasibility, promotion | **Approved authority - Step 0.2, locked 2026-08-21** |
 | `01-editorial/` | Operator Canvas, pitch-deck coverage, Episode Investment Thesis, viewer promise, narrative architecture, editorial voice, script, script lock | **Approved authority - Step 1 v1.5, locked 2026-08-23** |
-| `02-narration-production/` | Perform the locked words, produce final narration, transcript, pause map, and narration lock | **Approved authority - Step 2 v0.5, locked 2026-09-01 (N3 + N4A passed; N4B needs an episode)** |
-| `03-visual-translation/` | Translate the locked narration into a coherent visual language | Boundary only |
+| `02-narration-production/` | Perform the locked words, produce final narration, transcript, pause map, and narration lock | **Approved authority - Step 2 v0.5, locked 2026-09-01 (N3, N4A, N1 passed; N4B captured on EP007; N5-N7 open)** |
+| `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | Boundary only; scope boundary and porting manifest proposed 2026-09-01 |
 | `04-preproduction/` | Persistent world, sequence treatments, scene direction, animatic, asset plan | Boundary only |
 | `05-production/` | Source and produce approved footage, documents, graphics, and plates | Boundary only |
 | `06-resolve-finish/` | Editorial conform, picture lock, color, final mix, captions, masters | Boundary only |
@@ -31,3 +31,9 @@ The `episodes/` directory currently contains documentation only. It is not an ep
 `studio/` and `blueprint-cinema/` remain in place as V1 production systems and evidence. Nothing under this V2 root authorizes moving, deleting, or continuing a V1 artifact. Material enters V2 only through an explicit port record.
 
 Step 0.2 and Step 1 v1.5 are canonical only for new V2 opportunity intake and editorial development. Step 1 approval does not promote a fixture, assign an episode number without a valid Step 0 promotion, authorize production narration, or make a proposed company, demand level, price, outcome, or livelihood claim true. The AI Visibility v1.1 package is locked only as the approved Step 2 fixture control. Step 2 v0.2 remains proposed until its documentation, runtime, adversarial controls, calibration, full capture, technical pass, and owner creative approval are tested and explicitly locked. Do not describe Stages 2-8, or Operator Blueprint V2 as a complete end-to-end production system, as canonical until each relevant stage is separately reviewed and approved. Root agent guidance remains unchanged by this stage design work.
+
+## Recorded future stage
+
+**Step 2.5 — audio edition.** A podcast derived from the locked narration master. It needs neither
+visual translation nor a runtime, so it sits between the Step 2 narration lock and Step 3. Recorded
+here so the sequence is deliberate rather than retrofitted. Not designed, not scoped, not authority.
