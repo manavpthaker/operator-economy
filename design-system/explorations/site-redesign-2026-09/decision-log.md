@@ -180,3 +180,23 @@ from 32px to 42–44px so the Boska floor is never violated. Re-verified in-brow
 and 375 (no overflow; Boska rendering confirmed). The Step 7 proposal's hash snapshot was
 refreshed for the changed artboards; the proposal remains unapproved, so the refresh
 changes no authority.
+
+## 2026-09-01 — Owner review round 2: hero H1 reverted; surface variation added
+
+The owner kept the old homepage's H1: the hero now renders the live site's "It's easy to
+build now. It's hard to know *what* to build." (the italic moves to "what", staying inside
+the one-italic budget; "easy" is a context-reviewed word the live site already ships and
+the owner has now explicitly re-chosen — the H1 candidates list is closed). The fresh
+candidates remain in the copy deck as history only.
+
+"Things blending together": the flat single-surface treatment was replaced with the old
+homepage's surface rhythm. The Canvas explainer's paper mini-rail became a **navy
+schematic format band** (sheet tag, Running pulse, wired nodes with gold counts, navy
+chip variants, gold onward link) mirroring the live format band; library and B6 cards
+gained the design system's sheet idiom (2px drafting-blue top rule); the disclosures
+table gained sunken zebra rows and stronger answer text; on the Canvas page, sheet tags
+became drafting-blue with a rule accent, decision-summary cells gained the top rule, the
+unknown register gained ledger zebra rows, and the titleblock spec grid sits sunken.
+One accent per composition holds: blue carries structure on paper, gold carries the one
+highlight per navy band. Verified at 1280 and 375 (no overflow; Boska hero at 42px on
+mobile). Step 7 proposal hashes refreshed for B1/B4/B6 (proposal remains unapproved).

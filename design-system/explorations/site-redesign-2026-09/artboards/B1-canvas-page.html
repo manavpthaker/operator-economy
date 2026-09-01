@@ -445,7 +445,7 @@ button { font: inherit; cursor: pointer; }
 /* ============ specimen titleblock ============ */
 .titleblock { border: var(--border-medium) solid var(--rule-strong); background: var(--surface-card); margin-top: var(--space-6); border-radius: var(--radius-sm); overflow: hidden; }
 .titleblock-head { padding: var(--space-5); border-bottom: var(--border-hair) solid var(--rule); }
-.titleblock-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.titleblock-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface-sunken); }
 .titleblock-cell { padding: var(--space-3) var(--space-5); border-right: var(--border-hair) solid var(--rule); }
 .titleblock-cell:last-child { border-right: 0; }
 .titleblock-cell .label { display: block; margin-bottom: 4px; }
@@ -467,7 +467,7 @@ a.chip { text-decoration: none; }
 /* ============ decision summary ============ */
 .summary { margin-top: var(--space-6); }
 .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
-.summary-cell { background: var(--surface-card); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+.summary-cell { background: var(--surface-card); border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
 .summary-cell p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
 .summary-cell .chip { align-self: flex-start; }
 
@@ -498,7 +498,7 @@ a.chip { text-decoration: none; }
 .sheet { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); margin-bottom: var(--space-5); padding: var(--space-6); scroll-margin-top: 90px; }
 .download, .provenance, #library-next { scroll-margin-top: 90px; }
 .sheet-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); border-bottom: var(--border-medium) solid var(--rule-strong); padding-bottom: var(--space-3); margin-bottom: var(--space-5); flex-wrap: wrap; }
-.sheet-tag { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
+.sheet-tag { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--drafting-blue); border-left: 3px solid var(--drafting-blue); padding-left: 10px; }
 .sheet h2 { font-size: var(--text-2xl); }
 
 .guide-note { display: none; border-left: 2px solid var(--drafting-blue); background: var(--blue-tint); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-4); margin-bottom: var(--space-5); }
@@ -554,6 +554,7 @@ a.chip { text-decoration: none; }
 .unknown-register table { width: 100%; border-collapse: collapse; font: var(--type-ui); font-weight: var(--w-regular); }
 .unknown-register th { text-align: left; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); border-bottom: var(--border-medium) solid var(--rule-strong); padding: 8px 10px; }
 .unknown-register td { border-bottom: var(--border-hair) solid var(--rule); padding: 10px; vertical-align: top; color: var(--text-secondary); }
+.unknown-register tbody tr:nth-child(odd) { background: var(--surface-sunken); }
 .unknown-register td.mono { color: var(--ink-500); white-space: nowrap; }
 .table-scroll { overflow-x: auto; }
 
