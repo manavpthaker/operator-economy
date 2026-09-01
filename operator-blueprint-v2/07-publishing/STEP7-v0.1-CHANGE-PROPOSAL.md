@@ -2,7 +2,7 @@
 
 Status: **proposed. Not approved. Not authoritative.**
 
-Proposal date: 2026-09-01
+Proposal date: 2026-09-01 (hash snapshot refreshed same day after the owner's display-typography revision)
 
 Prior authority: the Step 7 boundary stub (`README.md`, "boundary only; not yet ported or
 authoritative")
@@ -76,12 +76,12 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/explorations/site-redesign-2026-09/00-product-contract.md` | `b09ca647ae0fb14da8a5d0fd24f5f34db57d7d34f7fdb3ab89a16899f72cca67` |
 | `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `6c1dbf68f3a36188ea4dc8983ddc7f385f7b11348492bf619662086d581e8ee8` |
 | `design-system/explorations/site-redesign-2026-09/02-canvas-data-contract.md` | `20dcd546b855b60b35d53e99ab9dc518f7a893245a84e21cfa1ec339945a366d` |
-| `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `a10f427abc1ca4f820e751fcf5f8442c6c279be8d246510da5232b3ebf06e3bb` |
-| `…/artboards/B1-canvas-page.html` | `71e2d820eb2e3a48d9b188a948e71050f04ada00d6f4d71ccb198bdc9ab96613` |
-| `…/artboards/B3-method.html` | `30a2088a375679c8b0d94bfd1ff43a6592a9c12b2d5e82ea2edf751d54edcc8e` |
-| `…/artboards/B4-homepage.html` | `41e0ad9c1328a4549dc743c4a9942e66d5aa304785b262f8bb4275c0954b9f1e` |
-| `…/artboards/B6-library.html` | `4be5cc33078ccacf5083a3a51e1a67a0513b4c71d05454e242eca49fdc6d5c08` |
-| `…/artboards/B7-legacy-episode.html` | `014ebc33502ba3eff4f3f31ca7be57c7342450c28979b09b9a49a707dbbe9a62` |
+| `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `3c5b33219ce9a6f4fe28ab864615dd09f0cc010e996e1a6f9a4b3cdc40357543` |
+| `…/artboards/B1-canvas-page.html` | `482b969cd3fd23eb97c91887aa769ca75cb8ba2b4031e315f1d1064cb46e3d5c` |
+| `…/artboards/B3-method.html` | `0d2dacf47d15d871e120fe9f61f355829352bcc2b79feae1ef14b81fe2f97c6f` |
+| `…/artboards/B4-homepage.html` | `7125300621300a8135a6becaf32954581d0549d21fa4ef78778a8d801cc6220a` |
+| `…/artboards/B6-library.html` | `3a8d9ff0f639ec6784e93675c49dc8bc1c1c1b06e5671ef087b9b23f1ed74655` |
+| `…/artboards/B7-legacy-episode.html` | `3f7119da42f435a88b5230aa7eaa0c428ba1ad8e5f8da3d8b35a5e8f6564af45` |
 | `…/artboards/B8-components.html` | `2e0c321df0517f41eac6d89ade7a119e7b8875dd36ee377a16836fcf1915c3fa` |
 | `…/artboards/B9-pdf.html` | `003cb9fca277fac0287fcf5c2706d6515ae8474c14504349507d89560d903e31` |
 | `design-system/explorations/rev-d/operator-canvas-lp-mockup.html` (historical input) | `c8a1dd0cbb7a74ae3d769dc1f08bb23e1db064a95a611c04b8f6417b64ed24f9` |

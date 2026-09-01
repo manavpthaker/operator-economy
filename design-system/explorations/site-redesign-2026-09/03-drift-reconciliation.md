@@ -21,20 +21,22 @@ only `var(--*)` references, `.oe-*` base helpers, and the `--type-*` role shorth
 | `vendor-published + modeled` chip labels | The four canonical classes: `OBSERVED / PARALLEL / MODELED / UNKNOWN` | Per-claim; distinct from Model status |
 | Footer line "Human consequence. Operating clarity." | removed | Rev D internal working-direction line, not a tagline |
 
-## Typography (owner decision 2026-09-01)
+## Typography (owner decision 2026-09-01, revised same day after artboard review)
 
-Site artboards use **Zodiak 700** (display + headings), **Supreme 400/500** (body/UI),
-**Fragment Mono 400** (numbers, evidence, metadata). **No Boska on site artboards** —
-Boska remains for PDF covers (B9) and brand surfaces. No Zodiak 900 or Supreme 700 on
-site surfaces (an owner style rule: the DS token layer does load those weights, but the
-site's self-hosted font set omits them and this decision keeps it that way).
+The initial decision dropped Boska from the site; the built artboards then read flat
+against the live homepage's 62px Boska hero, and the owner reverted it: **Boska returns
+as the site's display layer.** The full Rev C stack applies:
 
-Where the mockup used its display face at hero scale, artboards use a **site-scoped
-display role** rather than reusing the Boska-bound shorthands: define
-`--type-site-display: var(--w-bold) 44px/var(--leading-tight) var(--font-heading)` with
-`--tracking-heading` (Zodiak's documented ceiling is 44px; the token `--type-display` /
-`--type-h1` roles remain Boska-bound and unused on site artboards). This range override
-is recorded here deliberately.
+- **Boska 700, display only** — one large display heading per page (hero H1, page H1),
+  never below the 40px floor. Desktop 60–62px (`--text-4xl` / the live site's 62px),
+  mobile 42–44px (`--text-3xl`), `--tracking-display`, leading ~1.0.
+- **Zodiak 700** — section headings 18–44px, `--tracking-heading`.
+- **Supreme 400/500** — body/UI. **Fragment Mono 400** — numbers, evidence, metadata.
+
+The one-italic-per-composition ration applies; the hero's single italic word is its
+budget. No Zodiak 900 or Supreme 700 on site surfaces (owner style rule; the site's
+self-hosted set omits them). `.site-display` in the artboards is the Boska display role:
+`var(--w-bold) var(--text-4xl)/var(--leading-tight) var(--font-display)`.
 
 ## Composition rules re-imposed during the port
 

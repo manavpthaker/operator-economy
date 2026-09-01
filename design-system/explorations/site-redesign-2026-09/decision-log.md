@@ -165,3 +165,18 @@ The Step 7 README gained a one-line pointer without any status change. External 
 testing (5–7 readers) is recorded in the proposal as still owed before the implemented
 site ships. Step 7 of the effort sequence — recording owner approval — is the owner's
 act and remains open.
+
+## 2026-09-01 — Owner review of B4: display typography reverted
+
+The owner reviewed the homepage artboard and preferred the old homepage's large bold
+headings; the Zodiak-only direction read flat. The drop-Boska decision is superseded:
+**Boska returns as the site's display layer** (one display heading per page, never below
+its 40px floor — 62px hero / 60px page titles on desktop, 42–44px on mobile), with
+Zodiak, Supreme, and Fragment Mono unchanged beneath it. Applied across B1/B3/B4/B6/B7;
+the B4 hero also regained the margin revision rail (site rev badge, sources line,
+recomputed note, "estimates marked" note) and its single italic word, and the Canvas
+explainer heading rose to Zodiak's 44px ceiling. Mobile display overrides were raised
+from 32px to 42–44px so the Boska floor is never violated. Re-verified in-browser at 1280
+and 375 (no overflow; Boska rendering confirmed). The Step 7 proposal's hash snapshot was
+refreshed for the changed artboards; the proposal remains unapproved, so the refresh
+changes no authority.
