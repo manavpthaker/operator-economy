@@ -16,7 +16,7 @@ It answers one question: **what should the viewer be looking at, and why that.**
 | `SCOPE-BOUNDARY.md` | **approved** 2026-09-01 |
 | `PORTING-MANIFEST.md` | frozen v0.1 source hashes |
 | `VISUAL-TRANSLATION-STANDARD.md` | **proposed v0.1** |
-| `STAGE-GATES.md` | not written |
+| `STAGE-GATES.md` | **proposed v0.1** — V1 to V7 |
 | templates | not written |
 | `AUTHORITY-MAP.md` | not written |
 | fixtures and acceptance set | not written |

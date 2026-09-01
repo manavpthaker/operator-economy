@@ -124,8 +124,10 @@ Style frames proving the episode-specific visual language, covering at minimum: 
 - Name a runtime, or shape direction around one.
 - Draw shots, write scene directions, build an animatic, or plan assets. Those are Step 4.
 
-## Open for the gate design pass
+## Resolved by the gate design pass
 
-- Whether the rhythm map is approved separately or as part of the direction bible.
-- Whether look development requires a named reference stack, or whether that invites imitation.
-- How an act-level visual-plan rejection cascades to the direction bible when the two disagree.
+**The rhythm map is approved with the direction bible, as a separate decision inside one gate.** It cannot precede the visual plan, because it describes the shape of the episode that exists rather than the one intended. V5 therefore records V5a and V5b independently, and a clean finding in one cannot stand for the other.
+
+**Look development requires a named reference stack, with an explicit non-imitation ruling.** Naming references is what makes direction communicable to a builder. The guard is that references inform vocabulary and no frame reproduces a named work's distinctive composition, palette or identity. That ruling is a V6 pass condition rather than a note.
+
+**An act-level rejection that names a bible defect escalates to V5.** The direction bible is upstream authority for *how*; the visual plan is downstream for *what and when*. If the rejection is about treatment, the act is revised in place. If it reveals the bible cannot express the episode's actual mechanics, the bible is revised first and the act is re-reviewed after.
