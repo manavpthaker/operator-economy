@@ -25,7 +25,7 @@ Analogy map: `candidate-2026-09-01-exit-readiness-prep-analogy-map.md` / `708727
 | Delivery and stack | Workflow plausible; tools attached to jobs; human judgment visible; bounded test possible today. | **pass** | ANA-003, ANA-005; validation step 1 | AI carries the documentation load; judgement about what a buyer will discount is the product. Owner-interview time is explicitly not compressible |
 | Go to market | Credible path to an initial buyer without assuming a large audience. | **pass, weakly** | ANA-004; validation step 2 | Rests entirely on brokers referring listings they decline as unready. **If brokers do this free to win listings, both the channel and the offer collapse.** Named as a kill condition |
 | Economics and capacity | Price, capacity, delivery cost and contribution modelable transparently, with sensitivity visible. | **pass** | ANA-005; CLM-003; research "Modeled economics" | Buyer side anchored in closed-transaction data. Operator side — fee and hours — is modeled and explicitly testable. Better evidenced than the parked candidate, but no observed readiness fee exists |
-| Risks, permissions, and disclosure | Boundaries identified and manageable without fabrication or unauthorized action. | **pass** | Research "Risks and constraints"; CLM-004 | **The licensing boundary is the defining constraint and it is manageable**: scope inside preparation, price fixed-fee, hand off to a licensed broker. It must be verified per state and reviewed by counsel before any script lock |
+| Risks, permissions, and disclosure | Boundaries identified and manageable without fabrication or unauthorized action. | **pass** | Research "Risks and constraints"; CLM-004 | **The licensing boundary is the defining constraint and it is manageable**: scope inside preparation, price fixed-fee, hand off to a licensed broker. Compliance is the operator's own responsibility, not the channel's. CLM-004 is directional; primary sourcing is required before the script names any state |
 | First validation test | A bounded thirty-day test with a success signal and a kill or redesign condition. | **pass** | Research "Thirty-day validation plan" | Three tests hit the three real unknowns — will an owner pay, will brokers refer, and what is the legal perimeter. Each kill condition is reachable |
 
 ## Verdict
@@ -36,7 +36,7 @@ Evidence class: **adjacent synthesis**
 
 Failed checks: none
 
-Required research before reconsideration: none blocking. One item is escalated rather than resolved: **the brokerage perimeter requires written legal review before any script lock**, because it determines whether the business as designed is legal in the operator's state and the channel must not appear to rule on it.
+Required research before reconsideration: none blocking. **Sourcing standard carried to editorial:** CLM-004 rests on an industry licensing reference rather than primary law. It is sufficient to establish that a brokerage perimeter exists and that it forces a fixed-fee rather than success-fee revenue model, which is the episode's actual point. It is **not** sufficient for the script to name specific states and tell a viewer what they may do there. Either verify any named state against primary sources before lock, or describe the pattern without naming states. Standard not-legal-advice framing applies: compliance is the operator's own responsibility, and the episode directs the viewer to verify their state.
 
 Required Canvas disclosure:
 

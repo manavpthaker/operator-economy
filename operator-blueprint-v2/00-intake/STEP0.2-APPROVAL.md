@@ -47,7 +47,7 @@ These hashes identify the exact rule and template state approved by this decisio
 
 | Authority | SHA-256 |
 |---|---|
-| `../README.md` | `b9955407eafbb9a8ac553d7c9ee051af3529ad873bb0e7761e35725e65fcb24b` |
+| `../README.md` | `977acfe47afaf8b34333480af2ebc4cb8a59a6a5bd00ac0fe1e408d86d1cfb42` |
 | `README.md` | `845407447306392a78a703bd1936943c09b4fb9bb9be3e484d9a24853c219d9a` |
 | `AUTHORITY-MAP.md` | `49556f74a5b389e61699c8ec7795e1c9240fc51181e0713c3f83cfe1317d45b0` |
 | `01-candidates/CANDIDATE.template.md` | `6ceaf1093fc1419d6dadb78c648ddfa17f140b821ef15c0bb702a6adc141b931` |
@@ -61,6 +61,14 @@ These hashes identify the exact rule and template state approved by this decisio
 | `04-queue/PROMOTION-RECORD.template.md` | `96bbdbfd3e3b47c13efd0481798e8a08822233837d6070487af08d2f2fc376ed` |
 | `04-queue/QUEUE.md` | `540dead0aac9e27d8e5be91c28416bfff4903646f4d14a7be6426f5b307397f1` |
 | `fixtures/ACCEPTANCE-SET.md` | `28e7343c7d1879abe7f9938ca0f8ffa915b08a50401e314794758e068a18afa7` |
+
+### Administrative lifecycle amendment — 2026-08-21
+
+Owner decision: approved by Manav Thaker.
+
+The V2 lifecycle index was updated after the owner approved separating locked-script Editorial from Narration Production. Step 1 is now proposed for testing, Narration Production is a distinct Step 2 boundary, and the former Steps 2-7 were renumbered as Steps 3-8. The root README changed from SHA-256 `b9955407eafbb9a8ac553d7c9ee051af3529ad873bb0e7761e35725e65fcb24b` to the current hash recorded above.
+
+This amendment changes no Step 0 score, threshold, gate, evidence class, template, queue rule, promotion rule, numbering rule, fixture, or acceptance result. It does not create a candidate, queue row, or episode. Step 0.2 therefore remains the locked intake authority without an acceptance rerun. The root README is a lifecycle index; future semantic changes to Step 0 still require the version and acceptance procedure below.
 
 ## External authority boundary
 

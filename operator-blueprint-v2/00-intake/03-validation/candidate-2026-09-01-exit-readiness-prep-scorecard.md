@@ -53,7 +53,7 @@ Owner-review status: **not required** by the calibration rule. Promotion remains
 | Audience pull | **pass** | Same review. Search-volume exception properly invoked; triangulation rests on three families, none selling the examined service |
 | Operator Economy POV is real and bounded | **pass** | Two sources demonstrated with specific findings under Step 0.3. The limit is stated explicitly: no transaction experience, never sold a business, nothing presented as legal advice |
 | No unresolved factual or source blocker | **pass** | Unknowns are labeled and nonfatal: no observed readiness fee, and the multiple-uplift claim is excluded rather than carried. Neither is load-bearing for a blueprint that teaches preparation without claiming an uplift |
-| No unresolved legal, permission, access, or guest blocker | **pass, with escalation** | No guest, no permissions issue. The brokerage perimeter is **documented and manageable** — scope inside preparation, price fixed-fee, hand off to a licensed adviser. **Escalated: written legal review required before script lock**, not before promotion. A documented, manageable constraint is not automatically a blocker |
+| No unresolved legal, permission, access, or guest blocker | **pass** | No guest, no permissions issue. The brokerage perimeter is **documented and manageable** — scope inside preparation, price fixed-fee, hand off to a licensed adviser. Per this gate's own rule, a documented, manageable constraint is not automatically a blocker. Compliance is the operator's responsibility. CLM-004 is directional and requires primary sourcing before the script names any state |
 
 ## Owner override
 
@@ -77,4 +77,4 @@ The operator-entry barrier is the other reason this fits: no licence or sector c
 
 Two weaknesses are real and are not argued away. The offer parallel is structurally sound but **urgency-poor** — SOC 2 and ISO readiness sell against a dated audit, and this does not. The partial answer, that about half of exits are involuntary, converts a deadline into a probability and is a weaker sale that the episode must present honestly. And go-to-market rests on a single assumption: that brokers refer unready listings rather than doing the work free to win them. Both are first-order tests in the thirty-day plan, and either could kill the business.
 
-One item is escalated rather than resolved: **the brokerage perimeter requires written legal review before script lock.** It determines whether the practice is legal as designed, it varies by state, and the channel must not be the thing that rules on it.
+One sourcing standard carries to editorial: **CLM-004 is directional, not primary law.** It supports the claim that a perimeter exists and shapes the revenue model; it does not support naming states and telling a viewer what they may do there. Verify any named state against primary sources before lock, or describe the pattern without naming states.

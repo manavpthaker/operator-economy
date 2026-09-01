@@ -62,4 +62,4 @@ Reviewer: Manav Thaker
 
 Reviewed: 2026-09-01
 
-Required work before reconsideration: none. Both gates pass. One item is escalated to legal review before script lock rather than before promotion: the brokerage perimeter in CLM-004.
+Required work before reconsideration: none. Both gates pass. One sourcing standard carries to editorial: CLM-004 is directional rather than primary law, so the script may describe the perimeter and its effect on the revenue model but must not name states and tell a viewer what they may do there without primary verification.

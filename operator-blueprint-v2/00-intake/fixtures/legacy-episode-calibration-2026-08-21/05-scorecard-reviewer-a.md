@@ -68,3 +68,4 @@ Required disclosure: Workflow-automation consulting and implementation are obser
 Rationale: The old “boring automation agency” idea survives Step 0 only after removing unsupported income logic and rebuilding it around one measurable production workflow. The resulting blueprint has a real buyer, exact service precedents, a bounded offer, a transparent model, a testable first-buyer path, a causal story, and clear stop conditions.
 
 Production effect: none; a test fixture cannot be promoted.
+
