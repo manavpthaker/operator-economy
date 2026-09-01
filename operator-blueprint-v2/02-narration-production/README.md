@@ -1,7 +1,14 @@
 # Step 2: Narration Production
 
-Status: proposed V2 Step 2 v0.5 synthetic-guide-to-Saved-C transfer microtest; not yet
-authoritative. The v0.2 through v0.4 records remain frozen history.
+Status: **approved production authority**, locked 2026-09-01. The narration method is the two-stage
+acted-guide chain frozen as `n3-two-stage-acted-guide-v2`: Google `gemini-2.5-pro-tts` (voice
+`Algieba`) performs the locked words under the candidate-C4 method-level register, and ElevenLabs
+Voice Changer `eleven_multilingual_sts_v2` transfers that performance onto Original C
+`scMbPZwQjr40V1MzL3Nj`. N3 and N4A both passed on the AI Visibility v1.1 fixture. The v0.2 through
+v0.4 records remain frozen history.
+
+N4B full capture is **not** authorized by this lock. It requires a current Step 1 editorial lock for
+a real episode plus its own separate bounded authorization. No V2 episode exists yet.
 
 Step 2 turns the exact, owner-approved Step 1 script into the final spoken spine of the episode. It controls performance direction, narrator and capture consistency, takes, pickups, dialogue editing, lexical conformity, the clean narration master, word-level timing, and the handoff to visual translation.
 

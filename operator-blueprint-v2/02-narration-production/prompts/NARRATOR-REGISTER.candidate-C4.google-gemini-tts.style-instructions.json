@@ -1,0 +1,108 @@
+{
+  "schema_version": "oe-google-gemini-tts-style-instructions-v1",
+  "status": "proposed_manual_input_zero_authority",
+  "candidate_id": "candidate-C4",
+  "scope": "method_level_narrator_register",
+  "purpose": "fix_short_sentence_choppiness_and_over_enunciation",
+  "supersedes": {
+    "candidate_id": "candidate-C3",
+    "prompt_record": "NARRATOR-REGISTER.candidate-C3.google-gemini-tts.style-instructions.json",
+    "style_instructions_sha256": "f7e061f9d236268a8562ee74966bb25cb4df47f61b5322033a5d122fb8a304d1",
+    "reason": "C3 landed M2 (owner: 'm2 is gteat') but broke M1: 'seems synthsized and not natural. choppy and over enunciated almost robotic.' M1 measured articulation 249 - the highest of any candidate - with 0.66s pauses, the longest. Fully-articulated fast words separated by large gaps read as robotic."
+  },
+  "owner_feedback": {
+    "recorded": "2026-08-30",
+    "m2_c3": "accepted - 'm2 is gteat'",
+    "m1_c3": "rejected - 'seems synthsized and not natural. choppy and over enunciated almost robotic'",
+    "diagnosis": "C3's 'let it land before the next one starts' fires after every sentence. M2's long explanatory sentences absorb that; M1's short cold-open sentences get a gap after each one and are individually clipped. Over-enunciation is the second axis: no elision, every word given equal weight."
+  },
+  "changes_from_candidate_c1": [
+    "removed 'Let each idea finish and settle before the next one starts' - the uniform-slowdown clause",
+    "added an explicit moving baseline for setup and connective material",
+    "reserved extra room for genuinely dense reasoning and for numbers that must land, then move on",
+    "named the contrast itself as the carrier of meaning",
+    "energy six of ten -> seven of ten, restoring forward momentum"
+  ],
+  "target_envelope": {
+    "reference_mode": "M3",
+    "reference_words_per_minute": 132,
+    "m2_hold": {
+      "wpm": 142,
+      "articulation": 191,
+      "pause": 0.5,
+      "pause_variation": 0.35,
+      "note": "C3 values that the owner accepted - C4 must not regress these"
+    },
+    "m1_target": {
+      "articulation": "below 220",
+      "pause": "0.45-0.55s",
+      "note": "M1 needs fewer, better-placed gaps and softer articulation than C3's 249 / 0.66s"
+    }
+  },
+  "style_instructions": "An experienced operator is talking with one smart peer across a table, working through a real problem—not presenting or reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Begin as if the conversation is already underway. Speak at a natural, easy conversational clip. Let unstressed words stay light and run together the way they do in real speech—never clip, over-articulate, or give every word equal weight. Keep consecutive short sentences flowing as one continuous thought. Save real room for genuine turns in the argument, where the reasoning gets dense or a number has to matter—not after every sentence. Vary those beats, and never fall into a repeated cadence. Emphasize ideas, not individual words. Natural American conversation, grounded and lightly informal. Energy seven of ten. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Do not vocalize these directions.",
+  "pronunciation_policy": {
+    "method": "append_only_applicable_aliases_per_passage",
+    "rationale": "Naming a token in the prompt raises its salience, which is what over-stressed the target word in the original candidate C audition. Aliases are attached only when the display form occurs in that passage, and the composed prompt hash is recorded per chunk.",
+    "aliases": {
+      "2022": "twenty twenty-two",
+      "Airtable": "air table",
+      "EBITDA": "ee bit dah",
+      "GenAI": "Gen A.I.",
+      "Manav": "Mah-nuhv",
+      "MP": "Em Pee",
+      "SaaS": "sass",
+      "Zapier": "zappier",
+      "n8n": "en eight en"
+    }
+  },
+  "constraints": {
+    "locked_spoken_text_may_change": false,
+    "existing_candidates_may_be_overwritten": false,
+    "provider_call_authorized": false
+  },
+  "diagnosis": {
+    "insight": "Articulation rate and inter-idea pause are independent, and C1/C2 both moved them together. C1 = slow words + generous varied pauses (0.45) -> drags. C2 = fast words + tight pauses (0.30) -> rushed. The target is normal-clip words with generous varied pauses.",
+    "measured": {
+      "M1": {
+        "C": {
+          "wpm": 192,
+          "pause_var": 0.24
+        },
+        "C1": {
+          "wpm": 148,
+          "pause_var": 0.35
+        },
+        "C2": {
+          "wpm": 176,
+          "pause_var": 0.22
+        }
+      },
+      "M2": {
+        "C": {
+          "wpm": 151,
+          "pause_var": 0.3
+        },
+        "C1": {
+          "wpm": 110,
+          "pause_var": 0.45
+        },
+        "C2": {
+          "wpm": 155,
+          "pause_var": 0.3
+        }
+      }
+    }
+  },
+  "changes_from_candidate_c2": [
+    "added an explicit instruction not to slow the words themselves",
+    "located the room between ideas rather than inside them - the key separation C1 and C2 both missed",
+    "restored varied beats with an explicit no-repeated-cadence guard",
+    "kept energy seven of ten so the baseline keeps moving"
+  ],
+  "changes_from_candidate_c3": [
+    "added explicit natural elision - unstressed words stay light and run together",
+    "added an explicit ban on clipping, over-articulating, and equal word weight",
+    "consecutive short sentences now flow as one continuous thought",
+    "room moved from 'when a thought completes' to 'genuine turns in the argument, not after every sentence'"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "oe-google-gemini-tts-style-instructions-v1",
+  "status": "proposed_manual_input_zero_authority",
+  "candidate_id": "candidate-C2",
+  "scope": "method_level_narrator_register",
+  "purpose": "make_room_contrastive_rather_than_uniform",
+  "supersedes": {
+    "candidate_id": "candidate-C1",
+    "prompt_record": "NARRATOR-REGISTER.candidate-C1.google-gemini-tts.style-instructions.json",
+    "style_instructions_sha256": "0fe2cfffdf63363839baf8acbb8985256943e248550b2771e0960410f57749bb",
+    "reason": "C1 applied a near-uniform slowdown: M1 -44 wpm, M2 -41 wpm, with the content-driven spread unchanged (41 wpm under C, 38 under C1). Owner heard the result on M2 as 'at first it feels like emphasis but it continues'. Evenly slow delivery reads as no emphasis at all."
+  },
+  "owner_feedback": {
+    "recorded": "2026-08-30",
+    "m1_c1": "accepted at 148 wpm",
+    "m2_c1": "drags - 'at first it feels like emphasis but it continues. we should pick it up a bit'",
+    "diagnosis": "The defect is uniformity, not speed. C1's clause 'Let each idea finish and settle before the next one starts' applies to every idea, so nothing stands out. Emphasis requires contrast against a moving baseline."
+  },
+  "changes_from_candidate_c1": [
+    "removed 'Let each idea finish and settle before the next one starts' - the uniform-slowdown clause",
+    "added an explicit moving baseline for setup and connective material",
+    "reserved extra room for genuinely dense reasoning and for numbers that must land, then move on",
+    "named the contrast itself as the carrier of meaning",
+    "energy six of ten -> seven of ten, restoring forward momentum"
+  ],
+  "target_envelope": {
+    "reference_mode": "M3",
+    "reference_words_per_minute": 132,
+    "m1_target_range": [
+      145,
+      165
+    ],
+    "m2_target_range": [
+      125,
+      145
+    ],
+    "note": "Success is not a single tempo. Success is a moving baseline with genuine variation around it, landing near the owner-approved M3 reference."
+  },
+  "style_instructions": "An experienced operator is talking with one smart peer across a table, working through a real problem—not presenting or reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Begin as if the conversation is already underway. He would rather be understood than quick, but he keeps the conversation moving. Carry setup and connective material at an easy conversational clip. Take real time only where the reasoning is genuinely dense, or where a number has to land—then pick the pace back up. That contrast is what carries the meaning; evenly slow reads as no emphasis at all. Emphasize ideas, not individual words. Natural American conversation, grounded and lightly informal. Energy seven of ten. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Do not vocalize these directions.",
+  "pronunciation_policy": {
+    "method": "append_only_applicable_aliases_per_passage",
+    "rationale": "Naming a token in the prompt raises its salience, which is what over-stressed the target word in the original candidate C audition. Aliases are attached only when the display form occurs in that passage, and the composed prompt hash is recorded per chunk.",
+    "aliases": {
+      "2022": "twenty twenty-two",
+      "Airtable": "air table",
+      "EBITDA": "ee bit dah",
+      "GenAI": "Gen A.I.",
+      "Manav": "Mah-nuhv",
+      "MP": "Em Pee",
+      "SaaS": "sass",
+      "Zapier": "zappier",
+      "n8n": "en eight en"
+    }
+  },
+  "constraints": {
+    "locked_spoken_text_may_change": false,
+    "existing_candidates_may_be_overwritten": false,
+    "provider_call_authorized": false
+  }
+}
