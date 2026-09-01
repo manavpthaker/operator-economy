@@ -65,6 +65,35 @@ library empty state de-references EP007; token-name corrections in the drift tab
 no-self-hash citation fix, nullable kill conditions, optional break-even/cash-timing
 fields, the 4-identity/18-public-layer field split, and a Latest-Canvas derivation guard.
 
+## 2026-09-01 — Step 3: core prototypes built (B1/B2 + B3)
+
+`artboards/B1-canvas-page.html` — the Canvas page prototype, desktop and mobile in one
+responsive file (B1 and B2 per the spec's one-file note). №006 content re-rendered from
+the LP mockup onto real tokens, `V1-derived design specimen · not V2 gated` baked into
+the titleblock. Working interactions: guided-walkthrough toggle (URL-hash synced,
+back/forward restorable), capability tabs (roving focus, arrow keys), mobile-only
+scenario lens (desktop shows all three columns side by side), mobile nav (Escape closes,
+aria-expanded), screen-reader announcements via a live region. `artboards/B3-method.html`
+— the Method page with pipeline + gates schematic, the canonical evidence-class legend,
+Model status vs economics rules, versioning with the copy-hash demo, and the
+claims-discipline card.
+
+Build decisions:
+- Tokens are **inlined verbatim** into each artboard (the five token files, source of
+  truth unchanged) because the review environment loads pages in ways that break relative
+  stylesheet links. The inlined token files carry their original comments, including em
+  dashes — those are CSS comments, not rendered strings; the rendered-text gate check was
+  run on the live page text and is clean.
+- Verified in-browser: desktop 1280 render, guided mode on/off, 375px and 320px reflow
+  with zero horizontal page scroll (fixed a grid min-content overflow with `min-width: 0`
+  on shell children + wrappable chips under 720px), mobile menu open/close.
+- Preview: `python3 -m http.server 8899` from the repo root (`.claude/launch.json`
+  "artboards" entry), then
+  `http://localhost:8899/design-system/explorations/site-redesign-2026-09/artboards/B1-canvas-page.html`.
+
+Awaiting owner review of the contracts (step 2) and prototypes (step 3) before step 4
+(reader, keyboard, screen-reader, and mobile testing) and step 5 (expansion artboards).
+
 **Carve-outs recorded (pending owner confirmation at the step-2 review):**
 - Kicker `Stop climbing. Start building.` is §2e-shaped (mirror-image imperative pair).
   Retained as an existing brand mark; it consumes the hero viewport's one-antithetical

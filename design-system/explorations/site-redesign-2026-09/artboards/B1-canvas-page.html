@@ -1,0 +1,1300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Canvas №006 · Direct booking recovery · design specimen</title>
+<!-- tokens inlined verbatim for single-file portability; source of truth: design-system/tokens/ -->
+<style>
+@import url('https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap');
+/* ==== inlined verbatim from design-system/tokens/fonts.css ==== */
+/* ============================================================
+   The Operator Economy — Webfonts (Rev C)
+   ------------------------------------------------------------
+   Boska         — large display ONLY (≥40px): site hero,
+                   blueprint covers, tagline lockups
+   Zodiak        — mid-size workhorse (18–44px): newsletter
+                   headlines, section heads, thumbnail support
+   Supreme       — body / UI sans
+   Fragment Mono — THE mono: every number & citation the brand
+                   publishes. Single weight (400) by design.
+   Boska/Zodiak/Supreme ship from Fontshare; Fragment Mono from
+   Google Fonts. No binaries existed in the sources.
+   ============================================================ */
+
+
+
+/* ==== inlined verbatim from design-system/tokens/colors.css ==== */
+/* ============================================================
+   The Operator Economy — Color
+   ------------------------------------------------------------
+   One palette, not two (design-system.md §5).
+   Rule: any single frame contains at most Ink + Paper + ONE accent.
+   Drafting Blue is THE brand accent. Ledger Gold is used sparingly
+   (one highlight per chart). Sage is demoted to positive-delta only.
+   ============================================================ */
+
+:root {
+  /* --- Core brand (the five named colors) --- */
+  --ink:            #1A1A1A;  /* near-black charcoal — primary text, video bg */
+  --paper:          #F5F0E6;  /* warm cream — page / blueprint background */
+  --drafting-blue:  #1F3A5F;  /* desaturated Prussian blue — THE accent */
+  --ledger-gold:    #B08D3E;  /* muted gold — key figures, one highlight/chart */
+  --sage:           #7B9E87;  /* legacy accent — positive delta ONLY */
+
+  /* --- Ink ramp (warm-neutral charcoals for text on paper) --- */
+  --ink-900: #1A1A1A;  /* primary text */
+  --ink-700: #3C3A36;  /* strong secondary text */
+  --ink-500: #6B675E;  /* muted / captions / labels */
+  --ink-400: #8A857A;  /* faint meta, placeholders */
+  --ink-300: #B4AE9F;  /* disabled text on paper */
+
+  /* --- Paper ramp (warm cream surfaces + hairlines) --- */
+  --paper-0:   #FBF8F1;  /* lifted surface (card on paper) */
+  --paper-100: #F5F0E6;  /* base page */
+  --paper-200: #EDE7D8;  /* sunken / zebra rows */
+  --paper-300: #E2DAC7;  /* subtle fills */
+  --rule:      #D8CFB9;  /* default hairline / border on paper */
+  --rule-strong: #C4B99E;/* emphasized rule, title-block frame */
+
+  /* --- Drafting Blue ramp --- */
+  --blue-900: #14263E;  /* pressed / darkest */
+  --blue-700: #1F3A5F;  /* base accent */
+  --blue-500: #35608C;  /* hover / lighter accent, links on ink */
+  --blue-tint: #E4E9F0; /* faint blue wash on paper (annotations) */
+
+  /* --- Ledger Gold ramp ---
+     Gold is the accent on dark surfaces; contrast-checked:
+     gold-bright on navy 6.4:1 · on ink 7.3:1 (AA at chip size).
+     gold-700 darkened Rev C (#8F6F2C→#7A5E24) to pass AA on paper (5.3:1). */
+  --gold-700: #7A5E24;  /* gold TEXT on paper (AA 5.3:1) */
+  --gold-500: #B08D3E;  /* gold fills, chart highlight bars */
+  --gold-bright: #C4A45F; /* gold text/accents on navy & ink */
+  --gold-tint: #EFE6CF; /* faint gold wash */
+
+  /* --- Sage (positive delta) --- */
+  --sage-700: #5E7F6A;  /* sage text on paper (AA) */
+  --sage-500: #7B9E87;
+  --negative: #9B3E2E;  /* negative delta — muted brick, never bright red */
+
+  /* ==========================================================
+     Semantic aliases — reference these in components, not raw ramp
+     ========================================================== */
+
+  /* Surfaces */
+  --surface-page:     var(--paper-100);
+  --surface-card:     var(--paper-0);
+  --surface-sunken:   var(--paper-200);
+  --surface-ink:      var(--ink-900);   /* dark surface (video, hero, footer) */
+  --surface-schematic: var(--blue-900); /* the navy working-schematic panel */
+
+  /* Schematic anatomy (drafting grid, nodes, wires) */
+  --schem-grid:        rgba(245,240,230,0.055);
+  --schem-node-border: rgba(245,240,230,0.30);
+  --schem-node-bg:     rgba(31,58,95,0.38);
+  --schem-wire:        rgba(245,240,230,0.32);
+  --status-live:       var(--sage-500);  /* live/verified status ONLY */
+
+  /* Text on paper */
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--ink-700);
+  --text-muted:   var(--ink-500);
+  --text-faint:   var(--ink-400);
+  --text-disabled:var(--ink-300);
+
+  /* Text on ink */
+  --text-on-ink:        #F5F0E6;
+  --text-on-ink-muted:  rgba(245,240,230,0.62);
+  --text-on-ink-faint:  rgba(245,240,230,0.40);
+
+  /* Accent semantics */
+  --accent:        var(--drafting-blue);
+  --accent-hover:  var(--blue-500);
+  --accent-press:  var(--blue-900);
+  --link:          var(--drafting-blue);
+  --data-highlight:var(--ledger-gold);  /* the one gold figure per chart (paper) */
+  --data-highlight-ink: var(--gold-bright); /* the one gold figure on navy/ink */
+  --delta-positive:var(--sage-700);
+  --delta-negative:var(--negative);
+
+  /* Borders */
+  --border:        var(--rule);
+  --border-strong: var(--rule-strong);
+  --border-ink:    rgba(245,240,230,0.16); /* hairline on ink surfaces */
+
+  /* Focus */
+  --focus-ring: var(--drafting-blue);
+}
+
+/* ==== inlined verbatim from design-system/tokens/typography.css ==== */
+/* ============================================================
+   The Operator Economy — Typography (Rev C)
+   ------------------------------------------------------------
+   RULES (locked from the type stress test):
+   · Boska is display-only: NEVER below 40px (hairlines sparkle).
+   · Zodiak 700 carries 18–44px headings, tracked -0.02em.
+   · Supreme for body/UI (no real 600 — semibold maps to 500).
+   · Fragment Mono (single 400 weight) for ALL numbers &
+     citations; scale carries emphasis, never synthetic bold.
+   · ITALIC RATION: at most ONE italic phrase per composition.
+   ============================================================ */
+
+:root {
+  /* --- Families --- */
+  --font-display: 'Boska', Georgia, 'Times New Roman', serif;   /* >=40px ONLY */
+  --font-heading: 'Zodiak', Georgia, 'Times New Roman', serif;  /* 18-44px */
+  --font-serif:   var(--font-heading); /* legacy alias */
+  --font-sans:  'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'Fragment Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* --- Weights --- */
+  --w-regular:  400; /* @kind font */
+  --w-medium:   500; /* @kind font */
+  --w-semibold: 500; /* @kind font */ /* Supreme ships no 600; alias to 500 */
+  --w-bold:     700; /* @kind font */ /* Boska & Zodiak workhorse weight */
+  --w-black:    900; /* @kind font */ /* Zodiak thumbnails only */
+  --w-mono:     400; /* @kind font */ /* Fragment Mono's only weight */
+
+  /* --- Type scale (rem, 16px base) --- */
+  --text-3xs: 0.6875rem; /*  11px — micro labels, doc-number caps */
+  --text-2xs: 0.75rem;   /*  12px — citation chips, table meta */
+  --text-xs:  0.8125rem; /*  13px — small UI, annotation labels */
+  --text-sm:  0.9375rem; /*  15px — secondary body, captions */
+  --text-base:1.0625rem; /*  17px — body copy (editorial default) */
+  --text-lg:  1.25rem;   /*  20px — lead paragraph */
+  --text-xl:  1.5rem;    /*  24px — small heading (Zodiak) */
+  --text-2xl: 2rem;      /*  32px — section heading (Zodiak) */
+  --text-3xl: 2.75rem;   /*  44px — page heading (Boska floor is 40px) */
+  --text-4xl: 3.75rem;   /*  60px — hero display (Boska) */
+  --text-5xl: 5rem;      /*  80px — thumbnail / display figures */
+
+  /* --- Line height --- */
+  --leading-tight:   1.04;  /* Boska display */
+  --leading-snug:    1.12;  /* Zodiak headings */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.65;  /* body reading measure */
+
+  /* --- Tracking --- */
+  --tracking-display: -0.01em;  /* Boska display */
+  --tracking-heading: -0.02em;  /* Zodiak 20–44px (kills the wide feel) */
+  --tracking-tight:   -0.01em;  /* legacy alias */
+  --tracking-label:  0.14em;    /* small-caps annotation labels */
+  --tracking-caps:   0.08em;    /* doc numbers, sheet tags */
+  --tracking-mono:   0.01em;    /* mono numerals */
+
+  /* --- Reading measure --- */
+  --measure: 68ch;
+
+  /* ==========================================================
+     Semantic type roles
+     ========================================================== */
+  --type-display:  var(--w-bold)   var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-h1:       var(--w-bold)   var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h2:       var(--w-bold)   var(--text-2xl)/var(--leading-snug)  var(--font-heading);
+  --type-h3:       var(--w-bold)   var(--text-xl)/var(--leading-snug)   var(--font-heading);
+  --type-lead:     var(--w-regular) var(--text-lg)/var(--leading-relaxed) var(--font-sans);
+  --type-body:     var(--w-regular) var(--text-base)/var(--leading-relaxed) var(--font-sans);
+  --type-ui:       var(--w-medium)  var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-data:     var(--w-mono)    var(--text-base)/var(--leading-snug) var(--font-mono);
+  --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
+  --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
+}
+
+/* ==== inlined verbatim from design-system/tokens/spacing.css ==== */
+/* ============================================================
+   The Operator Economy — Spacing, radii, borders, shadows, motion
+   ------------------------------------------------------------
+   Restrained, document-grade. Corners are near-square (this is a
+   drafting sheet, not a SaaS card). Shadows are minimal — depth
+   comes from hairline rules and paper tone, not drop shadows.
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (4px base) --- */
+  --space-0:  0;
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* Editorial margins */
+  --margin-page:  clamp(1.25rem, 5vw, 6rem);
+  --gutter:       var(--space-6);
+
+  /* --- Radii — 2–3px max (locked); documents, not bubbles --- */
+  --radius-none: 0;
+  --radius-xs:   2px;   /* chips, inputs, most surfaces */
+  --radius-sm:   3px;   /* buttons */
+  --radius-md:   3px;   /* cards (Rev C: capped at 3px) */
+  --radius-pill: 999px; /* rare — status dots only */
+
+  /* --- Border widths --- */
+  --border-hair:   1px;
+  --border-medium: 1.5px;  /* title-block frames, chart axes */
+  --border-thick:  2px;    /* accent underlines, focal rules */
+
+  /* --- Shadows — whisper-quiet; paper doesn't float --- */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(26,26,26,0.05);
+  --shadow-sm: 0 1px 3px rgba(26,26,26,0.07), 0 1px 2px rgba(26,26,26,0.04);
+  --shadow-md: 0 6px 20px -8px rgba(26,26,26,0.14);
+  --shadow-lg: 0 18px 48px -20px rgba(26,26,26,0.22);
+  /* Inset used for pressed inputs / sunken data wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,26,26,0.06);
+
+  /* --- Focus ring --- */
+  --ring: 0 0 0 2px var(--paper-100), 0 0 0 4px var(--drafting-blue);
+
+  /* --- Motion — restrained: slides & fades, no bounce (spec §6) --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-normal: 200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* --- Layout --- */
+  --container:      1120px;  /* editorial max width */
+  --container-text: 720px;   /* single-column reading width */
+  --container-wide: 1320px;  /* full app / dashboard */
+  --z-base: 0;      /* @kind other */
+  --z-sticky: 100;  /* @kind other */
+  --z-overlay: 500; /* @kind other */
+  --z-modal: 1000;  /* @kind other */
+}
+
+/* ==== inlined verbatim from design-system/tokens/base.css ==== */
+/* ============================================================
+   The Operator Economy — Base resets & primitive helpers
+   ------------------------------------------------------------
+   Minimal, opt-in. Sets the paper/ink defaults and a few
+   brand-signature utility classes (mono numerals, small-caps
+   labels, hairline rules). Everything else is tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font: var(--type-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+
+h1 {
+  color: var(--text-strong);
+  font-family: var(--font-display); /* Boska — display sizes only */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h2, h3, h4 {
+  color: var(--text-strong);
+  font-family: var(--font-heading); /* Zodiak — the 18–44px workhorse */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-heading);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--gold-tint); color: var(--ink-900); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-xs);
+}
+
+/* --- Signature helpers ------------------------------------- */
+
+/* Every number the channel publishes is mono (Fragment Mono, 400 —
+   scale carries emphasis, never synthetic bold). */
+.oe-mono,
+.tabular {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* Small-caps annotation label (chart labels, kickers, sheet tags) */
+.oe-label {
+  font: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+/* Doc-number / sheet-header caps */
+.oe-caps {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-muted);
+}
+
+/* Hairline drafting rule */
+.oe-rule { border: 0; border-top: var(--border-hair) solid var(--border); margin: 0; }
+
+/* Editorial reading column */
+.oe-measure { max-width: var(--measure); }
+
+/* --- Component interaction states (hover/active on tokens) --- */
+.oe-btn[data-variant="primary"]:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+.oe-btn[data-variant="primary"]:active:not(:disabled) { background: var(--accent-press); border-color: var(--accent-press); }
+.oe-btn[data-variant="secondary"]:hover:not(:disabled) { background: var(--paper-200); border-color: var(--ink-900); }
+.oe-btn[data-variant="secondary"]:active:not(:disabled) { background: var(--paper-300); }
+.oe-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--blue-tint); }
+.oe-btn[data-variant="ghost"]:active:not(:disabled) { background: var(--paper-300); }
+
+.oe-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--blue-tint); }
+.oe-link-row:hover { background: var(--paper-200); }
+
+/* Live-status pulse (sage dots). Safe: 0% keyframe is fully visible. */
+.oe-pulse { animation: oe-pl 2.2s ease-in-out infinite; }
+@keyframes oe-pl { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+</style>
+<style>
+/* ============================================================
+   B1/B2 -- Canvas page prototype (desktop + mobile in one file)
+   Rev D narrative · Rev C evidence system. Tokens only:
+   every value below is var(--*) or a structural dimension.
+   Content: №006 direct-booking-recovery, V1-derived design
+   specimen · not V2 gated. No canvas lock, no canonical hash,
+   no published PDF. See 01-experience-spec.md §3.
+   ============================================================ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font: var(--type-body);
+  font-family: var(--font-sans);
+}
+a { color: var(--drafting-blue); text-underline-offset: 3px; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-heading); font-weight: var(--w-bold); letter-spacing: var(--tracking-heading); }
+p { margin: 0; }
+button { font: inherit; cursor: pointer; }
+
+/* --- site-scoped display role (Boska is not used on site surfaces) --- */
+.site-display { font: var(--w-bold) var(--text-3xl)/var(--leading-snug) var(--font-heading); letter-spacing: var(--tracking-heading); }
+
+.wrap { max-width: var(--container-wide); margin: 0 auto; padding: 0 var(--space-5); }
+.mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
+.label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); }
+
+/* ============ masthead ============ */
+.masthead { border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-page); position: sticky; top: 0; z-index: 40; }
+.masthead-inner { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-3) var(--space-5); max-width: var(--container-wide); margin: 0 auto; }
+.brand { display: flex; flex-direction: column; line-height: 1; text-decoration: none; color: var(--text-primary); }
+.brand-kicker { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
+.brand-name { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.nav { display: flex; gap: var(--space-4); margin-left: auto; align-items: center; }
+.nav a { text-decoration: none; color: var(--text-secondary); font: var(--type-ui); }
+.nav a:hover { color: var(--drafting-blue); }
+.btn { display: inline-block; border: var(--border-medium) solid var(--drafting-blue); background: var(--drafting-blue); color: var(--paper-0); padding: 10px 18px; border-radius: var(--radius-sm); font: var(--type-ui); text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--drafting-blue); }
+.btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--drafting-blue); outline-offset: 2px; }
+.menu-toggle { display: none; margin-left: auto; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px 16px; min-height: 44px; font: var(--type-ui); }
+.mobile-panel { display: none; }
+
+/* ============ specimen titleblock ============ */
+.titleblock { border: var(--border-medium) solid var(--rule-strong); background: var(--surface-card); margin-top: var(--space-6); border-radius: var(--radius-sm); overflow: hidden; }
+.titleblock-head { padding: var(--space-5); border-bottom: var(--border-hair) solid var(--rule); }
+.titleblock-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.titleblock-cell { padding: var(--space-3) var(--space-5); border-right: var(--border-hair) solid var(--rule); }
+.titleblock-cell:last-child { border-right: 0; }
+.titleblock-cell .label { display: block; margin-bottom: 4px; }
+.titleblock-cell strong { font: var(--type-ui); font-weight: var(--w-medium); }
+.specimen-chip { display: inline-block; border: var(--border-hair) dashed var(--gold-700); color: var(--gold-700); font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--gold-tint); }
+
+/* ============ chips ============ */
+.chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); white-space: nowrap; }
+.chip.observed { border-color: var(--sage-700); color: var(--sage-700); }
+.chip.observed::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--sage-500); }
+.chip.parallel { border-color: var(--drafting-blue); color: var(--drafting-blue); }
+.chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
+.chip.unknown { border-style: dashed; border-color: var(--ink-400); color: var(--ink-500); background: transparent; }
+a.chip { text-decoration: none; }
+
+.receipt { display: inline-flex; gap: 6px; align-items: baseline; font: var(--type-citation); color: var(--text-muted); border: var(--border-hair) solid var(--rule); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--surface-card); text-decoration: none; }
+.receipt b { color: var(--text-secondary); font-weight: var(--w-mono); }
+
+/* ============ decision summary ============ */
+.summary { margin-top: var(--space-6); }
+.summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
+.summary-cell { background: var(--surface-card); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+.summary-cell p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.summary-cell .chip { align-self: flex-start; }
+
+/* ============ canvas shell ============ */
+.canvas-entry { display: flex; align-items: center; gap: var(--space-4); margin: var(--space-7) 0 var(--space-4); flex-wrap: wrap; }
+.toggle { display: inline-flex; align-items: center; gap: 10px; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px 14px; min-height: 44px; font: var(--type-ui); }
+.toggle .track { width: 34px; height: 18px; border-radius: var(--radius-pill); background: var(--paper-300); position: relative; transition: background var(--dur-fast) var(--ease-standard); }
+.toggle .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: var(--radius-pill); background: var(--surface-card); border: var(--border-hair) solid var(--rule-strong); transition: transform var(--dur-fast) var(--ease-standard); }
+.toggle[aria-pressed="true"] .track { background: var(--drafting-blue); }
+.toggle[aria-pressed="true"] .track::after { transform: translateX(16px); }
+
+.canvas-shell { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-5); align-items: start; }
+.canvas-shell > * { min-width: 0; }
+.sheet, .summary-cell, .scenario-col, .evidence-card { min-width: 0; }
+.rail { position: sticky; top: 76px; border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); }
+.rail h3 { font-size: var(--text-xl); margin: 4px 0 var(--space-3); }
+.rail nav { display: flex; flex-direction: column; gap: 2px; }
+.rail nav a { display: flex; gap: 10px; align-items: baseline; text-decoration: none; color: var(--text-secondary); font: var(--type-ui); padding: 8px 8px; border-radius: var(--radius-xs); border-left: 2px solid transparent; }
+.rail nav a .mono { color: var(--text-muted); font-size: var(--text-2xs); }
+.rail nav a[aria-current="true"] { border-left-color: var(--drafting-blue); color: var(--drafting-blue); background: var(--blue-tint); }
+.rail-status { margin-top: var(--space-4); padding-top: var(--space-3); border-top: var(--border-hair) solid var(--rule); font: var(--type-citation); color: var(--text-muted); display: grid; gap: 8px; }
+.guide-progress { display: none; margin-top: var(--space-3); font: var(--type-citation); color: var(--text-secondary); }
+.guide-on .guide-progress { display: block; }
+.guide-progress .bar { height: 3px; background: var(--paper-300); border-radius: var(--radius-xs); margin-top: 6px; overflow: hidden; }
+.guide-progress .bar i { display: block; height: 100%; width: 20%; background: var(--drafting-blue); transition: width var(--dur-normal) var(--ease-out); }
+
+/* ============ sheets ============ */
+.sheet { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); margin-bottom: var(--space-5); padding: var(--space-6); scroll-margin-top: 90px; }
+.sheet-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); border-bottom: var(--border-medium) solid var(--rule-strong); padding-bottom: var(--space-3); margin-bottom: var(--space-5); flex-wrap: wrap; }
+.sheet-tag { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
+.sheet h2 { font-size: var(--text-2xl); }
+
+.guide-note { display: none; border-left: 2px solid var(--drafting-blue); background: var(--blue-tint); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-4); margin-bottom: var(--space-5); }
+.guide-on .guide-note { display: block; }
+.guide-note .q { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); margin: 4px 0 8px; }
+.guide-note ul { margin: 6px 0 0; padding-left: 18px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.guide-note .decide { margin-top: var(--space-3); font: var(--type-ui); }
+.guide-note .decide b { display: block; font-family: var(--font-heading); font-size: var(--text-base); }
+.guide-controls { display: none; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); }
+.guide-on .guide-controls { display: flex; }
+.guide-controls button { border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px 16px; min-height: 44px; font: var(--type-ui); }
+.guide-controls button.next { border-color: var(--drafting-blue); background: var(--drafting-blue); color: var(--paper-0); }
+
+/* sheet 00 */
+.opportunity-board { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-4); align-items: stretch; }
+.opp-side { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-4); background: var(--surface-page); display: flex; flex-direction: column; gap: 8px; }
+.opp-side b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.opp-side p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.opp-arrow { align-self: center; color: var(--gold-700); font-family: var(--font-mono); font-size: var(--text-2xl); }
+.ladder { margin-top: var(--space-5); border-top: var(--border-hair) solid var(--rule); padding-top: var(--space-4); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.ladder-step { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--surface-page); }
+.ladder-step .label { margin-bottom: 6px; }
+.ladder-step p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+
+/* sheet 01 -- navy capability map */
+.cap-wrap { background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.cap-tabs { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.cap-tabs button { flex: 1 1 120px; text-align: left; border: var(--border-hair) solid var(--schem-node-border); background: var(--schem-node-bg); color: var(--paper-100); border-radius: var(--radius-sm); padding: var(--space-3); min-height: 44px; display: flex; flex-direction: column; gap: 2px; }
+.cap-tabs button .mono { font-size: var(--text-2xs); color: var(--text-on-ink-muted); }
+.cap-tabs button strong { font-family: var(--font-heading); }
+.cap-tabs button small { font: var(--type-citation); color: var(--text-on-ink-muted); }
+.cap-tabs button[aria-selected="true"] { border-color: var(--gold-bright); }
+.cap-tabs button[aria-selected="true"] strong { color: var(--gold-bright); }
+.cap-detail { margin-top: var(--space-4); border: var(--border-hair) solid var(--schem-node-border); border-radius: var(--radius-sm); padding: var(--space-4); color: var(--paper-100); }
+.cap-detail h4 { color: var(--paper-100); font-size: var(--text-xl); margin: 4px 0 6px; }
+.cap-detail > p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-on-ink-muted); }
+.cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
+.cap-grid div { border-top: var(--border-hair) solid var(--schem-wire); padding-top: 8px; }
+.cap-grid span { display: block; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-on-ink-muted); margin-bottom: 4px; }
+.cap-grid b { font: var(--type-ui); color: var(--paper-100); font-weight: var(--w-medium); }
+.no-js .cap-detail[hidden] { display: block !important; margin-top: var(--space-3); }
+
+/* sheet 02 */
+.evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.evidence-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-4); background: var(--surface-page); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.evidence-card .figure { font-family: var(--font-mono); font-size: var(--text-2xl); font-variant-numeric: tabular-nums; }
+.evidence-card.gold .figure { color: var(--gold-700); }
+.evidence-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.unknown-register { margin-top: var(--space-5); }
+.unknown-register table { width: 100%; border-collapse: collapse; font: var(--type-ui); font-weight: var(--w-regular); }
+.unknown-register th { text-align: left; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); border-bottom: var(--border-medium) solid var(--rule-strong); padding: 8px 10px; }
+.unknown-register td { border-bottom: var(--border-hair) solid var(--rule); padding: 10px; vertical-align: top; color: var(--text-secondary); }
+.unknown-register td.mono { color: var(--ink-500); white-space: nowrap; }
+.table-scroll { overflow-x: auto; }
+
+/* sheet 03 -- scenario columns / lens */
+.scenario-tabs { display: none; gap: var(--space-2); margin-bottom: var(--space-4); }
+.scenario-tabs button { flex: 1; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px; min-height: 44px; font: var(--type-ui); }
+.scenario-tabs button[aria-selected="true"] { border-color: var(--drafting-blue); color: var(--drafting-blue); background: var(--blue-tint); }
+.scenario-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.scenario-col { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); display: flex; flex-direction: column; gap: 10px; }
+.scenario-col .figure { font-family: var(--font-mono); font-size: var(--text-2xl); font-variant-numeric: tabular-nums; }
+.scenario-col.gold .figure { color: var(--gold-700); }
+.scenario-col p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.scenario-col ul { margin: 0; padding: 0; list-style: none; border-top: var(--border-hair) solid var(--rule); }
+.scenario-col li { display: flex; justify-content: space-between; gap: var(--space-3); padding: 7px 0; border-bottom: var(--border-hair) solid var(--rule); font: var(--type-citation); color: var(--text-muted); }
+.scenario-col li b { font-weight: var(--w-mono); color: var(--text-secondary); text-align: right; }
+.disclosure-inline { margin-top: var(--space-4); border: var(--border-hair) dashed var(--gold-700); background: var(--gold-tint); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); font: var(--type-ui); color: var(--gold-700); }
+
+/* sheet 04 */
+.guardrail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.guardrail-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); }
+.guardrail-card h4 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.guardrail-card ol, .guardrail-card ul { margin: 0; padding-left: 20px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); display: grid; gap: 6px; }
+.guardrail-card.stop { border-left: 3px solid var(--negative); }
+
+/* ============ media band ============ */
+.media-band { margin-top: var(--space-6); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-5); }
+.media-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--space-5); margin-top: var(--space-4); }
+.video-frame { position: relative; aspect-ratio: 16 / 9; background: var(--surface-schematic); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.video-frame span { color: var(--gold-bright); font: var(--type-ui); border: var(--border-hair) solid var(--gold-bright); border-radius: var(--radius-sm); padding: 10px 16px; }
+.media-rows { display: grid; gap: var(--space-3); align-content: start; }
+.media-row { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); font: var(--type-ui); color: var(--text-secondary); background: var(--surface-page); }
+.media-row .label { display: block; margin-bottom: 4px; }
+details.transcript summary { cursor: pointer; font: var(--type-ui); color: var(--drafting-blue); }
+details.transcript p { margin-top: var(--space-2); font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-muted); }
+
+/* ============ disclosure + download + provenance ============ */
+.disclosure-band { margin-top: var(--space-6); border: var(--border-medium) solid var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-5); display: flex; gap: var(--space-4); align-items: baseline; flex-wrap: wrap; }
+.disclosure-band .mono { color: var(--gold-700); }
+
+.download { margin-top: var(--space-6); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-6); display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); }
+.download h2 { font-size: var(--text-2xl); margin-bottom: var(--space-3); }
+.download .gate { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); border-left: 2px solid var(--rule-strong); padding-left: var(--space-3); margin-top: var(--space-3); }
+.download-card { border: var(--border-hair) solid var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); display: grid; gap: var(--space-3); align-content: start; }
+.download-card[data-state="specimen"] { border-style: dashed; }
+.download-card input[type="email"] { font: var(--type-data); border: var(--border-hair) solid var(--rule-strong); background: var(--surface-sunken); border-radius: var(--radius-xs); padding: 10px 12px; width: 100%; color: var(--text-primary); }
+.download-card .consent { display: flex; gap: 10px; align-items: flex-start; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.download-card .consent input { margin-top: 3px; width: 16px; height: 16px; }
+.download-card [disabled] { opacity: 0.55; cursor: not-allowed; }
+.download-card .state-note { font: var(--type-citation); color: var(--gold-700); }
+.contents-list { margin: 0; padding-left: 18px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); display: grid; gap: 4px; }
+
+.provenance { margin-top: var(--space-6); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); }
+.provenance summary { list-style: none; display: flex; gap: var(--space-4); align-items: baseline; padding: var(--space-4) var(--space-5); cursor: pointer; flex-wrap: wrap; }
+.provenance summary::-webkit-details-marker { display: none; }
+.provenance-body { border-top: var(--border-hair) solid var(--rule); padding: var(--space-4) var(--space-5); display: grid; gap: var(--space-2); font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.provenance-body .mono { font-size: var(--text-2xs); }
+
+/* ============ next + footer ============ */
+.next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-4); }
+.lib-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); }
+.lib-card:hover { border-color: var(--drafting-blue); }
+.lib-card b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.lib-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid var(--rule); padding: var(--space-6) 0 var(--space-7); }
+.footer-inner { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; align-items: baseline; }
+.footer-nav { display: flex; gap: var(--space-4); }
+.footer-nav a { font: var(--type-ui); color: var(--text-secondary); text-decoration: none; }
+.colophon { margin-top: var(--space-4); display: flex; gap: var(--space-4); font: var(--type-citation); color: var(--text-muted); flex-wrap: wrap; }
+.footer-mark { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
+
+/* ============ section headers ============ */
+.section-kicker { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2); }
+
+/* ============ responsive ============ */
+@media (max-width: 900px) {
+  .nav, .masthead .btn { display: none; }
+  .menu-toggle { display: block; }
+  .mobile-panel[data-open="true"] { display: block; border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-card); }
+  .mobile-panel nav { display: grid; padding: var(--space-3) var(--space-5); gap: 2px; }
+  .mobile-panel a { padding: 12px 8px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); font: var(--type-ui); border-bottom: var(--border-hair) solid var(--rule); }
+  .titleblock-grid, .summary-grid { grid-template-columns: 1fr 1fr; }
+  .canvas-shell { grid-template-columns: 1fr; }
+  .rail { position: static; }
+  .download, .media-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .site-display { font-size: var(--text-2xl); }
+  .chip { white-space: normal; }
+  .summary-grid, .titleblock-grid, .evidence-grid, .ladder, .guardrail-grid, .next-grid { grid-template-columns: 1fr; }
+  .opportunity-board { grid-template-columns: 1fr; }
+  .opp-arrow { transform: rotate(90deg); justify-self: center; }
+  .cap-grid { grid-template-columns: 1fr 1fr; }
+  .sheet { padding: var(--space-4); }
+  /* mobile lens: tabs show, columns become single-pane */
+  .js .scenario-tabs { display: flex; }
+  .js .scenario-cols { grid-template-columns: 1fr; }
+  .js .scenario-col[data-hidden="true"] { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.replace('no-js','js');</script>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="#top" aria-label="The Operator Economy, home">
+      <span class="brand-kicker">The</span>
+      <span class="brand-name">Operator Economy</span>
+    </a>
+    <nav class="nav" aria-label="Site">
+      <a href="#library-next">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="#footer">About</a>
+    </nav>
+    <a class="btn secondary" href="#footer" style="margin-left: var(--space-4);">Subscribe</a>
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
+  </div>
+  <div class="mobile-panel" id="mobile-panel" data-open="false">
+    <nav aria-label="Site, mobile">
+      <a href="#library-next">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="#footer">About</a>
+      <a href="#footer">Subscribe</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- ============ titleblock ============ -->
+  <section class="titleblock" aria-label="Canvas title block">
+    <div class="titleblock-head">
+      <div class="section-kicker">Operator Canvas · the operating model behind the episode</div>
+      <h1 class="site-display">Direct booking recovery</h1>
+      <p style="font: var(--type-lead); color: var(--text-secondary); margin-top: var(--space-2); max-width: 68ch;">
+        Turn a discovered guest into a relationship the property can keep.
+      </p>
+      <p style="margin-top: var(--space-3);"><span class="specimen-chip">V1-derived design specimen · not V2 gated</span></p>
+    </div>
+    <div class="titleblock-grid">
+      <div class="titleblock-cell"><span class="label">Canvas</span><strong class="mono">№006 · Rev A</strong></div>
+      <div class="titleblock-cell"><span class="label">Model status</span><strong>Not assessed · V1-derived</strong></div>
+      <div class="titleblock-cell"><span class="label">Episode</span><strong>Live · 2026-08-17</strong></div>
+      <div class="titleblock-cell"><span class="label">Canvas lock</span><strong>None · specimen</strong></div>
+    </div>
+  </section>
+
+  <!-- ============ decision summary ============ -->
+  <section class="summary" aria-labelledby="summary-heading">
+    <div class="section-kicker">The decision at a glance</div>
+    <h2 id="summary-heading" style="font-size: var(--text-2xl);">Five facts before the full Canvas.</h2>
+    <div class="summary-grid">
+      <div class="summary-cell">
+        <span class="label">Buyer</span>
+        <p>An independent, owner-operated property that depends on OTA discovery.</p>
+        <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
+      </div>
+      <div class="summary-cell">
+        <span class="label">Offer</span>
+        <p>Install and operate the direct-booking recovery stack: parity, booking path, missed-call recovery, re-book flows.</p>
+        <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+      </div>
+      <div class="summary-cell">
+        <span class="label">Result</span>
+        <p>Repeat bookings that arrive direct, measured as direct share against a baseline.</p>
+        <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+      </div>
+      <div class="summary-cell">
+        <span class="label">First test</span>
+        <p>Baseline the booking mix, repair the direct path, then re-book past guests with permission.</p>
+        <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+      </div>
+      <div class="summary-cell">
+        <span class="label">Biggest risk</span>
+        <p>Activity rises while direct share doesn't move.</p>
+        <a class="chip unknown" href="B3-method.html#evidence-classes">Unknown</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ canvas entry ============ -->
+  <div class="canvas-entry">
+    <a class="btn" href="#sheet-00">Explore the Canvas ↓</a>
+    <button class="toggle" id="guide-toggle" aria-pressed="false">
+      <span class="track" aria-hidden="true"></span>
+      Guided walkthrough
+    </button>
+    <span style="font: var(--type-ui); color: var(--text-muted);">The story opens the door. The Canvas helps you decide.</span>
+  </div>
+
+  <!-- ============ canvas shell ============ -->
+  <div class="canvas-shell" id="canvas-shell">
+    <aside class="rail" aria-label="Canvas sheets">
+      <span class="label">Canvas №006 · Rev A</span>
+      <h3>Direct booking recovery</h3>
+      <nav>
+        <a href="#sheet-00" data-rail="sheet-00"><span class="mono">00</span> Opportunity</a>
+        <a href="#sheet-01" data-rail="sheet-01"><span class="mono">01</span> System</a>
+        <a href="#sheet-02" data-rail="sheet-02"><span class="mono">02</span> Evidence</a>
+        <a href="#sheet-03" data-rail="sheet-03"><span class="mono">03</span> Economics</a>
+        <a href="#sheet-04" data-rail="sheet-04"><span class="mono">04</span> Guardrails</a>
+        <a href="#download" data-rail="download"><span class="mono">05</span> Download</a>
+      </nav>
+      <div class="guide-progress" aria-live="polite"><span id="guide-count">Step 1 of 5</span><span class="bar"><i id="guide-bar"></i></span></div>
+      <div class="rail-status">
+        <span>State<br /><b>Design specimen</b></span>
+        <span>Classes on this page<br /><b>Observed · Modeled · Unknown</b></span>
+      </div>
+    </aside>
+
+    <div id="sheets">
+
+      <!-- Sheet 00 -->
+      <section class="sheet" id="sheet-00" data-step="1" aria-labelledby="h-00">
+        <div class="sheet-head">
+          <span class="sheet-tag">Sheet 00 · Opportunity</span>
+          <h2 id="h-00">Don't replace discovery. Keep the relationship it creates.</h2>
+        </div>
+        <div class="guide-note">
+          <span class="label">Step 01 · Opportunity</span>
+          <p class="q">Is there a real problem worth operating?</p>
+          <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary);">Start with the tension, not the tools. OTAs do discovery well; the opportunity appears when the hotel pays again to reacquire a guest it has already served.</p>
+          <ul>
+            <li>Who already solves discovery well.</li>
+            <li>Where the relationship breaks after the stay.</li>
+            <li>What changes if the second booking becomes direct.</li>
+          </ul>
+          <div class="decide"><span class="label">Your decision</span><b>Is the return path valuable enough to deserve an operator?</b></div>
+        </div>
+        <div class="opportunity-board">
+          <div class="opp-side">
+            <span class="label">What already works</span>
+            <b>The first booking can come through an OTA.</b>
+            <p>Distribution gives an independent property reach it couldn't efficiently reproduce alone.</p>
+          </div>
+          <span class="opp-arrow" aria-hidden="true">→</span>
+          <div class="opp-side">
+            <span class="label">What the operator changes</span>
+            <b>Earn the second booking direct.</b>
+            <p>Permission, useful guest context, a relevant reason to return, and a destination that completes the promise.</p>
+          </div>
+        </div>
+        <div class="ladder" aria-label="Entry wedge and expansion ladder">
+          <div class="ladder-step"><span class="label">Entry wedge</span><p>One property: install the recovery stack, move its direct share.</p></div>
+          <div class="ladder-step"><span class="label">Proof before expansion</span><p>One property's direct share moved against its own baseline.</p></div>
+          <div class="ladder-step"><span class="label">Aspirational destination</span><p>A guest-relationship practice serving independent properties.</p></div>
+        </div>
+        <div class="guide-controls"><button type="button" disabled>← Back</button><button type="button" class="next" data-next="sheet-01">Next: System →</button></div>
+      </section>
+
+      <!-- Sheet 01 -->
+      <section class="sheet" id="sheet-01" data-step="2" aria-labelledby="h-01">
+        <div class="sheet-head">
+          <span class="sheet-tag">Sheet 01 · System</span>
+          <h2 id="h-01">Five capabilities, one guest relationship.</h2>
+        </div>
+        <div class="guide-note">
+          <span class="label">Step 02 · Operating system</span>
+          <p class="q">What has to run every week?</p>
+          <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary);">A business is more than a collection of tools. These five capabilities describe the recurring work, the inputs it needs, and the judgment that can't be automated away.</p>
+          <ul>
+            <li>Select each capability to see its operating contract.</li>
+            <li>Notice where human approval still matters.</li>
+            <li>Read the failure mode before the implementation.</li>
+          </ul>
+          <div class="decide"><span class="label">Your decision</span><b>Does your experience fit the work this system requires?</b></div>
+        </div>
+        <div class="cap-wrap">
+          <div class="cap-tabs" role="tablist" aria-label="Capabilities">
+            <button role="tab" aria-selected="true" id="tab-find" aria-controls="cap-find"><span class="mono">01</span><strong>Find</strong><small>Keep discovery accurate</small></button>
+            <button role="tab" aria-selected="false" id="tab-convert" aria-controls="cap-convert"><span class="mono">02</span><strong>Convert</strong><small>Complete the promise</small></button>
+            <button role="tab" aria-selected="false" id="tab-remember" aria-controls="cap-remember"><span class="mono">03</span><strong>Remember</strong><small>Earn useful context</small></button>
+            <button role="tab" aria-selected="false" id="tab-return" aria-controls="cap-return"><span class="mono">04</span><strong>Return</strong><small>Create relevance</small></button>
+            <button role="tab" aria-selected="false" id="tab-measure" aria-controls="cap-measure"><span class="mono">05</span><strong>Measure</strong><small>Prove the mix moved</small></button>
+          </div>
+          <div class="cap-detail" id="cap-find" role="tabpanel" aria-labelledby="tab-find">
+            <span class="label" style="color: var(--gold-bright);">Capability 01 · Discovery keeper</span>
+            <h4>Keep the property findable and truthful.</h4>
+            <p>Maintain the listing, photos, descriptions, availability signals, and the current reason to visit.</p>
+            <div class="cap-grid">
+              <div><span>Human judgment</span><b>Approve what's true and current</b></div>
+              <div><span>Implementation</span><b>Google Business Profile · OTA listings</b></div>
+              <div><span>Input</span><b>Property facts · imagery · offer</b></div>
+              <div><span>Failure mode</span><b>Inconsistent or stale promises</b></div>
+            </div>
+          </div>
+          <div class="cap-detail" id="cap-convert" role="tabpanel" aria-labelledby="tab-convert" hidden>
+            <span class="label" style="color: var(--gold-bright);">Capability 02 · Destination keeper</span>
+            <h4>Make the direct path complete the promise.</h4>
+            <p>Align rate parity, mobile booking, availability, cancellation language, and phone coverage from search result to check-in.</p>
+            <div class="cap-grid">
+              <div><span>Human judgment</span><b>Own exceptions and guest experience</b></div>
+              <div><span>Implementation</span><b>Hotel site · booking engine · phone</b></div>
+              <div><span>Input</span><b>Rates · rooms · policies · availability</b></div>
+              <div><span>Failure mode</span><b>Outreach sends demand into a broken path</b></div>
+            </div>
+          </div>
+          <div class="cap-detail" id="cap-remember" role="tabpanel" aria-labelledby="tab-remember" hidden>
+            <span class="label" style="color: var(--gold-bright);">Capability 03 · Relationship keeper</span>
+            <h4>Remember enough to be relevant, only with permission.</h4>
+            <p>Preserve useful guest context and consent so follow-up feels like hospitality rather than cold automation.</p>
+            <div class="cap-grid">
+              <div><span>Human judgment</span><b>Approve consent, context, and tone</b></div>
+              <div><span>Implementation</span><b>Guest list · CRM · permission record</b></div>
+              <div><span>Input</span><b>Stay context · consent · preferences</b></div>
+              <div><span>Failure mode</span><b>Privacy breach or generic outreach</b></div>
+            </div>
+          </div>
+          <div class="cap-detail" id="cap-return" role="tabpanel" aria-labelledby="tab-return" hidden>
+            <span class="label" style="color: var(--gold-bright);">Capability 04 · Return path</span>
+            <h4>Create a real reason to come back.</h4>
+            <p>Send a reviewed post-stay, seasonal, referral, or return offer that resolves on the property's direct booking path.</p>
+            <div class="cap-grid">
+              <div><span>Human judgment</span><b>Choose the offer and approve the message</b></div>
+              <div><span>Implementation</span><b>Resend or equivalent · Make or n8n</b></div>
+              <div><span>Input</span><b>Permission · timing · relevant offer</b></div>
+              <div><span>Failure mode</span><b>Discounting without relationship value</b></div>
+            </div>
+          </div>
+          <div class="cap-detail" id="cap-measure" role="tabpanel" aria-labelledby="tab-measure" hidden>
+            <span class="label" style="color: var(--gold-bright);">Capability 05 · Operator scorecard</span>
+            <h4>Prove whether the booking mix moved.</h4>
+            <p>Track direct share before and after. Use commission, cancellations, missed calls, repeat stays, and reviews to diagnose the path.</p>
+            <div class="cap-grid">
+              <div><span>Human judgment</span><b>Interpret the result and redesign the flow</b></div>
+              <div><span>Implementation</span><b>Booking reports · monthly scorecard</b></div>
+              <div><span>Input</span><b>Baseline · direct share · period</b></div>
+              <div><span>Failure mode</span><b>Activity rises while the outcome stays flat</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-controls"><button type="button" data-prev="sheet-00">← Back</button><button type="button" class="next" data-next="sheet-02">Next: Evidence →</button></div>
+      </section>
+
+      <!-- Sheet 02 -->
+      <section class="sheet" id="sheet-02" data-step="3" aria-labelledby="h-02">
+        <div class="sheet-head">
+          <span class="sheet-tag">Sheet 02 · Evidence</span>
+          <h2 id="h-02">Proof and uncertainty share the same surface.</h2>
+        </div>
+        <div class="guide-note">
+          <span class="label">Step 03 · Evidence</span>
+          <p class="q">What do we know, and what are we assuming?</p>
+          <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary);">Evidence earns the right to keep investigating. It doesn't turn an illustrative model into a property-specific result, and it doesn't prove every hotel has the same problem.</p>
+          <ul>
+            <li>The evidence class attached to every figure.</li>
+            <li>The difference between reported facts and arithmetic.</li>
+            <li>The assumptions carried with the $135K model.</li>
+          </ul>
+          <div class="decide"><span class="label">Your decision</span><b>Is the case strong enough to test without claiming it's already proven?</b></div>
+        </div>
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
+            <span class="figure">63.4%</span>
+            <p>Share of independent-hotel reservations attributed to Booking.com and Expedia in the cited report.</p>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+          </article>
+          <article class="evidence-card">
+            <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
+            <span class="figure">21.8 → 10.6</span>
+            <p>Reported cancellation-rate comparison, OTA booking versus direct booking. Percent, not percentage points.</p>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+          </article>
+          <article class="evidence-card gold">
+            <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+            <span class="figure">$135K</span>
+            <p>Annual commission-exposure arithmetic: 20 rooms, $180 ADR, 70% occupancy, 63.4% OTA share, 22% commission.</p>
+            <span class="receipt"><b>MODEL</b> arithmetic · assumptions shown</span>
+          </article>
+        </div>
+        <div class="unknown-register">
+          <div class="section-kicker" style="margin-bottom: var(--space-2);">Unknown register · open questions carried, not hidden</div>
+          <div class="table-scroll">
+          <table>
+            <thead><tr><th scope="col">ID</th><th scope="col">Unknown</th><th scope="col">How it resolves</th><th scope="col">Class</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">U001</td><td>What a hotel will pay for this specific service. Five providers scanned, no public price.</td><td>First paid conversation.</td><td><span class="chip unknown">Unknown</span></td></tr>
+              <tr><td class="mono">U002</td><td>Delivery hours per property at a defensible standard.</td><td>Measured in the first engagement.</td><td><span class="chip unknown">Unknown</span></td></tr>
+              <tr><td class="mono">U003</td><td>Whether a property renews after the first measured period.</td><td>Tracked after the first quarter.</td><td><span class="chip unknown">Unknown</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="guide-controls"><button type="button" data-prev="sheet-01">← Back</button><button type="button" class="next" data-next="sheet-03">Next: Economics →</button></div>
+      </section>
+
+      <!-- Sheet 03 -->
+      <section class="sheet" id="sheet-03" data-step="4" aria-labelledby="h-03">
+        <div class="sheet-head">
+          <span class="sheet-tag">Sheet 03 · Economics</span>
+          <h2 id="h-03">Where value could move, and what is still unpriced.</h2>
+        </div>
+        <div class="guide-note">
+          <span class="label">Step 04 · Economics</span>
+          <p class="q">Where could value move, and what is still unpriced?</p>
+          <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary);">The market pressure, the hotel model, and the operator workload answer different questions. Read them side by side; never collapse them into one confident revenue claim.</p>
+          <ul>
+            <li>Observed commission pressure in the cited report.</li>
+            <li>The assumptions behind the illustrative hotel model.</li>
+            <li>The missing delivery capacity, pricing, and renewal data.</li>
+          </ul>
+          <div class="decide"><span class="label">Your decision</span><b>Is there plausible room for an offer, and which unknown must you price first?</b></div>
+        </div>
+
+        <div class="scenario-tabs" role="tablist" aria-label="Economic views, one at a time on mobile">
+          <button role="tab" aria-selected="true" data-col="col-market">Market</button>
+          <button role="tab" aria-selected="false" data-col="col-model">Hotel model</button>
+          <button role="tab" aria-selected="false" data-col="col-operator">Operator</button>
+        </div>
+        <p class="label" id="lens-note" style="display: none; margin-bottom: var(--space-2);">One case at a time, never blended.</p>
+
+        <div class="scenario-cols">
+          <div class="scenario-col" id="col-market" role="tabpanel" aria-label="Observed market pressure">
+            <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
+            <span class="figure">18–30%</span>
+            <p>All-in Booking.com commission range reported when loyalty and visibility programs are included.</p>
+            <ul>
+              <li><span>Base commission</span><b>Included</b></li>
+              <li><span>Visibility programs</span><b>Included</b></li>
+              <li><span>Property-specific result</span><b>Unknown</b></li>
+            </ul>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+          </div>
+          <div class="scenario-col gold" id="col-model" role="tabpanel" aria-label="Illustrative hotel model" data-hidden="true">
+            <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+            <span class="figure">$135K/yr</span>
+            <p>Arithmetic estimate of annual commission exposure. Not a reported hotel result and not a universal loss figure.</p>
+            <ul>
+              <li><span>Rooms × ADR</span><b>20 × $180</b></li>
+              <li><span>Occupancy × OTA share</span><b>70% × 63.4%</b></li>
+              <li><span>Commission assumption</span><b>22%</b></li>
+            </ul>
+            <span class="receipt"><b>MODEL</b> arithmetic · assumptions shown</span>
+          </div>
+          <div class="scenario-col" id="col-operator" role="tabpanel" aria-label="Operator workload" data-hidden="true">
+            <a class="chip unknown" href="B3-method.html#evidence-classes">Unknown</a>
+            <span class="figure">Unknown</span>
+            <p>The market proves the work exists. Public provider pricing doesn't establish what a hotel will pay for this service.</p>
+            <ul>
+              <li><span>Five providers scanned</span><b>No public price</b></li>
+              <li><span>Delivery capacity</span><b>Must be tested</b></li>
+              <li><span>Renewal threshold</span><b>Must be measured</b></li>
+            </ul>
+            <span class="receipt"><b>OPEN</b> resolves in the first engagement</span>
+          </div>
+        </div>
+        <p class="disclosure-inline">Illustrative arithmetic, not observed performance and not an earnings forecast. No operator revenue is modeled on this page: what a hotel pays for this service is unknown U001.</p>
+        <div class="guide-controls"><button type="button" data-prev="sheet-02">← Back</button><button type="button" class="next" data-next="sheet-04">Next: Guardrails →</button></div>
+      </section>
+
+      <!-- Sheet 04 -->
+      <section class="sheet" id="sheet-04" data-step="5" aria-labelledby="h-04">
+        <div class="sheet-head">
+          <span class="sheet-tag">Sheet 04 · Guardrails</span>
+          <h2 id="h-04">The first test is bounded. So is the claim.</h2>
+        </div>
+        <div class="guide-note">
+          <span class="label">Step 05 · First test</span>
+          <p class="q">What can you test before making a bigger claim?</p>
+          <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary);">The first engagement should reduce uncertainty, not hide it. Establish the baseline, repair the destination, respect permission, and define the result that would justify continuing.</p>
+          <ul>
+            <li>The baseline required before intervention.</li>
+            <li>The booking and phone path that must work first.</li>
+            <li>The stop conditions that prevent activity theater.</li>
+          </ul>
+          <div class="decide"><span class="label">Your decision</span><b>Can a bounded test produce a credible yes, no, or redesign signal?</b></div>
+        </div>
+        <div class="guardrail-grid">
+          <article class="guardrail-card">
+            <h4>Start with permission and a baseline.</h4>
+            <ol>
+              <li>Measure booking mix, commission, cancellations, missed calls, and repeat stays.</li>
+              <li>Repair the mobile booking and phone path before running outreach.</li>
+              <li>Begin with past guests who have permission to hear from the property.</li>
+              <li>Track direct share before and after; use other metrics to diagnose the path.</li>
+            </ol>
+          </article>
+          <article class="guardrail-card stop">
+            <h4>Stop or redesign when:</h4>
+            <ul>
+              <li>The property can't establish a credible baseline.</li>
+              <li>Guest permission or data access is unclear.</li>
+              <li>The destination can't complete the promise.</li>
+              <li>Activity rises while direct share doesn't move.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="guide-controls"><button type="button" data-prev="sheet-03">← Back</button><button type="button" class="next" data-next="download">Finish: Download ↓</button></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ media band (supporting material, below the tool) ============ -->
+  <section class="media-band" aria-labelledby="media-heading">
+    <div class="section-kicker">Supporting material</div>
+    <h2 id="media-heading" style="font-size: var(--text-2xl);">The episode walks this Canvas in story order.</h2>
+    <div class="media-grid">
+      <a class="video-frame" href="https://youtu.be/pOoQLaSyUGQ" target="_blank" rel="noreferrer" aria-label="Watch episode №006 on YouTube">
+        <span>Watch №006 on YouTube ↗</span>
+      </a>
+      <div class="media-rows">
+        <div class="media-row"><span class="label">Episode</span>Hotels pay 30% to book their own rooms · live · 2026-08-17</div>
+        <div class="media-row"><span class="label">Audio edition</span>Not available for this episode.</div>
+        <div class="media-row">
+          <details class="transcript">
+            <summary>Transcript</summary>
+            <p>Word-level transcripts ship with episodes produced under the V2 narration standard. This V1 episode has captions on YouTube.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ disclosure band ============ -->
+  <section class="disclosure-band" aria-label="Required disclosure">
+    <span class="label">Required disclosure</span>
+    <p class="mono" style="font-size: var(--text-sm);">Design specimen from a V1 episode. Figures shown are reported by their named sources or are labeled arithmetic. Nothing on this page is observed operator performance or an earnings forecast.</p>
+  </section>
+
+  <!-- ============ download ============ -->
+  <section class="download" id="download" aria-labelledby="dl-heading">
+    <div>
+      <div class="section-kicker">Sheet 05 · Download</div>
+      <h2 id="dl-heading">Download the Canvas after you've seen what's inside.</h2>
+      <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); max-width: 52ch;">The PDF is the print edition of this same system, not a teaser. It carries:</p>
+      <ul class="contents-list" style="margin-top: var(--space-3);">
+        <li>The full evidence registry with every citation</li>
+        <li>The complete model and its assumptions</li>
+        <li>The full risk register and stop conditions</li>
+        <li>The bounded first-test plan</li>
+      </ul>
+      <p class="gate">The page above contains every load-bearing source, assumption, risk, unknown, and disclosure. The PDF is the print edition. It adds detail, not information you need to judge the opportunity.</p>
+    </div>
+    <form class="download-card" data-state="specimen" aria-label="Canvas PDF request, disabled on this specimen">
+      <span class="state-note">Design specimen · no PDF is published for this page</span>
+      <label class="label" for="dl-email">Email for the PDF</label>
+      <input type="email" id="dl-email" placeholder="you@example.com" disabled />
+      <button class="btn" type="button" disabled>Email me the PDF</button>
+      <label class="consent">
+        <input type="checkbox" disabled />
+        <span>Also send the newsletter. Optional, off by default, its own unsubscribe.</span>
+      </label>
+      <span style="font: var(--type-citation); color: var(--text-muted);">The PDF arrives by email. The newsletter is a separate choice.</span>
+      <span style="font: var(--type-citation); color: var(--text-muted);">On a live Canvas this card also prints the PDF hash and edition date.</span>
+    </form>
+  </section>
+
+  <!-- ============ provenance ============ -->
+  <details class="provenance" id="provenance">
+    <summary>
+      <span class="label">Provenance</span>
+      <span class="mono" style="font-size: var(--text-2xs); color: var(--text-secondary);">Rev A · specimen · no canvas lock</span>
+      <span style="font: var(--type-citation); color: var(--drafting-blue); margin-left: auto;">Expand</span>
+    </summary>
+    <div class="provenance-body">
+      <span><b>Canvas source hash:</b> <span class="mono">none. A locked Canvas shows its full SHA-256 here, copyable.</span></span>
+      <span><b>Projection hash:</b> <span class="mono">none. The published data file carries its own hash.</span></span>
+      <span><b>PDF hash:</b> <span class="mono">none. The print edition carries a third.</span></span>
+      <span><b>Revision history:</b> Rev A, 2026-09-01, design specimen assembled from the №006 episode work.</span>
+      <span>A changed Canvas field creates a new revision. Old revisions stay published and labeled. <a href="B3-method.html#versioning">How versioning works →</a></span>
+    </div>
+  </details>
+
+  <!-- ============ next in the library ============ -->
+  <section id="library-next" style="margin-top: var(--space-7);">
+    <div class="section-kicker">Next in the library</div>
+    <div class="next-grid">
+      <a class="lib-card" href="#library-next">
+        <span class="label">№005 · Legacy Blueprint · live</span>
+        <b>The Operator Economy thesis</b>
+        <p>Episode page and downloadable Blueprint. Canvas migration not yet approved.</p>
+      </a>
+      <a class="lib-card" href="#library-next">
+        <span class="label">№004 · Legacy Blueprint · live</span>
+        <b>The solo design agency</b>
+        <p>Episode page and downloadable Blueprint. Canvas migration not yet approved.</p>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="site" id="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <a class="brand" href="#top">
+        <span class="brand-kicker">The</span>
+        <span class="brand-name">Operator Economy</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube ↗</a>
+        <a href="#footer">Newsletter</a>
+        <a href="#library-next">Library</a>
+        <a href="B3-method.html">Method</a>
+      </nav>
+    </div>
+    <div class="colophon">
+      <span class="footer-mark">Build. Own. Operate.</span>
+      <span>Site rev · 2026-09-01</span>
+      <span>Design specimen · B1/B2 artboard · Rev D narrative · Rev C evidence system</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- mobile nav ---------- */
+  var menuToggle = document.getElementById("menu-toggle");
+  var panel = document.getElementById("mobile-panel");
+  function setMenu(open) {
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.textContent = open ? "Close" : "Menu";
+    panel.dataset.open = String(open);
+  }
+  menuToggle.addEventListener("click", function () {
+    setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") { setMenu(false); menuToggle.focus(); }
+  });
+  panel.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
+
+  /* ---------- guided walkthrough toggle (URL-hash synced) ---------- */
+  var shell = document.getElementById("canvas-shell");
+  var guideToggle = document.getElementById("guide-toggle");
+  var guideCount = document.getElementById("guide-count");
+  var guideBar = document.getElementById("guide-bar");
+  var sheets = Array.prototype.slice.call(document.querySelectorAll(".sheet[data-step]"));
+  var stepNames = ["Opportunity", "Operating system", "Evidence", "Economics", "First test"];
+
+  function guideOn() { return shell.classList.contains("guide-on"); }
+  function setGuide(on, push) {
+    shell.classList.toggle("guide-on", on);
+    guideToggle.setAttribute("aria-pressed", String(on));
+    if (push !== false) updateHash();
+    announce(on ? "Guided walkthrough on" : "Guided walkthrough off");
+  }
+  guideToggle.addEventListener("click", function () { setGuide(!guideOn()); });
+
+  /* ---------- rail current-sheet tracking + guide progress ---------- */
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll("[data-rail]"));
+  var live = document.createElement("div");
+  live.setAttribute("aria-live", "polite");
+  live.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);";
+  document.body.appendChild(live);
+  function announce(msg) { live.textContent = msg; }
+
+  function setCurrent(id) {
+    railLinks.forEach(function (a) {
+      a.setAttribute("aria-current", String(a.dataset.rail === id));
+    });
+    var idx = sheets.findIndex(function (s) { return s.id === id; });
+    if (idx >= 0) {
+      guideCount.textContent = "Step " + (idx + 1) + " of 5";
+      guideBar.style.width = ((idx + 1) * 20) + "%";
+      if (guideOn()) announce("Step " + (idx + 1) + " of 5, " + stepNames[idx]);
+    }
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setCurrent(en.target.id); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    sheets.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ---------- guide back/next ---------- */
+  document.querySelectorAll("[data-next],[data-prev]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = btn.dataset.next || btn.dataset.prev;
+      var el = document.getElementById(target);
+      if (el) { el.scrollIntoView(); var h = el.querySelector("h2"); if (h) { h.setAttribute("tabindex", "-1"); h.focus(); } }
+      updateHash(target);
+    });
+  });
+
+  /* ---------- URL hash: sheet + guide state, back/forward restorable ---------- */
+  function updateHash(sheetId) {
+    var current = sheetId || (railLinks.find(function (a) { return a.getAttribute("aria-current") === "true"; }) || {}).dataset;
+    var id = sheetId || (current && current.rail) || "sheet-00";
+    var h = "#" + id + (guideOn() ? "!guide" : "");
+    if (location.hash !== h) history.pushState(null, "", h);
+  }
+  function syncFromHash() {
+    var m = (location.hash || "").match(/^#([\w-]+)(!guide)?$/);
+    if (!m) return;
+    setGuide(!!m[2], false);
+    var el = document.getElementById(m[1]);
+    if (el) { el.scrollIntoView(); setCurrent(m[1]); }
+  }
+  window.addEventListener("popstate", syncFromHash);
+  if (location.hash) syncFromHash();
+
+  /* ---------- capability tabs (roving focus, arrow keys) ---------- */
+  var capTabs = Array.prototype.slice.call(document.querySelectorAll(".cap-tabs [role=tab]"));
+  var capPanels = Array.prototype.slice.call(document.querySelectorAll(".cap-detail"));
+  function selectCap(tab) {
+    capTabs.forEach(function (t) {
+      var sel = t === tab;
+      t.setAttribute("aria-selected", String(sel));
+      t.tabIndex = sel ? 0 : -1;
+    });
+    capPanels.forEach(function (p) { p.hidden = p.id !== tab.getAttribute("aria-controls"); });
+    announce(tab.querySelector("strong").textContent + " capability shown");
+  }
+  capTabs.forEach(function (tab, i) {
+    tab.addEventListener("click", function () { selectCap(tab); });
+    tab.addEventListener("keydown", function (e) {
+      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(e.key) < 0) return;
+      e.preventDefault();
+      var d = (e.key === "ArrowLeft" || e.key === "ArrowUp") ? -1 : 1;
+      var next = capTabs[(i + d + capTabs.length) % capTabs.length];
+      next.focus(); selectCap(next);
+    });
+  });
+  selectCap(capTabs[0]);
+
+  /* ---------- scenario lens (mobile only; desktop shows all columns) ---------- */
+  var lensTabs = Array.prototype.slice.call(document.querySelectorAll(".scenario-tabs [role=tab]"));
+  var cols = Array.prototype.slice.call(document.querySelectorAll(".scenario-col"));
+  var lensNote = document.getElementById("lens-note");
+  var mq = window.matchMedia("(max-width: 720px)");
+  function applyLens() {
+    var mobile = mq.matches;
+    lensNote.style.display = mobile ? "block" : "none";
+    if (!mobile) { cols.forEach(function (c) { c.dataset.hidden = "false"; }); return; }
+    var sel = lensTabs.find(function (t) { return t.getAttribute("aria-selected") === "true"; }) || lensTabs[0];
+    cols.forEach(function (c) { c.dataset.hidden = String(c.id !== sel.dataset.col); });
+  }
+  lensTabs.forEach(function (tab, i) {
+    tab.addEventListener("click", function () {
+      lensTabs.forEach(function (t) { t.setAttribute("aria-selected", String(t === tab)); t.tabIndex = t === tab ? 0 : -1; });
+      applyLens();
+      announce(tab.textContent + " view shown, one case at a time");
+    });
+    tab.addEventListener("keydown", function (e) {
+      if (["ArrowLeft", "ArrowRight"].indexOf(e.key) < 0) return;
+      e.preventDefault();
+      var d = e.key === "ArrowLeft" ? -1 : 1;
+      var next = lensTabs[(i + d + lensTabs.length) % lensTabs.length];
+      next.focus(); next.click();
+    });
+  });
+  mq.addEventListener ? mq.addEventListener("change", applyLens) : mq.addListener(applyLens);
+  applyLens();
+})();
+</script>
+</body>
+</html>
