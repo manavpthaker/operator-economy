@@ -153,3 +153,15 @@ null-url source rendered unlinked and annotated), B8 component sheet (all subsys
 components on paper and navy with the per-surface gold ramp; the provenance sample hash is
 the SHA-256 of an empty file, labeled as such), B9 PDF cover + Public-layer spread (Boska
 permitted on the cover). All token-inlined, voice-gate greps clean, verified in-browser.
+
+## 2026-09-01 — Step 6: Step 7 sub-proposal drafted
+
+`operator-blueprint-v2/07-publishing/STEP7-v0.1-CHANGE-PROPOSAL.md` written in the house
+proposal pattern (status proposed, production authorization none, explicit "It does not"
+list, hash snapshot over the four contracts + eight artboards + the historical LP mockup,
+approval template included). It ports only the web and reader-tool sub-scope; title,
+thumbnail, captions, metadata, upload handoff, and release validation stay boundary-only.
+The Step 7 README gained a one-line pointer without any status change. External reader
+testing (5–7 readers) is recorded in the proposal as still owed before the implemented
+site ships. Step 7 of the effort sequence — recording owner approval — is the owner's
+act and remains open.
