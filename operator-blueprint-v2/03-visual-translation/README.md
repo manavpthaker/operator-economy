@@ -18,8 +18,8 @@ It answers one question: **what should the viewer be looking at, and why that.**
 | `VISUAL-TRANSLATION-STANDARD.md` | **proposed v0.1** |
 | `STAGE-GATES.md` | **proposed v0.1** — V1 to V7 |
 | templates | **proposed v0.1** — eight, one per gate |
-| `AUTHORITY-MAP.md` | not written |
-| fixtures and acceptance set | not written |
+| `AUTHORITY-MAP.md` | **proposed v0.1** |
+| fixtures and acceptance set | **proposed v0.1** — 10 controls, all passing |
 
 ## Templates
 
