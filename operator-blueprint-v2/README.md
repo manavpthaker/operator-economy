@@ -13,8 +13,8 @@ Operator Blueprint V2 is the planned end-to-end system for turning a validated b
 | `00-intake/` | Queue, opportunity research, scoring, Canvas feasibility, promotion | **Approved authority - Step 0.2, locked 2026-08-21** |
 | `01-editorial/` | Operator Canvas, pitch-deck coverage, Episode Investment Thesis, viewer promise, narrative architecture, editorial voice, script, script lock | **Approved authority - Step 1 v1.5, locked 2026-08-23** |
 | `02-narration-production/` | Perform the locked words, produce final narration, transcript, pause map, and narration lock | **Approved authority - Step 2 v0.5, locked 2026-09-01 (N3, N4A, N1 passed; N4B captured on EP007; N5-N7 open)** |
-| `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | Boundary only; scope boundary and porting manifest proposed 2026-09-01 |
-| `04-preproduction/` | Persistent world, sequence treatments, scene direction, animatic, asset plan | Boundary only |
+| `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | Boundary only; scope boundary approved 2026-09-01, standard in progress |
+| `04-preproduction/` | Sequence treatments, shot boards, scene direction, motion test, animatic, asset plan | Boundary only |
 | `05-production/` | Source and produce approved footage, documents, graphics, and plates | Boundary only |
 | `06-resolve-finish/` | Editorial conform, picture lock, color, final mix, captions, masters | Boundary only |
 | `07-publishing/` | Episode page, Operator Canvas delivery, packaging, upload handoff | Boundary only |

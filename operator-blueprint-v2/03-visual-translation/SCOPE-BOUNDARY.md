@@ -1,6 +1,6 @@
 # Step 3 scope boundary
 
-Status: **proposed**; not authority. Step 3 remains boundary-only until a full design pass is approved.
+Status: **approved boundary**, 2026-09-01. Step 3 itself remains boundary-only until a full design pass is approved; this document fixes what that pass may cover.
 
 Porting manifest: `PORTING-MANIFEST.md`
 
@@ -60,9 +60,9 @@ The V2 README currently lists **persistent world** under Step 4 preproduction. T
 
 `blueprint-cinema/WORKFLOW.md` orders it engine, then world, then visual plan, then direction bible. EP006 validated that order in practice with an approved engine, an approved world and a 162-unit visual plan.
 
-**Proposed:** move `persistent world` from the Step 4 lifecycle line to Step 3, and restate Step 4 as sequence treatments, scene direction, animatic and asset plan.
+**Approved by the owner 2026-09-01 and applied.** `persistent world` moved from the Step 4 lifecycle line to Step 3. Step 4 is restated as sequence treatments, shot boards, scene direction, motion test, animatic and asset plan.
 
-This is proposed rather than applied. It changes a locked lifecycle description and needs owner approval.
+The V2 README lifecycle table now reflects this. Blueprint Cinema's production order is therefore the order V2 follows: engine, world, visual plan, direction bible, rhythm map, look development, then Step 4.
 
 ## Why Step 3 is tool-agnostic
 
