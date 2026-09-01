@@ -422,7 +422,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--drafting-blue);
 .filters button[aria-pressed="true"] { border-color: var(--drafting-blue); color: var(--drafting-blue); background: var(--blue-tint); }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
-.card { border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; min-width: 0; }
+.card { position: relative; overflow: hidden; border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; min-width: 0; }
+.card::after { content: attr(data-num); position: absolute; top: 2px; right: 10px; font-family: var(--font-mono); font-size: var(--text-4xl); color: var(--paper-200); z-index: 0; pointer-events: none; }
+.card > * { position: relative; z-index: 1; }
 .card:hover { border-color: var(--drafting-blue); }
 .card b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
 .card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
@@ -500,7 +502,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   </div>
 
   <section class="grid" aria-label="Episodes">
-    <a class="card" href="B1-canvas-page.html">
+    <a class="card" data-num="06" href="B1-canvas-page.html">
       <span class="label">№006 · Legacy Blueprint · live</span>
       <b>Hotels pay 30% to book their own rooms</b>
       <p>Install and operate the direct-booking recovery stack for independent hotels, priced against the OTA commission saved.</p>
@@ -508,7 +510,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <span class="migration">Canvas migration not yet approved.</span>
       <span class="go">View the episode →</span>
     </a>
-    <a class="card" href="B7-legacy-episode.html">
+    <a class="card" data-num="05" href="B7-legacy-episode.html">
       <span class="label">№005 · Legacy Blueprint · live</span>
       <b>The Operator Economy thesis</b>
       <p>The minimum viable size of a software business collapsed. Two questions decide whether a too-small-for-venture business is defensible.</p>
@@ -516,7 +518,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <span class="migration">Canvas migration not yet approved.</span>
       <span class="go">View the episode →</span>
     </a>
-    <a class="card" href="B7-legacy-episode.html">
+    <a class="card" data-num="04" href="B7-legacy-episode.html">
       <span class="label">№004 · Legacy Blueprint · live</span>
       <b>The solo design agency</b>
       <p>AI collapsed the design studio. One person can now sell what used to take a team.</p>
@@ -524,7 +526,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <span class="migration">Canvas migration not yet approved.</span>
       <span class="go">View the episode →</span>
     </a>
-    <a class="card" href="B7-legacy-episode.html">
+    <a class="card" data-num="03" href="B7-legacy-episode.html">
       <span class="label">№003 · Legacy Blueprint · live</span>
       <b>The boring-automation agency</b>
       <p>SMBs pay real money for workflows that move data between the systems they already use. Priced as a retainer, not a project.</p>
@@ -532,7 +534,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <span class="migration">Canvas migration not yet approved.</span>
       <span class="go">View the episode →</span>
     </a>
-    <a class="card" href="B7-legacy-episode.html">
+    <a class="card" data-num="02" href="B7-legacy-episode.html">
       <span class="label">№002 · Legacy Blueprint · live</span>
       <b>The voice-agent agency</b>
       <p>Local businesses will pay a person, not a platform, to make their phones stop bleeding. Sold as an outcome.</p>
@@ -540,7 +542,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <span class="migration">Canvas migration not yet approved.</span>
       <span class="go">View the episode →</span>
     </a>
-    <a class="card" href="B7-legacy-episode.html">
+    <a class="card" data-num="01" href="B7-legacy-episode.html">
       <span class="label">№001 · Legacy Blueprint · live</span>
       <b>AI implementation as a service</b>
       <p>One vertical you've operated in is drowning in AI tools it can't install. You install two of them where they actually run.</p>

@@ -208,3 +208,27 @@ build it now. We show you what's worth building." (italic on "worth", the hero's
 italic). This closes the H1 question with the line brand/copy.md always recorded as
 locked; the review's fresh candidates stay in the copy deck as history. B4 hash refreshed
 in the Step 7 proposal (still unapproved).
+
+## 2026-09-01 — Owner review round 3: the canvas grammar
+
+The owner flagged that the drafting line grid ("checkered") is Blueprint-era language
+while the V2 artifact is a Canvas, and that surfaces still blended. An exploration-level
+grammar shift was applied (tokens untouched; recorded for the design-system owner as a
+Rev-direction candidate):
+
+- **Texture states the regime.** Legacy/V1 surfaces keep the 36px blueprint line grid
+  (the homepage hero panel, featuring the №006 Legacy Blueprint, deliberately keeps it).
+  Canvas/V2 surfaces get a **dot grid** (radial points at 32px on navy via --schem-wire,
+  28px on paper via --rule): plotting points and canvas weave instead of drafting lines.
+  Applied to the format band, newsletter band, capability map, and the Canvas shell.
+- **Zone accents.** Each Canvas sheet is a color zone from the existing palette:
+  Opportunity drafting-blue, System blue-500, Evidence sage, Economics gold, Guardrails
+  brick. Carried by the 3px sheet top border, the tag bar (tag text colored only where it
+  passes AA at 12px; Evidence keeps ink text over a sage bar), tinted rail indices, and
+  zone underlines on the homepage format-band nodes. One accent per composition holds
+  per zone.
+- **Ghost numerals.** Library cards carry their publication number as a large paper-200
+  mono numeral (data-num), giving cards identity without new color.
+
+Verified at 1280 and 375, no overflow. Step 7 proposal hashes refreshed for B1/B4/B6
+(proposal remains unapproved).

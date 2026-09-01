@@ -468,7 +468,7 @@ button { font: inherit; cursor: pointer; }
 .explainer-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-6); }
 .explainer h2 { font-size: var(--text-2xl); max-width: 22ch; }
 .explainer .lead { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
-.format-band { margin-top: var(--space-5); background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.format-band { margin-top: var(--space-5); background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: radial-gradient(circle, var(--schem-wire) 1.2px, transparent 1.2px); background-size: 32px 32px; }
 .fb-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); border-bottom: var(--border-hair) solid var(--schem-wire); padding-bottom: var(--space-3); margin-bottom: var(--space-4); flex-wrap: wrap; }
 .fb-sheet { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-on-ink-muted); }
 .fb-live { display: inline-flex; gap: 8px; align-items: center; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--sage-500); }
@@ -478,6 +478,11 @@ button { font: inherit; cursor: pointer; }
 .mini-node strong { font-family: var(--font-heading); font-size: var(--text-base); color: var(--paper-100); }
 .mini-node small { font: var(--type-citation); color: var(--text-on-ink-muted); }
 .mini-node .count { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--gold-bright); margin-top: 4px; }
+.fb-nodes .mini-node:nth-of-type(1) { border-bottom: 2px solid var(--blue-500); }
+.fb-nodes .mini-node:nth-of-type(2) { border-bottom: 2px solid var(--schem-node-border); }
+.fb-nodes .mini-node:nth-of-type(3) { border-bottom: 2px solid var(--sage-500); }
+.fb-nodes .mini-node:nth-of-type(4) { border-bottom: 2px solid var(--gold-bright); }
+.fb-nodes .mini-node:nth-of-type(5) { border-bottom: 2px solid var(--negative); }
 .fb-wire { align-self: center; color: var(--schem-wire); font-family: var(--font-mono); }
 .fb-foot { display: flex; gap: var(--space-2); margin-top: var(--space-4); border-top: var(--border-hair) solid var(--border-ink); padding-top: var(--space-3); flex-wrap: wrap; align-items: center; }
 .fb-foot .label { color: var(--text-on-ink-faint); }
@@ -499,7 +504,9 @@ button { font: inherit; cursor: pointer; }
 .library { margin-top: var(--space-8); }
 .library-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; }
 .lib-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-4); }
-.lib-card { border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; }
+.lib-card { position: relative; overflow: hidden; border: var(--border-hair) solid var(--rule); border-top: 2px solid var(--drafting-blue); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; }
+.lib-card::after { content: attr(data-num); position: absolute; top: 2px; right: 10px; font-family: var(--font-mono); font-size: var(--text-4xl); color: var(--paper-200); z-index: 0; pointer-events: none; }
+.lib-card > * { position: relative; z-index: 1; }
 .lib-card:hover { border-color: var(--drafting-blue); }
 .lib-card b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
 .lib-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
@@ -516,7 +523,7 @@ button { font: inherit; cursor: pointer; }
 .filed { padding: var(--space-3) var(--space-5); font: var(--type-citation); color: var(--text-muted); }
 
 /* newsletter band */
-.news-band { margin-top: var(--space-8); background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); display: grid; grid-template-columns: 1fr auto; gap: var(--space-5); align-items: center; background-image: repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.news-band { margin-top: var(--space-8); background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); display: grid; grid-template-columns: 1fr auto; gap: var(--space-5); align-items: center; background-image: radial-gradient(circle, var(--schem-wire) 1.2px, transparent 1.2px); background-size: 32px 32px; }
 .news-band h3 { color: var(--paper-100); font-size: var(--text-xl); }
 .news-band .label { color: var(--text-on-ink-muted); }
 .news-band p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-on-ink-muted); margin-top: 4px; }
@@ -682,19 +689,19 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       <a href="B6-library.html" style="font: var(--type-ui);">Browse the library →</a>
     </div>
     <div class="lib-grid">
-      <a class="lib-card" href="B1-canvas-page.html">
+      <a class="lib-card" data-num="06" href="B1-canvas-page.html">
         <span class="label">№006 · Legacy Blueprint · live</span>
         <b>Hotels pay 30% to book their own rooms</b>
         <p>Rate parity, booking engine, missed-call recovery, and past-guest re-book flows for independent hotels.</p>
         <span class="go">View the episode →</span>
       </a>
-      <a class="lib-card" href="B7-legacy-episode.html">
+      <a class="lib-card" data-num="05" href="B7-legacy-episode.html">
         <span class="label">№005 · Legacy Blueprint · live</span>
         <b>The Operator Economy thesis</b>
         <p>The minimum viable size of a software business collapsed. Two questions decide whether a small business is defensible.</p>
         <span class="go">View the episode →</span>
       </a>
-      <a class="lib-card" href="B7-legacy-episode.html">
+      <a class="lib-card" data-num="04" href="B7-legacy-episode.html">
         <span class="label">№004 · Legacy Blueprint · live</span>
         <b>The solo design agency</b>
         <p>AI collapsed the design studio. One person can now sell what used to take a team.</p>
