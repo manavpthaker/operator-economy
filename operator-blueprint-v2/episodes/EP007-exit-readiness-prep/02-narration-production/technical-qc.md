@@ -1,32 +1,25 @@
-# N6 technical pass: EP007
+# N6 technical pass: EP007 — master v2
 
-Status: **technical_pass RECORDED**
-
-Gate: **N6 — exact master receives `technical_pass`**
+Status: **technical_pass RECORDED** for master v2
 
 Episode: EP007 · Recorded: 2026-09-01
+
+**Supersedes** the technical pass against `narration-master.normalized.wav`, invalidated by the N5 spacing edit. Recorded rather than overwritten, per the invalidation rules.
 
 ## Frozen master
 
 | | |
 |---|---|
-| Path | `master/narration-master.normalized.wav` |
-| SHA-256 | `681e77a3d1bba33a58f1c526d1fdc92acf651a8cfa672e2a70c09a9ee196c99b` |
-| Duration | 1075.223s (17.9 min) |
+| Path | `master/narration-master.v2.wav` |
+| SHA-256 | `7d027451d8c644c3a831513ea93e771295ecac8ae9323147c755d209e1793967` |
+| Duration | 1088.112s (18.1 min) |
 | Format | 48 kHz / 16-bit / mono PCM |
 | Integrated RMS | -22.00 dBFS |
 | True peak | -1.31 dBFS |
 
-## Format and origin
+## N5 narration edit — two operations, both recorded
 
-- Native acquisition: **`native_pcm`** at both stages. Google returned 24 kHz LINEAR16; ElevenLabs returned `pcm_48000`.
-- **No lossy intermediate exists after native acquisition.** The mp3 used for forced alignment is a transport artifact derived from this exact master and is not a delivery master.
-- Raw provider outputs remain **immutable** at mode 0600 in `raw/`. The edit wrote to `selects/`.
-- Conversions applied after acquisition: **one** — per-chunk gain normalisation, recorded in `narration-edit-decision-list.json`.
-
-## N5 narration edit
-
-Per-chunk gain normalisation, downward to a common floor.
+### 1. Level normalisation
 
 | Measure | Before | After |
 |---|---|---|
@@ -34,9 +27,31 @@ Per-chunk gain normalisation, downward to a common floor.
 | Peak | -0.33 dBFS | -1.31 dBFS |
 | Gains capped | — | **0** |
 
-Rationale recorded in the EDL: chunks already peaked near −0.33 dBFS, so raising quiet chunks was impossible without clipping. Normalising downward resolves finding **N4B-1** (level drift) and finding **F3** (no headroom) in a single conversion. Every gain is negative or near zero, so nothing was pushed into the ceiling.
+### 2. Scene spacing and identity sting
 
-No spoken word was added, removed, reordered or rewritten. **No script change is hidden inside the edit.**
+**Found by owner listen:** the line before the brand string read as cut off at 0:40.
+
+Diagnosis: the cold open was **not** truncated — it decays cleanly with 20 ms of trailing silence. The defect was structural. The beat sheet requires **S01, a 3 to 6 second silent identity sting**, between the cold open and the brand string. The capture plan skipped S01 because it carries no narration text, so the assembly butt-joined the two chunks with a 60 ms gap.
+
+Auditing all 23 joins showed the problem was systematic, not isolated:
+
+| | Value |
+|---|---|
+| Mean join gap | 0.125s |
+| Narrator's own median pause | 0.55s |
+| Ratio | **joins were ~5x tighter than this voice's own pauses** |
+
+Every scene boundary read as a cut, not just the one that was noticed.
+
+Padding targets are **derived from this performance's own pause distribution**, not chosen:
+
+| Join type | Target | Basis |
+|---|---|---|
+| Silent identity sting (S00 → S02) | 4.0s | Beat sheet requirement, 3 to 6s |
+| Scene boundary | 0.546s | Narrator's median pause |
+| Within-scene split | 0.429s | Narrator's lower-quartile pause |
+
+Total silence inserted: **12.9s** across 23 joins. No audio was cut, resampled or re-rendered. **No spoken word was added, removed, reordered or rewritten.**
 
 ## Lexical conformity
 
@@ -45,41 +60,34 @@ No spoken word was added, removed, reordered or rewritten. **No script change is
 | Locked `W` token count | 3186 |
 | Aligned words | 3186 |
 | **Unresolved `W`-token mismatches** | **0** |
-| Alignment method | ElevenLabs forced alignment against the locked `W` transport |
-| Alignment loss | 0.0449 |
+| Alignment loss | 0.0450 |
 
-Every aligned word matches its canonical `W` token exactly, in order. Interim ASR was not used and could not have satisfied this gate.
+Re-run in full against master v2. The prior alignment was invalidated by the edit and was not carried forward.
 
 ## Word-level transcript and pause map
 
-| Artifact | SHA-256 | Bound to |
-|---|---|---|
-| `word-transcript.json` | `9606c3e7a4adc8c64f75454c3c68be94b23fff6f9047e3fcd0be4a4dea777862` | master `681e77a3d1bba33a`, duration 1075.223s |
-| `intentional-pause-map.json` | `8189541105846520746d47a6633256f785c65116643ee68b41cb0ad8eb131bd8` | same master and duration |
+| Artifact | SHA-256 |
+|---|---|
+| `word-transcript.json` | `b7bc691f2f76921688d6d9262425e44f73a36ba3fedc976b21de94d110260eb8` |
+| `intentional-pause-map.json` | `311ee525d80369e33e55b53838e254ba2c5d988813bd0b390a72651985177018` |
 
-Transcript carries 3186 words, each bound to its canonical `W` ID. The pause map records 228 intentional pauses at or above 0.30s.
+3186 words bound to canonical `W` IDs. 237 intentional pauses at or above 0.30s totalling 150.97s.
 
-**This is the artifact Step 3 consumes.** Step 3 reads timing from it and may not estimate.
+**The identity sting now reads as a real beat:** a 3.93s pause after `W000117`, the final token of the cold open, at 40.22s.
 
 ## Gate N6 conditions
 
 | Condition | Result |
 |---|---|
-| Final master meets the Step 2 technical contract | **pass** |
-| Native acquisition and delivery format separately disclosed | **pass** |
+| Final master meets the technical contract | **pass** |
+| Native and delivery formats separately disclosed | **pass** |
 | No lossy intermediate after native acquisition | **pass** |
 | One master candidate frozen before final alignment | **pass** |
-| Final-master alignment run against that exact master hash | **pass** |
+| Alignment run against that exact master hash | **pass** |
 | Zero unresolved `W`-token mismatches | **pass** |
-| Word-level transcript satisfies the timing specification | **pass** |
-| Intentional-pause map bound to the same master hash and duration | **pass** |
-| Master, transcript and pause-map hashes recorded together | **pass** |
+| Transcript satisfies the timing specification | **pass** |
+| Pause map bound to the same master hash and duration | **pass** |
+| Hashes recorded together | **pass** |
 | Technical measurements complete | **pass** |
 
-**`technical_pass` is recorded for this exact master hash.**
-
-`technical_pass` is a technical state only. **It cannot imply that the voice or the performance is approved.** That is N7, and it is the owner's decision.
-
-## Carried to delivery
-
-Integrated RMS is -22.00 dBFS with 1.3 dB of peak headroom. This is a **working master**, not a delivery master. Final loudness normalisation is a delivery-stage decision and is deliberately not baked in here.
+**`technical_pass` recorded for master v2.** It remains a technical state and cannot imply the performance is approved. That is N7.
