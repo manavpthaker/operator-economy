@@ -79,7 +79,7 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `3c5b33219ce9a6f4fe28ab864615dd09f0cc010e996e1a6f9a4b3cdc40357543` |
 | `…/artboards/B1-canvas-page.html` | `3b2eafbfe5a37f655ac192571cf87d666882dd35a51961f1e13cc9ad6d714011` |
 | `…/artboards/B3-method.html` | `0d2dacf47d15d871e120fe9f61f355829352bcc2b79feae1ef14b81fe2f97c6f` |
-| `…/artboards/B4-homepage.html` | `f8c078dd2afc93b6a556b5a8977d372dd7ad839a2227b288ae5054761f0fb2d5` |
+| `…/artboards/B4-homepage.html` | `cdbee220eda889299240517f8371bfc8cb2eba474181a564a1e3631165d695be` |
 | `…/artboards/B6-library.html` | `17b568705f9b9d492d7d8bd3c2753349dbf835897a0ae9a79d00a3544b657b1a` |
 | `…/artboards/B7-legacy-episode.html` | `3f7119da42f435a88b5230aa7eaa0c428ba1ad8e5f8da3d8b35a5e8f6564af45` |
 | `…/artboards/B8-components.html` | `2e0c321df0517f41eac6d89ade7a119e7b8875dd36ee377a16836fcf1915c3fa` |
