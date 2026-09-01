@@ -82,8 +82,46 @@ EP007 has passed N1 and captured N4B, but N5, N6 and N7 remain open, so no word-
 
 This mirrors how Steps 1 and 2 were built, and is recorded so it is a planned sequence rather than a late discovery.
 
-## Open questions for the design pass
+## Resolved design questions
 
-1. Does the episode engine belong to Step 3, or is it upstream enough to sit at the end of Step 1? It describes the business, which Step 1 already decided. Current answer: Step 3, because it is a **visual** model of that business and its output is a motion vocabulary.
-2. Should the visual plan be approved as one artifact or per act? EP006 approved 162 units at once, which is a large single decision.
-3. How much look development is enough before Step 4 starts? Blueprint Cinema requires style frames plus a motion test; the motion test is implementation and has been assigned to Step 4, which may leave Step 3's look approval thin.
+### 1. The episode engine is derived, not authored
+
+Owner direction, 2026-09-01: *the episode engine is just nomenclature. Whatever has been built out already can build the engine and Step 3 can build the visual model on top of that.*
+
+Checked against EP006's approved engine. Its ten substantive fields split cleanly:
+
+| Engine field | Source | Step 3 treatment |
+|---|---|---|
+| `operator` | Canvas §1 | **derived** |
+| `input_customer`, `eligible_return_customer` | Canvas §2 | **derived** |
+| `constraint` | Canvas §3 | **derived** |
+| `counter_system` | Canvas §4 and §6 | **derived** |
+| `owned_value`, `outcome_object` | Canvas §5 | **derived** |
+| `visual_mechanic` | — | **authored by Step 3** |
+| `motion_verbs` | — | **authored by Step 3** |
+| `reality_world` | — | **authored by Step 3** |
+| `guardrails` | — | **authored by Step 3** |
+
+Six of ten fields restate decisions Step 1 already locked. Only four are visual.
+
+**Rule: Step 3 derives the business fields from the locked Canvas and may not re-decide them.** Divergence between the engine and the Canvas is drift, and a Step 3 gate must fail on it rather than tolerate a second description of the same business. Step 3 authors only the visual mechanic, the motion vocabulary, the reality-world bible, and the guardrails.
+
+This shrinks Step 3's authored surface and removes the most likely source of Step 1 to Step 3 drift.
+
+### 2. The visual plan is approved per act, not whole
+
+EP006 approved 162 units in a single decision. That is not reviewable: a reviewer cannot hold 162 timed units in mind well enough for the approval to mean anything. Per-unit approval is the opposite failure.
+
+**Rule: the visual plan is reviewed and approved against the Step 1 beat sheet's own act boundaries** — opening ladder, Act I, Act II, ending. That is roughly four review units, and it inherits a structure already approved at Gate E4B rather than inventing a new one for visuals.
+
+A rejected act returns only that act, not the whole plan.
+
+### 3. Look approval is provisional until motion-tested
+
+Style frames cannot validate a motion format. A motion test can, but it needs a runtime, and Step 3 is deliberately tool-agnostic.
+
+This repository already has the worked failure. EP006 reached an approved visual system, built ninety-second prototypes from it, and the prototypes were **rejected as creative answers**. Look approval that has not survived motion has already failed here once.
+
+**Rule: Step 3 approves the look on style frames plus written motion intent, recorded as provisional. Step 4's motion test can return the look to Step 3.** The return path is explicit and expected rather than exceptional.
+
+This keeps Step 3 tool-agnostic while admitting what a static frame cannot settle, instead of pretending the question is closed.
