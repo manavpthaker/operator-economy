@@ -17,9 +17,22 @@ It answers one question: **what should the viewer be looking at, and why that.**
 | `PORTING-MANIFEST.md` | frozen v0.1 source hashes |
 | `VISUAL-TRANSLATION-STANDARD.md` | **proposed v0.1** |
 | `STAGE-GATES.md` | **proposed v0.1** — V1 to V7 |
-| templates | not written |
+| templates | **proposed v0.1** — eight, one per gate |
 | `AUTHORITY-MAP.md` | not written |
 | fixtures and acceptance set | not written |
+
+## Templates
+
+```text
+01-input-lock/  INPUT-LOCK.template.md              V1
+02-engine/      EPISODE-ENGINE.template.md          V2
+03-world/       PERSISTENT-WORLD.template.md        V3
+04-visual-plan/ VISUAL-PLAN.template.md             V4
+05-direction/   DIRECTION-BIBLE.template.md         V5a
+                RHYTHM-MAP.template.md              V5b
+06-look/        LOOK-DEVELOPMENT.template.md        V6
+07-approval/    VISUAL-TRANSLATION-LOCK.template.md V7
+```
 
 ## Owns
 
