@@ -1,93 +1,95 @@
-# N6 technical pass: EP007 — master v2
+# N6 technical pass: EP007 — master v4
 
-Status: **technical_pass RECORDED** for master v2
+Status: **technical_pass RECORDED** for master v4
 
 Episode: EP007 · Recorded: 2026-09-01
 
-**Supersedes** the technical pass against `narration-master.normalized.wav`, invalidated by the N5 spacing edit. Recorded rather than overwritten, per the invalidation rules.
+Supersedes the passes against `.normalized`, `.v2` and `.v3`, each invalidated by a later edit. Recorded as superseded rather than overwritten.
 
 ## Frozen master
 
 | | |
 |---|---|
-| Path | `master/narration-master.v2.wav` |
-| SHA-256 | `7d027451d8c644c3a831513ea93e771295ecac8ae9323147c755d209e1793967` |
-| Duration | 1088.112s (18.1 min) |
+| Path | `master/narration-master.v4.wav` |
+| SHA-256 | `d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9` |
+| Duration | 1137.927s (19.0 min) |
 | Format | 48 kHz / 16-bit / mono PCM |
-| Integrated RMS | -22.00 dBFS |
+| Integrated RMS | -21.99 dBFS |
 | True peak | -1.31 dBFS |
 
-## N5 narration edit — two operations, both recorded
+## What was wrong, and how it was found
 
-### 1. Level normalisation
+**Owner listen: "it cuts off at 'almost nobody is'".**
 
-| Measure | Before | After |
-|---|---|---|
-| Chunk RMS spread | 4.93 dB | **0.2 dB** |
-| Peak | -0.33 dBFS | -1.31 dBFS |
-| Gains capped | — | **0** |
+The word `running.` was being cut mid-utterance. Investigation found this was not isolated — **9 of 24 chunks ended mid-final-word**, five of them losing roughly half a second, which is most of a word.
 
-### 2. Scene spacing and identity sting
+### Why the existing QA did not catch it
 
-**Found by owner listen:** the line before the brand string read as cut off at 0:40.
+**Forced alignment force-fits.** It assigns best-fit timings to whatever text it is given and does not detect missing audio. The N6 lexical check reported **zero unresolved `W`-token mismatches** while nine chunk-final words were incomplete. That check established that the aligner could map text onto audio. It never established that the words were spoken.
 
-Diagnosis: the cold open was **not** truncated — it decays cleanly with 20 ms of trailing silence. The defect was structural. The beat sheet requires **S01, a 3 to 6 second silent identity sting**, between the cold open and the brand string. The capture plan skipped S01 because it carries no narration text, so the assembly butt-joined the two chunks with a 60 ms gap.
+This is a hole in the gate's wording, not only in this run. `Zero unresolved W-token mismatches` is satisfiable by an aligner on truncated audio.
 
-Auditing all 23 joins showed the problem was systematic, not isolated:
+### The detector that works
 
-| | Value |
+**Tail energy** — RMS of the final 60 ms relative to peak. A complete utterance decays into silence and measures below 0.01. The truncated chunks measured 0.13 to 0.54.
+
+It is a **capture-time** check. Catching this at N4B costs one retry. Catching it at N6 costs a full re-alignment. Catching it on the owner's ear costs a listening pass and four master revisions.
+
+## Repairs, in order
+
+1. **Re-capture, tail-energy gated.** 14 chunks above threshold re-requested with up to 4 attempts each. Truncation proved stochastic: 11 cleared, some on the first retry.
+2. **Sentinel for the two that would not clear.** c02 and c09 truncated reliably rather than randomly. Generated with a trailing sentinel phrase so the truncation consumed the sentinel instead of the content.
+3. **Alignment-guided trim, after a self-inflicted error.** The first trim cut at "the last silence gap", which removed the real final word along with the sentinel — `all.` fell to 0.001s and `version.` to 0.009s. Replaced with a trim at the last real word's aligned end plus 120 ms. Both recovered.
+
+## Completeness verification
+
+| Check | Result |
 |---|---|
-| Mean join gap | 0.125s |
-| Narrator's own median pause | 0.55s |
-| Ratio | **joins were ~5x tighter than this voice's own pauses** |
+| Chunks ending mid-sound (tail energy > 0.02) | **1 of 24**, marginal |
+| Chunk-final words below half the median spoken word | **0 of 24** (was 9 truncated, then 2 over-trimmed) |
+| `running.`, the reported defect | **0.340s** (was 0.120s) |
+| Median spoken word | 0.199s |
 
-Every scene boundary read as a cut, not just the one that was noticed.
+## N5 narration edit
 
-Padding targets are **derived from this performance's own pause distribution**, not chosen:
+| Measure | Result |
+|---|---|
+| Chunk RMS spread | **0.2 dB** |
+| Identity sting (S01) | **4.0s**, absent before |
+| Scene-boundary target | 0.62s — the narrator's own median pause |
+| Within-scene split target | 0.46s — the narrator's lower quartile |
+| Total silence inserted | 13.06s |
 
-| Join type | Target | Basis |
-|---|---|---|
-| Silent identity sting (S00 → S02) | 4.0s | Beat sheet requirement, 3 to 6s |
-| Scene boundary | 0.546s | Narrator's median pause |
-| Within-scene split | 0.429s | Narrator's lower-quartile pause |
-
-Total silence inserted: **12.9s** across 23 joins. No audio was cut, resampled or re-rendered. **No spoken word was added, removed, reordered or rewritten.**
+Padding targets are derived from this performance's own pause distribution, not chosen. **No spoken word was added, removed, reordered or rewritten.**
 
 ## Lexical conformity
 
 | Check | Result |
 |---|---|
-| Locked `W` token count | 3186 |
+| `W` tokens | 3186 |
 | Aligned words | 3186 |
-| **Unresolved `W`-token mismatches** | **0** |
-| Alignment loss | 0.0450 |
+| Unresolved mismatches | **0** |
+| Alignment loss | 0.0453 |
 
-Re-run in full against master v2. The prior alignment was invalidated by the edit and was not carried forward.
+Now supported by the completeness check above, without which this figure is not sufficient evidence.
 
-## Word-level transcript and pause map
+## Artifacts
 
 | Artifact | SHA-256 |
 |---|---|
-| `word-transcript.json` | `b7bc691f2f76921688d6d9262425e44f73a36ba3fedc976b21de94d110260eb8` |
-| `intentional-pause-map.json` | `311ee525d80369e33e55b53838e254ba2c5d988813bd0b390a72651985177018` |
+| `word-transcript.json` | `f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7` |
+| `intentional-pause-map.json` | `0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa` |
 
-3186 words bound to canonical `W` IDs. 237 intentional pauses at or above 0.30s totalling 150.97s.
+3186 words bound to canonical `W` IDs. 276 pauses at or above 0.30s totalling 182.34s.
 
-**The identity sting now reads as a real beat:** a 3.93s pause after `W000117`, the final token of the cold open, at 40.22s.
+## Gate N6
 
-## Gate N6 conditions
+All conditions pass. **`technical_pass` recorded for master v4.** It remains a technical state and cannot imply the performance is approved — that is N7.
 
-| Condition | Result |
-|---|---|
-| Final master meets the technical contract | **pass** |
-| Native and delivery formats separately disclosed | **pass** |
-| No lossy intermediate after native acquisition | **pass** |
-| One master candidate frozen before final alignment | **pass** |
-| Alignment run against that exact master hash | **pass** |
-| Zero unresolved `W`-token mismatches | **pass** |
-| Transcript satisfies the timing specification | **pass** |
-| Pause map bound to the same master hash and duration | **pass** |
-| Hashes recorded together | **pass** |
-| Technical measurements complete | **pass** |
+## Proposed Step 2 amendment
 
-**`technical_pass` recorded for master v2.** It remains a technical state and cannot imply the performance is approved. That is N7.
+Add a **completeness condition** to N4B and N6:
+
+> Every captured chunk must decay into silence. Tail energy in the final 60 ms, relative to peak, must fall below 0.02. Forced alignment satisfying zero `W`-token mismatches is **not** sufficient evidence that the words were spoken.
+
+This would have caught the defect at capture, before four master revisions and three alignments.
