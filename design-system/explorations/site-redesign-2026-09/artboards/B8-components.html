@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Component sheet · evidence-class subsystem</title>
+<!-- tokens inlined verbatim for single-file portability; source of truth: design-system/tokens/ -->
+<style>
+@import url('https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap');
+/* ==== inlined verbatim from design-system/tokens/fonts.css ==== */
+/* ============================================================
+   The Operator Economy — Webfonts (Rev C)
+   ------------------------------------------------------------
+   Boska         — large display ONLY (≥40px): site hero,
+                   blueprint covers, tagline lockups
+   Zodiak        — mid-size workhorse (18–44px): newsletter
+                   headlines, section heads, thumbnail support
+   Supreme       — body / UI sans
+   Fragment Mono — THE mono: every number & citation the brand
+                   publishes. Single weight (400) by design.
+   Boska/Zodiak/Supreme ship from Fontshare; Fragment Mono from
+   Google Fonts. No binaries existed in the sources.
+   ============================================================ */
+
+/* ==== inlined verbatim from design-system/tokens/colors.css ==== */
+/* ============================================================
+   The Operator Economy — Color
+   ------------------------------------------------------------
+   One palette, not two (design-system.md §5).
+   Rule: any single frame contains at most Ink + Paper + ONE accent.
+   Drafting Blue is THE brand accent. Ledger Gold is used sparingly
+   (one highlight per chart). Sage is demoted to positive-delta only.
+   ============================================================ */
+
+:root {
+  /* --- Core brand (the five named colors) --- */
+  --ink:            #1A1A1A;  /* near-black charcoal — primary text, video bg */
+  --paper:          #F5F0E6;  /* warm cream — page / blueprint background */
+  --drafting-blue:  #1F3A5F;  /* desaturated Prussian blue — THE accent */
+  --ledger-gold:    #B08D3E;  /* muted gold — key figures, one highlight/chart */
+  --sage:           #7B9E87;  /* legacy accent — positive delta ONLY */
+
+  /* --- Ink ramp (warm-neutral charcoals for text on paper) --- */
+  --ink-900: #1A1A1A;  /* primary text */
+  --ink-700: #3C3A36;  /* strong secondary text */
+  --ink-500: #6B675E;  /* muted / captions / labels */
+  --ink-400: #8A857A;  /* faint meta, placeholders */
+  --ink-300: #B4AE9F;  /* disabled text on paper */
+
+  /* --- Paper ramp (warm cream surfaces + hairlines) --- */
+  --paper-0:   #FBF8F1;  /* lifted surface (card on paper) */
+  --paper-100: #F5F0E6;  /* base page */
+  --paper-200: #EDE7D8;  /* sunken / zebra rows */
+  --paper-300: #E2DAC7;  /* subtle fills */
+  --rule:      #D8CFB9;  /* default hairline / border on paper */
+  --rule-strong: #C4B99E;/* emphasized rule, title-block frame */
+
+  /* --- Drafting Blue ramp --- */
+  --blue-900: #14263E;  /* pressed / darkest */
+  --blue-700: #1F3A5F;  /* base accent */
+  --blue-500: #35608C;  /* hover / lighter accent, links on ink */
+  --blue-tint: #E4E9F0; /* faint blue wash on paper (annotations) */
+
+  /* --- Ledger Gold ramp ---
+     Gold is the accent on dark surfaces; contrast-checked:
+     gold-bright on navy 6.4:1 · on ink 7.3:1 (AA at chip size).
+     gold-700 darkened Rev C (#8F6F2C→#7A5E24) to pass AA on paper (5.3:1). */
+  --gold-700: #7A5E24;  /* gold TEXT on paper (AA 5.3:1) */
+  --gold-500: #B08D3E;  /* gold fills, chart highlight bars */
+  --gold-bright: #C4A45F; /* gold text/accents on navy & ink */
+  --gold-tint: #EFE6CF; /* faint gold wash */
+
+  /* --- Sage (positive delta) --- */
+  --sage-700: #5E7F6A;  /* sage text on paper (AA) */
+  --sage-500: #7B9E87;
+  --negative: #9B3E2E;  /* negative delta — muted brick, never bright red */
+
+  /* ==========================================================
+     Semantic aliases — reference these in components, not raw ramp
+     ========================================================== */
+
+  /* Surfaces */
+  --surface-page:     var(--paper-100);
+  --surface-card:     var(--paper-0);
+  --surface-sunken:   var(--paper-200);
+  --surface-ink:      var(--ink-900);   /* dark surface (video, hero, footer) */
+  --surface-schematic: var(--blue-900); /* the navy working-schematic panel */
+
+  /* Schematic anatomy (drafting grid, nodes, wires) */
+  --schem-grid:        rgba(245,240,230,0.055);
+  --schem-node-border: rgba(245,240,230,0.30);
+  --schem-node-bg:     rgba(31,58,95,0.38);
+  --schem-wire:        rgba(245,240,230,0.32);
+  --status-live:       var(--sage-500);  /* live/verified status ONLY */
+
+  /* Text on paper */
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--ink-700);
+  --text-muted:   var(--ink-500);
+  --text-faint:   var(--ink-400);
+  --text-disabled:var(--ink-300);
+
+  /* Text on ink */
+  --text-on-ink:        #F5F0E6;
+  --text-on-ink-muted:  rgba(245,240,230,0.62);
+  --text-on-ink-faint:  rgba(245,240,230,0.40);
+
+  /* Accent semantics */
+  --accent:        var(--drafting-blue);
+  --accent-hover:  var(--blue-500);
+  --accent-press:  var(--blue-900);
+  --link:          var(--drafting-blue);
+  --data-highlight:var(--ledger-gold);  /* the one gold figure per chart (paper) */
+  --data-highlight-ink: var(--gold-bright); /* the one gold figure on navy/ink */
+  --delta-positive:var(--sage-700);
+  --delta-negative:var(--negative);
+
+  /* Borders */
+  --border:        var(--rule);
+  --border-strong: var(--rule-strong);
+  --border-ink:    rgba(245,240,230,0.16); /* hairline on ink surfaces */
+
+  /* Focus */
+  --focus-ring: var(--drafting-blue);
+}
+/* ==== inlined verbatim from design-system/tokens/typography.css ==== */
+/* ============================================================
+   The Operator Economy — Typography (Rev C)
+   ------------------------------------------------------------
+   RULES (locked from the type stress test):
+   · Boska is display-only: NEVER below 40px (hairlines sparkle).
+   · Zodiak 700 carries 18–44px headings, tracked -0.02em.
+   · Supreme for body/UI (no real 600 — semibold maps to 500).
+   · Fragment Mono (single 400 weight) for ALL numbers &
+     citations; scale carries emphasis, never synthetic bold.
+   · ITALIC RATION: at most ONE italic phrase per composition.
+   ============================================================ */
+
+:root {
+  /* --- Families --- */
+  --font-display: 'Boska', Georgia, 'Times New Roman', serif;   /* >=40px ONLY */
+  --font-heading: 'Zodiak', Georgia, 'Times New Roman', serif;  /* 18-44px */
+  --font-serif:   var(--font-heading); /* legacy alias */
+  --font-sans:  'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'Fragment Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* --- Weights --- */
+  --w-regular:  400; /* @kind font */
+  --w-medium:   500; /* @kind font */
+  --w-semibold: 500; /* @kind font */ /* Supreme ships no 600; alias to 500 */
+  --w-bold:     700; /* @kind font */ /* Boska & Zodiak workhorse weight */
+  --w-black:    900; /* @kind font */ /* Zodiak thumbnails only */
+  --w-mono:     400; /* @kind font */ /* Fragment Mono's only weight */
+
+  /* --- Type scale (rem, 16px base) --- */
+  --text-3xs: 0.6875rem; /*  11px — micro labels, doc-number caps */
+  --text-2xs: 0.75rem;   /*  12px — citation chips, table meta */
+  --text-xs:  0.8125rem; /*  13px — small UI, annotation labels */
+  --text-sm:  0.9375rem; /*  15px — secondary body, captions */
+  --text-base:1.0625rem; /*  17px — body copy (editorial default) */
+  --text-lg:  1.25rem;   /*  20px — lead paragraph */
+  --text-xl:  1.5rem;    /*  24px — small heading (Zodiak) */
+  --text-2xl: 2rem;      /*  32px — section heading (Zodiak) */
+  --text-3xl: 2.75rem;   /*  44px — page heading (Boska floor is 40px) */
+  --text-4xl: 3.75rem;   /*  60px — hero display (Boska) */
+  --text-5xl: 5rem;      /*  80px — thumbnail / display figures */
+
+  /* --- Line height --- */
+  --leading-tight:   1.04;  /* Boska display */
+  --leading-snug:    1.12;  /* Zodiak headings */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.65;  /* body reading measure */
+
+  /* --- Tracking --- */
+  --tracking-display: -0.01em;  /* Boska display */
+  --tracking-heading: -0.02em;  /* Zodiak 20–44px (kills the wide feel) */
+  --tracking-tight:   -0.01em;  /* legacy alias */
+  --tracking-label:  0.14em;    /* small-caps annotation labels */
+  --tracking-caps:   0.08em;    /* doc numbers, sheet tags */
+  --tracking-mono:   0.01em;    /* mono numerals */
+
+  /* --- Reading measure --- */
+  --measure: 68ch;
+
+  /* ==========================================================
+     Semantic type roles
+     ========================================================== */
+  --type-display:  var(--w-bold)   var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-h1:       var(--w-bold)   var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h2:       var(--w-bold)   var(--text-2xl)/var(--leading-snug)  var(--font-heading);
+  --type-h3:       var(--w-bold)   var(--text-xl)/var(--leading-snug)   var(--font-heading);
+  --type-lead:     var(--w-regular) var(--text-lg)/var(--leading-relaxed) var(--font-sans);
+  --type-body:     var(--w-regular) var(--text-base)/var(--leading-relaxed) var(--font-sans);
+  --type-ui:       var(--w-medium)  var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-data:     var(--w-mono)    var(--text-base)/var(--leading-snug) var(--font-mono);
+  --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
+  --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
+}
+/* ==== inlined verbatim from design-system/tokens/spacing.css ==== */
+/* ============================================================
+   The Operator Economy — Spacing, radii, borders, shadows, motion
+   ------------------------------------------------------------
+   Restrained, document-grade. Corners are near-square (this is a
+   drafting sheet, not a SaaS card). Shadows are minimal — depth
+   comes from hairline rules and paper tone, not drop shadows.
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (4px base) --- */
+  --space-0:  0;
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* Editorial margins */
+  --margin-page:  clamp(1.25rem, 5vw, 6rem);
+  --gutter:       var(--space-6);
+
+  /* --- Radii — 2–3px max (locked); documents, not bubbles --- */
+  --radius-none: 0;
+  --radius-xs:   2px;   /* chips, inputs, most surfaces */
+  --radius-sm:   3px;   /* buttons */
+  --radius-md:   3px;   /* cards (Rev C: capped at 3px) */
+  --radius-pill: 999px; /* rare — status dots only */
+
+  /* --- Border widths --- */
+  --border-hair:   1px;
+  --border-medium: 1.5px;  /* title-block frames, chart axes */
+  --border-thick:  2px;    /* accent underlines, focal rules */
+
+  /* --- Shadows — whisper-quiet; paper doesn't float --- */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(26,26,26,0.05);
+  --shadow-sm: 0 1px 3px rgba(26,26,26,0.07), 0 1px 2px rgba(26,26,26,0.04);
+  --shadow-md: 0 6px 20px -8px rgba(26,26,26,0.14);
+  --shadow-lg: 0 18px 48px -20px rgba(26,26,26,0.22);
+  /* Inset used for pressed inputs / sunken data wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,26,26,0.06);
+
+  /* --- Focus ring --- */
+  --ring: 0 0 0 2px var(--paper-100), 0 0 0 4px var(--drafting-blue);
+
+  /* --- Motion — restrained: slides & fades, no bounce (spec §6) --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-normal: 200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* --- Layout --- */
+  --container:      1120px;  /* editorial max width */
+  --container-text: 720px;   /* single-column reading width */
+  --container-wide: 1320px;  /* full app / dashboard */
+  --z-base: 0;      /* @kind other */
+  --z-sticky: 100;  /* @kind other */
+  --z-overlay: 500; /* @kind other */
+  --z-modal: 1000;  /* @kind other */
+}
+/* ==== inlined verbatim from design-system/tokens/base.css ==== */
+/* ============================================================
+   The Operator Economy — Base resets & primitive helpers
+   ------------------------------------------------------------
+   Minimal, opt-in. Sets the paper/ink defaults and a few
+   brand-signature utility classes (mono numerals, small-caps
+   labels, hairline rules). Everything else is tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font: var(--type-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+
+h1 {
+  color: var(--text-strong);
+  font-family: var(--font-display); /* Boska — display sizes only */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h2, h3, h4 {
+  color: var(--text-strong);
+  font-family: var(--font-heading); /* Zodiak — the 18–44px workhorse */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-heading);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--gold-tint); color: var(--ink-900); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-xs);
+}
+
+/* --- Signature helpers ------------------------------------- */
+
+/* Every number the channel publishes is mono (Fragment Mono, 400 —
+   scale carries emphasis, never synthetic bold). */
+.oe-mono,
+.tabular {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* Small-caps annotation label (chart labels, kickers, sheet tags) */
+.oe-label {
+  font: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+/* Doc-number / sheet-header caps */
+.oe-caps {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-muted);
+}
+
+/* Hairline drafting rule */
+.oe-rule { border: 0; border-top: var(--border-hair) solid var(--border); margin: 0; }
+
+/* Editorial reading column */
+.oe-measure { max-width: var(--measure); }
+
+/* --- Component interaction states (hover/active on tokens) --- */
+.oe-btn[data-variant="primary"]:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+.oe-btn[data-variant="primary"]:active:not(:disabled) { background: var(--accent-press); border-color: var(--accent-press); }
+.oe-btn[data-variant="secondary"]:hover:not(:disabled) { background: var(--paper-200); border-color: var(--ink-900); }
+.oe-btn[data-variant="secondary"]:active:not(:disabled) { background: var(--paper-300); }
+.oe-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--blue-tint); }
+.oe-btn[data-variant="ghost"]:active:not(:disabled) { background: var(--paper-300); }
+
+.oe-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--blue-tint); }
+.oe-link-row:hover { background: var(--paper-200); }
+
+/* Live-status pulse (sage dots). Safe: 0% keyframe is fully visible. */
+.oe-pulse { animation: oe-pl 2.2s ease-in-out infinite; }
+@keyframes oe-pl { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+<style>
+/* artboard-local aliases: the token layer defines --text-strong/--text-body/--text-muted;
+   these names are used throughout the artboards and must resolve (audit fix) */
+:root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); }
+
+/* B8 -- component sheet. Every evidence-subsystem component on both
+   surfaces (paper and navy) with the correct gold ramp per surface:
+   gold-700 text on paper, gold-bright on navy. Tokens only. */
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface-page); color: var(--text-primary); font: var(--type-body); font-family: var(--font-sans); }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-heading); font-weight: var(--w-bold); letter-spacing: var(--tracking-heading); }
+p { margin: 0; }
+a { color: var(--drafting-blue); }
+button { font: inherit; cursor: pointer; }
+.wrap { max-width: var(--container-wide); margin: 0 auto; padding: var(--space-6) var(--space-5) var(--space-8); }
+.mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
+.label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); }
+.spec-note { font: var(--type-citation); color: var(--text-muted); margin-top: 6px; }
+.row { display: grid; grid-template-columns: 220px 1fr; gap: var(--space-5); border-top: var(--border-hair) solid var(--rule); padding: var(--space-5) 0; align-items: start; }
+.row-name b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); display: block; }
+.row-name span { font: var(--type-citation); color: var(--text-muted); }
+.demo { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: flex-start; }
+.surface { border-radius: var(--radius-sm); padding: var(--space-4); flex: 1 1 320px; min-width: 0; }
+.surface.paper { background: var(--surface-card); border: var(--border-hair) solid var(--rule); }
+.surface.navy { background: var(--surface-schematic); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.surface .surface-tag { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); display: block; margin-bottom: var(--space-3); }
+.surface.navy .surface-tag { color: var(--text-on-ink-faint); }
+
+/* chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); margin-right: 8px; }
+.chip.observed { border-color: var(--sage-700); color: var(--ink-700); }
+.chip.observed::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--sage-500); }
+.chip.parallel { border-color: var(--drafting-blue); color: var(--drafting-blue); }
+.chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
+.chip.unknown { border-style: dashed; border-color: var(--ink-500); color: var(--ink-500); background: transparent; }
+.navy .chip { background: transparent; border-color: var(--schem-node-border); color: var(--text-on-ink-muted); }
+.navy .chip.observed { border-color: var(--sage-500); color: var(--sage-500); }
+.navy .chip.parallel { border-color: var(--blue-500); color: var(--paper-100); }
+.navy .chip.modeled { border-color: var(--gold-bright); color: var(--gold-bright); }
+.navy .chip.unknown { border-style: dashed; border-color: var(--text-on-ink-faint); color: var(--text-on-ink-muted); }
+
+/* state labels */
+.state-chip { display: inline-block; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); margin: 0 8px 8px 0; }
+.state-chip.live { border-color: var(--sage-700); color: var(--sage-700); }
+.state-chip.live::before { content: "● "; color: var(--sage-500); }
+.state-chip.specimen { border-style: dashed; border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
+.state-chip.superseded { color: var(--text-faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* receipts */
+.receipt { display: inline-flex; gap: 6px; align-items: baseline; font: var(--type-citation); color: var(--text-muted); border: var(--border-hair) solid var(--rule); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--surface-card); text-decoration: none; }
+.receipt b { color: var(--text-secondary); font-weight: var(--w-mono); }
+.navy .receipt { background: transparent; border-color: var(--schem-node-border); color: var(--text-on-ink-muted); }
+.navy .receipt b { color: var(--gold-bright); }
+
+/* evidence card */
+.evidence-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); padding: var(--space-4); background: var(--surface-page); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; max-width: 300px; }
+.evidence-card .figure { font-family: var(--font-mono); font-size: var(--text-2xl); font-variant-numeric: tabular-nums; }
+.evidence-card.gold .figure { color: var(--gold-700); }
+.evidence-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+
+/* unknown register */
+.unknown-register table { width: 100%; border-collapse: collapse; font: var(--type-ui); font-weight: var(--w-regular); }
+.unknown-register th { text-align: left; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); border-bottom: var(--border-medium) solid var(--rule-strong); padding: 8px 10px; }
+.unknown-register td { border-bottom: var(--border-hair) solid var(--rule); padding: 10px; color: var(--text-secondary); }
+
+/* scenario columns + lens */
+.scenario-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
+.scenario-col { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-3); min-width: 0; }
+.scenario-col .figure { font-family: var(--font-mono); font-size: var(--text-lg); }
+.scenario-col.gold .figure { color: var(--gold-700); }
+.scenario-col small { font: var(--type-citation); color: var(--text-muted); display: block; margin-top: 4px; }
+.lens-tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-2); }
+.lens-tabs button { flex: 1; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 8px; font: var(--type-ui); }
+.lens-tabs button[aria-selected="true"] { border-color: var(--drafting-blue); color: var(--drafting-blue); background: var(--blue-tint); }
+
+/* equation block */
+.equation { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); white-space: pre; overflow-x: auto; }
+.navy .equation { background: transparent; border-color: var(--schem-node-border); color: var(--text-on-ink-muted); }
+
+/* download card states */
+.dl { border: var(--border-hair) solid var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-3); display: grid; gap: 8px; width: 250px; font: var(--type-ui); }
+.dl .state { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+.dl input { font: var(--type-data); font-size: var(--text-2xs); border: var(--border-hair) solid var(--rule-strong); background: var(--surface-sunken); border-radius: var(--radius-xs); padding: 8px; width: 100%; }
+.dl .btn { border: var(--border-medium) solid var(--drafting-blue); background: var(--drafting-blue); color: var(--paper-0); padding: 8px 12px; border-radius: var(--radius-sm); font: var(--type-ui); text-align: center; }
+.dl.sent .state { color: var(--sage-700); }
+.dl.error .state { color: var(--negative); }
+.dl.disabled { border-style: dashed; }
+.dl.disabled .state { color: var(--gold-700); }
+.dl.disabled input, .dl.disabled .btn { opacity: 0.55; }
+
+/* provenance */
+.provenance-demo { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); display: grid; gap: 8px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.provenance-demo code { font: var(--type-citation); background: var(--surface-sunken); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-xs); padding: 4px 8px; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) { .row { grid-template-columns: 1fr; } .scenario-cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="label" style="margin-bottom: var(--space-2);">B8 · Component sheet · evidence-class subsystem</div>
+  <h1 style="font-size: var(--text-2xl);">Each component on both surfaces.</h1>
+  <p class="spec-note">Gold ramp per surface: gold-700 text on paper (AA 5.3:1) · gold-bright on navy (6.4:1). One gold accent per composition.</p>
+
+  <div class="row">
+    <div class="row-name"><b>EvidenceChip</b><span>Badge base · 4 canonical classes · UNKNOWN is dashed, designed, never error-styled</span></div>
+    <div class="demo">
+      <div class="surface paper"><span class="surface-tag">On paper</span>
+        <span class="chip observed">Observed</span><span class="chip parallel">Parallel</span><span class="chip modeled">Modeled</span><span class="chip unknown">Unknown</span>
+      </div>
+      <div class="surface navy"><span class="surface-tag">On navy</span>
+        <span class="chip observed">Observed</span><span class="chip parallel">Parallel</span><span class="chip modeled">Modeled</span><span class="chip unknown">Unknown</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>StateChip set</b><span>Driven by the state matrix, never a component-local enum</span></div>
+    <div class="demo">
+      <div class="surface paper"><span class="surface-tag">Artifact states</span>
+        <span class="state-chip live">Live</span>
+        <span class="state-chip">Legacy Blueprint</span>
+        <span class="state-chip specimen">V1-derived design specimen</span>
+        <span class="state-chip">In editorial development</span>
+        <span class="state-chip superseded">Rev A · superseded</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>SourceReceipt</b><span>CitationChip base · exact on-screen receipt; onInk variant</span></div>
+    <div class="demo">
+      <div class="surface paper"><span class="surface-tag">On paper</span>
+        <a class="receipt" href="https://www.ciodive.com/news/accenture-generative-ai-bookings-fy2025/730821/"><b>SOURCE</b> Accenture FY2025 · CIO Dive ↗</a>
+      </div>
+      <div class="surface navy"><span class="surface-tag">On navy</span>
+        <span class="receipt"><b>MODEL</b> arithmetic · assumptions shown</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>EvidenceCard</b><span>Stat + Card base · no figure floats free</span></div>
+    <div class="demo">
+      <article class="evidence-card">
+        <span class="chip observed" style="margin: 0;">Observed</span>
+        <span class="figure">63.4%</span>
+        <p>Share of independent-hotel reservations attributed to Booking.com and Expedia in the cited report.</p>
+        <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/"><b>SOURCE</b> Cloudbeds · 2026 ↗</a>
+      </article>
+      <article class="evidence-card gold">
+        <span class="chip modeled" style="margin: 0;">Modeled</span>
+        <span class="figure">$135K</span>
+        <p>Annual commission-exposure arithmetic. Assumptions shown; not a reported hotel result.</p>
+        <span class="receipt"><b>MODEL</b> arithmetic · assumptions shown</span>
+      </article>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>UnknownRegister</b><span>DataTable base · unknowns are content, not gaps</span></div>
+    <div class="demo"><div class="surface paper" style="flex-basis: 100%;">
+      <div class="unknown-register"><table>
+        <thead><tr><th scope="col">ID</th><th scope="col">Unknown</th><th scope="col">How it resolves</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">U001</td><td>What a buyer will pay for this specific service.</td><td>First paid conversation.</td></tr>
+          <tr><td class="mono">U002</td><td>Delivery hours at a defensible standard.</td><td>Measured in the first engagement.</td></tr>
+        </tbody>
+      </table></div>
+    </div></div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>ScenarioColumns / ScenarioLens</b><span>Desktop columns side by side · mobile single-pane tabs · no blend slot exists in either API</span></div>
+    <div class="demo">
+      <div class="surface paper" style="flex: 2 1 420px;"><span class="surface-tag">Desktop · columns</span>
+        <div class="scenario-cols">
+          <div class="scenario-col"><span class="chip observed" style="margin: 0 0 6px;">Observed</span><span class="figure">18–30%</span><small>reported range</small></div>
+          <div class="scenario-col gold"><span class="chip modeled" style="margin: 0 0 6px;">Modeled</span><span class="figure">$135K/yr</span><small>arithmetic, assumptions shown</small></div>
+          <div class="scenario-col"><span class="chip unknown" style="margin: 0 0 6px;">Unknown</span><span class="figure">Unknown</span><small>resolves in the first engagement</small></div>
+        </div>
+      </div>
+      <div class="surface paper" style="flex: 1 1 260px;"><span class="surface-tag">Mobile · lens</span>
+        <div class="lens-tabs" role="tablist" aria-label="Cases">
+          <button role="tab" aria-selected="true">Market</button>
+          <button role="tab" aria-selected="false">Model</button>
+          <button role="tab" aria-selected="false">Operator</button>
+        </div>
+        <div class="scenario-col"><span class="chip observed" style="margin: 0 0 6px;">Observed</span><span class="figure">18–30%</span><small>One case at a time, never blended.</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>EquationBlock</b><span>Mono equation lines; inherits a MODELED chip; the schema's generic shapes</span></div>
+    <div class="demo">
+      <div class="surface paper" style="flex-basis: 100%;">
+        <span class="chip modeled">Modeled</span>
+        <div class="equation" style="margin-top: var(--space-2);">customers × price × billing frequency         = modeled gross revenue
+labor + tools + acquisition + overhead        = modeled direct cost
+available hours ÷ hours per customer          = modeled maximum active customers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>DownloadCard states</b><span>Idle · sent · expired link · specimen-disabled · legacy</span></div>
+    <div class="demo">
+      <div class="dl"><span class="state label">Live Canvas · idle</span><input type="email" placeholder="you@example.com" aria-label="Email" /><span class="btn">Email me the PDF</span></div>
+      <div class="dl sent"><span class="state">Sent</span><p style="font-weight: var(--w-regular); color: var(--text-secondary);">Sent to y···@example.com.</p><a href="#" style="font: var(--type-ui);">Resend</a></div>
+      <div class="dl error"><span class="state">Link expired</span><p style="font-weight: var(--w-regular); color: var(--text-secondary);">That link expired. Want a fresh one at the same address?</p><a href="#" style="font: var(--type-ui);">Resend</a></div>
+      <div class="dl disabled"><span class="state">Design specimen</span><p style="font-weight: var(--w-regular); color: var(--text-secondary);">No PDF is published for this page.</p><input type="email" disabled aria-label="Email, disabled" /><span class="btn">Email me the PDF</span></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row-name"><b>ProvenancePanel</b><span>Copyable full hashes · revision history · sample value shown is the SHA-256 of an empty file, not a real lock</span></div>
+    <div class="demo"><div class="surface paper" style="flex-basis: 100%;">
+      <div class="provenance-demo">
+        <span><b>Canvas source</b> <code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code> <button style="font: var(--type-ui); border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 4px 10px;">Copy</button></span>
+        <span><b>Rev history</b> Rev B · date · what changed, one line → <a href="#">Rev A (superseded, unchanged)</a></span>
+      </div>
+    </div></div>
+  </div>
+</main>
+</body>
+</html>

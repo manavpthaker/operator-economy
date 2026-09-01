@@ -100,3 +100,56 @@ Awaiting owner review of the contracts (step 2) and prototypes (step 3) before s
   budget. Owner may instead retire it.
 - `Build. Own. Operate.` is a rule-of-three brand mark, footer-only; exempt from the §2e
   structural-tell pass by this recorded decision.
+
+## 2026-09-01 — Step 4: internal testing passes (fallback mode, weaker evidence)
+
+External readers were not recruited; per the product contract's fallback, moderated
+internal passes substituted, **flagged here as weaker evidence than real-reader testing**.
+Method: three fresh-context reader simulations (personas from the editorial standard's
+three core-viewer situations) answering the T1–T4 comprehension tasks against the
+prototype's verbatim rendered text, plus a hostile accessibility/progressive-enhancement
+source audit and live keyboard/history/mobile passes in the browser.
+
+**Comprehension results: T1–T4 passed by all three readers.** All identified buyer, offer,
+and first test from the decision summary; all correctly explained the evidence classes and
+stated plainly that the $135K figure is arithmetic, not a fact; all located stop
+conditions; all answered that downloading does not subscribe them to the newsletter,
+citing the unchecked consent row.
+
+**Reader findings applied to B1:** PARALLEL was referenced but unlearnable on-page →
+definitions link added to the rail status block; specimen/status jargon opaque →
+plain-language explainer added under the titleblock chip; disabled download card read as
+contradictory → "preview only, controls inactive" caption added; the page never named its
+most sensitive assumption → a Most-sensitive-assumption callout added to Sheet 03 (the
+data contract already carries the field); the cancellation figure reworded to plain rates.
+
+**Reader findings noted, not actioned here:** every observed figure traces to one
+vendor-published source (honest but thin — an editorial matter for real Canvases, where
+Step 0 sourcing rules apply); the №006 episode title uses the top of the page's own
+18–30% observed band — recorded as a packaging-fidelity concern for the Step 7 proposal.
+
+**Accessibility audit: 2 blockers + 12 should-fixes, all applied to B1** (mobile no-JS
+scenario columns un-clipped; observed-chip text moved to ink-700 with sage border/dot;
+undefined --text-primary/--text-secondary aliased in every artboard; lens tablist
+aria-controls/roving tabindex/dynamic tabpanel roles; no-JS hides dead controls and shows
+the mobile nav; duplicate live region removed; rail links preserve guide state in the
+hash; navy focus outline; scroll margins; heading order h4→h3; focusable tabpanels;
+provenance Expand/Collapse state label; new-tab sr text; table name; nav target padding;
+announce-noise guard; Home/End keys; resize fallback for the lens media query). Verified
+live after fixes: keyboard, history restore, 375/320 reflow, mobile lens semantics, zero
+console errors.
+
+**Token-layer recommendation (design-system owner's call, not made here):** --sage-700
+(#5E7F6A) fails AA as 12px text on paper (4.19:1 on paper-0). The artboards route around
+it; the audit suggests darkening toward ~#557463 in design-system/tokens/colors.css.
+
+## 2026-09-01 — Step 5: expansion artboards built
+
+B4/B5 homepage (responsive; featured-panel states a and b, state c specified not mocked;
+leading H1 candidate rendered pending the copy-deck pick), B6 library (All/Canvases/Legacy
+filters, six legacy cards in publication order, empty-Canvases state), B7 legacy episode
+(№002 real data; legacy band; "Modeled range · yr 1" fix with the surviving ESTIMATE chip;
+null-url source rendered unlinked and annotated), B8 component sheet (all subsystem
+components on paper and navy with the per-surface gold ramp; the provenance sample hash is
+the SHA-256 of an empty file, labeled as such), B9 PDF cover + Public-layer spread (Boska
+permitted on the cover). All token-inlined, voice-gate greps clean, verified in-browser.

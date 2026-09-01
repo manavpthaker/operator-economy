@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-<title>Method · how a Canvas is made</title>
+<title>The library · one library, honest artifact states</title>
 <!-- tokens inlined verbatim for single-file portability; source of truth: design-system/tokens/ -->
 <style>
 @import url('https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&display=swap');
@@ -23,8 +23,6 @@
    Boska/Zodiak/Supreme ship from Fontshare; Fragment Mono from
    Google Fonts. No binaries existed in the sources.
    ============================================================ */
-
-
 
 /* ==== inlined verbatim from design-system/tokens/colors.css ==== */
 /* ============================================================
@@ -127,7 +125,6 @@
   /* Focus */
   --focus-ring: var(--drafting-blue);
 }
-
 /* ==== inlined verbatim from design-system/tokens/typography.css ==== */
 /* ============================================================
    The Operator Economy — Typography (Rev C)
@@ -201,7 +198,6 @@
   --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
   --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
 }
-
 /* ==== inlined verbatim from design-system/tokens/spacing.css ==== */
 /* ============================================================
    The Operator Economy — Spacing, radii, borders, shadows, motion
@@ -269,7 +265,6 @@
   --z-overlay: 500; /* @kind other */
   --z-modal: 1000;  /* @kind other */
 }
-
 /* ==== inlined verbatim from design-system/tokens/base.css ==== */
 /* ============================================================
    The Operator Economy — Base resets & primitive helpers
@@ -389,30 +384,28 @@ a:hover { text-decoration: underline; }
     transition-duration: 0.01ms !important;
   }
 }
-
 </style>
 <style>
 /* artboard-local aliases: the token layer defines --text-strong/--text-body/--text-muted;
    these names are used throughout the artboards and must resolve (audit fix) */
 :root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); }
 
-/* B3 -- /method (desktop + mobile). Tokens only. See 01-experience-spec.md §4. */
+/* B6 -- /library artboard. Tokens only. Data from site/data/episodes.json
+   as reconciled 2026-09-01. Filters: All / Canvases / Legacy. */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 body { margin: 0; background: var(--surface-page); color: var(--text-primary); font: var(--type-body); font-family: var(--font-sans); }
 a { color: var(--drafting-blue); text-underline-offset: 3px; }
 h1, h2, h3 { margin: 0; font-family: var(--font-heading); font-weight: var(--w-bold); letter-spacing: var(--tracking-heading); }
 p { margin: 0; }
-.wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-5); }
+button { font: inherit; cursor: pointer; }
+.wrap { max-width: var(--container-wide); margin: 0 auto; padding: 0 var(--space-5); }
 .mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
 .label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); }
-.site-display { font: var(--w-bold) var(--text-3xl)/var(--leading-snug) var(--font-heading); letter-spacing: var(--tracking-heading); }
 .section-kicker { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2); }
-button { font: inherit; cursor: pointer; }
-.btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--drafting-blue); outline-offset: 2px; }
+.site-display { font: var(--w-bold) var(--text-3xl)/var(--leading-snug) var(--font-heading); letter-spacing: var(--tracking-heading); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--drafting-blue); outline-offset: 2px; }
 
-/* masthead (shared pattern with B1) */
 .masthead { border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-page); position: sticky; top: 0; z-index: 40; }
 .masthead-inner { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-3) var(--space-5); max-width: var(--container-wide); margin: 0 auto; }
 .brand { display: flex; flex-direction: column; line-height: 1; text-decoration: none; color: var(--text-primary); }
@@ -424,40 +417,23 @@ button { font: inherit; cursor: pointer; }
 .menu-toggle { display: none; margin-left: auto; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px 16px; min-height: 44px; font: var(--type-ui); }
 .mobile-panel { display: none; }
 
-section.block { margin-top: var(--space-7); scroll-margin-top: 90px; }
-.card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-5); }
+.filters { display: flex; gap: var(--space-2); margin-top: var(--space-5); flex-wrap: wrap; }
+.filters button { border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 8px 16px; min-height: 44px; font: var(--type-ui); color: var(--text-secondary); }
+.filters button[aria-pressed="true"] { border-color: var(--drafting-blue); color: var(--drafting-blue); background: var(--blue-tint); }
 
-/* pipeline schematic */
-.pipeline { background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
-.pipe-row { display: flex; gap: var(--space-2); align-items: stretch; flex-wrap: wrap; }
-.pipe-node { flex: 1 1 150px; border: var(--border-hair) solid var(--schem-node-border); background: var(--schem-node-bg); border-radius: var(--radius-sm); padding: var(--space-3); color: var(--paper-100); display: flex; flex-direction: column; gap: 4px; }
-.pipe-node .mono { font-size: var(--text-2xs); color: var(--text-on-ink-muted); }
-.pipe-node strong { font-family: var(--font-heading); }
-.pipe-node small { font: var(--type-citation); color: var(--text-on-ink-muted); }
-.pipe-wire { align-self: center; color: var(--schem-wire); font-family: var(--font-mono); }
-.pipe-note { margin-top: var(--space-4); border-top: var(--border-hair) solid var(--schem-wire); padding-top: var(--space-3); font: var(--type-ui); color: var(--text-on-ink-muted); }
-.pipe-note b { color: var(--gold-bright); font-weight: var(--w-medium); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-5); }
+.card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; min-width: 0; }
+.card:hover { border-color: var(--drafting-blue); }
+.card b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.card .meta { display: flex; gap: var(--space-3); font: var(--type-citation); color: var(--text-muted); flex-wrap: wrap; }
+.card .go { font: var(--type-ui); color: var(--drafting-blue); }
+.card .migration { font: var(--type-citation); color: var(--text-muted); border-top: var(--border-hair) solid var(--rule); padding-top: 8px; }
 
-/* legend */
-.legend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-4); }
-.legend-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 10px; align-content: start; }
-.legend-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
-.legend-card .example { border-top: var(--border-hair) solid var(--rule); padding-top: 10px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-muted); }
-.chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); white-space: nowrap; justify-self: start; }
-.chip.observed { border-color: var(--sage-700); color: var(--ink-700); }
-.chip.observed::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--sage-500); }
-.chip.parallel { border-color: var(--drafting-blue); color: var(--drafting-blue); }
-.chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
-.chip.unknown { border-style: dashed; border-color: var(--ink-400); color: var(--ink-500); background: transparent; }
-.receipt { display: inline-flex; gap: 6px; align-items: baseline; font: var(--type-citation); color: var(--text-muted); border: var(--border-hair) solid var(--rule); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--surface-card); text-decoration: none; justify-self: start; }
-.receipt b { color: var(--text-secondary); font-weight: var(--w-mono); }
-
-/* two-column prose blocks */
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-.rules-list { margin: var(--space-3) 0 0; padding-left: 20px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); display: grid; gap: 8px; }
-.hash-demo { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); }
-.hash-demo code { font: var(--type-citation); background: var(--surface-sunken); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-xs); padding: 6px 10px; overflow-wrap: anywhere; }
-.copy-btn { border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 8px 12px; min-height: 40px; font: var(--type-ui); }
+.empty { display: none; border: var(--border-hair) dashed var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-6); margin-top: var(--space-5); text-align: center; }
+.empty p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+[data-filter="canvases"] .grid { display: none; }
+[data-filter="canvases"] .empty { display: block; }
 
 footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid var(--rule); padding: var(--space-6) 0 var(--space-7); }
 .footer-inner { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; align-items: baseline; }
@@ -473,12 +449,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   .mobile-panel[data-open="true"] { display: block; border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-card); }
   .mobile-panel nav { display: grid; padding: var(--space-3) var(--space-5); gap: 2px; }
   .mobile-panel a { padding: 12px 8px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); font: var(--type-ui); border-bottom: var(--border-hair) solid var(--rule); }
+  .grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 720px) {
-  .site-display { font-size: var(--text-2xl); }
-  .legend-grid, .split { grid-template-columns: 1fr; }
-  .pipe-wire { display: none; }
-}
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .site-display { font-size: var(--text-2xl); } }
 </style>
 </head>
 <body class="no-js">
@@ -486,178 +459,115 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
 
 <header class="masthead">
   <div class="masthead-inner">
-    <a class="brand" href="B1-canvas-page.html" aria-label="The Operator Economy, home">
+    <a class="brand" href="B4-homepage.html" aria-label="The Operator Economy, home">
       <span class="brand-kicker">The</span>
       <span class="brand-name">Operator Economy</span>
     </a>
     <nav class="nav" aria-label="Site">
-      <a href="B1-canvas-page.html#library-next">Library</a>
-      <a href="#top" aria-current="page">Method</a>
-      <a href="#footer">About</a>
+      <a href="#top" aria-current="page">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="B4-homepage.html#disclosures">About</a>
     </nav>
     <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
   </div>
   <div class="mobile-panel" id="mobile-panel" data-open="false">
     <nav aria-label="Site, mobile">
-      <a href="B1-canvas-page.html#library-next">Library</a>
-      <a href="#top">Method</a>
-      <a href="#footer">About</a>
+      <a href="#top">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="B4-homepage.html#disclosures">About</a>
     </nav>
   </div>
 </header>
 
-<main class="wrap" id="top">
-
-  <section class="block" style="margin-top: var(--space-6);">
-    <div class="section-kicker">Method · how a Canvas is made</div>
-    <h1 class="site-display">Every Canvas earns its way here.</h1>
-    <p style="font: var(--type-lead); color: var(--text-secondary); margin-top: var(--space-3); max-width: 62ch;">
-      This is The Operator Economy, where we show you how to use AI to build, own, and
-      operate a sustainable business of one. This page explains what an Operator Canvas is,
-      how one gets made, and how to read the labels you'll see on every material claim.
+<main class="wrap" id="top" data-filter="all">
+  <section style="margin-top: var(--space-6);">
+    <div class="section-kicker">The library</div>
+    <h1 class="site-display">One library. Honest artifact states.</h1>
+    <p style="font: var(--type-lead); color: var(--text-secondary); margin-top: var(--space-2); max-width: 60ch;">
+      Existing documents stay labeled as Blueprints until their interactive Canvas passes
+      the new content and evidence gate.
     </p>
-  </section>
-
-  <!-- pipeline + gates -->
-  <section class="block" aria-labelledby="h-pipeline">
-    <div class="section-kicker">The pipeline and its gates</div>
-    <h2 id="h-pipeline" style="font-size: var(--text-2xl); margin-bottom: var(--space-4);">Five stages, each behind a gate.</h2>
-    <div class="pipeline">
-      <div class="pipe-row">
-        <div class="pipe-node"><span class="mono">00</span><strong>Intake</strong><small>Is the opportunity worth examining?</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">01</span><strong>Editorial</strong><small>The Canvas is authored and locked.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">02</span><strong>Narration</strong><small>The locked words are performed.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">03–06</span><strong>Production</strong><small>The episode is built and finished.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">07</span><strong>Publishing</strong><small>Episode page, Canvas, and PDF ship.</small></div>
-      </div>
-      <p class="pipe-note">
-        <b>Gates, in plain terms:</b> between stages, named reviews check the evidence, the
-        language, and the model, and the owner signs off. A Canvas that fails a gate goes
-        back, not through. A locked Canvas can still change: any material edit creates a
-        new revision and everything downstream is re-checked.
-      </p>
+    <div class="filters" role="group" aria-label="Filter the library">
+      <button type="button" aria-pressed="true" data-set="all">All</button>
+      <button type="button" aria-pressed="false" data-set="canvases">Canvases</button>
+      <button type="button" aria-pressed="false" data-set="legacy">Legacy</button>
     </div>
   </section>
 
-  <!-- evidence classes -->
-  <section class="block" id="evidence-classes" aria-labelledby="h-classes">
-    <div class="section-kicker">The four evidence classes</div>
-    <h2 id="h-classes" style="font-size: var(--text-2xl);">Every material claim carries one.</h2>
-    <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-2); max-width: 62ch;">
-      Proof and uncertainty share the same surface. The class tells you what kind of thing
-      a statement is; the receipt tells you where it came from.
-    </p>
-    <div class="legend-grid">
-      <div class="legend-card">
-        <span class="chip observed">Observed</span>
-        <p><b>A sourced fact.</b> Someone measured or reported it, and the receipt names them. A vendor-published figure is still observed; the receipt says who published it so you can weigh it.</p>
-        <p class="example">Example receipt from a live page:</p>
-        <a class="receipt" href="https://www.ciodive.com/news/accenture-generative-ai-bookings-fy2025/730821/" target="_blank" rel="noreferrer"><b>SOURCE</b> Accenture FY2025 · CIO Dive ↗</a>
-      </div>
-      <div class="legend-card">
-        <span class="chip parallel">Parallel</span>
-        <p><b>Transferred from an adjacent model.</b> Nobody has run this exact business, but a neighboring one runs on the same mechanics. The statement says what transfers and what doesn't.</p>
-        <p class="example">A parallel never becomes proof of demand for the exact offer. It earns the right to test, nothing more.</p>
-      </div>
-      <div class="legend-card">
-        <span class="chip modeled">Modeled</span>
-        <p><b>An assumption with its arithmetic shown.</b> Every modeled figure travels with its assumption list, and scenarios render side by side, never blended into one confident number.</p>
-        <p class="example">Modeled figures are never dressed up with reassuring adjectives. If a modeled case fails its own target, the page says so.</p>
-      </div>
-      <div class="legend-card">
-        <span class="chip unknown">Unknown</span>
-        <p><b>An open question, kept visible.</b> Unknowns are content, not gaps. Each one is registered with how it resolves, and no diagram or polished figure is allowed to paper over one.</p>
-        <p class="example">The most useful line on a Canvas is often the unknown its first test is designed to answer.</p>
-      </div>
-    </div>
-  </section>
+  <div class="empty" aria-live="polite">
+    <p><b>No Canvas is live yet.</b></p>
+    <p style="margin-top: 8px;">The first Canvas is in editorial development. <a href="B3-method.html">See how a Canvas is made →</a></p>
+  </div>
 
-  <!-- model status -->
-  <section class="block" id="model-status" aria-labelledby="h-status">
-    <div class="split">
-      <div class="card">
-        <div class="section-kicker">Model status</div>
-        <h2 id="h-status" style="font-size: var(--text-xl);">The whole model gets its own classification.</h2>
-        <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-3);">
-          Evidence classes label individual statements. Model status classifies the whole
-          Canvas: <b>observed model</b> means this business demonstrably runs today;
-          <b>adjacent synthesis</b> means it's assembled from proven neighboring pieces;
-          <b>frontier hypothesis</b> means the combination itself is untested. The two
-          labels never merge: a Canvas can be an adjacent synthesis built mostly from
-          observed facts.
-        </p>
-      </div>
-      <div class="card">
-        <div class="section-kicker">Economics rules</div>
-        <h2 style="font-size: var(--text-xl);">Equations, scenarios, and honest failures.</h2>
-        <ul class="rules-list">
-          <li>Economics render as equations plus a low, base, and high case. There's no single headline number, anywhere.</li>
-          <li>Each case carries its own evidence class and assumption list.</li>
-          <li>If the base case fails the livelihood target, the Canvas says so plainly.</li>
-          <li>Every Canvas carries a required disclosure: modeled scenarios aren't observed performance or an earnings forecast.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- versioning -->
-  <section class="block" id="versioning" aria-labelledby="h-versioning">
-    <div class="card">
-      <div class="section-kicker">Versioning and hashes</div>
-      <h2 id="h-versioning" style="font-size: var(--text-xl);">A changed Canvas field creates a new revision.</h2>
-      <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-3); max-width: 68ch;">
-        When a Canvas locks, its source file gets a SHA-256 fingerprint. The page you read
-        and the PDF you download each carry their own. All three are printed in the
-        provenance panel so you can verify that what you read, what you downloaded, and
-        what was locked are the same system. Old revisions stay published, labeled, and
-        unchanged.
-      </p>
-      <div class="hash-demo">
-        <span class="label">Copyable, like this</span>
-        <code id="demo-hash">sha256 of the page you are reading appears here on a live Canvas</code>
-        <button class="copy-btn" id="copy-hash" type="button">Copy</button>
-        <span class="label" id="copy-done" hidden>Copied</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- what we do not publish -->
-  <section class="block" aria-labelledby="h-not">
-    <div class="card">
-      <div class="section-kicker">What we don't publish</div>
-      <h2 id="h-not" style="font-size: var(--text-xl);">The claims discipline, in reader terms.</h2>
-      <ul class="rules-list">
-        <li>No income promises. A livelihood case is a design test the Canvas must pass or admit failing, not a forecast.</li>
-        <li>No figure without a source or its arithmetic. Estimates are marked and never blended into sourced figures.</li>
-        <li>No modeled number upgraded by an adjective.</li>
-        <li>No diagram that resolves an unknown. Visuals inherit the evidence label of what they draw.</li>
-        <li>Held-back material: none. Everything load-bearing is on the page; the PDF adds detail and print utility.</li>
-      </ul>
-    </div>
+  <section class="grid" aria-label="Episodes">
+    <a class="card" href="B1-canvas-page.html">
+      <span class="label">№006 · Legacy Blueprint · live</span>
+      <b>Hotels pay 30% to book their own rooms</b>
+      <p>Install and operate the direct-booking recovery stack for independent hotels, priced against the OTA commission saved.</p>
+      <span class="meta"><span class="mono">2026-08</span><span class="mono">9 sources</span><span>Retainers</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
+    <a class="card" href="B7-legacy-episode.html">
+      <span class="label">№005 · Legacy Blueprint · live</span>
+      <b>The Operator Economy thesis</b>
+      <p>The minimum viable size of a software business collapsed. Two questions decide whether a too-small-for-venture business is defensible.</p>
+      <span class="meta"><span class="mono">2026-08</span><span class="mono">16 sources</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
+    <a class="card" href="B7-legacy-episode.html">
+      <span class="label">№004 · Legacy Blueprint · live</span>
+      <b>The solo design agency</b>
+      <p>AI collapsed the design studio. One person can now sell what used to take a team.</p>
+      <span class="meta"><span class="mono">2026-08</span><span class="mono">12 sources</span><span>Retainers</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
+    <a class="card" href="B7-legacy-episode.html">
+      <span class="label">№003 · Legacy Blueprint · live</span>
+      <b>The boring-automation agency</b>
+      <p>SMBs pay real money for workflows that move data between the systems they already use. Priced as a retainer, not a project.</p>
+      <span class="meta"><span class="mono">2026-07</span><span class="mono">6 sources</span><span>Retainers</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
+    <a class="card" href="B7-legacy-episode.html">
+      <span class="label">№002 · Legacy Blueprint · live</span>
+      <b>The voice-agent agency</b>
+      <p>Local businesses will pay a person, not a platform, to make their phones stop bleeding. Sold as an outcome.</p>
+      <span class="meta"><span class="mono">2026-07</span><span class="mono">11 sources</span><span>Retainers</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
+    <a class="card" href="B7-legacy-episode.html">
+      <span class="label">№001 · Legacy Blueprint · live</span>
+      <b>AI implementation as a service</b>
+      <p>One vertical you've operated in is drowning in AI tools it can't install. You install two of them where they actually run.</p>
+      <span class="meta"><span class="mono">2026-07</span><span class="mono">8 sources</span><span>Projects</span></span>
+      <span class="migration">Canvas migration not yet approved.</span>
+      <span class="go">View the episode →</span>
+    </a>
   </section>
 </main>
 
-<footer class="site" id="footer">
+<footer class="site">
   <div class="wrap">
     <div class="footer-inner">
-      <a class="brand" href="B1-canvas-page.html">
+      <a class="brand" href="B4-homepage.html">
         <span class="brand-kicker">The</span>
         <span class="brand-name">Operator Economy</span>
       </a>
       <nav class="footer-nav" aria-label="Footer">
         <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube ↗</a>
-        <a href="B1-canvas-page.html#library-next">Library</a>
-        <a href="#top">Method</a>
+        <a href="B4-homepage.html#newsletter">Newsletter</a>
+        <a href="B3-method.html">Method</a>
       </nav>
     </div>
     <div class="colophon">
       <span class="footer-mark">Build. Own. Operate.</span>
       <span>Site rev · 2026-09-01</span>
-      <span>B3 artboard · Rev D narrative · Rev C evidence system</span>
+      <span>B6 artboard · data as reconciled 2026-09-01</span>
     </div>
   </div>
 </footer>
@@ -672,22 +582,19 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
     menuToggle.textContent = open ? "Close" : "Menu";
     panel.dataset.open = String(open);
   }
-  menuToggle.addEventListener("click", function () {
-    setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
-  });
+  menuToggle.addEventListener("click", function () { setMenu(menuToggle.getAttribute("aria-expanded") !== "true"); });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") { setMenu(false); menuToggle.focus(); }
   });
-  panel.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
 
-  var copyBtn = document.getElementById("copy-hash");
-  var done = document.getElementById("copy-done");
-  copyBtn.addEventListener("click", function () {
-    var text = document.getElementById("demo-hash").textContent;
-    function ok() { done.hidden = false; setTimeout(function () { done.hidden = true; }, 2000); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(ok, ok);
-    } else { ok(); }
+  var main = document.querySelector("main");
+  var buttons = document.querySelectorAll(".filters button");
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      buttons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      /* "legacy" and "all" show the same grid today -- every live entry is legacy */
+      main.dataset.filter = b.dataset.set === "canvases" ? "canvases" : "all";
+    });
   });
 })();
 </script>

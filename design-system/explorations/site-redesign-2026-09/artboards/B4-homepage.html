@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex" />
-<title>Method · how a Canvas is made</title>
+<title>The Operator Economy · homepage artboard</title>
 <!-- tokens inlined verbatim for single-file portability; source of truth: design-system/tokens/ -->
 <style>
 @import url('https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&display=swap');
@@ -23,8 +23,6 @@
    Boska/Zodiak/Supreme ship from Fontshare; Fragment Mono from
    Google Fonts. No binaries existed in the sources.
    ============================================================ */
-
-
 
 /* ==== inlined verbatim from design-system/tokens/colors.css ==== */
 /* ============================================================
@@ -127,7 +125,6 @@
   /* Focus */
   --focus-ring: var(--drafting-blue);
 }
-
 /* ==== inlined verbatim from design-system/tokens/typography.css ==== */
 /* ============================================================
    The Operator Economy — Typography (Rev C)
@@ -201,7 +198,6 @@
   --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
   --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
 }
-
 /* ==== inlined verbatim from design-system/tokens/spacing.css ==== */
 /* ============================================================
    The Operator Economy — Spacing, radii, borders, shadows, motion
@@ -269,7 +265,6 @@
   --z-overlay: 500; /* @kind other */
   --z-modal: 1000;  /* @kind other */
 }
-
 /* ==== inlined verbatim from design-system/tokens/base.css ==== */
 /* ============================================================
    The Operator Economy — Base resets & primitive helpers
@@ -389,30 +384,37 @@ a:hover { text-decoration: underline; }
     transition-duration: 0.01ms !important;
   }
 }
-
 </style>
 <style>
 /* artboard-local aliases: the token layer defines --text-strong/--text-body/--text-muted;
    these names are used throughout the artboards and must resolve (audit fix) */
 :root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); }
 
-/* B3 -- /method (desktop + mobile). Tokens only. See 01-experience-spec.md §4. */
+/* ============================================================
+   B4/B5 -- Homepage artboard (desktop + mobile in one file)
+   Rev D narrative · Rev C evidence system. Tokens only.
+   Featured-panel state (a) = current reality (newest live legacy
+   episode + /method CTA). State (b) appears in the clearly
+   labeled artboard appendix. See 01-experience-spec.md §2.
+   ============================================================ */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 body { margin: 0; background: var(--surface-page); color: var(--text-primary); font: var(--type-body); font-family: var(--font-sans); }
 a { color: var(--drafting-blue); text-underline-offset: 3px; }
 h1, h2, h3 { margin: 0; font-family: var(--font-heading); font-weight: var(--w-bold); letter-spacing: var(--tracking-heading); }
 p { margin: 0; }
-.wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-5); }
+button { font: inherit; cursor: pointer; }
+.wrap { max-width: var(--container-wide); margin: 0 auto; padding: 0 var(--space-5); }
 .mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
 .label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); }
-.site-display { font: var(--w-bold) var(--text-3xl)/var(--leading-snug) var(--font-heading); letter-spacing: var(--tracking-heading); }
 .section-kicker { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); margin-bottom: var(--space-2); }
-button { font: inherit; cursor: pointer; }
+.site-display { font: var(--w-bold) var(--text-3xl)/var(--leading-snug) var(--font-heading); letter-spacing: var(--tracking-heading); }
+.btn { display: inline-block; border: var(--border-medium) solid var(--drafting-blue); background: var(--drafting-blue); color: var(--paper-0); padding: 10px 18px; border-radius: var(--radius-sm); font: var(--type-ui); text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--drafting-blue); }
 .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--drafting-blue); outline-offset: 2px; }
 
-/* masthead (shared pattern with B1) */
+/* masthead */
 .masthead { border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-page); position: sticky; top: 0; z-index: 40; }
 .masthead-inner { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-3) var(--space-5); max-width: var(--container-wide); margin: 0 auto; }
 .brand { display: flex; flex-direction: column; line-height: 1; text-decoration: none; color: var(--text-primary); }
@@ -420,51 +422,102 @@ button { font: inherit; cursor: pointer; }
 .brand-name { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
 .nav { display: flex; gap: var(--space-4); margin-left: auto; align-items: center; }
 .nav a { text-decoration: none; color: var(--text-secondary); font: var(--type-ui); padding: 6px 0; }
-.nav a[aria-current="page"] { color: var(--drafting-blue); }
+.nav a:hover { color: var(--drafting-blue); }
 .menu-toggle { display: none; margin-left: auto; border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 10px 16px; min-height: 44px; font: var(--type-ui); }
 .mobile-panel { display: none; }
 
-section.block { margin-top: var(--space-7); scroll-margin-top: 90px; }
-.card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-5); }
+/* hero */
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-6); align-items: start; padding-top: var(--space-7); }
+.kicker { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--gold-700); margin-bottom: var(--space-3); }
+.hero h1 { font-size: var(--text-3xl); line-height: var(--leading-snug); max-width: 18ch; }
+.hero .lead { font: var(--type-lead); color: var(--text-secondary); margin-top: var(--space-4); max-width: 52ch; }
+.proof-row { display: flex; gap: var(--space-3); margin-top: var(--space-4); flex-wrap: wrap; }
+.proof-chip { font: var(--type-citation); border: var(--border-hair) solid var(--rule-strong); border-radius: var(--radius-xs); padding: 4px 10px; color: var(--text-secondary); background: var(--surface-card); }
+.cta-row { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
 
-/* pipeline schematic */
-.pipeline { background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
-.pipe-row { display: flex; gap: var(--space-2); align-items: stretch; flex-wrap: wrap; }
-.pipe-node { flex: 1 1 150px; border: var(--border-hair) solid var(--schem-node-border); background: var(--schem-node-bg); border-radius: var(--radius-sm); padding: var(--space-3); color: var(--paper-100); display: flex; flex-direction: column; gap: 4px; }
-.pipe-node .mono { font-size: var(--text-2xs); color: var(--text-on-ink-muted); }
-.pipe-node strong { font-family: var(--font-heading); }
-.pipe-node small { font: var(--type-citation); color: var(--text-on-ink-muted); }
-.pipe-wire { align-self: center; color: var(--schem-wire); font-family: var(--font-mono); }
-.pipe-note { margin-top: var(--space-4); border-top: var(--border-hair) solid var(--schem-wire); padding-top: var(--space-3); font: var(--type-ui); color: var(--text-on-ink-muted); }
-.pipe-note b { color: var(--gold-bright); font-weight: var(--w-medium); }
+/* navy latest panel */
+.panel { background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); color: var(--paper-100); background-image: repeating-linear-gradient(0deg, var(--schem-grid) 0 1px, transparent 1px 36px), repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); border-bottom: var(--border-hair) solid var(--schem-wire); padding-bottom: var(--space-3); margin-bottom: var(--space-4); flex-wrap: wrap; }
+.panel-sheet { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-on-ink-muted); }
+.panel-live { display: inline-flex; gap: 8px; align-items: center; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--sage-500); }
+.dot { width: 7px; height: 7px; border-radius: var(--radius-pill); background: var(--sage-500); display: inline-block; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+.dot.pulse { animation: pulse 2.4s ease-in-out infinite; }
+.doc-stack { position: relative; margin: var(--space-3) 0 var(--space-4); }
+.ghost { position: absolute; inset: 0; border: var(--border-hair) solid var(--schem-node-border); border-radius: var(--radius-sm); background: var(--schem-node-bg); }
+.ghost.g1 { transform: translate(8px, 8px); opacity: 0.5; }
+.ghost.g2 { transform: translate(16px, 16px); opacity: 0.25; }
+.doc { position: relative; border: var(--border-hair) solid var(--schem-node-border); border-radius: var(--radius-sm); background: var(--blue-900); padding: var(--space-4); }
+.doc .state-line { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-on-ink-muted); }
+.doc h3 { color: var(--paper-100); font-size: var(--text-xl); margin: 6px 0 4px; }
+.doc p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-on-ink-muted); }
+.spec-rows { display: grid; gap: 0; }
+.spec-row { display: flex; justify-content: space-between; gap: var(--space-3); border-top: var(--border-hair) solid var(--border-ink); padding: 8px 0; font: var(--type-citation); color: var(--text-on-ink-muted); }
+.spec-row b { font-family: var(--font-mono); font-weight: var(--w-mono); color: var(--paper-100); }
+.spec-row b.gold { color: var(--gold-bright); }
+.panel-foot { margin-top: var(--space-3); font: var(--type-citation); color: var(--text-on-ink-faint); }
+.panel-foot a { color: var(--gold-bright); }
 
-/* legend */
-.legend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); margin-top: var(--space-4); }
-.legend-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 10px; align-content: start; }
-.legend-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
-.legend-card .example { border-top: var(--border-hair) solid var(--rule); padding-top: 10px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-muted); }
-.chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); white-space: nowrap; justify-self: start; }
+/* canvas explainer */
+.explainer { margin-top: var(--space-8); border: var(--border-medium) solid var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-6); }
+.explainer-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-6); }
+.explainer h2 { font-size: var(--text-2xl); max-width: 22ch; }
+.explainer .lead { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.mini-rail { display: flex; gap: var(--space-2); margin-top: var(--space-5); flex-wrap: wrap; }
+.mini-node { flex: 1 1 130px; border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-3); display: flex; flex-direction: column; gap: 4px; }
+.mini-node .mono { font-size: var(--text-2xs); color: var(--text-muted); }
+.mini-node strong { font-family: var(--font-heading); font-size: var(--text-base); }
+.mini-node small { font: var(--type-citation); color: var(--text-muted); }
+.mini-node .count { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--gold-700); margin-top: 4px; }
+.chip-row { display: flex; gap: var(--space-2); margin-top: var(--space-4); flex-wrap: wrap; align-items: center; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); text-decoration: none; }
 .chip.observed { border-color: var(--sage-700); color: var(--ink-700); }
 .chip.observed::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--sage-500); }
 .chip.parallel { border-color: var(--drafting-blue); color: var(--drafting-blue); }
 .chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
-.chip.unknown { border-style: dashed; border-color: var(--ink-400); color: var(--ink-500); background: transparent; }
-.receipt { display: inline-flex; gap: 6px; align-items: baseline; font: var(--type-citation); color: var(--text-muted); border: var(--border-hair) solid var(--rule); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--surface-card); text-decoration: none; justify-self: start; }
-.receipt b { color: var(--text-secondary); font-weight: var(--w-mono); }
+.chip.unknown { border-style: dashed; border-color: var(--ink-500); color: var(--ink-500); background: transparent; }
 
-/* two-column prose blocks */
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-.rules-list { margin: var(--space-3) 0 0; padding-left: 20px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); display: grid; gap: 8px; }
-.hash-demo { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; margin-top: var(--space-3); }
-.hash-demo code { font: var(--type-citation); background: var(--surface-sunken); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-xs); padding: 6px 10px; overflow-wrap: anywhere; }
-.copy-btn { border: var(--border-hair) solid var(--rule-strong); background: var(--surface-card); border-radius: var(--radius-sm); padding: 8px 12px; min-height: 40px; font: var(--type-ui); }
+/* library preview */
+.library { margin-top: var(--space-8); }
+.library-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; }
+.lib-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-4); }
+.lib-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); padding: var(--space-4); display: grid; gap: 8px; text-decoration: none; color: var(--text-primary); align-content: start; }
+.lib-card:hover { border-color: var(--drafting-blue); }
+.lib-card b { font-family: var(--font-heading); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.lib-card p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.lib-card .go { font: var(--type-ui); color: var(--drafting-blue); }
 
+/* disclosures */
+.disclosures { margin-top: var(--space-8); border: var(--border-medium) solid var(--rule-strong); border-radius: var(--radius-sm); background: var(--surface-card); overflow: hidden; }
+.disclosures-head { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-bottom: var(--border-hair) solid var(--rule); flex-wrap: wrap; align-items: baseline; }
+.disc-row { display: grid; grid-template-columns: 260px 1fr; border-bottom: var(--border-hair) solid var(--rule); }
+.disc-row:last-child { border-bottom: 0; }
+.disc-label { padding: var(--space-3) var(--space-5); font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); border-right: var(--border-hair) solid var(--rule); }
+.disc-ans { padding: var(--space-3) var(--space-5); font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
+.filed { padding: var(--space-3) var(--space-5); font: var(--type-citation); color: var(--text-muted); }
+
+/* newsletter band */
+.news-band { margin-top: var(--space-8); background: var(--surface-schematic); border-radius: var(--radius-sm); padding: var(--space-5); display: grid; grid-template-columns: 1fr auto; gap: var(--space-5); align-items: center; background-image: repeating-linear-gradient(90deg, var(--schem-grid) 0 1px, transparent 1px 36px); }
+.news-band h3 { color: var(--paper-100); font-size: var(--text-xl); }
+.news-band .label { color: var(--text-on-ink-muted); }
+.news-band p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-on-ink-muted); margin-top: 4px; }
+.news-form { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.news-form input { font: var(--type-data); border: var(--border-hair) solid var(--schem-node-border); background: var(--schem-node-bg); border-radius: var(--radius-xs); padding: 10px 12px; color: var(--paper-100); min-width: 220px; }
+.news-form input::placeholder { color: var(--text-on-ink-faint); }
+.news-form .btn { border-color: var(--gold-bright); background: transparent; color: var(--gold-bright); }
+
+/* footer */
 footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid var(--rule); padding: var(--space-6) 0 var(--space-7); }
 .footer-inner { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; align-items: baseline; }
-.footer-nav { display: flex; gap: var(--space-4); }
+.footer-nav { display: flex; gap: var(--space-4); flex-wrap: wrap; }
 .footer-nav a { font: var(--type-ui); color: var(--text-secondary); text-decoration: none; }
 .colophon { margin-top: var(--space-4); display: flex; gap: var(--space-4); font: var(--type-citation); color: var(--text-muted); flex-wrap: wrap; }
 .footer-mark { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
+
+/* artboard appendix */
+.appendix { margin-top: var(--space-8); border-top: var(--border-medium) dashed var(--rule-strong); padding-top: var(--space-5); }
+.appendix .note { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--gold-700); margin-bottom: var(--space-4); }
+.appendix-panel { max-width: 480px; }
 
 @media (max-width: 900px) {
   .nav { display: none; }
@@ -473,12 +526,16 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   .mobile-panel[data-open="true"] { display: block; border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-card); }
   .mobile-panel nav { display: grid; padding: var(--space-3) var(--space-5); gap: 2px; }
   .mobile-panel a { padding: 12px 8px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); font: var(--type-ui); border-bottom: var(--border-hair) solid var(--rule); }
+  .hero, .explainer-head, .news-band { grid-template-columns: 1fr; }
+  .lib-grid { grid-template-columns: 1fr; }
+  .disc-row { grid-template-columns: 1fr; }
+  .disc-label { border-right: 0; padding-bottom: 0; }
 }
 @media (max-width: 720px) {
-  .site-display { font-size: var(--text-2xl); }
-  .legend-grid, .split { grid-template-columns: 1fr; }
-  .pipe-wire { display: none; }
+  .hero h1 { font-size: var(--text-2xl); }
+  .chip { white-space: normal; }
 }
+.hero > *, .explainer-head > *, .news-band > * { min-width: 0; }
 </style>
 </head>
 <body class="no-js">
@@ -486,181 +543,208 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
 
 <header class="masthead">
   <div class="masthead-inner">
-    <a class="brand" href="B1-canvas-page.html" aria-label="The Operator Economy, home">
+    <a class="brand" href="#top" aria-label="The Operator Economy, home">
       <span class="brand-kicker">The</span>
       <span class="brand-name">Operator Economy</span>
     </a>
     <nav class="nav" aria-label="Site">
-      <a href="B1-canvas-page.html#library-next">Library</a>
-      <a href="#top" aria-current="page">Method</a>
-      <a href="#footer">About</a>
+      <a href="B6-library.html">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="#disclosures">About</a>
     </nav>
+    <a class="btn secondary" href="#newsletter" style="margin-left: var(--space-4);">Subscribe</a>
     <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
   </div>
   <div class="mobile-panel" id="mobile-panel" data-open="false">
     <nav aria-label="Site, mobile">
-      <a href="B1-canvas-page.html#library-next">Library</a>
-      <a href="#top">Method</a>
-      <a href="#footer">About</a>
+      <a href="B6-library.html">Library</a>
+      <a href="B3-method.html">Method</a>
+      <a href="#disclosures">About</a>
+      <a href="#newsletter">Subscribe</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap" id="top">
 
-  <section class="block" style="margin-top: var(--space-6);">
-    <div class="section-kicker">Method · how a Canvas is made</div>
-    <h1 class="site-display">Every Canvas earns its way here.</h1>
-    <p style="font: var(--type-lead); color: var(--text-secondary); margin-top: var(--space-3); max-width: 62ch;">
-      This is The Operator Economy, where we show you how to use AI to build, own, and
-      operate a sustainable business of one. This page explains what an Operator Canvas is,
-      how one gets made, and how to read the labels you'll see on every material claim.
-    </p>
+  <!-- ============ hero ============ -->
+  <section class="hero" aria-label="Introduction">
+    <div>
+      <div class="kicker">Stop climbing. Start building.</div>
+      <h1>You can build it now. We help you decide what's worth testing.</h1>
+      <p class="lead">One real business one experienced person could run: the operating model, the evidence and its limits, the honest economics, and the first bounded test. The Canvas behind each episode is published here.</p>
+      <div class="proof-row" aria-label="Publication standards">
+        <span class="proof-chip mono">Real companies</span>
+        <span class="proof-chip mono">Sourced numbers</span>
+        <span class="proof-chip mono">Honest failure modes</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="B3-method.html">See how the Canvas works →</a>
+        <a class="btn secondary" href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">Watch on YouTube ↗</a>
+      </div>
+    </div>
+
+    <!-- LatestCanvasPanel · state (a): newest live legacy episode -->
+    <aside class="panel" aria-label="Latest episode">
+      <div class="panel-head">
+        <span class="panel-sheet">Sheet 00 · The latest</span>
+        <span class="panel-live"><i class="dot pulse" aria-hidden="true"></i>Live</span>
+      </div>
+      <div class="doc-stack">
+        <i class="ghost g2" aria-hidden="true"></i>
+        <i class="ghost g1" aria-hidden="true"></i>
+        <div class="doc">
+          <span class="state-line">№006 · Legacy Blueprint · live</span>
+          <h3>Hotels pay 30% to book their own rooms</h3>
+          <p>Install and operate the direct-booking recovery stack for independent hotels.</p>
+        </div>
+      </div>
+      <div class="spec-rows">
+        <div class="spec-row"><span>Published</span><b>2026-08-17</b></div>
+        <div class="spec-row"><span>Sources verified</span><b>9</b></div>
+        <div class="spec-row"><span>Artifact</span><b>Legacy Blueprint</b></div>
+        <div class="spec-row"><span>Evidence standard</span><b class="gold">Canvas: in development</b></div>
+      </div>
+      <p class="panel-foot">The next episode ships with a full Operator Canvas. <a href="B3-method.html">What that means →</a></p>
+    </aside>
   </section>
 
-  <!-- pipeline + gates -->
-  <section class="block" aria-labelledby="h-pipeline">
-    <div class="section-kicker">The pipeline and its gates</div>
-    <h2 id="h-pipeline" style="font-size: var(--text-2xl); margin-bottom: var(--space-4);">Five stages, each behind a gate.</h2>
-    <div class="pipeline">
-      <div class="pipe-row">
-        <div class="pipe-node"><span class="mono">00</span><strong>Intake</strong><small>Is the opportunity worth examining?</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">01</span><strong>Editorial</strong><small>The Canvas is authored and locked.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">02</span><strong>Narration</strong><small>The locked words are performed.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">03–06</span><strong>Production</strong><small>The episode is built and finished.</small></div>
-        <span class="pipe-wire" aria-hidden="true">──</span>
-        <div class="pipe-node"><span class="mono">07</span><strong>Publishing</strong><small>Episode page, Canvas, and PDF ship.</small></div>
+  <!-- ============ the Operator Canvas explainer (first below the fold) ============ -->
+  <section class="explainer" id="canvas" aria-labelledby="explainer-heading">
+    <div class="explainer-head">
+      <div>
+        <div class="section-kicker">The Operator Canvas</div>
+        <h2 id="explainer-heading">The operating model behind every episode, published so you can judge it.</h2>
       </div>
-      <p class="pipe-note">
-        <b>Gates, in plain terms:</b> between stages, named reviews check the evidence, the
-        language, and the model, and the owner signs off. A Canvas that fails a gate goes
-        back, not through. A locked Canvas can still change: any material edit creates a
-        new revision and everything downstream is re-checked.
-      </p>
+      <p class="lead">The Canvas isn't a bonus download. It's the model each episode is written from: who buys, what's sold, how delivery runs, what the evidence supports, and what the first bounded test is. The episode walks it in story order; the Canvas page lets you work through it and decide.</p>
+    </div>
+    <div class="mini-rail" aria-label="The five sheets of a Canvas">
+      <div class="mini-node"><span class="mono">00</span><strong>Opportunity</strong><small>See where value is trapped.</small><span class="count">1 costly problem</span></div>
+      <div class="mini-node"><span class="mono">01</span><strong>System</strong><small>Know what has to run.</small><span class="count">capability map</span></div>
+      <div class="mini-node"><span class="mono">02</span><strong>Evidence</strong><small>Separate facts from estimates.</small><span class="count">4 evidence classes</span></div>
+      <div class="mini-node"><span class="mono">03</span><strong>Economics</strong><small>Judge where value could move.</small><span class="count">low · base · high</span></div>
+      <div class="mini-node"><span class="mono">04</span><strong>Guardrails</strong><small>Learn without overcommitting.</small><span class="count">30-day test</span></div>
+    </div>
+    <div class="chip-row">
+      <span class="label" style="margin-right: var(--space-2);">Every material claim carries a class</span>
+      <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
+      <a class="chip parallel" href="B3-method.html#evidence-classes">Parallel</a>
+      <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
+      <a class="chip unknown" href="B3-method.html#evidence-classes">Unknown</a>
+      <a href="B3-method.html" style="font: var(--type-ui); margin-left: auto;">See how the Canvas works →</a>
     </div>
   </section>
 
-  <!-- evidence classes -->
-  <section class="block" id="evidence-classes" aria-labelledby="h-classes">
-    <div class="section-kicker">The four evidence classes</div>
-    <h2 id="h-classes" style="font-size: var(--text-2xl);">Every material claim carries one.</h2>
-    <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-2); max-width: 62ch;">
-      Proof and uncertainty share the same surface. The class tells you what kind of thing
-      a statement is; the receipt tells you where it came from.
-    </p>
-    <div class="legend-grid">
-      <div class="legend-card">
-        <span class="chip observed">Observed</span>
-        <p><b>A sourced fact.</b> Someone measured or reported it, and the receipt names them. A vendor-published figure is still observed; the receipt says who published it so you can weigh it.</p>
-        <p class="example">Example receipt from a live page:</p>
-        <a class="receipt" href="https://www.ciodive.com/news/accenture-generative-ai-bookings-fy2025/730821/" target="_blank" rel="noreferrer"><b>SOURCE</b> Accenture FY2025 · CIO Dive ↗</a>
+  <!-- ============ library preview ============ -->
+  <section class="library" aria-labelledby="library-heading">
+    <div class="library-head">
+      <div>
+        <div class="section-kicker">The library</div>
+        <h2 id="library-heading" style="font-size: var(--text-2xl);">Businesses you could build.</h2>
       </div>
-      <div class="legend-card">
-        <span class="chip parallel">Parallel</span>
-        <p><b>Transferred from an adjacent model.</b> Nobody has run this exact business, but a neighboring one runs on the same mechanics. The statement says what transfers and what doesn't.</p>
-        <p class="example">A parallel never becomes proof of demand for the exact offer. It earns the right to test, nothing more.</p>
-      </div>
-      <div class="legend-card">
-        <span class="chip modeled">Modeled</span>
-        <p><b>An assumption with its arithmetic shown.</b> Every modeled figure travels with its assumption list, and scenarios render side by side, never blended into one confident number.</p>
-        <p class="example">Modeled figures are never dressed up with reassuring adjectives. If a modeled case fails its own target, the page says so.</p>
-      </div>
-      <div class="legend-card">
-        <span class="chip unknown">Unknown</span>
-        <p><b>An open question, kept visible.</b> Unknowns are content, not gaps. Each one is registered with how it resolves, and no diagram or polished figure is allowed to paper over one.</p>
-        <p class="example">The most useful line on a Canvas is often the unknown its first test is designed to answer.</p>
-      </div>
+      <a href="B6-library.html" style="font: var(--type-ui);">Browse the library →</a>
+    </div>
+    <div class="lib-grid">
+      <a class="lib-card" href="B1-canvas-page.html">
+        <span class="label">№006 · Legacy Blueprint · live</span>
+        <b>Hotels pay 30% to book their own rooms</b>
+        <p>Rate parity, booking engine, missed-call recovery, and past-guest re-book flows for independent hotels.</p>
+        <span class="go">View the episode →</span>
+      </a>
+      <a class="lib-card" href="B7-legacy-episode.html">
+        <span class="label">№005 · Legacy Blueprint · live</span>
+        <b>The Operator Economy thesis</b>
+        <p>The minimum viable size of a software business collapsed. Two questions decide whether a small business is defensible.</p>
+        <span class="go">View the episode →</span>
+      </a>
+      <a class="lib-card" href="B7-legacy-episode.html">
+        <span class="label">№004 · Legacy Blueprint · live</span>
+        <b>The solo design agency</b>
+        <p>AI collapsed the design studio. One person can now sell what used to take a team.</p>
+        <span class="go">View the episode →</span>
+      </a>
     </div>
   </section>
 
-  <!-- model status -->
-  <section class="block" id="model-status" aria-labelledby="h-status">
-    <div class="split">
-      <div class="card">
-        <div class="section-kicker">Model status</div>
-        <h2 id="h-status" style="font-size: var(--text-xl);">The whole model gets its own classification.</h2>
-        <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-3);">
-          Evidence classes label individual statements. Model status classifies the whole
-          Canvas: <b>observed model</b> means this business demonstrably runs today;
-          <b>adjacent synthesis</b> means it's assembled from proven neighboring pieces;
-          <b>frontier hypothesis</b> means the combination itself is untested. The two
-          labels never merge: a Canvas can be an adjacent synthesis built mostly from
-          observed facts.
-        </p>
-      </div>
-      <div class="card">
-        <div class="section-kicker">Economics rules</div>
-        <h2 style="font-size: var(--text-xl);">Equations, scenarios, and honest failures.</h2>
-        <ul class="rules-list">
-          <li>Economics render as equations plus a low, base, and high case. There's no single headline number, anywhere.</li>
-          <li>Each case carries its own evidence class and assumption list.</li>
-          <li>If the base case fails the livelihood target, the Canvas says so plainly.</li>
-          <li>Every Canvas carries a required disclosure: modeled scenarios aren't observed performance or an earnings forecast.</li>
-        </ul>
-      </div>
+  <!-- ============ disclosures ============ -->
+  <section class="disclosures" id="disclosures" aria-labelledby="disclosures-heading">
+    <div class="disclosures-head">
+      <span id="disclosures-heading" style="font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-xl); letter-spacing: var(--tracking-heading);">Disclosures</span>
+      <span class="label">№000 · Applies to every episode</span>
     </div>
+    <div class="disc-row"><div class="disc-label">Income promises</div><div class="disc-ans">None.</div></div>
+    <div class="disc-row"><div class="disc-label">Course at the end of the funnel</div><div class="disc-ans"><span class="mono">$0</span>. There isn't one.</div></div>
+    <div class="disc-row"><div class="disc-label">Held-back material</div><div class="disc-ans">None. Everything load-bearing is on the page.</div></div>
+    <div class="disc-row"><div class="disc-label">Scarcity timers</div><div class="disc-ans">None. The library stays up, free.</div></div>
+    <div class="disc-row"><div class="disc-label">Unicorn ambitions</div><div class="disc-ans">None. The economics are modeled per Canvas, scenario by scenario.</div></div>
+    <div class="disc-row"><div class="disc-label">Evidence classes</div><div class="disc-ans">Every material V2 claim carries one. Observed, parallel, modeled, or unknown.</div></div>
+    <div class="disc-row"><div class="disc-label">Business model</div><div class="disc-ans">You trust the numbers enough to come back.</div></div>
+    <div class="filed">Filed 2026-09-01 · theoperatoreconomy.com</div>
   </section>
 
-  <!-- versioning -->
-  <section class="block" id="versioning" aria-labelledby="h-versioning">
-    <div class="card">
-      <div class="section-kicker">Versioning and hashes</div>
-      <h2 id="h-versioning" style="font-size: var(--text-xl);">A changed Canvas field creates a new revision.</h2>
-      <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); margin-top: var(--space-3); max-width: 68ch;">
-        When a Canvas locks, its source file gets a SHA-256 fingerprint. The page you read
-        and the PDF you download each carry their own. All three are printed in the
-        provenance panel so you can verify that what you read, what you downloaded, and
-        what was locked are the same system. Old revisions stay published, labeled, and
-        unchanged.
-      </p>
-      <div class="hash-demo">
-        <span class="label">Copyable, like this</span>
-        <code id="demo-hash">sha256 of the page you are reading appears here on a live Canvas</code>
-        <button class="copy-btn" id="copy-hash" type="button">Copy</button>
-        <span class="label" id="copy-done" hidden>Copied</span>
-      </div>
+  <!-- ============ newsletter band ============ -->
+  <section class="news-band" id="newsletter" aria-label="Newsletter">
+    <div>
+      <span class="label">The newsletter</span>
+      <h3>One business, fully sourced, when it ships.</h3>
+      <p>No drip campaigns. Unsubscribe anytime.</p>
     </div>
-  </section>
-
-  <!-- what we do not publish -->
-  <section class="block" aria-labelledby="h-not">
-    <div class="card">
-      <div class="section-kicker">What we don't publish</div>
-      <h2 id="h-not" style="font-size: var(--text-xl);">The claims discipline, in reader terms.</h2>
-      <ul class="rules-list">
-        <li>No income promises. A livelihood case is a design test the Canvas must pass or admit failing, not a forecast.</li>
-        <li>No figure without a source or its arithmetic. Estimates are marked and never blended into sourced figures.</li>
-        <li>No modeled number upgraded by an adjective.</li>
-        <li>No diagram that resolves an unknown. Visuals inherit the evidence label of what they draw.</li>
-        <li>Held-back material: none. Everything load-bearing is on the page; the PDF adds detail and print utility.</li>
-      </ul>
-    </div>
+    <form class="news-form" aria-label="Newsletter signup">
+      <label class="label" for="news-email" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Email</label>
+      <input type="email" id="news-email" placeholder="you@example.com" />
+      <button class="btn" type="button">Subscribe</button>
+    </form>
   </section>
 </main>
 
-<footer class="site" id="footer">
+<footer class="site">
   <div class="wrap">
     <div class="footer-inner">
-      <a class="brand" href="B1-canvas-page.html">
+      <a class="brand" href="#top">
         <span class="brand-kicker">The</span>
         <span class="brand-name">Operator Economy</span>
       </a>
       <nav class="footer-nav" aria-label="Footer">
         <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube ↗</a>
-        <a href="B1-canvas-page.html#library-next">Library</a>
-        <a href="#top">Method</a>
+        <a href="https://www.linkedin.com/company/the-operator-economy" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="B6-library.html">Library</a>
+        <a href="B3-method.html">Method</a>
       </nav>
     </div>
     <div class="colophon">
       <span class="footer-mark">Build. Own. Operate.</span>
       <span>Site rev · 2026-09-01</span>
-      <span>B3 artboard · Rev D narrative · Rev C evidence system</span>
+      <span>B4/B5 artboard · Rev D narrative · Rev C evidence system</span>
     </div>
   </div>
 </footer>
+
+<!-- ============ artboard appendix (not part of the page) ============ -->
+<div class="wrap appendix" aria-label="Artboard appendix">
+  <p class="note">Artboard appendix · not part of the page · featured-panel state (b): when a live locked V2 Canvas exists</p>
+  <aside class="panel appendix-panel" aria-label="Latest Canvas, state b">
+    <div class="panel-head">
+      <span class="panel-sheet">Sheet 00 · The latest Canvas</span>
+      <span class="panel-live"><i class="dot pulse" aria-hidden="true"></i>Live</span>
+    </div>
+    <div class="doc-stack">
+      <i class="ghost g1" aria-hidden="true"></i>
+      <div class="doc">
+        <span class="state-line">Operator Canvas · live · content illustrative (№006 specimen shown)</span>
+        <h3>Direct booking recovery</h3>
+        <p>Turn a discovered guest into a relationship the property can keep.</p>
+      </div>
+    </div>
+    <div class="spec-rows">
+      <div class="spec-row"><span>Model status</span><b>Adjacent synthesis</b></div>
+      <div class="spec-row"><span>Evidence</span><b>Classes on every claim</b></div>
+      <div class="spec-row"><span>Economics</span><b>Modeled · low, base, high</b></div>
+      <div class="spec-row"><span>First test</span><b class="gold">30 days · bounded</b></div>
+    </div>
+    <p class="panel-foot">In state (b) the hero CTA reads "Explore the latest Canvas →" and links here.</p>
+  </aside>
+</div>
 
 <script>
 (function () {
@@ -679,16 +763,6 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
     if (e.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") { setMenu(false); menuToggle.focus(); }
   });
   panel.addEventListener("click", function (e) { if (e.target.tagName === "A") setMenu(false); });
-
-  var copyBtn = document.getElementById("copy-hash");
-  var done = document.getElementById("copy-done");
-  copyBtn.addEventListener("click", function () {
-    var text = document.getElementById("demo-hash").textContent;
-    function ok() { done.hidden = false; setTimeout(function () { done.hidden = true; }, 2000); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(ok, ok);
-    } else { ok(); }
-  });
 })();
 </script>
 </body>

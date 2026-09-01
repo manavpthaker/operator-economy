@@ -392,6 +392,10 @@ a:hover { text-decoration: underline; }
 
 </style>
 <style>
+/* artboard-local aliases: the token layer defines --text-strong/--text-body/--text-muted;
+   these names are used throughout the artboards and must resolve (audit fix) */
+:root { --text-primary: var(--text-strong); --text-secondary: var(--text-body); }
+
 /* ============================================================
    B1/B2 -- Canvas page prototype (desktop + mobile in one file)
    Rev D narrative · Rev C evidence system. Tokens only:
@@ -420,6 +424,7 @@ button { font: inherit; cursor: pointer; }
 
 .wrap { max-width: var(--container-wide); margin: 0 auto; padding: 0 var(--space-5); }
 .mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--text-muted); }
 
 /* ============ masthead ============ */
@@ -429,7 +434,7 @@ button { font: inherit; cursor: pointer; }
 .brand-kicker { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
 .brand-name { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
 .nav { display: flex; gap: var(--space-4); margin-left: auto; align-items: center; }
-.nav a { text-decoration: none; color: var(--text-secondary); font: var(--type-ui); }
+.nav a { text-decoration: none; color: var(--text-secondary); font: var(--type-ui); padding: 6px 0; }
 .nav a:hover { color: var(--drafting-blue); }
 .btn { display: inline-block; border: var(--border-medium) solid var(--drafting-blue); background: var(--drafting-blue); color: var(--paper-0); padding: 10px 18px; border-radius: var(--radius-sm); font: var(--type-ui); text-decoration: none; }
 .btn.secondary { background: transparent; color: var(--drafting-blue); }
@@ -449,7 +454,7 @@ button { font: inherit; cursor: pointer; }
 
 /* ============ chips ============ */
 .chip { display: inline-flex; align-items: center; gap: 6px; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 2px 8px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--text-secondary); background: var(--surface-card); white-space: nowrap; }
-.chip.observed { border-color: var(--sage-700); color: var(--sage-700); }
+.chip.observed { border-color: var(--sage-700); color: var(--ink-700); }
 .chip.observed::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-pill); background: var(--sage-500); }
 .chip.parallel { border-color: var(--drafting-blue); color: var(--drafting-blue); }
 .chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
@@ -491,6 +496,7 @@ a.chip { text-decoration: none; }
 
 /* ============ sheets ============ */
 .sheet { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); margin-bottom: var(--space-5); padding: var(--space-6); scroll-margin-top: 90px; }
+.download, .provenance, #library-next { scroll-margin-top: 90px; }
 .sheet-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); border-bottom: var(--border-medium) solid var(--rule-strong); padding-bottom: var(--space-3); margin-bottom: var(--space-5); flex-wrap: wrap; }
 .sheet-tag { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
 .sheet h2 { font-size: var(--text-2xl); }
@@ -526,14 +532,17 @@ a.chip { text-decoration: none; }
 .cap-tabs button small { font: var(--type-citation); color: var(--text-on-ink-muted); }
 .cap-tabs button[aria-selected="true"] { border-color: var(--gold-bright); }
 .cap-tabs button[aria-selected="true"] strong { color: var(--gold-bright); }
+.cap-wrap button:focus-visible { outline-color: var(--paper-100); }
 .cap-detail { margin-top: var(--space-4); border: var(--border-hair) solid var(--schem-node-border); border-radius: var(--radius-sm); padding: var(--space-4); color: var(--paper-100); }
-.cap-detail h4 { color: var(--paper-100); font-size: var(--text-xl); margin: 4px 0 6px; }
+.cap-detail h3 { color: var(--paper-100); font-size: var(--text-xl); margin: 4px 0 6px; }
 .cap-detail > p { font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-on-ink-muted); }
 .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
 .cap-grid div { border-top: var(--border-hair) solid var(--schem-wire); padding-top: 8px; }
 .cap-grid span { display: block; font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-on-ink-muted); margin-bottom: 4px; }
 .cap-grid b { font: var(--type-ui); color: var(--paper-100); font-weight: var(--w-medium); }
 .no-js .cap-detail[hidden] { display: block !important; margin-top: var(--space-3); }
+.no-js .cap-tabs { display: none; }
+.no-js #guide-toggle { display: none; }
 
 /* sheet 02 */
 .evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
@@ -565,7 +574,7 @@ a.chip { text-decoration: none; }
 /* sheet 04 */
 .guardrail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
 .guardrail-card { border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-page); padding: var(--space-4); }
-.guardrail-card h4 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
+.guardrail-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
 .guardrail-card ol, .guardrail-card ul { margin: 0; padding-left: 20px; font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); display: grid; gap: 6px; }
 .guardrail-card.stop { border-left: 3px solid var(--negative); }
 
@@ -599,6 +608,8 @@ details.transcript p { margin-top: var(--space-2); font: var(--type-ui); font-we
 .provenance { margin-top: var(--space-6); border: var(--border-hair) solid var(--rule); border-radius: var(--radius-sm); background: var(--surface-card); }
 .provenance summary { list-style: none; display: flex; gap: var(--space-4); align-items: baseline; padding: var(--space-4) var(--space-5); cursor: pointer; flex-wrap: wrap; }
 .provenance summary::-webkit-details-marker { display: none; }
+.prov-expand::after { content: "Expand"; }
+details[open] .prov-expand::after { content: "Collapse"; }
 .provenance-body { border-top: var(--border-hair) solid var(--rule); padding: var(--space-4) var(--space-5); display: grid; gap: var(--space-2); font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-secondary); }
 .provenance-body .mono { font-size: var(--text-2xs); }
 
@@ -611,7 +622,7 @@ details.transcript p { margin-top: var(--space-2); font: var(--type-ui); font-we
 footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid var(--rule); padding: var(--space-6) 0 var(--space-7); }
 .footer-inner { display: flex; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; align-items: baseline; }
 .footer-nav { display: flex; gap: var(--space-4); }
-.footer-nav a { font: var(--type-ui); color: var(--text-secondary); text-decoration: none; }
+.footer-nav a { font: var(--type-ui); color: var(--text-secondary); text-decoration: none; padding: 6px 0; }
 .colophon { margin-top: var(--space-4); display: flex; gap: var(--space-4); font: var(--type-citation); color: var(--text-muted); flex-wrap: wrap; }
 .footer-mark { font: var(--type-citation); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-muted); }
 
@@ -622,6 +633,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
 @media (max-width: 900px) {
   .nav, .masthead .btn { display: none; }
   .menu-toggle { display: block; }
+  .no-js .mobile-panel { display: block; border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-card); }
   .mobile-panel[data-open="true"] { display: block; border-bottom: var(--border-hair) solid var(--rule); background: var(--surface-card); }
   .mobile-panel nav { display: grid; padding: var(--space-3) var(--space-5); gap: 2px; }
   .mobile-panel a { padding: 12px 8px; min-height: 44px; display: flex; align-items: center; text-decoration: none; color: var(--text-secondary); font: var(--type-ui); border-bottom: var(--border-hair) solid var(--rule); }
@@ -640,7 +652,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   .sheet { padding: var(--space-4); }
   /* mobile lens: tabs show, columns become single-pane */
   .js .scenario-tabs { display: flex; }
-  .js .scenario-cols { grid-template-columns: 1fr; }
+  .scenario-cols { grid-template-columns: 1fr; }
   .js .scenario-col[data-hidden="true"] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -686,6 +698,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
         Turn a discovered guest into a relationship the property can keep.
       </p>
       <p style="margin-top: var(--space-3);"><span class="specimen-chip">V1-derived design specimen · not V2 gated</span></p>
+      <p style="font: var(--type-ui); font-weight: var(--w-regular); color: var(--text-muted); margin-top: var(--space-2); max-width: 68ch;">A design preview assembled from a published episode. It hasn't passed the V2 evidence review, so it carries no canvas lock and publishes no PDF. <a href="B3-method.html">How a Canvas is made →</a></p>
     </div>
     <div class="titleblock-grid">
       <div class="titleblock-cell"><span class="label">Canvas</span><strong class="mono">№006 · Rev A</strong></div>
@@ -751,10 +764,10 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
         <a href="#sheet-04" data-rail="sheet-04"><span class="mono">04</span> Guardrails</a>
         <a href="#download" data-rail="download"><span class="mono">05</span> Download</a>
       </nav>
-      <div class="guide-progress" aria-live="polite"><span id="guide-count">Step 1 of 5</span><span class="bar"><i id="guide-bar"></i></span></div>
+      <div class="guide-progress"><span id="guide-count">Step 1 of 5</span><span class="bar"><i id="guide-bar"></i></span></div>
       <div class="rail-status">
         <span>State<br /><b>Design specimen</b></span>
-        <span>Classes on this page<br /><b>Observed · Modeled · Unknown</b></span>
+        <span>Classes on this page<br /><b>Observed · Modeled · Unknown</b><br /><a href="B3-method.html#evidence-classes" style="font: var(--type-citation);">Definitions →</a></span>
       </div>
     </aside>
 
@@ -823,9 +836,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
             <button role="tab" aria-selected="false" id="tab-return" aria-controls="cap-return"><span class="mono">04</span><strong>Return</strong><small>Create relevance</small></button>
             <button role="tab" aria-selected="false" id="tab-measure" aria-controls="cap-measure"><span class="mono">05</span><strong>Measure</strong><small>Prove the mix moved</small></button>
           </div>
-          <div class="cap-detail" id="cap-find" role="tabpanel" aria-labelledby="tab-find">
+          <div class="cap-detail" tabindex="0" id="cap-find" role="tabpanel" aria-labelledby="tab-find">
             <span class="label" style="color: var(--gold-bright);">Capability 01 · Discovery keeper</span>
-            <h4>Keep the property findable and truthful.</h4>
+            <h3>Keep the property findable and truthful.</h3>
             <p>Maintain the listing, photos, descriptions, availability signals, and the current reason to visit.</p>
             <div class="cap-grid">
               <div><span>Human judgment</span><b>Approve what's true and current</b></div>
@@ -834,9 +847,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
               <div><span>Failure mode</span><b>Inconsistent or stale promises</b></div>
             </div>
           </div>
-          <div class="cap-detail" id="cap-convert" role="tabpanel" aria-labelledby="tab-convert" hidden>
+          <div class="cap-detail" tabindex="0" id="cap-convert" role="tabpanel" aria-labelledby="tab-convert" hidden>
             <span class="label" style="color: var(--gold-bright);">Capability 02 · Destination keeper</span>
-            <h4>Make the direct path complete the promise.</h4>
+            <h3>Make the direct path complete the promise.</h3>
             <p>Align rate parity, mobile booking, availability, cancellation language, and phone coverage from search result to check-in.</p>
             <div class="cap-grid">
               <div><span>Human judgment</span><b>Own exceptions and guest experience</b></div>
@@ -845,9 +858,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
               <div><span>Failure mode</span><b>Outreach sends demand into a broken path</b></div>
             </div>
           </div>
-          <div class="cap-detail" id="cap-remember" role="tabpanel" aria-labelledby="tab-remember" hidden>
+          <div class="cap-detail" tabindex="0" id="cap-remember" role="tabpanel" aria-labelledby="tab-remember" hidden>
             <span class="label" style="color: var(--gold-bright);">Capability 03 · Relationship keeper</span>
-            <h4>Remember enough to be relevant, only with permission.</h4>
+            <h3>Remember enough to be relevant, only with permission.</h3>
             <p>Preserve useful guest context and consent so follow-up feels like hospitality rather than cold automation.</p>
             <div class="cap-grid">
               <div><span>Human judgment</span><b>Approve consent, context, and tone</b></div>
@@ -856,9 +869,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
               <div><span>Failure mode</span><b>Privacy breach or generic outreach</b></div>
             </div>
           </div>
-          <div class="cap-detail" id="cap-return" role="tabpanel" aria-labelledby="tab-return" hidden>
+          <div class="cap-detail" tabindex="0" id="cap-return" role="tabpanel" aria-labelledby="tab-return" hidden>
             <span class="label" style="color: var(--gold-bright);">Capability 04 · Return path</span>
-            <h4>Create a real reason to come back.</h4>
+            <h3>Create a real reason to come back.</h3>
             <p>Send a reviewed post-stay, seasonal, referral, or return offer that resolves on the property's direct booking path.</p>
             <div class="cap-grid">
               <div><span>Human judgment</span><b>Choose the offer and approve the message</b></div>
@@ -867,9 +880,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
               <div><span>Failure mode</span><b>Discounting without relationship value</b></div>
             </div>
           </div>
-          <div class="cap-detail" id="cap-measure" role="tabpanel" aria-labelledby="tab-measure" hidden>
+          <div class="cap-detail" tabindex="0" id="cap-measure" role="tabpanel" aria-labelledby="tab-measure" hidden>
             <span class="label" style="color: var(--gold-bright);">Capability 05 · Operator scorecard</span>
-            <h4>Prove whether the booking mix moved.</h4>
+            <h3>Prove whether the booking mix moved.</h3>
             <p>Track direct share before and after. Use commission, cancellations, missed calls, repeat stays, and reviews to diagnose the path.</p>
             <div class="cap-grid">
               <div><span>Human judgment</span><b>Interpret the result and redesign the flow</b></div>
@@ -904,13 +917,13 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
             <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
             <span class="figure">63.4%</span>
             <p>Share of independent-hotel reservations attributed to Booking.com and Expedia in the cited report.</p>
-            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗<span class="sr">(opens in new tab)</span></a>
           </article>
           <article class="evidence-card">
             <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
             <span class="figure">21.8 → 10.6</span>
-            <p>Reported cancellation-rate comparison, OTA booking versus direct booking. Percent, not percentage points.</p>
-            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+            <p>Reported cancellation rates: 21.8% of OTA bookings versus 10.6% of direct bookings, in the cited report.</p>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗<span class="sr">(opens in new tab)</span></a>
           </article>
           <article class="evidence-card gold">
             <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
@@ -920,9 +933,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
           </article>
         </div>
         <div class="unknown-register">
-          <div class="section-kicker" style="margin-bottom: var(--space-2);">Unknown register · open questions carried, not hidden</div>
+          <div class="section-kicker" id="unknown-kicker" style="margin-bottom: var(--space-2);">Unknown register · open questions carried, not hidden</div>
           <div class="table-scroll">
-          <table>
+          <table aria-labelledby="unknown-kicker">
             <thead><tr><th scope="col">ID</th><th scope="col">Unknown</th><th scope="col">How it resolves</th><th scope="col">Class</th></tr></thead>
             <tbody>
               <tr><td class="mono">U001</td><td>What a hotel will pay for this specific service. Five providers scanned, no public price.</td><td>First paid conversation.</td><td><span class="chip unknown">Unknown</span></td></tr>
@@ -954,14 +967,14 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
         </div>
 
         <div class="scenario-tabs" role="tablist" aria-label="Economic views, one at a time on mobile">
-          <button role="tab" aria-selected="true" data-col="col-market">Market</button>
-          <button role="tab" aria-selected="false" data-col="col-model">Hotel model</button>
-          <button role="tab" aria-selected="false" data-col="col-operator">Operator</button>
+          <button role="tab" id="lens-market" aria-controls="col-market" aria-selected="true" data-col="col-market">Market</button>
+          <button role="tab" id="lens-model" aria-controls="col-model" aria-selected="false" data-col="col-model">Hotel model</button>
+          <button role="tab" id="lens-operator" aria-controls="col-operator" aria-selected="false" data-col="col-operator">Operator</button>
         </div>
         <p class="label" id="lens-note" style="display: none; margin-bottom: var(--space-2);">One case at a time, never blended.</p>
 
         <div class="scenario-cols">
-          <div class="scenario-col" id="col-market" role="tabpanel" aria-label="Observed market pressure">
+          <div class="scenario-col" id="col-market" aria-label="Observed market pressure">
             <a class="chip observed" href="B3-method.html#evidence-classes">Observed</a>
             <span class="figure">18–30%</span>
             <p>All-in Booking.com commission range reported when loyalty and visibility programs are included.</p>
@@ -970,9 +983,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
               <li><span>Visibility programs</span><b>Included</b></li>
               <li><span>Property-specific result</span><b>Unknown</b></li>
             </ul>
-            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗</a>
+            <a class="receipt" href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer"><b>SOURCE</b> Cloudbeds · 2026 · vendor-published ↗<span class="sr">(opens in new tab)</span></a>
           </div>
-          <div class="scenario-col gold" id="col-model" role="tabpanel" aria-label="Illustrative hotel model" data-hidden="true">
+          <div class="scenario-col gold" id="col-model" aria-label="Illustrative hotel model" data-hidden="true">
             <a class="chip modeled" href="B3-method.html#evidence-classes">Modeled</a>
             <span class="figure">$135K/yr</span>
             <p>Arithmetic estimate of annual commission exposure. Not a reported hotel result and not a universal loss figure.</p>
@@ -983,7 +996,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
             </ul>
             <span class="receipt"><b>MODEL</b> arithmetic · assumptions shown</span>
           </div>
-          <div class="scenario-col" id="col-operator" role="tabpanel" aria-label="Operator workload" data-hidden="true">
+          <div class="scenario-col" id="col-operator" aria-label="Operator workload" data-hidden="true">
             <a class="chip unknown" href="B3-method.html#evidence-classes">Unknown</a>
             <span class="figure">Unknown</span>
             <p>The market proves the work exists. Public provider pricing doesn't establish what a hotel will pay for this service.</p>
@@ -995,6 +1008,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
             <span class="receipt"><b>OPEN</b> resolves in the first engagement</span>
           </div>
         </div>
+        <p style="border-left: 2px solid var(--drafting-blue); background: var(--blue-tint); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-3) var(--space-4); margin-top: var(--space-4); font: var(--type-ui); color: var(--text-secondary);"><b style="font-family: var(--font-heading);">Most sensitive assumption:</b> the 22% commission point, chosen inside the reported 18–30% band, and the sector-average OTA share applied to a single property. The first test replaces both with the property's own baseline.</p>
         <p class="disclosure-inline">Illustrative arithmetic, not observed performance and not an earnings forecast. No operator revenue is modeled on this page: what a hotel pays for this service is unknown U001.</p>
         <div class="guide-controls"><button type="button" data-prev="sheet-02">← Back</button><button type="button" class="next" data-next="sheet-04">Next: Guardrails →</button></div>
       </section>
@@ -1018,7 +1032,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
         </div>
         <div class="guardrail-grid">
           <article class="guardrail-card">
-            <h4>Start with permission and a baseline.</h4>
+            <h3>Start with permission and a baseline.</h3>
             <ol>
               <li>Measure booking mix, commission, cancellations, missed calls, and repeat stays.</li>
               <li>Repair the mobile booking and phone path before running outreach.</li>
@@ -1027,7 +1041,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
             </ol>
           </article>
           <article class="guardrail-card stop">
-            <h4>Stop or redesign when:</h4>
+            <h3>Stop or redesign when:</h3>
             <ul>
               <li>The property can't establish a credible baseline.</li>
               <li>Guest permission or data access is unclear.</li>
@@ -1047,7 +1061,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
     <h2 id="media-heading" style="font-size: var(--text-2xl);">The episode walks this Canvas in story order.</h2>
     <div class="media-grid">
       <a class="video-frame" href="https://youtu.be/pOoQLaSyUGQ" target="_blank" rel="noreferrer" aria-label="Watch episode №006 on YouTube">
-        <span>Watch №006 on YouTube ↗</span>
+        <span>Watch №006 on YouTube ↗<span class="sr">(opens in new tab)</span></span>
       </a>
       <div class="media-rows">
         <div class="media-row"><span class="label">Episode</span>Hotels pay 30% to book their own rooms · live · 2026-08-17</div>
@@ -1084,6 +1098,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
     </div>
     <form class="download-card" data-state="specimen" aria-label="Canvas PDF request, disabled on this specimen">
       <span class="state-note">Design specimen · no PDF is published for this page</span>
+      <span style="font: var(--type-citation); color: var(--text-muted);">The controls below are a preview of the live card and are inactive here.</span>
       <label class="label" for="dl-email">Email for the PDF</label>
       <input type="email" id="dl-email" placeholder="you@example.com" disabled />
       <button class="btn" type="button" disabled>Email me the PDF</button>
@@ -1101,7 +1116,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
     <summary>
       <span class="label">Provenance</span>
       <span class="mono" style="font-size: var(--text-2xs); color: var(--text-secondary);">Rev A · specimen · no canvas lock</span>
-      <span style="font: var(--type-citation); color: var(--drafting-blue); margin-left: auto;">Expand</span>
+      <span class="prov-expand" style="font: var(--type-citation); color: var(--drafting-blue); margin-left: auto;" aria-hidden="true"></span>
     </summary>
     <div class="provenance-body">
       <span><b>Canvas source hash:</b> <span class="mono">none. A locked Canvas shows its full SHA-256 here, copyable.</span></span>
@@ -1182,6 +1197,7 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
 
   function guideOn() { return shell.classList.contains("guide-on"); }
   function setGuide(on, push) {
+    if (on === guideOn()) return;
     shell.classList.toggle("guide-on", on);
     guideToggle.setAttribute("aria-pressed", String(on));
     if (push !== false) updateHash();
@@ -1195,7 +1211,9 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   live.setAttribute("aria-live", "polite");
   live.style.cssText = "position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);";
   document.body.appendChild(live);
-  function announce(msg) { live.textContent = msg; }
+  var ready = false;
+  ["pointerdown", "keydown"].forEach(function (ev) { document.addEventListener(ev, function () { ready = true; }, { once: true }); });
+  function announce(msg) { if (ready) live.textContent = msg; }
 
   function setCurrent(id) {
     railLinks.forEach(function (a) {
@@ -1208,11 +1226,23 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       if (guideOn()) announce("Step " + (idx + 1) + " of 5, " + stepNames[idx]);
     }
   }
+  railLinks.forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = a.dataset.rail;
+      var el = document.getElementById(id === "download" ? "download" : id);
+      if (el) { el.scrollIntoView(); setCurrent(id); }
+      updateHash(id);
+    });
+  });
+
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) setCurrent(en.target.id); });
     }, { rootMargin: "-40% 0px -55% 0px" });
     sheets.forEach(function (s) { io.observe(s); });
+    var dl = document.getElementById("download");
+    if (dl) io.observe(dl);
   }
 
   /* ---------- guide back/next ---------- */
@@ -1257,10 +1287,15 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   capTabs.forEach(function (tab, i) {
     tab.addEventListener("click", function () { selectCap(tab); });
     tab.addEventListener("keydown", function (e) {
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(e.key) < 0) return;
+      var next = null;
+      if (e.key === "Home") next = capTabs[0];
+      else if (e.key === "End") next = capTabs[capTabs.length - 1];
+      else if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(e.key) >= 0) {
+        var d = (e.key === "ArrowLeft" || e.key === "ArrowUp") ? -1 : 1;
+        next = capTabs[(i + d + capTabs.length) % capTabs.length];
+      }
+      if (!next) return;
       e.preventDefault();
-      var d = (e.key === "ArrowLeft" || e.key === "ArrowUp") ? -1 : 1;
-      var next = capTabs[(i + d + capTabs.length) % capTabs.length];
       next.focus(); selectCap(next);
     });
   });
@@ -1274,9 +1309,18 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
   function applyLens() {
     var mobile = mq.matches;
     lensNote.style.display = mobile ? "block" : "none";
-    if (!mobile) { cols.forEach(function (c) { c.dataset.hidden = "false"; }); return; }
     var sel = lensTabs.find(function (t) { return t.getAttribute("aria-selected") === "true"; }) || lensTabs[0];
-    cols.forEach(function (c) { c.dataset.hidden = String(c.id !== sel.dataset.col); });
+    lensTabs.forEach(function (t) { t.tabIndex = t === sel ? 0 : -1; });
+    if (!mobile) {
+      cols.forEach(function (c) { c.dataset.hidden = "false"; c.removeAttribute("role"); c.removeAttribute("aria-labelledby"); c.removeAttribute("tabindex"); });
+      return;
+    }
+    cols.forEach(function (c) {
+      c.dataset.hidden = String(c.id !== sel.dataset.col);
+      c.setAttribute("role", "tabpanel");
+      c.setAttribute("aria-labelledby", "lens-" + c.id.replace("col-", ""));
+      c.setAttribute("tabindex", "0");
+    });
   }
   lensTabs.forEach(function (tab, i) {
     tab.addEventListener("click", function () {
@@ -1285,14 +1329,20 @@ footer.site { margin-top: var(--space-8); border-top: var(--border-hair) solid v
       announce(tab.textContent + " view shown, one case at a time");
     });
     tab.addEventListener("keydown", function (e) {
-      if (["ArrowLeft", "ArrowRight"].indexOf(e.key) < 0) return;
+      var next = null;
+      if (e.key === "Home") next = lensTabs[0];
+      else if (e.key === "End") next = lensTabs[lensTabs.length - 1];
+      else if (["ArrowLeft", "ArrowRight"].indexOf(e.key) >= 0) {
+        var d = e.key === "ArrowLeft" ? -1 : 1;
+        next = lensTabs[(i + d + lensTabs.length) % lensTabs.length];
+      }
+      if (!next) return;
       e.preventDefault();
-      var d = e.key === "ArrowLeft" ? -1 : 1;
-      var next = lensTabs[(i + d + lensTabs.length) % lensTabs.length];
       next.focus(); next.click();
     });
   });
   mq.addEventListener ? mq.addEventListener("change", applyLens) : mq.addListener(applyLens);
+  window.addEventListener("resize", applyLens);
   applyLens();
 })();
 </script>

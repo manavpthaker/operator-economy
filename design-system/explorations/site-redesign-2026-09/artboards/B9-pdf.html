@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Canvas PDF · cover and first spread</title>
+<!-- tokens inlined verbatim for single-file portability; source of truth: design-system/tokens/ -->
+<style>
+@import url('https://api.fontshare.com/v2/css?f[]=boska@400,401,500,700,701,900&f[]=zodiak@400,401,700,701,900&f[]=supreme@400,401,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&display=swap');
+/* ==== inlined verbatim from design-system/tokens/fonts.css ==== */
+/* ============================================================
+   The Operator Economy — Webfonts (Rev C)
+   ------------------------------------------------------------
+   Boska         — large display ONLY (≥40px): site hero,
+                   blueprint covers, tagline lockups
+   Zodiak        — mid-size workhorse (18–44px): newsletter
+                   headlines, section heads, thumbnail support
+   Supreme       — body / UI sans
+   Fragment Mono — THE mono: every number & citation the brand
+                   publishes. Single weight (400) by design.
+   Boska/Zodiak/Supreme ship from Fontshare; Fragment Mono from
+   Google Fonts. No binaries existed in the sources.
+   ============================================================ */
+
+/* ==== inlined verbatim from design-system/tokens/colors.css ==== */
+/* ============================================================
+   The Operator Economy — Color
+   ------------------------------------------------------------
+   One palette, not two (design-system.md §5).
+   Rule: any single frame contains at most Ink + Paper + ONE accent.
+   Drafting Blue is THE brand accent. Ledger Gold is used sparingly
+   (one highlight per chart). Sage is demoted to positive-delta only.
+   ============================================================ */
+
+:root {
+  /* --- Core brand (the five named colors) --- */
+  --ink:            #1A1A1A;  /* near-black charcoal — primary text, video bg */
+  --paper:          #F5F0E6;  /* warm cream — page / blueprint background */
+  --drafting-blue:  #1F3A5F;  /* desaturated Prussian blue — THE accent */
+  --ledger-gold:    #B08D3E;  /* muted gold — key figures, one highlight/chart */
+  --sage:           #7B9E87;  /* legacy accent — positive delta ONLY */
+
+  /* --- Ink ramp (warm-neutral charcoals for text on paper) --- */
+  --ink-900: #1A1A1A;  /* primary text */
+  --ink-700: #3C3A36;  /* strong secondary text */
+  --ink-500: #6B675E;  /* muted / captions / labels */
+  --ink-400: #8A857A;  /* faint meta, placeholders */
+  --ink-300: #B4AE9F;  /* disabled text on paper */
+
+  /* --- Paper ramp (warm cream surfaces + hairlines) --- */
+  --paper-0:   #FBF8F1;  /* lifted surface (card on paper) */
+  --paper-100: #F5F0E6;  /* base page */
+  --paper-200: #EDE7D8;  /* sunken / zebra rows */
+  --paper-300: #E2DAC7;  /* subtle fills */
+  --rule:      #D8CFB9;  /* default hairline / border on paper */
+  --rule-strong: #C4B99E;/* emphasized rule, title-block frame */
+
+  /* --- Drafting Blue ramp --- */
+  --blue-900: #14263E;  /* pressed / darkest */
+  --blue-700: #1F3A5F;  /* base accent */
+  --blue-500: #35608C;  /* hover / lighter accent, links on ink */
+  --blue-tint: #E4E9F0; /* faint blue wash on paper (annotations) */
+
+  /* --- Ledger Gold ramp ---
+     Gold is the accent on dark surfaces; contrast-checked:
+     gold-bright on navy 6.4:1 · on ink 7.3:1 (AA at chip size).
+     gold-700 darkened Rev C (#8F6F2C→#7A5E24) to pass AA on paper (5.3:1). */
+  --gold-700: #7A5E24;  /* gold TEXT on paper (AA 5.3:1) */
+  --gold-500: #B08D3E;  /* gold fills, chart highlight bars */
+  --gold-bright: #C4A45F; /* gold text/accents on navy & ink */
+  --gold-tint: #EFE6CF; /* faint gold wash */
+
+  /* --- Sage (positive delta) --- */
+  --sage-700: #5E7F6A;  /* sage text on paper (AA) */
+  --sage-500: #7B9E87;
+  --negative: #9B3E2E;  /* negative delta — muted brick, never bright red */
+
+  /* ==========================================================
+     Semantic aliases — reference these in components, not raw ramp
+     ========================================================== */
+
+  /* Surfaces */
+  --surface-page:     var(--paper-100);
+  --surface-card:     var(--paper-0);
+  --surface-sunken:   var(--paper-200);
+  --surface-ink:      var(--ink-900);   /* dark surface (video, hero, footer) */
+  --surface-schematic: var(--blue-900); /* the navy working-schematic panel */
+
+  /* Schematic anatomy (drafting grid, nodes, wires) */
+  --schem-grid:        rgba(245,240,230,0.055);
+  --schem-node-border: rgba(245,240,230,0.30);
+  --schem-node-bg:     rgba(31,58,95,0.38);
+  --schem-wire:        rgba(245,240,230,0.32);
+  --status-live:       var(--sage-500);  /* live/verified status ONLY */
+
+  /* Text on paper */
+  --text-strong:  var(--ink-900);
+  --text-body:    var(--ink-700);
+  --text-muted:   var(--ink-500);
+  --text-faint:   var(--ink-400);
+  --text-disabled:var(--ink-300);
+
+  /* Text on ink */
+  --text-on-ink:        #F5F0E6;
+  --text-on-ink-muted:  rgba(245,240,230,0.62);
+  --text-on-ink-faint:  rgba(245,240,230,0.40);
+
+  /* Accent semantics */
+  --accent:        var(--drafting-blue);
+  --accent-hover:  var(--blue-500);
+  --accent-press:  var(--blue-900);
+  --link:          var(--drafting-blue);
+  --data-highlight:var(--ledger-gold);  /* the one gold figure per chart (paper) */
+  --data-highlight-ink: var(--gold-bright); /* the one gold figure on navy/ink */
+  --delta-positive:var(--sage-700);
+  --delta-negative:var(--negative);
+
+  /* Borders */
+  --border:        var(--rule);
+  --border-strong: var(--rule-strong);
+  --border-ink:    rgba(245,240,230,0.16); /* hairline on ink surfaces */
+
+  /* Focus */
+  --focus-ring: var(--drafting-blue);
+}
+/* ==== inlined verbatim from design-system/tokens/typography.css ==== */
+/* ============================================================
+   The Operator Economy — Typography (Rev C)
+   ------------------------------------------------------------
+   RULES (locked from the type stress test):
+   · Boska is display-only: NEVER below 40px (hairlines sparkle).
+   · Zodiak 700 carries 18–44px headings, tracked -0.02em.
+   · Supreme for body/UI (no real 600 — semibold maps to 500).
+   · Fragment Mono (single 400 weight) for ALL numbers &
+     citations; scale carries emphasis, never synthetic bold.
+   · ITALIC RATION: at most ONE italic phrase per composition.
+   ============================================================ */
+
+:root {
+  /* --- Families --- */
+  --font-display: 'Boska', Georgia, 'Times New Roman', serif;   /* >=40px ONLY */
+  --font-heading: 'Zodiak', Georgia, 'Times New Roman', serif;  /* 18-44px */
+  --font-serif:   var(--font-heading); /* legacy alias */
+  --font-sans:  'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'Fragment Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* --- Weights --- */
+  --w-regular:  400; /* @kind font */
+  --w-medium:   500; /* @kind font */
+  --w-semibold: 500; /* @kind font */ /* Supreme ships no 600; alias to 500 */
+  --w-bold:     700; /* @kind font */ /* Boska & Zodiak workhorse weight */
+  --w-black:    900; /* @kind font */ /* Zodiak thumbnails only */
+  --w-mono:     400; /* @kind font */ /* Fragment Mono's only weight */
+
+  /* --- Type scale (rem, 16px base) --- */
+  --text-3xs: 0.6875rem; /*  11px — micro labels, doc-number caps */
+  --text-2xs: 0.75rem;   /*  12px — citation chips, table meta */
+  --text-xs:  0.8125rem; /*  13px — small UI, annotation labels */
+  --text-sm:  0.9375rem; /*  15px — secondary body, captions */
+  --text-base:1.0625rem; /*  17px — body copy (editorial default) */
+  --text-lg:  1.25rem;   /*  20px — lead paragraph */
+  --text-xl:  1.5rem;    /*  24px — small heading (Zodiak) */
+  --text-2xl: 2rem;      /*  32px — section heading (Zodiak) */
+  --text-3xl: 2.75rem;   /*  44px — page heading (Boska floor is 40px) */
+  --text-4xl: 3.75rem;   /*  60px — hero display (Boska) */
+  --text-5xl: 5rem;      /*  80px — thumbnail / display figures */
+
+  /* --- Line height --- */
+  --leading-tight:   1.04;  /* Boska display */
+  --leading-snug:    1.12;  /* Zodiak headings */
+  --leading-normal:  1.5;   /* UI text */
+  --leading-relaxed: 1.65;  /* body reading measure */
+
+  /* --- Tracking --- */
+  --tracking-display: -0.01em;  /* Boska display */
+  --tracking-heading: -0.02em;  /* Zodiak 20–44px (kills the wide feel) */
+  --tracking-tight:   -0.01em;  /* legacy alias */
+  --tracking-label:  0.14em;    /* small-caps annotation labels */
+  --tracking-caps:   0.08em;    /* doc numbers, sheet tags */
+  --tracking-mono:   0.01em;    /* mono numerals */
+
+  /* --- Reading measure --- */
+  --measure: 68ch;
+
+  /* ==========================================================
+     Semantic type roles
+     ========================================================== */
+  --type-display:  var(--w-bold)   var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-h1:       var(--w-bold)   var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h2:       var(--w-bold)   var(--text-2xl)/var(--leading-snug)  var(--font-heading);
+  --type-h3:       var(--w-bold)   var(--text-xl)/var(--leading-snug)   var(--font-heading);
+  --type-lead:     var(--w-regular) var(--text-lg)/var(--leading-relaxed) var(--font-sans);
+  --type-body:     var(--w-regular) var(--text-base)/var(--leading-relaxed) var(--font-sans);
+  --type-ui:       var(--w-medium)  var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-data:     var(--w-mono)    var(--text-base)/var(--leading-snug) var(--font-mono);
+  --type-citation: var(--w-mono)    var(--text-2xs)/var(--leading-normal) var(--font-mono);
+  --type-label:    var(--w-semibold) var(--text-3xs)/var(--leading-normal) var(--font-sans);
+}
+/* ==== inlined verbatim from design-system/tokens/spacing.css ==== */
+/* ============================================================
+   The Operator Economy — Spacing, radii, borders, shadows, motion
+   ------------------------------------------------------------
+   Restrained, document-grade. Corners are near-square (this is a
+   drafting sheet, not a SaaS card). Shadows are minimal — depth
+   comes from hairline rules and paper tone, not drop shadows.
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (4px base) --- */
+  --space-0:  0;
+  --space-1:  0.25rem;  /*  4 */
+  --space-2:  0.5rem;   /*  8 */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* Editorial margins */
+  --margin-page:  clamp(1.25rem, 5vw, 6rem);
+  --gutter:       var(--space-6);
+
+  /* --- Radii — 2–3px max (locked); documents, not bubbles --- */
+  --radius-none: 0;
+  --radius-xs:   2px;   /* chips, inputs, most surfaces */
+  --radius-sm:   3px;   /* buttons */
+  --radius-md:   3px;   /* cards (Rev C: capped at 3px) */
+  --radius-pill: 999px; /* rare — status dots only */
+
+  /* --- Border widths --- */
+  --border-hair:   1px;
+  --border-medium: 1.5px;  /* title-block frames, chart axes */
+  --border-thick:  2px;    /* accent underlines, focal rules */
+
+  /* --- Shadows — whisper-quiet; paper doesn't float --- */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(26,26,26,0.05);
+  --shadow-sm: 0 1px 3px rgba(26,26,26,0.07), 0 1px 2px rgba(26,26,26,0.04);
+  --shadow-md: 0 6px 20px -8px rgba(26,26,26,0.14);
+  --shadow-lg: 0 18px 48px -20px rgba(26,26,26,0.22);
+  /* Inset used for pressed inputs / sunken data wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,26,26,0.06);
+
+  /* --- Focus ring --- */
+  --ring: 0 0 0 2px var(--paper-100), 0 0 0 4px var(--drafting-blue);
+
+  /* --- Motion — restrained: slides & fades, no bounce (spec §6) --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-normal: 200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* --- Layout --- */
+  --container:      1120px;  /* editorial max width */
+  --container-text: 720px;   /* single-column reading width */
+  --container-wide: 1320px;  /* full app / dashboard */
+  --z-base: 0;      /* @kind other */
+  --z-sticky: 100;  /* @kind other */
+  --z-overlay: 500; /* @kind other */
+  --z-modal: 1000;  /* @kind other */
+}
+/* ==== inlined verbatim from design-system/tokens/base.css ==== */
+/* ============================================================
+   The Operator Economy — Base resets & primitive helpers
+   ------------------------------------------------------------
+   Minimal, opt-in. Sets the paper/ink defaults and a few
+   brand-signature utility classes (mono numerals, small-caps
+   labels, hairline rules). Everything else is tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font: var(--type-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1;
+}
+
+h1 {
+  color: var(--text-strong);
+  font-family: var(--font-display); /* Boska — display sizes only */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h2, h3, h4 {
+  color: var(--text-strong);
+  font-family: var(--font-heading); /* Zodiak — the 18–44px workhorse */
+  font-weight: var(--w-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-heading);
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--gold-tint); color: var(--ink-900); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-xs);
+}
+
+/* --- Signature helpers ------------------------------------- */
+
+/* Every number the channel publishes is mono (Fragment Mono, 400 —
+   scale carries emphasis, never synthetic bold). */
+.oe-mono,
+.tabular {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  letter-spacing: var(--tracking-mono);
+}
+
+/* Small-caps annotation label (chart labels, kickers, sheet tags) */
+.oe-label {
+  font: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+/* Doc-number / sheet-header caps */
+.oe-caps {
+  font-family: var(--font-mono);
+  font-weight: var(--w-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--text-muted);
+}
+
+/* Hairline drafting rule */
+.oe-rule { border: 0; border-top: var(--border-hair) solid var(--border); margin: 0; }
+
+/* Editorial reading column */
+.oe-measure { max-width: var(--measure); }
+
+/* --- Component interaction states (hover/active on tokens) --- */
+.oe-btn[data-variant="primary"]:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+.oe-btn[data-variant="primary"]:active:not(:disabled) { background: var(--accent-press); border-color: var(--accent-press); }
+.oe-btn[data-variant="secondary"]:hover:not(:disabled) { background: var(--paper-200); border-color: var(--ink-900); }
+.oe-btn[data-variant="secondary"]:active:not(:disabled) { background: var(--paper-300); }
+.oe-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--blue-tint); }
+.oe-btn[data-variant="ghost"]:active:not(:disabled) { background: var(--paper-300); }
+
+.oe-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--blue-tint); }
+.oe-link-row:hover { background: var(--paper-200); }
+
+/* Live-status pulse (sage dots). Safe: 0% keyframe is fully visible. */
+.oe-pulse { animation: oe-pl 2.2s ease-in-out infinite; }
+@keyframes oe-pl { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+<style>
+/* B9 -- PDF cover + first spread, print ratio (8.5 x 11). Boska is
+   permitted on PDF covers (brand surface). No006 specimen content;
+   the specimen label prints on the cover itself. Grammar follows
+   design-system/surfaces/cover.html: paper sheet, display title,
+   blue-linework horizontal schematic, engineering title block. */
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ink-700); font-family: var(--font-sans); padding: var(--space-6); }
+.boards { display: flex; gap: var(--space-6); flex-wrap: wrap; justify-content: center; }
+.board-label { font: var(--type-citation); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--paper-200); margin-bottom: var(--space-2); }
+.page { width: 612px; height: 792px; background: var(--paper-100); color: var(--ink-900); border-radius: var(--radius-xs); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; }
+.mono { font-family: var(--font-mono); font-weight: var(--w-mono); letter-spacing: var(--tracking-mono); font-variant-numeric: tabular-nums slashed-zero; }
+.label { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--ink-500); }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; }
+
+/* ---------- cover ---------- */
+.cover { padding: 44px 48px; }
+.cover-mast { display: flex; justify-content: space-between; align-items: baseline; border-bottom: var(--border-medium) solid var(--rule-strong); padding-bottom: 14px; }
+.cover-brand { display: flex; flex-direction: column; line-height: 1; }
+.cover-brand .kicker { font: var(--type-label); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--ink-500); }
+.cover-brand .name { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-lg); letter-spacing: var(--tracking-heading); }
+.specimen-chip { border: var(--border-hair) dashed var(--gold-700); color: var(--gold-700); font: var(--type-citation); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 3px 8px; border-radius: var(--radius-xs); background: var(--gold-tint); }
+.cover-kicker { font: var(--type-citation); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-label); color: var(--ink-500); margin: 40px 0 10px; }
+.cover-title { font-family: var(--font-display); font-weight: var(--w-bold); font-size: 56px; line-height: var(--leading-tight); letter-spacing: var(--tracking-display); max-width: 10ch; }
+.cover-sub { font: var(--type-lead); color: var(--ink-700); margin-top: 14px; max-width: 40ch; }
+.cover-schematic { margin-top: 40px; border: var(--border-hair) solid var(--drafting-blue); border-radius: var(--radius-sm); padding: 20px; }
+.schem-row { display: flex; align-items: center; gap: 8px; }
+.schem-node { flex: 1; border: var(--border-hair) solid var(--drafting-blue); border-radius: var(--radius-xs); padding: 8px 6px; text-align: center; }
+.schem-node .n { font: var(--type-citation); font-family: var(--font-mono); color: var(--drafting-blue); display: block; }
+.schem-node b { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: var(--w-bold); }
+.schem-node.out { border-color: var(--gold-700); }
+.schem-node.out .n, .schem-node.out b { color: var(--gold-700); }
+.schem-wire { color: var(--drafting-blue); font-family: var(--font-mono); }
+.schem-caption { font: var(--type-citation); font-family: var(--font-mono); color: var(--ink-500); margin-top: 12px; }
+.cover-titleblock { margin-top: auto; border: var(--border-medium) solid var(--rule-strong); border-radius: var(--radius-xs); display: grid; grid-template-columns: repeat(5, 1fr); }
+.tb-cell { padding: 10px 12px; border-right: var(--border-hair) solid var(--rule-strong); }
+.tb-cell:last-child { border-right: 0; }
+.tb-cell .label { display: block; margin-bottom: 3px; font-size: 9px; }
+.tb-cell b { font-family: var(--font-mono); font-weight: var(--w-mono); font-size: var(--text-xs); }
+
+/* ---------- spread ---------- */
+.spread { padding: 40px 48px; }
+.spread-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: var(--border-medium) solid var(--rule-strong); padding-bottom: 10px; margin-bottom: 22px; }
+.spread-head .sheet-tag { font: var(--type-citation); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--ink-500); }
+.spread h2 { font-family: var(--font-heading); font-weight: var(--w-bold); font-size: var(--text-xl); letter-spacing: var(--tracking-heading); }
+.public-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
+.pub-field { border-top: var(--border-hair) solid var(--rule); padding-top: 8px; }
+.pub-field .label { display: block; margin-bottom: 3px; font-size: 9px; }
+.pub-field p { font-size: var(--text-xs); line-height: 1.45; color: var(--ink-700); }
+.chip { display: inline-block; font-size: 8px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-caps); padding: 1px 5px; border-radius: var(--radius-xs); border: var(--border-hair) solid var(--rule-strong); color: var(--ink-500); margin-left: 6px; vertical-align: middle; }
+.chip.observed { border-color: var(--sage-700); color: var(--ink-700); }
+.chip.modeled { border-color: var(--gold-700); color: var(--gold-700); background: var(--gold-tint); }
+.chip.unknown { border-style: dashed; }
+.legend { margin-top: 20px; border: var(--border-hair) solid var(--rule-strong); border-radius: var(--radius-xs); padding: 12px 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.legend div { font-size: 9px; line-height: 1.4; color: var(--ink-700); }
+.legend b { display: block; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: var(--tracking-caps); margin-bottom: 2px; }
+.disclosure { margin-top: 16px; border: var(--border-hair) dashed var(--gold-700); background: var(--gold-tint); border-radius: var(--radius-xs); padding: 10px 14px; font-family: var(--font-mono); font-size: 10px; line-height: 1.5; color: var(--gold-700); }
+.spread-foot { margin-top: auto; display: flex; justify-content: space-between; font: var(--type-citation); font-family: var(--font-mono); color: var(--ink-500); border-top: var(--border-hair) solid var(--rule); padding-top: 10px; }
+</style>
+</head>
+<body>
+<div class="boards">
+  <div>
+    <div class="board-label">B9 · PDF cover · 612 × 792 (8.5 × 11)</div>
+    <div class="page cover">
+      <div class="cover-mast">
+        <div class="cover-brand">
+          <span class="kicker">The</span>
+          <span class="name">Operator Economy</span>
+        </div>
+        <span class="specimen-chip">V1-derived design specimen · not V2 gated</span>
+      </div>
+
+      <div class="cover-kicker">Operator Canvas · the operating model behind the episode</div>
+      <h1 class="cover-title">Direct booking recovery</h1>
+      <p class="cover-sub">Turn a discovered guest into a relationship the property can keep.</p>
+
+      <div class="cover-schematic" aria-label="System schematic">
+        <div class="schem-row">
+          <div class="schem-node"><span class="n">01</span><b>Find</b></div>
+          <span class="schem-wire">──</span>
+          <div class="schem-node"><span class="n">02</span><b>Convert</b></div>
+          <span class="schem-wire">──</span>
+          <div class="schem-node"><span class="n">03</span><b>Remember</b></div>
+          <span class="schem-wire">──</span>
+          <div class="schem-node"><span class="n">04</span><b>Return</b></div>
+          <span class="schem-wire">──</span>
+          <div class="schem-node out"><span class="n">05</span><b>Measure</b></div>
+        </div>
+        <div class="schem-caption">fig. 01 · five capabilities, one guest relationship · direct share is the outcome</div>
+      </div>
+
+      <div class="cover-titleblock">
+        <div class="tb-cell"><span class="label">Canvas</span><b>№006</b></div>
+        <div class="tb-cell"><span class="label">Rev</span><b>A</b></div>
+        <div class="tb-cell"><span class="label">Date</span><b>2026-09</b></div>
+        <div class="tb-cell"><span class="label">Sources</span><b>9</b></div>
+        <div class="tb-cell"><span class="label">Sheet</span><b>00 of 05</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="board-label">B9 · First spread · the Public Canvas layer</div>
+    <div class="page spread">
+      <div class="spread-head">
+        <span class="sheet-tag">Sheet 01 · The decision at a glance</span>
+        <span class="sheet-tag">№006 · Rev A</span>
+      </div>
+      <h2 style="margin-bottom: 18px;">The model in one page, before the detail.</h2>
+
+      <div class="public-grid">
+        <div class="pub-field"><span class="label">Buyer</span><p>An independent, owner-operated property that depends on OTA discovery.<span class="chip observed">Observed</span></p></div>
+        <div class="pub-field"><span class="label">Problem</span><p>The property pays again to reacquire a guest it has already served.<span class="chip observed">Observed</span></p></div>
+        <div class="pub-field"><span class="label">Offer</span><p>Install and operate the direct-booking recovery stack.<span class="chip modeled">Modeled</span></p></div>
+        <div class="pub-field"><span class="label">Result</span><p>Repeat bookings that arrive direct, measured as direct share against a baseline.<span class="chip modeled">Modeled</span></p></div>
+        <div class="pub-field"><span class="label">Delivery loop</span><p>Find → convert → remember → return → measure, with human approval at each judgment point.</p></div>
+        <div class="pub-field"><span class="label">Stack by capability</span><p>Listings and profile · booking engine and phone · guest list and consent record · outreach tools · booking reports.</p></div>
+        <div class="pub-field"><span class="label">AI role</span><p>Drafting, organizing, and monitoring inside each capability.</p></div>
+        <div class="pub-field"><span class="label">Human judgment retained</span><p>What's true and current, consent and tone, offer choice, and reading the result.</p></div>
+        <div class="pub-field"><span class="label">Entry wedge</span><p>One property: install the recovery stack, move its direct share.</p></div>
+        <div class="pub-field"><span class="label">Aspirational destination</span><p>A guest-relationship practice serving independent properties.</p></div>
+        <div class="pub-field"><span class="label">Proof before expansion</span><p>One property's direct share moved against its own baseline.</p></div>
+        <div class="pub-field"><span class="label">Biggest risk</span><p>Activity rises while direct share doesn't move.<span class="chip unknown">Unknown</span></p></div>
+      </div>
+
+      <div class="legend">
+        <div><b>Observed</b>A sourced fact; the receipt names who reported it.</div>
+        <div><b>Parallel</b>Transferred from an adjacent model; the transfer is stated.</div>
+        <div><b>Modeled</b>An assumption with its arithmetic shown.</div>
+        <div><b>Unknown</b>An open question, registered with how it resolves.</div>
+      </div>
+
+      <div class="disclosure">Required disclosure: design specimen from a V1 episode. Figures are reported by their named sources or are labeled arithmetic. Nothing here is observed operator performance or an earnings forecast.</div>
+
+      <div class="spread-foot">
+        <span>theoperatoreconomy.com</span>
+        <span>Print edition · matches the page · hash printed on the back cover</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
