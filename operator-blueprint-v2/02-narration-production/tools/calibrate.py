@@ -30,9 +30,11 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import array
 import base64
 import hashlib
 import json
+import math
 import mimetypes
 import os
 import pathlib
@@ -172,6 +174,33 @@ def wav_from_pcm(pcm: bytes, rate: int, path: pathlib.Path) -> None:
         handle.writeframes(pcm)
 
 
+# Step 2 completeness contract, added 2026-09-02 after EP007.
+# A complete utterance decays into silence. A chunk still sounding at its final
+# sample was cut mid-word. Observed truncations measured 0.13 to 0.54 against
+# a threshold of 0.02. Forced alignment cannot detect this: it force-fits.
+TAIL_ENERGY_THRESHOLD = 0.02
+
+
+def tail_energy(path: pathlib.Path, window_ms: int = 60) -> float:
+    """RMS of the final window relative to the file's peak. Low means it ended."""
+    with wave.open(str(path)) as handle:
+        rate = handle.getframerate()
+        data = array.array("h")
+        data.frombytes(handle.readframes(handle.getnframes()))
+    if not data:
+        return 0.0
+    step = max(1, rate // 100)
+    frames = [
+        math.sqrt(sum(v * v for v in data[i:i + step]) / step)
+        for i in range(0, max(1, len(data) - step), step)
+    ]
+    peak = max(frames) if frames else 0.0
+    if not peak:
+        return 0.0
+    tail = data[-int(rate * window_ms / 1000):]
+    return math.sqrt(sum(v * v for v in tail) / len(tail)) / peak
+
+
 def probe(path: pathlib.Path) -> dict:
     info: dict = {"bytes": path.stat().st_size, "sha256": sha256_bytes(path.read_bytes())}
     try:
@@ -182,6 +211,11 @@ def probe(path: pathlib.Path) -> dict:
                 "sample_width_bits": handle.getsampwidth() * 8,
                 "duration_seconds": round(handle.getnframes() / handle.getframerate(), 3),
             }
+    except Exception:
+        pass
+    try:
+        te = tail_energy(path)
+        info |= {"tail_energy": round(te, 4), "ends_in_silence": te < TAIL_ENERGY_THRESHOLD}
     except Exception:
         pass
     return info

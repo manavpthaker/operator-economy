@@ -1,6 +1,8 @@
 # Step 2: Narration Production
 
-Status: **approved production authority**, locked 2026-09-01. The narration method is the two-stage
+Status: **approved production authority**, locked 2026-09-01. Amended 2026-09-02 with the N4B and
+N6 completeness contract, after an owner listen on EP007 found nine of twenty-four chunks ending
+mid-word while every automated conformity check reported clean. The narration method is the two-stage
 acted-guide chain frozen as `n3-two-stage-acted-guide-v2`: Google `gemini-2.5-pro-tts` (voice
 `Algieba`) performs the locked words under the candidate-C4 method-level register, and ElevenLabs
 Voice Changer `eleven_multilingual_sts_v2` transfers that performance onto Original C

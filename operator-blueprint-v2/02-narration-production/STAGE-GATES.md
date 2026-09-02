@@ -108,6 +108,9 @@ Pass only when:
 - N4A is current and the full-capture recording or provider calls were separately authorized;
 - the approved N3 settings or human capture chain were used;
 - every script section has usable coverage;
+- **every captured chunk decays into silence.** Tail energy in the final 60 ms, measured against the
+  chunk's peak, is below `0.02`. A chunk that is still sounding at its final sample was cut
+  mid-utterance and must be recaptured;
 - raw files are immutable, registered, and hashed;
 - provider jobs or human sessions are traceable; and
 - interim take or chunk ASR remains diagnostic rather than becoming the final transcript;
@@ -145,6 +148,11 @@ Pass only when:
 - one master candidate is frozen before final alignment;
 - final-master ASR or alignment and lexical comparison are run against that exact master hash;
 - there are zero unresolved `W`-token mismatches;
+- **completeness is established separately from conformity.** Forced alignment force-fits: it
+  assigns best-fit timings to whatever text it is given and cannot detect missing audio. Zero
+  `W`-token mismatches is therefore **not** evidence that the words were spoken. The master must
+  additionally satisfy: no chunk ending mid-sound by the tail-energy test, and no chunk-final word
+  shorter than half the median spoken-word duration for that master;
 - the word-level transcript satisfies the timing specification;
 - the intentional-pause map is bound to the same master hash and duration;
 - master, transcript, and pause-map hashes are recorded together;
@@ -165,6 +173,35 @@ Pass only when:
 - all caveats and downstream instructions are disclosed;
 - no unresolved pickup, conformity, technical, or permission blocker remains; and
 - the visual-translation handoff points to the exact master and transcript.
+
+## Completeness contract
+
+Added 2026-09-02 after EP007.
+
+An owner listen found the cold open cut off mid-word. Investigation showed **nine of twenty-four
+chunks ended mid-final-word**, five losing roughly half a second. Every automated check reported
+clean, because the conformity check was forced alignment and forced alignment cannot detect missing
+audio.
+
+| Where it is caught | Cost |
+|---|---|
+| N4B, at capture | one retry |
+| N6, at technical pass | a full re-alignment |
+| Owner listen | four master revisions and three alignments |
+
+The check is therefore mandatory at **N4B**, and repeated at **N6** against the assembled master.
+
+**Tail energy test.** RMS of a chunk's final 60 ms divided by that chunk's peak RMS. Complete
+utterances decay into silence and measure below `0.01` in practice. Observed truncations measured
+`0.13` to `0.54`. The threshold is `0.02`.
+
+**Chunk-final word test.** After alignment, no chunk's final word may be shorter than half the median
+spoken-word duration for that master. This catches both truncation and over-aggressive trimming.
+
+Truncation from a synthetic provider is **stochastic**: a plain retry usually clears it. When a
+passage truncates reliably, generate with a trailing sentinel phrase and trim at the last real word's
+**aligned end**, never at a guessed silence. Trimming at "the last silence gap" removed real final
+words during the EP007 repair and is prohibited.
 
 ## Invalidation rules
 
