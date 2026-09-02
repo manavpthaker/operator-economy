@@ -414,94 +414,11 @@ PALETTES.boundaryLedger = {
   },
 };
 
-PALETTES.signalLedger = {
-  ...PALETTES.datum,
-  index: "B · SIGNAL",
-  name: "Signal Ledger",
-  position: "A live research instrument",
-  question: "Does the added energy make the evidence feel alive without making it feel gamified?",
-  colors: {
-    paper: "#F5F0E6",
-    field: "#14263E",
-    core: "#BC472A",
-    coreOnDark: "#FF835D",
-    perimeter: "#0D7079",
-    risk: "#9B3E2E",
-  },
-  roles: [
-    ["Rev C paper + navy", "Institutional continuity and record"],
-    ["Signal teal", "Evidence, systems, and model structure"],
-    ["Decision orange", "Changed assumptions, action, and movement"],
-    ["Primary risk", "Teal and orange compete or feel software-led"],
-  ],
-  tokens: {
-    ...PALETTES.datum.tokens,
-    "--ink": "#1A1A1A",
-    "--paper": "#F5F0E6",
-    "--drafting-blue": "#0D7079",
-    "--ledger-gold": "#BC472A",
-    "--sage": "#7B9E87",
-    "--ink-900": "#1A1A1A",
-    "--ink-700": "#3C3A36",
-    "--ink-500": "#6B675E",
-    "--ink-400": "#8A857A",
-    "--ink-300": "#B4AE9F",
-    "--paper-0": "#FBF8F1",
-    "--paper-100": "#F5F0E6",
-    "--paper-200": "#EDE7D8",
-    "--paper-300": "#E2DAC7",
-    "--rule": "#D8CFB9",
-    "--rule-strong": "#C4B99E",
-    "--blue-900": "#084C54",
-    "--blue-700": "#0D7079",
-    "--blue-500": "#2A8790",
-    "--blue-tint": "#DAEAE8",
-    "--gold-700": "#91331F",
-    "--gold-500": "#BC472A",
-    "--gold-bright": "#FF835D",
-    "--gold-tint": "#F2DDD3",
-    "--sage-700": "#5E7F6A",
-    "--sage-500": "#7B9E87",
-    "--negative": "#9B3E2E",
-    "--surface-page": "var(--paper-100)",
-    "--surface-card": "var(--paper-0)",
-    "--surface-sunken": "var(--paper-200)",
-    "--surface-ink": "var(--ink-900)",
-    "--surface-schematic": "#14263E",
-    "--text-strong": "var(--ink-900)",
-    "--text-body": "var(--ink-700)",
-    "--text-muted": "var(--ink-500)",
-    "--text-faint": "var(--ink-400)",
-    "--text-disabled": "var(--ink-300)",
-    "--text-on-ink": "#F5F0E6",
-    "--text-on-ink-muted": "rgba(245,240,230,.68)",
-    "--text-on-ink-faint": "rgba(245,240,230,.50)",
-    "--schem-grid": "rgba(245,240,230,.055)",
-    "--schem-node-border": "rgba(245,240,230,.34)",
-    "--schem-node-bg": "rgba(13,112,121,.38)",
-    "--schem-wire": "rgba(245,240,230,.34)",
-    "--status-live": "#76B89C",
-    "--accent": "var(--drafting-blue)",
-    "--accent-hover": "#0A6068",
-    "--accent-press": "#084C54",
-    "--link": "var(--drafting-blue)",
-    "--data-highlight": "var(--ledger-gold)",
-    "--data-highlight-ink": "var(--gold-bright)",
-    "--delta-positive": "var(--sage-700)",
-    "--delta-negative": "var(--negative)",
-    "--border": "var(--rule)",
-    "--border-strong": "var(--rule-strong)",
-    "--border-ink": "rgba(245,240,230,.16)",
-    "--focus-ring": "#0D7079",
-    "--blue-950-candidate": "#14263E",
-  },
-};
-
-const paletteOrder = ["boundaryLedger", "signalLedger"];
+const paletteOrder = ["boundaryLedger"];
 
 const DEFAULT_STATE = {
   surface: "home",
-  view: "compare",
+  view: "focus",
   palette: "boundaryLedger",
   device: "desktop",
 };
@@ -518,8 +435,8 @@ function readState() {
   const params = new URLSearchParams(window.location.search);
   return {
     surface: SURFACES[params.get("surface")] ? params.get("surface") : DEFAULT_STATE.surface,
-    view: ["compare", "focus"].includes(params.get("view")) ? params.get("view") : DEFAULT_STATE.view,
-    palette: paletteOrder.includes(params.get("palette")) ? params.get("palette") : DEFAULT_STATE.palette,
+    view: "focus",
+    palette: "boundaryLedger",
     device: ["desktop", "mobile"].includes(params.get("device")) ? params.get("device") : DEFAULT_STATE.device,
   };
 }
@@ -742,20 +659,16 @@ function syncControls() {
     button.setAttribute("aria-pressed", String(button.dataset.device === state.device));
   });
 
-  compareGrid.hidden = state.view !== "compare";
-  focusStage.hidden = state.view !== "focus";
-  deviceControl.hidden = state.view !== "focus";
+  if (compareGrid) compareGrid.hidden = true;
+  focusStage.hidden = false;
+  deviceControl.hidden = false;
 }
 
 function render() {
   writeState();
   syncControls();
 
-  if (state.view === "compare") {
-    renderCompare();
-  } else {
-    renderFocus();
-  }
+  renderFocus();
 }
 
 document.querySelectorAll(".palette-card").forEach((button) => {

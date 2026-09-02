@@ -3,7 +3,9 @@
 Status: **locked visual direction** inside an isolated design exploration. No production authority
 and no token changes. See [LOCK.md](./LOCK.md) for the frozen invariants and change boundary.
 
-Locked direction: **Boundary Ledger**. Signal Ledger remains as a historical alternate reference.
+Locked direction: **Boundary Ledger**. It is the only direction in this review surface.
+
+The reusable system now lives at [design-system/boundary-ledger](../../../boundary-ledger/README.md).
 
 Current homepage iteration: the original [B4 homepage](../artboards/B4-homepage.html), recolored
 at runtime, with its existing latest-sheet card attached to a full-width episode working model.
@@ -20,11 +22,8 @@ The prior clean study includes an isolated photographic **Working Plate** built 
 key-handoff still. It remains a historical comparison, not the current illustration direction or
 a production brand lock.
 
-This lab applies two palette directions to the existing September site-redesign
-artboards at runtime:
-
-- **Boundary Ledger** — Rev C paper with deep mineral, core oxide, and perimeter steel.
-- **Signal Ledger** — Rev C paper and navy with Datum-derived teal and orange-red signals.
+This lab applies the Boundary Ledger palette—Rev C paper with deep mineral, core oxide, and
+perimeter steel—to the existing September site-redesign artboards at runtime.
 
 The underlying homepage, Canvas, and PDF artboards remain untouched. The lab injects
 temporary CSS custom-property overrides into same-origin iframes.
@@ -43,6 +42,5 @@ Then open:
 http://localhost:8899/design-system/explorations/site-redesign-2026-09/palette-options/
 ```
 
-Use **Compare** for a simultaneous responsive view and **Focus** for a larger,
-interactive rendering of one direction. Surface, palette, view, and device selections
-are preserved in the URL.
+The review opens in focus mode. Surface and device selections are preserved in the URL; obsolete
+palette or comparison parameters are canonicalized back to Boundary Ledger focus mode.

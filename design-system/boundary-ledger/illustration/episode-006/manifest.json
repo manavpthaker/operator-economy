@@ -1,0 +1,40 @@
+{
+  "$schema": "../manifest.schema.json",
+  "id": "episode-006-hotel-working-model",
+  "episode": 6,
+  "status": "locked-reference",
+  "asset": {
+    "file": "./hotel-working-model.jpg",
+    "mediaType": "image/jpeg",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712"
+  },
+  "model": {
+    "relationship": "An independent hotel pays an OTA for discovery, then can retain the guest relationship for a direct return stay.",
+    "currentPath": "The first stay passes from guest through the OTA toll and into the hotel.",
+    "ownedPath": "The second stay returns directly between guest and hotel.",
+    "thesisBearingMark": "The oxide arrow labeled second stay direct.",
+    "actors": ["hotel", "OTA toll", "guest", "room key"]
+  },
+  "composition": {
+    "aspectRatio": "3:2",
+    "crop": "forbidden",
+    "objectFit": "contain",
+    "topQuietZonePx": 48,
+    "mobileRedrawRule": "Redraw for another aspect ratio if the hotel, OTA, guest, or oxide return path stops reading; never crop the reference composition."
+  },
+  "accessibility": {
+    "alt": "A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel.",
+    "mobileMustRetain": ["hotel-OTA-guest relationship", "oxide direct-return path"]
+  },
+  "review": {
+    "roughnessAuthored": true,
+    "pageChromeBorrowed": false,
+    "mobileApproved": true,
+    "letteringReview": "required-before-publication",
+    "approvalScope": "visual-language-only",
+    "reviewerRole": "owner",
+    "approvedOn": "2026-09-02"
+  }
+}

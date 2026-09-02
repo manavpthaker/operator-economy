@@ -1,4 +1,14 @@
-# The Operator Economy — Design System (Rev C)
+# The Operator Economy — Design System
+
+> **Forward visual direction:** [Boundary Ledger](boundary-ledger/README.md), locked 2026-09-02,
+> is the authority for new OE web and episode-illustration design. The page stays composed; the
+> model stays rough. Its scoped tokens, component contracts, illustration rules, and reference
+> specimen live in `boundary-ledger/`.
+
+> **Migration boundary:** the Rev C files below remain the current production implementation for
+> existing site, video, newsletter, and PDF consumers. Do not silently mix their Working Schematic
+> grid and Signal-era semantics into Boundary Ledger. Consumer migration requires a separate,
+> verified change.
 
 > **Rev D working direction:** the human-first, outcome-led narrative system is being developed in [`REV-D-NARRATIVE-SYSTEM.md`](REV-D-NARRATIVE-SYSTEM.md). Open the [interactive visual system, silent cold-open, and B-roll preview prototype](guidelines/Rev%20D%20Human%20Outcome%20System.html), and use the [universal sting specification](OE-STING-SPEC.md) when generating the audio logo. Rev C remains the production token and component authority until that direction passes cross-episode validation.
 
@@ -6,7 +16,9 @@
 
 This design system encodes the visual and verbal language of **The Operator Economy**, a YouTube channel + newsletter + blueprint library aimed at skeptical senior professionals (35–55). The north-star test for every decision: *would a 45-year-old VP of Product share this under their real name on LinkedIn?*
 
-**The idea (locked, Rev C): design like a blueprint, not like a publication — and make the blueprint feel ALIVE.** Premium-editorial trust (cream, serif, restraint) fused with **The Working Schematic**: a navy drafting panel where the business being described is drawn as a live, running system — labeled nodes, wires, real prices, verified sources. It looks like the business the viewer is going to build, because it is.
+**Rev C implementation idea (retained for existing consumers):** design like a blueprint, not like
+a publication, and make the blueprint feel alive. This is legacy production guidance during the
+Boundary Ledger migration, not the direction for new web or episode-illustration work.
 
 ---
 

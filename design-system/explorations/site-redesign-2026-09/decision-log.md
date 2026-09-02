@@ -269,3 +269,24 @@ The frozen invariants and change boundary are recorded in `palette-options/LOCK.
 the clean-layout study, and the photographic Working Plate remain historical alternatives. This is
 an exploration-level visual lock only: no production tokens, source artboards, Content OS issue
 structure, deployment state, editorial approval, or publication authority changed.
+
+## 2026-09-02 — Boundary Ledger design system established
+
+The owner clarified that Boundary Ledger—not the alternate palette—is the sole forward direction
+and asked for a design system around the locked working-model illustration language.
+
+`design-system/boundary-ledger/` is now the canonical reference package for new OE web and episode-
+illustration work. It contains scoped and honestly named tokens, framework-neutral component
+contracts, the accountable docket and working-model composition, page patterns, a browsable field
+manual, a self-contained font set, and an episode-art manifest schema. The approved EP006 hotel
+model is copied into the package, fixed at 1536 × 1024, and SHA-256 pinned. Its visual-language lock
+does not waive the separate manual review required for handwritten facts before publication.
+
+The active palette review now exposes Boundary Ledger only and canonicalizes obsolete palette or
+comparison URL state back to the locked direction. The package was verified at 1280, 933, 390, 373,
+and 320 CSS pixels: no horizontal overflow, exact 16px docket attachment, complete 3:2 art,
+24px mobile docket gutters, full-bleed mobile paper, and 44px key link targets.
+
+This establishes design authority, not a production migration. Root Rev C files remain the current
+implementation for existing site, studio, video, Canvas, PDF, and publication consumers until a
+separately scoped migration is implemented and verified.

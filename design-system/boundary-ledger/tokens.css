@@ -1,0 +1,116 @@
+/* Boundary Ledger
+   Locked visual-direction tokens. Values are scoped to :where(.bl-system, [data-oe-theme="boundary-ledger"]) so this
+   package can be reviewed beside the existing Rev C system without mutation. */
+
+@font-face {
+  font-family: "BL Boska";
+  src: url("./fonts/boska-700.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Boska";
+  src: url("./fonts/boska-700-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Zodiak";
+  src: url("./fonts/zodiak-700.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Zodiak";
+  src: url("./fonts/zodiak-700-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Supreme";
+  src: url("./fonts/supreme-400.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Supreme";
+  src: url("./fonts/supreme-400-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Supreme";
+  src: url("./fonts/supreme-500.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) {
+  /* Material roles */
+  --bl-paper: #f5f0e6;
+  --bl-paper-raised: #fbf8f1;
+  --bl-paper-inset: #ede7d8;
+  --bl-paper-deep: #e2dac7;
+  --bl-mineral: #204440;
+  --bl-mineral-deep: #173530;
+  --bl-oxide: #b5482f;
+  --bl-oxide-dark: #87341f;
+  --bl-oxide-bright: #fb8b69;
+  --bl-steel: #586d74;
+  --bl-steel-dark: #33464c;
+  --bl-steel-light: #71868d;
+  --bl-live: #a4c6b2;
+  --bl-risk: #90394a;
+
+  /* Text and rules */
+  --bl-ink: #19201f;
+  --bl-ink-soft: #303b39;
+  --bl-ink-muted: #566461;
+  --bl-rule: #d8cfb9;
+  --bl-rule-strong: #c4b99e;
+  --bl-paper-on-mineral: #f5f0e6;
+  --bl-paper-on-mineral-muted: rgba(245, 240, 230, 0.72);
+  --bl-paper-on-mineral-faint: rgba(245, 240, 230, 0.56);
+  --bl-rule-on-mineral: rgba(245, 240, 230, 0.22);
+  --bl-focus: #b5482f;
+
+  /* Typography */
+  --bl-font-display: "BL Boska", Georgia, serif;
+  --bl-font-heading: "BL Zodiak", Georgia, serif;
+  --bl-font-body: "BL Supreme", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bl-font-data: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+  --bl-leading-display: 0.96;
+  --bl-leading-heading: 1.06;
+  --bl-leading-body: 1.55;
+  --bl-measure: 68ch;
+
+  /* Spatial rhythm */
+  --bl-space-1: 0.25rem;
+  --bl-space-2: 0.5rem;
+  --bl-space-3: 0.75rem;
+  --bl-space-4: 1rem;
+  --bl-space-5: 1.5rem;
+  --bl-space-6: 2rem;
+  --bl-space-7: 3rem;
+  --bl-space-8: 4.5rem;
+  --bl-space-9: 6rem;
+  --bl-page-gutter: clamp(1.5rem, 5vw, 4.75rem);
+  --bl-section-space: clamp(4.5rem, 10vw, 8.5rem);
+  --bl-shell: 76rem;
+  --bl-overlap: 1rem;
+  --bl-hairline: 1px;
+  --bl-radius: 2px;
+}
