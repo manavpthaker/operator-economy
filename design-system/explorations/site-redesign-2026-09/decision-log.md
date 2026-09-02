@@ -252,3 +252,20 @@ was used at greater intensity:
   composition's single gold accent).
 
 Verified at 1280; hashes refreshed in the Step 7 proposal (still unapproved).
+
+## 2026-09-02 — Boundary Ledger landing-page direction locked
+
+After reviewing the palette, page-density, photography, and illustration iterations, the owner
+selected **Boundary Ledger** as the landing-page visual direction and approved the rough hotel,
+OTA, and guest working model as the reference episode treatment.
+
+The lock preserves a clean editorial page around one expressive episode illustration. Blueprint
+and wireframe language lives inside the deliberately imperfect hand-drawn model rather than in a
+checkered page background or dense label system. The dark mineral latest-episode card remains the
+accountable docket, attached to the drawing's blank top edge without covering the oxide direct-
+return loop. The full 3:2 drawing remains uncropped on desktop and mobile.
+
+The frozen invariants and change boundary are recorded in `palette-options/LOCK.md`. Signal Ledger,
+the clean-layout study, and the photographic Working Plate remain historical alternatives. This is
+an exploration-level visual lock only: no production tokens, source artboards, Content OS issue
+structure, deployment state, editorial approval, or publication authority changed.
