@@ -1,0 +1,39 @@
+{
+  "$schema": "./expression-binding.schema.json",
+  "schemaVersion": "1.0",
+  "systemVersion": "2.0.0",
+  "medium": "sound",
+  "status": "provisional",
+  "semanticCore": "../semantic-core.json",
+  "roles": {
+    "humanContext": {
+      "expression": ["room-tone", "close-tactile-foley", "imperfect-human-motif"],
+      "rules": ["Begin from the actual human place or a close physical texture; preserve enough imperfection to feel present."]
+    },
+    "accountableEvidence": {
+      "expression": ["silence", "dry-placement"],
+      "rules": ["Evidence normally needs space, not a sound; a restrained placement event may mark its arrival but cannot authenticate it."]
+    },
+    "activeCommitment": {
+      "expression": ["single-contact", "key-or-relay", "counter-phrase"],
+      "rules": ["One foreground contact or short answering phrase marks the committed turn; do not score every highlight."]
+    },
+    "externalDependency": {
+      "expression": ["restrained-mechanical-current", "descending-constraint-phrase", "material-movement"],
+      "rules": ["Dependency has a directional current without villain scoring or horror texture."]
+    },
+    "verifiedStatus": {
+      "expression": ["silence", "single-quiet-confirmation"],
+      "rules": ["Verification is usually silent; if a cue is required, it occurs once after the state is actually confirmed."]
+    },
+    "actualRisk": {
+      "expression": ["interruption", "suppression-stop", "silence"],
+      "rules": ["A risk cue interrupts the current operation once and then yields to understanding."]
+    }
+  },
+  "prohibitions": [
+    "No decorative equalizer, generic waveform sound, notification chorus, horror drone, trailer boom, or constant riser.",
+    "Do not map every color, word, beat, or transient to a sound event.",
+    "The OE identity sting is a separate asset and is not mandatory on podcast or social excerpts."
+  ]
+}

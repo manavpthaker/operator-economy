@@ -290,3 +290,29 @@ and 320 CSS pixels: no horizontal overflow, exact 16px docket attachment, comple
 This establishes design authority, not a production migration. Root Rev C files remain the current
 implementation for existing site, studio, video, Canvas, PDF, and publication consumers until a
 separately scoped migration is implemented and verified.
+
+## 2026-09-02 — Boundary Ledger promoted to cross-media semantic authority
+
+The owner clarified that Boundary Ledger’s durable asset is the meaning assigned to material—not
+the palette or landing-page composition. Warm paper carries human context and unresolved work;
+deep mineral carries accountable evidence; steel carries dependency and rented capability; oxide
+carries one commitment, exception, correction, or owned thesis path. Those roles now form a
+versioned semantic core with separate color, motion, and sound bindings.
+
+The original landing-page lock remains historical and its 16px docket attachment, 24px mobile
+gutter, 3:2 static master, and browser behavior remain web-specific. The portable rule is that the
+surface establishes a stable hierarchy, one accountable change is active at a time, and the result
+settles. A dramatic opening may begin inside a failure or reroute; the business operation supplies
+the energy.
+
+Rev C is retired as forward design authority and remains compatibility implementation only for
+named unmigrated consumers. Rev D is retired as an active design direction and retained as narrative
+research; its human stakes, reversal, agency, and structural silence survive, while cobalt/gold
+semantics, sinkholes, glow, orbit, generic node builds, and runtime promotion do not.
+
+Boundary Ledger 2.0 adds a cross-media authority record, invariant register, semantic core, color /
+motion / sound bindings, runtime-neutral scene contracts, motion-ready asset schema, audio-led clip
+contract, retirement manifest, and dependency-free cross-file validator. A real 30.405-second EP006
+voice excerpt provides model-led and text-led browser references across 9:16, 1:1, and 16:9 using a
+precomputed actual-PCM trace. That reference does not claim a layered motion-ready illustration,
+encoded master, final mix, cross-category validation, production migration, or publication approval.

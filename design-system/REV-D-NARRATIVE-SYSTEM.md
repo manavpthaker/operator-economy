@@ -1,5 +1,12 @@
 # OE Rev D: Human Outcome System
 
+> **Superseded as design-system authority on 2026-09-02.** Retain this file as narrative research
+> and provenance only. Boundary Ledger 2.0 owns cross-media color, motion, and sound semantics.
+> Human stakes, concrete constraint, reversal, agency, and structural silence remain useful inputs;
+> the cobalt/gold palette, sinkhole imagery, glow, orbit, generic node builds, and proposed runtime
+> promotion do not govern new work. Active Rev-D-derived consumers are tracked in
+> [`boundary-ledger/retirement-manifest.json`](boundary-ledger/retirement-manifest.json).
+
 > Working direction, 2026-08-17. This extends Rev C rather than replacing it in production. The hotel OTA-gravity concept is the first reference frame; validate the grammar across at least three episodes before promoting these rules into tokens and Remotion.
 
 **View the system:** [`guidelines/Rev D Human Outcome System.html`](guidelines/Rev%20D%20Human%20Outcome%20System.html) includes a silent, playable 60-second cold-open prototype and cross-channel specimens.

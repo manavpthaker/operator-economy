@@ -1,24 +1,29 @@
 # The Operator Economy — Design System
 
-> **Forward visual direction:** [Boundary Ledger](boundary-ledger/README.md), locked 2026-09-02,
-> is the authority for new OE web and episode-illustration design. The page stays composed; the
-> model stays rough. Its scoped tokens, component contracts, illustration rules, and reference
-> specimen live in `boundary-ledger/`.
+> **Cross-media design authority:** [Boundary Ledger](boundary-ledger/README.md), version 2.0.0,
+> is the authority for new OE web, static editorial work, episode identity, thumbnails, designed
+> video scenes, motion graphics, and audio-led clips. Its semantic core binds the same roles into
+> color, motion, and sound. Medium-specific implementation and verification status lives in its
+> [manifest](boundary-ledger/manifest.json).
 
-> **Migration boundary:** the Rev C files below remain the current production implementation for
-> existing site, video, newsletter, and PDF consumers. Do not silently mix their Working Schematic
-> grid and Signal-era semantics into Boundary Ledger. Consumer migration requires a separate,
-> verified change.
+> **Rev C disposition:** Rev C is retired as forward design authority. The files below remain a
+> frozen compatibility implementation for unmigrated site, video, newsletter, and PDF consumers.
+> No new work may import its Working Schematic grid, gold/blue identity, or fade/slide motion rule.
+> Each active consumer has a named exit gate in
+> [Boundary Ledger’s retirement manifest](boundary-ledger/retirement-manifest.json).
 
-> **Rev D working direction:** the human-first, outcome-led narrative system is being developed in [`REV-D-NARRATIVE-SYSTEM.md`](REV-D-NARRATIVE-SYSTEM.md). Open the [interactive visual system, silent cold-open, and B-roll preview prototype](guidelines/Rev%20D%20Human%20Outcome%20System.html), and use the [universal sting specification](OE-STING-SPEC.md) when generating the audio logo. Rev C remains the production token and component authority until that direction passes cross-episode validation.
+> **Rev D disposition:** [`REV-D-NARRATIVE-SYSTEM.md`](REV-D-NARRATIVE-SYSTEM.md) is archived
+> narrative research, not an active palette, motion system, sound system, or runtime direction.
+> Boundary Ledger retains its useful human-stakes and reversal insight while retiring cobalt/gold
+> semantics, sinkholes, glow, orbit, generic node builds, and its proposed promotion path. The sting
+> remains an unresolved legacy compatibility asset until explicitly retained, rebound, or replaced.
 
 > **Build. Own. Operate.** — Documentary-grade evidence for the businesses experienced professionals could actually build now that AI collapsed the cost of building.
 
 This design system encodes the visual and verbal language of **The Operator Economy**, a YouTube channel + newsletter + blueprint library aimed at skeptical senior professionals (35–55). The north-star test for every decision: *would a 45-year-old VP of Product share this under their real name on LinkedIn?*
 
-**Rev C implementation idea (retained for existing consumers):** design like a blueprint, not like
-a publication, and make the blueprint feel alive. This is legacy production guidance during the
-Boundary Ledger migration, not the direction for new web or episode-illustration work.
+**Rev C compatibility idea (retained below for migration only):** design like a blueprint, not like
+a publication, and make the blueprint feel alive. This is not guidance for new work.
 
 ---
 
@@ -26,12 +31,16 @@ Boundary Ledger migration, not the direction for new web or episode-illustration
 
 The Operator Economy is a **pure media property** — channel, Monday newsletter, and a library of "Operator Blueprint" lead-magnet PDFs. Each episode is a **thesis** ("this is the kind of business you can build, and here's how hard it really is") proven with real companies as evidence.
 
-### Surfaces this system serves
-- **YouTube** — thumbnails (evidence object focal, 3–4 words, never a face), video graphics (citation lower-thirds, sheet chapter cards, blueprint end-cards).
-- **Website** (`theoperatoreconomy.com`) — split hero: cream editorial + live navy schematic.
-- **Newsletter** — the Monday email styled as a sourced research note, gap figure in the mast.
-- **Operator Blueprints** — document-grade PDFs with engineering title blocks.
-- **LinkedIn carousels** — blueprint sheets exported natively.
+### Surfaces the cross-media system serves
+- **Long-form and social video** — Reality World plus designed Working Model scenes, accountable
+  records, causal motion, captions, and audio-linked graphics.
+- **Audio-led and podcast clips** — model-led or text-led treatments with actual-audio timing.
+- **Website and episode identity** — composed editorial surfaces around a rough Working Model.
+- **Newsletter, Blueprint, carousel, and thumbnail** — medium-specific bindings derived from the
+  same roles, not recycled web layouts.
+
+Implementation is not uniform: the web reference is verified; other bindings retain the status in
+`boundary-ledger/manifest.json`. The Rev C surface descriptions below document compatibility code.
 
 ---
 
@@ -39,7 +48,7 @@ The Operator Economy is a **pure media property** — channel, Monday newsletter
 
 - **Codebase (ground truth):** `operator-economy/` (mounted, read-only): `brand/brand.md`, `brand/design-system.md` (the original v1 spec), `channel/positioning.md`, `docs/content-rubric.md`, real episode copy in `studio/originate/ai-implementation-consulting/script.json`. Legacy viddy tokens in `studio/config/brand.json` are superseded.
 - **GitHub:** [`github.com/manavpthaker/operator-economy`](https://github.com/manavpthaker/operator-economy) — same repo; explore it to design against real product copy.
-- **Rev history:** Rev A built the v1 editorial spec (Source Serif/IBM Plex). Rev B explored AI-native directions on canvas (`explorations/`). **Rev C (this)** locks the approved merge: Working Schematic structure × Boska/Zodiak type. The full decision trail lives in `explorations/AI-Native Directions.html` and `explorations/Refined Direction.html`.
+- **Rev history:** Rev A built the v1 editorial spec (Source Serif/IBM Plex). Rev B explored AI-native directions on canvas (`explorations/`). **Rev C (historical compatibility implementation)** locked the Working Schematic structure × Boska/Zodiak type merge. The full decision trail lives in `explorations/AI-Native Directions.html` and `explorations/Refined Direction.html`.
 
 > **No visual assets existed in the sources** — no logo, no images, no font binaries. The wordmark is set in type; see §7.
 
@@ -125,7 +134,7 @@ Deliberately icon-light. The marks are typographic: `№`, the gold `→`, `×`,
 - `surfaces/` — final reference comps: `hero.html` (1280×880), `thumbnail.html` (1280×720), `masthead.html` (1280×640), `cover.html` (1280×880). All are starting points.
 - `foundations/` — specimen cards (Colors / Type / Spacing / Brand groups).
 - `components/` — `core/`, `brand/`, `data/` (each: `.jsx` + `.d.ts` + `.prompt.md` + card).
-- `ui_kits/` — `website/`, `newsletter/`, `blueprint/` — interactive Rev-A-era screens; they consume tokens so they inherit Rev C type/color, but their layouts predate the Working Schematic. Use `surfaces/` as the canonical look.
+- `ui_kits/` — `website/`, `newsletter/`, `blueprint/` — interactive Rev-A-era screens; they consume tokens so they inherit Rev C type/color, but their layouts predate the Working Schematic. Use `surfaces/` only as the canonical **Rev C compatibility** look.
 - `explorations/` — the decision trail (turns 1–3 on canvas).
 - `SKILL.md` — Claude-Code-portable skill entry.
 
@@ -137,5 +146,5 @@ Instrument Serif / default-AI-startup look · neon · gradients · glassmorphism
 
 1. **Fonts are CDN, not vendored** (Fontshare + Google). No binaries existed in the sources; ask if offline use is needed.
 2. **No logo mark** — wordmark set in Zodiak 700 (Boska at display sizes); nothing invented.
-3. **UI kits are Rev-A layouts** — token-migrated but not yet rebuilt around the Working Schematic. `surfaces/` is canonical; say the word to rebuild the kits.
+3. **UI kits are Rev-A layouts** — token-migrated but not yet rebuilt around the Working Schematic. `surfaces/` is canonical only inside the retained Rev C compatibility implementation.
 4. **Gold on paper** was darkened to `#7A5E24` for AA (the audit table in the system document shows the math).

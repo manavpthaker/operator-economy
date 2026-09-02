@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/design-system/boundary-ledger/motion-ready-asset.schema.json",
+  "title": "Boundary Ledger motion-ready Working Model asset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "semanticCore",
+    "sourceStill",
+    "format",
+    "persistentObjects",
+    "layers",
+    "routes",
+    "evidenceAnchors",
+    "review"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "semanticCore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "version", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "version": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "sourceStill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "preservedUnchanged"],
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "preservedUnchanged": { "const": true }
+      }
+    },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aspectRatio", "width", "height", "adaptation"],
+      "properties": {
+        "aspectRatio": { "enum": ["16:9", "9:16", "1:1", "3:2"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "adaptation": { "enum": ["authored-recomposition", "reference-still"] }
+      }
+    },
+    "persistentObjects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "role", "layerIds"],
+        "properties": {
+          "id": { "type": "string" },
+          "role": { "type": "string" },
+          "layerIds": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "semanticRole", "asset", "authoredRoughness"],
+        "properties": {
+          "id": { "type": "string" },
+          "semanticRole": { "type": "string" },
+          "asset": { "$ref": "#/$defs/asset" },
+          "mask": { "$ref": "#/$defs/asset" },
+          "authoredRoughness": { "type": "boolean" }
+        }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "semanticRole", "from", "to", "strokeLayerIds"],
+        "properties": {
+          "id": { "type": "string" },
+          "semanticRole": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "strokeLayerIds": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "evidenceAnchors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "objectId", "claimId"],
+        "properties": {
+          "id": { "type": "string" },
+          "objectId": { "type": "string" },
+          "claimId": { "type": "string" }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objectPermanence", "roughnessAuthored", "cropBased", "reviewerRole"],
+      "properties": {
+        "objectPermanence": { "type": "boolean" },
+        "roughnessAuthored": { "type": "boolean" },
+        "cropBased": { "const": false },
+        "reviewerRole": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "mediaType", "width", "height", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "mediaType": { "enum": ["image/png", "image/webp", "image/svg+xml"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}

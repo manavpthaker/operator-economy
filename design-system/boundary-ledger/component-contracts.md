@@ -1,7 +1,8 @@
 # Boundary Ledger component contracts
 
-These contracts define required anatomy and behavior. They are framework-neutral so the production
-site can adopt them without making this reference package a second application runtime.
+The DOM contracts below are the Boundary Ledger **web binding**. They are framework-neutral so the
+production site can adopt them without making this reference package a second application runtime.
+They do not define scene geometry or temporal behavior.
 
 ## Core DOM contract
 
@@ -124,3 +125,21 @@ Required behavior:
 
 - States the evidence, estimate, AI, or publication boundary in plain language.
 - Uses a quiet rule-based treatment; it is not an alert card unless there is actual risk.
+
+## Cross-media scene-component map
+
+Designed scenes derive meaning from the same core without reusing the web DOM or its 16px geometry.
+The normative contracts live in [`scene-contracts.md`](./scene-contracts.md):
+
+- `ModelField` — stable paper world and persistent relationship;
+- `DependencyRoute` — current steel path through rented capability;
+- `DecisionPath` — one oxide operator-controlled commitment;
+- `PersistentObject` — customer, case, payment, key, claim, task, or outcome that survives handoffs;
+- `EvidencePin` — sourced value and provenance attached to what it supports;
+- `AccountableRecord` — identity docket, evidence receipt, decision record, chapter rail, or lower third;
+- `ThesisType` — scarce typeset thesis, reversal, warning, quote, or critical number;
+- `VoiceTrace` — deterministic actual-audio temporal index.
+
+These are semantic components, not a mandated visual component library. Step 3 selects core
+operations; Blueprint Cinema directs their episode-specific use; HyperFrames implements deterministic
+motion; Resolve finishes and delivers it.

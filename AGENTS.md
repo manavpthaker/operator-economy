@@ -20,7 +20,13 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 Content operations for **The Operator Economy** — a YouTube channel + newsletter + blueprint library. Two things live here:
 
 1. **Editorial / strategy docs** (repo root) — positioning, brand, topic queue, kill criteria, research, per-video logs. Markdown, no build step.
-2. **`design-system/`** — the visual design system (**Rev C**, imported 2026-07-02 from Codex Design; "The Working Schematic" direction). **This directory is the single source of truth for all brand visuals.** Token layer (`tokens/*.css` linked via `styles.css`), React components (`components/{core,brand,data}/`), published system doc (`guidelines/Design System.html`), canonical reference comps (`surfaces/`: hero, thumbnail, masthead, cover). `ui_kits/` are Rev-A layouts (token-migrated, layout-superseded — `surfaces/` is canonical). Read `design-system/README.md` first. `brand/design-system.md` is the superseded v1 strategy rationale; `studio/config/brand.json` is derived from the Rev C tokens (reconciled 2026-07-02).
+2. **`design-system/`** — the brand source of truth. **Boundary Ledger 2.0** in
+   `design-system/boundary-ledger/` is the cross-media semantic authority for new web, static,
+   episode-identity, scene, motion-graphic, and audio-led work. Read its `README.md`, semantic core,
+   and the applicable medium binding first. Root Rev C tokens, components, surfaces, and UI kits are
+   compatibility implementation for unmigrated consumers, not forward authority. Rev D is archived
+   narrative research; its derived active consumers are tracked in Boundary Ledger’s retirement
+   manifest. `studio/config/brand.json` remains Rev-C-derived compatibility data until migrated.
 3. **`studio/`** — a Python + Remotion production engine. Two entry points:
    - `studio/originate.py` — originates a long-form blueprint video from a research brief (topic → script → VO → assets → render data + LinkedIn/newsletter/blueprint derivatives).
    - `studio/pipeline.py` — cuts short-form clips from a rendered long-form (or any raw recording).

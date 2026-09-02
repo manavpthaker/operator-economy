@@ -3,6 +3,11 @@
 **Owner decision:** Boundary Ledger was approved as the landing-page visual direction for
 The Operator Economy on 2026-09-02.
 
+> **Forward pointer:** this file remains the historical landing-page lock. The later 2026-09-02
+> owner clarification promotes Boundary Ledger’s semantic grammar across media; it does not turn
+> the web geometry below into motion or audio rules. Current authority lives in
+> [`../../../boundary-ledger/README.md`](../../../boundary-ledger/README.md) and its manifest.
+
 This lock freezes the palette roles, page-to-illustration relationship, episode-card behavior,
 and responsive treatment represented by the Boundary Ledger homepage prototype. A material
 change to those decisions requires a separate owner review.

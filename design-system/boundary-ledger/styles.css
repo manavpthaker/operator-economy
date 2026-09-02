@@ -256,12 +256,77 @@ body:where(.bl-system, [data-oe-theme="boundary-ledger"]) {
   color: var(--bl-ink-muted);
 }
 
-:where(.bl-system, [data-oe-theme="boundary-ledger"]) :where(.bl-system, [data-oe-theme="boundary-ledger"])-footer {
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--bl-rule-strong);
+  background: var(--bl-rule-strong);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid article {
+  min-width: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: var(--bl-paper-raised);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid article:nth-child(2) {
+  border-top: 3px solid var(--bl-oxide);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid span,
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout__label {
+  color: var(--bl-steel-dark);
+  font-family: var(--bl-font-data);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid h3,
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout h3 {
+  margin: var(--bl-space-5) 0 var(--bl-space-3);
+  font-family: var(--bl-font-heading);
+  font-size: clamp(1.45rem, 3vw, 2.35rem);
+  line-height: 1.02;
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid p,
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout p {
+  margin: 0;
+  color: var(--bl-ink-muted);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+  margin-top: var(--bl-space-7);
+  padding: clamp(2rem, 5vw, 4rem);
+  background: var(--bl-mineral);
+  color: var(--bl-paper-on-mineral);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout__label {
+  color: var(--bl-paper-on-mineral-faint) !important;
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout h3 {
+  max-width: 18ch;
+  color: var(--bl-paper-on-mineral);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout p:not(.bl-motion-callout__label) {
+  max-width: 50rem;
+  color: var(--bl-paper-on-mineral-muted);
+}
+
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-system-footer {
   padding-block: var(--bl-space-7);
   border-top: var(--bl-hairline) solid var(--bl-rule-strong);
 }
 
-:where(.bl-system, [data-oe-theme="boundary-ledger"]) :where(.bl-system, [data-oe-theme="boundary-ledger"])-footer__inner {
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-system-footer__inner {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--bl-space-5);
@@ -270,7 +335,7 @@ body:where(.bl-system, [data-oe-theme="boundary-ledger"]) {
   font-size: 0.85rem;
 }
 
-:where(.bl-system, [data-oe-theme="boundary-ledger"]) :where(.bl-system, [data-oe-theme="boundary-ledger"])-footer strong {
+:where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-system-footer strong {
   color: var(--bl-ink);
   font-family: var(--bl-font-heading);
   font-size: 1.2rem;
@@ -279,7 +344,9 @@ body:where(.bl-system, [data-oe-theme="boundary-ledger"]) {
 @media (max-width: 680px) {
   :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-chapter__head,
   :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-split,
-  :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-type-composition {
+  :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-type-composition,
+  :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-system-grid,
+  :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-motion-callout {
     grid-template-columns: 1fr;
   }
 
@@ -291,7 +358,7 @@ body:where(.bl-system, [data-oe-theme="boundary-ledger"]) {
     padding-inline: var(--bl-space-5);
   }
 
-  :where(.bl-system, [data-oe-theme="boundary-ledger"]) :where(.bl-system, [data-oe-theme="boundary-ledger"])-footer__inner {
+  :where(.bl-system, [data-oe-theme="boundary-ledger"]) .bl-system-footer__inner {
     grid-template-columns: 1fr;
   }
 }

@@ -1,20 +1,85 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "2.0",
   "name": "Boundary Ledger",
   "id": "oe-boundary-ledger",
-  "version": "1.0.0",
-  "status": "locked-visual-direction",
+  "version": "2.0.0",
+  "status": "canonical-semantic-authority",
   "ownerDecisionDate": "2026-09-02",
-  "scopeSelector": "[data-oe-theme=\"boundary-ledger\"]",
-  "compatibilityScopeClass": "bl-system",
+  "designAuthority": {
+    "scope": [
+      "web",
+      "static-editorial",
+      "episode-identity",
+      "thumbnail",
+      "designed-video-scenes",
+      "motion-graphics",
+      "audio-led-clips",
+      "social-video"
+    ],
+    "doesNotOwn": [
+      "episode argument",
+      "claims or evidence status",
+      "publication gates",
+      "runtime selection",
+      "final editorial and delivery"
+    ]
+  },
+  "implementationStatus": {
+    "semanticCore": "canonical",
+    "colorBinding": "canonical",
+    "webReference": "verified-reference",
+    "staticEpisodeArt": "one-category-reference",
+    "motionBinding": "specified-not-encoded",
+    "soundBinding": "specified-not-mixed",
+    "audioLedClip": "browser-reference-verified-encoded-output-unverified",
+    "productionConsumers": "unmigrated"
+  },
+  "cssBinding": {
+    "scopeSelector": "[data-oe-theme=\"boundary-ledger\"]",
+    "compatibilityScopeClass": "bl-system"
+  },
   "entrypoints": {
-    "styles": "./styles.css",
     "fieldManual": "./index.html",
+    "styles": "./styles.css",
+    "semanticCore": "./semantic-core.json",
+    "crossMediaAuthority": "./cross-media-authority.md",
+    "invariantRegister": "./invariants.md",
+    "motionLanguage": "./motion-language.md",
+    "audioLedClips": "./audio-led-clips.md",
+    "sceneContracts": "./scene-contracts.md",
+    "motionReadyAssetSchema": "./motion-ready-asset.schema.json",
     "illustrationLanguage": "./illustration-language.md",
     "componentContracts": "./component-contracts.md",
+    "motionAudioSpecimen": "./specimens/motion-and-audio.html",
+    "specimenManifest": "./specimens/manifest.json",
+    "retirementManifest": "./retirement-manifest.json",
     "contrastReport": "./qa/contrast.json",
     "responsiveHarness": "./qa/responsive-harness.html",
-    "verificationReport": "./qa/verification-2026-09-02.json"
+    "webVerificationReport": "./qa/verification-2026-09-02.json",
+    "crossMediaVerificationReport": "./qa/cross-media-verification-2026-09-02.json",
+    "systemValidator": "./qa/validate-system.mjs"
+  },
+  "semanticCore": {
+    "path": "./semantic-core.json",
+    "version": "2.0.0",
+    "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+  },
+  "bindings": {
+    "color": {
+      "path": "./bindings/color.json",
+      "status": "canonical",
+      "sha256": "6b3e4727c3592b02fe23c34d2a865a85c47865c438d48526d1762b93e9a669c3"
+    },
+    "motion": {
+      "path": "./bindings/motion.json",
+      "status": "provisional",
+      "sha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450"
+    },
+    "sound": {
+      "path": "./bindings/sound.json",
+      "status": "provisional",
+      "sha256": "3c81a029d6fd98ea8fb88100ff6209cc86f6ba7c1558bdd194d73db1ac5d294b"
+    }
   },
   "sourceLock": "../explorations/site-redesign-2026-09/palette-options/LOCK.md",
   "referenceAsset": {
@@ -25,7 +90,8 @@
     "height": 1024,
     "aspectRatio": "3:2",
     "crop": "forbidden",
-    "objectFit": "contain"
+    "objectFit": "contain",
+    "motionReadiness": "flattened-still-reference-only"
   },
   "materials": {
     "warmLedger": "#F5F0E6",
@@ -34,6 +100,7 @@
     "coreOxideOnMineral": "#FB8B69",
     "perimeterSteel": "#586D74",
     "ink": "#19201F",
+    "verified": "#A4C6B2",
     "risk": "#90394A"
   },
   "type": {
@@ -42,7 +109,7 @@
     "body": "BL Supreme",
     "accountableData": "system monospace stack"
   },
-  "components": [
+  "webComponents": [
     "Masthead",
     "WorkingModel",
     "AccountableDocket",
@@ -54,15 +121,57 @@
     "SubscriptionBand",
     "DisclosureBlock"
   ],
-  "invariants": {
-    "docketAttachmentPx": 16,
-    "mobilePageGutterPx": 24,
-    "mobileIllustration": "full-bleed",
-    "handwritingLocation": "inside-episode-artwork-only",
-    "pageBlueprintChrome": false,
-    "gradients": false,
-    "pills": false,
-    "checkeredGrids": false
+  "sceneComponents": [
+    "ModelField",
+    "DependencyRoute",
+    "DecisionPath",
+    "PersistentObject",
+    "EvidencePin",
+    "AccountableRecord",
+    "ThesisType",
+    "VoiceTrace"
+  ],
+  "formatBindings": {
+    "webStatic": {
+      "status": "verified-reference",
+      "rules": ["16px docket attachment", "24px mobile gutter", "complete 3:2 static master"]
+    },
+    "landscape16x9": {
+      "status": "specified",
+      "adaptation": "authored horizontal composition; documentary Reality World may coexist with designed System World"
+    },
+    "portrait9x16": {
+      "status": "browser-reference",
+      "adaptation": "authored vertical relationship sequence; caption rail overlays the full composition"
+    },
+    "square1x1": {
+      "status": "browser-reference",
+      "adaptation": "compact loop or consecutive model and thesis beats"
+    }
   },
-  "authorityBoundary": "Canonical reference for Boundary Ledger. Production-site, studio, Canvas, video, deployment, and publication migration remain separate work."
+  "specimens": {
+    "audioFirst": {
+      "path": "./specimens/manifest.json",
+      "sha256": "438d393675f35c658b2a4fe353079904b12f0dd9c10fd921394462b9ba40bebd",
+      "status": "browser-reference",
+      "encodedOutputVerified": false
+    }
+  },
+  "legacy": {
+    "revC": "retired-forward-authority-compatible-implementation",
+    "revD": "retired-direction-retained-narrative-research",
+    "retirementManifest": "./retirement-manifest.json",
+    "retirementManifestSha256": "8b597d66b4cbb63ab8b3377763f6788adfc8f95b45f4dbe178ffec3a9dfd59d3"
+  },
+  "universalInvariants": [
+    "one-primary-focal-point",
+    "one-active-commitment",
+    "rough-model-typeset-institution",
+    "evidence-status-cannot-be-upgraded-by-design",
+    "causal-motion-then-settle",
+    "sound-marks-events-not-colors",
+    "relationship-equivalence-not-cropping",
+    "stillness-is-an-authored-state"
+  ],
+  "authorityBoundary": "Boundary Ledger is the cross-media design-language authority. Content OS retains truth and release; Step 3 and Blueprint Cinema apply the system to episodes; HyperFrames and Resolve implement and finish approved work. Existing consumers remain compatibility implementations until separately migrated and verified."
 }

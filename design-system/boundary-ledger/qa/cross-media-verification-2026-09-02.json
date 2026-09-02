@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0",
+  "system": "Boundary Ledger",
+  "systemVersion": "2.0.0",
+  "date": "2026-09-02",
+  "scope": "semantic-integrity-and-browser-reference",
+  "disposition": "passed-with-explicit-production-blockers",
+  "semanticValidation": {
+    "command": "node design-system/boundary-ledger/qa/validate-system.mjs",
+    "passed": true,
+    "checkedPaths": 43,
+    "roleCount": 6,
+    "operationCount": 8,
+    "warnings": [
+      "No encoded-media verification exists.",
+      "The flattened illustration does not prove a motion-ready Working Model asset."
+    ]
+  },
+  "audioDataValidation": {
+    "command": "node design-system/boundary-ledger/qa/build-audio-envelope.mjs <reference-mp3> <temporary-json> && cmp <temporary-json> <locked-envelope-json>",
+    "passed": true,
+    "windowCount": 609,
+    "windowMs": 50,
+    "durationSeconds": 30.405
+  },
+  "browser": {
+    "environment": "Codex in-app browser",
+    "fieldManual": "http://127.0.0.1:8899/design-system/boundary-ledger/",
+    "motionAudioSpecimen": "http://127.0.0.1:8899/design-system/boundary-ledger/specimens/motion-and-audio.html",
+    "cleanInitialization": {
+      "passed": true,
+      "consoleErrors": 0,
+      "playControlEnabled": true,
+      "initialCaption": "Now go back to the guest from the opening.",
+      "voiceTraceWindows": 609
+    },
+    "audioPlayback": {
+      "passed": true,
+      "initialSeconds": 0,
+      "observedSecondsAfterPlay": 1.047714,
+      "clockSource": "HTMLAudioElement.currentTime for interactive reference only"
+    },
+    "embeddedThesisAtSeconds": {
+      "time": 28.5,
+      "passed": true,
+      "treatment": "text-led",
+      "phase": "thesis",
+      "embeddedState": true,
+      "captionRailAriaHidden": true,
+      "visibleCaptionText": "",
+      "liveCaptionText": "buy that same introduction forever.",
+      "thesisText": "Don't buy the same introduction forever."
+    },
+    "formatChecks": [
+      {
+        "id": "portrait",
+        "aspectRatio": "9:16",
+        "measuredRatio": 0.563,
+        "frame": "400x711",
+        "imageObjectFit": "contain",
+        "cropBased": false,
+        "passed": true
+      },
+      {
+        "id": "square",
+        "aspectRatio": "1:1",
+        "measuredRatio": 1,
+        "frame": "672x672",
+        "imageObjectFit": "contain",
+        "cropBased": false,
+        "passed": true
+      },
+      {
+        "id": "landscape",
+        "aspectRatio": "16:9",
+        "measuredRatio": 1.778,
+        "frame": "960x540",
+        "imageObjectFit": "contain",
+        "cropBased": false,
+        "passed": true
+      }
+    ],
+    "responsiveChecks": [
+      {
+        "viewport": "1280x900",
+        "horizontalOverflow": false,
+        "passed": true
+      },
+      {
+        "viewport": "390x844",
+        "horizontalOverflow": false,
+        "portraitFrame": "327x581",
+        "passed": true
+      },
+      {
+        "viewport": "320x700",
+        "horizontalOverflow": false,
+        "portraitFrameWidth": 272,
+        "passed": true
+      }
+    ]
+  },
+  "identityEvidence": {
+    "sourceMasterWavSha256": "84fdb18a1f7285f21cd70ae4f0c796386e698457bde5b5ebccdc6964af75ba3d",
+    "sourceAudioSha256": "a74fc757584c6bfde34470f6e5d14d770236203220aec564a34bcdf61f7cb042",
+    "voiceTraceSha256": "fcd32634ca1206bbe9a4e275d998d0c7b371902369a66b7fb4616269e11fcd49",
+    "lockedIllustrationSha256": "083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712"
+  },
+  "notProven": [
+    "A layered motion-ready illustration asset",
+    "A deterministic HyperFrames implementation",
+    "Encoded 9:16, 1:1, or 16:9 delivery",
+    "Compression and phone-scale fine-line survival",
+    "Final loudness, true peak, phase, or intelligibility",
+    "Cross-category episode consistency",
+    "Production-consumer migration",
+    "Publication readiness"
+  ]
+}
