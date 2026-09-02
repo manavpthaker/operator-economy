@@ -2,7 +2,7 @@
 
 Gate: **V5b — rhythm map approved**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 

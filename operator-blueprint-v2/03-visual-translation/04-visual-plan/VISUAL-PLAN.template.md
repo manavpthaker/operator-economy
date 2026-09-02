@@ -2,7 +2,7 @@
 
 Gate: **V4 — visual plan approved, per act**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -29,8 +29,8 @@ Taken from the Step 1 beat sheet. Each act is reviewed and approved separately, 
 
 One row per timed unit. Repeat this table per act.
 
-| ID | In (word idx) | Out (word idx) | Mode | Camera anchor | Motion verb | Carry | Focus | World state before | World state after | Evidence | Narrative state |
-|---|---|---|---|---|---|---|---|---|---|---|---|
+| ID | In (word idx) | Out (word idx) | Mode | Camera anchor | Business-operation ID | BL operation ID | Carry | Focus | World state before | World state after | Evidence | Narrative state |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
 
 Mode is one of: `reality`, `system`, `proof`, `outcome`, `identity`.
 
@@ -52,7 +52,8 @@ Mode is one of: `reality`, `system`, `proof`, `outcome`, `identity`.
 ## Reference integrity
 
 - Every object referenced exists in the approved world: yes / no
-- Every verb referenced exists in the approved engine: yes / no
+- Every business-operation ID exists in the approved engine: yes / no
+- Every Boundary Ledger operation ID matches that engine binding: yes / no
 - Every evidence item carries its upstream label unchanged: yes / no
 - **No visual upgrades an evidence label:** confirmed / violation at [unit]
 

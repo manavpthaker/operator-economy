@@ -2,7 +2,7 @@
 
 Gate: **V3 — persistent world approved**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -14,11 +14,13 @@ Claims map SHA-256: [hash]
 
 Stable identity, changing state. **An object that changes appearance to suit a shot has broken the world.**
 
-| ID | Name | Material form | Allowed states | Meaning | Reachable by verb | Label |
+| ID | Name | Material form | Allowed states | Meaning | Reachable by engine operation-binding ID | Label |
 |---|---|---|---|---|---|---|
-| | | | | | verb / `static` | |
+| | | | | | BO-### / `static` | |
 
-Every object the engine's motion verbs act on must appear here. Every object here must be reachable by at least one verb, or be explicitly marked `static`.
+Every object an engine operation binding acts on must appear here. Every object here must be
+reachable by at least one engine operation-binding ID, or be explicitly marked `static`. The world
+does not name animation components or renderer primitives.
 
 ## Zones
 
@@ -80,7 +82,7 @@ For each recurring object, state what stays constant and what is allowed to chan
 - Every evidence anchor binds to a real claim ID with matching wording authority: yes / no
 - Failure routes, money flows and human gates represented: yes / no
 - Camera anchors defined with jobs: yes / no
-- Every verb-acted object exists; every object is verb-reachable or marked static: yes / no
+- Every operation-acted object exists; every object is operation-reachable or marked static: yes / no
 
 Result: pass / fail / return to engine
 

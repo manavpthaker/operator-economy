@@ -2,7 +2,7 @@
 
 Gate: **V7 — visual translation lock and Step 4 handoff**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -30,14 +30,21 @@ This is the visual language Step 4 is authorized to direct from.
 | Step 2 narration lock | |
 | Narration master | |
 | Word-level transcript | |
+| Boundary Ledger semantic core (version + SHA-256) | |
+| Boundary Ledger motion binding (status + SHA-256) | |
 
 ## Mutual consistency audit
 
-Every verb, object, mode, motif and evidence anchor referenced in one artifact must exist in the others.
+Every operation binding, object, mode, motif and evidence anchor referenced in one artifact must
+exist in the others. Every semantic selection must still resolve through the exact V1 design-system
+lock.
 
 | Check | Result |
 |---|---|
-| Every plan verb exists in the engine | pass / fail |
+| Every plan business-operation ID exists in the engine | pass / fail |
+| Every plan Boundary Ledger operation ID matches its engine binding | pass / fail |
+| Every selected semantic role and operation exists in the pinned core | pass / fail |
+| Every selected role-operation pair is permitted by the pinned motion binding | pass / fail |
 | Every plan object exists in the world | pass / fail |
 | Every plan mode has a bible treatment | pass / fail |
 | Every world object with a motif appears in the plan | pass / fail |
@@ -66,6 +73,12 @@ No load-bearing element exists only in a visual.
 
 Runtimes named: none / [violation and location]
 
+## Vocabulary and implementation-boundary audit
+
+- Episode-local motion vocabulary: none / [violation and location]
+- Renamed or widened Boundary Ledger operation: none / [violation and location]
+- Animation, scene, renderer, easing, or audio implementation primitive authored by Step 3: none / [violation and location]
+
 ## Unknown classification
 
 | Unknown | Classification |
@@ -79,6 +92,9 @@ A current lock blocker fails Gate V7.
 - V1 through V6 all `passed`, hashes match: yes / no
 - Every act of the visual plan approved: yes / no
 - Mutual consistency audit clean: yes / no
+- Boundary Ledger versions and hashes still match V1: yes / no
+- Operation trace is complete from upstream state through the locked artifacts: yes / no
+- No local motion vocabulary, semantic override, or implementation primitive: yes / no
 - Audio-only rule holds: yes / no
 - No runtime named: yes / no
 - No current lock blocker: yes / no
@@ -94,6 +110,9 @@ Approved by: [name] on YYYY-MM-DD
 
 Step 4 may direct shots, write scene directions, build the motion test and animatic, and plan assets.
 
-Step 4 may **not** re-decide the engine, the world, the plan's timing, or the episode's meaning. If Step 4 cannot build what Step 3 approved, that is a Step 3 defect and returns here.
+Step 4 may **not** re-decide the engine, the world, the plan's timing, the selected Boundary Ledger
+semantics, or the episode's meaning. Step 4 may choose implementation primitives, but they must
+implement this lock rather than become a new semantic layer. If Step 4 cannot build what Step 3
+approved, that is a Step 3 defect and returns here.
 
 The look is **provisional**. Step 4's motion test may return it, invalidating V6 only — unless the return names a bible defect, which invalidates V5a as well.

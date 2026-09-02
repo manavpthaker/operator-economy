@@ -2,7 +2,7 @@
 
 Gate: **V2 — episode engine approved**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -10,7 +10,13 @@ Input lock SHA-256: [hash]
 
 Operator Canvas SHA-256: [hash]
 
-Every field carries `DERIVED`, `AUTHORED` or `UNKNOWN`.
+Boundary Ledger system version: [version]
+
+Boundary Ledger semantic core: [path] · SHA-256: [hash]
+
+Boundary Ledger motion binding: [path] · status: [status] · SHA-256: [hash]
+
+Every field carries `DERIVED`, `SELECTED`, `AUTHORED` or `UNKNOWN`.
 
 ## Derived business fields
 
@@ -26,29 +32,49 @@ Every field carries `DERIVED`, `AUTHORED` or `UNKNOWN`.
 | Owned value | | §5 | `DERIVED` | yes / no |
 | Outcome object | | §5 | `DERIVED` | yes / no |
 
-## Authored visual fields
+## Derived business operations and selected Boundary Ledger bindings
 
-### Primary visual mechanic
+One row per material business-state change the episode needs to make legible. The source locator must
+point into a hash-locked Canvas, narrative spine, beat sheet, or claims map.
 
-Name: [e.g. leak and recovery loop, queue and escalation path, routing network, toll gate, capacity system, assembly line, feedback loop]
+`business_operation` is plain business language derived from the before/after state. It is not a
+brand motion name. `boundary_ledger_operation_id` and `boundary_ledger_semantic_role_id` are selected
+from the hash-pinned Boundary Ledger core and motion binding; they are not authored here.
 
-Behaviour: [how the business moves]
+| ID | Upstream path + SHA-256 | Exact locator | State before | State after | `business_operation` | Label | BL role ID | BL operation ID | Mapping rationale | Binding permits pair |
+|---|---|---|---|---|---|---|---|---|---|---|
+| BO-001 | | | | | | `DERIVED` | | | | yes / no |
 
-**Mechanical honesty statement:** [why the business actually behaves this way]
+Required checks for each row:
 
-Prohibited unless the economics genuinely compound: flywheel, gravity field, compounding effect. If one of those is proposed, state the evidence that the business compounds.
+- Before and after preserve the upstream meaning: yes / no
+- `business_operation` is traceable rather than newly invented: yes / no
+- Semantic role exists in the pinned core: yes / no
+- Operation ID exists in the pinned core: yes / no
+- Operation is allowed for that role by the pinned motion binding: yes / no
+- Mapping rationale satisfies the operation's canonical `requiredStateChange`: yes / no
 
-Label: `AUTHORED`
+**Prohibited:** episode-local motion verbs, renamed Boundary Ledger operations, Rev D motion names as
+authority, causal metaphors without upstream state, and scene/animation/renderer primitives.
 
-### Primary motion verbs
+Label for role and operation selections: `SELECTED`
 
-Three to six. Each must be a **business verb**, not a camera move.
+## Authored episode-direction fields
 
-| Verb | What it does in this business | Objects it acts on |
-|---|---|---|
-| | | |
+### Episode visual model
 
-Permitted vocabulary: capture, route, qualify, compare, assign, approve, reject, retry, escalate, hand off, price, deliver, recover, retain, measure.
+This is the mechanically honest episode-specific model Step 3 builds on top of the derived business
+state: for example a relationship leak and return model, queue, capacity model, or handoff system.
+It names the persistent actors, zones, relationships, and approved business-operation IDs the world
+must make legible. It is not a local motion vocabulary and may not name animation, scene, easing,
+renderer, or audio primitives.
+
+- Name:
+- Business-operation IDs represented:
+- Persistent actors and objects:
+- Zones and relationships:
+- Mechanical honesty statement:
+- Upstream assumptions or evidence it depends on:
 
 Label: `AUTHORED`
 
@@ -72,8 +98,11 @@ Label: `AUTHORED`
 ## Gate V2 decision
 
 - All derived fields match the locked Canvas: yes / no
-- Visual mechanic is mechanically honest: yes / no
-- Three to six business motion verbs named: yes / no
+- Every business operation matches its locked upstream before/after state: yes / no
+- Boundary Ledger core and motion-binding hashes match V1: yes / no
+- Every selected role and operation exists and every pair is permitted: yes / no
+- Episode visual model covers every business operation and remains mechanically honest: yes / no
+- No local motion vocabulary or implementation primitive is authored: yes / no
 - Reality-world bible complete: yes / no
 - Guardrails stated: yes / no
 - Every material field labelled: yes / no

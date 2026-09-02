@@ -2,7 +2,7 @@
 
 Gate: **V6 — look development approved, provisionally**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -35,7 +35,7 @@ Minimum coverage. Each frame traces to a mode treatment and to the motifs it use
 
 ## Reference stack
 
-References inform vocabulary. **No frame reproduces a named work's distinctive composition, palette or identity.**
+References inform treatment. **No frame reproduces a named work's distinctive composition, palette or identity, or supplies a replacement brand vocabulary.**
 
 | Reference | What is drawn from it | What is explicitly not drawn from it |
 |---|---|---|
@@ -46,8 +46,11 @@ Non-imitation ruling: [statement that no frame reproduces a named work's distinc
 
 A still cannot carry motion. State it in writing.
 
-| Frame | What moves | Which business verb it expresses | Before / operation / after |
-|---|---|---|---|
+| Frame | Engine business-operation ID | BL operation ID | Persistent object | Before / canonical operation / after / settle |
+|---|---|---|---|---|
+
+No row may introduce an episode-local motion name or an animation, scene, renderer, or easing
+primitive. Those are Step 4 implementation decisions.
 
 ## Gate V6 decision
 
@@ -57,6 +60,8 @@ A still cannot carry motion. State it in writing.
 - No invented data, interface or unattributed figure: yes / no
 - Reference stack named with an explicit non-imitation ruling: yes / no
 - Written motion intent accompanies the frames: yes / no
+- Every motion intent traces to an approved engine operation binding: yes / no
+- No local motion vocabulary or implementation primitive appears: yes / no
 
 Result: **provisional pass** / fail
 

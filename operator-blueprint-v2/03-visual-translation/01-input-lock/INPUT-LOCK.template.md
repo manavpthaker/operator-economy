@@ -2,7 +2,7 @@
 
 Gate: **V1 — input lock**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -42,15 +42,34 @@ Verified by: [name]
 
 **Step 3 does not proceed on a partial narration lock.** Both decisions must exist against the same hash.
 
+## Boundary Ledger semantic lock
+
+Step 3 selects from these files; it does not copy their roles or operations into a local vocabulary.
+
+| Authority | Path | Version/status | SHA-256 | Matches disk |
+|---|---|---|---|---|
+| Semantic core | `design-system/boundary-ledger/semantic-core.json` | | | yes / no |
+| Motion binding | `design-system/boundary-ledger/bindings/motion.json` | | | yes / no |
+
+- Semantic core identifies `Boundary Ledger`: yes / no
+- Core and binding declare the same system version: yes / no
+- Every operation referenced by the motion binding exists in the core: yes / no
+- Motion binding status recorded without upgrading its implementation evidence: yes / no
+
+Any hash change invalidates this lock until compatibility is reviewed and the full Step 3 acceptance
+set passes. An unchanged operation ID is not assumed semantically unchanged.
+
 ## Open change requests
 
 - Against Step 1: none / [list]
 - Against Step 2: none / [list]
+- Boundary Ledger compatibility blocker: none / [describe]
 
 ## Gate V1 decision
 
 Result: pass / fail
 
-Failure returns the package upstream. Step 3 does not repair an editorial or narration defect.
+Editorial or narration failure returns the package upstream. Boundary Ledger drift blocks Step 3
+until compatibility is reviewed. Step 3 repairs neither.
 
 Approved by: [name]

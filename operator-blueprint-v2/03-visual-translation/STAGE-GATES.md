@@ -1,6 +1,6 @@
 # Step 3 Stage Gates
 
-Status: **proposed v0.1**; test before approval. Step 3 remains boundary-only.
+Status: **proposed v0.2**; test before approval. Step 3 remains boundary-only.
 
 Standard: `VISUAL-TRANSLATION-STANDARD.md`
 
@@ -31,29 +31,45 @@ Pass only when:
 - The **word-level transcript and intentional-pause map** exist and are bound to that exact master hash and duration.
 - The locked script `W` identity reproduces its recorded token count and SHA-256.
 - The Operator Canvas, Episode Investment Thesis, narrative spine, beat sheet and claims map are present and current.
+- Boundary Ledger's `semantic-core.json` and `bindings/motion.json` exist, their recorded versions
+  and SHA-256 values match on disk, and the motion binding resolves the same semantic-core version.
 - No open change request exists against Step 1 or Step 2.
 
-Failure returns the package upstream. **Step 3 does not repair an editorial or narration defect and does not proceed on a partial narration lock.**
+An editorial or narration failure returns the package upstream. A Boundary Ledger mismatch blocks
+locally until compatibility is reviewed. **Step 3 repairs neither and does not proceed on a partial
+or stale lock.**
 
-Recorded: every input path and hash, forming the freeze this step's later gates check against.
+Recorded: every input path and hash, including the Boundary Ledger semantic core and motion binding,
+forming the freeze this step's later gates check against.
 
 ---
 
 ## Gate V2: episode engine approved
 
-**Decision:** Is this a mechanically honest model of the business, and does it agree with Step 1?
+**Decision:** Is this a mechanically honest derivation of the business, correctly bound to Boundary Ledger?
 
 Pass only when:
 
 - Every **derived** field matches the locked Operator Canvas: operator, customer and any distinct beneficiary, constraint, counter-system, owned value, outcome object. **Divergence fails the gate.** Step 3 may not re-decide a business field, and a disagreement is a change request to Step 1.
-- The **primary visual mechanic is mechanically honest.** The business must actually behave the way the mechanic depicts. A flywheel, gravity field or compounding effect fails unless the economics genuinely compound.
-- Three to six **primary motion verbs** are named, and each is a business verb rather than a camera move.
+- Every material state change records its exact upstream artifact, hash, locator, `state_before`, and
+  `state_after`; its plain-language `business_operation` preserves that locked meaning. Divergence
+  or an untraceable operation fails.
+- Every selected semantic role exists in the hash-pinned Boundary Ledger core.
+- Every `boundary_ledger_operation_id` exists in that core and is permitted for the selected role by
+  the hash-pinned motion binding.
+- The mapping rationale matches the operation's canonical `requiredStateChange`; a branded label
+  cannot substitute for a business-state derivation.
+- The **episode visual model** names persistent actors, zones, relationships, and every approved
+  business-operation ID; its mechanical-honesty statement matches the derived business state.
 - The **reality-world visual bible** names the people, places, objects and surfaces the reality layer draws from.
 - **Guardrails** state what this engine must never be made to depict.
-- Every material field carries `DERIVED`, `AUTHORED` or `UNKNOWN`.
+- No episode-local motion vocabulary, renamed operation, or implementation primitive appears.
+- Every material field carries `DERIVED`, `SELECTED`, `AUTHORED` or `UNKNOWN`.
 - Named human approval.
 
-Failure returns to the engine, or to Step 1 as a bounded change request when the defect is a business-field disagreement.
+Failure returns to the engine, or to Step 1 as a bounded change request when the defect is an
+upstream business-state disagreement. A missing Boundary Ledger operation is a design-system blocker;
+Step 3 may not mint a temporary substitute.
 
 ---
 
@@ -68,10 +84,11 @@ Pass only when:
 - Evidence anchors are bound to **claim IDs from the Step 1 claims map**, and every anchored claim exists there with matching wording authority.
 - Failure routes, money flows and human judgement gates are represented.
 - Camera anchors are defined and each is assigned a job.
-- Every object the engine's motion verbs act on exists in the world. Every world object is reachable by at least one verb, or is explicitly marked static.
+- Every object an engine operation binding acts on exists in the world. Every world object is
+  reachable by at least one engine operation-binding ID, or is explicitly marked static.
 - Named human approval.
 
-Failure returns to the world, or to the engine when the world cannot express the declared mechanic.
+Failure returns to the world, or to the engine when the world cannot express the derived operations.
 
 ---
 
@@ -85,9 +102,12 @@ Pass only when, for the act under review:
 
 - Every unit's `in` and `out` are bound to **word indices from the Step 2 transcript**. Step 3 may not estimate timing, and an estimated duration fails.
 - The act's units cover its narration continuously, with no unexplained gap and no overlap.
-- Each unit records mode, camera anchor, motion verb, carried and focused objects, world state before and after, attached evidence with its claim ID, and narrative state.
+- Each unit records mode, camera anchor, engine `business_operation_id`, matching
+  `boundary_ledger_operation_id`, carried and focused objects, world state before and after,
+  attached evidence with its claim ID, and narrative state.
 - **No unit is inert.** A unit whose `world_state_before` equals its `world_state_after` and which carries no evidence is doing nothing. It must be justified in writing or merged into its neighbour.
-- Every object and verb referenced exists in the approved world and engine.
+- Every object and business-operation binding referenced exists in the approved world and engine;
+  the unit's Boundary Ledger operation ID matches the engine binding.
 - Every attached evidence item carries its upstream evidence label. **A visual may not upgrade a label.**
 - Mode distribution is deliberate rather than incidental, and the act does not consist of one mode.
 - Named human approval for that act.
@@ -110,13 +130,15 @@ Pass only when:
 - **Emotional progression** is mapped across the episode.
 - **Mode treatments** give separate direction for reality, system, proof, outcome and identity, each naming its own camera, light, texture, movement and labelling behaviour.
 - **Persistent motifs** are recorded per world object, including prohibited metaphorical use.
-- **Screen-direction rules** define progress, reversal, failure, return and escalation, and hold consistently.
-- Composition, camera, **motion**, transition and typography grammars are defined.
-- **Motion expresses a business verb.** Every motion rule produces a readable before state, operation and after state. Motion whose purpose is to keep the frame alive fails.
+- **Screen-direction rules** define how selected Boundary Ledger operations preserve spatial continuity and hold consistently.
+- Composition, camera, transition and typography direction are defined.
+- **Boundary Ledger operation application** is defined for every selected engine operation: the
+  persistent object, stable context, before state, canonical operation, after state, and settle are
+  legible. Step 3 does not create new motion names or implementation primitives.
 - **The default transition is a cut.** Every designed transition names the relationship it explains. Wipes, transition packs, repeated elastic motion and decorative dissolves fail.
 - **Typography labels rather than narrates.** Kinetic type is reserved for a genuine thesis, reversal or warning.
 - Documentary footage doctrine and **AI plate doctrine** are stated. AI renders are never evidence.
-- Sound identity is defined.
+- Sound intent references Boundary Ledger semantic roles without defining a replacement sound vocabulary.
 - A **negative list** states what this episode will not do.
 
 ### V5b — rhythm map
@@ -141,8 +163,12 @@ Pass only when:
 - Style frames cover at minimum: reality, system explanation, evidence, recurring-object continuity, a meaningful transition, identity, failure or reversal, and measurable outcome.
 - Each frame is traceable to the direction bible's mode treatments and motifs.
 - Frames use the episode's **real text and truthful placeholder geometry**. A frame containing invented data, an invented interface or an unattributed figure fails.
-- A **reference stack** is named, with an explicit non-imitation ruling: references inform vocabulary, and no frame reproduces a named work's distinctive composition, palette or identity.
+- A **reference stack** is named, with an explicit non-imitation ruling: references inform treatment,
+  not brand semantics or implementation vocabulary, and no frame reproduces a named work's
+  distinctive composition, palette or identity.
 - Written **motion intent** accompanies the frames, because a still cannot carry it.
+- Every motion intent names an approved engine `business_operation_id` and its matching Boundary
+  Ledger operation ID. An authored motion label or renderer primitive fails.
 
 **This approval is provisional by rule.** Style frames cannot validate a motion format. Step 4's motion test may return the look to Step 3, and that return is expected rather than exceptional. Recording a look as finally approved at V6 is itself a defect.
 
@@ -156,14 +182,19 @@ Pass only when:
 
 - V1 through V6 are `passed` and every recorded hash matches.
 - Every act of the visual plan is approved.
-- Engine, world, plan, bible, rhythm map and look are mutually consistent: every verb, object, mode, motif and evidence anchor referenced in one exists in the others.
+- Engine, world, plan, bible, rhythm map and look are mutually consistent: every operation binding,
+  object, mode, motif and evidence anchor referenced in one exists in the others.
+- The Boundary Ledger semantic-core and motion-binding versions and hashes still match the V1 lock.
+- Every operation trace is intact from upstream state through engine binding, plan unit, direction,
+  and look intent; no artifact authors a replacement motion vocabulary or implementation primitive.
 - The **audio-only rule** holds: no load-bearing element of buyer, problem, company, first offer, human responsibility, economics boundary, principal risk or first action exists only in a visual.
 - **No runtime is named anywhere in the locked artifacts.** Toolchain choice belongs to Steps 4 through 6.
 - Every `UNKNOWN` is classified as a Step 4 test question, a later-stage blocker, or a current lock blocker. A current lock blocker fails the gate.
 - The look is recorded as **provisional**, with the Step 4 return path stated.
 - Named human approval, and the visual-translation lock hash.
 
-After this gate, Step 4 may direct shots. Step 4 may not re-decide the engine, the world, the plan's timing, or the episode's meaning.
+After this gate, Step 4 may direct shots. Step 4 may not re-decide the engine, the world, the plan's
+timing, the selected Boundary Ledger semantics, or the episode's meaning.
 
 ---
 
@@ -171,6 +202,8 @@ After this gate, Step 4 may direct shots. Step 4 may not re-decide the engine, t
 
 - A **new Step 1 editorial lock** invalidates every Step 3 artifact.
 - A **new Step 2 narration lock, or any change to the narration master** invalidates the visual plan and the rhythm map, because both are bound to word-level timing. Engine, world and bible survive if no meaning changed, and that must be written down rather than assumed.
+- A **new Boundary Ledger semantic-core or motion-binding hash** invalidates V1 through V7 until a
+  compatibility ruling is recorded. An unchanged operation ID is not assumed semantically unchanged.
 - A **changed engine** invalidates the world, plan, bible and rhythm map.
 - A **changed world** invalidates the plan and the rhythm map.
 - A **changed direction bible** invalidates look development, and invalidates any act of the plan whose direction depended on the changed field.

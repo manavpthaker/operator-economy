@@ -2,7 +2,7 @@
 
 Gate: **V5a — direction bible approved**
 
-Template version: proposed Step 3 v0.1
+Template version: proposed Step 3 v0.2
 
 Episode: EP###
 
@@ -41,20 +41,16 @@ Each mode gets its own direction. They must be distinguishable on sight.
 
 One row per recurring world object.
 
-| Object ID | Material form | Colour and contrast role | Allowed states | Meaning | First appearance | Evolution | Final resolution | **Prohibited metaphorical use** |
+| Object ID | Material form | Boundary Ledger semantic role ID(s) | Allowed states | Meaning | First appearance | Evolution | Final resolution | **Prohibited metaphorical use** |
 |---|---|---|---|---|---|---|---|---|
 
 ## Screen-direction rules
 
 Held consistently across the episode.
 
-| Event | Direction | Rationale |
-|---|---|---|
-| Progress | | |
-| Reversal | | |
-| Failure | | |
-| Return | | |
-| Escalation | | |
+| Selected BL operation | Direction | Persistent carrier | Rationale |
+|---|---|---|---|
+| | | | |
 
 ## Grammars
 
@@ -62,19 +58,21 @@ Held consistently across the episode.
 
 ### Camera
 
-### Motion
+### Boundary Ledger operation application
 
-**Every motion rule must produce a readable before state, an operation, and an after state.** Motion whose purpose is to keep the frame alive fails Gate V5a.
+This table applies approved engine bindings. It may not name a local motion verb, rename a Boundary
+Ledger operation, or specify an animation/scene/renderer primitive.
 
-| Motion | Business verb it expresses | Before | Operation | After |
-|---|---|---|---|---|
+| Business-operation ID | Derived business operation | BL role ID | BL operation ID | Stable context | Before | Canonical operation | After | Settle |
+|---|---|---|---|---|---|---|---|---|
 
 ### Transition
 
-**The default transition is a cut.** Every designed transition names the relationship it explains.
+**The default transition is a cut.** Step 3 may identify a relationship whose continuity Step 4 must
+preserve; it may not invent or prescribe an implementation transition primitive.
 
-| Transition | Relationship it explains | Where permitted |
-|---|---|---|
+| Relationship to preserve | Carrier | Axis/direction constraint | Where permitted |
+|---|---|---|---|
 
 Prohibited: wipes, transition packs, repeated elastic motion, decorative dissolves.
 
@@ -83,6 +81,10 @@ Prohibited: wipes, transition packs, repeated elastic motion, decorative dissolv
 **Text labels components and parameters. It does not reproduce narration.** Kinetic type is reserved for a genuine thesis, reversal or warning.
 
 ## Surface, texture, colour and light
+
+Resolve semantic roles through the applicable Boundary Ledger binding. Episode direction may vary
+composition, material form, light, and emphasis; it may not assign a new meaning to a role or create
+a competing accent vocabulary.
 
 ## Documentary footage doctrine
 
@@ -94,7 +96,11 @@ Roles permitted, sourcing standard, and what footage may never be asked to prove
 
 Disclosure required on upload: yes / no
 
-## Sound identity
+## Sound intent
+
+State where silence, human context, evidence arrival, dependency, commitment, or actual risk matters
+to the episode. Reference Boundary Ledger semantic role IDs. Do not author a replacement brand sound
+palette, cue library, mix rule, or audio implementation primitive in Step 3.
 
 ## Negative list
 
@@ -109,11 +115,12 @@ The specific things this episode will not do.
 - Five mode treatments distinguishable on sight: yes / no
 - Motifs recorded per object including prohibited metaphorical use: yes / no
 - Screen-direction rules consistent: yes / no
-- Every motion rule has before, operation, after: yes / no
-- Default transition is a cut; every designed transition explains a relationship: yes / no
+- Every operation application traces to an engine binding and preserves before, canonical operation, after, and settle: yes / no
+- No local motion vocabulary or implementation primitive appears: yes / no
+- Default transition is a cut; every continuity exception names a real relationship: yes / no
 - Typography labels rather than narrates: yes / no
 - Footage and AI plate doctrine stated; AI renders never evidence: yes / no
-- Sound identity defined: yes / no
+- Sound intent references Boundary Ledger semantics without redefining them: yes / no
 - Negative list present: yes / no
 
 Result: pass / fail

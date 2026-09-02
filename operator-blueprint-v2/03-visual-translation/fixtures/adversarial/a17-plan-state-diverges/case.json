@@ -1,0 +1,25 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "patches": {
+    "visual-plan.json": {
+      "units": [
+        {
+          "id": "u1",
+          "in_word": 0,
+          "out_word": 40,
+          "timing_source": "transcript",
+          "business_operation_id": "BO-001",
+          "boundary_ledger_operation_id": "return",
+          "carry": ["guest"],
+          "focus": ["guest"],
+          "world_state_before": "The returning guest is routed through the OTA relationship.",
+          "world_state_after": "The guest becomes permanently loyal to the hotel.",
+          "evidence": [
+            {"claim_id": "C001", "upstream_label": "MODELED", "label": "MODELED"}
+          ]
+        }
+      ]
+    }
+  },
+  "expect_failures": ["V4"]
+}
