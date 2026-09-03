@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './styles/globals.css';
 
 export const metadata: Metadata = {
-  title: 'The Operator Economy — Businesses one experienced person can build.',
+  title: 'The Operator Economy',
   description:
-    "Every Monday: one real business one experienced person can build and run — the companies proving it works, the exact stack and what it costs, the honest math. Plus the free Operator Blueprint to build from.",
+    'Evidence-led business investigations and working documents for people deciding what to test, revise, or reject.',
   metadataBase: new URL('https://theoperatoreconomy.com'),
   openGraph: {
     title: 'The Operator Economy',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body data-oe-theme="boundary-ledger">{children}</body>
     </html>
   );
 }

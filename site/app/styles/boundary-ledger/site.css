@@ -1,0 +1,627 @@
+/* Operator Economy site binding on Boundary Ledger.
+   Loads after design-system/boundary-ledger/styles.css. Adds only the page-level
+   pieces the field manual does not define (navigation, forms, filters, the guided
+   walkthrough, evidence-class data labels). Every value is a --bl-* token; no new hue,
+   no grids, no chips, no gold. Scoped to the same theme selector. */
+
+/* Site-only width trial. Page composition can be wide; reading measure stays independent.
+   Screen scope keeps the print specimens and canonical Boundary Ledger tokens unchanged. */
+@media screen {
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-shell: 92.5rem;
+    --bl-page-gutter: 1.5rem;
+    --bl-site-reading-measure: 65ch;
+    --bl-site-hero-measure: 72rem;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-shell :where(p) {
+    max-width: var(--bl-site-reading-measure);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-anatomy li > span {
+    max-width: var(--bl-site-reading-measure);
+  }
+}
+
+@media screen and (min-width: 901px) {
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-page-gutter: clamp(2.5rem, 3.35vw, 3rem);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero {
+    max-width: var(--bl-site-hero-measure);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero > .bl-episode-feature__intro {
+    max-width: none;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero h1 {
+    max-width: 22ch;
+  }
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--bl-space-2) var(--bl-space-5);
+  color: var(--bl-steel-dark);
+  font-size: 0.92rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-nav a {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-underline-offset: 0.24em;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-nav a[aria-current="page"] {
+  color: var(--bl-ink);
+  text-decoration-thickness: 2px;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bl-space-3) var(--bl-space-6);
+  margin-top: var(--bl-space-6);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-actions .bl-action:first-child {
+  color: var(--bl-oxide-dark);
+}
+
+/* The operation is one physical document: accountable title block joined to working paper. */
+:where([data-oe-theme="boundary-ledger"]) .oe-hero {
+  max-width: 58rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, .62fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: center;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-page-hero > .bl-episode-feature__intro {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-page-hero__accent {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-page-hero__accent img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-section-mark {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: var(--bl-space-4);
+  color: var(--bl-steel-dark);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet {
+  display: grid;
+  grid-template-columns: minmax(20rem, 0.72fr) minmax(0, 1.28fr);
+  align-items: stretch;
+  margin-top: clamp(4rem, 9vw, 7rem);
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket,
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-working-model {
+  border: 0;
+  border-radius: 0;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket {
+  border-right: var(--bl-hairline) solid var(--bl-rule-on-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-working-model {
+  background: var(--bl-paper-raised);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet .bl-working-model img {
+  height: 100%;
+  min-height: 28rem;
+  object-fit: contain;
+}
+
+:where([data-oe-theme="boundary-ledger"]).oe-home .oe-operation-sheet .bl-docket__row:last-child {
+  grid-template-columns: 1fr;
+}
+
+:where([data-oe-theme="boundary-ledger"]).oe-home .oe-operation-sheet .bl-docket__row:last-child dd {
+  text-align: left;
+}
+
+/* Full-width material changes make chapter boundaries legible while preserving the shell. */
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised,
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+  position: relative;
+  isolation: isolate;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised::before,
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset::before,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  content: "";
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised::before {
+  border-block: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-paper-raised);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset::before {
+  border-block: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-paper-inset);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-active-chapter::before {
+  border-top: 3px solid var(--bl-oxide);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-collection {
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(5rem, 10vw, 8rem);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-collection .oe-filters {
+  margin-top: 0;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-legacy-opening .bl-disclosure {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+/* Homepage hierarchy: four reader-facing moves, not a field manual. */
+:where([data-oe-theme="boundary-ledger"]) .oe-value {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: start;
+  padding-block: clamp(5.5rem, 11vw, 9rem);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro h2,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust h2 {
+  max-width: 17ch;
+  margin: var(--bl-space-3) 0 var(--bl-space-4);
+  font-family: var(--bl-font-heading);
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro > p:not(.bl-chapter__number),
+:where([data-oe-theme="boundary-ledger"]) .oe-trust > p:not(.bl-chapter__number) {
+  max-width: 36rem;
+  color: var(--bl-ink-muted);
+  font-size: 1.05rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro .bl-action {
+  display: inline-block;
+  margin-top: var(--bl-space-5);
+  color: var(--bl-oxide-dark);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--bl-space-5);
+  padding: var(--bl-space-6) 0;
+  border-bottom: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list li > span {
+  color: var(--bl-steel);
+  font-family: var(--bl-font-data);
+  font-size: 0.76rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list strong {
+  display: block;
+  font-family: var(--bl-font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.05;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list p {
+  max-width: 34rem;
+  margin: var(--bl-space-2) 0 0;
+  color: var(--bl-ink-muted);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-section {
+  padding-block: clamp(5rem, 10vw, 8rem);
+  border-top: var(--bl-hairline) solid var(--bl-rule);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust {
+  margin-block: clamp(2rem, 5vw, 4rem) clamp(5rem, 10vw, 8rem);
+  padding: clamp(2rem, 5vw, 4.5rem);
+  background: var(--bl-paper-inset);
+  border-left: 3px solid var(--bl-steel);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+  margin-block: 0;
+  padding-block: clamp(5rem, 10vw, 8rem);
+  padding-inline: 0;
+  border-left: 0;
+  background: transparent;
+  color: var(--bl-paper-on-mineral);
+}
+
+@media screen {
+  :where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+    padding-inline: var(--bl-page-gutter);
+  }
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral::before {
+  background: var(--bl-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral h2 {
+  color: var(--bl-paper-on-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral > p:not(.bl-chapter__number) {
+  color: var(--bl-paper-on-mineral-muted);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral .bl-chapter__number,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral .bl-text-link {
+  color: var(--bl-oxide-bright);
+}
+
+/* Evidence class: accountable data, typeset, never a colored badge. */
+:where([data-oe-theme="boundary-ledger"]) .oe-class {
+  color: var(--bl-steel-dark);
+  font-family: var(--bl-font-data);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-class a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-class a:hover {
+  text-decoration: underline;
+}
+
+/* Ledger rows that carry a statement plus its class. */
+:where([data-oe-theme="boundary-ledger"]) .bl-ledger-row p {
+  max-width: var(--bl-site-reading-measure, 44rem);
+  margin: 0;
+  color: var(--bl-ink-soft);
+}
+
+/* Episode rows read as separate records, not one compressed text block. */
+:where([data-oe-theme="boundary-ledger"]) .bl-library-row {
+  padding-block: var(--bl-space-6);
+  border-top: var(--bl-hairline) solid var(--bl-rule);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .bl-library-row:last-child {
+  border-bottom: var(--bl-hairline) solid var(--bl-rule);
+}
+
+/* Three comparable views, separated by rules, never blended. */
+:where([data-oe-theme="boundary-ledger"]) .oe-three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-rule-strong);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three > article {
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--bl-paper-raised);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three h3 {
+  margin: var(--bl-space-3) 0 var(--bl-space-2);
+  font-family: var(--bl-font-heading);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  line-height: 1.02;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three p {
+  margin: 0 0 var(--bl-space-4);
+  color: var(--bl-ink-muted);
+  font-size: 0.95rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three dl {
+  margin: 0;
+  border-top: var(--bl-hairline) solid var(--bl-rule);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three dl div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--bl-space-3);
+  padding: var(--bl-space-2) 0;
+  border-bottom: var(--bl-hairline) solid var(--bl-rule);
+  font-family: var(--bl-font-data);
+  font-size: 0.74rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-three dt { color: var(--bl-ink-muted); margin: 0; }
+:where([data-oe-theme="boundary-ledger"]) .oe-three dd { margin: 0; text-align: right; }
+
+/* Stop conditions are actual negative exceptions: the one place risk color appears. */
+:where([data-oe-theme="boundary-ledger"]) .oe-stop {
+  border-left: 3px solid var(--bl-risk);
+  padding-left: var(--bl-space-5);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-stop h3 {
+  color: var(--bl-risk);
+}
+
+/* Forms: paper form with oxide focus; mineral form on the subscription band. */
+:where([data-oe-theme="boundary-ledger"]) .oe-form {
+  display: grid;
+  gap: var(--bl-space-3);
+  max-width: 30rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form label {
+  color: var(--bl-ink-muted);
+  font-family: var(--bl-font-data);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form input[type="email"] {
+  min-block-size: 44px;
+  padding: 0 var(--bl-space-4);
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  border-radius: var(--bl-radius);
+  background: var(--bl-paper-raised);
+  color: var(--bl-ink);
+  font: inherit;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form button {
+  min-block-size: 44px;
+  width: fit-content;
+  padding: 0 var(--bl-space-5);
+  border: var(--bl-hairline) solid var(--bl-mineral);
+  border-radius: var(--bl-radius);
+  background: var(--bl-mineral);
+  color: var(--bl-paper-on-mineral);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form button:hover { background: var(--bl-mineral-deep); }
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form .oe-consent {
+  display: flex;
+  gap: var(--bl-space-3);
+  align-items: flex-start;
+  color: var(--bl-ink-soft);
+  font-size: 0.92rem;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--bl-font-body);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-form .oe-consent input { margin-top: 0.3rem; }
+:where([data-oe-theme="boundary-ledger"]) .oe-form [disabled] { opacity: 0.55; cursor: not-allowed; }
+:where([data-oe-theme="boundary-ledger"]) .oe-form small { color: var(--bl-ink-muted); font-size: 0.82rem; }
+
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form { max-width: 26rem; }
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form input[type="email"] {
+  border-color: var(--bl-rule-on-mineral);
+  background: var(--bl-mineral-deep);
+  color: var(--bl-paper-on-mineral);
+}
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form button {
+  border-color: var(--bl-oxide-bright);
+  background: transparent;
+  color: var(--bl-oxide-bright);
+}
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form small { color: var(--bl-paper-on-mineral-faint); }
+
+/* Library filters: quiet editorial controls, not pills. */
+:where([data-oe-theme="boundary-ledger"]) .oe-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bl-space-2) var(--bl-space-5);
+  margin: var(--bl-space-5) 0 var(--bl-space-6);
+  border-bottom: var(--bl-hairline) solid var(--bl-rule);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-filters button {
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--bl-steel-dark);
+  font: inherit;
+  cursor: pointer;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-filters button[aria-pressed="true"] {
+  border-bottom-color: var(--bl-oxide);
+  color: var(--bl-ink);
+}
+
+/* Guided walkthrough: one toggle; guidance renders as decision notes. */
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-toggle {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bl-space-3);
+  padding: 0 var(--bl-space-4);
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  border-radius: var(--bl-radius);
+  background: var(--bl-paper-raised);
+  color: var(--bl-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-toggle i {
+  width: 2.1rem;
+  height: 1.1rem;
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  border-radius: 1rem;
+  background: var(--bl-paper-inset);
+  position: relative;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-toggle i::after {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 0.8rem; height: 0.8rem;
+  border-radius: 50%;
+  background: var(--bl-steel);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-toggle[aria-pressed="true"] i { background: var(--bl-mineral); }
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-toggle[aria-pressed="true"] i::after { left: calc(100% - 0.95rem); background: var(--bl-oxide-bright); }
+
+:where([data-oe-theme="boundary-ledger"]) .oe-guide { display: none; margin-bottom: var(--bl-space-6); }
+:where([data-oe-theme="boundary-ledger"]) .guide-on .oe-guide { display: block; }
+:where([data-oe-theme="boundary-ledger"]) .oe-guide ul { margin: var(--bl-space-3) 0 0; padding-left: 1.1rem; color: var(--bl-ink-soft); }
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-controls { display: none; gap: var(--bl-space-5); margin-top: var(--bl-space-6); }
+:where([data-oe-theme="boundary-ledger"]) .guide-on .oe-guide-controls { display: flex; flex-wrap: wrap; }
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-controls button {
+  min-block-size: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bl-steel-dark);
+  font: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.24em;
+  cursor: pointer;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-controls button.next { color: var(--bl-oxide-dark); }
+:where([data-oe-theme="boundary-ledger"]) .oe-guide-controls button[disabled] { opacity: 0.4; cursor: default; }
+
+/* Sheet index on the Canvas page: quiet anchor nav that tracks position. */
+:where([data-oe-theme="boundary-ledger"]) .bl-anchor-nav a[aria-current="true"] {
+  color: var(--bl-ink);
+  text-decoration-thickness: 2px;
+}
+
+/* Capability ledger: three facts per row. */
+:where([data-oe-theme="boundary-ledger"]) .oe-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--bl-space-4);
+  margin: 0;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-facts div { min-width: 0; }
+:where([data-oe-theme="boundary-ledger"]) .oe-facts dt {
+  color: var(--bl-steel);
+  font-family: var(--bl-font-data);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-facts dd { margin: var(--bl-space-1) 0 0; color: var(--bl-ink-soft); font-size: 0.95rem; }
+
+/* Site footer */
+:where([data-oe-theme="boundary-ledger"]) .oe-footer-nav { display: flex; flex-wrap: wrap; gap: var(--bl-space-2) var(--bl-space-5); }
+:where([data-oe-theme="boundary-ledger"]) .oe-footer-nav a { min-block-size: 44px; display: inline-flex; align-items: center; color: var(--bl-steel-dark); }
+:where([data-oe-theme="boundary-ledger"]) .oe-mark { color: var(--bl-ink-muted); font-family: var(--bl-font-data); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Media: the episode is supporting material below the tool. */
+:where([data-oe-theme="boundary-ledger"]) .oe-media {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--bl-radius);
+  background: var(--bl-mineral);
+  color: var(--bl-oxide-bright);
+  text-decoration: none;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-video span {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--bl-space-4);
+  border: var(--bl-hairline) solid var(--bl-oxide-bright);
+  border-radius: var(--bl-radius);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+
+@media (max-width: 900px) {
+  :where([data-oe-theme="boundary-ledger"]) .oe-page-hero { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-page-hero__accent { max-width: 28rem; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket { border-right: 0; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet .bl-working-model img { min-height: 0; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-value { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-three { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-media { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner { grid-template-columns: 1fr; row-gap: var(--bl-space-2); }
+  :where([data-oe-theme="boundary-ledger"]) .oe-nav { justify-content: flex-start; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-facts { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-class { white-space: normal; }
+}

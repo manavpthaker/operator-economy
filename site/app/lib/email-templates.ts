@@ -1,6 +1,6 @@
 // OE-branded email templates for the three subscribe tags.
 // One shared shell (wordmark + footer), three variants (newsletter / blueprint / notify).
-// System font stacks only — no web-font @import; the Boska/Zodiak feel is approximated
+// System font stacks only. No web-font @import; the Boska/Zodiak feel is approximated
 // with Georgia + system mono so Gmail/Outlook/Apple Mail render consistently.
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/operator-economy/';
@@ -83,7 +83,7 @@ function wordmarkRow(): string {
 function signoffRow(): string {
   return `<tr><td style="padding:36px 40px 24px 40px;border-top:1px solid ${COLORS.rule};">
 <div style="font-family:${SERIF};font-size:14px;line-height:1.5;color:${COLORS.ink700};">Build it. Own it. Operate it.</div>
-<div style="font-family:${SERIF};font-size:14px;line-height:1.5;color:${COLORS.ink700};">&mdash; Manav</div>
+<div style="font-family:${SERIF};font-size:14px;line-height:1.5;color:${COLORS.ink700};">Manav</div>
 </td></tr>`;
 }
 
@@ -95,7 +95,7 @@ function footerRow(unsubscribeUrl?: string): string {
     : '';
   return `<tr><td style="padding:0 40px 28px 40px;">
 <div style="font-family:${MONO};font-size:10.5px;line-height:1.6;letter-spacing:0.02em;color:${COLORS.ink500};">
-Replies aren&rsquo;t monitored &mdash; this is a send-only mailbox.<br />
+Replies aren&rsquo;t monitored. This is a send-only mailbox.<br />
 Follow along on LinkedIn: <a href="${LINKEDIN_URL}" style="color:${COLORS.gold};text-decoration:none;border-bottom:1px solid ${COLORS.gold};">${LINKEDIN_DISPLAY}</a>
 </div>
 ${unsub}
@@ -162,29 +162,29 @@ export function renderWelcomeEmail(
   unsubscribeUrl: string
 ): RenderedEmail {
   if (vars.tag === 'newsletter') {
-    const subject = 'You are on the Monday note.';
+    const subject = 'You are subscribed to The Operator Economy.';
     const rows = [
-      headline('You&rsquo;re on the Monday note.'),
+      headline('You&rsquo;re subscribed.'),
       body(
-        'One email a week, Monday morning. One business one experienced person could build and run &mdash; with the sources, the honest math, and the failure modes.'
+        'When a new business ships, you&rsquo;ll get the episode and its working document, with the sources, assumptions, and failure modes kept visible.'
       ),
       body('No drip. No sequence.'),
-      metaRule('Next send &middot; Monday &middot; 8:00 ET'),
+      metaRule('The Operator Economy &middot; new work only'),
     ].join('\n');
     // Rebuild wrap to inject unsubscribe into the footer.
     const html = wrapWithUnsub(subject, rows, unsubscribeUrl);
-    const text = `You're on the Monday note.
+    const text = `You're subscribed to The Operator Economy.
 
-One email a week, Monday morning. One business one experienced person could build and run — with the sources, the honest math, and the failure modes.
+When a new business ships, you'll get the episode and its working document, with the sources, assumptions, and failure modes kept visible.
 
 No drip. No sequence.
 
-Next send · Monday · 8:00 ET
+The Operator Economy · new work only
 
 Build it. Own it. Operate it.
-— Manav
+Manav
 
-Replies aren't monitored — this is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
+Replies aren't monitored. This is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
 
 Unsubscribe: ${unsubscribeUrl}`;
     return { subject, html, text };
@@ -193,40 +193,38 @@ Unsubscribe: ${unsubscribeUrl}`;
   if (vars.tag.startsWith('blueprint:')) {
     const v = vars as BlueprintVars;
     const num = pad(v.episode.number);
-    const subject = `Operator Blueprint №${num} — ${v.episode.title}`;
+    const subject = `Operator Blueprint №${num}: ${v.episode.title}`;
     const pdfHref = `${v.siteUrl}/blueprints/${v.episode.slug}.pdf`;
     const cta = v.pdfAvailable
       ? ctaBlock(pdfHref, 'Download the PDF &rarr;')
       : bodyMuted(
-          'The PDF ships with the episode &mdash; I&rsquo;ll email you the moment it&rsquo;s ready.'
+          'The PDF ships with the episode. I&rsquo;ll email you the moment it&rsquo;s ready.'
         );
     const rows = [
       goldLabelRow(`Operator Blueprint &#8470;${num}`),
       `<tr><td style="padding:6px 40px 8px 40px;"><div style="font-family:${SERIF};font-weight:700;font-size:26px;line-height:1.2;letter-spacing:-0.01em;color:${COLORS.ink};">${escapeHtml(v.episode.title)}.</div></td></tr>`,
       body(
-        'Here it is. Every citation is real; every price is public. If any number bounces off your gut, the source is in the footnote &mdash; go check it.'
+        'Here it is. Each published claim carries its source or estimate label so you can inspect it.'
       ),
       cta,
-      bodyMuted(
-        'You&rsquo;re also on the Monday note. One email a week with the next Blueprint.'
-      ),
+      bodyMuted('This delivery does not subscribe you to the newsletter.'),
     ].join('\n');
     const html = wrapWithUnsub(subject, rows, unsubscribeUrl);
     const pdfLine = v.pdfAvailable
       ? `Download the PDF: ${pdfHref}`
-      : `The PDF ships with the episode — I'll email you the moment it's ready.`;
-    const text = `Operator Blueprint №${num} — ${v.episode.title}
+      : `The PDF ships with the episode. I'll email you the moment it's ready.`;
+    const text = `Operator Blueprint №${num}: ${v.episode.title}
 
-Here it is. Every citation is real; every price is public. If any number bounces off your gut, the source is in the footnote — go check it.
+Here it is. Each published claim carries its source or estimate label so you can inspect it.
 
 ${pdfLine}
 
-You're also on the Monday note. One email a week with the next Blueprint.
+This delivery does not subscribe you to the newsletter.
 
 Build it. Own it. Operate it.
-— Manav
+Manav
 
-Replies aren't monitored — this is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
+Replies aren't monitored. This is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
 
 Unsubscribe: ${unsubscribeUrl}`;
     return { subject, html, text };
@@ -239,24 +237,21 @@ Unsubscribe: ${unsubscribeUrl}`;
   const rows = [
     headline(`Filed. You&rsquo;ll get one email when &#8470;${num} is live.`),
     body(
-      `On the send day I&rsquo;ll email you the video, the Blueprint PDF, and the sourced honest math behind &ldquo;${escapeHtml(v.episode.title)}.&rdquo; That&rsquo;s it &mdash; nothing else in between.`
+      `When it is live, I&rsquo;ll email you the episode and its published working document for &ldquo;${escapeHtml(v.episode.title)}.&rdquo; That&rsquo;s it. Nothing else in between.`
     ),
-    metaRule('Publishing &middot; Monday &middot; 8:00 ET'),
-    bodyMuted('You&rsquo;re also on the Monday note.'),
+    bodyMuted('This notification does not subscribe you to the newsletter.'),
   ].join('\n');
   const html = wrapWithUnsub(subject, rows, unsubscribeUrl);
   const text = `Filed. You'll get one email when №${num} is live.
 
-On the send day I'll email you the video, the Blueprint PDF, and the sourced honest math behind "${v.episode.title}." That's it — nothing else in between.
+When it is live, I'll email you the episode and its published working document for "${v.episode.title}." That's it. Nothing else in between.
 
-Publishing · Monday · 8:00 ET
-
-You're also on the Monday note.
+This notification does not subscribe you to the newsletter.
 
 Build it. Own it. Operate it.
-— Manav
+Manav
 
-Replies aren't monitored — this is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
+Replies aren't monitored. This is a send-only mailbox. Follow along on LinkedIn: ${LINKEDIN_URL}
 
 Unsubscribe: ${unsubscribeUrl}`;
   return { subject, html, text };
