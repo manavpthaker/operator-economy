@@ -20,7 +20,7 @@ Company-level verdict drafted at E3I: **BUILD** (argued against the thirty-day p
 |---|---|
 | Step 0 intake | promoted 2026-09-03 on owner calibration-zone review (Reviewer A 71, Reviewer B 64); observed model for the category, solo economics modeled |
 | Step 0 amendment 01 | recorded 2026-09-03: CLM-013 verified at source; CLM-007 mechanism verified, figure not confirmed; wizard test open |
-| E1 handoff | verified from disk; owner acceptance pending |
+| E1 handoff | verified from disk; owner accepted 2026-09-03 |
 | E2 editorial contract | approved 2026-09-03 |
 | E3 Operator Canvas | approved 2026-09-03 |
 | E3I Investment Thesis | approved 2026-09-03 |
@@ -29,7 +29,7 @@ Company-level verdict drafted at E3I: **BUILD** (argued against the thirty-day p
 | Voice-and-comedy map | approved 2026-09-03 |
 | E5 script review | seven adversarial passes run and dispositioned; integrated revision v0.2 |
 | E5V editorial voice | approved 2026-09-03 |
-| E6 script lock | **PENDING OWNER COLD READ**; one pre-lock condition (wizard sandbox test) open |
+| E6 script lock | **LOCKED 2026-09-03** by Manav Thaker; the wizard sandbox test stays open and does not block |
 | Step 2 narration | authorized; N1 handoff in progress |
 | Steps 3-8 | boundary-only |
 

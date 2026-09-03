@@ -6,7 +6,7 @@ Slug: `direct-booking-recovery`
 
 Candidate ID: `candidate-2026-09-03-direct-booking-recovery`
 
-Status: **Step 1 editorial development, drafted through E5V, every gate pending owner approval**
+Status: **Step 1 LOCKED at E6 on 2026-09-03; Step 2 narration production authorized**
 
 This is the V2 rescript of the legacy premise published as EP006 ("Hotels Pay 30% to Book Their Own Rooms"). EP006 keeps its number, its V1 artifacts under `studio/originate/direct-booking-recovery/`, and its launch record. Only `studio/originate/direct-booking-recovery/launch/links.json` may state that episode's URL. Nothing here restates it.
 
@@ -55,7 +55,7 @@ EP009-direct-booking-recovery/
     ├── step0-amendment-request-01.md
     ├── editorial-voice-conformity.md
     ├── review-disposition.md
-    └── editorial-lock.md              draft, PENDING OWNER COLD READ
+    └── editorial-lock.md              LOCKED 2026-09-03
 ```
 
 Hashes for every file are recorded in `01-editorial/editorial-lock.md`.
