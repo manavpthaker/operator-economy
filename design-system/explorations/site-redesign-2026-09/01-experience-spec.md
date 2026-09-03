@@ -68,6 +68,22 @@ The Operator Economy thesis is not an operation and does not appear in Businesse
 durable argument is synthesized into Method under `Why this exists`; the original release
 may remain in the historical episode registry without being presented as a buildable business.
 
+### 1C. Cross-page material hierarchy (2026-09-03)
+
+Every page uses material changes to distinguish a change in reader task, not to create an
+alternating stripe pattern:
+
+- **Raised paper:** orientation, summaries, active tests, and download utility.
+- **Inset paper:** evidence inspection, media records, and historical detail.
+- **Mineral:** governing purpose, publication standards, and format boundaries.
+- **Oxide:** the active test or decision edge, never a general highlight color.
+- **Risk:** stop conditions only.
+
+Major chapters receive a full-width material field or a strong rule. Subsections inside a
+chapter remain on the same material so headings and body text do not become a stack of
+undifferentiated modules. The component and print specimens document this hierarchy but
+remain internal design-review surfaces.
+
 ## 2. Homepage anatomy
 
 The Canvas is never embedded here. Target length: ~5 viewports desktop.

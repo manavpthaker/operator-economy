@@ -395,3 +395,15 @@ secondary metadata. The same naming model is applied to the other library specim
 The Operator Economy thesis is removed from the homepage and Businesses because it is not a
 buildable operation. Its durable premise is synthesized into Method under `Why this exists`.
 This does not delete or alter the historical episode record.
+
+## 2026-09-03 — Material hierarchy extended across the artboard set
+
+The homepage's material hierarchy now governs Canvas, Method, Businesses, Legacy, the component
+sheet, and the print specimen. Canvas separates summary, evidence, first test, media, and download;
+Method separates purpose, evidence, standards, and revisions; Businesses separates orientation
+from the operation ledger and format boundary; Legacy separates the historical boundary, media,
+economics, and download. The component sheet now documents `OperationSheet` as the integrated
+docket-and-working-model component, and the print specimen removes decorative opening labels.
+
+Colors are assigned by Boundary Ledger role rather than alternated mechanically. This remains an
+artboard-system change, not a production-site migration or release approval.
