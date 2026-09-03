@@ -1,6 +1,6 @@
 # Operator Canvas: a helpdesk setup practice
 
-Status: drafted; owner lock pending
+Status: locked (owner, 2026-09-03)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -456,10 +456,12 @@ Biggest risk: the vendor closes the gap.
 
 ## Canvas lock
 
-Decision: recommend lock (showrunner); owner decision pending
+Decision: **lock** (showrunner recommendation was lock)
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
-Approval date: pending
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.

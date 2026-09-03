@@ -1,6 +1,6 @@
 # Episode outline: a direct-booking practice
 
-Status: **drafted, owner approval pending** (Gate E4B)
+Status: **approved** (owner, 2026-09-03) (Gate E4B)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -342,12 +342,14 @@ Exact final like-and-subscribe sentence: as above.
 
 ## Approval
 
-Decision: **drafted, owner approval pending.** Showrunner recommendation: recommend approve.
+Decision: **approve.** Showrunner recommendation was: recommend approve.
 
 Owner decision required: approve the sequence order and the placement of the buyer's ceiling in Act I and the operator's arithmetic in Act II.
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
-Approval date: (pending)
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock. Do not place a self-hash inside this file.

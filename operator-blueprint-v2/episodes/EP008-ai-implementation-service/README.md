@@ -21,16 +21,16 @@ Company-level verdict drafted at E3I: **BUILD** (argued against the thirty-day p
 | Step 0 intake | promoted 2026-09-03 on owner calibration-zone review (Reviewer A 71, Reviewer B 64); observed model for the category, solo economics modeled |
 | Step 0 amendment 01 | recorded 2026-09-03: CLM-013 verified at source; CLM-007 mechanism verified, figure not confirmed; wizard test open |
 | E1 handoff | verified from disk; owner acceptance pending |
-| E2 editorial contract | drafted; owner approval pending |
-| E3 Operator Canvas | drafted; owner lock pending |
-| E3I Investment Thesis | drafted, BUILD recommended; owner approval pending |
-| E4 narrative spine | drafted; owner approval pending |
-| E4B beat sheet and outline | drafted; owner approval pending |
-| Voice-and-comedy map | drafted; owner approval pending |
+| E2 editorial contract | approved 2026-09-03 |
+| E3 Operator Canvas | approved 2026-09-03 |
+| E3I Investment Thesis | approved 2026-09-03 |
+| E4 narrative spine | approved 2026-09-03 |
+| E4B beat sheet and outline | approved 2026-09-03 |
+| Voice-and-comedy map | approved 2026-09-03 |
 | E5 script review | seven adversarial passes run and dispositioned; integrated revision v0.2 |
-| E5V editorial voice | reviewer recommendation recorded; owner cold read pending |
+| E5V editorial voice | approved 2026-09-03 |
 | E6 script lock | **PENDING OWNER COLD READ**; one pre-lock condition (wizard sandbox test) open |
-| Step 2 narration | not started; requires the owner lock |
+| Step 2 narration | authorized; N1 handoff in progress |
 | Steps 3-8 | boundary-only |
 
 Number assignment follows `../README.md`: Step 1 assigns the next number only after a current promotion record passes Gate E1. EP007 (`exit-readiness-prep`, locked 2026-09-01) is the last assigned number in the series.

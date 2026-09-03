@@ -1,6 +1,6 @@
 # Review disposition: a direct-booking practice
 
-Status: **complete** (v0.1 reviewed, v0.2 integrated, owner cold read pending)
+Status: **complete** (v0.1 reviewed, v0.2 integrated, owner cold read passed 2026-09-03)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -128,18 +128,18 @@ No claim was added, widened, or restated beyond the claims map during integratio
 
 - Integrated script SHA-256: `7590c5d8bff9bc6d6d8c83460bce8a5244af1a898eb70130b653a8668336eb69`
 - Integrated performance read-through SHA-256: `b6017bf833eaeb48f9e92b86b607c883ef5271eba060aed9ef38d3c92c85b856`
-- One continuous clean read completed: (pending, owner)
+- One continuous clean read completed: yes, owner, 2026-09-03
 - Lines instinctively rewritten, or `none`: (pending)
 - Seam where the argument was lost or reset, or `none`: (pending)
 - Passage rejected as report-like, dense, or inauthentic, or `none`: (pending)
-- Owner decision: (pending)
-- Owner rationale: (pending)
-- Owner/signature/date: (pending)
+- Owner decision: **approve**
+- Owner rationale: package approved as integrated; direct voice-match answer "Yes, both"
+- Owner/signature/date: Manav Thaker, 2026-09-03
 
 An owner `revise`, spontaneous rewrite, lost seam, or rejected voice reopens this disposition and requires a new integrated hash.
 
-Decision: **complete, owner approval pending.** Showrunner recommendation: recommend the owner proceed to the cold read.
+Decision: **complete, owner approved 2026-09-03.** Showrunner recommendation was: recommend the owner proceed to the cold read.
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
 Calculate the SHA-256 after this approval record is complete. Store it in the editorial lock. Do not place a self-hash inside this file.

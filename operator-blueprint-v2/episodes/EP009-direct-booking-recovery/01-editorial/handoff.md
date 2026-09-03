@@ -4,7 +4,7 @@ Template version: approved `operator-blueprint-v2-step1-v1.4`
 
 Gate: **E1, handoff integrity**
 
-Result: **drafted, owner approval pending.** Showrunner finding: every E1 requirement verifies against disk. Recommend accept.
+Result: **PASS.** Owner accepted 2026-09-03. Showrunner finding: every E1 requirement verifies against disk. Recommend accept.
 
 Episode number: **EP009** (assigned at this gate on the coordinator's instruction, never reused, never changed)
 
@@ -76,7 +76,7 @@ Supplementary, verified: Reviewer B adversarial review `fa42f54c9130f93431a7a8c9
 
 ## Handoff decision
 
-Decision: **drafted, owner approval pending.** Showrunner recommendation: accept into Step 1.
+Decision: **accept into Step 1.**
 
 Reason: the promotion record is current, all six bound hashes verify, no refresh date has passed, the public framing and caveats are carried above, and the one remaining pre-lock condition is recorded with the decision the owner must make.
 
@@ -84,9 +84,11 @@ Episode number assigned: EP009
 
 Episode workspace authorized: yes, created 2026-09-03 at `operator-blueprint-v2/episodes/EP009-direct-booking-recovery/`
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
-Approval date: (pending)
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 ## Downstream route and boundary
 

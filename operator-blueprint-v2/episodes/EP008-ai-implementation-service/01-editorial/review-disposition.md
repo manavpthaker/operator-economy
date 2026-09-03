@@ -1,6 +1,6 @@
 # Review disposition: a helpdesk setup practice
 
-Status: complete (showrunner integration); owner cold-read closure pending
+Status: complete (showrunner integration); owner cold read passed 2026-09-03
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -128,14 +128,14 @@ Lane outcomes on v0.2: operator, no lane-specific blocker; story, no lane-specif
 - Lines instinctively rewritten, or `none`: **pending**
 - Seam where the argument was lost or reset, or `none`: **pending**
 - Passage rejected as report-like, dense, or inauthentic, or `none`: **pending**
-- Owner decision: **pending**
-- Owner rationale: **pending**
-- Owner/signature/date: **pending**
+- Owner decision: **approve**
+- Owner rationale: package approved as integrated; direct voice-match answer "Yes, both"
+- Owner/signature/date: Manav Thaker, 2026-09-03
 
 An owner `revise`, spontaneous rewrite, lost seam, or rejected voice reopens disposition and requires a new integrated hash. Reviewer consensus and mechanical passes cannot override it.
 
-Decision: complete at the showrunner level; owner cold read pending
+Decision: **complete**; owner cold read passed 2026-09-03
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
 Calculate the SHA-256 after this approval record is complete. Store it in the editorial lock; do not place a self-hash inside this file.

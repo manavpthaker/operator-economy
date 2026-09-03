@@ -13,15 +13,15 @@ This is the V2 rescript of the legacy premise published as EP006 ("Hotels Pay 30
 | Stage | State |
 |---|---|
 | Step 0 intake | promoted 2026-09-03 on owner calibration-zone review (Reviewer A 70, Reviewer B 61), adjacent synthesis. Evidence amendment 01 recorded 2026-09-03 (Booking.com partner pages opened at source). |
-| Step 1, E1 handoff | drafted, owner approval pending. All six bound hashes verify. One pre-lock condition satisfied (partner pages), one satisfied by wording and recorded for owner decision (US band dependence). |
-| Step 1, E2 contract | drafted, owner approval pending |
-| Step 1, E3 Canvas | drafted, owner approval pending |
-| Step 1, E3I investment thesis | drafted, owner approval pending. Showrunner recommends BUILD, bounded, with PARK recorded as the alternative. |
-| Step 1, E4 narrative, E4B beats and outline, voice map | drafted, owner approval pending |
-| Step 1, E5 script review | drafted (v0.2 integrated from seven adversarial passes, v0.3 after a performance re-check), owner approval pending. One bounded Step 0 amendment request raised (`step0-amendment-request-01.md`). |
-| Step 1, E5V voice conformity | reviewer recommendation `clear for owner voice test`. Owner cold read pending. |
-| Step 1, E6 lock | **PENDING OWNER COLD READ.** Draft lock with every hash filled and owner fields blank. |
-| Step 2 narration | not started. Requires the owner lock. No narration handoff, canonical-w.txt, or spoken-identity.json exists yet. |
+| Step 1, E1 handoff | accepted by the owner 2026-09-03. All six bound hashes verify. One pre-lock condition satisfied (partner pages), one satisfied by wording and recorded for owner decision (US band dependence). |
+| Step 1, E2 contract | approved 2026-09-03 |
+| Step 1, E3 Canvas | approved 2026-09-03 |
+| Step 1, E3I investment thesis | approved 2026-09-03: BUILD, bounded. PARK was recorded as the alternative and not taken. |
+| Step 1, E4 narrative, E4B beats and outline, voice map | approved 2026-09-03 |
+| Step 1, E5 script review | approved 2026-09-03 (v0.2 integrated from seven adversarial passes, v0.3 after a performance re-check). One bounded Step 0 amendment request raised (`step0-amendment-request-01.md`). |
+| Step 1, E5V voice conformity | **pass.** Reviewer: clear for owner voice test; owner cold read passed 2026-09-03, answer "Yes, both". |
+| Step 1, E6 lock | **LOCKED 2026-09-03** by Manav Thaker. |
+| Step 2 narration | authorized; N1 handoff in progress |
 | Steps 3 to 8 | boundary-only |
 
 ## Owner decisions required, in order

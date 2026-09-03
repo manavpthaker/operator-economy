@@ -1,6 +1,6 @@
 # Episode Investment Thesis: a helpdesk setup practice
 
-Status: drafted; owner approval pending
+Status: approved (owner, 2026-09-03)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -37,13 +37,13 @@ This artifact locks the company the episode recommends, why it is worth building
 
 Source changes or unresolved hash mismatches: none.
 
-Gate E3 status: drafted; owner lock pending (this thesis is written on the assumption the Canvas locks as drafted; if the owner changes a Canvas field, repeat E3I)
+Gate E3 status: locked (owner, 2026-09-03)
 
 Operator-Canvas SHA-256: `b2a7f15e0da25835657cf9645c8257563ed31d70494589513d02ec293520451f`
 
-E3 approving owner: pending (Manav Thaker)
+E3 approving owner: Manav Thaker
 
-E3 approval date: pending
+E3 approval date: 2026-09-03
 
 ## Show thesis
 
@@ -604,7 +604,7 @@ Balance check:
 
 ## Gate E3I readiness check
 
-- [x] Gate E3 drafted and the recorded Canvas hash matches (owner lock pending).
+- [x] Gate E3 locked and the recorded Canvas hash matches.
 - [x] All source hashes are recorded and verified.
 - [x] The show thesis is connected to this specific operator, problem, and business-of-one model.
 - [x] The public category title and spoken company name pass the read-aloud test and do not carry the entire explanation.
@@ -624,15 +624,15 @@ Balance check:
 - [x] The 30-day and 90-day plans begin constructing the company while testing the weakest assumptions.
 - [x] The episode commits roughly equal narrative energy to the opportunity case and the operator build case (55/45).
 - [x] Claims and authorization boundaries are clear.
-- [ ] Named human approval is present: **pending**.
+- [x] Named human approval is present: Manav Thaker, 2026-09-03.
 
 ## Gate E3I approval
 
-Decision: recommend approve (showrunner); owner decision pending
+Decision: **approve** (showrunner recommendation was approve)
 
 Investment recommendation: **BUILD**
 
-Gate E3I status: drafted; owner approval pending
+Gate E3I status: approved
 
 Approved short public category title: Helpdesk AI setup (proposed)
 
@@ -648,9 +648,11 @@ Approved BUILD verdict: as stated above (proposed)
 
 Unresolved caveats that do not block narrative development: the wizard test (pre-lock condition, carried to E6); the Gorgias per-resolution figure (excluded).
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
-Approval date: pending
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Approval note: The decision the owner must give is whether BUILD is honest against the thirty-day plan given that no sub-$3M brand has been observed paying for this and the base case fails the compensation target. The showrunner's recommendation is yes, because the cost of finding out is ten dollars and forty hours and every stop rule fires inside the thirty days.
 

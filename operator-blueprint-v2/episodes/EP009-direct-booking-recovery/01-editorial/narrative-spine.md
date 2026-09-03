@@ -1,6 +1,6 @@
 # Narrative spine: a direct-booking practice
 
-Status: **drafted, owner approval pending** (Gate E4)
+Status: **approved** (owner, 2026-09-03) (Gate E4)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -10,11 +10,11 @@ Editorial-contract SHA-256: `6d48cd1c7d4217800df0d0f05e4c75bd489e6b7f385df4a4b9b
 
 Operator-Canvas SHA-256: `ac26ef455272ef63046e181305311bf2754bf18cb19448d2d90d1b0fc4538847`
 
-Operator-Canvas Gate E3 status: drafted for lock, owner approval pending
+Operator-Canvas Gate E3 status: locked
 
 Episode-Investment-Thesis SHA-256: `293cee76cb0bea309e5d37d629177a21d3cb51082095256005872d2ba95c189c`
 
-Episode-Investment-Thesis Gate E3I status: drafted, owner approval pending
+Episode-Investment-Thesis Gate E3I status: approved
 
 Claims-map revision: v0.2 / `2863880e2874184ae23b4b707faacfbd0ebcd116f46539b5cda0433b1846dc50`
 
@@ -331,12 +331,14 @@ What would invalidate the thesis: no owner in the band funds $600 a month, agenc
 
 ## Approval
 
-Decision: **drafted, owner approval pending.** Showrunner recommendation: recommend approve.
+Decision: **approve.** Showrunner recommendation was: recommend approve.
 
 Owner decision required: approve the guest's two stays as the carrier, the guest book as the governing analogy, and the foothold ruling as the honest centre of the ending.
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
-Approval date: (pending)
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock. Do not place a self-hash inside this file.

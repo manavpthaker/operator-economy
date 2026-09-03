@@ -1,6 +1,6 @@
 # Narrative spine: a helpdesk setup practice
 
-Status: drafted; owner approval pending
+Status: approved (owner, 2026-09-03)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -10,11 +10,11 @@ Editorial-contract SHA-256: `e97b5039486803b986fe20b68655cb6888072a42eec7a0a0be9
 
 Operator-Canvas SHA-256: `b2a7f15e0da25835657cf9645c8257563ed31d70494589513d02ec293520451f`
 
-Operator-Canvas Gate E3 status: drafted; owner lock pending (narrative written on the assumption the Canvas locks as drafted)
+Operator-Canvas Gate E3 status: locked (owner, 2026-09-03) (narrative written on the assumption the Canvas locks as drafted)
 
 Episode-Investment-Thesis SHA-256: `c2a7ea3efd9cc3ef376a54bc4b65d76a9ae6ac406aa1007fc26f26f0828b2375`
 
-Episode-Investment-Thesis Gate E3I status: drafted; owner approval pending
+Episode-Investment-Thesis Gate E3I status: approved
 
 Gate: E4. The decision the owner must give: does the episode work as a story rather than a checklist?
 
@@ -304,10 +304,12 @@ Second objection, ruled honestly: "A store this size won't pay four thousand for
 
 ## Approval
 
-Decision: recommend approve (showrunner); owner decision pending
+Decision: **approve** (showrunner recommendation was approve)
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
-Approval date: pending
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.

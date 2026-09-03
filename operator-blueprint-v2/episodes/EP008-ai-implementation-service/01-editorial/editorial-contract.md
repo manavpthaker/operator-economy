@@ -1,6 +1,6 @@
 # Editorial contract: Helpdesk AI setup for small Shopify brands
 
-Status: drafted; owner approval pending
+Status: approved (owner, 2026-09-03)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -205,10 +205,12 @@ A skeptical viewer finishes this episode able to:
 
 ## Approval
 
-Decision: recommend approve (showrunner); owner decision pending
+Decision: **approve** (showrunner recommendation was approve)
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
-Approval date: pending
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.

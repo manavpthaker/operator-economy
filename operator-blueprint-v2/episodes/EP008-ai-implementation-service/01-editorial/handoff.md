@@ -4,9 +4,9 @@ Gate: **E1 — handoff integrity**
 
 Template version: approved `operator-blueprint-v2-step1-v1.4` (handoff checklist)
 
-Result: **verified by the showrunner; owner approval pending**
+Result: **PASS** (owner accepted 2026-09-03)
 
-Status: drafted; owner approval pending. The decision the owner must give: accept this package into Step 1 and confirm the EP008 number assignment.
+Status: accepted (owner, 2026-09-03). The decision the owner must give: accept this package into Step 1 and confirm the EP008 number assignment.
 
 Verified: 2026-09-03
 
@@ -87,7 +87,7 @@ Frozen copies of all nine files, with hashes, are in `00-intake/promotion-packag
 
 ## Handoff decision
 
-Decision: **accept into Step 1** (showrunner recommendation; owner approval pending)
+Decision: **accept into Step 1**
 
 Reason: the promotion is current, all six bound hashes match, no refresh date has passed, the public-framing contract and caveats are present, and the remaining pre-lock condition (wizard test) is a bounded validation action that does not block drafting.
 
@@ -95,9 +95,11 @@ Episode number assigned: **EP008** (proposed at this gate; confirmed by the owne
 
 Episode workspace authorized: yes, for drafting; no owner approval is recorded in this file
 
-Approved by: owner approval pending (Manav Thaker)
+Approved by: Manav Thaker
 
-Approval date: pending
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 ## Downstream route and boundary
 

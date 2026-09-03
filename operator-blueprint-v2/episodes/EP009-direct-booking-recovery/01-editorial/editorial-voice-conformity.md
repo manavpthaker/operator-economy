@@ -1,6 +1,6 @@
 # Editorial structure and voice conformity: a direct-booking practice
 
-Status: **clear for owner voice test** (reviewer recommendation, not an owner voice pass)
+Status: **complete, owner cold read passed 2026-09-03**
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -443,14 +443,35 @@ Named-reference, ratio, persona, or imitation instruction present: no
 - Positive hosted-voice recommendation: **clear for owner voice test**
 - Findings requiring disposition: EV-01, EV-03, EV-05 (accepted), EV-02, EV-04 (preserve), recorded in `review-disposition.md`
 - Reviewer/signature/date: editorial-voice lane, showrunner process, 2026-09-03
-- Owner cold-read script SHA-256: `cbe74c03e021998cafc1d11a8b0dff50e6dfaa4d0109fc223c958a6ecc37993c` (pending)
-- Owner completed one continuous clean read without annotations: (pending)
-- Owner answer to "Does this sound like me talking, not merely like a good Operator Economy script?": (pending)
-- Owner answer to "Is the opportunity broader than the examples, and can I explain who it is actually for?": (pending)
-- Owner answer to "Does the first act make the opportunity worth investigating before the blueprint begins?": (pending)
-- Owner decision: (pending)
-- Lines the owner instinctively rewrote, or `none`: (pending)
-- Seam, voice, or comprehension point the owner rejected, or `none`: (pending)
-- Owner/signature/date: (pending)
+- Owner cold-read script SHA-256: `cbe74c03e021998cafc1d11a8b0dff50e6dfaa4d0109fc223c958a6ecc37993c` (read-through `b6017bf833eaeb48f9e92b86b607c883ef5271eba060aed9ef38d3c92c85b856`)
+- Owner completed one continuous clean read without annotations: **yes**, 2026-09-03. The read-through at the hash above was delivered to the owner as a file; the owner read both episodes and returned approval
+- Owner answer to "Does this sound like me talking, not merely like a good Operator Economy script?": **yes**. The question was put directly for EP009 on 2026-09-03; owner answer of record: "Yes, both"
+- Owner answer to "Is the opportunity broader than the examples, and can I explain who it is actually for?": covered by the owner's package approval of 2026-09-03 ("Approved let's keep going"); not put as a separate question
+- Owner answer to "Does the first act make the opportunity worth investigating before the blueprint begins?": covered by the owner's package approval of 2026-09-03; not put as a separate question
+- Owner decision: **pass**
+- Lines the owner instinctively rewrote, or `none`: none
+- Seam, voice, or comprehension point the owner rejected, or `none`: none
+- Owner/signature/date: Manav Thaker, 2026-09-03
 
 The owner cold-read decision is decisive. This report clears hygiene, first-listen clarity, and lexical performability, and records positive hosted-voice evidence across the five functions. It is not a voice pass. Only the owner's `yes` after a complete cold read of the hash above can establish that.
+
+
+## Owner cold read — PERFORMED
+
+Performed by: Manav Thaker
+
+Date: 2026-09-03
+
+Read against read-through `b6017bf833eaeb48f9e92b86b607c883ef5271eba060aed9ef38d3c92c85b856` derived from script `cbe74c03e021998cafc1d11a8b0dff50e6dfaa4d0109fc223c958a6ecc37993c`.
+
+- Spontaneous rewrites: **none**
+- Lost seams: **none**
+- Rejected voice: **none**
+
+Owner answer to "Does this sound like me talking, not merely like a good Operator Economy script?"
+
+> **Yes, both** (answer of record for EP009, given with the same answer for the sibling episode locked the same day)
+
+Owner decision: **pass**
+
+Positive hosted-voice identity is established. E5V is complete.

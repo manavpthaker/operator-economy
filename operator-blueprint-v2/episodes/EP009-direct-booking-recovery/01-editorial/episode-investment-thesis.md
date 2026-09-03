@@ -1,6 +1,6 @@
 # Episode investment thesis: a direct-booking practice
 
-Status: **drafted, owner approval pending** (Gate E3I)
+Status: **approved** (owner, 2026-09-03) (Gate E3I)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -8,31 +8,31 @@ Episode: EP009
 
 Candidate ID: `candidate-2026-09-03-direct-booking-recovery`
 
-Gate position: Operator Canvas drafted for E3 lock, this thesis drafted for E3I, narrative development drafted behind both pending owner approval.
+Gate position: Operator Canvas locked at E3 and this thesis approved at E3I by the owner on 2026-09-03; narrative development approved behind both.
 
 ## Source freeze
 
 | Source artifact | Role | Revision or status | SHA-256 | Hash verified |
 |---|---|---|---|---|
-| Step 0 handoff | evidence and public-framing boundary | drafted, owner approval pending | `85cae34f9d4bb2e6dfaffc8f10e2353fc22174be6629fdd3cbdd2ae9a07acec2` | yes |
+| Step 0 handoff | evidence and public-framing boundary | approved 2026-09-03 | `85cae34f9d4bb2e6dfaffc8f10e2353fc22174be6629fdd3cbdd2ae9a07acec2` | yes |
 | Step 0 promotion record | editorial authorization and caveats | promoted 2026-09-03 | `ba90634c507e5e6f22017ed34e4e5deb75613d187a46c30287da6d4572031529` | yes |
 | Step 0 research brief | market, buyer, problem, parallel evidence | reviewed | `07c61fa3fca535f9569670dbe73c6e823eaa3ab33ba5e67f7c22519a5194e5d7` | yes |
 | Step 0 evidence amendment 01 | primary Booking.com pages | recorded 2026-09-03 | `7e37ea2cababf9035036898530f3f7ad2984ae79db2c2415b402e4364c93ec53` | yes |
 | Step 0 scorecard and Canvas gate | candidate decision and feasibility | reviewed | `9955b26c75614ee684d7758e31f0349e870bd5c8e04d34d44d32a0651b60df62`, `da23ab7ad96039c65afb52268c850bf36219d7dac607da0361db891d231eb4e7` | yes |
-| Editorial contract | viewer, promise, exclusions | drafted, owner approval pending | `6d48cd1c7d4217800df0d0f05e4c75bd489e6b7f385df4a4b9bd6d0d645dc682` | yes |
+| Editorial contract | viewer, promise, exclusions | approved 2026-09-03 | `6d48cd1c7d4217800df0d0f05e4c75bd489e6b7f385df4a4b9bd6d0d645dc682` | yes |
 | Operator Canvas | complete operating model | drafted for E3 lock | `ac26ef455272ef63046e181305311bf2754bf18cb19448d2d90d1b0fc4538847` | yes |
 | Claims map | permitted language | v0.2 | `2863880e2874184ae23b4b707faacfbd0ebcd116f46539b5cda0433b1846dc50` | yes |
 | Content OS facts and voice | universal truth and language | live | `facts.md` `d1b67dd431b36dcf201b8c42053c663ef47c6c34e5bde272daedb9eabcc9a201`, `voice.md` `3b9b9400f9f2ac6aeaff09d62cca2092c322a969447bbc85d161b56a42d0d20e` | yes |
 
 Source changes or unresolved hash mismatches: none.
 
-Gate E3 status: drafted, owner lock pending. This thesis is written against the drafted Canvas and is invalidated if the owner changes a Canvas field at E3.
+Gate E3 status: locked (owner, 2026-09-03).
 
 Operator-Canvas SHA-256: `ac26ef455272ef63046e181305311bf2754bf18cb19448d2d90d1b0fc4538847`
 
-E3 approving owner: (pending)
+E3 approving owner: Manav Thaker
 
-E3 approval date: (pending)
+E3 approval date: 2026-09-03
 
 ## Show thesis
 
@@ -75,7 +75,7 @@ Candidate line:
 - [x] No stack of abstract nouns.
 - [x] Leaves room for the conditional expansion (up the band, audit-only).
 
-Naming decision: **approve recommended** (owner decision pending)
+Naming decision: **approved** (owner, 2026-09-03)
 
 Naming note: "a direct-booking practice" was preferred over "a guest-recovery practice" (outcome implied, and "recovery" mishears) and over "a direct-booking service" ("practice" carries judgment, which is the product).
 
@@ -563,15 +563,15 @@ Balance check:
 - [x] 30 and 90 day plans construct while testing the weakest assumptions
 - [x] Roughly equal narrative energy to both halves (55 / 45)
 - [x] Claims and authorization boundaries clear
-- [ ] Named human approval present (owner decision pending)
+- [x] Named human approval present: Manav Thaker, 2026-09-03
 
 ## Gate E3I approval
 
-Decision: **drafted, owner approval pending.** Showrunner recommendation: recommend approve with BUILD, bounded.
+Decision: **approve.** Showrunner recommendation was: recommend approve with BUILD, bounded.
 
 Investment recommendation: BUILD (recommended)
 
-Gate E3I status: not reached (owner decision pending)
+Gate E3I status: approved (owner, 2026-09-03)
 
 Approved short public category title: Direct-booking recovery (recommended)
 
@@ -589,10 +589,12 @@ Unresolved caveats that do not block narrative development: R001 (messaging-wind
 
 Owner decision required: BUILD (bounded) or PARK, and the spoken company name.
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
-Approval date: (pending)
+Approval date: 2026-09-03
 
-Approval note: (pending)
+Owner statement of record (2026-09-03): "Approved let's keep going"
+
+Approval note: owner statement of record, 2026-09-03: "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in every dependent narrative artifact and the editorial lock. Do not place a self-hash inside this file.

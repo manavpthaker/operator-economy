@@ -1,6 +1,6 @@
 # Operator Canvas: a direct-booking practice
 
-Status: **drafted, owner approval pending** (Gate E3 lock recommended)
+Status: **approved** (owner, 2026-09-03) (Gate E3 lock recommended)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -429,12 +429,14 @@ Biggest risk: no owner in the band pays.
 
 ## Canvas lock
 
-Decision: **drafted, owner approval pending.** Showrunner recommendation: recommend lock.
+Decision: **lock.** Showrunner recommendation was: recommend lock.
 
 Owner decision required: lock this operating model, including the bottom-of-band foothold ruling and the six-property capacity boundary, as the model the episode teaches.
 
-Approved by: (owner decision pending)
+Approved by: Manav Thaker
 
-Approval date: (pending)
+Approval date: 2026-09-03
+
+Owner statement of record (2026-09-03): "Approved let's keep going"
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock. Do not place a self-hash inside this file.
