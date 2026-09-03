@@ -407,3 +407,20 @@ docket-and-working-model component, and the print specimen removes decorative op
 
 Colors are assigned by Boundary Ledger role rather than alternated mechanically. This remains an
 artboard-system change, not a production-site migration or release approval.
+
+## 2026-09-03 — Working-paper icon and accent language drafted
+
+The owner requested a reusable illustration and iconography language derived from the locked EP006
+Working Model. A draft support system now provides nine SVG symbols and three editorial accents for
+actors, places, workflows, evidence, economics, tests, stop conditions, routes, and operator loops.
+Method and Businesses use hero accents; Canvas uses small section icons. The homepage retains the
+full Working Model as its hero illustration rather than adding a competing accent.
+
+Roughness is authored through doubled contours, construction passes, open joins, overshoots, and
+sparse hatching; no wobble filter is used. Typeset copy continues to own labels, evidence, status,
+and attribution. Oxide appears only on a decision, pin, test, correction, or owned route. The draft
+explicitly rejects generic innovation icons and cannot serve as evidence.
+
+The library is reviewable at `design-system/boundary-ledger/illustration-system.html`. Assets and
+hashes are recorded in `illustration/system/manifest.json`. Status remains draft for owner review;
+the EP006 reference remains unchanged and locked.

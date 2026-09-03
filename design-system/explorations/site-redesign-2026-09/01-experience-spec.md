@@ -224,9 +224,16 @@ only), risk (actual failed conditions only).
 | ProvenancePanel | `LedgerRow`s with the three hashes and revision history |
 | LibraryCard | `bl-library-row` |
 | Stop conditions | `oe-stop` list (the only risk-color use) |
+| Section icon | Working-paper SVG symbol at 24–52px; steel by default; hidden from assistive technology when a visible heading supplies the name |
+| Editorial accent | Authored actor/route relationship from `illustration/system/`; supports a hero or chapter opening and carries no episode facts or evidence claims |
 
 Artboards: `artboards/boundary-ledger/` (homepage, canvas-page, method, library,
 legacy-episode, components, pdf) with `site.css` as the site binding.
+
+Draft illustration reference: `design-system/boundary-ledger/illustration-system.html`.
+This supporting layer does not replace the episode-specific 3:2 Working Model. Icons are
+redrawn for small-scale recognition; editorial accents remain foreground content and are
+removed when they do not improve orientation or comprehension.
 
 ## 4. `/method` anatomy (B3, desktop + mobile)
 

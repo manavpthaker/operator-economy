@@ -74,7 +74,7 @@ captions, metadata, upload handoff, and release validation.
 | Artifact | SHA-256 |
 |---|---|
 | `design-system/explorations/site-redesign-2026-09/00-product-contract.md` | `b09ca647ae0fb14da8a5d0fd24f5f34db57d7d34f7fdb3ab89a16899f72cca67` |
-| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `9bd197243aed7a0091d72273b414182430e2ed5956fc2ee4cf3e13d1c058ed33` |
+| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `79004940bb7507dd1a3870804354960b10750ae8750a0d8f18738c59827a1174` |
 | `design-system/explorations/site-redesign-2026-09/02-canvas-data-contract.md` | `20dcd546b855b60b35d53e99ab9dc518f7a893245a84e21cfa1ec339945a366d` |
 | `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `087fca70ec91d307a1be7427766adee97f7942548f023665c556a1b3b0182e52` |
 | `…/artboards/B1-canvas-page.html` | `f338ab78188aebcff47180ce4a36a33da2b223d8601743667b542ffca526798a` |
@@ -90,11 +90,11 @@ captions, metadata, upload handoff, and release validation.
 
 | Artifact | SHA-256 |
 |---|---|
-| `…/artboards/boundary-ledger/site.css` | `f4b4e3587afd485c47cd26c30ac088d2ad4236352642d7a421a3e8c3006f92b2` |
+| `…/artboards/boundary-ledger/site.css` | `851a0544e38c1faeafda0eed9b9b52824381eef0c9f2bbdec1f6d558cc788605` |
 | `…/artboards/boundary-ledger/homepage.html` | `22c4e5932ed5d596d65bda25b77472af7115af51d03533396f33c29ae8dc72fb` |
-| `…/artboards/boundary-ledger/canvas-page.html` | `0f0f73940315ce7e264a8cb0c8cb8131e50898b0f6759fe5e37f218f127003b8` |
-| `…/artboards/boundary-ledger/method.html` | `6ffdb6a0efe6d7012fe61d792d6682f1b7ff43249f5be0b7650f105ff789c59b` |
-| `…/artboards/boundary-ledger/library.html` | `9627bc9726fbd9fc04c15775a2e18dd714a2f061ffbb7215262336b1c4d81518` |
+| `…/artboards/boundary-ledger/canvas-page.html` | `d35a7d61113aa09e588963081af92507929b821c6fecadef2f98ebfe12e5e531` |
+| `…/artboards/boundary-ledger/method.html` | `61aae71026f9f4c98075de3150ba82bb29e6b4f5bd131235161d4b457c060add` |
+| `…/artboards/boundary-ledger/library.html` | `fce1462867cbb09363c2b5ea79ab0ff6e5b6614bbee79dd8cfdf62a30ca876cd` |
 | `…/artboards/boundary-ledger/legacy-episode.html` | `c2d5ee95cdfc6fc8f2d8700b33298997cada4ef577ba5a93da5bb0106cfae830` |
 | `…/artboards/boundary-ledger/components.html` | `bc4545060e6308e3af851c861a14ff9926a22450f757b80fc4ad8ee61571979c` |
 | `…/artboards/boundary-ledger/pdf.html` | `11f3b58cf14b2b2917c56758fd6142fe862550659fe1b28381bd33d21d9cd663` |
@@ -102,6 +102,16 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
 | `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |
 | `design-system/boundary-ledger/illustration/episode-006/hotel-working-model.jpg` (locked reference) | `083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712` |
+| `design-system/boundary-ledger/illustration-system.html` (draft support system) | `01db93558218260dffd296b3150c978f6b649ec860c736cc62169d98e42f8331` |
+| `design-system/boundary-ledger/illustration-system.css` | `d99a5c6d30ab0d71785b98004cfb6bb0b43d6a02468333c42f4998efd826a390` |
+| `design-system/boundary-ledger/illustration/system/manifest.json` | `9c6029a32b59acf97d483a3ef96f50e37cdf21e6514e48ed0ef7b3bf8dd1d456` |
+| `design-system/boundary-ledger/illustration/system/icons.svg` | `718c0bf828bf457e64e7108472875fc45ab29b0dbd6d3806e0529c7364e734d5` |
+| `design-system/boundary-ledger/illustration/system/owned-route.svg` | `6bc643653ad256dde6a96b19bd906b36ce58e9e56dea555786d28ff4b4019917` |
+| `design-system/boundary-ledger/illustration/system/evidence-pin.svg` | `c29ce33ba5e031a4df770a28f197fa56dbf1ebae9c6910a7fca24a2a7d804810` |
+| `design-system/boundary-ledger/illustration/system/operator-loop.svg` | `f7480740a45c341242a9b673a8750ca6baa7764a2ab464d94eb9e62be8538379` |
+| `design-system/boundary-ledger/illustration-language.md` | `1e05ecba2d0a094531b5fb35cc9398412ac4f5009b2e13fb1241fae3a329d9e9` |
+| `design-system/boundary-ledger/README.md` | `4a3615c7f0623e29951898780e61d7a8e3e7bf9d92b005e7f88e8f4399789599` |
+| `design-system/boundary-ledger/manifest.json` | `ea0adb6da7403365d0d6f0bd82b167cdeeb7f40b8c8dbfc634ef92fa414c58aa` |
 
 The B-series artboards (`B1`–`B9`) listed above are retained as **historical input** from
 the Rev C round; they are no longer the proposed standard. Visual authority for the
@@ -121,8 +131,9 @@ without a hash.
   locked-promise fidelity rule binding final packaging.
 - Claim the boundary-only Step 7 duties: final title and thumbnail, captions, metadata,
   upload handoff, release validation.
-- Alter Boundary Ledger itself, promote Rev D, or change the design-system token layer;
-  the site binding (`site.css`) adds page-level pieces on BL tokens only.
+- Change Boundary Ledger's semantic core, role meanings, palette, type, or locked EP006 reference.
+  The draft supporting illustration library extends the existing Working Model language and remains
+  unapproved; the site binding (`site.css`) adds page-level pieces on BL tokens only.
 - Relabel, modify, or migrate any V1 artifact.
 - Change the design-system token layer (the sage-700 AA finding is recorded as a
   recommendation for the design-system owner, not enacted).

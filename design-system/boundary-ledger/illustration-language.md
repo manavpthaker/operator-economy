@@ -54,6 +54,26 @@ If they fail at mobile scale, make a separate mobile drawing. Do not crop the de
 
 ## Surface bindings
 
+### Icons and editorial accents
+
+The Working Model may be reduced into a supporting icon or accent only when the reduced mark still
+names an actor, operation, route, evidence attachment, test, or stop condition. This supporting
+system is intentionally narrower than the episode illustration language.
+
+- Icons use a recognizable primary contour plus no more than one lighter construction pass.
+- Standard icon sizes are 24px and 32px. Above 72px, authored doubled contours may become visible.
+- Editorial accents use a complete relationship at 3:2 or another authored composition. They do
+  not contain episode facts, calculations, source claims, or simulated handwriting.
+- Oxide appears only when the icon or accent represents the active decision, correction, test, or
+  owned path. Most icons remain steel only.
+- Icons paired with visible labels are decorative to assistive technology. Icon-only controls need
+  an accessible name. Meaningful accents receive relationship-based alt text.
+- Never scale a hero accent down and call it an icon. Redraw for the simpler information task.
+
+The draft reference library is [`illustration-system.html`](./illustration-system.html). Reusable
+assets live in [`illustration/system/`](./illustration/system/). This draft does not alter the
+locked EP006 reference or claim canonical approval for a new episode illustration.
+
 ### Web and static editorial
 
 - The illustration is foreground content, never a page background.
@@ -93,6 +113,9 @@ If they fail at mobile scale, make a separate mobile drawing. Do not crop the de
 - Handwritten labels are required to identify the basic model.
 - The drawing uses coffee stains, torn edges, tape, notebook spirals, or scrapbook props.
 - The illustration depicts generic business activity instead of the episode's actual relationship.
+- An icon uses a generic lightbulb, rocket, brain, sparkle, handshake, or growth arrow where an
+  operation-specific actor or route is available.
+- A decorative accent could be removed without changing orientation or comprehension.
 
 ## Episode handoff checklist
 

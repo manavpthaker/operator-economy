@@ -70,6 +70,8 @@ caption policy, commitment overlap, audio provenance, and retirement paths:
 - [component-contracts.md](./component-contracts.md) — web DOM bindings plus scene-component map.
 - [illustration-language.md](./illustration-language.md) — generation, adaptation, and rejection
   contract for rough Working Models.
+- [illustration-system.html](./illustration-system.html) — draft icon and editorial-accent library
+  derived from the locked Working Model language.
 
 ## Web binding
 
