@@ -364,3 +364,19 @@ The Step 7 proposal's normative references now list the BL artboards and the BL 
 files they depend on; the Rev C artboards remain listed as historical input. Boundary
 Ledger's own status is unchanged by this work: the production site remains an unmigrated
 Rev C consumer until a separately scoped migration is implemented and verified.
+
+## 2026-09-03 — Public hierarchy and copy pass
+
+The Boundary Ledger palette and type system remain unchanged. The artboards were reorganized
+around the reader's decision instead of the site's production system.
+
+The homepage now moves from the promise to the latest investigation, three decisions the Canvas
+supports, the business list, the trust standard, and subscription. The Canvas page leads with a
+three-question decision summary and uses those questions as its section architecture. Method was
+reduced to the reader-facing explanation of decisions, evidence labels, process, publication
+standard, and revision history. The library is now `Businesses`; artifact-state explanation is a
+single formats note. The legacy page carries one disclosure, then moves directly through watch,
+business model, economics, sources, and download.
+
+This is an artboard and experience-spec revision only. It does not migrate the production site,
+approve №006 as a V2 Canvas, authorize content, or clear any release gate.

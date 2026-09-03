@@ -1,9 +1,10 @@
 # Experience spec — Operator Canvas site redesign
 
 Status: draft for owner review (step 2 of the approved redesign sequence).
-Grammar: **Rev D narrative · Rev C evidence system.** All visuals on Rev C tokens; drift
-rules and non-regression behaviors in `03-drift-reconciliation.md`; data shapes in
-`02-canvas-data-contract.md`; success definition in `00-product-contract.md`.
+Grammar: **Boundary Ledger 2.0.** The current artboards use the cross-media semantic
+authority in `design-system/boundary-ledger/`; the B-series Rev C artboards and
+`03-drift-reconciliation.md` are historical input. Data shapes remain in
+`02-canvas-data-contract.md`; success is defined in `00-product-contract.md`.
 
 Owner approval of this document is design approval only — no content or production
 authorization.
@@ -21,18 +22,37 @@ authorization.
 | `/about`, `/newsletter` | deferred | Homepage destinations this phase; no separate pages designed |
 | `/api/canvas-download` | named, built later | Tokenized PDF delivery (§6) replacing world-readable files |
 
-**Masthead** (one shared component; replaces the two hand-rolled headers): wordmark ·
-`Library` · `Method` · `About` (→ `/#disclosures` this phase) · button `Subscribe`
-(→ `/#newsletter`). Plus `Latest Canvas` **only when a live locked V2 Canvas exists**
-(state model, contract §2). Sentence case; `Canvas` is a proper noun deck-wide; no
-"Episodes"/"Blueprints" split.
+**Masthead:** wordmark · `Businesses` · `Method` · `Subscribe`. The public navigation
+names what a reader can do and removes `About` until it has a designed destination.
+Artifact-state detail belongs inside each business record, not in global navigation.
 
-**Mobile nav (<900px):** persistent `Menu`/`Close` toggle, full-width disclosure panel,
-`aria-expanded`, Escape closes, ≥44px targets (non-regression list).
+**Mobile nav:** the three destinations wrap below the wordmark with ≥44px targets. A
+menu is unnecessary at this navigation depth.
 
-**Footer:** YouTube ↗ · LinkedIn ↗ · Newsletter · Library · Method. `Build. Own. Operate.`
+**Footer:** YouTube ↗ · Newsletter · Businesses · Method. `Build. Own. Operate.`
 footer-only. Colophon: `Site rev · <date>` + sources line (the "V1 · date" badge is
 retired — it collides with regime vocabulary).
+
+### 1A. Reader hierarchy (2026-09-03, supersedes the detailed page ordering below)
+
+The public site must answer four questions in order: what this is, what the reader gets,
+which business to examine, and why the work is trustworthy. Method and production-state
+vocabulary may support those answers but may not lead them.
+
+- **Homepage:** promise → latest investigation → three decisions the Canvas supports →
+  businesses → trust standard → subscribe.
+- **Canvas:** title and authority disclosure → one-screen decision summary → the Canvas
+  organized around three reader decisions → first test → supporting episode → download
+  and provenance.
+- **Businesses:** choose a business → scan the offer and format → open the record. State
+  definitions collapse to one short formats note.
+- **Legacy episode:** one legacy disclosure → watch → business model → economics →
+  sources → download. Do not repeat the legacy explanation or gate vocabulary.
+- **Method:** what the Canvas answers → evidence labels → how it is made → publication
+  standard → revision history.
+
+Internal phrases such as `content gate`, `artifact state`, and `Canvas status` do not
+appear in reader-facing summaries. Public copy uses the reader's decision language.
 
 ## 2. Homepage anatomy
 

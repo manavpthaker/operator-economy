@@ -74,7 +74,7 @@ captions, metadata, upload handoff, and release validation.
 | Artifact | SHA-256 |
 |---|---|
 | `design-system/explorations/site-redesign-2026-09/00-product-contract.md` | `b09ca647ae0fb14da8a5d0fd24f5f34db57d7d34f7fdb3ab89a16899f72cca67` |
-| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `6c1dbf68f3a36188ea4dc8983ddc7f385f7b11348492bf619662086d581e8ee8` |
+| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `3013adb8a2bf239f21bda18e267a210f0d8e6fa286579c99a5b64536c78edb97` |
 | `design-system/explorations/site-redesign-2026-09/02-canvas-data-contract.md` | `20dcd546b855b60b35d53e99ab9dc518f7a893245a84e21cfa1ec339945a366d` |
 | `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `087fca70ec91d307a1be7427766adee97f7942548f023665c556a1b3b0182e52` |
 | `…/artboards/B1-canvas-page.html` | `f338ab78188aebcff47180ce4a36a33da2b223d8601743667b542ffca526798a` |
@@ -90,14 +90,14 @@ captions, metadata, upload handoff, and release validation.
 
 | Artifact | SHA-256 |
 |---|---|
-| `…/artboards/boundary-ledger/site.css` | `54590c403e82db511f1d83ae75630be191a1bfc3425a6e286f40a51cee6e6b4a` |
-| `…/artboards/boundary-ledger/homepage.html` | `991db0be4fe9f0eae69badf8e79892c62d5bdb8f975341dc35d40ceb49c410ce` |
-| `…/artboards/boundary-ledger/canvas-page.html` | `fe59a4e557f1a06cceb1c598e5193777e70de3f929d29bb6eeabb10d15ce3e2d` |
-| `…/artboards/boundary-ledger/method.html` | `1776f2278c10586b5b022dac36b92538bdeeb85f731df3e0c6cca205019e5c4e` |
-| `…/artboards/boundary-ledger/library.html` | `c9c74c291a2e4f234354ce8c054ba6ebd114dc7cc6a99e9f19e3d9bd541ec669` |
-| `…/artboards/boundary-ledger/legacy-episode.html` | `9765f86b4d6c0fdaf02efe9f5d3aed8c93fc1a972462aa7c9d4bb83a3b46aa14` |
-| `…/artboards/boundary-ledger/components.html` | `1f350d65f4694862c8363e97c910a43a6afac93715263c96c139dfb52cedd512` |
-| `…/artboards/boundary-ledger/pdf.html` | `dc9afe0156aa4337e1a8f473de3e31136625949d926fb9b9e3c089626a9ab038` |
+| `…/artboards/boundary-ledger/site.css` | `5adebb48a9d39368c38ca577d40c767bf07dd87f9349e3a6bef9d8c7c80eeda3` |
+| `…/artboards/boundary-ledger/homepage.html` | `09eef141894b50bedf39a9e27c5bd4961a0db3b39388905ee5755f0c82409685` |
+| `…/artboards/boundary-ledger/canvas-page.html` | `72050f94b69bb658012e699fbf0d0f7fd8ccc683378aef0c16078b42d2ed4a10` |
+| `…/artboards/boundary-ledger/method.html` | `f09ea007ba7e982a0d0f313920a9941f5ad60f644219d63e01e8aec2515f6066` |
+| `…/artboards/boundary-ledger/library.html` | `a670d91ed880621463a35c0a5896340ea5fcf4b9637de9aab30d38310d16fc7e` |
+| `…/artboards/boundary-ledger/legacy-episode.html` | `fb4eae0b77f18b70266eddf431949c1716512b629abe29a20ccff3f17ed5e55d` |
+| `…/artboards/boundary-ledger/components.html` | `7713a1644ba2e7cc6c7a3186bd6058737c05688f757dbaf570f01e78807933da` |
+| `…/artboards/boundary-ledger/pdf.html` | `ec9dbdd2a6d5484a475feee18303d3722c290a8b828e519280ea594058e5046d` |
 | `design-system/boundary-ledger/styles.css` (dependency) | `94d14ca688ba02da44b2b27696dfdc6de1a59ac09083360576c4df5bd0d3d65f` |
 | `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
 | `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |

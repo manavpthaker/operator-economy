@@ -40,6 +40,84 @@
   color: var(--bl-oxide-dark);
 }
 
+/* Homepage hierarchy: four reader-facing moves, not a field manual. */
+:where([data-oe-theme="boundary-ledger"]) .oe-value {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: start;
+  padding-block: clamp(5.5rem, 11vw, 9rem);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro h2,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust h2 {
+  max-width: 17ch;
+  margin: var(--bl-space-3) 0 var(--bl-space-4);
+  font-family: var(--bl-font-heading);
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro > p:not(.bl-chapter__number),
+:where([data-oe-theme="boundary-ledger"]) .oe-trust > p:not(.bl-chapter__number) {
+  max-width: 36rem;
+  color: var(--bl-ink-muted);
+  font-size: 1.05rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-value__intro .bl-action {
+  display: inline-block;
+  margin-top: var(--bl-space-5);
+  color: var(--bl-oxide-dark);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--bl-space-5);
+  padding: var(--bl-space-6) 0;
+  border-bottom: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list li > span {
+  color: var(--bl-steel);
+  font-family: var(--bl-font-data);
+  font-size: 0.76rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list strong {
+  display: block;
+  font-family: var(--bl-font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.05;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-decision-list p {
+  max-width: 34rem;
+  margin: var(--bl-space-2) 0 0;
+  color: var(--bl-ink-muted);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-section {
+  padding-block: clamp(5rem, 10vw, 8rem);
+  border-top: var(--bl-hairline) solid var(--bl-rule);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust {
+  margin-block: clamp(2rem, 5vw, 4rem) clamp(5rem, 10vw, 8rem);
+  padding: clamp(2rem, 5vw, 4.5rem);
+  background: var(--bl-paper-inset);
+  border-left: 3px solid var(--bl-steel);
+}
+
 /* Evidence class: accountable data, typeset, never a colored badge. */
 :where([data-oe-theme="boundary-ledger"]) .oe-class {
   color: var(--bl-steel-dark);
@@ -335,6 +413,7 @@
 }
 
 @media (max-width: 900px) {
+  :where([data-oe-theme="boundary-ledger"]) .oe-value { grid-template-columns: 1fr; }
   :where([data-oe-theme="boundary-ledger"]) .oe-three { grid-template-columns: 1fr; }
   :where([data-oe-theme="boundary-ledger"]) .oe-media { grid-template-columns: 1fr; }
 }
