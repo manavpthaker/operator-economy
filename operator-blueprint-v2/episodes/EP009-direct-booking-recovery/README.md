@@ -21,7 +21,7 @@ This is the V2 rescript of the legacy premise published as EP006 ("Hotels Pay 30
 | Step 1, E5 script review | approved 2026-09-03 (v0.2 integrated from seven adversarial passes, v0.3 after a performance re-check). One bounded Step 0 amendment request raised (`step0-amendment-request-01.md`). |
 | Step 1, E5V voice conformity | **pass.** Reviewer: clear for owner voice test; owner cold read passed 2026-09-03, answer "Yes, both". |
 | Step 1, E6 lock | **LOCKED 2026-09-03** by Manav Thaker. |
-| Step 2 narration | authorized; N1 handoff in progress |
+| Step 2 narration | N1 passed, N2 recorded, N3 frozen by method reuse, N4B authorized 2026-09-03. Google guide capture in progress; ElevenLabs transfers held on a provider payment refusal (401 payment_required) until the owner settles the invoice |
 | Steps 3 to 8 | boundary-only |
 
 ## Owner decisions required, in order

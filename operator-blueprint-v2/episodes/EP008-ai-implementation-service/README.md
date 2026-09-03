@@ -30,7 +30,7 @@ Company-level verdict drafted at E3I: **BUILD** (argued against the thirty-day p
 | E5 script review | seven adversarial passes run and dispositioned; integrated revision v0.2 |
 | E5V editorial voice | approved 2026-09-03 |
 | E6 script lock | **LOCKED 2026-09-03** by Manav Thaker; the wizard sandbox test stays open and does not block |
-| Step 2 narration | authorized; N1 handoff in progress |
+| Step 2 narration | N1 passed, N2 recorded, N3 frozen by method reuse, N4B authorized 2026-09-03. Google guide capture in progress; ElevenLabs transfers held on a provider payment refusal (401 payment_required) until the owner settles the invoice |
 | Steps 3-8 | boundary-only |
 
 Number assignment follows `../README.md`: Step 1 assigns the next number only after a current promotion record passes Gate E1. EP007 (`exit-readiness-prep`, locked 2026-09-01) is the last assigned number in the series.
