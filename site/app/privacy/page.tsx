@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <div className="bl-episode-feature__intro">
             <h1 id="privacy-title">Privacy, stated plainly.</h1>
             <p>The Operator Economy is an independent publication. This notice explains what the site collects, why it is used, and how to ask for deletion.</p>
-            <p className="oe-page-note">Effective September 3, 2026 · Privacy contact: <a href="mailto:hello@theoperatoreconomy.com">hello@theoperatoreconomy.com</a> · A separate legal operating entity has not yet been designated in the publication record.</p>
+            <p className="oe-page-note">Effective September 3, 2026 · Privacy contact: <a href="mailto:hello@theoperatoreconomy.com">hello@theoperatoreconomy.com</a></p>
           </div>
         </section>
 
