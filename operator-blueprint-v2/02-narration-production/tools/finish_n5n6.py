@@ -204,9 +204,18 @@ def assemble(args) -> int:
 
 # --- N6 ------------------------------------------------------------------------
 
+def _multipart_file(fields: dict[str, str], filename: str, payload: bytes) -> tuple[bytes, str]:
+    import uuid
+    boundary = uuid.uuid4().hex
+    parts = [f"--{boundary}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode("utf-8") for k, v in fields.items()]
+    parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: audio/wav\r\n\r\n".encode("utf-8"))
+    parts.append(payload); parts.append(f"\r\n--{boundary}--\r\n".encode("utf-8"))
+    return b"".join(parts), f"multipart/form-data; boundary={boundary}"
+
+
 def forced_align(master: pathlib.Path, text: str, api_key: str) -> dict:
     fields = {"text": text}
-    body, ctype = cal.multipart(fields, master.name, master.read_bytes())
+    body, ctype = _multipart_file(fields, master.name, master.read_bytes())
     status, payload = cal.post("https://api.elevenlabs.io/v1/forced-alignment", body,
                                {"xi-api-key": api_key, "Content-Type": ctype, "Accept": "application/json"})
     if status != 200:

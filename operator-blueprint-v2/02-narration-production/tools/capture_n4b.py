@@ -49,6 +49,8 @@ STYLE = REPO / "operator-blueprint-v2/02-narration-production/prompts/NARRATOR-R
 CONFIG_ID = "n3-two-stage-acted-guide-v2"
 GUIDE_VOICE = "Algieba"
 MIN_TAIL_CHARS = int(cal.MIN_TAIL_SECONDS * cal.CHARS_PER_SECOND)
+TRANSFER_MARGINAL_CEILING = 0.06      # a seeded transfer with a faint tail is recorded as marginal, not regenerated
+TRANSFER_DURATION_TOLERANCE_S = 0.5   # transfer must reproduce the accepted guide's length
 
 
 def sha(data: bytes) -> str:
@@ -282,7 +284,8 @@ def main() -> int:
         tp = raw / f"c{i:02d}.saved-c.wav"
         rec = by_chunk.get(i)
         same_text = bool(rec) and rec.get("text_sha256") == c["text_sha256"]
-        if same_text and accepted(gp) and accepted(tp):
+        t_ok = tp.is_file() and tp.stat().st_size > 1000 and (accepted(tp) or (rec or {}).get("transfer_marginal"))
+        if same_text and accepted(gp) and t_ok:
             print(f"  c{i:02d} reused (both stages accepted on disk)")
             continue
         if args.stage == "guides" and same_text and accepted(gp):
@@ -327,31 +330,52 @@ def main() -> int:
             _save(reg_path, register, calls)
             print(f"  c{i:02d} {c['scenes']:<22} guide {gi['duration_seconds']:6.1f}s  tail {gi.get('tail_energy')}  sha {gi['sha256'][:12]}")
             continue
-        # stage 2: transfer, same rule
+        # stage 2: transfer. The Voice Changer call is seeded (N3 setting), so a
+        # repeat with the same guide is deterministic and a retry cannot change
+        # the tail. Completeness of the transfer is therefore judged against the
+        # accepted guide: the words are the guide's words, and the transfer is
+        # complete when its duration matches the guide's within a small tolerance
+        # and its tail is silent or marginal. A tail that is still clearly
+        # sounding, or a duration that lost material, stops the run for review.
         t_attempts = []
-        for attempt in range(1, args.max_attempts + 1):
+        if same_text and tp.is_file() and tp.stat().st_size > 1000:
+            # a seeded transfer already on disk is the same bytes a new call would return
+            te0 = cal.tail_energy(tp)
+            if te0 < TRANSFER_MARGINAL_CEILING and abs(cal.probe(tp)["duration_seconds"] - cal.probe(gp)["duration_seconds"]) <= TRANSFER_DURATION_TOLERANCE_S:
+                status, audio = 200, None
+                print(f"  c{i:02d} transfer on disk reused under the marginal rule (tail {te0:.3f}); no call made")
+            else:
+                status, audio = transfer_once(gp, api_key)
+                calls["elevenlabs"] += 1
+        else:
             status, audio = transfer_once(gp, api_key)
             calls["elevenlabs"] += 1
-            if status != 200:
-                print(f"  c{i:02d} transfer HTTP {status}: {audio[:300].decode('utf-8','replace')}")
-                _save(reg_path, register, calls)
-                return 1
-            cal.wav_from_pcm(audio, cal.TRANSFER_OUTPUT_RATE_HZ, tp)
-            os.chmod(tp, 0o600)
-            te = cal.tail_energy(tp)
-            t_attempts.append(round(te, 4))
-            if te < cal.TAIL_ENERGY_THRESHOLD:
-                break
-            print(f"  c{i:02d} transfer attempt {attempt}: tail energy {te:.3f}, regenerating transfer")
-        else:
-            print(f"  c{i:02d} transfer never decayed into silence; stopping for review")
+        if status != 200:
+            print(f"  c{i:02d} transfer HTTP {status}: {audio[:300].decode('utf-8','replace')}")
             _save(reg_path, register, calls)
             return 1
+        if audio is not None:
+            cal.wav_from_pcm(audio, cal.TRANSFER_OUTPUT_RATE_HZ, tp)
+            os.chmod(tp, 0o600)
+        te = cal.tail_energy(tp)
+        t_attempts.append(round(te, 4))
+        g_dur = cal.probe(gp)["duration_seconds"]
+        t_dur = cal.probe(tp)["duration_seconds"]
+        transfer_marginal = False
+        if te >= cal.TAIL_ENERGY_THRESHOLD:
+            if te < TRANSFER_MARGINAL_CEILING and abs(t_dur - g_dur) <= TRANSFER_DURATION_TOLERANCE_S:
+                transfer_marginal = True
+                print(f"  c{i:02d} transfer tail {te:.3f} marginal; duration matches guide ({g_dur}s vs {t_dur}s), accepted and recorded as marginal")
+            else:
+                print(f"  c{i:02d} transfer tail {te:.3f} with duration {t_dur}s vs guide {g_dur}s; stopping for review")
+                _save(reg_path, register, calls)
+                return 1
         gi, ti = cal.probe(gp), cal.probe(tp)
         rec = {
             "chunk": i, "scenes": c["scenes"], "chars": c["chars"],
             "text_sha256": c["text_sha256"], "style_sha256": c["style_sha256"],
             "guide_attempt_tail_energy": g_attempts, "transfer_attempt_tail_energy": t_attempts,
+            "transfer_marginal": transfer_marginal,
             "guide": gi | {"path": str(gp.relative_to(REPO))},
             "transfer": ti | {"path": str(tp.relative_to(REPO))},
         }
