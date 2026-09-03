@@ -126,12 +126,22 @@ def split_block(sid: str, narration: str, max_chars: int) -> list[tuple[str, str
     return [(f"{sid}.{i}", p) for i, p in enumerate(parts, 1)]
 
 
+RESPLIT: dict[str, int] = {}  # scene id -> forced part count, set from --resplit
+
+
 def plan_chunks(blocks: list[tuple[str, str]], max_chars: int) -> list[dict]:
     """Group whole blocks into chunks <= max_chars; a scene boundary is always
-    a legal chunk boundary; a block over the ceiling is split by sentence."""
+    a legal chunk boundary; a block over the ceiling is split by sentence.
+    A scene named in RESPLIT is split into that many balanced parts regardless
+    of length, so a passage that truncates reliably can end on a different
+    sentence without touching any word."""
     units: list[tuple[str, str]] = []
     for sid, narration in blocks:
-        if len(narration) > max_chars:
+        if sid in RESPLIT:
+            n = RESPLIT[sid]
+            import math
+            units.extend(split_block(sid, narration, max(300, math.ceil(len(narration) / n))))
+        elif len(narration) > max_chars:
             units.extend(split_block(sid, narration, max_chars))
         else:
             units.append((sid, narration))
@@ -198,12 +208,22 @@ def main() -> int:
     ap.add_argument("--only-chunk", type=int, default=None)
     ap.add_argument("--max-chars", type=int, default=cal.MAX_GUIDE_CHARS)
     ap.add_argument("--max-attempts", type=int, default=4, help="regenerations per stage when a chunk does not decay into silence")
+    ap.add_argument("--resplit", action="append", default=[], metavar="SCENE:N",
+                    help="force scene SCENE into N balanced parts (e.g. S17:3); recorded in the take register")
     ap.add_argument("--stage", choices=("both", "guides", "transfers"), default="both",
                     help="guides: Google stage only; transfers: ElevenLabs stage only, reusing accepted guides")
     args = ap.parse_args()
 
     ep_dir = pathlib.Path(args.episode_dir).resolve()
     episode = ep_dir.name.split("-")[0]
+    # a re-split recorded in the take register is part of the plan; reuse it so a
+    # later stage never re-plans the chunks differently from the accepted guides
+    prior = ep_dir / "02-narration-production" / "take-register.json"
+    if prior.is_file():
+        RESPLIT.update({k: int(v) for k, v in (json.loads(prior.read_text()).get("resplit") or {}).items()})
+    for item in args.resplit:
+        s, n = item.split(":")
+        RESPLIT[s] = int(n)
     ed = ep_dir / "01-editorial"
     nd = ep_dir / "02-narration-production"
     raw = nd / "raw"
@@ -240,6 +260,10 @@ def main() -> int:
         "canonical_w_sha256": w_sha, "w_token_count": w_count,
         "style_file_sha256": sha(STYLE.read_bytes()), "chunks": [],
     }
+    if RESPLIT:
+        register["resplit"] = dict(RESPLIT)
+    elif register.get("resplit"):
+        RESPLIT.update({k: int(v) for k, v in register["resplit"].items()})
     by_chunk = {c["chunk"]: c for c in register["chunks"]}
 
     token = cal.google_access_token()

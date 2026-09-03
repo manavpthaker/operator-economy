@@ -29,6 +29,7 @@ ElevenLabs subscription read on 2026-09-03: tier `pro`, 408,689 of 696,811 chara
 ## Provider events
 
 - 2026-09-03, EP008 chunk 1 probe: Google guide call returned HTTP 200 and the guide decayed into silence. ElevenLabs Voice Changer returned HTTP 401 `payment_required` ("Your subscription has a failed or incomplete payment. Complete the latest invoice to continue usage."). **Transfers are held.** Guide generation continues under this authorization; the transfer stage resumes only after the owner settles the ElevenLabs invoice, with no further authorization needed because the scope above is unchanged.
+- 2026-09-03, EP008 guide stage complete: 21 chunks accepted after 60 Google calls. c18 (S17.2) refused to decay after 8 regenerations and was resolved by re-splitting S17 into three parts and S18 into two, recorded in the take register as `resplit`; no spoken word changed. No ElevenLabs call was made after the refusal.
 
 ## Not authorized
 
