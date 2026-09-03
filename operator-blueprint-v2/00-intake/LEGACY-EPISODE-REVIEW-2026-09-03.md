@@ -6,7 +6,9 @@ Reviewed: 2026-09-03
 
 Directive: the owner asked on 2026-09-03 that every legacy episode be run through the V2 process, and that any episode passing Step 0 be rescripted, re-recorded, and reshot under V2.
 
-Result: **no legacy premise passed Step 0.** Nothing entered Step 1. No episode number was assigned, no queue row was added, and no promotion record was written.
+Result at review: **no legacy premise cleared Step 0 on reviewer recommendation.** Two premises (EP001 and EP006) passed the numeric threshold on Reviewer A inside the calibration zone; both reviewers recommended continue research.
+
+**Owner decision, 2026-09-03:** the owner performed the calibration-zone review on both and elected to **promote** `candidate-2026-09-03-ai-implementation-service` and `candidate-2026-09-03-direct-booking-recovery`. Promotion records are in `04-queue/`, queue rows are added, and the reviewers' re-entry items were carried forward as pre-lock conditions. EP002 remains parked; EP003 and EP004 remain in research; EP005 is archived to editorial.
 
 ## Method
 
@@ -71,4 +73,4 @@ A premise that re-enters is rescored on a new package; none of the scores above 
 - It does not amend Step 0 rules or the frozen fixtures.
 - It does not amend `content-os/facts.md`.
 
-Owner approval recorded: no. Every decision above is a reviewer recommendation; the owner's calibration-zone reviews for EP001 and EP006 remain open.
+Owner approval recorded: **yes, for EP001 and EP006 only** (calibration-zone review, 2026-09-03, statement of record "Yes let's promote 1 and 6"). The other four decisions stand as reviewer recommendations.

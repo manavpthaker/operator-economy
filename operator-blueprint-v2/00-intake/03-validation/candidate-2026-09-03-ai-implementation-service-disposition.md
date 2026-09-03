@@ -10,9 +10,11 @@ Decision date: 2026-09-03
 
 Decision stage: analogy review — full package completed through scoring and an adversarial second review
 
-Decision: **continue research**
+Decision: **continue research** (reviewer recommendation; superseded by owner promotion, see note below)
 
 Origin: retrospective Step 0 review of the published V1 episode EP001, run on the owner's 2026-09-03 directive to pass every legacy episode through Operator Blueprint V2. Prior publication received no promotion credit. See `../LEGACY-EPISODE-REVIEW-2026-09-03.md` for the set-level record.
+
+> **Superseded 2026-09-03.** After this record was written, the owner performed the calibration-zone review and elected to promote. The governing decision is now `../04-queue/candidate-2026-09-03-ai-implementation-service-promotion.md`. This record is preserved as decision history; its re-entry items were carried into the promotion record as pre-lock conditions.
 
 ## Reviewed artifacts
 
