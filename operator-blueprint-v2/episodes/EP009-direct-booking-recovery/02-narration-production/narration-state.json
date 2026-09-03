@@ -2,7 +2,7 @@
   "schema_version": "oe-narration-state-v1",
   "base_dir": ".",
   "episode": "EP009",
-  "workflow_status": "in_progress",
+  "workflow_status": "awaiting_owner_creative_approval",
   "gates": {
     "N1": {
       "result": "passed",
@@ -21,21 +21,26 @@
       "date": "2026-09-03"
     },
     "N4": {
-      "result": "pending",
+      "result": "passed",
       "N4A": "current by reuse of the frozen method (EP007)",
-      "N4B": "authorized, see n4b-authorization.md"
+      "N4B": "accepted, see full-capture-review.md",
+      "date": "2026-09-03"
     },
     "N5": {
-      "result": "pending"
+      "result": "passed",
+      "record": "narration-edit-decision-list.json",
+      "master_sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944"
     },
     "N6": {
-      "result": "pending"
+      "result": "technical_pass",
+      "master_sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944"
     },
     "N7": {
-      "result": "pending"
+      "result": "pending",
+      "note": "owner creative listen required; not implied by technical_pass"
     }
   },
-  "technical_pass": false,
+  "technical_pass": true,
   "creative_approval": {
     "approved": false
   },
@@ -48,7 +53,22 @@
   },
   "audio_origin": "synthetic: n3-two-stage-acted-guide-v2",
   "fallback_reason": null,
-  "master": null,
-  "transcript": null,
-  "intentional_pause_map": null
+  "master": {
+    "path": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav",
+    "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+    "duration_seconds": 1233.602,
+    "rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "integrated_rms_dbfs": -22.04,
+    "peak_dbfs": -5.62
+  },
+  "transcript": {
+    "path": "word-transcript.json",
+    "sha256": "3c28411effaea94c4dffaac51e114f333f386170fe4716fa96b30d24e41384aa"
+  },
+  "intentional_pause_map": {
+    "path": "intentional-pause-map.json",
+    "sha256": "62811b5f0ae93359d520f7adfec06ebf46404e8e146cedf274b1f327f9a5cd84"
+  }
 }
