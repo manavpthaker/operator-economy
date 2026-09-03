@@ -464,3 +464,10 @@ and 1920 CSS pixels, with no horizontal overflow or failed images detected. At 1
 usable shell width measured 1,329px (previously 1,072px); at 1920px it measured 1,384px
 (previously 1,064px). The viewport override was reset after testing. This remains a
 local prototype trial for owner comparison, not content or release authorization.
+
+## 2026-09-03 — Episode-list rhythm
+
+The owner found the episode entries too compressed after the wider-layout review. Episode
+rows now use 32px vertical padding and hairline separators on both the homepage and Businesses
+page. This remains a site-artboard spacing adjustment; it does not alter episode content,
+status, order, or Boundary Ledger's canonical component styles.

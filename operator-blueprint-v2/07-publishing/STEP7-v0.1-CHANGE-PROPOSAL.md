@@ -90,14 +90,14 @@ captions, metadata, upload handoff, and release validation.
 
 | Artifact | SHA-256 |
 |---|---|
-| `…/artboards/boundary-ledger/site.css` | `9cc91d2ee332a45c90b425a10d34c81de0e476e528c493a19f4807abd2f9e747` |
-| `…/artboards/boundary-ledger/homepage.html` | `2c64d3b58431e9c247c4ec563c6ea410162b898475cd5f68f04245c9a3a91aea` |
-| `…/artboards/boundary-ledger/canvas-page.html` | `0428cbf8170227864532eb08ecab16fc7c8ee6cfe907b665aa18b90cfabda344` |
-| `…/artboards/boundary-ledger/method.html` | `a3bb210cfcb09c6d38516d3e0904c87f04ff927f4054a3c349e0380ae7c09189` |
-| `…/artboards/boundary-ledger/library.html` | `c9fc1b59c43523cf5b40be14ff1818df250868984f8af51d4bfa0f2c8d24a99f` |
-| `…/artboards/boundary-ledger/legacy-episode.html` | `827a9c8762c0acf03f02c2f7f9166dd17fb32b0d5d41e18056d1a327eee5e4b8` |
-| `…/artboards/boundary-ledger/components.html` | `d3e746279a2c763baccc2ae9bc6f907cfdeccf5e215f001579b64dc2f446c644` |
-| `…/artboards/boundary-ledger/pdf.html` | `db88ef1f131f20f544f54eedbcdcaf50d5cb42e0c948b56aaa0ab2eee4811a00` |
+| `…/artboards/boundary-ledger/site.css` | `aef4393b6f73ced938c92741a1f17c0f0c4db60c05dbfe4ac62f992084f664ef` |
+| `…/artboards/boundary-ledger/homepage.html` | `c2bc72c348ab7e7ad5465bcea2a2a02e2c27205f7793d6e59791e9281aeed166` |
+| `…/artboards/boundary-ledger/canvas-page.html` | `79b9708ddfa82a28a386e837e7b6cdfb7f3470802a1e7395631c998462f7d3cf` |
+| `…/artboards/boundary-ledger/method.html` | `934f3f27712cfd57884796b596f88533ad8ee44670ab6cdce4aa2a4378782e1a` |
+| `…/artboards/boundary-ledger/library.html` | `c218eeff9b7440b15088926563fe57b273865d8e149738d7a02291c55a26cb63` |
+| `…/artboards/boundary-ledger/legacy-episode.html` | `548521423992add64e18523a562f93546fdb2fbb4928d3a9e7be961fdbce91fd` |
+| `…/artboards/boundary-ledger/components.html` | `9e2fc8ae18f8a84d03a365cd5eb68ca5507e3bd361b01bab12e0290382e02027` |
+| `…/artboards/boundary-ledger/pdf.html` | `3f60f5e7fdfbf63381c3cde8ea387b272bac914501289ea171254f135412b262` |
 | `design-system/boundary-ledger/styles.css` (dependency) | `94d14ca688ba02da44b2b27696dfdc6de1a59ac09083360576c4df5bd0d3d65f` |
 | `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
 | `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |
