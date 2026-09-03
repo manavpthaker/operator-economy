@@ -316,3 +316,51 @@ contract, retirement manifest, and dependency-free cross-file validator. A real 
 voice excerpt provides model-led and text-led browser references across 9:16, 1:1, and 16:9 using a
 precomputed actual-PCM trace. That reference does not claim a layered motion-ready illustration,
 encoded master, final mix, cross-category validation, production migration, or publication approval.
+
+## 2026-09-02 — Site rebuilt on Boundary Ledger (owner direction)
+
+The owner directed the rebuild onto Boundary Ledger, the cross-media semantic authority
+for new web work (`design-system/boundary-ledger/`). The Rev C artboards (B1–B9) had been
+built from the grammar the landing lock forbids outside the illustration: drafting and dot
+grids, dense mono labels, engineering title blocks, gold and zone accents. They are
+retained unchanged as history (the lock names B4 as its untouched source) and are no
+longer the proposed standard.
+
+**New artboard set:** `artboards/boundary-ledger/` — `homepage.html`, `canvas-page.html`,
+`method.html`, `library.html`, `legacy-episode.html`, `components.html`, `pdf.html`, plus
+`site.css`, a 347-line site binding that adds only what the field manual lacks
+(navigation, forms, filters, the guided walkthrough, evidence-class data labels, the
+three-view economics grid, the risk-ruled stop list). Every page links the real
+`design-system/boundary-ledger/styles.css` and sets `data-oe-theme="boundary-ledger"`;
+every value is a `--bl-*` token; no Rev C token, grid, chip, pill, card chrome, gradient,
+or gold appears. Fonts and the accountable data face come from the BL binding (system
+monospace by design).
+
+**Grammar applied.** Paper carries the page and unresolved work; deep mineral carries the
+accountable docket and the one subscription band; oxide marks one commitment per
+composition (the hero's italic word, a decision-note edge, the pressed filter, focus);
+steel carries navigation, secondary structure, and the evidence-class labels; sage appears
+only on the docket's Live dot; risk color appears only on the stop-conditions list. The
+homepage and Canvas page open with the EpisodeFeature (rail, thesis, docket attached
+exactly 16px into the locked EP006 working model's quiet top edge, the whole 3:2 drawing
+uncropped). Evidence classes are typeset `oe-class` data labels, never badges. Cards
+became ledger rows; the navy node band became a numbered anatomy list; economics views are
+three rule-separated columns; the most-sensitive assumption is a DecisionNote; the
+required disclosure is a DisclosureBlock.
+
+**Guided walkthrough** survives as one toggle whose guidance renders as DecisionNotes per
+sheet, hash-synced, with a live region; the anchor nav tracks the current sheet.
+
+**Verification.** Rendered over the repo-root server: BL fonts loaded, docket overlap
+measured at 16px, image 1536 × 1024 at `object-fit: contain`, zero horizontal overflow at
+1280/375/320 on the two core pages; the five builder agents each ran the same overflow,
+token, em-dash, banned-word, EP007, and link checks on their pages and rendered them
+live. Mechanical gate pass over all seven pages and `site.css`: 0 em dashes in rendered
+text, 0 banned words, 0 non-`--bl-` tokens, 0 EP007 references.
+
+**Records.** `03-drift-reconciliation.md` is now historical (Rev C port notes); the BL
+binding governs. `01-experience-spec.md` §3A gains the Boundary Ledger component mapping.
+The Step 7 proposal's normative references now list the BL artboards and the BL package
+files they depend on; the Rev C artboards remain listed as historical input. Boundary
+Ledger's own status is unchanged by this work: the production site remains an unmigrated
+Rev C consumer until a separately scoped migration is implemented and verified.

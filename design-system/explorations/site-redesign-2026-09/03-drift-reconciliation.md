@@ -1,5 +1,12 @@
 # Drift reconciliation — LP mockup → Rev C tokens
 
+> **Historical (2026-09-02).** This document reconciled the LP mockup onto Rev C tokens for
+> the B-series artboards. The site was then rebuilt on Boundary Ledger
+> (`artboards/boundary-ledger/`), which retires Rev C as forward authority. The value
+> mappings, typography decisions, and composition rules below describe the retained Rev C
+> artboards only. The non-regression behaviors at the end still apply to the new prototype.
+> Current visual authority: `design-system/boundary-ledger/README.md`.
+
 The committed LP mockup (`design-system/explorations/rev-d/operator-canvas-lp-mockup.html`,
 `24c4a024`) is harvested for structure and copy. Its self-declared `:root` is discarded
 wholesale; every artboard in this effort consumes the real token layer

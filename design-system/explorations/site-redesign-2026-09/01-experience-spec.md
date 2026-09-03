@@ -148,6 +148,36 @@ The Canvas is never embedded here. Target length: ~5 viewports desktop.
 Every state label derives from the state matrix in the data contract (§2 there); no
 component invents its own status vocabulary.
 
+
+### 3B. Boundary Ledger binding (2026-09-02, supersedes the Rev C base column above)
+
+The site is built on Boundary Ledger (`design-system/boundary-ledger/`). The page is
+editorial, not a blueprint interface: no grids, dense mono labels, chips, pills, card chrome,
+gradients, or gold; blueprint language lives only inside the rough working-model
+illustration. Materials carry meaning: paper (human context, the page), deep mineral
+(accountable surfaces: the docket, the subscription band), oxide (one commitment per
+composition), steel (dependency, navigation, secondary structure), sage (verified live state
+only), risk (actual failed conditions only).
+
+| Subsystem role above | Boundary Ledger binding |
+|---|---|
+| Titleblock / LatestCanvasPanel | `EpisodeFeature`: rail · intro · `AccountableDocket` (mineral, three rows) · `WorkingModel` (whole 3:2, 16px attachment) |
+| EvidenceChip | `oe-class` typeset data label (steel monospace), never a badge |
+| SourceReceipt / EvidenceCard | `EvidenceReceipt` (source · statement · count) |
+| UnknownRegister | `LedgerRow`s with an Unknown data label |
+| ScenarioColumns / ScenarioLens | `oe-three` rule-separated columns (desktop); stacked on mobile; no blend slot |
+| EquationBlock | monospace lines inside a `LedgerRow` or receipt |
+| DecisionRail / GuideExplainer | `bl-anchor-nav` sheet index; guidance as `DecisionNote`s under one toggle |
+| DisclosureBlock | `bl-disclosure` rows |
+| CapabilityMap | `LedgerRow`s with a three-fact `oe-facts` list per capability |
+| DownloadCard | `oe-form` on paper with a separate consent row; the mineral `SubscriptionBand` is the single conversion surface |
+| ProvenancePanel | `LedgerRow`s with the three hashes and revision history |
+| LibraryCard | `bl-library-row` |
+| Stop conditions | `oe-stop` list (the only risk-color use) |
+
+Artboards: `artboards/boundary-ledger/` (homepage, canvas-page, method, library,
+legacy-episode, components, pdf) with `site.css` as the site binding.
+
 ## 4. `/method` anatomy (B3, desktop + mobile)
 
 1. Titleblock: `Method · how a Canvas is made`.

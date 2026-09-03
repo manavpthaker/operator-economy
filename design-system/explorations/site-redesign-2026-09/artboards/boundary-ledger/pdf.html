@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex" />
+  <title>Canvas №006 · Print edition · design specimen</title>
+  <link rel="stylesheet" href="../../../../boundary-ledger/styles.css" />
+  <link rel="stylesheet" href="./site.css" />
+  <style>
+    /* Print boards: 8.5 × 11 in at 72 ppi, 612 × 792 px. Board geometry is written in
+       container units so a board scales as one object at any viewport; every color and
+       face is a --bl-* token. The pasteboard is mineral: the print edition is an
+       accountable record, shown on the surface that role owns. */
+    :where([data-oe-theme="boundary-ledger"]) .oe-pasteboard {
+      padding: clamp(2rem, 5vw, 4.5rem) var(--bl-space-4) clamp(2.5rem, 6vw, 5rem);
+      background: var(--bl-mineral-deep);
+      color: var(--bl-paper-on-mineral);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-pasteboard__head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--bl-space-2) var(--bl-space-5);
+      width: min(100%, calc(2 * 612px + var(--bl-space-4)));
+      margin: 0 auto var(--bl-space-5);
+      padding-bottom: var(--bl-space-3);
+      border-bottom: var(--bl-hairline) solid var(--bl-rule-on-mineral);
+      color: var(--bl-paper-on-mineral-muted);
+      font-family: var(--bl-font-data);
+      font-size: 0.74rem;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-pasteboard__boards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: var(--bl-space-6) var(--bl-space-4);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board-frame {
+      container-type: inline-size;
+      flex: 0 0 auto;
+      width: min(612px, 100%);
+      min-width: 0;
+      margin: 0;
+    }
+
+    @media (min-width: 1100px) {
+      :where([data-oe-theme="boundary-ledger"]) .board-frame {
+        width: min(612px, calc(50% - var(--bl-space-3)));
+      }
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board-frame figcaption {
+      margin-top: var(--bl-space-3);
+      color: var(--bl-paper-on-mineral-muted);
+      font-family: var(--bl-font-data);
+      font-size: 0.74rem;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      aspect-ratio: 612 / 792;
+      overflow: hidden;
+      padding: 6cqw;
+      border: var(--bl-hairline) solid var(--bl-rule-on-mineral);
+      background: var(--bl-paper);
+      color: var(--bl-ink);
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board strong {
+      color: var(--bl-ink);
+      font-weight: 500;
+    }
+
+    /* Cover */
+    :where([data-oe-theme="boundary-ledger"]) .board__head,
+    :where([data-oe-theme="boundary-ledger"]) .board__running {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 3cqw;
+      padding-bottom: 1.8cqw;
+      border-bottom: var(--bl-hairline) solid var(--bl-rule-strong);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__wordmark {
+      color: var(--bl-ink);
+      font-family: var(--bl-font-heading);
+      font-size: 2.7cqw;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.025em;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__data,
+    :where([data-oe-theme="boundary-ledger"]) .board__running {
+      color: var(--bl-ink-muted);
+      font-family: var(--bl-font-data);
+      font-size: 1.45cqw;
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__specimen {
+      margin: 2.2cqw 0 0;
+      color: var(--bl-steel-dark);
+      font-family: var(--bl-font-data);
+      font-size: 1.5cqw;
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__title {
+      max-width: 14ch;
+      margin: 3.6cqw 0 0;
+      font-family: var(--bl-font-display);
+      font-size: 8.2cqw;
+      font-weight: 700;
+      line-height: var(--bl-leading-display);
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__promise {
+      max-width: 74cqw;
+      margin: 2.4cqw 0 0;
+      color: var(--bl-ink-soft);
+      font-size: 2.35cqw;
+      line-height: 1.45;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__model {
+      display: flex;
+      flex: 1 1 auto;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+      margin: 3.6cqw 0 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__model img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: contain;
+      border: var(--bl-hairline) solid var(--bl-rule-strong);
+      background: var(--bl-paper);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket {
+      margin: 3.6cqw 0 0;
+      padding: 0.8cqw 3cqw 1cqw;
+      border-radius: var(--bl-radius);
+      background: var(--bl-mineral);
+      color: var(--bl-paper-on-mineral);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket dl {
+      margin: 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3cqw;
+      padding: 1cqw 0;
+      border-bottom: var(--bl-hairline) solid var(--bl-rule-on-mineral);
+      font-family: var(--bl-font-data);
+      font-size: 1.45cqw;
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket div:last-child {
+      border-bottom: 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket dt {
+      margin: 0;
+      color: var(--bl-paper-on-mineral-muted);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__docket dd {
+      margin: 0;
+      text-align: right;
+    }
+
+    /* The one oxide mark on the cover: the sheet the reader is holding. */
+    :where([data-oe-theme="boundary-ledger"]) .board__docket div:last-child dd {
+      color: var(--bl-oxide-bright);
+    }
+
+    /* Sheet 01 */
+    :where([data-oe-theme="boundary-ledger"]) .board__h2 {
+      margin: 2.6cqw 0 0;
+      font-family: var(--bl-font-heading);
+      font-size: 4.4cqw;
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__lede {
+      max-width: 72cqw;
+      margin: 1.2cqw 0 0;
+      color: var(--bl-ink-muted);
+      font-size: 1.85cqw;
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__rows {
+      flex: 0 1 auto;
+      min-height: 0;
+      overflow: hidden;
+      margin: 2.2cqw 0 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__row {
+      display: grid;
+      grid-template-columns: 23cqw minmax(0, 1fr) 10cqw;
+      gap: 2.4cqw;
+      align-items: baseline;
+      padding: 0.8cqw 0;
+      border-top: var(--bl-hairline) solid var(--bl-rule);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__row:last-child {
+      border-bottom: var(--bl-hairline) solid var(--bl-rule);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__row-name {
+      font-family: var(--bl-font-heading);
+      font-size: 1.75cqw;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__row p {
+      margin: 0;
+      color: var(--bl-ink-soft);
+      font-size: 1.62cqw;
+      line-height: 1.36;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board .oe-class {
+      font-size: 1.15cqw;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__row .oe-class {
+      text-align: right;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__legend {
+      margin: 2.6cqw 0 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__legend-title {
+      margin: 0 0 0.6cqw;
+      color: var(--bl-steel);
+      font-family: var(--bl-font-data);
+      font-size: 1.3cqw;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__legend div {
+      display: grid;
+      grid-template-columns: 10cqw minmax(0, 1fr);
+      gap: 2.4cqw;
+      align-items: baseline;
+      padding: 0.4cqw 0;
+      color: var(--bl-ink-soft);
+      font-size: 1.5cqw;
+      line-height: 1.35;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board .bl-disclosure {
+      grid-template-columns: 23cqw minmax(0, 1fr);
+      gap: 2.4cqw;
+      margin-top: 2.2cqw;
+      padding: 1.3cqw 0;
+      font-size: 1.5cqw;
+      line-height: 1.4;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .board__foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 3cqw;
+      margin-top: auto;
+      padding-top: 1.6cqw;
+      border-top: var(--bl-hairline) solid var(--bl-rule-strong);
+      color: var(--bl-ink-muted);
+      font-family: var(--bl-font-data);
+      font-size: 1.4cqw;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body data-oe-theme="boundary-ledger" id="top">
+  <a class="bl-skip-link" href="#main">Skip to content</a>
+
+  <header class="bl-masthead">
+    <div class="bl-shell bl-masthead__inner oe-masthead__inner">
+      <a class="bl-wordmark" href="./homepage.html" aria-label="The Operator Economy, home">The Operator Economy</a>
+      <nav class="oe-nav" aria-label="Site">
+        <a href="./library.html">Library</a>
+        <a href="./method.html">Method</a>
+        <a href="./homepage.html#disclosures">About</a>
+      </nav>
+      <a class="bl-action" href="#newsletter">Subscribe</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Opening: rail · intro. No docket here; the boards carry their own. -->
+    <section class="bl-opening bl-shell" aria-labelledby="page-title">
+      <div class="bl-episode-feature">
+        <aside class="bl-episode-feature__rail" aria-label="Print record">
+          <span>Operator Canvas</span>
+          <span>№006 · Rev A</span>
+          <span>Print edition</span>
+        </aside>
+
+        <div class="bl-episode-feature__intro">
+          <h1 id="page-title">The <em>print</em> edition.</h1>
+          <p>
+            The PDF is the print edition of this same system, not a teaser. It carries the full
+            evidence registry with every citation, the complete model and its assumptions, the
+            full risk register and stop conditions, and the bounded first-test plan. Two boards
+            below show the format at print ratio.
+          </p>
+          <p style="margin-top: var(--bl-space-4); color: var(--bl-ink-muted); font-size: 1rem;">
+            №006 is a Legacy Blueprint episode and a V1-derived design specimen, not V2 gated.
+            No PDF is published for it. These boards show the print system, not a release.
+          </p>
+          <div class="oe-actions">
+            <a class="bl-action" href="./canvas-page.html">See the Canvas page it matches</a>
+            <a class="bl-action" href="./method.html">How a Canvas is made</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The pasteboard: two print boards on mineral -->
+    <section class="oe-pasteboard" id="boards" aria-label="Print boards">
+      <div class="oe-pasteboard__head">
+        <span>Print boards · 8.5 × 11 in · 612 × 792 px at 72 ppi</span>
+        <span>Canvas №006 · Rev A · V1-derived design specimen · not V2 gated</span>
+      </div>
+
+      <div class="oe-pasteboard__boards">
+        <!-- Board 1 · Cover -->
+        <figure class="board-frame" aria-labelledby="board-1-caption">
+          <div class="board board--cover">
+            <div class="board__head">
+              <span class="board__wordmark">The Operator Economy</span>
+              <span class="board__data">Canvas · print edition</span>
+            </div>
+            <p class="board__specimen">V1-derived design specimen · not V2 gated</p>
+            <h2 class="board__title">Direct booking recovery</h2>
+            <p class="board__promise">Turn a discovered guest into a relationship the property can keep.</p>
+            <div class="board__model">
+              <img
+                src="../../../../boundary-ledger/illustration/episode-006/hotel-working-model.jpg"
+                alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
+                width="1536" height="1024" loading="lazy" decoding="async" />
+            </div>
+            <aside class="board__docket" aria-label="Cover docket">
+              <dl>
+                <div><dt>Canvas</dt><dd>№006</dd></div>
+                <div><dt>Rev</dt><dd>A</dd></div>
+                <div><dt>Date</dt><dd>2026-09</dd></div>
+                <div><dt>Sources</dt><dd>9</dd></div>
+                <div><dt>Sheet</dt><dd>00 of 05</dd></div>
+              </dl>
+            </aside>
+          </div>
+          <figcaption id="board-1-caption">Board 1 · Cover · 612 × 792</figcaption>
+        </figure>
+
+        <!-- Board 2 · Sheet 01 -->
+        <figure class="board-frame" aria-labelledby="board-2-caption">
+          <div class="board board--sheet">
+            <div class="board__running">
+              <span>Sheet 01 · Public Canvas layer</span>
+              <span>Canvas №006 · Rev A</span>
+            </div>
+            <h2 class="board__h2">The decision at a glance</h2>
+            <p class="board__lede">Twelve statements from the public layer, classed where the Canvas page assigns one.</p>
+
+            <div class="board__rows" aria-label="Public Canvas layer">
+              <div class="board__row">
+                <span class="board__row-name">Buyer</span>
+                <p>An independent, owner-operated property that depends on OTA discovery.</p>
+                <span class="oe-class">Observed</span>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Problem</span>
+                <p>The property pays again to reacquire a guest it has already served.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Offer</span>
+                <p>Install and operate the direct-booking recovery stack: parity, booking path, missed-call recovery, re-book flows.</p>
+                <span class="oe-class">Modeled</span>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Result</span>
+                <p>Repeat bookings that arrive direct, measured as direct share against a baseline.</p>
+                <span class="oe-class">Modeled</span>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Delivery loop</span>
+                <p>Find, convert, remember, return, measure, with human approval at each judgment point.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Stack by capability</span>
+                <p>Listings and profile; booking engine and phone; guest list and consent record; outreach tools; booking reports.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">AI role</span>
+                <p>Drafting, organizing, and monitoring inside each capability.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Human judgment retained</span>
+                <p>What's true and current, consent and tone, offer choice, and reading the result.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Entry wedge</span>
+                <p>One property: install the recovery stack, move its direct share.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Aspirational destination</span>
+                <p>A guest-relationship practice serving independent properties.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Proof before expansion</span>
+                <p>One property's direct share moved against its own baseline.</p>
+              </div>
+              <div class="board__row">
+                <span class="board__row-name">Biggest risk</span>
+                <p>Activity rises while direct share doesn't move.</p>
+                <span class="oe-class">Unknown</span>
+              </div>
+            </div>
+
+            <div class="board__legend" aria-label="Evidence classes">
+              <p class="board__legend-title">Evidence classes</p>
+              <div><span class="oe-class">Observed</span><span>A sourced fact; the receipt names who reported it.</span></div>
+              <div><span class="oe-class">Parallel</span><span>Transferred from an adjacent model; the transfer is stated.</span></div>
+              <div><span class="oe-class">Modeled</span><span>An assumption with its arithmetic shown.</span></div>
+              <div><span class="oe-class">Unknown</span><span>An open question, kept visible with how it resolves.</span></div>
+            </div>
+
+            <aside class="bl-disclosure">
+              <strong>Required disclosure</strong>
+              <span>Design specimen from a V1 episode. Figures shown are reported by their named sources or are labeled arithmetic. Nothing on this page is observed operator performance or an earnings forecast.</span>
+            </aside>
+
+            <div class="board__foot">
+              <span>Print edition · matches the page · hash printed on the back cover</span>
+              <span>Sheet 01 of 05</span>
+            </div>
+          </div>
+          <figcaption id="board-2-caption">Board 2 · Sheet 01 · The decision at a glance · 612 × 792</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 01 · What the print edition carries -->
+    <section class="bl-chapter bl-shell" id="carries" aria-labelledby="carries-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">01 / What the print edition carries</p>
+        <div>
+          <h2 id="carries-title">The same system, on paper.</h2>
+          <p>
+            The Canvas page holds every load-bearing source, assumption, risk, unknown, and
+            disclosure. The print edition carries the full registries behind them, laid out for
+            reading away from a screen.
+          </p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <div class="bl-anatomy">
+          <h3>Four registries, in full</h3>
+          <ol>
+            <li><span><strong>Evidence registry.</strong> Every claim with its class and its receipt: publisher, year, link.</span></li>
+            <li><span><strong>Complete model.</strong> The delivery loop, the capability map, and every assumption behind the arithmetic.</span></li>
+            <li><span><strong>Risk register.</strong> Stop conditions and the unknowns carried, each with how it resolves.</span></li>
+            <li><span><strong>First-test plan.</strong> The bounded engagement: baseline, repair, permission, measure.</span></li>
+          </ol>
+        </div>
+        <div class="bl-boundary-list">
+          <h3>What it never does</h3>
+          <ul>
+            <li><strong>Add a figure</strong> the page doesn't show.</li>
+            <li><strong>Blend scenarios</strong> or print a summary total.</li>
+            <li><strong>Upgrade a modeled figure</strong> with an adjective.</li>
+            <li><strong>Publish a specimen.</strong> №006 carries no Canvas lock and no PDF.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · Provenance -->
+    <section class="bl-chapter bl-shell" id="provenance" aria-labelledby="provenance-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">02 / Provenance</p>
+        <div>
+          <h2 id="provenance-title">Three hashes, printed where you can check them.</h2>
+          <p>
+            A locked Canvas prints its source hash, its projection hash, and the PDF's own hash
+            on the back cover with the edition date. The download card shows the same three, so
+            the print and the page can be matched.
+          </p>
+        </div>
+      </header>
+      <div aria-label="Print provenance">
+        <div class="bl-ledger-row"><span class="bl-ledger-row__name">Back cover</span><p>Canvas source hash, projection hash, PDF hash, edition date, and revision, in the data face.</p></div>
+        <div class="bl-ledger-row"><span class="bl-ledger-row__name">This specimen</span><p>None of the three exist. №006 has no Canvas lock, so no print edition is issued.</p></div>
+        <div class="bl-ledger-row"><span class="bl-ledger-row__name">Revisions</span><p>A changed Canvas field creates a new revision and a new print edition; old editions stay published and labeled. <a href="./method.html#versioning">How versioning works</a></p></div>
+      </div>
+      <aside class="bl-disclosure" style="margin-top: var(--bl-space-7);">
+        <strong>Required disclosure</strong>
+        <span>Design specimen from a V1 episode. Figures shown are reported by their named sources or are labeled arithmetic. Nothing on this page is observed operator performance or an earnings forecast.</span>
+      </aside>
+      <aside class="bl-disclosure">
+        <strong>What the gate holds back</strong>
+        <span>Nothing you need to judge the opportunity. The Canvas page contains every load-bearing source, assumption, risk, unknown, and disclosure. The PDF adds detail and print utility.</span>
+      </aside>
+    </section>
+
+    <!-- Subscription band: the one conversion surface -->
+    <section class="bl-shell" id="newsletter" aria-labelledby="newsletter-title" style="padding-bottom: var(--bl-section-space);">
+      <aside class="bl-subscription-band">
+        <div>
+          <h3 id="newsletter-title">One business, fully sourced, when it ships.</h3>
+          <p>No drip campaigns. Unsubscribe anytime.</p>
+        </div>
+        <form class="oe-form" aria-label="Newsletter signup">
+          <label for="news-email">Email</label>
+          <input id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          <button type="button">Subscribe</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bl-system-footer">
+    <div class="bl-shell bl-system-footer__inner">
+      <div>
+        <strong>The Operator Economy</strong>
+        <nav class="oe-footer-nav" aria-label="Footer">
+          <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube<span class="oe-sr"> (opens in new tab)</span></a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="./library.html">Library</a>
+          <a href="./method.html">Method</a>
+        </nav>
+      </div>
+      <span class="oe-mark">Build. Own. Operate. · Site rev 2026-09-01</span>
+    </div>
+  </footer>
+</body>
+</html>

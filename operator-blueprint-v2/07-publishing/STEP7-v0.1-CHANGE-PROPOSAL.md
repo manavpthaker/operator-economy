@@ -2,7 +2,7 @@
 
 Status: **proposed. Not approved. Not authoritative.**
 
-Proposal date: 2026-09-01 (hash snapshot refreshed same day after the owner's display-typography revision)
+Proposal date: 2026-09-01 (hash snapshot refreshed 2026-09-02 after the rebuild on Boundary Ledger)
 
 Prior authority: the Step 7 boundary stub (`README.md`, "boundary only; not yet ported or
 authoritative")
@@ -86,6 +86,28 @@ captions, metadata, upload handoff, and release validation.
 | `…/artboards/B9-pdf.html` | `003cb9fca277fac0287fcf5c2706d6515ae8474c14504349507d89560d903e31` |
 | `design-system/explorations/rev-d/operator-canvas-lp-mockup.html` (historical input) | `c8a1dd0cbb7a74ae3d769dc1f08bb23e1db064a95a611c04b8f6417b64ed24f9` |
 
+**Boundary Ledger artboards (current proposed standard, 2026-09-02):**
+
+| Artifact | SHA-256 |
+|---|---|
+| `…/artboards/boundary-ledger/site.css` | `54590c403e82db511f1d83ae75630be191a1bfc3425a6e286f40a51cee6e6b4a` |
+| `…/artboards/boundary-ledger/homepage.html` | `991db0be4fe9f0eae69badf8e79892c62d5bdb8f975341dc35d40ceb49c410ce` |
+| `…/artboards/boundary-ledger/canvas-page.html` | `fe59a4e557f1a06cceb1c598e5193777e70de3f929d29bb6eeabb10d15ce3e2d` |
+| `…/artboards/boundary-ledger/method.html` | `1776f2278c10586b5b022dac36b92538bdeeb85f731df3e0c6cca205019e5c4e` |
+| `…/artboards/boundary-ledger/library.html` | `c9c74c291a2e4f234354ce8c054ba6ebd114dc7cc6a99e9f19e3d9bd541ec669` |
+| `…/artboards/boundary-ledger/legacy-episode.html` | `9765f86b4d6c0fdaf02efe9f5d3aed8c93fc1a972462aa7c9d4bb83a3b46aa14` |
+| `…/artboards/boundary-ledger/components.html` | `1f350d65f4694862c8363e97c910a43a6afac93715263c96c139dfb52cedd512` |
+| `…/artboards/boundary-ledger/pdf.html` | `dc9afe0156aa4337e1a8f473de3e31136625949d926fb9b9e3c089626a9ab038` |
+| `design-system/boundary-ledger/styles.css` (dependency) | `94d14ca688ba02da44b2b27696dfdc6de1a59ac09083360576c4df5bd0d3d65f` |
+| `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
+| `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |
+| `design-system/boundary-ledger/illustration/episode-006/hotel-working-model.jpg` (locked reference) | `083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712` |
+
+The B-series artboards (`B1`–`B9`) listed above are retained as **historical input** from
+the Rev C round; they are no longer the proposed standard. Visual authority for the
+proposed anatomy is Boundary Ledger (`design-system/boundary-ledger/README.md`); this
+proposal claims no authority over that system.
+
 `decision-log.md` in the same directory is the living review record and is referenced
 without a hash.
 
@@ -99,8 +121,8 @@ without a hash.
   locked-promise fidelity rule binding final packaging.
 - Claim the boundary-only Step 7 duties: final title and thumbnail, captions, metadata,
   upload handoff, release validation.
-- Promote Rev D (its validation items remain design-system's own gate; artboards B1/B2
-  are offered as evidence toward its episode-page-scroll item, nothing more).
+- Alter Boundary Ledger itself, promote Rev D, or change the design-system token layer;
+  the site binding (`site.css`) adds page-level pieces on BL tokens only.
 - Relabel, modify, or migrate any V1 artifact.
 - Change the design-system token layer (the sage-700 AA finding is recorded as a
   recommendation for the design-system owner, not enacted).

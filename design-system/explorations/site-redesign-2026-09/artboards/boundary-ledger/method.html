@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex" />
+  <title>Method · how a Canvas is made · The Operator Economy</title>
+  <link rel="stylesheet" href="../../../../boundary-ledger/styles.css" />
+  <link rel="stylesheet" href="./site.css" />
+  <style>
+    /* Page-local additions. Only --bl-* tokens; no new hue, no containers. */
+    :where([data-oe-theme="boundary-ledger"]) .oe-method-opening .bl-chapter__head {
+      margin-bottom: 0;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-method-opening h1 {
+      max-width: 14ch;
+      margin: 0;
+      font-family: var(--bl-font-display);
+      font-size: clamp(3rem, 6.4vw, 6.4rem);
+      font-weight: 700;
+      line-height: var(--bl-leading-display);
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-method-opening h1 em {
+      color: var(--bl-oxide);
+      font-style: italic;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-method-opening .oe-lead {
+      max-width: 40rem;
+      margin: var(--bl-space-6) 0 0;
+      color: var(--bl-ink-soft);
+      font-size: clamp(1.08rem, 1.6vw, 1.32rem);
+      line-height: 1.48;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-method-opening .oe-lead + p {
+      max-width: var(--bl-measure);
+      margin: var(--bl-space-4) 0 0;
+      color: var(--bl-ink-muted);
+      font-size: 1rem;
+    }
+
+    /* Copyable hash: accountable data face on paper, between two rules. */
+    :where([data-oe-theme="boundary-ledger"]) .oe-hash {
+      padding: var(--bl-space-5) 0;
+      border-top: var(--bl-hairline) solid var(--bl-rule);
+      border-bottom: var(--bl-hairline) solid var(--bl-rule);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-hash code {
+      display: block;
+      margin-top: var(--bl-space-3);
+      color: var(--bl-ink);
+      font-family: var(--bl-font-data);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-hash button {
+      min-block-size: 44px;
+      margin-top: var(--bl-space-4);
+      padding: 0 var(--bl-space-5);
+      border: var(--bl-hairline) solid var(--bl-mineral);
+      border-radius: var(--bl-radius);
+      background: var(--bl-mineral);
+      color: var(--bl-paper-on-mineral);
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-hash button:hover {
+      background: var(--bl-mineral-deep);
+    }
+
+    :where([data-oe-theme="boundary-ledger"]) .oe-hash [role="status"] {
+      min-height: 1.4em;
+      margin: var(--bl-space-2) 0 0;
+      color: var(--bl-ink-muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 480px) {
+      :where([data-oe-theme="boundary-ledger"]) .oe-method-opening h1 {
+        font-size: clamp(2.8rem, 15vw, 4.1rem);
+      }
+    }
+  </style>
+</head>
+<body data-oe-theme="boundary-ledger" id="top">
+  <a class="bl-skip-link" href="#main">Skip to content</a>
+
+  <header class="bl-masthead">
+    <div class="bl-shell bl-masthead__inner oe-masthead__inner">
+      <a class="bl-wordmark" href="./homepage.html" aria-label="The Operator Economy, home">The Operator Economy</a>
+      <nav class="oe-nav" aria-label="Site">
+        <a href="./library.html">Library</a>
+        <a href="./method.html" aria-current="page">Method</a>
+        <a href="./homepage.html#disclosures">About</a>
+      </nav>
+      <a class="bl-action" href="#newsletter">Subscribe</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Opening: page title in the chapter-head grid -->
+    <section class="bl-opening bl-shell oe-method-opening" aria-labelledby="page-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">Method · how a Canvas is made</p>
+        <div>
+          <h1 id="page-title">Every Canvas <em>earns</em> its way here.</h1>
+          <p class="oe-lead">This is The Operator Economy, where we show you how to use AI to build, own, and operate a sustainable business of one.</p>
+          <p>This page explains what an Operator Canvas is, how one gets made, and how to read the labels you'll see beside every material claim.</p>
+        </div>
+      </header>
+    </section>
+
+    <nav class="bl-anchor-nav bl-shell" aria-label="On this page">
+      <a href="#pipeline">01 · Pipeline and gates</a>
+      <a href="#evidence-classes">02 · Evidence classes</a>
+      <a href="#model-status">03 · Model status</a>
+      <a href="#economics">04 · Economics rules</a>
+      <a href="#versioning">05 · Versioning</a>
+      <a href="#not-published">06 · What we don't publish</a>
+    </nav>
+
+    <!-- 01 · The pipeline and its gates -->
+    <section class="bl-chapter bl-shell" id="pipeline" aria-labelledby="pipeline-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">01 / The pipeline and its gates</p>
+        <div>
+          <h2 id="pipeline-title">Five stages, each behind a gate.</h2>
+          <p>An episode starts as a candidate and ends as a published page, a Canvas, and a PDF. Nothing moves to the next stage on momentum; it moves because a named review let it through.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <div class="bl-anatomy">
+          <h3>From candidate to published Canvas</h3>
+          <ol>
+            <li><span><strong>Intake.</strong> Is the opportunity worth examining? A candidate is researched, scored, and either promoted or returned with the reason recorded.</span></li>
+            <li><span><strong>Editorial.</strong> The Canvas is authored and locked: the operating model, the evidence and its classes, the economics, and the exact words of the script.</span></li>
+            <li><span><strong>Narration.</strong> The locked words are performed and the narration is locked. The words don't change at this stage; only the delivery does.</span></li>
+            <li><span><strong>Production.</strong> The episode is designed, built, and finished from the locked narration, so the picture follows the argument instead of the other way round.</span></li>
+            <li><span><strong>Publishing.</strong> The episode page, the Canvas, and its PDF go out together, each carrying its own hash.</span></li>
+          </ol>
+        </div>
+        <div>
+          <aside class="bl-decision-note">
+            <strong>Gates, in plain terms</strong>
+            <p>Between stages, named reviews check the evidence, the language, and the model, and the owner signs off. A Canvas that fails a gate goes back, not through. A locked Canvas can still change: a material edit creates a new revision, and the earlier one stays published and labeled.</p>
+          </aside>
+          <ul class="bl-rule-list" aria-label="What the reviews check" style="margin-top: var(--bl-space-6);">
+            <li><strong>Evidence.</strong> Every observed claim resolves to a receipt, every modeled figure lists its assumptions, and every unknown is registered with how it resolves.</li>
+            <li><strong>Language.</strong> Plain sentences, no hype lexicon, and no adjective propping up a modeled figure.</li>
+            <li><strong>Model.</strong> The operating model has to be complete before a story is allowed to carry it. A good narrative can't pull an incomplete model through.</li>
+            <li><strong>Owner sign-off.</strong> The owner reads the result and signs the lock, or sends it back.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · The four evidence classes -->
+    <section class="bl-chapter bl-shell" id="evidence-classes" aria-labelledby="classes-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">02 / The four evidence classes</p>
+        <div>
+          <h2 id="classes-title">Every material claim carries one.</h2>
+          <p>Proof and uncertainty share the same surface. The class tells you what kind of thing a statement is; the receipt tells you where it came from.</p>
+        </div>
+      </header>
+      <div aria-label="Evidence classes">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Observed</span>
+          <p>A sourced fact. Someone measured or reported it, and the receipt names them. A vendor-published figure is still observed; the receipt says who published it so you can weigh it.</p>
+          <span class="oe-class">Observed</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Parallel</span>
+          <p>Transferred from an adjacent model. Nobody has run this exact business, but a neighboring one runs on the same mechanics. The statement says what transfers and what doesn't. A parallel never becomes proof of demand for the exact offer; it earns the right to test, nothing more.</p>
+          <span class="oe-class">Parallel</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Modeled</span>
+          <p>An assumption with its arithmetic shown. Every modeled figure travels with its assumption list, and scenarios sit side by side, never blended into one confident number. Modeled figures aren't dressed up with reassuring adjectives. If a modeled case fails its own target, the page says so.</p>
+          <span class="oe-class">Modeled</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Unknown</span>
+          <p>An open question, kept visible. Unknowns are content, not gaps. Each one is registered with how it resolves, and no diagram or polished figure is allowed to paper over one. The most useful line on a Canvas is often the unknown its first test is designed to answer.</p>
+          <span class="oe-class">Unknown</span>
+        </div>
+      </div>
+      <div style="margin-top: var(--bl-space-7);" aria-label="Example receipt">
+        <p class="bl-chapter__number" style="margin-bottom: var(--bl-space-3);">Example receipt · a source first cited in Legacy Blueprint №001</p>
+        <aside class="bl-evidence-receipt">
+          <span class="bl-evidence-receipt__source">Observed · <a href="https://www.ciodive.com/news/accenture-generative-ai-bookings-fy2025/730821/" target="_blank" rel="noreferrer">CIO Dive<span class="oe-sr"> (opens in new tab)</span></a></span>
+          <p><strong>Accenture FY2025 GenAI bookings.</strong> Accenture published the number; CIO Dive relayed it; the receipt names both so you can weigh it. What it supports: a large consulting firm reports its generative-AI bookings for the year, and you know who counted them. What it doesn't: anything about what a one-person operator earns. That's a separate statement, and it's modeled.</p>
+          <span class="bl-evidence-receipt__count">reported figure</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 03 · Model status -->
+    <section class="bl-chapter bl-shell" id="model-status" aria-labelledby="status-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">03 / Model status</p>
+        <div>
+          <h2 id="status-title">The whole model gets its own classification.</h2>
+          <p>Evidence classes label individual statements. Model status classifies the entire Canvas, and it appears once, on the titleblock beside the lock date.</p>
+        </div>
+      </header>
+      <div aria-label="Model statuses">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Observed model</span>
+          <p>The same business, or substantially the same one, has direct operating evidence. Someone runs it today, and the Canvas can point at them.</p>
+          <span class="bl-ledger-row__value">Runs today</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Adjacent synthesis</span>
+          <p>The proposed business combines neighboring pieces that each run somewhere. The combination itself hasn't been observed, so the Canvas states every transfer and what each one leaves unproven.</p>
+          <span class="bl-ledger-row__value">Assembled from neighbors</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Frontier hypothesis</span>
+          <p>The opportunity is more novel and carries additional testable assumptions. The Canvas presents a business to test, not one observed working, and it says which assumption you'd have to hear first.</p>
+          <span class="bl-ledger-row__value">Combination untested</span>
+        </div>
+      </div>
+      <aside class="bl-disclosure">
+        <strong>Two labels, never merged</strong>
+        <span>A Canvas can be an adjacent synthesis built mostly from observed facts. The status tells you how much of the business has been seen working; the classes tell you what each sentence rests on. Read both before you decide.</span>
+      </aside>
+    </section>
+
+    <!-- 04 · Economics rules -->
+    <section class="bl-chapter bl-shell" id="economics" aria-labelledby="economics-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">04 / Economics rules</p>
+        <div>
+          <h2 id="economics-title">Equations, scenarios, and honest failures.</h2>
+          <p>The economics sheet answers one question: where could value move, and under what stated inputs? It doesn't answer what you'll earn.</p>
+        </div>
+      </header>
+      <ul class="bl-rule-list" aria-label="Economics rules">
+        <li><strong>Equations, shown.</strong> Economics render as equation lines plus a low, base, and high case. There's no single headline number anywhere on a Canvas. A line reads like <code>monthly revenue = active clients × monthly fee</code>, with each input listed underneath it.</li>
+        <li><strong>Each case carries its own class and assumptions.</strong> Low, base, and high aren't three guesses at one number. They're three sets of stated inputs, and each set is labeled Modeled with its assumption list attached.</li>
+        <li><strong>Never blended.</strong> The cases sit side by side on a wide screen and one at a time on a phone. No control averages them, and no summary quotes one as if it were the answer.</li>
+        <li><strong>A failing base case is stated plainly.</strong> If the base case misses the livelihood requirement, the Canvas says so. Nobody adjusts an input until it passes.</li>
+        <li><strong>The required disclosure.</strong> Every Canvas carries one, in the same words, printed beside the figures rather than in a footnote.</li>
+      </ul>
+      <aside class="bl-disclosure">
+        <strong>Required disclosure</strong>
+        <span>Modeled scenarios aren't observed performance or an earnings forecast. Where a Canvas models the operator's own economics, that sentence sits next to the numbers.</span>
+      </aside>
+    </section>
+
+    <!-- 05 · Versioning and hashes -->
+    <section class="bl-chapter bl-shell" id="versioning" aria-labelledby="versioning-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">05 / Versioning and hashes</p>
+        <div>
+          <h2 id="versioning-title">A changed Canvas field creates a new revision.</h2>
+          <p>You should be able to check that what you read, what you downloaded, and what was locked are the same system. Three fingerprints make that possible.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <div class="bl-prose">
+          <h3>The lock</h3>
+          <p>When the owner signs the editorial lock, the Canvas source file gets a SHA-256 fingerprint: a fixed-length code computed from the file's exact contents. Change one character and the code changes. That fingerprint is the authority; the page you read and the PDF you download are derived from it.</p>
+          <h3>Three hashes, all displayed</h3>
+          <p>The source, the published page data, and the PDF each carry their own hash, printed in full in the Canvas's provenance panel. Compare them against what you have. If they match, you're reading the locked system and not a quiet edit of it.</p>
+          <h3>What a revision is</h3>
+          <p>A material edit to a locked Canvas creates a new revision with a new letter and a new set of hashes. The earlier revision stays published, labeled as superseded, and unchanged, so a citation of Rev A keeps pointing at Rev A. The library points at the current revision, and a superseded page says a newer one exists.</p>
+        </div>
+        <div>
+          <ul class="bl-rule-list" aria-label="The three hashes">
+            <li><strong>Canvas source hash.</strong> The locked markdown. Everything else derives from it.</li>
+            <li><strong>Projection hash.</strong> The published data file the page renders from. Its hash is computed after it's written and stored in the index, so no file ever carries its own fingerprint.</li>
+            <li><strong>PDF hash.</strong> The print edition's binary, shown on the download card with the edition date.</li>
+          </ul>
+          <div class="oe-hash" style="margin-top: var(--bl-space-6);">
+            <p class="bl-chapter__number">Copyable, like this</p>
+            <code id="hash-demo">sha256 of the page you are reading appears here on a live Canvas</code>
+            <button type="button" id="hash-copy" aria-describedby="hash-demo">Copy</button>
+            <p id="hash-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · What we don't publish -->
+    <section class="bl-chapter bl-shell" id="not-published" aria-labelledby="not-published-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">06 / What we don't publish</p>
+        <div>
+          <h2 id="not-published-title">The claims discipline, in reader terms.</h2>
+          <p>These hold on every page, every Canvas, and every episode. They're the reason the library is worth coming back to.</p>
+        </div>
+      </header>
+      <div class="bl-boundary-list">
+        <h3>Standing rules</h3>
+        <ul>
+          <li><strong>No income promises.</strong> A livelihood case is a design test the Canvas has to pass or admit failing, not a forecast.</li>
+          <li><strong>No figure without a source or its arithmetic.</strong> Estimates are marked and never blended into sourced figures.</li>
+          <li><strong>No modeled number upgraded by an adjective.</strong> The inputs make the case or they don't.</li>
+          <li><strong>No diagram that resolves an unknown.</strong> A drawing inherits the evidence class of what it draws.</li>
+          <li><strong>No held-back material.</strong> Everything load-bearing is on the page; the PDF adds detail and print utility.</li>
+          <li><strong>No schedule promises.</strong> An episode publishes when its Canvas has passed its gates, not on a calendar.</li>
+        </ul>
+      </div>
+      <div class="oe-actions">
+        <a class="bl-action" href="./homepage.html#disclosures">Standing disclosures</a>
+        <a class="bl-action" href="./library.html">Browse the library</a>
+      </div>
+    </section>
+
+    <!-- Subscription band: the one conversion surface -->
+    <section class="bl-shell" id="newsletter" aria-labelledby="newsletter-title" style="padding-bottom: var(--bl-section-space);">
+      <aside class="bl-subscription-band">
+        <div>
+          <h3 id="newsletter-title">One business, fully sourced, when it ships.</h3>
+          <p>No drip campaigns. Unsubscribe anytime.</p>
+        </div>
+        <form class="oe-form" aria-label="Newsletter signup">
+          <label for="news-email">Email</label>
+          <input id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          <button type="button">Subscribe</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bl-system-footer">
+    <div class="bl-shell bl-system-footer__inner">
+      <div>
+        <strong>The Operator Economy</strong>
+        <nav class="oe-footer-nav" aria-label="Footer">
+          <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube<span class="oe-sr"> (opens in new tab)</span></a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="./library.html">Library</a>
+          <a href="./method.html">Method</a>
+        </nav>
+      </div>
+      <span class="oe-mark">Build. Own. Operate. · Site rev 2026-09-01</span>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+    var button = document.getElementById("hash-copy");
+    var code = document.getElementById("hash-demo");
+    var status = document.getElementById("hash-status");
+    if (!button || !code || !status) return;
+    var timer = null;
+    function settle(ok) {
+      status.textContent = ok ? "Copied to your clipboard." : "Copy didn't work here. Select the text and copy it by hand.";
+      button.textContent = ok ? "Copied" : "Copy";
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () { button.textContent = "Copy"; }, 2000);
+    }
+    function fallback(text) {
+      try {
+        var range = document.createRange();
+        range.selectNodeContents(code);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        var ok = document.execCommand("copy");
+        selection.removeAllRanges();
+        settle(ok);
+      } catch (err) {
+        settle(false);
+      }
+    }
+    button.addEventListener("click", function () {
+      var text = code.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { settle(true); }, function () { fallback(text); });
+      } else {
+        fallback(text);
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

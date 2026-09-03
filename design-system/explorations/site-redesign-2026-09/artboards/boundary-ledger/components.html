@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex" />
+  <title>Site binding on Boundary Ledger</title>
+  <link rel="stylesheet" href="../../../../boundary-ledger/styles.css" />
+  <link rel="stylesheet" href="./site.css" />
+  <style>
+    /* Sheet-only additions. Every value is a --bl-* token; no new hue, no grid, no chip. */
+    [data-oe-theme="boundary-ledger"] .oe-spec-feature .bl-episode-feature__intro h2 {
+      max-width: 12ch;
+      margin: 0;
+      font-family: var(--bl-font-display);
+      font-size: clamp(3rem, 6.4vw, 6.4rem);
+      font-weight: 700;
+      line-height: var(--bl-leading-display);
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+    [data-oe-theme="boundary-ledger"] .oe-spec-feature .bl-episode-feature__intro h2 em {
+      color: var(--bl-oxide);
+      font-style: italic;
+    }
+    [data-oe-theme="boundary-ledger"] .oe-spec-masthead__end {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--bl-space-2) var(--bl-space-5);
+    }
+    [data-oe-theme="boundary-ledger"] .oe-spec-stack {
+      display: grid;
+      gap: var(--bl-space-4);
+    }
+    [data-oe-theme="boundary-ledger"] .oe-spec-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+    [data-oe-theme="boundary-ledger"] .oe-spec-label {
+      margin: 0 0 var(--bl-space-3);
+    }
+    @media (max-width: 680px) {
+      [data-oe-theme="boundary-ledger"] .oe-spec-pair {
+        grid-template-columns: 1fr;
+      }
+      [data-oe-theme="boundary-ledger"] .oe-spec-masthead {
+        grid-template-columns: 1fr;
+        padding-block: var(--bl-space-3);
+      }
+    }
+    @media (max-width: 480px) {
+      [data-oe-theme="boundary-ledger"] .oe-spec-feature .bl-episode-feature__intro h2 {
+        font-size: clamp(2.8rem, 15vw, 4.1rem);
+      }
+    }
+  </style>
+</head>
+<body data-oe-theme="boundary-ledger" id="top">
+  <a class="bl-skip-link" href="#main">Skip to content</a>
+
+  <header class="bl-masthead">
+    <div class="bl-shell bl-masthead__inner oe-masthead__inner">
+      <a class="bl-wordmark" href="./homepage.html" aria-label="The Operator Economy, home">The Operator Economy</a>
+      <nav class="oe-nav" aria-label="Site">
+        <a href="./library.html">Library</a>
+        <a href="./method.html">Method</a>
+        <a href="./homepage.html#disclosures">About</a>
+      </nav>
+      <a class="bl-action" href="#newsletter">Subscribe</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Opening: the sheet title in the episode-feature intro style -->
+    <section class="bl-opening bl-shell" aria-labelledby="sheet-title">
+      <div class="bl-episode-feature">
+        <aside class="bl-episode-feature__rail" aria-label="Sheet record">
+          <span>Component sheet</span>
+          <span>Site rev · 2026-09-01</span>
+          <span>Design specimen</span>
+        </aside>
+        <div class="bl-episode-feature__intro">
+          <h1 id="sheet-title">Site binding on Boundary Ledger</h1>
+          <p>
+            Every component the site uses, rendered with real №006 content on the Boundary Ledger
+            web binding. Each chapter shows the component itself and the one-line contract it has to
+            meet. A design specimen, not a publication.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bl-anchor-nav bl-shell" aria-label="Components on this sheet">
+      <a href="#masthead">Masthead</a>
+      <a href="#episode-feature">Episode feature</a>
+      <a href="#docket">Docket</a>
+      <a href="#working-model">Working model</a>
+      <a href="#ledger-row">Ledger row</a>
+      <a href="#evidence-receipt">Evidence receipt</a>
+      <a href="#decision-note">Decision note</a>
+      <a href="#subscription-band">Subscription band</a>
+      <a href="#disclosure">Disclosure</a>
+      <a href="#editorial-action">Actions</a>
+      <a href="#forms">Forms</a>
+      <a href="#filters">Filters</a>
+      <a href="#evidence-classes">Evidence classes</a>
+      <a href="#three-views">Three views</a>
+      <a href="#stop-conditions">Stop conditions</a>
+      <a href="#materials">Materials</a>
+      <a href="#boundaries">Reject</a>
+    </nav>
+
+    <!-- 01 · Masthead -->
+    <section class="bl-chapter bl-shell" id="masthead" aria-labelledby="masthead-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">01 / Masthead</p>
+        <div>
+          <h2 id="masthead-title">One wordmark, three destinations, one action.</h2>
+          <p>The wordmark and no more than the primary editorial actions, set in publication typography. It collapses without introducing a second navigation system.</p>
+        </div>
+      </header>
+      <div class="bl-pattern-masthead oe-spec-masthead">
+        <span class="bl-wordmark">The Operator Economy</span>
+        <div class="oe-spec-masthead__end">
+          <nav class="oe-nav" aria-label="Masthead specimen">
+            <a href="./library.html">Library</a>
+            <a href="./method.html">Method</a>
+            <a href="./homepage.html#disclosures">About</a>
+          </nav>
+          <a class="bl-action" href="#newsletter">Subscribe</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · EpisodeFeature -->
+    <section class="bl-chapter bl-shell oe-spec-feature" id="episode-feature" aria-labelledby="feature-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">02 / EpisodeFeature</p>
+        <div>
+          <h2 id="feature-title">Rail, thesis, docket, working model.</h2>
+          <p>Four parts in that source order, so the reading order holds without CSS. The docket overlaps exactly 16px of blank top paper and never obscures a meaningful mark. Mobile stacks copy and docket inside 24px gutters, then bleeds the illustration.</p>
+        </div>
+      </header>
+      <div class="bl-episode-feature">
+        <aside class="bl-episode-feature__rail" aria-label="Site record">
+          <span>Site rev · 2026-09-01</span>
+          <span>9 sources verified for №006</span>
+          <span>Estimates marked, never blended</span>
+        </aside>
+
+        <div class="bl-episode-feature__intro">
+          <h2>You can build it now. We show you what's <em>worth</em> building.</h2>
+          <p>
+            One real business one experienced person could run: the operating model, the
+            evidence and its limits, the honest economics, and the first bounded test. The
+            Canvas behind each episode is published here.
+          </p>
+          <div class="oe-actions">
+            <a class="bl-action" href="./canvas-page.html">See how the Canvas works</a>
+            <a class="bl-action" href="https://youtu.be/pOoQLaSyUGQ" target="_blank" rel="noreferrer">Watch the latest episode<span class="oe-sr"> (opens in new tab)</span></a>
+          </div>
+        </div>
+
+        <aside class="bl-docket" aria-labelledby="feature-docket-title">
+          <div class="bl-docket__head">
+            <span>Sheet 00 · The latest</span>
+            <span class="bl-live">Live</span>
+          </div>
+          <div class="bl-docket__body">
+            <span class="bl-docket__identity">№006 · Legacy Blueprint</span>
+            <h3 id="feature-docket-title">Hotels pay 30% to book their own rooms</h3>
+            <p>Install and operate the direct-booking recovery stack for independent hotels.</p>
+          </div>
+          <dl class="bl-docket__rows">
+            <div class="bl-docket__row"><dt>Published</dt><dd>2026-08-17</dd></div>
+            <div class="bl-docket__row"><dt>Sources</dt><dd>9</dd></div>
+            <div class="bl-docket__row"><dt>Canvas status</dt><dd>In development</dd></div>
+          </dl>
+        </aside>
+
+        <figure class="bl-working-model">
+          <img
+            src="../../../../boundary-ledger/illustration/episode-006/hotel-working-model.jpg"
+            alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
+            width="1536" height="1024" loading="eager" decoding="async" />
+          <figcaption>
+            <span>The working paper carries the unfinished model; the docket carries what we can stand behind.</span>
+            <span>3:2 · complete composition</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 03 · AccountableDocket -->
+    <section class="bl-chapter bl-shell" id="docket" aria-labelledby="docket-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">03 / AccountableDocket</p>
+        <div>
+          <h2 id="docket-title">The accountable surface.</h2>
+          <p>Deep mineral carries the record. Three metadata rows stay in the data face; the docket never grows a collection of status chips and never implies publication the content state doesn't support.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <aside class="bl-docket" aria-label="Accountable docket, Canvas specimen">
+          <div class="bl-docket__head">
+            <span>Canvas · Rev A</span>
+            <span>V1-derived design specimen · not V2 gated</span>
+          </div>
+          <div class="bl-docket__body">
+            <span class="bl-docket__identity">№006 · Operator Canvas</span>
+            <h3>The operating model behind the episode</h3>
+            <p>Model status: not assessed, V1-derived. The episode is live; the Canvas is a preview.</p>
+          </div>
+          <dl class="bl-docket__rows">
+            <div class="bl-docket__row"><dt>Episode</dt><dd>Live · 2026-08-17</dd></div>
+            <div class="bl-docket__row"><dt>Sources</dt><dd>9</dd></div>
+            <div class="bl-docket__row"><dt>Canvas lock</dt><dd>None · specimen</dd></div>
+          </dl>
+        </aside>
+        <div class="bl-anatomy">
+          <h3>Functional anatomy</h3>
+          <ol>
+            <li><span><strong>Record header.</strong> Sheet role and live state.</span></li>
+            <li><span><strong>Episode identity.</strong> Number and artifact family.</span></li>
+            <li><span><strong>Thesis and promise.</strong> What the episode argues and installs.</span></li>
+            <li><span><strong>Accountability rows.</strong> Date, sources, and Canvas state.</span></li>
+            <li><span><strong>Attachment.</strong> A 16px overlap uses blank paper only.</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · WorkingModel -->
+    <section class="bl-chapter bl-shell" id="working-model" aria-labelledby="model-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">04 / WorkingModel</p>
+        <div>
+          <h2 id="model-title">The whole 3:2 paper, never cropped.</h2>
+          <p>A versioned asset with an illustration manifest, relationship-level alt text, and an intrinsic 1536 × 1024, rendered whole with object-fit contain inside a figure. Never a cropped background image.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <figure class="bl-working-model">
+          <img
+            src="../../../../boundary-ledger/illustration/episode-006/hotel-working-model.jpg"
+            alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
+            width="1536" height="1024" loading="lazy" decoding="async" />
+          <figcaption>
+            <span>The first stay passes through the OTA toll. The second stay, in oxide, returns directly to the hotel.</span>
+            <span>3:2 · complete composition</span>
+          </figcaption>
+        </figure>
+        <ul class="bl-rule-list" aria-label="Working model inputs">
+          <li><strong>Versioned asset.</strong> episode-006/hotel-working-model.jpg, manifest status locked-reference, approved 2026-09-02 for visual language only.</li>
+          <li><strong>Relationship-level alt.</strong> Names the guest, the OTA toll, and the direct return. It doesn't describe the drawing style.</li>
+          <li><strong>Intrinsic size.</strong> 1536 × 1024, shown whole at 3:2 with object-fit contain.</li>
+          <li><strong>Caption and format note.</strong> Optional. The format note sits in the data face.</li>
+          <li><strong>Narrow screens.</strong> The paper bleeds to the viewport edge while the docket stays inset. Redraw for another aspect ratio if the relationship or the oxide path stops reading.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 · LedgerRow -->
+    <section class="bl-chapter bl-shell" id="ledger-row" aria-labelledby="row-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">05 / LedgerRow</p>
+        <div>
+          <h2 id="row-title">Rules and spacing, not containers.</h2>
+          <p>For comparable material roles or accountable record fields. Labels identify function, not decorative taxonomy; the third column carries a data value or an evidence class.</p>
+        </div>
+      </header>
+      <div aria-label="Ledger row specimens">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Episode</span>
+          <p>Hotels pay 30% to book their own rooms · live · 2026-08-17</p>
+          <span class="bl-ledger-row__value">№006</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Sources</span>
+          <p>Nine verified for the episode. Each receipt names who reported the figure and what it supports.</p>
+          <span class="bl-ledger-row__value">9 verified</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Biggest risk</span>
+          <p>Activity rises while direct share doesn't move.</p>
+          <span class="oe-class"><a href="#evidence-classes">Unknown</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · EvidenceReceipt -->
+    <section class="bl-chapter bl-shell" id="evidence-receipt" aria-labelledby="receipt-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">06 / EvidenceReceipt</p>
+        <div>
+          <h2 id="receipt-title">Sourced evidence and modeled arithmetic stay separate.</h2>
+          <p>States what the evidence supports and what remains an estimate. The source is named in the data face; the count is accountable data, not a badge.</p>
+        </div>
+      </header>
+      <div class="oe-spec-stack" aria-label="Evidence receipts">
+        <aside class="bl-evidence-receipt">
+          <span class="bl-evidence-receipt__source">Observed · <a href="https://www.cloudbeds.com/online-travel-agencies/commissions/" target="_blank" rel="noreferrer">Cloudbeds 2026<span class="oe-sr"> (opens in new tab)</span></a></span>
+          <p><strong>63.4%</strong> of independent-hotel reservations attributed to Booking.com and Expedia in the cited report. Vendor-published.</p>
+          <span class="bl-evidence-receipt__count">reported figure</span>
+        </aside>
+        <aside class="bl-evidence-receipt">
+          <span class="bl-evidence-receipt__source">Modeled · arithmetic</span>
+          <p><strong>$135K</strong> annual commission-exposure arithmetic: 20 rooms, $180 ADR, 70% occupancy, 63.4% OTA share, 22% commission. Not a reported hotel result.</p>
+          <span class="bl-evidence-receipt__count">assumptions shown</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 07 · DecisionNote -->
+    <section class="bl-chapter bl-shell" id="decision-note" aria-labelledby="note-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">07 / DecisionNote</p>
+        <div>
+          <h2 id="note-title">One decision, marked once.</h2>
+          <p>Records one decision, exception, or unresolved operating question. Oxide marks the edge or the phrase; it can't color the whole page hierarchy.</p>
+        </div>
+      </header>
+      <aside class="bl-decision-note">
+        <strong>Most sensitive assumption</strong>
+        <p>The 22% commission point, chosen inside the reported 18–30% band, and the sector-average OTA share applied to a single property. The first test replaces both with the property's own baseline.</p>
+      </aside>
+    </section>
+
+    <!-- 08 · SubscriptionBand -->
+    <section class="bl-chapter bl-shell" id="subscription-band" aria-labelledby="band-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">08 / SubscriptionBand</p>
+        <div>
+          <h2 id="band-title">The one conversion surface.</h2>
+          <p>Deep mineral, used once and deliberately: one promise, one supporting sentence, one primary action. It doesn't compete with the docket in the same viewport when avoidable.</p>
+        </div>
+      </header>
+      <aside class="bl-subscription-band" id="newsletter" aria-labelledby="newsletter-title">
+        <div>
+          <h3 id="newsletter-title">One business, fully sourced, when it ships.</h3>
+          <p>No drip campaigns. Unsubscribe anytime.</p>
+        </div>
+        <form class="oe-form" aria-label="Newsletter signup">
+          <label for="news-email">Email</label>
+          <input id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          <button type="button">Subscribe</button>
+        </form>
+      </aside>
+    </section>
+
+    <!-- 09 · DisclosureBlock -->
+    <section class="bl-chapter bl-shell" id="disclosure" aria-labelledby="disclosure-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">09 / DisclosureBlock</p>
+        <div>
+          <h2 id="disclosure-title">Boundaries in plain language.</h2>
+          <p>States the evidence, estimate, AI, or publication boundary with a quiet rule-based treatment. It isn't an alert card unless there's actual risk.</p>
+        </div>
+      </header>
+      <div aria-label="Disclosure specimens">
+        <aside class="bl-disclosure">
+          <strong>Economics boundary</strong>
+          <span>Illustrative arithmetic, not observed performance and not an earnings forecast. No operator revenue is modeled on this page: what a hotel pays for this service is unknown U001.</span>
+        </aside>
+        <aside class="bl-disclosure">
+          <strong>Required disclosure</strong>
+          <span>Design specimen from a V1 episode. Figures shown are reported by their named sources or are labeled arithmetic. Nothing on this page is observed operator performance or an earnings forecast.</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 10 · EditorialAction -->
+    <section class="bl-chapter bl-shell" id="editorial-action" aria-labelledby="action-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">10 / EditorialAction</p>
+        <div>
+          <h2 id="action-title">A direct verb and an honest destination.</h2>
+          <p>A visible oxide focus indicator on paper and bright oxide on mineral. No pill shapes, no ornamental iconography.</p>
+        </div>
+      </header>
+      <div class="oe-actions" style="margin-top: 0; align-items: center;">
+        <a class="bl-action" href="./canvas-page.html">Explore the Canvas</a>
+        <a class="bl-text-link" href="../../../../boundary-ledger/component-contracts.md">Read the component contracts</a>
+        <button class="oe-guide-toggle" type="button" aria-pressed="false" data-spec-toggle><i aria-hidden="true"></i>Guided walkthrough</button>
+      </div>
+      <ul class="bl-rule-list" aria-label="Action forms" style="margin-top: var(--bl-space-6);">
+        <li><strong>Action.</strong> The primary editorial move. The first action in a row reads in dark oxide; the rest stay steel.</li>
+        <li><strong>Text link.</strong> An in-text destination, underlined, steel. Same 44px target as every control.</li>
+        <li><strong>Guide toggle.</strong> The one state control on a Canvas page. Pressed, the mark moves to bright oxide on mineral; guidance renders as decision notes.</li>
+        <li><strong>On mineral.</strong> The action reads in bright oxide, as in the subscription band above.</li>
+      </ul>
+    </section>
+
+    <!-- 11 · Forms -->
+    <section class="bl-chapter bl-shell" id="forms" aria-labelledby="forms-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">11 / Forms</p>
+        <div>
+          <h2 id="forms-title">Two separate choices.</h2>
+          <p>Paper fields with oxide focus and a mineral button. The PDF request and the newsletter are separate choices: the consent row is optional, off by default, with its own unsubscribe.</p>
+        </div>
+      </header>
+      <div class="oe-spec-pair">
+        <form class="oe-form" aria-label="Canvas PDF request, idle specimen">
+          <p class="bl-chapter__number oe-spec-label">Idle</p>
+          <label for="pdf-email-idle">Email for the PDF</label>
+          <input id="pdf-email-idle" type="email" autocomplete="email" placeholder="you@example.com" />
+          <button type="button">Email me the PDF</button>
+          <label class="oe-consent"><input type="checkbox" /><span>Also send the newsletter. Optional, off by default, its own unsubscribe.</span></label>
+          <small>The PDF arrives by email. The newsletter is a separate choice.</small>
+        </form>
+        <form class="oe-form" aria-label="Canvas PDF request, disabled specimen">
+          <p class="bl-chapter__number oe-spec-label">Disabled · no PDF is published for a specimen</p>
+          <label for="pdf-email-off">Email for the PDF</label>
+          <input id="pdf-email-off" type="email" placeholder="you@example.com" disabled />
+          <button type="button" disabled>Email me the PDF</button>
+          <label class="oe-consent"><input type="checkbox" disabled /><span>Also send the newsletter. Optional, off by default, its own unsubscribe.</span></label>
+          <small>Controls shown for preview and inactive. On a live Canvas this form also prints the PDF hash and edition date.</small>
+        </form>
+      </div>
+    </section>
+
+    <!-- 12 · Filters -->
+    <section class="bl-chapter bl-shell" id="filters" aria-labelledby="filters-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">12 / Filters</p>
+        <div>
+          <h2 id="filters-title">Quiet controls on a rule.</h2>
+          <p>Library filters are editorial controls, never pills. The pressed filter carries an oxide underline and ink; the rest stay steel on the shared rule.</p>
+        </div>
+      </header>
+      <div class="oe-filters" role="group" aria-label="Library filters">
+        <button type="button" aria-pressed="true">All</button>
+        <button type="button" aria-pressed="false">Canvases</button>
+        <button type="button" aria-pressed="false">Legacy</button>
+      </div>
+      <aside class="bl-disclosure">
+        <strong>Empty Canvases state</strong>
+        <span>The first Canvas is in editorial development.</span>
+      </aside>
+    </section>
+
+    <!-- 13 · Evidence-class labels -->
+    <section class="bl-chapter bl-shell" id="evidence-classes" aria-labelledby="classes-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">13 / Evidence-class labels</p>
+        <div>
+          <h2 id="classes-title">Typeset data, never a colored badge.</h2>
+          <p>Every material claim carries one of four classes. The label reads in the data face in steel, links to its definition, and never becomes a colored badge, chip, or pill.</p>
+        </div>
+      </header>
+      <div aria-label="Evidence classes">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Sourced fact</span>
+          <p>The receipt names who reported it. On №006: 63.4% of independent-hotel reservations attributed to Booking.com and Expedia, Cloudbeds 2026, vendor-published.</p>
+          <span class="oe-class">Observed</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Transferred claim</span>
+          <p>Carried over from an adjacent model; the transfer is stated. The №006 specimen carries no parallel claim, so the label is shown here for the class alone.</p>
+          <span class="oe-class">Parallel</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Assumption</span>
+          <p>An assumption with its arithmetic shown. On №006: $135K annual commission exposure from 20 rooms, $180 ADR, 70% occupancy, 63.4% OTA share, 22% commission.</p>
+          <span class="oe-class">Modeled</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Open question</span>
+          <p>Kept visible with how it resolves. On №006, U001: what a hotel will pay for this specific service. Resolves in the first paid conversation.</p>
+          <span class="oe-class">Unknown</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 · Three views -->
+    <section class="bl-chapter bl-shell" id="three-views" aria-labelledby="views-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">14 / Three views</p>
+        <div>
+          <h2 id="views-title">Read side by side, never blended.</h2>
+          <p>Three comparable views separated by rules. Each carries its own evidence class, and nothing collapses them into one confident revenue claim.</p>
+        </div>
+      </header>
+      <div class="oe-three" aria-label="Three views, never blended">
+        <article>
+          <span class="oe-class">Observed · Cloudbeds 2026</span>
+          <h3>18–30%</h3>
+          <p>All-in Booking.com commission range reported when loyalty and visibility programs are included.</p>
+          <dl>
+            <div><dt>Base commission</dt><dd>Included</dd></div>
+            <div><dt>Visibility programs</dt><dd>Included</dd></div>
+            <div><dt>Property-specific result</dt><dd>Unknown</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span class="oe-class">Modeled · arithmetic</span>
+          <h3>$135K/yr</h3>
+          <p>Arithmetic estimate of annual commission exposure. Not a reported hotel result and not a universal loss figure.</p>
+          <dl>
+            <div><dt>Rooms × ADR</dt><dd>20 × $180</dd></div>
+            <div><dt>Occupancy × OTA share</dt><dd>70% × 63.4%</dd></div>
+            <div><dt>Commission assumption</dt><dd>22%</dd></div>
+          </dl>
+        </article>
+        <article>
+          <span class="oe-class">Unknown · open</span>
+          <h3>Unknown</h3>
+          <p>The market proves the work exists. Public provider pricing doesn't establish what a hotel will pay for this service.</p>
+          <dl>
+            <div><dt>Five providers scanned</dt><dd>No public price</dd></div>
+            <div><dt>Delivery capacity</dt><dd>Must be tested</dd></div>
+            <div><dt>Renewal threshold</dt><dd>Must be measured</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <!-- 15 · Stop conditions -->
+    <section class="bl-chapter bl-shell" id="stop-conditions" aria-labelledby="stop-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">15 / Stop conditions</p>
+        <div>
+          <h2 id="stop-title">The only place risk color appears.</h2>
+          <p>Stop conditions are actual negative exceptions: a failed condition, not a warning style. Risk color marks the list edge and its heading and appears nowhere else on the page.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <div class="bl-prose">
+          <h3>Why it stays scarce</h3>
+          <p>Sage marks verified state only, and risk marks actual contradiction only. If either color spreads into general emphasis, the reader loses the one signal that says something has already failed.</p>
+          <p>A stop condition names the observation that ends or redesigns the first test. It never decorates a caution, a tip, or an estimate.</p>
+        </div>
+        <div class="bl-boundary-list oe-stop">
+          <h3>Stop or redesign when</h3>
+          <ul>
+            <li>The property can't establish a credible baseline.</li>
+            <li>Guest permission or data access is unclear.</li>
+            <li>The destination can't complete the promise.</li>
+            <li>Activity rises while direct share doesn't move.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 · Materials -->
+    <section class="bl-chapter bl-shell" id="materials" aria-labelledby="materials-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">16 / Materials</p>
+        <div>
+          <h2 id="materials-title">Four materials, four jobs.</h2>
+          <p>Color communicates ownership and accountability. It doesn't decorate a neutral component kit.</p>
+        </div>
+      </header>
+      <div class="bl-ledger-bands" aria-label="Boundary Ledger material roles">
+        <article class="bl-material-band bl-material-band--paper">
+          <h3>Warm ledger</h3>
+          <p>Human context, open questions, working records, and the page itself.</p>
+          <code>#F5F0E6</code>
+        </article>
+        <article class="bl-material-band bl-material-band--mineral">
+          <h3>Deep mineral</h3>
+          <p>Evidence, institutional claims, and surfaces that carry accountable metadata.</p>
+          <code>#204440</code>
+        </article>
+        <article class="bl-material-band bl-material-band--oxide">
+          <h3>Core oxide</h3>
+          <p>Commitments, exceptions, and the single active path through a model.</p>
+          <code>#B5482F</code>
+        </article>
+        <article class="bl-material-band bl-material-band--steel">
+          <h3>Perimeter steel</h3>
+          <p>Rented capability, dependency, secondary structure, and quiet navigation.</p>
+          <code>#586D74</code>
+        </article>
+      </div>
+    </section>
+
+    <!-- 17 · Boundaries -->
+    <section class="bl-chapter bl-shell" id="boundaries" aria-labelledby="boundaries-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">17 / Boundaries</p>
+        <div>
+          <h2 id="boundaries-title">The rejection test is part of the system.</h2>
+          <p>The most likely failure isn't bad craft. It's letting the illustration language spread until the entire publication looks like an unfinished diagram.</p>
+        </div>
+      </header>
+      <div class="bl-boundary-list">
+        <h3>Reject</h3>
+        <ul>
+          <li>Checkered grids, crosshairs, node maps, or leader lines outside the artwork.</li>
+          <li>Vector-perfect sketches, closed corners, uniform strokes, or faux wobble filters.</li>
+          <li>Photography replacing the signature episode model; documentary Reality World footage remains valid.</li>
+          <li>Ambient drift, infinite pulse, faux wobble, generic waveforms, or kinetic text for every word.</li>
+          <li>Gradients, glass, pills, rounded SaaS cards, or multiple competing status colors.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bl-system-footer">
+    <div class="bl-shell bl-system-footer__inner">
+      <div>
+        <strong>The Operator Economy</strong>
+        <nav class="oe-footer-nav" aria-label="Footer">
+          <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube<span class="oe-sr"> (opens in new tab)</span></a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="./library.html">Library</a>
+          <a href="./method.html">Method</a>
+        </nav>
+      </div>
+      <span class="oe-mark">Build. Own. Operate. · Site rev 2026-09-01</span>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+    document.querySelectorAll("[data-spec-toggle]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true"));
+      });
+    });
+    var filters = Array.prototype.slice.call(document.querySelectorAll(".oe-filters button"));
+    filters.forEach(function (b) {
+      b.addEventListener("click", function () {
+        filters.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
