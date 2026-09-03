@@ -440,3 +440,12 @@ layout, publication status, and the locked EP006 illustration are unchanged. The
 covered the specimen plus Method, Businesses, and Canvas at 1280, 375, and 320 CSS pixels:
 all referenced images loaded and no horizontal overflow was detected. This verifies the
 implementation, not owner approval of the drawing language.
+
+## 2026-09-03 — Supporting drawings sit directly on the page
+
+After accepting the pencil-study direction, the owner requested no borders or backgrounds around
+the supporting illustrations. Removed the solid SVG canvas fills and the hero illustration's
+panel color, frame rules, mat padding, and multiply blend mode. The supporting-art specimen also
+removes its icon-cell and illustration frames. Section separators and the locked EP006 working
+paper remain unchanged. Method and Businesses were checked at 1280, 375, and 320 CSS pixels:
+transparent containers, zero border/padding, loaded images, and no horizontal overflow.

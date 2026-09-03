@@ -225,7 +225,7 @@ only), risk (actual failed conditions only).
 | LibraryCard | `bl-library-row` |
 | Stop conditions | `oe-stop` list (the only risk-color use) |
 | Section icon | Working-paper SVG symbol at 24–52px; steel by default; hidden from assistive technology when a visible heading supplies the name |
-| Editorial accent | Authored actor/route relationship from `illustration/system/`; supports a hero or chapter opening and carries no episode facts or evidence claims |
+| Editorial accent | Transparent, unframed actor/route drawing from `illustration/system/`; sits directly on the page, supports a hero or chapter opening, and carries no episode facts or evidence claims |
 
 Artboards: `artboards/boundary-ledger/` (homepage, canvas-page, method, library,
 legacy-episode, components, pdf) with `site.css` as the site binding.

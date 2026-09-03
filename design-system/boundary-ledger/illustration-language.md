@@ -75,6 +75,9 @@ system is intentionally narrower than the episode illustration language.
 - Icons paired with visible labels are decorative to assistive technology. Icon-only controls need
   an accessible name. Meaningful accents receive relationship-based alt text.
 - Never scale a hero accent down and call it an icon. Redraw for the simpler information task.
+- Supporting marks and accents have transparent canvases. Place them directly on the page, with
+  no enclosing border, background panel, mat padding, shadow, or blend-mode simulation. The page
+  supplies the paper; the asset supplies only the drawing. Structural section rules remain separate.
 
 The draft reference library is [`illustration-system.html`](./illustration-system.html). Reusable
 assets live in [`illustration/system/`](./illustration/system/). This draft does not alter the

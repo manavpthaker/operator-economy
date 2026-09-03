@@ -74,7 +74,7 @@ captions, metadata, upload handoff, and release validation.
 | Artifact | SHA-256 |
 |---|---|
 | `design-system/explorations/site-redesign-2026-09/00-product-contract.md` | `b09ca647ae0fb14da8a5d0fd24f5f34db57d7d34f7fdb3ab89a16899f72cca67` |
-| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `79004940bb7507dd1a3870804354960b10750ae8750a0d8f18738c59827a1174` |
+| `design-system/explorations/site-redesign-2026-09/01-experience-spec.md` | `051d492410ae984790923bd45eec6b2395c0fabd5e63a007bf06c92dd9737456` |
 | `design-system/explorations/site-redesign-2026-09/02-canvas-data-contract.md` | `20dcd546b855b60b35d53e99ab9dc518f7a893245a84e21cfa1ec339945a366d` |
 | `design-system/explorations/site-redesign-2026-09/03-drift-reconciliation.md` | `087fca70ec91d307a1be7427766adee97f7942548f023665c556a1b3b0182e52` |
 | `…/artboards/B1-canvas-page.html` | `f338ab78188aebcff47180ce4a36a33da2b223d8601743667b542ffca526798a` |
@@ -90,11 +90,11 @@ captions, metadata, upload handoff, and release validation.
 
 | Artifact | SHA-256 |
 |---|---|
-| `…/artboards/boundary-ledger/site.css` | `851a0544e38c1faeafda0eed9b9b52824381eef0c9f2bbdec1f6d558cc788605` |
+| `…/artboards/boundary-ledger/site.css` | `bd2d8ce1069a4291e4c750680ea1d99319ed243bfd1c8138ff6542aaa9c5b1f4` |
 | `…/artboards/boundary-ledger/homepage.html` | `22c4e5932ed5d596d65bda25b77472af7115af51d03533396f33c29ae8dc72fb` |
 | `…/artboards/boundary-ledger/canvas-page.html` | `d35a7d61113aa09e588963081af92507929b821c6fecadef2f98ebfe12e5e531` |
-| `…/artboards/boundary-ledger/method.html` | `61aae71026f9f4c98075de3150ba82bb29e6b4f5bd131235161d4b457c060add` |
-| `…/artboards/boundary-ledger/library.html` | `fce1462867cbb09363c2b5ea79ab0ff6e5b6614bbee79dd8cfdf62a30ca876cd` |
+| `…/artboards/boundary-ledger/method.html` | `037621ba4052c0c47afe8790e2e5248e3a03d9cf866f35f009bacfe61d8d2363` |
+| `…/artboards/boundary-ledger/library.html` | `e728f8f342c85d6f8f068448726b6aaaeead91dcf0c337d1b5fadc74460c5002` |
 | `…/artboards/boundary-ledger/legacy-episode.html` | `c2d5ee95cdfc6fc8f2d8700b33298997cada4ef577ba5a93da5bb0106cfae830` |
 | `…/artboards/boundary-ledger/components.html` | `bc4545060e6308e3af851c861a14ff9926a22450f757b80fc4ad8ee61571979c` |
 | `…/artboards/boundary-ledger/pdf.html` | `11f3b58cf14b2b2917c56758fd6142fe862550659fe1b28381bd33d21d9cd663` |
@@ -102,14 +102,14 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
 | `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |
 | `design-system/boundary-ledger/illustration/episode-006/hotel-working-model.jpg` (locked reference) | `083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712` |
-| `design-system/boundary-ledger/illustration-system.html` (draft support system) | `36052d2241bbd8336924acc97087ceb5b6c57aea1e7feb1b44f8ab6f480e196c` |
-| `design-system/boundary-ledger/illustration-system.css` | `f2963f3018737bc223188425c14a4a6deeeac437339648af0bc0b1f432f2ad1f` |
-| `design-system/boundary-ledger/illustration/system/manifest.json` | `939676d2fa2534f0085c00692461eb5481723d1a1894373d5a7eda5ff99ed9b3` |
+| `design-system/boundary-ledger/illustration-system.html` (draft support system) | `03945fa6ad4779c59ef485898622e02095778ad7e8b9f6900a97e83ac1929c76` |
+| `design-system/boundary-ledger/illustration-system.css` | `752e4906254dab26500c79ec27042e4de95588b6d6f5166d4e0862490dda43f2` |
+| `design-system/boundary-ledger/illustration/system/manifest.json` | `7be8de8b47b0ffe902252a03e4aaa9c21eb182d0cb4d3a937f2f917e8bd6ec55` |
 | `design-system/boundary-ledger/illustration/system/icons.svg` | `02c6f0c7546db5f068e8588eb1ef0f2809209f0ed18787a1da03a4e98cffbb09` |
-| `design-system/boundary-ledger/illustration/system/owned-route.svg` | `9dc40f1c46957c5a5f8e42a68b75fc9bf90f46632cc54c4cd02e56d708f40cd9` |
-| `design-system/boundary-ledger/illustration/system/evidence-pin.svg` | `e62d19bf819ea4f69eaabc19328b363c8ec27bf35de49fedbe21b47233b7de14` |
-| `design-system/boundary-ledger/illustration/system/operator-loop.svg` | `4b5bc4fcbae2d44979ba9edf00462959ffe21ec6095cb051b0aec60028d6b5b9` |
-| `design-system/boundary-ledger/illustration-language.md` | `822c94245b80eb295e06c18198f66fac1993b7649f1244a31401808461264db0` |
+| `design-system/boundary-ledger/illustration/system/owned-route.svg` | `e0cdd85676e27a1d442ad655c14c2cd6befc2fec1754195579b9ac0e47a0420e` |
+| `design-system/boundary-ledger/illustration/system/evidence-pin.svg` | `83f0c7d28f8ac1955ef217987bdfb2a44aa40c41c71f4ac846a93a60b9b28964` |
+| `design-system/boundary-ledger/illustration/system/operator-loop.svg` | `238626efb397b8b11fe41d75629d9b22fd45051c114ca2cf302c73f04dd94bc5` |
+| `design-system/boundary-ledger/illustration-language.md` | `f5945a71249beaa64f15e9562f2a1233c516bed23a4dfb0cd57eacb74d28a3b6` |
 | `design-system/boundary-ledger/README.md` | `4a3615c7f0623e29951898780e61d7a8e3e7bf9d92b005e7f88e8f4399789599` |
 | `design-system/boundary-ledger/manifest.json` | `ea0adb6da7403365d0d6f0bd82b167cdeeb7f40b8c8dbfc634ef92fa414c58aa` |
 
