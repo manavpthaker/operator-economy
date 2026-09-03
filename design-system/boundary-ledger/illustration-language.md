@@ -61,9 +61,11 @@ names an actor, operation, route, evidence attachment, test, or stop condition. 
 system is intentionally narrower than the episode illustration language.
 
 - Icons use a recognizable primary contour plus no more than one lighter construction pass.
-- Standard icon sizes are 24px and 32px. Above 72px, authored doubled contours may become visible.
-- Editorial accents use a complete relationship at 3:2 or another authored composition. They do
-  not contain episode facts, calculations, source claims, or simulated handwriting.
+- Supporting marks start at 40px. At 56px, correction strokes remain visible. Above 88px, draw a
+  purpose-specific mark or editorial accent. Below 40px, use a text label instead.
+- Editorial accents use a complete relationship at 3:2 or another authored composition. They use
+  loose geometry, repeated pencil strokes, crossings, and short handwritten orientation labels.
+  They do not contain episode facts, calculations, or source claims.
 - Oxide appears only when the icon or accent represents the active decision, correction, test, or
   owned path. Most icons remain steel only.
 - Icons paired with visible labels are decorative to assistive technology. Icon-only controls need
@@ -92,7 +94,8 @@ locked EP006 reference or claim canonical approval for a new episode illustratio
 - Motion reveals a causal operation and then settles. It does not animate every rough mark.
 - Use authored irregular stroke groups, correction passes, or hand-drawn frame sequences. Never add
   uniform jitter or a wobble filter to clean vector art.
-- Evidence, captions, labels, and metadata remain typeset and attributable.
+- Evidence, captions, interface labels, and metadata remain typeset and attributable. Handwritten
+  words inside a drawing may orient the reader, but cannot carry a claim.
 
 ### Aspect-ratio adaptation
 
