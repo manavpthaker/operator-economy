@@ -17,7 +17,7 @@ type Body = {
   hp?: string;
 };
 
-// Best-effort rate limit — one write per IP per 15s, in-memory (per-region).
+// Best-effort rate limit: one write per IP per 15s, in-memory (per-region).
 // Not a security boundary (that's the honeypot + email verification via Resend),
 // just abuse dampening. Cleared on cold-start; that's fine.
 const recentWrites = new Map<string, number>();
@@ -68,7 +68,7 @@ async function sendOrThrow(
   const res = await resend.emails.send(payload);
   if (res.error) {
     throw new Error(
-      `Resend send failed: ${res.error.name} — ${res.error.message}`
+      `Resend send failed: ${res.error.name}: ${res.error.message}`
     );
   }
   return res.data;
@@ -123,7 +123,7 @@ async function sendWelcome({
     return;
   }
 
-  // Unknown tag / missing episode — plain confirmation, no template.
+  // Unknown tag or missing episode: plain confirmation, no template.
   await sendOrThrow(resend, {
     from: fromAddress(),
     to: email,
@@ -161,7 +161,7 @@ export async function POST(req: Request) {
     return fail('Malformed request.', 400);
   }
 
-  // Honeypot — silently accept but do nothing.
+  // Honeypot: silently accept but do nothing.
   if (body.hp && body.hp.trim() !== '') {
     return NextResponse.json({ ok: true, message: 'Filed. Check your inbox.' });
   }
@@ -175,7 +175,7 @@ export async function POST(req: Request) {
     req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
     req.headers.get('x-real-ip') ||
     'unknown';
-  if (tooSoon(ip)) return fail('Slow down — try again in a few seconds.', 429);
+  if (tooSoon(ip)) return fail('Slow down and try again in a few seconds.', 429);
 
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -183,7 +183,7 @@ export async function POST(req: Request) {
 
   if (!supabaseUrl || !supabaseKey || !resendKey) {
     return fail(
-      'Signup is temporarily offline. This is on us — try again in a bit.',
+      'Signup is temporarily offline. This is on us. Try again in a bit.',
       503
     );
   }
