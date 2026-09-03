@@ -449,3 +449,18 @@ panel color, frame rules, mat padding, and multiply blend mode. The supporting-a
 removes its icon-cell and illustration frames. Section separators and the locked EP006 working
 paper remain unchanged. Method and Businesses were checked at 1280, 375, and 320 CSS pixels:
 transparent containers, zero border/padding, loaded images, and no horizontal overflow.
+
+## 2026-09-03 — Wider desktop composition trial
+
+The owner requested a trial with less side padding. The site-only screen binding now
+uses a 1,480px maximum shell with 40–48px desktop gutters and 24px smaller-screen
+gutters. The homepage headline and intro have more horizontal room; prose retains a
+separate 65ch maximum and existing narrower component limits. The mineral trust section
+is aligned with the other chapters. All seven artboards share the binding, while the
+canonical design-system tokens and print-media sizing are unchanged.
+
+Browser geometry checks covered all seven pages at 320, 375, 900, 901, 1280, 1440,
+and 1920 CSS pixels, with no horizontal overflow or failed images detected. At 1440px,
+usable shell width measured 1,329px (previously 1,072px); at 1920px it measured 1,384px
+(previously 1,064px). The viewport override was reset after testing. This remains a
+local prototype trial for owner comparison, not content or release authorization.

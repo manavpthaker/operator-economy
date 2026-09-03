@@ -4,6 +4,43 @@
    walkthrough, evidence-class data labels). Every value is a --bl-* token; no new hue,
    no grids, no chips, no gold. Scoped to the same theme selector. */
 
+/* Site-only width trial. Page composition can be wide; reading measure stays independent.
+   Screen scope keeps the print specimens and canonical Boundary Ledger tokens unchanged. */
+@media screen {
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-shell: 92.5rem;
+    --bl-page-gutter: 1.5rem;
+    --bl-site-reading-measure: 65ch;
+    --bl-site-hero-measure: 72rem;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-shell :where(p) {
+    max-width: var(--bl-site-reading-measure);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-anatomy li > span {
+    max-width: var(--bl-site-reading-measure);
+  }
+}
+
+@media screen and (min-width: 901px) {
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-page-gutter: clamp(2.5rem, 3.35vw, 3rem);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero {
+    max-width: var(--bl-site-hero-measure);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero > .bl-episode-feature__intro {
+    max-width: none;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero h1 {
+    max-width: 22ch;
+  }
+}
+
 :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner {
   grid-template-columns: auto minmax(0, 1fr) auto;
 }
@@ -244,6 +281,12 @@
   color: var(--bl-paper-on-mineral);
 }
 
+@media screen {
+  :where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+    padding-inline: var(--bl-page-gutter);
+  }
+}
+
 :where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral::before {
   background: var(--bl-mineral);
 }
@@ -282,7 +325,7 @@
 
 /* Ledger rows that carry a statement plus its class. */
 :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row p {
-  max-width: 44rem;
+  max-width: var(--bl-site-reading-measure, 44rem);
   margin: 0;
   color: var(--bl-ink-soft);
 }

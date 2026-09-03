@@ -230,6 +230,15 @@ only), risk (actual failed conditions only).
 Artboards: `artboards/boundary-ledger/` (homepage, canvas-page, method, library,
 legacy-episode, components, pdf) with `site.css` as the site binding.
 
+**Desktop width trial (2026-09-03).** On screen, the site shell is capped at 1,480px,
+with 40–48px internal gutters above 900px and 24px gutters on smaller viewports.
+Reading measure is independent of page width: body paragraphs and anatomy statements
+are capped at 65ch, retaining narrower component-specific limits. The homepage hero
+can occupy 72rem, with a 22ch headline instead of the shared 12ch heading constraint.
+Section rules, operation sheets, illustration layouts, and scenario columns use the
+wider shell. Canonical Boundary Ledger tokens and print-media sizing are unchanged.
+This is a reversible artboard trial, not approval of a production-site migration.
+
 Draft illustration reference: `design-system/boundary-ledger/illustration-system.html`.
 This supporting layer does not replace the episode-specific 3:2 Working Model. Icons are
 redrawn for small-scale recognition; editorial accents remain foreground content and are
