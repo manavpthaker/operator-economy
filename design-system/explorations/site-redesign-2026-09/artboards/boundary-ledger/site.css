@@ -40,6 +40,75 @@
   color: var(--bl-oxide-dark);
 }
 
+/* The operation is one physical document: accountable title block joined to working paper. */
+:where([data-oe-theme="boundary-ledger"]) .oe-hero {
+  max-width: 58rem;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet {
+  display: grid;
+  grid-template-columns: minmax(20rem, 0.72fr) minmax(0, 1.28fr);
+  align-items: stretch;
+  margin-top: clamp(4rem, 9vw, 7rem);
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket,
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-working-model {
+  border: 0;
+  border-radius: 0;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket {
+  border-right: var(--bl-hairline) solid var(--bl-rule-on-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-working-model {
+  background: var(--bl-paper-raised);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet .bl-working-model img {
+  height: 100%;
+  min-height: 28rem;
+  object-fit: contain;
+}
+
+:where([data-oe-theme="boundary-ledger"]).oe-home .oe-operation-sheet .bl-docket__row:last-child {
+  grid-template-columns: 1fr;
+}
+
+:where([data-oe-theme="boundary-ledger"]).oe-home .oe-operation-sheet .bl-docket__row:last-child dd {
+  text-align: left;
+}
+
+/* Full-width material changes make chapter boundaries legible while preserving the shell. */
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised,
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+  position: relative;
+  isolation: isolate;
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised::before,
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset::before,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  content: "";
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-raised::before {
+  border-block: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-paper-raised);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-band-inset::before {
+  border-block: var(--bl-hairline) solid var(--bl-rule-strong);
+  background: var(--bl-paper-inset);
+}
+
 /* Homepage hierarchy: four reader-facing moves, not a field manual. */
 :where([data-oe-theme="boundary-ledger"]) .oe-value {
   display: grid;
@@ -116,6 +185,32 @@
   padding: clamp(2rem, 5vw, 4.5rem);
   background: var(--bl-paper-inset);
   border-left: 3px solid var(--bl-steel);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+  margin-block: 0;
+  padding-block: clamp(5rem, 10vw, 8rem);
+  padding-inline: 0;
+  border-left: 0;
+  background: transparent;
+  color: var(--bl-paper-on-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral::before {
+  background: var(--bl-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral h2 {
+  color: var(--bl-paper-on-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral > p:not(.bl-chapter__number) {
+  color: var(--bl-paper-on-mineral-muted);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral .bl-chapter__number,
+:where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral .bl-text-link {
+  color: var(--bl-oxide-bright);
 }
 
 /* Evidence class: accountable data, typeset, never a colored badge. */
@@ -413,6 +508,9 @@
 }
 
 @media (max-width: 900px) {
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet > .bl-docket { border-right: 0; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet .bl-working-model img { min-height: 0; }
   :where([data-oe-theme="boundary-ledger"]) .oe-value { grid-template-columns: 1fr; }
   :where([data-oe-theme="boundary-ledger"]) .oe-three { grid-template-columns: 1fr; }
   :where([data-oe-theme="boundary-ledger"]) .oe-media { grid-template-columns: 1fr; }

@@ -54,6 +54,20 @@ vocabulary may support those answers but may not lead them.
 Internal phrases such as `content gate`, `artifact state`, and `Canvas status` do not
 appear in reader-facing summaries. Public copy uses the reader's decision language.
 
+### 1B. Operation names and editorial packaging (2026-09-03)
+
+The site indexes durable **operations**, not episode headlines. An operation name states
+the role or repeatable work and remains stable across revisions. YouTube and newsletter
+titles are editorial packaging for a particular release and appear as secondary metadata.
+
+Example: `Direct Booking Recovery` is the operation. `Hotels pay 30% to book their own
+rooms` is the episode title. The operation name leads the homepage, Businesses, Canvas,
+and legacy record. The episode title stays attached to its video and release metadata.
+
+The Operator Economy thesis is not an operation and does not appear in Businesses. Its
+durable argument is synthesized into Method under `Why this exists`; the original release
+may remain in the historical episode registry without being presented as a buildable business.
+
 ## 2. Homepage anatomy
 
 The Canvas is never embedded here. Target length: ~5 viewports desktop.

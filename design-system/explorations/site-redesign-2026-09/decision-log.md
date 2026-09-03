@@ -380,3 +380,18 @@ business model, economics, sources, and download.
 
 This is an artboard and experience-spec revision only. It does not migrate the production site,
 approve №006 as a V2 Canvas, authorize content, or clear any release gate.
+
+## 2026-09-03 — Integrated operation sheet and naming hierarchy
+
+The owner removed the homepage's three decorative research labels and asked for clearer material
+separation. The hero now speaks directly to the reader, and the accountable docket and rough
+working model are joined into one bordered operation sheet. Raised paper, inset paper, mineral,
+and explicit rules now separate major chapters without assigning color decoratively.
+
+The site now distinguishes a stable operation name from release packaging. `Direct Booking
+Recovery` leads the site; `Hotels pay 30% to book their own rooms` remains the episode title in
+secondary metadata. The same naming model is applied to the other library specimens.
+
+The Operator Economy thesis is removed from the homepage and Businesses because it is not a
+buildable operation. Its durable premise is synthesized into Method under `Why this exists`.
+This does not delete or alter the historical episode record.
