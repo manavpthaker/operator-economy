@@ -424,3 +424,19 @@ explicitly rejects generic innovation icons and cannot serve as evidence.
 The library is reviewable at `design-system/boundary-ledger/illustration-system.html`. Assets and
 hashes are recorded in `illustration/system/manifest.json`. Status remains draft for owner review;
 the EP006 reference remains unchanged and locked.
+
+## 2026-09-03 — Pencil study 03 after roughness review
+
+The owner found the first two support-system passes too smooth and requested a rougher,
+sketch-like hand. All nine marks and three editorial accents have been redrawn. The marks now
+use independently authored broken contours, uneven retraces, pressure fragments, construction
+overshoots, and selective hatching. Automatic stroke-dash roughness and paper filters are removed.
+Full-body actors replace the UI-style busts; an arithmetic sheet replaces the economics growth
+arrow; a bounded checklist replaces the experiment flask. Enlarged sheet strokes are rebalanced
+so they remain pencil-weight rather than becoming marker outlines.
+
+The draft specimen has shorter headings so the visual studies are easier to review. Site page
+layout, publication status, and the locked EP006 illustration are unchanged. The browser check
+covered the specimen plus Method, Businesses, and Canvas at 1280, 375, and 320 CSS pixels:
+all referenced images loaded and no horizontal overflow was detected. This verifies the
+implementation, not owner approval of the drawing language.

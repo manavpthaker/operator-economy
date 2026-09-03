@@ -60,7 +60,11 @@ The Working Model may be reduced into a supporting icon or accent only when the 
 names an actor, operation, route, evidence attachment, test, or stop condition. This supporting
 system is intentionally narrower than the episode illustration language.
 
-- Icons use a recognizable primary contour plus no more than one lighter construction pass.
+- Marks use several independently drawn partial passes: a broken contour, offset retraces,
+  pressure fragments, and selective hatching. There is no clean master outline underneath.
+- Retraces vary in distance and length. Never create a uniformly doubled or concentric outline.
+- Enlarged marks are redrawn or have their stroke weights rebalanced; scaling must not turn
+  pencil lines into heavy marker outlines. No dash pattern or paper filter substitutes for drawing.
 - Supporting marks start at 40px. At 56px, correction strokes remain visible. Above 88px, draw a
   purpose-specific mark or editorial accent. Below 40px, use a text label instead.
 - Editorial accents use a complete relationship at 3:2 or another authored composition. They use

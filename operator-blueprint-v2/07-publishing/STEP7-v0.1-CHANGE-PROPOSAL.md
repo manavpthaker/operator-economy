@@ -102,14 +102,14 @@ captions, metadata, upload handoff, and release validation.
 | `design-system/boundary-ledger/tokens.css` (dependency) | `d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522` |
 | `design-system/boundary-ledger/components.css` (dependency) | `692d07e867ee198f2107b3c2bbe4fb8f1291f53d57c2b234957424949e7d6b8d` |
 | `design-system/boundary-ledger/illustration/episode-006/hotel-working-model.jpg` (locked reference) | `083533f79798ef04d66b112fa1a2275e1e181074c6e80c22591fc67ea54c6712` |
-| `design-system/boundary-ledger/illustration-system.html` (draft support system) | `0e8529f7e7ed2132244cb4ddf7123a05dd8b81069895ee5cfd395a49eb92e0c1` |
+| `design-system/boundary-ledger/illustration-system.html` (draft support system) | `36052d2241bbd8336924acc97087ceb5b6c57aea1e7feb1b44f8ab6f480e196c` |
 | `design-system/boundary-ledger/illustration-system.css` | `f2963f3018737bc223188425c14a4a6deeeac437339648af0bc0b1f432f2ad1f` |
-| `design-system/boundary-ledger/illustration/system/manifest.json` | `eeb0c769b934c21d187653f0ee213917142dbe2e7793f049165cec085e8987a4` |
-| `design-system/boundary-ledger/illustration/system/icons.svg` | `62e0ffa3b70a552c8c90c08b92d50ade8e37356d8ea6dd352b8fba36c0f59bae` |
-| `design-system/boundary-ledger/illustration/system/owned-route.svg` | `4e91d2fc25d33d88317be44cede6af4e79489d94d8f32ed6f56c403e6c4071c0` |
-| `design-system/boundary-ledger/illustration/system/evidence-pin.svg` | `5f97713311db5171177b64b053691299129d553d1c2f8d6abb8863fed920cc25` |
-| `design-system/boundary-ledger/illustration/system/operator-loop.svg` | `ff1fd7818693fa62739a8490b20bc684a30e7b41a8fc27e098573c6961cd2395` |
-| `design-system/boundary-ledger/illustration-language.md` | `57a90f550c68d8423a950ed8df15d2721ef320254f646fcb5285c4198845c39f` |
+| `design-system/boundary-ledger/illustration/system/manifest.json` | `939676d2fa2534f0085c00692461eb5481723d1a1894373d5a7eda5ff99ed9b3` |
+| `design-system/boundary-ledger/illustration/system/icons.svg` | `02c6f0c7546db5f068e8588eb1ef0f2809209f0ed18787a1da03a4e98cffbb09` |
+| `design-system/boundary-ledger/illustration/system/owned-route.svg` | `9dc40f1c46957c5a5f8e42a68b75fc9bf90f46632cc54c4cd02e56d708f40cd9` |
+| `design-system/boundary-ledger/illustration/system/evidence-pin.svg` | `e62d19bf819ea4f69eaabc19328b363c8ec27bf35de49fedbe21b47233b7de14` |
+| `design-system/boundary-ledger/illustration/system/operator-loop.svg` | `4b5bc4fcbae2d44979ba9edf00462959ffe21ec6095cb051b0aec60028d6b5b9` |
+| `design-system/boundary-ledger/illustration-language.md` | `822c94245b80eb295e06c18198f66fac1993b7649f1244a31401808461264db0` |
 | `design-system/boundary-ledger/README.md` | `4a3615c7f0623e29951898780e61d7a8e3e7bf9d92b005e7f88e8f4399789599` |
 | `design-system/boundary-ledger/manifest.json` | `ea0adb6da7403365d0d6f0bd82b167cdeeb7f40b8c8dbfc634ef92fa414c58aa` |
 
