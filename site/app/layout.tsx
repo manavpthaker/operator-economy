@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { preload } from 'react-dom';
 import './styles/globals.css';
 
 export const metadata: Metadata = {
@@ -15,14 +16,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  preload('/fonts/boska-700.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
+  preload('/fonts/boska-700-italic.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
+  preload('/fonts/zodiak-700.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
+  preload('/fonts/supreme-400.woff2', { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
+
   return (
     <html lang="en">
-      <head>
-        <link rel="preload" href="/fonts/boska-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/boska-700-italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/zodiak-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/supreme-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      </head>
       <body data-oe-theme="boundary-ledger">{children}</body>
     </html>
   );
