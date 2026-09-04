@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { GuideToggle } from '../../components/GuideToggle';
 import { NewsletterBand } from '../../components/NewsletterForm';
@@ -64,7 +65,7 @@ export function DirectBookingPage({ operation }: { operation: Operation }) {
               </dl>
             </aside>
             <figure className="bl-working-model">
-              <img src="/illustration/episode-006/hotel-working-model.jpg" alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel." width="1536" height="1024" loading="eager" decoding="async" />
+              <Image src="/illustration/episode-006/hotel-working-model.jpg" alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel." width="1536" height="1024" sizes="(max-width: 900px) calc(100vw - 3rem), (max-width: 1600px) 62vw, 58rem" />
               <figcaption><span>The first stay passes through the OTA toll. The second stay, in oxide, returns directly to the hotel.</span><span>3:2 · complete composition</span></figcaption>
             </figure>
           </article>
@@ -154,7 +155,7 @@ export function DirectBookingPage({ operation }: { operation: Operation }) {
         <section className="bl-chapter oe-band-inset bl-shell" id="episode" aria-labelledby="episode-title">
           <header className="bl-chapter__head"><p className="bl-chapter__number">Supporting material</p><div><h2 id="episode-title">Watch the investigation.</h2></div></header>
           <div className="oe-media">
-            <a className="oe-video" href={operation.youtubeUrl} target="_blank" rel="noreferrer" aria-label="Watch episode 006 on YouTube, opens in new tab"><span>Watch №006 on YouTube</span></a>
+            <a className="oe-video" href={operation.youtubeUrl} target="_blank" rel="noreferrer"><span>Watch №006 on YouTube<span className="oe-sr"> (opens in new tab)</span></span></a>
             <div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Episode</span><p>{operation.episodeTitle} · live · Aug 2026</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Format</span><p>Published under the earlier V1 Blueprint regime.</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Transcript</span><p>Captions are available on YouTube.</p></div></div>
           </div>
         </section>

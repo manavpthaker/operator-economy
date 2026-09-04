@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { NewsletterBand } from './components/NewsletterForm';
 import { SiteFooter, SiteHeader } from './components/SiteChrome';
@@ -55,13 +56,12 @@ export default function Home() {
             </aside>
 
             <figure className="bl-working-model">
-              <img
+              <Image
                 src="/illustration/episode-006/hotel-working-model.jpg"
                 alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
                 width="1536"
                 height="1024"
-                loading="eager"
-                decoding="async"
+                sizes="(max-width: 900px) calc(100vw - 3rem), (max-width: 1600px) 62vw, 58rem"
               />
               <figcaption>
                 <span>Working model for the operation</span>

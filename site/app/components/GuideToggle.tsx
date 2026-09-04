@@ -14,6 +14,17 @@ export function GuideToggle() {
 
   useEffect(() => {
     document.getElementById('working-paper-shell')?.classList.toggle('guide-on', enabled);
+
+    // Revealing or hiding notes changes the height above a deep-linked sheet.
+    // Restore that target after layout so guided URLs and history stay honest.
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [enabled]);
 
   function toggle() {
