@@ -12,6 +12,8 @@
     --bl-page-gutter: 1.5rem;
     --bl-site-reading-measure: 65ch;
     --bl-site-hero-measure: 72rem;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   :where([data-oe-theme="boundary-ledger"]) .bl-shell :where(p) {
@@ -457,12 +459,20 @@
   background: var(--bl-mineral-deep);
   color: var(--bl-paper-on-mineral);
 }
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form input[type="email"]::placeholder {
+  color: var(--bl-paper-on-mineral-muted);
+  opacity: 1;
+}
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form label,
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form small {
+  color: var(--bl-paper-on-mineral-muted);
+}
 :where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form button {
   border-color: var(--bl-oxide-bright);
   background: transparent;
   color: var(--bl-oxide-bright);
 }
-:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form small { color: var(--bl-paper-on-mineral-faint); }
+:where([data-oe-theme="boundary-ledger"]) .bl-subscription-band .oe-form small a { color: inherit; }
 
 /* Library filters: quiet editorial controls, not pills. */
 :where([data-oe-theme="boundary-ledger"]) .oe-filters {
@@ -475,6 +485,7 @@
 
 :where([data-oe-theme="boundary-ledger"]) .oe-filters button {
   min-block-size: 44px;
+  min-inline-size: 44px;
   padding: 0;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -573,7 +584,7 @@
 
 /* Site footer */
 :where([data-oe-theme="boundary-ledger"]) .oe-footer-nav { display: flex; flex-wrap: wrap; gap: var(--bl-space-2) var(--bl-space-5); }
-:where([data-oe-theme="boundary-ledger"]) .oe-footer-nav a { min-block-size: 44px; display: inline-flex; align-items: center; color: var(--bl-steel-dark); }
+:where([data-oe-theme="boundary-ledger"]) .oe-footer-nav a { min-block-size: 44px; min-inline-size: 44px; display: inline-flex; align-items: center; color: var(--bl-steel-dark); }
 :where([data-oe-theme="boundary-ledger"]) .oe-mark { color: var(--bl-ink-muted); font-family: var(--bl-font-data); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
 /* Media: the episode is supporting material below the tool. */
@@ -620,8 +631,156 @@
 }
 
 @media (max-width: 680px) {
-  :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner { grid-template-columns: 1fr; row-gap: var(--bl-space-2); }
-  :where([data-oe-theme="boundary-ledger"]) .oe-nav { justify-content: flex-start; }
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-section-space: 4rem;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--bl-space-4);
+    row-gap: 0;
+    padding-block: var(--bl-space-1);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner > .bl-wordmark {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-nav {
+    grid-column: 1;
+    grid-row: 2;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: var(--bl-space-4);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-masthead__inner > .bl-action {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-opening {
+    padding-top: var(--bl-space-7);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-page-hero {
+    gap: var(--bl-space-6);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet {
+    margin-top: var(--bl-space-7);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-value,
+  :where([data-oe-theme="boundary-ledger"]) .oe-section,
+  :where([data-oe-theme="boundary-ledger"]) .oe-trust--mineral {
+    padding-block: var(--bl-section-space);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-value {
+    gap: var(--bl-space-7);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-decision-list li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: var(--bl-space-4);
+    padding-block: var(--bl-space-5);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-chapter__head {
+    margin-bottom: var(--bl-space-6);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-anchor-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--bl-space-4);
+    padding-block: var(--bl-space-3);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-anchor-nav a {
+    padding-block: var(--bl-space-2);
+    line-height: 1.25;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--bl-space-2) var(--bl-space-4);
+    padding-block: var(--bl-space-5);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row > :is(p, dl) {
+    grid-column: 1 / -1;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row > :is(.bl-ledger-row__value, .oe-class) {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    max-width: 10rem;
+    text-align: right;
+    white-space: normal;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--bl-space-3) var(--bl-space-4);
+    padding: var(--bl-space-5);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt p {
+    grid-column: 1 / -1;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt__count {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    text-align: right;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-subscription-band {
+    padding: var(--bl-space-5);
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .oe-footer-nav {
+    column-gap: var(--bl-space-4);
+  }
+
   :where([data-oe-theme="boundary-ledger"]) .oe-facts { grid-template-columns: 1fr; }
   :where([data-oe-theme="boundary-ledger"]) .oe-class { white-space: normal; }
+}
+
+@media (max-width: 380px) {
+  body[data-oe-theme="boundary-ledger"] {
+    --bl-page-gutter: 1.25rem;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row,
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt {
+    grid-template-columns: 1fr;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row > :is(p, dl, .bl-ledger-row__value, .oe-class),
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt > :is(p, .bl-evidence-receipt__count) {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    max-width: none;
+    text-align: left;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row > :is(.bl-ledger-row__value, .oe-class),
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt > .bl-evidence-receipt__count {
+    grid-row: 2;
+  }
+
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row:has(> .bl-ledger-row__value) > dl,
+  :where([data-oe-theme="boundary-ledger"]) .bl-ledger-row:has(> .oe-class) > p,
+  :where([data-oe-theme="boundary-ledger"]) .bl-evidence-receipt > p {
+    grid-row: 3;
+  }
 }
