@@ -4,6 +4,7 @@ import { SiteFooter, SiteHeader } from './components/SiteChrome';
 export default function NotFound() {
   return (
     <div>
+      <a className="bl-skip-link" href="#main">Skip to content</a>
       <SiteHeader />
       <main id="main">
         <section className="bl-opening bl-shell oe-page-hero" aria-labelledby="not-found-title">
