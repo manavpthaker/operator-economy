@@ -51,7 +51,16 @@ The large display-heading direction was treated as intentional. The pass optimiz
 | `/` | 96 | 100 | 100 | 100 | 1.1 s | 2.7 s | 0.0001 |
 | `/businesses/direct-booking-recovery` | 97 | 100 | 100 | 100 | 0.8 s | 2.6 s | 0.00004 |
 
-Local and deployed network conditions differ, so the production performance numbers must be rerun after deployment. Accessibility, contrast, target sizing, layout, and state fixes are deterministic and were verified against the production build.
+Local and deployed network conditions differ, so those measurements are reported separately. Accessibility, contrast, target sizing, layout, and state fixes are deterministic and were verified against the production build.
+
+## Production verification after deployment
+
+| Route | Performance | Accessibility | Best practices | SEO | FCP | LCP | CLS |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `/` | 98 | 100 | 100 | 100 | 1.1 s | 2.4 s | 0 |
+| `/businesses/direct-booking-recovery` | 95 | 100 | 100 | 100 | 1.1 s | 2.7 s | 0 |
+
+The final production pass was run after merge commit `78393be5` reached Vercel. All representative public routes and `/icon.svg` returned HTTP 200, production HTML contained one preload tag per critical face, and the homepage served a responsive image source.
 
 ## Acceptance status
 
