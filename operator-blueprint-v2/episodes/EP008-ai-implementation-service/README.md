@@ -6,7 +6,7 @@ Slug: `ai-implementation-service`
 
 Candidate ID: `candidate-2026-09-03-ai-implementation-service`
 
-Status: **Step 1 editorial development, drafted through E6; every gate awaits owner approval**
+Status: **Step 2 narration LOCKED at N7 on 2026-09-03; Step 3 handoff issued and waiting on Step 3 process approval**
 
 This is the V2 rescript of the legacy EP001 premise ("The $5.9 Billion Business You Can Start for $100"). EP001 keeps its number and its V1 artifacts under `studio/`. None of its numbers survive here; the promotion record lists them as prohibited.
 
@@ -30,7 +30,7 @@ Company-level verdict drafted at E3I: **BUILD** (argued against the thirty-day p
 | E5 script review | seven adversarial passes run and dispositioned; integrated revision v0.2 |
 | E5V editorial voice | approved 2026-09-03 |
 | E6 script lock | **LOCKED 2026-09-03** by Manav Thaker; the wizard sandbox test stays open and does not block |
-| Step 2 narration | N1 to N6 passed 2026-09-03: full capture accepted, master edited, `technical_pass` recorded. **N7 owner creative listen pending.** |
+| Step 2 narration | **LOCKED at N7 on 2026-09-03.** technical_pass and creative_approved both name master `f3d749314141dc2f`. Step 3 handoff issued. |
 | Steps 3-8 | boundary-only |
 
 Number assignment follows `../README.md`: Step 1 assigns the next number only after a current promotion record passes Gate E1. EP007 (`exit-readiness-prep`, locked 2026-09-01) is the last assigned number in the series.

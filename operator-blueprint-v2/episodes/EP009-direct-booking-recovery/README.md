@@ -6,7 +6,7 @@ Slug: `direct-booking-recovery`
 
 Candidate ID: `candidate-2026-09-03-direct-booking-recovery`
 
-Status: **Step 1 LOCKED at E6 on 2026-09-03; Step 2 narration production authorized**
+Status: **Step 2 narration LOCKED at N7 on 2026-09-03; Step 3 handoff issued and waiting on Step 3 process approval**
 
 This is the V2 rescript of the legacy premise published as EP006 ("Hotels Pay 30% to Book Their Own Rooms"). EP006 keeps its number, its V1 artifacts under `studio/originate/direct-booking-recovery/`, and its launch record. Only `studio/originate/direct-booking-recovery/launch/links.json` may state that episode's URL. Nothing here restates it.
 
@@ -21,7 +21,7 @@ This is the V2 rescript of the legacy premise published as EP006 ("Hotels Pay 30
 | Step 1, E5 script review | approved 2026-09-03 (v0.2 integrated from seven adversarial passes, v0.3 after a performance re-check). One bounded Step 0 amendment request raised (`step0-amendment-request-01.md`). |
 | Step 1, E5V voice conformity | **pass.** Reviewer: clear for owner voice test; owner cold read passed 2026-09-03, answer "Yes, both". |
 | Step 1, E6 lock | **LOCKED 2026-09-03** by Manav Thaker. |
-| Step 2 narration | N1 to N6 passed 2026-09-03: full capture accepted, master edited, `technical_pass` recorded. **N7 owner creative listen pending.** |
+| Step 2 narration | **LOCKED at N7 on 2026-09-03.** technical_pass and creative_approved both name master `e433c0fd6d7dd522`. Step 3 handoff issued. |
 | Steps 3 to 8 | boundary-only |
 
 ## Owner decisions required, in order
