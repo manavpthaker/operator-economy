@@ -1,0 +1,46 @@
+{
+  "scope": "One guide plus one identity transfer, authorized selfie voice audition; canonical state unchanged",
+  "label": "A",
+  "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money.",
+  "word_count": 23,
+  "text_sha256": "639c5637364e2717bc1239efb6df06eed9797ae5a9db9f79b8a50be2a8805874",
+  "style_sha256": "59417ad92103a45553aefb77273f6dfae50c42ce0a757d9130ae2fbe411b4dec",
+  "guide_request": {
+    "advancedVoiceOptions": {
+      "enableTextnorm": false
+    },
+    "audioConfig": {
+      "audioEncoding": "LINEAR16",
+      "sampleRateHertz": 24000
+    },
+    "input": {
+      "prompt": "Speak the supplied words exactly, adding, omitting, repeating and paraphrasing nothing. You are talking softly to one familiar person through your phone's selfie camera in a quiet room. You have a clear thought to share and are saying it casually, without projecting or performing a presentation. Use your ordinary speaking voice with relaxed connected syllables; let little unstressed words run together naturally. The long first sentence should flow comfortably, with small spontaneous changes in pitch and pace as its meaning unfolds. Let the final short sentence sound like an ordinary additional observation. Keep the voice lightly engaged and warm without smiling through the words. Allow a natural breath and an unhurried, uneven pause between complete thoughts. Stay conversational, not whispered or sleepy. No deliberate dramatic emphasis, sing-song pattern, announcer cadence or polished narrator delivery. Do not add filler words, laughter, mouth noises, artificial hesitations, background ambience or sound effects. Let the last word finish and naturally decay. Do not speak these directions.",
+      "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money."
+    },
+    "voice": {
+      "languageCode": "en-US",
+      "modelName": "gemini-2.5-pro-tts",
+      "name": "Algieba"
+    }
+  },
+  "guide_source": "operator-blueprint-v2/02-narration-production/tools/capture_n4b.py",
+  "guide_source_sha256": "5e1093bc0f0113fa998bd5e99359f90b098342cc83c19997ed77ab0f02a15493",
+  "request_helper_sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00",
+  "transfer": {
+    "model": "eleven_multilingual_sts_v2",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "seed": 2026082501,
+    "output_format": "pcm_48000",
+    "remove_background_noise": false
+  },
+  "force_duration": false,
+  "max_guide_calls": 1,
+  "max_transfer_calls": 1
+}

@@ -1,0 +1,7 @@
+# Olive home wardrobe edit
+
+Source: actual frame at seven seconds from the owner-selected home video, job `1e9e8873-8299-4db0-a465-76fecd138479`. The generated edit is stored at `../../media/revision-02/olive-reference.png` and its exact hash/readback is bound in `FAL-UPLOAD-READBACK.json`.
+
+## Image edit prompt
+
+Edit the provided frame from the user's selected home selfie video. Change ONLY his outfit: replace the navy button-up shirt with a muted olive casual cotton-twill overshirt, worn open over a plain warm off-white crew-neck T-shirt. The overshirt should have a relaxed everyday fit, soft naturally wrinkled matte fabric, a simple collar and unobtrusive buttons; no branding, graphics, jewelry, or extra accessories. Preserve the man exactly: same face, skin texture, facial proportions, hair, stubble, transparent glasses, expression, eye direction, head position and body proportions. Preserve the phone camera angle, handheld selfie perspective, composition, arm position, crop, and full home background exactly: window with sheer curtain at left, neutral wall and wooden shelves at right, same natural window lighting and image quality. Preserve 9:16 vertical framing. Do not beautify, smooth skin, retouch the face, re-light the room, change exposure, reshape anatomy, alter age, sharpen into an artificial studio portrait, or add any text. This is a precise wardrobe-only edit of the supplied image.

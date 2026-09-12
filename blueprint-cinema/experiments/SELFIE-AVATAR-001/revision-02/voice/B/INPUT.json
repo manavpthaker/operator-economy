@@ -1,0 +1,46 @@
+{
+  "scope": "One guide plus one identity transfer, authorized selfie voice audition; canonical state unchanged",
+  "label": "B",
+  "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money.",
+  "word_count": 23,
+  "text_sha256": "639c5637364e2717bc1239efb6df06eed9797ae5a9db9f79b8a50be2a8805874",
+  "style_sha256": "f27eaa2c6ff87dc468b7fcd87511cf520c0ea65e53f82aace3fe6baadb91133c",
+  "guide_request": {
+    "advancedVoiceOptions": {
+      "enableTextnorm": false
+    },
+    "audioConfig": {
+      "audioEncoding": "LINEAR16",
+      "sampleRateHertz": 24000
+    },
+    "input": {
+      "prompt": "Speak the supplied words exactly, adding, omitting, repeating and paraphrasing nothing. This is an unscripted-feeling thought you are sharing with one familiar person through your phone's selfie camera, speaking normally in a quiet room. Sound like you are finding the clearest way to tell them the scene as you go, even though every supplied word must remain exact. Use noticeably alive but believable conversational inflection: vary pitch freely across the unfolding first sentence, lightly hurry through connective words, give meaningful details a little room, and let the short final sentence land as a candid, matter-of-fact aside. Let pitch rise and settle organically within thoughts rather than making every sentence the same downward arc. The pace should breathe and fluctuate, without an evenly timed cadence or a prescribed beat for every phrase. Keep the delivery soft and close, not projected, breathy, whispered, excited or theatrical. Preserve connected everyday articulation and a natural breath or pause where it belongs. No narrator polish, sales smile, motivational lift, announcer voice or sing-song pattern. Do not add filler words, laughter, artificial stumbles, noises, ambience or effects. Finish the last word fully and let the voice settle. Do not speak these directions.",
+      "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money."
+    },
+    "voice": {
+      "languageCode": "en-US",
+      "modelName": "gemini-2.5-pro-tts",
+      "name": "Algieba"
+    }
+  },
+  "guide_source": "operator-blueprint-v2/02-narration-production/tools/capture_n4b.py",
+  "guide_source_sha256": "5e1093bc0f0113fa998bd5e99359f90b098342cc83c19997ed77ab0f02a15493",
+  "request_helper_sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00",
+  "transfer": {
+    "model": "eleven_multilingual_sts_v2",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "seed": 2026082501,
+    "output_format": "pcm_48000",
+    "remove_background_noise": false
+  },
+  "force_duration": false,
+  "max_guide_calls": 1,
+  "max_transfer_calls": 1
+}
