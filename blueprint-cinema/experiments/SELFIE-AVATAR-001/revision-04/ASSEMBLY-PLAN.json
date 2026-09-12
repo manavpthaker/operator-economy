@@ -1,0 +1,24 @@
+{
+  "deliverable": "Standalone private full-script selfie review video",
+  "canonical_episode_conform": false,
+  "timeline_rate": 24,
+  "canvas": [720, 1280],
+  "audio_rate": 48000,
+  "audio_samples_per_picture_frame": 2000,
+  "timing_authority": "The verified full R4 Original C WAV, not the native generated soundtracks",
+  "steps": [
+    "Select silent source boundaries after words 68 and 124 on the 24 fps frame grid, moving only within the actual quiet interval",
+    "Produce three generation reference WAVs from contiguous source samples; no speech retiming",
+    "Generate each exact passage with the same identity, room, clothing and camera reference, using its current audio timing",
+    "Trim native pictures to the exact first and second audio section frame counts and sufficient real ending coverage for section three",
+    "Join native video only with two sentence-pause cuts and one CRF17 H264 intermediate encode",
+    "Run one global Sync v3 restoration against the unchanged full R4 WAV",
+    "Measure output-minus-source audio offset and drift across the whole result; verify full final word and remaining picture coverage",
+    "Losslessly remux the result to video-first H264/AAC faststart delivery and use the previously successful phone host"
+  ],
+  "minimum_total_picture_frames": "ceil((full_voice_duration_seconds + 1) * 24), subject to actual generated end coverage",
+  "continuity_review": "Inspect both sides of each join and representative frames of all three segments before and after global Sync. Global Sync does not repair pose or lighting discontinuities.",
+  "integrity_review": "Preserve original source PCM; never concatenate independently AAC-encoded voice segments into the final soundtrack. Do not infer exact lip sync or natural performance from transcript and waveform checks alone.",
+  "runtime_note": "Read-only inspection found no currently installed/running Resolve application at the former path or standard application locations. Existing Higgsfield media-processing and phone-packaging route is used for this standalone format experiment; no Resolve conform, canonical episode integration or release is claimed.",
+  "permissions_basis": "Current owner instruction to use this exact script in the ongoing funded own-avatar video workflow; existing outputs and unrelated repository work preserved"
+}
