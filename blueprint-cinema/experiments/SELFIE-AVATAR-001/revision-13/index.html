@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=720, height=1280"><title>MP Thaker — What made you decide?</title>
+<script src="assets/gsap.min.js"></script>
+<style>
+@font-face{font-family:Archivo;src:url("assets/Archivo-variable.ttf") format("truetype");font-weight:100 900;font-display:block}
+@font-face{font-family:Atkinson;src:url("assets/AtkinsonHyperlegibleNext-variable.ttf") format("truetype");font-weight:200 800;font-display:block}
+*{box-sizing:border-box}html,body{margin:0;width:720px;height:1280px;background:#F3F6F5;color:#202426;font-family:Archivo,sans-serif}
+#closing{position:relative;width:720px;height:1280px;overflow:hidden;background:#F3F6F5}
+#question{position:absolute;left:56px;top:270px;margin:0;font-size:64px;font-weight:625;font-variation-settings:"wdth" 100;letter-spacing:-.045em;line-height:72px}
+.line{display:block;width:590px;height:72px;white-space:nowrap}
+#business{width:510px;color:#31584D}
+.contact{position:absolute;left:56px;margin:0;white-space:nowrap}
+#signature{top:870px;font-size:30px;font-weight:700;line-height:36px;letter-spacing:-.035em}
+.url{font-family:Atkinson,sans-serif;font-size:30px;font-weight:450;line-height:36px;letter-spacing:0}
+#website{top:932px}#linkedin{top:980px}
+</style></head><body>
+<div id="closing" data-composition-id="counterproof-close" data-start="0" data-width="720" data-height="1280" data-duration="6">
+<h1 id="question"><span id="line1" class="line">What made you</span><span class="line">decide to turn</span><span class="line">something you’d</span><span class="line">built into a</span><span id="business" class="line">business?</span></h1>
+<p id="signature" class="contact">MP Thaker</p>
+<p id="website" class="contact url">mpthaker.xyz</p>
+<p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p>
+</div><script>
+window.__timelines=window.__timelines||{};
+const tl=gsap.timeline({paused:true});
+tl.fromTo(".line",{y:16,opacity:0},{y:0,opacity:1,duration:.32,stagger:.13,ease:"power3.out"},.04);
+tl.fromTo("#business",{x:0},{x:56,duration:.5,ease:"power3.inOut",immediateRender:false},.9);
+tl.fromTo(".contact",{y:12,opacity:0},{y:0,opacity:1,duration:.3,stagger:.12,ease:"power3.out"},.95);
+tl.to({}, {duration:.01},5.99);
+window.__timelines["counterproof-close"]=tl;
+</script></body></html>
