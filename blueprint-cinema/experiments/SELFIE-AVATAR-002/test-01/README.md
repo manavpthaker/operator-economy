@@ -1,5 +1,7 @@
 # Week 2 opening performance test
 
+**Current owner verdict: rejected.** The owner found the face off and visibly generated in motion. See OWNER-REVIEW.json. Technical QA and the original delivery record below describe the delivered test, not acceptance. Current Week 2 direction returns to the original near-frontal face with slight off-center placement; v12 is the selected replacement still.
+
 Owner selected the v11 stone-polo forward-leaning reference: “Much better let’s try that”. The bounded test uses the existing Higgsfield Seedance 2.5 connection, one seven-second 720p high-bitrate clip, with the first 21 exact words and Original C source voice. Live balance was 122.38 credits; exact preflight was 45.5 credits, announced before submission. A full take still exceeds the remaining balance and the alternative-provider choice is unresolved.
 
 Use the first two complete sentences to test the new posture and facial/mouth performance before the full script. Preserve source PCM samples [0, 291590), followed by 44,410 silent samples to allow a natural ending in the seven-second model output. The cut is at 6.074791667 seconds, just before next-sentence speech energy. Do not align it to frame 146: that would catch the next syllable. No speech speed change, pitch change, normalization or new voice generation.
