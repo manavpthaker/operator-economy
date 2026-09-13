@@ -17,3 +17,5 @@ Test 01 used the existing Seedance 2.5 Higgsfield connection, one seven-second 7
 The owner explicitly requests accurate synchronized captions only after reviewing the spoken take. The eventual deliverable is a complete uncaptioned spoken review video; the current delivered artifact is only the seven-second test-02. Captioning and any release remain pending that review. This is not a scheduled or published post, and no canonical OE avatar/episode state changes.
 
 Production constraint at initial preflight: Higgsfield balance is 122.38 credits. Measure voice duration and obtain exact generation cost before committing a partial video batch. Prepare the voice and visual setup while this is resolved.
+
+Recurring visual direction: the owner wants fresh looks weekly and an expanding imagegen library for reuse, not a fixed two-look rotation. See reference/LOOK-LIBRARY.json. New angles remain concepts until moving likeness is accepted. Provider cost selection is independent of the weekly wardrobe/setting choice.
