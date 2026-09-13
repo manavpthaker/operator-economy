@@ -1,0 +1,81 @@
+{
+  "owner_feedback": "The lip sync isn\u2019t accurate the whole time",
+  "rejected_delivery": {
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/749467d4-3928-4ac7-8604-c074c9030bfa.mp4",
+    "sha256": "92458b06e5c07e0d6a585d03bcb0f3e270791467a3441296482ca66e69716313"
+  },
+  "evidence": {
+    "soundtrack": "R5 full-waveform preservation and stable insertion do not prove audiovisual sync.",
+    "picture": "Independent read-only comparison at eight non-face windows best-matched zero-frame shift. Cuts stay484/862. Raw audio/video both startPTS0.",
+    "padding": "R5 insertion342.125ms equals one third of1.026375s picture-minus-source duration. Cause inferred asproviderpadding; no proof it alone causes perceived mismatch.",
+    "caption": "Caption pass preserved decoded soundtrack andstreamtiming; mismatch exists upstream.",
+    "manual_closures": [
+      [
+        "better",
+        4.708,
+        4.822125
+      ],
+      [
+        "pretty",
+        7.708,
+        7.722125
+      ],
+      [
+        "before",
+        8.417,
+        8.302125
+      ],
+      [
+        "build",
+        33.354,
+        33.522125
+      ],
+      [
+        "bit",
+        33.646,
+        33.802125
+      ],
+      [
+        "more",
+        33.833,
+        33.922125
+      ],
+      [
+        "built",
+        51.938,
+        51.822125
+      ],
+      [
+        "business",
+        52.667,
+        52.642125
+      ]
+    ],
+    "manual_limits": "24fps contact centers compared with approximate ASR word onsets, not phoneme measurements or perceptual listening. No tool-supported hearing established.",
+    "automated_av_check": "SyncNet runtime unavailable in media sandbox; no automatic AV offset measured."
+  },
+  "choice": "Rebuild lip sync independently for the three continuous native picture shots using exactly matched video/audio durations and cut_off. Preserve all waveform samples and only append silence to final audio tail.",
+  "reason": "Removes duration-mismatch padding and cut boundaries from each provider request; addresses variable timing without an unsupported global audio shift.",
+  "alternatives": [
+    {
+      "choice": "Advance global audio342.125ms",
+      "rejected": "Would move well-placed pretty/business anchors farther from their measured closures."
+    },
+    {
+      "choice": "Regenerate native face or voice",
+      "rejected": "Unnecessary change to requested expression and retained voice."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://sync.so/docs/developer-guides/sync-mode",
+      "use": "duration behavior and close-duration recommendation"
+    },
+    {
+      "url": "https://sync.so/docs/compatibility-and-tips/improving-lip-sync-quality",
+      "use": "duration-match/cutoff recommendation for drift"
+    }
+  ],
+  "limits": "A revised generation is a candidate correction. It must not be called perceptually synchronized solely because provider processing, waveform QA or snapshot checks pass.",
+  "status": "Three matched-section passes and captioned candidate delivered; perceptual improvement unestablished."
+}
