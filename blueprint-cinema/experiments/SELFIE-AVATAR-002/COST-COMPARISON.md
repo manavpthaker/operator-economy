@@ -20,4 +20,26 @@ WaveSpeed requires an account and prepaid balance, with no subscription required
 
 Recommendation: first test about ten seconds of the approved voice against the new fixed desk reference, approximately $0.60 at the published 720p rate. Evaluate the mouth, face texture, eyes and restrained expression at normal speed. A dedicated audio-driven model can avoid generating native speech and then paying separately to restore the desired clock, but naturalness and actual sync remain unverified until playback. Do not infer quality from provider marketing or treat the cost question as approval to open a new paid account.
 
-The existing Higgsfield preflight balance was 122.38 credits. There is insufficient balance for the illustrative full Seedance take. The user's actual credit purchase rate is unknown, so no dollar conversion or percentage savings against Higgsfield is claimed.
+The initial Higgsfield preflight balance was 122.38 credits. Following two seven-second tests, the fresh account read on 2026-09-13 reports 31.38 credits, Ultra plan, and no available MCP unlimited allowance. The user's actual credit purchase rate is unknown, so no dollar conversion or percentage savings against Higgsfield is claimed.
+
+## After owner accepted test-02
+
+The exact delivered test is now the quality baseline; see test-02/OWNER-REVIEW.json. A cheaper renderer must preserve its likeness, ordinary delivery and original voice timing in playback. Approval of this clip is not evidence that another provider can match it.
+
+Current public prices were rechecked on 2026-09-13. Add HeyGen Avatar IV Photo Avatar API as the second bounded challenger: $3/minute, billed by actual generated seconds, with supplied audio and a photo supported directly. That is approximately $2 for 40 seconds or $0.35 for the same seven-second sample. Pay-as-you-go API funding is separate from HeyGen's web subscription. Any avatar-creation calls, top-up requirements, voice generation, retries and postproduction are additional; the proposed comparison reuses the existing image directly.
+
+Recommended next decision: compare one identical seven-second sample using the approved V12 PNG and Original C WAV on WaveSpeed InfiniteTalk 720p (published estimate $0.42) and HeyGen Avatar IV (published estimate $0.35). Combined generation estimate $0.77, subject to live estimates and account funding. Do not open a broad model search or tune away from the accepted baseline. Prefer the lowest cost per accepted take including failed renders and repairs. Neither test is submitted or authorized by the cost question.
+
+For recurring production, lock the exact script and voice first, reuse accepted nearly frontal wardrobe/room references, generate from the approved audio, review the full spoken take, and only then apply the existing Counterproof captions. Avoid routine full-video lip-sync repair when an audio-driven model already passes review. Keep Seedance plus Sync as the proven short-test fallback until an alternative passes.
+
+Higgsfield's official help states that normal web Unlimited does not cover MCP/CLI generation. The current browser is signed out, so active web Unlimited models and expiry were not verified. If the owner already has active Seedance 2.5 web Unlimited, manual web generation could retain the model while changing generation cost; do not infer that entitlement from the Ultra plan alone.
+
+Same-model price checks do not reveal an obvious large saving: WaveSpeed lists Seedance 2.5 at $0.36/sec for 720p without reference video, and Runway API lists $0.30/sec. These still leave potential Sync costs and require their own supported reference/likeness workflow. No provider switch or portrait-access workaround was attempted.
+
+Additional official sources:
+- https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained — use the specific Photo Avatar IV table ($3/min), not the generic introductory $4/min statement.
+- https://developers.heygen.com/audio-to-video — existing image and audio accepted; length follows supplied audio.
+- https://developers.heygen.com/avatar-iv — image-driven controls and expressiveness.
+- https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-seedance — web Unlimited versus MCP/CLI billing.
+- https://wavespeed.ai/models/bytedance/seedance-2.5/text-to-video — published same-model rates; exact reference support still needs preflight.
+- https://docs.dev.runwayml.com/guides/pricing/ — Seedance 2.5 720p is 30 credits/sec, $0.01/credit.
