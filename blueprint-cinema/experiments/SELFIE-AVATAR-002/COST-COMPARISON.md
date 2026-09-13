@@ -43,3 +43,7 @@ Additional official sources:
 - https://higgsfield.ai/creator-hub/help-center/ai-models/how-do-i-use-seedance — web Unlimited versus MCP/CLI billing.
 - https://wavespeed.ai/models/bytedance/seedance-2.5/text-to-video — published same-model rates; exact reference support still needs preflight.
 - https://docs.dev.runwayml.com/guides/pricing/ — Seedance 2.5 720p is 30 credits/sec, $0.01/credit.
+
+## Authorized comparison execution
+
+The owner subsequently approved the exact two-provider seven-second test. Existing HeyGen CLI authentication bills the Creator subscription, not the separate API cash balance. Read-only live account showed 557 credits before submission and 553 afterward; record the observed four-credit decrease rather than the earlier approximately two-credit estimate. No new cash purchase or credential change occurred. The seven-second HeyGen result is complete and locally verified; per-video billing detail remains unavailable, so the four-credit figure is explicitly an observed account debit. Moving-face acceptance is pending. WaveSpeed remains pending sign-in. Provider receipts are in test-03/.

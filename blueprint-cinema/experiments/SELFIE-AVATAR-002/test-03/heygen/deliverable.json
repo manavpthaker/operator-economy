@@ -1,0 +1,50 @@
+{
+  "work_order": "SELFIE-AVATAR-002 test-03 HeyGen seven-second comparison helper",
+  "status": "prepared_and_locally_checked_not_submitted_by_worker",
+  "owned_path": "blueprint-cinema/experiments/SELFIE-AVATAR-002/test-03/heygen",
+  "files_created": [".gitignore", "INPUT.json", "REQUEST.json", "README.md", "run_test.py", "run_oauth.py", "deliverable.json"],
+  "inputs": {
+    "V12_image_sha256": "4b0301ae71ce0a613e6d0d537191be0d0b1cd49dd9147ca13d4ef3a0d11362ad",
+    "Original_C_WAV_sha256": "2fda60f4b9f61fcb2f784ae311ce13f87525a484920e5a6d0079e0033b730609",
+    "WAV_samples": 336000,
+    "WAV_sample_rate": 48000,
+    "WAV_seconds": 7
+  },
+  "preferred_execution": "Existing HeyGen CLI OAuth subscription through run_oauth.py",
+  "account_readback": {
+    "verified_date": "2026-09-13",
+    "methods": ["heygen auth status", "heygen user me get"],
+    "username": "637de3ad0fc24abe8ba97408d72dcc4f",
+    "credential_type": "oauth",
+    "billing_type": "subscription",
+    "plan": "creator",
+    "remaining_premium_credits": 557,
+    "resets_at": "2026-10-07T07:16:38Z",
+    "estimated_test_credits_before_rounding": 1.8666666666666667,
+    "actual_billed_amount": "not known before submission",
+    "credential_replaced": false,
+    "new_key_created": false
+  },
+  "checks_passed": [
+    "Both helper files compile",
+    "REQUEST fields fit installed official CLI CreateVideoFromImage schema",
+    "Local V12 and Original C hashes match the exact authorized inputs",
+    "Original C WAV is exactly seven seconds of 48 kHz mono PCM16",
+    "Request omits script, synthesized voice, captions, unsupported image-variant engine field, and optional conflicting motion controls",
+    "Mocked uncertain OAuth submission leaves durable intent and blocks repeated submit",
+    "Same intent blocks attempting the alternative API helper",
+    "No worker upload, generation, purchase, login change, or commit"
+  ],
+  "remaining_checks": [
+    "Root executes current preflight and the one authorized comparison submission",
+    "Read back actual billing delta",
+    "Verify final media duration, original waveform timing, complete opening/end and normal-speed moving likeness"
+  ],
+  "provenance": {
+    "official_public_docs_consulted": true,
+    "installed_cli_schema_and_help_consulted": true,
+    "read_only_account_calls": 2,
+    "generated_media_used_by_worker": false,
+    "provider_submission_by_worker": false
+  }
+}
