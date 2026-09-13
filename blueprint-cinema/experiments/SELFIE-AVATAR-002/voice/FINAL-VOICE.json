@@ -1,0 +1,157 @@
+{
+  "experiment": "SELFIE-AVATAR-002",
+  "candidate": "W2B",
+  "status": "voice_produced_text_verified_pending_owner_listening",
+  "at": "2026-09-13T17:33:30.755043+00:00",
+  "script_sha256": "0434553ff578eb611f7764a93ad8bc1df1e3942ee29fd400917fb23a8fbf91bf",
+  "script_word_count": 130,
+  "route": "gemini-2.5-pro-tts Algieba -> eleven_multilingual_sts_v2 Original C",
+  "source_voice_id": "scMbPZwQjr40V1MzL3Nj",
+  "transfer_settings": {
+    "model": "eleven_multilingual_sts_v2",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "settings": {
+      "similarity_boost": 0.8,
+      "speed": 1,
+      "stability": 0.4,
+      "style": 0,
+      "use_speaker_boost": true
+    },
+    "seed": 2026082501,
+    "output_format": "pcm_48000",
+    "remove_background_noise": false
+  },
+  "provider_calls_total": {
+    "google_guide": 2,
+    "elevenlabs_transfer": 1
+  },
+  "authorized_corrective_guide_calls": 1,
+  "transport_retries": 0,
+  "post_transfer_audio_processing": false,
+  "earlier_candidate": {
+    "candidate": "W2",
+    "preserved": true,
+    "reason_not_transferred": "Both small.en and medium.en recognized I am instead of contracted I’m at one phrase; all other content matched."
+  },
+  "final_audio": {
+    "url": "https://v3b.fal.media/files/b/0aaa497f/OkYsRfHU_qQUz8Ck7DoGj_selfie-w2b-final-0ad39c68a67b6c0f.wav",
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-002/media/voice/voice-w2b.original-c.wav",
+    "sha256": "0ad39c68a67b6c0f11edcbbe952380fc616716a59788dc049e2613313e4091e0",
+    "bytes": 3731584,
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "sample_count": 1865770,
+    "duration_seconds": 38.87020833333333,
+    "hosted_readback_verified": true
+  },
+  "verification": {
+    "normalized_exact_match": true,
+    "word_timing_map_complete": true,
+    "engine": "faster-whisper small.en; beam5; VAD; no previous-text conditioning; no initial prompt",
+    "audio_probe": {
+      "sample_rate_hz": 48000,
+      "sample_count": 1865770,
+      "duration_seconds": 38.87020833333333,
+      "final_sample": 0,
+      "last10ms_rms": 0,
+      "last60ms_rms": 0.000033343160069903806,
+      "last300ms_rms": 0.03644923232790134,
+      "peak_absolute_amplitude": 0.92169189453125,
+      "full_scale_sample_count": 0
+    },
+    "final_word": {
+      "word_index": 130,
+      "text": "after?",
+      "start": 38.32,
+      "end": 38.58,
+      "asr_words": [
+        "after?"
+      ],
+      "minimum_asr_probability": 0.997
+    }
+  },
+  "candidate_split": {
+    "after_word_index": 74,
+    "after_words": "as well.",
+    "frame": 524,
+    "seconds": 21.833333333333332,
+    "sample": 1048000,
+    "rms_50ms": 0.000029238271379862013,
+    "dbfs": -90.68096614480274,
+    "source_sample_ranges": [
+      [
+        0,
+        1048000
+      ],
+      [
+        1048000,
+        1865770
+      ]
+    ],
+    "contiguous_section_durations_seconds": [
+      21.833333333333332,
+      17.036875
+    ],
+    "both_below_30_seconds": true,
+    "audio_sliced": false
+  },
+  "word_timings_path": "voice/W2B/FINAL-WORD-TIMINGS.json",
+  "evidence": [
+    {
+      "path": "voice/W2B.style.json",
+      "sha256": "86faca94694c22c493f85503b19644e23b5d8492d66ec7c0981551e6aa317817"
+    },
+    {
+      "path": "voice/capture_w2b.py",
+      "sha256": "34e8de9b6f912dd69787fc508bb73dafe8c0c3fdb5a36285d4689439deed4fad"
+    },
+    {
+      "path": "voice/W2B/INPUT.json",
+      "sha256": "3ec484ebb1e3fcac6bebc9eb1daf3b91dab3b997f3a155b9398d93fc9d7a8ac0"
+    },
+    {
+      "path": "voice/W2B/GUIDE-INTENT.json",
+      "sha256": "c49b26958dac3ee0aef2c3499aa1494f42042c8767b1a6405627f2081d6c3d87"
+    },
+    {
+      "path": "voice/W2B/GUIDE-RECEIPT.json",
+      "sha256": "bf7d6cf63e13985ed37cd621cf89941ceb70436d64c2dd26e35adccb6db5a232"
+    },
+    {
+      "path": "voice/W2B/GUIDE-ASR.json",
+      "sha256": "8ce8320b21149bbcbf70f4088b59126f8b4ac36af96490b18f8588305c8241df"
+    },
+    {
+      "path": "voice/W2B/TRANSFER-INPUT.json",
+      "sha256": "d4b96dd4c4ddb88d24e59b5d29bfa210361ed3781bd9f2ec896e669e5497bbe8"
+    },
+    {
+      "path": "voice/W2B/TRANSFER-INTENT.json",
+      "sha256": "c76f5c313c28aa51be77fdddad9672dbe2eedfce47ded9c735d15009101fecda"
+    },
+    {
+      "path": "voice/W2B/TRANSFER-RECEIPT.json",
+      "sha256": "51097176917c4de11aeaa6e69347358f730d2b798cafef2f05a3a1f4d5fb4dee"
+    },
+    {
+      "path": "voice/W2B/FINAL-ASR.json",
+      "sha256": "c44013458b6cfa5b425509a520cdce3f2c06869012d0361bb5bf4ad7bef3eb1d"
+    },
+    {
+      "path": "voice/W2B/FINAL-WORD-TIMINGS.json",
+      "sha256": "6a641314edbc65bcc574094353f85bcec32c6e82b2c35be01203c3afe253c1c5"
+    },
+    {
+      "path": "voice/W2B/final-upload/UPLOAD.json",
+      "sha256": "67ead94ddc648b6db00fa42958abf360d3b9fc443d9542cb9c973eca34507148"
+    }
+  ],
+  "limits": [
+    "Owner listening has not been performed; text and endpoint checks do not establish naturalness or identity acceptance.",
+    "ASR word timings are approximate; quiet candidate split was selected from actual PCM energy.",
+    "No video, captions or end card were generated.",
+    "Provider billed amounts were not returned."
+  ]
+}
+

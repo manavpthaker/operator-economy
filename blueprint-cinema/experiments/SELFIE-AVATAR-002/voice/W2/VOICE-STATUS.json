@@ -1,0 +1,52 @@
+{
+  "experiment": "SELFIE-AVATAR-002",
+  "status": "guide_generated_transfer_held_for_exact_word_mismatch",
+  "script_sha256": "0434553ff578eb611f7764a93ad8bc1df1e3942ee29fd400917fb23a8fbf91bf",
+  "script_word_count": 130,
+  "provider_calls": {
+    "google_guide": 1,
+    "elevenlabs_transfer": 0
+  },
+  "retries": 0,
+  "guide": {
+    "url": "https://v3b.fal.media/files/b/0aaa4942/C573lI6ZE9ENdtiz1gvlP_selfie-w2-guide-55d55bf29ed892ec.wav",
+    "sha256": "55d55bf29ed892ec1dbf7c7e122b0841ca1e59802c1f55b5e24ac40081447826",
+    "path": "blueprint-cinema/experiments/SELFIE-AVATAR-002/media/voice/voice-w2.guide.wav",
+    "sample_rate_hz": 24000,
+    "sample_count": 985223,
+    "duration_seconds": 41.050958333333334,
+    "hosted_readback_verified": true
+  },
+  "verification": {
+    "asr_models": [
+      "faster-whisper small.en",
+      "faster-whisper medium.en"
+    ],
+    "normalized_exact_match": false,
+    "differences": [
+      {
+        "expected": "I’m still",
+        "recognized": "I am still",
+        "seconds": [
+          10.44,
+          11.16
+        ]
+      }
+    ],
+    "last_word": {
+      "text": "after?",
+      "start": 40.44,
+      "end": 40.72
+    },
+    "quiet_endpoint": true,
+    "full_scale_sample_count": 3,
+    "perceptual_listening": "Not performed. ASR agreement is evidence of a contraction expansion, not proof from listening."
+  },
+  "transfer": {
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model": "eleven_multilingual_sts_v2",
+    "not_called": true
+  },
+  "next_action": "Orchestrator resolves exact-word mismatch before transfer. No duplicate or corrective synthesis was submitted."
+}
+
