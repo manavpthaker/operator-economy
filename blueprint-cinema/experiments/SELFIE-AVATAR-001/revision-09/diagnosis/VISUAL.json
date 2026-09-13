@@ -1,0 +1,60 @@
+{
+  "reviewer": "avatar_sources",
+  "reviewed_at_utc": "2026-09-13T02:37:07Z",
+  "scope": "Bounded still-frame diagnosis of R8 native versus final Sync 2 Pro, with R7 native and final as context. Eight labeled samples cover 3.500–6.125 seconds; the requested range through 6.500 was not continuously viewed.",
+  "sources": [
+    {
+      "path": "media/revision-08/native-smirk.jpg",
+      "sha256": "d11ac2782714d292c01e6d899aba87671a4aea57154bf544489fdfdf9c3ad8cc"
+    },
+    {
+      "path": "media/revision-08/final-contact.jpg",
+      "sha256": "0262888faa99b61de1c28879afcd0c4654c07dfc14995c160e43dcc871eec6d8"
+    },
+    {
+      "path": "media/revision-07/native-smile.jpg",
+      "sha256": "30940e0c8257e1567c516290963f53fabe92d5d04b9dfc3cac8011fc6492edff"
+    },
+    {
+      "path": "media/revision-07/final-contact.jpg",
+      "sha256": "c2b47cebbdbb282f090580ba6cd2b8b6720e3bc1a3373672a335dffbecfa173c"
+    }
+  ],
+  "provenance_check": {
+    "basis": "Read R8 caption REPORT.json, render.py, DELIVERY.json and lip-sync DOWNLOAD.json. The caption report binds the R8 Sync source and lists matching expression frame indices; the render script extracts contact frames from that rendered candidate.",
+    "r8_sync_source_sha256": "55f0afa5babd47316405c00940dfa53db079750e891bb4c01e7c4f29bc5e0def",
+    "r8_captioned_output_sha256": "9e994e3db09fc2603160595e2a6a1e116aabaea4a358b3f3e56179906b70b6a4",
+    "limit": "The contact-source chain was checked in records and code; video frames were not freshly decoded for this review."
+  },
+  "observations": [
+    {
+      "times_seconds": [4.25, 4.875, 6.125],
+      "observation": "The R8 final has visibly larger vertical mouth openings than the corresponding R8 native samples, particularly at 4.875. This is a qualitative comparison relative to the surrounding face, not a measured jaw-amplitude series."
+    },
+    {
+      "times_seconds": [4.5, 5.667],
+      "observation": "The change is not uniform enlargement. R8 final closes the slightly parted native lips at 4.500 and makes the 5.667 mouth more pursed and closed."
+    },
+    {
+      "times_seconds": [4.875, 5.25],
+      "observation": "Smile-related eye squeeze and raised cheeks remain in the R8 final, alongside active mouth articulation. The lower-face movement can therefore read more pronounced than a small relaxed expression alone."
+    },
+    {
+      "times_seconds": [4.25, 4.5],
+      "observation": "R7 already showed substantial native-to-Sync mouth-shape changes, including opening a native closed smile at 4.250. R8 final remains visually close to R7 final overall; the new pass has not clearly solved the owner's impression of an overactive mouth."
+    }
+  ],
+  "interpretation": "The sampled evidence is consistent with the extra Sync pass increasing some mouth-opening peaks while reconstructing other moments as closures. It does not establish that Sync alone caused the perceived oddness: sparse samples, speech-phase changes and the preceding generative edit remain competing explanations.",
+  "head_motion": {
+    "status": "not_independently_established",
+    "basis": "Sparse stills cannot establish the direction, amplitude or naturalness of a side-to-side shake. The requested replacement is based on the owner's feedback, not an inferred motion sequence."
+  },
+  "recommended_prompt": "Edit this existing take with a relaxed jaw and compact, natural speech articulation. Keep the mouth corners close to their resting position, with small lip and jaw movements and clear speech. Retain attentive eyes, ordinary blinking and subtle expression. Keep the head steady through the admission; after 'that', in the 5.12–5.50 second pause, make one slight downward chin tip of about 2–3 degrees and settle before 'With AI' at 5.64. Remove side-to-side head shaking. Preserve the same person, glasses, clothing, room, framing, speech timing and camera movement.",
+  "practical_implication": "Inspect the restrained edit before another restoration pass. Repeating Sync should not be assumed to reduce mouth amplitude; it may recreate larger speaking shapes. Exact timing and unchanged audio remain separate checks from expression quality.",
+  "limits": [
+    "No paid call, generation, media export or video mutation was made.",
+    "No audio was heard and no normal-speed or phoneme-sync verdict is made.",
+    "The proposed chin-tip angle and timing are directions, not guaranteed model controls."
+  ],
+  "approval_status": "No owner acceptance or production-gate change."
+}
