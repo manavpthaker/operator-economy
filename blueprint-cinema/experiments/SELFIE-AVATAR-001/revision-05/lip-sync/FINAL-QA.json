@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "revision": "SELFIE-AVATAR-001/revision-05",
+  "generated_at": "2026-09-13T01:02:46.552659+00:00",
+  "status": "technical_source_integrity_and_full_decode_passed",
+  "request_id": "01a09842-e419-7821-8d4b-158fc159a783",
+  "model": "fal-ai/sync-lipsync/v3",
+  "sync_mode": "silence",
+  "submission_count": 1,
+  "retry": false,
+  "source_audio": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/media/revision-04/voice-r4.original-c.wav",
+    "url": "https://v3b.fal.media/files/b/0aaa2fe9/0g2B6ygqc2BCtUFM0scTp_selfie-r4-final-b2c10c8e5b3267a4.wav",
+    "sha256": "b2c10c8e5b3267a43f8aaa4b3aba2132f4b20d6df6cd22fbfdcf0dc831e7e3b3",
+    "duration_seconds": 52.848625,
+    "samples": 2536734,
+    "sample_rate_hz": 48000
+  },
+  "script": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-04/SCRIPT.txt",
+    "sha256": "3eb28bd243f2c169b5906852f3b055553d1bc0e0520a029082fa5bf41a36fbe3"
+  },
+  "native": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/media/revision-05/home-olive-gtm-r5-native-assembled.mp4",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/f27d828f-fe44-4e0c-9cc6-bf3573566c24.mp4",
+    "sha256": "1be7b5bd45d3260b5e249c1fecdd33cd01be8cbb5c06420b748e4dfd45ea2c23",
+    "frame_count": 1293,
+    "duration_seconds": 53.875,
+    "audio_streams": 0
+  },
+  "result": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/media/revision-05/home-olive-gtm-r5-sync.mp4",
+    "url": "https://v3b.fal.media/files/b/0aaa3224/fyA4CN5ZziTCnU8AFYA_w_BJJmaXoO.mp4",
+    "sha256": "1b210aa34c6d696dce47604918d875ec3676beb54851750896fb5d0786177bfb",
+    "bytes": 54370568,
+    "frame_count": 1293,
+    "duration_seconds": 53.875,
+    "width": 720,
+    "height": 1280,
+    "frame_rate": "24/1",
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_sample_rate_hz": 48000,
+    "audio_channels": 1
+  },
+  "audio_placement": {
+    "measured_fresh_for_revision": true,
+    "prior_offset_reused": false,
+    "audio_insertion_offset_seconds": 0.342125,
+    "analysis_sample_rate_hz": 16000,
+    "analysis_sample_resolution_seconds": 6.25e-05,
+    "full_source_aligned_overlap_seconds": 52.848625,
+    "full_source_correlation": 0.999809435184222,
+    "maximum_sampled_local_drift_from_global_seconds": 0.0,
+    "sampled_local_offset_spread_seconds": 0,
+    "minimum_window_correlation": 0.9997541829652139,
+    "local_windows": {
+      "opening": {
+        "offset_seconds": 0.342125,
+        "correlation": 0.9998130749440142,
+        "window_seconds": [
+          0.2,
+          10.5
+        ]
+      },
+      "section_2": {
+        "offset_seconds": 0.342125,
+        "correlation": 0.9997980236815254,
+        "window_seconds": [
+          20.3,
+          35.4
+        ]
+      },
+      "section_3": {
+        "offset_seconds": 0.342125,
+        "correlation": 0.999820543135933,
+        "window_seconds": [
+          36.3,
+          47.2
+        ]
+      },
+      "final_question": {
+        "offset_seconds": 0.342125,
+        "correlation": 0.9997541829652139,
+        "window_seconds": [
+          47.9,
+          52.5
+        ]
+      }
+    },
+    "source_endpoint_in_result_seconds": 53.19075,
+    "final_word_estimated_result_window_seconds": [
+      52.642125,
+      52.842125
+    ],
+    "decoded_final_half_second_rms": 0,
+    "decoded_audio_duration_seconds": 53.888,
+    "decoded_audio_note": "AAC decoded PCM includes padding beyond the 53.875-second container duration."
+  },
+  "caption_timing_instruction": {
+    "source_timestamp_offset_seconds": 0.342125,
+    "basis": "Add the freshly measured R5 audio insertion offset to timestamps based on the retained full R4 source WAV. Preserve returned soundtrack placement."
+  },
+  "strict_full_decode": "passed",
+  "native_soundtrack_comparison": "Not applicable: new native assembly contains video only.",
+  "limitations": [
+    "Four independently aligned windows show no measured drift at 16 kHz analysis resolution; this does not prove zero drift at every sample.",
+    "Waveform similarity and complete overlap support preservation through AAC encoding, not byte-identical encoded audio.",
+    "No subjective listening or audiovisual lip-sync acceptance was performed by this worker; owner acceptance remains separate."
+  ],
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/INPUT.json",
+      "sha256": "6057c6f035189fc5ccf55395369cf68c751d73f12ba063263ce5f5ad06a99917"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/NATIVE-INPUT.json",
+      "sha256": "c72c3877879b2f2f2e3ceda67ce0af6f98131389a2ce6c480f3ec38e636cea1b"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/REQUEST.json",
+      "sha256": "ddf791f0ee2fb7f0bb2561f82c638b65bc4c6528ba0cc0c5561de68a25b42125"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/SUBMISSION-INTENT.json",
+      "sha256": "38ffbb7346064a7296387a0bf516840c8d81370f4a71f1399f8ac5e307effdfc"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/JOB.json",
+      "sha256": "5bcdc11c182eece2bb13e1ce9dbd070172713f778c5ce857013c720cc0f16ba6"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/STATUS.json",
+      "sha256": "00183aab2102426228062dd90d56804a729fd4d55a897567bf3b5c8f08da1874"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/RESULT.json",
+      "sha256": "298703bee4d3402b1ca4a658b286e263e45abfccec4ba2058124db9c5d02e938"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/DOWNLOAD.json",
+      "sha256": "737bd1305f3a8eedd57969003c4fbbd4631396ba31dca6787d9d3aaafcecd585"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/MEDIA-QA.json",
+      "sha256": "ec0fa7dc379a3d74bffec6173594b448476a7596271e5ca9d5b6edf8bf261fcc"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/AUDIO-QA.json",
+      "sha256": "9a3badaa907e32549375519a54d137045d6826619c0719aea59a8a053bc2eebe"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/SANDBOX-QA-RECEIPT.json",
+      "sha256": "ea1acbc57018c248ca3222454396c0a2636ec53c1f2b66558ab3d2fedc29a805"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/compare_audio.py",
+      "sha256": "d9bd6b5f104eb290c76598beaa13ce43ee7c3537ac46040c40fff4f4cbf293af"
+    },
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-05/lip-sync/check_media.py",
+      "sha256": "15ae9fcd31c44d8e3c9841cb4082f27b63cf0d7b3bc95e3db0b322012d6a0552"
+    }
+  ]
+}
