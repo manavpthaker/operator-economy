@@ -1,0 +1,61 @@
+{
+  "event_id": "week2-but-continuity-v2",
+  "decision_id": "week2-but-continuity",
+  "event_type": "decision",
+  "tags": [
+    "selfie",
+    "cut-timing",
+    "performance-continuity"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Continue one spontaneous explanation through the cost of maintaining automation.",
+      "viewer_before": "One man talking naturally to a propped phone.",
+      "viewer_after": "The same ongoing thought continues without an artificial reset."
+    },
+    "choice": "Replace global0–21.833333 with one22second performance anchored by current first and closing entry frames; preserve OriginalC and existing closing.",
+    "reason": "Observed pose, collar, shoulder and head discontinuities atframe145to146 cannot be reconciled with crop alignment alone.",
+    "alternatives": [
+      {
+        "choice": "Reframe existing clips at seam",
+        "reason_not_selected": "Similar frame geometry already exists; independent posture and collar state still jump."
+      },
+      {
+        "choice": "Crossfade faces",
+        "reason_not_selected": "Creates doubled features while speaking and does not restore natural continuous performance."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Separately generated clips interrupt one ongoing selfie thought.",
+      "avoid_when": "A genuine performance cut is intended or source time is already continuous."
+    },
+    "nuance": {
+      "source_basis": "Owner feedback and direct boundary inspection",
+      "cut_cues": [
+        {
+          "cue_id": "after-well-before-for",
+          "phrase": "as well. For something",
+          "relation": "in pause",
+          "master_seconds": 21.833333333333332,
+          "fps": 24,
+          "rounding": "global frame524",
+          "protected_hold": "Complete final well; preserve first For",
+          "dependent_targets": [
+            "new opening retainedframes0–524",
+            "preserved closingglobal524–933",
+            "continuousOriginalCaudio"
+          ]
+        }
+      ],
+      "performance": "Near-frontal relaxed offcenter same polo/office; no scripted smile or headshake; exact existing speech."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/SELFIE-AVATAR-002/full-01/assembly/renders/week2-full01-uncaptioned.mp4",
+      "sha256": "ccdc0922a4e088fcbd3501aedede32df95be99018b65fc357ef7ccc1af059db9",
+      "locator": "frames145 and146"
+    }
+  ]
+}
