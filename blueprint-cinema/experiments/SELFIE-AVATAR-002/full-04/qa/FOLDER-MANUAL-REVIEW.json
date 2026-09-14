@@ -1,0 +1,50 @@
+{
+  "reviewer": "week2_but_cut_diagnosis",
+  "scope": "Independent sampled-frame review; proposed selections only, not owner approval or final playback QC.",
+  "folder": {
+    "source_sha256": "9c7d142670c39765d6ba9e52b5966155c82bb3070dde7052c8e902326aa4523d",
+    "recommended_source_frames_half_open": [0, 144],
+    "recommended_target_frames_half_open": [304, 448],
+    "observed_action": "Sources folder moves lower within the same Finder icon layout. Its destination setting remains Sources.",
+    "judgment": "Usable as illustrative organizing activity in the requested phone-filmed laptop B-roll.",
+    "limitations": [
+      "Moving an icon in the same Finder window is not evidence that its filesystem path changed or automation broke.",
+      "Drag ghost opacity changes and labels overlap while Sources passes Archive.",
+      "No exact software demonstration or factual owner-work capture is claimed."
+    ],
+    "evidence": ["folder-phone.jpg", "folder-ui.jpg", "folder-inspection.json"]
+  },
+  "manual": {
+    "source_sha256": "6b82b82d575aed0c53e98c7599f4f19a8e50c1b4710928f54967efb86ac43f17",
+    "recommended_source_frames_half_open": [18, 80],
+    "recommended_target_frames_half_open": [684, 746],
+    "observed_action": "Cursor carries notes.txt onto Sources, not the requested Assets. The document disappears after the drop and Sources highlights.",
+    "judgment": "Usable as an illustration of manually putting a document into a folder, with the actual destination recorded correctly.",
+    "timing": "Source0.75s establishes cursor over document; visible drag by1.667s; drop around2.33-2.5s; selected window holds the completed result through3.333s.",
+    "limitations": [
+      "Actual destination is Sources, not Assets.",
+      "Archive briefly gains an unexplained selection-like highlight around sourceframe60; it is clear again at72/78.",
+      "Document and folder labels overlap and soften during the drag at44-56.",
+      "The activity is recognizable at phone-view scale, but is not a precise Finder simulation."
+    ],
+    "evidence": ["manual-phone.jpg", "manual-ui.jpg", "manual-drop-ui.jpg", "manual-drop-inspection.json"]
+  },
+  "rule": {
+    "source_sha256": "a0bead5cfb73ecf2603b7a7f2b99163faf6e0035214ab54b8a4fb81893750140",
+    "recommended_source_frames_half_open": [0, 86],
+    "recommended_target_frames_half_open": [448, 534],
+    "observed_action": "Cursor opens the destination menu, selects Assets, and the field changes from Sources to Assets by sourceframe60/2.5s. The completed field remains readable at72/84/94.",
+    "judgment": "Usable as an illustrative setting change; the selected window includes the interaction and more than one second of completed-state hold.",
+    "limitations": [
+      "Open menu contains duplicate Sources and Assets rows and nonsensical upper labels.",
+      "The menu position shifts while open; this is not a precise native dropdown simulation.",
+      "Sources is back in its initial upper-left Finder position, so the cut from folder to rule resets desktop state. These are separate illustrative shots, not one continuously captured workflow."
+    ],
+    "evidence": ["rule-phone.jpg", "rule-ui.jpg", "rule-inspection.json"]
+  },
+  "shared": {
+    "synthetic_illustration": true,
+    "physical_read": "MacBook, desk, screen perspective and daylight remain recognizable. Modest camera drift reads as phone footage in sampled views.",
+    "not_yet_reviewed": ["assembled final output", "continuous full-speed playback"]
+  }
+}
