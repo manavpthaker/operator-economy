@@ -1,4 +1,4 @@
-Execution update: the owner signed in using GitHub. Root submitted the exact request once through the existing browser account at $0.42. Job 74a9da4ce7af4856a5c5583b2c48d26e completed and the direct MP4 loads and plays to its endpoint. See DELIVERY.json. A shared submission intent blocks additional API submission. No API key was created.
+Execution update: the owner signed in using GitHub. Root submitted the exact request once through the existing browser account at $0.42. Job 74a9da4ce7af4856a5c5583b2c48d26e completed and the direct MP4 loads and plays to its endpoint. See DELIVERY.json. A shared submission intent blocks additional API submission. No API key was created. Owner review: rejected for this test as worse than HeyGen. See OWNER-REVIEW.json. The accepted Seedance plus Sync test-02 remains the quality baseline.
 
 # InfiniteTalk comparison preparation
 
