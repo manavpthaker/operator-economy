@@ -1,3 +1,5 @@
+Execution update: the owner signed in using GitHub. Root submitted the exact request once through the existing browser account at $0.42. Job 74a9da4ce7af4856a5c5583b2c48d26e completed and the direct MP4 loads and plays to its endpoint. See DELIVERY.json. A shared submission intent blocks additional API submission. No API key was created.
+
 # InfiniteTalk comparison preparation
 
 One authorized seven-second, 720p test using the supplied near-frontal V12 PNG and unchanged Original C test WAV. The helper and input record are prepared; preparation itself made no authenticated requests or generation calls.
