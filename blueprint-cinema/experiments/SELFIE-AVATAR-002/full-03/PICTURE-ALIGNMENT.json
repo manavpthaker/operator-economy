@@ -1,0 +1,43 @@
+{
+  "source": "media/extension-restored.mp4",
+  "source_sha256": "2eb6964464ebd01650dc65f740512f0c45a90590eddbf28fddf7677108ff2369",
+  "prepared": "media/extension-prepared.mp4",
+  "prepared_sha256": "b274c7de439dc42148b8ad679339f3d0ca80b6057067865b79217e246cf0df2f",
+  "fps": 24,
+  "output_frames": 409,
+  "global_range": [
+    524,
+    933
+  ],
+  "audio_insertion_lag_seconds": 0.3210625,
+  "normal_picture_offset_frames": 8,
+  "normal_picture_offset_seconds": 0.3333333333333333,
+  "normal_picture_rounding_seconds": 0.012270833333333342,
+  "lead_in": {
+    "source_frames": [
+      0,
+      20
+    ],
+    "output_frames": [
+      0,
+      12
+    ],
+    "picture_speed": 1.6666666666666667,
+    "reason": "Preserve the matching starting pose and complete blink progression instead of trimming directly into closed eyes. Recover the eight-frame alignment offset before the main spoken articulation.",
+    "qualification": "The first half-second includes low-energy preparatory audio and may include breath or frication. Only picture timing changes there; the full source recording is untouched."
+  },
+  "spoken_body": {
+    "source_frames": [
+      20,
+      417
+    ],
+    "output_frames": [
+      12,
+      409
+    ],
+    "picture_speed": 1
+  },
+  "spatial_crop": "none",
+  "audio": "Full continuous Original C master in final assembly; no audio splice, gain or retiming",
+  "review": "Root inspected before/after pose pair and first18 output frames. Closed-mouth seam retained; blink progresses rather than appearing at the cut. Encoded final join still requires review."
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=720, height=1280" />
+    <title>Week 2 — What is worth leaving manual?</title>
+    <script src="public/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 720px;
+        height: 1280px;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      #root {
+        position: relative;
+        width: 720px;
+        height: 1280px;
+        overflow: hidden;
+      }
+      video.clip {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 720px;
+        height: 1280px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="selfie-week2-full03"
+      data-start="0"
+      data-duration="38.875"
+      data-width="720"
+      data-height="1280"
+    >
+      <!-- Exact 24 fps frame ranges: [0,524), [524,933). -->
+      <!-- Exact full-02 opening retained; new motion-conditioned extension begins at frame524. -->
+      <!-- This structural boundary remains subject to moving seam review. -->
+      <!-- Both inputs are already framed. No transforms, fades or retiming. -->
+      <video id="opening-continuous" class="clip" src="public/media/opening-continuous.mp4"
+        data-start="0" data-duration="21.833333333333332" data-media-start="0"
+        data-track-index="0" muted playsinline></video>
+      <video id="extension" class="clip" src="public/media/extension.mp4"
+        data-start="21.833333333333332" data-duration="17.041666666666668" data-media-start="0"
+        data-track-index="0" muted playsinline></video>
+      <!-- Original C is one continuous master; native/generated clip audio is never used. -->
+      <audio id="original-c" class="clip" src="public/audio/original-c.wav"
+        data-start="0" data-duration="38.87020833333333" data-media-start="0"
+        data-track-index="1" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["selfie-week2-full03"] = tl;
+    </script>
+  </body>
+</html>
