@@ -16,15 +16,14 @@
       #root { position:relative; width:720px; height:1280px; overflow:hidden; background:#111; font-family:Atkinson, sans-serif; }
       #base { position:absolute; inset:0; width:720px; height:1280px; object-fit:cover; z-index:0; }
 
-      /* Hook: the presenter steps back so the title can sit behind the head. */
-      #hook-fill { position:absolute; left:-40px; top:-40px; width:800px; height:1360px; object-fit:cover; filter:blur(26px) brightness(1.04); z-index:1; }
-      #hook-plate, #hook-matte { position:absolute; left:72px; top:256px; width:576px; height:1024px; object-fit:cover; }
-      #hook-plate { z-index:2; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px);
-        -webkit-mask-composite: source-in; mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px); mask-composite:intersect; }
-      #hook-title { position:absolute; left:40px; top:92px; width:660px; margin:0; z-index:3; font-family:Archivo, sans-serif;
+      /* Hook: Counterproof proof ground, presenter inset, title behind the head; then cut to full frame. */
+      #hook-ground { position:absolute; inset:0; background:#F3F6F5; z-index:1; }
+      #hook-plate, #hook-matte { position:absolute; left:94px; top:333px; width:533px; height:947px; object-fit:cover; }
+      #hook-plate { z-index:2; clip-path:inset(150px 0 0 0); }
+      #hook-title { position:absolute; left:40px; top:204px; width:660px; margin:0; z-index:3; font-family:Archivo, sans-serif;
         font-size:116px; line-height:112px; font-weight:780; letter-spacing:-.05em; color:var(--graphite); }
       #hook-title span { display:block; }
-      #hook-matte { z-index:4; }
+      #hook-matte { z-index:4; -webkit-mask-image:linear-gradient(to bottom, transparent 0, transparent 48px, #000 70px); mask-image:linear-gradient(to bottom, transparent 0, transparent 48px, #000 70px); }
 
       .scene { position:absolute; inset:0; overflow:hidden; background:#111; z-index:5; }
       .fit { position:absolute; left:0; top:0; width:941px; height:1672px; transform:scale(.76514); transform-origin:0 0; }
@@ -81,10 +80,10 @@
   <body>
     <div id="root" data-composition-id="week2-full07" data-start="0" data-width="720" data-height="1280" data-duration="45.8750">
       <video id="base" class="clip" src="assets/base.mp4" data-start="0" data-duration="45.8750" data-track-index="0" muted playsinline></video>
-      <video id="hook-fill" class="clip" src="assets/hook-fill.mp4" data-start="0" data-duration="3.6250" data-track-index="1" muted playsinline></video>
-      <video id="hook-plate" class="clip" src="assets/hook.mp4" data-start="0" data-duration="3.6250" data-track-index="2" muted playsinline></video>
-      <div id="hook-title" class="clip" data-start="0" data-duration="3.6250" data-track-index="3" data-layout-allow-overlap><span>Worth</span><span>automating?</span></div>
-      <video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="3.6250" data-track-index="4" muted playsinline></video>
+      <div id="hook-ground" class="clip" data-start="0" data-duration="2.4167" data-track-index="1"></div>
+      <video id="hook-plate" class="clip" src="assets/hook.mp4" data-start="0" data-duration="2.4167" data-track-index="2" muted playsinline></video>
+      <div id="hook-title" class="clip" data-start="0" data-duration="2.4167" data-track-index="3" data-layout-allow-overlap><span>Worth</span><span>automating?</span></div>
+      <video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="2.4167" data-track-index="4" muted playsinline></video>
 
       <section id="fix" class="clip scene" data-start="9.5833" data-duration="3.0833" data-track-index="5">
         <div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" />

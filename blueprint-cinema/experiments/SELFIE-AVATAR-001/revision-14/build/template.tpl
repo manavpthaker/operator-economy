@@ -16,15 +16,14 @@
       #root { position:relative; width:720px; height:1280px; overflow:hidden; background:#111; font-family:Atkinson, sans-serif; }
       #base { position:absolute; inset:0; width:720px; height:1280px; object-fit:cover; z-index:0; }
 
-      /* Hook: the presenter steps back so the title can sit behind the head. */
-      #hook-fill { position:absolute; left:-40px; top:-40px; width:800px; height:1360px; object-fit:cover; filter:blur(26px) brightness(1.04); z-index:1; }
-      #hook-plate, #hook-matte { position:absolute; left:72px; top:256px; width:576px; height:1024px; object-fit:cover; }
-      #hook-plate { z-index:2; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px);
-        -webkit-mask-composite: source-in; mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px); mask-composite:intersect; }
-      #hook-title { position:absolute; left:40px; top:160px; width:660px; margin:0; z-index:3; font-family:Archivo, sans-serif;
+      /* Hook: Counterproof proof ground, presenter inset, title behind the head; then cut to full frame. */
+      #hook-ground { position:absolute; inset:0; background:#F3F6F5; z-index:1; }
+      #hook-plate, #hook-matte { position:absolute; left:94px; top:333px; width:533px; height:947px; object-fit:cover; }
+      #hook-plate { z-index:2; clip-path:inset(170px 0 0 0); }
+      #hook-title { position:absolute; left:40px; top:226px; width:660px; margin:0; z-index:3; font-family:Archivo, sans-serif;
         font-size:116px; line-height:112px; font-weight:780; letter-spacing:-.05em; color:var(--graphite); }
       #hook-title span { display:block; }
-      #hook-matte { z-index:4; -webkit-mask-image:linear-gradient(to bottom, transparent 0, transparent 70px, #000 115px); mask-image:linear-gradient(to bottom, transparent 0, transparent 70px, #000 115px); }
+      #hook-matte { z-index:4; -webkit-mask-image:linear-gradient(to bottom, transparent 0, transparent 66px, #000 90px); mask-image:linear-gradient(to bottom, transparent 0, transparent 66px, #000 90px); }
 
       .scene { position:absolute; inset:0; overflow:hidden; background:#111; z-index:5; }
       .fit { position:absolute; left:0; top:0; width:941px; height:1672px; transform:scale(.76514); transform-origin:0 0; }
@@ -82,8 +81,10 @@
       .cursor .tab { position:absolute; left:240px; right:0; top:44px; height:44px; background:#181818; border-bottom:1px solid #2B2B2B; font-size:16px; line-height:44px; }
       .cursor .tab span { display:inline-block; padding:0 18px; background:#1F1F1F; border-top:2px solid #6A8DFF; color:#fff; }
       .cursor .code { position:absolute; left:240px; right:0; top:88px; bottom:0; overflow:hidden; }
-      .cursor .scroll { padding:18px 0; font-size:22px; line-height:36px; }
-      .cursor .ln { display:inline-block; width:56px; text-align:right; color:#5A5A5A; margin-right:22px; }
+      .cursor .scroll { padding:14px 16px 0 0; font-size:18px; line-height:29px; }
+      .cursor .cl { white-space:pre-wrap; padding-left:74px; text-indent:-74px; border-radius:4px; color:#D4D4D4; }
+      .cursor .cl .c { color:#6A9955; } .cursor .cl .s { color:#CE9178; } .cursor .cl .k { color:#C586C0; } .cursor .cl .n { color:#B5CEA8; } .cursor .cl .u { color:#4FC1FF; }
+      .cursor .ln { display:inline-block; width:52px; text-align:right; color:#5A5A5A; margin-right:22px; text-indent:0; }
       .cursor .h { color:#6A8DFF; font-weight:700; } .cursor .t { color:#D4D4D4; } .cursor .bl { color:#D4D4D4; filter:blur(3.5px); }
 
       .warp .ok { color:#4fb477; } .warp .dim { color:#7f848d; } .warp .key { display:inline-block; width:150px; color:#8b9099; }

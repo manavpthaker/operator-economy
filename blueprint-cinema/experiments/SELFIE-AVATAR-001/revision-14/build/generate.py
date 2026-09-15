@@ -17,7 +17,7 @@ CUT = (899 / FPS, 987 / FPS)      # removed from the R13 timeline
 SHIFT = CUT[1] - CUT[0]
 BODY_END = 1234 / FPS             # 51.417, R13 closing card follows
 DURATION = 1378 / FPS
-HOOK_END = 149 / FPS
+HOOK_END = 115 / FPS              # cut to full frame on "I could sell this"
 SHOTS = {                         # output frames
     "projects": (282, 404),       # "I've got other things I wanna build too..."
     "run": (460, 587),            # "a GTM Engine to help me figure that out. It looks at the code"
@@ -99,34 +99,63 @@ def shot(sid, inner):
             f'{inner}<div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>')
 
 
-def warp(title, body):
-    return (f'<div class="win warp"><div class="bar">{DOTS}<span class="name">{title}</span></div>'
-            f'<div class="body"><div class="head"><b>Warp</b> &nbsp;·&nbsp; ~/GitHub</div>{body}</div></div>')
+GTM = Path("/Users/brownmanbrain/GitHub/gtm-engine")   # commit 92cf5dc
+KW = {"py": r"\b(def|for|in|if|elif|else|not|and|or|return|continue|import|from|as|lambda|any|sorted|None|True|False)\b",
+      "js": r"\b(const|let|return|await|async|new|map|if|else|true|false|null)\b"}
+
+
+def highlight(line, lang):
+    """Tiny tokenizer: strings, comments, keywords, numbers, constants. Escapes everything."""
+    pat = re.compile(r"(?P<c>#.*$|//.*$)|(?P<s>[fr]?\"[^\"]*\"|[fr]?'[^']*'|`[^`]*`)|(?P<k>" + KW[lang] + r")|(?P<n>\b\d+\b)|(?P<u>\b[A-Z][A-Z_]{3,}\b)")
+    out, pos = [], 0
+    if lang == "js":
+        pat = re.compile(r"(?P<c>//.*$)|(?P<s>\"[^\"]*\"|'[^']*'|`[^`]*`)|(?P<k>" + KW[lang] + r")|(?P<n>\b\d+\b)|(?P<u>\b[A-Z][A-Z_]{3,}\b)")
+    for m in pat.finditer(line):
+        out.append(html.escape(line[pos:m.start()]))
+        out.append(f'<span class="{m.lastgroup}">{html.escape(m.group())}</span>')
+        pos = m.end()
+    out.append(html.escape(line[pos:]))
+    return "".join(out)
+
+
+def code_file(rel, first, last, lang, hl_ids):
+    """Real lines from the repo, common indent removed, numbered as in the file."""
+    lines = (GTM / rel).read_text().splitlines()[first - 1:last]
+    indent = min(len(l) - len(l.lstrip()) for l in lines if l.strip())
+    rows = []
+    for n, l in zip(range(first, last + 1), lines):
+        rid = hl_ids.get(n, "")
+        rows.append(f'<div class="cl"{f" id={rid}" if rid else ""}><span class="ln">{n}</span>{highlight(l[indent:], lang) or "&nbsp;"}</div>')
+    return "".join(rows)
+
+
+def cursor(rel, rows, sid):
+    parts = rel.split("/")
+    tree = {"src/gtm_engine/focus_extract.py": "▸ .claude<br/>▾ src/gtm_engine<br/>&nbsp;&nbsp;audit.py<br/>&nbsp;&nbsp;decision.py<br/>&nbsp;&nbsp;<span class=on>focus_extract.py</span><br/>&nbsp;&nbsp;guided.py<br/>&nbsp;&nbsp;research.py<br/>▸ tests",
+            ".claude/workflows/phase2-research.js": "▾ .claude/workflows<br/>&nbsp;&nbsp;<span class=on>phase2-research.js</span><br/>▾ src/gtm_engine<br/>&nbsp;&nbsp;audit.py<br/>&nbsp;&nbsp;decision.py<br/>&nbsp;&nbsp;focus_extract.py<br/>&nbsp;&nbsp;guided.py<br/>▸ tests",
+            "src/gtm_engine/guided.py": "▸ .claude<br/>▾ src/gtm_engine<br/>&nbsp;&nbsp;audit.py<br/>&nbsp;&nbsp;decision.py<br/>&nbsp;&nbsp;focus_extract.py<br/>&nbsp;&nbsp;<span class=on>guided.py</span><br/>&nbsp;&nbsp;research.py<br/>▸ tests"}[rel]
+    return (f'<div class="win cursor"><div class="cbar">gtm-engine — Cursor</div><div class="side">{tree}</div>'
+            f'<div class="tab"><span>{parts[-1]}</span></div><div class="code"><div class="scroll" id="{sid}-scroll">{rows}</div></div></div>')
 
 
 FOLDERS = ["littlefables", "proof-and-voice", "weatherthreads", "storyverse", "hummingbird", "viddy"]
 items = "".join(f'<div class="item" style="left:{40 + (k % 3) * 240}px;top:{60 + (k // 3) * 260}px"><div class="folder"></div><div class="lbl">{n}</div></div>' for k, n in enumerate(FOLDERS))
 
-REPORT = [
-    ("h", "# littlefables: Discovery"), ("t", ""),
-    ("h", "## Bottom line"), ("bl", "Parents like the idea of stories made for"), ("bl", "their own kid. Why they'd switch is unclear."), ("t", ""),
-    ("h", "## Who might need it"), ("bl", "Parents doing bedtime reading most nights"), ("bl", "Grandparents reading over video calls"), ("t", ""),
-    ("h", "## What they use today"), ("bl", "Library books, reading apps, made-up stories"), ("t", ""),
-    ("h", "## Proposed test"), ("t", "Let a parent use it at bedtime for a week."), ("t", "Do they pick it over their usual book?"),
-]
-report_lines = "".join(f'<div><span class="ln">{k + 1}</span><span class="{c}">{html.escape(s) or "&nbsp;"}</span></div>' for k, (c, s) in enumerate(REPORT))
-OPTIONS = ["explore", "retest", "compare", "pivot", "advance", "park", "stop"]
+RUN = ("src/gtm_engine/focus_extract.py", 830, 856, "py", {847: "run-hl"})
+REPORT = (".claude/workflows/phase2-research.js", 174, 185, "js", {175: "rep-hl1", 176: "rep-hl2"})
+DECIDE = ("src/gtm_engine/guided.py", 2376, 2393, "py", {2383: "dec-hl1", 2386: "dec-hl2"})
+
 
 body = f'''    <div id="root" data-composition-id="week3-r14" data-start="0" data-width="720" data-height="1280" data-duration="{DURATION:.4f}">
       <video id="base" class="clip" src="assets/base.mp4" data-start="0" data-duration="{DURATION:.4f}" data-track-index="0" muted playsinline></video>
-      <video id="hook-fill" class="clip" src="assets/hook-fill.mp4" data-start="0" data-duration="{HOOK_END:.4f}" data-track-index="1" muted playsinline></video>
+      <div id="hook-ground" class="clip" data-start="0" data-duration="{HOOK_END:.4f}" data-track-index="1"></div>
       <video id="hook-plate" class="clip" src="assets/hook.mp4" data-start="0" data-duration="{HOOK_END:.4f}" data-track-index="2" muted playsinline></video>
       <div id="hook-title" class="clip" data-start="0" data-duration="{HOOK_END:.4f}" data-track-index="3" data-layout-allow-overlap><span>Could I</span><span>sell this?</span></div>
       <video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="{HOOK_END:.4f}" data-track-index="4" muted playsinline></video>
       {shot("projects", f'<div class="win finder"><div class="fbar"><div class="dots">{DOTS}</div>GitHub</div><div class="fside"><b>FAVORITES</b><br/>Recents<br/>Applications<br/>Desktop<br/>Documents<br/>GitHub</div><div class="grid" data-layout-allow-overlap>{items}<svg class="ptr" id="p-ptr" viewBox="0 0 34 50"><path d="M2 2 L2 40 L12 31 L19 47 L26 44 L19 28 L32 28 Z" fill="#000" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg></div></div>')}
-      {shot("run", warp("gtm — ~/GitHub", '<div class="box" style="margin-top:0" data-layout-allow-overlap><span class="gt">$ </span><span id="r-typed"></span><span class="caret" id="r-caret"></span></div><div class="out" style="margin-top:28px" data-layout-allow-overlap><div class="rrow"><span class="key">Focus</span><span class="dim">reading the code in littlefables</span></div><div class="rrow"><span class="key"></span><span class="ok">✓</span> Product: storybook app for kids</div><div class="rrow"><span class="key"></span><span class="ok">✓</span> Capabilities found in code</div><div class="rrow"><span class="key">Status</span>READY_FOR_DISCOVERY</div><div class="rrow"><span class="key">Next</span><span class="dim">research who might need it</span></div></div>'))}
-      {shot("report", f'<div class="win cursor"><div class="cbar">littlefables — Cursor</div><div class="side">▾ .gtm<br/>&nbsp;&nbsp;▾ research<br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="on">report.md</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;research.json<br/>▸ app<br/>▸ content<br/>package.json</div><div class="tab"><span>report.md</span></div><div class="code"><div class="scroll" id="rep-scroll">{report_lines}</div></div></div>')}
-      {shot("decide", warp("gtm — ~/GitHub", '<div class="box" style="margin-top:0" data-layout-allow-overlap><span class="gt">$ </span>uv run gtm report</div><div class="out" style="margin-top:28px;white-space:normal" data-layout-allow-overlap><div class="key" style="width:auto">Proposed test</div><div id="d-test">Let a parent use it at bedtime.<br/>Do they pick it over their usual book?</div><div class="key" style="width:auto;margin-top:26px">Next decision</div><div id="d-opts">' + "".join(f'<span class="opt" id="o-{o}">{o}</span>' for o in OPTIONS) + '</div></div>'))}
+      {shot("run", cursor(RUN[0], code_file(*RUN), "run"))}
+      {shot("report", cursor(REPORT[0], code_file(*REPORT), "rep"))}
+      {shot("decide", cursor(DECIDE[0], code_file(*DECIDE), "dec"))}
       {"\n      ".join(cap_html)}
     </div>'''
 
@@ -139,31 +168,28 @@ R0, RD = t("run")
 P0, PD = t("projects")
 E0, ED = t("report")
 D0, DD = t("decide")
-keep = at("keep")
 motion = [
     'tl.fromTo("#hook-title span", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .12, ease: "power3.out" }, .15);',
     # Projects: slow push across the folders, pointer drifting.
     f'tl.set("#projects .cam", frameAt(480, 330, 1.1, 780), {P0:.3f});',
     f'tl.to("#projects .cam", {{ ...frameAt(560, 300, 1.3, 780), duration: {PD:.3f}, ease: "sine.inOut" }}, {P0:.3f});',
     f'tl.fromTo("#p-ptr", {{ x: 640, y: 520 }}, {{ x: 330, y: 150, duration: {PD:.3f}, ease: "sine.inOut" }}, {P0:.3f});',
-    # Run: type the command, then Focus output lands line by line.
-    'const cmd = "uv run gtm run littlefables"; const rt = document.getElementById("r-typed");',
-    'rt.innerHTML = [...cmd].map(ch => `<span class="ch" style="display:none">${ch === " " ? "&nbsp;" : ch}</span>`).join("");',
-    f'tl.set("#run .cam", frameAt(420, 200, 1.35, 700), {R0:.3f});',
-    f'tl.to("#run .ch", {{ display: "inline", duration: .001, stagger: .03, ease: "none" }}, {R0 + .1:.3f});',
-    f'tl.set("#r-caret", {{ opacity: 0 }}, {R0 + 1.0:.3f});',
-    f'tl.fromTo("#run .rrow", {{ opacity: 0, y: 8 }}, {{ opacity: 1, y: 0, duration: .16, stagger: .45 }}, {R0 + 1.2:.3f});',
-    f'tl.to("#run .cam", {{ ...frameAt(430, 330, 1.2, 800), duration: 2.2, ease: "power2.inOut" }}, {R0 + 1.4:.3f});',
-    # Report: scroll from the top to the proposed test.
-    f'tl.set("#report .cam", frameAt(640, 260, 1.25, 760), {E0:.3f});',
-    f'tl.fromTo("#rep-scroll", {{ y: 0 }}, {{ y: -300, duration: {ED - .6:.3f}, ease: "power1.inOut" }}, {E0 + .4:.3f});',
-    f'tl.to("#report .cam", {{ ...frameAt(640, 400, 1.25, 760), duration: {ED:.3f}, ease: "sine.inOut" }}, {E0:.3f});',
-    # Decide: the test, then the options with explore picked on "keep working".
-    f'tl.set("#decide .cam", frameAt(380, 250, 1.4, 760), {D0:.3f});',
-    f'tl.fromTo("#d-test", {{ opacity: 0 }}, {{ opacity: 1, duration: .2 }}, {D0 + .1:.3f});',
-    f'tl.fromTo("#d-opts .opt", {{ opacity: 0, y: 6 }}, {{ opacity: 1, y: 0, duration: .12, stagger: .06 }}, {at("decide") - .2:.3f});',
-    f'tl.to("#decide .cam", {{ ...frameAt(470, 420, 1.15, 780), duration: 1.4, ease: "power2.inOut" }}, {at("decide") - .5:.3f});',
-    f'tl.to("#o-explore", {{ backgroundColor: "#2457D6", color: "#ffffff", duration: .12 }}, {keep:.3f});',
+    # Run: the scoring that ranks what the repo's code shows; highlight the code-first weights on "code".
+    f'tl.set("#run .cam", frameAt(560, 200, 1.3, 760), {R0:.3f});',
+    f'tl.to("#run .cam", {{ ...frameAt(600, 330, 1.3, 760), duration: {RD:.3f}, ease: "sine.inOut" }}, {R0:.3f});',
+    f'tl.fromTo("#run-scroll", {{ y: 0 }}, {{ y: -190, duration: {at("code") - R0 - .2:.3f}, ease: "power1.inOut" }}, {R0 + .2:.3f});',
+    f'tl.fromTo("#run-hl", {{ backgroundColor: "rgba(106,141,255,0)" }}, {{ backgroundColor: "rgba(106,141,255,.22)", duration: .2 }}, {at("code") - .1:.3f});',
+    # Report: the research lenses; buyers on "who might need it", alternatives on "using already".
+    f'tl.set("#report .cam", frameAt(600, 180, 1.25, 740), {E0:.3f});',
+    f'tl.fromTo("#rep-hl1", {{ backgroundColor: "rgba(106,141,255,0)" }}, {{ backgroundColor: "rgba(106,141,255,.22)", duration: .2 }}, {at("who") - .1:.3f});',
+    f'tl.to("#rep-hl1", {{ backgroundColor: "rgba(106,141,255,0)", duration: .2 }}, {at("using", 2) - .15:.3f});',
+    f'tl.fromTo("#rep-hl2", {{ backgroundColor: "rgba(106,141,255,0)" }}, {{ backgroundColor: "rgba(106,141,255,.22)", duration: .2 }}, {at("using", 2) - .1:.3f});',
+    f'tl.to("#report .cam", {{ ...frameAt(600, 360, 1.25, 740), duration: {ED:.3f}, ease: "sine.inOut" }}, {E0:.3f});',
+    # Decide: the outcome rules; ADVANCE still means a larger test, not scaling.
+    f'tl.set("#decide .cam", frameAt(560, 150, 1.3, 760), {D0:.3f});',
+    f'tl.to("#decide .cam", {{ ...frameAt(600, 400, 1.3, 760), duration: {DD:.3f}, ease: "sine.inOut" }}, {D0:.3f});',
+    f'tl.fromTo("#dec-hl1", {{ backgroundColor: "rgba(106,141,255,0)" }}, {{ backgroundColor: "rgba(106,141,255,.22)", duration: .2 }}, {at("decide") - .1:.3f});',
+    f'tl.fromTo("#dec-hl2", {{ backgroundColor: "rgba(106,141,255,0)" }}, {{ backgroundColor: "rgba(106,141,255,.22)", duration: .2 }}, {at("decide") - .1:.3f});',
 ]
 for sid in SHOTS:
     a, d = t(sid)

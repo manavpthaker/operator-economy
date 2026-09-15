@@ -15,7 +15,7 @@ EXP = HERE.parents[1]
 FPS = 24
 DURATION = 1101 / FPS
 END_CARD = 933 / FPS            # 38.875, closing card starts
-HOOK_END = 87 / FPS             # 3.625, full-06 Warp insert starts
+HOOK_END = 58 / FPS             # 2.417, cut to full frame on "do the task"
 FIX = (230 / FPS, 304 / FPS)    # 9.583 -> 12.667, into the generated Finder shot
 MANUAL = (610 / FPS, 746 / FPS) # 25.417 -> 31.083, a cut already in full-06
 
