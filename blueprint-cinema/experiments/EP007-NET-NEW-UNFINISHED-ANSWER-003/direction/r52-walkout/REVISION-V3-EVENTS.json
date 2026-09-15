@@ -1,0 +1,126 @@
+[
+  {
+    "event_id": "r52-owner-walkout-take-return-v1",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "film",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r52-walkout-film-proposal-v2",
+      "actor": "owner",
+      "verbatim": "make it slower. the rst of the clips he was sitting there. we should have him push out the chair and walk off screen shakoing his head",
+      "interpretation": "Take returned: too fast and begins mid-walk, losing continuity with the seated buyer. Wants chair push-out and head-shaking exit.",
+      "verdict": "revise",
+      "scope": "R52 v2 native take and 32-frame selection.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/qa/r52-walkout-selected.mp4",
+          "sha256": "5c90e6bfb473d95b6e3e280bf520b0e758490b1d83c9831c1c6165340d5d2ab5"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/provider/walkout/native.mp4",
+          "sha256": "93cfe36af0b96b0ddc418a8d5ada43922fded0923bcea6065df48bb0039b3781"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/OWNER-REVISION-REQUEST.json",
+        "sha256": "119411b144417ea0deebc5fa4b87bd27854c4d17537178e9f65be8f109ab84b1",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r52-walkout-film-proposal-v3",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "decision",
+    "supersedes": "r52-walkout-film-proposal-v2",
+    "tags": [
+      "film",
+      "cut-timing",
+      "performance",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show the buyer leaving after the inspection problem, continuous with the seated buyer of earlier clips.",
+        "viewer_before": "The needed knowledge is in the absent owner's head.",
+        "viewer_after": "The buyer gives up on this business; the discount is stated as the other option."
+      },
+      "choice": "One continuous 180-frame film shot for master 335.625-343.125 from the accepted two-shot: seated hold, chair pushed out on 'So he does one of two things', slow head-shaking walk-off right, hold on owner.",
+      "reason": "Owner asked for a slower departure starting from the seated position with chair push-out and head shake; 1.33 s cannot hold that, so the shot takes the whole passage and replaces the planned model lead-in.",
+      "alternatives": [
+        {
+          "choice": "Keep 1.33 s slot and slow the existing take",
+          "reason_not_selected": "No speed changes; slot cannot show seated start, chair push and exit."
+        },
+        {
+          "choice": "Model lead-in then film from 'or'",
+          "reason_not_selected": "Still too short for the requested action."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "EP007 S09 ending.",
+        "avoid_when": "Any other passage."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "walkout-in",
+            "phrase": "And a buyer cannot price",
+            "relation": "accepted R51 outpoint before And onset",
+            "master_seconds": 335.625,
+            "review_seconds": 332.625,
+            "fps": 24
+          },
+          {
+            "cue_id": "chair-push",
+            "phrase": "So he does one of two things",
+            "relation": "at So onset",
+            "master_seconds": 339.125,
+            "review_seconds": 336.125,
+            "fps": 24
+          },
+          {
+            "cue_id": "walkout-out",
+            "phrase": "before Fine,",
+            "relation": "before S10 onset",
+            "master_seconds": 343.125,
+            "review_seconds": 340.125,
+            "fps": 24
+          }
+        ],
+        "performance": "Slow chair push, slow stand, slow walk right with a slow side-to-side head shake; owner seated, eyes follow; locked-off camera.",
+        "false_inference": "Discounting causes walking; a documented failed sale.",
+        "source_basis": "Owner revision; head shake overrides the R35 arc for this shot."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/DIRECTION.md",
+        "sha256": "dcf4ba2be9c2696bfe369e4cbb486483aeca788bc73f0915ae90114cc4897a76",
+        "locator": "v3 direction"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/WALKOUT.request.json",
+        "sha256": "393520af90584859217018d8bf235d34962273695309ae62df2c99df83595af8",
+        "locator": "Prepared v3 request"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/COST-PROPOSAL.json",
+        "sha256": "468988b415ff73c74cf910ce105a40139a7080847ac432774390cf97143f4777",
+        "locator": "v3 cost"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/CUES.json",
+        "sha256": "b274bc3866b4ffd9092183c7110cda5139a8d3c9c028bd76d2449df898c8a6a9",
+        "locator": "v3 cues"
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave2-builder-c",
+  "status": "complete",
+  "input_hashes_verified": [
+    {"path": "direction-lock.json", "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca", "status": "pass"},
+    {"path": "hyperframes/frame.md", "sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5", "status": "pass"},
+    {"path": "direction/build-packets/wave2-builder-c-shots-05-07.md", "sha256": "cd3c639249f9cfc5721e977246e15cb7b084e734ed07585c5c9b89494ec9848b", "status": "pass"},
+    {"path": "hyperframes/assets/fonts/ibm-plex-mono-700.ttf", "sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea", "status": "pass"},
+    {"path": "hyperframes/assets/fonts/IBM-Plex-Mono-OFL.txt", "sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f", "status": "pass"},
+    {"path": "hyperframes/assets/fonts/PROVENANCE.md", "sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f", "status": "pass"}
+  ],
+  "outputs": [
+    {"path": "agents/deliverables/wave2-builder-c/shot-05.html", "sha256": "e9bfde04f88a6c5322453a2856c2b6029c92669a3f37efa1239011ef0a518ebe"},
+    {"path": "agents/deliverables/wave2-builder-c/shot-06.html", "sha256": "018b71623929a5c1f0d08f5abc6c8736cacf81f93a458c639ae8dd13b5ae4203"},
+    {"path": "agents/deliverables/wave2-builder-c/shot-07.html", "sha256": "0dc9820756296e2283ed101bf7b375be9db0527e444208318a5dd7d8977890d6"},
+    {"path": "agents/deliverables/wave2-builder-c/shot-05-motion.json", "sha256": "0cdcf04eff86d465d9cc3d519b88ce78de10311866d85befb790fc3ba08ec7ba"},
+    {"path": "agents/deliverables/wave2-builder-c/shot-06-motion.json", "sha256": "f8522055e0e951453051f8651a495b08d82d56f3cd8ab494dc06073f48d7816b"},
+    {"path": "agents/deliverables/wave2-builder-c/shot-07-motion.json", "sha256": "f7c5b5481d8b0c5cb9551281cadb43d124e6389ab0001ab8c11ee5a8b54698d9"}
+  ],
+  "findings_summary": [
+    "Built three packet-bounded transported HyperFrames sub-compositions for Shots 05 through 07 with exact composition IDs and local durations.",
+    "Persistent tag, card, and proof fixtures are represented only by nonvisual root anchors; the scene files create no duplicate persistent objects or persistent state labels.",
+    "All route, rail, bracket, tick, leader, and registration draws use synchronous getTotalLength dash geometry where animated.",
+    "Shot 06 contains the sole camera-scale move from 1.12 to 1.00 and ends all motion at 6.97 seconds; Shot 07 ends all motion at 4.22 seconds.",
+    "The locked warning SYNTHETIC TEST FIXTURE — NOT EVIDENCE is identical and persistent in every scene and motion map."
+  ],
+  "acceptance_checks": [
+    {"check": "verify every pinned input hash", "status": "pass", "notes": "All six current work-order pins were re-read and matched byte-for-byte before finalization."},
+    {"check": "obey the complete build packet", "status": "pass", "notes": "Shot geometry, causal relationships, local beat times, holds, typography limits, and exclusions are represented in scene files and motion maps."},
+    {"check": "three valid transported sub-compositions with exact IDs and durations", "status": "pass", "notes": "Each file is one bare template containing style, markup, and script; roots use data-start 0, 1920x1080, and durations 7.80, 8.37, and 5.361354."},
+    {"check": "measured SVG paths only", "status": "pass", "notes": "Every animated route, rail, measurement line, bracket, day tick, and leader derives dash geometry synchronously with getTotalLength()."},
+    {"check": "single pullback no more than 12 percent", "status": "pass", "notes": "Shot 06 uses one centered scale 1.12 to 1.00 tween over 0.85 seconds with power2.out and no pan or rotation."},
+    {"check": "exact persistent fixture warning", "status": "pass", "notes": "All six scene/map outputs use the verbatim locked warning: SYNTHETIC TEST FIXTURE — NOT EVIDENCE."},
+    {"check": "no persistent-object duplicate", "status": "pass", "notes": "No local call-tag-red, work-order-card, proof-pin, or corresponding state label is created; only prefixed nonvisual anchors are present."},
+    {"check": "no network or non-determinism", "status": "pass", "notes": "Static scan found no network URLs, clocks, random values, timers, requestAnimationFrame, async setup, or infinite repeats."},
+    {"check": "one paused timeline per composition", "status": "pass", "notes": "JavaScript syntax checks passed; each composition registers exactly one synchronous gsap.timeline({ paused: true }) under the exact composition ID."},
+    {"check": "write only owned packet files", "status": "pass", "notes": "The deliverable directory contains exactly the seven work-order-owned files; no canonical HyperFrames or experiment state path was edited."},
+    {"check": "claim no approval or state change", "status": "pass", "notes": "This manifest records packet completion only; it does not approve a gate or change production state."}
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The canonical root supplies GSAP and owns the persistent call tag, work-order card, source pin, their state text, and their coordinated cross-shot movement.",
+    "The integrator will apply root_action entries in each motion map at the packeted local times while keeping the persistent dock and disclosure intact.",
+    "The pinned project-root font path assets/fonts/ibm-plex-mono-700.ttf remains the integration URL for all three transported templates."
+  ],
+  "blockers": []
+}

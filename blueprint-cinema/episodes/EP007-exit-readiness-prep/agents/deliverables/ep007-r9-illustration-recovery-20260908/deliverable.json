@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r9-illustration-recovery-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/index.html", "sha256": "2b1e501a0102dbbf3df3d2f89872b5579b9ad01113784c18053e493bcda19692"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r3-relevant-edit/index.html", "sha256": "10551d259352d8d3b1ab0476eeca1646faa6f6962e57d04e24eb7a26c933ee24"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/index.html", "sha256": "ac4f2d49302e10c7d4af28d7c32e0deb271a9012ce92f5b19d718ef4981137e6"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r5-rough-question/compositions/rough-question.html", "sha256": "5df3087c10636e97a981dd6f46737b8e37f565bde9d45b17c7ce91324f387589"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/REVIEW.md", "sha256": "f2066643462ec6818632fb035c61f3a7f7bdb602974fc5092c784f1b077d6ea0"}
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-illustration-recovery-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-illustration-recovery-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Node SHA-256 comparison of all five frozen inputs before and after inspection", "outcome": "pass"},
+    {"command": "view_image of existing EP007 001/002/003, R3, R5, pencil-study, callback, and mixed candidate frames", "outcome": "pass"},
+    {"command": "shasum -a 256 candidate sources and inspected review evidence", "outcome": "pass"},
+    {"command": "blueprint-cinema/.venv/bin/python: jsonschema.Draft202012Validator validates deliverable.json against agent-deliverable.schema.json", "outcome": "pass"},
+    {"command": "Fresh render, continuous audiovisual playback, and canonical input-lock gate", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Read-only local Blueprint Cinema experiment sources and historical review imagery; exact candidate paths and recomputed hashes in report.md.",
+    "Existing synthetic film appeared in historical contact sheets only; no synthetic media was generated or newly selected for the edit by this worker.",
+    "No external websites, provider services, or memory files used."
+  ],
+  "assumptions": [
+    "User's earlier solid illustration may refer to pencil-study or net-new 001; neither is asserted as the uniquely remembered or approved version.",
+    "This is an isolated owner-requested recovery audit, not evidence of a canonical inputs_locked gate."
+  ],
+  "unresolved_questions": [
+    "Which historical illustration the user remembers is not uniquely identifiable.",
+    "Root must choose the new causal treatment and verify it with the unchanged narration; old scene approval does not transfer."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/episode-project.schema.json",
+  "title": "Blueprint Cinema episode project",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "workflow_version",
+    "episode_number",
+    "episode_code",
+    "slug",
+    "folder_name",
+    "upstream_workspace",
+    "status"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "minLength": 3},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "upstream_workspace": {"type": "string", "pattern": "^studio/originate/[a-z0-9]+(?:-[a-z0-9]+)*/$"},
+    "status": {"enum": ["initialized", "active", "blocked", "complete"]}
+  }
+}
+

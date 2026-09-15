@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "composition_id": "bc-rh-001-shot-01",
+  "local_duration_seconds": 13.64,
+  "events": [
+    {
+      "local_time_seconds": 0.15,
+      "verb": "reveal ring state",
+      "selectors": [
+        "#bc-rh-001-s01-time-stamp",
+        "#bc-rh-001-s01-ring-arc-a",
+        "#bc-rh-001-s01-ring-arc-b"
+      ],
+      "property": {"opacity": "0 to 1"},
+      "duration_seconds": 0.32,
+      "ease": "power2.out",
+      "rule_citation": "none"
+    },
+    {
+      "local_time_seconds": 2.63,
+      "verb": "register phone contact",
+      "selectors": ["#bc-rh-001-s01-contact-mark"],
+      "property": {"opacity": "0 to 1", "y_px": "-6 to 0"},
+      "duration_seconds": 0.22,
+      "ease": "power2.out",
+      "rule_citation": "authored-straight-translation"
+    },
+    {
+      "local_time_seconds": 4.68,
+      "verb": "suppress ring",
+      "selectors": ["#bc-rh-001-s01-ring-arc-a", "#bc-rh-001-s01-ring-arc-b"],
+      "property": {"opacity": "1 to 0"},
+      "duration_seconds": 0.18,
+      "ease": "power1.in",
+      "rule_citation": "none"
+    },
+    {
+      "local_time_seconds": 6.9,
+      "verb": "stamp constraint",
+      "selectors": ["#bc-rh-001-s01-no-guarantee"],
+      "property": {"opacity": "0 to 1", "y_px": "12 to 0"},
+      "duration_seconds": 0.34,
+      "ease": "power2.out",
+      "rule_citation": "authored-straight-translation"
+    },
+    {
+      "local_time_seconds": 10.98,
+      "verb": "highlight permission contact notch once",
+      "selectors": ["#bc-rh-001-s01-contact-notch"],
+      "property": {
+        "opacity": "0.34 to 1 to 0.48",
+        "backgroundColor": "#14263E to #9B3E2E to #14263E"
+      },
+      "duration_seconds": 0.42,
+      "ease": "power2.out then power2.inOut",
+      "rule_citation": "none"
+    }
+  ],
+  "persistent_anchors": [
+    {"id": "s01-tag-entry", "x": 1040, "y": 500},
+    {"id": "s01-tag-settle", "x": 760, "y": 420},
+    {"id": "s01-card-anchor", "x": 1590, "y": 300}
+  ],
+  "static_hold_interval_seconds": {"start": 11.6, "end": 13.64},
+  "registry_rule_citations": ["authored-straight-translation", "none"],
+  "negative_checks": [
+    "no scene-owned call tag, work-order card, proof pin, state tab, customer token, or outcome token",
+    "no network, async setup, clocks, randomness, repeat, camera movement, or tweened layout property",
+    "no ticket content beyond the required synthetic placeholder labels",
+    "ring arcs are fully suppressed at 4.86 seconds and never return",
+    "NO GUARANTEE remains separate from the card anchor"
+  ]
+}

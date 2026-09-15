@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/input-lock.schema.json",
+  "title": "Blueprint Cinema input lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "workflow_version", "episode_number",
+    "episode_code", "slug", "folder_name", "upstream_workspace",
+    "approved_script_sha256", "audio_duration_seconds", "locked_at", "artifacts"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "upstream_workspace": {"type": "string", "pattern": "^studio/originate/[a-z0-9]+(?:-[a-z0-9]+)*/$"},
+    "approved_script_sha256": {"$ref": "#/$defs/sha256"},
+    "audio_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "locked_at": {"type": "string", "format": "date-time"},
+    "artifacts": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/artifact"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "role", "sha256", "size_bytes", "locked_at"],
+      "properties": {
+        "path": {"type": "string", "minLength": 5},
+        "role": {"enum": ["script", "assembled_vo", "mastered_section", "word_transcript", "timeline"]},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "locked_at": {"type": "string", "format": "date-time"},
+        "section_id": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"role": {"enum": ["assembled_vo", "mastered_section"]}}},
+          "then": {"required": ["duration_seconds"]}
+        },
+        {
+          "if": {"properties": {"role": {"const": "mastered_section"}}},
+          "then": {"required": ["section_id"]}
+        }
+      ]
+    }
+  }
+}
+

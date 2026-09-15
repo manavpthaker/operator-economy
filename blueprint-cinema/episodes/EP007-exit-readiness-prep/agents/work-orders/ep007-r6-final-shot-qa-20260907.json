@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-final-shot-qa-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Bounded independent QA of the final R6 generated close-up only, from cleaner v2 reference. No production or creative approval. Previous shot01 remains full-take fail and shot02 provisional; do not widen.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/DIRECTION.md",
+      "sha256": "5bcefc7f86b29128f5d16d7c739d0cbf3ed66d94f30bab5378820cd59d24b2d5"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-03-start-v2.png",
+      "sha256": "0ed81e07b12747f5b5ed39152e995030496e095556b61841b51455daab06d57a"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-03.mp4",
+      "sha256": "a4dc3ebde3cdcf27c301a0a9ff28b9c19eddc5457e3758e6255db4427dae9019"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-final-shot-qa-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify exact input pins; review entry, middle, exit and dense mouth/eye/action samples of the generated close-up. Record30–44.50: arithmetic not going her way, cost of pause and hidden business opportunity; do not invent resolution.",
+    "Does it hold unresolved thought without talking, nodding, looking up, costume/material drift or decorative camera motion? Flag exact major defects and useful source subwindows. Do not assert full-speed/audio verification if only samples.",
+    "Return key findings immediately; write short report/deliverable in owned directory only. No full-take or final preview approval."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No generation, spend, auth change, input edits, render or upstream audit.",
+    "Report what is actually visible; do not call fixed solely because prompt asked for it."
+  ],
+  "status": "issued"
+}

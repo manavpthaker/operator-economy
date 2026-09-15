@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manav avatar · wider framing</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#17191c;color:#eef0f2}
+body{max-width:1400px;margin:auto;padding:28px}h1{font-size:25px;margin:0 0 8px}h2{font-size:18px;margin:0 0 8px}p{margin:6px 0 14px}
+.intro,.detail{color:#bfc5cb}.detail{font-size:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+article{padding:18px;border:1px solid #42474d;border-radius:8px;min-width:0}video,img{display:block;width:100%;background:#08090a;aspect-ratio:16/9;object-fit:contain}
+button{font:inherit;padding:7px 13px;border:1px solid #676e77;border-radius:5px;color:inherit;background:#30343a;cursor:pointer}button:focus-visible{outline:2px solid white;outline-offset:3px}
+.actions{display:flex;gap:12px;align-items:center;margin:18px 0}a{color:#d4dfeb}
+@media(max-width:760px){body{padding:18px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Manav avatar · wider framing</h1>
+<p class="intro">Same EP007 opening. Compare the visible hands, clear articulation and closer framing on the buyer’s question.</p>
+<div class="actions"><button id="refresh" type="button">Refresh availability</button><span id="availability" role="status">Checking files…</span></div>
+<div class="grid">
+<article>
+<h2>V4 · wide, then closer on the question</h2>
+<p class="detail" id="edited-status">Preparing the framing test.</p>
+<video id="edited" controls playsinline preload="none" poster="/still.png" aria-label="New wider avatar with closer crop on the buyer question"></video>
+<p class="detail">Original narration. One continuous take with one editorial framing change.</p>
+</article>
+<article>
+<h2>V4 · continuous wide take</h2>
+<p class="detail" id="wide-status">Preparing the original narration version.</p>
+<video id="wide" controls playsinline preload="none" poster="/still.png" aria-label="New wider avatar without the closer crop"></video>
+<p class="detail">Use this to judge the hands and delivery independently of the edit.</p>
+</article>
+<article>
+<h2>V3 · accepted delivery baseline</h2>
+<p class="detail">The locked version, using the same words.</p>
+<video controls playsinline preload="metadata" src="/previous.mp4" aria-label="Accepted version three avatar baseline"></video>
+</article>
+<article>
+<h2>Wider reference frame</h2>
+<p class="detail">The new starting composition, with both forearms and hands visible.</p>
+<img src="/still.png" alt="Manav seated in the daylit study, both forearms and relaxed hands resting on an empty wood tabletop">
+</article>
+</div>
+<script>
+const players=[...document.querySelectorAll('video')];
+for(const player of players)player.addEventListener('play',()=>{for(const other of players)if(other!==player)other.pause()});
+async function refresh(){
+ const button=document.getElementById('refresh');button.disabled=true;
+ try{
+  const response=await fetch('/status.json',{cache:'no-store'});if(!response.ok)throw Error('Local status is unavailable.');
+  const status=await response.json();
+  for(const [id,key,src] of [['edited','edited_available','/new.mp4'],['wide','wide_available','/wide.mp4']]){
+   const player=document.getElementById(id),ready=status[key];
+   document.getElementById(id+'-status').textContent=ready?'Ready for your review.':'Still preparing this version.';
+   if(ready&&!player.getAttribute('src')){player.src=src;player.preload='metadata';player.load()}
+  }
+  document.getElementById('availability').textContent=status.edited_available?'The framing test is ready.':status.wide_available?'Wide take ready; preparing the closer crop.':'The new video is processing.';
+ }catch(error){document.getElementById('availability').textContent=error.message}
+ finally{button.disabled=false}
+}
+document.getElementById('refresh').addEventListener('click',refresh);refresh();setInterval(refresh,30000);
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Step 3 Stage Gates
 
-Status: **proposed v0.2**; test before approval. Step 3 remains boundary-only.
+Status: **proposed v0.3**; test before approval. Step 3 remains boundary-only.
 
 Standard: `VISUAL-TRANSLATION-STANDARD.md`
 
@@ -54,6 +54,15 @@ Pass only when:
 - Every material state change records its exact upstream artifact, hash, locator, `state_before`, and
   `state_after`; its plain-language `business_operation` preserves that locked meaning. Divergence
   or an untraceable operation fails.
+- Every `business_operations` row is labelled `DERIVED`. An `AUTHORED` row there fails.
+- Establishment rows live in the separate `establishment` array, are labelled `AUTHORED`, carry
+  `viewer_state_before` / `viewer_state_after` rather than business-state fields, and use `reveals`
+  rather than `acts_on`. An establishment row that claims to change an object fails.
+- Every establishment row cites upstream for the actors and relationship it reveals, on the same
+  path/hash/locator/quote terms as a derived operation.
+- A Markdown upstream additionally records a verbatim `source_quote`. The locator must resolve to a
+  section and the quote must appear within it. The approver reads the quote and judges whether the
+  derived states represent it; that judgement is not delegable to the validator.
 - Every selected semantic role exists in the hash-pinned Boundary Ledger core.
 - Every `boundary_ledger_operation_id` exists in that core and is permitted for the selected role by
   the hash-pinned motion binding.

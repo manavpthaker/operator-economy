@@ -1,0 +1,78 @@
+{
+  "event_id": "avatar-v3-current-edit-adoption-v1",
+  "decision_id": "avatar-current-edit-update",
+  "event_type": "decision",
+  "tags": [
+    "avatar",
+    "reference",
+    "integration",
+    "cut-timing"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Bring the selected natural avatar delivery into the accepted EP007 cut before extending it.",
+      "viewer_before": "R29 uses earlier presenter sources; the separate V3 audition is now preferred.",
+      "viewer_after": "Presenter appearances use the accepted delivery while retaining the argument, existing cut placement and exact voice."
+    },
+    "choice": "Use V3 in the existing opening avatar slot only where words match, then prepare new takes for the remaining presenter passages using the locked dual-reference recipe. Preserve existing film, animation, framing and cuts.",
+    "reason": "Owner requests updating the avatars before continuing; the accepted V3 clip contains only master0\u201320.9s and cannot be lip-synced footage for later words.",
+    "alternatives": [
+      {
+        "choice": "Use the full21-second V3 audition instead of existing opening coverage.",
+        "reason_not_selected": "That would remove already accepted film and question beats unnecessarily."
+      },
+      {
+        "choice": "Reuse its mouth movement against later narration.",
+        "reason_not_selected": "The spoken words would not match."
+      },
+      {
+        "choice": "Add the proposed wider hands-visible frame in the same update.",
+        "reason_not_selected": "The referenced chat separates that framing proposal from the accepted V3 delivery."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "A new accepted delivery recipe must be integrated into an existing approved edit.",
+      "avoid_when": "The owner explicitly asks to redesign the scene or a later source lock supersedes V3."
+    },
+    "nuance": {
+      "source_basis": "current_owner_request_and_verified_avatar_lock",
+      "performance": "Rebecca relaxed settling + Henry deliberate articulation; accepted portrait controls identity and setting.",
+      "cut_cues": [
+        {
+          "cue_id": "existing-hook-to-workshop",
+          "phrase": "who has run the same business",
+          "relation": "Preserve existing cut at frame97.",
+          "master_seconds": 4.041666666666667,
+          "review_seconds": 4.041666666666667,
+          "source_in_seconds": 0.041666666666666664,
+          "source_out_seconds": 4.083333333333333,
+          "fps": 24,
+          "rounding": "Candidate audio insertion offset0.04725s rounds to picture frame1=0.041666667s; residual0.005583333s. This is audio placement, not perceptual AV sync.",
+          "dependent_targets": [
+            "avatar-hook source and source inpoint"
+          ],
+          "protected_hold": "Existing original audio and outgoing cut unchanged."
+        }
+      ],
+      "new_generation": "Not submitted; exact remaining passages and cost prepared separately."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/avatar-v3-current-edit-request-20260911.json",
+      "sha256": "7a0363977b81b50f49b453ccc3d12708302a20a2ce84dc6727b861a307e92ba6",
+      "locator": "current user request"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/ACCEPTANCE.json",
+      "sha256": "5b6fa0fb68b5aeb470e681515ec49b4dcbbb00dcfe861666187bb918662b08dc",
+      "locator": "artifact and recipe"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/avatar-v3-opening-result-20260911.json",
+      "sha256": "7f8eb74446cb5d47500d82cd260e5cb31b80acb8e2f8a27c274bacaea9b89588",
+      "locator": "audio and verification"
+    }
+  ]
+}

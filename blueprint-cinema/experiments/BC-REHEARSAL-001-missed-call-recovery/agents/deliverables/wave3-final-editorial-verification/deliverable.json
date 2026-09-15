@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-final-editorial-verification",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "input-lock.json",
+      "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"
+    },
+    {
+      "path": "direction-lock.json",
+      "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"
+    },
+    {
+      "path": "direction/visual-plan.json",
+      "sha256": "572f00ae1e51225ea7b161811e356c361eb8734c6f06903642a30049bc0a259c"
+    },
+    {
+      "path": "agents/deliverables/wave3-comprehension-editorial/review.md",
+      "sha256": "3688699d7b90ce228f2923bf1ec2441310c5630cfb44c3a695cd885304a67764"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic-final.mp4",
+      "sha256": "a9f21223385ff12dd60b7c0f3572d1cd14e70e5fb72907ddc76ebe85cbe824b3"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet-final.jpg",
+      "sha256": "683d084e547fc6ef16b842337d8e0fcf5f748311d8d6246490d95d983cce955f"
+    },
+    {
+      "path": "review/phone-legibility-final/contact-sheet-480.jpg",
+      "sha256": "06495e0892015b32033430328f04a8164696aef81d79a2359345bbb16933a2fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave3-final-editorial-verification/review.md",
+      "sha256": "c12304689a0556bce15021ad03eb23a77ffc0ac820e4968893628c74c556333f"
+    }
+  ],
+  "findings_summary": {
+    "blocking": 0,
+    "major": 2,
+    "minor": 3,
+    "initial_major_reclassification": {
+      "resolved": 2,
+      "reduced": 0,
+      "open": 2
+    },
+    "regressions": 0,
+    "headline": "The corrected opening time and enlarged human action resolve two initial major findings; proof cadence and the completed measurement hold remain open, with no major regression in the operating chain.",
+    "recommendation": "Preserve the two verified fixes, reallocate time and hierarchy within the locked duration for the proof transfer and final endpoint hold, then repeat those focused playback and phone-size checks."
+  },
+  "acceptance_checks": [
+    {
+      "check": "recompute every pinned input hash",
+      "status": "pass",
+      "notes": "All seven issued SHA-256 pins were recomputed before review, and every value matched exactly."
+    },
+    {
+      "check": "replay the final MP4 and separately inspect its full-resolution and 480x270 contact sheets",
+      "status": "pass",
+      "notes": "The actual 61.433333-second final MP4 was played through to its end; the pinned full-resolution and 480x270 contact sheets were inspected as separate passes."
+    },
+    {
+      "check": "verify the opening now shows 8:47 PM rather than a zeroed counter",
+      "status": "pass",
+      "notes": "At 0.00-13.64 the final MP4 and both contact sheets show 8:47 PM with CALL-R01 / 20:47; the former 00:00.000 display is absent."
+    },
+    {
+      "check": "verify the enlarged human action remains subordinate to no other primary action at the gate",
+      "status": "pass",
+      "notes": "At approximately 36.67-38.97 the enlarged operator hand is the unmistakable foreground primary action and visibly causes release before the card becomes OFFERED."
+    },
+    {
+      "check": "recheck the full operating chain and report any regression",
+      "status": "pass",
+      "notes": "The current path, leak, recovery route, human gate, stop branch, booked outcome, measurable blueprint, persistent IDs, and synthetic-warning treatment remain intact; no blocking or major regression was observed."
+    },
+    {
+      "check": "reclassify every original major finding as resolved, reduced, or open with timestamps",
+      "status": "pass",
+      "notes": "All four initial majors are timestamped and classified in review.md: opening resolved, proof cadence open, human hierarchy resolved, and final completed-state hold open."
+    },
+    {
+      "check": "claim no creative approval, gate approval, or state change",
+      "status": "pass",
+      "notes": "The review and this manifest explicitly disclaim creative, gate, and production approval; no experiment or production state was changed."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "Editorial comprehension is judged from locked narration plus the rendered picture, not as a silent-film test.",
+    "The conspicuous rehearsal placeholders are judged for story role, hierarchy, continuity, and legibility rather than asset finish.",
+    "The initial finding about the final hold concerns the fully labeled CALL / REPLY / BOOKED APPT endpoint; the work-order card reaching MEASURED earlier reduces context risk but does not resolve that specific hold requirement.",
+    "deliverable.json omits its own SHA-256 because a file cannot truthfully contain its own final SHA-256; review.md is the independently hashable content output."
+  ],
+  "blockers": []
+}

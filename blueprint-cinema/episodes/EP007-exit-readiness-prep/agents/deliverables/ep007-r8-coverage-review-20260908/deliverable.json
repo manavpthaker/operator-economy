@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r8-coverage-review-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/DIRECTION.md", "sha256": "56e3158a5108c6bbfdc66b3e1daf9338001d3e710fd29ef1f4a85954ac1c4c48"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/GENERATION-BRIEFS.md", "sha256": "b3687e0d407a4e47ee1452e59c1e0d4db4baf410ef748fec0337593b6522d43f"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/SOURCE-CUES.json", "sha256": "c1f4d14e6eb542fa78cfd6408e55353210d80c87e242574fdcc037b9b656efcc"}
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-coverage-review-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-coverage-review-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Node SHA-256 recomputation of three frozen packet inputs and nine SOURCE-CUES source files", "outcome": "pass"},
+    {"command": "Node exact comparison of all 191 word objects and transcript master SHA-256", "outcome": "pass"},
+    {"command": "Node arithmetic verification of 408 frames, selected spans, owner stop window and conditional four-second opening offsets", "outcome": "pass"},
+    {"command": "Manual direction and handoff contract review against oe-film-direction and SCENE-DIRECTION-CONTRACT.md", "outcome": "fail"},
+    {"command": "Local still inspection of A start and A continuity-10.5 for world and screen-direction consistency", "outcome": "pass"},
+    {"command": "Python jsonschema Draft202012Validator against agent-deliverable.schema.json", "outcome": "pass"},
+    {"command": "Final Node check of frozen input hashes and exact adjacent-context string in the source script", "outcome": "pass"},
+    {"command": "Actual R8 audiovisual playback and generated performance review", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Used the three hash-pinned work-order inputs, their nine repository-local sources, the film-direction skill and Blueprint Cinema review/contract references.",
+    "Viewed two existing synthetic R7 reference stills locally; generated no new media and did not treat the figures as factual documentary evidence.",
+    "R8-01 vocabulary issue was independently identified by root during this review and confirmed against the canonical contract; the report binds only the original frozen packet."
+  ],
+  "assumptions": [
+    "The packet remains isolated proposed look development, not production dispatch or approval.",
+    "The master transcript is the cue authority; no timing repair or fresh forced alignment was attempted."
+  ],
+  "unresolved_questions": [
+    "Root must correct R8-01 picture/audio handoff vocabulary and separately verify the revised packet.",
+    "Actual audio-picture review must determine whether the brief readiness at owner entry reads clearly.",
+    "Four-second pre-roll approval, new B/C start-frame acceptance, provider capability/cost/scope and final footage acceptance remain pending."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

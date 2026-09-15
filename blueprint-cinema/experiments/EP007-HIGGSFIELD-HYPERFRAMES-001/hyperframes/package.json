@@ -1,0 +1,12 @@
+{
+  "name": "ep007-higgsfield-hyperframes-001",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify": "python3 verify.py",
+    "verify:pending": "python3 verify.py --allow-pending",
+    "lint": "npx hyperframes@0.8.31 lint --json",
+    "check": "python3 verify.py && npx hyperframes@0.8.31 check --snapshots --at 0,0.1,3.816667,3.85,7,10.066667,10.1,13,16.983333,17.016667,21,24.15,24.183333,28.5,32,33.566667,33.6,34.566667,34.6,37,40.583333 --json",
+    "preview": "python3 verify.py --require-reviewed-selects && npx hyperframes@0.8.31 preview --background --port 3020 --no-open"
+  }
+}

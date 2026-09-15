@@ -1,0 +1,313 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "IBM Plex Mono";
+      src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #1a1a1a;
+      font-family: "Supreme Rehearsal", sans-serif;
+    }
+
+    .s01-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #f5f0e6;
+    }
+
+    .s01-grid {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      opacity: 0.08;
+    }
+
+    .s01-reality-slate {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 650px;
+      height: 1080px;
+      box-sizing: border-box;
+      border-right: 2px solid #14263e;
+      background: rgba(20, 38, 62, 0.035);
+    }
+
+    .s01-slate-cross {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 650px;
+      height: 1080px;
+      opacity: 0.22;
+    }
+
+    .s01-slate-copy {
+      position: absolute;
+      left: 104px;
+      right: 68px;
+      bottom: 124px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .s01-slate-title {
+      max-width: 470px;
+      font-size: 42px;
+      line-height: 1.04;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .s01-slate-ticket {
+      max-width: 470px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #1f3a5f;
+    }
+
+    .s01-time-stamp {
+      position: absolute;
+      left: 760px;
+      top: 248px;
+      display: inline-block;
+      width: 212px;
+      border-top: 2px solid #14263e;
+      padding-top: 12px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+      color: #14263e;
+    }
+
+    .s01-phone {
+      position: absolute;
+      left: 930px;
+      top: 335px;
+      width: 360px;
+      height: 400px;
+    }
+
+    .s01-ring-field {
+      position: absolute;
+      left: 846px;
+      top: 262px;
+      width: 532px;
+      height: 546px;
+      overflow: visible;
+    }
+
+    .s01-ring-arc {
+      fill: none;
+      stroke: #9b3e2e;
+      stroke-linecap: square;
+    }
+
+    .s01-contact-mark {
+      position: absolute;
+      left: 1024px;
+      top: 484px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .s01-contact-mark::before,
+    .s01-contact-mark::after {
+      content: "";
+      position: absolute;
+      display: block;
+      background: #9b3e2e;
+    }
+
+    .s01-contact-mark::before {
+      left: 0;
+      top: 15px;
+      width: 32px;
+      height: 2px;
+    }
+
+    .s01-contact-mark::after {
+      left: 15px;
+      top: 0;
+      width: 2px;
+      height: 32px;
+    }
+
+    .s01-no-guarantee {
+      position: absolute;
+      left: 1390px;
+      top: 790px;
+      display: flex;
+      width: 302px;
+      height: 82px;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      border-top: 3px solid #9b3e2e;
+      border-bottom: 3px solid #9b3e2e;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.045em;
+      color: #9b3e2e;
+    }
+
+    .s01-contact-notch {
+      position: absolute;
+      left: 752px;
+      top: 412px;
+      display: block;
+      width: 16px;
+      height: 16px;
+      box-sizing: border-box;
+      border: 2px solid #14263e;
+      background: #14263e;
+      opacity: 0.48;
+    }
+
+    .s01-anchor {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-6g7e" id="root" data-composition-id="bc-rh-001-shot-01" data-start="0" data-duration="13.64" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-yfed" class="s01-scene">
+      <svg data-hf-id="hf-gxkz" class="s01-grid" viewBox="0 0 1920 1080" aria-hidden="true">
+        <defs data-hf-id="hf-mh0t">
+          <pattern data-hf-id="hf-zs53" id="bc-rh-001-s01-paper-grid" width="96" height="96" patternUnits="userSpaceOnUse">
+            <path data-hf-id="hf-6cw5" d="M96 0H0V96" fill="none" stroke="#14263E" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect data-hf-id="hf-9itk" width="1920" height="1080" fill="url(#bc-rh-001-s01-paper-grid)" />
+      </svg>
+
+      <section data-hf-id="hf-zyw0" class="s01-reality-slate" aria-label="Synthetic human context placeholder">
+        <svg data-hf-id="hf-s6ae" class="s01-slate-cross" viewBox="0 0 650 1080" aria-hidden="true">
+          <path data-hf-id="hf-li7v" d="M0 0L650 1080M650 0L0 1080" fill="none" stroke="#14263E" stroke-width="2" />
+        </svg>
+        <div data-hf-id="hf-unl8" class="s01-slate-copy">
+          <div data-hf-id="hf-hpen" class="s01-slate-title">HUMAN CONTEXT PLATE MISSING</div>
+          <div data-hf-id="hf-3bxl" class="s01-slate-ticket">AST-REALITY-001 · SYNTHETIC PLACEHOLDER</div>
+        </div>
+      </section>
+
+      <div data-hf-id="hf-d2xv" id="bc-rh-001-s01-time-stamp" class="s01-time-stamp">8:47 PM</div>
+
+      <svg data-hf-id="hf-s86j" class="s01-phone" viewBox="0 0 360 400" role="img" aria-label="Neutral service phone silhouette">
+        <path data-hf-id="hf-vrer" d="M89 132C100 105 128 89 159 89H201C232 89 260 105 271 132L294 188V315H66V188L89 132Z" fill="#F5F0E6" stroke="#14263E" stroke-width="8" />
+        <path data-hf-id="hf-tasc" d="M80 95C104 63 137 48 180 48C223 48 256 63 280 95L255 139C234 126 209 120 180 120C151 120 126 126 105 139L80 95Z" fill="#14263E" />
+        <path data-hf-id="hf-898v" d="M116 238H244M116 270H244" fill="none" stroke="#14263E" stroke-width="8" />
+        <circle data-hf-id="hf-bbne" cx="180" cy="188" r="27" fill="none" stroke="#14263E" stroke-width="8" />
+        <path data-hf-id="hf-ng8h" d="M118 315V350M242 315V350" fill="none" stroke="#14263E" stroke-width="8" />
+      </svg>
+
+      <svg data-hf-id="hf-f0uk" class="s01-ring-field" viewBox="0 0 532 546" aria-hidden="true">
+        <path data-hf-id="hf-zsn7" id="bc-rh-001-s01-ring-arc-a" class="s01-ring-arc" d="M112 176C74 218 56 268 56 326C56 384 74 434 112 476" stroke-width="8" />
+        <path data-hf-id="hf-g0ts" id="bc-rh-001-s01-ring-arc-b" class="s01-ring-arc" d="M420 176C458 218 476 268 476 326C476 384 458 434 420 476" stroke-width="8" />
+      </svg>
+
+      <div data-hf-id="hf-16sk" id="bc-rh-001-s01-contact-mark" class="s01-contact-mark" aria-hidden="true"></div>
+      <div data-hf-id="hf-rnzc" id="bc-rh-001-s01-no-guarantee" class="s01-no-guarantee">NO GUARANTEE</div>
+      <div data-hf-id="hf-mh6m" id="bc-rh-001-s01-contact-notch" class="s01-contact-notch" aria-hidden="true"></div>
+
+      <i data-hf-id="hf-9nf6" id="s01-tag-entry" class="s01-anchor" style="left: 1040px; top: 500px" aria-hidden="true"></i>
+      <i data-hf-id="hf-ylno" id="s01-tag-settle" class="s01-anchor" style="left: 760px; top: 420px" aria-hidden="true"></i>
+      <i data-hf-id="hf-w60f" id="s01-card-anchor" class="s01-anchor" style="left: 1590px; top: 300px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const s01Timeline = gsap.timeline({ paused: true });
+
+    gsap.set(
+      [
+        "#bc-rh-001-s01-time-stamp",
+        "#bc-rh-001-s01-ring-arc-a",
+        "#bc-rh-001-s01-ring-arc-b",
+        "#bc-rh-001-s01-contact-mark",
+        "#bc-rh-001-s01-no-guarantee",
+      ],
+      { opacity: 0 },
+    );
+    gsap.set("#bc-rh-001-s01-no-guarantee", { y: 12 });
+
+    s01Timeline.to(
+      ["#bc-rh-001-s01-time-stamp", "#bc-rh-001-s01-ring-arc-a", "#bc-rh-001-s01-ring-arc-b"],
+      { opacity: 1, duration: 0.32, ease: "power2.out" },
+      0.15,
+    );
+
+    s01Timeline.fromTo(
+      "#bc-rh-001-s01-contact-mark",
+      { opacity: 0, y: -6 },
+      { opacity: 1, y: 0, duration: 0.22, ease: "power2.out", immediateRender: false },
+      2.63,
+    );
+
+    s01Timeline.to(
+      ["#bc-rh-001-s01-ring-arc-a", "#bc-rh-001-s01-ring-arc-b"],
+      { opacity: 0, duration: 0.18, ease: "power1.in" },
+      4.68,
+    );
+
+    s01Timeline.to(
+      "#bc-rh-001-s01-no-guarantee",
+      { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" },
+      6.9,
+    );
+
+    s01Timeline.fromTo(
+      "#bc-rh-001-s01-contact-notch",
+      { opacity: 0.34, backgroundColor: "#14263E" },
+      { opacity: 1, backgroundColor: "#9B3E2E", duration: 0.18, ease: "power2.out", immediateRender: false },
+      10.98,
+    );
+    s01Timeline.to(
+      "#bc-rh-001-s01-contact-notch",
+      { opacity: 0.48, backgroundColor: "#14263E", duration: 0.24, ease: "power2.inOut" },
+      11.16,
+    );
+
+    window.__timelines["bc-rh-001-shot-01"] = s01Timeline;
+  </script>
+</template>

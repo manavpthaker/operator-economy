@@ -1,0 +1,18 @@
+{
+  "$schema":"../../../schemas/agent-work-order.schema.json",
+  "schema_version":"1.0.0","workflow_version":"blueprint-cinema-1.0",
+  "work_order_id":"ep007-r15-pickup-qa-20260909","episode_folder":"EP007-exit-readiness-prep","role":"qa_reviewer",
+  "objective":"Independently verify R15 post-title pickup input PCM and sentence boundaries while main prepares and generates two Sync3 candidates. After notification of generated files, measure duration/decode and waveform alignment against provider inputs, without claiming phoneme-level lip-sync from audio correlation.",
+  "required_gate":"inputs_locked",
+  "inputs":[
+    {"path":"operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav","sha256":"d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"},
+    {"path":"operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json","sha256":"f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"},
+    {"path":"blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/404.mp4","sha256":"a0de31c36bde22219a1e067178b86cf750e7da1f11a69a775c370c82df6f29dd"}
+  ],
+  "owned_output_paths":["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r15-pickup-qa-20260909/"],
+  "forbidden_paths":["operator-blueprint-v2/",".agents/","design-system/","blueprint-cinema/experiments/","blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"],
+  "dependencies":[],"time_range":{"in":59.5,"out":74.5},
+  "acceptance_checks":["Verify all pins, exact master sample windows2856000–3164000 and3164000–3576000, no gaps/retime/voice changes.","Check sentence seam65.916667 and source59.5/74.5 against actual PCM and transcript, distinguish threshold-based checks from listening.","After generated files arrive, independently probe/decode and measure audio lag; identify any truncation or drift. Static timing is not phoneme accuracy.","Return concise report.md and schema-valid deliverable.json; no provider, experiment, source or canonical writes."],
+  "permissions":{"external_writes":false,"paid_services":false,"synthetic_generation":false,"canonical_state_changes":false},
+  "retry_limit":0,"stopping_conditions":["Report stale inputs or nonidentical PCM without changing them.","If generated media is absent, return completed input checks and mark output QA pending."],"status":"closed"
+}

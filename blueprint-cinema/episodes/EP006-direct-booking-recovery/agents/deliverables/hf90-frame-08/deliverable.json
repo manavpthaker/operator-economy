@@ -1,0 +1,65 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-08",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/08-after-the-stay.md",
+      "sha256": "1a0441b84f38ae19bbed55f81db3cb8fc34ba76245daf96279a43fc1af4bee6a"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-08/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-08/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual frame-worker contract and timing audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual agent-deliverable schema review",
+      "outcome": "pass"
+    },
+    {
+      "command": "assembled-project HyperFrames lint and check",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "The hash-pinned frame packet supplies the four scene windows, locked visible phrases, invented element roles, and two motion recipes.",
+    "The hash-pinned frame.md supplies the palette, typography, grid, hairlines, square geometry, and declarative-frame furniture.",
+    "The hash-pinned frame-worker role supplies the bare-template, timing, determinism, keep-out, and ownership constraints.",
+    "No external media, vendor interface, audio, captions, fetched asset, or synthetic generation was used."
+  ],
+  "assumptions": [
+    "The orchestrator will copy frame.html to compositions/frames/08-after-the-stay.html before assembled-project validation, so local font URLs are authored relative to that destination.",
+    "Fragment Mono is not present in the packet project fonts; Supreme, which is present and named by frame.md, is used for compact chrome and labels.",
+    "The final route represents a guarded direct-return opportunity only; it does not depict outreach, consent bypass, or a booking confirmation."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

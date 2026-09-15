@@ -1,0 +1,158 @@
+{
+  "schema": "oe-encoded-test-verification-v1",
+  "status": "passed-as-bounded-directing-comparison-not-gate-or-production-approval",
+  "render": {
+    "asset": "renders/EP007-BL-MIXED-011.mp4",
+    "sha256": "c0495d2c99e75e0b6dbf76df87738af53399b069eedbf4ac7e00f9a80f526c36",
+    "bytes": 13635581,
+    "renderedAt": "2026-09-04T20:21:28-04:00"
+  },
+  "ffprobe": {
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "width": 1920,
+      "height": 1080,
+      "pixelFormat": "yuv420p",
+      "frameRate": "24/1",
+      "durationSeconds": 67.458333,
+      "declaredFrames": 1619,
+      "decodedFrames": 1619,
+      "color": "BT.709 SDR"
+    },
+    "audio": {
+      "codec": "aac",
+      "profile": "LC",
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 67.456,
+      "decodedPcmFormat": "signed 16-bit little-endian, stereo, 48 kHz",
+      "decodedPcmSha256": "e7c35086f7d886e78ca32368f7772aaa0fb80f5047ff618fd3c25413b5834d7b",
+      "comparison": "byte-identical decoded PCM to v010"
+    }
+  },
+  "decode": {
+    "videoExitCode": 0,
+    "audioExitCode": 0,
+    "blackFrameEvents": 0,
+    "blackDetectParameters": "d=0.083:pix_th=0.10:pic_th=0.98"
+  },
+  "directingDecision": {
+    "record": "qa/encoded-011/DIRECTION-DECISION.md",
+    "recordSha256": "966a68d8e6140e66ff2b43c27fb47dc38e12cf7bffb2cd2b4b260e1e2365fff9",
+    "sequence": [
+      {
+        "masterRangeSeconds": [18.16, 20.72],
+        "shot": "relationship master",
+        "job": "establish the owner, buyer, and fact of scrutiny"
+      },
+      {
+        "masterRangeSeconds": [20.72, 23.08],
+        "shot": "owner close-up",
+        "job": "return the consequence to the competent owner"
+      },
+      {
+        "masterRangeSeconds": [23.08, 25.90],
+        "shot": "buyer checklist inspection",
+        "job": "turn the absence question into an observable operating test"
+      }
+    ],
+    "rejectedCoverage": [
+      "buyer-face close-up because the buyer's action carries the meaning, not his psychology",
+      "empty-chair cutaway because it would literalize absence and imply an outcome"
+    ]
+  },
+  "editorialSelections": {
+    "ownerCloseup": {
+      "asset": "assets/video/owner-closeup.directed.mp4",
+      "sha256": "5bc8d577483973983c2c6ca13e67100596997a7639edfa92600162cf5fc2ef3d",
+      "selectionRecord": "assets/video/owner-closeup.directed.selection.json",
+      "selectionRecordSha256": "050e75e1a8d82331c9884e09419f5daf8a2ea126c27363ad7974b6898fd43eb0",
+      "sourceFramesInclusive": [42, 98],
+      "assetFrames": 57,
+      "assetDurationSeconds": 2.375,
+      "timelineDurationSeconds": 2.36,
+      "appendedHoldFrames": 0,
+      "exactDuplicateSourceFrames": 0,
+      "interpolation": false,
+      "speedChange": false
+    },
+    "inspection": {
+      "asset": "assets/video/owner-buyer-context-shot-02-inspection-r2.generated.mp4",
+      "sha256": "d5b0e31e6170e224b54c0ec82b36a5a5ce805d3513b6c8bac3647ad3fec01bcd",
+      "mediaStartSeconds": 0.333333,
+      "timelineDurationSeconds": 2.82,
+      "selectedAssetRangeHalfOpenSeconds": [0.333333, 3.153333],
+      "underlyingSourceFramesUsedApproximately": [8, 75],
+      "usesAppendedEndpointHold": false,
+      "interpolation": false,
+      "speedChange": false
+    }
+  },
+  "sourceCheck": {
+    "command": "npm run check -- --strict --frame-check=severity=error --at=18.16,20.72,21.48,22.16,23.08,23.10,24.50,25.12,25.58,25.90,26.40 --at-transitions --max-transition-samples=40",
+    "lintErrors": 0,
+    "lintWarnings": 0,
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "layoutIssues": 0,
+    "layoutSamples": 52,
+    "motionErrors": 0,
+    "motionWarnings": 0,
+    "contrastChecksPassed": 14,
+    "contrastChecksTotal": 14,
+    "transitionSamplesOmittedByDeclaredCap": 419,
+    "passed": true
+  },
+  "visualReview": {
+    "status": "passed",
+    "masterToOwnerCutCoherent": true,
+    "ownerToInspectionCutCoherent": true,
+    "ownerCarriesCompleteNarrationPhrase": true,
+    "inspectionActionLegible": true,
+    "ownerRemainsCompetent": true,
+    "buyerPsychologyManufactured": false,
+    "readableSyntheticTextInSelectedFrames": false,
+    "rightEdgeSyntheticPageLeak": false,
+    "inspectionEndpointHoldUsed": false,
+    "pencilMatchCutPassed": true,
+    "contentAssessment": "The close-up is motivated by a change in who carries the consequence. It is not used merely to create visual variety."
+  },
+  "comparisonToV010": {
+    "v010ReviewAsset": "renders/EP007-BL-MIXED-010-focus-17.5-27.5.mp4",
+    "v010ReviewSha256": "8ccc67be5721e968d2aca1d78c5951fd72e9a06abd3b0c0899811ce6ca0a2309",
+    "v011ReviewAsset": "renders/EP007-BL-MIXED-011-focus-17.5-27.5.mp4",
+    "v011ReviewSha256": "bdd48db4efea9f129d43d23b0173185b00ef62aed943ad56db7b247549f9278a",
+    "correction": "The v010 owner-to-inspection cut occurred at 22.16 seconds inside the word 'question'. V011 moves it to 23.08 seconds, immediately before 'What', so each shot carries one complete narrative job.",
+    "unchangedAudio": true
+  },
+  "reviewAssets": [
+    {
+      "asset": "renders/EP007-BL-MIXED-011-focus-17.5-27.5.mp4",
+      "sha256": "bdd48db4efea9f129d43d23b0173185b00ef62aed943ad56db7b247549f9278a",
+      "bytes": 5000206,
+      "sourceRangeSeconds": [17.5, 27.5]
+    },
+    {
+      "asset": "qa/encoded-011/directed-contact-sheet.jpg",
+      "sha256": "7927227dd8c1c9241fffa8390f1100c13c965f0fe2d907f6f8146191441339dd"
+    },
+    {
+      "asset": "qa/encoded-011/master-owner-cut-493-502.jpg",
+      "sha256": "afbaef9e158a0f1749b12f9054729af92cc85dc636e344a6d39f6c7e08a91b6a"
+    },
+    {
+      "asset": "qa/encoded-011/owner-inspection-cut-549-558.jpg",
+      "sha256": "ed67979fe5c1eb78e10c7d01b4af8067be4b4e0b3d08a0a004b50f2f1ca5b78b"
+    },
+    {
+      "asset": "qa/encoded-011/reality-sketch-cut-617-626.jpg",
+      "sha256": "158295610fbd7d1c96682329f478199ec93de0ac3d9e39ed96c6c5cbad73e653"
+    }
+  ],
+  "boundaries": [
+    "This verifies one encoded 16:9 directing comparison, not a full episode.",
+    "It does not approve V4, Step 4, production use, publication, vertical or square derivatives, avatar performance, captions, music, sound design, or final loudness.",
+    "The generated film is illustrative human context, not documentary evidence of a real company or transaction."
+  ]
+}

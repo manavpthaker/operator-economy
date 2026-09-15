@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-composition-id="scene-01-return" data-composition-duration="4.375">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #1A1A1A;
+          color: #F5F0E6;
+          font-family: Supreme, system-ui, sans-serif;
+        }
+        .stage { position: absolute; inset: 0; overflow: hidden; }
+        .plate {
+          position: absolute;
+          inset: -8px;
+          width: 1936px;
+          height: 1096px;
+          object-fit: cover;
+          transform-origin: 51% 53%;
+        }
+        .matte {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 300px;
+          background: rgba(26,26,26,.52);
+        }
+        .tag-contour {
+          position: absolute;
+          left: 976px;
+          top: 515px;
+          width: 270px;
+          height: 126px;
+          opacity: 0;
+          transform-origin: 50% 50%;
+        }
+        .tag-contour path, .tag-contour circle, .tag-contour line {
+          fill: none;
+          stroke: #C4A45F;
+          stroke-width: 3;
+          vector-effect: non-scaling-stroke;
+        }
+        .tag-contour path {
+          stroke-dasharray: 710;
+          stroke-dashoffset: 710;
+        }
+        .label {
+          position: absolute;
+          left: 134px;
+          bottom: 164px;
+          font-size: 48px;
+          font-weight: 500;
+          letter-spacing: .08em;
+          line-height: 1;
+          opacity: 0;
+        }
+        .label-rule {
+          position: absolute;
+          left: 134px;
+          bottom: 132px;
+          width: 0;
+          height: 3px;
+          background: #C4A45F;
+        }
+        .disclosure {
+          position: absolute;
+          left: 134px;
+          bottom: 70px;
+          color: rgba(245,240,230,.72);
+          font-family: Menlo, monospace;
+          font-size: 28px;
+          letter-spacing: .055em;
+          opacity: 0;
+        }
+      </style>
+      <div id="root" data-composition-id="scene-01-return" data-width="1920" data-height="1080" data-duration="4.375" data-fps="30">
+        <div id="scene-01-stage" class="stage clip" data-start="0" data-duration="4.375" data-track-index="0">
+          <img class="plate" data-layout-allow-overflow src=".media/images/image_001.png" alt="Synthetic environmental plate of a brass key-tag checkout handoff" />
+          <div class="matte"></div>
+          <svg class="tag-contour" viewBox="0 0 280 130" aria-hidden="true">
+            <path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path>
+            <circle cx="43" cy="65" r="12"></circle>
+            <line x1="188" y1="30" x2="188" y2="100"></line>
+          </svg>
+          <div class="label">FIRST STAY / OTA</div>
+          <div class="label-rule"></div>
+          <div class="disclosure">SYNTHETIC ENVIRONMENT PLATE · INTERNAL TEST</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="scene-01-return"]');
+          const plate = root.querySelector(".plate");
+          const label = root.querySelector(".label");
+          const rule = root.querySelector(".label-rule");
+          const disclosure = root.querySelector(".disclosure");
+          const contour = root.querySelector(".tag-contour");
+          const contourPath = root.querySelector(".tag-contour path");
+          const tl = gsap.timeline({ paused: true });
+          tl.set(plate, { x: 0, scale: 1.008 }, 0);
+          tl.set([label, disclosure, contour], { opacity: 0 }, 0);
+          tl.set(rule, { width: 0 }, 0);
+          gsap.set(contourPath, { strokeDashoffset: 710 });
+          tl.fromTo(plate, { x: 0, scale: 1.008 }, { x: -14, scale: 1.016, duration: 4.375, ease: "none" }, 0);
+          tl.fromTo(label, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, 2.700);
+          tl.fromTo(rule, { width: 0 }, { width: 510, duration: .5, ease: "power2.out" }, 3.080);
+          tl.fromTo(disclosure, { opacity: 0 }, { opacity: 1, duration: .3, ease: "none" }, 3.080);
+          tl.set(contour, { opacity: 1 }, 3.592);
+          tl.fromTo(contourPath, { strokeDashoffset: 710 }, { strokeDashoffset: 0, duration: .5, ease: "sine.inOut" }, 3.592);
+          tl.fromTo(contour, { x: -10 }, { x: 0, duration: .271, ease: "power2.out" }, 4.104);
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["scene-01-return"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

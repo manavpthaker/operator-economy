@@ -1,0 +1,48 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r10-avatar-audit-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/presenter-manifest.json", "sha256": "9622f62e6fffbda822ac2dbdfda1715e787baaf20a0a07a9a138799dc2df92bf"},
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r14/README.md", "sha256": "b7471acab7151844e95a97bab4c59795c7e09c41187c7b74dc7ecc8fb4ba6671"},
+    {"path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json", "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-avatar-audit-20260908/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-avatar-audit-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "shasum -a 256 on all three issued work-order inputs; exact comparison before inspection and handoff", "outcome": "pass"},
+    {"command": "rg --files and scoped intro/Q text search across presenter and net-new experiments", "outcome": "pass"},
+    {"command": "Compare repair-r18 Q and repair-r14 M request JSON; only image and title differ", "outcome": "pass"},
+    {"command": "ffprobe Q streams and ffmpeg full decode to null", "outcome": "pass"},
+    {"command": "Decode introduction PCM and compare byte-for-byte to manifest master sample range; compare 73 word tokens and endpoints", "outcome": "pass"},
+    {"command": "Decode scope PCM against exact master slice; correlate Q returned audio to scope input over +/-100ms", "outcome": "pass"},
+    {"command": "Blueprint Cinema Draft 2020-12 schema validation plus explicit repo-relative input hash and packet ownership checks", "outcome": "pass"},
+    {"command": "Full canonical validate-deliverable CLI, requires absent episode state and different input path basis", "outcome": "not_run"},
+    {"command": "Moving-picture performance and lip-sync review", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Read-only local presenter manifest, M/Q request comparison, Q status and media inspection; auxiliary hashes retained in report.md.",
+    "Exact locked narration master and word transcript used for audio identity and timing checks; no upstream changes.",
+    "Existing synthetic Q media inspected as non-evidentiary presenter test material; no new generation or provider calls.",
+    "The parent task update and current user answer 'use test Q' supersede the original M selection question; no production approval inferred."
+  ],
+  "assumptions": [
+    "Use Q means use its exact source and performance recipe for the exact introduction, not substitute unrelated scope-test speech.",
+    "Local Q acceptance flags predate the current user selection; this packet preserves those records unchanged.",
+    "Required gate inputs_locked is only the isolated work order schema placeholder, not canonical gate evidence."
+  ],
+  "unresolved_questions": [
+    "Exact introduction has not been generated in the inspected local sources; orchestrator must coordinate any new authorized generation to avoid a parallel duplicate.",
+    "No remote provider inventory or fresh lip-sync/performance review was performed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

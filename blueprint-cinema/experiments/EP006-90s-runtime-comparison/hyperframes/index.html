@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F5F0E6;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="90"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div
+        id="el-01-same-guest"
+        class="scene"
+        data-composition-id="01-same-guest"
+        data-composition-src="compositions/frames/01-same-guest.html"
+        data-start="0"
+        data-duration="8.784"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-02-paid-introduction"
+        class="scene"
+        data-composition-id="02-paid-introduction"
+        data-composition-src="compositions/frames/02-paid-introduction.html"
+        data-start="8.284"
+        data-duration="8.024"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-03-loop-back"
+        class="scene"
+        data-composition-id="03-loop-back"
+        data-composition-src="compositions/frames/03-loop-back.html"
+        data-start="15.808"
+        data-duration="6.881"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-04-audit-first"
+        class="scene"
+        data-composition-id="04-audit-first"
+        data-composition-src="compositions/frames/04-audit-first.html"
+        data-start="22.189"
+        data-duration="5.544"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-05-show-identity"
+        class="scene"
+        data-composition-id="05-show-identity"
+        data-composition-src="compositions/frames/05-show-identity.html"
+        data-start="27.733"
+        data-duration="5.425"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-06-episode-title"
+        class="scene"
+        data-composition-id="06-episode-title"
+        data-composition-src="compositions/frames/06-episode-title.html"
+        data-start="32.558"
+        data-duration="7.532"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-07-keep-the-reach"
+        class="scene"
+        data-composition-id="07-keep-the-reach"
+        data-composition-src="compositions/frames/07-keep-the-reach.html"
+        data-start="40.09"
+        data-duration="13.916"
+        data-track-index="0"
+      ></div>
+
+      <div
+        id="el-08-after-the-stay"
+        class="scene"
+        data-composition-id="08-after-the-stay"
+        data-composition-src="compositions/frames/08-after-the-stay.html"
+        data-start="53.506"
+        data-duration="14.051"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-09-disconnected-work"
+        class="scene"
+        data-composition-id="09-disconnected-work"
+        data-composition-src="compositions/frames/09-disconnected-work.html"
+        data-start="67.057"
+        data-duration="22.943"
+        data-track-index="0"
+      ></div>
+
+      <!-- BGM -->
+      <audio
+        id="el-bgm"
+        src="assets/ep006-locked-vo.mp3"
+        data-start="0"
+        data-duration="90"
+        data-track-index="11"
+        data-volume="1"
+      ></audio>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── frame transitions (injected by transitions.mjs) ──
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-01-same-guest", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 8.284);
+        tl.fromTo("#el-02-paid-introduction", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 8.284);
+        tl.to("#el-02-paid-introduction", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 15.808);
+        tl.fromTo("#el-03-loop-back", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 15.808);
+        tl.to("#el-03-loop-back", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 22.189);
+        tl.fromTo("#el-04-audit-first", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 22.189);
+        tl.to("#el-05-show-identity", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 32.558);
+        tl.fromTo("#el-06-episode-title", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 32.558);
+        tl.to("#el-07-keep-the-reach", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 53.506);
+        tl.fromTo("#el-08-after-the-stay", { x: 1920, opacity: 1 }, { x: 0, duration: 0.5, ease: "power3.inOut" }, 53.506);
+        tl.to("#el-08-after-the-stay", { x: -1920, duration: 0.5, ease: "power3.inOut" }, 67.057);
+        tl.fromTo("#el-09-disconnected-work", { x: 1920, opacity: 1 }, { x: 0, duration: 0.5, ease: "power3.inOut" }, 67.057);
+        tl.to({}, { duration: 90 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+      })();
+    </script>
+  </body>
+</html>

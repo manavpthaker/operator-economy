@@ -1,0 +1,111 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-study-matte-r8",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r7/test-g-full-scope-avatar-iii-1080p.mp4",
+      "sha256": "6bfc0bd9190448e4a41d7ea694797ee48135d6ece85467a90bfb3e11926c749f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r8/presenter-source-frame-0p4.png",
+      "sha256": "1f1728527b6bd5233cf4a8cc598da0cd5abea8c21fb09df0d8c32e84cb401781"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r8/study-shoulder-extension-reference.png",
+      "sha256": "2514fbe72d35436cca84468efe8bd5a97080aab41fc081ba39c79bf794713149"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/PersonMatte.swift",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/FaceAlignment.swift",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/README.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/qa-report.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/diagnostic-metrics.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/full-metrics.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/alignment.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/checksums.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-mask-765f.mkv",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/diagnostic-mask-100f.mkv",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/reference-person-mask.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/diagnostic-contact-sheet.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-contact-sheet.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/diagnostic-alpha-f010.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/diagnostic-alpha-f050.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/diagnostic-alpha-f085.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f010.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f085.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f400.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f490.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f580.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/media/full-alpha-f764.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/qa.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-matte-r8/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 input G and supplied stills matches explicit work-order inputs; see input_hashes_used",
+      "outcome": "pass"
+    },
+    {
+      "command": "swiftc PersonMatte.swift and 100-frame native Vision accurate segmentation prototype",
+      "outcome": "pass"
+    },
+    {
+      "command": "PersonMatte full run: 765 frames at 25fps, 608x1080, FFV1 gray, 30.600s; full-metrics.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "qa.py: ffprobe count_frames and full ffmpeg -xerror decode on both masks and temporary alpha movie",
+      "outcome": "pass"
+    },
+    {
+      "command": "qa.py: diagnostic and full-run first 100 decoded masks exactly equal; sampled alpha movie RGB and alpha exactly preserved",
+      "outcome": "pass"
+    },
+    {
+      "command": "qa.py: whole-duration mask coverage and adjacent-mask differences; no empty or solid frames",
+      "outcome": "pass"
+    },
+    {
+      "command": "Contact-sheet visual review: early, middle and final source / mask / dark-background samples; fringe and crop limitations recorded",
+      "outcome": "pass"
+    },
+    {
+      "command": "FaceAlignment: one face detected in each source still; geometric fit RMS 0.556 reference px; grayscale reference mask 1672x941",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous final composite playback, clothing seam and lip-sync approval",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the exact owner-supplied local G video and parent-supplied local R8 stills were consumed. No external provider/browser call, upload, download or installation occurred.",
+    "Existing G is a HeyGen Avatar III synthetic presenter output, not a raw camera recording. Its source RGB and narration file were not changed.",
+    "The parent supplied an already-generated study/shoulder image. This worker only detected landmarks and computed a grayscale person mask; no image synthesis occurred here.",
+    "Native Apple Vision framework on macOS 26.2 (25C56), Swift 6.2.3, installed FFmpeg and bundled NumPy/Pillow. See Swift sources and QA evidence for method.",
+    "All authored and generated outputs stayed in this work-order directory. Its compiler cache and temporary diagnostic alpha movie were removed only after explicit parent cleanup authorization; movie QA evidence was retained."
+  ],
+  "assumptions": [
+    "This is an isolated owner-authorized preprocessing experiment; no upstream production approval is inherited.",
+    "Frame N of the full mask belongs to frame N of the source G portrait crop x656 y0 width608 height1080 at 25fps.",
+    "The grayscale mask is full-range, zero background and 255 foreground; source RGB should remain straight when paired with alpha.",
+    "The receiving compositor will exclude all synthetic reference face/neck before retaining any outer-shirt extension."
+  ],
+  "unresolved_questions": [
+    "Thin bright edge contamination and simplified fine hair remain in sampled matte views; continuous edge playback and final scene integration remain for the parent.",
+    "The source portrait omits shoulder and torso pixels beyond its crop; matting does not restore them.",
+    "Single-frame landmark fit is not tracking, clothing alignment, or proof that a static shoulder extension moves naturally.",
+    "Episode-root README.md, episode.json and input-lock.json are absent at this isolated deliverable tree; the exact experiment G and explicit parent work order are the bounded input authority."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

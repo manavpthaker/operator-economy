@@ -1,0 +1,79 @@
+[
+  {
+    "event_id": "r55-owner-s12-lock-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "lock",
+      "narration-pickup"
+    ],
+    "data": {
+      "decision_event_id": "r55-fair-objection-revoice-plan-v1",
+      "actor": "owner",
+      "verbatim": "the correction - 3083 is the one lets lock it in",
+      "interpretation": "Locks the 3083 review: S12 parts A-D with the re-voiced opening sentence. The pickup is accepted into the episode assembly; narration master v4 file unchanged.",
+      "verdict": "accept",
+      "scope": "S12 A-D.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v4-pickup-context/qa/context.mp4",
+          "sha256": "837721c479dc2e5255b4262049a7ec916428a4fbb106cd830673a99b984a24b3"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/OWNER-S12-LOCK.json",
+        "sha256": "ed442f419c24424887cc57770584b09274e951092894fa86eb071bea8e0403b3",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "lesson-rushed-phrase-revoice-not-pause-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "lesson",
+    "tags": [
+      "narration-pickup",
+      "performance"
+    ],
+    "data": {
+      "insight": "A rushed locked phrase is fixed by a contextual pickup read with a pacing note plus one re-sync of the same presenter take; inserting silence before it did not change how quick it sounded.",
+      "applies_when": "A single-take narration phrase reads rushed on screen.",
+      "avoid_when": "The problem is the cut or picture timing.",
+      "confidence": "supported",
+      "status": "candidate"
+    },
+    "evidence": [
+      {
+        "path": ".agents/skills/oe-video-direction/references/presenter-references.md",
+        "sha256": "e5ff76e63c8523a4780bda4d09308cda9f3fd4cdb7eac5bc64e0cd96127a7189",
+        "locator": "Pace, not wording"
+      }
+    ]
+  },
+  {
+    "event_id": "lesson-resync-use-restored-audio-timing-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "lesson",
+    "tags": [
+      "presenter-return",
+      "paid-generation"
+    ],
+    "data": {
+      "insight": "Fal Sync outputs can place the audio differently run to run (2000 samples vs 0); align assembly to each restored file's own audio track.",
+      "applies_when": "Re-syncing a native take to new audio.",
+      "avoid_when": "No restoration step.",
+      "confidence": "supported",
+      "status": "candidate"
+    },
+    "evidence": [
+      {
+        "path": ".agents/skills/oe-film-direction/references/generated-plates.md",
+        "sha256": "df8bfa2e6442f4f07152d3db1de4c357bf4d002df27e783c6ae27ae5f2515fbe",
+        "locator": "Presenter retakes that read mistimed"
+      }
+    ]
+  }
+]

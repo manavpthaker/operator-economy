@@ -1,0 +1,81 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-kling-preflight-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-BL-CALLBACK-ARC-001/hyperframes/scripts/generate-fal-film.mjs",
+      "sha256": "6f72d94757c95ea87e5b6b1de4609db8ee41bc4552bd11e7d4a93be69252b43e"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/GENERATION-PROMPTS.md",
+      "sha256": "2940abcb63260bc7b1d50c44a6a8a96d64cd700893fde93107c72b3d93ab6001"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-kling-preflight-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-kling-preflight-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "sha256sum the two assigned work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "node --check experiments/EP007-BL-CALLBACK-ARC-001/hyperframes/scripts/generate-fal-film.mjs",
+      "outcome": "pass"
+    },
+    {
+      "command": "boolean-only repository .env ignore and nonempty FAL_KEY readiness check",
+      "outcome": "pass"
+    },
+    {
+      "command": "read-only Fal model page API reference and linked OpenAPI contract check",
+      "outcome": "pass"
+    },
+    {
+      "command": "effective negative-prompt length and three proposed candidate-path collision check",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema agent-work-order and agent-deliverable JSON schema validation",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema validate_work_order against the issued order",
+      "outcome": "fail"
+    },
+    {
+      "command": "provider generation upload auth mutation retry render approval and production-state mutation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Both assigned source files matched the exact SHA-256 pins in the issued work order.",
+    "The local generator's Kling branch at lines 83-96 is the source of truth for the request body; lines 148-252 govern queue submission, checkpointing, polling, and output writes.",
+    "Fal's current primary model page lists silent Kling v3 Pro at USD 0.112 per requested second.",
+    "Fal's current API reference and linked OpenAPI schema define start_image_url as required, end_image_url as optional, duration as string values 3 through 15, cfg_scale default 0.5, and generate_audio default true.",
+    "Fal's linked OpenAPI schema caps prompt and negative_prompt at 2500 characters and each image at 10 MB with minimum 300 by 300 dimensions and aspect ratio 0.4 through 2.5.",
+    "The built-in negative prefix is 277 characters and does not prohibit people or visible faces; the R3 hand-only extension was rejected for R6 because it prohibits visible faces.",
+    "The three proposed video and response paths were absent at preflight time and the target renders directory is ignored by Git.",
+    "Credential readiness was observed only as booleans; no credential value was read into the report, printed, changed, or transmitted."
+  ],
+  "assumptions": [
+    "Three separately frozen 15-second start images and prompts will carry enough actor identity continuity without Fal elements bindings.",
+    "Editorial will select or trim 0.5 seconds from 45 requested seconds to reach the 44.5-second cold open.",
+    "Price is a list estimate from the provider page and excludes any taxes, account-specific credits, or future price change."
+  ],
+  "unresolved_questions": [
+    "The exact R6 shot prompts and start references were outside the assigned pins and still require direction, hash capture, and pre-call validation.",
+    "Returned cadence, resolution, exact duration, face continuity, and editorial usability cannot be established without the prohibited paid calls and review.",
+    "The issued work order omits seven canonical forbidden paths, so its semantic production-route validation fails and inputs_locked remains unestablished."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "partial"
+}

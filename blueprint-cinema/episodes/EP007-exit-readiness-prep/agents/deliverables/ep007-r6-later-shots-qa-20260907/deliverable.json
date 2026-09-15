@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-later-shots-qa-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/DIRECTION.md",
+      "sha256": "5bcefc7f86b29128f5d16d7c739d0cbf3ed66d94f30bab5378820cd59d24b2d5"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-02-start.png",
+      "sha256": "9338ba62ae205b63aa6a7613d1fa8b8bd1c7451a3c5849f82c63fc77d69e1875"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-03-start-v2.png",
+      "sha256": "0ed81e07b12747f5b5ed39152e995030496e095556b61841b51455daab06d57a"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-02.mp4",
+      "sha256": "72e5f3d49350740968fe630e7469525a9d91e9a43a2507adc597b8c18b91f2af"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-later-shots-qa-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-later-shots-qa-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "dense motion, mouth, hand, continuity, and cue-alignment review of pinned shot-02",
+      "outcome": "provisional: causal hesitation reads, but point/tap and parted-mouth drift violate the literal narrator-only performance contract"
+    },
+    {
+      "command": "replacement close-up reference visual comparison against assigned shot-02 start",
+      "outcome": "pass as test input: prior swirl/emboss artifact resolved and cast/world continuity survives"
+    },
+    {
+      "command": "independent full-speed playback with narration",
+      "outcome": "not_run"
+    },
+    {
+      "command": "shot-03 generated-video review",
+      "outcome": "not_run: no exact-pinned video assigned"
+    }
+  ],
+  "sources_and_provenance": [
+    "The four hash-pinned inputs named by the issued work order were the assigned authority; all matched.",
+    "The supplied shot-02 contact and owner-performance sheets were inspected as supplemental sampling evidence, not additional issued inputs.",
+    "Locked local HyperFrames and OE film-direction instructions governed narration-led plate review; they did not supply production authority.",
+    "No generation, render, source edit, canonical change, external write, spend, approval, or production dispatch was performed."
+  ],
+  "assumptions": [
+    "The issued 15–30s placement and word cue ranges are used for temporal interpretation; sampled sheets alone do not establish word-perfect alignment.",
+    "Small lip-shape change combined with quoted narration is a viewer-perception risk, not proof of phoneme synchronization.",
+    "Reference-v2 continuity is judged by stable character and scene anchors rather than pixel-identical blurred background machinery."
+  ],
+  "unresolved_questions": [
+    "Whether a clean, sufficiently long narrator-only subwindow exists in shot-02 requires full-speed playback with the locked narration.",
+    "Independent encoded-delivery and phone-scale review remain unverified.",
+    "Shot-03 motion remains unreviewed pending a separate exact pin.",
+    "Production authority and the schema-required prerequisite gate remain unestablished; no approval is claimed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

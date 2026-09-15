@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r13-silence-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independently verify the proposed R13 review-only removal of master45–48 seconds. Confirm only silence is removed, source words remain intact, and the shifted identity and title cues. Main agent independently builds the illustrative handoff. No source or experiment writes.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {"path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r12-logo-led/index.html", "sha256": "146b3c747e5fa84f33ac9a90c7ef797a3362fa3e9c3fb14b2e3b5988ff5ea65a"},
+    {"path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav", "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"},
+    {"path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json", "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"}
+  ],
+  "owned_output_paths": ["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r13-silence-qa-20260909/"],
+  "forbidden_paths": ["operator-blueprint-v2/", ".agents/", "design-system/", "blueprint-cinema/experiments/", "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"],
+  "dependencies": [],
+  "time_range": {"in": 43, "out": 59.5},
+  "acceptance_checks": [
+    "Verify all input hashes. Probe actual PCM near45 and48 seconds, peak of removed samples, and whether any timed words intersect the proposed cut.",
+    "Confirm source0–45 followed by48–59.5 gives56.5 seconds at48kHz and1356 frames at24fps, introduction at45.52, title at53.041667, with no audio stretch or word change.",
+    "Return concise report.md and schema-valid deliverable.json; distinguish measurement from listening review. No provider calls, experiment edits, or approval claims."
+  ],
+  "permissions": {"external_writes": false, "paid_services": false, "synthetic_generation": false, "canonical_state_changes": false},
+  "retry_limit": 0,
+  "stopping_conditions": ["Stop and report stale pinned inputs.", "Do not mutate audio or widen the trim; report any speech, click risk or ambiguity."],
+  "status": "closed"
+}

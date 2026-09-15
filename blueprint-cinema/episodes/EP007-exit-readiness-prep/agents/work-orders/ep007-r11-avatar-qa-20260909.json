@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r11-avatar-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Verify successful R11 Sync3 recovery output against exact provider pickup WAV and selected Seedance performance. Assess both used picture ranges, audio alignment, face and hands, and boundary artifacts. Isolated experiment review, not production gate approval.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/public/media/presenter-pickups.mp4",
+      "sha256": "6fb42c381d17d8dd2130e71a6986845f995f90d7e4f3c4a1a957b8973fbaf81f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/public/audio/presenter-pickups.wav",
+      "sha256": "a6259d08e382661f35d66961e0ecfe02ee65f3467a70def3c4acea69b63106fd"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/404.mp4",
+      "sha256": "a0de31c36bde22219a1e067178b86cf750e7da1f11a69a775c370c82df6f29dd"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    ".agents/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify exact input hashes and media durations and fps. No source writes or provider calls.",
+    "Inspect used picture intervals source0–4.041667 and6.666667–11.083333; sample head face hands and bottom-edge noise. Audio final is original master, provider audio reference only.",
+    "Measure new video audio vs pickup WAV lag and correlation, using local ffmpeg and bundled numpy Python if needed. Distinguish audio alignment from actual mouth phoneme fidelity.",
+    "Return report.md and schema-valid deliverable.json inside owned directory. Record untested at-speed details honestly. Local diagnostic media only in ignored diagnostics folder."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale input hash.",
+    "No extra generation, remote upload, or canonical state changes."
+  ],
+  "status": "closed"
+}

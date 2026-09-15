@@ -1,0 +1,313 @@
+<template id="bc-rh-001-shot-06-template">
+  <style>
+    @font-face {
+      font-family: "IBM Plex Mono";
+      src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #f5f0e6;
+      font-family: "IBM Plex Mono", monospace;
+    }
+
+    .bc-rh-001-shot-06-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #14263e;
+    }
+
+    .bc-rh-001-shot-06-grid {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      opacity: 0.08;
+    }
+
+    #bc-rh-001-shot-06-system-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 1040px 510px;
+    }
+
+    .bc-rh-001-shot-06-rail-svg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    #bc-rh-001-shot-06-real-rail-base {
+      fill: none;
+      stroke: #1f3a5f;
+      stroke-width: 4;
+      stroke-linecap: square;
+    }
+
+    #bc-rh-001-shot-06-real-rail {
+      fill: none;
+      stroke: #f5f0e6;
+      stroke-width: 7;
+      stroke-linecap: square;
+    }
+
+    #bc-rh-001-shot-06-gate-barrier {
+      position: absolute;
+      left: 1028px;
+      top: 430px;
+      width: 24px;
+      height: 160px;
+      box-sizing: border-box;
+      border: 5px solid #f5f0e6;
+      background: #14263e;
+    }
+
+    .bc-rh-001-shot-06-stamp {
+      position: absolute;
+      top: 594px;
+      color: #f5f0e6;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.055em;
+      white-space: nowrap;
+    }
+
+    #bc-rh-001-shot-06-stamp-capture { left: 205px; }
+    #bc-rh-001-shot-06-stamp-classify { left: 445px; }
+    #bc-rh-001-shot-06-stamp-acknowledge { left: 665px; }
+    #bc-rh-001-shot-06-stamp-human { left: 925px; color: #9b3e2e; }
+    #bc-rh-001-shot-06-stamp-offer { left: 1280px; }
+    #bc-rh-001-shot-06-stamp-offer { top: 650px; }
+    #bc-rh-001-shot-06-stamp-stop-book { left: 1488px; top: 800px; }
+
+    #bc-rh-001-shot-06-bypass-removal {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      opacity: 0;
+    }
+
+    #bc-rh-001-shot-06-bypass-line {
+      position: absolute;
+      left: 770px;
+      top: 404px;
+      width: 560px;
+      height: 0;
+      box-sizing: border-box;
+      border-top: 5px dashed #f5f0e6;
+    }
+
+    #bc-rh-001-shot-06-automate-label {
+      position: absolute;
+      left: 922px;
+      top: 346px;
+      color: #f5f0e6;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    #bc-rh-001-shot-06-automate-strike {
+      position: absolute;
+      left: 910px;
+      top: 361px;
+      width: 252px;
+      height: 8px;
+      background: #9b3e2e;
+      transform-origin: 0% 50%;
+    }
+
+    #bc-rh-001-shot-06-hand {
+      position: absolute;
+      left: 800px;
+      top: 296px;
+      width: 184px;
+      height: 150px;
+    }
+
+    #bc-rh-001-shot-06-hand svg {
+      display: block;
+      width: 184px;
+      height: 150px;
+    }
+
+    #bc-rh-001-shot-06-hand-label {
+      position: absolute;
+      left: -24px;
+      top: 110px;
+      width: 260px;
+      color: #f5f0e6;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: 0.025em;
+      white-space: nowrap;
+    }
+
+    #bc-rh-001-shot-06-hand-label span { display: block; }
+
+    #bc-rh-001-shot-06-preserve {
+      position: absolute;
+      left: 850px;
+      top: 350px;
+      color: #9b3e2e;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    #bc-rh-001-shot-06-judgment {
+      position: absolute;
+      left: 930px;
+      top: 666px;
+      color: #f5f0e6;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    #bc-rh-001-shot-06-warning {
+      display: none;
+      position: absolute;
+      left: 104px;
+      bottom: 96px;
+      width: 1712px;
+      height: 58px;
+      box-sizing: border-box;
+      border: 3px solid #f5f0e6;
+      background: #f5f0e6;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+      white-space: nowrap;
+    }
+
+    .bc-rh-001-shot-06-root-anchor {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-dzo7" id="root" data-composition-id="bc-rh-001-shot-06" data-start="0" data-duration="8.37" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-3jmt" class="bc-rh-001-shot-06-scene">
+      <svg data-hf-id="hf-2xx3" class="bc-rh-001-shot-06-grid" viewBox="0 0 1920 1080" aria-hidden="true">
+        <defs data-hf-id="hf-mh0t">
+          <pattern data-hf-id="hf-o04i" id="bc-rh-001-shot-06-grid-pattern" width="48" height="48" patternUnits="userSpaceOnUse">
+            <path data-hf-id="hf-gziu" d="M 48 0 L 0 0 0 48" fill="none" stroke="#f5f0e6" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect data-hf-id="hf-lfex" width="1920" height="1080" fill="url(#bc-rh-001-shot-06-grid-pattern)" />
+      </svg>
+
+      <div data-hf-id="hf-st9n" id="bc-rh-001-shot-06-system-wrapper">
+        <svg data-hf-id="hf-n40y" class="bc-rh-001-shot-06-rail-svg" viewBox="0 0 1920 1080" aria-hidden="true">
+          <path data-hf-id="hf-3f5w" id="bc-rh-001-shot-06-real-rail-base" d="M 220 510 L 1680 510" />
+          <path data-hf-id="hf-s8lx" id="bc-rh-001-shot-06-real-rail" data-svg-path-draw="measured" d="M 220 510 L 1680 510" />
+        </svg>
+
+        <div data-hf-id="hf-38c2" id="bc-rh-001-shot-06-gate-barrier" aria-hidden="true"></div>
+        <div data-hf-id="hf-76f7" id="bc-rh-001-shot-06-stamp-capture" class="bc-rh-001-shot-06-stamp">CAPTURE</div>
+        <div data-hf-id="hf-2f47" id="bc-rh-001-shot-06-stamp-classify" class="bc-rh-001-shot-06-stamp">CLASSIFY</div>
+        <div data-hf-id="hf-otxb" id="bc-rh-001-shot-06-stamp-acknowledge" class="bc-rh-001-shot-06-stamp">ACKNOWLEDGE</div>
+        <div data-hf-id="hf-2hgh" id="bc-rh-001-shot-06-stamp-human" class="bc-rh-001-shot-06-stamp">HUMAN JUDGMENT</div>
+        <div data-hf-id="hf-ol7v" id="bc-rh-001-shot-06-stamp-offer" class="bc-rh-001-shot-06-stamp">OFFER</div>
+        <div data-hf-id="hf-j7gp" id="bc-rh-001-shot-06-stamp-stop-book" class="bc-rh-001-shot-06-stamp">STOP–BOOK</div>
+
+        <div data-hf-id="hf-5zc5" id="bc-rh-001-shot-06-bypass-removal">
+          <div data-hf-id="hf-kd3k" id="bc-rh-001-shot-06-bypass-line" aria-hidden="true"></div>
+          <div data-hf-id="hf-v7u4" id="bc-rh-001-shot-06-automate-label">AUTOMATE ALL</div>
+          <div data-hf-id="hf-97w2" id="bc-rh-001-shot-06-automate-strike" aria-hidden="true"></div>
+          <div data-hf-id="hf-3u1s" id="bc-rh-001-shot-06-hand" data-placeholder="operator-hand" data-ticket-id="AST-OPERATOR-003">
+            <svg data-hf-id="hf-nqpb" viewBox="0 0 184 150" aria-hidden="true">
+              <path data-hf-id="hf-f2jx" d="M 18 92 L 46 92 L 46 30 L 64 30 L 64 78 L 77 78 L 77 18 L 95 18 L 95 78 L 108 78 L 108 28 L 126 28 L 126 82 L 140 82 L 140 46 L 158 46 L 158 102 L 140 130 L 62 130 Z" fill="#1a1a1a" stroke="#f5f0e6" stroke-width="4" />
+            </svg>
+            <div data-hf-id="hf-kcop" id="bc-rh-001-shot-06-hand-label"><span data-hf-id="hf-8a2f">AST-OPERATOR-003</span><span data-hf-id="hf-x3m1">HUMAN REVIEW PLATE</span></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-hnve" id="bc-rh-001-shot-06-preserve">PRESERVE</div>
+        <div data-hf-id="hf-hvy2" id="bc-rh-001-shot-06-judgment">JUDGMENT</div>
+      </div>
+
+      <div data-hf-id="hf-qqlj" id="bc-rh-001-shot-06-tag-dock-anchor" class="bc-rh-001-shot-06-root-anchor" data-root-anchor="tag-dock" data-x="1360" data-y="430" style="left: 1360px; top: 430px" aria-hidden="true"></div>
+      <div data-hf-id="hf-rca5" id="bc-rh-001-shot-06-card-dock-anchor" class="bc-rh-001-shot-06-root-anchor" data-root-anchor="card-dock" data-x="1410" data-y="250" style="left: 1410px; top: 250px" aria-hidden="true"></div>
+      <div data-hf-id="hf-ya87" id="bc-rh-001-shot-06-gate-anchor" class="bc-rh-001-shot-06-root-anchor" data-root-anchor="human-gate" data-x="1040" data-y="510" style="left: 1040px; top: 510px" aria-hidden="true"></div>
+      <div data-hf-id="hf-uy26" id="bc-rh-001-shot-06-proof-anchor" class="bc-rh-001-shot-06-root-anchor" data-root-anchor="source-pin" data-x="1560" data-y="120" style="left: 1560px; top: 120px" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const bcRh001Shot06Timeline = gsap.timeline({ paused: true });
+    const bcRh001Shot06RealRail = document.querySelector("#bc-rh-001-shot-06-real-rail");
+    const bcRh001Shot06RealRailLength = bcRh001Shot06RealRail.getTotalLength();
+
+    gsap.set("#bc-rh-001-shot-06-bypass-removal", { opacity: 1, y: 0 });
+    gsap.set("#bc-rh-001-shot-06-automate-strike", { scaleX: 0 });
+    gsap.set("#bc-rh-001-shot-06-preserve", { opacity: 0, y: 12 });
+    gsap.set("#bc-rh-001-shot-06-judgment", { opacity: 0, y: 10 });
+    gsap.set(
+      bcRh001Shot06RealRail,
+      { strokeDasharray: bcRh001Shot06RealRailLength, strokeDashoffset: bcRh001Shot06RealRailLength },
+    );
+    bcRh001Shot06Timeline.fromTo(
+      "#bc-rh-001-shot-06-system-wrapper",
+      { scale: 1.12 },
+      { scale: 1, duration: 0.85, ease: "power2.out" },
+      0.82,
+    );
+    bcRh001Shot06Timeline.to(
+      "#bc-rh-001-shot-06-automate-strike",
+      { scaleX: 1, duration: 0.18, ease: "power3.out" },
+      1.23,
+    );
+    bcRh001Shot06Timeline.to(
+      "#bc-rh-001-shot-06-bypass-removal",
+      { y: 150, opacity: 0, duration: 0.74, ease: "power3.in" },
+      1.41,
+    );
+    bcRh001Shot06Timeline.to(
+      "#bc-rh-001-shot-06-preserve",
+      { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+      3.31,
+    );
+    bcRh001Shot06Timeline.to(
+      bcRh001Shot06RealRail,
+      { strokeDashoffset: 0, duration: 1.15, ease: "power2.out" },
+      4.84,
+    );
+    bcRh001Shot06Timeline.to(
+      "#bc-rh-001-shot-06-judgment",
+      { opacity: 1, y: 0, duration: 0.54, ease: "power3.out" },
+      6.43,
+    );
+
+    window.__timelines["bc-rh-001-shot-06"] = bcRh001Shot06Timeline;
+  </script>
+</template>

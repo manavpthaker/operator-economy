@@ -1,0 +1,277 @@
+{
+  "schema": "oe-narrated-observation-ab-render-v2",
+  "id": "EP007-BL-NARRATED-OBSERVATION-AB-001",
+  "episode": "EP007-exit-readiness-prep",
+  "createdOn": "2026-09-06",
+  "status": "rendered-internal-ab2-review-test",
+  "decisionBoundary": {
+    "gateStatusChanged": false,
+    "step4Authorized": false,
+    "assetSelectedForProduction": false,
+    "publicationAuthorized": false,
+    "committed": false
+  },
+  "system": {
+    "oeSkillsLock": {
+      "asset": ".agents/oe-skills-lock.json",
+      "sha256": "485594a623c58f431992882838097a38b6f129a1e464e863ac3170680f36bbb2"
+    },
+    "filmDirectionSkill": {
+      "asset": ".agents/skills/oe-film-direction/SKILL.md",
+      "sha256": "0a503fc5ef98263e80b23dbcd4874d487872f655c9d27eb656815606b4e9850e"
+    },
+    "boundaryLedgerSkill": {
+      "asset": ".agents/skills/oe-boundary-ledger/SKILL.md",
+      "sha256": "d1cc840a70a0ccbe6763409b175694ae2ad07ad27d9a430bd535bf2b1b5249c2"
+    },
+    "referenceLedger": {
+      "asset": ".agents/skills/oe-film-direction/references/source-ledger.json",
+      "sha256": "1b0853355f83503bcdecd5eafd8f60e664be7a4c5ce62ba330905fba38553fb1"
+    },
+    "boundaryLedger": {
+      "version": "2.0.0",
+      "manifestSha256": "3881bab69ab3531b02b50a9077d5ee078e5cdca000204a70bd24d369b7b592a0",
+      "semanticCoreSha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+      "colorBindingSha256": "6b3e4727c3592b02fe23c34d2a865a85c47865c438d48526d1762b93e9a669c3",
+      "motionBindingSha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+      "motionBindingStatus": "provisional",
+      "soundBindingSha256": "3c81a029d6fd98ea8fb88100ff6209cc86f6ba7c1558bdd194d73db1ac5d294b",
+      "soundBindingStatus": "provisional"
+    },
+    "sceneDirectionContract": {
+      "version": "1.1.0",
+      "asset": "blueprint-cinema/schemas/scene-directions.schema.json",
+      "sha256": "bdffaeebef149f9caa0a58d704a4ef22b4e168063f77d29ac29b6c44245f2f3c"
+    },
+    "renderer": {
+      "name": "HyperFrames",
+      "version": "0.8.30",
+      "upgradedFrom": "0.8.29",
+      "packageSha256": "17ed7f90e7ade36fbaa68c9e17b595237b81e122a869023353d60cfa1237f1d5",
+      "configSha256": "77de08f981ac00fe5c22eeab94ff6cd201c57f7fb6d45e53ce5203ed2e4ffe1a"
+    }
+  },
+  "test": {
+    "forcedChoice": "Does B2 make the viewer hear the question as a test of the operating system rather than wait for the characters to speak?",
+    "pictureAudioMode": "narrated_observation",
+    "languageCarrier": "narrator",
+    "visibleSpeech": "prohibited",
+    "timeline": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "frames": 910,
+      "durationSeconds": 37.916667,
+      "changedFromAFrames": [0, 294],
+      "changedFromB1Frames": [151, 294],
+      "controlledFrames": [294, 910]
+    },
+    "controlA": {
+      "asset": "blueprint-cinema/experiments/EP007-BL-CALLBACK-IN-CONTEXT-001/hyperframes/renders/EP007-BL-CALLBACK-IN-CONTEXT-001-r2.mp4",
+      "sha256": "0dc991b4ec87a3cfdfd8f84b6fd2c05b89697aabe893f698a6e83a0e9d7fa74d"
+    },
+    "diagnosticB1": {
+      "asset": "hyperframes/renders/EP007-B-NARRATED-OBSERVATION-001.mp4",
+      "sha256": "aa4cc882a560c9f25985c876160b90869bcf9f00f7f7c35b1ce7504c55677446",
+      "bytes": 37107509,
+      "rendererVersion": "0.8.29",
+      "status": "preserved-diagnostic-superseded-as-clean-comparison",
+      "defectsAddressedByB2": [
+        "static process-detail crop",
+        "dialogue-shaped recognition reset"
+      ]
+    },
+    "cleanB2": {
+      "asset": "hyperframes/renders/EP007-B2-NARRATED-OBSERVATION-002.mp4",
+      "sha256": "922f0c764ca2995bf8dbf4e2e6b762063064673b45f8bc45acd01694822936fd",
+      "bytes": 39817811,
+      "video": "H.264 High, 1920x1080, 24 fps, 910 frames",
+      "audio": "AAC-LC stereo, 48 kHz",
+      "rendererVersion": "0.8.30",
+      "reproductionCommand": "npm run render -- . --output renders/EP007-B2-NARRATED-OBSERVATION-002.mp4 --quality high --strict --skill general-video"
+    }
+  },
+  "composition": {
+    "readme": {
+      "asset": "README.md",
+      "sha256": "715c59537e6100e4ad4797654f6873fd246c55a631a4bf5e5f5e2e299ca5f1aa"
+    },
+    "abTest": {
+      "asset": "AB-TEST.md",
+      "sha256": "248acd134342e4c34531c65cfea16261ba7d3d60ee51ea345abc5b013f622a84"
+    },
+    "editContractB2": {
+      "asset": "direction/edit-contract-b2.json",
+      "sha256": "dcd7a305a35e8c3c5d7c7e1ce68ddea8fab6af3b014f67f75984ab705e18164b"
+    },
+    "brief": {
+      "asset": "hyperframes/BRIEF.md",
+      "sha256": "f0420ed7e7b062475c3c12e0aebde58b776ce62b27f086dbd8dfa159c02dc40e"
+    },
+    "storyboard": {
+      "asset": "hyperframes/STORYBOARD.md",
+      "sha256": "13a021ff77f386e82bc38c659973639838a8c519dda60bfed98e5aae1145ec74"
+    },
+    "frame": {
+      "asset": "hyperframes/frame.md",
+      "sha256": "f5d92ead4283a5edf544b9afcf4ee321f8585b1ec3f112f052ec62ff5eed0068"
+    },
+    "root": {
+      "asset": "hyperframes/index.html",
+      "sha256": "9224b836d111ce54d13a422f5898cf8c4dc920ee8d81ffd0a9dca007ab6071d8"
+    },
+    "opening": {
+      "asset": "hyperframes/compositions/opening.html",
+      "sha256": "b67338574a75c737cbd44bad4ed648a8cf621296ba52ae881dec4efd74eb9c0b"
+    },
+    "bridge": {
+      "asset": "hyperframes/compositions/bridge.html",
+      "sha256": "dfd8a93558727b5e8d56ba01bec5e4c7df23767b90dbb866ee7cab561ff9edb6"
+    },
+    "ending": {
+      "asset": "hyperframes/compositions/ending.html",
+      "sha256": "da11b5a1165aa33217e0fc8489ee33d237ed113884be73ef94cc16d9cf3e4b3b"
+    },
+    "mediaManifest": {
+      "asset": "hyperframes/.media/manifest.jsonl",
+      "sha256": "4e94a8341ab75fc13a7e26bc4e4f4c8c80edab18cc2d3681ffb2be0c84706b80"
+    },
+    "verification": {
+      "asset": "qa/VERIFICATION.md",
+      "sha256": "9e7d4a3e325c479d2d713f6d6ed31178a253caec5e2b0bd7a016355597d57c03"
+    }
+  },
+  "generatedB2": {
+    "selectedOperationPlate": {
+      "asset": "hyperframes/assets/video/source/b2-operation-stop.veo-fast.full-generated.mp4",
+      "sha256": "cdfb6fdea348fd3ab3faa8f83ec761443eaef431725a66866aedcd2e10a1dde8",
+      "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+      "requestId": "01a07752-f714-72d3-954f-d64b2a778295",
+      "sourceFramesUsed": [1, 144],
+      "timelineFrames": [151, 294],
+      "prompt": {
+        "asset": "direction/b2-operation-stop.prompt.md",
+        "sha256": "39e1112909184181f4d5b7b8025a2686a450e1a85d0e199ca4a59f774ece551e"
+      },
+      "firstFrame": {
+        "asset": "hyperframes/assets/images/b2-operation-start.normalized.png",
+        "sha256": "44ba1c3d92d2c5c7f126e3d8c7f438e22e1279f7bdb239d15de81f49a8fe4fe2"
+      },
+      "lastFrame": {
+        "asset": "hyperframes/assets/images/b2-operation-stop.generated.png",
+        "sha256": "69c3e48dcf0467e483f4a6e488014827844f98f77388e5b93d62f68a69a5e406"
+      },
+      "response": {
+        "asset": "hyperframes/assets/video/source/b2-operation-stop.veo-fast.full-generated.mp4.response.json",
+        "sha256": "f9b3fdbb69b555be606fc40e4db6cac45796f193dbb5d564c356114dbee56b9b"
+      }
+    },
+    "rejectedRecognitionPlate": {
+      "asset": "hyperframes/assets/video/source/b2-recognition.veo-fast.full-generated.mp4",
+      "sha256": "8f300eb951e268fffa9010eacee74751da17ff77a8e4d2a191c9263f04070277",
+      "used": false,
+      "reason": "Its gaze crossed the buyer before turning toward the shop, recreating silent-dialogue grammar.",
+      "prompt": {
+        "asset": "direction/b2-recognition.prompt.md",
+        "sha256": "ac9dc9dd1afad48a9a498319ec780e8df8d9666b0105494ccffcd38797078e93"
+      },
+      "response": {
+        "asset": "hyperframes/assets/video/source/b2-recognition.veo-fast.full-generated.mp4.response.json",
+        "sha256": "deb1350cee5360d2b259ccde909b33e1ab06f8759987bd28567f281b3f9702dd"
+      }
+    }
+  },
+  "activeB2SourceAssets": [
+    {
+      "asset": "hyperframes/assets/video/source/rc007-shot-01-competence.veo-fast.full-generated.mp4",
+      "sha256": "31d046648e08e73754a16d53fb8f35cb24c2384abd3df5048927ad75df34ff19"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/rc007-shot-02-dependency-r2.veo-fast.full-generated.mp4",
+      "sha256": "e5075c151d16417769a55f97488bb4c4987fb5438450305d9fd131a6d6d37d33"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/b2-operation-stop.veo-fast.full-generated.mp4",
+      "sha256": "cdfb6fdea348fd3ab3faa8f83ec761443eaef431725a66866aedcd2e10a1dde8"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/rough-inspection-bl-mixed-011.mp4",
+      "sha256": "c0495d2c99e75e0b6dbf76df87738af53399b069eedbf4ac7e00f9a80f526c36"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/ending-wide-clean.veo-fast.full-generated.mp4",
+      "sha256": "fa5bfbf39bf4aca56629309533a42f90383d32c0d85d4217575bff24fab557b4"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/ending-ots-tab-r4.veo-fast.full-generated.mp4",
+      "sha256": "e7b259bc14a188ce6bae51a076032ad87827eccc09b831ac9cc1235b2daeaf64"
+    },
+    {
+      "asset": "hyperframes/assets/video/source/ending-ots-tab-r3.veo-fast.full-generated.mp4",
+      "sha256": "72dbfad9e7994f9199433cb7845232b9673d9eb11a6db8dcbac457d496a549e9"
+    }
+  ],
+  "audioControl": {
+    "decodedPcmSha256A": "bf91e2d6ea0edd9b05c28b01cc4857c1a66edf39d6ac508a00010541de486da7",
+    "decodedPcmSha256B2": "bf91e2d6ea0edd9b05c28b01cc4857c1a66edf39d6ac508a00010541de486da7"
+  },
+  "verification": {
+    "hyperframesCheck": "passed",
+    "oeSkillLockLocal": "passed: 6 local files and 4 source-ledger records; upstream bytes not re-fetched",
+    "oeSkillPackages": "passed",
+    "boundaryLedger": "passed: 55 paths, 0 errors, 2 carried warnings",
+    "sceneDirectionTests": "27/27 passed",
+    "blueprintCinemaTests": "62/63 passed; one pre-existing stale EP006 evidence source hash",
+    "strictDecode": "passed",
+    "blackFrames": "none reported at 0.10-second threshold",
+    "frameTiming": "910 frames; 0 non-monotonic timestamps; final PTS 37.875000",
+    "controlledTailSsim": 0.999502,
+    "integratedLufs": -16.2,
+    "truePeakDbtp": -3.7,
+    "loudnessRangeLu": 4.3,
+    "expectedControlledFreeze": {
+      "timelineFrames": [318, 588],
+      "timelineSeconds": [13.25, 24.5],
+      "reason": "unchanged rough Boundary Ledger Working Model control"
+    },
+    "qaImages": [
+      {
+        "asset": "qa/encoded/b2-story-contact-sheet.jpg",
+        "sha256": "c44cd88d0276799aebee549f90880825f9cfb7ad4bca96ebdba0db9880317aa5"
+      },
+      {
+        "asset": "qa/encoded/b2-seams.jpg",
+        "sha256": "0c3c6297b32a04c4475b25e43f3bd0636b9fd24553253f2ad1203806f0655f49"
+      },
+      {
+        "asset": "qa/source/b2-operation-stop-last12.jpg",
+        "sha256": "0e27a20518b8ed47f62e619e36083ddfbcb542ab6e3276020fccc08d9c2051a4"
+      }
+    ],
+    "animationMap": {
+      "asset": "qa/animation-map-b2.json",
+      "sha256": "f8c19d88f8d0dfed9344dca1c54e11dbf6c4cb2a0eb29f15dfc487322ea5f98e",
+      "review": "One authored bridge opacity reveal; duplicate assembled registrations explain the two collision flags. B2 adds no post camera move or graphic tween."
+    },
+    "reviewProxies": [
+      {
+        "asset": "qa/review/A-silent-dialogue-720p.mp4",
+        "sha256": "c503b702e4b3e754f3132e9ace64d560eeeadaf648ab719ada76564fd4339add"
+      },
+      {
+        "asset": "qa/review/B2-purpose-observation-720p.mp4",
+        "sha256": "5f416fe0dd04e779b905dacea1d1b251395e6b88a609866d22b01218284a9ae4",
+        "bytes": 4210853,
+        "frames": 910
+      },
+      {
+        "asset": "qa/review/AB2-opening-comparison-720p.mp4",
+        "sha256": "edef7d962dbac415a60fc9918072d06c253a9634ef853b7bb6d371f22ea3ddb6",
+        "bytes": 3543798,
+        "frames": 600,
+        "durationSeconds": 25,
+        "order": "A opening; 0.5-second oxide separator; B2 opening"
+      }
+    ]
+  }
+}

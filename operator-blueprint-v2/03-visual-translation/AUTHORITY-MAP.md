@@ -1,6 +1,6 @@
 # Step 3 authority map
 
-Status: **proposed v0.2**. Step 3 is not yet authority. This map states what would become canonical if the design pass is approved.
+Status: **proposed v0.3**. Step 3 is not yet authority. This map states what would become canonical if the design pass is approved.
 
 ## Proposed local Step 3 authority
 

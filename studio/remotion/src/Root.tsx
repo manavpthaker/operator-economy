@@ -5,6 +5,7 @@ import {BlueprintComposition, type BlueprintRenderData} from './BlueprintComposi
 import {ShortComposition, type ShortRenderData} from './ShortComposition';
 import {CarouselSlide, type CarouselSlideData} from './CarouselComposition';
 import {Thumbnail, type ThumbnailData} from './ThumbnailComposition';
+import {OEOpeningPilot} from './oe/OEOpeningPilot';
 import type {RenderData} from './types';
 
 const defaultShortData: ShortRenderData = {
@@ -156,6 +157,14 @@ const calculateClipMetadata: (props: {props: ClipProps}) => Promise<{
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="OEOpeningPilot"
+        component={OEOpeningPilot}
+        durationInFrames={2700}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="ClipVertical"
         component={ClipComposition}

@@ -1,0 +1,111 @@
+{
+  "recorded_at": "2026-09-11T23:48:56.679217+00:00",
+  "status": "pass_with_scope_limits",
+  "runtime_fingerprint_sha256": "3d148f76a35ce986900f2015b586345d609a068be8c4af753ec5e696c5f08280",
+  "runtime_files": 43,
+  "strict_check": {
+    "ok": true,
+    "file": "CHECK.json",
+    "warning_or_error_findings": 0
+  },
+  "source_alignment": {
+    "method": "Independent early/middle/late waveform cross-correlation at 16 kHz against exact original source. Nearest 24 fps picture frame.",
+    "measurements": [
+      {
+        "reference_window_seconds": [
+          0.3,
+          1.3
+        ],
+        "source_window_start_seconds": 0.64725,
+        "offset_seconds": 0.34725,
+        "correlation": 0.9980800795066189
+      },
+      {
+        "reference_window_seconds": [
+          1.65,
+          2.65
+        ],
+        "source_window_start_seconds": 1.99725,
+        "offset_seconds": 0.34725,
+        "correlation": 0.9983509605228363
+      },
+      {
+        "reference_window_seconds": [
+          3.45,
+          4.5
+        ],
+        "source_window_start_seconds": 3.79725,
+        "offset_seconds": 0.34725,
+        "correlation": 0.9978449187283772
+      }
+    ],
+    "measured_offset_seconds": 0.34725,
+    "selected_source_in_frame": 8,
+    "selected_source_in_seconds": 0.3333333333333333,
+    "frame_rounding_error_seconds": -0.013916666666666688,
+    "source_duration_seconds": 6.042,
+    "output_frames": 120,
+    "output_duration_seconds": 5,
+    "source_sha256": "04b4abbf382879695741844789fb57b96aca294b2cba7dd6270b405d06c16bbb",
+    "original_audio_sha256": "b2adecbb867ba7c287300a60775d9c15142dc4770b00207db05b1d31bade4ebf",
+    "limitations": "Container waveform alignment does not certify perceptual lip sync, facial expression, or audience comprehension. Those require visual and audiovisual review."
+  },
+  "encoded_review": {
+    "path": "qa/r35-full-review.mp4",
+    "sha256": "66ecbbfbab5c7a184bb5959df26aeb1aa86b19d4d8ea204c7c57193fedd4761e",
+    "video_frames": 4803,
+    "fps": 24,
+    "duration_seconds": 200.125,
+    "file_size_bytes": 19376279,
+    "final_sentence_audio_zero_offset_correlation": 0.9998365464050565
+  },
+  "visible_output": {
+    "method": "Inspected frames extracted from the actual full24fps encoded file, plus the separate original-audio120frame insert render and restored-source contact sheet.",
+    "frames": [
+      4682,
+      4683,
+      4684,
+      4772,
+      4773,
+      4777,
+      4781,
+      4802
+    ],
+    "findings": [
+      "The outgoing model remains at4682; presenter starts at4683 with no blank frame.",
+      "Continuous source frames through the8frame push; medium-wide and close-up preserve headroom.",
+      "Hands remain in frame during the initial wider view; final close-up holds the face.",
+      "Final word completes and the last sampled frame shows a settled expression."
+    ],
+    "image": "qa/full-render-boundaries.jpg"
+  },
+  "preservation": {
+    "source": "r34-listing-is-not-selling",
+    "source_runtime_fingerprint_sha256": "72e0e3eae2baa2163c511ee4bbb2ae8cf98b5b512c007abed4bf0ea605afccb3",
+    "unchanged_non_index_runtime_files": 40,
+    "index_normalization": "Remove exactly the new195.125\u2013200.125 presenter host; restore outgoing listing duration42.625 from37.625; revert review title and composition identity. Remaining index bytes exactly match R34.",
+    "original_audio": "All four inherited WAV files and every existing audio timing are unchanged.",
+    "accepted_prefix": "R33 0-157.5 remains preserved through verified R34 predecessor.",
+    "new_picture_scope_seconds": [
+      195.125,
+      200.125
+    ],
+    "status": "pass"
+  },
+  "live_preview": {
+    "url": "http://100.101.49.30:3051/",
+    "http_status": 200,
+    "foreground_navigation": "Codex open request queued; not claimed visible."
+  },
+  "skill_checks": {
+    "oe_skill_lock": "pass,15files,4source records",
+    "skill_creator_quick_validate": "pass using isolated uv pyyaml dependency"
+  },
+  "scope_limits": [
+    "No owner creative acceptance of R35 yet.",
+    "Waveform alignment and sampled frames do not certify perceptual lip sync or engagement; owner review remains necessary.",
+    "No whole-episode creative re-review or change to accepted R33 prefix.",
+    "Future buyer/seller film is planning only.",
+    "No canonical production gate or publication change."
+  ]
+}

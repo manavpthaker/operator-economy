@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave2-builder-b",
+  "role": "bounded HyperFrames sub-composition builder for Shots 03–04",
+  "required_gate": "review_integrated_for_bounded_build",
+  "input_hashes": [
+    {"path": "direction-lock.json", "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"},
+    {"path": "hyperframes/frame.md", "sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5"},
+    {"path": "direction/build-packets/wave2-builder-b-shots-03-04.md", "sha256": "383040788e4085c1d969e52eb8e5fcb804ffec3af57e2d3f6561bbdac11b560a"},
+    {"path": "hyperframes/assets/fonts/ibm-plex-mono-700.ttf", "sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea"},
+    {"path": "hyperframes/assets/fonts/IBM-Plex-Mono-OFL.txt", "sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f"},
+    {"path": "hyperframes/assets/fonts/PROVENANCE.md", "sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave2-builder-b/shot-03.html",
+    "agents/deliverables/wave2-builder-b/shot-04.html",
+    "agents/deliverables/wave2-builder-b/shot-03-motion.json",
+    "agents/deliverables/wave2-builder-b/shot-04-motion.json",
+    "agents/deliverables/wave2-builder-b/deliverable.json"
+  ],
+  "forbidden_paths": ["hyperframes/index.html", "hyperframes/compositions/", "hyperframes/STORYBOARD.md", "direction/", "review/", "handoff/", "experiment.json", "direction-lock.json", "../episodes/", "../../renderer/", "../../schemas/", "../../src/"],
+  "dependencies": ["direction-lock.json", "wave1 integration"],
+  "acceptance_checks": ["verify every pinned input hash", "obey the complete build packet", "two valid transported sub-compositions with exact IDs and durations", "measured SVG paths only", "exact persistent fixture warning", "no persistent-object duplicate", "no network or non-determinism", "one paused timeline per composition", "write only owned packet files", "claim no approval/state change"],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "clarifications": [
+    "IBM Plex Mono 700 is now staged locally at hyperframes/assets/fonts/ibm-plex-mono-700.ttf under the pinned OFL license and provenance files. Use @font-face and the project-root URL assets/fonts/ibm-plex-mono-700.ttf."
+  ],
+  "stopping_conditions": ["any pinned hash differs", "any instruction would require root/persistent-object edits", "owned output path is nonempty before work", "technical contract cannot be met without shared changes"]
+}

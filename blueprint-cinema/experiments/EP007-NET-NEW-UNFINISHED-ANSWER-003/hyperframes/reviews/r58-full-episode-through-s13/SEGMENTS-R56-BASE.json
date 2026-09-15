@@ -1,0 +1,535 @@
+{
+ "record_type": "review_assembly_segments",
+ "created_at_utc": "2026-09-15T18:52:44.291452Z",
+ "episode": "EP007-exit-readiness-prep",
+ "output": "qa/full.mp4",
+ "fps": 24,
+ "audio_sample_rate": 48000,
+ "total_frames": 12481,
+ "total_seconds": 520.0416666666666,
+ "master": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+ "decision_log": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+ "method": "ffmpeg single filter graph: trim by frame, atrim by sample (2000 samples/frame), 1280x720 24fps setsar=1 stereo 48k, concat; libx264 crf16 + aac 256k, faststart. No re-renders, no paid calls, no source changes.",
+ "segments": [
+  {
+   "segment": "seg01",
+   "section": "Cold open through S07 buyer demand (R36 accepted prefix; review time omits 3.0 s of master sting silence at review 45.0 / master 45.0-48.0)",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/qa/r36-full-review.mp4",
+   "source_sha256": "238b3730bea0c087f873d53d1dcc7f3d3da38e5af4c543e5f5ac647b40e9335a",
+   "source_frames_half_open": [
+    0,
+    5872
+   ],
+   "frame_count": 5872,
+   "audio_source_samples_half_open": [
+    0,
+    11744000
+   ],
+   "master_range_seconds": [
+    0.0,
+    247.666667
+   ],
+   "output_frames_half_open": [
+    0,
+    5872
+   ],
+   "output_start_timecode": "0:00.000",
+   "output_end_timecode": "4:04.667",
+   "locked": "yes",
+   "evidence_event_id": "r36-owner-assembly-lock-v1",
+   "note": "Output 0-45.0 s = master 0-45.0; output 45.0-244.667 = master 48.0-247.667 (3.0 s sting silence omitted, verified by correlation)."
+  },
+  {
+   "segment": "seg02",
+   "section": "S07 tail (same R36 picture, re-encoded) + S08 R39 question/callback (verdict unspecified) + R39 animation (owner revise outstanding) + R46 revenue/machine (locked)",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r46-revenue-machine-context/qa/r46-revenue-machine-context.mp4",
+   "source_sha256": "02204facdb76020d07261eeabed035b8e9171f44f00dc40f571e22badc9c2a42",
+   "source_frames_half_open": [
+    1189,
+    2212
+   ],
+   "frame_count": 1023,
+   "audio_source_samples_half_open": [
+    2378000,
+    4424000
+   ],
+   "master_range_seconds": [
+    247.666667,
+    290.291667
+   ],
+   "output_frames_half_open": [
+    5872,
+    6895
+   ],
+   "output_start_timecode": "4:04.667",
+   "output_end_timecode": "4:47.292",
+   "locked": "partial",
+   "evidence_event_id": "r46-owner-context-lock-v1",
+   "note": "Output 244.667-247.625: S07 tail (locked R36 content, via R46 context re-encode, uniform ~1.26/255 darker; join sits on the existing hard cut). 247.625-254.875 (master 250.625-257.875): R39 question/callback presenter, owner verdict unspecified. 254.875-267.0 (master 257.875-270.0): R39 animation, owner revise (r39-owner-animation-revision-v1) never superseded for this range. 267.0-287.292 (master 270.0-290.292): R46 revenue machine, locked."
+  },
+  {
+   "segment": "seg03",
+   "section": "S08 R47 presenter: value only transfers",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r47-transfer-criterion-context/qa/r47-transfer-criterion-context.mp4",
+   "source_sha256": "8280dbbdcff419556e05bdde3c0ee85f76aa1ac5dc387f0dfdadea4382791b8b",
+   "source_frames_half_open": [
+    2212,
+    2481
+   ],
+   "frame_count": 269,
+   "audio_source_samples_half_open": [
+    4424000,
+    4962000
+   ],
+   "master_range_seconds": [
+    290.291667,
+    301.5
+   ],
+   "output_frames_half_open": [
+    6895,
+    7164
+   ],
+   "output_start_timecode": "4:47.292",
+   "output_end_timecode": "4:58.500",
+   "locked": "no",
+   "evidence_event_id": "r47-owner-generation-approved-v1 (generation only; no output verdict)",
+   "note": "R47 presenter; owner generation approval only, output performance never given a verdict (R48 lock covers only the cut from R47)."
+  },
+  {
+   "segment": "seg04",
+   "section": "S08 R48 relationships",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r48-relationships-context/qa/r48-relationships-context.mp4",
+   "source_sha256": "86088d23012901fa77c20f9637a843bba92e042f24e1f1c2c63f33010d67d3c0",
+   "source_frames_half_open": [
+    2481,
+    2696
+   ],
+   "frame_count": 215,
+   "audio_source_samples_half_open": [
+    4962000,
+    5392000
+   ],
+   "master_range_seconds": [
+    301.5,
+    310.458333
+   ],
+   "output_frames_half_open": [
+    7164,
+    7379
+   ],
+   "output_start_timecode": "4:58.500",
+   "output_end_timecode": "5:07.458",
+   "locked": "yes",
+   "evidence_event_id": "r48-owner-relationships-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg05",
+   "section": "S08 R49 concentration",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r49-concentration-context/qa/r49-concentration-context.mp4",
+   "source_sha256": "663c91ea63b51458ded0c49f082a14ca33679986087e2803863561a0e10ad348",
+   "source_frames_half_open": [
+    2696,
+    2859
+   ],
+   "frame_count": 163,
+   "audio_source_samples_half_open": [
+    5392000,
+    5718000
+   ],
+   "master_range_seconds": [
+    310.458333,
+    317.25
+   ],
+   "output_frames_half_open": [
+    7379,
+    7542
+   ],
+   "output_start_timecode": "5:07.458",
+   "output_end_timecode": "5:14.250",
+   "locked": "yes",
+   "evidence_event_id": "r49-owner-concentration-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg06",
+   "section": "S08 R50 records",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records-context/qa/r50-records-context.mp4",
+   "source_sha256": "8911b4c8f8f4d912b46b30197eddb5d224d393069166bcc3ffbe8b3bb6f22614",
+   "source_frames_half_open": [
+    2859,
+    3061
+   ],
+   "frame_count": 202,
+   "audio_source_samples_half_open": [
+    5718000,
+    6122000
+   ],
+   "master_range_seconds": [
+    317.25,
+    325.666667
+   ],
+   "output_frames_half_open": [
+    7542,
+    7744
+   ],
+   "output_start_timecode": "5:14.250",
+   "output_end_timecode": "5:22.667",
+   "locked": "yes",
+   "evidence_event_id": "r50-owner-records-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg07",
+   "section": "S09 R51 same underlying problem",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying-context/qa/r51-underlying-context.mp4",
+   "source_sha256": "ac7cc05745039e4e909ec508394d63c104f47561107ca0844fb6e314b10a9615",
+   "source_frames_half_open": [
+    3061,
+    3300
+   ],
+   "frame_count": 239,
+   "audio_source_samples_half_open": [
+    6122000,
+    6600000
+   ],
+   "master_range_seconds": [
+    325.666667,
+    335.625
+   ],
+   "output_frames_half_open": [
+    7744,
+    7983
+   ],
+   "output_start_timecode": "5:22.667",
+   "output_end_timecode": "5:32.625",
+   "locked": "yes",
+   "evidence_event_id": "r51-owner-underlying-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg08",
+   "section": "S09 R52 handshake / walk-out quick cut",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-quick-cut-context/qa/r52-quick-cut-context.mp4",
+   "source_sha256": "0d269cc1a8592efd2ed869ae725319e4a1f224da22c1e585f1b69ae1171a6838",
+   "source_frames_half_open": [
+    3300,
+    3480
+   ],
+   "frame_count": 180,
+   "audio_source_samples_half_open": [
+    6600000,
+    6960000
+   ],
+   "master_range_seconds": [
+    335.625,
+    343.125
+   ],
+   "output_frames_half_open": [
+    7983,
+    8163
+   ],
+   "output_start_timecode": "5:32.625",
+   "output_end_timecode": "5:40.125",
+   "locked": "yes",
+   "evidence_event_id": "r52-owner-quick-cut-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg09",
+   "section": "S10 A presenter + B EPI evidence card",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10-v3-context/qa/r53-s10-v3-context.mp4",
+   "source_sha256": "b138b3266b3268a8884a256434cb3918e09defac064b61dc3833eb35d92a43a3",
+   "source_frames_half_open": [
+    3480,
+    4214
+   ],
+   "frame_count": 734,
+   "audio_source_samples_half_open": [
+    6960000,
+    8428000
+   ],
+   "master_range_seconds": [
+    343.125,
+    373.708333
+   ],
+   "output_frames_half_open": [
+    8163,
+    8897
+   ],
+   "output_start_timecode": "5:40.125",
+   "output_end_timecode": "6:10.708",
+   "locked": "yes",
+   "evidence_event_id": "r53-owner-s10-lock-v1",
+   "note": ""
+  },
+  {
+   "segment": "seg10",
+   "section": "S10 C presenter v2 re-timed + S11 A recap/survey + S11 B room model",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b-context/qa/context.mp4",
+   "source_sha256": "f34d9f43605d2ea6e366990228c2dc225affdf207f8d9d004bb7956b7803aaa0",
+   "source_frames_half_open": [
+    4214,
+    5577
+   ],
+   "frame_count": 1363,
+   "audio_source_samples_half_open": [
+    8428000,
+    11154000
+   ],
+   "master_range_seconds": [
+    373.708333,
+    430.5
+   ],
+   "output_frames_half_open": [
+    8897,
+    10260
+   ],
+   "output_start_timecode": "6:10.708",
+   "output_end_timecode": "7:07.500",
+   "locked": "yes",
+   "evidence_event_id": "r53-owner-c-v2-resync-lock-v1 (S10 C) + r54-owner-s11ab-lock-v1 (S11 A-B)",
+   "note": "S10 C bytes identical in picture to r54-s10v5-s11a-context (the re-timed C v2 resync, mean abs diff 0.0) and to r53-s10/qa/r53-c2s-presenter.mp4 (0.14/255)."
+  },
+  {
+   "segment": "seg11",
+   "section": "S11 C quote card + D vacancy (to the moved 454.0 cut)",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11-full-context/qa/context.mp4",
+   "source_sha256": "9748fae17541028d0593e953a8e15621d9c6fe9bbfbb7ee79cd49b6c64feecda",
+   "source_frames_half_open": [
+    1363,
+    1927
+   ],
+   "frame_count": 564,
+   "audio_source_samples_half_open": [
+    2726000,
+    3854000
+   ],
+   "master_range_seconds": [
+    430.5,
+    454.0
+   ],
+   "output_frames_half_open": [
+    10260,
+    10824
+   ],
+   "output_start_timecode": "7:07.500",
+   "output_end_timecode": "7:31.000",
+   "locked": "yes",
+   "evidence_event_id": "r54-owner-s11cd-lock-v1",
+   "note": "Picture matches r55-s12-v4-pickup-context frames 0-563 (0.03/255)."
+  },
+  {
+   "segment": "seg12",
+   "section": "S12 A-D with re-voiced opening (assembly-level pickup)",
+   "source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v4-pickup-context/qa/context.mp4",
+   "source_sha256": "837721c479dc2e5255b4262049a7ec916428a4fbb106cd830673a99b984a24b3",
+   "source_frames_half_open": [
+    564,
+    2221
+   ],
+   "frame_count": 1657,
+   "audio_source_samples_half_open": [
+    1128000,
+    4442000
+   ],
+   "master_range_seconds": [
+    454.0,
+    522.958333
+   ],
+   "output_frames_half_open": [
+    10824,
+    12481
+   ],
+   "output_start_timecode": "7:31.000",
+   "output_end_timecode": "8:40.042",
+   "locked": "yes",
+   "evidence_event_id": "r55-owner-s12-lock-v1",
+   "note": "Contains the accepted re-voiced opening sentence and the dropped silence; audio does not follow master sample-for-sample (see VERIFICATION)."
+  }
+ ],
+ "chapters": [
+  {
+   "output_seconds": 0,
+   "timecode": "0:00.000",
+   "title": "Cold open",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 44.5,
+   "timecode": "0:44.500",
+   "title": "Sting",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 53.041667,
+   "timecode": "0:53.042",
+   "title": "Title and presenter: sale-readiness practice",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 71.5,
+   "timecode": "1:11.500",
+   "title": "How a small business changes hands (market model)",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 131.0,
+   "timecode": "2:11.000",
+   "title": "Presenter: the question",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 143.791667,
+   "timecode": "2:23.792",
+   "title": "Gap model: nobody is",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 157.5,
+   "timecode": "2:37.500",
+   "title": "S06 listing is not selling",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 200.125,
+   "timecode": "3:20.125",
+   "title": "S07 buyer demand",
+   "master": null,
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 247.625,
+   "timecode": "4:07.625",
+   "title": "S08 R39 question callback (\"his\")",
+   "master": "master 250.625",
+   "locked": "no - verdict unspecified"
+  },
+  {
+   "output_seconds": 254.875,
+   "timecode": "4:14.875",
+   "title": "S08 R39 owner-dependency animation",
+   "master": "master 257.875",
+   "locked": "no - owner revise outstanding"
+  },
+  {
+   "output_seconds": 267.0,
+   "timecode": "4:27.000",
+   "title": "S08 R46 revenue machine",
+   "master": "master 270.0",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 287.291667,
+   "timecode": "4:47.292",
+   "title": "S08 R47 presenter: value only transfers",
+   "master": "master 290.292",
+   "locked": "no - output never given a verdict"
+  },
+  {
+   "output_seconds": 298.5,
+   "timecode": "4:58.500",
+   "title": "S08 R48 relationships",
+   "master": "master 301.5",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 307.458333,
+   "timecode": "5:07.458",
+   "title": "S08 R49 concentration",
+   "master": "master 310.458",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 314.25,
+   "timecode": "5:14.250",
+   "title": "S08 R50 records",
+   "master": "master 317.25",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 322.666667,
+   "timecode": "5:22.667",
+   "title": "S09 R51 same underlying problem",
+   "master": "master 325.667",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 332.625,
+   "timecode": "5:32.625",
+   "title": "S09 R52 handshake / walk-out",
+   "master": "master 335.625",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 340.125,
+   "timecode": "5:40.125",
+   "title": "S10 A presenter",
+   "master": "master 343.125",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 347.958333,
+   "timecode": "5:47.958",
+   "title": "S10 B EPI evidence card",
+   "master": "master 350.958",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 370.708333,
+   "timecode": "6:10.708",
+   "title": "S10 C presenter (v2 re-timed)",
+   "master": "master 373.708",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 379.333333,
+   "timecode": "6:19.333",
+   "title": "S11 A recap and survey",
+   "master": "master 382.333",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 406.208333,
+   "timecode": "6:46.208",
+   "title": "S11 B the room",
+   "master": "master 409.208",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 427.5,
+   "timecode": "7:07.500",
+   "title": "S11 C-D quote card and vacancy",
+   "master": "master 430.5",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 451.0,
+   "timecode": "7:31.000",
+   "title": "S12 A presenter (re-voiced opening)",
+   "master": "master 454.0",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 462.041667,
+   "timecode": "7:42.042",
+   "title": "S12 B-C three somebodies / her business",
+   "master": "master 464.958",
+   "locked": "yes"
+  },
+  {
+   "output_seconds": 499.0,
+   "timecode": "8:19.000",
+   "title": "S12 D",
+   "master": "master 501.917",
+   "locked": "yes"
+  }
+ ]
+}

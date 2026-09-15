@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r25-lips-output-qa",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/performance-b-original.mp4",
+      "sha256": "dae03d667c44b7faf29d3d8b13317a3939ef6997885b05c0efb5dbc66eb58cf4"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/pickup-b-original.wav",
+      "sha256": "e37976fde23e50265e7e6dde1a034d873d8b39f87d89f074d4da19ae7ac49072"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/r22-post-title-b.mp4",
+      "sha256": "6bebb793f25e39b4c5577559f7e25b91a39270f904755bc6872586579935147a"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r25-subtle-lips/provider/presenter-generated-raw.mp4",
+      "sha256": "72862fe581b834f4c57e4a6226963437a7dafbe63e0c69c503544e4e95031c32"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/audit-output.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/face-comparison.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/full-comparison.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/metrics.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r25-lips-output-qa/report.md"
+  ],
+  "checks": [
+    {
+      "command": "Python AST syntax check for audit-output.py",
+      "outcome": "pass"
+    },
+    {
+      "command": "SHA-256 verification of original B video/audio, R22 B control, and pinned raw React output",
+      "outcome": "pass"
+    },
+    {
+      "command": "audit-output.py: 206 frames at 24 fps, full input duration, PTS0 and monotonic timestamps, clean full decode",
+      "outcome": "pass"
+    },
+    {
+      "command": "audit-output.py: zero sample lag across early/middle/emphasis/late audio windows; correlation above 0.99979",
+      "outcome": "pass"
+    },
+    {
+      "command": "audit-output.py: all 206 output frames unique with no exact adjacent repeats",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspected face-comparison.jpg and full-comparison.jpg; sampled body/likeness plausible, blink and eyebrow differences explicitly reported",
+      "outcome": "pass"
+    },
+    {
+      "command": "Full-motion lip-sync and owner acceptance",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Pinned exact local R24 original B video/audio and accepted R22 B control",
+    "Original video: 206 frames at 24 fps; original narration: 412000 mono PCM samples at 48000 Hz",
+    "Root alone owns the authorized provider submission and all runtime/approval writes",
+    "Root supplied completed React output raw path and SHA; auditor verified locally without provider access"
+  ],
+  "assumptions": [
+    "Contact-sheet sampling cannot certify full-motion articulation or absence of brief artifacts",
+    "Original narration remains authoritative; provider AAC is diagnostic only",
+    "Root owns runtime/export and the latest requested closeup edit"
+  ],
+  "unresolved_questions": [
+    "Whether normal-speed playback demonstrates clearer articulation than R22 without distracting facial changes",
+    "Full-motion lip-sync, natural performance, and owner acceptance remain pending"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

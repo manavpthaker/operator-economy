@@ -1,0 +1,57 @@
+{
+  "gain_linear": 1.4142135623730951,
+  "gain_db": 3.0103,
+  "ranges_output_frames_half_open": [
+    [
+      7983,
+      8163
+    ],
+    [
+      8163,
+      8352
+    ],
+    [
+      8897,
+      9105
+    ],
+    [
+      10824,
+      11089
+    ]
+  ],
+  "reason": "mono presenter clips were upmixed to stereo at -3 dB (0.7071 per channel) during concat",
+  "record_type": "assembly_level_fix",
+  "base": "hyperframes/reviews/r56-full-episode-through-s12/qa/full.mp4",
+  "base_sha256": "77f1e76218ae8aa6b51541ed33a1bf8bfcdfa61c5606a080375d16c4f5d6f4d2",
+  "appended": "hyperframes/reviews/r57-s13-full-context/qa/context.mp4",
+  "passages": [
+    "S09 R52 walk-out 5:32.6",
+    "S10 A presenter 5:40.1",
+    "S10 C presenter 6:10.7",
+    "S12 A presenter 7:31.0"
+  ],
+  "verification": {
+    "per_channel_level_vs_master_db_median_by_segment": {
+      "seg02": -0.06,
+      "seg03": -0.02,
+      "seg04": -0.04,
+      "seg05": -0.06,
+      "seg06": -0.03,
+      "seg07": -0.02,
+      "seg08": -0.03,
+      "seg09": -0.04,
+      "seg10": -0.03,
+      "seg11": -0.03,
+      "seg12_after_A": 0.0,
+      "seg13": -0.03
+    },
+    "s12a_vs_composite_db": -0.02,
+    "s12a_corr": 0.99995,
+    "peak_dbfs": -2.77,
+    "clipped_samples": 0,
+    "frames": 13376,
+    "uniform_frames": "8, all pre-existing inside locked material (as R56)"
+  },
+  "source_clips_unchanged": true,
+  "note": "Section context reviews R52-R55 keep the old -3 dB passages; R58 supersedes them for full-episode review."
+}

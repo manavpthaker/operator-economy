@@ -1,0 +1,98 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r32-generated-performance-qa",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/index.html",
+      "sha256": "39ec677570f7b3dca184ca7ff26436fefdd142bf6c1c09cb27417c47c9ebcd60"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/compositions/presenter-question.html",
+      "sha256": "af45c4346df71e75eccb269c8f71d43e11a42c7f5b4522b949cac8359528f224"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/provider-preparation/REQUESTS.json",
+      "sha256": "7dc259d3689fde95d7a237c4601b70504c60d4a2aeb90f5da075ebddcdf8ac48"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/qa_media.py",
+      "sha256": "22c96b26bb9170fe98fb2432cbdbde5e21ff5b2693e9eb2996eb2e5e732ee4b1"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/audio/v5-post-title-continuous.wav",
+      "sha256": "de472d3c0f5e2cf81c215c2dd01fb75532c26baab3286fd53d3bde49cedfdd2b"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/audio/v5-question.wav",
+      "sha256": "cec8a10ed92d88264aff9c289a330b3d02007ffa599b72589b8ff127a14e8262"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/work-orders/r32-generated-performance-qa.json",
+      "sha256": "ec769e9cbda79624b9fe8d082e647ad4018a5924703be29fb3fc56c7fa36b354"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/integration-checklist.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/preparation-checks.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/qa_outputs.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-generated-performance-qa/report.md"
+  ],
+  "checks": [
+    {
+      "command": "Verify all six issued preparation input SHA-256 pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Run local preparation command and probe exact original audio references and FFmpeg versions",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compile prepared Python script without executing output inspection or services",
+      "outcome": "pass"
+    },
+    {
+      "command": "Review checklist and local-write boundaries for native/restored/buyer modes",
+      "outcome": "pass"
+    },
+    {
+      "command": "Actual generated output hash, decode, waveform offset, frame and visual QA",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Normal-speed final synchronization and live integration review",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Provider operations, runtime edits or owner acceptance",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Exact six issued baseline inputs and work order, hashes verified live",
+    "Local script adapted from the pinned R31 qa_media.py waveform/probe method with independent windows and new-output pins",
+    "Original post-title and question WAVs remain unchanged and must pass hash verification at actual inspection",
+    "No actual generated outputs are assumed or inspected in this preparation packet"
+  ],
+  "assumptions": [
+    "Root will provide exact local new-output paths and SHA-256 pins before any actual performance assessment",
+    "Runtime baseline pins describe preparation context; root may continue integration independently",
+    "Native regenerated speech is not final original narration and is not evaluated as final lip sync",
+    "Buyer editorial criteria require its actual request and reference, absent from the issued two-avatar request bundle"
+  ],
+  "unresolved_questions": [
+    "New outputs, their exact pins and whether they are native or restored",
+    "Buyer request/reference and directed reaction criteria",
+    "Actual source identity, anatomy, lens contact, pensive expression, ending and perceptual synchronization"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

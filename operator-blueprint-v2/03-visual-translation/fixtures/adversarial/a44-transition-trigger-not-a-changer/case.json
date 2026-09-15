@@ -1,0 +1,34 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "note": "a transition triggered by an operation that does not change the object",
+  "patches": {
+    "world.json": {
+      "objects": [
+        {
+          "id": "guest",
+          "operation_bindings": [
+            "BO-001"
+          ],
+          "changed_by": [
+            "BO-001"
+          ],
+          "states": [
+            "a",
+            "b"
+          ],
+          "allowed_transitions": [
+            {
+              "from": "a",
+              "to": "b",
+              "triggered_by": "BO-999",
+              "reversible": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V3"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r9-illustration-recovery-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only discovery and comparison of earlier EP007 illustration candidates to identify what can be reused for the owner-authorized R9 film-to-illustration trial. User remembers an earlier solid illustration, exact revision unknown. Do not equate rough appearance with causal clarity or declare any prior illustration approved. Return candidate paths, what each shows, authored roughness differences, missing continuity or semantic issues, likely reuse candidates, and exact source hashes. Root is directing and building separately.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/index.html",
+      "sha256": "2b1e501a0102dbbf3df3d2f89872b5579b9ad01113784c18053e493bcda19692"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r3-relevant-edit/index.html",
+      "sha256": "10551d259352d8d3b1ab0476eeca1646faa6f6962e57d04e24eb7a26c933ee24"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/index.html",
+      "sha256": "ac4f2d49302e10c7d4af28d7c32e0deb271a9012ce92f5b19d718ef4981137e6"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r5-rough-question/compositions/rough-question.html",
+      "sha256": "5df3087c10636e97a981dd6f46737b8e37f565bde9d45b17c7ce91324f387589"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/REVIEW.md",
+      "sha256": "f2066643462ec6818632fb035c61f3a7f7bdb602974fc5092c784f1b077d6ea0"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-illustration-recovery-20260908/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "templates/",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify all frozen input hashes. Discover and inspect only relevant EP007 illustration assets and direction records under Blueprint Cinema; include earlier EP007-NET-NEW-001/002 and BL callback experiments if needed. Read-only source/visual inspection; do not launch competing preview servers or generate assets.",
+    "Return report.md plus schema-valid deliverable.json only. Distinguish observed appearance from source-code inference and user approval from historical review status. Recommend no more than three useful candidates, with exact paths and hashes."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale frozen inputs or need for paid/provider writes. No generation, source edits, approvals, source migration or publication.",
+    "Write only the owned deliverable directory. Report uncertainty if the remembered illustration cannot be uniquely identified."
+  ],
+  "status": "closed"
+}

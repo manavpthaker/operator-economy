@@ -6,8 +6,12 @@
 >
 > Superseded here: this file's voice/rubric guidance (-> `content-os/voice.md`, `content-os/rubric.md`),
 > `docs/post-rubric.md` (-> `content-os/rubric.md`, the `operator-economy` register profile), and
-> `docs/publishing-flow.md` phases 1-4 (-> `content-os/flow.md`). Phase 0 and `docs/pipeline.md`
-> remain authoritative -- they are the production chain, which content-os does not own.
+> `docs/publishing-flow.md` phases 1-4 (-> `content-os/flow.md`). Phase 0 remains authoritative.
+> For long-form visual production after VO lock, `docs/blueprint-cinema.md` supersedes the
+> screen-by-screen storyboard model in `docs/pipeline.md` and `docs/storyboard-stage.md`.
+> Within Blueprint Cinema, HyperFrames is canonical for new motion, designed scenes, directed
+> animatics, and render plates; DaVinci Resolve is canonical for final editorial, conform, Fusion,
+> color, Fairlight, captions, online, and delivery. Remotion is retained historical compatibility.
 >
 > Only `studio/originate/<slug>/launch/links.json` may state an episode URL. Prose references it.
 

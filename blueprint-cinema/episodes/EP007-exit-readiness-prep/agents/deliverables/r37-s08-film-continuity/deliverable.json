@@ -1,0 +1,67 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r37-s08-film-continuity",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/index.html",
+      "sha256": "1154d6ed123ebee4db61c59c3832115c0f7b887be9116c502d4168c2f04aa9e8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/public/media/establishing.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-film-continuity/continuation-buyer-every-frame.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-film-continuity/establishing-continuation-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-film-continuity/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-film-continuity/selection.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify all three issued input SHA-256 pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe source dimensions duration frame rate and frame count",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare R36 source out-point to next frame179 and compute contiguous49-frame interval",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect complete-source-tail quarter-second contact sheet plus every buyer-face frame179\u2013240",
+      "outcome": "pass"
+    },
+    {
+      "command": "At-speed final S08 narration and film-to-model transition review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Exact pinned R36 index and establishing source plus locked S08 script.",
+    "OE film direction references already read in this agent context; narrated dramatization and frame-selection constraints applied.",
+    "Local ffmpeg contact sheets only; no new generated media."
+  ],
+  "assumptions": [
+    "Root will place the exact narration-aligned model entry within the recommended clean source interval.",
+    "S08 opens immediately after accepted R36 endpoint at review247.625 with the same framing."
+  ],
+  "unresolved_questions": [
+    "Exact S08 word timing and final audiovisual transition were not issued or independently verified here."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

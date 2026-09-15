@@ -1,0 +1,67 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-character-qa-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Bounded independent creative QA of isolated R6 character-first cold-open trial. Not production dispatch: inputs_locked remains unestablished. Review story clarity and continuity, not merely technical polish.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/DIRECTION.md",
+      "sha256": "5bcefc7f86b29128f5d16d7c739d0cbf3ed66d94f30bab5378820cd59d24b2d5"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-01-start.png",
+      "sha256": "1d50aab4871153888039cadcbbd14602434b89d2ed190899483108da61879b96"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-02-start.png",
+      "sha256": "9338ba62ae205b63aa6a7613d1fa8b8bd1c7451a3c5849f82c63fc77d69e1875"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-03-start.png",
+      "sha256": "37780230b232285763334022a57c82b5aa1eaf711827f283ab17bd6abfa0357f"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-01.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-character-qa-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify exact input pins; read direction; inspect all three reference setups and first generated shot's full action via sampled frames. Focus on whether characters establish story, same owner remains recognizable, page still does not pretend evidence, and no phantom dialogue.",
+    "State precise critical findings including unsupported readiness claims, narrative clarity, performance, wardrobe/prop/geography mismatches, long holds. Do not pass motion not yet generated.",
+    "Write short report and deliverable only in owned directory; no approval or canonical changes."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No generation, external write, spend, auth change, input edit, render, or upstream audit.",
+    "Return key findings promptly. Later video review will receive a separate exact-pinned assignment."
+  ],
+  "status": "issued"
+}

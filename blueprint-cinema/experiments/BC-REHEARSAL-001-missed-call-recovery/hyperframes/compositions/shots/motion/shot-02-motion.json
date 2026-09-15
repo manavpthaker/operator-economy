@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "composition_id": "bc-rh-001-shot-02",
+  "local_duration_seconds": 12.73,
+  "events": [
+    {
+      "local_time_seconds": 0.0,
+      "verb": "establish hard-cut composition",
+      "selectors": [".s02-scene"],
+      "property": "none",
+      "duration_seconds": 0.0,
+      "ease": "none",
+      "rule_citation": "none"
+    },
+    {
+      "local_time_seconds": 2.22,
+      "verb": "strand signal under voicemail sheets",
+      "selectors": [
+        "#bc-rh-001-s02-sheet-back",
+        "#bc-rh-001-s02-sheet-middle",
+        "#bc-rh-001-s02-sheet-top"
+      ],
+      "property": {"y_px": ["-28 to 0", "-46 to 0", "-64 to 0"], "stagger_seconds": 0.08},
+      "duration_seconds": 0.55,
+      "ease": "power2.out",
+      "rule_citation": "authored-straight-translation"
+    },
+    {
+      "local_time_seconds": 4.44,
+      "verb": "continue right and exit",
+      "selectors": ["#bc-rh-001-s02-continuation-arrow"],
+      "property": {"x_px": "-900 to 0", "authored_left_px": 2020},
+      "duration_seconds": 2.56,
+      "ease": "none",
+      "rule_citation": "authored-straight-translation"
+    },
+    {
+      "local_time_seconds": 7.4,
+      "verb": "register relationship",
+      "selectors": ["#bc-rh-001-s02-relationship"],
+      "property": {"opacity": "0 to 1", "y_px": "8 to 0"},
+      "duration_seconds": 0.28,
+      "ease": "power2.out",
+      "rule_citation": "authored-straight-translation"
+    },
+    {
+      "local_time_seconds": 10.05,
+      "verb": "separate attention from action",
+      "selectors": ["#bc-rh-001-s02-bridge-left", "#bc-rh-001-s02-bridge-right"],
+      "property": {
+        "left_half": {"x_px": "17 to 0", "y_px": "32 to 0"},
+        "right_half": {"x_px": "-17 to 0", "y_px": "-32 to 0"},
+        "result": "34px horizontal gap and 64px vertical separation"
+      },
+      "duration_seconds": 0.6,
+      "ease": "power2.inOut",
+      "rule_citation": "authored-straight-translation"
+    }
+  ],
+  "persistent_anchors": [
+    {"id": "s02-tag-entry", "x": 760, "y": 420},
+    {"id": "s02-tag-settle", "x": 610, "y": 620, "facing": "right"},
+    {"id": "s02-card-anchor", "x": 1590, "y": 300}
+  ],
+  "static_hold_interval_seconds": {"start": 10.65, "end": 12.73},
+  "registry_rule_citations": ["authored-straight-translation", "none"],
+  "negative_checks": [
+    "no scene-owned call tag, work-order card, proof pin, state tab, customer token, or outcome token",
+    "no entrance wipe, camera movement, network, async setup, clocks, randomness, repeat, or tweened layout property",
+    "no inbox UI, badge, transcript, notification, phone screen, competitor, angry customer, or dashboard treatment",
+    "continuation arrow is the only customer-continuation cue and is offscreen by 7.00 seconds",
+    "voicemail sheets never create a second red object and leave the external tag path legible"
+  ]
+}

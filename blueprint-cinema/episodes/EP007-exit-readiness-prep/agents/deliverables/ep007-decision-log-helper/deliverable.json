@@ -1,0 +1,51 @@
+{
+  "$schema": "blueprint-cinema/schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-decision-log-helper",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": ".agents/skills/oe-video-direction/references/decision-record.md",
+      "sha256": "98304bb5368bd20debf00f43c121e1040b5b5ac093161e3e24e463c346f6a776"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-decision-log-helper/decision_log.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-decision-log-helper/test_decision_log.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-decision-log-helper/report.md"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-decision-log-helper/ -p 'test_*.py' -v;20tests including concurrent CLI writers and exact artifact binding",
+      "outcome": "pass"
+    },
+    {
+      "command": "Recompute assigned decision-record.md SHA256 and compare issued work-order pin",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect authored output scope; all runtime test events are confined to TemporaryDirectory roots",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Implements only the issued .agents/skills/oe-video-direction/references/decision-record.md contract.",
+    "Tests use locally authored synthetic text fixtures in temporary roots; no external material, media generation or provider."
+  ],
+  "assumptions": [
+    "artifact_hashes is an array of path/sha256 objects; artifact and evidence entries both prove current repository-file hashes on append and report later staleness without repinning.",
+    "Historical feedback can target superseded decisions but is excluded from current revision owner disposition.",
+    "Current hash integrity is not a cryptographic signature; creative validity remains separately reviewed."
+  ],
+  "unresolved_questions": [
+    "An abrupt OS/process termination during the append syscall is not fully crash-atomic database storage; malformed tails are detected, not silently repaired.",
+    "Orchestrator must verify actual owner provenance and install/seed the helper; this worker did neither."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

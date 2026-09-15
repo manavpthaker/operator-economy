@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Working Hand"; src: url("assets/fonts/Caveat-700-latin.woff2") format("woff2"); font-weight: 700; }
+
+        #root { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; color: #19201f; font-family: "BL Supreme", system-ui, sans-serif; }
+        .model-fill { position: absolute; inset: 0; background: #f5f0e6; }
+        .model-paper-grain { position: absolute; inset: 0; opacity: .24; background-image: radial-gradient(circle at 17% 29%, rgba(32,68,64,.10) 0 1px, transparent 1.5px), radial-gradient(circle at 72% 63%, rgba(181,72,47,.07) 0 1px, transparent 1.4px); background-size: 53px 47px, 71px 67px; }
+        .model-svg { position: absolute; z-index: 4; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+        .model-svg path { vector-effect: non-scaling-stroke; }
+        .model-phase { opacity: 0; }
+        .model-hand { fill: #33464c; font-family: "Working Hand", cursive; font-size: 38px; font-weight: 700; }
+        .model-hand-small { fill: #586d74; font-family: "Working Hand", cursive; font-size: 30px; font-weight: 700; }
+        .model-type { fill: #204440; font-family: "BL Supreme", system-ui, sans-serif; font-size: 27px; font-weight: 500; letter-spacing: .10em; text-transform: uppercase; }
+        .model-type-small { fill: #586d74; font-family: "BL Supreme", system-ui, sans-serif; font-size: 24px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+        .model-paper-card { fill: #fbf8f1; }
+        .model-token { fill: #204440; }
+
+        .model-revenue-receipt { position: absolute; z-index: 12; left: 650px; top: 138px; width: 620px; height: 226px; padding: 32px 40px 30px; background: #204440; color: #f5f0e6; border: 2px solid #173530; opacity: 1; }
+        .model-revenue-receipt .word { font-family: "BL Zodiak", Georgia, serif; font-size: 82px; line-height: .94; letter-spacing: -.02em; }
+        .model-revenue-receipt .evidence-phrase { margin-top: 16px; color: #e2dac7; font-size: 36px; font-weight: 500; line-height: 1.05; letter-spacing: .015em; opacity: 0; }
+        .model-machine-label { position: absolute; z-index: 9; left: 600px; top: 172px; width: 720px; color: #204440; opacity: 0; }
+        .model-machine-label strong { display: block; font-family: "BL Zodiak", Georgia, serif; font-size: 58px; line-height: 1; text-align: center; }
+        .model-failure-record { position: absolute; z-index: 18; right: 122px; top: 320px; width: 360px; padding: 22px 25px 24px; border: 2px solid #586d74; background: #fbf8f1; color: #173530; opacity: 0; }
+        .model-failure-record strong { display: block; font-size: 25px; letter-spacing: .14em; text-transform: uppercase; }
+        .model-failure-record span { display: block; margin-top: 10px; color: #586d74; font-size: 27px; line-height: 1.24; }
+        .model-final-thesis { position: absolute; z-index: 30; left: 122px; top: 122px; width: 1676px; min-height: 244px; padding: 26px 40px 30px; background: #fbf8f1; border-top: 3px solid #204440; border-bottom: 2px solid #d8cfb9; color: #173530; opacity: 0; }
+        .model-final-thesis .conditional { color: #586d74; font-size: 24px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
+        .model-final-thesis .line-one, .model-final-thesis .line-two { display: block; font-family: "BL Zodiak", Georgia, serif; font-size: 66px; line-height: .98; letter-spacing: -.025em; }
+        .model-final-thesis .line-one { margin-top: 10px; }
+        .model-final-thesis .line-two { margin-top: 7px; opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-1z6c" id="root" data-composition-id="model" data-start="0" data-duration="29.29" data-width="1920" data-height="1080" data-fps="24">
+        <div class="model-fill" data-hf-id="model-fill"></div>
+        <div class="model-paper-grain" data-hf-id="model-paper-grain" aria-hidden="true"></div>
+
+        <div id="model-revenue-receipt" class="model-revenue-receipt" data-hf-id="model-revenue-receipt"><div data-hf-id="hf-xws8" class="word">Revenue</div><div data-hf-id="hf-gpw5" id="model-revenue-evidence-phrase" class="evidence-phrase">is the evidence</div></div>
+        <div id="model-machine-label" class="model-machine-label" data-hf-id="model-machine-label"><strong data-hf-id="hf-bqwn">The operating structure</strong></div>
+        <div id="model-failure-record" class="model-failure-record" data-hf-id="model-failure-record"><strong data-hf-id="hf-933v">Handover test</strong><span data-hf-id="hf-0hoa">Stops at the owner dependency.</span></div>
+        <div id="model-final-thesis" class="model-final-thesis" data-hf-id="model-final-thesis"><span data-hf-id="hf-fg1c" class="conditional">Conditional transfer test</span><span data-hf-id="hf-k26g" class="line-one">Value only transfers if</span><span data-hf-id="hf-qlwy" id="model-final-line-two" class="line-two">the business runs without the person selling it.</span></div>
+
+        <svg data-hf-id="hf-v13g" class="model-svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="model-description">
+          <title data-hf-id="hf-8plc" id="model-description">A spacious rough working model separates revenue evidence, operating structure, owner dependency, failed handover, and the final conditional transfer route into distinct states.</title>
+
+          <g id="model-machine" class="model-phase" data-hf-id="model-machine">
+            <path data-hf-id="hf-gnu6" id="model-machine-frame" class="rough-source mineral" data-draw="true" d="M 578 304 L 915 298 L 1318 304 M 1325 316 L 1320 804 M 1308 814 L 972 808 L 580 814 M 568 800 L 574 320" />
+            <g id="model-pricing-object" data-hf-id="model-pricing-object">
+              <path data-hf-id="hf-c071" id="model-pricing-outline" class="rough-source mineral" data-draw="true" d="M 636 370 L 872 366 L 876 528 L 632 532 M 627 519 L 632 382" />
+              <path data-hf-id="hf-1y8o" class="rough-source mineral" d="M 676 416 L 826 410 M 678 456 L 812 452 M 678 494 L 838 489" />
+              <path data-hf-id="hf-o7b0" class="rough-source hatch" d="M 641 506 L 676 472 M 651 522 L 692 480" />
+              <text data-hf-id="hf-134v" class="model-hand" x="692" y="574">pricing</text>
+            </g>
+            <g id="model-customer-object" data-hf-id="model-customer-object">
+              <path data-hf-id="hf-h17e" id="model-customer-outline" class="rough-source mineral" data-draw="true" d="M 1016 368 L 1258 372 L 1254 530 L 1010 526 M 1007 516 L 1012 382" />
+              <path data-hf-id="hf-fo82" class="rough-source mineral" d="M 1051 413 L 1212 420 M 1050 455 L 1196 451 M 1048 491 L 1220 496" />
+              <path data-hf-id="hf-rwnz" class="rough-source hatch" d="M 1222 380 L 1251 410 M 1212 382 L 1252 424" />
+              <text data-hf-id="hf-bqzz" class="model-hand" x="1070" y="574">customers</text>
+            </g>
+            <g id="model-process-object" data-hf-id="model-process-object">
+              <path data-hf-id="hf-4hx3" id="model-process-outline" class="rough-source mineral" data-draw="true" d="M 634 622 L 874 616 L 878 768 L 630 772 M 626 758 L 631 634" />
+              <path data-hf-id="hf-6bp4" class="rough-source mineral" d="M 670 670 L 720 666 L 718 708 L 774 704 L 772 742 L 834 736" />
+              <path data-hf-id="hf-vok3" class="rough-source hatch" d="M 642 632 L 678 668 M 651 625 L 688 662" />
+              <text data-hf-id="hf-2hec" class="model-hand" x="690" y="846">process</text>
+            </g>
+            <g id="model-decision-object" data-hf-id="model-decision-object">
+              <path data-hf-id="hf-zo1o" id="model-decision-outline" class="rough-source mineral" data-draw="true" d="M 1014 620 L 1258 624 L 1254 770 L 1010 766 M 1006 752 L 1010 634" />
+              <path data-hf-id="hf-0oqm" class="rough-source mineral" d="M 1050 700 L 1094 656 L 1138 704 L 1194 654 M 1138 704 L 1134 744" />
+              <path data-hf-id="hf-l5ie" class="rough-source hatch" d="M 1020 632 L 1052 664 M 1210 734 L 1248 764" />
+              <text data-hf-id="hf-81fz" class="model-hand" x="1068" y="846">judgment</text>
+            </g>
+            <g id="model-machine-output" data-hf-id="model-machine-output" opacity="0">
+              <path data-hf-id="hf-uoxv" id="model-output-route" class="rough-source steel-dark" data-draw="true" d="M 1324 556 L 1432 554 L 1518 558" />
+              <path data-hf-id="hf-l2sl" class="rough-source steel-dark" d="M 1494 538 L 1518 558 L 1494 580" />
+              <path data-hf-id="hf-h3er" class="model-paper-card" d="M 1534 494 L 1760 494 L 1760 622 L 1534 622 Z" />
+              <path data-hf-id="hf-umem" class="rough-source mineral" d="M 1534 496 L 1757 492 M 1764 502 L 1759 618 M 1750 626 L 1539 622 M 1530 612 L 1534 504" />
+              <text data-hf-id="hf-aft1" class="model-type-small" x="1580" y="544">Output</text><text data-hf-id="hf-vkom" class="model-type" x="1570" y="592">Revenue</text>
+            </g>
+            <g id="model-owner-dependency" data-hf-id="model-owner-dependency" opacity="0">
+              <path data-hf-id="hf-vh5t" class="rough-source steel-dark" d="M 278 664 L 286 568 L 314 492 L 358 450 M 362 448 L 410 460 L 443 510 L 452 590 M 451 598 L 466 668" />
+              <path data-hf-id="hf-gky9" class="rough-source steel-dark" d="M 318 440 L 314 401 L 334 369 L 372 356 L 407 370 L 421 405 L 409 438 L 382 456" />
+              <path data-hf-id="hf-tkhj" id="model-owner-tether" class="rough-source steel" data-draw="true" d="M 454 570 L 512 566 L 566 570" />
+              <text data-hf-id="hf-hatr" class="model-hand" x="292" y="726">owner</text><text data-hf-id="hf-aak8" class="model-hand-small" x="206" y="782">memory · judgment · exceptions</text>
+            </g>
+          </g>
+
+          <g id="model-handover" class="model-phase" data-hf-id="model-handover">
+            <g id="model-handover-owner" data-hf-id="model-handover-owner">
+              <path data-hf-id="hf-gg51" class="rough-source steel-dark" d="M 242 712 L 250 606 L 278 530 L 322 488 M 326 486 L 372 498 L 406 550 L 414 634 M 414 642 L 428 716" />
+              <path data-hf-id="hf-5g3h" class="rough-source steel-dark" d="M 282 478 L 278 440 L 298 408 L 336 395 L 371 408 L 386 443 L 374 476 L 348 494" />
+              <text data-hf-id="hf-h52f" class="model-hand" x="275" y="770">owner</text>
+            </g>
+            <g id="model-transfer-machine" data-hf-id="model-transfer-machine">
+              <path data-hf-id="hf-6cap" class="rough-source mineral" d="M 526 472 L 812 466 L 818 710 L 522 716 M 516 702 L 522 486" />
+              <path data-hf-id="hf-xya6" class="rough-source mineral" d="M 566 530 L 650 526 L 652 594 L 562 598 M 688 526 L 778 530 L 776 596 L 684 592 M 564 628 L 650 624 L 654 680 L 560 684 M 688 624 L 778 628 L 776 684 L 684 680" />
+              <path data-hf-id="hf-3eii" id="model-handover-tether" class="rough-source steel" data-draw="true" d="M 414 610 L 466 606 L 520 610" />
+              <text data-hf-id="hf-k9x5" class="model-hand-small" x="558" y="764">operating structure</text>
+            </g>
+            <path data-hf-id="hf-jt0b" id="model-handover-route" class="rough-source steel-dark" data-draw="true" d="M 844 612 L 1026 608 L 1210 614 L 1428 610" />
+            <path data-hf-id="hf-zs3i" id="model-handover-threshold" class="rough-source steel-dark" data-draw="true" d="M 1450 508 L 1445 744" />
+            <g id="model-business-token" data-hf-id="model-business-token">
+              <path data-hf-id="hf-lv6j" class="model-paper-card" d="M 850 558 L 1018 558 L 1018 666 L 850 666 Z" />
+              <path data-hf-id="hf-sadj" class="rough-source mineral" d="M 848 560 L 1015 556 M 1022 566 L 1018 662 M 1011 670 L 855 666 M 846 656 L 850 568" />
+              <text data-hf-id="hf-rxvy" class="model-type-small" x="934" y="620" text-anchor="middle">Business</text>
+            </g>
+            <path data-hf-id="hf-gymu" id="model-stop-mark" class="rough-source steel-dark" data-draw="true" d="M 1378 578 L 1422 640 M 1424 578 L 1378 642" />
+          </g>
+
+          <g id="model-final-route" class="model-phase" data-hf-id="model-final-route">
+            <g id="model-final-owner" data-hf-id="model-final-owner">
+              <path data-hf-id="hf-8v5r" class="rough-source steel" d="M 248 822 L 256 714 L 284 638 L 328 596 M 332 594 L 378 606 L 412 658 L 420 742 M 420 750 L 434 826" />
+              <path data-hf-id="hf-245m" class="rough-source steel" d="M 288 586 L 284 548 L 304 516 L 342 503 L 377 516 L 392 551 L 380 584 L 354 602" />
+              <text data-hf-id="hf-w0vu" class="model-hand-small" x="276" y="880">person</text>
+            </g>
+            <path data-hf-id="hf-872y" id="model-owner-outside" class="rough-source steel" data-draw="true" d="M 518 484 L 512 902" />
+            <g id="model-independent-machine" data-hf-id="model-independent-machine">
+              <path data-hf-id="hf-099v" class="rough-source mineral" d="M 668 544 L 976 538 L 982 812 L 662 818 M 656 804 L 662 558" />
+              <path data-hf-id="hf-mn2v" class="rough-source mineral" d="M 710 602 L 798 598 L 800 668 L 706 672 M 840 598 L 936 602 L 934 672 L 836 668 M 708 706 L 800 702 L 802 770 L 704 774 M 840 702 L 936 706 L 934 774 L 836 770" />
+              <text data-hf-id="hf-bvv2" class="model-hand-small" x="696" y="870">business runs here</text>
+            </g>
+            <path data-hf-id="hf-gfet" id="model-oxide-route" class="rough-source oxide" data-draw="true" d="M 984 678 L 1138 674 L 1292 680 L 1464 676" />
+            <path data-hf-id="hf-s25g" id="model-oxide-arrow" class="rough-source oxide" data-draw="true" d="M 1438 651 L 1466 676 L 1438 704" />
+            <path data-hf-id="hf-3zg9" id="model-final-threshold" class="rough-source steel-dark" data-draw="true" d="M 1492 568 L 1488 792" />
+            <rect id="model-independent-work-token" class="model-token" data-hf-id="model-independent-work-token" x="996" y="648" width="58" height="58" rx="2" />
+            <text data-hf-id="hf-j2qt" class="model-type-small" x="1530" y="688">Handover</text>
+          </g>
+        </svg>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const drawPath = (selector, start, duration, ease = "power2.out") => { const path = document.querySelector(selector); const length = path.getTotalLength(); path.style.strokeDasharray = `${length}`; path.style.strokeDashoffset = `${length}`; tl.to(path, { strokeDashoffset: 0, duration, ease }, start); };
+
+        tl.fromTo("#model-revenue-evidence-phrase", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .30, ease: "power2.out" }, 3.29);
+        tl.to("#model-revenue-receipt", { opacity: 0, y: -12, duration: .26, ease: "power2.in" }, 5.08);
+
+        tl.to("#model-machine", { opacity: 1, duration: .01 }, 5.08);
+        drawPath("#model-machine-frame", 5.08, .74);
+        tl.fromTo("#model-machine-label", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .34, ease: "power3.out" }, 5.36);
+        drawPath("#model-pricing-outline", 6.19, .34);
+        drawPath("#model-customer-outline", 6.49, .34);
+        drawPath("#model-process-outline", 6.79, .34);
+        drawPath("#model-decision-outline", 7.09, .34);
+        tl.to("#model-machine-output", { opacity: 1, duration: .01 }, 8.36);
+        drawPath("#model-output-route", 8.36, .58, "none");
+        tl.to("#model-owner-dependency", { opacity: 1, duration: .01 }, 11.55);
+        drawPath("#model-owner-tether", 11.61, .48);
+
+        tl.to(["#model-machine", "#model-machine-label"], { opacity: 0, duration: .28, ease: "power2.in" }, 15.59);
+        tl.to("#model-handover", { opacity: 1, duration: .01 }, 15.89);
+        drawPath("#model-handover-tether", 15.91, .34);
+        drawPath("#model-handover-route", 15.95, .56, "none");
+        drawPath("#model-handover-threshold", 16.49, .28);
+        tl.fromTo("#model-business-token", { x: 0 }, { x: 414, duration: 1.42, ease: "power3.in" }, 16.39);
+        drawPath("#model-stop-mark", 18.05, .22);
+        tl.fromTo("#model-failure-record", { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: .28, ease: "power3.out" }, 18.05);
+        tl.to("#model-business-token", { x: 382, duration: .20, ease: "power3.out" }, 18.05);
+
+        tl.to("#model-failure-record", { opacity: 0, duration: .18, ease: "power2.in" }, 22.29);
+        tl.fromTo("#model-final-thesis", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: .32, ease: "power3.out" }, 22.55);
+        tl.to("#model-handover", { opacity: 0, duration: .22, ease: "power2.in" }, 22.63);
+        tl.to("#model-final-line-two", { opacity: 1, duration: .24, ease: "power2.out" }, 25.01);
+        tl.to("#model-final-route", { opacity: 1, duration: .01 }, 26.19);
+        drawPath("#model-owner-outside", 26.19, .28);
+        drawPath("#model-final-threshold", 26.25, .30);
+        drawPath("#model-oxide-route", 26.39, .76, "none");
+        drawPath("#model-oxide-arrow", 27.03, .24);
+        tl.fromTo("#model-independent-work-token", { x: 0 }, { x: 398, duration: .92, ease: "power2.inOut" }, 26.33);
+        window.__timelines.model = tl;
+      </script>
+    </template>
+  </body>
+</html>

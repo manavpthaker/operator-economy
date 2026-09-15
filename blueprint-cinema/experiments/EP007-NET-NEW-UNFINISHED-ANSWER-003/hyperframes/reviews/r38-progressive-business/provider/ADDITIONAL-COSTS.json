@@ -1,0 +1,39 @@
+{
+  "checked_at_utc": "2026-09-12T04:30:11.170225+00:00",
+  "status": "proposal_not_authorization",
+  "jobs_submitted": 0,
+  "fal": {
+    "source": "https://fal.ai/models/fal-ai/sync-lipsync/v3",
+    "usd_per_output_second": 0.1333,
+    "native_6_05_seconds_estimate_usd": 0.806465,
+    "cap_usd": 1,
+    "max_jobs": 1
+  },
+  "google": {
+    "source": "https://cloud.google.com/text-to-speech/pricing",
+    "model": "gemini-2.5-pro-tts",
+    "usd_per_million_input_tokens": 1,
+    "usd_per_million_audio_tokens": 20,
+    "audio_tokens_per_second": 25,
+    "contextual_read_expected_seconds": [
+      7,
+      12
+    ],
+    "estimate_usd": "under $0.01 for this short read and prompt",
+    "proposed_cap_usd": 0.05,
+    "max_jobs": 1
+  },
+  "elevenlabs": {
+    "source": "https://help.elevenlabs.io/hc/en-us/articles/24938328105873-How-much-does-Voice-Changer-cost",
+    "credits_per_minute": 1000,
+    "proposed_cap_credits": 250,
+    "maximum_transfer_seconds": 15,
+    "expected_7_to_12_seconds_credits": [
+      117,
+      200
+    ],
+    "max_jobs": 1,
+    "before_submit": "Probe actual guide duration and verify active voice multiplier; stop if cost exceeds cap."
+  },
+  "automatic_retries": 0
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r11-source-audit-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only wave-zero audit for the owner's requested presenter-first opening recut. Establish applicable Higgsfield comparison learnings, exact available selected presenter audio coverage, and reusable original film selects. The required_gate field is a schema placeholder, not an assertion of canonical approval.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {"path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/RESULTS.md", "sha256": "e040faa5fa24ce8ec0ac7e37a6d81d43464fa9a54cfd0d9b142fa70545d78e72"},
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/seedance-selection-2026-09-09.json", "sha256": "7f6948c7665cb114a065e32dc46d2974d85c5581cca8a9b90548d531d996a156"},
+    {"path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/hyperframes/EDIT-MANIFEST.json", "sha256": "f055d24c39dea024050f47f39d77b7e3507c10595ff0b3ff312faebb7c4ed915"}
+  ],
+  "owned_output_paths": ["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-source-audit-20260909/"],
+  "forbidden_paths": ["operator-blueprint-v2/", "design-system/", ".agents/", "blueprint-cinema/experiments/", "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"],
+  "dependencies": [],
+  "time_range": {"in": 0, "out": 59.5},
+  "acceptance_checks": ["Verify pinned hashes before reporting.", "Distinguish proven media properties from subjective model rankings.", "Locate any selected Seedance-derived take speaking the opening cold-open words; report none if absent. Never propose mismatched talking-head speech.", "Report exact source windows and existing relevant comparison findings. No new provider calls.", "Return report.md and a schema-valid deliverable.json with hashes; no approval claims."],
+  "permissions": {"external_writes": false, "paid_services": false, "synthetic_generation": false, "canonical_state_changes": false},
+  "retry_limit": 0,
+  "stopping_conditions": ["Stop if pinned source hashes changed.", "Do not modify experiments, read credentials, generate media, or contact providers."],
+  "status": "closed"
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r10-new-plates-qa-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r10-film-to-presenter/public/media/shot-e.mp4",
+      "sha256": "36ddf54067fb28c2223a81ce8dcac31298112cdd5c6b862eeb6e772ae10598a2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r10-film-to-presenter/public/media/presenter-introduction-q.mp4",
+      "sha256": "22335eea36b67f440f233e091b059403a57902314a37d615ad87d00685d1e60f"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/e-first-4s-quarter-second.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/e-0-to-2_875s-eighth-second.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/e-4-to-9_75s-quarter-second.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/q-intro-0-to-24s-three-second.png"
+  ],
+  "checks": [
+    {"command": "Recompute both pinned media SHA256 values before review and handoff", "outcome": "pass"},
+    {"command": "ffprobe native frame rate, picture duration, dimensions and presenter stream durations", "outcome": "pass"},
+    {"command": "Inspect E 8fps early and 4fps later head-crop sequences plus wide contact sheet for mouth cycles, gaze, hands and props", "outcome": "pass"},
+    {"command": "Inspect Q whole-frame samples at0/3/6/9/12/15/18/21/24 seconds for visible identity and scene consistency", "outcome": "pass"},
+    {"command": "Inspect adherence to E prompt requiring lips closed throughout and hands in exact original positions", "outcome": "fail"},
+    {"command": "Full-rate audiovisual comprehension and presenter lip-sync review", "outcome": "not_run"},
+    {"command": "Draft2020-12 deliverable schema plus exact repo-relative input-hash and owned-output checks with Blueprint Cinema venv", "outcome": "pass"}
+  ],
+  "sources_and_provenance": [
+    "Issued E and Q media files read only; exact hashes recorded above.",
+    "Root SHOT-E-PROMPT.md and existing contact sheets used as read-only auxiliary context; no source mutation.",
+    "Four FFmpeg QA contact sheets created solely within the owned packet; exact source cadence/crop operations recorded in report.md.",
+    "No provider access, credentials, browser control, generation, or new source acquisition."
+  ],
+  "assumptions": [
+    "The intended E select remains source0.250–9.666667 seconds as stated by the parent.",
+    "A single sustained parted-lip interval is not treated as proof of renewed speech; this is a calibrated visual inference pending assembled playback.",
+    "Existing footage is synthetic illustrative material, not evidence of a real meeting or transaction."
+  ],
+  "unresolved_questions": [
+    "Whether the prolonged mouth opening reads as breath or renewed answer during actual-speed playback with the narration.",
+    "Presenter lip-sync and whether repeated hand beats or chin lifts feel excessive in moving playback."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

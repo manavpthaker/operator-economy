@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-kling-preflight-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only bounded tooling preflight for user-requested R6 character-first cold-open look-development trial. Verify existing Fal Kling generator request safety, current endpoint duration/schema and list price. No production dispatch; schema-required inputs_locked prerequisite remains unestablished.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-BL-CALLBACK-ARC-001/hyperframes/scripts/generate-fal-film.mjs",
+      "sha256": "6f72d94757c95ea87e5b6b1de4609db8ee41bc4552bd11e7d4a93be69252b43e"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/GENERATION-PROMPTS.md",
+      "sha256": "2940abcb63260bc7b1d50c44a6a8a96d64cd700893fde93107c72b3d93ab6001"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-kling-preflight-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify two exact input pins.",
+    "Confirm current primary-source Kling v3 Pro image-to-video duration maximum and silent price, support for start-only images, and any negative-prompt defaults that prohibit requested faces.",
+    "Return invocation/safety findings, no secrets, no requests, no auth changes."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Do not invoke paid generation, upload reference media or expose credential values.",
+    "Use primary Fal docs only for current provider facts; local generator is source of truth for its implementation.",
+    "Do not broaden to upstream audit. Finish a short report plus deliverable JSON in owned path."
+  ],
+  "status": "issued"
+}

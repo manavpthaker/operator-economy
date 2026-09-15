@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-composition-id="scene-05-outcome" data-composition-duration="5.302">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: Boska; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        #root { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: #F5F0E6; color: #1A1A1A; font-family: Supreme, system-ui, sans-serif; }
+        .stage { position: absolute; inset: 0; overflow: hidden; }
+        .sheet-id { position: absolute; left: 134px; top: 76px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .12em; color: #6B675E; }
+        .history-label { position: absolute; left: 190px; top: 190px; width: 600px; font-size: 48px; font-weight: 500; letter-spacing: .06em; }
+        .history-line { position: absolute; left: 190px; top: 290px; width: 600px; height: 4px; background: #1F3A5F; opacity: .62; }
+        .history-note { position: absolute; left: 190px; top: 322px; font-family: Menlo, monospace; font-size: 28px; color: #6B675E; }
+        .repeat-loop { position: absolute; inset: 0; }
+        .repeat-loop path { fill: none; stroke: #D8CFB9; stroke-width: 4; stroke-dasharray: 14 14; }
+        .return-line { position: absolute; left: 790px; top: 590px; width: 0; height: 8px; background: #7A5E24; }
+        .return-label { position: absolute; left: 790px; top: 700px; width: 850px; font-size: 48px; font-weight: 500; line-height: 1.14; letter-spacing: .05em; opacity: 0; }
+        .key-tag { position: absolute; left: 790px; top: 500px; width: 260px; height: 120px; z-index: 10; }
+        .key-tag path { fill: #B08D3E; stroke: #7A5E24; stroke-width: 3; }
+        .key-tag circle { fill: #F5F0E6; }
+        .key-tag line { stroke: #7A5E24; stroke-width: 4; }
+        .outcome {
+          position: absolute;
+          left: 660px;
+          top: 150px;
+          width: 600px;
+          height: 390px;
+          border: 2px solid #1A1A1A;
+          background: #FBF8F1;
+          opacity: 0;
+        }
+        .outcome-title { position: absolute; left: 44px; right: 44px; top: 40px; text-align: center; font-family: Boska, Georgia, serif; font-size: 72px; font-weight: 700; line-height: .98; letter-spacing: -.01em; }
+        .outcome-rule { position: absolute; left: 50px; right: 50px; bottom: 74px; height: 4px; background: #7B9E87; }
+        .outcome-warning { position: absolute; left: 30px; right: 30px; bottom: 28px; text-align: center; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .035em; color: #6B675E; }
+        .ownership-note { position: absolute; right: 134px; bottom: 70px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .05em; color: #6B675E; }
+      </style>
+      <div id="root" data-composition-id="scene-05-outcome" data-width="1920" data-height="1080" data-duration="5.302" data-fps="30">
+        <div id="scene-05-stage" class="stage clip" data-start="0" data-duration="5.302" data-track-index="0">
+          <div class="sheet-id">RETURN LOOP · CONTROL 001</div>
+          <div class="history-label">FIRST STAY / OTA</div><div class="history-line"></div><div class="history-note">USEFUL INTRODUCTION</div>
+          <svg class="repeat-loop" viewBox="0 0 1920 1080"><path d="M760 292 C1010 292 1110 180 1340 180 C1510 180 1580 300 1460 390 C1340 480 1190 430 1090 520"></path></svg>
+          <div class="return-line"></div>
+          <svg class="key-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+          <div class="return-label">NEXT APPROPRIATE STAY<br />/ DIRECT</div>
+          <div class="outcome"><div class="outcome-title">DIRECT RETURN<br />/ VISUAL TEST</div><div class="outcome-rule"></div><div class="outcome-warning">NON-PUBLISHABLE FIXTURE · NOT EVIDENCE</div></div>
+          <div class="ownership-note">KEY TAG REMAINS WITH THE HOTEL RELATIONSHIP</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="scene-05-outcome"]');
+          const repeatLoop = root.querySelector(".repeat-loop path");
+          const returnLine = root.querySelector(".return-line");
+          const tag = root.querySelector(".key-tag");
+          const returnLabel = root.querySelector(".return-label");
+          const outcome = root.querySelector(".outcome");
+          const repeatLength = repeatLoop.getTotalLength();
+          const tl = gsap.timeline({ paused: true });
+          tl.set(repeatLoop, { strokeDasharray: repeatLength, strokeDashoffset: 0, opacity: .75 }, 0);
+          tl.set(returnLine, { width: 0 }, 0);
+          tl.set([returnLabel, outcome], { opacity: 0 }, 0);
+          tl.fromTo(returnLine, { width: 0 }, { width: 820, duration: .86, ease: "power3.out" }, .950);
+          tl.fromTo(tag, { x: 0 }, { x: 490, duration: .86, ease: "power3.inOut" }, .950);
+          tl.fromTo(returnLabel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, 1.810);
+          tl.to(repeatLoop, { strokeDashoffset: repeatLength, opacity: 0, duration: .72, ease: "power2.in" }, 2.357);
+          tl.fromTo(outcome, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, 3.319);
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["scene-05-outcome"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

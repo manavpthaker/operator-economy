@@ -1,0 +1,59 @@
+{
+  "status": "prepared_locally_unapproved",
+  "execution_permitted": false,
+  "model": "fal-ai/sync-lipsync/react-1",
+  "scope": "One final-sentence B articulation comparison using R22's original underlying performance and unchanged original narration",
+  "input_duration_seconds": 8.583333333333334,
+  "input_files": {
+    "video": {
+      "local_path": "inputs/performance-b-original.mp4",
+      "original_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/inputs/performance-b.mp4",
+      "sha256": "dae03d667c44b7faf29d3d8b13317a3939ef6997885b05c0efb5dbc66eb58cf4"
+    },
+    "audio": {
+      "local_path": "inputs/pickup-b-original.wav",
+      "original_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/inputs/pickup-b.wav",
+      "sha256": "e37976fde23e50265e7e6dde1a034d873d8b39f87d89f074d4da19ae7ac49072"
+    },
+    "comparison_control_not_for_upload": {
+      "local_path": "inputs/r22-post-title-b.mp4",
+      "sha256": "6bebb793f25e39b4c5577559f7e25b91a39270f904755bc6872586579935147a"
+    }
+  },
+  "payload_template": {
+    "video_url": "REQUIRES_NEW_AUTHORIZATION_AND_VERIFIED_UPLOAD_URL",
+    "audio_url": "REQUIRES_NEW_AUTHORIZATION_AND_VERIFIED_UPLOAD_URL",
+    "emotion": "neutral",
+    "model_mode": "lips",
+    "lipsync_mode": "cut_off",
+    "temperature": 0.5
+  },
+  "proposed_limits": {
+    "maximum_submissions": 1,
+    "maximum_retries": 0,
+    "published_usd_per_minute": 10,
+    "nominal_estimated_usd": 1.4305555555555556,
+    "estimated_ceiling_usd": 2,
+    "pricing_checked_utc_date": "2026-09-10",
+    "pricing_url": "https://fal.ai/models/fal-ai/sync-lipsync/react-1"
+  },
+  "preservation": {
+    "narration_changes": false,
+    "retiming_or_looping": false,
+    "new_body_performance": false,
+    "pixel_identical_preservation_guaranteed": false,
+    "retain_root_latest_accepted_closeup_edit_if_selected": true
+  },
+  "review_criteria_not_api_prompts": [
+    "Clearer natural articulation, especially B local 5.023333 through 5.693333 seconds on one number",
+    "Preserve the existing subtle expression, body movement, head timing, and likeness",
+    "No lost words, sync drift, exaggerated emotion, visible face artifacts, or new movement discontinuity",
+    "No promise of additional facial emotion from lips mode"
+  ],
+  "stop_conditions": [
+    "No new explicit authorization for these inputs, model, upload, one submission, and estimated ceiling",
+    "Any pinned hash changes or the estimated price exceeds the proposed ceiling",
+    "Input/output coverage changes or a complete sentence cannot fit unchanged",
+    "Failure, rejection, uncertain submission, or completed single attempt; no retry or alternate mode"
+  ]
+}

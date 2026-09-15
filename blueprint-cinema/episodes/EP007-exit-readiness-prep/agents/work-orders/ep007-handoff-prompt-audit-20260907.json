@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "required_gate": "inputs_locked",
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    "studio/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute all assigned source hashes and report any drift",
+    "Cite exact source locations and separate proven gaps from creative judgments",
+    "Do not claim approval or broaden into generation, render or implementation"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop if the locked script or narration would need rewriting",
+    "Report missing authority honestly; read-only diagnosis does not pass the proposed V1 gate"
+  ],
+  "status": "closed",
+  "work_order_id": "ep007-handoff-prompt-audit-20260907",
+  "role": "qa_reviewer",
+  "objective": "Read-only audit of all Step 2 inputs and current v0.4 Step 3 intake for EP007. Identify omissions, stale routing, and creative-information gaps that let a renderer invent meaning. Read-only inspection of a hash-pinned upstream package; not production authority.",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/02-narration-production/06-approval/VISUAL-TRANSLATION-HANDOFF.template.md",
+      "sha256": "c2acbb52053d5a804cdb38adc299e460a9d7b23c0b8410bac51896d19d368b9c"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/narration-lock.md",
+      "sha256": "61cfd940b9f8bfcb0e502e07f073a7a1457a671b9a4a35667e6ca08c2fafbbd5"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/03-visual-translation/input-lock.json",
+      "sha256": "9adde76470b05da2d635521e8711e4d55ed76353a1479db50ba430449899a384"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-handoff-prompt-audit-20260907/"
+  ]
+}

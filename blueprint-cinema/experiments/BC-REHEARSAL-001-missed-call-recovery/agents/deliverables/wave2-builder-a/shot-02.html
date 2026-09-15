@@ -1,0 +1,295 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "IBM Plex Mono";
+      src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #1a1a1a;
+      font-family: "Supreme Rehearsal", sans-serif;
+    }
+
+    .s02-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #f5f0e6;
+    }
+
+    .s02-grid {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      opacity: 0.08;
+    }
+
+    .s02-sheet {
+      position: absolute;
+      display: block;
+      width: 680px;
+      height: 286px;
+      box-sizing: border-box;
+      border: 2px solid #14263e;
+      background: #f5f0e6;
+    }
+
+    .s02-sheet::before,
+    .s02-sheet::after {
+      content: "";
+      position: absolute;
+      display: block;
+      height: 2px;
+      background: #1f3a5f;
+      opacity: 0.38;
+    }
+
+    .s02-sheet::before {
+      left: 58px;
+      top: 116px;
+      width: 308px;
+    }
+
+    .s02-sheet::after {
+      left: 58px;
+      top: 154px;
+      width: 216px;
+    }
+
+    .s02-sheet-back {
+      left: 560px;
+      top: 310px;
+    }
+
+    .s02-sheet-middle {
+      left: 604px;
+      top: 350px;
+    }
+
+    .s02-sheet-top {
+      left: 660px;
+      top: 390px;
+      border-color: #1f3a5f;
+    }
+
+    .s02-sheet-register {
+      position: absolute;
+      right: 38px;
+      top: 34px;
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.025em;
+      color: #1f3a5f;
+    }
+
+    .s02-continuation-arrow {
+      position: absolute;
+      left: 2020px;
+      top: 309px;
+      display: block;
+      width: 720px;
+      height: 2px;
+      background: #14263e;
+    }
+
+    .s02-continuation-arrow::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -10px;
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+      border-top: 2px solid #14263e;
+      border-right: 2px solid #14263e;
+      transform: rotate(45deg);
+    }
+
+    .s02-relationship {
+      position: absolute;
+      left: 784px;
+      top: 846px;
+      display: inline-block;
+      width: 352px;
+      text-align: center;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.075em;
+      color: #1a1a1a;
+    }
+
+    .s02-bridge-half {
+      position: absolute;
+      display: block;
+      width: 735px;
+      height: 2px;
+      background: #14263e;
+    }
+
+    .s02-bridge-left {
+      left: 208px;
+      top: 728px;
+    }
+
+    .s02-bridge-right {
+      left: 977px;
+      top: 792px;
+    }
+
+    .s02-bridge-label {
+      position: absolute;
+      top: -50px;
+      display: inline-block;
+      min-width: 220px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.055em;
+      color: #14263e;
+    }
+
+    .s02-bridge-left .s02-bridge-label {
+      left: 0;
+      text-align: left;
+    }
+
+    .s02-bridge-right .s02-bridge-label {
+      right: 0;
+      text-align: right;
+    }
+
+    .s02-attention-guide {
+      position: absolute;
+      left: 610px;
+      top: 620px;
+      width: 300px;
+      height: 2px;
+      background: #9b3e2e;
+    }
+
+    .s02-attention-guide::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -7px;
+      width: 12px;
+      height: 12px;
+      box-sizing: border-box;
+      border-top: 2px solid #9b3e2e;
+      border-right: 2px solid #9b3e2e;
+      transform: rotate(45deg);
+    }
+
+    .s02-anchor {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="bc-rh-001-shot-02"
+    data-start="0"
+    data-duration="12.73"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div class="s02-scene">
+      <svg class="s02-grid" viewBox="0 0 1920 1080" aria-hidden="true">
+        <defs>
+          <pattern id="bc-rh-001-s02-paper-grid" width="96" height="96" patternUnits="userSpaceOnUse">
+            <path d="M96 0H0V96" fill="none" stroke="#14263E" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="1920" height="1080" fill="url(#bc-rh-001-s02-paper-grid)" />
+      </svg>
+
+      <div id="bc-rh-001-s02-sheet-back" class="s02-sheet s02-sheet-back" aria-hidden="true"></div>
+      <div id="bc-rh-001-s02-sheet-middle" class="s02-sheet s02-sheet-middle" aria-hidden="true"></div>
+      <div id="bc-rh-001-s02-sheet-top" class="s02-sheet s02-sheet-top">
+        <div class="s02-sheet-register">AST-DISPATCH-002</div>
+      </div>
+
+      <div id="bc-rh-001-s02-continuation-arrow" class="s02-continuation-arrow" aria-hidden="true"></div>
+      <div id="bc-rh-001-s02-attention-guide" class="s02-attention-guide" aria-hidden="true"></div>
+
+      <div id="bc-rh-001-s02-bridge-left" class="s02-bridge-half s02-bridge-left">
+        <span class="s02-bridge-label">ATTENTION</span>
+      </div>
+      <div id="bc-rh-001-s02-bridge-right" class="s02-bridge-half s02-bridge-right">
+        <span class="s02-bridge-label">ACTION</span>
+      </div>
+      <div id="bc-rh-001-s02-relationship" class="s02-relationship">RELATIONSHIP</div>
+
+      <i id="s02-tag-entry" class="s02-anchor" style="left: 760px; top: 420px" aria-hidden="true"></i>
+      <i
+        id="s02-tag-settle"
+        class="s02-anchor"
+        style="left: 610px; top: 620px"
+        data-facing="right"
+        aria-hidden="true"
+      ></i>
+      <i id="s02-card-anchor" class="s02-anchor" style="left: 1590px; top: 300px" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const s02Timeline = gsap.timeline({ paused: true });
+
+    s02Timeline.set("#bc-rh-001-s02-sheet-back", { y: -28 }, 0);
+    s02Timeline.set("#bc-rh-001-s02-sheet-middle", { y: -46 }, 0);
+    s02Timeline.set("#bc-rh-001-s02-sheet-top", { y: -64 }, 0);
+    s02Timeline.set("#bc-rh-001-s02-relationship", { opacity: 0, y: 8 }, 0);
+    s02Timeline.set("#bc-rh-001-s02-bridge-left", { x: 17, y: 32 }, 0);
+    s02Timeline.set("#bc-rh-001-s02-bridge-right", { x: -17, y: -32 }, 0);
+
+    s02Timeline.to(
+      ["#bc-rh-001-s02-sheet-back", "#bc-rh-001-s02-sheet-middle", "#bc-rh-001-s02-sheet-top"],
+      { y: 0, duration: 0.39, stagger: 0.08, ease: "power2.out" },
+      2.22,
+    );
+
+    s02Timeline.set("#bc-rh-001-s02-continuation-arrow", { x: -900 }, 4.44);
+    s02Timeline.to(
+      "#bc-rh-001-s02-continuation-arrow",
+      { x: 0, duration: 2.56, ease: "none" },
+      4.44,
+    );
+
+    s02Timeline.to(
+      "#bc-rh-001-s02-relationship",
+      { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" },
+      7.4,
+    );
+
+    s02Timeline.to(
+      ["#bc-rh-001-s02-bridge-left", "#bc-rh-001-s02-bridge-right"],
+      { x: 0, y: 0, duration: 0.6, ease: "power2.inOut" },
+      10.05,
+    );
+
+    window.__timelines["bc-rh-001-shot-02"] = s02Timeline;
+  </script>
+</template>

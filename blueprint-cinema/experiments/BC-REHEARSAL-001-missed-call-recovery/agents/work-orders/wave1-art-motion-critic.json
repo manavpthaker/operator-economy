@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave1-art-motion-critic",
+  "role": "independent art, typography, composition, and motion-direction critic",
+  "required_gate": "direction_draft_validated",
+  "input_hashes": [
+    {"path": "input-lock.json", "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"},
+    {"path": "direction/DIRECTION-BIBLE.md", "sha256": "b0053bb949b929a2cdd4f2a09e3aeecb70fe1b76295b8ebb3d211f6b4db16d41"},
+    {"path": "direction/RHYTHM-MAP.md", "sha256": "f31749a462afd6c4f878ee728ebb95448716a7b1f0fe94497a237e36567e1482"},
+    {"path": "direction/SEQUENCE-TREATMENT.md", "sha256": "4cb885b03a082af82d9f61ca58c7d6375af7c639cb678bb87c4fe6808231fb7a"},
+    {"path": "direction/SEQUENCE-SHOT-DIRECTION.md", "sha256": "b11739a7713e2756c25790f271684be499ba6ed7787ffb48d4552b007d4d161e"},
+    {"path": "hyperframes/style-frames/01-reality.png", "sha256": "7ea494f161c54b165a4f20060f0f1039c95145f336af9c143ac3dfb73a458b23"},
+    {"path": "hyperframes/style-frames/02-system-proof.png", "sha256": "cc9ca7d1812f1f992c8bcda619fa9246800b04193ee3df3039ed84fd3174ae43"},
+    {"path": "hyperframes/style-frames/03-gate-outcome.png", "sha256": "9badc4382811e7dbc26865fd00060a0c5ae79d9d8aeb4f932348558c3a96cf8d"},
+    {"path": "hyperframes/shot-board/static-shot-board.png", "sha256": "f10b80ece83d4ab91207899f1058ab193908da43131432195299aab358d434f0"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave1-art-motion-critic/review.md",
+    "agents/deliverables/wave1-art-motion-critic/deliverable.json"
+  ],
+  "forbidden_paths": [
+    "direction/",
+    "hyperframes/index.html",
+    "hyperframes/compositions/",
+    "handoff/",
+    "review/",
+    "experiment.json",
+    "input-lock.json",
+    "../episodes/",
+    "../../renderer/",
+    "../../schemas/",
+    "../../src/"
+  ],
+  "dependencies": ["direction_draft_validated"],
+  "acceptance_checks": [
+    "recompute every pinned input hash before review",
+    "inspect all three style-frame PNGs and the complete static shot board visually",
+    "test one-primary-focus discipline, typography hierarchy, phone-size legibility, screen direction, cut logic, and the single designed handoff",
+    "identify any frame that reads as a slide, dashboard, Prezi map, or beginner motion graphic",
+    "return ranked blocking, major, and minor findings with exact shot references",
+    "state explicitly that no gate approval or state change is claimed"
+  ],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "any pinned hash differs",
+    "any required input is missing",
+    "the owned deliverable path is not empty before work",
+    "the critique would require editing canonical direction"
+  ]
+}

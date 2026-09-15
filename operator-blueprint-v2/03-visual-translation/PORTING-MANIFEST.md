@@ -1,6 +1,6 @@
 # Step 3 Reference Porting Manifest
 
-Status: frozen v0.2 source hashes for the Step 3 Boundary Ledger derivation correction.
+Status: frozen v0.3 source hashes for the Step 3 Boundary Ledger derivation correction.
 
 No V1 or Blueprint Cinema source was moved or edited for this pass. Every source below remains in place and is **referenced rather than copied**. SHA-256 values freeze the exact versions reviewed while designing Step 3.
 
@@ -54,7 +54,7 @@ a local editable vocabulary.
 | `blueprint-cinema/schemas/scene-directions.schema.json` | `de455d2a30fcbf6553eb3c5efc1da17f1bf718dced62afc19e6279344893da44` | Reference-only. Step 4. |
 | `.../EP006-direct-booking-recovery/episode-engine.json` | `73b22204a8a19a9a71d420d6aef69218f717cdab804486175f2929922d4af543` | **Worked example.** Approved 2026-08-20 against a real episode. |
 | `.../EP006-direct-booking-recovery/world.json` | `512c8e4ac1b2648ca9d338a8a25ab2e943fc0890d71250a0c975972c2827823e` | **Worked example.** 25 objects, 29 edges, 5 claims, 9 parameters, 5 evidence anchors, 3 cameras, 4 failure routes. |
-| `.../EP006-direct-booking-recovery/visual-plan.json` | `1ea1182ec9240d29914666b5b6f8eafc56bd827fd1401f5118c89f4226397407` | **Legacy worked example.** Its 162 timed units prove timeline/world shape; its local `motion_verb` field is superseded by the v0.2 derived business-operation and Boundary Ledger selection contract. |
+| `.../EP006-direct-booking-recovery/visual-plan.json` | `1ea1182ec9240d29914666b5b6f8eafc56bd827fd1401f5118c89f4226397407` | **Legacy worked example.** Its 162 timed units prove timeline/world shape; its local `motion_verb` field is superseded by the v0.3 derived business-operation and Boundary Ledger selection contract. |
 
 ## What is ported conceptually
 

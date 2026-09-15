@@ -1,0 +1,71 @@
+{
+  "work_order": "EP007 presenter restored look R12 Test K",
+  "role": "independent technical media QA",
+  "status": "complete_measurements_and_sample_frames_owner_playback_pending",
+  "provider_video_id": "9df0780d22404153a8cc28fb1e719692",
+  "owned_directory": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r12/test-k-restored-study-avatar-iii-1080p.mp4",
+      "sha256": "d674ec22ac9da9706fce8589498f4c42ffd493630a6841fb5b256cdede1523f6",
+      "bytes": 3411149,
+      "hash_verified": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/study-look-candidate-03.webp",
+      "sha256": "59309d2925b85cfba8a6a411dce1ecea67a03607f8a05933f4a2f6cb6af27754",
+      "hash_verified": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r2/scope-two-sentences.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "hash_verified": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r6/test-f-original-footage-avatar-iii-1080p.mp4",
+      "sha256": "d5c590fb00f9d5fda21af2d175048b94de64fb96413aa87ef215148d89727bcb",
+      "hash_verified": true
+    }
+  ],
+  "files_created": [
+    ".gitignore",
+    "qa_presenter.py",
+    "deliverable.json",
+    "runs/test-k/face-contact-sheet.jpg",
+    "runs/test-k/technical-review.json"
+  ],
+  "outputs": {
+    "technical_review": {
+      "path": "runs/test-k/technical-review.json",
+      "sha256": "771258ae9c8f3f0cb53822e3b01f9b96415102829d017f8a22354580b9cb4250"
+    },
+    "contact_sheet": {
+      "path": "runs/test-k/face-contact-sheet.jpg",
+      "sha256": "764a6c4a5032e82e3a5f91b8b30c396f3ce4e97a18813b7606b4a3e9cc616f3a"
+    }
+  },
+  "checks_run": [
+    "All four input SHA256 values verified",
+    "Bundled Python runtime used; NumPy FFT substituted because bundled SciPy is absent; no installation",
+    "FFprobe counted 139 frames at 25fps, 1920x1080, H264 Main; picture 5.560s and stereo48k AAC-LC 5.591s",
+    "Full FFmpeg decode with xerror completed exit0",
+    "New lag measurement found 1105 samples / 23.020833ms independently of prior F metrics",
+    "Whole available overlap Pearson0.999428276; sentences0.999175829 and0.999795263 both at1105 samples",
+    "Sentence lag difference0 samples within this short excerpt",
+    "Video-local3.2-3.6s RMS-64.96dBFS, peak-51.24dBFS; adjacent never word RMS-15.89dBFS",
+    "Final word business has complete aligned audio coverage; expected end5.373021s leaves0.186979s picture margin",
+    "Eight requested review frames decoded by exact frame index and recorded timestamp"
+  ],
+  "sample_visual_observation": "Contact sheet shows restored study appearance. At3.2s and3.4s the mouth is closed or narrow;3.6s shows slight tongue/lip movement without the prior wide opening. Sampled stills do not establish the full moving performance.",
+  "unresolved_questions": [
+    "Owner must judge full-speed delivery, restrained expression, lip synchronization and visual likeness",
+    "Different face framing makes raw mouth-pixel size misleading; use relative opening and delivery when comparing F",
+    "Short-window lag agreement cannot establish long-form drift behavior"
+  ],
+  "external_calls_made": false,
+  "source_rgb_edited": false,
+  "generated_media_created_by_worker": "Diagnostic contact sheet only; no synthesized picture or voice",
+  "experiment_or_canonical_files_changed": [],
+  "production_approval": false,
+  "gate_changes": []
+}

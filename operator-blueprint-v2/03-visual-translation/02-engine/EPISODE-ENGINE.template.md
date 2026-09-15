@@ -2,7 +2,7 @@
 
 Gate: **V2 — episode engine approved**
 
-Template version: proposed Step 3 v0.2
+Template version: proposed Step 3 v0.3
 
 Episode: EP###
 
@@ -95,6 +95,48 @@ What this engine must never be made to depict:
 
 Label: `AUTHORED`
 
+## Establishment (`AUTHORED`) — separate from business operations
+
+`establish` changes what the viewer can identify. It does not change the business. Recording it as a
+derived business operation would need a `state_before` no upstream artifact contains, so it lives in
+its own array and `business_operations` stay `DERIVED` only.
+
+```json
+"establishment": [{
+  "id": "EST-001",
+  "label": "AUTHORED",
+  "viewer_state_before": "What the viewer cannot yet identify.",
+  "viewer_state_after": "What the viewer can identify once this lands.",
+  "reveals": ["object-id"],
+  "source_artifact": "../01-editorial/operator-canvas.md",
+  "source_sha256": "…",
+  "source_locator": "2. Buyer and beneficiary",
+  "source_quote": "verbatim line naming the actors and their relationship",
+  "boundary_ledger_semantic_role_id": "humanContext",
+  "boundary_ledger_operation_id": "establish",
+  "selection_label": "SELECTED",
+  "mapping_rationale": "Why establish is the operation, and why only viewer knowledge is authored."
+}]
+```
+
+Fails the gate: `state_before` / `state_after` / `business_operation` on an establishment row;
+`acts_on` instead of `reveals`; a missing verbatim quote; an `AUTHORED` row inside
+`business_operations`.
+
+## Derived-field provenance for a Markdown Canvas
+
+A JSON Canvas is compared field-for-field. A Markdown Canvas cannot be, so each derived field cites
+its own section and quote on the same terms as an operation:
+
+```json
+"derived_provenance": {
+  "constraint": {"source_artifact": "…", "source_sha256": "…",
+                 "source_locator": "3. Costly problem", "source_quote": "verbatim line"}
+}
+```
+
+Without this the derived-field check cannot run at all, and the gate's headline condition passes
+silently unexamined.
 ## Gate V2 decision
 
 - All derived fields match the locked Canvas: yes / no
@@ -110,3 +152,5 @@ Label: `AUTHORED`
 Result: pass / fail / return to Step 1 as a bounded change request
 
 Approved by: [name] on YYYY-MM-DD
+
+

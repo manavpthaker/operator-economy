@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, initial-scale=1">
+  <title>EP009 mobile storyboard</title>
+  <style>
+    @font-face { font-family: "BL Boska"; src: url("../assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "BL Zodiak"; src: url("../assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "BL Supreme"; src: url("../assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "BL Supreme"; src: url("../assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+    :root {
+      --paper: #F5F0E6;
+      --paper-raised: #FBF8F1;
+      --paper-inset: #EDE7D8;
+      --mineral: #204440;
+      --mineral-deep: #173530;
+      --steel: #586D74;
+      --steel-dark: #33464C;
+      --ink: #19201F;
+      --ink-soft: #303B39;
+      --ink-muted: #566461;
+      --rule: #D8CFB9;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: var(--paper); color: var(--ink); }
+    body { font-family: "BL Supreme", Arial, sans-serif; }
+    main { height: 100%; padding: 70px 72px 52px; display: grid; grid-template-rows: 205px 1fr 52px; gap: 28px; }
+    header { border-bottom: 3px solid var(--mineral); display: grid; grid-template-columns: 1fr auto; align-content: start; gap: 8px 32px; }
+    .eyebrow { font: 500 23px/1.15 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.1em; color: var(--steel-dark); text-transform: uppercase; }
+    h1 { grid-column: 1 / -1; margin: 5px 0 0; font: 700 74px/0.94 "BL Boska", Georgia, serif; color: var(--mineral-deep); letter-spacing: -0.025em; }
+    .deck { grid-column: 1 / -1; margin: 7px 0 0; font-size: 28px; line-height: 1.25; color: var(--ink-soft); max-width: 900px; }
+    .cards { display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 30px; min-width: 0; min-height: 0; }
+    article { position: relative; min-width: 0; background: var(--paper-raised); border: 2px solid var(--rule); padding: 34px 42px 34px 52px; overflow: hidden; }
+    article::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 11px; background: var(--role-color); }
+    article.human { --role-color: var(--paper-inset); }
+    article.external { --role-color: var(--steel); }
+    article.evidence { --role-color: var(--mineral); }
+    .meta { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 24px; font: 500 24px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--steel-dark); }
+    .role { min-width: 0; text-align: right; overflow-wrap: anywhere; text-transform: uppercase; letter-spacing: 0.07em; font-size: 20px; }
+    h2 { margin: 19px 0 17px; font: 700 51px/1.02 "BL Zodiak", Georgia, serif; color: var(--mineral-deep); letter-spacing: -0.018em; }
+    .visual { margin: 0 0 18px; font-size: 31px; line-height: 1.28; color: var(--ink); }
+    .action { margin: 0 0 18px; padding: 14px 18px; background: var(--paper-inset); border-left: 5px solid var(--steel); font-size: 27px; line-height: 1.28; color: var(--ink-soft); }
+    .label { font: 500 18px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-muted); }
+    blockquote { margin: 8px 0 17px; font-size: 25px; line-height: 1.3; color: var(--ink-soft); }
+    .visual, .action, blockquote, .guardrail { overflow-wrap: break-word; }
+    .guardrail { margin: 0; font-size: 23px; line-height: 1.28; color: var(--ink-muted); }
+    footer { display: flex; align-items: end; justify-content: space-between; border-top: 2px solid var(--rule); padding-top: 12px; font: 500 19px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.08em; color: var(--ink-muted); text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">EP009 · narration-first opening</div>
+      <div class="eyebrow" id="page-label"></div>
+      <h1>The second commission</h1>
+      <p class="deck">Eight causal shots. One guest identity survives the platform route and the return.</p>
+    </header>
+    <section class="cards" id="cards"></section>
+    <footer><span>Pre-authority shot-plan preview</span><span>No frame art or animation yet</span></footer>
+  </main>
+  <script>
+    const shots = [
+      {
+        n: "01", time: "00:00.000–00:10.440", role: "human context · establish", cls: "human",
+        title: "Close the reservation, preserve the person",
+        visual: "A physical folio, one innkeeper, and one anonymous guest contour hold in a quiet front-desk reality.",
+        action: "The innkeeper closes the folio once. Stop when the human recognition is clear.",
+        narration: "An innkeeper with twenty rooms is closing out a reservation. Good guest. Three nights, tipped housekeeping, asked about the trail behind the property. The kind of person she'd like to see again.",
+        guardrail: "No keyword montage, guest name, email, demographic, room-icon grid, or luxury-resort spectacle."
+      },
+      {
+        n: "02", time: "00:10.440–00:22.130", role: "external dependency · trace", cls: "external",
+        title: "Trace the contact field",
+        visual: "The same folio reframes to a masked contact field. An unfinished thank-you note meets a steel platform boundary.",
+        action: "Trace the existing relay relationship while the note remains visibly unsent.",
+        narration: "So she goes to send a thank you note. And the email on the reservation isn't his. It's a string of letters and numbers ending in guest dot booking dot com. A relay.",
+        guardrail: "No personal email, invented alias, platform logo, successful send, consent, or property-held record."
+      },
+      {
+        n: "03", time: "00:22.130–00:26.920", role: "external dependency · trace", cls: "external",
+        title: "Reveal the relay's bounded reach",
+        visual: "The same relay line reaches a visible policy boundary after checkout while the reservation stays attached.",
+        action: "Let the trace stop and settle. The object remains intact; only its communicative reach ends.",
+        narration: "A week or so after checkout, the relay stops working.",
+        guardrail: "No exact day count, universal policy, platform motive, warning red, shattered alias, or owned contact."
+      },
+      {
+        n: "04", time: "00:26.920–00:31.760", role: "external dependency · route", cls: "external",
+        title: "Return the same guest through the same route",
+        visual: "The identical guest contour and room marker move once through the established steel platform path.",
+        action: "Advance to the later event, route the booking to the property, and stop. The guest chooses independently.",
+        narration: "A year later the same guest books the same room, through the same website.",
+        guardrail: "No second guest icon, operator intervention, direct booking, platform trap, date, or copied visit ledger."
+      },
+      {
+        n: "05", time: "00:31.760–00:39.170", role: "external dependency · route", cls: "external",
+        title: "Accumulate the second commission",
+        visual: "A second neutral commission marker travels property-to-platform and rests beside the first at equal scale.",
+        action: "Move only the second commission. Then return focus to the one recognizable guest contour.",
+        narration: "And she pays the site the same commission she paid the first time. For a guest she already knows by name.",
+        guardrail: "No rate, dollars, savings, theft metaphor, guest name, direct route, risk color, or recovery."
+      },
+      {
+        n: "06", time: "00:39.170–00:49.980", role: "human context · establish", cls: "human",
+        title: "Open the arithmetic without solving it",
+        visual: "The commission pair widens into one blank economic record and one visibly unfilled operator position.",
+        action: "Establish the decision space. Keep the guest, property, and valid platform route in the frame.",
+        narration: "There's a service a small inn would pay for hiding inside that second commission. And there's one piece of arithmetic that decides whether it's worth your time to sell it.",
+        guardrail: "No formula, price, retainer, savings, ROI, named operator, recommendation, sale, or direct path."
+      },
+      {
+        n: "07", time: "00:49.980–00:54.880", role: "accountable evidence · pin", cls: "evidence",
+        title: "Pin the bounded absence finding",
+        visual: "One mineral evidence record docks beside the blank arithmetic and keeps its limitation attached.",
+        action: "Pin: “No verified operator found for this exact bundle at disclosed economics.” Keep: “Does not prove nobody offers it.”",
+        narration: "I couldn't find anyone selling it who'd done that arithmetic.",
+        guardrail: "No competitor grid, open-market claim, proof of demand, browser facsimile, or copied 60%+ card."
+      },
+      {
+        n: "08", time: "00:54.880–00:59.420", role: "human context · settle", cls: "human",
+        title: "Hold both questions open",
+        visual: "The second commission, blank arithmetic, valid platform route, evidence qualifier, and empty operator position coexist.",
+        action: "Shift focus from the cost question to the unfilled accountable position, then freeze without filling it.",
+        narration: "So what did that second stay actually cost her, and who gets paid to stop it?",
+        guardrail: "No calculated answer, paid operator, offer, direct booking, consent, savings, recovered guest, CTA, or success."
+      }
+    ];
+    const requested = Number(new URLSearchParams(location.search).get("page") || "1");
+    const page = Math.max(1, Math.min(4, requested));
+    document.getElementById("page-label").textContent = `shots ${(page - 1) * 2 + 1}–${page * 2} · ${page}/4`;
+    const host = document.getElementById("cards");
+    for (const shot of shots.slice((page - 1) * 2, page * 2)) {
+      const card = document.createElement("article");
+      card.className = shot.cls;
+      card.innerHTML = `<div class="meta"><span>SHOT ${shot.n} · ${shot.time}</span><span class="role">${shot.role}</span></div><h2>${shot.title}</h2><p class="visual">${shot.visual}</p><p class="action"><span class="label">Accountable change</span><br>${shot.action}</p><div class="label">Locked narration</div><blockquote>${shot.narration}</blockquote><p class="guardrail"><span class="label">Do not show</span> · ${shot.guardrail}</p>`;
+      host.appendChild(card);
+    }
+  </script>
+</body>
+</html>

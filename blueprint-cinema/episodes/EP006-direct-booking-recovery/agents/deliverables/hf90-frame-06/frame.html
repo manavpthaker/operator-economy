@@ -1,0 +1,409 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 600;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #1A1A1A;
+    }
+
+    #root [id="06-episode-title-ground"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      background-color: #F5F0E6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 1.5px, transparent 1.5px);
+      background-size: 2cqw 2cqw;
+    }
+
+    #root [data-hf-role="06-episode-title-hairline"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      z-index: 12;
+    }
+
+    #root [data-hf-position="06-episode-title-top"] {
+      top: 5.2cqh;
+    }
+
+    #root [data-hf-position="06-episode-title-bottom"] {
+      top: 81.4cqh;
+    }
+
+    #root [id="06-episode-title-glitch"] {
+      position: absolute;
+      top: 8.2cqh;
+      right: 4cqw;
+      width: 14cqw;
+      height: 61cqh;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    #root [data-hf-role="06-episode-title-glitch-step"] {
+      position: absolute;
+      right: 0;
+      background-color: #F5F0E6;
+      background-image: repeating-linear-gradient(90deg, #1A1A1A 0 2px, transparent 2px 8px);
+    }
+
+    #root [data-hf-step="06-episode-title-1"] {
+      top: 0;
+      width: 8.2cqw;
+      height: 11.6cqh;
+    }
+
+    #root [data-hf-step="06-episode-title-2"] {
+      top: 11.6cqh;
+      width: 11.8cqw;
+      height: 14.2cqh;
+    }
+
+    #root [data-hf-step="06-episode-title-3"] {
+      top: 25.8cqh;
+      width: 14cqw;
+      height: 18.4cqh;
+    }
+
+    #root [data-hf-step="06-episode-title-4"] {
+      top: 44.2cqh;
+      width: 10.1cqw;
+      height: 10.4cqh;
+    }
+
+    #root [data-hf-step="06-episode-title-5"] {
+      top: 54.6cqh;
+      width: 6.6cqw;
+      height: 6.4cqh;
+    }
+
+    #root [id="06-episode-title-qr"] {
+      position: absolute;
+      top: 8.2cqh;
+      right: 5.1cqw;
+      width: 5.7cqw;
+      height: 5.7cqw;
+      padding: 0.42cqw;
+      background: #F5F0E6;
+      outline: 0.12cqw solid #F5F0E6;
+      z-index: 4;
+    }
+
+    #root [id="06-episode-title-qr"] svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      shape-rendering: crispEdges;
+    }
+
+    #root [id="06-episode-title-episode"] {
+      position: absolute;
+      top: 16.2cqh;
+      left: 50%;
+      width: 26cqw;
+      margin-left: -13cqw;
+      text-align: center;
+      font-family: "Supreme";
+      font-size: 1.15cqw;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      text-transform: uppercase;
+      z-index: 8;
+    }
+
+    #root [id="06-episode-title-title-main"] {
+      position: absolute;
+      top: 28.4cqh;
+      left: 50%;
+      width: 78cqw;
+      height: 34cqh;
+      margin-left: -39cqw;
+      text-align: center;
+      z-index: 7;
+    }
+
+    #root [data-hf-role="06-episode-title-line-mask"] {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #root [data-hf-role="06-episode-title-title-line"] {
+      display: block;
+      width: 100%;
+      font-family: "Boska";
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.008em;
+      text-transform: uppercase;
+      transform-origin: center center;
+    }
+
+    #root [id="06-episode-title-direct"] {
+      font-size: 6.8cqw;
+    }
+
+    #root [id="06-episode-title-recovery-mask"] {
+      margin-top: 1.2cqh;
+    }
+
+    #root [id="06-episode-title-recovery"] {
+      font-size: 9.4cqw;
+    }
+
+    #root [id="06-episode-title-thesis-card"] {
+      position: absolute;
+      top: 31.4cqh;
+      left: 50%;
+      width: 80cqw;
+      min-width: 80cqw;
+      margin-left: -40cqw;
+      z-index: 9;
+    }
+
+    #root [data-hf-role="06-episode-title-thesis-line"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80cqw;
+      min-width: 80cqw;
+      min-height: 9.6cqh;
+      padding: 1.6cqh 2cqw;
+      box-sizing: border-box;
+      border-top: 0.12cqw solid #1A1A1A;
+      font-family: "Supreme";
+      font-size: 2.2cqw;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 1.15;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    #root [id="06-episode-title-thesis-line-2"] {
+      border-bottom: 0.12cqw solid #1A1A1A;
+      color: #B08D3E;
+    }
+
+    #root [id="06-episode-title-key"] {
+      position: absolute;
+      left: 50%;
+      top: 69.8cqh;
+      width: 12.6cqw;
+      height: 8.8cqh;
+      margin-left: -6.3cqw;
+      transform-origin: center bottom;
+      z-index: 10;
+    }
+
+    #root [id="06-episode-title-key"] svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    #root [data-hf-role="06-episode-title-key-stroke"] {
+      fill: none;
+      stroke: #B08D3E;
+      stroke-width: 9;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      vector-effect: non-scaling-stroke;
+    }
+
+    #root [data-hf-role="06-episode-title-chrome"] {
+      position: absolute;
+      top: 77.8cqh;
+      font-family: "Supreme";
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+      z-index: 12;
+    }
+
+    #root [data-hf-position="06-episode-title-chrome-left"] {
+      left: 4cqw;
+    }
+
+    #root [data-hf-position="06-episode-title-chrome-right"] {
+      right: 4cqw;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="06-episode-title"
+    data-start="0"
+    data-duration="7.532"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div
+      id="06-episode-title-ground"
+      class="clip"
+      data-start="0"
+      data-duration="7.532"
+      data-track-index="0"
+    >
+      <div data-hf-role="06-episode-title-hairline" data-hf-position="06-episode-title-top"></div>
+      <div data-hf-role="06-episode-title-hairline" data-hf-position="06-episode-title-bottom"></div>
+
+      <div id="06-episode-title-glitch" aria-hidden="true">
+        <div data-hf-role="06-episode-title-glitch-step" data-hf-step="06-episode-title-1"></div>
+        <div data-hf-role="06-episode-title-glitch-step" data-hf-step="06-episode-title-2"></div>
+        <div data-hf-role="06-episode-title-glitch-step" data-hf-step="06-episode-title-3"></div>
+        <div data-hf-role="06-episode-title-glitch-step" data-hf-step="06-episode-title-4"></div>
+        <div data-hf-role="06-episode-title-glitch-step" data-hf-step="06-episode-title-5"></div>
+      </div>
+
+      <div id="06-episode-title-qr" aria-hidden="true">
+        <svg viewBox="0 0 8 8" role="presentation">
+          <path fill="#1A1A1A" d="M0 0h3v1H1v1h2v1H0zM5 0h3v3H5V2h2V1H5zM0 5h3v3H0zm1 1v1h1V6zM4 4h1v1H4zM6 4h2v1H6zM3 5h1v2H3zM5 5h1v1H5zM7 6h1v2H6V7h1zM4 7h1v1H4z" />
+        </svg>
+      </div>
+
+      <div id="06-episode-title-episode">EP006</div>
+
+      <div id="06-episode-title-title-main">
+        <span data-hf-role="06-episode-title-line-mask">
+          <span id="06-episode-title-direct" data-hf-role="06-episode-title-title-line">Direct Booking</span>
+        </span>
+        <span id="06-episode-title-recovery-mask" data-hf-role="06-episode-title-line-mask">
+          <span id="06-episode-title-recovery" data-hf-role="06-episode-title-title-line">Recovery</span>
+        </span>
+      </div>
+
+      <div id="06-episode-title-thesis-card" aria-label="First booking acquisition; next appropriate booking direct">
+        <div id="06-episode-title-thesis-line-1" data-hf-role="06-episode-title-thesis-line"></div>
+        <div id="06-episode-title-thesis-line-2" data-hf-role="06-episode-title-thesis-line"></div>
+      </div>
+
+      <div id="06-episode-title-key" aria-hidden="true">
+        <svg viewBox="0 0 240 90" role="presentation">
+          <path data-hf-role="06-episode-title-key-stroke" d="M8 18h52v52H8zM22 32h24v24H22zM60 44h153M174 44v18h19V44M204 44v12h20" />
+        </svg>
+      </div>
+
+      <div data-hf-role="06-episode-title-chrome" data-hf-position="06-episode-title-chrome-left">EP006</div>
+      <div data-hf-role="06-episode-title-chrome" data-hf-position="06-episode-title-chrome-right">06</div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const episode = document.getElementById("06-episode-title-episode");
+      const titleMain = document.getElementById("06-episode-title-title-main");
+      const direct = document.getElementById("06-episode-title-direct");
+      const recovery = document.getElementById("06-episode-title-recovery");
+      const key = document.getElementById("06-episode-title-key");
+      const thesisCard = document.getElementById("06-episode-title-thesis-card");
+      const thesisLine1 = document.getElementById("06-episode-title-thesis-line-1");
+      const thesisLine2 = document.getElementById("06-episode-title-thesis-line-2");
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set(thesisCard, { autoAlpha: 0 }, 0);
+      tl.fromTo(
+        episode,
+        { opacity: 0, y: -16 },
+        { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" },
+        0.08,
+      );
+      tl.fromTo(
+        direct,
+        { opacity: 0, yPercent: 105 },
+        { opacity: 1, yPercent: 0, duration: 0.72, ease: "power3.out" },
+        0.48,
+      );
+      tl.fromTo(
+        recovery,
+        { opacity: 0, yPercent: 105 },
+        { opacity: 1, yPercent: 0, duration: 0.78, ease: "power3.out" },
+        1.28,
+      );
+
+      tl.fromTo(
+        key,
+        { opacity: 0, y: -22, rotation: -2, scale: 0.96 },
+        { opacity: 1, y: 0, rotation: 0, scale: 1, duration: 0.58, ease: "power2.out" },
+        2.72,
+      );
+
+      tl.set(titleMain, { autoAlpha: 0 }, 5.2);
+      tl.set(thesisCard, { autoAlpha: 1 }, 5.2);
+
+      const thesisSequence = [
+        { t: 0, first: "", second: "" },
+        { t: 0.14, first: "FIRST BOOKING: ACQUISITION", second: "" },
+        {
+          t: 1.02,
+          first: "FIRST BOOKING: ACQUISITION",
+          second: "NEXT APPROPRIATE BOOKING: DIRECT",
+        },
+      ];
+
+      const thesisStateAt = (time) => {
+        for (let index = thesisSequence.length - 1; index >= 0; index -= 1) {
+          if (time >= thesisSequence[index].t) return thesisSequence[index];
+        }
+        return thesisSequence[0];
+      };
+
+      const thesisDriver = { t: 0 };
+      tl.to(
+        thesisDriver,
+        {
+          t: 2.332,
+          duration: 2.332,
+          ease: "none",
+          onUpdate: () => {
+            const state = thesisStateAt(thesisDriver.t);
+            thesisLine1.textContent = state.first;
+            thesisLine2.textContent = state.second;
+          },
+        },
+        5.2,
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["06-episode-title"] = tl;
+    })();
+  </script>
+</template>

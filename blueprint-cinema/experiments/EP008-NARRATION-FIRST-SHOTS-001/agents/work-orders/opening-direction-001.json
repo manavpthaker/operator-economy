@@ -1,0 +1,93 @@
+{
+  "work_order_id": "opening-direction-001",
+  "status": "closed",
+  "result": {
+    "path": "blueprint-cinema/experiments/EP008-NARRATION-FIRST-SHOTS-001/agents/deliverables/opening-direction-001/opening-shot-proposal.md",
+    "sha256": "b90e917ce56cb6c8043513776b0502896de49a19ccb99e64278bdea87223c60a",
+    "input_hashes_matched": true
+  },
+  "scope": "Pre-authority narration-first opening-shot study for EP008. This is an isolated experiment, not a V4 artifact, Step 4 gate pass, production-state work order, asset authorization, or production select.",
+  "objective": "Author a precise shot-direction proposal for the locked 0.000-48.520 second EP008 cold open, derived from exact narration timing before footage selection. Use the original video only as a named treatment reference under an explicit non-imitation ruling.",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/02-narration-production/master/narration-master.wav",
+      "sha256": "f3d749314141dc2ff158fa2860203cb3431aa6d052230dad9e89112d86ad571e"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/02-narration-production/word-transcript.json",
+      "sha256": "ad6d372e41d1a24ea0f8a93d64a66051c67426accfcb5a56774eec2b422c04ee"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/02-narration-production/intentional-pause-map.json",
+      "sha256": "9e6bc05de75956f7c437aa7cb4ff02bb21b109a75e9d22c288dd785cbdd6120c"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/03-visual-translation/engine.json",
+      "sha256": "314c1a0d185e67c56cbbd6bbdef16f6cafd9fdcb9406df410ad0ab2ed9fef7c0",
+      "standing": "ungated candidate only"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/03-visual-translation/world.json",
+      "sha256": "302af15ca1459af98b0fab386571168f2c1c127c95c92dd4487b9cb2741e545c",
+      "standing": "ungated candidate only"
+    },
+    {
+      "path": "studio/originate/ai-implementation-consulting/ep001-final.mp4",
+      "sha256": "9a2ced63cef3b46e7afb133eacde2f3b84ecd4eda9e9b2b2c5a8918f56474fad",
+      "standing": "treatment reference only; no composition, fact, timing, scene assignment, or approval carries forward"
+    },
+    {
+      "path": "design-system/boundary-ledger/semantic-core.json",
+      "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+    },
+    {
+      "path": "design-system/boundary-ledger/bindings/color.json",
+      "sha256": "6b3e4727c3592b02fe23c34d2a865a85c47865c438d48526d1762b93e9a669c3"
+    },
+    {
+      "path": "design-system/boundary-ledger/bindings/motion.json",
+      "sha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+      "standing": "provisional expression binding"
+    },
+    {
+      "path": "blueprint-cinema/references/SHOT-GRAMMAR.md",
+      "sha256": "7e4ab99bdad7fa58955ea22853820e0a8e5b0e07f9464fac4d1e9c76295be8ac"
+    },
+    {
+      "path": "blueprint-cinema/references/SCENE-DIRECTION-CONTRACT.md",
+      "sha256": "96f071b2d468e3775aff83de71dccafd6e1b660b2191dc48042c04d37eea097e"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/experiments/EP008-NARRATION-FIRST-SHOTS-001/agents/deliverables/opening-direction-001/opening-shot-proposal.md"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    "blueprint-cinema/episodes/",
+    "blueprint-cinema/src/",
+    "blueprint-cinema/schemas/"
+  ],
+  "acceptance_checks": [
+    "Recompute every input hash before authoring and stop on drift",
+    "Cover exactly 0.000-48.520 seconds and W000000-W000159 without changing or paraphrasing narration",
+    "Define one dramatic question and one visual sentence for the opening",
+    "For every shot name exact in and out times, word IDs, verb, job, foreground midground background, persistent objects, transition, and excluded coverage",
+    "Use only Boundary Ledger semantic roles and operations; distinguish canonical color from provisional motion expression",
+    "Treat the engine and world as hypotheses only and flag any direction that depends on an open semantic blocker",
+    "State what is learned from the original video and what distinctive composition, copy, claims, scene assignments, and identity are not copied",
+    "Prefer human reality, one accountable action, and causal state change over topical illustration or sentence cards",
+    "Return no approval and do not create media, renderer code, canonical artifacts, or production state"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Stop if any declared input hash is stale",
+    "Stop if the opening requires a fact, object, or state transition absent from the locked narration or candidate world",
+    "Stop before selecting footage, generating imagery, or claiming any gate pass"
+  ]
+}

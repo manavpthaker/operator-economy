@@ -1,0 +1,16 @@
+{
+  "duration": 7.14,
+  "maxStaticSec": 2.0,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#ep008-agent", "bySec": 0.1 },
+    { "kind": "appearsBy", "selector": "#ep008-ticket", "bySec": 0.1 },
+    { "kind": "appearsBy", "selector": "#ep008-route-label", "bySec": 3.1 },
+    { "kind": "appearsBy", "selector": "#ep008-vacancy", "bySec": 4.9 },
+    { "kind": "appearsBy", "selector": "#ep008-coverage", "bySec": 6.6 },
+    { "kind": "before", "a": "#ep008-route-label", "b": "#ep008-vacancy" },
+    { "kind": "before", "a": "#ep008-vacancy", "b": "#ep008-coverage" },
+    { "kind": "staysInFrame", "selector": "#ep008-ticket" },
+    { "kind": "staysInFrame", "selector": "#ep008-agent" },
+    { "kind": "staysInFrame", "selector": "#ep008-queue" }
+  ]
+}

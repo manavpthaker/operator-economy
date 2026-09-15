@@ -1,0 +1,69 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r29-seller-cutaway-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r28-spatial-bridge/public/media/establishing.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r28-spatial-bridge/public/media/shot-c.mp4",
+      "sha256": "8293c4bcc201259cb4624c94673690c1ec1d34a0bcdfa63464eae0a91feda60e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r28-spatial-bridge/public/media/shot-d.mp4",
+      "sha256": "c09986f249dcdfe365a9bbd56fef13b89760f71d0503b8a31e3745ff7715fa4c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r28-spatial-bridge/public/media/shot-e.mp4",
+      "sha256": "36ddf54067fb28c2223a81ce8dcac31298112cdd5c6b862eeb6e772ae10598a2"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/establishing-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/shot-c-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/shot-c-quarter-second-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/shot-d-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/shot-e-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/shot-e-quarter-second-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r29-seller-cutaway-review/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Python hashlib SHA-256 of the four exact source files compared to work-order hashes",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe -show_entries stream=codec_type,width,height,r_frame_rate,nb_frames,duration -of json for all four input videos",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffmpeg exact-frame select at 24-frame intervals for all sources and 6-frame intervals through frame126 for shot-c and shot-e; visual review of resulting contact sheets",
+      "outcome": "pass"
+    },
+    {
+      "command": "Real-time source playback and final integrated audiovisual playback",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only four hash-pinned existing R28 local generated dramatization clips were inspected. No new media created except deterministic source contact-sheet derivatives."
+  ],
+  "assumptions": [
+    "The approved narrated-dramatization mode permits illustrative conversational mouth movement while the existing narrator supplies the meaning.",
+    "The required review slot remains5.25 seconds long."
+  ],
+  "unresolved_questions": [
+    "Root must confirm in live playback that the buyer moving beyond the right edge late in shot-c does not imply he is leaving the meeting."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

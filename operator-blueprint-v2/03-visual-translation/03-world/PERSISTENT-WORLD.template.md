@@ -2,7 +2,7 @@
 
 Gate: **V3 — persistent world approved**
 
-Template version: proposed Step 3 v0.2
+Template version: proposed Step 3 v0.3
 
 Episode: EP###
 
@@ -29,13 +29,28 @@ does not name animation components or renderer primitives.
 
 ## Paths
 
-| ID | From | To | What travels | Conditions |
-|---|---|---|---|---|
+A path is a route, not a state list. Name what travels it, and give every edge a `from`, a `to`, and
+the condition under which it is taken:
+
+```json
+{"id": "path.transfer", "traveler": "what moves along this route",
+ "edges": [{"from": "a", "to": "b", "condition": "what must be true", "triggered_by": "BO-00n"}]}
+```
+
+A path with `states` but no `edges` fails the gate: it describes positions without describing how
+anything gets between them.
 
 ## State transitions
 
-| Object | From state | To state | Trigger | Reversible |
-|---|---|---|---|---|
+Each transition names what triggers it and whether it reverses:
+
+```json
+{"from": "under-load-test", "to": "documented-and-retained",
+ "triggered_by": "BO-005", "reversible": true}
+```
+
+Do not collapse a branch the upstream keeps open. If the Canvas says a dependency may be moved *or*
+documented, a single terminal `removed` state is a false claim.
 
 ## Evidence anchors
 
@@ -75,6 +90,35 @@ For each recurring object, state what stays constant and what is allowed to chan
 | Object | Always recognisable by | May change |
 |---|---|---|
 
+## Object classes and instances
+
+A generic object that stands for whichever capability a shot needs violates object permanence.
+Declare a class, then give each real thing its own persistent instance. Instances may share a visual
+family; they never share an identity, and they may be in different states at the same time.
+
+```json
+"object_classes": [{
+  "id": "business-part",
+  "instances": ["business-part.owner-held-pricing", "business-part.customer-concentration"]
+}]
+```
+
+An operation may `acts_on` a class when that class declares at least one instance and every declared
+instance exists in the world.
+
+## Binding fields
+
+`operation_bindings` conflated three different relationships. v0.3 splits them, and each must name
+something that exists:
+
+- `changed_by` — operations that change this object's state. Must match the engine's `acts_on`.
+- `carried_by` — operations where the object is present but unchanged.
+- `revealed_by` — establishment rows that make it legible. Never changes it.
+
+An object with none of the three must be explicitly `static` with a `static_reason`. Static is not a
+gap; it is a claim that the engagement does not change this thing, and it is what stops a later
+visual implying otherwise.
+
 ## Gate V3 decision
 
 - Objects have stable IDs, forms and allowed states: yes / no
@@ -87,3 +131,5 @@ For each recurring object, state what stays constant and what is allowed to chan
 Result: pass / fail / return to engine
 
 Approved by: [name] on YYYY-MM-DD
+
+

@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "episode": "EP007-exit-readiness-prep",
+  "owner_constraint": "Use only the existing photo and audio",
+  "purpose": "Compare restrained generated head and hand motion without post-render head correction",
+  "inputs": {
+    "image": {
+      "path": "media/repair-r16/study-visible-hands-source.png",
+      "sha256": "2abb05079084198c21a33802e6e0aa6373027a65f2163ea5a9114f77c1c4da24"
+    },
+    "audio": {
+      "path": "media/repair-r2/scope-two-sentences.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "duration_seconds": 5.6
+    },
+    "same_image_control": {
+      "test": "Q",
+      "path": "media/repair-r18/test-q-m-direction-visible-hands-1080p.mp4",
+      "sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950"
+    },
+    "historical_owner_accepted_reference": {
+      "test": "M",
+      "matched_framing": false,
+      "sha256": "dc6d9f8e6421fda85f56ddbb6c08e588695dce8ae434c0bf18855b4c59d3e526"
+    }
+  },
+  "prompt": "Locked-off, eye-level medium shot. He speaks matter-of-factly with natural blinks and tiny head adjustments; his forearms stay supported on the desk while his fingers make small, relaxed movements close to the tabletop.",
+  "max_initial_generations": 4,
+  "alter_photo": false,
+  "alter_voice": false,
+  "reference_video": false,
+  "head_scale_rotation_warp": false,
+  "seed_policy": "Record independent seeds only if exposed; otherwise record independent request IDs. Identical numbers across models do not establish matched randomness.",
+  "review_order": [
+    "Verify exact result identity and full duration",
+    "Full clip 1x with audio against Q and M's accepted quality",
+    "Muted full playback for distracting motion",
+    "Selective frame inspection for deformation",
+    "Technical audio and timestamp checks"
+  ],
+  "failure_signals": [
+    "Conspicuous head dip or forward thrust",
+    "Sweeping or repeated hand accents",
+    "Size pulse or detached head",
+    "Lip mismatch, including after the pause",
+    "Face, glasses or finger deformation",
+    "Frozen expression"
+  ],
+  "stop_rule": "Stop after four initial results. If none is owner-acceptable, no further prompting, warping or model expansion without reassessing the method.",
+  "longer_validation": "Only after an acceptable short result; use a longer contiguous excerpt of the existing locked narration and recheck full motion.",
+  "productionGateAdvance": false,
+  "status": "four_native_candidates_ready_for_owner_review",
+  "created_at": "2026-09-09T02:14:52.291437+00:00",
+  "authorization_basis": [
+    "Owner supplied the FAL_KEY location to execute the proposed four-sample comparison.",
+    "Owner explicitly selected InfiniteTalk through fal to replace the two unavailable Hedra slots."
+  ],
+  "provider": "fal",
+  "successful_submissions": 8,
+  "completed_renders": 4,
+  "submission_attempts": 11,
+  "samples": {
+    "omnihuman-01": {
+      "model": "OmniHuman 1.5",
+      "endpoint_id": "fal-ai/bytedance/omnihuman/v1.5",
+      "schema_file": "omnihuman-schema.json",
+      "input_schema": "BytedanceOmnihumanV15Input",
+      "price_file": "omnihuman-price.json",
+      "reviewed_base_unit_price_usd": 0.16,
+      "reviewed_effective_unit_price_usd": 0.16,
+      "budget_duration_seconds": 5.6,
+      "parameters": {
+        "resolution": "720p",
+        "turbo_mode": false
+      }
+    },
+    "omnihuman-02": {
+      "model": "OmniHuman 1.5",
+      "endpoint_id": "fal-ai/bytedance/omnihuman/v1.5",
+      "schema_file": "omnihuman-schema.json",
+      "input_schema": "BytedanceOmnihumanV15Input",
+      "price_file": "omnihuman-price.json",
+      "reviewed_base_unit_price_usd": 0.16,
+      "reviewed_effective_unit_price_usd": 0.16,
+      "budget_duration_seconds": 5.6,
+      "parameters": {
+        "resolution": "720p",
+        "turbo_mode": false
+      }
+    },
+    "infinitalk-01": {
+      "model": "InfiniteTalk",
+      "endpoint_id": "fal-ai/infinitalk",
+      "schema_file": "infinitalk-schema.json",
+      "input_schema": "InfinitalkInput",
+      "price_file": "infinitalk-price.json",
+      "reviewed_base_unit_price_usd": 0.2,
+      "reviewed_effective_unit_price_usd": 0.4,
+      "budget_duration_seconds": 5.48,
+      "parameters": {
+        "resolution": "720p",
+        "num_frames": 137,
+        "seed": 42,
+        "acceleration": "none"
+      },
+      "prior_num_frames": 145
+    },
+    "infinitalk-02": {
+      "model": "InfiniteTalk",
+      "endpoint_id": "fal-ai/infinitalk",
+      "schema_file": "infinitalk-schema.json",
+      "input_schema": "InfinitalkInput",
+      "price_file": "infinitalk-price.json",
+      "reviewed_base_unit_price_usd": 0.2,
+      "reviewed_effective_unit_price_usd": 0.4,
+      "budget_duration_seconds": 5.48,
+      "parameters": {
+        "resolution": "720p",
+        "num_frames": 137,
+        "seed": 173,
+        "acceleration": "none"
+      },
+      "prior_num_frames": 145
+    }
+  },
+  "estimated_total_usd": 6.176,
+  "price_checked_date": "2026-09-08",
+  "pricing_notes": [
+    "OmniHuman live pricing API quotes USD 0.16 per second.",
+    "InfiniteTalk live pricing API quotes base USD 0.20 per second; official model page doubles price at 720p.",
+    "InfiniteTalk current request uses 137 frames, expected 5.48 seconds. Prior 145 and 140 windows were rejected. Actual failed-request charges remain unverified.",
+    "Estimates are not actual charged costs. Four native results were returned and archived."
+  ],
+  "infinitalk_duration_basis": {
+    "num_frames": 137,
+    "basis": "Live fal validation requires 145 frames -> 5.80 seconds and rounds requested 140 frames to a 5.64-second window, consistent with 141 frames. 137 is a compatible 4n+1 count below the fixed 5.600-second audio length.",
+    "expected_video_duration_seconds": 5.48,
+    "source_last_word_end_seconds": 5.35,
+    "source_audio_unchanged": true,
+    "hosted_output_fps_verified": true,
+    "required_output_check": "Probe native frame count/duration; verify all speech including final word. Record any audio-tail truncation. Do not alter or retime native output.",
+    "verified_native_fps": 25,
+    "verified_native_frames": 137,
+    "verified_native_duration_seconds": 5.48,
+    "verified_sample": "infinitalk-01",
+    "omitted_audio_tail": "5.48\u20135.60 seconds, near-silent; RMS -107.5 dBFS, peak -90.3 dBFS"
+  },
+  "resolved_blocker": {
+    "http_status": 403,
+    "provider_message": "User is locked. Reason: Exhausted balance. Top up your balance at fal.ai/dashboard/billing.",
+    "record": "omnihuman-01.json",
+    "billing_read": "Not permitted by this API key; exact balance unavailable.",
+    "next_action": "Owner tops up fal billing. Preserve rejected attempts, then explicitly retry the rejected sample and submit the remaining three once. Do not resubmit unknown or accepted jobs."
+  },
+  "owner_topup_confirmed": true,
+  "terminal_input_failures": 4,
+  "current_candidate_jobs": 4,
+  "provider_uploads": 2,
+  "media_transport": "Exact-byte fal CDN uploads, verified by SHA256 readback",
+  "updated_at": "2026-09-09T02:53:21.012575+00:00",
+  "successful_submissions_note": "Queue acknowledgements include terminal input-validation failures. Four current candidate slots remain within the approved four-output comparison.",
+  "prior_infinitalk_duration_basis": {
+    "num_frames": 145,
+    "basis": "Explicit fal default; upstream uses 25fps and 4n+1 frame windows. 145 gives 5.8-second frame capacity, covering 5.600 seconds of supplied audio if the hosted wrapper follows upstream.",
+    "hosted_fps_verified": false,
+    "required_output_check": "Probe native video fps/duration and verify full audio, final word, offset and drift before accepting any timing or lip sync."
+  },
+  "duration_repair_history": [
+    {
+      "num_frames": 140,
+      "basis": "Actual fal422 says145framesrequires5.80secondsaudio;140framesmatches5.600secondsatthat25fpsratio. Hosted schema allows anyinteger41\u2013721. Inputaudio unchanged.",
+      "hosted_duration_validation_observed": true,
+      "hosted_output_fps_verified": false,
+      "required_output_check": "Probe native deliveredfps/framecount/duration and full finalword; provider may adjust window internally."
+    }
+  ],
+  "actual_charges_verified": false,
+  "actual_charges_limitation": "Billing-events read with exact experiment request IDs returned403: API key not permitted.",
+  "executed_generations": 4,
+  "owner_accepted": false,
+  "full_speed_naturalness_review": "pending",
+  "visual_lip_sync_review": "pending",
+  "review_page": "comparison.html",
+  "owner_relative_preference": {
+    "date": "2026-09-09",
+    "model_family": "InfiniteTalk",
+    "individual_sample": null,
+    "scope": "Preferred among prior comparison; user requested comparison against Seedance2.5, not final episode approval."
+  }
+}

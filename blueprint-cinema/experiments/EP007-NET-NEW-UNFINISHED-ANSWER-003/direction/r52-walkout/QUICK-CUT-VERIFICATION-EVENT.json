@@ -1,0 +1,45 @@
+{
+  "event_id": "r52-quick-cut-verified-v1",
+  "decision_id": "s09-buyer-walkout",
+  "event_type": "verification",
+  "tags": [
+    "film",
+    "paid-generation",
+    "cut-timing",
+    "original-audio",
+    "performance"
+  ],
+  "data": {
+    "decision_event_id": "r52-quick-cut-proposal-v5",
+    "method": "Download hash; contact sheet every 8 frames; continuity measurement against establishing tail; assembly after R51 context; frame counts; context tail audio correlation; uniform-frame scan; join frames 3299/3300 and hard cut 3447/3448.",
+    "result": "pass",
+    "scope": "Shot A handshake source 0-147 at master 335.625-341.791667; hard cut; shot B v2 walk frames 112-143 at 341.791667-343.125; context 3480 frames.",
+    "limitations": "Handshake performance: seated hold to ~2.5 s, look up, reach from ~3.3 s, hands meet ~4.5 s (source 108, master ~340.13 on 'two things'), held through 'He discounts it,' and the cut; nobody stands. Prepending establishing frames to land the grip exactly on 'He' was rejected: provider output differs in tone from the accepted source (mean 2.3/255 vs 0.35 normal step), which would pop. Context tail audio 0.99997 at zero lag; no uniform frames. Shot B keeps its slight rightward drift. Comprehension and continuity at the hard cut await owner review.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/provider/handshake-v5/native.mp4",
+        "sha256": "c1b947246ad9fe9e2f21edf69bc157ac35bf6d2d278d03e01a5e57b1703b2cac"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/qa/r52-quick-cut.mp4",
+        "sha256": "bfb087c405f8585f990de8d7ef2933db5431c9d1b07078a1737a26cfa0b22e27"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-quick-cut-context/qa/r52-quick-cut-context.mp4",
+        "sha256": "0d269cc1a8592efd2ed869ae725319e4a1f224da22c1e585f1b69ae1171a6838"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/provider/COST-RECONCILIATION-v5.json",
+      "sha256": "03c181a7cda431625a9df8d49e94265031d12b8c5e736d9f0775244abd8ca2c3",
+      "locator": "One request, no retries"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-quick-cut-context/qa/join-sheet.png",
+      "sha256": "56a350ed664cba5c4b60a12bb53dc5cd141c84c6b14042b0668a542f35412b34",
+      "locator": "Joins and hard cut"
+    }
+  ]
+}

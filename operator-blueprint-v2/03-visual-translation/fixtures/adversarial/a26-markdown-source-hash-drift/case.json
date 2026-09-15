@@ -1,0 +1,32 @@
+{
+  "base": "../../positive/markdown-provenance",
+  "note": "cited Markdown artifact hash does not match disk",
+  "patches": {
+    "engine.json": {
+      "business_operations": [
+        {
+          "id": "BO-001",
+          "upstream_state_id": "S001",
+          "state_before": "The returning guest is routed through the OTA relationship.",
+          "state_after": "The returning guest is routed through the hotel's direct relationship.",
+          "business_operation": "Move the returning guest from the rented OTA route to the hotel's owned direct route.",
+          "label": "DERIVED",
+          "source_artifact": "canvas.md",
+          "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "source_locator": "3. Costly problem > Return routing",
+          "boundary_ledger_semantic_role_id": "activeCommitment",
+          "boundary_ledger_operation_id": "return",
+          "selection_label": "SELECTED",
+          "mapping_rationale": "The return operation matches the change from a rented first-stay route to the hotel's declared owned return route.",
+          "acts_on": [
+            "guest"
+          ],
+          "source_quote": "the returning guest is routed through the OTA relationship"
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V2"
+  ]
+}

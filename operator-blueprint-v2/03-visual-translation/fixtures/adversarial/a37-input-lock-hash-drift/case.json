@@ -1,0 +1,42 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "note": "a frozen upstream artifact has changed since the V1 lock",
+  "patches": {
+    "engine.json": {
+      "input_lock": {
+        "operator_canvas": {
+          "path": "canvas-stub.md",
+          "sha256": "15c907ac149a101e6adc6c2ee7ba4c098d19a5395eea88f57eca66ed033ded4e"
+        },
+        "claims_map": {
+          "path": "claims-stub.md",
+          "sha256": "470c30f3e2ad2057f503984cbf6d8ac386e6672001967385cedf8299044856db"
+        },
+        "beat_sheet": {
+          "path": "beats-stub.md",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "canonical_w": {
+          "path": "w-stub.txt",
+          "sha256": "f4a24d1fa5e8febe45b128ca98d09e3c07aff0f678ba22c00c71eb98b3ff3656"
+        },
+        "narration_master": {
+          "path": "master-stub.bin",
+          "sha256": "3b9621b07e559b34b7fc2955d1a7c09ff2681e500c17ac55592a1dd4ee4bb202"
+        },
+        "word_transcript": {
+          "path": "transcript-stub.json",
+          "sha256": "e26cc45d695fcbf494f2996d76fa9c2c010e7d2c8eb57c7a3385f82598c07344"
+        },
+        "intentional_pause_map": {
+          "path": "pauses-stub.json",
+          "sha256": "21d6956ee8f288afcb07b5ffd26b6471092442e2b22ea0011a51dfe1c3711a10"
+        },
+        "narration_duration_seconds": 600.0
+      }
+    }
+  },
+  "expect_failures": [
+    "V1"
+  ]
+}

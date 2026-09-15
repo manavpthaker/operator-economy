@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-technical-continuity-evidence",
+  "role": "independent post-render technical, continuity, evidence, and disclosure reviewer",
+  "required_gate": "render_probe_validated",
+  "input_hashes": [
+    {"path": "input-lock.json", "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"},
+    {"path": "direction-lock.json", "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"},
+    {"path": "direction/world.json", "sha256": "512775e52efd3466426aeada597532e6848335bca21ff38ae8834fd7efbd183b"},
+    {"path": "direction/asset-tickets.json", "sha256": "598b8e01ffd760219005c416ffb71eb355228246340f0fa109af3c39bb37f05a"},
+    {"path": "assets/fixtures/fixture-missed-call-log.csv", "sha256": "2ab69fcdd524f45d096fd1339447d484dc8e473a2630d07960226b2e485f40f4"},
+    {"path": "hyperframes/index.html", "sha256": "d4a7587b83b00c642255b6d41d39c4e6c0e80db22c2dd45e91b79724a2eb7c62"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic.mp4", "sha256": "091e8be81d196a8e27e9322a5664201204cbc3ac644a17af558371b1e5cccca8"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet.jpg", "sha256": "dd6cf528cf09d175d3ec5c6529bb09501722a130cdbd5b8c5faf9889d4baa6ef"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave3-technical-continuity-evidence/review.md",
+    "agents/deliverables/wave3-technical-continuity-evidence/deliverable.json"
+  ],
+  "forbidden_paths": [
+    "direction/",
+    "hyperframes/index.html",
+    "hyperframes/compositions/",
+    "hyperframes/renders/",
+    "handoff/",
+    "review/",
+    "experiment.json",
+    "input-lock.json",
+    "direction-lock.json",
+    "../episodes/",
+    "../../renderer/",
+    "../../schemas/",
+    "../../src/"
+  ],
+  "dependencies": ["completed review render", "validated media probe", "complete direction lock"],
+  "acceptance_checks": [
+    "recompute every pinned input hash before review",
+    "probe or independently inspect the MP4 duration, dimensions, frame rate, codec, and audio presence",
+    "run separate continuity, motion-discipline, evidence-honesty, disclosure, and rendered-compression passes",
+    "verify persistent call-tag and work-order-card identity and state progression across all seven shots",
+    "verify fixture context, extracted field, system attachment, behavior change, persistent pin, and exact synthetic warning",
+    "audit placeholders against exact asset-ticket IDs and flag anything that could be mistaken for evidence or finished material",
+    "return ranked blocking, major, and minor findings and state Resolve-handoff risks without editing the handoff",
+    "state explicitly that no gate approval or state change is claimed"
+  ],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "any pinned hash differs",
+    "any required input is missing",
+    "the owned deliverable path is not empty before work",
+    "the review would require editing the canonical experiment"
+  ]
+}

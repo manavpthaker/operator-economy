@@ -1,0 +1,815 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("../../assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("../../assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #1a1a1a;
+    }
+
+    #root,
+    #root * {
+      box-sizing: border-box;
+    }
+
+    .f08-ground,
+    .f08-furniture,
+    .f08-key-layer,
+    .f08-scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .f08-ground {
+      background-color: #f5f0e6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 1px, transparent 1px);
+      background-size: 38.4px 38.4px;
+    }
+
+    .f08-hairline {
+      position: absolute;
+      left: 76.8px;
+      right: 76.8px;
+      height: 2px;
+      background: #1a1a1a;
+    }
+
+    .f08-hairline-top {
+      top: 59px;
+    }
+
+    .f08-hairline-bottom {
+      top: 880px;
+    }
+
+    .f08-top-meta,
+    .f08-bottom-meta,
+    .f08-page-number,
+    .f08-key-label,
+    .f08-key-state,
+    .f08-ota-label,
+    .f08-ota-note,
+    .f08-gate,
+    .f08-property-label {
+      font-family: "Supreme", sans-serif;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .f08-top-meta {
+      position: absolute;
+      top: 82px;
+      left: 77px;
+      font-size: 15px;
+      letter-spacing: 0.18em;
+    }
+
+    .f08-bottom-meta,
+    .f08-page-number {
+      position: absolute;
+      top: 838px;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+    }
+
+    .f08-bottom-meta {
+      left: 77px;
+    }
+
+    .f08-page-number {
+      right: 77px;
+    }
+
+    .f08-pixel-glitch {
+      position: absolute;
+      top: 126px;
+      right: 80px;
+      width: 72px;
+      height: 690px;
+      opacity: 0.26;
+      background: repeating-linear-gradient(
+        90deg,
+        #1a1a1a 0 3px,
+        transparent 3px 11px
+      );
+      clip-path: polygon(
+        42% 0,
+        100% 0,
+        100% 12%,
+        72% 12%,
+        72% 25%,
+        100% 25%,
+        100% 43%,
+        58% 43%,
+        58% 60%,
+        88% 60%,
+        88% 76%,
+        48% 76%,
+        48% 91%,
+        76% 91%,
+        76% 100%,
+        0 100%,
+        0 84%,
+        26% 84%,
+        26% 67%,
+        0 67%,
+        0 48%,
+        30% 48%,
+        30% 31%,
+        0 31%,
+        0 14%,
+        42% 14%
+      );
+    }
+
+    .f08-qr {
+      position: absolute;
+      top: 92px;
+      right: 188px;
+      width: 92px;
+      height: 92px;
+      padding: 8px;
+      border: 2px solid #f5f0e6;
+      background: #f5f0e6;
+    }
+
+    .f08-qr svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      fill: #1a1a1a;
+    }
+
+    .f08-key {
+      position: absolute;
+      left: 94px;
+      top: 598px;
+      width: 230px;
+      height: 116px;
+      border: 3px solid #1a1a1a;
+      background: #f5f0e6;
+    }
+
+    .f08-key::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: 45px;
+      width: 58px;
+      height: 24px;
+      border-top: 3px solid #1a1a1a;
+      border-bottom: 3px solid #1a1a1a;
+    }
+
+    .f08-key-teeth {
+      position: absolute;
+      right: -78px;
+      top: 45px;
+      width: 20px;
+      height: 42px;
+      border-left: 3px solid #1a1a1a;
+      border-bottom: 3px solid #1a1a1a;
+    }
+
+    .f08-key-label {
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      font-size: 15px;
+      letter-spacing: 0.18em;
+    }
+
+    .f08-key-state {
+      position: absolute;
+      left: 18px;
+      bottom: 21px;
+      font-size: 17px;
+      letter-spacing: 0.14em;
+    }
+
+    .f08-key-status-rail {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 11px;
+      height: 3px;
+      background: rgba(176, 141, 62, 0.18);
+      overflow: hidden;
+    }
+
+    .f08-key-status-fill {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+    }
+
+    .f08-scene-inner {
+      position: absolute;
+      inset: 0;
+    }
+
+    .f08-s1-built {
+      position: absolute;
+      top: 184px;
+      left: 372px;
+      width: 1320px;
+      min-height: 230px;
+      font-family: "Boska", serif;
+      font-size: 102px;
+      line-height: 0.94;
+      letter-spacing: -0.008em;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .f08-s1-direct {
+      position: absolute;
+      top: 172px;
+      left: 372px;
+      width: 1280px;
+      font-family: "Boska", serif;
+      font-size: 206px;
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+    }
+
+    .f08-s1-direct-box {
+      display: inline-block;
+      padding: 8px 24px 18px;
+      border: 3px solid #1a1a1a;
+    }
+
+    .f08-s1-guide {
+      position: absolute;
+      left: 372px;
+      top: 476px;
+      width: 1040px;
+      height: 2px;
+      background: #1a1a1a;
+    }
+
+    .f08-s1-guide::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -7px;
+      width: 16px;
+      height: 16px;
+      background: #1a1a1a;
+    }
+
+    .f08-ota-gate {
+      position: absolute;
+      left: 70px;
+      top: 515px;
+      width: 304px;
+      height: 232px;
+      border-top: 3px solid #1a1a1a;
+      border-bottom: 3px solid #1a1a1a;
+      border-left: 3px solid #1a1a1a;
+    }
+
+    .f08-ota-label {
+      position: absolute;
+      left: 19px;
+      top: 18px;
+      font-size: 24px;
+      letter-spacing: 0.18em;
+    }
+
+    .f08-ota-note {
+      position: absolute;
+      left: 19px;
+      top: 58px;
+      font-size: 15px;
+      letter-spacing: 0.16em;
+    }
+
+    .f08-s2-statement {
+      position: absolute;
+      left: 455px;
+      top: 208px;
+      width: 1240px;
+    }
+
+    .f08-s2-major {
+      font-family: "Boska", serif;
+      font-size: 126px;
+      line-height: 0.92;
+      letter-spacing: -0.008em;
+      font-weight: 400;
+    }
+
+    .f08-s2-minor {
+      width: 1030px;
+      margin-top: 38px;
+      padding-top: 24px;
+      border-top: 2px solid #1a1a1a;
+      font-family: "Supreme", sans-serif;
+      font-size: 46px;
+      line-height: 1.12;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .f08-s34-headline {
+      position: absolute;
+      top: 180px;
+      left: 368px;
+      width: 1330px;
+      font-family: "Boska", serif;
+      font-size: 164px;
+      line-height: 0.9;
+      letter-spacing: -0.008em;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .f08-s34-headline span:last-child {
+      color: #b08d3e;
+      font-style: italic;
+    }
+
+    .f08-gate-row {
+      position: absolute;
+      left: 385px;
+      top: 612px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 82px;
+    }
+
+    .f08-gate {
+      position: relative;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 22px;
+      border: 2px solid #1a1a1a;
+      background: #f5f0e6;
+      font-size: 19px;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+    .f08-gate::before {
+      content: "";
+      position: absolute;
+      top: -9px;
+      left: -2px;
+      width: 18px;
+      height: 7px;
+      background: #1a1a1a;
+    }
+
+    .f08-gate-join {
+      position: relative;
+      width: 34px;
+      height: 2px;
+      background: #1a1a1a;
+      transform-origin: left center;
+    }
+
+    .f08-gate-join::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -5px;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #1a1a1a;
+      border-right: 2px solid #1a1a1a;
+      transform: rotate(45deg);
+    }
+
+    .f08-route {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .f08-route path {
+      fill: none;
+      stroke: #1a1a1a;
+      stroke-width: 3;
+      stroke-linecap: square;
+    }
+
+    .f08-property {
+      position: absolute;
+      left: 1615px;
+      top: 566px;
+      width: 205px;
+      height: 164px;
+      border: 3px solid #1a1a1a;
+      background: #f5f0e6;
+    }
+
+    .f08-property-roof {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 34px;
+      height: 3px;
+      background: #1a1a1a;
+    }
+
+    .f08-property-window-grid {
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      top: 55px;
+      height: 52px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .f08-property-window-grid span {
+      border: 2px solid #1a1a1a;
+    }
+
+    .f08-property-door {
+      position: absolute;
+      left: 82px;
+      bottom: -3px;
+      width: 40px;
+      height: 44px;
+      border: 3px solid #1a1a1a;
+      border-bottom: 0;
+      background: #f5f0e6;
+    }
+
+    .f08-property-label {
+      position: absolute;
+      left: 24px;
+      top: 12px;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+    }
+
+    .f08-final-line {
+      position: absolute;
+      left: 380px;
+      top: 760px;
+      width: 1270px;
+      padding-top: 18px;
+      border-top: 2px solid #1a1a1a;
+      font-family: "Boska", serif;
+      font-size: 57px;
+      line-height: 0.95;
+      letter-spacing: -0.005em;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="08-after-the-stay"
+    data-start="0"
+    data-duration="13.551"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div
+      class="clip f08-ground"
+      data-start="0"
+      data-duration="13.551"
+      data-track-index="0"
+      aria-hidden="true"
+    ></div>
+
+    <div
+      class="clip f08-furniture"
+      data-start="0"
+      data-duration="13.551"
+      data-track-index="1"
+    >
+      <div class="f08-hairline f08-hairline-top" aria-hidden="true"></div>
+      <div class="f08-hairline f08-hairline-bottom" aria-hidden="true"></div>
+      <div class="f08-top-meta">EP006 / RELATIONSHIP PATH</div>
+      <div class="f08-bottom-meta">COMPLETED STAY / GUARDED RETURN</div>
+      <div class="f08-page-number">08</div>
+      <div class="f08-pixel-glitch" aria-hidden="true"></div>
+      <div class="f08-qr" aria-hidden="true">
+        <svg viewBox="0 0 8 8" role="presentation">
+          <rect x="0" y="0" width="3" height="1" />
+          <rect x="0" y="1" width="1" height="2" />
+          <rect x="2" y="1" width="1" height="2" />
+          <rect x="1" y="2" width="1" height="1" />
+          <rect x="5" y="0" width="3" height="1" />
+          <rect x="5" y="1" width="1" height="2" />
+          <rect x="7" y="1" width="1" height="2" />
+          <rect x="6" y="2" width="1" height="1" />
+          <rect x="0" y="5" width="3" height="1" />
+          <rect x="0" y="6" width="1" height="2" />
+          <rect x="2" y="6" width="1" height="2" />
+          <rect x="1" y="7" width="1" height="1" />
+          <rect x="4" y="3" width="1" height="1" />
+          <rect x="3" y="4" width="2" height="1" />
+          <rect x="5" y="5" width="1" height="1" />
+          <rect x="7" y="4" width="1" height="2" />
+          <rect x="4" y="6" width="1" height="2" />
+          <rect x="6" y="7" width="2" height="1" />
+        </svg>
+      </div>
+    </div>
+
+    <div
+      class="clip f08-key-layer"
+      data-start="0"
+      data-duration="13.551"
+      data-track-index="2"
+    >
+      <div id="f08-key" class="f08-key">
+        <div class="f08-key-label">ROOM KEY</div>
+        <div class="f08-key-state">STAY COMPLETE</div>
+        <div class="f08-key-status-rail" aria-hidden="true">
+          <div id="f08-key-status-fill" class="f08-key-status-fill"></div>
+        </div>
+        <div class="f08-key-teeth" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <section
+      class="clip f08-scene"
+      data-start="0"
+      data-duration="3"
+      data-track-index="3"
+    >
+      <div id="f08-s1" class="f08-scene-inner">
+        <div id="f08-s1-built" class="f08-s1-built">A GUEST</div>
+        <div id="f08-s1-direct" class="f08-s1-direct">
+          <span class="f08-s1-direct-box">DIRECTLY</span>
+        </div>
+        <div id="f08-s1-guide" class="f08-s1-guide" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section
+      class="clip f08-scene"
+      data-start="3"
+      data-duration="3.2"
+      data-track-index="3"
+    >
+      <div id="f08-s2" class="f08-scene-inner">
+        <div class="f08-ota-gate">
+          <div class="f08-ota-label">OTA</div>
+          <div class="f08-ota-note">FIRST BOOKING</div>
+        </div>
+        <div class="f08-s2-statement">
+          <div class="f08-s2-major">THE FIRST BOOKING</div>
+          <div class="f08-s2-minor">MAY BELONG TO THE PLATFORM</div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="clip f08-scene"
+      data-start="6.2"
+      data-duration="7.351"
+      data-track-index="3"
+    >
+      <div id="f08-s34" class="f08-scene-inner">
+        <div id="f08-s34-headline" class="f08-s34-headline">
+          <span>AFTER</span> <span>THE STAY</span>
+        </div>
+
+        <svg class="f08-route" viewBox="0 0 1920 1080" aria-hidden="true">
+          <path
+            id="f08-route-line"
+            d="M 324 651 L 1615 651"
+            pathLength="1"
+            stroke-dasharray="1"
+            stroke-dashoffset="1"
+          />
+        </svg>
+
+        <div class="f08-gate-row">
+          <div id="f08-gate-audit" class="f08-gate">AUDIT</div>
+          <div id="f08-join-permission" class="f08-gate-join" aria-hidden="true"></div>
+          <div id="f08-gate-permission" class="f08-gate">PERMISSION</div>
+          <div id="f08-join-qualify" class="f08-gate-join" aria-hidden="true"></div>
+          <div id="f08-gate-qualify" class="f08-gate">QUALIFY</div>
+          <div id="f08-join-human" class="f08-gate-join" aria-hidden="true"></div>
+          <div id="f08-gate-human" class="f08-gate">HUMAN REVIEW</div>
+        </div>
+
+        <div id="f08-property" class="f08-property">
+          <div class="f08-property-label">PROPERTY</div>
+          <div class="f08-property-roof" aria-hidden="true"></div>
+          <div class="f08-property-window-grid" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="f08-property-door" aria-hidden="true"></div>
+        </div>
+
+        <div id="f08-final-line" class="f08-final-line">
+          SHOULD BELONG TO THE PROPERTY
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const compositionId = "08-after-the-stay";
+      const root = document.querySelector('[data-composition-id="08-after-the-stay"]');
+      const select = (selector) => root.querySelector(selector);
+      const tl = window.gsap.timeline({ paused: true });
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[compositionId] = tl;
+
+      const key = select("#f08-key");
+      const keyStatus = select("#f08-key-status-fill");
+      const s1 = select("#f08-s1");
+      const s1Built = select("#f08-s1-built");
+      const s1Direct = select("#f08-s1-direct");
+      const s1Guide = select("#f08-s1-guide");
+      const s2 = select("#f08-s2");
+      const s34 = select("#f08-s34");
+      const s34Headline = select("#f08-s34-headline");
+      const routeLine = select("#f08-route-line");
+      const property = select("#f08-property");
+      const finalLine = select("#f08-final-line");
+
+      tl.fromTo(
+        key,
+        { autoAlpha: 0.55, x: -24, scale: 0.96 },
+        { autoAlpha: 1, x: 0, scale: 1, duration: 0.42, ease: "power3.out" },
+        0
+      );
+      tl.fromTo(
+        keyStatus,
+        { scaleX: 0, transformOrigin: "left center" },
+        { scaleX: 1, duration: 1.35, ease: "power2.inOut" },
+        0.18
+      );
+
+      const sceneOneStates = [
+        { t: 0.00, text: "A GUEST" },
+        { t: 0.42, text: "A GUEST IT CAN" },
+        { t: 0.86, text: "A GUEST IT CAN WELCOME" },
+        { t: 1.34, text: "A GUEST IT CAN WELCOME BACK" }
+      ];
+      const sceneOneTextAt = (time) => {
+        for (let index = sceneOneStates.length - 1; index >= 0; index -= 1) {
+          if (time >= sceneOneStates[index].t) return sceneOneStates[index].text;
+        }
+        return sceneOneStates[0].text;
+      };
+      const sceneOneDriver = { t: 0 };
+      let lastSceneOneText = "A GUEST";
+
+      tl.fromTo(
+        s1Built,
+        { autoAlpha: 0.45, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.34, ease: "power3.out" },
+        0
+      );
+      tl.fromTo(
+        s1Guide,
+        { scaleX: 0, transformOrigin: "left center" },
+        { scaleX: 1, duration: 1.35, ease: "power2.inOut" },
+        0.35
+      );
+      tl.to(
+        sceneOneDriver,
+        {
+          t: 1.7,
+          duration: 1.7,
+          ease: "none",
+          onUpdate: () => {
+            const nextText = sceneOneTextAt(sceneOneDriver.t);
+            if (nextText !== lastSceneOneText) {
+              s1Built.textContent = nextText;
+              lastSceneOneText = nextText;
+            }
+          }
+        },
+        0
+      );
+      tl.set(s1Direct, { autoAlpha: 0 }, 0);
+      tl.set(s1Built, { autoAlpha: 0 }, 2.1);
+      tl.set(s1Direct, { autoAlpha: 1 }, 2.1);
+      tl.fromTo(
+        s1Direct,
+        { scale: 1.05 },
+        { scale: 1, duration: 0.34, ease: "power3.out" },
+        2.1
+      );
+
+      tl.to(s1, { x: -230, duration: 0.3, ease: "power4.in" }, 2.7);
+      tl.to(s1, { autoAlpha: 0, duration: 0.18, ease: "power1.in" }, 2.82);
+      tl.fromTo(
+        s2,
+        { x: 230, autoAlpha: 0.35 },
+        { x: 0, autoAlpha: 1, duration: 0.3, ease: "power4.out" },
+        3
+      );
+      tl.to(s2, { x: -230, duration: 0.3, ease: "power4.in" }, 5.9);
+      tl.to(s2, { autoAlpha: 0, duration: 0.18, ease: "power1.in" }, 6.02);
+      tl.fromTo(
+        s34,
+        { x: 230, autoAlpha: 0.35 },
+        { x: 0, autoAlpha: 1, duration: 0.3, ease: "power4.out" },
+        6.2
+      );
+      tl.fromTo(
+        s34Headline,
+        { letterSpacing: "0.025em", scale: 0.96 },
+        { letterSpacing: "-0.008em", scale: 1, duration: 0.8, ease: "power3.out" },
+        6.28
+      );
+
+      const gateContent = [
+        { selector: "#f08-gate-audit", label: "AUDIT", join: null, hold: 0.13 },
+        { selector: "#f08-gate-permission", label: "PERMISSION", join: "#f08-join-permission", hold: 0.13 },
+        { selector: "#f08-gate-qualify", label: "QUALIFY", join: "#f08-join-qualify", hold: 0.13 },
+        { selector: "#f08-gate-human", label: "HUMAN REVIEW", join: "#f08-join-human", hold: 0.17 }
+      ];
+      const gateSequenceStart = 8.18;
+      const baseDuration = 0.2;
+      const secondsPerCharacter = 0.012;
+      let cumulative = 0;
+      const gateSchedule = gateContent.map((entry) => {
+        const duration = baseDuration + entry.label.replace(/\s/g, "").length * secondsPerCharacter + entry.hold;
+        const start = gateSequenceStart + cumulative;
+        cumulative += duration;
+        return { ...entry, start, end: gateSequenceStart + cumulative };
+      });
+
+      gateSchedule.forEach((entry) => {
+        tl.fromTo(
+          select(entry.selector),
+          { autoAlpha: 0, y: 22 },
+          { autoAlpha: 1, y: 0, duration: 0.26, ease: "power3.out" },
+          entry.start
+        );
+        if (entry.join) {
+          tl.fromTo(
+            select(entry.join),
+            { autoAlpha: 0, scaleX: 0, transformOrigin: "left center" },
+            { autoAlpha: 1, scaleX: 1, duration: 0.22, ease: "power2.out" },
+            entry.start - 0.08
+          );
+        }
+      });
+
+      tl.fromTo(
+        routeLine,
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" },
+        10.2
+      );
+      tl.fromTo(
+        property,
+        { autoAlpha: 0, x: 30 },
+        { autoAlpha: 1, x: 0, duration: 0.55, ease: "power3.out" },
+        10.2
+      );
+      tl.to(
+        s34Headline,
+        { scale: 0.86, y: -22, duration: 0.52, ease: "power2.out" },
+        10.2
+      );
+      tl.fromTo(
+        finalLine,
+        { autoAlpha: 0, y: 24 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        11.05
+      );
+    })();
+  </script>
+</template>

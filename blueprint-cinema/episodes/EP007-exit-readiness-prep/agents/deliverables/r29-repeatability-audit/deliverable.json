@@ -1,0 +1,41 @@
+{
+  "work_order_id": "r29-repeatability-audit",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "architecture_reviewer",
+  "status": "completed_read_only_audit",
+  "approval_claimed": false,
+  "files_created": [
+    "report.md",
+    "deliverable.json"
+  ],
+  "input_hashes": {
+    "blueprint-cinema/references/SCENE-DIRECTION-CONTRACT.md": "c87a80539cfe981e2236f017fa229e058e2781ccaa49afe9eeab6380de62cd9f",
+    "blueprint-cinema/schemas/scene-directions.schema.json": "d64648087ba95d346301165a27ff2a0f5ae3516716ae6e624ec0aa839192961d",
+    "blueprint-cinema/src/blueprint_cinema/validation.py": "f962080f8e6567235b521d699c85a3b9043276d0aa6a636f446f4d86626e0c28",
+    "blueprint-cinema/src/blueprint_cinema/scene_prompts.py": "f1bb89de919fcc274d1e49e955b63dac9cd9fab906aeac4664d805e8e64002e2",
+    "blueprint-cinema/src/blueprint_cinema/state.py": "6a3bb18a99447e789ff22275ecef24a44d2b71f65cacec072f9c181600f8cf7e",
+    "blueprint-cinema/src/blueprint_cinema/cli.py": "3f69aaa86f0c821edb1b03febc78bec244b3a975d16c2bc318b87c66663078c1",
+    "blueprint-cinema/tests/test_context_direction.py": "69287c4540c3a19fa975947c0a4043e0ee0d1c5e8c06d94b12641d84df99a8b2",
+    "blueprint-cinema/tests/test_scene_prompts.py": "0638e264d9b40acc46f2ca4e1a048873e61823a4f8737252593be9800d85d471",
+    "blueprint-cinema/tests/test_state_machine.py": "6bf10035d0d0e04bd95e3e61d9ed278828fe05bab60ac028a074612427b7e739",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/context-direction-update-20260908.md": "937e2ccf391f06d77dfd658b477255b8552954c72abc2cc742bf72e13f015c67"
+  },
+  "checks_run": [
+    {
+      "command": "PYTHONPATH=blueprint-cinema/src blueprint-cinema/.venv/bin/python -m pytest blueprint-cinema/tests/test_context_direction.py blueprint-cinema/tests/test_scene_prompts.py blueprint-cinema/tests/test_state_machine.py",
+      "result": "58 passed in 0.30s"
+    },
+    {
+      "check": "canonical EP007 input and direction artifact presence",
+      "result": "No canonical scene-directions.json, production-state.json, input-lock.json or visual-plan.json found in episode folder at audit time. Root may separately author a review checkpoint."
+    }
+  ],
+  "unresolved_questions": [
+    "When and how the accepted experimental recipe will be migrated into the canonical contract/compiler remains a separate implementation decision.",
+    "Actual visible-frame coverage is outside the reviewed source validators; no end-to-end coverage enforcement is claimed."
+  ],
+  "external_sources_used": false,
+  "generated_media_used": false,
+  "forbidden_paths_modified": false,
+  "runtime_or_schema_mutations": false
+}

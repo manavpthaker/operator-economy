@@ -1,11 +1,12 @@
 # Edit rubric review
 
-**Score:** 23/23  ·  **Gate:** ≥18
+**Score:** 21/23  ·  **Gate:** ≥18
 **Verdict:** PASS
 
 ## Criteria
-### ✅ Scene grammar mix — 5/5
-- 10/10 quote|proof screens, 10/6 artifact|screen_rec|proof screens
+### ⚠️ Scene grammar mix — 3/5
+- 10/11 quote|proof screens, 10/6 artifact|screen_rec|proof screens
+- ⚠️ only 10 quote/punchline screens (target 11); add pull-quote moments on impact lines.
 
 ### ✅ Cadence (static holds, resets, sheet runs) — 5/5
 - no static holds; sheet runs ≤2; all screens reset within 45s

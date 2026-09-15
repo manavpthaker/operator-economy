@@ -1,0 +1,130 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>R42 — Trace the business backward</title>
+<style>
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}#r42-root{position:relative;width:1280px;height:720px;overflow:hidden}#r42-paper{position:absolute;inset:0;background:#F5F0E6}#r42-world{position:absolute;inset:0;width:1280px;height:720px}
+.ink{fill:none;stroke:#173530;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.steel{fill:none;stroke:#586D74;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}.pencil{fill:none;stroke:#586D74;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}.paper{fill:#FBF8F1;stroke:#173530;stroke-width:2.5;stroke-linejoin:round}.label{font-family:Supreme,sans-serif;font-size:29px;font-weight:500;fill:#173530}.minor{font-family:Supreme,sans-serif;font-size:24px;fill:#173530}.route{fill:none;stroke:#B5482F;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.corridor{fill:none;stroke:#586D74;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#r42-fork-a,#r42-fork-b,#r42-trace,#r42-paths{opacity:0;visibility:hidden}
+</style><script src="public/vendor/gsap.min.js"></script></head><body><div id="r42-root" data-composition-id="ep007-r42" data-start="0" data-duration="20.2916666666667" data-width="1280" data-height="720" data-fps="24"><div id="r42-paper"></div>
+<svg id="r42-world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="A finished cabinet stays with the customer. A backward route enters the workshop, tries two operating branches, and reaches the owner's empty desk. The workshop remains intact."><defs><g id="r42-person">
+        <path class="m-ink" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+        <path class="m-light" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<g id="r42-workshop" transform="translate(25,35) scale(2)">
+  <title id="workshop-title">Small woodworking workshop</title>
+  <desc id="workshop-desc">A roughly drawn woodworking business with a sawtooth roof, window panes, timber shelving, hanging tools and a broad workbench across the open working bay. No photograph or person is included.</desc>
+  <!-- The business is entirely illustrated. The former 320x180 footage bay
+       now contains a paper-backed workshop interior. Exterior canvas is transparent. -->
+  <g id="workshop-paper" fill="#F5F0E6" fill-opacity=".58">
+    <path d="M17 89 112 33 114 87 242 31 245 87 373 35 376 89 413 91 414 305 16 305Z M35 115H355V295H35Z" fill-rule="evenodd"/>
+    <path d="m25 91 78-47 2 47Zm102-1 106-48 1 48Zm130 1 107-47 2 48Z" fill="#FBF8F1" fill-opacity=".72"/>
+  </g>
+  <g id="workshop-interior" opacity=".2">
+    <rect x="35" y="115" width="320" height="180" fill="#F5F0E6"/>
+    <g id="workshop-interior-window" fill="none" stroke="#586D74" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m57 132 84 1-1 65-82-1Z" fill="#FBF8F1" stroke="none"/>
+      <path d="m57 133 38-1m7 1 37 1 1 61m-5 3-76-1-1-53" stroke-width="1.7"/>
+      <path d="m62 138 32 1m9-1 31 1m-70 26 69 1m-36-26 1 54m-34-51-1 49m69-48 1 48" stroke-width="1.15"/>
+      <path d="m53 202 94-1m-88 5 31 1m41-2 12 1" stroke-width="1.2"/>
+    </g>
+    <g id="workshop-timber-and-tools" fill="none" stroke="#586D74" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Timber stock on one shelf; a square and hand saw hang below. -->
+      <path d="m163 160 70 1m8-1 91 1m-166 4 162 1m-149 3 1 10m130-10-1 10" stroke-width="1.55"/>
+      <path d="m172 154 119-1 1 5m-111-9 128 1m-116-6 110 1m-8-5 19 1 1 10" stroke-width="1.15"/>
+      <path d="m168 186 69 1m9-1 79 1m-145 0-1 8m43-7 1 7m56-7 1 8" stroke-width="1.15"/>
+      <path d="m177 196-1 24 18 1m-14-22 1 17 12 1" stroke="#173530" stroke-width="1.6"/>
+      <path d="m216 196 9-1 2 10-9 1Zm12 4 46 10-5 9-41-14m5 1 2 4m5-2 2 4m5-2 2 4m5-2 2 4" stroke="#173530" stroke-width="1.3"/>
+      <path d="m282 199 8 1m-5-3 1 22m-3 1 7 0" stroke-width="1.5"/>
+    </g>
+    <g id="workshop-main-workbench" stroke="#173530" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m59 234 254 1 20 13-282 1Z" fill="#FBF8F1" stroke="none"/>
+      <g fill="none">
+        <path d="m58 234 112 1m9 0 133 0 19 12m-6 3-155-1m-10 0-109 1 7-10" stroke-width="2.1"/>
+        <path d="m53 254 107 1m10-1 157 0m-264 3 2 32m7-32 1 31m230-32-1 33m10-32 1 32" stroke-width="2"/>
+        <path d="m75 279 98 1m9-1 116 1m-223-5 47-16m138 1 35 15" stroke="#586D74" stroke-width="1.2"/>
+        <path d="m83 229 105-1 13 6m-112-9 89 1m-13 11 36 0m-130 18-7 7m255-7 5 7" stroke-width="1.2"/>
+        <path d="m105 241 50 1m80-1 60 0m-213 50 48 1m158-1 29 0" stroke="#586D74" stroke-width=".9"/>
+      </g>
+    </g>
+    <path d="m42 289 17 0m25 6 42-1m92 0 31-1m88-5 10-1" fill="none" stroke="#586D74" stroke-width=".9" stroke-linecap="round"/>
+  </g>
+  <g id="workshop-roof" fill="none" stroke="#173530" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m15 90 54-32 40-24m5 1 1 48m5 3 64-28 57-27m3 5 1 48m6 2 65-29 56-22m3 6 1 45 36 4" stroke-width="2.5"/>
+    <path d="m19 94 48-29m20-13 19-11m18 41 48-20m36-12 28-13m15 52 45-20m42-20 27-12" stroke="#586D74" stroke-width="1.1"/>
+    <path d="m109 47 1 27m130-32 1 30m131-27 1 29M21 97l79 1m16-1 116 1m16 1 95-1m12 1 51 1" stroke-width="1.45"/>
+    <!-- Broken clerestory mullions distinguish a working roof from a card edge. -->
+    <path d="m51 78 1 11m24-25 1 24m63-9 1 11m29-26 1 24m31-38 1 36m73-5 1 8m29-23 1 22m32-35 1 34" stroke="#586D74" stroke-width="1.3"/>
+    <path d="m99 62 6-4m123 10 7-4m125-4 7-4" stroke="#586D74" stroke-width=".9"/>
+  </g>
+  <g id="workshop-walls" fill="none" stroke="#173530" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m17 99-1 68 1 52m-1 14 1 70 90 1m12 0 125 1m14 0 91-1m12 1 53-1-1-55m1-13-1-75m0-15-1-41" stroke-width="2.3"/>
+    <path d="m21 111 1 42m-1 84 1 51m387-165 1 51m-1 84 1 34M30 309l57-1m224 1 80-1" stroke="#586D74" stroke-width="1.05"/>
+    <!-- Bay structure encloses the illustrated workshop interior. -->
+    <path d="m31 110 76 1m8-1 133 1m10-1 102 1M30 117l1 70m0 9-1 95m329-175 1 78m0 11-1 88M33 299l110 1m13-1 104 1m11-1 85 1" stroke-width="2"/>
+    <path d="m27 112 1 45m336-44 21 1m6 123 1 44m-288 21 39 1" stroke="#586D74" stroke-width="1"/>
+    <path d="m18 185 8 1m-7 4 8 1m-7 81 7-2m377-64 7 1m-9 4 7 1m-7 70 6-1" stroke="#586D74" stroke-width=".95"/>
+  </g>
+  <g id="workshop-side-window" fill="none" stroke="#586D74" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m369 117 32 1 1 71m-5 3-28-1-1-66" stroke-width="1.7"/>
+    <path d="m373 123 24 1m-24 4 1 53m23-54-1 54m-23-29 24 1m-13-29 1 26m0 5-1 27" stroke-width="1.05"/>
+    <!-- A visible bench and short stock lengths behind the side window. -->
+    <path d="m373 176 24 1m-22 3 1 9m18-9-1 9m-18-18 14 1m-12-5 11 1m3-7 4 9" stroke="#173530" stroke-width="1.4"/>
+    <path d="m366 196 39-1m-3 4-15 1" stroke-width="1.1"/>
+  </g>
+  <g id="workshop-side-details" fill="none" stroke="#586D74" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Narrow service door; the broad working bay remains the primary opening. -->
+    <path d="m370 299-1-74 31 1 1 71m-29-77 25 1m-3 41 3 0" stroke-width="1.4"/>
+    <path d="m375 229 1 29m0 9 1 24m20-12 1 13m-24-56 21 1" stroke-width=".85"/>
+    <path d="m367 207 36 1m-34 5 26 1m-2-7 1 7" stroke-width="1.1"/>
+    <!-- Short pressure marks at the foundation, not a uniform hatch texture. -->
+    <path d="m20 298 6-8m-4 12 6-7m336 9 4-8m5 7 3-5m30 6 5-9" stroke-width="1"/>
+  </g>
+  <rect id="workshop-interior-bounds" x="35" y="115" width="320" height="180" fill="none" stroke="none"/>
+</g>
+<text class="label" x="448" y="690" text-anchor="middle">The business</text>
+<!-- Customer and tangible result stay in the same place for the entire investigation. -->
+<use href="#r42-person" transform="translate(1100,364) scale(.8)"/>
+<text class="label" x="1100" y="247" text-anchor="middle">Customer</text>
+<g id="r42-cabinet"><path class="paper" d="m1026 424 115 1 31 23-1 122-147-1z"/><path class="ink" d="m1027 427 28 24 115-2m-116 4-1 113m-23-130-1 108m63-89 1 108m-62 9-1 13m130-12 1 11"/><path class="pencil" d="m1062 460 25-1 1 96-25 1zm40-1 58-1-1 97-55 1m-67-120 94 1m-71 111 17 0m37-2 21 1"/><path class="ink" d="m1080 499 0 8m33-7 0 8"/></g>
+<!-- Owner and the desk are within the original workshop bay. -->
+<text class="minor" x="263" y="305" text-anchor="middle">Owner</text>
+<g id="r42-owner"><use href="#r42-person" transform="translate(263,404) scale(.63)"/></g>
+<g id="r42-desk"><path class="paper" d="m180 436 169-1 17 13-192 1z"/><path class="ink" d="m181 451 1 91m164-91-1 90"/><path class="pencil" d="m184 446 72-1m19 1 78 0m-161 14 1 68m146-69-1 68"/>
+<path class="steel" d="m226 434 1-42 70 1 1 40m-61-49 47 1m-47 17 1 20m47-21-1 19"/></g>
+<!-- Staged routes form a compact labyrinth inside the same bay. No dense full map. -->
+<g id="r42-paths"><path class="corridor" d="m1010 458-224 0-1 54-163 1m384-40-204 1 0 53-181 1"/><path id="r42-main" class="route" d="M1010 466 L794 466 L794 520 L618 520"/></g>
+<g id="r42-fork-a"><path class="corridor" d="m627 510 0-73 44-1m-59 75 0-88 58-1m-59 107-96 0m95-17-96 1"/>
+<g transform="translate(670 411)"><path class="paper" d="m0 0 39 1 0 51-38 1zm55 1 39-1 1 52-39 0z"/><path class="pencil" d="m8 9 22 1m-21 8 20 1m-22 9 21 1m-20 10 20 1m43-28 19 1m-19 5 19 1m-19 5 19 1m-19 5 19 1m-19 5 19 1"/></g><text class="minor" x="705" y="399" text-anchor="middle">Finish</text>
+<path id="r42-probe-a" class="route" d="M618 520 L618 429 L670 429"/>
+<path id="r42-between" class="route" d="M618 520 L496 520 L496 355"/>
+<path class="corridor" d="m505 511-1-150m-17 158 0-164"/></g>
+<g id="r42-fork-b"><path class="corridor" d="m504 363 111 0m-111-17 111 0m-129 0-100 0-1 79m102-62-85 0-1 62"/>
+<g transform="translate(613 287)"><path class="steel" d="m1 16 101 1m-96 6 1 36m87-34 1 35m-95 3 105-1"/><path class="pencil" d="m11 9 71-1 3 7m-65-15 68 1m-55-8 58 1m-75 45 67 1m-64 7 57 1m-48 6 54 0"/></g><text class="minor" x="667" y="279" text-anchor="middle">Materials</text>
+<path id="r42-probe-b" class="route" d="M496 355 L613 355"/>
+<path id="r42-final" class="route" d="M496 355 L394 355 L394 438 L359 438"/></g>
+<g id="r42-trace" transform="translate(1010 466)"><g id="r42-trace-motion"><circle r="8" fill="#F5F0E6" stroke="#B5482F" stroke-width="3"/><path d="M3-4-2 0 3 4" fill="none" stroke="#B5482F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+</svg>
+<audio id="r42-narration" src="public/audio/narration.wav" data-start="0" data-duration="20.2916666666667" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div><script>
+window.__timelines=window.__timelines||{};const t=gsap.timeline({paused:true});
+const cues={begin:2.875,firstFork:6.25,ownerLeaves:8.0,secondFork:10.875,arrive:15.7083333333333,hold:17.5};
+const lens={};for(const id of ['r42-main','r42-probe-a','r42-between','r42-probe-b','r42-final']){const p=document.getElementById(id);const n=p.getTotalLength();lens[id]=n;p.style.strokeDasharray=n;p.style.strokeDashoffset=n;}
+const draw=(id,start,duration)=>t.to('#'+id,{strokeDashoffset:0,duration,ease:'none'},start);
+const move=(x,y,start,duration)=>t.to('#r42-trace-motion',{x:x-1010,y:y-466,duration,ease:'none'},start);
+// The analytical routes enter the existing business; the building does not disappear.
+t.to('#workshop-interior',{opacity:.04,duration:.65,ease:'power1.inOut'},2.2);
+t.to('#workshop-side-window,#workshop-side-details',{opacity:.3,duration:.65,ease:'power1.inOut'},2.2);
+t.set('#r42-paths,#r42-trace',{autoAlpha:1},cues.begin);draw('r42-main',cues.begin,3.0);
+move(794,466,cues.begin,1.45);move(794,520,4.325,.36);move(618,520,4.685,1.19);
+// One unresolved operating fork at a time. The tracer returns to its junction after the probe.
+t.set('#r42-fork-a',{autoAlpha:1},6.125);draw('r42-probe-a',6.25,1.0);move(618,429,6.25,.64);move(670,429,6.89,.36);
+t.to('#r42-owner',{autoAlpha:0,duration:.6,ease:'power1.inOut'},8.0);
+t.to('#r42-probe-a',{strokeDashoffset:lens['r42-probe-a'],duration:.8,ease:'none'},7.8);move(618,429,7.8,.29);move(618,520,8.09,.51);
+draw('r42-between',8.85,1.8);move(496,520,8.85,.765);move(496,355,9.615,1.035);
+t.to('#r42-main',{autoAlpha:0,duration:.25},8.85);
+t.set('#r42-fork-b',{autoAlpha:1},10.875);draw('r42-probe-b',11.125,.75);move(613,355,11.125,.75);
+t.to('#r42-probe-b',{strokeDashoffset:lens['r42-probe-b'],duration:.75,ease:'none'},12.375);move(496,355,12.375,.75);
+// No route answer is invented. The search arrives at the empty owner station.
+draw('r42-final',13.5,2.2083333333333);move(394,355,13.5,1.025);move(394,438,14.525,.833);move(359,438,15.358,.3503333333333);
+t.to('#r42-between',{autoAlpha:0,duration:.25},13.5);
+// Protected held state through both final lines. No loop, shake, verdict heading or collapse.
+window.__timelines['ep007-r42']=t;
+</script></body></html>

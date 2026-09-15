@@ -1,0 +1,104 @@
+[
+  {
+    "event_id": "r54-s11cd-phrase-and-vacancy-v1",
+    "decision_id": "s11-vacancy",
+    "event_type": "decision",
+    "supersedes": "r54-s11b-room-model-v1",
+    "tags": [
+      "working-model",
+      "false-inference",
+      "cut-timing"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Acknowledge the on-success deal fairly, then expose the unpaid role three years out and name it: the vacancy.",
+        "viewer_before": "Every adviser is paid by the transaction.",
+        "viewer_after": "The viewer sees the empty seat that nobody is paid to fill."
+      },
+      "choice": "C: the room fades nearly out; 'A phrase you will hear' and the quote 'We only get paid when you do.' on its words. D: room returns; on 'not one person in that room' advisers and pay lines recede; an empty dashed chair appears across the owner's table on 'sit down with her'; a 'Three years out' marker that no line reaches on 'three years out'; the chair turns oxide on 'no owner'; heading 'The vacancy' on its word.",
+      "reason": "The quote is a common line, not a named firm's statement; the vacancy is a missing role, so it reads as negative space in the accepted room model.",
+      "alternatives": [
+        {
+          "choice": "Presenter for 'And that is the vacancy'",
+          "reason_not_selected": "Negative space in the model carries it without cost; S11 already has no presenter."
+        },
+        {
+          "choice": "Cross out the quote",
+          "reason_not_selected": "The script calls the deal genuinely good; crossing out implies it is false."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "An argument names an unfilled role inside an established structure.",
+        "avoid_when": "The role exists but is poorly performed."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s11c-in",
+            "phrase": "And there is a phrase",
+            "relation": "part B outpoint",
+            "master_seconds": 430.5,
+            "review_seconds": 427.5,
+            "fps": 24
+          },
+          {
+            "cue_id": "s11-out",
+            "phrase": "before Fair objection",
+            "relation": "master silence",
+            "master_seconds": 454.375,
+            "review_seconds": 451.375,
+            "fps": 24
+          }
+        ],
+        "false_inference": "That on-success pay is wrong, or that any adviser behaves improperly.",
+        "source_basis": "Plan approved to proceed under 'lock it and move on'."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11cd/index.html",
+        "sha256": "aafedb4c55ced35f278661f81f8af0e72ab93d3c79e32478f7fbc264fac773bb",
+        "locator": "Parts C-D source"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11cd/direction/CUES.json",
+        "sha256": "f886395215b8e246295838638b1354ebb7304d261db4b4729b9a00d97ba23a6d",
+        "locator": "Cues"
+      }
+    ]
+  },
+  {
+    "event_id": "r54-s11cd-verified-v1",
+    "decision_id": "s11-vacancy",
+    "event_type": "verification",
+    "tags": [
+      "working-model",
+      "original-audio"
+    ],
+    "data": {
+      "decision_event_id": "r54-s11cd-phrase-and-vacancy-v1",
+      "method": "Strict check; contact sheets and fixes (heading overlap, quote legibility, chair size, near-blank quote entry); render; S11 context from the locked S10 presenter; audio 0.99984 at zero lag; no uniform frames.",
+      "result": "pass",
+      "scope": "S11 parts C-D (573 frames) and full S11 context (1936 frames).",
+      "limitations": "Owner review pending for C and D.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11cd/qa/r54-s11cd.mp4",
+          "sha256": "ceb00185035dca601d483e0ae4154e871189ed64c7f038a2278ec507d8e05215"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11-full-context/qa/context.mp4",
+          "sha256": "9748fae17541028d0593e953a8e15621d9c6fe9bbfbb7ee79cd49b6c64feecda"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11cd/qa/CHECK.json",
+        "sha256": "97f71f3b98d0d78c4ca31f52f99b143ac044ca80cd83388ee7396c42397e7ca7",
+        "locator": "Strict check"
+      }
+    ]
+  }
+]

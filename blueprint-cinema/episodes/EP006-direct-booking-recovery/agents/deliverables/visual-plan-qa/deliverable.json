@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "visual-plan-qa",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/episode-engine.json",
+      "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/world.json",
+      "sha256": "cf55980b1930d2150a578f9e23663bfb4f7c6ed7157141c24c7496550cf249af"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/visual-plan.json",
+      "sha256": "eb8501b60dc72a158c69027622645290b7c4122502422bf8d870c2da9f6e313b"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/asset-tickets.json",
+      "sha256": "ee0f8e8490a4ed35ca2c7b3ea94c5e1db546aaec0c8f4de38ef68dc7718fb919"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/visual-plan-qa/visual-plan-qa.md",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/visual-plan-qa/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "recompute all declared SHA-256 input hashes",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-work-order EP006-direct-booking-recovery visual-plan-qa",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-plan EP006-direct-booking-recovery",
+      "outcome": "pass"
+    },
+    {
+      "command": "pytest -q blueprint-cinema/tests/test_visual_plan.py",
+      "outcome": "pass"
+    },
+    {
+      "command": "independent complete timeline, word, state, carry, boundary, evidence, ticket, semantic, and placeholder audit",
+      "outcome": "fail"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the five hash-pinned work-order inputs were used as canonical review inputs.",
+    "The word transcript was read only through the path and SHA-256 recorded in input-lock.json.",
+    "No internet source, external service, generated media, or unpinned visual source was used."
+  ],
+  "assumptions": [
+    "World state labels are substantive business states, not decorative focus markers.",
+    "Camera target_ids are reviewed as declared framing targets unless the orchestrator explicitly defines them as advisory.",
+    "A complete QA packet can report a blocking review verdict while retaining packet status complete."
+  ],
+  "unresolved_questions": [
+    "The camera contract does not state whether target_ids are exhaustive or illustrative; root integration must resolve that before greybox reliance."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

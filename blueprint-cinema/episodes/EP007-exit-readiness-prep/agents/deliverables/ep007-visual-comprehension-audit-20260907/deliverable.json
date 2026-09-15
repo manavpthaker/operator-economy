@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-visual-comprehension-audit-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r3-relevant-edit/compositions/model-exposure.html",
+      "sha256": "0d4fa07954d85e9f70e4f0f5c6405a0c9e479b442ac2fe706f3d9fd7bc6ee82a"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/GENERATION-PROMPTS.md",
+      "sha256": "2940abcb63260bc7b1d50c44a6a8a96d64cd700893fde93107c72b3d93ab6001"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-visual-comprehension-audit-20260907/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-visual-comprehension-audit-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all three work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual line-by-line semantic trace of locked script, current model source, and generation prompt record",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual cross-check against locked Boundary Ledger and OE film-direction meaning constraints",
+      "outcome": "pass"
+    },
+    {
+      "command": "read-only contiguous-span check of proposed EP007 beat-intent W ranges: 26 spoken spans, no gaps or overlaps, W000000 through W003185",
+      "outcome": "pass"
+    },
+    {
+      "command": "read-only V4 per-act approval check against operator-blueprint-v2/03-visual-translation/STAGE-GATES.md lines 104-124",
+      "outcome": "pass"
+    },
+    {
+      "command": "final full read and SHA-256 recomputation of supplemental PROMPTS.md and EP007-BEAT-INTENT.md",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema production-dispatch validation of the ad hoc reviewer packet",
+      "outcome": "not_run"
+    },
+    {
+      "command": "encoded playback, timing, compression, generation, render, and creative approval",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "The three hash-pinned local inputs named by the issued work order were the episode-specific source set.",
+    "Supplemental follow-up source: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/PROMPTS.md at SHA-256 9aa1faac090346bf65616dba3f776c5312080cbade6e46fd1bbcecda1d1c6a5a.",
+    "Supplemental follow-up source: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/EP007-BEAT-INTENT.md at SHA-256 f1e1197d6ed0a49ca171eebf1b4ca437ef28087faa3c052b11fac51068333b0b.",
+    "The governing Step 3 stage-gate authority was inspected as supplemental provenance; it was not added to the three issued work-order input pins.",
+    "Locked local Boundary Ledger and OE film-direction instructions governed the semantic and generated-plate interpretation.",
+    "The ad hoc reviewer packet is not production-dispatch validated because its repository-relative routing does not satisfy the Blueprint-Cinema-relative dispatcher contract; no approval is inferred.",
+    "No internet source, external tool, generated media, render, or unpinned factual evidence was used."
+  ],
+  "assumptions": [
+    "Viewer inference is judged from the authored object relationships and motion instructions, not treated as a technical fact.",
+    "The retained question mark can support a hypothetical reading, but the current stop mark and converged route are unqualified enough to invite a systemic-failure reading.",
+    "A proposed prompt pack can correct downstream visual claims without changing the locked script or narration."
+  ],
+  "unresolved_questions": [
+    "The exact c03 prompt is referenced by the pinned prompt record but was not supplied as a hash-pinned work-order input.",
+    "No real recurring task or workflow evidence establishes what, if anything, stops during the owner's month away.",
+    "Encoded playback and final audience comprehension remain separately unverified.",
+    "Production-dispatch validation did not run past the ad hoc routing/precheck boundary; this completed read-only audit is not a production approval."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

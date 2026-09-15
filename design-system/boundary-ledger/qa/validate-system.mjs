@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { existsSync, lstatSync, readFileSync, readdirSync } from "node:fs";
+import { dirname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const qaDirectory = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(qaDirectory, "..");
+const repositoryRoot = resolve(packageRoot, "../..");
 const errors = [];
 const warnings = [];
 const checked = [];
@@ -66,6 +67,44 @@ function uniqueIds(items, label) {
   return seen;
 }
 
+function isHex(value, length) {
+  return typeof value === "string" && new RegExp(`^[0-9a-f]{${length}}$`).test(value);
+}
+
+function resolveRepositoryFile(reference, label) {
+  if (typeof reference !== "string" || reference.length === 0) {
+    fail(`${label} has no repository-relative path.`);
+    return null;
+  }
+  if (reference.startsWith("/") || reference.split("/").includes("..")) {
+    fail(`${label} escapes the repository: ${reference}`);
+    return null;
+  }
+  const path = resolve(repositoryRoot, reference);
+  const local = relative(repositoryRoot, path);
+  if (!local || local === ".." || local.startsWith(`..${sep}`)) {
+    fail(`${label} escapes the repository after resolution: ${reference}`);
+    return null;
+  }
+  return path;
+}
+
+function walkRegularFiles(root, label, current = root) {
+  const files = [];
+  for (const entry of readdirSync(current, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    if (entry.name === ".DS_Store") continue;
+    const path = resolve(current, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...walkRegularFiles(root, label, path));
+    } else if (entry.isFile()) {
+      files.push(relative(repositoryRoot, path).split(sep).join("/"));
+    } else {
+      fail(`${label} contains an unsupported filesystem entry: ${path}`);
+    }
+  }
+  return files;
+}
+
 const packageManifest = readJson(resolve(packageRoot, "manifest.json"));
 const core = readJson(resolve(packageRoot, "semantic-core.json"));
 
@@ -123,6 +162,157 @@ for (const [name, bindingRef] of Object.entries(packageManifest.bindings || {}))
 
 for (const [name, reference] of Object.entries(packageManifest.entrypoints || {})) {
   requirePath(resolveReference(packageRoot, reference), `entrypoint ${name}`);
+}
+
+const productionInstructions = packageManifest.productionInstructions;
+if (!productionInstructions) {
+  fail("Package manifest has no production-instruction binding.");
+} else {
+  if (productionInstructions.status !== "locked") {
+    fail(`Production instructions must be locked, found ${productionInstructions.status}.`);
+  }
+  if (productionInstructions.semanticCoreExtended !== false) {
+    fail("Production instructions must not extend the Boundary Ledger semantic core.");
+  }
+  if (productionInstructions.motionBindingStatus !== packageManifest.bindings.motion.status) {
+    fail("Production-instruction motion status differs from the motion binding status.");
+  }
+  if (productionInstructions.soundBindingStatus !== packageManifest.bindings.sound.status) {
+    fail("Production-instruction sound status differs from the sound binding status.");
+  }
+  if (productionInstructions.authorityDocument !== packageManifest.entrypoints.productionSkillsAuthority) {
+    fail("Production-instruction authority document is not the manifest entrypoint.");
+  }
+
+  const lockReference = productionInstructions.lock;
+  if (!lockReference || typeof lockReference.path !== "string" || !isHex(lockReference.sha256, 64)) {
+    fail("Production-instruction lock must declare a path and SHA-256.");
+  } else {
+    const lockPath = resolveReference(packageRoot, lockReference.path);
+    requireHash(lockPath, lockReference.sha256, "production-instruction lock");
+    const lock = readJson(lockPath);
+
+    if (lock) {
+      if (lock.schemaVersion !== "1.0.0") fail("OE skill lock schemaVersion must be 1.0.0.");
+      if (lock.status !== "locked") fail(`OE skill lock status must be locked, found ${lock.status}.`);
+      if (lock.lockedOn !== productionInstructions.lockedOn) {
+        fail("OE skill lock date differs from the production-instruction binding.");
+      }
+      if (lock.hashAlgorithm !== "sha256") fail("OE skill lock hashAlgorithm must be sha256.");
+      if (!Array.isArray(lock.roots) || lock.roots.length === 0) fail("OE skill lock roots must be non-empty.");
+      if (!Array.isArray(lock.additionalFiles)) fail("OE skill lock additionalFiles must be an array.");
+      if (!Array.isArray(lock.files) || lock.files.length === 0) fail("OE skill lock files must be non-empty.");
+
+      const declaredFiles = new Map();
+      for (const entry of lock.files || []) {
+        if (!entry || typeof entry.path !== "string" || !isHex(entry.sha256, 64)) {
+          fail(`OE skill lock contains an invalid file entry: ${JSON.stringify(entry)}.`);
+          continue;
+        }
+        if (declaredFiles.has(entry.path)) {
+          fail(`OE skill lock contains duplicate file ${entry.path}.`);
+          continue;
+        }
+        declaredFiles.set(entry.path, entry.sha256);
+        const filePath = resolveRepositoryFile(entry.path, `OE skill file ${entry.path}`);
+        if (filePath) {
+          if (existsSync(filePath) && !lstatSync(filePath).isFile()) {
+            fail(`OE skill lock target is not a regular file: ${entry.path}.`);
+          } else {
+            requireHash(filePath, entry.sha256, `OE skill file ${entry.path}`);
+          }
+        }
+      }
+
+      const expectedFiles = new Set();
+      for (const reference of lock.additionalFiles || []) {
+        const filePath = resolveRepositoryFile(reference, `OE skill additional file ${reference}`);
+        if (filePath && requirePath(filePath, `OE skill additional file ${reference}`)) {
+          if (!lstatSync(filePath).isFile()) fail(`OE skill additional file is not regular: ${reference}.`);
+          expectedFiles.add(reference);
+        }
+      }
+      for (const reference of lock.roots || []) {
+        const rootPath = resolveRepositoryFile(reference, `OE skill root ${reference}`);
+        if (rootPath && requirePath(rootPath, `OE skill root ${reference}`)) {
+          if (!lstatSync(rootPath).isDirectory()) {
+            fail(`OE skill root is not a directory: ${reference}.`);
+          } else {
+            for (const file of walkRegularFiles(rootPath, `OE skill root ${reference}`)) expectedFiles.add(file);
+          }
+        }
+      }
+      for (const file of expectedFiles) {
+        if (!declaredFiles.has(file)) fail(`OE skill file is inside lock scope but not declared: ${file}.`);
+      }
+      for (const file of declaredFiles.keys()) {
+        if (!expectedFiles.has(file)) fail(`OE skill lock declares a file outside its scope: ${file}.`);
+      }
+
+      const repositoryLockPath = relative(repositoryRoot, lockPath).split(sep).join("/");
+      if (!(lock.excludedFiles || []).includes(repositoryLockPath)) {
+        fail("OE skill lock must exclude itself to avoid a hash cycle.");
+      }
+
+      const sourceLedgerReference = lock.sourceLedger;
+      if (!sourceLedgerReference || typeof sourceLedgerReference.path !== "string" || !isHex(sourceLedgerReference.sha256, 64)) {
+        fail("OE skill lock must declare its source ledger and SHA-256.");
+      } else {
+        const sourceLedgerPath = resolveRepositoryFile(sourceLedgerReference.path, "OE skill source ledger");
+        if (sourceLedgerPath) {
+          requireHash(sourceLedgerPath, sourceLedgerReference.sha256, "OE skill source ledger");
+          if (declaredFiles.get(sourceLedgerReference.path) !== sourceLedgerReference.sha256) {
+            fail("OE skill source ledger is not declared with the same hash in the local-file lock.");
+          }
+          const sourceLedger = readJson(sourceLedgerPath);
+          if (sourceLedger) {
+            if (sourceLedger.schemaVersion !== "1.0.0") fail("OE source ledger schemaVersion must be 1.0.0.");
+            if (sourceLedger.hashAlgorithm !== "sha256") fail("OE source ledger hashAlgorithm must be sha256.");
+            if (sourceLedger.authority !== "reference-only") fail("OE source ledger must remain reference-only.");
+
+            const expectedSourceIds = new Set(lock.expectedSourceIds || []);
+            const sourceIds = new Set();
+            for (const source of sourceLedger.sources || []) {
+              if (!source || typeof source.id !== "string") {
+                fail("OE source ledger contains a source without an id.");
+                continue;
+              }
+              if (sourceIds.has(source.id)) fail(`OE source ledger contains duplicate id ${source.id}.`);
+              sourceIds.add(source.id);
+              if (!isHex(source.commit, 40)) fail(`OE source ${source.id} has an invalid commit.`);
+              if (!source.license || !source.attribution) {
+                fail(`OE source ${source.id} is missing license or attribution.`);
+              }
+              if (!Array.isArray(source.adoptedPrinciples) || source.adoptedPrinciples.length === 0) {
+                fail(`OE source ${source.id} has no adopted principles.`);
+              }
+              if (!Array.isArray(source.excludedPrinciples) || source.excludedPrinciples.length === 0) {
+                fail(`OE source ${source.id} has no excluded principles.`);
+              }
+              const sourcePaths = new Set();
+              for (const entry of source.files || []) {
+                if (!entry || typeof entry.path !== "string" || !isHex(entry.sha256, 64)) {
+                  fail(`OE source ${source.id} contains an invalid file declaration.`);
+                  continue;
+                }
+                if (entry.path.startsWith("/") || entry.path.split("/").includes("..")) {
+                  fail(`OE source ${source.id} path escapes its checkout: ${entry.path}.`);
+                }
+                if (sourcePaths.has(entry.path)) fail(`OE source ${source.id} repeats path ${entry.path}.`);
+                sourcePaths.add(entry.path);
+              }
+            }
+            for (const id of expectedSourceIds) {
+              if (!sourceIds.has(id)) fail(`OE source ledger omits expected source ${id}.`);
+            }
+            for (const id of sourceIds) {
+              if (!expectedSourceIds.has(id)) fail(`OE source ledger contains undeclared source ${id}.`);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 const referenceAssetPath = resolveReference(packageRoot, packageManifest.referenceAsset.path);

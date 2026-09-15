@@ -9,7 +9,7 @@ The approved **WIN THEM BACK** thumbnail is the episode’s visual thesis. OTA g
 1. Hold the exact thumbnail for 0.8 seconds so the click and video match.
 2. Run a 15–25 second cold open that dramatizes the loss before explaining it: guest relationship, OTA share, commission, annual consequence, estimate caveat.
 3. Cut to the universal Operator Economy ident and sting. Do not overlay it on unfinished narration.
-4. Follow with: “This is The Operator Economy. This week, we’re looking at direct booking recovery.”
+4. Follow with the episode announcement: “This is The Operator Economy. Today: hotels keep paying to meet the same guest. This episode is direct booking recovery.”
 5. State the outcome before inventorying the stack.
 
 ## Narrative Waveform

@@ -1,0 +1,123 @@
+[
+  {
+    "event_id": "avatar-v3-current-edit-hook-verified-v1",
+    "decision_id": "avatar-current-edit-update",
+    "event_type": "verification",
+    "tags": [
+      "avatar",
+      "reference",
+      "integration",
+      "cut-timing"
+    ],
+    "data": {
+      "decision_event_id": "avatar-v3-current-edit-adoption-v1",
+      "method": "Compare accepted runtime hashes, source/audio bindings, strict HyperFrames check, rendered opening/cut snapshots and live player progression.",
+      "result": "pass",
+      "scope": "R30 replaces only the existing opening avatar slot using accepted V3 source frame 1. Existing cuts, soundtrack and all other scene content preserved.",
+      "limitations": "Partial update only; remaining avatar passages retain older takes. No new owner acceptance of R30. Waveform placement is not measured visual lip sync; no independent full-speed perceptual or complete-prefix review claimed.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/index.html",
+          "sha256": "231dee5c9902382c6dce1cb2cf7424f3230fb1803a0099a3694a585fefe97534"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/public/media/avatar-v3-opening.mp4",
+          "sha256": "26244a1fe78efe606c81e45fbe1e99570c13280b85c915790f534635b2807b9b"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/VERIFICATION.json",
+          "sha256": "a164573fc4f7fad7412a8ab4db8bce47ed6fb5e7cd622c393ded02b1b1741768"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/VERIFICATION.json",
+        "sha256": "a164573fc4f7fad7412a8ab4db8bce47ed6fb5e7cd622c393ded02b1b1741768",
+        "locator": "bounded implementation and verification"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/check.json",
+        "sha256": "b7392fc2bde78d184f69569f2f179d7e2eb85e264d1055ca0ac4e22e74a16b3b",
+        "locator": "strict check result"
+      }
+    ]
+  },
+  {
+    "event_id": "avatar-v3-remaining-takes-prepared-v1",
+    "decision_id": "avatar-v3-remaining-takes",
+    "event_type": "decision",
+    "tags": [
+      "avatar",
+      "reference",
+      "performance",
+      "cut-timing",
+      "paid-preparation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Replace the remaining presenter appearances with the accepted natural V3 performance recipe while preserving the accepted argument and editing.",
+        "viewer_before": "Only the opening currently uses accepted V3; later presenter words belong to older takes.",
+        "viewer_after": "The later presenter passages use matching new speech and complementary behavioral references with the original voice and current cuts."
+      },
+      "choice": "Prepare three new source takes: opportunity 6s, continuous post-title 15s, question 13s. Keep portrait identity and medium-close framing; Rebecca supplies relaxed settling, Henry deliberate articulation. Restore exact original audio after generation.",
+      "reason": "The accepted opening audition does not contain later narration. A continuous post-title source can support existing crop changes without restarting performance.",
+      "alternatives": [
+        {
+          "choice": "Use the opening source against all later speech.",
+          "reason_not_selected": "Unrelated mouth movement cannot provide matching articulation."
+        },
+        {
+          "choice": "Generate separate clips for each post-title crop.",
+          "reason_not_selected": "The accepted edits can be preserved with one continuous performance source, reducing avoidable motion resets."
+        },
+        {
+          "choice": "Add the proposed wider hands-visible framing now.",
+          "reason_not_selected": "The source chat accepted delivery separately from that later framing proposal."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A selected avatar performance recipe replaces existing presenter coverage with locked audio and edit timing.",
+        "avoid_when": "A later owner decision deliberately changes framing, narration or editorial coverage."
+      },
+      "nuance": {
+        "source_basis": "Current owner request, verified V3 acceptance and live R29 source declarations.",
+        "exact_mapping": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/mapping.json",
+        "one_number_cut": "Preserve review67.58 cue, immediately after and; advance the new single-source picture continuously.",
+        "question_cut": "Preserve actual review139.958333 cue before then, 12.041667s moving source window and existing18-frame hold.",
+        "reference_scope": "Appearance from portrait; behavior only from Rebecca and Henry. Wider framing remains proposed.",
+        "generation_status": "Local preparation only. No upload or paid job submitted.",
+        "proposed_spend": {
+          "higgsfield_credits_cap": 221,
+          "fal_usd_cap": 6,
+          "attempts": "One generation and at most one original-audio restoration per passage; no automatic paid retries.",
+          "authorization": "Pending current batch authorization. Re-estimate after actual passage audio upload; do not exceed approved cap."
+        },
+        "new_output_checks": "Measure each returned audio placement independently, check original word coverage, compare normal-speed articulation/likeness/stillness to V3, and inspect every changed edit boundary."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/mapping.json",
+        "sha256": "63ec6069303bec8b66444a1309dc7a165956f2f1e9a53f9574bcee0d5d09cb4e",
+        "locator": "all existing slots, exact audio slices, cues and reference roles"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/deliverable.json",
+        "sha256": "22e7f818fbaa5d44408e984edc7fef8a7e2faa308e56da9944ede345cb6be1b0",
+        "locator": "bounded local preparation manifest"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/avatar-v3-replacement-preparation-validation-20260911.json",
+        "sha256": "3737fb290164b2fd57f641d401c0784bb8d3a31984ba4e811c07377cc22cbd6f",
+        "locator": "root independent validation"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/REPLACEMENT-COSTS.json",
+        "sha256": "abaecee6445b2ef9ea85a605d626495a82ff582c220ae187fe046baee43004fd",
+        "locator": "current estimate and proposed caps"
+      }
+    ]
+  }
+]

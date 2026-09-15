@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-context-direction-integration-review-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only wave-0 regression review of the implemented context-sensitive film-direction contract. This is system maintenance, not episode production. Check schema/semantic/compiler agreement, real pass-through of authored context, legacy rejection and safety regressions, and test validity. Run the two targeted local test files only; no canonical episode writes.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "schemas/scene-directions.schema.json",
+      "sha256": "d64648087ba95d346301165a27ff2a0f5ae3516716ae6e624ec0aa839192961d"
+    },
+    {
+      "path": "src/blueprint_cinema/validation.py",
+      "sha256": "c56a8920cf1c9cda0d3b4be3887756d93511c49bf4fb16bb9094592dd7a3cc48"
+    },
+    {
+      "path": "src/blueprint_cinema/scene_prompts.py",
+      "sha256": "f1bb89de919fcc274d1e49e955b63dac9cd9fab906aeac4664d805e8e64002e2"
+    },
+    {
+      "path": "tests/test_scene_prompts.py",
+      "sha256": "0638e264d9b40acc46f2ca4e1a048873e61823a4f8737252593be9800d85d471"
+    },
+    {
+      "path": "tests/test_context_direction.py",
+      "sha256": "569d5cb9b87061ab6391b5ed00ec62a51c92d78481f3ab33c9ed8b233e6dd7f9"
+    },
+    {
+      "path": "references/SCENE-DIRECTION-CONTRACT.md",
+      "sha256": "c87a80539cfe981e2236f017fa229e058e2781ccaa49afe9eeab6380de62cd9f"
+    },
+    {
+      "path": "README.md",
+      "sha256": "44c3637245e2bba9431f1a1621af79e58deb5fc62c81b34bd16553af2e7cbfb7"
+    },
+    {
+      "path": "TOOLCHAIN.md",
+      "sha256": "f317512885d1e5feb5016c2ef77a7e66b15a738fd8d79206bf08b0695d5540a7"
+    },
+    {
+      "path": "AGENT-WORKFLOWS.md",
+      "sha256": "1ee734f4f0bdfb4e0c9e5212e3a90ca3b854c3a6c1cfdfa47116fd185e406bbd"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-context-direction-integration-review-20260908/"
+  ],
+  "forbidden_paths": [
+    "src/",
+    "schemas/",
+    "tests/",
+    "templates/",
+    "experiments/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify all input hashes. Review schema 1.2.0 context/editorial/dramatization requirements and semantic sound/mode invariants; identify any unintended relaxation of narration, evidence, source sync, continuity or gates.",
+    "Run .venv/bin/python -m pytest tests/test_scene_prompts.py tests/test_context_direction.py -q --tb=short; examine fixture quality and compiler pass-through. Return report.md and schema-valid deliverable.json only. No implementation edits."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale inputs; do not fix code or invent scene rationale during the review.",
+    "No media, network, paid calls, canonical state, approval claims, generated episode prompts or writes outside owned packet; tests may use pytest temporary paths."
+  ],
+  "status": "closed"
+}

@@ -1,0 +1,357 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP007-exit-readiness-prep",
+  "derived": {
+    "operator": "An experienced operations, finance-adjacent, consulting or systems professional",
+    "customer": "The owner of an owner-operated business intending to exit within one to five years",
+    "beneficiary": "The same owner; secondarily the acquirer who receives a diligenceable business",
+    "constraint": "Operations, process and records depend on the owner and cannot be verified by a buyer",
+    "counter_system": "A fixed-scope, fixed-fee sale-readiness engagement against a published checklist",
+    "owned_value": "A business that survives inspection, and a written record of what was resolved and what was not",
+    "outcome_object": "The signed readiness checklist"
+  },
+  "boundary_ledger_lock": {
+    "system_version": "2.0.0",
+    "semantic_core_path": "../../../../design-system/boundary-ledger/semantic-core.json",
+    "semantic_core_sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "motion_binding_path": "../../../../design-system/boundary-ledger/bindings/motion.json",
+    "motion_binding_sha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motion_binding_status": "provisional"
+  },
+  "business_operations": [
+    {
+      "id": "BO-002",
+      "upstream_state_id": "S002",
+      "state_before": "Undocumented process and owner-held relationships exist but are not surfaced.",
+      "state_after": "Undocumented process and owner-held relationships have been surfaced and are legible.",
+      "business_operation": "Surface the undocumented process and owner-held relationships the business runs on.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "Structured owner and staff interviews to surface undocumented process and owner-held relationships.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "trace",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Trace requires a previously implicit connection to become legible without changing its state, which is exactly what a structured interview does: it surfaces the relationship without yet altering it. The owner is a rented capability a buyer cannot keep, so externalDependency is the role.",
+      "acts_on": [
+        "business-part.key-person-dependency",
+        "business-part.owner-held-pricing",
+        "business-part.undocumented-process",
+        "dependency-line"
+      ],
+      "instance_targeting_rationale": "Interviews surface undocumented process and owner-held relationships. Customer concentration is a structural fact, not an owner-held relationship, so it is not surfaced by this operation.",
+      "carried": []
+    },
+    {
+      "id": "BO-003",
+      "upstream_state_id": "S003",
+      "state_before": "The owner-dependent business, with records a buyer cannot verify, is taken to market as it stands.",
+      "state_after": "The business is repriced or passed over.",
+      "business_operation": "The owner-dependent, unverifiable business is repriced or passed over at the point of sale.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "3. Costly problem",
+      "source_quote": "Owners reach the point of sale with owner-dependent operations, undocumented process and records a buyer cannot verify \u2014 and are repriced or passed over.",
+      "boundary_ledger_semantic_role_id": "actualRisk",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt requires the current operation to visibly stop, break or be rejected. The cited sentence states repricing or being passed over directly. The earlier inference that the business keeps operating has been removed: it was not in the source.",
+      "acts_on": [
+        "path.transfer"
+      ],
+      "instance_targeting_rationale": "What changes is the transfer path, not the parts. The parts are carried unchanged into the inspection and are what causes it to fail; repricing is a state of the route toward a buyer, and the buyer itself is never altered by the engagement.",
+      "carried": [
+        "business-part.customer-concentration",
+        "business-part.key-person-dependency",
+        "business-part.owner-held-pricing",
+        "business-part.undocumented-process",
+        "buyer",
+        "dependency-line"
+      ]
+    },
+    {
+      "id": "BO-004",
+      "upstream_state_id": "S004",
+      "state_before": "No prioritised remediation plan has been produced.",
+      "state_after": "A prioritised remediation plan records what was fixed and what remains open.",
+      "business_operation": "Produce a prioritised remediation plan recording what was fixed and what remains open.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "4. Offer",
+      "source_quote": "Included: readiness diagnostic against a published checklist; records and reporting hygiene; process documentation; owner-dependence reduction; customer-concentration and key-person analysis; assembled diligence package; prioritised remediation plan with what was fixed and what remains open.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct requires the prior mark to remain understandable while a revised mark replaces its consequence; the cited line names both halves \u2014 what was fixed and what remains open. The before-state now claims only that the plan the offer produces has not yet been produced, rather than asserting a prior absence of records the quote does not establish.",
+      "acts_on": [
+        "business-part.customer-concentration",
+        "business-part.key-person-dependency",
+        "business-part.owner-held-pricing",
+        "business-part.undocumented-process",
+        "documented-support"
+      ],
+      "instance_targeting_rationale": "The prioritised remediation plan records every analysed capability, including concentration, as fixed or remaining open.",
+      "carried": []
+    },
+    {
+      "id": "BO-005",
+      "upstream_state_id": "S005",
+      "state_before": "Something only the owner does is neither moved nor documented.",
+      "state_after": "What only the owner does has been moved to someone else or documented.",
+      "business_operation": "Identify what only the owner does, and move it or document it.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "Owner-dependence reduction: identify what only the owner does, and move or document it.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "return",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Return requires an accountable object to move from a rented path to the declared owned path. The owner is the rented capability a buyer cannot acquire. The after-state preserves the Canvas's own branch \u2014 moved or documented \u2014 and does not claim the capability now runs independently or survives inspection.",
+      "acts_on": [
+        "business-part.key-person-dependency",
+        "business-part.owner-held-pricing",
+        "business-part.undocumented-process",
+        "dependency-line",
+        "documented-support",
+        "owner"
+      ],
+      "instance_targeting_rationale": "Owner-dependence reduction targets what only the owner does. Customer concentration is excluded: it is not something only the owner does, and the Canvas offers analysis of it rather than reduction.",
+      "carried": []
+    },
+    {
+      "id": "BO-007",
+      "upstream_state_id": "S007",
+      "state_before": "Readiness items are open and unsigned.",
+      "state_after": "Every item is resolved, deferred with a stated reason, or out of scope, and the owner has signed that record.",
+      "business_operation": "Close the readiness record on the signed checklist rather than on a sale.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "5. Buyer result",
+      "source_quote": "**Primary acceptance measure:** every item on the pre-agreed readiness checklist is marked resolved, deferred with a stated reason, or out of scope \u2014 and the owner signs that record.",
+      "boundary_ledger_semantic_role_id": "verifiedStatus",
+      "boundary_ledger_operation_id": "settle",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Settle requires nonessential motion to stop with the final relationship readable, which matches an acceptance event that is a signed record rather than a transaction. A verified state resolves once and does not pulse.",
+      "acts_on": [
+        "readiness-checklist"
+      ],
+      "carried": [
+        "owner"
+      ],
+      "instance_targeting_rationale": "The checklist is signed. The owner performs the signing and is carried, not changed."
+    }
+  ],
+  "episode_visual_model": {
+    "name": "Load-bearing owner and the inspection pass",
+    "label": "AUTHORED",
+    "business_operation_ids": [
+      "BO-002",
+      "BO-003",
+      "BO-004",
+      "BO-005",
+      "BO-007"
+    ],
+    "persistent_actors": [
+      {
+        "id": "owner",
+        "description": "The owner of the business. Present, competent, and the thing most of the business is standing on."
+      },
+      {
+        "id": "buyer",
+        "description": "The inspecting buyer. External to the engagement and never changed by it."
+      },
+      {
+        "id": "dependency-line",
+        "description": "The visible support running from a business part back to the owner. The rented capability a buyer cannot keep."
+      },
+      {
+        "id": "documented-support",
+        "description": "Documented process that carries a part's load without the owner."
+      },
+      {
+        "id": "diligence-package",
+        "description": "The assembled record a buyer can inspect."
+      },
+      {
+        "id": "readiness-checklist",
+        "description": "The pre-agreed checklist whose signature is the acceptance event."
+      },
+      {
+        "id": "business-part",
+        "description": "An object class. Operations target named INSTANCES, never the class \u2014 the world declares four, each with its own identity and its own state machine where the Canvas constrains it."
+      }
+    ],
+    "zones_and_relationships": [
+      "Every business part stands on either a dependency-line to the owner or on documented-support.",
+      "The buyer's inspection pass tests a part by pulling what it stands on; a part on a dependency-line fails, a part on documented-support holds.",
+      "The engagement changes only what a part stands on. It never changes the buyer, the inspection, or whether a buyer appears."
+    ],
+    "mechanical_honesty": "The model depicts what the engagement actually changes: what the business can show a buyer. It cannot depict a sale, a price, a multiple, or a buyer arriving, because the operator does not control those and the Canvas excludes them by name.",
+    "establishment_ids": [
+      "EST-001"
+    ]
+  },
+  "reality_world": {
+    "people": [
+      "The owner across a table from a buyer",
+      "An adviser the owner already retains",
+      "Staff who hold undocumented process"
+    ],
+    "places": [
+      "The owner's office",
+      "A conference table where diligence questions are asked",
+      "The floor of an owner-operated business"
+    ],
+    "objects": [
+      "Paper records and folders",
+      "A screen showing accounts that are real but not diligence-grade",
+      "The readiness checklist"
+    ],
+    "surfaces": [
+      "Desk and table surfaces",
+      "Printed record pages",
+      "The signed checklist"
+    ]
+  },
+  "guardrails": [
+    "Never depict a sale closing, a buyer arriving, a price, or a multiple. The Canvas excludes multiple uplift by name and the operator does not control whether a sale happens.",
+    "Never depict the operator giving a valuation opinion, introducing a buyer, or advising on deal structure, tax or law. Those are excluded from the offer and some are licensed.",
+    "Never depict the owner as incompetent. The business is profitable and works; the defect is that it is not transferable.",
+    "Never let documented-support imply a guaranteed outcome. It changes what can be shown, not what a buyer decides.",
+    "Never depict the fee as contingent on a transaction. Fixed-fee is a legal consequence, not a preference.",
+    "Never upgrade an evidence label. MODELED triggers and PARALLEL format claims stay marked as the Canvas marks them."
+  ],
+  "derived_provenance": {
+    "operator": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "1. Operator",
+      "source_quote": "An experienced professional in operations, finance-adjacent work, consulting, or systems, who can run a structured engagement, read a set of accounts, and tell a founder that the business depends on them. `PARALLEL`: ANA-002, ANA-003."
+    },
+    "customer": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: the owner of an owner-operated business, typically 55+, intending to exit within one to five years. `OBSERVED`: CLM-002."
+    },
+    "beneficiary": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Beneficiary: the same owner. Secondarily the acquirer, who receives a business they can actually diligence."
+    },
+    "constraint": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "3. Costly problem",
+      "source_quote": "Owners reach the point of sale with owner-dependent operations, undocumented process and records a buyer cannot verify \u2014 and are repriced or passed over."
+    },
+    "counter_system": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "4. Offer",
+      "source_quote": "A fixed-scope, fixed-fee sale-readiness engagement for one business."
+    },
+    "owned_value": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "5. Buyer result",
+      "source_quote": "The owner receives a business that survives inspection, and a written record of what was resolved and what was not."
+    },
+    "outcome_object": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "5. Buyer result",
+      "source_quote": "**Why the acceptance measure is not the sale.** The operator does not control whether a sale happens, when, at what price, or to whom. Roughly half of exits are involuntary, and most listings do not transact at all. Tying acceptance to a sale would make the deliverable depend on an event outside the engagement \u2014 and would also convert the fee into a success fee, which is the thing that triggers licensing. The acceptance event is therefore the signed checklist, not the closing. `OBSERVED`: CLM-001, CLM-004."
+    }
+  },
+  "establishment": [
+    {
+      "id": "EST-001",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer cannot identify this owner, this business, or the exit that is coming.",
+      "viewer_state_after": "The viewer can identify the owner, the business, and the one-to-five-year exit the owner intends.",
+      "reveals": [
+        "owner",
+        "business-part"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: the owner of an owner-operated business, typically 55+, intending to exit within one to five years. `OBSERVED`: CLM-002.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish's required change is that the viewer can identify the world and its primary relationship. The owner, the business and the exit window are all cited upstream; only the viewer's knowledge of them is authored, which is why this is an establishment row and not a derived business operation."
+    }
+  ],
+  "input_lock": {
+    "editorial_lock": {
+      "path": "../01-editorial/editorial-lock.md",
+      "sha256": "7d3871804c82e7da09a59c01cd5ef4342ad0ad9141158869acc71d6d291a1319"
+    },
+    "operator_canvas": {
+      "path": "../01-editorial/operator-canvas.md",
+      "sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f"
+    },
+    "episode_investment_thesis": {
+      "path": "../01-editorial/episode-investment-thesis.md",
+      "sha256": "868dc798eeb0513b083debb08ea376b333ae486e9a535be7facf5183e94726f4"
+    },
+    "narrative_spine": {
+      "path": "../01-editorial/narrative-spine.md",
+      "sha256": "c053f4d95542ce9fc42e9a665d10576cc69e99577fc8849208970f9163efbe4f"
+    },
+    "episode_beat_sheet": {
+      "path": "../01-editorial/episode-beat-sheet.md",
+      "sha256": "eb953ffa1a0fc5bf4540842f8cd86db19838a1692c00e439c9fdfd538225f4fb"
+    },
+    "claims_map": {
+      "path": "../01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    },
+    "script": {
+      "path": "../01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    "canonical_w": {
+      "path": "../01-editorial/canonical-w.txt",
+      "sha256": "333a45d7449f5cb4c3e394a9e262c3a3a60c3825e76563bc0149498f0b41860c"
+    },
+    "spoken_identity": {
+      "path": "../01-editorial/spoken-identity.json",
+      "sha256": "d753a2ca34cc01e0282d10e83158d877c67614b50dbdb9f3ae17de4fc2e004fe"
+    },
+    "narration_lock": {
+      "path": "../02-narration-production/narration-lock.md",
+      "sha256": "61cfd940b9f8bfcb0e502e07f073a7a1457a671b9a4a35667e6ca08c2fafbbd5"
+    },
+    "narration_master": {
+      "path": "../02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    "word_transcript": {
+      "path": "../02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    "intentional_pause_map": {
+      "path": "../02-narration-production/intentional-pause-map.json",
+      "sha256": "0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa"
+    },
+    "narration_duration_seconds": 1137.927
+  },
+  "excluded_operations": [
+    {
+      "id": "BO-006",
+      "withdrawn": "2026-09-03",
+      "was": "Assemble the records into a diligence package a buyer can inspect.",
+      "reason": "The Canvas line 'Assemble the diligence package.' describes producing a deliverable, not a claim gaining visible source context. `pin` was reverse-fitted to it across two revisions. No other permitted role/operation pair expresses assembly: `route` would fit the accountable-state change but is permitted only for externalDependency, and the diligence package is not a rented capability. Rather than bend either the operation or the source, this is withdrawn as a material engine operation.",
+      "consequence": "`pin` and `accountableEvidence` are now unused at engine level. That is correct: pinning is how evidence APPEARS, which is direction (V5a), not a state change in the business. The diligence package remains a world object and still carries evidence anchors."
+    }
+  ]
+}

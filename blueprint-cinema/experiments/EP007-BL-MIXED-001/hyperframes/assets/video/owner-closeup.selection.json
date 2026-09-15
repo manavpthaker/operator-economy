@@ -1,0 +1,35 @@
+{
+  "schema": "oe-generated-film-editorial-selection-v1",
+  "purpose": "Bounded EP007 mixed-media comparison; generated human context, not evidence",
+  "input": {
+    "asset": "assets/video/source/owner-closeup.full-generated.mp4",
+    "sha256": "dc466f416f26db266fa51b1e4c3310889fe45eaed4eb91b7eda5e3f80ee583ff",
+    "fps": 24,
+    "frameCount": 121,
+    "durationSeconds": 5.041667
+  },
+  "selection": {
+    "sourceFramesInclusive": [48, 82],
+    "sourceRangeHalfOpenSeconds": [2.0, 3.458333],
+    "excludedSourceFrameRangesInclusive": [[0, 47], [83, 120]],
+    "appendedHoldFrames": 0,
+    "interpolation": false,
+    "speedChange": false,
+    "reason": "This 35-frame window begins and ends on an open-eyed, stable expression and contains one complete restrained blink near its center. It preserves the owner's screen-right eyeline, competence, wardrobe, room, and locked camera without lip movement, dramatic reaction, another person, or readable text."
+  },
+  "command": "ffmpeg -hide_banner -loglevel error -y -i assets/video/source/owner-closeup.full-generated.mp4 -an -vf \"trim=start_frame=48:end_frame=83,setpts=PTS-STARTPTS,fps=24\" -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart assets/video/owner-closeup.selected.mp4",
+  "output": {
+    "asset": "assets/video/owner-closeup.selected.mp4",
+    "sha256": "33d0b5586c5a175e5d0096293d80acd22191873545e2df4a54f4f0d8cb813c8c",
+    "fps": 24,
+    "frameCount": 35,
+    "durationSeconds": 1.458333,
+    "timelineDurationSeconds": 1.44,
+    "sceneTimelineRangeSeconds": [2.56, 4.0],
+    "masterTimelineRangeSeconds": [20.72, 22.16]
+  },
+  "contactSheet": {
+    "asset": "assets/video/owner-closeup.selected.contact-sheet.jpg",
+    "sha256": "a7ef4ee2f1d2feee24a6c65d073bf965397c6f126e017f82f3686fe060d28033"
+  }
+}

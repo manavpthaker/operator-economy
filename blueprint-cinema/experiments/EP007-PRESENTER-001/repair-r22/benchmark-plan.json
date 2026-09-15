@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "episode": "EP007-exit-readiness-prep",
+  "status": "researched_not_executed",
+  "owner_constraint": "Use only the existing photo and audio",
+  "purpose": "Compare restrained generated head and hand motion without post-render head correction",
+  "inputs": {
+    "image": {
+      "path": "media/repair-r16/study-visible-hands-source.png",
+      "sha256": "2abb05079084198c21a33802e6e0aa6373027a65f2163ea5a9114f77c1c4da24"
+    },
+    "audio": {
+      "path": "media/repair-r2/scope-two-sentences.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "duration_seconds": 5.6
+    },
+    "same_image_control": {
+      "test": "Q",
+      "path": "media/repair-r18/test-q-m-direction-visible-hands-1080p.mp4",
+      "sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950"
+    },
+    "historical_owner_accepted_reference": {
+      "test": "M",
+      "matched_framing": false,
+      "sha256": "dc6d9f8e6421fda85f56ddbb6c08e588695dce8ae434c0bf18855b4c59d3e526"
+    }
+  },
+  "models": [
+    {
+      "name": "OmniHuman 1.5",
+      "provider": "fal",
+      "endpoint_id": "fal-ai/bytedance/omnihuman/v1.5",
+      "samples": 2,
+      "proposed_resolution": "720p",
+      "turbo_mode": false
+    },
+    {
+      "name": "Hedra Character 3",
+      "provider": "Hedra",
+      "endpoint_id": "hedra-character-3",
+      "samples": 2,
+      "proposed_resolution": "720p"
+    }
+  ],
+  "prompt": "Locked-off, eye-level medium shot. He speaks matter-of-factly with natural blinks and tiny head adjustments; his forearms stay supported on the desk while his fingers make small, relaxed movements close to the tabletop.",
+  "max_initial_generations": 4,
+  "executed_generations": 0,
+  "provider_uploads": 0,
+  "alter_photo": false,
+  "alter_voice": false,
+  "reference_video": false,
+  "head_scale_rotation_warp": false,
+  "seed_policy": "Record independent seeds only if exposed; otherwise record independent request IDs. Identical numbers across models do not establish matched randomness.",
+  "review_order": [
+    "Verify exact result identity and full duration",
+    "Full clip 1x with audio against Q and M's accepted quality",
+    "Muted full playback for distracting motion",
+    "Selective frame inspection for deformation",
+    "Technical audio and timestamp checks"
+  ],
+  "failure_signals": [
+    "Conspicuous head dip or forward thrust",
+    "Sweeping or repeated hand accents",
+    "Size pulse or detached head",
+    "Lip mismatch, including after the pause",
+    "Face, glasses or finger deformation",
+    "Frozen expression"
+  ],
+  "stop_rule": "Stop after four initial results. If none is owner-acceptable, no further prompting, warping or model expansion without reassessing the method.",
+  "longer_validation": "Only after an acceptable short result; use a longer contiguous excerpt of the existing locked narration and recheck full motion.",
+  "execution_preconditions": [
+    "Verify actual authenticated model access and live schema",
+    "Verify file hashes",
+    "Confirm request-specific cost before submission",
+    "Render authority for this benchmark must be resolved; this file does not submit or authorize charges"
+  ],
+  "productionGateAdvance": false
+}

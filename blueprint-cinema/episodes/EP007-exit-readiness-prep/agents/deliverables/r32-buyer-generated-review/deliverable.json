@@ -1,0 +1,83 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r32-buyer-generated-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/provider/buyer-reaction/native.mp4",
+      "sha256": "5d7dc94601a5e5bec01cfbaffb9fa7d024a727797e8ae934c9d21e2ec0e25bfb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/provider-preparation/buyer-reaction.txt",
+      "sha256": "4ca28c0f39acc5d4de2f5889766b02c894219bbd17483cbde7c764b38655ab39"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-coverage-audit/shot-b-frame-0096-reference.png",
+      "sha256": "3f922127ae63510648ce5ed476a012442f3391bf55015567146752699d870926"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/index.html",
+      "sha256": "39ec677570f7b3dca184ca7ff26436fefdd142bf6c1c09cb27417c47c9ebcd60"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/candidate-five-second-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/contact-index.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/detail-contact-index.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/early-quarter-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/full-source-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/late-quarter-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/proposed-selection.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/source-probe.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/tail-frames-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Python hashlib SHA-256 of all four issued files compared to work-order input pins, repeated before final manifest",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe all native source streams and format; ffmpeg -v error -xerror complete decode to null",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffmpeg exact-frame source contact sheets, quarter-second samples, eighth-second tail samples and candidate [0,120) evidence; visual inspection via view_image",
+      "outcome": "pass"
+    },
+    {
+      "command": "Reference-frame comparison and pinned R32 source-slot read",
+      "outcome": "pass"
+    },
+    {
+      "command": "Python stdlib checks all present agent-deliverable schema constraints and verifies produced files stay within owned directory",
+      "outcome": "pass"
+    },
+    {
+      "command": "Normal-speed source playback, locked-narration playback and integrated buyer replacement QA",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the four hash-pinned local inputs supplied by the work order were reviewed.",
+    "The native buyer video is newly generated synthetic dramatization source supplied by root. This worker performed deterministic frame extraction and no synthetic generation.",
+    "Five contact sheets, two frame-index files, ffprobe output and a proposed five-second source-frame map bind the visible evidence. No external or provider calls were made."
+  ],
+  "assumptions": [
+    "The replacement slot remains review frames [842,962) at 24 fps, a five-second duration.",
+    "A relaxed breath can satisfy silent reaction direction; apparent new speech would contradict it. Sampled frames cannot resolve that perceptual distinction."
+  ],
+  "unresolved_questions": [
+    "Root must assess visible mouth movement at normal speed under locked narration before accepting the source. All possible five-second selections include the region of variable lip aperture.",
+    "The proposed [0,120) source selection is not integrated or accepted; owner/buyer/avatar seams and actual narrative effect remain unreviewed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

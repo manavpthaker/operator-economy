@@ -1,0 +1,108 @@
+{
+  "schema": "oe-encoded-test-verification-v1",
+  "status": "passed-as-bounded-test-not-gate-or-production-approval",
+  "render": {
+    "asset": "renders/EP007-BL-MIXED-009.mp4",
+    "sha256": "44a72464d9982a7932574c38eac38999683088479dfdcf566d8f97ce6668be9d",
+    "bytes": 14685038,
+    "renderedAt": "2026-09-04T10:15:16-04:00"
+  },
+  "ffprobe": {
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "width": 1920,
+      "height": 1080,
+      "pixelFormat": "yuv420p",
+      "frameRate": "24/1",
+      "durationSeconds": 67.458333,
+      "declaredFrames": 1619,
+      "decodedFrames": 1619
+    },
+    "audio": {
+      "codec": "aac",
+      "profile": "LC",
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 67.456,
+      "decodedPcmFormat": "signed 16-bit little-endian, stereo, 48 kHz",
+      "decodedPcmSha256": "e7c35086f7d886e78ca32368f7772aaa0fb80f5047ff618fd3c25413b5834d7b",
+      "comparison": "byte-identical decoded PCM to v007 and v008"
+    }
+  },
+  "decode": {
+    "videoExitCode": 0,
+    "audioExitCode": 0,
+    "blackFrameEvents": 0,
+    "blackDetectParameters": "d=0.083:pix_th=0.10:pic_th=0.98"
+  },
+  "cadence": {
+    "frameIntervalsSeconds": [0.041666, 0.041667],
+    "offCadenceIntervals": 0,
+    "firstShotNearDuplicateFramesBelowThreshold": 0,
+    "inspectionMovingPortionNearDuplicateFramesBelowThreshold": 0,
+    "declaredEndpointHold": {
+      "frames": 7,
+      "masterRangeSeconds": [25.625, 25.875],
+      "maskedByAuthoredPencilOvertrace": true
+    },
+    "broaderDuplicateOrFreezeCadence": false
+  },
+  "sourceCheck": {
+    "command": "npx --yes hyperframes@0.8.27 check --strict --frame-check=severity=error --at=18.16,22.16,22.70,23.50,24.80,25.12,25.50,25.63,25.75,25.82,25.90,26.40 --at-transitions --max-transition-samples=40",
+    "lintErrors": 0,
+    "lintWarnings": 0,
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "layoutIssues": 0,
+    "layoutSamples": 53,
+    "motionErrors": 0,
+    "motionWarnings": 0,
+    "contrastChecksPassed": 14,
+    "contrastChecksTotal": 14,
+    "transitionSamplesOmittedByDeclaredCap": 419,
+    "passed": true
+  },
+  "manifestBindingCheck": {
+    "boundFilesChecked": 32,
+    "hashMismatches": 0,
+    "missingFiles": 0,
+    "passed": true
+  },
+  "visualReview": {
+    "status": "passed",
+    "inspectionLegibleWithoutNarration": true,
+    "ownerRemainsCompetent": true,
+    "anatomyAndContinuityPlausible": true,
+    "readableSyntheticTextInSelectedFrames": false,
+    "transactionOrSigningImplication": false,
+    "rightEdgeSyntheticPageLeak": false,
+    "hardCutAtSeconds": 22.1667,
+    "pencilOvertraceFirstVisibleAtSeconds": 25.125,
+    "lastLiveActionFrameAtSeconds": 25.875,
+    "firstPaperFrameAtSeconds": 25.9167,
+    "matchCutPassed": true,
+    "minorNuance": "The first four seconds read as a serious owner conversation on their own; the inspection insert makes the combined passage unambiguous."
+  },
+  "reviewAssets": [
+    {
+      "asset": "renders/EP007-BL-MIXED-009-focus-17.5-27.5.mp4",
+      "sha256": "a32ed164a6ec31ae9ea69985f4cb7b532a662b970ebb53239549b65b69a5d053",
+      "bytes": 5396916,
+      "sourceRangeSeconds": [17.5, 27.5]
+    },
+    {
+      "asset": "qa/encoded-009/inspection-contact-sheet.jpg",
+      "sha256": "fb1921a3db81886ad849237afa2309586632bd1b07975c9599d1aa1e4f80485a"
+    },
+    {
+      "asset": "qa/encoded-009/inspection-exit-frames-613-622.jpg",
+      "sha256": "704e32642c1adb416c5a2036cc47f3396d4fdabb77f2d288153e2a843fe1686b"
+    }
+  ],
+  "boundaries": [
+    "This verifies one encoded 16:9 test sequence, not a full episode.",
+    "It does not approve V4, Step 4, production use, publication, vertical or square derivatives, avatar performance, captions, music, sound design, or final loudness.",
+    "The generated film is illustrative human context, not documentary evidence of a real company or transaction."
+  ]
+}

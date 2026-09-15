@@ -1,0 +1,53 @@
+{
+  "record_type": "pickup_revoice_proposal",
+  "status": "proposal_not_authorized_not_submitted",
+  "owner_statements": [
+    "try 3 and then if not 1",
+    "try option 1"
+  ],
+  "target": {
+    "words": "Fair objection at this point, and it is the obvious one.",
+    "master_range": [
+      454.48,
+      457.54
+    ],
+    "original_phrase_duration_s": 1.2
+  },
+  "recipe": "Same as R39 pickup: gemini-2.5-pro-tts Algieba context read -> ElevenLabs Voice Changer to voice scMbPZwQjr40V1MzL3Nj (eleven_multilingual_sts_v2, same settings/seed)",
+  "guide_body": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/presenter-a/GOOGLE-PICKUP-GUIDE-BODY.json",
+  "splice": "Keep only the new first sentence; resume original master at the low-energy point before 'If' (457.62) or, if that join is not clean, after 'point,' (455.68-455.88 gap). Level-match; no time-stretch; no phoneme splicing; master v4 bytes unchanged.",
+  "picture": "Option 3 pause dropped (cut at 454.0 as v2). Presenter A re-synced once with Fal Sync v3 on the same native take; new audio carve kept <= native 11.04 s by trimming silent lead-in, else sync_mode remap.",
+  "downstream_effect": "S12 A lengthens by the pickup's extra duration (expected ~0.3-0.6 s); later assembly times shift by that amount.",
+  "costs": {
+    "checked_at_utc": "2026-09-15T18:19:49.642098+00:00",
+    "google": {
+      "estimate_usd": 0.01,
+      "cap_usd": 0.05,
+      "calls": 1
+    },
+    "elevenlabs": {
+      "rate_credits_per_min": 1000,
+      "expected_guide_s": [
+        6,
+        9
+      ],
+      "expected_credits": [
+        100,
+        150
+      ],
+      "cap_credits": 250,
+      "balance_remaining": 847570,
+      "calls": 1
+    },
+    "fal_sync_v3": {
+      "basis": "native 11.04 s x $8/min",
+      "estimate_usd": 1.47,
+      "cap_usd": 2.0,
+      "calls": 1
+    },
+    "higgsfield_credits": 0,
+    "rate_basis": "R39 verified rates 2026-09-12; ElevenLabs voice/account re-read live today",
+    "retries": 0
+  },
+  "risk": "Isolated pickups can differ in pace, level or timbre from the surrounding take; judged by listening before the Sync call."
+}

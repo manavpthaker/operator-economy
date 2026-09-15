@@ -1,0 +1,28 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "note": "a transition asserts neither its trigger nor its reversibility",
+  "patches": {
+    "world.json": {
+      "objects": [
+        {
+          "id": "guest",
+          "operation_bindings": [
+            "BO-001"
+          ],
+          "changed_by": [
+            "BO-001"
+          ],
+          "allowed_transitions": [
+            [
+              "a",
+              "b"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V3"
+  ]
+}

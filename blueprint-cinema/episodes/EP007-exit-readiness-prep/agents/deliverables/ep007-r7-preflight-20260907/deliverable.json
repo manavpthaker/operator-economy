@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r7-preflight-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-BL-CALLBACK-ARC-001/hyperframes/scripts/generate-fal-film.mjs",
+      "sha256": "6f72d94757c95ea87e5b6b1de4609db8ee41bc4552bd11e7d4a93be69252b43e"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/DIRECTION.md",
+      "sha256": "5a7447f8fb4db9af7f7ce03ead98595882269bbcd3ddf3ecd60c2a16995d1faf"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-preflight-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-preflight-20260907/deliverable.json"
+  ],
+  "checks": [
+    {"command": "shasum -a 256 on both exact work-order inputs; matches", "outcome": "pass"},
+    {"command": "Read current Fal official model pricing, API input fields and exact endpoint OpenAPI schema", "outcome": "pass"},
+    {"command": "Read helper Kling request branch, negative defaults, submission/checkpoint/poll/write behavior", "outcome": "pass"},
+    {"command": "Read bounded R7 direction for serious internal conflict and preserve scoped nonverbal exception", "outcome": "pass"},
+    {"command": "Direct read-only validate_work_order and validate_deliverable; no canonical gate validation", "outcome": "pass"},
+    {"command": "Paid submission, authentication operations and actual performance review", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video ; read 2026-09-07, silent public list price",
+    "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video/api ; read 2026-09-07, duration and start-only audio-off support",
+    "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/kling-video/v3/pro/image-to-video ; read 2026-09-07, exact request schema constraints",
+    "Only the two exact pinned local task inputs were reviewed as production inputs; no candidate media selected or generated"
+  ],
+  "assumptions": [
+    "The public per-requested-second rate applies without account-specific discount, tax or invoice adjustment",
+    "User-requested isolated trial scope is represented by the work order and direction; no canonical production gate is inferred"
+  ],
+  "unresolved_questions": [
+    "Actual billed amount remains unverified",
+    "Final prompt records, references and generated performances were not present in this bounded preflight",
+    "Canonical inputs_locked remains unestablished and is not validated by this packet"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

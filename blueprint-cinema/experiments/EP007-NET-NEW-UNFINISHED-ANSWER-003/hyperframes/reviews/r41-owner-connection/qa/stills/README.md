@@ -1,0 +1,1 @@
+Earlier browser snapshots before the pen was moved above the paper layer. Current encoded evidence is in ../choice-encoded.png and ../empty-role-encoded.png. Do not treat this contact sheet as final source-matched verification.

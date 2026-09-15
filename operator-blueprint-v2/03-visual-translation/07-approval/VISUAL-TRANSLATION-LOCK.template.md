@@ -2,7 +2,7 @@
 
 Gate: **V7 — visual translation lock and Step 4 handoff**
 
-Template version: proposed Step 3 v0.2
+Template version: proposed Step 3 v0.3
 
 Episode: EP###
 
@@ -107,6 +107,10 @@ Visual translation lock SHA-256: [computed after this record is complete]
 Approved by: [name] on YYYY-MM-DD
 
 ## Boundary for Step 4
+
+> This section follows the decision deliberately. It states what the approval
+> *consequently authorizes and forbids* — it is not a condition the approver must satisfy first.
+> Every requirement precedes the decision block.
 
 Step 4 may direct shots, write scene directions, build the motion test and animatic, and plan assets.
 

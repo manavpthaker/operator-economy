@@ -1,0 +1,112 @@
+{
+  "schema": "oe-narrated-observation-ab-v2",
+  "status": "authored-clean-comparison",
+  "episode": "EP007-exit-readiness-prep",
+  "pictureAudioMode": "narrated_observation",
+  "languageCarrier": "narrator",
+  "visibleSpeech": "prohibited",
+  "coverageGrammar": "observational_action",
+  "controlA": {
+    "path": "../EP007-BL-CALLBACK-IN-CONTEXT-001/hyperframes/renders/EP007-BL-CALLBACK-IN-CONTEXT-001-r2.mp4",
+    "sha256": "0dc991b4ec87a3cfdfd8f84b6fd2c05b89697aabe893f698a6e83a0e9d7fa74d"
+  },
+  "diagnosticB1": {
+    "path": "hyperframes/renders/EP007-B-NARRATED-OBSERVATION-001.mp4",
+    "sha256": "aa4cc882a560c9f25985c876160b90869bcf9f00f7f7c35b1ce7504c55677446",
+    "status": "superseded-as-comparison-by-b2",
+    "reason": "It proved the grammar direction but used a frozen process crop and retained a dialogue-shaped recognition reset."
+  },
+  "timeline": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "frames": 910,
+    "durationSeconds": 37.916667,
+    "changedFromAFrames": [0, 294],
+    "changedFromB1Frames": [151, 294],
+    "controlledFrames": [294, 910]
+  },
+  "muteTest": {
+    "missingLineExpected": false,
+    "reason": "The opening shows competence, an ordinary dependency, and one work action that stops; no shot solicits an unheard reply."
+  },
+  "shots": [
+    {
+      "id": "shot-001",
+      "timelineFrames": [0, 96],
+      "source": "rc007-shot-01-competence.veo-fast.full-generated.mp4",
+      "sourceFrames": [0, 96],
+      "job": "Establish the owner as competent by observing a calibrated part operation.",
+      "primaryPhysicalAction": "The owner measures and resets one metal component with both hands.",
+      "whatStaysStill": "The buyer, his closed notebook, the bench geography, wardrobe, and workshop lighting remain stable.",
+      "faceFunction": "task_focus",
+      "masterSetupRelationship": {"role": "master", "masterReferenceId": null},
+      "screenDirection": "Owner remains frame-left and buyer frame-right across the established action line.",
+      "continuityAnchors": ["owner", "buyer", "workshop", "metal-part", "buyer-notebook"],
+      "initialImage": "Owner already has both hands on the part while the buyer observes.",
+      "finalImage": "The part remains on the bench and the owner finishes the demonstrated adjustment."
+    },
+    {
+      "id": "shot-002",
+      "timelineFrames": [96, 151],
+      "source": "rc007-shot-02-dependency-r2.veo-fast.full-generated.mp4",
+      "sourceFrames": [20, 75],
+      "job": "Reveal the ordinary staff exception that makes the owner's absence consequential.",
+      "primaryPhysicalAction": "A staff member holds the part while the owner gives one low directional cue.",
+      "whatStaysStill": "The buyer stays a foreground observer and the workshop, wardrobe, bench, and part remain continuous.",
+      "faceFunction": "environmental_presence",
+      "masterSetupRelationship": {"role": "setup", "masterReferenceId": "shot-001"},
+      "screenDirection": "The camera remains on the established side; owner-to-staff action stays leftward behind the buyer.",
+      "continuityAnchors": ["owner", "buyer", "staff-member", "workshop", "metal-part"],
+      "initialImage": "The staff member holds the recurring part within the established workshop.",
+      "finalImage": "The owner's small cue leaves the staff member carrying the immediate task."
+    },
+    {
+      "id": "shot-003",
+      "timelineFrames": [151, 294],
+      "source": "b2-operation-stop.veo-fast.full-generated.mp4",
+      "sourceSha256": "cdfb6fdea348fd3ab3faa8f83ec761443eaef431725a66866aedcd2e10a1dde8",
+      "sourceFrames": [1, 144],
+      "generation": {
+        "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+        "durationSeconds": 6,
+        "resolution": "1280x720",
+        "prompt": "direction/b2-operation-stop.prompt.md",
+        "promptSha256": "39e1112909184181f4d5b7b8025a2686a450e1a85d0e199ca4a59f774ece551e",
+        "firstFrame": "hyperframes/assets/images/b2-operation-start.normalized.png",
+        "firstFrameSha256": "44ba1c3d92d2c5c7f126e3d8c7f438e22e1279f7bdb239d15de81f49a8fe4fe2",
+        "lastFrame": "hyperframes/assets/images/b2-operation-stop.generated.png",
+        "lastFrameSha256": "69c3e48dcf0467e483f4a6e488014827844f98f77388e5b93d62f68a69a5e406"
+      },
+      "job": "Turn the implied answer into observable operating knowledge, then land the narrated stop on a physical stop.",
+      "primaryPhysicalAction": "The owner makes one precise caliper adjustment on the recurring pump component and ends with hand and tool stopped there.",
+      "whatStaysStill": "Camera, focus, geography, buyer body and closed notebook, workshop, wardrobe, lighting, bench, and unused objects remain fixed.",
+      "faceFunction": "task_focus",
+      "masterSetupRelationship": {"role": "setup", "masterReferenceId": "shot-001"},
+      "screenDirection": "Owner remains frame-left and buyer frame-right on the established camera side; both attention lines terminate on the part.",
+      "continuityAnchors": ["owner", "buyer", "workshop", "workbench", "metal-part", "caliper", "buyer-notebook"],
+      "initialImage": "The owner is already measuring while the buyer observes the work.",
+      "finalImage": "Both attention lines rest on the contact point; her fingertips and caliper are physically stopped on the component."
+    }
+  ],
+  "rejectedSources": [
+    {
+      "source": "b2-recognition.veo-fast.full-generated.mp4",
+      "sha256": "8f300eb951e268fffa9010eacee74751da17ff77a8e4d2a191c9263f04070277",
+      "prompt": "direction/b2-recognition.prompt.md",
+      "promptSha256": "ac9dc9dd1afad48a9a498319ec780e8df8d9666b0105494ccffcd38797078e93",
+      "reason": "The generated head movement passed through a buyer-facing reset before reaching the shop eyeline, recreating the silent-dialogue problem. It is not used."
+    }
+  ],
+  "unchangedSections": [
+    {"id": "rough-working-model", "timelineFrames": [294, 588]},
+    {"id": "documented-binder-callback", "timelineFrames": [588, 910]}
+  ],
+  "decisionBoundary": {
+    "gateStatusChanged": false,
+    "step4Authorized": false,
+    "assetSelectedForProduction": false,
+    "publicationAuthorized": false,
+    "committed": false
+  }
+}

@@ -1,0 +1,5 @@
+# R24 — cut immediately after “and”
+
+Restore the R22 original avatar performance and move its existing closeup cut from review 67.916667 to the end of “and” at 67.58 seconds. The first 24 fps output frame after that cue is frame 1622 at 67.583333 seconds, eight frames earlier than the prior intended frame 1630. “The” begins at 67.64 and “one” begins at 67.94, so the closeup is established before “the one number.” The exact word-end cue is independently verified in the live browser composition: wider at frame 1621 and closeup at frames 1622 and 1623. Snapshot filename times alone do not establish the exact sampled timeline pose.
+
+This private revision changes only the closeup trigger. Preserve the single continuously playing B video, both crop sizes, all media, audio, title, tagline, earlier edits, and the 71.5 second runtime. R23's exaggerated replacement performance is rejected and unused. The requested subtle lip articulation improvement remains a separate prepared test, not an implemented change in this revision. No paid generation or upload is included.

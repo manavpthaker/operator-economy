@@ -1,0 +1,53 @@
+{
+  "event_id": "avatar-v5-co-speech-gestures-v1",
+  "decision_id": "avatar-v5-co-speech-gestures",
+  "event_type": "decision",
+  "tags": [
+    "avatar",
+    "hands",
+    "performance",
+    "experiment"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Support the spoken explanation with natural visible hand movement.",
+      "viewer_before": "V4 provides accepted wide framing but hands mostly rest.",
+      "viewer_after": "Distinct gestures accompany early, middle and late thoughts, separated by rests."
+    },
+    "choice": "Generate one 21-second full-wide take with more conversational gesture activity, then restore the original narration through the existing Fal connection.",
+    "reason": "V4 explicitly constrained the hands to one gesture. Changing that instruction tests the owner request while preserving portrait, narration and reference roles.",
+    "alternatives": [
+      {
+        "choice": "Reuse V4 without generation",
+        "reason_not_selected": "An editorial crop cannot create missing hand performance."
+      },
+      {
+        "choice": "Introduce new hand reference footage",
+        "reason_not_selected": "First test the minimal prompt correction; the current reference roles and framing are already accepted."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "This authorized EP007 opening gesture test.",
+      "avoid_when": "Different spoken content or staging requires context-specific gesture review."
+    },
+    "nuance": {
+      "protected": "Accepted V3 delivery recipe and V4 wide portrait; no canonical episode or publication changes.",
+      "performance": "Several asymmetric gestures over whole thoughts with credible rests, not continuous waving or per-word beats.",
+      "uncertainty": "Prompted hand movement is not a verified copy of the owner\u2019s habitual gesturing; stochastic facial and anatomy drift remain review concerns.",
+      "review": "Assess early, middle and question gesture activity, anatomy, body and face restraint, complete original audio and final settling."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/OWNER-FEEDBACK.json",
+      "sha256": "bf691ff697c209689ad1a66ff784fc5a48f999529a4f9739a466b74f45e6bbdf",
+      "locator": "owner_verbatim and scope"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/INPUT-MANIFEST.json",
+      "sha256": "b91834ce30ad4a7f1f4734926f8011df4ea09dac19b0e10c5a97ef84d2a4cbb4",
+      "locator": "inputs"
+    }
+  ]
+}

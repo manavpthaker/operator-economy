@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "status": "direction_draft",
+  "canvas": {"width": 1920, "height": 1080, "frame_rate": 30},
+  "zones": [
+    {"id": "zone-reality", "name": "Human reality", "surface": "paper", "purpose": "Concrete after-hours event and operator judgment"},
+    {"id": "zone-system", "name": "Recovery rail", "surface": "schematic_navy", "purpose": "Causal routing and state change"},
+    {"id": "zone-proof", "name": "Proof bench", "surface": "paper", "purpose": "Source context, field extraction, and measurement"}
+  ],
+  "objects": [
+    {
+      "id": "homeowner-silhouette",
+      "type": "human",
+      "zone": "zone-reality",
+      "position": {"x": 170, "y": 190, "w": 560, "h": 720},
+      "states": ["calling", "waiting", "continuing_search", "declined", "accepted"],
+      "initial_state": "calling"
+    },
+    {
+      "id": "service-phone",
+      "type": "physical_object",
+      "zone": "zone-reality",
+      "position": {"x": 1030, "y": 235, "w": 510, "h": 560},
+      "states": ["ringing", "unanswered", "voicemail"],
+      "initial_state": "ringing"
+    },
+    {
+      "id": "operator-hand",
+      "type": "human_action",
+      "zone": "zone-reality",
+      "position": {"x": 1090, "y": 620, "w": 560, "h": 280},
+      "states": ["absent", "reviewing", "releasing", "suppressing"],
+      "initial_state": "absent"
+    },
+    {
+      "id": "call-tag-red",
+      "type": "persistent_customer_token",
+      "zone": "zone-reality",
+      "position": {"x": 910, "y": 390, "w": 300, "h": 176},
+      "stable_identity": {"color": "#9B3E2E", "label": "CALL-R01", "time": "20:47", "not_a_phone_number": true},
+      "states": ["ringing", "permissioned_signal", "unprioritized", "lost", "captured", "classified", "acknowledged", "held", "released", "suppressed", "booked"],
+      "initial_state": "ringing"
+    },
+    {
+      "id": "voicemail-stack",
+      "type": "current_path",
+      "zone": "zone-reality",
+      "position": {"x": 610, "y": 245, "w": 700, "h": 610},
+      "states": ["empty", "crowded", "unprioritized"],
+      "initial_state": "empty"
+    },
+    {
+      "id": "customer-continuation",
+      "type": "current_path",
+      "zone": "zone-reality",
+      "position": {"x": 1390, "y": 330, "w": 360, "h": 280},
+      "states": ["inactive", "searching_elsewhere"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "relationship-gap",
+      "type": "leak",
+      "zone": "zone-reality",
+      "position": {"x": 910, "y": 680, "w": 440, "h": 90},
+      "states": ["closed", "open", "recovered"],
+      "initial_state": "closed"
+    },
+    {
+      "id": "capture-node",
+      "type": "system_node",
+      "zone": "zone-system",
+      "position": {"x": 130, "y": 430, "w": 250, "h": 180},
+      "states": ["inactive", "active", "resolved", "failed"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "classify-node",
+      "type": "system_node",
+      "zone": "zone-system",
+      "position": {"x": 450, "y": 430, "w": 250, "h": 180},
+      "states": ["inactive", "routine", "uncertain", "urgent", "sensitive", "failed"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "acknowledge-node",
+      "type": "system_node",
+      "zone": "zone-system",
+      "position": {"x": 770, "y": 430, "w": 250, "h": 180},
+      "states": ["inactive", "useful_acknowledgment", "declined", "failed"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "human-review-gate",
+      "type": "human_gate",
+      "zone": "zone-reality",
+      "position": {"x": 1050, "y": 330, "w": 310, "h": 370},
+      "states": ["inactive", "holding", "reviewing", "released", "suppressed", "escalated"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "slot-offer-node",
+      "type": "system_node",
+      "zone": "zone-system",
+      "position": {"x": 1430, "y": 430, "w": 280, "h": 180},
+      "states": ["inactive", "eligible", "offered", "unavailable"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "stop-terminal",
+      "type": "guardrail_terminal",
+      "zone": "zone-system",
+      "position": {"x": 830, "y": 770, "w": 310, "h": 150},
+      "states": ["inactive", "suppressed"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "scheduled-appointment",
+      "type": "outcome",
+      "zone": "zone-reality",
+      "position": {"x": 1330, "y": 240, "w": 440, "h": 540},
+      "states": ["absent", "offered", "scheduled"],
+      "initial_state": "absent"
+    },
+    {
+      "id": "work-order-card",
+      "type": "persistent_outcome_token",
+      "zone": "zone-reality",
+      "position": {"x": 1340, "y": 300, "w": 430, "h": 500},
+      "stable_identity": {"paper": "#FBF8F1", "ink": "#1A1A1A", "label": "WORK ORDER", "rehearsal_id": "WO-R01"},
+      "states": ["empty", "offered", "declined", "scheduled", "measured"],
+      "initial_state": "empty"
+    },
+    {
+      "id": "fixture-missed-call-log",
+      "type": "synthetic_source",
+      "zone": "zone-proof",
+      "position": {"x": 1120, "y": 160, "w": 690, "h": 760},
+      "states": ["source_context", "call_time_highlighted", "field_extracted", "pinned"],
+      "initial_state": "source_context",
+      "disclosure": "SYNTHETIC TEST FIXTURE — NOT EVIDENCE"
+    },
+    {
+      "id": "one-week-measure",
+      "type": "measurement",
+      "zone": "zone-proof",
+      "position": {"x": 230, "y": 760, "w": 1460, "h": 150},
+      "states": ["inactive", "call", "reply", "booked_appointment"],
+      "initial_state": "inactive"
+    },
+    {
+      "id": "placeholder-reality",
+      "type": "asset_placeholder",
+      "zone": "zone-reality",
+      "position": {"x": 120, "y": 160, "w": 600, "h": 760},
+      "states": ["ticket_slate"],
+      "initial_state": "ticket_slate",
+      "asset_ticket_id": "AST-REALITY-001"
+    },
+    {
+      "id": "placeholder-dispatch",
+      "type": "asset_placeholder",
+      "zone": "zone-proof",
+      "position": {"x": 1120, "y": 160, "w": 690, "h": 760},
+      "states": ["ticket_slate"],
+      "initial_state": "ticket_slate",
+      "asset_ticket_id": "AST-DISPATCH-002"
+    },
+    {
+      "id": "placeholder-operator",
+      "type": "asset_placeholder",
+      "zone": "zone-reality",
+      "position": {"x": 1090, "y": 620, "w": 560, "h": 280},
+      "states": ["ticket_slate"],
+      "initial_state": "ticket_slate",
+      "asset_ticket_id": "AST-OPERATOR-003"
+    },
+    {
+      "id": "placeholder-outcome",
+      "type": "asset_placeholder",
+      "zone": "zone-reality",
+      "position": {"x": 1330, "y": 240, "w": 440, "h": 540},
+      "states": ["ticket_slate"],
+      "initial_state": "ticket_slate",
+      "asset_ticket_id": "AST-OUTCOME-004"
+    }
+  ],
+  "edges": [
+    {"id": "edge-current-unanswered", "from": "service-phone", "to": "voicemail-stack", "route": "current", "condition": "unanswered", "verb": "fall"},
+    {"id": "edge-current-continues", "from": "voicemail-stack", "to": "customer-continuation", "route": "current", "condition": "unprioritized", "verb": "carry"},
+    {"id": "edge-current-leak", "from": "call-tag-red", "to": "relationship-gap", "route": "current", "condition": "customer_continues_search", "verb": "fall"},
+    {"id": "edge-recover-capture", "from": "call-tag-red", "to": "capture-node", "route": "recovery", "condition": "permission_to_respond", "verb": "capture"},
+    {"id": "edge-capture-classify", "from": "capture-node", "to": "classify-node", "route": "recovery", "condition": "caller_and_time_preserved", "verb": "classify"},
+    {"id": "edge-classify-ack", "from": "classify-node", "to": "acknowledge-node", "route": "recovery", "condition": "classification_recorded", "verb": "acknowledge"},
+    {"id": "edge-routine-offer", "from": "acknowledge-node", "to": "slot-offer-node", "route": "recovery", "condition": "routine_and_permission_current", "verb": "offer"},
+    {"id": "edge-uncertain-hold", "from": "acknowledge-node", "to": "human-review-gate", "route": "recovery", "condition": "uncertain_or_sensitive", "verb": "hold"},
+    {"id": "edge-human-release", "from": "human-review-gate", "to": "slot-offer-node", "route": "recovery", "condition": "human_review_released", "verb": "release"},
+    {"id": "edge-human-suppress", "from": "human-review-gate", "to": "stop-terminal", "route": "recovery", "condition": "human_review_suppressed", "verb": "stop"},
+    {"id": "edge-decline-stop", "from": "slot-offer-node", "to": "stop-terminal", "route": "recovery", "condition": "customer_declines_or_permission_removed", "verb": "stop"},
+    {"id": "edge-accept-book", "from": "slot-offer-node", "to": "scheduled-appointment", "route": "recovery", "condition": "customer_accepts", "verb": "book"},
+    {"id": "edge-appointment-card", "from": "scheduled-appointment", "to": "work-order-card", "route": "recovery", "condition": "slot_scheduled", "verb": "attach"},
+    {"id": "edge-source-highlight", "from": "fixture-missed-call-log", "to": "capture-node", "route": "proof", "condition": "call_time_field_highlighted", "verb": "attach"},
+    {"id": "edge-measure-call", "from": "call-tag-red", "to": "one-week-measure", "route": "proof", "condition": "original_call_preserved", "verb": "measure"},
+    {"id": "edge-measure-outcome", "from": "work-order-card", "to": "one-week-measure", "route": "proof", "condition": "scheduled", "verb": "measure"}
+  ],
+  "failure_routes": [
+    {"id": "failure-capture", "at": "capture-node", "state": "failed", "destination": "human-review-gate", "resolution": "manual callback queue; no automatic pursuit"},
+    {"id": "failure-classify", "at": "classify-node", "state": "uncertain", "destination": "human-review-gate", "resolution": "hold for operator judgment"},
+    {"id": "failure-no-slot", "at": "slot-offer-node", "state": "unavailable", "destination": "human-review-gate", "resolution": "operator decides whether and how to reply"},
+    {"id": "failure-decline", "at": "slot-offer-node", "state": "declined", "destination": "stop-terminal", "resolution": "suppressed; terminal"}
+  ],
+  "evidence": [
+    {
+      "id": "ev-fixture-log",
+      "object_id": "fixture-missed-call-log",
+      "source_path": "assets/fixtures/fixture-missed-call-log.csv",
+      "supports": ["call_time_field", "classification_field", "human_review_field", "outcome_field"],
+      "synthetic": true,
+      "public_claim": false,
+      "required_disclosure": "SYNTHETIC TEST FIXTURE — NOT EVIDENCE"
+    },
+    {
+      "id": "ev-locked-vo",
+      "object_id": "one-week-measure",
+      "source_path": "inputs/words.json",
+      "supports": ["narration_timing_only"],
+      "synthetic": true,
+      "public_claim": false,
+      "required_disclosure": "SYNTHETIC REHEARSAL TIMING"
+    }
+  ],
+  "camera_anchors": [
+    {"id": "cam-reality-night", "zone": "zone-reality", "target": "service-phone", "scale": 1.0, "movement": "locked"},
+    {"id": "cam-inbox-leak", "zone": "zone-reality", "target": "voicemail-stack", "scale": 1.0, "movement": "locked"},
+    {"id": "cam-route-build", "zone": "zone-system", "target": "classify-node", "scale": 1.0, "movement": "locked"},
+    {"id": "cam-human-gate", "zone": "zone-reality", "target": "human-review-gate", "scale": 1.0, "movement": "locked"},
+    {"id": "cam-outcome-fork", "zone": "zone-system", "target": "slot-offer-node", "scale": 1.0, "movement": "locked"},
+    {"id": "cam-blueprint", "zone": "zone-system", "target": "call-tag-red", "scale": 0.92, "movement": "one_designed_pullback"},
+    {"id": "cam-measure", "zone": "zone-proof", "target": "one-week-measure", "scale": 1.0, "movement": "locked"}
+  ],
+  "required_paths": {
+    "current_loss": ["service-phone", "voicemail-stack", "customer-continuation", "relationship-gap"],
+    "routine_recovery": ["call-tag-red", "capture-node", "classify-node", "acknowledge-node", "slot-offer-node", "scheduled-appointment", "work-order-card"],
+    "uncertain_recovery": ["call-tag-red", "capture-node", "classify-node", "acknowledge-node", "human-review-gate", "slot-offer-node", "scheduled-appointment", "work-order-card"],
+    "decline_stop": ["slot-offer-node", "stop-terminal"]
+  }
+}

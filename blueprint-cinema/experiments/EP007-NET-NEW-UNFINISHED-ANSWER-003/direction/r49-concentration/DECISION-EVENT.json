@@ -1,0 +1,75 @@
+{
+  "event_id": "r49-concentration-model-v1",
+  "decision_id": "s08-concentration-example",
+  "event_type": "decision",
+  "tags": [
+    "animation",
+    "working-model",
+    "dependency",
+    "cut-timing",
+    "false-inference",
+    "next-scene"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Second failure shape: revenue concentrated in two clients whose connection runs through the absent owner.",
+      "viewer_before": "Customers are tied to the owner and she has left; retention unknown.",
+      "viewer_after": "The viewer sees most revenue arriving from two clients, and that both trace back to the owner's empty place."
+    },
+    "choice": "Continue from R48 end state; heading swap; four equal revenue routes; top two thicken on 'most'; ties from only those two to the owner's empty place on 'came in through the owner'.",
+    "reason": "Route weight shows 'most' without a number; reusing R48 ties links concentration to the same personal dependence while the owner stays absent.",
+    "alternatives": [
+      {
+        "choice": "Revenue share bar or pie",
+        "reason_not_selected": "Implies a measured split the script does not give."
+      },
+      {
+        "choice": "Enlarge the two clients",
+        "reason_not_selected": "Reads as personal importance rather than revenue."
+      },
+      {
+        "choice": "Owner returns to hand over clients",
+        "reason_not_selected": "Contradicts the locked R48 departure state."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "A qualitative 'most' must be shown without a figure, inside an established model.",
+      "avoid_when": "A sourced share exists and should be shown attributably."
+    },
+    "nuance": {
+      "cut_cues": [
+        {
+          "cue_id": "concentration-in",
+          "phrase": "Sometimes it is concentration",
+          "relation": "continuous from R48 outpoint",
+          "master_seconds": 310.4583333333333,
+          "review_seconds": 307.4583333333333,
+          "fps": 24
+        },
+        {
+          "cue_id": "concentration-out",
+          "phrase": "personally / And sometimes it is just the records",
+          "relation": "quiet window before And onset ~317.29",
+          "master_seconds": 317.25,
+          "review_seconds": 314.25,
+          "fps": 24
+        }
+      ],
+      "false_inference": "A measured revenue share, or that the clients have already left.",
+      "source_basis": "Agent direction under owner instruction to move onto concentration."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r49-concentration/DIRECTION.md",
+      "sha256": "fc662075cc0d559aabab491720f925fbe815b09ae49526d6c10266d7f873ca90",
+      "locator": "Scene direction"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r49-concentration/CUES.json",
+      "sha256": "5f2c14af82cdfcbecec428cf0e7d7f0ebcb2dc24b6e1f95809d2b07e9b0442d1",
+      "locator": "Cues and outpoint basis"
+    }
+  ]
+}

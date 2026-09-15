@@ -1,0 +1,55 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r8-generation-preflight-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/DIRECTION.md",
+      "sha256": "1a0493c94119ce08962593a923b0d8b74fb6c7118364d28d8e13e98c0da5ee1c"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/GENERATION-BRIEFS.md",
+      "sha256": "9e37cdc234cd3d1c69586c7ab50fd5f6612444dff781ee187b9ef13d4793ae2b"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/SOURCE-CUES.json",
+      "sha256": "c1f4d14e6eb542fa78cfd6408e55353210d80c87e242574fdcc037b9b656efcc"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-generation-preflight-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-generation-preflight-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Node SHA-256 recomputation on all three frozen work-order inputs", "outcome": "pass"},
+    {"command": "Read official Fal model, API and exact endpoint OpenAPI pages on 2026-09-08", "outcome": "pass"},
+    {"command": "Read unchanged local helper and safe selected fields of R7 request provenance", "outcome": "pass"},
+    {"command": "Direct validate_work_order and validate_deliverable with current Blueprint Cinema validation module", "outcome": "pass"},
+    {"command": "Credential access, provider mutation, live billing, candidate generation and performance playback", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video ; checked 2026-09-08 for route and silent public list price",
+    "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video/api ; checked 2026-09-08 for duration and silent start-image support",
+    "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/kling-video/v3/pro/image-to-video ; checked 2026-09-08 for exact raw request constraints",
+    "Existing helper experiments/EP007-BL-CALLBACK-ARC-001/hyperframes/scripts/generate-fal-film.mjs SHA-256 6f72d94757c95ea87e5b6b1de4609db8ee41bc4552bd11e7d4a93be69252b43e ; read only",
+    "R7 candidate response provenance read using safe selected request/output fields only; no credential values accessed",
+    "media-use skill and setup-provider reference used only to preserve provider-specific auth and operation boundaries; no setup or resolver invoked"
+  ],
+  "assumptions": [
+    "The current public per-second price applies without account-specific adjustments",
+    "The user's 17-second test request is isolated look-development scope and does not establish canonical inputs_locked"
+  ],
+  "unresolved_questions": [
+    "Actual invoice, current account entitlement and live queue capacity remain unverified",
+    "Final start frames, positive prompt records and negative append strings require root checks before invocation",
+    "Actual generated motion must be reviewed against locked narration before selecting source handles"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

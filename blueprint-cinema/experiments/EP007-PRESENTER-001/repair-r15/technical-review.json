@@ -1,0 +1,166 @@
+{
+  "status": "technical_qa_complete_owner_does_not_prefer_N_M_remains_accepted",
+  "video": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r15/test-n-study-subtle-hand-gesture-1080p.mp4",
+    "sha256": "4a3ccb717faef207a5d88d40d11c537cdeb0185f3cae77bbbfa5e42d068f5190",
+    "bytes": 2550550,
+    "width": 1920,
+    "height": 1080,
+    "fps": "25/1",
+    "frames": "140",
+    "duration": "5.600000",
+    "codec": "h264",
+    "pixel_format": "yuv420p"
+  },
+  "baseline_M": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r14/test-m-direct-study-image-steady-head-1080p.mp4",
+    "sha256": "dc6d9f8e6421fda85f56ddbb6c08e588695dce8ae434c0bf18855b4c59d3e526",
+    "owner_accepted": true
+  },
+  "full_decode": {
+    "pass": true,
+    "stderr": ""
+  },
+  "audio": {
+    "source_sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+    "codec": "aac",
+    "rate": "48000",
+    "channels": 2,
+    "duration": "5.612000",
+    "decoded_seconds": 5.612354166666667,
+    "overall": {
+      "source_window_seconds": [
+        0.25,
+        5.35
+      ],
+      "lag_samples": 1105,
+      "lag_ms": 23.020833333333332,
+      "aligned_pearson": 0.9999585500804109,
+      "search_lag_samples": [
+        -12000,
+        12000
+      ],
+      "best_lag_at_search_boundary": false
+    },
+    "sentences": [
+      {
+        "source_window_seconds": [
+          0.25,
+          2.85
+        ],
+        "lag_samples": 1105,
+        "lag_ms": 23.020833333333332,
+        "aligned_pearson": 0.9999457048316429,
+        "search_lag_samples": [
+          -12000,
+          12000
+        ],
+        "best_lag_at_search_boundary": false
+      },
+      {
+        "source_window_seconds": [
+          3.87,
+          5.35
+        ],
+        "lag_samples": 1105,
+        "lag_ms": 23.020833333333332,
+        "aligned_pearson": 0.9999743555372086,
+        "search_lag_samples": [
+          -12000,
+          12000
+        ],
+        "best_lag_at_search_boundary": false
+      }
+    ],
+    "sentence_lag_difference_ms": 0.0,
+    "whole_overlap_correlation": 0.999959939618899,
+    "source_to_video_offset_seconds": 0.023020833333333334,
+    "last_business": {
+      "audio_covered": true,
+      "correlation": 0.999796448286138,
+      "picture_margin_seconds": 0.2269791666666663
+    }
+  },
+  "all_140_frame_M_comparison": {
+    "face": {
+      "crop_xywh": [
+        680,
+        100,
+        560,
+        750
+      ],
+      "frames": 140,
+      "mean_absolute_luma_difference_8bit": 3.9843728231292515,
+      "max_frame_mean_absolute_difference_8bit": 6.480188095238095,
+      "max_pixel_difference_8bit": 207,
+      "percent_pixels_difference_above_8": 11.467768707482993,
+      "max_difference_frame": 110
+    },
+    "lower_torso_and_frame_edge": {
+      "crop_xywh": [
+        300,
+        800,
+        1320,
+        280
+      ],
+      "frames": 140,
+      "mean_absolute_luma_difference_8bit": 1.9256754599567099,
+      "max_frame_mean_absolute_difference_8bit": 3.3503003246753247,
+      "max_pixel_difference_8bit": 147,
+      "percent_pixels_difference_above_8": 2.8129077767470623,
+      "max_difference_frame": 27
+    }
+  },
+  "limits": [
+    "Waveform correlation is not visual lip sync.",
+    "All-frame luma similarity does not establish provider internals or why a gesture was absent.",
+    "M remains owner-accepted; no canonical production gates modified."
+  ],
+  "owner_feedback": {
+    "source": "Root relayed current owner playback feedback",
+    "hand_result": "Owner confirms no hand or arm gesture",
+    "stress_feedback": "stressing of straight a bit too pronounced",
+    "decision": "Keep M baseline; N not preferred"
+  },
+  "head_motion": {
+    "report": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-n/head-motion-review.json",
+    "N": {
+      "sampled_center_x_range_px": 10.942645251199224,
+      "sampled_center_y_range_px": 32.26675380511102,
+      "median_eye_distance_px": 186.98879392027612,
+      "sampled_max_center_displacement_px": 32.73484998770732,
+      "max_displacement_in_eye_distances": 0.1750631644892262,
+      "sampled_roll_range_degrees": 2.6758024388681134
+    },
+    "accepted_M": {
+      "sampled_center_x_range_px": 8.802359409199141,
+      "sampled_center_y_range_px": 31.83444949034339,
+      "median_eye_distance_px": 186.73569980646528,
+      "sampled_max_center_displacement_px": 32.032080001094954,
+      "max_displacement_in_eye_distances": 0.17153699070018918,
+      "sampled_roll_range_degrees": 2.710733580898424
+    },
+    "limits": [
+      "Sparse samples may miss extremes",
+      "Landmark movement includes estimation noise and face perspective; confidence is not an accuracy bound",
+      "Eye-line angle measures in-plane roll, not pitch/yaw",
+      "Raw mouth-pixel size is not comparable across differently framed faces",
+      "Word-level times do not establish exact phoneme closures"
+    ]
+  },
+  "visual_observations": {
+    "sampled_hand_visibility": "No hand or forearm is visible in any of the 12 full-frame samples. Owner also confirms absence on playback.",
+    "M_comparison": "Matched poses look similar but all-frame pixel comparisons are not identical; do not claim cached or reused motion.",
+    "performance_judgment": "Owner evaluation governs preference; M remains accepted. No automated veto based on pause samples."
+  },
+  "contacts": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-n/full-frame-contact-sheet.jpg",
+      "sha256": "09dd5c4a3eb3095d2112da92995854a40f189efa9f5e036a22fed3b6cbc12584"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-n/face-contact-sheet.jpg",
+      "sha256": "727a38eca01aa7d0b88c942a94209b6ef8971ecc6e1521d545d05bf108b1654f"
+    }
+  ]
+}

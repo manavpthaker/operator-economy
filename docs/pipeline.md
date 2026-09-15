@@ -1,6 +1,6 @@
 # Producing one video (end to end)
 
-> **Current order: VO-first v1.** `docs/vo-first-production-flow.md` is authoritative for all production after research and the initial brief. The script is explicitly locked, final VO establishes the timeline, transcript coverage is approved, assets are selected, and a coverage-first rough cut is reviewed before visual design, music, or final rendering. The legacy `originate.py continue` command is disabled because it combined too many stages.
+> **Current order: Blueprint Cinema.** `docs/blueprint-cinema.md` is authoritative for long-form visual production after final VO. `docs/vo-first-production-flow.md` remains correct through VO lock, but its screen-oriented coverage model is superseded. The new order is episode engine, persistent-world coverage, whole-episode greybox, asset production, rough cut, fine cut, and validation. The legacy `originate.py continue` command remains disabled.
 
 > **Cadence:** development of the next episode begins on the Monday before its release cycle, as the current episode launches. Keep a rolling slate with the next episode in production, the following episode in script review, and later candidates in research. Use catch-up weeks to build at least a two-episode buffer.
 

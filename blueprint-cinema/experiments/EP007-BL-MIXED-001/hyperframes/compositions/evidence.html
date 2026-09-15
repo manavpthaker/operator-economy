@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Boska";
+          src: url("assets/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "BL Data";
+          src: local("Menlo"), local("Courier New");
+          font-weight: 400;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+
+        .evidence-stage {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+        }
+
+        .receipts {
+          position: absolute;
+          top: 72px;
+          left: 84px;
+          width: 1752px;
+          height: 936px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+        }
+
+        .receipt {
+          position: relative;
+          box-sizing: border-box;
+          width: 856px;
+          height: 936px;
+          overflow: hidden;
+          background: #204440;
+          color: #f5f0e6;
+          border: 2px solid #173530;
+          border-radius: 2px;
+          transform-origin: 50% 50%;
+        }
+
+        .receipt::after {
+          content: "";
+          position: absolute;
+          inset: 20px;
+          border: 1px solid rgba(196, 185, 158, 0.34);
+          pointer-events: none;
+        }
+
+        .receipt-body {
+          position: absolute;
+          top: 72px;
+          left: 64px;
+          right: 64px;
+          height: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .receipt-body-right {
+          top: 118px;
+          height: 390px;
+        }
+
+        .receipt-content {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .metric {
+          display: block;
+          color: #fbf8f1;
+          font-family: "BL Boska", Georgia, serif;
+          font-size: 150px;
+          font-weight: 700;
+          line-height: 0.82;
+          letter-spacing: -0.035em;
+        }
+
+        .metric-wide {
+          font-size: 132px;
+          letter-spacing: -0.045em;
+        }
+
+        .metric-secondary {
+          display: block;
+          color: #f5f0e6;
+          font-family: "BL Boska", Georgia, serif;
+          font-size: 92px;
+          font-weight: 700;
+          line-height: 0.88;
+          letter-spacing: -0.02em;
+        }
+
+        .fact {
+          max-width: 680px;
+          margin: 26px 0 0;
+          color: #fbf8f1;
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-size: 35px;
+          font-weight: 500;
+          line-height: 1.24;
+          letter-spacing: -0.012em;
+        }
+
+        .receipt-body-right .fact {
+          max-width: 650px;
+          margin-top: 42px;
+          font-size: 40px;
+          line-height: 1.22;
+        }
+
+        .evidence-divider {
+          display: block;
+          width: 100%;
+          height: 1px;
+          margin: 36px 0 30px;
+          background: rgba(226, 218, 199, 0.38);
+        }
+
+        .secondary-fact {
+          max-width: 650px;
+          margin: 17px 0 0;
+          color: #e2dac7;
+          font-size: 29px;
+          font-weight: 400;
+          line-height: 1.24;
+          letter-spacing: -0.006em;
+        }
+
+        .receipt-footer {
+          position: absolute;
+          left: 64px;
+          right: 64px;
+          bottom: 56px;
+          height: 260px;
+          border-top: 1px solid rgba(226, 218, 199, 0.38);
+        }
+
+        .record-row {
+          display: grid;
+          grid-template-columns: 126px 1fr;
+          gap: 28px;
+          padding-top: 22px;
+        }
+
+        .record-row + .record-row {
+          margin-top: 18px;
+          border-top: 1px solid rgba(226, 218, 199, 0.22);
+          padding-top: 18px;
+        }
+
+        .record-label {
+          color: #e2dac7;
+          font-family: "BL Data", monospace;
+          font-size: 23px;
+          line-height: 1.32;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .record-value {
+          color: #f5f0e6;
+          font-size: 27px;
+          line-height: 1.3;
+        }
+
+        .activation-rail {
+          position: absolute;
+          top: 72px;
+          left: 32px;
+          width: 5px;
+          height: 500px;
+          background: #71868d;
+          transform-origin: 50% 0%;
+        }
+
+      </style>
+
+      <div data-hf-id="hf-ld3w" id="root" data-composition-id="evidence" data-width="1920" data-height="1080" data-start="0" data-duration="18.16" data-fps="24">
+        <section id="evidence-stage" class="evidence-stage clip" data-hf-id="evidence-stage" data-start="0" data-duration="18.16" data-track-index="0" aria-label="Two sourced evidence receipts shown side by side">
+          <div id="evidence-receipts" class="receipts" data-hf-id="evidence-receipts">
+            <article id="evidence-c005" class="receipt" data-hf-id="evidence-c005-receipt" aria-label="Claim C005 evidence receipt">
+              <span id="evidence-c005-rail" class="activation-rail" data-hf-id="evidence-c005-activation" aria-hidden="true"></span>
+              <div id="evidence-c005-content" class="receipt-content" data-hf-id="evidence-c005-content" data-layout-allow-overflow="">
+                <div data-hf-id="hf-u4zd" class="receipt-body">
+                  <div data-hf-id="hf-hn42" class="evidence-unit">
+                    <span data-hf-id="hf-5sxv" class="metric">87%</span>
+                    <p data-hf-id="hf-yxoh" class="fact">of closed deals above $5M drew at least three offers.</p>
+                  </div>
+                  <span data-hf-id="hf-qyo1" class="evidence-divider" aria-hidden="true"></span>
+                  <div data-hf-id="hf-c3om" class="evidence-unit">
+                    <span data-hf-id="hf-dbzp" class="metric-secondary">33%</span>
+                    <p data-hf-id="hf-9n0r" class="secondary-fact">
+                      of closed deals above $5M drew ten or more offers.
+                    </p>
+                  </div>
+                </div>
+                <footer data-hf-id="hf-x2n2" class="receipt-footer">
+                  <div data-hf-id="hf-u9r0" class="record-row">
+                    <span data-hf-id="hf-snpi" class="record-label">Source</span>
+                    <span data-hf-id="hf-lu4l" class="record-value">IBBA and M&amp;A Source, Market Pulse Q1/Q2 2026</span>
+                  </div>
+                  <div data-hf-id="hf-hbkk" class="record-row">
+                    <span data-hf-id="hf-hj5n" class="record-label">Caveat</span>
+                    <span data-hf-id="hf-qk30" class="record-value">Adviser-reported closed transactions, not an audited deal database; applies to completed deals above $5M, not listings generally.</span>
+                  </div>
+                </footer>
+              </div>
+            </article>
+
+            <article id="evidence-c001" class="receipt" data-hf-id="evidence-c001-receipt" aria-label="Claim C001 evidence receipt">
+              <span id="evidence-c001-rail" class="activation-rail" data-hf-id="evidence-c001-activation" aria-hidden="true"></span>
+              <div id="evidence-c001-content" class="receipt-content" data-hf-id="evidence-c001-content" data-layout-allow-overflow="">
+                <div data-hf-id="hf-vxcv" class="receipt-body receipt-body-right">
+                  <span data-hf-id="hf-wane" class="metric metric-wide">≈ 3 IN 10</span>
+                  <p data-hf-id="hf-yzmw" class="fact">Only about three in ten listed small businesses sell.</p>
+                </div>
+                <footer data-hf-id="hf-0xhe" class="receipt-footer">
+                  <div data-hf-id="hf-g4nh" class="record-row">
+                    <span data-hf-id="hf-c5xm" class="record-label">Source</span>
+                    <span data-hf-id="hf-95e6" class="record-value">Exit Planning Institute, State of Owner Readiness research</span>
+                  </div>
+                  <div data-hf-id="hf-giyi" class="record-row">
+                    <span data-hf-id="hf-yol7" class="record-label">Caveat</span>
+                    <span data-hf-id="hf-u9te" class="record-value">Directional, not precise; EPI has an institutional interest in owner unpreparedness.</span>
+                  </div>
+                </footer>
+              </div>
+            </article>
+          </div>
+
+        </section>
+      </div>
+
+      <script>
+        (() => {
+          "use strict";
+
+          const root = document.querySelector('[data-composition-id="evidence"]');
+          const leftReceipt = root.querySelector("#evidence-c005");
+          const rightReceipt = root.querySelector("#evidence-c001");
+          const leftContent = root.querySelector("#evidence-c005-content");
+          const rightContent = root.querySelector("#evidence-c001-content");
+          const leftRail = root.querySelector("#evidence-c005-rail");
+          const rightRail = root.querySelector("#evidence-c001-rail");
+          const tl = gsap.timeline({ paused: true });
+
+          gsap.set([leftContent, rightContent], { autoAlpha: 0 });
+          gsap.set([leftRail, rightRail], { scaleY: 0 });
+
+          tl.fromTo(
+            leftReceipt,
+            { x: 238, y: 24 },
+            { x: 0, y: 0, duration: 2.16, ease: "power3.inOut" },
+            0.2,
+          );
+          tl.fromTo(
+            rightReceipt,
+            { x: -238, y: -20 },
+            { x: 0, y: 0, duration: 2.16, ease: "power3.inOut" },
+            0.2,
+          );
+
+          tl.to(leftReceipt, { borderColor: "#71868d", duration: 0.34, ease: "power2.out" }, 4.86);
+          tl.fromTo(
+            leftRail,
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.46, ease: "power3.out" },
+            4.86,
+          );
+          tl.fromTo(
+            leftContent,
+            { autoAlpha: 0, y: 22 },
+            { autoAlpha: 1, y: 0, duration: 0.52, ease: "power3.out" },
+            4.92,
+          );
+
+          tl.to(leftReceipt, { borderColor: "#173530", duration: 0.3, ease: "power2.inOut" }, 8.41);
+          tl.to(rightReceipt, { borderColor: "#71868d", duration: 0.34, ease: "power2.out" }, 8.41);
+          tl.fromTo(
+            rightRail,
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.46, ease: "power3.out" },
+            8.41,
+          );
+          tl.fromTo(
+            rightContent,
+            { autoAlpha: 0, y: 22 },
+            { autoAlpha: 1, y: 0, duration: 0.52, ease: "power3.out" },
+            8.47,
+          );
+
+          tl.to([leftReceipt, rightReceipt], { borderColor: "#71868d", duration: 0.42, ease: "power2.inOut" }, 12.42);
+
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines.evidence = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

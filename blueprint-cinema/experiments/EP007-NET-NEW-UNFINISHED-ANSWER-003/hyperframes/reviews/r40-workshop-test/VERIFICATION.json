@@ -1,0 +1,104 @@
+{
+  "record_type": "isolated_short_test_verification",
+  "recorded_at_utc": "2026-09-12T10:31:14.686091+00:00",
+  "status": "rendered_for_owner_review_causal_diagnostic_failed",
+  "duration_seconds": 12,
+  "fps": 24,
+  "runtime_fingerprint_sha256": "598d3fe947e257edcd5991ecfe1f47d623e590f481b3a4e9934797bbb7a9f909",
+  "encoded": {
+    "encoded_sha256": "7c89f251172a8b277d9856306db8a19f16a396593a4670d2494c59f96f61ef85",
+    "duration_seconds": 12,
+    "frames": 288,
+    "fps": 24,
+    "audio_streams": 0,
+    "uniform_blank_frames": 0,
+    "minimum_luma_std": 14.667179368029478,
+    "last_second_exactly_still": true,
+    "stillness_intent": "Employee has put unused choices down and waits; door remains unfinished.",
+    "limits": "Frame coverage and static hold are technical observations, not proof of the intended causal reading."
+  },
+  "technical_check": {
+    "lint_errors": 0,
+    "lint_warnings": 0,
+    "runtime_errors": 0,
+    "layout_errors": 0,
+    "layout_warnings": [
+      {
+        "code": "rotation_pivot_drift",
+        "severity": "warning",
+        "time": 11.958,
+        "selector": "#r40-worker-head",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 343.47,
+          "y": 178.60000000000002,
+          "width": 128.92,
+          "height": 173.9
+        },
+        "rect": {
+          "left": 343.47,
+          "top": 178.60000000000002,
+          "right": 472.39,
+          "bottom": 352.5,
+          "width": 128.92,
+          "height": 173.9
+        },
+        "message": "Rotating element's bounding-box center drifts 17px across rotation — it is not spinning about its own center (check transformOrigin/svgOrigin).",
+        "fixHint": "The bounding-box center should stay fixed while the element spins; check its transformOrigin/svgOrigin so rotation pivots about the element's own center rather than a point in a coordinate space it was resized out of.",
+        "firstSeen": 11.958,
+        "lastSeen": 11.958,
+        "occurrences": 1,
+        "heldMs": 0
+      }
+    ],
+    "strict_ok": false,
+    "warning_disposition": "Intentional upper-neck rotation pivot. A face rotating about its neck moves its bounding-box center; no centered-spin behavior was intended. Strict check remains false and is not described as all-green.",
+    "motion_checker_enabled": false
+  },
+  "live_preview": {
+    "url": "http://100.101.49.30:3056/",
+    "verified": "Player advanced to12 seconds; opening and post-departure frames inspected in the in-app browser; reset to0 seconds and marked deliverable.",
+    "endpoint_behavior": "At the exact12-second composition endpoint the player hides the composition; no encoded frame is blank.",
+    "saved_preview_state_seconds": 0
+  },
+  "causal_review": {
+    "first_pass": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r40-workshop-test/qa/pass-1/UNPRIMED-READ.json",
+      "sha256": "7c7aeba37aa2b007ec5f96a388ac4244fcc8b539128fad657278250610075337"
+    },
+    "revised_pass": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r40-workshop-test/qa/CONTEXT-SUPPLIED-READ.json",
+      "sha256": "e1d3671334c3e0616bc2c1f9c3d715c42a4851897fedcd7cb48f300b7ae2e0b2"
+    },
+    "result": "fail",
+    "scope": "Whether this staging visibly establishes that the owner enables work and her absence blocks a fresh task.",
+    "finding": "Departure is clear, but the enabling decision, task and resulting stoppage remain ambiguous.",
+    "limits": "Two agent contact-sheet reads at2fps, first unprimed and second with owner/employee roles supplied, plus root encoded-contact-sheet and browser-frame inspection. This is neither human audience testing nor a controlled full-motion comprehension experiment.",
+    "director_judgment": "Do not integrate this test into the full episode yet. The causal action needs clearer staging; fewer headings alone did not establish added value. Human anatomy and interaction remain rough, so this is not finished illustration."
+  },
+  "avatar_hand_requirement": {
+    "proposal": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r40-animation-reset/AVATAR-HAND-PERFORMANCE-PROPOSAL.md",
+      "sha256": "89877a476c42a2927e08538b6270c924e7185c162cfd06bf9c7b1c9c92fc61ae"
+    },
+    "new_take_generated": false,
+    "trigger": "Next question-avatar rebuild"
+  },
+  "full_episode_rebuilt": false,
+  "new_paid_calls": 0,
+  "owner_accepted_test_output": false,
+  "canonical_gate_advanced": false,
+  "source_and_art": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r40-workshop-test/direction/SOURCE-PROVENANCE.json",
+    "sha256": "03b8d61c81e09f13c60fb9eb1b346eb947b730d0bb63a531072b839fede1b272"
+  },
+  "asset_schema_limit": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r40-workshop-test/direction/MOTION-STUDY-ASSET.json",
+    "sha256": "f70e7645ab75e5b122f9bc44ecae77a7bd001f3fa6218f215ad361384c22d2c7"
+  },
+  "skill_validation": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r40-workshop-test/qa/SKILL-VALIDATION.json",
+    "sha256": "a2322bae728c6076eea119ea3378a631e26f6bb4a3c575d61c22ca42a124090c"
+  }
+}

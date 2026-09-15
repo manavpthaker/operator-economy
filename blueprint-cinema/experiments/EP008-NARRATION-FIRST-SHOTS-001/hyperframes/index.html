@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP008 · Empty human handoff · motion test</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+
+      :root {
+        --paper: #f5f0e6;
+        --paper-raised: #fbf8f1;
+        --paper-inset: #ede7d8;
+        --mineral: #204440;
+        --mineral-deep: #173530;
+        --steel: #586d74;
+        --steel-dark: #33464c;
+        --steel-light: #71868d;
+        --ink: #19201f;
+        --ink-soft: #303b39;
+        --ink-muted: #566461;
+        --rule: #d8cfb9;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: var(--paper); }
+      body { color: var(--ink); font-family: "BL Supreme", sans-serif; }
+      #root, #ep008-scene { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #root, #ep008-scene { background: var(--paper); }
+
+      .docket {
+        position: absolute;
+        top: 54px;
+        left: 134px;
+        right: 134px;
+        height: 66px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        border-top: 2px solid var(--steel);
+        border-bottom: 2px solid var(--rule);
+        color: var(--mineral);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .docket span:nth-child(2) { text-align: center; color: var(--steel-dark); }
+      .docket span:last-child { text-align: right; color: var(--ink-muted); }
+
+      .title {
+        position: absolute;
+        left: 134px;
+        top: 164px;
+        color: var(--mineral-deep);
+        font-family: "BL Zodiak", serif;
+        font-size: 76px;
+        font-weight: 700;
+        letter-spacing: -.035em;
+        line-height: .98;
+      }
+      .time-now {
+        position: absolute;
+        right: 134px;
+        top: 176px;
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: .05em;
+      }
+
+      .field-rule {
+        position: absolute;
+        left: 134px;
+        right: 134px;
+        top: 304px;
+        height: 2px;
+        background: var(--rule);
+      }
+      .field-label {
+        position: absolute;
+        top: 323px;
+        color: var(--ink-muted);
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+      .field-label.left { left: 178px; }
+      .field-label.right { left: 1270px; }
+
+      .agent {
+        position: absolute;
+        left: 168px;
+        top: 386px;
+        width: 470px;
+        height: 330px;
+        background: var(--paper-inset);
+        border: 2px solid var(--steel);
+      }
+      .agent::before,
+      .agent::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--steel);
+      }
+      .agent::before { top: 68px; }
+      .agent::after { bottom: 52px; background: var(--rule); }
+      .agent-kicker {
+        position: absolute;
+        left: 28px;
+        top: 22px;
+        color: var(--steel-dark);
+        font-size: 19px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .agent-name {
+        position: absolute;
+        left: 28px;
+        top: 104px;
+        width: 310px;
+        color: var(--mineral-deep);
+        font-family: "BL Boska", serif;
+        font-size: 58px;
+        font-weight: 700;
+        line-height: .95;
+      }
+      .agent-status {
+        position: absolute;
+        left: 28px;
+        bottom: 17px;
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 18px;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+      }
+      .agent-port {
+        position: absolute;
+        right: -13px;
+        top: 211px;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--steel-dark);
+        background: var(--paper);
+        transform: rotate(45deg);
+      }
+      .read-svg {
+        position: absolute;
+        left: 27px;
+        top: 224px;
+        width: 304px;
+        height: 38px;
+        overflow: visible;
+      }
+      #ep008-read-mark { fill: none; stroke: var(--mineral); stroke-width: 5; stroke-linecap: round; }
+
+      .route-svg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #ep008-handoff-route {
+        fill: none;
+        stroke: var(--steel);
+        stroke-width: 4;
+        stroke-linecap: round;
+      }
+      #ep008-route-terminal {
+        fill: none;
+        stroke: var(--steel-dark);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .route-label {
+        position: absolute;
+        left: 808px;
+        top: 520px;
+        width: 340px;
+        color: var(--steel-dark);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: .16em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .queue {
+        position: absolute;
+        left: 1210px;
+        top: 386px;
+        width: 542px;
+        height: 430px;
+        border: 2px solid var(--steel);
+        background: var(--paper-raised);
+      }
+      .queue-header {
+        height: 70px;
+        padding: 22px 28px 0;
+        border-bottom: 2px solid var(--rule);
+        color: var(--steel-dark);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .queue-station {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        top: 92px;
+        height: 190px;
+      }
+      .queue-station svg { width: 100%; height: 100%; overflow: visible; }
+      .vacancy-outline {
+        fill: none;
+        stroke: var(--rule);
+        stroke-width: 3;
+        stroke-dasharray: 10 12;
+        stroke-linecap: round;
+      }
+      .desk-line { fill: none; stroke: var(--steel-light); stroke-width: 3; stroke-linecap: round; }
+      .vacancy-label {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 13px;
+        color: var(--steel-dark);
+        font-family: "BL Zodiak", serif;
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: -.01em;
+        text-align: center;
+      }
+      .coverage {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        bottom: 24px;
+        height: 92px;
+        padding: 14px 18px 0;
+        border-top: 2px solid var(--steel);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+      }
+      .coverage-label {
+        padding-top: 12px;
+        color: var(--ink-muted);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .coverage-time {
+        color: var(--mineral-deep);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: .02em;
+      }
+      .coverage-underline {
+        position: absolute;
+        right: 17px;
+        bottom: 4px;
+        width: 177px;
+        height: 10px;
+      }
+      #ep008-coverage-line { fill: none; stroke: var(--mineral); stroke-width: 4; stroke-linecap: round; }
+
+      .ticket {
+        position: absolute;
+        z-index: 10;
+        left: 410px;
+        top: 580px;
+        width: 300px;
+        height: 112px;
+        padding: 16px 22px 14px;
+        background: var(--paper-raised);
+        border: 2px solid var(--mineral);
+        box-shadow: 8px 9px 0 rgba(32, 68, 64, .10);
+        clip-path: polygon(1% 4%, 99% 0, 98% 95%, 4% 100%, 0 73%);
+      }
+      .ticket-kicker {
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .ticket-copy {
+        margin-top: 13px;
+        color: var(--mineral-deep);
+        font-family: "BL Supreme", sans-serif;
+        font-size: 25px;
+        font-weight: 500;
+        letter-spacing: .01em;
+      }
+
+      .footnote {
+        position: absolute;
+        left: 134px;
+        bottom: 62px;
+        color: var(--ink-muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-hf-id="ep008-test-root" data-composition-id="ep008-handoff-test" data-start="0" data-duration="7.14" data-width="1920" data-height="1080" data-fps="30">
+      <section id="ep008-scene" data-hf-id="ep008-test-scene" class="clip" data-start="0" data-duration="7.14" data-track-index="1">
+        <header data-hf-id="hf-s86r" class="docket" aria-label="Episode and review status">
+          <span data-hf-id="hf-dyv0">EP008 · Helpdesk setup</span>
+          <span data-hf-id="hf-3znx">Empty human handoff</span>
+          <span data-hf-id="hf-z07o">Pre-authority motion test</span>
+        </header>
+
+        <h1 data-hf-id="hf-29hm" class="title">The route reaches nobody.</h1>
+        <div data-hf-id="hf-36vj" class="time-now">11:00 PM</div>
+        <div data-hf-id="hf-kxka" class="field-rule" aria-hidden="true"></div>
+        <div data-hf-id="hf-zdxk" class="field-label left">Current route</div>
+        <div data-hf-id="hf-z3xu" class="field-label right">Human coverage</div>
+
+        <div data-hf-id="hf-pek2" id="ep008-agent" class="agent" aria-label="Bundled helpdesk agent">
+          <div data-hf-id="hf-jsma" class="agent-kicker">Bought capability</div>
+          <div data-hf-id="hf-saww" class="agent-name">Bundled<br data-hf-id="hf-x5px">agent</div>
+          <svg data-hf-id="hf-i43a" class="read-svg" viewBox="0 0 304 38" aria-hidden="true">
+            <path data-hf-id="hf-zzev" id="ep008-read-mark" data-draw="" d="M 2 22 C 72 17, 146 26, 302 19" />
+          </svg>
+          <div data-hf-id="hf-4rba" class="agent-status">Reads request</div>
+          <div data-hf-id="hf-wj0g" class="agent-port" aria-hidden="true"></div>
+        </div>
+
+        <svg data-hf-id="hf-q1t9" id="ep008-route" class="route-svg" viewBox="0 0 1920 1080" aria-hidden="true">
+          <path data-hf-id="hf-wn00" id="ep008-handoff-route" data-draw="" d="M 560 636 C 785 629, 1055 642, 1405 636" />
+          <path data-hf-id="hf-4o6r" id="ep008-route-terminal" data-draw="" d="M 1377 619 L 1405 636 L 1377 653" />
+        </svg>
+        <div data-hf-id="hf-44gb" id="ep008-route-label" class="route-label">Human handoff</div>
+
+        <div data-hf-id="hf-i3og" id="ep008-queue" class="queue" aria-label="Human support queue">
+          <div data-hf-id="hf-vrsh" class="queue-header">Human queue</div>
+          <div data-hf-id="hf-9kz2" class="queue-station">
+            <svg data-hf-id="hf-4new" viewBox="0 0 482 190" aria-hidden="true">
+              <path data-hf-id="hf-a4lm" class="desk-line" d="M 48 151 C 156 148, 310 154, 434 150" />
+              <path data-hf-id="hf-fser" class="vacancy-outline" d="M 241 36 C 202 36, 178 61, 178 99 C 178 127, 194 144, 206 153 M 241 36 C 280 36, 304 61, 304 99 C 304 127, 288 144, 276 153" />
+            </svg>
+            <div data-hf-id="hf-ibsr" id="ep008-vacancy" class="vacancy-label">No one on shift</div>
+          </div>
+          <div data-hf-id="hf-nvu8" id="ep008-coverage" class="coverage">
+            <div data-hf-id="hf-98ts" class="coverage-label">Next coverage</div>
+            <div data-hf-id="hf-g143" class="coverage-time">09:00 AM</div>
+            <svg data-hf-id="hf-gzvk" class="coverage-underline" viewBox="0 0 177 10" aria-hidden="true">
+              <path data-hf-id="hf-bdl6" id="ep008-coverage-line" data-draw="" d="M 2 6 C 54 3, 114 8, 175 4" />
+            </svg>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-n7me" id="ep008-ticket" class="ticket" aria-label="Unresolved order-status request">
+          <div data-hf-id="hf-x9su" class="ticket-kicker">Order ticket</div>
+          <div data-hf-id="hf-pezs" class="ticket-copy">where is my order?</div>
+        </div>
+
+        <div data-hf-id="hf-wuun" class="footnote">Locked voice · W000052–W000071 · diagnostic only</div>
+      </section>
+
+      <audio data-hf-id="hf-muwj" id="ep008-locked-voice" class="clip" src="assets/audio/ep008-opening-0.000-48.520.wav" data-start="0" data-duration="7.14" data-media-start="14.32" data-track-index="10" data-volume="1" preload="auto"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const drawPaths = Array.from(document.querySelectorAll("[data-draw]"));
+      for (const path of drawPaths) {
+        const length = Math.max(1, path.getTotalLength());
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+      }
+
+      gsap.set("#ep008-scene", { opacity: 1 });
+      gsap.set("#ep008-ticket", { x: 0, rotation: -1.1, transformOrigin: "50% 50%" });
+      gsap.set("#ep008-route", { opacity: 0 });
+      gsap.set("#ep008-route-label", { opacity: 0, y: 8 });
+      gsap.set("#ep008-vacancy", { opacity: 0, y: 10 });
+      gsap.set("#ep008-coverage", { opacity: 0, y: 8 });
+
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+      tl.to("#ep008-read-mark", { strokeDashoffset: 0, duration: .48, ease: "power2.out" }, 1.03);
+
+      tl.set("#ep008-route", { opacity: 1 }, 2.50);
+      tl.to("#ep008-handoff-route", { strokeDashoffset: 0, duration: .84, ease: "power2.out" }, 2.50);
+      tl.to("#ep008-route-terminal", { strokeDashoffset: 0, duration: .24, ease: "power2.out" }, 3.12);
+      tl.to("#ep008-route-label", { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, 2.70);
+      tl.to("#ep008-ticket", { x: 840, rotation: .35, duration: .96, ease: "power3.inOut" }, 2.62);
+
+      tl.to("#ep008-vacancy", { opacity: 1, y: 0, duration: .46, ease: "power3.out" }, 4.30);
+      tl.to(".vacancy-outline", { stroke: "#71868D", duration: .42, ease: "power1.out" }, 4.34);
+
+      tl.to("#ep008-coverage", { opacity: 1, y: 0, duration: .38, ease: "power3.out" }, 6.12);
+      tl.to("#ep008-coverage-line", { strokeDashoffset: 0, duration: .32, ease: "power2.out" }, 6.30);
+      tl.set("#ep008-scene", { opacity: 1 }, 7.14);
+
+      window.__timelines["ep008-handoff-test"] = tl;
+    </script>
+  </body>
+</html>

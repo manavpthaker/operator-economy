@@ -1,6 +1,6 @@
 # Step 3 Visual Translation Standard
 
-Status: **proposed v0.2**; not authority. Step 3 remains boundary-only until this standard, its gates, and its acceptance set are approved.
+Status: **proposed v0.3**; not authority. Step 3 remains boundary-only until this standard, its gates, and its acceptance set are approved.
 
 Scope boundary: `SCOPE-BOUNDARY.md` (approved 2026-09-01)
 
@@ -55,9 +55,35 @@ a second semantic vocabulary.
 **Business-operation fields are `DERIVED` from locked upstream state:**
 
 - Exact upstream artifact path, hash, and section or field locator.
+- When the upstream artifact is Markdown, a `source_quote`: a verbatim excerpt from the cited
+  section. The provenance chain is **path -> hash -> section -> quote**. The machine proves the
+  quote is real and comes from that section; whether `state_before` and `state_after` faithfully
+  represent it is the named human approval V2 already requires. Provenance is checkable;
+  the fidelity of a paraphrase is not, and this standard does not pretend otherwise.
 - `state_before` and `state_after`, preserving the upstream meaning.
 - `business_operation`: a plain-language description of what changes in the business. It is not a
   branded motion name and may not widen the upstream state.
+
+**Establishment is a separate `AUTHORED` class, not a business operation.**
+
+Boundary Ledger's `establish` changes what the viewer can identify. It does not change the state of
+the business. Recording it as a derived business operation would require a `state_before` no upstream
+artifact contains, which is why it is held in its own `establishment` array:
+
+- `id` in the `EST-nnn` space, and `label: AUTHORED`.
+- `viewer_state_before` and `viewer_state_after`. **Not** `state_before` / `state_after` — nothing in
+  the business changes, so business-state fields would be a false claim.
+- `reveals`: the object IDs made legible. **Not** `acts_on`. Establishment makes existing objects
+  identifiable; it may not move, alter, or resolve any of them.
+- Upstream citation for the **actors and the relationship being revealed** — path, hash, section
+  locator, and for a Markdown source a verbatim `source_quote`. The actors must be real upstream;
+  only the viewer's knowledge of them is authored.
+- A `SELECTED` Boundary Ledger role and operation, permitted by the pinned motion binding.
+
+**`business_operations` stay `DERIVED` only.** Every `state_before` and `state_after` must be
+supported by its cited upstream section. An `AUTHORED` label inside `business_operations` fails the
+gate, and so does an establishment row that claims to change an object rather than reveal it. The
+derivation invariant is absolute; establishment exists so that nothing needs an exception to it.
 
 **Semantic bindings are `SELECTED`, not authored:**
 
@@ -82,7 +108,10 @@ into an episode-local editable vocabulary.
 
 A Step 3 gate fails when a derived field diverges from upstream; either design-system hash is
 stale; a selected role or operation is unknown; the role-operation pair is disallowed by the pinned
-binding; or the engine introduces a local motion vocabulary or implementation primitive.
+binding; a Markdown locator does not resolve to a section or its quote does not appear there; an
+`AUTHORED` row appears inside `business_operations`; an establishment row carries business-state
+fields or claims to act on an object; or the engine introduces a local motion vocabulary or
+implementation primitive.
 
 ### 2. Persistent world
 

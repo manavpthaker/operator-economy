@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "world-integrity-review",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "role": "world_integrity_reviewer",
+  "objective": "Independently audit the proposed persistent world for stable identity, semantic path honesty, consent and human-review non-bypass, failure handling, economics separation, evidence attachment, and deterministic spatial coherence.",
+  "required_gate": "episode_engine_approved",
+  "inputs": [
+    {"path": "episodes/EP006-direct-booking-recovery/input-lock.json", "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"},
+    {"path": "episodes/EP006-direct-booking-recovery/episode-engine.json", "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"},
+    {"path": "episodes/EP006-direct-booking-recovery/world.json", "sha256": "80a12c7296b76591258d210bf038c4d71ccef195669304e4289bccb3df3c576b"}
+  ],
+  "owned_output_paths": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/world-integrity-review/deliverable.json",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/world-integrity-review/world-integrity.md"
+  ],
+  "forbidden_paths": [
+    "episodes/EP006-direct-booking-recovery/episode.json",
+    "episodes/EP006-direct-booking-recovery/input-lock.json",
+    "episodes/EP006-direct-booking-recovery/production-state.json",
+    "episodes/EP006-direct-booking-recovery/episode-engine.json",
+    "episodes/EP006-direct-booking-recovery/world.json",
+    "episodes/EP006-direct-booking-recovery/visual-plan.json",
+    "episodes/EP006-direct-booking-recovery/asset-tickets.json",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts"
+  ],
+  "dependencies": ["current episode_engine_approved gate", "schema-valid proposed world"],
+  "acceptance_checks": [
+    "Trace every canonical path and verify every referenced object state evidence camera retry and escalation ID",
+    "Try to find a route to outbound follow-up or confirmation that bypasses audit repair affirmative consent qualification or human review",
+    "Confirm suppression and sensitive cases terminate or escalate without automatic outbound",
+    "Confirm useful first-booking economics and operator ledger remain separate from the direct confirmation outcome",
+    "Return a schema-valid deliverable without claiming approval or changing production state"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop if any declared input hash is stale",
+    "Stop if review requires editing a canonical or forbidden path"
+  ],
+  "status": "closed"
+}

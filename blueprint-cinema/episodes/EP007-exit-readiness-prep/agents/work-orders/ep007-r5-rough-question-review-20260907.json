@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r5-rough-question-review-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only bounded critique of the user-requested R5 rough sketch revision. Assess the empty-chair hypothetical and rough mark language. This is an isolated trial review, not production dispatch; the schema-required inputs_locked prerequisite is unestablished and is not claimed.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r5-rough-question/DIRECTION.md",
+      "sha256": "fa3a8b9c21969e656645b6151e595fce3825960b704bdd6a79eae931502efc52"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/EP007-BEAT-INTENT.md",
+      "sha256": "f1e1197d6ed0a49ca171eebf1b4ca437ef28087faa3c052b11fac51068333b0b"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r5-rough-question-review-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify exact assigned input hashes and report drift.",
+    "Critique whether the chair remains a conditional question without implying literal departure, business failure or later mechanism.",
+    "Inspect supplied final snapshots for authored thin overlapping marks and legible primary subject."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No production dispatch or gate claim when prerequisites are unestablished.",
+    "No new tools, source generation, browser mutations or broader upstream re-audit; write only bounded review packet."
+  ],
+  "status": "closed"
+}

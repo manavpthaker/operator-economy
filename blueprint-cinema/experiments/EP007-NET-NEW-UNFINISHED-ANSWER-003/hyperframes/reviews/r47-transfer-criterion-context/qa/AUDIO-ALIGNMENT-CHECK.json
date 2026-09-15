@@ -1,0 +1,90 @@
+{
+  "original_failed_report": "qa/MEDIA-CHECK-ZERO-LAG.json",
+  "finding": "The initial reference mixed default stereo downmix with unchanged mono audio. The new tail also starts 16 samples later than its exact fractional-second cue; all measured prefix windows remain at zero lag.",
+  "channel_basis": "Arithmetic mean of stereo channels; mono WAV unchanged. The initial default ffmpeg -ac 1 basis made stereo roughly sqrt(2) louder than mono during comparison, not in the actual channels.",
+  "placement_cause": "The measured 16-sample delay is consistent with rounding 92166.666667 milliseconds to 92167 milliseconds in the mixer. This is an inference from exact timing, not a claim of a source-code trace.",
+  "prefix_windows": [
+    {
+      "reference_seconds": 5,
+      "lag_samples": 0,
+      "lag_ms": 0.0,
+      "aligned_correlation": 0.9998047848273881,
+      "gain": 0.9966117481781319,
+      "gain_db": -0.029479952392906225,
+      "gain_normalized_rmse": 0.0023242356139585585
+    },
+    {
+      "reference_seconds": 30,
+      "lag_samples": 0,
+      "lag_ms": 0.0,
+      "aligned_correlation": 0.9998242427677615,
+      "gain": 0.9994599504468646,
+      "gain_db": -0.00469207790897829,
+      "gain_normalized_rmse": 0.0017859704452853466
+    },
+    {
+      "reference_seconds": 80,
+      "lag_samples": 0,
+      "lag_ms": 0.0,
+      "aligned_correlation": 0.9997629921382634,
+      "gain": 0.9974490711460272,
+      "gain_db": -0.022185395228415724,
+      "gain_normalized_rmse": 0.0005344892962034184
+    },
+    {
+      "reference_seconds": 90,
+      "lag_samples": 0,
+      "lag_ms": 0.0,
+      "aligned_correlation": 0.9999395532933993,
+      "gain": 0.999241183328452,
+      "gain_db": -0.006593499809879087,
+      "gain_normalized_rmse": 0.0013875285350976668
+    }
+  ],
+  "presenter_windows": [
+    {
+      "reference_seconds": 0.25,
+      "lag_samples": 16,
+      "lag_ms": 0.3333333333333333,
+      "aligned_correlation": 0.9999843454310119,
+      "gain": 0.9991207404771841,
+      "gain_db": -0.00764051066673251,
+      "gain_normalized_rmse": 0.0009020224244150753
+    },
+    {
+      "reference_seconds": 2,
+      "lag_samples": 16,
+      "lag_ms": 0.3333333333333333,
+      "aligned_correlation": 0.9998077733623753,
+      "gain": 0.9930384931193584,
+      "gain_db": -0.06067833270431232,
+      "gain_normalized_rmse": 0.0024023803320543657
+    },
+    {
+      "reference_seconds": 5,
+      "lag_samples": 16,
+      "lag_ms": 0.3333333333333333,
+      "aligned_correlation": 0.9997875420388193,
+      "gain": 0.9970246934553649,
+      "gain_db": -0.02588170641284912,
+      "gain_normalized_rmse": 0.0018043638756401917
+    },
+    {
+      "reference_seconds": 8.5,
+      "lag_samples": 16,
+      "lag_ms": 0.3333333333333333,
+      "aligned_correlation": 0.9997300466044925,
+      "gain": 0.9976787328516715,
+      "gain_db": -0.020185707555144823,
+      "gain_normalized_rmse": 0.0019657468126331196
+    }
+  ],
+  "allowed_placement_error_samples": 48,
+  "allowed_placement_error_ms": 1,
+  "measured_tail_delay_samples": 16,
+  "global_correlation_after_channel_correction_and_measured_placement": 0.9998455273296798,
+  "join_correlation_after_channel_correction_and_measured_placement": 0.9999849650317617,
+  "global_rmse_after_channel_correction_and_measured_placement": 0.0019224855350330472,
+  "media_changed": false,
+  "limits": "Source-placement and channel-level checks do not prove perceived lip sync or natural performance. Initial failed report is preserved; output audio and video were not changed to satisfy this check."
+}

@@ -1,0 +1,103 @@
+[
+  {
+    "event_id": "r53-owner-a-to-presenter-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "presenter-return",
+      "film"
+    ],
+    "data": {
+      "decision_event_id": "r53-a-owner-plans-v2",
+      "actor": "owner",
+      "verbatim": "i think for the fine we cut to me. the owner shot doesnt make sense. keep on me with the eheres the problem line and then cut to the animation",
+      "interpretation": "The owner film shot does not work for the objection; the presenter should voice it and hold through 'Here is the problem with that plan', then cut to the animation.",
+      "verdict": "reject",
+      "scope": "Part A film (both binder and writing takes).",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/qa/r53-a2-owner-plan.mp4",
+          "sha256": "13f271f8470b64f937f69191fcc07317f4f094ab0c87532ff2c8c79cd5db21ab"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/OWNER-A-TO-PRESENTER.json",
+        "sha256": "2560ffe70824bdbbb2bbd3cb91d5c187b913b9349f745ecd2baafbb08fa1c1c2",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r53-a-presenter-v3",
+    "decision_id": "s10-no-schedule",
+    "event_type": "decision",
+    "supersedes": "r53-a-owner-plans-v2",
+    "tags": [
+      "presenter-return",
+      "cut-timing",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Voice the typical owner's 'later' objection and turn it into the question the evidence answers.",
+        "viewer_before": "The buyer has walked away.",
+        "viewer_after": "The viewer hears the objection framed by the narrator and expects the problem."
+      },
+      "choice": "Cut from the locked walk-away to the V5 wide presenter at 343.125 for 'Fine, an owner says\u2026 Here is the problem with that plan.'; hard cut to the EPI card at 350.958. One 9 s Seedance take (81 credits) plus Fal Sync restoration.",
+      "reason": "Owner judged the owner film unclear for this line; the narrator voicing a generic owner's objection keeps it about owners in general rather than this seller, and sets up the evidence.",
+      "alternatives": [
+        {
+          "choice": "Owner closes binder",
+          "reason_not_selected": "Returned: reads as giving up."
+        },
+        {
+          "choice": "Owner writes a list",
+          "reason_not_selected": "Returned: owner shot does not make sense here."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "Narration quotes a generic stakeholder's objection before rebutting it.",
+        "avoid_when": "The objection belongs to a specific on-screen character's action."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s10-presenter-a-in",
+            "phrase": "Fine, an owner says",
+            "relation": "accepted R52 outpoint",
+            "master_seconds": 343.125,
+            "review_seconds": 340.125,
+            "fps": 24
+          },
+          {
+            "cue_id": "s10-evidence-in",
+            "phrase": "The same research",
+            "relation": "before The onset",
+            "master_seconds": 350.9583333333333,
+            "review_seconds": 347.9583333333333,
+            "fps": 24
+          }
+        ],
+        "performance": "Small palm-up concession on 'Fine'; relaxed plan; serious stillness on 'Here is the problem with that plan'. No mocking.",
+        "false_inference": "That the narrator mocks owners.",
+        "source_basis": "Owner direction."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/presenter-a/AVATAR-TAKE-PLAN.json",
+        "sha256": "0bfc5233bcaa972acc58aaf277061e29876e30cc91f0a19cc798b925ad2d16f5",
+        "locator": "Take plan and cost"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/presenter-a/AVATAR-PROMPT.txt",
+        "sha256": "3a30038fe38f3e9abda1688252c139de9929ead8eb026afa6a8e357a45ef93a0",
+        "locator": "Prompt"
+      }
+    ]
+  }
+]

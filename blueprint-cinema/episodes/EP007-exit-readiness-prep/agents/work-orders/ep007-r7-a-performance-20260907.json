@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r7-a-performance-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independent bounded actual take A performance inspection for user-requested isolated R7 trial. Not production approval; canonical inputs_locked remains unestablished.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/DIRECTION.md",
+      "sha256": "5a7447f8fb4db9af7f7ce03ead98595882269bbcd3ddf3ecd60c2a16995d1faf"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/SHOT-A-PROMPT.md",
+      "sha256": "d7fc1ac732bf7198b026e5290106d37e2cebb0fd0bd3b1904f6d1a64d9afd118"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/renders/candidates/shot-a.mp4",
+      "sha256": "ba60b4fc038b24c0e0ae90eca5825c6a56a27399ded077a44a3b7dbb6e2b0cb1"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/snapshots/shot-a-contact.png",
+      "sha256": "23453d754fc22147cba4c27656c94306e57338d8975d8776cfd6c1c5aab9a239"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify pinned input hashes. Inspect actual sampled images of A for rapport, eye contact, attention shift, owner confidence preserved at exit, exaggerated or word-shaped mouth movement. If useful extract denser frames using ffmpeg only into owned outputs. Main has noted some mouth movement; assess independently.",
+    "No invented certainty from still sampling. Return concise strongest finding and usable source window if defensible; no paid retry, redesign or changes. Only report plus deliverable and necessary owned QA frames."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No source edits, generation, spend, uploads, auth changes or canonical gate advance.",
+    "A-only review; B is rendering and outside this packet. Do not create or serve preview."
+  ],
+  "status": "issued"
+}

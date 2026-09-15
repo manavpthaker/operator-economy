@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "composition_id": "bc-rh-001-shot-04",
+  "local_duration_seconds": 5.68,
+  "fps": 30,
+  "narration_parsing": false,
+  "events": [
+    {
+      "at_seconds": 0.0,
+      "duration_seconds": 0.0,
+      "label": "uncertain root tag is held against a closed physical barrier",
+      "selector": "#s04-tag-held-anchor, #s04-barrier-upper, #s04-barrier-lower, #s04-hold-plate",
+      "property": "static anchor,closed geometry,visible HOLD",
+      "from": "present",
+      "to": "present",
+      "ease": "none"
+    },
+    {
+      "at_seconds": 2.14,
+      "duration_seconds": 0.38,
+      "label": "conspicuous human placeholder enters from below and right",
+      "selector": "#s04-human-placeholder",
+      "property": "x,y,opacity",
+      "from": "48,64,0",
+      "to": "0,0,1",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 2.36,
+      "duration_seconds": 0.18,
+      "label": "human contact rotates the context inspection plate",
+      "selector": "#s04-context-inspection-plate",
+      "property": "rotation",
+      "from": 0,
+      "to": 4,
+      "ease": "power1.out"
+    },
+    {
+      "at_seconds": 2.54,
+      "duration_seconds": 0.18,
+      "label": "context inspection plate returns to registration",
+      "selector": "#s04-context-inspection-plate",
+      "property": "rotation",
+      "from": 4,
+      "to": 0,
+      "ease": "power1.inOut"
+    },
+    {
+      "at_seconds": 3.44,
+      "duration_seconds": 0.18,
+      "label": "human-caused release stamp appears",
+      "selector": "#s04-release-stamp",
+      "property": "opacity,scale",
+      "from": "0,0.94",
+      "to": "1,1",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 3.44,
+      "duration_seconds": 0.15,
+      "label": "HOLD state clears before the consequence appears",
+      "selector": "#s04-hold-plate, #s04-held-stop",
+      "property": "opacity",
+      "from": 1,
+      "to": 0,
+      "ease": "power1.out"
+    },
+    {
+      "at_seconds": 3.44,
+      "duration_seconds": 0.35,
+      "label": "barrier pieces physically separate",
+      "selector": "#s04-barrier-upper, #s04-barrier-lower",
+      "property": "y",
+      "from": "120,-120",
+      "to": "0,0",
+      "ease": "power2.inOut"
+    },
+    {
+      "at_seconds": 3.68,
+      "duration_seconds": 0.45,
+      "label": "neutral slot tab extends only after RELEASE is visible",
+      "selector": "#s04-slot-tab",
+      "property": "opacity,scaleX",
+      "from": "0,0.02",
+      "to": "1,1",
+      "ease": "power2.out"
+    }
+  ],
+  "root_anchors": {
+    "tag_entry": {"selector": "#s04-tag-entry-anchor", "x": 880, "y": 510},
+    "tag_held": {"selector": "#s04-tag-held-anchor", "x": 880, "y": 510},
+    "tag_released": {"selector": "#s04-tag-released-anchor", "x": 1250, "y": 510},
+    "card": {"selector": "#s04-card-anchor", "x": 1550, "y": 300},
+    "proof_pin": {"selector": "#s04-proof-anchor", "x": 1560, "y": 120}
+  },
+  "svg_measured_path_rule": {
+    "used": false,
+    "reason": "Shot 04 has no animated SVG connector or route draw. The hand silhouette is static geometry and is moved only by its HTML wrapper transform."
+  },
+  "exact_no_motion_hold": {
+    "start_seconds": 4.4,
+    "end_seconds": 5.68,
+    "duration_seconds": 1.28,
+    "notes": "Open barrier, visible RELEASE stamp, extended neutral slot, human placeholder, and source warning remain static."
+  },
+  "review_snapshots": [
+    {
+      "name": "action_hold",
+      "local_seconds": 3.2,
+      "required_state": "closed barrier, HOLD visible, human placeholder contacting context, slot tab fully retracted and illegible"
+    },
+    {
+      "name": "consequence_release",
+      "local_seconds": 4.4,
+      "required_state": "RELEASE visible, barrier open, neutral slot extended only because human contact acted"
+    }
+  ],
+  "warning": {
+    "selector": "#s04-source-warning",
+    "exact_text": "SYNTHETIC TEST FIXTURE — NOT EVIDENCE",
+    "minimum_px": 28,
+    "state": "right-edge source-pin warning"
+  },
+  "negative_checks": [
+    "no call-tag-red object or call-tag surrogate",
+    "no work-order-card object or offered-card surrogate",
+    "no proof-pin persistent object",
+    "tag anchor remains motionless from local 0.000 through 3.440",
+    "no offer is visible before human-caused RELEASE",
+    "no date, time, availability data, reply copy, bubble, cursor, dashboard, or message UI",
+    "no autonomous elapsed-time release",
+    "no network, async logic, clocks, randomness, loops, or layout-property tweens",
+    "no narration parsing"
+  ]
+}

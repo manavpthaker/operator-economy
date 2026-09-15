@@ -1,0 +1,179 @@
+[
+  {
+    "event_id": "r46-owner-revenue-hold-machine-heading-v1",
+    "decision_id": "s08-context-review",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "cut-timing",
+      "framing-heading"
+    ],
+    "data": {
+      "decision_event_id": "r45-continuous-checkbox-context-v1",
+      "actor": "owner",
+      "verbatim": "we should keep on the revenue screen for hte revenue is evidence line. maybe put a line through it or show somehow that it's evidence without litrerally writing itl\n\nthe next sceren is good but we should have a heading with \"machine\" in it so that the viewer knows and then it'll be clear",
+      "interpretation": "Revise the revenue-to-mechanism cut and add machine heading; owner says the next scene is good. This is scoped revision feedback, not acceptance of unseen R46.",
+      "verdict": "revise",
+      "scope": "Revenue/evidence hold and next-scene identification in R45 context.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r45-checkbox-context/qa/r45-checkbox-context.mp4",
+          "sha256": "8ca268974099fea7f82116bcb0a1b3c56a8906bfbd626221e9f64ab14b3b291f"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r46-revenue-machine/OWNER-REQUEST.json",
+        "sha256": "8f5ea43d032f7c6f65ab393fea8c0eaad4924807da549daee4941f5c0033d651",
+        "locator": "Current owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r46-revenue-evidence-machine-v10",
+    "decision_id": "s08-owner-dependency",
+    "event_type": "decision",
+    "supersedes": "r44-narrated-owner-checkbox-v9",
+    "tags": [
+      "animation",
+      "cut-timing",
+      "framing-heading",
+      "evidence-object"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Distinguish the record of past results from the mechanism that must keep producing them.",
+        "viewer_before": "A cut to the operating scene occurs during the evidence sentence; the mechanism is not named visually.",
+        "viewer_after": "Receipts remain visible during the evidence sentence, then a named operating model shows the owner making a decision and leaving another unanswered."
+      },
+      "choice": "Hold inherited receipts through master272.875 with a single underline below them and equal recession of side figures. Then cut to The revenue machine, retaining the R44 operating action and its original absolute cue times.",
+      "reason": "The cut now follows the narrated distinction. A concise framing label identifies the model while the changed operating state carries its consequence.",
+      "alternatives": [
+        {
+          "choice": "Strike through revenue",
+          "reason_not_selected": "Could imply that the observed revenue is invalid."
+        },
+        {
+          "choice": "Write Revenue is the evidence",
+          "reason_not_selected": "Owner explicitly asks to convey focus without repeating this sentence on screen."
+        },
+        {
+          "choice": "Keep the mechanism without a heading",
+          "reason_not_selected": "Owner says the next scene needs a machine heading for identification."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A visual object should remain present for a spoken distinction, followed by a model whose identity needs a short framing label.",
+        "avoid_when": "A heading supplies the entire conclusion or emphasis implies documentary verification."
+      },
+      "nuance": {
+        "animation": {
+          "form": "Persistent receipts followed by owner-and-choice mechanism",
+          "mark_style": "Same inherited illustration assets; one muted-steel underline beneath receipts",
+          "entry": "Exact outgoing R39 revenue object positions",
+          "change": "Side figures recede equally; named machine reveals resolved then unanswered choice",
+          "hold": "Receipts hold through full evidence line; unanswered choice through handover lines",
+          "exit": "Ends before Value only transfers presenter return"
+        },
+        "cut_cues": [
+          {
+            "cue_id": "machine-entry",
+            "phrase": "What he is actually buying",
+            "relation": "cut at the frame immediately before next-sentence onset",
+            "master_seconds": 272.875,
+            "review_seconds": 269.875,
+            "local_seconds": 2.875,
+            "context_seconds": 74.75,
+            "fps": 24,
+            "dependent_targets": [
+              "receipts visibility off",
+              "machine world visibility on",
+              "machine heading visibility on"
+            ]
+          },
+          {
+            "cue_id": "pen-contact",
+            "phrase": "machine",
+            "relation": "preserve original contact cue on spoken noun",
+            "master_seconds": 274.4166666666667,
+            "local_seconds": 4.416666666666667,
+            "fps": 24
+          }
+        ],
+        "source_basis": "Current owner request; focus-mark choice is director interpretation.",
+        "false_inference": "Receipts are not invalidated or certified; an unanswered choice does not prove every operation fails."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r46-revenue-machine/DIRECTION.md",
+        "sha256": "f482120fb13a42ec309d10fa2b4b344807c355f5e83208c5eb00af18ea417e47",
+        "locator": "Bounded scene choice and interpretation"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r46-revenue-machine/CUES.json",
+        "sha256": "67e1f18609a818d0505baf535c56c35ace9dfa7b1a399b27e01f23321a211486",
+        "locator": "All operating cues preserved"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r46-revenue-machine/skill-after-revenue-machine/precedent-index.md",
+        "sha256": "30ab4d2e541a9c312b2898580e409dfebfa9e5625db0c589ec489a4c9bb82810",
+        "locator": "Conditional case retained"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r46-revenue-machine/RUNTIME-PINS.json",
+        "sha256": "129b1b895f200f80e39a5031f33c96bd0b1ba9a492c4f781af12d924df9e986a",
+        "locator": "Exact authored candidate"
+      }
+    ]
+  },
+  {
+    "event_id": "r46-revenue-machine-context-v2",
+    "decision_id": "s08-context-review",
+    "event_type": "decision",
+    "supersedes": "r45-continuous-checkbox-context-v1",
+    "tags": [
+      "context-review",
+      "cut-timing",
+      "source-preservation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Review the revised evidence-to-machine handoff with the preceding buyer argument.",
+        "viewer_before": "R45 cuts away before the complete evidence sentence.",
+        "viewer_after": "The argument and revised transition play continuously at original narration timing."
+      },
+      "choice": "Replay the same R39 lead-in, then the R46 tail. Context duration stays92.166667 seconds; visible machine cut moves to74.75.",
+      "reason": "Preserves prior source audio and picture while changing only the requested passage.",
+      "alternatives": [
+        {
+          "choice": "Show only the20-second tail",
+          "reason_not_selected": "Retaining the preceding scene serves the ongoing context-review request."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "Reviewing this edit in context.",
+        "avoid_when": "Mistaken for a whole-episode lock."
+      },
+      "nuance": {
+        "source_basis": "Owner R45 feedback and original context request",
+        "false_inference": "Earlier draft graphics are not automatically approved."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r46-revenue-machine/EDIT-PLAN.json",
+        "sha256": "3ffdab26653e9ca73401753c1ed769f12b08dfa9a0447c0ae4c5b6b39b845fa8",
+        "locator": "Exact assembly ranges and source bytes"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r46-revenue-machine-context/RUNTIME-PINS.json",
+        "sha256": "39b97fb1cd88f62c602e9cd1cafe8926cb0b25034581ad180352c5f42db7c290",
+        "locator": "Exact context source fingerprint"
+      }
+    ]
+  }
+]

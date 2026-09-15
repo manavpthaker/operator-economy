@@ -1,0 +1,46 @@
+{
+  "objects": [
+    {
+      "id": "guest",
+      "operation_bindings": [
+        "BO-001"
+      ],
+      "changed_by": [
+        "BO-001"
+      ],
+      "allowed_transitions": []
+    },
+    {
+      "id": "lobby",
+      "static": true,
+      "changed_by": [],
+      "static_reason": "Fixture object; no operation changes it.",
+      "allowed_transitions": []
+    }
+  ],
+  "evidence_anchors": [
+    {
+      "id": "a1",
+      "claim_id": "C001",
+      "attaches_to": "guest",
+      "label": "observed",
+      "attachment_note": "Fixture anchor; qualification exercised only.",
+      "must_not_imply": "Fixture qualification; exercises the contract only."
+    }
+  ],
+  "paths": [
+    {
+      "id": "path.default",
+      "traveler": "fixture object",
+      "description": "Synthetic route.",
+      "edges": [
+        {
+          "from": "start",
+          "to": "end",
+          "condition": "Fixture condition.",
+          "triggered_by": "BO-001"
+        }
+      ]
+    }
+  ]
+}

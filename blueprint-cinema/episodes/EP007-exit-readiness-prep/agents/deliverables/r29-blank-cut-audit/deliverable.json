@@ -1,0 +1,26 @@
+{
+  "work_order_id": "r29-blank-cut-audit",
+  "episode_id": "EP007-exit-readiness-prep",
+  "role": "independent source boundary reviewer",
+  "status": "source_audit_complete",
+  "input_hashes": {
+    "hyperframes/reviews/r29-neutral-seller/index.html": "3b386dfe0b5bc7cdd4224e0992e9042500c137302320d95bb52456b6ae5e5742",
+    "hyperframes/reviews/r29-neutral-seller/compositions/market.html": "8191c2e269ab2490aee6779d331a0af6ff1f706120ea0cd7cafca78bd820f1bd"
+  },
+  "input_path_base": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003",
+  "files_created": ["report.md", "deliverable.json"],
+  "checks_run": [
+    {"check": "input hashes match assigned pre-fix sources", "result": "pass"},
+    {"check": "seller endpoint versus pre-fix market restore", "result": "confirmed defect: 1.75 seconds / 42 frames"},
+    {"check": "proposed market local restore 26.3333333333 matches seller endpoint", "result": "pass"},
+    {"check": "market to presenter, presenter media to hold, hold to gap source interval coverage", "result": "pass"},
+    {"check": "frame-normalized source coverage around relevant boundaries using proposed correction", "result": "pass"}
+  ],
+  "unresolved_questions": ["Orchestrator must verify the implemented correction and actual live rendered visibility across the seller-to-animation seam."],
+  "external_sources_used": false,
+  "generated_media_used": false,
+  "paid_services_used": false,
+  "runtime_verified": false,
+  "approval_or_gate_advanced": false,
+  "forbidden_paths_modified": false
+}

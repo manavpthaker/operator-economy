@@ -1,0 +1,52 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "r34-s06-visual-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Inspect two actual rendered contact sheets and current new S06 composition against C001 evidence limits. Report material visual overlaps, misleading owner-specific failure, missing attribution, or unnecessary repetition of narration. Distinguish visual judgement from owner acceptance. Sheets have same visual content, current final end trimmed4frames into source silence. Do not render or change runtime. Write concise report plus standard deliverable manifest only.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/compositions/listing.html",
+      "sha256": "c3791883e72edea4d8db5f85c63807609c0d97656ed9216b5d9d00cef6dbd2df"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/qa-s06-final/contact-sheet-1.jpg",
+      "sha256": "36fc83de60bdb2620dc213c18ce6dc2e3df272ee59b161a37d5132b8412d89b4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/qa-s06-final/contact-sheet-2.jpg",
+      "sha256": "8657e585861c6bf63ec53875466b2aab996831c5c84abd47e35859bd8266330d"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r34-s06-visual-review/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued input hash.",
+    "Return bounded evidence and distinguish inference from measured or visible findings.",
+    "Standard manifest and outputs remain inside owned path."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

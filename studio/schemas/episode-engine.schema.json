@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://operatoreconomy.com/schemas/episode-engine.schema.json",
+  "title": "Operator Economy Episode Engine",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "episode", "operator", "customer", "owned_value",
+    "constraint", "counter_system", "outcome_object", "visual_mechanic",
+    "motion_verbs", "reality_world"
+  ],
+  "properties": {
+    "schema_version": {"const": "blueprint-cinema-1.0"},
+    "episode": {"type": "string", "minLength": 1},
+    "operator": {"$ref": "#/$defs/entity"},
+    "customer": {"$ref": "#/$defs/entity"},
+    "owned_value": {"type": "string", "minLength": 1},
+    "constraint": {"type": "string", "minLength": 1},
+    "counter_system": {"type": "string", "minLength": 1},
+    "outcome_object": {"type": "string", "minLength": 1},
+    "visual_mechanic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "behavior", "why_honest", "before", "after"],
+      "properties": {
+        "name": {"type": "string"},
+        "behavior": {"type": "string"},
+        "why_honest": {"type": "string"},
+        "before": {"type": "string"},
+        "after": {"type": "string"}
+      }
+    },
+    "motion_verbs": {
+      "type": "array", "minItems": 3, "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z][a-z_-]*$"}
+    },
+    "reality_world": {"$ref": "#/$defs/realityWorld"},
+    "guardrails": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["draft", "approved", "superseded"]}
+  },
+  "$defs": {
+    "entity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "description"],
+      "properties": {"id": {"type": "string"}, "description": {"type": "string"}}
+    },
+    "realityWorld": {
+      "type": "object", "additionalProperties": false,
+      "required": ["environment", "people", "lens", "lighting", "palette", "texture", "camera", "motif", "forbidden"],
+      "properties": {
+        "environment": {"type": "string"},
+        "people": {"type": "string"},
+        "lens": {"type": "string"},
+        "lighting": {"type": "string"},
+        "palette": {"type": "string"},
+        "texture": {"type": "string"},
+        "camera": {"type": "string"},
+        "motif": {"type": "string"},
+        "forbidden": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
+

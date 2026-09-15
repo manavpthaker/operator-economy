@@ -1,0 +1,75 @@
+{
+  "status": "local_preparation_only",
+  "execution_permitted": false,
+  "provider_route": "Existing Higgsfield Seedance 2.5 connection",
+  "parameters_from_accepted_v5_except_duration": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "resolution": "1080p",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "use_unlim": false,
+    "aspect_ratio": "16:9",
+    "count": 1,
+    "duration": 6
+  },
+  "reference_inputs_in_order": [
+    {
+      "role": "image",
+      "function": "V5 identity, wide seated framing, hands, wardrobe, study and lighting",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+      "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82"
+    },
+    {
+      "role": "video",
+      "function": "Relaxed settling, ordinary blinks, subtle asymmetric head adjustments",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/rebecca-behavior-muted.mp4",
+      "sha256": "42ff761aebffd5c0fdd53e6247d4ddcbeb0d560d8208971ea883e0e48faec724"
+    },
+    {
+      "role": "video",
+      "function": "Clear connected articulation and concise emphasis that settles",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/henry-articulation-muted.mp4",
+      "sha256": "8bbb4820ac8a6f85242b7b323e7ce922d79f32ed2f5578b59aaa3bec502e9c59"
+    },
+    {
+      "role": "audio",
+      "function": "Exact new words, voice, cadence and pauses",
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/audio/v5-opportunity.wav",
+      "sha256": "ee50bceaf3b8a555907f4719837740d99406b16731c56a5dcbac3bab17a4777b"
+    }
+  ],
+  "prompt_path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/prompts/v5-opportunity.txt",
+  "prompt_sha256": "be4d2c1ddce98a94488af454afc62b71b7712c011a36cbbfb03cb8f205e9a1f4",
+  "source_generation_framing": "Fixed wide; no generated camera move or crop.",
+  "restoration_plan": {
+    "model": "fal-ai/sync-lipsync/v3",
+    "sync_mode": "silence",
+    "audio_path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/audio/v5-opportunity.wav",
+    "audio_sha256": "ee50bceaf3b8a555907f4719837740d99406b16731c56a5dcbac3bab17a4777b",
+    "original_audio_only": true,
+    "native_video": "Fresh matching V5 take only; no footage against unrelated words.",
+    "output_alignment": "Measure each restored output waveform insertion separately; do not inherit a V3/V5 offset. Waveform placement is not a measured perceptual lip-sync result."
+  },
+  "audio_encoding_note": "Retain this exact WAV. If an upload route requires MP3, create a true MP3 derivative with matching extension/MIME; no derivative encoding or upload occurred in this packet.",
+  "proposed_editorial_framing": [
+    {
+      "review_seconds": [
+        40.083333333333336,
+        44.5
+      ],
+      "source_seconds": [
+        0.3333333333333333,
+        4.75
+      ],
+      "framing": "wide with complete hands",
+      "reason": "The brief single-thought return benefits from the accepted hand presence; no new crop cue is needed."
+    }
+  ],
+  "crop_geometry": null,
+  "crop_geometry_owner": "Root chooses from actual generated frames and checks face/hand continuity.",
+  "new_spend_or_upload_authority": false,
+  "price_or_credit_quote": null,
+  "provider_duration_support_preflight": "Root-owned; not queried here.",
+  "submission_performed": false
+}

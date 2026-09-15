@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "required_gate": "inputs_locked",
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    "studio/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute all assigned source hashes and report any drift",
+    "Cite exact source locations and separate proven gaps from creative judgments",
+    "Do not claim approval or broaden into generation, render or implementation"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop if the locked script or narration would need rewriting",
+    "Report missing authority honestly; read-only diagnosis does not pass the proposed V1 gate"
+  ],
+  "status": "closed",
+  "work_order_id": "ep007-visual-comprehension-audit-20260907",
+  "role": "engine_critic",
+  "objective": "Read-only audit of current EP007 17-second sketch and the net-new opening prompts against the locked full script. Explain what the animation actually claims, unsupported implications, and the simplest bounded visual question. Examine the rest of the script for prompt guardrails; do not design or implement new shots.",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r3-relevant-edit/compositions/model-exposure.html",
+      "sha256": "0d4fa07954d85e9f70e4f0f5c6405a0c9e479b442ac2fe706f3d9fd7bc6ee82a"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/GENERATION-PROMPTS.md",
+      "sha256": "2940abcb63260bc7b1d50c44a6a8a96d64cd700893fde93107c72b3d93ab6001"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-visual-comprehension-audit-20260907/"
+  ]
+}

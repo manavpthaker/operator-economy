@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave2-builder-a",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "direction-lock.json",
+      "expected_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "actual_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/frame.md",
+      "expected_sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5",
+      "actual_sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5",
+      "status": "pass"
+    },
+    {
+      "path": "direction/build-packets/wave2-builder-a-shots-01-02.md",
+      "expected_sha256": "3bc0060530ab95adf38429b498736e60a50c96b9af74007f1c085ad82448a85a",
+      "actual_sha256": "3bc0060530ab95adf38429b498736e60a50c96b9af74007f1c085ad82448a85a",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/ibm-plex-mono-700.ttf",
+      "expected_sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea",
+      "actual_sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/IBM-Plex-Mono-OFL.txt",
+      "expected_sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f",
+      "actual_sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/PROVENANCE.md",
+      "expected_sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f",
+      "actual_sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f",
+      "status": "pass"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave2-builder-a/shot-01.html",
+      "sha256": "6ade84cd3adee69fcb2d97ab0dfe55545dda6c252196893ebd9144da6c1e7525"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-a/shot-02.html",
+      "sha256": "90b154f03c409efb92c85418f1c1078e7baa6ada06a5cab6c22bc86c35bdf882"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-a/shot-01-motion.json",
+      "sha256": "49c6f7ec52fb527a0d011be6e9d98f9c9481ae8e30caca4acda038b2e083bbfe"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-a/shot-02-motion.json",
+      "sha256": "f785a9fb684f97c81d6e2adc9504b1fa24a90c657d8743910979acb48f0ddf20"
+    }
+  ],
+  "findings_summary": "Built the complete transported HyperFrames sub-compositions and motion maps for Shots 01-02. Shot 01 stages the permissioned missed-call reality without duplicating the root tag or card. Shot 02 strands the same root tag on ATTENTION while continuation exits right and the bridge opens into a mute action gap. Both files preserve a static readable settle frame and register one deterministic paused GSAP timeline under the exact composition ID.",
+  "acceptance_checks": [
+    {
+      "check": "verify every pinned input hash",
+      "status": "pass",
+      "notes": "All six hashes in the revised work order match exactly, including the pinned IBM Plex Mono font, license, and provenance files."
+    },
+    {
+      "check": "obey the complete build packet",
+      "status": "pass",
+      "notes": "Scene geometry, local event times, holds, semantic palette, ticket labels, bridge behavior, and negative rules are encoded in the owned HTML and motion maps."
+    },
+    {
+      "check": "two valid transported sub-compositions with exact IDs and durations",
+      "status": "pass",
+      "notes": "Each file is one bare template containing its style, markup, root, and script. IDs are bc-rh-001-shot-01 and bc-rh-001-shot-02; durations are 13.64 and 12.73 seconds."
+    },
+    {
+      "check": "no persistent-object duplicate",
+      "status": "pass",
+      "notes": "No scene-owned call tag, work-order card, proof pin, associated label/tab, or alternate customer/outcome token is present; only invisible integration anchors are authored."
+    },
+    {
+      "check": "no network or non-determinism",
+      "status": "pass",
+      "notes": "Isolated scans found no network calls, clocks, randomness, timers, requestAnimationFrame, infinite repeat, async setup, gradient, shadow, or tweened layout property."
+    },
+    {
+      "check": "one paused timeline per composition",
+      "status": "pass",
+      "notes": "JavaScript syntax and registration scans confirm exactly one synchronous gsap.timeline({ paused: true }) per HTML file and exact timeline keys."
+    },
+    {
+      "check": "isolated HTML JS JSON structural checks",
+      "status": "pass",
+      "notes": "Template transport order, fixed root attributes, unique assembled IDs other than the required root ID, anchors, local font URL, JavaScript syntax, JSON parsing, event fields, citations, holds, and negative checks passed. HyperFrames CLI was not run against the canonical project."
+    },
+    {
+      "check": "write only owned packet files",
+      "status": "pass",
+      "notes": "This worker created exactly the five paths declared in owned_output_paths and made no canonical or shared edits."
+    },
+    {
+      "check": "claim no approval or production state change",
+      "status": "pass",
+      "notes": "The artifact claims packet completion only; approval and production state remain outside this worker's authority."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The revised work-order clarification overrides the contradictory Shot 01 numeric anchor in the pinned packet: s01-tag-settle and s02-tag-entry are both authored at x=760,y=420.",
+    "The root owns persistent tag/card/proof objects and supplies their z-order during integration; the scene anchors are coordinate-only integration points.",
+    "The pinned IBM Plex Mono 700 asset is referenced as assets/fonts/ibm-plex-mono-700.ttf because transported template styles resolve from the canonical HyperFrames project root."
+  ],
+  "blockers": []
+}

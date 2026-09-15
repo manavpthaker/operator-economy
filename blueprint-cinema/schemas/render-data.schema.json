@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/render-data.schema.json",
+  "title": "Blueprint Cinema deterministic greybox render data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "workflow_version", "episode", "duration_seconds", "fps", "width", "height", "audio_file", "source_hashes", "palette", "objects", "edges", "evidence", "cameras", "tickets", "units"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode": {"type": "object"},
+    "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "fps": {"const": 30}, "width": {"const": 1920}, "height": {"const": 1080},
+    "audio_file": {"type": "string", "minLength": 5},
+    "source_hashes": {"type": "object", "minProperties": 5, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "palette": {"type": "object", "minProperties": 6, "additionalProperties": {"type": "string", "minLength": 4}},
+    "objects": {"type": "array"}, "edges": {"type": "array"}, "evidence": {"type": "array"},
+    "cameras": {"type": "array"}, "tickets": {"type": "array"}, "units": {"type": "array", "minItems": 50}
+  }
+}
+

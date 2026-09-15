@@ -1,0 +1,4461 @@
+{
+  "status": "numeric_Q_S_tracking_and_sampled_expression_review_complete",
+  "S_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r20/test-s-micro-expression-steady-head-1080p.mp4",
+  "S_sha256": "49aa50566c093a9e2337a9e23c9b2d3c3e7f7cf46c2f5cb34d111228359356de",
+  "Q_sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+  "config_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r20/stabilization-config.json",
+  "config_sha256": "b81ae9221a7400cb4f0368c62138b24fe4a74619ac3f0c244a7dc4e38977b1e6",
+  "coordinates": "Full1920x1080pixels. Cropped nativeVision input x640,y0,w640,h1080; +640 applied to x.",
+  "method": "Same nativeVision landmark measurement on all140 Q and S frames; compare observed eye position/roll/distance to each configured forward similarity matrix applied to Q landmarks. Mouth/eye contours normalized by eye distance, making uniform scale invariant.",
+  "summary": {
+    "Q": {
+      "xy_roll_eye_distance_min": [
+        940.4614350890388,
+        233.32715648629076,
+        -5.662839626081151,
+        115.23995079075839
+      ],
+      "xy_roll_eye_distance_max": [
+        962.223530404576,
+        277.03328078474533,
+        0.8502426530181294,
+        125.14425131557547
+      ],
+      "xy_roll_eye_distance_range": [
+        21.76209531553718,
+        43.70612429845457,
+        6.51308227909928,
+        9.904300524817089
+      ],
+      "xy_roll_stddev": [
+        4.912605111485951,
+        12.43695216759403,
+        1.3680720641888504
+      ],
+      "xy_roll_p95_minus_p5": [
+        15.385302721563221,
+        33.45554618450046,
+        5.3725727495028135
+      ],
+      "mouth_height_normalized_min_max": [
+        0.00747052616505367,
+        0.44397100900909636
+      ],
+      "eye_aperture_normalized_min_max": [
+        0.04243379401806901,
+        0.10346422802624905
+      ]
+    },
+    "S": {
+      "xy_roll_eye_distance_min": [
+        946.4757487859879,
+        250.4315753232605,
+        -3.214626074056679,
+        115.38419295777597
+      ],
+      "xy_roll_eye_distance_max": [
+        953.4116059137359,
+        263.5226784549884,
+        -1.420042813443886,
+        123.11185016351732
+      ],
+      "xy_roll_eye_distance_range": [
+        6.935857127748022,
+        13.09110313172792,
+        1.794583260612793,
+        7.727657205741352
+      ],
+      "xy_roll_stddev": [
+        1.2193907150617718,
+        2.8509987250217805,
+        0.2922791749258925
+      ],
+      "xy_roll_p95_minus_p5": [
+        3.600892996448465,
+        8.177030615499518,
+        0.9174575259045159
+      ],
+      "mouth_height_normalized_min_max": [
+        0.008898299067434489,
+        0.446819712467549
+      ],
+      "eye_aperture_normalized_min_max": [
+        0.0396709725614592,
+        0.10891288351097794
+      ]
+    }
+  },
+  "comparison": {
+    "S_over_Q_stddev_ratio_xy_roll": [
+      0.24821671748269908,
+      0.2292361252663172,
+      0.21364311323701288
+    ],
+    "S_over_Q_range_ratio_xy_roll": [
+      0.31871274466830063,
+      0.29952560063054634,
+      0.2755351742402635
+    ],
+    "expected_transform_error_rms_xy_roll_eye_distance": [
+      0.7873028427043012,
+      0.7741237234453097,
+      0.21298412002641395,
+      0.593083686982551
+    ],
+    "expected_transform_error_max_abs_xy_roll_eye_distance": [
+      2.019462607452624,
+      2.209979523659513,
+      0.5911684811685451,
+      2.4283676848145745
+    ],
+    "mouth_height_normalized_Q_S_correlation": 0.9967048888942585,
+    "eye_aperture_normalized_Q_S_correlation": 0.9543757514857483,
+    "configured_scale_min_max": [
+      0.98,
+      1.0185970276435399
+    ],
+    "configured_scale_max_adjacent_frame_step": 0.00813714818091027,
+    "blink_2p88_to_3p32": {
+      "configured_scale_min_max": [
+        0.9948500019029749,
+        1.0185970276435399
+      ],
+      "configured_scale_max_adjacent_frame_step": 0.00813714818091027,
+      "records": [
+        {
+          "frame": 72,
+          "time": 2.88,
+          "configured_scale": 0.9948500019029749,
+          "measured_eye_distance_ratio_S_over_Q": 0.9862967897809495,
+          "Q_eye_aperture": 0.08928215162143478,
+          "S_eye_aperture": 0.08441209917094485,
+          "S_eye_distance_px": 121.06955083387122
+        },
+        {
+          "frame": 73,
+          "time": 2.92,
+          "configured_scale": 0.9988939496152824,
+          "measured_eye_distance_ratio_S_over_Q": 0.997127794375799,
+          "Q_eye_aperture": 0.08799219870872092,
+          "S_eye_aperture": 0.08875397110855232,
+          "S_eye_distance_px": 122.19258441170724
+        },
+        {
+          "frame": 74,
+          "time": 2.96,
+          "configured_scale": 1.0070310977961927,
+          "measured_eye_distance_ratio_S_over_Q": 1.008327225444226,
+          "Q_eye_aperture": 0.042663034637320275,
+          "S_eye_aperture": 0.0396709725614592,
+          "S_eye_distance_px": 121.47220868043716
+        },
+        {
+          "frame": 75,
+          "time": 3.0,
+          "configured_scale": 1.015099097792077,
+          "measured_eye_distance_ratio_S_over_Q": 1.0012516680719474,
+          "Q_eye_aperture": 0.05195549393305854,
+          "S_eye_aperture": 0.04617675580235845,
+          "S_eye_distance_px": 115.38419295777597
+        },
+        {
+          "frame": 76,
+          "time": 3.04,
+          "configured_scale": 1.0185970276435399,
+          "measured_eye_distance_ratio_S_over_Q": 1.0164143814344393,
+          "Q_eye_aperture": 0.05076915942252263,
+          "S_eye_aperture": 0.05377040072207651,
+          "S_eye_distance_px": 117.40343402091449
+        },
+        {
+          "frame": 77,
+          "time": 3.08,
+          "configured_scale": 1.0170776103026506,
+          "measured_eye_distance_ratio_S_over_Q": 1.005682042365849,
+          "Q_eye_aperture": 0.04243379401806901,
+          "S_eye_aperture": 0.044361842193800446,
+          "S_eye_distance_px": 119.34492394155905
+        },
+        {
+          "frame": 78,
+          "time": 3.12,
+          "configured_scale": 1.0123387586284895,
+          "measured_eye_distance_ratio_S_over_Q": 1.0133818839469304,
+          "Q_eye_aperture": 0.04656805278045458,
+          "S_eye_aperture": 0.0504711167122914,
+          "S_eye_distance_px": 121.38192092610684
+        },
+        {
+          "frame": 79,
+          "time": 3.16,
+          "configured_scale": 1.006605050435348,
+          "measured_eye_distance_ratio_S_over_Q": 1.003265800458278,
+          "Q_eye_aperture": 0.058580613575540515,
+          "S_eye_aperture": 0.05830591023642825,
+          "S_eye_distance_px": 121.07413225645305
+        },
+        {
+          "frame": 80,
+          "time": 3.2,
+          "configured_scale": 1.0019322527740795,
+          "measured_eye_distance_ratio_S_over_Q": 0.9986472795591517,
+          "Q_eye_aperture": 0.0749598418934554,
+          "S_eye_aperture": 0.07581250446054745,
+          "S_eye_distance_px": 121.71861551144505
+        },
+        {
+          "frame": 81,
+          "time": 3.24,
+          "configured_scale": 0.9994370601658018,
+          "measured_eye_distance_ratio_S_over_Q": 0.9927687607832402,
+          "Q_eye_aperture": 0.08603648283186517,
+          "S_eye_aperture": 0.08193248469357346,
+          "S_eye_distance_px": 121.15104330753391
+        },
+        {
+          "frame": 82,
+          "time": 3.28,
+          "configured_scale": 1.0000357457525983,
+          "measured_eye_distance_ratio_S_over_Q": 1.0039458646430595,
+          "Q_eye_aperture": 0.08599086226216411,
+          "S_eye_aperture": 0.08430541623056666,
+          "S_eye_distance_px": 122.01922410716006
+        },
+        {
+          "frame": 83,
+          "time": 3.32,
+          "configured_scale": 1.0045786389299465,
+          "measured_eye_distance_ratio_S_over_Q": 1.0010335546977596,
+          "Q_eye_aperture": 0.08690660179786941,
+          "S_eye_aperture": 0.0849088090685239,
+          "S_eye_distance_px": 122.68020639445353
+        }
+      ]
+    }
+  },
+  "records": [
+    {
+      "clip": "Q",
+      "frame": 0,
+      "time": 0.0,
+      "eye_midpoint_full_frame_xy": [
+        946.3252442973269,
+        241.86551495358225
+      ],
+      "roll_deg": -3.6208697336837004,
+      "eye_distance_px": 121.72397134199565,
+      "inner_mouth_height_over_eye_distance": 0.28162022454107516,
+      "inner_mouth_width_over_eye_distance": 0.35034606625484105,
+      "mean_eye_aperture_over_eye_distance": 0.09022757477971921,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 1,
+      "time": 0.04,
+      "eye_midpoint_full_frame_xy": [
+        946.4726588108886,
+        241.87415908612962
+      ],
+      "roll_deg": -3.280235554240758,
+      "eye_distance_px": 121.24170209894214,
+      "inner_mouth_height_over_eye_distance": 0.2631637418623789,
+      "inner_mouth_width_over_eye_distance": 0.349252355509669,
+      "mean_eye_aperture_over_eye_distance": 0.09739713397381314,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 2,
+      "time": 0.08,
+      "eye_midpoint_full_frame_xy": [
+        947.2338199554815,
+        240.69774404998972
+      ],
+      "roll_deg": -3.026776902704881,
+      "eye_distance_px": 121.05898252410022,
+      "inner_mouth_height_over_eye_distance": 0.19453242767815565,
+      "inner_mouth_width_over_eye_distance": 0.3354278602859518,
+      "mean_eye_aperture_over_eye_distance": 0.10005360726634663,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 3,
+      "time": 0.12,
+      "eye_midpoint_full_frame_xy": [
+        946.7070792077672,
+        241.0545951014866
+      ],
+      "roll_deg": -3.156474658093558,
+      "eye_distance_px": 121.24504502782094,
+      "inner_mouth_height_over_eye_distance": 0.07235770395691556,
+      "inner_mouth_width_over_eye_distance": 0.30480502816115396,
+      "mean_eye_aperture_over_eye_distance": 0.09993762323398321,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 4,
+      "time": 0.16,
+      "eye_midpoint_full_frame_xy": [
+        947.5772107667353,
+        240.3736212848305
+      ],
+      "roll_deg": -3.0015647814642823,
+      "eye_distance_px": 121.13460161571503,
+      "inner_mouth_height_over_eye_distance": 0.016714351928511707,
+      "inner_mouth_width_over_eye_distance": 0.2747445788448944,
+      "mean_eye_aperture_over_eye_distance": 0.10117086123854123,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 5,
+      "time": 0.2,
+      "eye_midpoint_full_frame_xy": [
+        946.7645910125217,
+        239.81136769867524
+      ],
+      "roll_deg": -3.1464143287361876,
+      "eye_distance_px": 121.14564347089039,
+      "inner_mouth_height_over_eye_distance": 0.023084711640841398,
+      "inner_mouth_width_over_eye_distance": 0.25898789518778953,
+      "mean_eye_aperture_over_eye_distance": 0.10142874742863935,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 6,
+      "time": 0.24,
+      "eye_midpoint_full_frame_xy": [
+        947.9387269346751,
+        239.57752376881214
+      ],
+      "roll_deg": -3.1035802555647147,
+      "eye_distance_px": 121.06054489074093,
+      "inner_mouth_height_over_eye_distance": 0.02330275157057175,
+      "inner_mouth_width_over_eye_distance": 0.2634218430071804,
+      "mean_eye_aperture_over_eye_distance": 0.09966360837005557,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 7,
+      "time": 0.28,
+      "eye_midpoint_full_frame_xy": [
+        946.5837123916035,
+        238.43607839861215
+      ],
+      "roll_deg": -2.8902206305147136,
+      "eye_distance_px": 121.21190862323539,
+      "inner_mouth_height_over_eye_distance": 0.03034846799119222,
+      "inner_mouth_width_over_eye_distance": 0.2650493894142158,
+      "mean_eye_aperture_over_eye_distance": 0.10024158064494372,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 8,
+      "time": 0.32,
+      "eye_midpoint_full_frame_xy": [
+        945.8968940639288,
+        239.33110027856222
+      ],
+      "roll_deg": -2.9610422942092756,
+      "eye_distance_px": 121.62129787406552,
+      "inner_mouth_height_over_eye_distance": 0.016252225882512954,
+      "inner_mouth_width_over_eye_distance": 0.28580105813412754,
+      "mean_eye_aperture_over_eye_distance": 0.09517613388130854,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 9,
+      "time": 0.36,
+      "eye_midpoint_full_frame_xy": [
+        948.1510105095126,
+        237.92978351414848
+      ],
+      "roll_deg": -2.9320967021390807,
+      "eye_distance_px": 120.03659074545321,
+      "inner_mouth_height_over_eye_distance": 0.012261246103082562,
+      "inner_mouth_width_over_eye_distance": 0.30310095427731165,
+      "mean_eye_aperture_over_eye_distance": 0.09925010361305309,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 10,
+      "time": 0.4,
+      "eye_midpoint_full_frame_xy": [
+        948.6171326814506,
+        237.2150994379649
+      ],
+      "roll_deg": -2.6661165348939617,
+      "eye_distance_px": 119.94206428510711,
+      "inner_mouth_height_over_eye_distance": 0.06538093988024284,
+      "inner_mouth_width_over_eye_distance": 0.31722325943124774,
+      "mean_eye_aperture_over_eye_distance": 0.09312534880900651,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 11,
+      "time": 0.44,
+      "eye_midpoint_full_frame_xy": [
+        949.4550579578154,
+        237.3556749034526
+      ],
+      "roll_deg": -2.706868940801473,
+      "eye_distance_px": 120.40365222703137,
+      "inner_mouth_height_over_eye_distance": 0.15100264776486821,
+      "inner_mouth_width_over_eye_distance": 0.339262662106016,
+      "mean_eye_aperture_over_eye_distance": 0.09038241280098944,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 12,
+      "time": 0.48,
+      "eye_midpoint_full_frame_xy": [
+        950.1079502362084,
+        235.8798928002031
+      ],
+      "roll_deg": -2.3691662618039846,
+      "eye_distance_px": 120.61787245571067,
+      "inner_mouth_height_over_eye_distance": 0.1481925841826254,
+      "inner_mouth_width_over_eye_distance": 0.34347265366855384,
+      "mean_eye_aperture_over_eye_distance": 0.09339741437558571,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 13,
+      "time": 0.52,
+      "eye_midpoint_full_frame_xy": [
+        950.3226419407811,
+        236.74847790699582
+      ],
+      "roll_deg": -2.373475638360988,
+      "eye_distance_px": 120.27123426361433,
+      "inner_mouth_height_over_eye_distance": 0.1067467597437575,
+      "inner_mouth_width_over_eye_distance": 0.3389833573864608,
+      "mean_eye_aperture_over_eye_distance": 0.09122978846963817,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 14,
+      "time": 0.56,
+      "eye_midpoint_full_frame_xy": [
+        953.5377863566328,
+        235.39233615453747
+      ],
+      "roll_deg": -2.1828946762720305,
+      "eye_distance_px": 120.98056585591902,
+      "inner_mouth_height_over_eye_distance": 0.07589152792642948,
+      "inner_mouth_width_over_eye_distance": 0.32877533907899703,
+      "mean_eye_aperture_over_eye_distance": 0.0890421304141309,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 15,
+      "time": 0.6,
+      "eye_midpoint_full_frame_xy": [
+        954.3183802283645,
+        234.71091128571203
+      ],
+      "roll_deg": -1.9851226142939353,
+      "eye_distance_px": 120.65187179373774,
+      "inner_mouth_height_over_eye_distance": 0.06221012311232977,
+      "inner_mouth_width_over_eye_distance": 0.3186161045153012,
+      "mean_eye_aperture_over_eye_distance": 0.09240053000702886,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 16,
+      "time": 0.64,
+      "eye_midpoint_full_frame_xy": [
+        955.4215182620866,
+        234.75341645633517
+      ],
+      "roll_deg": -1.8979355984096924,
+      "eye_distance_px": 120.3729296154336,
+      "inner_mouth_height_over_eye_distance": 0.05785462750664982,
+      "inner_mouth_width_over_eye_distance": 0.31289525688422243,
+      "mean_eye_aperture_over_eye_distance": 0.08997241086049909,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 17,
+      "time": 0.68,
+      "eye_midpoint_full_frame_xy": [
+        957.6796775493506,
+        234.71570866813755
+      ],
+      "roll_deg": -1.821421519105176,
+      "eye_distance_px": 120.6455765375757,
+      "inner_mouth_height_over_eye_distance": 0.04847135119090745,
+      "inner_mouth_width_over_eye_distance": 0.3054614184399684,
+      "mean_eye_aperture_over_eye_distance": 0.09186021885493297,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 18,
+      "time": 0.72,
+      "eye_midpoint_full_frame_xy": [
+        960.0105931452845,
+        236.71951335753357
+      ],
+      "roll_deg": -1.5255072573511166,
+      "eye_distance_px": 121.51360962903973,
+      "inner_mouth_height_over_eye_distance": 0.05462701025131768,
+      "inner_mouth_width_over_eye_distance": 0.2993871941349083,
+      "mean_eye_aperture_over_eye_distance": 0.09327355562015628,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 19,
+      "time": 0.76,
+      "eye_midpoint_full_frame_xy": [
+        961.2784655811975,
+        236.8902246056832
+      ],
+      "roll_deg": -1.6585943989573078,
+      "eye_distance_px": 121.30204719868375,
+      "inner_mouth_height_over_eye_distance": 0.046180016117530163,
+      "inner_mouth_width_over_eye_distance": 0.2953167870468946,
+      "mean_eye_aperture_over_eye_distance": 0.09613404761218161,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 20,
+      "time": 0.8,
+      "eye_midpoint_full_frame_xy": [
+        962.223530404576,
+        239.6458900824171
+      ],
+      "roll_deg": -1.6167008969581127,
+      "eye_distance_px": 121.78902568409877,
+      "inner_mouth_height_over_eye_distance": 0.034829460070959654,
+      "inner_mouth_width_over_eye_distance": 0.2765937742815424,
+      "mean_eye_aperture_over_eye_distance": 0.09239808500237393,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 21,
+      "time": 0.84,
+      "eye_midpoint_full_frame_xy": [
+        962.1491318134233,
+        243.38416799952813
+      ],
+      "roll_deg": -1.743466617555902,
+      "eye_distance_px": 122.6062147179566,
+      "inner_mouth_height_over_eye_distance": 0.045570592136987,
+      "inner_mouth_width_over_eye_distance": 0.27414115201979006,
+      "mean_eye_aperture_over_eye_distance": 0.09006744617301919,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 22,
+      "time": 0.88,
+      "eye_midpoint_full_frame_xy": [
+        961.3002111587609,
+        249.95577650370532
+      ],
+      "roll_deg": -1.7515073516221615,
+      "eye_distance_px": 123.3701078961019,
+      "inner_mouth_height_over_eye_distance": 0.022868351782616318,
+      "inner_mouth_width_over_eye_distance": 0.2672093134938612,
+      "mean_eye_aperture_over_eye_distance": 0.09482336442075882,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 23,
+      "time": 0.92,
+      "eye_midpoint_full_frame_xy": [
+        960.3079894799541,
+        266.0851773055755
+      ],
+      "roll_deg": -1.5084661258148628,
+      "eye_distance_px": 125.13223658525109,
+      "inner_mouth_height_over_eye_distance": 0.034948491628408164,
+      "inner_mouth_width_over_eye_distance": 0.25034463698147413,
+      "mean_eye_aperture_over_eye_distance": 0.09919377214677422,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 24,
+      "time": 0.96,
+      "eye_midpoint_full_frame_xy": [
+        958.7619516990908,
+        275.20060996336844
+      ],
+      "roll_deg": -2.133654344108292,
+      "eye_distance_px": 124.58191731462324,
+      "inner_mouth_height_over_eye_distance": 0.11605987208664921,
+      "inner_mouth_width_over_eye_distance": 0.2758464091563241,
+      "mean_eye_aperture_over_eye_distance": 0.10346422802624905,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 25,
+      "time": 1.0,
+      "eye_midpoint_full_frame_xy": [
+        957.9206968370049,
+        277.03328078474533
+      ],
+      "roll_deg": -2.1831993044039133,
+      "eye_distance_px": 124.79259200218627,
+      "inner_mouth_height_over_eye_distance": 0.2079337455019349,
+      "inner_mouth_width_over_eye_distance": 0.32748240013755125,
+      "mean_eye_aperture_over_eye_distance": 0.09649671419851341,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 26,
+      "time": 1.04,
+      "eye_midpoint_full_frame_xy": [
+        956.6186078732426,
+        274.2158529122866
+      ],
+      "roll_deg": -2.6962112856023372,
+      "eye_distance_px": 124.27580715018519,
+      "inner_mouth_height_over_eye_distance": 0.21674906486310241,
+      "inner_mouth_width_over_eye_distance": 0.33853700967499484,
+      "mean_eye_aperture_over_eye_distance": 0.09841571104797978,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 27,
+      "time": 1.08,
+      "eye_midpoint_full_frame_xy": [
+        956.1456809554369,
+        268.8731214214715
+      ],
+      "roll_deg": -2.9879876475072766,
+      "eye_distance_px": 125.14425131557547,
+      "inner_mouth_height_over_eye_distance": 0.14584703854730396,
+      "inner_mouth_width_over_eye_distance": 0.30400860650519995,
+      "mean_eye_aperture_over_eye_distance": 0.09921722738104832,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 28,
+      "time": 1.12,
+      "eye_midpoint_full_frame_xy": [
+        953.6499516336329,
+        265.847332814751
+      ],
+      "roll_deg": -3.6561153071686023,
+      "eye_distance_px": 124.80876648366718,
+      "inner_mouth_height_over_eye_distance": 0.03842871783457512,
+      "inner_mouth_width_over_eye_distance": 0.25911924536968606,
+      "mean_eye_aperture_over_eye_distance": 0.10328607783713731,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 29,
+      "time": 1.16,
+      "eye_midpoint_full_frame_xy": [
+        953.5905407174741,
+        263.4890562360108
+      ],
+      "roll_deg": -3.658075888891125,
+      "eye_distance_px": 124.54085486560291,
+      "inner_mouth_height_over_eye_distance": 0.03698669594148429,
+      "inner_mouth_width_over_eye_distance": 0.2697507801557057,
+      "mean_eye_aperture_over_eye_distance": 0.10130461660359556,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 30,
+      "time": 1.2,
+      "eye_midpoint_full_frame_xy": [
+        951.8771924737723,
+        263.9165207407658
+      ],
+      "roll_deg": -3.715022468260096,
+      "eye_distance_px": 124.59586812370812,
+      "inner_mouth_height_over_eye_distance": 0.06426248921260024,
+      "inner_mouth_width_over_eye_distance": 0.29062083260706767,
+      "mean_eye_aperture_over_eye_distance": 0.09918944630603754,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 31,
+      "time": 1.24,
+      "eye_midpoint_full_frame_xy": [
+        950.9643937568212,
+        264.2597086191792
+      ],
+      "roll_deg": -3.5474528420022886,
+      "eye_distance_px": 125.14005503035195,
+      "inner_mouth_height_over_eye_distance": 0.0794711223156903,
+      "inner_mouth_width_over_eye_distance": 0.3023528054369061,
+      "mean_eye_aperture_over_eye_distance": 0.10067174704708681,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 32,
+      "time": 1.28,
+      "eye_midpoint_full_frame_xy": [
+        950.8721137755597,
+        267.002834531977
+      ],
+      "roll_deg": -3.5781697561063233,
+      "eye_distance_px": 124.87936011005242,
+      "inner_mouth_height_over_eye_distance": 0.068123466124019,
+      "inner_mouth_width_over_eye_distance": 0.3090138188594256,
+      "mean_eye_aperture_over_eye_distance": 0.09716344661083176,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 33,
+      "time": 1.32,
+      "eye_midpoint_full_frame_xy": [
+        950.9854458976563,
+        267.68126288143895
+      ],
+      "roll_deg": -3.4784749309367617,
+      "eye_distance_px": 125.01210670755887,
+      "inner_mouth_height_over_eye_distance": 0.07062566218815267,
+      "inner_mouth_width_over_eye_distance": 0.3037854618040229,
+      "mean_eye_aperture_over_eye_distance": 0.09710205834277942,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 34,
+      "time": 1.36,
+      "eye_midpoint_full_frame_xy": [
+        949.7378769066827,
+        267.59016993346927
+      ],
+      "roll_deg": -3.70290676732889,
+      "eye_distance_px": 124.85597957157162,
+      "inner_mouth_height_over_eye_distance": 0.06853079082473353,
+      "inner_mouth_width_over_eye_distance": 0.2870728685687759,
+      "mean_eye_aperture_over_eye_distance": 0.09900270525348055,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 35,
+      "time": 1.4,
+      "eye_midpoint_full_frame_xy": [
+        951.0267526178336,
+        267.82151281423705
+      ],
+      "roll_deg": -3.846852888333585,
+      "eye_distance_px": 124.72524499491001,
+      "inner_mouth_height_over_eye_distance": 0.0686165711295036,
+      "inner_mouth_width_over_eye_distance": 0.27933358410612885,
+      "mean_eye_aperture_over_eye_distance": 0.0964008949133602,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 36,
+      "time": 1.44,
+      "eye_midpoint_full_frame_xy": [
+        951.0642319385593,
+        264.88011331699227
+      ],
+      "roll_deg": -3.7940714163021743,
+      "eye_distance_px": 124.60663418914483,
+      "inner_mouth_height_over_eye_distance": 0.0650300075914264,
+      "inner_mouth_width_over_eye_distance": 0.27021059600950115,
+      "mean_eye_aperture_over_eye_distance": 0.09994581479919526,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 37,
+      "time": 1.48,
+      "eye_midpoint_full_frame_xy": [
+        949.90023122738,
+        265.95926410219096
+      ],
+      "roll_deg": -4.172512794545764,
+      "eye_distance_px": 124.69754480376591,
+      "inner_mouth_height_over_eye_distance": 0.05260657088911928,
+      "inner_mouth_width_over_eye_distance": 0.263014696073802,
+      "mean_eye_aperture_over_eye_distance": 0.10101481806123229,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 38,
+      "time": 1.52,
+      "eye_midpoint_full_frame_xy": [
+        950.0454060801198,
+        263.74630838975577
+      ],
+      "roll_deg": -4.010964699862882,
+      "eye_distance_px": 124.21730579686368,
+      "inner_mouth_height_over_eye_distance": 0.046009161807910225,
+      "inner_mouth_width_over_eye_distance": 0.2647768242045659,
+      "mean_eye_aperture_over_eye_distance": 0.1024978805517604,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 39,
+      "time": 1.56,
+      "eye_midpoint_full_frame_xy": [
+        950.2299712150723,
+        260.7524497451186
+      ],
+      "roll_deg": -3.97911880154722,
+      "eye_distance_px": 123.5533342452131,
+      "inner_mouth_height_over_eye_distance": 0.04687840187248847,
+      "inner_mouth_width_over_eye_distance": 0.26733373679284517,
+      "mean_eye_aperture_over_eye_distance": 0.0937972874029232,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 40,
+      "time": 1.6,
+      "eye_midpoint_full_frame_xy": [
+        950.1750912635974,
+        261.2606067777923
+      ],
+      "roll_deg": -3.809243563106284,
+      "eye_distance_px": 123.70396284340687,
+      "inner_mouth_height_over_eye_distance": 0.11291062713800719,
+      "inner_mouth_width_over_eye_distance": 0.28219113724879374,
+      "mean_eye_aperture_over_eye_distance": 0.08971015871188212,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 41,
+      "time": 1.64,
+      "eye_midpoint_full_frame_xy": [
+        949.8397151379611,
+        258.88700793549674
+      ],
+      "roll_deg": -3.5329680442256772,
+      "eye_distance_px": 120.56467302026462,
+      "inner_mouth_height_over_eye_distance": 0.21032252400575832,
+      "inner_mouth_width_over_eye_distance": 0.3213101817653575,
+      "mean_eye_aperture_over_eye_distance": 0.06860719819584807,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 42,
+      "time": 1.68,
+      "eye_midpoint_full_frame_xy": [
+        948.5682305428637,
+        257.856762316208
+      ],
+      "roll_deg": -3.8541504238006565,
+      "eye_distance_px": 119.65570729162873,
+      "inner_mouth_height_over_eye_distance": 0.11245430190132732,
+      "inner_mouth_width_over_eye_distance": 0.313061074439938,
+      "mean_eye_aperture_over_eye_distance": 0.06609506006397572,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 43,
+      "time": 1.72,
+      "eye_midpoint_full_frame_xy": [
+        948.2775803224761,
+        252.90236516876456
+      ],
+      "roll_deg": -4.470053381650104,
+      "eye_distance_px": 120.338028231652,
+      "inner_mouth_height_over_eye_distance": 0.013006019453061308,
+      "inner_mouth_width_over_eye_distance": 0.30125889105944814,
+      "mean_eye_aperture_over_eye_distance": 0.07032274176377037,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 44,
+      "time": 1.76,
+      "eye_midpoint_full_frame_xy": [
+        947.0663732511542,
+        249.63165327478464
+      ],
+      "roll_deg": -4.336762141944255,
+      "eye_distance_px": 121.09932268404272,
+      "inner_mouth_height_over_eye_distance": 0.02767731086074367,
+      "inner_mouth_width_over_eye_distance": 0.31079638451517677,
+      "mean_eye_aperture_over_eye_distance": 0.08037146017319069,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 45,
+      "time": 1.8,
+      "eye_midpoint_full_frame_xy": [
+        945.7155892138366,
+        248.12274281236546
+      ],
+      "roll_deg": -4.48804926903588,
+      "eye_distance_px": 121.42408149173953,
+      "inner_mouth_height_over_eye_distance": 0.15434785839142615,
+      "inner_mouth_width_over_eye_distance": 0.3212654251873532,
+      "mean_eye_aperture_over_eye_distance": 0.08668677446255402,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 46,
+      "time": 1.84,
+      "eye_midpoint_full_frame_xy": [
+        944.8995166325186,
+        246.98339962062994
+      ],
+      "roll_deg": -5.060410338952144,
+      "eye_distance_px": 121.2887737658404,
+      "inner_mouth_height_over_eye_distance": 0.08791139498350829,
+      "inner_mouth_width_over_eye_distance": 0.3236090092378306,
+      "mean_eye_aperture_over_eye_distance": 0.08887152219831113,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 47,
+      "time": 1.88,
+      "eye_midpoint_full_frame_xy": [
+        943.8654089968636,
+        244.7945289303338
+      ],
+      "roll_deg": -5.264926457593959,
+      "eye_distance_px": 121.55221358191943,
+      "inner_mouth_height_over_eye_distance": 0.00747052616505367,
+      "inner_mouth_width_over_eye_distance": 0.3121857138373506,
+      "mean_eye_aperture_over_eye_distance": 0.0886119091946161,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 48,
+      "time": 1.92,
+      "eye_midpoint_full_frame_xy": [
+        942.7026439485807,
+        244.0380997777696
+      ],
+      "roll_deg": -5.293386284138655,
+      "eye_distance_px": 121.34116130333426,
+      "inner_mouth_height_over_eye_distance": 0.008563842200406733,
+      "inner_mouth_width_over_eye_distance": 0.3085065466047969,
+      "mean_eye_aperture_over_eye_distance": 0.08797859344763757,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 49,
+      "time": 1.96,
+      "eye_midpoint_full_frame_xy": [
+        941.9469910362201,
+        243.98574156690475
+      ],
+      "roll_deg": -5.662839626081151,
+      "eye_distance_px": 120.81996599251833,
+      "inner_mouth_height_over_eye_distance": 0.056999669038069,
+      "inner_mouth_width_over_eye_distance": 0.3120759266413462,
+      "mean_eye_aperture_over_eye_distance": 0.09190131464088105,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 50,
+      "time": 2.0,
+      "eye_midpoint_full_frame_xy": [
+        941.3583094339974,
+        244.23488195752606
+      ],
+      "roll_deg": -5.419359109088782,
+      "eye_distance_px": 120.93052533963954,
+      "inner_mouth_height_over_eye_distance": 0.19035877394180076,
+      "inner_mouth_width_over_eye_distance": 0.32300098346985207,
+      "mean_eye_aperture_over_eye_distance": 0.09223538257411001,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 51,
+      "time": 2.04,
+      "eye_midpoint_full_frame_xy": [
+        941.5848556143671,
+        246.75884330739456
+      ],
+      "roll_deg": -5.300613972996398,
+      "eye_distance_px": 121.18174810266113,
+      "inner_mouth_height_over_eye_distance": 0.16793693229826676,
+      "inner_mouth_width_over_eye_distance": 0.3274406461714079,
+      "mean_eye_aperture_over_eye_distance": 0.08694575197657405,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 52,
+      "time": 2.08,
+      "eye_midpoint_full_frame_xy": [
+        940.4614350890388,
+        250.74585607999097
+      ],
+      "roll_deg": -5.535032216037298,
+      "eye_distance_px": 122.89892785157508,
+      "inner_mouth_height_over_eye_distance": 0.07999887896734467,
+      "inner_mouth_width_over_eye_distance": 0.3131017422000908,
+      "mean_eye_aperture_over_eye_distance": 0.07007290051577464,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 53,
+      "time": 2.12,
+      "eye_midpoint_full_frame_xy": [
+        941.2874397913524,
+        255.46416891879966
+      ],
+      "roll_deg": -5.583203308949575,
+      "eye_distance_px": 120.53346519524486,
+      "inner_mouth_height_over_eye_distance": 0.04574469223625171,
+      "inner_mouth_width_over_eye_distance": 0.29012009631522595,
+      "mean_eye_aperture_over_eye_distance": 0.06720912423744396,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 54,
+      "time": 2.16,
+      "eye_midpoint_full_frame_xy": [
+        941.8108273492105,
+        256.5468298030851
+      ],
+      "roll_deg": -5.510326518289752,
+      "eye_distance_px": 121.31644895891564,
+      "inner_mouth_height_over_eye_distance": 0.031586488048758625,
+      "inner_mouth_width_over_eye_distance": 0.27055540893192076,
+      "mean_eye_aperture_over_eye_distance": 0.07072743090533691,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 55,
+      "time": 2.2,
+      "eye_midpoint_full_frame_xy": [
+        941.4138294871589,
+        259.6514342522061
+      ],
+      "roll_deg": -4.987444727036467,
+      "eye_distance_px": 122.53528101835919,
+      "inner_mouth_height_over_eye_distance": 0.024712818693643366,
+      "inner_mouth_width_over_eye_distance": 0.2675148686225294,
+      "mean_eye_aperture_over_eye_distance": 0.07279916508820339,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 56,
+      "time": 2.24,
+      "eye_midpoint_full_frame_xy": [
+        942.6106392702472,
+        262.37325105028856
+      ],
+      "roll_deg": -4.455256284001576,
+      "eye_distance_px": 121.40926674874927,
+      "inner_mouth_height_over_eye_distance": 0.02121915950511279,
+      "inner_mouth_width_over_eye_distance": 0.2746735875661818,
+      "mean_eye_aperture_over_eye_distance": 0.08058933282798483,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 57,
+      "time": 2.28,
+      "eye_midpoint_full_frame_xy": [
+        945.0260182915916,
+        262.4779665878124
+      ],
+      "roll_deg": -3.862519806266742,
+      "eye_distance_px": 121.67586368845838,
+      "inner_mouth_height_over_eye_distance": 0.019351588552974128,
+      "inner_mouth_width_over_eye_distance": 0.29162638168487626,
+      "mean_eye_aperture_over_eye_distance": 0.08602163649030689,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 58,
+      "time": 2.32,
+      "eye_midpoint_full_frame_xy": [
+        946.2772291775075,
+        264.1900219665465
+      ],
+      "roll_deg": -3.372474732656485,
+      "eye_distance_px": 121.66416312904326,
+      "inner_mouth_height_over_eye_distance": 0.023209869892663756,
+      "inner_mouth_width_over_eye_distance": 0.30385090204841003,
+      "mean_eye_aperture_over_eye_distance": 0.0843029326648339,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 59,
+      "time": 2.36,
+      "eye_midpoint_full_frame_xy": [
+        947.9691150520648,
+        265.5568458368396
+      ],
+      "roll_deg": -3.117797059580023,
+      "eye_distance_px": 122.47156946841768,
+      "inner_mouth_height_over_eye_distance": 0.040956636400144616,
+      "inner_mouth_width_over_eye_distance": 0.31612456981950326,
+      "mean_eye_aperture_over_eye_distance": 0.0900647235546144,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 60,
+      "time": 2.4,
+      "eye_midpoint_full_frame_xy": [
+        948.1025671039644,
+        266.13042473488315
+      ],
+      "roll_deg": -2.381651349138548,
+      "eye_distance_px": 122.57419546537506,
+      "inner_mouth_height_over_eye_distance": 0.07825684656330269,
+      "inner_mouth_width_over_eye_distance": 0.3112615003807362,
+      "mean_eye_aperture_over_eye_distance": 0.09155740192861636,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 61,
+      "time": 2.44,
+      "eye_midpoint_full_frame_xy": [
+        948.3619316064267,
+        265.81384840487374
+      ],
+      "roll_deg": -2.181158932656145,
+      "eye_distance_px": 122.64742892815465,
+      "inner_mouth_height_over_eye_distance": 0.09869312639961786,
+      "inner_mouth_width_over_eye_distance": 0.3150494753226004,
+      "mean_eye_aperture_over_eye_distance": 0.09420250039942836,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 62,
+      "time": 2.48,
+      "eye_midpoint_full_frame_xy": [
+        948.2382513633274,
+        267.5092540857472
+      ],
+      "roll_deg": -2.00167201685471,
+      "eye_distance_px": 121.78114837062026,
+      "inner_mouth_height_over_eye_distance": 0.11605127497147996,
+      "inner_mouth_width_over_eye_distance": 0.31758465995580043,
+      "mean_eye_aperture_over_eye_distance": 0.09431433510383132,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 63,
+      "time": 2.52,
+      "eye_midpoint_full_frame_xy": [
+        947.8251633781298,
+        266.9270852145133
+      ],
+      "roll_deg": -1.8784198607424538,
+      "eye_distance_px": 121.98117766188265,
+      "inner_mouth_height_over_eye_distance": 0.12695758191601236,
+      "inner_mouth_width_over_eye_distance": 0.316485737759375,
+      "mean_eye_aperture_over_eye_distance": 0.08818102484020753,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 64,
+      "time": 2.56,
+      "eye_midpoint_full_frame_xy": [
+        947.5971706462075,
+        267.23177787260556
+      ],
+      "roll_deg": -1.8324781477903722,
+      "eye_distance_px": 121.45653670122037,
+      "inner_mouth_height_over_eye_distance": 0.12200265847389885,
+      "inner_mouth_width_over_eye_distance": 0.31702544046701975,
+      "mean_eye_aperture_over_eye_distance": 0.09019132243822696,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 65,
+      "time": 2.6,
+      "eye_midpoint_full_frame_xy": [
+        947.7779432984461,
+        266.9315914914655
+      ],
+      "roll_deg": -1.8243839737033625,
+      "eye_distance_px": 121.81978857485818,
+      "inner_mouth_height_over_eye_distance": 0.12284522997210963,
+      "inner_mouth_width_over_eye_distance": 0.3161269112681939,
+      "mean_eye_aperture_over_eye_distance": 0.09047251166063948,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 66,
+      "time": 2.64,
+      "eye_midpoint_full_frame_xy": [
+        948.0346406401637,
+        267.2341620803953
+      ],
+      "roll_deg": -1.667172278958063,
+      "eye_distance_px": 121.13894391368225,
+      "inner_mouth_height_over_eye_distance": 0.1236188820095025,
+      "inner_mouth_width_over_eye_distance": 0.31744900518853114,
+      "mean_eye_aperture_over_eye_distance": 0.09004942236961444,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 67,
+      "time": 2.68,
+      "eye_midpoint_full_frame_xy": [
+        947.2024145004889,
+        267.9156056971509
+      ],
+      "roll_deg": -1.7790714848586284,
+      "eye_distance_px": 121.71292210866211,
+      "inner_mouth_height_over_eye_distance": 0.11482579999877798,
+      "inner_mouth_width_over_eye_distance": 0.3180340471731627,
+      "mean_eye_aperture_over_eye_distance": 0.09320811153579225,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 68,
+      "time": 2.72,
+      "eye_midpoint_full_frame_xy": [
+        948.3226379125348,
+        267.92598864987565
+      ],
+      "roll_deg": -1.6755888027538357,
+      "eye_distance_px": 122.15268071143946,
+      "inner_mouth_height_over_eye_distance": 0.0624726555280304,
+      "inner_mouth_width_over_eye_distance": 0.31337464731070097,
+      "mean_eye_aperture_over_eye_distance": 0.09012422064780566,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 69,
+      "time": 2.76,
+      "eye_midpoint_full_frame_xy": [
+        947.3555604653121,
+        267.5654387351485
+      ],
+      "roll_deg": -1.8507045314646673,
+      "eye_distance_px": 122.35761236615636,
+      "inner_mouth_height_over_eye_distance": 0.02148771022422028,
+      "inner_mouth_width_over_eye_distance": 0.3133269098677866,
+      "mean_eye_aperture_over_eye_distance": 0.08899940313996872,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 70,
+      "time": 2.8,
+      "eye_midpoint_full_frame_xy": [
+        947.7549186124941,
+        267.21321327030273
+      ],
+      "roll_deg": -1.7887721551420612,
+      "eye_distance_px": 121.9855081311795,
+      "inner_mouth_height_over_eye_distance": 0.020233687162277882,
+      "inner_mouth_width_over_eye_distance": 0.31915682768770004,
+      "mean_eye_aperture_over_eye_distance": 0.09107556273121825,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 71,
+      "time": 2.84,
+      "eye_midpoint_full_frame_xy": [
+        948.5795438918934,
+        266.72871129760415
+      ],
+      "roll_deg": -1.9628629029054219,
+      "eye_distance_px": 122.69036970663547,
+      "inner_mouth_height_over_eye_distance": 0.0195960376959203,
+      "inner_mouth_width_over_eye_distance": 0.3158763340095707,
+      "mean_eye_aperture_over_eye_distance": 0.08946208660580936,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 72,
+      "time": 2.88,
+      "eye_midpoint_full_frame_xy": [
+        947.3468153294259,
+        266.53549407633386
+      ],
+      "roll_deg": -2.028763340618417,
+      "eye_distance_px": 122.7516423943345,
+      "inner_mouth_height_over_eye_distance": 0.017917808529451663,
+      "inner_mouth_width_over_eye_distance": 0.3177407590503128,
+      "mean_eye_aperture_over_eye_distance": 0.08928215162143478,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 73,
+      "time": 2.92,
+      "eye_midpoint_full_frame_xy": [
+        949.1568654309278,
+        266.36617092753556
+      ],
+      "roll_deg": -1.9482039238876165,
+      "eye_distance_px": 122.54455757920145,
+      "inner_mouth_height_over_eye_distance": 0.01932037589512735,
+      "inner_mouth_width_over_eye_distance": 0.31400912580816165,
+      "mean_eye_aperture_over_eye_distance": 0.08799219870872092,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 74,
+      "time": 2.96,
+      "eye_midpoint_full_frame_xy": [
+        948.5816961231181,
+        268.33568658139757
+      ],
+      "roll_deg": -1.505601025642163,
+      "eye_distance_px": 120.4690358597842,
+      "inner_mouth_height_over_eye_distance": 0.01860842363479444,
+      "inner_mouth_width_over_eye_distance": 0.32264356087576307,
+      "mean_eye_aperture_over_eye_distance": 0.042663034637320275,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 75,
+      "time": 3.0,
+      "eye_midpoint_full_frame_xy": [
+        948.2557453327016,
+        272.5598136687771
+      ],
+      "roll_deg": -1.5339115246013821,
+      "eye_distance_px": 115.23995079075839,
+      "inner_mouth_height_over_eye_distance": 0.0243404361425819,
+      "inner_mouth_width_over_eye_distance": 0.33376216935254455,
+      "mean_eye_aperture_over_eye_distance": 0.05195549393305854,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 76,
+      "time": 3.04,
+      "eye_midpoint_full_frame_xy": [
+        948.4050544620219,
+        271.7440830876541
+      ],
+      "roll_deg": -1.2249384683392992,
+      "eye_distance_px": 115.50745066714431,
+      "inner_mouth_height_over_eye_distance": 0.04414828715250109,
+      "inner_mouth_width_over_eye_distance": 0.3362776802514555,
+      "mean_eye_aperture_over_eye_distance": 0.05076915942252263,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 77,
+      "time": 3.08,
+      "eye_midpoint_full_frame_xy": [
+        948.085997993247,
+        267.6834673906746
+      ],
+      "roll_deg": -1.2633219656982662,
+      "eye_distance_px": 118.6706323807893,
+      "inner_mouth_height_over_eye_distance": 0.08994498795536954,
+      "inner_mouth_width_over_eye_distance": 0.32722087813778455,
+      "mean_eye_aperture_over_eye_distance": 0.04243379401806901,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 78,
+      "time": 3.12,
+      "eye_midpoint_full_frame_xy": [
+        950.7376784755479,
+        260.6312490385892
+      ],
+      "roll_deg": -0.8424736368865261,
+      "eye_distance_px": 119.77905155887262,
+      "inner_mouth_height_over_eye_distance": 0.12585203564239586,
+      "inner_mouth_width_over_eye_distance": 0.323837647462416,
+      "mean_eye_aperture_over_eye_distance": 0.04656805278045458,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 79,
+      "time": 3.16,
+      "eye_midpoint_full_frame_xy": [
+        951.6280407491842,
+        254.22334297583012
+      ],
+      "roll_deg": -0.4725959865716117,
+      "eye_distance_px": 120.68001540683242,
+      "inner_mouth_height_over_eye_distance": 0.15055445838398937,
+      "inner_mouth_width_over_eye_distance": 0.32185173643701065,
+      "mean_eye_aperture_over_eye_distance": 0.058580613575540515,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 80,
+      "time": 3.2,
+      "eye_midpoint_full_frame_xy": [
+        954.0997843445488,
+        251.08951315771066
+      ],
+      "roll_deg": 0.10555683467661815,
+      "eye_distance_px": 121.88348979949876,
+      "inner_mouth_height_over_eye_distance": 0.17687036867315745,
+      "inner_mouth_width_over_eye_distance": 0.3252002879414791,
+      "mean_eye_aperture_over_eye_distance": 0.0749598418934554,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 81,
+      "time": 3.24,
+      "eye_midpoint_full_frame_xy": [
+        954.3362055924067,
+        249.54215636277019
+      ],
+      "roll_deg": 0.4042031742844764,
+      "eye_distance_px": 122.03349671473585,
+      "inner_mouth_height_over_eye_distance": 0.1901432862950948,
+      "inner_mouth_width_over_eye_distance": 0.3273166285764785,
+      "mean_eye_aperture_over_eye_distance": 0.08603648283186517,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 82,
+      "time": 3.28,
+      "eye_midpoint_full_frame_xy": [
+        953.5491635770139,
+        248.06814932444325
+      ],
+      "roll_deg": 0.34436971373030706,
+      "eye_distance_px": 121.53964511875596,
+      "inner_mouth_height_over_eye_distance": 0.19557279024185567,
+      "inner_mouth_width_over_eye_distance": 0.3278070014079447,
+      "mean_eye_aperture_over_eye_distance": 0.08599086226216411,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 83,
+      "time": 3.32,
+      "eye_midpoint_full_frame_xy": [
+        954.5848096484701,
+        247.80839817117072
+      ],
+      "roll_deg": 0.3799846967889615,
+      "eye_distance_px": 122.55354060683227,
+      "inner_mouth_height_over_eye_distance": 0.19407597476243266,
+      "inner_mouth_width_over_eye_distance": 0.32927855233726205,
+      "mean_eye_aperture_over_eye_distance": 0.08690660179786941,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 84,
+      "time": 3.36,
+      "eye_midpoint_full_frame_xy": [
+        956.0314899237419,
+        250.33444610788837
+      ],
+      "roll_deg": 0.8502426530181294,
+      "eye_distance_px": 118.0745181239925,
+      "inner_mouth_height_over_eye_distance": 0.238914281136279,
+      "inner_mouth_width_over_eye_distance": 0.33956187915443803,
+      "mean_eye_aperture_over_eye_distance": 0.057865611596834655,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 85,
+      "time": 3.4,
+      "eye_midpoint_full_frame_xy": [
+        956.2150985293496,
+        247.5683706617043
+      ],
+      "roll_deg": 0.40674971015685435,
+      "eye_distance_px": 118.41361587477338,
+      "inner_mouth_height_over_eye_distance": 0.25852911609733314,
+      "inner_mouth_width_over_eye_distance": 0.34786193724829084,
+      "mean_eye_aperture_over_eye_distance": 0.062410941327104674,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 86,
+      "time": 3.44,
+      "eye_midpoint_full_frame_xy": [
+        956.4092818916943,
+        244.0003391769276
+      ],
+      "roll_deg": 0.23664903570450538,
+      "eye_distance_px": 119.22286996436083,
+      "inner_mouth_height_over_eye_distance": 0.27698703289764104,
+      "inner_mouth_width_over_eye_distance": 0.3517970047624099,
+      "mean_eye_aperture_over_eye_distance": 0.08162700172744734,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 87,
+      "time": 3.48,
+      "eye_midpoint_full_frame_xy": [
+        957.4559221826463,
+        242.91200474797319
+      ],
+      "roll_deg": 0.11888615277666341,
+      "eye_distance_px": 120.24621692135726,
+      "inner_mouth_height_over_eye_distance": 0.3163856169654566,
+      "inner_mouth_width_over_eye_distance": 0.35348711635562774,
+      "mean_eye_aperture_over_eye_distance": 0.08897575023603557,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 88,
+      "time": 3.52,
+      "eye_midpoint_full_frame_xy": [
+        957.8784840045463,
+        243.66706732061903
+      ],
+      "roll_deg": -0.2431122761484618,
+      "eye_distance_px": 120.33633609190458,
+      "inner_mouth_height_over_eye_distance": 0.3519104721864833,
+      "inner_mouth_width_over_eye_distance": 0.35971422377433054,
+      "mean_eye_aperture_over_eye_distance": 0.09921401030483369,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 89,
+      "time": 3.56,
+      "eye_midpoint_full_frame_xy": [
+        957.280458811586,
+        240.48486809663578
+      ],
+      "roll_deg": -0.2625167656398613,
+      "eye_distance_px": 121.07125677083764,
+      "inner_mouth_height_over_eye_distance": 0.3894328204627021,
+      "inner_mouth_width_over_eye_distance": 0.3747619559503696,
+      "mean_eye_aperture_over_eye_distance": 0.10042052437106454,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 90,
+      "time": 3.6,
+      "eye_midpoint_full_frame_xy": [
+        957.6776053288811,
+        238.80077076549202
+      ],
+      "roll_deg": -0.4011165158516247,
+      "eye_distance_px": 120.48404699724006,
+      "inner_mouth_height_over_eye_distance": 0.4032248081729599,
+      "inner_mouth_width_over_eye_distance": 0.3839980574975033,
+      "mean_eye_aperture_over_eye_distance": 0.09928951835120862,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 91,
+      "time": 3.64,
+      "eye_midpoint_full_frame_xy": [
+        956.4595991495846,
+        237.3747929725638
+      ],
+      "roll_deg": -1.0780521597634438,
+      "eye_distance_px": 120.27196506312619,
+      "inner_mouth_height_over_eye_distance": 0.4318298631803723,
+      "inner_mouth_width_over_eye_distance": 0.3899800950934671,
+      "mean_eye_aperture_over_eye_distance": 0.10078972378560454,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 92,
+      "time": 3.68,
+      "eye_midpoint_full_frame_xy": [
+        957.5386455485378,
+        235.22074153012608
+      ],
+      "roll_deg": -1.3792796823932336,
+      "eye_distance_px": 119.77169791595405,
+      "inner_mouth_height_over_eye_distance": 0.44397100900909636,
+      "inner_mouth_width_over_eye_distance": 0.40228271443212377,
+      "mean_eye_aperture_over_eye_distance": 0.1026280172521427,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 93,
+      "time": 3.72,
+      "eye_midpoint_full_frame_xy": [
+        957.5606534563631,
+        234.57030693041503
+      ],
+      "roll_deg": -0.7560867985102818,
+      "eye_distance_px": 119.22084591241855,
+      "inner_mouth_height_over_eye_distance": 0.4424929697027042,
+      "inner_mouth_width_over_eye_distance": 0.4201887126501059,
+      "mean_eye_aperture_over_eye_distance": 0.09768983903855581,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 94,
+      "time": 3.76,
+      "eye_midpoint_full_frame_xy": [
+        957.2006681139949,
+        234.89264356937815
+      ],
+      "roll_deg": -1.0798724326183708,
+      "eye_distance_px": 117.5848722652115,
+      "inner_mouth_height_over_eye_distance": 0.39163600330950654,
+      "inner_mouth_width_over_eye_distance": 0.4345835683873047,
+      "mean_eye_aperture_over_eye_distance": 0.07505075318155575,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 95,
+      "time": 3.8,
+      "eye_midpoint_full_frame_xy": [
+        957.2287612915627,
+        233.32715648629076
+      ],
+      "roll_deg": -0.9417098708225783,
+      "eye_distance_px": 117.71286021968434,
+      "inner_mouth_height_over_eye_distance": 0.3407665384199869,
+      "inner_mouth_width_over_eye_distance": 0.42698622067887804,
+      "mean_eye_aperture_over_eye_distance": 0.07579067528267977,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 96,
+      "time": 3.84,
+      "eye_midpoint_full_frame_xy": [
+        955.9828756858216,
+        234.68796093419004
+      ],
+      "roll_deg": -1.3641473166143738,
+      "eye_distance_px": 119.58398370046005,
+      "inner_mouth_height_over_eye_distance": 0.3123315089686792,
+      "inner_mouth_width_over_eye_distance": 0.4152420677642906,
+      "mean_eye_aperture_over_eye_distance": 0.08514107149344774,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 97,
+      "time": 3.88,
+      "eye_midpoint_full_frame_xy": [
+        955.1484185972157,
+        234.97139758990005
+      ],
+      "roll_deg": -1.4952701392567838,
+      "eye_distance_px": 119.76256339575707,
+      "inner_mouth_height_over_eye_distance": 0.30903460842095865,
+      "inner_mouth_width_over_eye_distance": 0.4141188098631738,
+      "mean_eye_aperture_over_eye_distance": 0.08393952400356568,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 98,
+      "time": 3.92,
+      "eye_midpoint_full_frame_xy": [
+        956.1056911484716,
+        234.74080970122014
+      ],
+      "roll_deg": -1.6892902936124559,
+      "eye_distance_px": 119.56768653096697,
+      "inner_mouth_height_over_eye_distance": 0.3074596389397801,
+      "inner_mouth_width_over_eye_distance": 0.41201166323939226,
+      "mean_eye_aperture_over_eye_distance": 0.08678016467471854,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 99,
+      "time": 3.96,
+      "eye_midpoint_full_frame_xy": [
+        956.014036268034,
+        238.9765057211339
+      ],
+      "roll_deg": -1.1330195355134447,
+      "eye_distance_px": 119.37179611267587,
+      "inner_mouth_height_over_eye_distance": 0.09230412126494024,
+      "inner_mouth_width_over_eye_distance": 0.3565777591569286,
+      "mean_eye_aperture_over_eye_distance": 0.0950019747358631,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 100,
+      "time": 4.0,
+      "eye_midpoint_full_frame_xy": [
+        956.1757743272809,
+        239.1277652074391
+      ],
+      "roll_deg": -1.4250536104170248,
+      "eye_distance_px": 119.8159561863596,
+      "inner_mouth_height_over_eye_distance": 0.015998467062074178,
+      "inner_mouth_width_over_eye_distance": 0.3532834515114378,
+      "mean_eye_aperture_over_eye_distance": 0.08987049428888334,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 101,
+      "time": 4.04,
+      "eye_midpoint_full_frame_xy": [
+        955.7704235351398,
+        241.08485019455367
+      ],
+      "roll_deg": -1.085503029701991,
+      "eye_distance_px": 119.54728320500809,
+      "inner_mouth_height_over_eye_distance": 0.01770340426463076,
+      "inner_mouth_width_over_eye_distance": 0.35487088976527936,
+      "mean_eye_aperture_over_eye_distance": 0.09820293584685774,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 102,
+      "time": 4.08,
+      "eye_midpoint_full_frame_xy": [
+        957.1107593935378,
+        242.2805083370787
+      ],
+      "roll_deg": -1.290020999569342,
+      "eye_distance_px": 120.28187570525547,
+      "inner_mouth_height_over_eye_distance": 0.05280432774603576,
+      "inner_mouth_width_over_eye_distance": 0.3585019141719309,
+      "mean_eye_aperture_over_eye_distance": 0.09568865222165629,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 103,
+      "time": 4.12,
+      "eye_midpoint_full_frame_xy": [
+        956.8311600337737,
+        245.17328282012798
+      ],
+      "roll_deg": -1.1598151189489878,
+      "eye_distance_px": 120.88032429305292,
+      "inner_mouth_height_over_eye_distance": 0.08506400215303918,
+      "inner_mouth_width_over_eye_distance": 0.3588643169449848,
+      "mean_eye_aperture_over_eye_distance": 0.09422533651960044,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 104,
+      "time": 4.16,
+      "eye_midpoint_full_frame_xy": [
+        957.1763804409248,
+        247.45308649957477
+      ],
+      "roll_deg": -1.404906815306416,
+      "eye_distance_px": 121.25892307982024,
+      "inner_mouth_height_over_eye_distance": 0.11092742518148284,
+      "inner_mouth_width_over_eye_distance": 0.3672855527829269,
+      "mean_eye_aperture_over_eye_distance": 0.0924674854699129,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 105,
+      "time": 4.2,
+      "eye_midpoint_full_frame_xy": [
+        957.0464302477783,
+        250.74516326697824
+      ],
+      "roll_deg": -1.5275315114621877,
+      "eye_distance_px": 121.86831533709635,
+      "inner_mouth_height_over_eye_distance": 0.14979019593798962,
+      "inner_mouth_width_over_eye_distance": 0.3769786354885739,
+      "mean_eye_aperture_over_eye_distance": 0.09301558737201414,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 106,
+      "time": 4.24,
+      "eye_midpoint_full_frame_xy": [
+        956.7908228152361,
+        252.9931970870711
+      ],
+      "roll_deg": -1.982094152101315,
+      "eye_distance_px": 121.7476629838037,
+      "inner_mouth_height_over_eye_distance": 0.2228469914346157,
+      "inner_mouth_width_over_eye_distance": 0.3818045564026054,
+      "mean_eye_aperture_over_eye_distance": 0.09461747978870516,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 107,
+      "time": 4.28,
+      "eye_midpoint_full_frame_xy": [
+        956.7277260082222,
+        256.7194382546138
+      ],
+      "roll_deg": -2.1995736402640325,
+      "eye_distance_px": 121.14786328108532,
+      "inner_mouth_height_over_eye_distance": 0.2431161388911554,
+      "inner_mouth_width_over_eye_distance": 0.38081969007980143,
+      "mean_eye_aperture_over_eye_distance": 0.08881646892097972,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 108,
+      "time": 4.32,
+      "eye_midpoint_full_frame_xy": [
+        957.3591551935509,
+        260.5511190609151
+      ],
+      "roll_deg": -2.0905864736978685,
+      "eye_distance_px": 119.40037707004282,
+      "inner_mouth_height_over_eye_distance": 0.02557593523185589,
+      "inner_mouth_width_over_eye_distance": 0.34470127179822285,
+      "mean_eye_aperture_over_eye_distance": 0.057761791183609947,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 109,
+      "time": 4.36,
+      "eye_midpoint_full_frame_xy": [
+        957.0226240732107,
+        255.12490912317682
+      ],
+      "roll_deg": -2.3636033472836377,
+      "eye_distance_px": 119.5567944545356,
+      "inner_mouth_height_over_eye_distance": 0.01001076845421421,
+      "inner_mouth_width_over_eye_distance": 0.33821250161678007,
+      "mean_eye_aperture_over_eye_distance": 0.05827842511656702,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 110,
+      "time": 4.4,
+      "eye_midpoint_full_frame_xy": [
+        956.5321148216054,
+        249.71377128340293
+      ],
+      "roll_deg": -2.7022007608106153,
+      "eye_distance_px": 120.65683103754682,
+      "inner_mouth_height_over_eye_distance": 0.04143626055339234,
+      "inner_mouth_width_over_eye_distance": 0.3259146658985879,
+      "mean_eye_aperture_over_eye_distance": 0.07790925368357728,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 111,
+      "time": 4.44,
+      "eye_midpoint_full_frame_xy": [
+        957.0717699084248,
+        247.3455693402887
+      ],
+      "roll_deg": -3.0769261612287444,
+      "eye_distance_px": 120.85754087155401,
+      "inner_mouth_height_over_eye_distance": 0.05909370326527819,
+      "inner_mouth_width_over_eye_distance": 0.31870273596732146,
+      "mean_eye_aperture_over_eye_distance": 0.0780162197601513,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 112,
+      "time": 4.48,
+      "eye_midpoint_full_frame_xy": [
+        955.6615892159207,
+        244.99180526794157
+      ],
+      "roll_deg": -2.5041920613804893,
+      "eye_distance_px": 121.47460867970246,
+      "inner_mouth_height_over_eye_distance": 0.054717804027583694,
+      "inner_mouth_width_over_eye_distance": 0.31075024447533545,
+      "mean_eye_aperture_over_eye_distance": 0.0835314818799648,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 113,
+      "time": 4.52,
+      "eye_midpoint_full_frame_xy": [
+        953.7644663056049,
+        245.9046497711172
+      ],
+      "roll_deg": -2.2814979258944237,
+      "eye_distance_px": 122.5310674941255,
+      "inner_mouth_height_over_eye_distance": 0.04360318351352578,
+      "inner_mouth_width_over_eye_distance": 0.3015179418391966,
+      "mean_eye_aperture_over_eye_distance": 0.08736483228442814,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 114,
+      "time": 4.56,
+      "eye_midpoint_full_frame_xy": [
+        951.9934632264192,
+        248.89923798515028
+      ],
+      "roll_deg": -2.306552877307399,
+      "eye_distance_px": 123.06816845666266,
+      "inner_mouth_height_over_eye_distance": 0.029916707206274637,
+      "inner_mouth_width_over_eye_distance": 0.26520101467939544,
+      "mean_eye_aperture_over_eye_distance": 0.09227940894856362,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 115,
+      "time": 4.6,
+      "eye_midpoint_full_frame_xy": [
+        950.2745260036029,
+        250.86565965898941
+      ],
+      "roll_deg": -2.793379731282802,
+      "eye_distance_px": 122.9857649200923,
+      "inner_mouth_height_over_eye_distance": 0.04152320753853084,
+      "inner_mouth_width_over_eye_distance": 0.25304157460135135,
+      "mean_eye_aperture_over_eye_distance": 0.08846463914223228,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 116,
+      "time": 4.64,
+      "eye_midpoint_full_frame_xy": [
+        949.018274339384,
+        254.070821143619
+      ],
+      "roll_deg": -2.9341802354011777,
+      "eye_distance_px": 122.95835763131782,
+      "inner_mouth_height_over_eye_distance": 0.032663731576636455,
+      "inner_mouth_width_over_eye_distance": 0.25728382297229235,
+      "mean_eye_aperture_over_eye_distance": 0.0895527768704747,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 117,
+      "time": 4.68,
+      "eye_midpoint_full_frame_xy": [
+        949.6011547622932,
+        255.76570589749204
+      ],
+      "roll_deg": -2.9992122458922665,
+      "eye_distance_px": 123.2176529926239,
+      "inner_mouth_height_over_eye_distance": 0.03494315112143473,
+      "inner_mouth_width_over_eye_distance": 0.2593697444652634,
+      "mean_eye_aperture_over_eye_distance": 0.091369162458402,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 118,
+      "time": 4.72,
+      "eye_midpoint_full_frame_xy": [
+        948.8454134074709,
+        255.74890801812435
+      ],
+      "roll_deg": -3.1282067266432985,
+      "eye_distance_px": 122.8536080949967,
+      "inner_mouth_height_over_eye_distance": 0.045323597296118026,
+      "inner_mouth_width_over_eye_distance": 0.2632245415021038,
+      "mean_eye_aperture_over_eye_distance": 0.09023947183070022,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 119,
+      "time": 4.76,
+      "eye_midpoint_full_frame_xy": [
+        947.7373007429544,
+        258.72616638422784
+      ],
+      "roll_deg": -3.168975980369666,
+      "eye_distance_px": 122.62269668428651,
+      "inner_mouth_height_over_eye_distance": 0.040466067689777264,
+      "inner_mouth_width_over_eye_distance": 0.3075677897565566,
+      "mean_eye_aperture_over_eye_distance": 0.08832031090643086,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 120,
+      "time": 4.8,
+      "eye_midpoint_full_frame_xy": [
+        948.669356384515,
+        261.5225303087989
+      ],
+      "roll_deg": -2.997253890287299,
+      "eye_distance_px": 122.13111007105869,
+      "inner_mouth_height_over_eye_distance": 0.018496297347068764,
+      "inner_mouth_width_over_eye_distance": 0.31072487548856736,
+      "mean_eye_aperture_over_eye_distance": 0.09223907400761618,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 121,
+      "time": 4.84,
+      "eye_midpoint_full_frame_xy": [
+        948.1365018167804,
+        262.80119200606055
+      ],
+      "roll_deg": -2.796310284297784,
+      "eye_distance_px": 121.91230155039857,
+      "inner_mouth_height_over_eye_distance": 0.028550836836957375,
+      "inner_mouth_width_over_eye_distance": 0.31383486628272,
+      "mean_eye_aperture_over_eye_distance": 0.09037238290339243,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 122,
+      "time": 4.88,
+      "eye_midpoint_full_frame_xy": [
+        947.8195964477414,
+        263.63557410283966
+      ],
+      "roll_deg": -2.7355019985332882,
+      "eye_distance_px": 122.27340750990611,
+      "inner_mouth_height_over_eye_distance": 0.05439700237261971,
+      "inner_mouth_width_over_eye_distance": 0.31910496868083366,
+      "mean_eye_aperture_over_eye_distance": 0.09121814922541098,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 123,
+      "time": 4.92,
+      "eye_midpoint_full_frame_xy": [
+        947.9633671308591,
+        265.48904144570247
+      ],
+      "roll_deg": -2.3025737821671024,
+      "eye_distance_px": 122.32889161096404,
+      "inner_mouth_height_over_eye_distance": 0.1025771560741808,
+      "inner_mouth_width_over_eye_distance": 0.3243909981065929,
+      "mean_eye_aperture_over_eye_distance": 0.09163829387322013,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 124,
+      "time": 4.96,
+      "eye_midpoint_full_frame_xy": [
+        949.2214961568092,
+        266.5370816734659
+      ],
+      "roll_deg": -2.1485691765942816,
+      "eye_distance_px": 122.83714195365653,
+      "inner_mouth_height_over_eye_distance": 0.09398289148446268,
+      "inner_mouth_width_over_eye_distance": 0.3242329121452217,
+      "mean_eye_aperture_over_eye_distance": 0.08788124984901112,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 125,
+      "time": 5.0,
+      "eye_midpoint_full_frame_xy": [
+        949.0949971297739,
+        267.32068781137957
+      ],
+      "roll_deg": -1.898771848391884,
+      "eye_distance_px": 122.2948581580097,
+      "inner_mouth_height_over_eye_distance": 0.09035362042433767,
+      "inner_mouth_width_over_eye_distance": 0.32614470610213686,
+      "mean_eye_aperture_over_eye_distance": 0.09167917115678516,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 126,
+      "time": 5.04,
+      "eye_midpoint_full_frame_xy": [
+        949.519706051369,
+        266.9049617158828
+      ],
+      "roll_deg": -1.9547220997125343,
+      "eye_distance_px": 122.25694570888486,
+      "inner_mouth_height_over_eye_distance": 0.08101830873742841,
+      "inner_mouth_width_over_eye_distance": 0.32013657249430255,
+      "mean_eye_aperture_over_eye_distance": 0.08681263605795908,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 127,
+      "time": 5.08,
+      "eye_midpoint_full_frame_xy": [
+        949.3593531216986,
+        268.4465229179758
+      ],
+      "roll_deg": -2.0872782093822972,
+      "eye_distance_px": 122.52159069877314,
+      "inner_mouth_height_over_eye_distance": 0.09019682929152247,
+      "inner_mouth_width_over_eye_distance": 0.322073183654329,
+      "mean_eye_aperture_over_eye_distance": 0.09241308043434111,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 128,
+      "time": 5.12,
+      "eye_midpoint_full_frame_xy": [
+        949.7310566265855,
+        268.037443955144
+      ],
+      "roll_deg": -1.9613893438496197,
+      "eye_distance_px": 122.78412562017945,
+      "inner_mouth_height_over_eye_distance": 0.09446453247705584,
+      "inner_mouth_width_over_eye_distance": 0.3242693602599515,
+      "mean_eye_aperture_over_eye_distance": 0.09094201620629117,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 129,
+      "time": 5.16,
+      "eye_midpoint_full_frame_xy": [
+        949.3113389797284,
+        268.28222106638634
+      ],
+      "roll_deg": -2.067838857504133,
+      "eye_distance_px": 122.85981803933558,
+      "inner_mouth_height_over_eye_distance": 0.09815447398442072,
+      "inner_mouth_width_over_eye_distance": 0.32048696512459796,
+      "mean_eye_aperture_over_eye_distance": 0.08942729905161934,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 130,
+      "time": 5.2,
+      "eye_midpoint_full_frame_xy": [
+        948.5375371927731,
+        267.5292312473565
+      ],
+      "roll_deg": -1.951320203713841,
+      "eye_distance_px": 122.71879868423247,
+      "inner_mouth_height_over_eye_distance": 0.09027523514756274,
+      "inner_mouth_width_over_eye_distance": 0.32093015824613985,
+      "mean_eye_aperture_over_eye_distance": 0.08938011085175959,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 131,
+      "time": 5.24,
+      "eye_midpoint_full_frame_xy": [
+        948.3994600945405,
+        268.32226731021
+      ],
+      "roll_deg": -1.8978806974886366,
+      "eye_distance_px": 122.2126177448005,
+      "inner_mouth_height_over_eye_distance": 0.09066561620619598,
+      "inner_mouth_width_over_eye_distance": 0.3210690806066221,
+      "mean_eye_aperture_over_eye_distance": 0.09261200707745025,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 132,
+      "time": 5.28,
+      "eye_midpoint_full_frame_xy": [
+        948.5076071072451,
+        267.9182960196871
+      ],
+      "roll_deg": -1.840857781754589,
+      "eye_distance_px": 122.19576603539399,
+      "inner_mouth_height_over_eye_distance": 0.08143935135927148,
+      "inner_mouth_width_over_eye_distance": 0.32128663726998735,
+      "mean_eye_aperture_over_eye_distance": 0.0933441904550778,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 133,
+      "time": 5.32,
+      "eye_midpoint_full_frame_xy": [
+        949.1063095200052,
+        267.1243398089424
+      ],
+      "roll_deg": -1.9196218554048947,
+      "eye_distance_px": 122.43173915183125,
+      "inner_mouth_height_over_eye_distance": 0.0630932885463942,
+      "inner_mouth_width_over_eye_distance": 0.3207403704180373,
+      "mean_eye_aperture_over_eye_distance": 0.09016978544788903,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 134,
+      "time": 5.36,
+      "eye_midpoint_full_frame_xy": [
+        949.0694656826713,
+        267.46370280068527
+      ],
+      "roll_deg": -2.0319401298118036,
+      "eye_distance_px": 122.65828189601788,
+      "inner_mouth_height_over_eye_distance": 0.02366723256491773,
+      "inner_mouth_width_over_eye_distance": 0.3131921421590621,
+      "mean_eye_aperture_over_eye_distance": 0.0876142818913495,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 135,
+      "time": 5.4,
+      "eye_midpoint_full_frame_xy": [
+        949.18567212417,
+        267.6440101053159
+      ],
+      "roll_deg": -2.026257816756027,
+      "eye_distance_px": 122.24870664604997,
+      "inner_mouth_height_over_eye_distance": 0.020935946888238136,
+      "inner_mouth_width_over_eye_distance": 0.3177199633687212,
+      "mean_eye_aperture_over_eye_distance": 0.09001450116222647,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 136,
+      "time": 5.44,
+      "eye_midpoint_full_frame_xy": [
+        949.1060595147853,
+        266.7519517812634
+      ],
+      "roll_deg": -2.1420723329924387,
+      "eye_distance_px": 121.60906890013202,
+      "inner_mouth_height_over_eye_distance": 0.020441511859173464,
+      "inner_mouth_width_over_eye_distance": 0.32237065423770883,
+      "mean_eye_aperture_over_eye_distance": 0.08950306448714876,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 137,
+      "time": 5.48,
+      "eye_midpoint_full_frame_xy": [
+        948.3475361123369,
+        267.1283342830109
+      ],
+      "roll_deg": -2.1269544793209745,
+      "eye_distance_px": 121.89481953485844,
+      "inner_mouth_height_over_eye_distance": 0.021771428948349623,
+      "inner_mouth_width_over_eye_distance": 0.32264100897067916,
+      "mean_eye_aperture_over_eye_distance": 0.09103730642988246,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 138,
+      "time": 5.52,
+      "eye_midpoint_full_frame_xy": [
+        947.8869725200877,
+        267.2605108618907
+      ],
+      "roll_deg": -2.1357918931734066,
+      "eye_distance_px": 121.4753411132298,
+      "inner_mouth_height_over_eye_distance": 0.02430411873288612,
+      "inner_mouth_width_over_eye_distance": 0.32307751150901776,
+      "mean_eye_aperture_over_eye_distance": 0.09052610092331044,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "Q",
+      "frame": 139,
+      "time": 5.56,
+      "eye_midpoint_full_frame_xy": [
+        948.1567106072209,
+        267.5740738536825
+      ],
+      "roll_deg": -2.183009908515574,
+      "eye_distance_px": 121.76674480596394,
+      "inner_mouth_height_over_eye_distance": 0.021613265299668567,
+      "inner_mouth_width_over_eye_distance": 0.3250016291605446,
+      "mean_eye_aperture_over_eye_distance": 0.09269707048940568,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 0,
+      "time": 0.0,
+      "eye_midpoint_full_frame_xy": [
+        948.0710697892098,
+        254.02533020742473
+      ],
+      "roll_deg": -2.2098118592855833,
+      "eye_distance_px": 121.07097813892305,
+      "inner_mouth_height_over_eye_distance": 0.2764099622512407,
+      "inner_mouth_width_over_eye_distance": 0.3518892363550869,
+      "mean_eye_aperture_over_eye_distance": 0.09336223551348702,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 1,
+      "time": 0.04,
+      "eye_midpoint_full_frame_xy": [
+        948.7316426582782,
+        253.55289687730743
+      ],
+      "roll_deg": -2.546545223664358,
+      "eye_distance_px": 121.03618818142066,
+      "inner_mouth_height_over_eye_distance": 0.2647475609941017,
+      "inner_mouth_width_over_eye_distance": 0.35097802870912875,
+      "mean_eye_aperture_over_eye_distance": 0.09450898919854035,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 2,
+      "time": 0.08,
+      "eye_midpoint_full_frame_xy": [
+        948.9271651070701,
+        252.67556328704268
+      ],
+      "roll_deg": -2.493058400441682,
+      "eye_distance_px": 120.89303713196017,
+      "inner_mouth_height_over_eye_distance": 0.18603746142320696,
+      "inner_mouth_width_over_eye_distance": 0.3309986631944999,
+      "mean_eye_aperture_over_eye_distance": 0.09655063626423252,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 3,
+      "time": 0.12,
+      "eye_midpoint_full_frame_xy": [
+        948.6956659155694,
+        253.0284978617372
+      ],
+      "roll_deg": -2.5100033459212603,
+      "eye_distance_px": 121.87855110714968,
+      "inner_mouth_height_over_eye_distance": 0.06569347945048906,
+      "inner_mouth_width_over_eye_distance": 0.303597219759714,
+      "mean_eye_aperture_over_eye_distance": 0.09754397184842079,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 4,
+      "time": 0.16,
+      "eye_midpoint_full_frame_xy": [
+        948.4971031905425,
+        252.88061141023343
+      ],
+      "roll_deg": -2.0563100648631245,
+      "eye_distance_px": 122.42058144065196,
+      "inner_mouth_height_over_eye_distance": 0.026379249250179843,
+      "inner_mouth_width_over_eye_distance": 0.2701759127302699,
+      "mean_eye_aperture_over_eye_distance": 0.1031959117594582,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 5,
+      "time": 0.2,
+      "eye_midpoint_full_frame_xy": [
+        949.8338993648538,
+        252.9067542202809
+      ],
+      "roll_deg": -2.268131317437475,
+      "eye_distance_px": 122.54855446420578,
+      "inner_mouth_height_over_eye_distance": 0.03448105263452846,
+      "inner_mouth_width_over_eye_distance": 0.2612831347600841,
+      "mean_eye_aperture_over_eye_distance": 0.10342047158902934,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 6,
+      "time": 0.24,
+      "eye_midpoint_full_frame_xy": [
+        949.9842715839909,
+        251.92205922923353
+      ],
+      "roll_deg": -2.410817497427199,
+      "eye_distance_px": 122.2845415360542,
+      "inner_mouth_height_over_eye_distance": 0.03581258564291957,
+      "inner_mouth_width_over_eye_distance": 0.26167708010614865,
+      "mean_eye_aperture_over_eye_distance": 0.10324111324444615,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 7,
+      "time": 0.28,
+      "eye_midpoint_full_frame_xy": [
+        948.9179861535267,
+        252.79547963224616
+      ],
+      "roll_deg": -2.2653728732214393,
+      "eye_distance_px": 122.0949447475343,
+      "inner_mouth_height_over_eye_distance": 0.034526633934507354,
+      "inner_mouth_width_over_eye_distance": 0.26639331799218613,
+      "mean_eye_aperture_over_eye_distance": 0.10783037909590695,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 8,
+      "time": 0.32,
+      "eye_midpoint_full_frame_xy": [
+        949.1837654577512,
+        252.60943414794622
+      ],
+      "roll_deg": -2.136330997169145,
+      "eye_distance_px": 121.33723021392042,
+      "inner_mouth_height_over_eye_distance": 0.013935353781281917,
+      "inner_mouth_width_over_eye_distance": 0.2892220040245144,
+      "mean_eye_aperture_over_eye_distance": 0.09473024911024244,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 9,
+      "time": 0.36,
+      "eye_midpoint_full_frame_xy": [
+        948.7032237499028,
+        252.29403143947735
+      ],
+      "roll_deg": -2.3164841871635713,
+      "eye_distance_px": 121.85905718313826,
+      "inner_mouth_height_over_eye_distance": 0.015070679202882499,
+      "inner_mouth_width_over_eye_distance": 0.2994454154872168,
+      "mean_eye_aperture_over_eye_distance": 0.0952234968813969,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 10,
+      "time": 0.4,
+      "eye_midpoint_full_frame_xy": [
+        947.8472323892283,
+        252.7133586567723
+      ],
+      "roll_deg": -2.2715211923395238,
+      "eye_distance_px": 121.63725957182555,
+      "inner_mouth_height_over_eye_distance": 0.061016825720572494,
+      "inner_mouth_width_over_eye_distance": 0.32215882527029055,
+      "mean_eye_aperture_over_eye_distance": 0.09280732858378352,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 11,
+      "time": 0.44,
+      "eye_midpoint_full_frame_xy": [
+        949.6803399627232,
+        252.11496202985404
+      ],
+      "roll_deg": -2.2565376894777596,
+      "eye_distance_px": 121.69434081727921,
+      "inner_mouth_height_over_eye_distance": 0.1491246776419521,
+      "inner_mouth_width_over_eye_distance": 0.3420221596058395,
+      "mean_eye_aperture_over_eye_distance": 0.09384026576307235,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 12,
+      "time": 0.48,
+      "eye_midpoint_full_frame_xy": [
+        949.3093897720663,
+        252.16669145915847
+      ],
+      "roll_deg": -2.5504040566743957,
+      "eye_distance_px": 121.77270385272236,
+      "inner_mouth_height_over_eye_distance": 0.15381912604986994,
+      "inner_mouth_width_over_eye_distance": 0.34331951853817894,
+      "mean_eye_aperture_over_eye_distance": 0.09364330170454738,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 13,
+      "time": 0.52,
+      "eye_midpoint_full_frame_xy": [
+        949.1619973576155,
+        251.13145666914846
+      ],
+      "roll_deg": -2.124399158796135,
+      "eye_distance_px": 121.01644878089644,
+      "inner_mouth_height_over_eye_distance": 0.09854073604474654,
+      "inner_mouth_width_over_eye_distance": 0.33863396526096234,
+      "mean_eye_aperture_over_eye_distance": 0.09296780335561296,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 14,
+      "time": 0.56,
+      "eye_midpoint_full_frame_xy": [
+        950.3905807097466,
+        250.4315753232605
+      ],
+      "roll_deg": -2.307498816460494,
+      "eye_distance_px": 121.8111687139014,
+      "inner_mouth_height_over_eye_distance": 0.08780026482362531,
+      "inner_mouth_width_over_eye_distance": 0.3326612048652695,
+      "mean_eye_aperture_over_eye_distance": 0.09335675906650995,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 15,
+      "time": 0.6,
+      "eye_midpoint_full_frame_xy": [
+        949.6540720090716,
+        250.7518407327368
+      ],
+      "roll_deg": -2.315045822730264,
+      "eye_distance_px": 121.5617348247749,
+      "inner_mouth_height_over_eye_distance": 0.06402960682882265,
+      "inner_mouth_width_over_eye_distance": 0.31851053330350226,
+      "mean_eye_aperture_over_eye_distance": 0.0893511270191127,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 16,
+      "time": 0.64,
+      "eye_midpoint_full_frame_xy": [
+        950.7100913408538,
+        251.11155999955258
+      ],
+      "roll_deg": -2.357817454335229,
+      "eye_distance_px": 121.75285471358896,
+      "inner_mouth_height_over_eye_distance": 0.058664284891380744,
+      "inner_mouth_width_over_eye_distance": 0.30830904914557034,
+      "mean_eye_aperture_over_eye_distance": 0.09629246565174862,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 17,
+      "time": 0.68,
+      "eye_midpoint_full_frame_xy": [
+        951.0750439219879,
+        251.15546703555447
+      ],
+      "roll_deg": -2.247774505983351,
+      "eye_distance_px": 121.54602634815502,
+      "inner_mouth_height_over_eye_distance": 0.06016104016856603,
+      "inner_mouth_width_over_eye_distance": 0.3042459055270034,
+      "mean_eye_aperture_over_eye_distance": 0.09414690406010623,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 18,
+      "time": 0.72,
+      "eye_midpoint_full_frame_xy": [
+        952.062366227487,
+        251.59564828054528
+      ],
+      "roll_deg": -1.9394637448498646,
+      "eye_distance_px": 121.77901479106048,
+      "inner_mouth_height_over_eye_distance": 0.05630287449654924,
+      "inner_mouth_width_over_eye_distance": 0.2954286146056323,
+      "mean_eye_aperture_over_eye_distance": 0.09599004085933117,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 19,
+      "time": 0.76,
+      "eye_midpoint_full_frame_xy": [
+        952.2696902820155,
+        252.13688841304423
+      ],
+      "roll_deg": -1.8006413197483921,
+      "eye_distance_px": 121.18007012507898,
+      "inner_mouth_height_over_eye_distance": 0.04761901163081006,
+      "inner_mouth_width_over_eye_distance": 0.28828348752213234,
+      "mean_eye_aperture_over_eye_distance": 0.09674084987229341,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 20,
+      "time": 0.8,
+      "eye_midpoint_full_frame_xy": [
+        951.8913582687774,
+        252.8464121639842
+      ],
+      "roll_deg": -1.7371913767366314,
+      "eye_distance_px": 121.20619004149641,
+      "inner_mouth_height_over_eye_distance": 0.04952129054163534,
+      "inner_mouth_width_over_eye_distance": 0.2766845192542096,
+      "mean_eye_aperture_over_eye_distance": 0.09835596881672468,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 21,
+      "time": 0.84,
+      "eye_midpoint_full_frame_xy": [
+        953.4116059137359,
+        252.14571967007612
+      ],
+      "roll_deg": -1.9319432614959775,
+      "eye_distance_px": 121.59415715855708,
+      "inner_mouth_height_over_eye_distance": 0.053142889075139164,
+      "inner_mouth_width_over_eye_distance": 0.27232032797873484,
+      "mean_eye_aperture_over_eye_distance": 0.09396022779039193,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 22,
+      "time": 0.88,
+      "eye_midpoint_full_frame_xy": [
+        952.9152787073913,
+        251.49739314750036
+      ],
+      "roll_deg": -2.126733608622114,
+      "eye_distance_px": 122.28987215898218,
+      "inner_mouth_height_over_eye_distance": 0.036821984926833175,
+      "inner_mouth_width_over_eye_distance": 0.26892983920519936,
+      "mean_eye_aperture_over_eye_distance": 0.09471501707457586,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 23,
+      "time": 0.92,
+      "eye_midpoint_full_frame_xy": [
+        952.6729231703958,
+        259.5242633084606
+      ],
+      "roll_deg": -1.564082398569171,
+      "eye_distance_px": 122.95353923850715,
+      "inner_mouth_height_over_eye_distance": 0.04872703798297472,
+      "inner_mouth_width_over_eye_distance": 0.26064272633363533,
+      "mean_eye_aperture_over_eye_distance": 0.10891288351097794,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 24,
+      "time": 0.96,
+      "eye_midpoint_full_frame_xy": [
+        951.5251681809058,
+        260.9621836095047
+      ],
+      "roll_deg": -2.279485311516057,
+      "eye_distance_px": 122.17163294753661,
+      "inner_mouth_height_over_eye_distance": 0.10974644787623075,
+      "inner_mouth_width_over_eye_distance": 0.2778710461861859,
+      "mean_eye_aperture_over_eye_distance": 0.10094482047708954,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 25,
+      "time": 1.0,
+      "eye_midpoint_full_frame_xy": [
+        950.7319055361722,
+        261.71095513717194
+      ],
+      "roll_deg": -2.0714900226902118,
+      "eye_distance_px": 121.74058618016183,
+      "inner_mouth_height_over_eye_distance": 0.2075929668604161,
+      "inner_mouth_width_over_eye_distance": 0.3287405743939859,
+      "mean_eye_aperture_over_eye_distance": 0.09900364480160334,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 26,
+      "time": 1.04,
+      "eye_midpoint_full_frame_xy": [
+        951.1304435848896,
+        260.52594797781404
+      ],
+      "roll_deg": -2.5789151513633763,
+      "eye_distance_px": 121.57874087709884,
+      "inner_mouth_height_over_eye_distance": 0.2175180957673744,
+      "inner_mouth_width_over_eye_distance": 0.3350290315267619,
+      "mean_eye_aperture_over_eye_distance": 0.10076452858497183,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 27,
+      "time": 1.08,
+      "eye_midpoint_full_frame_xy": [
+        950.1850934218828,
+        259.13375726119955
+      ],
+      "roll_deg": -2.7320990932047367,
+      "eye_distance_px": 123.09570479866804,
+      "inner_mouth_height_over_eye_distance": 0.13461095685850816,
+      "inner_mouth_width_over_eye_distance": 0.3020603949436525,
+      "mean_eye_aperture_over_eye_distance": 0.09595183521395716,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 28,
+      "time": 1.12,
+      "eye_midpoint_full_frame_xy": [
+        949.8228491175265,
+        256.77453066597786
+      ],
+      "roll_deg": -2.760839263555796,
+      "eye_distance_px": 122.27827939444661,
+      "inner_mouth_height_over_eye_distance": 0.03158978124815281,
+      "inner_mouth_width_over_eye_distance": 0.26629368724787184,
+      "mean_eye_aperture_over_eye_distance": 0.10469800800249764,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 29,
+      "time": 1.16,
+      "eye_midpoint_full_frame_xy": [
+        950.1055524354199,
+        256.5438386847829
+      ],
+      "roll_deg": -2.6421960034138126,
+      "eye_distance_px": 121.91690511087202,
+      "inner_mouth_height_over_eye_distance": 0.021944504728353454,
+      "inner_mouth_width_over_eye_distance": 0.27237838909204254,
+      "mean_eye_aperture_over_eye_distance": 0.10207913522116122,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 30,
+      "time": 1.2,
+      "eye_midpoint_full_frame_xy": [
+        949.2796697503213,
+        256.9893026252993
+      ],
+      "roll_deg": -2.638916290314097,
+      "eye_distance_px": 122.30490431561353,
+      "inner_mouth_height_over_eye_distance": 0.048210363119256895,
+      "inner_mouth_width_over_eye_distance": 0.2882452288169008,
+      "mean_eye_aperture_over_eye_distance": 0.1022293485595921,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 31,
+      "time": 1.24,
+      "eye_midpoint_full_frame_xy": [
+        950.0610692884782,
+        257.39313526715443
+      ],
+      "roll_deg": -2.4800368476127113,
+      "eye_distance_px": 122.57687090221575,
+      "inner_mouth_height_over_eye_distance": 0.06910455862992934,
+      "inner_mouth_width_over_eye_distance": 0.30759610021191847,
+      "mean_eye_aperture_over_eye_distance": 0.10221686515518237,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 32,
+      "time": 1.28,
+      "eye_midpoint_full_frame_xy": [
+        950.4727129819364,
+        257.0464768918339
+      ],
+      "roll_deg": -2.4987891378730063,
+      "eye_distance_px": 123.11185016351732,
+      "inner_mouth_height_over_eye_distance": 0.07268939496681348,
+      "inner_mouth_width_over_eye_distance": 0.30165900262667195,
+      "mean_eye_aperture_over_eye_distance": 0.10420135582621018,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 33,
+      "time": 1.32,
+      "eye_midpoint_full_frame_xy": [
+        950.3548908518494,
+        257.08104754278736
+      ],
+      "roll_deg": -2.4913876961469335,
+      "eye_distance_px": 122.5861631061039,
+      "inner_mouth_height_over_eye_distance": 0.062409670800041554,
+      "inner_mouth_width_over_eye_distance": 0.2921624349108689,
+      "mean_eye_aperture_over_eye_distance": 0.09854869991150697,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 34,
+      "time": 1.36,
+      "eye_midpoint_full_frame_xy": [
+        949.2629768390881,
+        256.9308902187252
+      ],
+      "roll_deg": -2.320439102636309,
+      "eye_distance_px": 122.60064248571777,
+      "inner_mouth_height_over_eye_distance": 0.0641866103974908,
+      "inner_mouth_width_over_eye_distance": 0.2827142955395423,
+      "mean_eye_aperture_over_eye_distance": 0.0979106156753961,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 35,
+      "time": 1.4,
+      "eye_midpoint_full_frame_xy": [
+        949.4763311179404,
+        257.1892922810302
+      ],
+      "roll_deg": -2.4723129630329828,
+      "eye_distance_px": 121.7092475007343,
+      "inner_mouth_height_over_eye_distance": 0.06233574952050953,
+      "inner_mouth_width_over_eye_distance": 0.27871633481513153,
+      "mean_eye_aperture_over_eye_distance": 0.09707203922009279,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 36,
+      "time": 1.44,
+      "eye_midpoint_full_frame_xy": [
+        949.3367235187695,
+        257.04699668392186
+      ],
+      "roll_deg": -2.706131849904655,
+      "eye_distance_px": 122.3676134737375,
+      "inner_mouth_height_over_eye_distance": 0.058996093861390535,
+      "inner_mouth_width_over_eye_distance": 0.26802796954729385,
+      "mean_eye_aperture_over_eye_distance": 0.09464400827479423,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 37,
+      "time": 1.48,
+      "eye_midpoint_full_frame_xy": [
+        950.3879530871889,
+        256.35779541223854
+      ],
+      "roll_deg": -2.584547803406331,
+      "eye_distance_px": 121.91951145061368,
+      "inner_mouth_height_over_eye_distance": 0.04460226973684193,
+      "inner_mouth_width_over_eye_distance": 0.2649509718338934,
+      "mean_eye_aperture_over_eye_distance": 0.09594738402982336,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 38,
+      "time": 1.52,
+      "eye_midpoint_full_frame_xy": [
+        950.0926013933137,
+        256.9322430713782
+      ],
+      "roll_deg": -2.738825254353202,
+      "eye_distance_px": 122.23558331554877,
+      "inner_mouth_height_over_eye_distance": 0.04265946146892945,
+      "inner_mouth_width_over_eye_distance": 0.26312590925634444,
+      "mean_eye_aperture_over_eye_distance": 0.09662058460367756,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 39,
+      "time": 1.56,
+      "eye_midpoint_full_frame_xy": [
+        950.0953422446885,
+        256.9818551730943
+      ],
+      "roll_deg": -2.466962859978679,
+      "eye_distance_px": 122.21415072251013,
+      "inner_mouth_height_over_eye_distance": 0.04628545593806567,
+      "inner_mouth_width_over_eye_distance": 0.2702220685922281,
+      "mean_eye_aperture_over_eye_distance": 0.0984047345770988,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 40,
+      "time": 1.6,
+      "eye_midpoint_full_frame_xy": [
+        948.7808608111318,
+        256.1240219439007
+      ],
+      "roll_deg": -2.602640958103733,
+      "eye_distance_px": 122.39631518843102,
+      "inner_mouth_height_over_eye_distance": 0.12264943880930645,
+      "inner_mouth_width_over_eye_distance": 0.28762002704208073,
+      "mean_eye_aperture_over_eye_distance": 0.08824287509222455,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 41,
+      "time": 1.64,
+      "eye_midpoint_full_frame_xy": [
+        949.2020377590693,
+        257.1653327105403
+      ],
+      "roll_deg": -2.2210473902215724,
+      "eye_distance_px": 120.4717381608177,
+      "inner_mouth_height_over_eye_distance": 0.20144823198688522,
+      "inner_mouth_width_over_eye_distance": 0.32073324569154693,
+      "mean_eye_aperture_over_eye_distance": 0.06957665185385342,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 42,
+      "time": 1.68,
+      "eye_midpoint_full_frame_xy": [
+        948.5030476516425,
+        256.8382310372283
+      ],
+      "roll_deg": -2.3151742142379175,
+      "eye_distance_px": 120.53159882948846,
+      "inner_mouth_height_over_eye_distance": 0.09579861960361824,
+      "inner_mouth_width_over_eye_distance": 0.3126007307744688,
+      "mean_eye_aperture_over_eye_distance": 0.07121705353047411,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 43,
+      "time": 1.72,
+      "eye_midpoint_full_frame_xy": [
+        949.1470459100854,
+        255.0932552410107
+      ],
+      "roll_deg": -2.800940854463426,
+      "eye_distance_px": 120.42508254533672,
+      "inner_mouth_height_over_eye_distance": 0.014433949219726648,
+      "inner_mouth_width_over_eye_distance": 0.3011961919965383,
+      "mean_eye_aperture_over_eye_distance": 0.07643166670607768,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 44,
+      "time": 1.76,
+      "eye_midpoint_full_frame_xy": [
+        948.6760596193653,
+        255.48449353975295
+      ],
+      "roll_deg": -2.459353796769279,
+      "eye_distance_px": 121.04363175389184,
+      "inner_mouth_height_over_eye_distance": 0.024367084038287485,
+      "inner_mouth_width_over_eye_distance": 0.30931813268770536,
+      "mean_eye_aperture_over_eye_distance": 0.08377327636544857,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 45,
+      "time": 1.8,
+      "eye_midpoint_full_frame_xy": [
+        948.4970655564202,
+        253.9205845480818
+      ],
+      "roll_deg": -2.5419283648817665,
+      "eye_distance_px": 121.33939861954777,
+      "inner_mouth_height_over_eye_distance": 0.1445611593815232,
+      "inner_mouth_width_over_eye_distance": 0.32180075737914887,
+      "mean_eye_aperture_over_eye_distance": 0.08822800841790857,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 46,
+      "time": 1.84,
+      "eye_midpoint_full_frame_xy": [
+        947.6366365106053,
+        254.15235903353835
+      ],
+      "roll_deg": -2.4696937710077203,
+      "eye_distance_px": 121.66520649836067,
+      "inner_mouth_height_over_eye_distance": 0.07864054832433863,
+      "inner_mouth_width_over_eye_distance": 0.3221013623357293,
+      "mean_eye_aperture_over_eye_distance": 0.0909720589890959,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 47,
+      "time": 1.88,
+      "eye_midpoint_full_frame_xy": [
+        948.8153352434476,
+        253.90144894793465
+      ],
+      "roll_deg": -2.672560639625722,
+      "eye_distance_px": 120.96980297539356,
+      "inner_mouth_height_over_eye_distance": 0.010234003674719732,
+      "inner_mouth_width_over_eye_distance": 0.31517948562535686,
+      "mean_eye_aperture_over_eye_distance": 0.09575038659648406,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 48,
+      "time": 1.92,
+      "eye_midpoint_full_frame_xy": [
+        949.8085811583575,
+        252.58247057606823
+      ],
+      "roll_deg": -2.545129206676432,
+      "eye_distance_px": 121.38844038942608,
+      "inner_mouth_height_over_eye_distance": 0.008898299067434489,
+      "inner_mouth_width_over_eye_distance": 0.3123502720609568,
+      "mean_eye_aperture_over_eye_distance": 0.09161547363965769,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 49,
+      "time": 1.96,
+      "eye_midpoint_full_frame_xy": [
+        948.3947506381782,
+        252.12570794470975
+      ],
+      "roll_deg": -2.571671144912606,
+      "eye_distance_px": 121.30219534285106,
+      "inner_mouth_height_over_eye_distance": 0.07121570302844978,
+      "inner_mouth_width_over_eye_distance": 0.30705700582956436,
+      "mean_eye_aperture_over_eye_distance": 0.0915755504679287,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 50,
+      "time": 2.0,
+      "eye_midpoint_full_frame_xy": [
+        948.9908762515272,
+        252.50067859580528
+      ],
+      "roll_deg": -2.551890986435367,
+      "eye_distance_px": 121.50375576599563,
+      "inner_mouth_height_over_eye_distance": 0.18851184396354287,
+      "inner_mouth_width_over_eye_distance": 0.3246541294915133,
+      "mean_eye_aperture_over_eye_distance": 0.08905883580899904,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 51,
+      "time": 2.04,
+      "eye_midpoint_full_frame_xy": [
+        948.2551540835882,
+        252.40705488026026
+      ],
+      "roll_deg": -2.4789956193119385,
+      "eye_distance_px": 121.40154238157089,
+      "inner_mouth_height_over_eye_distance": 0.16743824790950987,
+      "inner_mouth_width_over_eye_distance": 0.32641022325651353,
+      "mean_eye_aperture_over_eye_distance": 0.08336511640982977,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 52,
+      "time": 2.08,
+      "eye_midpoint_full_frame_xy": [
+        947.940900953584,
+        254.14225400882071
+      ],
+      "roll_deg": -3.0140053663597564,
+      "eye_distance_px": 120.83436415714155,
+      "inner_mouth_height_over_eye_distance": 0.0848423251546049,
+      "inner_mouth_width_over_eye_distance": 0.3157229915408703,
+      "mean_eye_aperture_over_eye_distance": 0.06915890222750831,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 53,
+      "time": 2.12,
+      "eye_midpoint_full_frame_xy": [
+        946.4757487859879,
+        256.1546685216589
+      ],
+      "roll_deg": -3.214626074056679,
+      "eye_distance_px": 120.7984536289766,
+      "inner_mouth_height_over_eye_distance": 0.05988606091117844,
+      "inner_mouth_width_over_eye_distance": 0.28701393518352547,
+      "mean_eye_aperture_over_eye_distance": 0.06886902636157609,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 54,
+      "time": 2.16,
+      "eye_midpoint_full_frame_xy": [
+        947.4297387669421,
+        256.8759672147094
+      ],
+      "roll_deg": -2.935273370925044,
+      "eye_distance_px": 120.78489505162199,
+      "inner_mouth_height_over_eye_distance": 0.0439466214636767,
+      "inner_mouth_width_over_eye_distance": 0.27913946339170226,
+      "mean_eye_aperture_over_eye_distance": 0.07596818145220796,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 55,
+      "time": 2.2,
+      "eye_midpoint_full_frame_xy": [
+        947.7261213191334,
+        256.6530687646158
+      ],
+      "roll_deg": -2.532488954419016,
+      "eye_distance_px": 122.94864677641938,
+      "inner_mouth_height_over_eye_distance": 0.03464591619987503,
+      "inner_mouth_width_over_eye_distance": 0.26898439323426615,
+      "mean_eye_aperture_over_eye_distance": 0.07856773852589709,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 56,
+      "time": 2.24,
+      "eye_midpoint_full_frame_xy": [
+        948.7876468207687,
+        256.5297725872297
+      ],
+      "roll_deg": -2.474687303616935,
+      "eye_distance_px": 121.54328183649194,
+      "inner_mouth_height_over_eye_distance": 0.018934536740882205,
+      "inner_mouth_width_over_eye_distance": 0.2719098011030638,
+      "mean_eye_aperture_over_eye_distance": 0.08073145945019598,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 57,
+      "time": 2.28,
+      "eye_midpoint_full_frame_xy": [
+        949.0842824128101,
+        257.59368560352294
+      ],
+      "roll_deg": -2.497304613897411,
+      "eye_distance_px": 121.95476718930561,
+      "inner_mouth_height_over_eye_distance": 0.013822472147983772,
+      "inner_mouth_width_over_eye_distance": 0.2861997777510214,
+      "mean_eye_aperture_over_eye_distance": 0.08481766401503639,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 58,
+      "time": 2.32,
+      "eye_midpoint_full_frame_xy": [
+        948.05690771827,
+        256.45338736893746
+      ],
+      "roll_deg": -2.3788472029074614,
+      "eye_distance_px": 121.58431172326276,
+      "inner_mouth_height_over_eye_distance": 0.018554557375761397,
+      "inner_mouth_width_over_eye_distance": 0.30256905447525156,
+      "mean_eye_aperture_over_eye_distance": 0.0781873169133135,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 59,
+      "time": 2.36,
+      "eye_midpoint_full_frame_xy": [
+        948.6001452333129,
+        257.5638374721738
+      ],
+      "roll_deg": -2.176227101962424,
+      "eye_distance_px": 121.93590234025962,
+      "inner_mouth_height_over_eye_distance": 0.026668100249298096,
+      "inner_mouth_width_over_eye_distance": 0.3165870378253846,
+      "mean_eye_aperture_over_eye_distance": 0.08252580059715933,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 60,
+      "time": 2.4,
+      "eye_midpoint_full_frame_xy": [
+        948.9615976949203,
+        257.5103385815296
+      ],
+      "roll_deg": -1.9781230930359144,
+      "eye_distance_px": 121.42913340074072,
+      "inner_mouth_height_over_eye_distance": 0.06960113991043908,
+      "inner_mouth_width_over_eye_distance": 0.3212490846187324,
+      "mean_eye_aperture_over_eye_distance": 0.08618106122535474,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 61,
+      "time": 2.44,
+      "eye_midpoint_full_frame_xy": [
+        949.1054705130416,
+        257.8467605719483
+      ],
+      "roll_deg": -2.2064019150436915,
+      "eye_distance_px": 122.10306993865197,
+      "inner_mouth_height_over_eye_distance": 0.0917657863632019,
+      "inner_mouth_width_over_eye_distance": 0.31615420307465003,
+      "mean_eye_aperture_over_eye_distance": 0.09080848875543052,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 62,
+      "time": 2.48,
+      "eye_midpoint_full_frame_xy": [
+        949.1128044042573,
+        258.10487418705
+      ],
+      "roll_deg": -2.1639893991092984,
+      "eye_distance_px": 122.27786910849693,
+      "inner_mouth_height_over_eye_distance": 0.11123407913023015,
+      "inner_mouth_width_over_eye_distance": 0.3159231807204307,
+      "mean_eye_aperture_over_eye_distance": 0.08939770321214922,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 63,
+      "time": 2.52,
+      "eye_midpoint_full_frame_xy": [
+        949.8215663085268,
+        257.5545478566971
+      ],
+      "roll_deg": -2.0821428649785543,
+      "eye_distance_px": 122.65040426952986,
+      "inner_mouth_height_over_eye_distance": 0.11798632228251983,
+      "inner_mouth_width_over_eye_distance": 0.3163701870540596,
+      "mean_eye_aperture_over_eye_distance": 0.08745968027076666,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 64,
+      "time": 2.56,
+      "eye_midpoint_full_frame_xy": [
+        949.5527104621856,
+        257.2459922655246
+      ],
+      "roll_deg": -2.1978774662898717,
+      "eye_distance_px": 122.09612581536092,
+      "inner_mouth_height_over_eye_distance": 0.1124791162740498,
+      "inner_mouth_width_over_eye_distance": 0.31393657258539265,
+      "mean_eye_aperture_over_eye_distance": 0.08784857857573775,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 65,
+      "time": 2.6,
+      "eye_midpoint_full_frame_xy": [
+        950.294916385983,
+        257.72145620862324
+      ],
+      "roll_deg": -2.2558405996884643,
+      "eye_distance_px": 122.20459625103753,
+      "inner_mouth_height_over_eye_distance": 0.11204360208115213,
+      "inner_mouth_width_over_eye_distance": 0.31506034464909416,
+      "mean_eye_aperture_over_eye_distance": 0.08898309500056056,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 66,
+      "time": 2.64,
+      "eye_midpoint_full_frame_xy": [
+        950.0998252068323,
+        257.89828700726196
+      ],
+      "roll_deg": -2.1527090403589697,
+      "eye_distance_px": 122.00415680189845,
+      "inner_mouth_height_over_eye_distance": 0.11146670514711143,
+      "inner_mouth_width_over_eye_distance": 0.31540006724246994,
+      "mean_eye_aperture_over_eye_distance": 0.09073344115247362,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 67,
+      "time": 2.68,
+      "eye_midpoint_full_frame_xy": [
+        950.2857227700681,
+        257.8592858269188
+      ],
+      "roll_deg": -2.264894208343198,
+      "eye_distance_px": 121.92144578049226,
+      "inner_mouth_height_over_eye_distance": 0.11001017149308193,
+      "inner_mouth_width_over_eye_distance": 0.3145339000977989,
+      "mean_eye_aperture_over_eye_distance": 0.09127370785626814,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 68,
+      "time": 2.72,
+      "eye_midpoint_full_frame_xy": [
+        949.1701389679317,
+        258.17457283464637
+      ],
+      "roll_deg": -2.301116255957521,
+      "eye_distance_px": 123.05588439123596,
+      "inner_mouth_height_over_eye_distance": 0.04598489525607182,
+      "inner_mouth_width_over_eye_distance": 0.3129629359155655,
+      "mean_eye_aperture_over_eye_distance": 0.08733404608470527,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 69,
+      "time": 2.76,
+      "eye_midpoint_full_frame_xy": [
+        949.4946950644966,
+        258.0079215694153
+      ],
+      "roll_deg": -2.327038167272983,
+      "eye_distance_px": 122.08154938801074,
+      "inner_mouth_height_over_eye_distance": 0.028701785236166972,
+      "inner_mouth_width_over_eye_distance": 0.32116758871670525,
+      "mean_eye_aperture_over_eye_distance": 0.087218664452298,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 70,
+      "time": 2.8,
+      "eye_midpoint_full_frame_xy": [
+        949.857198021152,
+        258.362804450446
+      ],
+      "roll_deg": -2.1664250466301485,
+      "eye_distance_px": 121.37681097364273,
+      "inner_mouth_height_over_eye_distance": 0.02926058491119673,
+      "inner_mouth_width_over_eye_distance": 0.3256904895126251,
+      "mean_eye_aperture_over_eye_distance": 0.08447841338446793,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 71,
+      "time": 2.84,
+      "eye_midpoint_full_frame_xy": [
+        948.8691156543745,
+        258.3624219348666
+      ],
+      "roll_deg": -2.3409125919490705,
+      "eye_distance_px": 121.31475666107006,
+      "inner_mouth_height_over_eye_distance": 0.025916772743252457,
+      "inner_mouth_width_over_eye_distance": 0.3250949048645863,
+      "mean_eye_aperture_over_eye_distance": 0.08770328457630099,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 72,
+      "time": 2.88,
+      "eye_midpoint_full_frame_xy": [
+        949.413000691537,
+        257.69205926464656
+      ],
+      "roll_deg": -2.363112009444318,
+      "eye_distance_px": 121.06955083387122,
+      "inner_mouth_height_over_eye_distance": 0.026032062226655012,
+      "inner_mouth_width_over_eye_distance": 0.3267139306724522,
+      "mean_eye_aperture_over_eye_distance": 0.08441209917094485,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 73,
+      "time": 2.92,
+      "eye_midpoint_full_frame_xy": [
+        948.9990278558695,
+        258.91447396084345
+      ],
+      "roll_deg": -2.5184537483405744,
+      "eye_distance_px": 122.19258441170724,
+      "inner_mouth_height_over_eye_distance": 0.024239016619383207,
+      "inner_mouth_width_over_eye_distance": 0.32716406408381943,
+      "mean_eye_aperture_over_eye_distance": 0.08875397110855232,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 74,
+      "time": 2.96,
+      "eye_midpoint_full_frame_xy": [
+        948.1783845810592,
+        259.63950161281605
+      ],
+      "roll_deg": -2.2767176198090793,
+      "eye_distance_px": 121.47220868043716,
+      "inner_mouth_height_over_eye_distance": 0.026897355828674953,
+      "inner_mouth_width_over_eye_distance": 0.32783816265238114,
+      "mean_eye_aperture_over_eye_distance": 0.0396709725614592,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 75,
+      "time": 3.0,
+      "eye_midpoint_full_frame_xy": [
+        949.6200764627855,
+        263.5226784549884
+      ],
+      "roll_deg": -2.253574032437051,
+      "eye_distance_px": 115.38419295777597,
+      "inner_mouth_height_over_eye_distance": 0.030517996974842667,
+      "inner_mouth_width_over_eye_distance": 0.34934455135954734,
+      "mean_eye_aperture_over_eye_distance": 0.04617675580235845,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 76,
+      "time": 3.04,
+      "eye_midpoint_full_frame_xy": [
+        949.7906180654717,
+        261.5809032543534
+      ],
+      "roll_deg": -2.305595192209816,
+      "eye_distance_px": 117.40343402091449,
+      "inner_mouth_height_over_eye_distance": 0.03667154948545677,
+      "inner_mouth_width_over_eye_distance": 0.3365608300904719,
+      "mean_eye_aperture_over_eye_distance": 0.05377040072207651,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 77,
+      "time": 3.08,
+      "eye_midpoint_full_frame_xy": [
+        949.698629810962,
+        259.99601850454656
+      ],
+      "roll_deg": -2.2117761845963013,
+      "eye_distance_px": 119.34492394155905,
+      "inner_mouth_height_over_eye_distance": 0.08864650649060421,
+      "inner_mouth_width_over_eye_distance": 0.32593612596930244,
+      "mean_eye_aperture_over_eye_distance": 0.044361842193800446,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 78,
+      "time": 3.12,
+      "eye_midpoint_full_frame_xy": [
+        950.1649473690718,
+        255.89472763847567
+      ],
+      "roll_deg": -2.0850874552442695,
+      "eye_distance_px": 121.38192092610684,
+      "inner_mouth_height_over_eye_distance": 0.13844248096543169,
+      "inner_mouth_width_over_eye_distance": 0.324215745294901,
+      "mean_eye_aperture_over_eye_distance": 0.0504711167122914,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 79,
+      "time": 3.16,
+      "eye_midpoint_full_frame_xy": [
+        950.878939390688,
+        254.20642841438902
+      ],
+      "roll_deg": -1.767823188900293,
+      "eye_distance_px": 121.07413225645305,
+      "inner_mouth_height_over_eye_distance": 0.15294496830653623,
+      "inner_mouth_width_over_eye_distance": 0.3247375275250264,
+      "mean_eye_aperture_over_eye_distance": 0.05830591023642825,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 80,
+      "time": 3.2,
+      "eye_midpoint_full_frame_xy": [
+        951.1617005956941,
+        253.6544193491535
+      ],
+      "roll_deg": -1.9205454215260382,
+      "eye_distance_px": 121.71861551144505,
+      "inner_mouth_height_over_eye_distance": 0.17321964537406767,
+      "inner_mouth_width_over_eye_distance": 0.3231657918449121,
+      "mean_eye_aperture_over_eye_distance": 0.07581250446054745,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 81,
+      "time": 3.24,
+      "eye_midpoint_full_frame_xy": [
+        951.1309154864955,
+        253.7584269222773
+      ],
+      "roll_deg": -2.072587060212315,
+      "eye_distance_px": 121.15104330753391,
+      "inner_mouth_height_over_eye_distance": 0.18768392818548169,
+      "inner_mouth_width_over_eye_distance": 0.3279612648108681,
+      "mean_eye_aperture_over_eye_distance": 0.08193248469357346,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 82,
+      "time": 3.28,
+      "eye_midpoint_full_frame_xy": [
+        950.6749718286852,
+        253.22396593357297
+      ],
+      "roll_deg": -1.9075324504575115,
+      "eye_distance_px": 122.01922410716006,
+      "inner_mouth_height_over_eye_distance": 0.19229619858954974,
+      "inner_mouth_width_over_eye_distance": 0.3293404105291156,
+      "mean_eye_aperture_over_eye_distance": 0.08430541623056666,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 83,
+      "time": 3.32,
+      "eye_midpoint_full_frame_xy": [
+        951.6442345205596,
+        253.72868118052912
+      ],
+      "roll_deg": -1.9479226240866152,
+      "eye_distance_px": 122.68020639445353,
+      "inner_mouth_height_over_eye_distance": 0.19921170624177129,
+      "inner_mouth_width_over_eye_distance": 0.32634492971397017,
+      "mean_eye_aperture_over_eye_distance": 0.0849088090685239,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 84,
+      "time": 3.36,
+      "eye_midpoint_full_frame_xy": [
+        951.4580369188618,
+        256.7945685455341
+      ],
+      "roll_deg": -1.420042813443886,
+      "eye_distance_px": 118.48348564686066,
+      "inner_mouth_height_over_eye_distance": 0.23348414726542838,
+      "inner_mouth_width_over_eye_distance": 0.339030919932257,
+      "mean_eye_aperture_over_eye_distance": 0.0591603490382543,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 85,
+      "time": 3.4,
+      "eye_midpoint_full_frame_xy": [
+        951.7692282726186,
+        255.83270735813937
+      ],
+      "roll_deg": -1.9303120651037835,
+      "eye_distance_px": 120.15221222939938,
+      "inner_mouth_height_over_eye_distance": 0.24520831563038117,
+      "inner_mouth_width_over_eye_distance": 0.3461620098014428,
+      "mean_eye_aperture_over_eye_distance": 0.06391568725928548,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 86,
+      "time": 3.44,
+      "eye_midpoint_full_frame_xy": [
+        951.6494618513555,
+        252.64462848225998
+      ],
+      "roll_deg": -1.812669544616168,
+      "eye_distance_px": 120.97072709264182,
+      "inner_mouth_height_over_eye_distance": 0.2828518841749172,
+      "inner_mouth_width_over_eye_distance": 0.35043179665706314,
+      "mean_eye_aperture_over_eye_distance": 0.0817571305251825,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 87,
+      "time": 3.48,
+      "eye_midpoint_full_frame_xy": [
+        950.9131516610094,
+        252.4649206080457
+      ],
+      "roll_deg": -1.834824298682365,
+      "eye_distance_px": 121.7583828082182,
+      "inner_mouth_height_over_eye_distance": 0.32424932940687207,
+      "inner_mouth_width_over_eye_distance": 0.3557387061529219,
+      "mean_eye_aperture_over_eye_distance": 0.08842157828635153,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 88,
+      "time": 3.52,
+      "eye_midpoint_full_frame_xy": [
+        951.199091996509,
+        252.46961138340168
+      ],
+      "roll_deg": -1.4844280323302999,
+      "eye_distance_px": 122.06122841968066,
+      "inner_mouth_height_over_eye_distance": 0.34690499429629396,
+      "inner_mouth_width_over_eye_distance": 0.3620407042405398,
+      "mean_eye_aperture_over_eye_distance": 0.0969179962817863,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 89,
+      "time": 3.56,
+      "eye_midpoint_full_frame_xy": [
+        951.4173028002973,
+        252.6710118745117
+      ],
+      "roll_deg": -2.0262185630665406,
+      "eye_distance_px": 122.02011742548511,
+      "inner_mouth_height_over_eye_distance": 0.3954095391427048,
+      "inner_mouth_width_over_eye_distance": 0.37363038163088846,
+      "mean_eye_aperture_over_eye_distance": 0.10351920424354281,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 90,
+      "time": 3.6,
+      "eye_midpoint_full_frame_xy": [
+        951.1391156232924,
+        253.4314536637724
+      ],
+      "roll_deg": -2.144951531183075,
+      "eye_distance_px": 121.99233753058682,
+      "inner_mouth_height_over_eye_distance": 0.4143408179797931,
+      "inner_mouth_width_over_eye_distance": 0.3824977947047124,
+      "mean_eye_aperture_over_eye_distance": 0.10483595467912381,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 91,
+      "time": 3.64,
+      "eye_midpoint_full_frame_xy": [
+        951.5812925580316,
+        252.9287295930027
+      ],
+      "roll_deg": -2.1902354934272394,
+      "eye_distance_px": 122.05561473081973,
+      "inner_mouth_height_over_eye_distance": 0.4417050641564294,
+      "inner_mouth_width_over_eye_distance": 0.3925036830865082,
+      "mean_eye_aperture_over_eye_distance": 0.10642974634745372,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 92,
+      "time": 3.68,
+      "eye_midpoint_full_frame_xy": [
+        949.2043869287471,
+        252.02767894468332
+      ],
+      "roll_deg": -1.8839424373787244,
+      "eye_distance_px": 122.69401322046022,
+      "inner_mouth_height_over_eye_distance": 0.4434029578107344,
+      "inner_mouth_width_over_eye_distance": 0.39413062837898954,
+      "mean_eye_aperture_over_eye_distance": 0.09988880846583643,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 93,
+      "time": 3.72,
+      "eye_midpoint_full_frame_xy": [
+        950.0791921155393,
+        251.8090567585262
+      ],
+      "roll_deg": -1.987966160954808,
+      "eye_distance_px": 122.76118000874204,
+      "inner_mouth_height_over_eye_distance": 0.446819712467549,
+      "inner_mouth_width_over_eye_distance": 0.40818063393069204,
+      "mean_eye_aperture_over_eye_distance": 0.10459858866604267,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 94,
+      "time": 3.76,
+      "eye_midpoint_full_frame_xy": [
+        950.0684882340454,
+        250.98795106937263
+      ],
+      "roll_deg": -1.7776036319572361,
+      "eye_distance_px": 120.2445928279055,
+      "inner_mouth_height_over_eye_distance": 0.37820215724743605,
+      "inner_mouth_width_over_eye_distance": 0.43249862397304617,
+      "mean_eye_aperture_over_eye_distance": 0.08076629734279095,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 95,
+      "time": 3.8,
+      "eye_midpoint_full_frame_xy": [
+        950.6169457544047,
+        251.61764691069595
+      ],
+      "roll_deg": -1.8162931864586391,
+      "eye_distance_px": 120.1147342139857,
+      "inner_mouth_height_over_eye_distance": 0.35509268991160253,
+      "inner_mouth_width_over_eye_distance": 0.42504303571975915,
+      "mean_eye_aperture_over_eye_distance": 0.08366995265461843,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 96,
+      "time": 3.84,
+      "eye_midpoint_full_frame_xy": [
+        951.0215861418117,
+        251.9884268595095
+      ],
+      "roll_deg": -2.2181419253720356,
+      "eye_distance_px": 122.03596873137509,
+      "inner_mouth_height_over_eye_distance": 0.32174391490232723,
+      "inner_mouth_width_over_eye_distance": 0.4181207952381745,
+      "mean_eye_aperture_over_eye_distance": 0.08518754220952951,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 97,
+      "time": 3.88,
+      "eye_midpoint_full_frame_xy": [
+        950.8016068332793,
+        252.33853943997354
+      ],
+      "roll_deg": -2.1386086597748326,
+      "eye_distance_px": 120.81889475926671,
+      "inner_mouth_height_over_eye_distance": 0.31771150977532636,
+      "inner_mouth_width_over_eye_distance": 0.4172763136176287,
+      "mean_eye_aperture_over_eye_distance": 0.08389034880866876,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 98,
+      "time": 3.92,
+      "eye_midpoint_full_frame_xy": [
+        950.586551265978,
+        251.64847082812096
+      ],
+      "roll_deg": -2.336264970051144,
+      "eye_distance_px": 121.13684133828967,
+      "inner_mouth_height_over_eye_distance": 0.3134467303763366,
+      "inner_mouth_width_over_eye_distance": 0.4135936003638149,
+      "mean_eye_aperture_over_eye_distance": 0.08641130498378347,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 99,
+      "time": 3.96,
+      "eye_midpoint_full_frame_xy": [
+        951.3221034677692,
+        253.01220286311366
+      ],
+      "roll_deg": -2.0877708492353064,
+      "eye_distance_px": 122.05569449223643,
+      "inner_mouth_height_over_eye_distance": 0.0941556077899741,
+      "inner_mouth_width_over_eye_distance": 0.3569485173786828,
+      "mean_eye_aperture_over_eye_distance": 0.09349982232869322,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 100,
+      "time": 4.0,
+      "eye_midpoint_full_frame_xy": [
+        950.327963087463,
+        251.9682241688203
+      ],
+      "roll_deg": -2.3314196168852606,
+      "eye_distance_px": 120.85606479336622,
+      "inner_mouth_height_over_eye_distance": 0.022871891500189895,
+      "inner_mouth_width_over_eye_distance": 0.35828856636539536,
+      "mean_eye_aperture_over_eye_distance": 0.09126360938169253,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 101,
+      "time": 4.04,
+      "eye_midpoint_full_frame_xy": [
+        950.9310292099616,
+        252.65196481761788
+      ],
+      "roll_deg": -2.1307144634368425,
+      "eye_distance_px": 121.41251324542387,
+      "inner_mouth_height_over_eye_distance": 0.015224155447663682,
+      "inner_mouth_width_over_eye_distance": 0.3568345779591669,
+      "mean_eye_aperture_over_eye_distance": 0.08526723983405829,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 102,
+      "time": 4.08,
+      "eye_midpoint_full_frame_xy": [
+        951.070797583924,
+        251.77549815923797
+      ],
+      "roll_deg": -2.0331028496080403,
+      "eye_distance_px": 121.1690300116216,
+      "inner_mouth_height_over_eye_distance": 0.05696690640401763,
+      "inner_mouth_width_over_eye_distance": 0.3612712621378823,
+      "mean_eye_aperture_over_eye_distance": 0.09243339781827652,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 103,
+      "time": 4.12,
+      "eye_midpoint_full_frame_xy": [
+        950.7233389989959,
+        253.35974854914355
+      ],
+      "roll_deg": -2.015119546862713,
+      "eye_distance_px": 121.79200484872483,
+      "inner_mouth_height_over_eye_distance": 0.085388092779081,
+      "inner_mouth_width_over_eye_distance": 0.36454890740276735,
+      "mean_eye_aperture_over_eye_distance": 0.09250768531782431,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 104,
+      "time": 4.16,
+      "eye_midpoint_full_frame_xy": [
+        951.5357122823993,
+        254.33938035936234
+      ],
+      "roll_deg": -1.9281647395327313,
+      "eye_distance_px": 121.44843500422549,
+      "inner_mouth_height_over_eye_distance": 0.1162233484895553,
+      "inner_mouth_width_over_eye_distance": 0.37202292932989783,
+      "mean_eye_aperture_over_eye_distance": 0.09420511665828328,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 105,
+      "time": 4.2,
+      "eye_midpoint_full_frame_xy": [
+        950.6046248089693,
+        254.0070823575699
+      ],
+      "roll_deg": -2.0112802543324895,
+      "eye_distance_px": 121.93753361476685,
+      "inner_mouth_height_over_eye_distance": 0.1677704096791016,
+      "inner_mouth_width_over_eye_distance": 0.37812669739669713,
+      "mean_eye_aperture_over_eye_distance": 0.08991522142771907,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 106,
+      "time": 4.24,
+      "eye_midpoint_full_frame_xy": [
+        951.341313013445,
+        255.75630401258888
+      ],
+      "roll_deg": -1.7906236890181908,
+      "eye_distance_px": 122.73513056770723,
+      "inner_mouth_height_over_eye_distance": 0.22747915031790103,
+      "inner_mouth_width_over_eye_distance": 0.3774805665941158,
+      "mean_eye_aperture_over_eye_distance": 0.08938979327751562,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 107,
+      "time": 4.28,
+      "eye_midpoint_full_frame_xy": [
+        950.6937948188507,
+        257.5483393393329
+      ],
+      "roll_deg": -1.9914745273917416,
+      "eye_distance_px": 122.5440127921481,
+      "inner_mouth_height_over_eye_distance": 0.24527927885314912,
+      "inner_mouth_width_over_eye_distance": 0.37618001268413487,
+      "mean_eye_aperture_over_eye_distance": 0.08292583456436259,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 108,
+      "time": 4.32,
+      "eye_midpoint_full_frame_xy": [
+        951.646686006241,
+        261.23213389736804
+      ],
+      "roll_deg": -2.2382274380612555,
+      "eye_distance_px": 120.64233342838745,
+      "inner_mouth_height_over_eye_distance": 0.04368371060519546,
+      "inner_mouth_width_over_eye_distance": 0.3464574093827735,
+      "mean_eye_aperture_over_eye_distance": 0.05657371343225176,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 109,
+      "time": 4.36,
+      "eye_midpoint_full_frame_xy": [
+        950.9143944834904,
+        257.40571382677535
+      ],
+      "roll_deg": -2.35783734603274,
+      "eye_distance_px": 119.89552018249337,
+      "inner_mouth_height_over_eye_distance": 0.02502797651989697,
+      "inner_mouth_width_over_eye_distance": 0.3351801657465604,
+      "mean_eye_aperture_over_eye_distance": 0.06462666141273041,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 110,
+      "time": 4.4,
+      "eye_midpoint_full_frame_xy": [
+        951.0401688478703,
+        254.24810778408667
+      ],
+      "roll_deg": -2.322641012593831,
+      "eye_distance_px": 121.69403628402203,
+      "inner_mouth_height_over_eye_distance": 0.044746570393317274,
+      "inner_mouth_width_over_eye_distance": 0.32835372473925767,
+      "mean_eye_aperture_over_eye_distance": 0.07430493039486062,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 111,
+      "time": 4.44,
+      "eye_midpoint_full_frame_xy": [
+        950.5290346126791,
+        252.78569392415784
+      ],
+      "roll_deg": -2.405765748510329,
+      "eye_distance_px": 121.90363229274763,
+      "inner_mouth_height_over_eye_distance": 0.06163116214643394,
+      "inner_mouth_width_over_eye_distance": 0.3181880783088133,
+      "mean_eye_aperture_over_eye_distance": 0.07770645273453589,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 112,
+      "time": 4.48,
+      "eye_midpoint_full_frame_xy": [
+        950.8802131235645,
+        252.36219109540673
+      ],
+      "roll_deg": -2.169548041968564,
+      "eye_distance_px": 122.52580691451283,
+      "inner_mouth_height_over_eye_distance": 0.06082619693669477,
+      "inner_mouth_width_over_eye_distance": 0.30759736166646073,
+      "mean_eye_aperture_over_eye_distance": 0.0860934012640492,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 113,
+      "time": 4.52,
+      "eye_midpoint_full_frame_xy": [
+        951.5149586568675,
+        250.96304815174474
+      ],
+      "roll_deg": -1.672432665895242,
+      "eye_distance_px": 122.199893192594,
+      "inner_mouth_height_over_eye_distance": 0.05546707508906195,
+      "inner_mouth_width_over_eye_distance": 0.29647694777167555,
+      "mean_eye_aperture_over_eye_distance": 0.09193035837360804,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 114,
+      "time": 4.56,
+      "eye_midpoint_full_frame_xy": [
+        949.3565169912163,
+        253.9831747364845
+      ],
+      "roll_deg": -1.9923041040338738,
+      "eye_distance_px": 122.14112450829053,
+      "inner_mouth_height_over_eye_distance": 0.03760679931324515,
+      "inner_mouth_width_over_eye_distance": 0.26847766642269333,
+      "mean_eye_aperture_over_eye_distance": 0.08729478136576835,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 115,
+      "time": 4.6,
+      "eye_midpoint_full_frame_xy": [
+        949.8071674982367,
+        254.8148030570146
+      ],
+      "roll_deg": -2.4320274573185428,
+      "eye_distance_px": 122.52933931223706,
+      "inner_mouth_height_over_eye_distance": 0.033500461823940585,
+      "inner_mouth_width_over_eye_distance": 0.253353427860543,
+      "mean_eye_aperture_over_eye_distance": 0.08686239724215016,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 116,
+      "time": 4.64,
+      "eye_midpoint_full_frame_xy": [
+        949.7742098462276,
+        255.50796505377588
+      ],
+      "roll_deg": -2.545448392861534,
+      "eye_distance_px": 122.01791314790508,
+      "inner_mouth_height_over_eye_distance": 0.02671540410158433,
+      "inner_mouth_width_over_eye_distance": 0.2527930298789502,
+      "mean_eye_aperture_over_eye_distance": 0.0897566252567467,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 117,
+      "time": 4.68,
+      "eye_midpoint_full_frame_xy": [
+        949.2833300697507,
+        255.98003431993865
+      ],
+      "roll_deg": -2.4159863545911895,
+      "eye_distance_px": 122.53253750158825,
+      "inner_mouth_height_over_eye_distance": 0.04259366294172085,
+      "inner_mouth_width_over_eye_distance": 0.2599665015778878,
+      "mean_eye_aperture_over_eye_distance": 0.09612317848867785,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 118,
+      "time": 4.72,
+      "eye_midpoint_full_frame_xy": [
+        948.9556130436179,
+        253.70953344974004
+      ],
+      "roll_deg": -2.510089649153707,
+      "eye_distance_px": 122.6132114458682,
+      "inner_mouth_height_over_eye_distance": 0.03969431960139594,
+      "inner_mouth_width_over_eye_distance": 0.2662756935934845,
+      "mean_eye_aperture_over_eye_distance": 0.09139697499459955,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 119,
+      "time": 4.76,
+      "eye_midpoint_full_frame_xy": [
+        948.7586434438131,
+        256.4902660600064
+      ],
+      "roll_deg": -2.4483737772883103,
+      "eye_distance_px": 122.39573782400545,
+      "inner_mouth_height_over_eye_distance": 0.03775882952117687,
+      "inner_mouth_width_over_eye_distance": 0.2977713467734876,
+      "mean_eye_aperture_over_eye_distance": 0.08723045326510302,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 120,
+      "time": 4.8,
+      "eye_midpoint_full_frame_xy": [
+        949.2231609255674,
+        256.4638023843938
+      ],
+      "roll_deg": -2.2767228558149406,
+      "eye_distance_px": 121.94366047144298,
+      "inner_mouth_height_over_eye_distance": 0.0185789467245952,
+      "inner_mouth_width_over_eye_distance": 0.3091499897445306,
+      "mean_eye_aperture_over_eye_distance": 0.09133682718689642,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 121,
+      "time": 4.84,
+      "eye_midpoint_full_frame_xy": [
+        948.5502424093281,
+        256.4836566976528
+      ],
+      "roll_deg": -2.1432816167638276,
+      "eye_distance_px": 121.82510868177893,
+      "inner_mouth_height_over_eye_distance": 0.020134806292346822,
+      "inner_mouth_width_over_eye_distance": 0.31270035433878496,
+      "mean_eye_aperture_over_eye_distance": 0.08843286463823632,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 122,
+      "time": 4.88,
+      "eye_midpoint_full_frame_xy": [
+        949.3344307356341,
+        256.99387893121946
+      ],
+      "roll_deg": -2.3606119651084696,
+      "eye_distance_px": 121.4285228855446,
+      "inner_mouth_height_over_eye_distance": 0.03411298487697693,
+      "inner_mouth_width_over_eye_distance": 0.31914782255999075,
+      "mean_eye_aperture_over_eye_distance": 0.08717814389623567,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 123,
+      "time": 4.92,
+      "eye_midpoint_full_frame_xy": [
+        948.7720015036696,
+        257.72378682841384
+      ],
+      "roll_deg": -2.1421287654663774,
+      "eye_distance_px": 121.87820461136018,
+      "inner_mouth_height_over_eye_distance": 0.1003391470142372,
+      "inner_mouth_width_over_eye_distance": 0.3262899118681899,
+      "mean_eye_aperture_over_eye_distance": 0.08962451294547073,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 124,
+      "time": 4.96,
+      "eye_midpoint_full_frame_xy": [
+        950.1422564343004,
+        259.05191616632067
+      ],
+      "roll_deg": -2.2608434409119385,
+      "eye_distance_px": 122.5828034157681,
+      "inner_mouth_height_over_eye_distance": 0.08963701495385137,
+      "inner_mouth_width_over_eye_distance": 0.3303006997119911,
+      "mean_eye_aperture_over_eye_distance": 0.09203268118480094,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 125,
+      "time": 5.0,
+      "eye_midpoint_full_frame_xy": [
+        948.0098968722702,
+        258.08053728564596
+      ],
+      "roll_deg": -2.154983386423272,
+      "eye_distance_px": 121.57480270810036,
+      "inner_mouth_height_over_eye_distance": 0.09298512781743569,
+      "inner_mouth_width_over_eye_distance": 0.32961376463409187,
+      "mean_eye_aperture_over_eye_distance": 0.09283025669271812,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 126,
+      "time": 5.04,
+      "eye_midpoint_full_frame_xy": [
+        948.5179070274341,
+        257.68261114504213
+      ],
+      "roll_deg": -2.0584048820712484,
+      "eye_distance_px": 121.8219342040452,
+      "inner_mouth_height_over_eye_distance": 0.10365189806782191,
+      "inner_mouth_width_over_eye_distance": 0.32859361389450226,
+      "mean_eye_aperture_over_eye_distance": 0.09513595399507195,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 127,
+      "time": 5.08,
+      "eye_midpoint_full_frame_xy": [
+        948.4263564351014,
+        258.9871012853025
+      ],
+      "roll_deg": -2.110159911730978,
+      "eye_distance_px": 121.99064447490395,
+      "inner_mouth_height_over_eye_distance": 0.09546847743619173,
+      "inner_mouth_width_over_eye_distance": 0.32964549166249507,
+      "mean_eye_aperture_over_eye_distance": 0.09778857193158429,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 128,
+      "time": 5.12,
+      "eye_midpoint_full_frame_xy": [
+        948.1377383630373,
+        257.3587428616952
+      ],
+      "roll_deg": -1.938680337752114,
+      "eye_distance_px": 121.50077268822383,
+      "inner_mouth_height_over_eye_distance": 0.10748838971550086,
+      "inner_mouth_width_over_eye_distance": 0.3286805289732357,
+      "mean_eye_aperture_over_eye_distance": 0.0965073020849412,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 129,
+      "time": 5.16,
+      "eye_midpoint_full_frame_xy": [
+        949.6402732106465,
+        257.73495058195965
+      ],
+      "roll_deg": -2.0609243133694215,
+      "eye_distance_px": 121.16494634644694,
+      "inner_mouth_height_over_eye_distance": 0.09580840643625309,
+      "inner_mouth_width_over_eye_distance": 0.3307106147036258,
+      "mean_eye_aperture_over_eye_distance": 0.09158047540794127,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 130,
+      "time": 5.2,
+      "eye_midpoint_full_frame_xy": [
+        949.1099364528186,
+        258.05019900425043
+      ],
+      "roll_deg": -2.0736720690574066,
+      "eye_distance_px": 121.43235718368945,
+      "inner_mouth_height_over_eye_distance": 0.10111249763592207,
+      "inner_mouth_width_over_eye_distance": 0.32778115383728623,
+      "mean_eye_aperture_over_eye_distance": 0.0925570720228994,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 131,
+      "time": 5.24,
+      "eye_midpoint_full_frame_xy": [
+        948.6811022181412,
+        257.9778688601614
+      ],
+      "roll_deg": -2.054891456212925,
+      "eye_distance_px": 121.39970132822863,
+      "inner_mouth_height_over_eye_distance": 0.09274023034096404,
+      "inner_mouth_width_over_eye_distance": 0.328772947068227,
+      "mean_eye_aperture_over_eye_distance": 0.09426702752651964,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 132,
+      "time": 5.28,
+      "eye_midpoint_full_frame_xy": [
+        948.3094270891343,
+        258.26009576889237
+      ],
+      "roll_deg": -2.0361984350451716,
+      "eye_distance_px": 122.13522387405598,
+      "inner_mouth_height_over_eye_distance": 0.08399879144284864,
+      "inner_mouth_width_over_eye_distance": 0.3300100779582388,
+      "mean_eye_aperture_over_eye_distance": 0.09140150687752051,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 133,
+      "time": 5.32,
+      "eye_midpoint_full_frame_xy": [
+        949.1247470457192,
+        258.2956933976341
+      ],
+      "roll_deg": -2.011708273335674,
+      "eye_distance_px": 121.83596732548882,
+      "inner_mouth_height_over_eye_distance": 0.07285261639842643,
+      "inner_mouth_width_over_eye_distance": 0.32362274591910867,
+      "mean_eye_aperture_over_eye_distance": 0.0904456371512663,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 134,
+      "time": 5.36,
+      "eye_midpoint_full_frame_xy": [
+        949.2408474929837,
+        258.65311879033766
+      ],
+      "roll_deg": -2.084437409366993,
+      "eye_distance_px": 122.21382635090586,
+      "inner_mouth_height_over_eye_distance": 0.03607644139481837,
+      "inner_mouth_width_over_eye_distance": 0.32093721713362033,
+      "mean_eye_aperture_over_eye_distance": 0.0876795397664656,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 135,
+      "time": 5.4,
+      "eye_midpoint_full_frame_xy": [
+        948.0934754430801,
+        259.1922608790232
+      ],
+      "roll_deg": -2.203621494339479,
+      "eye_distance_px": 122.09063174168982,
+      "inner_mouth_height_over_eye_distance": 0.024233306076994428,
+      "inner_mouth_width_over_eye_distance": 0.3164345935433875,
+      "mean_eye_aperture_over_eye_distance": 0.09022902148914172,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 136,
+      "time": 5.44,
+      "eye_midpoint_full_frame_xy": [
+        949.6834232670875,
+        258.0568162378813
+      ],
+      "roll_deg": -1.911180347202289,
+      "eye_distance_px": 122.07448964756514,
+      "inner_mouth_height_over_eye_distance": 0.019540661743991956,
+      "inner_mouth_width_over_eye_distance": 0.3186984615397541,
+      "mean_eye_aperture_over_eye_distance": 0.09197154766044456,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 137,
+      "time": 5.48,
+      "eye_midpoint_full_frame_xy": [
+        950.0778575393724,
+        258.20730963952417
+      ],
+      "roll_deg": -2.0364675605670928,
+      "eye_distance_px": 122.07586295250772,
+      "inner_mouth_height_over_eye_distance": 0.02437071421757412,
+      "inner_mouth_width_over_eye_distance": 0.3207654056544194,
+      "mean_eye_aperture_over_eye_distance": 0.09137699315632172,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 138,
+      "time": 5.52,
+      "eye_midpoint_full_frame_xy": [
+        949.415017176509,
+        257.9858682530121
+      ],
+      "roll_deg": -2.1033748578261213,
+      "eye_distance_px": 121.98958878764984,
+      "inner_mouth_height_over_eye_distance": 0.022932452493075604,
+      "inner_mouth_width_over_eye_distance": 0.320910069369167,
+      "mean_eye_aperture_over_eye_distance": 0.09417827983561902,
+      "vision_confidence": 1
+    },
+    {
+      "clip": "S",
+      "frame": 139,
+      "time": 5.56,
+      "eye_midpoint_full_frame_xy": [
+        950.2643311403654,
+        257.8077742724829
+      ],
+      "roll_deg": -1.9071232962418163,
+      "eye_distance_px": 121.92228487624973,
+      "inner_mouth_height_over_eye_distance": 0.0209033240007889,
+      "inner_mouth_width_over_eye_distance": 0.3207177870779325,
+      "mean_eye_aperture_over_eye_distance": 0.09305417698284599,
+      "vision_confidence": 1
+    }
+  ],
+  "limits": [
+    "These are2D image landmarks, not skull motion or3D pitch/yaw measurements.",
+    "Exact20percent residual is a configuration target after smoothing; raw image landmark ranges include detection noise, blinks and high-frequency residual.",
+    "Eye-distance ratio is noisy during closed-eye frames; configured continuity and a visual size check should accompany it.",
+    "High mouth/eye contour correspondence supports preserved expression timing, not perfect perceptual lip sync.",
+    "Parent owns audio/decode/PTS checks; other agent owns edge artifacts. No media edits or gate changes."
+  ],
+  "sampled_visual_review": {
+    "mouth_and_eyes": "Fixed-crop S samples show changing pursed/open/relaxed mouth shapes and a preserved blink. The face is not frozen.",
+    "scale_near_blink": "No obvious abrupt whole-head size jump is visible in fixed-crop samples2.84\u20133.32s. Configured scale has a small bounded hump around the blink, peaking1.0186; absence of subtle pulse cannot be guaranteed from sampled stills.",
+    "remaining_pose": "The existing lifted-chin/eyelid character is still visible around never; no3D pitch removal is claimed.",
+    "scope": "Only numeric head/scale and facial activity QA here; parent owns technical media integrity and separate reviewer owns edge blending."
+  },
+  "sample_sheets": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-s/output-review/blink-fixed-crop-contact.jpg",
+      "sha256": "f65372a8414d21d26cc673d6cfbbeac355c32389505dc4d3c5cfccc8a9d71adf"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-s/output-review/expression-activity-contact.jpg",
+      "sha256": "6956d3e3e55587b379e233b65029328af97e0a2a16324479ab3fc8f8c2609a07"
+    }
+  ]
+}

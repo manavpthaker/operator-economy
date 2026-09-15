@@ -1,0 +1,64 @@
+<template>
+<div id="r28-gap-root" data-composition-id="r28-gap" data-start="0" data-duration="13.7083333333" data-width="1280" data-height="720" style="position:relative;width:1280px;height:720px;overflow:hidden">
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+#r28-gap-root{opacity:0;color:#173530;font-family:Supreme,sans-serif}
+.g-paper{position:absolute;inset:0;background:#F5F0E6}
+.g-title{position:absolute;left:60px;top:60px;margin:0;font:700 58px/1.1 Boska,serif}
+.g-building{position:absolute;left:45px;top:280px;width:280px;height:210px}
+.g-table-drawing{position:absolute;left:67.273px;top:353.182px;width:203.636px;height:114.545px}
+.g-label{position:absolute;font:500 35px/1.16 Supreme,sans-serif}
+.g-business{left:51px;top:505px;width:275px;text-align:center;font-size:31px}
+.g-role{left:420px;top:220px;width:320px;text-align:center}
+.g-unpaid{position:absolute;left:437px;top:352px;width:290px;font:700 43px/1.14 Boska,serif;text-align:center}
+.g-sale{left:906px;top:220px;width:325px;text-align:center}
+.g-condition{position:absolute;left:900px;top:571px;width:320px;font:500 32px/1.2 Supreme,sans-serif;text-align:center}
+.g-fee{position:absolute;left:831px;top:646px;font-size:30px}
+.g-route-label{position:absolute;left:430px;top:516px;width:306px;text-align:center;font-size:27px;color:#33464C}
+#g-boundary,#g-pressure,#g-fee-return,#g-fee{opacity:0;visibility:hidden}
+.g-graphic{position:absolute;inset:0;width:1280px;height:720px}
+.g-ink{fill:none;stroke:#173530;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.g-steel{fill:none;stroke:#586D74;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.g-light{fill:none;stroke:#586D74;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<div class="g-paper"></div>
+<h1 class="g-title">The missing paid role</h1>
+<img class="g-building" src="public/art/workshop.svg" alt="Her illustrated workshop business"/>
+<img class="g-table-drawing" src="public/art/table-match.svg" alt="The seller and buyer remain in the illustrated workshop"/>
+<div class="g-label g-business">Her business</div>
+<div class="g-label g-role">Readiness work</div>
+<div class="g-unpaid">No paid role</div>
+<div class="g-label g-sale">Sale work</div>
+<div class="g-route-label">Before going to market</div>
+<svg class="g-graphic" viewBox="0 0 1280 720" role="img" aria-label="Business preparation has no paid role in the illustrated fee structure. The payment path returns from conditional closing to sale professionals, leaving the preparation role unconnected.">
+  <g class="g-steel"><path d="M327 417L398 417M385 408L399 417L386 427M755 417L884 417M870 408L885 417L872 427"/></g>
+  <g class="g-ink" id="g-corners"><path d="M427 332L427 304L458 304M703 304L734 304L734 332M734 451L734 478L703 478M458 478L427 478L427 450"/></g>
+  <g class="g-ink" id="g-boundary"><path d="M460 304L700 304M734 335L734 447M700 478L461 478M427 447L427 335"/></g>
+  <g class="g-light" id="g-pressure"><path d="M420 339L420 401M469 484L526 484M740 414L740 455"/></g>
+  <g class="g-ink" id="g-professionals">
+    <path d="M976 321C957 319 951 304 954 290C957 271 976 266 990 276C1006 288 1003 309 986 319M950 337C931 341 923 354 923 382M993 336C1017 341 1022 359 1022 382M942 361L942 384M1004 360L1004 383"/>
+    <path d="M1160 322C1141 320 1134 305 1137 292C1140 273 1159 268 1173 278C1189 290 1186 311 1169 321M1133 339C1114 343 1106 356 1106 384M1176 338C1200 343 1205 361 1205 384M1125 363L1125 386M1187 362L1187 385"/>
+    <path d="M1066 359C1044 357 1035 340 1039 325C1043 303 1065 297 1081 309C1099 323 1095 347 1076 357M1036 377C1013 382 1005 397 1005 431M1089 376C1117 382 1123 402 1123 431M1027 405L1027 433M1102 404L1102 432"/>
+    <path d="M911 445L1223 445M929 456L927 490M1204 457L1207 491"/>
+  </g>
+  <g id="g-closing" class="g-steel"><path d="M1065 480L1065 539M1055 525L1065 540L1075 526"/></g>
+  <g id="g-fee-return" class="g-steel"><path d="M1070 618C1070 644 906 651 853 607C834 591 837 528 838 486L911 486M897 477L912 486L898 496"/></g>
+</svg>
+<div class="g-condition" id="g-condition">Only if it closes</div>
+<div class="g-fee" id="g-fee">Success fee</div>
+<script>
+window.__timelines=window.__timelines||{};
+const gap=gsap.timeline({paused:true});
+gap.set('#r28-gap-root',{opacity:1},0);
+function gd(selector,time,duration){document.querySelectorAll(selector+' path').forEach((p,i)=>{const n=p.getTotalLength();p.style.strokeDasharray=n;p.style.strokeDashoffset=n;gap.fromTo(p,{strokeDashoffset:n},{strokeDashoffset:0,duration:duration,ease:'power1.inOut'},time+i*.1);});}
+gap.addLabel('specific-shape',6.0083333333);
+gap.set(['#g-boundary','#g-pressure'],{autoAlpha:1},'specific-shape');gd('#g-boundary',6.0083333333,1.2);gd('#g-pressure',6.45,.55);
+gap.addLabel('compensation-structure',7.8);
+gap.set('#g-fee-return',{autoAlpha:1},'compensation-structure');gd('#g-fee-return',7.8,2.3);
+gap.set('#g-fee',{autoAlpha:1},9.9);
+window.__timelines['r28-gap']=gap;
+</script>
+</div>
+</template>

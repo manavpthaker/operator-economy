@@ -2,7 +2,7 @@
 
 Gate: **V4 — visual plan approved, per act**
 
-Template version: proposed Step 3 v0.2
+Template version: proposed Step 3 v0.3
 
 Episode: EP###
 

@@ -1,0 +1,105 @@
+{
+  "status": "read_only_reference_and_bounds_recommendation_no_output_generated",
+  "source_Q_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r18/test-q-m-direction-visible-hands-1080p.mp4",
+  "source_Q_sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+  "dense_tracking_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/test-q/dense-head-landmarks.json",
+  "dense_tracking_sha256": "b27d165cddab10dd84ddd71f3103b7cee51465f458eb5e5dd3d988675abfd031",
+  "coordinate_system": "Full1920x1080 pixels; x right,y down, positive eye-line angle clockwise.",
+  "recommended_anchor": {
+    "method": "Componentwise median of all140 observed poses, balancing maximum translation; numerical anchor, not replacement face image.",
+    "eye_midpoint_xy_px": [
+      949.5604304068311,
+      255.60653846846202
+    ],
+    "eye_line_roll_degrees": -2.14532075479336,
+    "inter_eye_distance_px": 121.61518338709885
+  },
+  "visually_useful_reference": {
+    "frame_range": [
+      64,
+      71
+    ],
+    "time_range_seconds": [
+      2.56,
+      2.84
+    ],
+    "inspected_frame": 68,
+    "inspected_time_seconds": 2.72,
+    "finding": "Eyes open, relatively level chin and relaxed mouth; short interval has stable position/roll. Use it to assess neutral appearance, but whole-clip median position avoids large one-sided translation.",
+    "range_median_pose_xy_roll_distance": [
+      947.76643095547,
+      267.23296997650044,
+      -1.8065780644227103,
+      121.90264835301895
+    ],
+    "range_pose_peak_to_peak": [
+      1.3771293914045373,
+      1.1972773522714988,
+      0.29569062394735735,
+      1.5514257929533386
+    ]
+  },
+  "source_pose_bounds": {
+    "min_xy_roll_distance": [
+      940.4614350890388,
+      233.32715648629076,
+      -5.662839626081155,
+      115.23995079075844
+    ],
+    "max_xy_roll_distance": [
+      962.223530404576,
+      277.03328078474533,
+      0.8502426530181306,
+      125.14425131557547
+    ]
+  },
+  "nominal_20percent_residual_correction_bounds_before_temporal_smoothing": {
+    "translation_dx_min_max_px": [
+      -10.130479998195824,
+      7.279196254233852
+    ],
+    "translation_dy_min_max_px": [
+      -17.141393853026614,
+      17.823505585737024
+    ],
+    "rotation_delta_min_max_degrees": [
+      -2.396450726249193,
+      2.814015097030236
+    ],
+    "uncapped_scale_multiplier_min_max": [
+      0.9774399997354899,
+      1.0442571004419532
+    ],
+    "recommended_scale_multiplier_cap": [
+      0.98,
+      1.02
+    ],
+    "rigid_core_reference_xyxy": [
+      780,
+      45,
+      1155,
+      525
+    ],
+    "transformed_core_corner_union_xyxy": [
+      762.7020332171121,
+      24.866211989694932,
+      1173.0761179950675,
+      551.6528089258778
+    ],
+    "largest_rigid_core_corner_displacement_px": 27.056120213500677
+  },
+  "smoothing_and_regions": [
+    "Use robust temporal smoothing before computing correction; a 5-frame running median followed by a short symmetric 3\u20135-frame low pass is a bounded starting point.",
+    "Reject or hold scale through the blink near3.08s: raw eye distance falls to115.24px while the head image is not visibly shrinking comparably. Cap final scale correction to0.98\u20131.02 unless independent texture tracking supports more.",
+    "Keep eyes/nose/mouth/hair within one rigid similarity region. Blend into the upper neck and preserve observed background restoration; detector rectangle is not a matte.",
+    "Person masks alone also include hands/torso; restrict correction spatially to the head/upper-neck region so hand gestures remain unchanged."
+  ],
+  "limits": [
+    "Similarity transforms preserve relative facial geometry within each frame but resampling changes RGB values; do not claim pixel-exact preservation.",
+    "2D similarity cannot remove3D pitch, yaw, facial perspective or eyelid/eyebrow accents.",
+    "Eye landmarks can move during blinks and are not rigid skull markers; aggressive scale/roll correction may create a pulse.",
+    "At20percent residual, a substantial increase in stabilization may look unnaturally anchored; evaluate the moving candidate.",
+    "Bounds use raw measurements plus a2percent scale cap, before temporal smoothing. Actual encoded output must be checked against its final configuration.",
+    "No provider calls, source edits or gates changed."
+  ]
+}

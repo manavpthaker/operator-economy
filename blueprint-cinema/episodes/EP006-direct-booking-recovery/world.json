@@ -1,0 +1,458 @@
+{
+  "$schema": "../../schemas/world.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "episode_number": 6,
+  "episode_code": "EP006",
+  "slug": "direct-booking-recovery",
+  "folder_name": "EP006-direct-booking-recovery",
+  "coordinate_system": {
+    "width": 1920,
+    "height": 1080,
+    "units": "pixels"
+  },
+  "objects": [
+    {
+      "id": "reality-zone",
+      "kind": "zone",
+      "label": "Independent inn reality",
+      "description": "Human and physical contact with the inn, operator, guest, stay token, and confirmed outcome.",
+      "zone_id": "reality-zone",
+      "position": {"x": 250, "y": 110},
+      "states": [{"id": "initial", "label": "Unestablished"}, {"id": "active", "label": "Established"}, {"id": "resolved", "label": "Outcome visible"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "system-zone",
+      "kind": "zone",
+      "label": "Recovery system",
+      "description": "Persistent operating model for audit, repair, consent, qualification, review, and return routing.",
+      "zone_id": "system-zone",
+      "position": {"x": 960, "y": 110},
+      "states": [{"id": "initial", "label": "Dormant"}, {"id": "active", "label": "Running"}, {"id": "failed", "label": "Broken"}, {"id": "resolved", "label": "Recovered"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "proof-zone",
+      "kind": "zone",
+      "label": "Operator proof bench",
+      "description": "Sources, model parameters, settlement consequence, and measurement remain attached to the system.",
+      "zone_id": "proof-zone",
+      "position": {"x": 1670, "y": 110},
+      "states": [{"id": "initial", "label": "Unpinned"}, {"id": "active", "label": "Evidence pinned"}, {"id": "resolved", "label": "Parameter applied"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "market-discovery",
+      "kind": "node",
+      "label": "Guest discovery",
+      "description": "The guest discovers a specific independent property through a useful market surface.",
+      "zone_id": "reality-zone",
+      "position": {"x": 160, "y": 250},
+      "states": [{"id": "initial", "label": "No discovery"}, {"id": "active", "label": "Interest present"}, {"id": "resolved", "label": "Property chosen"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "ota-booking-gate",
+      "kind": "gate",
+      "label": "Useful OTA booking gate",
+      "description": "The platform supplies discovery and a trusted checkout for the first reservation.",
+      "zone_id": "system-zone",
+      "position": {"x": 630, "y": 220},
+      "states": [{"id": "initial", "label": "Available"}, {"id": "active", "label": "First booking routed"}, {"id": "resolved", "label": "Stay acquired"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "first-booking-money-flow",
+      "kind": "money_flow",
+      "label": "First-booking money flow",
+      "description": "Room revenue and platform commission are separated for operator-side accounting.",
+      "zone_id": "proof-zone",
+      "position": {"x": 1570, "y": 250},
+      "states": [{"id": "initial", "label": "Unmeasured"}, {"id": "active", "label": "Commission applied"}, {"id": "resolved", "label": "Cost recorded"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "hotel-stay-node",
+      "kind": "node",
+      "label": "Hotel and completed stay",
+      "description": "The property delivers the actual stay and earns the opportunity to request a relationship.",
+      "zone_id": "reality-zone",
+      "position": {"x": 400, "y": 250},
+      "states": [{"id": "initial", "label": "Not arrived"}, {"id": "active", "label": "Stay in progress"}, {"id": "resolved", "label": "Stay completed"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "stay-key-tag",
+      "kind": "token",
+      "label": "Physical stay key tag",
+      "description": "A recurring physical token for the completed stay; it is not yet a permissioned guest record.",
+      "zone_id": "reality-zone",
+      "position": {"x": 160, "y": 480},
+      "states": [{"id": "initial", "label": "No stay"}, {"id": "active", "label": "OTA stay completed"}, {"id": "failed", "label": "Relationship leaked"}, {"id": "suppressed", "label": "No contact"}, {"id": "resolved", "label": "Eligible return connected"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "independent-hotel-operator",
+      "kind": "actor",
+      "label": "Independent hotel operator",
+      "description": "The owner or general manager accountable for the direct path, judgment, exceptions, and result.",
+      "zone_id": "reality-zone",
+      "position": {"x": 400, "y": 480},
+      "states": [{"id": "initial", "label": "Fragmented ownership"}, {"id": "active", "label": "Reviewing"}, {"id": "failed", "label": "Capacity exceeded"}, {"id": "resolved", "label": "Accountable owner"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "direct-path-audit",
+      "kind": "node",
+      "label": "Direct-path audit",
+      "description": "The operator checks rate, mobile booking, policy clarity, calls, baseline mix, and handoffs before outreach.",
+      "zone_id": "system-zone",
+      "position": {"x": 630, "y": 440},
+      "states": [{"id": "initial", "label": "Not checked"}, {"id": "active", "label": "Audit running"}, {"id": "failed", "label": "Leak found"}, {"id": "resolved", "label": "Baseline recorded"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "direct-path-repair",
+      "kind": "node",
+      "label": "Direct-path repair",
+      "description": "The broken destination or handoff is repaired and retested before any eligible guest is contacted.",
+      "zone_id": "system-zone",
+      "position": {"x": 860, "y": 440},
+      "states": [{"id": "initial", "label": "Not repaired"}, {"id": "active", "label": "Repair in progress"}, {"id": "failed", "label": "Retest failed"}, {"id": "resolved", "label": "Direct path works"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "permission-gate",
+      "kind": "gate",
+      "label": "Affirmative permission gate",
+      "description": "The hotel requests and records permission; declined, revoked, expired, and ambiguous cases stop.",
+      "zone_id": "system-zone",
+      "position": {"x": 1090, "y": 440},
+      "states": [{"id": "initial", "label": "Not requested"}, {"id": "active", "label": "Permission requested"}, {"id": "failed", "label": "Declined or ambiguous"}, {"id": "suppressed", "label": "Revoked or expired"}, {"id": "resolved", "label": "Affirmative consent"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "guest-memory-context",
+      "kind": "node",
+      "label": "Permissioned guest memory",
+      "description": "Only after affirmative consent, the stay token resolves into minimal useful context for better service.",
+      "zone_id": "system-zone",
+      "position": {"x": 1320, "y": 440},
+      "states": [{"id": "initial", "label": "Absent"}, {"id": "active", "label": "Permissioned context"}, {"id": "failed", "label": "Context conflict"}, {"id": "suppressed", "label": "Deleted or blocked"}, {"id": "resolved", "label": "Context used appropriately"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "return-qualification-gate",
+      "kind": "gate",
+      "label": "Return qualification",
+      "description": "A relevant reason to return, timing, eligibility, and property fit are checked rather than assumed.",
+      "zone_id": "system-zone",
+      "position": {"x": 630, "y": 660},
+      "states": [{"id": "initial", "label": "Unqualified"}, {"id": "active", "label": "Qualification running"}, {"id": "failed", "label": "Not relevant"}, {"id": "suppressed", "label": "Sensitive or excluded"}, {"id": "resolved", "label": "Appropriate return"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "suppression-register",
+      "kind": "node",
+      "label": "Suppression register",
+      "description": "Declined, revoked, irrelevant, sensitive, duplicate, and frequency-limited cases terminate outreach.",
+      "zone_id": "system-zone",
+      "position": {"x": 1090, "y": 660},
+      "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Evaluating"}, {"id": "suppressed", "label": "Do not contact"}, {"id": "resolved", "label": "Suppression honored"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "human-review-gate",
+      "kind": "gate",
+      "label": "Mandatory human judgment",
+      "description": "Every outbound route passes operator review for voice, relevance, offer, timing, and sensitive exceptions.",
+      "zone_id": "system-zone",
+      "position": {"x": 860, "y": 660},
+      "states": [{"id": "initial", "label": "Unreviewed"}, {"id": "active", "label": "Human reviewing"}, {"id": "failed", "label": "Rejected"}, {"id": "suppressed", "label": "Escalated or stopped"}, {"id": "resolved", "label": "Approved to send"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "relevant-follow-up",
+      "kind": "node",
+      "label": "Relevant follow-up",
+      "description": "A restrained, approved message reflects the actual stay and a relevant reason to return.",
+      "zone_id": "system-zone",
+      "position": {"x": 1320, "y": 220},
+      "states": [{"id": "initial", "label": "Not queued"}, {"id": "active", "label": "Approved follow-up"}, {"id": "failed", "label": "Delivery failed"}, {"id": "suppressed", "label": "Stopped"}, {"id": "resolved", "label": "Follow-up delivered"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "direct-booking-destination",
+      "kind": "destination",
+      "label": "Repaired direct destination",
+      "description": "The hotel's own tested booking path, with understandable rate, policy, mobile flow, and help route.",
+      "zone_id": "reality-zone",
+      "position": {"x": 160, "y": 710},
+      "states": [{"id": "initial", "label": "Unverified"}, {"id": "active", "label": "Return visit routed"}, {"id": "failed", "label": "Booking path failed"}, {"id": "resolved", "label": "Direct booking accepted"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "return-booking-money-flow",
+      "kind": "money_flow",
+      "label": "Return-booking money flow",
+      "description": "The later appropriate reservation flows through the direct path and is measured separately.",
+      "zone_id": "proof-zone",
+      "position": {"x": 1780, "y": 250},
+      "states": [{"id": "initial", "label": "No return"}, {"id": "active", "label": "Direct value routed"}, {"id": "failed", "label": "Return not completed"}, {"id": "resolved", "label": "Direct value recorded"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "ota-settlement-ledger",
+      "kind": "ledger",
+      "label": "Operator settlement ledger",
+      "description": "An operator-side statement records platform commission and cancellation consequence; it is not guest-facing proof.",
+      "zone_id": "proof-zone",
+      "position": {"x": 1570, "y": 500},
+      "states": [{"id": "initial", "label": "Unopened"}, {"id": "active", "label": "Commission line visible"}, {"id": "failed", "label": "Unverified entry"}, {"id": "resolved", "label": "Economic parameter pinned"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "direct-booking-confirmation",
+      "kind": "outcome",
+      "label": "Direct booking confirmation",
+      "description": "The guest-facing confirmation visibly closes an appropriate direct return without pretending to prove commission.",
+      "zone_id": "reality-zone",
+      "position": {"x": 400, "y": 710},
+      "states": [{"id": "initial", "label": "Absent"}, {"id": "active", "label": "Reservation processing"}, {"id": "failed", "label": "Not confirmed"}, {"id": "resolved", "label": "Direct booking confirmed"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "relationship-leak-state",
+      "kind": "state_marker",
+      "label": "Relationship leak",
+      "description": "The same guest returns through the paid gate because no bounded relationship path exists.",
+      "zone_id": "system-zone",
+      "position": {"x": 860, "y": 220},
+      "states": [{"id": "initial", "label": "Latent"}, {"id": "active", "label": "Return leaked"}, {"id": "failed", "label": "Repeated commission"}, {"id": "resolved", "label": "Leak interrupted"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "recovered-loop-state",
+      "kind": "state_marker",
+      "label": "Recovered return loop",
+      "description": "The first booking remains OTA-acquired while an appropriate second booking completes directly.",
+      "zone_id": "system-zone",
+      "position": {"x": 1090, "y": 220},
+      "states": [{"id": "initial", "label": "Incomplete"}, {"id": "active", "label": "Loop running"}, {"id": "failed", "label": "Return unresolved"}, {"id": "resolved", "label": "Loop recovered"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "sensitive-case-escalation",
+      "kind": "gate",
+      "label": "Sensitive-case exception",
+      "description": "Ambiguous consent, complaints, accessibility, safety, bereavement, and other sensitive cases stop or escalate.",
+      "zone_id": "system-zone",
+      "position": {"x": 1320, "y": 660},
+      "states": [{"id": "initial", "label": "No exception"}, {"id": "active", "label": "Escalated"}, {"id": "suppressed", "label": "Outbound stopped"}, {"id": "resolved", "label": "Human disposition recorded"}],
+      "initial_state": "initial"
+    },
+    {
+      "id": "repair-retry-queue",
+      "kind": "node",
+      "label": "Repair retry queue",
+      "description": "A failed direct-path test returns to audit with an accountable owner or escalates instead of being hidden.",
+      "zone_id": "system-zone",
+      "position": {"x": 630, "y": 850},
+      "states": [{"id": "initial", "label": "Empty"}, {"id": "active", "label": "Retry assigned"}, {"id": "failed", "label": "Retry exhausted"}, {"id": "resolved", "label": "Retest passed"}],
+      "initial_state": "initial"
+    }
+  ],
+  "edges": [
+    {"id": "edge-discovery-ota", "from": "market-discovery", "to": "ota-booking-gate", "kind": "discovery", "label": "discover through OTA", "states": [{"id": "initial", "label": "Idle"}, {"id": "active", "label": "Discovery routed"}], "initial_state": "initial"},
+    {"id": "edge-ota-money", "from": "ota-booking-gate", "to": "first-booking-money-flow", "kind": "money", "label": "apply first-booking commission", "states": [{"id": "initial", "label": "Idle"}, {"id": "active", "label": "Commission flowing"}], "initial_state": "initial"},
+    {"id": "edge-money-hotel", "from": "first-booking-money-flow", "to": "hotel-stay-node", "kind": "booking", "label": "deliver booked stay", "states": [{"id": "initial", "label": "Pending"}, {"id": "active", "label": "Stay funded"}], "initial_state": "initial"},
+    {"id": "edge-hotel-stay", "from": "hotel-stay-node", "to": "stay-key-tag", "kind": "handoff", "label": "complete physical stay", "states": [{"id": "initial", "label": "Pending"}, {"id": "active", "label": "Key tag handed off"}], "initial_state": "initial"},
+    {"id": "edge-first-ledger", "from": "first-booking-money-flow", "to": "ota-settlement-ledger", "kind": "money", "label": "record operator settlement", "states": [{"id": "initial", "label": "Unrecorded"}, {"id": "active", "label": "Ledger entry posted"}], "initial_state": "initial"},
+    {"id": "edge-stay-leak", "from": "stay-key-tag", "to": "relationship-leak-state", "kind": "failure", "label": "lose post-stay relationship", "states": [{"id": "initial", "label": "Contained"}, {"id": "active", "label": "Leak active"}], "initial_state": "initial"},
+    {"id": "edge-leak-ota", "from": "relationship-leak-state", "to": "ota-booking-gate", "kind": "return", "label": "repurchase the introduction", "states": [{"id": "initial", "label": "Idle"}, {"id": "active", "label": "Guest returns via OTA"}], "initial_state": "initial"},
+    {"id": "edge-stay-audit", "from": "stay-key-tag", "to": "direct-path-audit", "kind": "audit", "label": "audit before outreach", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Audit opened"}], "initial_state": "initial"},
+    {"id": "edge-audit-repair", "from": "direct-path-audit", "to": "direct-path-repair", "kind": "repair", "label": "repair documented leaks", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Repair authorized"}], "initial_state": "initial"},
+    {"id": "edge-repair-permission", "from": "direct-path-repair", "to": "permission-gate", "kind": "permission", "label": "enable permission request only after retest", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Permission stage enabled"}], "initial_state": "initial"},
+    {"id": "edge-permission-memory", "from": "permission-gate", "to": "guest-memory-context", "kind": "permission", "label": "resolve stay into permissioned memory", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Affirmative consent recorded"}], "initial_state": "initial"},
+    {"id": "edge-permission-suppress", "from": "permission-gate", "to": "suppression-register", "kind": "suppression", "label": "honor decline revocation or expiry", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Suppression written"}], "initial_state": "initial"},
+    {"id": "edge-memory-qualify", "from": "guest-memory-context", "to": "return-qualification-gate", "kind": "qualification", "label": "qualify relevant return", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Context evaluated"}], "initial_state": "initial"},
+    {"id": "edge-qualify-suppress", "from": "return-qualification-gate", "to": "suppression-register", "kind": "suppression", "label": "suppress irrelevant or sensitive case", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Outbound stopped"}], "initial_state": "initial"},
+    {"id": "edge-qualify-human", "from": "return-qualification-gate", "to": "human-review-gate", "kind": "review", "label": "require human judgment for every outbound", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Review requested"}], "initial_state": "initial"},
+    {"id": "edge-human-followup", "from": "human-review-gate", "to": "relevant-follow-up", "kind": "outbound", "label": "approve relevant follow-up", "states": [{"id": "initial", "label": "Blocked"}, {"id": "active", "label": "Approved message routed"}], "initial_state": "initial"},
+    {"id": "edge-human-exception", "from": "human-review-gate", "to": "sensitive-case-escalation", "kind": "escalation", "label": "escalate or stop sensitive case", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Exception escalated"}], "initial_state": "initial"},
+    {"id": "edge-followup-direct", "from": "relevant-follow-up", "to": "direct-booking-destination", "kind": "outbound", "label": "route return to repaired destination", "states": [{"id": "initial", "label": "Idle"}, {"id": "active", "label": "Return visit routed"}], "initial_state": "initial"},
+    {"id": "edge-direct-return-money", "from": "direct-booking-destination", "to": "return-booking-money-flow", "kind": "money", "label": "route direct return value", "states": [{"id": "initial", "label": "Pending"}, {"id": "active", "label": "Direct value flowing"}], "initial_state": "initial"},
+    {"id": "edge-return-confirm", "from": "return-booking-money-flow", "to": "direct-booking-confirmation", "kind": "booking", "label": "confirm direct reservation", "states": [{"id": "initial", "label": "Pending"}, {"id": "active", "label": "Confirmation issued"}], "initial_state": "initial"},
+    {"id": "edge-confirm-loop", "from": "direct-booking-confirmation", "to": "recovered-loop-state", "kind": "return", "label": "resolve recovered loop", "states": [{"id": "initial", "label": "Incomplete"}, {"id": "active", "label": "Loop closed"}], "initial_state": "initial"},
+    {"id": "edge-repair-retry", "from": "direct-path-repair", "to": "repair-retry-queue", "kind": "failure", "label": "queue failed retest", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Retry queued"}], "initial_state": "initial"},
+    {"id": "edge-repair-operator-escalation", "from": "direct-path-repair", "to": "independent-hotel-operator", "kind": "escalation", "label": "assign failed repair to operator", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Operator escalation"}], "initial_state": "initial"},
+    {"id": "edge-retry-audit", "from": "repair-retry-queue", "to": "direct-path-audit", "kind": "retry", "label": "return to accountable audit", "states": [{"id": "initial", "label": "Waiting"}, {"id": "active", "label": "Audit retried"}], "initial_state": "initial"},
+    {"id": "edge-audit-exception", "from": "direct-path-audit", "to": "sensitive-case-escalation", "kind": "escalation", "label": "escalate unresolved ownership", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Owner escalation"}], "initial_state": "initial"},
+    {"id": "edge-permission-exception", "from": "permission-gate", "to": "sensitive-case-escalation", "kind": "escalation", "label": "escalate ambiguous consent", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Consent escalated"}], "initial_state": "initial"},
+    {"id": "edge-qualification-exception", "from": "return-qualification-gate", "to": "sensitive-case-escalation", "kind": "escalation", "label": "escalate sensitive qualification", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Case escalated"}], "initial_state": "initial"},
+    {"id": "edge-followup-review-retry", "from": "relevant-follow-up", "to": "human-review-gate", "kind": "retry", "label": "return failed delivery to human review", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Review retry"}], "initial_state": "initial"},
+    {"id": "edge-followup-operator-escalation", "from": "relevant-follow-up", "to": "independent-hotel-operator", "kind": "escalation", "label": "escalate delivery failure to operator", "states": [{"id": "initial", "label": "Clear"}, {"id": "active", "label": "Operator escalation"}], "initial_state": "initial"}
+  ],
+  "claims": [
+    {"id": "claim-ota-share", "label": "Vendor-published independent-hotel OTA reservation share", "evidence_ids": ["evidence-ota-share"]},
+    {"id": "claim-illustrative-commission-cost", "label": "Illustrative commission cost under stated hotel assumptions", "evidence_ids": ["evidence-commission-model"]},
+    {"id": "claim-cancellation-rate-gap", "label": "Vendor-published OTA and direct cancellation comparison", "evidence_ids": ["evidence-cancellation-gap"]},
+    {"id": "claim-coqui-coqui-operator-history", "label": "Verified operating history across four Coqui Coqui properties", "evidence_ids": ["evidence-operator-history"]},
+    {"id": "claim-revenue-management-salary-range", "label": "Reported salary range used only as evidence of labor value", "evidence_ids": ["evidence-labor-value"]}
+  ],
+  "parameters": [
+    {"id": "parameter-ota-booking-share", "label": "Vendor-published OTA share", "evidence_id": "evidence-ota-share"},
+    {"id": "parameter-room-count", "label": "Illustrative room count", "evidence_id": "evidence-commission-model"},
+    {"id": "parameter-adr", "label": "Illustrative average daily rate", "evidence_id": "evidence-commission-model"},
+    {"id": "parameter-occupancy", "label": "Illustrative occupancy", "evidence_id": "evidence-commission-model"},
+    {"id": "parameter-commission-range", "label": "Illustrative commission range", "evidence_id": "evidence-commission-model"},
+    {"id": "parameter-ota-cancellation", "label": "Vendor-published OTA cancellation rate", "evidence_id": "evidence-cancellation-gap"},
+    {"id": "parameter-direct-cancellation", "label": "Vendor-published direct cancellation rate", "evidence_id": "evidence-cancellation-gap"},
+    {"id": "parameter-human-judgment", "label": "Human operating judgment requirement", "evidence_id": "evidence-operator-history"},
+    {"id": "parameter-labor-value-not-client-price", "label": "Salary evidence limited to labor value", "evidence_id": "evidence-labor-value"}
+  ],
+  "evidence": [
+    {
+      "id": "evidence-ota-share",
+      "label": "Vendor-published OTA booking share",
+      "target_ids": ["ota-booking-gate", "relationship-leak-state"],
+      "claim_ids": ["claim-ota-share"],
+      "parameter_ids": ["parameter-ota-booking-share"],
+      "source_path": "studio/originate/direct-booking-recovery/research.md",
+      "source_sha256": "61a1ed53bafa657266c7ad6b27af9069d2a75ad05f885f987776f9d781e6076e",
+      "status": "locked_source"
+    },
+    {
+      "id": "evidence-commission-model",
+      "label": "Illustrative commission model and assumptions",
+      "target_ids": ["first-booking-money-flow", "ota-settlement-ledger"],
+      "claim_ids": ["claim-illustrative-commission-cost"],
+      "parameter_ids": ["parameter-room-count", "parameter-adr", "parameter-occupancy", "parameter-commission-range"],
+      "source_path": "studio/originate/direct-booking-recovery/script.json",
+      "source_sha256": "15b2f1b3cc1e66488135cd876c6f019bcbb3a08ac425866bffc570de0c3bccf6",
+      "status": "locked_source"
+    },
+    {
+      "id": "evidence-cancellation-gap",
+      "label": "Vendor-published cancellation comparison",
+      "target_ids": ["ota-settlement-ledger", "direct-booking-destination"],
+      "claim_ids": ["claim-cancellation-rate-gap"],
+      "parameter_ids": ["parameter-ota-cancellation", "parameter-direct-cancellation"],
+      "source_path": "studio/originate/direct-booking-recovery/research.md",
+      "source_sha256": "61a1ed53bafa657266c7ad6b27af9069d2a75ad05f885f987776f9d781e6076e",
+      "status": "locked_source"
+    },
+    {
+      "id": "evidence-operator-history",
+      "label": "Verified hotel operating context",
+      "target_ids": ["independent-hotel-operator", "human-review-gate"],
+      "claim_ids": ["claim-coqui-coqui-operator-history"],
+      "parameter_ids": ["parameter-human-judgment"],
+      "source_path": "../content-os/facts.md",
+      "source_sha256": "fd337d4013d5d2d8ed83f1ba02e9e211c1263c5e3e8d5f119ff1bc5c7e5a4309",
+      "status": "locked_source"
+    },
+    {
+      "id": "evidence-labor-value",
+      "label": "Salary evidence in the correct limited unit",
+      "target_ids": ["independent-hotel-operator", "human-review-gate"],
+      "claim_ids": ["claim-revenue-management-salary-range"],
+      "parameter_ids": ["parameter-labor-value-not-client-price"],
+      "source_path": "studio/originate/direct-booking-recovery/script.json",
+      "source_sha256": "15b2f1b3cc1e66488135cd876c6f019bcbb3a08ac425866bffc570de0c3bccf6",
+      "status": "locked_source"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "camera-human",
+      "label": "Human and physical view",
+      "zone_id": "reality-zone",
+      "position": {"x": 450, "y": 540},
+      "target_contract": "representative_zone_anchors",
+      "target_ids": ["independent-hotel-operator", "hotel-stay-node", "stay-key-tag", "direct-booking-confirmation"]
+    },
+    {
+      "id": "camera-system",
+      "label": "Persistent system view",
+      "zone_id": "system-zone",
+      "position": {"x": 1100, "y": 580},
+      "target_contract": "representative_zone_anchors",
+      "target_ids": ["direct-path-audit", "direct-path-repair", "permission-gate", "return-qualification-gate", "human-review-gate", "relevant-follow-up"]
+    },
+    {
+      "id": "camera-proof",
+      "label": "Operator proof view",
+      "zone_id": "proof-zone",
+      "position": {"x": 1630, "y": 570},
+      "target_contract": "representative_zone_anchors",
+      "target_ids": ["first-booking-money-flow", "ota-settlement-ledger", "return-booking-money-flow"]
+    }
+  ],
+  "failures": [
+    {
+      "id": "failure-direct-path-retest",
+      "at_id": "direct-path-repair",
+      "failed_state": "failed",
+      "retry_to_id": "repair-retry-queue",
+      "escalation_to_id": "independent-hotel-operator",
+      "description": "A failed mobile, rate, policy, or call-path retest returns to audit with an accountable owner."
+    },
+    {
+      "id": "failure-permission-not-affirmative",
+      "at_id": "permission-gate",
+      "failed_state": "failed",
+      "retry_to_id": "suppression-register",
+      "escalation_to_id": "sensitive-case-escalation",
+      "description": "Declined or ambiguous permission terminates memory creation and outreach rather than being inferred."
+    },
+    {
+      "id": "failure-sensitive-qualification",
+      "at_id": "return-qualification-gate",
+      "failed_state": "suppressed",
+      "retry_to_id": "suppression-register",
+      "escalation_to_id": "sensitive-case-escalation",
+      "description": "An irrelevant or sensitive case is suppressed and may receive human disposition but never automatic outbound."
+    },
+    {
+      "id": "failure-follow-up-delivery",
+      "at_id": "relevant-follow-up",
+      "failed_state": "failed",
+      "retry_to_id": "human-review-gate",
+      "escalation_to_id": "independent-hotel-operator",
+      "description": "A delivery failure returns to human review for correction, suppression, or a deliberate retry."
+    }
+  ],
+  "required_roles": {
+    "reality_zone": "reality-zone",
+    "system_zone": "system-zone",
+    "proof_zone": "proof-zone",
+    "operator": "independent-hotel-operator",
+    "guest_token": "stay-key-tag",
+    "ota_gate": "ota-booking-gate",
+    "hotel_node": "hotel-stay-node",
+    "audit_node": "direct-path-audit",
+    "repair_node": "direct-path-repair",
+    "permission_gate": "permission-gate",
+    "guest_memory": "guest-memory-context",
+    "qualification_gate": "return-qualification-gate",
+    "suppression_node": "suppression-register",
+    "human_review_gate": "human-review-gate",
+    "relevant_follow_up": "relevant-follow-up",
+    "direct_destination": "direct-booking-destination",
+    "first_booking_money_flow": "first-booking-money-flow",
+    "return_booking_money_flow": "return-booking-money-flow",
+    "settlement_ledger": "ota-settlement-ledger",
+    "direct_confirmation": "direct-booking-confirmation",
+    "relationship_leak_state": "relationship-leak-state",
+    "recovered_loop_state": "recovered-loop-state"
+  },
+  "paths": {
+    "first_booking": ["market-discovery", "ota-booking-gate", "first-booking-money-flow", "hotel-stay-node", "stay-key-tag"],
+    "recovery": ["stay-key-tag", "direct-path-audit", "direct-path-repair", "permission-gate", "guest-memory-context", "return-qualification-gate", "human-review-gate", "relevant-follow-up", "direct-booking-destination", "return-booking-money-flow", "direct-booking-confirmation", "recovered-loop-state"],
+    "suppressed": ["stay-key-tag", "direct-path-audit", "direct-path-repair", "permission-gate", "suppression-register"],
+    "failure_retry": ["direct-path-repair", "repair-retry-queue", "direct-path-audit", "sensitive-case-escalation"]
+  },
+  "status": "ready_for_approval"
+}

@@ -1,0 +1,595 @@
+{
+ "record_type": "review_assembly_verification",
+ "created_at_utc": "2026-09-15T18:53:17.421552+00:00",
+ "output": {
+  "path": "qa/full.mp4",
+  "sha256": "77f1e76218ae8aa6b51541ed33a1bf8bfcdfa61c5606a080375d16c4f5d6f4d2",
+  "video_frames": 12481,
+  "video_seconds": 520.041667,
+  "audio_seconds": 520.041,
+  "size": "1280x720 24fps h264 crf16 / aac 256k 48k stereo, faststart",
+  "expected_seconds": "522.958333 (S12 end, master) - 3.0 (sting omission) + 0.083333 (S12 pickup net) = 520.041667 -> matches"
+ },
+ "timing_mapping_verified": {
+  "r36_review_vs_master": "review = master for 0-45.0 s; review = master - 3.0 s from 48.0 master onward (zero-lag corr 0.9998 both pieces)",
+  "context_reviews": "r46-r54-s11b contexts all start at master 198.125 (R46/R47/R53/R54-s11b corr at offset 198.125); r54-s11-full-context starts at master 373.708; r55-s12-v4-pickup-context starts at master 430.5, frame 564 = master 454.0",
+  "frame_alignment": "overlapping context renders agree frame-for-frame at every join (mean abs luma diff 0.01-0.18/255 over the 48 frames before each boundary)"
+ },
+ "audio": {
+  "per_segment": [
+   {
+    "segment": "seg01",
+    "out_start_s": 0.0,
+    "samples": 11744000,
+    "corr_vs_source_extract": 0.999997,
+    "corr_vs_master_zero_lag": [
+     0.999796,
+     0.999808
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": [
+     [
+      148.5,
+      151.5,
+      0.9824
+     ]
+    ]
+   },
+   {
+    "segment": "seg02",
+    "out_start_s": 244.66666666666666,
+    "samples": 2046000,
+    "corr_vs_source_extract": 0.999986,
+    "corr_vs_master_zero_lag": [
+     0.964805
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": [
+     [
+      247.67,
+      250.667,
+      -0.0092
+     ],
+     [
+      248.17,
+      251.167,
+      -0.001
+     ],
+     [
+      248.67,
+      251.667,
+      0.0881
+     ],
+     [
+      268.67,
+      271.667,
+      0.5912
+     ],
+     [
+      274.17,
+      277.167,
+      0.9894
+     ],
+     [
+      275.17,
+      278.167,
+      0.9839
+     ],
+     [
+      284.17,
+      287.167,
+      0.9891
+     ]
+    ]
+   },
+   {
+    "segment": "seg03",
+    "out_start_s": 287.2916666666667,
+    "samples": 538000,
+    "corr_vs_source_extract": 0.999994,
+    "corr_vs_master_zero_lag": [
+     0.86227
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": [
+     [
+      287.29,
+      290.292,
+      0.8799
+     ],
+     [
+      287.79,
+      290.792,
+      0.9016
+     ],
+     [
+      288.29,
+      291.292,
+      0.8966
+     ],
+     [
+      288.79,
+      291.792,
+      0.8869
+     ],
+     [
+      289.29,
+      292.292,
+      0.8684
+     ],
+     [
+      289.79,
+      292.792,
+      0.8573
+     ],
+     [
+      290.29,
+      293.292,
+      0.8914
+     ],
+     [
+      290.79,
+      293.792,
+      0.8165
+     ],
+     [
+      291.29,
+      294.292,
+      0.9301
+     ],
+     [
+      291.79,
+      294.792,
+      0.8478
+     ],
+     [
+      292.29,
+      295.292,
+      0.8627
+     ],
+     [
+      292.79,
+      295.792,
+      0.8901
+     ],
+     [
+      293.29,
+      296.292,
+      0.9277
+     ],
+     [
+      293.79,
+      296.792,
+      0.7391
+     ],
+     [
+      294.29,
+      297.292,
+      0.8623
+     ],
+     [
+      294.79,
+      297.792,
+      0.8965
+     ],
+     [
+      295.29,
+      298.292,
+      0.8692
+     ],
+     [
+      295.79,
+      298.792,
+      0.7019
+     ],
+     [
+      296.29,
+      299.292,
+      0.9036
+     ],
+     [
+      296.79,
+      299.792,
+      0.811
+     ],
+     [
+      297.29,
+      300.292,
+      0.9165
+     ],
+     [
+      297.79,
+      300.792,
+      0.6506
+     ]
+    ]
+   },
+   {
+    "segment": "seg04",
+    "out_start_s": 298.5,
+    "samples": 430000,
+    "corr_vs_source_extract": 0.999977,
+    "corr_vs_master_zero_lag": [
+     0.999546
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg05",
+    "out_start_s": 307.4583333333333,
+    "samples": 326000,
+    "corr_vs_source_extract": 0.99998,
+    "corr_vs_master_zero_lag": [
+     0.99946
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg06",
+    "out_start_s": 314.25,
+    "samples": 404000,
+    "corr_vs_source_extract": 0.99999,
+    "corr_vs_master_zero_lag": [
+     0.999804
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg07",
+    "out_start_s": 322.6666666666667,
+    "samples": 478000,
+    "corr_vs_source_extract": 0.999995,
+    "corr_vs_master_zero_lag": [
+     0.999456
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg08",
+    "out_start_s": 332.625,
+    "samples": 360000,
+    "corr_vs_source_extract": 0.999988,
+    "corr_vs_master_zero_lag": [
+     0.999957
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg09",
+    "out_start_s": 340.125,
+    "samples": 1468000,
+    "corr_vs_source_extract": 0.999983,
+    "corr_vs_master_zero_lag": [
+     0.990825
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg10",
+    "out_start_s": 370.7083333333333,
+    "samples": 2726000,
+    "corr_vs_source_extract": 0.999992,
+    "corr_vs_master_zero_lag": [
+     0.992488
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg11",
+    "out_start_s": 427.5,
+    "samples": 1128000,
+    "corr_vs_source_extract": 0.999992,
+    "corr_vs_master_zero_lag": [
+     0.999827
+    ],
+    "low_corr_0.5s_windows(out_s,master_s,corr)": []
+   },
+   {
+    "segment": "seg12",
+    "out_start_s": 451.0,
+    "samples": 3314000,
+    "corr_vs_source_extract": 0.999987,
+    "low_corr_0.5s_windows(out_s,master_s,corr)": [
+     [
+      451.0,
+      454.0,
+      0.0
+     ],
+     [
+      451.5,
+      454.5,
+      0.0536
+     ],
+     [
+      452.0,
+      455.0,
+      0.0498
+     ],
+     [
+      452.5,
+      455.5,
+      0.0135
+     ],
+     [
+      453.0,
+      456.0,
+      0.0094
+     ],
+     [
+      453.5,
+      456.5,
+      0.0533
+     ],
+     [
+      454.0,
+      457.0,
+      -0.0698
+     ],
+     [
+      454.5,
+      457.5,
+      -0.0014
+     ],
+     [
+      455.0,
+      458.0,
+      -0.0198
+     ],
+     [
+      455.5,
+      458.5,
+      0.0294
+     ],
+     [
+      456.0,
+      459.0,
+      0.0288
+     ],
+     [
+      456.5,
+      459.5,
+      0.0662
+     ],
+     [
+      457.0,
+      460.0,
+      0.0432
+     ],
+     [
+      457.5,
+      460.5,
+      0.0226
+     ],
+     [
+      458.0,
+      461.0,
+      0.0071
+     ],
+     [
+      458.5,
+      461.5,
+      -0.0055
+     ],
+     [
+      459.0,
+      462.0,
+      0.0206
+     ],
+     [
+      459.5,
+      462.5,
+      0.1264
+     ],
+     [
+      460.0,
+      463.0,
+      0.0735
+     ],
+     [
+      460.5,
+      463.5,
+      0.0641
+     ],
+     [
+      461.0,
+      464.0,
+      -0.0598
+     ],
+     [
+      461.5,
+      464.5,
+      -0.0087
+     ]
+    ]
+   }
+  ],
+  "notes": [
+   "corr_vs_source_extract: output segment vs the exact sample range of its source file (all >= 0.99998) - proves joins are sample-exact with no gap/overlap.",
+   "Low-corr windows are 0.5 s windows < 0.99 at zero lag vs master (silent windows skipped).",
+   "Known/accepted deviation: R39 callback \"his\" at output 247.6-249.3 (master 250.6-252.3).",
+   "Known/accepted deviation: S12 re-voiced opening output ~451.3-454.4; after it the output trails master by 0.220 s, and from ~output 462.0 (master ~464.8) by 0.0833 s (so the removed silence measures ~0.137 s, not 0.16 s; the net +0.0833 s matches frame 564 mapping).",
+   "Minor, inherited: R47 context audio (master 290.29-301.5) is 16 samples (0.33 ms) early vs master - zero-lag corr 0.86, at -16 samples 0.999+. Inaudible; present in r47-transfer-criterion-context source. Both joins fall in silence.",
+   "Minor, inherited: R46 revenue-machine range is 1 sample late vs master (quiet sibilant windows at master ~271.7 and ~274.5 drop to 0.54-0.85 at zero lag, 0.996 at 1 sample).",
+   "Minor, inherited: 0.1 s at master 151.55-151.65 corr 0.965 in the accepted r36 mp4 itself (its wav source matches master exactly) - encoder artifact."
+  ],
+  "level_vs_master_db": {
+   "seg01": 2.98,
+   "seg02": 3.0,
+   "seg03": 2.99,
+   "seg04": 2.97,
+   "seg05": 2.98,
+   "seg06": 2.98,
+   "seg07": 2.99,
+   "seg08": -0.02,
+   "seg09": 2.4,
+   "seg10": 2.54,
+   "seg11": 2.98,
+   "seg12": 2.97
+  },
+  "level_finding": "SUSPICIOUS, inherited from the locked context renders: film/presenter passages R52 walk-out (master 335.6-343.1), S10 A presenter (343.1-351.0), S10 C presenter (373.7-382.3) and S12 A presenter (454-464.9) play at ~0 dB vs master while everything else plays at +3.0 dB, i.e. ~3 dB quieter than the surrounding narration. Present identically in r52/r53/r54/r55 context sources; not corrected here."
+ },
+ "video": {
+  "uniform_frames_std_lt_3": [
+   426,
+   1068,
+   1069,
+   1070,
+   1071,
+   1072,
+   1273,
+   9750
+  ],
+  "uniform_frame_notes": "426 (question card first frame, cream), 1068-1072 (sting dark ground with faint THE), 1273 (title first frame, near-blank cream), 9750 (S11 B first frame: faint owner line drawing). All inside locked sources (r36 / r54-s11b), none at a join.",
+  "joins": [
+   {
+    "segment": "seg01",
+    "out_frame_start": 0,
+    "first_frame_diff_vs_src": 0.07,
+    "last_frame_diff_vs_src": 0.022,
+    "first_frame_diff_vs_src_prev_next": [
+     null,
+     0.085
+    ],
+    "join_frame_to_frame_diff": null,
+    "median_frame_diff_nearby": null
+   },
+   {
+    "segment": "seg02",
+    "out_frame_start": 5872,
+    "first_frame_diff_vs_src": 0.094,
+    "last_frame_diff_vs_src": 0.037,
+    "first_frame_diff_vs_src_prev_next": [
+     123.84,
+     0.58
+    ],
+    "join_frame_to_frame_diff": 124.658,
+    "median_frame_diff_nearby": 0.166
+   },
+   {
+    "segment": "seg03",
+    "out_frame_start": 6895,
+    "first_frame_diff_vs_src": 0.072,
+    "last_frame_diff_vs_src": 0.147,
+    "first_frame_diff_vs_src_prev_next": [
+     99.488,
+     0.925
+    ],
+    "join_frame_to_frame_diff": 99.508,
+    "median_frame_diff_nearby": 0.232
+   },
+   {
+    "segment": "seg04",
+    "out_frame_start": 7164,
+    "first_frame_diff_vs_src": 0.029,
+    "last_frame_diff_vs_src": 0.04,
+    "first_frame_diff_vs_src_prev_next": [
+     103.251,
+     0.029
+    ],
+    "join_frame_to_frame_diff": 103.253,
+    "median_frame_diff_nearby": 0.048
+   },
+   {
+    "segment": "seg05",
+    "out_frame_start": 7379,
+    "first_frame_diff_vs_src": 0.046,
+    "last_frame_diff_vs_src": 0.052,
+    "first_frame_diff_vs_src_prev_next": [
+     0.048,
+     0.047
+    ],
+    "join_frame_to_frame_diff": 0.01,
+    "median_frame_diff_nearby": 0.001
+   },
+   {
+    "segment": "seg06",
+    "out_frame_start": 7542,
+    "first_frame_diff_vs_src": 0.058,
+    "last_frame_diff_vs_src": 0.032,
+    "first_frame_diff_vs_src_prev_next": [
+     0.06,
+     0.06
+    ],
+    "join_frame_to_frame_diff": 0.015,
+    "median_frame_diff_nearby": 0.001
+   },
+   {
+    "segment": "seg07",
+    "out_frame_start": 7744,
+    "first_frame_diff_vs_src": 0.039,
+    "last_frame_diff_vs_src": 0.035,
+    "first_frame_diff_vs_src_prev_next": [
+     0.102,
+     0.039
+    ],
+    "join_frame_to_frame_diff": 0.074,
+    "median_frame_diff_nearby": 0.0
+   },
+   {
+    "segment": "seg08",
+    "out_frame_start": 7983,
+    "first_frame_diff_vs_src": 0.104,
+    "last_frame_diff_vs_src": 0.267,
+    "first_frame_diff_vs_src_prev_next": [
+     129.747,
+     0.39
+    ],
+    "join_frame_to_frame_diff": 129.747,
+    "median_frame_diff_nearby": 0.179
+   },
+   {
+    "segment": "seg09",
+    "out_frame_start": 8163,
+    "first_frame_diff_vs_src": 0.077,
+    "last_frame_diff_vs_src": 0.024,
+    "first_frame_diff_vs_src_prev_next": [
+     71.567,
+     0.657
+    ],
+    "join_frame_to_frame_diff": 71.562,
+    "median_frame_diff_nearby": 0.97
+   },
+   {
+    "segment": "seg10",
+    "out_frame_start": 8897,
+    "first_frame_diff_vs_src": 0.064,
+    "last_frame_diff_vs_src": 0.027,
+    "first_frame_diff_vs_src_prev_next": [
+     101.113,
+     0.267
+    ],
+    "join_frame_to_frame_diff": 101.116,
+    "median_frame_diff_nearby": 0.129
+   },
+   {
+    "segment": "seg11",
+    "out_frame_start": 10260,
+    "first_frame_diff_vs_src": 0.046,
+    "last_frame_diff_vs_src": 0.03,
+    "first_frame_diff_vs_src_prev_next": [
+     0.14,
+     0.047
+    ],
+    "join_frame_to_frame_diff": 0.098,
+    "median_frame_diff_nearby": 0.012
+   },
+   {
+    "segment": "seg12",
+    "out_frame_start": 10824,
+    "first_frame_diff_vs_src": 0.096,
+    "last_frame_diff_vs_src": 0.029,
+    "first_frame_diff_vs_src_prev_next": [
+     99.865,
+     0.459
+    ],
+    "join_frame_to_frame_diff": 99.869,
+    "median_frame_diff_nearby": 0.162
+   }
+  ],
+  "join_notes": "Joins 5872, 6895, 7164, 7983, 8163, 8897, 10824 fall on existing hard cuts; 7379, 7542, 7744, 10260 are continuous and show no jump (frame diff 0.01-0.10/255). First/last output frames match the declared source frames (<=0.27/255) and not their neighbours.",
+  "join_tile": "qa/joins.png (frame pairs at each join, inspected)",
+  "blank_tile": "qa/blanks.png"
+ },
+ "constraints": {
+  "paid_api_calls": 0,
+  "hyperframes_rerenders": 0,
+  "existing_files_modified": 0
+ }
+}

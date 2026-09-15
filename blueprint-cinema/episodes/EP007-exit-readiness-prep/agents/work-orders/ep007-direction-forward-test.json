@@ -1,0 +1,66 @@
+{
+  "contract": "isolated-skill-forward-test-1",
+  "work_order_id": "ep007-direction-forward-test",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "scene_director",
+  "objective": "Apply the new skill to the supplied fictional user tasks as an independent director. Produce a concrete direction and decision record per task. Do not inspect or infer the evaluator expected answer.",
+  "required_gate": "none: isolated test only",
+  "inputs": [
+    {
+      "path": ".agents/skills/oe-video-direction/SKILL.md",
+      "sha256": "a1702a6ff0e22983370b69fc35862ac16733b25488f3757434101891431c1d04"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/references/decision-method.md",
+      "sha256": "8ebc2892a41b6e24cec53e2b70826d4878c521b3caeaa42340e8c8462bd08360"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/references/decision-record.md",
+      "sha256": "98304bb5368bd20debf00f43c121e1040b5b5ac093161e3e24e463c346f6a776"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/references/precedent-index.md",
+      "sha256": "aaf130d36c5e301324027e705d383e8ebca45ae2eeb44d6dd24966b4cd9d4b92"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/work-orders/ep007-direction-forward-test-tasks.json",
+      "sha256": "e790b86d732598fb027a27ac1090cc65a7bc4ce16f787e2f312750ffc65c00ca"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decision-history/cases.json",
+      "sha256": "99c8e52f856991520c43eb7d2e74b9b5111e3fd5696478bd17a3d517e68b8d08"
+    },
+    {
+      "path": ".agents/skills/oe-film-direction/SKILL.md",
+      "sha256": "0877dfb4945906048907d904214b8aadbd01f2c4b31ceced31f3155e190d0f43"
+    },
+    {
+      "path": "blueprint-cinema/schemas/agent-deliverable.schema.json",
+      "sha256": "4866726b0e04ea8a64d040bb8567986e40277de69be67efa7aaaff6614ce7d5e"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-direction-forward-test/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Return one direction and decision event per raw task, using the skill and cited inputs.",
+    "State missing information and actual verification limits."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Return direction.json, report.md and a standard deliverable.json under owned directory; no implementation or actual log append."
+  ],
+  "status": "issued"
+}

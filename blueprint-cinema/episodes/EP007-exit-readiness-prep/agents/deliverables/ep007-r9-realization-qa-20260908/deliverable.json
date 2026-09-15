@@ -1,0 +1,60 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r9-realization-qa-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/renders/candidates/shot-d.mp4",
+      "sha256": "c09986f249dcdfe365a9bbd56fef13b89760f71d0503b8a31e3745ff7715fa4c"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/SHOT-D-PROMPT.md",
+      "sha256": "17d01735e39b02fa6a12113e20e3b14409489d0f3e333059ec8786f965e0a7bb"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/renders/candidates/shot-d.mp4.response.json",
+      "sha256": "5e6a1d8ce0e9b3ee1bde2fca5be580488d2e9022b0f86d2b74a6ba44ebc69b17"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/deliverable.json",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/proof/shot-d-4fps.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/proof/c-to-d-boundary.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/proof/d-mouth-frames-000-095.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/proof/d-mouth-frames-096-192.png"
+  ],
+  "checks": [
+    {"command": "Node SHA-256 recomputation of every frozen work-order input before review and packet validation after review", "outcome": "pass"},
+    {"command": "ffprobe video duration, frame count, dimensions, codec, pixel format, rate and stream inspection", "outcome": "pass"},
+    {"command": "ffmpeg full-source decode to null", "outcome": "pass"},
+    {"command": "Inspect 32 full-frame samples, all 193 mouth crops, and C source 6.875 to D source 10/24 boundary", "outcome": "pass"},
+    {"command": "Literal fixed-lowered-eyeline prompt outcome; middle eye lift persists in every feasible required-duration trim", "outcome": "fail"},
+    {"command": "Continuous assembled playback with actual narration and graphic handoff", "outcome": "not_run"},
+    {"command": "Blueprint Cinema schema and validate_deliverable direct packet validation without canonical gate advancement", "outcome": "pass"}
+  ],
+  "sources_and_provenance": [
+    "Existing synthetic Kling v3 Pro shot D through fal.ai, request 01a081ec-17f8-7c60-8b31-e419124b6f6c, reviewed locally only; this worker made no provider call.",
+    "Retained R8 shot-c.mp4 source 6.875 seconds, SHA-256 8293c4bcc201259cb4624c94673690c1ec1d34a0bcdfa63464eae0a91feda60e, is an additional read-only continuity reference explicitly named by the work order.",
+    "Root-provided r8-owner-continuity.png and shot-d-contact.jpg inspected; new decoded proof derivatives exist only within this owned packet.",
+    "Applied OE film-direction skill and its context, picture/audio-mode, and generated-plate references; Blueprint Cinema QA and agent contracts govern review limits.",
+    "Media-use operations reference supports local FFmpeg review derivatives. No global cache ingestion occurred because output ownership is limited to this private review packet."
+  ],
+  "assumptions": [
+    "R9 D slot remains local 17–24.166666667 with narration unretimed, as stated by the bounded work order and prompt edit brief.",
+    "The 172-frame window is recommended for an isolated Studio test, not approved final media selection.",
+    "No canonical episode/input-lock gate is inferred from the work order required_gate label."
+  ],
+  "unresolved_questions": [
+    "Does the middle eye lift read as a useful silent buyer-check or distract from inward arithmetic when watched with the exact locked narration?",
+    "Continuous audiovisual and film-to-graphic handoff review remains with root; sampled frames do not approve the assembled rhythm or rule out every temporal artifact."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

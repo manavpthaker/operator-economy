@@ -1,0 +1,181 @@
+{
+  "description": "Request body for POST /v3/lipsyncs.",
+  "properties": {
+    "audio": {
+      "description": "Replacement audio \u2014 provide as {type: 'url', url: '...'} or {type: 'asset_id', asset_id: '...'}",
+      "discriminator": {
+        "mapping": {
+          "asset_id": "#/components/schemas/AssetId",
+          "url": "#/components/schemas/AssetUrl"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "description": "Asset input via publicly accessible HTTPS URL.",
+          "properties": {
+            "type": {
+              "description": "Input type discriminator",
+              "type": "string"
+            },
+            "url": {
+              "description": "Publicly accessible HTTPS URL for the asset",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "url"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Asset input via HeyGen asset ID from the asset upload endpoint.",
+          "properties": {
+            "asset_id": {
+              "description": "HeyGen asset ID from the asset upload endpoint",
+              "type": "string"
+            },
+            "type": {
+              "description": "Input type discriminator",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "asset_id"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "callback_id": {
+      "description": "ID included in webhook payload",
+      "nullable": true,
+      "type": "string"
+    },
+    "callback_url": {
+      "description": "Webhook URL for completion notifications",
+      "nullable": true,
+      "type": "string"
+    },
+    "disable_music_track": {
+      "default": false,
+      "description": "Remove background music",
+      "type": "boolean"
+    },
+    "enable_caption": {
+      "default": false,
+      "deprecated": true,
+      "description": "Deprecated and ignored: captions are always generated; whether to display them is a download-side choice.",
+      "type": "boolean"
+    },
+    "enable_dynamic_duration": {
+      "default": true,
+      "description": "Allow dynamic duration adjustment",
+      "type": "boolean"
+    },
+    "enable_speech_enhancement": {
+      "default": false,
+      "description": "Enhance speech quality",
+      "type": "boolean"
+    },
+    "enable_watermark": {
+      "default": false,
+      "description": "Add watermark to output",
+      "type": "boolean"
+    },
+    "end_time": {
+      "description": "End time in seconds for partial lipsync",
+      "nullable": true,
+      "type": "number"
+    },
+    "folder_id": {
+      "description": "Project/folder ID to organize lipsync into",
+      "nullable": true,
+      "type": "string"
+    },
+    "fps_mode": {
+      "description": "Frame rate mode: 'vfr', 'cfr', or 'passthrough'.",
+      "nullable": true,
+      "type": "string"
+    },
+    "keep_the_same_format": {
+      "description": "Preserve the source video's encoding specs (resolution, bitrate).",
+      "nullable": true,
+      "type": "boolean"
+    },
+    "mode": {
+      "default": "speed",
+      "description": "Quality mode: 'speed' (faster) or 'precision' (higher quality, uses avatar inference)",
+      "enum": [
+        "speed",
+        "precision"
+      ],
+      "type": "string"
+    },
+    "start_time": {
+      "description": "Start time in seconds for partial lipsync",
+      "nullable": true,
+      "type": "number"
+    },
+    "title": {
+      "description": "Title for the lipsync job",
+      "nullable": true,
+      "type": "string"
+    },
+    "video": {
+      "description": "Source video \u2014 provide as {type: 'url', url: '...'} or {type: 'asset_id', asset_id: '...'}",
+      "discriminator": {
+        "mapping": {
+          "asset_id": "#/components/schemas/AssetId",
+          "url": "#/components/schemas/AssetUrl"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "description": "Asset input via publicly accessible HTTPS URL.",
+          "properties": {
+            "type": {
+              "description": "Input type discriminator",
+              "type": "string"
+            },
+            "url": {
+              "description": "Publicly accessible HTTPS URL for the asset",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "url"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Asset input via HeyGen asset ID from the asset upload endpoint.",
+          "properties": {
+            "asset_id": {
+              "description": "HeyGen asset ID from the asset upload endpoint",
+              "type": "string"
+            },
+            "type": {
+              "description": "Input type discriminator",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "asset_id"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "required": [
+    "video",
+    "audio"
+  ],
+  "type": "object"
+}

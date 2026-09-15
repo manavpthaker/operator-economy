@@ -1,0 +1,39 @@
+{
+  "event_id": "r53-c-v2-resync-shift-verified-v1",
+  "decision_id": "s10-no-schedule",
+  "event_type": "verification",
+  "tags": [
+    "presenter-return",
+    "paid-generation",
+    "original-audio",
+    "performance"
+  ],
+  "data": {
+    "decision_event_id": "r53-c-presenter-v2",
+    "method": "Native take trimmed 15 frames; one Fal Sync v3 run (~$1.26); three-window narration alignment; envelope proxy for residual body lag; frames 12-218 in S10+S11a context; audio correlation.",
+    "result": "pass",
+    "scope": "Re-timed part C v2 in context.",
+    "limitations": "Sync placed narration at 0.15275 s (corr >= 0.998). Estimated body-motion lag vs narration reduced from ~0.6 s to ~0.2 s; cadence still varies by phrase. Heuristic, not perceptual. Owner review pending; the earlier C v2 lock is superseded by the reopen.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/resync-shift/restored.mp4",
+        "sha256": "c805af3391bd7b5b00296c398bfa0cec9dbacbfb0a448a0867c070d48d39de96"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/qa/r53-c2s-presenter.mp4",
+        "sha256": "97fe42b5739b206f3d9fd6ea768eed2d9f16aa7b7bbf27a52627d596c0b26471"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s10v5-s11a-context/qa/context.mp4",
+        "sha256": "e3f86d1a8e023a760b6b3a252f035a75b8eb4f45b8849fe89a310abb48099d16"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/resync-shift/ALIGNMENT.json",
+      "sha256": "f99ddf2312932120f664880291f21944c270ca7f876a6403ba0eecb0250866d9",
+      "locator": "Alignment and residual lag"
+    }
+  ]
+}

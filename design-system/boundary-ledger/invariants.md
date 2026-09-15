@@ -29,6 +29,7 @@ The universal IDs correspond to [`semantic-core.json`](./semantic-core.json).
 | Static episode art | 3:2 complete master | Motion formats require landscape, portrait, and square recompositions |
 | Browser | Keyboard focus and `prefers-reduced-motion` | Video needs alternate cuts/end states, not browser interaction |
 | Long-form video | 16:9, frame rate, title-safe, fine-line limits | These depend on the delivery master |
+| Narration-led video | Picture/audio mode, visible-speech rule, shot job, and mute test | These govern how timed picture relates to a particular audio carrier |
 | Social | 9:16/1:1 composition and UI collision checks | Platform chrome changes the practical safe area |
 | Audio | Loudness, intelligibility, phase, and true peak | Color and page geometry have no audio analogue |
 
@@ -44,6 +45,30 @@ The universal IDs correspond to [`semantic-core.json`](./semantic-core.json).
 | One oxide path | One commitment event or thesis locus is active at a time |
 | Small annotations may become texture | Secondary detail may fall away, but captions, evidence, and the causal relationship may not |
 | Reduced motion removes transitions | Reduced-motion cuts preserve the same before state, operation, and after state |
+
+## Narrated picture/audio binding
+
+This is a moving-image binding, not a new semantic role, operation, or universal invariant. Select
+one mode from scene context before designing coverage: `narrated_observation`,
+`narrated_dramatization`, `sync_dialogue`, `presenter_address`, `natural_sound_observation`, or
+`silent_graphic`. Narration alone does not determine the mode.
+
+For `narrated_observation`, the narrator carries language and the picture carries
+observable action, evidence, tension, consequence, or human stakes. Generated plates may not show
+readable speech. Every new angle must reveal a new action, object, spatial relationship, or
+consequence—not simulate a question-and-answer exchange under narration. On mute, the viewer must
+not wait for a missing line.
+
+In explicit `narrated_dramatization`, the narrator supplies essential meaning while the picture may
+show motivated interaction or a conversation. Require illustrative disclosure, scene-specific
+coverage/cut/hold rationale, and review with the actual track. Mute viewing is diagnostic, not a
+universal veto on visible speech. Dramatization never establishes evidence or exact dialogue sync.
+
+The shot records its language carrier, narration or source-audio range, shot job, primary physical
+action, still element, face function, visible-speech rule, continuity anchors, initial and final
+image, and mode-specific mute diagnostic. Carry scene context and editorial intent into the shot
+record and review. The complete mode behavior is locked in the OE film-direction skill;
+[`scene-contracts.md`](./scene-contracts.md) holds the runtime-neutral scene binding.
 
 ## Change rule
 

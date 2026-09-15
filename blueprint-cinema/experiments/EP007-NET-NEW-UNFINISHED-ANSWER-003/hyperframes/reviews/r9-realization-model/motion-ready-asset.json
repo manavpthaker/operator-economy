@@ -1,0 +1,172 @@
+{
+  "$schema": "../../../../../../design-system/boundary-ledger/motion-ready-asset.schema.json",
+  "schemaVersion": "1.0",
+  "id": "ep007-r9-owner-dependency",
+  "semanticCore": {
+    "path": "../../../../../../design-system/boundary-ledger/semantic-core.json",
+    "version": "2.0.0",
+    "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+  },
+  "sourceStill": {
+    "path": "public/model/owner-dependency-reference.svg",
+    "sha256": "035382f8a4737c38c326805b405c7dda9f5194988b85498df342639dd5d005dc",
+    "preservedUnchanged": true
+  },
+  "format": {
+    "aspectRatio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "adaptation": "authored-recomposition"
+  },
+  "persistentObjects": [
+    {
+      "id": "business",
+      "role": "Three ordinary business functions remain present, not verified case evidence",
+      "layerIds": [
+        "business"
+      ]
+    },
+    {
+      "id": "owner",
+      "role": "Same illustrative actor moves aside in the hypothetical month away",
+      "layerIds": [
+        "owner"
+      ]
+    },
+    {
+      "id": "bench",
+      "role": "Stable operating surface stays when owner is absent",
+      "layerIds": [
+        "bench"
+      ]
+    },
+    {
+      "id": "work-ticket",
+      "role": "One request travels and remains waiting before the unanswered endpoint",
+      "layerIds": [
+        "work-ticket"
+      ]
+    },
+    {
+      "id": "decision",
+      "role": "One active question, not a verified failure or solution",
+      "layerIds": [
+        "decision-question"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "business",
+      "semanticRole": "business",
+      "asset": {
+        "path": "public/model/business.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "f6fa95519f8d295c0dfd20335ccf8368687e690611fd3f76c32391085afde23b"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "owner",
+      "semanticRole": "owner",
+      "asset": {
+        "path": "public/model/owner.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "2237d58feee5eb0f27dff542bae4840fa7d8fc067e19b5272c43841525f0f583"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "bench",
+      "semanticRole": "bench",
+      "asset": {
+        "path": "public/model/bench.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "c2a942ae102d1105c999010381fc95de77222480d38413a9d1a7066ff8a1bdbe"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "dependency-route",
+      "semanticRole": "dependency-route",
+      "asset": {
+        "path": "public/model/dependency-route.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "5e4ea0e9bc9a0eac62373772a1a686860e62f43484b54a43b2c7a5d8b88b42ab"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "terminal-connection",
+      "semanticRole": "terminal-connection",
+      "asset": {
+        "path": "public/model/terminal-connection.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "e081b45fb14aed6e9298d51d39b97f752be37c23c4597196bbfd879ffd6815e2"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "work-ticket",
+      "semanticRole": "work-ticket",
+      "asset": {
+        "path": "public/model/work-ticket.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "5177ab50988e10541a3b07374e40dd969d0de2c73426f0b83bb57f3450779898"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "decision-question",
+      "semanticRole": "decision-question",
+      "asset": {
+        "path": "public/model/decision-question.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "b99c55fd34a4c80105394184b87b07ccd782b4c7d820564b08069157e2548c19"
+      },
+      "authoredRoughness": true
+    }
+  ],
+  "routes": [
+    {
+      "id": "current-owner-dependency",
+      "semanticRole": "existing dependency; unanswered handoff when owner unavailable",
+      "from": "business",
+      "to": "owner",
+      "strokeLayerIds": [
+        "dependency-route",
+        "terminal-connection"
+      ]
+    },
+    {
+      "id": "active-decision",
+      "semanticRole": "one oxide unanswered ownership decision at the same endpoint",
+      "from": "work-ticket",
+      "to": "decision",
+      "strokeLayerIds": [
+        "decision-question"
+      ]
+    }
+  ],
+  "evidenceAnchors": [],
+  "review": {
+    "objectPermanence": true,
+    "roughnessAuthored": true,
+    "cropBased": false,
+    "reviewerRole": "director-implementer; owner preview pending"
+  }
+}

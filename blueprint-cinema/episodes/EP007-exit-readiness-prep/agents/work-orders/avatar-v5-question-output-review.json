@@ -1,0 +1,57 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "avatar-v5-question-output-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independently inspect the new V5-based question native video for identity, wide framing, hand anatomy, credible gesture/rest, excessive repetition, face continuity and a suitable future outgoing hold around source12s. Compare accepted V5 and exact question prompt. Native speech is not final original-voice restoration; do not claim its lip sync. Return bounded read-only report plus source sample contact evidence and standard manifest. Root handles restoration, timing and runtime.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/ACCEPTANCE.json",
+      "sha256": "f86d47e5ace325068d3cb2384cf03933b80c30bca0866719b60c0f5e32fc224f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/media/gesture-review.mp4",
+      "sha256": "b896fcd06c0b2b15dfd16dad18e80f9aa1971e916b5a9b06d52ee09874f3f918"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/native.mp4",
+      "sha256": "62872b9d467b6b6591cea5e37ce93fb4387e77b26efd3675ba3877690e0475cd"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/native-qa.json",
+      "sha256": "a78fbc5d0003eb4dd0acfa851bb18416c18419c2a14438dcb6b3dd54b202560f"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/prompts/v5-question.txt",
+      "sha256": "fb8a4a8b62e26328d18f3dc014ad6b1b3fa55b88e8fd9098e335e8e8ec2d6883"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-question-output-review/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued hash and source probe.",
+    "Inspect representative early/middle/late moving positions and endpoint frames; distinguish actual observation from guesses about full-speed lip sync.",
+    "Identify any material identity, anatomy, gesture or future crop concern; accepted V5 middle gesture concern is resolved for that exact baseline and is not a new prohibition.",
+    "Return report and standard manifest under owned directory only."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

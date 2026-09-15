@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r14-overlay-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independently check that the R14 opening overlay preserves all R13 picture cuts, source ranges, media assets, audio placements and existing subcompositions. Main builds the isolated R14 review; wait for main to notify when authored files are ready, then perform read-only checks.",
+  "required_gate": "inputs_locked",
+  "inputs": [{"path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r13-unanswered-job/index.html", "sha256": "8e814b137d6ff1696050834e216bfdf880a0c22f75674040325f3a6876944da5"}],
+  "owned_output_paths": ["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r14-overlay-qa-20260909/"],
+  "forbidden_paths": ["operator-blueprint-v2/", ".agents/", "design-system/", "blueprint-cinema/experiments/", "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"],
+  "dependencies": [],
+  "time_range": {"in": 0, "out": 56.5},
+  "acceptance_checks": ["Verify pinned R13 hash and compare R14 track1 and audio clip declarations to R13, ignoring only editor data-hf-id attributes.", "Compare all public media, audio, fonts, vendor files and existing subcompositions byte-for-byte. Report any unrequested drift.", "Confirm opening overlay persists across the4.041667 film cut and clears before the7.708333 close-up; no other scene gains overlays.", "Return concise report.md and schema-valid deliverable.json. No listening, phoneme-perfect or final-render claim from static checks."],
+  "permissions": {"external_writes": false, "paid_services": false, "synthetic_generation": false, "canonical_state_changes": false},
+  "retry_limit": 0,
+  "stopping_conditions": ["Report stale pinned input; do not correct source files.", "Do not modify experiment files or production gates."],
+  "status": "closed"
+}

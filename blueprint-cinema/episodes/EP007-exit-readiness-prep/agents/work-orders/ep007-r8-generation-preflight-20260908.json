@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r8-generation-preflight-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only preflight for the user-authorized isolated 17-second R8 test: verify current Fal Kling v3 Pro image-to-video schema, 8s and 9s silent request support and list price from primary pages; locate the existing local submission/recovery helper used for R7, without credential values or provider calls. This work order does not dispatch episode production or approve canonical gates.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/DIRECTION.md",
+      "sha256": "1a0493c94119ce08962593a923b0d8b74fb6c7118364d28d8e13e98c0da5ee1c"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/GENERATION-BRIEFS.md",
+      "sha256": "9e37cdc234cd3d1c69586c7ab50fd5f6612444dff781ee187b9ef13d4793ae2b"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/SOURCE-CUES.json",
+      "sha256": "c1f4d14e6eb542fa78cfd6408e55353210d80c87e242574fdcc037b9b656efcc"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-generation-preflight-20260908/"
+  ],
+  "forbidden_paths": [
+    "src/",
+    "schemas/",
+    "templates/",
+    "experiments/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify frozen input hashes. Browse official Fal model/API pages for current price, duration and silent start-image settings. Report exact links, whether the prior route is still available, and the bounded list estimate for two requests totaling 17s.",
+    "Locate/read the local helper used for prior R7 requests and report invocation, safe key source convention, request persistence/recovery behavior, and output paths. Never print credentials, submit requests, install dependencies, or mutate helpers. Return report.md and schema-valid deliverable.json only."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale inputs or a need for paid/provider mutation. Do not independently generate anything.",
+    "No secrets, canonical state, source edits, new production gates, or writes outside owned deliverable folder. Read-only official web browsing is permitted."
+  ],
+  "status": "closed"
+}

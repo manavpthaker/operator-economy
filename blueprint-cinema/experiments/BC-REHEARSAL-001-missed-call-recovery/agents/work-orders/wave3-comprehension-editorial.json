@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-comprehension-editorial",
+  "role": "independent post-render comprehension and editorial reviewer",
+  "required_gate": "render_probe_validated",
+  "input_hashes": [
+    {"path": "input-lock.json", "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"},
+    {"path": "direction-lock.json", "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"},
+    {"path": "direction/visual-plan.json", "sha256": "572f00ae1e51225ea7b161811e356c361eb8734c6f06903642a30049bc0a259c"},
+    {"path": "hyperframes/index.html", "sha256": "d4a7587b83b00c642255b6d41d39c4e6c0e80db22c2dd45e91b79724a2eb7c62"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic.mp4", "sha256": "091e8be81d196a8e27e9322a5664201204cbc3ac644a17af558371b1e5cccca8"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet.jpg", "sha256": "dd6cf528cf09d175d3ec5c6529bb09501722a130cdbd5b8c5faf9889d4baa6ef"},
+    {"path": "review/phone-legibility/contact-sheet-480.jpg", "sha256": "33cc5d12bc60c40c1a0c68a7645780870cf5a6e0c327282443fef69ed58efc83"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave3-comprehension-editorial/review.md",
+    "agents/deliverables/wave3-comprehension-editorial/deliverable.json"
+  ],
+  "forbidden_paths": [
+    "direction/",
+    "hyperframes/index.html",
+    "hyperframes/compositions/",
+    "hyperframes/renders/",
+    "handoff/",
+    "review/",
+    "experiment.json",
+    "input-lock.json",
+    "direction-lock.json",
+    "../episodes/",
+    "../../renderer/",
+    "../../schemas/",
+    "../../src/"
+  ],
+  "dependencies": ["completed review render", "validated media probe", "complete direction lock"],
+  "acceptance_checks": [
+    "recompute every pinned input hash before review",
+    "watch the rendered MP4 as an audience member without relying on production notes",
+    "run separate comprehension, rhythm, hierarchy, and phone-sized legibility passes",
+    "test whether the current path, leak, recovery route, human gate, stop path, booked outcome, and one-week measure are inferable",
+    "identify slide, dashboard, Prezi, decorative-motion, over-text, or competing-focus failures with timestamps",
+    "return ranked blocking, major, and minor findings and distinguish creative judgment from technical validity",
+    "state explicitly that no gate approval or state change is claimed"
+  ],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "any pinned hash differs",
+    "any required input is missing",
+    "the owned deliverable path is not empty before work",
+    "the review would require editing the canonical experiment"
+  ]
+}

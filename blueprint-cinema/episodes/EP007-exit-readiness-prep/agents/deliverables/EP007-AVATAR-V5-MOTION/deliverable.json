@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-avatar-v5-motion",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/media/generated-native.mp4",
+      "sha256": "83370157093045564bc0212884f5f6ec3d0e42444f9c39975767c429858a471d"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/report.md",
+      "sha256": "1a2cd2d7c49f7ce5a23190ceb4d117bbc3f780db1c8902a7d21ce87500b5f19f"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/overview-0s-to-21s-every-half-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/hands-0_5s-to-5_5s-quarter-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/hands-7s-to-13s-quarter-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/hands-17s-to-19_75s-quarter-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-MOTION/face-0s-to-21s-every-second.jpg"
+  ],
+  "checks": [
+    {"command": "Python SHA-256 verification of V5 native source and prior V4 review", "outcome": "pass"},
+    {"command": "ffprobe native dimensions, codecs, frame rate, frame count and duration", "outcome": "pass"},
+    {"command": "FFmpeg exact frame selection; view_image review of whole-take overview, three dense hand sheets and face sheet", "outcome": "pass"},
+    {"command": "Independent comparison of V5 gesture timing and rests against the retained V4 motion report", "outcome": "pass"},
+    {"command": "Continuous audiovisual playback, restored voice review and phoneme synchronization", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Existing generated V5 native video was reviewed locally; no generation or provider call occurred.",
+    "The V4 comparison uses the hash-bound prior independent motion review.",
+    "71 distinct V5 frames were sampled from the 505-frame source; no audio was listened to.",
+    "Native voice is not selected, and no restored V5 media was reviewed in this packet."
+  ],
+  "assumptions": [
+    "Assigned uppercase work-order label is normalized to lowercase for the schema-required ID while preserving the assigned output directory.",
+    "All reported times are native source times; question-period labels do not claim measured word-level synchronization."
+  ],
+  "unresolved_questions": [
+    "Does the approximately 7–12.75-second repeated palm movement feel natural with the selected original narration at playback speed?",
+    "Does the restored output preserve anatomy, identity and the intended speech/pause relationship?"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

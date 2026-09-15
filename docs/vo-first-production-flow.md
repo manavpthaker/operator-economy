@@ -1,5 +1,7 @@
 # VO-First Episode Production
 
+> **Partially superseded.** The rolling cadence, script lock, final VO, and word-level transcript remain authoritative. After VO completion, use `docs/blueprint-cinema.md`: define the episode engine before persistent-world coverage and greybox work. The screen-oriented `coverage_approved` description below is retained as migration history.
+
 This is the authoritative production order after research and the initial episode brief. The final narration is the spine of the edit. A storyboard is a transcript coverage plan, not a collection of finished-looking slides.
 
 ## Rolling Development Cadence

@@ -29,6 +29,11 @@ The full authority stack, Rev C/Rev D disposition, and named migration blockers 
 [cross-media-authority.md](./cross-media-authority.md) and
 [retirement-manifest.json](./retirement-manifest.json).
 
+The OE-owned application instructions are locked separately from the semantic core. Read
+[production-skills.md](./production-skills.md) before directing an illustration, scene, generated
+plate, motion graphic, or audio-led clip. That lock does not promote the provisional motion or sound
+implementation bindings.
+
 ## Semantic architecture
 
 [semantic-core.json](./semantic-core.json) defines six roles:
@@ -65,6 +70,8 @@ caption policy, commitment overlap, audio provenance, and retirement paths:
   timing, roughness, and aspect ratios.
 - [audio-led-clips.md](./audio-led-clips.md) — caption, thesis type, voice trace, and sound contract.
 - [scene-contracts.md](./scene-contracts.md) — runtime-neutral designed-scene primitives.
+- [production-skills.md](./production-skills.md) — locked OE application skills, picture/audio
+  modes, reference boundary, and machine-verifiable instruction lock.
 - [motion-ready-asset.schema.json](./motion-ready-asset.schema.json) — layered Working Model
   contract; the locked EP006 JPEG is explicitly not motion-ready by itself.
 - [component-contracts.md](./component-contracts.md) — web DOM bindings plus scene-component map.

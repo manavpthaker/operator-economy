@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP009 · Repeat commission route · motion test</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+
+      :root {
+        --paper: #f5f0e6;
+        --paper-raised: #fbf8f1;
+        --paper-inset: #ede7d8;
+        --mineral: #204440;
+        --mineral-deep: #173530;
+        --steel: #586d74;
+        --steel-dark: #33464c;
+        --steel-light: #71868d;
+        --ink: #19201f;
+        --ink-soft: #303b39;
+        --ink-muted: #566461;
+        --rule: #d8cfb9;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: var(--paper); }
+      body { color: var(--ink); font-family: "BL Supreme", sans-serif; }
+      #root, #ep009-scene { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #root, #ep009-scene { background: var(--paper); }
+
+      .docket {
+        position: absolute;
+        top: 54px;
+        left: 134px;
+        right: 134px;
+        height: 66px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        border-top: 2px solid var(--steel);
+        border-bottom: 2px solid var(--rule);
+        color: var(--mineral);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .docket span:nth-child(2) { text-align: center; color: var(--steel-dark); }
+      .docket span:last-child { text-align: right; color: var(--ink-muted); }
+
+      .title {
+        position: absolute;
+        left: 134px;
+        top: 164px;
+        color: var(--mineral-deep);
+        font-family: "BL Zodiak", serif;
+        font-size: 76px;
+        font-weight: 700;
+        letter-spacing: -.035em;
+        line-height: .98;
+      }
+      .comparison-label {
+        position: absolute;
+        right: 134px;
+        top: 182px;
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .field-rule {
+        position: absolute;
+        left: 134px;
+        right: 134px;
+        top: 304px;
+        height: 2px;
+        background: var(--rule);
+      }
+
+      #ep009-world { position: absolute; inset: 0; }
+      .property {
+        position: absolute;
+        left: 154px;
+        top: 421px;
+        width: 470px;
+        height: 390px;
+      }
+      .property svg { width: 100%; height: 100%; overflow: visible; }
+      .property-fill { fill: var(--paper-raised); }
+      .property-line { fill: none; stroke: var(--mineral); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .property-rule { fill: none; stroke: var(--rule); stroke-width: 3; stroke-linecap: round; }
+      .property-label {
+        position: absolute;
+        left: 58px;
+        top: 286px;
+        color: var(--mineral-deep);
+        font-family: "BL Boska", serif;
+        font-size: 50px;
+        font-weight: 700;
+      }
+      .property-kicker {
+        position: absolute;
+        left: 61px;
+        top: 356px;
+        color: var(--ink-muted);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+
+      .platform {
+        position: absolute;
+        left: 1244px;
+        top: 400px;
+        width: 522px;
+        height: 414px;
+        border: 2px solid var(--steel);
+        background: var(--paper-inset);
+      }
+      .platform-header {
+        height: 72px;
+        padding: 23px 28px 0;
+        border-bottom: 2px solid var(--steel);
+        color: var(--steel-dark);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .platform-value {
+        position: absolute;
+        left: 28px;
+        top: 106px;
+        color: var(--steel-dark);
+        font-family: "BL Zodiak", serif;
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .platform-note {
+        position: absolute;
+        left: 30px;
+        top: 166px;
+        width: 360px;
+        color: var(--ink-muted);
+        font-size: 19px;
+        line-height: 1.35;
+      }
+      .platform-slot {
+        position: absolute;
+        left: 27px;
+        right: 27px;
+        bottom: 24px;
+        height: 160px;
+        border-top: 2px solid var(--rule);
+      }
+
+      .route-svg {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: visible;
+      }
+      #ep009-commission-route {
+        fill: none;
+        stroke: var(--steel);
+        stroke-width: 4;
+        stroke-linecap: round;
+      }
+      #ep009-route-terminal {
+        fill: none;
+        stroke: var(--steel-dark);
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .route-caption {
+        position: absolute;
+        left: 718px;
+        top: 602px;
+        width: 360px;
+        color: var(--steel-dark);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: .16em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .commission {
+        position: absolute;
+        z-index: 10;
+        top: 628px;
+        width: 142px;
+        height: 142px;
+        padding-top: 39px;
+        border: 3px solid var(--steel-dark);
+        border-radius: 50%;
+        background: var(--paper-raised);
+        box-shadow: 7px 8px 0 rgba(51, 70, 76, .10);
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        text-align: center;
+      }
+      .commission::after {
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border: 2px solid var(--steel-light);
+        border-radius: 50%;
+      }
+      .commission strong {
+        position: relative;
+        z-index: 2;
+        display: block;
+        font-size: 17px;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+      }
+      .commission span {
+        position: relative;
+        z-index: 2;
+        display: block;
+        margin-top: 8px;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: .12em;
+      }
+      #ep009-first-commission { left: 1542px; }
+      #ep009-second-commission { left: 438px; }
+
+      .same-scale {
+        position: absolute;
+        z-index: 11;
+        left: 1368px;
+        top: 783px;
+        width: 314px;
+        height: 54px;
+        color: var(--steel-dark);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .13em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .same-scale svg { position: absolute; left: 0; top: 0; width: 314px; height: 24px; overflow: visible; }
+      #ep009-same-scale-rule { fill: none; stroke: var(--steel-dark); stroke-width: 3; stroke-linecap: round; }
+      .same-scale div { padding-top: 28px; }
+
+      .guest {
+        position: absolute;
+        z-index: 20;
+        left: 838px;
+        top: 342px;
+        width: 250px;
+        height: 246px;
+      }
+      .guest svg { width: 250px; height: 210px; overflow: visible; }
+      .guest-contour { fill: var(--paper-raised); stroke: var(--mineral); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .guest-detail { fill: none; stroke: var(--mineral); stroke-width: 4; stroke-linecap: round; }
+      #ep009-guest-focus-path { fill: none; stroke: var(--mineral); stroke-width: 5; stroke-linecap: round; }
+      .guest-label {
+        margin-top: 2px;
+        color: var(--mineral-deep);
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: .16em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .footnote {
+        position: absolute;
+        left: 134px;
+        bottom: 62px;
+        color: var(--ink-muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-hf-id="ep009-test-root" data-composition-id="ep009-commission-test" data-start="0" data-duration="7.41" data-width="1920" data-height="1080" data-fps="30">
+      <section id="ep009-scene" data-hf-id="ep009-test-scene" class="clip" data-start="0" data-duration="7.41" data-track-index="1">
+        <header data-hf-id="hf-s86r" class="docket" aria-label="Episode and review status">
+          <span data-hf-id="hf-6omk">EP009 · Direct booking</span>
+          <span data-hf-id="hf-t8ir">Repeat commission</span>
+          <span data-hf-id="hf-z07o">Pre-authority motion test</span>
+        </header>
+
+        <h1 data-hf-id="hf-de8e" class="title">The cost repeats.</h1>
+        <div data-hf-id="hf-ykgj" class="comparison-label">Same route · later stay</div>
+        <div data-hf-id="hf-kxka" class="field-rule" aria-hidden="true"></div>
+
+        <div data-hf-id="hf-69p4" id="ep009-world">
+          <div data-hf-id="hf-7wsk" id="ep009-property" class="property" aria-label="Small inn">
+            <svg data-hf-id="hf-pi1l" viewBox="0 0 470 390" aria-hidden="true">
+              <path data-hf-id="hf-urmi" class="property-fill" d="M 59 311 L 62 124 L 233 47 L 412 126 L 409 311 Z" />
+              <path data-hf-id="hf-ckyy" class="property-line" d="M 44 135 L 232 42 L 426 137 M 62 124 L 62 311 L 409 311 L 409 126" />
+              <path data-hf-id="hf-83ti" class="property-rule" d="M 112 154 L 185 154 L 185 226 L 112 226 Z M 281 154 L 354 154 L 354 226 L 281 226 Z M 201 311 L 201 213 L 270 213 L 270 311" />
+            </svg>
+            <div data-hf-id="hf-xc3q" class="property-label">The inn</div>
+            <div data-hf-id="hf-j34t" class="property-kicker">Relationship remembered here</div>
+          </div>
+
+          <svg data-hf-id="hf-oc7c" id="ep009-route" class="route-svg" viewBox="0 0 1920 1080" aria-hidden="true">
+            <path data-hf-id="hf-3x32" id="ep009-commission-route" data-draw="" d="M 510 699 C 756 691, 1080 706, 1431 699" />
+            <path data-hf-id="hf-d84g" id="ep009-route-terminal" data-draw="" d="M 1402 681 L 1431 699 L 1402 717" />
+          </svg>
+          <div data-hf-id="hf-9cbd" id="ep009-route-caption" class="route-caption">Commission route</div>
+
+          <div data-hf-id="hf-07pu" id="ep009-platform" class="platform" aria-label="Booking platform">
+            <div data-hf-id="hf-10cv" class="platform-header">Booking platform</div>
+            <div data-hf-id="hf-fv8b" class="platform-value">Reach + checkout</div>
+            <div data-hf-id="hf-x2uu" class="platform-note">The useful exchange remains visible while the cost repeats.</div>
+            <div data-hf-id="hf-q5ml" class="platform-slot" aria-hidden="true"></div>
+          </div>
+
+          <div data-hf-id="hf-tlls" id="ep009-first-commission" class="commission" aria-label="First commission marker">
+            <strong data-hf-id="hf-eczn">Commission</strong><span data-hf-id="hf-p81i">01</span>
+          </div>
+          <div data-hf-id="hf-kw34" id="ep009-second-commission" class="commission" aria-label="Second commission marker">
+            <strong data-hf-id="hf-64sj">Commission</strong><span data-hf-id="hf-pmcj">02</span>
+          </div>
+
+          <div data-hf-id="hf-gk0v" id="ep009-same-scale" class="same-scale">
+            <svg data-hf-id="hf-8kia" viewBox="0 0 314 24" aria-hidden="true">
+              <path data-hf-id="hf-g6xu" id="ep009-same-scale-rule" data-draw="" d="M 4 4 L 4 18 L 310 18 L 310 4" />
+            </svg>
+            <div data-hf-id="hf-qbrk">Same scale</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-xtoy" id="ep009-guest" class="guest" aria-label="The same returning guest, kept anonymous">
+          <svg data-hf-id="hf-xgzw" viewBox="0 0 250 210" aria-hidden="true">
+            <path data-hf-id="hf-9c9p" class="guest-contour" d="M 125 25 C 88 24, 65 50, 66 83 C 66 116, 91 136, 125 136 C 159 136, 184 115, 184 82 C 184 50, 161 25, 125 25 Z" />
+            <path data-hf-id="hf-k7qm" class="guest-detail" d="M 42 195 C 57 155, 87 137, 125 137 C 163 137, 194 155, 208 195" />
+            <path data-hf-id="hf-bymz" id="ep009-guest-focus-path" data-draw="" d="M 31 104 C 26 52, 64 10, 124 8 C 187 6, 226 47, 220 111 C 215 169, 175 204, 121 201 C 68 198, 35 162, 31 104" />
+          </svg>
+          <div data-hf-id="hf-gp0v" class="guest-label">Same guest</div>
+        </div>
+
+        <div data-hf-id="hf-rptn" class="footnote">Locked voice · W000089–W000109 · diagnostic only</div>
+      </section>
+
+      <audio data-hf-id="hf-q9od" id="ep009-locked-voice" class="clip" src="assets/audio/ep009-opening-0.000-59.420.wav" data-start="0" data-duration="7.41" data-media-start="31.76" data-track-index="10" data-volume="1" preload="auto"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const drawPaths = Array.from(document.querySelectorAll("[data-draw]"));
+      for (const path of drawPaths) {
+        const length = Math.max(1, path.getTotalLength());
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+      }
+
+      gsap.set("#ep009-scene", { opacity: 1 });
+      gsap.set("#ep009-route", { opacity: 0 });
+      gsap.set("#ep009-route-caption", { opacity: 0, y: 8 });
+      gsap.set("#ep009-second-commission", { x: 0, rotation: -1.2, transformOrigin: "50% 50%" });
+      gsap.set("#ep009-first-commission", { rotation: .8, transformOrigin: "50% 50%" });
+      gsap.set("#ep009-same-scale", { opacity: 0, y: 8 });
+      gsap.set("#ep009-guest", { opacity: .42, y: 8 });
+
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+      tl.set("#ep009-route", { opacity: 1 }, 1.10);
+      tl.to("#ep009-commission-route", { strokeDashoffset: 0, duration: .88, ease: "power2.out" }, 1.10);
+      tl.to("#ep009-route-terminal", { strokeDashoffset: 0, duration: .24, ease: "power2.out" }, 1.76);
+      tl.to("#ep009-route-caption", { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, 1.32);
+      tl.to("#ep009-second-commission", { x: 930, rotation: -.2, duration: 2.42, ease: "power3.inOut" }, 1.16);
+
+      tl.to("#ep009-same-scale", { opacity: 1, y: 0, duration: .30, ease: "power2.out" }, 3.64);
+      tl.to("#ep009-same-scale-rule", { strokeDashoffset: 0, duration: .46, ease: "power2.out" }, 3.68);
+
+      tl.to("#ep009-world", { opacity: .58, duration: .42, ease: "power1.inOut" }, 5.00);
+      tl.to("#ep009-guest", { opacity: 1, y: 0, duration: .46, ease: "power3.out" }, 5.00);
+      tl.to("#ep009-guest-focus-path", { strokeDashoffset: 0, duration: .58, ease: "power2.out" }, 5.04);
+      tl.set("#ep009-scene", { opacity: 1 }, 7.41);
+
+      window.__timelines["ep009-commission-test"] = tl;
+    </script>
+  </body>
+</html>

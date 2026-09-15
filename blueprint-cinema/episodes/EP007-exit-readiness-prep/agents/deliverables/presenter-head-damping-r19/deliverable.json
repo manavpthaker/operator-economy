@@ -1,0 +1,42 @@
+{
+  "task": "Read-only feasibility review of localized Q head-motion damping",
+  "status": "review_complete_not_rendered",
+  "input": {
+    "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r18/test-q-m-direction-visible-hands-1080p.mp4",
+    "sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+    "hash_verified": true,
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "frame_count": 140,
+    "container_duration_seconds": 5.612
+  },
+  "evidence": {
+    "provided_contact_sheet_viewed": true,
+    "source_frames_inspected": [15, 20, 25, 30, 34],
+    "sample_times_seconds": [0.6, 0.8, 1.0, 1.2, 1.36],
+    "local_evidence": ["straight-frame-samples.png", "at-1p00s.png"],
+    "full_speed_playback_performed": false
+  },
+  "finding": "Translation can reduce vertical bobbing without changing internal mouth geometry, but does not remove the pitch component of the nod. The visible horizontal shelf behind the ears is the principal warp-artifact risk.",
+  "recommendation": {
+    "transform": "Vertical translation only; no retiming, scaling, rotation, or expression edits.",
+    "face_region": "Constant displacement over the entire temporal union of hair, ears, glasses, face and jaw, with margin. Approximate bounds at 1.00s: x800-1130, y75-505; these are a frame observation, not a final mask.",
+    "falloff": "Place vertical falloff below the jaw through neck and upper shirt over about 160-220px; zero by approximately y700. Keep all hand and table pixels outside the transformation. Do not let spatial falloff cross lips, jaw, eyes or glasses.",
+    "initial_strength": "Start at 35-40 percent of the measured localized excursion against a slow baseline, capped around 12-16px for first artifact review. These are conservative trial values, not measured acceptance thresholds.",
+    "temporal_envelope": "Correction and its first derivative should reach zero at support boundaries. Include enough handles to avoid a compensating bounce when correction ends.",
+    "stop_condition": "Reject if the shelf bends/pumps, the neck stretches visibly, a hair/ear halo appears, or the correction causes a rebound. Do not increase strength merely to remove remaining pitch."
+  },
+  "verification": [
+    "Same frame count, presentation timestamps and duration as Q; same source frame used at every output timestamp.",
+    "Copy audio without re-encoding and compare the encoded audio payload hash.",
+    "Before delivery encoding, require exact pixel equality outside the declared spatial and temporal support. Compressed delivery differences alone cannot establish equality.",
+    "Inspect shelf, book edges, ears, hair, jaw-to-neck join and shirt collar at full resolution through all affected frames.",
+    "Compare mouth geometry after undoing the rigid translation, especially straight and the second sentence.",
+    "Review normal-speed playback for reduced emphasis and for onset/end rebound; static frames cannot prove motion naturalness."
+  ],
+  "provider_calls": 0,
+  "canonical_files_changed": [],
+  "productionGateAdvance": false,
+  "owner_approval": false
+}

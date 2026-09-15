@@ -1,0 +1,51 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-avatar-v4-still",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/identity-study.webp",
+      "sha256": "59309d2925b85cfba8a6a411dce1ecea67a03607f8a05933f4a2f6cb6af27754"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+      "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-STILL/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-STILL/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Python hashlib SHA-256 comparison for both exact work-order images", "outcome": "pass"},
+    {"command": "ffprobe dimensions for both image files", "outcome": "pass"},
+    {"command": "view_image comparison of approved portrait and wider still: identity, hands, resting pose and frame room", "outcome": "pass"},
+    {"command": "Arithmetic review of 1.3x and 1.4x crop bounds and retained 1080p source pixels", "outcome": "pass"},
+    {"command": "Generated-video temporal anatomy, synchronization and final crop sharpness", "outcome": "not_run"},
+    {"command": "Python validation of all constraints used by agent-deliverable.schema.json, current input hashes and owned output paths", "outcome": "pass"}
+  ],
+  "sources_and_provenance": [
+    "Only the two supplied, hash-matched synthetic image inputs were used as visual evidence.",
+    "The provided approved-portrait status is retained as work-order context, not independently reapproved.",
+    "Original-detail view requested; approved portrait displayed at 2048x1143 and wider still at native 1672x941.",
+    "No new media, external source, provider call, upload, image edit or paid operation was used."
+  ],
+  "assumptions": [
+    "Assigned work-order label EP007-AVATAR-V4-STILL is normalized to lowercase for the schema-required work_order_id; the explicitly assigned output path is preserved.",
+    "The proposed 1080p crop calculations assume a 1920x1080 generated video; actual output dimensions and motion remain to be checked.",
+    "Missing episode-root README, episode.json and input-lock.json do not supply any broader approval or state claim; this bounded review is governed by the supplied image work order."
+  ],
+  "unresolved_questions": [
+    "Will the generated video preserve face and hand anatomy throughout movement?",
+    "Will the final upper-anchored closer crop preserve headroom throughout the clip and retain acceptable encoded detail?",
+    "Speech synchronization and the exact buyer-question cut cue require the approved audio and generated video, outside this still review."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,101 @@
+{
+  "status": "proposal_not_authorization_not_submitted",
+  "owner_requested_replacement": "Back to his question, then.",
+  "original": {
+    "master_word_id": "W000723",
+    "spoken_token": "her",
+    "master_range": [
+      251.26,
+      251.44
+    ]
+  },
+  "existing_word_transplant_audit": {
+    "word_count": 3186,
+    "standalone_his_count": 0,
+    "conclusion": "No whole-word his donor exists in the locked master transcript. Do not synthesize a phoneme splice."
+  },
+  "actual_original_recipe": {
+    "config": "n3-two-stage-acted-guide-v2",
+    "register": "candidate-C4",
+    "guide_voice": "Algieba",
+    "transfer_identity": "Original C"
+  },
+  "short_pickup_risk": "Local calibration notes flag isolated short takes as liable to drift in pace and level; a prior3.65-second tail was2.1dBhot. No new pickup can be called matched before listening.",
+  "selected_context_bearing_request": {
+    "purpose": "Produce callback in connected delivery using following unchanged text as context; integrate only callback, keep locked question recording.",
+    "guide_endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+    "body": {
+      "advancedVoiceOptions": {
+        "enableTextnorm": false
+      },
+      "audioConfig": {
+        "audioEncoding": "LINEAR16",
+        "sampleRateHertz": 24000
+      },
+      "input": {
+        "prompt": "An experienced operator is talking with one smart peer across a table, working through a real problem\u2014not presenting or reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Begin as if the conversation is already underway. Speak at a natural, easy conversational clip. Let unstressed words stay light and run together the way they do in real speech\u2014never clip, over-articulate, or give every word equal weight. Keep consecutive short sentences flowing as one continuous thought. Save real room for genuine turns in the argument, where the reasoning gets dense or a number has to matter\u2014not after every sentence. Vary those beats, and never fall into a repeated cadence. Emphasize ideas, not individual words. Natural American conversation, grounded and lightly informal. Energy seven of ten. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Do not vocalize these directions.",
+        "text": "Back to his question, then. What happens here if you are not around for a month. That is not small talk."
+      },
+      "voice": {
+        "languageCode": "en-US",
+        "modelName": "gemini-2.5-pro-tts",
+        "name": "Algieba"
+      }
+    },
+    "spoken_character_count": 104,
+    "calls": 1,
+    "no_short_take_first": true,
+    "not_additional_authority": "One chosen contextual take, not an exact-short-take followed by a retry."
+  },
+  "transfer": {
+    "method": "POST multipart/form-data",
+    "url": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj?output_format=pcm_48000&enable_logging=true",
+    "fields": {
+      "model_id": "eleven_multilingual_sts_v2",
+      "remove_background_noise": "false",
+      "seed": "2026082501",
+      "voice_settings": "{\"similarity_boost\": 0.8, \"speed\": 1.0, \"stability\": 0.4, \"style\": 0.0, \"use_speaker_boost\": true}",
+      "file_format": "other"
+    },
+    "file": "Exact guide WAV produced by selected option; hash before transfer."
+  },
+  "spend": {
+    "guide_calls_proposed": 1,
+    "voice_transfer_calls_proposed": 1,
+    "automatic_retries": 0,
+    "current_price_verified": false,
+    "cost_basis": "Original recipe and text count are local facts. No current Google or ElevenLabs pricing is stored with the EP007 capture. Root must obtain a current read-only rate/estimate before quoting a dollar bound."
+  },
+  "existing_helper": {
+    "path": "operator-blueprint-v2/02-narration-production/tools/calibrate.py",
+    "important_override": "guide/chain --voice Algieba; calibrate.py default Achird is not this episode recipe",
+    "execute_boundary": "Helper has no authorization latch. Do not add --execute before root current scoped authorization and preserve receipts."
+  },
+  "integration_contract": {
+    "preserve_master": true,
+    "preserve_original_callback": true,
+    "candidate_only": true,
+    "available_callback_interval_master": [
+      250.625,
+      252.41666666666666
+    ],
+    "available_callback_seconds": 1.7916666666666667,
+    "preferred_first_word_master_anchor": 250.98,
+    "after_pickup": "Keep original audio from master252.416667 onward untouched and preserve its internal timing.",
+    "fit": "If naturally spoken callback plus a clean trailing pause fits1.791667s, keep all existing later review cues.",
+    "overflow": "If it does not fit naturally, extend only S08 callback by an integral24fps frame count delta. Shift the avatar and every laterS08 audio/visual cue by the same delta. Preserve R36prefix0\u2013247.625 and master source coordinates.",
+    "prohibited": [
+      "No time-stretch to squeeze into the old slot.",
+      "No phoneme fabrication.",
+      "No silent master replacement.",
+      "No new questionaudio substitution when only callback is being corrected."
+    ],
+    "review": [
+      "Listen against neighboring originalvoice for timbre/pace/level.",
+      "Check exact words and finalthen release.",
+      "Trim context at a real low-energy sentenceboundary.",
+      "Use crossfades only in non-speech roomtone if needed; retain originalsourceclips and derivation.",
+      "Save a versioned candidate audiooverride and offsetmap; canonical narrationrevision is a separate controlled action."
+    ]
+  }
+}

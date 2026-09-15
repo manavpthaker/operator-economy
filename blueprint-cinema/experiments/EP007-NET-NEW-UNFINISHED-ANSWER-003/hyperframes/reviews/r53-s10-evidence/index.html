@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R53 B — Exits are not planned</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r53-root{position:relative;width:1280px;height:720px;overflow:hidden;color:#173530;font-family:Supreme,sans-serif;background:#F5F0E6}
+/* Same evidence surface as the accepted S06 source panel. */
+.kicker{position:absolute;left:64px;top:42px;font-size:21px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#33464C}
+.source-name{position:absolute;left:64px;top:98px;font:700 62px/1.1 Boska,serif;margin:0}
+.rule{position:absolute;left:66px;right:65px;top:196px;height:2px;background:#586D74}
+#r53-stat{position:absolute;left:65px;top:256px;width:500px}
+.number{font:700 105px/1 Boska,serif;white-space:nowrap}
+#r53-copy{font:400 29px/1.4 Supreme,sans-serif;max-width:470px;margin-top:20px}
+#r53-ds{position:absolute;left:660px;top:250px;width:520px}
+#r53-ds-label{font-size:34px;font-weight:500;margin-bottom:14px}
+.d{font:700 46px/1.18 Boska,serif}
+#r53-foot{position:absolute;left:65px;bottom:40px;font-size:21px;color:#33464C}
+#r53-stat,#r53-copy,#r53-ds-label,.d,#r53-foot{visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r53-root" data-composition-id="ep007-r53-evidence" data-start="0" data-duration="22.75" data-width="1280" data-height="720" data-fps="24" role="img" aria-label="Exit Planning Institute reported estimate: about half of business exits are not planned. The five Ds: death, disability, divorce, disagreement, distress.">
+<div class="kicker">The same research</div>
+<h2 class="source-name">Exit Planning Institute</h2>
+<div class="rule"></div>
+<div id="r53-stat"><div class="number">≈ half</div><div id="r53-copy">of business exits are not planned</div></div>
+<div id="r53-ds"><div id="r53-ds-label">The five Ds</div>
+<div class="d" id="d1">Death</div><div class="d" id="d2">Disability</div><div class="d" id="d3">Divorce</div><div class="d" id="d4">Disagreement</div><div class="d" id="d5">Distress</div></div>
+<div id="r53-foot">Reported estimate · the institute trains and certifies exit planners · directional, not precise</div>
+<audio id="r53-narration" src="public/audio/narration.wav" data-start="0" data-duration="22.75" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={"source":0.44,"half":2.28,"not_planned":4.54,"five_ds":8.0,"d":[9.40,10.18,11.42,12.30,13.10],"recede":16.23};
+// The source and its interest note arrive with "research" and stay while the number is on screen.
+t.to('#r53-foot',{autoAlpha:1,duration:8/24,ease:'power1.out'},C.source);
+t.to('#r53-stat',{autoAlpha:1,duration:8/24,ease:'power1.out'},C.half);
+t.to('#r53-copy',{autoAlpha:1,duration:8/24,ease:'power1.out'},C.not_planned);
+t.to('#r53-ds-label',{autoAlpha:1,duration:8/24,ease:'power1.out'},C.five_ds);
+// Each D on its spoken word; no imagery of harm.
+C.d.forEach((time,i)=>t.fromTo('#d'+(i+1),{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:8/24,ease:'power2.out'},time));
+// "It changes the shape of the decision": the list steps back; the unplanned share stays.
+t.to('.d',{autoAlpha:.45,duration:.6,ease:'power1.inOut'},C.recede);
+window.__timelines['ep007-r53-evidence']=t;
+</script></body></html>

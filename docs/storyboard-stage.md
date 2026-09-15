@@ -1,5 +1,7 @@
 # Storyboard stage — design spec (v2, 2026-07-03)
 
+> **Superseded for new long-form work.** This document records the legacy screen-based renderer and remains useful for reproducing older episodes. `docs/blueprint-cinema.md` now governs visual planning: persistent worlds and business-state actions replace per-beat layouts and screen resets.
+
 **v2 change:** merged with the edit-grammar spec in `faceless-video-editing-research.md`. The storyboard now carries **layouts** (16 of them, not 8), **script tags** per beat, **sfx cues**, and **music intensity** per screen. Layouts are chosen from tags via a small deterministic map (§Tag → layout), then packed into screens obeying the cadence rules (§Cadence). The render layer consumes the same file and does not need to guess a grammar.
 
 ## Problem (unchanged from v1)

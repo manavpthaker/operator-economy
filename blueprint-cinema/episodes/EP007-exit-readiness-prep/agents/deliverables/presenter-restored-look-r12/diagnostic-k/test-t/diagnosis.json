@@ -1,0 +1,83 @@
+{
+  "status": "read_only_diagnosis_and_conservative_translation_proposal",
+  "source_Q_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r18/test-q-m-direction-visible-hands-1080p.mp4",
+  "source_Q_sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+  "S_config_path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r20/stabilization-config.json",
+  "S_config_sha256": "23981b9488a02bb495ef563e6df2ad647c71ac1cc551e0e1326a74d73d6fb2f0",
+  "dense_tracking_sha256": "b27d165cddab10dd84ddd71f3103b7cee51465f458eb5e5dd3d988675abfd031",
+  "diagnosis": {
+    "established_added_scale": {
+      "range": [
+        0.98,
+        1.0185970276435399
+      ],
+      "max_min_size_swing_percent": 3.9384722085244794,
+      "shrink_plateau": "0.9800 mostly1.04\u20131.40s",
+      "blink_growth": {
+        "from_time": 2.88,
+        "from_scale": 0.9948500019029749,
+        "to_time": 3.04,
+        "to_scale": 1.0185970276435399,
+        "relative_percent": 2.3869955968378154,
+        "elapsed_seconds": 0.16
+      },
+      "blink_return": {
+        "end_time": 3.24,
+        "end_scale": 0.9994370601658018,
+        "relative_percent_from_peak": -1.881015451425716
+      },
+      "largest_single_frame_relative_step_percent": 0.8146158242368211
+    },
+    "established_head_body_transform": {
+      "head_center_dx_min_max": [
+        -9.341126238725451,
+        6.5364894559579625
+      ],
+      "head_center_dy_min_max": [
+        -14.213781200183348,
+        16.711415703900627
+      ],
+      "added_rotation_min_max_deg": [
+        -2.0257291553615793,
+        2.5
+      ]
+    },
+    "interpretation": "The output truly changes head size; the reported zoom/pulse is consistent with its rapid scale corrections, especially around the blink. Rotation/translation of a locally stabilized head against the preserved neck/shoulders can additionally make it feel detached. The latter perceptual contribution is plausible, not separately measured.",
+    "prior_QA_limit": "Large motion reduction and preserved mouth/blink correlation do not establish natural-looking movement. Sampled stills did not rule out temporal pulsing; owner moving review rejected it."
+  },
+  "recommended_next_candidate": {
+    "source": "Original Q, not S or an already-warped derivative.",
+    "uniform_scale": 1.0,
+    "rotation_degrees": 0.0,
+    "translation_only": true,
+    "suggested_fraction_of_smoothed_pose_deviation_removed": 0.25,
+    "cap_abs_dx_px": 3,
+    "cap_abs_dy_px": 5,
+    "method": "Apply dx,dy=0.25*(reference-smoothed Q eye midpoint), cap X\u00b13,Y\u00b15. Preserve the actual source face as one rigid translation region. Use existing smooth trajectory; no eye-distance or eye-angle compensation.",
+    "numeric_sanity_before_render": {
+      "proposed_dx_min_max": [
+        -2.9191019496016963,
+        2.0426529549868633
+      ],
+      "proposed_dy_min_max": [
+        -4.441806625057296,
+        5.0
+      ],
+      "predicted_raw_xy_range_reduction_fraction": [
+        0.22773950260996134,
+        0.2160293729222562
+      ],
+      "predicted_xy_stddev_reduction_fraction": [
+        0.24335937335198654,
+        0.2398457150337363
+      ]
+    },
+    "masking": "Use the proven foreground isolation and observed-background restoration. Keep source mouth/eyes/head proportions rigid; taper only in the neck transition and do not move hands/torso."
+  },
+  "limits": [
+    "This is modest cleanup, not a promise of micro-expression-only performance; it retains most source movement.",
+    "No2D translation can remove3D pitch or yaw. Original apparent size changes caused by source3D motion remain, but no new scale is introduced.",
+    "Even5px local head translation can affect neck attachment; assess in playback, not just tracker statistics.",
+    "No rendering, media edits, audio changes, provider calls or canonical gate changes performed."
+  ]
+}

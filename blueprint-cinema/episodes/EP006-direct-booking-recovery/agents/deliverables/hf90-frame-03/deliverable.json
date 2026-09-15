@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-03",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/03-loop-back.md",
+      "sha256": "8929dfefc60a25780977fc9e23cbbe0a7f1ece5829ebc64cb628635d5eb0a018"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-03/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-03/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 isolated frame structural audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "node agent-deliverable schema and owned-file audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI assembled-project validation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet 03-loop-back.md supplied the three scene phases, duration, spatial-pan blueprint, and motion recipes.",
+    "Hash-pinned frame.md supplied the paper, ink, grid, hairline, geometry, spacing, and keep-out design constraints.",
+    "The frame uses only inline CSS and SVG geometry; it references no external media, logo, interface evidence, or font asset."
+  ],
+  "assumptions": [
+    "The assembled HyperFrames root supplies the GSAP global used by the required paused timeline contract."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

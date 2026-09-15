@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R48 — The relationships</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r48-root{position:relative;width:1280px;height:720px;overflow:hidden}
+#r48-paper{position:absolute;inset:0;background:#F5F0E6}
+#r48-world{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tie{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round}
+.type{font-family:Supreme,sans-serif;fill:#173530;font-size:34px;font-weight:500}
+#r48-heading{position:absolute;left:65px;top:55px;width:1150px;margin:0;text-align:center;font:700 64px/1.08 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+.r48-customer,.tie{visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r48-root" data-composition-id="ep007-r48" data-start="0" data-duration="8.958333333333334" data-width="1280" data-height="720" data-fps="24">
+<div id="r48-paper"></div>
+<h1 id="r48-heading">The relationships</h1>
+<svg id="r48-world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="The same business and owner. Customers appear, each tied to the owner rather than the business. The owner leaves; the ties end at her empty place and the customers stay where they are.">
+<defs><g id="r48-person">
+        <path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+        <path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- Business, desk, labels and owner keep the accepted R46 geometry. -->
+<image id="r48-business" href="public/art/workshop.svg" x="55" y="192" width="550" height="412.5"/>
+<text class="type" x="317" y="639" text-anchor="middle">Her business</text>
+<text class="type" x="925" y="183" text-anchor="middle">Owner</text>
+<g id="r48-desk" class="ink"><path d="m718 521 201-1m12 1 194-1m-390 10 1 64m365-65-1 63"/><path class="light" d="m735 525 131 1m105-2 117 1m-349 29 1 28m356-36-1 36"/></g>
+<!-- Ties run from each customer to the owner, never to the business. -->
+<path id="r48-tie-1" class="tie" d="M1150 238Q1062 232 986 286"/>
+<path id="r48-tie-2" class="tie" d="M1150 368Q1066 360 990 322"/>
+<path id="r48-tie-3" class="tie" d="M1150 496Q1066 460 986 352"/>
+<g id="r48-owner"><use href="#r48-person" transform="translate(925,325)"/></g>
+<g id="r48-c1" class="r48-customer"><use href="#r48-person" transform="translate(1196,268) scale(.55)"/></g>
+<g id="r48-c2" class="r48-customer"><use href="#r48-person" transform="translate(1196,398) scale(.55)"/></g>
+<g id="r48-c3" class="r48-customer"><use href="#r48-person" transform="translate(1196,528) scale(.55)"/></g>
+</svg>
+<audio id="r48-narration" src="public/audio/narration.wav" data-start="0" data-duration="8.958333333333334" data-media-start="0" data-track-index="100" data-volume="1"></audio></div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={"heading":1.24,"customers":2.56,"attach":3.98,"leave":7.56,"leave_duration":0.7083333333333334};
+// Name the shape on its word; the familiar business and owner are already established.
+t.to('#r48-heading',{autoAlpha:1,duration:10/24,ease:'power2.out'},C.heading);
+// Illustrative significant customers; three is not a count.
+['#r48-c1','#r48-c2','#r48-c3'].forEach((id,i)=>{t.fromTo(id,{autoAlpha:0,x:18},{autoAlpha:1,x:0,duration:.45,ease:'power2.out'},C.customers+i*.2)});
+['#r48-tie-1','#r48-tie-2','#r48-tie-3'].forEach((id,i)=>{const p=document.querySelector(id);const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;t.set(id,{autoAlpha:1},C.attach+i*.14);t.to(id,{strokeDashoffset:0,duration:.8,ease:'power1.inOut'},C.attach+i*.14)});
+// Same leave motion as R46. Ties and customers do not change: whether they stay is unknown.
+t.to('#r48-owner',{x:105,y:-18,autoAlpha:0,duration:C.leave_duration,ease:'power2.inOut'},C.leave);
+window.__timelines['ep007-r48']=t;
+</script></body></html>

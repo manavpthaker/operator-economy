@@ -1,0 +1,722 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP007-exit-readiness-prep",
+  "governing_rule": "Object permanence. A part, a dependency line, a record or a person stays recognisable across the whole episode while the state around it changes. An object that changes appearance to suit a shot has broken the world.",
+  "zones": [
+    {
+      "id": "z.room",
+      "description": "The owner's actual room: desk, table, paper, screen. Where people are.",
+      "camera": "cam.table"
+    },
+    {
+      "id": "z.structure",
+      "description": "The business seen as a standing thing: parts, and whatever each part stands on.",
+      "camera": "cam.structure"
+    },
+    {
+      "id": "z.evidence",
+      "description": "Where a sourced claim attaches to what it supports. Flat, still, inspectable.",
+      "camera": "cam.evidence"
+    },
+    {
+      "id": "z.outside",
+      "description": "Outside the engagement: the buyer, the buyer's process, the owner's own advisers. The operator never changes anything here."
+    }
+  ],
+  "objects": [
+    {
+      "id": "business-part.owner-held-pricing",
+      "instance_of": "business-part",
+      "material_form": "A pricing decision block. The owner is the only one who has ever set a price.",
+      "zone": "z.structure",
+      "states": [
+        "standing-on-owner",
+        "surfaced",
+        "failed-transfer-test",
+        "being-remediated",
+        "moved-or-documented"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "standing-on-owner",
+          "to": "surfaced",
+          "triggered_by": "BO-002",
+          "reversible": false
+        },
+        {
+          "from": "failed-transfer-test",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        },
+        {
+          "from": "being-remediated",
+          "to": "moved-or-documented",
+          "triggered_by": "BO-005",
+          "reversible": false
+        },
+        {
+          "from": "surfaced",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-002",
+        "BO-004",
+        "BO-005"
+      ],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ]
+    },
+    {
+      "id": "business-part.customer-concentration",
+      "instance_of": "business-part",
+      "material_form": "A block whose weight is one or two customers.",
+      "zone": "z.structure",
+      "states": [
+        "unanalysed",
+        "analysed",
+        "recorded-as-structural",
+        "recorded-as-remediable"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "unanalysed",
+          "to": "analysed",
+          "triggered_by": "BO-004",
+          "reversible": false
+        },
+        {
+          "from": "analysed",
+          "to": "recorded-as-structural",
+          "triggered_by": "BO-004",
+          "reversible": true
+        },
+        {
+          "from": "analysed",
+          "to": "recorded-as-remediable",
+          "triggered_by": "BO-004",
+          "reversible": true
+        }
+      ],
+      "changed_by": [
+        "BO-004"
+      ],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ],
+      "narrowing_reason": "The Canvas offers concentration and key-person ANALYSIS, not concentration remediation. This instance cannot reach moved-or-documented, and is not surfaced by interviews or reduced by owner-dependence work \u2014 depicting either would over-claim the offer."
+    },
+    {
+      "id": "business-part.undocumented-process",
+      "instance_of": "business-part",
+      "material_form": "A block with no written procedure under it.",
+      "zone": "z.structure",
+      "states": [
+        "standing-on-owner",
+        "surfaced",
+        "failed-transfer-test",
+        "being-remediated",
+        "moved-or-documented"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "standing-on-owner",
+          "to": "surfaced",
+          "triggered_by": "BO-002",
+          "reversible": false
+        },
+        {
+          "from": "failed-transfer-test",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        },
+        {
+          "from": "being-remediated",
+          "to": "moved-or-documented",
+          "triggered_by": "BO-005",
+          "reversible": false
+        },
+        {
+          "from": "surfaced",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-002",
+        "BO-004",
+        "BO-005"
+      ],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ]
+    },
+    {
+      "id": "business-part.key-person-dependency",
+      "instance_of": "business-part",
+      "material_form": "A block that only one named person can operate.",
+      "zone": "z.structure",
+      "states": [
+        "standing-on-owner",
+        "surfaced",
+        "failed-transfer-test",
+        "being-remediated",
+        "moved-or-documented"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "standing-on-owner",
+          "to": "surfaced",
+          "triggered_by": "BO-002",
+          "reversible": false
+        },
+        {
+          "from": "failed-transfer-test",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        },
+        {
+          "from": "being-remediated",
+          "to": "moved-or-documented",
+          "triggered_by": "BO-005",
+          "reversible": false
+        },
+        {
+          "from": "surfaced",
+          "to": "being-remediated",
+          "triggered_by": "BO-004",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-002",
+        "BO-004",
+        "BO-005"
+      ],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ]
+    },
+    {
+      "id": "owner",
+      "material_form": "A person, 55+, at their own desk. Competent and present. Never drawn as foolish.",
+      "states": [
+        "load-bearing",
+        "relieved-of-one-load",
+        "still-load-bearing-elsewhere"
+      ],
+      "zone": "z.room",
+      "allowed_transitions": [
+        {
+          "from": "load-bearing",
+          "to": "relieved-of-one-load",
+          "triggered_by": "BO-005",
+          "reversible": true
+        },
+        {
+          "from": "relieved-of-one-load",
+          "to": "still-load-bearing-elsewhere",
+          "triggered_by": "BO-005",
+          "reversible": true
+        }
+      ],
+      "changed_by": [
+        "BO-005"
+      ],
+      "carried_by": [
+        "BO-007"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ]
+    },
+    {
+      "id": "dependency-line",
+      "material_form": "Perimeter steel: a thin hard support running from a part back to the owner. Rented capability the buyer cannot keep. It is not automatically cut \u2014 the Canvas says the dependency may be moved or documented, and a documented, bounded dependency is a legitimate resolution.",
+      "states": [
+        "implicit",
+        "legible",
+        "under-load-test",
+        "reassigned",
+        "documented-and-retained",
+        "supported-by-another-role",
+        "unresolved",
+        "removed"
+      ],
+      "zone": "z.structure",
+      "allowed_transitions": [
+        {
+          "from": "implicit",
+          "to": "legible",
+          "triggered_by": "BO-002",
+          "reversible": false
+        },
+        {
+          "from": "under-load-test",
+          "to": "reassigned",
+          "triggered_by": "BO-005",
+          "reversible": true
+        },
+        {
+          "from": "under-load-test",
+          "to": "documented-and-retained",
+          "triggered_by": "BO-005",
+          "reversible": true
+        },
+        {
+          "from": "under-load-test",
+          "to": "supported-by-another-role",
+          "triggered_by": "BO-005",
+          "reversible": true
+        },
+        {
+          "from": "under-load-test",
+          "to": "unresolved",
+          "triggered_by": "route.pause",
+          "reversible": true
+        },
+        {
+          "from": "under-load-test",
+          "to": "removed",
+          "triggered_by": "BO-005",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-002",
+        "BO-005"
+      ],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": []
+    },
+    {
+      "id": "documented-support",
+      "material_form": "Deep mineral: written process placed under a part. Plain, unglamorous, load-bearing.",
+      "states": [
+        "absent",
+        "drafted",
+        "carrying-load"
+      ],
+      "zone": "z.structure",
+      "allowed_transitions": [
+        {
+          "from": "absent",
+          "to": "drafted",
+          "triggered_by": "BO-004",
+          "reversible": true
+        },
+        {
+          "from": "drafted",
+          "to": "carrying-load",
+          "triggered_by": "BO-005",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-004",
+        "BO-005"
+      ],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "diligence-package",
+      "material_form": "An assembled physical record a buyer can open and read.",
+      "states": [
+        "present"
+      ],
+      "zone": "z.evidence",
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "BO-006 was withdrawn: assembling a deliverable is not a material business-state change any permitted Boundary Ledger operation expresses. The package remains in the world as something a buyer inspects and as an evidence carrier, but the engine no longer models its assembly as an operation."
+    },
+    {
+      "id": "readiness-checklist",
+      "material_form": "The pre-agreed checklist. Every line ends resolved, deferred with a stated reason, or out of scope.",
+      "states": [
+        "open",
+        "partially-resolved",
+        "signed"
+      ],
+      "zone": "z.evidence",
+      "allowed_transitions": [
+        {
+          "from": "open",
+          "to": "partially-resolved",
+          "triggered_by": "BO-007",
+          "reversible": true
+        },
+        {
+          "from": "partially-resolved",
+          "to": "signed",
+          "triggered_by": "BO-007",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-007"
+      ],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "buyer",
+      "material_form": "An inspecting party across the table. External. Their process is never altered by the engagement.",
+      "states": [
+        "inspecting"
+      ],
+      "zone": "z.outside",
+      "allowed_transitions": [],
+      "static": true,
+      "static_reason": "The buyer is outside the engagement boundary. Repricing and passing over are observed external outcomes recorded on the transfer path, not states the engagement produces in the buyer. The Canvas is explicit: the operator does not change whether a buyer appears.",
+      "changed_by": [],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": []
+    },
+    {
+      "id": "operator",
+      "material_form": "The practitioner running the engagement. Works on the structure, never on the buyer.",
+      "zone": "z.structure",
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [
+        "BO-002",
+        "BO-003",
+        "BO-004",
+        "BO-005",
+        "BO-007"
+      ],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The operator performs operations and is never a target of one. Its earlier diagnosing/remediating/handing-over states were production phases, not world state, and were simultaneously contradicted by the static flag. Removed rather than reconciled."
+    },
+    {
+      "id": "net-worth-mass",
+      "material_form": "The visible proportion of the owner's own net worth sitting inside the business.",
+      "states": [
+        "inside-the-business"
+      ],
+      "zone": "z.structure",
+      "static": true,
+      "static_reason": "The engagement does not change how much of the owner's net worth is in the business. It is context and evidence, never an outcome the operator delivers.",
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "allowed_transitions": []
+    },
+    {
+      "id": "adviser",
+      "material_form": "The owner's own lawyer, accountant or valuer. Lives outside the engagement boundary.",
+      "states": [
+        "available"
+      ],
+      "zone": "z.outside",
+      "static": true,
+      "static_reason": "Destination for out-of-scope findings. Never acted on by an engine operation; its presence marks the boundary.",
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "allowed_transitions": []
+    },
+    {
+      "id": "engagement-scope",
+      "material_form": "The written boundary of the engagement: what is included, what is excluded, and the fixed fee.",
+      "zone": "z.evidence",
+      "states": [
+        "agreed"
+      ],
+      "allowed_transitions": [],
+      "static": true,
+      "static_reason": "The scope is fixed at engagement start. Carrying C007 here keeps the licensing caveat attached to the fee structure without depicting the fee as a flow that changes.",
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": []
+    }
+  ],
+  "evidence_anchors": [
+    {
+      "id": "a1",
+      "claim_id": "C001",
+      "attaches_to": "buyer",
+      "label": "observed",
+      "meaning": "Most listed businesses do not sell.",
+      "attachment_note": "Carries its upstream label 'observed' unchanged. A visual may not upgrade it.",
+      "must_not_imply": "That preparation changes that rate.",
+      "label_rule": "Carries upstream label 'observed'. A visual may not upgrade it."
+    },
+    {
+      "id": "a2",
+      "claim_id": "C002",
+      "attaches_to": "owner",
+      "label": "observed",
+      "meaning": "About half of exits are involuntary.",
+      "attachment_note": "Carries its upstream label 'observed' unchanged. A visual may not upgrade it.",
+      "must_not_imply": "That any specific owner will face one, or that urgency is therefore equivalent to a deadline.",
+      "label_rule": "Carries upstream label 'observed'. A visual may not upgrade it."
+    },
+    {
+      "id": "a3",
+      "claim_id": "C003",
+      "attaches_to": "owner",
+      "label": "observed",
+      "meaning": "Most owners have no documented plan.",
+      "attachment_note": "C003 concerns documented exit and estate planning and whether a valuation has been taken. It attaches to the owner's planning state. It may NOT be used as evidence that operating procedure is undocumented \u2014 that is a different absence and the claim does not establish it.",
+      "must_not_imply": "That unpreparedness proves they will buy preparation.",
+      "label_rule": "Carries upstream label 'observed'. A visual may not upgrade it."
+    },
+    {
+      "id": "a4",
+      "claim_id": "C004",
+      "attaches_to": "net-worth-mass",
+      "label": "observed",
+      "meaning": "Roughly 80% of the average owner's net worth sits inside the business.",
+      "attachment_note": "Carries its upstream label 'observed' unchanged. A visual may not upgrade it.",
+      "must_not_imply": "That a failed sale therefore destroys a specific person's retirement.",
+      "label_rule": "Carries upstream label 'observed'. A visual may not upgrade it."
+    },
+    {
+      "id": "a5",
+      "claim_id": "C005",
+      "attaches_to": "path.transfer",
+      "label": "observed",
+      "meaning": "Buyers are numerous and competitive for businesses worth buying.",
+      "attachment_note": "C005 is qualified evidence from deals above $5M and advisor-reported closings. It attaches to the transfer path, not to a generic buyer, so it cannot imply the same competition for any small-business listing.",
+      "must_not_imply": "That an unprepared business attracts the same interest, or that any listing gets offers.",
+      "label_rule": "Carries upstream label 'observed'. A visual may not upgrade it."
+    },
+    {
+      "id": "a6",
+      "claim_id": "C007",
+      "attaches_to": "engagement-scope",
+      "label": "observed with caveat",
+      "meaning": "Brokerage is licensed in some states; a success fee is what triggers it.",
+      "attachment_note": "C007 attaches to the fixed-fee engagement scope object rather than to a money flow.",
+      "must_not_imply": "Any specific state's rule; anything resembling legal advice.",
+      "label_rule": "Carries upstream label 'observed with caveat'. A visual may not upgrade it."
+    },
+    {
+      "id": "a7",
+      "claim_id": "C008",
+      "attaches_to": "operator",
+      "label": "adjacent",
+      "meaning": "Preparation is a distinct job from brokerage.",
+      "attachment_note": "Carries its upstream label 'adjacent' unchanged. A visual may not upgrade it.",
+      "must_not_imply": "That preparation is unregulated everywhere.",
+      "label_rule": "Carries upstream label 'adjacent'. A visual may not upgrade it."
+    }
+  ],
+  "prohibited_evidence": [
+    {
+      "claim_id": "CLM-007",
+      "reason": "Prepared-seller multiple uplift (7.5-9.0x vs 4.5-5.5x) is seller-published by firms selling preparation, with no corroborating transaction data. Excluded by name in the Canvas. No object, state or anchor may imply it."
+    }
+  ],
+  "failure_routes": [
+    {
+      "id": "route.out-of-scope",
+      "trigger": "A finding touches valuation, deal structure, tax, or law.",
+      "destination": "adviser",
+      "recovery_state": "finding-referred",
+      "visual_rule": "The finding leaves the structure zone entirely. The operator does not follow it."
+    },
+    {
+      "id": "route.pause",
+      "trigger": "The owner will not give interview time.",
+      "destination": "engagement-scope",
+      "recovery_state": "paused-with-dependencies-unresolved",
+      "visual_rule": "Work stops with parts still standing on the owner and their dependency lines left 'unresolved'. Never resolve a part the owner did not help document."
+    }
+  ],
+  "money_flows": [
+    {
+      "id": "flow.fee",
+      "from": "owner",
+      "to": "operator",
+      "kind": "fixed fee",
+      "rule": "Never drawn as contingent on a transaction, and never scaled to a sale price. Fixed-fee is a licensing consequence."
+    }
+  ],
+  "human_judgement_gates": [
+    {
+      "id": "gate.discount",
+      "question": "What will a buyer actually discount?",
+      "non_delegable": true,
+      "decided_by": "operator, using judgement the Canvas marks non-delegable",
+      "branches": {
+        "discountable": "routes to remediation",
+        "not-discountable": "recorded and left"
+      }
+    },
+    {
+      "id": "gate.fixable",
+      "question": "Is this fixable inside the engagement, or structural?",
+      "non_delegable": true,
+      "decided_by": "operator",
+      "branches": {
+        "fixable-in-engagement": "routes to BO-004",
+        "structural": "recorded as remaining open"
+      }
+    },
+    {
+      "id": "gate.willing",
+      "question": "Is this owner actually going to do the work?",
+      "non_delegable": true,
+      "decided_by": "operator",
+      "branches": {
+        "owner-will-engage": "work continues",
+        "owner-will-not": "route.pause"
+      }
+    },
+    {
+      "id": "gate.licensed",
+      "question": "Does this finding need a licensed professional instead?",
+      "non_delegable": true,
+      "decided_by": "operator",
+      "branches": {
+        "needs-licensed-professional": "route.out-of-scope",
+        "in-scope": "work continues"
+      }
+    }
+  ],
+  "camera_anchors": [
+    {
+      "id": "cam.table",
+      "job": "Hold the human situation at eye level. Establish and resolve. Never used to explain mechanism."
+    },
+    {
+      "id": "cam.structure",
+      "job": "Show what is holding what. The only anchor that can read a whole support relationship."
+    },
+    {
+      "id": "cam.part",
+      "job": "Close on one part and what is under it. Carries the single active commitment; one at a time."
+    },
+    {
+      "id": "cam.evidence",
+      "job": "Flat and still, long enough to read a source. Never moves while a claim is being inspected."
+    }
+  ],
+  "engine_sha256": "880d0e22e8c25e8ec806864575155bfd65e8e20eed66619c8e49a083bb5a376d",
+  "claims_map": {
+    "source_artifact": "../01-editorial/claims-map.md",
+    "source_sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+  },
+  "object_classes": [
+    {
+      "id": "business-part",
+      "description": "A capability of the business. Instances are distinct things that may be in different states at the same time; they share a visual family but never share an identity.",
+      "instances": [
+        "business-part.owner-held-pricing",
+        "business-part.customer-concentration",
+        "business-part.undocumented-process",
+        "business-part.key-person-dependency"
+      ],
+      "note": "Instances may carry a narrower state machine than their siblings where the Canvas constrains what the engagement does to that particular capability. See business-part.customer-concentration."
+    }
+  ],
+  "containment": [
+    {
+      "id": "contains.net-worth",
+      "container": "business-part",
+      "contained": "net-worth-mass",
+      "rule": "Roughly 80% of the owner's net worth already sits inside the business. This is a containment relationship, not a flow: nothing moves it in and the engagement never moves it out."
+    }
+  ],
+  "paths": [
+    {
+      "id": "path.transfer",
+      "traveler": "business-part instances, carried together as the business a buyer inspects",
+      "description": "The route toward a buyer. Repricing and rejection are recorded here as observed external outcomes, never as states inside the external buyer.",
+      "edges": [
+        {
+          "from": "as-it-stands",
+          "to": "under-inspection",
+          "condition": "The owner takes the business to market.",
+          "triggered_by": "BO-003"
+        },
+        {
+          "from": "under-inspection",
+          "to": "repriced-or-passed-over",
+          "condition": "At least one instance is standing on the owner and cannot be verified.",
+          "triggered_by": "BO-003",
+          "terminal_for_attempt": true
+        },
+        {
+          "from": "under-inspection",
+          "to": "able-to-be-diligenced",
+          "condition": "Every instance the engagement covered is moved or documented and recorded.",
+          "triggered_by": "BO-007",
+          "note": "This is what the engagement makes possible. It never guarantees a buyer, a price, or a sale."
+        }
+      ],
+      "carries_evidence": [
+        "a1",
+        "a5"
+      ]
+    },
+    {
+      "id": "path.remediation",
+      "traveler": "one business-part instance at a time",
+      "description": "The route an instance travels through the engagement.",
+      "edges": [
+        {
+          "from": "standing-on-owner",
+          "to": "surfaced",
+          "condition": "Interviews surface it.",
+          "triggered_by": "BO-002"
+        },
+        {
+          "from": "surfaced",
+          "to": "under-transfer-test",
+          "condition": "It is tested against what a buyer can verify.",
+          "triggered_by": "BO-003"
+        },
+        {
+          "from": "under-transfer-test",
+          "to": "being-remediated",
+          "condition": "It is judged fixable inside the engagement at gate.fixable.",
+          "triggered_by": "BO-004"
+        },
+        {
+          "from": "being-remediated",
+          "to": "moved-or-documented",
+          "condition": "What only the owner does is moved to someone else or documented.",
+          "triggered_by": "BO-005"
+        },
+        {
+          "from": "surfaced",
+          "to": "unresolved",
+          "condition": "The owner will not give interview time.",
+          "triggered_by": "route.pause",
+          "terminal_for_attempt": true
+        }
+      ]
+    }
+  ]
+}

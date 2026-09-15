@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-07",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/07-keep-the-reach.md",
+      "sha256": "50132dcf88336fba55b22576efd029370b0d2320e7779abdd6a703d3be6f5d2d"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-07/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-07/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "read-only production-state greybox_ready gate check",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 isolated frame structural audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "node --check on extracted inline timeline script",
+      "outcome": "pass"
+    },
+    {
+      "command": "node Ajv 2020 deliverable schema validation",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI assembled-project validation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet 07-keep-the-reach.md supplied the four scene phases, 13.416-second duration, spatial-pan-stations blueprint, viewport-change recipe, and invented commercial-journey elements.",
+    "Hash-pinned frame.md supplied the paper, ink, brass, permanent grid, hairlines, typography, spacing, and square editorial geometry.",
+    "The role-specified faceless-explainer cut catalog supplied the velocity-matched REPLACE-to-REACH and STAY-to-SERVED internal swaps.",
+    "The frame uses deterministic inline HTML, CSS, and text only; it references no audio, external media, vendor logo, interface evidence, or network resource."
+  ],
+  "assumptions": [
+    "The serial integrator will place this fragment at compositions/frames/07-keep-the-reach.html, where its project-relative font URLs resolve to the hash-pinned experiment assets directory.",
+    "The assembled HyperFrames root supplies the GSAP global used by the required paused timeline contract.",
+    "The project-provided boska-700.woff2 is registered at the frame.md display weight because no Boska 400 file is present.",
+    "Supreme is used for chrome because the comparison project contains no Fragment Mono font file; supreme-500.woff2 is registered at the requested label weight."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-character-qa-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/DIRECTION.md",
+      "sha256": "5bcefc7f86b29128f5d16d7c739d0cbf3ed66d94f30bab5378820cd59d24b2d5"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-01-start.png",
+      "sha256": "1d50aab4871153888039cadcbbd14602434b89d2ed190899483108da61879b96"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-02-start.png",
+      "sha256": "9338ba62ae205b63aa6a7613d1fa8b8bd1c7451a3c5849f82c63fc77d69e1875"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-03-start.png",
+      "sha256": "37780230b232285763334022a57c82b5aa1eaf711827f283ab17bd6abfa0357f"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-01.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-character-qa-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-character-qa-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all five issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "visual inspection of all three pinned reference images for story, identity, wardrobe, props, and geography",
+      "outcome": "fail: shot-03 synthetic swirl/emboss texture is a close-up continuity defect"
+    },
+    {
+      "command": "sampled first/middle/end and action/mouth review of pinned shot-01 video",
+      "outcome": "fail: buyer point plus facial movement reads as phantom dialogue and the full take lacks an unequivocal closed-mouth settle"
+    },
+    {
+      "command": "blank-page and invented-evidence review",
+      "outcome": "pass"
+    },
+    {
+      "command": "independent full-speed playback and narration listen",
+      "outcome": "not_run"
+    },
+    {
+      "command": "later shot-02 and shot-03 motion review",
+      "outcome": "not_run: outside this exact-pinned assignment"
+    }
+  ],
+  "sources_and_provenance": [
+    "The five hash-pinned inputs named by the issued work order were the assigned authority; all matched.",
+    "The supplied shot-01 contact sheet was inspected as supplemental sampling evidence and was not treated as an additional issued input.",
+    "Locked local HyperFrames and OE film-direction instructions governed narration-led plate review; they did not supply production authority.",
+    "No generation, render, experiment edit, canonical change, external write, spend, approval, or production dispatch was performed."
+  ],
+  "assumptions": [
+    "A repeated parted-mouth appearance combined with a page-point and head movement can read as speech even though sampled stills cannot prove phoneme-level lip synchronization.",
+    "The close-up shirt and skin surface pattern is judged at intended display scale, where it is more salient than in the wider references.",
+    "Stable identities and props in sampled frames establish continuity only for the observed first take."
+  ],
+  "unresolved_questions": [
+    "Whether shot-01 contains a sufficiently long, closed-mouth editorial subwindow requires dynamic source review.",
+    "Independent full-speed/audio, encoded-delivery, and phone-scale review remain unverified.",
+    "Later shot-02 and shot-03 motion remain unreviewed pending separate exact-pinned assignments.",
+    "Production authority and the schema-required prerequisite gate remain unestablished; no approval is claimed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "status": "direction_draft",
+  "operator": "A local plumbing-company owner or dispatcher responsible for after-hours service intake",
+  "customer": "A homeowner calling after hours with a real service need",
+  "owned_value": "A permissioned opportunity to respond to a real service need; never a guaranteed job",
+  "constraint": "The unanswered call becomes an unprioritized voicemail while the homeowner continues searching",
+  "counter_system": [
+    {"order": 1, "id": "capture", "operation": "Preserve the caller token and call time"},
+    {"order": 2, "id": "classify", "operation": "Classify routine, uncertain, urgent, or sensitive context without claiming certainty"},
+    {"order": 3, "id": "acknowledge", "operation": "Send one useful permission-respecting acknowledgment"},
+    {"order": 4, "id": "human_review", "operation": "Hold uncertain, urgent, or sensitive cases for operator judgment before a slot is offered"},
+    {"order": 5, "id": "offer_slot", "operation": "Offer the next appropriate available service slot"},
+    {"order": 6, "id": "stop_or_book", "operation": "Suppress declined/non-consenting cases or create a measured scheduled appointment"}
+  ],
+  "outcome_object": "A scheduled service appointment on a work-order card tied to the original call tag",
+  "primary_visual_mechanic": "Signal loss and routed recovery",
+  "persistent_objects": [
+    {"id": "call-tag-red", "role": "Customer signal carrying fictional caller token CALL-R01 and time 20:47", "initial_state": "ringing", "final_state": "attached_to_booked_work_order"},
+    {"id": "work-order-card", "role": "Observable economic/outcome token", "initial_state": "empty", "final_state": "scheduled"}
+  ],
+  "human_gate": "An operator reviews every ambiguous urgency or sensitive case; those cases cannot reach slot offer while the gate is unresolved",
+  "guardrail": "Declining or non-consenting customers leave the route immediately; no continued pursuit is shown or implied",
+  "motion_verbs": [
+    "ring",
+    "tag",
+    "carry",
+    "fall",
+    "pin",
+    "highlight",
+    "extract",
+    "attach",
+    "capture",
+    "classify",
+    "acknowledge",
+    "hold",
+    "review",
+    "release",
+    "offer",
+    "stop",
+    "book",
+    "measure",
+    "pull_back",
+    "cut"
+  ],
+  "honesty_tests": [
+    "The call is shown as valuable permission to respond, not as revenue or a guaranteed job.",
+    "The homeowner may continue searching without being framed as disloyal or wrong.",
+    "Automation performs bounded routing; human judgment remains visible for ambiguous or sensitive cases.",
+    "A decline visibly terminates the route and suppresses further pursuit.",
+    "The only outcome shown is a fictional scheduled appointment in a labeled rehearsal.",
+    "The missed-call CSV is visibly synthetic and cannot be presented as evidence or a public claim."
+  ],
+  "prohibited_framings": [
+    "villain customer",
+    "villain automation",
+    "guaranteed conversion",
+    "generic dark AI imagery",
+    "fake software interface",
+    "unlabeled evidence",
+    "presentation deck",
+    "Prezi map tour"
+  ]
+}

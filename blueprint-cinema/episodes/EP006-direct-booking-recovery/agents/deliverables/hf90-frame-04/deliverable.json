@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-04",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/04-audit-first.md",
+      "sha256": "dfd0e1369b510fbbf90b3d09beb548660eaa37dea4baafb79942649d79b01b34"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-04/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-04/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual isolated bare-template and frame-contract audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "agent-deliverable schema and owned-file audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI prohibited by isolated worker dispatch",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet 04-audit-first.md supplied the three scene phases, 5.544-second duration, grid-card assembly, and two motion recipes.",
+    "Hash-pinned frame.md supplied the paper, ink, grid, hairline, typography, spacing, square geometry, and keep-out constraints.",
+    "The frame uses only packet-defined invented CSS and inline SVG geometry; it references no vendor logo, interface evidence, document, or external media."
+  ],
+  "assumptions": [
+    "The assembled HyperFrames root supplies the GSAP global used by the required paused timeline contract.",
+    "The fragment resolves the repository-provided font files from the isolated HyperFrames project root; boska-700.woff2 is registered as the available Boska display face because no Boska 400 file ships with the project."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

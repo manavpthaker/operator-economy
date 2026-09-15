@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/episode-engine.schema.json",
+  "title": "Blueprint Cinema episode engine",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "workflow_version", "episode_number", "episode_code",
+    "slug", "folder_name", "operator", "input_customer", "eligible_return_customer",
+    "owned_value", "constraint", "counter_system", "outcome_object", "visual_mechanic",
+    "motion_verbs", "reality_world", "guardrails", "status"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "operator": {"$ref": "#/$defs/actor"},
+    "input_customer": {"$ref": "#/$defs/actor"},
+    "eligible_return_customer": {"$ref": "#/$defs/actor"},
+    "owned_value": {"type": "string", "minLength": 40},
+    "constraint": {"type": "string", "minLength": 60},
+    "counter_system": {"type": "string", "minLength": 100},
+    "outcome_object": {"type": "string", "minLength": 40},
+    "visual_mechanic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "behavior", "why_honest", "before", "after"],
+      "properties": {
+        "name": {"type": "string", "minLength": 12},
+        "behavior": {"type": "string", "minLength": 80},
+        "why_honest": {"type": "string", "minLength": 80},
+        "before": {"type": "string", "minLength": 60},
+        "after": {"type": "string", "minLength": 60}
+      }
+    },
+    "motion_verbs": {
+      "type": "array", "minItems": 15, "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$", "minLength": 3}
+    },
+    "reality_world": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment", "people", "lens", "lighting", "palette", "texture", "camera", "motif", "forbidden"],
+      "properties": {
+        "environment": {"type": "string", "minLength": 50},
+        "people": {"type": "string", "minLength": 50},
+        "lens": {"type": "string", "minLength": 30},
+        "lighting": {"type": "string", "minLength": 30},
+        "palette": {"type": "string", "minLength": 30},
+        "texture": {"type": "string", "minLength": 30},
+        "camera": {"type": "string", "minLength": 50},
+        "motif": {"type": "string", "minLength": 60},
+        "forbidden": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string", "minLength": 8}}
+      }
+    },
+    "guardrails": {"type": "array", "minItems": 8, "uniqueItems": true, "items": {"type": "string", "minLength": 24}},
+    "status": {"enum": ["draft", "ready_for_approval"]}
+  },
+  "$defs": {
+    "actor": {
+      "type": "object", "additionalProperties": false, "required": ["id", "description"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "minLength": 4},
+        "description": {"type": "string", "minLength": 50}
+      }
+    }
+  }
+}
+

@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-avatar-v4-motion",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/generated-native.mp4",
+      "sha256": "74ea3bebd95321a39e7a6f1620574886ffe1f90964650096970375bf51ff273c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+      "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/generated-original-audio.mp4",
+      "sha256": "19f57219ec8a75fe49880c560ad556006699e79ec4a2b9884ed5bae20f215f02"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/overview-every-1s-and-end.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/face-00s-to-07s-every-half-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/face-07_5s-to-14_5s-every-half-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/face-15s-to-21s-every-half-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/hands-11s-to-15s-every-quarter-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/ending-20s-to-21s-every-eighth-second.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/native-left-restored-right-face-comparison.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-MOTION/native-left-restored-right-hand-comparison.jpg"
+  ],
+  "checks": [
+    {"command": "Python hashlib SHA-256 verification of the native video and wider still", "outcome": "pass"},
+    {"command": "ffprobe native video dimensions, codec, pixel format, frame rate, frame count and duration", "outcome": "pass"},
+    {"command": "FFmpeg source-frame selection and analysis contact sheets: full frame, face, hands and ending", "outcome": "pass"},
+    {"command": "view_image review of all six contact sheets for identity, hand/wrist anatomy, table contact, gesture settling, mouth shapes and ending", "outcome": "pass"},
+    {"command": "Restored SHA-256 and ffprobe verification; selective native/restored paired face and hand review with view_image", "outcome": "pass"},
+    {"command": "Python validation of manifest constraints, current input hashes, declared owned outputs and source sampling counts", "outcome": "pass"},
+    {"command": "Continuous audiovisual playback, phoneme-level synchronization, audio pause-boundary assessment and final crop review", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Only the existing supplied native video, restored video and wider synthetic still were used as source evidence.",
+    "FFmpeg contact sheets use exact zero-based frame selections from the 24fps native source; no interpolation or new synthetic generation was used.",
+    "Initial native pass sampled 57 distinct frames; paired follow-on raises native coverage to 59 frames and covers 18 distinct restored frames. Each video contains 505 frames; audio was not listened to.",
+    "The orchestrator supplied audio correlation 0.998346, insertion +0.04725 seconds and successful full decode; these were not independently repeated and are not lip-sync measurements.",
+    "No provider call, upload, external write, paid service, source edit or UI operation occurred."
+  ],
+  "assumptions": [
+    "Assigned work-order label EP007-AVATAR-V4-MOTION is normalized to lowercase for the schema-required work_order_id; the explicitly assigned uppercase output directory is preserved.",
+    "Times describe the native source clock at 24fps, not an inferred restored or editorial timeline."
+  ],
+  "unresolved_questions": [
+    "Motion smoothness and brief defects between sampled frames remain unverified at playback speed.",
+    "The restored video's exact articulation, synchronized narration, pause relationship, audio tail and final crop require full audiovisual or final-render review."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

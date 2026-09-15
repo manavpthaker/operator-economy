@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/asset-ticket.schema.json",
+  "title": "Blueprint Cinema asset ticket collection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "workflow_version", "episode_number", "episode_code", "slug", "folder_name", "tickets"],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "tickets": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/ticket"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "minLength": 3},
+    "ticket": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "id", "story_role", "narration_anchor", "required_semantic_content", "preferred_source_route",
+        "evidence_ids", "claim_ids", "rights_requirements", "provenance_requirements", "synthetic_status", "status", "placeholder_behavior"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "story_role": {"enum": ["human_context", "market_force", "proof", "process", "outcome"]},
+        "narration_anchor": {"type": "string", "minLength": 20},
+        "required_semantic_content": {"type": "string", "minLength": 40},
+        "preferred_source_route": {"enum": ["original_capture", "permissioned_company_material", "licensed_archival", "specific_licensed_stock", "rendered_environmental_plate", "operator_document_capture"]},
+        "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "claim_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "rights_requirements": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string", "minLength": 8}},
+        "provenance_requirements": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string", "minLength": 4}},
+        "synthetic_status": {"enum": ["prohibited", "not_planned", "allowed_non_evidence_with_disclosure"]},
+        "status": {"const": "ticketed_placeholder"},
+        "placeholder_behavior": {"type": "string", "minLength": 40}
+      }
+    }
+  }
+}
+

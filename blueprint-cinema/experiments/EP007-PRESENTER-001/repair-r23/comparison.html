@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EP007 — OmniHuman vs InfiniteTalk — New comparison</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #202324; background: #f5f4f0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1440px; margin: 0 auto; padding: 32px 24px 40px; }
+    h1 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 36px); line-height: 1.2; letter-spacing: -0.025em; }
+    .intro { margin: 0; max-width: 85ch; line-height: 1.55; color: #515657; }
+    .review { margin: 24px 0; padding: 16px 18px; border: 1px solid #d3d5cf; border-radius: 8px; background: #fff; }
+    .review p { margin: 0; line-height: 1.6; }
+    .toolbar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+    .mute { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; cursor: pointer; }
+    input[type="checkbox"] { width: 19px; height: 19px; margin: 0; accent-color: #254a40; }
+    .hint { margin: 0; color: #616667; font-size: 14px; line-height: 1.5; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    article { min-width: 0; background: #fff; border: 1px solid #d3d5cf; border-radius: 9px; overflow: hidden; }
+    .clip-heading { padding: 15px 17px; }
+    h2 { margin: 0; font-size: 19px; line-height: 1.3; }
+    video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #131515; }
+    .clip-note { margin: 0; padding: 12px 17px 14px; color: #616667; font-size: 13px; line-height: 1.5; }
+    footer { margin-top: 24px; color: #616667; font-size: 14px; line-height: 1.5; }
+    :focus-visible { outline: 3px solid #326b59; outline-offset: 4px; }
+    @media (max-width: 760px) {
+      main { padding: 24px 16px; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>EP007 — OmniHuman vs InfiniteTalk — New comparison</h1>
+      <p class="intro">Two samples per model, using the same source photo, prompt, and 5.600-second narration. Landscape study presenter.</p>
+    </header>
+
+    <aside class="review" aria-label="Review reminders">
+      <p><strong>Watch for:</strong> head and mouth emphasis on “straight” and “never”; mouth timing through the second sentence; natural hand movement; and a consistent head size.</p>
+    </aside>
+
+    <div class="toolbar">
+      <label class="mute" for="mute-all"><input id="mute-all" type="checkbox"> Mute all clips</label>
+      <p class="hint">Start with normal-speed playback and sound. Playing a clip pauses the others so their audio cannot overlap.</p>
+    </div>
+
+    <section class="grid" aria-label="Four model samples">
+      <article aria-labelledby="omnihuman-01-title">
+        <div class="clip-heading"><h2 id="omnihuman-01-title">OmniHuman — Sample 1</h2></div>
+        <video controls preload="metadata" playsinline aria-labelledby="omnihuman-01-title">
+          <source src="../media/repair-r23/omnihuman-01.mp4" type="video/mp4">
+          Your browser does not support this video player.
+        </video>
+        <p class="clip-note">omnihuman-01.mp4</p>
+      </article>
+
+      <article aria-labelledby="infinitetalk-01-title">
+        <div class="clip-heading"><h2 id="infinitetalk-01-title">InfiniteTalk — Sample 1</h2></div>
+        <video controls preload="metadata" playsinline aria-labelledby="infinitetalk-01-title">
+          <source src="../media/repair-r23/infinitalk-01.mp4" type="video/mp4">
+          Your browser does not support this video player.
+        </video>
+        <p class="clip-note">infinitalk-01.mp4</p>
+      </article>
+
+      <article aria-labelledby="omnihuman-02-title">
+        <div class="clip-heading"><h2 id="omnihuman-02-title">OmniHuman — Sample 2</h2></div>
+        <video controls preload="metadata" playsinline aria-labelledby="omnihuman-02-title">
+          <source src="../media/repair-r23/omnihuman-02.mp4" type="video/mp4">
+          Your browser does not support this video player.
+        </video>
+        <p class="clip-note">omnihuman-02.mp4</p>
+      </article>
+
+      <article aria-labelledby="infinitetalk-02-title">
+        <div class="clip-heading"><h2 id="infinitetalk-02-title">InfiniteTalk — Sample 2</h2></div>
+        <video controls preload="metadata" playsinline aria-labelledby="infinitetalk-02-title">
+          <source src="../media/repair-r23/infinitalk-02.mp4" type="video/mp4">
+          Your browser does not support this video player.
+        </video>
+        <p class="clip-note">infinitalk-02.mp4</p>
+      </article>
+    </section>
+
+    <footer>Comparison for review. A sample’s presence here does not indicate technical verification or acceptance.</footer>
+  </main>
+  <script>
+    const players = Array.from(document.querySelectorAll('video'));
+    const muteAll = document.getElementById('mute-all');
+    muteAll.addEventListener('change', () => {
+      players.forEach(player => { player.muted = muteAll.checked; });
+    });
+    players.forEach(player => {
+      player.addEventListener('play', () => {
+        players.forEach(other => { if (other !== player) other.pause(); });
+      });
+      player.addEventListener('volumechange', () => {
+        const mutedCount = players.filter(item => item.muted).length;
+        muteAll.checked = mutedCount === players.length;
+        muteAll.indeterminate = mutedCount > 0 && mutedCount < players.length;
+      });
+    });
+  </script>
+</body>
+</html>

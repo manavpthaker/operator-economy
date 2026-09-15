@@ -17,7 +17,7 @@ Exact approved `WIN THEM BACK` image. No added title or crop animation.
 
 **0:01–0:08 — The relationship leaves**
 
-VO: “Guests can love an independent hotel and leave without the hotel earning the return trip.”
+VO: “An independent hotel can give a guest a beautiful stay, then pay an OTA to meet that same guest again.”
 
 Visual: warm key handoff. The key and guest drift down and right toward Booking.com and Expedia. The innkeeper remains in frame.
 
@@ -29,7 +29,7 @@ Visual: 100 booking tokens; 63 pulled into OTA-blue gravity wells. Source remain
 
 **0:15–0:22 — The cost lands**
 
-VO: “At an illustrative twenty-room hotel, commission can reach $135,000 a year. My estimate. The larger loss is the relationship.”
+VO: “At an illustrative twenty-room hotel, commission can reach $135,000 a year. My estimate. The larger loss is paying to meet the same guest again.”
 
 Visual: `20 rooms × $180 ADR × 70% occupancy × 63.4% OTA × 22% commission ≈ $135K`. Mark **ILLUSTRATIVE ESTIMATE** before the result resolves.
 
@@ -39,7 +39,7 @@ No VO. A gold path reverses the down-right gravity vector, draws the OE monogram
 
 ## 02. Episode Thesis — 0:25–1:05
 
-VO: “This is The Operator Economy. This week: direct booking recovery. Not replacing Booking.com or Expedia. Building the system that turns a discovered guest into a returning guest the property can reach directly.”
+VO: “This is The Operator Economy. Today: hotels keep paying to meet the same guest. This episode is direct booking recovery. Not replacing Booking.com or Expedia. Building the system that turns a discovered guest into a returning guest the property can reach directly.”
 
 Visual: episode title, followed by a single guest journey. `DISCOVERED → BOOKED → WELCOMED → REMEMBERED → RETURNED`. The first booking may pass through an OTA; the return path turns gold.
 

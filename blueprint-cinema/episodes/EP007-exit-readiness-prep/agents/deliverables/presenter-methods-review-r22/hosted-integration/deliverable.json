@@ -1,0 +1,52 @@
+{
+  "$schema": "https://theoperatoreconomy.com/schemas/blueprint-cinema/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-methods-review-r22-hosted-integration",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "blueprint-cinema/AGENTS.md", "sha256": "ae6a308d3f116dbca38ab4fb8eef516d1bd7a2bb744862c31cfb06dd9daa1d81"},
+    {"path": "blueprint-cinema/AGENT-WORKFLOWS.md", "sha256": "1ee734f4f0bdfb4e0c9e5212e3a90ca3b854c3a6c1cfdfa47116fd185e406bbd"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Read official Hedra presenter workflow, current v3 API/model pages, and Character 3 guidance", "outcome": "pass"},
+    {"command": "Read official fal Run MCP and InfiniteTalk endpoint pages; inspect linked public video-to-video OpenAPI", "outcome": "pass"},
+    {"command": "Inspect current session tool names for fal/Hedra callable tools", "outcome": "pass"},
+    {"command": "Parse deliverable JSON, recompute declared local input hashes, check output presence and false mutation declarations", "outcome": "pass"},
+    {"command": "Generate or visually compare new model output", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "External primary documentation only; checked 2026-09-08. Source URLs are placed next to supported claims in report.md.",
+    "https://www.hedra.com/docs/pages/app/content-creation/create-avatar-video",
+    "https://www.hedra.com/models/video/hedra/character-3",
+    "https://www.hedra.com/develop/models/video/hedra-avatar",
+    "https://www.hedra.com/docs/api-reference/v3/run-a-model/run-hedra-character-3-hedra-character-3",
+    "https://fal.ai/docs/documentation/setting-up/mcp",
+    "https://fal.ai/models/fal-ai/infinitalk/api",
+    "https://fal.ai/models/fal-ai/infinitalk/video-to-video/api",
+    "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/infinitalk/video-to-video",
+    "https://github.com/MeiGen-AI/InfiniteTalk"
+  ],
+  "assumptions": [
+    "Root supplied current EP007 performance preferences; this worker researched provider controls without consuming or assessing episode media.",
+    "Latest root instruction restricts the next comparison to existing photo and audio; InfiniteTalk V2V findings are explanatory and are not a proposed next action.",
+    "Hedra Character 3 is selected as the known current supported comparator with direct restraint guidance, not as a proven best or newest model.",
+    "The proposed restrained prompt is untested; it is not a guaranteed motion lock."
+  ],
+  "unresolved_questions": [
+    "No comparable EP007 outputs establish relative visual quality among these methods.",
+    "fal video-to-video num_frames description contradicts the live OpenAPI numeric constraints.",
+    "Provider connection/account availability was not established; no credentials were inspected.",
+    "Current Hedra Avatar versus Character 3 catalog naming does not establish their exact internal relationship."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

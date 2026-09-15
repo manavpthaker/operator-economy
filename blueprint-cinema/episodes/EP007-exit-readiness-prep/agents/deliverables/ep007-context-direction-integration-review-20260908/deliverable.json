@@ -1,0 +1,91 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-context-direction-integration-review-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "schemas/scene-directions.schema.json",
+      "sha256": "d64648087ba95d346301165a27ff2a0f5ae3516716ae6e624ec0aa839192961d"
+    },
+    {
+      "path": "src/blueprint_cinema/validation.py",
+      "sha256": "c56a8920cf1c9cda0d3b4be3887756d93511c49bf4fb16bb9094592dd7a3cc48"
+    },
+    {
+      "path": "src/blueprint_cinema/scene_prompts.py",
+      "sha256": "f1bb89de919fcc274d1e49e955b63dac9cd9fab906aeac4664d805e8e64002e2"
+    },
+    {
+      "path": "tests/test_scene_prompts.py",
+      "sha256": "0638e264d9b40acc46f2ca4e1a048873e61823a4f8737252593be9800d85d471"
+    },
+    {
+      "path": "tests/test_context_direction.py",
+      "sha256": "569d5cb9b87061ab6391b5ed00ec62a51c92d78481f3ab33c9ed8b233e6dd7f9"
+    },
+    {
+      "path": "references/SCENE-DIRECTION-CONTRACT.md",
+      "sha256": "c87a80539cfe981e2236f017fa229e058e2781ccaa49afe9eeab6380de62cd9f"
+    },
+    {
+      "path": "README.md",
+      "sha256": "44c3637245e2bba9431f1a1621af79e58deb5fc62c81b34bd16553af2e7cbfb7"
+    },
+    {
+      "path": "TOOLCHAIN.md",
+      "sha256": "f317512885d1e5feb5016c2ef77a7e66b15a738fd8d79206bf08b0695d5540a7"
+    },
+    {
+      "path": "AGENT-WORKFLOWS.md",
+      "sha256": "1ee734f4f0bdfb4e0c9e5212e3a90ca3b854c3a6c1cfdfa47116fd185e406bbd"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-context-direction-integration-review-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-context-direction-integration-review-20260908/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify SHA-256 of all nine exact work-order inputs; all match",
+      "outcome": "pass"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest tests/test_scene_prompts.py tests/test_context_direction.py -q --tb=short -p no:cacheprovider ; exit 0, 52 cases",
+      "outcome": "pass"
+    },
+    {
+      "command": "Static schema/semantic/compiler/doc agreement and fixture/regression review",
+      "outcome": "pass"
+    },
+    {
+      "command": "Static wrong-type dramatization_context diagnostic-contract review; unguarded get at validation.py:890-893",
+      "outcome": "fail"
+    },
+    {
+      "command": "Direct isolated deliverable schema/semantic validation, not canonical gate validation",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Nine exact pinned local inputs supplied review evidence; targeted tests use existing local fixtures and permitted temporary files",
+    "No network, media, generated episode prompt, paid service, account action, implementation edit or canonical mutation",
+    "A separate full-suite stale EP006 evidence hash was reported by parent, not independently investigated here"
+  ],
+  "assumptions": [
+    "A validator should return controlled ValidationFailure for malformed nested authored JSON rather than crash with AttributeError",
+    "Version 1.1.0 rejection is an intentional reauthoring boundary, not a backward-compatible migration"
+  ],
+  "unresolved_questions": [
+    "New dramatization_context accepts no non-object types in schema, but semantic code lacks an object type guard and wrong-type tests",
+    "Actual footage comprehension, disclosure execution and production approvals are outside this system test",
+    "Parent-reported full-suite EP006 evidence hash failure remains outside this packet"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

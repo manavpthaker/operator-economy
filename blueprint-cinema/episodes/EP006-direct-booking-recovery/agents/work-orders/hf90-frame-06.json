@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-06",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "role": "renderer_implementer",
+  "objective": "Build the isolated native HyperFrames composition fragment for 06-episode-title from its hash-pinned frame packet and design tokens, without touching the comparison project or canonical episode state.",
+  "required_gate": "greybox_ready",
+  "inputs": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/06-episode-title.md",
+      "sha256": "43ad7fc53bd6194b134433dae2ee8eaa671db199c10e03455f644ce846b6c390"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-06/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-06/deliverable.json"
+  ],
+  "forbidden_paths": [
+    "episodes/EP006-direct-booking-recovery/episode.json",
+    "episodes/EP006-direct-booking-recovery/input-lock.json",
+    "episodes/EP006-direct-booking-recovery/production-state.json",
+    "episodes/EP006-direct-booking-recovery/episode-engine.json",
+    "episodes/EP006-direct-booking-recovery/world.json",
+    "episodes/EP006-direct-booking-recovery/visual-plan.json",
+    "episodes/EP006-direct-booking-recovery/asset-tickets.json",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "experiments/EP006-90s-runtime-comparison/hyperframes/"
+  ],
+  "dependencies": [
+    "current greybox_ready gate",
+    "hash-pinned native HyperFrames frame packet",
+    "serial root integration after packet validation"
+  ],
+  "time_range": {
+    "in": 32.558,
+    "out": 40.09
+  },
+  "acceptance_checks": [
+    "Return one bare template fragment that implements every time-coded scene without front-loading",
+    "Use only frame.md tokens and packet-defined invented visuals with deterministic seek-safe motion",
+    "Keep all visible content above the 83 percent keep-out and do not render narration as captions",
+    "Return a schema-valid deliverable without claiming approval or changing production state"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop if any declared input hash differs from the work order",
+    "Stop if implementation would require writing outside the isolated deliverable directory",
+    "Stop rather than inventing a vendor logo interface evidence document or external media"
+  ],
+  "status": "closed"
+}

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-final-editorial-verification",
+  "role": "independent editorial regression verification of the post-QA final render",
+  "required_gate": "post_wave3_corrections_rendered",
+  "input_hashes": [
+    {"path": "input-lock.json", "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"},
+    {"path": "direction-lock.json", "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"},
+    {"path": "direction/visual-plan.json", "sha256": "572f00ae1e51225ea7b161811e356c361eb8734c6f06903642a30049bc0a259c"},
+    {"path": "agents/deliverables/wave3-comprehension-editorial/review.md", "sha256": "3688699d7b90ce228f2923bf1ec2441310c5630cfb44c3a695cd885304a67764"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic-final.mp4", "sha256": "a9f21223385ff12dd60b7c0f3572d1cd14e70e5fb72907ddc76ebe85cbe824b3"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet-final.jpg", "sha256": "683d084e547fc6ef16b842337d8e0fcf5f748311d8d6246490d95d983cce955f"},
+    {"path": "review/phone-legibility-final/contact-sheet-480.jpg", "sha256": "06495e0892015b32033430328f04a8164696aef81d79a2359345bbb16933a2fc"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave3-final-editorial-verification/review.md",
+    "agents/deliverables/wave3-final-editorial-verification/deliverable.json"
+  ],
+  "forbidden_paths": ["direction/", "hyperframes/", "handoff/", "review/", "experiment.json", "input-lock.json", "direction-lock.json", "../episodes/", "../../renderer/", "../../schemas/", "../../src/"],
+  "dependencies": ["complete initial Wave 3 editorial packet", "post-QA final render"],
+  "acceptance_checks": [
+    "recompute every pinned input hash",
+    "replay the final MP4 and separately inspect its full-resolution and 480x270 contact sheets",
+    "verify the opening now shows 8:47 PM rather than a zeroed counter",
+    "verify the enlarged human action remains subordinate to no other primary action at the gate",
+    "recheck the full operating chain and report any regression",
+    "reclassify every original major finding as resolved, reduced, or open with timestamps",
+    "claim no creative approval, gate approval, or state change"
+  ],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "stopping_conditions": ["any pinned hash differs", "owned output path is nonempty", "review requires canonical edits"]
+}

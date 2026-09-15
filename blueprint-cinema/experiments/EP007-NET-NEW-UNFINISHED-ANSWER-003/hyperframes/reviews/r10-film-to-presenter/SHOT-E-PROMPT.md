@@ -1,0 +1,13 @@
+# R10 E — the unanswered question remains in the room
+
+Owner-authorized isolated editorial test. One 10-second silent Kling v3 Pro image-to-video request; no retries. Listed estimate $1.12 on September 8, 2026; actual billing unverified. Start frame is a built-in image edit of the retained R7 master, changing only performance. No change to A–D, narration, presenter experiments, canonical gates or release state.
+
+## Prompt
+
+One uninterrupted ten-second natural film shot of these exact two people in this exact workshop, matching the supplied frame. The older gray-haired woman on screen-left has just stopped trying to answer the man across the table. She looks down at the blank page with lips closed. He stays on screen-right, quietly watching her face, lips closed. One primary action: over the first two seconds her shoulders settle by a very small amount as she releases a quiet breath; then both remain in the unresolved silence for the rest of the shot. Her hands stay resting in their exact positions on the table. Neither person speaks, nods, smiles, gestures, points or changes eyeline. The man is patient, not hostile or triumphant. No renewed conversation, no verdict, no shaking head, no tears or exaggerated distress. Natural blinking and breathing only. Keep the green binder, blank page, pencil and keys motionless. Preserve identities, clothing, seating, workshop and soft daylight. Background remains defocused and uneventful. Locked camera, fixed framing and focus, no push-in, zoom, pan, orbit or cut. Real-time natural movement, ordinary skin texture, no stylization. Finish with her gaze still lowered and him still waiting. No audio, legible text, diagrams or new objects.
+
+## Edit intent
+
+Return from the retained owner close-up at local frame580 (master35.086667) on “That pause costs her…” and hold through the exact opportunity tease ending44.500. Select 226 frames of E after reviewing output. This depicts unresolved dependence, not a price cut, failed transaction or business collapse. “A business hiding inside it” means a sale-readiness practice opportunity, not her existing business hidden inside her. No Working Model appears in this passage.
+
+Mode narrated_dramatization; narrator carries language; visible speech prohibited for this aftermath shot; face function caused_reaction; sound dialogue none. Same-side shared master, owner left looking down, buyer right looking left. Cut into shared consequence because the next information is the changed relationship, not more internal arithmetic. Simpler alternative of reusing happy rapport rejected because it reverses the intended change. Mute review must read as silence; audiovisual comprehension and continuity remain required after generation.

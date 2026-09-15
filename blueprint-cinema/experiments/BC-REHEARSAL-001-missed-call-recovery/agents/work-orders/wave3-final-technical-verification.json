@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-final-technical-verification",
+  "role": "independent technical regression verification of the post-QA final render and frame conform",
+  "required_gate": "post_wave3_corrections_rendered",
+  "input_hashes": [
+    {"path": "input-lock.json", "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"},
+    {"path": "direction/visual-plan.json", "sha256": "572f00ae1e51225ea7b161811e356c361eb8734c6f06903642a30049bc0a259c"},
+    {"path": "direction/asset-tickets.json", "sha256": "598b8e01ffd760219005c416ffb71eb355228246340f0fa109af3c39bb37f05a"},
+    {"path": "agents/deliverables/wave3-technical-continuity-evidence/review.md", "sha256": "223fc3395645489c4a9cab0b279be6a48a62ece63bb9189d94ddedc346c0c133"},
+    {"path": "hyperframes/index.html", "sha256": "25c5e9816cfdfcf8691437c58595105ecf797a63bec72a1a91c669d9a0cd2442"},
+    {"path": "hyperframes/compositions/shots/shot-06.html", "sha256": "28af95375d837aaa02e9b6c7c0005062bfc861763da624dde4a07361e568de43"},
+    {"path": "handoff/timeline-events.json", "sha256": "36198b483666b05998ddfa33461b94e86ffb02bdeeda528bba9fd97280eb0e6f"},
+    {"path": "handoff/markers.csv", "sha256": "9918929c15ce8e5ce54c1808d96dc9c5d5525df8a0574b2ed87694a136a58f92"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic-final.mp4", "sha256": "a9f21223385ff12dd60b7c0f3572d1cd14e70e5fb72907ddc76ebe85cbe824b3"},
+    {"path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet-final.jpg", "sha256": "683d084e547fc6ef16b842337d8e0fcf5f748311d8d6246490d95d983cce955f"}
+  ],
+  "owned_output_paths": [
+    "agents/deliverables/wave3-final-technical-verification/review.md",
+    "agents/deliverables/wave3-final-technical-verification/deliverable.json"
+  ],
+  "forbidden_paths": ["direction/", "hyperframes/", "handoff/", "review/", "experiment.json", "input-lock.json", "direction-lock.json", "../episodes/", "../../renderer/", "../../schemas/", "../../src/"],
+  "dependencies": ["complete initial Wave 3 technical packet", "post-QA final render", "corrected ceiling frame policy"],
+  "acceptance_checks": [
+    "recompute every pinned input hash",
+    "probe the final MP4 independently and compare decoded narration to the locked VO",
+    "verify CALL-R01 changes from REVIEWED to BOOKED at the scheduled outcome and remains BOOKED",
+    "verify the Shot 06 operator-hand placeholder visibly carries AST-OPERATOR-003",
+    "verify every non-frame-aligned shot start uses the first rendered frame at or after the source cut and event frames remain adjacent through frame 1843",
+    "recheck exact fixture warning, work-order state progression, ticket identity, black frames, and regressions",
+    "reclassify every original major finding as resolved, reduced, or open",
+    "claim no creative approval, gate approval, or state change"
+  ],
+  "permissions": ["read_pinned_inputs", "write_owned_deliverable_only"],
+  "may_approve_gate": false,
+  "may_change_state": false,
+  "retry_limit": 1,
+  "stopping_conditions": ["any pinned hash differs", "owned output path is nonempty", "review requires canonical edits"]
+}

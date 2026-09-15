@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-composition-id="scene-03-judgment" data-composition-duration="8.1">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #F5F0E6;
+          color: #1A1A1A;
+          font-family: Supreme, system-ui, sans-serif;
+        }
+        .stage, .phase { position: absolute; inset: 0; overflow: hidden; }
+        .phase { opacity: 0; }
+        .phase-a { background: #F5F0E6; }
+        .context {
+          position: absolute;
+          left: 150px;
+          top: 390px;
+          width: 330px;
+          height: 280px;
+          border: 2px solid #1A1A1A;
+          background: #FBF8F1;
+        }
+        .context-tag { position: absolute; left: 28px; top: 24px; width: 90px; height: 42px; }
+        .context-tag path { fill: #B08D3E; stroke: #7A5E24; stroke-width: 3; }
+        .context-tag circle { fill: #FBF8F1; }
+        .context-tag line { stroke: #7A5E24; stroke-width: 4; }
+        .context-label { position: absolute; left: 28px; top: 106px; font-size: 48px; font-weight: 500; line-height: 1.02; letter-spacing: .055em; }
+        .context-note { position: absolute; left: 28px; bottom: 28px; font-family: Menlo, monospace; font-size: 26px; color: #6B675E; }
+        .relevance {
+          position: absolute;
+          left: 630px;
+          top: 350px;
+          width: 390px;
+          height: 360px;
+          border: 3px solid #1F3A5F;
+          background: #F5F0E6;
+        }
+        .relevance-label { position: absolute; left: 34px; top: 42px; width: 315px; font-size: 48px; font-weight: 500; line-height: 1.08; letter-spacing: .04em; }
+        .relevance-status { position: absolute; left: 34px; bottom: 40px; font-family: Menlo, monospace; font-size: 28px; color: #1F3A5F; opacity: 0; }
+        .phase-a-route { position: absolute; left: 460px; top: 0; width: 210px; height: 1080px; }
+        .phase-a-route path { fill: none; stroke: #1F3A5F; stroke-width: 5; }
+        .phase-a-tag { position: absolute; left: 480px; top: 487px; width: 180px; height: 84px; }
+        .phase-a-tag path { fill: #B08D3E; stroke: #7A5E24; stroke-width: 3; }
+        .phase-a-tag circle { fill: #F5F0E6; }
+        .phase-a-tag line { stroke: #7A5E24; stroke-width: 4; }
+
+        .phase-b { background: #F5F0E6; }
+        .suppression-kicker { position: absolute; left: 134px; top: 135px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .08em; color: #6B675E; }
+        .sensitive-tag { position: absolute; left: 830px; top: 500px; width: 180px; height: 84px; }
+        .sensitive-tag path { fill: #F5F0E6; stroke: #9B3E2E; stroke-width: 5; }
+        .sensitive-tag circle { fill: #F5F0E6; stroke: #9B3E2E; stroke-width: 3; }
+        .stop-bar { position: absolute; left: 1170px; top: 340px; width: 52px; height: 400px; background: #9B3E2E; }
+        .stop-label { position: absolute; left: 1260px; top: 475px; width: 430px; font-size: 52px; font-weight: 500; letter-spacing: .1em; color: #9B3E2E; }
+        .stop-note { position: absolute; left: 1260px; top: 560px; width: 430px; font-family: Menlo, monospace; font-size: 28px; line-height: 1.35; color: #6B675E; }
+
+        .phase-c { background: #1A1A1A; }
+        .operator-plate { position: absolute; inset: -8px; width: 1936px; height: 1096px; object-fit: cover; }
+        .operator-scrim { position: absolute; right: 0; top: 0; width: 760px; height: 1080px; background: rgba(20,38,62,.86); }
+        .review-box { position: absolute; left: 1210px; top: 350px; width: 540px; height: 260px; border: 3px solid #F5F0E6; color: #F5F0E6; }
+        .review-label { position: absolute; left: 48px; top: 58px; font-size: 52px; font-weight: 500; letter-spacing: .1em; }
+        .review-state { position: absolute; left: 48px; bottom: 48px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .08em; }
+        .review-resolve { position: absolute; left: 1210px; top: 350px; width: 0; height: 8px; background: #7B9E87; }
+        .operator-tag { position: absolute; left: 525px; top: 580px; width: 260px; height: 120px; opacity: .18; }
+        .operator-tag path { fill: #B08D3E; stroke: #C4A45F; stroke-width: 3; }
+        .operator-tag circle { fill: #F5F0E6; }
+        .operator-tag line { stroke: #7A5E24; stroke-width: 4; }
+        .plate-disclosure { position: absolute; left: 134px; bottom: 70px; color: rgba(245,240,230,.8); font-family: Menlo, monospace; font-size: 28px; letter-spacing: .055em; }
+
+        .phase-d { background: #14263E; color: #F5F0E6; }
+        .resolved-review { position: absolute; left: 300px; top: 365px; width: 520px; height: 310px; border: 3px solid #F5F0E6; }
+        .resolved-review .title { position: absolute; left: 46px; top: 62px; font-size: 52px; font-weight: 500; letter-spacing: .08em; }
+        .resolved-review .state { position: absolute; left: 46px; bottom: 54px; color: #7B9E87; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .07em; }
+        .direct-route { position: absolute; inset: 0; }
+        .direct-route path { fill: none; stroke: #C4A45F; stroke-width: 6; stroke-linecap: square; }
+        .phase-d-tag { position: absolute; left: 790px; top: 475px; width: 180px; height: 84px; }
+        .phase-d-tag path { fill: #B08D3E; stroke: #C4A45F; stroke-width: 3; }
+        .phase-d-tag circle { fill: #14263E; }
+        .phase-d-tag line { stroke: #7A5E24; stroke-width: 4; }
+        .route-label { position: absolute; left: 1080px; top: 630px; width: 650px; font-size: 48px; font-weight: 500; letter-spacing: .05em; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="scene-03-judgment" data-width="1920" data-height="1080" data-duration="8.1" data-fps="30">
+        <div id="scene-03-stage" class="stage clip" data-start="0" data-duration="8.1" data-track-index="0">
+          <section class="phase phase-a">
+            <div class="context">
+              <svg class="context-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+              <div class="context-label">STAY<br />CONTEXT</div>
+              <div class="context-note">PERMISSION RESOLVED</div>
+            </div>
+            <svg class="phase-a-route" viewBox="0 0 210 1080"><path d="M10 540 H200"></path></svg>
+            <svg class="phase-a-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+            <div class="relevance"><div class="relevance-label">RELEVANCE<br />+ TIMING</div><div class="relevance-status">APPROPRIATE CASE</div></div>
+          </section>
+          <section class="phase phase-b">
+            <div class="suppression-kicker">ONE SENSITIVE OR INELIGIBLE PATH</div>
+            <svg class="sensitive-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle></svg>
+            <div class="stop-bar"></div><div class="stop-label">SUPPRESSED</div><div class="stop-note">NO OUTBOUND<br />PATH CONTINUES</div>
+          </section>
+          <section class="phase phase-c">
+            <img class="operator-plate" data-layout-allow-overflow src=".media/images/image_002.png" alt="Synthetic environmental plate of an operator making a deliberate physical judgment" />
+            <div class="operator-scrim"></div>
+            <svg class="operator-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+            <div class="review-box"><div class="review-label">HUMAN REVIEW</div><div class="review-state">UNRESOLVED</div></div>
+            <div class="review-resolve"></div>
+            <div class="plate-disclosure">SYNTHETIC HUMAN-CONTEXT PLATE · INTERNAL TEST</div>
+          </section>
+          <section class="phase phase-d">
+            <div class="resolved-review"><div class="title">HUMAN REVIEW</div><div class="state">RESOLVED</div></div>
+            <svg class="direct-route" viewBox="0 0 1920 1080"><path d="M820 520 C1010 520 1140 520 1320 520 C1460 520 1540 600 1710 600"></path></svg>
+            <svg class="phase-d-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+            <div class="route-label">OUTBOUND ROUTE OPEN</div>
+          </section>
+        </div>
+      </div>
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="scene-03-judgment"]');
+          const phaseA = root.querySelector(".phase-a");
+          const phaseB = root.querySelector(".phase-b");
+          const phaseC = root.querySelector(".phase-c");
+          const phaseD = root.querySelector(".phase-d");
+          const routeA = root.querySelector(".phase-a-route path");
+          const tagA = root.querySelector(".phase-a-tag");
+          const relevanceStatus = root.querySelector(".relevance-status");
+          const sensitiveTag = root.querySelector(".sensitive-tag");
+          const operatorTag = root.querySelector(".operator-tag");
+          const reviewState = root.querySelector(".review-state");
+          const reviewResolve = root.querySelector(".review-resolve");
+          const routeD = root.querySelector(".direct-route path");
+          const tagD = root.querySelector(".phase-d-tag");
+          const routeLabel = root.querySelector(".route-label");
+          const lengthA = routeA.getTotalLength();
+          const lengthD = routeD.getTotalLength();
+          const tl = gsap.timeline({ paused: true });
+          tl.set([phaseA, phaseB, phaseC, phaseD], { opacity: 0 }, 0);
+          tl.set(phaseA, { opacity: 1 }, 0);
+          tl.set(routeA, { strokeDasharray: lengthA, strokeDashoffset: lengthA }, 0);
+          tl.set(relevanceStatus, { opacity: 0 }, 0);
+          tl.fromTo(tagA, { x: 0 }, { x: 260, duration: .52, ease: "power3.out" }, 2.337);
+          tl.fromTo(routeA, { strokeDashoffset: lengthA }, { strokeDashoffset: 0, duration: .52, ease: "sine.inOut" }, 2.337);
+          tl.fromTo(relevanceStatus, { opacity: 0 }, { opacity: 1, duration: .25, ease: "none" }, 2.857);
+          tl.set(phaseA, { opacity: 0 }, 3.096);
+          tl.set(phaseB, { opacity: 1 }, 3.096);
+          tl.fromTo(sensitiveTag, { x: 0 }, { x: 160, duration: .42, ease: "power4.in" }, 3.096);
+          tl.to(sensitiveTag, { x: 160, duration: .584, ease: "none" }, 3.516);
+          tl.set(phaseB, { opacity: 0 }, 4.100);
+          tl.set(phaseC, { opacity: 1 }, 4.100);
+          tl.set(operatorTag, { opacity: .18, x: 0, y: 0 }, 4.100);
+          tl.fromTo(operatorTag, { opacity: .18, y: -18 }, { opacity: .58, y: 10, duration: .49, ease: "power3.out" }, 4.910);
+          tl.fromTo(reviewResolve, { width: 0 }, { width: 540, duration: .28, ease: "power2.out" }, 5.453);
+          tl.set(reviewState, { textContent: "RESOLVED", color: "#7B9E87" }, 5.733);
+          tl.set(phaseC, { opacity: 0 }, 5.869);
+          tl.set(phaseD, { opacity: 1 }, 5.869);
+          tl.set(routeD, { strokeDasharray: lengthD, strokeDashoffset: lengthD }, 5.869);
+          tl.fromTo(routeD, { strokeDashoffset: lengthD }, { strokeDashoffset: 0, duration: .88, ease: "sine.inOut" }, 5.869);
+          tl.fromTo(tagD, { x: 0 }, { x: 690, duration: .9, ease: "power3.inOut" }, 5.869);
+          tl.fromTo(routeLabel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .3, ease: "power2.out" }, 6.749);
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["scene-03-judgment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

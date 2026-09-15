@@ -1,0 +1,71 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-film-skill-forward-test-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP007-exit-readiness-prep/agents/work-orders/ep007-film-skill-forward-test-20260908-inputs/oe-film-direction/SKILL.md",
+      "sha256": "0877dfb4945906048907d904214b8aadbd01f2c4b31ceced31f3155e190d0f43"
+    },
+    {
+      "path": "episodes/EP007-exit-readiness-prep/agents/work-orders/ep007-film-skill-forward-test-20260908-inputs/oe-film-direction/references/context-and-coverage.md",
+      "sha256": "bae45db93a7fa4eaf784c81066b1a6cd106fd1bf3a2caf761bbbc2f9320be0fd"
+    },
+    {
+      "path": "episodes/EP007-exit-readiness-prep/agents/work-orders/ep007-film-skill-forward-test-20260908-inputs/oe-film-direction/references/picture-audio-modes.md",
+      "sha256": "6e7659c7039cdad176f769c9ffd01d6cf4ad3190d300e135678b31ccc5f6d58e"
+    },
+    {
+      "path": "episodes/EP007-exit-readiness-prep/agents/work-orders/ep007-film-skill-forward-test-20260908-inputs/oe-film-direction/references/generated-plates.md",
+      "sha256": "f31c44591f85b4e640af1e49332cc69903412252abe98627dfee50625f980f0e"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-film-skill-forward-test-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-film-skill-forward-test-20260908/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 verification of all four issued skill inputs before writing and all four identical frozen input snapshots after work-order path correction",
+      "outcome": "pass"
+    },
+    {
+      "command": "Manual self-review: actual candidate answers for all four realistic requests in order, with coverage, editing, review criteria, uncertainty, and scope limits",
+      "outcome": "pass"
+    },
+    {
+      "command": "blueprint-cinema/.venv/bin/python: jsonschema.Draft202012Validator validation of deliverable.json and work order; hash equality, owned-file set, relative-link targets, and four ordered candidate headings",
+      "outcome": "pass"
+    },
+    {
+      "command": "Actual audio playback, mute-viewing, source integrity, synchronization, footage selection, and rendered-media review excluded by work order; report contains proposed criteria only",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the four request summaries in the issued work order supplied scene-specific content; no intended candidate answers or other worker deliverables were consulted.",
+    "The four pinned OE film-direction files were read in full at the original paths and their bytes verified; the final work order freezes identical bytes under its inputs folder, verified again before delivery.",
+    "Read content-os/CLAUDE.md, repository AGENTS.md, Blueprint Cinema AGENTS.md, mandatory production workflow documents, direction references, and review contract as governing context. These are instruction references, not episode-media inputs.",
+    "No episode media, evidence table, avatar source, external source, network resource, or generated media was inspected or used. The source-ledger snapshot was not needed or read for this bounded behavioral task.",
+    "Repository discovery and target episode metadata existence checks were read-only. System python3 lacked jsonschema; the existing blueprint-cinema/.venv interpreter supplies it. Nothing was installed."
+  ],
+  "assumptions": [
+    "The parent instruction expressly authorizes wave-0 skill maintenance. The work order required_gate value does not establish inputs_locked or authorize production.",
+    "The four scenario durations and content summaries are test premises; exact narration words, adjacent beats, source windows, and timing remain unknown.",
+    "Suggested blocking, shot counts, physical gestures, and edit entries are candidate direction proposals rather than facts about uninspected footage."
+  ],
+  "unresolved_questions": [
+    "Actual media and narration review is required to establish comprehension, exact cut timing, performance quality, evidence legibility, source fidelity, and synchronization; none is established by this report.",
+    "The fourth opening needs resolution of repeat-meeting context, permission for additional pre-narration duration, source rights and usable handles, and any exact opening presenter take before production.",
+    "Global production-document restrictions conflicted with narrated_dramatization at read time. The root reports a separate alignment in progress; this worker did not reread changing documents and makes no current integration verdict.",
+    "The EP007 README, episode identity, and input lock were absent when checked. This is recorded as production context, not a blocker to the explicitly bounded prose test."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

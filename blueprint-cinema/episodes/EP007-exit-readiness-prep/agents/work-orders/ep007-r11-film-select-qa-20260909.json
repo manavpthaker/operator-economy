@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r11-film-select-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Inspect original R6 establishing plate for the R11 presenter-first recut. Propose safe source-continuous early owner/buyer reframes and assess the specified E aftermath select. Required gate is a wave-zero schema placeholder, not canonical approval.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/EDIT-PLAN.md",
+      "sha256": "e9609c62b9c0f10e0948d6c46dfb6eeb84251892227c52cc50a99c828330cf6d"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-01.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-film-select-qa-20260909/"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    ".agents/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "time_range": {
+    "in": 4.041666667,
+    "out": 40.083333333
+  },
+  "acceptance_checks": [
+    "Verify pinned inputs, then inspect actual early/mid/late frames.",
+    "Review source-continuous reframes at timeline4.0417–7.7083 wide,7.7083–11.25 owner focused,11.25–14.75 buyer focused, all using R6 same master source times. Suggest bounded crop rectangles preserving eyelines and no blank pixels for a1280x720 review; say if inadequate.",
+    "Inspect retained R10shotE source4.75–9.75 for a5second consequence beat at35.0833–40.0833. Report mouth/hand/geography risks.",
+    "No provider calls, production approval, source modification, or remote upload. Return report.md and schema-valid deliverable.json; put any contact sheets under owned outputs and ignored subdirectory."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale pinned source hashes.",
+    "Do not modify experiments or generate new media; contact sheets are local diagnostic derivatives only."
+  ],
+  "status": "closed"
+}

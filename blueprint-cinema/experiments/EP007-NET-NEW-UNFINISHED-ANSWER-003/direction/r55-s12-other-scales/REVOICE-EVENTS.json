@@ -1,0 +1,90 @@
+[
+  {
+    "event_id": "r55-owner-try-option-1-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r55-fair-objection-pause-v1",
+      "actor": "owner",
+      "verbatim": "try option 1",
+      "interpretation": "The pause did not fix the rushed phrase; re-voice it slower.",
+      "verdict": "revise",
+      "scope": "S12 opening phrase.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v3-pause-context/qa/context.mp4",
+          "sha256": "8aa4bba59a8e08f2735cf69ba7af905f8a36dc5c8c31ef6130cef21f433fed99"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/NARRATION-PAUSE-EDIT.json",
+        "sha256": "762537e4da77dfac117bd1d0f01e3354a4cc51293582e41feb1bb8e78c5aa1c1",
+        "locator": "Option 3 record"
+      }
+    ]
+  },
+  {
+    "event_id": "r55-fair-objection-revoice-plan-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "decision",
+    "supersedes": "r55-fair-objection-pause-v1",
+    "tags": [
+      "narration-pickup",
+      "performance",
+      "paid-plan"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Let the objection register before it is argued.",
+        "viewer_before": "'The vacancy' lands.",
+        "viewer_after": "The presenter raises the objection at a readable pace."
+      },
+      "choice": "Re-voice the first sentence slower via the R39 pickup recipe (context read + Voice Changer), splice into the original at a low-energy boundary, re-sync presenter A once. Awaiting spend approval.",
+      "reason": "The speed lives in the recording; a pause before it does not change it.",
+      "alternatives": [
+        {
+          "choice": "Keep the 0.5 s pause",
+          "reason_not_selected": "Owner asked for option 1."
+        },
+        {
+          "choice": "Time-stretch the phrase",
+          "reason_not_selected": "Audible artifacts; owner did not choose it."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A locked narration phrase reads rushed on screen and only one take exists.",
+        "avoid_when": "The fix is purely a picture or cut problem."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s12-pickup-join",
+            "phrase": "one. / If",
+            "relation": "new first sentence joins original before 'If'",
+            "master_seconds": 457.62,
+            "review_seconds": 454.62,
+            "fps": 24,
+            "dependent_targets": [
+              "S12 A-D and later assembly shift by pickup delta"
+            ]
+          }
+        ],
+        "source_basis": "Word transcript; R39 pickup precedent."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/presenter-a/PICKUP-REQUEST.json",
+        "sha256": "aadfcc752203815efe4a4a67633332a302ece66d348136089001b5243702342c",
+        "locator": "Proposal and costs"
+      }
+    ]
+  }
+]

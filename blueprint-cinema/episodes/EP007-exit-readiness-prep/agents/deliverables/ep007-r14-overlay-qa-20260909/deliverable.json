@@ -1,0 +1,69 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r14-overlay-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r13-unanswered-job/index.html",
+      "sha256": "8e814b137d6ff1696050834e216bfdf880a0c22f75674040325f3a6876944da5"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r14-overlay-qa-20260909/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r14-overlay-qa-20260909/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r14-overlay-qa-20260909/compare.py"
+  ],
+  "checks": [
+    {
+      "command": "Verify pinned R13 index.html SHA-256 before baseline inspection and comparison",
+      "outcome": "pass"
+    },
+    {
+      "command": "compare.py HTMLParser comparison: all 13 track-1 and two audio declarations identical, excluding data-hf-id only",
+      "outcome": "pass"
+    },
+    {
+      "command": "compare.py SHA-256 comparisons: all 19 public files and five pre-existing subcompositions unchanged",
+      "outcome": "pass"
+    },
+    {
+      "command": "diff -u of R13 and R14 root: only title, root composition identity, timeline key, and one opening-bridge host added",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read opening-bridge.html and evaluate static timeline bounds: bridge spans film cut4.041667 and ends7.666667 before close-up7.708333",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate deliverable JSON schema, input freshness and output existence",
+      "outcome": "pass"
+    },
+    {
+      "command": "Normal-speed audiovisual review, runtime opacity and pixel QA, final render verification",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Report SHA-256: 45ffd8e87d2b5e9efe6dd91e0cc0b304b5c8b2fb1c8fbfea68bf247f1c609dc8",
+    "Comparison script SHA-256: 479473b44fe4a7addca8de9b81bc082297019da48a938975f5a5cbc98475e68b",
+    "Reviewed R14 index.html SHA-256: d865e89c15c10bd5eab47affe4146ea2d9e968101b808e4ea89b7fee260d01b4",
+    "Reviewed R14 compositions/opening-bridge.html SHA-256: f42749141292f44c7e9cdd54fba4eabab9117ed4db01f815d24e943434fc7392",
+    "Only existing local R13 and authored R14 files were inspected after the main agent's ready message. No external source, credential, provider, upload, download or generated-media operation was used."
+  ],
+  "assumptions": [
+    "Source-level declaration equality and asset byte equality establish preserved configured inputs, not rendered-pixel equivalence.",
+    "Track10 is the new opening overlay; track1 and all audio retain the baseline configuration."
+  ],
+  "unresolved_questions": [
+    "The orchestrator owns strict runtime validation and pixel review for actual bridge visibility, subject occlusion and seek behavior.",
+    "This packet makes no listening, phoneme-perfect or final-render claim."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

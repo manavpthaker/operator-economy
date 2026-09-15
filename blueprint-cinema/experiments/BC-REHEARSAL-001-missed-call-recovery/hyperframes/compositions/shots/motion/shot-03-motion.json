@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "composition_id": "bc-rh-001-shot-03",
+  "local_duration_seconds": 7.83,
+  "fps": 30,
+  "narration_parsing": false,
+  "events": [
+    {
+      "at_seconds": 0.0,
+      "duration_seconds": 0.0,
+      "label": "navy cut and root tag match-cut registration",
+      "selector": "#s03-background, #s03-tag-entry-anchor",
+      "property": "static visibility and exact anchor presence",
+      "from": "present",
+      "to": "present",
+      "ease": "none"
+    },
+    {
+      "at_seconds": 1.43,
+      "duration_seconds": 0.3,
+      "label": "physical source context reveal",
+      "selector": "#s03-source-sheet",
+      "property": "opacity,y",
+      "from": "0,-12",
+      "to": "1,0",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 2.05,
+      "duration_seconds": 0.24,
+      "label": "capture contact resolves",
+      "selector": "#s03-capture-contact",
+      "property": "opacity,scale",
+      "from": "0,0.72",
+      "to": "1,1",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 3.5,
+      "duration_seconds": 0.3,
+      "label": "only call_time 20:47 fills dark gold",
+      "selector": "#s03-call-time-row",
+      "property": "backgroundColor,color",
+      "from": "rgba(122,94,36,0),#1a1a1a",
+      "to": "#7a5e24,#f5f0e6",
+      "ease": "power1.out"
+    },
+    {
+      "at_seconds": 3.99,
+      "duration_seconds": 0.72,
+      "label": "verified field translates from source row to root tag anchor",
+      "selector": "#s03-verified-chip",
+      "property": "opacity,x,y",
+      "from": "0,1030,-280",
+      "to": "1,0,0",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 4.97,
+      "duration_seconds": 0.6,
+      "label": "classify route draws between real nodes",
+      "selector": "#s03-route-classify",
+      "property": "strokeDashoffset",
+      "from": "synchronous getTotalLength()",
+      "to": 0,
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 4.97,
+      "duration_seconds": 0.28,
+      "label": "root-owned uncertain state registration area activates",
+      "selector": "#s03-uncertain-registration",
+      "property": "opacity,scale",
+      "from": "0,0.92",
+      "to": "1,1",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 5.88,
+      "duration_seconds": 0.55,
+      "label": "acknowledge route draws between real nodes",
+      "selector": "#s03-route-acknowledge",
+      "property": "strokeDashoffset",
+      "from": "synchronous getTotalLength()",
+      "to": 0,
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 5.88,
+      "duration_seconds": 0.28,
+      "label": "single acknowledged state stamp resolves",
+      "selector": "#s03-acknowledged-stamp",
+      "property": "opacity,scale",
+      "from": "0,0.94",
+      "to": "1,1",
+      "ease": "power2.out"
+    },
+    {
+      "at_seconds": 6.83,
+      "duration_seconds": 0.4,
+      "label": "source sheet collapses in place to right-edge source state",
+      "selector": "#s03-source-sheet",
+      "property": "opacity,x,y,scaleX,scaleY",
+      "from": "1,0,0,1,1",
+      "to": "0,210,0,0.68,0.24",
+      "ease": "power2.inOut"
+    },
+    {
+      "at_seconds": 6.99,
+      "duration_seconds": 0.24,
+      "label": "collapsed source retains exact fixture warning",
+      "selector": "#s03-source-pin-warning",
+      "property": "opacity,scale",
+      "from": "0,0.96",
+      "to": "1,1",
+      "ease": "power1.out"
+    }
+  ],
+  "root_anchors": {
+    "tag_entry": {"selector": "#s03-tag-entry-anchor", "x": 610, "y": 620},
+    "capture": {"selector": "#s03-capture-anchor", "x": 630, "y": 620},
+    "classify": {"selector": "#s03-classify-anchor", "x": 930, "y": 620},
+    "acknowledge": {"selector": "#s03-acknowledge-anchor", "x": 1230, "y": 620},
+    "card": {"selector": "#s03-card-anchor", "x": 1580, "y": 580},
+    "proof_pin": {"selector": "#s03-proof-anchor", "x": 1560, "y": 120}
+  },
+  "svg_measured_path_rule": {
+    "used": true,
+    "measurement": "getTotalLength() synchronously at composition setup",
+    "selectors": ["#s03-route-classify", "#s03-route-acknowledge"],
+    "dasharray": "measured length",
+    "dashoffset_from": "measured length",
+    "dashoffset_to": 0,
+    "landing_nodes": ["capture to classify", "classify to acknowledge"]
+  },
+  "exact_no_motion_hold": {
+    "start_seconds": 7.23,
+    "end_seconds": 7.83,
+    "duration_seconds": 0.6,
+    "notes": "Collapsed source warning, attached verification chip, and resolved route remain static."
+  },
+  "warning": {
+    "selector": "#s03-source-warning, #s03-source-pin-warning",
+    "exact_text": "SYNTHETIC TEST FIXTURE — NOT EVIDENCE",
+    "full_source_minimum_px": 38,
+    "collapsed_state_minimum_px": 28
+  },
+  "negative_checks": [
+    "no call-tag-red object or call-tag surrogate",
+    "no work-order-card object or card surrogate",
+    "no proof-pin persistent object",
+    "no duplicate 20:47 call identity; chip is field verification only",
+    "no box workflow or equal node cards",
+    "no reply copy, bubble, cursor, dashboard, or message UI",
+    "no network, async logic, clocks, randomness, loops, or layout-property tweens",
+    "no narration parsing"
+  ]
+}

@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+bc_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ -n "${PYTHONPATH:-}" ]; then
+  export PYTHONPATH="$bc_root/src:$PYTHONPATH"
+else
+  export PYTHONPATH="$bc_root/src"
+fi
+if [ -x "$bc_root/.venv/bin/python" ]; then
+  exec "$bc_root/.venv/bin/python" -m blueprint_cinema.cli "$@"
+fi
+exec python3 -m blueprint_cinema.cli "$@"

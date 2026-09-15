@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manav avatar · hand movement</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#17191c;color:#eef0f2}
+body{max-width:1400px;margin:auto;padding:28px}h1{font-size:25px;margin:0 0 8px}h2{font-size:18px;margin:0 0 8px}p{margin:6px 0 14px}
+.intro,.detail{color:#bfc5cb}.detail{font-size:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+article{padding:18px;border:1px solid #42474d;border-radius:8px;min-width:0}video{display:block;width:100%;background:#08090a;aspect-ratio:16/9;object-fit:contain}
+button{font:inherit;padding:9px 13px;min-height:44px;border:1px solid #676e77;border-radius:5px;color:inherit;background:#30343a;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid white;outline-offset:3px}button:disabled{opacity:.6;cursor:wait}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:18px 0}a{color:#d4dfeb}
+@media(max-width:760px){body{padding:18px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Manav avatar · hand movement</h1>
+<p class="intro">Same EP007 opening. Compare the added hand movement with the accepted wider framing.</p>
+<div class="actions"><button id="refresh" type="button">Refresh availability</button><span id="availability" role="status">Checking V5…</span></div>
+<div class="grid">
+<article>
+<h2>V5 · new hand-movement test</h2>
+<p class="detail">New candidate, awaiting your review.</p>
+<video id="gestures" controls playsinline preload="metadata" aria-label="Version five avatar hand movement test"></video>
+<p class="detail" id="gestures-status" role="status">Checking whether the new video is available.</p>
+</article>
+<article>
+<h2>V4 · accepted wider framing</h2>
+<p class="detail">The earlier wide take. Its framing is the accepted reference.</p>
+<video id="wide" controls playsinline preload="metadata" aria-label="Version four accepted wider framing reference"></video>
+<p class="detail" id="wide-status" role="status">Checking the comparison video.</p>
+<p class="detail" id="edited-link" hidden><a href="/new.mp4">Also view V4 with the closer question crop</a></p>
+</article>
+<article>
+<h2>V3 · accepted delivery baseline</h2>
+<p class="detail">The locked chest-up version, using the same words.</p>
+<video id="previous" controls playsinline preload="metadata" aria-label="Accepted version three avatar delivery baseline"></video>
+<p class="detail" id="previous-status" role="status">Loading the accepted baseline.</p>
+</article>
+</div>
+<script>
+const players=[...document.querySelectorAll('video')];
+const states=new Map(players.map(player=>[player.id,'pending']));
+let checking=false;
+function summary(){
+ const state=states.get('gestures');
+ document.getElementById('availability').textContent=({
+  pending:'V5 is still preparing.',
+  loading:'V5 found. Loading the video…',
+  ready:'V5 is ready for your review.',
+  error:'V5 could not load. Use Refresh availability to try again.'
+ })[state];
+}
+function setState(player,state,message){
+ states.set(player.id,state);
+ document.getElementById(player.id+'-status').textContent=message;
+ if(player.id==='gestures')summary();
+}
+for(const player of players){
+ player.addEventListener('play',()=>{
+  for(const other of players)if(other!==player)other.pause();
+ });
+ player.addEventListener('canplay',()=>setState(player,'ready','Ready to play.'));
+ player.addEventListener('error',()=>setState(player,'error','This video could not load. Refresh availability to retry.'));
+}
+function attach(player,src){
+ const current=states.get(player.id);
+ if(player.getAttribute('src')&&current!=='error')return;
+ setState(player,'loading','Loading the video…');
+ player.src=src;
+ player.load();
+}
+attach(document.getElementById('previous'),'/previous.mp4');
+async function refresh(){
+ if(checking)return;
+ checking=true;
+ const button=document.getElementById('refresh');button.disabled=true;
+ try{
+  const response=await fetch('/status.json',{cache:'no-store'});
+  if(!response.ok)throw Error('Could not check availability. Use Refresh availability to retry.');
+  const status=await response.json();
+  for(const [id,key,src] of [['gestures','gestures_available','/gestures.mp4'],['wide','wide_available','/wide.mp4']]){
+   const player=document.getElementById(id);
+   if(status[key]===true)attach(player,src);
+   else if(!player.getAttribute('src'))setState(player,'pending',id==='gestures'?'Still preparing this version.':'This comparison is not available yet.');
+  }
+  if(states.get('previous')==='error')attach(document.getElementById('previous'),'/previous.mp4');
+  document.getElementById('edited-link').hidden=status.edited_available!==true;
+  summary();
+ }catch(error){
+  document.getElementById('availability').textContent=error.message;
+ }finally{
+  checking=false;button.disabled=false;
+ }
+}
+document.getElementById('refresh').addEventListener('click',refresh);
+refresh();setInterval(refresh,30000);
+</script>
+</body>
+</html>
+

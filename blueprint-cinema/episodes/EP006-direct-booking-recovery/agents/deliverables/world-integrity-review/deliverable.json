@@ -1,0 +1,71 @@
+{
+  "$schema": "../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "world-integrity-review",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/episode-engine.json",
+      "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/world.json",
+      "sha256": "80a12c7296b76591258d210bf038c4d71ccef195669304e4289bccb3df3c576b"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/world-integrity-review/world-integrity.md",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/world-integrity-review/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 input-lock.json episode-engine.json world.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-work-order EP006-direct-booking-recovery world-integrity-review",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-world EP006-direct-booking-recovery",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual exhaustive ID, state, path, bypass, retry, escalation, evidence, economics, coordinate, and camera trace",
+      "outcome": "fail"
+    },
+    {
+      "command": "oe-cinema validate-deliverable EP006-direct-booking-recovery world-integrity-review",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned Blueprint Cinema input lock supplied by the work order.",
+    "Hash-pinned approved episode engine supplied by the work order.",
+    "Hash-pinned proposed persistent world supplied by the work order.",
+    "Current production state was read only to confirm the required episode_engine_approved dependency.",
+    "No internet source, prohibited legacy visual input, external write, paid service, or generated media was used."
+  ],
+  "assumptions": [
+    "World edges are the authoritative directed routes that a renderer can consume without inventing behavior.",
+    "A source labeled locked_source must be covered by a stable hash authority before world approval.",
+    "Sensitive-case human disposition must not share an unguarded route with successful outbound approval.",
+    "Coordinates must leave enough room for readable labeled primitives or define an explicit footprint and collision policy."
+  ],
+  "unresolved_questions": [
+    "Which hash-pinned claim and parameter registry should resolve the five claim IDs and nine parameter IDs?",
+    "Should failure routes become ordinary directed edges, or will the runtime define and validate a separate renderer-consumable route contract?",
+    "Is camera-system intentionally allowed to target direct-booking-destination across zone boundaries?"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,506 @@
+<template>
+  <style>
+    @font-face { font-family: "Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+    @font-face { font-family: "Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+    @font-face { font-family: "Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+
+    @font-face {
+      font-family: "Boska";
+      src: url("assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    #root {
+      font-family: "Supreme", sans-serif;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #1a1a1a;
+      isolation: isolate;
+    }
+
+    [class~="01-same-guest-ground"] {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      container-type: size;
+      background-color: #f5f0e6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 0.12cqw, transparent 0.12cqw),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 0.12cqw, transparent 0.12cqw);
+      background-size: 2cqw 2cqw;
+    }
+
+    [class~="01-same-guest-content"] {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    [class~="01-same-guest-hairline"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1a1a1a;
+      z-index: 12;
+    }
+
+    [class~="01-same-guest-hairline-top"] {
+      top: 3cqw;
+    }
+
+    [class~="01-same-guest-hairline-bottom"] {
+      top: 79.4cqh;
+    }
+
+    [class~="01-same-guest-pixel-glitch"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 13cqw;
+      height: 83cqh;
+      opacity: 0.13;
+      background-color: #f5f0e6;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #1a1a1a 0 0.12cqw,
+        transparent 0.12cqw 0.52cqw
+      );
+      clip-path: polygon(38% 0, 100% 0, 100% 100%, 0 100%, 0 77%, 24% 77%, 24% 51%, 12% 51%, 12% 25%, 38% 25%);
+      z-index: 1;
+    }
+
+    [class~="01-same-guest-qr"] {
+      position: absolute;
+      top: 5.4cqh;
+      right: 4cqw;
+      width: 4.4cqw;
+      height: 4.4cqw;
+      padding: 0.32cqw;
+      background: #f5f0e6;
+      border: 0.12cqw solid #1a1a1a;
+      z-index: 13;
+    }
+
+    [class~="01-same-guest-qr"] svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    [class~="01-same-guest-ledger-rule"] {
+      position: absolute;
+      left: 8cqw;
+      width: 78cqw;
+      height: 0.12cqw;
+      background: #b08d3e;
+      transform-origin: 50% 50%;
+      z-index: 2;
+    }
+
+    [class~="01-same-guest-ledger-rule"]::before,
+    [class~="01-same-guest-ledger-rule"]::after {
+      content: "";
+      position: absolute;
+      top: -0.46cqw;
+      width: 0.92cqw;
+      height: 0.92cqw;
+      border: 0.12cqw solid #b08d3e;
+      background: #f5f0e6;
+    }
+
+    [class~="01-same-guest-ledger-rule"]::before {
+      left: 0;
+    }
+
+    [class~="01-same-guest-ledger-rule"]::after {
+      right: 0;
+    }
+
+    [class~="01-same-guest-ledger-one"] {
+      top: 56cqh;
+    }
+
+    [class~="01-same-guest-ledger-two"] {
+      top: 69cqh;
+    }
+
+    [class~="01-same-guest-scene-one"] {
+      position: absolute;
+      top: 12.5cqh;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 2.2cqw;
+      z-index: 8;
+      white-space: nowrap;
+    }
+
+    [class~="01-same-guest-scene-one-word"] {
+      display: inline-block;
+      overflow: hidden;
+      font-family: "Boska";
+      font-size: 6.8cqw;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.005em;
+      color: #1a1a1a;
+    }
+
+    [class~="01-same-guest-same"] {
+      position: absolute;
+      top: 15.6cqh;
+      left: 11cqw;
+      width: 78cqw;
+      text-align: center;
+      white-space: nowrap;
+      font-family: "Boska";
+      font-size: 10.4cqw;
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.008em;
+      color: #1a1a1a;
+      z-index: 8;
+    }
+
+    [class~="01-same-guest-underline"] {
+      position: absolute;
+      top: 43.8cqh;
+      left: 37cqw;
+      width: 26cqw;
+      height: 0.34cqw;
+      background: #b08d3e;
+      transform-origin: 0% 50%;
+      z-index: 7;
+    }
+
+    [class~="01-same-guest-key-group"] {
+      position: absolute;
+      top: 41cqh;
+      left: 34cqw;
+      width: 32cqw;
+      height: 15cqh;
+      z-index: 9;
+    }
+
+    [class~="01-same-guest-key"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    [class~="01-same-guest-key-label"] {
+      font-family: "Supreme";
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      fill: #1a1a1a;
+    }
+
+    [class~="01-same-guest-guest-token"] {
+      position: absolute;
+      top: 2.6cqh;
+      left: 1.5cqw;
+      width: 5.4cqw;
+      height: 8.4cqh;
+      display: grid;
+      place-items: center;
+      background: #f5f0e6;
+      border: 0.18cqw solid #1a1a1a;
+      color: #1a1a1a;
+      z-index: 4;
+    }
+
+    [class~="01-same-guest-token-glyph"] {
+      font-family: "Boska";
+      font-size: 3.1cqw;
+      font-weight: 400;
+      line-height: 0.8;
+    }
+
+    [class~="01-same-guest-token-tag"] {
+      position: absolute;
+      right: 0.35cqw;
+      bottom: 0.3cqw;
+      font-family: "Supreme";
+      font-size: 0.74cqw;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+    }
+
+    [class~="01-same-guest-stamp"] {
+      position: absolute;
+      width: 13.8cqw;
+      height: 4.7cqh;
+      display: grid;
+      place-items: center;
+      box-sizing: border-box;
+      border: 0.12cqw solid transparent;
+      color: transparent;
+      background: #f5f0e6;
+      font-family: "Supreme";
+      font-size: 1.4cqw;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    [class~="01-same-guest-stamp-one"] {
+      top: 52.8cqh;
+      left: 8cqw;
+      transform: rotate(-2deg);
+    }
+
+    [class~="01-same-guest-stamp-two"] {
+      top: 65.8cqh;
+      right: 8cqw;
+      transform: rotate(2deg);
+    }
+
+    [class~="01-same-guest-page-meta"] {
+      position: absolute;
+      top: 76.6cqh;
+      left: 4cqw;
+      font-family: "Supreme";
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      z-index: 12;
+    }
+
+    [class~="01-same-guest-page-number"] {
+      position: absolute;
+      top: 76.6cqh;
+      right: 4cqw;
+      font-family: "Supreme";
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: #1a1a1a;
+      z-index: 12;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-same-guest" data-width="1920" data-height="1080" data-duration="8.784">
+    <div class="clip 01-same-guest-ground" data-start="0" data-duration="8.784" data-track-index="0"></div>
+
+    <div class="clip 01-same-guest-content" data-start="0" data-duration="8.784" data-track-index="1">
+      <div class="01-same-guest-pixel-glitch" aria-hidden="true"></div>
+
+      <div class="01-same-guest-hairline 01-same-guest-hairline-top" aria-hidden="true"></div>
+      <div class="01-same-guest-hairline 01-same-guest-hairline-bottom" aria-hidden="true"></div>
+
+      <div class="01-same-guest-qr" aria-hidden="true">
+        <svg viewBox="0 0 8 8" role="presentation" shape-rendering="crispEdges">
+          <path fill="#1A1A1A" d="M0 0h3v1H1v1h2v1H0V0zm5 0h3v3H5V0zm1 1v1h1V1H6zM0 5h3v3H0V5zm1 1v1h1V6H1zm3-2h1v1H4V4zm2 0h2v1H6V4zM3 5h1v2H3V5zm2 1h1v2H5V6zm2 0h1v1H7V6zM4 7h1v1H4V7zm2 0h2v1H6V7z"/>
+        </svg>
+      </div>
+
+      <div id="01-same-guest-ledger-one" class="01-same-guest-ledger-rule 01-same-guest-ledger-one" aria-hidden="true"></div>
+      <div id="01-same-guest-ledger-two" class="01-same-guest-ledger-rule 01-same-guest-ledger-two" aria-hidden="true"></div>
+
+      <div id="01-same-guest-scene-one" class="01-same-guest-scene-one" aria-label="Hotels keep paying">
+        <span id="01-same-guest-word-hotels" class="01-same-guest-scene-one-word">HOTELS</span>
+        <span id="01-same-guest-word-keep" class="01-same-guest-scene-one-word">KEEP</span>
+        <span id="01-same-guest-word-paying" class="01-same-guest-scene-one-word">PAYING</span>
+      </div>
+
+      <div id="01-same-guest-same" class="01-same-guest-same">SAME GUEST</div>
+      <div id="01-same-guest-underline" class="01-same-guest-underline" aria-hidden="true"></div>
+
+      <div id="01-same-guest-key-group" class="01-same-guest-key-group" aria-label="One brass room key and one guest token">
+        <svg class="01-same-guest-key" viewBox="0 0 620 180" role="img" aria-label="Brass room key">
+          <path fill="#B08D3E" stroke="#1A1A1A" stroke-width="5" d="M8 24h250v132H8V24zm250 48h262v36H258V72zm250 36h38v30h-22v22h-30v-52h14z"/>
+          <path fill="#F5F0E6" stroke="#1A1A1A" stroke-width="5" d="M28 45h54v54H28V45z"/>
+          <path fill="none" stroke="#1A1A1A" stroke-width="5" d="M101 47h133M101 72h106M101 97h133M101 122h84"/>
+          <text class="01-same-guest-key-label" x="103" y="145">ROOM 014</text>
+        </svg>
+
+        <div id="01-same-guest-guest-token" class="01-same-guest-guest-token" aria-label="Guest token 01">
+          <span class="01-same-guest-token-glyph">G</span>
+          <span class="01-same-guest-token-tag">01</span>
+        </div>
+      </div>
+
+      <div id="01-same-guest-stamp-one" class="01-same-guest-stamp 01-same-guest-stamp-one" data-contrast-checked="true" aria-live="off"></div>
+      <div id="01-same-guest-stamp-two" class="01-same-guest-stamp 01-same-guest-stamp-two" aria-live="off"></div>
+
+      <div class="01-same-guest-page-meta">Guest ledger / repeat encounter</div>
+      <div class="01-same-guest-page-number">001</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="01-same-guest"]');
+      const byId = (id) => document.getElementById(id);
+      const tl = gsap.timeline({ paused: true });
+
+      const sceneOne = byId("01-same-guest-scene-one");
+      const sameGuest = byId("01-same-guest-same");
+      const underline = byId("01-same-guest-underline");
+      const keyGroup = byId("01-same-guest-key-group");
+      const guestToken = byId("01-same-guest-guest-token");
+      const ledgerOne = byId("01-same-guest-ledger-one");
+      const ledgerTwo = byId("01-same-guest-ledger-two");
+      const stampOne = byId("01-same-guest-stamp-one");
+      const stampTwo = byId("01-same-guest-stamp-two");
+
+      const WORDS = [
+        { id: "01-same-guest-word-hotels", text: "HOTELS", speedFactor: 1.0 },
+        { id: "01-same-guest-word-keep", text: "KEEP", speedFactor: 0.92 },
+        { id: "01-same-guest-word-paying", text: "PAYING", speedFactor: 1.0 },
+      ];
+
+      let wordCursor = 0.08;
+      const WORD_TIMELINE = WORDS.map((entry) => {
+        const duration = (0.18 + entry.text.length * 0.026) * entry.speedFactor;
+        const start = wordCursor;
+        wordCursor += duration + 0.10;
+        return { ...entry, start, duration };
+      });
+
+      WORD_TIMELINE.forEach((entry, index) => {
+        tl.fromTo(
+          byId(entry.id),
+          {
+            autoAlpha: 0,
+            y: index % 2 === 0 ? "1.4cqh" : "-1.1cqh",
+            clipPath: "inset(0 100% 0 0)",
+          },
+          {
+            autoAlpha: 1,
+            y: "0cqh",
+            clipPath: "inset(0 0% 0 0)",
+            duration: Math.min(0.42, entry.duration + 0.16),
+            ease: "power2.out",
+          },
+          entry.start,
+        );
+      });
+
+      tl.fromTo(
+        keyGroup,
+        { autoAlpha: 0, x: "0cqw", y: "3cqh" },
+        { autoAlpha: 1, x: "0cqw", y: "0cqh", duration: 0.48, ease: "power2.out" },
+        0.20,
+      );
+
+      tl.fromTo(
+        ledgerOne,
+        { autoAlpha: 0.16, scaleX: 0.08 },
+        { autoAlpha: 0.78, scaleX: 1, duration: 0.72, ease: "power2.out" },
+        1.05,
+      );
+
+      tl.set(ledgerTwo, { autoAlpha: 0.16, scaleX: 0.55 }, 0);
+      tl.set(sameGuest, { autoAlpha: 0 }, 0);
+      tl.set(sceneOne, { autoAlpha: 0 }, 2.20);
+      tl.fromTo(
+        sameGuest,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.001, ease: "none" },
+        2.20,
+      );
+
+      tl.fromTo(
+        keyGroup,
+        { x: "0cqw", y: "0cqh" },
+        { x: "0cqw", y: "7cqh", duration: 0.55, ease: "power2.out" },
+        2.20,
+      );
+
+      tl.fromTo(
+        guestToken,
+        { autoAlpha: 0, x: "-7cqw" },
+        { autoAlpha: 1, x: "0cqw", duration: 0.62, ease: "power3.out" },
+        2.42,
+      );
+
+      tl.fromTo(
+        underline,
+        { autoAlpha: 1, scaleX: 0 },
+        { autoAlpha: 1, scaleX: 1, duration: 0.58, ease: "power2.inOut" },
+        3.05,
+      );
+
+      tl.fromTo(
+        ledgerTwo,
+        { autoAlpha: 0.16, scaleX: 0.55 },
+        { autoAlpha: 0.92, scaleX: 1, duration: 0.56, ease: "power2.out" },
+        5.30,
+      );
+
+      tl.set(keyGroup, { x: "-32cqw", y: "18cqh" }, 5.30);
+      tl.fromTo(
+        keyGroup,
+        { x: "-32cqw", y: "18cqh" },
+        { x: "32cqw", y: "18cqh", duration: 1.78, ease: "power1.inOut" },
+        5.30,
+      );
+
+      const PAYMENT_STATES = [
+        { t: 0.00, first: "", second: "" },
+        { t: 3.62, first: "PAID AGAIN", second: "" },
+        { t: 6.64, first: "PAID AGAIN", second: "PAID AGAIN" },
+      ];
+
+      function paymentStateAt(time) {
+        for (let i = PAYMENT_STATES.length - 1; i >= 0; i -= 1) {
+          if (time >= PAYMENT_STATES[i].t) return PAYMENT_STATES[i];
+        }
+        return PAYMENT_STATES[0];
+      }
+
+      let lastPaymentKey = "";
+      const paymentDriver = { t: 0 };
+      tl.to(
+        paymentDriver,
+        {
+          t: 8.284,
+          duration: 8.284,
+          ease: "none",
+          onUpdate: () => {
+            const state = paymentStateAt(paymentDriver.t);
+            const stateKey = `${state.first}|${state.second}`;
+            if (stateKey === lastPaymentKey) return;
+
+            stampOne.textContent = state.first;
+            stampTwo.textContent = state.second;
+            stampOne.style.borderColor = state.first ? "#7A5E24" : "transparent";
+            stampTwo.style.borderColor = state.second ? "#7A5E24" : "transparent";
+            stampOne.style.color = state.first ? "#7A5E24" : "transparent";
+            stampTwo.style.color = state.second ? "#7A5E24" : "transparent";
+            lastPaymentKey = stateKey;
+          },
+        },
+        0,
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["01-same-guest"] = tl;
+    })();
+  </script>
+</template>

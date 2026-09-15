@@ -1,7 +1,7 @@
 # Step 3: visual translation
 
 Status: **boundary only; not authoritative.** Scope boundary approved 2026-09-01. Boundary Ledger
-derivation correction proposed as Step 3 v0.2 on 2026-09-02. The standard, gates, templates,
+derivation correction proposed as Step 3 v0.3 on 2026-09-02. The standard, gates, templates,
 authority map, and acceptance set exist but remain proposed until approved.
 
 Step 3 receives an episode whose words are locked and whose narration is timed, and produces a
@@ -15,12 +15,13 @@ It answers one question: **what should the viewer be looking at, and why that.**
 | File | Status |
 |---|---|
 | `SCOPE-BOUNDARY.md` | **approved** 2026-09-01 |
-| `PORTING-MANIFEST.md` | frozen v0.2 source hashes and Boundary Ledger pins |
-| `VISUAL-TRANSLATION-STANDARD.md` | **proposed v0.2** |
-| `STAGE-GATES.md` | **proposed v0.2** — V1 to V7 |
-| templates | **proposed v0.2** — eight, one per gate |
-| `AUTHORITY-MAP.md` | **proposed v0.2** |
-| fixtures and acceptance set | **proposed v0.2** — preserved v0.1 controls plus Boundary Ledger derivation controls |
+| `PORTING-MANIFEST.md` | frozen v0.3 source hashes and Boundary Ledger pins |
+| `APPROVALS-REQUIRED.md` | plain-English guide to process and episode approvals; records no decision |
+| `VISUAL-TRANSLATION-STANDARD.md` | **proposed v0.3** |
+| `STAGE-GATES.md` | **proposed v0.3** — V1 to V7 |
+| templates | **proposed v0.3** — eight, one per gate |
+| `AUTHORITY-MAP.md` | **proposed v0.3** |
+| fixtures and acceptance set | **proposed v0.3** — preserved v0.1 controls plus Boundary Ledger derivation controls |
 
 ## Templates
 
