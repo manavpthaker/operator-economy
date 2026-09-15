@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=720, height=1280" />
+    <title>Week 2 full-07: worth automating</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: Archivo; src: url("assets/Archivo-variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
+      @font-face { font-family: Atkinson; src: url("assets/AtkinsonHyperlegibleNext-variable.ttf") format("truetype"); font-weight: 200 800; font-display: block; }
+      @font-face { font-family: JBM; src: url("assets/JetBrainsMono-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }
+      @font-face { font-family: JBM; src: url("assets/JetBrainsMono-Bold.ttf") format("truetype"); font-weight: 700; font-display: block; }
+      :root { --graphite:#202426; }
+      * { box-sizing: border-box; }
+      html, body { margin:0; width:720px; height:1280px; background:#111; overflow:hidden; }
+      #root { position:relative; width:720px; height:1280px; overflow:hidden; background:#111; font-family:Atkinson, sans-serif; }
+      #base { position:absolute; inset:0; width:720px; height:1280px; object-fit:cover; z-index:0; }
+
+      /* Hook: the presenter steps back so the title can sit behind the head. */
+      #hook-fill { position:absolute; left:-40px; top:-40px; width:800px; height:1360px; object-fit:cover; filter:blur(26px) brightness(1.04); z-index:1; }
+      #hook-plate, #hook-matte { position:absolute; left:72px; top:256px; width:576px; height:1024px; object-fit:cover; }
+      #hook-plate { z-index:2; -webkit-mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px);
+        -webkit-mask-composite: source-in; mask-image:linear-gradient(to right, transparent 0, #000 60px, #000 516px, transparent 576px), linear-gradient(to bottom, transparent 0, #000 90px); mask-composite:intersect; }
+      #hook-title { position:absolute; left:40px; top:92px; width:660px; margin:0; z-index:3; font-family:Archivo, sans-serif;
+        font-size:116px; line-height:112px; font-weight:780; letter-spacing:-.05em; color:var(--graphite); }
+      #hook-title span { display:block; }
+      #hook-matte { z-index:4; }
+
+      .scene { position:absolute; inset:0; overflow:hidden; background:#111; z-index:5; }
+      .fit { position:absolute; left:0; top:0; width:941px; height:1672px; transform:scale(.76514); transform-origin:0 0; }
+      .hand, .cam { position:absolute; inset:0; width:941px; height:1672px; }
+      .photo { position:absolute; inset:0; width:941px; height:1672px; }
+      .win { position:absolute; left:0; top:0; width:1000px; height:725px; transform-origin:0 0; border-radius:16px; overflow:hidden;
+        box-shadow:0 30px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.12); filter:blur(.45px); }
+      .glare { position:absolute; inset:0; background:linear-gradient(118deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.07) 46%, rgba(255,255,255,0) 60%); }
+      .vignette { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.28) 100%); }
+      .grain { position:absolute; inset:-20px; opacity:.09; mix-blend-mode:overlay;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+      .dot { display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:10px; }
+
+      /* Warp + Claude Code, same window as the full-06 insert, one run later. */
+      .warp { background:#181a1f; color:#e6e6e6; font-family:JBM, monospace; }
+      .warp .bar { height:52px; background:#22252b; border-bottom:1px solid #30333a; position:relative; padding:18px 22px; display:flex; }
+      .warp .bar .name { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:21px; color:#aeb3bc; }
+      .warp .body { padding:30px 38px; }
+      .warp .head { font-size:22px; color:#8b9099; margin-bottom:22px; }
+      .warp .head b { color:#d97757; }
+      .warp .out { font-size:28px; line-height:42px; white-space:nowrap; }
+      .warp .bullet { display:inline-block; width:16px; height:16px; border-radius:50%; background:#4fb477; margin-right:18px; vertical-align:2px; }
+      .warp .bullet.bad { background:#e5534b; }
+      .warp .arg { color:#c9ccd2; }
+      .warp .res { color:#7f848d; padding-left:12px; }
+      .warp .res.err { color:#f27a72; }
+      .warp .elbow { display:inline-block; width:16px; height:20px; border-left:2px solid #7f848d; border-bottom:2px solid #7f848d; margin-right:18px; vertical-align:10px; }
+      .warp .box { margin-top:34px; border:2px solid #5b606b; border-radius:12px; padding:16px 20px; font-size:28px; line-height:42px; white-space:nowrap; }
+      .warp .gt { color:#8b9099; }
+      .warp .caret { display:inline-block; width:17px; height:36px; background:#e6e6e6; vertical-align:-7px; margin-left:2px; }
+
+      /* Finder icon view, moved by hand. */
+      .finder { background:#fff; color:#1D1D1F; font-family:Atkinson, sans-serif; }
+      .finder .fbar { height:56px; background:#ECECEE; border-bottom:1px solid #D6D6D8; position:relative; font-size:20px; line-height:56px; font-weight:700; padding-left:250px; }
+      .finder .fbar .dots { position:absolute; left:20px; top:20px; display:flex; }
+      .finder .fside { position:absolute; left:0; top:56px; bottom:0; width:210px; background:#EDEDF0; padding:18px 18px; font-size:18px; line-height:34px; color:#3A3A3C; }
+      .finder .fside b { font-size:14px; color:#98989D; letter-spacing:.04em; font-weight:600; }
+      .finder .grid { position:absolute; left:210px; right:0; top:56px; bottom:0; }
+      .item { position:absolute; width:170px; text-align:center; font-size:19px; }
+      .item .lbl { margin-top:10px; padding:2px 8px; border-radius:6px; display:inline-block; }
+      .folder { width:120px; height:92px; margin:0 auto; position:relative; }
+      .folder::before { content:""; position:absolute; left:0; top:0; width:50px; height:20px; border-radius:8px 8px 0 0; background:#5DA9E9; }
+      .folder::after { content:""; position:absolute; left:0; top:12px; width:120px; height:80px; border-radius:6px 10px 10px 10px; background:linear-gradient(#7CC0F5, #4E9BE0); }
+      .file { width:80px; height:100px; margin:0 auto; background:#fff; border:2px solid #D5D5D8; border-radius:4px 22px 4px 4px; position:relative; }
+      .file i { position:absolute; left:16px; right:16px; height:4px; background:#D5D5D8; }
+      .file.pdf::after { content:"PDF"; position:absolute; left:10px; bottom:10px; font-size:14px; font-weight:700; color:#fff; background:#E5484D; padding:1px 6px; border-radius:3px; }
+      .ghost { position:absolute; opacity:0; width:170px; text-align:center; }
+      .ptr { position:absolute; left:0; top:0; width:34px; height:50px; z-index:5; }
+
+      .cap { position:absolute; left:56px; bottom:150px; max-width:608px; padding:10px 18px; border-radius:10px; z-index:20;
+        background:rgba(32,36,38,.8); color:#fff; font-size:34px; line-height:44px; font-weight:600; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="week2-full07" data-start="0" data-width="720" data-height="1280" data-duration="45.8750">
+      <video id="base" class="clip" src="assets/base.mp4" data-start="0" data-duration="45.8750" data-track-index="0" muted playsinline></video>
+      <video id="hook-fill" class="clip" src="assets/hook-fill.mp4" data-start="0" data-duration="3.6250" data-track-index="1" muted playsinline></video>
+      <video id="hook-plate" class="clip" src="assets/hook.mp4" data-start="0" data-duration="3.6250" data-track-index="2" muted playsinline></video>
+      <div id="hook-title" class="clip" data-start="0" data-duration="3.6250" data-track-index="3" data-layout-allow-overlap><span>Worth</span><span>automating?</span></div>
+      <video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="3.6250" data-track-index="4" muted playsinline></video>
+
+      <section id="fix" class="clip scene" data-start="9.5833" data-duration="3.0833" data-track-index="5">
+        <div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" />
+          <div class="win warp"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">claude — ~/Example</span></div>
+            <div class="body"><div class="head"><b>Claude Code</b> &nbsp;·&nbsp; ~/Example</div>
+              <div class="out" data-layout-allow-overlap>
+                <div><span class="bullet"></span><b>Bash</b><span class="arg">(mv notes.txt Sources/)</span></div>
+                <div class="res"><span class="elbow"></span>moved</div>
+                <div id="fx-r2"><span class="bullet bad"></span><b>Bash</b><span class="arg">(mv *.png Assets/)</span></div>
+                <div id="fx-r2b" class="res err"><span class="elbow"></span>mv: Assets/: No such file or directory</div>
+              </div>
+              <div class="box" data-layout-allow-overlap><span class="gt">&gt; </span><span id="fx-typed"></span><span id="fx-caret" class="caret"></span></div>
+            </div></div>
+          <div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div>
+      </section>
+
+      <section id="manual" class="clip scene" data-start="25.4167" data-duration="5.6667" data-track-index="5">
+        <div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" />
+          <div class="win finder"><div class="fbar"><div class="dots"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>Example project</div>
+            <div class="fside"><b>FAVORITES</b><br/>Recents<br/>Applications<br/>Desktop<br/>Documents<br/>Downloads<br/><b>LOCATIONS</b><br/>iCloud Drive</div>
+            <div class="grid" data-layout-allow-overlap>
+              <div class="item" id="m-sources" style="left:60px;top:70px"><div class="folder"></div><div class="lbl">Sources</div></div>
+              <div class="item" id="m-images" style="left:290px;top:70px"><div class="folder"></div><div class="lbl">Images</div></div>
+              <div class="item" id="m-archive" style="left:520px;top:70px"><div class="folder"></div><div class="lbl">Archive</div></div>
+              <div class="item" id="m-brief" style="left:60px;top:330px"><div class="file pdf"><i style="top:24px"></i><i style="top:38px"></i><i style="top:52px"></i></div><div class="lbl">brief-v2.pdf</div></div>
+              <div class="item" id="m-notes" style="left:290px;top:330px"><div class="file"><i style="top:24px"></i><i style="top:38px"></i><i style="top:52px"></i><i style="top:66px"></i></div><div class="lbl">call-notes.txt</div></div>
+              <div class="item" id="m-shot" style="left:520px;top:330px"><div class="file"><i style="top:24px;height:40px;background:#CFE3F5"></i></div><div class="lbl">hero.png</div></div>
+              <svg class="ptr" id="m-ptr" viewBox="0 0 34 50"><path d="M2 2 L2 40 L12 31 L19 47 L26 44 L19 28 L32 28 Z" fill="#000" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg>
+            </div></div>
+          <div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div>
+      </section>
+
+      <div id="cap0" class="clip cap" data-layout-allow-overlap data-start="0.180" data-duration="1.830" data-track-index="6"><span id="cap0w0">Sometimes</span> <span id="cap0w1">it&#x27;s</span> <span id="cap0w2">less</span> <span id="cap0w3">work</span></div>
+      <div id="cap1" class="clip cap" data-layout-allow-overlap data-start="2.030" data-duration="1.500" data-track-index="6"><span id="cap1w0">to</span> <span id="cap1w1">just</span> <span id="cap1w2">do</span> <span id="cap1w3">the</span> <span id="cap1w4">task.</span></div>
+      <div id="cap2" class="clip cap" data-layout-allow-overlap data-start="3.550" data-duration="0.950" data-track-index="6"><span id="cap2w0">I</span> <span id="cap2w1">can</span> <span id="cap2w2">use</span> <span id="cap2w3">AI</span> <span id="cap2w4">to</span> <span id="cap2w5">build</span></div>
+      <div id="cap3" class="clip cap" data-layout-allow-overlap data-start="4.520" data-duration="1.680" data-track-index="6"><span id="cap3w0">something</span> <span id="cap3w1">that</span> <span id="cap3w2">does</span> <span id="cap3w3">it</span> <span id="cap3w4">for</span> <span id="cap3w5">me.</span></div>
+      <div id="cap4" class="clip cap" data-layout-allow-overlap data-start="6.220" data-duration="1.180" data-track-index="6"><span id="cap4w0">But</span> <span id="cap4w1">if</span> <span id="cap4w2">it</span> <span id="cap4w3">breaks,</span></div>
+      <div id="cap5" class="clip cap" data-layout-allow-overlap data-start="7.420" data-duration="1.200" data-track-index="6"><span id="cap5w0">or</span> <span id="cap5w1">the</span> <span id="cap5w2">way</span> <span id="cap5w3">I</span> <span id="cap5w4">wanna</span> <span id="cap5w5">do</span></div>
+      <div id="cap6" class="clip cap" data-layout-allow-overlap data-start="8.640" data-duration="1.010" data-track-index="6"><span id="cap6w0">the</span> <span id="cap6w1">job</span> <span id="cap6w2">changes,</span></div>
+      <div id="cap7" class="clip cap" data-layout-allow-overlap data-start="9.670" data-duration="1.330" data-track-index="6"><span id="cap7w0">I&#x27;m</span> <span id="cap7w1">still</span> <span id="cap7w2">the</span> <span id="cap7w3">one</span> <span id="cap7w4">who&#x27;s</span></div>
+      <div id="cap8" class="clip cap" data-layout-allow-overlap data-start="11.020" data-duration="1.720" data-track-index="6"><span id="cap8w0">gotta</span> <span id="cap8w1">go</span> <span id="cap8w2">back</span> <span id="cap8w3">and</span> <span id="cap8w4">fix</span> <span id="cap8w5">it.</span></div>
+      <div id="cap9" class="clip cap" data-layout-allow-overlap data-start="12.860" data-duration="1.010" data-track-index="6"><span id="cap9w0">Say</span> <span id="cap9w1">I</span> <span id="cap9w2">automate</span> <span id="cap9w3">how</span> <span id="cap9w4">I</span></div>
+      <div id="cap10" class="clip cap" data-layout-allow-overlap data-start="13.890" data-duration="2.160" data-track-index="6"><span id="cap10w0">organize</span> <span id="cap10w1">files</span> <span id="cap10w2">for</span> <span id="cap10w3">a</span> <span id="cap10w4">project.</span></div>
+      <div id="cap11" class="clip cap" data-layout-allow-overlap data-start="16.070" data-duration="0.780" data-track-index="6"><span id="cap11w0">If</span> <span id="cap11w1">I&#x27;m</span> <span id="cap11w2">still</span> <span id="cap11w3">moving</span></div>
+      <div id="cap12" class="clip cap" data-layout-allow-overlap data-start="16.870" data-duration="0.840" data-track-index="6"><span id="cap12w0">folders</span> <span id="cap12w1">around</span> <span id="cap12w2">and</span></div>
+      <div id="cap13" class="clip cap" data-layout-allow-overlap data-start="17.730" data-duration="1.110" data-track-index="6"><span id="cap13w0">changing</span> <span id="cap13w1">what</span> <span id="cap13w2">goes</span></div>
+      <div id="cap14" class="clip cap" data-layout-allow-overlap data-start="18.860" data-duration="1.400" data-track-index="6"><span id="cap14w0">where,</span> <span id="cap14w1">I&#x27;ve</span> <span id="cap14w2">now</span> <span id="cap14w3">gotta</span></div>
+      <div id="cap15" class="clip cap" data-layout-allow-overlap data-start="20.280" data-duration="2.000" data-track-index="6"><span id="cap15w0">update</span> <span id="cap15w1">the</span> <span id="cap15w2">automation</span> <span id="cap15w3">as</span> <span id="cap15w4">well.</span></div>
+      <div id="cap16" class="clip cap" data-layout-allow-overlap data-start="22.300" data-duration="1.090" data-track-index="6"><span id="cap16w0">For</span> <span id="cap16w1">something</span> <span id="cap16w2">I</span> <span id="cap16w3">do</span> <span id="cap16w4">all</span></div>
+      <div id="cap17" class="clip cap" data-layout-allow-overlap data-start="23.410" data-duration="1.250" data-track-index="6"><span id="cap17w0">the</span> <span id="cap17w1">time,</span> <span id="cap17w2">that</span> <span id="cap17w3">might</span> <span id="cap17w4">be</span></div>
+      <div id="cap18" class="clip cap" data-layout-allow-overlap data-start="24.680" data-duration="0.760" data-track-index="6"><span id="cap18w0">worth</span> <span id="cap18w1">it.</span></div>
+      <div id="cap19" class="clip cap" data-layout-allow-overlap data-start="25.460" data-duration="0.500" data-track-index="6"><span id="cap19w0">But</span> <span id="cap19w1">if</span> <span id="cap19w2">it&#x27;s</span> <span id="cap19w3">an</span></div>
+      <div id="cap20" class="clip cap" data-layout-allow-overlap data-start="25.980" data-duration="1.180" data-track-index="6"><span id="cap20w0">occasional</span> <span id="cap20w1">job</span> <span id="cap20w2">and</span> <span id="cap20w3">I&#x27;m</span></div>
+      <div id="cap21" class="clip cap" data-layout-allow-overlap data-start="27.180" data-duration="1.220" data-track-index="6"><span id="cap21w0">still</span> <span id="cap21w1">figuring</span> <span id="cap21w2">out</span> <span id="cap21w3">how</span> <span id="cap21w4">I</span></div>
+      <div id="cap22" class="clip cap" data-layout-allow-overlap data-start="28.420" data-duration="0.630" data-track-index="6"><span id="cap22w0">want</span> <span id="cap22w1">it</span> <span id="cap22w2">done,</span></div>
+      <div id="cap23" class="clip cap" data-layout-allow-overlap data-start="29.070" data-duration="1.250" data-track-index="6"><span id="cap23w0">I</span> <span id="cap23w1">might</span> <span id="cap23w2">be</span> <span id="cap23w3">better</span> <span id="cap23w4">off</span></div>
+      <div id="cap24" class="clip cap" data-layout-allow-overlap data-start="30.340" data-duration="1.810" data-track-index="6"><span id="cap24w0">leaving</span> <span id="cap24w1">it</span> <span id="cap24w2">manual</span> <span id="cap24w3">for</span> <span id="cap24w4">now.</span></div>
+      <div id="cap25" class="clip cap" data-layout-allow-overlap data-start="32.420" data-duration="1.140" data-track-index="6"><span id="cap25w0">You</span> <span id="cap25w1">guys</span> <span id="cap25w2">tell</span> <span id="cap25w3">me,</span></div>
+      <div id="cap26" class="clip cap" data-layout-allow-overlap data-start="33.580" data-duration="1.080" data-track-index="6"><span id="cap26w0">what&#x27;s</span> <span id="cap26w1">something</span> <span id="cap26w2">you&#x27;ve</span></div>
+      <div id="cap27" class="clip cap" data-layout-allow-overlap data-start="34.680" data-duration="1.270" data-track-index="6"><span id="cap27w0">deliberately</span> <span id="cap27w1">kept</span> <span id="cap27w2">doing</span></div>
+      <div id="cap28" class="clip cap" data-layout-allow-overlap data-start="35.970" data-duration="1.040" data-track-index="6"><span id="cap28w0">yourself</span> <span id="cap28w1">because</span> <span id="cap28w2">the</span></div>
+      <div id="cap29" class="clip cap" data-layout-allow-overlap data-start="37.030" data-duration="1.060" data-track-index="6"><span id="cap29w0">automation</span> <span id="cap29w1">wasn&#x27;t</span> <span id="cap29w2">worth</span></div>
+      <div id="cap30" class="clip cap" data-layout-allow-overlap data-start="38.110" data-duration="0.765" data-track-index="6"><span id="cap30w0">looking</span> <span id="cap30w1">after?</span></div>
+    </div>
+    <script>
+      const W = 1000, H = 725, QUAD = [[55, 470], [930, 527], [892, 1181], [25, 1100]];
+      function homography(src, dst) {
+        const A = [], b = [];
+        for (let i = 0; i < 4; i++) { const [x, y] = src[i], [u, v] = dst[i];
+          A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u); A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v); }
+        for (let c = 0; c < 8; c++) { let p = c;
+          for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
+          [A[c], A[p]] = [A[p], A[c]]; [b[c], b[p]] = [b[p], b[c]];
+          for (let r = 0; r < 8; r++) { if (r === c) continue; const f = A[r][c] / A[c][c];
+            for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; } }
+        return b.map((v, i) => v / A[i][i]);
+      }
+      const [a, bb, c, d, e, f, g, h] = homography([[0, 0], [W, 0], [W, H], [0, H]], QUAD);
+      document.querySelectorAll(".win").forEach(el => { el.style.transform = `matrix3d(${a},${d},0,${g},${bb},${e},0,${h},0,0,1,0,${c},${f},0,1)`; });
+      const project = (x, y) => { const w = g * x + h * y + 1; return [(a * x + bb * y + c) / w, (d * x + e * y + f) / w]; };
+      const M = 12, clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+      const frameAt = (lx, ly, scale, cy = 800) => { const [px, py] = project(lx, ly);
+        return { scale, x: clamp(470 - scale * px, 941 - 941 * scale + M, -M), y: clamp(cy - scale * py, 1672 - 1672 * scale + M, -M) }; };
+      document.querySelectorAll(".cam").forEach(el => { el.style.transformOrigin = "0 0"; });
+
+      const text = "I renamed Assets to Images, update the rule";
+      const typed = document.getElementById("fx-typed");
+      typed.innerHTML = [...text].map(ch => `<span class="ch" style="display:none">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["week2-full07"] = tl;
+
+      // Hook title rises in behind the head.
+      tl.fromTo("#hook-title span", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .45, stagger: .12, ease: "power3.out" }, .15);
+
+      // Fix: the run fails on the renamed folder, then the request to update the rule.
+      const F0 = 9.5833, FD = 3.0833;
+      tl.set("#fix .cam", frameAt(330, 250, 1.5, 760), F0);
+      tl.fromTo("#fx-r2", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .16 }, F0 + .05);
+      tl.fromTo("#fx-r2b", { opacity: 0 }, { opacity: 1, duration: .12 }, F0 + .3);
+      tl.to("#fix .cam", { ...frameAt(420, 330, 1.3, 800), duration: 1.2, ease: "power2.inOut" }, F0 + 1.0);
+      tl.to("#fix .ch", { display: "inline", duration: .001, stagger: .03, ease: "none" }, F0 + 1.2);
+      tl.fromTo("#fix .hand", { x: 0, y: 0, rotation: 0 }, { x: -6, y: 5, rotation: .3, duration: FD / 2, ease: "sine.inOut" }, F0);
+      tl.to("#fix .hand", { x: 5, y: -3, rotation: -.2, duration: FD / 2, ease: "sine.inOut" }, F0 + FD / 2);
+
+      // Manual: drag two files into folders by hand.
+      const M0 = 25.4167, MD = 5.6667;
+      const at = (id, dx = 95, dy = 55) => { const el = document.getElementById(id); return { x: parseFloat(el.style.left) + dx, y: parseFloat(el.style.top) + dy }; };
+      const sel = (id, t) => tl.to(`#${id} .lbl`, { backgroundColor: "#0A64D8", color: "#fff", duration: .05 }, t);
+      const drop = (file, folder, t0) => {
+        const f = at(file), to = at(folder);
+        tl.to("#m-ptr", { ...f, duration: .55, ease: "power2.inOut" }, t0);
+        sel(file, t0 + .6);
+        tl.to(`#${file}`, { x: to.x - f.x, y: to.y - f.y, scale: .7, opacity: .75, duration: .9, ease: "power1.inOut" }, t0 + .7);
+        tl.to("#m-ptr", { ...to, duration: .9, ease: "power1.inOut" }, t0 + .7);
+        tl.to(`#${folder} .folder`, { scale: 1.08, filter: "brightness(1.1)", duration: .12 }, t0 + 1.45);
+        tl.to(`#${file}`, { opacity: 0, duration: .08 }, t0 + 1.62);
+        tl.to(`#${folder} .folder`, { scale: 1, filter: "brightness(1)", duration: .18 }, t0 + 1.7);
+      };
+      tl.set("#m-ptr", { x: 700, y: 520 }, M0);
+      tl.set("#manual .cam", frameAt(500, 330, 1.12, 780), M0);
+      drop("m-brief", "m-archive", M0 + .35);
+      drop("m-notes", "m-sources", M0 + 2.55);
+      tl.to("#manual .cam", { ...frameAt(460, 300, 1.26, 780), duration: MD, ease: "sine.inOut" }, M0);
+      tl.fromTo("#manual .hand", { x: 0, y: 0, rotation: 0 }, { x: 7, y: -5, rotation: -.3, duration: MD / 2, ease: "sine.inOut" }, M0);
+      tl.to("#manual .hand", { x: -4, y: 4, rotation: .2, duration: MD / 2, ease: "sine.inOut" }, M0 + MD / 2);
+
+      tl.fromTo("#cap0w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},0.180);
+      tl.fromTo("#cap0w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},0.870);
+      tl.fromTo("#cap0w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.170);
+      tl.fromTo("#cap0w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.570);
+      tl.fromTo("#cap1w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.030);
+      tl.fromTo("#cap1w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.070);
+      tl.fromTo("#cap1w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.420);
+      tl.fromTo("#cap1w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.610);
+      tl.fromTo("#cap1w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.880);
+      tl.fromTo("#cap2w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.550);
+      tl.fromTo("#cap2w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.700);
+      tl.fromTo("#cap2w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.770);
+      tl.fromTo("#cap2w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.960);
+      tl.fromTo("#cap2w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.080);
+      tl.fromTo("#cap2w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.200);
+      tl.fromTo("#cap3w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.520);
+      tl.fromTo("#cap3w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.140);
+      tl.fromTo("#cap3w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.550);
+      tl.fromTo("#cap3w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.600);
+      tl.fromTo("#cap3w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.720);
+      tl.fromTo("#cap3w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.910);
+      tl.fromTo("#cap4w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.220);
+      tl.fromTo("#cap4w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.350);
+      tl.fromTo("#cap4w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.560);
+      tl.fromTo("#cap4w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.770);
+      tl.fromTo("#cap5w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.420);
+      tl.fromTo("#cap5w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.620);
+      tl.fromTo("#cap5w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.780);
+      tl.fromTo("#cap5w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.990);
+      tl.fromTo("#cap5w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.070);
+      tl.fromTo("#cap5w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.490);
+      tl.fromTo("#cap6w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.640);
+      tl.fromTo("#cap6w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.830);
+      tl.fromTo("#cap6w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.580);
+      tl.fromTo("#cap7w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.670);
+      tl.fromTo("#cap7w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.850);
+      tl.fromTo("#cap7w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.220);
+      tl.fromTo("#cap7w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.510);
+      tl.fromTo("#cap7w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.660);
+      tl.fromTo("#cap8w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},11.020);
+      tl.fromTo("#cap8w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},11.380);
+      tl.fromTo("#cap8w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},11.670);
+      tl.fromTo("#cap8w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},11.810);
+      tl.fromTo("#cap8w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.030);
+      tl.fromTo("#cap8w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.250);
+      tl.fromTo("#cap9w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.860);
+      tl.fromTo("#cap9w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.910);
+      tl.fromTo("#cap9w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.980);
+      tl.fromTo("#cap9w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.590);
+      tl.fromTo("#cap9w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.830);
+      tl.fromTo("#cap10w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.890);
+      tl.fromTo("#cap10w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.500);
+      tl.fromTo("#cap10w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.880);
+      tl.fromTo("#cap10w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},15.100);
+      tl.fromTo("#cap10w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},15.180);
+      tl.fromTo("#cap11w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.070);
+      tl.fromTo("#cap11w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.150);
+      tl.fromTo("#cap11w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.250);
+      tl.fromTo("#cap11w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.510);
+      tl.fromTo("#cap12w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.870);
+      tl.fromTo("#cap12w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},17.180);
+      tl.fromTo("#cap12w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},17.700);
+      tl.fromTo("#cap13w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},17.730);
+      tl.fromTo("#cap13w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.390);
+      tl.fromTo("#cap13w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.580);
+      tl.fromTo("#cap14w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.860);
+      tl.fromTo("#cap14w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},19.430);
+      tl.fromTo("#cap14w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},19.690);
+      tl.fromTo("#cap14w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},19.910);
+      tl.fromTo("#cap15w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.280);
+      tl.fromTo("#cap15w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.720);
+      tl.fromTo("#cap15w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.980);
+      tl.fromTo("#cap15w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},21.680);
+      tl.fromTo("#cap15w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},21.820);
+      tl.fromTo("#cap16w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},22.300);
+      tl.fromTo("#cap16w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},22.580);
+      tl.fromTo("#cap16w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.080);
+      tl.fromTo("#cap16w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.130);
+      tl.fromTo("#cap16w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.270);
+      tl.fromTo("#cap17w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.410);
+      tl.fromTo("#cap17w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.570);
+      tl.fromTo("#cap17w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.970);
+      tl.fromTo("#cap17w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.210);
+      tl.fromTo("#cap17w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.520);
+      tl.fromTo("#cap18w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.680);
+      tl.fromTo("#cap18w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.950);
+      tl.fromTo("#cap19w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.460);
+      tl.fromTo("#cap19w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.470);
+      tl.fromTo("#cap19w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.600);
+      tl.fromTo("#cap19w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.850);
+      tl.fromTo("#cap20w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.980);
+      tl.fromTo("#cap20w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.620);
+      tl.fromTo("#cap20w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.730);
+      tl.fromTo("#cap20w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.020);
+      tl.fromTo("#cap21w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.180);
+      tl.fromTo("#cap21w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.450);
+      tl.fromTo("#cap21w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.910);
+      tl.fromTo("#cap21w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.100);
+      tl.fromTo("#cap21w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.250);
+      tl.fromTo("#cap22w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.420);
+      tl.fromTo("#cap22w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.550);
+      tl.fromTo("#cap22w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.640);
+      tl.fromTo("#cap23w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.070);
+      tl.fromTo("#cap23w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.220);
+      tl.fromTo("#cap23w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.500);
+      tl.fromTo("#cap23w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.650);
+      tl.fromTo("#cap23w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},30.110);
+      tl.fromTo("#cap24w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},30.340);
+      tl.fromTo("#cap24w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},30.960);
+      tl.fromTo("#cap24w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.070);
+      tl.fromTo("#cap24w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.480);
+      tl.fromTo("#cap24w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.710);
+      tl.fromTo("#cap25w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.420);
+      tl.fromTo("#cap25w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.470);
+      tl.fromTo("#cap25w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.770);
+      tl.fromTo("#cap25w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.110);
+      tl.fromTo("#cap26w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.580);
+      tl.fromTo("#cap26w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.760);
+      tl.fromTo("#cap26w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},34.320);
+      tl.fromTo("#cap27w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},34.680);
+      tl.fromTo("#cap27w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.430);
+      tl.fromTo("#cap27w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.680);
+      tl.fromTo("#cap28w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.970);
+      tl.fromTo("#cap28w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},36.700);
+      tl.fromTo("#cap28w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},36.880);
+      tl.fromTo("#cap29w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},37.030);
+      tl.fromTo("#cap29w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},37.550);
+      tl.fromTo("#cap29w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},37.850);
+      tl.fromTo("#cap30w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},38.110);
+      tl.fromTo("#cap30w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},38.550);
+    </script>
+  </body>
+</html>
