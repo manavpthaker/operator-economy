@@ -9,58 +9,58 @@
       @font-face { font-family: Archivo; src: url("assets/Archivo-variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
       @font-face { font-family: Atkinson; src: url("assets/AtkinsonHyperlegibleNext-variable.ttf") format("truetype"); font-weight: 200 800; font-display: block; }
       @font-face { font-family: JBM; src: url("assets/JetBrainsMono-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }
-      :root { --proof:#F3F6F5; --graphite:#202426; --sage:#A9C1B2; --source:#31584D; --carbon:#2457D6; --veil:#DCE4E2; --steel:#5F6E75; --muted:#9DADB5; }
+      :root { --proof:#F3F6F5; --graphite:#202426; --source:#31584D; }
       * { box-sizing: border-box; }
-      html, body { margin:0; width:720px; height:1280px; background:var(--proof); overflow:hidden; }
-      #root { position:relative; width:720px; height:1280px; overflow:hidden; background:var(--proof); color:var(--graphite); font-family:Atkinson, sans-serif; }
-      .scene { position:absolute; inset:0; overflow:hidden; background:var(--proof); }
+      html, body { margin:0; width:720px; height:1280px; background:#111; overflow:hidden; }
+      #root { position:relative; width:720px; height:1280px; overflow:hidden; background:#111; color:var(--graphite); font-family:Atkinson, sans-serif; }
+      .scene { position:absolute; inset:0; overflow:hidden; background:#111; }
 
       #hook-video, #hook-matte { position:absolute; left:0; top:0; width:720px; height:1280px; object-fit:cover; }
       #hook-title { position:absolute; left:56px; top:64px; width:620px; margin:0; font-family:Archivo, sans-serif;
         font-size:80px; line-height:80px; font-weight:760; letter-spacing:-.045em; color:var(--graphite); }
       #hook-title span { display:block; }
 
-      .cap { position:absolute; left:56px; font-weight:600; }
-      .cap-over { bottom:112px; max-width:608px; padding:10px 18px; border-radius:10px; background:rgba(32,36,38,.78); font-size:34px; line-height:44px; }
-      .cap-under { top:980px; width:620px; font-size:38px; line-height:50px; }
+      /* Captions ride over the footage in every shot. */
+      .cap { position:absolute; left:56px; bottom:150px; max-width:608px; padding:10px 18px; border-radius:10px;
+        background:rgba(32,36,38,.8); font-size:34px; line-height:44px; font-weight:600; }
 
-      .step-no { position:absolute; left:56px; top:218px; font-size:30px; font-weight:700; color:var(--carbon); }
-      .step-head { position:absolute; left:56px; top:256px; margin:0; font-family:Archivo, sans-serif; font-size:66px; line-height:70px; font-weight:740; letter-spacing:-.04em; }
-      .screen { position:absolute; left:56px; top:400px; width:820px; background:#fff; border:1px solid var(--veil); border-right:0;
-        border-radius:16px 0 0 16px; box-shadow:0 24px 60px rgba(32,36,38,.10); overflow:hidden; }
-      .terminal { height:430px; background:#1B1E20; border-color:#1B1E20; padding:40px 36px; font-family:JBM, monospace; font-size:21px; line-height:30px; color:#E4E8E6; }
-      .terminal .prompt { color:#8FA59A; margin-bottom:22px; }
-      .terminal .row { padding:10px 12px; margin:0 -12px 6px; border-radius:6px; white-space:nowrap; }
-      .terminal .hash { color:#E8C57A; }
-      .terminal .date { color:#8FA59A; }
-      .doc { height:440px; padding:44px 46px; font-size:25px; line-height:37px; color:#2c3134; }
-      .doc h4 { margin:0 0 8px; font-family:Archivo, sans-serif; font-size:21px; font-weight:600; color:var(--steel); }
-      .doc h3 { margin:0 0 24px; font-family:Archivo, sans-serif; font-size:40px; line-height:44px; font-weight:720; letter-spacing:-.03em; color:var(--graphite); max-width:620px; }
-      .doc h5 { margin:0 0 8px; font-family:Archivo, sans-serif; font-size:24px; font-weight:680; color:var(--graphite); }
-      .doc p { margin:0 0 18px; max-width:610px; }
-      .doc b { font-weight:700; }
-      .doc .commit { margin-top:18px; max-width:620px; padding:14px 18px; border-radius:10px; background:#1B1E20; color:#E4E8E6; font-family:JBM, monospace; font-size:20px; line-height:28px; }
-      .doc .commit .hash { color:#E8C57A; }
-      .tag { position:absolute; left:56px; top:862px; font-size:22px; line-height:28px; font-weight:600; color:var(--source); }
+      /* Phone filming the laptop: 941x1672 photo scaled to the frame; window mapped onto the screen. */
+      .fit { position:absolute; left:0; top:0; width:941px; height:1672px; transform:scale(.76514); transform-origin:0 0; }
+      .hand, .cam { position:absolute; inset:0; width:941px; height:1672px; }
+      .photo { position:absolute; inset:0; width:941px; height:1672px; }
+      .win { position:absolute; left:0; top:0; width:1000px; height:725px; transform-origin:0 0; border-radius:16px; overflow:hidden;
+        box-shadow:0 30px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.12); filter:blur(.5px); }
+      .glare { position:absolute; inset:0; background:linear-gradient(118deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.08) 46%, rgba(255,255,255,0) 60%); }
+      .vignette { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.3) 100%); }
+      .grain { position:absolute; inset:-20px; opacity:.09; mix-blend-mode:overlay;
+        background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
 
-      .turn-lead { position:absolute; left:56px; top:120px; width:608px; margin:0; font-family:Archivo, sans-serif; font-size:50px; line-height:56px; font-weight:700; letter-spacing:-.035em; }
-      .sage { position:absolute; left:0; top:352px; width:392px; height:640px; background:var(--sage); overflow:hidden; }
-      .sage p { position:absolute; left:56px; top:48px; width:300px; margin:0; font-family:Archivo, sans-serif; font-size:44px; line-height:50px; font-weight:720; letter-spacing:-.035em; color:var(--source); }
-      .sameday { top:392px; height:420px; }
-      .resume h3 { font-size:44px; margin-bottom:6px; }
-      .resume h4 { margin-bottom:26px; }
-      .resume .role { margin-bottom:10px; }
-      .resume .blurred { filter: blur(5px); opacity:.8; }
-      .callback { left:420px; top:392px; width:620px; height:300px; }
-      .callback h3 { font-size:34px; line-height:40px; max-width:260px; }
-      .shot { top:392px; width:620px; height:560px; }
-      .shot img { display:block; width:1000px; margin:-18px 0 0 -40px; }
-      #t-tag { top:830px; }
+      .bar { height:48px; display:flex; align-items:center; padding:0 20px; position:relative; font-size:19px; }
+      .dot { width:14px; height:14px; border-radius:50%; margin-right:9px; }
+      .bar .name { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); white-space:nowrap; }
+      .light { background:#FFFFFF; color:#2B2F32; }
+      .light .bar { background:#ECEEEF; border-bottom:1px solid #DADDDF; color:#6B7378; }
+      .dark { background:#1B1E20; color:#E4E8E6; }
+      .dark .bar { background:#26292C; border-bottom:1px solid #33373A; color:#9AA2A6; }
+      .body { padding:34px 44px; }
+      .mono { font-family:JBM, monospace; font-size:27px; line-height:40px; }
+      .mono .dim { color:#8FA59A; } .mono .hash { color:#E8C57A; }
+      .hl { background:rgba(120,170,140,.35); border-radius:6px; margin:0 -10px; padding:0 10px; }
+      .md { font-size:27px; line-height:40px; }
+      .md .meta { font-size:21px; color:#707A80; margin-bottom:10px; }
+      .md h1 { font-family:Archivo, sans-serif; font-size:44px; line-height:50px; margin:0 0 18px; letter-spacing:-.02em; }
+      .md h2 { font-family:Archivo, sans-serif; font-size:30px; margin:22px 0 8px; }
+      .md p { margin:0 0 16px; }
+      .md .blurred { filter:blur(6px); opacity:.8; }
+      .md .term { margin-top:18px; padding:14px 18px; border-radius:10px; background:#1B1E20; color:#E4E8E6; font-family:JBM, monospace; font-size:24px; line-height:34px; }
+      .md .term .hash { color:#E8C57A; }
+      .swap { position:absolute; left:0; top:48px; right:0; bottom:0; background:#fff; }
 
       #question { position:absolute; left:56px; top:300px; margin:0; font-family:Archivo, sans-serif; font-size:62px; line-height:70px; font-weight:625; letter-spacing:-.045em; }
       #question .ql { display:block; white-space:nowrap; }
       #question .shift { color:var(--source); }
       .contact { position:absolute; left:56px; margin:0; white-space:nowrap; }
+      #end { background:var(--proof); }
       #signature { top:760px; font-size:30px; font-weight:700; line-height:36px; letter-spacing:-.035em; font-family:Archivo, sans-serif; }
       .url { font-size:30px; font-weight:450; line-height:36px; }
       #website { top:822px; }
@@ -72,210 +72,215 @@
       <video id="hook-video" class="clip" src="assets/hook.mp4" data-start="0" data-duration="8.2" data-track-index="0" muted playsinline></video>
 <div id="hook-title" class="clip" data-start="0" data-duration="8.2" data-track-index="1" data-layout-allow-overlap><span>The part of</span><span>building that</span><span>wasn't quick</span></div>
 <video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="8.2" data-track-index="2" muted playsinline></video>
-<section id="commits" class="clip scene" data-start="8.2" data-duration="5.170" data-track-index="0">
-      <div class="screen terminal" id="c-screen"><div class="prompt">$ git show 7c337b8</div>
-        <div class="row"><span class="hash">commit 7c337b8</span></div>
-        <div class="row"><span class="date">Date: Tue Oct 7 2025</span></div>
-        <div class="row">&nbsp;</div>
-        <div class="row">Build Conversation Engine</div>
-        <div class="row">&nbsp;</div>
-        <div class="row first">Co-Authored-By: Claude</div></div>
-      <div class="tag" id="c-tag">Grapevines commit, October 2025</div></section>
-<section id="problem" class="clip scene" data-start="13.37" data-duration="2.040" data-track-index="0">
-      <div class="step-no">01</div><h2 class="step-head">A problem I had</h2>
-      <div class="screen doc resume" id="pr-screen"><h3>Manav Thaker</h3>
-        <h4>Technical Product Leader · AI Product Management · Builder and Operator</h4>
-        <h5>Experience</h5>
-        <p class="role"><b>AI Product Manager · Lovingly</b><br/>Sep 2024 to Sep 2025</p>
-        <div class="blurred"><p>Partnered with engineers, designers and marketing on AI work across support, retention and checkout.</p><p>Built internal AI tooling for ticket triage, PRDs and test documentation.</p><p>Co-Founder and Head of Product · Panso</p></div></div>
-      <div class="tag">My resume</div></section>
-<section id="people" class="clip scene" data-start="15.41" data-duration="7.420" data-track-index="0">
-      <div class="step-no">02</div><h2 class="step-head">Talk to people</h2>
-      <div class="screen doc" id="p-screen"><h4>Last updated February 18, 2026 · Active discovery phase</h4><h3>Grapevines Customer Discovery Master Document</h3>
-        <h5>Discovery overview</h5>
-        <p>This document consolidates learnings from all customer discovery conversations to guide product development, positioning, and go-to-market strategy.</p></div>
-      <div class="tag">My discovery notes, February 2026</div></section>
-<section id="plan" class="clip scene" data-start="22.83" data-duration="3.460" data-track-index="0">
-      <div class="step-no">03</div><h2 class="step-head">Write the plan</h2>
-      <div class="screen doc" id="pl-screen"><h4>PRD · Manav Thaker · March 18, 2026</h4><h3>Epic 2: The Daily Coach</h3>
-        <h5>Problem statement</h5>
-        <p>The app doesn’t feel like a daily driver. The dashboard only changes when the user takes a major action.</p></div>
-      <div class="tag">Planning doc, March 2026</div></section>
-<section id="remove" class="clip scene" data-start="26.29" data-duration="4.270" data-track-index="0">
-      <div class="step-no">04</div><h2 class="step-head">Take things out</h2>
-      <div class="screen doc" id="r-screen"><h4>PRD · March 24, 2026</h4><h3>Voice calibration removal</h3>
-        <h5>Decision</h5>
-        <p><b>Kill voice calibration from onboarding.</b> Remove the voice selection step entirely.</p>
-        <div class="commit"><span class="hash">611cbef</span> Remove voice calibration from onboarding</div></div>
-      <div class="tag">Removed March 2026</div></section>
-<section id="turn" class="clip scene" data-start="30.56" data-duration="5.840" data-track-index="0">
-      <h2 class="turn-lead" id="t-lead">Building it myself means I can change it fast.</h2>
-      <div class="sage" id="t-sage"><p id="t-sage-text">Knowing what to change still comes from talking to people.</p></div>
-      <div class="screen doc sameday" id="t-screen"><h4>PRD · March 24, 2026</h4><h3>Voice calibration removal</h3>
-        <div class="commit"><span class="hash">611cbef</span> March 24, 2026</div>
-        <div class="commit">Remove voice calibration from onboarding</div></div>
-      <div class="screen doc callback" id="t-disc"><h4>February 18, 2026</h4><h3>Customer Discovery Master Document</h3></div>
-      <div class="tag" id="t-tag">Decided and shipped the same day</div></section>
+<section id="commits" class="clip scene" data-start="8.2" data-duration="5.170" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win dark"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">grapevines — zsh</span></div><div class="body mono">
+        <div class="dim">$ git show 7c337b8</div><div class="hash">commit 7c337b8</div><div class="dim">Date: Tue Oct 7 2025</div><div>&nbsp;</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;Build Conversation Engine</div><div>&nbsp;</div><div class="hl" id="c-hl">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude</div></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
+<section id="problem" class="clip scene" data-start="13.37" data-duration="2.040" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win light"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">manav-thaker_master-resume.md</span></div><div class="body md">
+        <h1>Manav Thaker</h1><div class="meta">Technical Product Leader · AI Product Management · Builder and Operator</div>
+        <h2>Experience</h2><p><b>AI Product Manager · Lovingly</b><br/>Sep 2024 to Sep 2025</p>
+        <div class="blurred"><p>Partnered with engineers, designers and marketing on AI work across support, retention and checkout.</p><p>Built internal AI tooling for ticket triage, PRDs and test documentation.</p></div></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
+<section id="people" class="clip scene" data-start="15.41" data-duration="7.420" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win light"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">customer-discovery-master.md</span></div><div class="body md">
+        <div class="meta">Last updated February 18, 2026 · Active discovery phase</div><h1>Grapevines Customer Discovery Master Document</h1>
+        <h2>Discovery overview</h2><p>This document consolidates learnings from all customer discovery conversations to guide product development, positioning, and go-to-market strategy.</p></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
+<section id="plan" class="clip scene" data-start="22.83" data-duration="3.460" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win light"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">prd-epic-2-the-daily-coach.md</span></div><div class="body md">
+        <div class="meta">PRD · Manav Thaker · March 18, 2026</div><h1>Epic 2: The Daily Coach</h1>
+        <h2>Problem statement</h2><p>The app doesn’t feel like a daily driver. The dashboard only changes when the user takes a major action.</p></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
+<section id="remove" class="clip scene" data-start="26.29" data-duration="4.270" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win light"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">prd-voice-calibration-removal.md</span></div><div class="body md">
+        <div class="meta">PRD · March 24, 2026</div><h1>Voice calibration removal</h1>
+        <h2>Decision</h2><p><b>Kill voice calibration from onboarding.</b> Remove the voice selection step entirely.</p></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
+<section id="turn" class="clip scene" data-start="30.56" data-duration="5.840" data-track-index="0"><div class="fit"><div class="hand"><div class="cam"><img class="photo" src="assets/macbook-reference.png" alt="" /><div class="win light"><div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">prd-voice-calibration-removal.md</span></div><div class="body md">
+        <div class="meta">PRD · March 24, 2026</div><h1>Voice calibration removal</h1>
+        <div class="term"><span class="hash">611cbef</span> Mar 24 2026<br/>Remove voice calibration from onboarding</div></div>
+        <div class="swap" id="t-swap"><div class="body md"><div class="meta">Last updated February 18, 2026</div><h1>Customer Discovery Master Document</h1>
+        <h2>Discovery overview</h2><p>Learnings from all customer discovery conversations.</p></div></div></div><div class="glare"></div></div></div></div><div class="vignette"></div><div class="grain"></div></section>
 <section id="end" class="clip scene" data-start="36.4" data-duration="4.100" data-track-index="0">
       <h1 id="question"><span class="ql">When did talking</span><span class="ql">to people change</span><span class="ql shift">what you built?</span></h1>
-      <p id="signature" class="contact">MP Thaker</p>
-      <p id="website" class="contact url">mpthaker.xyz</p>
-      <p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p></section>
-      <div id="cap0" class="clip cap cap-over" data-layout-allow-overlap data-start="1.110" data-duration="1.460" data-track-index="6"><span class="w" id="cap0w0">When</span> <span class="w" id="cap0w1">I</span> <span class="w" id="cap0w2">built</span> <span class="w" id="cap0w3">Grapevines</span> <span class="w" id="cap0w4">for</span></div>
-<div id="cap1" class="clip cap cap-over" data-layout-allow-overlap data-start="2.590" data-duration="1.850" data-track-index="6"><span class="w" id="cap1w0">myself,</span> <span class="w" id="cap1w1">I</span> <span class="w" id="cap1w2">already</span> <span class="w" id="cap1w3">had</span> <span class="w" id="cap1w4">all</span> <span class="w" id="cap1w5">my</span></div>
-<div id="cap2" class="clip cap cap-over" data-layout-allow-overlap data-start="4.460" data-duration="1.510" data-track-index="6"><span class="w" id="cap2w0">context.</span> <span class="w" id="cap2w1">Getting</span> <span class="w" id="cap2w2">that</span> <span class="w" id="cap2w3">from</span></div>
-<div id="cap3" class="clip cap cap-over" data-layout-allow-overlap data-start="5.990" data-duration="1.830" data-track-index="6"><span class="w" id="cap3w0">someone</span> <span class="w" id="cap3w1">else</span> <span class="w" id="cap3w2">was</span> <span class="w" id="cap3w3">the</span> <span class="w" id="cap3w4">big</span> <span class="w" id="cap3w5">thing.</span></div>
-<div id="cap4" class="clip cap cap-under" data-layout-allow-overlap data-start="8.317" data-duration="1.190" data-track-index="6"><span class="w" id="cap4w0">My</span> <span class="w" id="cap4w1">first</span> <span class="w" id="cap4w2">two</span> <span class="w" id="cap4w3">companies,</span></div>
-<div id="cap5" class="clip cap cap-under" data-layout-allow-overlap data-start="9.527" data-duration="1.410" data-track-index="6"><span class="w" id="cap5w0">I</span> <span class="w" id="cap5w1">needed</span> <span class="w" id="cap5w2">a</span> <span class="w" id="cap5w3">dev</span> <span class="w" id="cap5w4">team</span> <span class="w" id="cap5w5">for</span> <span class="w" id="cap5w6">the</span></div>
-<div id="cap6" class="clip cap cap-under" data-layout-allow-overlap data-start="10.957" data-duration="2.390" data-track-index="6"><span class="w" id="cap6w0">software.</span> <span class="w" id="cap6w1">Now</span> <span class="w" id="cap6w2">I</span> <span class="w" id="cap6w3">build</span> <span class="w" id="cap6w4">it</span> <span class="w" id="cap6w5">myself.</span></div>
-<div id="cap7" class="clip cap cap-under" data-layout-allow-overlap data-start="13.367" data-duration="1.510" data-track-index="6"><span class="w" id="cap7w0">It</span> <span class="w" id="cap7w1">started</span> <span class="w" id="cap7w2">with</span> <span class="w" id="cap7w3">a</span> <span class="w" id="cap7w4">problem</span> <span class="w" id="cap7w5">I</span></div>
-<div id="cap8" class="clip cap cap-under" data-layout-allow-overlap data-start="14.897" data-duration="1.730" data-track-index="6"><span class="w" id="cap8w0">had.</span> <span class="w" id="cap8w1">Then</span> <span class="w" id="cap8w2">I</span> <span class="w" id="cap8w3">talked</span> <span class="w" id="cap8w4">to</span> <span class="w" id="cap8w5">people</span></div>
-<div id="cap9" class="clip cap cap-under" data-layout-allow-overlap data-start="16.647" data-duration="1.220" data-track-index="6"><span class="w" id="cap9w0">going</span> <span class="w" id="cap9w1">through</span> <span class="w" id="cap9w2">it.</span></div>
-<div id="cap10" class="clip cap cap-under" data-layout-allow-overlap data-start="17.887" data-duration="1.420" data-track-index="6"><span class="w" id="cap10w0">That&#x27;s</span> <span class="w" id="cap10w1">still</span> <span class="w" id="cap10w2">the</span> <span class="w" id="cap10w3">most</span> <span class="w" id="cap10w4">important</span></div>
-<div id="cap11" class="clip cap cap-under" data-layout-allow-overlap data-start="19.327" data-duration="1.640" data-track-index="6"><span class="w" id="cap11w0">part,</span> <span class="w" id="cap11w1">finding</span> <span class="w" id="cap11w2">out</span> <span class="w" id="cap11w3">where</span> <span class="w" id="cap11w4">it</span></div>
-<div id="cap12" class="clip cap cap-under" data-layout-allow-overlap data-start="20.987" data-duration="1.820" data-track-index="6"><span class="w" id="cap12w0">actually</span> <span class="w" id="cap12w1">hurts</span> <span class="w" id="cap12w2">for</span> <span class="w" id="cap12w3">them.</span></div>
-<div id="cap13" class="clip cap cap-under" data-layout-allow-overlap data-start="22.827" data-duration="1.270" data-track-index="6"><span class="w" id="cap13w0">I</span> <span class="w" id="cap13w1">turn</span> <span class="w" id="cap13w2">what</span> <span class="w" id="cap13w3">I</span> <span class="w" id="cap13w4">heard</span> <span class="w" id="cap13w5">into</span> <span class="w" id="cap13w6">a</span></div>
-<div id="cap14" class="clip cap cap-under" data-layout-allow-overlap data-start="24.117" data-duration="2.050" data-track-index="6"><span class="w" id="cap14w0">plan</span> <span class="w" id="cap14w1">before</span> <span class="w" id="cap14w2">I</span> <span class="w" id="cap14w3">build</span> <span class="w" id="cap14w4">anything.</span></div>
-<div id="cap15" class="clip cap cap-under" data-layout-allow-overlap data-start="26.287" data-duration="1.850" data-track-index="6"><span class="w" id="cap15w0">I&#x27;d</span> <span class="w" id="cap15w1">built</span> <span class="w" id="cap15w2">a</span> <span class="w" id="cap15w3">voice</span> <span class="w" id="cap15w4">profile</span> <span class="w" id="cap15w5">too.</span></div>
-<div id="cap16" class="clip cap cap-under" data-layout-allow-overlap data-start="28.157" data-duration="1.280" data-track-index="6"><span class="w" id="cap16w0">Nobody</span> <span class="w" id="cap16w1">brought</span> <span class="w" id="cap16w2">it</span> <span class="w" id="cap16w3">up,</span></div>
-<div id="cap17" class="clip cap cap-under" data-layout-allow-overlap data-start="29.457" data-duration="1.080" data-track-index="6"><span class="w" id="cap17w0">so</span> <span class="w" id="cap17w1">I</span> <span class="w" id="cap17w2">took</span> <span class="w" id="cap17w3">it</span> <span class="w" id="cap17w4">out.</span></div>
+      <p id="signature" class="contact">MP Thaker</p><p id="website" class="contact url">mpthaker.xyz</p><p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p></section>
+      <div id="cap0" class="clip cap" data-layout-allow-overlap data-start="1.110" data-duration="1.460" data-track-index="6"><span id="cap0w0">When</span> <span id="cap0w1">I</span> <span id="cap0w2">built</span> <span id="cap0w3">Grapevines</span> <span id="cap0w4">for</span></div>
+<div id="cap1" class="clip cap" data-layout-allow-overlap data-start="2.590" data-duration="1.850" data-track-index="6"><span id="cap1w0">myself,</span> <span id="cap1w1">I</span> <span id="cap1w2">already</span> <span id="cap1w3">had</span> <span id="cap1w4">all</span> <span id="cap1w5">my</span></div>
+<div id="cap2" class="clip cap" data-layout-allow-overlap data-start="4.460" data-duration="1.510" data-track-index="6"><span id="cap2w0">context.</span> <span id="cap2w1">Getting</span> <span id="cap2w2">that</span> <span id="cap2w3">from</span></div>
+<div id="cap3" class="clip cap" data-layout-allow-overlap data-start="5.990" data-duration="1.830" data-track-index="6"><span id="cap3w0">someone</span> <span id="cap3w1">else</span> <span id="cap3w2">was</span> <span id="cap3w3">the</span> <span id="cap3w4">big</span> <span id="cap3w5">thing.</span></div>
+<div id="cap4" class="clip cap" data-layout-allow-overlap data-start="8.317" data-duration="1.190" data-track-index="6"><span id="cap4w0">My</span> <span id="cap4w1">first</span> <span id="cap4w2">two</span> <span id="cap4w3">companies,</span></div>
+<div id="cap5" class="clip cap" data-layout-allow-overlap data-start="9.527" data-duration="1.410" data-track-index="6"><span id="cap5w0">I</span> <span id="cap5w1">needed</span> <span id="cap5w2">a</span> <span id="cap5w3">dev</span> <span id="cap5w4">team</span> <span id="cap5w5">for</span> <span id="cap5w6">the</span></div>
+<div id="cap6" class="clip cap" data-layout-allow-overlap data-start="10.957" data-duration="2.390" data-track-index="6"><span id="cap6w0">software.</span> <span id="cap6w1">Now</span> <span id="cap6w2">I</span> <span id="cap6w3">build</span> <span id="cap6w4">it</span> <span id="cap6w5">myself.</span></div>
+<div id="cap7" class="clip cap" data-layout-allow-overlap data-start="13.367" data-duration="1.510" data-track-index="6"><span id="cap7w0">It</span> <span id="cap7w1">started</span> <span id="cap7w2">with</span> <span id="cap7w3">a</span> <span id="cap7w4">problem</span> <span id="cap7w5">I</span></div>
+<div id="cap8" class="clip cap" data-layout-allow-overlap data-start="14.897" data-duration="1.730" data-track-index="6"><span id="cap8w0">had.</span> <span id="cap8w1">Then</span> <span id="cap8w2">I</span> <span id="cap8w3">talked</span> <span id="cap8w4">to</span> <span id="cap8w5">people</span></div>
+<div id="cap9" class="clip cap" data-layout-allow-overlap data-start="16.647" data-duration="1.220" data-track-index="6"><span id="cap9w0">going</span> <span id="cap9w1">through</span> <span id="cap9w2">it.</span></div>
+<div id="cap10" class="clip cap" data-layout-allow-overlap data-start="17.887" data-duration="1.420" data-track-index="6"><span id="cap10w0">That&#x27;s</span> <span id="cap10w1">still</span> <span id="cap10w2">the</span> <span id="cap10w3">most</span> <span id="cap10w4">important</span></div>
+<div id="cap11" class="clip cap" data-layout-allow-overlap data-start="19.327" data-duration="1.640" data-track-index="6"><span id="cap11w0">part,</span> <span id="cap11w1">finding</span> <span id="cap11w2">out</span> <span id="cap11w3">where</span> <span id="cap11w4">it</span></div>
+<div id="cap12" class="clip cap" data-layout-allow-overlap data-start="20.987" data-duration="1.820" data-track-index="6"><span id="cap12w0">actually</span> <span id="cap12w1">hurts</span> <span id="cap12w2">for</span> <span id="cap12w3">them.</span></div>
+<div id="cap13" class="clip cap" data-layout-allow-overlap data-start="22.827" data-duration="1.270" data-track-index="6"><span id="cap13w0">I</span> <span id="cap13w1">turn</span> <span id="cap13w2">what</span> <span id="cap13w3">I</span> <span id="cap13w4">heard</span> <span id="cap13w5">into</span> <span id="cap13w6">a</span></div>
+<div id="cap14" class="clip cap" data-layout-allow-overlap data-start="24.117" data-duration="2.050" data-track-index="6"><span id="cap14w0">plan</span> <span id="cap14w1">before</span> <span id="cap14w2">I</span> <span id="cap14w3">build</span> <span id="cap14w4">anything.</span></div>
+<div id="cap15" class="clip cap" data-layout-allow-overlap data-start="26.287" data-duration="1.850" data-track-index="6"><span id="cap15w0">I&#x27;d</span> <span id="cap15w1">built</span> <span id="cap15w2">a</span> <span id="cap15w3">voice</span> <span id="cap15w4">profile</span> <span id="cap15w5">too.</span></div>
+<div id="cap16" class="clip cap" data-layout-allow-overlap data-start="28.157" data-duration="1.280" data-track-index="6"><span id="cap16w0">Nobody</span> <span id="cap16w1">brought</span> <span id="cap16w2">it</span> <span id="cap16w3">up,</span></div>
+<div id="cap17" class="clip cap" data-layout-allow-overlap data-start="29.457" data-duration="1.080" data-track-index="6"><span id="cap17w0">so</span> <span id="cap17w1">I</span> <span id="cap17w2">took</span> <span id="cap17w3">it</span> <span id="cap17w4">out.</span></div>
+<div id="cap18" class="clip cap" data-layout-allow-overlap data-start="30.557" data-duration="1.470" data-track-index="6"><span id="cap18w0">Building</span> <span id="cap18w1">it</span> <span id="cap18w2">myself</span> <span id="cap18w3">means</span> <span id="cap18w4">I</span></div>
+<div id="cap19" class="clip cap" data-layout-allow-overlap data-start="32.047" data-duration="1.290" data-track-index="6"><span id="cap19w0">can</span> <span id="cap19w1">change</span> <span id="cap19w2">it</span> <span id="cap19w3">fast.</span></div>
+<div id="cap20" class="clip cap" data-layout-allow-overlap data-start="33.357" data-duration="1.470" data-track-index="6"><span id="cap20w0">Knowing</span> <span id="cap20w1">what</span> <span id="cap20w2">to</span> <span id="cap20w3">change</span> <span id="cap20w4">still</span></div>
+<div id="cap21" class="clip cap" data-layout-allow-overlap data-start="34.847" data-duration="1.553" data-track-index="6"><span id="cap21w0">comes</span> <span id="cap21w1">from</span> <span id="cap21w2">talking</span> <span id="cap21w3">to</span> <span id="cap21w4">people.</span></div>
       <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="36.058" data-track-index="10" data-volume="1"></audio>
     </div>
     <script>
-
-const MUTED_OVER="rgba(255,255,255,.55)", ON_OVER="#ffffff", MUTED_UNDER="#7A8990", ON_UNDER="#202426";
+      // Map every 1000x725 laptop window onto the screen quad in the reference photo.
+      const W = 1000, H = 725, QUAD = [[55, 470], [930, 527], [892, 1181], [25, 1100]];
+      function homography(src, dst) {
+        const A = [], b = [];
+        for (let i = 0; i < 4; i++) { const [x, y] = src[i], [u, v] = dst[i];
+          A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u); A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v); }
+        for (let c = 0; c < 8; c++) { let p = c;
+          for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
+          [A[c], A[p]] = [A[p], A[c]]; [b[c], b[p]] = [b[p], b[c]];
+          for (let r = 0; r < 8; r++) { if (r === c) continue; const f = A[r][c] / A[c][c];
+            for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; } }
+        return b.map((v, i) => v / A[i][i]);
+      }
+      const [a, bb, c, d, e, f, g, h] = homography([[0, 0], [W, 0], [W, H], [0, H]], QUAD);
+      document.querySelectorAll(".win").forEach(el => { el.style.transform = `matrix3d(${a},${d},0,${g},${bb},${e},0,${h},0,0,1,0,${c},${f},0,1)`; });
+      const project = (x, y) => { const w = g * x + h * y + 1; return [(a * x + bb * y + c) / w, (d * x + e * y + f) / w]; };
+      const M = 12, clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+      // Camera framing that keeps the photo covering the frame: centre window point (lx, ly) at a scale.
+      const frameAt = (lx, ly, scale, cy = 800) => { const [px, py] = project(lx, ly);
+        return { scale, x: clamp(470 - scale * px, 941 - 941 * scale + M, -M), y: clamp(cy - scale * py, 1672 - 1672 * scale + M, -M) }; };
+      document.querySelectorAll(".cam").forEach(el => { el.style.transformOrigin = "0 0"; });
 const tl = gsap.timeline({ paused: true });
-// Hook title rises in behind the speaker.
 tl.fromTo("#hook-title span", {y:24, opacity:0}, {y:0, opacity:1, duration:.45, stagger:.12, ease:"power3.out"}, .25);
-// Dev-team line: the commit carries Claude as co-author.
-tl.fromTo("#c-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 8.2);
-tl.fromTo("#c-screen .row", {opacity:0, y:8}, {opacity:1, y:0, duration:.2, stagger:.12, ease:"power2.out"}, 8.500);
-tl.fromTo("#c-screen .first", {backgroundColor:"rgba(169,193,178,0)"}, {backgroundColor:"rgba(169,193,178,.45)", duration:.35}, 11.887);
-tl.fromTo("#c-tag", {opacity:0}, {opacity:1, duration:.3}, 9.000);
-tl.fromTo("#problem .step-no, #problem .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 13.37);
-tl.fromTo("#pr-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.5, ease:"power3.out"}, 13.470);
-tl.fromTo("#problem .tag", {opacity:0}, {opacity:1, duration:.3}, 13.870);
-tl.fromTo("#people .step-no, #people .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 15.41);
-tl.fromTo("#p-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 15.510);
-tl.fromTo("#people .tag", {opacity:0}, {opacity:1, duration:.3}, 15.910);
-tl.fromTo("#plan .step-no, #plan .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 22.83);
-tl.fromTo("#pl-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 22.930);
-tl.fromTo("#plan .tag", {opacity:0}, {opacity:1, duration:.3}, 23.330);
-tl.fromTo("#remove .step-no, #remove .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 26.29);
-tl.fromTo("#r-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 26.390);
-tl.fromTo("#remove .tag", {opacity:0}, {opacity:1, duration:.3}, 26.790);
-
-tl.fromTo("#r-screen .commit", {opacity:0, y:10}, {opacity:1, y:0, duration:.35, ease:"power2.out"}, 27.890);
-// Turn: countershift. The screen moves right and the opened field carries the judgment.
-tl.fromTo("#t-lead", {opacity:0, y:14}, {opacity:1, y:0, duration:.45, ease:"power3.out"}, 30.56);
-tl.fromTo("#t-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.5, ease:"power3.out"}, 30.710);
-tl.fromTo("#t-screen .commit", {opacity:0, y:8}, {opacity:1, y:0, duration:.3, stagger:.2, ease:"power2.out"}, 31.360);
-tl.fromTo("#t-tag", {opacity:0}, {opacity:1, duration:.3}, 31.860);
-tl.to("#t-screen, #t-tag", {opacity:0, duration:.3}, 32.957);
-tl.fromTo("#t-sage", {width:0}, {width:392, duration:.7, ease:"power3.inOut"}, 33.007);
-tl.fromTo("#t-sage-text", {opacity:0, x:-12}, {opacity:1, x:0, duration:.4, ease:"power2.out"}, 33.507);
-tl.fromTo("#t-disc", {x:120, opacity:0}, {x:0, opacity:1, duration:.7, ease:"power3.inOut"}, 33.157);
-// End card: Counterproof question and signature.
+tl.fromTo("#commits .cam", frameAt(500,360,1.02), {...frameAt(330,610,1.38), duration:5.170, ease:"sine.inOut"}, 8.2);
+tl.fromTo("#commits .hand", {x:0, y:0, rotation:0}, {x:-6, y:5, rotation:0.35, duration:2.585, ease:"sine.inOut"}, 8.2);
+tl.to("#commits .hand", {x:4, y:-3, rotation:-0.2, duration:2.585, ease:"sine.inOut"}, 10.785);
+tl.fromTo("#problem .cam", frameAt(500,300,1.1), {...frameAt(320,300,1.4), duration:2.040, ease:"sine.inOut"}, 13.37);
+tl.fromTo("#problem .hand", {x:0, y:0, rotation:0}, {x:6, y:5, rotation:-0.35, duration:1.020, ease:"sine.inOut"}, 13.37);
+tl.to("#problem .hand", {x:-4, y:-3, rotation:0.2, duration:1.020, ease:"sine.inOut"}, 14.390);
+tl.fromTo("#people .cam", frameAt(500,320,1.04), {...frameAt(380,330,1.36), duration:7.420, ease:"sine.inOut"}, 15.41);
+tl.fromTo("#people .hand", {x:0, y:0, rotation:0}, {x:-6, y:5, rotation:0.35, duration:3.710, ease:"sine.inOut"}, 15.41);
+tl.to("#people .hand", {x:4, y:-3, rotation:-0.2, duration:3.710, ease:"sine.inOut"}, 19.120);
+tl.fromTo("#plan .cam", frameAt(480,330,1.12), {...frameAt(400,420,1.42), duration:3.460, ease:"sine.inOut"}, 22.83);
+tl.fromTo("#plan .hand", {x:0, y:0, rotation:0}, {x:6, y:5, rotation:-0.35, duration:1.730, ease:"sine.inOut"}, 22.83);
+tl.to("#plan .hand", {x:-4, y:-3, rotation:0.2, duration:1.730, ease:"sine.inOut"}, 24.560);
+tl.fromTo("#remove .cam", frameAt(500,330,1.08), {...frameAt(380,420,1.44), duration:4.270, ease:"sine.inOut"}, 26.29);
+tl.fromTo("#remove .hand", {x:0, y:0, rotation:0}, {x:-6, y:5, rotation:0.35, duration:2.135, ease:"sine.inOut"}, 26.29);
+tl.to("#remove .hand", {x:4, y:-3, rotation:-0.2, duration:2.135, ease:"sine.inOut"}, 28.425);
+tl.fromTo("#turn .cam", frameAt(500,330,1.06), {...frameAt(420,360,1.3), duration:5.840, ease:"sine.inOut"}, 30.56);
+tl.fromTo("#turn .hand", {x:0, y:0, rotation:0}, {x:6, y:5, rotation:-0.35, duration:2.920, ease:"sine.inOut"}, 30.56);
+tl.to("#turn .hand", {x:-4, y:-3, rotation:0.2, duration:2.920, ease:"sine.inOut"}, 33.480);
+tl.fromTo("#c-hl", {backgroundColor:"rgba(120,170,140,0)"}, {backgroundColor:"rgba(120,170,140,.35)", duration:.3}, 11.887);
+tl.fromTo("#t-swap", {opacity:0}, {opacity:1, duration:.25}, 33.257);
 tl.fromTo("#question .ql", {y:16, opacity:0}, {y:0, opacity:1, duration:.32, stagger:.13, ease:"power3.out"}, 36.440);
 tl.fromTo("#question .shift", {x:0}, {x:56, duration:.5, ease:"power3.inOut", immediateRender:false}, 37.100);
 tl.fromTo(".contact", {y:12, opacity:0}, {y:0, opacity:1, duration:.3, stagger:.12, ease:"power3.out"}, 37.150);
-tl.fromTo("#cap0w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.110);
-tl.fromTo("#cap0w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.320);
-tl.fromTo("#cap0w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.380);
-tl.fromTo("#cap0w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.720);
-tl.fromTo("#cap0w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},2.480);
-tl.fromTo("#cap1w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},2.590);
-tl.fromTo("#cap1w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.230);
-tl.fromTo("#cap1w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.250);
-tl.fromTo("#cap1w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.820);
-tl.fromTo("#cap1w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.060);
-tl.fromTo("#cap1w5",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.290);
-tl.fromTo("#cap2w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.460);
-tl.fromTo("#cap2w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.110);
-tl.fromTo("#cap2w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.610);
-tl.fromTo("#cap2w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.740);
-tl.fromTo("#cap3w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.990);
-tl.fromTo("#cap3w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},6.480);
-tl.fromTo("#cap3w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},6.680);
-tl.fromTo("#cap3w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.000);
-tl.fromTo("#cap3w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.230);
-tl.fromTo("#cap3w5",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.250);
-tl.fromTo("#cap4w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.317);
-tl.fromTo("#cap4w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.397);
-tl.fromTo("#cap4w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.787);
-tl.fromTo("#cap4w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.857);
-tl.fromTo("#cap5w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.527);
-tl.fromTo("#cap5w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.567);
-tl.fromTo("#cap5w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.987);
-tl.fromTo("#cap5w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.067);
-tl.fromTo("#cap5w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.307);
-tl.fromTo("#cap5w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.697);
-tl.fromTo("#cap5w6",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.797);
-tl.fromTo("#cap6w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.957);
-tl.fromTo("#cap6w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},11.887);
-tl.fromTo("#cap6w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.087);
-tl.fromTo("#cap6w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.137);
-tl.fromTo("#cap6w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.517);
-tl.fromTo("#cap6w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.637);
-tl.fromTo("#cap7w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.367);
-tl.fromTo("#cap7w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.467);
-tl.fromTo("#cap7w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.997);
-tl.fromTo("#cap7w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.257);
-tl.fromTo("#cap7w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.327);
-tl.fromTo("#cap7w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.847);
-tl.fromTo("#cap8w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.897);
-tl.fromTo("#cap8w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.407);
-tl.fromTo("#cap8w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.637);
-tl.fromTo("#cap8w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.697);
-tl.fromTo("#cap8w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.107);
-tl.fromTo("#cap8w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.247);
-tl.fromTo("#cap9w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.647);
-tl.fromTo("#cap9w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.977);
-tl.fromTo("#cap9w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},17.497);
-tl.fromTo("#cap10w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},17.887);
-tl.fromTo("#cap10w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.177);
-tl.fromTo("#cap10w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.447);
-tl.fromTo("#cap10w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.607);
-tl.fromTo("#cap10w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.827);
-tl.fromTo("#cap11w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},19.327);
-tl.fromTo("#cap11w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},19.717);
-tl.fromTo("#cap11w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.227);
-tl.fromTo("#cap11w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.457);
-tl.fromTo("#cap11w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.867);
-tl.fromTo("#cap12w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.987);
-tl.fromTo("#cap12w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},21.597);
-tl.fromTo("#cap12w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},21.977);
-tl.fromTo("#cap12w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.227);
-tl.fromTo("#cap13w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.827);
-tl.fromTo("#cap13w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.847);
-tl.fromTo("#cap13w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.117);
-tl.fromTo("#cap13w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.387);
-tl.fromTo("#cap13w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.457);
-tl.fromTo("#cap13w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.787);
-tl.fromTo("#cap13w6",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.057);
-tl.fromTo("#cap14w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.117);
-tl.fromTo("#cap14w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.437);
-tl.fromTo("#cap14w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.917);
-tl.fromTo("#cap14w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.987);
-tl.fromTo("#cap14w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},25.367);
-tl.fromTo("#cap15w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.287);
-tl.fromTo("#cap15w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.487);
-tl.fromTo("#cap15w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.787);
-tl.fromTo("#cap15w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.857);
-tl.fromTo("#cap15w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},27.197);
-tl.fromTo("#cap15w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},27.677);
-tl.fromTo("#cap16w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},28.157);
-tl.fromTo("#cap16w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},28.627);
-tl.fromTo("#cap16w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.037);
-tl.fromTo("#cap16w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.177);
-tl.fromTo("#cap17w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.457);
-tl.fromTo("#cap17w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.597);
-tl.fromTo("#cap17w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.667);
-tl.fromTo("#cap17w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.997);
-tl.fromTo("#cap17w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},30.087);
-window.__timelines = window.__timelines || {};
-window.__timelines["how-i-build"] = tl;
-
+tl.fromTo("#cap0w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.110);
+tl.fromTo("#cap0w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.320);
+tl.fromTo("#cap0w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.380);
+tl.fromTo("#cap0w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},1.720);
+tl.fromTo("#cap0w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.480);
+tl.fromTo("#cap1w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},2.590);
+tl.fromTo("#cap1w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.230);
+tl.fromTo("#cap1w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.250);
+tl.fromTo("#cap1w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},3.820);
+tl.fromTo("#cap1w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.060);
+tl.fromTo("#cap1w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.290);
+tl.fromTo("#cap2w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},4.460);
+tl.fromTo("#cap2w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.110);
+tl.fromTo("#cap2w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.610);
+tl.fromTo("#cap2w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.740);
+tl.fromTo("#cap3w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},5.990);
+tl.fromTo("#cap3w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.480);
+tl.fromTo("#cap3w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},6.680);
+tl.fromTo("#cap3w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.000);
+tl.fromTo("#cap3w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.230);
+tl.fromTo("#cap3w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},7.250);
+tl.fromTo("#cap4w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.317);
+tl.fromTo("#cap4w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.397);
+tl.fromTo("#cap4w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.787);
+tl.fromTo("#cap4w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},8.857);
+tl.fromTo("#cap5w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.527);
+tl.fromTo("#cap5w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.567);
+tl.fromTo("#cap5w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},9.987);
+tl.fromTo("#cap5w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.067);
+tl.fromTo("#cap5w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.307);
+tl.fromTo("#cap5w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.697);
+tl.fromTo("#cap5w6",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.797);
+tl.fromTo("#cap6w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},10.957);
+tl.fromTo("#cap6w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},11.887);
+tl.fromTo("#cap6w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.087);
+tl.fromTo("#cap6w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.137);
+tl.fromTo("#cap6w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.517);
+tl.fromTo("#cap6w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},12.637);
+tl.fromTo("#cap7w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.367);
+tl.fromTo("#cap7w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.467);
+tl.fromTo("#cap7w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},13.997);
+tl.fromTo("#cap7w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.257);
+tl.fromTo("#cap7w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.327);
+tl.fromTo("#cap7w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.847);
+tl.fromTo("#cap8w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},14.897);
+tl.fromTo("#cap8w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},15.407);
+tl.fromTo("#cap8w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},15.637);
+tl.fromTo("#cap8w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},15.697);
+tl.fromTo("#cap8w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.107);
+tl.fromTo("#cap8w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.247);
+tl.fromTo("#cap9w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.647);
+tl.fromTo("#cap9w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},16.977);
+tl.fromTo("#cap9w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},17.497);
+tl.fromTo("#cap10w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},17.887);
+tl.fromTo("#cap10w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.177);
+tl.fromTo("#cap10w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.447);
+tl.fromTo("#cap10w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.607);
+tl.fromTo("#cap10w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},18.827);
+tl.fromTo("#cap11w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},19.327);
+tl.fromTo("#cap11w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},19.717);
+tl.fromTo("#cap11w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.227);
+tl.fromTo("#cap11w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.457);
+tl.fromTo("#cap11w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.867);
+tl.fromTo("#cap12w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},20.987);
+tl.fromTo("#cap12w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},21.597);
+tl.fromTo("#cap12w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},21.977);
+tl.fromTo("#cap12w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},22.227);
+tl.fromTo("#cap13w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},22.827);
+tl.fromTo("#cap13w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},22.847);
+tl.fromTo("#cap13w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.117);
+tl.fromTo("#cap13w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.387);
+tl.fromTo("#cap13w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.457);
+tl.fromTo("#cap13w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},23.787);
+tl.fromTo("#cap13w6",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.057);
+tl.fromTo("#cap14w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.117);
+tl.fromTo("#cap14w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.437);
+tl.fromTo("#cap14w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.917);
+tl.fromTo("#cap14w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},24.987);
+tl.fromTo("#cap14w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},25.367);
+tl.fromTo("#cap15w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.287);
+tl.fromTo("#cap15w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.487);
+tl.fromTo("#cap15w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.787);
+tl.fromTo("#cap15w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},26.857);
+tl.fromTo("#cap15w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.197);
+tl.fromTo("#cap15w5",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},27.677);
+tl.fromTo("#cap16w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.157);
+tl.fromTo("#cap16w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},28.627);
+tl.fromTo("#cap16w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.037);
+tl.fromTo("#cap16w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.177);
+tl.fromTo("#cap17w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.457);
+tl.fromTo("#cap17w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.597);
+tl.fromTo("#cap17w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.667);
+tl.fromTo("#cap17w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},29.997);
+tl.fromTo("#cap17w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},30.087);
+tl.fromTo("#cap18w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},30.557);
+tl.fromTo("#cap18w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.077);
+tl.fromTo("#cap18w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.217);
+tl.fromTo("#cap18w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.627);
+tl.fromTo("#cap18w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},31.967);
+tl.fromTo("#cap19w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.047);
+tl.fromTo("#cap19w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.247);
+tl.fromTo("#cap19w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.657);
+tl.fromTo("#cap19w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},32.797);
+tl.fromTo("#cap20w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.357);
+tl.fromTo("#cap20w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.827);
+tl.fromTo("#cap20w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},33.997);
+tl.fromTo("#cap20w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},34.077);
+tl.fromTo("#cap20w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},34.507);
+tl.fromTo("#cap21w0",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},34.847);
+tl.fromTo("#cap21w1",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.227);
+tl.fromTo("#cap21w2",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.457);
+tl.fromTo("#cap21w3",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},35.837);
+tl.fromTo("#cap21w4",{color:"rgba(255,255,255,.55)"},{color:"#ffffff",duration:.06},36.007);
+window.__timelines = window.__timelines || {}; window.__timelines["how-i-build"] = tl;
     </script>
   </body>
 </html>
