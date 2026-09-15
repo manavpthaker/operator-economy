@@ -1,0 +1,20 @@
+// One pass of an alternative lip-sync model on the native close take with the exact close audio. No retries.
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
+import {createRequire} from 'node:module'; import {fileURLToPath} from 'node:url';
+const base=path.dirname(fileURLToPath(import.meta.url));
+const repo=path.resolve(base,'../../../../');
+const req=createRequire(path.join(repo,'blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/package.json'));
+const {fal}=req('@fal-ai/client');
+const line=fs.readFileSync(path.join(repo,'.env'),'utf8').split(/\r?\n/).find(x=>x.startsWith('FAL_KEY='));
+fal.config({credentials:line.slice(8).trim().replace(/^['"]|['"]$/g,'')});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const src=JSON.parse(fs.readFileSync(path.join(base,'SYNC-REQUEST.json'))).input;
+const [model, tag] = [process.argv[2], process.argv[3]];
+const input = model.includes('latentsync') ? {video_url:src.video_url, audio_url:src.audio_url} : {video_url:src.video_url, audio_url:src.audio_url, sync_mode:'cut_off'};
+fs.writeFileSync(path.join(base,`SYNC-${tag}-REQUEST.json`),JSON.stringify({at:new Date().toISOString(),model,input},null,2)+'\n',{flag:'wx'});
+const result=await fal.subscribe(model,{input,logs:false});
+fs.writeFileSync(path.join(base,`SYNC-${tag}-RESULT.json`),JSON.stringify({at:new Date().toISOString(),request_id:result.requestId,data:result.data},null,2)+'\n',{flag:'wx'});
+const url=result.data?.video?.url; if(!url) throw Error('no video url');
+const out=Buffer.from(await (await fetch(url)).arrayBuffer());
+fs.writeFileSync(path.join(base,`media/synced-${tag}.mp4`),out,{flag:'wx'});
+console.log(JSON.stringify({model,tag,sha256:sha(out),bytes:out.length}));
