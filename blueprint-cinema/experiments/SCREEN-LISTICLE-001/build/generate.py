@@ -14,8 +14,11 @@ HOOK_OFFSET = 1.05
 BODY_OFFSET = 8.287
 CLOSE_START = 51.55      # avatar close-up audio segment starts here in the master
 VOICE_END = 69.82
-END_CARD = 70.4
-DURATION = 74.6
+END_CARD = 70.05
+DURATION = 74.25
+A_OFFSET = 51.30   # take-a time t plays master t + 51.30
+B_OFFSET = 63.027  # take-b time t plays master t + 63.027
+SPLIT = 63.31      # between "write down." and "That's the context"
 
 
 def words(script, transcript, offset):
@@ -164,7 +167,8 @@ scenes_html = [
         <div class="q">Who books direct, and why?</div><div class="q">What do they ask before booking?</div>
         <div class="q">What makes them come back?</div><div class="q">What would they never say on a form?</div></div></div>'''),
     shot("thin", '<div class="win light">' + chrome("Before and after · Grapevines", "grapevines.ai/demo/before-after") + '''<div class="shotimg"><img id="thin-img" src="assets/gv-before-after.png" alt="" /></div></div>'''),
-    f'<video id="close-video" class="clip" src="assets/close.mp4" data-start="{S["close"][0]:.3f}" data-media-start="{S["close"][0] - CLOSE_START:.3f}" data-duration="{END_CARD - S["close"][0]:.3f}" data-track-index="0" muted playsinline></video>',
+    f'<video id="close-a" class="clip" src="assets/close-a.mp4" data-start="{S["close"][0]:.3f}" data-media-start="{S["close"][0] - A_OFFSET:.3f}" data-duration="{SPLIT - S["close"][0]:.3f}" data-track-index="0" muted playsinline></video>',
+    f'<video id="close-b" class="clip" src="assets/close-b.mp4" style="transform:scale(1.08);transform-origin:50% 38%" data-start="{SPLIT:.3f}" data-media-start="{SPLIT - B_OFFSET:.3f}" data-duration="{END_CARD - SPLIT:.3f}" data-track-index="0" muted playsinline></video>',
     f'''<section id="end" class="clip scene" data-start="{END_CARD}" data-duration="{DURATION - END_CARD:.3f}" data-track-index="0">
       <h1 id="question"><span class="ql">How does your app</span><span class="ql">get context</span><span class="ql shift">from people?</span></h1>
       <p id="signature" class="contact">MP Thaker</p><p id="website" class="contact url">mpthaker.xyz</p><p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p></section>''',
