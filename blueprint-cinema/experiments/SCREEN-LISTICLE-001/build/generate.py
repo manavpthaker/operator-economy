@@ -108,7 +108,13 @@ scenes_html = [
         <div class="row first">Co-Authored-By: Claude</div></div>
       <div class="tag" id="c-tag">Grapevines commit, October 2025</div>'''),
     scene("problem", '''
-      <div class="step-no">01</div><h2 class="step-head">A problem I had</h2>'''),
+      <div class="step-no">01</div><h2 class="step-head">A problem I had</h2>
+      <div class="screen doc resume" id="pr-screen"><h3>Manav Thaker</h3>
+        <h4>Technical Product Leader · AI Product Management · Builder and Operator</h4>
+        <h5>Experience</h5>
+        <p class="role"><b>AI Product Manager · Lovingly</b><br/>Sep 2024 to Sep 2025</p>
+        <div class="blurred"><p>Partnered with engineers, designers and marketing on AI work across support, retention and checkout.</p><p>Built internal AI tooling for ticket triage, PRDs and test documentation.</p><p>Co-Founder and Head of Product · Panso</p></div></div>
+      <div class="tag">My resume</div>'''),
     scene("people", '''
       <div class="step-no">02</div><h2 class="step-head">Talk to people</h2>
       <div class="screen doc" id="p-screen"><h4>Last updated February 18, 2026 · Active discovery phase</h4><h3>Grapevines Customer Discovery Master Document</h3>
@@ -158,6 +164,8 @@ tl.fromTo("#c-screen .row", {{opacity:0, y:8}}, {{opacity:1, y:0, duration:.2, s
 tl.fromTo("#c-screen .first", {{backgroundColor:"rgba(169,193,178,0)"}}, {{backgroundColor:"rgba(169,193,178,.45)", duration:.35}}, {now_word:.3f});
 tl.fromTo("#c-tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {S['commits'][0] + .8:.3f});
 tl.fromTo("#problem .step-no, #problem .step-head", {{opacity:0, y:14}}, {{opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}}, {S['problem'][0]});
+tl.fromTo("#pr-screen", {{x:60, opacity:0}}, {{x:0, opacity:1, duration:.5, ease:"power3.out"}}, {S['problem'][0] + .1:.3f});
+tl.fromTo("#problem .tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {S['problem'][0] + .5:.3f});
 """
 for sid, screen in (("people", "#p-screen"), ("plan", "#pl-screen"), ("remove", "#r-screen")):
     a = S[sid][0]

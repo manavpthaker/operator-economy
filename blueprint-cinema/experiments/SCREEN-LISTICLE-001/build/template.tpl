@@ -47,6 +47,10 @@
       .sage { position:absolute; left:0; top:352px; width:392px; height:640px; background:var(--sage); overflow:hidden; }
       .sage p { position:absolute; left:56px; top:48px; width:300px; margin:0; font-family:Archivo, sans-serif; font-size:44px; line-height:50px; font-weight:720; letter-spacing:-.035em; color:var(--source); }
       .sameday { top:392px; height:420px; }
+      .resume h3 { font-size:44px; margin-bottom:6px; }
+      .resume h4 { margin-bottom:26px; }
+      .resume .role { margin-bottom:10px; }
+      .resume .blurred { filter: blur(5px); opacity:.8; }
       .callback { left:420px; top:392px; width:620px; height:300px; }
       .callback h3 { font-size:34px; line-height:40px; max-width:260px; }
       .shot { top:392px; width:620px; height:560px; }
