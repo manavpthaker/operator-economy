@@ -56,6 +56,59 @@
       .md .term .hash { color:#E8C57A; }
       .swap { position:absolute; left:0; top:48px; right:0; bottom:0; background:#fff; }
 
+      /* App skins */
+      .app { position:absolute; inset:0; }
+      .chrome { height:74px; background:#DEE1E6; position:relative; }
+      .chrome .tabs { position:absolute; left:110px; top:10px; height:32px; padding:0 22px; background:#fff; border-radius:10px 10px 0 0; font-size:17px; line-height:32px; color:#3C4043; white-space:nowrap; }
+      .chrome .dots { position:absolute; left:18px; top:18px; display:flex; }
+      .chrome .url { position:absolute; left:14px; right:14px; top:42px; height:28px; background:#fff; border-radius:14px; font-size:16px; line-height:28px; padding-left:18px; color:#5F6368; }
+      .gdocs { background:#F9FBFD; }
+      .gdocs .gbar { height:70px; background:#F9FBFD; position:relative; border-bottom:1px solid #E3E6EA; }
+      .gdocs .gicon { position:absolute; left:18px; top:14px; width:28px; height:38px; background:#4285F4; border-radius:3px; }
+      .gdocs .gicon::after { content:""; position:absolute; left:6px; right:6px; top:12px; height:3px; background:#fff; box-shadow:0 7px 0 #fff, 0 14px 0 #fff; }
+      .gdocs .gtitle { position:absolute; left:60px; top:8px; font-size:22px; color:#1F1F1F; }
+      .gdocs .gmenu { position:absolute; left:60px; top:40px; font-size:16px; color:#444; word-spacing:14px; }
+      .gdocs .gshare { position:absolute; right:22px; top:18px; padding:6px 18px; border-radius:18px; background:#C2E7FF; font-size:17px; color:#001D35; }
+      .gdocs .gtool { height:40px; margin:8px 16px; border-radius:20px; background:#EDF2FA; }
+      .gdocs .page { position:absolute; left:110px; right:110px; top:210px; bottom:-40px; background:#fff; box-shadow:0 1px 3px rgba(60,64,67,.3); padding:46px 56px; font-family:Arial, Atkinson, sans-serif; color:#202124; font-size:24px; line-height:34px; }
+      .gdocs .page h1 { font-family:Arial, Atkinson, sans-serif; font-size:40px; margin:0 0 4px; font-weight:700; }
+      .gdocs .page .meta { font-size:18px; color:#5F6368; margin-bottom:16px; }
+      .gdocs .page h2 { font-size:24px; margin:10px 0 4px; border-bottom:1px solid #DADCE0; padding-bottom:4px; }
+      .gdocs .page .blurred { filter:blur(6px); opacity:.8; }
+      .cursor { background:#181818; color:#CCCCCC; font-family:JBM, monospace; }
+      .cursor .cbar { height:40px; background:#1F1F1F; border-bottom:1px solid #2B2B2B; font-size:15px; line-height:40px; text-align:center; color:#8B8B8B; }
+      .cursor .side { position:absolute; left:0; top:40px; bottom:0; width:220px; background:#1F1F1F; border-right:1px solid #2B2B2B; padding:14px 12px; font-size:15px; line-height:26px; color:#9D9D9D; }
+      .cursor .side .on { background:#37373D; color:#fff; border-radius:4px; padding:0 6px; margin:0 -6px; }
+      .cursor .tab { position:absolute; left:220px; right:0; top:40px; height:40px; background:#181818; border-bottom:1px solid #2B2B2B; font-size:15px; line-height:40px; }
+      .cursor .tab span { display:inline-block; padding:0 18px; background:#1F1F1F; border-top:2px solid #6A8DFF; color:#fff; }
+      .cursor .code { position:absolute; left:220px; right:0; top:80px; bottom:0; padding:18px 0; font-size:21px; line-height:34px; }
+      .cursor .ln { display:inline-block; width:56px; text-align:right; color:#5A5A5A; margin-right:22px; }
+      .cursor .h { color:#6A8DFF; font-weight:700; } .cursor .b { color:#E6C07B; } .cursor .t { color:#D4D4D4; }
+      .github { background:#fff; color:#1F2328; }
+      .github .ghead { height:52px; background:#F6F8FA; border-bottom:1px solid #D1D9E0; font-size:19px; line-height:52px; padding-left:24px; }
+      .github .ghead b { font-weight:600; }
+      .github .box { margin:20px 24px; border:1px solid #D1D9E0; border-radius:8px; overflow:hidden; }
+      .github .boxhead { height:48px; background:#F6F8FA; border-bottom:1px solid #D1D9E0; font-size:17px; line-height:48px; padding-left:16px; }
+      .github .boxhead .pill { display:inline-block; padding:0 12px; line-height:30px; border-radius:6px; background:#fff; border:1px solid #D1D9E0; margin-right:6px; }
+      .github .md { padding:26px 34px; font-size:23px; line-height:34px; }
+      .github .md h1 { font-size:34px; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid #D1D9E0; font-family:Atkinson, sans-serif; font-weight:700; }
+      .github .md h2 { font-size:27px; margin:14px 0 6px; padding-bottom:6px; border-bottom:1px solid #D1D9E0; font-family:Atkinson, sans-serif; }
+      .github .md .meta { font-size:19px; color:#59636E; }
+      .github .diff { font-family:JBM, monospace; font-size:18px; line-height:27px; }
+      .github .diff div { padding:0 14px; white-space:pre; }
+      .github .diff .del { background:#FFEBE9; color:#82071E; }
+      .github .diff .ctx { color:#59636E; background:#F6F8FA; }
+      .github .commits .row { padding:14px 18px; border-bottom:1px solid #D1D9E0; font-size:21px; }
+      .github .commits .row .sha { float:right; font-family:JBM, monospace; font-size:17px; color:#59636E; }
+      .github .commits .row.hl { background:#FFF8C5; }
+      .warp { background:#16171B; color:#E6E6E6; font-family:JBM, monospace; }
+      .warp .wbar { height:46px; background:#202227; border-bottom:1px solid #2C2F36; font-size:16px; line-height:46px; text-align:center; color:#9AA0AA; position:relative; }
+      .warp .cc { padding:26px 34px; font-size:22px; line-height:36px; }
+      .warp .cc .orange { color:#D97757; font-weight:700; }
+      .warp .cc .box { border:2px solid #5B606B; border-radius:10px; padding:8px 16px; margin:16px 0; }
+      .warp .cc .dim { color:#8B9099; }
+      .warp .cc .green { color:#4FB477; }
+      .warp .cc .hl { background:rgba(120,170,140,.35); border-radius:6px; padding:0 8px; margin:0 -8px; }
       #question { position:absolute; left:56px; top:300px; margin:0; font-family:Archivo, sans-serif; font-size:62px; line-height:70px; font-weight:625; letter-spacing:-.045em; }
       #question .ql { display:block; white-space:nowrap; }
       #question .shift { color:var(--source); }

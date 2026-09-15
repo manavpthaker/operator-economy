@@ -84,27 +84,52 @@ scenes_html = [
     f'<video id="hook-video" class="clip" src="assets/hook.mp4" data-start="0" data-duration="{S["hook"][1]}" data-track-index="0" muted playsinline></video>',
     f'<div id="hook-title" class="clip" data-start="0" data-duration="{S["hook"][1]}" data-track-index="1" data-layout-allow-overlap><span>The part of</span><span>building that</span><span>wasn\'t quick</span></div>',
     f'<video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="{S["hook"][1]}" data-track-index="2" muted playsinline></video>',
-    shot("commits", '<div class="win dark">' + bar("grapevines — zsh") + '''<div class="body mono">
-        <div class="dim">$ git show 7c337b8</div><div class="hash">commit 7c337b8</div><div class="dim">Date: Tue Oct 7 2025</div><div>&nbsp;</div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;Build Conversation Engine</div><div>&nbsp;</div><div class="hl" id="c-hl">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude</div></div></div>'''),
-    shot("problem", '<div class="win light">' + bar("manav-thaker_master-resume.md") + '''<div class="body md">
-        <h1>Manav Thaker</h1><div class="meta">Technical Product Leader · AI Product Management · Builder and Operator</div>
-        <h2>Experience</h2><p><b>AI Product Manager · Lovingly</b><br/>Sep 2024 to Sep 2025</p>
+    shot("commits", '''<div class="win warp"><div class="wbar"><span style="position:absolute;left:18px;top:16px;display:flex"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></span>grapevines — claude</div>
+      <div class="cc"><div><span class="orange">Claude Code</span> <span class="dim">· ~/grapevines</span></div>
+        <div class="box">&gt; commit the conversation engine</div>
+        <div><span class="green">●</span> <b>Bash</b>(git commit -m "Build Conversation Engine")</div>
+        <div class="dim">&nbsp;&nbsp;⎿&nbsp; [main 7c337b8] Build Conversation Engine</div>
+        <div>&nbsp;</div>
+        <div class="dim">&nbsp;&nbsp;&nbsp;&nbsp;Date: Tue Oct 7 2025</div>
+        <div class="hl" id="c-hl">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude</div></div></div>'''),
+    shot("problem", '''<div class="win gdocs"><div class="chrome"><div class="dots"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div><div class="tabs">Manav Thaker - Resume - Google Docs</div><div class="url">docs.google.com/document</div></div>
+      <div class="gbar"><div class="gicon"></div><div class="gtitle">Manav Thaker - Resume</div><div class="gmenu">File Edit View Insert Format Tools Extensions Help</div><div class="gshare">Share</div></div>
+      <div class="gtool"></div>
+      <div class="page"><h1>Manav Thaker</h1><div class="meta">Technical Product Leader · AI Product Management · Builder and Operator</div>
+        <h2>Experience</h2><p><b>AI Product Manager, Lovingly</b><br/>Sep 2024 to Sep 2025</p>
         <div class="blurred"><p>Partnered with engineers, designers and marketing on AI work across support, retention and checkout.</p><p>Built internal AI tooling for ticket triage, PRDs and test documentation.</p></div></div></div>'''),
-    shot("people", '<div class="win light">' + bar("customer-discovery-master.md") + '''<div class="body md">
-        <div class="meta">Last updated February 18, 2026 · Active discovery phase</div><h1>Grapevines Customer Discovery Master Document</h1>
-        <h2>Discovery overview</h2><p>This document consolidates learnings from all customer discovery conversations to guide product development, positioning, and go-to-market strategy.</p></div></div>'''),
-    shot("plan", '<div class="win light">' + bar("prd-epic-2-the-daily-coach.md") + '''<div class="body md">
-        <div class="meta">PRD · Manav Thaker · March 18, 2026</div><h1>Epic 2: The Daily Coach</h1>
-        <h2>Problem statement</h2><p>The app doesn’t feel like a daily driver. The dashboard only changes when the user takes a major action.</p></div></div>'''),
-    shot("remove", '<div class="win light">' + bar("prd-voice-calibration-removal.md") + '''<div class="body md">
-        <div class="meta">PRD · March 24, 2026</div><h1>Voice calibration removal</h1>
-        <h2>Decision</h2><p><b>Kill voice calibration from onboarding.</b> Remove the voice selection step entirely.</p></div></div>'''),
-    shot("turn", '<div class="win light">' + bar("prd-voice-calibration-removal.md") + '''<div class="body md">
-        <div class="meta">PRD · March 24, 2026</div><h1>Voice calibration removal</h1>
-        <div class="term"><span class="hash">611cbef</span> Mar 24 2026<br/>Remove voice calibration from onboarding</div></div>
-        <div class="swap" id="t-swap"><div class="body md"><div class="meta">Last updated February 18, 2026</div><h1>Customer Discovery Master Document</h1>
-        <h2>Discovery overview</h2><p>Learnings from all customer discovery conversations.</p></div></div></div>'''),
+    shot("people", '''<div class="win cursor"><div class="cbar">brown-man-content — Cursor</div>
+      <div class="side">▾ research<br/>&nbsp;&nbsp;▾ grapevines<br/>&nbsp;&nbsp;&nbsp;&nbsp;b2b-market-analysis.md<br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="on">customer-discovery-master.md</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;competitive-moats-analysis.md<br/>&nbsp;&nbsp;&nbsp;&nbsp;prioritized-backlog-p0-p1.md</div>
+      <div class="tab"><span>customer-discovery-master.md</span></div>
+      <div class="code"><div><span class="ln">1</span><span class="h"># Grapevines Customer Discovery</span></div><div><span class="ln"></span><span class="h">&nbsp;&nbsp;Master Document</span></div>
+        <div><span class="ln">2</span></div><div><span class="ln">3</span><span class="b">**Last Updated:**</span> <span class="t">February 18, 2026</span></div>
+        <div><span class="ln">4</span><span class="b">**Status:**</span> <span class="t">Active Discovery Phase</span></div><div><span class="ln">5</span></div>
+        <div><span class="ln">6</span><span class="h">## Discovery Overview</span></div><div><span class="ln">7</span></div>
+        <div><span class="ln">8</span><span class="t">This document consolidates learnings</span></div><div><span class="ln"></span><span class="t">from all customer discovery conversations</span></div>
+        <div><span class="ln"></span><span class="t">to guide product development.</span></div></div></div>'''),
+    shot("plan", '''<div class="win github"><div class="chrome"><div class="dots"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div><div class="tabs">grapevines/docs/prd-epic-2-the-daily-coach.md</div><div class="url">github.com/manavpthaker/grapevines/blob/main/docs/prd-epic-2-the-daily-coach.md</div></div>
+      <div class="ghead">grapevines / docs / <b>prd-epic-2-the-daily-coach.md</b></div>
+      <div class="box"><div class="boxhead"><span class="pill">Preview</span> Code</div>
+        <div class="md"><h1>PRD: Epic 2, The Daily Coach</h1><div class="meta">Author: Manav Thaker · Date: March 18, 2026</div>
+          <h2>Problem Statement</h2><p>The app doesn’t feel like a daily driver. The dashboard only changes when the user takes a major action.</p></div></div></div>'''),
+    shot("remove", '''<div class="win github"><div class="chrome"><div class="dots"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div><div class="tabs">Remove voice calibration from onboarding</div><div class="url">github.com/manavpthaker/grapevines/commit/611cbef</div></div>
+      <div class="ghead"><b>Remove voice calibration from onboarding</b> and fix synthesis bugs</div>
+      <div class="box"><div class="boxhead">backend/agents/coach_note_agent.py</div>
+        <div class="diff"><div class="ctx">@@ def build_context(user_id):</div><div class="del">-    # 3. VOICE</div><div class="del">-    try:</div>
+          <div class="del">-        voice_result = db.from_("voice_profiles")</div><div class="del">-            .select("voice_archetype, calibrated_at")</div>
+          <div class="del">-            .eq("user_id", user_id)</div><div class="del">-        if voice_result.data:</div><div class="del">-            voice = voice_result.data[0]</div>
+          <div class="del">-            context["voice"] = {</div><div class="del">-                "calibrated": voice.get("calibrated_at") is not None,</div></div></div></div>'''),
+    shot("turn", '''<div class="win github"><div class="chrome"><div class="dots"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div><div class="tabs">Commits · grapevines</div><div class="url">github.com/manavpthaker/grapevines/commits/main</div></div>
+      <div class="ghead">Commits on <b>Mar 24, 2026</b></div>
+      <div class="box commits"><div class="row">Remove voice from My Story navigation <span class="sha">13e854f</span></div>
+        <div class="row hl">Remove voice calibration from onboarding <span class="sha">611cbef</span></div>
+        <div class="row">Fix onboarding resume and document status bugs <span class="sha">8dbc50d</span></div></div>
+      <div class="swap" id="t-swap" style="top:0"><div class="app cursor"><div class="cbar">brown-man-content — Cursor</div>
+        <div class="tab" style="left:0"><span>customer-discovery-master.md</span></div>
+        <div class="code" style="left:0"><div><span class="ln">1</span><span class="h"># Grapevines Customer Discovery</span></div><div><span class="ln"></span><span class="h">&nbsp;&nbsp;Master Document</span></div>
+          <div><span class="ln">2</span></div><div><span class="ln">3</span><span class="b">**Last Updated:**</span> <span class="t">February 18, 2026</span></div><div><span class="ln">4</span></div>
+          <div><span class="ln">5</span><span class="h">## Discovery Overview</span></div><div><span class="ln">6</span></div>
+          <div><span class="ln">7</span><span class="t">Learnings from all customer</span></div><div><span class="ln"></span><span class="t">discovery conversations.</span></div></div></div></div></div>'''),
     f'''<section id="end" class="clip scene" data-start="{END_CARD}" data-duration="{DURATION - END_CARD:.3f}" data-track-index="0">
       <h1 id="question"><span class="ql">When did talking</span><span class="ql">to people change</span><span class="ql shift">what you built?</span></h1>
       <p id="signature" class="contact">MP Thaker</p><p id="website" class="contact url">mpthaker.xyz</p><p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p></section>''',
@@ -113,12 +138,12 @@ scenes_html = [
 # Each shot: wider framing at start, slow push-in toward the line being spoken, small handheld drift.
 # (scene, start window point, start scale, end window point, end scale, drift sign)
 SHOTS = [
-    ("commits", (500, 360), 1.02, (330, 610), 1.38, 1),
-    ("problem", (500, 300), 1.10, (320, 300), 1.40, -1),
-    ("people", (500, 320), 1.04, (380, 330), 1.36, 1),
-    ("plan", (480, 330), 1.12, (400, 420), 1.42, -1),
-    ("remove", (500, 330), 1.08, (380, 420), 1.44, 1),
-    ("turn", (500, 330), 1.06, (420, 360), 1.30, -1),
+    ("commits", (500, 330), 1.04, (330, 560), 1.40, 1),
+    ("problem", (500, 360), 1.08, (400, 420), 1.38, -1),
+    ("people", (520, 330), 1.04, (480, 330), 1.36, 1),
+    ("plan", (500, 360), 1.10, (420, 470), 1.40, -1),
+    ("remove", (500, 360), 1.06, (420, 400), 1.40, 1),
+    ("turn", (500, 300), 1.08, (460, 300), 1.30, -1),
 ]
 motion = ['const tl = gsap.timeline({ paused: true });',
           'tl.fromTo("#hook-title span", {y:24, opacity:0}, {y:0, opacity:1, duration:.45, stagger:.12, ease:"power3.out"}, .25);']
