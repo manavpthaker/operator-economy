@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=720, height=1280" />
+    <title>How I build without a dev team</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: Archivo; src: url("assets/Archivo-variable.ttf") format("truetype"); font-weight: 100 900; font-display: block; }
+      @font-face { font-family: Atkinson; src: url("assets/AtkinsonHyperlegibleNext-variable.ttf") format("truetype"); font-weight: 200 800; font-display: block; }
+      @font-face { font-family: JBM; src: url("assets/JetBrainsMono-Regular.ttf") format("truetype"); font-weight: 400; font-display: block; }
+      :root { --proof:#F3F6F5; --graphite:#202426; --sage:#A9C1B2; --source:#31584D; --carbon:#2457D6; --veil:#DCE4E2; --steel:#5F6E75; --muted:#9DADB5; }
+      * { box-sizing: border-box; }
+      html, body { margin:0; width:720px; height:1280px; background:var(--proof); overflow:hidden; }
+      #root { position:relative; width:720px; height:1280px; overflow:hidden; background:var(--proof); color:var(--graphite); font-family:Atkinson, sans-serif; }
+      .scene { position:absolute; inset:0; overflow:hidden; background:var(--proof); }
+
+      #hook-video, #hook-matte { position:absolute; left:0; top:0; width:720px; height:1280px; object-fit:cover; }
+      #hook-title { position:absolute; left:56px; top:64px; width:620px; margin:0; font-family:Archivo, sans-serif;
+        font-size:80px; line-height:80px; font-weight:760; letter-spacing:-.045em; color:var(--graphite); }
+      #hook-title span { display:block; }
+
+      .cap { position:absolute; left:56px; font-weight:600; }
+      .cap-over { bottom:112px; max-width:608px; padding:10px 18px; border-radius:10px; background:rgba(32,36,38,.78); font-size:34px; line-height:44px; }
+      .cap-under { top:980px; width:620px; font-size:38px; line-height:50px; }
+
+      .step-no { position:absolute; left:56px; top:218px; font-size:30px; font-weight:700; color:var(--carbon); }
+      .step-head { position:absolute; left:56px; top:256px; margin:0; font-family:Archivo, sans-serif; font-size:66px; line-height:70px; font-weight:740; letter-spacing:-.04em; }
+      .screen { position:absolute; left:56px; top:400px; width:820px; background:#fff; border:1px solid var(--veil); border-right:0;
+        border-radius:16px 0 0 16px; box-shadow:0 24px 60px rgba(32,36,38,.10); overflow:hidden; }
+      .terminal { height:430px; background:#1B1E20; border-color:#1B1E20; padding:40px 36px; font-family:JBM, monospace; font-size:21px; line-height:30px; color:#E4E8E6; }
+      .terminal .prompt { color:#8FA59A; margin-bottom:22px; }
+      .terminal .row { padding:10px 12px; margin:0 -12px 6px; border-radius:6px; white-space:nowrap; }
+      .terminal .hash { color:#E8C57A; }
+      .terminal .date { color:#8FA59A; }
+      .doc { height:440px; padding:44px 46px; font-size:25px; line-height:37px; color:#2c3134; }
+      .doc h4 { margin:0 0 8px; font-family:Archivo, sans-serif; font-size:21px; font-weight:600; color:var(--steel); }
+      .doc h3 { margin:0 0 24px; font-family:Archivo, sans-serif; font-size:40px; line-height:44px; font-weight:720; letter-spacing:-.03em; color:var(--graphite); max-width:620px; }
+      .doc h5 { margin:0 0 8px; font-family:Archivo, sans-serif; font-size:24px; font-weight:680; color:var(--graphite); }
+      .doc p { margin:0 0 18px; max-width:610px; }
+      .doc b { font-weight:700; }
+      .doc .commit { margin-top:18px; max-width:620px; padding:14px 18px; border-radius:10px; background:#1B1E20; color:#E4E8E6; font-family:JBM, monospace; font-size:20px; line-height:28px; }
+      .doc .commit .hash { color:#E8C57A; }
+      .tag { position:absolute; left:56px; top:862px; font-size:22px; line-height:28px; font-weight:600; color:var(--source); }
+
+      .turn-lead { position:absolute; left:56px; top:120px; width:608px; margin:0; font-family:Archivo, sans-serif; font-size:50px; line-height:56px; font-weight:700; letter-spacing:-.035em; }
+      .sage { position:absolute; left:0; top:352px; width:392px; height:640px; background:var(--sage); overflow:hidden; }
+      .sage p { position:absolute; left:56px; top:48px; width:300px; margin:0; font-family:Archivo, sans-serif; font-size:44px; line-height:50px; font-weight:720; letter-spacing:-.035em; color:var(--source); }
+      .shot { top:392px; width:620px; height:560px; }
+      .shot img { display:block; width:1000px; margin:-18px 0 0 -40px; }
+      #t-tag { left:420px; top:968px; }
+
+      #question { position:absolute; left:56px; top:300px; margin:0; font-family:Archivo, sans-serif; font-size:62px; line-height:70px; font-weight:625; letter-spacing:-.045em; }
+      #question .ql { display:block; white-space:nowrap; }
+      #question .shift { color:var(--source); }
+      .contact { position:absolute; left:56px; margin:0; white-space:nowrap; }
+      #signature { top:760px; font-size:30px; font-weight:700; line-height:36px; letter-spacing:-.035em; font-family:Archivo, sans-serif; }
+      .url { font-size:30px; font-weight:450; line-height:36px; }
+      #website { top:822px; }
+      #linkedin { top:870px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="how-i-build" data-start="0" data-width="720" data-height="1280" data-duration="40.5">
+      <video id="hook-video" class="clip" src="assets/hook.mp4" data-start="0" data-duration="8.2" data-track-index="0" muted playsinline></video>
+<div id="hook-title" class="clip" data-start="0" data-duration="8.2" data-track-index="1" data-layout-allow-overlap><span>The part of</span><span>building that</span><span>wasn't quick</span></div>
+<video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="8.2" data-track-index="2" muted playsinline></video>
+<section id="commits" class="clip scene" data-start="8.2" data-duration="7.210" data-track-index="0">
+      <div class="step-no" id="c-no">01</div><h2 class="step-head" id="c-head">My own problem</h2>
+      <div class="screen terminal" id="c-screen"><div class="prompt">$ git log --reverse --oneline</div><div class="row first"><span class="hash">4bcc67e</span> <span class="date">2025-10-07</span> Initial commit: Grapevines project setup</div><div class="row"><span class="hash">eaeff3f</span> <span class="date">2025-10-07</span> Build Context Library Agent</div><div class="row"><span class="hash">7c337b8</span> <span class="date">2025-10-07</span> Build Conversation Engine</div><div class="row"><span class="hash">28184ec</span> <span class="date">2025-10-07</span> Build Influence Library</div><div class="row"><span class="hash">bde5c3f</span> <span class="date">2025-10-07</span> Build Voice Blending Agent</div></div>
+      <div class="tag" id="c-tag">Grapevines commit history, October 2025</div></section>
+<section id="people" class="clip scene" data-start="15.41" data-duration="7.420" data-track-index="0">
+      <div class="step-no">02</div><h2 class="step-head">Talk to people</h2>
+      <div class="screen doc" id="p-screen"><h4>Epic overview</h4><h3>The problem</h3>
+        <p><b>“The app isn’t a daily driver.”</b> Nothing changes when a user opens the app on a Tuesday morning with 5 minutes.</p>
+        <p><b>“I just need to apply.”</b> Users skip positioning and rush to resume generation.</p></div>
+      <div class="tag">What people told me, March 2026</div></section>
+<section id="plan" class="clip scene" data-start="22.83" data-duration="3.460" data-track-index="0">
+      <div class="step-no">03</div><h2 class="step-head">Write the plan</h2>
+      <div class="screen doc" id="pl-screen"><h4>PRD · Manav Thaker · March 18, 2026</h4><h3>Epic 2: The Daily Coach</h3>
+        <h5>Problem statement</h5>
+        <p>The app doesn’t feel like a daily driver. The dashboard only changes when the user takes a major action.</p></div>
+      <div class="tag">Planning doc, March 2026</div></section>
+<section id="remove" class="clip scene" data-start="26.29" data-duration="4.270" data-track-index="0">
+      <div class="step-no">04</div><h2 class="step-head">Take things out</h2>
+      <div class="screen doc" id="r-screen"><h4>PRD · March 24, 2026</h4><h3>Voice calibration removal</h3>
+        <h5>Decision</h5>
+        <p><b>Kill voice calibration from onboarding.</b> Remove the voice selection step entirely.</p>
+        <div class="commit"><span class="hash">611cbef</span> Remove voice calibration from onboarding</div></div>
+      <div class="tag">Removed March 2026</div></section>
+<section id="turn" class="clip scene" data-start="30.56" data-duration="5.840" data-track-index="0">
+      <h2 class="turn-lead" id="t-lead">Building it myself means I can change it fast.</h2>
+      <div class="sage" id="t-sage"><p id="t-sage-text">Knowing what to change still comes from talking to people.</p></div>
+      <div class="screen shot" id="t-screen"><img src="assets/positioning-5s.png" alt="" /></div>
+      <div class="tag" id="t-tag">Sample participant</div></section>
+<section id="end" class="clip scene" data-start="36.4" data-duration="4.100" data-track-index="0">
+      <h1 id="question"><span class="ql">When did talking</span><span class="ql">to people change</span><span class="ql shift">what you built?</span></h1>
+      <p id="signature" class="contact">MP Thaker</p>
+      <p id="website" class="contact url">mpthaker.xyz</p>
+      <p id="linkedin" class="contact url">linkedin.com/in/mptxyz</p></section>
+      <div id="cap0" class="clip cap cap-over" data-layout-allow-overlap data-start="1.110" data-duration="1.460" data-track-index="6"><span class="w" id="cap0w0">When</span> <span class="w" id="cap0w1">I</span> <span class="w" id="cap0w2">built</span> <span class="w" id="cap0w3">Grapevines</span> <span class="w" id="cap0w4">for</span></div>
+<div id="cap1" class="clip cap cap-over" data-layout-allow-overlap data-start="2.590" data-duration="1.850" data-track-index="6"><span class="w" id="cap1w0">myself,</span> <span class="w" id="cap1w1">I</span> <span class="w" id="cap1w2">already</span> <span class="w" id="cap1w3">had</span> <span class="w" id="cap1w4">all</span> <span class="w" id="cap1w5">my</span></div>
+<div id="cap2" class="clip cap cap-over" data-layout-allow-overlap data-start="4.460" data-duration="1.510" data-track-index="6"><span class="w" id="cap2w0">context.</span> <span class="w" id="cap2w1">Getting</span> <span class="w" id="cap2w2">that</span> <span class="w" id="cap2w3">from</span></div>
+<div id="cap3" class="clip cap cap-over" data-layout-allow-overlap data-start="5.990" data-duration="1.830" data-track-index="6"><span class="w" id="cap3w0">someone</span> <span class="w" id="cap3w1">else</span> <span class="w" id="cap3w2">was</span> <span class="w" id="cap3w3">the</span> <span class="w" id="cap3w4">big</span> <span class="w" id="cap3w5">thing.</span></div>
+<div id="cap4" class="clip cap cap-under" data-layout-allow-overlap data-start="8.317" data-duration="1.190" data-track-index="6"><span class="w" id="cap4w0">My</span> <span class="w" id="cap4w1">first</span> <span class="w" id="cap4w2">two</span> <span class="w" id="cap4w3">companies,</span></div>
+<div id="cap5" class="clip cap cap-under" data-layout-allow-overlap data-start="9.527" data-duration="1.410" data-track-index="6"><span class="w" id="cap5w0">I</span> <span class="w" id="cap5w1">needed</span> <span class="w" id="cap5w2">a</span> <span class="w" id="cap5w3">dev</span> <span class="w" id="cap5w4">team</span> <span class="w" id="cap5w5">for</span> <span class="w" id="cap5w6">the</span></div>
+<div id="cap6" class="clip cap cap-under" data-layout-allow-overlap data-start="10.957" data-duration="2.390" data-track-index="6"><span class="w" id="cap6w0">software.</span> <span class="w" id="cap6w1">Now</span> <span class="w" id="cap6w2">I</span> <span class="w" id="cap6w3">build</span> <span class="w" id="cap6w4">it</span> <span class="w" id="cap6w5">myself.</span></div>
+<div id="cap7" class="clip cap cap-under" data-layout-allow-overlap data-start="13.367" data-duration="1.510" data-track-index="6"><span class="w" id="cap7w0">It</span> <span class="w" id="cap7w1">started</span> <span class="w" id="cap7w2">with</span> <span class="w" id="cap7w3">a</span> <span class="w" id="cap7w4">problem</span> <span class="w" id="cap7w5">I</span></div>
+<div id="cap8" class="clip cap cap-under" data-layout-allow-overlap data-start="14.897" data-duration="1.730" data-track-index="6"><span class="w" id="cap8w0">had.</span> <span class="w" id="cap8w1">Then</span> <span class="w" id="cap8w2">I</span> <span class="w" id="cap8w3">talked</span> <span class="w" id="cap8w4">to</span> <span class="w" id="cap8w5">people</span></div>
+<div id="cap9" class="clip cap cap-under" data-layout-allow-overlap data-start="16.647" data-duration="1.220" data-track-index="6"><span class="w" id="cap9w0">going</span> <span class="w" id="cap9w1">through</span> <span class="w" id="cap9w2">it.</span></div>
+<div id="cap10" class="clip cap cap-under" data-layout-allow-overlap data-start="17.887" data-duration="1.420" data-track-index="6"><span class="w" id="cap10w0">That&#x27;s</span> <span class="w" id="cap10w1">still</span> <span class="w" id="cap10w2">the</span> <span class="w" id="cap10w3">most</span> <span class="w" id="cap10w4">important</span></div>
+<div id="cap11" class="clip cap cap-under" data-layout-allow-overlap data-start="19.327" data-duration="1.640" data-track-index="6"><span class="w" id="cap11w0">part,</span> <span class="w" id="cap11w1">finding</span> <span class="w" id="cap11w2">out</span> <span class="w" id="cap11w3">where</span> <span class="w" id="cap11w4">it</span></div>
+<div id="cap12" class="clip cap cap-under" data-layout-allow-overlap data-start="20.987" data-duration="1.820" data-track-index="6"><span class="w" id="cap12w0">actually</span> <span class="w" id="cap12w1">hurts</span> <span class="w" id="cap12w2">for</span> <span class="w" id="cap12w3">them.</span></div>
+<div id="cap13" class="clip cap cap-under" data-layout-allow-overlap data-start="22.827" data-duration="1.270" data-track-index="6"><span class="w" id="cap13w0">I</span> <span class="w" id="cap13w1">turn</span> <span class="w" id="cap13w2">what</span> <span class="w" id="cap13w3">I</span> <span class="w" id="cap13w4">heard</span> <span class="w" id="cap13w5">into</span> <span class="w" id="cap13w6">a</span></div>
+<div id="cap14" class="clip cap cap-under" data-layout-allow-overlap data-start="24.117" data-duration="2.050" data-track-index="6"><span class="w" id="cap14w0">plan</span> <span class="w" id="cap14w1">before</span> <span class="w" id="cap14w2">I</span> <span class="w" id="cap14w3">build</span> <span class="w" id="cap14w4">anything.</span></div>
+<div id="cap15" class="clip cap cap-under" data-layout-allow-overlap data-start="26.287" data-duration="1.850" data-track-index="6"><span class="w" id="cap15w0">I&#x27;d</span> <span class="w" id="cap15w1">built</span> <span class="w" id="cap15w2">a</span> <span class="w" id="cap15w3">voice</span> <span class="w" id="cap15w4">profile</span> <span class="w" id="cap15w5">too.</span></div>
+<div id="cap16" class="clip cap cap-under" data-layout-allow-overlap data-start="28.157" data-duration="1.280" data-track-index="6"><span class="w" id="cap16w0">Nobody</span> <span class="w" id="cap16w1">brought</span> <span class="w" id="cap16w2">it</span> <span class="w" id="cap16w3">up,</span></div>
+<div id="cap17" class="clip cap cap-under" data-layout-allow-overlap data-start="29.457" data-duration="1.080" data-track-index="6"><span class="w" id="cap17w0">so</span> <span class="w" id="cap17w1">I</span> <span class="w" id="cap17w2">took</span> <span class="w" id="cap17w3">it</span> <span class="w" id="cap17w4">out.</span></div>
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="36.058" data-track-index="10" data-volume="1"></audio>
+    </div>
+    <script>
+
+const MUTED_OVER="rgba(255,255,255,.55)", ON_OVER="#ffffff", MUTED_UNDER="#7A8990", ON_UNDER="#202426";
+const tl = gsap.timeline({ paused: true });
+// Hook title rises in behind the speaker.
+tl.fromTo("#hook-title span", {y:24, opacity:0}, {y:0, opacity:1, duration:.45, stagger:.12, ease:"power3.out"}, .25);
+// Commits: screen nudges in; the numbered step lands when "It started" is spoken.
+tl.fromTo("#c-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 8.2);
+tl.fromTo("#c-screen .row", {opacity:0, y:10}, {opacity:1, y:0, duration:.25, stagger:.18, ease:"power2.out"}, 8.549999999999999);
+tl.fromTo("#c-no, #c-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 13.267);
+tl.fromTo("#c-screen .first", {backgroundColor:"rgba(169,193,178,0)"}, {backgroundColor:"rgba(169,193,178,.45)", duration:.35}, 13.367);
+tl.fromTo("#c-tag", {opacity:0}, {opacity:1, duration:.3}, 13.567);
+tl.fromTo("#people .step-no, #people .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 15.41);
+tl.fromTo("#p-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 15.510);
+tl.fromTo("#people .tag", {opacity:0}, {opacity:1, duration:.3}, 15.910);
+tl.fromTo("#plan .step-no, #plan .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 22.83);
+tl.fromTo("#pl-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 22.930);
+tl.fromTo("#plan .tag", {opacity:0}, {opacity:1, duration:.3}, 23.330);
+tl.fromTo("#remove .step-no, #remove .step-head", {opacity:0, y:14}, {opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}, 26.29);
+tl.fromTo("#r-screen", {x:60, opacity:0}, {x:0, opacity:1, duration:.55, ease:"power3.out"}, 26.390);
+tl.fromTo("#remove .tag", {opacity:0}, {opacity:1, duration:.3}, 26.790);
+
+tl.fromTo("#r-screen .commit", {opacity:0, y:10}, {opacity:1, y:0, duration:.35, ease:"power2.out"}, 27.890);
+// Turn: countershift. The screen moves right and the opened field carries the judgment.
+tl.fromTo("#t-lead", {opacity:0, y:14}, {opacity:1, y:0, duration:.45, ease:"power3.out"}, 30.56);
+tl.fromTo("#t-screen", {x:0, opacity:0}, {x:0, opacity:1, duration:.4}, 30.710);
+tl.to("#t-screen", {x:364, duration:.7, ease:"power3.inOut"}, 33.007);
+tl.fromTo("#t-sage", {width:0}, {width:392, duration:.7, ease:"power3.inOut"}, 33.007);
+tl.fromTo("#t-sage-text", {opacity:0, x:-12}, {opacity:1, x:0, duration:.4, ease:"power2.out"}, 33.507);
+tl.fromTo("#t-tag", {opacity:0}, {opacity:1, duration:.3}, 33.757);
+// End card: Counterproof question and signature.
+tl.fromTo("#question .ql", {y:16, opacity:0}, {y:0, opacity:1, duration:.32, stagger:.13, ease:"power3.out"}, 36.440);
+tl.fromTo("#question .shift", {x:0}, {x:56, duration:.5, ease:"power3.inOut", immediateRender:false}, 37.100);
+tl.fromTo(".contact", {y:12, opacity:0}, {y:0, opacity:1, duration:.3, stagger:.12, ease:"power3.out"}, 37.150);
+tl.fromTo("#cap0w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.110);
+tl.fromTo("#cap0w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.320);
+tl.fromTo("#cap0w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.380);
+tl.fromTo("#cap0w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},1.720);
+tl.fromTo("#cap0w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},2.480);
+tl.fromTo("#cap1w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},2.590);
+tl.fromTo("#cap1w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.230);
+tl.fromTo("#cap1w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.250);
+tl.fromTo("#cap1w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},3.820);
+tl.fromTo("#cap1w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.060);
+tl.fromTo("#cap1w5",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.290);
+tl.fromTo("#cap2w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},4.460);
+tl.fromTo("#cap2w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.110);
+tl.fromTo("#cap2w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.610);
+tl.fromTo("#cap2w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.740);
+tl.fromTo("#cap3w0",{color:MUTED_OVER},{color:ON_OVER,duration:.06},5.990);
+tl.fromTo("#cap3w1",{color:MUTED_OVER},{color:ON_OVER,duration:.06},6.480);
+tl.fromTo("#cap3w2",{color:MUTED_OVER},{color:ON_OVER,duration:.06},6.680);
+tl.fromTo("#cap3w3",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.000);
+tl.fromTo("#cap3w4",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.230);
+tl.fromTo("#cap3w5",{color:MUTED_OVER},{color:ON_OVER,duration:.06},7.250);
+tl.fromTo("#cap4w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.317);
+tl.fromTo("#cap4w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.397);
+tl.fromTo("#cap4w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.787);
+tl.fromTo("#cap4w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},8.857);
+tl.fromTo("#cap5w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.527);
+tl.fromTo("#cap5w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.567);
+tl.fromTo("#cap5w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},9.987);
+tl.fromTo("#cap5w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.067);
+tl.fromTo("#cap5w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.307);
+tl.fromTo("#cap5w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.697);
+tl.fromTo("#cap5w6",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.797);
+tl.fromTo("#cap6w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},10.957);
+tl.fromTo("#cap6w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},11.887);
+tl.fromTo("#cap6w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.087);
+tl.fromTo("#cap6w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.137);
+tl.fromTo("#cap6w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.517);
+tl.fromTo("#cap6w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},12.637);
+tl.fromTo("#cap7w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.367);
+tl.fromTo("#cap7w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.467);
+tl.fromTo("#cap7w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},13.997);
+tl.fromTo("#cap7w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.257);
+tl.fromTo("#cap7w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.327);
+tl.fromTo("#cap7w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.847);
+tl.fromTo("#cap8w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},14.897);
+tl.fromTo("#cap8w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.407);
+tl.fromTo("#cap8w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.637);
+tl.fromTo("#cap8w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},15.697);
+tl.fromTo("#cap8w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.107);
+tl.fromTo("#cap8w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.247);
+tl.fromTo("#cap9w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.647);
+tl.fromTo("#cap9w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},16.977);
+tl.fromTo("#cap9w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},17.497);
+tl.fromTo("#cap10w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},17.887);
+tl.fromTo("#cap10w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.177);
+tl.fromTo("#cap10w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.447);
+tl.fromTo("#cap10w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.607);
+tl.fromTo("#cap10w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},18.827);
+tl.fromTo("#cap11w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},19.327);
+tl.fromTo("#cap11w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},19.717);
+tl.fromTo("#cap11w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.227);
+tl.fromTo("#cap11w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.457);
+tl.fromTo("#cap11w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.867);
+tl.fromTo("#cap12w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},20.987);
+tl.fromTo("#cap12w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},21.597);
+tl.fromTo("#cap12w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},21.977);
+tl.fromTo("#cap12w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.227);
+tl.fromTo("#cap13w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.827);
+tl.fromTo("#cap13w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},22.847);
+tl.fromTo("#cap13w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.117);
+tl.fromTo("#cap13w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.387);
+tl.fromTo("#cap13w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.457);
+tl.fromTo("#cap13w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},23.787);
+tl.fromTo("#cap13w6",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.057);
+tl.fromTo("#cap14w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.117);
+tl.fromTo("#cap14w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.437);
+tl.fromTo("#cap14w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.917);
+tl.fromTo("#cap14w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},24.987);
+tl.fromTo("#cap14w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},25.367);
+tl.fromTo("#cap15w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.287);
+tl.fromTo("#cap15w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.487);
+tl.fromTo("#cap15w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.787);
+tl.fromTo("#cap15w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},26.857);
+tl.fromTo("#cap15w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},27.197);
+tl.fromTo("#cap15w5",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},27.677);
+tl.fromTo("#cap16w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},28.157);
+tl.fromTo("#cap16w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},28.627);
+tl.fromTo("#cap16w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.037);
+tl.fromTo("#cap16w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.177);
+tl.fromTo("#cap17w0",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.457);
+tl.fromTo("#cap17w1",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.597);
+tl.fromTo("#cap17w2",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.667);
+tl.fromTo("#cap17w3",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},29.997);
+tl.fromTo("#cap17w4",{color:MUTED_UNDER},{color:ON_UNDER,duration:.06},30.087);
+window.__timelines = window.__timelines || {};
+window.__timelines["how-i-build"] = tl;
+
+    </script>
+  </body>
+</html>
