@@ -43,7 +43,8 @@ def phrases(ws, max_chars=26):
 SCENES = [
     # id, start, end
     ("hook", 0.0, 8.2),
-    ("commits", 8.2, 15.41),
+    ("commits", 8.2, 13.37),
+    ("problem", 13.37, 15.41),
     ("people", 15.41, 22.83),
     ("plan", 22.83, 26.29),
     ("remove", 26.29, 30.56),
@@ -97,16 +98,23 @@ scenes_html = [
     f'<video id="hook-video" class="clip" src="assets/hook.mp4" data-start="0" data-duration="{S["hook"][1]}" data-track-index="0" muted playsinline></video>',
     f'<div id="hook-title" class="clip" data-start="0" data-duration="{S["hook"][1]}" data-track-index="1" data-layout-allow-overlap><span>The part of</span><span>building that</span><span>wasn\'t quick</span></div>',
     f'<video id="hook-matte" class="clip" src="assets/hook-matte.webm" data-start="0" data-duration="{S["hook"][1]}" data-track-index="2" muted playsinline></video>',
-    scene("commits", f'''
-      <div class="step-no" id="c-no">01</div><h2 class="step-head" id="c-head">My own problem</h2>
-      <div class="screen terminal" id="c-screen"><div class="prompt">$ git log --reverse --oneline</div>{commit_rows}</div>
-      <div class="tag" id="c-tag">Grapevines commit history, October 2025</div>'''),
+    scene("commits", '''
+      <div class="screen terminal" id="c-screen"><div class="prompt">$ git show 7c337b8</div>
+        <div class="row"><span class="hash">commit 7c337b8</span></div>
+        <div class="row"><span class="date">Date: Tue Oct 7 2025</span></div>
+        <div class="row">&nbsp;</div>
+        <div class="row">Build Conversation Engine</div>
+        <div class="row">&nbsp;</div>
+        <div class="row first">Co-Authored-By: Claude</div></div>
+      <div class="tag" id="c-tag">Grapevines commit, October 2025</div>'''),
+    scene("problem", '''
+      <div class="step-no">01</div><h2 class="step-head">A problem I had</h2>'''),
     scene("people", '''
       <div class="step-no">02</div><h2 class="step-head">Talk to people</h2>
-      <div class="screen doc" id="p-screen"><h4>Epic overview</h4><h3>The problem</h3>
-        <p><b>“The app isn’t a daily driver.”</b> Nothing changes when a user opens the app on a Tuesday morning with 5 minutes.</p>
-        <p><b>“I just need to apply.”</b> Users skip positioning and rush to resume generation.</p></div>
-      <div class="tag">What people told me, March 2026</div>'''),
+      <div class="screen doc" id="p-screen"><h4>Last updated February 18, 2026 · Active discovery phase</h4><h3>Grapevines Customer Discovery Master Document</h3>
+        <h5>Discovery overview</h5>
+        <p>This document consolidates learnings from all customer discovery conversations to guide product development, positioning, and go-to-market strategy.</p></div>
+      <div class="tag">My discovery notes, February 2026</div>'''),
     scene("plan", '''
       <div class="step-no">03</div><h2 class="step-head">Write the plan</h2>
       <div class="screen doc" id="pl-screen"><h4>PRD · Manav Thaker · March 18, 2026</h4><h3>Epic 2: The Daily Coach</h3>
@@ -123,8 +131,11 @@ scenes_html = [
     scene("turn", '''
       <h2 class="turn-lead" id="t-lead">Building it myself means I can change it fast.</h2>
       <div class="sage" id="t-sage"><p id="t-sage-text">Knowing what to change still comes from talking to people.</p></div>
-      <div class="screen shot" id="t-screen"><img src="assets/positioning-5s.png" alt="" /></div>
-      <div class="tag" id="t-tag">Sample participant</div>'''),
+      <div class="screen doc sameday" id="t-screen"><h4>PRD · March 24, 2026</h4><h3>Voice calibration removal</h3>
+        <div class="commit"><span class="hash">611cbef</span> March 24, 2026</div>
+        <div class="commit">Remove voice calibration from onboarding</div></div>
+      <div class="screen doc callback" id="t-disc"><h4>February 18, 2026</h4><h3>Customer Discovery Master Document</h3></div>
+      <div class="tag" id="t-tag">Decided and shipped the same day</div>'''),
     scene("end", '''
       <h1 id="question"><span class="ql">When did talking</span><span class="ql">to people change</span><span class="ql shift">what you built?</span></h1>
       <p id="signature" class="contact">MP Thaker</p>
@@ -134,18 +145,19 @@ scenes_html = [
 
 knowing = next(w["s"] for w in body if w["t"] == "Knowing")
 it_started = next(w["s"] for w in body if w["t"] == "It")
+now_word = next(w["s"] for w in body if w["t"] == "Now")
 
 motion = f"""
 const MUTED_OVER="rgba(255,255,255,.55)", ON_OVER="#ffffff", MUTED_UNDER="#7A8990", ON_UNDER="#202426";
 const tl = gsap.timeline({{ paused: true }});
 // Hook title rises in behind the speaker.
 tl.fromTo("#hook-title span", {{y:24, opacity:0}}, {{y:0, opacity:1, duration:.45, stagger:.12, ease:"power3.out"}}, .25);
-// Commits: screen nudges in; the numbered step lands when "It started" is spoken.
+// Dev-team line: the commit carries Claude as co-author.
 tl.fromTo("#c-screen", {{x:60, opacity:0}}, {{x:0, opacity:1, duration:.55, ease:"power3.out"}}, {S['commits'][0]});
-tl.fromTo("#c-screen .row", {{opacity:0, y:10}}, {{opacity:1, y:0, duration:.25, stagger:.18, ease:"power2.out"}}, {S['commits'][0] + .35});
-tl.fromTo("#c-no, #c-head", {{opacity:0, y:14}}, {{opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}}, {it_started - .1:.3f});
-tl.fromTo("#c-screen .first", {{backgroundColor:"rgba(169,193,178,0)"}}, {{backgroundColor:"rgba(169,193,178,.45)", duration:.35}}, {it_started:.3f});
-tl.fromTo("#c-tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {it_started + .2:.3f});
+tl.fromTo("#c-screen .row", {{opacity:0, y:8}}, {{opacity:1, y:0, duration:.2, stagger:.12, ease:"power2.out"}}, {S['commits'][0] + .3:.3f});
+tl.fromTo("#c-screen .first", {{backgroundColor:"rgba(169,193,178,0)"}}, {{backgroundColor:"rgba(169,193,178,.45)", duration:.35}}, {now_word:.3f});
+tl.fromTo("#c-tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {S['commits'][0] + .8:.3f});
+tl.fromTo("#problem .step-no, #problem .step-head", {{opacity:0, y:14}}, {{opacity:1, y:0, duration:.4, stagger:.08, ease:"power3.out"}}, {S['problem'][0]});
 """
 for sid, screen in (("people", "#p-screen"), ("plan", "#pl-screen"), ("remove", "#r-screen")):
     a = S[sid][0]
@@ -156,11 +168,13 @@ motion += f"""
 tl.fromTo("#r-screen .commit", {{opacity:0, y:10}}, {{opacity:1, y:0, duration:.35, ease:"power2.out"}}, {S['remove'][0] + 1.6:.3f});
 // Turn: countershift. The screen moves right and the opened field carries the judgment.
 tl.fromTo("#t-lead", {{opacity:0, y:14}}, {{opacity:1, y:0, duration:.45, ease:"power3.out"}}, {S['turn'][0]});
-tl.fromTo("#t-screen", {{x:0, opacity:0}}, {{x:0, opacity:1, duration:.4}}, {S['turn'][0] + .15:.3f});
-tl.to("#t-screen", {{x:364, duration:.7, ease:"power3.inOut"}}, {knowing - .35:.3f});
+tl.fromTo("#t-screen", {{x:60, opacity:0}}, {{x:0, opacity:1, duration:.5, ease:"power3.out"}}, {S['turn'][0] + .15:.3f});
+tl.fromTo("#t-screen .commit", {{opacity:0, y:8}}, {{opacity:1, y:0, duration:.3, stagger:.2, ease:"power2.out"}}, {S['turn'][0] + .8:.3f});
+tl.fromTo("#t-tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {S['turn'][0] + 1.3:.3f});
+tl.to("#t-screen, #t-tag", {{opacity:0, duration:.3}}, {knowing - .4:.3f});
 tl.fromTo("#t-sage", {{width:0}}, {{width:392, duration:.7, ease:"power3.inOut"}}, {knowing - .35:.3f});
 tl.fromTo("#t-sage-text", {{opacity:0, x:-12}}, {{opacity:1, x:0, duration:.4, ease:"power2.out"}}, {knowing + .15:.3f});
-tl.fromTo("#t-tag", {{opacity:0}}, {{opacity:1, duration:.3}}, {knowing + .4:.3f});
+tl.fromTo("#t-disc", {{x:120, opacity:0}}, {{x:0, opacity:1, duration:.7, ease:"power3.inOut"}}, {knowing - .2:.3f});
 // End card: Counterproof question and signature.
 tl.fromTo("#question .ql", {{y:16, opacity:0}}, {{y:0, opacity:1, duration:.32, stagger:.13, ease:"power3.out"}}, {END_CARD + .04:.3f});
 tl.fromTo("#question .shift", {{x:0}}, {{x:56, duration:.5, ease:"power3.inOut", immediateRender:false}}, {END_CARD + .7:.3f});

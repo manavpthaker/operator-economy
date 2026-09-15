@@ -3,7 +3,11 @@
   "render": "renders/how-i-build-v2.mp4",
   "sha256": "d5e2fc7288e18649f13dbe1a04f087fa7054b2769d4a91a3b3f3cca12e203e9b",
   "format": "720x1280, 24 fps, 972 frames, 40.5s, HyperFrames 0.8.38, CRF 16",
-  "inputs": {"hook": "../motion-test-01/media/synced-trimmed.mp4 (locked)", "voice": "../voice-full/media/master.original-c.wav (locked)", "matte": "assets/hook-matte.webm (hyperframes remove-background, CoreML)"},
+  "inputs": {
+    "hook": "../motion-test-01/media/synced-trimmed.mp4 (locked)",
+    "voice": "../voice-full/media/master.original-c.wav (locked)",
+    "matte": "assets/hook-matte.webm (hyperframes remove-background, CoreML)"
+  },
   "structure": [
     "0-8.2 hook: swivel clip, title behind speaker, over-video captions",
     "8.2-15.4 commit history (Grapevines git log, Oct 2025); 01 My own problem lands on 'It started'",
@@ -17,5 +21,16 @@
   "captions": "18 burned phrase captions (none over turn/end text); captions.srt has all 22 phrases with exact script words",
   "checks": "strict decode passed; voice onset 1.09s and hook/body gap match master; no caption overlaps after v2 fix; HyperFrames check layout flags intentional title-behind-matte occlusion only",
   "v1": "renders/how-i-build.mp4 kept; caption phrases overlapped around 24s",
-  "publication_approved": false
+  "publication_approved": false,
+  "v3": {
+    "render": "renders/how-i-build-v3.mp4",
+    "owner_feedback": "the script and the screens are mismatched",
+    "changes": [
+      "dev-team line: git show of 7c337b8 (Oct 7 2025) with Co-Authored-By: Claude highlighted on 'Now'",
+      "01 A problem I had: title only, pending owner-selected job-search doc",
+      "02 Talk to people: Customer Discovery Master Document header and overview (brown-man-content research; no names or statistics)",
+      "turn: PRD dated Mar 24 2026 beside commit 611cbef Mar 24 2026 ('Decided and shipped the same day'), then sage field with discovery doc callback"
+    ],
+    "pending": "01 screen: owner's own job-search doc; none from Sep-Oct 2025 found on disk; initial Grapevines README unusable (unsourced stats, fictional testimonial)"
+  }
 }
