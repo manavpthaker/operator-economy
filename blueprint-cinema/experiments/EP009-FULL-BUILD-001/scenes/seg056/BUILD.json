@@ -13,16 +13,15 @@
  },
  "mp4": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/seg056.mp4",
-  "sha256": "b51b3ecdba7e604a89a4c2b1a08a96452d5cb3e9c0cb639efbe4458e989177ac"
+  "sha256": "865e9e3a19457cd58143895db47bf3822f299d38cf64eb6e733891b1d27ddddb"
  },
- "index_html_sha256": "65238dcf1882bcb80f63e1218b26c6f616fed0816bd4b92d1c3b3abe96e52539",
+ "index_html_sha256": "e3c6dc1d9268f7178ce94331d5793a763b23d22ec7c87ef59b2bdaf9b4c554c5",
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-000.020s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-001.165s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-001.545s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-002.445s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-004.045s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-005.385s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-009.185s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-011.825s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/stills/seg056-014.045s.png",
@@ -38,23 +37,41 @@
   "audio_gain_db": -0.016,
   "audio": "2 ch 48000 Hz aac; rendered stream carries encoder padding samples beyond the excerpt (838656 vs 838000)",
   "uniform_frames": [],
-  "seams": "frame 0 vs seg050__seg054 last frame: max 14/255; last frame vs act 4 seg057__seg058 s17ab.mp4 frame 0: max 12/255, 0 px over 20"
+  "seams": "frame 0 vs seg050__seg054 last frame: max 12/255. Last frame no longer matches act 4's current s17ab.mp4 frame 0 (max 228/255): act 4 must match the new end state.",
+  "strict_warnings": 0
  },
  "new_objects": [
   "IF condition box (cardw)",
   "dashed door outline (kit gap stroke) before a small inn",
-  "answer field box"
+  "answer field box",
+  {
+   "id": "s16-unknown-tag",
+   "depicts": "small dashed tag 'unknown: ask two agencies' inside the condition box",
+   "construction": "kit gap stroke rect, Supreme 18"
+  }
  ],
  "deviations": [
-  "IF kicker and then: prefix added so the condition cannot read as met."
+  "IF kicker and then: prefix added so the condition cannot read as met.",
+  "Fix round 1 (B-10, B-24): 'Kill condition' heading removed; the condition is one sentence at one size starting with 'If' with a small 'unknown: ask two agencies' tag; a small kicker names it; the phone sits beside the box; call lines run from the phone to the agencies."
  ],
  "assumptions": [],
  "end_state": {
-  "seg056": "Heading Kill condition; condition box x 260-1020 y 130-300 (IF / Agencies already retain 30-room inns at $1,500 a month / and owners prefer it); You kit-practice-figure .7 at (330,440) label You; solid route to dashed door x 706-748 y 386-450 and kit-inn-mini .55 at (770,362); then: no front door at this size (700,500); phone kit-phone at (70,520); two call lines to kit-person .42 at (340,640) and (490,640) labelled agency; smallest retained property: with blank field x 948-1210 y 594-648. index.html sha256 65238dcf1882bcb80f63e1218b26c6f616fed0816bd4b92d1c3b3abe96e52539 is the copy act 4 used."
+  "seg056": "ACT 4 INHERITS (changed in fix round 1). Paper #F5F0E6, no heading. kit-phone unscaled at (60,140). Condition box x 170-1180 y 120-290 (cardw): kicker 'KILL CONDITION' (Supreme 500 18 caps, x 202 y 160); 'If agencies already retain 30-room inns at $1,500 a month,' (Supreme 500 27, x 202 y 208); 'and owners prefer it' (x 202 y 254); dashed tag x 900-1152 y 230-268 'unknown: ask two agencies' (Supreme 18 centred x 1026 y 255). You kit-practice-figure .7 at (330,440), label You (330,352); solid route (400,420) to (700,418); dashed door x 706-748 y 386-450; kit-inn-mini .55 at (770,362); 'then: no front door at this size' centred (700,500). Call lines from the phone foot: 'M92 280C94 400 120 520 160 584' and 'M104 280C136 400 220 520 290 584'; kit-person .42 at (170,640) and (300,640), labels 'agency' at y 686; 'smallest retained property:' (Supreme 500 25, x 620 y 624) with blank field x 948-1210 y 594-648."
  },
  "decision_event_ids": [
   "ep009-act3-s16-build-revision-v1",
-  "ep009-act3-s16-build-verification-v1"
+  "ep009-act3-s16-build-verification-v1",
+  "ep009-act3-s16-fix-round-1-v1",
+  "ep009-act3-s16-fix-round-1-verified-v1"
  ],
- "source": "authored from scratchpad templates; index.html is the assembled standalone composition"
+ "source": "authored from scratchpad templates; index.html is the assembled standalone composition",
+ "previous_render": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg056/qa/seg056.r0.mp4",
+  "sha256": "b51b3ecdba7e604a89a4c2b1a08a96452d5cb3e9c0cb639efbe4458e989177ac"
+ },
+ "end_state_for_act4": "ACT 4 INHERITS (changed in fix round 1). Paper #F5F0E6, no heading. kit-phone unscaled at (60,140). Condition box x 170-1180 y 120-290 (cardw): kicker 'KILL CONDITION' (Supreme 500 18 caps, x 202 y 160); 'If agencies already retain 30-room inns at $1,500 a month,' (Supreme 500 27, x 202 y 208); 'and owners prefer it' (x 202 y 254); dashed tag x 900-1152 y 230-268 'unknown: ask two agencies' (Supreme 18 centred x 1026 y 255). You kit-practice-figure .7 at (330,440), label You (330,352); solid route (400,420) to (700,418); dashed door x 706-748 y 386-450; kit-inn-mini .55 at (770,362); 'then: no front door at this size' centred (700,500). Call lines from the phone foot: 'M92 280C94 400 120 520 160 584' and 'M104 280C136 400 220 520 290 584'; kit-person .42 at (170,640) and (300,640), labels 'agency' at y 686; 'smallest retained property:' (Supreme 500 25, x 620 y 624) with blank field x 948-1210 y 594-648.",
+ "fix_round_1": [
+  "B-10",
+  "B-24"
+ ]
 }

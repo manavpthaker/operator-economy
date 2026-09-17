@@ -46,7 +46,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
 <g id="kit-tick" data-kit-desc="Event tick on a timeline (booking, stay, checkout, next booking). Native 24 tall centred on the line."><path d="M0-12L1 12" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
 <!-- KIT:DEFS:END -->
 </defs></svg>
-<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="You drive to three nearby inns, one run by an innkeeper you know, whose back office door opens onto the guest book while a tool card stays outside. Then the machine and you: drafting and scheduling shrink, the voice and who gets a message stay at full weight. Then what you sell first: the audit card and its steps.">
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="You drive to three nearby inns, one run by an innkeeper you know, whose back office door opens onto the guest book while a tool card stays outside. Then the machine and you: drafting and scheduling shrink, the voice and who gets a message stay at full weight. Then what you sell first: the judgment column shrinks to the foot of the page while the audit card and its steps arrive, with a small heading at top left.">
 <!-- S12c: the table state from S12a, then the drivable route -->
 <g id="scA">
 <g id="tbl"><g id="tbl-furn"><use href="#kit-table" transform="translate(500,450)"/>
@@ -87,6 +87,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
 <g id="L4c" class="hide" data-layout-allow-overlap><rect x="70" y="302" width="530" height="44" rx="4" class="card" stroke-width="2.4"/><text class="small" x="92" y="332" fill="#173530">schedule</text><path d="M438 314L438 334" stroke="#173530" stroke-width="3" stroke-linecap="round"/><text class="tiny" x="584" y="331" text-anchor="end">checkout date</text></g>
 </g>
 <g id="cheap" class="hide"><path class="kit-light" d="M70 370L600 369"/><text class="label" x="70" y="408">cheap</text></g>
+<g id="jcol" transform="translate(0,0) scale(1)">
 <g id="R1" class="hide"><rect x="680" y="140" width="530" height="70" rx="4" class="cardw"/><text class="blk" x="708" y="184">the voice</text></g>
 <g id="R2" class="hide"><rect x="680" y="222" width="530" height="170" rx="4" class="cardw"/><text class="blk" x="708" y="264">who gets a message</text>
 <use href="#kit-person" transform="translate(800,352) scale(.34)"/><use href="#kit-person" transform="translate(930,352) scale(.34)"/><use href="#kit-person" transform="translate(1060,352) scale(.34)"/>
@@ -98,11 +99,13 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
 <g id="drip" class="hide"><path class="gap" d="M958 482L1170 482"/>
 <use href="#kit-envelope" transform="translate(944,471) scale(.7)"/><use href="#kit-envelope" transform="translate(1004,471) scale(.7)"/><use href="#kit-envelope" transform="translate(1064,471) scale(.7)"/><use href="#kit-envelope" transform="translate(1124,471) scale(.7)"/>
 <text class="tiny" x="1050" y="534" text-anchor="middle">drip campaign</text></g></g>
+<g id="judg" class="hide"><rect x="664" y="126" width="562" height="444" rx="8" stroke="#586D74" stroke-width="2" fill="none"/><text class="label" x="1226" y="606" text-anchor="end">judgment</text></g>
+</g>
 <g id="six" class="hide">
 <use href="#kit-inn-mini" transform="translate(440,669) scale(.25)"/><use href="#kit-inn-mini" transform="translate(475,617) scale(.25)"/><use href="#kit-inn-mini" transform="translate(540,585) scale(.25)"/><use href="#kit-inn-mini" transform="translate(680,585) scale(.25)"/><use href="#kit-inn-mini" transform="translate(745,617) scale(.25)"/><use href="#kit-inn-mini" transform="translate(780,669) scale(.25)"/>
 <use href="#kit-person" transform="translate(640,688) scale(.42)"/>
 <path class="kit-route" d="M502 688L622 668M537 636L622 668M602 604L622 668M678 604L658 668M743 636L658 668M778 688L658 668"/></g>
-<g id="judg" class="hide"><rect x="664" y="126" width="562" height="444" rx="8" stroke="#586D74" stroke-width="2" fill="none"/><text class="label" x="1226" y="606" text-anchor="end">judgment</text></g>
+
 </g>
 <!-- S14a: what you sell first -->
 <g id="s14a">
@@ -130,7 +133,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
 </g></g>
 </svg>
 <h1 id="h13" class="head" style="font-size:52px;top:30px">What does the machine do, and what do you do?</h1>
-<h1 id="h14" class="head">What do you sell first?</h1>
+<h1 id="h14" class="head" style="left:40px;right:auto;top:26px;text-align:left;font-size:36px">What do you sell first?</h1>
 <audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="77.166667" data-media-start="0" data-track-index="100" data-volume="1"></audio>
 </div>
 <script>
@@ -191,11 +194,14 @@ fade('#drip',w(2084),.45);
 rise('#six',w(2092));
 dim('#Lc',w(2096),.55);fade('#cheap',w(2096)+.2,.35);
 fade('#judg',w(2100),.45);
-out('#scB',B.seg048,.6);out('#h13',B.seg048,.55);
+// S14 entrance (B-24): no blank page. The drafting column and the six-inns fan clear; the judgment column
+// carries into S14, shrinking to the foot of the page while the audit card arrives.
+out('#L1f,#L2f,#L3f,#L4f,#Lc,#cheap,#six',B.seg048,.5);out('#h13',B.seg048,.5);
+xf('#jcol',B.seg048+.1,{x:0,y:0,s:1},{x:324.4,y:429.6,s:.4},1.0);
 
 // ---- seg048 S14a ----
 tl.set('#s14a',{autoAlpha:1},B.seg048);
-wipe('#h14',w(2102)-.12,.6);
+fade('#h14',w(2102),.45);
 tl.fromTo('#ret',{autoAlpha:0,x:-500,y:-330},{autoAlpha:1,x:-500,y:-330,duration:.4,ease:'power1.out'},w(2107));
 move('#ret',w(2109)+.35,{x:0,y:0,opacity:.45},.9);
 rise('#aud',w(2110));
