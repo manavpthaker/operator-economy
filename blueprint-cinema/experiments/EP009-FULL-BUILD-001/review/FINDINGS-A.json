@@ -1,0 +1,455 @@
+[
+ {
+  "id": "A-01",
+  "scene": "S00",
+  "segments": [
+   "seg001",
+   "seg002"
+  ],
+  "master_in": 5.542,
+  "master_out": 5.708,
+  "severity": "should-fix",
+  "category": "seam",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0005.55-f01-end.png",
+  "problem": "F01 to F02 is a jump cut in almost the same setup: the guest vanishes from the counter to the doorway while her raised key hand stays in the same pose, so it reads as dropped frames rather than an edit.",
+  "fix": "Make seg002 a deliberate tighter shot: scale F02 about 120 percent centred on the innkeeper (keep her head and the window in frame, let the doorway exit fall at the left edge) for the whole of seg002. Leave seg001 wide. No timing change.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-02",
+  "scene": "S00",
+  "segments": [
+   "seg002",
+   "seg003"
+  ],
+  "master_in": 10.417,
+  "master_out": 10.583,
+  "severity": "should-fix",
+  "category": "seam",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0010.45-f02-end.png",
+  "problem": "Second jump cut in the same setup within five seconds: she is looking out of the window holding the key, then is instantly facing front with her hand on the bell.",
+  "fix": "With A-01 applied, seg002 is tight and seg003 returns to the full F03 wide frame, so the size change motivates the cut. If A-01 is not applied, scale seg003 to about 115 percent instead. No new generation.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-03",
+  "scene": "S00",
+  "segments": [
+   "seg003"
+  ],
+  "master_in": 10.5,
+  "master_out": 16.833,
+  "severity": "note",
+  "category": "film",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0010.55-f03-start.png",
+  "problem": "The narrated stop (\"the email on the reservation isn't his\") is not performed; she keeps typing (recorded as accepted_partial). The screen insert carries the point instead.",
+  "fix": "Accept as is; the owner should know the stop lives in seg004. Do not regenerate.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-04",
+  "scene": "S00",
+  "segments": [
+   "seg005"
+  ],
+  "master_in": 23.2,
+  "master_out": 26.0,
+  "severity": "should-fix",
+  "category": "causal-staging",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0024.80-relay-line.png",
+  "problem": "The relay line is a short dash floating between the buildings, attached to neither the inn, the site nor the relay field, so \"the relay stops working\" is not observable; it reads as a stray timeline.",
+  "fix": "Start the line at the inn's front door, carry the existing illustrative relay field on the line (the field slides with the line head), keep the \"checkout\" tick, and stop the line a little after it with the field resting at the stop. Remove nothing else.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-05",
+  "scene": "S00",
+  "segments": [
+   "seg005"
+  ],
+  "master_in": 28.1,
+  "master_out": 32.0,
+  "severity": "note",
+  "category": "legibility",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0030.50-year-later.png",
+  "problem": "The \"same room window lights\" change is a tiny hatched window that cannot be seen at 720p, and the returning guest stands below the site instead of travelling the booking route.",
+  "fix": "Move the daypack figure onto the arc so it travels site to inn on \"same\" 28.12, and fill the one window with a solid pencil tone (not oxide) on 29.44.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-06",
+  "scene": "S00",
+  "segments": [
+   "seg008"
+  ],
+  "master_in": 40.083,
+  "master_out": 50.292,
+  "severity": "should-fix",
+  "category": "continuity",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s00-0049.00-service-slip.png",
+  "problem": "The site and tags are scaled up so far that the tag outlines become heavy marker strokes, unlike the thin pencil of every other drawing; the frame then holds 3.6 s with nothing changing and a large unlabelled form on the right.",
+  "fix": "Render the enlarged tags and site with non-scaling strokes at world-kit weight (or reduce the scale to about 70 percent and centre the group). Keep the dashed \"a service\" and the four-box slip and cues unchanged.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-07",
+  "scene": "S00",
+  "segments": [
+   "seg009"
+  ],
+  "master_in": 50.292,
+  "master_out": 50.9,
+  "severity": "should-fix",
+  "category": "presenter-sync",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/p01-sync-strip.png",
+  "problem": "P01 opens with the mouth shaping speech and the hand already gesturing through 0.6 s of silence before \"I\"; with the 0.528 s Fal placement noted in the take record, the picture may lead the audio for the whole take.",
+  "fix": "First watch seg009 at normal speed with sound. If the mouth leads, delay picture by the measured amount (use earlier source frames if the raw take has them, otherwise hold the first closed-mouth frame) and keep the master audio untouched. No new generation unless the offset varies across the take.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-08",
+  "scene": "S03",
+  "segments": [
+   "seg013"
+  ],
+  "master_in": 87.833,
+  "master_out": 93.75,
+  "severity": "note",
+  "category": "pacing",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s03-0090.50-inn-hold.png",
+  "problem": "Six seconds of a nearly static inn on \"worth being fair to the system\"; acceptable as establishing, but nothing on screen relates to fairness.",
+  "fix": "Keep; optionally let the booking site outline enter at frame right on \"system\" to prepare seg015.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-09",
+  "scene": "S03",
+  "segments": [
+   "seg016"
+  ],
+  "master_in": 113.75,
+  "master_out": 140.625,
+  "severity": "should-fix",
+  "category": "text-load",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s03-0138.00-commission-card.png",
+  "problem": "The commission card reads like a report page: about ten text blocks, both receipts set nearly body size, and on-screen figures the narration does not say (\"Preferred +3 points\", \"10 to 20%\").",
+  "fix": "Set both receipts at EP007 foot size and low contrast. Change the tag layer labels to what is spoken: \"Base about 15% · most European markets\", \"Preferred badge adds\", \"Visibility Booster adds\", \"Genius: a discount the hotel funds\"; the exact values stay in the C005 receipt. Keep the tag and its fill cues.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-10",
+  "scene": "S03",
+  "segments": [
+   "seg017"
+  ],
+  "master_in": 140.625,
+  "master_out": 174.292,
+  "severity": "should-fix",
+  "category": "claims-and-text-load",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s03-0173.00-three-changed.png",
+  "problem": "Three dense cards with receipts at readable size make a slide. The middle kicker \"BOOKING.COM GENIUS · SECONDARY\" names Booking.com as if it were the source, while C006 comes from Houst trade reporting.",
+  "fix": "Change the middle kicker to \"TRADE REPORTING · SECONDARY\". Shrink all three receipts to foot size. Remove the \"Interest\" rule line spacing so each card carries kicker, figure, one line, caveat only.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-11",
+  "scene": "S03",
+  "segments": [
+   "seg018"
+  ],
+  "master_in": 178.72,
+  "master_out": 188.667,
+  "severity": "should-fix",
+  "category": "legibility",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s03-0187.50-who-feels-it.png",
+  "problem": "The empty \"marketing hook\" reads as a capital letter J with the word \"marketing\" beside it; the viewer cannot see \"no marketing hire\".",
+  "fix": "Replace the J hook with a dashed empty figure outline beside the desk figure, labelled \"marketing hire\", drawing in on \"no\" 178.72. Keep the stack of tasks and the AHLA foot card.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-12",
+  "scene": "S05",
+  "segments": [
+   "seg020"
+  ],
+  "master_in": 205.083,
+  "master_out": 226.208,
+  "severity": "should-fix",
+  "category": "causal-staging",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s05-0226.00-a-job.png",
+  "problem": "The words \"check-in\" and \"housekeeping\" do the explaining while the desk figure never moves; the site's pay line is a thick vertical post; the inn floats at top unconnected. Hide the labels and the only visible relationship is the tag at \"next booking\".",
+  "fix": "Remove the \"check-in\" and \"housekeeping\" labels. On \"not\" 207.72 slide two or three small task sheets (the seg018 desk stack object) onto her desk within the stay span. Redraw the pay line as a thin pencil line from the site to the \"booking\" tick with a small tag at its end. Drop the floating inn or sit it directly above the stay span. Keep the dashed place, \"A job\" and the tag cues.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-13",
+  "scene": "S05",
+  "segments": [
+   "seg021"
+  ],
+  "master_in": 228.5,
+  "master_out": 234.0,
+  "severity": "should-fix",
+  "category": "presenter-performance",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s05-0231.00-p04-held-gesture.png",
+  "problem": "P04 holds a flat hand in the air for about five seconds; at still level it looks frozen, and the take has the largest residual drift in the set, so the line may not coincide with \"recovers\".",
+  "fix": "Watch at normal speed. If it reads held, take a continuous editorial crop to chest-up (hands out of frame) from about 228.5 to 234.0 and return to wide for \"By the end\", with no audio cut. Regeneration only if the crop still fails.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-14",
+  "scene": "S06",
+  "segments": [
+   "seg022"
+  ],
+  "master_in": 236.292,
+  "master_out": 260.0,
+  "severity": "should-fix",
+  "category": "pacing",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s06-0238.00-empty-card.png",
+  "problem": "After the presenter, the picture is two empty ruled columns for about 3.7 s, and the right column stays empty for 24 s; it looks like a render that has not loaded.",
+  "fix": "Show the \"CLOUDBEDS\" kicker from the first frame of seg022 and do not draw the right column rule or divider until \"For balance\" 259.14.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-15",
+  "scene": "S06",
+  "segments": [
+   "seg023",
+   "seg024"
+  ],
+  "master_in": 272.28,
+  "master_out": 305.667,
+  "severity": "blocking",
+  "category": "claims-inference",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s06-0285.80-range-band.png",
+  "problem": "Only the half-to-two-thirds band is shaded and carries the commission tag, so the picture says the bookings between those edges carry commission. The claim is that half to two thirds of all bookings do.",
+  "fix": "Shade from the first booking mark to the \"half\" edge in solid tone and the half-to-two-thirds extension in a lighter hatch labelled as the range; move the commission tag to sit over the whole shaded run from the left. Same change in the seg024 return at 302.80.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-16",
+  "scene": "S07",
+  "segments": [
+   "seg026"
+  ],
+  "master_in": 331.4,
+  "master_out": 339.042,
+  "severity": "should-fix",
+  "category": "claims",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s07-0338.50-evidence.png",
+  "problem": "The secondary trade-press durations are set in the same large serif as the primary Booking.com quote, directly under it, so \"about 7 days\" reads as Booking.com's own policy (C008 prohibited).",
+  "fix": "Set \"Messaging window: about 7 days after checkout\" and \"Expedia: about 45 days\" at body size under the \"TRADE PRESS · SECONDARY\" kicker; keep the quote as the only headline.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-17",
+  "scene": "S07",
+  "segments": [
+   "seg027"
+  ],
+  "master_in": 360.27,
+  "master_out": 368.0,
+  "severity": "should-fix",
+  "category": "text-load-and-continuity",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s07-0367.50-design-constraint.png",
+  "problem": "The end state has about twelve labels; the \"email tool\" card sits on the inn roof like a stray sticker; the daypack guest stands behind the desk in the innkeeper's place, so it reads as the guest working the desk.",
+  "fix": "Move the guest figure in front of the desk facing the dashed book. Move the \"email tool\" card down to the lower-left margin at reduced opacity. Remove the \"the inn's email field\" label (the field is familiar from S00). Keep the boundary, arrow and book at the site.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-18",
+  "scene": "S08",
+  "segments": [
+   "seg029"
+  ],
+  "master_in": 373.375,
+  "master_out": 388.375,
+  "severity": "note",
+  "category": "text-load",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s08-0388.00-parts-cheap.png",
+  "problem": "Text-only evidence for 15 s with the right half empty; claims and caveats match C009/C010.",
+  "fix": "Optional: receipts to foot size. Otherwise keep.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-19",
+  "scene": "S08",
+  "segments": [
+   "seg030",
+   "seg031",
+   "seg032"
+  ],
+  "master_in": 388.375,
+  "master_out": 410.042,
+  "severity": "note",
+  "category": "medium",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s08-0409.80-list-card.png",
+  "problem": "The drawn fallback for failed F06 works: jobs converge on one figure and the list's owner line is empty. The cards repeat the narration word for word, so the figure is still passive.",
+  "fix": "Keep. If touched, have her hand move to each card as it lands.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-20",
+  "scene": "S09",
+  "segments": [
+   "seg033"
+  ],
+  "master_in": 410.3,
+  "master_out": 412.0,
+  "severity": "should-fix",
+  "category": "continuity-inference",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s09-0412.50-figure-gone.png",
+  "problem": "Right after \"the list belongs to nobody\" the innkeeper and her desk fade out, which can read as her leaving or the inn failing, and breaks the persistent world just before the scale axis.",
+  "fix": "Keep the desk figure, scaled down, beside the list card at the small end of the axis for the whole of S09.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-21",
+  "scene": "S09",
+  "segments": [
+   "seg034"
+  ],
+  "master_in": 455.16,
+  "master_out": 469.292,
+  "severity": "blocking",
+  "category": "claims",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s09-0469.00-scale-busy.png",
+  "problem": "\"$186.1 billion\" and \"$119.6 billion\" are headline figures while the narration says \"more than a hundred billion\"; C014 puts the exact figures in the receipt only.",
+  "fix": "Replace both headlines with one line \"more than $100 billion of bookings each, 2025\" plus \"by their own filings · blended across everything they sell\"; the exact figures stay in the foot receipt, never side by side as headlines.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-22",
+  "scene": "S09",
+  "segments": [
+   "seg033",
+   "seg034"
+  ],
+  "master_in": 430.0,
+  "master_out": 469.292,
+  "severity": "should-fix",
+  "category": "text-load",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s09-0469.00-scale-busy.png",
+  "problem": "About seventeen text blocks including three full receipt lines; the booking sites sit on the same small-to-large axis as properties, mixing a platform into a property-size scale.",
+  "fix": "Shrink receipts to foot size. Lift the booking sites off the axis to the right end on their own base line labelled \"the floor\" (drop the second heavy rule under the axis). Keep tiers, bracket and cues.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-23",
+  "scene": "S10",
+  "segments": [
+   "seg036",
+   "seg038",
+   "seg039"
+  ],
+  "master_in": 480.042,
+  "master_out": 589.875,
+  "severity": "blocking",
+  "category": "text-load",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s10-0589.80-final.png",
+  "problem": "The final frame carries about 35 text items; every step accumulates instead of replacing, so it reads as a spreadsheet and the labels, not the drawing, carry the argument (owner EP007 r39: busy, headings doing the work).",
+  "fix": "Replace, do not accumulate: when the enlarged panel opens on 538.49, fade the left column and its labels to 30 percent; inside the panel show only the current step label (slice, commission on slice, minus direct cost, what is left, per month) and clear the previous one when the next lands; keep at the end only the panel bar, the ceiling line with \"Ceiling\" and its sub-label, the retainer tag, the dashed hypothesis tag, the slip, the ILLUSTRATIVE label and the receipt. Show the ghost ceilings one at a time on their words with one short label each.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-24",
+  "scene": "S10",
+  "segments": [
+   "seg038",
+   "seg039"
+  ],
+  "master_in": 556.2,
+  "master_out": 589.875,
+  "severity": "should-fix",
+  "category": "claims",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s10-0557.00-caveat-dropped.png",
+  "problem": "\"3.5% to 5%\" and \"low end: one vendor's own figure\" disappear on \"What's left\" while the remainder and the monthly ceiling built on them stay to the cut.",
+  "fix": "Keep a small persistent line under the remainder: \"after 3.5 to 5% direct cost · low end one vendor's figure\" through the end of seg039.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-25",
+  "scene": "S10",
+  "segments": [
+   "seg036",
+   "seg038",
+   "seg039"
+  ],
+  "master_in": 496.94,
+  "master_out": 589.875,
+  "severity": "should-fix",
+  "category": "precision",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s10-0520.30-commission.png",
+  "problem": "Seven exact modeled figures ($919,800, $583,153, $104,968 to $128,294, $91,980, $11,957 to $17,017, $996 to $1,418 and the ghost ranges) sit under the rounded ones, making an illustrative model look measured.",
+  "fix": "Remove the small exact figures from the canvas; they remain available in the receipt's ceiling table.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-26",
+  "scene": "S10",
+  "segments": [
+   "seg036"
+  ],
+  "master_in": 480.042,
+  "master_out": 483.44,
+  "severity": "note",
+  "category": "label-rule",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s10-0520.30-commission.png",
+  "problem": "The \"ILLUSTRATIVE MODEL\" label and receipt are absent for the first 3.4 s of seg036 (blank paper, then column and slip), against the review rule \"every model frame of S10\".",
+  "fix": "Show the label and receipt from the first frame of seg036.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-27",
+  "scene": "S10",
+  "segments": [
+   "seg039",
+   "seg040"
+  ],
+  "master_in": 589.875,
+  "master_out": 590.5,
+  "severity": "note",
+  "category": "seam",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/s10-0590.30-seam-s11-dissolve.png",
+  "problem": "The handoff into S11 is a two to three frame dissolve that double-exposes the dense ceiling model over the S05 timeline.",
+  "fix": "Hard cut at 589.875, or dissolve through clean paper in 6 frames.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-28",
+  "scene": "S04",
+  "segments": [
+   "seg019"
+  ],
+  "master_in": 188.667,
+  "master_out": 205.083,
+  "severity": "note",
+  "category": "presenter-performance",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/seams-s00-s05-strip.png",
+  "problem": "P03 placements are index-finger taps, and inner brows gather strongly on the final question; not judgeable for tone without playback.",
+  "fix": "Watch at normal speed; if the question reads challenging, crop no tighter than the current wide.",
+  "needs_paid_generation": false
+ },
+ {
+  "id": "A-29",
+  "scene": "S00-S10",
+  "segments": [
+   "seg009",
+   "seg012",
+   "seg019",
+   "seg021",
+   "seg028",
+   "seg035",
+   "seg037"
+  ],
+  "master_in": 50.292,
+  "master_out": 532.25,
+  "severity": "note",
+  "category": "presenter-set",
+  "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/frames-A/seams-s05-s11-strip.png",
+  "problem": "All seven presenter takes in this range use the identical wide framing with no editorial crop; hand patterns do differ across takes.",
+  "fix": "Consider one continuous emphasis crop where the argument narrows (P04 \"is a number\", P07 \"wrong number\"), per presenter-references.",
+  "needs_paid_generation": false
+ }
+]
