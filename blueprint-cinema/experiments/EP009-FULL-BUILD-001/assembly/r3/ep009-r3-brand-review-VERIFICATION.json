@@ -1,0 +1,126 @@
+{
+  "record_type": "ep009_r3_technical_verification",
+  "at": "2026-09-17T18:46:45.458447+00:00",
+  "status": "technical_checks_failed",
+  "owner_accepted": false,
+  "build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-r3-brand-review-BUILD.json",
+    "sha256": "4478ab13339dd56bcf842ae5c97213cd6afe39a09cd8faadeba1a7e645bee21d"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r3/ep009-r3-brand-review.mp4",
+    "sha256": "38e5fafd17f71f1ad86e867f66a32b39d720faa8caff6bef5da5fbc5a50c67d0"
+  },
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "295"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "579"
+      }
+    ],
+    "format": {
+      "duration": "12.333000"
+    }
+  },
+  "video": {
+    "method": "Decode every encoded frame; uniform means full-frame Y, U, V spans each at most 4 code values.",
+    "decoded_frames": 295,
+    "expected_frames": 296,
+    "decode_exit_code": 0,
+    "uniform_frames": [
+      121
+    ],
+    "unplanned_uniform_frames": [],
+    "limitation": "Blank-frame detection does not judge composition, legibility, motion, seams, or performance.",
+    "planned_uniform_frames": [
+      121
+    ]
+  },
+  "audio": {
+    "method": "Complete mapped master excerpt, including planned final zero padding; channelwise unity comparison in5secondblocks.",
+    "expected_samples": 592000,
+    "compared_samples": 592000,
+    "decoded_samples": 592896,
+    "aac_padding_samples": 896,
+    "padding_peak_abs": 0.0004504531971178949,
+    "decode_exit_codes": [
+      0,
+      0
+    ],
+    "full_corr": [
+      0.999990106597338,
+      0.9999901066106
+    ],
+    "full_rms_delta_db": [
+      -0.006303818159484582,
+      -0.006303822237087504
+    ],
+    "min_voiced_window_corr": 0.9999874949823091,
+    "max_abs_voiced_window_rms_db": 0.007930529732399452,
+    "windows": [
+      {
+        "start_seconds": 0.0,
+        "samples": 240000,
+        "corr": [
+          0.9999874949823091,
+          0.9999874950273072
+        ],
+        "rms_delta_db": [
+          -0.007930515901650611,
+          -0.007930529732399452
+        ]
+      },
+      {
+        "start_seconds": 5.0,
+        "samples": 240000,
+        "corr": [
+          0.9999907122157312,
+          0.9999907122162073
+        ],
+        "rms_delta_db": [
+          -0.005896005457867869,
+          -0.005896005557245007
+        ]
+      },
+      {
+        "start_seconds": 10.0,
+        "samples": 112000,
+        "corr": [
+          0.999992451480009,
+          0.999992451480009
+        ],
+        "rms_delta_db": [
+          -0.0049495274509017,
+          -0.0049495274509017
+        ]
+      }
+    ]
+  },
+  "loudness": {
+    "integrated_lufs": -19.9,
+    "loudness_range_lu": 5.0,
+    "true_peak_dbtp": -6.8,
+    "note": "Measured only; no normalization or final mix acceptance."
+  },
+  "errors": [
+    "Video format or decoded frame count mismatch",
+    "Video decode or unplanned blank frame",
+    "Unexpected audio beyond planned picture"
+  ],
+  "limitations": [
+    "No normal-speed audiovisual watch-through, mouth-sync or final creative judgment.",
+    "Corrected P08 is an explicitly labeled still;14otherpresentersegments still use r1."
+  ]
+}

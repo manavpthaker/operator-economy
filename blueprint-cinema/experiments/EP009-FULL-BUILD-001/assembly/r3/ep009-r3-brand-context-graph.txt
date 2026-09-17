@@ -1,0 +1,4 @@
+[0:v]trim=start_frame=99:end_frame=220,setpts=N/(24*TB),scale=1280:720,setsar=1,format=yuv420p[v0];
+[1:v]trim=end_frame=253,select='between(n,0,10)+between(n,89,89)+between(n,90,252)',setpts=N/(24*TB),scale=1280:720,setsar=1,format=yuv420p[v1];
+[v0][v1]concat=n=2:v=1:a=0,fps=24[vout];
+[2:a]atrim=start_sample=2612000:end_sample=3204000,asetpts=N/SR/TB,pan=stereo|c0=c0|c1=c0,apad=whole_len=592000,atrim=end_sample=592000[aout]

@@ -1,3 +1,41 @@
+# EP009 production checkpoint — r3 verified; avatar revision in progress, 2026-09-17
+
+Current review: http://localhost:3070/ep009-r3-review.html. Full r3 is encoded, loaded in the browser, and technically verified. New avatar-first opening and presenter replacements are not yet integrated.
+
+## Owner locks
+
+Owner: “the brand pause and corrected experience are good - lock those.” Exact scoped acceptance and protected hashes: `direction/r3-owner-revisions/OWNER-LOCK.json`. Shortened brand pause and corrected spoken wording/timing are frozen. Final presenter pictures, new film and release are separate.
+
+## Completed r3
+
+- Full video: `assembly/qa/r3/ep009-full-r3-review-draft.mp4`; SHA256 `16a065294110e0bbb86b49a2f3901cd2c605a919864fcd470f4af06c19bcc9b7`. Runtime 20:21.791667 (20:22), 29,323 frames at 24 fps, 1280×720.
+- Brand: removed 78 frames / 3.25 seconds of literal silence, preserving full reveal and speech.
+- Corrected P08: “I spent ten years in hospitality, including Ace Hotel and Standard Hotels. I know this business from the inside out. I haven't sold this particular service, though. What a thirty room inn will pay for it is still something I'd have to test.” All 43 words verified; selected audio padded by 1,661 zero samples to 343 frames, without retiming.
+- Six generated film inserts add 34.291667 seconds at 6:33, 10:15, 12:22, 12:30, 14:01 and 17:51. Actions: owner on desk phone; monthly report; bring reports together; test guest path on phone; inspect unresolved report; write down owner answer. Total actual film coverage is 77.666667 seconds. `film/r3-workflow/FILM-SELECTS.json` is authoritative. First phone take rejected for invented interface details; only `final-r2.mp4` selected.
+- Selected master: `assembly/r3/narration-master-r3.wav`, SHA256 `0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85`. Original source master preserved. `TIMEMAP.json` and `word-transcript-r3.json` map all 75 rows, retaining unchanged words and IDs.
+- Full frame decode, master/audio comparison, independent timing and source mapping, and 44 encoded integration frames passed. See `assembly/r3/FULL-QA.md`, exact verification JSON, both independent audits and browser verification. These checks do not certify uninterrupted normal-speed audiovisual quality or final lip sync.
+- Current r3 picture retains 14 r1 presenter segments and a labeled L3 still for corrected P08. Old speaking P08 is never paired with the new wording.
+- `content-os` commit `bb3f624` records the owner fact correction; unrelated existing edits preserved.
+
+## Current next work: avatar-first opening and remaining presenters
+
+Owner asked why EP009 did not start with the avatar like EP007, then agreed to the proposal: avatar delivers the unchanged first sentence, then cut to inn footage. Source: `review/source-records/2026-09-17-owner-avatar-first-opening.json` in the canonical EP009 episode. `direction/r3-owner-revisions/OPENING-PRECEDENT-AUDIT.md` records the missed EP007 owner precedent. This is approved direction, not approval of unseen generated footage.
+
+The former Fal balance block cleared on a fresh check. P01a restoration was submitted successfully as request `01a0b0ca-13f8-7a02-9854-07943b000e18`, estimated $0.5668, within the existing $30 allowance. Its successful restoration/review and P01b recovery precede wider presenter generation. Reconcile the current `P01a/fal/`, `P01b/fal/` and presenter-regeneration ledger before resuming; do not repeat an existing intent.
+
+Old P08a/b/c remain invalidated in `presenter-regen/ACTIVE-PLAN.json`. Retired `BATCH-REQUESTS-r3.json` has no runnable requests; original bytes retained under `superseded/`. Do not submit that batch. Two corrected P08 parts are prepared offline under `narration-revisions/r3-hospitality/presenter-prep/PLAN.json`. The new P00 opening plan is being prepared under `presenter-regen/opening-first-sentence/`. Revised r5 execution bindings and the pilot review must be complete before activation/submission.
+
+## Spend
+
+- New workflow generation consumed 101.5 Higgsfield credits, including one rejected phone take and one successful retry. Live balance reconciled 1,719 → 1,617.5 before any new presenter jobs. Original production allowance: 1,993.5 / 2,000 credits, 6.5 remaining. No cap increase.
+- Separate presenter regeneration: 191 credits spent before new work; 1,800 credit cap unchanged. Replacing old three-part P08 with two parts reduces remaining planned generation from 1,607 to 1,526 credits. P00 must fit the 83-credit remaining plan contingency. Provider preflight and live balance still apply.
+- Narration pickup: one Google Algieba guide (estimated $0.0103965) and one Eleven Original C transfer (173 reported credits), no retries.
+
+No Resolve finish, whole-episode acceptance or publication approval. Earlier artifacts are retained. The following r2 checkpoint is historical and superseded wherever the current section differs.
+
+## Earlier r2 checkpoint — retained context
+
+
 # EP009 production checkpoint — 2026-09-17
 
 Current output: **r2 graphics-only review draft**, not the final episode. All 15 presenter segments in this full cut still use r1 footage.

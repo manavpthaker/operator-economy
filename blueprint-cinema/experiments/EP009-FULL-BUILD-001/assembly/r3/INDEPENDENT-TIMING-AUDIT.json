@@ -1,0 +1,92 @@
+{
+  "record_type": "independent_read_only_timing_audit",
+  "audited_at_utc": "2026-09-17T18:48:23.245887+00:00",
+  "auditor": "Codex ep009_resume_audit independent of assembly builder",
+  "status": "passed",
+  "scope": "Derived r3 PCM master, TIMEMAP, transcript and all75picture source rows; fullfilmBUILD pending separate audit",
+  "inputs": {
+    "revision": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/REVISION.json",
+      "sha256": "eb478be37c4dbaae7d3ef6654cea78dc19e7e1bb1539d066c2995da640128ae6"
+    },
+    "timemap": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/TIMEMAP.json",
+      "sha256": "5427ecd19835ab60414291b8ec3cde474188c422e89ee9d0ad67090a586a4272"
+    },
+    "transcript": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+    },
+    "sources": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/SOURCES.json",
+      "sha256": "769a7bc961338eba83cf3181c28f7123c6947d2b23a09f96a13e9f999b5f85e8"
+    },
+    "master": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+    }
+  },
+  "reference_inputs": {
+    "original_master": {
+      "path": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav",
+      "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944"
+    },
+    "original_shot_plan": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json",
+      "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9"
+    },
+    "base_assembly_manifest": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/BUILD-r2-graphics-only-draft.json",
+      "sha256": "04d16c5b7a3579f2638aeb84d2fb7745f44a63700e68e3bd96c529dd99588ccc"
+    },
+    "pickup": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/narration-revisions/r3-hospitality/paragraph-selected-levelmatched.wav",
+      "sha256": "76a0d8143bac8f88137f37e4f7d28f7223277c7a80475e6742c1ad55f3904d67"
+    },
+    "pickup_words": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/narration-revisions/r3-hospitality/WORD-TRANSCRIPT.json",
+      "sha256": "3bfe4524f172d7986359788dff1c16f7aecdaa146cd5e9a192e61d8f2af79cf8"
+    },
+    "pickup_review": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/narration-revisions/r3-hospitality/QA.json",
+      "sha256": "18c65a29a035cdae8539f846a007320b7bbdef110f11afe82563423a4e19fe4d"
+    },
+    "paragraph_text": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/narration-revisions/r3-hospitality/paragraph.txt",
+      "sha256": "487ea48886bac05e5594eae574f7d76ead50d8cb951dd5cbebe2e62bd3eb3fca"
+    }
+  },
+  "method": "Read actual WAV PCM through Python wave; independently construct five expected source/output slice pairs, compare byte-for-byte, recalculate integer frame/sample positions and piecewise time shifts without importing builder helpers. Compare full token sequence and retained IDs against original transcript with75oldbiography tokens replaced by43pickup tokens.",
+  "checks": {
+    "all_input_sha256_bindings_match": true,
+    "exact_pcm_sections": 5,
+    "brand_removed_samples": 156000,
+    "removed_brand_samples_all_zero": true,
+    "unchanged_original_pcm_identical": true,
+    "complete_selected_pickup_pcm_identical": true,
+    "pickup_samples": 684339,
+    "pickup_frame_padding_samples": 1661,
+    "master_samples": 58644920,
+    "master_seconds": 1221.7691666666667,
+    "picture_frames": 29323,
+    "picture_seconds": 1221.7916666666667,
+    "final_picture_tail_samples": 1080,
+    "segment_count": 75,
+    "all_segment_output_frames_contiguous": true,
+    "all_source_offsets_and_span_lengths_exact": true,
+    "removed_old_bio_words": 75,
+    "new_exact_paragraph_words": 43,
+    "total_transcript_words": 3367,
+    "retained_word_ids_tokens_and_time_shifts_exact": true,
+    "unique_output_word_ids": 3367,
+    "obsolete_bio_ids_in_output_cues": 0,
+    "old_P08_speaking_picture_excluded": true
+  },
+  "limitations": [
+    "New pickup word times remain approximate local ASR with the documented first-word discrepancy; no ASR rerun or forced alignment performed.",
+    "No perceptual voice/lip-sync/creative acceptance or owner acceptance is inferred.",
+    "Six new film windows require the forthcoming full-build mapping audit."
+  ],
+  "owner_accepted": false,
+  "delivery_master": false
+}

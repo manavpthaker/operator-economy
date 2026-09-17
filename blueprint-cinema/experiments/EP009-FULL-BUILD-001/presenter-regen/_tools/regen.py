@@ -228,6 +228,10 @@ def cmd_trim(pid):
     print(json.dumps({'part': pid, 'trim_frames': frames, 'wanted': want, 'duration': nd}))
 
 def cmd_fal_submit(pid):
+    current_selection = rj(G / 'ACTIVE-PLAN.json') if (G / 'ACTIVE-PLAN.json').exists() else {}
+    hold = current_selection.get('revision_hold', {})
+    if pid in hold.get('invalidated_parts', []):
+        raise RuntimeError(f'{pid}: owner narration correction invalidates this input; no paid Sync submission')
     d = pd(pid); no = native_gate(pid); trim = rj(d / 'TRIM.json')
     if trim.get('native_sha256') != no['native']['sha256'] or trim.get('offsets_sha256') != sha(d / 'NATIVE-OFFSETS.json') or trim.get('audio_sha256') != sha(d / 'audio/narration.wav') or trim['native_trim']['sha256'] != sha(d / 'native-trim.mp4'):
         raise RuntimeError(f'{pid}: trim/audio provenance changed; no paid Sync submission')
@@ -595,6 +599,10 @@ def cmd_index():
     wj(G / 'INDEX.json', idx); print(json.dumps({k: v['status'] for k, v in idx['segments'].items()}))
 
 if __name__ == '__main__':
+    hold = selected.get('revision_hold') if (G / 'ACTIVE-PLAN.json').exists() else None
+    if hold and (sys.argv[1] in ('conform', 'verify', 'index') or any(
+            pid in hold['invalidated_parts'] for pid in sys.argv[2:])):
+        raise RuntimeError('Owner narration correction invalidates P08 and full-plan outputs; rebuild current bindings before proceeding')
     fn = {'cut': cmd_cut, 'put': cmd_put, 'record-upload': cmd_record_upload, 'ledger': cmd_ledger, 'totals': cmd_totals, 'job': cmd_job, 'download': cmd_download,
           'native': cmd_native, 'trim': cmd_trim, 'fal-submit': cmd_fal_submit, 'fal-result': cmd_fal_result, 'align': cmd_align, 'gate': cmd_gate, 'nose': cmd_nose,
           'conform': cmd_conform, 'verify': cmd_verify, 'sheet': cmd_sheet, 'segstills': cmd_segstills, 'take': cmd_take, 'index': cmd_index}[sys.argv[1]]

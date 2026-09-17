@@ -1,0 +1,7 @@
+[1:v]split=3[src1_0][src1_1][src1_2];
+[0:v]trim=start_frame=99:end_frame=220,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v0];
+[src1_0]trim=start_frame=0:end_frame=11,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v1];
+[src1_1]trim=start_frame=89:end_frame=90,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v2];
+[src1_2]trim=start_frame=90:end_frame=253,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v3];
+[v0][v1][v2][v3]concat=n=4:v=1:a=0,fps=24[vout];
+[2:a]atrim=start_sample=2612000:end_sample=3204000,asetpts=N/SR/TB,pan=stereo|c0=c0|c1=c0,apad=whole_len=592000,atrim=end_sample=592000[aout]

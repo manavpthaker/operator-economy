@@ -1,0 +1,66 @@
+{
+  "event_id": "ep009-old-p08-requests-retired",
+  "decision_id": "ep009-owner-r2-revision",
+  "event_type": "verification",
+  "tags": [
+    "narration",
+    "supersession",
+    "provider-guard"
+  ],
+  "data": {
+    "decision_event_id": "ep009-owner-r2-revision-direction",
+    "scope": "Retire old P08 paid inputs and preserve historical request evidence.",
+    "method": "Selected plan carries P08a/b/c invalidation. Current batch path contains no submit-ready payload. Exact original bytes retained under superseded/ at original hash. Preparation refuses held selection; direct imported cmd_fal_submit tested for all three IDs with native work replaced by a trap and fails before native/provider operations.",
+    "result": "pass",
+    "limitations": "Old historical JSONs remain readable but are not authorized submission inputs. New P08 presenter preparation and revised full timeline still require a new selected execution plan. The earlier manifest evidence hash is intentionally stale at its former path; exact original remains bound here.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/ACTIVE-PLAN.json",
+        "sha256": "936e2a089a30e3a5e83d92728c09227082fe79ba2a6f26a5186d198559e0542e"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/BATCH-REQUESTS-r3.json",
+        "sha256": "c9f4574d597c0486dd5784d776733d18f724ad1d7b5601c56c91e400019fd203"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/superseded/BATCH-REQUESTS-r3-pre-owner-feedback.json",
+        "sha256": "1672edabcb9c8642c8b99b82a14dee4e1b2a0cf101faf0b11fbd7cb2a879f6c9"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen.py",
+        "sha256": "d358d9d1342c9e4ef50f353bdd406768c4e78c628ef37f8a8457223edb4f02e8"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/prepare_batch_requests_r3.py",
+        "sha256": "acfa357af325f7ca9ce4470ac1a82577f42d3a929d275a9489842583d41945cb"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/ACTIVE-PLAN.json",
+      "sha256": "936e2a089a30e3a5e83d92728c09227082fe79ba2a6f26a5186d198559e0542e",
+      "locator": "Current hold or preserved historical request artifact"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/BATCH-REQUESTS-r3.json",
+      "sha256": "c9f4574d597c0486dd5784d776733d18f724ad1d7b5601c56c91e400019fd203",
+      "locator": "Current hold or preserved historical request artifact"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/superseded/BATCH-REQUESTS-r3-pre-owner-feedback.json",
+      "sha256": "1672edabcb9c8642c8b99b82a14dee4e1b2a0cf101faf0b11fbd7cb2a879f6c9",
+      "locator": "Current hold or preserved historical request artifact"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen.py",
+      "sha256": "d358d9d1342c9e4ef50f353bdd406768c4e78c628ef37f8a8457223edb4f02e8",
+      "locator": "Current hold or preserved historical request artifact"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/prepare_batch_requests_r3.py",
+      "sha256": "acfa357af325f7ca9ce4470ac1a82577f42d3a929d275a9489842583d41945cb",
+      "locator": "Current hold or preserved historical request artifact"
+    }
+  ]
+}

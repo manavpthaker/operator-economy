@@ -47,6 +47,7 @@ def preserve_write(path, content):
 def main():
     active_path = BASE / "ACTIVE-PLAN.json"
     active = read(active_path)
+    assert not active.get("revision_hold"), "Prepared batch is superseded by owner narration correction; rebuild its bindings before submission"
     plan_path = ROOT / active["path"]
     assert plan_path == BASE / "EXECUTION-PLAN-r4.json"
     assert binding(plan_path)["sha256"] == active["sha256"]
