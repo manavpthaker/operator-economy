@@ -23,5 +23,28 @@
     "Sum your lane file (intent entries without a matching done/failed count at estimate) before each call; never exceed the lane allocation in this file. Stop and report instead.",
     "No retry of an identical seeded request. A regeneration is a new intent entry with its own reason."
   ],
-  "entries": []
+  "entries": [],
+  "amendments": [
+    {
+      "at": "2026-09-17T12:18:52.386029+00:00",
+      "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-17-owner-presenter-regen-scope.json",
+      "added": {
+        "higgsfield_credits": 1800,
+        "fal_usd": 30.0
+      },
+      "new_caps": {
+        "higgsfield_credits": 3800,
+        "fal_usd": 70.0
+      },
+      "lane_allocations_added": {
+        "presenter-regen": {
+          "higgsfield_credits": 1800,
+          "fal_usd": 30.0,
+          "includes": "look-candidate stills and all regenerated presenter takes and restorations"
+        }
+      },
+      "ledger_file": "ledger/presenter-regen.jsonl",
+      "note": "Account balance 1,910 credits at authorization; the balance is also a hard limit."
+    }
+  ]
 }
