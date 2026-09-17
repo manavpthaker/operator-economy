@@ -1,0 +1,26 @@
+{
+  "status": "done",
+  "lip_sync_still_level": "Clear articulation in stills.",
+  "gesture_vs_brief": "Hand to chest on \"I think\", then a flat horizontal hand held at chest height for a long stretch (the ceiling line), then both hands rest. Matches brief well.",
+  "likeness": "Matches V5.",
+  "issues": [
+    "The air line is held for several seconds; residual drift is the largest in the set (about -0.7 s at start, +0.7 s at end), so \"number\" and the hold may not coincide."
+  ],
+  "trim_decision": {
+    "trim_frames": 30,
+    "midpoint_offset_s": 1.255,
+    "max_frames": 44,
+    "residual_start_s": -0.71,
+    "residual_end_s": 0.72,
+    "onsets": {
+      "narration_onset": 0.07,
+      "native_onset": 0.61,
+      "onset_diff": 0.54,
+      "narration_end": 9.52,
+      "native_end": 11.49,
+      "end_diff": 1.97
+    },
+    "method": "trim at the midpoint of native-minus-narration speech onset and speech end differences, capped so the trimmed native still covers the excerpt; envelope three-window offsets are in NATIVE-OFFSETS.json (weak correlations on several takes, so onset/end were used)"
+  },
+  "review_limitations": "Still-level review only. Perceived lip sync, gesture timing against words and naturalness at normal speed were not judged and need human review with sound. Native Seedance speech ran longer than the narration, so body motion drifts relative to the words across the take (residuals listed)."
+}
