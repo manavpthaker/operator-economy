@@ -1,0 +1,1534 @@
+{
+  "record_type": "presenter_generation_requests_prepared",
+  "episode": "EP009-direct-booking-recovery",
+  "revision": "r3",
+  "status": "prepared_not_submitted",
+  "pilot_gate": "pending",
+  "cost_preflight": "pending_root",
+  "provider_calls_made_by_preparation": 0,
+  "scope": "The 20 remaining parts P02a through P13b. P01a/P01b are excluded and handled separately. This file is preparation evidence, not submission authorization or a provider cost receipt.",
+  "bindings": {
+    "active_plan": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/ACTIVE-PLAN.json",
+      "sha256": "4dc176abc6534eada035fbb61add4fc3da005e7a8b957e8ac5aa6aee3369942f"
+    },
+    "selected_plan": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r4.json",
+      "sha256": "89d1c54f2211be6457564adfe00864cc1003882ba9599818526e0857eb1716f9"
+    },
+    "base_plan": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/TAKE-PLAN.json",
+      "sha256": "9af248b9766d8fd5d13c231bad21dbf1c5a90fee00ba1eafbf4ecee1ecd4a0c3"
+    },
+    "audio_upload_inventory": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/AUDIO-UPLOADS-r2.json",
+      "sha256": "0ba0427995bec3dacf03d14aac2ac073586964f6f3ab0fd38446c20cc06389b1"
+    },
+    "accepted_henry_role_source": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/AVATAR-PROMPT-henry-only.txt",
+      "sha256": "8f4228cfa53521adce1fb5890680b398f1ab4f0d4afa5a3cdcbcbe081324ff02"
+    },
+    "image_upload": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/HIGGSFIELD-IMAGE-UPLOAD.json",
+      "sha256": "f70acafb858ed239da6631758fdcb9660cb4df540441f52af96ec4db42b05b40"
+    },
+    "locked_image": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+      "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+    },
+    "locked_narration_master": {
+      "path": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav",
+      "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944"
+    },
+    "preparation_script": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/prepare_batch_requests_r3.py",
+      "sha256": "1ae306f333d258c64ce83ca1fb73d3f4c89a6d2a8ce6bfd502b963e5117e0b40"
+    }
+  },
+  "prompt_change": {
+    "role_paragraph": "The VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.",
+    "added_audio_timing": "Follow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.",
+    "preserved": [
+      "planned words",
+      "source shot length",
+      "locked look",
+      "performance and gesture",
+      "prohibitions"
+    ],
+    "p11a_source": "P11a/AVATAR-PROMPT-r2.txt (12-second override)"
+  },
+  "requests": [
+    {
+      "index": 1,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 8,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eight-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 6.12-second AUDIO reference: \"It helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. Eyes stay near the lens. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "303cd493-a942-450c-b561-5ae4efe7dbe3"
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 10,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous ten-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 8.17-second AUDIO reference: \"By the end you'll be able to take four numbers from a small property and know what it can honestly pay for the job, and whether that's worth your time.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"By the end you'll be able to take\". On \"four numbers\" his right hand lifts a few centimetres off the table, then settles back to rest by \"small property\" and stays there. Eyes stay near the lens: this is a promise. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "6d945293-1941-479c-a71f-5f12ee2e08ec"
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 8,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eight-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 6.08-second AUDIO reference: \"Which brings us to the question. The site introduces the guest and keeps the guest's email.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"The site introduces the guest\". On \"keeps the guest's email\" his left hand opens slightly, palm up, then settles back to rest. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "6e5d846c-0084-4f1a-8154-75a3de52ed33"
+          }
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 12,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 10.33-second AUDIO reference: \"When that guest comes back, who at the inn is paid to make sure the second booking comes to the inn? And if the answer is nobody, can somebody from outside get paid to do it?\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. On \"can somebody from outside get paid to do it?\" the inner brows gather lightly, pensive rather than challenging, and he stays near the lens. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "0cb7683e-7640-401b-9f8c-75775b29a3f5"
+          }
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 12,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 10.08-second AUDIO reference: \"I think it can be sold from outside. But only for what it recovers, and what it recovers is a number. By the end you'll be able to compute it for any inn.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"But only for what it recovers, and what it recovers\". On \"is a number\" his right hand, held flat, lowers a few centimetres and comes to rest on the table, and stays there. Eyes near the lens for \"By the end you'll be able to compute it for any inn.\" Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "edb3316e-5fd4-4098-bdab-f14ed2664a34"
+          }
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 7,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous seven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 5.38-second AUDIO reference: \"Fair question here. If the parts to fix this are cheap, why doesn't the inn just do it?\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"If the parts to fix this are cheap, why doesn't the inn\". On \"just do it\" both palms turn up a few centimetres together, then return to rest immediately. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "6a41f02d-0e1a-4e5e-8940-8dc429098a37"
+          }
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 12,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 10.75-second AUDIO reference: \"I could not find anyone selling it to the twenty room inn. It's that the inn can only pay what the job recovers, and nobody selling this has published what that is.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. On \"I could not find anyone\" his right hand touches lightly to his chest and returns to the table by \"twenty room inn\", then both hands rest with no further gesture. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "bb67e88d-c796-4c38-8d62-7a7839cc3bba"
+          }
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 5,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous five-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 3.29-second AUDIO reference: \"That's where the old version of this argument stops.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "7488bb0d-b7b1-40a9-a9d0-53bb9ab28c06"
+          }
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 10,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous ten-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 8.54-second AUDIO reference: \"It's the wrong number, because the inn is never going to move all of it. It needs the sites. The real question is what a recovery service can shift.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. On \"It's the wrong number\" one hand makes a small sideways motion just above the table, as if setting something aside, then settles back to rest by \"because\" and stays there. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "e0d136b4-32f9-44af-9c75-8321f174248f"
+          }
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 11,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eleven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 9.46-second AUDIO reference: \"I spent two years in boutique hospitality as Director of Customer Experience at Coqui Coqui, four properties, on the property side of the booking sites, a decade ago.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"Director of Customer Experience at Coqui Coqui\". On \"four properties\" his right hand lifts slightly off the table, then settles back to rest and stays there. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "cb45fec1-7219-42bc-87fe-88467868821c"
+          }
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 6,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous six-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 5.00-second AUDIO reference: \"I've never owned a hotel, I wasn't a revenue manager, and I haven't sold this service to anybody.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. A quiet, candid admission. On \"I've never owned a hotel\" his eyes drop briefly down and away, then return to the lens by \"revenue manager\" and stay there. Hands rest on the table throughout. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "379f85c8-e2f7-4f96-a054-835281d65bf0"
+          }
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 10,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous ten-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 8.42-second AUDIO reference: \"So I know the guest's path from inside a property. I don't know what a thirty room inn will pay to fix it. That's the test, not the pitch.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"I don't know what a thirty room inn will pay to fix it.\" On \"That's the test\" one hand opens slightly, palm up, then settles back to rest before \"the pitch\". Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "1e28dcc8-c36c-4e22-a9e1-e2fb80d2c2e0"
+          }
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 8,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eight-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 6.71-second AUDIO reference: \"Those are hypotheses, not a funnel, and I won't invent a conversion rate to make them look like one.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. Level, plain delivery near the lens. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "cf6365b8-e47e-40d9-87fd-3bcde0d07c27"
+          }
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 8,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eight-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 6.33-second AUDIO reference: \"That's a side income. It's a foothold. It is not a living. Up the band it becomes a business.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table and the head stays still through \"That's a side income. It's a foothold. It is not a living.\" On \"Up the band\" his right hand, palm down, rises one small step of about ten centimetres, then returns to rest. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "bd11d28b-c699-42a2-93bd-690de5569509"
+          }
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 12,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 11.12-second AUDIO reference: \"My verdict is build. Bounded. The problem is real, documented from four directions. The buyer is direct. The parts are cheap.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. Settled, direct, near the lens on \"My verdict is build. Bounded.\" Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "acc5a090-4dc2-489a-b53c-e6c5fcef248f"
+          }
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 12,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 10.29-second AUDIO reference: \"And the arithmetic at the bottom of the band is thin, and I've told you so. So build the audit, because the audit is the test, and it costs you three properties and a month.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"And the arithmetic at the bottom of the band is thin\". On \"the audit is the test\" his right hand, held flat, lowers a few centimetres onto the table and stays there. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "b9a5f211-e31f-468d-854d-e2718f2e051a"
+          }
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 9,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous nine-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 7.96-second AUDIO reference: \"What I'm not saying is that a twenty room inn will pay you. Nobody knows that yet, including me. You'll know by day thirty.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"Nobody knows that yet\". On \"including me\" his right hand touches lightly to his chest and returns to rest. Near the lens and still for \"You'll know by day thirty.\" Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "8c86f15e-aba3-4875-b27e-6727b7ff5cb1"
+          }
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "1080p",
+        "duration": 11,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eleven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 9.46-second AUDIO reference: \"The first move costs you an afternoon. Find one innkeeper you already know. Ask for four numbers. Run the ceiling.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table through \"Find one innkeeper you already know.\" On \"Ask for four numbers\" his right hand lifts a few centimetres off the table, then settles back to rest for \"Run the ceiling.\" Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "f98fe499-d2f0-4a1c-9ffe-b08f588bb1f5"
+          }
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 11,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eleven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 9.96-second AUDIO reference: \"Tell them what you found, and ask if they'd pay you to fix it. Not to close them. To find out, in one conversation, whether this business exists at their size.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. On \"ask if they'd pay you to fix it\" one hand opens slightly toward the lens, palm up, then settles back to rest by \"Not to close them.\" and stays there. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "e21e1b61-9565-47e1-ac1d-5ab30ec9bd4e"
+          }
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "params": {
+        "model": "seedance_2_5",
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "duration": 11,
+        "aspect_ratio": "16:9",
+        "generate_audio": true,
+        "count": 1,
+        "prompt": "One continuous eleven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 9.77-second AUDIO reference: \"Right now nobody knows. If you want more businesses worked all the way down to the number that decides them, leave a like, and subscribe for the next one.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest on the table throughout with no gesture. Still and near the lens on \"Right now nobody knows.\", then settled and relaxed for the ask, with no announcer lift and no pointing. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+        "medias": [
+          {
+            "role": "image",
+            "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+          },
+          {
+            "role": "video",
+            "value": "d11ea443-81ae-4208-a651-b3807fd43ff3"
+          },
+          {
+            "role": "audio",
+            "value": "2ec2597e-78eb-41d9-baeb-76cd976450c0"
+          }
+        ]
+      }
+    }
+  ],
+  "parts": [
+    {
+      "index": 1,
+      "part_id": "P02a",
+      "take_id": "P02",
+      "planned_part_sha256": "3fcb3254425e79c38e52f09b8bf112107e33d16af59f655c75e745569e480a39",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02a/AVATAR-PROMPT.txt",
+        "sha256": "eab9a28966f0bfd81b014fcc458a25fdeef79aded74f2dba35f533db340f277d"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "fc79f4d828b8b7e2fddb050409c02291cb8b0a9e665d9509f1d598c287226a34"
+      },
+      "request_params_sha256": "b93d19e2ac4ec1e7ccd8475bd287508ff52e2afa4e0873454e89d900d450116b",
+      "words": "It helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        73.541667,
+        79.666667
+      ],
+      "samples": 294000,
+      "audio_seconds": 6.125,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "est_credits": 72,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "84328f9179c22f549e4468651a6d4231ed163a9c83b9edfd2e894db47d6cd577"
+      },
+      "audio_upload_record_canonical_sha256": "91471f0ebb6180488a8a3df34fd79236b410e1e8f472d3b02dc9b1b1cef4dcb1",
+      "uploaded_audio": {
+        "media_id": "303cd493-a942-450c-b561-5ae4efe7dbe3",
+        "sha256": "d8901a7967a25a9535e9f5b9bbee557e3bbd399c8d1f3ff630553730cb36e050",
+        "bytes": 247725
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02a/audio/narration.wav",
+        "sha256": "6d46cc79fbe509a9a388dad176ffc6262f8566878881099bc2b163e8a0b116e1"
+      },
+      "source_pcm_sha256": "20a98b336f45297cc2e9e601d02b895d06eebceca1bd9a66b1cd37c4e1c6dd40"
+    },
+    {
+      "index": 2,
+      "part_id": "P02b",
+      "take_id": "P02",
+      "planned_part_sha256": "52028f07f1dd7c2bcafef63cda851d3281dc72baa73b01ebeb4585c7ea6151ab",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02b/AVATAR-PROMPT.txt",
+        "sha256": "6905b24fdb61fa1536d43c07992e73a1aa859d42436cb3ffa928b7622a9a5d13"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "4e9c72afd2a3efb2330f1b69e9e1e51547bf6f47ab161ddc3eb5cfb4ce35fe9b"
+      },
+      "request_params_sha256": "a2d99649f7ca61fd15aa1cdd6a908e920796701129ccc60c0880d6c637936b61",
+      "words": "By the end you'll be able to take four numbers from a small property and know what it can honestly pay for the job, and whether that's worth your time.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "four numbers"
+      },
+      "master_range": [
+        79.666667,
+        87.833333
+      ],
+      "samples": 392000,
+      "audio_seconds": 8.166667,
+      "generation_seconds": 10,
+      "resolution": "1080p",
+      "est_credits": 90,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "b057c718c2c2f1d973a87254365b386988653eb593e92acbcac204d798cd8db1"
+      },
+      "audio_upload_record_canonical_sha256": "10680dab0cf14351b96dd58c820c0459a590f837796928119bb5f680bf1578e9",
+      "uploaded_audio": {
+        "media_id": "6d945293-1941-479c-a71f-5f12ee2e08ec",
+        "sha256": "b5c3c691b9dd204a5e85b8ecf80f08129aea51a2c7f301fef260824476eeb8d3",
+        "bytes": 329325
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02b/audio/narration.wav",
+        "sha256": "86774721e6ff69f2e085e90661d048465347827473f1304e12fc5f1cc7305214"
+      },
+      "source_pcm_sha256": "32cb85a0583ca9e2ece3d053954450e665a4345c22b5d2c4ebc3432caf640dad"
+    },
+    {
+      "index": 3,
+      "part_id": "P03a",
+      "take_id": "P03",
+      "planned_part_sha256": "0d79d6a5683f37301a2a6bf67dec76ab7ec0c8626a7ce1097cc8ad3359be6eab",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03a/AVATAR-PROMPT.txt",
+        "sha256": "77d98adf35193e1b12c13acab035b9eed8f1caeff89ef993553946897894dd0e"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "f9ab890023a56776e6c6ab6e3a014ab97a771d9d7ebd66973b777c502695fd57"
+      },
+      "request_params_sha256": "5659ec167a2bca5bd9742adb694be05633e78e9539dc5614799962d69690b8c8",
+      "words": "Which brings us to the question. The site introduces the guest and keeps the guest's email.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "keeps the guest's email"
+      },
+      "master_range": [
+        188.666667,
+        194.75
+      ],
+      "samples": 292000,
+      "audio_seconds": 6.083333,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "est_credits": 72,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "24236e1570fbe66e4ac9c9a16f2fc0c973a256d98786d4e575440562c60ed3c2"
+      },
+      "audio_upload_record_canonical_sha256": "aff0cee96b03e460edc6d6c06952b58d079612df42afb92413e8e88c457a3897",
+      "uploaded_audio": {
+        "media_id": "6e5d846c-0084-4f1a-8154-75a3de52ed33",
+        "sha256": "73a499e2b6251f4b1af139c00f95ebfbe91ae4ebff13f0cbed419cc19638276c",
+        "bytes": 245805
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03a/audio/narration.wav",
+        "sha256": "797321d37ecffdaafedd3fb0e0fbfdc5e51917ecd25d45e668268c18f8230424"
+      },
+      "source_pcm_sha256": "dd7067a0cc0425df5a66ecb3e2c5daac35f1409c0685c45d553c92701e01eadd"
+    },
+    {
+      "index": 4,
+      "part_id": "P03b",
+      "take_id": "P03",
+      "planned_part_sha256": "cbc449646138a79f7c2d658dfacb968983ae893cec2f32fa181f6e2ac19adbe4",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03b/AVATAR-PROMPT.txt",
+        "sha256": "52d1e21e026cd840b9f3634718f1d79240cf52597ae3b8b70a9dd440443f1d02"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "5642bc7bef41508b9771b5ad5794e21b4ee8f0b9534d791b46bd3bae9253d81d"
+      },
+      "request_params_sha256": "bfc3c7fdbcca04d996d36bf1241fe5508fff6dce28fe799e2182d787b1927c1d",
+      "words": "When that guest comes back, who at the inn is paid to make sure the second booking comes to the inn? And if the answer is nobody, can somebody from outside get paid to do it?",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        194.75,
+        205.083333
+      ],
+      "samples": 496000,
+      "audio_seconds": 10.333333,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "est_credits": 108,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "4dada5455af5043b72293793b97356c0dcade8b2c3bd0a7cd584dd946c9216c4"
+      },
+      "audio_upload_record_canonical_sha256": "7f1f757844e3b1318731d996e32ffb6a185e2d38b5883e9a19bffe7da1342a2f",
+      "uploaded_audio": {
+        "media_id": "0cb7683e-7640-401b-9f8c-75775b29a3f5",
+        "sha256": "e12d70cc1b27d998b8322b5cfeb1611167d3e5924e72222bdb008af0d7d1ac74",
+        "bytes": 415725
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03b/audio/narration.wav",
+        "sha256": "cdf2cd481eef1ad93fbca34e0f1dcd978a436d0719a7c8b2de77364862da7466"
+      },
+      "source_pcm_sha256": "a9d1110c263116720e15ee57e748972e7b4f4d600ed908071247f65c5f079646"
+    },
+    {
+      "index": 5,
+      "part_id": "P04",
+      "take_id": "P04",
+      "planned_part_sha256": "1915d2c2a9f678b59726edd0f1d07d0a5b53b1c8628d075328ab785ba0c8c5f4",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P04/AVATAR-PROMPT.txt",
+        "sha256": "ffb1407c23a60c2d4e530322b3212655ab09da62e45071639137674fc8df5e51"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P04/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "f21260b85abc4e589d3e0ed85aa91bb300bec1485ce0eff05fdb900b46354723"
+      },
+      "request_params_sha256": "adcb3d48b4cc5e608712ad6d54bafabb7fe26ad9544baab2c7d0d7e1ab52b340",
+      "words": "I think it can be sold from outside. But only for what it recovers, and what it recovers is a number. By the end you'll be able to compute it for any inn.",
+      "gesture": {
+        "kind": "flat-hand-lower",
+        "phrase": "is a number"
+      },
+      "master_range": [
+        226.208333,
+        236.291667
+      ],
+      "samples": 484000,
+      "audio_seconds": 10.083333,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "est_credits": 108,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P04/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "aa43d62d89d5fa8200301c0e778749540b715b0631ceb6933625e3a33e9731c6"
+      },
+      "audio_upload_record_canonical_sha256": "eef12cc511c67cb691734c2aa68d0e5c6bdd5782c17fe323385e359821c130f2",
+      "uploaded_audio": {
+        "media_id": "edb3316e-5fd4-4098-bdab-f14ed2664a34",
+        "sha256": "f941face649b04a67a54837dca53c7e37d3ec29eebf2d5e45269e6bf385f2653",
+        "bytes": 406125
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P04/audio/narration.wav",
+        "sha256": "7aae62dafe9740ad7531394b1314c0974cc449fc6aff866aa123b3871143d2fc"
+      },
+      "source_pcm_sha256": "749fe6d40ec206f243f3989a4d93cd048295b7b0af5b3700d1f235cad2cf984b"
+    },
+    {
+      "index": 6,
+      "part_id": "P05",
+      "take_id": "P05",
+      "planned_part_sha256": "5a61c94556af74c0d5c55b7d1c27432d0da2b4cf6a68553483d4ec0b033dc24f",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P05/AVATAR-PROMPT.txt",
+        "sha256": "364f1377416a9d92fabe6b9ecac34d4112d42095a07fe46e53fe5d9615f538dc"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P05/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "af21d1dce19428f2f3a4ff83d7ac996779feda7a037cedce78e502cacd446991"
+      },
+      "request_params_sha256": "0e957d4b8ecaa2ac89306fc3013f9d88f472917dca11f321403a00093c81cce9",
+      "words": "Fair question here. If the parts to fix this are cheap, why doesn't the inn just do it?",
+      "gesture": {
+        "kind": "both-palms-up",
+        "phrase": "just do it"
+      },
+      "master_range": [
+        368.0,
+        373.375
+      ],
+      "samples": 258000,
+      "audio_seconds": 5.375,
+      "generation_seconds": 7,
+      "resolution": "720p",
+      "est_credits": 45.5,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P05/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "e9cb820519c69757cd619542001f7dd637dd16eecd6ab92992c16e8f3e50d0f8"
+      },
+      "audio_upload_record_canonical_sha256": "20ad8b236c4b09aeb7faa18338b54e557f20dccbbbf7c8775492d48469b2c4f8",
+      "uploaded_audio": {
+        "media_id": "6a41f02d-0e1a-4e5e-8940-8dc429098a37",
+        "sha256": "57986fad61852b5fbe5b26242495996927276ce46f194543ef73ee5473b2c547",
+        "bytes": 217005
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P05/audio/narration.wav",
+        "sha256": "6b8414909f85198d4e14478766a22079e9be83aa2399386d6b32ecd6cf26c0b5"
+      },
+      "source_pcm_sha256": "508f916bf00fac09fecda11cdc246f2a78ae3e914b613123d8ce6e73dcfa69d2"
+    },
+    {
+      "index": 7,
+      "part_id": "P06",
+      "take_id": "P06",
+      "planned_part_sha256": "3d37035b1f9ef278761aa1bfe8d6e19c01bcfb13a4e7a40dbd3621b1664f0b9a",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P06/AVATAR-PROMPT.txt",
+        "sha256": "ac7d26878015e84ed3191d4217e183e12e31c0460b81a3d6aa7653d467c73c73"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P06/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "35680152f5e8c1de7df6f460a2bf36716af75da19ab0cf1430fcf0087177a0d3"
+      },
+      "request_params_sha256": "8eb5aab5ee4aa9bec33ca4ddcb2b6b9c48913ba80c0e5fb8e406e43f989fe9bc",
+      "words": "I could not find anyone selling it to the twenty room inn. It's that the inn can only pay what the job recovers, and nobody selling this has published what that is.",
+      "gesture": {
+        "kind": "hand-to-chest",
+        "phrase": "I could not find anyone"
+      },
+      "master_range": [
+        469.291667,
+        480.041667
+      ],
+      "samples": 516000,
+      "audio_seconds": 10.75,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "est_credits": 108,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P06/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "bb286748e37c734565c047f1de0979c266aa44a7384a17eccdfd92b4f15ac51e"
+      },
+      "audio_upload_record_canonical_sha256": "f35964a4f5a28d22c9aaaf96d356893df19b10aa00a18c48d086e7101fa6a54c",
+      "uploaded_audio": {
+        "media_id": "bb67e88d-c796-4c38-8d62-7a7839cc3bba",
+        "sha256": "1cbdac2b29752fb002ee2a465403cf3403a8a25b17af0688df57caa4e904f170",
+        "bytes": 432045
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P06/audio/narration.wav",
+        "sha256": "99d78b1b2f13c8d13c03e3a2c34770a6631c670c0bd02ec9e141647455ddb53c"
+      },
+      "source_pcm_sha256": "5a806045c645d250793b9c5bb72caa2845534c15a577140d46ae3454ecd82e03"
+    },
+    {
+      "index": 8,
+      "part_id": "P07a",
+      "take_id": "P07",
+      "planned_part_sha256": "35dd721d01a6598c52ce6996b570c9325083fe6d15ba695d2cfbb5486d574b58",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07a/AVATAR-PROMPT.txt",
+        "sha256": "6da3f0a8fcbd11ae7e7f81ed2d456ada89ffc0248a522d89f9a13bfd4426d89a"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "a6d1c95b68b98095d2b16875b162bbd07058aa8b8f09561d98d0a09e14ee11bd"
+      },
+      "request_params_sha256": "34d862f57797649eaca4fc1daf79b9aca0dc3a226fa81ac44c0fc4c053fa9696",
+      "words": "That's where the old version of this argument stops.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        520.416667,
+        523.708333
+      ],
+      "samples": 158000,
+      "audio_seconds": 3.291667,
+      "generation_seconds": 5,
+      "resolution": "720p",
+      "est_credits": 32.5,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "7fe72673d95150d37c75a28a5da04e5fd4cc43bd23b0b3bf5d060adcd0869c2a"
+      },
+      "audio_upload_record_canonical_sha256": "a27c1b7d7562f4d4035a9059621affb49c70543045e5cf898e745fd7df135927",
+      "uploaded_audio": {
+        "media_id": "7488bb0d-b7b1-40a9-a9d0-53bb9ab28c06",
+        "sha256": "b0f0d5fdd20666b4d133cdf188f170850a22f79ef8f7082f9f5a4b343dcbb2c4",
+        "bytes": 134445
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07a/audio/narration.wav",
+        "sha256": "b7dff0da51834eb7938d69c5e80845df321e917968034844e9ae5f7b63ee5101"
+      },
+      "source_pcm_sha256": "f0ac7a937374cbb29caec9f82c3d957b334b8b83064089e31c523488b0fce02e"
+    },
+    {
+      "index": 9,
+      "part_id": "P07b",
+      "take_id": "P07",
+      "planned_part_sha256": "3973e502f8fb570107d0287af498f4f0e650d09dc1b3224a8c5a79c2733ecdab",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07b/AVATAR-PROMPT.txt",
+        "sha256": "93d81c568ed185b465b333ac65e35cbae40a7f18fa911dd24519a67ece5ce001"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "a4757f805b39faec169481b320f11f76292bba6de10e61384c9307ad13f41619"
+      },
+      "request_params_sha256": "c66a688fb5bd32639f454fa547f0aa4dd2ceaa5f3948f5964d469910e9c87837",
+      "words": "It's the wrong number, because the inn is never going to move all of it. It needs the sites. The real question is what a recovery service can shift.",
+      "gesture": {
+        "kind": "set-aside",
+        "phrase": "It's the wrong number"
+      },
+      "master_range": [
+        523.708333,
+        532.25
+      ],
+      "samples": 410000,
+      "audio_seconds": 8.541667,
+      "generation_seconds": 10,
+      "resolution": "720p",
+      "est_credits": 65.0,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "21be80b0344fcb4b16e3a0142e291c34e1941a9050e9624bf62cdcd4df074c79"
+      },
+      "audio_upload_record_canonical_sha256": "b302337ccb9e09bc85bb917af0b73094abfe88d50a423987e7fdc64aa96300bd",
+      "uploaded_audio": {
+        "media_id": "e0d136b4-32f9-44af-9c75-8321f174248f",
+        "sha256": "9de3dd24859e468b457b154e873e694c082410651a5fb49fc311be6a2c0b053c",
+        "bytes": 343725
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07b/audio/narration.wav",
+        "sha256": "c18fe8441314b05d34baf176078cddb174de9d5dd2d456d8cb9943dbb0f679d4"
+      },
+      "source_pcm_sha256": "c7904c1b849ba2b8d81babad12e0cea80692062ef7ac2021cc52a5d9eeb68be0"
+    },
+    {
+      "index": 10,
+      "part_id": "P08a",
+      "take_id": "P08",
+      "planned_part_sha256": "c3d1fb8ac56b6baf24d844900c63e33d6578772740306c6167e3657e38175efe",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08a/AVATAR-PROMPT.txt",
+        "sha256": "d6ded893b6e1da73a4a0daf0feabea3a669c03e10da0c86094f22cfaf06cc379"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "96f2400e7233bb214d7049ab497be92097085c888076ad317d0b80f6b4fb9979"
+      },
+      "request_params_sha256": "d6df72c3e8871c0f4a88268589174c44ee74c8167076fb2d15047d522e8f944f",
+      "words": "I spent two years in boutique hospitality as Director of Customer Experience at Coqui Coqui, four properties, on the property side of the booking sites, a decade ago.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "four properties"
+      },
+      "master_range": [
+        666.583333,
+        676.041667
+      ],
+      "samples": 454000,
+      "audio_seconds": 9.458333,
+      "generation_seconds": 11,
+      "resolution": "1080p",
+      "est_credits": 99,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "b5b77ac1dfa89b1678f3b0d4e31f17dadd80c0e669003881e3e8ab75cb516462"
+      },
+      "audio_upload_record_canonical_sha256": "007a6599b20d420d3b5aa886c1428b679e6666ec189e70a3c3a3579f8032321f",
+      "uploaded_audio": {
+        "media_id": "cb45fec1-7219-42bc-87fe-88467868821c",
+        "sha256": "b9943685935859a89fb30dbe99b3c18dad29912b85827a4ee896b80b468434bd",
+        "bytes": 381165
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08a/audio/narration.wav",
+        "sha256": "3eb2bfe300ca140e6a07fe61c8dc7f684504ae68566965fd6ba5322b4a592b88"
+      },
+      "source_pcm_sha256": "54134818b75df97362cb37f8c1c463a516b51329521f05877c2d73bed0449184"
+    },
+    {
+      "index": 11,
+      "part_id": "P08b",
+      "take_id": "P08",
+      "planned_part_sha256": "02ba6a6b42edc5b8e5bdab380c75faf49ca59de37a53cd2e039a500166126764",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08b/AVATAR-PROMPT.txt",
+        "sha256": "7529d739f053817db025b5f8bd893f72b79c8285d9394d138b6a2ec5d42fedb9"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "c14b9439a9d9b8e28ddaa1dd51852222fd591ea01d9f4afab745ecf218c1b0e2"
+      },
+      "request_params_sha256": "c4f8da8285be3717e6b9c4aea811bf9d9d811cd490edbc7f616701ff06953ceb",
+      "words": "I've never owned a hotel, I wasn't a revenue manager, and I haven't sold this service to anybody.",
+      "gesture": {
+        "kind": "look-away",
+        "phrase": "I've never owned a hotel"
+      },
+      "master_range": [
+        676.041667,
+        681.041667
+      ],
+      "samples": 240000,
+      "audio_seconds": 5.0,
+      "generation_seconds": 6,
+      "resolution": "1080p",
+      "est_credits": 54,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "ebbd268f6366b1dcba05a964c78cc729a522f88243135ab19d9c2f4404fcfcbf"
+      },
+      "audio_upload_record_canonical_sha256": "890768318e92ae46c4cb1c7a6dde91b6de358fdf37b6412c88362061b4cb659d",
+      "uploaded_audio": {
+        "media_id": "379f85c8-e2f7-4f96-a054-835281d65bf0",
+        "sha256": "1b545f5dfddc855fa3bf0139b104bf9d1f001ec0c2a6f1c0390446e0844405d8",
+        "bytes": 202605
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08b/audio/narration.wav",
+        "sha256": "7ced6144bb54310b9284c53dfa69b297b6c189ea48efdf5b6fec573e516cde25"
+      },
+      "source_pcm_sha256": "03d413589b6c03264717197051f26b0258fef6b093ddba21117135cc24a77b6a"
+    },
+    {
+      "index": 12,
+      "part_id": "P08c",
+      "take_id": "P08",
+      "planned_part_sha256": "488bf462ff88dbb1b4e8a6937efb0f62263cecb9584863e88199ec0105b5b671",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08c/AVATAR-PROMPT.txt",
+        "sha256": "93cfd10ad8722593e703f3c9c906bd28b2418a0cc7e60fb447af47899a1f1081"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08c/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "e45ae90e5c90ec4a4caf48b41f9c27559c8d514eaba19d5252e82d725ca6edce"
+      },
+      "request_params_sha256": "97dd3ba7e7d5dd6d28e902ee9e8b09c3895119e42e7143d2053e8d457ec2766b",
+      "words": "So I know the guest's path from inside a property. I don't know what a thirty room inn will pay to fix it. That's the test, not the pitch.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "That's the test"
+      },
+      "master_range": [
+        681.041667,
+        689.458333
+      ],
+      "samples": 404000,
+      "audio_seconds": 8.416667,
+      "generation_seconds": 10,
+      "resolution": "1080p",
+      "est_credits": 90,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08c/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "969cc3eef625a81986614ece5b1228be39575f3d4650ef891100e00219d36ea3"
+      },
+      "audio_upload_record_canonical_sha256": "f4a7bbcd07d1c0a448c14ec40832e8cd2d2b8f1a5a7de94fbae8882d22bf2eb2",
+      "uploaded_audio": {
+        "media_id": "1e28dcc8-c36c-4e22-a9e1-e2fb80d2c2e0",
+        "sha256": "9cc2b360a9fa97cbe3989dc02ff90487a4ef41deb4ce94845756949b6b410bb2",
+        "bytes": 338925
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08c/audio/narration.wav",
+        "sha256": "439ef5cccfc4d1e280425c7763d5c9b2b09441f4b70c9efb7e5769ddd7710aea"
+      },
+      "source_pcm_sha256": "8e70d8e6c6bf6a96382315fad6cc941dcab76a7a3954863a2a1e7b338d9f3c20"
+    },
+    {
+      "index": 13,
+      "part_id": "P09",
+      "take_id": "P09",
+      "planned_part_sha256": "f3d17d5debd85f85bade960f92f6247a63a37f5c5aa2dbe566b1cabbcfaa5023",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P09/AVATAR-PROMPT.txt",
+        "sha256": "a3e868d16a6ade4c412504fc793d6a9f87a987dd4877f8d66bdc71e1e13793e7"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P09/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "5c9243ac2ae426619d9f46105f18582460cf4a55953726d164d46e406c0a6ec8"
+      },
+      "request_params_sha256": "c6344e45db589f49efee7152d55db46e9550c92abf807d94ebcc2df975691771",
+      "words": "Those are hypotheses, not a funnel, and I won't invent a conversion rate to make them look like one.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        879.166667,
+        885.875
+      ],
+      "samples": 322000,
+      "audio_seconds": 6.708333,
+      "generation_seconds": 8,
+      "resolution": "720p",
+      "est_credits": 52.0,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P09/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "3a020894fc2d438f350206b5f4e49c4d0bbf2cd41fc4a1e8eae2394a428a97bd"
+      },
+      "audio_upload_record_canonical_sha256": "8562eb33e9db1462fe6615941ea7644c8864a5be4310b8745129d1154e336aa9",
+      "uploaded_audio": {
+        "media_id": "cf6365b8-e47e-40d9-87fd-3bcde0d07c27",
+        "sha256": "c00eb8fa563e5be0e9f3898502cab94bf0703261be53232a8165e044ac3b13c8",
+        "bytes": 270765
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P09/audio/narration.wav",
+        "sha256": "f33e2fc29887969361afd5cd0b9da8e7da033d571d93f75bd2f4622f68e0cdf1"
+      },
+      "source_pcm_sha256": "387139b098245932d2887ced22c473d8804b5fd23efbb7e50260be843066409f"
+    },
+    {
+      "index": 14,
+      "part_id": "P10",
+      "take_id": "P10",
+      "planned_part_sha256": "52268f078bdb587663d2d44f75be0b144be90f4b0c851c9992fd15f5fccda931",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P10/AVATAR-PROMPT.txt",
+        "sha256": "8c91ed0a3209ddabadba54520e6e3d4d578dcfb09773df9bcd5a4b2997178395"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P10/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "fde6f9008a510dbaec4048e83a0276fe8f27b67364c93302eda0dfbf45bfba35"
+      },
+      "request_params_sha256": "00a7b841ed096afc704afb93720b9302a64619d599fad62c64a88316e8115ec4",
+      "words": "That's a side income. It's a foothold. It is not a living. Up the band it becomes a business.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "Up the band"
+      },
+      "master_range": [
+        976.541667,
+        982.875
+      ],
+      "samples": 304000,
+      "audio_seconds": 6.333333,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "est_credits": 72,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P10/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "83f67b9eabba3e119a5822d19c6a22127d1225ebd5bbd71c9ad741b486fcd5e1"
+      },
+      "audio_upload_record_canonical_sha256": "dc73b19061bbb0877a3d0ae85fdc2e2bf01db76362c45e941dcdba6c87310c09",
+      "uploaded_audio": {
+        "media_id": "bd11d28b-c699-42a2-93bd-690de5569509",
+        "sha256": "c37e314e55e5224688a2452f203dbc3a6693ed597b30fa719cf198824b16fafe",
+        "bytes": 255405
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P10/audio/narration.wav",
+        "sha256": "1fab2252902b59014b9c2937eca7fd9e54c4b8e2d343078c2d9af08781f7c61d"
+      },
+      "source_pcm_sha256": "8821326a12200e7dcaa86a6e58c87ebcaf01e866294d4994167db4e8201c8e7f"
+    },
+    {
+      "index": 15,
+      "part_id": "P11a",
+      "take_id": "P11",
+      "planned_part_sha256": "f25f448d94b167f361123280dac907d6bc05bad2a0a703581151c9a0f10ed787",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11a/AVATAR-PROMPT-r2.txt",
+        "sha256": "0a06f466817e0cdda2ce2143e6f1650ffd96bf489cb7a6c33590bcbedfc2e23b"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "a7f91c476d6d0e23f0b9e863c8e6cbbff10750eee1cf4508c83519475230ac37"
+      },
+      "request_params_sha256": "825d1a209c0e8285305ca4285de977743c05fef7230613fca7bb3c47ed784655",
+      "words": "My verdict is build. Bounded. The problem is real, documented from four directions. The buyer is direct. The parts are cheap.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        1175.041667,
+        1186.166667
+      ],
+      "samples": 534000,
+      "audio_seconds": 11.125,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "est_credits": 108,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "e3e2c7e92b3ec553be52baa77397003404360cb68ebce46453589a96ad4958d4"
+      },
+      "audio_upload_record_canonical_sha256": "c53215030dc928556418dc462a15dbb830e13ee26fa1c84ed07bf674dd473854",
+      "uploaded_audio": {
+        "media_id": "acc5a090-4dc2-489a-b53c-e6c5fcef248f",
+        "sha256": "0b2fbad277017140728346c0e80edb7e11cd91b46a4afd1ff747ca16564b900d",
+        "bytes": 447405
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11a/audio/narration.wav",
+        "sha256": "0a7c108a176604e7e927d2ec03bfb1176652e201daf63d9b8bfb681905169901"
+      },
+      "source_pcm_sha256": "618ee68bc46d680ed1ba0bb5b332bd5eca980c0a9f944712e0706143febb952c"
+    },
+    {
+      "index": 16,
+      "part_id": "P11b",
+      "take_id": "P11",
+      "planned_part_sha256": "37c0ae498cd448745f229594786f709d64676bdd99a449250444f00943e3be91",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11b/AVATAR-PROMPT.txt",
+        "sha256": "f3d6e030cab221497ba979e6749fa49a0b423f856488a85b8188fdc3b8705c6b"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "a4f78fed8ed2eae3ba4c3e24486e77f4edd97290d8fae2e9ff17f6bba07ef6ba"
+      },
+      "request_params_sha256": "30e67c6e6f5c6c90013c13335bae42acc0191915aaf78f948930938c4991890f",
+      "words": "And the arithmetic at the bottom of the band is thin, and I've told you so. So build the audit, because the audit is the test, and it costs you three properties and a month.",
+      "gesture": {
+        "kind": "flat-hand-lower",
+        "phrase": "the audit is the test"
+      },
+      "master_range": [
+        1186.166667,
+        1196.458333
+      ],
+      "samples": 494000,
+      "audio_seconds": 10.291667,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "est_credits": 108,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "e4dcc38ccdc46b3b69abc37050b514a3a684cbd05bcff8d881550526d6310b33"
+      },
+      "audio_upload_record_canonical_sha256": "c2548fd6092bb1c361ee8f81b86179641b433754078d01d28aedacbb654cc81b",
+      "uploaded_audio": {
+        "media_id": "b9a5f211-e31f-468d-854d-e2718f2e051a",
+        "sha256": "ee36b4be7fa9a43bcd9b28a4041aa8b61d1ac62cd52c61acef29cc5b609f14e7",
+        "bytes": 413805
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11b/audio/narration.wav",
+        "sha256": "429998dfa669d96ea468856ef61f34c0ac2ee9bce3bcd4a86e2a328aa6eaeb29"
+      },
+      "source_pcm_sha256": "611d344fd2365a000adb474a4e56356fa565aac4788e650cbe2d743a671e2dfc"
+    },
+    {
+      "index": 17,
+      "part_id": "P12a",
+      "take_id": "P12",
+      "planned_part_sha256": "d8c7aec5a6a7eadccd73fe38ded8b150dc73b3be99ef4f99c668638431806ed3",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12a/AVATAR-PROMPT.txt",
+        "sha256": "e29632d9cb6784726084ef2592652e37de0709bee45b244aa4c81ca73db6a0ae"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "5a76db71e6672b3c8716035957e554e9cb1a93c8f9ec6628ab73fd8175f8de03"
+      },
+      "request_params_sha256": "1aa5e8580da5edd5f0c037cc371781122a71a5da0daf1a9a8cbfe7b65daa58d1",
+      "words": "What I'm not saying is that a twenty room inn will pay you. Nobody knows that yet, including me. You'll know by day thirty.",
+      "gesture": {
+        "kind": "hand-to-chest",
+        "phrase": "including me"
+      },
+      "master_range": [
+        1196.458333,
+        1204.416667
+      ],
+      "samples": 382000,
+      "audio_seconds": 7.958333,
+      "generation_seconds": 9,
+      "resolution": "1080p",
+      "est_credits": 81,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "5edd89f5478f532ead7424f416cc2ca8a031115dd2d65270ee1715ca0e16eb67"
+      },
+      "audio_upload_record_canonical_sha256": "28ae5ec1c61b9bd52aba35b2630ea49e41d884ef132b6de39ebc51b3de1230b0",
+      "uploaded_audio": {
+        "media_id": "8c86f15e-aba3-4875-b27e-6727b7ff5cb1",
+        "sha256": "de4819a8f5b8c5d2709648633a79bdfbae94a2701bf764032e2dedebdbcb6b83",
+        "bytes": 320685
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12a/audio/narration.wav",
+        "sha256": "3e48517e827f13a4047c97e38874ce1ce7c2a28caf519eb990855ab9f70d6570"
+      },
+      "source_pcm_sha256": "90cd3e00fe5511950599d7f24c6b18fc7d74ec6f5d3ad0367c545740db803faf"
+    },
+    {
+      "index": 18,
+      "part_id": "P12b",
+      "take_id": "P12",
+      "planned_part_sha256": "b6ab7d6636d2955f596a62be5ce7e9affd9dce1ba085a34a1c7b8cdd52a771dc",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12b/AVATAR-PROMPT.txt",
+        "sha256": "7735a5136d5e7a63d8b7d4d8cc60fb3d02c04d96be5c76e885c908f8af002753"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "e0832aca5d30c68f619aae5118b0ebdb45b1b3c3bd48ec8a4a98bf69e7716260"
+      },
+      "request_params_sha256": "bdb2de8f1f7c77a01bd54e6f18596fb8c8a06e5e2981ae386d44bafcba7e5104",
+      "words": "The first move costs you an afternoon. Find one innkeeper you already know. Ask for four numbers. Run the ceiling.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "Ask for four numbers"
+      },
+      "master_range": [
+        1204.416667,
+        1213.875
+      ],
+      "samples": 454000,
+      "audio_seconds": 9.458333,
+      "generation_seconds": 11,
+      "resolution": "1080p",
+      "est_credits": 99,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "1fb39e2786273cf451fa8b32b558e5b4189a4c8a15a51ea48b24ddc29a96dc85"
+      },
+      "audio_upload_record_canonical_sha256": "576d5831932ac0d651dfa1da16fbebb26df6ae48fdafeb4ac807ea7aff9f0478",
+      "uploaded_audio": {
+        "media_id": "f98fe499-d2f0-4a1c-9ffe-b08f588bb1f5",
+        "sha256": "a024469798f27d65ebe278107ebd197cc83c231d79a9bd3b2f1f99ef0787158a",
+        "bytes": 381165
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12b/audio/narration.wav",
+        "sha256": "b3aeabe0096698505c40df756ed78b67398fbdba7196857d2461c6dbcea4dde6"
+      },
+      "source_pcm_sha256": "b1ccfee095ee3b7596a516b008cfb0368158d900279158d2104ca6dfec5afba0"
+    },
+    {
+      "index": 19,
+      "part_id": "P13a",
+      "take_id": "P13",
+      "planned_part_sha256": "0d86c0ca212579d8c1b0a4b012a115e65b3339f2d7b60d7b94256557cc0500ed",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13a/AVATAR-PROMPT.txt",
+        "sha256": "10dd155069387b236d9f65eefa85026481356a948309e1d4280f190d3a4e07fc"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13a/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "1bf0422fe7e20ecb13d6a33c08304c5a5fa68f3c5b78deb60c8e43c762c8ecdc"
+      },
+      "request_params_sha256": "b05d2c77468176bb940c3bc3138f465028ca71efdd740604ccb3aec41b539aca",
+      "words": "Tell them what you found, and ask if they'd pay you to fix it. Not to close them. To find out, in one conversation, whether this business exists at their size.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "ask if they'd pay you"
+      },
+      "master_range": [
+        1213.875,
+        1223.833333
+      ],
+      "samples": 478000,
+      "audio_seconds": 9.958333,
+      "generation_seconds": 11,
+      "resolution": "720p",
+      "est_credits": 71.5,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13a/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "b53774db44a6e49546b3523f36d77a5451c7cb8977d53c86386b0d1980fc4613"
+      },
+      "audio_upload_record_canonical_sha256": "58a3f8c6548b7cdc8d3ad219234f7e9a4a651a8bcb30ac2fbfa06e259731f70b",
+      "uploaded_audio": {
+        "media_id": "e21e1b61-9565-47e1-ac1d-5ab30ec9bd4e",
+        "sha256": "3cd104c8527b665e4b2620ce7c4d7c28ef262ee844c5df7152f11554e6a5990c",
+        "bytes": 400365
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13a/audio/narration.wav",
+        "sha256": "fa426b8c24421ea73f16bf3d6d293b8b6e7f8e7ef416ae43ce4a4e9a6d0c78e6"
+      },
+      "source_pcm_sha256": "b2b1ae4ed3ccedb400092c5005d0579eef7c239f36cd82396b2f5f80fe2f801c"
+    },
+    {
+      "index": 20,
+      "part_id": "P13b",
+      "take_id": "P13",
+      "planned_part_sha256": "4ac096cba0587d2e102e4fb96ddf9bfc02170d9301f8a88ce9b63c8235b1a951",
+      "original_prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13b/AVATAR-PROMPT.txt",
+        "sha256": "f4cae46de2fd7ca78b70fc9913626c10fef946cf38c953732ed8fe2a69ab4ded"
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13b/AVATAR-PROMPT-henry-only.txt",
+        "sha256": "a5af56c6294fe23e068626d05cada1ba0c4966a5ca0149edca91ba9e34754cfa"
+      },
+      "request_params_sha256": "b767cee0ba5f79349383c0d0f6bda08d4a4eb1417a59b72bf1b0253b86f86780",
+      "words": "Right now nobody knows. If you want more businesses worked all the way down to the number that decides them, leave a like, and subscribe for the next one.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "master_range": [
+        1223.833333,
+        1233.602
+      ],
+      "samples": 468896,
+      "audio_seconds": 9.768667,
+      "generation_seconds": 11,
+      "resolution": "720p",
+      "est_credits": 71.5,
+      "audio_upload_record": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13b/audio/HIGGSFIELD-UPLOAD-r2.json",
+        "sha256": "b3441c4c4ee89a77e71ccb86c622f0e6bc71cc4b6e1ef220392a4d78956ef4f1"
+      },
+      "audio_upload_record_canonical_sha256": "30162d734c866fc31a85ff0e2c627875dcc1b006290e9f05146d7341a45657a9",
+      "uploaded_audio": {
+        "media_id": "2ec2597e-78eb-41d9-baeb-76cd976450c0",
+        "sha256": "a1dc8fab3e463c14e933cf1a3116812298cc5178e08d57fb729a13c459a02431",
+        "bytes": 393645
+      },
+      "local_narration_wav": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13b/audio/narration.wav",
+        "sha256": "fc97a828c711a06c4189750b4428668b0f549d9655d1fd86405812b0e885434f"
+      },
+      "source_pcm_sha256": "0a93e73fcbec7cd150de7a30347f24b9df797a2776177e30cade03feb9878d0c"
+    }
+  ],
+  "totals": {
+    "parts": 20,
+    "generation_seconds": 193,
+    "est_credits": 1607.0
+  },
+  "verification": {
+    "active_plan_hash_matches": true,
+    "all_prompts_match_planned_words": true,
+    "all_durations_at_most_12_seconds": true,
+    "source_performance_and_look_preserved": true,
+    "all_audio_ids_are_confirmed_uploads": true,
+    "all_local_wav_hashes_match_upload_provenance": true,
+    "all_source_ranges_and_sample_counts_match_active_plan": true,
+    "uploaded_audio_hashes_bound_from_confirmed_inventory": true,
+    "locked_master_hash_verified_locally": true,
+    "image_hash_verified_locally": true,
+    "remote_audio_not_fetched_during_preparation": true,
+    "totals_recomputed_from_selected_parts": true,
+    "note": "The batch binds active EXECUTION-PLAN-r4.json and recomputes totals from its selected 20 parts. The active plan is not modified."
+  },
+  "future_submission_groups": [
+    [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    [
+      19,
+      20
+    ]
+  ]
+}

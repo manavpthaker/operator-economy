@@ -68,9 +68,12 @@ def scene():
     S.append('<g id="ceils" class="hide">' + ''.join(
         f'<g class="ceil"><path d="M{x} 172L{x+48} 171.5M{x+54} 172L{x+101} 171.5M{x} 165L{x} 179M{x+101} 164L{x+101} 178" stroke="{INK}" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
         f'<use href="#kit-retainer-tag" transform="translate({x+26},178) scale(.5)"/></g>' for x in INNX) + '</g>')
-    S.append('<text id="each1" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month</text>')
-    S.append('<text id="each2" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month · 8 hours a month</text>')
-    S.append('<text id="each3" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month · 8 hours a month · audit 12 hours</text>')
+    # B-R1-01: retain one fixed left edge; each cue appends only its new clause.
+    # One text node avoids recentering and overlapping full-string crossfades.
+    S.append('<text id="each-note" class="hide small" x="250" y="332">'
+             '<tspan>each: $800 a month</tspan>'
+             '<tspan id="each2" class="hide"> · 8 hours a month</tspan>'
+             '<tspan id="each3" class="hide"> · audit 12 hours</tspan></text>')
 
     # ---------- band (every S17 frame from 0.5 s), heading small top-left, receipt ----------
     S.append(f'<g id="band" class="hide"><rect x="0" y="0" width="1280" height="40" fill="{CARD}"/>'
@@ -155,9 +158,9 @@ def scene():
     # six properties on retainer: the inns turn solid with a blank retainer tag under each small ceiling
     tl.js(f"t.to('#inns5 .innx',{{opacity:1,duration:.35,stagger:.08}},{C['six']});")
     tl.js(f"t.set('#ceils',{{autoAlpha:1}},{C['six']});t.fromTo('#ceils .ceil',{{autoAlpha:0,y:-8}},{{autoAlpha:1,y:0,duration:.35,stagger:.08}},{C['six']});")
-    tl.fade('#each1', C['six'] + .6)
-    tl.out('#each1', C['eight'], .2); tl.appear('#each2', C['eight'], .25)
-    tl.out('#each2', C['twelve'], .2); tl.appear('#each3', C['twelve'], .25)
+    tl.fade('#each-note', C['six'] + .6)
+    tl.appear('#each2', C['eight'], .25)
+    tl.appear('#each3', C['twelve'], .25)
     # ledger
     tl.fade('#l1', C['l1'])
     tl.dim('#pD', C['add'], .3); tl.fade('#l2', C['add'])
@@ -169,7 +172,7 @@ def scene():
     tl.js(f"t.to('#l4',{{y:-152,duration:.6,ease:'power2.inOut'}},{C['now']});")
     tl.slide('#pE', C['now'] + .2)
     tl.js(f"t.set('#pE text.small',{{autoAlpha:0}},0);t.to('#pE text.small',{{autoAlpha:1,duration:.35}},{C['models']});")
-    tl.out('#each3', C['six2'] - .1, .3)
+    tl.out('#each-note', C['six2'] - .1, .3)
     tl.draw('#barb', C['six2'] + .1, .8)
     tl.fade('#barbl', C['about650'])
     tl.fade('#l5', C['at60'])

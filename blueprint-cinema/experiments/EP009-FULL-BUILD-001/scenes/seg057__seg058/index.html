@@ -40,9 +40,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:hidden}
 <path id="route" class="hide kit-route" d="M170 292C420 289 800 295 1180 292"/>
 <g id="inns5" class="hide"><use class="innx" href="#kit-inn-mini" transform="translate(410,214) scale(0.42)"/><use class="innx" href="#kit-inn-mini" transform="translate(570,214) scale(0.42)"/><use class="innx" href="#kit-inn-mini" transform="translate(730,214) scale(0.42)"/><use class="innx" href="#kit-inn-mini" transform="translate(890,214) scale(0.42)"/><use class="innx" href="#kit-inn-mini" transform="translate(1050,214) scale(0.42)"/></g>
 <g id="ceils" class="hide"><g class="ceil"><path d="M250 172L298 171.5M304 172L351 171.5M250 165L250 179M351 164L351 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(276,178) scale(.5)"/></g><g class="ceil"><path d="M410 172L458 171.5M464 172L511 171.5M410 165L410 179M511 164L511 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(436,178) scale(.5)"/></g><g class="ceil"><path d="M570 172L618 171.5M624 172L671 171.5M570 165L570 179M671 164L671 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(596,178) scale(.5)"/></g><g class="ceil"><path d="M730 172L778 171.5M784 172L831 171.5M730 165L730 179M831 164L831 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(756,178) scale(.5)"/></g><g class="ceil"><path d="M890 172L938 171.5M944 172L991 171.5M890 165L890 179M991 164L991 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(916,178) scale(.5)"/></g><g class="ceil"><path d="M1050 172L1098 171.5M1104 172L1151 171.5M1050 165L1050 179M1151 164L1151 178" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(1076,178) scale(.5)"/></g></g>
-<text id="each1" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month</text>
-<text id="each2" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month · 8 hours a month</text>
-<text id="each3" class="hide small" x="715" y="332" text-anchor="middle">each: $800 a month · 8 hours a month · audit 12 hours</text>
+<text id="each-note" class="hide small" x="250" y="332"><tspan>each: $800 a month</tspan><tspan id="each2" class="hide"> · 8 hours a month</tspan><tspan id="each3" class="hide"> · audit 12 hours</tspan></text>
 <g id="band" class="hide"><rect x="0" y="0" width="1280" height="40" fill="#EDE5D6"/><path d="M0 40.5L1280 40.5" stroke="#586D74" stroke-width="1.3"/><text x="640" y="27" text-anchor="middle"><tspan class="kicker">MODELED SCENARIO</tspan><tspan class="small" style="font-size:19px"> · Modeled scenario, not observed performance or an earnings forecast.</tspan></text></g>
 <path id="ul1" class="hide" d="M242 34L614 34" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round"/><path id="ul2" class="hide" d="M622 34L1040 34" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round"/>
 <text id="foot" class="hide tiny" x="1252" y="711" text-anchor="end" style="font-size:15px">C024, C028 to C033 · Canvas section 10</text>
@@ -98,10 +96,8 @@ t.to('#pB,#pBn,#pC,#pCn',{autoAlpha:0,duration:.35},17.747);
 t.fromTo('#pD',{autoAlpha:0,x:24},{autoAlpha:1,x:0,duration:0.45,ease:'power2.out'},17.947);
 t.to('#inns5 .innx',{opacity:1,duration:.35,stagger:.08},19.887);
 t.set('#ceils',{autoAlpha:1},19.887);t.fromTo('#ceils .ceil',{autoAlpha:0,y:-8},{autoAlpha:1,y:0,duration:.35,stagger:.08},19.887);
-t.fromTo('#each1',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},20.487000000000002);
-t.to('#each1',{autoAlpha:0,duration:0.2,ease:'power1.inOut'},21.787);
+t.fromTo('#each-note',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},20.487000000000002);
 t.fromTo('#each2',{autoAlpha:0},{autoAlpha:1,duration:0.250,ease:'power1.out'},21.787);
-t.to('#each2',{autoAlpha:0,duration:0.2,ease:'power1.inOut'},23.487);
 t.fromTo('#each3',{autoAlpha:0},{autoAlpha:1,duration:0.250,ease:'power1.out'},23.487);
 t.fromTo('#l1',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},25.107);
 t.to('#pD',{opacity:0.3,duration:0.5,ease:'power1.inOut'},30.007);
@@ -114,7 +110,7 @@ t.to('#pA,#pD,#l1,#l2,#l3,#l4rule',{autoAlpha:0,duration:.4},42.817);
 t.to('#l4',{y:-152,duration:.6,ease:'power2.inOut'},42.967);
 t.fromTo('#pE',{autoAlpha:0,x:24},{autoAlpha:1,x:0,duration:0.45,ease:'power2.out'},43.167);
 t.set('#pE text.small',{autoAlpha:0},0);t.to('#pE text.small',{autoAlpha:1,duration:.35},44.247);
-t.to('#each3',{autoAlpha:0,duration:0.3,ease:'power1.inOut'},46.527);
+t.to('#each-note',{autoAlpha:0,duration:0.3,ease:'power1.inOut'},46.527);
 draw('#barb',46.727000000000004,0.8);
 t.fromTo('#barbl',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},49.927);
 t.fromTo('#l5',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},51.927);

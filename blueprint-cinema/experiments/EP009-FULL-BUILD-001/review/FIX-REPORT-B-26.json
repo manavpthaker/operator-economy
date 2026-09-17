@@ -1,0 +1,277 @@
+{
+  "record_type": "bounded_review_fix",
+  "finding_id": "B-26",
+  "episode": "EP009-direct-booking-recovery",
+  "revision": "r2",
+  "reviewed_at_utc": "2026-09-17T17:39:36.685103+00:00",
+  "reviewer_role": "HyperFrames repair worker",
+  "recommendation": "remaining opening and S05 identity inconsistency resolved",
+  "owner_accepted": false,
+  "scope": "S00 seg004 to seg006 and S05 seg020 only. Completes the remaining site-identity inconsistency identified in RECHECK-B-R1.",
+  "review_basis": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/RECHECK-B-R1.md",
+      "sha256": "180acf9a3f4609980394c97ade4f0f89eb81ff6a90609defbf8bab09fa6b1d36"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/FIX-ORDERS-R1.json",
+      "sha256": "b6c16af0babc92ba2483315917c694fdc4b8b14f6d50ecda946b56016239f259"
+    },
+    {
+      "decision_event_id": "ep009-act3-s11-fix-round-1-v1"
+    },
+    {
+      "decision_event_id": "ep009-act4-s20-fix-round-1-v1"
+    }
+  ],
+  "decision": {
+    "canonical_identity": "world-kit kit-booking-site, the six-bay columned hall, with existing kit listing-card symbols.",
+    "chosen": "Substitute the canonical hall and established later-scene listing layout into the two earlier site instances.",
+    "alternative_considered": "Return S11, S15 and S20 to the original simple gable.",
+    "reason": "The retained r1 decision established the full hall in the later model world; swapping two older instances preserves that decision and makes both callbacks recognizable.",
+    "limits": "The later guest-book overlay remains a later state; no book, labels, claims, narration or new concept is introduced into S00/S05.",
+    "boundary_preserved": "Exact timeline JavaScript, audio files, segment frame counts and source offsets remain unchanged."
+  },
+  "scenes": [
+    {
+      "scene": "seg004__seg006",
+      "segments": [
+        "seg004",
+        "seg005",
+        "seg006"
+      ],
+      "master_in": 16.833333,
+      "master_out": 36.333333,
+      "frame_ranges_in_mp4_exclusive": {
+        "seg004": [
+          0,
+          142
+        ],
+        "seg005": [
+          142,
+          365
+        ],
+        "seg006": [
+          365,
+          468
+        ]
+      },
+      "what_changed": "Fix round 2 B-26: replace the simple gable with kit-booking-site and S20 listing-card arrangement at translate(856,327) scale(.62), preserving the original horizontal footprint and groundline. The later guest-book overlay is not introduced here. Label, both commission tags, guest action, room light and every timeline cue remain unchanged.",
+      "previous_r1": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/qa/seg004__seg006.mp4",
+        "sha256": "a3d952c10c3a2bc68e7f7c6abec279ab84f55fb5b63e43c1ac43c007d41ef6db",
+        "previous_sources": [
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/tools/index.r1.html",
+            "sha256": "a477d16d5a61827433c4710ff1a399f2b65107495eda21c1c702ece1b5f3e40d"
+          },
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/BUILD.r1.json",
+            "sha256": "2fbe99962682fa6b80c964250d28723823963d1ae9fe1dc3c508ad2a91226c94"
+          }
+        ]
+      },
+      "outputs": {
+        "plate": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/qa/r2/seg004__seg006.r2.mp4",
+          "sha256": "059e3dbe3d5ed71445a03459b3b481ca5c1895c4aa2ba72d2f352af2359d4c98"
+        },
+        "html": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/index.html",
+          "sha256": "bf98868c7fca6ebf2dd2f786524ab9e15aa8156e82e5a8efa0f95389cc35188f"
+        },
+        "build": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/BUILD.json",
+          "sha256": "d7eda5d5b990cdc90016a998624e9a750ebacd697ea918088d044215586e241a"
+        },
+        "check": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/qa/r2/CHECK.json",
+          "sha256": "b7960b4ac2fa18afbf3dab9f6dc5fe471b934dffa88fa462a61725502ce3a848"
+        },
+        "verification": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/qa/r2/VERIFY.json",
+          "sha256": "aa3374f10f83cfb6dbf32a6e789a8472cec051787176e58a6aac0d3a1838e582"
+        },
+        "contact": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/qa/r2/contact-r2.png",
+          "sha256": "c758e7d5807bcc25a0962d26bd8fb6cf25d6f9f3a18bd7da8bfea4be708c947a"
+        }
+      },
+      "checks": {
+        "strict_errors": 0,
+        "strict_warnings": 0,
+        "contrast_passed": 119,
+        "contrast_checked": 119,
+        "frames": 468,
+        "format": "1280x720 24/1; stereo 48000 Hz",
+        "audio_corr_zero_lag": 0.9997650951777717,
+        "source_excerpt_vs_master_corr": 1.0,
+        "trailing_encoder_samples": 960,
+        "uniform_frames": 0,
+        "timeline_javascript_unchanged": true,
+        "timeline_javascript_sha256": "2e22f2297b1c42fc6e4aea1b8790e6ac44259a209d3afa2e29189d6e05471c23",
+        "instance_check": "S00 instance equals S20 instance excluding the later guest-book overlay.",
+        "instance_match": true,
+        "source_geometry": {
+          "kit-booking-site": {
+            "exact_canonical_match": true,
+            "sha256": "ba3fc9b1f8d62af4c29ae44b8563f7fe99c8677a99800a623718033d7f93baee"
+          },
+          "kit-listing-card": {
+            "exact_canonical_match": true,
+            "sha256": "9fe864f8a0639943c4fd2b2213b1eb58e8298dffef0f8ffc40a2a5ccfc517d97"
+          },
+          "kit-listing-card-inn": {
+            "exact_canonical_match": true,
+            "sha256": "b736444db611cc54529666398cd9a85b1beaaaca912676d742db122f3fd7a96d"
+          }
+        }
+      },
+      "inputs": {
+        "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/public/audio/narration.wav": "7d06b152dd703ad70604619ecd40cc656829004e21f214e28df5b08aaa6c7760",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/package.json": "218abb54e9b04ca609fa9ff02b7247d563b959c82da13509fdb3f218df8e5bc8",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg004__seg006/index.html": "bf98868c7fca6ebf2dd2f786524ab9e15aa8156e82e5a8efa0f95389cc35188f",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/world-kit/kit.svg": "d400a0089d3b3659949226372dd9d08a32c10774ace35cfc93e5d2e68aa29b9b",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/index.html": "5cb8aa7d7f5315cf8145ffe81da975066cd9a4f30226cdb96f7ff42ccaf737a7",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/index.html": "a2000b2225e19cb7a1853a9673ecec36bb03d9817bf18154648babcf0681fe38"
+      }
+    },
+    {
+      "scene": "seg020",
+      "segments": [
+        "seg020"
+      ],
+      "master_in": 205.083333,
+      "master_out": 226.208333,
+      "frame_ranges_in_mp4_exclusive": {
+        "seg020": [
+          0,
+          507
+        ]
+      },
+      "what_changed": "Fix round 2 B-26: replace the simple gable with the exact S11 kit-booking-site and six listing-card instance at translate(123,80) scale(.44). Existing label, booking payment line, guest relationship line, task sheets, empty place and every timeline cue remain unchanged.",
+      "previous_r1": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/seg020.mp4",
+        "sha256": "9073888d43c69826c41af5d8440ff22728652016491ed020f7acee200878b1a5",
+        "previous_sources": [
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/tools/index.r1.html",
+            "sha256": "ecf4a42f291af7db3761886f0d0cc27d380bdcf9c4e07b6cfef8e7bd48619f5f"
+          },
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/BUILD.r1.json",
+            "sha256": "3a285e3ecb8ed633da74836fff527af3b3f852fa79692dc471d3a7f2ab6f9620"
+          }
+        ]
+      },
+      "outputs": {
+        "plate": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/seg020.r2.mp4",
+          "sha256": "37b3df2d60d5e4cf18407765093e6816edad21ee265293f4656a5cb802c0e55d"
+        },
+        "html": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/index.html",
+          "sha256": "11aa51a688bb56493570e009e8bb404af68756100b70c0689eff704277bd15c3"
+        },
+        "build": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/BUILD.json",
+          "sha256": "b8646ba831683ecfd92c0972cc3fe188a46afa03126312195b60de0b33dd345f"
+        },
+        "check": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/CHECK.json",
+          "sha256": "74c13e011d9c34ac96f56eaaf8859b02a3a03182ab13dc17ce769c1cf1626d20"
+        },
+        "verification": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/VERIFY.json",
+          "sha256": "ee98da23c3ed366f15ef5c62e6b17a98b07d8053102efa6418e565474dbe4401"
+        },
+        "contact": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/contact-r2.png",
+          "sha256": "ff81cecc8debbd923b7f9b8f7cb8e561071a4b8c27ee12fe09d7ad008362f274"
+        }
+      },
+      "checks": {
+        "strict_errors": 0,
+        "strict_warnings": 0,
+        "contrast_passed": 27,
+        "contrast_checked": 27,
+        "frames": 507,
+        "format": "1280x720 24/1; stereo 48000 Hz",
+        "audio_corr_zero_lag": 0.9997994536540253,
+        "source_excerpt_vs_master_corr": 0.9999999999999998,
+        "trailing_encoder_samples": 784,
+        "uniform_frames": 0,
+        "timeline_javascript_unchanged": true,
+        "timeline_javascript_sha256": "d4b1df8bf615932af90a8573c76e08dc81f03245a5eec24bbd32b4d9c57910f9",
+        "instance_check": "S05 instance equals S11 instance including transform and every listing card.",
+        "instance_match": true,
+        "source_geometry": {
+          "kit-booking-site": {
+            "exact_canonical_match": true,
+            "sha256": "ba3fc9b1f8d62af4c29ae44b8563f7fe99c8677a99800a623718033d7f93baee"
+          },
+          "kit-listing-card": {
+            "exact_canonical_match": true,
+            "sha256": "9fe864f8a0639943c4fd2b2213b1eb58e8298dffef0f8ffc40a2a5ccfc517d97"
+          },
+          "kit-listing-card-inn": {
+            "exact_canonical_match": true,
+            "sha256": "b736444db611cc54529666398cd9a85b1beaaaca912676d742db122f3fd7a96d"
+          }
+        }
+      },
+      "inputs": {
+        "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/public/audio/narration.wav": "56717462960eb9c32ff5304bea66f88d599558a24584519be420f6f5ccbf02ec",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/package.json": "56d0a4f4be39bf0feaa7db4ed507c343b456dc6c8cb0bbebdc2f4a9bc905fa7b",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/index.html": "11aa51a688bb56493570e009e8bb404af68756100b70c0689eff704277bd15c3",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/world-kit/kit.svg": "d400a0089d3b3659949226372dd9d08a32c10774ace35cfc93e5d2e68aa29b9b",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/index.html": "5cb8aa7d7f5315cf8145ffe81da975066cd9a4f30226cdb96f7ff42ccaf737a7",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/index.html": "a2000b2225e19cb7a1853a9673ecec36bb03d9817bf18154648babcf0681fe38"
+      }
+    }
+  ],
+  "pixel_review": {
+    "completed": true,
+    "display_environment": "Tool-rendered encoded PNGs, full-size critical frames and scene cue sheets.",
+    "artifacts": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/world-continuity-comparison.png",
+        "sha256": "caa27bf4a903d67feff8f4be2f83eaee1d0f99a4fa07f8cc8d73e579667cf403"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/stills/comparison-1.png",
+        "sha256": "35f6f76c039c3f468f7ea2702599355e20d80fa50fe2dc8dcf3f74be174f1aec"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg020/qa/r2/stills/comparison-4.png",
+        "sha256": "656306ee5b964526da9f083aa91951a94d5c03d9dd677f69ea8e7cc6b0d0e318"
+      }
+    ],
+    "observations": [
+      "S00 and S20 now share the hall silhouette, columns, listing positions, size and groundline. Later guest-book state remains distinct.",
+      "S05 and S11 share identical site instance geometry and listing cards, so the world no longer changes building when the timeline returns.",
+      "Commission-tag size, guest relationship line, relay stop, return route, room light, payment line, task sheets and empty job remain legible in the inspected states.",
+      "No added clipping, overlapping type or blank frames observed in the changed scenes."
+    ]
+  },
+  "hyperframes": {
+    "version": "0.8.36",
+    "pin_retained": true,
+    "reason": "Required by EP009 BUILD-CONVENTIONS."
+  },
+  "proposed_decision_record": {
+    "decision": "Resolve the remaining B-26 world discontinuity by replacing S00/S05 simple site instances with the canonical existing kit hall.",
+    "verification": "Strict checks pass for both exact-duration plates; all animation JavaScript is byte-identical to r1; source-symbol comparisons match the canonical kit and later instances; encoded before/after/callback frames reviewed.",
+    "recommendation": "Resolve B-26 for the replacement plates and recheck the r2 assembly."
+  },
+  "limits": [
+    "No normal-speed audiovisual playback or audio listening performed by this worker.",
+    "No whole-episode rhythm, owner acceptance, canonical gate or release verdict inferred."
+  ],
+  "external_sources_or_paid_generation_used": false,
+  "assembly_modified": false,
+  "decision_log_modified": false,
+  "committed": false
+}

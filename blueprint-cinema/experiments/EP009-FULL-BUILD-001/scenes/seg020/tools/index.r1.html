@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>EP009 S05a the empty place after checkout</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#s05-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg.stage{position:absolute;inset:0;width:1280px;height:720px}
+.kit-route{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.kit-pay{stroke:#173530;stroke-width:4;fill:none;stroke-linecap:round}
+.kit-label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.kit-small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.hide{visibility:hidden;opacity:0}
+.job{font-family:Boska,serif;font-size:44px;font-weight:700}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="s05-root" data-composition-id="ep009-seg020" data-start="0" data-duration="21.125" data-width="1280" data-height="720" data-fps="24">
+<svg id="s05-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<!-- KIT:DEFS:BEGIN -->
+<g id="kit-booking-site-simple" data-kit-desc="The booking site in its simple S00 form: same pediment and lit bays, three bays. Native 160x126."><path d="M4 44L80 6L156 44V116H4Z" fill="#F5F0E6" fill-opacity="0.58" stroke="none"/><path d="M4.9 43.3L78.9 6.5M83.9 7.8L155.7 43M1.3 46.9L61.7 45.9M70.1 45.8L159 44.3M4.6 115.7L66.7 115.1M73.1 115.1L156.2 114.3" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 58H48V108H22Z" fill="#FBF8F1" stroke="none"/><path d="M66 58H92V108H66Z" fill="#FBF8F1" stroke="none"/><path d="M110 58H136V108H110Z" fill="#FBF8F1" stroke="none"/><path d="M21.1 57.9L47.3 57.8M47.7 60L48.1 108.2M47.5 107.7L22 107.9M22.4 106.7L22.3 58.8M65.6 58L89.9 57.5M92.1 57.6L92.2 107.5M92.6 107.8L66.2 107.6M65.9 107.7L65.8 59.6M108.5 58.4L133.9 57.9M135.7 60L135.7 106.5M135.9 107.9L111.8 108M109.6 107.3L110.2 57.8" stroke="#586D74" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-2.4 124.2L161.6 122.1" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-timeline-line" data-kit-desc="Pencil timeline, 900 long, origin at left end. Scale x only if shorter."><path d="M0.7 0.9L440.6 -0.3M453 0.5L900.8 -0.5" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.6 4.1L299.6 3.9" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-tick" data-kit-desc="Event tick on a timeline (booking, stay, checkout, next booking). Native 24 tall centred on the line."><path d="M0-12L1 12" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-innkeeper" data-kit-desc="The innkeeper: kit-person plus the open V of her cardigan. Silhouette and proportions unchanged."><use href="#kit-person"/><path d="M-18-31L-4-9M17-31L3-9" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-12-30L-3-16" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-guest" data-kit-desc="The guest: kit-person plus the daypack mark. No other figure carries a daypack."><use href="#kit-person"/><path d="M60-25C67-33 80-31 82-19L83 15C83 22 78 25 70 24M63 24L62 20" stroke="#173530" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M24-34C30-24 32-12 31 1" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M66-27C74-29 79-24 79-15M72 1L80 1" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-empty-place" data-kit-desc="The empty place after checkout: dashed outline no pay line reaches. Verbatim EP007 R57 gap outline, same footprint as kit-practice-card and kit-practice-figure space. Native 150x170."><rect x="0" y="0" width="150" height="170" rx="4" stroke="#173530" stroke-width="3" fill="none" stroke-dasharray="12 9"/></g>
+<g id="kit-commission-tag" data-kit-desc="Commission tag, no number. Every commission tag in the episode is this object at the same size. Native 64x40 plus string to x -16."><path d="M16 3L62 2L63 38L16 39L2 21Z" fill="#FBF8F1" stroke="none"/><path d="M16 2.9L61.1 1.8M63.7 4.3L62.9 38.5M60.2 39.8L16.6 38.7M14.6 37.3L1.2 22M1.6 19.2L13.9 6" stroke="#173530" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0-7 0" stroke="#173530" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21C4 24-6 15-16 21M22 7L56 6" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-desk" data-kit-desc="The inn's front desk (counter). Top line is the EP007 table top; a closed front panel, a desk bell, a small card stack. Origin at left end of the top."><path d="m0 0 118-1m10 1 112-1" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.9 9.1L9.8 91.9M233 8.2L231.4 91" stroke="#173530" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.3 96.6L115.2 94.6M127.2 96.6L236.4 94.1" stroke="#173530" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 30.9L108.3 29.2M135.3 29L218.1 30.1M23.4 61.5L69.1 61.9M149.9 63.7L216 62.3" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 4.3L103.9 3.6M227 17L226.7 48.4" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M186-2C186-15 204-15 204-2M181-1L209-1M193-17L197-17" stroke="#173530" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M34-3L66-4M36-7L64-8" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-card-small" data-kit-desc="Small dog-eared card for short typeset labels (free link, direct rate, thank you, reservation report, email tool, retainer). Native 200x110. Text from x 16, first baseline y 46."><path d="M0 2L170 0L200 22L198 108L1 110Z" fill="#FBF8F1" stroke="none"/><path d="M-0.8 2.2L169.8 0.8M200.2 24L198.9 107.6M196.7 109.8L1.4 110.9M0.6 106.2L0.6 5" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M170 1L170 22L199 22" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-person" data-kit-desc="Generic person. Verbatim EP007 R54/R57/R60 #person geometry."><path d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<!-- KIT:DEFS:END -->
+<g id="s05-sheet"><path d="M0 1L40 0L48 7L47 25L1 26Z" fill="#FBF8F1" stroke="none"/><path d="M0 1.5L40 0.5M47.5 7L47 25M46 25.5L1 26M0.5 24L0.5 3" stroke="#586D74" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 1L40 7L47 7M7 10L32 10M7 17L26 17" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round"/></g>
+</defs></svg>
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="A stay timeline: booking, stay, checkout, open space, next booking. The booking site's thin pay line, with a commission tag at its end, reaches the booking only, and the relationship with the guest stays at the site. Small task sheets slide onto the innkeeper's desk during the stay. After checkout an empty dashed place, writing to last year's guests, that no line reaches. A second commission tag lands on the next booking. The empty place is a job.">
+<g id="world" transform="translate(0,64)">
+<g id="site"><use href="#kit-booking-site-simple" transform="translate(124,60) scale(1.2)"/><text class="kit-label" x="220" y="44" text-anchor="middle">Booking site</text></g>
+<g id="line"><use href="#kit-timeline-line" transform="translate(160,430)"/>
+<use href="#kit-tick" transform="translate(220,430)"/><use href="#kit-tick" transform="translate(580,430)"/><use href="#kit-tick" transform="translate(1000,430)"/>
+<text class="kit-small" x="220" y="474" text-anchor="middle">booking</text><text class="kit-small" x="400" y="474" text-anchor="middle">stay</text>
+<text class="kit-small" x="580" y="474" text-anchor="middle">checkout</text><text class="kit-small" x="1000" y="474" text-anchor="middle">next booking</text></g>
+<g id="keeper" class="hide"><use href="#kit-desk" transform="translate(328,365) scale(.6)"/><use href="#kit-innkeeper" transform="translate(400,330) scale(.6)"/></g>
+<g id="sheets"><g id="sh1" class="hide"><use href="#s05-sheet" transform="translate(344,339) rotate(-3)"/></g><g id="sh2" class="hide"><use href="#s05-sheet" transform="translate(350,328) rotate(2)"/></g><g id="sh3" class="hide"><use href="#s05-sheet" transform="translate(342,317) rotate(-1)"/></g></g>
+<path id="pay" class="hide" d="M220 218C221 300 219 360 220 414" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round"/>
+<g id="paytag" class="hide"><use href="#kit-commission-tag" transform="translate(214,352) scale(-1.4,1.4)"/></g>
+<g id="guest" class="hide"><use href="#kit-guest" transform="translate(410,150) scale(.5)"/></g>
+<path id="rel" class="kit-route hide" d="M320 140C340 138 352 140 368 139"/>
+<g id="place" class="hide"><use href="#kit-empty-place" transform="translate(715,246)"/></g>
+<text id="place-l" class="kit-small hide" x="790" y="520" text-anchor="middle">writing to last year's guests</text>
+<g id="tag" class="hide"><use href="#kit-commission-tag" transform="scale(1.4)"/></g>
+<text id="ajob" class="job hide" x="790" y="346" text-anchor="middle" fill="#B5482F">A job</text>
+</g>
+</svg>
+<audio id="s05-narration" src="public/audio/narration.wav" data-start="0" data-duration="21.125" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+const t=gsap.timeline({paused:true});
+// Master 205.083333 + cue. Frame 0 (cut from P03): site and the stay timeline, no line into the space after checkout.
+const C={"nobody":0.357,"not":2.637,"paid":4.617,"hand":7.377,"short":9.957,"last":11.757,"introduction2":16.757,"gap":19.917,"job2":20.497};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+// "Nobody at the inn is." nothing new appears.
+// "And that's not a lapse.": the desk is busy on the stay.
+fade('#keeper',C.not-.5);
+['#sh1','#sh2','#sh3'].forEach((q,i)=>t.fromTo(q,{autoAlpha:0,x:-70},{autoAlpha:1,x:0,duration:.45,ease:'power2.out'},C.not+i*.3));
+// "The site is paid per introduction": its pay line reaches the booking only.
+draw('#pay',C.paid,.6);t.fromTo('#paytag',{autoAlpha:0,y:-6},{autoAlpha:1,y:0,duration:8/24,ease:'power2.out'},C.paid+.55);
+// "so it has no reason to hand over the relationship": the relationship stays at the site.
+fade('#guest',C.hand-.3);draw('#rel',C.hand+.1,.4);
+// "so writing to last year's guests is the job that never gets done": an empty place nothing reaches.
+fade('#place',C.last,.5);fade('#place-l',C.last+.4);
+// "paying an introduction fee to meet its own regulars": the second commission tag lands on the next booking.
+t.fromTo('#tag',{autoAlpha:0,x:830,y:176},{autoAlpha:1,duration:.25,ease:'power1.out'},C.introduction2-.3);
+t.to('#tag',{x:955,y:352,duration:.9,ease:'power2.inOut'},C.introduction2-.1);
+// "That gap is a job."
+t.fromTo('#ajob',{autoAlpha:0,y:6},{autoAlpha:1,y:0,duration:10/24,ease:'power2.out'},C.job2);
+window.__timelines['ep009-seg020']=t;
+</script></body></html>

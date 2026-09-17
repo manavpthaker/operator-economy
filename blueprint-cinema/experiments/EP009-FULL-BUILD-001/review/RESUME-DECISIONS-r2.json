@@ -1,0 +1,114 @@
+[
+  {
+    "event_id": "ep009-s17-note-repair-r2",
+    "decision_id": "ep009-s17-note-repair",
+    "event_type": "decision",
+    "tags": [
+      "animation",
+      "readability",
+      "repair"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Keep the per-property cost and labor assumptions readable as the audit work is added.",
+        "viewer_before": "The r1 entire-string crossfade overlays different centered glyph positions.",
+        "viewer_after": "Existing values hold while the audit clause appears to their right."
+      },
+      "choice": "One left-aligned SVG text node with independent append-only tspans.",
+      "reason": "Appending keeps established numbers readable continuously and retains the existing word cues. Sequential complete-string replacement would briefly remove useful context.",
+      "alternatives": [
+        {
+          "choice": "Fade each complete string out before its replacement enters.",
+          "reason_not_selected": "Would temporarily remove useful context."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "EP009 S17 per-property note at W002566 and W002572.",
+        "avoid_when": "A semantic replacement rather than an appended clause is required."
+      },
+      "nuance": {
+        "source_basis": "historical_reconstruction of the current resume worker repair, recorded after its bounded implementation",
+        "protected": "All timing, words, claims, master audio and source plate boundaries unchanged."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/FIX-REPORT-B-R1-01.json",
+        "sha256": "f9f6b9484e5d595f9a556534e951ecf7841e559d114a161ed64c74cca9a6c34e",
+        "locator": "decision and encoded review"
+      }
+    ]
+  },
+  {
+    "event_id": "ep009-s17-note-repair-r2-check",
+    "decision_id": "ep009-s17-note-repair",
+    "event_type": "verification",
+    "tags": [
+      "animation",
+      "readability",
+      "encoded-review"
+    ],
+    "data": {
+      "decision_event_id": "ep009-s17-note-repair-r2",
+      "method": "Worker strict HyperFrames check; encoded frame strips across each clause reveal; exact frame count, audio correlation and endpoint pixel comparison.",
+      "result": "pass",
+      "scope": "B-R1-01 only in new scene plate; not whole-episode approval.",
+      "limitations": "No normal-speed audiovisual viewing or sound listening by the worker. Owner acceptance remains pending.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/s17ab.r2.mp4",
+          "sha256": "f628c449f0dc5a6901ef32d6b166e59cacfbf005b7a648825fa6312ee5342b21"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/FIX-REPORT-B-R1-01.json",
+        "sha256": "f9f6b9484e5d595f9a556534e951ecf7841e559d114a161ed64c74cca9a6c34e",
+        "locator": "checks and limits"
+      }
+    ]
+  },
+  {
+    "event_id": "ep009-booking-site-continuity-r2",
+    "decision_id": "ep009-booking-site-continuity",
+    "event_type": "decision",
+    "tags": [
+      "world-continuity",
+      "animation",
+      "repair"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Recognize the same booking-site object in the opening, job-vacancy question and later direct-booking callback.",
+        "viewer_before": "A simple gable becomes a columned hall between scenes without explanation.",
+        "viewer_after": "The same approved kit hall identifies the booking site throughout."
+      },
+      "choice": "Replace only the two early kit-booking-site-simple instances with existing canonical kit-booking-site hall/listing definitions, preserve positions, action, cues and audio.",
+      "reason": "The callback must resolve the relationship shown in the opening; changing the object identity breaks recognition.",
+      "alternatives": [
+        {
+          "choice": "Change all later scenes back to the simple gable.",
+          "reason_not_selected": "Unnecessarily changes the many later scenes already using the canonical current kit object."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "EP009 S00/S05 booking-site instances.",
+        "avoid_when": "A deliberate transformation of that object is the narrated point."
+      },
+      "nuance": {
+        "source_basis": "current agent repair inside authorized full-build scope",
+        "protected": "No new labels, claims, guest-book overlays or narration changes."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/RECHECK-B-R1.md",
+        "sha256": "180acf9a3f4609980394c97ade4f0f89eb81ff6a90609defbf8bab09fa6b1d36",
+        "locator": "B-26"
+      }
+    ]
+  }
+]
