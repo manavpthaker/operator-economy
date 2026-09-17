@@ -18,9 +18,9 @@
  },
  "mp4": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/s20e-s21.mp4",
-  "sha256": "8cb9c9b72eee2119d3dd5dab8dc11736b06985d343f30a75550d04373104704c"
+  "sha256": "bbbc365c5018f8e720c2712b3d3edbabb6384a03f18f72c86d06832848b89e28"
  },
- "index_html_sha256": "45cbceed80f1af25858aa96449cef0efc92be7416a0d40b71a7cd06e52b35470",
+ "index_html_sha256": "a2000b2225e19cb7a1853a9673ecec36bb03d9817bf18154648babcf0681fe38",
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0000.00-frame0.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0001.08-in_.png",
@@ -46,39 +46,64 @@
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0031.84-fit.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0034.20-any_.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0035.36-ten.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0035.50-extra.png"
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0035.50-extra.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/contact-r1.png"
  ],
  "checks": {
   "strict_errors": 0,
+  "strict_warnings": 0,
   "strict_ok": true,
   "frames_ok": true,
   "expected_frames": 854,
+  "frames": 854,
   "audio_corr": 0.999858,
   "audio": "2 ch 48000 Hz; render has 32 trailing encoder samples beyond the excerpt",
   "uniform_frames": 0,
   "format": "1280x720 24/1",
-  "seams": "model-to-model seams inside act 4 compared last frame vs next first frame at 320x180 gray: max abs diff <= 14/255, 0 pixels over 20"
+  "seams": "last frame (S21 hold for P11) vs r0 last frame: max 3/255 (unchanged); first frame follows the F10 film cut",
+  "busiest_frame_text_blocks": {
+   "before": 5,
+   "after": 5,
+   "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/stills/0018.30-extra.png"
+  }
  },
  "new_objects": [
   "guest's own email field box holding kit-text-own-email",
   "solid service shape inside the enlarged second tag (kit-tag-service geometry, filled, solid) holding kit-practice-card",
-  "lit-box fills on the inline slip copied from scenes/seg036__seg039"
+  "lit-box fills on the inline slip copied from scenes/seg036__seg039",
+  "s15-seasonal-note-level (act 3 object, reused)"
  ],
  "deviations": [
   "The S00 world is rebuilt from act 1 scenes/seg004__seg006 placements (inn, site, both tags, first-introduction arc); the relay field is omitted and the guest's own email field sits where it was, so the note visibly goes to the own email; the guest figure stands between inn and site so the booking route to the inn's own page is short and does not cross the introduction arc.",
   "\"ILLUSTRATIVE\" kicker top-left through S20e (plan: small label \"illustrative\" throughout).",
   "W003178 \"still\": the site's first-introduction arc re-traces in ink; the first tag stays solid. W003189: the second tag crossfades to kit-commission-tag-empty at the same place. An empty tag outline also marks the own-page booking on W003167.",
-  "S21: the world fades on W003195; the second tag enlarges (scale 4) and a solid service shape with the practice card appears on W003197, labelled \"the service\"; on W003203 it moves aside top right at 50% and fades on W003215. The S10 slip enters with its illustrative values and lit boxes; each box turns oxide then clears on its word; \"illustrative\" leaves after the last. \"Four numbers\", oxide ceiling line labelled \"Ceiling\", blank retainer tag under it, \"any small property\" under the slip on W003233."
+  "S21: the world fades on W003195; the second tag enlarges (scale 4) and a solid service shape with the practice card appears on W003197, labelled \"the service\"; on W003203 it moves aside top right at 50% and fades on W003215. The S10 slip enters with its illustrative values and lit boxes; each box turns oxide then clears on its word; \"illustrative\" leaves after the last. \"Four numbers\", oxide ceiling line labelled \"Ceiling\", blank retainer tag under it, \"any small property\" under the slip on W003233.",
+  "Fix round 1 (B-26): booking site is kit-booking-site at .62 with listing cards (inn card in slot 2) and the site copy of the guest book, the drawing act 3 used in S11 and S15; same ground line, tags and introduction arc.",
+  "Fix round 1 (B-07): the October note uses act 3 new object s15-seasonal-note-level (level wavy trail), copied to public/art/."
  ],
  "end_state": {
-  "seg069": "ILLUSTRATIVE kicker; inn (60,262) .8 with own page live; site (856,290) 1.7; tag1 (1150,318) solid; tag2 place (1150,376) dashed empty; introduction arc ink; own email field (470-806, 176-222) with October note at (726,92) .75 and \"October\"; guest (640,470) .6; route to own page with empty tag outline (478,404)",
-  "seg070": "clean hold for presenter P11: paper background; ceiling slip at (390,136) native size, title \"The ceiling\", four labelled boxes all blank; \"Four numbers\" (740,236); oxide ceiling line (740-1100, y 400) labelled \"Ceiling\"; blank retainer tag (872,418) under it; \"any small property\" (540,620). No figures on screen. Settled from about 1172.9 (W003233 + 0.4 s)."
+  "seg069": "as r0 except the booking site: kit-booking-site at (856,327) .62 with four listing cards (inn card slot 2) and the site copy of the guest book, label \"Booking site\" (992,306); October note is s15-seasonal-note-level",
+  "seg070": "unchanged: clean hold for presenter P11 (ceiling slip blank, \"Four numbers\", oxide ceiling line, blank retainer tag, \"any small property\"); last frame max 3/255 vs r0"
  },
  "decision_event_ids": [
   "ep009-act4-s20-model-verify-v1",
   "ep009-act4-s21-build-revision-v1",
-  "ep009-act4-s21-verify-v1"
+  "ep009-act4-s21-verify-v1",
+  "ep009-act4-s20-fix-round-1-v1",
+  "ep009-act4-s20-fix-round-1-verified-v1"
  ],
- "generator": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/tools/build.py (python3 tools/build.py writes index.html; tools/act4lib.py shared helpers)",
- "review_honesty": "Agent build. Checks are structural; creative verdict is a recommendation, not owner acceptance."
+ "generator": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/tools/build.py (python3 tools/build.py writes index.html; tools/act4lib.py and tools/r1lib.py; later scenes import earlier scene() and replay its timeline to progress(1) so frame 0 equals the earlier last frame)",
+ "review_honesty": "Agent build. Checks are structural; creative verdict is a recommendation, not owner acceptance.",
+ "previous_render": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/qa/s20e-s21.r0.mp4",
+  "sha256": "8cb9c9b72eee2119d3dd5dab8dc11736b06985d343f30a75550d04373104704c",
+  "previous_sources": [
+   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/tools/build.r0.py",
+   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg069__seg070/tools/index.r0.html"
+  ]
+ },
+ "fix_round_1": [
+  "B-07",
+  "B-26"
+ ]
 }

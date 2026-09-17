@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""EP009 S20e + S21 (fix round 1: B-07 level seasonal note, B-26 full booking site with listing cards)
- (seg069, seg070): the callback in the S00 model world, then redirect (not recap) to the service
+"""EP009 S20e + S21 (seg069, seg070): the callback in the S00 model world, then redirect (not recap) to the service
 inside the second commission and the S10 ceiling slip cleared for any property. Generates ../index.html.
 S00 object placements match scenes/seg004__seg006 (act 1): inn (60,262) .8, site (856,290) 1.7, tags (1150,318|376) 1.4.
 The slip matches scenes/seg036__seg039 (act 3): kit-ceiling-slip-filled with lit boxes, title, illustrative tag."""
@@ -22,12 +21,7 @@ S.append('<text id="ill" class="kicker" x="40" y="44">ILLUSTRATIVE</text>')
 S.append('<g id="w00">')
 S.append('<g id="inn"><use href="#kit-inn" transform="translate(60,262) scale(.8)"/><text class="label" x="252" y="238" text-anchor="middle">The inn</text></g>')
 S.append('<g id="own"><use href="#kit-inn-own-page" transform="translate(357.6,433.2) scale(.8)"/></g>')
-# fix round 1 (B-26): the kit's full booking site with listing cards and the site's copy of the guest book, as act 3 drew it in S11/S15
-S.append('<g id="site"><g transform="translate(856,327) scale(.62)"><use href="#kit-booking-site"/>'
-         '<use href="#kit-listing-card" transform="translate(40.5,167)"/><use href="#kit-listing-card-inn" transform="translate(104.5,167)"/>'
-         '<use href="#kit-listing-card" transform="translate(296.5,167)"/><use href="#kit-listing-card" transform="translate(360.5,167)"/>'
-         '<use href="#kit-guest-book-open" transform="translate(165,204) scale(.545)"/></g>'
-         '<text class="label" x="992" y="306" text-anchor="middle">Booking site</text></g>')
+S.append('<g id="site"><use href="#kit-booking-site-simple" transform="translate(856,290) scale(1.7)"/><text class="label" x="992" y="268" text-anchor="middle">Booking site</text></g>')
 S.append('<g id="tag1"><use href="#kit-commission-tag" transform="translate(1150,318) scale(1.4)"/></g>')
 S.append('<path id="intro" class="kit-route" d="M864 510C750 606 450 606 318 508"/>')
 S.append(f'<path id="intro2" class="hide" d="M864 510C750 606 450 606 318 508" stroke="{INK}" stroke-width="3" fill="none" stroke-linecap="round"/>')
@@ -39,8 +33,7 @@ S.append('</g>')
 S.append('<g id="tag2"><use href="#kit-commission-tag" transform="translate(1150,376) scale(1.4)"/></g>')
 S.append('<g id="tag2e" class="hide"><use href="#kit-commission-tag-empty" transform="translate(1150,376) scale(1.4)"/></g>')
 # October note travels from the inn to the guest's own email
-# fix round 1 (B-07): act 3's level-trail seasonal note (scenes/seg050__seg054/public/art/s15-seasonal-note-level.svg)
-S.append('<g id="note" class="hide"><use href="#s15-seasonal-note-level" transform="translate(0,0) scale(.75)"/></g>')
+S.append('<g id="note" class="hide"><use href="#kit-seasonal-note" transform="translate(0,0) scale(.75)"/></g>')
 S.append('<text id="oct" class="hide small" x="720" y="112" text-anchor="end">October</text>')
 S.append('<path id="book" class="hide kit-route" d="M596 462C540 470 470 470 414 466"/>')
 S.append('<g id="notag" class="hide"><use href="#kit-commission-tag-empty" transform="translate(478,404) scale(1.4)"/></g>')
@@ -66,9 +59,7 @@ S.append('<g id="rtag" class="hide"><use href="#kit-retainer-tag" transform="tra
 S.append('<text id="anyp" class="hide small" x="540" y="620" text-anchor="middle">any small property</text>')
 
 body = '\n'.join(S)
-import re as _re
-NOTE = _re.search(r'<g id="s15-seasonal-note-level".*</g>', (HERE.parent / 'public/art/s15-seasonal-note-level.svg').read_text(), _re.S).group(0)
-defs = NOTE + '\n' + kit_defs(['kit-inn', 'kit-inn-own-page', 'kit-booking-site', 'kit-listing-card', 'kit-listing-card-inn', 'kit-guest-book-open', 'kit-commission-tag', 'kit-commission-tag-empty',
+defs = kit_defs(['kit-inn', 'kit-inn-own-page', 'kit-booking-site-simple', 'kit-commission-tag', 'kit-commission-tag-empty',
                  'kit-text-own-email', 'kit-guest', 'kit-seasonal-note', 'kit-practice-card', 'kit-ceiling-line', 'kit-retainer-tag'])
 C = {k: c(w) for k, w in dict(in_='W003146', october='W003147', note='W003149', the='W003157', inns='W003163', no='W003167',
                               the2='W003176', still='W003178', nobody='W003183', stopped='W003189', thats='W003195',

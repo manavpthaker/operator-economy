@@ -23,11 +23,12 @@
  },
  "mp4": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/s19.mp4",
-  "sha256": "ccb727ebdec73f9f7f571c52fa822aec1a31a0cef30150f45d44e3b1392c0e4a"
+  "sha256": "af4362cb5e515f6bd9437b51389f5239544f14d14af8adad91435de89e1c4a1e"
  },
- "index_html_sha256": "e86a3214826296c73040aea321964dd8e706f488187329130b18d26f4bd016cb",
+ "index_html_sha256": "a03f0fd7346b92a256c996b4f16b4cfc873e98a8f554508a1fbf149c9dc5a928",
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0000.00-frame0.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0000.90-extra.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0001.01-before.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0003.69-first.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0004.95-building.png",
@@ -45,6 +46,7 @@
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0026.73-two_pms.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0029.65-innkeeper.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0033.63-two_agy.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0036.50-extra.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0037.53-success.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0039.55-one_paid.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0040.85-one_yes.png",
@@ -57,43 +59,68 @@
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0055.59-keep.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0056.65-move.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0058.48-sell.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0059.40-extra.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0060.20-say.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0061.40-extra.png"
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0061.40-extra.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/contact-r1.png"
  ],
  "checks": {
   "strict_errors": 0,
+  "strict_warnings": 0,
   "strict_ok": true,
   "frames_ok": true,
   "expected_frames": 1475,
+  "frames": 1475,
   "audio_corr": 0.999875,
   "audio": "2 ch 48000 Hz; render has 144 trailing encoder samples beyond the excerpt",
   "uniform_frames": 0,
   "format": "1280x720 24/1",
-  "seams": "model-to-model seams inside act 4 compared last frame vs next first frame at 320x180 gray: max abs diff <= 14/255, 0 pixels over 20"
+  "seams": "frame 0 vs seg061__seg062 last frame: max 6/255, 0 px over 20; last frame unchanged role (hard cut to F08)",
+  "busiest_frame_text_blocks": {
+   "before": 27,
+   "after": 17,
+   "frame": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/stills/0061.40-extra.png"
+  }
  },
  "new_objects": [
   "pencil timeline day 1 / day 30 / day 90",
   "stopwatch mark",
   "call marks (two steel arcs above each called figure)",
   "three option labels with a plain branch line, none marked",
-  "dashed \"Say: first retainer running\" marker"
+  "dashed \"Say: first retainer running\" marker",
+  "timeline lifted from the S18 axis (same stroke)"
  ],
  "deviations": [
   "Five calls are shown as call marks above five figures beside a phone, not five lines from the phone (lines overlapped into one band at this size).",
   "The audit card reads \"Build the audit\" with checklist sheet, blank ceiling slip (kit-ceiling-slip-blank) and phone as its three parts.",
-  "S18 clears on W002944 \"Before\"; the timeline draws in from 0.3 s after it."
+  "S18 clears on W002944 \"Before\"; the timeline draws in from 0.3 s after it.",
+  "Fix round 1 (B-24): no blank page; on W002944 \"Before\" S18 fades while its room axis lifts to the top and stretches into the 90-day timeline.",
+  "Fix round 1 (B-15): days 1 to 30 fill the frame (audit card left, three inns right, five calls across the lower third) until W003042 \"Success\", then shrink to half size in the left half as drawings at 50% (labels fade) while success and days 31 to 90 take the right; the three unmarked options span the lower frame.",
+  "Fix round 1 (B-15): \"PMS partner managers\" is now \"property management system partner managers\", as spoken."
  ],
  "end_state": {
-  "seg063": "timeline y 120 (40-1240) with \"Days 1 to 30\", \"building, not thinking\"; audit card (40-620, 192-342) with three parts; three inns (IX 118/308/498) with \"free, an owner you know\" + stopwatch, \"at the audit fee\", small ceilings with blank retainer tags under, answer lines, \"write down the answer\"; phone \"five calls\" and five figures with call marks, labels PMS partner managers / innkeeper association / agencies",
-  "seg064": "as seg063 plus \"Success at day 30\" box (660-1240, 188-346) with three EMPTY checkboxes; \"Days 31 to 90\"; three items; \"decide\" with three unmarked options keep going / move the band up / sell the audit only",
-  "seg065": "as seg064 plus dashed marker \"Say: first retainer running\" (660-920, 30-68) with dashed stem to the timeline at x 760; settled from about 0.35 s after W003097; held to the hard cut to F08"
+  "seg063": "timeline y 120 with day 1/30/90; \"Days 1 to 30\", \"building, not thinking\"; full-frame group: audit card (40-620, 200-400) three parts, three inns right with labels, ceilings, answer lines, five calls across the lower third with \"property management system partner managers\", \"innkeeper association\", \"agencies\"",
+  "seg064": "timeline; days 1-30 group at half size in x 40-640, y 198-448, drawings only at 50%; \"Days 31 to 90\"; success box (680-1240, 188-346) three EMPTY boxes; three items; \"decide\" (640,548) with fork and three unmarked options across the lower frame",
+  "seg065": "as seg064 plus dashed marker \"Say: first retainer running\" (660-920, 30-68) with stem at x 760; held to the hard cut to F08"
  },
  "decision_event_ids": [
   "ep009-act4-s18-s19-build-revision-v1",
   "ep009-act4-s18-s19-verify-v1",
-  "ep009-act4-s20-model-verify-v1"
+  "ep009-act4-s20-model-verify-v1",
+  "ep009-act4-s19-fix-round-1-v1",
+  "ep009-act4-s19-fix-round-1-verified-v1"
  ],
- "generator": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/tools/build.py (python3 tools/build.py writes index.html; tools/act4lib.py shared helpers)",
- "review_honesty": "Agent build. Checks are structural; creative verdict is a recommendation, not owner acceptance."
+ "generator": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/tools/build.py (python3 tools/build.py writes index.html; tools/act4lib.py and tools/r1lib.py; later scenes import earlier scene() and replay its timeline to progress(1) so frame 0 equals the earlier last frame)",
+ "review_honesty": "Agent build. Checks are structural; creative verdict is a recommendation, not owner acceptance.",
+ "previous_render": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/s19.r0.mp4",
+  "sha256": "ccb727ebdec73f9f7f571c52fa822aec1a31a0cef30150f45d44e3b1392c0e4a",
+  "previous_sources": [
+   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/tools/build.r0.py",
+   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/tools/index.r0.html"
+  ]
+ },
+ "fix_round_1": [
+  "B-15",
+  "B-24"
+ ]
 }
