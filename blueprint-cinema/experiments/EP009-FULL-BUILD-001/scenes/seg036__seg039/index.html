@@ -17,7 +17,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 #tl{position:absolute;left:40px;top:24px;font:400 21px/1 Supreme,sans-serif;color:#33464C;white-space:nowrap}
 #tl .k{font-weight:500;letter-spacing:2px}
 #rc{position:absolute;left:40px;bottom:16px;font:400 17px/1.2 Supreme,sans-serif;color:#33464C;white-space:nowrap}
-#hd{position:absolute;left:580px;top:112px;margin:0;font:700 36px/1 Boska,serif;color:#173530;white-space:nowrap}
+#hd{position:absolute;left:514px;top:112px;margin:0;font:700 36px/1 Boska,serif;color:#173530;white-space:nowrap}
 </style><script src="public/vendor/gsap.min.js"></script></head><body>
 <div id="p-root" data-composition-id="ep009-s10-ceiling" data-start="0" data-duration="109.833333" data-width="1280" data-height="720" data-fps="24">
 <svg id="s10-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -31,72 +31,76 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 <pattern id="h-steel" patternUnits="userSpaceOnUse" width="11" height="11" patternTransform="rotate(-45)"><path d="M0 0V11" stroke="#586D74" stroke-width="1.1"/></pattern>
 <pattern id="h-light" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(45)"><path d="M0 0V14" stroke="#586D74" stroke-width="1.3"/></pattern>
 <clipPath id="c-col" clipPathUnits="userSpaceOnUse"><rect id="cr-col" x="400" y="180" width="160" height="0"/></clipPath>
-<clipPath id="c-slip" clipPathUnits="userSpaceOnUse"><rect id="cr-slip" x="980" y="90" width="270" height="0"/></clipPath>
-<clipPath id="c-ceil" clipPathUnits="userSpaceOnUse"><rect id="cr-ceil" x="570" y="460" width="0" height="30"/></clipPath>
-<clipPath id="c-g40" clipPathUnits="userSpaceOnUse"><rect id="cr-g40" x="570" y="285" width="0" height="30"/></clipPath>
-<clipPath id="c-g5" clipPathUnits="userSpaceOnUse"><rect id="cr-g5" x="570" y="547" width="0" height="30"/></clipPath>
-<clipPath id="c-con" clipPathUnits="userSpaceOnUse"><rect id="cr-con" x="515" y="180" width="0" height="230"/></clipPath>
-<clipPath id="c-pan" clipPathUnits="userSpaceOnUse"><rect id="cr-pan" x="550" y="160" width="430" height="0"/></clipPath>
+<clipPath id="c-slip" clipPathUnits="userSpaceOnUse"><rect id="cr-slip" x="1000" y="90" width="260" height="0"/></clipPath>
+<clipPath id="c-ceil" clipPathUnits="userSpaceOnUse"><rect id="cr-ceil" x="580" y="455" width="0" height="30"/></clipPath>
+<clipPath id="c-con" clipPathUnits="userSpaceOnUse"><rect id="cr-con" x="515" y="170" width="0" height="240"/></clipPath>
+<clipPath id="c-pan" clipPathUnits="userSpaceOnUse"><rect id="cr-pan" x="550" y="150" width="510" height="0"/></clipPath>
+<clipPath id="c-bar" clipPathUnits="userSpaceOnUse"><rect id="cr-bar" x="590" y="640" width="100" height="0"/></clipPath>
 </defs></svg>
-<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="Illustrative ceiling model for a made-up 20-room inn. A column of room revenue, the rented share shaded, a commission band. A dashed 10-point slice labelled a hypothesis is enlarged: commission on the slice, minus direct channel cost, what is left, and a ceiling line with a retainer tag under it. Two ghost ceilings show that 40 rooms doubles it and a 5-point shift halves it.">
-<!-- Build column -->
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="Illustrative ceiling model for a made-up 20-room inn. A column of room revenue with the rented share shaded and a commission band. A dashed 10-point slice, labelled a hypothesis, is enlarged into a panel where one bar is built step by step: commission on the slice, minus direct channel cost, what is left, per month, and a ceiling line with a retainer tag under it. Ghost copies of the ceiling line rise to double for 40 rooms and drop to half for a 5-point shift.">
+<g id="shift" transform="translate(-60,0)">
+<!-- Build column (recedes to 30% when the panel opens; the dashed slice and its tag stay) -->
+<g id="colw">
 <g id="inn" class="hide"><use href="#kit-inn-mini" transform="translate(420,90) scale(.5)"/></g>
 <g clip-path="url(#c-col)"><g id="col">
 <rect id="col-fill" x="441" y="190" width="79" height="440" fill="#EDE5D6" class="hide"/>
 <rect id="rent" x="441" y="353" width="79" height="277" fill="url(#h-steel)" class="hide"/>
-<g id="band"><g id="band-in" class="hide"><rect x="441" y="353" width="79" height="50" fill="url(#h-ink)" opacity=".55"/><rect x="441" y="403" width="79" height="11" fill="url(#h-light)"/>
-<path class="ink" style="stroke-width:2" d="M433 403L527 403"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M433 414L527 414"/></g></g>
+<g id="band-in" class="hide"><rect x="441" y="353" width="79" height="50" fill="url(#h-ink)" opacity=".55"/><rect x="441" y="403" width="79" height="11" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M433 403L527 403"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M433 414L527 414"/></g>
 <path class="ink" d="M439.6 190.4L521 189.6M520.6 192.5L519.8 630.4M518 630.9L441.2 630.2M440.3 627.5L440.9 193.5"/>
 <path class="light" d="M437 196L437 620M444 186L512 186"/>
 <path id="rent-edge" class="ink hide" style="stroke-width:2" d="M436 353L525 353"/>
 </g></g>
-<g id="slice" class="hide"><rect x="445" y="353" width="71" height="44" fill="none" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/></g>
-<g id="slice5" class="hide"><rect x="449" y="356" width="63" height="22" fill="none" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/></g>
-<!-- Column labels, right aligned -->
-<g text-anchor="end">
-<g id="l-rev" class="hide"><text class="sm" x="420" y="214" font-size="21">Room revenue</text><text class="lab" x="420" y="244" font-size="27">about $920,000</text><text class="st" x="420" y="266" font-size="16">$919,800</text></g>
-<g id="l-rent" class="hide"><text class="sm" x="420" y="574" font-size="21">Rented bookings</text><text class="lab" x="420" y="604" font-size="27">about $580,000</text><text class="st" x="420" y="624" font-size="16">$583,153</text></g>
-<g id="l-com"><text id="l-com1" class="lab hide" x="420" y="382" font-size="26">Commission 18% to 22%</text>
-<g id="l-com2" class="hide"><rect x="96" y="394" width="330" height="27" rx="3" fill="#FBF8F1" stroke="#586D74" stroke-width="1.3"/><text class="sm" x="414" y="413" font-size="17">my assumption from the reported bands</text></g>
-<g id="l-com3" class="hide"><text class="lab" x="420" y="450" font-size="23">about $105,000 to $130,000</text><text class="st" x="420" y="470" font-size="16">a year · $104,968 to $128,294</text></g></g>
-<text id="l-note" class="st hide" x="420" y="498" font-size="17">not all of it moves</text>
-<g id="tag1" class="hide"><rect id="tag1-box" x="176" y="288" width="250" height="34" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag1-t" class="lab" x="414" y="311" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text></g>
-<g id="tag2" class="hide"><rect id="tag2-box" x="176" y="288" width="250" height="62" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag2-t1" class="lab" x="414" y="311" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text><text id="tag2-t2" class="lab" x="414" y="339" font-size="18" style="fill:#B5482F">nobody has measured</text></g>
 </g>
-<!-- Construction lines and enlarged panel -->
-<g clip-path="url(#c-con)"><path id="con" class="light hide" style="stroke-width:1.4" d="M521 353L575 194M521 397L575 250"/></g>
+<g id="slice5" class="hide"><rect x="449" y="356" width="63" height="22" fill="none" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/></g>
+<g id="slice" class="hide"><rect x="445" y="353" width="71" height="44" fill="none" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/></g>
+<!-- Column caption slot: one caption at a time, right aligned at x 420 -->
+<g text-anchor="end">
+<g id="l-rev" class="hide"><text class="sm" x="420" y="214" font-size="21">Room revenue</text><text class="lab" x="420" y="246" font-size="28">about $920,000</text></g>
+<g id="l-rent" class="hide"><text class="sm" x="420" y="470" font-size="21">Rented bookings</text><text class="lab" x="420" y="502" font-size="28">about $580,000</text></g>
+<text id="l-com1" class="lab hide" x="420" y="382" font-size="26">Commission 18% to 22%</text>
+<text id="l-com2" class="sm hide" x="420" y="410" font-size="18">my assumption from the reported bands</text>
+<text id="l-com3" class="lab hide" x="420" y="444" font-size="20">about $105,000 to $130,000 a year</text>
+<g id="tag1"><g id="tag1-a" class="hide"><rect id="tag1-box" x="176" y="358" width="250" height="34" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag1-t" class="lab" x="414" y="381" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text></g>
+<g id="tag2" class="hide"><rect id="tag2-box" x="176" y="358" width="250" height="62" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag2-t1" class="lab" x="414" y="381" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text><text id="tag2-t2" class="lab" x="414" y="409" font-size="18" style="fill:#B5482F">nobody has measured</text></g></g>
+</g>
+<!-- Construction lines and the enlarged panel -->
+<g clip-path="url(#c-con)"><path id="con" class="light hide" style="stroke-width:1.4" d="M521 353L588 186M521 397L588 234"/></g>
 <g clip-path="url(#c-pan)"><g id="panel" class="hide">
-<path class="light" d="M561 171L968 170M969 174L968 651M965 652L562 652M560 648L561 175"/>
-<text class="st" x="578" y="187" font-size="15">enlarged</text>
-<rect x="575" y="195" width="375" height="55" fill="#FBF8F1" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/>
-<text class="lab" x="590" y="230" font-size="20" font-weight="400">about $92,000 of revenue, if it moved</text>
-<text class="st" x="950" y="268" font-size="15" text-anchor="end">$91,980</text>
-<path class="ink" style="stroke-width:2" d="M576 650.5L702 649.5"/>
+<path class="light" d="M571 161L1046 160M1047 164L1046 655M1043 656L572 656M570 652L571 165"/>
+<rect x="588" y="184" width="440" height="52" fill="#FBF8F1"/><rect x="588" y="184" width="440" height="52" fill="url(#h-steel)" opacity=".7"/><rect x="588" y="184" width="440" height="52" fill="none" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/>
+<path class="ink" style="stroke-width:2" d="M592 640.5L700 639.5"/>
 </g></g>
-<g id="cbar" class="hide"><rect x="591" y="480" width="69" height="170" fill="url(#h-ink)" opacity=".55"/><rect x="591" y="442" width="69" height="38" fill="url(#h-light)"/>
-<path class="ink" style="stroke-width:2" d="M584 480L667 480M590 480L590 650M661 480L661 650"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M584 442L667 442"/></g>
-<g id="cost" class="hide"><rect x="591" y="442" width="69" height="40" fill="#FBF8F1" opacity=".75"/><rect x="591" y="442" width="69" height="40" fill="url(#h-light)" stroke="#586D74" stroke-width="1.8" stroke-dasharray="5 4"/><text class="lab" x="667" y="470" font-size="22">−</text></g>
-<g id="rbar" class="hide"><rect x="591" y="527" width="69" height="123" fill="url(#h-ink)" opacity=".55"/><rect x="591" y="475" width="69" height="52" fill="url(#h-light)"/>
-<path class="ink" style="stroke-width:2" d="M584 527L667 527M590 475L590 650M661 475L661 650"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M584 475L667 475"/></g>
-<g id="c-l1" class="hide"><text class="sm" x="690" y="342" font-size="19">18% to 22% on that slice</text></g>
-<g id="c-l2" class="hide"><text class="lab" x="690" y="366" font-size="22">about $16,500 to $20,000</text><text class="st" x="690" y="386" font-size="15">a year · $16,556 to $20,236</text></g>
-<text id="k-l1" class="sm hide" x="690" y="416" font-size="19">minus direct channel cost</text>
-<text id="k-l2" class="lab hide" x="690" y="440" font-size="22">3.5% to 5%</text>
-<g id="k-l3" class="hide"><rect x="808" y="424" width="156" height="42" rx="3" fill="#FBF8F1" stroke="#586D74" stroke-width="1.3"/><text class="sm" x="818" y="441" font-size="15">low end: one</text><text class="sm" x="818" y="459" font-size="15">vendor's own figure</text></g>
-<g id="r-l1" class="hide"><text class="sm" x="690" y="342" font-size="19">What's left</text><text class="lab" x="690" y="366" font-size="22">about $12,000 to $17,000</text><text class="st" x="690" y="386" font-size="15">a year · $11,957 to $17,017</text></g>
-<g id="m-l1" class="hide"><text class="lab" x="690" y="428" font-size="25">about $1,000 to $1,400</text><text class="st" x="690" y="450" font-size="15">a month · $996 to $1,418</text></g>
-<g clip-path="url(#c-ceil)"><g id="ceil" style="color:#B5482F"><use href="#kit-ceiling-line" transform="translate(580,475)"/></g></g>
-<text id="ceil-l" class="lab hide" x="802" y="505" font-size="24">Ceiling</text>
-<g id="ceil-s" class="hide"><text class="sm" x="802" y="526" font-size="15">the most this inn can</text><text class="sm" x="802" y="544" font-size="15">rationally pay for the job</text></g>
-<g id="ret" class="hide"><use href="#kit-retainer-tag" transform="translate(692,486)"/></g>
-<!-- Sensitivity ghosts -->
-<g id="g40" class="hide"><g clip-path="url(#c-g40)"><use href="#kit-ceiling-line-ghost" transform="translate(580,300)"/></g>
-<text class="st" x="580" y="290" font-size="17">40 rooms: about $2,000 to $2,800 a month</text><text class="st" x="580" y="318" font-size="14">$1,993 to $2,836</text></g>
-<g id="g40box" class="hide"><text class="st" x="1032" y="548" font-size="15">Rooms</text><rect x="1030" y="556" width="180" height="40" fill="none" stroke="#586D74" stroke-width="2" stroke-dasharray="7 5" opacity=".7"/><text class="st" x="1046" y="585" font-size="22">40</text></g>
-<g id="g5" class="hide"><g clip-path="url(#c-g5)"><use href="#kit-ceiling-line-ghost" transform="translate(580,562)"/></g>
-<text class="st" x="690" y="585" font-size="17">5 points: about $500 to $700 a month</text><text class="st" x="690" y="604" font-size="14">$498 to $709</text></g>
+<g id="p-head" class="hide"><rect x="598" y="192" width="380" height="36" fill="#FBF8F1"/><text class="lab" x="608" y="218" font-size="21" font-weight="400">about $92,000 of revenue, if it moved</text></g>
+<!-- The one bar in the panel: commission on the slice, then the remainder (1K a year = 10 px) -->
+<g clip-path="url(#c-bar)"><g id="cbar" class="hide"><rect x="606" y="474" width="69" height="166" fill="url(#h-ink)" opacity=".55"/><rect x="606" y="438" width="69" height="36" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M599 474L682 474M605 474L605 640M676 474L676 640"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M599 438L682 438"/></g></g>
+<g id="cost" class="hide"><rect x="606" y="438" width="69" height="82" fill="#FBF8F1" opacity=".8"/><rect x="606" y="438" width="69" height="82" fill="url(#h-light)" stroke="#586D74" stroke-width="1.8" stroke-dasharray="5 4"/></g>
+<g id="rbar" class="hide"><rect x="606" y="520" width="69" height="120" fill="url(#h-ink)" opacity=".55"/><rect x="606" y="470" width="69" height="50" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M599 520L682 520M605 470L605 640M676 470L676 640"/></g>
+<!-- Panel caption slot: the current step and its one result -->
+<text id="k-op1" class="sm hide" x="700" y="386" font-size="19">18% to 22% on that slice</text>
+<text id="k-q1" class="sm hide" x="700" y="444" font-size="16">my assumption from the reported bands</text>
+<text id="k-op2" class="sm hide" x="700" y="386" font-size="19">minus direct channel cost</text>
+<text id="k-op3" class="sm hide" x="700" y="386" font-size="19">What's left</text>
+<text id="k-op4" class="lab hide" x="700" y="390" font-size="27">Ceiling</text>
+<text id="k-r1" class="lab hide" x="700" y="418" font-size="23">about $16,500 to $20,000 a year</text>
+<text id="k-r2" class="lab hide" x="700" y="418" font-size="23">3.5% to 5%</text>
+<text id="k-q2" class="sm hide" x="700" y="444" font-size="16">low end: one vendor's own figure</text>
+<text id="k-r3" class="lab hide" x="700" y="418" font-size="23">about $12,000 to $17,000 a year</text>
+<text id="k-r4" class="lab hide" x="700" y="422" font-size="23">about $1,000 to $1,400 a month</text>
+<!-- The ceiling, its sub-label, the retainer under it, and the standing caveat (A-24) -->
+<g id="g40" class="hide"><use href="#kit-ceiling-line-ghost" transform="translate(592,470)"/></g>
+<g id="g5" class="hide"><use href="#kit-ceiling-line-ghost" transform="translate(592,470)"/></g>
+<g clip-path="url(#c-ceil)"><g id="ceil" style="color:#B5482F"><use href="#kit-ceiling-line" transform="translate(592,470)"/></g></g>
+<g id="ceil-s" class="hide"><text class="sm" x="812" y="500" font-size="16">the most this inn can</text><text class="sm" x="812" y="519" font-size="16">rationally pay for the job</text></g>
+<g id="ret" class="hide"><use href="#kit-retainer-tag" transform="translate(700,484)"/></g>
+<g id="cav" class="hide"><text class="st" x="700" y="616" font-size="15">after 3.5% to 5% direct cost</text><text class="st" x="700" y="634" font-size="15">low end: one vendor's own figure</text></g>
+<text id="g40-l" class="st hide" x="700" y="288" font-size="18">40 rooms: about $2,000 to $2,800 a month</text>
+<text id="g5-l" class="st hide" x="700" y="580" font-size="18">5 points: about $500 to $700 a month</text>
+</g>
 <!-- The ceiling slip (kit-ceiling-slip-filled, inline) -->
-<g clip-path="url(#c-slip)"><g id="slip" transform="translate(990,100) scale(.8)">
+<g clip-path="url(#c-slip)"><g id="slip" transform="translate(1012,100) scale(.75)">
 <path d="M4 6L262 2L298 36L296 436L2 438Z" fill="#FBF8F1" stroke="none"/><path d="M3.2 5.3L262.4 1.3M298.9 38.7L296.5 435.9M293.7 437.5L3.2 437.7M2 434.9L2.4 10.5" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M262 3L262 36L297 36" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="slip__title-line" d="M24 50L170 49" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 <path id="slip__box1" d="M21.9 92.4L278 92.6M276.3 94.9L275.7 143.6M276.2 144.6L24 143.5M23.6 142.5L24.7 95.1" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,17 +117,16 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 <text id="slip__value4" x="40" y="386" font-family="Supreme, sans-serif" font-size="28" font-weight="500" fill="#173530">63%</text>
 <path id="slip__line" d="M24.1 414.9L173.6 413.4M182.2 413.9L275.1 412.3" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 <rect id="lit1" x="24" y="93" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit2" x="24" y="179" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit3" x="24" y="265" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit4" x="24" y="350" width="252" height="52" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/>
-
 <text id="slip-title" class="lab hide" x="24" y="40" font-size="26">The ceiling</text>
-<text id="slip-ill" class="sm hide" x="258" y="40" font-size="18" text-anchor="end">illustrative</text>
 <g id="say" class="hide"><text class="st" x="102" y="386" font-size="20">say</text><path d="M101 392L134 392" stroke="#586D74" stroke-width="1.6" stroke-dasharray="4 3"/></g>
 <g id="g53" class="hide"><path class="light" style="stroke-width:1.8" d="M141 377L166 377M160 371L167 377L160 383"/><rect x="172" y="357" width="96" height="38" fill="#FBF8F1" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5"/><text class="st" x="186" y="386" font-size="26">53%</text></g>
+<g id="g40box" class="hide"><path class="light" style="stroke-width:1.8" d="M84 119L109 119M103 113L110 119L103 125"/><rect x="116" y="99" width="80" height="38" fill="#FBF8F1" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5"/><text class="st" x="136" y="128" font-size="26">40</text></g>
 </g></g>
-<g id="cb" class="hide"><text class="sm" x="1000" y="480" font-size="17">the Cloudbeds figure,</text><text class="sm" x="1000" y="500" font-size="17">worldwide</text></g>
+<text id="cb" class="sm hide" x="1014" y="454" font-size="15">63%: the Cloudbeds figure, worldwide</text>
 </svg>
-<div id="tl"><span id="tl1" class="k hide">ILLUSTRATIVE MODEL</span><span id="tl2" class="hide"> · a made-up inn</span><span id="tl3" class="hide"> · swap in real inputs</span></div>
+<div id="tl"><span id="tl1" class="k">ILLUSTRATIVE MODEL</span><span id="tl2" class="hide"> · a made-up inn</span><span id="tl3" class="hide"> · swap in real inputs</span></div>
 <h1 id="hd" class="hide">Two things move it</h1>
-<div id="rc" class="hide">the ceiling table with every input, "ILLUSTRATIVE MODEL", D-EDGE 3.5 percent 2025-02-24 for the low bound, C016 to C021</div>
+<div id="rc">the ceiling table with every input, "ILLUSTRATIVE MODEL", D-EDGE 3.5 percent 2025-02-24 for the low bound, C016 to C021</div>
 <audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="109.833333" data-media-start="0" data-track-index="100" data-volume="1"></audio>
 </div>
 <script>
@@ -133,58 +136,74 @@ const t=gsap.timeline({paused:true});
 const C={"compute": 0.828, "heres": 1.978, "illus": 3.398, "making": 4.598, "every": 6.258, "twenty": 10.638, "rate": 11.628, "seventy": 14.318, "thats1": 16.898, "say": 20.558, "sixty": 20.968, "cloudbeds": 23.778, "thats2": 25.458, "at": 29.498, "my": 33.078, "the": 35.558, "say2": 52.538, "from": 54.978, "fifty": 56.998, "thats3": 58.448, "commission": 62.218, "is": 65.358, "take": 68.838, "call": 71.378, "low": 73.558, "whats": 76.158, "a": 79.708, "ceiling": 82.308, "most": 84.058, "retainer": 87.838, "under": 88.798, "two": 89.818, "a40": 91.278, "doubles": 92.358, "a5": 96.098, "halves": 98.018, "the10": 100.818, "hyp": 101.818, "but": 103.938, "four": 105.478};
 const S038=52.208333, S039=89.5;
 const fade=(s,at,d=10/24)=>t.fromTo(s,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
-const out=(s,at,d=.35)=>t.to(s,{autoAlpha:0,duration:d,ease:'power1.in'},at);
+const out=(s,at,d=.3)=>t.to(s,{autoAlpha:0,duration:d,ease:'power1.in'},at);
+const swap=(a,b,at)=>{out(a,at,.25); fade(b,at+.2,.35);};
 const rec=(s,at,o,d=.5)=>t.to(s,{opacity:o,duration:d,ease:'power1.inOut'},at);
 const wipeX=(r,at,w,d)=>t.fromTo(r,{attr:{width:0}},{attr:{width:w},duration:d,ease:'power1.inOut'},at);
 const wipeY=(r,at,h,d)=>t.fromTo(r,{attr:{height:0}},{attr:{height:h},duration:d,ease:'power1.inOut'},at);
+const growUp=(r,at,h,d)=>t.fromTo(r,{attr:{y:640,height:0}},{attr:{y:640-h,height:h},duration:d,ease:'power1.inOut'},at);
 const OX='#B5482F', INK='#173530', STEEL='#586D74';
-// seg036. "So let's compute it. Here's the model."
-t.set('#col',{autoAlpha:1},0); wipeY('#cr-col',C.compute,470,.5); wipeY('#cr-slip',C.compute,380,.5);
+// seg036. The label "ILLUSTRATIVE MODEL" and the receipt are present from frame 0 (A-26).
+t.set('#col',{autoAlpha:1},0); wipeY('#cr-col',C.compute,470,.5); wipeY('#cr-slip',C.compute,360,.5);
 fade('#slip-title',C.heres);
-// "It's illustrative, I'm making the inn up, and every input is one you'd swap"
-fade('#tl1',C.illus); fade('#rc',C.illus); fade('#slip-ill',C.illus);
 fade('#tl2',C.making); fade('#tl3',C.every);
-// The four inputs on their words.
 ['#slip__value1','#slip__value2','#slip__value3','#slip__value4'].forEach(s=>t.set(s,{autoAlpha:0},0));
 fade('#slip__value1',C.twenty); fade('#inn',C.twenty,.45);
 fade('#slip__value2',C.rate); fade('#slip__value3',C.seventy);
+// "That's about nine hundred and twenty thousand dollars of room revenue."
 t.fromTo('#col-fill',{autoAlpha:1,scaleY:0,transformOrigin:'50% 100%'},{scaleY:1,duration:.7,ease:'power1.inOut'},C.thats1);
 fade('#l-rev',C.thats1+.3);
+// "Say sixty three percent of that comes through the sites, the Cloudbeds figure."
 fade('#slip__value4',C.say); fade('#say',C.say);
 fade('#rent',C.sixty,.5); fade('#rent-edge',C.sixty,.5);
 fade('#cb',C.cloudbeds);
-fade('#l-rent',C.thats2);
-fade('#band-in',C.at,.5); fade('#l-com1',C.at);
+// Each caption replaces the one before it.
+swap('#l-rev','#l-rent',C.thats2);
+swap('#l-rent','#l-com1',C.at); fade('#band-in',C.at,.5);
 fade('#l-com2',C.my); fade('#l-com3',C.the);
-// seg037 (presenter) covers 40.375-52.208: the model holds; the band recedes before seg038's first frame.
-t.set('#band-in',{opacity:.4},S038-1/48); t.set('#l-com',{opacity:.4},S038-1/48); t.set('#l-note',{autoAlpha:1},S038-1/48);
-// seg038. "Say it moves ten points of the mix"
-fade('#slice',C.say2,.3); fade('#tag1',C.say2+.15);
+// seg037 (presenter) 40.375-52.208: the model holds exactly.
+// seg038. "Say it moves ten points of the mix": the commission total is set aside; the slice replaces it.
+out('#l-com1',C.say2,.3); out('#l-com2',C.say2,.3); out('#l-com3',C.say2,.3); out('#band-in',C.say2,.45);
+fade('#slice',C.say2+.1,.3); fade('#tag1-a',C.say2+.3);
 fade('#g53',C.fifty);
-// "That's about ninety two thousand dollars of revenue now booked direct."
-wipeX('#cr-con',C.thats3,70,.35); t.set('#con',{autoAlpha:1},C.thats3); wipeY('#cr-pan',C.thats3+.2,500,.5); t.set('#panel',{autoAlpha:1},C.thats3+.2);
-fade('#cbar',C.commission,.45); fade('#c-l1',C.commission);
-fade('#c-l2',C.is);
-fade('#cost',C.take,.45); fade('#k-l1',C.take);
-fade('#k-l2',C.call); fade('#k-l3',C.low);
-// "What's left": the commission and cost give way to the remainder.
-out('#cbar',C.whats); out('#cost',C.whats); out('#c-l1',C.whats,.25); out('#c-l2',C.whats,.25); out('#k-l1',C.whats,.25); out('#k-l2',C.whats,.25); out('#k-l3',C.whats,.25);
-fade('#rbar',C.whats+.1,.45); fade('#r-l1',C.whats+.3);
-fade('#m-l1',C.a);
+// "That's about ninety two thousand dollars of revenue now booked direct": the slice is enlarged; the column recedes.
+rec('#colw',C.thats3,.3,.6);
+wipeX('#cr-con',C.thats3,75,.35); t.set('#con',{autoAlpha:1},C.thats3); wipeY('#cr-pan',C.thats3+.2,520,.5); t.set('#panel',{autoAlpha:1},C.thats3+.2);
+fade('#p-head',C.thats3+.6);
+// "Commission saved on that, at eighteen to twenty two percent, is about sixteen and a half to twenty thousand dollars a year."
+out('#p-head',C.commission,.3); t.set('#cbar',{autoAlpha:1},C.commission); growUp('#cr-bar',C.commission,210,.7);
+fade('#k-op1',C.commission+.2); fade('#k-q1',C.commission+.2); fade('#k-r1',C.is);
+// "Take off the cost of the direct channel itself, call it three and a half to five percent, the low end being one vendor's own figure."
+swap('#k-op1','#k-op2',C.take); out('#k-r1',C.take,.25); out('#k-q1',C.take,.25); fade('#cost',C.take+.2,.45);
+fade('#k-r2',C.call); fade('#k-q2',C.low);
+// "What's left is roughly twelve to seventeen thousand dollars a year." The cost strip lifts away; the caveat stays small (A-24).
+swap('#k-op2','#k-op3',C.whats); out('#k-r2',C.whats,.25); out('#k-q2',C.whats,.25);
+t.to('#cost',{x:70,autoAlpha:0,duration:.6,ease:'power1.in'},C.whats);
+out('#cbar',C.whats+.1,.35); fade('#rbar',C.whats+.1,.4);
+fade('#k-r3',C.whats+.35); fade('#cav',C.whats+.5,.4);
+// "A thousand to fourteen hundred dollars a month."
+swap('#k-r3','#k-r4',C.a);
 // "That's the ceiling." One oxide accent: the tag steps to ink while the line takes oxide.
 t.to('#tag1-box',{attr:{stroke:STEEL},duration:.3},C.ceiling); t.to('#tag1-t',{fill:INK,duration:.3},C.ceiling);
-wipeX('#cr-ceil',C.ceiling,375,.55); fade('#ceil-l',C.ceiling+.3);
+wipeX('#cr-ceil',C.ceiling,375,.55); swap('#k-op3','#k-op4',C.ceiling);
 fade('#ceil-s',C.most);
 t.fromTo('#ret',{autoAlpha:0,x:34},{autoAlpha:1,x:0,duration:C.under-C.retainer,ease:'power2.out'},C.retainer);
 // seg039. "Two things move it."
 fade('#hd',C.two);
-fade('#g40box',C.a40); t.set('#g40',{autoAlpha:1},C.doubles); t.fromTo('#g40 text',{autoAlpha:0},{autoAlpha:1,duration:.4},C.doubles+.25); wipeX('#cr-g40',C.doubles,375,.55);
-fade('#slice5',C.a5,.4);
-t.set('#g5',{autoAlpha:1},C.halves); t.fromTo('#g5 text',{autoAlpha:0},{autoAlpha:1,duration:.4},C.halves+.25); wipeX('#cr-g5',C.halves,375,.55);
+// "A forty room property doubles it": a ghost of the ceiling line rises to double; one short label.
+fade('#g40box',C.a40);
+out('#hd',C.doubles,.3);
+t.set('#g40',{autoAlpha:1},C.doubles); t.fromTo('#g40',{y:0},{y:-170,duration:.8,ease:'power2.inOut'},C.doubles);
+fade('#g40-l',C.doubles+.7,.35);
+// "A five point shift instead of ten halves it": the 40-room ghost recedes; a second ghost drops to half.
+out('#g40-l',C.a5,.3); rec('#g40',C.a5,.2); rec('#g40box',C.a5,.3);
+fade('#slice5',C.a5+.2,.4);
+t.set('#g5',{autoAlpha:1},C.halves); t.fromTo('#g5',{y:0},{y:85,duration:.7,ease:'power2.inOut'},C.halves);
+fade('#g5-l',C.halves+.6,.35);
 // "The ten points is a hypothesis nobody has measured."
-rec('#g40',C.the10,.2); rec('#g40box',C.the10,.2); rec('#g5',C.the10,.2); rec('#slice5',C.the10,.2);
+out('#g5-l',C.the10,.3); rec('#g5',C.the10,.2); rec('#slice5',C.the10,.2);
 t.to('#ceil',{color:INK,duration:.3},C.the10);
-t.set('#tag1',{autoAlpha:0},C.hyp); t.set('#tag2',{autoAlpha:1},C.hyp); t.set('#tag2-t2',{autoAlpha:0},C.hyp); fade('#tag2-t2',C.hyp);
+t.set('#tag1-a',{autoAlpha:0},C.hyp); t.set('#tag2',{autoAlpha:1},C.hyp); t.set('#tag2-t2',{autoAlpha:0},C.hyp); fade('#tag2-t2',C.hyp);
 // "But the ceiling tells you, in four numbers,"
 t.to('#tag2-box',{attr:{stroke:STEEL},duration:.3},C.but); t.to('#tag2 text',{fill:INK,duration:.3},C.but);
 t.to('#ceil',{color:OX,duration:.3},C.but);
