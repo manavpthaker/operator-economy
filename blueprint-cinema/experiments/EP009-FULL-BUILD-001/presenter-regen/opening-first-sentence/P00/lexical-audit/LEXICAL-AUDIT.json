@@ -1,0 +1,665 @@
+{
+  "schema": "ep009.native-lexical-disambiguation.v1",
+  "status": "verified",
+  "verification_scope": "Native word sequence and wrong-phrase correlation-alias exclusion only; not a perceptual lip-sync pass, owner acceptance, or paid-call authorization.",
+  "part_id": "P00",
+  "created_at": "2026-09-17T19:31:31.689347+00:00",
+  "native": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/native.mp4",
+    "sha256": "acbacf1666ec49ed173d2c63ea8be8e4b4a36d3763196e04c47d52e55a4d974e"
+  },
+  "narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/audio/narration.wav",
+    "sha256": "f5d6101bade6680108ddfd6893360c1da81b8bc8ed3961ce041f1763e60face9"
+  },
+  "word_sequence_verified": true,
+  "wrong_phrase_alias_excluded": true,
+  "lag_domain_seconds": [
+    1.0,
+    1.5
+  ],
+  "lag_domain_basis": "Both unprompted local ASR models place every same-word DTW landmark about 1.04\u20131.44 s later in the native clip; independent RMS speech edges are +1.24 s and +1.25 s. A 1.0\u20131.5 s search domain contains all of these coarse lexical anchors. The domain is tied to this sentence and these hashes only.",
+  "independent_method_evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/native-small-dtw.json",
+      "sha256": "4359fee9d829a15db0926b983b5c0e4b48cb461716864ae4b033b7a34b23a9af"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/narration-small-dtw.json",
+      "sha256": "0bcd0bb66caa9a2a83f237295eafff2beaa85703073b18e6931bc6436a1395fd"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/native-medium-dtw.json",
+      "sha256": "29f037644650ed140dbecebb80376b314a71b86f602b65a7ca26d6031566fd0c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/narration-medium-dtw.json",
+      "sha256": "243d039b41a8f7c5b2ba3ce5db566e1d138544a8176c1b8db66839a11e2b4f49"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/NATIVE-CORRELATION-AMBIGUITY.json",
+      "sha256": "6d5d64480b5563612fdd93d12c6060dad077ebcb624ab7b31368762140c35d85"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/NATIVE-OFFSETS.json",
+      "sha256": "9d07b4e9af1b07524f31145e21bdadde7ac691220b22003303e32eae6737e6e4"
+    }
+  ],
+  "methods_independence": "Two cached ASR model sizes corroborate the lexical sequence; they share Whisper architecture and are not statistically independent. Their lexical attention alignment is a different method from RMS speech-edge timing and envelope correlation.",
+  "local_asr": {
+    "runtime": "/opt/homebrew/bin/whisper-cli",
+    "parameters": "-l en -ojf -otxt -ml 1 -sow -dtw MODEL.en -nfa; no text prompt; 16k mono PCM inputs",
+    "models": [
+      {
+        "model": "small.en",
+        "native": {
+          "text": "An innkeeper with 20 rooms is closing out a reservation",
+          "tokens": [
+            {
+              "token": "An",
+              "dtw_anchor_s": 1.38,
+              "asr_probability": 0.90214,
+              "legacy_token_start_s": 0.01,
+              "legacy_token_end_s": 0.23
+            },
+            {
+              "token": "inn",
+              "dtw_anchor_s": 1.6,
+              "asr_probability": 0.968468,
+              "legacy_token_start_s": 0.23,
+              "legacy_token_end_s": 0.57
+            },
+            {
+              "token": "keeper",
+              "dtw_anchor_s": 1.88,
+              "asr_probability": 0.923883,
+              "legacy_token_start_s": 1.26,
+              "legacy_token_end_s": 1.26
+            },
+            {
+              "token": "with",
+              "dtw_anchor_s": 2.2,
+              "asr_probability": 0.992275,
+              "legacy_token_start_s": 1.28,
+              "legacy_token_end_s": 1.72
+            },
+            {
+              "token": "20",
+              "dtw_anchor_s": 2.54,
+              "asr_probability": 0.825236,
+              "legacy_token_start_s": 1.72,
+              "legacy_token_end_s": 2.41
+            },
+            {
+              "token": "rooms",
+              "dtw_anchor_s": 3.04,
+              "asr_probability": 0.992825,
+              "legacy_token_start_s": 2.41,
+              "legacy_token_end_s": 2.97
+            },
+            {
+              "token": "is",
+              "dtw_anchor_s": 3.4,
+              "asr_probability": 0.949192,
+              "legacy_token_start_s": 2.97,
+              "legacy_token_end_s": 3.07
+            },
+            {
+              "token": "closing",
+              "dtw_anchor_s": 3.76,
+              "asr_probability": 0.993945,
+              "legacy_token_start_s": 3.31,
+              "legacy_token_end_s": 3.68
+            },
+            {
+              "token": "out",
+              "dtw_anchor_s": 3.98,
+              "asr_probability": 0.992355,
+              "legacy_token_start_s": 3.68,
+              "legacy_token_end_s": 3.91
+            },
+            {
+              "token": "a",
+              "dtw_anchor_s": 4.12,
+              "asr_probability": 0.986952,
+              "legacy_token_start_s": 3.91,
+              "legacy_token_end_s": 3.99
+            },
+            {
+              "token": "reservation",
+              "dtw_anchor_s": 4.62,
+              "asr_probability": 0.972869,
+              "legacy_token_start_s": 3.99,
+              "legacy_token_end_s": 4.76
+            }
+          ]
+        },
+        "narration": {
+          "text": "An innkeeper with 20 rooms is closing at a reservation",
+          "tokens": [
+            {
+              "token": "An",
+              "dtw_anchor_s": 0.18,
+              "asr_probability": 0.847616,
+              "legacy_token_start_s": 0.04,
+              "legacy_token_end_s": 0.14
+            },
+            {
+              "token": "inn",
+              "dtw_anchor_s": 0.4,
+              "asr_probability": 0.972837,
+              "legacy_token_start_s": 0.22,
+              "legacy_token_end_s": 0.38
+            },
+            {
+              "token": "keeper",
+              "dtw_anchor_s": 0.72,
+              "asr_probability": 0.871569,
+              "legacy_token_start_s": 0.38,
+              "legacy_token_end_s": 0.78
+            },
+            {
+              "token": "with",
+              "dtw_anchor_s": 1.16,
+              "asr_probability": 0.963766,
+              "legacy_token_start_s": 0.84,
+              "legacy_token_end_s": 1.12
+            },
+            {
+              "token": "20",
+              "dtw_anchor_s": 1.48,
+              "asr_probability": 0.908366,
+              "legacy_token_start_s": 1.22,
+              "legacy_token_end_s": 1.62
+            },
+            {
+              "token": "rooms",
+              "dtw_anchor_s": 1.9,
+              "asr_probability": 0.996704,
+              "legacy_token_start_s": 1.62,
+              "legacy_token_end_s": 1.89
+            },
+            {
+              "token": "is",
+              "dtw_anchor_s": 2.16,
+              "asr_probability": 0.967688,
+              "legacy_token_start_s": 2.06,
+              "legacy_token_end_s": 2.15
+            },
+            {
+              "token": "closing",
+              "dtw_anchor_s": 2.48,
+              "asr_probability": 0.997808,
+              "legacy_token_start_s": 2.16,
+              "legacy_token_end_s": 2.56
+            },
+            {
+              "token": "at",
+              "dtw_anchor_s": 2.68,
+              "asr_probability": 0.85905,
+              "legacy_token_start_s": 2.56,
+              "legacy_token_end_s": 2.68
+            },
+            {
+              "token": "a",
+              "dtw_anchor_s": 2.8,
+              "asr_probability": 0.993153,
+              "legacy_token_start_s": 2.68,
+              "legacy_token_end_s": 2.74
+            },
+            {
+              "token": "reservation",
+              "dtw_anchor_s": 3.18,
+              "asr_probability": 0.98077,
+              "legacy_token_start_s": 2.74,
+              "legacy_token_end_s": 3.39
+            }
+          ]
+        },
+        "comparison": [
+          {
+            "native_token": "An",
+            "narration_token": "An",
+            "native_anchor_s": 1.38,
+            "narration_anchor_s": 0.18,
+            "lag_s": 1.2,
+            "lexical_match": true
+          },
+          {
+            "native_token": "inn",
+            "narration_token": "inn",
+            "native_anchor_s": 1.6,
+            "narration_anchor_s": 0.4,
+            "lag_s": 1.2,
+            "lexical_match": true
+          },
+          {
+            "native_token": "keeper",
+            "narration_token": "keeper",
+            "native_anchor_s": 1.88,
+            "narration_anchor_s": 0.72,
+            "lag_s": 1.16,
+            "lexical_match": true
+          },
+          {
+            "native_token": "with",
+            "narration_token": "with",
+            "native_anchor_s": 2.2,
+            "narration_anchor_s": 1.16,
+            "lag_s": 1.04,
+            "lexical_match": true
+          },
+          {
+            "native_token": "20",
+            "narration_token": "20",
+            "native_anchor_s": 2.54,
+            "narration_anchor_s": 1.48,
+            "lag_s": 1.06,
+            "lexical_match": true
+          },
+          {
+            "native_token": "rooms",
+            "narration_token": "rooms",
+            "native_anchor_s": 3.04,
+            "narration_anchor_s": 1.9,
+            "lag_s": 1.14,
+            "lexical_match": true
+          },
+          {
+            "native_token": "is",
+            "narration_token": "is",
+            "native_anchor_s": 3.4,
+            "narration_anchor_s": 2.16,
+            "lag_s": 1.24,
+            "lexical_match": true
+          },
+          {
+            "native_token": "closing",
+            "narration_token": "closing",
+            "native_anchor_s": 3.76,
+            "narration_anchor_s": 2.48,
+            "lag_s": 1.28,
+            "lexical_match": true
+          },
+          {
+            "native_token": "out",
+            "narration_token": "at",
+            "native_anchor_s": 3.98,
+            "narration_anchor_s": 2.68,
+            "lag_s": 1.3,
+            "lexical_match": false
+          },
+          {
+            "native_token": "a",
+            "narration_token": "a",
+            "native_anchor_s": 4.12,
+            "narration_anchor_s": 2.8,
+            "lag_s": 1.32,
+            "lexical_match": true
+          },
+          {
+            "native_token": "reservation",
+            "narration_token": "reservation",
+            "native_anchor_s": 4.62,
+            "narration_anchor_s": 3.18,
+            "lag_s": 1.44,
+            "lexical_match": true
+          }
+        ],
+        "lag_median_s": 1.2,
+        "lag_range_s": [
+          1.04,
+          1.44
+        ],
+        "lag_spread_s": 0.4,
+        "timing_warning": "Attention/DTW anchors are approximate internal token landmarks, not word onsets or a validated drift gate. Initial legacy timestamps are unreliable across leading silence; retain but do not use them as onset authority."
+      },
+      {
+        "model": "medium.en",
+        "native": {
+          "text": "An innkeeper with 20 rooms is closing out a reservation",
+          "tokens": [
+            {
+              "token": "An",
+              "dtw_anchor_s": 1.44,
+              "asr_probability": 0.911969,
+              "legacy_token_start_s": 0.01,
+              "legacy_token_end_s": 0.23
+            },
+            {
+              "token": "inn",
+              "dtw_anchor_s": 1.66,
+              "asr_probability": 0.979843,
+              "legacy_token_start_s": 0.23,
+              "legacy_token_end_s": 0.57
+            },
+            {
+              "token": "keeper",
+              "dtw_anchor_s": 1.9,
+              "asr_probability": 0.90592,
+              "legacy_token_start_s": 1.26,
+              "legacy_token_end_s": 1.26
+            },
+            {
+              "token": "with",
+              "dtw_anchor_s": 2.2,
+              "asr_probability": 0.99075,
+              "legacy_token_start_s": 1.28,
+              "legacy_token_end_s": 1.72
+            },
+            {
+              "token": "20",
+              "dtw_anchor_s": 2.54,
+              "asr_probability": 0.899458,
+              "legacy_token_start_s": 1.72,
+              "legacy_token_end_s": 2.41
+            },
+            {
+              "token": "rooms",
+              "dtw_anchor_s": 3.02,
+              "asr_probability": 0.997314,
+              "legacy_token_start_s": 2.41,
+              "legacy_token_end_s": 2.97
+            },
+            {
+              "token": "is",
+              "dtw_anchor_s": 3.42,
+              "asr_probability": 0.960401,
+              "legacy_token_start_s": 2.97,
+              "legacy_token_end_s": 3.07
+            },
+            {
+              "token": "closing",
+              "dtw_anchor_s": 3.8,
+              "asr_probability": 0.991338,
+              "legacy_token_start_s": 3.31,
+              "legacy_token_end_s": 3.64
+            },
+            {
+              "token": "out",
+              "dtw_anchor_s": 4.02,
+              "asr_probability": 0.989906,
+              "legacy_token_start_s": 3.64,
+              "legacy_token_end_s": 3.85
+            },
+            {
+              "token": "a",
+              "dtw_anchor_s": 4.16,
+              "asr_probability": 0.984964,
+              "legacy_token_start_s": 3.85,
+              "legacy_token_end_s": 3.92
+            },
+            {
+              "token": "reservation",
+              "dtw_anchor_s": 4.68,
+              "asr_probability": 0.98577,
+              "legacy_token_start_s": 3.92,
+              "legacy_token_end_s": 4.59
+            }
+          ]
+        },
+        "narration": {
+          "text": "An innkeeper with 20 rooms is closing at a reservation",
+          "tokens": [
+            {
+              "token": "An",
+              "dtw_anchor_s": 0.26,
+              "asr_probability": 0.94758,
+              "legacy_token_start_s": 0.04,
+              "legacy_token_end_s": 0.14
+            },
+            {
+              "token": "inn",
+              "dtw_anchor_s": 0.48,
+              "asr_probability": 0.974111,
+              "legacy_token_start_s": 0.22,
+              "legacy_token_end_s": 0.38
+            },
+            {
+              "token": "keeper",
+              "dtw_anchor_s": 0.78,
+              "asr_probability": 0.90464,
+              "legacy_token_start_s": 0.38,
+              "legacy_token_end_s": 0.78
+            },
+            {
+              "token": "with",
+              "dtw_anchor_s": 1.16,
+              "asr_probability": 0.912353,
+              "legacy_token_start_s": 0.84,
+              "legacy_token_end_s": 1.12
+            },
+            {
+              "token": "20",
+              "dtw_anchor_s": 1.48,
+              "asr_probability": 0.920807,
+              "legacy_token_start_s": 1.22,
+              "legacy_token_end_s": 1.6
+            },
+            {
+              "token": "rooms",
+              "dtw_anchor_s": 1.92,
+              "asr_probability": 0.993422,
+              "legacy_token_start_s": 1.6,
+              "legacy_token_end_s": 1.89
+            },
+            {
+              "token": "is",
+              "dtw_anchor_s": 2.18,
+              "asr_probability": 0.964214,
+              "legacy_token_start_s": 2.06,
+              "legacy_token_end_s": 2.11
+            },
+            {
+              "token": "closing",
+              "dtw_anchor_s": 2.52,
+              "asr_probability": 0.991484,
+              "legacy_token_start_s": 2.11,
+              "legacy_token_end_s": 2.52
+            },
+            {
+              "token": "at",
+              "dtw_anchor_s": 2.7,
+              "asr_probability": 0.627889,
+              "legacy_token_start_s": 2.52,
+              "legacy_token_end_s": 2.63
+            },
+            {
+              "token": "a",
+              "dtw_anchor_s": 2.84,
+              "asr_probability": 0.984557,
+              "legacy_token_start_s": 2.63,
+              "legacy_token_end_s": 2.68
+            },
+            {
+              "token": "reservation",
+              "dtw_anchor_s": 3.28,
+              "asr_probability": 0.997569,
+              "legacy_token_start_s": 2.68,
+              "legacy_token_end_s": 3.34
+            }
+          ]
+        },
+        "comparison": [
+          {
+            "native_token": "An",
+            "narration_token": "An",
+            "native_anchor_s": 1.44,
+            "narration_anchor_s": 0.26,
+            "lag_s": 1.18,
+            "lexical_match": true
+          },
+          {
+            "native_token": "inn",
+            "narration_token": "inn",
+            "native_anchor_s": 1.66,
+            "narration_anchor_s": 0.48,
+            "lag_s": 1.18,
+            "lexical_match": true
+          },
+          {
+            "native_token": "keeper",
+            "narration_token": "keeper",
+            "native_anchor_s": 1.9,
+            "narration_anchor_s": 0.78,
+            "lag_s": 1.12,
+            "lexical_match": true
+          },
+          {
+            "native_token": "with",
+            "narration_token": "with",
+            "native_anchor_s": 2.2,
+            "narration_anchor_s": 1.16,
+            "lag_s": 1.04,
+            "lexical_match": true
+          },
+          {
+            "native_token": "20",
+            "narration_token": "20",
+            "native_anchor_s": 2.54,
+            "narration_anchor_s": 1.48,
+            "lag_s": 1.06,
+            "lexical_match": true
+          },
+          {
+            "native_token": "rooms",
+            "narration_token": "rooms",
+            "native_anchor_s": 3.02,
+            "narration_anchor_s": 1.92,
+            "lag_s": 1.1,
+            "lexical_match": true
+          },
+          {
+            "native_token": "is",
+            "narration_token": "is",
+            "native_anchor_s": 3.42,
+            "narration_anchor_s": 2.18,
+            "lag_s": 1.24,
+            "lexical_match": true
+          },
+          {
+            "native_token": "closing",
+            "narration_token": "closing",
+            "native_anchor_s": 3.8,
+            "narration_anchor_s": 2.52,
+            "lag_s": 1.28,
+            "lexical_match": true
+          },
+          {
+            "native_token": "out",
+            "narration_token": "at",
+            "native_anchor_s": 4.02,
+            "narration_anchor_s": 2.7,
+            "lag_s": 1.32,
+            "lexical_match": false
+          },
+          {
+            "native_token": "a",
+            "narration_token": "a",
+            "native_anchor_s": 4.16,
+            "narration_anchor_s": 2.84,
+            "lag_s": 1.32,
+            "lexical_match": true
+          },
+          {
+            "native_token": "reservation",
+            "narration_token": "reservation",
+            "native_anchor_s": 4.68,
+            "narration_anchor_s": 3.28,
+            "lag_s": 1.4,
+            "lexical_match": true
+          }
+        ],
+        "lag_median_s": 1.18,
+        "lag_range_s": [
+          1.04,
+          1.4
+        ],
+        "lag_spread_s": 0.36,
+        "timing_warning": "Attention/DTW anchors are approximate internal token landmarks, not word onsets or a validated drift gate. Initial legacy timestamps are unreliable across leading silence; retain but do not use them as onset authority."
+      }
+    ],
+    "number_normalization": "Both recognize 20, equivalent to authorized twenty. Both recognize native out; narration is misrecognized at, so narration ASR is not substituted for the locked transcript.",
+    "audio_inputs": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/native-16k.wav",
+        "sha256": "a1bde1bcc2bc464833380fd563a6b8a5dcb6e6f3987a397dfd42e51401d8317f"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/narration-16k.wav",
+        "sha256": "d8d07f133ed7878a825eb4f6790ba79e1b6cb7eb2314874085e84a3a9cb81b6f"
+      }
+    ]
+  },
+  "alias_exclusion": {
+    "rejected_lag_s": 0.18,
+    "narration_last_window_s": [
+      2.26,
+      3.37
+    ],
+    "wrong_native_window_s": [
+      2.44,
+      3.55
+    ],
+    "wrong_window_content": "Contains the anchors for 20, rooms and is; does not contain out, a or reservation. It cannot be the lexical counterpart of closing out a reservation.",
+    "supported_native_window_at_1_27_s": [
+      3.53,
+      4.64
+    ],
+    "native_tail_anchors_small_s": {
+      "closing": 3.76,
+      "out": 3.98,
+      "a": 4.12,
+      "reservation": 4.62
+    },
+    "native_tail_anchors_medium_s": {
+      "closing": 3.8,
+      "out": 4.02,
+      "a": 4.16,
+      "reservation": 4.68
+    },
+    "conclusion": "The +0.18 s correlation peak is a wrong-phrase alias. The original 1.01 s spread is not defensible evidence of one second of cadence drift."
+  },
+  "proposed_lexically_bounded_measurement": {
+    "windows": [
+      {
+        "narration_window_s": [
+          0.04,
+          1.15
+        ],
+        "native_minus_narration_s": 1.19,
+        "envelope_corr": 0.543119
+      },
+      {
+        "narration_window_s": [
+          1.15,
+          2.26
+        ],
+        "native_minus_narration_s": 1.09,
+        "envelope_corr": 0.791787
+      },
+      {
+        "narration_window_s": [
+          2.26,
+          3.37
+        ],
+        "native_minus_narration_s": 1.27,
+        "envelope_corr": 0.768999
+      }
+    ],
+    "median_offset_s": 1.19,
+    "spread_s": 0.18,
+    "drift_threshold_s": 0.3,
+    "original_threshold_unchanged": true,
+    "gate_selection_status": "not_selected_by_this_audit"
+  },
+  "original_failed_offsets": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/NATIVE-OFFSETS.json",
+    "sha256": "9d07b4e9af1b07524f31145e21bdadde7ac691220b22003303e32eae6737e6e4"
+  },
+  "limitations": [
+    "ASR token anchors are approximate; their raw spread is .40 s for small and .36 s for medium and cannot be represented as a precise <=.30 s word-timing pass.",
+    "Lexical evidence identifies the correct phrase, then the unchanged RMS three-window procedure within that phrase domain yields .18 s spread. Selection requires a separately bound record and root review.",
+    "No visual or perceived lip sync acceptance follows from this audit. No Fal call was made."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "review_status": "complete",
+  "flagged": true,
+  "reviewer": "Codex EP009 P00 restoration agent",
+  "reviewed_at": "2026-09-17T19:42:23.502206+00:00",
+  "method": "Inspected native and restored full-shot contact sheets; visually inspected every one of the86 intended output frames as consecutive mouth crops; compared these with exact original-audio coordinates and approximate locked word boundaries. Verified a private86-frame original-narration preview plays through at1x. Inspected six encoded cut-context frames around output85/86 and134/135. Native speech lexical sequence and timing-domain ambiguity independently checked with cached small.en and medium.en local ASR.",
+  "review_limitations": "No claim of continuous audiovisual perception from browser screenshots. The word boundaries are approximate, not precise phoneme alignment. Empty onset test is insufficient measurement, not proof of bad sync. Mouth-aperture correlation is weak; its failed comparison is preserved, not equated with a demonstrated wrong phoneme. These limits prevent unqualified perceptual sync clearance.",
+  "execution_sha256": "8717be587835adf988b3afee3d3590d5030476e8c7ac144307eabec2f6a8d2ff",
+  "restored_sha256": "b6d1862bc8803ad04af67ce278361ae06ef7e696e992376f163d16c96834e8cb",
+  "sync_gate_sha256": "9ea9d97fa78956469c814837e8fd6d1d55403f139c63d0e2b942de922fa3b106",
+  "owner_accepted": false,
+  "assessment": "Visually plausible and mechanically intact, but sync review remains flagged and unresolved. No clear sustained gross mismatch was established in samples. Do not automatically conform or integrate.",
+  "diagnostic_flags": {
+    "no_qualifying_onsets": true,
+    "onset_result": "insufficient_measurement_0_of_0",
+    "narration_mouth_corr": 0.343,
+    "guide_voice_mouth_corr": 0.382,
+    "narration_over_generator": false
+  },
+  "observations": [
+    {
+      "output_frames": [
+        0,
+        7
+      ],
+      "words": "An / start of innkeeper",
+      "observation": "Mouth is open at the first frame and begins the expected vowel sequence; a blink spans the opening. Audio begins near .04 s. No prolonged silent lead is introduced."
+    },
+    {
+      "output_frames": [
+        7,
+        20
+      ],
+      "words": "innkeeper",
+      "observation": "Broad vowel narrows to a clear lip closure around frames14\u201316 (.58\u2013.67 s), followed by reopening. This is plausible for the medial /p/; exact phoneme timing is not certified."
+    },
+    {
+      "output_frames": [
+        24,
+        48
+      ],
+      "words": "with twenty rooms",
+      "observation": "Rounded lip shapes and tongue/teeth shapes change across the phrase, with closure around40\u201343 (1.67\u20131.79 s). Word-alignment granularity is insufficient to certify the /m/ boundary; possible anticipation remains a review question."
+    },
+    {
+      "output_frames": [
+        54,
+        80
+      ],
+      "words": "closing out a reservation",
+      "observation": "Rounded and wider vowel shapes follow the phrase; mouth settles toward closed by~3.33 s, close to the measured speech end3.37 s. No large continued articulation is seen in the final hold."
+    },
+    {
+      "output_frames": [
+        0,
+        86
+      ],
+      "words": "entire opening",
+      "observation": "Face, glasses, shirt, hands and room are stable in the inspected frames. Camera is fixed. No freeze, added hold, speed change, black frame or hand deformation was introduced in the private preview."
+    }
+  ],
+  "evidence": {
+    "PREVIEW-BINDING.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/PREVIEW-BINDING.json",
+      "sha256": "31789a5796e75e88891fae4c56a2e872ec2a9222603433a2f1d2a022d9ce7ca8"
+    },
+    "VERIFY.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/VERIFY.json",
+      "sha256": "d21d9192e176d3cd112cb7b717ba6e2a873260d4a91a3994ff668a500be83f31"
+    },
+    "PHONEME-FRAMES.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/PHONEME-FRAMES.json",
+      "sha256": "ecb4a40b56f7a2cc369e61b82c95f7e9413151e395cd040eba141763a0b657fe"
+    },
+    "PLAYBACK-CHECK.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/PLAYBACK-CHECK.json",
+      "sha256": "cf63640d31b63da84c7d45abbdddfe3d12e6189c2ae1d15bca5d8b81f896dc58"
+    },
+    "CONTEXT-BINDING.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/CONTEXT-BINDING.json",
+      "sha256": "d4fdc1a14dc9438a6c0f475556fb82e83168c3bfd6968ac29e2d28acea03c184"
+    },
+    "SEAM-REVIEW.json": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/SEAM-REVIEW.json",
+      "sha256": "fb5eaa69e454b9baaf84c7228851ba28faa4b1585e23416acc452149dacc937c"
+    }
+  },
+  "native_offset_selection": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-SELECTION.json",
+    "sha256": "a3f37ea4d9e3aef97832512e376198ecc173717651e69c3d2db1804f02f5af44"
+  },
+  "next_action": "Root review/adjudication required to resolve the preserved sync flags; no automatic eligibility or bulk authorization."
+}

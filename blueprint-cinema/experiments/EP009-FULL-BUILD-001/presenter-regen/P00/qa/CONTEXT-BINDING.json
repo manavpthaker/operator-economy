@@ -1,0 +1,93 @@
+{
+  "status": "private_diagnostic_flagged_not_assembly_select",
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-context-private-r1.mp4",
+    "sha256": "76dc0f8c458b6127e120d74eb65c3a26adb7dec6bf0170be0b1a90a2f3f8bf97"
+  },
+  "frames": 252,
+  "duration": 10.5,
+  "source_spans": [
+    {
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+        "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307"
+      },
+      "source_frames": [
+        0,
+        86
+      ],
+      "output_frames": [
+        0,
+        86
+      ]
+    },
+    {
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r3/ep009-full-r3-review-draft.mp4",
+        "sha256": "16a065294110e0bbb86b49a2f3901cd2c605a919864fcd470f4af06c19bcc9b7"
+      },
+      "source_frames": [
+        86,
+        252
+      ],
+      "output_frames": [
+        86,
+        252
+      ],
+      "binding_build": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-full-r3-review-draft-BUILD.json",
+        "sha256": "806ec203069d994fb5928c61aaa1350c788b2faf5fa3e9d2663e593ab962aa12"
+      }
+    }
+  ],
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "master_samples": [
+    0,
+    504000
+  ],
+  "cuts_output_frames": [
+    86,
+    135
+  ],
+  "notes": "Shows P00 candidate into retained innkeeper film; no canonical conform/index changed.",
+  "command": [
+    "ffmpeg",
+    "-n",
+    "-v",
+    "error",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+    "-t",
+    "10.5",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r3/ep009-full-r3-review-draft.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "-filter_complex",
+    "[0:v]trim=start_frame=0:end_frame=86,setpts=N/(24*TB)[a];[1:v]trim=start_frame=86:end_frame=252,setpts=N/(24*TB)[b];[a][b]concat=n=2:v=1:a=0[v];[2:a]atrim=start_sample=0:end_sample=504000,asetpts=N/SR/TB,pan=stereo|c0=c0|c1=c0[au]",
+    "-map",
+    "[v]",
+    "-map",
+    "[au]",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "16",
+    "-r",
+    "24",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-ar",
+    "48000",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-context-private-r1.mp4"
+  ]
+}
