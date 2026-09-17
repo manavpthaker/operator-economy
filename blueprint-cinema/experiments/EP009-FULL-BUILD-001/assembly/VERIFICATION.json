@@ -1,0 +1,2250 @@
+{
+ "record_type": "ep009_full_assembly_verification",
+ "created_at_utc": "2026-09-17T01:36:03.091281+00:00",
+ "status": "agent-verified, not owner accepted",
+ "output": {
+  "path": "assembly/qa/ep009-full.mp4",
+  "sha256": "7409e5c25c5fa42666fc5ae8eeaeb7d6ea6a1c1ba251677251d7ed506c9b2f9a",
+  "video": {
+   "codec_name": "h264",
+   "width": 1280,
+   "height": 720,
+   "r_frame_rate": "24/1",
+   "pix_fmt": "yuv420p",
+   "sample_aspect_ratio": "1:1",
+   "nb_read_packets": "29607",
+   "duration": "1233.625000"
+  },
+  "audio": {
+   "codec_name": "aac",
+   "sample_rate": "48000",
+   "channels": 2,
+   "duration": "1233.625000"
+  }
+ },
+ "timing": {
+  "plan_total_frames": 29607,
+  "encoded_video_frames": 29607,
+  "frames_match_plan": true,
+  "picture_seconds": 1233.625,
+  "master_seconds": 1233.602,
+  "picture_minus_master_seconds": 0.023,
+  "within_one_frame": true,
+  "segments_contiguous": true,
+  "segment_count": 75
+ },
+ "decode": {
+  "method": "ffmpeg decode of every frame of the encoded file at 1280x720 RGB, statistics on every 4th pixel; uniform = gray 0.5 to 99.5 percentile range under 2/255",
+  "decoded_frames": 29607,
+  "decode_errors": 0,
+  "uniform_definition": "Strict: full-resolution ffmpeg signalstats per frame with Y, U and V each spanning at most 4 code values (nothing drawn at all).",
+  "signalstats_frames": 29607,
+  "uniform_frame_count": 22,
+  "uniform_runs": [
+   {
+    "output_frames_inclusive": [
+     1427,
+     1427
+    ],
+    "count": 1,
+    "timecode_start": "0:59.458",
+    "timecode_end_exclusive": "0:59.500",
+    "segment": "seg010",
+    "lane": "sting",
+    "segment_local_frames_inclusive": [
+     0,
+     0
+    ],
+    "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg010__seg011/qa/seg010__seg011.mp4",
+    "planned": true,
+    "planned_basis": "BUILD.json of seg010__seg011: frame 0 is a uniform navy frame, the accepted EP007 sting fades THE in over 4 frames; planned hold."
+   },
+   {
+    "output_frames_inclusive": [
+     11521,
+     11541
+    ],
+    "count": 21,
+    "timecode_start": "8:00.042",
+    "timecode_end_exclusive": "8:00.917",
+    "segment": "seg036",
+    "lane": "model",
+    "segment_local_frames_inclusive": [
+     0,
+     20
+    ],
+    "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg036__seg039/qa/seg036__seg039.mp4",
+    "planned": true,
+    "planned_basis": "BUILD.json of seg036__seg039: seg036 opens on 20 frames of blank paper (480.042 to W001325 compute 480.87) as the plan specifies; source lists uniform frames 0-20."
+   }
+  ],
+  "unplanned_uniform_frames": 0,
+  "sparse_near_uniform_runs": {
+   "definition": "gray 0.5 to 99.5 percentile range under 2/255 on every 4th pixel: frames with only thin line work on paper. Not blank; listed so a reviewer can judge whether long sparse openings read as empty at speed.",
+   "runs": [
+    {
+     "output_frames_inclusive": [
+      1427,
+      1431
+     ],
+     "count": 5,
+     "timecode": "0:59.458",
+     "segment": "seg010",
+     "lane": "sting",
+     "segment_local_frames_inclusive": [
+      0,
+      4
+     ],
+     "mean_luma": 38.0,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg010__seg011/qa/seg010__seg011.mp4",
+     "source_frames_inclusive": [
+      0,
+      4
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      1704,
+      1704
+     ],
+     "count": 1,
+     "timecode": "1:11.000",
+     "segment": "seg011",
+     "lane": "sting",
+     "segment_local_frames_inclusive": [
+      187,
+      187
+     ],
+     "mean_luma": 235.67,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg010__seg011/qa/seg010__seg011.mp4",
+     "source_frames_inclusive": [
+      277,
+      277
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      5671,
+      5777
+     ],
+     "count": 107,
+     "timecode": "3:56.292",
+     "segment": "seg022",
+     "lane": "evidence",
+     "segment_local_frames_inclusive": [
+      0,
+      106
+     ],
+     "mean_luma": 235.43,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg022__seg024/qa/seg022__seg024.mp4",
+     "source_frames_inclusive": [
+      0,
+      106
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      8961,
+      8969
+     ],
+     "count": 9,
+     "timecode": "6:13.375",
+     "segment": "seg029",
+     "lane": "evidence",
+     "segment_local_frames_inclusive": [
+      0,
+      8
+     ],
+     "mean_luma": 235.0,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg029__seg034/qa/seg029__seg034.mp4",
+     "source_frames_inclusive": [
+      0,
+      8
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      11521,
+      11543
+     ],
+     "count": 23,
+     "timecode": "8:00.042",
+     "segment": "seg036",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      0,
+      22
+     ],
+     "mean_luma": 235.67,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg036__seg039/qa/seg036__seg039.mp4",
+     "source_frames_inclusive": [
+      0,
+      22
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      15597,
+      15599
+     ],
+     "count": 3,
+     "timecode": "10:49.875",
+     "segment": "seg043",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      21,
+      23
+     ],
+     "mean_luma": 235.27,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/qa/seg040__seg043.mp4",
+     "source_frames_inclusive": [
+      1440,
+      1442
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      15601,
+      15604
+     ],
+     "count": 4,
+     "timecode": "10:50.042",
+     "segment": "seg043",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      25,
+      28
+     ],
+     "mean_luma": 235.28,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/qa/seg040__seg043.mp4",
+     "source_frames_inclusive": [
+      1444,
+      1447
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      15606,
+      15606
+     ],
+     "count": 1,
+     "timecode": "10:50.250",
+     "segment": "seg043",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      30,
+      30
+     ],
+     "mean_luma": 235.26,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/qa/seg040__seg043.mp4",
+     "source_frames_inclusive": [
+      1449,
+      1449
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      15609,
+      15609
+     ],
+     "count": 1,
+     "timecode": "10:50.375",
+     "segment": "seg043",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      33,
+      33
+     ],
+     "mean_luma": 235.3,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg040__seg043/qa/seg040__seg043.mp4",
+     "source_frames_inclusive": [
+      1452,
+      1452
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      16570,
+      16572
+     ],
+     "count": 3,
+     "timecode": "11:30.417",
+     "segment": "seg045",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      23,
+      25
+     ],
+     "mean_luma": 235.21,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/seg045__seg048.mp4",
+     "source_frames_inclusive": [
+      23,
+      25
+     ]
+    },
+    {
+     "output_frames_inclusive": [
+      25563,
+      25565
+     ],
+     "count": 3,
+     "timecode": "17:45.125",
+     "segment": "seg063",
+     "lane": "model",
+     "segment_local_frames_inclusive": [
+      19,
+      21
+     ],
+     "mean_luma": 235.36,
+     "source_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg063__seg065/qa/s19.mp4",
+     "source_frames_inclusive": [
+      19,
+      21
+     ]
+    }
+   ]
+  }
+ },
+ "seams": {
+  "method": "Last outgoing and first incoming frames taken by frame index from the full decode of the encoded ep009-full.mp4; difference = mean absolute RGB difference in 0-255 at 1280x720; half-drawn heuristic = incoming frame gray std under 0.6x the std 12 frames later with more than 10/255 change. Model-to-model handoff threshold 20/255. Uniform test uses the strict signalstats definition.",
+  "count": 74,
+  "flagged": [
+   {
+    "boundary": "09-seg009-seg010",
+    "output_frame": 1427,
+    "timecode": "0:59.458",
+    "outgoing": "seg009",
+    "incoming": "seg010",
+    "lanes": [
+     "presenter",
+     "sting"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 99.71,
+    "pct_pixels_over_20": 87.92,
+    "incoming_std_frame0": 0.01,
+    "incoming_std_frame12": 22.72,
+    "incoming_frame0_vs_frame12_diff": 2.88,
+    "png_a": "assembly/qa/seams/09-seg009-seg010-a.png",
+    "png_b": "assembly/qa/seams/09-seg009-seg010-b.png",
+    "flags": [
+     "incoming frame uniform (blank), planned: BUILD.json of seg010__seg011: frame 0 is a uniform navy frame, the accepted EP007 sting fades THE in over 4 frames; planned hold."
+    ]
+   },
+   {
+    "boundary": "35-seg035-seg036",
+    "output_frame": 11521,
+    "timecode": "8:00.042",
+    "outgoing": "seg035",
+    "incoming": "seg036",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 102.72,
+    "pct_pixels_over_20": 86.84,
+    "incoming_std_frame0": 0.0,
+    "incoming_std_frame12": 0.0,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/35-seg035-seg036-a.png",
+    "png_b": "assembly/qa/seams/35-seg035-seg036-b.png",
+    "flags": [
+     "incoming frame uniform (blank), planned: BUILD.json of seg036__seg039: seg036 opens on 20 frames of blank paper (480.042 to W001325 compute 480.87) as the plan specifies; source lists uniform frames 0-20."
+    ]
+   },
+   {
+    "boundary": "72-seg072-seg073",
+    "output_frame": 28906,
+    "timecode": "20:04.417",
+    "outgoing": "seg072",
+    "incoming": "seg073",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "planned continuous (crop change)",
+    "diff_mean_abs_rgb_255": 58.83,
+    "pct_pixels_over_20": 74.73,
+    "incoming_std_frame0": 52.03,
+    "incoming_std_frame12": 51.88,
+    "incoming_frame0_vs_frame12_diff": 3.34,
+    "png_a": "assembly/qa/seams/72-seg072-seg073-a.png",
+    "png_b": "assembly/qa/seams/72-seg072-seg073-b.png",
+    "flags": [
+     "planned continuous boundary differs by more than 20/255"
+    ],
+    "notes": "Seam PNGs show the same presenter pose with a wide-to-close crop change, as SHOT-PLAN continuous_boundaries states; the diff score measures the crop, not a picture jump."
+   },
+   {
+    "boundary": "74-seg074-seg075",
+    "output_frame": 29421,
+    "timecode": "20:25.875",
+    "outgoing": "seg074",
+    "incoming": "seg075",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "planned continuous (crop change)",
+    "diff_mean_abs_rgb_255": 59.52,
+    "pct_pixels_over_20": 75.69,
+    "incoming_std_frame0": 65.83,
+    "incoming_std_frame12": 65.8,
+    "incoming_frame0_vs_frame12_diff": 0.93,
+    "png_a": "assembly/qa/seams/74-seg074-seg075-a.png",
+    "png_b": "assembly/qa/seams/74-seg074-seg075-b.png",
+    "flags": [
+     "planned continuous boundary differs by more than 20/255"
+    ],
+    "notes": "Seam PNGs show the same presenter pose with a wide-to-close crop change, as SHOT-PLAN continuous_boundaries states; the diff score measures the crop, not a picture jump."
+   }
+  ],
+  "all": [
+   {
+    "boundary": "01-seg001-seg002",
+    "output_frame": 135,
+    "timecode": "0:05.625",
+    "outgoing": "seg001",
+    "incoming": "seg002",
+    "lanes": [
+     "film",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 21.35,
+    "pct_pixels_over_20": 32.66,
+    "incoming_std_frame0": 61.37,
+    "incoming_std_frame12": 60.4,
+    "incoming_frame0_vs_frame12_diff": 13.65,
+    "png_a": "assembly/qa/seams/01-seg001-seg002-a.png",
+    "png_b": "assembly/qa/seams/01-seg001-seg002-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "02-seg002-seg003",
+    "output_frame": 252,
+    "timecode": "0:10.500",
+    "outgoing": "seg002",
+    "incoming": "seg003",
+    "lanes": [
+     "film",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 4.64,
+    "pct_pixels_over_20": 2.98,
+    "incoming_std_frame0": 61.88,
+    "incoming_std_frame12": 61.9,
+    "incoming_frame0_vs_frame12_diff": 2.93,
+    "png_a": "assembly/qa/seams/02-seg002-seg003-a.png",
+    "png_b": "assembly/qa/seams/02-seg002-seg003-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "03-seg003-seg004",
+    "output_frame": 404,
+    "timecode": "0:16.833",
+    "outgoing": "seg003",
+    "incoming": "seg004",
+    "lanes": [
+     "film",
+     "screen"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 141.53,
+    "pct_pixels_over_20": 95.85,
+    "incoming_std_frame0": 22.41,
+    "incoming_std_frame12": 22.41,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/03-seg003-seg004-a.png",
+    "png_b": "assembly/qa/seams/03-seg003-seg004-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "04-seg004-seg005",
+    "output_frame": 546,
+    "timecode": "0:22.750",
+    "outgoing": "seg004",
+    "incoming": "seg005",
+    "lanes": [
+     "screen",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 26.91,
+    "incoming_std_frame12": 20.91,
+    "incoming_frame0_vs_frame12_diff": 12.06,
+    "png_a": "assembly/qa/seams/04-seg004-seg005-a.png",
+    "png_b": "assembly/qa/seams/04-seg004-seg005-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "05-seg005-seg006",
+    "output_frame": 769,
+    "timecode": "0:32.042",
+    "outgoing": "seg005",
+    "incoming": "seg006",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 25.35,
+    "incoming_std_frame12": 25.35,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/05-seg005-seg006-a.png",
+    "png_b": "assembly/qa/seams/05-seg005-seg006-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "06-seg006-seg007",
+    "output_frame": 872,
+    "timecode": "0:36.333",
+    "outgoing": "seg006",
+    "incoming": "seg007",
+    "lanes": [
+     "model",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 138.66,
+    "pct_pixels_over_20": 95.89,
+    "incoming_std_frame0": 62.62,
+    "incoming_std_frame12": 62.68,
+    "incoming_frame0_vs_frame12_diff": 10.71,
+    "png_a": "assembly/qa/seams/06-seg006-seg007-a.png",
+    "png_b": "assembly/qa/seams/06-seg006-seg007-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "07-seg007-seg008",
+    "output_frame": 962,
+    "timecode": "0:40.083",
+    "outgoing": "seg007",
+    "incoming": "seg008",
+    "lanes": [
+     "film",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 138.78,
+    "pct_pixels_over_20": 95.75,
+    "incoming_std_frame0": 23.25,
+    "incoming_std_frame12": 23.25,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/07-seg007-seg008-a.png",
+    "png_b": "assembly/qa/seams/07-seg007-seg008-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "08-seg008-seg009",
+    "output_frame": 1207,
+    "timecode": "0:50.292",
+    "outgoing": "seg008",
+    "incoming": "seg009",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 103.09,
+    "pct_pixels_over_20": 86.47,
+    "incoming_std_frame0": 65.22,
+    "incoming_std_frame12": 64.98,
+    "incoming_frame0_vs_frame12_diff": 3.68,
+    "png_a": "assembly/qa/seams/08-seg008-seg009-a.png",
+    "png_b": "assembly/qa/seams/08-seg008-seg009-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "09-seg009-seg010",
+    "output_frame": 1427,
+    "timecode": "0:59.458",
+    "outgoing": "seg009",
+    "incoming": "seg010",
+    "lanes": [
+     "presenter",
+     "sting"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 99.71,
+    "pct_pixels_over_20": 87.92,
+    "incoming_std_frame0": 0.01,
+    "incoming_std_frame12": 22.72,
+    "incoming_frame0_vs_frame12_diff": 2.88,
+    "png_a": "assembly/qa/seams/09-seg009-seg010-a.png",
+    "png_b": "assembly/qa/seams/09-seg009-seg010-b.png",
+    "flags": [
+     "incoming frame uniform (blank), planned: BUILD.json of seg010__seg011: frame 0 is a uniform navy frame, the accepted EP007 sting fades THE in over 4 frames; planned hold."
+    ]
+   },
+   {
+    "boundary": "10-seg010-seg011",
+    "output_frame": 1517,
+    "timecode": "1:03.208",
+    "outgoing": "seg010",
+    "incoming": "seg011",
+    "lanes": [
+     "sting",
+     "sting"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 22.73,
+    "incoming_std_frame12": 22.73,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/10-seg010-seg011-a.png",
+    "png_b": "assembly/qa/seams/10-seg010-seg011-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "11-seg011-seg012",
+    "output_frame": 1765,
+    "timecode": "1:13.542",
+    "outgoing": "seg011",
+    "incoming": "seg012",
+    "lanes": [
+     "sting",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 102.54,
+    "pct_pixels_over_20": 87.26,
+    "incoming_std_frame0": 65.28,
+    "incoming_std_frame12": 65.23,
+    "incoming_frame0_vs_frame12_diff": 1.1,
+    "png_a": "assembly/qa/seams/11-seg011-seg012-a.png",
+    "png_b": "assembly/qa/seams/11-seg011-seg012-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "12-seg012-seg013",
+    "output_frame": 2108,
+    "timecode": "1:27.833",
+    "outgoing": "seg012",
+    "incoming": "seg013",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 100.74,
+    "pct_pixels_over_20": 86.29,
+    "incoming_std_frame0": 34.77,
+    "incoming_std_frame12": 34.77,
+    "incoming_frame0_vs_frame12_diff": 0.01,
+    "png_a": "assembly/qa/seams/12-seg012-seg013-a.png",
+    "png_b": "assembly/qa/seams/12-seg012-seg013-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "13-seg013-seg014",
+    "output_frame": 2250,
+    "timecode": "1:33.750",
+    "outgoing": "seg013",
+    "incoming": "seg014",
+    "lanes": [
+     "model",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 172.48,
+    "pct_pixels_over_20": 98.82,
+    "incoming_std_frame0": 34.19,
+    "incoming_std_frame12": 34.33,
+    "incoming_frame0_vs_frame12_diff": 3.59,
+    "png_a": "assembly/qa/seams/13-seg013-seg014-a.png",
+    "png_b": "assembly/qa/seams/13-seg013-seg014-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "14-seg014-seg015",
+    "output_frame": 2380,
+    "timecode": "1:39.167",
+    "outgoing": "seg014",
+    "incoming": "seg015",
+    "lanes": [
+     "film",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 173.68,
+    "pct_pixels_over_20": 99.33,
+    "incoming_std_frame0": 25.91,
+    "incoming_std_frame12": 25.86,
+    "incoming_frame0_vs_frame12_diff": 0.04,
+    "png_a": "assembly/qa/seams/14-seg014-seg015-a.png",
+    "png_b": "assembly/qa/seams/14-seg014-seg015-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "15-seg015-seg016",
+    "output_frame": 2730,
+    "timecode": "1:53.750",
+    "outgoing": "seg015",
+    "incoming": "seg016",
+    "lanes": [
+     "model",
+     "evidence"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.78,
+    "pct_pixels_over_20": 0.61,
+    "incoming_std_frame0": 14.88,
+    "incoming_std_frame12": 11.9,
+    "incoming_frame0_vs_frame12_diff": 4.15,
+    "png_a": "assembly/qa/seams/15-seg015-seg016-a.png",
+    "png_b": "assembly/qa/seams/15-seg015-seg016-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "16-seg016-seg017",
+    "output_frame": 3375,
+    "timecode": "2:20.625",
+    "outgoing": "seg016",
+    "incoming": "seg017",
+    "lanes": [
+     "evidence",
+     "evidence"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 0.07,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 21.34,
+    "incoming_std_frame12": 22.47,
+    "incoming_frame0_vs_frame12_diff": 0.6,
+    "png_a": "assembly/qa/seams/16-seg016-seg017-a.png",
+    "png_b": "assembly/qa/seams/16-seg016-seg017-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "17-seg017-seg018",
+    "output_frame": 4183,
+    "timecode": "2:54.292",
+    "outgoing": "seg017",
+    "incoming": "seg018",
+    "lanes": [
+     "evidence",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 13.24,
+    "pct_pixels_over_20": 9.41,
+    "incoming_std_frame0": 24.31,
+    "incoming_std_frame12": 24.31,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/17-seg017-seg018-a.png",
+    "png_b": "assembly/qa/seams/17-seg017-seg018-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "18-seg018-seg019",
+    "output_frame": 4528,
+    "timecode": "3:08.667",
+    "outgoing": "seg018",
+    "incoming": "seg019",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 98.84,
+    "pct_pixels_over_20": 86.58,
+    "incoming_std_frame0": 65.59,
+    "incoming_std_frame12": 65.64,
+    "incoming_frame0_vs_frame12_diff": 1.75,
+    "png_a": "assembly/qa/seams/18-seg018-seg019-a.png",
+    "png_b": "assembly/qa/seams/18-seg018-seg019-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "19-seg019-seg020",
+    "output_frame": 4922,
+    "timecode": "3:25.083",
+    "outgoing": "seg019",
+    "incoming": "seg020",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 100.1,
+    "pct_pixels_over_20": 86.38,
+    "incoming_std_frame0": 19.34,
+    "incoming_std_frame12": 19.34,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/19-seg019-seg020-a.png",
+    "png_b": "assembly/qa/seams/19-seg019-seg020-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "20-seg020-seg021",
+    "output_frame": 5429,
+    "timecode": "3:46.208",
+    "outgoing": "seg020",
+    "incoming": "seg021",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 99.32,
+    "pct_pixels_over_20": 86.75,
+    "incoming_std_frame0": 63.98,
+    "incoming_std_frame12": 63.8,
+    "incoming_frame0_vs_frame12_diff": 3.27,
+    "png_a": "assembly/qa/seams/20-seg020-seg021-a.png",
+    "png_b": "assembly/qa/seams/20-seg020-seg021-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "21-seg021-seg022",
+    "output_frame": 5671,
+    "timecode": "3:56.292",
+    "outgoing": "seg021",
+    "incoming": "seg022",
+    "lanes": [
+     "presenter",
+     "evidence"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 104.13,
+    "pct_pixels_over_20": 87.13,
+    "incoming_std_frame0": 4.27,
+    "incoming_std_frame12": 4.27,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/21-seg021-seg022-a.png",
+    "png_b": "assembly/qa/seams/21-seg021-seg022-b.png",
+    "flags": [],
+    "notes": "incoming frame is sparse (only the top rule drawn) for 107 frames (4.46 s) before the card draws in; not blank, not flagged half-drawn by the std heuristic because it is the scene build-in. Reviewer to judge at speed."
+   },
+   {
+    "boundary": "22-seg022-seg023",
+    "output_frame": 6472,
+    "timecode": "4:29.667",
+    "outgoing": "seg022",
+    "incoming": "seg023",
+    "lanes": [
+     "evidence",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.01,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 35.44,
+    "incoming_std_frame12": 9.64,
+    "incoming_frame0_vs_frame12_diff": 9.45,
+    "png_a": "assembly/qa/seams/22-seg022-seg023-a.png",
+    "png_b": "assembly/qa/seams/22-seg022-seg023-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "23-seg023-seg024",
+    "output_frame": 6877,
+    "timecode": "4:46.542",
+    "outgoing": "seg023",
+    "incoming": "seg024",
+    "lanes": [
+     "model",
+     "evidence"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 26.43,
+    "incoming_std_frame12": 7.79,
+    "incoming_frame0_vs_frame12_diff": 5.39,
+    "png_a": "assembly/qa/seams/23-seg023-seg024-a.png",
+    "png_b": "assembly/qa/seams/23-seg023-seg024-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "24-seg024-seg025",
+    "output_frame": 7336,
+    "timecode": "5:05.667",
+    "outgoing": "seg024",
+    "incoming": "seg025",
+    "lanes": [
+     "evidence",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 0.01,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 24.06,
+    "incoming_std_frame12": 23.95,
+    "incoming_frame0_vs_frame12_diff": 0.04,
+    "png_a": "assembly/qa/seams/24-seg024-seg025-a.png",
+    "png_b": "assembly/qa/seams/24-seg024-seg025-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "25-seg025-seg026",
+    "output_frame": 7652,
+    "timecode": "5:18.833",
+    "outgoing": "seg025",
+    "incoming": "seg026",
+    "lanes": [
+     "model",
+     "evidence"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 24.93,
+    "incoming_std_frame12": 15.75,
+    "incoming_frame0_vs_frame12_diff": 6.23,
+    "png_a": "assembly/qa/seams/25-seg025-seg026-a.png",
+    "png_b": "assembly/qa/seams/25-seg025-seg026-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "26-seg026-seg027",
+    "output_frame": 8137,
+    "timecode": "5:39.042",
+    "outgoing": "seg026",
+    "incoming": "seg027",
+    "lanes": [
+     "evidence",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 13.85,
+    "pct_pixels_over_20": 9.76,
+    "incoming_std_frame0": 22.58,
+    "incoming_std_frame12": 22.58,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/26-seg026-seg027-a.png",
+    "png_b": "assembly/qa/seams/26-seg026-seg027-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "27-seg027-seg028",
+    "output_frame": 8832,
+    "timecode": "6:08.000",
+    "outgoing": "seg027",
+    "incoming": "seg028",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 101.82,
+    "pct_pixels_over_20": 87.25,
+    "incoming_std_frame0": 65.33,
+    "incoming_std_frame12": 65.15,
+    "incoming_frame0_vs_frame12_diff": 2.69,
+    "png_a": "assembly/qa/seams/27-seg027-seg028-a.png",
+    "png_b": "assembly/qa/seams/27-seg027-seg028-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "28-seg028-seg029",
+    "output_frame": 8961,
+    "timecode": "6:13.375",
+    "outgoing": "seg028",
+    "incoming": "seg029",
+    "lanes": [
+     "presenter",
+     "evidence"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 103.0,
+    "pct_pixels_over_20": 86.88,
+    "incoming_std_frame0": 9.37,
+    "incoming_std_frame12": 16.72,
+    "incoming_frame0_vs_frame12_diff": 1.31,
+    "png_a": "assembly/qa/seams/28-seg028-seg029-a.png",
+    "png_b": "assembly/qa/seams/28-seg028-seg029-b.png",
+    "flags": [],
+    "notes": "incoming frame sparse for 9 frames (form sheet drawing in); scene build-in."
+   },
+   {
+    "boundary": "29-seg029-seg030",
+    "output_frame": 9321,
+    "timecode": "6:28.375",
+    "outgoing": "seg029",
+    "incoming": "seg030",
+    "lanes": [
+     "evidence",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 9.37,
+    "pct_pixels_over_20": 6.15,
+    "incoming_std_frame0": 11.91,
+    "incoming_std_frame12": 11.91,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/29-seg029-seg030-a.png",
+    "png_b": "assembly/qa/seams/29-seg029-seg030-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "30-seg030-seg031",
+    "output_frame": 9511,
+    "timecode": "6:36.292",
+    "outgoing": "seg030",
+    "incoming": "seg031",
+    "lanes": [
+     "model",
+     "film"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 14.59,
+    "incoming_std_frame12": 15.17,
+    "incoming_frame0_vs_frame12_diff": 0.32,
+    "png_a": "assembly/qa/seams/30-seg030-seg031-a.png",
+    "png_b": "assembly/qa/seams/30-seg030-seg031-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "31-seg031-seg032",
+    "output_frame": 9685,
+    "timecode": "6:43.542",
+    "outgoing": "seg031",
+    "incoming": "seg032",
+    "lanes": [
+     "film",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 18.31,
+    "incoming_std_frame12": 18.31,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/31-seg031-seg032-a.png",
+    "png_b": "assembly/qa/seams/31-seg031-seg032-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "32-seg032-seg033",
+    "output_frame": 9841,
+    "timecode": "6:50.042",
+    "outgoing": "seg032",
+    "incoming": "seg033",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 22.05,
+    "incoming_std_frame12": 21.4,
+    "incoming_frame0_vs_frame12_diff": 0.16,
+    "png_a": "assembly/qa/seams/32-seg032-seg033-a.png",
+    "png_b": "assembly/qa/seams/32-seg032-seg033-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "33-seg033-seg034",
+    "output_frame": 10757,
+    "timecode": "7:28.208",
+    "outgoing": "seg033",
+    "incoming": "seg034",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 23.57,
+    "incoming_std_frame12": 23.57,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/33-seg033-seg034-a.png",
+    "png_b": "assembly/qa/seams/33-seg033-seg034-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "34-seg034-seg035",
+    "output_frame": 11263,
+    "timecode": "7:49.292",
+    "outgoing": "seg034",
+    "incoming": "seg035",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 100.65,
+    "pct_pixels_over_20": 86.79,
+    "incoming_std_frame0": 65.81,
+    "incoming_std_frame12": 65.68,
+    "incoming_frame0_vs_frame12_diff": 2.51,
+    "png_a": "assembly/qa/seams/34-seg034-seg035-a.png",
+    "png_b": "assembly/qa/seams/34-seg034-seg035-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "35-seg035-seg036",
+    "output_frame": 11521,
+    "timecode": "8:00.042",
+    "outgoing": "seg035",
+    "incoming": "seg036",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 102.72,
+    "pct_pixels_over_20": 86.84,
+    "incoming_std_frame0": 0.0,
+    "incoming_std_frame12": 0.0,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/35-seg035-seg036-a.png",
+    "png_b": "assembly/qa/seams/35-seg035-seg036-b.png",
+    "flags": [
+     "incoming frame uniform (blank), planned: BUILD.json of seg036__seg039: seg036 opens on 20 frames of blank paper (480.042 to W001325 compute 480.87) as the plan specifies; source lists uniform frames 0-20."
+    ]
+   },
+   {
+    "boundary": "36-seg036-seg037",
+    "output_frame": 12490,
+    "timecode": "8:40.417",
+    "outgoing": "seg036",
+    "incoming": "seg037",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 100.43,
+    "pct_pixels_over_20": 86.08,
+    "incoming_std_frame0": 65.25,
+    "incoming_std_frame12": 64.93,
+    "incoming_frame0_vs_frame12_diff": 7.86,
+    "png_a": "assembly/qa/seams/36-seg036-seg037-a.png",
+    "png_b": "assembly/qa/seams/36-seg036-seg037-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "37-seg037-seg038",
+    "output_frame": 12774,
+    "timecode": "8:52.250",
+    "outgoing": "seg037",
+    "incoming": "seg038",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 102.51,
+    "pct_pixels_over_20": 86.29,
+    "incoming_std_frame0": 27.33,
+    "incoming_std_frame12": 27.36,
+    "incoming_frame0_vs_frame12_diff": 0.09,
+    "png_a": "assembly/qa/seams/37-seg037-seg038-a.png",
+    "png_b": "assembly/qa/seams/37-seg037-seg038-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "38-seg038-seg039",
+    "output_frame": 13669,
+    "timecode": "9:29.542",
+    "outgoing": "seg038",
+    "incoming": "seg039",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 33.51,
+    "incoming_std_frame12": 33.96,
+    "incoming_frame0_vs_frame12_diff": 0.3,
+    "png_a": "assembly/qa/seams/38-seg038-seg039-a.png",
+    "png_b": "assembly/qa/seams/38-seg038-seg039-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "39-seg039-seg040",
+    "output_frame": 14157,
+    "timecode": "9:49.875",
+    "outgoing": "seg039",
+    "incoming": "seg040",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 3.04,
+    "pct_pixels_over_20": 0.02,
+    "incoming_std_frame0": 36.68,
+    "incoming_std_frame12": 32.42,
+    "incoming_frame0_vs_frame12_diff": 2.04,
+    "png_a": "assembly/qa/seams/39-seg039-seg040-a.png",
+    "png_b": "assembly/qa/seams/39-seg039-seg040-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "40-seg040-seg041",
+    "output_frame": 14843,
+    "timecode": "10:18.458",
+    "outgoing": "seg040",
+    "incoming": "seg041",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 28.33,
+    "incoming_std_frame12": 28.33,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/40-seg040-seg041-a.png",
+    "png_b": "assembly/qa/seams/40-seg040-seg041-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "41-seg041-seg042",
+    "output_frame": 15411,
+    "timecode": "10:42.125",
+    "outgoing": "seg041",
+    "incoming": "seg042",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 26.77,
+    "incoming_std_frame12": 26.77,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/41-seg041-seg042-a.png",
+    "png_b": "assembly/qa/seams/41-seg041-seg042-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "42-seg042-seg043",
+    "output_frame": 15576,
+    "timecode": "10:49.000",
+    "outgoing": "seg042",
+    "incoming": "seg043",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 19.81,
+    "incoming_std_frame12": 19.4,
+    "incoming_frame0_vs_frame12_diff": 0.07,
+    "png_a": "assembly/qa/seams/42-seg042-seg043-a.png",
+    "png_b": "assembly/qa/seams/42-seg042-seg043-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "43-seg043-seg044",
+    "output_frame": 15998,
+    "timecode": "11:06.583",
+    "outgoing": "seg043",
+    "incoming": "seg044",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 99.9,
+    "pct_pixels_over_20": 85.87,
+    "incoming_std_frame0": 66.07,
+    "incoming_std_frame12": 65.94,
+    "incoming_frame0_vs_frame12_diff": 1.21,
+    "png_a": "assembly/qa/seams/43-seg043-seg044-a.png",
+    "png_b": "assembly/qa/seams/43-seg043-seg044-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "44-seg044-seg045",
+    "output_frame": 16547,
+    "timecode": "11:29.458",
+    "outgoing": "seg044",
+    "incoming": "seg045",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 119.48,
+    "pct_pixels_over_20": 99.17,
+    "incoming_std_frame0": 13.27,
+    "incoming_std_frame12": 13.27,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/44-seg044-seg045-a.png",
+    "png_b": "assembly/qa/seams/44-seg044-seg045-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "45-seg045-seg046",
+    "output_frame": 16893,
+    "timecode": "11:43.875",
+    "outgoing": "seg045",
+    "incoming": "seg046",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 16.53,
+    "incoming_std_frame12": 6.48,
+    "incoming_frame0_vs_frame12_diff": 3.4,
+    "png_a": "assembly/qa/seams/45-seg045-seg046-a.png",
+    "png_b": "assembly/qa/seams/45-seg045-seg046-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "46-seg046-seg047",
+    "output_frame": 17271,
+    "timecode": "11:59.625",
+    "outgoing": "seg046",
+    "incoming": "seg047",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 31.47,
+    "incoming_std_frame12": 31.47,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/46-seg046-seg047-a.png",
+    "png_b": "assembly/qa/seams/46-seg046-seg047-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "47-seg047-seg048",
+    "output_frame": 17807,
+    "timecode": "12:21.958",
+    "outgoing": "seg047",
+    "incoming": "seg048",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 35.27,
+    "incoming_std_frame12": 8.94,
+    "incoming_frame0_vs_frame12_diff": 7.53,
+    "png_a": "assembly/qa/seams/47-seg047-seg048-a.png",
+    "png_b": "assembly/qa/seams/47-seg047-seg048-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "48-seg048-seg049",
+    "output_frame": 18399,
+    "timecode": "12:46.625",
+    "outgoing": "seg048",
+    "incoming": "seg049",
+    "lanes": [
+     "model",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 129.09,
+    "pct_pixels_over_20": 95.16,
+    "incoming_std_frame0": 63.07,
+    "incoming_std_frame12": 63.1,
+    "incoming_frame0_vs_frame12_diff": 2.47,
+    "png_a": "assembly/qa/seams/48-seg048-seg049-a.png",
+    "png_b": "assembly/qa/seams/48-seg048-seg049-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "49-seg049-seg050",
+    "output_frame": 18488,
+    "timecode": "12:50.333",
+    "outgoing": "seg049",
+    "incoming": "seg050",
+    "lanes": [
+     "film",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 128.89,
+    "pct_pixels_over_20": 95.03,
+    "incoming_std_frame0": 29.26,
+    "incoming_std_frame12": 29.24,
+    "incoming_frame0_vs_frame12_diff": 0.03,
+    "png_a": "assembly/qa/seams/49-seg049-seg050-a.png",
+    "png_b": "assembly/qa/seams/49-seg049-seg050-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "50-seg050-seg051",
+    "output_frame": 18834,
+    "timecode": "13:04.750",
+    "outgoing": "seg050",
+    "incoming": "seg051",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 36.11,
+    "incoming_std_frame12": 36.11,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/50-seg050-seg051-a.png",
+    "png_b": "assembly/qa/seams/50-seg050-seg051-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "51-seg051-seg052",
+    "output_frame": 19314,
+    "timecode": "13:24.750",
+    "outgoing": "seg051",
+    "incoming": "seg052",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 40.08,
+    "incoming_std_frame12": 39.61,
+    "incoming_frame0_vs_frame12_diff": 0.12,
+    "png_a": "assembly/qa/seams/51-seg051-seg052-a.png",
+    "png_b": "assembly/qa/seams/51-seg051-seg052-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "52-seg052-seg053",
+    "output_frame": 19926,
+    "timecode": "13:50.250",
+    "outgoing": "seg052",
+    "incoming": "seg053",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 28.36,
+    "incoming_std_frame12": 28.36,
+    "incoming_frame0_vs_frame12_diff": 0.01,
+    "png_a": "assembly/qa/seams/52-seg052-seg053-a.png",
+    "png_b": "assembly/qa/seams/52-seg052-seg053-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "53-seg053-seg054",
+    "output_frame": 20682,
+    "timecode": "14:21.750",
+    "outgoing": "seg053",
+    "incoming": "seg054",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 30.35,
+    "incoming_std_frame12": 16.98,
+    "incoming_frame0_vs_frame12_diff": 7.38,
+    "png_a": "assembly/qa/seams/53-seg053-seg054-a.png",
+    "png_b": "assembly/qa/seams/53-seg053-seg054-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "54-seg054-seg055",
+    "output_frame": 21100,
+    "timecode": "14:39.167",
+    "outgoing": "seg054",
+    "incoming": "seg055",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 101.54,
+    "pct_pixels_over_20": 87.29,
+    "incoming_std_frame0": 65.36,
+    "incoming_std_frame12": 65.23,
+    "incoming_frame0_vs_frame12_diff": 2.81,
+    "png_a": "assembly/qa/seams/54-seg054-seg055-a.png",
+    "png_b": "assembly/qa/seams/54-seg054-seg055-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "55-seg055-seg056",
+    "output_frame": 21261,
+    "timecode": "14:45.875",
+    "outgoing": "seg055",
+    "incoming": "seg056",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 102.81,
+    "pct_pixels_over_20": 87.5,
+    "incoming_std_frame0": 32.35,
+    "incoming_std_frame12": 32.32,
+    "incoming_frame0_vs_frame12_diff": 0.03,
+    "png_a": "assembly/qa/seams/55-seg055-seg056-a.png",
+    "png_b": "assembly/qa/seams/55-seg055-seg056-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "56-seg056-seg057",
+    "output_frame": 21680,
+    "timecode": "15:03.333",
+    "outgoing": "seg056",
+    "incoming": "seg057",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 0.08,
+    "pct_pixels_over_20": 0.01,
+    "incoming_std_frame0": 29.86,
+    "incoming_std_frame12": 26.46,
+    "incoming_frame0_vs_frame12_diff": 1.23,
+    "png_a": "assembly/qa/seams/56-seg056-seg057-a.png",
+    "png_b": "assembly/qa/seams/56-seg056-seg057-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "57-seg057-seg058",
+    "output_frame": 22708,
+    "timecode": "15:46.167",
+    "outgoing": "seg057",
+    "incoming": "seg058",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 29.7,
+    "incoming_std_frame12": 30.4,
+    "incoming_frame0_vs_frame12_diff": 0.46,
+    "png_a": "assembly/qa/seams/57-seg057-seg058-a.png",
+    "png_b": "assembly/qa/seams/57-seg057-seg058-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "58-seg058-seg059",
+    "output_frame": 23437,
+    "timecode": "16:16.542",
+    "outgoing": "seg058",
+    "incoming": "seg059",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 98.42,
+    "pct_pixels_over_20": 87.96,
+    "incoming_std_frame0": 65.45,
+    "incoming_std_frame12": 65.29,
+    "incoming_frame0_vs_frame12_diff": 1.44,
+    "png_a": "assembly/qa/seams/58-seg058-seg059-a.png",
+    "png_b": "assembly/qa/seams/58-seg058-seg059-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "59-seg059-seg060",
+    "output_frame": 23589,
+    "timecode": "16:22.875",
+    "outgoing": "seg059",
+    "incoming": "seg060",
+    "lanes": [
+     "presenter",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 98.49,
+    "pct_pixels_over_20": 88.07,
+    "incoming_std_frame0": 29.68,
+    "incoming_std_frame12": 29.68,
+    "incoming_frame0_vs_frame12_diff": 0.03,
+    "png_a": "assembly/qa/seams/59-seg059-seg060-a.png",
+    "png_b": "assembly/qa/seams/59-seg059-seg060-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "60-seg060-seg061",
+    "output_frame": 24200,
+    "timecode": "16:48.333",
+    "outgoing": "seg060",
+    "incoming": "seg061",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 0.24,
+    "pct_pixels_over_20": 0.01,
+    "incoming_std_frame0": 31.74,
+    "incoming_std_frame12": 31.75,
+    "incoming_frame0_vs_frame12_diff": 0.12,
+    "png_a": "assembly/qa/seams/60-seg060-seg061-a.png",
+    "png_b": "assembly/qa/seams/60-seg060-seg061-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "61-seg061-seg062",
+    "output_frame": 24788,
+    "timecode": "17:12.833",
+    "outgoing": "seg061",
+    "incoming": "seg062",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 23.56,
+    "incoming_std_frame12": 23.56,
+    "incoming_frame0_vs_frame12_diff": 0.0,
+    "png_a": "assembly/qa/seams/61-seg061-seg062-a.png",
+    "png_b": "assembly/qa/seams/61-seg061-seg062-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "62-seg062-seg063",
+    "output_frame": 25544,
+    "timecode": "17:44.333",
+    "outgoing": "seg062",
+    "incoming": "seg063",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "model-to-model handoff across projects",
+    "diff_mean_abs_rgb_255": 0.23,
+    "pct_pixels_over_20": 0.04,
+    "incoming_std_frame0": 31.47,
+    "incoming_std_frame12": 22.41,
+    "incoming_frame0_vs_frame12_diff": 2.32,
+    "png_a": "assembly/qa/seams/62-seg062-seg063-a.png",
+    "png_b": "assembly/qa/seams/62-seg062-seg063-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "63-seg063-seg064",
+    "output_frame": 26417,
+    "timecode": "18:20.708",
+    "outgoing": "seg063",
+    "incoming": "seg064",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 26.91,
+    "incoming_std_frame12": 26.95,
+    "incoming_frame0_vs_frame12_diff": 0.24,
+    "png_a": "assembly/qa/seams/63-seg063-seg064-a.png",
+    "png_b": "assembly/qa/seams/63-seg063-seg064-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "64-seg064-seg065",
+    "output_frame": 26967,
+    "timecode": "18:43.625",
+    "outgoing": "seg064",
+    "incoming": "seg065",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 31.88,
+    "incoming_std_frame12": 32.28,
+    "incoming_frame0_vs_frame12_diff": 0.25,
+    "png_a": "assembly/qa/seams/64-seg064-seg065-a.png",
+    "png_b": "assembly/qa/seams/64-seg064-seg065-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "65-seg065-seg066",
+    "output_frame": 27019,
+    "timecode": "18:45.792",
+    "outgoing": "seg065",
+    "incoming": "seg066",
+    "lanes": [
+     "model",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 140.46,
+    "pct_pixels_over_20": 95.04,
+    "incoming_std_frame0": 62.77,
+    "incoming_std_frame12": 63.17,
+    "incoming_frame0_vs_frame12_diff": 7.17,
+    "png_a": "assembly/qa/seams/65-seg065-seg066-a.png",
+    "png_b": "assembly/qa/seams/65-seg065-seg066-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "66-seg066-seg067",
+    "output_frame": 27179,
+    "timecode": "18:52.458",
+    "outgoing": "seg066",
+    "incoming": "seg067",
+    "lanes": [
+     "film",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 14.52,
+    "pct_pixels_over_20": 20.29,
+    "incoming_std_frame0": 62.8,
+    "incoming_std_frame12": 63.38,
+    "incoming_frame0_vs_frame12_diff": 8.17,
+    "png_a": "assembly/qa/seams/66-seg066-seg067-a.png",
+    "png_b": "assembly/qa/seams/66-seg066-seg067-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "67-seg067-seg068",
+    "output_frame": 27250,
+    "timecode": "18:55.417",
+    "outgoing": "seg067",
+    "incoming": "seg068",
+    "lanes": [
+     "film",
+     "film"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 39.46,
+    "pct_pixels_over_20": 62.19,
+    "incoming_std_frame0": 62.04,
+    "incoming_std_frame12": 61.98,
+    "incoming_frame0_vs_frame12_diff": 12.11,
+    "png_a": "assembly/qa/seams/67-seg067-seg068-a.png",
+    "png_b": "assembly/qa/seams/67-seg067-seg068-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "68-seg068-seg069",
+    "output_frame": 27347,
+    "timecode": "18:59.458",
+    "outgoing": "seg068",
+    "incoming": "seg069",
+    "lanes": [
+     "film",
+     "model"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 140.18,
+    "pct_pixels_over_20": 96.14,
+    "incoming_std_frame0": 26.15,
+    "incoming_std_frame12": 25.95,
+    "incoming_frame0_vs_frame12_diff": 0.1,
+    "png_a": "assembly/qa/seams/68-seg068-seg069-a.png",
+    "png_b": "assembly/qa/seams/68-seg068-seg069-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "69-seg069-seg070",
+    "output_frame": 27787,
+    "timecode": "19:17.792",
+    "outgoing": "seg069",
+    "incoming": "seg070",
+    "lanes": [
+     "model",
+     "model"
+    ],
+    "kind": "same-source continuous",
+    "diff_mean_abs_rgb_255": 0.0,
+    "pct_pixels_over_20": 0.0,
+    "incoming_std_frame0": 27.28,
+    "incoming_std_frame12": 12.27,
+    "incoming_frame0_vs_frame12_diff": 3.1,
+    "png_a": "assembly/qa/seams/69-seg069-seg070-a.png",
+    "png_b": "assembly/qa/seams/69-seg069-seg070-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "70-seg070-seg071",
+    "output_frame": 28201,
+    "timecode": "19:35.042",
+    "outgoing": "seg070",
+    "incoming": "seg071",
+    "lanes": [
+     "model",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 99.65,
+    "pct_pixels_over_20": 85.86,
+    "incoming_std_frame0": 65.61,
+    "incoming_std_frame12": 65.55,
+    "incoming_frame0_vs_frame12_diff": 1.47,
+    "png_a": "assembly/qa/seams/70-seg070-seg071-a.png",
+    "png_b": "assembly/qa/seams/70-seg070-seg071-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "71-seg071-seg072",
+    "output_frame": 28715,
+    "timecode": "19:56.458",
+    "outgoing": "seg071",
+    "incoming": "seg072",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 7.88,
+    "pct_pixels_over_20": 9.96,
+    "incoming_std_frame0": 64.45,
+    "incoming_std_frame12": 64.74,
+    "incoming_frame0_vs_frame12_diff": 4.3,
+    "png_a": "assembly/qa/seams/71-seg071-seg072-a.png",
+    "png_b": "assembly/qa/seams/71-seg071-seg072-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "72-seg072-seg073",
+    "output_frame": 28906,
+    "timecode": "20:04.417",
+    "outgoing": "seg072",
+    "incoming": "seg073",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "planned continuous (crop change)",
+    "diff_mean_abs_rgb_255": 58.83,
+    "pct_pixels_over_20": 74.73,
+    "incoming_std_frame0": 52.03,
+    "incoming_std_frame12": 51.88,
+    "incoming_frame0_vs_frame12_diff": 3.34,
+    "png_a": "assembly/qa/seams/72-seg072-seg073-a.png",
+    "png_b": "assembly/qa/seams/72-seg072-seg073-b.png",
+    "flags": [
+     "planned continuous boundary differs by more than 20/255"
+    ],
+    "notes": "Seam PNGs show the same presenter pose with a wide-to-close crop change, as SHOT-PLAN continuous_boundaries states; the diff score measures the crop, not a picture jump."
+   },
+   {
+    "boundary": "73-seg073-seg074",
+    "output_frame": 29133,
+    "timecode": "20:13.875",
+    "outgoing": "seg073",
+    "incoming": "seg074",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "lane cut",
+    "diff_mean_abs_rgb_255": 6.52,
+    "pct_pixels_over_20": 7.14,
+    "incoming_std_frame0": 52.16,
+    "incoming_std_frame12": 52.23,
+    "incoming_frame0_vs_frame12_diff": 2.38,
+    "png_a": "assembly/qa/seams/73-seg073-seg074-a.png",
+    "png_b": "assembly/qa/seams/73-seg073-seg074-b.png",
+    "flags": []
+   },
+   {
+    "boundary": "74-seg074-seg075",
+    "output_frame": 29421,
+    "timecode": "20:25.875",
+    "outgoing": "seg074",
+    "incoming": "seg075",
+    "lanes": [
+     "presenter",
+     "presenter"
+    ],
+    "kind": "planned continuous (crop change)",
+    "diff_mean_abs_rgb_255": 59.52,
+    "pct_pixels_over_20": 75.69,
+    "incoming_std_frame0": 65.83,
+    "incoming_std_frame12": 65.8,
+    "incoming_frame0_vs_frame12_diff": 0.93,
+    "png_a": "assembly/qa/seams/74-seg074-seg075-a.png",
+    "png_b": "assembly/qa/seams/74-seg074-seg075-b.png",
+    "flags": [
+     "planned continuous boundary differs by more than 20/255"
+    ],
+    "notes": "Seam PNGs show the same presenter pose with a wide-to-close crop change, as SHOT-PLAN continuous_boundaries states; the diff score measures the crop, not a picture jump."
+   }
+  ],
+  "summary": {
+   "boundaries": 74,
+   "same_source_continuous": 29,
+   "model_handoffs_across_projects": 7,
+   "model_handoff_max_diff": 13.24,
+   "model_handoffs_over_20": 0,
+   "half_drawn_incoming_detected": 0,
+   "flagged_ids": [
+    "09-seg009-seg010",
+    "35-seg035-seg036",
+    "72-seg072-seg073",
+    "74-seg074-seg075"
+   ],
+   "agent_looked_at": [
+    "17-seg017-seg018 (13.24/255: evidence cards in the upper band give way to the inn and front-desk drawings; below threshold, a layout change the reviewer should see at speed)",
+    "72-seg072-seg073 and 74-seg074-seg075 crop changes",
+    "sync strip P01"
+   ]
+  }
+ },
+ "audio": {
+  "method": "Program audio decoded from ep009-full.mp4 (48 kHz stereo float); master decoded from the WAV; zero-lag Pearson correlation and RMS difference per channel in 20 evenly spaced 10 s windows and over the full master length.",
+  "master_sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+  "master_sha256_expected": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+  "master_samples": 59212920,
+  "program_samples": 59214848,
+  "expected_program_samples": 59214000,
+  "full_length": {
+   "corr_L": 0.999988,
+   "corr_R": 0.999988,
+   "rms_L_minus_master_db": -0.006,
+   "rms_R_minus_master_db": -0.006,
+   "L_minus_R_max_abs": 0.001253463327884674
+  },
+  "tail_after_master": {
+   "samples": 1928,
+   "max_abs": 3.332287779045373e-09
+  },
+  "windows": [
+   {
+    "start_s": 5.0,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.5
+   },
+   {
+    "start_s": 68.874,
+    "len_s": 10,
+    "corr_L": 0.999991,
+    "corr_R": 0.999991,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -22.3
+   },
+   {
+    "start_s": 132.748,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.9
+   },
+   {
+    "start_s": 196.621,
+    "len_s": 10,
+    "corr_L": 0.999989,
+    "corr_R": 0.999989,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.1
+   },
+   {
+    "start_s": 260.495,
+    "len_s": 10,
+    "corr_L": 0.999986,
+    "corr_R": 0.999986,
+    "rms_L_minus_master_db": -0.007,
+    "rms_R_minus_master_db": -0.007,
+    "master_rms_dbfs": -21.4
+   },
+   {
+    "start_s": 324.369,
+    "len_s": 10,
+    "corr_L": 0.999987,
+    "corr_R": 0.999987,
+    "rms_L_minus_master_db": -0.007,
+    "rms_R_minus_master_db": -0.007,
+    "master_rms_dbfs": -21.7
+   },
+   {
+    "start_s": 388.243,
+    "len_s": 10,
+    "corr_L": 0.999991,
+    "corr_R": 0.999991,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -22.0
+   },
+   {
+    "start_s": 452.117,
+    "len_s": 10,
+    "corr_L": 0.999986,
+    "corr_R": 0.999986,
+    "rms_L_minus_master_db": -0.004,
+    "rms_R_minus_master_db": -0.004,
+    "master_rms_dbfs": -21.2
+   },
+   {
+    "start_s": 515.99,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.9
+   },
+   {
+    "start_s": 579.864,
+    "len_s": 10,
+    "corr_L": 0.999992,
+    "corr_R": 0.999992,
+    "rms_L_minus_master_db": -0.004,
+    "rms_R_minus_master_db": -0.004,
+    "master_rms_dbfs": -20.7
+   },
+   {
+    "start_s": 643.738,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.3
+   },
+   {
+    "start_s": 707.612,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.2
+   },
+   {
+    "start_s": 771.485,
+    "len_s": 10,
+    "corr_L": 0.999989,
+    "corr_R": 0.999989,
+    "rms_L_minus_master_db": -0.007,
+    "rms_R_minus_master_db": -0.007,
+    "master_rms_dbfs": -20.7
+   },
+   {
+    "start_s": 835.359,
+    "len_s": 10,
+    "corr_L": 0.999991,
+    "corr_R": 0.999991,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.3
+   },
+   {
+    "start_s": 899.233,
+    "len_s": 10,
+    "corr_L": 0.999987,
+    "corr_R": 0.999987,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -22.0
+   },
+   {
+    "start_s": 963.107,
+    "len_s": 10,
+    "corr_L": 0.999989,
+    "corr_R": 0.999989,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -21.6
+   },
+   {
+    "start_s": 1026.981,
+    "len_s": 10,
+    "corr_L": 0.99999,
+    "corr_R": 0.99999,
+    "rms_L_minus_master_db": -0.007,
+    "rms_R_minus_master_db": -0.007,
+    "master_rms_dbfs": -21.7
+   },
+   {
+    "start_s": 1090.854,
+    "len_s": 10,
+    "corr_L": 0.999989,
+    "corr_R": 0.999989,
+    "rms_L_minus_master_db": -0.006,
+    "rms_R_minus_master_db": -0.006,
+    "master_rms_dbfs": -22.0
+   },
+   {
+    "start_s": 1154.728,
+    "len_s": 10,
+    "corr_L": 0.999985,
+    "corr_R": 0.999985,
+    "rms_L_minus_master_db": -0.008,
+    "rms_R_minus_master_db": -0.008,
+    "master_rms_dbfs": -23.1
+   },
+   {
+    "start_s": 1218.602,
+    "len_s": 10,
+    "corr_L": 0.999989,
+    "corr_R": 0.999989,
+    "rms_L_minus_master_db": -0.005,
+    "rms_R_minus_master_db": -0.005,
+    "master_rms_dbfs": -21.3
+   }
+  ],
+  "min_window_corr": 0.999985,
+  "max_abs_window_rms_diff_db": 0.008,
+  "summary": "20 windows zero-lag corr min 0.999985, per-channel RMS within 0.008 dB of master; full length L/R corr 0.999988, RMS -0.006 dB. Decoded program is 848 samples longer than 29607 frames (AAC frame padding at the end, after the digital-silence pad)."
+ },
+ "loudness": {
+  "method": "ffmpeg ebur128 peak=true",
+  "program": {
+   "integrated_lufs": -19.5,
+   "loudness_range_lu": 3.7,
+   "true_peak_dbtp": -5.6
+  },
+  "master_mono_reference": {
+   "integrated_lufs": -22.5,
+   "loudness_range_lu": 3.7,
+   "true_peak_dbtp": -5.6
+  },
+  "note": "Recorded only; no normalization applied. Mono master measures about 3 LU lower than its unity stereo upmix under BS.1770 channel summing."
+ },
+ "presenter_sync_risk": {
+  "reason": "Fal restorations placed audio 0.39 to 0.53 s late in P01, P03, P05 (presenter INDEX assembler_notes); picture follows each file's own audio.",
+  "strips": [
+   {
+    "take": "P01",
+    "segment": "seg009",
+    "first_word": {
+     "w_id": "W000140",
+     "token": "I",
+     "start": 50.9,
+     "end": 50.91
+    },
+    "window_s": [
+     48.9,
+     52.9
+    ],
+    "frames_dir": "assembly/qa/sync/P01-seg009-first-word-W000140-I-onset-50.900s",
+    "strip": "assembly/qa/sync/P01-seg009-first-word-W000140-I-onset-50.900s.png",
+    "clip_with_sound": "assembly/qa/sync/P01-seg009-first-word-W000140-I-onset-50.900s.mp4",
+    "judged": "not judged by agent; reviewer compares mouth-opening onset to word onset (tile label rel ms is frame time minus first-word start)"
+   },
+   {
+    "take": "P03",
+    "segment": "seg019",
+    "first_word": {
+     "w_id": "W000532",
+     "token": "Which",
+     "start": 189.049,
+     "end": 189.3
+    },
+    "window_s": [
+     187.049,
+     191.049
+    ],
+    "frames_dir": "assembly/qa/sync/P03-seg019-first-word-W000532-Which-onset-189.049s",
+    "strip": "assembly/qa/sync/P03-seg019-first-word-W000532-Which-onset-189.049s.png",
+    "clip_with_sound": "assembly/qa/sync/P03-seg019-first-word-W000532-Which-onset-189.049s.mp4",
+    "judged": "not judged by agent; reviewer compares mouth-opening onset to word onset (tile label rel ms is frame time minus first-word start)"
+   },
+   {
+    "take": "P05",
+    "segment": "seg028",
+    "first_word": {
+     "w_id": "W001021",
+     "token": "Fair",
+     "start": 368.32,
+     "end": 368.5
+    },
+    "window_s": [
+     366.32,
+     370.32
+    ],
+    "frames_dir": "assembly/qa/sync/P05-seg028-first-word-W001021-Fair-onset-368.320s",
+    "strip": "assembly/qa/sync/P05-seg028-first-word-W001021-Fair-onset-368.320s.png",
+    "clip_with_sound": "assembly/qa/sync/P05-seg028-first-word-W001021-Fair-onset-368.320s.mp4",
+    "judged": "not judged by agent; reviewer compares mouth-opening onset to word onset (tile label rel ms is frame time minus first-word start)"
+   }
+  ],
+  "agent_observation": "P01 strip: the presenter picture starts at 50.292 with lips parted and moving slightly during the 0.6 s of silence before W000140 I (50.900). Whether mouth onset leads the word is not judged from stills; watch the clip_with_sound."
+ },
+ "sources": {
+  "method": "sha256 of every source mp4 checked against its index before encode; ffprobe counted packets; 1280x720 24/1 confirmed; each segment source audio correlated at zero lag against the master at its plan range (0.9997 to 0.99999; seg010 is digital silence in both so correlation is undefined).",
+  "sha_mismatches": 0,
+  "frame_shortfalls": 0,
+  "unique_sources": 45,
+  "seg031": "Taken from the act 2 scenes deliverable seg029__seg034.mp4 frames 550-724; the film index entry F06 is a recorded failure (decision event ep009-seg031-film-to-model-v1).",
+  "seg037_note": "seg036__seg039.mp4 frames 969-1253 (model hold under P06/P07 slot) are unused; seg037 comes from presenter P07.",
+  "act4_index_note": "act4 frame_range_in_mp4 is written inclusive ([0,1027] for 1028 frames); the assembler used range start plus the plan frame count, which matches every act4 mp4 length exactly.",
+  "presenter_rule": "primary final/ clips only, no alternates; presenter clip audio is not used (program audio is the master)."
+ },
+ "review_copy": {
+  "path": "assembly/qa/ep009-full-review-720p.mp4",
+  "sha256": "85f3639cd9244b24dd96511f27c6901cd4e08b094f7d6dc59d6596455421733f",
+  "method": "re-encode of ep009-full.mp4 video at libx264 crf 23, audio stream copied"
+ },
+ "contact_sheets": {
+  "path": "assembly/qa/contact/",
+  "method": "1 fps (every 24th frame of ep009-full.mp4) per scene S00-S24, labeled with timecode, segment and lane",
+  "files": [
+   "S00.png",
+   "S01.png",
+   "S02.png",
+   "S03.png",
+   "S04.png",
+   "S05.png",
+   "S06.png",
+   "S07.png",
+   "S08.png",
+   "S09.png",
+   "S10.png",
+   "S11.png",
+   "S12.png",
+   "S13.png",
+   "S14.png",
+   "S15.png",
+   "S16.png",
+   "S17.png",
+   "S18.png",
+   "S19.png",
+   "S20.png",
+   "S21.png",
+   "S22.png",
+   "S23.png",
+   "S24.png"
+  ]
+ },
+ "limitations": [
+  "No human has watched the cut at speed with sound.",
+  "Agent looked at a sample of seam PNGs, one sync strip and one contact sheet, not every frame.",
+  "Seam diff scores do not judge whether an intended cut reads well; lane cuts are expected to differ.",
+  "Presenter lip sync is not judged; strips are for a reviewer.",
+  "Loudness recorded only, not normalized.",
+  "No creative verdict; agent-verified, not owner accepted."
+ ],
+ "result": "pass"
+}
