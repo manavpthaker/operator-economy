@@ -1,0 +1,18 @@
+{
+  "record_type": "spend_ledger",
+  "episode": "EP009-direct-booking-recovery",
+  "authorization_source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-16-owner-build-scope.json",
+  "caps": {"higgsfield_credits": 2000, "fal_usd": 40.0},
+  "lane_allocations": {
+    "presenter": {"higgsfield_credits": 1880, "fal_usd": 30.0},
+    "film": {"higgsfield_credits": 120, "fal_usd": 10.0}
+  },
+  "higgsfield_balance_at_start": 3802,
+  "rules": [
+    "Append an entry BEFORE every paid call with estimated cost; update it with actual cost after.",
+    "Never exceed a lane allocation; stop and report instead.",
+    "No retries of a seeded or identical request; a regeneration is a new entry with its own reason.",
+    "Read this file fresh before every call; other lanes write to it."
+  ],
+  "entries": []
+}
