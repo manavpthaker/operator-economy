@@ -1,0 +1,35 @@
+{
+  "event_id": "ep009-film-generation-v1",
+  "decision_id": "ep009-film-generation",
+  "event_type": "decision",
+  "tags": ["film", "paid-plan", "start-frame", "performance", "generation"],
+  "data": {
+    "context": {
+      "narrative_job": "Execute the planned film layer: two establishing stills and ten single-action Kling v3 Pro image-to-video takes of one inn front desk and one guest at home, conformed to their exact segment slots.",
+      "viewer_before": "Would meet the inn, innkeeper and guest only as drawings.",
+      "viewer_after": "Recognises the same innkeeper, guest, counter and guest book in S00, S03b, S08d, S14b and S20."
+    },
+    "choice": "ST01 and ST02 with Higgsfield gpt_image_2_5 (xhigh, 2k, 16:9), up to two candidates each, ST02 using accepted ST01 as identity reference. ST01 prompt as planned plus one addition: a corded desk phone and a small stack of printed pages on her side of the counter, because F06 lifts a desk phone and rests a hand on printed pages and generated-plates forbids object teleportation. Takes F01 to F10 in plan order via Fal fal-ai/kling-video/v3/pro/image-to-video, 8 s, generate_audio false, cfg_scale 0.5, each prompt one action with locked camera, no speech, no readable text, prop and wardrobe continuity, and a short still handle before the action. Start frames: ST01 for F01; last usable frame of accepted F01 for F02; last usable frame of accepted F02 for F03, F06, F10; a pre-typing frame of F03 for F04; ST02 for F05; 1280x720 crop of the counter from the F02 final frame (upscaled) for F07; first frame of accepted F01 for F08; last usable frame of F08 for F09. Source window chosen after a 4 fps contact sheet review, no speed change, conformed to the exact segment frame count at 1280x720 24 fps with the sample-exact master excerpt upmixed to stereo at unity. At most one regeneration per failed take inside the lane cap (120 credits, $10 Fal); otherwise fall back per FALLBACKS.json.",
+    "reason": "Follows ep009-film-takes-v1 and the EP007 lessons lesson-start-frames-from-accepted-footage-v1 (derive every later desk take from accepted frames) and lesson-i2v-ignores-timing-prompts-v1 (one action per take, pick windows after playback). EP007 R52 owner returns inform performance: departures stay courteous (the guest nods and leaves at a normal pace, never abrupt) and seated or standing state carries across takes. Stills are cheap at the preflighted price (a few credits each), so two candidates per still buy geography choice without risking the cap; ten takes at $0.896 listed leave about $1.04 for one regeneration.",
+    "alternatives": [
+      {"choice": "Generate every take from ST01 directly", "reason_not_selected": "Breaks the accepted-footage lesson; tone and prop drift between takes would be larger than starting from accepted frames."},
+      {"choice": "Chain F01 and F02 into one 10 s take", "reason_not_selected": "Chained actions missed timing in EP007 R52; the plan slots are separate cuts anyway."},
+      {"choice": "Generate ST01 exactly without a desk phone", "reason_not_selected": "F06 would need Kling to invent a phone from nowhere, a likely continuity break at the desk that recurs through S20."}
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "EP009 film lane under the 2026-09-16 owner build scope.",
+      "avoid_when": "Any spend beyond the film lane allocation."
+    },
+    "nuance": {
+      "performance": "Neutral, attentive, courteous. Guest nods and leaves at walking pace. Innkeeper never upset. No speech or lip movement.",
+      "false_inference": "Illustrative plates, not evidence. Never show the inn leaving the booking sites, a readable email address, a real logo, or a guest ignored or treated rudely.",
+      "source_basis": "agent director proposal inside owner build scope; not owner acceptance"
+    }
+  },
+  "evidence": [
+    {"path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json", "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9", "locator": "film_takes, establishing_stills"},
+    {"path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/ledger/SPEND-LEDGER.json", "sha256": "76f68ebff6887d1c22a5494e15508016182082e2cb248c02f178df2a7b335eae", "locator": "lane_allocations.film"},
+    {"path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-16-owner-build-scope.json", "sha256": "f6417f381836c406230ec06c8c90db6244de1ae03b02e275091718d3b9a3d845", "locator": "capped budget answer"}
+  ]
+}

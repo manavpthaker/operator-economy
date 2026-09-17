@@ -1,0 +1,95 @@
+{
+  "take_id": "F08",
+  "segment_id": "seg066",
+  "status": "accepted_with_fallback_edit",
+  "attempts": [
+    {
+      "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F08",
+      "request_id": "01a0acd1-c7c9-7572-9773-1cea7ec10beb",
+      "model": "fal-ai/kling-video/v3/pro/image-to-video",
+      "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F08/start.png",
+      "start_image_sha256": "753d61bf5c32d65492988dd205706d0b72dcac6652d998f05dbdecbd72bb0c34",
+      "start_image_source": "F01/raw.mp4 frame 0, first frame of accepted F01",
+      "prompt": "One continuous eight-second locked-off tripod shot at the existing inn front desk. The camera does not move: no pan, tilt, zoom, drift or reframing, and no cuts. Preserve the supplied starting frame exactly: the guest at screen left, three-quarter back to camera, short brown hair, navy rain shell, daypack; the innkeeper behind the counter, dark hair tied back, olive-green cardigan over a cream shirt; the counter, desk bell, daffodils, laptop with its screen facing her, stack of blank cards and pen, beige desk phone, open guest book, key rack, window and trail, daylight.\n\nFor the first second both stay as in the frame. Then the guest reaches for the stack of blank registration cards, takes one card and the pen, draws them in front of him on the counter, leans slightly over the card and fills it in by hand. The innkeeper waits behind the counter with a warm, patient expression. He keeps writing on the card.\n\nBoth stay in place. No speaking, no lip movement. The card and handwriting are never readable. No new person, prop, text, logo or sound. Real-time motion.",
+      "duration": "8",
+      "generate_audio": false,
+      "cfg_scale": 0.5,
+      "raw": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F08/raw.mp4",
+        "sha256": "1315418e751128211200d0362de0979b0be3f221c94bf307a29bbbda0283345c",
+        "frames": 193,
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24
+      },
+      "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F08/contact.jpg",
+      "cost_usd_listed": 0.896,
+      "regeneration_reason": null
+    }
+  ],
+  "cost_usd_listed_total": 0.896,
+  "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+  "honest_note": "Guest takes the card and pen and writes; the take drifted the camera and moved him between 1 and 3.2 s. Clean writing exists from source frame 78 to 192 (115 frames) against a 160-frame slot, so the clip plays 78-170 forward, 169-147 reversed (23 frames of steady writing) and 148-191 forward, ending adjacent to F09's start frame. No speed change, but a reversed stretch is an edit the viewer might notice as a small repeat of pen motion; review at speed.",
+  "action_performed": "partial",
+  "source_window": "frame spec 78-170,169-147,148-191",
+  "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+  "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+  "agent_verdict_is_recommendation_only": true,
+  "final": {
+    "segment_id": "seg066",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F08/final/seg066.mp4",
+    "sha256": "b07dbf1e84923419a28616dd8f49da9d79b3335fae6cab3f841fb7f31210959d",
+    "frames_expected": 160,
+    "frames": 160,
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio": {
+      "sample_rate": 48000,
+      "channels": 2,
+      "master_samples": [
+        54038000,
+        54358000
+      ],
+      "pcm_intermediate_sample_exact": true,
+      "aac_corr_zero_lag_vs_master_excerpt": 0.99998
+    },
+    "uniform_frames": 0,
+    "source_window": {
+      "frame_spec": "78-170,169-147,148-191",
+      "native_fps": 24.0,
+      "speed_change": false,
+      "reversed_ranges": [
+        "169-147"
+      ]
+    },
+    "master_in": 1125.791667,
+    "master_out": 1132.458333,
+    "segment_frames": [
+      27019,
+      27179
+    ]
+  },
+  "checks": {
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio_pcm_sample_exact": true,
+    "audio_aac_corr": 0.99998,
+    "uniform_frames": 0,
+    "readable_text_or_logo": "none seen in used window",
+    "extra_people": "none",
+    "rude_or_ignoring_behaviour": "none seen"
+  },
+  "deviations": [
+    "Contains a 23-frame reversed range to fill the slot from clean frames; no speed change."
+  ]
+}
