@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>EP009 evidence surface</title>
+<!--
+EP009 evidence surface. Copies the accepted EP007 R53/R54 A card: small caps kicker, Boska source name,
+steel rule, Boska headline figure in spoken rounding, Supreme plain-language line, qualifier, interest note,
+and the verbatim receipt at the foot.
+
+How to use (see KIT.md):
+1. Copy this file to your scene project root (it expects public/fonts and public/vendor/gsap.min.js).
+2. Edit ONLY the JSON block #ev-config and the root data-composition-id / data-duration.
+3. Insert the narration audio element at the AUDIO marker (template in KIT.md).
+Receipt strings are the claims map "On-screen source receipt" column, verbatim. Figures, qualifiers and
+notes must be spoken or in the claims map.
+Layouts: "single" (one figure, interest note at right), "rows" (up to four figure rows, R54 stats),
+"pair" (two separate populations side by side, never nested).
+Cue times are seconds relative to this composition's start. Omit a cue to show the item from 0.
+-->
+<script id="ev-config" type="application/json">
+{
+  "layout": "pair",
+  "cards": [
+    {
+      "kicker": "Cloudbeds",
+      "source": "Cloudbeds",
+      "figure": "about 63%",
+      "line": "of independent hotel bookings through the sites",
+      "qualifier": "worldwide · from about 90 million bookings",
+      "receipt": "Cloudbeds, 2026 State of Independent Hotels, press release 2026-03-25, about 90 million bookings, 63.4 percent, C001",
+      "cues": {
+        "source": 0.2,
+        "figure": 0.8,
+        "line": 1.0,
+        "qualifier": 1.4,
+        "receipt": 0.2
+      }
+    },
+    {
+      "kicker": "HOTREC · European hotel association",
+      "source": "HOTREC",
+      "figure": "about half",
+      "line": "of overnight stays through direct channels",
+      "qualifier": "Europe · 3,000+ hotels",
+      "receipt": "HOTREC / HES-SO, 2024 study, reference year 2023, 3,000-plus hotels, direct channels 50.9 percent, C002",
+      "cues": {
+        "source": 1.6,
+        "figure": 2.0,
+        "line": 2.2,
+        "qualifier": 2.4,
+        "receipt": 1.6
+      }
+    }
+  ]
+}
+</script>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#ev-root{position:relative;width:1280px;height:720px;overflow:hidden;color:#173530;font-family:Supreme,sans-serif;background:#F5F0E6}
+.ev-kicker{position:absolute;left:64px;top:42px;font-size:21px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#33464C}
+.ev-source{position:absolute;left:64px;top:98px;font:700 62px/1.1 Boska,serif;margin:0;white-space:nowrap}
+.ev-rule{position:absolute;left:66px;right:65px;top:196px;height:2px;background:#586D74}
+.ev-stat{position:absolute;left:65px;top:256px;width:540px}
+.ev-number{font:700 105px/1 Boska,serif;white-space:nowrap}
+.ev-line{font:400 29px/1.4 Supreme,sans-serif;max-width:520px;margin-top:20px}
+.ev-qual{font:400 24px/1.35 Supreme,sans-serif;color:#33464C;max-width:520px;margin-top:14px}
+.ev-interest{position:absolute;left:660px;top:265px;width:545px;font-size:29px;line-height:1.35}
+.ev-interest strong{display:block;font-weight:500;margin-bottom:9px}
+.ev-foot{position:absolute;left:65px;right:64px;bottom:34px;font-size:21px;line-height:1.3;color:#33464C}
+.ev-row{position:absolute;left:65px;width:1150px;display:flex;align-items:baseline;gap:34px}
+.ev-row .n{font:700 64px/1 Boska,serif;flex:0 0 auto;min-width:500px;white-space:nowrap}
+.ev-row .c{font:400 30px/1.3 Supreme,sans-serif}
+.ev-card{position:absolute;top:0;bottom:0;width:552px}
+.ev-card .ev-kicker{left:0}.ev-card .ev-source{left:0;font-size:48px;top:100px;white-space:normal;width:552px}
+.ev-card .ev-rule{left:0;right:0;top:186px}
+.ev-card .ev-stat{left:0;top:236px;width:552px}
+.ev-card .ev-number{font-size:88px}
+.ev-card .ev-foot{left:0;right:0;bottom:34px;font-size:20px}
+.ev-divider{position:absolute;left:639px;top:44px;bottom:44px;width:1.5px;background:#586D74;opacity:.6}
+.ev-hide{visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="ev-root" data-composition-id="ep009-evidence-pair" data-start="0" data-duration="4" data-width="1280" data-height="720" data-fps="24" role="img" aria-label="Evidence card">
+<!-- AUDIO: insert the narration audio element here (template in KIT.md). -->
+</div>
+<script>
+(function(){
+const root=document.getElementById('ev-root');
+const cfg=JSON.parse(document.getElementById('ev-config').textContent);
+const cues=cfg.cues||{};
+const el=(tag,cls,text,parent)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;(parent||root).appendChild(e);return e;};
+const items=[];// [element, cue]
+const add=(e,cue)=>{if(e){e.classList.add('ev-hide');items.push([e,cue||0]);}return e;};
+function header(parent,c,cueKey){
+  if(c.kicker)add(el('div','ev-kicker',c.kicker,parent),cueKey.source);
+  if(c.source)add(el('h2','ev-source',c.source,parent),cueKey.source);
+  el('div','ev-rule',null,parent);
+}
+function stat(parent,c,cueKey){
+  const s=el('div','ev-stat',null,parent);
+  if(c.figure)add(el('div','ev-number',c.figure,s),cueKey.figure);
+  if(c.line)add(el('div','ev-line',c.line,s),cueKey.line);
+  if(c.qualifier)add(el('div','ev-qual',c.qualifier,s),cueKey.qualifier);
+}
+if(cfg.layout==='pair'){
+  (cfg.cards||[]).slice(0,2).forEach((c,i)=>{
+    const card=el('div','ev-card',null,root);card.style.left=(i===0?64:664)+'px';
+    const k=c.cues||{};
+    header(card,c,k);stat(card,c,k);
+    if(c.receipt)add(el('div','ev-foot',c.receipt,card),k.receipt);
+  });
+  el('div','ev-divider',null,root);
+}else{
+  header(root,cfg,cues);
+  if(cfg.layout==='rows'){
+    (cfg.rows||[]).slice(0,4).forEach((r,i)=>{
+      const row=el('div','ev-row',null,root);row.style.top=(262+i*100)+'px';
+      el('div','n',r.figure,row);el('div','c',r.line,row);
+      add(row,r.at);
+    });
+  }else{
+    stat(root,cfg,cues);
+    if(cfg.interest&&cfg.interest.text){
+      const note=el('div','ev-interest',null,root);
+      if(cfg.interest.label)el('strong',null,cfg.interest.label,note);
+      note.appendChild(document.createTextNode(cfg.interest.text));
+      add(note,cues.interest);
+    }
+  }
+  if(cfg.receipt)add(el('div','ev-foot',cfg.receipt,root),cues.receipt);
+}
+const t=gsap.timeline({paused:true});
+items.forEach(([e,at])=>t.fromTo(e,{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:8/24,ease:'power2.out'},at));
+// Optional: {"recede": {"at": 3.0, "selector": ".ev-interest"}} steps an item back to 45%.
+if(cfg.recede&&cfg.recede.selector)t.to(cfg.recede.selector,{opacity:.45,duration:.6,ease:'power1.inOut'},cfg.recede.at);
+window.__timelines[root.dataset.compositionId]=t;
+})();
+</script></body></html>

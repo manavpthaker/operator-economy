@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>EP009 kit comparison</title>
+<style>
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:2560px;height:780px;overflow:hidden}
+#cmp-root{position:relative;width:2560px;height:780px;overflow:hidden;background:#E9E2D3;font-family:Supreme,sans-serif;color:#173530}
+.cmp-l{position:absolute;top:16px;font-size:26px;font-weight:500;letter-spacing:1px}
+.cmp-img{position:absolute;top:60px;width:1280px;height:720px}
+#cmp-div{position:absolute;left:1278px;top:0;width:4px;height:780px;background:#586D74}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="cmp-root" data-composition-id="ep009-kit-comparison" data-start="0" data-duration="0.5" data-width="2560" data-height="780" data-fps="24">
+<div class="cmp-l" style="left:24px">EP007 ACCEPTED · r57-s13ab qa mp4 at 12.5 s</div>
+<div class="cmp-l" style="left:1304px">EP009 WORLD KIT · same layout and scales, kit objects (showcase frame C)</div>
+<img class="cmp-img" style="left:0" src="public/ep007.png" alt="EP007 accepted R57 S13ab frame"/>
+<img class="cmp-img" style="left:1280px" src="public/kit.png" alt="EP009 world kit staged in the R57 layout"/>
+<div id="cmp-div"></div>
+</div>
+<script>
+const t=gsap.timeline({paused:true});
+t.set('#cmp-div',{opacity:1},0);
+window.__timelines['ep009-kit-comparison']=t;
+</script></body></html>
