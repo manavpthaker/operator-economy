@@ -309,5 +309,35 @@
     "attempt": 2,
     "method": "trim at the midpoint of native-minus-narration speech onset and speech end differences, capped so the trimmed native still covers the excerpt; envelope three-window offsets are in NATIVE-OFFSETS.json (weak correlations on several takes, so onset/end were used)"
   },
-  "review_limitations": "Still-level review only. Perceived lip sync, gesture timing against words and naturalness at normal speed were not judged and need human review with sound. Native Seedance speech ran longer than the narration, so body motion drifts relative to the words across the take (residuals listed)."
+  "review_limitations": "Still-level review only. Perceived lip sync, gesture timing against words and naturalness at normal speed were not judged and need human review with sound. Native Seedance speech ran longer than the narration, so body motion drifts relative to the words across the take (residuals listed).",
+  "fix_round_1": {
+    "segments": {
+      "seg012": {
+        "findings": [
+          "B-23"
+        ],
+        "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398",
+        "framing": "close (1280x720) [1280, 720, 304, 0] for segment frames 0-151; wide (full 1920x1080 frame) for segment frames 152-342",
+        "edit_record": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/EDIT-R1-seg012.json",
+        "r0": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/seg012.r0.mp4",
+        "checks": {
+          "frames_ok": true,
+          "audio_zero_lag_corr": [
+            0.99999,
+            0.99999
+          ],
+          "uniform_frames": 0,
+          "hyperframes_check": "not applicable: clip re-cut with ffmpeg, no HyperFrames project touched"
+        },
+        "stills": [
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0000-m73.542.png",
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0076-m76.708.png",
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0151-m79.833.png",
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0152-m79.875.png",
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0247-m83.833.png",
+          "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/qa/stills-r1/seg012-f0342-m87.792.png"
+        ]
+      }
+    }
+  }
 }
