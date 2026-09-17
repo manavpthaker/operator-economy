@@ -1,0 +1,3276 @@
+{
+ "record_type": "ep009_shot_plan",
+ "status": "director_plan_not_built_not_generated",
+ "episode": "EP009-direct-booking-recovery",
+ "experiment": "EP009-FULL-BUILD-001",
+ "created_for": "autonomous full build test authorized in ep009-autonomous-build-scope-v1",
+ "fps": 24,
+ "width": 1280,
+ "height": 720,
+ "audio": {
+  "sample_rate": 48000,
+  "channels": 2,
+  "upmix": "mono master to stereo at unity: pan=stereo|c0=c0|c1=c0 (lesson-mono-upmix-minus-3db-v1)"
+ },
+ "master": {
+  "path": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav",
+  "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+  "duration_seconds": 1233.602,
+  "format": "PCM WAV 48 kHz 16-bit mono"
+ },
+ "timing_authority": {
+  "word_transcript": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/word-transcript.json",
+  "word_transcript_sha256": "3c28411effaea94c4dffaac51e114f333f386170fe4716fa96b30d24e41384aa",
+  "pause_map": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/intentional-pause-map.json",
+  "pause_map_sha256": "62811b5f0ae93359d520f7adfec06ebf46404e8e146cedf274b1f327f9a5cd84",
+  "claims_map": "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/01-editorial/claims-map.md",
+  "claims_map_sha256": "37f9f4727cde1b7e52fd75745117685336a28ec5f6756cf5f1be3dea1bb68798"
+ },
+ "cut_rule": {
+  "method": "Every segment boundary is a 1/24 s frame boundary k/24 chosen inside measured master silence. Primary: 5 ms RMS blocks below -55 dBFS form the silent run between the outgoing word and the next word; the frame nearest the run centre with at least 30 ms margin to sound. Fallback where the run is shorter than 60 ms: the frame whose +/-21 ms window has the lowest RMS inside [previous word end - 60 ms, next word start + 40 ms]. Every cut window measures below -50 dBFS (out_cue.cut_window_rms_dbfs). Word alignment proposes; the waveform chose.",
+  "rounding": "master_in and master_out are exact multiples of 1/24 s written to 6 decimals, except the final master_out 1233.602 (the master end). Frames are half-open [round(master_in*24), round(master_out*24)); the final segment ends at frame ceil(1233.602*24)=29607, i.e. 1233.625 s picture, and the assembler pads 0.023 s of digital silence after the untouched master audio.",
+  "continuous_boundaries": "seg010/seg011 (one sting composition), seg064/seg065 (one act4 composition), seg072/seg073 (take P18, crop change only), seg074/seg075 (take P19, crop change only) are not picture cuts of source media."
+ },
+ "assembly": {
+  "method": "EP007 R56 method: ffmpeg single filter graph, trim by frame, atrim by sample (2000 samples per frame), 1280x720 24 fps setsar=1, stereo 48 kHz, concat; libx264 crf 16 + aac 256k, faststart. Every segment's audio is the master excerpt at its own master range; presenter audio is always the restored original narration aligned to the master, never the provider's native voice.",
+  "reference": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r56-full-episode-through-s12/SEGMENTS.json"
+ },
+ "bound_references": {
+  "sting": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/compositions/sting.html (sha256 d5cca5346e8634806372a35c655358541fd5aace4b91b0899e8df60632b0720a)",
+  "title_card": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/compositions/title.html (sha256 530b298fe276bf7cbec09fe305ed1fb77a938a8c5ab71ede0772bbe5ac4ada11)",
+  "fonts": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/public/fonts/ (Boska 700, Supreme 400/500, Zodiak 700)",
+  "working_model_style": [
+   "hyperframes/reviews/r48-relationships (workshop drawing, person grammar)",
+   "hyperframes/reviews/r54-s11b (room, pay lines to one event)",
+   "hyperframes/reviews/r57-s13ab (practice fills the empty place)",
+   "hyperframes/reviews/r60-s15-p1 (shrink only what the tool compresses)"
+  ],
+  "evidence_style": [
+   "hyperframes/reviews/r53-s10-evidence",
+   "hyperframes/reviews/r54-s11a",
+   "hyperframes/reviews/r36-buyer-demand compositions (listing card)"
+  ],
+  "presenter_recipe": {
+   "acceptance": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/ACCEPTANCE.json (sha256 f86d47e5ace325068d3cb2384cf03933b80c30bca0866719b60c0f5e32fc224f)",
+   "model": "Higgsfield seedance_2_5 omni_reference 1080p",
+   "reference_media": {
+    "image": "875a3997-b5c7-4410-9487-309a8c7740df",
+    "behavior_videos": [
+     "7dc478bc-0449-4867-a760-50670f4caccf",
+     "5ec537ee-b01c-4bb5-a343-636882e4b747"
+    ]
+   },
+   "reference_source": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/HIGGSFIELD-JOBS.json",
+   "prompt_template": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/presenter/AVATAR-PROMPT-A.txt",
+   "restoration": "Fal sync-lipsync/v3, sync_mode silence, then three-window waveform alignment of each output to its own audio (lesson-sync-offset-varies-and-drift-v1, lesson-resync-use-restored-audio-timing-v1)"
+  },
+  "experiment_root": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/"
+ },
+ "builder_groups": {
+  "presenter": "all presenter takes P01-P13; owns generation, restoration, alignment and crops",
+  "film": "stills ST01-ST02 and film takes F01-F10; sequential start-frame dependencies F01>F02>F03/F06/F07/F10, F02>F04 via F03, F01>F08>F09",
+  "act1-models": "S00-S06 models, screen insert, evidence, sting (0.000-305.667)",
+  "act2-models": "S07-S10 (305.667-589.875), includes the ceiling build",
+  "act3-models": "S11-S16 (589.875-903.333)",
+  "act4-models": "S17-S21 (903.333-1175.042), includes the operator arithmetic"
+ },
+ "segments": [
+  {
+   "id": "seg001",
+   "scene": "S00",
+   "part": "a",
+   "lane": "film",
+   "master_in": 0.0,
+   "master_out": 5.625,
+   "frames": [
+    0,
+    135
+   ],
+   "in_cue": {
+    "word_id": "W000000",
+    "token": "An",
+    "relation": "before",
+    "word_start": 0.08,
+    "note": "episode start 0.000"
+   },
+   "out_cue": {
+    "last_word_id": "W000013",
+    "last_word_token": "nights,",
+    "last_word_end": 5.38,
+    "next_word_start": 5.84,
+    "cut_frame": 135,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -63.0,
+    "measured_silent_run": [
+     5.505,
+     5.745
+    ]
+   },
+   "builder_group": "film",
+   "summary": "Checkout at the front desk: the guest slides the room key back and nods. Establishes innkeeper, guest, desk, guest book, registration cards.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open",
+   "take_id": "F01"
+  },
+  {
+   "id": "seg002",
+   "scene": "S00",
+   "part": "b",
+   "lane": "film",
+   "master_in": 5.625,
+   "master_out": 10.5,
+   "frames": [
+    135,
+    252
+   ],
+   "in_cue": {
+    "word_id": "W000014",
+    "token": "tipped",
+    "relation": "before",
+    "word_start": 5.84,
+    "previous_word_id": "W000013",
+    "previous_word_end": 5.38
+   },
+   "out_cue": {
+    "last_word_id": "W000031",
+    "last_word_token": "again.",
+    "last_word_end": 10.44,
+    "next_word_start": 11.36,
+    "cut_frame": 252,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -62.2,
+    "measured_silent_run": [
+     10.44,
+     10.585
+    ]
+   },
+   "builder_group": "film",
+   "summary": "The guest leaves; her look follows him out and settles on the window with the trail behind the property.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open",
+   "take_id": "F02"
+  },
+  {
+   "id": "seg003",
+   "scene": "S00",
+   "part": "c",
+   "lane": "film",
+   "master_in": 10.5,
+   "master_out": 16.833333,
+   "frames": [
+    252,
+    404
+   ],
+   "in_cue": {
+    "word_id": "W000032",
+    "token": "So",
+    "relation": "before",
+    "word_start": 11.36,
+    "previous_word_id": "W000031",
+    "previous_word_end": 10.44
+   },
+   "out_cue": {
+    "last_word_id": "W000048",
+    "last_word_token": "his.",
+    "last_word_end": 16.4,
+    "next_word_start": 17.0,
+    "cut_frame": 404,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -71.1,
+    "measured_silent_run": [
+     16.76,
+     16.91
+    ]
+   },
+   "builder_group": "film",
+   "summary": "She turns to the laptop to write the thank you, types, and stops.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open",
+   "take_id": "F03"
+  },
+  {
+   "id": "seg004",
+   "scene": "S00",
+   "part": "d",
+   "lane": "screen",
+   "master_in": 16.833333,
+   "master_out": 22.75,
+   "frames": [
+    404,
+    546
+   ],
+   "in_cue": {
+    "word_id": "W000049",
+    "token": "It's",
+    "relation": "before",
+    "word_start": 17.0,
+    "previous_word_id": "W000048",
+    "previous_word_end": 16.4
+   },
+   "out_cue": {
+    "last_word_id": "W000064",
+    "last_word_token": "relay.",
+    "last_word_end": 22.13,
+    "next_word_start": 23.34,
+    "cut_frame": 546,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -62.2,
+    "measured_silent_run": [
+     22.195,
+     23.295
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Drawn reservation record: the email field resolves to a string of letters and numbers ending @guest.booking.com; \"A relay\" lands on its word.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open"
+  },
+  {
+   "id": "seg005",
+   "scene": "S00",
+   "part": "e",
+   "lane": "model",
+   "master_in": 22.75,
+   "master_out": 32.041667,
+   "frames": [
+    546,
+    769
+   ],
+   "in_cue": {
+    "word_id": "W000065",
+    "token": "A",
+    "relation": "before",
+    "word_start": 23.34,
+    "previous_word_id": "W000064",
+    "previous_word_end": 22.13
+   },
+   "out_cue": {
+    "last_word_id": "W000088",
+    "last_word_token": "website.",
+    "last_word_end": 31.76,
+    "next_word_start": 32.5,
+    "cut_frame": 769,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -72.4,
+    "measured_silent_run": [
+     31.85,
+     32.235
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Relay line stops short after checkout; a year later the same guest figure books the same room through the booking site.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open"
+  },
+  {
+   "id": "seg006",
+   "scene": "S00",
+   "part": "f",
+   "lane": "model",
+   "master_in": 32.041667,
+   "master_out": 36.333333,
+   "frames": [
+    769,
+    872
+   ],
+   "in_cue": {
+    "word_id": "W000089",
+    "token": "And",
+    "relation": "before",
+    "word_start": 32.5,
+    "previous_word_id": "W000088",
+    "previous_word_end": 31.76
+   },
+   "out_cue": {
+    "last_word_id": "W000101",
+    "last_word_token": "time.",
+    "last_word_end": 36.24,
+    "next_word_start": 36.76,
+    "cut_frame": 872,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -56.1,
+    "measured_silent_run": [
+     36.625,
+     36.655
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "A second commission tag, identical in size to the first, moves from the inn to the site and rests beside it.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open"
+  },
+  {
+   "id": "seg007",
+   "scene": "S00",
+   "part": "g",
+   "lane": "film",
+   "master_in": 36.333333,
+   "master_out": 40.083333,
+   "frames": [
+    872,
+    962
+   ],
+   "in_cue": {
+    "word_id": "W000102",
+    "token": "For",
+    "relation": "before",
+    "word_start": 36.76,
+    "previous_word_id": "W000101",
+    "previous_word_end": 36.24
+   },
+   "out_cue": {
+    "last_word_id": "W000109",
+    "last_word_token": "name.",
+    "last_word_end": 39.17,
+    "next_word_start": 40.56,
+    "cut_frame": 962,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -74.2,
+    "measured_silent_run": [
+     39.68,
+     40.445
+    ]
+   },
+   "builder_group": "film",
+   "summary": "A year later at the desk: she reads the new reservation and recognises the name.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open",
+   "take_id": "F04"
+  },
+  {
+   "id": "seg008",
+   "scene": "S00",
+   "part": "h",
+   "lane": "model",
+   "master_in": 40.083333,
+   "master_out": 50.291667,
+   "frames": [
+    962,
+    1207
+   ],
+   "in_cue": {
+    "word_id": "W000110",
+    "token": "There's",
+    "relation": "before",
+    "word_start": 40.56,
+    "previous_word_id": "W000109",
+    "previous_word_end": 39.17
+   },
+   "out_cue": {
+    "last_word_id": "W000139",
+    "last_word_token": "it.",
+    "last_word_end": 49.98,
+    "next_word_start": 50.9,
+    "cut_frame": 1207,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -60.3,
+    "measured_silent_run": [
+     50.02,
+     50.535
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Inside the second commission tag a dashed shape labelled \"a service\"; a blank arithmetic slip with four empty boxes and an unlabelled line.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open"
+  },
+  {
+   "id": "seg009",
+   "scene": "S00",
+   "part": "i",
+   "lane": "presenter",
+   "master_in": 50.291667,
+   "master_out": 59.458333,
+   "frames": [
+    1207,
+    1427
+   ],
+   "in_cue": {
+    "word_id": "W000140",
+    "token": "I",
+    "relation": "before",
+    "word_start": 50.9,
+    "previous_word_id": "W000139",
+    "previous_word_end": 49.98
+   },
+   "out_cue": {
+    "explicit_seconds": 59.458333,
+    "cut_frame": 1427,
+    "cut_window_rms_dbfs": -80.5
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: \"I couldn't find anyone selling it...\" and the open question.",
+   "brief_ref": "DIRECTION-PLAN.md#s00-cold-open",
+   "take_id": "P01"
+  },
+  {
+   "id": "seg010",
+   "scene": "S01",
+   "part": "a",
+   "lane": "sting",
+   "master_in": 59.458333,
+   "master_out": 63.208333,
+   "frames": [
+    1427,
+    1517
+   ],
+   "in_cue": {
+    "word_id": "W000165",
+    "token": "it?",
+    "relation": "pause",
+    "word_end": 59.42,
+    "note": "segment lies wholly inside the silence after this word"
+   },
+   "out_cue": {
+    "explicit_seconds": 63.208333,
+    "cut_frame": 1517,
+    "cut_window_rms_dbfs": -180.0
+   },
+   "builder_group": "act1-models",
+   "summary": "Silent identity sting (accepted EP007 sting composition, retitled nothing).",
+   "brief_ref": "DIRECTION-PLAN.md#s01-sting"
+  },
+  {
+   "id": "seg011",
+   "scene": "S02",
+   "part": "a",
+   "lane": "sting",
+   "master_in": 63.208333,
+   "master_out": 73.541667,
+   "frames": [
+    1517,
+    1765
+   ],
+   "in_cue": {
+    "word_id": "W000166",
+    "token": "This",
+    "relation": "before",
+    "word_start": 63.38,
+    "previous_word_id": "W000165",
+    "previous_word_end": 59.42
+   },
+   "out_cue": {
+    "last_word_id": "W000194",
+    "last_word_token": "practice.",
+    "last_word_end": 73.39,
+    "next_word_start": 73.7,
+    "cut_frame": 1765,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -73.3,
+    "measured_silent_run": [
+     73.46,
+     73.63
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Lockup holds through the brand string; BUILD, OWN, OPERATE on their words; \"Direct-booking practice.\" title card on \"Today\".",
+   "brief_ref": "DIRECTION-PLAN.md#s02-brand-and-promise"
+  },
+  {
+   "id": "seg012",
+   "scene": "S02",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 73.541667,
+   "master_out": 87.833333,
+   "frames": [
+    1765,
+    2108
+   ],
+   "in_cue": {
+    "word_id": "W000195",
+    "token": "It",
+    "relation": "before",
+    "word_start": 73.7,
+    "previous_word_id": "W000194",
+    "previous_word_end": 73.39
+   },
+   "out_cue": {
+    "last_word_id": "W000246",
+    "last_word_token": "time.",
+    "last_word_end": 87.72,
+    "next_word_start": 87.86,
+    "cut_frame": 2108,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -57.1,
+    "measured_silent_run": [
+     87.825,
+     87.865
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: definition and the four-number promise.",
+   "brief_ref": "DIRECTION-PLAN.md#s02-brand-and-promise",
+   "take_id": "P02"
+  },
+  {
+   "id": "seg013",
+   "scene": "S03",
+   "part": "a",
+   "lane": "model",
+   "master_in": 87.833333,
+   "master_out": 93.75,
+   "frames": [
+    2108,
+    2250
+   ],
+   "in_cue": {
+    "word_id": "W000247",
+    "token": "Start",
+    "relation": "before",
+    "word_start": 87.86,
+    "previous_word_id": "W000246",
+    "previous_word_end": 87.72
+   },
+   "out_cue": {
+    "last_word_id": "W000268",
+    "last_word_token": "it.",
+    "last_word_end": 93.66,
+    "next_word_start": 94.22,
+    "cut_frame": 2250,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -67.0,
+    "measured_silent_run": [
+     93.72,
+     93.785
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "The inn establishes as the episode's drawn world: twenty room windows, front desk, guest book by the door.",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway"
+  },
+  {
+   "id": "seg014",
+   "scene": "S03",
+   "part": "b",
+   "lane": "film",
+   "master_in": 93.75,
+   "master_out": 99.166667,
+   "frames": [
+    2250,
+    2380
+   ],
+   "in_cue": {
+    "word_id": "W000269",
+    "token": "A",
+    "relation": "before",
+    "word_start": 94.22,
+    "previous_word_id": "W000268",
+    "previous_word_end": 93.66
+   },
+   "out_cue": {
+    "last_word_id": "W000284",
+    "last_word_token": "compares.",
+    "last_word_end": 99.12,
+    "next_word_start": 99.6,
+    "cut_frame": 2380,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -56.5,
+    "measured_silent_run": [
+     99.155,
+     99.195
+    ]
+   },
+   "builder_group": "film",
+   "summary": "The same guest at home compares stays on his phone; screen oblique and unreadable.",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway",
+   "take_id": "F05"
+  },
+  {
+   "id": "seg015",
+   "scene": "S03",
+   "part": "c",
+   "lane": "model",
+   "master_in": 99.166667,
+   "master_out": 113.75,
+   "frames": [
+    2380,
+    2730
+   ],
+   "in_cue": {
+    "word_id": "W000285",
+    "token": "So",
+    "relation": "before",
+    "word_start": 99.6,
+    "previous_word_id": "W000284",
+    "previous_word_end": 99.12
+   },
+   "out_cue": {
+    "last_word_id": "W000332",
+    "last_word_token": "layered.",
+    "last_word_end": 113.68,
+    "next_word_start": 114.44,
+    "cut_frame": 2730,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -66.1,
+    "measured_silent_run": [
+     113.705,
+     113.795
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "The booking site as a lit hall facing a crowd of travellers; the inn listed among others; one commission tag per stay; two-way fair trade; the tag divides into empty layers on \"layered\".",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway"
+  },
+  {
+   "id": "seg016",
+   "scene": "S03",
+   "part": "d",
+   "lane": "evidence",
+   "master_in": 113.75,
+   "master_out": 140.625,
+   "frames": [
+    2730,
+    3375
+   ],
+   "in_cue": {
+    "word_id": "W000333",
+    "token": "Booking",
+    "relation": "before",
+    "word_start": 114.44,
+    "previous_word_id": "W000332",
+    "previous_word_end": 113.68
+   },
+   "out_cue": {
+    "last_word_id": "W000411",
+    "last_word_token": "changed.",
+    "last_word_end": 140.31,
+    "next_word_start": 141.1,
+    "cut_frame": 3375,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -60.4,
+    "measured_silent_run": [
+     140.505,
+     140.725
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Evidence surface: partner help commission mechanics (C004) and trade-reported layers (C005) fill the tag's layers; \"Then three things changed\" heading closes.",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway"
+  },
+  {
+   "id": "seg017",
+   "scene": "S03",
+   "part": "e",
+   "lane": "evidence",
+   "master_in": 140.625,
+   "master_out": 174.291667,
+   "frames": [
+    3375,
+    4183
+   ],
+   "in_cue": {
+    "word_id": "W000412",
+    "token": "Cloudbeds,",
+    "relation": "before",
+    "word_start": 141.1,
+    "previous_word_id": "W000411",
+    "previous_word_end": 140.31
+   },
+   "out_cue": {
+    "last_word_id": "W000494",
+    "last_word_token": "scale.",
+    "last_word_end": 174.12,
+    "next_word_start": 174.96,
+    "cut_frame": 4183,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -65.2,
+    "measured_silent_run": [
+     174.175,
+     174.43
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Three changes on one strip: Cloudbeds share with its interest note (C001), Genius placement change (C006), European damages claim with \"Europe, not here\" (C037).",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway"
+  },
+  {
+   "id": "seg018",
+   "scene": "S03",
+   "part": "f",
+   "lane": "model",
+   "master_in": 174.291667,
+   "master_out": 188.666667,
+   "frames": [
+    4183,
+    4528
+   ],
+   "in_cue": {
+    "word_id": "W000495",
+    "token": "Who",
+    "relation": "before",
+    "word_start": 174.96,
+    "previous_word_id": "W000494",
+    "previous_word_end": 174.12
+   },
+   "out_cue": {
+    "last_word_id": "W000531",
+    "last_word_token": "shortages.",
+    "last_word_end": 188.26,
+    "next_word_start": 189.049,
+    "cut_frame": 4528,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -73.0,
+    "measured_silent_run": [
+     188.3,
+     189.025
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "\"Who feels it?\": the 20 to 40 room inn, one person at a short-staffed desk; AHLA survey receipt (C013).",
+   "brief_ref": "DIRECTION-PLAN.md#s03-context-runway"
+  },
+  {
+   "id": "seg019",
+   "scene": "S04",
+   "part": "a",
+   "lane": "presenter",
+   "master_in": 188.666667,
+   "master_out": 205.083333,
+   "frames": [
+    4528,
+    4922
+   ],
+   "in_cue": {
+    "word_id": "W000532",
+    "token": "Which",
+    "relation": "before",
+    "word_start": 189.049,
+    "previous_word_id": "W000531",
+    "previous_word_end": 188.26
+   },
+   "out_cue": {
+    "last_word_id": "W000583",
+    "last_word_token": "it?",
+    "last_word_end": 205.26,
+    "next_word_start": 205.44,
+    "cut_frame": 4922,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     204.91,
+     205.28
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter asks the central question.",
+   "brief_ref": "DIRECTION-PLAN.md#s04-the-question",
+   "take_id": "P03"
+  },
+  {
+   "id": "seg020",
+   "scene": "S05",
+   "part": "a",
+   "lane": "model",
+   "master_in": 205.083333,
+   "master_out": 226.208333,
+   "frames": [
+    4922,
+    5429
+   ],
+   "in_cue": {
+    "word_id": "W000584",
+    "token": "Nobody",
+    "relation": "before",
+    "word_start": 205.44,
+    "previous_word_id": "W000583",
+    "previous_word_end": 205.26
+   },
+   "out_cue": {
+    "last_word_id": "W000645",
+    "last_word_token": "job.",
+    "last_word_end": 226.26,
+    "next_word_start": 226.62,
+    "cut_frame": 5429,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -79.3,
+    "measured_silent_run": [
+     226.135,
+     226.275
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Stay timeline: the site's pay line tied to the introduction, the desk busy on the stay, an empty dashed place after checkout that no line reaches; \"A job\" lands on \"job\".",
+   "brief_ref": "DIRECTION-PLAN.md#s05-earned-thesis"
+  },
+  {
+   "id": "seg021",
+   "scene": "S05",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 226.208333,
+   "master_out": 236.291667,
+   "frames": [
+    5429,
+    5671
+   ],
+   "in_cue": {
+    "word_id": "W000646",
+    "token": "I",
+    "relation": "before",
+    "word_start": 226.62,
+    "previous_word_id": "W000645",
+    "previous_word_end": 226.26
+   },
+   "out_cue": {
+    "last_word_id": "W000678",
+    "last_word_token": "inn.",
+    "last_word_end": 236.519,
+    "next_word_start": 236.56,
+    "cut_frame": 5671,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     236.169,
+     236.399
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter ruling: sold from outside, only for what it recovers.",
+   "brief_ref": "DIRECTION-PLAN.md#s05-earned-thesis",
+   "take_id": "P04"
+  },
+  {
+   "id": "seg022",
+   "scene": "S06",
+   "part": "a",
+   "lane": "evidence",
+   "master_in": 236.291667,
+   "master_out": 269.666667,
+   "frames": [
+    5671,
+    6472
+   ],
+   "in_cue": {
+    "word_id": "W000679",
+    "token": "First,",
+    "relation": "before",
+    "word_start": 236.56,
+    "previous_word_id": "W000678",
+    "previous_word_end": 236.519
+   },
+   "out_cue": {
+    "last_word_id": "W000760",
+    "last_word_token": "there.",
+    "last_word_end": 269.52,
+    "next_word_start": 270.34,
+    "cut_frame": 6472,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -63.6,
+    "measured_silent_run": [
+     269.59,
+     269.765
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Cloudbeds card (C001) with interest note on its words; HOTREC card (C002) beside it, never nested.",
+   "brief_ref": "DIRECTION-PLAN.md#s06-how-much-is-rented"
+  },
+  {
+   "id": "seg023",
+   "scene": "S06",
+   "part": "b",
+   "lane": "model",
+   "master_in": 269.666667,
+   "master_out": 286.541667,
+   "frames": [
+    6472,
+    6877
+   ],
+   "in_cue": {
+    "word_id": "W000761",
+    "token": "So",
+    "relation": "before",
+    "word_start": 270.34,
+    "previous_word_id": "W000760",
+    "previous_word_end": 269.52
+   },
+   "out_cue": {
+    "last_word_id": "W000799",
+    "last_word_token": "measures.",
+    "last_word_end": 286.62,
+    "next_word_start": 286.75,
+    "cut_frame": 6877,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -74.2,
+    "measured_silent_run": [
+     286.395,
+     286.66
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "The inn's bookings with a shaded range from half to two thirds; an unfilled \"30-room US inn: not published\" field that the audit measures.",
+   "brief_ref": "DIRECTION-PLAN.md#s06-how-much-is-rented"
+  },
+  {
+   "id": "seg024",
+   "scene": "S06",
+   "part": "c",
+   "lane": "evidence",
+   "master_in": 286.541667,
+   "master_out": 305.666667,
+   "frames": [
+    6877,
+    7336
+   ],
+   "in_cue": {
+    "word_id": "W000800",
+    "token": "Same",
+    "relation": "before",
+    "word_start": 286.75,
+    "previous_word_id": "W000799",
+    "previous_word_end": 286.62
+   },
+   "out_cue": {
+    "last_word_id": "W000846",
+    "last_word_token": "number.",
+    "last_word_end": 305.27,
+    "next_word_start": 306.1,
+    "cut_frame": 7336,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     305.345,
+     305.965
+    ]
+   },
+   "builder_group": "act1-models",
+   "summary": "Same Cloudbeds data: cancellations about 22% vs about 11% (C003); back to the inn with its own number as a blank field.",
+   "brief_ref": "DIRECTION-PLAN.md#s06-how-much-is-rented"
+  },
+  {
+   "id": "seg025",
+   "scene": "S07",
+   "part": "a",
+   "lane": "model",
+   "master_in": 305.666667,
+   "master_out": 318.833333,
+   "frames": [
+    7336,
+    7652
+   ],
+   "in_cue": {
+    "word_id": "W000847",
+    "token": "Second,",
+    "relation": "before",
+    "word_start": 306.1,
+    "previous_word_id": "W000846",
+    "previous_word_end": 305.27
+   },
+   "out_cue": {
+    "last_word_id": "W000885",
+    "last_word_token": "inn's.",
+    "last_word_end": 318.88,
+    "next_word_start": 318.9,
+    "cut_frame": 7652,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -56.5,
+    "measured_silent_run": [
+     318.83,
+     318.855
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The guest book by the inn's door: a guest signs; name, where from, a reason to write; the book sits inside the inn.",
+   "brief_ref": "DIRECTION-PLAN.md#s07-what-the-site-keeps"
+  },
+  {
+   "id": "seg026",
+   "scene": "S07",
+   "part": "b",
+   "lane": "evidence",
+   "master_in": 318.833333,
+   "master_out": 339.041667,
+   "frames": [
+    7652,
+    8137
+   ],
+   "in_cue": {
+    "word_id": "W000886",
+    "token": "Booking",
+    "relation": "before",
+    "word_start": 318.9,
+    "previous_word_id": "W000885",
+    "previous_word_end": 318.88
+   },
+   "out_cue": {
+    "last_word_id": "W000940",
+    "last_word_token": "five.",
+    "last_word_end": 338.88,
+    "next_word_start": 339.52,
+    "cut_frame": 8137,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -67.4,
+    "measured_silent_run": [
+     338.945,
+     339.165
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "Partner help alias policy (C007) with the relay string; trade press messaging windows (C008, secondary).",
+   "brief_ref": "DIRECTION-PLAN.md#s07-what-the-site-keeps"
+  },
+  {
+   "id": "seg027",
+   "scene": "S07",
+   "part": "c",
+   "lane": "model",
+   "master_in": 339.041667,
+   "master_out": 368.0,
+   "frames": [
+    8137,
+    8832
+   ],
+   "in_cue": {
+    "word_id": "W000941",
+    "token": "So",
+    "relation": "before",
+    "word_start": 339.52,
+    "previous_word_id": "W000940",
+    "previous_word_end": 338.88
+   },
+   "out_cue": {
+    "last_word_id": "W001020",
+    "last_word_token": "sign.",
+    "last_word_end": 368.18,
+    "next_word_start": 368.32,
+    "cut_frame": 8832,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     367.83,
+     368.205
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The guest book moves intact along the relay into the booking site; the site's rules stand as a boundary in front of writing to the relay; an email tool card set aside; a dashed guest book of the inn's own appears at the desk.",
+   "brief_ref": "DIRECTION-PLAN.md#s07-what-the-site-keeps"
+  },
+  {
+   "id": "seg028",
+   "scene": "S08",
+   "part": "a",
+   "lane": "presenter",
+   "master_in": 368.0,
+   "master_out": 373.375,
+   "frames": [
+    8832,
+    8961
+   ],
+   "in_cue": {
+    "word_id": "W001021",
+    "token": "Fair",
+    "relation": "before",
+    "word_start": 368.32,
+    "previous_word_id": "W001020",
+    "previous_word_end": 368.18
+   },
+   "out_cue": {
+    "last_word_id": "W001038",
+    "last_word_token": "it?",
+    "last_word_end": 373.07,
+    "next_word_start": 373.72,
+    "cut_frame": 8961,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -84.5,
+    "measured_silent_run": [
+     373.095,
+     373.66
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter raises the fair question.",
+   "brief_ref": "DIRECTION-PLAN.md#s08-fair-question",
+   "take_id": "P05"
+  },
+  {
+   "id": "seg029",
+   "scene": "S08",
+   "part": "b",
+   "lane": "evidence",
+   "master_in": 373.375,
+   "master_out": 388.375,
+   "frames": [
+    8961,
+    9321
+   ],
+   "in_cue": {
+    "word_id": "W001039",
+    "token": "The",
+    "relation": "before",
+    "word_start": 373.72,
+    "previous_word_id": "W001038",
+    "previous_word_end": 373.07
+   },
+   "out_cue": {
+    "last_word_id": "W001084",
+    "last_word_token": "nine.",
+    "last_word_end": 388.28,
+    "next_word_start": 389.12,
+    "cut_frame": 9321,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -109.5,
+    "measured_silent_run": [
+     388.295,
+     388.46
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The parts are cheap: Google free booking links (C009) and small-property booking engine pricing (C010).",
+   "brief_ref": "DIRECTION-PLAN.md#s08-fair-question"
+  },
+  {
+   "id": "seg030",
+   "scene": "S08",
+   "part": "c",
+   "lane": "model",
+   "master_in": 388.375,
+   "master_out": 396.291667,
+   "frames": [
+    9321,
+    9511
+   ],
+   "in_cue": {
+    "word_id": "W001085",
+    "token": "The",
+    "relation": "before",
+    "word_start": 389.12,
+    "previous_word_id": "W001084",
+    "previous_word_end": 388.28
+   },
+   "out_cue": {
+    "last_word_id": "W001107",
+    "last_word_token": "rate,",
+    "last_word_end": 396.26,
+    "next_word_start": 396.64,
+    "cut_frame": 9511,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -52.5,
+    "measured_silent_run": [
+     396.245,
+     396.265
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The obstacle is the front desk: job cards (free link, direct rate) begin converging on the one desk person.",
+   "brief_ref": "DIRECTION-PLAN.md#s08-fair-question"
+  },
+  {
+   "id": "seg031",
+   "scene": "S08",
+   "part": "d",
+   "lane": "film",
+   "master_in": 396.291667,
+   "master_out": 403.541667,
+   "frames": [
+    9511,
+    9685
+   ],
+   "in_cue": {
+    "word_id": "W001108",
+    "token": "write",
+    "relation": "before",
+    "word_start": 396.64,
+    "previous_word_id": "W001107",
+    "previous_word_end": 396.26
+   },
+   "out_cue": {
+    "last_word_id": "W001128",
+    "last_word_token": "plumber.",
+    "last_word_end": 402.96,
+    "next_word_start": 403.68,
+    "cut_frame": 9685,
+    "cut_method": "min_rms_frame_fallback",
+    "cut_window_rms_dbfs": -58.9,
+    "measured_silent_run": [
+     403.53,
+     403.57
+    ]
+   },
+   "builder_group": "film",
+   "summary": "The innkeeper takes a call at the desk (the plumber) with the reservation report under her hand.",
+   "brief_ref": "DIRECTION-PLAN.md#s08-fair-question",
+   "take_id": "F06"
+  },
+  {
+   "id": "seg032",
+   "scene": "S08",
+   "part": "e",
+   "lane": "model",
+   "master_in": 403.541667,
+   "master_out": 410.041667,
+   "frames": [
+    9685,
+    9841
+   ],
+   "in_cue": {
+    "word_id": "W001129",
+    "token": "So",
+    "relation": "before",
+    "word_start": 403.68,
+    "previous_word_id": "W001128",
+    "previous_word_end": 402.96
+   },
+   "out_cue": {
+    "last_word_id": "W001147",
+    "last_word_token": "nobody.",
+    "last_word_end": 409.72,
+    "next_word_start": 410.42,
+    "cut_frame": 9841,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     409.75,
+     410.35
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "Four job cards rest on one person; a list card whose owner line stays empty.",
+   "brief_ref": "DIRECTION-PLAN.md#s08-fair-question"
+  },
+  {
+   "id": "seg033",
+   "scene": "S09",
+   "part": "a",
+   "lane": "model",
+   "master_in": 410.041667,
+   "master_out": 448.208333,
+   "frames": [
+    9841,
+    10757
+   ],
+   "in_cue": {
+    "word_id": "W001148",
+    "token": "Which",
+    "relation": "before",
+    "word_start": 410.42,
+    "previous_word_id": "W001147",
+    "previous_word_end": 409.72
+   },
+   "out_cue": {
+    "last_word_id": "W001236",
+    "last_word_token": "does.",
+    "last_word_end": 447.66,
+    "next_word_start": 448.86,
+    "cut_frame": 10757,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -64.1,
+    "measured_silent_run": [
+     447.685,
+     448.755
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The objection as heading; the job at two scales: outsourced revenue managers (C012) and one agency's published floor (C011); the small inn keeps its empty place.",
+   "brief_ref": "DIRECTION-PLAN.md#s09-already-sold-at-two-scales"
+  },
+  {
+   "id": "seg034",
+   "scene": "S09",
+   "part": "b",
+   "lane": "model",
+   "master_in": 448.208333,
+   "master_out": 469.291667,
+   "frames": [
+    10757,
+    11263
+   ],
+   "in_cue": {
+    "word_id": "W001237",
+    "token": "And",
+    "relation": "before",
+    "word_start": 448.86,
+    "previous_word_id": "W001236",
+    "previous_word_end": 447.66
+   },
+   "out_cue": {
+    "last_word_id": "W001290",
+    "last_word_token": "it.",
+    "last_word_end": 469.46,
+    "next_word_start": 469.64,
+    "cut_frame": 11263,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -63.2,
+    "measured_silent_run": [
+     469.11,
+     469.46
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "The sites' filed 2025 gross bookings (C014) as two separate, unsummed figures forming the floor; bracket \"paid for by properties big enough to fund it\".",
+   "brief_ref": "DIRECTION-PLAN.md#s09-already-sold-at-two-scales"
+  },
+  {
+   "id": "seg035",
+   "scene": "S09",
+   "part": "c",
+   "lane": "presenter",
+   "master_in": 469.291667,
+   "master_out": 480.041667,
+   "frames": [
+    11263,
+    11521
+   ],
+   "in_cue": {
+    "word_id": "W001291",
+    "token": "I",
+    "relation": "before",
+    "word_start": 469.64,
+    "previous_word_id": "W001290",
+    "previous_word_end": 469.46
+   },
+   "out_cue": {
+    "last_word_id": "W001322",
+    "last_word_token": "is.",
+    "last_word_end": 480.3,
+    "next_word_start": 480.31,
+    "cut_frame": 11521,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     479.95,
+     480.17
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: \"I could not find anyone selling it to the twenty room inn...\"",
+   "brief_ref": "DIRECTION-PLAN.md#s09-already-sold-at-two-scales",
+   "take_id": "P06"
+  },
+  {
+   "id": "seg036",
+   "scene": "S10",
+   "part": "a",
+   "lane": "model",
+   "master_in": 480.041667,
+   "master_out": 520.416667,
+   "frames": [
+    11521,
+    12490
+   ],
+   "in_cue": {
+    "word_id": "W001323",
+    "token": "So",
+    "relation": "before",
+    "word_start": 480.31,
+    "previous_word_id": "W001322",
+    "previous_word_end": 480.3
+   },
+   "out_cue": {
+    "last_word_id": "W001437",
+    "last_word_token": "year.",
+    "last_word_end": 520.289,
+    "next_word_start": 521.02,
+    "cut_frame": 12490,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -65.4,
+    "measured_silent_run": [
+     520.364,
+     520.484
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "Ceiling build 1: illustrative inn, four inputs, room revenue, rented share, commission band.",
+   "brief_ref": "DIRECTION-PLAN.md#s10-the-ceiling"
+  },
+  {
+   "id": "seg037",
+   "scene": "S10",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 520.416667,
+   "master_out": 532.25,
+   "frames": [
+    12490,
+    12774
+   ],
+   "in_cue": {
+    "word_id": "W001438",
+    "token": "That's",
+    "relation": "before",
+    "word_start": 521.02,
+    "previous_word_id": "W001437",
+    "previous_word_end": 520.289
+   },
+   "out_cue": {
+    "last_word_id": "W001475",
+    "last_word_token": "shift.",
+    "last_word_end": 531.96,
+    "next_word_start": 532.58,
+    "cut_frame": 12774,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     532.005,
+     532.46
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter turn: the wrong number; what a recovery service can shift.",
+   "brief_ref": "DIRECTION-PLAN.md#s10-the-ceiling",
+   "take_id": "P07"
+  },
+  {
+   "id": "seg038",
+   "scene": "S10",
+   "part": "c",
+   "lane": "model",
+   "master_in": 532.25,
+   "master_out": 569.541667,
+   "frames": [
+    12774,
+    13669
+   ],
+   "in_cue": {
+    "word_id": "W001476",
+    "token": "Say",
+    "relation": "before",
+    "word_start": 532.58,
+    "previous_word_id": "W001475",
+    "previous_word_end": 531.96
+   },
+   "out_cue": {
+    "last_word_id": "W001595",
+    "last_word_token": "it.",
+    "last_word_end": 569.18,
+    "next_word_start": 569.86,
+    "cut_frame": 13669,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -62.0,
+    "measured_silent_run": [
+     569.29,
+     569.81
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "Ceiling build 2: dashed 10-point hypothesis slice, commission on it, direct cost, remainder, the ceiling line, retainer tag under it.",
+   "brief_ref": "DIRECTION-PLAN.md#s10-the-ceiling"
+  },
+  {
+   "id": "seg039",
+   "scene": "S10",
+   "part": "d",
+   "lane": "model",
+   "master_in": 569.541667,
+   "master_out": 589.875,
+   "frames": [
+    13669,
+    14157
+   ],
+   "in_cue": {
+    "word_id": "W001596",
+    "token": "Two",
+    "relation": "before",
+    "word_start": 569.86,
+    "previous_word_id": "W001595",
+    "previous_word_end": 569.18
+   },
+   "out_cue": {
+    "last_word_id": "W001660",
+    "last_word_token": "it.",
+    "last_word_end": 589.54,
+    "next_word_start": 590.26,
+    "cut_frame": 14157,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     589.62,
+     590.16
+    ]
+   },
+   "builder_group": "act2-models",
+   "summary": "Sensitivity: 40-room and 5-point ghost ceilings; the hypothesis label emphasised; four inputs light.",
+   "brief_ref": "DIRECTION-PLAN.md#s10-the-ceiling"
+  },
+  {
+   "id": "seg040",
+   "scene": "S11",
+   "part": "a",
+   "lane": "model",
+   "master_in": 589.875,
+   "master_out": 618.458333,
+   "frames": [
+    14157,
+    14843
+   ],
+   "in_cue": {
+    "word_id": "W001661",
+    "token": "Now",
+    "relation": "before",
+    "word_start": 590.26,
+    "previous_word_id": "W001660",
+    "previous_word_end": 589.54
+   },
+   "out_cue": {
+    "last_word_id": "W001738",
+    "last_word_token": "rules.",
+    "last_word_end": 618.21,
+    "next_word_start": 618.84,
+    "cut_frame": 14843,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -58.9,
+    "measured_silent_run": [
+     618.365,
+     618.525
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "The practice fills the S05 empty place; Findable, Bookable, Remembered attach on their words.",
+   "brief_ref": "DIRECTION-PLAN.md#s11-the-complete-company"
+  },
+  {
+   "id": "seg041",
+   "scene": "S11",
+   "part": "b",
+   "lane": "model",
+   "master_in": 618.458333,
+   "master_out": 642.125,
+   "frames": [
+    14843,
+    15411
+   ],
+   "in_cue": {
+    "word_id": "W001739",
+    "token": "And",
+    "relation": "before",
+    "word_start": 618.84,
+    "previous_word_id": "W001738",
+    "previous_word_end": 618.21
+   },
+   "out_cue": {
+    "last_word_id": "W001804",
+    "last_word_token": "category.",
+    "last_word_end": 641.64,
+    "next_word_start": 642.94,
+    "cut_frame": 15411,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -74.2,
+    "measured_silent_run": [
+     641.68,
+     642.59
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "One number every month (blank before/after); six inns each under its own ceiling; earnings slot unpublished.",
+   "brief_ref": "DIRECTION-PLAN.md#s11-the-complete-company"
+  },
+  {
+   "id": "seg042",
+   "scene": "S11",
+   "part": "c",
+   "lane": "model",
+   "master_in": 642.125,
+   "master_out": 649.0,
+   "frames": [
+    15411,
+    15576
+   ],
+   "in_cue": {
+    "word_id": "W001805",
+    "token": "So",
+    "relation": "before",
+    "word_start": 642.94,
+    "previous_word_id": "W001804",
+    "previous_word_end": 641.64
+   },
+   "out_cue": {
+    "last_word_id": "W001819",
+    "last_word_token": "it.",
+    "last_word_end": 648.68,
+    "next_word_start": 649.42,
+    "cut_frame": 15576,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     648.715,
+     649.325
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "\"The business\" outline; the model shrinks aside and a figure labelled \"You\" arrives.",
+   "brief_ref": "DIRECTION-PLAN.md#s11-the-complete-company"
+  },
+  {
+   "id": "seg043",
+   "scene": "S12",
+   "part": "a",
+   "lane": "model",
+   "master_in": 649.0,
+   "master_out": 666.583333,
+   "frames": [
+    15576,
+    15998
+   ],
+   "in_cue": {
+    "word_id": "W001820",
+    "token": "What",
+    "relation": "before",
+    "word_start": 649.42,
+    "previous_word_id": "W001819",
+    "previous_word_end": 648.68
+   },
+   "out_cue": {
+    "last_word_id": "W001880",
+    "last_word_token": "money.",
+    "last_word_end": 666.46,
+    "next_word_start": 667.48,
+    "cut_frame": 15998,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -107.9,
+    "measured_silent_run": [
+     666.49,
+     666.685
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "A credential set aside; a handwritten thank you beside a newsletter with a name tag; two figures at a table with the ceiling slip.",
+   "brief_ref": "DIRECTION-PLAN.md#s12-why-you"
+  },
+  {
+   "id": "seg044",
+   "scene": "S12",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 666.583333,
+   "master_out": 689.458333,
+   "frames": [
+    15998,
+    16547
+   ],
+   "in_cue": {
+    "word_id": "W001881",
+    "token": "I",
+    "relation": "before",
+    "word_start": 667.48,
+    "previous_word_id": "W001880",
+    "previous_word_end": 666.46
+   },
+   "out_cue": {
+    "last_word_id": "W001955",
+    "last_word_token": "pitch.",
+    "last_word_end": 688.96,
+    "next_word_start": 690.0,
+    "cut_frame": 16547,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -114.9,
+    "measured_silent_run": [
+     689.03,
+     689.885
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: first-person vantage and limits; \"That's the test, not the pitch.\"",
+   "brief_ref": "DIRECTION-PLAN.md#s12-why-you",
+   "take_id": "P08"
+  },
+  {
+   "id": "seg045",
+   "scene": "S12",
+   "part": "c",
+   "lane": "model",
+   "master_in": 689.458333,
+   "master_out": 703.875,
+   "frames": [
+    16547,
+    16893
+   ],
+   "in_cue": {
+    "word_id": "W001956",
+    "token": "Start",
+    "relation": "before",
+    "word_start": 690.0,
+    "previous_word_id": "W001955",
+    "previous_word_end": 688.96
+   },
+   "out_cue": {
+    "last_word_id": "W002000",
+    "last_word_token": "tool.",
+    "last_word_end": 703.439,
+    "next_word_start": 704.3,
+    "cut_frame": 16893,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     703.609,
+     704.169
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "A drivable route from \"You\" to nearby inns; the back office door opens onto the guest book; a tool card stays outside.",
+   "brief_ref": "DIRECTION-PLAN.md#s12-why-you"
+  },
+  {
+   "id": "seg046",
+   "scene": "S13",
+   "part": "a",
+   "lane": "model",
+   "master_in": 703.875,
+   "master_out": 719.625,
+   "frames": [
+    16893,
+    17271
+   ],
+   "in_cue": {
+    "word_id": "W002001",
+    "token": "What",
+    "relation": "before",
+    "word_start": 704.3,
+    "previous_word_id": "W002000",
+    "previous_word_end": 703.439
+   },
+   "out_cue": {
+    "last_word_id": "W002044",
+    "last_word_token": "date.",
+    "last_word_end": 719.32,
+    "next_word_start": 720.72,
+    "cut_frame": 17271,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -74.1,
+    "measured_silent_run": [
+     719.325,
+     719.885
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "Question heading; the repetitive half: drafting and scheduling blocks shrink on their words.",
+   "brief_ref": "DIRECTION-PLAN.md#s13-the-machine-and-you"
+  },
+  {
+   "id": "seg047",
+   "scene": "S13",
+   "part": "b",
+   "lane": "model",
+   "master_in": 719.625,
+   "master_out": 741.958333,
+   "frames": [
+    17271,
+    17807
+   ],
+   "in_cue": {
+    "word_id": "W002045",
+    "token": "You",
+    "relation": "before",
+    "word_start": 720.72,
+    "previous_word_id": "W002044",
+    "previous_word_end": 719.32
+   },
+   "out_cue": {
+    "last_word_id": "W002101",
+    "last_word_token": "didn't.",
+    "last_word_end": 741.62,
+    "next_word_start": 742.4,
+    "cut_frame": 17807,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     741.635,
+     742.245
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "The judgment half at full weight: voice, who gets a message; the signed book vs a detached drip chain; six properties, one person; \"cheap\" vs \"judgment\".",
+   "brief_ref": "DIRECTION-PLAN.md#s13-the-machine-and-you"
+  },
+  {
+   "id": "seg048",
+   "scene": "S14",
+   "part": "a",
+   "lane": "model",
+   "master_in": 741.958333,
+   "master_out": 766.625,
+   "frames": [
+    17807,
+    18399
+   ],
+   "in_cue": {
+    "word_id": "W002102",
+    "token": "What",
+    "relation": "before",
+    "word_start": 742.4,
+    "previous_word_id": "W002101",
+    "previous_word_end": 741.62
+   },
+   "out_cue": {
+    "last_word_id": "W002160",
+    "last_word_token": "phone.",
+    "last_word_end": 765.719,
+    "next_word_start": 766.98,
+    "cut_frame": 18399,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -57.9,
+    "measured_silent_run": [
+     766.569,
+     766.719
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "\"What do you sell first?\": retainer set aside, the audit card fills (C024 modeled); reports, ceiling on real inputs, phone test.",
+   "brief_ref": "DIRECTION-PLAN.md#s14-the-first-sale"
+  },
+  {
+   "id": "seg049",
+   "scene": "S14",
+   "part": "b",
+   "lane": "film",
+   "master_in": 766.625,
+   "master_out": 770.333333,
+   "frames": [
+    18399,
+    18488
+   ],
+   "in_cue": {
+    "word_id": "W002161",
+    "token": "And",
+    "relation": "before",
+    "word_start": 766.98,
+    "previous_word_id": "W002160",
+    "previous_word_end": 765.719
+   },
+   "out_cue": {
+    "last_word_id": "W002169",
+    "last_word_token": "desk.",
+    "last_word_end": 769.88,
+    "next_word_start": 770.78,
+    "cut_frame": 18488,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -69.5,
+    "measured_silent_run": [
+     770.285,
+     770.395
+    ]
+   },
+   "builder_group": "film",
+   "summary": "Close at the counter: a blank registration card and pen slide into view.",
+   "brief_ref": "DIRECTION-PLAN.md#s14-the-first-sale",
+   "take_id": "F07"
+  },
+  {
+   "id": "seg050",
+   "scene": "S14",
+   "part": "c",
+   "lane": "model",
+   "master_in": 770.333333,
+   "master_out": 784.75,
+   "frames": [
+    18488,
+    18834
+   ],
+   "in_cue": {
+    "word_id": "W002170",
+    "token": "Does",
+    "relation": "before",
+    "word_start": 770.78,
+    "previous_word_id": "W002169",
+    "previous_word_end": 769.88
+   },
+   "out_cue": {
+    "last_word_id": "W002207",
+    "last_word_token": "recommendation.",
+    "last_word_end": 784.66,
+    "next_word_start": 785.68,
+    "cut_frame": 18834,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -73.4,
+    "measured_silent_run": [
+     784.685,
+     784.85
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "The registration card drawn: own email or relay; the audit's three deliverables.",
+   "brief_ref": "DIRECTION-PLAN.md#s14-the-first-sale"
+  },
+  {
+   "id": "seg051",
+   "scene": "S14",
+   "part": "d",
+   "lane": "model",
+   "master_in": 784.75,
+   "master_out": 804.75,
+   "frames": [
+    18834,
+    19314
+   ],
+   "in_cue": {
+    "word_id": "W002208",
+    "token": "Sometimes",
+    "relation": "before",
+    "word_start": 785.68,
+    "previous_word_id": "W002207",
+    "previous_word_end": 784.66
+   },
+   "out_cue": {
+    "last_word_id": "W002258",
+    "last_word_token": "conversation.",
+    "last_word_end": 804.2,
+    "next_word_start": 805.5,
+    "cut_frame": 19314,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -91.6,
+    "measured_silent_run": [
+     804.215,
+     805.285
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "Three equal outcomes: retainer, audit only, can't fund it (C025); outlined together as the product.",
+   "brief_ref": "DIRECTION-PLAN.md#s14-the-first-sale"
+  },
+  {
+   "id": "seg052",
+   "scene": "S15",
+   "part": "a",
+   "lane": "model",
+   "master_in": 804.75,
+   "master_out": 830.25,
+   "frames": [
+    19314,
+    19926
+   ],
+   "in_cue": {
+    "word_id": "W002259",
+    "token": "When",
+    "relation": "before",
+    "word_start": 805.5,
+    "previous_word_id": "W002258",
+    "previous_word_end": 804.2
+   },
+   "out_cue": {
+    "last_word_id": "W002315",
+    "last_word_token": "email.",
+    "last_word_end": 830.08,
+    "next_word_start": 831.0,
+    "cut_frame": 19926,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -99.3,
+    "measured_silent_run": [
+     830.18,
+     830.35
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "Retainer tag under the property's ceiling; findable and bookable kept current; remembered enlarges; the inn's own guest book turns solid at the desk; card and wifi login ask for the guest's own email.",
+   "brief_ref": "DIRECTION-PLAN.md#s15-the-retainer"
+  },
+  {
+   "id": "seg053",
+   "scene": "S15",
+   "part": "b",
+   "lane": "model",
+   "master_in": 830.25,
+   "master_out": 861.75,
+   "frames": [
+    19926,
+    20682
+   ],
+   "in_cue": {
+    "word_id": "W002316",
+    "token": "Then,",
+    "relation": "before",
+    "word_start": 831.0,
+    "previous_word_id": "W002315",
+    "previous_word_end": 830.08
+   },
+   "out_cue": {
+    "last_word_id": "W002397",
+    "last_word_token": "it.",
+    "last_word_end": 861.9,
+    "next_word_start": 862.02,
+    "cut_frame": 20682,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     861.55,
+     861.91
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "After checkout: thank you and a seasonal note; rules boundary in front of the relay; law labels (C026); the sites stay connected; the monthly report that can say \"not moving\".",
+   "brief_ref": "DIRECTION-PLAN.md#s15-the-retainer"
+  },
+  {
+   "id": "seg054",
+   "scene": "S16",
+   "part": "a",
+   "lane": "model",
+   "master_in": 861.75,
+   "master_out": 879.166667,
+   "frames": [
+    20682,
+    21100
+   ],
+   "in_cue": {
+    "word_id": "W002398",
+    "token": "How",
+    "relation": "before",
+    "word_start": 862.02,
+    "previous_word_id": "W002397",
+    "previous_word_end": 861.9
+   },
+   "out_cue": {
+    "last_word_id": "W002443",
+    "last_word_token": "systems.",
+    "last_word_end": 878.84,
+    "next_word_start": 879.56,
+    "cut_frame": 21100,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -67.8,
+    "measured_silent_run": [
+     878.875,
+     879.44
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "\"How does the first owner arrive?\": the ceiling slip as the opener; two unconnected dashed routes.",
+   "brief_ref": "DIRECTION-PLAN.md#s16-the-first-owner"
+  },
+  {
+   "id": "seg055",
+   "scene": "S16",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 879.166667,
+   "master_out": 885.875,
+   "frames": [
+    21100,
+    21261
+   ],
+   "in_cue": {
+    "word_id": "W002444",
+    "token": "Those",
+    "relation": "before",
+    "word_start": 879.56,
+    "previous_word_id": "W002443",
+    "previous_word_end": 878.84
+   },
+   "out_cue": {
+    "last_word_id": "W002462",
+    "last_word_token": "one.",
+    "last_word_end": 885.42,
+    "next_word_start": 886.34,
+    "cut_frame": 21261,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -60.8,
+    "measured_silent_run": [
+     885.44,
+     886.31
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: hypotheses, not a funnel; no invented conversion rate.",
+   "brief_ref": "DIRECTION-PLAN.md#s16-the-first-owner",
+   "take_id": "P09"
+  },
+  {
+   "id": "seg056",
+   "scene": "S16",
+   "part": "c",
+   "lane": "model",
+   "master_in": 885.875,
+   "master_out": 903.333333,
+   "frames": [
+    21261,
+    21680
+   ],
+   "in_cue": {
+    "word_id": "W002463",
+    "token": "And",
+    "relation": "before",
+    "word_start": 886.34,
+    "previous_word_id": "W002462",
+    "previous_word_end": 885.42
+   },
+   "out_cue": {
+    "last_word_id": "W002507",
+    "last_word_token": "is.",
+    "last_word_end": 902.96,
+    "next_word_start": 903.7,
+    "cut_frame": 21680,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     903.035,
+     903.655
+    ]
+   },
+   "builder_group": "act3-models",
+   "summary": "The kill condition as one phone call (C027, C011 floor); the small inn's front door stays dashed; blank answer field.",
+   "brief_ref": "DIRECTION-PLAN.md#s16-the-first-owner"
+  },
+  {
+   "id": "seg057",
+   "scene": "S17",
+   "part": "a",
+   "lane": "model",
+   "master_in": 903.333333,
+   "master_out": 946.166667,
+   "frames": [
+    21680,
+    22708
+   ],
+   "in_cue": {
+    "word_id": "W002508",
+    "token": "Say",
+    "relation": "before",
+    "word_start": 903.7,
+    "previous_word_id": "W002507",
+    "previous_word_end": 902.96
+   },
+   "out_cue": {
+    "last_word_id": "W002626",
+    "last_word_token": "yourself.",
+    "last_word_end": 945.72,
+    "next_word_start": 946.3,
+    "cut_frame": 22708,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -62.5,
+    "measured_silent_run": [
+     946.06,
+     946.235
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Operator arithmetic 1: \"Modeled scenario\" label on its word; prices, six properties, hours; gross; before you pay yourself.",
+   "brief_ref": "DIRECTION-PLAN.md#s17-the-operators-arithmetic"
+  },
+  {
+   "id": "seg058",
+   "scene": "S17",
+   "part": "b",
+   "lane": "model",
+   "master_in": 946.166667,
+   "master_out": 976.541667,
+   "frames": [
+    22708,
+    23437
+   ],
+   "in_cue": {
+    "word_id": "W002627",
+    "token": "Now",
+    "relation": "before",
+    "word_start": 946.3,
+    "previous_word_id": "W002626",
+    "previous_word_end": 945.72
+   },
+   "out_cue": {
+    "last_word_id": "W002713",
+    "last_word_token": "year.",
+    "last_word_end": 976.32,
+    "next_word_start": 976.66,
+    "cut_frame": 23437,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -64.4,
+    "measured_silent_run": [
+     976.51,
+     976.575
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Operator arithmetic 2: your time priced; base and stress columns at equal weight; six 20-room inns at $600.",
+   "brief_ref": "DIRECTION-PLAN.md#s17-the-operators-arithmetic"
+  },
+  {
+   "id": "seg059",
+   "scene": "S17",
+   "part": "c",
+   "lane": "presenter",
+   "master_in": 976.541667,
+   "master_out": 982.875,
+   "frames": [
+    23437,
+    23589
+   ],
+   "in_cue": {
+    "word_id": "W002714",
+    "token": "That's",
+    "relation": "before",
+    "word_start": 976.66,
+    "previous_word_id": "W002713",
+    "previous_word_end": 976.32
+   },
+   "out_cue": {
+    "last_word_id": "W002732",
+    "last_word_token": "business.",
+    "last_word_end": 982.72,
+    "next_word_start": 983.5,
+    "cut_frame": 23589,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -81.1,
+    "measured_silent_run": [
+     982.75,
+     982.98
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter ruling: side income, foothold, not a living; up the band.",
+   "brief_ref": "DIRECTION-PLAN.md#s17-the-operators-arithmetic",
+   "take_id": "P10"
+  },
+  {
+   "id": "seg060",
+   "scene": "S17",
+   "part": "d",
+   "lane": "model",
+   "master_in": 982.875,
+   "master_out": 1008.333333,
+   "frames": [
+    23589,
+    24200
+   ],
+   "in_cue": {
+    "word_id": "W002733",
+    "token": "Six",
+    "relation": "before",
+    "word_start": 983.5,
+    "previous_word_id": "W002732",
+    "previous_word_end": 982.72
+   },
+   "out_cue": {
+    "last_word_id": "W002792",
+    "last_word_token": "drive.",
+    "last_word_end": 1007.92,
+    "next_word_start": 1008.8,
+    "cut_frame": 24200,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     1008.005,
+     1008.635
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Six 40-room properties at $1,250 before costs; six properties, not a market share (C015); a drivable route.",
+   "brief_ref": "DIRECTION-PLAN.md#s17-the-operators-arithmetic"
+  },
+  {
+   "id": "seg061",
+   "scene": "S18",
+   "part": "a",
+   "lane": "model",
+   "master_in": 1008.333333,
+   "master_out": 1032.833333,
+   "frames": [
+    24200,
+    24788
+   ],
+   "in_cue": {
+    "word_id": "W002793",
+    "token": "Six",
+    "relation": "before",
+    "word_start": 1008.8,
+    "previous_word_id": "W002792",
+    "previous_word_end": 1007.92
+   },
+   "out_cue": {
+    "last_word_id": "W002859",
+    "last_word_token": "is.",
+    "last_word_end": 1032.579,
+    "next_word_start": 1033.5,
+    "cut_frame": 24788,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -66.0,
+    "measured_silent_run": [
+     1032.724,
+     1032.954
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Three hard things: the ceiling says no; the viable band with uncertain edges.",
+   "brief_ref": "DIRECTION-PLAN.md#s18-the-hard-parts"
+  },
+  {
+   "id": "seg062",
+   "scene": "S18",
+   "part": "b",
+   "lane": "model",
+   "master_in": 1032.833333,
+   "master_out": 1064.333333,
+   "frames": [
+    24788,
+    25544
+   ],
+   "in_cue": {
+    "word_id": "W002860",
+    "token": "Renewal.",
+    "relation": "before",
+    "word_start": 1033.5,
+    "previous_word_id": "W002859",
+    "previous_word_end": 1032.579
+   },
+   "out_cue": {
+    "last_word_id": "W002943",
+    "last_word_token": "ground.",
+    "last_word_end": 1063.92,
+    "next_word_start": 1064.64,
+    "cut_frame": 25544,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     1064.025,
+     1064.63
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Renewal keeps the baseline; access at the owner's desk; stop or move up; 40 to 80 rooms is agency ground.",
+   "brief_ref": "DIRECTION-PLAN.md#s18-the-hard-parts"
+  },
+  {
+   "id": "seg063",
+   "scene": "S19",
+   "part": "a",
+   "lane": "model",
+   "master_in": 1064.333333,
+   "master_out": 1100.708333,
+   "frames": [
+    25544,
+    26417
+   ],
+   "in_cue": {
+    "word_id": "W002944",
+    "token": "Before",
+    "relation": "before",
+    "word_start": 1064.64,
+    "previous_word_id": "W002943",
+    "previous_word_end": 1063.92
+   },
+   "out_cue": {
+    "last_word_id": "W003041",
+    "last_word_token": "property.",
+    "last_word_end": 1100.6,
+    "next_word_start": 1101.16,
+    "cut_frame": 26417,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -64.9,
+    "measured_silent_run": [
+     1100.605,
+     1100.78
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Days 1 to 30 on the same objects: build the audit, three properties, five calls.",
+   "brief_ref": "DIRECTION-PLAN.md#s19-the-first-30-and-90-days"
+  },
+  {
+   "id": "seg064",
+   "scene": "S19",
+   "part": "b",
+   "lane": "model",
+   "master_in": 1100.708333,
+   "master_out": 1123.625,
+   "frames": [
+    26417,
+    26967
+   ],
+   "in_cue": {
+    "word_id": "W003042",
+    "token": "Success",
+    "relation": "before",
+    "word_start": 1101.16,
+    "previous_word_id": "W003041",
+    "previous_word_end": 1100.6
+   },
+   "out_cue": {
+    "last_word_id": "W003096",
+    "last_word_token": "only.",
+    "last_word_end": 1123.8,
+    "next_word_start": 1123.83,
+    "cut_frame": 26967,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     1123.45,
+     1123.77
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Success criteria as unchecked boxes; days 31 to 90; the three-way decision left open.",
+   "brief_ref": "DIRECTION-PLAN.md#s19-the-first-30-and-90-days"
+  },
+  {
+   "id": "seg065",
+   "scene": "S20",
+   "part": "a",
+   "lane": "model",
+   "master_in": 1123.625,
+   "master_out": 1125.791667,
+   "frames": [
+    26967,
+    27019
+   ],
+   "in_cue": {
+    "word_id": "W003097",
+    "token": "Say",
+    "relation": "before",
+    "word_start": 1123.83,
+    "previous_word_id": "W003096",
+    "previous_word_end": 1123.8
+   },
+   "out_cue": {
+    "last_word_id": "W003101",
+    "last_word_token": "running.",
+    "last_word_end": 1125.2,
+    "next_word_start": 1126.06,
+    "cut_frame": 27019,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -80.4,
+    "measured_silent_run": [
+     1125.565,
+     1126.05
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "\"Say\": a dashed \"first retainer running\" marker on the timeline.",
+   "brief_ref": "DIRECTION-PLAN.md#s20-the-callback"
+  },
+  {
+   "id": "seg066",
+   "scene": "S20",
+   "part": "b",
+   "lane": "film",
+   "master_in": 1125.791667,
+   "master_out": 1132.458333,
+   "frames": [
+    27019,
+    27179
+   ],
+   "in_cue": {
+    "word_id": "W003102",
+    "token": "Go",
+    "relation": "before",
+    "word_start": 1126.06,
+    "previous_word_id": "W003101",
+    "previous_word_end": 1125.2
+   },
+   "out_cue": {
+    "last_word_id": "W003123",
+    "last_word_token": "email.",
+    "last_word_end": 1132.1,
+    "next_word_start": 1132.74,
+    "cut_frame": 27179,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -78.0,
+    "measured_silent_run": [
+     1132.165,
+     1132.73
+    ]
+   },
+   "builder_group": "film",
+   "summary": "Following spring: the same guest at the counter fills in the registration card.",
+   "brief_ref": "DIRECTION-PLAN.md#s20-the-callback",
+   "take_id": "F08"
+  },
+  {
+   "id": "seg067",
+   "scene": "S20",
+   "part": "c",
+   "lane": "film",
+   "master_in": 1132.458333,
+   "master_out": 1135.416667,
+   "frames": [
+    27179,
+    27250
+   ],
+   "in_cue": {
+    "word_id": "W003124",
+    "token": "The",
+    "relation": "before",
+    "word_start": 1132.74,
+    "previous_word_id": "W003123",
+    "previous_word_end": 1132.1
+   },
+   "out_cue": {
+    "last_word_id": "W003132",
+    "last_word_token": "inn's.",
+    "last_word_end": 1135.02,
+    "next_word_start": 1135.82,
+    "cut_frame": 27250,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -75.8,
+    "measured_silent_run": [
+     1135.08,
+     1135.765
+    ]
+   },
+   "builder_group": "film",
+   "summary": "He signs the inn's guest book beside him.",
+   "brief_ref": "DIRECTION-PLAN.md#s20-the-callback",
+   "take_id": "F09"
+  },
+  {
+   "id": "seg068",
+   "scene": "S20",
+   "part": "d",
+   "lane": "film",
+   "master_in": 1135.416667,
+   "master_out": 1139.458333,
+   "frames": [
+    27250,
+    27347
+   ],
+   "in_cue": {
+    "word_id": "W003133",
+    "token": "After",
+    "relation": "before",
+    "word_start": 1135.82,
+    "previous_word_id": "W003132",
+    "previous_word_end": 1135.02
+   },
+   "out_cue": {
+    "last_word_id": "W003145",
+    "last_word_token": "it.",
+    "last_word_end": 1139.139,
+    "next_word_start": 1139.84,
+    "cut_frame": 27347,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -76.5,
+    "measured_silent_run": [
+     1139.159,
+     1139.734
+    ]
+   },
+   "builder_group": "film",
+   "summary": "After he has gone, the innkeeper writes a short thank you by hand.",
+   "brief_ref": "DIRECTION-PLAN.md#s20-the-callback",
+   "take_id": "F10"
+  },
+  {
+   "id": "seg069",
+   "scene": "S20",
+   "part": "e",
+   "lane": "model",
+   "master_in": 1139.458333,
+   "master_out": 1157.791667,
+   "frames": [
+    27347,
+    27787
+   ],
+   "in_cue": {
+    "word_id": "W003146",
+    "token": "In",
+    "relation": "before",
+    "word_start": 1139.84,
+    "previous_word_id": "W003145",
+    "previous_word_end": 1139.139
+   },
+   "out_cue": {
+    "last_word_id": "W003194",
+    "last_word_token": "one.",
+    "last_word_end": 1157.5,
+    "next_word_start": 1158.26,
+    "cut_frame": 27787,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -111.9,
+    "measured_silent_run": [
+     1157.51,
+     1158.05
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "October note about the trail; the next booking through the inn's own page with no tag; the site keeps its first introduction; the second tag's place is empty.",
+   "brief_ref": "DIRECTION-PLAN.md#s20-the-callback"
+  },
+  {
+   "id": "seg070",
+   "scene": "S21",
+   "part": "a",
+   "lane": "model",
+   "master_in": 1157.791667,
+   "master_out": 1175.041667,
+   "frames": [
+    27787,
+    28201
+   ],
+   "in_cue": {
+    "word_id": "W003195",
+    "token": "That's",
+    "relation": "before",
+    "word_start": 1158.26,
+    "previous_word_id": "W003194",
+    "previous_word_end": 1157.5
+   },
+   "out_cue": {
+    "last_word_id": "W003238",
+    "last_word_token": "minutes.",
+    "last_word_end": 1174.64,
+    "next_word_start": 1175.46,
+    "cut_frame": 28201,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -91.7,
+    "measured_silent_run": [
+     1174.715,
+     1175.365
+    ]
+   },
+   "builder_group": "act4-models",
+   "summary": "Redirect, not recap: the second commission opens onto the service; the S10 ceiling slip, its four inputs cleared for any property; retainer under the line.",
+   "brief_ref": "DIRECTION-PLAN.md#s21-the-payoff"
+  },
+  {
+   "id": "seg071",
+   "scene": "S22",
+   "part": "a",
+   "lane": "presenter",
+   "master_in": 1175.041667,
+   "master_out": 1196.458333,
+   "frames": [
+    28201,
+    28715
+   ],
+   "in_cue": {
+    "word_id": "W003239",
+    "token": "My",
+    "relation": "before",
+    "word_start": 1175.46,
+    "previous_word_id": "W003238",
+    "previous_word_end": 1174.64
+   },
+   "out_cue": {
+    "last_word_id": "W003294",
+    "last_word_token": "month.",
+    "last_word_end": 1196.04,
+    "next_word_start": 1196.88,
+    "cut_frame": 28715,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -104.2,
+    "measured_silent_run": [
+     1196.095,
+     1196.815
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter verdict: build, bounded, and why.",
+   "brief_ref": "DIRECTION-PLAN.md#s22-to-s24-verdict-first-move-ask",
+   "take_id": "P11"
+  },
+  {
+   "id": "seg072",
+   "scene": "S22",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 1196.458333,
+   "master_out": 1204.416667,
+   "frames": [
+    28715,
+    28906
+   ],
+   "in_cue": {
+    "word_id": "W003295",
+    "token": "What",
+    "relation": "before",
+    "word_start": 1196.88,
+    "previous_word_id": "W003294",
+    "previous_word_end": 1196.04
+   },
+   "out_cue": {
+    "last_word_id": "W003318",
+    "last_word_token": "thirty.",
+    "last_word_end": 1204.07,
+    "next_word_start": 1204.81,
+    "cut_frame": 28906,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -180.0,
+    "measured_silent_run": [
+     1204.12,
+     1204.73
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: what I'm not saying; you'll know by day thirty.",
+   "brief_ref": "DIRECTION-PLAN.md#s22-to-s24-verdict-first-move-ask",
+   "take_id": "P12"
+  },
+  {
+   "id": "seg073",
+   "scene": "S23",
+   "part": "a",
+   "lane": "presenter",
+   "master_in": 1204.416667,
+   "master_out": 1213.875,
+   "frames": [
+    28906,
+    29133
+   ],
+   "in_cue": {
+    "word_id": "W003319",
+    "token": "The",
+    "relation": "before",
+    "word_start": 1204.81,
+    "previous_word_id": "W003318",
+    "previous_word_end": 1204.07
+   },
+   "out_cue": {
+    "last_word_id": "W003338",
+    "last_word_token": "ceiling.",
+    "last_word_end": 1213.66,
+    "next_word_start": 1214.28,
+    "cut_frame": 29133,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -67.2,
+    "measured_silent_run": [
+     1213.805,
+     1213.975
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter (same take P18): the first move, four numbers, run the ceiling.",
+   "brief_ref": "DIRECTION-PLAN.md#s22-to-s24-verdict-first-move-ask",
+   "take_id": "P12"
+  },
+  {
+   "id": "seg074",
+   "scene": "S23",
+   "part": "b",
+   "lane": "presenter",
+   "master_in": 1213.875,
+   "master_out": 1225.875,
+   "frames": [
+    29133,
+    29421
+   ],
+   "in_cue": {
+    "word_id": "W003339",
+    "token": "Tell",
+    "relation": "before",
+    "word_start": 1214.28,
+    "previous_word_id": "W003338",
+    "previous_word_end": 1213.66
+   },
+   "out_cue": {
+    "last_word_id": "W003373",
+    "last_word_token": "knows.",
+    "last_word_end": 1225.56,
+    "next_word_start": 1226.54,
+    "cut_frame": 29421,
+    "cut_method": "silent_run_center",
+    "cut_window_rms_dbfs": -112.9,
+    "measured_silent_run": [
+     1225.595,
+     1226.135
+    ]
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter: ask if they'd pay; right now nobody knows.",
+   "brief_ref": "DIRECTION-PLAN.md#s22-to-s24-verdict-first-move-ask",
+   "take_id": "P13"
+  },
+  {
+   "id": "seg075",
+   "scene": "S24",
+   "part": "a",
+   "lane": "presenter",
+   "master_in": 1225.875,
+   "master_out": 1233.602,
+   "frames": [
+    29421,
+    29607
+   ],
+   "in_cue": {
+    "word_id": "W003374",
+    "token": "If",
+    "relation": "before",
+    "word_start": 1226.54,
+    "previous_word_id": "W003373",
+    "previous_word_end": 1225.56
+   },
+   "out_cue": {
+    "explicit_seconds": 1233.602,
+    "cut_frame": null,
+    "cut_window_rms_dbfs": null
+   },
+   "builder_group": "presenter",
+   "summary": "Presenter (same take P19): the ask.",
+   "brief_ref": "DIRECTION-PLAN.md#s22-to-s24-verdict-first-move-ask",
+   "take_id": "P13"
+  }
+ ],
+ "presenter_takes": [
+  {
+   "take_id": "P01",
+   "segment_ids": [
+    "seg009"
+   ],
+   "scene": "S00",
+   "master_in": 50.291667,
+   "master_out": 59.458333,
+   "first_word_id": "W000140",
+   "last_word_id": "W000165",
+   "audio_seconds": 9.166666,
+   "generation_seconds": 11,
+   "est_credits": 99,
+   "est_fal_sync_usd": 1.47,
+   "words": "I couldn't find anyone selling it who'd done that arithmetic. So what did that second stay actually cost her, and who gets paid to stop it?",
+   "performance": "Head: level to lens at rest; on W000142 'find' a small tilt toward his left shoulder as he recalls the search, back to centre by W000149 'arithmetic.'; brows gather lightly on W000156 'actually' and hold through W000158 'her,'; no nod on the question. Hands: right palm turns up just off the table on W000143 'anyone' and settles by W000149; both hands rest and stay still from W000159 'and' through the end so the question stops in silence. Eyes: near-lens; no glance on the question."
+  },
+  {
+   "take_id": "P02",
+   "segment_ids": [
+    "seg012"
+   ],
+   "scene": "S02",
+   "master_in": 73.541667,
+   "master_out": 87.833333,
+   "first_word_id": "W000195",
+   "last_word_id": "W000246",
+   "audio_seconds": 14.291666,
+   "generation_seconds": 16,
+   "est_credits": 144,
+   "est_fal_sync_usd": 2.13,
+   "words": "It helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again. By the end you'll be able to take four numbers from a small property and know what it can honestly pay for the job, and whether that's worth your time.",
+   "performance": "Head: steady and upright, one gentle settle on W000206 'direct,'; a slight forward lean begins on W000217 'By' and holds. Hands: both hands rest through the first sentence; on W000225 'four' W000226 'numbers' both hands lift and hold a small sheet-sized space between them (as if holding a slip of paper), release on W000230 'property'; one hand lowers flat a few centimetres on W000236 'honestly' W000237 'pay'; hands at rest by W000246 'time.'. Eyes: near-lens throughout (this is the promise; protect engagement per R31)."
+  },
+  {
+   "take_id": "P03",
+   "segment_ids": [
+    "seg019"
+   ],
+   "scene": "S04",
+   "master_in": 188.666667,
+   "master_out": 205.083333,
+   "first_word_id": "W000532",
+   "last_word_id": "W000583",
+   "audio_seconds": 16.416666,
+   "generation_seconds": 18,
+   "est_credits": 162,
+   "est_fal_sync_usd": 2.4,
+   "words": "Which brings us to the question. The site introduces the guest and keeps the guest's email. When that guest comes back, who at the inn is paid to make sure the second booking comes to the inn? And if the answer is nobody, can somebody from outside get paid to do it?",
+   "performance": "Head: neutral on W000532-W000537 'Which brings us to the question.'; a small turn to camera-right on W000539 'site' then back to centre on W000544 'keeps'; a slow lean-in from W000553 'who' to W000568 'inn?'; a small tilt toward his right shoulder on W000574 'nobody,'; returns upright and still for W000575-W000583 'can somebody from outside get paid to do it?' with inner brows gathered lightly (pensive, not challenging, check at crop size). Hands: left hand sets a place on the table to his right on W000539 'site', right hand sets a place to his left on W000546 'guest's email.' (two places, the site and the inn); hands draw together and rest on W000548 'When'; on W000578 'outside' one palm opens outward toward lens and returns to rest before W000583. Eyes: near-lens on the final question."
+  },
+  {
+   "take_id": "P04",
+   "segment_ids": [
+    "seg021"
+   ],
+   "scene": "S05",
+   "master_in": 226.208333,
+   "master_out": 236.291667,
+   "first_word_id": "W000646",
+   "last_word_id": "W000678",
+   "audio_seconds": 10.083334,
+   "generation_seconds": 12,
+   "est_credits": 108,
+   "est_fal_sync_usd": 1.6,
+   "words": "I think it can be sold from outside. But only for what it recovers, and what it recovers is a number. By the end you'll be able to compute it for any inn.",
+   "performance": "Head: upright, settled, a single small firm nod on W000666 'number.'; no other nods. Hands: right hand touches lightly to chest on W000646 'I' W000647 'think' and returns; on W000659 'recovers,' the right hand draws a short flat horizontal line in the air at chest height and holds it through W000666 'number.' (the first appearance of the ceiling gesture); on W000677 'any' the hand opens toward lens and settles to rest. Eyes: near-lens on the promise W000667-W000678."
+  },
+  {
+   "take_id": "P05",
+   "segment_ids": [
+    "seg028"
+   ],
+   "scene": "S08",
+   "master_in": 368.0,
+   "master_out": 373.375,
+   "first_word_id": "W001021",
+   "last_word_id": "W001038",
+   "audio_seconds": 5.375,
+   "generation_seconds": 7,
+   "est_credits": 63,
+   "est_fal_sync_usd": 0.93,
+   "words": "Fair question here. If the parts to fix this are cheap, why doesn't the inn just do it?",
+   "performance": "Head: begins with a slight tilt and relaxed brow on W001021 'Fair question here.' (a fair concession, not surprise); on W001033 'doesn't' the head returns to centre and holds. Hands: both hands rest through W001031 'cheap,'; both palms turn up together a few centimetres on W001037 'do' W001038 'it?' and return to rest immediately. Different from P01's single palm and P03's placements."
+  },
+  {
+   "take_id": "P06",
+   "segment_ids": [
+    "seg035"
+   ],
+   "scene": "S09",
+   "master_in": 469.291667,
+   "master_out": 480.041667,
+   "first_word_id": "W001291",
+   "last_word_id": "W001322",
+   "audio_seconds": 10.75,
+   "generation_seconds": 12,
+   "est_credits": 108,
+   "est_fal_sync_usd": 1.6,
+   "words": "I could not find anyone selling it to the twenty room inn. It's that the inn can only pay what the job recovers, and nobody selling this has published what that is.",
+   "performance": "Head: brief natural look-away down to his left on W001291-W001295 'I could not find anyone' (recalling a search, a permitted reflective glance), back to lens on W001296 'selling'; a small side-to-side weighing on W001315 'nobody selling this has published' that returns to still. Hands: fingertips lightly together over the table at the start; release to a small open empty-hands gesture on W001319 'published' W001320 'what' and return to rest by W001322."
+  },
+  {
+   "take_id": "P07",
+   "segment_ids": [
+    "seg037"
+   ],
+   "scene": "S10",
+   "master_in": 520.416667,
+   "master_out": 532.25,
+   "first_word_id": "W001438",
+   "last_word_id": "W001475",
+   "audio_seconds": 11.833333,
+   "generation_seconds": 13,
+   "est_credits": 117,
+   "est_fal_sync_usd": 1.73,
+   "words": "That's where the old version of this argument stops. It's the wrong number, because the inn is never going to move all of it. It needs the sites. The real question is what a recovery service can shift.",
+   "performance": "Head: a slight lean back on W001438-W001446 'That's where the old version of this argument stops.'; forward to centre on W001447 'It's'; one short downward nod on W001449 'wrong' W001450 'number,' only; still on W001462-W001465 'It needs the sites.'. Hands: right hand makes a small sideways set-aside motion across the table on W001446 'stops.' and holds there through W001450; both hands flat and quiet on W001463 'needs the sites.'; on W001472-W001475 'recovery service can shift.' the right hand slides a short distance across the table (a slice moving over) and settles. No finger pointing."
+  },
+  {
+   "take_id": "P08",
+   "segment_ids": [
+    "seg044"
+   ],
+   "scene": "S12",
+   "master_in": 666.583333,
+   "master_out": 689.458333,
+   "first_word_id": "W001881",
+   "last_word_id": "W001955",
+   "audio_seconds": 22.875,
+   "generation_seconds": 24,
+   "est_credits": 216,
+   "est_fal_sync_usd": 3.2,
+   "words": "I spent two years in boutique hospitality as Director of Customer Experience at Coqui Coqui, four properties, on the property side of the booking sites, a decade ago. I've never owned a hotel, I wasn't a revenue manager, and I haven't sold this service to anybody. So I know the guest's path from inside a property. I don't know what a thirty room inn will pay to fix it. That's the test, not the pitch.",
+   "performance": "Head: the quietest take in the set. Minimal movement, direct to lens on W001881-W001897 'I spent two years... four properties,'; one brief natural look-away up-left on W001906-W001908 'a decade ago.' returning on W001909 'I've'; near-lens and still through W001909-W001926 'I've never owned a hotel, I wasn't a revenue manager, and I haven't sold this service to anybody.' (one breath, no apology, no head drop); a small nod on W001950 'That's' W001952 'test,'; stillness on W001953-W001955 'not the pitch.'. Hands: at rest through the credential sentence; on W001937-W001949 'I don't know what a thirty room inn will pay to fix it.' one hand lifts a little and turns outward, then returns to rest by W001950. Crop: wide until W001927 'So', editorial closer crop from the same continuous source from W001927 to the out-point (no audio or source cut).",
+   "length_fallback": "If the provider maximum is below 24 s, split at the 0.63 s pause after W001897 properties, (cut 672.958333, verify silence) into two takes; credits do not rise."
+  },
+  {
+   "take_id": "P09",
+   "segment_ids": [
+    "seg055"
+   ],
+   "scene": "S16",
+   "master_in": 879.166667,
+   "master_out": 885.875,
+   "first_word_id": "W002444",
+   "last_word_id": "W002462",
+   "audio_seconds": 6.708333,
+   "generation_seconds": 8,
+   "est_credits": 72,
+   "est_fal_sync_usd": 1.07,
+   "words": "Those are hypotheses, not a funnel, and I won't invent a conversion rate to make them look like one.",
+   "performance": "Head: a small tilt toward his right shoulder on W002446 'hypotheses,'; returns firmly upright on W002451 'I' W002452 'won't' and holds still. Hands: one hand, fingers spread, lowers flat onto the table on W002447 'not' W002449 'funnel,' and stays there through W002455 'conversion rate', lifting back to rest on W002462 'one.'."
+  },
+  {
+   "take_id": "P10",
+   "segment_ids": [
+    "seg059"
+   ],
+   "scene": "S17",
+   "master_in": 976.541667,
+   "master_out": 982.875,
+   "first_word_id": "W002714",
+   "last_word_id": "W002732",
+   "audio_seconds": 6.333333,
+   "generation_seconds": 8,
+   "est_credits": 72,
+   "est_fal_sync_usd": 1.07,
+   "words": "That's a side income. It's a foothold. It is not a living. Up the band it becomes a business.",
+   "performance": "Head: still on W002714-W002717 'That's a side income.'; one slow nod on W002720 'foothold.'; complete stillness on W002721-W002725 'It is not a living.' and through the silent landing pause (the landing pause after W002725) to W002726; a slight lift of the chin on W002727 'the band'. Hands: resting through the three short sentences; on W002726-W002732 'Up the band it becomes a business.' the right hand rises one small step (flat palm, about ten centimetres) and returns. No lift in energy beyond that; the voice has none."
+  },
+  {
+   "take_id": "P11",
+   "segment_ids": [
+    "seg071"
+   ],
+   "scene": "S22",
+   "master_in": 1175.041667,
+   "master_out": 1196.458333,
+   "first_word_id": "W003239",
+   "last_word_id": "W003294",
+   "audio_seconds": 21.416666,
+   "generation_seconds": 23,
+   "est_credits": 207,
+   "est_fal_sync_usd": 3.07,
+   "words": "My verdict is build. Bounded. The problem is real, documented from four directions. The buyer is direct. The parts are cheap. And the arithmetic at the bottom of the band is thin, and I've told you so. So build the audit, because the audit is the test, and it costs you three properties and a month.",
+   "performance": "Head: centred and deliberate; one small nod on W003242 'build.'; no movement at all on W003243 'Bounded.'; a slight turn to camera-left on W003249 'from' W003251 'directions.' back to centre; small settles, not nods, on W003255 'direct.' and W003259 'cheap.'; on W003276 'So build the audit' a slight forward lean. Hands: on W003243 'Bounded.' both hands set a small box shape on the table (two flat hands facing each other, a shoulder-width apart) and hold it through the silence; release on W003244 'The'; open right palm on W003247 'real,'; left palm on W003255 'direct.'; hands rest on W003259 'cheap.'; thumb and forefinger close to a thin gap on W003270 'thin,'; forward open hand on W003277 'build' W003279 'audit,' then rest to the out-point. Crop: wide; editorial push to a closer crop from the continuous source starting on W003241 'is' so 'build. Bounded.' lands close; back to wide on W003244.",
+   "length_fallback": "If the provider maximum is below 23 s, split at the pause after W003255 direct. (1184.40 to 1184.87)."
+  },
+  {
+   "take_id": "P12",
+   "segment_ids": [
+    "seg072",
+    "seg073"
+   ],
+   "scene": "S22-S23",
+   "master_in": 1196.458333,
+   "master_out": 1213.875,
+   "first_word_id": "W003295",
+   "last_word_id": "W003338",
+   "audio_seconds": 17.416667,
+   "generation_seconds": 19,
+   "est_credits": 171,
+   "est_fal_sync_usd": 2.53,
+   "words": "What I'm not saying is that a twenty room inn will pay you. Nobody knows that yet, including me. You'll know by day thirty. The first move costs you an afternoon. Find one innkeeper you already know. Ask for four numbers. Run the ceiling.",
+   "performance": "Head: a slight lean back, candid, on W003295-W003307 'What I'm not saying is that a twenty room inn will pay you.'; still on W003308-W003311 'Nobody knows that yet,'; hand-to-chest moment on W003312 'including' W003313 'me.' with the head level; near-lens and still for W003314-W003318 'You'll know by day thirty.'; lighter, a small tilt on W003319-W003325 'The first move costs you an afternoon.'. Hands: rest through the first sentence; right hand lightly to chest on W003313 'me.' and back; one raised index finger held briefly on W003327 'one' W003328 'innkeeper' (a single one, not a count); on W003336-W003338 'Run the ceiling.' the right hand draws the same flat horizontal line as P04 (a deliberate callback) and settles. Crop: wide for W003295-W003318; closer crop from the same continuous source for W003319 onward (segment seg073)."
+  },
+  {
+   "take_id": "P13",
+   "segment_ids": [
+    "seg074",
+    "seg075"
+   ],
+   "scene": "S23-S24",
+   "master_in": 1213.875,
+   "master_out": 1233.602,
+   "first_word_id": "W003339",
+   "last_word_id": "W003398",
+   "audio_seconds": 19.727,
+   "generation_seconds": 21,
+   "est_credits": 189,
+   "est_fal_sync_usd": 2.8,
+   "words": "Tell them what you found, and ask if they'd pay you to fix it. Not to close them. To find out, in one conversation, whether this business exists at their size. Right now nobody knows. If you want more businesses worked all the way down to the number that decides them, leave a like, and subscribe for the next one.",
+   "performance": "Head: warmer, slightly forward on W003339-W003352 'Tell them what you found, and ask if they'd pay you to fix it.'; no head shake anywhere; upright on W003353-W003356 'Not to close them.'; small side-to-side consideration on W003363 'whether' W003366 'exists'; complete stillness, near-lens, on W003370-W003373 'Right now nobody knows.' and through the pause; settled and relaxed for the ask W003374-W003398, no announcer lift, no pointing at the lens. Hands: an open hand toward lens on W003348 'pay'; palm-down small wave-off low over the table on W003353 'Not' W003356 'them.'; both hands shape a small size between them on W003367 'at' W003369 'size.'; hands at rest for 'Right now nobody knows.'; one small open hand on W003390 'leave' W003392 'like,' then rest to the end. Crop: close for W003339-W003373 (seg074); wide for the ask (seg075).",
+   "length_fallback": "If the provider maximum is below 21 s, split at the pause after W003373 knows. (the seg074/seg075 boundary 1225.875)."
+  }
+ ],
+ "film_takes": [
+  {
+   "take_id": "F01",
+   "segment_ids": [
+    "seg001"
+   ],
+   "scene": "S00",
+   "master_in": 0.0,
+   "master_out": 5.625,
+   "slot_seconds": 5.625,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The guest slides the brass room key across the counter to the innkeeper and gives a small nod; she takes the key. Nobody walks yet.",
+   "start_frame": "ST01 (accepted establishing still)",
+   "hold_after_action": "both stay in place",
+   "final_image": "Key in her hand, guest still at the counter, three-quarter back to camera.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F02",
+   "segment_ids": [
+    "seg002"
+   ],
+   "scene": "S00",
+   "master_in": 5.625,
+   "master_out": 10.5,
+   "slot_seconds": 4.875,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The guest turns and walks out of frame left through the entrance; the innkeeper's gaze follows him and settles on the window and the trail at screen right.",
+   "start_frame": "last frame of accepted F01",
+   "hold_after_action": "she holds the look at the window with a faint smile",
+   "final_image": "Innkeeper alone behind the counter looking toward the window; guest book open at the counter's left end.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F03",
+   "segment_ids": [
+    "seg003"
+   ],
+   "scene": "S00",
+   "master_in": 10.5,
+   "master_out": 16.833333,
+   "slot_seconds": 6.333333,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The innkeeper turns to the open laptop (screen facing her, never visible), types a few words, then her hands stop above the keys.",
+   "start_frame": "last frame of accepted F02",
+   "hold_after_action": "hands hover, she looks at the screen",
+   "final_image": "Innkeeper at the laptop, hands still above the keys, expression neutral and attentive, not upset.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F04",
+   "segment_ids": [
+    "seg007"
+   ],
+   "scene": "S00",
+   "master_in": 36.333333,
+   "master_out": 40.083333,
+   "slot_seconds": 3.75,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "A year later, same desk: the innkeeper reads the laptop screen (never visible) and a small smile of recognition forms.",
+   "start_frame": "a frame of accepted F03 before the typing starts",
+   "hold_after_action": "the smile settles; no speaking",
+   "final_image": "Innkeeper at the laptop with a quiet look of recognition.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F05",
+   "segment_ids": [
+    "seg014"
+   ],
+   "scene": "S03",
+   "master_in": 93.75,
+   "master_out": 99.166667,
+   "slot_seconds": 5.416667,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The guest, seated on his sofa at evening lamplight, scrolls his phone with one thumb and pauses to compare (screen faces away, never visible).",
+   "start_frame": "ST02 (accepted guest-at-home still)",
+   "hold_after_action": "he keeps looking at the phone",
+   "final_image": "Guest looking down at the phone, thumb resting.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F06",
+   "segment_ids": [
+    "seg031"
+   ],
+   "scene": "S08",
+   "master_in": 396.291667,
+   "master_out": 403.541667,
+   "slot_seconds": 7.25,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The innkeeper lifts the desk phone to her ear and listens while her other hand stays on a stack of printed reservation pages (unreadable).",
+   "start_frame": "last frame of accepted F02 (innkeeper alone)",
+   "hold_after_action": "she stays on the call",
+   "final_image": "Innkeeper on the phone at the counter, one hand on the papers.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F07",
+   "segment_ids": [
+    "seg049"
+   ],
+   "scene": "S14",
+   "master_in": 766.625,
+   "master_out": 770.333333,
+   "slot_seconds": 3.708333,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "Close on the counter: the innkeeper's hand slides one blank registration card and a pen toward camera and withdraws.",
+   "start_frame": "1280x720 crop of the counter area from the last frame of accepted F02 (registration cards and pen visible)",
+   "hold_after_action": "card and pen rest on the counter",
+   "final_image": "A blank registration card and pen on the counter; no readable text.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F08",
+   "segment_ids": [
+    "seg066"
+   ],
+   "scene": "S20",
+   "master_in": 1125.791667,
+   "master_out": 1132.458333,
+   "slot_seconds": 6.666666,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The guest, at the counter, picks up the pen and fills in the registration card (card text unreadable).",
+   "start_frame": "first frame of accepted F01 (guest at the counter) with the registration card and pen in reach",
+   "hold_after_action": "he keeps writing",
+   "final_image": "Guest writing on the registration card, innkeeper behind the counter.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F09",
+   "segment_ids": [
+    "seg067"
+   ],
+   "scene": "S20",
+   "master_in": 1132.458333,
+   "master_out": 1135.416667,
+   "slot_seconds": 2.958334,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The guest leans to the open guest book at the counter's end and signs it (pages unreadable).",
+   "start_frame": "last frame of accepted F08",
+   "hold_after_action": "pen lifts, he straightens",
+   "final_image": "Guest book with a fresh signature line (unreadable), guest straightening.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  },
+  {
+   "take_id": "F10",
+   "segment_ids": [
+    "seg068"
+   ],
+   "scene": "S20",
+   "master_in": 1135.416667,
+   "master_out": 1139.458333,
+   "slot_seconds": 4.041666,
+   "requested_seconds": 8,
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "generate_audio": false,
+   "est_fal_usd": 0.9,
+   "action": "The innkeeper, alone at the counter, writes a short note by hand on a small card.",
+   "start_frame": "last frame of accepted F02 (innkeeper alone)",
+   "hold_after_action": "she keeps writing",
+   "final_image": "Innkeeper writing a card by hand at the counter; no readable text.",
+   "constraints": "One locked-off camera, no camera move, no cut, real-time motion, no speaking or lip movement, no readable text on screens, cards, books or papers, no logos, preserve wardrobe, faces, counter props and daylight from the start frame. Narrated dramatization: the narrator supplies meaning; picture is illustrative, not evidence. Select the source window after playback; no speed change; if the action misses the slot, hold on accepted frames rather than retry beyond the cap."
+  }
+ ],
+ "establishing_stills": [
+  {
+   "still_id": "ST01",
+   "world": "the inn front desk (spring, daylight)",
+   "used_by": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F06",
+    "F07",
+    "F08",
+    "F09",
+    "F10"
+   ],
+   "est_credits": 30,
+   "cap_credits": 40,
+   "prompt": "Photographic documentary still, 16:9, eye-level locked-off medium-wide shot across the reception counter of a small, well-kept 20-room country inn in the United States, spring morning daylight from a window at screen right that looks out onto a wooded walking trail behind the property. Behind the counter, right of centre: the innkeeper, a woman in her mid-40s, dark hair tied back, olive-green knit cardigan over a cream shirt. At the counter, screen left, three-quarter back to camera: the guest, a man in his late 30s, short brown hair, navy rain shell, a daypack on one shoulder, his right hand near a brass room key on the counter. On the counter: an open laptop angled so its screen faces her and is not visible to camera, a desk bell, a small jar of daffodils, a short stack of blank registration cards with a pen, and at the counter's left end nearest the entrance an open cloth-bound guest book with a pen in its gutter, pages unreadable. A wooden key rack on the wall behind her. Lived-in, modest, not luxury. No logos, no readable text anywhere, no other people. Natural neutral grade.",
+   "review_checks": [
+    "guest book, registration cards, laptop angle and window trail all present",
+    "no readable text or logo",
+    "faces and wardrobe distinct from EP007's workshop cast",
+    "counter geography leaves room for the guest to exit left"
+   ]
+  },
+  {
+   "still_id": "ST02",
+   "world": "the guest's living room (evening)",
+   "used_by": [
+    "F05"
+   ],
+   "est_credits": 30,
+   "cap_credits": 40,
+   "prompt": "Photographic documentary still, 16:9, eye-level medium shot of the same man as in the reference image (late 30s, short brown hair), now in a grey sweater, sitting on a sofa in his living room at evening lamplight, holding a phone in one hand and looking down at it; the phone screen faces away from camera and is not visible. A mug on a side table. No logos, no readable text, no other people. Natural neutral grade matching the reference.",
+   "reference": "accepted ST01 as identity reference for the guest",
+   "review_checks": [
+    "guest identity matches ST01",
+    "phone screen not visible",
+    "ordinary home, not staged luxury"
+   ]
+  }
+ ],
+ "budget": {
+  "presenter_generation_seconds": 192,
+  "presenter_credits": 1728,
+  "still_credits": 60,
+  "still_credit_cap": 120,
+  "fal_presenter_sync_usd": 25.6,
+  "fal_film_usd": 8.96,
+  "total_higgsfield_credits_est": 1788,
+  "total_fal_usd_est": 34.56,
+  "caps": {
+   "higgsfield_credits": 2000,
+   "fal_usd": 40.0,
+   "lane_presenter": {
+    "higgsfield_credits": 1880,
+    "fal_usd": 30.0
+   },
+   "lane_film": {
+    "higgsfield_credits": 120,
+    "fal_usd": 10.0
+   }
+  },
+  "basis": {
+   "presenter": "9 credits per generated second (EP007 R59: 126 credits for 14 s); generation_seconds = ceil(audio_seconds) + 1; Fal Sync v3 at $8 per minute charged here on generation seconds as an upper bound",
+   "film": "Kling v3 Pro image-to-video audio off at $0.112 per second, 8 s requests = $0.896 (EP007 R52 cost proposal)",
+   "stills": "estimate only; preflight the actual model price before submission and stop at cap_credits"
+  },
+  "rules": "Read and append to ledger/SPEND-LEDGER.json before every paid call. No paid retries of identical requests. A failed film take falls back to holding accepted frames or the adjacent model; a failed presenter take needs a new ledger entry with a reason and must stay inside the lane cap."
+ },
+ "lane_counts": {
+  "film": 10,
+  "screen": 1,
+  "model": 41,
+  "presenter": 15,
+  "sting": 2,
+  "evidence": 6
+ }
+}
