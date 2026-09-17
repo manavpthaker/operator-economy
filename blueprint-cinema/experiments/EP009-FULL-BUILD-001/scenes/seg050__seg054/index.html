@@ -179,8 +179,9 @@ const move=(s,at,v,d=.8)=>tl.to(s,Object.assign({duration:d,ease:'power2.inOut',
 const place=(s,at,v)=>tl.set(s,Object.assign({svgOrigin:'0 0'},v),at);
 const draw=(s,at,d=.6,dash)=>{Q(s).forEach(p=>{const L=Math.ceil(p.getTotalLength())+2;tl.set(p,{autoAlpha:1,strokeDasharray:L+' '+L,strokeDashoffset:L},at);tl.to(p,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at);if(dash)tl.set(p,{strokeDasharray:dash,strokeDashoffset:0},at+d+.01);});};
 const wipe=(s,at,d=.6)=>tl.fromTo(s,{autoAlpha:1,clipPath:'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:d,ease:'power1.inOut'},at);
-// Attribute transform tween (seek-safe): from/to {x,y,s}; markup must carry the "from" transform.
-const xf=(sel,at,from,to,d=.8)=>{const el=document.querySelector(sel);const o=Object.assign({},from);el.setAttribute('transform',`translate(${from.x},${from.y}) scale(${from.s})`);tl.fromTo(o,Object.assign({},from),Object.assign({},to,{duration:d,ease:'power2.inOut',onUpdate:()=>el.setAttribute('transform',`translate(${o.x},${o.y}) scale(${o.s})`)}),at);};
+// Attribute transform tween (seek-safe, AttrPlugin): from/to {x,y,s}; first call per element renders its from-state.
+const XFS=new Set();
+const xf=(sel,at,from,to,d=.8)=>{const T=(v)=>`translate(${v.x},${v.y}) scale(${v.s})`;const first=!XFS.has(sel);XFS.add(sel);tl.fromTo(sel,{attr:{transform:T(from)}},{attr:{transform:T(to)},duration:d,ease:'power2.inOut',immediateRender:first},at);};
 const B={seg051:14.416667,seg052:34.416667,seg053:59.916667,seg054:91.416667};
 // Frame 0 reproduces the seg048 end state (retainer card set aside at 45%).
 gsap.set('#ret',{opacity:.45});

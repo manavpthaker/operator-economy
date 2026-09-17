@@ -12,28 +12,32 @@ r = Rough(5717)
 S = []  # svg body
 tl = TL()
 
-# ---------- inherited S16 end state (seg056), reconstructed from DIRECTION-PLAN.md ----------
-S.append('<g id="s16">')
-S.append('<text class="fig" x="640" y="104" text-anchor="middle" style="font-size:50px">Kill condition</text>')
-S.append('<use href="#kit-phone" transform="translate(96,180)"/>')
-S.append(f'<g><path d="{r.rect(230,160,520,150)}" class="steel"/>'
-         '<text class="lab" x="254" y="212">agencies already retain 30-room inns</text>'
-         '<text class="lab" x="254" y="244">at $1,500 a month</text>'
-         '<text class="small" x="254" y="286">owners prefer it</text></g>')
-S.append('<use href="#kit-practice-figure" transform="translate(150,520) scale(.6)"/>')
-S.append('<path class="kit-route-dashed" d="M205 520C260 500 300 470 330 452"/>')
-S.append('<use href="#kit-inn-mini" transform="translate(330,380) scale(.6)"/>')
-S.append(f'<rect x="398" y="430" width="22" height="41" fill="{SHEET}" stroke="{STEEL}" stroke-width="2" stroke-dasharray="6 5"/>')
-S.append('<text class="small" x="402" y="500" text-anchor="middle">no front door at this size</text>')
-S.append('<path class="kit-route" d="M150 318C400 390 760 380 918 350M162 312C520 360 960 300 1080 350"/>')
-S.append('<use href="#kit-person" transform="translate(930,400) scale(.5)"/><use href="#kit-person" transform="translate(1090,400) scale(.5)"/>')
-S.append('<text class="small" x="1010" y="460" text-anchor="middle">two agencies</text>')
-S.append(f'<g><path d="{r.rect(780,500,440,70)}" class="steel"/><text class="small" x="802" y="544">smallest retained property:</text>'
-         f'<path d="M1060 548L1196 548" class="light"/></g>')
-S.append('</g>')
+# ---------- inherited S16 end state: act 3's scenes/seg056/index.html final state, copied at build time ----------
+import hashlib, re as _re
+A3 = Path(__file__).resolve().parents[2] / 'seg056/index.html'
+a3 = A3.read_text()
+A3_SHA = hashlib.sha256(a3.encode()).hexdigest()
+k = _re.search(r'<g id="k">.*?\n</g>\n(?=</svg>)', a3, _re.S).group(0)
+k = k.replace('class="hide"', '').replace(' class="hide ', ' class="')
+for cl in ('cardw', 'blk', 'gap', 'kicker', 'small', 'tiny', 'label', 'kit-route'):
+    k = _re.sub(r'class="' + cl + '"', 'class="a3-' + cl + '"', k)
+k = k.replace('<g id="k">', '<g id="s16">', 1)
+for old in ('phone', 'cond', 'c1', 'c2', 'route', 'call', 'call1', 'call2', 'ans'):
+    k = k.replace(f'id="{old}"', f'id="a3-{old}"')
+S.append(k)
+A3_CSS = ('.a3-kit-route{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}'
+          '.a3-gap{stroke:#586D74;stroke-width:2;stroke-dasharray:6 5;fill:none;stroke-linecap:round}'
+          '.a3-label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}'
+          '.a3-small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}'
+          '.a3-tiny{font-family:Supreme,sans-serif;fill:#33464C;font-size:18px;font-weight:400}'
+          '.a3-blk{font-family:Supreme,sans-serif;fill:#173530;font-size:25px;font-weight:500}'
+          '.a3-kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:18px;font-weight:500;letter-spacing:2px}'
+          '.a3-cardw{stroke:#173530;stroke-width:3;fill:#F5F0E6}'
+          '#a3-hK{position:absolute;left:0;right:0;top:24px;text-align:center;margin:0;font:700 60px/1.06 Boska,serif;color:#173530}')
+A3_HEAD = '<h1 id="a3-hK">Kill condition</h1>\n'
 
 # ---------- persistent top band: modeled scenario, every frame ----------
-S.append(f'<g id="band"><rect x="0" y="0" width="1280" height="40" fill="{CARD}"/>'
+S.append(f'<g id="band" class="hide"><rect x="0" y="0" width="1280" height="40" fill="{CARD}"/>'
          f'<path d="M0 40.5L1280 40.5" stroke="{STEEL}" stroke-width="1.3"/>'
          '<text x="640" y="27" text-anchor="middle"><tspan class="kicker">MODELED SCENARIO</tspan>'
          '<tspan class="small" style="font-size:19px"> · Modeled scenario, not observed performance or an earnings forecast.</tspan></text></g>')
@@ -110,6 +114,8 @@ C = {k: c(w) for k, w in dict(
     six20='W002699', forty='W002709').items()}
 
 # S16 tail holds through "Say the door's open." then clears; band stays from frame 0.
+tl.out('#a3-hK', C['say'] - .05, .3)
+tl.appear('#band', C['say'] + .1, .35)
 tl.out('#s16', round(C['your'] - .5, 3), .4)
 tl.fade('#head', C['your'])
 tl.draw('#ul1', C['modeled'], .7)
@@ -151,6 +157,8 @@ for s in ('#colb', '#cols', '#stag', '#barb', '#barbl', '#bars', '#figb', '#figb
     tl.to(s, C['six20'], 'opacity:.5', .5)
 tl.fade('#row20', C['forty'] - .25)
 
-html = page('S17 the operator\'s arithmetic, parts a and b', 's17ab-root', 'ep009-s17ab', DUR, body, defs, tl, C)
+html = page('S17 the operator\'s arithmetic, parts a and b', 's17ab-root', 'ep009-s17ab', DUR, body, defs, tl, C, extra_html=A3_HEAD)
+html = html.replace('</head>', '<style>' + A3_CSS + '</style></head>', 1)
+print('seg056 source sha256', A3_SHA)
 (Path(__file__).parent.parent / 'index.html').write_text(html)
 print('wrote', DUR)

@@ -49,14 +49,14 @@ slip = subprocess.run(['python3', str(KITDEFS).replace('kit_defs.py', 'kit_defs.
                       capture_output=True, text=True, check=True).stdout
 lit = ''.join(f'<rect id="lit{i}" x="24" y="{y}" width="252" height="51" fill="{CARD}" style="mix-blend-mode:multiply"/>'
               for i, y in ((1, 93), (2, 179), (3, 265), (4, 350)))
-S.append('<g id="slipw" class="hide"><g id="slip" transform="translate(760,150)">' + slip + lit
+S.append('<g id="slipw" class="hide"><g id="slip" transform="translate(390,136)">' + slip + lit
          + '<text id="slip-title" class="lab" x="24" y="40" style="font-size:26px">The ceiling</text>'
          + '<text id="slip-ill" class="tiny" x="258" y="40" text-anchor="end">illustrative</text></g></g>')
-S.append('<text id="four" class="hide label" x="610" y="250" text-anchor="middle">Four numbers</text>')
-S.append('<g id="cline" class="hide"><use href="#kit-ceiling-line" transform="translate(430,470) scale(.9)" color="#B5482F"/>'
-         '<text class="lab" x="430" y="452">Ceiling</text></g>')
-S.append('<g id="rtag" class="hide"><use href="#kit-retainer-tag" transform="translate(530,486)"/></g>')
-S.append('<text id="anyp" class="hide small" x="910" y="626" text-anchor="middle">any small property</text>')
+S.append('<text id="four" class="hide label" x="740" y="236">Four numbers</text>')
+S.append('<g id="cline" class="hide"><use href="#kit-ceiling-line" transform="translate(740,400)" color="#B5482F"/>'
+         '<text class="lab" x="740" y="382">Ceiling</text></g>')
+S.append('<g id="rtag" class="hide"><use href="#kit-retainer-tag" transform="translate(872,418)"/></g>')
+S.append('<text id="anyp" class="hide small" x="540" y="620" text-anchor="middle">any small property</text>')
 
 body = '\n'.join(S)
 defs = kit_defs(['kit-inn', 'kit-inn-own-page', 'kit-booking-site-simple', 'kit-commission-tag', 'kit-commission-tag-empty',
@@ -85,8 +85,8 @@ tl.appear('#svc', C['service'], .3)
 tl.fade('#pcard', C['service'] + .15)
 tl.fade('#svcl', C['service'] + .5)
 # "And now you have the arithmetic": the tag slides aside, the slip comes forward
-tl.js(f"t.to('#big',{{x:-110,y:120,scale:.6,svgOrigin:'150 230',opacity:.5,duration:.7,ease:'power2.inOut'}},{C['now']});")
-tl.js(f"t.fromTo('#slipw',{{autoAlpha:0,x:120}},{{autoAlpha:1,x:0,duration:.6,ease:'power2.out'}},{C['now'] + .1});")
+tl.js(f"t.to('#big',{{x:820,y:-150,scale:.45,svgOrigin:'150 230',opacity:.5,duration:.7,ease:'power2.inOut'}},{C['now']});")
+tl.js(f"t.fromTo('#slipw',{{autoAlpha:0,x:180}},{{autoAlpha:1,x:0,duration:.6,ease:'power2.out'}},{C['now'] + .1});")
 # the four inputs highlight and clear to blank, one oxide at a time
 for i, k in enumerate(['rooms', 'rate', 'occ', 'share'], 1):
     at = C[k]

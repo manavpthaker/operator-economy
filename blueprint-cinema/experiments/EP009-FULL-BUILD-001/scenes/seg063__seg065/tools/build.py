@@ -108,8 +108,8 @@ C = {k: c(w) for k, w in dict(before='W002944', first='W002951', building='W0029
                               say='W003097').items()}
 tl = TL()
 tl.out('#prev18', C['before'], .5)
-tl.draw('#tline path:first-child', C['before'] + .7, .9)
-tl.appear('#tline', C['before'] + .7, .2)
+tl.draw('#tline path:first-child', C['before'] + .3, .9)
+tl.appear('#tline', C['before'] + .3, .2)
 tl.fade('#d130', C['first'])
 tl.fade('#bnt', C['building'])
 tl.appear('#audit', C['build'])
