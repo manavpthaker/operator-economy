@@ -12,13 +12,13 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 .x{visibility:hidden;opacity:0}
 .kicker{font-size:19px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#33464C;line-height:1.3}
 .fig{font:700 64px/1 Boska,serif;margin-top:16px;white-space:nowrap}
-.stmt{font:700 34px/1.12 Boska,serif;margin-top:16px}
+.stmt{font:700 36px/1.1 Boska,serif;margin-top:16px}
 .line{font:400 24px/1.3 Supreme,sans-serif;margin-top:12px}
 .qual{font:400 21px/1.3 Supreme,sans-serif;color:#33464C;margin-top:8px}
 .note{font:400 21px/1.3 Supreme,sans-serif;color:#173530;margin-top:18px;padding-top:10px;border-top:1.5px solid #586D74}
 .note strong{font-weight:500}
 .here{font:500 27px/1.2 Supreme,sans-serif;margin-top:18px}
-.receipt{position:absolute;left:24px;right:20px;bottom:16px;font:400 16px/1.3 Supreme,sans-serif;color:#33464C}
+.receipt{position:absolute;left:24px;right:20px;bottom:16px;font:400 14px/1.3 Supreme,sans-serif;color:#586D74}
 </style><script src="public/vendor/gsap.min.js"></script></head><body>
 <div id="s03e-root" data-composition-id="ep009-seg017" data-start="0" data-duration="33.666666666666664" data-width="1280" data-height="720" data-fps="24">
 <svg class="stage" viewBox="0 0 1280 720" aria-hidden="true">
@@ -27,24 +27,22 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 <rect id="o3" x="856" y="150" width="360" height="470" rx="4" stroke="#586D74" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
 </svg>
 <h1 class="head">Three things changed</h1>
-<div class="slot" style="left:64px">
-  <div id="a-k" class="kicker x">Cloudbeds</div>
+<div id="sa" class="slot" style="left:64px">
+  <div id="a-k" class="kicker x">Cloudbeds · sells hotel software</div>
   <div id="a-f" class="fig x">about 63%</div>
-  <div id="a-l" class="line x">of independent hotel reservations through the sites</div>
-  <div id="a-q" class="qual x">worldwide, 2025</div>
-  <div id="a-n" class="note x"><strong>Interest</strong> · Cloudbeds sells hotel software</div>
+  <div id="a-l" class="line x">of independent hotel reservations through the sites<span id="a-q" class="x" style="color:#33464C">, worldwide, 2025</span></div>
   <div id="a-r" class="receipt x">Cloudbeds, 2026 State of Independent Hotels, press release 2026-03-25, about 90 million bookings, 63.4 percent, C001</div>
 </div>
-<div class="slot" style="left:460px">
-  <div id="b-k" class="kicker x">Booking.com Genius · secondary</div>
-  <div id="b-s" class="stmt x">Genius placement: relevance-based from early 2026</div>
-  <div id="b-l" class="line x">the minimum discount no longer buys the visibility</div>
+<div id="sb" class="slot" style="left:460px">
+  <div id="b-k" class="kicker x">Trade reporting · secondary</div>
+  <div id="b-s" class="stmt x">Genius placement changed<span id="b-q" class="x">, early 2026</span></div>
+  <div id="b-l" class="line x">the minimum discount no longer buys the visibility it used to</div>
   <div id="b-r" class="receipt x">Houst, "Genius for hosts 2026", relevance-based visibility from early 2026, secondary, C006</div>
 </div>
-<div class="slot" style="left:856px">
-  <div id="c-k" class="kicker x">HOTREC · Europe</div>
+<div id="sc" class="slot" style="left:856px">
+  <div id="c-k" class="kicker x">HOTREC</div>
   <div id="c-f" class="fig x">15,000+</div>
-  <div id="c-l" class="line x">European hotels joined a damages claim over price parity clauses</div>
+  <div id="c-l" class="line x">hotels joined a damages claim over price parity clauses</div>
   <div id="c-h" class="here x">Europe, not here</div>
   <div id="c-r" class="receipt x">HOTREC 2025-08-28, 15,000-plus hotels registered; claim filed Amsterdam District Court 2026-01-30, 10,783 hotels; ECJ C-264/23 of 2024-09-19, C037</div>
 </div>
@@ -57,11 +55,11 @@ const C={"cloudbeds":0.475,"independent":4.415,"sixty":10.175,"worldwide":11.095
 const rise=(sel,at)=>t.fromTo(sel,{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:8/24,ease:'power2.out'},at);
 const firm=(sel,at)=>t.set(sel,{attr:{'stroke-dasharray':'none'}},at);
 // 1. "Cloudbeds, which sells hotel software, reports the share ... to about sixty three percent worldwide."
-firm('#o1',C.cloudbeds);rise('#a-k',C.cloudbeds);rise('#a-n',C.cloudbeds+.5);rise('#a-r',C.cloudbeds);
-rise('#a-l',C.independent);rise('#a-f',C.sixty);rise('#a-q',C.worldwide);
+firm('#o1',C.cloudbeds);rise('#a-k',C.cloudbeds);rise('#a-r',C.cloudbeds);
+rise('#a-l',C.independent);rise('#a-f',C.sixty);t.fromTo('#a-q',{autoAlpha:0},{autoAlpha:1,duration:8/24},C.worldwide);
 // 2. "Booking dot com changed how Genius placement works, so the minimum discount no longer buys the visibility"
-firm('#o2',C.booking);rise('#b-k',C.booking);rise('#b-r',C.booking);rise('#b-s',C.changed);rise('#b-l',C.minimum);
+t.to('#sa',{opacity:.4,duration:.4,ease:'power1.inOut'},C.booking-.2);firm('#o2',C.booking);rise('#b-k',C.booking);rise('#b-r',C.booking);rise('#b-s',C.changed);rise('#b-l',C.minimum);t.fromTo('#b-q',{autoAlpha:0},{autoAlpha:1,duration:8/24},C.changed+.4);
 // 3. "in Europe, more than fifteen thousand hotels have joined a damages claim ... That's Europe, not here"
-firm('#o3',C.europe0);rise('#c-k',C.europe0);rise('#c-r',C.europe0);rise('#c-f',C.europe0+1.14);rise('#c-l',C.damages);rise('#c-h',C.europe);
+t.to('#sb',{opacity:.4,duration:.4,ease:'power1.inOut'},C.europe0-.2);firm('#o3',C.europe0);rise('#c-k',C.europe0);rise('#c-r',C.europe0);rise('#c-f',C.europe0+1.14);rise('#c-l',C.damages);rise('#c-h',C.europe);
 window.__timelines['ep009-seg017']=t;
 </script></body></html>

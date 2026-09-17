@@ -26,7 +26,7 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 <g id="kit-person" data-kit-desc="Generic person. Verbatim EP007 R54/R57/R60 #person geometry."><path d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
 <!-- KIT:DEFS:END -->
 </defs></svg>
-<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="A drawn reservation record whose email field is an illustrative relay address. The relay line from the inn stops a little after checkout. A year later the same guest books the same room through the booking site, and a second commission tag the same size as the first lands beside it.">
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="A drawn reservation record whose email field is an illustrative relay address. The relay line runs from the inn's front door carrying the relay field and stops a little after checkout, the field resting at the stop. A year later the same guest books the same room through the booking site, and a second commission tag the same size as the first lands beside it.">
 <!-- seg004: the reservation record (screen insert). -->
 <g id="rec" transform="translate(178,109) scale(1.55)"><path d="M0 3L560 0L596 30L594 322L2 324Z" fill="#FBF8F1" stroke="none"/>
 <path d="M0.4 3.7L560.9 0.3M595.4 32.9L594.8 322.1M591.9 324.1L1.9 324.6M0.5 320.3L0.2 6.1" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,8 +47,8 @@ svg.stage{position:absolute;inset:0;width:1280px;height:720px}
 <g id="lit" class="hide"><use href="#kit-inn-window-lit" transform="translate(191.2,332.4) scale(.8)"/></g>
 <g id="site" class="hide"><use href="#kit-booking-site-simple" transform="translate(856,290) scale(1.7)"/><text class="kit-label" x="992" y="268" text-anchor="middle">Booking site</text></g>
 <g id="tag1" class="hide"><use href="#kit-commission-tag" transform="translate(1150,318) scale(1.4)"/></g>
-<path id="relay-line" class="kit-route hide" d="M458 372C540 371 620 373 700 371"/>
-<g id="checkout" class="hide"><use href="#kit-tick" transform="translate(596,372)"/><text class="kit-small" x="596" y="414" text-anchor="middle">checkout</text></g>
+<path id="relay-line" class="kit-route hide" d="M318 472C420 471 540 473 640 472"/>
+<g id="checkout" class="hide"><use href="#kit-tick" transform="translate(560,472)"/><text class="kit-small" x="560" y="448" text-anchor="middle">checkout</text></g>
 <g id="year" class="hide"><use href="#kit-calendar-leaf" transform="translate(520,40) scale(.7)"/><text class="kit-label" x="620" y="102">A year later</text></g>
 <g id="guest" class="hide"><use href="#kit-guest" transform="scale(.6)"/></g>
 <path id="return-route" class="kit-route hide" d="M864 510C750 606 450 606 318 508"/>
@@ -80,10 +80,13 @@ t.fromTo('#h-relay',{autoAlpha:0,y:6},{autoAlpha:1,y:0,duration:10/24,ease:'powe
 // seg005: the record steps away, the field carries into the model world.
 t.to('#rec',{autoAlpha:0,duration:.35,ease:'power1.in'},C.cut005);
 t.to('#h-relay',{autoAlpha:0,duration:.3,ease:'power1.in'},C.cut005);
-t.to('#relay',{x:470,y:252,scale:.8,duration:.6,ease:'power2.inOut'},C.cut005);
+// The field lands centred under the inn's front door (door at x 318), where the relay line starts.
+t.to('#relay',{x:318-147,y:486,scale:.7,duration:.55,ease:'power2.inOut'},C.cut005);
 fade('#inn',C.cut005+.2,.45);fade('#site',C.cut005+.2,.45);fade('#tag1',C.cut005+.3,.45);
 // "A week or so after checkout, the relay stops working."
 draw('#relay-line',C.A2,C.stops-C.A2+.25,'none');
+// The field rides the line head and rests where the line stops, a little after checkout.
+t.to('#relay',{x:640-147,duration:C.stops-C.A2+.25,ease:'none'},C.A2);
 t.set('#relay-line',{strokeDasharray:'none'},C.stops+.3);
 fade('#checkout',C.checkout,8/24);
 // "A year later the same guest books the same room, through the same website."

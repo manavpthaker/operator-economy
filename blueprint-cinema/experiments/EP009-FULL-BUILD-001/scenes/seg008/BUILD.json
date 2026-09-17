@@ -13,21 +13,18 @@
  },
  "mp4": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/seg008.mp4",
-  "sha256": "42d42d22d46056301747cc82a58dd2c73995088cdbe4e5d9157a2dd0dfc2d4cb"
+  "sha256": "bea5cb915f09f5f27b42bd33930114145ad57d2dfcce05185215d38404ec8e4d"
  },
  "index_html": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/index.html",
-  "sha256": "b5e9aa6924a75b7fa870afe9577d4f54c5b6786198c3550223af5548f929cb91"
+  "sha256": "684e60506fba9dfdfcd195ec338ba6f762d8501142705766bcee7ebb2a5d09d2"
  },
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/00-at-0.000s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/01-at-2.900s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/02-at-3.400s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/03-at-4.000s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/04-at-6.300s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/05-at-6.900s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/06-at-10.160s.png",
-  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/contact-sheet.png"
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/01-at-3.400s.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/02-at-4.200s.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/03-at-6.800s.png",
+  "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/stills/04-at-10.150s.png"
  ],
  "checks": {
   "strict_errors": 0,
@@ -40,15 +37,25 @@
   "audio": "48000 Hz 2 ch"
  },
  "end_state": {
-  "seg008": "Closer framing after film F04: kit-booking-site-simple translate 60,262 scale 1.7 label \"Booking site\"; two identical commission tags at translate 420,196 and 420,366 scale 3; dashed \"a service\" shape (kit-tag-service geometry, dash 4 4) inside the second tag with label \"a service\" at (530,530); blank kit-ceiling-slip-blank at translate 860,150, nothing filled. Cuts to presenter P01."
+  "seg008": "Closer framing after film F04: booking site (kit-booking-site-simple geometry, non-scaling strokes) translate 60,262 scale 1.7 label \"Booking site\"; two identical commission tags (non-scaling strokes) at translate 420,196 and 420,366 scale 3; dashed \"a service\" shape (kit-tag-service geometry, non-scaling steel 2.5, dash 10 8) inside the second tag with label \"a service\" at (530,530); blank kit-ceiling-slip-blank at translate 860,150, nothing filled. Cuts to presenter P01."
  },
  "new_objects": [],
  "deviations": [
-  "Opens on a closer framing of the site and the two tags (both scaled 3x, still identical) rather than the seg006 wide layout; a film clip sits between them so no carry is implied."
+  "Opens on a closer framing of the site and the two tags (both scaled 3x, still identical) rather than the seg006 wide layout; a film clip sits between them so no carry is implied.",
+  "Fix round 1 (A-06): site and tags use kit geometry copied with vector-effect non-scaling-stroke (defs s00h-booking-site-simple-ns, s00h-commission-tag-ns) so enlargements keep kit stroke weight; the dashed service shape is non-scaling steel 2.5 dash 10 8. Layout and cues unchanged."
  ],
  "decision_event_ids": [
   "ep009-s00-direction-v1",
-  "ep009-act1-seg008-verified-v1"
+  "ep009-act1-seg008-verified-v1",
+  "ep009-act1-s00-fix-round-1-v1",
+  "ep009-act1-s00-fix-round-1-verified-v1"
  ],
- "review_note": "Agent build. Stills at every cue and a contact sheet were looked at; fixes made after looking are summarised in the verification event. Not owner acceptance."
+ "review_note": "Agent build. Stills at every cue and a contact sheet were looked at; fixes made after looking are summarised in the verification event. Not owner acceptance.",
+ "previous_render": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg008/qa/seg008.r0.mp4",
+  "sha256": "42d42d22d46056301747cc82a58dd2c73995088cdbe4e5d9157a2dd0dfc2d4cb"
+ },
+ "fix_round_1": [
+  "A-06"
+ ]
 }
