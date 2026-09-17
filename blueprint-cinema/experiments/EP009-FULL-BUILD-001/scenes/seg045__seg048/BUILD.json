@@ -1,34 +1,36 @@
 {
- "project": "seg045__seg048",
- "frames_expected": 1852,
- "check_rc": 0,
- "render_rc": 0,
- "streams": [
-  {
-   "codec_type": "video",
-   "width": 1280,
-   "height": 720,
-   "r_frame_rate": "24/1",
-   "nb_read_frames": "1852"
-  },
-  {
-   "codec_type": "audio",
-   "sample_rate": "48000",
-   "channels": 2,
-   "r_frame_rate": "0/0",
-   "nb_read_frames": "3618"
-  }
+ "segments": [
+  "seg045",
+  "seg046",
+  "seg047",
+  "seg048"
  ],
+ "master_in": 689.458333,
+ "master_out": 766.625,
  "frames": 1852,
- "frames_ok": true,
- "audio_samples": [
-  3704832,
-  3704000
- ],
- "audio_corr": 0.9998117345099641,
- "audio_gain_db": -0.022641925567152398,
- "uniform_frames": [],
- "mp4_sha256": "82bca5413118255f7ad9fc9d5c7ee35c54db73683a396c1f295f334538a31c07",
+ "segment_frame_ranges": {
+  "seg045": [
+   0,
+   346
+  ],
+  "seg046": [
+   346,
+   724
+  ],
+  "seg047": [
+   724,
+   1260
+  ],
+  "seg048": [
+   1260,
+   1852
+  ]
+ },
+ "mp4": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/seg045__seg048.mp4",
+  "sha256": "82bca5413118255f7ad9fc9d5c7ee35c54db73683a396c1f295f334538a31c07"
+ },
+ "index_html_sha256": "fb0ab8b1e5e9f1e5786270ca929b7624ed04ea07a40c12aa6f631b446ec899af",
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/stills/seg045__seg048-000.020s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/stills/seg045__seg048-001.242s.png",
@@ -77,5 +79,44 @@
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/stills/seg045__seg048-070.402s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/stills/seg045__seg048-075.182s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg045__seg048/qa/stills/seg045__seg048-077.117s.png"
- ]
+ ],
+ "checks": {
+  "strict_errors": 0,
+  "strict_passed": true,
+  "frames_expected": 1852,
+  "frames_ok": true,
+  "audio_corr": 0.999812,
+  "audio_gain_db": -0.023,
+  "audio": "2 ch 48000 Hz aac; rendered stream carries encoder padding samples beyond the excerpt (3704832 vs 3704000)",
+  "uniform_frames": [],
+  "seams": "frame 0 vs seg040__seg043 last frame: max 3/255; last frame vs seg050__seg054 frame 0: max 10/255, 0 px over 20"
+ },
+ "new_objects": [
+  "back office door: frame, closed and open leaf in kit card fill and ink",
+  "R60-style work blocks (card fill, ink 3) for S13 rows, compressed rows and judgment blocks",
+  "audit card (card fill, ink 3.5) with MODELED kicker",
+  "phone screen marks: search bar, own page glyph (kit-inn-own-page .36), booking step"
+ ],
+ "deviations": [
+  "Handshake mark drawn as the innkeeper figure labelled \"someone you know\".",
+  "A short route from her to the back office door on W001986.",
+  "S13 six-inns-one-person as a small fan at the foot between columns; \"drip campaign\" label.",
+  "S14a heading enters by wipe (S13 fade) for check 7."
+ ],
+ "assumptions": [],
+ "end_state": {
+  "seg045": "You kit-practice-figure at (170,400) label You; routes to three inn-minis .6 at (560,130) and (560,520) at 35% and (620,330) full; label drive to; innkeeper .42 at (820,390) with someone you know; back office door x 920-1050 y 280-432 open onto guest book .55; route innkeeper to door; card a tool at (1030,480).",
+  "seg046": "Heading What does the machine do, and what do you do? (52 px); left compact rows thank you, review request, note about the trail in the fall (drafted) and schedule (checkout date) x 70-600 y 140-346.",
+  "seg047": "Left rows at 55% with rule and cheap label (70,408); right blocks the voice, who gets a message (three figures, two envelopes), guest book with signature and detached dashed envelope chain labelled drip campaign; steel outline x 664-1226 y 126-570 with judgment label; fan of six inn-minis to one figure at foot centre.",
+  "seg048": "Heading What do you sell first?; audit card x 80-500 y 140-470 with The audit, MODELED, One property, Fixed fee, In the model: $1,200, About 12 hours; retainer card kit-card-small at (1040,580) 45%; two report sheets (booking site, property system) with reports label; labelled slip .42 at (830,140) with real inputs; phone 1.15 at (1040,140) and three empty checkboxes search, own page, booking at x 1000 y 322-410."
+ },
+ "decision_event_ids": [
+  "ep009-act3-s12-build-revision-v1",
+  "ep009-act3-s12-build-verification-v1",
+  "ep009-act3-s13-build-revision-v1",
+  "ep009-act3-s13-build-verification-v1",
+  "ep009-act3-s14-build-revision-v1",
+  "ep009-act3-s14-build-verification-v1"
+ ],
+ "source": "authored from scratchpad templates; index.html is the assembled standalone composition"
 }

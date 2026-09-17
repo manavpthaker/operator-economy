@@ -1,34 +1,41 @@
 {
- "project": "seg050__seg054",
- "frames_expected": 2612,
- "check_rc": 0,
- "render_rc": 0,
- "streams": [
-  {
-   "codec_type": "video",
-   "width": 1280,
-   "height": 720,
-   "r_frame_rate": "24/1",
-   "nb_read_frames": "2612"
-  },
-  {
-   "codec_type": "audio",
-   "sample_rate": "48000",
-   "channels": 2,
-   "r_frame_rate": "0/0",
-   "nb_read_frames": "5102"
-  }
+ "segments": [
+  "seg050",
+  "seg051",
+  "seg052",
+  "seg053",
+  "seg054"
  ],
+ "master_in": 770.333333,
+ "master_out": 879.166667,
  "frames": 2612,
- "frames_ok": true,
- "audio_samples": [
-  5224448,
-  5224000
- ],
- "audio_corr": 0.9998241360052142,
- "audio_gain_db": -0.024094720823475767,
- "uniform_frames": [],
- "mp4_sha256": "40bf1baee2525ad21738177deaefdd83d1980534bf293f471fdb590f9b90e16c",
+ "segment_frame_ranges": {
+  "seg050": [
+   0,
+   346
+  ],
+  "seg051": [
+   346,
+   826
+  ],
+  "seg052": [
+   826,
+   1438
+  ],
+  "seg053": [
+   1438,
+   2194
+  ],
+  "seg054": [
+   2194,
+   2612
+  ]
+ },
+ "mp4": {
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/seg050__seg054.mp4",
+  "sha256": "40bf1baee2525ad21738177deaefdd83d1980534bf293f471fdb590f9b90e16c"
+ },
+ "index_html_sha256": "1acf216fab0d50c59bec37447ccf1cb80330f6a1fd411c43886e1f5a59e7da1d",
  "stills": [
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/stills/seg050__seg054-000.020s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/stills/seg050__seg054-001.147s.png",
@@ -87,5 +94,47 @@
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/stills/seg050__seg054-106.927s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/stills/seg050__seg054-108.783s.png",
   "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg050__seg054/qa/stills/seg050__seg054-108.790s.png"
- ]
+ ],
+ "checks": {
+  "strict_errors": 0,
+  "strict_passed": true,
+  "frames_expected": 2612,
+  "frames_ok": true,
+  "audio_corr": 0.999824,
+  "audio_gain_db": -0.024,
+  "audio": "2 ch 48000 Hz aac; rendered stream carries encoder padding samples beyond the excerpt (5224448 vs 5224000)",
+  "uniform_frames": [],
+  "seams": "frame 0 vs seg045__seg048 last frame: max 10/255; last frame vs seg056 frame 0: max 14/255, 0 px over 20"
+ },
+ "new_objects": [
+  "second relay field box under the registration card (kit field construction)",
+  "DONE WHEN THE OWNER HAS deliverables panel",
+  "three equal branch cards and product outline (R60 construction)",
+  "refresh loop mark with kept current",
+  "source cards for S16a (cardw)"
+ ],
+ "deviations": [
+  "Relay alternative drawn as a second field under the card, both unticked.",
+  "Desk and booking site appear 0.6 s after the job cards (plan: on W002297).",
+  "not moving typeset (kit rule 4), not handwritten.",
+  "PMS partner lists written as Partner lists of / property systems.",
+  "S16a slip lifts off the table to an enlarged labelled slip on W002408."
+ ],
+ "assumptions": [],
+ "end_state": {
+  "seg050": "Heading What do you sell first?; audit card; deliverables panel x 80-500 y 484-664 (a baseline, the ceiling in their own numbers, a written recommendation); registration card 1.2 at (640,120) with guest's own email; or plus relay field box with illustrative; two empty checkboxes; retainer card 45% at (1040,580).",
+  "seg051": "Heading The product; audit card and deliverables; branch lines to three equal cards x 700-1220 at y 120/285/450 (Retainer, Audit only, This property can't fund it with base commission, low share through the sites / recoverable: a few hundred a month / MODELED); steel outline x 684-1236 y 104-616.",
+  "seg052": "No heading. Top: this property's ceiling line (50,132) .72 ink, blank retainer tag (130,146) with retainer, monthly; route to Findable and Bookable (.55) and Remembered (.9) at y 140; kept current loop. Bottom: front desk (60,560) with innkeeper and solid guest book .55; booking site .55 at (1000,454) with its book, label Booking site; route desk to site; registration card .75 (380,440) and wifi sign 1.2 (720,432) with own email and empty checkboxes.",
+  "seg053": "Heading Inside the rules; US email law, EU rules for EU guests, not legal advice with leader to desk book; report slip .85 (390,124) 1st of the month, value not moving; oxide boundary x 840 y 108-265 with the site's rules; relay field .8 (860,150) illustrative; No marketing to the relay address, ever; after checkout notes (400,492) and (580,492); desk, site, route and the sites stay.",
+  "seg054": "Heading How does the first owner arrive?; kit-table (560,540); You (530,482) label You (530,352); Owner kit-person (830,482) label Owner; kit-ceiling-slip-labelled .75 at (40,125) titled The ceiling, boxes blank; what the job could be worth (40,492); dashed routes from cards stopping short of Owner; cards Innkeeper associations x 920-1240 y 176-256 and Partner lists of / property systems y 340-436."
+ },
+ "decision_event_ids": [
+  "ep009-act3-s14-build-revision-v1",
+  "ep009-act3-s14-build-verification-v1",
+  "ep009-act3-s15-build-revision-v1",
+  "ep009-act3-s15-build-verification-v1",
+  "ep009-act3-s16-build-revision-v1",
+  "ep009-act3-s16-build-verification-v1"
+ ],
+ "source": "authored from scratchpad templates; index.html is the assembled standalone composition"
 }
