@@ -1,0 +1,158 @@
+{
+  "schema": "ep009.independent-restored-sync-review.v1",
+  "created_at": "2026-09-17T23:58:54.118266+00:00",
+  "part_id": "P08r3a",
+  "status": "hold_visible_early_articulation_not_cleared",
+  "owner_accepted": false,
+  "automatic_acceptance": false,
+  "source": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/restored.mp4",
+    "sha256": "f47d7d8da1d2c0c203179a6e1c404743b52c8f5cd2d70fbf51bc502f6ba243b3"
+  },
+  "locked_narration": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/audio/narration.wav",
+    "sha256": "a743f1e4c218b9d75ea4d2238c9a8e2a4b9878ad949480c5fd23d755a4e2e02c"
+  },
+  "final_candidate": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r1/seg044.mp4",
+    "sha256": "0bac6a15542715caec910402a8f81e6a7018f084a213cca324a6b4a5cc7bd393"
+  },
+  "conform": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r1/CONFORM.json",
+    "sha256": "3f45005a5a970ebd3d9964f0617fb343baae0d960d4a5257bad4beace2017ced"
+  },
+  "alignment": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/ALIGNMENT.json",
+    "sha256": "15e3f29fad92e2aa7da74a0291241c4a720e8a6bb6d809a4f5a7dc21e395343b"
+  },
+  "original_flagged_gate": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/SYNC-GATE.json",
+    "sha256": "5875f4a6806b3465cf0150ee60a28b7ddf7eab70bc5067f9733c660bc001fb7f"
+  },
+  "narration_asr_context": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/P08r3a/lexical-diagnostic/narration-small.json",
+    "sha256": "58fd691a7562c34213c96d4c37486b46570c45d525567376091f59c29fb61893"
+  },
+  "onset_evidence": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/independent-sync-review/ONSET-EVIDENCE.json",
+    "sha256": "9eaf9bbbe609f99e050afcafea104ff2b4406dc2cf630fc53719341f24d4378a"
+  },
+  "picture_mapping": {
+    "restored_frames": [
+      2,
+      175
+    ],
+    "final_local_frames": [
+      0,
+      173
+    ],
+    "final_segment_total_frames": 343,
+    "narration_seconds_formula": "(restored_frame - 2) / 24",
+    "audio_transport_lag_samples": 3999,
+    "warning": "The near-exact soundtrack alignment only maps the review clock. It does not prove lip synchronization."
+  },
+  "conclusion": "The weak diagnostic cannot be dismissed as measurement noise. Dense actual mouth frames show vowel-like articulation during the low-energy pause before the second sentence, and an early open-close cycle at the first sentence. Keep P08A flagged and do not certify it for integration from this review.",
+  "events": [
+    {
+      "narration_onset_s": 0.26,
+      "expected_phrase": "I spent ten years...",
+      "existing_rise_minus_onset_frames": -4.2395,
+      "observed_restored_frames": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "actual_picture_findings": "Mouth opens clearly at narration0.125\u20130.208s while narration RMS is near zero, reaches large opening at0.208s, then nearly closes at0.333\u20130.375s while the locked waveform has substantial speech energy at the opening word. This supports an early articulation concern beyond a single threshold crossing.",
+      "confidence": "Moderate: anticipation can precede voiced onset; word ASR anchors are approximate, but the open-close cycle occurs substantially ahead of the opening voiced interval."
+    },
+    {
+      "narration_onset_s": 2.43,
+      "expected_phrase": "including Ace Hotel...",
+      "existing_rise_minus_onset_frames": 4.6805,
+      "observed_restored_frames": [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67
+      ],
+      "actual_picture_findings": "Mouth is already partly open/rounded near the audio onset, then changes shape before the later threshold rise. An inner-lip amplitude threshold is not a reliable precise phoneme onset here. This event alone does not demonstrate a0.195-second sync failure.",
+      "confidence": "Indeterminate for exact delay."
+    },
+    {
+      "narration_onset_s": 4.81,
+      "expected_phrase": "I know this business from the inside out.",
+      "existing_rise_minus_onset_frames": -10.4395,
+      "observed_restored_frames": [
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123
+      ],
+      "actual_picture_findings": "Mouth opening grows from narration4.417s through4.708s during the end/pause after the previous sentence. It is very open at4.625\u20134.708s, before the4.81s voiced onset. At4.833\u20135.00s, when the waveform is strongly voiced, the mouth is already narrowing. This is visible articulation across a low-energy pause.",
+      "confidence": "Strong evidence of a visible mismatch around the pause/onset. The\u221210.44-frame scalar is not asserted as the exact phoneme offset: the selected threshold rise can belong to the preceding articulation."
+    }
+  ],
+  "threshold_review": {
+    "existing_gate_preserved": true,
+    "onsets_reproduced_s": [
+      0.26,
+      2.43,
+      4.81
+    ],
+    "diffs_reproduced_frames": [
+      -4.2395,
+      4.680499999999995,
+      -10.439499999999981
+    ],
+    "metric_interpretation": "Three onsets and globally thresholded mouth aperture are weak estimators; second event illustrates why. First and third have direct pixel support for concern, so no metric override or pass is justified.",
+    "correlations_not_reinterpreted": {
+      "target_narration": 0.179,
+      "diagnostic_guide": 0.259
+    }
+  },
+  "evidence": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/independent-sync-review/ONSET-1-MOUTH-FRAMES.jpg",
+      "sha256": "1195a66fd77c86cb8e594cc8365f4c7716ab09f39aa928fab183b37faa39f6a6"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/independent-sync-review/ONSET-2-MOUTH-FRAMES.jpg",
+      "sha256": "a818a40c575b34622f09e779d5a5e6d5622ea4d165cbbf365efc7880a69e7a7a"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/independent-sync-review/ONSET-3-MOUTH-FRAMES.jpg",
+      "sha256": "0610a0a07d4b9315345c3ecaeeab46ad0aad2d35b0d310fb43ae88122a794a4f"
+    }
+  ],
+  "limitations": [
+    "No new forced phoneme alignment or independent ASR run; existing narration token sequence provides approximate phrase context only.",
+    "No normal-speed audiovisual viewing is claimed. Review combines exact selected picture frames, measured locked-audio envelope and existing lexical context.",
+    "This is not a claim that every word is visibly wrong or that the reported median lag is sample-accurate.",
+    "Do not infer a safe constant retime or slip from these three events."
+  ],
+  "recommendation": "Retain the flag and have root inspect the concrete opening and second-sentence onset in the14.29-second candidate at1\u00d7. No acceptance, retries, media repair or final integration authorized by this audit.",
+  "provider_calls": 0,
+  "mutations": "Only the independent-sync-review diagnostics and this report written. Source media, failed gate and final candidate unchanged."
+}

@@ -1,0 +1,61 @@
+{
+  "index": 2,
+  "segment": "seg019b",
+  "input": {
+    "id": "seg019b",
+    "input": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/guarded-r1/seg019b-guard8.mov",
+      "sha256": "1e96fe9d2a89f854d0a5ba4ecaeb6f521bc85b783385b03b0edcb4ea14c56215"
+    },
+    "bytes": 8880301,
+    "fal_url": "https://v3b.fal.media/files/b/0aaad91b/kv8vPnbxvTfNHWhJeHz47_ep007-r32-1e96fe9d2a89f854.mov",
+    "guarded_frames": 114,
+    "select_local_frames": [
+      45,
+      106
+    ],
+    "delivery": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/guarded-r1/DELIVERY.json",
+      "sha256": "c5ac6952e1bef7af8ba0f790ea1f2e32eea184571b378978487a09c0177a315a"
+    },
+    "media_id": "791cb314-2358-41af-986d-bebfab5d2ddf",
+    "status": "confirmed",
+    "put_http_status": 200,
+    "batch": 1
+  },
+  "reason": "Defect-specific guarded-source wardrobe edit. Previous source was terminally truncated or over15s; nonselected guards retain original performance and long spans join only at existing crop cuts.",
+  "params": {
+    "model": "kling_video_edit",
+    "mode": "pro",
+    "prompt": "Change only the man's navy shirt in @Video1 to the exact light-blue chambray button-down shirt in @Image1, including the fabric texture, collar, buttons and sleeves rolled to his forearms. Keep the same man and his entire performance exactly as in the source video, frame for frame: every finger and hand gesture, facial expression, eyebrow movement, head motion, eye movement, lip/mouth motion, breathing and body posture. Preserve the face, identity, glasses, hair, beard, bare skin and hands. The image is a garment reference only; never copy its pose or expression. Keep the original room, table and lighting unchanged in this wardrobe-only pass. Preserve the original framing and every existing crop change or cut at its exact timestamp. No new cuts, zooms, gestures, speech, text or music. Preserve the entire source clip, including its final fractional second; no truncation or time stretch. Retain all terminal repeated guard frames for duration coverage. They are part of the input and must not cause the preceding original motion to be changed.",
+    "count": 1,
+    "medias": [
+      {
+        "role": "video",
+        "value": "791cb314-2358-41af-986d-bebfab5d2ddf"
+      },
+      {
+        "role": "image",
+        "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+      }
+    ]
+  },
+  "estimate": {
+    "cost": {
+      "credits": 8,
+      "credits_exact": 8
+    },
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      }
+    }
+  }
+}

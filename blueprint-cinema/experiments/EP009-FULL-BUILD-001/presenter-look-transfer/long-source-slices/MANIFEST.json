@@ -1,0 +1,566 @@
+{
+  "record_type": "ep009_exact_source_slices",
+  "status": "verified_ready_for_storage_upload",
+  "created_at": "2026-09-17T23:40:14.969003+00:00",
+  "fps": 24,
+  "sample_rate": 48000,
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "preparation_helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/_tools/prepare.py",
+    "sha256": "6ead8c8898d42515c5207818bddef0a595df5ec043f5c8442d70ac1b67d5af59"
+  },
+  "official_schema": {
+    "url": "https://fal.ai/models/fal-ai/kling-video/o3/pro/video-to-video/edit/api",
+    "formats": [
+      "mp4",
+      "mov"
+    ],
+    "duration_seconds": [
+      3,
+      15
+    ],
+    "resolution_px": [
+      720,
+      3840
+    ],
+    "max_bytes": 200000000,
+    "source_prompt_reference": "@Video1",
+    "look_prompt_reference": "@Image1"
+  },
+  "constraints": [
+    "No generated frames, retime, crop changes or added edit seams.",
+    "Selections reproduce every original frame exactly once in original order.",
+    "Only storage upload authorized here; no generation or active plan change.",
+    "Original decoded audio retained for provider input; locked episode master remains assembly authority."
+  ],
+  "errors": [],
+  "slices": [
+    {
+      "id": "seg019a",
+      "segment": "seg019",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+      },
+      "source_total_frames": 394,
+      "source_input_frames": [
+        0,
+        333
+      ],
+      "source_input_audio_samples": [
+        0,
+        666000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019a.mov",
+        "sha256": "a00ae8802ff3e48f339c19726a25eff676aa795cb53afd6ef70cff4b133f78f3"
+      },
+      "input_bytes": 28271327,
+      "input_frames": 333,
+      "input_duration_seconds": 13.875,
+      "select_local_frames": [
+        0,
+        333
+      ],
+      "select_original_frames": [
+        0,
+        333
+      ],
+      "select_output_frames": [
+        4450,
+        4783
+      ],
+      "selected_frames": 333,
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019a-source-audio.wav",
+        "sha256": "9aeb773faa5fb45342cfdc809bd89567a43fea4b3fce974a786f44968a887330"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_source_audio_sha256": "a5cbf4c2116cc6d4378fac1e599b2eb2e4656692e4126130308ff435e4cbeaa3",
+      "decoded_source_audio_samples": 666000,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019a-FRAME-HASHES.json",
+        "sha256": "272a92d6a02f32356a330258244ee6eef4fe1687cdb37e8eccb5b9b676e6cbbb"
+      },
+      "decoded_frame_sequence_sha256": "34a6f54748b08b1a3fd4e9777f9f8889196c274181dc055b4e0e2dbe1de11df0",
+      "exact_original_decoded_frames": true,
+      "exact_original_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019a-PROBE.json",
+        "sha256": "87db2d0666eedd65271f972a163e0b76fa124aea1ad5181ce6090fc3cd91c0de"
+      },
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "pcm_f32le from original AAC decode; no resample or audio processing",
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=333,setpts=PTS-STARTPTS[v];[0:a:0]atrim=start_sample=0:end_sample=666000,asetpts=PTS-STARTPTS[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019a.mov"
+      ],
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg019b",
+      "segment": "seg019",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+      },
+      "source_total_frames": 394,
+      "source_input_frames": [
+        288,
+        394
+      ],
+      "source_input_audio_samples": [
+        576000,
+        788000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019b.mov",
+        "sha256": "e0c76e65353c8c877fffe426bf596c41f4bad9a9bc2b08a671fdbaedd45041a2"
+      },
+      "input_bytes": 8751821,
+      "input_frames": 106,
+      "input_duration_seconds": 4.416666666666667,
+      "select_local_frames": [
+        45,
+        106
+      ],
+      "select_original_frames": [
+        333,
+        394
+      ],
+      "select_output_frames": [
+        4783,
+        4844
+      ],
+      "selected_frames": 61,
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019b-source-audio.wav",
+        "sha256": "82db839ff6224ce32822cc4e5298f01ced12cf7fa1bc6bd4bb1d2c63b8fd801b"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_source_audio_sha256": "c078c0bb02e339dd2904b9288e244e30ea96934c1bf21cf4117d7b9c10011a96",
+      "decoded_source_audio_samples": 212000,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019b-FRAME-HASHES.json",
+        "sha256": "a9bf907f01403272d9e5732c1c9c2aca396a2835473b66236819394aaac4025c"
+      },
+      "decoded_frame_sequence_sha256": "bacbed19981d41292486bd3e8ab4965b49e8ef97ad1c6e243891aeb36707b0a2",
+      "exact_original_decoded_frames": true,
+      "exact_original_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019b-PROBE.json",
+        "sha256": "7be910dce578d69fcc145c306da498e217a8fc00dd47d014e23814698bd1298a"
+      },
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "pcm_f32le from original AAC decode; no resample or audio processing",
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=288:end_frame=394,setpts=PTS-STARTPTS[v];[0:a:0]atrim=start_sample=576000:end_sample=788000,asetpts=PTS-STARTPTS[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg019b.mov"
+      ],
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg071a",
+      "segment": "seg071",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "source_total_frames": 514,
+      "source_input_frames": [
+        0,
+        120
+      ],
+      "source_input_audio_samples": [
+        0,
+        240000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071a.mov",
+        "sha256": "ebf3990ef16a7357a5b2551b7ba4044e81ae50b5dd0908ed31962da0244a4522"
+      },
+      "input_bytes": 9416108,
+      "input_frames": 120,
+      "input_duration_seconds": 5.0,
+      "select_local_frames": [
+        0,
+        97
+      ],
+      "select_original_frames": [
+        0,
+        97
+      ],
+      "select_output_frames": [
+        27917,
+        28014
+      ],
+      "selected_frames": 97,
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071a-source-audio.wav",
+        "sha256": "ebfe80c41385ec187e680452b3ca0cf22b3ee8e25012ea346daf40743d63a115"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_source_audio_sha256": "b28940b5969008eec101c4a81c6bb0a97496aba0adcfefac8997bd0a054c9cf0",
+      "decoded_source_audio_samples": 240000,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071a-FRAME-HASHES.json",
+        "sha256": "b18325de90d22227f3294f899b68ea5de68cec7ee5be47526d2071f3addc68c8"
+      },
+      "decoded_frame_sequence_sha256": "a0fafbf7c04ed0d0b35952135e706efd8c78ec882befd0c22341fb3afb87eb4c",
+      "exact_original_decoded_frames": true,
+      "exact_original_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071a-PROBE.json",
+        "sha256": "bef2db6f1d60b8f660e79727edc58a0a02d8ae6c82743c11d71f2bd7ed48063a"
+      },
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "pcm_f32le from original AAC decode; no resample or audio processing",
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=120,setpts=PTS-STARTPTS[v];[0:a:0]atrim=start_sample=0:end_sample=240000,asetpts=PTS-STARTPTS[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071a.mov"
+      ],
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg071b",
+      "segment": "seg071",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "source_total_frames": 514,
+      "source_input_frames": [
+        97,
+        449
+      ],
+      "source_input_audio_samples": [
+        194000,
+        898000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071b.mov",
+        "sha256": "71773fec212a4acada033fc95a93d529152fa37e42d513d07c45852e4aacc219"
+      },
+      "input_bytes": 26554599,
+      "input_frames": 352,
+      "input_duration_seconds": 14.666666666666666,
+      "select_local_frames": [
+        0,
+        352
+      ],
+      "select_original_frames": [
+        97,
+        449
+      ],
+      "select_output_frames": [
+        28014,
+        28366
+      ],
+      "selected_frames": 352,
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071b-source-audio.wav",
+        "sha256": "6b37093d85c549a9e5a371ca9a9753167808766c39115bb61fd72c3b5ba78c8a"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_source_audio_sha256": "78a49df8447e8bbe4373775e52b9ef90ab3f1c485bb1f54625c68a25f18cffe3",
+      "decoded_source_audio_samples": 704000,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071b-FRAME-HASHES.json",
+        "sha256": "b8da2b085421ab9e9fd7738c50cda0f68c59119818459335f72ca4f1126c1ef0"
+      },
+      "decoded_frame_sequence_sha256": "aa877ec975c98e104a4e5c8ec14d1cbe847ab0c8a80ccd54b1556f5698d82ac6",
+      "exact_original_decoded_frames": true,
+      "exact_original_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071b-PROBE.json",
+        "sha256": "6f4522187c386ad72e8042bfb06fe212df945e6ff4cf1257dd5d402c273d2e4b"
+      },
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "pcm_f32le from original AAC decode; no resample or audio processing",
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=97:end_frame=449,setpts=PTS-STARTPTS[v];[0:a:0]atrim=start_sample=194000:end_sample=898000,asetpts=PTS-STARTPTS[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071b.mov"
+      ],
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg071c",
+      "segment": "seg071",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "source_total_frames": 514,
+      "source_input_frames": [
+        418,
+        514
+      ],
+      "source_input_audio_samples": [
+        836000,
+        1028000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071c.mov",
+        "sha256": "f6a7963c428a88c2a7fd2a1fbdd72b51b5779696453932341d0802151988ded2"
+      },
+      "input_bytes": 7343517,
+      "input_frames": 96,
+      "input_duration_seconds": 4.0,
+      "select_local_frames": [
+        31,
+        96
+      ],
+      "select_original_frames": [
+        449,
+        514
+      ],
+      "select_output_frames": [
+        28366,
+        28431
+      ],
+      "selected_frames": 65,
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071c-source-audio.wav",
+        "sha256": "48030053af77f4ea4e4feb3fc97b35c211a96932f405774f0d04aad160c3f29a"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_source_audio_sha256": "c7242f712a5c2922cf3d72b742467c66a0777287c1d771a4a17c92f849da42c4",
+      "decoded_source_audio_samples": 192000,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071c-FRAME-HASHES.json",
+        "sha256": "fc17a89c596fa4c887de8c39e3bc83e6c511ac3d55f271867ccfddcbc077d6db"
+      },
+      "decoded_frame_sequence_sha256": "2529eb077b19ab50843de8eee476d4518969a06ccc9238eada5061cf88562a7d",
+      "exact_original_decoded_frames": true,
+      "exact_original_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071c-PROBE.json",
+        "sha256": "b96db6eacd611c36f420891c74fcb99380aadcbe6bb99e688caf3383cacb1249"
+      },
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "pcm_f32le from original AAC decode; no resample or audio processing",
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=418:end_frame=514,setpts=PTS-STARTPTS[v];[0:a:0]atrim=start_sample=836000:end_sample=1028000,asetpts=PTS-STARTPTS[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/long-source-slices/seg071c.mov"
+      ],
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    }
+  ]
+}

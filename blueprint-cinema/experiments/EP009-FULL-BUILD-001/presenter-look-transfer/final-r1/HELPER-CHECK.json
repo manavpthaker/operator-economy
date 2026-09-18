@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/conform_existing.py",
+    "sha256": "1f222c11f14c0f68613e900f4a885489ce165d47cdbf8db41ccf3cde6111b537"
+  },
+  "positive_check": {
+    "segment": "seg074",
+    "frames": 288,
+    "review_status": "pending",
+    "action": "check only; no render"
+  },
+  "negative_checks": [
+    {
+      "case": "guard_selection",
+      "status": "rejected",
+      "reason": "seg074: changed existing selection/cut boundary"
+    },
+    {
+      "case": "changed_019_join",
+      "status": "rejected",
+      "reason": "seg019: changed existing selection/cut boundary"
+    }
+  ],
+  "provider_calls": 0,
+  "full_renders": 0
+}

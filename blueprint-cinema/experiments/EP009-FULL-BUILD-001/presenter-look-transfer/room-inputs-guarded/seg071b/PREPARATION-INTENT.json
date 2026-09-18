@@ -1,0 +1,58 @@
+{
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg071b/native.mp4",
+    "sha256": "1620a44285c76c63869262f7944d086ee658a43257cdaeb3801d4a6ece9595da"
+  },
+  "retained_frames": [
+    0,
+    360
+  ],
+  "selected_frames": [
+    0,
+    352
+  ],
+  "discarded_guard": [
+    360,
+    361
+  ],
+  "audio_samples_per_channel": 720000,
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg071b/native.mp4",
+    "-filter_complex",
+    "[0:v]trim=start_frame=0:end_frame=360,setpts=N/(24*TB)[v];[0:a]atrim=start_sample=0:end_sample=720000,asetpts=N/SR/TB[a]",
+    "-map",
+    "[v]",
+    "-map",
+    "[a]",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "0",
+    "-preset",
+    "medium",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-fps_mode",
+    "cfr",
+    "-c:a",
+    "pcm_f32le",
+    "-movflags",
+    "+faststart",
+    "-map_metadata",
+    "-1",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-inputs-guarded/seg071b/seg071b-first360-lossless.mov"
+  ],
+  "generation": false
+}

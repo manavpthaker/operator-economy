@@ -1,0 +1,99 @@
+{
+  "id": "seg019-close-r2",
+  "at": "2026-09-18T01:09:16.816621+00:00",
+  "method": "Exact lossless selected-frame diagnostics. No shift, retime, crop or scale.",
+  "original_segment": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+    "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+  },
+  "candidate": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/native.mp4",
+    "sha256": "58b01d7153b88572b8347444171add197aecd53fd97b5f8998828ac3d3a55a8c"
+  },
+  "selected_original_segment_frames": [
+    0,
+    38
+  ],
+  "selected_provider_frames": [
+    0,
+    38
+  ],
+  "selected_frames": 38,
+  "candidate_total_frames": 81,
+  "excluded_provider_frames": [
+    38,
+    81
+  ],
+  "source_diagnostic": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/qa-selected-r1/source-selected-lossless.mp4",
+    "sha256": "deb766063d323d4ea2e1fd14c37e0533186805ebbf174661aa053c785d1a4c26"
+  },
+  "candidate_diagnostic": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/qa-selected-r1/candidate-selected-lossless.mp4",
+    "sha256": "311f52e33179883f6a9b82a376fa1fc3d89cf46c55b5bc2627dd9b3c3e056529"
+  },
+  "source_exact_original_decoded_pixels": true,
+  "candidate_exact_native_decoded_pixels": true,
+  "sequence_hashes": [
+    "2acad9c3011f3faa33534bb5093e463f3029c6bc567a1ec00a1dd0a36aff4acd",
+    "074c337a365c31b7d1a07d35683319eb19929864921e9bd85c4744606d0787f6",
+    "502615c26f7e76567e2534d1abfdd7a3bfbae27feb9227c654c538fd59777a12",
+    "7698b78a203da8e9974af57e5e20f2dad3a670314337aa11ea29eda66231a0d6"
+  ],
+  "commands": [
+    [
+      "ffmpeg",
+      "-nostdin",
+      "-n",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+      "-vf",
+      "trim=start_frame=0:end_frame=38,setpts=PTS-STARTPTS",
+      "-an",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "0",
+      "-preset",
+      "medium",
+      "-threads",
+      "2",
+      "-pix_fmt",
+      "yuv420p",
+      "-fps_mode",
+      "passthrough",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/qa-selected-r1/source-selected-lossless.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-nostdin",
+      "-n",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/native.mp4",
+      "-vf",
+      "trim=start_frame=0:end_frame=38,setpts=PTS-STARTPTS",
+      "-an",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "0",
+      "-preset",
+      "medium",
+      "-threads",
+      "2",
+      "-pix_fmt",
+      "yuv420p",
+      "-fps_mode",
+      "passthrough",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg019-close-r2/qa-selected-r1/candidate-selected-lossless.mp4"
+    ]
+  ]
+}

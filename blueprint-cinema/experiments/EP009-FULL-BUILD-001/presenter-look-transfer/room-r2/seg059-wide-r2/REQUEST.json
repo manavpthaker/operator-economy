@@ -1,0 +1,39 @@
+{
+  "index": 1,
+  "segment": "seg059-wide-r2",
+  "params": {
+    "model": "kling_video_edit",
+    "mode": "pro",
+    "count": 1,
+    "prompt": "Replace the ENTIRE ROOM behind the man in @Video1 with the country inn breakfast room in @Image1. Remove the original wall-mounted bookshelves, books, empty beige study wall and fireplace entirely. Recreate the reference room: bright multi-pane windows and floral curtains along the left wall, pale cream plaster walls, the framed landscape picture high behind the man, wooden breakfast tables and chairs, and the large wooden crockery cabinet at the back right with white cups and a vase of flowers. Match the room layout and morning light of the reference image. Keep the existing man in the source video completely unchanged: same light blue chambray shirt, same identity, glasses, hair, skin, exact face and mouth movement, every finger and hand gesture, exact head motion and posture at every moment. Use the video as the absolute authority for the man's entire original performance. Use the image ONLY for the new room. Preserve every original camera framing and shot scale, including every existing crop change and cut at its exact timestamp. Never normalize the man's size or position between shots. Do not copy the man's pose or facial expression from the image. Preserve the full source duration and all motion timing. Only the background/environment should change; do not change the foreground man. No added cuts or text. This input contains one fixed shot scale. Preserve that shot scale throughout. Do not zoom out, reframe, show additional body parts, or introduce a crop change.",
+    "medias": [
+      {
+        "role": "video",
+        "value": "f31ec7e8-2bad-463d-901e-dffc1a3b1321"
+      },
+      {
+        "role": "image",
+        "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+      }
+    ]
+  },
+  "estimate": {
+    "cost": {
+      "credits": 6,
+      "credits_exact": 6
+    },
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      }
+    }
+  },
+  "reason": "Repair verified room059 performance/crop defect using isolated original wardrobe shot, preserving exact selected frames under existing1800creditcap. Guard/context discarded after QC."
+}

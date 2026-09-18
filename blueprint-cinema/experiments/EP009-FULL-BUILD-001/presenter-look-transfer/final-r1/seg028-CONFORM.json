@@ -1,0 +1,158 @@
+{
+  "record_type": "ep009_existing_performance_final_conform",
+  "status": "conformed",
+  "segment": "seg028",
+  "selection_manifest": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/ROOM-SELECTIONS-028-055.json",
+    "sha256": "3e7cc5f0e17434ed84e489e640f395134133a4da4b36fe0679b9550c1ac7e085"
+  },
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "look_reference": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+  },
+  "output_frames": [
+    8754,
+    8883
+  ],
+  "frames": 129,
+  "pieces": [
+    {
+      "id": "seg028",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg028/native.mp4",
+        "sha256": "9cc11bd542dc327dc3df7a61f7adebad1ac212d4a1fe1104f9a471dce4d85c88"
+      },
+      "source_frames": [
+        0,
+        129
+      ],
+      "original_frames": [
+        0,
+        129
+      ],
+      "input_probe": {
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "137"
+      },
+      "input_decoded_frame_sequence_sha256": "626bb15b493b14a0f3d75ffef48ac8049c2ec4bc0862c693eea1116e6cab7adb",
+      "frames": 129
+    }
+  ],
+  "provider_audio_discarded": true,
+  "no_retime_clone_or_frame_interpolation": true,
+  "scoped_review": {
+    "status": "complete",
+    "flagged": false,
+    "reviewer": "root with independent ep009_graphic_fix review",
+    "method": "Independent all-original-frame timestamp/landmark comparison plus dense paired face/hand/terminal/crop inspection; root reviewed opening appearance/expression pairs. Final technical playback checked separately.",
+    "limits": "Agent frame-based review; descriptive geometry is not human normal-speed perceptual certification. Hands below the frame are unevaluable, not invented as measured. Retained raw detector artifacts are separately explained in independent review. Owner not yet accepted.",
+    "target_appearance_matches": true,
+    "identity_preserved": true,
+    "preserved": {
+      "hands": true,
+      "facial_expressions": true,
+      "head_and_body": true,
+      "camera_and_crops": true,
+      "timing": true
+    },
+    "change_scope_confirmed": "outfit_and_environment_only",
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg028/qa/ROOM-REVIEW.json",
+        "sha256": "ae4a37bf9f027abbb48452d8cdfd3f23f757a7dd3141ac3490290f42d7e48c67"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg028/qa/contact-01.jpg",
+        "sha256": "67b4f2fbe212c00d148a30665f965e0f19d8cbc07f8acce1140d393eb065bd88"
+      }
+    ]
+  },
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/conform_existing.py",
+    "sha256": "1f222c11f14c0f68613e900f4a885489ce165d47cdbf8db41ccf3cde6111b537"
+  },
+  "carrier_helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/build_review.py",
+    "sha256": "8a5192b797e7d2632401104c970638512ff397474f6a42698b3e40d154ab73f9"
+  },
+  "graph": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-graph.txt",
+    "sha256": "0452315fa57be0ddc858867f193a7bc7afdb09918bf4218c32cc27a72e9fb1c5"
+  },
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-filter_complex_threads",
+    "2",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg028/native.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "-/filter_complex",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-graph.txt",
+    "-map",
+    "[vo]",
+    "-map",
+    "[ao]",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "16",
+    "-preset",
+    "medium",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-fps_mode",
+    "cfr",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-ar",
+    "48000",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028.mp4"
+  ],
+  "owner_accepted": false,
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028.mp4",
+    "sha256": "bfe53221f392e0b5d6e40f3f229bd649e28cda45bf1fd561909fd89992737926"
+  },
+  "pcm_sidecar": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-MASTER.wav",
+    "sha256": "763720bca3e589fffe5eb432289d74bbda910db58ed18fa438b01950b57d6afa"
+  },
+  "frame_map": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-FRAME-MAP.json",
+    "sha256": "fd57f40b62e7b2ee8775e2efd250c436ad879753ed9110b90351e032982f19a6"
+  },
+  "decoded_frame_hashes": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-FRAME-HASHES.json",
+    "sha256": "fb0366091a7308287772cc2677385c62f0df92765eab7275bbfdf55e3f54a448"
+  }
+}

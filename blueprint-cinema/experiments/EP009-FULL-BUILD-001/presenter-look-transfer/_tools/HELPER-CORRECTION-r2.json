@@ -1,0 +1,23 @@
+{
+  "schema": "ep009.performance-helper-correction.v1",
+  "created_at": "2026-09-17T23:33:06.090344+00:00",
+  "original_preserved": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/compare_performance.py",
+    "sha256": "dd0b4b1209bcaac639fcc5466981fb588f015615d5db20d5aa25f9beacc28d71"
+  },
+  "new_helper": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/compare_performance_r2.py",
+    "sha256": "88c98b1da864ffa6363b31712653218300b3c5dba3b068d8c21d72fcbbcc056a"
+  },
+  "correction": "Read integer frame presentation and duration ticks with exact rational stream time_base instead of adding ffprobe timestamps rounded to six decimal places. The original rounding made the 281-frame Genjutsu end 11.708334 while source frame 281 timestamp printed 11.708333; this incorrectly paired that frame with candidate 280 once. New coverage is expected to exclude source frames 281 through 287. No temporal alignment or thresholds changed.",
+  "validation": {
+    "self_test_exit_code": 0,
+    "includes": [
+      "24,25,30 fps nearest frame mapping",
+      "7-frame missing tail at 24 fps; all other paired frames have matching indices",
+      "Positive lag sign",
+      "Static-signal refusal"
+    ]
+  },
+  "historical_reports": "Initial reports and helper remain untouched and hash-verifiable; Genjutsu corrected metrics stored in qa/exact-pts-r2. Kling 288-frame shared-window mapping unaffected because the candidate is longer."
+}

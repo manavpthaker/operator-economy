@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "id": "1f018da4-730b-4999-965c-68a26b8fc5a8",
+      "type": "video",
+      "status": "pending",
+      "model": "hf_mult_replace_object",
+      "params": {
+        "prompt": "Edit the source video, preserving the same man and his exact original performance frame for frame. Keep every hand gesture, finger movement, facial expression, eyebrow movement, head motion, eyeline, mouth/lip motion, body posture, breathing, and all timing exactly as in the source video. Keep the camera completely locked and retain its framing and composition. Change only his outfit and environment to match the reference image: light blue chambray button-down shirt with sleeves rolled to the forearms, seated at a wooden table in the same small country-inn breakfast room as the image, soft daytime window light from camera left. The image is a wardrobe and room reference only; do not copy its pose or facial expression. Preserve the man's face, identity, glasses, beard, hairstyle, hands and skin. Do not introduce new gestures or speech. No cuts, no zoom, no text, no music. Retain the entire source clip duration.",
+        "reference_images": [
+          "c0a36f16-eb1c-4152-a8ae-7e3d08e0ed2f",
+          "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+        ],
+        "resolution": "720p"
+      }
+    }
+  ],
+  "adjustments": {
+    "medias[0].role": {
+      "requested": "video",
+      "used": "video_references",
+      "reason": "Genjutsu backend expects schema-key media roles"
+    },
+    "medias[1].role": {
+      "requested": "image",
+      "used": "image_references",
+      "reason": "Genjutsu backend expects schema-key media roles"
+    }
+  }
+}

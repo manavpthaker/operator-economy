@@ -1,0 +1,81 @@
+{
+  "status": "additive_diagnostic_candidate_not_approved",
+  "owner_accepted": false,
+  "automatic_approval": false,
+  "authority": "Root authorized original fixedC crop first38frames; no provider or timing edit.",
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/native.mp4",
+    "sha256": "bc8d1ead56826b31eb6aa2e39e0387aa7b168a5cc0304a2c24a7bc35f5c55c72"
+  },
+  "original_crop_authority": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/_tools/edit_r1.py",
+    "sha256": "b58269c3af2d1aa1be08cdd50cd38e08de02773759386fed8d33c872f9884d92"
+  },
+  "required_frames": 333,
+  "required_fps": 24,
+  "source_frames": [
+    0,
+    333
+  ],
+  "transforms": [
+    {
+      "frames": [
+        0,
+        38
+      ],
+      "crop_whxy": [
+        1280,
+        720,
+        302,
+        0
+      ],
+      "output_size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "frames": [
+        38,
+        333
+      ],
+      "scale_to": [
+        1280,
+        720
+      ],
+      "scaler": "lanczos"
+    }
+  ],
+  "excluded_provider_frames": [
+    333,
+    337
+  ],
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/native.mp4",
+    "-filter_complex",
+    "[0:v]split=2[a][b];[a]trim=start_frame=0:end_frame=38,setpts=PTS-STARTPTS,crop=1280:720:302:0,setsar=1[x];[b]trim=start_frame=38:end_frame=333,setpts=PTS-STARTPTS,scale=1280:720:flags=lanczos,setsar=1[y];[x][y]concat=n=2:v=1:a=0[v]",
+    "-map",
+    "[v]",
+    "-an",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "0",
+    "-preset",
+    "medium",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-fps_mode",
+    "passthrough",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/crop-repair-r1/picture.mp4"
+  ]
+}

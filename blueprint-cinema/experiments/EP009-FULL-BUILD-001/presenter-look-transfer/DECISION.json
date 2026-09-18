@@ -1,0 +1,59 @@
+{
+  "event_id": "ep009-presenter-performance-preserving-look-update",
+  "decision_id": "ep009-presenter-look-transfer",
+  "event_type": "decision",
+  "tags": [
+    "presenter",
+    "owner-scope",
+    "look-only",
+    "performance-preservation"
+  ],
+  "data": {
+    "choice": "Edit the existing 14 current presenter performance clips using the approved chambray/inn look. Verify a bounded source-video pilot before bulk. P00 stays owner-locked. P08 alone requires new corrected-word performance.",
+    "reason": "Owner explicitly requests the same hands, expressions and movement with only wardrobe and environment changed. Existing final clips are the performance authority; fresh generation would reinterpret them.",
+    "context": {
+      "narrative_job": "Make the presenter appearances visually consistent across EP009.",
+      "viewer_before": "Approved new opening and corrected-biography still coexist with navy/study presenter footage.",
+      "viewer_after": "Consistent approved look with current speaker performance and locked episode edits preserved."
+    },
+    "alternatives": [
+      {
+        "choice": "Freshly generate every existing presenter performance from a still.",
+        "reason_not_selected": "Cannot preserve the requested original gesture and expression trajectories."
+      },
+      {
+        "choice": "Keep the current navy/study footage.",
+        "reason_not_selected": "Does not extend the accepted look throughout the episode."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Replacing the exact current EP009 presenter sources bound by inventory.",
+      "avoid_when": "Treating provider prompt instructions as proof of preserved performance."
+    },
+    "nuance": {
+      "performance_authority": "Exact current cropped final clips, not old raw or regenerated performances.",
+      "pilot": "seg074: 288frames, 12s, continuous wide shot with visible hands.",
+      "exceptions": "P00 accepted source remains exact. P08 has no corrected moving source and receives a new matching take.",
+      "protected": "Locked narration, brand timing, film inserts and all non-presenter frames.",
+      "budget": "24-credit pilot, existing remaining1576.5-credit authority; no additional cap."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-17-owner-presenter-look-transfer.json",
+      "sha256": "eadc88a861338646332799085f79bff315469c269e4fc48969d14fdaf82cf233",
+      "locator": "Owner exact scope, current performance inventory or existing look lock"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+      "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d",
+      "locator": "Owner exact scope, current performance inventory or existing look lock"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/LOOK-LOCK.json",
+      "sha256": "b6fc18cad6f1d35bd285ca6e9bed8dfe6a8c5480aaaa9ddd8022160bf916b77d",
+      "locator": "Owner exact scope, current performance inventory or existing look lock"
+    }
+  ]
+}

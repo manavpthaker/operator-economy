@@ -1,0 +1,37 @@
+{
+  "segment": "seg075",
+  "source_seconds": 7.75,
+  "params": {
+    "model": "kling_video_edit",
+    "mode": "pro",
+    "prompt": "Change only the man's navy shirt in the source video to the exact light-blue chambray button-down shirt in the reference image, including the fabric texture, collar, buttons and sleeves rolled to his forearms. Keep the same man and his entire performance exactly as in the source video, frame for frame: every finger and hand gesture, facial expression, eyebrow movement, head motion, eye movement, lip/mouth motion, breathing and body posture. Preserve the face, identity, glasses, hair, beard, bare skin and hands. The image is a garment reference only; never copy its pose or expression. Keep the original room, table and lighting unchanged in this wardrobe-only pass. Preserve the original framing and every existing crop change or cut at its exact timestamp. No new cuts, zooms, gestures, speech, text or music. Preserve the entire source clip, including its final fractional second; no truncation or time stretch.",
+    "medias": [
+      {
+        "role": "video",
+        "value": "47e44949-89a9-491f-acac-43a7c1128b08"
+      },
+      {
+        "role": "image",
+        "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+      }
+    ],
+    "count": 1
+  },
+  "cost": {
+    "credits": 14,
+    "credits_exact": 14
+  },
+  "adjustments": {
+    "medias[0].role": {
+      "requested": "video",
+      "used": "video_references",
+      "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+    },
+    "medias[1].role": {
+      "requested": "image",
+      "used": "image_references",
+      "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+    }
+  },
+  "index": 13
+}

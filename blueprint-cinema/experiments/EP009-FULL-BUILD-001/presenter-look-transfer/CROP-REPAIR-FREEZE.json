@@ -1,0 +1,46 @@
+{
+  "record_type": "ep009_crop_repair_conform_freeze",
+  "created_utc": "2026-09-18T01:08:36.978031+00:00",
+  "plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/CROP-REPAIR-PLAN.json",
+    "sha256": "6880da86781810bc44cdfcb782f2e247b6bc129e8c48d4d94a49cd97cab78634"
+  },
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/conform_crop_repairs.py",
+    "sha256": "5928d879b956457787053182b130a23435dd25c113561aa17d28c55e439f3f7e"
+  },
+  "unchanged_base_helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/conform_existing.py",
+    "sha256": "1f222c11f14c0f68613e900f4a885489ce165d47cdbf8db41ccf3cde6111b537"
+  },
+  "checks": {
+    "all_nested_current_bindings": true,
+    "all_four_fixed_layouts": true,
+    "equal_local_original_interval_lengths": true,
+    "invalid_ranges_rejected": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        1.0
+      ],
+      [
+        false,
+        1
+      ]
+    ],
+    "wrong_plan_hash_rejected": true,
+    "syntax": true
+  },
+  "limits": "Offline binding/layout checks; each actual new source download, decoded frame clock, scoped review and output require per-entry check/render. No media rendered by this freeze."
+}

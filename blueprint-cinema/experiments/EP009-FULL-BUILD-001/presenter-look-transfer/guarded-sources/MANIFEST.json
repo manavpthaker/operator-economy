@@ -1,0 +1,1025 @@
+{
+  "record_type": "ep009_full_source_guarded_repair",
+  "status": "verified_ready_for_storage_upload",
+  "created_at": "2026-09-17T23:44:43.439627+00:00",
+  "fps": 24,
+  "sample_rate": 48000,
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "preparation_helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/_tools/prepare_and_upload.py",
+    "sha256": "5d32cb57313ae09cefcebc659f5b3506fc37912caef26a14dc9dac9e130806b6"
+  },
+  "authorization": "Root requested defect-specific repair of these six terminal truncated outputs only; storage upload, no generation or plan changes.",
+  "official_schema": {
+    "url": "https://fal.ai/models/fal-ai/kling-video/o3/pro/video-to-video/edit/api",
+    "formats": [
+      "mp4",
+      "mov"
+    ],
+    "duration_seconds": [
+      3,
+      15
+    ],
+    "max_bytes": 200000000,
+    "source_prompt_reference": "@Video1",
+    "look_prompt_reference": "@Image1"
+  },
+  "guard_frames_per_input": 8,
+  "errors": [],
+  "slices": [
+    {
+      "id": "seg009",
+      "segment": "seg009",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "sha256": "03a7ed6921b0cc8c2b93a6f55db8b577be7d2e5ee6e148862db02577c7bc948d"
+      },
+      "source_total_frames": 220,
+      "source_input_frames": [
+        0,
+        220
+      ],
+      "source_input_audio_samples": [
+        0,
+        440000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-guard8.mov",
+        "sha256": "8347ef9847712c4daa42e6dd35498a08ca00385afd1b235dd4ff7126fff93b85"
+      },
+      "input_bytes": 17477866,
+      "input_frames": 228,
+      "input_duration_seconds": 9.5,
+      "select_local_frames": [
+        0,
+        220
+      ],
+      "select_original_frames": [
+        0,
+        220
+      ],
+      "select_output_frames": [
+        1207,
+        1427
+      ],
+      "selected_frames": 220,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            220
+          ],
+          "restored_source_frames": [
+            7,
+            227
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            1207,
+            1427
+          ],
+          "output_audio_samples": [
+            2414000,
+            2854000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-guard8-source-audio.wav",
+        "sha256": "612a7ebffdb85c717a30354244ea01a567159195661c61dcc0919bbf78fe3651"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "21753a6cbb7836bd8cab49b6b6e1a59294ad2e9ba808f92609857927604c7683",
+      "decoded_original_audio_samples_retained": 440000,
+      "original_audio_shortfall_zero_padding_samples": 0,
+      "decoded_source_audio_sha256": "2f2f1444c4f0932d608df9663f0fbde746ee1e210abd943dbe98e9740c298af6",
+      "decoded_source_audio_samples": 456000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-original-FRAME-HASHES.json",
+        "sha256": "25b31b82dd748bfd24ef7007165df519a5ce3751d2cc6a823ec6282ccf632db2"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-FRAME-HASHES.json",
+        "sha256": "d0becf124bf5fab3b82661a82f5c65b6f462724563116083c752fa883f7c5a03"
+      },
+      "decoded_frame_sequence_sha256": "b429a38471e26db5dd5bf7a571c19f1a4620e0b9a7da8e47b2decdf0c791bef5",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-PROBE.json",
+        "sha256": "7c18387f8d7bea68638d7f15dceb675886584d1161dbb8d1786ffc78d62ed0be"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=220,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=440000,asetpts=PTS-STARTPTS,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg009-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 217,
+      "guard": {
+        "frames": [
+          220,
+          228
+        ],
+        "count": 8,
+        "source_original_frame": 219,
+        "decoded_repeated_frame_sha256": "3e06c003f735f1bf8c32bb83555292036d909d96f2072e5de5c2c8f830d35392",
+        "audio_samples": [
+          440000,
+          456000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg021",
+      "segment": "seg021",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "sha256": "f8beac3bda79e411ecfa6d3648cf91531c9293a619661dc02c8f10c3bb5106b5"
+      },
+      "source_total_frames": 242,
+      "source_input_frames": [
+        0,
+        242
+      ],
+      "source_input_audio_samples": [
+        0,
+        484000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-guard8.mov",
+        "sha256": "dcc740d62b959f0462ef27b60808cab628e68ecc6b0b10494b21e0b6ad3a6724"
+      },
+      "input_bytes": 21349467,
+      "input_frames": 250,
+      "input_duration_seconds": 10.416666666666666,
+      "select_local_frames": [
+        0,
+        242
+      ],
+      "select_original_frames": [
+        0,
+        242
+      ],
+      "select_output_frames": [
+        5351,
+        5593
+      ],
+      "selected_frames": 242,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            96
+          ],
+          "restored_source_frames": [
+            6,
+            102
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            5351,
+            5447
+          ],
+          "output_audio_samples": [
+            10702000,
+            10894000
+          ]
+        },
+        {
+          "segment_frames": [
+            96,
+            170
+          ],
+          "restored_source_frames": [
+            102,
+            176
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            302,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            5447,
+            5521
+          ],
+          "output_audio_samples": [
+            10894000,
+            11042000
+          ]
+        },
+        {
+          "segment_frames": [
+            170,
+            242
+          ],
+          "restored_source_frames": [
+            176,
+            248
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            5521,
+            5593
+          ],
+          "output_audio_samples": [
+            11042000,
+            11186000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-guard8-source-audio.wav",
+        "sha256": "6c9f522fd4c4cac4c77e0a96696f556c3b5573e109e924abeb96daafd02f163f"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "1987f657d694a7ecfc9deaf3f79e67cc51567b3f2b9347cc7cdacd23ea5817cd",
+      "decoded_original_audio_samples_retained": 484000,
+      "original_audio_shortfall_zero_padding_samples": 0,
+      "decoded_source_audio_sha256": "686a98683654919f4093727c7371e47d3383ff99aee81f7d69f831e840fa3ca5",
+      "decoded_source_audio_samples": 500000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-original-FRAME-HASHES.json",
+        "sha256": "43e352cb7ff5b0207b57f5f05acf07082b3e21525cc62574a9e369c0984563f9"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-FRAME-HASHES.json",
+        "sha256": "b1823779611115cdd3b49364fcf704a4f7d96c862358766b4ab30aa34b138905"
+      },
+      "decoded_frame_sequence_sha256": "1affec3f2b54f713cbaa1694dc03589da113af0f11751f6d2c85518ff4f3348a",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-PROBE.json",
+        "sha256": "44616c3994d7566c7dd0b1978e9b462898d106c2793a562e12f5f7fcd9125a0f"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=242,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=484000,asetpts=PTS-STARTPTS,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg021-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 241,
+      "guard": {
+        "frames": [
+          242,
+          250
+        ],
+        "count": 8,
+        "source_original_frame": 241,
+        "decoded_repeated_frame_sha256": "5430b4acaa7c67a1d9fb66a97c5620b4605252b2343d5c5cee906837313c2f81",
+        "audio_samples": [
+          484000,
+          500000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg035",
+      "segment": "seg035",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942"
+      },
+      "source_total_frames": 258,
+      "source_input_frames": [
+        0,
+        258
+      ],
+      "source_input_audio_samples": [
+        0,
+        516000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-guard8.mov",
+        "sha256": "48844480f8247f8d3bbe591b6b8d08f29662a1eb500318bd67a81732f5ba0566"
+      },
+      "input_bytes": 22459400,
+      "input_frames": 266,
+      "input_duration_seconds": 11.083333333333334,
+      "select_local_frames": [
+        0,
+        258
+      ],
+      "select_original_frames": [
+        0,
+        258
+      ],
+      "select_output_frames": [
+        11185,
+        11443
+      ],
+      "selected_frames": 258,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            100
+          ],
+          "restored_source_frames": [
+            5,
+            105
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            306,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            11185,
+            11285
+          ],
+          "output_audio_samples": [
+            22370000,
+            22570000
+          ]
+        },
+        {
+          "segment_frames": [
+            100,
+            258
+          ],
+          "restored_source_frames": [
+            105,
+            263
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            11285,
+            11443
+          ],
+          "output_audio_samples": [
+            22570000,
+            22886000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-guard8-source-audio.wav",
+        "sha256": "6562ef73ec9bfbda0e0193aa4b883099925951822edffe1a688ebf51cbb13ad6"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "cd7f37a559dce10c917693b93d8d5c54641cc29ee4065d948fb06247e1fb4cb7",
+      "decoded_original_audio_samples_retained": 516000,
+      "original_audio_shortfall_zero_padding_samples": 0,
+      "decoded_source_audio_sha256": "16359de00bd75814ad013a2a167aa6c4b874e0031c6a52147ed12bd7bba23a5c",
+      "decoded_source_audio_samples": 532000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-original-FRAME-HASHES.json",
+        "sha256": "772c775ef367a7e5acdbf12fd74e588bc14b5fcfddd39376496951536cd959d8"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-FRAME-HASHES.json",
+        "sha256": "b8adfa16d5431dfe54e56f9a478c2b36306b8c391b04839a256df12402bb68f5"
+      },
+      "decoded_frame_sequence_sha256": "e5d00f1c466f6767742ad0990277911d2990badaf3454469e04117c8b96cbe96",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-PROBE.json",
+        "sha256": "0a2df291605b9f400d0aedc98d2c6fc5f6b11f1c100d92dfebca72ca6d92a692"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=258,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=516000,asetpts=PTS-STARTPTS,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg035-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 257,
+      "guard": {
+        "frames": [
+          258,
+          266
+        ],
+        "count": 8,
+        "source_original_frame": 257,
+        "decoded_repeated_frame_sha256": "52d8982ffd3549a184bbf634ebeb489be756bef8ebcd132ed167a521d046c5fc",
+        "audio_samples": [
+          516000,
+          532000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg072",
+      "segment": "seg072",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "sha256": "e24bd7a4ded2c8d6c6139bc29f986a89d1185b6d097ad9cad0254db8300cef8b"
+      },
+      "source_total_frames": 191,
+      "source_input_frames": [
+        0,
+        191
+      ],
+      "source_input_audio_samples": [
+        0,
+        382000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-guard8.mov",
+        "sha256": "68fe2953d2f32348fe4c48333f9a9b4eb28b95b8530cc46aa51adbd834efa64b"
+      },
+      "input_bytes": 13616366,
+      "input_frames": 199,
+      "input_duration_seconds": 8.291666666666666,
+      "select_local_frames": [
+        0,
+        191
+      ],
+      "select_original_frames": [
+        0,
+        191
+      ],
+      "select_output_frames": [
+        28431,
+        28622
+      ],
+      "selected_frames": 191,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            191
+          ],
+          "restored_source_frames": [
+            6,
+            197
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            28431,
+            28622
+          ],
+          "output_audio_samples": [
+            56862000,
+            57244000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-guard8-source-audio.wav",
+        "sha256": "0cb55562c7117c278382a0a206c1c31c39df001c930f50c968eed2d1f33be609"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "1f7345fc3e4ac6f269fe3dea3bfb163a51d282b0bdf3bc8539832118b03125f7",
+      "decoded_original_audio_samples_retained": 382000,
+      "original_audio_shortfall_zero_padding_samples": 0,
+      "decoded_source_audio_sha256": "2f74905ca086191f292fb46155aecd84fdd65cac49cd118a9b2c363c14e8f670",
+      "decoded_source_audio_samples": 398000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-original-FRAME-HASHES.json",
+        "sha256": "051e37d2daaca8f4854622b83b8c7c39bf9545a39eb3a3ef883022051b6f6400"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-FRAME-HASHES.json",
+        "sha256": "6268e61295169890fee2197776751e99b25af928965dfb49f8c435fcead28296"
+      },
+      "decoded_frame_sequence_sha256": "7a3e82023a14b5d9734dd8b3d592aaf3c428a9661daa6f84f77fa18817b7876b",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-PROBE.json",
+        "sha256": "ca47e0c7c17b569dab6cd9ae78e150a96ea2b879e821a7fbc4d7d38b739f5354"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=191,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=382000,asetpts=PTS-STARTPTS,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg072-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 185,
+      "guard": {
+        "frames": [
+          191,
+          199
+        ],
+        "count": 8,
+        "source_original_frame": 190,
+        "decoded_repeated_frame_sha256": "92866f50bc7c376c42a0b817502ff49d49e8c2b9358c1bd111b76fc75b60d897",
+        "audio_samples": [
+          382000,
+          398000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg073",
+      "segment": "seg073",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "sha256": "d821497e4dc94355579f15070c9f449f0c96047cfc92adbcb02a12ac5f82a62e"
+      },
+      "source_total_frames": 227,
+      "source_input_frames": [
+        0,
+        227
+      ],
+      "source_input_audio_samples": [
+        0,
+        454000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-guard8.mov",
+        "sha256": "e016509012d16044c9a173993428df78480c459cf925dd1ac4e4f93a4d77a805"
+      },
+      "input_bytes": 20179567,
+      "input_frames": 235,
+      "input_duration_seconds": 9.791666666666666,
+      "select_local_frames": [
+        0,
+        227
+      ],
+      "select_original_frames": [
+        0,
+        227
+      ],
+      "select_output_frames": [
+        28622,
+        28849
+      ],
+      "selected_frames": 227,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            227
+          ],
+          "restored_source_frames": [
+            197,
+            424
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            300,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            28622,
+            28849
+          ],
+          "output_audio_samples": [
+            57244000,
+            57698000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-guard8-source-audio.wav",
+        "sha256": "5d8ad251f1845816bc539cf1b8d6bf777fbb8fd254f92494bfcb8333e9d99b35"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "dd16c8e1a6eeca9e778f268bcff16b753db7cdfd8166a3608d19af96752a3f1e",
+      "decoded_original_audio_samples_retained": 454000,
+      "original_audio_shortfall_zero_padding_samples": 0,
+      "decoded_source_audio_sha256": "2b9ea6171e963f5684c1fc31d835068fbba4609d4eae6f6a0570e9a8fffa5d8a",
+      "decoded_source_audio_samples": 470000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-original-FRAME-HASHES.json",
+        "sha256": "b01bc485c18fbe9ef69d5ff45aca862b40e7cb426fdf4bb64e42fc5fa4f501dc"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-FRAME-HASHES.json",
+        "sha256": "aaf74a83fc1ee2755a9548c3637fd4954a7d868f630c3e82918f848bfe084709"
+      },
+      "decoded_frame_sequence_sha256": "e24e6c4fa43afd6f6976c1e841440d2e285fca7186db775c0136de87c324a2c7",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-PROBE.json",
+        "sha256": "78ca6dcb64f02567387a36634c77b533e9a35464e685580f238237f017287370"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=227,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=454000,asetpts=PTS-STARTPTS,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg073-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 225,
+      "guard": {
+        "frames": [
+          227,
+          235
+        ],
+        "count": 8,
+        "source_original_frame": 226,
+        "decoded_repeated_frame_sha256": "7c8cf9b15e71203f6980f93a9680ec1190f5b4e66262136786340d25c47f09ad",
+        "audio_samples": [
+          454000,
+          470000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    },
+    {
+      "id": "seg075",
+      "segment": "seg075",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "sha256": "615300d1df1465ce543593bc11442bf9877c95a53a091c754cf0ae712453548f"
+      },
+      "source_total_frames": 186,
+      "source_input_frames": [
+        0,
+        186
+      ],
+      "source_input_audio_samples": [
+        0,
+        372000
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-guard8.mov",
+        "sha256": "8cd17791194047af71809bb282deff55cad1326140e6005ebc3964d9320460a6"
+      },
+      "input_bytes": 14255566,
+      "input_frames": 194,
+      "input_duration_seconds": 8.083333333333334,
+      "select_local_frames": [
+        0,
+        186
+      ],
+      "select_original_frames": [
+        0,
+        186
+      ],
+      "select_output_frames": [
+        29137,
+        29323
+      ],
+      "selected_frames": 186,
+      "crop_parts_preserved": [
+        {
+          "segment_frames": [
+            0,
+            186
+          ],
+          "restored_source_frames": [
+            292,
+            478
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            29137,
+            29323
+          ],
+          "output_audio_samples": [
+            58274000,
+            58646000
+          ]
+        }
+      ],
+      "source_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-guard8-source-audio.wav",
+        "sha256": "13629a48f7c31379a808e8174af6e7ec8af2a33b3133ad56c90418983696d507"
+      },
+      "source_audio_format": "stereo 48000Hz float32 little-endian PCM",
+      "decoded_original_audio_sha256": "cfe610a3a42b8656c06ce00fa59eefbca7b5d991daf94841bd142ca9f2f59430",
+      "decoded_original_audio_samples_retained": 371712,
+      "original_audio_shortfall_zero_padding_samples": 288,
+      "decoded_source_audio_sha256": "f568ace0987112041a99402fdde2194fb2af0c1df71539e8cb7b8c3672c2b1ab",
+      "decoded_source_audio_samples": 388000,
+      "original_frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-original-FRAME-HASHES.json",
+        "sha256": "c57982c92a8882ec8d81611df2ca8c74a57b0c4230f4fa2eedf8fc1da01f064e"
+      },
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-FRAME-HASHES.json",
+        "sha256": "563b85897a05af9de6251d23341c5ab17e28b1dc4c791a53d47093f0acdc83cf"
+      },
+      "decoded_frame_sequence_sha256": "a458ca912c5a3a934a5f7e56c998b382e8129ca23e056013e8cb2f741d4e7f00",
+      "original_payload_exact_decoded_frames": true,
+      "original_payload_exact_decoded_audio": true,
+      "probe": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-PROBE.json",
+        "sha256": "fe74e82a9f0a8d5487bed4d081385a26032c793050c6d8339819c5b6559d85ed"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "-filter_complex",
+        "[0:v:0]trim=start_frame=0:end_frame=186,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop=8[v];[0:a:0]atrim=start_sample=0:end_sample=372000,asetpts=PTS-STARTPTS,apad=whole_len=372000,apad=pad_len=16000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-color_primaries",
+        "bt709",
+        "-color_trc",
+        "bt709",
+        "-colorspace",
+        "bt709",
+        "-color_range",
+        "tv",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/guarded-sources/seg075-guard8.mov"
+      ],
+      "video_encoding": "libx264 CRF 0 yuv420p, no resize/crop/retime",
+      "audio_encoding": "original AAC decoded to pcm_f32le, then exactly 16000 stereo zero samples",
+      "reported_failed_wardrobe_frames": 185,
+      "guard": {
+        "frames": [
+          186,
+          194
+        ],
+        "count": 8,
+        "source_original_frame": 185,
+        "decoded_repeated_frame_sha256": "cf8b82b8c061aa71dbd8e84ec6c4dd4c3fb87959c4b79d9ed76c0639342b5f67",
+        "audio_samples": [
+          372000,
+          388000
+        ],
+        "audio": "16000 zero stereo float32 samples",
+        "selected": false,
+        "verified_all_8_repeats": true,
+        "verified_all_audio_zeros": true,
+        "reason": "Observed provider truncation; retain all eight guards through wardrobe/background passes; exclude guards from final selection."
+      },
+      "upload_status": "not_uploaded",
+      "provider_generation_status": "not_submitted"
+    }
+  ]
+}

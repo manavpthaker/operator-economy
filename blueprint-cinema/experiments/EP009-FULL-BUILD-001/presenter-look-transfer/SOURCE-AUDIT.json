@@ -1,0 +1,4305 @@
+{
+  "record_type": "ep009_current_presenter_look_transfer_source_audit",
+  "at": "2026-09-17T23:07:50.432240+00:00",
+  "status": "source_inventory_complete_no_media_edits",
+  "scope": "Extend the current P00 outfit/environment appearance while preserving actual current hand, face, head and body performance. Audit only; no provider calls or plan changes.",
+  "current_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "current_output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r4/ep009-full-r4-opening-candidate.mp4",
+    "sha256": "c60d5d111cbea3346203a15b842d521f09070c975627c0dd7f500c9f412fcbee"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "timemap": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/TIMEMAP.json",
+    "sha256": "5427ecd19835ab60414291b8ec3cde474188c422e89ee9d0ad67090a586a4272"
+  },
+  "owner_scoped_lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/OWNER-LOCK.json",
+    "sha256": "bd909cde46ba8df22270af122e3f878edd1505d48c5ed3892cfe8525a0c351a7"
+  },
+  "coordinate_convention": {
+    "frames": "24 fps integer ranges, start inclusive and end exclusive; current r4/r3 output coordinates unless named restored or native.",
+    "audio": "48000 Hz mono PCM master, 2000 samples per picture frame. Original master length 58644920; final 1080 picture-tail samples remain zero.",
+    "crop": "[width, height, x, y] on the actual 1920x1080 restored source; null means full source. Final selected movies already contain these crops.",
+    "hashes": "SHA-256 of local files checked in this audit. Probe nb_frames is container metadata, not a new complete decode/performance review."
+  },
+  "summary": {
+    "appearances_including_opening_and_still": 16,
+    "already_matching_P00_opening": 1,
+    "r1_moving_segments_to_restyle": 14,
+    "unique_underlying_r1_takes_to_restyle": 12,
+    "r1_moving_frames": 3589,
+    "r1_moving_seconds": 149.54166666666666,
+    "P08_corrected_still_frames": 343,
+    "P08_corrected_still_seconds": 14.291666666666666,
+    "crop_sections_in_14_moving_segments": 25,
+    "all_selected_sources_available": true,
+    "all_13_old_take_native_trim_restored_masters_available": true
+  },
+  "target_appearance": {
+    "current_opening": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+      "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307"
+    },
+    "L3_image": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+      "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+    },
+    "constraint": "Appearance reference only. Do not transfer P00 gestures or expression timing onto other existing performances."
+  },
+  "opening": {
+    "segment": "seg001",
+    "take": "P00",
+    "kind": "video",
+    "selected_source": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+      "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307"
+    },
+    "source_frames": [
+      0,
+      86
+    ],
+    "output_frames": [
+      0,
+      86
+    ],
+    "duration_frames": 86,
+    "duration_seconds": 3.5833333333333335,
+    "output_seconds": [
+      0,
+      3.5833333333333335
+    ],
+    "audio": {
+      "source": "r3_master",
+      "program_sample_range": [
+        0,
+        172000
+      ],
+      "available_master_sample_range": [
+        0,
+        172000
+      ],
+      "zero_padding_samples": 0
+    },
+    "look_change_needed": false,
+    "status": "already_matches_target_look; existing lip-sync concern remains separate",
+    "underlying_restored": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/restored.mp4",
+      "sha256": "b6d1862bc8803ad04af67ce278361ae06ef7e696e992376f163d16c96834e8cb"
+    },
+    "restored_source_frames": [
+      2,
+      88
+    ],
+    "framing": "Full 1280x720 source, no added crop or speed change.",
+    "source_evidence": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/PREVIEW-BINDING.json",
+      "sha256": "31789a5796e75e88891fae4c56a2e872ec2a9222603433a2f1d2a022d9ce7ca8"
+    },
+    "proposed_action": "Retain this exact opening picture as the approved appearance reference; do not regenerate its performance for a look-only revision."
+  },
+  "appearances": [
+    {
+      "segment": "seg009",
+      "take": "P01",
+      "scene": "S00",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "sha256": "03a7ed6921b0cc8c2b93a6f55db8b577be7d2e5ee6e148862db02577c7bc948d"
+      },
+      "source_frames": [
+        0,
+        220
+      ],
+      "output_frames": [
+        1207,
+        1427
+      ],
+      "duration_frames": 220,
+      "duration_seconds": 9.166666666666666,
+      "output_seconds": [
+        50.291666666666664,
+        59.458333333333336
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          2414000,
+          2854000
+        ],
+        "available_master_sample_range": [
+          2414000,
+          2854000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P01",
+      "preserved_picture_slip": {
+        "selected_restored_start_frame": 7,
+        "older_alignment_start_frame": 13,
+        "difference_frames": -6
+      },
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            220
+          ],
+          "restored_source_frames": [
+            7,
+            227
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            1207,
+            1427
+          ],
+          "output_audio_samples": [
+            2414000,
+            2854000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/EDIT-R1-seg009.json",
+          "sha256": "810345a27323920821c14247564af662cb7a544a6552ae5787a9b21a2b2c2d5f"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "sha256": "03a7ed6921b0cc8c2b93a6f55db8b577be7d2e5ee6e148862db02577c7bc948d"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/restored.mp4",
+        "source_frames": [
+          7,
+          227
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg012",
+      "take": "P02",
+      "scene": "S02",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+        "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398"
+      },
+      "source_frames": [
+        0,
+        343
+      ],
+      "output_frames": [
+        1687,
+        2030
+      ],
+      "duration_frames": 343,
+      "duration_seconds": 14.291666666666666,
+      "output_seconds": [
+        70.29166666666667,
+        84.58333333333333
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          3374000,
+          4060000
+        ],
+        "available_master_sample_range": [
+          3374000,
+          4060000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P02",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            152
+          ],
+          "restored_source_frames": [
+            7,
+            159
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            304,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            1687,
+            1839
+          ],
+          "output_audio_samples": [
+            3374000,
+            3678000
+          ]
+        },
+        {
+          "segment_frames": [
+            152,
+            343
+          ],
+          "restored_source_frames": [
+            159,
+            350
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            1839,
+            2030
+          ],
+          "output_audio_samples": [
+            3678000,
+            4060000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/EDIT-R1-seg012.json",
+          "sha256": "0072374c12dfa77e634e8f41e02ac21a49f617e2a4892a7a75604c72f1226953"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+        "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/restored.mp4",
+        "source_frames": [
+          7,
+          350
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg019",
+      "take": "P03",
+      "scene": "S04",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+      },
+      "source_frames": [
+        0,
+        394
+      ],
+      "output_frames": [
+        4450,
+        4844
+      ],
+      "duration_frames": 394,
+      "duration_seconds": 16.416666666666668,
+      "output_seconds": [
+        185.41666666666666,
+        201.83333333333334
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          8900000,
+          9688000
+        ],
+        "available_master_sample_range": [
+          8900000,
+          9688000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P03",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            38
+          ],
+          "restored_source_frames": [
+            9,
+            47
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            302,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            4450,
+            4488
+          ],
+          "output_audio_samples": [
+            8900000,
+            8976000
+          ]
+        },
+        {
+          "segment_frames": [
+            38,
+            333
+          ],
+          "restored_source_frames": [
+            47,
+            342
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            4488,
+            4783
+          ],
+          "output_audio_samples": [
+            8976000,
+            9566000
+          ]
+        },
+        {
+          "segment_frames": [
+            333,
+            394
+          ],
+          "restored_source_frames": [
+            342,
+            403
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            302,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            4783,
+            4844
+          ],
+          "output_audio_samples": [
+            9566000,
+            9688000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/EDIT-R1-seg019.json",
+          "sha256": "34caca84f1e4dc73dd3d2b73fb191663fb060b2a8ac8a79fff53335e74a08913"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/restored.mp4",
+        "source_frames": [
+          9,
+          403
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg021",
+      "take": "P04",
+      "scene": "S05",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "sha256": "f8beac3bda79e411ecfa6d3648cf91531c9293a619661dc02c8f10c3bb5106b5"
+      },
+      "source_frames": [
+        0,
+        242
+      ],
+      "output_frames": [
+        5351,
+        5593
+      ],
+      "duration_frames": 242,
+      "duration_seconds": 10.083333333333334,
+      "output_seconds": [
+        222.95833333333334,
+        233.04166666666666
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          10702000,
+          11186000
+        ],
+        "available_master_sample_range": [
+          10702000,
+          11186000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P04",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            96
+          ],
+          "restored_source_frames": [
+            6,
+            102
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            5351,
+            5447
+          ],
+          "output_audio_samples": [
+            10702000,
+            10894000
+          ]
+        },
+        {
+          "segment_frames": [
+            96,
+            170
+          ],
+          "restored_source_frames": [
+            102,
+            176
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            302,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            5447,
+            5521
+          ],
+          "output_audio_samples": [
+            10894000,
+            11042000
+          ]
+        },
+        {
+          "segment_frames": [
+            170,
+            242
+          ],
+          "restored_source_frames": [
+            176,
+            248
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            5521,
+            5593
+          ],
+          "output_audio_samples": [
+            11042000,
+            11186000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/EDIT-R1-seg021.json",
+          "sha256": "8a13099e2928f560b8a2cc536dc2b52aa1f0b06017bd8cbafcd56a8ba9e309c7"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "sha256": "f8beac3bda79e411ecfa6d3648cf91531c9293a619661dc02c8f10c3bb5106b5"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/restored.mp4",
+        "source_frames": [
+          6,
+          248
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg028",
+      "take": "P05",
+      "scene": "S08",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4",
+        "sha256": "a3a48057d60bbc0763bdcf7aa3bbc9b9986c01c7dca738d71ad8941e541a8c0b"
+      },
+      "source_frames": [
+        0,
+        129
+      ],
+      "output_frames": [
+        8754,
+        8883
+      ],
+      "duration_frames": 129,
+      "duration_seconds": 5.375,
+      "output_seconds": [
+        364.75,
+        370.125
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          17508000,
+          17766000
+        ],
+        "available_master_sample_range": [
+          17508000,
+          17766000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P05",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            129
+          ],
+          "restored_source_frames": [
+            11,
+            140
+          ],
+          "crop_w_h_x_y": [
+            1536,
+            864,
+            166,
+            0
+          ],
+          "shot_size": "M",
+          "output_frames": [
+            8754,
+            8883
+          ],
+          "output_audio_samples": [
+            17508000,
+            17766000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/EDIT-R1-seg028.json",
+          "sha256": "4e967d413b128b3b471e0e64972c45c2b5fb11228ffa0bee5b3d8182bcd5b006"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4",
+        "sha256": "a3a48057d60bbc0763bdcf7aa3bbc9b9986c01c7dca738d71ad8941e541a8c0b"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/restored.mp4",
+        "source_frames": [
+          11,
+          140
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg035",
+      "take": "P06",
+      "scene": "S09",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942"
+      },
+      "source_frames": [
+        0,
+        258
+      ],
+      "output_frames": [
+        11185,
+        11443
+      ],
+      "duration_frames": 258,
+      "duration_seconds": 10.75,
+      "output_seconds": [
+        466.0416666666667,
+        476.7916666666667
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          22370000,
+          22886000
+        ],
+        "available_master_sample_range": [
+          22370000,
+          22886000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P06",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            100
+          ],
+          "restored_source_frames": [
+            5,
+            105
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            306,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            11185,
+            11285
+          ],
+          "output_audio_samples": [
+            22370000,
+            22570000
+          ]
+        },
+        {
+          "segment_frames": [
+            100,
+            258
+          ],
+          "restored_source_frames": [
+            105,
+            263
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            11285,
+            11443
+          ],
+          "output_audio_samples": [
+            22570000,
+            22886000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/EDIT-R1-seg035.json",
+          "sha256": "392bb445232d7eebc38de1967fc836809f8b746cc3541de011aeafc54552cc5f"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/restored.mp4",
+        "source_frames": [
+          5,
+          263
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg037",
+      "take": "P07",
+      "scene": "S10",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4",
+        "sha256": "6c45f3e7981cbcbf3b478255615bf04cf9b65b0ee74a7fef791b5b3ba16140f9"
+      },
+      "source_frames": [
+        0,
+        284
+      ],
+      "output_frames": [
+        12412,
+        12696
+      ],
+      "duration_frames": 284,
+      "duration_seconds": 11.833333333333334,
+      "output_seconds": [
+        517.1666666666666,
+        529.0
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          24824000,
+          25392000
+        ],
+        "available_master_sample_range": [
+          24824000,
+          25392000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P07",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            108
+          ],
+          "restored_source_frames": [
+            1,
+            109
+          ],
+          "crop_w_h_x_y": [
+            1536,
+            864,
+            189,
+            0
+          ],
+          "shot_size": "M",
+          "output_frames": [
+            12412,
+            12520
+          ],
+          "output_audio_samples": [
+            24824000,
+            25040000
+          ]
+        },
+        {
+          "segment_frames": [
+            108,
+            284
+          ],
+          "restored_source_frames": [
+            109,
+            285
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            12520,
+            12696
+          ],
+          "output_audio_samples": [
+            25040000,
+            25392000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/EDIT-R1-seg037.json",
+          "sha256": "450b0d6120a20796aae91cbe8f80c4ee19f2e54fe83eb46178a92e4cbdc72483"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4",
+        "sha256": "6c45f3e7981cbcbf3b478255615bf04cf9b65b0ee74a7fef791b5b3ba16140f9"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/restored.mp4",
+        "source_frames": [
+          1,
+          285
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg044",
+      "take": "P08",
+      "scene": "S12",
+      "kind": "still",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+        "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+      },
+      "source_frames": null,
+      "output_frames": [
+        15920,
+        16263
+      ],
+      "duration_frames": 343,
+      "duration_seconds": 14.291666666666666,
+      "output_seconds": [
+        663.3333333333334,
+        677.625
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          31840000,
+          32526000
+        ],
+        "available_master_sample_range": [
+          31840000,
+          32526000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P08",
+      "status": "corrected_narration_still_exception",
+      "rendered_framing": "Static L3 image scaled to cover 1280x720 and centered crop; existing lower-left presenter-pending label.",
+      "existing_speaking_source_compatible": false,
+      "reason": "Current 43-word corrected paragraph is 343 frames. Old P08 is 549 frames and speaks superseded words. There is no matching moving performance to preserve.",
+      "look_change_needed": false,
+      "proposed_action": "Keep the already matching still until a separately scoped corrected-dialogue performance exists; do not reuse old speaking P08 or stretch it to new words.",
+      "corrected_audio": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/narration-revisions/r3-hospitality/paragraph-selected-levelmatched.wav",
+        "sha256": "76a0d8143bac8f88137f37e4f7d28f7223277c7a80475e6742c1ad55f3904d67"
+      },
+      "absent_corrected_native_paths": [
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08r3a/native.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08r3b/native.mp4"
+      ],
+      "absent_corrected_restored_paths": [
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08r3a/restored.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08r3b/restored.mp4"
+      ]
+    },
+    {
+      "segment": "seg055",
+      "take": "P09",
+      "scene": "S16",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4",
+        "sha256": "f765c32281acc8a454b20ffbe2f1b1ba61dc69948461b02cb1022c62aa1c6396"
+      },
+      "source_frames": [
+        0,
+        161
+      ],
+      "output_frames": [
+        20816,
+        20977
+      ],
+      "duration_frames": 161,
+      "duration_seconds": 6.708333333333333,
+      "output_seconds": [
+        867.3333333333334,
+        874.0416666666666
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          41632000,
+          41954000
+        ],
+        "available_master_sample_range": [
+          41632000,
+          41954000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P09",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            161
+          ],
+          "restored_source_frames": [
+            5,
+            166
+          ],
+          "crop_w_h_x_y": [
+            1536,
+            864,
+            162,
+            0
+          ],
+          "shot_size": "M",
+          "output_frames": [
+            20816,
+            20977
+          ],
+          "output_audio_samples": [
+            41632000,
+            41954000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/EDIT-R1-seg055.json",
+          "sha256": "90066352734165ee333e1eb123a4529db362fa67d3d2fd0116650b690c5feaa4"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4",
+        "sha256": "f765c32281acc8a454b20ffbe2f1b1ba61dc69948461b02cb1022c62aa1c6396"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/restored.mp4",
+        "source_frames": [
+          5,
+          166
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg059",
+      "take": "P10",
+      "scene": "S17",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4",
+        "sha256": "103bad4f502f1d7eee48df270d8073c93921a0a082a2c491e93543b7a0e5bb9c"
+      },
+      "source_frames": [
+        0,
+        152
+      ],
+      "output_frames": [
+        23153,
+        23305
+      ],
+      "duration_frames": 152,
+      "duration_seconds": 6.333333333333333,
+      "output_seconds": [
+        964.7083333333334,
+        971.0416666666666
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          46306000,
+          46610000
+        ],
+        "available_master_sample_range": [
+          46306000,
+          46610000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P10",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            33
+          ],
+          "restored_source_frames": [
+            8,
+            41
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            23153,
+            23186
+          ],
+          "output_audio_samples": [
+            46306000,
+            46372000
+          ]
+        },
+        {
+          "segment_frames": [
+            33,
+            152
+          ],
+          "restored_source_frames": [
+            41,
+            160
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            312,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            23186,
+            23305
+          ],
+          "output_audio_samples": [
+            46372000,
+            46610000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/EDIT-R1-seg059.json",
+          "sha256": "72b7083c1b22b3faeaae5d9f383fb83f1e7813418fd3f402d411c5a76bce41f8"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4",
+        "sha256": "103bad4f502f1d7eee48df270d8073c93921a0a082a2c491e93543b7a0e5bb9c"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/restored.mp4",
+        "source_frames": [
+          8,
+          160
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg071",
+      "take": "P11",
+      "scene": "S22",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "source_frames": [
+        0,
+        514
+      ],
+      "output_frames": [
+        27917,
+        28431
+      ],
+      "duration_frames": 514,
+      "duration_seconds": 21.416666666666668,
+      "output_seconds": [
+        1163.2083333333333,
+        1184.625
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          55834000,
+          56862000
+        ],
+        "available_master_sample_range": [
+          55834000,
+          56862000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P11",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            30
+          ],
+          "restored_source_frames": [
+            7,
+            37
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            27917,
+            27947
+          ],
+          "output_audio_samples": [
+            55834000,
+            55894000
+          ]
+        },
+        {
+          "segment_frames": [
+            30,
+            97
+          ],
+          "restored_source_frames": [
+            37,
+            104
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            301,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            27947,
+            28014
+          ],
+          "output_audio_samples": [
+            55894000,
+            56028000
+          ]
+        },
+        {
+          "segment_frames": [
+            97,
+            449
+          ],
+          "restored_source_frames": [
+            104,
+            456
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            28014,
+            28366
+          ],
+          "output_audio_samples": [
+            56028000,
+            56732000
+          ]
+        },
+        {
+          "segment_frames": [
+            449,
+            514
+          ],
+          "restored_source_frames": [
+            456,
+            521
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            301,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            28366,
+            28431
+          ],
+          "output_audio_samples": [
+            56732000,
+            56862000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/EDIT-R1-seg071.json",
+          "sha256": "11d3e52da3084f32d5126b2e64c0d2f4a8f04b85ffdfa1090bc146276952f908"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/restored.mp4",
+        "source_frames": [
+          7,
+          521
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg072",
+      "take": "P12",
+      "scene": "S22",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "sha256": "e24bd7a4ded2c8d6c6139bc29f986a89d1185b6d097ad9cad0254db8300cef8b"
+      },
+      "source_frames": [
+        0,
+        191
+      ],
+      "output_frames": [
+        28431,
+        28622
+      ],
+      "duration_frames": 191,
+      "duration_seconds": 7.958333333333333,
+      "output_seconds": [
+        1184.625,
+        1192.5833333333333
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          56862000,
+          57244000
+        ],
+        "available_master_sample_range": [
+          56862000,
+          57244000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P12",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            191
+          ],
+          "restored_source_frames": [
+            6,
+            197
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            28431,
+            28622
+          ],
+          "output_audio_samples": [
+            56862000,
+            57244000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/CONFORM.json",
+          "sha256": "d22ed358092d928b898407800f042e5fcc9fafdc2327309c532d6e6ec8523f9e"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/VERIFY.json",
+          "sha256": "b7d686aeeacbf0381792832da1691917532a9b7c1f7fb21bb85fff9ac1661151"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "sha256": "e24bd7a4ded2c8d6c6139bc29f986a89d1185b6d097ad9cad0254db8300cef8b"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/restored.mp4",
+        "source_frames": [
+          6,
+          197
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg073",
+      "take": "P12",
+      "scene": "S23",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "sha256": "d821497e4dc94355579f15070c9f449f0c96047cfc92adbcb02a12ac5f82a62e"
+      },
+      "source_frames": [
+        0,
+        227
+      ],
+      "output_frames": [
+        28622,
+        28849
+      ],
+      "duration_frames": 227,
+      "duration_seconds": 9.458333333333334,
+      "output_seconds": [
+        1192.5833333333333,
+        1202.0416666666667
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          57244000,
+          57698000
+        ],
+        "available_master_sample_range": [
+          57244000,
+          57698000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P12",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            227
+          ],
+          "restored_source_frames": [
+            197,
+            424
+          ],
+          "crop_w_h_x_y": [
+            1280,
+            720,
+            300,
+            0
+          ],
+          "shot_size": "C",
+          "output_frames": [
+            28622,
+            28849
+          ],
+          "output_audio_samples": [
+            57244000,
+            57698000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/CONFORM.json",
+          "sha256": "d22ed358092d928b898407800f042e5fcc9fafdc2327309c532d6e6ec8523f9e"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/VERIFY.json",
+          "sha256": "b7d686aeeacbf0381792832da1691917532a9b7c1f7fb21bb85fff9ac1661151"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "sha256": "d821497e4dc94355579f15070c9f449f0c96047cfc92adbcb02a12ac5f82a62e"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/restored.mp4",
+        "source_frames": [
+          197,
+          424
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg074",
+      "take": "P13",
+      "scene": "S23",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+        "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9"
+      },
+      "source_frames": [
+        0,
+        288
+      ],
+      "output_frames": [
+        28849,
+        29137
+      ],
+      "duration_frames": 288,
+      "duration_seconds": 12.0,
+      "output_seconds": [
+        1202.0416666666667,
+        1214.0416666666667
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          57698000,
+          58274000
+        ],
+        "available_master_sample_range": [
+          57698000,
+          58274000
+        ],
+        "zero_padding_samples": 0,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P13",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            288
+          ],
+          "restored_source_frames": [
+            4,
+            292
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            28849,
+            29137
+          ],
+          "output_audio_samples": [
+            57698000,
+            58274000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/EDIT-R1-seg074.json",
+          "sha256": "f4eb559c6cbe34ee8deefad1485a8307fe3248176043201b3c9b141cc32d6734"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+        "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/restored.mp4",
+        "source_frames": [
+          4,
+          292
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    },
+    {
+      "segment": "seg075",
+      "take": "P13",
+      "scene": "S24",
+      "kind": "video",
+      "selected_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "sha256": "615300d1df1465ce543593bc11442bf9877c95a53a091c754cf0ae712453548f"
+      },
+      "source_frames": [
+        0,
+        186
+      ],
+      "output_frames": [
+        29137,
+        29323
+      ],
+      "duration_frames": 186,
+      "duration_seconds": 7.75,
+      "output_seconds": [
+        1214.0416666666667,
+        1221.7916666666667
+      ],
+      "audio": {
+        "source": "r3_master",
+        "program_sample_range": [
+          58274000,
+          58646000
+        ],
+        "available_master_sample_range": [
+          58274000,
+          58644920
+        ],
+        "zero_padding_samples": 1080,
+        "source_clip_audio_is_not_assembly_authority": true
+      },
+      "old_take": "P13",
+      "status": "existing_r1_moving_performance",
+      "look_change_needed": true,
+      "crop_parts": [
+        {
+          "segment_frames": [
+            0,
+            186
+          ],
+          "restored_source_frames": [
+            292,
+            478
+          ],
+          "crop_w_h_x_y": null,
+          "shot_size": "W",
+          "output_frames": [
+            29137,
+            29323
+          ],
+          "output_audio_samples": [
+            58274000,
+            58646000
+          ]
+        }
+      ],
+      "crop_evidence": [
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/CONFORM.json",
+          "sha256": "4db178f7352c6c5195de3d896351219e5c880dca0608948dfb3fddf9b79243a2"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/VERIFY.json",
+          "sha256": "afc68f68e13f31b21e8114a383820946ba1b7a08064c8ce9877efb9e1ff03617"
+        }
+      ],
+      "preferred_video_to_video_source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "sha256": "615300d1df1465ce543593bc11442bf9877c95a53a091c754cf0ae712453548f"
+      },
+      "source_selection_reason": "Exact current edited footage already contains the requested performance, frame timing and crop changes. Preserve these pixels/motion as the edit substrate.",
+      "higher_resolution_option": {
+        "source": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/restored.mp4",
+        "source_frames": [
+          292,
+          478
+        ],
+        "condition": "Only use this real restored performance if the same frame ranges, picture slip and crop rectangles are reapplied exactly; never replace it with a fresh generated performance."
+      }
+    }
+  ],
+  "underlying_old_takes": {
+    "P01": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/ALIGNMENT.json",
+          "sha256": "5600cdc828b570c680d90f6d981371d4dede6055aefce2d6f1ad205217013736"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/TRIM.json",
+          "sha256": "78c16dfaa2a8b9fd63c748af0b8445e07de24b1ade77f77128302b6f04e55a57"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/NATIVE-OFFSETS.json",
+          "sha256": "8f1669d0cc3cd9fcd558cc744f86f1b8315edb3a3158604be2317c70f5ca23a4"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/CONFORM.json",
+          "sha256": "ac061b8355cc20629544de87d9ecd30a365fd1dc3f3cbbe766520137c73a5787"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 13,
+      "native_trim_frames": 7,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P02": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/ALIGNMENT.json",
+          "sha256": "89319fa2dc858c6b9e54ecdb67d89e0657c1f6b2fdb0c85061f063f0d6efe406"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/TRIM.json",
+          "sha256": "a3ccc65ae67b03aa8a754b3a7300cab6f2688de4384247cad969c507b9cffa56"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/NATIVE-OFFSETS.json",
+          "sha256": "44c7b6001f39c8f9988fd12c094698595a748adfcc2c12528e070fd999914578"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/CONFORM.json",
+          "sha256": "c9bbbd78c7e532e40aaa00f4d94d58e7b8974741c202a5cccc472a1489f84e84"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 7,
+      "native_trim_frames": 20,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P03": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/ALIGNMENT.json",
+          "sha256": "a017b761d7debd078d7f7c099cd39d934c52f9941703f1cf090a9ea52fd41ee7"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/TRIM.json",
+          "sha256": "8201355bdd2923e763d386bc78287469b4b6275709027859bb1d6d954b465e5f"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/NATIVE-OFFSETS.json",
+          "sha256": "4b23928d9283920da02510c7b503ee6b0e0883bc41ee5fa8eaf3c4bf73e6114f"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/CONFORM.json",
+          "sha256": "fec84e9e94844d480f6b0e07d57af937fd5d4796d2c05a060afecc28812c75cd"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 9,
+      "native_trim_frames": 11,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P04": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/ALIGNMENT.json",
+          "sha256": "ed68100a5daa364061431f6758e6da88c46fafc5861df82c800d11a81709d5c5"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/TRIM.json",
+          "sha256": "a0e666a7cef212df0ed069fa114beb8507fcff71f442dc675555c4566e498f5f"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/NATIVE-OFFSETS.json",
+          "sha256": "832aa9434eff183049559a9b501c8632ebbaa3dbb68f64f594aa146bb22021eb"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/CONFORM.json",
+          "sha256": "a341d3890d224b6ed32bf41c815fff83096ced02dabb3b177fd312fe69b752de"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 6,
+      "native_trim_frames": 30,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P05": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/ALIGNMENT.json",
+          "sha256": "bd4838b5251e93a36d6d4859efeb0a639ddc318ec52a375dd6eb743860173f27"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/TRIM.json",
+          "sha256": "04ddef0485d59efd772725a0ee1e51828076bf8f69a03450e1f0458b603ef130"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/NATIVE-OFFSETS.json",
+          "sha256": "6ff0fa12302c9aeedfc5a3dbd9bea6fab681feeeeff56798b6f4fc1af33cd717"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/CONFORM.json",
+          "sha256": "06489cc9f2a47c3db48f55581941894bea11edd9514ecd985f056752ec074a22"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 11,
+      "native_trim_frames": 6,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P06": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/ALIGNMENT.json",
+          "sha256": "7e00ea0efc6a7d7bd8ac348af6fc643d27760b21e91af7a10181e531beee5d55"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/TRIM.json",
+          "sha256": "53f6b052fff0a019f0308cf993ca21a389220e03c7a9f594c0b00f3e899cb8c1"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/NATIVE-OFFSETS.json",
+          "sha256": "ddd0f818dc858fe93d1645b3a50032176139596deed1bf5d41bfe372c58f257a"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/CONFORM.json",
+          "sha256": "d69d4a34d3812536b31588f459ed5888fdd47d22c1f7ea7f93f82cda714dded2"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 5,
+      "native_trim_frames": 15,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P07": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/ALIGNMENT.json",
+          "sha256": "8cb8c5f6d23226a5431725b7728d0c586eef8ff72e89211dbd0cfee79e75f458"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/TRIM.json",
+          "sha256": "dc3fc778b650788b50d2a4597b3347c33ca1443b61bed35a9680e0d475530fb6"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/NATIVE-OFFSETS.json",
+          "sha256": "4c83eda683e4135fafeefcdbe9ebbbd29f8907b0c845786a20a276493e106953"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/CONFORM.json",
+          "sha256": "3e1e0d3c80df3ee503906e610b752eaefef123ec336978274c6a0e0af668dbaf"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 1,
+      "native_trim_frames": 26,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P08": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08",
+      "selected_in_r4": false,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/ALIGNMENT.json",
+          "sha256": "44dae2ece78bb6adc71105c1b4b24e29301e39947bf38925e04c198859889b25"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/TRIM.json",
+          "sha256": "7b26d7f4e11fdec833150fe9bf8d89fda3d9284cf56a0e8eb802efb3bb610141"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/NATIVE-OFFSETS.json",
+          "sha256": "0b359aea33338b0fcbdee59672a181635cbe4bbbd5689195e08ebd391204ab1a"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/CONFORM.json",
+          "sha256": "b757f974eb05b662532a4b8edcd4294db4a7e30171d6ca5b3259c67f48e14253"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/CROP-PLAN.json",
+          "sha256": "42505322dbf25cce9a7083cee3faa69e8e5f092fc5db9d9b56329edde6a0273f"
+        }
+      },
+      "restored_alignment_start_frame": 4,
+      "native_trim_frames": 15,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P09": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/ALIGNMENT.json",
+          "sha256": "46c25a52b38f6028bd933930be9a7c7646e459dc2199f8ac7477b327c9178cc2"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/TRIM.json",
+          "sha256": "25970120b09689adfd7f46e6fabe22288240998b6a9e6be40c5d17b71d7cd0eb"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/NATIVE-OFFSETS.json",
+          "sha256": "08af8af8c343b4768021f3a3c793a8d09e1fc9b175c8c8e89d25ed5bbc350b2d"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/CONFORM.json",
+          "sha256": "644314e419218147c26cbd4ca426b0fd11acd5a457b86fe2fd5ddfb4eade1e7a"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 5,
+      "native_trim_frames": 17,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P10": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/ALIGNMENT.json",
+          "sha256": "2042b8ca7b5611f63ae93b966e19f9c303509abc56e5bd39d1697917ddc9cb90"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/TRIM.json",
+          "sha256": "3f6865e7aa12dd559e010bbdb39a2a0f914955783c010b3988b0aad672af10a0"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/NATIVE-OFFSETS.json",
+          "sha256": "054bdccb959042ea55d50b02020667990d3e5b95459af30a3b579e7389eac335"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/CONFORM.json",
+          "sha256": "72b4948e24c94665c5b71a5adb2992534b64ce6670f035f021eca2503f2b25d3"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/CROP-PLAN.json",
+          "sha256": "a5a1b59e52d42c3b89c72de2fe25fe329e1bf775b9afc73671f4db917e6c62de"
+        }
+      },
+      "restored_alignment_start_frame": 8,
+      "native_trim_frames": 16,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P11": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/ALIGNMENT.json",
+          "sha256": "df96054f9f922097049d98503b776c46b6af42fdc450b9e5fec7b5d481380574"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/TRIM.json",
+          "sha256": "bbbe59e99a7c3a649e4850a74dd5dd4d09f321104ad4b5758304801f16d83e97"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/NATIVE-OFFSETS.json",
+          "sha256": "b88440d2117202068b6c1aca80688820a4f397348f466186b42b6e0a53c5b67b"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/CONFORM.json",
+          "sha256": "6f1224e5c95f7acc908f0721d506d75a0bed94c17abee7d35d188c8d8ac114fe"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/CROP-PLAN.json",
+          "sha256": "d0b7684edc5b59f1c74292d26eb539e7f0d74bc90b6367bd01a7484048d2a1d8"
+        }
+      },
+      "restored_alignment_start_frame": 7,
+      "native_trim_frames": 18,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P12": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/ALIGNMENT.json",
+          "sha256": "fa23069f2ee0909bdc6706141ad2b1e127188a0dc1f7956845e3ce0893d1142f"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/TRIM.json",
+          "sha256": "2def8c70130ddac141ba717e2ea3b7b63025a59831dad093ba09d7bf7be2aeea"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/NATIVE-OFFSETS.json",
+          "sha256": "438077b6aa05631d8aafac06b61d398ed0b528cd4205c5b665c178a493645e13"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/CONFORM.json",
+          "sha256": "d22ed358092d928b898407800f042e5fcc9fafdc2327309c532d6e6ec8523f9e"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/CROP-PLAN.json",
+          "sha256": "dc72b342ed5583b8905b490d27d9bd9ec3f2e0ab69a70bb165322b10025bf0ac"
+        }
+      },
+      "restored_alignment_start_frame": 6,
+      "native_trim_frames": 22,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    },
+    "P13": {
+      "directory": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13",
+      "selected_in_r4": true,
+      "masters": {
+        "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native.mp4",
+        "native-trim": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native-trim.mp4",
+        "restored": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/restored.mp4"
+      },
+      "evidence": {
+        "ALIGNMENT": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/ALIGNMENT.json",
+          "sha256": "4e2dcebc69c1017be417e9dd6bef0c8a8130ec087b7adc46c3e27544ee9b44e0"
+        },
+        "TRIM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/TRIM.json",
+          "sha256": "748b7d88b749e203947bee887cbe3532488927d28a787778e47642dbefb19d4a"
+        },
+        "NATIVE-OFFSETS": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/NATIVE-OFFSETS.json",
+          "sha256": "8dadcebf9aea195f52672750e5f737509652dbd5b454b2a1bcae6b0b760638e3"
+        },
+        "CONFORM": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/CONFORM.json",
+          "sha256": "4db178f7352c6c5195de3d896351219e5c880dca0608948dfb3fddf9b79243a2"
+        },
+        "CROP-PLAN": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/CROP-PLAN.json",
+          "sha256": "020316f2e16a07c67f74f58e02ea4a139d5afff1d7caa61a8ac12e4b6a33c580"
+        }
+      },
+      "restored_alignment_start_frame": 4,
+      "native_trim_frames": 19,
+      "native_relation_limit": "Native and native-trim retain generator speech/mouth motion. Current picture comes from restored, cropped selections; do not substitute native timing or mouth motion."
+    }
+  },
+  "media_availability": {
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+      "sha256": "03a7ed6921b0cc8c2b93a6f55db8b577be7d2e5ee6e148862db02577c7bc948d",
+      "available": true,
+      "bytes": 1824742,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "9.166667",
+            "nb_frames": "220"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "9.166000",
+            "nb_frames": "431"
+          }
+        ],
+        "format": {
+          "duration": "9.166667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native-trim.mp4",
+      "sha256": "f56cbd45f736db712c49846402cb390b046f742083141831044f2862dfe964f8",
+      "available": true,
+      "bytes": 12258285,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "10.750000",
+            "nb_frames": "258"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "10.781000",
+            "nb_frames": "338"
+          }
+        ],
+        "format": {
+          "duration": "10.781000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/native.mp4",
+      "sha256": "edc7aba6a12715bb3bdcab91921cdcca38f2b195f73ef0adeff4bcfb15d31a33",
+      "available": true,
+      "bytes": 2435891,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "11.041667",
+            "nb_frames": "265"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "11.050000",
+            "nb_frames": "347"
+          }
+        ],
+        "format": {
+          "duration": "11.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/restored.mp4",
+      "sha256": "e34cc9529790e5a0b0b6b818429b0caf689908db604a77e9d801ce5516d75f03",
+      "available": true,
+      "bytes": 18202431,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "10.750000",
+            "nb_frames": "505"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "10.750000",
+            "nb_frames": "258"
+          }
+        ],
+        "format": {
+          "duration": "10.750000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+      "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398",
+      "available": true,
+      "bytes": 3216331,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "14.291667",
+            "nb_frames": "343"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "14.291000",
+            "nb_frames": "671"
+          }
+        ],
+        "format": {
+          "duration": "14.291667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native-trim.mp4",
+      "sha256": "79fe5259f4f649fbd62665b8a5c07fc228a691a8c28a851cc304087c18acd7cd",
+      "available": true,
+      "bytes": 17690694,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "15.208333",
+            "nb_frames": "365"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "15.231000",
+            "nb_frames": "477"
+          }
+        ],
+        "format": {
+          "duration": "15.231000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/native.mp4",
+      "sha256": "5958056f41486d9a3e3bd3663f80e5552d4f86b07e6dee706899c1ba3cd28605",
+      "available": true,
+      "bytes": 3663583,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "16.041667",
+            "nb_frames": "385"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "16.050000",
+            "nb_frames": "503"
+          }
+        ],
+        "format": {
+          "duration": "16.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/restored.mp4",
+      "sha256": "e7ff312c1ba8ba0c394349e1cd6b34ea4c201e473b376ea4ce9b405a7e8bfd33",
+      "available": true,
+      "bytes": 25857206,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "15.208000",
+            "nb_frames": "714"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "15.208333",
+            "nb_frames": "365"
+          }
+        ],
+        "format": {
+          "duration": "15.208333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+      "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df",
+      "available": true,
+      "bytes": 3639757,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "16.416667",
+            "nb_frames": "394"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "16.416000",
+            "nb_frames": "771"
+          }
+        ],
+        "format": {
+          "duration": "16.416667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native-trim.mp4",
+      "sha256": "6126b2c87d2ac07205158c502603b591ae5a08bba95f4cea7182727fcf00f599",
+      "available": true,
+      "bytes": 18456562,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "17.583333",
+            "nb_frames": "422"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "17.622000",
+            "nb_frames": "552"
+          }
+        ],
+        "format": {
+          "duration": "17.622000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/native.mp4",
+      "sha256": "6235bf1bf7b531eea5f4aba4b62519c346c8372c6d6752426c967076c4f658a7",
+      "available": true,
+      "bytes": 3895728,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "18.041667",
+            "nb_frames": "433"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "18.050000",
+            "nb_frames": "566"
+          }
+        ],
+        "format": {
+          "duration": "18.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/restored.mp4",
+      "sha256": "13b0443f35b6fb122d40317a8fc30cb450c26864f39e13e6b52276dc32271dc4",
+      "available": true,
+      "bytes": 28099912,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "17.583000",
+            "nb_frames": "826"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "17.583333",
+            "nb_frames": "422"
+          }
+        ],
+        "format": {
+          "duration": "17.583333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+      "sha256": "f8beac3bda79e411ecfa6d3648cf91531c9293a619661dc02c8f10c3bb5106b5",
+      "available": true,
+      "bytes": 2329246,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "10.083333",
+            "nb_frames": "242"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "10.083000",
+            "nb_frames": "474"
+          }
+        ],
+        "format": {
+          "duration": "10.083333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native-trim.mp4",
+      "sha256": "dd2d7b31ee44d60a2d515f9fb2d706e3216367f5c944b0429137b5dcfef3b79c",
+      "available": true,
+      "bytes": 12399618,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "10.791667",
+            "nb_frames": "259"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "10.814000",
+            "nb_frames": "339"
+          }
+        ],
+        "format": {
+          "duration": "10.814000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/native.mp4",
+      "sha256": "1979b502b697dd65035aa7fa39cced03a934767630fbda752e87f3fd8a3a9e68",
+      "available": true,
+      "bytes": 2903062,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "12.041667",
+            "nb_frames": "289"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "12.050000",
+            "nb_frames": "378"
+          }
+        ],
+        "format": {
+          "duration": "12.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/restored.mp4",
+      "sha256": "ea8c2b0d86474fa742b7bbaf951d24dd98dd006e481a184828aec4456f7cf097",
+      "available": true,
+      "bytes": 18231249,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "10.791000",
+            "nb_frames": "507"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "10.791667",
+            "nb_frames": "259"
+          }
+        ],
+        "format": {
+          "duration": "10.791667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4",
+      "sha256": "a3a48057d60bbc0763bdcf7aa3bbc9b9986c01c7dca738d71ad8941e541a8c0b",
+      "available": true,
+      "bytes": 1185247,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "5.375000",
+            "nb_frames": "129"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "5.375000",
+            "nb_frames": "253"
+          }
+        ],
+        "format": {
+          "duration": "5.375000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native-trim.mp4",
+      "sha256": "028d4a570a2163ac79373c046ffbf2e702a0db591a481522bcc764519a95971b",
+      "available": true,
+      "bytes": 7947430,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "6.791667",
+            "nb_frames": "163"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "6.822000",
+            "nb_frames": "215"
+          }
+        ],
+        "format": {
+          "duration": "6.822000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/native.mp4",
+      "sha256": "e403ffc3981f41380cb3d9f5ced56080498499186fc522bef3de121b3cec397e",
+      "available": true,
+      "bytes": 1694020,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "7.041667",
+            "nb_frames": "169"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "7.050000",
+            "nb_frames": "222"
+          }
+        ],
+        "format": {
+          "duration": "7.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/restored.mp4",
+      "sha256": "2f8245b8bd2254ee977008c53a1179f8330528baf2fcfd9d3f54d9229b816026",
+      "available": true,
+      "bytes": 11717499,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "6.792000",
+            "nb_frames": "320"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "6.791667",
+            "nb_frames": "163"
+          }
+        ],
+        "format": {
+          "duration": "6.792000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+      "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942",
+      "available": true,
+      "bytes": 2356643,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "10.750000",
+            "nb_frames": "258"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "10.750000",
+            "nb_frames": "505"
+          }
+        ],
+        "format": {
+          "duration": "10.750000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native-trim.mp4",
+      "sha256": "589acfe410610057314d3068ca92d0d035f6df4868edd3c2d2808e4495880803",
+      "available": true,
+      "bytes": 12950202,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "11.416667",
+            "nb_frames": "274"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "11.439000",
+            "nb_frames": "359"
+          }
+        ],
+        "format": {
+          "duration": "11.439000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/native.mp4",
+      "sha256": "aed2802dbc9e7efbb914fdf3ed2f5ce9224748dc07a1bfda3829c1cdf719b5e9",
+      "available": true,
+      "bytes": 2777873,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "12.041667",
+            "nb_frames": "289"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "12.050000",
+            "nb_frames": "378"
+          }
+        ],
+        "format": {
+          "duration": "12.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/restored.mp4",
+      "sha256": "b13ed740f0dd5735db3c360e576020a7c7a117ff5cdbf95c84f38d228c085ac5",
+      "available": true,
+      "bytes": 19048318,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "11.417000",
+            "nb_frames": "537"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "11.416667",
+            "nb_frames": "274"
+          }
+        ],
+        "format": {
+          "duration": "11.417000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4",
+      "sha256": "6c45f3e7981cbcbf3b478255615bf04cf9b65b0ee74a7fef791b5b3ba16140f9",
+      "available": true,
+      "bytes": 2654974,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "11.833333",
+            "nb_frames": "284"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "11.833000",
+            "nb_frames": "556"
+          }
+        ],
+        "format": {
+          "duration": "11.833333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native-trim.mp4",
+      "sha256": "da415c73442bc0e7c6547b4340f7fa4c056f30872234ba3545f4d7daad607e90",
+      "available": true,
+      "bytes": 13512347,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "11.958333",
+            "nb_frames": "287"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "11.973000",
+            "nb_frames": "376"
+          }
+        ],
+        "format": {
+          "duration": "11.973000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/native.mp4",
+      "sha256": "a0e36a6184afd65adbfd22d3477ee986efa3dd5bc178937dcc4f3aee02d884a1",
+      "available": true,
+      "bytes": 3189762,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "13.041667",
+            "nb_frames": "313"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "13.050000",
+            "nb_frames": "409"
+          }
+        ],
+        "format": {
+          "duration": "13.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/restored.mp4",
+      "sha256": "4c0626c9f834ff5fdc2c2725089fadb00d80735568546c07e9bd658d42bcdfaf",
+      "available": true,
+      "bytes": 20137314,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "11.958000",
+            "nb_frames": "562"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "11.958333",
+            "nb_frames": "287"
+          }
+        ],
+        "format": {
+          "duration": "11.958333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/final/seg044.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/final/seg044.mp4",
+      "sha256": "383aa69b9e98234e488d403037a8f9e96ee330c17f27248dd1d803c3273f567d",
+      "available": true,
+      "bytes": 4395677,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "22.875000",
+            "nb_frames": "549"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "22.875000",
+            "nb_frames": "1074"
+          }
+        ],
+        "format": {
+          "duration": "22.875000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native-trim.mp4",
+      "sha256": "00e7bc2609e84e49c14e129b852d303721b9483d0a88b256e4d8c8ad5464e58e",
+      "available": true,
+      "bytes": 21124812,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "23.416667",
+            "nb_frames": "562"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "23.439000",
+            "nb_frames": "734"
+          }
+        ],
+        "format": {
+          "duration": "23.439000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/native.mp4",
+      "sha256": "92ae40641e885c43683240c245da6fbb5b69c1aa8c6ddb59068da97983ccb6df",
+      "available": true,
+      "bytes": 4148040,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "24.041667",
+            "nb_frames": "577"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "24.050000",
+            "nb_frames": "753"
+          }
+        ],
+        "format": {
+          "duration": "24.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P08/restored.mp4",
+      "sha256": "1c04c34dbf6685e9b169b2daf7bf5faa7f9c2c875e64343a46677d0a2627d14a",
+      "available": true,
+      "bytes": 34814478,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "23.417000",
+            "nb_frames": "1099"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "23.416667",
+            "nb_frames": "562"
+          }
+        ],
+        "format": {
+          "duration": "23.417000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4",
+      "sha256": "f765c32281acc8a454b20ffbe2f1b1ba61dc69948461b02cb1022c62aa1c6396",
+      "available": true,
+      "bytes": 1534963,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "6.708333",
+            "nb_frames": "161"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "6.708000",
+            "nb_frames": "316"
+          }
+        ],
+        "format": {
+          "duration": "6.708333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native-trim.mp4",
+      "sha256": "c56d9472955820e0ff6d23e49bbef59bb2a6d8abc6e13f735577bd963494fdea",
+      "available": true,
+      "bytes": 8704739,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "7.333333",
+            "nb_frames": "176"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "7.356000",
+            "nb_frames": "231"
+          }
+        ],
+        "format": {
+          "duration": "7.356000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/native.mp4",
+      "sha256": "36c580c5eee49dc6427fff9001bdcf39fd0697ff71831a9aa90a1881d38ff175",
+      "available": true,
+      "bytes": 1944821,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "8.041667",
+            "nb_frames": "193"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "8.050000",
+            "nb_frames": "253"
+          }
+        ],
+        "format": {
+          "duration": "8.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/restored.mp4",
+      "sha256": "8e50d425d078bba5c7e15a99859bdacecd3ebcee7798570b6b1f5d0a0bac2afd",
+      "available": true,
+      "bytes": 13172444,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "7.333000",
+            "nb_frames": "345"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "7.333333",
+            "nb_frames": "176"
+          }
+        ],
+        "format": {
+          "duration": "7.333333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4",
+      "sha256": "103bad4f502f1d7eee48df270d8073c93921a0a082a2c491e93543b7a0e5bb9c",
+      "available": true,
+      "bytes": 1418067,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "6.333333",
+            "nb_frames": "152"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "6.333000",
+            "nb_frames": "298"
+          }
+        ],
+        "format": {
+          "duration": "6.333333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native-trim.mp4",
+      "sha256": "a4ebf0195a0ef5d630397444745a42bc5bc53e9a0aa5817ac3501084a3e120a9",
+      "available": true,
+      "bytes": 7734139,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "7.375000",
+            "nb_frames": "177"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "7.398000",
+            "nb_frames": "233"
+          }
+        ],
+        "format": {
+          "duration": "7.398000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/native.mp4",
+      "sha256": "cc990be28e4fe3928713c26d4561089e7d04ae2c80c09f79b90f8ddeed70321a",
+      "available": true,
+      "bytes": 1686408,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "8.041667",
+            "nb_frames": "193"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "8.050000",
+            "nb_frames": "253"
+          }
+        ],
+        "format": {
+          "duration": "8.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/restored.mp4",
+      "sha256": "d2cb8302ec38f6beb043f4a7d7408d396091a91819d4a3cc351df5d94d4ff631",
+      "available": true,
+      "bytes": 11781340,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "7.375000",
+            "nb_frames": "347"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "7.375000",
+            "nb_frames": "177"
+          }
+        ],
+        "format": {
+          "duration": "7.375000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+      "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8",
+      "available": true,
+      "bytes": 4447082,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "21.416667",
+            "nb_frames": "514"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "21.416000",
+            "nb_frames": "1005"
+          }
+        ],
+        "format": {
+          "duration": "21.416667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native-trim.mp4",
+      "sha256": "8cb12afdc803efd666235f4ffd607cc4708c8da1fab5d6ae20a3762ac9200696",
+      "available": true,
+      "bytes": 23201867,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "22.291667",
+            "nb_frames": "535"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "22.322000",
+            "nb_frames": "699"
+          }
+        ],
+        "format": {
+          "duration": "22.322000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/native.mp4",
+      "sha256": "dfcac019d2b03f2eb7d64e43a278a06f519e76f18e66794253ab0b7092111b9f",
+      "available": true,
+      "bytes": 4666870,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "23.041667",
+            "nb_frames": "553"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "23.050000",
+            "nb_frames": "722"
+          }
+        ],
+        "format": {
+          "duration": "23.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/restored.mp4",
+      "sha256": "4d208c1b57b8faa3f51f23ca366ee4057aff05ca7590e4b52e405fc64358e688",
+      "available": true,
+      "bytes": 35618505,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "22.292000",
+            "nb_frames": "1046"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "22.291667",
+            "nb_frames": "535"
+          }
+        ],
+        "format": {
+          "duration": "22.292000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+      "sha256": "e24bd7a4ded2c8d6c6139bc29f986a89d1185b6d097ad9cad0254db8300cef8b",
+      "available": true,
+      "bytes": 1468437,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "7.958333",
+            "nb_frames": "191"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "7.958000",
+            "nb_frames": "375"
+          }
+        ],
+        "format": {
+          "duration": "7.958333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+      "sha256": "d821497e4dc94355579f15070c9f449f0c96047cfc92adbcb02a12ac5f82a62e",
+      "available": true,
+      "bytes": 2102541,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "9.458333",
+            "nb_frames": "227"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "9.458000",
+            "nb_frames": "445"
+          }
+        ],
+        "format": {
+          "duration": "9.458333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native-trim.mp4",
+      "sha256": "2ec2aab7ae73a85c27b910d86177a815578af3224fe0d5cb669f1cf2e5bb453a",
+      "available": true,
+      "bytes": 18271465,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "18.125000",
+            "nb_frames": "435"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "18.156000",
+            "nb_frames": "569"
+          }
+        ],
+        "format": {
+          "duration": "18.156000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/native.mp4",
+      "sha256": "7228cd8594ff03d3cabb448d842d5bd74ee66f36c45e104d9b63568dceee851c",
+      "available": true,
+      "bytes": 3781642,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "19.041667",
+            "nb_frames": "457"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "19.050000",
+            "nb_frames": "597"
+          }
+        ],
+        "format": {
+          "duration": "19.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/restored.mp4",
+      "sha256": "2f04a912333c2bd758d87341122769187b12f4d2d6c9925f18326cd08e3072cc",
+      "available": true,
+      "bytes": 28457255,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "18.125000",
+            "nb_frames": "851"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "18.125000",
+            "nb_frames": "435"
+          }
+        ],
+        "format": {
+          "duration": "18.125000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+      "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9",
+      "available": true,
+      "bytes": 2689282,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "12.000000",
+            "nb_frames": "288"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "12.000000",
+            "nb_frames": "564"
+          }
+        ],
+        "format": {
+          "duration": "12.000000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+      "sha256": "615300d1df1465ce543593bc11442bf9877c95a53a091c754cf0ae712453548f",
+      "available": true,
+      "bytes": 1478114,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "7.750000",
+            "nb_frames": "186"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "7.727000",
+            "nb_frames": "364"
+          }
+        ],
+        "format": {
+          "duration": "7.750000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native-trim.mp4",
+      "sha256": "3640cb7cd70fb240ab6038291bca39ed8a329538fbb3e6297af791bb957623af",
+      "available": true,
+      "bytes": 22248060,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "20.250000",
+            "nb_frames": "486"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "20.265000",
+            "nb_frames": "635"
+          }
+        ],
+        "format": {
+          "duration": "20.265000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/native.mp4",
+      "sha256": "b49a104f47a2ca954fc319ede68ac38da2ca984b3228738f4277edc7b2b3e20e",
+      "available": true,
+      "bytes": 4844868,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "21.041667",
+            "nb_frames": "505"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "21.050000",
+            "nb_frames": "659"
+          }
+        ],
+        "format": {
+          "duration": "21.050000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/restored.mp4",
+      "sha256": "4a77c7d18ff8c2d79a70340975c194c20373c79b9e489d80fba3182be02ec22c",
+      "available": true,
+      "bytes": 33924519,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "20.250000",
+            "nb_frames": "951"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "24/1",
+            "duration": "20.250000",
+            "nb_frames": "486"
+          }
+        ],
+        "format": {
+          "duration": "20.250000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/native-trim.mp4",
+      "sha256": "0001f92a99327689c441d6cd2cfcd15ce936a41cb095526fd41f548b3fc0ffbd",
+      "available": true,
+      "bytes": 2910258,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "3.833333",
+            "nb_frames": "92"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "3.752000",
+            "nb_frames": "119"
+          }
+        ],
+        "format": {
+          "duration": "3.833333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/native.mp4",
+      "sha256": "acbacf1666ec49ed173d2c63ea8be8e4b4a36d3763196e04c47d52e55a4d974e",
+      "available": true,
+      "bytes": 2073533,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "5.041667",
+            "nb_frames": "121"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "4.960000",
+            "nb_frames": "156"
+          }
+        ],
+        "format": {
+          "duration": "5.041667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+      "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307",
+      "available": true,
+      "bytes": 1164317,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "3.583333",
+            "nb_frames": "86"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "3.583000",
+            "nb_frames": "169"
+          }
+        ],
+        "format": {
+          "duration": "3.583333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/restored.mp4",
+      "sha256": "b6d1862bc8803ad04af67ce278361ae06ef7e696e992376f163d16c96834e8cb",
+      "available": true,
+      "bytes": 3395443,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "3.833000",
+            "nb_frames": "181"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "3.833333",
+            "nb_frames": "92"
+          }
+        ],
+        "format": {
+          "duration": "3.833333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4",
+      "sha256": "5f1200763aebbc87fb741b7523a56d14eb40f743a143d33cbdb35050117589ca",
+      "available": true,
+      "bytes": 4814371,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "11.041667",
+            "nb_frames": "265"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "10.976000",
+            "nb_frames": "344"
+          }
+        ],
+        "format": {
+          "duration": "11.041667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native-trim.mp4",
+      "sha256": "87a1cba4810fe72f1f057447b63027ebdb0517015fa199d7a54c91143c85c1e6",
+      "available": true,
+      "bytes": 3311166,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "4.250000",
+            "nb_frames": "102"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "4.251000",
+            "nb_frames": "201"
+          }
+        ],
+        "format": {
+          "duration": "4.251000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4",
+      "sha256": "36fc9c49ea5f9da6762a8afb42013117d7e9c347268e2c2c1d3a74dcc54dbfe9",
+      "available": true,
+      "bytes": 3304839,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "4.500000",
+            "nb_frames": "108"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "4.500000",
+            "nb_frames": "212"
+          }
+        ],
+        "format": {
+          "duration": "4.500000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/restored.mp4",
+      "sha256": "9923b7ce1c42e8a6d8b92db08814c90d468f3a4beeb87e20eab1b9c9f8499152",
+      "available": true,
+      "bytes": 3994495,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "4.250000",
+            "nb_frames": "201"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "4.250000",
+            "nb_frames": "102"
+          }
+        ],
+        "format": {
+          "duration": "4.250000"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native-trim.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native-trim.mp4",
+      "sha256": "f2fd414791d2ed1c2bda4e4f364ce9c4086b788fb05b7327e9e7473e1d8811ef",
+      "available": true,
+      "bytes": 4365233,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "6.333008",
+            "nb_frames": "152"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "6.268000",
+            "nb_frames": "197"
+          }
+        ],
+        "format": {
+          "duration": "6.333008"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native.mp4",
+      "sha256": "6b6484409c9f60392fb99b46076d65458cd485eb3dd4f7ed399ce20ed123c6f3",
+      "available": true,
+      "bytes": 2855015,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "7.041667",
+            "nb_frames": "169"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "6.976000",
+            "nb_frames": "219"
+          }
+        ],
+        "format": {
+          "duration": "7.041667"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/restored.mp4": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/restored.mp4",
+      "sha256": "afa510af24c3a97c07576f1ac1ec3b5208d708812853f4e8e84d8f197260342e",
+      "available": true,
+      "bytes": 5583612,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 1,
+            "r_frame_rate": "0/0",
+            "duration": "6.333000",
+            "nb_frames": "298"
+          },
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "duration": "6.333333",
+            "nb_frames": "152"
+          }
+        ],
+        "format": {
+          "duration": "6.333333"
+        }
+      }
+    },
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+      "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5",
+      "available": true,
+      "bytes": 5023288,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "png",
+            "codec_type": "video",
+            "width": 2688,
+            "height": 1520,
+            "r_frame_rate": "25/1"
+          }
+        ],
+        "format": {}
+      }
+    }
+  },
+  "regenerated_pilots_not_selected": [
+    {
+      "take": "P01",
+      "available_media": [
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4"
+      ],
+      "use_as_current_performance_source": false,
+      "reason": "Regenerated pilot performance is not the picture in r4; replacing r1 with it would change the existing performance."
+    },
+    {
+      "take": "P01a",
+      "available_media": [
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native-trim.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/restored.mp4"
+      ],
+      "use_as_current_performance_source": false,
+      "reason": "Regenerated pilot performance is not the picture in r4; replacing r1 with it would change the existing performance."
+    },
+    {
+      "take": "P01b",
+      "available_media": [
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native-trim.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/native.mp4",
+        "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/restored.mp4"
+      ],
+      "use_as_current_performance_source": false,
+      "reason": "Regenerated pilot performance is not the picture in r4; replacing r1 with it would change the existing performance."
+    }
+  ],
+  "historical_evidence_warnings": [
+    {
+      "segment": "seg009",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg012",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg019",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg021",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg028",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg035",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg037",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg055",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg059",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg071",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    },
+    {
+      "segment": "seg074",
+      "historical_verify_hash_is_stale_for_r1": true,
+      "authority": "Current r4 BUILD source hash and EDIT-R1 record; generic VERIFY/CONFORM may precede the r1 recrop."
+    }
+  ],
+  "recommendation": {
+    "primary": "Use each exact current edited r1 movie as the video-to-video source, modifying outfit/environment only. Keep the bound r3 narration untouched; ignore or discard provider-produced audio.",
+    "crop_boundaries": "If the provider cannot preserve an existing hard crop change, divide the actual footage at the recorded crop boundaries and rejoin with identical frame counts. Do not invent replacement hand/body/head performances.",
+    "higher_resolution": "Available 1920x1080 restored masters are the same source performance before crop. They are an option only with exact listed frame-window/crop reconstruction; the final 1280x720 r1 clips remain the reference for preservation.",
+    "P01": "Preserve r1 restored start 7, not original alignment start 13. That six-frame slip is part of the current picture.",
+    "P12_P13": "P12 spans seg072/seg073 and P13 spans seg074/seg075. They share continuous underlying takes; preserve continuity and original segment/crop boundaries.",
+    "P08_exception": "Current P08 has no moving performance for the corrected words. Old 549-frame P08 is incompatible with locked 343-frame corrected narration. Keep the still or separately resolve that exception; a look-only transfer cannot create a matching performance.",
+    "validation": "Compare frame-corresponding original/output face, hands, body/head poses and crop boundaries, exact duration/frame count and locked audio. Appearance-transfer ability is not established by this inventory."
+  },
+  "limits": [
+    "Availability, hashes, selected-source provenance and timing/crop metadata only; no new audiovisual or perceptual sync acceptance.",
+    "No media was edited, no current plan changed, no provider contacted and no commit made.",
+    "Provider guarantees about exact motion/identity preservation remain unverified; root owns selection and production."
+  ]
+}

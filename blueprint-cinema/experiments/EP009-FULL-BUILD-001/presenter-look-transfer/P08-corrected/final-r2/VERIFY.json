@@ -1,0 +1,112 @@
+{
+  "record_type": "corrected_P08_final_r2_mechanical_verification",
+  "status": "mechanical_pass_private_review_only",
+  "errors": [],
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r2/seg044.mp4",
+    "sha256": "7c6c7e8e7d926af364ad91a4492ddfa89a072f7e12c7689567c8edab43a49c55"
+  },
+  "conform": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r2/CONFORM.json",
+    "sha256": "4c22b9aa6569c775c8927c8835725a383be1e4d20510d365b940ef94206ec66d"
+  },
+  "frames": 343,
+  "master_sample_range": [
+    31840000,
+    32526000
+  ],
+  "master_pcm_sha256": "358d6677504c50cbc5297f7d52a51a9f22856517ddd987623460e07d5eb2b994",
+  "program_samples": 686000,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "343"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "670"
+      }
+    ],
+    "format": {
+      "duration": "14.291667"
+    }
+  },
+  "audio": {
+    "method": "Complete mapped master excerpt, including planned final zero padding; channelwise unity comparison in5secondblocks.",
+    "expected_samples": 686000,
+    "compared_samples": 686000,
+    "decoded_samples": 686080,
+    "aac_padding_samples": 80,
+    "padding_peak_abs": 8.957018238220371e-09,
+    "decode_exit_codes": [
+      0,
+      0
+    ],
+    "full_corr": [
+      0.9999920601048081,
+      0.9999920601051795
+    ],
+    "full_rms_delta_db": [
+      -0.006308094250965991,
+      -0.006308094073173804
+    ],
+    "min_voiced_window_corr": 0.9999894086537757,
+    "max_abs_voiced_window_rms_db": 0.006960167209433743,
+    "windows": [
+      {
+        "start_seconds": 0.0,
+        "samples": 240000,
+        "corr": [
+          0.9999916783528195,
+          0.9999916783536312
+        ],
+        "rms_delta_db": [
+          -0.0060807484325747455,
+          -0.006080748030581088
+        ]
+      },
+      {
+        "start_seconds": 5.0,
+        "samples": 240000,
+        "corr": [
+          0.9999894086537757,
+          0.9999894086540567
+        ],
+        "rms_delta_db": [
+          -0.006960167209433743,
+          -0.0069601670938804205
+        ]
+      },
+      {
+        "start_seconds": 10.0,
+        "samples": 206000,
+        "corr": [
+          0.9999942611192194,
+          0.9999942611192194
+        ],
+        "rms_delta_db": [
+          -0.0060834781856303555,
+          -0.0060834781856303555
+        ]
+      }
+    ]
+  },
+  "replacement_frame_sequence_sha256": "bc413a3172c16328dd2390305a7058d156f8ee85e51b0be52adf7b7eb0278d29",
+  "owner_accepted": false,
+  "lip_sync_approved": false,
+  "review_limits": [
+    "Four added hold frames create a total five-identical-frame span (208.3 ms); its perceptibility at normal speed remains unassessed.",
+    "Exact phoneme boundaries and perceptual lip sync remain unresolved. DTW event alignment and low RMS do not independently establish sync.",
+    "The post-hold four-frame picture delay changes this newly generated P08 performance only. None of the fourteen previously locked performances are edited by this helper.",
+    "Prior failed metric reports remain unchanged; root selection is for private review and does not declare a lip-sync metric pass or owner acceptance."
+  ]
+}

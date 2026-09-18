@@ -1,0 +1,5 @@
+[0:v:0]trim=start_frame=0:end_frame=97,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v0];
+[1:v:0]trim=start_frame=0:end_frame=352,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v1];
+[2:v:0]trim=start_frame=31:end_frame=96,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v2];
+[v0][v1][v2]concat=n=3:v=1:a=0,setpts=N/(24*TB)[vo];
+[3:a:0]atrim=start_sample=55834000:end_sample=56862000,asetpts=N/SR/TB,apad=whole_len=1028000,atrim=end_sample=1028000,pan=stereo|c0=c0|c1=c0[ao]

@@ -1,4 +1,18 @@
-# EP009 production checkpoint — r4 avatar opening locked by owner, 2026-09-17
+# EP009 production checkpoint — full avatar look update ready for private review, 2026-09-17
+
+Current full review: https://mini.tail1c89f5.ts.net:3071/ep009-r5-review.html. Comparison: https://mini.tail1c89f5.ts.net:3071/ep009-avatar-comparison.html. Exact package and all current bindings: `presenter-look-transfer/DELIVERY-r1.json`.
+
+All 14 existing moving presenter segments now use the approved chambray/inn look, with 3,589 original frame positions and original crop cuts preserved. The accepted P00 opening remains exact. P08 alone is newly animated because r4 used a still under the corrected narration. Its final-r2 picture is selected for private review; unchanged narration is exact, but perceptual lip sync and the 208 ms held-pose span remain for owner review. Earlier failed versions and diagnostic flags stay held.
+
+Full output: `assembly/qa/r5-look-transfer/ep009-r5-look-transfer-review-r1.mp4`, SHA d31d06c9793ba2f198589c65d3180a8b41c8b844258bef4cd99d55eb0d679bcf. All 29,323 frames decoded; exactly 3,932 authorized presenter-frame assignments changed. All 75 cue rows and every other assignment, P00, brand timing, master, timing map, transcript, owner locks and six workflow films are retained. All 58,646,000 program audio samples checked; minimum window correlation 0.99997015 and maximum level difference 0.01357 dB. Encoded integration: 134 sampled frames / 23 sheets reviewed with no new material visible integration defect.
+
+Tailscale private 3071 serves the existing 3070 range server. HTTPS 206 streaming,375-pixel layout, play and seek verified. The 149.542second original-left/updated-right reel played through at 1x without a browser error. These are technical/frame-based checks, not continuous human audiovisual approval or physical-phone testing. Unrelated public 443 Funnel remains unchanged.
+
+All generation jobs are terminal. Budget ledger: 1,281.5 Higgsfield credits / 1,800; Fal $4.691394 / $30. Original production 1993.5 / 2000 remains a separate allowance. No cap increase. Legacy fresh-performance bulk plan remains inactive for the 14 existing clips.
+
+This new package is ready for private owner review; it is not locked, accepted or cleared for release. User's earlier opening, brand-pause and corrected-experience locks remain intact. Next action: review this full r5 candidate, particularly P08 at 11:03, and record any owner decision against this exact output hash.
+
+## Earlier r4 checkpoint — retained context
 
 Current review: http://localhost:3070/ep009-r4-review.html. The full r4 review candidate places the avatar on the unchanged first sentence, then cuts to retained inn footage at frame86 / 3.583333 seconds. The owner accepted this exact avatar delivery and transition: “thats good lock it.” Earlier automated diagnostic flags remain recorded; the creative hold for this take is closed. The technically verified r3 baseline remains available at http://localhost:3070/ep009-r3-review.html. Other presenter replacements remain held.
 

@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-09-18T00:55:32.148457+00:00",
+  "id": "seg019a",
+  "owner_accepted": false,
+  "automatic_approval": false,
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+    "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+  },
+  "provider_native": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/native.mp4",
+    "sha256": "bc8d1ead56826b31eb6aa2e39e0387aa7b168a5cc0304a2c24a7bc35f5c55c72"
+  },
+  "original_frames_reviewed": [
+    0,
+    333
+  ],
+  "provider_frames_reviewed": [
+    0,
+    333
+  ],
+  "excluded_provider_tail": [
+    333,
+    337
+  ],
+  "appearance_reference": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+  },
+  "source_and_diagnostic_bindings": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/qa-selected-r1/INPUTS.json",
+    "sha256": "f950b0d9c1ec92f3e0a19d4a163fbcee8636326fcc7ad067440b0236abf1e479"
+  },
+  "native_metrics": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/qa-selected-r1/metrics/PERFORMANCE-COMPARISON.json",
+    "sha256": "1b15b9633d1d70bcc0b7d5418db93699d9cd01cbcd285191e6d4fb31c4591833"
+  },
+  "native_dense_detail": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/qa-selected-r1/DENSE-DETAILS.json",
+    "sha256": "1ee065dc51c2b8e37630b5d9977b843b5e9381d9ef76584b6f8472338af4cd67"
+  },
+  "schema": "ep009.room-performance-review.v1",
+  "status": "held_opening_crop_and_articulation_changed",
+  "findings": [
+    "Provider native lost original close framing[0,38), beginning wide instead. Original cut to wide is at38.",
+    "A separate authorized original-crop diagnostic restores the cut but exposes changed first38 mouth sequence. Spatial reframing cannot recover original articulation.",
+    "Original/provider[38,333) retains framing and inspected head/eye/gesture/tail sequence, with correct L3 inn/chambray appearance. This observation does not authorize using defective[0,38)."
+  ],
+  "diagnostic_repair_evidence": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/crop-repair-r1/qa/DENSE-FIRST38.json",
+    "sha256": "fe5e17fec52019123c9ddddc77ecee2b33b71745f9315504c4773d8758a32efc"
+  },
+  "full_range_eligible": false,
+  "normal_speed_review_claimed": false,
+  "paid_calls": 0
+}

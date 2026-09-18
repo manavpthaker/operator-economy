@@ -1,0 +1,86 @@
+{
+  "record_type": "ep009_look_only_pilot_source_recommendation",
+  "at": "2026-09-17T23:09:07.661790+00:00",
+  "inventory": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "recommended_segment": "seg074",
+  "exact_current_video": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+    "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9"
+  },
+  "source_frames": [
+    0,
+    288
+  ],
+  "duration_seconds": 12.0,
+  "format": "1280x720 24fps",
+  "current_output_frames": [
+    28849,
+    29137
+  ],
+  "current_audio": {
+    "source": "r3_master",
+    "program_sample_range": [
+      57698000,
+      58274000
+    ],
+    "available_master_sample_range": [
+      57698000,
+      58274000
+    ],
+    "zero_padding_samples": 0,
+    "source_clip_audio_is_not_assembly_authority": true
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "look_reference": {
+    "current_opening": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+      "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307"
+    },
+    "L3_image": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+      "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+    },
+    "constraint": "Appearance reference only. Do not transfer P00 gestures or expression timing onto other existing performances."
+  },
+  "reason": "One continuous wide shot, both hands visible, with right-hand lift/settle and changing brows, head angle and mouth expression. No internal crop cut confounds the first look-only test.",
+  "observed_evidence": [
+    {
+      "existing_r1_still": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/qa/stills-r1/seg074-f0000-m1213.875.png",
+        "sha256": "31e60b0065ebf2fc979b1a416e5696ca8c95f52031da29fc90977a99ed015619"
+      },
+      "clip_frame": 0
+    },
+    {
+      "existing_r1_still": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/qa/stills-r1/seg074-f0144-m1219.875.png",
+        "sha256": "7615839e6bac52987521bcbfb3d17a4e7911a57904d802fb3988ed9e7391e92d"
+      },
+      "clip_frame": 144
+    },
+    {
+      "existing_r1_still": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/qa/stills-r1/seg074-f0287-m1225.833.png",
+        "sha256": "948356a8b43c89e9589227588c8f8507056887e9fa87c1d06f85dc2c93f28e6b"
+      },
+      "clip_frame": 287
+    }
+  ],
+  "preservation_checkpoints": {
+    "frame0": "Right hand raised slightly above the table; speaking expression.",
+    "frame144": "Raised brow and tilted head with changing speaking expression; right hand above table.",
+    "frame287": "Both hands settled on table; mouth closed, forward gaze."
+  },
+  "instruction": "Use the exact final clip as the video-to-video input. Change outfit/environment appearance only; preserve hand, facial, head and body timing, camera/frame geometry and all 288 original frame positions. Retain original master audio, not generated provider sound.",
+  "limits": [
+    "Representative judgment from three existing r1 frames and current edit metadata; not a new normal-speed review or evidence that any provider preserves performance.",
+    "Underlying restored source [4,292) is available but is not the recommended pilot upload; no native/regen performance substitution.",
+    "No provider call or media mutation performed."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "index": 3,
+  "segment": "seg019b",
+  "input": {
+    "job_id": "882a6449-1900-4b43-8b79-23edd2410b61",
+    "sha256": "391ecc6950cbe5c35911eafcb5d041dfa2604065e80620a8c14a5bf1d894dbcd",
+    "select_frames": [
+      45,
+      106
+    ]
+  },
+  "wardrobe_review": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg019b/qa-selected-r1/REVIEW.json",
+    "sha256": "d24fb5f8c2bd0ef34a6bf120693d227ec8a8b82fd96c93c1d1e37594dda14c62"
+  },
+  "params": {
+    "model": "kling_video_edit",
+    "mode": "pro",
+    "count": 1,
+    "prompt": "Replace the ENTIRE ROOM behind the man in @Video1 with the country inn breakfast room in @Image1. Remove the original wall-mounted bookshelves, books, empty beige study wall and fireplace entirely. Recreate the reference room: bright multi-pane windows and floral curtains along the left wall, pale cream plaster walls, the framed landscape picture high behind the man, wooden breakfast tables and chairs, and the large wooden crockery cabinet at the back right with white cups and a vase of flowers. Match the room layout and morning light of the reference image. Keep the existing man in the source video completely unchanged: same light blue chambray shirt, same identity, glasses, hair, skin, exact face and mouth movement, every finger and hand gesture, exact head motion and posture at every moment. Use the video as the absolute authority for the man's entire original performance. Use the image ONLY for the new room. Preserve every original camera framing and shot scale, including every existing crop change and cut at its exact timestamp. Never normalize the man's size or position between shots. Do not copy the man's pose or facial expression from the image. Preserve the full source duration and all motion timing. Only the background/environment should change; do not change the foreground man. No added cuts or text.",
+    "medias": [
+      {
+        "role": "video",
+        "value": "882a6449-1900-4b43-8b79-23edd2410b61"
+      },
+      {
+        "role": "image",
+        "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+      }
+    ]
+  },
+  "estimate": {
+    "cost": {
+      "credits": 8,
+      "credits_exact": 8
+    },
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Kling 3.0 Omni Edit backend expects schema-key media roles"
+      }
+    }
+  }
+}

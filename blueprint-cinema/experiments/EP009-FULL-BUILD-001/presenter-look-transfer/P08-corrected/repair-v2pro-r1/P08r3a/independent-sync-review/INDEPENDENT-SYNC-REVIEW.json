@@ -1,0 +1,339 @@
+{
+  "schema": "ep009.independent-restored-sync-review.v1",
+  "created_at": "2026-09-18T00:16:33.044158+00:00",
+  "reviewer": "ep009_graphic_fix",
+  "status": "hold_silent_articulation_concern_persists",
+  "owner_accepted": false,
+  "automatic_approval": false,
+  "restored": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/restored.mp4",
+    "sha256": "aa3116b568c11ab29d591476cea8df1281d63000c7fce4b429aabe0b082302d2"
+  },
+  "narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/audio/narration.wav",
+    "sha256": "a743f1e4c218b9d75ea4d2238c9a8e2a4b9878ad949480c5fd23d755a4e2e02c"
+  },
+  "alignment": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/ALIGNMENT.json",
+    "sha256": "e24bbf66d8c96df0f5900ce482e71f69d7da780427b830f15e357891cb8d7a06"
+  },
+  "sync_gate": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/SYNC-GATE.json",
+    "sha256": "b791213d0ceacf52f4723cf08a9f38dd66e370223b04aeccb6da9d9b3dc71c5f"
+  },
+  "private_exact_master_preview": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/qa/P08A-v2pro-exact-master-review.mp4",
+    "sha256": "9824050567329425c3ceb3d3ff89ef8121521cbcc05708c5bc9403ebc778e011"
+  },
+  "prior_held_review": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/retime-r1/P08r3a/independent-sync-review/INDEPENDENT-SYNC-REVIEW.json",
+    "sha256": "844c6685a96cd279657cc164f04fec47e4c926e6813bfd396e99b1c74de61bbc"
+  },
+  "onset_evidence": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/independent-sync-review/ONSET-EVIDENCE.json",
+    "sha256": "9d04dc1dd524c73b9fead75dbeab258213e59e98d0bfc2b19160e60060faa5ef"
+  },
+  "clock": {
+    "source_frames_half_open": [
+      0,
+      173
+    ],
+    "fps": 24,
+    "narration_offset_samples": 0,
+    "note": "This output has its own measured zero-sample audio alignment; no previous two-frame slip copied. Audio identity establishes only clock registration, not mouth correctness."
+  },
+  "review_scope": {
+    "mouth_detector_frames": 173,
+    "dense_pixel_frames": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70
+      ],
+      [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128
+      ]
+    ],
+    "normal_speed_audiovisual_review_by_this_reviewer": false,
+    "forced_phoneme_alignment_performed": false
+  },
+  "observations": [
+    {
+      "window_seconds": [
+        0,
+        0.85
+      ],
+      "audio_onset_seconds": 0.26,
+      "finding": "First onset improves: mouth is widest at.250\u2013.292, overlapping the speech onset. It starts opening at.125\u2013.208 during almost silent frames, but that anticipation alone is not a decisive failure. It closes at.417 and reopens afterward.",
+      "metric_interpretation": "The reported+6.76frame delay selects the later threshold rise atframe13(.542). It misses the initial opening because of the three-prior-closed-frames rule. Actual pixels are not6.76frameslate at the first onset; preserve the metric but do not treat it as a measured phoneme delay."
+    },
+    {
+      "window_seconds": [
+        1.917,
+        2.958
+      ],
+      "audio_onset_seconds": 2.43,
+      "finding": "Mouth is already partly open through the pre-onset pause, then rounds through2.458\u20132.667. Later widening is not a reliable exact onset boundary.",
+      "metric_interpretation": "The+6.68frame rise at65(.708after2s) is a threshold event, not established lexical lateness. This alone cannot adjudicate sync."
+    },
+    {
+      "window_seconds": [
+        4.333,
+        5.375
+      ],
+      "audio_onset_seconds": 4.81,
+      "finding": "The targeted silent articulation remains. Mouth grows from a small gap at4.417 to a wide vowel-like opening through4.50\u20134.792. At4.708 and4.750, audioRMS is about.003ofpeak while the mouth is very wide. The mouth then narrows after speech resumes at4.81. Compared with the prior repair, peak opening has moved closer to onset, but the long progressive opening during the pause remains visibly present.",
+      "judgment": "This is sufficient unresolved visual concern to retain hold; it cannot be dismissed as detector noise. It does not establish an exact\u22128.44frame phoneme offset. Root should review the exact-master preview at1x around4.40\u20135.10 before any eligibility decision."
+    }
+  ],
+  "diagnostic_flags_preserved": {
+    "narration_over_generator": true,
+    "onset_median_in_minus3_plus2": false
+  },
+  "measured_onset_differences_frames": [
+    6.76,
+    6.679999999999993,
+    -8.439999999999998
+  ],
+  "important_samples": [
+    {
+      "frame": 3,
+      "narration_seconds": 0.125,
+      "mouth_gap_faceheight": 0.05537685499414862,
+      "audio_rms_fraction_peak": 0.001460647674823625
+    },
+    {
+      "frame": 4,
+      "narration_seconds": 0.16666666666666666,
+      "mouth_gap_faceheight": 0.07030561908245465,
+      "audio_rms_fraction_peak": 0.0025081769023259266
+    },
+    {
+      "frame": 5,
+      "narration_seconds": 0.20833333333333334,
+      "mouth_gap_faceheight": 0.10118534621424244,
+      "audio_rms_fraction_peak": 0.0015996818456225231
+    },
+    {
+      "frame": 6,
+      "narration_seconds": 0.25,
+      "mouth_gap_faceheight": 0.14973422448208668,
+      "audio_rms_fraction_peak": 0.08661925835974034
+    },
+    {
+      "frame": 7,
+      "narration_seconds": 0.2916666666666667,
+      "mouth_gap_faceheight": 0.14592588717596913,
+      "audio_rms_fraction_peak": 0.33233638186798925
+    },
+    {
+      "frame": 8,
+      "narration_seconds": 0.3333333333333333,
+      "mouth_gap_faceheight": 0.0708526995257395,
+      "audio_rms_fraction_peak": 0.3082787458854845
+    },
+    {
+      "frame": 9,
+      "narration_seconds": 0.375,
+      "mouth_gap_faceheight": 0.039779651821421465,
+      "audio_rms_fraction_peak": 0.08123512584891648
+    },
+    {
+      "frame": 10,
+      "narration_seconds": 0.4166666666666667,
+      "mouth_gap_faceheight": 0.006270874919513204,
+      "audio_rms_fraction_peak": 0.054697312584945985
+    },
+    {
+      "frame": 11,
+      "narration_seconds": 0.4583333333333333,
+      "mouth_gap_faceheight": 0.016519579485796555,
+      "audio_rms_fraction_peak": 0.15229012214227824
+    },
+    {
+      "frame": 107,
+      "narration_seconds": 4.458333333333333,
+      "mouth_gap_faceheight": 0.03453247151937099,
+      "audio_rms_fraction_peak": 0.04345086450587975
+    },
+    {
+      "frame": 108,
+      "narration_seconds": 4.5,
+      "mouth_gap_faceheight": 0.07273910313838079,
+      "audio_rms_fraction_peak": 0.01934226325903065
+    },
+    {
+      "frame": 109,
+      "narration_seconds": 4.541666666666667,
+      "mouth_gap_faceheight": 0.08322377509573903,
+      "audio_rms_fraction_peak": 0.015714166277316956
+    },
+    {
+      "frame": 110,
+      "narration_seconds": 4.583333333333333,
+      "mouth_gap_faceheight": 0.10536064763813938,
+      "audio_rms_fraction_peak": 0.022175321121242885
+    },
+    {
+      "frame": 111,
+      "narration_seconds": 4.625,
+      "mouth_gap_faceheight": 0.11965076234576158,
+      "audio_rms_fraction_peak": 0.020036611811951554
+    },
+    {
+      "frame": 112,
+      "narration_seconds": 4.666666666666667,
+      "mouth_gap_faceheight": 0.14935842606079555,
+      "audio_rms_fraction_peak": 0.018289988002264345
+    },
+    {
+      "frame": 113,
+      "narration_seconds": 4.708333333333333,
+      "mouth_gap_faceheight": 0.178797135724433,
+      "audio_rms_fraction_peak": 0.002959449943298802
+    },
+    {
+      "frame": 114,
+      "narration_seconds": 4.75,
+      "mouth_gap_faceheight": 0.18780932854990048,
+      "audio_rms_fraction_peak": 0.0025970038630357306
+    },
+    {
+      "frame": 115,
+      "narration_seconds": 4.791666666666667,
+      "mouth_gap_faceheight": 0.19684054290844202,
+      "audio_rms_fraction_peak": 0.09053533024439854
+    },
+    {
+      "frame": 116,
+      "narration_seconds": 4.833333333333333,
+      "mouth_gap_faceheight": 0.16088853274590434,
+      "audio_rms_fraction_peak": 0.4065876693248206
+    },
+    {
+      "frame": 117,
+      "narration_seconds": 4.875,
+      "mouth_gap_faceheight": 0.10716054926176559,
+      "audio_rms_fraction_peak": 0.5673950382016016
+    },
+    {
+      "frame": 118,
+      "narration_seconds": 4.916666666666667,
+      "mouth_gap_faceheight": 0.058960359556745154,
+      "audio_rms_fraction_peak": 0.4917869511120866
+    },
+    {
+      "frame": 119,
+      "narration_seconds": 4.958333333333333,
+      "mouth_gap_faceheight": 0.042024329286209666,
+      "audio_rms_fraction_peak": 0.46838228836720736
+    },
+    {
+      "frame": 120,
+      "narration_seconds": 5.0,
+      "mouth_gap_faceheight": 0.04676690801142973,
+      "audio_rms_fraction_peak": 0.6225788475846257
+    },
+    {
+      "frame": 121,
+      "narration_seconds": 5.041666666666667,
+      "mouth_gap_faceheight": 0.023850937816583703,
+      "audio_rms_fraction_peak": 0.6831204112919995
+    },
+    {
+      "frame": 122,
+      "narration_seconds": 5.083333333333333,
+      "mouth_gap_faceheight": 0.02115246048491672,
+      "audio_rms_fraction_peak": 0.6288772666989041
+    }
+  ],
+  "decision": "Do not clear or conform A from this independent review. No gate thresholds, source media, or alignment were changed. Parent owns normal-speed perceptual adjudication; no paid retry is implied.",
+  "limitations": [
+    "Dense mouth crops show shape and timing against actual waveform but do not by themselves prove exact phonemes. Natural articulatory anticipation exists, so first-onset anticipation is not used as a standalone rejection.",
+    "Whole-word ASR timing was not used as sample-exact phoneme evidence. The major concern is progressive silent movement across a substantial interphrase pause.",
+    "This report is a hold on unresolved quality, not an automatic rejection of the chosen model or an authorization for further spending."
+  ],
+  "images": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/independent-sync-review/ONSET-1-MOUTH-FRAMES.jpg",
+      "sha256": "31b56d8e1307cd4ba44b3089044fb7264589190d9f2692aafc4c93ca437919a2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/independent-sync-review/ONSET-2-MOUTH-FRAMES.jpg",
+      "sha256": "36768c5ad076468e5a8835153c739ba8d5dbfadf6b81cc5c3cf3e3d9e4a69c7e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/independent-sync-review/ONSET-3-MOUTH-FRAMES.jpg",
+      "sha256": "77d1e20a3a3958c9ff457c10d49f320748043c7ca6f8126713be7d4722fda942"
+    }
+  ]
+}
