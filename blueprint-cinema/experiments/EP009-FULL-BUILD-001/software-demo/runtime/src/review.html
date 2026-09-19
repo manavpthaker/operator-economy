@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>EP009 · One guest, one thank-you</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --paper-deep: #e7dfd1;
+      --ink: #173530;
+      --ink-soft: #38544d;
+      --quiet: #6d766e;
+      --line: #c9c0af;
+      --line-dark: #9e9789;
+      --oxide: #a7432e;
+      --oxide-pale: #f1ddd6;
+      --moss: #617a55;
+      --moss-pale: #e0e8d7;
+      --cream: #fbf8f1;
+      --shadow: 0 12px 30px rgba(38, 45, 36, 0.08);
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --sans: "Avenir Next", "Avenir", "Gill Sans", "Trebuchet MS", sans-serif;
+      --mono: "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(23,53,48,0.035) 1px, transparent 1px) 0 0 / 38px 38px,
+        linear-gradient(rgba(23,53,48,0.025) 1px, transparent 1px) 0 0 / 38px 38px,
+        var(--paper-deep);
+      font-family: var(--sans);
+      font-feature-settings: "tnum" 1, "kern" 1;
+    }
+
+    button, textarea { font: inherit; }
+
+    .app {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: 82px minmax(0, 1fr) 42px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 12px 24px 11px;
+      color: var(--paper);
+      background: var(--ink);
+      border-bottom: 4px solid var(--oxide);
+    }
+
+    .eyebrow, .label, .overline {
+      margin: 0;
+      color: var(--oxide);
+      font: 700 10px/1.2 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .topbar .eyebrow { color: #d8cfbb; }
+
+    .topbar h1 {
+      margin: 4px 0 0;
+      color: #fffaf0;
+      font: 400 clamp(20px, 2vw, 29px)/1 var(--serif);
+      letter-spacing: -0.025em;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 510px;
+    }
+
+    .top-pill, .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 5px 8px 4px;
+      border: 1px solid currentColor;
+      font: 700 10px/1 var(--mono);
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .top-pill { color: #d8cfbb; }
+    .top-pill.warn { color: #ffd9d0; border-color: rgba(255,217,208,.62); }
+
+    .workspace {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(225px, .9fr) minmax(430px, 1.58fr) minmax(255px, 1fr);
+      gap: 14px;
+      padding: 14px 18px;
+    }
+
+    .panel {
+      min-height: 0;
+      overflow: auto;
+      padding: 17px;
+      background: rgba(251,248,241,.92);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .panel h2 {
+      margin: 4px 0 0;
+      color: var(--ink);
+      font: 400 22px/1.04 var(--serif);
+      letter-spacing: -0.025em;
+    }
+
+    .lede, .small-copy {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .fixture-list {
+      display: grid;
+      gap: 0;
+      margin: 14px 0 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .fixture-row {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fixture-row dt {
+      color: var(--quiet);
+      font: 700 9px/1.25 var(--mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .fixture-row dd {
+      margin: 0;
+      color: var(--ink);
+      font: 600 12px/1.35 var(--sans);
+    }
+
+    .guardrail {
+      padding: 13px 14px 12px;
+      background: var(--moss-pale);
+      border-left: 4px solid var(--moss);
+    }
+
+    .guardrail .label { color: #445a3c; }
+    .guardrail p:last-child { margin-top: 6px; }
+
+    .draft-panel {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      gap: 10px;
+      background: var(--cream);
+    }
+
+    .draft-panel::after {
+      position: absolute;
+      top: 0;
+      right: 17px;
+      width: 70px;
+      height: 4px;
+      content: "";
+      background: var(--oxide);
+    }
+
+    .fixture-strip {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 8px 10px;
+      color: var(--ink-soft);
+      background: #ece5d7;
+      border: 1px solid var(--line);
+      font: 700 10px/1.25 var(--mono);
+    }
+
+    .fixture-strip b { color: var(--ink); }
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 9px 10px;
+      color: #6d372a;
+      background: var(--oxide-pale);
+      border: 1px solid #d5aea4;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .notice strong {
+      flex: 0 0 auto;
+      font: 700 10px/1.2 var(--mono);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .draft-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .provider-state {
+      max-width: 58%;
+      color: var(--quiet);
+      font: 10px/1.35 var(--mono);
+    }
+
+    .button {
+      min-height: 35px;
+      padding: 9px 12px 8px;
+      cursor: pointer;
+      color: #fffaf0;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      font: 700 11px/1 var(--mono);
+      letter-spacing: .035em;
+      text-transform: uppercase;
+      transition: background .16s ease, color .16s ease, transform .16s ease;
+    }
+
+    .button:hover:not(:disabled) { color: var(--ink); background: #fffaf0; transform: translateY(-1px); }
+    .button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(167,67,46,.42); outline-offset: 2px; }
+    .button:disabled { cursor: not-allowed; opacity: .38; }
+    .button.oxide { background: var(--oxide); border-color: var(--oxide); }
+    .button.oxide:hover:not(:disabled) { color: var(--oxide); background: #fffaf0; }
+    .button.moss { color: #f9f7ef; background: var(--moss); border-color: var(--moss); }
+    .button.moss:hover:not(:disabled) { color: var(--moss); background: #fffaf0; }
+
+    .editor-wrap {
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 7px;
+    }
+
+    .editor-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .editor-title h3 {
+      margin: 0;
+      color: var(--ink-soft);
+      font: 700 10px/1 var(--mono);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 158px;
+      resize: vertical;
+      padding: 13px 14px;
+      color: var(--ink);
+      background: #fffdf8;
+      border: 1px solid var(--line-dark);
+      border-radius: 0;
+      font: 16px/1.48 var(--serif);
+    }
+
+    textarea:disabled {
+      color: #7c817a;
+      background: #eee9df;
+      border-color: var(--line);
+    }
+
+    .editor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .editor-footer p {
+      margin: 0;
+      color: var(--quiet);
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    .queue-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      background: #edf0e7;
+      border-top: 1px solid #b8c2ac;
+    }
+
+    .queue-card p { margin: 0; }
+    .queue-card .queue-date { margin-top: 3px; color: var(--ink); font: 700 13px/1.25 var(--sans); }
+
+    .workflow-list {
+      display: grid;
+      gap: 8px;
+      margin: 3px 0 14px;
+    }
+
+    .step {
+      position: relative;
+      padding: 10px 10px 10px 40px;
+      background: #f6f2e9;
+      border: 1px solid var(--line);
+    }
+
+    .step-number {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: var(--oxide);
+      font: 700 10px/1.3 var(--mono);
+    }
+
+    .step h3 { margin: 0 0 3px; color: var(--ink); font: 700 12px/1.2 var(--sans); }
+    .step p { margin: 0; color: var(--quiet); font-size: 10px; line-height: 1.35; }
+    .step .chip { margin-top: 7px; min-height: 20px; padding: 4px 5px; color: var(--quiet); font-size: 8px; }
+    .chip.ok { color: #465e3c; background: var(--moss-pale); }
+    .chip.wait { color: #7f4a36; background: var(--oxide-pale); }
+    .chip.neutral { color: var(--ink-soft); background: #ece6da; }
+
+    .human-card {
+      padding: 13px;
+      background: var(--ink);
+      color: #f9f4e8;
+      border-top: 4px solid var(--oxide);
+    }
+
+    .human-card h2 { color: #fffaf0; font-size: 20px; }
+    .human-card .label { color: #d8cfbb; }
+    .human-card p { margin: 8px 0 12px; color: #d7ddd5; font-size: 11px; line-height: 1.42; }
+    .human-card .button { width: 100%; }
+    .human-card .button + .button { margin-top: 8px; }
+    .human-card .note { margin: 10px 0 0; color: #bfcbc1; font: 9px/1.36 var(--mono); }
+
+    .audit {
+      margin-top: 13px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .audit-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 5px 0;
+      border-bottom: 1px dotted var(--line);
+    }
+
+    .audit-row span { color: var(--quiet); font: 9px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+    .audit-row b { color: var(--ink); font: 700 10px/1.25 var(--mono); text-align: right; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 0 20px;
+      color: var(--ink-soft);
+      background: rgba(244,239,229,.94);
+      border-top: 1px solid var(--line);
+      font: 9px/1.2 var(--mono);
+      letter-spacing: .02em;
+    }
+
+    #announcement {
+      max-width: 54%;
+      overflow: hidden;
+      color: #6a3b2d;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 980px) {
+      .app { grid-template-rows: auto auto auto; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .topbar-right { justify-content: flex-start; max-width: none; }
+      .workspace { grid-template-columns: 1fr; }
+      .panel { overflow: visible; }
+      footer { min-height: 42px; }
+    }
+
+    @media (max-height: 760px) and (min-width: 981px) {
+      .app { grid-template-rows: 72px minmax(0, 1fr) 34px; }
+      .topbar { padding-top: 9px; padding-bottom: 8px; }
+      .topbar h1 { font-size: 23px; }
+      .workspace { gap: 10px; padding: 10px 14px; }
+      .panel { padding: 13px; }
+      .panel h2 { font-size: 19px; }
+      .fixture-list { margin: 10px 0 12px; }
+      .fixture-row { padding: 8px 0; }
+      .draft-panel { gap: 7px; }
+      .notice { padding: 7px 8px; }
+      textarea { min-height: 128px; padding: 10px 11px; font-size: 14px; }
+      .workflow-list { gap: 6px; margin-bottom: 10px; }
+      .step { padding-top: 7px; padding-bottom: 7px; }
+      .step-number { top: 7px; }
+      .human-card { padding: 10px; }
+      .human-card p { margin: 6px 0 9px; }
+      .audit { margin-top: 9px; padding-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">The Operator Economy · EP009</p>
+        <h1>One guest, one thank-you</h1>
+      </div>
+      <div class="topbar-right" aria-label="Workflow safeguards">
+        <span class="top-pill">Working demo · fictional data</span>
+        <span class="top-pill warn">No send node · no outbound email</span>
+      </div>
+    </header>
+
+    <section class="workspace" aria-label="Node-RED test workflow operator form">
+      <aside class="panel" aria-labelledby="fixture-heading">
+        <div class="panel-header">
+          <div>
+            <p class="label">01 · bounded input</p>
+            <h2 id="fixture-heading">The stay</h2>
+          </div>
+          <span class="chip neutral">Test fixture</span>
+        </div>
+        <p class="lede">A fictional reservation, shown so the workflow’s limits remain visible.</p>
+        <dl class="fixture-list">
+          <div class="fixture-row"><dt>Guest</dt><dd id="guest-name">Maya Chen</dd></div>
+          <div class="fixture-row"><dt>Property</dt><dd id="property-name">Alder House Inn</dd></div>
+          <div class="fixture-row"><dt>Checkout</dt><dd id="checkout-date">Sep 18, 2026 · 10:00 EDT</dd></div>
+          <div class="fixture-row"><dt>Zone</dt><dd id="timezone">America/New_York</dd></div>
+        </dl>
+        <div class="guardrail">
+          <p class="label">Recorded preference · one-off consent</p>
+          <p class="small-copy" id="preference">One-off thank-you only. No future promotions.</p>
+        </div>
+      </aside>
+
+      <section class="panel draft-panel" aria-labelledby="draft-heading">
+        <div class="panel-header">
+          <div>
+            <p class="label">02 · repetitive work</p>
+            <h2 id="draft-heading">Draft, then queue</h2>
+          </div>
+          <span class="chip neutral" id="service-name">Node-RED · test workflow</span>
+        </div>
+
+        <div class="fixture-strip" aria-label="Current fixture identity">
+          <span>FIXTURE</span><b id="fixture-id">alder-maya-20260918</b><span>·</span><span id="fixture-property">Alder House Inn</span><span>·</span><span id="fixture-guest">Maya Chen</span>
+        </div>
+
+        <div class="notice">
+          <strong>Test-only</strong>
+          <span>The model may make one bounded drafting request. The result becomes a queued draft for human review; this screen cannot send an email.</span>
+        </div>
+
+        <div class="draft-actions">
+          <span class="provider-state" id="provider-state">Checking local provider guardrails…</span>
+          <button class="button oxide" id="draft-button" type="button">Draft thank-you</button>
+        </div>
+
+        <div class="editor-wrap">
+          <div class="editor-title">
+            <h3>Actual returned draft</h3>
+            <span class="chip neutral" id="draft-state">No request made</span>
+          </div>
+          <textarea id="draft-text" disabled aria-describedby="draft-help" placeholder="A real response will appear here only after the local test makes its bounded request."></textarea>
+          <div class="editor-footer">
+            <p id="draft-help">The operator edits the sentence before approval. The model does not choose audience eligibility.</p>
+            <button class="button" id="save-button" type="button" disabled>Save voice edit</button>
+          </div>
+        </div>
+
+        <div class="queue-card">
+          <div>
+            <p class="label">Date rule</p>
+            <p class="queue-date" id="queue-date">Sep 18 checkout → Sep 19 · 10:00 EDT</p>
+            <p class="small-copy" id="queue-status">Prepared rule only · not yet queued</p>
+          </div>
+          <button class="button moss" id="queue-button" type="button" disabled>Queue draft</button>
+        </div>
+      </section>
+
+      <aside class="panel" aria-labelledby="judgment-heading">
+        <div class="panel-header">
+          <div>
+            <p class="label">03 · human judgment</p>
+            <h2 id="judgment-heading">Decide the boundary</h2>
+          </div>
+        </div>
+
+        <div class="workflow-list" aria-label="Workflow state">
+          <article class="step">
+            <span class="step-number">A</span>
+            <h3>Queue time</h3>
+            <p id="queue-step-copy">Next calendar day at 10:00 America/New_York.</p>
+            <span class="chip neutral" id="queue-step-state">Waiting for draft</span>
+          </article>
+          <article class="step">
+            <span class="step-number">B</span>
+            <h3>Voice</h3>
+            <p>The human changes the saved text before approving it.</p>
+            <span class="chip neutral" id="review-step-state">Awaiting edit</span>
+          </article>
+          <article class="step">
+            <span class="step-number">C</span>
+            <h3>Audience</h3>
+            <p>Seasonal follow-up remains outside this one-off message.</p>
+            <span class="chip wait" id="seasonal-step-state">Human confirmation pending</span>
+          </article>
+        </div>
+
+        <section class="human-card" aria-label="Human approval controls">
+          <p class="label">Approval is specific</p>
+          <h2>One draft only.</h2>
+          <p id="approval-copy">A saved edit is required before the one-off thank-you can be approved.</p>
+          <button class="button oxide" id="approve-button" type="button" disabled>Approve this draft only</button>
+          <button class="button" id="exclude-button" type="button" disabled>Confirm no seasonal follow-up</button>
+          <p class="note">Approval never enables a send. Exclusion records the fictional fixture’s stated limit; it is not a legal conclusion.</p>
+        </section>
+
+        <section class="audit" aria-label="Bounded test record">
+          <div class="audit-row"><span>Model attempts</span><b id="attempt-count">0 / 2</b></div>
+          <div class="audit-row"><span>Email delivery</span><b>Unavailable</b></div>
+          <div class="audit-row"><span>Last record</span><b id="record-state">No persisted action</b></div>
+        </section>
+      </aside>
+    </section>
+
+    <footer>
+      <span>Purpose-built operator form served by Node-RED · the flow remains inspectable at <strong>/red</strong></span>
+      <span id="announcement" aria-live="polite">Loading the fictional fixture…</span>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const $ = (selector) => document.querySelector(selector);
+      const elements = {
+        guest: $('#guest-name'), property: $('#property-name'), checkout: $('#checkout-date'), timezone: $('#timezone'),
+        preference: $('#preference'), fixtureId: $('#fixture-id'), fixtureProperty: $('#fixture-property'), fixtureGuest: $('#fixture-guest'),
+        service: $('#service-name'), provider: $('#provider-state'), draftButton: $('#draft-button'), draftText: $('#draft-text'),
+        draftState: $('#draft-state'), saveButton: $('#save-button'), queueButton: $('#queue-button'), queueDate: $('#queue-date'),
+        queueStatus: $('#queue-status'), queueStepCopy: $('#queue-step-copy'), queueStepState: $('#queue-step-state'),
+        reviewStepState: $('#review-step-state'), seasonalStepState: $('#seasonal-step-state'), approvalCopy: $('#approval-copy'),
+        approveButton: $('#approve-button'), excludeButton: $('#exclude-button'), attemptCount: $('#attempt-count'),
+        recordState: $('#record-state'), announcement: $('#announcement')
+      };
+
+      const fallback = {
+        fixture: {
+          id: 'alder-maya-20260918', guest: 'Maya Chen', property: 'Alder House Inn', fictional: true,
+          checkout: '2026-09-18T10:00:00-04:00', timezone: 'America/New_York',
+          communicationPreference: 'One-off thank-you only. No future promotions.',
+          nextDayRule: 'Next calendar day at 10:00 America/New_York'
+        },
+        providerAttempts: 0, maxProviderAttempts: 2, draft: null, queue: null, review: null,
+        seasonal: { eligible: false, humanConfirmed: false, reason: null },
+        capability: { providerEnabled: false, providerKeyPresent: false, model: 'gpt-4.1-mini', maxOutputTokens: 180 },
+        service: 'Node-RED · OpenAI / test workflow', emailSendingAvailable: false, lastEvent: null
+      };
+
+      let state = fallback;
+      let busy = false;
+
+      function text(value) { return value == null || value === '' ? '—' : String(value); }
+
+      function displayDate(value, timezone) {
+        if (!value) return '—';
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return String(value);
+        return new Intl.DateTimeFormat('en-US', {
+          timeZone: timezone || 'America/New_York', month: 'short', day: 'numeric', year: 'numeric',
+          hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+        }).format(date);
+      }
+
+      function setChip(element, kind, label) {
+        element.className = `chip ${kind}`;
+        element.textContent = label;
+      }
+
+      function announce(message) { elements.announcement.textContent = message; }
+
+      function render() {
+        const fixture = state.fixture || fallback.fixture;
+        const capability = state.capability || fallback.capability;
+        const draft = state.draft;
+        const queue = state.queue;
+        const review = state.review;
+        const seasonal = state.seasonal || fallback.seasonal;
+        const canDraft = capability.providerEnabled && capability.providerKeyPresent && !draft;
+        const canQueue = Boolean(draft && !queue);
+        const canSave = Boolean(draft && queue);
+        const canApprove = Boolean(queue && review && !review.approved);
+        const canExclude = Boolean(queue && !seasonal.humanConfirmed);
+
+        elements.guest.textContent = text(fixture.guest);
+        elements.property.textContent = `${text(fixture.property)}${fixture.fictional ? ' (fictional)' : ''}`;
+        elements.checkout.textContent = displayDate(fixture.checkout, fixture.timezone);
+        elements.timezone.textContent = text(fixture.timezone);
+        elements.preference.textContent = text(fixture.communicationPreference);
+        elements.fixtureId.textContent = text(fixture.id);
+        elements.fixtureProperty.textContent = text(fixture.property);
+        elements.fixtureGuest.textContent = text(fixture.guest);
+        elements.service.textContent = text(state.service).replace(' / test workflow', '');
+
+        const attempts = Number(state.providerAttempts || 0);
+        elements.attemptCount.textContent = `${attempts} / ${text(state.maxProviderAttempts || capability.maxProviderAttempts || 2)}`;
+        if (draft) {
+          elements.provider.textContent = `Real ${text(draft.model || capability.model)} response retained · request ${attempts} of ${text(state.maxProviderAttempts || 2)}.`;
+          setChip(elements.draftState, 'ok', 'Real draft retained');
+        } else if (capability.providerEnabled && capability.providerKeyPresent) {
+          elements.provider.textContent = `One real ${text(capability.model)} request is enabled. Maximum output: ${text(capability.maxOutputTokens)} tokens.`;
+          setChip(elements.draftState, 'wait', 'Ready for one request');
+        } else {
+          elements.provider.textContent = 'Provider test is disabled locally. No request has been sent.';
+          setChip(elements.draftState, 'neutral', 'No request made');
+        }
+
+        if (document.activeElement !== elements.draftText || !busy) {
+          elements.draftText.value = draft ? text(draft.text) : '';
+        }
+        elements.draftText.disabled = !draft || busy;
+        elements.draftButton.disabled = busy || !canDraft;
+        elements.draftButton.textContent = busy && !draft ? 'Working…' : draft ? 'Draft retained' : 'Draft thank-you';
+        elements.queueButton.disabled = busy || !canQueue;
+        elements.queueButton.textContent = busy && canQueue ? 'Queueing…' : queue ? 'Queued' : 'Queue draft';
+        elements.saveButton.disabled = busy || !canSave;
+        elements.approveButton.disabled = busy || !canApprove;
+        elements.excludeButton.disabled = busy || !canExclude;
+
+        const intended = 'Sep 18 checkout → Sep 19 · 10:00 EDT';
+        elements.queueDate.textContent = queue ? `${displayDate(queue.scheduledFor, fixture.timezone)} · queued draft` : intended;
+        elements.queueStatus.textContent = queue ? `${text(queue.status).replace(/_/g, ' ')} · no sending available` : 'Prepared rule only · not yet queued';
+        elements.queueStepCopy.textContent = queue ? `Checkout ${displayDate(queue.checkout, fixture.timezone)} → ${displayDate(queue.scheduledFor, fixture.timezone)}.` : text(fixture.nextDayRule);
+        setChip(elements.queueStepState, queue ? 'ok' : 'neutral', queue ? 'Queued for review' : draft ? 'Ready to queue' : 'Waiting for draft');
+
+        if (review && review.approved) {
+          setChip(elements.reviewStepState, 'ok', 'Approved: one draft');
+          elements.approvalCopy.textContent = 'The human approved this queued draft only. That approval does not send it or broaden the audience.';
+        } else if (review) {
+          setChip(elements.reviewStepState, 'wait', 'Edit saved · awaiting approval');
+          elements.approvalCopy.textContent = 'The edited draft is ready for a specific human approval.';
+        } else {
+          setChip(elements.reviewStepState, 'neutral', draft && queue ? 'Edit required' : 'Awaiting edit');
+          elements.approvalCopy.textContent = 'A saved edit is required before the one-off thank-you can be approved.';
+        }
+
+        setChip(elements.seasonalStepState, seasonal.humanConfirmed ? 'ok' : 'wait', seasonal.humanConfirmed ? 'Excluded by human' : 'Human confirmation pending');
+        elements.excludeButton.textContent = seasonal.humanConfirmed ? 'Seasonal follow-up excluded' : 'Confirm no seasonal follow-up';
+        elements.approveButton.textContent = review && review.approved ? 'Approved draft only' : 'Approve this draft only';
+        elements.recordState.textContent = state.lastEvent ? 'Persisted event' : 'No persisted action';
+      }
+
+      async function request(url, options = {}) {
+        const response = await fetch(url, {
+          cache: 'no-store',
+          ...options,
+          headers: { 'Accept': 'application/json', ...(options.headers || {}) }
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || `Request failed (${response.status})`);
+        return payload;
+      }
+
+      async function refresh(successMessage) {
+        try {
+          state = await request('/api/state');
+          render();
+          announce(successMessage || 'Fictional fixture loaded. No provider request has been made.');
+        } catch (error) {
+          render();
+          announce(`Could not read the local workflow: ${error.message}`);
+        }
+      }
+
+      async function operate(button, url, options, successMessage) {
+        busy = true;
+        render();
+        try {
+          state = await request(url, options);
+          announce(successMessage);
+        } catch (error) {
+          announce(error.message);
+        } finally {
+          busy = false;
+          render();
+          button?.focus();
+        }
+      }
+
+      elements.draftButton.addEventListener('click', () => operate(
+        elements.draftButton, '/api/draft', { method: 'POST' }, 'Real model response retained locally. It has not been sent.'
+      ));
+      elements.queueButton.addEventListener('click', () => operate(
+        elements.queueButton, '/api/queue', { method: 'POST' }, 'Checkout date produced a queued draft for human review. No email was sent.'
+      ));
+      elements.saveButton.addEventListener('click', () => operate(
+        elements.saveButton, '/api/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: elements.draftText.value })
+        }, 'Human voice edit saved. Approval remains specific to this one draft.'
+      ));
+      elements.approveButton.addEventListener('click', () => operate(
+        elements.approveButton, '/api/approve', { method: 'POST' }, 'One fictional queued draft approved. Sending remains unavailable.'
+      ));
+      elements.excludeButton.addEventListener('click', () => operate(
+        elements.excludeButton, '/api/exclude', { method: 'POST' }, 'Seasonal follow-up excluded for this fictional fixture.'
+      ));
+
+      render();
+      refresh();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "record_type": "ep009_r6_assembly_helper_offline_checks",
+  "at": "2026-09-18T02:21:20.529960+00:00",
+  "status": "pass_preparation_only",
+  "bindings": {
+    "base": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r5-look-transfer/ep009-r5-look-transfer-review-r1-BUILD.json",
+      "sha256": "1e6148a71302c5b1d7cf553d1fb7664576c481b661d3f2d1d072a29197d9e298"
+    },
+    "base_verification": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r5-look-transfer/ep009-r5-look-transfer-review-r1-VERIFICATION.json",
+      "sha256": "4e090b0e38895830aa34250875465c75358cfaaa334bc5efc165467961ad797c"
+    },
+    "contract": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/TIMING-CONTRACT.json",
+      "sha256": "59f284bdf9de77bcf021eabca2e6f146d842da74d88dea24013e819880334db4"
+    },
+    "builder": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/_tools/build_r6.py",
+      "sha256": "52ce0d153b3b16599df1f98149ef5bc9c3d5d1414daecaf3dd716766796982c8"
+    },
+    "verifier": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/_tools/verify_r6.py",
+      "sha256": "1fb2340a33b6afe0308c1dcb87c5e089c7e4a7c97a5732d1079d09b16bb476aa"
+    }
+  },
+  "checks": {
+    "single_cross_row_insert_correct": true,
+    "all754_source_indices_correct": true,
+    "retained95question65closing_frames_exact": true,
+    "base_not_mutated": true,
+    "bad_ranges_rejected": [
+      "out_of_scope",
+      "gap",
+      "overlap",
+      "shortfall",
+      "empty"
+    ],
+    "multiple_adjacent_inserts_and_cross_row_offsets_correct": true
+  },
+  "source_media_submitted_or_rendered": false,
+  "limits": "Synthetic metadata tests only for insertion algorithm; exact real captured clips and selected source review/direction are still required for check/render. No active plan or prior r5 artifact changed."
+}
