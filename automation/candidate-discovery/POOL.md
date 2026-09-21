@@ -1,122 +1,16 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-21 ET (weekly research bench, rerun 2; admits and parks `DISC-2026-09-21-006`)
+Updated: 2026-09-21 ET (candidate scout, rerun 2; re-screens both shortlisted leads against the
+delivery-boundary and willingness-to-pay tests and holds both. Shortlist is empty.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-### 1. `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
-
-- Status: `shortlisted`
-- First seen / last checked: 2026-09-20 / 2026-09-20 ET
-- Editorial priority: second. A live rule change and procurement questions create urgency, but the
-  service must remain an implementation-and-evidence engagement, not an unlicensed compliance promise.
-- Exact question or change: Small teams are asking how to prove responsible AI use when employees
-  paste business data into general-purpose tools and when a larger customer asks for AI-governance
-  evidence. EU AI-literacy and transparency duties are now active, while the Commission states that
-  external training or certification is not required and the high-risk timetable is later.
-- Sources and observations:
-  - 2026-04-21 GDPR discussion: <https://www.reddit.com/r/gdpr/comments/1ss25un/how_are_eu_companies_actually_handling_gdpr/>
-  - 2026-08-20 small-company evidence question: <https://www.reddit.com/r/AI_Governance/comments/1vtgd8o/how_do_smaller_companies_handle_eu_ai_act/>
-  - 2026 Ask HN operationalization thread: <https://news.ycombinator.com/item?id=47169864>
-  - European Commission AI-literacy Q&A, checked 2026-09-20: <https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers>
-  - European Commission AI Act overview, checked 2026-09-20: <https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai>
-  - EU AI Act Service Desk on training and certification, checked 2026-09-20: <https://ai-act-service-desk.ec.europa.eu/en/ai-act/faq/how-can-companies-ensure-ai-competency-eg-employee-training>
-  - 2026-09-03 Indie Hackers implementation example: <https://www.indiehackers.com/post/i-built-a-notion-n8n-workspace-so-smes-can-actually-comply-with-the-eu-ai-acts-article-50-tu7ZoCaFDrob7KgWlj2W>
-- Signal types: conversation, regulation, procurement, workflow, adoption, buyer problem.
-- Who appears to care / decision: small SaaS firms, agencies, and professional-service suppliers with
-  EU customers deciding what evidence they need now, what belongs with counsel, and how to answer a
-  buyer questionnaire without inventing certainty.
-- Buyer / costly problem: the founder or operations lead has AI use scattered across staff and
-  contractors, cannot state which data and use cases are permitted, and risks delaying a customer
-  review because the evidence is fragmented or absent.
-- Potential offer / observable outcome: a fixed-scope AI-use evidence-pack implementation. The
-  outcome is a dated, reviewable inventory of tools and use cases, owners, permitted/prohibited data,
-  required disclosures, role-specific literacy evidence, open risks, and a counsel handoff list.
-- Delivery mechanism hypothesis: interview owners; inventory tools and deployment contexts; map data
-  and vendors; identify applicable transparency and literacy actions from authoritative guidance;
-  implement a lightweight register, policy, disclosure inventory, and evidence log; separate legal
-  judgments for counsel. Do not certify compliance or classify a high-risk system without qualified review.
-- Why now: enforcement powers and transparency rules became operative in August 2026, while current
-  discussion shows small teams receiving questions and lacking a usable evidence trail.
-- Strongest existing answer / gap: Commission guidance explains duties and many tools generate
-  checklists or documents. The unresolved business question is whether a small accountable operator
-  can turn scattered evidence into a useful buyer-ready system without becoming a law firm or a
-  low-trust document generator.
-- Possible OE point of view: the product is not fear or a certificate. It is the human work of
-  discovering actual AI use, assigning decision rights, preserving evidence, and knowing which
-  judgment must leave the operator's boundary.
-- Strongest invalidating question: Is this durable paid work, or a short-lived deadline rush that
-  cheap software, free Commission templates, and existing privacy or security advisers absorb?
-- Evidence still needed: verified buyer-paid engagements; procurement questionnaires; price and
-  delivery-time evidence; malpractice and legal-practice boundaries; update burden by jurisdiction;
-  evidence that buyers value the pack after the deadline; competitor and substitute mapping.
-- Semantic deduplication: no current candidate or episode matches the buyer, evidence-pack outcome,
-  or regulatory mechanism. `research/reports/report-1-strategic-evaluation.md` names generic
-  "AI compliance & security auditing" as an old idea gap, and the avatar-localization episode uses
-  Article 50 only as a disclosure constraint. Neither is an intake candidate for this service.
-- Recheck / expiry: recheck 2026-10-04 because official guidance and national enforcement practice
-  can change quickly; hold if the service cannot be bounded away from legal advice. Step 0 candidate
-  ID: none.
-
-### 2. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
-
-- Status: `shortlisted`
-- First seen / last checked: 2026-09-20 / 2026-09-20 ET
-- Editorial priority: third. The work is showable and current rules expose the limit of automated
-  scans, but the buyer and qualification boundary need tighter proof before formal intake.
-- Exact question or change: Small-business owners and developers are asking what meaningful website
-  accessibility work to buy, what a developer should deliver, and whether automated checks are
-  enough. The European Accessibility Act is active for covered services, United States public-entity
-  deadlines now begin in 2027 rather than 2026, and the FTC has acted against claims that an
-  automated widget can make any site compliant.
-- Sources and observations:
-  - 2026-08-24 small-business discussion: <https://www.reddit.com/r/smallbusinessUS/comments/1vwzygq/has_anyone_here_actually_gotten_one_of_those/>
-  - 2026-02-15 developer discussion: <https://www.reddit.com/r/webdev/comments/1r50svh/is_or_should_web_accessibility_be_mandatory_2026/>
-  - 2026-01-29 buyer question with a $500 budget: <https://www.reddit.com/r/webdev/comments/1qqbfyh/what_should_i_ask_a_web_developer_for_if_i_want/>
-  - EU business guidance and microenterprise boundary, checked 2026-09-20: <https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm>
-  - FTC accessiBe final order, 2025: <https://www.ftc.gov/legal-library/browse/cases-proceedings/2223156-accessibe-inc>
-  - United States Access Board testing baseline: <https://www.access-board.gov/news/2021/08/04/u-s-access-board-launches-new-site-for-the-ict-testing-baseline-for-web-accessibility/>
-  - ADA.gov revised Title II timeline, checked 2026-09-20: <https://www.ada.gov/resources/web-rule-first-steps/>
-  - YouTube result observed 2026-09-20: <https://www.youtube.com/watch?v=4xIJIu4UhaE>
-- Signal types: conversation, regulation, procurement, workflow, capability, coverage gap.
-- Who appears to care / decision: boutique web agencies and covered ecommerce or service businesses
-  deciding whether to buy a scanner, a widget, code remediation, manual testing, or legal review.
-- Buyer / costly problem: an agency or site owner can identify automated failures but still cannot
-  verify that named customer journeys work with a keyboard and assistive technology, assign code
-  fixes, or produce a reliable retest record for a client or procurement review.
-- Potential offer / observable outcome: a fixed-scope accessibility remediation engagement for named
-  critical flows. The outcome is a documented manual-and-automated baseline, implemented source-code
-  fixes, retest evidence, known limitations, and a regression checklist—not a guarantee of legal
-  compliance or immunity from claims.
-- Delivery mechanism hypothesis: agree the applicable site and flows; run automated checks plus
-  keyboard and screen-reader tests; reproduce and prioritize barriers; remediate source code and
-  content; retest with evidence; hand off unresolved legal and specialist judgments; optionally
-  provide white-label delivery to an agency.
-- Why now: current rules are producing buyer questions while regulators and accessibility authorities
-  make the limits of one-click automation explicit. Agencies can sell accountable remediation after
-  cheap scans have commoditized issue discovery.
-- Strongest existing answer / gap: accessibility specialists, agencies, platform tools, and free
-  testing guidance already exist. Most current public coverage explains risk or sells scanning; it
-  does not establish the economics and delivery boundary of a deliberately small, manual remediation
-  service.
-- Possible OE point of view: automation makes the list of suspected failures cheap. The operator
-  business is the accountable human work of testing real journeys, changing the source, documenting
-  the result, and refusing a false compliance guarantee.
-- Strongest invalidating question: Will qualified buyers pay a small independent operator for manual
-  remediation before a legal or procurement trigger, or will incumbent web agencies, accessibility
-  specialists, platform vendors, and counsel absorb the work?
-- Evidence still needed: buyer-paid engagements and price ranges; realistic delivery hours; repeat
-  demand and regression burden; insurance, training, and legal-practice boundaries; accessibility-
-  specialist substitution; a narrower initial platform or agency niche; proof that the work remains
-  small-operator deliverable.
-- Semantic deduplication: no matching candidate, episode, parked idea, archive, topic, research
-  package, or production workspace was found. Internal WCAG checks govern OE's own visual work but do
-  not propose this buyer, offer, or outcome.
-- Recheck / expiry: recheck 2026-10-18; hold if buyer-paid evidence or a credible qualification path
-  is still absent. Step 0 candidate ID: none.
+None. Both leads previously shortlisted were re-screened on 2026-09-21 against the
+delivery-boundary and willingness-to-pay tests and moved to `held`. The Monday research bench must
+record `NO_QUALIFYING_SHORTLIST` and stop.
 
 ## New
 
@@ -178,6 +72,88 @@ None.
   status and terms, **and** one buyer-side source shows a merchant paying an independent operator for
   the acceptance decision. Recheck 2026-11-01. Step 0 candidate ID: none.
 
+### `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
+
+- Status: `held`
+- First seen / last checked: 2026-09-20 / 2026-09-21 ET
+- Re-screened: 2026-09-21 against the delivery-boundary and willingness-to-pay tests added that
+  day. Moved from `shortlisted` to `held`. Full screening: `runs/2026-09-21.md`, run 2.
+- Exact question or change: Small teams are asking how to prove responsible AI use when employees
+  paste business data into general-purpose tools and when a larger customer asks for AI-governance
+  evidence. EU AI-literacy and transparency duties are now active, while the Commission states that
+  external training or certification is not required and the high-risk timetable is later.
+- Sources and observations:
+  - 2026-04-21 GDPR discussion: <https://www.reddit.com/r/gdpr/comments/1ss25un/how_are_eu_companies_actually_handling_gdpr/>
+  - 2026-08-20 small-company evidence question: <https://www.reddit.com/r/AI_Governance/comments/1vtgd8o/how_do_smaller_companies_handle_eu_ai_act/>
+  - 2026 Ask HN operationalization thread: <https://news.ycombinator.com/item?id=47169864>
+  - European Commission AI-literacy Q&A, checked 2026-09-20: <https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers>
+  - European Commission AI Act overview, checked 2026-09-20: <https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai>
+  - EU AI Act Service Desk on training and certification, checked 2026-09-20: <https://ai-act-service-desk.ec.europa.eu/en/ai-act/faq/how-can-companies-ensure-ai-competency-eg-employee-training>
+  - 2026-09-03 Indie Hackers implementation example: <https://www.indiehackers.com/post/i-built-a-notion-n8n-workspace-so-smes-can-actually-comply-with-the-eu-ai-acts-article-50-tu7ZoCaFDrob7KgWlj2W>
+- Signal types: conversation, regulation, procurement, workflow, adoption, buyer problem.
+- Who appears to care / decision: small SaaS firms, agencies, and professional-service suppliers with
+  EU customers deciding what evidence they need now, what belongs with counsel, and how to answer a
+  buyer questionnaire without inventing certainty.
+- Buyer / costly problem: the founder or operations lead has AI use scattered across staff and
+  contractors, cannot state which data and use cases are permitted, and risks delaying a customer
+  review because the evidence is fragmented or absent.
+- Potential offer / observable outcome: a fixed-scope AI-use evidence-pack implementation. The
+  outcome is a dated, reviewable inventory of tools and use cases, owners, permitted/prohibited data,
+  required disclosures, role-specific literacy evidence, open risks, and a counsel handoff list.
+- Delivery mechanism hypothesis: interview owners; inventory tools and deployment contexts; map data
+  and vendors; identify applicable transparency and literacy actions from authoritative guidance;
+  implement a lightweight register, policy, disclosure inventory, and evidence log; separate legal
+  judgments for counsel. Do not certify compliance or classify a high-risk system without qualified review.
+- Why now: enforcement powers and transparency rules became operative in August 2026, while current
+  discussion shows small teams receiving questions and lacking a usable evidence trail.
+- Strongest existing answer / gap: Commission guidance explains duties and many tools generate
+  checklists or documents. The unresolved business question is whether a small accountable operator
+  can turn scattered evidence into a useful buyer-ready system without becoming a law firm or a
+  low-trust document generator.
+- Possible OE point of view: the product is not fear or a certificate. It is the human work of
+  discovering actual AI use, assigning decision rights, preserving evidence, and knowing which
+  judgment must leave the operator's boundary.
+- Strongest invalidating question: Is this durable paid work, or a short-lived deadline rush that
+  cheap software, free Commission templates, and existing privacy or security advisers absorb?
+- Evidence still needed: verified buyer-paid engagements; procurement questionnaires; price and
+  delivery-time evidence; malpractice and legal-practice boundaries; update burden by jurisdiction;
+  evidence that buyers value the pack after the deadline; competitor and substitute mapping.
+- Semantic deduplication: no current candidate or episode matches the buyer, evidence-pack outcome,
+  or regulatory mechanism. `research/reports/report-1-strategic-evaluation.md` names generic
+  "AI compliance & security auditing" as an old idea gap, and the avatar-localization episode uses
+  Article 50 only as a disclosure constraint. Neither is an intake candidate for this service.
+- Recheck / expiry: recheck 2026-10-04 because official guidance and national enforcement practice
+  can change quickly. Step 0 candidate ID: none.
+- **Delivery boundary:** the residual is statable. What remains for an unlicensed operator is
+  discovering which AI tools and embedded AI features staff and contractors actually use, writing
+  that into a dated register with named owners and permitted or prohibited data, capturing
+  role-specific literacy-training evidence, and assembling the answers to a customer's AI
+  questionnaire. Legal classification of a system, any conformity determination, and contract terms
+  remain with counsel or qualified review. The lead therefore does not fail on "delivery boundary
+  unresolved."
+- **Automated or productised substitute and published price:** Legalithm
+  (<https://www.legalithm.com/en/pricing>, read 2026-09-21), an EU-built AI-Act-native self-serve
+  product. Free tier provides assessment and document generators with no account required. Paid tiers
+  "from€1,500/year per product" in two variants — "Your products" and "Your clients' products," the
+  latter aimed at advisory firms serving several clients. Billing is not live; payment is expected to
+  commence in 2027. It produces a hosted record per product covering the AI Act, CRA and EAA, lets the
+  user sign a determination and hand over the proof, and cites obligations to the Official Journal.
+  Applicability scoping, risk classification and the technical-documentation artifact — a large share
+  of the proposed evidence pack — are what this substitute already outputs, and the advisory-firm tier
+  targets the exact intermediary this lead proposes to become.
+- **Willingness-to-pay signal:** **none found.** Excluded on inspection: AI-governance compliance
+  software buyer's guides quoting monthly and annual tiers (vendor and comparison-site marketing); SME
+  compliance guides recommending a "$5,000–$20,000" outside-counsel budget (cost-explainer content
+  marketing, and it routes the money to the regulated professional rather than the residual); and
+  employment listings for in-house EU AI Act compliance officers (an employer hiring staff is not the
+  target buyer paying an independent provider). No buyer-described payment, budgeted service request,
+  disclosed engagement, observed marketplace transaction, or incumbent charging a named buyer for the
+  discovery-and-evidence residual.
+- Disposition / reopening condition: held on two named conditions, both of which must be met. First,
+  one accepted willingness-to-pay signal for the residual. Second, a statement of what the operator
+  delivers that Legalithm's free tier does not already output. Until both are recorded the lead is not
+  eligible for admission by the Monday bench.
+
 ### `DISC-2026-09-20-003` — agentic-commerce transaction-readiness audit
 
 - Status: `held`
@@ -225,6 +201,113 @@ None.
 - Disposition / reopening condition: held until one buyer-side source shows a paid transaction-QA
   problem distinct from visibility, or a non-Shopify implementation demonstrates material delivery
   work. Recheck 2026-10-18. Step 0 candidate ID: none.
+
+### `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
+
+- Status: `held`
+- First seen / last checked: 2026-09-20 / 2026-09-21 ET
+- Re-screened: 2026-09-21 against the delivery-boundary and willingness-to-pay tests added that
+  day. Delivery boundary passes; willingness to pay does not. Moved from `shortlisted` to `held`.
+  Full screening: `runs/2026-09-21.md`, run 2.
+- Exact question or change: Small-business owners and developers are asking what meaningful website
+  accessibility work to buy, what a developer should deliver, and whether automated checks are
+  enough. The European Accessibility Act is active for covered services, United States public-entity
+  deadlines now begin in 2027 rather than 2026, and the FTC has acted against claims that an
+  automated widget can make any site compliant.
+- Sources and observations:
+  - 2026-08-24 small-business discussion: <https://www.reddit.com/r/smallbusinessUS/comments/1vwzygq/has_anyone_here_actually_gotten_one_of_those/>
+  - 2026-02-15 developer discussion: <https://www.reddit.com/r/webdev/comments/1r50svh/is_or_should_web_accessibility_be_mandatory_2026/>
+  - 2026-01-29 buyer question with a $500 budget: <https://www.reddit.com/r/webdev/comments/1qqbfyh/what_should_i_ask_a_web_developer_for_if_i_want/>
+  - EU business guidance and microenterprise boundary, checked 2026-09-20: <https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm>
+  - FTC accessiBe final order, 2025: <https://www.ftc.gov/legal-library/browse/cases-proceedings/2223156-accessibe-inc>
+  - United States Access Board testing baseline: <https://www.access-board.gov/news/2021/08/04/u-s-access-board-launches-new-site-for-the-ict-testing-baseline-for-web-accessibility/>
+  - ADA.gov revised Title II timeline, checked 2026-09-20: <https://www.ada.gov/resources/web-rule-first-steps/>
+  - YouTube result observed 2026-09-20: <https://www.youtube.com/watch?v=4xIJIu4UhaE>
+- Signal types: conversation, regulation, procurement, workflow, capability, coverage gap.
+- Who appears to care / decision: boutique web agencies and covered ecommerce or service businesses
+  deciding whether to buy a scanner, a widget, code remediation, manual testing, or legal review.
+- Buyer / costly problem: an agency or site owner can identify automated failures but still cannot
+  verify that named customer journeys work with a keyboard and assistive technology, assign code
+  fixes, or produce a reliable retest record for a client or procurement review.
+- Potential offer / observable outcome: a fixed-scope accessibility remediation engagement for named
+  critical flows. The outcome is a documented manual-and-automated baseline, implemented source-code
+  fixes, retest evidence, known limitations, and a regression checklist—not a guarantee of legal
+  compliance or immunity from claims.
+- Delivery mechanism hypothesis: agree the applicable site and flows; run automated checks plus
+  keyboard and screen-reader tests; reproduce and prioritize barriers; remediate source code and
+  content; retest with evidence; hand off unresolved legal and specialist judgments; optionally
+  provide white-label delivery to an agency.
+- Why now: current rules are producing buyer questions while regulators and accessibility authorities
+  make the limits of one-click automation explicit. Agencies can sell accountable remediation after
+  cheap scans have commoditized issue discovery.
+- Strongest existing answer / gap: accessibility specialists, agencies, platform tools, and free
+  testing guidance already exist. Most current public coverage explains risk or sells scanning; it
+  does not establish the economics and delivery boundary of a deliberately small, manual remediation
+  service.
+- Possible OE point of view: automation makes the list of suspected failures cheap. The operator
+  business is the accountable human work of testing real journeys, changing the source, documenting
+  the result, and refusing a false compliance guarantee.
+- Strongest invalidating question: Will qualified buyers pay a small independent operator for manual
+  remediation before a legal or procurement trigger, or will incumbent web agencies, accessibility
+  specialists, platform vendors, and counsel absorb the work?
+- Evidence still needed: buyer-paid engagements and price ranges; realistic delivery hours; repeat
+  demand and regression burden; insurance, training, and legal-practice boundaries; accessibility-
+  specialist substitution; a narrower initial platform or agency niche; proof that the work remains
+  small-operator deliverable.
+- Semantic deduplication: no matching candidate, episode, parked idea, archive, topic, research
+  package, or production workspace was found. Internal WCAG checks govern OE's own visual work but do
+  not propose this buyer, offer, or outcome.
+- Recheck / expiry: recheck 2026-10-18. Step 0 candidate ID: none.
+- **Delivery boundary: passes.** No licence or credential is required to test a website with a
+  keyboard and a screen reader or to change source code, so the residual is the whole offer — manual
+  keyboard and assistive-technology testing of named customer journeys, source-code fixes, and a dated
+  retest record. A primary document settles the substitute question. In the United States' settlement
+  agreement with Hy-Vee, Inc. (<https://www.justice.gov/crt/case-document/file/1468451/dl>, PDF read
+  locally 2026-09-21), paragraph 16 requires an automated accessibility testing tool acceptable to the
+  United States, run as a routine part of content development; paragraph 18 then requires that, by the
+  conformance date and every 30 days thereafter, accessibility be tested "by at least one person with
+  a disability who uses a screen reader for reasons related to their disability and at least one
+  person with a disability who cannot use a mouse," across named real journeys, with nonconformance
+  resolved within ten business days. The federal remedy does not treat the automated tool as
+  sufficient. With the FTC accessiBe order, the residual is demonstrably not what an overlay or a
+  scanner outputs.
+- **New delivery condition recorded:** the human testing the federal remedy compels is performed by
+  people with disabilities who use assistive technology. An operator who is not an assistive-technology
+  user cannot personally produce that evidence and must contract or partner for it. This is a staffing
+  and delivery-cost condition, not a licence, so it does not fail the boundary test — but it changes
+  the shape of a deliberately small operator business and belongs in front of the bench.
+- **Automated or productised substitute:** overlay widgets and automated scanners, which the FTC
+  accessiBe final order and the Hy-Vee agreement's pairing of automated with human testing both show
+  cannot produce the residual.
+- **Willingness-to-pay signal:** **none found for the buyer this lead names.** Three near misses,
+  recorded with the reason each falls short. (1) Enterprise engagements compelled by federal
+  enforcement — the Hy-Vee agreement above, and DOJ's H&R Block consent decree requiring the company
+  to hire an approved outside consultant for annual independent evaluations of its online
+  accessibility. These are disclosed contracts naming buyers who pay independent providers for exactly
+  the residual, but they are national enterprises under a government remedy, not the target buyer, and
+  neither discloses a price. (2) A named small public buyer with an approved budget — on 2026-04-17 the
+  Fort Smith, Arkansas City Board of Directors approved approximately $35,000 of unobligated
+  general-fund money, 7–0, to address ADA digital accessibility gaps across more than 600 web pages and
+  roughly 6,500 documents, covering tools to remediate existing content, live captioning and staff
+  training; this is a secondary civic-meeting report rather than the minutes, the appropriation is
+  tools-led rather than labor-led, and the vendor named in the discussion is the city's incumbent
+  platform provider. (3) Agency pricing pages, "ADA website compliance cost 2026" explainers,
+  remediation calculators and lawsuit-settlement-average posts, all excluded source types; several
+  weak sources repeating a number do not become one strong source. The channel most likely to carry an
+  accepted signal — a marketplace posting with a budget — was unreachable on Upwork, PeoplePerHour and
+  Freelancer.com this run.
+- **Timing evidence upgraded to primary:** DOJ's interim final rule at 91 FR 20902, published and
+  effective 2026-04-20, extends the Title II web and mobile-app compliance date for public entities
+  with a population of 50,000 or more from 2026-04-24 to 2027-04-26, and for entities under 50,000 and
+  special district governments from 2027-04-26 to 2028-04-26, against WCAG 2.1 Level AA. A second
+  interim final rule published 2026-05-11 extends corresponding dates for recipients of Departmental
+  financial assistance. <https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web>
+- **Possible re-aim, for the bench to decide, not the scout:** the only buyer-side money observed in
+  this run belongs to a small public entity working to a dated federal deadline, not to the boutique
+  agency or ecommerce business this lead names.
+- Disposition / reopening condition: held until one accepted willingness-to-pay signal exists from the
+  buyer the lead names — a marketplace posting carrying a budget, a buyer describing a payment with
+  identifiable scope, or a disclosed small-business engagement for manual remediation of named flows.
 
 ### `DISC-2026-09-20-005` — AI-agent access and kill-switch review
 
@@ -457,5 +540,14 @@ None.
   platform, tax, and deadline differences make this several businesses rather than one candidate,
   while accounting vendors can absorb setup. Reopen only as one country plus one platform with a
   buyer-paid implementation request and a non-legal delivery boundary.
+
+- 2026-09-21 — Subscription auto-renewal and cancellation-compliance install: no live operating
+  change. The Eighth Circuit vacated the FTC Negative Option ("click-to-cancel") Rule in July 2025 and
+  the FTC is back at ANPRM stage, announced 2026-03-11 with comments due 2026-04-13, so there is no
+  final rule and no dated compliance deadline; California's AB 2863 took effect 2025-07-01 and is not
+  a fresh trigger. No accepted willingness-to-pay signal was found for the implementation residual as
+  distinct from counsel review. Reopen only when a final negative-option rule publishes with a dated
+  compliance deadline **and** one accepted willingness-to-pay signal exists for the implementation
+  work specifically.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`.
