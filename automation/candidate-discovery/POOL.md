@@ -1,6 +1,6 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-20 ET
+Updated: 2026-09-20 ET (run 2)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -112,6 +112,63 @@ lead into formal Operator Blueprint V2 Step 0.
   can change quickly; hold if the service cannot be bounded away from legal advice. Step 0 candidate
   ID: none.
 
+### 3. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
+
+- Status: `shortlisted`
+- First seen / last checked: 2026-09-20 / 2026-09-20 ET
+- Editorial priority: third. The work is showable and current rules expose the limit of automated
+  scans, but the buyer and qualification boundary need tighter proof before formal intake.
+- Exact question or change: Small-business owners and developers are asking what meaningful website
+  accessibility work to buy, what a developer should deliver, and whether automated checks are
+  enough. The European Accessibility Act is active for covered services, United States public-entity
+  deadlines now begin in 2027 rather than 2026, and the FTC has acted against claims that an
+  automated widget can make any site compliant.
+- Sources and observations:
+  - 2026-08-24 small-business discussion: <https://www.reddit.com/r/smallbusinessUS/comments/1vwzygq/has_anyone_here_actually_gotten_one_of_those/>
+  - 2026-02-15 developer discussion: <https://www.reddit.com/r/webdev/comments/1r50svh/is_or_should_web_accessibility_be_mandatory_2026/>
+  - 2026-01-29 buyer question with a $500 budget: <https://www.reddit.com/r/webdev/comments/1qqbfyh/what_should_i_ask_a_web_developer_for_if_i_want/>
+  - EU business guidance and microenterprise boundary, checked 2026-09-20: <https://europa.eu/youreurope/business/selling-in-eu/selling-goods-services/accessibility/index_en.htm>
+  - FTC accessiBe final order, 2025: <https://www.ftc.gov/legal-library/browse/cases-proceedings/2223156-accessibe-inc>
+  - United States Access Board testing baseline: <https://www.access-board.gov/news/2021/08/04/u-s-access-board-launches-new-site-for-the-ict-testing-baseline-for-web-accessibility/>
+  - ADA.gov revised Title II timeline, checked 2026-09-20: <https://www.ada.gov/resources/web-rule-first-steps/>
+  - YouTube result observed 2026-09-20: <https://www.youtube.com/watch?v=4xIJIu4UhaE>
+- Signal types: conversation, regulation, procurement, workflow, capability, coverage gap.
+- Who appears to care / decision: boutique web agencies and covered ecommerce or service businesses
+  deciding whether to buy a scanner, a widget, code remediation, manual testing, or legal review.
+- Buyer / costly problem: an agency or site owner can identify automated failures but still cannot
+  verify that named customer journeys work with a keyboard and assistive technology, assign code
+  fixes, or produce a reliable retest record for a client or procurement review.
+- Potential offer / observable outcome: a fixed-scope accessibility remediation engagement for named
+  critical flows. The outcome is a documented manual-and-automated baseline, implemented source-code
+  fixes, retest evidence, known limitations, and a regression checklist—not a guarantee of legal
+  compliance or immunity from claims.
+- Delivery mechanism hypothesis: agree the applicable site and flows; run automated checks plus
+  keyboard and screen-reader tests; reproduce and prioritize barriers; remediate source code and
+  content; retest with evidence; hand off unresolved legal and specialist judgments; optionally
+  provide white-label delivery to an agency.
+- Why now: current rules are producing buyer questions while regulators and accessibility authorities
+  make the limits of one-click automation explicit. Agencies can sell accountable remediation after
+  cheap scans have commoditized issue discovery.
+- Strongest existing answer / gap: accessibility specialists, agencies, platform tools, and free
+  testing guidance already exist. Most current public coverage explains risk or sells scanning; it
+  does not establish the economics and delivery boundary of a deliberately small, manual remediation
+  service.
+- Possible OE point of view: automation makes the list of suspected failures cheap. The operator
+  business is the accountable human work of testing real journeys, changing the source, documenting
+  the result, and refusing a false compliance guarantee.
+- Strongest invalidating question: Will qualified buyers pay a small independent operator for manual
+  remediation before a legal or procurement trigger, or will incumbent web agencies, accessibility
+  specialists, platform vendors, and counsel absorb the work?
+- Evidence still needed: buyer-paid engagements and price ranges; realistic delivery hours; repeat
+  demand and regression burden; insurance, training, and legal-practice boundaries; accessibility-
+  specialist substitution; a narrower initial platform or agency niche; proof that the work remains
+  small-operator deliverable.
+- Semantic deduplication: no matching candidate, episode, parked idea, archive, topic, research
+  package, or production workspace was found. Internal WCAG checks govern OE's own visual work but do
+  not propose this buyer, offer, or outcome.
+- Recheck / expiry: recheck 2026-10-18; hold if buyer-paid evidence or a credible qualification path
+  is still absent. Step 0 candidate ID: none.
+
 ## New
 
 None.
@@ -166,6 +223,58 @@ None.
   problem distinct from visibility, or a non-Shopify implementation demonstrates material delivery
   work. Recheck 2026-10-18. Step 0 candidate ID: none.
 
+### `DISC-2026-09-20-005` — AI-agent access and kill-switch review
+
+- Status: `held`
+- First seen / last checked: 2026-09-20 / 2026-09-20 ET
+- Exact question or change: Teams deploying agents through MCP and other connectors are asking what
+  those agents should be able to read, which actions require approval, how permissions should expire,
+  and how to revoke access after a failure. MCP authorization has hardened during 2026, and ChatGPT
+  business products are exposing fuller MCP write actions and admin-vetted apps.
+- Sources and observations:
+  - 2026-07-30 enterprise access question: <https://www.reddit.com/r/cybersecurity/comments/1vajgxz/how_do_companies_decide_what_internal_ai_agents/>
+  - 2026-09-17 MCP-control discussion: <https://www.reddit.com/r/cybersecurity/comments/1wiu316/the_3_key_enterprise_security_controls/>
+  - 2026-03-10 small-business adoption question: <https://www.reddit.com/r/AiForSmallBusiness/comments/1rptg2x/anyone_actually_using_ai_agents_in_a_small/>
+  - MCP 2026 release candidate: <https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/>
+  - MCP enterprise-managed authorization: <https://blog.modelcontextprotocol.io/posts/enterprise-managed-auth/>
+  - OpenAI MCP apps and admin controls, checked 2026-09-20: <https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt>
+  - OWASP AI Agent Security Cheat Sheet, checked 2026-09-20: <https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html>
+  - YouTube search snapshot, 2026-09-20: <https://www.youtube.com/results?search_query=AI+agent+permissions+MCP+security+2026>
+- Signal types: conversation, capability, platform change, operating risk, workflow.
+- Who appears to care / decision: small SaaS, agency, and operations teams deciding what tool-using
+  agents may access, which actions can run unattended, and how to recover when an agent or connector
+  behaves incorrectly.
+- Buyer / costly problem: tool-using agents can inherit broad OAuth access and act on untrusted
+  content, while owners lack one inventory of identities, scopes, approval points, logs, and an
+  exercised revocation path.
+- Potential offer / observable outcome: a fixed-scope agent-access review and control install. The
+  outcome would be an agent and connector inventory, reduced scopes, explicit approval gates for
+  consequential actions, logging ownership, and a tested kill-switch or revocation drill.
+- Delivery mechanism hypothesis: enumerate agents, connectors, service accounts, tokens, scopes, and
+  actions; map data and irreversible effects; separate read and write authority; reduce or time-box
+  permissions; add human approval and logs; run a revocation and recovery exercise. No penetration
+  test, security certification, or guarantee against compromise.
+- Why now: agents are moving from chat to write-capable tool use while the underlying authorization
+  standards and enterprise controls are still changing.
+- Strongest existing answer / gap: OWASP and platform documentation describe sound controls, and
+  security vendors increasingly package agent identity. Public evidence does not yet show that small
+  teams buy this as a standalone operator service rather than expect an MSP, security consultant, or
+  platform administrator to handle it.
+- Possible OE point of view: the useful unit is not another agent demo. It is a digital worker with
+  keys, decision rights, supervision, an audit trail, and an offboarding path.
+- Strongest invalidating question: Is the work too security-sensitive, technically demanding, and
+  liability-heavy for a small generalist operator—and is it already a feature of identity platforms,
+  managed service providers, or existing security engagements?
+- Evidence still needed: small or mid-market buyer-paid reviews; delivery-time and price evidence;
+  required technical qualifications and insurance; common failure and recovery records; platform and
+  MSP substitute mapping; proof that a safe scope is distinct from the AI-use evidence pack.
+- Semantic deduplication: distinct from the AI-use evidence pack's policy and procurement artifact,
+  but materially adjacent to the workflow-reliability candidate's least-privilege and revocation
+  controls. No current candidate owns agent-specific permission inventory and kill-switch testing.
+- Disposition / reopening condition: held until one buyer-side source shows a paid, agent-specific
+  permission or revocation review that a small accountable operator can deliver within a bounded
+  security scope. Recheck 2026-10-18. Step 0 candidate ID: none.
+
 ## Admitted to Step 0
 
 None.
@@ -179,5 +288,9 @@ None.
   a buyer-paid engagement tied to material spend or a recurring governance burden.
 - 2026-09-20 — AI search or GEO optimization: renamed duplicate of the parked AI-visibility
   diagnostic. Reopen only through that candidate's recorded re-entry conditions.
+- 2026-09-20 — Broad e-invoicing transition service: current mandates are real, but country,
+  platform, tax, and deadline differences make this several businesses rather than one candidate,
+  while accounting vendors can absorb setup. Reopen only as one country plus one platform with a
+  buyer-paid implementation request and a non-legal delivery boundary.
 
 Full evidence and screening: `runs/2026-09-20.md`.
