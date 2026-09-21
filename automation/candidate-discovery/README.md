@@ -21,7 +21,7 @@ candidate template.
 | State | Meaning |
 |---|---|
 | `new` | A sourced signal worth screening, but not yet qualified for the Monday bench. |
-| `shortlisted` | Passed the scout filters and may be considered for formal Step 0 admission. |
+| `shortlisted` | Passed every scout filter, including the delivery-boundary and willingness-to-pay tests, and may be considered for formal Step 0 admission. |
 | `held` | Plausible, but blocked on a named missing signal, source, access, or timing condition. |
 | `rejected` | Generic, duplicate, evidence-free, guest-dependent, non-showable, outside the thesis, or otherwise not worth reopening without a stated material change. |
 | `admitted` | The Monday bench created a formal Step 0 candidate and recorded its ID. The scout may not set this state. |
@@ -48,6 +48,12 @@ Every lead must preserve:
 - evidence still needed;
 - semantic deduplication result against candidates, episodes, parked work, archives, research, and
   production workspaces;
+- **delivery boundary** — who is legally or professionally permitted to deliver the core deliverable,
+  and, if any part requires a licence or credential, what concretely remains for an unlicensed
+  operator once every regulated task is removed;
+- **automated or productised substitute** and its published price, when one exists;
+- **willingness-to-pay signal** for the residual named in the delivery boundary, recorded with its
+  type and source, or an explicit statement that none was found;
 - expiry or recheck date;
 - status, disposition reason, and exact reopening condition when held or rejected; and
 - Step 0 candidate ID only after a later Monday-bench admission.
@@ -57,9 +63,38 @@ Reddit and other community activity supplies qualitative language and recurrence
 proof of demand, willingness to pay, or market size. A source-access failure is an evidence limit,
 not a negative market finding.
 
+## The two tests added 2026-09-21
+
+Owner decision, 2026-09-21, after four consecutive leads and two Step 0 candidates failed on the same
+axis: a regulation-triggered service whose delivery boundary requires a licensed professional, whose
+pricing evidence is seller copy, and for which no buyer-paid evidence exists.
+
+**Delivery boundary.** A rule that creates work usually also names who is allowed to do it. Name that
+person. If a licence or credential is required for any part of the core deliverable, state in one
+specific sentence what remains for an unlicensed operator once every regulated task is removed. That
+residual is the offer. If it cannot be stated, the lead is `held` with "delivery boundary unresolved",
+not `shortlisted`. If the residual is substantially what an automated substitute already outputs,
+hold or reject.
+
+**Willingness to pay.** At least one signal that the target buyer pays an independent provider for
+the residual. Accepted: a buyer describing a payment with identifiable scope; a service request,
+brief, or job posting carrying a budget; a disclosed engagement, invoice, contract, or first-party
+result; an observed marketplace transaction; or an incumbent visibly charging a named buyer for that
+specific residual. Not accepted in any combination: vendor or agency pricing pages, directory rate
+cards, cost-explainer content marketing, seller guidance published to win adjacent work, loss or
+fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
+
+Holding is the expected outcome for a fresh regulatory trigger. A held lead costs nothing; a
+shortlisted one consumes a Monday bench run.
+
+The full test wording, including the transition rule for leads shortlisted before 2026-09-21, is in
+`../prompts/oe-candidate-scout.md` under "Qualification and disposition".
+
 ## Capacity and handoff
 
-- Keep no more than five `shortlisted` leads at once.
+- Keep no more than five `shortlisted` leads at once. Five is a ceiling, not a target: under the two
+  tests above, an empty or one-lead shortlist is a normal result, and neither test may be relaxed to
+  fill the pool.
 - Add no more than three materially new leads per scout run.
 - Continue or refresh existing leads before expanding the pool.
 - Do not keep a lead live merely because it is fashionable. Expire, hold, or reject stale signals.

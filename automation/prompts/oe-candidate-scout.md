@@ -140,9 +140,59 @@ To become `shortlisted`, a lead must have:
 2. clear audience and thesis fit;
 3. a meaningful unresolved tension or coverage gap;
 4. a plausible buyer, costly problem, observable outcome, and delivery mechanism to investigate;
-5. a path to honest, showable evidence that does not depend on a guest; and
+5. a path to honest, showable evidence that does not depend on a guest;
 6. enough accessible evidence for the Monday bench to decide whether formal Step 0 research is
-   warranted.
+   warranted;
+7. a **stated delivery boundary** that survives the licensing test below; and
+8. at least one **willingness-to-pay signal** of an accepted type below.
+
+### The delivery-boundary test
+
+Added 2026-09-21 by owner decision, after four consecutive leads and two Step 0 candidates failed on
+the same axis.
+
+A dated regulatory trigger is the scout's most reliable signal and also its most reliable trap,
+because a rule that creates work usually also names who is allowed to do it. Before shortlisting,
+name explicitly:
+
+- who is legally or professionally permitted to deliver the core deliverable — an unlicensed
+  operator, a licensed or credentialed professional, or an unresolved mix; and
+- if a licence or credential is required for any part, **what concretely remains** for an unlicensed
+  operator once every regulated task is removed.
+
+That residual is the offer. If the residual cannot be stated in one specific sentence, the lead is
+`held` with "delivery boundary unresolved" as the named missing condition — not `shortlisted`.
+
+Also name the **automated or productised substitute** and its published price when one exists. If
+the residual is substantially what the substitute already outputs, hold or reject; do not shortlist
+a lead whose remaining work is a software output sold as labor.
+
+### The willingness-to-pay test
+
+At least one signal that the target buyer pays an independent provider for **the residual**, not for
+the regulated or automated work around it. Accepted signals:
+
+- a buyer describing a payment they made, with enough detail to identify the scope;
+- a service request, brief, or job posting carrying a budget for that scope;
+- a disclosed engagement, invoice, contract, or first-party result;
+- an observed marketplace transaction; or
+- an incumbent visibly charging a named buyer for that specific residual.
+
+**Not accepted, in any combination:** vendor or agency pricing pages, directory rate cards, "how much
+does X cost" content-marketing posts, seller guidance published to win adjacent work, general loss or
+fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
+Several weak sources repeating a number do not become one strong source.
+
+If no accepted signal exists, the lead is `held` with the exact missing signal named. This is the
+common case for a fresh regulatory trigger, and holding is the correct outcome — a held lead costs
+nothing, while a shortlisted one consumes a Monday bench run.
+
+### Transition
+
+Leads shortlisted before 2026-09-21 were screened without tests 7 and 8. Re-screen every existing
+`shortlisted` lead against both on the next scout run and re-disposition it honestly, before adding
+any new lead. Until a lead records both results, it is not eligible for admission by the Monday
+bench.
 
 Reject generic, duplicative, evidence-free, guest-dependent, non-showable, hype-led, or trend-only
 ideas early. Hold a plausible lead when one named missing condition could change the decision, and
@@ -152,6 +202,12 @@ no interest or demand.
 Do not assign a numeric score. Order shortlisted leads by editorial priority and state the decisive
 reason in plain language. Keep no more than five shortlisted leads and add no more than three
 materially new leads in one run.
+
+Five is a ceiling, not a target. Under the delivery-boundary and willingness-to-pay tests an empty or
+one-lead shortlist is a normal and acceptable result. Do not relax either test to fill the pool, and
+do not shortlist a lead in order to have something for the Monday bench to admit — the bench is
+required to record `NO_QUALIFYING_SHORTLIST` and stop, and that is a cheaper outcome than a Step 0
+package that parks.
 
 ## Persistence and git safety
 

@@ -74,6 +74,12 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
 2. Recheck source access, recency, semantic duplication, audience fit, showability, and the strongest
    invalidating question. Choose at most one lead. The discovery ordering informs this decision but
    never substitutes for the current Step 0 contract.
+   Since 2026-09-21 the discovery contract also requires every shortlisted lead to record a delivery
+   boundary and a willingness-to-pay signal of an accepted type. Do not admit a lead that has not
+   recorded both, and do not supply either result on the scout's behalf — return it for screening and
+   record `NO_QUALIFYING_SHORTLIST` if nothing else qualifies. Verify the willingness-to-pay signal
+   against the accepted-type list yourself; vendor pricing pages, directory rate cards, and cost-
+   explainer content marketing are not accepted evidence at either stage.
 3. Start from `00-intake/01-candidates/CANDIDATE.template.md`. Create one stable candidate ID and
    bound the opportunity to one buyer,
    one costly job, one observable deliverable or state change, one delivery hypothesis, and one
