@@ -50,22 +50,50 @@ records, the canonical queue, episode numbers, scripts, narration, production, o
 Search current public conversation and record direct links, exact observed language, dates, and
 access limits.
 
-- **Google Trends:** compare useful windows such as 7 days, 90 days, and 12 months; inspect rising
-  and related queries and regional differences. Treat the index as relative direction, never exact
-  monthly search volume.
-- **Reddit:** inspect recent posts and substantive comments in broad and domain-specific communities.
-  Look for repeated questions, frustrations, failed attempts, workarounds, purchase decisions,
-  disputed assumptions, and language people use naturally. Upvotes alone are not demand evidence.
-- **Google search:** inspect autocomplete, People Also Ask, result recency, and repeated query
-  formulations. Do not infer volume from result counts.
-- **YouTube:** inspect autocomplete, recent relevant videos, view velocity when visible, packaging,
-  comment questions, and whether strong coverage already resolves the topic.
-- **Other relevant communities:** Hacker News, Indie Hackers, specialist forums, public professional
-  communities, and domain-specific discussion surfaces. Use only what is publicly accessible and
-  attributable.
+- **Google search:** the most reliable surface. Inspect People Also Ask, the related-search rail,
+  autocomplete, result recency, and repeated query formulations. Record the questions verbatim. Do
+  not infer volume from result counts.
+- **Reddit — search-result renderings only.** Do not plan a run around reading Reddit. As of
+  2026-09-21 the domain is refused by both the built-in browser pane and the Chrome extension, by
+  WebFetch, and by domain-scoped search, and Reddit returns HTTP 403 to `curl`; being signed in does
+  not help, because the request is refused before it is sent. The full test matrix is in
+  `automation/candidate-discovery/runs/2026-09-21.md`. What remains usable is what Google's result
+  page renders: thread title, subreddit, approximate age, comment count, and a top-answer snippet.
+  Cite those as SERP observations, never as a read thread, and never quote or date a comment that was
+  not visible in the rendering. Retest one Reddit URL per run in one call and record the result, so a
+  restored surface is noticed. If the user supplies thread text directly, treat it as a read thread
+  and say where it came from.
+- **Hacker News:** search through the Algolia index with a date window. Strongest for developer,
+  platform, and infrastructure questions; frequently macro-political and consumer-facing on policy
+  topics, which is not a small-operator buyer signal. An absence here is an absence on one surface.
+- **Indie Hackers:** useful for what operators are actually building and charging for. Posts are
+  seller claims: they verify supply, offers, and possible saturation, not customer demand.
+- **YouTube:** inspect autocomplete, recent relevant videos sorted by upload date, view velocity when
+  visible, packaging, comment questions, and whether strong coverage already resolves the topic. A
+  thin or stale result set is a coverage-gap observation, not evidence of low audience demand.
+- **Other reachable communities:** Stack Exchange sites, vendor-hosted and independent Discourse
+  forums, public professional communities, trade-association and practitioner forums, and
+  domain-specific discussion surfaces. Platform seller help centres and changelogs (Shopify, Etsy,
+  eBay, marketplace and payment providers) are a distinct and often better source than a forum,
+  because a dated policy change is a primary operating signal. Use only what is publicly accessible
+  and attributable.
+- **Google Trends:** unreliable in this environment. It failed outright on 2026-09-20 and on
+  2026-09-21 rendered without exposing readable values. Attempt it when a direction claim would
+  change a decision, and otherwise skip it rather than spending a run on it. When it does work,
+  compare useful windows such as 7 days, 90 days, and 12 months and inspect rising and related
+  queries and regional differences. Treat the index as relative direction, never exact monthly search
+  volume.
 
 Do not force every surface into every run. Choose the surfaces relevant to the observed question and
 record unavailable or blocked access honestly.
+
+Because Reddit is no longer readable, most runs will qualify a lead through the operating-change
+route in the qualification list — one material operating change plus one independent
+audience/question signal — rather than through recurrence across two conversation surfaces. That is
+expected, not a lowered bar. It raises the burden on the market and operating-signal lane below: the
+change must be dated, primary where possible, and attached to a cost the buyer is already carrying.
+Do not compensate for a lost surface by treating seller marketing, vendor guidance, or a press
+release as an audience signal.
 
 ## Discovery lane 2: market and operating signals
 
