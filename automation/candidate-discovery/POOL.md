@@ -1,104 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-21 ET (candidate scout, off-cadence run; supersedes the same-day bench update)
+Updated: 2026-09-21 ET (weekly research bench, rerun 2; admits and parks `DISC-2026-09-21-006`)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-### 1. `DISC-2026-09-21-006` — cross-border duty and landed-cost system for small importers
-
-- Status: `shortlisted`
-- First seen / last checked: 2026-09-21 / 2026-09-21 ET
-- Editorial priority: first. It is the only lead in the pool attached to a rule that has already
-  changed the buyer's cost per parcel, and its delivery boundary — who is allowed to classify goods
-  for someone else — is itself the argument.
-- Exact question or change: US duty-free de minimis treatment is suspended, CBP has modernised
-  low-value shipment processing so that low-value parcels need an appropriate entry rather than the
-  old informal path, and marketplaces are pushing the duty obligation onto sellers. Small importers
-  who never needed precise classification now carry duty exposure that is a direct function of HTS
-  code and country of origin, while the importer of record keeps the liability.
-- Sources and observations:
-  - CBP national media release, 2026-06-24, read 2026-09-21. De minimis suspended by executive order
-    effective 2025-08-29; imports at or under $800 lose duty-free status; shipments valued at $2,500
-    or less are subject to applicable duties; narrow gift and personal-article exceptions remain:
-    <https://www.cbp.gov/newsroom/national-media-release/cbp-modernizes-low-value-shipment-processing>
-  - Federal Register, published 2026-06-24, interim final rule indexed effective 2026-07-24, non-postal
-    modes. Document page redirected and was not read directly:
-    <https://www.federalregister.gov/documents/2026/06/24/2026-12670/indefinite-suspension-of-the-de-minimis-exemption-for-merchandise-arriving-through-all-modes-other>
-  - Federal Register, published 2026-06-24, mail shipments and new postal informal entry process.
-    Same access limitation:
-    <https://www.federalregister.gov/documents/2026/06/24/2026-12669/indefinite-suspension-of-the-de-minimis-exemption-for-mail-shipments-and-new-postal-informal-entry>
-  - Etsy Seller Handbook, article dated 2026-06-09, read 2026-09-21: "Starting July 9, 2026, DDP will
-    be required for orders shipped to US buyers in order to qualify for Etsy Purchase Protection,"
-    and "As of August 29, 2025, there is no longer a de minimis exemption for goods entering the
-    United States": <https://www.etsy.com/seller-handbook/article/1355662653395>
-  - 19 CFR Part 111 (eCFR), checked 2026-09-21. Classification and valuation are named as customs
-    business; unlicensed performance exposes a person to penalties:
-    <https://www.ecfr.gov/current/title-19/chapter-I/part-111>
-  - Google SERP observation, 2026-09-21, r/smallbusiness thread indexed at roughly nine months old,
-    "10+ comments", "16 answers", top-answer snippet "I use ChatGPT. I've never noticed an issue."
-    The thread could not be opened; this is a search-result rendering, not a read thread:
-    <https://www.reddit.com/r/smallbusiness/comments/1pf3w1p/small_importers_how_do_you_pick_hshts_codes_for/>
-  - Google People Also Ask and related searches, observed 2026-09-21, recurring on how to find the
-    correct HS/HTS code for a product. Recurrence of formulation only; no volume claim.
-  - Supply-side observation, 2026-09-21: forwarders, customs technology vendors, DHL, Avalara, and
-    cross-border shipping platforms are publishing merchant guidance, with at least one offering free
-    HS classification advisory as an acquisition device.
-- Signal types: operating change, regulation, platform change, buyer problem, workflow, margin, search
-  direction.
-- Who appears to care / decision: owner-operated DTC brands, marketplace sellers, and small importers
-  deciding which SKUs still work, what to charge, whether to consolidate shipments, and whether the
-  classification they are using can survive scrutiny.
-- Buyer / costly problem: a small importer whose per-parcel entry, brokerage, and duty costs can now
-  exceed the duty itself on low-value goods, whose HTS codes were approximate because everything used
-  to land under the threshold, and who remains the importer of record when a code or origin claim is
-  wrong.
-- Potential offer / observable outcome: a fixed-scope import cost-and-data engagement. The outcome is
-  a SKU-level record — classification rationale and source, supplier-supplied country-of-origin
-  evidence, applicable duty treatment, and a landed-cost model per shipping mode — plus a decision
-  record on which SKUs and which channels still clear margin, and a clean handoff pack for the
-  licensed broker who files.
-- Delivery mechanism hypothesis: inventory SKUs and suppliers; collect and file origin documentation;
-  assemble classification evidence with sources and open questions; build landed cost per unit and per
-  shipping mode; model consolidation against direct parcel; recompute prices and channel economics;
-  hand unresolved classification determinations and all filing to a licensed customs broker. The
-  operator does not file entries, does not determine another company's classification for
-  compensation, and does not promise duty savings or customs outcomes.
-- Why now: the suspension has been in force since 2025-08-29, CBP published modernised entry rules on
-  2026-06-24, and Etsy began requiring DDP for US-bound orders on 2026-07-09. The cost is already on
-  the buyer's books this quarter.
-- Strongest existing answer / gap: brokers, forwarders, and customs software already classify, file,
-  and calculate duty, and several give classification advisory away to win freight. Public YouTube
-  coverage is beginner HS/HTS explainers, one to four years old. What no observed source establishes
-  is who owns the merchant's own data and margin decision when the free advisory is wrong and the
-  merchant is still the importer of record.
-- Possible OE point of view: the tariff is not the interesting part. The interesting part is that a
-  merchant can be told a code by a chatbot or a forwarder's free tool and still be the one who pays
-  when it is wrong. The operator business, if it exists, is owning the evidence and the margin
-  decision, and refusing the one determination that is not the operator's to make.
-- Strongest invalidating question: Classification and valuation are named as customs business under
-  19 CFR 111.1. Is there a version of this service that a small unlicensed operator can legally and
-  safely deliver — and if it stops short of classification, will a buyer pay for the data, origin
-  evidence, and margin model alone, when forwarders give adjacent work away free to win the freight?
-- Evidence still needed: qualified review of the customs-business boundary and any licensing or
-  penalty exposure; one buyer-paid engagement or purchase commitment; realistic delivery hours for a
-  catalog of a stated size; price evidence; the true substitution rate against brokers, forwarders,
-  and customs software; whether demand persists after the first re-pricing or is one-off; insurance
-  and indemnity posture; whether a narrower first niche (one platform, one product category, one
-  origin country) is required.
-- Semantic deduplication: no match in current candidates, the canonical queue, promotion or
-  disposition records, EP006-EP009, `studio/originate/` workspaces, parked or archived topics,
-  `research/`, or the existing pool. Nearest neighbour is `DISC-2026-09-20-003` agentic-commerce
-  readiness; that lead's failure event is an agent misreading a catalog and its outcome is a
-  transaction test record, while this lead's failure event is a duty bill and its outcome is
-  classification evidence and a landed-cost model.
-- Recheck / expiry: recheck 2026-10-25, because entry procedures and tariff treatment are changing
-  quickly and the postal and non-postal rules are interim. Reject if qualified review shows no lawful
-  unlicensed delivery scope. Step 0 candidate ID: none.
-
-### 2. `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
+### 1. `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
 
 - Status: `shortlisted`
 - First seen / last checked: 2026-09-20 / 2026-09-20 ET
@@ -152,7 +61,7 @@ lead into formal Operator Blueprint V2 Step 0.
   can change quickly; hold if the service cannot be bounded away from legal advice. Step 0 candidate
   ID: none.
 
-### 3. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
+### 2. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
 
 - Status: `shortlisted`
 - First seen / last checked: 2026-09-20 / 2026-09-20 ET
@@ -370,6 +279,100 @@ None.
   security scope. Recheck 2026-10-18. Step 0 candidate ID: none.
 
 ## Admitted to Step 0
+
+### `DISC-2026-09-21-006` — cross-border duty and landed-cost system for small importers
+
+- Status: `admitted`
+- First seen / last checked: 2026-09-21 / 2026-09-21 ET
+- Admission: admitted by the 2026-09-21 weekly research bench (rerun 2) as
+  `candidate-2026-09-21-import-landed-cost-decision`. Admission is not eligibility, promotion, or
+  editorial authorization. The Step 0 disposition is `parked`.
+- Exact question or change: US duty-free de minimis treatment is suspended, CBP has modernised
+  low-value shipment processing so that low-value parcels need an appropriate entry rather than the
+  old informal path, and marketplaces are pushing the duty obligation onto sellers. Small importers
+  who never needed precise classification now carry duty exposure that is a direct function of HTS
+  code and country of origin, while the importer of record keeps the liability.
+- Sources and observations:
+  - CBP national media release, 2026-06-24, read 2026-09-21. De minimis suspended by executive order
+    effective 2025-08-29; imports at or under $800 lose duty-free status; shipments valued at $2,500
+    or less are subject to applicable duties; narrow gift and personal-article exceptions remain:
+    <https://www.cbp.gov/newsroom/national-media-release/cbp-modernizes-low-value-shipment-processing>
+  - Federal Register, published 2026-06-24, interim final rule indexed effective 2026-07-24, non-postal
+    modes. Document page redirected and was not read directly:
+    <https://www.federalregister.gov/documents/2026/06/24/2026-12670/indefinite-suspension-of-the-de-minimis-exemption-for-merchandise-arriving-through-all-modes-other>
+  - Federal Register, published 2026-06-24, mail shipments and new postal informal entry process.
+    Same access limitation:
+    <https://www.federalregister.gov/documents/2026/06/24/2026-12669/indefinite-suspension-of-the-de-minimis-exemption-for-mail-shipments-and-new-postal-informal-entry>
+  - Etsy Seller Handbook, article dated 2026-06-09, read 2026-09-21: "Starting July 9, 2026, DDP will
+    be required for orders shipped to US buyers in order to qualify for Etsy Purchase Protection,"
+    and "As of August 29, 2025, there is no longer a de minimis exemption for goods entering the
+    United States": <https://www.etsy.com/seller-handbook/article/1355662653395>
+  - 19 CFR Part 111 (eCFR), checked 2026-09-21. Classification and valuation are named as customs
+    business; unlicensed performance exposes a person to penalties:
+    <https://www.ecfr.gov/current/title-19/chapter-I/part-111>
+  - Google SERP observation, 2026-09-21, r/smallbusiness thread indexed at roughly nine months old,
+    "10+ comments", "16 answers", top-answer snippet "I use ChatGPT. I've never noticed an issue."
+    The thread could not be opened; this is a search-result rendering, not a read thread:
+    <https://www.reddit.com/r/smallbusiness/comments/1pf3w1p/small_importers_how_do_you_pick_hshts_codes_for/>
+  - Google People Also Ask and related searches, observed 2026-09-21, recurring on how to find the
+    correct HS/HTS code for a product. Recurrence of formulation only; no volume claim.
+  - Supply-side observation, 2026-09-21: forwarders, customs technology vendors, DHL, Avalara, and
+    cross-border shipping platforms are publishing merchant guidance, with at least one offering free
+    HS classification advisory as an acquisition device.
+- Signal types: operating change, regulation, platform change, buyer problem, workflow, margin, search
+  direction.
+- Who appears to care / decision: owner-operated DTC brands, marketplace sellers, and small importers
+  deciding which SKUs still work, what to charge, whether to consolidate shipments, and whether the
+  classification they are using can survive scrutiny.
+- Buyer / costly problem: a small importer whose per-parcel entry, brokerage, and duty costs can now
+  exceed the duty itself on low-value goods, whose HTS codes were approximate because everything used
+  to land under the threshold, and who remains the importer of record when a code or origin claim is
+  wrong.
+- Potential offer / observable outcome: a fixed-scope import cost-and-data engagement. The outcome is
+  a SKU-level record — classification rationale and source, supplier-supplied country-of-origin
+  evidence, applicable duty treatment, and a landed-cost model per shipping mode — plus a decision
+  record on which SKUs and which channels still clear margin, and a clean handoff pack for the
+  licensed broker who files.
+- Delivery mechanism hypothesis: inventory SKUs and suppliers; collect and file origin documentation;
+  assemble classification evidence with sources and open questions; build landed cost per unit and per
+  shipping mode; model consolidation against direct parcel; recompute prices and channel economics;
+  hand unresolved classification determinations and all filing to a licensed customs broker. The
+  operator does not file entries, does not determine another company's classification for
+  compensation, and does not promise duty savings or customs outcomes.
+- Why now: the suspension has been in force since 2025-08-29, CBP published modernised entry rules on
+  2026-06-24, and Etsy began requiring DDP for US-bound orders on 2026-07-09. The cost is already on
+  the buyer's books this quarter.
+- Strongest existing answer / gap: brokers, forwarders, and customs software already classify, file,
+  and calculate duty, and several give classification advisory away to win freight. Public YouTube
+  coverage is beginner HS/HTS explainers, one to four years old. What no observed source establishes
+  is who owns the merchant's own data and margin decision when the free advisory is wrong and the
+  merchant is still the importer of record.
+- Possible OE point of view: the tariff is not the interesting part. The interesting part is that a
+  merchant can be told a code by a chatbot or a forwarder's free tool and still be the one who pays
+  when it is wrong. The operator business, if it exists, is owning the evidence and the margin
+  decision, and refusing the one determination that is not the operator's to make.
+- Strongest invalidating question: Classification and valuation are named as customs business under
+  19 CFR 111.1. Is there a version of this service that a small unlicensed operator can legally and
+  safely deliver — and if it stops short of classification, will a buyer pay for the data, origin
+  evidence, and margin model alone, when forwarders give adjacent work away free to win the freight?
+- Evidence still needed: qualified review of the customs-business boundary and any licensing or
+  penalty exposure; one buyer-paid engagement or purchase commitment; realistic delivery hours for a
+  catalog of a stated size; price evidence; the true substitution rate against brokers, forwarders,
+  and customs software; whether demand persists after the first re-pricing or is one-off; insurance
+  and indemnity posture; whether a narrower first niche (one platform, one product category, one
+  origin country) is required.
+- Full claim registry:
+  `../../operator-blueprint-v2/00-intake/02-research/candidate-2026-09-21-import-landed-cost-decision-research.md`
+- Semantic deduplication: no match in current candidates, the canonical queue, promotion or
+  disposition records, EP006-EP009, `studio/originate/` workspaces, parked or archived topics,
+  `research/`, or the existing pool. Nearest neighbour is `DISC-2026-09-20-003` agentic-commerce
+  readiness; that lead's failure event is an agent misreading a catalog and its outcome is a
+  transaction test record, while this lead's failure event is a duty bill and its outcome is
+  classification evidence and a landed-cost model.
+- Recheck / expiry: parked. Both unblock conditions in the Step 0 disposition must be met before
+  re-entry, and a negative qualified review is a reject rather than a re-park. Otherwise reviewed at
+  the research refresh date of 2026-12-21. Step 0 candidate ID:
+  `candidate-2026-09-21-import-landed-cost-decision`.
 
 ### `DISC-2026-09-20-001` — vendor-payment verification setup for small businesses
 
