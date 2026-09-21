@@ -1,64 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-20 ET (run 2)
+Updated: 2026-09-21 ET (weekly research bench)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-### 1. `DISC-2026-09-20-001` — vendor-payment verification setup for small businesses
-
-- Status: `shortlisted`
-- First seen / last checked: 2026-09-20 / 2026-09-20 ET
-- Editorial priority: first. The loss is concrete, the workflow is showable, and the useful operator
-  thesis is process design rather than selling another AI detector.
-- Exact question or change: A small business with roughly 40 recurring vendors asked what a company
-  without enterprise security staff should do when its only bank-change control is checking that an
-  email looks right. A separate small-business thread asked whether owners had encountered AI voice,
-  invoice, or video impersonation. The FBI's 2025 report says businesses reported more than $30
-  million in BEC losses involving AI.
-- Sources and observations:
-  - 2026-04-10 Reddit question: <https://www.reddit.com/r/smallbusiness/comments/1shwfpm/just_learned_invoice_fraud_prevention_is_an/>
-  - 2026-02-21 Reddit question: <https://www.reddit.com/r/smallbusiness/comments/1racazq/if_you_run_a_small_business_youre_a_target_for_ai/>
-  - FBI IC3 BEC guidance, checked 2026-09-20: <https://www.ic3.gov/CrimeInfo/BEC>
-  - FBI 2025 Internet Crime Report, published 2026: <https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf>
-  - FTC small-business invoice warning, 2026-05: <https://consumer.ftc.gov/consumer-alerts/2026/05/run-small-business-pay-your-bills-not-scammers>
-- Signal types: conversation, operating risk, loss, workflow, capability.
-- Who appears to care / decision: owner-operators, bookkeepers, controllers, and fractional finance
-  leads deciding how to verify invoices and payment-detail changes without enterprise infrastructure.
-- Buyer / costly problem: a small company paying recurring vendors; one convincing impersonation or
-  account-change request can move unrecoverable funds, while informal trust-based approval leaves no
-  reviewable record.
-- Potential offer / observable outcome: a fixed-scope vendor-payment verification install. The
-  outcome is that every new vendor and bank-detail change follows a documented out-of-band check,
-  approval threshold, and incident path, with evidence from a test drill.
-- Delivery mechanism hypothesis: map accounts-payable handoffs; establish known-contact records;
-  add callback, dual-approval, and exception rules; create a change log and escalation card; run a
-  simulated request; review the first 30 days. This is control implementation, not fraud detection,
-  insurance, legal advice, or a promise that loss cannot occur.
-- Why now: AI makes plausible written, voice, and video impersonation cheaper, while current FBI and
-  FTC guidance still relies on human verification steps that many small firms have not operationalized.
-- Strongest existing answer / gap: IC3 and FTC provide sound preventive checklists. They do not show
-  the bounded service, delivery hours, buyer acquisition, price, liability boundary, or whether an
-  owner will pay before suffering a loss.
-- Possible OE point of view: the defensible small business is not a deepfake detector. It is the
-  accountable operator who installs a boring verification system, tests it, and leaves the buyer
-  with recourse and a record.
-- Strongest invalidating question: Will firms buy a standalone preventive engagement before a loss,
-  or will their bank, accountant, cyber insurer, or accounting software provide enough of the same
-  control at no additional fee?
-- Evidence still needed: one buyer-paid engagement or procurement signal; comparable service pricing;
-  realistic delivery hours; insurer, bank, and accounting-platform substitutes; liability and
-  credential-handling boundaries; evidence that the service can be delivered without accessing funds.
-- Semantic deduplication: no match in the current Step 0 candidates, EP007-EP009, parked register,
-  V2 workspaces, `topics/`, `research/`, or `studio/originate/`. It shares implementation discipline
-  with the workflow-reliability candidate, but the buyer trigger, loss event, control set, and outcome
-  are different.
-- Recheck / expiry: recheck 2026-10-18; hold if no buyer-side spend or paid-engagement evidence is
-  found. Step 0 candidate ID: none.
-
-### 2. `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
+### 1. `DISC-2026-09-20-002` — AI-use evidence pack for small EU-facing suppliers
 
 - Status: `shortlisted`
 - First seen / last checked: 2026-09-20 / 2026-09-20 ET
@@ -112,7 +61,7 @@ lead into formal Operator Blueprint V2 Step 0.
   can change quickly; hold if the service cannot be bounded away from legal advice. Step 0 candidate
   ID: none.
 
-### 3. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
+### 2. `DISC-2026-09-20-004` — manual accessibility remediation and evidence service
 
 - Status: `shortlisted`
 - First seen / last checked: 2026-09-20 / 2026-09-20 ET
@@ -277,7 +226,67 @@ None.
 
 ## Admitted to Step 0
 
-None.
+### `DISC-2026-09-20-001` — vendor-payment verification setup for small businesses
+
+- Status: `admitted`
+- First seen / last checked: 2026-09-20 / 2026-09-21 ET
+- Admission: admitted by the 2026-09-21 weekly research bench as
+  `candidate-2026-09-21-vendor-payment-verification`. Admission is not eligibility, promotion, or
+  editorial authorization. The Step 0 disposition is `continue research`.
+- Exact question or change: A small business with roughly 40 recurring vendors asked what a company
+  without enterprise security staff should do when its bank-change control is checking that an email
+  looks right. Nacha Phase 2 now requires covered non-consumer ACH Originators and related parties to
+  use risk-based processes and procedures, reviewed annually, and names controls around vendor and
+  payroll payment changes as one possible implementation.
+- Sources and observations:
+  - 2026-04-10 Reddit question: <https://www.reddit.com/r/smallbusiness/comments/1shwfpm/just_learned_invoice_fraud_prevention_is_an/>
+  - 2026-02-21 Reddit question: <https://www.reddit.com/r/smallbusiness/comments/1racazq/if_you_run_a_small_business_youre_a_target_for_ai/>
+  - Nacha Phase 2 rule guidance, checked 2026-09-21: <https://www.nacha.org/rules/risk-management-topics-fraud-monitoring-phase-2>
+  - Nacha implementation tips, checked 2026-09-21: <https://www.nacha.org/news/tips-originators-comply-2026-risk-management-rules>
+  - AFP 2025 Payments Fraud and Control Survey release, checked 2026-09-21: <https://www.financialprofessionals.org/about/learn-more/press-releases/Details/survey-79-percent-of-organizations-were-victims-of-attempted-or-actual-payments-fraud-activity-in-2024>
+  - FBI IC3 BEC guidance, checked 2026-09-20: <https://www.ic3.gov/CrimeInfo/BEC>
+  - FBI 2025 Internet Crime Report, published 2026: <https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf>
+  - FTC small-business invoice warning, 2026-05: <https://consumer.ftc.gov/consumer-alerts/2026/05/run-small-business-pay-your-bills-not-scammers>
+  - Full claim registry:
+    `../../operator-blueprint-v2/00-intake/02-research/candidate-2026-09-21-vendor-payment-verification-research.md`
+- Signal types: conversation, operating risk, loss, regulation, workflow, capability.
+- Who appears to care / decision: small-business owners, bookkeepers, controllers, and fractional
+  finance leads deciding how to implement and evidence vendor-onboarding and bank-change controls
+  without enterprise infrastructure.
+- Buyer / costly problem: a covered small US business originating ACH payments to recurring vendors;
+  a convincing impersonation or account-change request can move funds, while an informal approval
+  leaves no reviewable control record.
+- Potential offer / observable outcome: a fixed-scope vendor-payment verification install. The
+  outcome is a documented and tested process for vendor onboarding and payment-detail changes,
+  including verification, approval, exceptions, and an evidence record.
+- Delivery mechanism hypothesis: map AP handoffs; establish trusted-contact verification; add
+  separation-of-duties, dual-approval, and exception rules where appropriate; create a change log
+  and escalation path; run a synthetic drill; review the first 30 days. The operator does not access
+  funds, release payments, validate account ownership, certify compliance, or promise fraud prevention.
+- Why now: Nacha Phase 2 became practically effective June 22, 2026 for covered non-consumer
+  Originators and related parties. AI-assisted impersonation increases salience, but the rule change
+  is the stronger current implementation trigger.
+- Strongest existing answer / gap: Nacha, IC3, FTC, banks, insurers, and software provide controls
+  and guidance. Adjacent sellers offer AP consulting and verification tools. None of the checked
+  independent evidence establishes target-small-business purchases of this exact bounded service,
+  safe provider qualifications, delivery hours, acquisition cost, or contribution margin.
+- Possible OE point of view: the opportunity is not another detector. It is installing the minimum
+  testable finance control where payment instructions change, while refusing payment authority and
+  false compliance or fraud-prevention claims.
+- Strongest invalidating question: Will a target buyer pay an independent operator before a loss, or
+  will its bank, accountant, bookkeeper, MSP, insurer, AP consultant, or low-cost software provide
+  enough of the same control with greater trust?
+- Evidence still needed: one target-buyer paid pilot or equivalent purchase commitment; qualified
+  payments/compliance and insurance boundary review; actual delivery hours from a synthetic
+  rehearsal; and direct target-buyer mapping of bank, software, accounting, MSP, and insurer
+  substitutes.
+- Semantic deduplication: no semantic match in current candidates, the canonical queue, promotion
+  records, EP007-EP009, parked work, archives, research, or production workspaces. The closest
+  candidate is the workflow-reliability service, but it has a different buyer problem, failure
+  event, mechanism, and observable outcome.
+- Recheck / expiry: remain in research until the disposition's reopening evidence exists; refresh
+  rule guidance, seller offers, and software alternatives by 2026-12-21. Step 0 candidate ID:
+  `candidate-2026-09-21-vendor-payment-verification`.
 
 ## Rejected index
 
