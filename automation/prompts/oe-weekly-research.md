@@ -4,10 +4,11 @@ Run this workflow every Monday at 09:00 America/New_York in
 `/Users/brownmanbrain/GitHub/operator-economy`.
 
 Your objective is to maintain a small, evidence-led bench of potential Operator Economy episodes:
-discover opportunities, research one candidate deeply, stress-test it against the current V2
-contracts, and prepare the exact owner decision needed next. When a current owner-promoted candidate
-is waiting for editorial development, use the run to advance its Step 1 review drafts toward an
-owner-ready spoken script instead of adding more topics.
+admit at most one qualified lead from the noncanonical discovery pool, research that candidate
+deeply, stress-test it against the current V2 contracts, and prepare the exact owner decision needed
+next. When a current owner-promoted candidate is waiting for editorial development, use the run to
+advance its Step 1 review drafts toward an owner-ready spoken script instead of admitting another
+lead.
 
 The goal is decision quality and a usable production buffer, not a large idea list.
 
@@ -26,9 +27,11 @@ Read these before acting:
 3. `operator-blueprint-v2/00-intake/AUTHORITY-MAP.md`, `README.md`,
    `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`, and every current template or gate used in
    the run.
-4. `operator-blueprint-v2/01-editorial/` only after a current promotion explicitly authorizes
+4. `automation/candidate-discovery/README.md`, `POOL.md`, and the current dated scout records for
+   the upstream lead contract and evidence.
+5. `operator-blueprint-v2/01-editorial/` only after a current promotion explicitly authorizes
    editorial development.
-5. `operator-blueprint-v2/02-narration-production/README.md` only to enforce the downstream
+6. `operator-blueprint-v2/02-narration-production/README.md` only to enforce the downstream
    boundary. This scheduled task never performs Step 2 capture or provider work.
 
 `topics/queue.md`, `topics/scoring.md`, `studio/originate.py`, and the old V1 Gate 1 flow are retained
@@ -44,6 +47,7 @@ standard, fixture, approval, or historical artifact.
    exact paths you may touch. Preserve all unrelated dirty work. Stop on an overlapping edit you
    cannot safely separate.
 3. Inventory:
+   - `automation/candidate-discovery/POOL.md` and recent scout runs;
    - `operator-blueprint-v2/00-intake/01-candidates/`;
    - `operator-blueprint-v2/00-intake/02-research/`;
    - `operator-blueprint-v2/00-intake/03-validation/`;
@@ -51,9 +55,10 @@ standard, fixture, approval, or historical artifact.
    - parked, blocked, archived, and superseded candidates;
    - `operator-blueprint-v2/episodes/` and active production workspaces; and
    - recent measured channel evidence only when it can materially affect candidate selection.
-4. Deduplicate by buyer, costly problem, offer, delivery mechanism, evidence base, and proposed
-   episode claim, not merely by title.
-5. Continue useful unfinished work from the prior run before opening another candidate. Do not bury
+4. Verify every shortlisted lead against the live repository before admission. Deduplicate by buyer,
+   costly problem, offer, delivery mechanism, evidence base, and proposed episode claim, not merely
+   by title.
+5. Continue useful unfinished Step 0 work from the prior run before admitting another lead. Do not bury
    an unresolved evidence problem under new intake.
 
 ## Choose one lane
@@ -62,13 +67,15 @@ standard, fixture, approval, or historical artifact.
 
 Use this lane when no current promoted candidate is awaiting safe Step 1 work.
 
-1. Discover current opportunity signals from the open web and primary or otherwise credible
-   sources. Search for real buyer behavior, budget, adoption, spend, operating constraints,
-   transactions, and repeatable delivery mechanisms. Search volume is one signal, not a universal
-   gate. A source-access failure is an evidence limitation, not proof of no demand.
-2. Consider up to five signals. Create no more than two candidate briefs and develop no more than
-   one candidate through full validation in a single run.
-3. Start from `00-intake/01-candidates/CANDIDATE.template.md`. Bound the opportunity to one buyer,
+1. Read the discovery pool and full evidence for its `shortlisted` leads. Do not conduct broad topic
+   discovery in this job and do not admit a `new`, `held`, `rejected`, expired, or already-admitted
+   lead. If no defensible shortlisted lead exists, record `NO_QUALIFYING_SHORTLIST` and stop rather
+   than inventing one.
+2. Recheck source access, recency, semantic duplication, audience fit, showability, and the strongest
+   invalidating question. Choose at most one lead. The discovery ordering informs this decision but
+   never substitutes for the current Step 0 contract.
+3. Start from `00-intake/01-candidates/CANDIDATE.template.md`. Create one stable candidate ID and
+   bound the opportunity to one buyer,
    one costly job, one observable deliverable or state change, one delivery hypothesis, and one
    first test. Name the most important unproven assumption.
 4. Research from `00-intake/02-research/RESEARCH-BRIEF.template.md`. For every load-bearing claim,
@@ -93,6 +100,9 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    an episode number, mark it `promoted`, or authorize editorial development without an explicit
    owner decision bound to the exact current artifact hashes. Scores of 65 through 75 retain their
    calibration-zone rules; scores above 75 still require named approval.
+9. Only after the formal candidate artifact is written and included in the scoped commit, update the
+   discovery-pool lead to `admitted` and record the exact candidate ID. Admission is not eligibility
+   or promotion.
 
 ### Lane B: Step 1 editorial preparation
 
