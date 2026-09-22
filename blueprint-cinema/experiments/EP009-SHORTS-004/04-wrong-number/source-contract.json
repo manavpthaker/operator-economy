@@ -1,0 +1,98 @@
+{
+  "schema": "ep009-standalone-payoff-short-v1",
+  "revision": "EP009-SHORTS-004",
+  "supersedes": "blueprint-cinema/experiments/EP009-SHORTS-003/04-wrong-number",
+  "status": "private_review_candidate",
+  "fps": 24,
+  "frame_count": 397,
+  "duration": 16.541666666666668,
+  "spoken_duration_frames": 343,
+  "spoken_duration": 14.291666666666666,
+  "presenter_spoken_frames": 337,
+  "presenter_spoken_fraction": 0.9825072886297376,
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "transcript": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+    "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+  },
+  "lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+    "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+  },
+  "edits": [
+    {
+      "id": "correction",
+      "source_in_frame": 12495,
+      "source_out_frame_exclusive": 12696,
+      "word_in": "W001447",
+      "word_out": "W001475",
+      "timeline_in_frame": 0,
+      "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg037/native.mp4",
+      "picture_native_frames": [
+        83,
+        284
+      ],
+      "crop": [
+        608,
+        1080,
+        632,
+        0
+      ],
+      "duration_frames": 201,
+      "transform": "trim=start_frame=83:end_frame=284,setpts=N/(24*TB),crop=608:1080:632:0,scale=1080:1920:flags=lanczos,setsar=1"
+    },
+    {
+      "id": "constraint",
+      "source_in_frame": 11307,
+      "source_out_frame_exclusive": 11449,
+      "word_in": "W001305",
+      "word_out": "W001322",
+      "timeline_in_frame": 201,
+      "native": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/native.mp4",
+      "picture_native_frames": [
+        122,
+        258
+      ],
+      "crop": [
+        608,
+        1080,
+        664,
+        0
+      ],
+      "duration_frames": 142,
+      "transform": "trim=start_frame=122:end_frame=258,setpts=N/(24*TB),crop=608:1080:664:0,scale=1080:1920:flags=lanczos,setsar=1"
+    }
+  ],
+  "presenter_sources": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg037/native.mp4",
+      "sha256": "2e366fc9a0b8dbe221e67845d59021d0f9dc5535313f5745fca28eb1bf59a7cf"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/native.mp4",
+      "sha256": "ca8220d1ab12e5f2233282cd25d18cde9c1442e584461ebd3271de2af5f91d0b"
+    }
+  ],
+  "recut": {
+    "changed": "none. Both beats keep the r3 master frames 12495..12696 and 11307..11449 and the r3 native picture slices.",
+    "judgment": "The r3 cut already resolves one narrow payoff inside itself: the commission total is not the addressable amount, and what the inn can pay is capped by what the job recovers."
+  },
+  "audio_boundary": "Final cutoff 11449 excludes the next 'So' at 477.06s. Opening from 11307 removes the setup 'It's that'. Audio is taken from the locked narration WAV at unity by sample boundary; r3 took it from the carrier MP4's audio track.",
+  "claim_boundary": "No amount or percentage retained without its spoken qualifications. On-screen text only names total commissions, recoverable opportunity and the recovery cap.",
+  "on_screen_changes": [
+    "new boundary overlay 'Capped by what it recovers' on the spoken 'what the job recovers'",
+    "end card 'What can this inn actually afford?' -> 'The inn can only pay what the job recovers.'; the end card gains 6 frames so the longer headline holds"
+  ],
+  "related_video": {
+    "required": true,
+    "attached": false,
+    "target_episode": "EP009 direct-booking-practice",
+    "url": null
+  },
+  "episode_url": "[EPISODE_URL]",
+  "owner_approved": false,
+  "published": false
+}

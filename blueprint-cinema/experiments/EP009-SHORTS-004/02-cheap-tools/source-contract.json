@@ -1,0 +1,158 @@
+{
+  "schema": "ep009-standalone-payoff-short-v1",
+  "revision": "EP009-SHORTS-004",
+  "supersedes": "blueprint-cinema/experiments/EP009-SHORTS-003/02-cheap-tools",
+  "status": "private_review_candidate",
+  "fps": 24,
+  "frame_count": 582,
+  "duration": 24.25,
+  "spoken_duration_frames": 528,
+  "spoken_duration": 22.0,
+  "presenter_spoken_frames": 404,
+  "presenter_spoken_fraction": 0.7651515151515151,
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "transcript": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+    "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+  },
+  "tool_carrier": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+    "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+  },
+  "lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+    "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+  },
+  "segments": [
+    {
+      "id": "orient",
+      "kind": "presenter",
+      "source_in_frame": 1687,
+      "source_out_frame_exclusive": 1842,
+      "timeline_in_frame": 0,
+      "timeline_out_frame_exclusive": 155,
+      "duration_frames": 155,
+      "word_in": "W000195",
+      "word_out": "W000216",
+      "text": "It helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again."
+    },
+    {
+      "id": "question",
+      "kind": "presenter",
+      "source_in_frame": 8790,
+      "source_out_frame_exclusive": 8883,
+      "timeline_in_frame": 155,
+      "timeline_out_frame_exclusive": 248,
+      "duration_frames": 93,
+      "word_in": "W001024",
+      "word_out": "W001038",
+      "text": "If the parts to fix this are cheap, why doesn't the inn just do it?"
+    },
+    {
+      "id": "proof",
+      "kind": "tool_screen_recording",
+      "source_in_frame": 16775,
+      "source_out_frame_exclusive": 16899,
+      "timeline_in_frame": 248,
+      "timeline_out_frame_exclusive": 372,
+      "duration_frames": 124,
+      "word_in": "W002018",
+      "word_out": "W002035",
+      "text": "A language model drafts the thank you, the review request, the note about the trail in the fall."
+    },
+    {
+      "id": "return",
+      "kind": "presenter",
+      "source_in_frame": 5360,
+      "source_out_frame_exclusive": 5516,
+      "timeline_in_frame": 372,
+      "timeline_out_frame_exclusive": 528,
+      "duration_frames": 156,
+      "word_in": "W000646",
+      "word_out": "W000666",
+      "text": "I think it can be sold from outside. But only for what it recovers, and what it recovers is a number."
+    }
+  ],
+  "presenter_sources": [
+    {
+      "beat": "orient",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/native.mp4",
+      "sha256": "ba86217b7373a2f4dc3e6e0f79f76af3b57d8b74377298f9f3851f7e4abe5007",
+      "native_in_frame": 0,
+      "native_out_frame_exclusive": 155,
+      "transform": "trim=start_frame=0:end_frame=155,setpts=N/(24*TB),crop=608:1080:656:0,scale=1080:1920:flags=lanczos,setsar=1"
+    },
+    {
+      "beat": "question",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg028/native.mp4",
+      "sha256": "9cc11bd542dc327dc3df7a61f7adebad1ac212d4a1fe1104f9a471dce4d85c88",
+      "native_in_frame": 36,
+      "native_out_frame_exclusive": 129,
+      "transform": "trim=start_frame=36:end_frame=129,setpts=N/(24*TB),crop=608:1080:680:0,scale=1080:1920:flags=lanczos,setsar=1"
+    },
+    {
+      "beat": "return",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg021/native.mp4",
+      "sha256": "69afee8d1176a3f62a251d9857518dd212723a9babab4caebb6e9d7dea113b9c",
+      "native_in_frame": 9,
+      "native_out_frame_exclusive": 165,
+      "transform": "trim=start_frame=9:end_frame=165,setpts=N/(24*TB),crop=608:1080:656:0,scale=1080:1920:flags=lanczos,setsar=1"
+    }
+  ],
+  "tool_visual_ranges": [
+    {
+      "asset": "assets/tools.mp4",
+      "source_frames": [
+        16775,
+        16794
+      ],
+      "treatment": "Full tool overview, scaled to 1080x608"
+    },
+    {
+      "asset": "assets/tool-node.mp4",
+      "source_frames": [
+        16794,
+        16854
+      ],
+      "treatment": "OpenAI node crop 640x400 at 640,40 then 1080x676"
+    },
+    {
+      "asset": "assets/tools.mp4",
+      "source_frames": [
+        16854,
+        16899
+      ],
+      "treatment": "Returned-draft panel, r8 directed zoom retained"
+    }
+  ],
+  "recut": {
+    "changed": "presenter orientation beat added in front, master f1687..f1842 (seg012 native 0..155, W000195..W000216)",
+    "cut_in_silence": "out point f1842 measures -41.9 dBFS between the decay of 'again.' (audible content ends near f1840) and 'By' at f1843.9; the gap is 3 frames, the shortest join in the package",
+    "gain": "presenter share of speech rises from 0.668 (r3) to 0.765",
+    "picture_unchanged": "seg028 native 36..129, seg021 native 9..165 and the three carrier tool ranges are the accepted r3 slices"
+  },
+  "on_screen_changes": [
+    "new orientation overlay 'A direct-booking practice' (25 chars) resolves the spoken 'It'",
+    "'Why pay for cheap tools?' -> 'Cheap parts. The job isn't.' and moved to the question beat",
+    "new boundary overlay 'Priced to what it recovers' on the spoken 'But only for what it recovers'",
+    "end card 'What work would an inn pay for?' -> 'I think it can be sold from outside.'"
+  ],
+  "constraints": [
+    "No voice or performance generation.",
+    "No retime, loops, added gestures or expression changes.",
+    "Silent 54-frame designed end card.",
+    "Private review; exact Related Video target remains unbound."
+  ],
+  "related_video": {
+    "required": true,
+    "attached": false,
+    "target_episode": "EP009 direct-booking-practice",
+    "url": null
+  },
+  "episode_url": "[EPISODE_URL]",
+  "owner_approved": false,
+  "published": false
+}

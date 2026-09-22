@@ -1,0 +1,314 @@
+{
+  "revision": "EP009-SHORTS-004",
+  "method": "ffprobe frame count with -count_frames; per-beat zero-lag normalised cross-correlation of the rendered audio against the locked narration master at the declared master sample range (decimated 1:7); per-frame luma spread YMAX - YMIN via one ffprobe signalstats pass; sha256 of the locked sources.",
+  "not_judged": [
+    "Perceptual lip sync. The picture slices are the accepted r3 native frames and no retime was applied, but no automatic check proves mouth-to-audio agreement; a human must watch each Short with sound.",
+    "Whether a cold viewer actually finds each payoff useful. The contract validator checks declared fields, not comprehension.",
+    "Physical-phone playback. Playback was verified in a browser at 390x844.",
+    "Short 03's answer beat carries a designed card rather than presenter picture, so lip sync is not applicable for timeline frames 334..380."
+  ],
+  "locked_sources": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85",
+      "expected": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85",
+      "unchanged": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "expected": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "unchanged": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "expected": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "unchanged": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "expected": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "unchanged": true
+    }
+  ],
+  "shorts": [
+    {
+      "slug": "01-second-commission",
+      "video": {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-004/01-second-commission/review/01-second-commission-r4.mp4",
+        "sha256": "55707a9099cb9cef66db9f58e287a655349028dfb86927a841ed16db3f3ac68a",
+        "bytes": 7832809
+      },
+      "frame_count": {
+        "declared": 401,
+        "measured": 401,
+        "match": true
+      },
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "24/1",
+        "match": true
+      },
+      "audio_stream": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "beats": [
+        {
+          "id": "0",
+          "master_frames": [
+            1328,
+            1427
+          ],
+          "timeline_in_frame": 0,
+          "frames": 99,
+          "correlation": 0.999614,
+          "pass": true
+        },
+        {
+          "id": "1",
+          "master_frames": [
+            780,
+            948
+          ],
+          "timeline_in_frame": 99,
+          "frames": 168,
+          "correlation": 0.999763,
+          "pass": true
+        },
+        {
+          "id": "2",
+          "master_frames": [
+            1220,
+            1300
+          ],
+          "timeline_in_frame": 267,
+          "frames": 80,
+          "correlation": 0.999742,
+          "pass": true
+        }
+      ],
+      "uniform_frames": {
+        "frames_measured": 401,
+        "min_luma_spread": 183,
+        "uniform_frame_indices": [],
+        "uniform_frames": 0,
+        "threshold": "spread <= 1 counts as uniform"
+      }
+    },
+    {
+      "slug": "02-cheap-tools",
+      "video": {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-004/02-cheap-tools/review/02-cheap-tools-r4.mp4",
+        "sha256": "e282809f76035b18d6e01acef8c39c5ae613e3f8b6dd38ac00ab960fa5eaef79",
+        "bytes": 24076877
+      },
+      "frame_count": {
+        "declared": 582,
+        "measured": 582,
+        "match": true
+      },
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "24/1",
+        "match": true
+      },
+      "audio_stream": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "beats": [
+        {
+          "id": "orient",
+          "master_frames": [
+            1687,
+            1842
+          ],
+          "timeline_in_frame": 0,
+          "frames": 155,
+          "correlation": 0.999773,
+          "pass": true
+        },
+        {
+          "id": "question",
+          "master_frames": [
+            8790,
+            8883
+          ],
+          "timeline_in_frame": 155,
+          "frames": 93,
+          "correlation": 0.999826,
+          "pass": true
+        },
+        {
+          "id": "proof",
+          "master_frames": [
+            16775,
+            16899
+          ],
+          "timeline_in_frame": 248,
+          "frames": 124,
+          "correlation": 0.999826,
+          "pass": true
+        },
+        {
+          "id": "return",
+          "master_frames": [
+            5360,
+            5516
+          ],
+          "timeline_in_frame": 372,
+          "frames": 156,
+          "correlation": 0.999848,
+          "pass": true
+        }
+      ],
+      "uniform_frames": {
+        "frames_measured": 582,
+        "min_luma_spread": 176,
+        "uniform_frame_indices": [],
+        "uniform_frames": 0,
+        "threshold": "spread <= 1 counts as uniform"
+      }
+    },
+    {
+      "slug": "03-guest-relationship",
+      "video": {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-004/03-guest-relationship/review/03-guest-relationship-r4.mp4",
+        "sha256": "362ac7e3104b124cb5781471769aaed05e5daf3e1ded4550073458ed3c65d35a",
+        "bytes": 7272892
+      },
+      "frame_count": {
+        "declared": 412,
+        "measured": 412,
+        "match": true
+      },
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "24/1",
+        "match": true
+      },
+      "audio_stream": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "beats": [
+        {
+          "id": "whole_take",
+          "master_frames": [
+            4510,
+            4890
+          ],
+          "timeline_in_frame": 0,
+          "frames": 380,
+          "correlation": 0.999858,
+          "pass": true
+        },
+        {
+          "id": "answer",
+          "master_frames": [
+            4844,
+            4890
+          ],
+          "timeline_in_frame": 334,
+          "frames": 46,
+          "correlation": 0.999986,
+          "pass": true
+        },
+        {
+          "id": "wide",
+          "master_frames": [
+            4510,
+            4783
+          ],
+          "timeline_in_frame": 0,
+          "frames": 273,
+          "correlation": 0.999838,
+          "pass": true
+        },
+        {
+          "id": "close",
+          "master_frames": [
+            4783,
+            4844
+          ],
+          "timeline_in_frame": 273,
+          "frames": 61,
+          "correlation": 0.999796,
+          "pass": true
+        }
+      ],
+      "uniform_frames": {
+        "frames_measured": 412,
+        "min_luma_spread": 180,
+        "uniform_frame_indices": [],
+        "uniform_frames": 0,
+        "threshold": "spread <= 1 counts as uniform"
+      }
+    },
+    {
+      "slug": "04-wrong-number",
+      "video": {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-004/04-wrong-number/review/04-wrong-number-r4.mp4",
+        "sha256": "1f106a4f49c4a48dcdc0ff999b31ac6959a46b06705fc15aa1e5d163097af0df",
+        "bytes": 21079881
+      },
+      "frame_count": {
+        "declared": 397,
+        "measured": 397,
+        "match": true
+      },
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "r_frame_rate": "24/1",
+        "match": true
+      },
+      "audio_stream": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "beats": [
+        {
+          "id": "correction",
+          "master_frames": [
+            12495,
+            12696
+          ],
+          "timeline_in_frame": 0,
+          "frames": 201,
+          "correlation": 0.999778,
+          "pass": true
+        },
+        {
+          "id": "constraint",
+          "master_frames": [
+            11307,
+            11449
+          ],
+          "timeline_in_frame": 201,
+          "frames": 142,
+          "correlation": 0.999833,
+          "pass": true
+        }
+      ],
+      "uniform_frames": {
+        "frames_measured": 397,
+        "min_luma_spread": 115,
+        "uniform_frame_indices": [],
+        "uniform_frames": 0,
+        "threshold": "spread <= 1 counts as uniform"
+      }
+    }
+  ],
+  "result": "pass"
+}

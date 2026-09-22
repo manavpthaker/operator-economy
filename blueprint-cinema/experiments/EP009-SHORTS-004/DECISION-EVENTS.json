@@ -1,0 +1,71 @@
+{
+  "revision": "EP009-SHORTS-004",
+  "log": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/decisions/events.jsonl",
+  "helper": ".agents/skills/oe-video-direction/scripts/decision_log.py",
+  "decision_id": "ep009-shorts-standalone-recut",
+  "cites_owner_ruling": "ep009-owner-shorts-standard-ruling-v1",
+  "events": [
+    {
+      "event_id": "ep009-shorts-r4-standalone-recut",
+      "event_type": "decision",
+      "captured_at": "2026-09-22T02:47:08.350643+00:00",
+      "event_hash": "d27f98f8a880b871ec75b653829c586894768369167c89d13da0afee22d037e4",
+      "result": null
+    },
+    {
+      "event_id": "ep009-shorts-r4-verified-01",
+      "event_type": "verification",
+      "captured_at": "2026-09-22T02:47:08.423600+00:00",
+      "event_hash": "5a1d789d4687128605abffb99fe73e76e6d5ca6c7a4933a2bd33bb2b2d04b443",
+      "result": "pass"
+    },
+    {
+      "event_id": "ep009-shorts-r4-verified-02",
+      "event_type": "verification",
+      "captured_at": "2026-09-22T02:47:08.520088+00:00",
+      "event_hash": "8f0b5a00a962a6b9baf5ef19ae42e4d6cea914079ea817cb295c82fb1e4beb8a",
+      "result": "pass"
+    },
+    {
+      "event_id": "ep009-shorts-r4-verified-03",
+      "event_type": "verification",
+      "captured_at": "2026-09-22T02:47:08.587161+00:00",
+      "event_hash": "d85e1923a456c0f98cf27c01a6becc9e54af1a2ae466ca1b93a16afb5bf2464d",
+      "result": "pass"
+    },
+    {
+      "event_id": "ep009-shorts-r4-verified-04",
+      "event_type": "verification",
+      "captured_at": "2026-09-22T02:47:08.673892+00:00",
+      "event_hash": "5b50d60864bcd8f24f96c5aa11e76f4b34dce47a46cdd4cc346b312d691db27f",
+      "result": "pass"
+    },
+    {
+      "event_id": "ep009-shorts-r4-review-page-verified",
+      "event_type": "verification",
+      "captured_at": "2026-09-22T02:48:41.311105+00:00",
+      "event_hash": "f9c331e24d6b3191f0d6c862ae0ae1b26308e1cacb266a6ee7563d6ee0fb54bb",
+      "result": "pass"
+    }
+  ],
+  "validation": {
+    "command": "python3 .agents/skills/oe-video-direction/scripts/decision_log.py validate --episode EP009-direct-booking-recovery --evidence",
+    "exit_code": 1,
+    "chain_valid": true,
+    "event_count": 223,
+    "evidence_current": false,
+    "findings_on_this_revision": [
+      {
+        "event_id": "ep009-shorts-r4-standalone-recut",
+        "binding_type": "evidence",
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-004/REVIEW-PACKAGE.json",
+        "status": "stale",
+        "expected_sha256": "4c678a7c8a212bd34f6cdd661df3eb9ce00ec475175e9a46e54de3371cfcf3d1",
+        "actual_sha256": "74ff193de5bdffbd60afe70546386a8e4deb97f9cc68b4eda3ee5aaa1a012d18"
+      }
+    ],
+    "findings_on_earlier_revisions": 188,
+    "reading": "The chain is valid and every event hash verifies. evidence_current is false and the exit code is 1 for two reasons, both stated rather than hidden. First, 188 stale evidence and artifact bindings already existed on earlier EP009 events before this revision was started, none of them on a Shorts event. Second, this revision's own decision event binds the pre-correction REVIEW-PACKAGE.json; the page's footer carried a relative hyperlink that could not resolve from the review host, the link was replaced with plain repo-path text after the decision event had been appended, and the append-only log cannot rewrite the earlier binding. ep009-shorts-r4-review-page-verified carries the current digests and names that supersession explicitly. All four per-Short verification events have zero stale bindings."
+  },
+  "not_acceptance": "None of these events is owner acceptance. An owner ruling is a feedback event with actor owner; the latest such event for EP009 Shorts is ep009-owner-shorts-standard-ruling-v1, which set the standard and did not accept any Short."
+}
