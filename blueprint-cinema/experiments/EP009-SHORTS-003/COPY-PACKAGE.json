@@ -1,0 +1,406 @@
+{
+  "status": "copy_draft_for_owner_review",
+  "created": "2026-09-21",
+  "episode": "EP009",
+  "episode_spoken_name": "a direct-booking practice",
+  "source_cuts": "blueprint-cinema/experiments/EP009-SHORTS-003 (r3, avatar forward)",
+  "owner_approved": false,
+  "published": false,
+  "url_dependency": {
+    "placeholder": "[EPISODE_URL]",
+    "filled_by": "the launch gate, from studio/originate/<slug>/launch/links.json only",
+    "ep009_slug_exists": false,
+    "note": "EP009 has no slug and no URL of its own. The slug direct-booking-recovery already belongs to the live August EP006 episode, so no EP009 copy may resolve to or reuse that existing URL. Every [EPISODE_URL] stays a placeholder until an EP009 launch record writes its own links.json.",
+    "ep002_lesson": "403 Short views produced 3 episode views because EP002's pinned comments said 'link in bio' with no clickable URL (content-os/facts.md). Each pinned comment below must publish with a full clickable URL, not a routing phrase."
+  },
+  "on_screen_design": {
+    "max_chars_per_line": 32,
+    "basis": "Longest legible overlay in the existing r3 cuts is 30 characters ('Same guest. Second commission.', 'TOTAL BOOKING-SITE COMMISSIONS'), verified against extracted frames at phone width.",
+    "note": "Lines marked action 'keep' already exist in the cut at the stated seconds. Lines marked 'replace' or 'add' are copy specifications; applying them is a composition rebuild and is out of scope for this package."
+  },
+  "hashtags_policy": {
+    "supported": false,
+    "reason": "No OE packaging document supports hashtags on Shorts. docs/content-rubric.md kill list blocks hashtag walls and keyword stuffing, and the operator_economy register profile in content-os/rubric.md ends on the finding rather than on discovery furniture. Every hashtags array below is therefore empty by decision, not by omission."
+  },
+  "standard_conflict": {
+    "committed": "docs/content-rubric.md at HEAD requires a cliffhanger_line and lists complete-answer Shorts as a kill-list item.",
+    "working_tree": "The uncommitted docs/content-rubric.md on disk retires cliffhanger_line, requires cold_viewer_context plus a standalone_payoff, and makes 'no standalone narrow payoff' the kill-list item.",
+    "effect": "Both readings are reported per Short in kill_check. Shorts 01 and 03 were directed to withhold their answer and cannot satisfy the working-tree standard by copy alone. This conflict is an owner decision, not a writer's call."
+  },
+  "shorts": [
+    {
+      "id": "01",
+      "slug": "01-second-commission",
+      "duration_s": 13.458333,
+      "title": "When the guest returns, the commission does too",
+      "title_chars": 47,
+      "title_shape": "temporal clause, then the consequence",
+      "spoken_copy": "what did that second stay actually cost her, and who gets paid to stop it? And she pays the site the same commission she paid the first time. I couldn't find anyone selling it who'd done that arithmetic.",
+      "cold_viewer_context": "A small inn takes a booking through a booking site, pays commission on it, and the same guest later books the same way again.",
+      "hook_lines": [
+        {
+          "text": "Same guest. Second commission.",
+          "start_s": 0.0,
+          "end_s": 4.125,
+          "max_chars": 32,
+          "chars": 30,
+          "action": "keep",
+          "note": "Already on screen from frame one. It orients a cold viewer to guest and commission before any speech lands."
+        },
+        {
+          "text": "Booked again. Billed again.",
+          "start_s": 4.125,
+          "end_s": 7.875,
+          "max_chars": 32,
+          "chars": 27,
+          "action": "replace",
+          "note": "The proof card currently repeats the opening line as its headline. This replaces that duplication and traces the repeat charge instead."
+        },
+        {
+          "text": "The missing arithmetic.",
+          "start_s": 7.875,
+          "end_s": 11.208333,
+          "max_chars": 32,
+          "chars": 23,
+          "action": "keep"
+        },
+        {
+          "text": "Illustrative small-inn story",
+          "start_s": 4.125,
+          "end_s": 7.875,
+          "max_chars": 32,
+          "chars": 28,
+          "action": "keep",
+          "note": "Required boundary. The inn is modeled, not a documented property."
+        }
+      ],
+      "cliffhanger": {
+        "line": "I couldn't find anyone selling it who'd done that arithmetic.",
+        "kind": "spoken, ends 11.11s, reinforced by the existing end card 'What could the inn actually pay? The calculation in EP009.'",
+        "present_in_cut": true,
+        "strong_enough": true,
+        "assessment": "Strong. The withheld object is one specific computable number, and the absence it rests on is the episode's own verified finding (C022). No change needed.",
+        "change_required": null
+      },
+      "pinned_comment": "[EPISODE_URL]\n\nThe arithmetic this Short stops short of: the inn's four modeled inputs, the reported commission band, and the ceiling that caps what an outside operator could charge for the work. Commission mechanics are from Booking.com's own partner help, which says commission is a set percentage of the whole booking, charged at checkout.",
+      "description": [
+        "A small inn takes a booking through a booking site, pays commission, and then the same guest books the same way again.",
+        "Commission is charged per booking, so the second stay costs the inn what the first one did. Booking.com's own partner help describes that mechanic.",
+        "Nobody selling a fix for it has published the arithmetic. EP009 runs it on an illustrative 20-room inn.",
+        "Full episode: [EPISODE_URL]"
+      ],
+      "hashtags": [],
+      "kill_check": {
+        "answers_its_own_question": false,
+        "committed_standard": "pass",
+        "working_tree_standard": "partial",
+        "must_be_withheld": [
+          "The net recoverable ceiling (C020, about $996 to $1,418 a month at the modeled inn).",
+          "Any commission dollar figure or percentage band (C017, C018), which cannot carry its four inputs and the word illustrative inside 13 seconds.",
+          "The audit fee and retainer (C024, C028).",
+          "Any commission saved, direct share gained, or earnings figure."
+        ],
+        "note": "The Short does deliver one bounded fact inside itself, that commission recurs per booking, which is why it reads as partial rather than a fail against the working-tree standalone-payoff requirement."
+      },
+      "claims_cited": [
+        "C004",
+        "C016",
+        "C022"
+      ]
+    },
+    {
+      "id": "02",
+      "slug": "02-cheap-tools",
+      "duration_s": 17.791667,
+      "title": "Cheap parts, and a job still left to sell",
+      "title_chars": 41,
+      "title_shape": "paired noun phrase on a comma pivot",
+      "spoken_copy": "If the parts to fix this are cheap, why doesn't the inn just do it? A language model drafts the thank you, the review request, the note about the trail in the fall. I think it can be sold from outside. But only for what it recovers, and what it recovers is a number.",
+      "cold_viewer_context": "The parts of a post-stay follow-up at a small hotel are cheap: a language model drafts the messages and an automation tool schedules them.",
+      "hook_lines": [
+        {
+          "text": "Cheap parts. The job isn't.",
+          "start_s": 0.0,
+          "end_s": 3.875,
+          "max_chars": 32,
+          "chars": 27,
+          "action": "replace",
+          "note": "The cut currently reads 'Why pay for cheap tools?', which points the question at the viewer's wallet. The spoken line asks why the inn does not just do it itself, and this line matches that."
+        },
+        {
+          "text": "The tool can draft.",
+          "start_s": 3.875,
+          "end_s": 9.041667,
+          "max_chars": 32,
+          "chars": 19,
+          "action": "keep"
+        },
+        {
+          "text": "Node-RED + OpenAI · recorded workflow",
+          "start_s": 3.875,
+          "end_s": 9.041667,
+          "max_chars": 40,
+          "chars": 37,
+          "action": "keep",
+          "note": "Small-type source label, not a hook line. Names the real tools on screen."
+        },
+        {
+          "text": "Fictional guest. Awaiting human review. No sending available.",
+          "start_s": 3.875,
+          "end_s": 9.041667,
+          "max_chars": 64,
+          "chars": 61,
+          "action": "keep",
+          "note": "Required disclosure. Small type, must not be trimmed for length."
+        },
+        {
+          "text": "Priced to what it recovers",
+          "start_s": 11.358333,
+          "end_s": 13.178333,
+          "max_chars": 32,
+          "chars": 26,
+          "action": "add",
+          "note": "Lands on the spoken 'But only for what it recovers'. The 6.5 second presenter return currently carries no overlay, and this is the load-bearing boundary: the price is capped by the recoverable amount, which is what keeps the line off an earnings claim."
+        }
+      ],
+      "cliffhanger": {
+        "line": "and what it recovers is a number.",
+        "kind": "spoken, ends 15.38s, reinforced by the existing end card 'What work would an inn pay for? The service and the calculation in the full episode.'",
+        "present_in_cut": true,
+        "strong_enough": true,
+        "assessment": "Strong, and the best of the four. It names the withheld object exactly, after the Short has already delivered a usable distinction: the drafting is cheap, the sellable work is the judgment around it, and the price is capped by what it recovers.",
+        "change_required": null
+      },
+      "pinned_comment": "[EPISODE_URL]\n\nThe drafting step you are watching is Node-RED calling a language model on a fictional guest, with nothing sent. The full episode builds the rest of the job around it and prices the retainer against the recoverable amount rather than the commission total.",
+      "description": [
+        "The parts of a post-stay follow-up are cheap. A language model drafts the thank you and the review request; an automation tool schedules them.",
+        "The screen recording is that drafting step running in Node-RED, on a fictional guest, with nothing sent and every draft awaiting human review.",
+        "So the question is what work is left for an outside operator to sell, and what caps its price. EP009 works that out.",
+        "Full episode: [EPISODE_URL]"
+      ],
+      "hashtags": [],
+      "kill_check": {
+        "answers_its_own_question": false,
+        "committed_standard": "pass",
+        "working_tree_standard": "pass",
+        "must_be_withheld": [
+          "The recoverable ceiling and the retainer (C020, C028).",
+          "Tool pricing (C010), which would read as the cost of the business rather than public tool pricing at this length.",
+          "Any claim that the language model moves direct share. C023 is a capability, not an outcome."
+        ],
+        "note": "This is the one Short that satisfies both readings of the standard. It delivers a bounded distinction inside itself and still withholds the number."
+      },
+      "claims_cited": [
+        "C020",
+        "C022",
+        "C023"
+      ]
+    },
+    {
+      "id": "03",
+      "slug": "03-guest-relationship",
+      "duration_s": 16.166667,
+      "title": "The booking site keeps the guest's email",
+      "title_chars": 40,
+      "title_shape": "flat declarative mechanic, verified at source",
+      "spoken_copy": "The site introduces the guest and keeps the guest's email. When that guest comes back, who at the inn is paid to make sure the second booking comes to the inn? And if the answer is nobody, can somebody from outside get paid to do it?",
+      "cold_viewer_context": "When a guest books a small hotel through a booking site, the site introduces the guest and holds the contact address.",
+      "hook_lines": [
+        {
+          "text": "A small inn. A repeat guest.",
+          "start_s": 0.0,
+          "end_s": 2.5,
+          "max_chars": 32,
+          "chars": 28,
+          "action": "add",
+          "note": "The cut has no hook line at all in the first three seconds, only the relationship diagram. This supplies the missing cold-viewer context without restating the caption below it or the end card."
+        },
+        {
+          "text": "Booking site → Guest's email",
+          "start_s": 0.083333,
+          "end_s": 3.583333,
+          "max_chars": 32,
+          "chars": 28,
+          "action": "keep",
+          "note": "Relationship cue, not a hook line."
+        },
+        {
+          "text": "Returning guest → The inn?",
+          "start_s": 5.25,
+          "end_s": 9.35,
+          "max_chars": 32,
+          "chars": 26,
+          "action": "keep"
+        }
+      ],
+      "cliffhanger": {
+        "line": "can somebody from outside get paid to do it?",
+        "kind": "spoken, ends 13.92s, reinforced by the existing end card 'Who owns the second booking?'",
+        "present_in_cut": true,
+        "strong_enough": false,
+        "assessment": "Weak. All sixteen seconds are three stacked questions and the Short resolves none of them, so the withheld thing is the entire subject rather than a specific object. The end card repeats the question the speech just asked instead of advancing it.",
+        "change_required": "Copy cannot fix this. The word that answers it is the next word in the master: source-contract.json records W000584, 'Nobody', excluded at 201.833s. Extending the cut by that one beat would give the Short a resolved fact to stand on and leave the service design as the withheld object. That is a re-cut decision for the owner, not a copy change. If the cut stays as it is, change the end card to 'Nobody is, yet.' at 13.917s to 16.167s (16 characters) so the card advances the thought rather than echoing it."
+      },
+      "pinned_comment": "[EPISODE_URL]\n\nBooking.com's own partner help says it does not share private guest email addresses: both sides see an alias ending @guest.booking.com, and partners are asked to keep the conversation on the platform. The full episode covers what an outside operator can and cannot legally do with a guest list under those terms.",
+      "description": [
+        "A guest books a small inn through a booking site. The site introduces the guest and holds the contact address. Booking.com's partner help says it does not share private email addresses, and both sides see an alias.",
+        "When that guest comes back, nobody at the inn is paid to make sure the second booking comes to the inn instead.",
+        "EP009 asks whether somebody outside the property can be, and what the job is worth.",
+        "Full episode: [EPISODE_URL]"
+      ],
+      "hashtags": [],
+      "kill_check": {
+        "answers_its_own_question": false,
+        "committed_standard": "pass",
+        "working_tree_standard": "fail",
+        "must_be_withheld": [
+          "The service design and the three jobs.",
+          "The retainer and the recoverable ceiling (C020, C028).",
+          "Any suggestion that the site hides or sells guest data for commercial motive. C007 is a neutral mechanic.",
+          "Any suggestion the property should leave the booking sites."
+        ],
+        "note": "This Short withholds too much rather than too little. Against the working-tree standard it hits the kill-list item 'no standalone narrow payoff' because the viewer leaves with a question and no fact. Recorded as a fail, not softened."
+      },
+      "claims_cited": [
+        "C007",
+        "C008",
+        "C022"
+      ]
+    },
+    {
+      "id": "04",
+      "slug": "04-wrong-number",
+      "duration_s": 16.541667,
+      "title": "The commission total is the wrong number",
+      "title_chars": 40,
+      "title_shape": "correction of a number the viewer already has",
+      "spoken_copy": "It's the wrong number, because the inn is never going to move all of it. It needs the sites. The real question is what a recovery service can shift. the inn can only pay what the job recovers, and nobody selling this has published what that is.",
+      "cold_viewer_context": "Total booking-site commissions is the figure a small hotel's commission problem usually gets stated as.",
+      "hook_lines": [
+        {
+          "text": "TOTAL BOOKING-SITE COMMISSIONS",
+          "start_s": 0.0,
+          "end_s": 3.625,
+          "max_chars": 32,
+          "chars": 30,
+          "action": "keep",
+          "note": "Names the wrong number in frame one, which is what the speech immediately corrects."
+        },
+        {
+          "text": "≠ Recoverable opportunity",
+          "start_s": 1.125,
+          "end_s": 3.625,
+          "max_chars": 32,
+          "chars": 25,
+          "action": "keep",
+          "note": "The correction arrives on the spoken 'because'. This pair is the hook and it works as cut."
+        },
+        {
+          "text": "How much can actually shift?",
+          "start_s": 5.166667,
+          "end_s": 8.375,
+          "max_chars": 32,
+          "chars": 28,
+          "action": "keep"
+        },
+        {
+          "text": "Capped by what it recovers",
+          "start_s": 9.54,
+          "end_s": 11.0,
+          "max_chars": 32,
+          "chars": 26,
+          "action": "add",
+          "note": "Lands on the spoken 'what the job recovers'. The 5.7 second constraint segment currently carries no overlay, and this is the line that keeps the affordability point from reading as a price."
+        }
+      ],
+      "cliffhanger": {
+        "line": "and nobody selling this has published what that is.",
+        "kind": "spoken, ends 14.29s, reinforced by the existing end card 'What can this inn actually afford? The full calculation in EP009.'",
+        "present_in_cut": true,
+        "strong_enough": true,
+        "assessment": "Strong. The Short delivers a correction the viewer can use immediately, that the commission total is not the addressable amount, then withholds the figure and grounds the withholding in a verified absence (C022) rather than in a tease.",
+        "change_required": null
+      },
+      "pinned_comment": "[EPISODE_URL]\n\nThe full episode runs this on an illustrative inn: 20 rooms, $180 average daily rate, 70 percent occupancy, and the booking-site share Cloudbeds reports worldwide. It shows why the recoverable amount, not the commission total, sets what the inn can pay, and what is left after the work.",
+      "description": [
+        "Total booking-site commissions is the easy number to reach for. It is the wrong one, because a small inn is never going to move all of it. It needs the sites.",
+        "The number that matters is what a recovery service can actually shift, and that is what caps what the inn can pay for the job.",
+        "Nobody selling this work has published that figure. EP009 calculates it on an illustrative 20-room inn.",
+        "Full episode: [EPISODE_URL]"
+      ],
+      "hashtags": [],
+      "kill_check": {
+        "answers_its_own_question": false,
+        "committed_standard": "pass",
+        "working_tree_standard": "pass",
+        "must_be_withheld": [
+          "The net recoverable ceiling (C020, about $996 to $1,418 a month), which is the episode's payoff.",
+          "The modeled annual commission band (C018, about $104,968 to $128,294), which the r2 draft published as $105K to $130K in a Short description. It cannot carry its four inputs and its assumption marker at this length.",
+          "The 10-point mix shift (C019), a hypothesis nobody has measured.",
+          "Any commission saved or direct share gained as a result."
+        ],
+        "note": "Satisfies both readings. The correction is the standalone payoff and the figure is the withheld object."
+      },
+      "claims_cited": [
+        "C014",
+        "C018",
+        "C020",
+        "C022"
+      ]
+    }
+  ],
+  "cross_short_check": {
+    "title_shapes": {
+      "01": "temporal clause, then the consequence",
+      "02": "paired noun phrase on a comma pivot",
+      "03": "flat declarative mechanic, verified at source",
+      "04": "correction of a number the viewer already has"
+    },
+    "repeated_shape": false,
+    "shared_words_audit": "No two titles share a content word except 'commission', which appears in 01 as a recurring charge and in 04 as a mistaken total. None of the four opens on the same construction and none is a question. An earlier draft titled 03 'Who at the inn owns the second booking?'; it was rejected under the operator_economy profile in content-os/rubric.md, which fails questions used as hooks. The replacement opens on C007, verified at source.",
+    "hype_and_promise_audit": "No hype-lexicon term, no income promise, no superlative about the channel, no figure in any title, no question used as a hook, no em dash and no emoji anywhere in the package.",
+    "publish_order": [
+      "01",
+      "04",
+      "02",
+      "03"
+    ],
+    "publish_order_reason": "01 first because it establishes in thirteen seconds the premise the other three assume, that commission recurs per booking, with no jargon and the fastest cold-viewer orientation. 04 second because its correction only lands once the viewer accepts that the charge repeats. 02 third because it is the most technical and the best mid-run piece for someone who already has the premise, and it is the strongest standalone unit if the run needs one to carry. 03 last because it resolves nothing, so it benefits most from the episode being live and from the other three having supplied its context, and it costs least if it underperforms."
+  },
+  "weakest_short": {
+    "id": "03",
+    "reasons": [
+      "No on-screen hook line in the first three seconds. The only element is a two-word relationship diagram, so a cold viewer gets no subject until speech arrives.",
+      "Sixteen seconds of three stacked questions with no resolved beat. Against the working-tree docs/content-rubric.md it hits the kill-list item 'no standalone narrow payoff'.",
+      "The end card repeats the question the speech just asked instead of advancing it.",
+      "The answer is one excluded word away. source-contract.json records W000584, 'Nobody', cut at 201.833s, so the fix is a one-beat extension and is a cut decision, not a copy decision."
+    ]
+  },
+  "claims_dropped": [
+    {
+      "claim": "C020",
+      "value": "net recoverable about $996 to $1,418 a month",
+      "reason": "It is the episode's payoff and it cannot carry its modeled inputs inside a Short. Publishing it would also read as commission saved, which the Step 0 promotion record prohibits."
+    },
+    {
+      "claim": "C018",
+      "value": "about $104,968 to $128,294 a year all-in commission",
+      "reason": "The superseded r2 draft published this as '$105K to $130K' in a Short description without the four inputs. Dropped on those grounds."
+    },
+    {
+      "claim": "C001",
+      "value": "63.4 percent booking-site share",
+      "reason": "Verified and attributable to Cloudbeds, but none of the four cuts speaks it. Putting a figure in copy that the cut never says breaks the match between copy and picture. Referenced without the number in 04's pinned comment, with Cloudbeds named."
+    },
+    {
+      "claim": "C019",
+      "value": "10-point mix shift",
+      "reason": "A hypothesis nobody has measured. No Short has room for that boundary."
+    },
+    {
+      "claim": "C024, C028",
+      "value": "audit $1,200, retainer $600 to $1,250",
+      "reason": "Modeled prices. Stating them without the model reads as a market rate."
+    }
+  ]
+}
