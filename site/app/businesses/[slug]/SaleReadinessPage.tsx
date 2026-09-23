@@ -211,6 +211,20 @@ export function SaleReadinessPage({ operation }: { operation: Operation }) {
               <article><span className="oe-class">Unknown · unmeasured</span><h3>85 hours?</h3><p>Hours per engagement. That is an assumption, not a finding. Nobody has measured it, including the host.</p><dl><div><dt>Owner interviews</dt><dd>Not compressible</dd></div><div><dt>Documentation</dt><dd>AI-assisted</dd></div><div><dt>Measure it in</dt><dd>The first diagnostic</dd></div></dl></article>
             </div>
             <aside className="bl-decision-note" style={{ marginTop: 'var(--bl-space-5)' }}><strong>Most sensitive assumption</strong><p>Delivery hours per engagement. Everything turns on it, it is unmeasured, and its largest part, owner interview time, is the part AI does not compress. Plan for cash timing too: a two-to-three month engagement paid on completion creates a working-capital gap, so stage the payments.</p></aside>
+            <div className="oe-econ-table" role="region" aria-label="Economics assumptions, low, base and high case" tabIndex={0}>
+              <table>
+                <caption>Assumptions behind the model (all modeled, from the locked Canvas)</caption>
+                <thead><tr><th scope="col">Assumption</th><th scope="col">Low case</th><th scope="col">Base case</th><th scope="col">High case</th><th scope="col">Reasoning</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Price per engagement</th><td>$6,000</td><td>$12,000</td><td>$20,000</td><td>Transferred from compliance-readiness project pricing</td></tr>
+                  <tr><th scope="row">Engagements per year</th><td>6</td><td>8</td><td>10</td><td>Constrained by owner availability, not operator hours</td></tr>
+                  <tr><th scope="row">Delivery hours per engagement</th><td>120</td><td>85</td><td>60</td><td>Interview time dominates and does not compress</td></tr>
+                  <tr><th scope="row">Direct cost per engagement</th><td>$800</td><td>$500</td><td>$300</td><td>Tooling and incidentals</td></tr>
+                  <tr><th scope="row">Acquisition cost or effort</th><td>high</td><td>moderate</td><td>low</td><td>Referral-led; cost is time, not spend</td></tr>
+                </tbody>
+              </table>
+              <p>Low and high cases are ranges for testing, not forecasts. No sale-readiness fee has been observed.</p>
+            </div>
             <aside className="bl-disclosure"><strong>Economics boundary</strong><span>Modeled scenario, not observed performance or an earnings forecast. No sale-readiness fee has been observed; $12,000 and $16,250 are assumptions, not typical or achievable prices.</span></aside>
           </section>
 

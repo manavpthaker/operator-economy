@@ -7,7 +7,7 @@ Source: operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/op
   * omits the Canvas's internal-only material (header metadata, the pitch-deck and episode
     coverage map, the E3 readiness check, the Canvas lock block);
   * withholds three figures that content-os/facts.md "DO NOT STATE — EP007" forbids in public copy
-    (see WITHHOLD), each replaced by a visible bracketed marker;
+    (see WITHHOLD), each dropped cleanly (owner ruling 2026-09-23);
   * adds derivation-authored glue: cover, reading key, source notes with the facts.md hedges,
     disclosures and provenance.
 
@@ -56,14 +56,13 @@ OMIT = {"Pitch-deck and episode coverage map", "E3 readiness check", "Canvas loc
 # the build fails if the locked text ever changes under one of these.
 W = '<span class="withheld">[{}]</span>'
 WITHHOLD = [
+    # Owner ruling 2026-09-23: drop withheld figures cleanly (no visible markers).
     ("`OBSERVED`: CLM-004 — 34 states plus DC do not regulate business brokerage.",
-     "`OBSERVED`: CLM-004 " + W.format("state count withheld in the public edition") + "."),
-    ("Roughly **80% of the average owner's net worth sits inside the business.**",
-     "Roughly **" + W.format("figure withheld in the public edition")
-     + " of the average owner's net worth sits inside the business.**"),
-    ("The circulating 4.5–5.5× versus 7.5–9.0× figures are published",
-     "The circulating " + W.format("multiple figures withheld in the public edition")
-     + " are published"),
+     "`OBSERVED`: CLM-004."),
+    ("Roughly **80% of the average owner's net worth sits inside the business.** `OBSERVED`: CLM-002.",
+     ""),
+    (" The circulating 4.5–5.5× versus 7.5–9.0× figures are published by firms selling preparation and are excluded by name.",
+     ""),
 ]
 
 # Hedges from content-os/facts.md EP007, placed on the same page as the figures they qualify.
@@ -390,8 +389,7 @@ def build(num: str, rev: str) -> tuple[str, str]:
         "<p>Public print edition of the locked EP007 Operator Canvas (locked 2026-09-01, template "
         "operator-blueprint-v2-step1-v1.5). Text is transcribed from the lock. Omitted as internal: the "
         "pitch-deck and episode coverage map, the E3 readiness check and the lock record. Three figures "
-        "are withheld in this edition, marked <span class=\"withheld\">[like this]</span>, under the "
-        "publication rules for EP007.</p>"
+        "are omitted from this edition under the publication rules for EP007.</p>"
         f"<p>Source Canvas SHA-256: <code>{canvas_sha}</code></p>"
         '<div class="sign"><span class="motto">Build. Own. Operate.</span>'
         '<span class="site">theoperatoreconomy.com</span></div></div></section>')

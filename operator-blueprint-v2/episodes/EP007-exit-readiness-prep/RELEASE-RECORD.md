@@ -41,6 +41,12 @@ Decision log: `blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisi
 - Site: lead with positioning, CTA to newest episode; keep the Operator Canvas.
 - The deliverable is always the Operator Canvas, rendered from the locked Canvas.
 
+## Later owner rulings (2026-09-23, evening)
+
+- Operator Canvas PDF: figures that facts.md forbids are dropped cleanly, not shown as withheld markers.
+- Site Canvas page keeps a low / base / high economics assumptions table (from Canvas §10).
+- Shorts publish in order 01–04, Tue–Fri 08:30 ET.
+
 ## Costs recorded (session of 2026-09-23 onward)
 
 | Item | Amount |
