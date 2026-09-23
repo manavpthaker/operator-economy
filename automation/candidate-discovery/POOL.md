@@ -1,16 +1,105 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-21 ET (candidate scout, rerun 2; re-screens both shortlisted leads against the
-delivery-boundary and willingness-to-pay tests and holds both. Shortlist is empty.)
+Updated: 2026-09-23 ET (candidate scout, Wednesday; adds one lead, `DISC-2026-09-23-008`, and
+shortlists it as the first lead in the pool with a buyer-paid signal for the named residual. One lead
+rejected. Held leads unchanged.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-None. Both leads previously shortlisted were re-screened on 2026-09-21 against the
-delivery-boundary and willingness-to-pay tests and moved to `held`. The Monday research bench must
-record `NO_QUALIFYING_SHORTLIST` and stop.
+### 1. `DISC-2026-09-23-008` — unknown service-line verification for small water systems
+
+Decisive reason: the only lead in the pool where the named buyer is visibly paying an outside provider
+for the named residual. Strongest invalidating question: do small water systems buy this work only
+from engineering firms under qualifications-based procurement, leaving no door for a non-engineer
+operator?
+
+- Status: `shortlisted`
+- First seen / last checked: 2026-09-23 / 2026-09-23 ET
+- Exact question or change: every US community water system must resolve service lines whose material
+  is recorded as "unknown". Under the Lead and Copper Rule Improvements, published 2024-10-30, a
+  baseline inventory and, where lead, galvanized-requiring-replacement or unknown lines remain, a
+  replacement plan are due 2027-11-01, followed by replacement within ten years. Small systems that
+  filed an initial inventory in 2024 from records and age assumptions still carry blocks of unknowns
+  that must be physically verified.
+- Sources and observations (2026-09-23):
+  - EPA LCRI page, primary, last updated 2025-12-29; states the ten-year identify-and-replace
+    requirement and points to the Federal Register notice for dates:
+    <https://www.epa.gov/ground-water-and-drinking-water/lead-and-copper-rule-improvements>
+  - Federal Register LCRI notice (cited for the 2027-11-01 date; not read in full this run):
+    <https://www.federalregister.gov/documents/2024/10/30/2024-23549/national-primary-drinking-water-regulations-for-lead-and-copper-improvements-lcri>
+  - City of Victoria, Texas, primary city news release: RJN Group contracted 2023-06-20 to review
+    records and physically inspect meter boxes to determine service-line material, no excavation;
+    about one-third of lines needed field inspection after records review. No amount stated.
+    <https://www.victoriatx.gov/m/newsflash/Archive/Item/1601?arcId=3340>
+  - O'Fallon, Illinois, secondary civic-meeting report of the 2025-07-29 Public Works Committee:
+    $62,850 agreement with WHKS to physically inspect about 500 "unknown" lines, homeowner access
+    first, potholing at the meter pit only where needed (roughly $126 per line, scout arithmetic,
+    estimate):
+    <https://citizenportal.ai/articles/6152921/Illinois/St-Clair-County/OFallon-City/Council-committee-approves-contract-to-inspect-500-unknown-water-service-lines-under-Illinois-EPA-inventory>
+  - Ladd, Illinois, secondary civic-meeting report of the 2025-11-25 village board: $5,000 to Chamlin
+    Engineering to update the inventory; fall potholing cut unknowns from 185 to 30:
+    <https://citizenportal.ai/articles/8997021/illinois/bureau-county/ladd/village-approves-5000-contract-for-lead-service-line-inventory>
+  - Utah DEQ step-by-step inventory guidance: firsthand observations from staff, plumbers, operators
+    and contractors are accepted, with a service-line material certification form:
+    <https://deq.utah.gov/ddw/lead-service-line-inventory-guidance>
+  - Google autocomplete, observed 2026-09-23 (no volume inferred): "lead service line inventory
+    deadline", "… requirements", "… template", "… guidance", "… grant"; "how do i know if i have a
+    lead service line".
+  - AWWA v. EPA, D.C. Circuit; oral argument reported for 2026-09-30 (secondary):
+    <https://www.nrdc.org/court-battles/american-water-works-association-et-v-epa-lead-and-copper-rule-improvements>
+- Signal types: regulation, operating change, buyer spend (disclosed engagements), question signal.
+- Who appears to care / decision: small municipal utilities, water districts, and privately owned
+  community systems such as mobile-home parks, deciding how to clear unknowns before 2027-11-01 without
+  a large engineering contract.
+- Buyer / costly problem: a small system with a few hundred unknowns and no spare staff; every
+  unresolved unknown is treated like a lead line for notification and replacement planning, which
+  inflates the plan and the customer notices.
+- Potential offer / observable outcome: a fixed-scope unknown-line verification sprint. Outcome: a
+  count of unknowns reduced, each resolved line backed by a dated photo or inspection record, and an
+  inventory file ready for the system's certified operator to submit.
+- Delivery mechanism hypothesis: records reconciliation; resident photo self-identification campaign;
+  in-home and meter-pit visual inspection; potholing subcontracted; inventory data prepared on the
+  state template. AI helps with photo triage and record matching, not with classification sign-off.
+- Why now: 2027-11-01 baseline inventory and plan deadline; EPA released implementation tools in
+  June 2026; systems are appropriating money for unknowns now.
+- Strongest existing answer / gap: engineering firms (RJN, WHKS, Chamlin), inventory software
+  (120Water) and predictive modelling (BlueConduit). Coverage for would-be operators is absent;
+  coverage for utilities is vendor-written.
+- Possible OE point of view: a federal mandate created a long tail of small, physical, record-keeping
+  labor that large firms price for large cities. The small-operator advantage, if real, is local
+  presence and low overhead on jobs of a few hundred lines.
+- **Delivery boundary:** the water system, through its certified operator, is accountable for and
+  submits the inventory; state guidance reviewed (Utah) accepts material observations by staff,
+  plumbers, operators and contractors. Excavation stays with a licensed contractor and any engineering
+  judgment with an engineer. Residual in one sentence: an unlicensed operator verifies and documents
+  the material of unknown service lines through records reconciliation, resident photo intake, and
+  non-excavation visual inspection, and prepares the inventory data for the system's certified operator
+  to certify and submit. State-by-state variation is not yet mapped.
+- **Automated or productised substitute:** 120Water inventory and outreach software (price not
+  published; a Dublin, Georgia contract renewal was seen in a secondary report) and BlueConduit
+  predictive modelling. Both prioritise or record; neither performs the physical verification, so the
+  residual is not a software output.
+- **Willingness-to-pay signal: found, accepted type "disclosed engagement".** Victoria, Texas (primary
+  city source) paid a contractor for records review plus non-excavation meter-box inspection — the
+  residual — though no amount is stated. O'Fallon ($62,850 for about 500 unknowns) and Ladd ($5,000)
+  are secondary civic reports of disclosed contracts for the same scope. Caveat: every observed payee
+  is an engineering or consulting firm.
+- Strongest invalidating question: do small systems procure this only as engineering services
+  (qualifications-based selection) or bundled with software, so that a non-engineer operator cannot be
+  hired, and does the D.C. Circuit ruling after the 2026-09-30 argument remove the deadline?
+- Evidence still needed: the primary minutes or packet for O'Fallon or Ladd; one state's procurement
+  treatment of inventory field work; whether any non-engineering provider has been paid for it; the
+  outcome of the D.C. Circuit argument (the LCRR initial-inventory obligation and state laws such as
+  Illinois's replacement act would likely survive a vacatur, but that is unverified); count of small
+  systems with open unknowns; delivery hours per line.
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool. Distinct from the accessibility lead (also a
+  public-entity mandate, but software and web testing, not field verification).
+- Recheck / expiry: recheck 2026-10-07 for the D.C. Circuit argument outcome; expires 2027-11-01.
+  Step 0 candidate ID: none.
 
 ## New
 
@@ -21,7 +110,9 @@ None.
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
 - Status: `held`
-- First seen / last checked: 2026-09-21 / 2026-09-21 ET
+- First seen / last checked: 2026-09-21 / 2026-09-23 ET (2026-09-23: still preliminary approval
+  only, per Payments Dive's 2026-06-09 report; no final-approval date found; KBW expects final approval
+  late 2026 or early 2027 and appeals possibly into 2029. Reopening condition unchanged.)
 - Exact question or change: Payment-industry sources report that a revised Visa and Mastercard
   settlement received preliminary approval on 2026-06-09, describing an interchange reduction, a cap
   on standard US consumer credit interchange, and expanded merchant rights to surcharge at brand or
@@ -550,4 +641,11 @@ None.
   compliance deadline **and** one accepted willingness-to-pay signal exists for the implementation
   work specifically.
 
-Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`.
+- 2026-09-23 — No-tax-on-tips W-2 reporting install for small restaurants: a live, dated change (2026
+  W-2s carry qualified tips in Box 12 code TP and the Treasury Tipped Occupation Code in Box 14b), but
+  the residual — occupation-code mapping and separating voluntary tips from service charges — is
+  substantially what payroll providers (Gusto) and a productised tool (TipCompliance, $79–$149/mo)
+  already output. Reopen only with an accepted willingness-to-pay signal for a service-charge-to-tip
+  pricing decision that software does not make.
+
+Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`.
