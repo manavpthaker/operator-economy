@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #173530;
+          color: #f5f0e6;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .portrait-shell { position: absolute; inset: 0; width: 1080px; height: 1920px; margin: 0; overflow: hidden; }
+        .portrait-shell img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
+        .portrait-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(23, 53, 48, 0.14) 0%, rgba(23, 53, 48, 0.04) 42%, rgba(23, 53, 48, 0.92) 80%, #173530 100%); }
+        .source-chip { position: absolute; top: 72px; right: 58px; max-width: 340px; padding: 10px 13px; border: 1px solid rgba(245, 240, 230, 0.66); background: rgba(23, 53, 48, 0.92); color: #f5f0e6; font-size: 17px; font-weight: 500; letter-spacing: 0.09em; line-height: 1.18; text-align: right; text-transform: uppercase; }
+        .script-guide { position: absolute; z-index: 3; top: 1370px; left: 58px; width: 900px; height: 390px; }
+        .guide-line { position: absolute; inset: 0; color: #f5f0e6; font-size: 60px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.04; opacity: 0; text-wrap: balance; }
+        .guide-line em { color: #fb8b69; font-style: normal; }
+      </style>
+      <section id="root" data-composition-id="short02-boundary" data-start="0" data-duration="7.5" data-width="1080" data-height="1920" data-script-text="So the core qualification isn’t deal experience. It’s knowing how to make a company less dependent on one person.">
+        <figure id="s5-portrait" class="portrait-shell">
+          <img src="assets/media/ep007-avatar-v5-identity-hold.png" alt="Static identity reference of Manav in the accepted EP007 study look" />
+          <div class="portrait-shade" aria-hidden="true"></div>
+          <figcaption class="source-chip">Static V5 identity hold · not lip-synced</figcaption>
+        </figure>
+        <aside id="s5-script" class="script-guide" data-layout-allow-caption-zone aria-label="Provisional exact-script guide">
+          <div id="s5-guide-a" class="guide-line">So the core qualification isn’t <em>deal experience.</em></div>
+          <div id="s5-guide-b" class="guide-line">It’s knowing how to make a company <em>less dependent on one person.</em></div>
+        </aside>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#s5-portrait", { opacity: 1 }, 0);
+        tl.fromTo("#s5-guide-a", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.18);
+        tl.to("#s5-guide-a", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 2.76);
+        tl.fromTo("#s5-guide-b", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 2.9);
+        tl.to("#s5-guide-b", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 7.1);
+        window.__timelines["short02-boundary"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

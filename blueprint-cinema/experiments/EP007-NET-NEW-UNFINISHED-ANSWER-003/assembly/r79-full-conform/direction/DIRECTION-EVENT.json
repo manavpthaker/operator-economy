@@ -1,0 +1,77 @@
+{
+  "event_id": "r79-whole-episode-conform-plan-v1",
+  "decision_id": "ep007-whole-episode-conform",
+  "event_type": "decision",
+  "tags": [
+    "whole-episode",
+    "assembly",
+    "conform",
+    "locked-media",
+    "original-audio"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Join the complete accepted EP007 picture into one uninterrupted review while preserving every scoped scene lock and the established audio corrections.",
+      "viewer_before": "All scene-level gates are closed, but the accepted pieces have not been watched as one episode.",
+      "viewer_after": "The owner can review the complete 18:55.041667 episode as one continuous candidate and decide whether the whole episode is ready to lock."
+    },
+    "choice": "Build R79 as a direct-cut 24 fps 1280x720 review conform from the R77 frame map, replacing its pending S15 and S16 baselines with the exact owner-locked R78 scene renders and replacing its provisional S17-C source trim with the exact owner-locked R76 S17-C review render. Retain the R58 decoded audio prefix and append the locked narration-master tail according to the audited sample map. Add no transitions, retiming, grade, music, SFX, captions or picture redesign.",
+    "reason": "This is the smallest conform that preserves the actual reviewed bytes, scene durations, output clock, narration continuity and prior presenter level repair. It changes assembly state without reopening accepted creative choices.",
+    "alternatives": [
+      {
+        "choice": "Rebuild the entire episode as one new HyperFrames composition",
+        "reason_not_selected": "A new renderer pass would recreate already accepted picture and introduce unnecessary drift risk when the current task is exact conform."
+      },
+      {
+        "choice": "Concatenate each scene's encoded audio with its picture",
+        "reason_not_selected": "That would reintroduce AAC seams and could undo the accepted R58 level repairs; the audited continuous-audio plan is authoritative."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Assembling the current owner-locked EP007 scene package for uninterrupted review.",
+      "avoid_when": "A source hash, frame interval, scene duration, narration sample map or owner lock changes."
+    },
+    "nuance": {
+      "cut_cues": [
+        {
+          "cue_id": "r79-segment-map",
+          "phrase": "All complete-episode joins",
+          "relation": "Direct cuts at the exact half-open output-frame intervals in the updated R79 segment map; no frame may be added, dropped or reordered.",
+          "fps": 24,
+          "rounding": "Frame-exact half-open intervals inherited from R77; final output is 27241 frames.",
+          "protected_hold": "Preserve every accepted scene ending, S25's intentional pause, S26's complete final card and the 1481-sample EOF pad.",
+          "dependent_targets": [
+            "R79 segment map",
+            "R79 review conform",
+            "R79 continuous audio master"
+          ]
+        }
+      ],
+      "false_inference": "A technically passing R79 file is a review conform, not an owner whole-episode lock, Resolve finishing master, release or publication approval.",
+      "source_basis": "Current owner request, R77 full-assembly audit, R78 S15/S16 owner acceptance and R76 S17-C owner acceptance."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/direction/OWNER-REQUEST.json",
+      "sha256": "9017f96bb91d7975937ee46fb85a1d732c4d5e7d26b4873ecbc48b9d85912200",
+      "locator": "Current owner request to finish EP007 and start 9:16 work in parallel"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-FULL-ASSEMBLY-MAP/ASSEMBLY-MAP.json",
+      "sha256": "2c0f0b0400b0f9dc12e05c62660d81bd96534b90d0f573c9cd8e947c79e171e9",
+      "locator": "Audited frame and audio assembly plan"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+      "sha256": "594d2b78eca45ec60e972ab52af6356c4d7f6f10225170afdfbf73f7324b13f6",
+      "locator": "Exact accepted S15 and S16 replacement renders"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r76-s17-presenter-accepted/OWNER-ACCEPTANCE.json",
+      "sha256": "922e4f6d7c0ba9f5871c8f4d4b4914df7810bd6e3fd6e5b1567842666f732a50",
+      "locator": "Exact accepted S17-C review render"
+    }
+  ]
+}

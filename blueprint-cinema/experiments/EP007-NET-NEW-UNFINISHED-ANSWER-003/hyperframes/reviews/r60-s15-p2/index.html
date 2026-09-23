@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R60 S15 part 2 — What changed, what did not</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.blk{font-family:Supreme,sans-serif;fill:#173530;font-size:25px;font-weight:500}
+.sblk{font-family:Supreme,sans-serif;fill:#173530;font-size:21px;font-weight:400}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:24px;text-align:center;margin:0;font:700 60px/1.06 Boska,serif;color:#173530}
+.head.later{visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep007-r60-s15-p2" data-start="0" data-duration="32" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="The documentation blocks: interviewing stays full size while writing up and assembling shrink into drafting from a recorded conversation, assembling a financial narrative and organising a data room, now the cheapest part. The other half stays full weight: what a buyer will discount, fixable or structural, and telling the founder out loud. That half is outlined as the product.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- Opens on the part 1 end state. -->
+<g id="old">
+<g><rect x="80" y="170" width="140" height="160" rx="4" stroke="#173530" stroke-width="3.5" fill="#EDE5D6"/>
+<path class="light" d="M104 206L196 206M104 234L196 234M104 262L174 262"/><text class="label" x="150" y="372" text-anchor="middle">The practice</text></g>
+<use href="#person" transform="translate(410,290) scale(.7)"/><text class="small" x="410" y="372" text-anchor="middle">One person</text>
+<use href="#person" transform="translate(300,520) scale(.42)"/><use href="#person" transform="translate(370,520) scale(.42)"/>
+<use href="#person" transform="translate(440,520) scale(.42)"/><use href="#person" transform="translate(510,520) scale(.42)"/>
+<text class="small" x="405" y="584" text-anchor="middle">A team of people</text>
+<path stroke="#173530" stroke-width="12" fill="none" d="M630 530L1200 530"/><text class="small" x="630" y="508">Months of billable hours</text>
+<path stroke="#586D74" stroke-width="12" fill="none" d="M630 590L760 590"/><text class="small" x="630" y="630">The fee at this size</text>
+<path stroke="#B5482F" stroke-width="3" fill="none" stroke-dasharray="9 8" d="M766 590L1200 590"/>
+</g>
+<!-- The documentation half. Interviewing keeps its size: no tool shortens time with the owner (C012/C013). -->
+<g id="doc">
+<g id="b1"><rect id="b1r" x="630" y="140" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text id="b1t" class="blk" x="660" y="200">Interviewing an owner</text></g>
+<g id="b2"><rect id="b2r" x="630" y="256" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text id="b2t" class="blk" x="660" y="316">Writing up how the work happens</text>
+<text id="b2n" class="sblk hide" x="84" y="289">Drafting from a recorded conversation</text></g>
+<g id="b3"><rect id="b3r" x="630" y="372" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text id="b3t" class="blk" x="660" y="432">Assembling the records</text>
+<text id="b3n" class="sblk hide" x="84" y="343">Assembling a financial narrative</text></g>
+<g id="b4" class="hide"><rect x="60" y="370" width="500" height="44" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text class="sblk" x="84" y="399">Organising a data room</text></g>
+<path id="cheap-br" class="hide" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round" d="M60 432L560 432"/>
+<text id="cheap" class="small hide" x="60" y="464">Now the cheapest part of the job</text>
+</g>
+<!-- The other half: judgement, at full weight. -->
+<g id="j1" class="hide"><rect x="660" y="140" width="570" height="104" rx="4" stroke="#173530" stroke-width="3.5" fill="#F5F0E6"/><text class="blk" x="688" y="200">What a buyer will actually discount</text></g>
+<g id="j2" class="hide"><rect x="660" y="260" width="570" height="104" rx="4" stroke="#173530" stroke-width="3.5" fill="#F5F0E6"/><text class="blk" x="688" y="320">Fixable in the engagement, or structural</text></g>
+<g id="j3" class="hide"><rect x="660" y="380" width="570" height="230" rx="4" stroke="#173530" stroke-width="3.5" fill="#F5F0E6"/><text class="blk" x="688" y="432">Telling her, out loud</text>
+<use href="#person" transform="translate(810,540) scale(.6)"/><text class="small" x="810" y="596" text-anchor="middle">Owner</text>
+<rect x="1036" y="486" width="84" height="96" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><path class="light" d="M1050 510L1106 510M1050 530L1106 530M1050 550L1092 550"/></g>
+<path id="talk" class="hide" stroke="#B5482F" stroke-width="3" fill="none" stroke-linecap="round" d="M1028 530C980 510 910 510 862 522"/>
+<rect id="product" class="hide" x="640" y="122" width="610" height="506" rx="8" stroke="#586D74" stroke-width="2.5" fill="none"/>
+</svg>
+<h1 id="h1" class="head">Documentation</h1>
+<h1 id="h2" class="head later">The part that changed</h1>
+<h1 id="h3" class="head later">What has not changed</h1>
+<h1 id="h4" class="head later">The product</h1>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="32" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 659.0 + cue. Word anchors from word-transcript.json.
+const C={"that":0.32,"changed":1.38,"drafting":2.49,"narrative":4.64,"dataroom":6.50,"cheapest":9.08,"notchanged":12.20,"half":13.76,"deciding":14.82,"working":17.31,"telling":21.86,"depends":24.68,"notool":28.88,"product":31.22};
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+const swap=(a,b,at)=>{t.to(a,{autoAlpha:0,duration:.3,ease:'power1.inOut'},at);t.fromTo(b,{autoAlpha:0},{autoAlpha:1,duration:10/24,ease:'power2.out'},at+.2)};
+// "That is the part that changed": the old economics clear; the work moves left.
+t.to('#old',{autoAlpha:0,duration:.5,ease:'power1.inOut'},C.that);
+swap('#h1','#h2',C.changed-.2);
+t.to('#b1r',{attr:{x:60,y:140,width:500},duration:.7,ease:'power2.inOut'},C.that);
+t.to('#b1t',{attr:{x:84,y:200},duration:.7,ease:'power2.inOut'},C.that);
+t.to(['#b2r','#b3r'],{attr:{x:60,width:500},duration:.7,ease:'power2.inOut'},C.that);
+t.to(['#b2t','#b3t'],{attr:{x:84},duration:.7,ease:'power2.inOut'},C.that);
+// Writing up becomes drafting from a recorded conversation, and shrinks.
+t.to('#b2r',{attr:{y:260,height:44},duration:.6,ease:'power2.inOut'},C.drafting);
+t.to('#b2t',{autoAlpha:0,duration:.25},C.drafting);
+fade('#b2n',C.drafting+.35,.35);
+t.to('#b3r',{attr:{y:315,height:44},duration:.6,ease:'power2.inOut'},C.narrative);
+t.to('#b3t',{autoAlpha:0,duration:.25},C.narrative);
+fade('#b3n',C.narrative+.35,.35);
+t.fromTo('#b4',{autoAlpha:0,y:10},{autoAlpha:1,y:0,duration:.4,ease:'power2.out'},C.dataroom);
+// "now the cheapest part of the job instead of the most expensive"
+draw('#cheap-br',C.cheapest,.5);
+fade('#cheap',C.cheapest+.2,.4);
+// "What has not changed is the other half."
+swap('#h2','#h3',C.notchanged);
+t.to('#doc',{autoAlpha:.5,duration:.6,ease:'power1.inOut'},C.half);
+fade('#j1',C.deciding,.45);
+fade('#j2',C.working,.45);
+fade('#j3',C.telling,.45);
+draw('#talk',C.depends,.7);
+// "No tool does that. That is the product."
+t.to('#doc',{autoAlpha:.25,duration:.6,ease:'power1.inOut'},C.notool);
+swap('#h3','#h4',C.product-.2);
+draw('#product',C.product-.1,.8);
+window.__timelines['ep007-r60-s15-p2']=t;
+</script></body></html>

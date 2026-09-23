@@ -1,0 +1,52 @@
+{
+  "record_type": "ep007_short02_two_avatar_request_manifest_v1",
+  "status": "local_audio_and_prompts_ready_not_uploaded_not_submitted",
+  "provider_calls_by_this_manifest": 0,
+  "owner_authority": {
+    "event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope_limit": "private-review first pass only; no release, platform upload or publication"
+  },
+  "direction": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/DIRECTION.json", "sha256": "d7ba15f618a42eed2e87bdf8a53dca64736c452940d9a70d6a0dbbf77c5d1513"},
+  "source_master": {"path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v6/short-02-operations-business/media/original-c.wav", "sha256": "fc3a7508c0c17c2d882fa0b9333e57d2eb8ab775b9e1e2d826363f7f9d764eb3"},
+  "audio_preparation": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/prepare_audio_refs.py", "sha256": "348456b0f7679a1966ec0c10094149cf7b710f581ead7b512ea1699e7812002f", "semantics": "Exact Original C PCM slices with only digital-zero head/tail handles; MP3 companions are upload references, never program audio."},
+  "provider": "higgsfield",
+  "model": "seedance_2_5",
+  "common_client_params": {"mode": "omni_reference", "resolution": "1080p", "aspect_ratio": "9:16", "bitrate_mode": "high", "generate_audio": true, "use_unlim": false, "count": 1},
+  "media_roles_in_order": ["image EP007 V5 identity/look", "video relaxed behavior", "video public articulation", "audio exact Short02 segment MP3"],
+  "model_readback": {"duration_range_seconds": [4, 30], "return_one_take_feasible_by_model": true},
+  "read_only_quote_without_not_yet_uploaded_audio": {
+    "at_utc": "2026-09-23T10:43:00Z",
+    "opening_9s_credits": 108,
+    "return_9s_credits": 108,
+    "two_shot_total_credits": 216,
+    "selected_workspace_balance_credits_at_readback": 3596,
+    "limitation": "Estimator validated the same model, mode, resolution, aspect, bitrate, count and the three confirmed prior reference IDs; the new Short02 audio files were not yet uploaded, so a full-input quote and fresh balance are required immediately before submission. No credits were reserved."
+  },
+  "requests": [
+    {
+      "index": 0, "shot_id": "segment-a-opening", "duration_seconds": 9,
+      "master_sample_start": 0, "master_sample_end_exclusive": 402000,
+      "program_picture_seconds_candidate": [0, 8.375],
+      "prompt": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-a/PROMPT.txt", "sha256": "0902d0533f90a53abf1b6449b8ac0600267d382749bb46941a2e560baa2f5fd4"},
+      "reference_wav": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-a/media/original-c-reference.wav", "sha256": "1ca61966bc16aa3e52b0b9dc3bb41b6015b85254f08ee62145c54f38f26525f0"},
+      "reference_mp3": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-a/media/original-c-reference.mp3", "sha256": "2b251aa0856106954b6cf905cb6eacec8e019e1eb5e920f54b0564c0efc51219", "media_id": null, "upload_readback_verified": false},
+      "local_mp3_asr": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-a/qa/asr-mp3/transcript.json", "sha256": "f9bdcceb65b864583f5d067873dba875a97d1c99a23b3a2eeab0e4cb04a0bb71", "exact_spoken_paragraph_match": true},
+      "provider_job_id": null
+    },
+    {
+      "index": 1, "shot_id": "segment-b-qualification", "duration_seconds": 9,
+      "master_sample_start": 1457280, "master_sample_end_exclusive": 1824000,
+      "zero_head_samples": 12000, "program_picture_seconds_candidate": [30.333333333, 38.0],
+      "prompt": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-b/PROMPT.txt", "sha256": "09259ccf6ae98991f21a82b31c6e2fb9c348050482576ca8569ed45074b2ae98"},
+      "reference_wav": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-b/media/original-c-reference.wav", "sha256": "bcfd4168275f10a0f5840e7f7cc029cc3787fab5681f07a8eba7e390929a50fd"},
+      "reference_mp3": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-b/media/original-c-reference.mp3", "sha256": "8f2747311d942a94be3fceecd4848408c8d82dad5754a6bf762d63d7ba790999", "media_id": null, "upload_readback_verified": false},
+      "local_mp3_asr": {"path": "blueprint-cinema/experiments/EP007-SHORT02-PRESENTER-001/segment-b/qa/asr-mp3/transcript.json", "sha256": "bcd243f8b175ff1198bd6fa2dc944f56d79cbea6d3f09d1ef063a11239a6a579", "exact_spoken_paragraph_match": true},
+      "provider_job_id": null
+    }
+  ],
+  "pre_submission": ["Root will give a separate go after Short04 recovery resolves.", "Upload each pinned Short02 MP3 once and GET-verify remote bytes/hash; never use the WAV or another Short's audio ID.", "Reverify three existing V5 reference media IDs against pinned local hashes.", "Read back current balance and a full-input quote for each nine-second request, then count every already-consumed Short02-04 avatar submission and quoted credit against the 6-call/1200-credit first-pass cap.", "Persist a final immutable intent with both exact media IDs and provider params immediately before one candidate per shot; no automatic retry after partial, unknown or failed outcome."],
+  "post_generation": "Inspect picture and native audio against the exact matching Original C slice; use Fal Sync only if measured and within authorized scope. Mute native audio in the final Short and retain the continuous Original C master.",
+  "release_or_publication_authority": false
+}

@@ -1,0 +1,73 @@
+{
+  "record_type": "ep007_short04_presenter_input_manifest_v2",
+  "at_utc": "2026-09-23T00:57:00Z",
+  "status": "corrected_local_inputs_prepared_no_upload_or_generation",
+  "base_manifest": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/INPUT-MANIFEST.json",
+    "sha256": "ced321c6ea06384d8f337ce5d538b5f762ad3670bfbffe3ffd34ba0381ec6151",
+    "inherit": "Final Original C master, locked word clock, V5 identity and behavior references, and segment-a opening are unchanged."
+  },
+  "correction": {
+    "scope": "Only the segment-b return input boundary changes; prior segment-b media and prompt remain preserved but are superseded for all new provider submissions.",
+    "reason": "At the v1 38.695-second start, the waveform is already rising into the first word 'But'. The v2 start selects a near-zero sample 10.917 ms earlier, after the preceding paragraph's aligned end, to preserve the attack and avoid a start click.",
+    "superseded_master_start_sample": 1857360,
+    "superseded_master_start_seconds": 38.695,
+    "new_master_start_sample": 1856836,
+    "new_master_start_seconds": 38.684083333,
+    "sample_at_new_start_signed_16bit": 0,
+    "first_word_start_seconds_in_master_small_model": 38.72,
+    "preceding_paragraph_last_word_end_seconds_in_master_small_model": 38.67,
+    "owner_listening": "pending_finished_private_review_not_passed"
+  },
+  "active_segments": [
+    {
+      "id": "segment-a-opening",
+      "base_manifest_segment_id": "segment-a-opening",
+      "master_sample_range_half_open": [0, 413520],
+      "requested_duration_seconds": 9,
+      "wav_sha256": "15f78e56be4ec2b344ee17edbfeffc095095a9c3ece4d22955d336c16a4afefc",
+      "mp3_sha256": "38120fa6462e7715fba73b192926ccd79d6e7f5978ad55fe49be138e484e69a6",
+      "prompt_sha256": "6e78d61b915f7feec4a78c0bdfd0639988d74ef5012333e2746a2bf05f1e932e"
+    },
+    {
+      "id": "segment-b-return-v2",
+      "word_indices_inclusive": [108, 125],
+      "exact_spoken_copy": "But a referral proves access, not demand. Only an owner agreeing to pay begins to prove the business.",
+      "master_sample_range_half_open": [1856836, 2213512],
+      "master_time_range_seconds": [38.684083333, 46.114833333],
+      "source_frames": 356676,
+      "requested_duration_seconds": 8,
+      "digital_zero_end_handle_frames": 27324,
+      "digital_zero_end_handle_seconds": 0.56925,
+      "picture_use_master_seconds": [38.684083333, 46.114833333],
+      "wav": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/media/original-c-return-v2.wav",
+        "sha256": "238a118f67c59348c4dcb75883fd7d75024f40835e2dc22b923aed5c90247e3c",
+        "format": "PCM signed 16-bit mono 48000 Hz",
+        "original_master_pcm_prefix_bit_identical": true,
+        "appended_frames_all_zero": true,
+        "uploaded_media_id": null
+      },
+      "mp3": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/media/original-c-return-v2.mp3",
+        "sha256": "c01a7d5e163d6e5b9e9014cf8d601d085f3b0bec71fb432bc9ab729b1abba9e1",
+        "bitrate_kbps": 192,
+        "duration_seconds_decoded": 8.0,
+        "uploaded_media_id": null
+      },
+      "local_segment_asr": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/asr-local/transcript.json",
+        "sha256": "b85b4a8e3e694f2d3690a2ae1f05bb5ad1170120fa78cbb4770ac8f1cf68ddcd",
+        "exact_18_locked_words": true,
+        "first_word_start_seconds_relative_to_slice": 0.02,
+        "last_word_end_seconds_relative_to_slice": 6.92
+      },
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/PROMPT.txt",
+        "sha256": "1ad664765d2092bb010bebe51ba04a7e7828a8d3e876e85dac2c0d5ee84ba00b"
+      }
+    }
+  ],
+  "provider_uploads_by_this_manifest": 0,
+  "provider_generation_calls_by_this_manifest": 0
+}

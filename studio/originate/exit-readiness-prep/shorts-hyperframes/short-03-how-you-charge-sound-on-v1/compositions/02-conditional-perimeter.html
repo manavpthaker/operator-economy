@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #scene-02-conditional-perimeter {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .s2-field { position: absolute; inset: 0; background: #f5f0e6; }
+        .s2-work-order {
+          position: absolute;
+          left: 58px;
+          top: 110px;
+          width: 900px;
+          height: 1270px;
+          padding: 42px 46px;
+          background: #fbf8f1;
+          border: 4px solid #586d74;
+          box-shadow: 14px 16px 0 #e2dccd;
+        }
+        .s2-doc-kicker {
+          margin: 0;
+          color: #586d74;
+          font-size: 19px;
+          font-weight: 500;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+        .s2-doc-title {
+          margin: 13px 0 0;
+          color: #204440;
+          font: 700 66px/0.92 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.042em;
+        }
+        .s2-doc-rule {
+          position: absolute;
+          left: 46px;
+          right: 46px;
+          top: 164px;
+          height: 3px;
+          background: #71868d;
+        }
+        #s2-fee-token {
+          position: absolute;
+          z-index: 5;
+          left: 62px;
+          top: 220px;
+          width: 340px;
+          height: 88px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fbf8f1;
+          background: #33464c;
+          border: 3px solid #71868d;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          will-change: transform;
+        }
+        .s2-route-svg {
+          position: absolute;
+          left: 374px;
+          top: 218px;
+          width: 438px;
+          height: 270px;
+          overflow: visible;
+        }
+        .s2-route-path {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 8;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .s2-perimeter {
+          position: absolute;
+          left: 454px;
+          top: 354px;
+          width: 356px;
+          height: 280px;
+        }
+        .s2-perimeter svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .s2-perimeter-stroke {
+          fill: none;
+          stroke: #71868d;
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .s2-perimeter-copy {
+          position: absolute;
+          left: 32px;
+          right: 26px;
+          top: 72px;
+          color: #33464c;
+          opacity: 0;
+        }
+        .s2-perimeter-eyebrow {
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+        .s2-perimeter-title {
+          margin-top: 11px;
+          font: 700 43px/0.95 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.03em;
+        }
+        .s2-caution {
+          position: absolute;
+          left: 46px;
+          right: 46px;
+          top: 694px;
+          min-height: 454px;
+          padding: 36px 38px 40px;
+          color: #fbf8f1;
+          background: #173530;
+          border-left: 8px solid #71868d;
+        }
+        .s2-location {
+          margin: 0;
+          color: #ede7d8;
+          font-size: 24px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+        .s2-verify {
+          margin: 24px 0 0;
+          max-width: 700px;
+          color: #fbf8f1;
+          font: 700 86px/0.9 "BL Boska", Georgia, serif;
+          letter-spacing: -0.05em;
+          opacity: 0;
+        }
+        .s2-not-advice {
+          display: inline-block;
+          margin-top: 34px;
+          padding: 15px 18px;
+          color: #fbf8f1;
+          border: 2px solid #71868d;
+          font-size: 29px;
+          font-weight: 500;
+          opacity: 0;
+        }
+      </style>
+
+      <section id="scene-02-conditional-perimeter" data-composition-id="scene-02-conditional-perimeter" data-start="0" data-duration="6.2825" data-width="1080" data-height="1920">
+        <div class="s2-field" aria-hidden="true"></div>
+
+        <article class="s2-work-order" data-hf-id="preparation-work-order">
+          <p class="s2-doc-kicker">Sale-readiness work order</p>
+          <h1 class="s2-doc-title">PAYMENT CONDITION</h1>
+          <div class="s2-doc-rule" aria-hidden="true"></div>
+
+          <div id="s2-fee-token" data-hf-id="fee-route-token">Fee tied to the sale</div>
+
+          <svg class="s2-route-svg" viewBox="0 0 438 270" aria-hidden="true">
+            <path id="s2-route-path" class="s2-route-path" d="M 14 44 C 112 42 166 66 214 118 C 254 161 293 186 398 206" />
+          </svg>
+
+          <div class="s2-perimeter" data-hf-id="jurisdiction-perimeter">
+            <svg viewBox="0 0 356 280" aria-hidden="true">
+              <path id="s2-perimeter-top" class="s2-perimeter-stroke" d="M 26 42 C 104 29 199 31 325 46" />
+              <path id="s2-perimeter-right" class="s2-perimeter-stroke" d="M 334 66 C 344 119 341 166 334 211" />
+              <path id="s2-perimeter-bottom" class="s2-perimeter-stroke" d="M 322 244 C 228 257 136 255 34 241" />
+              <path id="s2-perimeter-left" class="s2-perimeter-stroke" d="M 22 221 C 14 176 17 125 20 84" />
+            </svg>
+            <div class="s2-perimeter-copy">
+              <div class="s2-perimeter-eyebrow">Conditional perimeter</div>
+              <div class="s2-perimeter-title">BROKERAGE RULES MAY APPLY</div>
+            </div>
+          </div>
+
+          <div class="s2-caution">
+            <p class="s2-location">Depending on where you operate.</p>
+            <p class="s2-verify">Verify your jurisdiction.</p>
+            <p class="s2-not-advice">This isn’t legal advice.</p>
+          </div>
+        </article>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        ["#s2-route-path", "#s2-perimeter-top", "#s2-perimeter-right", "#s2-perimeter-bottom", "#s2-perimeter-left"].forEach((selector) => {
+          const path = document.querySelector(selector);
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = `${length}`;
+          path.style.strokeDashoffset = `${length}`;
+        });
+
+        tl.fromTo("#s2-fee-token", { x: 340 }, { x: 0, duration: 0.36, ease: "power4.out" }, 0);
+        tl.to("#s2-route-path", { strokeDashoffset: 0, duration: 0.62, ease: "power2.out" }, 0.18);
+        tl.to("#s2-perimeter-top", { strokeDashoffset: 0, duration: 0.26, ease: "power2.out" }, 0.58);
+        tl.to("#s2-perimeter-right", { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 0.78);
+        tl.to("#s2-perimeter-bottom", { strokeDashoffset: 0, duration: 0.26, ease: "power2.out" }, 0.96);
+        tl.to("#s2-perimeter-left", { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, 1.16);
+        tl.fromTo(".s2-perimeter-copy", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, 1.34);
+
+        tl.set(".s2-location", { opacity: 1, y: 48 }, 1.534);
+        tl.to(".s2-location", { y: 0, duration: 0.16, ease: "power4.out" }, 1.534);
+        tl.set(".s2-verify", { opacity: 1, y: 76 }, 3.221);
+        tl.to(".s2-verify", { y: 0, duration: 0.2, ease: "power4.out" }, 3.221);
+        tl.set(".s2-not-advice", { opacity: 1, y: 44 }, 4.661);
+        tl.to(".s2-not-advice", { y: 0, duration: 0.16, ease: "power4.out" }, 4.661);
+
+        window.__timelines["scene-02-conditional-perimeter"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

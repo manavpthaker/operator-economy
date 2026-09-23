@@ -1,0 +1,176 @@
+{
+  "record_type": "ep007_r79_owner_locked_conform_reference_handoff",
+  "schema_version": 1,
+  "created_at_utc": "2026-09-19T21:08:32Z",
+  "episode": "EP007-exit-readiness-prep",
+  "status": "owner_locked_conform_reference",
+  "stage": "pre_resolve",
+  "canonical_picture_lock": false,
+  "classification": "not_canonical_picture_lock",
+  "owner_lock": {
+    "event_id": "r79-owner-whole-episode-lock-v1",
+    "event_hash": "7c82bd67fb330aadb4b5f931e03667d617fcc28ee0cf5b28be05bb0661268011",
+    "verbatim": "Lock R79, including the three inherited exceptions.",
+    "acceptance_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/direction/r79-owner-locked/OWNER-ACCEPTANCE.json",
+    "acceptance_sha256": "42b1f82bac21032852110b54e37b1265683dbe1de58267d1b6e4960096d5ca64",
+    "meaning": "Freeze the exact R79 integrated picture, encoded audio, cuts, takes, seams, narration timing and ending unless the owner explicitly reopens R79."
+  },
+  "reference_video": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+    "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671",
+    "size_bytes": 138000558,
+    "frames": 27241,
+    "fps": "24/1",
+    "duration_seconds": 1135.0416666666667,
+    "dimensions": [1280, 720],
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "color": "BT.709 television range",
+    "audio": "AAC stereo 48 kHz review encode"
+  },
+  "pcm_reference": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-audio-pcm.wav",
+    "sha256": "3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c",
+    "samples": 54482000,
+    "sample_rate": 48000,
+    "channels": 2,
+    "sample_format": "pcm_s16le",
+    "exact_zero_tail_samples": 1481
+  },
+  "timing_map": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "sha256": "5b4fbdfe694238423cc7a196cc341838959a706b5b43ebc8abb8effddae86496",
+    "range_semantics": "half-open frame intervals at 24 fps"
+  },
+  "verification": {
+    "current": {
+      "event_id": "r79-whole-episode-review-conform-verified-v2",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/VERIFICATION-V2.json",
+      "sha256": "fb276b27ddb2c7ea5c780356dae1eeb759308af80a2a4b9b059a5150fabc2c95",
+      "result": "pass",
+      "integrated_lufs": -16.72,
+      "true_peak_dbtp": -1.31,
+      "audio_zero_lag_correlation": 0.9999908096296728,
+      "audio_level_db_vs_pcm_reference": -0.003694074386828806,
+      "audio_snr_db_vs_pcm_reference": 47.315688878377955
+    },
+    "preserved_predecessor": {
+      "event_id": "r79-whole-episode-review-conform-verified-v1",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/VERIFICATION.json",
+      "sha256": "880bd97bf40ef976b49c44f3c72b239a4cd3ab427e9c79b4fd5e71391230164f",
+      "status": "superseded_audio_metric_preserved_for_event_integrity"
+    },
+    "checks": {
+      "complete_decode": true,
+      "frame_count_rate_dimensions_color": true,
+      "pcm_sample_count_and_tail": true,
+      "encoded_audio_alignment_and_level": true,
+      "low_variance_frames_source_matched": true,
+      "loudness_and_true_peak_measured": true
+    }
+  },
+  "build_provenance": {
+    "build_record": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/BUILD.json",
+      "sha256": "de9ac6fcefb52d8057c7d04aca3d472c3fc28029384da16448cd6e8bbba8d53d"
+    },
+    "source_check": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SOURCE-CHECK.json",
+      "sha256": "646b98f16130883e8704f2b9f47cfe47e8de69b589ea43d8e98e34cdc0e526bf"
+    },
+    "build_script": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py",
+      "sha256": "de660dce5190caf718ebd0a661f1a204fc0270d78b6a3e288a1fea4b83711515"
+    },
+    "verification_script": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/verify_r79.py",
+      "sha256": "dfa1a3258959846cd22c2544ec5115fb9eb13269e002b8ddc1d183d02636266c"
+    },
+    "tool_versions": {
+      "ffmpeg": "8.1.1",
+      "ffprobe": "8.1.1"
+    }
+  },
+  "inherited_exceptions": [
+    {
+      "exception_id": "r39-callback-performance-no-scoped-verdict",
+      "prior_status": "No independent scoped owner verdict was recorded for the R39 callback/performance.",
+      "r79_disposition": "Accepted only as it appears inside the exact R79 bytes; the missing historical scene verdict remains in the audit history."
+    },
+    {
+      "exception_id": "r39-animation-returned-04-17-875-to-04-30-000",
+      "prior_status": "The R39 animation at master 04:17.875 through 04:30.000 was previously returned.",
+      "r79_disposition": "Accepted only as it appears inside the exact R79 bytes; the prior return is not rewritten as an independent R39 acceptance."
+    },
+    {
+      "exception_id": "r47-performance-no-output-verdict-04-50-292-to-05-01-500",
+      "prior_status": "No independent output verdict was recorded for the R47 performance at master 04:50.292 through 05:01.500.",
+      "r79_disposition": "Accepted only as it appears inside the exact R79 bytes; the missing historical output verdict remains in the audit history."
+    }
+  ],
+  "package_components": {
+    "present": [
+      "hash-bound owner acceptance and decision event",
+      "pointer to owner-locked R79 review reference",
+      "pointer to exact continuous PCM reference",
+      "frame-exact segment and audio map",
+      "current V2 and preserved V1 verification reports",
+      "source-check, build record, build script and verification script"
+    ],
+    "omitted": [
+      {
+        "component": "reference media copy",
+        "reason": "This package currently points to local ignored MP4/WAV files and does not duplicate them."
+      },
+      {
+        "component": "Resolve project or archive",
+        "reason": "No EP007 Resolve project exists yet."
+      },
+      {
+        "component": "timeline.otio, timeline.fcpxml and markers.csv",
+        "reason": "Resolve conform/interchange preparation has not begun."
+      },
+      {
+        "component": "opaque or alpha plates and conform selects",
+        "reason": "No receiving Resolve package has been assembled."
+      },
+      {
+        "component": "captions, color, Fairlight mix, finishing and delivery reports",
+        "reason": "All remain downstream of Resolve conform."
+      }
+    ]
+  },
+  "durability": {
+    "manifest_state": "untracked_worktree_file",
+    "reference_video_state": "gitignored_local_only",
+    "pcm_reference_state": "gitignored_local_only",
+    "handoff_ready_for_another_machine": false,
+    "blocker": "Place the reference video and PCM in an approved durable location or copy them into the receiving conform package, recheck their hashes, then track the manifest records."
+  },
+  "resolve_probe": {
+    "result": "not_discovered",
+    "project_or_interchange_present": false,
+    "effect": "Canonical Resolve conform, finishing and picture lock cannot yet be claimed."
+  },
+  "decision_log_validation": {
+    "chain_valid": true,
+    "event_count": 290,
+    "r79_evidence_findings": 0,
+    "global_evidence_current": false,
+    "older_pre_r79_stale_bindings": 35,
+    "meaning": "The R79 decision and evidence bindings are current. The episode-wide evidence registry still contains older stale bindings and must not be described as globally current."
+  },
+  "required_downstream_sequence": [
+    "Resolve conform and conform report",
+    "rough-cut, evidence, rights and disclosure review",
+    "canonical picture lock: Blueprint Cinema edit manifest, Resolve timeline, HyperFrames plate manifest and approved reference agree",
+    "Fusion cleanup and composites, color, Fairlight mix, captions, accessibility verification and online",
+    "mezzanine and upload masters, media probe, final QC, archive, provenance and synthetic-media records",
+    "OE packaging and upload with AI disclosure, SRT captions, thumbnail, end screen and playlist; then canonical launch/links.json entry, Content OS release gate and publication approval"
+  ],
+  "scope_limits": [
+    "Owner lock freezes R79's exact integrated creative result; it does not create the canonical toolchain picture lock.",
+    "No Resolve conform, final grade, final mix, caption deliverable, delivery master, archive, release, upload or publication is represented as complete.",
+    "No commit, push, provider call or spend is authorized by this handoff record."
+  ]
+}

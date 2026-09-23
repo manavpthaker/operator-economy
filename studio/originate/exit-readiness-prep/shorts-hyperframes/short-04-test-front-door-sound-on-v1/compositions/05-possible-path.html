@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short04-possible-path { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f5f0e6; color: #173530; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s45-sheet { position: absolute; inset: 0; padding: 208px 122px 170px 74px; }
+        .s45-kicker { display: flex; align-items: center; gap: 18px; color: #586d74; font-size: 24px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .s45-kicker::before { width: 72px; height: 6px; background: #b5482f; content: ""; }
+        .s45-title { width: 820px; margin: 40px 0 0; color: #173530; font: 700 98px/0.94 "BL Boska", Georgia, serif; letter-spacing: -0.048em; }
+        .s45-source { position: absolute; top: 670px; left: 74px; width: 850px; padding: 26px 34px; border: 3px solid #173530; background: #ede7d8; color: #173530; font-size: 25px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+        .s45-route { position: absolute; top: 760px; left: 116px; width: 6px; height: 670px; background: #586d74; transform-origin: 50% 0; }
+        .s45-output { position: absolute; left: 164px; width: 760px; padding: 38px 44px 42px; border-top: 3px solid #586d74; background: #ede7d8; opacity: 0; visibility: hidden; }
+        .s45-output::before { position: absolute; top: -18px; left: -63px; width: 30px; height: 30px; border: 5px solid #586d74; background: #f5f0e6; content: ""; }
+        .s45-output-a { top: 858px; min-height: 250px; }
+        .s45-output-b { top: 1238px; min-height: 270px; border-left: 10px solid #b5482f; }
+        .s45-output small { display: block; color: #33464c; font-size: 21px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+        .s45-output strong { display: block; margin-top: 22px; color: #173530; font: 700 62px/1.02 "BL Boska", Georgia, serif; letter-spacing: -0.03em; text-transform: uppercase; }
+      </style>
+      <section data-hf-id="hf-s45-root" id="short04-possible-path" data-composition-id="short04-possible-path" data-start="0" data-duration="3.984083" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-s45-sheet" class="s45-sheet">
+          <div data-hf-id="hf-s45-kicker" id="s45-kicker" class="s45-kicker">What the conversation can give you</div>
+          <h1 data-hf-id="hf-s45-title" id="s45-title" class="s45-title">Two useful outputs</h1>
+          <div data-hf-id="hf-s45-source" id="s45-source" class="s45-source">Broker conversation</div>
+          <div data-hf-id="hf-s45-route" id="s45-route" class="s45-route" aria-hidden="true"></div>
+          <div data-hf-id="hf-s45-problems" id="s45-problems" class="s45-output s45-output-a"><small>What was missing</small><strong>Readiness problems</strong></div>
+          <div data-hf-id="hf-s45-access" id="s45-access" class="s45-output s45-output-b"><small>Who handles it now</small><strong>Possible owner access</strong></div>
+        </div>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#s45-kicker", { opacity: 1, y: 0 }, 0);
+        tl.set("#s45-title", { opacity: 1, y: 0 }, 0);
+        tl.set("#s45-source", { opacity: 1, y: 0 }, 0);
+        tl.fromTo("#s45-route", { scaleY: 0 }, { scaleY: 1, duration: 3.3, ease: "power1.inOut" }, 0.5);
+        tl.set("#s45-problems", { autoAlpha: 1 }, 1.08);
+        tl.fromTo("#s45-problems", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.34, ease: "power2.out" }, 1.08);
+        tl.set("#s45-access", { autoAlpha: 1 }, 2.41);
+        tl.fromTo("#s45-access", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.34, ease: "power2.out" }, 2.41);
+        window.__timelines["short04-possible-path"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

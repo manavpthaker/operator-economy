@@ -1,0 +1,53 @@
+{
+  "record_type": "ep007_short04_derived_guide_tail_repair_v1",
+  "at_utc": "2026-09-23T00:42:07Z",
+  "status": "pass_mechanical_tail_repair_owner_listening_pending",
+  "provider_call": false,
+  "decision_event": {
+    "event_id": "ep007-shorts03-04-guide-tail-derived-decision-v4",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts03-04-guide-tail-derived-decision-v4.json",
+    "sha256": "a90e8b18cdd63682adad705ce09a3f59e211838c8e9a32c3f717a7a66a5dc276"
+  },
+  "source": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/guide.wav",
+    "sha256": "e93628b53423ea375c8e6a00c5015b70e085bf00d666dc13f2d767df99d9d720",
+    "pcm_sha256": "d705458e43393f3d75d13f9590df864f9520a3ec9e41061b9422df4cb27d373e",
+    "sample_frames": 1094663,
+    "duration_seconds": 45.610958333,
+    "tail_energy": 0.0295,
+    "last_pcm_sample_signed_16bit": 256
+  },
+  "operation": {
+    "type": "append_digital_silence_to_derived_copy",
+    "appended_frames": 12000,
+    "sample_rate_hz": 24000,
+    "appended_duration_seconds": 0.5,
+    "source_overwritten": false,
+    "provider_call": false
+  },
+  "derived": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/guide-derived-pad500ms.wav",
+    "sha256": "82f681fd784e1b13ef6482a453b19edd5c532aa71b89db219065525776aa8dd2",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "sample_frames": 1106663,
+    "duration_seconds": 46.110958333,
+    "source_prefix_pcm_sha256": "d705458e43393f3d75d13f9590df864f9520a3ec9e41061b9422df4cb27d373e",
+    "appended_frames_all_zero": true,
+    "tail_energy": 0.0,
+    "tail_energy_threshold_exclusive": 0.02,
+    "ends_in_silence": true
+  },
+  "boundary_assessment": {
+    "join_jump_signed_16bit": 256,
+    "join_jump_fraction_of_full_scale": 0.0078125,
+    "join_jump_dbfs_approx": -42.14,
+    "join_jump_percentile_among_final_100ms_sample_steps": 95.17,
+    "final_100ms_max_sample_step": 1600,
+    "possible_faint_click": true,
+    "auditioned_by_owner": false,
+    "disposition": "Carry this specific boundary risk into finished private review; technical tail pass is not a naturalness pass."
+  },
+  "limitation": "The derived file appends only zeros. It cannot restore a clipped phoneme or prove that the final spoken word resolves naturally. The owner has not listened to this derived guide."
+}

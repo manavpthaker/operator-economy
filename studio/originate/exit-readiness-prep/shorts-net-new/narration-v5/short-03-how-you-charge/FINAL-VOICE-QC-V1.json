@@ -1,0 +1,78 @@
+{
+  "record_type": "ep007_short03_original_c_final_voice_qc_v1",
+  "at_utc": "2026-09-23T00:49:38Z",
+  "short_id": "short-03-how-you-charge",
+  "status": "pass_technical_ready_for_two_avatar_segment_planning",
+  "provider_calls_by_this_qc": 0,
+  "transfer_receipt": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/ELEVEN-RECEIPT.json",
+    "sha256": "5f4a83c65a6429020a6f8567a08f52e1e305e39007a3114b94ec002918ba632e",
+    "http_status": 200,
+    "actual_credit_cost_verified": true,
+    "actual_credit_cost": 456,
+    "transfer_attempts": 1,
+    "automatic_retries": 0
+  },
+  "locked_script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-03-how-you-charge/SCRIPT.txt",
+    "sha256": "2a56beffef964667fbd09c934130d53171da605e23f876e75a4cb715a03efc3b",
+    "whitespace_word_count": 97,
+    "normalized_word_count": 98
+  },
+  "final_voice": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/original-c.wav",
+    "sha256": "c62c09057d6cf1e91b895b485b0cc0114d52707e337b1970112811e9d48ccd83",
+    "bytes": 3611212,
+    "encoding": "PCM signed 16-bit mono WAV",
+    "sample_rate_hz": 48000,
+    "sample_frames": 1805584,
+    "duration_seconds": 37.616333333,
+    "guide_to_final_duration_delta_seconds": 0.025375,
+    "peak_absolute_sample": 29686,
+    "peak_dbfs": -0.86,
+    "samples_at_or_above_32760_absolute": 0,
+    "overall_rms_full_scale": 0.17016474,
+    "final_60ms_rms_full_scale": 0.00001082,
+    "final_5ms_rms_full_scale": 0.0,
+    "trailing_digital_zero_samples": 1093,
+    "technical_tail_energy_relative_to_peak": 0.0,
+    "technical_tail_threshold_exclusive": 0.02,
+    "technical_tail_pass": true
+  },
+  "exact_copy_asr": {
+    "status": "pass_two_independent_local_whisper_model_reads_match_all_normalized_locked_words",
+    "models": ["small.en", "medium.en"],
+    "normalized_words_each": 98,
+    "all_word_times_ordered_and_within_waveform": true,
+    "model_transcript_paths_and_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-final-small/transcript.json",
+        "sha256": "75569fbd1ddacb81ad040c12e4a348b0cd044ffedff2c84e2ad7a24cc89a5087"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-final-medium/transcript.json",
+        "sha256": "3763a2f481d002fe044e68374af08a5aee04e80a1d41c244a38feb45bc6fe868"
+      }
+    ]
+  },
+  "word_timing_record": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/FINAL-WORD-TIMINGS-V1.json",
+    "sha256": "8b1741837def7f4ae3e79c444c5696ce19e367b737c280bbee756877bfbc74c1",
+    "forced_alignment_word_rows": 98,
+    "final_word_end_seconds": 37.11,
+    "post_speech_seconds": 0.506333333
+  },
+  "specific_asr_limit": "Raw WhisperX independently read one word as 'the' where the locked script and both independent Whisper model reads have 'to'. The locked word was supplied only to the forced-alignment pass. This is explicit, not an unqualified three-model exact-copy claim.",
+  "picture_planning": {
+    "short03_avatar_passages": 2,
+    "role_in_six_passage_slate": "two_of_six_across_shorts_02_to_04",
+    "opening_host_speech_anchor_seconds": [0.074, 8.506],
+    "legal_screen_first_word_seconds": 8.606,
+    "closing_host_speech_anchor_seconds": [31.605, 37.11],
+    "status": "ready_to_define_exact_segment_audio_and_request_handles_from_final_word_clock",
+    "not_yet_established": "Final avatar request lengths, matching generated footage, sync restoration, sound-on edit, owner performance acceptance, and phone review."
+  },
+  "human_listening": "deferred_to_finished_private_review_not_passed",
+  "publication_or_upload_approval": false,
+  "limitation": "Waveform, ASR, and forced timing checks establish a technical source for planning. They do not prove natural delivery, lip sync, legal clarity in picture, or final viewer comprehension."
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R62 S17 part 2 — The shape the law leaves you</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.tag{font-family:Supreme,sans-serif;fill:#173530;font-size:24px;font-weight:500}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:22px;text-align:center;margin:0;font:700 58px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep007-r62-s17-p2" data-start="0" data-duration="29.5" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="The engagement card and an invoice; the card's fixed fee is traced by a red boundary, the shape the law leaves. Then a house changing hands: the agent is paid when it completes, the surveyor is paid for looking whether it completes or not. You are the surveyor.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- D: the S16 engagement card, and what the law does to it. -->
+<g id="model">
+<g id="card"><rect x="460" y="130" width="360" height="520" rx="6" stroke="#173530" stroke-width="3" fill="#EDE5D6"/>
+<text class="label" x="640" y="186" text-anchor="middle">One engagement</text>
+<image href="public/art/workshop.svg" x="520" y="214" width="240" height="180"/><text class="small" x="640" y="426" text-anchor="middle">One business</text>
+<rect x="500" y="462" width="280" height="64" rx="4" stroke="#173530" stroke-width="2.5" fill="#F5F0E6"/><text class="tag" x="640" y="502" text-anchor="middle">Fixed scope</text>
+<rect id="feebox" x="500" y="552" width="280" height="64" rx="4" stroke="#173530" stroke-width="2.5" fill="#F5F0E6"/><text class="tag" x="640" y="592" text-anchor="middle">Fixed fee</text></g>
+<g id="invoice" class="hide"><rect x="900" y="300" width="170" height="210" rx="4" stroke="#173530" stroke-width="2.5" fill="#F5F0E6"/>
+<text class="small" x="985" y="340" text-anchor="middle" style="fill:#173530">Invoice</text><path class="light" d="M924 372L1046 372M924 404L1046 404M924 436L1010 436"/></g>
+<rect id="law" class="hide" x="436" y="106" width="408" height="568" rx="10" stroke="#B5482F" stroke-width="4" fill="none"/>
+</g>
+<!-- E: a house changing hands. -->
+<g id="house" class="hide"><path class="ink" d="M560 384L640 314L720 384M576 384L576 470L704 470L704 384"/><path class="light" d="M620 470L620 424L660 424L660 470"/>
+<text class="small" x="640" y="292" text-anchor="middle">A house changing hands</text></g>
+<g id="agent" class="hide"><use href="#person" transform="translate(200,262) scale(.6)"/><text class="label" x="200" y="178" text-anchor="middle">Agent</text></g>
+<g id="done" class="hide"><path stroke="#173530" stroke-width="5" fill="none" stroke-linecap="round" d="M1090 200L1091 320"/><text class="label" x="1090" y="354" text-anchor="middle">Completes</text></g>
+<path id="apay" class="hide" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M250 250C480 150 860 160 1084 262"/>
+<text id="apay-l" class="small hide" x="660" y="160" text-anchor="middle">Paid when it completes</text>
+<g id="surv" class="hide"><use href="#person" transform="translate(200,570) scale(.6)"/><text class="label" x="200" y="642" text-anchor="middle">Surveyor</text></g>
+<path id="spay" class="hide" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M250 560C380 560 480 520 570 470"/>
+<text id="spay-l" class="small hide" x="300" y="512">Paid for looking</text>
+<text id="spay-l2" class="small hide" x="300" y="604">Completes or not</text>
+<text id="risk" class="small hide" x="1090" y="420" text-anchor="middle">Different risk</text>
+<text id="you" class="label hide" x="200" y="486" text-anchor="middle">You</text>
+</svg>
+<h1 id="h1" class="head">The shape the law leaves you</h1>
+<h1 id="h2" class="head">You are the surveyor</h1>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="29.5" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 782.5 + cue. Word anchors from word-transcript.json.
+const C={"invoice":4.54,"model":6.54,"fixed":8.50,"shape":11.66,"house":14.48,"agent":16.22,"completes":17.54,"surveyor":18.90,"looking":19.78,"ornot":20.86,"jobs":23.22,"risk":24.42,"you":27.98};
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+// "It does not just change your invoice."
+t.fromTo('#invoice',{autoAlpha:0,x:16},{autoAlpha:1,x:0,duration:.4,ease:'power2.out'},C.invoice);
+// "It decides your entire model." The invoice is a detail; the card is the business.
+t.to('#invoice',{autoAlpha:0,duration:.4,ease:'power1.inOut'},C.model);
+// "Fixed fee is not a preference here."
+t.to('#feebox',{attr:{'stroke-width':5},fill:'#EDE5D6',duration:.35,ease:'power1.out'},C.fixed);
+// "It is the shape the law leaves you."
+fade('#h1',C.shape-.2);
+draw('#law',C.shape,1.0);
+// "Think about a house changing hands."
+t.to(['#model','#h1'],{autoAlpha:0,duration:.5,ease:'power1.inOut'},C.house-.3);
+fade('#house',C.house,.45);
+// "The agent gets paid when it completes."
+fade('#agent',C.agent,.4);
+fade('#done',C.completes-.3,.4);
+draw('#apay',C.completes,.8);
+fade('#apay-l',C.completes+.4,.35);
+// "The surveyor gets paid for looking, whether it completes or not."
+fade('#surv',C.surveyor,.4);
+draw('#spay',C.looking,.6);
+fade('#spay-l',C.looking+.3,.35);
+fade('#spay-l2',C.ornot,.35);
+// "Those are different jobs with different risk"
+t.to('#apay',{strokeDasharray:'12 10',duration:.01},C.risk);
+fade('#risk',C.risk+.1,.35);
+// "You are the surveyor."
+fade('#you',C.you,.4);
+fade('#h2',C.you+.15);
+window.__timelines['ep007-r62-s17-p2']=t;
+</script></body></html>

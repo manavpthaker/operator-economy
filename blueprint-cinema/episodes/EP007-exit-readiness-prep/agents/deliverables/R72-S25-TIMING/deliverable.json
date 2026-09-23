@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r72-s25-timing",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/intentional-pause-map.json",
+      "sha256": "0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-TIMING/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-TIMING/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-TIMING/endpoint-audio.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-TIMING/input-pins.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-TIMING/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Compare live locked script/transcript/master/pause-map SHA256 to supplied and previously verified pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Extract S25 W003110\u2013W003165 and exact phrase/local/frame cue mapping",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify4.2second intentional gap after W003165 and continuous4.11+0.09source allocation",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare proposed S24 review lead candidates using original PCM24fps bins and boundary samples",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate1131.75outpoint,726scene frames,200lead frames,926context frames and corresponding sample intervals",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous normal-speed subjective listening",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "All four pinned inputs match current files.",
+    "Word/phrase windows derive directly from the locked transcript.",
+    "Pause duration is explicitly recorded after W003165 in intentional-pause-map.json.",
+    "PCM boundary metrics derive directly from the mono48kHz PCM16 master."
+  ],
+  "assumptions": [
+    "Accepted S24 source window is1078.5\u20131101.5,552frames.",
+    "Original narration and full retained pause remain continuous without time stretch or deletion.",
+    "The recommendation owns picture placement of the pause only, not a new audio cutout."
+  ],
+  "unresolved_questions": [
+    "PCM alone cannot identify all pre-word activity as breath versus phoneme; no subjective listening verdict is claimed.",
+    "Final visual reading load and implementation remain with root."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>EP007 S22 — Film timing plan</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden;background:#F5F0E6;color:#173530}
+#root{position:relative;width:1280px;height:720px;overflow:hidden}
+.kicker{position:absolute;left:36px;top:25px;font:500 20px Supreme,sans-serif;letter-spacing:1px}
+h1{position:absolute;left:34px;top:48px;margin:0;font:700 53px Boska,serif}
+.clip,.panel{position:absolute;inset:0}.picture{position:absolute;left:36px;top:170px;width:800px;height:450px;object-fit:contain;background:#111}
+.card{position:absolute;left:872px;top:170px;width:365px;font:400 27px/1.36 Supreme,sans-serif}
+.card .tag{font:500 20px Supreme,sans-serif;color:#B5482F;margin:0 0 17px}
+.card h2{font:700 40px/1.13 Boska,serif;margin:0 0 20px}
+.card p{margin:0 0 18px}
+.foot{position:absolute;left:36px;top:645px;font:400 20px Supreme,sans-serif}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div data-hf-id="hf-zbsl" id="root" data-composition-id="ep007-r67-s22-plan" data-start="0" data-duration="21.833333333333332" data-width="1280" data-height="720" data-fps="24">
+<div data-hf-id="hf-7qd4" class="kicker">S22 · TIMING PLAN</div><h1 data-hf-id="hf-2aa2">Return to the table</h1>
+<div data-hf-id="hf-z8jq" id="return" class="panel">
+<video data-hf-id="hf-f2ty" id="table-wide" class="picture clip" src="public/media/establishing.mp4" muted playsinline data-start="0" data-duration="2.2916666666666665" data-media-start="4.5" data-track-index="2"></video>
+<div data-hf-id="hf-vn2y" class="card"><p data-hf-id="hf-qiav" class="tag">EXISTING FOOTAGE</p><h2 data-hf-id="hf-ge18">The same table</h2><p data-hf-id="hf-gb86">Return to the owner, the buyer and the question.</p></div>
+<p data-hf-id="hf-yjn2" class="foot">Original narration · existing table coverage</p>
+</div>
+<div data-hf-id="hf-7z2p" id="question" class="panel">
+<video data-hf-id="hf-q0vh" id="buyer-question" class="picture clip" src="public/media/question.mp4" muted playsinline data-start="2.2916666666666665" data-duration="2.625" data-media-start="0" data-track-index="2"></video>
+<div data-hf-id="hf-i08u" class="card"><p data-hf-id="hf-rnbb" class="tag">EXISTING FOOTAGE</p><h2 data-hf-id="hf-d8c4">The same question</h2><p data-hf-id="hf-eydf">The narrator supplies its meaning.</p></div>
+<p data-hf-id="hf-w7re" class="foot">Original narration · illustrative question, without character audio</p>
+</div>
+<img data-hf-id="hf-nmp6" id="world-reference" class="picture clip" src="public/media/reference.png" data-start="4.916666666666667" data-duration="16.916666666666668" data-track-index="2" alt="Existing table reference only; binder handoff and inspection are not generated.">
+<div data-hf-id="hf-hylr" id="supply" class="panel">
+<div data-hf-id="hf-iejv" class="card"><p data-hf-id="hf-tflg" class="tag">TAKE A · TO GENERATE</p><h2 data-hf-id="hf-fqe6">She supplies the record</h2><p data-hf-id="hf-8ri7">She promptly slides the green binder to him and lets it go.</p><p data-hf-id="hf-5spe">No pause to reconstruct the answer.</p></div>
+<p data-hf-id="hf-i8fl" class="foot">Reference image only · the binder handoff has not been generated</p>
+</div>
+<div data-hf-id="hf-igt0" id="inspect" class="panel">
+<div data-hf-id="hf-isuw" class="card"><p data-hf-id="hf-ccdp" class="tag">TAKE B · TO GENERATE</p><h2 data-hf-id="hf-oaju">He checks it himself</h2><p data-hf-id="hf-rk5z">He opens the binder and reads the prepared record.</p><p data-hf-id="hf-896c">Her hands stay at rest. End on inspection.</p></div>
+<p data-hf-id="hf-843j" class="foot">Reference image only · opening and reading have not been generated</p>
+</div>
+<audio data-hf-id="hf-qbzo" id="vo" src="public/audio/narration.wav" data-start="0" data-duration="21.833333333333332" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div><script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+gsap.set('#question,#supply,#inspect',{autoAlpha:0});
+t.set('#return',{autoAlpha:0},55/24);t.set('#question',{autoAlpha:1},55/24);
+t.set('#question',{autoAlpha:0},118/24);t.set('#supply',{autoAlpha:1},118/24);
+t.set('#supply',{autoAlpha:0},12);t.set('#inspect',{autoAlpha:1},12);
+window.__timelines['ep007-r67-s22-plan']=t;
+</script></body></html>

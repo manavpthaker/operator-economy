@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short01-thirty-days { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; color: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s02-fill { position: absolute; inset: 0; background: #173530; }
+        .s02-paper { position: absolute; top: 312px; left: 58px; width: 900px; height: 1050px; padding: 72px 64px 58px; border-top: 6px solid #b5482f; background: #f5f0e6; color: #19201f; box-shadow: 0 30px 76px rgba(7,26,23,0.34); }
+        .s02-paper::after { position: absolute; right: 64px; bottom: 62px; left: 64px; height: 2px; background: rgba(88,109,116,0.24); content: ""; }
+        .s02-kicker { display: flex; align-items: center; gap: 14px; color: #586d74; font-size: 21px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .s02-kicker::before { width: 56px; height: 4px; background: #b5482f; content: ""; }
+        .s02-title { margin: 188px 0 0; color: #173530; font: 700 112px/0.86 "BL Boska", Georgia, serif; letter-spacing: -0.052em; text-transform: uppercase; }
+        .s02-title span { display: block; margin-top: 26px; color: #b5482f; }
+      </style>
+      <section data-hf-id="hf-l48v" id="short01-thirty-days" data-composition-id="short01-thirty-days" data-start="0" data-duration="6.25" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-j450" class="s02-fill" aria-hidden="true"></div>
+        <article data-hf-id="hf-uwij" id="s02-paper" class="s02-paper">
+          <div data-hf-id="hf-okeq" id="s02-kicker" class="s02-kicker">Start with one question</div>
+          <h1 data-hf-id="hf-uugg" id="s02-title" class="s02-title">For 30 days<span data-hf-id="hf-6bpl">without the owner?</span></h1>
+        </article>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s02-paper", { opacity: 0, y: 48 }, { opacity: 1, y: 0, duration: 0.52, ease: "power3.out" }, 0.16);
+        tl.fromTo("#s02-kicker", { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, 0.5);
+        tl.fromTo("#s02-title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 3.72);
+        window.__timelines["short01-thirty-days"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #173530;
+        color: #f5f0e6;
+        font-family: "BL Supreme", system-ui, sans-serif;
+      }
+      #root > [data-composition-src] { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+
+      .identity-docket {
+        position: absolute;
+        z-index: 80;
+        top: 48px;
+        left: 58px;
+        right: 122px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+      .identity-rail {
+        position: absolute;
+        z-index: 79;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: #173530;
+        border-bottom: 2px solid rgba(196, 185, 158, 0.34);
+        pointer-events: none;
+      }
+      .series-label {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #f5f0e6;
+        font-size: 25px;
+        font-weight: 500;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.72);
+      }
+      .series-label::before { width: 10px; height: 34px; background: #c4b99e; content: ""; }
+      .prototype-label {
+        max-width: 330px;
+        color: rgba(245, 240, 230, 0.86);
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 1.22;
+        letter-spacing: 0.09em;
+        text-align: right;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.8);
+      }
+      .mode-label {
+        position: absolute;
+        z-index: 81;
+        top: 100px;
+        left: 82px;
+        font: 500 24px/1 "BL Supreme", system-ui, sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.76);
+        pointer-events: none;
+      }
+      #test-mode { color: #c4b99e; }
+      #work-mode { color: #fb8b69; opacity: 0; }
+
+      #caption-shade {
+        position: absolute;
+        z-index: 70;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 560px;
+        background: linear-gradient(to bottom, rgba(23, 53, 48, 0), rgba(23, 53, 48, 0.9) 42%, #173530 72%);
+        pointer-events: none;
+      }
+      #caption-band {
+        position: absolute;
+        z-index: 82;
+        left: 58px;
+        right: 122px;
+        top: 1418px;
+        height: 320px;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #caption-band::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 6px;
+        background: #b5482f;
+        content: "";
+      }
+      .caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 18px;
+        color: #f5f0e6;
+        font: 500 66px/0.98 "BL Supreme", system-ui, sans-serif;
+        letter-spacing: -0.035em;
+        opacity: 0;
+        text-wrap: balance;
+      }
+      .caption em { color: #fb8b69; font-style: normal; }
+
+      .footer-meta {
+        position: absolute;
+        z-index: 84;
+        left: 58px;
+        right: 122px;
+        bottom: 62px;
+        display: flex;
+        justify-content: space-between;
+        color: rgba(245, 240, 230, 0.62);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-hf-id="ep007-short01-root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="42.666667"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="scene-01-slot" data-composition-id="scene-01-no-owner" data-composition-src="compositions/01-no-owner.html" data-start="0" data-duration="14.250000" data-track-index="1"></div>
+      <div id="scene-02-slot" data-composition-id="scene-02-circle-owner" data-composition-src="compositions/02-circle-owner.html" data-start="14.250000" data-duration="5.666667" data-track-index="1"></div>
+      <div id="scene-03-slot" data-composition-id="scene-03-dependency-map" data-composition-src="compositions/03-dependency-map.html" data-start="19.916667" data-duration="10.583333" data-track-index="1"></div>
+      <div id="scene-04-slot" data-composition-id="scene-04-map-limit" data-composition-src="compositions/04-map-limit.html" data-start="30.500000" data-duration="2.500000" data-track-index="1"></div>
+      <div id="scene-05-slot" data-composition-id="scene-05-commercial-question" data-composition-src="compositions/05-commercial-question.html" data-start="33.000000" data-duration="9.666667" data-track-index="1"></div>
+
+      <audio id="original-c-fast-intro-balanced-v2" src="assets/audio/short01-final-original-c-fast-intro-balanced-v2.wav" data-start="0" data-duration="42.666667" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+
+      <div class="identity-rail" aria-hidden="true"></div>
+      <div class="identity-docket" data-hf-id="channel-identity-docket">
+        <div id="series-label" class="series-label">The Operator Economy</div>
+        <div class="prototype-label">Fast-intro V1 · Original C recut · avatar placeholders</div>
+      </div>
+      <div id="test-mode" class="mode-label">Sale-readiness practice</div>
+      <div id="work-mode" class="mode-label">The diagnostic</div>
+
+      <div id="caption-shade" aria-hidden="true"></div>
+      <section id="caption-band" data-layout-allow-caption-zone aria-label="Scratch captions">
+        <p id="caption-01-context" class="caption">How do you help someone get their business <em>ready to sell?</em></p>
+        <p id="caption-02-test" class="caption"><em>Could the business run</em> for thirty days without its owner?</p>
+        <p id="caption-03-business" class="caption">You can build a business around <em>that preparation.</em></p>
+        <p id="caption-04-practice" class="caption">A <em>sale-readiness practice.</em></p>
+        <p id="caption-05-answer" class="caption">Try answering without saying <em>“I.”</em></p>
+        <p id="caption-06-example" class="caption">“<em>I</em> call the customers.”</p>
+        <p id="caption-07-circle" class="caption"><em>Circle every “I.”</em></p>
+        <p id="caption-08-questions" class="caption">Who else could act? What would they need?</p>
+        <p id="caption-09-stops" class="caption">What stops without the owner?</p>
+        <p id="caption-10-map" class="caption">Do that for each one, and you’ve got a <em>first working map</em></p>
+        <p id="caption-11-dependencies" class="caption">of the business’s dependencies.</p>
+        <p id="caption-12-boundary" class="caption">It isn’t a prediction about the sale.</p>
+        <p id="caption-13-question" class="caption">The bigger question is whether</p>
+        <p id="caption-14-pay" class="caption">an owner would pay someone to clear that map <em>before a buyer appears.</em></p>
+        <p id="caption-15-episode" class="caption">The full episode shows you <em>how to build the service.</em></p>
+      </section>
+
+      <div class="footer-meta">
+        <span>Illustrative working diagnostic</span>
+        <span>EP007 · Short 01</span>
+      </div>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const captionWindows = [
+        ["#caption-01-context", 0.02, 3.89],
+        ["#caption-02-test", 4.08, 8.25],
+        ["#caption-03-business", 8.36, 11.17],
+        ["#caption-04-practice", 11.20, 14.18],
+        ["#caption-05-answer", 14.25, 16.28],
+        ["#caption-06-example", 16.31, 17.68],
+        ["#caption-07-circle", 17.96, 19.90],
+        ["#caption-08-questions", 19.94, 22.38],
+        ["#caption-09-stops", 22.59, 24.93],
+        ["#caption-10-map", 24.97, 28.04],
+        ["#caption-11-dependencies", 28.14, 29.70],
+        ["#caption-12-boundary", 30.39, 32.98],
+        ["#caption-13-question", 33.02, 34.87],
+        ["#caption-14-pay", 34.92, 39.79],
+        ["#caption-15-episode", 39.91, 42.54]
+      ];
+      captionWindows.forEach(([selector, start, end]) => {
+        tl.fromTo(selector, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, start);
+        tl.to(selector, { opacity: 0, y: -10, duration: 0.12, ease: "power2.in" }, end - 0.12);
+      });
+      tl.to("#test-mode", { opacity: 0, x: 14, duration: 0.2, ease: "power2.in" }, 14.02);
+      tl.fromTo("#work-mode", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, 14.25);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

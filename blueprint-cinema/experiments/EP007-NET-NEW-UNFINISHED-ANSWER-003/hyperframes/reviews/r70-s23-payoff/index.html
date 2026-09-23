@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>EP007 S23 — The work in the pause</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#root{position:relative;width:1280px;height:720px;overflow:hidden;color:#173530}
+.paper{position:absolute;inset:0;background:#F5F0E6}
+.scene{position:absolute;inset:0;width:1280px;height:720px;padding:72px 88px 30px}
+h1{margin:0;font:700 102px/1.04 Boska,serif;letter-spacing:-.025em}
+h1 span{display:block}
+#model{position:absolute;left:88px;right:88px;top:361px;height:330px;opacity:0;visibility:hidden}
+.model-label{margin:0 0 22px;font:500 23px/1.2 Supreme,sans-serif;color:#33464C}
+.columns{display:grid;grid-template-columns:1fr 1fr;column-gap:88px}
+.label{margin:0 0 2px;font:500 25px/1.2 Supreme,sans-serif}
+.number{margin:0 0 6px;font:700 68px/1.1 Boska,serif;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.qualifier{margin:0;font:400 25px/1.35 Supreme,sans-serif;color:#33464C}
+.threshold{margin:5px 0 0;font:400 22px/1.3 Supreme,sans-serif;color:#33464C}
+.disclosure{position:absolute;top:299px;left:0;right:0;margin:0;font:400 21px/1.25 Supreme,sans-serif;color:#33464C}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div data-hf-id="hf-q8y6" id="root" data-composition-id="ep007-r70-s23" data-start="0" data-duration="9.583333333333334" data-width="1280" data-height="720" data-fps="24">
+<div data-hf-id="hf-2ava" class="paper"></div>
+<section data-hf-id="hf-dr4h" id="payoff-scene" class="scene clip" data-start="0" data-duration="9.583333333333334" data-track-index="1">
+<h1 data-hf-id="hf-xaj7" id="thesis"><span data-hf-id="hf-wcgd">The work</span><span data-hf-id="hf-f3bf">in the pause.</span></h1>
+<div data-hf-id="hf-6mz8" id="model">
+<p data-hf-id="hf-iby9" class="model-label">Model · per engagement</p>
+<div data-hf-id="hf-zyj5" class="columns">
+<div data-hf-id="hf-yeow"><p data-hf-id="hf-ehie" class="label">Hours</p><p data-hf-id="hf-v2bz" class="number">85 h</p><p data-hf-id="hf-awpf" class="qualifier">Assumed · unmeasured</p></div>
+<div data-hf-id="hf-y7yw"><p data-hf-id="hf-qds5" class="label">Fee</p><p data-hf-id="hf-gd7l" class="number">~$16,000</p><p data-hf-id="hf-fejb" class="qualifier">8 engagements / year</p><p data-hf-id="hf-yw5y" class="threshold">Model threshold: ~$16,250</p></div>
+</div>
+<p data-hf-id="hf-22ss" class="disclosure">Modeled scenario · not observed performance or an earnings forecast</p>
+</div>
+</section>
+<audio data-hf-id="hf-xgmj" id="original-narration" src="public/audio/narration.wav" data-start="0" data-duration="9.583333333333334" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={model:90/24,entry:6/24};
+t.fromTo('#model',{autoAlpha:0},{autoAlpha:1,duration:C.entry,ease:'power1.out'},C.model);
+window.__timelines['ep007-r70-s23']=t;
+</script></body></html>

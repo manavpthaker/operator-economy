@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EP007 — S19 and S20 review</title>
+<style>body{margin:0;background:#111;color:#eee;font:16px/1.45 system-ui}video{display:block;width:100%;max-height:84vh;background:#000}main{padding:14px 20px;max-width:1100px}nav{display:flex;gap:24px;margin-bottom:10px}a,button{color:#eee}a[aria-current]{font-weight:700;text-decoration-thickness:3px}p{margin:7px 0}button{border:1px solid #777;background:#222;padding:7px 10px;border-radius:4px;cursor:pointer;margin:5px 6px 0 0}.status{color:#ccc;font-size:14px}</style></head>
+<body><video id="v" controls preload="metadata" playsinline></video><main><nav><a id="s20-link" href="?scene=s20">S20 · The economics</a><a id="s19-link" href="?scene=s19">S19 · Corrected title change</a></nav><p id="description"></p><div id="cues"></div><p class="status">Review candidates. S18 is locked; S19 and S20 await review. S17’s on-camera take remains open.</p></main>
+<script>
+const s19=new URLSearchParams(location.search).get('scene')==='s19';
+const video=document.getElementById('v');video.src=s19?'qa/s19-corrected.mp4':'qa/context.mp4';
+document.getElementById(s19?'s19-link':'s20-link').setAttribute('aria-current','page');
+document.getElementById('description').textContent=s19?'Last 8 seconds of S18, then S19 at 0:08. The overlapping headings are corrected; the final card is easier to read.':'Last 8 seconds of S19, then S20 at 0:08. Original narration throughout.';
+const cues=s19?[[8,'S19 starts'],[34,'The title change'],[49,'Final card']]:[[8,'S20 starts'],[23.84,'Base calculation'],[44,'Income target'],[50.36,'Capacity'],[66.34,'Two alternatives'],[76.58,'The unknown']];
+for(const [time,label] of cues){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{video.currentTime=time;video.play()};document.getElementById('cues').appendChild(b)}
+</script></body></html>

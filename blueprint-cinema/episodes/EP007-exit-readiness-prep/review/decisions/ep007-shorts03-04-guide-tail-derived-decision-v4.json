@@ -1,0 +1,76 @@
+{
+  "event_id": "ep007-shorts03-04-guide-tail-derived-decision-v4",
+  "decision_id": "ep007-shorts03-04-guide-tail-repair",
+  "event_type": "decision",
+  "tags": [
+    "shorts",
+    "short-03",
+    "short-04",
+    "narration",
+    "guide-qc",
+    "audio-repair",
+    "private-review"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Keep the owner-locked exact spoken endings intact in first-pass private-review Shorts.",
+      "viewer_before": "Shorts 03 and 04 have complete-looking guide reads, but their raw WAV endings fail the mechanical silence-tail threshold.",
+      "viewer_after": "A separately labeled derived guide may pass the tail gate without implying that human listening or final delivery has passed."
+    },
+    "choice": "Create separate candidate copies of the Short 03 and 04 guides by appending 0.5 seconds of digital zero after the original last sample, leaving all original PCM samples and raw provider responses unchanged. Re-probe and re-run exact-copy ASR before any Original C transfer; defer owner listening to the finished private-review videos as requested.",
+    "reason": "Short 03 has two independent exact 98-word local ASR reads and decays near zero. Short 04 has two exact 126-word local reads and includes the final business sentence; its last sample is nonzero, so a faint join click remains a specific risk for final review. A zero append is a bounded mechanical tail repair, not a claim to restore missing phonemes.",
+    "alternatives": [
+      {
+        "choice": "Retry both Google guides",
+        "reason_not_selected": "The locked words appear present and paid retries are outside the first-pass operational limits; test the lossless derived candidate first."
+      },
+      {
+        "choice": "Transfer the unmodified high-tail sources",
+        "reason_not_selected": "Both fail the established technical tail gate."
+      },
+      {
+        "choice": "Mark direct listening passed",
+        "reason_not_selected": "No owner listening has occurred. The finished private review must retain that open judgment."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Only these exact EP007 Short 03 and Short 04 guide WAVs and their present QC evidence.",
+      "avoid_when": "A source lacks final locked words, has a hard-clipped syllable, or a different take would require a new paid call."
+    },
+    "nuance": {
+      "source_basis": "agent_local_QC_and_owner_request_to_review_finished_videos",
+      "false_inference": "Appending silence does not repair truncated speech, certify naturalness, or authorize release.",
+      "original_tail_energy": {
+        "short_03": 0.0594,
+        "short_04": 0.0295,
+        "threshold": 0.02
+      },
+      "human_listening": "deferred_to_finished_private_review_not_passed",
+      "before_transfer": "derived file hash, original-prefix PCM equality, decoded format and duration, tail metric and exact-copy ASR must be recorded"
+    },
+    "scope": "Reversible local derived media and subsequent technical verification only. No new paid provider attempt, no change to locked words or original guide files, no owner acceptance or release."
+  },
+  "evidence": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/GUIDE-QC-V1.json",
+      "sha256": "5a18bc1218fd8fbb72dd5cdfc291544dd6f629dacb55e83982664e60ada1fae1",
+      "locator": "Short 03 98-word exact-copy ASR and original high-tail evidence"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/GUIDE-QC-V1.json",
+      "sha256": "2c7ee7732dbe1e92cda800c9038e31c8ca632334c02cf7635bdd5f932432cf3b",
+      "locator": "Short 04 126-word exact-copy ASR, original high-tail and boundary click risk"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/guide.wav",
+      "sha256": "91b6658fca45a6ccb9e834d2a806b338d073bf8bafe856c7ec4850a9842035a0",
+      "locator": "unaltered Short 03 Google guide source"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/guide.wav",
+      "sha256": "e93628b53423ea375c8e6a00c5015b70e085bf00d666dc13f2d767df99d9d720",
+      "locator": "unaltered Short 04 Google guide source"
+    }
+  ]
+}

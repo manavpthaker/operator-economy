@@ -1,0 +1,347 @@
+{
+  "schema": "oe-agent-deliverable/v1",
+  "work_order": "R69-S22-TAKE-A-QC",
+  "status": "complete_selected_97_frames_pass_opening_and_original_170_fail",
+  "prepared_at": "2026-09-17T19:17:39.168388+00:00",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/DIRECTION.md",
+      "sha256": "9150aed9526fe02240c91e9f6d5434e4e6760a61096a7ac25774447dd059a0f4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/TAKE-A.request.json",
+      "sha256": "d0317ffe563a1947a13401a58cba6d52c31f7bb75693292e99b642a0f387dc8f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/TAKE-B.request.json",
+      "sha256": "f75cbe0a771f6df09d3baf73f460e0fc52d79338ffae2bef79b1e7703a681f30"
+    }
+  ],
+  "source_sha256": "783efccd8a671383b49e2e1a88f9e7fb878935e6f2b4790bfa90314125fbf128",
+  "source_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-a/native.mp4",
+  "source_inspected": true,
+  "checklist": [
+    {
+      "id": "provenance",
+      "criterion": "Match root-supplied source hash; probe actual duration, rate, frame count, dimensions and streams.",
+      "result": "pass",
+      "evidence": "Source SHA matches root pin;193frames,24fps,1916x1080,8.041667s,video only."
+    },
+    {
+      "id": "prepared_prose",
+      "criterion": "Both exposed pages show multiple paragraph groups of closely spaced printed body text, visibly filled from first exposure; no empty form, blank ruled rows or check-mark-only substitute.",
+      "result": "pass_selected_section",
+      "evidence": "Right page is visibly populated with fine printed body text. Left leaf remains blank; not a semantic blocker for the indicated answer."
+    },
+    {
+      "id": "visible_not_legible",
+      "criterion": "Printing unmistakably reads as text at source and1280x720 review size, but no readable fabricated names, values or factual sentences. Unreadable content is permitted; absence of content is not.",
+      "result": "pass_sampled",
+      "evidence": "Right-page printing visible at native and1280 review size; no legible invented names, monetary values or factual sentences identified."
+    },
+    {
+      "id": "content_stability",
+      "criterion": "Paragraph structure and page identity stay stable during opening, pointing and withdrawal. No writing or text appearing after reveal, vanishing, drifting or changing into rules.",
+      "result": "pass_selected_samples",
+      "evidence": "Right-page printing and page geometry remain stable through point/withdrawal in selected sampled sequence."
+    },
+    {
+      "id": "opening_physics",
+      "criterion": "Coherent cover, spine/rings and two-page opening without material passing through hands, pages, props or binder. Evaluate any lift/rotation as observed deviation, not automatic failure unless it damages continuity or meaning.",
+      "result": "fail_opening",
+      "evidence": "Frames42\u201378 show folio unfolding while original thick green binder appears closed beneath; full170-frame presentation is not recommended."
+    },
+    {
+      "id": "specific_point",
+      "criterion": "One index finger lands beside an actual printed passage; buyer attention follows. No aimless gesture, repeated tap, or empty-row target.",
+      "result": "pass_selected_samples",
+      "evidence": "Finger beside actual right-page printing from sampled108 through162; native120/144 confirm target."
+    },
+    {
+      "id": "clear_final_state",
+      "criterion": "Owner withdraws fully; printed passage remains visible, binder settled, hands clear, buyer poised to inspect without collision.",
+      "result": "pass",
+      "evidence": "Withdrawal at168; hands clear by180; stable rest at192."
+    },
+    {
+      "id": "continuity",
+      "criterion": "Accepted owner-left/buyer-right cast, wardrobe, light, table, loose blank sheet/pencil/keys and action line preserved; no camera change or recasting.",
+      "result": "pass_selected_samples",
+      "evidence": "Stable late object reads as plausible open folio on carrier; same cast/room/sides/wardrobe. Reject opening transformation."
+    },
+    {
+      "id": "selection",
+      "criterion": "A continuous unretimed170-frame24fps interval carries all required reveal/point/withdrawal and usable final state, aligned with written-down cue. No loop, freeze or compression.",
+      "result": "fail_original_170_pass_revised_97",
+      "evidence": "Original[23,193) includes failed opening. Root-requested[96,193) selected-only pass;97frames and revised editorial allocation required."
+    },
+    {
+      "id": "b_seed",
+      "criterion": "Exact stable source frame matching selected A out state; populated paragraphs clear, no blur or hand occlusion, continuity intact. Bind seed PNG and source hashes only if A passes.",
+      "result": "pass_for_revised_selection",
+      "evidence": "Frame192 stable right-page print, hands clear; verified root PNG hash matches independently extracted PNG."
+    }
+  ],
+  "selected_frames_half_open": [
+    96,
+    193
+  ],
+  "potential_b_seed_frame": 192,
+  "source_review_recommendation": "PASS selected late section[96,193) only and frame192 seed. FAIL opening and original170-frame plan.",
+  "owner_acceptance": false,
+  "report": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/report.md",
+  "report_sha256": "121f27783fccf63c9e4ca804b4d949c6e02140ef554ea2a3987590cd580ca61f",
+  "shared_edits": false,
+  "provider_calls": 0,
+  "log_or_gate_changes": false,
+  "reviewed_at": "2026-09-17T19:28:47.823541+00:00",
+  "source_probe": {
+    "width": 1916,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 193,
+    "duration_seconds": 8.041667,
+    "streams": [
+      "video"
+    ]
+  },
+  "scope_revision": "Root requested selected-only judgment of frames96..192 after opening was independently rejected; root can revise coverage timing without retiming or hiding morphology.",
+  "selected_frame_count": 97,
+  "selected_duration_seconds": 4.041666666666667,
+  "selected_seconds_half_open": [
+    4,
+    8.041666666666666
+  ],
+  "original_170_frame_plan_pass": false,
+  "opening_pass": false,
+  "b_seed": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-a/qa/frame-192.png",
+    "frame": 192,
+    "source_seconds": 8,
+    "sha256": "9da401f3dbda734bc3186ac8498b9a6a7f33f5b73e83029b8fa0fe3f31c261ca",
+    "independent_extraction_path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-192-full.png",
+    "independent_extraction_sha256": "9da401f3dbda734bc3186ac8498b9a6a7f33f5b73e83029b8fa0fe3f31c261ca",
+    "use_condition": "Only with revised already-open-record coverage; failed opening stays excluded."
+  },
+  "material_defects": [
+    {
+      "id": "opening_carrier_morphology",
+      "frames": [
+        42,
+        48,
+        54,
+        60,
+        66,
+        72,
+        78
+      ],
+      "finding": "Thin folio opens while original thick binder body retains closed appearance; rejected from selected coverage."
+    }
+  ],
+  "nonblocking_deviations": [
+    {
+      "id": "blank_left_leaf",
+      "finding": "Only right page has prose. The actual pointed answer is visibly on that page, sufficient for intended meaning."
+    }
+  ],
+  "inspected_full_size_frames": [
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    96,
+    120,
+    144,
+    168,
+    180,
+    192
+  ],
+  "inspected_1280_frames": [
+    192
+  ],
+  "dense_sample_frames": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    90,
+    96,
+    102,
+    108,
+    114,
+    120,
+    126,
+    132,
+    138,
+    144,
+    150,
+    156,
+    162,
+    168,
+    174,
+    180,
+    186,
+    192
+  ],
+  "normal_speed_audiovisual_review": false,
+  "qa_artifacts": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-048-full.png",
+      "frame": 48,
+      "size": "1916x1080",
+      "sha256": "a3cf52100c65acd31111d9ad1ed9a703440ee2d3fe0297ad5082c4b848b8c7f0"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-060-full.png",
+      "frame": 60,
+      "size": "1916x1080",
+      "sha256": "902637dc54689bbaafbe9c7e5995a45a785b6570de9688f80b9f2dfaa10afa6c"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-072-full.png",
+      "frame": 72,
+      "size": "1916x1080",
+      "sha256": "71b9b36973b4875a1e71b9930f4cecc4a20afddea6ef5b19e221033656f9e47d"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-084-full.png",
+      "frame": 84,
+      "size": "1916x1080",
+      "sha256": "b2596503a6d0aee664044029159b20b241e43901529bf35c1c82ce5cf9b53733"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-096-full.png",
+      "frame": 96,
+      "size": "1916x1080",
+      "sha256": "c1a5de85c379f0134615da02f9858dea018e54b2f9dbf784266cc0cc489caba6"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-120-full.png",
+      "frame": 120,
+      "size": "1916x1080",
+      "sha256": "dd85bc2f358df4b3171e0bab7398f3feb947a4a398c55e2183f6d4a0addaf08d"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-144-full.png",
+      "frame": 144,
+      "size": "1916x1080",
+      "sha256": "b60fad3df9d364faf78c328e9e7fd564936809b71f6236b7de3984530d7249ad"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-168-full.png",
+      "frame": 168,
+      "size": "1916x1080",
+      "sha256": "e1308a7764dfa449c9d93650ce63415a4ead29dba3dfab317b60521f9f97ce3a"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-180-full.png",
+      "frame": 180,
+      "size": "1916x1080",
+      "sha256": "ef168faae38f020c9d334411d68c5f734c2922eb88b1b3e9485c13cc302f515e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-192-full.png",
+      "frame": 192,
+      "size": "1916x1080",
+      "sha256": "9da401f3dbda734bc3186ac8498b9a6a7f33f5b73e83029b8fa0fe3f31c261ca"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-120-1280.png",
+      "frame": 120,
+      "size": "1280x720",
+      "sha256": "0bb8748be72bd484d0e6800cd930e37d273fc456f97f2c89af7c41288fdb89aa"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-192-1280.png",
+      "frame": 192,
+      "size": "1280x720",
+      "sha256": "77acd8d714bec95ebd3befa828be59845fc069c94bb8f836d91b428c149ba607"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/motion-every6frames.png",
+      "frames": [
+        0,
+        6,
+        12,
+        18,
+        24,
+        30,
+        36,
+        42,
+        48,
+        54,
+        60,
+        66,
+        72,
+        78,
+        84,
+        90,
+        96,
+        102,
+        108,
+        114,
+        120,
+        126,
+        132,
+        138,
+        144,
+        150,
+        156,
+        162,
+        168,
+        174,
+        180,
+        186,
+        192
+      ],
+      "sha256": "d9b8f5ebd1c396a566aeaadfe9a80bb675cf1d2656fc30b85e210a169be13e54"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-036-full.png",
+      "frame": 36,
+      "size": "1916x1080",
+      "sha256": "9d7d671e72f293aa8c7958ca2a8808f317dbbdf2859d700fc1e4f1e0b0023c4d"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-042-full.png",
+      "frame": 42,
+      "size": "1916x1080",
+      "sha256": "228989507d3713b73ad5b03a5900bb56475ac6b16e16a41504d4d4ad902f651e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-054-full.png",
+      "frame": 54,
+      "size": "1916x1080",
+      "sha256": "96155cc23dfbf541de98b3087a70dd9b13b91cdd17098bf95607068017090684"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-066-full.png",
+      "frame": 66,
+      "size": "1916x1080",
+      "sha256": "53180f61a7a5beb37eff1e5677eb3edb8f55f02597ce49a3bbf3e3ffe1ba4520"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/qa/frame-078-full.png",
+      "frame": 78,
+      "size": "1916x1080",
+      "sha256": "becfaf429c311fe3f593b087ec77b138395a2f8f4d4f57ec2b12b09c4d8b90e4"
+    }
+  ],
+  "canonical_gate_changed": false
+}

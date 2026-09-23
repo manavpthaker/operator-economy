@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R62 S17 part 1 — The constraint</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.steel{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.oxide{fill:#B5482F}
+.kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:21px;font-weight:500;letter-spacing:2px}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:22px;text-align:center;margin:0;font:700 60px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep007-r62-s17-p1" data-start="0" data-duration="29.625" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="The room around a small business sale: the owner, four advisers paid when the sale closes, and the practice in the seat across from the owner. The practice's own pay line reaches toward the sale, then a regulated boundary cuts it off.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- The S11 room, with the practice in the S13 seat. -->
+<g id="room"><path class="light" d="M92 128L736 124L740 664L90 668Z"/><text class="kicker" x="112" y="160">THE ROOM</text></g>
+<g id="owner"><use href="#person" transform="translate(250,392)"/>
+<g class="ink"><path d="m130 450 118-1m10 1 112-1m-230 10 1 58m222-59-1 57"/></g><text class="label" x="250" y="270" text-anchor="middle">Owner</text></g>
+<g id="practice"><rect x="170" y="492" width="150" height="160" rx="4" stroke="#173530" stroke-width="3.5" fill="#EDE5D6"/>
+<path class="light" d="M196 528L294 528M196 556L294 556M196 584L270 584"/></g>
+<g id="advisers">
+<g><use href="#person" transform="translate(600,236) scale(.6)"/><text class="label" x="530" y="232" text-anchor="end">Broker</text></g>
+<g><use href="#person" transform="translate(600,360) scale(.6)"/><text class="label" x="530" y="356" text-anchor="end">Accountant</text></g>
+<g><use href="#person" transform="translate(600,484) scale(.6)"/><text class="label" x="530" y="480" text-anchor="end">Lawyer</text></g>
+<g><use href="#person" transform="translate(600,608) scale(.6)"/><text class="label" x="530" y="604" text-anchor="end">Wealth adviser</text></g>
+</g>
+<g id="close"><path class="ink" stroke-width="5" d="M1040 300L1041 480"/><text class="label" x="1040" y="276" text-anchor="middle">Sale closes</text></g>
+<g id="pays">
+<path class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 232C800 236 930 330 1036 380"/>
+<path class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 356C800 360 930 380 1036 392"/>
+<path class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 480C800 478 930 420 1036 404"/>
+<path class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="10 8" d="M644 604C860 604 980 520 1036 430"/>
+</g>
+<!-- The practice's own cut of the sale. -->
+<path id="cut1" class="hide" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M324 636C560 690 820 668 946 590"/>
+<path id="cut2" class="hide" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M946 590C990 560 1020 520 1038 468"/>
+<g id="bar" class="hide"><path stroke="#B5482F" stroke-width="6" fill="none" stroke-linecap="round" d="M958 536L959 650"/></g>
+<text id="reg" class="label oxide hide" x="982" y="636">Regulated</text>
+<text id="cost" class="small oxide hide" x="1250" y="690" text-anchor="end">In some places: every fee on the deal</text>
+<text id="note" class="small hide" x="92" y="704">The rule varies from place to place.</text>
+</svg>
+<h1 id="head" class="head">The constraint</h1>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="29.625" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 744.875 + cue. Word anchors from word-transcript.json.
+const C={"constraint":1.365,"cut":5.505,"align":6.745,"everybody":9.445,"cannot":11.845,"states":14.605,"regulated":19.305,"licence":21.825,"cost":26.705};
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+// "the constraint I promised you": the S12 heading returns over the room.
+fade('#head',C.constraint);
+// "The obvious way to price this is a cut of the sale. Align yourself with the outcome."
+draw('#cut1',C.cut,.9);
+draw('#cut2',C.align,.5);
+// "It is what everybody else in that room does."
+t.to('.pay',{strokeWidth:6,duration:.35,ease:'power1.out'},C.everybody);
+t.to('.pay',{strokeWidth:4,duration:.5,ease:'power1.inOut'},C.everybody+.6);
+// "You cannot do that." The boundary cuts only the practice's line.
+t.fromTo('#bar',{autoAlpha:0,y:-16},{autoAlpha:1,y:0,duration:.35,ease:'power2.out'},C.cannot);
+t.to('#cut2',{autoAlpha:0,duration:.4,ease:'power1.inOut'},C.cannot+.25);
+fade('#note',C.states,.45);
+fade('#reg',C.regulated,.4);
+t.to('#bar path',{strokeWidth:9,duration:.3,ease:'power1.out'},C.licence);
+t.to('#bar path',{strokeWidth:6,duration:.4,ease:'power1.inOut'},C.licence+.4);
+fade('#cost',C.cost,.4);
+window.__timelines['ep007-r62-s17-p1']=t;
+</script></body></html>

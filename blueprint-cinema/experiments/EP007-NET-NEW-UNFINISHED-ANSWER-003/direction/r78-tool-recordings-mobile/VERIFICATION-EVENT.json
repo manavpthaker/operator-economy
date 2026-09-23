@@ -1,0 +1,54 @@
+{
+  "event_id": "r78-s15-s16-mobile-framing-technical-verification-v1",
+  "decision_id": "s15-s16-actual-tool-recordings",
+  "event_type": "verification",
+  "tags": [
+    "actual-tools",
+    "mobile-legibility",
+    "real-cursor",
+    "original-audio",
+    "owner-review-pending"
+  ],
+  "data": {
+    "decision_event_id": "r78-actual-tool-mobile-framing-v1",
+    "method": "HyperFrames 0.8.50 strict checks at scene boundaries and action points; complete decoded-frame and full-luma blank scans; rendered AAC comparison against the staged locked-master slices; SHA-256 binding; HTTP byte-range probes; and live responsive-browser cue/playback checks at 390 by 844 CSS pixels.",
+    "result": "pass",
+    "scope": "Isolated R78 S15 and S16 mobile-framing review candidates and their owner-review surface only.",
+    "limitations": "The responsive review surface was tested in a narrow browser viewport, not on a physical phone. Technical verification does not establish uninterrupted audiovisual review, owner acceptance, full-episode integration, conform, lock, or release. The recordings remain an explicitly fictional illustrative example and establish no client outcome or resolved exception authority.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/qa/s15-mobile-review.mp4",
+        "sha256": "b676995321b8f5e134b17e27f78b406ad94140b1a9dde8eb3b5ee0555bef6710"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/qa/s16-mobile-r7-review.mp4",
+        "sha256": "eb8767961ba4ddeebc2b502c5672019d81ec970e96b3141318b340ee9e6223ba"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/mobile/index.html",
+        "sha256": "a91e4b16d4c3dddec9332e46df3e3f348ef1873e246542f18005bbc5fee6f66c"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/_tools/range-server.mjs",
+        "sha256": "94e242abe14f6a82c062ef2c74b65ea0a69c89fa189a956e5d06550f62977513"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/qa/VERIFICATION.json",
+      "sha256": "a13f9c9d1ef4cad3bc2b5e566be686a0d6e29033069676e76f2ea51ccb0f6bc2",
+      "locator": "Scene checks, decoded-frame scans, blank scans, and locked-narration audio comparisons"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/mobile/qa/REVIEW-SURFACE-VERIFICATION.json",
+      "sha256": "d6084ab8cb6c6a488b7350f1ad632b16527cc0076f689f7fe9af7889287227aa",
+      "locator": "HTTP byte-range and 390 by 844 responsive-browser verification"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile/DIRECTION.md",
+      "sha256": "2e76b9015bf5d77d50bb0d23c144f4a57c679493c629c716a292fe65bbeef19b",
+      "locator": "Authorized mobile-framing boundaries"
+    }
+  ]
+}

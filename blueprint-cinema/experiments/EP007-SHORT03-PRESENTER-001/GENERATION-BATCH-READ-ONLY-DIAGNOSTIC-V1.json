@@ -1,0 +1,68 @@
+{
+  "record_type": "ep007_shorts03_04_higgsfield_partial_batch_read_only_diagnostic_v1",
+  "at_utc": "2026-09-23T01:12:06Z",
+  "status": "unresolved_provider_rejection_despite_visible_credits",
+  "provider_mutations_by_this_diagnostic": 0,
+  "source_result": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/GENERATION-BATCH-RESULT-V1.json",
+  "selected_workspace": {
+    "type": "private",
+    "plan": "max",
+    "accessible_workspace_count": 1,
+    "note": "Read-only workspace listing shows one Private max workspace; no alternate workspace or explicit selection."
+  },
+  "balance": {
+    "before_batch_credits": 4062,
+    "after_batch_credits": 3858,
+    "delta_credits": 204,
+    "accepted_job_quotes_sum_credits": 204,
+    "rejected_item_quotes_sum_credits": 192,
+    "delta_matches_only_accepted_job_quotes": true,
+    "read_only_recheck_credits": 3858
+  },
+  "accepted_jobs": [
+    {
+      "index": 0,
+      "segment": "short03-opening",
+      "job_id": "7544da36-da33-4aba-8c5a-74a58ef275f2",
+      "quoted_credits": 108,
+      "read_only_jobs_wait_status": "in_progress"
+    },
+    {
+      "index": 3,
+      "segment": "short04-return-v2",
+      "job_id": "da988cb1-cf4f-46f6-9a30-a1915b487bc4",
+      "quoted_credits": 96,
+      "read_only_jobs_wait_status": "in_progress"
+    }
+  ],
+  "rejected_items": [
+    {
+      "index": 1,
+      "segment": "short03-return",
+      "status": "submission_failed",
+      "job_id": null,
+      "error": "Out of credits on max (monthly) plan in Private workspace.",
+      "quoted_credits": 84
+    },
+    {
+      "index": 2,
+      "segment": "short04-opening",
+      "status": "submission_failed",
+      "job_id": null,
+      "error": "Out of credits on max (monthly) plan in Private workspace.",
+      "quoted_credits": 108
+    }
+  ],
+  "assessment": {
+    "established": "The batch returned two job IDs and two submission_failed items with null job IDs; the 204-credit balance reduction equals only the two accepted quotes.",
+    "provider_tool_contract": "The video-batch tool states that each successfully submitted item creates one job, while rejected items create none.",
+    "likely_not": "A simple shortage of total visible credits: 3858 remained, exceeding either rejected 84- or 108-credit quote.",
+    "possible_unconfirmed_causes": [
+      "Concurrent reservation or ledger race within the four-item submission",
+      "A plan-bucket or top-up propagation mismatch reported as a generic out-of-credits error"
+    ],
+    "unknown": "No independent provider billing or job-ledger audit of the two rejected indexes is available from this read-only MCP response. A null job ID and matching balance delta strongly support no submitted job, but do not prove an absolute backend negative or exclude delayed ledger changes."
+  },
+  "safe_next_check": "Wait only the two known job IDs to terminal, then re-read credits and verify the account Usage ledger shows two charges totaling 204 and no entries for rejected indexes. Keep rejected items held; no automatic retry or new submission follows from this diagnostic.",
+  "credit_policy_reference": "https://higgsfield.ai/creator-hub/help-center/credits/how-credits-work"
+}

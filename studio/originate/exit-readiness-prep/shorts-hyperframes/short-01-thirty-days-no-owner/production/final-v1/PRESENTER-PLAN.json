@@ -1,0 +1,78 @@
+{
+  "record_type": "ep007_short01_presenter_plan",
+  "status": "prepared_pending_final_audio_and_explicit_paid_generation_authority",
+  "visual_baseline": {
+    "pointer": "../../../../../../../blueprint-cinema/experiments/EP007-PRESENTER-001/CURRENT-AVATAR.json",
+    "version": "V5",
+    "acceptance_sha256": "f86d47e5ace325068d3cb2384cf03933b80c30bca0866719b60c0f5e32fc224f",
+    "framing": {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+      "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82",
+      "higgsfield_media_id": "875a3997-b5c7-4410-9487-309a8c7740df"
+    },
+    "behavior_references": [
+      {
+        "role": "relaxed facial settling, ordinary blinks and subtle asymmetry",
+        "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/rebecca-behavior-muted.mp4",
+        "sha256": "42ff761aebffd5c0fdd53e6247d4ddcbeb0d560d8208971ea883e0e48faec724",
+        "higgsfield_media_id": "7dc478bc-0449-4867-a760-50670f4caccf"
+      },
+      {
+        "role": "clear connected articulation and concise emphasis",
+        "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/henry-articulation-muted.mp4",
+        "sha256": "8bbb4820ac8a6f85242b7b323e7ce922d79f32ed2f5578b59aaa3bec502e9c59",
+        "higgsfield_media_id": "5ec537ee-b01c-4bb5-a343-636882e4b747"
+      }
+    ]
+  },
+  "takes": [
+    {
+      "id": "take-a-open-through-circle",
+      "master_target_seconds": [0.0, 19.97747],
+      "requested_duration_seconds": 20,
+      "visual_use": "Dominant direct address in Scene 01, then continuous smaller presenter plate beside the owner statements in Scene 02.",
+      "spoken_words": "How do you help someone get their business ready to sell? You start before they even have a buyer. You can build a business around that preparation: a sale-readiness practice. First question: could the business run for thirty days without its owner? Try answering without saying ‘I.’ ‘I call the customers. I approve the exceptions. I know where the records are.’ Circle every ‘I.’",
+      "performance": "Begin with bright curiosity. Answer with easy authority rather than a pitch. Use a small open-handed gesture across the business proposition, settle briefly, then let compact irregular gestures support the thirty-day question and the three owner examples. Keep talking to one person near the lens. Return the hands to rest after Circle every I.",
+      "cost_credits": 240
+    },
+    {
+      "id": "take-b-boundary-through-bridge",
+      "master_target_seconds": [30.896824, 43.84641],
+      "requested_duration_seconds": 13,
+      "visual_use": "Presenter beside the settled dependency map in Scene 04, then dominant direct address for the commercial question and full-episode bridge in Scene 05.",
+      "spoken_words": "It isn’t a prediction about the sale. It shows where there’s no handoff yet, so you know where to start. The bigger question is whether an owner would pay someone to clear that map before a buyer appears. The full episode shows you how to build the service.",
+      "performance": "Deliver the sale boundary plainly, without apology. Let one hand lightly indicate the map, return to rest, then open the willingness-to-pay question with genuine curiosity. Finish the episode bridge with confident upward energy, not a hard sell or held smile.",
+      "cost_credits": 156
+    }
+  ],
+  "generation": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "count_each": 1,
+    "audio_authority": "Two lossless phrase-boundary slices from the single exact Original C master; no time stretch.",
+    "retries": 0
+  },
+  "restoration": {
+    "model": "fal-ai/sync-lipsync/v3",
+    "sync_mode": "silence",
+    "calls": 2,
+    "retries": 0,
+    "postcondition": "Remux the exact Original C source slices after picture alignment; generated native audio is never delivered."
+  },
+  "continuity": {
+    "camera": "One fixed eye-level seated medium shot; no zoom, crop drift, pan or angle change inside either take.",
+    "appearance": "Exact accepted face, glasses, navy shirt, study lighting and wide hand-visible composition.",
+    "between_takes": "The two takes need not match pose frame-for-frame because the intervening dependency-map sequence is a real editorial separation. They must still read as the same session.",
+    "portrait_assembly": "Use the locked vertical crops and scene architecture; only timing, crop offsets and caption timing may adapt to the final waveform."
+  },
+  "stopping_conditions": [
+    "Do not submit until explicit paid-generation authorization changes PRODUCTION-AUTHORIZATION.json to explicit_paid_generation_authority_received.",
+    "Do not submit if either exact audio slice exceeds its requested duration after a natural ending and short settle.",
+    "Do not retry a failed, ambiguous or aesthetically weak take automatically.",
+    "Do not call a generated take accepted before moving-image and owner review."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "event_id": "r68-s22-generation-blocked-fal-balance",
+  "decision_id": "s22-table-callback",
+  "event_type": "verification",
+  "tags": [
+    "provider-block",
+    "no-generation",
+    "cost-preflight"
+  ],
+  "data": {
+    "decision_event_id": "r68-s22-buyer-response-v1",
+    "method": "Fal storage-initiate returned HTTP403 before a upload URL or generation POST; local provider folder has no paid intent or job. Higgsfield read-only balance/catalog/cost preflights.",
+    "result": "not_run",
+    "scope": "Two revised S22 actions remain ungenerated; no take A/B submitted.",
+    "limitations": "Provider blocked by exhausted balance. Higgsfield alternative costs33.25credits and has not been authorized. Old timing preview is still reference-only.",
+    "artifact_hashes": []
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r68-s22-film/provider/BLOCK.json",
+      "sha256": "d73e7811b7a78d16d3aa978f62e425469517a2b7820801a67bbd821394789713",
+      "locator": "Provider failure or unsubmitted alternative"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/HIGGSFIELD-PREFLIGHT.json",
+      "sha256": "9b3e673e0498ec8135abaeedd19da864cb190ee47f5280fe318b166cb03216f9",
+      "locator": "Provider failure or unsubmitted alternative"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/HIGGSFIELD-TAKE-A.request.json",
+      "sha256": "4d083f574f8844f6e7c9c01b3550eb56d5db2d4a76cfc7010f567bcef0a3be1a",
+      "locator": "Provider failure or unsubmitted alternative"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/HIGGSFIELD-TAKE-B.request.json",
+      "sha256": "426889973449e14b923361b25a8a0d445c33ab033ec8cef9a1d52256952cbd79",
+      "locator": "Provider failure or unsubmitted alternative"
+    }
+  ]
+}

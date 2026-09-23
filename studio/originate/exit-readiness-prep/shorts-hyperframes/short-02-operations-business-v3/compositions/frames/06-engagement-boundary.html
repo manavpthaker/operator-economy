@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f5f0e6; color: #19201f; font-family: "BL Supreme", system-ui, sans-serif; }
+        .heading { position: absolute; top: 210px; left: 58px; right: 58px; }
+        .kicker { color: #586d74; font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .heading h1 { margin: 22px 0 0; color: #173530; font: 700 82px/0.92 "BL Zodiak", Georgia, serif; letter-spacing: -0.045em; }
+        .inside { position: absolute; top: 520px; left: 58px; width: 900px; height: 350px; padding: 48px 52px; border: 5px solid #204440; background: #fbf8f1; opacity: 0; }
+        .inside-label { color: #586d74; font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .inside strong { display: block; margin-top: 26px; color: #173530; font: 700 72px/0.94 "BL Zodiak", Georgia, serif; letter-spacing: -0.04em; }
+        .inside small { display: block; margin-top: 25px; color: #33464c; font-size: 28px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+        .outside { position: absolute; top: 970px; left: 58px; width: 900px; }
+        .outside-label { color: #586d74; font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; }
+        .scope-item { display: block; margin-top: 24px; padding: 13px 0 13px 24px; border-left: 6px solid #586d74; color: #33464c; font-size: 46px; font-weight: 500; line-height: 1.05; opacity: 0; }
+        .final-line { position: absolute; left: 58px; right: 58px; top: 1550px; color: #19201f; font-size: 50px; font-weight: 500; line-height: 1.05; opacity: 0; }
+        .final-line em { color: #87341f; font-style: normal; }
+      </style>
+      <section id="root" data-composition-id="short02-engagement-boundary" data-start="0" data-duration="4.2" data-width="1080" data-height="1920" data-script-text="Valuation, buyer search, and negotiation stay outside the engagement.">
+        <header id="s6-heading" class="heading">
+          <div class="kicker">Engagement boundary</div>
+          <h1>The work before<br />the deal.</h1>
+        </header>
+        <article id="s6-inside" class="inside" aria-label="Preparation work is inside the engagement">
+          <div class="inside-label">Inside the engagement</div>
+          <strong>Preparation work</strong>
+          <small>Trace · document owner dependence</small>
+        </article>
+        <div id="s6-outside" class="outside" aria-label="Valuation, buyer search and negotiation are outside the engagement">
+          <div id="s6-outside-label" class="outside-label">Outside the engagement</div>
+          <span id="s6-item-1" class="scope-item">Valuation</span>
+          <span id="s6-item-2" class="scope-item">Buyer search</span>
+          <span id="s6-item-3" class="scope-item">Negotiation</span>
+        </div>
+        <div id="s6-final-line" class="final-line" data-layout-allow-caption-zone>stay <em>outside the engagement.</em></div>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s6-heading", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.03);
+        tl.fromTo("#s6-inside", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.25);
+        tl.fromTo("#s6-outside-label", { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "none" }, 0.64);
+        tl.fromTo("#s6-item-1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, 0.86);
+        tl.fromTo("#s6-item-2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, 1.31);
+        tl.fromTo("#s6-item-3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, 1.76);
+        tl.fromTo("#s6-final-line", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 2.34);
+        window.__timelines["short02-engagement-boundary"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

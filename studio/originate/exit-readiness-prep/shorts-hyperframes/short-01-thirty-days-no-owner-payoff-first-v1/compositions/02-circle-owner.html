@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Boska";
+          src: url("assets/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Zodiak";
+          src: url("assets/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+
+        .s02-paper {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+        }
+
+        .s02-margin-rule {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 58px;
+          width: 2px;
+          background: rgba(88, 109, 116, 0.26);
+        }
+
+        .s02-register {
+          position: absolute;
+          left: 43px;
+          width: 32px;
+          height: 2px;
+          background: #71868d;
+          opacity: 0.54;
+        }
+
+        .s02-register-top {
+          top: 114px;
+        }
+
+        .s02-register-bottom {
+          top: 1328px;
+        }
+
+        .s02-identity-plate {
+          display: none;
+          position: absolute;
+          top: 166px;
+          right: 72px;
+          width: 262px;
+          height: 190px;
+          overflow: hidden;
+          border: 2px solid #586d74;
+          background: #ede7d8;
+        }
+
+        .s02-identity-plate img {
+          display: block;
+          width: 100%;
+          height: 148px;
+          object-fit: cover;
+          object-position: 50% 43%;
+        }
+
+        .s02-identity-label {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          padding: 0 12px;
+          color: #f5f0e6;
+          background: #204440;
+          font-size: 14px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .s02-title {
+          position: absolute;
+          top: 206px;
+          left: 76px;
+          width: 620px;
+          color: #173530;
+          font: 700 88px/0.9 "BL Boska", Georgia, serif;
+          letter-spacing: -0.045em;
+        }
+
+        .s02-instruction {
+          position: absolute;
+          top: 342px;
+          left: 80px;
+          width: 590px;
+          color: #566461;
+          font-size: 25px;
+          font-weight: 400;
+          line-height: 1.25;
+        }
+
+        .s02-example-docket {
+          position: absolute;
+          top: 426px;
+          left: 80px;
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          color: #586d74;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+
+        .s02-example-docket::before {
+          width: 46px;
+          height: 3px;
+          background: #71868d;
+          content: "";
+        }
+
+        .s02-statement {
+          position: absolute;
+          left: 80px;
+          width: 920px;
+          height: 192px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          border-top: 2px solid #c4b99e;
+          border-bottom: 2px solid #c4b99e;
+          background: #fbf8f1;
+          box-shadow: 0 18px 38px rgba(32, 68, 64, 0.055);
+        }
+
+        .s02-statement-one {
+          top: 478px;
+        }
+
+        .s02-statement-two {
+          top: 702px;
+        }
+
+        .s02-statement-three {
+          top: 926px;
+        }
+
+        .s02-index {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          color: #586d74;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+        }
+
+        .s02-owner-word {
+          position: relative;
+          width: 142px;
+          height: 142px;
+          flex: 0 0 142px;
+          margin-left: 30px;
+          display: grid;
+          place-items: center;
+        }
+
+        .s02-owner-i {
+          position: relative;
+          z-index: 2;
+          color: #19201f;
+          font: 700 96px/1 "BL Boska", Georgia, serif;
+        }
+
+        .s02-hand-ring {
+          position: absolute;
+          inset: 6px;
+          z-index: 1;
+          width: 130px;
+          height: 130px;
+          overflow: visible;
+        }
+
+        .s02-hand-ring path {
+          fill: none;
+          stroke: #b5482f;
+          stroke-width: 8px;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          opacity: 0;
+        }
+
+        .s02-statement-copy {
+          margin-left: 28px;
+          color: #173530;
+          font: 700 48px/1.05 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.025em;
+        }
+
+        .s02-group-bracket {
+          position: absolute;
+          top: 478px;
+          left: 64px;
+          width: 9px;
+          height: 640px;
+          border-top: 3px solid #586d74;
+          border-bottom: 3px solid #586d74;
+          border-left: 3px solid #586d74;
+        }
+
+        .s02-settle-note {
+          position: absolute;
+          top: 1188px;
+          left: 80px;
+          width: 900px;
+          display: flex;
+          align-items: flex-start;
+          gap: 20px;
+          color: #33464c;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.025em;
+          line-height: 1.25;
+          text-transform: uppercase;
+        }
+
+        .s02-settle-rule {
+          width: 54px;
+          height: 3px;
+          flex: 0 0 54px;
+          margin-top: 14px;
+          background: #586d74;
+        }
+      </style>
+
+      <div
+        id="root"
+        data-composition-id="scene-02-circle-owner"
+        data-start="0"
+        data-duration="9.666667"
+        data-width="1080"
+        data-height="1920"
+        data-fps="24"
+      >
+        <div class="s02-paper" aria-hidden="true"></div>
+        <div class="s02-margin-rule" aria-hidden="true"></div>
+        <div class="s02-register s02-register-top" aria-hidden="true"></div>
+        <div class="s02-register s02-register-bottom" aria-hidden="true"></div>
+
+        <figure class="s02-identity-plate" data-hidden>
+          <img
+            src="assets/media/ep007-avatar-v5-identity-hold.png"
+            alt="Manav identity reference for this structure test"
+          />
+          <figcaption class="s02-identity-label">Manav · identity hold</figcaption>
+        </figure>
+
+        <h1 id="s02-title" class="s02-title">Circle the “I”</h1>
+        <p id="s02-instruction" class="s02-instruction">
+          Listen for the answer falling back to the same owner.
+        </p>
+        <div id="s02-illustrative" class="s02-example-docket">Illustrative sample answer</div>
+
+        <div class="s02-group-bracket" aria-hidden="true"></div>
+
+        <article id="s02-statement-1" class="s02-statement s02-statement-one">
+          <span class="s02-index">01</span>
+          <span class="s02-owner-word">
+            <span id="s02-owner-i-1" class="s02-owner-i">I</span>
+            <svg class="s02-hand-ring" viewBox="0 0 130 130" aria-hidden="true">
+              <path id="s02-ring-1" d="M66 9 C99 7 120 28 119 64 C118 98 99 119 63 121 C29 122 10 101 12 66 C14 31 33 11 66 9" />
+            </svg>
+          </span>
+          <span class="s02-statement-copy">call the customers.</span>
+        </article>
+
+        <article id="s02-statement-2" class="s02-statement s02-statement-two">
+          <span class="s02-index">02</span>
+          <span class="s02-owner-word">
+            <span id="s02-owner-i-2" class="s02-owner-i">I</span>
+            <svg class="s02-hand-ring" viewBox="0 0 130 130" aria-hidden="true">
+              <path id="s02-ring-2" d="M61 10 C94 5 118 27 121 60 C124 94 102 117 68 121 C34 124 11 105 10 70 C9 36 29 15 61 10" />
+            </svg>
+          </span>
+          <span class="s02-statement-copy">approve the exceptions.</span>
+        </article>
+
+        <article id="s02-statement-3" class="s02-statement s02-statement-three">
+          <span class="s02-index">03</span>
+          <span class="s02-owner-word">
+            <span id="s02-owner-i-3" class="s02-owner-i">I</span>
+            <svg class="s02-hand-ring" viewBox="0 0 130 130" aria-hidden="true">
+              <path id="s02-ring-3" d="M67 8 C101 9 120 31 118 67 C116 102 95 121 60 120 C26 119 9 98 12 63 C15 29 35 8 67 8" />
+            </svg>
+          </span>
+          <span class="s02-statement-copy">know where the records are.</span>
+        </article>
+
+        <div id="s02-settle-note" class="s02-settle-note">
+          <span class="s02-settle-rule" aria-hidden="true"></span>
+          <span>Three answers. One repeated owner node.</span>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo(
+          "#s02-title",
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.58, ease: "power3.out" },
+          0.08,
+        );
+        tl.fromTo(
+          "#s02-instruction",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
+          0.32,
+        );
+        tl.fromTo(
+          ".s02-identity-plate",
+          { opacity: 0, x: 18 },
+          { opacity: 1, x: 0, duration: 0.46, ease: "power2.out" },
+          0.12,
+        );
+        tl.fromTo(
+          "#s02-illustrative",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.32, ease: "power1.out" },
+          0.58,
+        );
+        tl.fromTo(
+          ".s02-group-bracket",
+          { opacity: 0, scaleY: 0, transformOrigin: "50% 0%" },
+          { opacity: 1, scaleY: 1, duration: 0.72, ease: "power2.out" },
+          0.68,
+        );
+        tl.fromTo(
+          ".s02-statement",
+          { opacity: 0, y: 34 },
+          { opacity: 1, y: 0, duration: 0.52, ease: "power3.out", stagger: 0.72 },
+          0.72,
+        );
+
+        const ringOne = document.querySelector("#s02-ring-1");
+        const ringTwo = document.querySelector("#s02-ring-2");
+        const ringThree = document.querySelector("#s02-ring-3");
+        const ringOneLength = ringOne.getTotalLength();
+        const ringTwoLength = ringTwo.getTotalLength();
+        const ringThreeLength = ringThree.getTotalLength();
+
+        tl.fromTo(
+          ringOne,
+          { opacity: 0, stroke: "#b5482f", strokeDasharray: ringOneLength, strokeDashoffset: ringOneLength },
+          { opacity: 1, stroke: "#b5482f", strokeDasharray: ringOneLength, strokeDashoffset: 0, duration: 0.62, ease: "power2.out" },
+          3.02,
+        );
+        tl.fromTo(
+          "#s02-owner-i-1",
+          { color: "#19201f" },
+          { color: "#b5482f", duration: 0.18, ease: "power1.out" },
+          3.02,
+        );
+        tl.fromTo(
+          ringOne,
+          { stroke: "#b5482f" },
+          { stroke: "#71868d", duration: 0.18, ease: "power1.out", immediateRender: false },
+          4.05,
+        );
+        tl.fromTo(
+          "#s02-owner-i-1",
+          { color: "#b5482f" },
+          { color: "#19201f", duration: 0.18, ease: "power1.out", immediateRender: false },
+          4.05,
+        );
+
+        tl.fromTo(
+          ringTwo,
+          { opacity: 0, stroke: "#b5482f", strokeDasharray: ringTwoLength, strokeDashoffset: ringTwoLength },
+          { opacity: 1, stroke: "#b5482f", strokeDasharray: ringTwoLength, strokeDashoffset: 0, duration: 0.62, ease: "power2.out" },
+          4.25,
+        );
+        tl.fromTo(
+          "#s02-owner-i-2",
+          { color: "#19201f" },
+          { color: "#b5482f", duration: 0.18, ease: "power1.out" },
+          4.25,
+        );
+        tl.fromTo(
+          ringTwo,
+          { stroke: "#b5482f" },
+          { stroke: "#71868d", duration: 0.18, ease: "power1.out", immediateRender: false },
+          5.28,
+        );
+        tl.fromTo(
+          "#s02-owner-i-2",
+          { color: "#b5482f" },
+          { color: "#19201f", duration: 0.18, ease: "power1.out", immediateRender: false },
+          5.28,
+        );
+
+        tl.fromTo(
+          ringThree,
+          { opacity: 0, stroke: "#b5482f", strokeDasharray: ringThreeLength, strokeDashoffset: ringThreeLength },
+          { opacity: 1, stroke: "#b5482f", strokeDasharray: ringThreeLength, strokeDashoffset: 0, duration: 0.62, ease: "power2.out" },
+          5.48,
+        );
+        tl.fromTo(
+          "#s02-owner-i-3",
+          { color: "#19201f" },
+          { color: "#b5482f", duration: 0.18, ease: "power1.out" },
+          5.48,
+        );
+        tl.fromTo(
+          "#s02-settle-note",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.48, ease: "power2.out" },
+          6.34,
+        );
+
+        window.__timelines["scene-02-circle-owner"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

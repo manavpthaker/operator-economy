@@ -1,0 +1,212 @@
+[
+  {
+    "event_id": "r63-s18-acceptance-v1",
+    "decision_id": "s18-acceptance",
+    "event_type": "decision",
+    "tags": [
+      "animation",
+      "world-continuity"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Define the deliverable and the payment trigger so they stay on the right side of the regulated line.",
+        "viewer_before": "S17: you are the surveyor; a cut of the sale is regulated.",
+        "viewer_after": "The promise is a signed checklist; the fixed fee is paid on acceptance, and tying it to the deal crosses the line."
+      },
+      "choice": "Unpaid animation: the sale marker with three dashed unknowns and an owner who does not control them; the S16 scope returns as a checklist with illustrative statuses (resolved, deferred with a reason, out of scope on 'Value the business') and her signature; heading 'The acceptance event'; the S17 red boundary with the fixed fee paid on acceptance on the safe side and a dashed oxide line to the sale crossing it, labelled Regulated.",
+      "reason": "Keeps acceptance attached to the work, not the sale, and reuses the boundary so the regulatory logic reads as continuous from S17.",
+      "alternatives": [
+        {
+          "choice": "Handshake or sold sign for acceptance",
+          "reason_not_selected": "Would imply a sale."
+        },
+        {
+          "choice": "Every row resolved",
+          "reason_not_selected": "Script names deferred and out-of-scope outcomes."
+        },
+        {
+          "choice": "Presenter on 'What are you actually promising'",
+          "reason_not_selected": "Short question; the heading carries it."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A service's deliverable must be separated from an outcome the provider cannot control.",
+        "avoid_when": "The provider is paid on the outcome."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "promising",
+            "phrase": "What are you actually promising",
+            "relation": "heading",
+            "master_seconds": 815.28,
+            "review_seconds": 812.28,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "notsale",
+            "phrase": "Not the sale",
+            "relation": "sale marker recedes",
+            "master_seconds": 817.5,
+            "review_seconds": 814.5,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "whether",
+            "phrase": "whether she sells, or when, or for how much",
+            "relation": "three dashed unknowns",
+            "master_seconds": 819.12,
+            "review_seconds": 816.12,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "half",
+            "phrase": "Half the time she does not control it either",
+            "relation": "owner, dashed line to the sale",
+            "master_seconds": 821.97,
+            "review_seconds": 818.97,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "checklist",
+            "phrase": "the thing you deliver is the checklist",
+            "relation": "checklist card",
+            "master_seconds": 826.88,
+            "review_seconds": 823.88,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "resolved",
+            "phrase": "resolved / deferred with a reason / out of scope",
+            "relation": "illustrative statuses; out of scope is Value the business",
+            "master_seconds": 828.84,
+            "review_seconds": 825.84,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "signs",
+            "phrase": "she signs it",
+            "relation": "signature draws",
+            "master_seconds": 832.72,
+            "review_seconds": 829.72,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "acceptance",
+            "phrase": "the acceptance event",
+            "relation": "heading swap",
+            "master_seconds": 834.32,
+            "review_seconds": 831.32,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "line",
+            "phrase": "the right side of the line",
+            "relation": "S17 red boundary; fixed fee paid on acceptance",
+            "master_seconds": 837.2,
+            "review_seconds": 834.2,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          },
+          {
+            "cue_id": "payment",
+            "phrase": "your payment depends on the deal",
+            "relation": "dashed oxide line crosses the boundary; Regulated",
+            "master_seconds": 840.52,
+            "review_seconds": 837.52,
+            "fps": 24,
+            "dependent_targets": [
+              "r63-s18"
+            ]
+          }
+        ],
+        "source_basis": "Word transcript; script S18 (claims none); statuses illustrative."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r63-s18-acceptance/DIRECTION.md",
+        "sha256": "f56bfe604ae66733ff6761c4781b02c9a22c674c71b93f3bf2914a7ed1580cbf",
+        "locator": "Plan"
+      }
+    ]
+  },
+  {
+    "event_id": "r63-s18-verified-v1",
+    "decision_id": "s18-acceptance",
+    "event_type": "verification",
+    "tags": [
+      "animation"
+    ],
+    "data": {
+      "decision_event_id": "r63-s18-acceptance-v1",
+      "method": "hyperframes check --strict 0 errors after fixing a 4.35:1 contrast failure on 'Out of scope'; stills reviewed; opening heading moved earlier; dashed pattern restored after the draw-on; render audio vs master 0.99984; review clip master PCM 0.99999, 0.0 dB; 972 frames, no uniform frames.",
+      "result": "pass",
+      "scope": "S18 (780 frames) with 8 s S17 tail.",
+      "limitations": "Owner review pending.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18-context/qa/context.mp4",
+          "sha256": "d9ef9d9d70e908f62035e0aaef4b6decc055809149892c7147dff603a8fa8456"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/index.html",
+        "sha256": "b72e07c3f91d1fceccd1f495120ba0ddc84b6044061de68de1da6a9462ed0855",
+        "locator": "Composition"
+      }
+    ]
+  },
+  {
+    "event_id": "lesson-draw-on-drops-dash-pattern-v1",
+    "decision_id": "s18-acceptance",
+    "event_type": "lesson",
+    "tags": [
+      "animation",
+      "qa-finding"
+    ],
+    "data": {
+      "insight": "A stroke draw-on sets stroke-dasharray to the path length, erasing any dash pattern; a dashed line must have its pattern set back after the draw completes, and the result checked in a still.",
+      "applies_when": "Animating a dashed SVG line with the dashoffset draw technique.",
+      "avoid_when": "Solid lines.",
+      "confidence": "supported",
+      "status": "candidate"
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/index.html",
+        "sha256": "b72e07c3f91d1fceccd1f495120ba0ddc84b6044061de68de1da6a9462ed0855",
+        "locator": "#dep reset after draw"
+      }
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short01-opportunity { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; color: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s01-fill { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(23,53,48,0.02) 0%, rgba(23,53,48,0.06) 42%, rgba(23,53,48,0.84) 64%, #173530 100%); }
+        .s01-paper-edge { position: absolute; top: 150px; bottom: 0; left: 0; width: 24px; background: #f5f0e6; }
+        .s01-kicker { position: absolute; top: 916px; left: 58px; right: 122px; display: flex; align-items: center; gap: 16px; color: #c4b99e; font-size: 22px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .s01-kicker::before { width: 66px; height: 4px; background: #b5482f; content: ""; }
+        .s01-title { position: absolute; top: 986px; left: 58px; width: 850px; margin: 0; color: #f5f0e6; font: 700 112px/0.88 "BL Boska", Georgia, serif; letter-spacing: -0.052em; text-shadow: 0 4px 22px rgba(7,26,23,0.34); }
+        .s01-title span { display: block; color: #fb8b69; }
+      </style>
+      <section data-hf-id="hf-esm5" id="short01-opportunity" data-composition-id="short01-opportunity" data-start="0" data-duration="7" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-45j9" class="s01-fill" aria-hidden="true"></div>
+        <div data-hf-id="hf-qof6" class="s01-paper-edge" aria-hidden="true"></div>
+        <div data-hf-id="hf-yrtz" id="s01-kicker" class="s01-kicker">A service you can build</div>
+        <h1 data-hf-id="hf-9frx" id="s01-title" class="s01-title">Get a business ready to sell <span data-hf-id="hf-mqg0">before the buyer.</span></h1>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s01-kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 0.3);
+        tl.fromTo("#s01-title", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.58);
+        window.__timelines["short01-opportunity"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

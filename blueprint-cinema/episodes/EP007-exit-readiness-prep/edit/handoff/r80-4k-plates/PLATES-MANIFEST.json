@@ -1,0 +1,5044 @@
+{
+ "record_type": "ep007_r80_1080_plates_manifest",
+ "owner_event": "ep007-finishing-4k-rerender-v1",
+ "r79_reference": {
+  "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+  "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671",
+  "frames": 27241,
+  "fps": 24
+ },
+ "frame_ranges": "half-open [a,b)",
+ "plates_dir": "/Users/brownmanbrain/Movies/OE/EP007-plates-1080",
+ "plates": [
+  {
+   "r79_frames": [
+    0,
+    5872
+   ],
+   "frames": 5872,
+   "leaf": "r36-buyer-demand",
+   "job": "r36-buyer-demand",
+   "kind": "hf",
+   "plate": "r79_000000-005872_r36-buyer-demand.mp4",
+   "bytes": 75245736,
+   "sha256": "62a48ecf3fde3288f35c3a59cfad4afd72506cc5081572cf5e3e983ee0452b3c",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand",
+    "index_html_sha256": "1154d6ed123ebee4db61c59c3832115c0f7b887be9116c502d4168c2f04aa9e8"
+   },
+   "recipe": "4K render frames [0,5872) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.34"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.34 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r36-buyer-demand/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 545.8,
+    "width": 3840,
+    "height": 2160,
+    "frames": 5943,
+    "bytes": 486843760
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.985051,
+    "ssim_min": 0.926574,
+    "ssim_min_r79_frame": 1716,
+    "ssim_worst_frames": [
+     [
+      1716,
+      0.92657
+     ],
+     [
+      152,
+      0.92718
+     ],
+     [
+      1789,
+      0.92974
+     ],
+     [
+      1791,
+      0.92986
+     ],
+     [
+      1790,
+      0.9303
+     ]
+    ],
+    "frames_below_0_95": 29,
+    "psnr_mean_db": 40.69,
+    "psnr_min_db": 32.5,
+    "shift_minus1_ssim_mean": 0.978101,
+    "shift_plus1_ssim_mean": 0.978451,
+    "alignment": "aligned",
+    "pass": false,
+    "fail_reasons": [
+     "min SSIM 0.92657 < 0.95 at r79 frame 1716"
+    ]
+   },
+   "pass": false,
+   "flags": [
+    "pinned 0.8.34 (package.json devDependency, no lockfile); original locked render used quality draft",
+    "embedded presenter/Kling media are 1920x1080 / 1916x1080 (below 4K); punch-ins enlarge 1080p sources"
+   ],
+   "status": "owner_accepted_as_is",
+   "built": "2026-09-23T13:25:34",
+   "failure_diagnosis": "Content verified identical by visual side-by-side (frames 152, 1716). Low-SSIM frames are Kling establishing/shot segments where R79 is a soft, blocky draft-quality render (R36 was originally rendered at quality draft) and the 4K plate is sharper; alignment check passes. Not a content or timing change. Needs owner acceptance of the sharper picture or a looser threshold for this leaf.",
+   "owner_override": true
+  },
+  {
+   "r79_frames": [
+    5872,
+    6408
+   ],
+   "frames": 536,
+   "leaf": "r39-question-performance",
+   "job": "r39-question-performance",
+   "kind": "hf",
+   "plate": "r79_005872-006408_r39-question-performance.mp4",
+   "bytes": 8014482,
+   "sha256": "d4fe16cf10afd884ab18dcc66c3b5753d7b6e27cace439eb64905caca40bfce3",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance",
+    "index_html_sha256": "6b7190b2469a5b83ea599e95e4d2733d61d987081eb72adbb4bc9878d182c7b5"
+   },
+   "recipe": "4K render frames [5872,6408) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.34"
+   },
+   "scratch_patch": {
+    "replaced": "public/media/question-r39-aligned.mp4",
+    "from": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/restoration/restored.mp4",
+    "recipe": "fps24, trim frames 10..136 inclusive, reset timestamps, 1920x1080 (no downscale), h264 crf10 yuv420p",
+    "sha256": "503427e7efc06d92391f420031dacb971a78e0a964340f0a64c20bb8a0051594"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.34 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r39-question-performance/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 635.0,
+    "width": 3840,
+    "height": 2160,
+    "frames": 7047,
+    "bytes": 526456298
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.983865,
+    "ssim_min": 0.931986,
+    "ssim_min_r79_frame": 5872,
+    "ssim_worst_frames": [
+     [
+      5872,
+      0.93199
+     ],
+     [
+      5873,
+      0.93395
+     ],
+     [
+      5874,
+      0.93924
+     ],
+     [
+      5875,
+      0.94496
+     ],
+     [
+      5876,
+      0.94903
+     ]
+    ],
+    "frames_below_0_95": 5,
+    "psnr_mean_db": 40.9,
+    "psnr_min_db": 35.64,
+    "shift_minus1_ssim_mean": 0.978979,
+    "shift_plus1_ssim_mean": 0.98033,
+    "alignment": "aligned",
+    "pass": false,
+    "fail_reasons": [
+     "mean SSIM 0.98387 < 0.985",
+     "min SSIM 0.93199 < 0.95 at r79 frame 5872"
+    ]
+   },
+   "pass": false,
+   "flags": [
+    "pinned 0.8.34; whole 293.6 s composition rendered (no frame-range flag), only [5872,6408) kept",
+    "scratch copy: public/media/question-r39-aligned.mp4 (1280x720 proxy) replaced by a 1920x1080 re-conform of provider/restoration/restored.mp4 frames 10..136 (PICTURE-CONFORM.json recipe without the downscale)",
+    "owner exception inherited: R39 callback/performance verdict unspecified; R39 animation under unresolved revise"
+   ],
+   "status": "owner_accepted_as_is",
+   "built": "2026-09-23T13:36:28",
+   "failure_diagnosis": "Frames 5872-5991 (S07 Kling tail, SSIM 0.93-0.96) have the same draft-softness cause as R36. Frames 5992-6119 (presenter, ~0.98) now come from the 1920x1080 re-conform, where R79 used the 1280x720 proxy. Visual side-by-side confirms identical content and pose; alignment passes.",
+   "owner_override": true
+  },
+  {
+   "r79_frames": [
+    6408,
+    6895
+   ],
+   "frames": 487,
+   "leaf": "r46-revenue-machine",
+   "job": "r46-revenue-machine",
+   "kind": "hf",
+   "plate": "r79_006408-006895_r46-revenue-machine.mp4",
+   "bytes": 662195,
+   "sha256": "b7e0415153ed2f2a7aa979447a1bdeb130361e4a51d24f14438ffb6e9f489c6b",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r46-revenue-machine",
+    "index_html_sha256": "cbf6714b41e2cca50b2bbc848e21c70a89bc85be76881071ff5ce17b283d4abb"
+   },
+   "recipe": "4K render frames [0,487) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r46-revenue-machine/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 35.7,
+    "width": 3840,
+    "height": 2160,
+    "frames": 487,
+    "bytes": 3407749
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994209,
+    "ssim_min": 0.992011,
+    "ssim_min_r79_frame": 6479,
+    "ssim_worst_frames": [
+     [
+      6479,
+      0.99201
+     ],
+     [
+      6477,
+      0.99206
+     ],
+     [
+      6478,
+      0.99209
+     ],
+     [
+      6545,
+      0.993
+     ],
+     [
+      6548,
+      0.99304
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 40.17,
+    "psnr_min_db": 38.41,
+    "shift_minus1_ssim_mean": 0.992519,
+    "shift_plus1_ssim_mean": 0.991937,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:37:07"
+  },
+  {
+   "r79_frames": [
+    6895,
+    7164
+   ],
+   "frames": 269,
+   "leaf": "r47-transfer-criterion",
+   "job": "r47-transfer-criterion",
+   "kind": "hf",
+   "plate": "r79_006895-007164_r47-transfer-criterion.mp4",
+   "bytes": 7263668,
+   "sha256": "e656dfde459925f38b18181a8c404a61ccd01907974ecfae12fe769c11f68453",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r47-transfer-criterion",
+    "index_html_sha256": "4338f5a98dfd543d06fda736c923bc6661dd498174c75bde684d1c0ebfaa3feb"
+   },
+   "recipe": "4K render frames [0,269) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r47-transfer-criterion/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 35.4,
+    "width": 3840,
+    "height": 2160,
+    "frames": 269,
+    "bytes": 40127638
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.988611,
+    "ssim_min": 0.988091,
+    "ssim_min_r79_frame": 7047,
+    "ssim_worst_frames": [
+     [
+      7047,
+      0.98809
+     ],
+     [
+      6996,
+      0.98812
+     ],
+     [
+      7051,
+      0.98815
+     ],
+     [
+      7144,
+      0.98815
+     ],
+     [
+      7007,
+      0.98819
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.52,
+    "psnr_min_db": 43.24,
+    "shift_minus1_ssim_mean": 0.982414,
+    "shift_plus1_ssim_mean": 0.982588,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale (embedded restored-source.mp4)",
+    "restored-source.mp4 has sparse keyframes (seek risk)",
+    "owner exception inherited: R47 performance has no owner verdict"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:37:49"
+  },
+  {
+   "r79_frames": [
+    7164,
+    7379
+   ],
+   "frames": 215,
+   "leaf": "r48-relationships",
+   "job": "r48-relationships",
+   "kind": "hf",
+   "plate": "r79_007164-007379_r48-relationships.mp4",
+   "bytes": 194600,
+   "sha256": "01ad293ea096b1a9a1f0124d8eb739b7d64afb935eae5f751b7c3097fea175c7",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r48-relationships",
+    "index_html_sha256": "f3275496623cc3bcf433dc2cb6326bc274c2c31b2faf1a54c79762205909186e"
+   },
+   "recipe": "4K render frames [0,215) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r48-relationships/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 17.7,
+    "width": 3840,
+    "height": 2160,
+    "frames": 215,
+    "bytes": 1072955
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.995881,
+    "ssim_min": 0.995475,
+    "ssim_min_r79_frame": 7352,
+    "ssim_worst_frames": [
+     [
+      7352,
+      0.99547
+     ],
+     [
+      7348,
+      0.99548
+     ],
+     [
+      7353,
+      0.99548
+     ],
+     [
+      7350,
+      0.99548
+     ],
+     [
+      7354,
+      0.99549
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.99,
+    "psnr_min_db": 39.5,
+    "shift_minus1_ssim_mean": 0.994063,
+    "shift_plus1_ssim_mean": 0.995371,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:38:09"
+  },
+  {
+   "r79_frames": [
+    7379,
+    7542
+   ],
+   "frames": 163,
+   "leaf": "r49-concentration",
+   "job": "r49-concentration",
+   "kind": "hf",
+   "plate": "r79_007379-007542_r49-concentration.mp4",
+   "bytes": 297337,
+   "sha256": "bdec203abcfcc66e8dd62c7c2a771506f0daa5b0dfebabb72bb23c866adb923e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r49-concentration",
+    "index_html_sha256": "6af7968785c529581e457b575a19c1fe9df26069d4742bd706517840d7820898"
+   },
+   "recipe": "4K render frames [0,163) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r49-concentration/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 18.0,
+    "width": 3840,
+    "height": 2160,
+    "frames": 163,
+    "bytes": 1571733
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.99534,
+    "ssim_min": 0.994822,
+    "ssim_min_r79_frame": 7536,
+    "ssim_worst_frames": [
+     [
+      7536,
+      0.99482
+     ],
+     [
+      7537,
+      0.99482
+     ],
+     [
+      7538,
+      0.99482
+     ],
+     [
+      7539,
+      0.99482
+     ],
+     [
+      7540,
+      0.99482
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.59,
+    "psnr_min_db": 39.2,
+    "shift_minus1_ssim_mean": 0.994426,
+    "shift_plus1_ssim_mean": 0.994433,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:14:53"
+  },
+  {
+   "r79_frames": [
+    7542,
+    7744
+   ],
+   "frames": 202,
+   "leaf": "r50-records",
+   "job": "r50-records",
+   "kind": "hf",
+   "plate": "r79_007542-007744_r50-records-r79frames-upscaled.mp4",
+   "bytes": 429901,
+   "sha256": "fec175796dcea6ffe8a2b5e6ec4226e88c01fec5017195222e5ec92982d5bbdc",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records",
+    "index_html_sha256": "2afc2c02eba822eb6e60e8c517bee3cc0ee6dbe147188277a08b85af84856033"
+   },
+   "recipe": "R79 locked review frames [7542,7744) -> lanczos 1920x1080 (owner ruling; rebuilt project could not reproduce accepted timing)",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r50-records/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 15.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 202,
+    "bytes": 1549447
+   },
+   "verification": {
+    "ssim_vs_r79_mean": 0.997475,
+    "frames": 202
+   },
+   "pass": true,
+   "flags": [
+    "index.html is a rebuild of a lost original (event r50-records-source-rebuilt-v1): up to 1.23/255 drift vs accepted bytes"
+   ],
+   "status": "owner_accepted_r79_frames_upscaled",
+   "built": "2026-09-23T13:38:26",
+   "failure_diagnosis": "Real timing drift: in animated moments (leaf frames 5-12, 31-36, 138-142) the re-render best matches R79 one frame later, and elsewhere at lag 0. Consistent with the known lost-and-rebuilt index.html (event r50-records-source-rebuilt-v1). No higher-res source of the accepted render exists; owner decision needed (accept, or re-time the rebuild).",
+   "superseded_plate": {
+    "plate": "r79_007542-007744_r50-records.mp4",
+    "sha256": "fafeba0249a66f46156523a41847a72185c31da4ca8c2d3dc536d17d231810ca",
+    "reason": "owner preferred R79 timing"
+   }
+  },
+  {
+   "r79_frames": [
+    7744,
+    7983
+   ],
+   "frames": 239,
+   "leaf": "r51-underlying",
+   "job": "r51-underlying",
+   "kind": "hf",
+   "plate": "r79_007744-007983_r51-underlying.mp4",
+   "bytes": 192311,
+   "sha256": "78e8e033e0aa1e9a0b43e7979b2206e1bf57d7d9e89daa8786265344cd351d0d",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying",
+    "index_html_sha256": "0d7d46ea1a5ae73de3f4aec2ce6faf6df53c4fddecc7c8e47c2f2048d7420a88"
+   },
+   "recipe": "4K render frames [0,239) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r51-underlying/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 16.4,
+    "width": 3840,
+    "height": 2160,
+    "frames": 239,
+    "bytes": 1105527
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996322,
+    "ssim_min": 0.99579,
+    "ssim_min_r79_frame": 7968,
+    "ssim_worst_frames": [
+     [
+      7968,
+      0.99579
+     ],
+     [
+      7969,
+      0.99579
+     ],
+     [
+      7970,
+      0.99579
+     ],
+     [
+      7971,
+      0.99579
+     ],
+     [
+      7972,
+      0.99579
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 41.03,
+    "psnr_min_db": 40.03,
+    "shift_minus1_ssim_mean": 0.996108,
+    "shift_plus1_ssim_mean": 0.994109,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:38:44"
+  },
+  {
+   "r79_frames": [
+    7983,
+    8131
+   ],
+   "frames": 148,
+   "leaf": "r52-handshake-v5",
+   "job": "r52-handshake-v5",
+   "kind": "media",
+   "plate": "r79_007983-008131_r52-handshake-v5.mp4",
+   "bytes": 6856107,
+   "sha256": "56355a2993420d28ef5016c79a71e07b97cdecf78747568324a65f32a608981a",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     null,
+     null
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/provider/handshake-v5/native.mp4",
+    "sha256": "c1b947246ad9fe9e2f21edf69bc157ac35bf6d2d278d03e01a5e57b1703b2cac",
+    "width": 1916,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [0,148) -> lanczos stretch to 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.98714,
+    "ssim_min": 0.984816,
+    "ssim_min_r79_frame": 8070,
+    "ssim_worst_frames": [
+     [
+      8070,
+      0.98482
+     ],
+     [
+      8078,
+      0.9851
+     ],
+     [
+      8068,
+      0.98512
+     ],
+     [
+      8080,
+      0.98521
+     ],
+     [
+      8086,
+      0.98522
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.64,
+    "psnr_min_db": 42.75,
+    "shift_minus1_ssim_mean": 0.951406,
+    "shift_plus1_ssim_mean": 0.95242,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "source is 1916x1080 Kling native (below 4K); horizontal stretch x1.0021 to 1920, as in review builds"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:38:49"
+  },
+  {
+   "r79_frames": [
+    8131,
+    8163
+   ],
+   "frames": 32,
+   "leaf": "r52-walkout",
+   "job": "r52-walkout",
+   "kind": "media",
+   "plate": "r79_008131-008163_r52-walkout.mp4",
+   "bytes": 1553760,
+   "sha256": "8d2a5722ce297ec2924218d45aea24be2f825a959438edd96b368831a03a34ae",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     null,
+     null
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout/provider/walkout/native.mp4",
+    "sha256": "93cfe36af0b96b0ddc418a8d5ada43922fded0923bcea6065df48bb0039b3781",
+    "width": 1916,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [112,144) -> lanczos stretch to 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.986906,
+    "ssim_min": 0.985366,
+    "ssim_min_r79_frame": 8162,
+    "ssim_worst_frames": [
+     [
+      8162,
+      0.98537
+     ],
+     [
+      8161,
+      0.98576
+     ],
+     [
+      8160,
+      0.9859
+     ],
+     [
+      8159,
+      0.98605
+     ],
+     [
+      8157,
+      0.98632
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.51,
+    "psnr_min_db": 42.75,
+    "shift_minus1_ssim_mean": 0.938626,
+    "shift_plus1_ssim_mean": 0.935282,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "source is 1916x1080 Kling native (below 4K); horizontal stretch x1.0021 to 1920, as in review builds"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:38:51"
+  },
+  {
+   "r79_frames": [
+    8163,
+    8351
+   ],
+   "frames": 188,
+   "leaf": "r53-presenter-a",
+   "job": "r53-presenter-a",
+   "kind": "media",
+   "plate": "r79_008163-008351_r53-presenter-a.mp4",
+   "bytes": 4000735,
+   "sha256": "5cbe0e28afaf82a033fbbbf2fb825b3b9a67d8b902df139703c227d82967442a",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-a/restoration/restored.mp4",
+    "sha256": "5e3b63a48de23c84d8318e83e3facd1633a111ef3d4963c8ad248c94f96417ce",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p10le"
+   },
+   "recipe": "source frames [15,203) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989005,
+    "ssim_min": 0.987776,
+    "ssim_min_r79_frame": 8350,
+    "ssim_worst_frames": [
+     [
+      8350,
+      0.98778
+     ],
+     [
+      8349,
+      0.98781
+     ],
+     [
+      8345,
+      0.98808
+     ],
+     [
+      8348,
+      0.98811
+     ],
+     [
+      8347,
+      0.98818
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 47.7,
+    "psnr_min_db": 47.1,
+    "shift_minus1_ssim_mean": 0.980772,
+    "shift_plus1_ssim_mean": 0.982101,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale",
+    "10-bit source converted to 8-bit yuv420p"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:14:58"
+  },
+  {
+   "r79_frames": [
+    8351,
+    8897
+   ],
+   "frames": 546,
+   "leaf": "r53-s10-evidence",
+   "job": "r53-s10-evidence",
+   "kind": "hf",
+   "plate": "r79_008351-008897_r53-s10-evidence.mp4",
+   "bytes": 473132,
+   "sha256": "0a9821f326e432ec147a8b0fd7ea8d515a38ee11b0981b8e10e43915fdc50358",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10-evidence",
+    "index_html_sha256": "ee71857b9a559364088af94bccfc7aff669b4b39645df12e2f277eb8724327c6"
+   },
+   "recipe": "4K render frames [0,546) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r53-s10-evidence/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 34.8,
+    "width": 3840,
+    "height": 2160,
+    "frames": 546,
+    "bytes": 2718565
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996862,
+    "ssim_min": 0.996052,
+    "ssim_min_r79_frame": 8668,
+    "ssim_worst_frames": [
+     [
+      8668,
+      0.99605
+     ],
+     [
+      8671,
+      0.99609
+     ],
+     [
+      8669,
+      0.99615
+     ],
+     [
+      8670,
+      0.99617
+     ],
+     [
+      8649,
+      0.99617
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.74,
+    "psnr_min_db": 41.23,
+    "shift_minus1_ssim_mean": 0.996293,
+    "shift_plus1_ssim_mean": 0.99624,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:39:29"
+  },
+  {
+   "r79_frames": [
+    8897,
+    9104
+   ],
+   "frames": 207,
+   "leaf": "r53-presenter-c-v2",
+   "job": "r53-presenter-c-v2",
+   "kind": "media",
+   "plate": "r79_008897-009104_r53-presenter-c-v2.mp4",
+   "bytes": 6949731,
+   "sha256": "04541b93e5d9b9017df3ce861b957d81a8cbffaf01cdb7b038787fb86640c63b",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/resync-shift/restored.mp4",
+    "sha256": "c805af3391bd7b5b00296c398bfa0cec9dbacbfb0a448a0867c070d48d39de96",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [12,219) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.988938,
+    "ssim_min": 0.987528,
+    "ssim_min_r79_frame": 9103,
+    "ssim_worst_frames": [
+     [
+      9103,
+      0.98753
+     ],
+     [
+      9101,
+      0.9878
+     ],
+     [
+      9102,
+      0.98797
+     ],
+     [
+      9099,
+      0.98798
+     ],
+     [
+      9100,
+      0.98805
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 47.67,
+    "psnr_min_db": 46.94,
+    "shift_minus1_ssim_mean": 0.983498,
+    "shift_plus1_ssim_mean": 0.983766,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:39:34"
+  },
+  {
+   "r79_frames": [
+    9104,
+    9749
+   ],
+   "frames": 645,
+   "leaf": "r54-s11a",
+   "job": "r54-s11a",
+   "kind": "hf",
+   "plate": "r79_009104-009749_r54-s11a.mp4",
+   "bytes": 730404,
+   "sha256": "fca87f8b08faa9eb1037d06fa58d5a994100a88ea3ce631779aaa09aab0b009e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11a",
+    "index_html_sha256": "e1707a9600a9c1075e7a9883bf492e008f3a65b5583686fb60c95ba74166f2e0"
+   },
+   "recipe": "4K render frames [0,645) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r54-s11a/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 37.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 645,
+    "bytes": 4391158
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996425,
+    "ssim_min": 0.993578,
+    "ssim_min_r79_frame": 9602,
+    "ssim_worst_frames": [
+     [
+      9602,
+      0.99358
+     ],
+     [
+      9652,
+      0.99385
+     ],
+     [
+      9649,
+      0.9939
+     ],
+     [
+      9696,
+      0.99392
+     ],
+     [
+      9697,
+      0.99392
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.71,
+    "psnr_min_db": 38.24,
+    "shift_minus1_ssim_mean": 0.995205,
+    "shift_plus1_ssim_mean": 0.995532,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:40:15"
+  },
+  {
+   "r79_frames": [
+    9749,
+    10260
+   ],
+   "frames": 511,
+   "leaf": "r54-s11b",
+   "job": "r54-s11b",
+   "kind": "hf",
+   "plate": "r79_009749-010260_r54-s11b.mp4",
+   "bytes": 405990,
+   "sha256": "2db6374f4faeb9bf24857da77ae75a08c22bc0e20aa4b665ef08e8c86bd6c211",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b",
+    "index_html_sha256": "1a43bf0d93e27dbb5b387e84182044878ec0dfdbc3cc01b560c452db7f74f483"
+   },
+   "recipe": "4K render frames [0,511) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r54-s11b/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 31.1,
+    "width": 3840,
+    "height": 2160,
+    "frames": 511,
+    "bytes": 2738369
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997227,
+    "ssim_min": 0.996069,
+    "ssim_min_r79_frame": 10117,
+    "ssim_worst_frames": [
+     [
+      10117,
+      0.99607
+     ],
+     [
+      10116,
+      0.99607
+     ],
+     [
+      10115,
+      0.99609
+     ],
+     [
+      10111,
+      0.99609
+     ],
+     [
+      10102,
+      0.99609
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.64,
+    "psnr_min_db": 41.25,
+    "shift_minus1_ssim_mean": 0.997074,
+    "shift_plus1_ssim_mean": 0.997119,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:40:50"
+  },
+  {
+   "r79_frames": [
+    10260,
+    10824
+   ],
+   "frames": 564,
+   "leaf": "r54-s11cd",
+   "job": "r54-s11cd",
+   "kind": "hf",
+   "plate": "r79_010260-010824_r54-s11cd.mp4",
+   "bytes": 830417,
+   "sha256": "e72ce37a85d27827bce5aebca1b8512ee9589da8cf8c708fb3ad7e69f659de29",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11cd",
+    "index_html_sha256": "aafedb4c55ced35f278661f81f8af0e72ab93d3c79e32478f7fbc264fac773bb"
+   },
+   "recipe": "4K render frames [0,564) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r54-s11cd/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 37.8,
+    "width": 3840,
+    "height": 2160,
+    "frames": 573,
+    "bytes": 6429044
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997116,
+    "ssim_min": 0.996134,
+    "ssim_min_r79_frame": 10811,
+    "ssim_worst_frames": [
+     [
+      10811,
+      0.99613
+     ],
+     [
+      10424,
+      0.99624
+     ],
+     [
+      10444,
+      0.99627
+     ],
+     [
+      10449,
+      0.99627
+     ],
+     [
+      10463,
+      0.99627
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 45.63,
+    "psnr_min_db": 42.11,
+    "shift_minus1_ssim_mean": 0.996941,
+    "shift_plus1_ssim_mean": 0.9965,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:41:31"
+  },
+  {
+   "r79_frames": [
+    10824,
+    11089
+   ],
+   "frames": 265,
+   "leaf": "r55-s12a-pickup",
+   "job": "r55-s12a-pickup",
+   "kind": "media",
+   "plate": "r79_010824-011089_r55-s12a-pickup.mp4",
+   "bytes": 5578533,
+   "sha256": "49c06aef87abb0073214ce4ba5ffcee99bac9a86abf2168d1050ddf13e59157f",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12a-pickup/provider/restoration/restored.mp4",
+    "sha256": "9259e5c1e3d45d58f29272eff2d7aa453d205fb4955fd67f68554d487a5c7de3",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p10le"
+   },
+   "recipe": "source frames [0,265) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989338,
+    "ssim_min": 0.988207,
+    "ssim_min_r79_frame": 10943,
+    "ssim_worst_frames": [
+     [
+      10943,
+      0.98821
+     ],
+     [
+      11012,
+      0.98866
+     ],
+     [
+      11062,
+      0.98869
+     ],
+     [
+      11018,
+      0.98872
+     ],
+     [
+      11073,
+      0.98872
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 47.88,
+    "psnr_min_db": 47.36,
+    "shift_minus1_ssim_mean": 0.985177,
+    "shift_plus1_ssim_mean": 0.985423,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale",
+    "10-bit source converted to 8-bit yuv420p"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:41:37"
+  },
+  {
+   "r79_frames": [
+    11089,
+    11976
+   ],
+   "frames": 887,
+   "leaf": "r55-s12bc",
+   "job": "r55-s12bc",
+   "kind": "hf",
+   "plate": "r79_011089-011976_r55-s12bc.mp4",
+   "bytes": 1543835,
+   "sha256": "5381205b33845e1e506d669f54049eae254683f4ad165f0a00e76a04a8d67dd8",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12bc",
+    "index_html_sha256": "766563b27e655bbbb4efb545709baf52d88a2878fa7a82eafdfb629f40a2c3fb"
+   },
+   "recipe": "4K render frames [0,887) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r55-s12bc/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 70.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 887,
+    "bytes": 8394814
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996222,
+    "ssim_min": 0.991696,
+    "ssim_min_r79_frame": 11835,
+    "ssim_worst_frames": [
+     [
+      11835,
+      0.9917
+     ],
+     [
+      11922,
+      0.99194
+     ],
+     [
+      11924,
+      0.99205
+     ],
+     [
+      11834,
+      0.99212
+     ],
+     [
+      11923,
+      0.99218
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 41.59,
+    "psnr_min_db": 35.34,
+    "shift_minus1_ssim_mean": 0.993636,
+    "shift_plus1_ssim_mean": 0.993858,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:42:53"
+  },
+  {
+   "r79_frames": [
+    11976,
+    12481
+   ],
+   "frames": 505,
+   "leaf": "r55-s12d",
+   "job": "r55-s12d",
+   "kind": "hf",
+   "plate": "r79_011976-012481_r55-s12d.mp4",
+   "bytes": 701002,
+   "sha256": "24f9bc0aa98b07fbba4e81a2df4dc43149088c8c6dcdc1ec3581f3e277947d91",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12d",
+    "index_html_sha256": "3b4accc9139f3259fed8891f827829839fb295408f19046dd451bb53418dd24b"
+   },
+   "recipe": "4K render frames [0,505) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r55-s12d/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 33.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 505,
+    "bytes": 4562063
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996851,
+    "ssim_min": 0.992152,
+    "ssim_min_r79_frame": 11983,
+    "ssim_worst_frames": [
+     [
+      11983,
+      0.99215
+     ],
+     [
+      11982,
+      0.99226
+     ],
+     [
+      11976,
+      0.99231
+     ],
+     [
+      11980,
+      0.99232
+     ],
+     [
+      11977,
+      0.99234
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.36,
+    "psnr_min_db": 36.81,
+    "shift_minus1_ssim_mean": 0.99495,
+    "shift_plus1_ssim_mean": 0.994676,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:43:30"
+  },
+  {
+   "r79_frames": [
+    12481,
+    12791
+   ],
+   "frames": 310,
+   "leaf": "r57-s13ab",
+   "job": "r57-s13ab",
+   "kind": "hf",
+   "plate": "r79_012481-012791_r57-s13ab.mp4",
+   "bytes": 381002,
+   "sha256": "244e87245ed0b4ef4175d27fa47c6f3334d4bfb8a683debe8374dcfcdc2bf658",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r57-s13ab",
+    "index_html_sha256": "f6c8fe903d5b0a491abeb24c5859e53f1f32721a6e258129560128090d528f7d"
+   },
+   "recipe": "4K render frames [0,310) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r57-s13ab/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 19.7,
+    "width": 3840,
+    "height": 2160,
+    "frames": 310,
+    "bytes": 2335688
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997422,
+    "ssim_min": 0.996467,
+    "ssim_min_r79_frame": 12776,
+    "ssim_worst_frames": [
+     [
+      12776,
+      0.99647
+     ],
+     [
+      12789,
+      0.99647
+     ],
+     [
+      12790,
+      0.99647
+     ],
+     [
+      12784,
+      0.99647
+     ],
+     [
+      12785,
+      0.99647
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.52,
+    "psnr_min_db": 41.78,
+    "shift_minus1_ssim_mean": 0.996769,
+    "shift_plus1_ssim_mean": 0.997235,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:43:52"
+  },
+  {
+   "r79_frames": [
+    12791,
+    13376
+   ],
+   "frames": 585,
+   "leaf": "r57-s13cd",
+   "job": "r57-s13cd",
+   "kind": "hf",
+   "plate": "r79_012791-013376_r57-s13cd.mp4",
+   "bytes": 1148467,
+   "sha256": "6ab83287737e8e01e7e5c6c61246965f555a11aa58c62f5e5d7c91b4e31fa71f",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r57-s13cd",
+    "index_html_sha256": "e109a6af9b8eac9e23f8fad0135549119e102b23656d9679f4dedf2ccac62c35"
+   },
+   "recipe": "4K render frames [0,585) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r57-s13cd/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 41.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 585,
+    "bytes": 6541326
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996628,
+    "ssim_min": 0.993039,
+    "ssim_min_r79_frame": 13323,
+    "ssim_worst_frames": [
+     [
+      13323,
+      0.99304
+     ],
+     [
+      13325,
+      0.99307
+     ],
+     [
+      13330,
+      0.99372
+     ],
+     [
+      13322,
+      0.99382
+     ],
+     [
+      13329,
+      0.99391
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.73,
+    "psnr_min_db": 37.95,
+    "shift_minus1_ssim_mean": 0.992903,
+    "shift_plus1_ssim_mean": 0.992482,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T13:44:37"
+  },
+  {
+   "r79_frames": [
+    13376,
+    13694
+   ],
+   "frames": 318,
+   "leaf": "s14-presenter-a",
+   "job": "s14-presenter-a",
+   "kind": "media",
+   "plate": "r79_013376-013694_s14-presenter-a.mp4",
+   "bytes": 10062041,
+   "sha256": "50a088180d3cd8f1a3813cd419d9eaad08a8b7a0230dc74a0bd590174edc171e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/restoration/restored.mp4",
+    "sha256": "51bf0555cea921197f0fa3899c52a8e085c8b5fda000f5fd0da766c427416294",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [1,319) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.991894,
+    "ssim_min": 0.99071,
+    "ssim_min_r79_frame": 13625,
+    "ssim_worst_frames": [
+     [
+      13625,
+      0.99071
+     ],
+     [
+      13624,
+      0.99083
+     ],
+     [
+      13693,
+      0.99088
+     ],
+     [
+      13692,
+      0.99101
+     ],
+     [
+      13623,
+      0.99102
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 49.07,
+    "psnr_min_db": 48.25,
+    "shift_minus1_ssim_mean": 0.987936,
+    "shift_plus1_ssim_mean": 0.988155,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:44:45"
+  },
+  {
+   "r79_frames": [
+    13694,
+    14102
+   ],
+   "frames": 408,
+   "leaf": "r59-s14b",
+   "job": "r59-s14b",
+   "kind": "hf",
+   "plate": "r79_013694-014102_r59-s14b.mp4",
+   "bytes": 266165,
+   "sha256": "6e95729b520e5c01db3c1aaa942613d8206f4e3c4dee1af4129da84525edcd42",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b",
+    "index_html_sha256": "d1da99cad59a75a780ae8c13f7ba31284f186146fd895c4d7b8ded6798ce17b2"
+   },
+   "recipe": "4K render frames [0,408) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r59-s14b/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 27.3,
+    "width": 3840,
+    "height": 2160,
+    "frames": 408,
+    "bytes": 1915910
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997803,
+    "ssim_min": 0.99673,
+    "ssim_min_r79_frame": 14049,
+    "ssim_worst_frames": [
+     [
+      14049,
+      0.99673
+     ],
+     [
+      14053,
+      0.99673
+     ],
+     [
+      14057,
+      0.99673
+     ],
+     [
+      14059,
+      0.99673
+     ],
+     [
+      14061,
+      0.99673
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.98,
+    "psnr_min_db": 42.21,
+    "shift_minus1_ssim_mean": 0.996779,
+    "shift_plus1_ssim_mean": 0.996651,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "S14 projects: package.json pins 0.8.36 but the locked renders carry hyperframes_version=0.0.0-dev (local dev build); rendered with closest published pin 0.8.36",
+    "locked look includes grey-label defect (r59-s14-accent-label-finding-v1); reproduced, not fixed"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:45:15"
+  },
+  {
+   "r79_frames": [
+    14102,
+    14375
+   ],
+   "frames": 273,
+   "leaf": "s14-presenter-c1",
+   "job": "s14-presenter-c1",
+   "kind": "media",
+   "plate": "r79_014102-014375_s14-presenter-c1.mp4",
+   "bytes": 8840520,
+   "sha256": "052b0eed711d3d2848f39aa48535057c42a370a04fc71e1a2a2169357cb79f82",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/restoration/restored.mp4",
+    "sha256": "5100157a6d7c724ea82b70113d8fda14538e6123acba4410d15b14ac91f29d00",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [4,277) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.991731,
+    "ssim_min": 0.99076,
+    "ssim_min_r79_frame": 14159,
+    "ssim_worst_frames": [
+     [
+      14159,
+      0.99076
+     ],
+     [
+      14207,
+      0.99079
+     ],
+     [
+      14158,
+      0.99099
+     ],
+     [
+      14342,
+      0.99107
+     ],
+     [
+      14346,
+      0.99108
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 49.03,
+    "psnr_min_db": 48.36,
+    "shift_minus1_ssim_mean": 0.988446,
+    "shift_plus1_ssim_mean": 0.988656,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:45:21"
+  },
+  {
+   "r79_frames": [
+    14375,
+    14582
+   ],
+   "frames": 207,
+   "leaf": "r59-s14c2",
+   "job": "r59-s14c2",
+   "kind": "hf",
+   "plate": "r79_014375-014582_r59-s14c2.mp4",
+   "bytes": 80886,
+   "sha256": "1892fd5fae4b0224868472db4e3b5aebe61255bbdd6e4a2d154e37441968b86e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2",
+    "index_html_sha256": "1f3748a399fa41e2cf00807851423b0f690100c2183003808b9bcabc029ab19c"
+   },
+   "recipe": "4K render frames [0,207) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r59-s14c2/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 15.3,
+    "width": 3840,
+    "height": 2160,
+    "frames": 207,
+    "bytes": 607400
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.998189,
+    "ssim_min": 0.997702,
+    "ssim_min_r79_frame": 14522,
+    "ssim_worst_frames": [
+     [
+      14522,
+      0.9977
+     ],
+     [
+      14524,
+      0.99771
+     ],
+     [
+      14560,
+      0.99771
+     ],
+     [
+      14559,
+      0.99771
+     ],
+     [
+      14523,
+      0.99771
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.01,
+    "psnr_min_db": 42.84,
+    "shift_minus1_ssim_mean": 0.996933,
+    "shift_plus1_ssim_mean": 0.996847,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "S14 projects: package.json pins 0.8.36 but the locked renders carry hyperframes_version=0.0.0-dev (local dev build); rendered with closest published pin 0.8.36",
+    "locked look includes grey-label defect; reproduced, not fixed"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:45:38"
+  },
+  {
+   "r79_frames": [
+    14582,
+    14858
+   ],
+   "frames": 276,
+   "leaf": "s14-presenter-c3",
+   "job": "s14-presenter-c3",
+   "kind": "media",
+   "plate": "r79_014582-014858_s14-presenter-c3.mp4",
+   "bytes": 9319792,
+   "sha256": "90cc832c64744b87c44a37d1933e7541246f86bc6fc1a5f0d878d559c6a1bd80",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/restoration/restored.mp4",
+    "sha256": "e7b972fe7755ef36940d128e4df9bde396435bbdba9c5957dea67b416617f980",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [0,276) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.991068,
+    "ssim_min": 0.989905,
+    "ssim_min_r79_frame": 14783,
+    "ssim_worst_frames": [
+     [
+      14783,
+      0.98991
+     ],
+     [
+      14831,
+      0.99001
+     ],
+     [
+      14775,
+      0.99016
+     ],
+     [
+      14776,
+      0.99016
+     ],
+     [
+      14764,
+      0.99021
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 48.69,
+    "psnr_min_db": 47.92,
+    "shift_minus1_ssim_mean": 0.986296,
+    "shift_plus1_ssim_mean": 0.986457,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:45:45"
+  },
+  {
+   "r79_frames": [
+    14858,
+    15146
+   ],
+   "frames": 288,
+   "leaf": "r59-s14d",
+   "job": "r59-s14d",
+   "kind": "hf",
+   "plate": "r79_014858-015146_r59-s14d.mp4",
+   "bytes": 184199,
+   "sha256": "d277d8edb80117c995ccbecff906c0876e822979bd0198259f001100502840f6",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d",
+    "index_html_sha256": "49f644d766f761332d92074fd22430cb5b072e93ca2be1e2931a9ceb52ffeefc"
+   },
+   "recipe": "4K render frames [0,288) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r59-s14d/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 19.1,
+    "width": 3840,
+    "height": 2160,
+    "frames": 288,
+    "bytes": 1256037
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.999014,
+    "ssim_min": 0.997624,
+    "ssim_min_r79_frame": 15140,
+    "ssim_worst_frames": [
+     [
+      15140,
+      0.99762
+     ],
+     [
+      15143,
+      0.99762
+     ],
+     [
+      15144,
+      0.99762
+     ],
+     [
+      15141,
+      0.99762
+     ],
+     [
+      15142,
+      0.99762
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 49.56,
+    "psnr_min_db": 43.4,
+    "shift_minus1_ssim_mean": 0.998041,
+    "shift_plus1_ssim_mean": 0.998655,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "S14 projects: package.json pins 0.8.36 but the locked renders carry hyperframes_version=0.0.0-dev (local dev build); rendered with closest published pin 0.8.36",
+    "locked look includes grey-label defect; reproduced, not fixed"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:46:07"
+  },
+  {
+   "r79_frames": [
+    15146,
+    15746
+   ],
+   "frames": 600,
+   "leaf": "r60-s15-p1",
+   "job": "r60-s15-p1",
+   "kind": "hf",
+   "plate": "r79_015146-015746_r60-s15-p1.mp4",
+   "bytes": 384526,
+   "sha256": "0f8babaf016b10f3d9a442630a599b211e060041256c5645391bbda37f0a0207",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1",
+    "index_html_sha256": "a4ffc30efa881989ef005939d1424b717e222e659116b83e0a75ca8352f1e160"
+   },
+   "recipe": "4K render frames [0,600) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r60-s15-p1/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 36.0,
+    "width": 3840,
+    "height": 2160,
+    "frames": 600,
+    "bytes": 2407612
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.9971,
+    "ssim_min": 0.994289,
+    "ssim_min_r79_frame": 15740,
+    "ssim_worst_frames": [
+     [
+      15740,
+      0.99429
+     ],
+     [
+      15718,
+      0.99429
+     ],
+     [
+      15723,
+      0.99429
+     ],
+     [
+      15736,
+      0.99429
+     ],
+     [
+      15713,
+      0.99429
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.79,
+    "psnr_min_db": 41.43,
+    "shift_minus1_ssim_mean": 0.996628,
+    "shift_plus1_ssim_mean": 0.996744,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r60 render version never logged; pin 0.8.36 used"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:46:46"
+  },
+  {
+   "r79_frames": [
+    15746,
+    15754
+   ],
+   "frames": 8,
+   "leaf": "r60-s15-p2-head",
+   "job": "r60-s15-p2",
+   "kind": "hf",
+   "plate": "r79_015746-015754_r60-s15-p2-head.mp4",
+   "bytes": 56253,
+   "sha256": "dd2c41e7b94d59ecdb72a82c9a24fec3e9baa6ae99fcc43507e34d198304fc9d",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2",
+    "index_html_sha256": "8200183637284fd62b6cd11c9f7936c61a76fbb14a847d88baf00a35e7dd6a7c"
+   },
+   "recipe": "4K render frames [0,8) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r60-s15-p2/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 48.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 768,
+    "bytes": 5475144
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994257,
+    "ssim_min": 0.994246,
+    "ssim_min_r79_frame": 15748,
+    "ssim_worst_frames": [
+     [
+      15748,
+      0.99425
+     ],
+     [
+      15752,
+      0.99425
+     ],
+     [
+      15750,
+      0.99425
+     ],
+     [
+      15751,
+      0.99425
+     ],
+     [
+      15753,
+      0.99425
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 41.37,
+    "psnr_min_db": 41.37,
+    "shift_minus1_ssim_mean": 0.994099,
+    "shift_plus1_ssim_mean": 0.974475,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r60 render version never logged; pin 0.8.36 used",
+    "R79 16038 was an R78 seam-hold PNG of this leaf frame 292; plate uses the 4K render frame 292 directly"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:47:37"
+  },
+  {
+   "r79_frames": [
+    15754,
+    15826
+   ],
+   "frames": 72,
+   "leaf": "s15-chatgpt-insert-a",
+   "job": "r78-s15-mobile",
+   "kind": "hf",
+   "plate": "r79_015754-015826_s15-chatgpt-insert-a.mp4",
+   "bytes": 847945,
+   "sha256": "08c024905c67321bc71d958328be61b066fb72b410bd160c253d8cce4e1ee8d7",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile",
+    "index_html_sha256": "f4d5ae80a2e1ed27a9c3c2a92aefe28f803433692f4dcf469f7bde75c7d48d2e"
+   },
+   "recipe": "4K render frames [608,680) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 72,
+      "r77_crop": "crop=2880:1620:600:300,fps=24",
+      "r78_crop": "crop=w=2000:h=1036:x='trunc((200+(350-200)*n/71)/2)*2':y='trunc((260+(340-260)*n/71)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "0132549d781a02a4bd86a415a2696650ac54a17bdf2ee940baf328a6f973c5d4"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 60.0,
+      "frames": 212,
+      "r77_crop": "crop=2880:1620:600:300,fps=24",
+      "r78_crop": "crop=w=2000:h=1036:x='trunc((480+(600-480)*n/211)/2)*2':y='trunc((140+(210-140)*n/211)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "84b4cff96dbc8640d1bd0bd405d68f646bdb87a8b7399bd7207489ed0f9cb269"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/chatgpt-raw-01.mp4",
+    "raw_sha256": "c8673bae989394575a96535560508efc38450c0a796f98741decb20e5330e475"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s15-mobile/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 141.9,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1368,
+    "bytes": 29600345
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.998067,
+    "ssim_min": 0.997527,
+    "ssim_min_r79_frame": 15825,
+    "ssim_worst_frames": [
+     [
+      15825,
+      0.99753
+     ],
+     [
+      15824,
+      0.99781
+     ],
+     [
+      15770,
+      0.99784
+     ],
+     [
+      15818,
+      0.99784
+     ],
+     [
+      15771,
+      0.99786
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 40.63,
+    "psnr_min_db": 40.32,
+    "shift_minus1_ssim_mean": 0.955292,
+    "shift_plus1_ssim_mean": 0.955007,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "ChatGPT screen recording raw 3840x1946 VFR; used window 2000x1036 raw px -> 1.82x upscale into the 4K capture box (below 4K)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe (skips the two crf16 generations); capture scaled lanczos to the 4K content box 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:50:12"
+  },
+  {
+   "r79_frames": [
+    15826,
+    16038
+   ],
+   "frames": 212,
+   "leaf": "s15-chatgpt-insert-b",
+   "job": "r78-s15-mobile",
+   "kind": "hf",
+   "plate": "r79_015826-016038_s15-chatgpt-insert-b.mp4",
+   "bytes": 2823115,
+   "sha256": "ff7249025dd5ea3e7dc176fa1151a9a96ca34e89ce14380393112e06dad33c67",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile",
+    "index_html_sha256": "f4d5ae80a2e1ed27a9c3c2a92aefe28f803433692f4dcf469f7bde75c7d48d2e"
+   },
+   "recipe": "4K render frames [680,892) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 72,
+      "r77_crop": "crop=2880:1620:600:300,fps=24",
+      "r78_crop": "crop=w=2000:h=1036:x='trunc((200+(350-200)*n/71)/2)*2':y='trunc((260+(340-260)*n/71)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "0132549d781a02a4bd86a415a2696650ac54a17bdf2ee940baf328a6f973c5d4"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 60.0,
+      "frames": 212,
+      "r77_crop": "crop=2880:1620:600:300,fps=24",
+      "r78_crop": "crop=w=2000:h=1036:x='trunc((480+(600-480)*n/211)/2)*2':y='trunc((140+(210-140)*n/211)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "84b4cff96dbc8640d1bd0bd405d68f646bdb87a8b7399bd7207489ed0f9cb269"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/chatgpt-raw-01.mp4",
+    "raw_sha256": "c8673bae989394575a96535560508efc38450c0a796f98741decb20e5330e475"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s15-mobile/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 141.9,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1368,
+    "bytes": 29600345
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996685,
+    "ssim_min": 0.995943,
+    "ssim_min_r79_frame": 15983,
+    "ssim_worst_frames": [
+     [
+      15983,
+      0.99594
+     ],
+     [
+      15921,
+      0.99609
+     ],
+     [
+      15847,
+      0.99613
+     ],
+     [
+      15845,
+      0.99613
+     ],
+     [
+      15846,
+      0.99613
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.29,
+    "psnr_min_db": 38.92,
+    "shift_minus1_ssim_mean": 0.974778,
+    "shift_plus1_ssim_mean": 0.974578,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "ChatGPT screen recording raw 3840x1946 VFR; used window 2000x1036 raw px -> 1.82x upscale into the 4K capture box (below 4K)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe (skips the two crf16 generations); capture scaled lanczos to the 4K content box 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:50:13"
+  },
+  {
+   "r79_frames": [
+    16038,
+    16514
+   ],
+   "frames": 476,
+   "leaf": "r60-s15-p2-tail",
+   "job": "r60-s15-p2",
+   "kind": "hf",
+   "plate": "r79_016038-016514_r60-s15-p2-tail.mp4",
+   "bytes": 558013,
+   "sha256": "5e3a2914f90b3de4e88027e5a7f2f6a5fcfd5e009430d0e7e736d612c91f6c9b",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2",
+    "index_html_sha256": "8200183637284fd62b6cd11c9f7936c61a76fbb14a847d88baf00a35e7dd6a7c"
+   },
+   "recipe": "4K render frames [292,768) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r60-s15-p2/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 48.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 768,
+    "bytes": 5475144
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994784,
+    "ssim_min": 0.986606,
+    "ssim_min_r79_frame": 16272,
+    "ssim_worst_frames": [
+     [
+      16272,
+      0.98661
+     ],
+     [
+      16496,
+      0.98773
+     ],
+     [
+      16162,
+      0.98836
+     ],
+     [
+      16103,
+      0.98931
+     ],
+     [
+      16271,
+      0.98962
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 41.79,
+    "psnr_min_db": 37.36,
+    "shift_minus1_ssim_mean": 0.994053,
+    "shift_plus1_ssim_mean": 0.994692,
+    "alignment": "indeterminate (static content: shift within 1e-4)",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r60 render version never logged; pin 0.8.36 used",
+    "R79 16038 was an R78 seam-hold PNG of this leaf frame 292; plate uses the 4K render frame 292 directly"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:47:39"
+  },
+  {
+   "r79_frames": [
+    16514,
+    16727
+   ],
+   "frames": 213,
+   "leaf": "r61-s16-p1-head",
+   "job": "r61-s16-p1",
+   "kind": "hf",
+   "plate": "r79_016514-016727_r61-s16-p1-head.mp4",
+   "bytes": 174208,
+   "sha256": "697da39583df67a18e46db158d4629e0b41e0f8964e12113a8a123a1551a8074",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1",
+    "index_html_sha256": "86c9faab6983af11ac14c91c9d8bd1ffc1b88744ea7ab97a4558668b00bf6f97"
+   },
+   "recipe": "4K render frames [0,213) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r61-s16-p1/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 67.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 876,
+    "bytes": 4765494
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.99793,
+    "ssim_min": 0.994833,
+    "ssim_min_r79_frame": 16726,
+    "ssim_worst_frames": [
+     [
+      16726,
+      0.99483
+     ],
+     [
+      16725,
+      0.99484
+     ],
+     [
+      16724,
+      0.99486
+     ],
+     [
+      16723,
+      0.99499
+     ],
+     [
+      16722,
+      0.99512
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.48,
+    "psnr_min_db": 41.29,
+    "shift_minus1_ssim_mean": 0.996919,
+    "shift_plus1_ssim_mean": 0.996543,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r61 render version never logged; pin 0.8.36 used",
+    "return still [17380,17390) = this leaf frame 866 held 10 frames; R79 17380-17381 were renderer boundary composites (~33.6 dB vs still)"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:51:22"
+  },
+  {
+   "r79_frames": [
+    16727,
+    16871
+   ],
+   "frames": 144,
+   "leaf": "s16-sheets-insert-00",
+   "job": "r78-s16-mobile-r7",
+   "kind": "hf",
+   "plate": "r79_016727-016871_s16-sheets-insert-00.mp4",
+   "bytes": 545260,
+   "sha256": "272af010060b121987aaa95732c3cd6ded83cdc5d66cfe4b74cc45876e48b98c",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f"
+   },
+   "recipe": "4K render frames [213,357) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 144,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/143)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "8abb1c7a8960b648ecaa98bf96dccf736a318b1b0669ddbb5ae8b282fe5c5ab3"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 10.5,
+      "frames": 216,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "9654fe58e252083175f97ae1487171630dd93aafb1cc004097a89b72c2ed29c1"
+     },
+     {
+      "slot": "capture-mobile-02.mp4",
+      "raw_in_seconds": 21.0,
+      "frames": 198,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "151ab6f9a113b7ce1788cd49b0851c6068941e80347e39417ddd10bef70d8021"
+     },
+     {
+      "slot": "capture-mobile-03.mp4",
+      "raw_in_seconds": 34.0,
+      "frames": 97,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/96)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "4f2e26458609203283d0f6d965cf0bad52104bde46653f40b3b9167e4b3ed070"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "raw_sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s16-mobile-r7/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 179.5,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1293,
+    "bytes": 17185372
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994805,
+    "ssim_min": 0.994133,
+    "ssim_min_r79_frame": 16727,
+    "ssim_worst_frames": [
+     [
+      16727,
+      0.99413
+     ],
+     [
+      16728,
+      0.99445
+     ],
+     [
+      16729,
+      0.99446
+     ],
+     [
+      16731,
+      0.99448
+     ],
+     [
+      16730,
+      0.99448
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.92,
+    "psnr_min_db": 39.74,
+    "shift_minus1_ssim_mean": 0.983612,
+    "shift_plus1_ssim_mean": 0.983408,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "Sheets screen recording raw 3840x1946 VFR; used window 1100x570 raw px -> 3.32x upscale into the 4K capture box (well below 4K; worst leaf)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe; capture scaled lanczos to 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:54:36"
+  },
+  {
+   "r79_frames": [
+    16871,
+    17087
+   ],
+   "frames": 216,
+   "leaf": "s16-sheets-insert-01",
+   "job": "r78-s16-mobile-r7",
+   "kind": "hf",
+   "plate": "r79_016871-017087_s16-sheets-insert-01.mp4",
+   "bytes": 220437,
+   "sha256": "24421ddd56b439e297861cc83b5d7ce73655fee7cad2718a1238600643731f6e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f"
+   },
+   "recipe": "4K render frames [357,573) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 144,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/143)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "8abb1c7a8960b648ecaa98bf96dccf736a318b1b0669ddbb5ae8b282fe5c5ab3"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 10.5,
+      "frames": 216,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "9654fe58e252083175f97ae1487171630dd93aafb1cc004097a89b72c2ed29c1"
+     },
+     {
+      "slot": "capture-mobile-02.mp4",
+      "raw_in_seconds": 21.0,
+      "frames": 198,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "151ab6f9a113b7ce1788cd49b0851c6068941e80347e39417ddd10bef70d8021"
+     },
+     {
+      "slot": "capture-mobile-03.mp4",
+      "raw_in_seconds": 34.0,
+      "frames": 97,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/96)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "4f2e26458609203283d0f6d965cf0bad52104bde46653f40b3b9167e4b3ed070"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "raw_sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s16-mobile-r7/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 179.5,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1293,
+    "bytes": 17185372
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.995659,
+    "ssim_min": 0.994668,
+    "ssim_min_r79_frame": 16871,
+    "ssim_worst_frames": [
+     [
+      16871,
+      0.99467
+     ],
+     [
+      16872,
+      0.9947
+     ],
+     [
+      16874,
+      0.9947
+     ],
+     [
+      16875,
+      0.9947
+     ],
+     [
+      16873,
+      0.9947
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 40.12,
+    "psnr_min_db": 39.8,
+    "shift_minus1_ssim_mean": 0.994116,
+    "shift_plus1_ssim_mean": 0.995216,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "Sheets screen recording raw 3840x1946 VFR; used window 1100x570 raw px -> 3.32x upscale into the 4K capture box (well below 4K; worst leaf)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe; capture scaled lanczos to 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:54:37"
+  },
+  {
+   "r79_frames": [
+    17087,
+    17285
+   ],
+   "frames": 198,
+   "leaf": "s16-sheets-insert-02",
+   "job": "r78-s16-mobile-r7",
+   "kind": "hf",
+   "plate": "r79_017087-017285_s16-sheets-insert-02.mp4",
+   "bytes": 258843,
+   "sha256": "3448d21861c7a30d8917562646a6b2331e62ffcd824629e78d68ff962e6c91cd",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f"
+   },
+   "recipe": "4K render frames [573,771) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 144,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/143)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "8abb1c7a8960b648ecaa98bf96dccf736a318b1b0669ddbb5ae8b282fe5c5ab3"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 10.5,
+      "frames": 216,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "9654fe58e252083175f97ae1487171630dd93aafb1cc004097a89b72c2ed29c1"
+     },
+     {
+      "slot": "capture-mobile-02.mp4",
+      "raw_in_seconds": 21.0,
+      "frames": 198,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "151ab6f9a113b7ce1788cd49b0851c6068941e80347e39417ddd10bef70d8021"
+     },
+     {
+      "slot": "capture-mobile-03.mp4",
+      "raw_in_seconds": 34.0,
+      "frames": 97,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/96)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "4f2e26458609203283d0f6d965cf0bad52104bde46653f40b3b9167e4b3ed070"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "raw_sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s16-mobile-r7/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 179.5,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1293,
+    "bytes": 17185372
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994875,
+    "ssim_min": 0.9941,
+    "ssim_min_r79_frame": 17135,
+    "ssim_worst_frames": [
+     [
+      17135,
+      0.9941
+     ],
+     [
+      17134,
+      0.99414
+     ],
+     [
+      17281,
+      0.9946
+     ],
+     [
+      17280,
+      0.9946
+     ],
+     [
+      17282,
+      0.9946
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.5,
+    "psnr_min_db": 38.99,
+    "shift_minus1_ssim_mean": 0.994311,
+    "shift_plus1_ssim_mean": 0.994315,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "Sheets screen recording raw 3840x1946 VFR; used window 1100x570 raw px -> 3.32x upscale into the 4K capture box (well below 4K; worst leaf)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe; capture scaled lanczos to 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:54:38"
+  },
+  {
+   "r79_frames": [
+    17285,
+    17380
+   ],
+   "frames": 95,
+   "leaf": "s16-sheets-insert-03",
+   "job": "r78-s16-mobile-r7",
+   "kind": "hf",
+   "plate": "r79_017285-017380_s16-sheets-insert-03.mp4",
+   "bytes": 462076,
+   "sha256": "19e9cae5fd3dba2aad0e0b157a6d95bc88a9883ab42e25f83b6c0c78ff325f9c",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f"
+   },
+   "recipe": "4K render frames [771,866) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.50"
+   },
+   "scratch_patch": {
+    "captures_rebuilt_from_raw": [
+     {
+      "slot": "capture-mobile-00.mp4",
+      "raw_in_seconds": 0.0,
+      "frames": 144,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/143)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "8abb1c7a8960b648ecaa98bf96dccf736a318b1b0669ddbb5ae8b282fe5c5ab3"
+     },
+     {
+      "slot": "capture-mobile-01.mp4",
+      "raw_in_seconds": 10.5,
+      "frames": 216,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "9654fe58e252083175f97ae1487171630dd93aafb1cc004097a89b72c2ed29c1"
+     },
+     {
+      "slot": "capture-mobile-02.mp4",
+      "raw_in_seconds": 21.0,
+      "frames": 198,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='100'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "151ab6f9a113b7ce1788cd49b0851c6068941e80347e39417ddd10bef70d8021"
+     },
+     {
+      "slot": "capture-mobile-03.mp4",
+      "raw_in_seconds": 34.0,
+      "frames": 97,
+      "r77_crop": "crop=1588:823:300:150,fps=24",
+      "r78_crop": "crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/96)/2)*2'",
+      "scaled_to": [
+       3642,
+       1884
+      ],
+      "sha256": "4f2e26458609203283d0f6d965cf0bad52104bde46653f40b3b9167e4b3ed070"
+     }
+    ],
+    "raw": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "raw_sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86"
+   },
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.50 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r78-s16-mobile-r7/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off --video-frame-format png",
+    "seconds": 179.5,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1293,
+    "bytes": 17185372
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.994826,
+    "ssim_min": 0.994367,
+    "ssim_min_r79_frame": 17361,
+    "ssim_worst_frames": [
+     [
+      17361,
+      0.99437
+     ],
+     [
+      17360,
+      0.99437
+     ],
+     [
+      17365,
+      0.99438
+     ],
+     [
+      17369,
+      0.99439
+     ],
+     [
+      17366,
+      0.99439
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.78,
+    "psnr_min_db": 39.27,
+    "shift_minus1_ssim_mean": 0.980318,
+    "shift_plus1_ssim_mean": 0.977496,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "Sheets screen recording raw 3840x1946 VFR; used window 1100x570 raw px -> 3.32x upscale into the 4K capture box (well below 4K; worst leaf)",
+    "R77 crop+fps24 and R78 moving crop recomputed from RAW in one lossless pipe; capture scaled lanczos to 3642x1884"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:54:38"
+  },
+  {
+   "r79_frames": [
+    17380,
+    17390
+   ],
+   "frames": 10,
+   "leaf": "r61-s16-p1-return-still-866",
+   "job": "r61-s16-p1",
+   "kind": "hf",
+   "plate": "r79_017380-017390_r61-s16-p1-return-still-866.mp4",
+   "bytes": 117209,
+   "sha256": "2301e87cf4f06b3fb0fce7dd566aa457b5ca86a41831058954f985b1e8f0494f",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1",
+    "index_html_sha256": "86c9faab6983af11ac14c91c9d8bd1ffc1b88744ea7ab97a4558668b00bf6f97"
+   },
+   "recipe": "4K render frame 866 held 10 frames -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r61-s16-p1/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 67.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 876,
+    "bytes": 4765494
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.992194,
+    "ssim_min": 0.988193,
+    "ssim_min_r79_frame": 17380,
+    "ssim_worst_frames": [
+     [
+      17380,
+      0.98819
+     ],
+     [
+      17381,
+      0.98825
+     ],
+     [
+      17384,
+      0.99318
+     ],
+     [
+      17388,
+      0.99318
+     ],
+     [
+      17389,
+      0.99319
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 35.8,
+    "psnr_min_db": 32.25,
+    "shift_minus1_ssim_mean": 0.965151,
+    "shift_plus1_ssim_mean": 0.992649,
+    "alignment": "MISALIGNED",
+    "pass": false,
+    "fail_reasons": [
+     "one-frame shift scores higher (shift -1 0.96515, +1 0.99265)"
+    ]
+   },
+   "pass": false,
+   "flags": [
+    "r61 render version never logged; pin 0.8.36 used",
+    "return still [17380,17390) = this leaf frame 866 held 10 frames; R79 17380-17381 were renderer boundary composites (~33.6 dB vs still)"
+   ],
+   "status": "owner_accepted_as_is",
+   "built": "2026-09-23T13:51:23",
+   "failure_diagnosis": "Expected per the leaf map: R79 17380-17381 are renderer boundary composites (~33.6 dB vs the still). The plate holds the clean frame 866 for all 10 frames, so a +1 shift scores higher. Mean 0.992 and min 0.988 are within the thresholds; the only failing criterion is the alignment rule.",
+   "owner_override": true
+  },
+  {
+   "r79_frames": [
+    17390,
+    17807
+   ],
+   "frames": 417,
+   "leaf": "r61-s16-p2",
+   "job": "r61-s16-p2",
+   "kind": "hf",
+   "plate": "r79_017390-017807_r61-s16-p2.mp4",
+   "bytes": 1027964,
+   "sha256": "759b8eb2d4565d392f027930dfd8103d3184bedd8f7c05435db68b72b2cb9de3",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2",
+    "index_html_sha256": "fed48087935f9cdd7f1aeb94c05b94833a113e40c751c54485b39a198d9038c5"
+   },
+   "recipe": "4K render frames [0,417) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r61-s16-p2/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 29.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 417,
+    "bytes": 4728619
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.993596,
+    "ssim_min": 0.989927,
+    "ssim_min_r79_frame": 17403,
+    "ssim_worst_frames": [
+     [
+      17403,
+      0.98993
+     ],
+     [
+      17402,
+      0.98996
+     ],
+     [
+      17404,
+      0.99021
+     ],
+     [
+      17401,
+      0.99056
+     ],
+     [
+      17406,
+      0.99067
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 39.24,
+    "psnr_min_db": 36.15,
+    "shift_minus1_ssim_mean": 0.989926,
+    "shift_plus1_ssim_mean": 0.989504,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r61 render version never logged; pin 0.8.36 used"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:55:11"
+  },
+  {
+   "r79_frames": [
+    17807,
+    18518
+   ],
+   "frames": 711,
+   "leaf": "r62-s17-p1",
+   "job": "r62-s17-p1",
+   "kind": "hf",
+   "plate": "r79_017807-018518_r62-s17-p1.mp4",
+   "bytes": 483955,
+   "sha256": "4522886e17dbc6faa60cf35328e75439df0f3ac885154348c1ea4fcd3ca2ef29",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1",
+    "index_html_sha256": "089b0179003b3d5d08df43ddeada5ec9ee27c1de7e6970c0ddcfc50e8bc2c6eb"
+   },
+   "recipe": "4K render frames [0,711) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r62-s17-p1/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 40.9,
+    "width": 3840,
+    "height": 2160,
+    "frames": 711,
+    "bytes": 2782149
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996316,
+    "ssim_min": 0.99591,
+    "ssim_min_r79_frame": 18482,
+    "ssim_worst_frames": [
+     [
+      18482,
+      0.99591
+     ],
+     [
+      18483,
+      0.99591
+     ],
+     [
+      18484,
+      0.99591
+     ],
+     [
+      18480,
+      0.99591
+     ],
+     [
+      18481,
+      0.99591
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 40.77,
+    "psnr_min_db": 40.45,
+    "shift_minus1_ssim_mean": 0.996016,
+    "shift_plus1_ssim_mean": 0.995861,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r62 render version never logged; pin 0.8.36 used"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:55:56"
+  },
+  {
+   "r79_frames": [
+    18518,
+    18710
+   ],
+   "frames": 192,
+   "leaf": "s17-presenter-c",
+   "job": "s17-presenter-c",
+   "kind": "media",
+   "plate": "r79_018518-018710_s17-presenter-c.mp4",
+   "bytes": 5746976,
+   "sha256": "24f503b3eada7c22d5d41259002cab595a8272d6c5a281d667293d6374cd3bbb",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "media": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/restoration/restored.mp4",
+    "sha256": "21d44f10a70b98732e71707f6f34a48c15141c656208530197cbd47d4e405a9e",
+    "width": 1920,
+    "height": 1080,
+    "pix_fmt": "yuv420p"
+   },
+   "recipe": "source frames [8,200) at native 1920x1080, 8-bit yuv420p",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers"
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989898,
+    "ssim_min": 0.988781,
+    "ssim_min_r79_frame": 18709,
+    "ssim_worst_frames": [
+     [
+      18709,
+      0.98878
+     ],
+     [
+      18708,
+      0.98882
+     ],
+     [
+      18707,
+      0.98889
+     ],
+     [
+      18704,
+      0.98901
+     ],
+     [
+      18706,
+      0.98905
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 47.81,
+    "psnr_min_db": 47.15,
+    "shift_minus1_ssim_mean": 0.984473,
+    "shift_plus1_ssim_mean": 0.984825,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "presenter source is 1920x1080 (below 4K); plate is native 1080p, no upscale"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:56:01"
+  },
+  {
+   "r79_frames": [
+    18710,
+    19418
+   ],
+   "frames": 708,
+   "leaf": "r62-s17-p2",
+   "job": "r62-s17-p2",
+   "kind": "hf",
+   "plate": "r79_018710-019418_r62-s17-p2.mp4",
+   "bytes": 463858,
+   "sha256": "7ddc52bee47cfe4ba78f072bc58b0a6c38b827c15c848771377f0bcadfd86a76",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2",
+    "index_html_sha256": "035e07ea77a0afe04cfc4b0e765d597282fe72e7c1f8881419694cca2be6618f"
+   },
+   "recipe": "4K render frames [0,708) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r62-s17-p2/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 40.0,
+    "width": 3840,
+    "height": 2160,
+    "frames": 708,
+    "bytes": 3183608
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.99819,
+    "ssim_min": 0.996861,
+    "ssim_min_r79_frame": 19007,
+    "ssim_worst_frames": [
+     [
+      19007,
+      0.99686
+     ],
+     [
+      19052,
+      0.99687
+     ],
+     [
+      19006,
+      0.99688
+     ],
+     [
+      19020,
+      0.99689
+     ],
+     [
+      19023,
+      0.99689
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.96,
+    "psnr_min_db": 41.48,
+    "shift_minus1_ssim_mean": 0.997598,
+    "shift_plus1_ssim_mean": 0.997883,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r62 render version never logged; pin 0.8.36 used"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:56:45"
+  },
+  {
+   "r79_frames": [
+    19418,
+    20198
+   ],
+   "frames": 780,
+   "leaf": "r63-s18",
+   "job": "r63-s18",
+   "kind": "hf",
+   "plate": "r79_019418-020198_r63-s18.mp4",
+   "bytes": 898174,
+   "sha256": "d5e1bd5a4a333b5751a2b815d385f3269e67aae8ff74917198440623a3e739c7",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18",
+    "index_html_sha256": "b72e07c3f91d1fceccd1f495120ba0ddc84b6044061de68de1da6a9462ed0855"
+   },
+   "recipe": "4K render frames [0,780) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.36"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.36 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r63-s18/render-4k.mp4 --fps 24 --resolution landscape-4k --quality high --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 53.2,
+    "width": 3840,
+    "height": 2160,
+    "frames": 780,
+    "bytes": 4780323
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.996734,
+    "ssim_min": 0.994219,
+    "ssim_min_r79_frame": 20176,
+    "ssim_worst_frames": [
+     [
+      20176,
+      0.99422
+     ],
+     [
+      20172,
+      0.99422
+     ],
+     [
+      20171,
+      0.99423
+     ],
+     [
+      20174,
+      0.99423
+     ],
+     [
+      20175,
+      0.99423
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.11,
+    "psnr_min_db": 38.78,
+    "shift_minus1_ssim_mean": 0.996217,
+    "shift_plus1_ssim_mean": 0.996058,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "r63 render version never logged; pin 0.8.36 used"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:57:43"
+  },
+  {
+   "r79_frames": [
+    20198,
+    21314
+   ],
+   "frames": 1116,
+   "leaf": "r64b-s19-title-swap",
+   "job": "r64b-s19-title-swap",
+   "kind": "hf",
+   "plate": "r79_020198-021314_r64b-s19-title-swap.mp4",
+   "bytes": 811957,
+   "sha256": "da26a2a866348cbbf4519a253331b60cf6b53f20e1bdd0993f5047461f9f0b3e",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP",
+    "index_html_sha256": "e159c374a8a54ab21911ed1cc0e5a732eaab88836f4d3267e2c7f395052bad4c"
+   },
+   "recipe": "4K render frames [0,1116) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r64b-s19-title-swap/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 32.3,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1116,
+    "bytes": 5693294
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.998481,
+    "ssim_min": 0.996583,
+    "ssim_min_r79_frame": 20822,
+    "ssim_worst_frames": [
+     [
+      20822,
+      0.99658
+     ],
+     [
+      20818,
+      0.99659
+     ],
+     [
+      20830,
+      0.99659
+     ],
+     [
+      20831,
+      0.99659
+     ],
+     [
+      20825,
+      0.99659
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 46.29,
+    "psnr_min_db": 39.28,
+    "shift_minus1_ssim_mean": 0.997868,
+    "shift_plus1_ssim_mean": 0.997915,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "public/ is a symlink to r64-s19/public; dereferenced into the scratch copy",
+    "owner lock pins the mp4, not index.html"
+   ],
+   "status": "done",
+   "built": "2026-09-23T13:58:23"
+  },
+  {
+   "r79_frames": [
+    21314,
+    23588
+   ],
+   "frames": 2274,
+   "leaf": "r65-s20-economics",
+   "job": "r65-s20-economics",
+   "kind": "hf",
+   "plate": "r79_021314-023588_r65-s20-economics.mp4",
+   "bytes": 1812078,
+   "sha256": "f591489cd8caffdb68e2847afbd2b979c6b42f8904afdf595de2c92fbe5d9968",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r65-s20-economics",
+    "index_html_sha256": "78d8edc6a0506a02fbc5c28de7d1251e0b5c2dda57b193a12c592828c080d5e0"
+   },
+   "recipe": "4K render frames [0,2274) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r65-s20-economics/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 135.3,
+    "width": 3840,
+    "height": 2160,
+    "frames": 2274,
+    "bytes": 10275160
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997162,
+    "ssim_min": 0.995118,
+    "ssim_min_r79_frame": 22318,
+    "ssim_worst_frames": [
+     [
+      22318,
+      0.99512
+     ],
+     [
+      22319,
+      0.99512
+     ],
+     [
+      22314,
+      0.99512
+     ],
+     [
+      22316,
+      0.99512
+     ],
+     [
+      22317,
+      0.99512
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.52,
+    "psnr_min_db": 39.09,
+    "shift_minus1_ssim_mean": 0.99684,
+    "shift_plus1_ssim_mean": 0.996851,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:00:51"
+  },
+  {
+   "r79_frames": [
+    23588,
+    25060
+   ],
+   "frames": 1472,
+   "leaf": "r66-s21-hard-part",
+   "job": "r66-s21-hard-part",
+   "kind": "hf",
+   "plate": "r79_023588-025060_r66-s21-hard-part.mp4",
+   "bytes": 1064056,
+   "sha256": "e69e7f1a0dd6663bdc78fbca8e88bda64116481680d906aab36dd2b7a8b6edc6",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part",
+    "index_html_sha256": "89cf3eeb8c58c43c70546eea9dcbc1ec0f68d77bafdf825a58cfafd56bd47883"
+   },
+   "recipe": "4K render frames [0,1472) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r66-s21-hard-part/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 90.1,
+    "width": 3840,
+    "height": 2160,
+    "frames": 1472,
+    "bytes": 5966265
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997725,
+    "ssim_min": 0.995865,
+    "ssim_min_r79_frame": 25035,
+    "ssim_worst_frames": [
+     [
+      25035,
+      0.99587
+     ],
+     [
+      25034,
+      0.99589
+     ],
+     [
+      25036,
+      0.99589
+     ],
+     [
+      25043,
+      0.99591
+     ],
+     [
+      25038,
+      0.99591
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 43.16,
+    "psnr_min_db": 41.13,
+    "shift_minus1_ssim_mean": 0.997428,
+    "shift_plus1_ssim_mean": 0.997165,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:02:30"
+  },
+  {
+   "r79_frames": [
+    25060,
+    25115
+   ],
+   "frames": 55,
+   "leaf": "s22-establishing",
+   "job": "r69-s22-film",
+   "kind": "hf",
+   "plate": "r79_025060-025115_s22-establishing.mp4",
+   "bytes": 2049257,
+   "sha256": "b5f068f8a4e288916ad1c705470646320ae68d5d33278107a9efb54ee40157fe",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+    "index_html_sha256": "29350c543cee864086cae7582395ce313abbb9e6d543d88c293f40a7c99d6f98"
+   },
+   "recipe": "4K render frames [0,55) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r69-s22-film/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 80.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 524,
+    "bytes": 154045325
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989783,
+    "ssim_min": 0.988402,
+    "ssim_min_r79_frame": 25114,
+    "ssim_worst_frames": [
+     [
+      25114,
+      0.9884
+     ],
+     [
+      25112,
+      0.98857
+     ],
+     [
+      25113,
+      0.98864
+     ],
+     [
+      25103,
+      0.98865
+     ],
+     [
+      25108,
+      0.98887
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 45.51,
+    "psnr_min_db": 44.77,
+    "shift_minus1_ssim_mean": 0.975586,
+    "shift_plus1_ssim_mean": 0.975323,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "hyperframes.json media.autoProxy set false in scratch copy (originals, not proxies)",
+    "Kling clips 1916x1080 (below 4K), object-fit cover",
+    "establishing.mp4 has sparse keyframes (seek risk)"
+   ],
+   "status": "done",
+   "built": "2026-09-23T14:04:07"
+  },
+  {
+   "r79_frames": [
+    25115,
+    25223
+   ],
+   "frames": 108,
+   "leaf": "s22-buyer-question",
+   "job": "r69-s22-film",
+   "kind": "hf",
+   "plate": "r79_025115-025223_s22-buyer-question.mp4",
+   "bytes": 4762310,
+   "sha256": "7ef719951886445999ee6bc42d779e0eddc4902a16f03fa8fb9d2d306048b4d4",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+    "index_html_sha256": "29350c543cee864086cae7582395ce313abbb9e6d543d88c293f40a7c99d6f98"
+   },
+   "recipe": "4K render frames [55,163) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r69-s22-film/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 80.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 524,
+    "bytes": 154045325
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989165,
+    "ssim_min": 0.98628,
+    "ssim_min_r79_frame": 25199,
+    "ssim_worst_frames": [
+     [
+      25199,
+      0.98628
+     ],
+     [
+      25222,
+      0.98769
+     ],
+     [
+      25184,
+      0.988
+     ],
+     [
+      25220,
+      0.98803
+     ],
+     [
+      25188,
+      0.98804
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 46.97,
+    "psnr_min_db": 45.82,
+    "shift_minus1_ssim_mean": 0.957644,
+    "shift_plus1_ssim_mean": 0.957782,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "hyperframes.json media.autoProxy set false in scratch copy (originals, not proxies)",
+    "Kling clips 1916x1080 (below 4K), object-fit cover",
+    "establishing.mp4 has sparse keyframes (seek risk)"
+   ],
+   "status": "done",
+   "built": "2026-09-23T14:04:08"
+  },
+  {
+   "r79_frames": [
+    25223,
+    25320
+   ],
+   "frames": 97,
+   "leaf": "s22-owner-record-take-a",
+   "job": "r69-s22-film",
+   "kind": "hf",
+   "plate": "r79_025223-025320_s22-owner-record-take-a.mp4",
+   "bytes": 4158057,
+   "sha256": "88c99c721b30ae57180efaafdda100925ba0a2cfa06e960e321249b3b25a3b91",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+    "index_html_sha256": "29350c543cee864086cae7582395ce313abbb9e6d543d88c293f40a7c99d6f98"
+   },
+   "recipe": "4K render frames [163,260) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r69-s22-film/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 80.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 524,
+    "bytes": 154045325
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989686,
+    "ssim_min": 0.988076,
+    "ssim_min_r79_frame": 25295,
+    "ssim_worst_frames": [
+     [
+      25295,
+      0.98808
+     ],
+     [
+      25292,
+      0.98868
+     ],
+     [
+      25293,
+      0.98872
+     ],
+     [
+      25294,
+      0.98872
+     ],
+     [
+      25247,
+      0.98891
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 45.21,
+    "psnr_min_db": 44.46,
+    "shift_minus1_ssim_mean": 0.95904,
+    "shift_plus1_ssim_mean": 0.964416,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "hyperframes.json media.autoProxy set false in scratch copy (originals, not proxies)",
+    "Kling clips 1916x1080 (below 4K), object-fit cover",
+    "establishing.mp4 has sparse keyframes (seek risk)"
+   ],
+   "status": "done",
+   "built": "2026-09-23T14:04:08"
+  },
+  {
+   "r79_frames": [
+    25320,
+    25584
+   ],
+   "frames": 264,
+   "leaf": "s22-buyer-response-take-b",
+   "job": "r69-s22-film",
+   "kind": "hf",
+   "plate": "r79_025320-025584_s22-buyer-response-take-b.mp4",
+   "bytes": 10492775,
+   "sha256": "46b1bdd31b9bc40b12bd8dc3e9cb1b08da2c777e6581665d78641f1b40a4b262",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+    "index_html_sha256": "29350c543cee864086cae7582395ce313abbb9e6d543d88c293f40a7c99d6f98"
+   },
+   "recipe": "4K render frames [260,524) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r69-s22-film/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 80.6,
+    "width": 3840,
+    "height": 2160,
+    "frames": 524,
+    "bytes": 154045325
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.989977,
+    "ssim_min": 0.987946,
+    "ssim_min_r79_frame": 25343,
+    "ssim_worst_frames": [
+     [
+      25343,
+      0.98795
+     ],
+     [
+      25320,
+      0.98826
+     ],
+     [
+      25583,
+      0.98882
+     ],
+     [
+      25582,
+      0.989
+     ],
+     [
+      25324,
+      0.98904
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 45.34,
+    "psnr_min_db": 44.48,
+    "shift_minus1_ssim_mean": 0.97963,
+    "shift_plus1_ssim_mean": 0.978062,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [
+    "hyperframes.json media.autoProxy set false in scratch copy (originals, not proxies)",
+    "Kling clips 1916x1080 (below 4K), object-fit cover",
+    "establishing.mp4 has sparse keyframes (seek risk)"
+   ],
+   "status": "done",
+   "built": "2026-09-23T14:04:10"
+  },
+  {
+   "r79_frames": [
+    25584,
+    25814
+   ],
+   "frames": 230,
+   "leaf": "r70-s23-payoff",
+   "job": "r70-s23-payoff",
+   "kind": "hf",
+   "plate": "r79_025584-025814_r70-s23-payoff.mp4",
+   "bytes": 169648,
+   "sha256": "87e836c1ead894638aa0f58237dde3013b54f9ebda900453a95565a08be68754",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff",
+    "index_html_sha256": "04e59492d6da09c6ebc0e67446721b143379ff4515dfb4e425295135d37a15b2"
+   },
+   "recipe": "4K render frames [0,230) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r70-s23-payoff/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 16.0,
+    "width": 3840,
+    "height": 2160,
+    "frames": 230,
+    "bytes": 1013751
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997884,
+    "ssim_min": 0.997096,
+    "ssim_min_r79_frame": 25679,
+    "ssim_worst_frames": [
+     [
+      25679,
+      0.9971
+     ],
+     [
+      25779,
+      0.99711
+     ],
+     [
+      25691,
+      0.99711
+     ],
+     [
+      25731,
+      0.99711
+     ],
+     [
+      25776,
+      0.99711
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.59,
+    "psnr_min_db": 42.51,
+    "shift_minus1_ssim_mean": 0.995646,
+    "shift_plus1_ssim_mean": 0.997421,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:04:28"
+  },
+  {
+   "r79_frames": [
+    25814,
+    26366
+   ],
+   "frames": 552,
+   "leaf": "r71-s24-verdict",
+   "job": "r71-s24-verdict",
+   "kind": "hf",
+   "plate": "r79_025814-026366_r71-s24-verdict.mp4",
+   "bytes": 450499,
+   "sha256": "8adbc55f7968d042346429ca14580087f273141c8b0eda42f89cdc350b303d82",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict",
+    "index_html_sha256": "a7727975f424cd0f4ef26eae363d4b55b16cedd1262ab3f869032c8ed9c94f05"
+   },
+   "recipe": "4K render frames [0,552) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r71-s24-verdict/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 38.1,
+    "width": 3840,
+    "height": 2160,
+    "frames": 552,
+    "bytes": 2323870
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997285,
+    "ssim_min": 0.996019,
+    "ssim_min_r79_frame": 26194,
+    "ssim_worst_frames": [
+     [
+      26194,
+      0.99602
+     ],
+     [
+      26195,
+      0.99602
+     ],
+     [
+      26196,
+      0.99602
+     ],
+     [
+      26198,
+      0.99602
+     ],
+     [
+      26199,
+      0.99602
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 41.28,
+    "psnr_min_db": 39.46,
+    "shift_minus1_ssim_mean": 0.99699,
+    "shift_plus1_ssim_mean": 0.996951,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:05:09"
+  },
+  {
+   "r79_frames": [
+    26366,
+    27092
+   ],
+   "frames": 726,
+   "leaf": "r72-s25-first-action",
+   "job": "r72-s25-first-action",
+   "kind": "hf",
+   "plate": "r79_026366-027092_r72-s25-first-action.mp4",
+   "bytes": 452904,
+   "sha256": "a14a02f7902dca0f7a9c9963f8b97967babd7f7fef164ce1aff38ca5f9d33dca",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action",
+    "index_html_sha256": "999d7ed1762ef62692a4cf527a4bbed75176c807a1b867bf72bb77d8690390f8"
+   },
+   "recipe": "4K render frames [0,726) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r72-s25-first-action/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 42.3,
+    "width": 3840,
+    "height": 2160,
+    "frames": 726,
+    "bytes": 2584721
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.997415,
+    "ssim_min": 0.996279,
+    "ssim_min_r79_frame": 26888,
+    "ssim_worst_frames": [
+     [
+      26888,
+      0.99628
+     ],
+     [
+      26889,
+      0.99628
+     ],
+     [
+      26890,
+      0.99628
+     ],
+     [
+      26891,
+      0.99628
+     ],
+     [
+      26892,
+      0.99628
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 42.53,
+    "psnr_min_db": 40.71,
+    "shift_minus1_ssim_mean": 0.997197,
+    "shift_plus1_ssim_mean": 0.99673,
+    "alignment": "aligned",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:05:56"
+  },
+  {
+   "r79_frames": [
+    27092,
+    27241
+   ],
+   "frames": 149,
+   "leaf": "r75-s26-boundary-close",
+   "job": "r75-s26-boundary-close",
+   "kind": "hf",
+   "plate": "r79_027092-027241_r75-s26-boundary-close.mp4",
+   "bytes": 72181,
+   "sha256": "9c4e0220139039f4aa5faf504f03e3d5d277c97ac7bcff30d700eec55c6dbb54",
+   "format": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": "24/1",
+    "color": [
+     "bt709",
+     "bt709",
+     "bt709"
+    ],
+    "crf": 14
+   },
+   "source": {
+    "project": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r75-s26-boundary-close",
+    "index_html_sha256": "c98e829fb12b421468367f91bcf02af3cef47e477a1bcc880de848afc2fba902"
+   },
+   "recipe": "4K render frames [0,149) -> lanczos 1920x1080",
+   "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "hyperframes": "0.8.46"
+   },
+   "autoProxy_disabled_in_scratch": true,
+   "render_4k": {
+    "cmd": "npx --yes hyperframes@0.8.46 render ... --output /private/tmp/claude-501/-Users-brownmanbrain-GitHub-operator-economy/a41aa8bb-cc59-4eab-9ffd-21e9735a6ca3/scratchpad/r80work/r75-s26-boundary-close/render-4k.mp4 --fps 24 --resolution landscape-4k --quality delivery --crf 12 --low-memory-mode --workers 1 --frames-cache-dir off",
+    "seconds": 10.8,
+    "width": 3840,
+    "height": 2160,
+    "frames": 149,
+    "bytes": 384592
+   },
+   "verification": {
+    "method": "plate scaled to 1280x720 (area) vs R79 frames, ffmpeg ssim/psnr per frame",
+    "ssim_mean": 0.998058,
+    "ssim_min": 0.99802,
+    "ssim_min_r79_frame": 27216,
+    "ssim_worst_frames": [
+     [
+      27216,
+      0.99802
+     ],
+     [
+      27217,
+      0.99802
+     ],
+     [
+      27218,
+      0.99802
+     ],
+     [
+      27219,
+      0.99802
+     ],
+     [
+      27220,
+      0.99802
+     ]
+    ],
+    "frames_below_0_95": 0,
+    "psnr_mean_db": 44.51,
+    "psnr_min_db": 44.47,
+    "shift_minus1_ssim_mean": 0.995188,
+    "shift_plus1_ssim_mean": 0.998058,
+    "alignment": "indeterminate (static content: shift within 1e-4)",
+    "pass": true,
+    "fail_reasons": []
+   },
+   "pass": true,
+   "flags": [],
+   "status": "done",
+   "built": "2026-09-23T14:06:08"
+  }
+ ],
+ "updated": "2026-09-23T14:06:08",
+ "tiling_check": {
+  "range": [
+   0,
+   27241
+  ],
+  "plates_done": 54,
+  "gaps": [],
+  "overlaps": [],
+  "frames_sum": 27241,
+  "exact_tiling": true
+ },
+ "summary": {
+  "plates": 54,
+  "pass": 50,
+  "fail": 4,
+  "total_bytes": 193409727,
+  "free_gb_at_end": 6.82
+ },
+ "run_notes": [
+  "Plate CRF 14 kept: pilot (r49 + r53 presenter-a) projected well under 4 GB; actual total 193 MB.",
+  "4K intermediates rendered at --crf 12, --low-memory-mode, --frames-cache-dir off, and deleted immediately after each cut; none remain.",
+  "HyperFrames 0.8.34/0.8.36 have no quality \"delivery\"; used \"high\" (0.8.46/0.8.50 used \"delivery\"). All versions stamp mp4 metadata hyperframes_version=0.0.0-dev, so that tag on the S14 locked renders does not prove a dev build.",
+  "Disk: at 13:17, while this run was going, 4.7 GB of new git pack files appeared in .git/objects/pack (not made by this driver), and macOS swap grew to ~13 GB. Free space bottomed at ~5.0 GB; the 4 GB guard never tripped."
+ ],
+ "owner_review": {
+  "source": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-owner-r80-plate-review-20260923.json",
+  "result": "all 54 plates accepted; R50 uses R79 frames upscaled"
+ },
+ "supersedes": {
+  "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r80-4k-plates/PLATES-MANIFEST-V1.json",
+  "sha256": "e61bb8ce84cc83af75a7d8d6d8613aba404e60bfe9c356be81b2b194245e8869"
+ }
+}

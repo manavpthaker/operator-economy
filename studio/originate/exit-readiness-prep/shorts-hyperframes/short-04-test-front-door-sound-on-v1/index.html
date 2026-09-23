@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root > [data-composition-src], #root > video { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      #root > video { object-fit: cover; object-position: center center; z-index: 1; }
+      #root > .screen { z-index: 1; }
+      #root > .host-overlay { z-index: 2; }
+      #root > .captions { z-index: 20; }
+    </style>
+  </head>
+  <body>
+    <main data-hf-id="hf-main-root" id="root" data-composition-id="main" data-start="0" data-duration="48.125" data-width="1080" data-height="1920" data-fps="24">
+      <video data-hf-id="hf-short04-opening-video" id="short04-opening-video" class="clip" src="assets/media/opening-presenter-muted.mp4" data-start="0" data-duration="8.615" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <div data-hf-id="hf-slot-02" id="slot-02" class="clip screen" data-composition-id="short04-preparation-in-between" data-composition-src="compositions/02-preparation-in-between.html" data-start="8.615" data-duration="10.125" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-slot-03" id="slot-03" class="clip screen" data-composition-id="short04-broker-question" data-composition-src="compositions/03-broker-question.html" data-start="18.74" data-duration="5.16" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-slot-04" id="slot-04" class="clip screen" data-composition-id="short04-conditional-channel-gate" data-composition-src="compositions/04-conditional-channel-gate.html" data-start="23.9" data-duration="10.8" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-slot-05" id="slot-05" class="clip screen" data-composition-id="short04-possible-path" data-composition-src="compositions/05-possible-path.html" data-start="34.7" data-duration="3.984083" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <video data-hf-id="hf-short04-return-video" id="short04-return-video" class="clip" src="assets/media/return-presenter-muted.mp4" data-start="38.684083" data-duration="7.440917" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <div data-hf-id="hf-short04-host-return-overlay" id="short04-host-return-overlay" class="clip host-overlay" data-composition-id="short04-host-return-overlay-v1" data-composition-src="compositions/host-return-overlay.html" data-start="38.684083" data-duration="7.440917" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-slot-07" id="slot-07" class="clip screen" data-composition-id="short04-full-episode-route" data-composition-src="compositions/07-full-episode-route.html" data-start="46.125" data-duration="2" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-short04-captions" id="short04-captions" class="clip captions" data-composition-id="short04-captions-sound-on-v1" data-composition-src="compositions/sound-on-captions.html" data-start="0" data-duration="46.125" data-track-index="60" data-width="1080" data-height="1920"></div>
+      <audio data-hf-id="hf-short04-original-c-audio" id="short04-original-c-audio" src="assets/media/original-c.wav" data-start="0" data-duration="46.114833" data-track-index="100" data-volume="1"></audio>
+    </main>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

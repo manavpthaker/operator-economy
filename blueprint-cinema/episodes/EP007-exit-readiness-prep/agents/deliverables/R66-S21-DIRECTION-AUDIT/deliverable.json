@@ -1,0 +1,132 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r66-s21-direction-audit",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/operator-canvas.md",
+      "sha256": "3376437f8eda00a4aec5b1ef6e0ff5379abb2f051e3512fc5d683ed2720b158f"
+    },
+    {
+      "path": "operator-blueprint-v2/00-intake/02-research/candidate-2026-09-01-exit-readiness-prep.md",
+      "sha256": "434ef930eaa2445478514b845c60945dffe6ab94f6493932616cd94adb9f2ec4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10-evidence/index.html",
+      "sha256": "ee71857b9a559364088af94bccfc7aff669b4b39645df12e2f277eb8724327c6"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/DIRECTION.md",
+      "sha256": "3dfc64981b4d1f154cde5275bdf7d1f0d779bfc94391e3db1bbf76304a3f466d"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/SKILL.md",
+      "sha256": "96278a936537b599f50507c05c45004e93d3f62d9d2aab31a02d762dde47f1ec"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/references/decision-method.md",
+      "sha256": "33f0c825e7af84a0912eb91dedcc68afd49b72f0d999df0a4e7852c0432255e4"
+    },
+    {
+      "path": ".agents/skills/oe-video-direction/references/precedent-index.md",
+      "sha256": "a3be5b7cdd95c4d17e9854f1368061db821a655260ceb57a08681334890aa13a"
+    },
+    {
+      "path": ".agents/skills/oe-boundary-ledger/SKILL.md",
+      "sha256": "4d04eb06607e09214c122a3d9fe91cd9ca02fa40be0984955894c8fb153aa25f"
+    },
+    {
+      "path": "design-system/boundary-ledger/semantic-core.json",
+      "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+    },
+    {
+      "path": "design-system/boundary-ledger/invariants.md",
+      "sha256": "9a968af637dff402d24b068b56c382231e1d60d501c9a9f60eba9998b63e0df4"
+    },
+    {
+      "path": "design-system/boundary-ledger/motion-language.md",
+      "sha256": "a9522919f366f2bdaa6d1c456c3f3eefc6a3a6a79c80246f1c0adc72a6825d88"
+    },
+    {
+      "path": "design-system/boundary-ledger/scene-contracts.md",
+      "sha256": "397b8fa1009a1b20012a6c5cbb5fbe071d74bc62ecc7f7f1ed3d9d2603821878"
+    },
+    {
+      "path": "blueprint-cinema/references/SCENE-DIRECTION-CONTRACT.md",
+      "sha256": "c87a80539cfe981e2236f017fa229e058e2781ccaa49afe9eeab6380de62cd9f"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R66-S21-DIRECTION-AUDIT/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R66-S21-DIRECTION-AUDIT/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R66-S21-DIRECTION-AUDIT/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute supplied script, transcript and master WAV SHA-256 values",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read S20\u2013S22 and extract S21 W002781\u2013W002943 cue ranges",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect16-bit48kHz original PCM in24fps boundary bins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify C002/CLM-001 local provenance and retained S10 interest qualification",
+      "outcome": "pass"
+    },
+    {
+      "command": "Audit payment-request, no-date, approximate-half and OR kill-condition inference boundaries",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect rendered S21 with continuous original-audio playback",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Retrieve and independently audit underlying external EPI publication",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Locked script and original word alignment verified against issued hashes.",
+    "Original narration master inspected directly for safe boundaries.",
+    "Approved C002 and Canvas \u00a711 supply source caveats and unknown-demand boundaries.",
+    "Retained S10 EPI card supplies the actual prior interest-note wording."
+  ],
+  "assumptions": [
+    "The accepted S20 endpoint remains985.75 and the new S21 local clock begins there.",
+    "Scene direction is a proposal for root implementation, not a creative verdict."
+  ],
+  "unresolved_questions": [
+    "Rendered S21 layout, seam visibility and continuous audiovisual comprehension are not inspected.",
+    "Underlying EPI publication is not revalidated; this audit preserves its locked approximate reported-estimate qualification."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

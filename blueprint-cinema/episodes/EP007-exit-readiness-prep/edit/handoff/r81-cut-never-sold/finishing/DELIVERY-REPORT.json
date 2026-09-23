@@ -1,0 +1,80 @@
+{
+ "record_type": "ep007_delivery_report",
+ "version": 1,
+ "episode": "EP007-exit-readiness-prep",
+ "edit": "R81 (R79 owner lock + owner cut of 'I have never sold a business.' with 4-frame dissolve)",
+ "tools": {
+  "resolve": "DaVinci Resolve 21.1.0.17 (free), project OE_EP007, timeline EP007_R81_MASTER",
+  "ffmpeg": "8.1.1",
+  "asr_check": "whisper.cpp ggml-medium.en"
+ },
+ "picture": {
+  "source": "54 R80 plates (4K-rendered, lanczos to 1080p) + R81 C1 dissolve plate",
+  "grade": "none applied; plates pass through Rec.709, luma mean diff vs source -0.003",
+  "frames": 27190,
+  "duration": "18:52.917"
+ },
+ "audio": {
+  "mix": "dialogue only, no music or SFX (owner)",
+  "method": "+2.72 dB gain, 4x-oversampled peak limiter at -1.6 dBFS, 24-bit 48 kHz",
+  "integrated_lufs": -14.0,
+  "true_peak_dbtp": -1.6,
+  "lra_lu": 3.9,
+  "file": "~/Movies/OE/EP007-r81/ep007-r81-mix-14lufs.wav",
+  "sha256": "75b6bd3f3c4a8c9f9a289107456006c1c9c5e9c7a3f7a521a3865f3a1fd05cd2",
+  "toolchain_note": "mixed outside Fairlight (gain + limiter only); recorded here as the finishing record"
+ },
+ "masters": {
+  "upload": {
+   "path": "~/Movies/OE/EP007-masters/EP007_R81_upload_1080p24.mp4",
+   "sha256": "3925de31e4adca2815a2d4418a3997312f4f12a2222afcaf2ffa6f6578c01f96",
+   "format": "H.264 High 1080p24 yuv420p BT.709 tv, ~7.6 Mbps; AAC-LC 320k 48k stereo",
+   "frames": 27190,
+   "full_decode": "clean",
+   "ssim_vs_source_every_12th_frame": {
+    "mean": 0.999479,
+    "min": 0.9939
+   },
+   "loudness": {
+    "I": -14.0,
+    "TP": -1.6
+   }
+  },
+  "archive": {
+   "path": "~/Movies/OE/EP007-masters/EP007_R81_archive_1080p24_prores422.mov",
+   "sha256": "f9b8236ed4f31ff0e1b08b2e41e66515b796f719ae01510e51f70f8032dd7206",
+   "format": "ProRes 422 1080p24 10-bit BT.709 tv; LPCM 24-bit 48k stereo",
+   "frames": 27190,
+   "full_decode": "clean",
+   "ssim_vs_source_every_12th_frame": {
+    "mean": 0.996937,
+    "min": 0.995
+   },
+   "loudness": {
+    "I": -14.0,
+    "TP": -1.6
+   }
+  }
+ },
+ "captions": {
+  "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r81-cut-never-sold/finishing/ep007-r81-captions-en.srt",
+  "sha256": "334cb0ea2830fa24e535521a9c2763236a9b53f238e515b7411eacf87fdcea04",
+  "cues": 363,
+  "words": 3180,
+  "source": "locked narration word transcript mapped through R79 SEGMENTS and the R81 cut",
+  "asr_check": {
+   "matched_words": 3103,
+   "median_start_offset_s": -0.062,
+   "no_drift_across_cut": true
+  }
+ },
+ "not_done": [
+  "Resolve project archive (.drp) export",
+  "thumbnail",
+  "launch/links.json",
+  "Content OS release gate",
+  "upload",
+  "publication"
+ ],
+ "storage": "masters and plates live outside git under ~/Movies/OE; this report is the tracked pointer"
+}

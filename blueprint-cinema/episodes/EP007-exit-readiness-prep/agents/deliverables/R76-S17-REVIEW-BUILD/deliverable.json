@@ -1,0 +1,99 @@
+{
+  "work_order": "R76-S17-REVIEW-BUILD",
+  "episode": "EP007",
+  "status": "prepared_for_root_execution",
+  "assembler": {
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R76-S17-REVIEW-BUILD/assemble_review.py",
+    "sha256": "034221d56b581c1a0c9e30ae5ae237ac3559c45ca32f35c8beb0facb57f53ffc"
+  },
+  "readme": {
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R76-S17-REVIEW-BUILD/README.md",
+    "sha256": "879e45086ceaecc9912fb3ce869dc6c574a11ab7d9fa64231417d76e6917e4e3"
+  },
+  "syntax_validation": {
+    "ast_parse": "pass",
+    "compile_without_execution": "pass",
+    "assembler_executed": false
+  },
+  "fixed_inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9",
+      "verified_live": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-animation-context/qa/context.mp4",
+      "sha256": "11a907ec3de4c701ad3c5e61c44b23f2f8e9bf02c6b66b82b11418c47df8a39c",
+      "verified_live": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/qa/r62-s17-p1.mp4",
+      "sha256": "71c969e9d9af2d05c997316de104d6ec137d79f84486690e27d523954f748e04",
+      "verified_live": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/qa/r62-s17-p2.mp4",
+      "sha256": "439cd6cca8bc34a4b9abb18b208bb79ad893b48864be044f34ff68701f533555",
+      "verified_live": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/audio/c.wav",
+      "sha256": "d3912f9d313f463df0836025fbaec6e74ad8cc51bd4bb0072c581d8e4c458724",
+      "verified_live": true
+    }
+  ],
+  "dynamic_inputs_at_handoff": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/ALIGNMENT.json",
+      "sha256": "2f0c8371c1b79e439c872bdb57d17594cffc7dda4d707cdd8f416ec0fc8d7cdd",
+      "selected_source_in_frame": 8
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/restoration/restored.mp4",
+      "sha256": "21d44f10a70b98732e71707f6f34a48c15141c656208530197cbd47d4e405a9e"
+    }
+  ],
+  "expected_outputs": {
+    "scene_frames": 192,
+    "scene_seconds": 8,
+    "context_frames": 1803,
+    "context_seconds": 75.125,
+    "fps": 24,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "scene_master_range": [
+      774.5,
+      782.5
+    ],
+    "context_master_range": [
+      736.875,
+      812.0
+    ],
+    "review_initial_time": 33.5,
+    "presenter_context_range": [
+      37.625,
+      45.625
+    ]
+  },
+  "runtime_write_roots": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context"
+  ],
+  "implementation_writes": [
+    "assemble_review.py",
+    "README.md",
+    "deliverable.json"
+  ],
+  "known_limitations": [
+    "Media assembly not executed by preparing agent.",
+    "Only syntax and fixed hashes validated before handoff.",
+    "No automated perceptual lip-sync or performance verdict.",
+    "Existing R76 output files cause a fail-closed exit; no implicit overwrite or cleanup.",
+    "No independent second-agent code review completed: delegated reviewer hit an account usage limit."
+  ],
+  "paid_calls": 0,
+  "shared_writes_by_preparing_agent": false,
+  "owner_acceptance": false
+}

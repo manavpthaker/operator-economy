@@ -163,3 +163,199 @@ S13 A–B locked. C–D built unpaid (at maturity model; “The business”; “
 Full episode through S12 assembled (R56, unpaid): http://100.101.49.30:3084/, 8:40. Unlocked inside it: R39 “his” callback (no verdict), R39 animation (revision requested, not replaced), R47 presenter (result never reviewed). Found: R52 walk-out and S10 A/C, S12 A presenter passages ~3 dB quieter than surrounding narration (pre-existing in locked reviews). Files: hyperframes/reviews/r56-full-episode-through-s12/.
 
 Owner locked S13 (A–D, animated “You” bridge). Presenter level fix: mono presenter clips had been upmixed to stereo at −3 dB; R58 full episode through S13 rebuilt with R52 walk-out, S10 A/C and S12 A restored +3.01 dB (all segments now 0.0 dB vs master). Review http://100.101.49.30:3087/ (9:17). Skill: presenter-references Integration and review (mono upmix check), precedent-index S13. Next: S14 “why you” (master 560.25).
+
+S14 (R59) planned. Unpaid B (the skill), C2 (single point of failure), D (different jobs, C007 directional with on-screen caveat, no state named) built and verified: http://100.101.49.30:3088/ (animation only, presenter gaps not filled). Presenter A, C1, C3 priced: 342 Higgsfield credits (cap 380; balance 4144, 247 spent outside session since S12 A) + Fal Sync ~$5.07 (cap $6.50). Awaiting spend approval.
+
+S14 presenter takes generated (A 14 s, C1 12 s, C3 12 s; 342 credits, 4144→3802) and synced (Fal ~$4.90; trims 16/5/12 frames for drift; restored offsets 2000/7332/0 samples). Full S14 review with S13 tail: http://100.101.49.30:3089/. Owner review pending.
+
+Owner locked S14. S15 (R60) built unpaid: documentation blocks, team and billable hours vs the fee; writing and assembling shrink (interviewing keeps its size, C012/C013); judgement half outlined as The product. Review http://100.101.49.30:3090/. Presenter option for the closing two sentences held.
+
+Owner locked S15. S16 (R61) built unpaid: engagement card, seven-row scope, fixed/not fixed; other people's jobs outside the scope, some licensed. Review http://100.101.49.30:3091/. Finding: locked S14 accent labels (One person, Me, Licence) render dark due to SVG class fill overriding the attribute; fix offered, not applied.
+
+Owner locked S16. S17 (R62) animation built unpaid (room + regulated boundary, shape the law leaves you, surveyor): http://100.101.49.30:3092/ (presenter C gap at 0:37.6). Presenter C priced: 81 credits (preflight) + Fal ~$1.21; awaiting approval.
+
+Owner locked S17 animated parts (presenter C still open, not approved). S18 (R63) built unpaid: not the sale (whether/when/how much), signed checklist, acceptance event, fee on the safe side of the regulated line. Review http://100.101.49.30:3093/.
+
+Owner locked S18. S19 (R64) built unpaid: people who already know her, broker turn-aways to you, the one question, the risk as possible with a conditional front door, to-do item 2. Review http://100.101.49.30:3094/. S17 C presenter still open.
+
+## R64B S19 correction and R65 S20 review — 2026-09-17
+
+Continuation request did not supply a verdict on S19. S18 stays locked; S19 remains pending. Live audit found the two S19 headings superimposed at “The risk” and low contrast on final-card item 1. R64B makes a deterministic heading swap and uses existing secondary ink for item 1. Original R64 source and renders remain preserved. Corrected S19: http://100.101.49.30:3095/?scene=s19 (S18 tail; S19 starts at 0:08).
+
+S20 “The economics” built unpaid from the locked narration, master 891.0–985.75, 94.75 seconds / 2274 frames at 24 fps. The animation discloses the modeled scenario, builds $96k revenue minus $10k costs to $86k before owner compensation and tax, compares the $120k target, tests 11 × 85 hours against the explicit ~900-hour capacity assumption, then returns to unmeasured delivery time. The spoken “roughly $16k” alternative retains a precise ~$16,250 threshold on screen. Independent review corrected spare-looking capacity space: the outline now ends at ~900 hours and 935 hours exceeds it. No empirical fee, earnings, capacity, or measured delivery-time claim is implied.
+
+Review http://100.101.49.30:3095/ opens with the final 8 seconds of corrected S19; S20 begins at 0:08. Both review candidates await owner review. S17 presenter C remains open and unsubmitted at the prior estimate of 81 credits plus ~$1.21; no paid generation was called in this continuation.
+
+New review projects use HyperFrames 0.8.46 (previous copy pin 0.8.36); accepted projects were not upgraded. Strict checks, complete decode/frame scans, exact PCM carve, encoded audio alignment/level, representative encoded-frame inspection, and live player navigation/playback passed. S20 context is 102.75 seconds / 2466 frames; no uniform or near-uniform blank frames. Technical verification is not creative acceptance, canonical integration, picture lock, or publication approval. Source and output hashes are recorded in `direction/r65-s20-economics/VERIFICATION-EVENT.json` and the episode decision log.
+
+Decision-log validation: all 237 event hashes form a valid chain, and evidence for all four new R64B/R65 events is current. The full historical evidence audit reports 34 stale/unavailable bindings in older events; these are recorded in `direction/r65-s20-economics/LOG-VALIDATION.json` and remain unresolved. Do not describe the entire episode's evidence as current. Historical sources, approvals, and hashes were not rewritten.
+
+## S19 and S20 locked
+
+Owner: “lock it in and move on”, responding to the combined port-3095 review. Acceptance binds the exact corrected R64B S19 and final R65 S20 renders and their context clips in `direction/r65-s19-s20-accepted/ACCEPTANCE-EVENTS.json`. The final S20 capacity outline is the accepted version. S17 presenter C stays open. S21 “the hard part” is next; no paid generation or canonical release approval is inferred.
+
+## R66 S21 ready for review
+
+S21 “the hard part” built unpaid, master 985.75–1047.0833333333333, 1472 frames / 61⅓ seconds. Fee requested today reaches an undated exit; booked audit and scheduled inspection expose the missing deadline. The EPI callback keeps C002's approximate reported estimate and interest qualification. Final local tests are owner deferral OR existing free broker service; either can lead to the conditional “Do not build”. Neither condition is represented as established.
+
+Review http://100.101.49.30:3096/ opens on the final eight seconds of locked S20; S21 begins at 0:08. Original narration preserved. Final strict checks, independent timing/meaning and still reviews, complete encoded-frame scan, audio alignment/level, final motion map, source hash verification and live playback passed. Brief transition text overlaps were corrected before this render. Exact source and artifact pins: `direction/r66-s21-hard-part/VERIFICATION-EVENT.json`. S21 awaits owner review; S19/S20 remain locked. S17 C is still open, with no paid calls in this continuation. Next passage after S21 acceptance: S22 “ending callback”, starting with “Go back to that table.”
+
+## S21 locked
+
+Owner: “good lock it and move on”. Exact final R66 scene and S20-tail context accepted in `direction/r66-s21-accepted/ACCEPTANCE-EVENT.json`; current source and video hashes matched verification before acceptance. S22's return to the table is next. S17 C remains open. No paid generation or canonical release authorization is inferred.
+
+## R67 S22 timed film plan — awaiting generation authorization
+
+S22 returns to the original table, master1047.0833333333333–1068.9166666666667,524frames/21.833333seconds. Existing table/question coverage carries the first118frames. The audited footage has no adequate prepared-record payoff. Current direction is `direction/r67-s22-table-callback/DIRECTION-v2.md`: new take A presents the existing green binder; new take B opens it and independently reads the prepared record while the owner rests. The original blank sheet stays unchanged. No handshake, agreement or sale verdict. The discarded paper-reversal proposal remains preserved as v1.
+
+Review http://100.101.49.30:3099/ includes the last8seconds of locked S21; S22 starts0:08. This is a timed plan with explicit reference-only labels for the missing actions, not finished S22 footage. Exact original audio, strict checks, encoded seam inspection,716-frame decode/no-blank scan, audio alignment/level, HTTP200/range206 and live browser label inspection passed. No uninterrupted auditory-review claim. The ending cut falls between quiet nonzero frames; keep the original master continuous into S23 at conform.
+
+The two current requests are `TAKE-A-v2.request.json` and `TAKE-B-v2.request.json`, selected by `CURRENT.json`. Proposed fal.ai Kling3.0 Pro audio-off batch:8s +11s,19s at$0.112/s = $2.128 estimated; combined proposed cap$2.25, at most2 paid calls, no retry. B depends on A passing and an exact extracted seed frame; bind its frame/hash before upload/submission. Record exposed and reading underway by “check” at master1060.36. No generated still, voice, restoration or music. No paid call or upload occurred. S17 C remains separately open.
+
+Decision and verification events are appended through `r67-s22-timing-plan-verified-v2`. The245-event chain validates; this does not clear older historical stale evidence findings. Accepted S21 and prior media remain unchanged. No commit, push, canonical conform or release advancement.
+
+## R68 S22 owner correction — provider balance block
+
+Owner: “this is fine but there is no indication that the buyer is seeing something he likes. they're not pointing at anything and theres nothing on the page”. Current direction and requests are in `direction/r68-s22-buyer-response/`. A opens the existing green binder to an already-populated record, points once and withdraws. B points beside the indicated row, checks it, then gives a small approving nod/faint smile toward her and returns to the page. The earlier no-point/no-positive-reaction constraints are superseded. No handshake or sale result is added.
+
+The response to the capped proposal was interpreted as authorization for the same two-take Fal batch with these corrections, total cap$2.25/no retries. The first storage-initiate request returned HTTP403: “User is locked. Reason: Exhausted balance.” This happened before upload or generation submission: zero paid intents, zero jobs, zero generation charges. No retry was attempted. Existing port3099 remains the prior reference-only timing plan; it does not display the corrected actions as completed footage.
+
+Read-only Higgsfield preflight finds the same Kling3.0 Pro mode with sound off:8s costs14credits and11s costs19.25credits, total33.25credits; available balance1631.5 at check. Exact alternative requests are prepared, not submitted. Switching the payment source to Higgsfield awaits owner authorization; otherwise resume Fal when funded. Current pointer: `direction/r68-s22-buyer-response/CURRENT.json`. S21 remains locked, S17 separate and open.
+
+## R68 funded attempt — Take A rejected; B held
+
+Owner: “fal balance topped up”. Fal resumed under the same$2.25/no-retry scope; Higgsfield was not used. One8-second take A completed, request01a0b0c1-0446-74b3-8470-b507d40d6995, nativeSHA02ce890b5b467558223477f1cd5ca5114481a563fb137f6a502903c26c03ffe7,193frames at24fps. Price-rate estimate$0.896; not a separately verified billing ledger.
+
+Root and independent source QC reject the take: opening, pointing and withdrawal are present, but pages contain empty ruled rows and repeated check marks, without written entries. The point targets an empty row. No170-frame selection repairs the defect. `provider/take-a/REVIEW.json` explicitly fails the dependency; no B seed or buyer take was submitted. Native source and receipts are preserved.
+
+The rejected silent source is reviewable at http://100.101.49.30:3101/. This is not a finished S22. R69 proposes one8-second A replacement using dense printed paragraphs and removing ruled-form/checkbox vocabulary, followed by the conditional11-second buyer take. Proposed all-in estimate including failed A is$3.024; cap$3.10; two remaining calls, no further automatic retries. Exact unsubmitted requests and rationale are in `direction/r69-s22-written-record-retry/`. Requires revised spending approval because the original scope excluded retries and capped the batch at$2.25. S21 remains locked; S17 unchanged.
+
+## R69 S22 — written answer and positive response ready for review
+
+Owner: “approve another take”. The proposed replacement A and conditional B were authorized under the revised $3.10 all-in cap. Both completed on Fal. Including failed R68 A, the three calls total $3.024 at the quoted rate; billing was not separately reconciled. No further paid call is authorized or queued.
+
+Replacement A now has visible body text on the right-hand page, but its opening creates an extra folio over the green binder. Root and independent QC excluded that opening. Only frames 96–192 show the coherent already-open record, her specific point and hand withdrawal. The existing buyer angle extends through attentive listening while she prepares the record off-screen. B is seeded from verified A frame 192 and uses frames 1–264: he points by the printed passage, studies it, looks toward her with an approving smile and small head dip, then returns to the page.
+
+Review: http://100.101.49.30:3102/. It opens with 8 seconds of locked S21; S22 begins at 0:08. Her point appears around 0:15, his around 0:21, and his positive response around 0:27. S22 has 524 frames and the context 716 at 24 fps. Coverage is 55/108/97/264 frames with no loops, freezes or speed changes. Original narration PCM matches the master exactly; encoded audio remains aligned and level-matched. Strict check and independent source/final QC pass; no blank frames were found. Browser playback was exercised and visually sampled. Owner audiovisual review remains pending.
+
+Current pointer: `direction/r69-s22-written-record-retry/CURRENT.json`. Exact source selection, revised directing rationale, receipts and verification are retained there and under `hyperframes/reviews/r69-s22-film/`. The last logged verification is `r69-s22-written-answer-response-review-verified`. S22 is not locked. S21 remains unchanged and locked; S17's separate on-camera take remains open. No canonical conform, release, publication, commit or push.
+
+## S22 locked
+
+Owner: “looks good lock it and move”, responding to the port-3102 review. Acceptance is bound to the exact selected R69 S22 assembly, context, media and narration in `direction/r69-s22-accepted/OWNER-ACCEPTANCE.json` and logged as `r69-owner-s22-lock-v1`. This accepts the printed record, owner point, buyer point and positive response in the reviewed cut. It does not accept the excluded malformed opening or failed R68 take. Superseded S22 retry proposals are closed; no further paid call is authorized. S17 remains separate and open.
+
+## R70 S23 — payoff ready for review
+
+S23 “The work in the pause” is a quiet graphic landing, master 1068.916667–1078.5, 230 frames / 9.583333 seconds at 24 fps. The thesis is visible from the first frame. On “And now,” both model columns reveal together over six frames, then hold at full opacity for 5.583333 seconds. The 85-hour assumption is explicitly unmeasured; the rounded ~$16,000 fee retains eight engagements per year and the more precise ~$16,250 model threshold. A shared modeled-scenario disclosure accompanies the figures.
+
+Review: http://100.101.49.30:3103/. The final eight seconds of locked S22 precede S23 at 0:08; the model recap begins at 0:11.75. The context is 422 frames / 17.583333 seconds. Original master audio is continuous across the cut. Strict layout, runtime, lint and contrast checks pass; source PCM is bit-exact; full decode/blank-frame and encoded-audio checks pass. Root and independent final QC inspected rendered seam, reveal and ending frames. Live review-player playback was exercised and visually sampled. No uninterrupted listening verdict or owner acceptance is claimed.
+
+Current pointer: `direction/r70-s23-payoff/CURRENT.json`; exact source, provenance, reports and verification are retained there and under `hyperframes/reviews/r70-s23-payoff/`. S23 awaits owner review. No new spend, voice, music or SFX. S24 “My verdict: build” is next, starting at master 1078.5. S17's on-camera take remains open. No canonical conform, release, publication, commit or push.
+
+## S23 locked; S24 built and locked
+
+Owner accepted S23 at port3103 with “good to go lock it and moveo n”. The exact R70 graphic, original narration and context are pinned in `direction/r70-s23-accepted/OWNER-ACCEPTANCE.json`, logged as `r70-owner-s23-lock-v1`.
+
+R71 S24 “My verdict” uses master1078.5–1101.5,552frames /23seconds at24fps. The persistent “Build / To find out” verdict is qualified by research-scoped absence of published practice earnings and a base model below the narrator's target. Those support lines give way to the unresolved S21 local stopping rule: owners agree then defer OR brokers already do it free. Neither is depicted as established. The original narration is preserved, with no new paid media. The opening heading was enlarged after visual review.
+
+Owner then said “lock it and move” while viewing port3104. Acceptance pins the actual552frame scene and744frame context in `direction/r71-s24-accepted/OWNER-ACCEPTANCE.json`, logged as `r71-owner-s24-lock-v1`. The proposed782frame full-S23 context wrapper was not built and is closed on owner advance. The actual review excerpt begins60ms into prior S23 word “work”; the accepted S24 and complete-episode seam are unaffected. Preserve that history rather than claiming the wrapper was repaired.
+
+Strict checks, bit-exact PCM, full decode/frame scans and root/independent encoded meaning/timing/layout reviews passed. Whole-clip audio remains aligned and level-matched. Independent quiet seam-window correlation was0.9985668, below its initial0.999criterion; best tested lag0, level−0.01049dB and residual−62.96dBFS do not indicate a displaced seam. No uninterrupted listening verdict is claimed. Final verification: `r71-s24-verdict-review-verified`; current pointer: `direction/r71-s24-verdict/CURRENT.json`. S25 is next. S17 remains separately open; no canonical conform, release, publication, commit or push.
+
+## R72 S25 — first action ready for review
+
+S25 uses master1101.5–1131.75:726frames /30.25seconds at24fps. A checklist gains three unchecked starting points from accepted S18, attaches to one owner already known and a diagnostic with “No fee charged”, then connects to a stopwatch and blank diagnostic-time record. The watch button presses once; no counter, rotating hands, completion ticks or measured result. “Full engagement hours remain unmeasured” preserves the distinction between a first diagnostic timing sample and the whole engagement.
+
+Review: http://100.101.49.30:3105/. S25 begins at0:08.333333. The lead-in uses locked S24[352,552), beginning before the complete “Build means” thought at master1093.166667. Context is926frames /38.583333seconds with continuous original master audio. S25 preserves4.11seconds of the deliberate4.2second ending gap; the other90ms precedes S26's first word. Keep this pause at conform.
+
+Strict layout/runtime/lint/contrast, exact source PCM, complete decode/frame counts/blank scan, encoded audio alignment/level, root visual review and independent final meaning/timing/seam/pause checks pass. No blank frames. Live player navigation and playback were exercised and visually sampled. No uninterrupted listening verdict or owner acceptance is claimed. No new paid generation, voice, music or effects.
+
+Current pointer: `direction/r72-s25-first-action/CURRENT.json`. Exact source, provenance and final verification are bound in `direction/r72-s25-first-action/VERIFICATION-EVENT.json`. S25 awaits owner review. S26 “close” is next at master1131.75. S24 remains locked; S17's separate on-camera take remains open. No canonical conform, release, publication, commit or push.
+
+## R73 — S25 locked; S26 closing invitation ready
+
+Owner: “Lock it and move on”. S25 is locked against its exact726-frame scene and926-frame context. Acceptance: `direction/r72-s25-accepted/OWNER-ACCEPTANCE.json`; event `r72-owner-s25-lock-v1`. Accepted source and media bytes remain unchanged.
+
+S26 is the closing invitation: one static publisher-first mineral card, with the accepted wordmark treatment, “Blueprints, taken apart.” and plain “Subscribe”. The complete card is visible from the first frame to the last. No new footage, voice, music, SFX or paid calls. The closing phrase is specific to this episode, not a new permanent tagline.
+
+Review: http://100.101.49.30:3106/. S26 starts at0:06.5. The lead uses locked S25[570,726), preserving the whole “and right now nobody does” clause and the4.2-second intentional pause before “If”. S26 is149frames /6.208333seconds at24fps; context is305frames /12.708333seconds. Every source sample through exact master EOF54,620,519 is retained. Only1,481zero samples /30.854167ms follow EOF for frame alignment. No fade covers the final word.
+
+Strict HyperFrames0.8.46 checks pass with data-no-timeline declaring the intentionally static card. Full decode/framecount/blank checks pass. Root and independent review verified native first/final frames, the direct S25 boundary, exact staged PCM prefix and zero tail, encoded audio alignment and final-word retention. The live browser plays and holds the complete final card. Audio metrics are not a continuous human listening verdict.
+
+Current pointer: `direction/r73-s26-close/CURRENT.json`; final verification binds the exact candidate in `direction/r73-s26-close/VERIFICATION-EVENT.json`. S26 awaits owner review. S17's on-camera take remains separately open. No whole-episode lock, canonical conform, release, publication, commit or push.
+
+## R74 — S26 revised to legacy closing treatment
+
+Owner requested the previous legacy end screen with logo, website download link and subscribe. R73 is superseded, not accepted. Feedback `r74-owner-s26-legacy-revision` and decision `r74-s26-legacy-close-v1` retain that request and its bounded legacy-reference exception.
+
+Actual EP001 and EP002 final exports establish the navy/grid, serif Build. Own. Operate., gold domain and CTA rows. R74 follows that structure, with shorter download/subscribe copy and the accepted OE wordmark enlarged as the signature. Displayed site: THEOPERATORECONOMY.COM. No historical weekly-cadence claim is imported. Legacy sources remain unchanged; new implementation is HyperFrames. The homepage returned200; no EP007 download publication readiness is asserted.
+
+Review: http://100.101.49.30:3107/. Revised S26 starts at0:06.5.149-frame S26,156-frame accepted S25 lead,305-frame context, original narration through EOF and1,481zero tail samples are unchanged. Strict runtime/layout/contrast checks and full decoded blank-frame checks pass. Actual native-frame and live browser review show the wordmark, website and both actions clearly. No new spend; S17 remains open.
+
+Current pointer: `direction/r74-s26-legacy-close/CURRENT.json`; verification event binds current source/render, legacy-reference and revised-card QA. S26 awaits owner review. No whole-episode lock, canonical conform, release, commit or push.
+
+## R75 — S26 corrected to Boundary Ledger
+
+Owner: “No it still needs to follow this boundary ledger design system. Not the legacy one”. R74's legacy visual treatment is rejected. The legacy reference supplies closing functions only: logo, site for download and subscription. Feedback `r75-owner-s26-boundary-correction` and decision `r75-s26-boundary-close-v1` preserve the correction; R73/R74 candidate bytes remain unchanged.
+
+R75 restores the accepted institutional wordmark as primary on deep mineral#173530 with paper#F5F0E6. Build. Own. Operate. is subordinate. “Download the Operator Blueprint” sits directly above theoperatoreconomy.com; “Subscribe for more business blueprints” forms a quieter third level. No grid, navy, gold, decorative accent or implied verified result. Boundary Ledger2.0.0 semantic core, color binding and scene contracts govern the design.
+
+Review: http://100.101.49.30:3108/. S26 starts at0:06.5.149-frame scene and305-frame context; original audio and exact1,481zero-sample EOF alignment unchanged. Strict checks, full decode/blank scan, source PCM and encoded audio checks pass. Root and independent Boundary Ledger native-frame review pass; live browser playback verified. Current pointer: `direction/r75-s26-boundary-close/CURRENT.json`; final event pins review evidence.
+
+S26 awaits owner review. No new spend; S17 remains separately open. No canonical conform, whole-episode lock, release, commit or push.
+
+## R75 — S26 owner locked
+
+Owner: “OK looks good”. The exact R75 Boundary Ledger ending is accepted: 149-frame scene and 305-frame context, with original narration and final tail unchanged. Acceptance is pinned in `direction/r75-s26-accepted/OWNER-ACCEPTANCE.json` and event `r75-owner-s26-lock-v1`. All prior review artifact hashes were checked before locking; no accepted media or HTML was altered.
+
+Locked content: the OE wordmark and Build. Own. Operate., the grouped Operator Blueprint download instruction and theoperatoreconomy.com, and the subscribe invitation, using Boundary Ledger's mineral/paper institutional treatment. R73 and R74 remain superseded review candidates. The closing screen is now approved; S17's on-camera take remains separately open. This acceptance does not establish a whole-episode lock, canonical conform or release. No new spend, commit or push.
+
+## R78 — S15/S16 mobile-framing revision ready for owner review
+
+Owner feedback on R77 identified a real phone-legibility failure: the full-screen ChatGPT and Sheets recordings were too small. R78 keeps the genuine recorded UI and pointer, but uses tighter actual-pixel crops. S15 moves slowly with the recorded pointer toward the returned answer. S16 centers the active evidence columns and removes empty desktop columns. The fictional-example label, original interactions and locked narration remain unchanged; no replacement cursor or recreated UI was introduced.
+
+Review: http://100.101.49.30:3110/mobile/. The page is explicitly labeled as a review candidate, not locked or released. S15 cue: 0:25.333. S16 cue: 0:08.875. The page and cue behavior were exercised at a 390 by 844 browser viewport with no horizontal overflow. The review server now supports HTTP byte ranges, so both cue controls seek correctly; starting either candidate pauses the other.
+
+S15 is 1,368 frames / 57 seconds at 24 fps; SHA-256 `b676995321b8f5e134b17e27f78b406ad94140b1a9dde8eb3b5ee0555bef6710`. S16 is 1,293 frames / 53.875 seconds; SHA-256 `eb8767961ba4ddeebc2b502c5672019d81ec970e96b3141318b340ee9e6223ba`. HyperFrames 0.8.50 strict checks pass at boundaries and action points; complete decoded-frame scans found no full-luma blanks. Both audio comparisons resolve at zero relative lag with correlations above 0.9997 and level deltas within 0.04 dB. Decision-log event: `r78-s15-s16-mobile-framing-technical-verification-v1`; the 283-event chain validates.
+
+R78 supersedes R77's full-screen framing, not its genuine source interaction. Owner audiovisual acceptance remains pending. S17's separate presenter candidate also remains pending. No full-episode integration, canonical conform, whole-episode lock, release, new paid call, commit or push.
+
+## R78 — S15/S16 mobile-framing revision owner locked
+
+Owner: “Good lock it in”. Acceptance is bound to the exact R78 media reviewed at port 3110: S15 SHA-256 `b676995321b8f5e134b17e27f78b406ad94140b1a9dde8eb3b5ee0555bef6710` and S16 SHA-256 `eb8767961ba4ddeebc2b502c5672019d81ec970e96b3141318b340ee9e6223ba`. The source projects, provenance, technical verification, responsive review evidence, direction and locked narration are pinned in `direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json`.
+
+The lock preserves the genuine ChatGPT and Sheets interfaces, recorded pointer, actual interactions, tighter mobile crops, fictional-example disclosure and S16 source-derived static return-seam repair. R77's full-screen framing remains superseded. Acceptance event `r78-owner-s15-s16-mobile-lock-v1` advances the valid decision chain to 284 events.
+
+This is a scoped S15/S16 lock. S17's separate presenter candidate remains open. No re-render, full-episode integration, canonical conform, whole-episode lock, release, publication, new spend, commit or push.
+
+## R76 — S17 presenter completion owner locked
+
+Owner: “Lock it”. Acceptance is bound to the exact 192-frame / 8-second S17 C reviewed at port 3109, SHA-256 `3b9229f61825add2b5ddd30d015f495c0f3cd6ad6c2e5b92655a7cba0fb81431`, at master 774.500–782.500. The 1,803-frame context, generated native source, restored picture, alignment and native-analysis records, bit-exact locked-narration slice, retained S17 P1/P2 sources, direction and technical verification are pinned in `direction/r76-s17-presenter-accepted/OWNER-ACCEPTANCE.json`.
+
+The lock accepts the fixed-camera wide performance, restrained first-person legal limitation, mouth timing, single small palm opening on the homework phrase, and return to the fixed-fee explanation. It accepts only the final reviewed picture selection beginning at source frame 8 with original narration restored; unused native frames and provider-generated speech are not episode media. No further generation or retry is authorized.
+
+Acceptance event `r76-owner-s17-c-lock-v1` advances the valid decision chain to 285 events. S17 was the final open scene-level review. The next gate is the canonical whole-episode assembly, end-to-end technical QA and uninterrupted owner watch-through. This is not yet a whole-episode lock, release or publication. No new spend, commit or push.
+
+## R79 — whole-episode picture/audio conform owner locked
+
+R79 joins the complete accepted EP007 scene package into one 27,241-frame / 18:55.041667 owner-review conform at 24 fps. It uses the exact locked R78 S15/S16 renders and frames `[192,1803)` of the exact reviewed R76 S17 context so the accepted P1 → presenter → P2 seams remain in one source encode. All other selections retain the audited R77 map. No creative transition, retiming, grade, music, SFX, caption or redesign was added.
+
+Review: http://100.101.49.30:3111/. Video SHA-256 `adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671`; exact PCM reference SHA-256 `3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c`. The review server returns HTTP 200 and byte-range 206.
+
+Technical verification passes: exact 27,241 decoded frames at 1280×720 / 24 fps; BT.709 tags; complete video/audio decode; 54,482,000 PCM samples with the exact 1,481-sample zero tail; full-duration decoded-audio comparison at zero lag with 0.99999081 correlation, −0.00369 dB level delta and 47.32 dB SNR; integrated loudness −16.72 LUFS and true peak −1.31 dBTP measured without normalization. Every low-variance frame matches its exact pinned source frame; midpoint, all-boundary and sparse-frame sheets were inspected. Corrected verification event `r79-whole-episode-review-conform-verified-v2` replaces v1's implausible FFmpeg apsnr summary and advances the valid decision chain to 289 events; the media and other QA results did not change.
+
+Owner: “Lock R79, including the three inherited exceptions.” The exact R79 video and PCM reference are now the whole-episode picture/audio lock and downstream conform reference. The acceptance explicitly includes the integrated R39 callback/performance with no prior scoped verdict, the previously returned R39 animation at master 04:17.875–04:30.000, and the R47 performance at master 04:50.292–05:01.500 with no prior output verdict. Their prior scene-level history remains preserved; the verdict accepts their exact appearance only inside the hash-pinned R79 bytes.
+
+Acceptance: `assembly/r79-full-conform/direction/r79-owner-locked/OWNER-ACCEPTANCE.json`. Event `r79-owner-whole-episode-lock-v1` advances the valid decision chain to 290 events. The pre-Resolve reference manifest is `blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r79-owner-locked-conform-reference/manifest.json`. This freezes R79's exact integrated creative result but is not the canonical toolchain picture lock; the Resolve timeline/interchange and conform report do not exist yet.
+
+R79 is also not represented as the canonical Resolve finishing master. No DaVinci Resolve installation, EP007 interchange/project or caption deliverable is present. Those are downstream finishing gates after owner acceptance.
+
+The five source-crop plans under `studio/originate/exit-readiness-prep/shorts-preproduction/` are superseded by owner direction. They remain as historical planning only. The current Shorts direction is a net-new 9:16 series with original scripts, vertical-native structure, fresh art direction and new motion built from EP007's evidence and ideas, not landscape crops or narration excerpts. No provider call, credit spend, publication, commit or push is authorized by that direction.
+
+The owner then clarified that the Shorts must behave as curiosity-led hooks into the full episode, not compact lessons. The active `studio/originate/exit-readiness-prep/shorts-net-new/` package now contains eight rewritten discussion drafts: four launch priorities and four alternates. Each resolves one useful mechanism, then reserves a consequential offer, boundary or economic answer for EP007. This adapts the high-level reveal architecture of immediate mystery, causal visual proof and a larger unanswered question; it does not authorize copying another creator's persona, delivery, graphics, branding, music or likeness.
+
+Short 01 is now `The Four-Word Pause`. The existing project path, `studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-one-month-test/`, is retained for provenance. Its 31.5-second 1080×1920 silent discussion prototype opens on the illustrative stopped answer, proves one owner-dependent operating route, withholds the complete diagnostic, and lands on the unmeasured delivery-hour question before a non-button `TAP EP007 UNDER THE CHANNEL NAME ↓` instruction. EP007 shows how to measure that missing number; it does not present a completed result. The superseded dashboard prototype is preserved in `PROTOTYPE-QA-v1.json`.
+
+HyperFrames 0.8.51 strict checks pass with zero lint, runtime, layout, motion or contrast findings across all 260 transition samples. Fifteen final key frames and two `snapshots/final-v3/` contact sheets were captured and visually inspected. Independent final review found no remaining material claim, conversion or visual issue. No narration, captions, music, SFX, provider call, render or publication action occurred. This is not an owner-approved Short: exact copy, original narration, voice-timed composition, captions, Studio-preview approval, render verification and publication approval remain pending.
+
+YouTube's native Related Video is the primary full-episode path. The pinned comment is supplemental because Shorts comment and description URLs are not clickable. The eventual EP007 target must come from `studio/originate/exit-readiness-prep/launch/links.json`; that file is currently absent, so the upload/readback gate cannot yet pass.

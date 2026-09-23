@@ -1,0 +1,48 @@
+{
+  "record_type": "ep007_owner_direction_source",
+  "episode": "EP007-exit-readiness-prep",
+  "captured_at_utc": "2026-09-23T00:22:00Z",
+  "owner_verbatim": "Go",
+  "owner_message_id": null,
+  "owner_message_locator": "Current thread reply after the assistant asked for Yes—one guide only; no message ID was exposed to the workspace",
+  "prompt_presented_for_approval": "I’ll keep the avatar. May I run one Google Algieba guide for Short 02’s locked script, with no retry and a $0.05 operational spend ceiling? I’ll stop after voice QC; this does not authorize Original C transfer, avatar clips, or rendering. The ceiling is a preflight limit, not a provider-enforced billing cap.",
+  "bounded_interpretation": "The owner's Go accepts the immediately preceding one-guide-only request. Authorize exactly one no-retry Google gemini-2.5-pro-tts Algieba guide for the locked Short 02 script under a $0.05 operational forecast cap. Stop after voice QC; retain all later provider and release gates.",
+  "authorized": {
+    "short_id": "short-02-operations-business",
+    "script_sha256": "aee361d4542ed450365a50c70577f6b1bddd61c30de0571d770cbd91b0ed5542",
+    "google_request_sha256": "51d3d17749feaab1f9c9ccb1ddafe3dce81c90b92a17f23892c34a867a97c36e",
+    "google_request_body_sha256": "206595eb555fa9f474dfb72efb89f6cebb152e8a7f86f76c273acfb8875502a0",
+    "guide_model": "gemini-2.5-pro-tts",
+    "guide_voice": "Algieba",
+    "google_guide_calls_max": 1,
+    "google_spend_forecast_cap_usd": 0.05,
+    "automatic_retries": 0,
+    "manual_retries": 0,
+    "scope": "short02_google_guide_only"
+  },
+  "not_authorized": [
+    "Original C transfer",
+    "avatar generation",
+    "lip-sync",
+    "render",
+    "release",
+    "upload",
+    "publication"
+  ],
+  "valid_only_for": {
+    "locked_script_package": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+      "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c"
+    },
+    "prepared_script": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-02-operations-business/SCRIPT.txt",
+      "sha256": "aee361d4542ed450365a50c70577f6b1bddd61c30de0571d770cbd91b0ed5542"
+    },
+    "prepared_google_request": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-02-operations-business/GOOGLE-REQUEST.json",
+      "sha256": "51d3d17749feaab1f9c9ccb1ddafe3dce81c90b92a17f23892c34a867a97c36e"
+    },
+    "previous_batch": "narration-v3 stopped_no_retry; no residual submission authority"
+  },
+  "approval_limit": "One provider submission attempt. A failed or uncertain result is a stop, not permission to retry. The forecast ceiling is not a provider-enforced billing cap."
+}

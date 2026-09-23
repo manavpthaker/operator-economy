@@ -1,0 +1,69 @@
+{
+  "event_id": "ep007-short01-guide-replacement-hold-v12",
+  "decision_id": "ep007-companion-shorts-platform-system",
+  "event_type": "verification",
+  "tags": [
+    "shorts",
+    "narration",
+    "google-tts",
+    "replacement",
+    "technical-qc",
+    "batch-hold",
+    "no-retry"
+  ],
+  "data": {
+    "decision_event_id": "ep007-standalone-shorts-production-v7",
+    "actor": "production-pipeline",
+    "authorization_event_id": "ep007-short01-guide-replacement-authorized-v11",
+    "verdict": "hold",
+    "result": "fail",
+    "scope": "The one-call Short 1 replacement and the governed four-Short narration continuation only. No avatar, lip-sync, music, render, release or publication state changes.",
+    "method": "Fresh immutable provider intent and receipt in narration-v3, exact output-format probe, the pinned tail-energy rule and a post-hold local HyperFrames Whisper diagnostic; no provider retry.",
+    "finding": "The authorized replacement Short 1 Algieba guide returned HTTP 200 in the correct 24000 Hz mono 16-bit WAV format, but measured tail energy 0.0361, above the pinned 0.02 guide-completeness threshold.",
+    "diagnostic": "Local Whisper recognized all 97 normalized words and the complete closing sentence. Its final-word timestamp ends at 41.21 seconds while media duration is 40.971 seconds, so it cannot prove the final phoneme is unclipped.",
+    "execution_state": "Two cumulative Google guide calls, zero ElevenLabs transfers and zero retries. Cumulative estimated Google cost is 0.04178899999999999 USD.",
+    "policy_result": "The fresh authorization allowed exactly one replacement and zero further retries. The batch remains stopped; no later guide or Original C transfer may be submitted without new exact owner authority.",
+    "limitations": "Speech recognition supports that the full words are present but is not a perceptual listen and does not establish an unclipped final phoneme. No claim is made about Shorts 2 through 4 because their calls were not submitted.",
+    "recommended_next_action": "Listen specifically to the replacement ending. If audibly complete, prefer a separately authorized local append-silence repair and re-probe over a third identical provider attempt. If clipped, revise the generation method before requesting any new provider call.",
+    "artifact_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/BATCH-HOLD.json",
+        "sha256": "fb4cee5de2b86d7b9cd9044feee32a558b5a6785d13e82b7752cb8e46a532355"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+        "sha256": "a7edc0ec268e709a070a93facc43010908252e2f709276359c170428a2beb015"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/POST-HOLD-DIAGNOSTIC.json",
+        "sha256": "df404a24fa068bc9b2d921d7d1f08b688c05cd5cb0cde72669f20b1f4440086d"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/STATUS.json",
+        "sha256": "6945c04f52a3d75a2ed2a7f018091aea5c6da8cebed6e670e3af7997448f3fb0"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/BATCH-HOLD.json",
+      "sha256": "fb4cee5de2b86d7b9cd9044feee32a558b5a6785d13e82b7752cb8e46a532355",
+      "locator": "cumulative call counts, estimated spend and terminal no-retry hold"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+      "sha256": "a7edc0ec268e709a070a93facc43010908252e2f709276359c170428a2beb015",
+      "locator": "HTTP status, output format, replacement guide hash, duration, tail energy and estimated cost"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/POST-HOLD-DIAGNOSTIC.json",
+      "sha256": "df404a24fa068bc9b2d921d7d1f08b688c05cd5cb0cde72669f20b1f4440086d",
+      "locator": "local 97-word exact-normalized diagnostic and unresolved final-phoneme limitation"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STATUS.json",
+      "sha256": "6945c04f52a3d75a2ed2a7f018091aea5c6da8cebed6e670e3af7997448f3fb0",
+      "locator": "current EP007 Shorts production gate and required next authority"
+    }
+  ]
+}

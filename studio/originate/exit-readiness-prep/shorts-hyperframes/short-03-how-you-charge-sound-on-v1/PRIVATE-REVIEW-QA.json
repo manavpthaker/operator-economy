@@ -1,0 +1,228 @@
+{
+  "schema_version": "oe.hyperframes.private_review_qa.v1",
+  "created_at_utc": "2026-09-23T11:24:09Z",
+  "short_id": "short-03-how-you-charge",
+  "project": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-03-how-you-charge-sound-on-v1",
+  "status": "private_review_render_complete_owner_acceptance_pending",
+  "scope": {
+    "new_sound_on_derivative": true,
+    "accepted_silent_v3_preserved": true,
+    "provider_calls_from_this_project": 0,
+    "phone_preview_manifest_changed_by_this_project": false,
+    "publication_authorized": false
+  },
+  "locked_copy": {
+    "source": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+    "source_sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c",
+    "transcript": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-forced-final/transcript.json",
+    "transcript_sha256": "b09eed699592ff5bfae8bb371abb1c4f951c919bddd63214a2ba849fc8e776cb",
+    "locked_words": 98,
+    "transcript_words": 98,
+    "caption_words_once": 98,
+    "caption_rail_words": 80,
+    "embedded_scene_words": 18,
+    "caption_cues": 20,
+    "exact_copy_result": "pass"
+  },
+  "assembly_sources": {
+    "original_c": {
+      "path": "assets/audio/original-c.wav",
+      "sha256": "c62c09057d6cf1e91b895b485b0cc0114d52707e337b1970112811e9d48ccd83",
+      "codec": "pcm_s16le",
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "duration_seconds": 37.616333,
+      "full_decode": "pass"
+    },
+    "presenter_opening": {
+      "path": "assets/media/presenter-opening.mp4",
+      "sha256": "b0e40fb4532a4de5ac69430a4bbda6a2f21c10cf928ab8a211e4a2a7a4b58718",
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "dimensions": "1080x1920",
+      "fps": 24,
+      "duration_seconds": 9.041667,
+      "audio_streams": 0,
+      "used_window_seconds": [0, 8.56],
+      "full_decode": "pass"
+    },
+    "presenter_return": {
+      "path": "assets/media/presenter-return.mp4",
+      "sha256": "e450010081c09ce5369c45790c8c0a024ef32622bfd5a00b6dcf871ec61963d8",
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "dimensions": "1080x1920",
+      "fps": 24,
+      "frames": 169,
+      "duration_seconds": 7.041667,
+      "audio_streams": 0,
+      "used_window_seconds": [0, 6.575],
+      "full_decode": "pass"
+    },
+    "recovery_receipt": {
+      "path": "blueprint-cinema/experiments/EP007-SHORTS03-04-SYNC-001/RECOVERY-RESULTS-20260923.json",
+      "sha256": "3d1945963530840df85f40066c87f89da31525f6608d621f90ead9d259eabef6"
+    }
+  },
+  "timeline": {
+    "fps": 24,
+    "opening_presenter": [0, 8.56],
+    "conditional_perimeter": [8.56, 14.8425],
+    "defined_preparation_scope": [14.8425, 24.588],
+    "fixed_fee_model": [24.588, 31.05],
+    "return_presenter": [31.05, 37.625],
+    "visual_only_route": [37.625, 39.625],
+    "audio_end_seconds": 37.616333,
+    "program_frame_end_seconds": 37.625,
+    "total_seconds": 39.625,
+    "total_frames": 951
+  },
+  "validators": {
+    "assembly": {
+      "command": "node scripts/validate-assembly.mjs",
+      "exit_code": 0,
+      "result": "pass"
+    },
+    "caption_scaffold": {
+      "command": "node ../caption-assembly-scaffold-v1.mjs ../short-03-how-you-charge-v3/sound-on-scaffold-v1/plan.json --check",
+      "exit_code": 0,
+      "result": "pass"
+    },
+    "hyperframes_strict": {
+      "version": "0.8.63",
+      "command": "npx --yes hyperframes@0.8.63 check --json --strict --at 0.5,7.2,8.46,8.518333,8.56,8.601667,8.66,10.3,12.1,13.5,15.6,18.3,20.3,23.1,25.3,26.8,29.3,31.3,34.5,37.1,37.8,39.2 --at-transitions --max-transition-samples 80 --snapshots --timeout 10000",
+      "exit_code": 0,
+      "result": "pass",
+      "lint_findings": 0,
+      "runtime_findings": 0,
+      "layout_findings": 0,
+      "motion_findings": 0,
+      "contrast_findings": 0,
+      "motion_samples": 300,
+      "contrast_samples_passed": "19/19"
+    },
+    "portrait_seam_gate": {
+      "command": "node scripts/seam-gate-portrait.mjs verify --ledger ledger.json --project . --json --fps 24",
+      "exit_code": 0,
+      "result": "pass",
+      "seam": "opening-presenter-to-conditional-perimeter",
+      "exit_vector": "x-",
+      "entry_vector": "x-",
+      "exit_speed_px_per_second": -524,
+      "entry_speed_px_per_second": -1368,
+      "speed_ratio": 2.61,
+      "maximum_ratio": 3,
+      "zero_overlap": "pass",
+      "canonical_script": "/Users/brownmanbrain/GitHub/operator-economy/.agents/skills/motion-doctrine/scripts/seam-gate.mjs",
+      "canonical_script_sha256": "83ccc3baec9f3536bb0738e6163812ef23d74f4da94d026bf6f91e0bd91c1d0f",
+      "portrait_adapter_sha256": "6e6c3e82f39aeeea1101cbffc0a267e8c47e7d2d5eaff569f86f52da1edea930",
+      "adapter_delta": "comments plus viewport 1920x1080 to 1080x1920 and onscreen bounds only; all direction, velocity, ratio, and overlap checks remain canonical"
+    },
+    "animation_map": {
+      "path": ".hyperframes/anim-map/animation-map.json",
+      "sha256": "9c0453c9ab16eb14115d9ce0e1ab3b99b78771e5c8fdd2b6f6a1822ee03b2f5d",
+      "duration_seconds": 39.625,
+      "total_tweens": 37,
+      "mapped_tweens": 26,
+      "skipped_micro_tweens": 11,
+      "unexpected_motion_gap": false,
+      "classification": "presenter windows and final route hold account for long intentional dead zones; portrait elements below y=1080 are mislabeled offscreen by the helper's landscape viewport, while strict portrait layout and the corrected seam gate pass"
+    }
+  },
+  "render": {
+    "path": "renders/short-03-how-you-charge-sound-on-private-v1.mp4",
+    "sha256": "889dc32dcffdad3b27f96036f725480e890f554f1eef505ea88729a17c4f6b9d",
+    "command": "npx --yes hyperframes@0.8.63 render . --quality high --format mp4 --fps 24 --workers 2 --sdr --strict --no-best-effort --skill general-video --output renders/short-03-how-you-charge-sound-on-private-v1.mp4",
+    "render_job_id": "8d963496-b1ca-4357-8847-dea9d635c420",
+    "elapsed_seconds": 42.9,
+    "size_bytes": 20242259,
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration_seconds": 39.625,
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "pixel_format": "yuv420p",
+      "width": 1080,
+      "height": 1920,
+      "fps": 24,
+      "frames": 951
+    },
+    "audio": {
+      "codec": "aac",
+      "profile": "LC",
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "layout": "stereo",
+      "duration_seconds": 39.625,
+      "master_samples_compared": 1805584,
+      "render_samples_compared": 1805584,
+      "zero_lag_pearson_correlation": 0.9996695552735719,
+      "zero_lag_cosine_similarity": 0.9996695140476551,
+      "visual_only_tail_start_seconds": 37.625,
+      "visual_only_tail_samples": 96000,
+      "visual_only_tail_nonzero_samples": 0,
+      "visual_only_tail_peak_s16": 0,
+      "visual_only_tail_rms_s16": 0
+    },
+    "full_decode": "pass"
+  },
+  "visual_qa": {
+    "authored_contact_sheets": [
+      {
+        "path": "snapshots/private-review-v1/contact-sheet-1.jpg",
+        "sha256": "5f6e57e5fa0fc46e115d30da1e2c218051dd62f3c78f40e0d28f40d74ded72e8"
+      },
+      {
+        "path": "snapshots/private-review-v1/contact-sheet-2.jpg",
+        "sha256": "9e17855d01802fa5ffd9ac45d375109edf2b985263aeb70ee31cee709cd0ff4d"
+      },
+      {
+        "path": "snapshots/private-review-v1/contact-sheet-3.jpg",
+        "sha256": "84fbcefc1bd5aea47a8d101fc026986edd90ec2e4f0983f99c22b937847b16bc"
+      }
+    ],
+    "encoded_contact_sheet": {
+      "path": "snapshots/encoded-review-v1/contact-sheet.png",
+      "sha256": "28026197fae84a94c4285e71e989a0227accdc36402f7d2bc5a64689e9cc266f",
+      "frames": [82, 203, 205, 206, 324, 554, 703, 828, 941]
+    },
+    "result": "pass",
+    "observations": [
+      "both real presenter windows render full-bleed without a static identity plate",
+      "exact-copy caption rail remains readable and above the phone UI-safe boundary",
+      "the fee-token portrait seam has no blank frame or visible overlap",
+      "legal caveats, preparation fields, fixed-fee boundary, and counsel handoff remain legible without collision or clipping",
+      "the final route appears only after the spoken payoff and carries no URL or proof claim"
+    ]
+  },
+  "poster": {
+    "path": "poster/short-03-how-you-charge-sound-on-v1-poster.png",
+    "sha256": "0390dc9a31f9efeb2a7178137bce3cc442cbcaadabf50369bd9b48db44e27c81",
+    "source_time_seconds": 3.433,
+    "width": 1080,
+    "height": 1920,
+    "description": "clean opening presenter frame without a caption or overlay"
+  },
+  "preserved_silent_v3": {
+    "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-03-how-you-charge-v3",
+    "index_sha256": "71d7380426c694d3d08632ef355ac71fe1dc7d061bbaeb8891859bbd61e4c4c4",
+    "scene_html_sha256": [
+      "a6e0141826d5c3279345736904d9b47f7a2d88fbf387af9309cadb13cf6e633d",
+      "ec11de18c9dcde3e26cea6a26939cee672970939fdcdff493e352b31ed7999f2",
+      "8e95cb92aca915df9cf979c8fd4bd867225cda0923133a76e818937e257b7949",
+      "2f598bfcb3cfe019d6be474e574a356d3844031eeea8d6299acd3e440f922432",
+      "95fa8edfbbe07df59615d36ca9d6f352d22a7017cf282d629de2c0060b895221"
+    ],
+    "result": "unchanged"
+  },
+  "render_warnings": [
+    "the restored presenter files contain sparse source keyframes, but HyperFrames extracted all 363 required source frames with coverage ratio 1.0 before capture",
+    "normal-speed human lip-sync quality has not been established by the recovery receipt or this automated QA"
+  ],
+  "acceptance": {
+    "technical_private_review": "complete",
+    "owner_normal_speed_listening": "pending",
+    "owner_creative_performance_acceptance": "pending",
+    "release_or_publication": "not_authorized"
+  }
+}

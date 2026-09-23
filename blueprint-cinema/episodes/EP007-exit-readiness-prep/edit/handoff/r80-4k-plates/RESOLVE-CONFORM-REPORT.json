@@ -1,0 +1,46 @@
+{
+ "record_type": "ep007_resolve_conform_report",
+ "version": 1,
+ "resolve": "DaVinci Resolve 21.1.0.17 (free)",
+ "project": "OE_EP007",
+ "timeline": "EP007_R80_CONFORM",
+ "settings": {
+  "fps": 24,
+  "resolution": "1920x1080",
+  "start_timecode_frame": 86400
+ },
+ "result": {
+  "timeline_frames": 27241,
+  "video_track_1_clips": 54,
+  "gaps": 0,
+  "audio_track_1": "ep007-r79-audio-pcm.wav (locked R79 PCM, full length)",
+  "otio_vs_plates_manifest_mismatches": 0
+ },
+ "interchange": {
+  "timeline.otio": {
+   "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r80-4k-plates/interchange/timeline.otio",
+   "sha256": "2f6f530b810d77298a7dce5e94284ef3c413d76d53bbeb7912fe792ba08a400d"
+  },
+  "timeline.edl": {
+   "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r80-4k-plates/interchange/timeline.edl",
+   "sha256": "63ea01dda99821a359e5ba3f91b9196f462b9152ba55275ec48edd3f891a2bf6"
+  },
+  "timeline.fcpxml": {
+   "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r80-4k-plates/interchange/timeline.fcpxml",
+   "note": "FCPXML 1.10 bundle directory"
+  }
+ },
+ "plates_manifest": {
+  "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/edit/handoff/r80-4k-plates/PLATES-MANIFEST.json",
+  "sha256": "54513b7df6c22602ed067dabaaa250d71cf9961608bed271fed287eae24cf5e0"
+ },
+ "history": "First pass used an inclusive endFrame and left 54 one-frame gaps; caught by OTIO check, timeline deleted and rebuilt from the same imported media.",
+ "not_done": [
+  "color",
+  "Fairlight mix",
+  "captions",
+  "mezzanine/upload master",
+  "final QC"
+ ],
+ "canonical_picture_lock": "requires owner confirmation that the Resolve timeline plays as R79/R80"
+}

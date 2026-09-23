@@ -1,0 +1,84 @@
+{
+  "result": "pass",
+  "verified_at_utc": "2026-09-19T12:46:36Z",
+  "scope": "R78 S15 and S16 mobile-framing owner-review surface only.",
+  "owner_review": "pending",
+  "review_url": "http://100.101.49.30:3110/mobile/",
+  "surface": {
+    "html": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/mobile/index.html",
+      "sha256": "a91e4b16d4c3dddec9332e46df3e3f348ef1873e246542f18005bbc5fee6f66c"
+    },
+    "server": {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/_tools/range-server.mjs",
+      "sha256": "94e242abe14f6a82c062ef2c74b65ea0a69c89fa189a956e5d06550f62977513",
+      "launchd_label": "com.operator-economy.ep007-review-3110",
+      "state_at_verification": "running"
+    },
+    "http": {
+      "page": {
+        "status": 200,
+        "content_type": "text/html; charset=utf-8",
+        "accept_ranges": "bytes"
+      },
+      "s15_range_probe": {
+        "request": "bytes=0-1023",
+        "status": 206,
+        "content_type": "video/mp4",
+        "content_length": 1024,
+        "content_range": "bytes 0-1023/6955834"
+      },
+      "s16_range_probe": {
+        "request": "bytes=0-1023",
+        "status": 206,
+        "content_type": "video/mp4",
+        "content_length": 1024,
+        "content_range": "bytes 0-1023/3864628"
+      }
+    }
+  },
+  "media": {
+    "s15": {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/qa/s15-mobile-review.mp4",
+      "sha256": "b676995321b8f5e134b17e27f78b406ad94140b1a9dde8eb3b5ee0555bef6710",
+      "bytes": 6955834,
+      "duration_seconds": 57.0,
+      "video": "h264 1280x720 24fps",
+      "audio": "aac 48000Hz stereo"
+    },
+    "s16": {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/qa/s16-mobile-r7-review.mp4",
+      "sha256": "eb8767961ba4ddeebc2b502c5672019d81ec970e96b3141318b340ee9e6223ba",
+      "bytes": 3864628,
+      "duration_seconds": 53.875,
+      "video": "h264 1280x720 24fps",
+      "audio": "aac 48000Hz stereo"
+    }
+  },
+  "browser": {
+    "surface": "Codex in-app browser",
+    "viewport_css_pixels": {
+      "width": 390,
+      "height": 844
+    },
+    "page_scroll_width_css_pixels": 375,
+    "horizontal_overflow": false,
+    "card_bounds_css_pixels": {
+      "left": 16,
+      "right": 359,
+      "width": 343
+    },
+    "checks": [
+      "Review-candidate and not-locked-or-released status text remained visible.",
+      "S15 cue control sought to 25.333 seconds and playback began.",
+      "S16 cue control sought to 8.875 seconds and playback began.",
+      "Starting either candidate paused the other candidate.",
+      "Native video controls and playsinline behavior remained available."
+    ]
+  },
+  "limitations": [
+    "Responsive behavior was tested in a 390 by 844 browser viewport, not on a physical phone.",
+    "This check does not claim uninterrupted audiovisual review or owner acceptance.",
+    "The candidates are not integrated into the full episode, conformed, locked, or released."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "record_type": "ep007_shorts_narration_run_input",
+  "prepared_at_utc": "2026-09-22T05:44:55.143264+00:00",
+  "status": "prepared_not_submitted",
+  "script_count": 4,
+  "pins": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+      "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V1.json",
+      "sha256": "c8404afd3b31153558a83c66e6f32a0d6a44a60570f237b8584bddddeb44e100"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/PRODUCTION-MANIFEST-V2.json",
+      "sha256": "cc925469a415e7d0405a21c6874d63586635d5fbb1c4ac5b2d7f82ab0fd0d4ad"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-owner-authorize-shorts-narration-20260922.json",
+      "sha256": "93f402d0ce7594af5205727731b846b37962015cd5943e0048ef12ae121d0751"
+    },
+    {
+      "path": "operator-blueprint-v2/02-narration-production/prompts/NARRATOR-REGISTER.candidate-C4.google-gemini-tts.style-instructions.json",
+      "sha256": "b747d7b0afa4469b2be05c20eb16306a25bb5185b9fa8b12e2d4aa4ddd8d3efc"
+    },
+    {
+      "path": "operator-blueprint-v2/02-narration-production/tools/calibrate.py",
+      "sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00"
+    },
+    {
+      "path": "operator-blueprint-v2/02-narration-production/tools/capture_n4b.py",
+      "sha256": "5e1093bc0f0113fa998bd5e99359f90b098342cc83c19997ed77ab0f02a15493"
+    }
+  ],
+  "capture_runner": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v1/capture_shorts.py",
+    "sha256": "a219fb30e6aed7e6d21411b7963ebd2f2cf2ef92f6e6c2cceee0f06bbeb30a8b"
+  },
+  "approved_caps": {
+    "google_guide_calls": 4,
+    "elevenlabs_transfer_calls": 4,
+    "provider_generation_calls": 8,
+    "automatic_retries": 0,
+    "google_spend_usd": 0.15,
+    "elevenlabs_credits": 3200
+  },
+  "guide": {
+    "model": "gemini-2.5-pro-tts",
+    "voice": "Algieba",
+    "language": "en-US"
+  },
+  "transfer": {
+    "model": "eleven_multilingual_sts_v2",
+    "target_voice": "Original C",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "output_format": "pcm_48000",
+    "seed": 2026082501,
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false
+  },
+  "failure_policy": "stop after any failure or uncertain provider outcome; never retry under this authorization"
+}

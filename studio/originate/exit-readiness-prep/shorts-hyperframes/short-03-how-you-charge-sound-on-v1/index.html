@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <title>EP007 Short 03 — How You Charge Changes the Job — Sound-on V1</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #173530;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        color: #19201f;
+        background: #173530;
+        font-family: "BL Supreme", system-ui, sans-serif;
+      }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      .presenter-video {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        object-position: 50% 50%;
+        background: #173530;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="root" data-hf-id="ep007-short03-sound-on-v1-root" data-composition-id="main" data-start="0" data-duration="39.625" data-width="1080" data-height="1920" data-fps="24">
+      <video data-hf-id="hf-2t61" id="presenter-opening" class="clip presenter-video" src="assets/media/presenter-opening.mp4" data-start="0" data-duration="8.56" data-track-index="1" muted playsinline preload="auto"></video>
+      <div data-hf-id="hf-735a" id="opening-overlay-slot" class="clip" data-composition-id="short03-host-opening-overlay-v1" data-composition-src="compositions/01-host-opening-overlay.html" data-start="0" data-duration="8.56" data-track-index="10" data-width="1080" data-height="1920"></div>
+
+      <div data-hf-id="hf-dn2f" id="legal-screen-slot" class="clip" data-composition-id="scene-02-conditional-perimeter" data-composition-src="compositions/02-conditional-perimeter.html" data-start="8.56" data-duration="6.2825" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-e0xr" id="preparation-screen-slot" class="clip" data-composition-id="scene-03-defined-preparation-scope" data-composition-src="compositions/03-defined-preparation-scope.html" data-start="14.8425" data-duration="9.7455" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-6tzd" id="bounded-fee-screen-slot" class="clip" data-composition-id="scene-04-fixed-fee-model" data-composition-src="compositions/04-fixed-fee-model.html" data-start="24.588" data-duration="6.462" data-track-index="1" data-width="1080" data-height="1920"></div>
+
+      <video data-hf-id="hf-tqae" id="presenter-return" class="clip presenter-video" src="assets/media/presenter-return.mp4" data-start="31.05" data-duration="6.575" data-track-index="1" muted playsinline preload="auto"></video>
+      <div data-hf-id="hf-zlg5" id="return-overlay-slot" class="clip" data-composition-id="short03-host-return-overlay-v1" data-composition-src="compositions/05-host-return-overlay.html" data-start="31.05" data-duration="6.575" data-track-index="10" data-width="1080" data-height="1920"></div>
+
+      <div data-hf-id="hf-vqii" id="full-episode-route-slot" class="clip" data-composition-id="scene-05-full-episode-handoff" data-composition-src="compositions/06-counsel-handoff.html" data-start="37.625" data-duration="2" data-track-index="1" data-width="1080" data-height="1920"></div>
+
+      <div data-hf-id="hf-jnev" id="captions-slot" class="clip" data-composition-id="short03-captions-sound-on-v1" data-composition-src="compositions/captions.html" data-start="0" data-duration="37.625" data-track-index="60" data-width="1080" data-height="1920"></div>
+
+      <audio data-hf-id="hf-sfcf" id="original-c" src="assets/audio/original-c.wav" data-start="0" data-duration="37.616333" data-track-index="100" data-volume="1" preload="auto"></audio>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

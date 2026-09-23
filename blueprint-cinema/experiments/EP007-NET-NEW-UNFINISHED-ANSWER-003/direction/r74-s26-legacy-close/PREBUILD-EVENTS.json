@@ -1,0 +1,124 @@
+[
+  {
+    "event_id": "r74-owner-s26-legacy-revision",
+    "decision_id": "s26-close",
+    "event_type": "feedback",
+    "tags": [
+      "legacy-end-screen",
+      "download-link"
+    ],
+    "data": {
+      "decision_event_id": "r73-s26-close-v1",
+      "actor": "owner",
+      "verbatim": "the ending screen has to be like the previous legacy videos. with the logo and link to the site for the download. subscribe etc",
+      "interpretation": "R73 omitted legacy end-screen download destination and treatment.",
+      "verdict": "revise",
+      "scope": "S26 only; preserve existing audio and accepted scenes.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-close/index.html",
+          "sha256": "d78dfd06bf417877321adf0b9a3781d4255606c5d293dc9c2108a3d6e1c60acb"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-close/qa/s26.mp4",
+          "sha256": "a70380c107d36a626b83195c3c31ab54a62763062fb8797e30e69b4bca705341"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-context/index.html",
+          "sha256": "e1c7e5214470a61d622d3866d9256f5f8e37bce4ce1d05777ed21f61cd601320"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-context/qa/context.mp4",
+          "sha256": "5b00a3deba876218969e066886da6dda091922b8679ece98f71885d4b251783c"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r74-s26-legacy-close/OWNER-REQUEST.json",
+        "sha256": "259410160f63a1479458d8d79ac673db690e0ba6e707b3aac9323624a50f105e",
+        "locator": "Owner request or pre-build source"
+      }
+    ]
+  },
+  {
+    "event_id": "r74-s26-legacy-close-v1",
+    "decision_id": "s26-close",
+    "event_type": "decision",
+    "supersedes": "r73-s26-close-v1",
+    "tags": [
+      "legacy-end-screen",
+      "download-link",
+      "subscribe",
+      "logo"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Close with brand identity and visible download/subscription destinations.",
+        "viewer_before": "A first diagnostic still needs measuring.",
+        "viewer_after": "Knows the publisher, website for the blueprint and invitation to subscribe."
+      },
+      "choice": "Legacy navy/grid outro, serif Build.Own.Operate., gold website address, download/subscribe rows and accepted OE wordmark.",
+      "reason": "Restores the familiar closing treatment and omitted download route identified by the owner.",
+      "alternatives": [
+        {
+          "choice": "Small URL added toR73",
+          "reason_not_selected": "Would not match requested legacy treatment."
+        },
+        {
+          "choice": "Exact weekly-cadence legacy copy and staggered animation",
+          "reason_not_selected": "Cadence not required; full static hold provides more reading time."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "S26 owner-requested legacy closing treatment.",
+        "avoid_when": "Does not establish a global return to legacy layout or palette."
+      },
+      "nuance": {
+        "mode": "silent_graphic",
+        "language_carrier": "locked_original_narration",
+        "scene_frames": 149,
+        "context_frames": 305,
+        "fps": 24,
+        "S26_start_in_context": 6.5,
+        "audio": "Reuse R73 staged PCM unchanged; allsource samples and framepadding preserved.",
+        "source_basis": "Owner-directed revision plus legacy source/reference.",
+        "spend": "No paidcalls;S17open.",
+        "legacy_exception": "User explicitly requested matching the legacy ending. No legacy renderer or gate imported."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r74-s26-legacy-close/DIRECTION.md",
+        "sha256": "84ca3d0215b5ed4c6b81b7569098dde2d408b1fc20d38707b6f96eea0c9f0cac",
+        "locator": "Owner request or pre-build source"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r74-s26-legacy-close/OWNER-REQUEST.json",
+        "sha256": "259410160f63a1479458d8d79ac673db690e0ba6e707b3aac9323624a50f105e",
+        "locator": "Owner request or pre-build source"
+      },
+      {
+        "path": "studio/remotion/src/oe/scenes/Bookends.tsx",
+        "sha256": "9b0ce6176385b49eed4e7838835a16cf9ae04ca3c655d6fa800f41fb2e82df5d",
+        "locator": "Owner request or pre-build source"
+      },
+      {
+        "path": "studio/remotion/src/oe/theme.ts",
+        "sha256": "c41c823875ffce1642df29d72ae3d59bf6b174485ee03c3e3c8323e8ddc2a6ee",
+        "locator": "Owner request or pre-build source"
+      },
+      {
+        "path": "design-system/foundations/brand-wordmark.html",
+        "sha256": "10e202be001c52af53dd28cd57d83933858d3dccdb36c56c574f8441b8fea61b",
+        "locator": "Owner request or pre-build source"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/compositions/sting.html",
+        "sha256": "d5cca5346e8634806372a35c655358541fd5aace4b91b0899e8df60632b0720a",
+        "locator": "Owner request or pre-build source"
+      }
+    ]
+  }
+]

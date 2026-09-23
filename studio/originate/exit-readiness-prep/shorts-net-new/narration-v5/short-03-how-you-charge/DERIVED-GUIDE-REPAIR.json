@@ -1,0 +1,44 @@
+{
+  "record_type": "ep007_short03_derived_guide_tail_repair",
+  "at_utc": "2026-09-23T00:41:14Z",
+  "status": "pass_source_preserved_and_mechanical_tail_gate_repaired",
+  "provider_call": false,
+  "direction_event": {
+    "event_id": "ep007-shorts03-04-guide-tail-derived-decision-v4",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts03-04-guide-tail-derived-decision-v4.json",
+    "sha256": "a90e8b18cdd63682adad705ce09a3f59e211838c8e9a32c3f717a7a66a5dc276"
+  },
+  "source": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/guide.wav",
+    "sha256": "91b6658fca45a6ccb9e834d2a806b338d073bf8bafe856c7ec4850a9842035a0",
+    "pcm_sha256": "c52556ba0b4181b3a1e97e5ba799d8601b92bc0c71bbd152bd2658e8d98091e7",
+    "sample_frames": 890183,
+    "duration_seconds": 37.090958333,
+    "tail_energy": 0.0594
+  },
+  "operation": {
+    "type": "append_digital_silence_to_derived_copy",
+    "script_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/derive_short03_guide.py",
+    "script_sha256": "6b3121b3ee773f12efb2a0c412d8a9165547c82da7161276599cdd76bbcd898f",
+    "appended_frames": 12000,
+    "sample_rate_hz": 24000,
+    "appended_duration_seconds": 0.5,
+    "source_overwritten": false,
+    "provider_call": false
+  },
+  "derived": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/guide-derived-pad500ms.wav",
+    "sha256": "e8bb3a95d7f8191be460fa5324bfdcd852a8fa3ef63992e6ee0c045f1b5c7c63",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "sample_frames": 902183,
+    "duration_seconds": 37.590958333,
+    "source_prefix_pcm_sha256": "c52556ba0b4181b3a1e97e5ba799d8601b92bc0c71bbd152bd2658e8d98091e7",
+    "appended_frames_all_zero": true,
+    "tail_energy": 0.0,
+    "tail_energy_threshold_exclusive": 0.02,
+    "ends_in_silence": true
+  },
+  "limitation": "The derivative repairs only a mechanical tail-silence gate. It does not recreate missing speech or certify naturalness. Owner listening remains deferred to the finished private-review video."
+}

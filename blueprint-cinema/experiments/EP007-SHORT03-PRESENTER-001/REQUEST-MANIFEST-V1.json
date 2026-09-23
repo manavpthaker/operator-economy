@@ -1,0 +1,103 @@
+{
+  "record_type": "ep007_short03_presenter_request_manifest_v1",
+  "status": "quote_ready_local_inputs_not_uploaded_not_submitted",
+  "provider_calls_by_this_manifest": 0,
+  "owner_authority": {
+    "event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope_limit": "first-pass private-review sound-on production only; no paid retry, upload, release or publication"
+  },
+  "direction": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/DIRECTION.json",
+    "sha256": "18566468c536ce8508955cd1c2a26a8c78a46c1d98639589c052f17655b201c9"
+  },
+  "inputs": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/INPUT-MANIFEST.json",
+    "sha256": "3d430592282f3dd60c487373a49726db90feecaa008cfc0a133ad9a84612cb3b"
+  },
+  "provider": "higgsfield",
+  "model": "seedance_2_5",
+  "common_params_for_exact_quote_and_submission": {
+    "mode": "omni_reference",
+    "resolution": "1080p",
+    "aspect_ratio": "9:16",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "use_unlim": false,
+    "count": 1,
+    "media_roles_in_order": ["image identity/look", "video relaxed behavior", "video public articulation", "audio exact Short03 segment MP3"]
+  },
+  "requests": [
+    {
+      "index": 0,
+      "shot_id": "segment-a-opening",
+      "duration_seconds": 9,
+      "quote_ready": true,
+      "source_master_seconds": [0.0, 8.56],
+      "source_master_sample_range_end_exclusive": [0, 410880],
+      "program_picture_exit_seconds": 8.56,
+      "word_indices_inclusive": [0, 26],
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/PROMPT.txt",
+        "sha256": "4d33d4b3170984f6dd95db9101fc3e18d338cab1b333a9af7266b346813c7905"
+      },
+      "audio_wav_source": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/media/original-c-segment-a.wav",
+        "sha256": "479c226f19fafcfe18927545d122dc2825f5b66eafe836aa7a38b0139a8b10ab"
+      },
+      "audio_mp3_upload_companion": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/media/original-c-segment-a.mp3",
+        "sha256": "4296bf1a2dd4dd1c90879d1271e60379b875c46be87a0662afd8e5874930e77f",
+        "media_id": null,
+        "upload_readback_verified": false
+      },
+      "exact_provider_quote_credits": null,
+      "provider_job_id": null
+    },
+    {
+      "index": 1,
+      "shot_id": "segment-b-return",
+      "duration_seconds": 7,
+      "quote_ready": true,
+      "source_master_seconds": [31.05, 37.616333333],
+      "source_master_sample_range_end_exclusive": [1490400, 1805584],
+      "program_picture_entry_seconds": 31.05,
+      "first_aligned_word_start_seconds": 31.605,
+      "word_indices_inclusive": [78, 97],
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/PROMPT.txt",
+        "sha256": "a080be7f5149ad8632bf59f366c8ea354ce6f473ae0e3acbc0adcc48a51c9b66"
+      },
+      "audio_wav_source": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/original-c-segment-b.wav",
+        "sha256": "d2ec06f0f41533c7f2b6f0f7ab26730884aaf88182c11e8e67dac7101167e7f7"
+      },
+      "audio_mp3_upload_companion": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/original-c-segment-b.mp3",
+        "sha256": "ec65257cd60f3b9748dd1f801c2bb74c06d423564ff737ff5ce48f68a7a6275b",
+        "media_id": null,
+        "upload_readback_verified": false
+      },
+      "exact_provider_quote_credits": null,
+      "provider_job_id": null
+    }
+  ],
+  "total_quote_ready_request_seconds": 16,
+  "generation_attempts_max_short03": 2,
+  "candidates_per_shot": 1,
+  "automatic_retries": 0,
+  "quote_and_upload_preconditions": [
+    "Read back live Higgsfield balance and exact 9-second and 7-second same-mode 1080p quotes; account for the slate's 1200-credit aggregate cap and other consumed jobs.",
+    "Verify the three prior V5 image/video media IDs are still accessible and byte-identical, or upload the pinned local files and read back the remote bytes; do not assume prior IDs remain valid.",
+    "Upload each exact MP3 companion and verify the remote bytes/hash before placing its media ID in an immutable submission intent.",
+    "Bind the exact prompt and all media IDs in an intent before each one-candidate submission; preserve returned job IDs and do not retry an ambiguous or failed outcome."
+  ],
+  "post_generation_requirements": [
+    "Inspect actual 9:16 frames for V5 likeness, complete hands, natural facial and gesture performance, stable study, clean starts/ends, and no unauthorized words.",
+    "Measure native generated speech against the corresponding Original C slice; use Fal Sync only if needed and within the separately bounded slate cap.",
+    "Mute native generated audio for the finished Short; one continuous full-length Original C master is the only program voice.",
+    "Re-time visual screens and exact verbatim captions to the 37.616333-second voice clock; inspect legal qualifications and the host-screen-host seams with sound on a phone-sized preview."
+  ],
+  "release_or_publication_authority": false
+}

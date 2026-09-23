@@ -1,0 +1,51 @@
+{
+  "record_type": "ep007_short01_original_c_forced_alignment_v4",
+  "at_utc": "2026-09-22T14:34:02.004018+00:00",
+  "status": "pass_exact_normalized_locked_words_and_forced_timings_within_original_media",
+  "stage": "final",
+  "tool": "whisperx==3.8.6",
+  "model": "small",
+  "alignment": "wav2vec2",
+  "device": "cpu",
+  "compute_type": "int8",
+  "language": "en",
+  "source_media": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/media/original-c.wav",
+    "sha256": "973c715d273055e1bcac3be16c167cf87b4fe44abb772b63ca72751e06ead1f7",
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "sample_frames": 1992829,
+    "duration_seconds": 41.517270833333335
+  },
+  "script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/SCRIPT.txt",
+    "sha256": "9b27c85c9e532c414f4d888045531e082b32b0bbf54b9141d129f9cc5a2aebc0"
+  },
+  "raw_alignment": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/diagnostic-whisperx-direct/original-c.json",
+    "sha256": "05d28d9d88c117c157b5b1ea61448fd6f452df2c83b02e5c5c9be3e4f63c5c60"
+  },
+  "transcript": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/asr-final-whisperx/transcript.json",
+    "sha256": "cf4189171a8893e336812aa30afc5ea2ce3d75f030d76e9d11a8faf2922053a8",
+    "recognized_words": 97,
+    "locked_normalized_words": 97,
+    "exact_normalized_word_match": true,
+    "word_timing_values_valid": true,
+    "word_timing_order_valid": true,
+    "word_timings_within_original_media_duration": true,
+    "last_word": "off.",
+    "last_word_start_seconds": 40.775,
+    "last_word_end_seconds": 40.895,
+    "post_speech_silence_seconds": 0.6222708333333316,
+    "minimum_word_score": 0.0
+  },
+  "supersedes_for_timing_only": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/FINAL-ASR.json",
+    "sha256": "5b4754c4bac38adae540507e767faedb5534cdb4698d86737efdfeb85cfce3bf",
+    "reason": "The first pass recognized the exact words but used segment-interpolated timestamps that extended past EOF; the preserved failure remains evidence of that diagnostic path."
+  },
+  "accepted_for_picture_production": true,
+  "limitation": "Local forced alignment verifies exact normalized words and media-bound timing. It does not constitute owner listening acceptance of the unseen finished video."
+}

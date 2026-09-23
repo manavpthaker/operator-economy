@@ -1,0 +1,64 @@
+{
+  "record_type": "ep007_owner_direction_source",
+  "episode": "EP007-exit-readiness-prep",
+  "captured_at_utc": "2026-09-23T00:25:51Z",
+  "owner_verbatim": "Go for all of them the full pipeline. I want to get them done and make edits after if necessary",
+  "owner_message_id": null,
+  "owner_message_locator": "Current thread reply immediately after the bounded Short 02 guide submission; no message ID was exposed to the workspace",
+  "bounded_interpretation": "Authorize first-pass private-review production of the three remaining EP007 Shorts 02 through 04 from their locked scripts through exact final narration, new matching EP007 V5 avatar footage, any required lip-sync, complete captions, 9:16 sound-on renders and private phone previews. Allow owner edits after these candidates exist. Do not infer upload, publication, release, a new episode URL, credit purchases or extra paid retries.",
+  "authorized": {
+    "short_ids": [
+      "short-02-operations-business",
+      "short-03-how-you-charge",
+      "short-04-test-the-front-door"
+    ],
+    "scope": "first_pass_private_review_sound_on_video_production",
+    "stages": [
+      "Google Algieba guides",
+      "exact-copy guide QC",
+      "ElevenLabs Original C voice transfers",
+      "final narration word timing",
+      "new matching EP007 V5 avatar clips",
+      "lip-sync if needed",
+      "verbatim phone-safe captions",
+      "HyperFrames sound-on 9:16 render",
+      "private phone preview"
+    ],
+    "script_package_sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c",
+    "first_pass_only": true
+  },
+  "agent_execution_limits_not_owner_quoted": {
+    "google_guide_calls_max_across_shorts_02_to_04": 3,
+    "google_guide_calls_already_consumed_short_02": 1,
+    "google_guide_forecast_usd_max_across_shorts_02_to_04": 0.15,
+    "elevenlabs_transfer_calls_max": 3,
+    "elevenlabs_credit_forecast_cap": 3200,
+    "higgsfield_new_avatar_clip_calls_max": 6,
+    "higgsfield_credit_quote_cap": 1200,
+    "fal_lip_sync_calls_max_if_needed": 6,
+    "fal_operational_spend_cap_usd": 15,
+    "automatic_retries": 0,
+    "extra_paid_retries_without_new_owner_direction": 0,
+    "over_cap_policy": "hold for new owner direction rather than silently spend"
+  },
+  "authorization_context": {
+    "avatar_route_event_id": "ep007-shorts-02-04-avatar-route-v1",
+    "previous_narrow_guide_event_id": "ep007-short02-one-google-guide-authorized-v2",
+    "short_02_guide_receipt_status_at_capture": "one_google_guide_submitted_and_technical_tail_pass_pending_exact_copy_QC",
+    "old_narration_v3_batch": "stopped_no_retry_not_resumed",
+    "current_higgsfield_balance_readback": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/HIGGSFIELD-BALANCE-READBACK-20260923.json",
+      "sha256": "70312020895ea9a3b24c4a9b56106fec18e4943b854198636f353ebf153da107"
+    }
+  },
+  "not_authorized": [
+    "changing any locked spoken script without a new owner direction",
+    "reusing old speaking footage under new words",
+    "unbounded model substitutions or paid retries",
+    "credit purchase",
+    "Content OS release",
+    "upload",
+    "publication",
+    "episode URL creation outside launch/links.json"
+  ]
+}

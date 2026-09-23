@@ -1,0 +1,57 @@
+{
+  "event_id": "r76-s17-c-technical-verification-v1",
+  "decision_id": "s17-c-presenter-completion",
+  "event_type": "verification",
+  "tags": [
+    "presenter",
+    "technical-verification",
+    "owner-review-pending"
+  ],
+  "data": {
+    "decision_event_id": "r76-s17-c-presenter-direction-v1",
+    "scope": "S17 C at master 774.500–782.500 seconds, plus the 75.125-second adjoining review context.",
+    "method": "Immutable R76 verification report: exact source PCM checks, 24 fps full decode, bounded blank scan, source-frame seam inspection, and encoded-audio alignment against the locked master.",
+    "result": "pass",
+    "limitations": "Technical verification only. It does not record owner performance acceptance, full-episode integration, canonical conform, or release. Audio metrics do not establish perceptual lip sync or creative performance quality.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa/s17-c.mp4",
+        "sha256": "3b9229f61825add2b5ddd30d015f495c0f3cd6ad6c2e5b92655a7cba0fb81431"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/context.mp4",
+        "sha256": "a10d322cc96198642be1b74edc3f3207b10c5f439fe10124f8cd5aa0d65bc7df"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa/VERIFICATION.json",
+        "sha256": "4ef27664a6bdd8f6b84a2561a2ba6b266ccf5e2b94a74ffc4ea193bbdb3dbc8f"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/index.html",
+        "sha256": "a674b76c88b1199d5d58f8a2884f95b43b940653a79e723ead10b2ee5c95f91b"
+      }
+    ],
+    "observations": {
+      "scene_frames": 192,
+      "context_frames": 1803,
+      "source_pcm_bit_exact": true,
+      "scene_blank_candidates": 0,
+      "context_unresolved_blank_candidates": 0,
+      "context_low_variance_frames": [1444, 1445, 1446, 1447, 1448],
+      "context_low_variance_classification": "Existing sparse-graphic crossfade frames, source-compared and retained as nonblank.",
+      "encoded_audio_zero_lag_correlation": 0.9998571329619457
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa/VERIFICATION.json",
+      "sha256": "4ef27664a6bdd8f6b84a2561a2ba6b266ccf5e2b94a74ffc4ea193bbdb3dbc8f",
+      "locator": "R76 immutable technical verification report"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r76-s17-presenter/DIRECTION.md",
+      "sha256": "85f5502b40f7a01e4afe066dfb67784fee522d8f040ebb74c85d4d97f90a54d6",
+      "locator": "Approved bounded presenter direction"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #173530; color: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; }
+      #root > [data-composition-src] { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+      .presenter { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; background: #173530; }
+    </style>
+  </head>
+  <body>
+    <main data-hf-id="hf-r2re" id="root" data-composition-id="main" data-start="0" data-duration="43.541667" data-width="1080" data-height="1920" data-fps="24">
+      <video data-hf-id="hf-presenter-a" id="presenter-a" class="clip presenter" src="assets/video/presenter-a-restored.mp4" data-start="0" data-duration="7" data-media-start="0" data-track-index="0" muted playsinline preload="auto" aria-label="Generated owner-authorized presenter performance for the opening opportunity"></video>
+      <video data-hf-id="hf-presenter-b" id="presenter-b" class="clip presenter" src="assets/video/presenter-b-restored.mp4" data-start="32.583333" data-duration="8.958334" data-media-start="0.633333" data-track-index="0" muted playsinline preload="auto" aria-label="Generated owner-authorized presenter performance for the conclusion"></video>
+
+      <div data-hf-id="hf-q52f" id="slot-01" class="clip" data-composition-id="short01-opportunity" data-composition-src="compositions/01-opportunity.html" data-start="0" data-duration="7" data-track-index="1"></div>
+      <div data-hf-id="hf-rr51" id="slot-02" class="clip" data-composition-id="short01-thirty-days" data-composition-src="compositions/02-thirty-days.html" data-start="7" data-duration="6.25" data-track-index="1"></div>
+      <div data-hf-id="hf-e36d" id="slot-03" class="clip" data-composition-id="short01-circle-answers" data-composition-src="compositions/03-circle-answers.html" data-start="13.25" data-duration="8.25" data-track-index="1"></div>
+      <div data-hf-id="hf-zkdf" id="slot-04" class="clip" data-composition-id="short01-build-map" data-composition-src="compositions/04-build-map.html" data-start="21.5" data-duration="11.083333" data-track-index="1"></div>
+      <div data-hf-id="hf-m10f" id="slot-05" class="clip" data-composition-id="short01-service-start" data-composition-src="compositions/05-service-start.html" data-start="32.583333" data-duration="8.958334" data-track-index="1"></div>
+      <div data-hf-id="hf-s07-slot" id="slot-07" class="clip" data-composition-id="short01-full-episode-route" data-composition-src="compositions/07-full-episode-route.html" data-start="41.541667" data-duration="2" data-track-index="1"></div>
+      <div data-hf-id="hf-captions" id="caption-slot" class="clip" data-composition-id="short01-captions" data-composition-src="compositions/06-captions.html" data-start="0" data-duration="41.541667" data-track-index="60"></div>
+
+      <audio data-hf-id="hf-short01-master-vo" id="short01-master-vo" class="clip" src="assets/audio/original-c.wav" data-start="0" data-duration="41.517271" data-media-start="0" data-track-index="100" data-volume="1" preload="auto"></audio>
+
+    </main>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .mineral-edge { display: none; }
+        .heading { position: absolute; top: 224px; left: 58px; width: 900px; color: #173530; }
+        .eyebrow { display: flex; align-items: center; gap: 14px; color: #586d74; font-size: 21px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .eyebrow::before { width: 54px; height: 4px; background: #b5482f; content: ""; }
+        .heading h1 { margin: 18px 0 0; font: 700 78px/0.9 "BL Zodiak", Georgia, serif; letter-spacing: -0.045em; }
+        .model-board {
+          position: absolute;
+          top: 408px;
+          left: 58px;
+          width: 900px;
+          height: 866px;
+          overflow: hidden;
+          border: 3px solid #204440;
+          background: #fbf8f1;
+          box-shadow: none;
+        }
+        .model-board::before,
+        .model-board::after {
+          position: absolute;
+          z-index: 5;
+          width: 78px;
+          height: 78px;
+          border-color: rgba(88, 109, 116, 0.44);
+          pointer-events: none;
+          content: "";
+        }
+        .model-board::before { top: 18px; left: 18px; border-top: 2px solid; border-left: 2px solid; }
+        .model-board::after { right: 18px; bottom: 18px; border-right: 2px solid; border-bottom: 2px solid; }
+        .model-group { position: absolute; inset: 0; }
+        .route-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .route-path { fill: none; stroke: #586d74; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+        .route-echo { fill: none; stroke: rgba(113, 134, 141, 0.44); stroke-width: 2; stroke-linecap: round; }
+        .trace-path { fill: none; stroke: #b5482f; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+        .node rect { fill: #f5f0e6; stroke: #586d74; stroke-width: 3; }
+        .node text { fill: #173530; font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; text-anchor: middle; }
+        .node .node-main { font-size: 26px; letter-spacing: 0.08em; }
+        .node .node-sub { fill: #33464c; font-size: 20px; letter-spacing: 0.05em; }
+        .owner-outline rect { fill: none; stroke: #71868d; stroke-width: 3; stroke-dasharray: 12 10; }
+        .owner-outline text { fill: #586d74; font-family: "BL Supreme", system-ui, sans-serif; font-size: 20px; font-weight: 500; letter-spacing: 0.07em; text-anchor: middle; }
+        .owner-card rect { fill: #204440; stroke: #173530; stroke-width: 3; }
+        .owner-card text { fill: #f5f0e6; font-family: "BL Zodiak", Georgia, serif; font-size: 29px; font-weight: 700; text-anchor: middle; }
+        .question-ring { fill: #fbf8f1; stroke: #b5482f; stroke-width: 7; }
+        .question-mark { fill: #87341f; font-family: "BL Boska", Georgia, serif; font-size: 64px; font-weight: 700; text-anchor: middle; }
+        .work-item rect { fill: #173530; stroke: #f5f0e6; stroke-width: 3; }
+        .work-item text { fill: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; font-size: 18px; font-weight: 500; letter-spacing: 0.08em; text-anchor: middle; }
+        .trace-label {
+          position: absolute;
+          z-index: 7;
+          left: 100px;
+          top: 16px;
+          padding: 10px 14px;
+          border: 2px solid #b5482f;
+          background: #fbf8f1;
+          color: #87341f;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          opacity: 0;
+          text-transform: uppercase;
+        }
+        .record-card {
+          position: absolute;
+          z-index: 8;
+          top: 62px;
+          right: 42px;
+          width: 362px;
+          height: 742px;
+          padding: 30px 32px 24px;
+          border: 3px solid #173530;
+          background: #204440;
+          color: #f5f0e6;
+          box-shadow: 0 22px 42px rgba(23, 53, 48, 0.22);
+          opacity: 0;
+        }
+        .record-kicker { color: #a9bbb8; font-size: 17px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+        .record-card h2 { margin: 12px 0 24px; color: #f5f0e6; font: 700 45px/0.95 "BL Zodiak", Georgia, serif; letter-spacing: -0.035em; }
+        .record-row { padding: 18px 0; border-top: 2px solid rgba(245, 240, 230, 0.28); opacity: 0; }
+        .record-row span { display: block; color: #fb8b69; font-size: 17px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+        .record-row strong { display: block; margin-top: 9px; color: #f5f0e6; font-size: 28px; font-weight: 500; line-height: 1.05; }
+        .record-boundary { margin-top: 14px; padding-top: 15px; border-top: 2px solid #71868d; color: #cbd5d1; font-size: 16px; font-weight: 500; letter-spacing: 0.085em; line-height: 1.22; opacity: 0; text-transform: uppercase; }
+        .script-rail {
+          position: absolute;
+          top: 1420px;
+          left: 58px;
+          width: 900px;
+          height: 250px;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: #19201f;
+        }
+        .guide-label { display: none; }
+        .guide-line { position: absolute; left: 0; right: 0; top: 0; color: #19201f; font-size: 46px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.03; opacity: 0; text-wrap: balance; }
+        .guide-line em { color: #87341f; font-style: normal; }
+      </style>
+
+      <section
+        id="root"
+        data-composition-id="short02-trace"
+        data-start="0"
+        data-duration="6.1"
+        data-width="1080"
+        data-height="1920"
+        data-script-text="An experienced operator can trace those dependencies and document how the business actually runs."
+      >
+        <div class="mineral-edge" aria-hidden="true"></div>
+        <header id="s3-heading" class="heading">
+          <div class="eyebrow">The operator's work</div>
+          <h1>Make the dependency legible.</h1>
+        </header>
+
+        <div id="s3-board" class="model-board" role="img" aria-label="The unresolved owner-only route is traced into a documented current-state record without showing it as fixed">
+          <div id="s3-model-group" class="model-group">
+            <svg class="route-svg" viewBox="0 0 900 866" aria-hidden="true">
+              <path class="route-echo" d="M 235 150 C 420 150, 505 358, 696 358" />
+              <path class="route-echo" d="M 235 358 L 696 358" />
+              <path class="route-echo" d="M 235 566 C 420 566, 505 358, 696 358" />
+              <path class="route-path" d="M 235 142 C 420 142, 505 350, 696 350" />
+              <path class="route-path" d="M 235 350 L 696 350" />
+              <path class="route-path" d="M 235 558 C 420 558, 505 350, 696 350" />
+              <path id="s3-trace-path" class="trace-path" d="M 696 350 C 505 350, 420 142, 235 142" />
+
+              <g class="node">
+                <rect x="36" y="84" width="200" height="116" rx="8" />
+                <text class="node-main" x="136" y="128">CUSTOMERS</text>
+                <text class="node-sub" x="136" y="163">GET SERVED</text>
+              </g>
+              <g class="node">
+                <rect x="36" y="292" width="200" height="116" rx="8" />
+                <text class="node-main" x="136" y="336">DECISIONS</text>
+                <text class="node-sub" x="136" y="371">GET MADE</text>
+              </g>
+              <g class="node">
+                <rect x="36" y="500" width="200" height="116" rx="8" />
+                <text class="node-main" x="136" y="544">AND RECORDS</text>
+                <text class="node-sub" x="136" y="579">CAN BE FOUND</text>
+              </g>
+
+              <g id="s3-owner-outline" class="owner-outline">
+                <rect x="690" y="280" width="166" height="140" rx="8" />
+                <text x="773" y="449">OWNER-HELD STEP</text>
+              </g>
+              <g id="s3-owner-card" class="owner-card" transform="translate(52 0)">
+                <rect x="690" y="280" width="166" height="140" rx="8" />
+                <text x="773" y="361">OWNER</text>
+              </g>
+              <g id="s3-question">
+                <circle class="question-ring" cx="686" cy="350" r="50" />
+                <text class="question-mark" x="686" y="372">?</text>
+              </g>
+              <g id="s3-work-item" class="work-item" transform="translate(280 208)">
+                <rect x="248" y="104" width="136" height="76" rx="38" />
+                <text x="316" y="150">WORK ITEM</text>
+              </g>
+            </svg>
+            <div id="s3-trace-label" class="trace-label">Trace those dependencies</div>
+          </div>
+
+          <article id="s3-record" class="record-card">
+            <div class="record-kicker">Accountable current state</div>
+            <h2>Document how it actually runs.</h2>
+            <div id="s3-row-1" class="record-row"><span>01</span><strong>Who acts?</strong></div>
+            <div id="s3-row-2" class="record-row"><span>02</span><strong>What do they need?</strong></div>
+            <div id="s3-row-3" class="record-row"><span>03</span><strong>Where does it live?</strong></div>
+            <div id="s3-record-boundary" class="record-boundary">Current state documented · not fixed or buyer-approved</div>
+          </article>
+        </div>
+
+        <aside id="s3-script" class="script-rail" data-layout-allow-caption-zone aria-label="Provisional exact-script guide">
+          <div class="guide-label">Exact locked script · provisional timing</div>
+          <div id="s3-guide-a" class="guide-line">An experienced operator can <em>trace those dependencies</em></div>
+          <div id="s3-guide-b" class="guide-line">and document how the business actually runs.</div>
+        </aside>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const trace = document.querySelector("#s3-trace-path");
+        const traceLength = trace.getTotalLength();
+        trace.style.strokeDasharray = `${traceLength}`;
+        trace.style.strokeDashoffset = `${traceLength}`;
+        tl.fromTo("#s3-heading", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.04);
+        tl.fromTo("#s3-guide-a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.14);
+        tl.to("#s3-owner-outline, #s3-owner-card, #s3-question, #s3-work-item", { opacity: 0, duration: 0.16, ease: "power1.out" }, 0.92);
+        tl.fromTo("#s3-record", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.36, ease: "power3.out" }, 1.14);
+        tl.to("#s3-trace-path", { strokeDashoffset: 0, duration: 0.76, ease: "power2.out" }, 1.72);
+        tl.fromTo("#s3-trace-label", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 2.1);
+        tl.to("#s3-guide-a", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 2.64);
+        tl.fromTo("#s3-guide-b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 2.78);
+        tl.to("#s3-row-1", { opacity: 1, duration: 0.2, ease: "power1.out" }, 3.18);
+        tl.to("#s3-row-2", { opacity: 1, duration: 0.2, ease: "power1.out" }, 3.72);
+        tl.to("#s3-row-3", { opacity: 1, duration: 0.2, ease: "power1.out" }, 4.26);
+        tl.to("#s3-record-boundary", { opacity: 1, duration: 0.24, ease: "power1.out" }, 4.82);
+        tl.to("#s3-guide-b", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 5.7);
+        window.__timelines["short02-trace"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

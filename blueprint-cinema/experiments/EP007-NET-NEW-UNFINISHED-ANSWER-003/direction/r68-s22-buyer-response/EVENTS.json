@@ -1,0 +1,116 @@
+[
+  {
+    "event_id": "r68-owner-s22-positive-response",
+    "decision_id": "s22-table-callback",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "film",
+      "caused-reaction"
+    ],
+    "data": {
+      "decision_event_id": "r67-s22-table-callback-plan-v2",
+      "actor": "owner",
+      "verbatim": "this is fine but there is no indication that the buyer is seeing something he likes. they're not pointing at anything and theres nothing on the page",
+      "interpretation": "The owner accepts the bounded proposal with required corrections. Execute exactly the same two takes with populated record, specific pointing and positive acknowledgment.",
+      "verdict": "revise",
+      "scope": "S22 direction and bounded two-take generation; no footage acceptance.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r67-s22-table-callback/DIRECTION-v2.md",
+          "sha256": "81b0b434afd2b5d36708383ad11ddc36020ac71d1aac2c1ec984e497960e3b95"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/OWNER-REQUEST.json",
+        "sha256": "61a8746564cf12171db6e0c33678e62109fff3f7f9e5022b3116705f52ef66f9",
+        "locator": "Current owner feedback"
+      }
+    ]
+  },
+  {
+    "event_id": "r68-s22-buyer-response-v1",
+    "decision_id": "s22-table-callback",
+    "event_type": "decision",
+    "tags": [
+      "film",
+      "caused-reaction",
+      "pointing",
+      "populated-record"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show an answer becoming independently inspectable at the original table.",
+        "viewer_before": "Owner dependence makes the answer unavailable without her reconstruction.",
+        "viewer_after": "An existing written record allows independent inspection; no sale result is established."
+      },
+      "choice": "Owner opens and identifies a populated record; buyer points to the entry, checks it and gives a small approving acknowledgment.",
+      "reason": "Owner requires visible contents and a positive response caused by a specific answer; prior neutral observation underplays the payoff.",
+      "alternatives": [
+        {
+          "choice": "Neutral reading only",
+          "reason_not_selected": "Owner explicitly found no indication the buyer likes what he sees."
+        },
+        {
+          "choice": "Handshake or transaction result",
+          "reason_not_selected": "The requested positive response concerns the answer, not a sale."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "S22 exact narration and accepted EP007 table world.",
+        "avoid_when": "A future script establishes different participants, document state or transaction outcome."
+      },
+      "nuance": {
+        "source_basis": "Current owner feedback; positive acknowledgment replaces earlier agent-imposed no-nod/no-point constraints.",
+        "cut_cues": [
+          {
+            "cue_id": "S22-response",
+            "phrase": "And this time",
+            "master_seconds": 1052.0,
+            "review_seconds": 12.916666666666666,
+            "fps": 24,
+            "relation": "Prompt record presentation begins."
+          },
+          {
+            "cue_id": "S22-inspection",
+            "phrase": "He can read it",
+            "master_seconds": 1059.0833333333333,
+            "review_seconds": 20,
+            "fps": 24,
+            "relation": "Independent inspection begins."
+          }
+        ],
+        "authorization": "The owner accepts the bounded proposal with required corrections. Execute exactly the same two takes with populated record, specific pointing and positive acknowledgment.",
+        "false_inference": "Illustrative replay, not new profit, real case evidence, later visit or sale.",
+        "replaces_event": "r67-s22-table-callback-plan-v1",
+        "performance": "A opens populated binder and points once. B places fingertip by same row, reads, gives one small approving nod/faint smile, resumes reading."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/DIRECTION.md",
+        "sha256": "ea3bd4c72c5070cf4603e382d04646ba07d0e6af3af8da53b269800c01d2aea3",
+        "locator": "Current direction/request authority"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/TAKE-A.request.json",
+        "sha256": "4189ed6d5a4b7e37992b4c5622af2e01182a6decdff48c3fd5eb44bfee1b9f23",
+        "locator": "Current direction/request authority"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/TAKE-B.request.json",
+        "sha256": "c92ecf4ea064f7d5035f38c2cfa72a6f6aabb013b65b534d0c47e9a317a00bbd",
+        "locator": "Current direction/request authority"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r68-s22-film/provider/GENERATION-AUTHORIZATION.json",
+        "sha256": "b39f8b9b4735cbd647429288bc51b344303ee0977a26598eb9c0c034f84c5a54",
+        "locator": "Current direction/request authority"
+      }
+    ],
+    "supersedes": "r67-s22-table-callback-plan-v2"
+  }
+]

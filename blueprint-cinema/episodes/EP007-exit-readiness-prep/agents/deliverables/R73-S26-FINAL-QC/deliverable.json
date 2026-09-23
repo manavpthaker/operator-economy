@@ -1,0 +1,105 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r73-s26-final-qc",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-close/index.html",
+      "sha256": "d78dfd06bf417877321adf0b9a3781d4255606c5d293dc9c2108a3d6e1c60acb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-close/qa/s26.mp4",
+      "sha256": "a70380c107d36a626b83195c3c31ab54a62763062fb8797e30e69b4bca705341"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-context/qa/context.mp4",
+      "sha256": "5b00a3deba876218969e066886da6dda091922b8679ece98f71885d4b251783c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/index.html",
+      "sha256": "999d7ed1762ef62692a4cf527a4bbed75176c807a1b867bf72bb77d8690390f8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/qa/s25.mp4",
+      "sha256": "c3a4a467b08743c99b98837b484c14e0895608fe2070ad25908d7a2159076233"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-close/public/audio/narration.wav",
+      "sha256": "76ec84133baea40b7399c59a1969e50b9c1dd5f23507f4a0cbb26fc68d52120d"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r73-s26-close/finish.py",
+      "sha256": "d6a5969bb3b42ff4ed59864d9bea78923b6f469fa6effc63c54487015a443c61"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r73-s26-context/qa/assembly-command.json",
+      "sha256": "4149346cec1aeafa9c232e522253c6ac8298d6c5b1e6ef88ae85bed477ff8ebb"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/CHECK-PLAN.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/staged-audio-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/qc.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/seam-and-final-word.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/seam-and-final-word-index.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/context-final-full.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/final-report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R73-S26-FINAL-QC/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify supplied final S26/context pins and current accepted S25 source pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify staged original296519sample prefix byte-exact and1481post-EOF zeros; confirm unchanged staged hash after render",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify actual149/305decoded frame counts,24fps,picture endpoints and source/context trim mapping",
+      "outcome": "pass"
+    },
+    {
+      "command": "Measure encoded seam,final subscribe/tail and post-EOF padding against master/staged PCM",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect sampled encoded seam,cue,final frames and full-resolution final scene/context image",
+      "outcome": "pass"
+    },
+    {
+      "command": "Confirm static invitation is readable from first frame through final word and tail",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous normal-speed subjective listening",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Final supplied hashes match actual files.",
+    "Pre-render independent staged-audio verification remains valid because its hash is unchanged.",
+    "Actual encoded frames and audio are used for seam/final-word checks.",
+    "Exact source and appended-silence counts derive from locked master and staged WAV."
+  ],
+  "assumptions": [
+    "The149-frame closing card is intentionally static.",
+    "Small AAC/container endpoint differences are evaluated against the exact source EOF and occur only after it."
+  ],
+  "unresolved_questions": [
+    "No continuous listening verdict or owner creative acceptance is claimed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

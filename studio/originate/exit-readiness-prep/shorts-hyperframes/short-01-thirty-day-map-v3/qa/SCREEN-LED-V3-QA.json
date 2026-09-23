@@ -1,0 +1,197 @@
+{
+  "record_type": "ep007_short01_screen_led_revision_qa",
+  "version": 1,
+  "short_id": "short-01-thirty-day-map",
+  "verified_at_utc": "2026-09-22T18:25:23Z",
+  "result": "pass_internal_not_owner_acceptance",
+  "authority": {
+    "production": {
+      "event_id": "ep007-short01-through-video-generation-authorized-v15",
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-short01-through-video-generation-authorized-v15.json",
+      "sha256": "7dbe6c3726017c4b2722f8678d5a6a8c96b97026e83b0e84f293ea3f667253b4"
+    },
+    "picture_revision": {
+      "event_id": "ep007-companion-shorts-short01-coverage-v20",
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-companion-shorts-short01-coverage-v20.json",
+      "sha256": "83ebfdd231e1fac7fbaded2f5944154167440737b1947f7ebf1de703af1ca910",
+      "scope": "Short 1 picture coverage only; presenter opens, screens explain, presenter returns"
+    },
+    "end_bridge": {
+      "event_id": "ep007-short01-full-episode-handoff-copy-correction-v17",
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-short01-full-episode-handoff-copy-correction-v17.json",
+      "sha256": "4d7a2dc8637f419811e9dd2a3fd94125017029815aedf3a792770f90dba128a8"
+    }
+  },
+  "protected_elements": {
+    "spoken_script": "unchanged_owner_locked_exact_copy",
+    "program_audio": "unchanged_original_c_wav",
+    "captions": "unchanged_97_of_97_words",
+    "scene_boundaries": "unchanged",
+    "duration_seconds": 43.541667,
+    "end_bridge": "unchanged_owner_approved_visual_only_two_seconds",
+    "new_provider_calls": 0,
+    "new_provider_credits": 0
+  },
+  "picture_coverage": {
+    "presenter_a": {
+      "start_seconds": 0.0,
+      "end_seconds": 7.0,
+      "frames": 168,
+      "job": "establish the opportunity and the conversation"
+    },
+    "full_screen_working_sequence": {
+      "start_seconds": 7.0,
+      "end_seconds": 32.583333,
+      "frames": 614,
+      "scenes": [
+        "thirty-day question",
+        "circle every I diagnostic",
+        "first dependency map"
+      ],
+      "job": "make the mechanism legible at phone size"
+    },
+    "presenter_b": {
+      "start_seconds": 32.583333,
+      "end_seconds": 41.541667,
+      "frames": 215,
+      "job": "interpret the map and complete the answer"
+    },
+    "end_bridge": {
+      "start_seconds": 41.541667,
+      "end_seconds": 43.541667,
+      "frames": 48,
+      "job": "route to the full episode after the complete standalone payoff"
+    },
+    "presenter_visible_frames": 383,
+    "presenter_visible_seconds": 15.958334,
+    "presenter_visible_percent_of_full_short": 36.65,
+    "prior_candidate_presenter_visible_percent_of_full_short": 69.95
+  },
+  "authored_artifacts": {
+    "index": {
+      "path": "index.html",
+      "sha256": "92d4f9d61469c8f10ab77e989463c38514f8259ac8eb7d6e9934f08f9c00641e"
+    },
+    "question_scene": {
+      "path": "compositions/02-thirty-days.html",
+      "sha256": "0b9cae810c30eea39d723b1450ab64740bdfd0ea0716460c95b32137b4a564ce"
+    },
+    "diagnostic_scene": {
+      "path": "compositions/03-circle-answers.html",
+      "sha256": "4c928af2f6bd9161b2a0c658db2e9401ca8d3d027ece91835135098472590efd"
+    }
+  },
+  "hyperframes_check": {
+    "version": "0.8.61",
+    "command": "npm run check",
+    "exit_code": 0,
+    "ok": true,
+    "lint_issues": 0,
+    "runtime_issues": 0,
+    "layout_issues": 0,
+    "motion_issues": 0,
+    "contrast_issues": 0,
+    "contrast_passed": 59,
+    "contrast_checked": 59
+  },
+  "animation_map": {
+    "path": ".hyperframes/anim-map-screen-led-v1/animation-map.json",
+    "sha256": "d356c073c0d538b86688cf1ece0c2261a6217ca67f8ee614eb23b949f529f56a",
+    "total_tweens": 43,
+    "mapped_tweens": 42,
+    "skipped_micro_tweens": 1,
+    "review": "pass; reported offscreen and degenerate samples are authored entry states or SVG line sampling, and the remaining dead zones are intentional reading holds"
+  },
+  "snapshot_review": {
+    "result": "pass_internal_not_owner_acceptance",
+    "exact_time_frames": 20,
+    "contact_sheets": [
+      {
+        "path": "qa/screen-led-snapshots-v1/contact-sheet-1.jpg",
+        "sha256": "c4d4f04387f5016a4f07e204cdf181744bc50caa8230a02d4699f47192e50538"
+      },
+      {
+        "path": "qa/screen-led-snapshots-v1/contact-sheet-2.jpg",
+        "sha256": "9b793ba83de8872a263aa2ddc6921f8edc57b9bddc3140c5eb6f58b04237853a"
+      },
+      {
+        "path": "qa/screen-led-snapshots-v1/contact-sheet-3.jpg",
+        "sha256": "eca63245b62eb537993e00c2419e9bd34743eacb474e5a43f8f1d755fe23a6ed"
+      }
+    ],
+    "findings": [
+      "presenter A ends at the 7.000-second boundary",
+      "question, diagnostic, and map occupy the full frame",
+      "presenter B returns at 32.583333 seconds",
+      "the approved end bridge remains unchanged",
+      "no blank or white flash appears at the new picture cuts"
+    ]
+  },
+  "render": {
+    "job_id": "03115732-0381-4ce1-aeaf-0ceddf81ea32",
+    "path": "renders/ep007-short01-thirty-day-map-screen-led-v3.mp4",
+    "sha256": "57be79b5f12ebc75f34cde25760cffc2160e84297e4ab484245b211341224ce0",
+    "bytes": 10860096,
+    "probe_path": "qa/screen-led-render-v1/ffprobe.json",
+    "container_duration_seconds": 43.541667,
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "pixel_format": "yuv420p",
+      "color": "bt709",
+      "width": 1080,
+      "height": 1920,
+      "fps": 24,
+      "frames": 1045,
+      "duration_seconds": 43.541667
+    },
+    "audio": {
+      "streams": 1,
+      "codec": "aac",
+      "profile": "LC",
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "duration_seconds": 43.541,
+      "mean_volume_db": -17.1,
+      "max_volume_db": -1.6,
+      "silent_visual_bridge_db": -91.0
+    },
+    "full_decode_exit_code": 0,
+    "decoded_audio_prefix_through_seconds": 41.517271,
+    "decoded_audio_prefix_sha256": "64bf6f00e361b07b705370d8af559f585cf45115df21e8d4683d31ac498bd8ae",
+    "prior_candidate_decoded_audio_prefix_sha256": "64bf6f00e361b07b705370d8af559f585cf45115df21e8d4683d31ac498bd8ae",
+    "contact_sheet": {
+      "path": "qa/screen-led-render-v1/contact-sheet.png",
+      "sha256": "e8a48dc54cd4a9a7ae04f466e3ff5983a243bc5d0059a04ff3b6d9500b481333"
+    }
+  },
+  "private_phone_preview": {
+    "url": "https://mini.tail1c89f5.ts.net:3113/?build=57be79b5f12e",
+    "access": "tailnet-private",
+    "health_ready": true,
+    "health_preview_slug": "ep007-short-01-thirty-day-map-screen-led-v3",
+    "health_bytes": 10860096,
+    "https_range_status": 206,
+    "https_stream_full_decode_exit_code": 0,
+    "served_media_sha256": "57be79b5f12ebc75f34cde25760cffc2160e84297e4ab484245b211341224ce0",
+    "browser": {
+      "title": "EP007 Short 01 — Screen-led Candidate",
+      "ready_state": 4,
+      "duration_seconds": 43.541667,
+      "video_width": 1080,
+      "video_height": 1920,
+      "media_error": null
+    }
+  },
+  "gates": {
+    "technical_render": "pass",
+    "private_phone_playback": "ready",
+    "owner_video_acceptance": false,
+    "content_os_release_gate": "not_run",
+    "release": "not_authorized",
+    "upload": "not_authorized",
+    "publication": "not_authorized",
+    "episode_url": "not_authorized",
+    "native_related_video": "not_bound"
+  }
+}

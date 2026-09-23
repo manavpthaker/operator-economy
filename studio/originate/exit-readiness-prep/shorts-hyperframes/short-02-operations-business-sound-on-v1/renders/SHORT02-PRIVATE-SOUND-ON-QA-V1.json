@@ -1,0 +1,82 @@
+{
+  "record_type": "ep007_short02_private_sound_on_render_qa_v1",
+  "at_utc": "2026-09-23T11:25:47Z",
+  "status": "first_pass_private_phone_review_ready_not_owner_accepted",
+  "short_id": "short-02-operations-business",
+  "render": {
+    "path": "renders/short-02-private-sound-on-v1.mp4",
+    "sha256": "160627d2a8a1a493256ab19fde6bebbb317e48741efe66c87671191fc3b2f376",
+    "duration_seconds": 45.375,
+    "frames": 1089,
+    "size_bytes": 18043969,
+    "video": "H.264 yuv420p, 1080x1920, 24 fps",
+    "audio": "AAC LC, 48000 Hz, stereo",
+    "render_command": "npm run render -- --fps 24 --quality high --workers 1 --strict-all --output renders/short-02-private-sound-on-v1.mp4",
+    "hyperframes_version": "0.8.63",
+    "render_job_id": "5583d67a-a7a0-4253-863e-442a9a5770d6"
+  },
+  "poster": {
+    "path": "renders/short-02-poster-3p5s.png",
+    "sha256": "6c98c0d73334c9fa310813529c241b0a391adf2212ffb7101eb5b48bd9fd6109",
+    "source": "frame at 3.5 seconds extracted from the final encoded MP4"
+  },
+  "source_bindings": {
+    "locked_master_voice": {
+      "path": "assets/media/original-c.wav",
+      "sha256": "fc3a7508c0c17c2d882fa0b9333e57d2eb8ab775b9e1e2d826363f7f9d764eb3",
+      "duration_seconds": 43.374875,
+      "role": "one continuous program voice under all picture scenes; generated avatar audio excluded"
+    },
+    "opening_avatar": {
+      "job_id": "f2f4faea-f6d6-487d-a182-2ab66e6c5ad6",
+      "native_sha256": "c9d3bb7ab17699fa87f4c1ec7fd9902073f519287d9ed63894ae6c3a2c78a43c",
+      "muted_browser_safe_sha256": "67b202ef7ca765f126140161a310945b4fe96666182c7c263b90346841d8d2ad",
+      "source_picture_start_seconds": 0.125,
+      "program_slot_seconds": [0, 8.375]
+    },
+    "return_avatar": {
+      "job_id": "cb776904-08d1-43ab-8f9c-548bcffdcba0",
+      "native_sha256": "b7885b9598230ea89f578105bbecedaa6e28455754bfa43041824cc4154e3389",
+      "muted_browser_safe_sha256": "9c2c0b426f75fbdb8e20c97049ddecc35410ab32ae10eb97e509af684e8094c6",
+      "source_picture_start_seconds": 1.125,
+      "program_slot_seconds": [30.333333, 38]
+    },
+    "caption_plan": {
+      "path": "sound-on-scaffold-v1/plan.json",
+      "sha256": "cdad9e9b602aafc6b7bc00ab77067cf6b01db853b03f3ddcf3ca0f7587d3f620"
+    },
+    "caption_manifest": {
+      "path": "sound-on-scaffold-v1/CAPTION-MANIFEST.json",
+      "sha256": "34e3287401f20f02c6777f79e4af1b39fe93a467386869073bf055b79d8ebab4"
+    },
+    "assembly_manifest": {
+      "path": "sound-on-scaffold-v1/ASSEMBLY-MANIFEST.json",
+      "sha256": "8a43e01ea02db456968f877377ffd094b79b5fb6fea43a822608a21fdf94373b",
+      "note": "This generated scaffold manifest retains a pre-render status label; this later QA receipt describes the completed render."
+    }
+  },
+  "qc": {
+    "strict_hyperframes_check": "pass: 0 lint, runtime, layout, motion, or contrast findings; 23/23 contrast samples pass",
+    "caption_scaffold_check": "pass: 102/102 ASR word rows accounted exactly once; 97 rail words and 5 exact scene-text words; 24 cues; no caption rail on the final two-second endcard",
+    "normalized_token_count_note": "The canonical locked-word timing record counts 104 normalized comparison tokens because spoken M&A expands to m and a; the scaffold's own normalizer reports 103/103. Both compare locked copy and transcript in exact order. Word-row coverage is 102/102.",
+    "full_video_decode": "pass",
+    "full_audio_decode": "pass",
+    "decoded_audio_master_comparison": "same waveform at zero measured lag, sampled full-program correlation 0.999704 after AAC encode; program voice remains continuous through all six spoken scenes",
+    "visual_check": "encoded poster and seam samples inspected; opening and return avatar shots, screens, engagement-boundary captions, and full-episode endcard are visible; no stale STATIC V5 IDENTITY HOLD label; no observed caption/scope-text collision",
+    "encoded_contact_sheet": {
+      "path": "renders/short-02-encoded-contact-v1.jpg",
+      "sha256": "db2b11f8277970bd20c5f3e069aa1f5f1c6c8e09cc765bd33d64026096449614"
+    }
+  },
+  "provider_spend": {
+    "higgsfield_first_pass_jobs": 2,
+    "higgsfield_credits_quoted_and_debited": 216,
+    "fal_calls_for_this_short": 0,
+    "additional_provider_calls_this_assembly": 0
+  },
+  "remaining_review": [
+    "Owner should watch and listen on phone before accepting performance, pace, likeness, captions, and lip sync.",
+    "Avatar picture offsets were aligned to measured native speech boundaries against Original C, not independently phonetic-verified. No paid lip-sync correction was triggered.",
+    "This candidate is private only. No upload, release, publication, or episode URL is claimed."
+  ]
+}

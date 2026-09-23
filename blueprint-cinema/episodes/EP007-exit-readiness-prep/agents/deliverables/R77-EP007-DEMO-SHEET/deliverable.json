@@ -1,0 +1,58 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r77-ep007-demo-sheet",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-TOOL-DEMO-CONTENT/04-readiness-worklist.csv", "sha256": "0a68593d3e3632949098ddd7069d82f13ff6bec882f3fee4f8d746284537ff09"},
+    {"path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-TOOL-DEMO-CONTENT/01-owner-interview.md", "sha256": "e2a31950b75cb1daa183131719a0dc734f44d80922169c37a19c5218682e9f55"},
+    {"path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-TOOL-DEMO-CONTENT/05-package-index.csv", "sha256": "484d8ff2c946055b10ee92674881eb289880a8d31719aae013bde1059b04687e"},
+    {"path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/interview-rows.json", "sha256": "cbab54c513203aacbd0c5c366bbae6bbf764d4d25a82ac7768fd9b1e1a9a71f4"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/build.mjs",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/interview-rows.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/seed.xlsx",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/local-checks.ndjson",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/readiness-checklist.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/package-index.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/interview-notes.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/native-import.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/native-metadata.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/native-privacy.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/native-cells.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-DEMO-SHEET/RECORDING-HANDOFF.md"
+  ],
+  "checks": [
+    {"command": "Bundled artifact-tool build, recalculate, inspect, export seed.xlsx", "outcome": "pass"},
+    {"command": "Visually inspect Artifact Tool render of all three tabs", "outcome": "pass"},
+    {"command": "Artifact Tool formula-error scan: zero matches", "outcome": "pass"},
+    {"command": "Google Drive import native_google_sheets: converted true", "outcome": "pass"},
+    {"command": "Native metadata and bounded A1:D7 CellData reads for all tabs", "outcome": "pass"},
+    {"command": "Drive metadata: ChatGPT parent, shared false, owner-only permissions", "outcome": "pass"},
+    {"command": "Native browser visual check delegated to root, which owns recording UI", "outcome": "not_run"},
+    {"command": "Legacy schema external_writes constant cannot truthfully represent explicitly authorized private native Sheet creation", "outcome": "fail"}
+  ],
+  "sources_and_provenance": [
+    "Fictional Example Cabinet Workshop content supplied by /root/s20_direction; no actual client or assessment evidence.",
+    "Every tab visibly states ILLUSTRATIVE EXAMPLE / NOT A CLIENT CASE.",
+    "Created private Google Drive ChatGPT folder and native Sheets workbook through the authorized connector; no sharing changes.",
+    "Native spreadsheet ID: 1C7nhlBdABRz2tfPqOS6fkoLZOcNOQKv7v4DGSWoCYvw.",
+    "Source package filenames are plain text references to local illustrative records, not clickable public download links."
+  ],
+  "assumptions": [
+    "Fifteen-point Arial and four bounded columns suit the planned native software recording.",
+    "Root may stage B7 and D7 for a recorded classification then restore the delivered unresolved status and reason."
+  ],
+  "unresolved_questions": [
+    "Native Google UI visual check remains for root before filming; connector values and formatting verified.",
+    "Legacy deliverable schema rejects external_writes true even though root explicitly authorized this private native creation; no schema changed."
+  ],
+  "external_writes": true,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "partial"
+}

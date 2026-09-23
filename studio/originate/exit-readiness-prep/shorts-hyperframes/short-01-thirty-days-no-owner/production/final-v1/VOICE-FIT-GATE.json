@@ -1,0 +1,78 @@
+{
+  "record_type": "ep007_short01_final_voice_fit_gate",
+  "status": "failed_stopped_before_presenter_and_lipsync_spend",
+  "evaluated_at": "2026-09-21T14:55:33Z",
+  "authority": {
+    "path": "PRODUCTION-AUTHORIZATION.json",
+    "sha256": "8e2ef5d3ce7f0d4c5c9f6bc88bd52202b9001fd5ef2fe10f756ab33eade25883",
+    "owner_paid_generation_verbatim": "approved",
+    "stopping_condition": "Stop before avatar spend if the natural Original C read does not fit the authorized 20-second and 13-second windows."
+  },
+  "provider_calls": {
+    "google_guide": {
+      "calls_used": 1,
+      "calls_authorized": 1,
+      "http_status": 200,
+      "receipt_path": "GUIDE-RECEIPT.json",
+      "receipt_sha256": "edb7259da770efbe10ed105de55df52266ac1f9059a9f594ff11e83870598a99",
+      "audio_path": "media/short01-final-guide.wav",
+      "audio_sha256": "7a3f9f2c05a551d10b42edac059e00ecadbad7cba65713950415cd014488e992",
+      "duration_seconds": 67.65095833333334
+    },
+    "elevenlabs_transfer": {
+      "calls_used": 1,
+      "calls_authorized": 1,
+      "http_status": 200,
+      "receipt_path": "TRANSFER-RECEIPT.json",
+      "receipt_sha256": "52c25185f00357f6724ce21850e76dc6de7124c499057ac911d09dd8e6422114",
+      "audio_path": "media/short01-final-original-c.wav",
+      "audio_sha256": "c90848bdfa3e0655eaa7cfa1595e351455a902e2df47456f5e898174e47bc851",
+      "duration_seconds": 67.6629375
+    },
+    "higgsfield_presenter": {
+      "calls_used": 0,
+      "calls_authorized": 2,
+      "credits_spent_by_this_execution": 0,
+      "authorized_cap_credits_preserved": 396
+    },
+    "fal_lipsync": {
+      "calls_used": 0,
+      "calls_authorized": 2,
+      "spend_by_this_execution_usd": 0,
+      "authorized_cap_usd_preserved": 4.4
+    }
+  },
+  "lexical_check": {
+    "method": "Local ASR inspection against the locked SCRIPT.txt; no paid transcription call.",
+    "first_script_pass": "All locked words occur in order; the only normalized ASR alias is spoken 'thirty' rendered as '30'.",
+    "disqualifying_defect": "The final 28-word commercial question and episode bridge are repeated a second time in both the Google guide and the ElevenLabs transfer.",
+    "duplicate_begins_approximately_seconds": 58.1
+  },
+  "timing_check": {
+    "locked_animatic_duration_seconds": 43.84641,
+    "first_complete_script_pass_ends_approximately_seconds": 58.08,
+    "take_a": {
+      "locked_passage": "Opening through Circle every I.",
+      "measured_start_seconds": 0.06,
+      "measured_end_seconds": 27.72,
+      "measured_duration_seconds": 27.66,
+      "authorized_window_seconds": 20,
+      "overrun_seconds": 7.66,
+      "fits": false
+    },
+    "take_b": {
+      "locked_passage": "It isn't a prediction through build the service, first occurrence.",
+      "measured_start_seconds": 40.88,
+      "measured_end_seconds": 58.08,
+      "measured_duration_seconds": 17.2,
+      "authorized_window_seconds": 13,
+      "overrun_seconds": 4.2,
+      "fits": false
+    }
+  },
+  "technical_check": {
+    "guide": "Valid 24 kHz mono 16-bit WAV, but clipped and not a final-delivery candidate.",
+    "original_c": "Valid 48 kHz mono 16-bit WAV; decodes end to end with no detected sample clipping, but the duplicate wording and failed duration windows disqualify it as the locked final candidate."
+  },
+  "decision": "Do not submit either authorized Higgsfield call or either Fal call. Do not time-stretch, rush, silently rewrite, or call the generated voice accepted. Reopen timing, coverage, or voice generation only with an explicit revised decision."
+}

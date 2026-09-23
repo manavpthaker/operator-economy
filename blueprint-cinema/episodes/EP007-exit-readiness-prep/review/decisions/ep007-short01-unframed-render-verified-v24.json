@@ -1,0 +1,56 @@
+{
+  "event_id": "ep007-short01-unframed-render-verified-v24",
+  "decision_id": "ep007-short01-picture-coverage",
+  "event_type": "verification",
+  "tags": ["shorts", "short-01", "picture-coverage", "visual-chrome", "render", "phone-preview", "verification"],
+  "data": {
+    "decision_event_id": "ep007-short01-unframed-conversation-v23",
+    "authorization_event_id": "ep007-short01-through-video-generation-authorized-v15",
+    "actor": "production-pipeline",
+    "verdict": "pass",
+    "result": "pass",
+    "scope": "Technical verification of the Short 01 clean-frame picture revision only. The owner has not accepted this cut; no release, upload, publication, episode URL or Related Video action is authorized by this event.",
+    "method": "Removed the root identity and footer rails and their obsolete root motion assertions; ran HyperFrames 0.8.61 check with zero lint, runtime, layout, motion or contrast issues and 39 of 39 text contrast checks passing; rendered a separate 1080x1920, 24fps, 1045-frame MP4; reviewed a 12-frame encoded contact sheet and the visible browser poster; probed and fully decoded the MP4; compared decoded audio with the prior screen-led render; and verified the tailnet-private HTTPS range response and full served-file SHA-256.",
+    "finding": "The persistent top heading and bottom footer are absent from sampled opening, working-sheet, conclusion and end-card frames. The presenter, scene-local explanatory labels, exact narration, captions, 7.000/13.250/21.500/32.583333/41.541667-second cut points and two-second full-episode route remain. The prior and new decoded audio SHA-256 are identical: 0660d5bfba4f8a9455fd9c338621ece3a73b413f842a0a16439f3d13e4c0a3ca. The exact render bytes are served at https://mini.tail1c89f5.ts.net:3113/?build=da72deac6ac4, and the existing in-app browser tab visibly loads its clean-frame candidate poster.",
+    "limitations": "The in-app browser observation is not a physical iPhone playback test or owner acceptance. No Content OS release gate was run. The presenter remains generated footage, not documentary evidence. No new provider calls were made for this revision. Shorts 2 through 4 and any release, upload, publication, canonical episode URL or native Related Video binding remain outside this event.",
+    "owner_video_acceptance": false,
+    "provider_calls_made": 0,
+    "provider_credits_used": 0,
+    "artifact_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/index.html",
+        "sha256": "08ae76da1e0818e13c699405a7cbcf1ca9c84eeb755a18b93af424adbbe30495"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-unframed-v4.mp4",
+        "sha256": "da72deac6ac482a081e24c7df0be268fe12a6a18545f286be5e92321857d3bb7"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/unframed-v4/contact-sheet.png",
+        "sha256": "5f724830a23628e8764b076addd2f7ff68741459395a17b2abc8d225383b0e72"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-short01-unframed-conversation-v23.json",
+      "sha256": "355533f0e5860d7a2699b822112fe96f4e7fede393992262e14313db13c5663b",
+      "locator": "owner-feedback picture decision and preserved boundaries"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/index.html",
+      "sha256": "08ae76da1e0818e13c699405a7cbcf1ca9c84eeb755a18b93af424adbbe30495",
+      "locator": "root composition with no permanent identity or footer overlay"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-unframed-v4.mp4",
+      "sha256": "da72deac6ac482a081e24c7df0be268fe12a6a18545f286be5e92321857d3bb7",
+      "locator": "separate clean-frame encoded render and exact HTTPS-served media bytes"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/unframed-v4/contact-sheet.png",
+      "sha256": "5f724830a23628e8764b076addd2f7ff68741459395a17b2abc8d225383b0e72",
+      "locator": "sampled opening, screen, conclusion and end-card frames"
+    }
+  ]
+}

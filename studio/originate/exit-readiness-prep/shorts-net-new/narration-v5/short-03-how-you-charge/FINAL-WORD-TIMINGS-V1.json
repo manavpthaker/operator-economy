@@ -1,0 +1,116 @@
+{
+  "record_type": "ep007_short03_original_c_word_timings_v1",
+  "at_utc": "2026-09-23T00:49:38Z",
+  "status": "pass_locked_copy_forced_alignment_within_final_waveform",
+  "short_id": "short-03-how-you-charge",
+  "media": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/original-c.wav",
+    "sha256": "c62c09057d6cf1e91b895b485b0cc0114d52707e337b1970112811e9d48ccd83",
+    "sample_rate_hz": 48000,
+    "sample_frames": 1805584,
+    "duration_seconds": 37.616333333
+  },
+  "locked_script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-03-how-you-charge/SCRIPT.txt",
+    "sha256": "2a56beffef964667fbd09c934130d53171da605e23f876e75a4cb715a03efc3b",
+    "normalized_word_count": 98,
+    "count_note": "The prior preflight's 97 is a whitespace count. Word-level normalization splits Fixed-fee into two tokens, yielding 98 timed entries; the locked copy was not changed."
+  },
+  "independent_local_asr": [
+    {
+      "tool": "hyperframes@0.8.59 whisper",
+      "model": "small.en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-final-small/transcript.json",
+      "transcript_sha256": "75569fbd1ddacb81ad040c12e4a348b0cd044ffedff2c84e2ad7a24cc89a5087",
+      "recognized_normalized_words": 98,
+      "exact_normalized_word_match": true,
+      "word_times_ordered_and_within_media": true,
+      "last_word_end_seconds": 37.08
+    },
+    {
+      "tool": "hyperframes@0.8.59 whisper",
+      "model": "medium.en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-final-medium/transcript.json",
+      "transcript_sha256": "3763a2f481d002fe044e68374af08a5aee04e80a1d41c244a38feb45bc6fe868",
+      "recognized_normalized_words": 98,
+      "exact_normalized_word_match": true,
+      "word_times_ordered_and_within_media": true,
+      "last_word_end_seconds": 37.39
+    }
+  ],
+  "forced_alignment": {
+    "tool": "whisperx==3.8.6",
+    "method": "wav2vec2 alignment of the exact locked script over the transferred waveform, using locally cached models",
+    "raw_whisperx_asr": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-whisperx-final/original-c.json",
+      "sha256": "47d5872a87673be4b9471ca8e0f9cbf2ca832dfe2e93ddd00125594d42cf42b9",
+      "one_asr_substitution": "The raw WhisperX ASR said 'take the local counsel'; the locked script and both independent Whisper reads say 'take to local counsel'. Only the alignment input was corrected."
+    },
+    "reproducible_local_alignment_script": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/align_short03_final.py",
+      "sha256": "ab8b8d49a6effbe657afebf401ef32cbb4677e0fc4ebdbfd33ea7c3f5b381116"
+    },
+    "canonical_word_rows": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-forced-final/transcript.json",
+      "sha256": "b09eed699592ff5bfae8bb371abb1c4f951c919bddd63214a2ba849fc8e776cb",
+      "rows": 98,
+      "exact_normalized_locked_word_match": true,
+      "finite_ordered_start_end_within_media": true,
+      "lowest_word_score": 0.0,
+      "last_word": "counsel.",
+      "last_word_start_seconds": 36.79,
+      "last_word_end_seconds": 37.11,
+      "post_speech_seconds": 0.506333333
+    },
+    "low_score_words_not_cut_anchors": [
+      {"word_index": 21, "text": "A", "score": 0.004},
+      {"word_index": 65, "text": "a", "score": 0.0},
+      {"word_index": 95, "text": "to", "score": 0.271}
+    ]
+  },
+  "picture_planning_anchors": [
+    {
+      "role": "opening_presenter",
+      "word_indices_inclusive": [0, 26],
+      "content_from_to": ["You", "sale"],
+      "first_word_start_seconds": 0.074,
+      "last_word_end_seconds": 8.506,
+      "next_screen_word": "can",
+      "next_screen_word_start_seconds": 8.606,
+      "candidate_handoff_gap_seconds": [8.506, 8.606],
+      "caution": "Cut after sale, not into can trigger brokerage rules; inspect sound-on seam before fixing frames."
+    },
+    {
+      "role": "legal_screen",
+      "word_indices_inclusive": [27, 42],
+      "first_word_start_seconds": 8.606,
+      "last_word_end_seconds": 14.262,
+      "must_remain_verbatim": "can trigger brokerage rules, depending on where you operate. Verify your jurisdiction. This isn’t legal advice."
+    },
+    {
+      "role": "preparation_screen",
+      "word_indices_inclusive": [43, 60],
+      "first_word_start_seconds": 15.423,
+      "last_word_end_seconds": 24.068
+    },
+    {
+      "role": "bounded_fee_screen",
+      "word_indices_inclusive": [61, 77],
+      "first_word_start_seconds": 25.108,
+      "last_word_end_seconds": 30.804
+    },
+    {
+      "role": "closing_presenter",
+      "word_indices_inclusive": [78, 97],
+      "content_from_to": ["Fixed-fee", "counsel."],
+      "first_word_start_seconds": 31.605,
+      "last_word_end_seconds": 37.11,
+      "preceding_screen_word_end_seconds": 30.804,
+      "candidate_return_gap_seconds": [30.804, 31.605],
+      "caution": "Preserve the entire legal-limit closing and enough tail; final generation handles remain to be quoted."
+    }
+  ],
+  "provisional_visual_timing_disposition": "The 42.5-second silent guide and its 9.7/32.0/40.5-second host cues are superseded for sound-on timing by this 37.616-second voice clock. These are planning anchors, not final avatar request durations or exact picture cuts.",
+  "owner_listening": "deferred_to_finished_private_review_not_passed",
+  "provider_calls_by_this_verification": 0
+}

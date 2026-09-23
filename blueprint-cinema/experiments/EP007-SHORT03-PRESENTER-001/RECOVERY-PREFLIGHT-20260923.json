@@ -1,0 +1,39 @@
+{
+  "record_type": "ep007_short03_short04_missing_avatar_recovery_preflight",
+  "owner_authority_path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-owner-approve-two-bounded-recovery-calls-20260923.json",
+  "owner_authority_sha256": "8aa69611a23acdfa7c76b5a5fbb0f89c688ab29dcc40fc19d1a9d7bbb3c7a64e",
+  "provider_account_id": "user_3J3m5xtqP8Xv0MOsPutf0uV3maX",
+  "provider_workspace": {
+    "id": "1dadccb1-4f4b-4aa3-9aec-8b3fdf865417",
+    "type": "private",
+    "plan": "max",
+    "selected_flag": false,
+    "accessible_workspace_count": 1,
+    "credits_before": 3858,
+    "free_trial_unlim_available": false
+  },
+  "original_batch_result_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/GENERATION-BATCH-RESULT-V1.json",
+  "original_missing_shots": [
+    {"shot": "short03-return", "batch_index": 1, "status": "submission_failed", "job_id": null, "quoted_credits": 84},
+    {"shot": "short04-opening", "batch_index": 2, "status": "submission_failed", "job_id": null, "quoted_credits": 108}
+  ],
+  "prior_credit_reconciliation": {
+    "before_batch": 4062,
+    "after_batch": 3858,
+    "delta": 204,
+    "accepted_job_quotes": 204,
+    "rejected_item_quotes": 192,
+    "independent_backend_ledger_audit": "unavailable"
+  },
+  "live_read_only_quotes": {"short03_return": 84, "short04_opening": 108, "total": 192},
+  "input_integrity": {
+    "short03_return_prompt_sha256": "a080be7f5149ad8632bf59f366c8ea354ce6f473ae0e3acbc0adcc48a51c9b66",
+    "short03_return_audio_sha256": "ec65257cd60f3b9748dd1f801c2bb74c06d423564ff737ff5ce48f68a7a6275b",
+    "short04_opening_prompt_sha256": "6e78d61b915f7feec4a78c0bdfd0639988d74ef5012333e2746a2bf05f1e932e",
+    "short04_opening_audio_sha256": "38120fa6462e7715fba73b192926ccd79d6e7f5978ad55fe49be138e484e69a6",
+    "v5_identity_sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82",
+    "rebecca_behavior_sha256": "42ff761aebffd5c0fdd53e6247d4ddcbeb0d560d8208971ea883e0e48faec724",
+    "henry_articulation_sha256": "8bbb4820ac8a6f85242b7b323e7ce922d79f32ed2f5578b59aaa3bec502e9c59"
+  },
+  "operation": "Submit short03 return first. If its response is failed or unknown, stop without submitting short04 opening. If accepted, submit short04 opening once. No further generation retry. Native generated audio is reference only."
+}

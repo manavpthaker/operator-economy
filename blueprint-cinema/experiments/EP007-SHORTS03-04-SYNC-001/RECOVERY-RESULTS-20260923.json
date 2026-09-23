@@ -1,0 +1,73 @@
+{
+  "record_type": "ep007_shorts03_04_missing_avatar_recovery_results_v1",
+  "at_utc": "2026-09-23T11:02:14Z",
+  "owner_approval_sha256": "8aa69611a23acdfa7c76b5a5fbb0f89c688ab29dcc40fc19d1a9d7bbb3c7a64e",
+  "scope": "one Higgsfield recovery generation attempt and one needed Fal Sync v3 run per previously rejected shot; private review only",
+  "higgsfield": {
+    "account_id": "user_3J3m5xtqP8Xv0MOsPutf0uV3maX",
+    "workspace": "Private max",
+    "prior_batch_rejected_items_had_job_ids": false,
+    "recovery_attempts_submitted": 2,
+    "recovery_jobs_completed": 2,
+    "recovery_quotes_credits": {"short03_return": 84, "short04_opening": 108, "total": 192},
+    "balance_snapshots_credits": {
+      "before_recovery": 3858,
+      "after_short03_return": 3704,
+      "after_short04_opening": 3596,
+      "latest_after_concurrent_short02_two_shot_batch": 3380
+    },
+    "unattributed_70_credit_difference": "The balance fell 154 after the 84-credit Short03 return quote. No exact-job charge or usage ledger was exposed by the connector. Do not assert that the Short03 job itself cost 154 or attribute the 70 credits to another job. The later Short04 drop of 108 matched its quote. Subsequent 216-credit drop occurred while the separate Short02 two-shot batch was submitted by the root lane; this recovery record does not audit those jobs.",
+    "further_generation_retry_authorized": false
+  },
+  "fal": {
+    "model": "fal-ai/sync-lipsync/v3",
+    "sync_mode": "silence",
+    "new_submission_intents": 2,
+    "new_forecast_usd": 2.15,
+    "all_four_short03_04_intents_forecast_usd": 4.44,
+    "shared_operational_forecast_cap_usd": 15,
+    "actual_bill_readback": "unavailable",
+    "further_sync_retry_authorized": false
+  },
+  "shots": [
+    {
+      "short_id": "short-03-how-you-charge",
+      "segment": "segment-b-return",
+      "higgsfield_job_id": "cac6a333-3224-4f5a-8604-aa7bd3ebd1a2",
+      "native_video_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/generated-native.mp4",
+      "native_video_sha256": "208729f3ce55821aed42d351a61569929519dcf534ad8ef751fde09cb730777f",
+      "fal_request_id": "01a0cde3-6287-7f80-bdfa-7e1dda9c5f42",
+      "fal_result_path": "blueprint-cinema/experiments/EP007-SHORTS03-04-SYNC-001/targets/short03-b/SYNC-RESULT.json",
+      "fal_result_sha256": "2bcd05694cf37c9f25f7b41863dec60f060a1879505fe2ff8854a69ac477a47b",
+      "restored_source_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/restored-source.mp4",
+      "restored_source_sha256": "e7f00584f17e7cc09cfcb2dc2b5f01faeb1621727036714c1783428cf8cad69c",
+      "assembly_picture_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/restored-browser-safe.mp4",
+      "assembly_picture_sha256": "e450010081c09ce5369c45790c8c0a024ef32622bfd5a00b6dcf871ec61963d8",
+      "picture_probe": {"width": 1080, "height": 1920, "codec": "h264", "pixel_format": "yuv420p", "fps": 24, "frames": 169, "seconds": 7.041667, "audio_streams": 0, "full_decode": "pass"},
+      "local_program_audio_proxy_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/qa/program-audio-proxy.mp4",
+      "local_program_audio_proxy_sha256": "da7e538d1dcb8b3e320bae06f0c36fca192885eb7bb41cbbb28dcecf9f88b0ba",
+      "visual_tail_check": "At restored 6.1 seconds, mouth appears settled near the Original C last-word end at 6.06 seconds relative to the slice. Still-frame evidence only."
+    },
+    {
+      "short_id": "short-04-test-the-front-door",
+      "segment": "segment-a-opening",
+      "higgsfield_job_id": "061008bb-d659-4f68-8876-19120b05f3b8",
+      "native_video_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/generated-native.mp4",
+      "native_video_sha256": "068965e3cf47c376888229d1219236bd93a8ad8baff57182c594d44459ad0fe8",
+      "fal_request_id": "01a0cde3-cd55-7451-98f4-67af2e81a17a",
+      "fal_result_path": "blueprint-cinema/experiments/EP007-SHORTS03-04-SYNC-001/targets/short04-a/SYNC-RESULT.json",
+      "fal_result_sha256": "5bd078dc496e0d9b1fdd07498ad1c01c8f8501659a4c3993f01e93c6d034ac14",
+      "restored_source_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/restored-source.mp4",
+      "restored_source_sha256": "6103d33c9ff41a88ec8a9027645f05e811fefbd534cc3ef54fcd640c540f87b7",
+      "assembly_picture_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/restored-browser-safe.mp4",
+      "assembly_picture_sha256": "ace82af9d266e40ef6e7d5a7f21f4d7bbce515c2b91792f517153bac84249602",
+      "picture_probe": {"width": 1080, "height": 1920, "codec": "h264", "pixel_format": "yuv420p", "fps": 24, "frames": 217, "seconds": 9.041667, "audio_streams": 0, "full_decode": "pass"},
+      "local_program_audio_proxy_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/qa/program-audio-proxy.mp4",
+      "local_program_audio_proxy_sha256": "87e48d9540d90ebf78938bd42bcc5651ac9352ca5c7333ebc1a82dcde0165b65",
+      "visual_tail_check": "At restored 8.5 seconds, mouth articulation is closer to the locked Original C owner ending at 8.59 seconds than the native 8.5 frame. Still-frame evidence only."
+    }
+  ],
+  "technical_status": "Both restored muted picture sources pass hash, portrait codec, frame-count and full-decode checks and are available for first-pass private-review assembly.",
+  "not_established": ["normal-speed human audiovisual lip-sync verdict", "owner acceptance", "finished short render", "episode URL", "release", "upload", "publication"],
+  "final_program_voice": "Each short's full continuous exact Original C master, never Higgsfield or Fal audio"
+}

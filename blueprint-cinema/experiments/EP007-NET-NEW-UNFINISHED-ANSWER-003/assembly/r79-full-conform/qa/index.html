@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EP007 — R79 whole-episode review</title>
+  <style>
+    :root { color-scheme: dark; --mineral:#173530; --paper:#F5F0E6; --muted:#BFC9C5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--mineral); color:var(--paper); font:17px/1.5 system-ui,-apple-system,sans-serif; }
+    main { max-width:1280px; margin:auto; padding:20px; }
+    h1 { margin:0 0 8px; font-size:clamp(24px,4vw,38px); line-height:1.1; }
+    .status { color:var(--muted); margin:0 0 18px; }
+    video { display:block; width:100%; background:#000; margin:18px 0; }
+    nav { display:flex; flex-wrap:wrap; gap:8px; }
+    button,a { font:inherit; }
+    button { border:1px solid var(--paper); background:transparent; color:var(--paper); padding:8px 12px; cursor:pointer; }
+    button:hover,button:focus-visible { background:var(--paper); color:var(--mineral); }
+    .primary { background:var(--paper); color:var(--mineral); }
+    .note { color:var(--muted); max-width:78ch; }
+    a { color:var(--paper); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>EP007 — uninterrupted whole-episode review</h1>
+  <p class="status">R79 · 18:55.041667 · 27,241 frames · review candidate</p>
+  <video id="review" controls playsinline preload="metadata" src="ep007-r79-full-review.mp4"></video>
+  <nav aria-label="Review navigation">
+    <button class="primary" data-time="0">Start</button>
+    <button data-time="557.333333">S14 · Why you</button>
+    <button data-time="631.083333">S15 · AI workflow</button>
+    <button data-time="688.083333">S16 · Evidence wedge</button>
+    <button data-time="741.958333">S17 · Fixed fee</button>
+    <button data-time="809.083333">S18 · Acceptance</button>
+    <button data-time="841.583333">S19 · First customer</button>
+    <button data-time="888.083333">S20 · Economics</button>
+    <button data-time="982.833333">S21 · Hard part</button>
+    <button data-time="1044.166667">S22 · Buyer response</button>
+    <button data-time="1066">S23 · Payoff</button>
+    <button data-time="1075.583333">S24 · Verdict</button>
+    <button data-time="1098.583333">S25 · First action</button>
+    <button data-time="1128.833333">S26 · Close</button>
+  </nav>
+  <p class="note">Watch from the beginning without interruption for the whole-episode decision. Chapter buttons are diagnostic only. This candidate uses the exact locked R78 S15/S16 renders and the exact reviewed R76 S17 context, with the continuous audited narration assembly. It is not yet whole-episode locked, released, or published.</p>
+  <p class="note"><strong>Your whole-episode verdict must explicitly cover or reopen three inherited exceptions:</strong> the R39 callback/performance has no scoped verdict; R39 animation at master 04:17.875–04:30.000 was returned; and R47 performance at 04:50.292–05:01.500 has no output verdict.</p>
+  <p><a href="ep007-r79-full-review.mp4">Open the MP4 directly</a></p>
+  <script>
+    const video = document.getElementById('review');
+    document.querySelectorAll('[data-time]').forEach((button) => {
+      button.addEventListener('click', () => {
+        video.currentTime = Number(button.dataset.time);
+        video.play().catch(() => {});
+      });
+    });
+  </script>
+</main>
+</body>
+</html>

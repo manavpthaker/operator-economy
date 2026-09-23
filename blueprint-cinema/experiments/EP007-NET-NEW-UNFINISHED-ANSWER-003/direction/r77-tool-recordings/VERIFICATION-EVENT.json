@@ -1,0 +1,59 @@
+{
+  "event_id": "r77-s15-s16-technical-verification-v1",
+  "decision_id": "s15-s16-actual-tool-recordings",
+  "event_type": "verification",
+  "tags": [
+    "actual-tools",
+    "screen-recording",
+    "technical-verification",
+    "owner-review-pending"
+  ],
+  "data": {
+    "decision_event_id": "r77-actual-tool-recordings-direction-v1",
+    "scope": "S15 master frames [15824, 16108) and S16 master frames [16797, 17452), rendered as isolated 24 fps review candidates.",
+    "method": "HyperFrames 0.8.50 strict checks, complete candidate decodes, exact boundary-frame inspection, full-luma blank scan, and zero-lag rendered-audio correlation against each staged locked-master slice.",
+    "result": "pass",
+    "limitations": "Technical verification only. Neither candidate is owner-accepted, assembled into the full episode, canonically conformed, or released. The captures use a labelled fictional fixture and do not show a client case, a real outcome, or a resolved owner dependency.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/qa/VERIFICATION.json",
+        "sha256": "d36aa6cbb716b842d9acb659d0029499847e5b9d9820d6789a54e61c682962c6"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/qa/s15-review.mp4",
+        "sha256": "bf085f23aa54885235ba31dfb1d4b759f9f8c6e18ffbe55d5cf9e0243cfae4e1"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/qa/s16-review.mp4",
+        "sha256": "80625be0a0f09f7b0d546a53082c849e4da529e8b58fcf07483afc23e83249c4"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/index.html",
+        "sha256": "3faf69eca725d9e99c0d775a9041c20382403b3ea6e68884744cfd5dde21b20c"
+      }
+    ],
+    "observations": {
+      "s15_frames": 1368,
+      "s16_frames": 1293,
+      "s15_strict_check": true,
+      "s16_strict_check": true,
+      "s15_full_luma_blank_suspects": 0,
+      "s16_full_luma_blank_suspects": 0,
+      "s15_audio_zero_lag_correlation": 0.9997086771812896,
+      "s16_audio_zero_lag_correlation": 0.9998437499011438,
+      "s15_one_frame_seam_repair": "An exact still from the already-accepted succeeding source covers a decoder-initialization white frame; no narration or source claim changed."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/qa/VERIFICATION.json",
+      "sha256": "d36aa6cbb716b842d9acb659d0029499847e5b9d9820d6789a54e61c682962c6",
+      "locator": "R77 technical verification report"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+      "sha256": "08b4111eb070167adb324db4e4b9d08ac5884719af8bcce8f22d3a77eb7e24ec",
+      "locator": "Exact capture sources, crops, and normal-speed frame selections"
+    }
+  ]
+}

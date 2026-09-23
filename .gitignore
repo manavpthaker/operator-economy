@@ -69,3 +69,25 @@ blueprint-cinema/experiments/*/resolve/
 blueprint-cinema/**/node_modules/
 blueprint-cinema/**/build/
 blueprint-cinema/**/*.aiff
+
+# nested episode media under studio/originate and blueprint-cinema (renders, frames, audio,
+# provider payloads) — regenerable or stored under ~/Movies/OE; keep scripts, specs, json, md.
+studio/originate/**/*.mp4
+studio/originate/**/*.mov
+studio/originate/**/*.wav
+studio/originate/**/*.pcm
+studio/originate/**/*.s16le
+studio/originate/**/*.bin
+studio/originate/**/*.png
+studio/originate/**/*.jpg
+studio/originate/**/renders/work-*/
+!studio/originate/*/launch/*.png
+!studio/originate/*/launch/*.jpg
+blueprint-cinema/**/*.wav
+blueprint-cinema/**/*.pcm
+blueprint-cinema/**/*.s16le
+blueprint-cinema/**/*.bin
+
+# EP007 4K thumbnail master lives here locally only (8MB); the committed copy is thumbnail.jpg
+studio/originate/exit-readiness-prep/launch/thumbnail.png
+studio/originate/exit-readiness-prep/launch/thumbnail-source-1344.png

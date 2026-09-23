@@ -1,0 +1,2347 @@
+{
+ "record_type": "ep007_r80_4k_leaf_map",
+ "scope": "R79 output frames [13376,27241), scenes S14-S26",
+ "created": "2026-09-23",
+ "fps": 24,
+ "r79_reference": {
+  "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+  "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671",
+  "dimensions": [
+   1280,
+   720
+  ],
+  "frames": 27241
+ },
+ "frame_ranges": "half-open [a,b)",
+ "coverage_check": {
+  "leaves": 33,
+  "first": 13376,
+  "end": 27241,
+  "gaps": 0,
+  "overlaps": 0,
+  "hyperframes_leaves": 19,
+  "media_leaves": 14
+ },
+ "probe": {
+  "s20_r65_economics": {
+   "version": "0.8.46",
+   "frames": 2274,
+   "render_seconds": 151.3,
+   "mode": "--resolution landscape-4k --low-memory-mode --quality standard",
+   "ssim_mean": 0.997394,
+   "ssim_min": 0.995418,
+   "psnr_mean_db": 43.3,
+   "psnr_min_db": 39.66
+  },
+  "s15_p1_r60": {
+   "version": "0.8.36",
+   "frames": 600,
+   "render_seconds": 18.2,
+   "mode": "--resolution landscape-4k --low-memory-mode --quality standard",
+   "ssim_mean": 0.997201,
+   "ssim_min": 0.994754,
+   "psnr_mean_db": 44.66,
+   "psnr_min_db": 42.34
+  },
+  "method": "4K output scaled to 1280x720 (flags=area) and compared per frame with ffmpeg ssim/psnr against the matching R79 frames; renders in scratchpad only",
+  "blocker": "Default (non-streaming) 4K capture needs ~75 GB temp for S20; host has ~11 GB free, so --low-memory-mode (streaming, 1 worker, screenshot capture) is required or free disk."
+ },
+ "global_flags_s15_s18": {
+  "below_4k_sources": [
+   "S15 ChatGPT capture: raw 3840x1946 VFR window recording; used window 2000x1036 raw px -> 1.82x upscale into 4K capture box (3648x1890)",
+   "S16 Sheets capture: raw 3840x1946 VFR; used window 1100x570 raw px -> 3.32x upscale into 4K box (worst leaf in range)",
+   "S17 C presenter: generated at 1920x1080 (Higgsfield seedance_2_5 '1080p') + fal sync-lipsync v3 restoration at 1080p 8-bit -> 2x upscale"
+  ],
+  "version_drift": "r60/r61/r62/r63 plate projects pin hyperframes@0.8.36 (package.json only, no render log); R78 wrappers pin/render 0.8.50; R77 README proposed 0.8.46 (R77 verification says 0.8.50). R78 wrapper is 1280x720-hardcoded px CSS (1216x630 box at 32,60).",
+  "ffmpeg_only_effects": [
+   "R77: crop + fps=24 VFR->CFR resample of screen recordings (frame dup/drop), crf16 re-encode",
+   "R78: per-frame linear pan crop (even-truncated) + Lanczos scale to 1216x630 \u2014 must be re-expressed at 4K (e.g. crop same raw window, scale to 3648x1890) or moved into HyperFrames",
+   "R78 S15 seam-hold PNG and S16 return-still PNG are ffmpeg-extracted frames of the 720p plates (must be re-extracted from 4K plate renders)",
+   "S17: presenter trim [8,200) + scale 1920x1080->1280x720; fal lip-sync (provider-side)",
+   "r76/r63 context concats and R79 trims: lossy re-encodes only"
+  ],
+  "missing_records": [
+   "native-trim.mp4 creation command (EP007 r76 presenter)",
+   "r63-s18-context assembly command",
+   "render logs/version-check for r60-r63 plate projects"
+  ],
+  "stale_pending_overrides": "SEGMENTS.json pending_overrides for S15/S16 (clip null) predate R78; superseded by r78-owner-s15-s16-mobile-lock-v1 which pins the exact R78 mp4 hashes used in segments[]."
+ },
+ "leaves": [
+  {
+   "r79_out_frames": [
+    13376,
+    13694
+   ],
+   "scene": "S14",
+   "part": "A",
+   "leaf_type": "media",
+   "project_dir": null,
+   "composition": null,
+   "context_frames": [
+    192,
+    510
+   ],
+   "leaf_frames": [
+    1,
+    319
+   ],
+   "leaf_frames_native_numbering": [
+    17,
+    335
+   ],
+   "hyperframes_version_pinned": null,
+   "composition_dimensions": null,
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/restoration/restored.mp4",
+    "sha256": "51bf0555cea921197f0fa3899c52a8e085c8b5fda000f5fd0da766c427416294",
+    "resolution": [
+     1920,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 321,
+    "codec": "h264 yuv420p 8-bit bt709, ~12-14 Mb/s (Fal sync-lipsync/v3 output, sync_mode silence)",
+    "is_true_leaf": true,
+    "upstream_sources": [
+     {
+      "role": "Seedance 2.5 omni_reference 1080p native take (Higgsfield); no lip-synced mouth",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/native.mp4",
+      "sha256": "90eaaca7cad44d0eb84134265cd79bec7c714c5a35d2e102de7c6c8614a415a2",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 337,
+      "codec": "hevc yuv420p10le bt709"
+     },
+     {
+      "role": "native.mp4 frames [16,337) re-encoded to h264 8-bit; the Sync v3 input; frame-identical timing to restored.mp4",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/native-trim.mp4",
+      "sha256": "8617df573fa0ca327e7412fb4cc3148414ad2dca24faeecc57b56e7d83cd46ca",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 321,
+      "codec": "h264 yuv420p"
+     }
+    ],
+    "lipsync_output_resolution": [
+     1920,
+     1080
+    ]
+   },
+   "processing_recipe": "restored.mp4 frames [1,319) (= native.mp4 frames [17,335), since native-trim = native[16:] and Sync v3 preserves frame count/timing) -> scale=1280:720 (plain full-frame downscale 1920x1080->1280x720, no crop/pad, ffmpeg default bicubic assumed), no fps change (24->24), no color ops, no overlays -> libx264 yuv420p = r59-s14-presenter/qa/s14-a.mp4 (318 frames; PSNR vs scaled restored 50-52 dB at start 1, ~33-38 dB at +-1). Restored clip audio (Sync placement 2000 samples, picture-minus-audio 0.0 ms) was used only for alignment; context and R79 audio are master PCM, so the audio offset does not affect picture. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/restoration/restored.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/native.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/native-trim.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/ALIGNMENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/NATIVE-MEDIA.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/a/restoration/SUBMISSION-INTENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/media_ops.py (TRIM a16/c1 5/c3 12)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/ALIGNMENT-SUMMARY.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/s14-a.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/presenter/PRESENTER-PLAN.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "FLAG: presenter is 1080p at every stage (Seedance native 1920x1080 10-bit; Sync v3 lip-sync output 1920x1080 8-bit). No 4K source exists; a true 4K presenter is impossible without upscaling restored.mp4 (2x) or paid regeneration + new Sync run + owner re-approval. Use restored.mp4, not native.mp4: native lacks the lip-synced mouth (restored vs native-trim PSNR ~44 dB, differences in mouth region). native.mp4 is 10-bit but only useful for non-mouth regions. Owner accepted body drift (up to ~0.3-0.4 s early at start) in A and C3. Sync v3 output is external (Fal); re-running it would not be deterministic."
+  },
+  {
+   "r79_out_frames": [
+    13694,
+    14102
+   ],
+   "scene": "S14",
+   "part": "B",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b",
+   "composition": "index.html (single composition, no sub-compositions; composition-id ep007-r59-s14b)",
+   "context_frames": [
+    510,
+    918
+   ],
+   "leaf_frames": [
+    0,
+    408
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts npx hyperframes@0.8.36); rendered mp4 metadata tag hyperframes_version=0.0.0-dev (local dev build did the actual render)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "composition_fps": 24,
+   "composition_duration_s": 17.0,
+   "index_html_sha256": "d1da99cad59a75a780ae8c13f7ba31284f186146fd895c4d7b8ded6798ce17b2",
+   "native_media": null,
+   "embeds_presenter_video": false,
+   "assets": "public/vendor/gsap.min.js, public/fonts/{boska-700,supreme-400,supreme-500}.woff2, public/audio/narration.wav (audio only); public/art/workshop.svg present but unreferenced; all referenced assets present",
+   "processing_recipe": "HyperFrames render of index.html at 1280x720 24fps, full composition frames [0,408) -> r59-s14b/qa/r59-s14b.mp4 (libx264, sha ed2bea10438a9064..., 408 frames) with no trim, scale or color op. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14b/qa/r59-s14b.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-animation-context/qa/context.mp4 (903 = 408+207+288)",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-animation-verified-v1, r59-s14-accent-label-finding-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "Vector/DOM source; re-renderable at 4K (authored 1280x720, so needs a 3x device-scale or re-authoring to 3840x2160). index.html mtime precedes the qa render and its sha matches the decision log, so current source = locked render. FLAG known defect in the locked look (r59-s14-accent-label-finding-v1): 'One person' label renders ink/grey instead of oxide (class fill vs fill attribute). A faithful 4K re-render reproduces it only if the same renderer resolves the conflict the same way; fixing it changes an owner-locked look and needs owner direction. Project dirs are untracked in git (risk of loss)."
+  },
+  {
+   "r79_out_frames": [
+    14102,
+    14375
+   ],
+   "scene": "S14",
+   "part": "C1",
+   "leaf_type": "media",
+   "project_dir": null,
+   "composition": null,
+   "context_frames": [
+    918,
+    1191
+   ],
+   "leaf_frames": [
+    4,
+    277
+   ],
+   "leaf_frames_native_numbering": [
+    9,
+    282
+   ],
+   "hyperframes_version_pinned": null,
+   "composition_dimensions": null,
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/restoration/restored.mp4",
+    "sha256": "5100157a6d7c724ea82b70113d8fda14538e6123acba4410d15b14ac91f29d00",
+    "resolution": [
+     1920,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 284,
+    "codec": "h264 yuv420p 8-bit bt709, ~12-14 Mb/s (Fal sync-lipsync/v3 output, sync_mode silence)",
+    "is_true_leaf": true,
+    "upstream_sources": [
+     {
+      "role": "Seedance 2.5 omni_reference 1080p native take (Higgsfield); no lip-synced mouth",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/native.mp4",
+      "sha256": "2425976d082afeca428b9724600527af4f12acb43a9cb9b5281e0cce7f708f34",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 289,
+      "codec": "hevc yuv420p10le bt709"
+     },
+     {
+      "role": "native.mp4 frames [5,289) re-encoded to h264 8-bit; the Sync v3 input; frame-identical timing to restored.mp4",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/native-trim.mp4",
+      "sha256": "df9b3da1897e180a6131322cecdbe7930a295f5fcadfdcda13d794d964bef5e9",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 284,
+      "codec": "h264 yuv420p"
+     }
+    ],
+    "lipsync_output_resolution": [
+     1920,
+     1080
+    ]
+   },
+   "processing_recipe": "restored.mp4 frames [4,277) (= native.mp4 frames [9,282), since native-trim = native[5:] and Sync v3 preserves frame count/timing) -> scale=1280:720 (plain full-frame downscale 1920x1080->1280x720, no crop/pad, ffmpeg default bicubic assumed), no fps change (24->24), no color ops, no overlays -> libx264 yuv420p = r59-s14-presenter/qa/s14-c1.mp4 (273 frames; PSNR vs scaled restored 50-52 dB at start 4, ~33-38 dB at +-1). Restored clip audio (Sync placement 7332 samples, picture-minus-audio -13.9 ms) was used only for alignment; context and R79 audio are master PCM, so the audio offset does not affect picture. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/restoration/restored.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/native.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/native-trim.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/ALIGNMENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/NATIVE-MEDIA.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c1/restoration/SUBMISSION-INTENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/media_ops.py (TRIM a16/c1 5/c3 12)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/ALIGNMENT-SUMMARY.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/s14-c1.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/presenter/PRESENTER-PLAN.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "FLAG: presenter is 1080p at every stage (Seedance native 1920x1080 10-bit; Sync v3 lip-sync output 1920x1080 8-bit). No 4K source exists; a true 4K presenter is impossible without upscaling restored.mp4 (2x) or paid regeneration + new Sync run + owner re-approval. Use restored.mp4, not native.mp4: native lacks the lip-synced mouth (restored vs native-trim PSNR ~44 dB, differences in mouth region). native.mp4 is 10-bit but only useful for non-mouth regions. Sync v3 output is external (Fal); re-running it would not be deterministic."
+  },
+  {
+   "r79_out_frames": [
+    14375,
+    14582
+   ],
+   "scene": "S14",
+   "part": "C2",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2",
+   "composition": "index.html (single composition, no sub-compositions; composition-id ep007-r59-s14c2)",
+   "context_frames": [
+    1191,
+    1398
+   ],
+   "leaf_frames": [
+    0,
+    207
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts npx hyperframes@0.8.36); rendered mp4 metadata tag hyperframes_version=0.0.0-dev (local dev build did the actual render)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "composition_fps": 24,
+   "composition_duration_s": 8.625,
+   "index_html_sha256": "1f3748a399fa41e2cf00807851423b0f690100c2183003808b9bcabc029ab19c",
+   "native_media": null,
+   "embeds_presenter_video": false,
+   "assets": "public/vendor/gsap.min.js, public/fonts/{boska-700,supreme-400,supreme-500}.woff2, public/audio/narration.wav (audio only); public/art/workshop.svg present but unreferenced; all referenced assets present",
+   "processing_recipe": "HyperFrames render of index.html at 1280x720 24fps, full composition frames [0,207) -> r59-s14c2/qa/r59-s14c2.mp4 (libx264, sha 2526e28a55a9ec1c..., 207 frames) with no trim, scale or color op. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14c2/qa/r59-s14c2.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-animation-context/qa/context.mp4 (903 = 408+207+288)",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-animation-verified-v1, r59-s14-accent-label-finding-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "Vector/DOM source; re-renderable at 4K (authored 1280x720, so needs a 3x device-scale or re-authoring to 3840x2160). index.html mtime precedes the qa render and its sha matches the decision log, so current source = locked render. FLAG known defect in the locked look (r59-s14-accent-label-finding-v1): 'One person' and 'Me' labels render ink/grey instead of oxide (class fill vs fill attribute). A faithful 4K re-render reproduces it only if the same renderer resolves the conflict the same way; fixing it changes an owner-locked look and needs owner direction. Project dirs are untracked in git (risk of loss)."
+  },
+  {
+   "r79_out_frames": [
+    14582,
+    14858
+   ],
+   "scene": "S14",
+   "part": "C3",
+   "leaf_type": "media",
+   "project_dir": null,
+   "composition": null,
+   "context_frames": [
+    1398,
+    1674
+   ],
+   "leaf_frames": [
+    0,
+    276
+   ],
+   "leaf_frames_native_numbering": [
+    12,
+    288
+   ],
+   "hyperframes_version_pinned": null,
+   "composition_dimensions": null,
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/restoration/restored.mp4",
+    "sha256": "e7b972fe7755ef36940d128e4df9bde396435bbdba9c5957dea67b416617f980",
+    "resolution": [
+     1920,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 277,
+    "codec": "h264 yuv420p 8-bit bt709, ~12-14 Mb/s (Fal sync-lipsync/v3 output, sync_mode silence)",
+    "is_true_leaf": true,
+    "upstream_sources": [
+     {
+      "role": "Seedance 2.5 omni_reference 1080p native take (Higgsfield); no lip-synced mouth",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/native.mp4",
+      "sha256": "e3b1adf944c5db35d220c7e6ca5f14264f2cf18fe2f5628f05644dfc1d388f61",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 289,
+      "codec": "hevc yuv420p10le bt709"
+     },
+     {
+      "role": "native.mp4 frames [12,289) re-encoded to h264 8-bit; the Sync v3 input; frame-identical timing to restored.mp4",
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/native-trim.mp4",
+      "sha256": "12a5d6776a3d1de055fe86a179942216a200f4e44aefbbee4ebcfad260a09a81",
+      "resolution": [
+       1920,
+       1080
+      ],
+      "fps": 24,
+      "frame_count": 277,
+      "codec": "h264 yuv420p"
+     }
+    ],
+    "lipsync_output_resolution": [
+     1920,
+     1080
+    ]
+   },
+   "processing_recipe": "restored.mp4 frames [0,276) (= native.mp4 frames [12,288), since native-trim = native[12:] and Sync v3 preserves frame count/timing) -> scale=1280:720 (plain full-frame downscale 1920x1080->1280x720, no crop/pad, ffmpeg default bicubic assumed), no fps change (24->24), no color ops, no overlays -> libx264 yuv420p = r59-s14-presenter/qa/s14-c3.mp4 (276 frames; PSNR vs scaled restored 50-52 dB at start 0, ~33-38 dB at +-1). Restored clip audio (Sync placement 0 samples, picture-minus-audio 0.0 ms) was used only for alignment; context and R79 audio are master PCM, so the audio offset does not affect picture. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/restoration/restored.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/native.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/native-trim.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/ALIGNMENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/NATIVE-MEDIA.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/c3/restoration/SUBMISSION-INTENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/provider/media_ops.py (TRIM a16/c1 5/c3 12)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/ALIGNMENT-SUMMARY.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-presenter/qa/s14-c3.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/presenter/PRESENTER-PLAN.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "FLAG: presenter is 1080p at every stage (Seedance native 1920x1080 10-bit; Sync v3 lip-sync output 1920x1080 8-bit). No 4K source exists; a true 4K presenter is impossible without upscaling restored.mp4 (2x) or paid regeneration + new Sync run + owner re-approval. Use restored.mp4, not native.mp4: native lacks the lip-synced mouth (restored vs native-trim PSNR ~44 dB, differences in mouth region). native.mp4 is 10-bit but only useful for non-mouth regions. Owner accepted body drift (up to ~0.3-0.4 s early at start) in A and C3. Sync v3 output is external (Fal); re-running it would not be deterministic."
+  },
+  {
+   "r79_out_frames": [
+    14858,
+    15146
+   ],
+   "scene": "S14",
+   "part": "D",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d",
+   "composition": "index.html (single composition, no sub-compositions; composition-id ep007-r59-s14d)",
+   "context_frames": [
+    1674,
+    1962
+   ],
+   "leaf_frames": [
+    0,
+    288
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts npx hyperframes@0.8.36); rendered mp4 metadata tag hyperframes_version=0.0.0-dev (local dev build did the actual render)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "composition_fps": 24,
+   "composition_duration_s": 12.0,
+   "index_html_sha256": "49f644d766f761332d92074fd22430cb5b072e93ca2be1e2931a9ceb52ffeefc",
+   "native_media": null,
+   "embeds_presenter_video": false,
+   "assets": "public/vendor/gsap.min.js, public/fonts/{boska-700,supreme-400,supreme-500}.woff2, public/audio/narration.wav (audio only); public/art/workshop.svg present but unreferenced; all referenced assets present",
+   "processing_recipe": "HyperFrames render of index.html at 1280x720 24fps, full composition frames [0,288) -> r59-s14d/qa/r59-s14d.mp4 (libx264, sha 8e917aa52a20917d..., 288 frames) with no trim, scale or color op. Downstream of the part clip (all verified numerically): part clip concatenated with no transition/overlay into r59-s14-full-context/qa/context.mp4 (libx264 1280x720 24fps yuv420p bt709; S13 tail is frames [0,192)); build_r79 then trims context [192,1962) with no scaling. Context-vs-part-clip PSNR 50-66 dB on every frame; shifting by 1 frame drops to ~9.6 dB, so boundaries are exact. No script that built context.mp4 exists in the repo; recipe reconstructed and verified by PSNR.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d/qa/r59-s14d.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-animation-context/qa/context.mp4 (903 = 408+207+288)",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-animation-verified-v1, r59-s14-accent-label-finding-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-full-context/qa/context.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (r59-s14-presenter-verified-v1, r59-owner-s14-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "Vector/DOM source; re-renderable at 4K (authored 1280x720, so needs a 3x device-scale or re-authoring to 3840x2160). index.html mtime precedes the qa render and its sha matches the decision log, so current source = locked render. FLAG known defect in the locked look (r59-s14-accent-label-finding-v1): 'Licence' renders ink/grey instead of oxide; 'No licence needed' renders grey instead of ink (class fill vs fill attribute). A faithful 4K re-render reproduces it only if the same renderer resolves the conflict the same way; fixing it changes an owner-locked look and needs owner direction. Project dirs are untracked in git (risk of loss)."
+  },
+  {
+   "r79_out_frames": [
+    15146,
+    15746
+   ],
+   "scene": "S15",
+   "part": "P1 (accepted r60 plate, pre-insert)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/index.html",
+    "index_html_sha256": "a4ffc30efa881989ef005939d1424b717e222e659116b83e0a75ca8352f1e160",
+    "sub_compositions": [],
+    "composition_id": "ep007-r60-s15-p1",
+    "data_duration_s": "25"
+   },
+   "leaf_frames": [
+    0,
+    600
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/qa/r60-s15-p1.mp4",
+    "sha256": "bb4db674443198245947756b2137b10512c91e63339ba3dfd62e581d5e1339c5",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 600,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r60-s15-p1.mp4 copied byte-identical (sha verified) to blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/s15p1.mp4; placed in R78 HyperFrames composition ep007-r78-s15 as <video class=accepted> (absolute inset 0, 1280x720, object-fit:contain => no scaling), data-start=0s data-media-start=0s; rendered by hyperframes@0.8.50 (--workers 1) to s15-mobile-review.mp4 (1280x720, 1368 f, h264); R79 takes s15-mobile-review.mp4 [0,1368) 1:1 -> out 15146+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/qa/r60-s15-p1.mp4",
+    "r60-owner lock (see blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r60-s15-ai/OWNER-S15-LOCK.json)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py"
+   ],
+   "confidence": "high",
+   "notes": "Verified: s15-mobile-review [0,600) vs r60-s15-p1 [0,600) PSNR avg 50.96 dB, min 48.07 (re-encode only). SVG people are inline <symbol href=#person>, no raster. Feasibility probe: copied project rendered at landscape-4k with hyperframes@0.8.36 (--low-memory-mode, quality standard): 600 frames in 18.2 s; area-downscaled to 1280x720 vs R79 [15146,15746): SSIM mean 0.99720 / min 0.99475, PSNR avg 44.66 dB / min 42.34 dB (+1 frame shift: 0.99684)."
+  },
+  {
+   "r79_out_frames": [
+    15746,
+    15754
+   ],
+   "scene": "S15",
+   "part": "P2 head (8 frames before insert)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/index.html",
+    "index_html_sha256": "8200183637284fd62b6cd11c9f7936c61a76fbb14a847d88baf00a35e7dd6a7c",
+    "sub_compositions": [],
+    "composition_id": "ep007-r60-s15-p2",
+    "data_duration_s": "32"
+   },
+   "leaf_frames": [
+    0,
+    8
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/qa/r60-s15-p2.mp4",
+    "sha256": "e755a68ff5b2520d533b4d11c26ee02b547e68a2f61f13a9b0dc383c41cb961c",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 768,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r60-s15-p2.mp4 copied byte-identical (sha verified) to blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/s15p2.mp4; placed in R78 HyperFrames composition ep007-r78-s15 as <video class=accepted> (absolute inset 0, 1280x720, object-fit:contain => no scaling), data-start=25.0s data-media-start=0s; rendered by hyperframes@0.8.50 (--workers 1) to s15-mobile-review.mp4 (1280x720, 1368 f, h264); R79 takes s15-mobile-review.mp4 [0,1368) 1:1 -> out 15146+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/qa/r60-s15-p2.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r60-s15-ai/OWNER-S15-LOCK.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/PROVENANCE.json"
+   ],
+   "confidence": "high",
+   "notes": "Verified: review [600,608) vs r60-s15-p2 [0,8) PSNR avg 48.06 dB."
+  },
+  {
+   "r79_out_frames": [
+    15754,
+    15826
+   ],
+   "scene": "S15",
+   "part": "ChatGPT insert A (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "index_html_sha256": "f4d5ae80a2e1ed27a9c3c2a92aefe28f803433692f4dcf469f7bde75c7d48d2e",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    72
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/public/media/capture-00.mp4); raw-recording time = 0.0s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/capture-mobile-00.mp4",
+     "sha256": "5681790dbc54dc524bcf5b455d27e3e2fc9931d13ceec915437687d6c510ede7",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 72,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/public/media/capture-00.mp4",
+     "sha256": "889f582c86042b12297b17f8867750cb82ca9553a5637bda6bdf96d1ee606bcd",
+     "resolution": "2880x1620",
+     "fps": 24,
+     "frame_count": 72,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/chatgpt-raw-01.mp4",
+    "sha256": "c8673bae989394575a96535560508efc38450c0a796f98741decb20e5330e475",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 2227200/96041 = 23.19 fps; captured with minimumFrameInterval 1/24)",
+    "frame_count": 3712,
+    "duration_s": 160.056667,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 0.0 -t 3.000000000 -vf 'crop=2880:1620:600:300,fps=24,setsar=1' -an -frames:v 72 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=2000:h=1036:x='trunc((200+(350-200)*n/71)/2)*2':y='trunc((260+(340-260)*n/71)/2)*2',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 72 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [608,680) (data-start 25.333333333, dur 3.0) over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 2000x1036 px, origin panning (800,560)->(950,640) over 72 frames, raw time 0.0-3.0 s. 4K implication: capture box becomes 3648x1890 at (96,180); 2000->3648 = 1.82x upscale of recorded pixels (below 4K; raw capture is 3840x1946 Retina window, not UHD).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Recording is real ChatGPT UI with real cursor; fictional fixture. SEGMENTS pending_overrides (S15 cue window master 659.32-671.16 s, clip null) is stale: resolved by R78 lock r78-owner-s15-s16-mobile-lock-v1 (insert = R78 frames [608,892) = master [15824,16108))."
+  },
+  {
+   "r79_out_frames": [
+    15826,
+    16038
+   ],
+   "scene": "S15",
+   "part": "ChatGPT insert B (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "index_html_sha256": "f4d5ae80a2e1ed27a9c3c2a92aefe28f803433692f4dcf469f7bde75c7d48d2e",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    212
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/public/media/capture-01.mp4); raw-recording time = 60.0s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/capture-mobile-01.mp4",
+     "sha256": "01544c037cb019a576a048f6c59ec688a8024f8927716f5cf715f8c973e57b3b",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 212,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/public/media/capture-01.mp4",
+     "sha256": "c67e4b1abe03d43a8d4bbbdbc6c05926abc2e65d7df46c25df2c38d8d427aa7c",
+     "resolution": "2880x1620",
+     "fps": 24,
+     "frame_count": 212,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/chatgpt-raw-01.mp4",
+    "sha256": "c8673bae989394575a96535560508efc38450c0a796f98741decb20e5330e475",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 2227200/96041 = 23.19 fps; captured with minimumFrameInterval 1/24)",
+    "frame_count": 3712,
+    "duration_s": 160.056667,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 60.0 -t 8.833333333 -vf 'crop=2880:1620:600:300,fps=24,setsar=1' -an -frames:v 212 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=2000:h=1036:x='trunc((480+(600-480)*n/211)/2)*2':y='trunc((140+(210-140)*n/211)/2)*2',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 212 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [680,892) (data-start 28.333333333, dur 8.833333333) over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 2000x1036 px, origin panning (1080,440)->(1200,510) over 212 frames, raw time 60.0-68.8333 s. 4K implication: capture box becomes 3648x1890 at (96,180); 1.82x upscale of recorded pixels (below 4K).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Tracks real pointer to exception-pricing result."
+  },
+  {
+   "r79_out_frames": [
+    16038,
+    16514
+   ],
+   "scene": "S15",
+   "part": "P2 tail (post-insert)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/index.html",
+    "index_html_sha256": "8200183637284fd62b6cd11c9f7936c61a76fbb14a847d88baf00a35e7dd6a7c",
+    "sub_compositions": [],
+    "composition_id": "ep007-r60-s15-p2",
+    "data_duration_s": "32"
+   },
+   "leaf_frames": [
+    292,
+    768
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/seam-hold.png",
+     "sha256": "2ee43a817fb222c137777c9bc595331a0a0168ec84c15d47608b100535fd59ef",
+     "resolution": "1280x720",
+     "fps": null,
+     "frame_count": 1,
+     "role": "R78 seam repair still (in R78 wrapper, not leaf)"
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/qa/r60-s15-p2.mp4",
+    "sha256": "e755a68ff5b2520d533b4d11c26ee02b547e68a2f61f13a9b0dc383c41cb961c",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 768,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r60-s15-p2.mp4 copied byte-identical (sha verified) to blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/public/media/s15p2.mp4; placed in R78 HyperFrames composition ep007-r78-s15 as <video class=accepted> (absolute inset 0, 1280x720, object-fit:contain => no scaling), data-start=37.166666667s data-media-start=12.166666667s; rendered by hyperframes@0.8.50 (--workers 1) to s15-mobile-review.mp4 (1280x720, 1368 f, h264); R79 takes s15-mobile-review.mp4 [0,1368) 1:1 -> out 15146+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only. Plus seam-hold <img> (seam-hold.png) at 37.166666667 s for 0.041666667 s.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/qa/r60-s15-p2.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r60-s15-ai/OWNER-S15-LOCK.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s15-mobile/PROVENANCE.json"
+   ],
+   "confidence": "high",
+   "notes": "Output frame 16038 (R78 frame 892) is the R78 seam-hold PNG = r60-s15-p2 frame 292 extracted by ffmpeg select=eq(n,292) (sha 2ee43a817fb222c137777c9bc595331a0a0168ec84c15d47608b100535fd59ef, 1280x720) on track 2 for 1 frame to mask a browser decoder first-frame blank; content-identical to leaf frame 292. Verified review [892,1368) vs r60-s15-p2 [292,768) PSNR avg 48.29, min 38.08 (at local 457). Seam-hold frame PSNR 43.3 dB vs PNG."
+  },
+  {
+   "r79_out_frames": [
+    16514,
+    16727
+   ],
+   "scene": "S16",
+   "part": "P1 head (pre-insert)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/index.html",
+    "index_html_sha256": "86c9faab6983af11ac14c91c9d8bd1ffc1b88744ea7ab97a4558668b00bf6f97",
+    "sub_compositions": [],
+    "composition_id": "ep007-r61-s16-p1",
+    "data_duration_s": "36.5"
+   },
+   "leaf_frames": [
+    0,
+    213
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/art/workshop.svg",
+     "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55",
+     "resolution": "vector SVG (no embedded raster)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/qa/r61-s16-p1.mp4",
+    "sha256": "86eb1c1d80733e7cfb811e7ccef0b33656bac12241b9c5e78134600ad30d54d7",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 876,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r61-s16-p1.mp4 copied byte-identical (sha verified) to blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/s16p1.mp4; placed in R78 HyperFrames composition ep007-r78-s16 as <video class=accepted> (absolute inset 0, 1280x720, object-fit:contain => no scaling), data-start=0s data-media-start=0s; rendered by hyperframes@0.8.50 (--workers 1) to s16-mobile-r7-review.mp4 (1280x720, 1293 f, h264); R79 takes s16-mobile-r7-review.mp4 [0,1293) 1:1 -> out 16514+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/qa/r61-s16-p1.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r61-s16-wedge",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json"
+   ],
+   "confidence": "high",
+   "notes": "Verified review [0,213) vs r61-s16-p1 [0,213) PSNR avg 50.93, min 49.06. workshop.svg embedded via SVG <image>."
+  },
+  {
+   "r79_out_frames": [
+    16727,
+    16871
+   ],
+   "scene": "S16",
+   "part": "Sheets insert 00 (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    144
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-00.mp4); raw-recording time = 0.0s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/capture-mobile-00.mp4",
+     "sha256": "0a01816cc2db06102dab6f0ca2a5e16b467c6fdfc542c59e38566def5eb3d26c",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 144,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-00.mp4",
+     "sha256": "33278a34476decc28be9226e08a8ef50c85b7bb9c6f6774e987998ccb76eefa0",
+     "resolution": "1588x822",
+     "fps": 24,
+     "frame_count": 144,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 35720/1523 = 23.45 fps)",
+    "frame_count": 893,
+    "duration_s": 38.06,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 0.0 -t 6.000000000 -vf 'crop=1588:823:300:150 (encoded 1588x822),fps=24,setsar=1' -an -frames:v 144 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/143)/2)*2',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 144 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [213,357) over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 1100x570 px at x=300, y panning 250->268, raw time 0.0-6.0 s. 4K implication: capture box becomes 3648x1890 at (96,180); 1100->3648 = 3.32x upscale of recorded pixels (well below 4K). R77 requested crop h=823 but derivative is 1588x822 (yuv420 even rounding).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Exception row, real cursor. SEGMENTS pending_overrides S16 (master 699.86-727.18 s, clip null) is stale; resolved by r78-owner-s15-s16-mobile-lock-v1 (insert R78 [213,868) = master [16797,17452))."
+  },
+  {
+   "r79_out_frames": [
+    16871,
+    17087
+   ],
+   "scene": "S16",
+   "part": "Sheets insert 01 (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    216
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-01.mp4); raw-recording time = 10.5s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/capture-mobile-01.mp4",
+     "sha256": "3ad77b20b6393f5e29c2541795e6124054f6b767fbd22179ff9e47b0a9fd48ad",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 216,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-01.mp4",
+     "sha256": "c23ed8c32a0a5c0824132ce797f2bd7ec59d65b2a27bca310abfefa69086cb34",
+     "resolution": "1588x822",
+     "fps": 24,
+     "frame_count": 216,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 35720/1523 = 23.45 fps)",
+    "frame_count": 893,
+    "duration_s": 38.06,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 10.5 -t 9.000000000 -vf 'crop=1588:823:300:150 (encoded 1588x822),fps=24,setsar=1' -an -frames:v 216 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=1100:h=570:x='0':y='100',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 216 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [357,573) over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 1100x570 px at (300,250), raw time 10.5-19.5 s. 4K implication: capture box becomes 3648x1890 at (96,180); 1100->3648 = 3.32x upscale of recorded pixels (well below 4K). R77 requested crop h=823 but derivative is 1588x822 (yuv420 even rounding).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Package-index transition. SEGMENTS pending_overrides S16 (master 699.86-727.18 s, clip null) is stale; resolved by r78-owner-s15-s16-mobile-lock-v1 (insert R78 [213,868) = master [16797,17452))."
+  },
+  {
+   "r79_out_frames": [
+    17087,
+    17285
+   ],
+   "scene": "S16",
+   "part": "Sheets insert 02 (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    198
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-02.mp4); raw-recording time = 21.0s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/capture-mobile-02.mp4",
+     "sha256": "bd34294c8465eb65c7d6ebeb2d8dcd3dfbf35e92c93e54aa3cdee81c2407ac05",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 198,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-02.mp4",
+     "sha256": "c0b339e989643282a793a2fd3811915ffa6925d7099096a2f8323909ffc60d84",
+     "resolution": "1588x822",
+     "fps": 24,
+     "frame_count": 198,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 35720/1523 = 23.45 fps)",
+    "frame_count": 893,
+    "duration_s": 38.06,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 21.0 -t 8.250000000 -vf 'crop=1588:823:300:150 (encoded 1588x822),fps=24,setsar=1' -an -frames:v 198 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=1100:h=570:x='0':y='100',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 198 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [573,771) over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 1100x570 px at (300,250), raw time 21.0-29.25 s. 4K implication: capture box becomes 3648x1890 at (96,180); 1100->3648 = 3.32x upscale of recorded pixels (well below 4K). R77 requested crop h=823 but derivative is 1588x822 (yuv420 even rounding).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Q3 source excerpt. SEGMENTS pending_overrides S16 (master 699.86-727.18 s, clip null) is stale; resolved by r78-owner-s15-s16-mobile-lock-v1 (insert R78 [213,868) = master [16797,17452))."
+  },
+  {
+   "r79_out_frames": [
+    17285,
+    17380
+   ],
+   "scene": "S16",
+   "part": "Sheets insert 03 (real recording)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7",
+   "composition": {
+    "entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "index_html_sha256": "bbd85c3150ce46bc0823227c15f20d8b209149efa522106712eb9f9802ccc84f",
+    "sub_compositions": [],
+    "role": "R78 HyperFrames wrapper: Boundary Ledger paper #F5F0E6 full-frame (track 0) + capture <video class=capture> at left 32 top 60 size 1216x630 object-fit:fill border 1px #173530 (track 1) + disclosure <p> 'Illustrative example \u00b7 fictional business' Supreme 500 20px/1.2 #173530 at left 32 top 19 (track 2)"
+   },
+   "leaf_frames": [
+    0,
+    95
+   ],
+   "leaf_frames_basis": "frame index into the 24fps CFR R77 derivative (blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-03.mp4); raw-recording time = 34.0s + i/24 (fps=24 filter duplicates/drops raw VFR frames)",
+   "hyperframes_version_pinned": "0.8.50 (package.json scripts; s16-mobile-r7/qa/render.log shows 'npx --yes hyperframes@0.8.50 render'; s15-mobile/qa/render.log has no explicit version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/capture-mobile-03.mp4",
+     "sha256": "fcec6069f2fbe72cbe5fcd7d18075d0db46a758a6dddbbbe80ee5d43d444a6b4",
+     "resolution": "1216x630",
+     "fps": 24,
+     "frame_count": 97,
+     "role": "R78 mobile-crop derivative actually played by composition"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/public/media/capture-03.mp4",
+     "sha256": "f36a7c8eb897b8db40d40de0ca1b488d23d2f0d6a092b8b6a499fa4e39209bf2",
+     "resolution": "1588x822",
+     "fps": 24,
+     "frame_count": 97,
+     "role": "R77 CFR crop derivative (input to R78 crop)"
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-recordings/qa/sheets-package-state-03.mp4",
+    "sha256": "77eb57434edd45b2589cdfad4b7edd308b1c9981b11930892554aee862b0dc86",
+    "resolution": "3840x1946",
+    "fps": "VFR (time_base 1/600, avg 35720/1523 = 23.45 fps)",
+    "frame_count": 893,
+    "duration_s": 38.06,
+    "codec": "h264 yuv420p bt709"
+   },
+   "processing_recipe": "1) R77 prepare.py: ffmpeg -i RAW -ss 34.0 -t 4.041666667 -vf 'crop=1588:823:300:150 (encoded 1588x822),fps=24,setsar=1' -an -frames:v 97 -c:v libx264 -crf 16 -preset medium -pix_fmt yuv420p -> R77 capture (output seek, no speed change). 2) R78 build_mobile.py: ffmpeg -i R77cap -vf \"crop=w=1100:h=570:x='0':y='trunc((100+(118-100)*n/96)/2)*2',scale=1216:630:flags=lanczos,setsar=1\" -an -frames:v 97 -c:v libx264 -crf 16 -pix_fmt yuv420p -> R78 capture-mobile (crop x/y linearly interpolated per frame n/(N-1), truncated to even; Lanczos scale). 3) HyperFrames 0.8.50 composites it at timeline R78 frames [771,868) of which only [771,866) visible over paper with border + disclosure -> 1280x720 review mp4. 4) R79 trim 1:1. Net raw-pixel window: raw 1100x570 px at x=300, y panning 250->~268, raw time 34.0-37.958 s (frames 95,96 are covered by return still). 4K implication: capture box becomes 3648x1890 at (96,180); 1100->3648 = 3.32x upscale of recorded pixels (well below 4K). R77 requested crop h=823 but derivative is 1588x822 (yuv420 even rounding).",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/build_mobile.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r78-tool-recordings-mobile-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r78-owner-s15-s16-mobile-lock-v1)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Readiness-row settle. Only capture frames [0,95) reach R79; [95,97) are under the return still. SEGMENTS pending_overrides S16 (master 699.86-727.18 s, clip null) is stale; resolved by r78-owner-s15-s16-mobile-lock-v1 (insert R78 [213,868) = master [16797,17452))."
+  },
+  {
+   "r79_out_frames": [
+    17380,
+    17390
+   ],
+   "scene": "S16",
+   "part": "Return still (P1 frame 866 held)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/index.html",
+    "index_html_sha256": "86c9faab6983af11ac14c91c9d8bd1ffc1b88744ea7ab97a4558668b00bf6f97",
+    "sub_compositions": [],
+    "composition_id": "ep007-r61-s16-p1",
+    "data_duration_s": "36.5"
+   },
+   "leaf_frames": [
+    866,
+    867
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/art/workshop.svg",
+     "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55",
+     "resolution": "vector SVG (no embedded raster)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/return-still-866.png",
+     "sha256": "30901e3f9e0df57dc0cceb8570edad38f363254e975b54e9fc1d1fc04e178bc0",
+     "resolution": "1280x720",
+     "fps": null,
+     "frame_count": 1,
+     "role": "R78 return-seam still"
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/qa/r61-s16-p1.mp4",
+    "sha256": "86eb1c1d80733e7cfb811e7ccef0b33656bac12241b9c5e78134600ad30d54d7",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 876,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "ffmpeg select=eq(n\\,866) on s16p1.mp4 -> PNG -> HyperFrames 0.8.50 <img class='accepted return-still'> hold 10 frames -> s16-mobile-r7-review.mp4 [866,876) -> R79 trim 1:1. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/qa/r61-s16-p1.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r61-s16-wedge",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/qa/return-boundary-r7"
+   ],
+   "confidence": "medium",
+   "notes": "Leaf frame 866 of r61-s16-p1 held for 10 output frames via R78 return-still-866.png (ffmpeg select=eq(n,866); sha 30901e3f9e0df57dc0cceb8570edad38f363254e975b54e9fc1d1fc04e178bc0; 1280x720) on track 2, z-index 1, timeline [866,876) (data-start 36.083333333, dur 0.416666667), started one frame early to cover renderer late clip activation. Underneath: capture-mobile-03 frames 95-96 then <video> s16p1 media-start 36.166666667 for [868,876). Measured: review frames 868-875 match still at 42.0 dB; frames 866-867 only ~33.6 dB vs still and 33.3 vs s16p1 f866/867 (renderer boundary composite) -> exact pixels of out 17380-17381 are renderer-timing dependent. Accepted source is static across this interval per build notes.",
+   "leaf_hold": {
+    "leaf_frame": 866,
+    "repeat": 10
+   }
+  },
+  {
+   "r79_out_frames": [
+    17390,
+    17807
+   ],
+   "scene": "S16",
+   "part": "P2",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/index.html",
+    "index_html_sha256": "fed48087935f9cdd7f1aeb94c05b94833a113e40c751c54485b39a198d9038c5",
+    "sub_compositions": [],
+    "composition_id": "ep007-r61-s16-p2",
+    "data_duration_s": "17.375"
+   },
+   "leaf_frames": [
+    0,
+    417
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/public/art/workshop.svg",
+     "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55",
+     "resolution": "vector SVG (no embedded raster)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/qa/r61-s16-p2.mp4",
+    "sha256": "1b5cbeb3b630dbba13afeecf940e5639447136a59ded6f270477f5266d1b6827",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 417,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r61-s16-p2.mp4 copied byte-identical (sha verified) to blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/public/media/s16p2.mp4; placed in R78 HyperFrames composition ep007-r78-s16 as <video class=accepted> (absolute inset 0, 1280x720, object-fit:contain => no scaling), data-start=36.5s data-media-start=0s; rendered by hyperframes@0.8.50 (--workers 1) to s16-mobile-r7-review.mp4 (1280x720, 1293 f, h264); R79 takes s16-mobile-r7-review.mp4 [0,1293) 1:1 -> out 16514+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/qa/r61-s16-p2.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r61-s16-wedge",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/index.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R78-TOOL-INSERT-MOBILE-BUILD/projects/s16-mobile-r7/PROVENANCE.json"
+   ],
+   "confidence": "high",
+   "notes": "Verified review [876,1293) vs r61-s16-p2 [0,417) PSNR avg 49.44, min 46.71."
+  },
+  {
+   "r79_out_frames": [
+    17807,
+    18518
+   ],
+   "scene": "S17",
+   "part": "P1 (A-B animation)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/index.html",
+    "index_html_sha256": "089b0179003b3d5d08df43ddeada5ec9ee27c1de7e6970c0ddcfc50e8bc2c6eb",
+    "sub_compositions": [],
+    "composition_id": "ep007-r62-s17-p1",
+    "data_duration_s": "29.625"
+   },
+   "leaf_frames": [
+    0,
+    711
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/qa/r62-s17-p1.mp4",
+    "sha256": "71c969e9d9af2d05c997316de104d6ec137d79f84486690e27d523954f748e04",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 711,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r62-s17-p1.mp4 -> r76-s17-context ffmpeg filter_complex trim=start_frame=0:end_frame=711,setpts=PTS-STARTPTS,setsar=1 -> concat n=4 (order: r62-s17-animation-context[0,192) unused lead-in, r62-s17-p1[0,711], s17-c[0,192], r62-s17-p2[0,708)) -> libx264 crf18 preset fast yuv420p -r 24 -> context.mp4 (1280x720,1803 f) frames [192,903); R79 takes context [192,1803) -> out 17807+. No scale/crop/color. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p1/qa/r62-s17-p1.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r62-s17-fixed-fee/OWNER-S17-LOCK.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/assembly-command.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/VERIFICATION.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (events r62-owner-s17-lock-v1, r76-owner-s17-c-lock-v1)"
+   ],
+   "confidence": "high",
+   "notes": "Verified context [192,903) vs r62-s17-p1 [0,711) PSNR avg 55.79, min 51.13."
+  },
+  {
+   "r79_out_frames": [
+    18518,
+    18710
+   ],
+   "scene": "S17",
+   "part": "C presenter (lip-synced generated avatar)",
+   "leaf_type": "media",
+   "project_dir": null,
+   "composition": null,
+   "leaf_frames": [
+    8,
+    200
+   ],
+   "leaf_frames_basis": "frame index into restored.mp4 (== native.mp4 / native-trim.mp4 frame index; 217 frames, 24 fps CFR)",
+   "hyperframes_version_pinned": null,
+   "composition_dimensions": null,
+   "fps": 24,
+   "embedded_media": [],
+   "native_media": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/restoration/restored.mp4",
+    "sha256": "21d44f10a70b98732e71707f6f34a48c15141c656208530197cbd47d4e405a9e",
+    "resolution": "1920x1080",
+    "fps": 24,
+    "frame_count": 217,
+    "codec": "h264 yuv420p 8-bit"
+   },
+   "upstream_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/native.mp4",
+     "sha256": "816699bef1ac8a5210e423f1f7539c37c1a17c1520a44e488326356169caf78c",
+     "resolution": "1920x1080",
+     "fps": 24,
+     "frame_count": 217,
+     "codec": "hevc Main10 yuv420p10le",
+     "role": "Higgsfield seedance_2_5 omni_reference generation, resolution '1080p' (job a806695f-c81b-4b20-aa06-7ce7481da998)"
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/native-trim.mp4",
+     "sha256": "a288c6986d090ba7dcc00dc2e78af047cd26cd238250886718444e8ae1b08be4",
+     "resolution": "1920x1080",
+     "fps": 24,
+     "frame_count": 217,
+     "codec": "h264 yuv420p 8-bit (Lavc62.28.101 libx264)",
+     "role": "full-length 8-bit transcode of native.mp4 (PSNR 49.05 dB vs native, same 217 frames) uploaded to fal; creation command NOT recorded"
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/audio/c.wav",
+     "sha256": "d3912f9d313f463df0836025fbaec6e74ad8cc51bd4bb0072c581d8e4c458724",
+     "role": "locked-master narration slice used as lip-sync driver"
+    }
+   ],
+   "processing_recipe": "native.mp4 (Higgsfield seedance_2_5, 1080p) -> native-trim.mp4 (unrecorded h264 transcode, all 217 frames) -> fal-ai/sync-lipsync/v3 (sync_mode 'silence', audio c.wav; request 01a0b4fe-cfcb-7293-9181-74bc4976d6dc) -> restored.mp4 (1920x1080, 217 f; mouth region altered, PSNR 44.09 vs native-trim) -> ffmpeg trim=start_frame=8:end_frame=200,setpts=PTS-STARTPTS,scale=1280:720 (default bicubic),setsar=1, libx264 crf18 -> s17-c.mp4 (sha 3b9229f61825add2b5ddd30d015f495c0f3cd6ad6c2e5b92655a7cba0fb81431, 1280x720, 192 f) -> r76-s17-context concat slot [903,1095) -> R79 out [18518,18710). Selected in-frame 8 from ALIGNMENT.json (measured restored-audio offset 0.34725 s; picture starts 13.9167 ms early; review uses master audio, not provider audio). R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa/assembly-command.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/ALIGNMENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/NATIVE-ANALYSIS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/HIGGSFIELD-SUBMISSION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/HIGGSFIELD-COMPLETED.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/restoration/SUBMISSION-INTENT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/restoration/RESULT.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-presenter/provider/UPLOAD.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r76-s17-presenter/fal_ops.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r76-s17-presenter-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/assembly-command.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl (event r76-owner-s17-c-lock-v1: master 774.500-782.500 s)",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "Verified context [903,1095) vs s17-c [0,192) PSNR avg 51.30, min 49.98. Presenter source is 1920x1080 (the 1280x720 in R79 is a downscale done in s17-c assembly, which explains why the concat had no size mismatch). 4K needs 2x upscale of 1080p generated+lip-synced footage, or regeneration/restoration at higher resolution (paid provider calls). Also 10-bit native was reduced to 8-bit before lip-sync."
+  },
+  {
+   "r79_out_frames": [
+    18710,
+    19418
+   ],
+   "scene": "S17",
+   "part": "P2 (D-E animation)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/index.html",
+    "index_html_sha256": "035e07ea77a0afe04cfc4b0e765d597282fe72e7c1f8881419694cca2be6618f",
+    "sub_compositions": [],
+    "composition_id": "ep007-r62-s17-p2",
+    "data_duration_s": "29.5"
+   },
+   "leaf_frames": [
+    0,
+    708
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/public/art/workshop.svg",
+     "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55",
+     "resolution": "vector SVG (no embedded raster)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/qa/r62-s17-p2.mp4",
+    "sha256": "439cd6cca8bc34a4b9abb18b208bb79ad893b48864be044f34ff68701f533555",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 708,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r62-s17-p2.mp4 -> r76-s17-context ffmpeg filter_complex trim=start_frame=0:end_frame=708,setpts=PTS-STARTPTS,setsar=1 -> concat n=4 (order: r62-s17-animation-context[0,192) unused lead-in, r62-s17-p1[0,711], s17-c[0,192], r62-s17-p2[0,708)) -> libx264 crf18 preset fast yuv420p -r 24 -> context.mp4 (1280x720,1803 f) frames [1095,1803); R79 takes context [192,1803) -> out 17807+. No scale/crop/color. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r62-s17-p2/qa/r62-s17-p2.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r62-s17-fixed-fee/OWNER-S17-LOCK.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/assembly-command.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r76-s17-context/qa/VERIFICATION.json"
+   ],
+   "confidence": "high",
+   "notes": "Verified context [1095,1803) vs r62-s17-p2 [0,708) PSNR avg 58.24, min 50.13. workshop.svg via SVG <image>."
+  },
+  {
+   "r79_out_frames": [
+    19418,
+    20198
+   ],
+   "scene": "S18",
+   "part": "S18 full",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18",
+   "composition": {
+    "entry": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/index.html",
+    "index_html_sha256": "b72e07c3f91d1fceccd1f495120ba0ddc84b6044061de68de1da6a9462ed0855",
+    "sub_compositions": [],
+    "composition_id": "ep007-r63-s18",
+    "data_duration_s": "32.5"
+   },
+   "leaf_frames": [
+    0,
+    780
+   ],
+   "hyperframes_version_pinned": "0.8.36 (package.json scripts pin 'npx --yes hyperframes@0.8.36 render'; no render.log/version-check.txt retained in project, so the version actually used for the rendered mp4 is unverified)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "fps": 24,
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "script",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "leaf_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/qa/r63-s18.mp4",
+    "sha256": "411f163566eca4a55cde820d95de93a8c08fc27d28e1361643999cd57d0ab819",
+    "resolution": "1280x720",
+    "fps": 24,
+    "frame_count": 780,
+    "codec": "h264 yuv420p"
+   },
+   "processing_recipe": "Leaf render r63-s18.mp4 (1280x720, 780 f) -> r63-s18-context/qa/context.mp4 frames [192,972) (unrecorded ffmpeg concat after 192-frame S17 tail; lossy re-encode, no geometry change) -> R79 trim [192,972) -> out 19418+. R79 _tools/build_r79.py: plain ffmpeg trim of the scene review mp4 at source_frames_half_open per SEGMENTS.json, concat, no scale/crop/color (1280x720 in = 1280x720 out); lossy re-encode only.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18/qa/r63-s18.mp4",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r63-s18-acceptance/OWNER-S18-LOCK.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18-context/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r63-s18-context/qa/context.mp4"
+   ],
+   "confidence": "high",
+   "notes": "r63-s18-context/qa/context.mp4 (sha d9ef9d9d..., 972 f) = 192-frame S17 tail + r63-s18.mp4; its assembly command is NOT recorded in the repo (no assembly-command.json), but decode comparison proves context [192,972) == r63-s18 [0,780) (PSNR avg 60.80, min 52.21, no scale). Owner lock r63-owner-s18-lock-v1 is on the context.mp4 hash."
+  },
+  {
+   "r79_out_frames": [
+    20198,
+    21314
+   ],
+   "scene": "S19",
+   "part": "whole scene (corrected risk-title swap at leaf frame 703 = R79 20901)",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP",
+   "composition": "index.html (data-composition-id=ep007-r64-s19, data-duration=46.5)",
+   "leaf_frames": [
+    0,
+    1116
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46 after `upgrade` from 0.8.36, qa/logs/upgrade-applied.json; render invoked via cached CLI /Users/brownmanbrain/.npm/_npx/110f701c48e68d66/node_modules/hyperframes/bin/hyperframes.mjs per COMMANDS.md; 0.8.36 vs 0.8.46 snapshots byte-identical at 5 times, qa/runtime-comparison.json)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "n/a (runtime lib)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/public/audio/narration.wav",
+     "sha256": "c2a1d5184a6397ba8af9e26c3dc1a13095e4b5802477681c0a6854109e092102",
+     "resolution": "audio only (not used for R79 picture; R79 audio is master tail)",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "processing_recipe": "METHOD: full HyperFrames re-render of a modified COPY of the r64-s19 project (NOT an ffmpeg overlay/patch). Source-change.diff vs blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/index.html (sha 01f8f820...): (1) GSAP: '#h1' t.set autoAlpha:0 and '#h2' t.set autoAlpha:1 at C.risk (29.26s standalone; hard swap, first new-title frame = leaf frame 703), '#quote' keeps 0.45s power1.inOut fade at C.risk; (2) todo line 1 fill #586D74 -> #33464C. `hyperframes render --fps 24 --quality standard --workers 1 --output qa/r64b-s19.mp4` in the deliverable dir (render.log compositionHash 8fd06c0efbc42071, totalFrames 1116, staticDuration 46.5, videoCount 0, imageCount 0, 3 fonts inlined) -> frames [0,1116) -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation. No overlay asset; no patched ffmpeg frame range. qa/context.mp4 (ffmpeg concat of R63 S18 tail + this mp4) is review-only and NOT the R79 source.",
+   "evidence": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/source-change.diff",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/COMMANDS.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/REPORT.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/INPUTS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/ASSETS.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/logs/render-0.8.46.log",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/logs/upgrade-applied.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/ffmpeg-commands.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r64b-owner-s19-lock-v1",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r65-s19-s20-accepted/OWNER-REQUEST.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "qa/r64b-s19.mp4 sha256 7307e09b... matches SEGMENTS.json and owner lock r64b-owner-s19-lock-v1. Current index.html sha e159c374a8a54ab21911ed1cc0e5a732eaab88836f4d3267e2c7f395052bad4c (mtime 2026-09-17 13:32:19) and package.json (13:32:49) predate mp4 (13:33); hyperframes.json unchanged since 09-16. Owner lock event pins only the mp4s, not index.html, so current-index==rendered-index is inferred from mtimes + diff, not from a pinned hash. public/ is a SYMLINK to r64-s19/public (external dependency; all 6 files still match ASSETS.json hashes, none newer than render). workshop.svg is in public/art but NOT referenced by index.html. Pure SVG/HTML text + GSAP; resolution-independent -> 4K re-render needs only a scale factor or 3840x2160 recompose; no sub-4K media. Deliverable dir is untracked in git (?? in git status) -> commit/preserve before relying on it."
+  },
+  {
+   "r79_out_frames": [
+    21314,
+    23588
+   ],
+   "scene": "S20",
+   "part": "full scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r65-s20-economics",
+   "composition": "index.html",
+   "composition_sha256": "78d8edc6a0506a02fbc5c28de7d1251e0b5c2dda57b193a12c592828c080d5e0",
+   "leaf_frames": [
+    0,
+    2274
+   ],
+   "hyperframes_version_pinned": "0.8.46",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [],
+   "native_media": null,
+   "qa_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r65-s20-economics/qa/s20.mp4",
+    "sha256": "3aedf7e74f7402dc8270194a2077cbacc4e41361c9abee4c6274216b91a27661",
+    "render_log_compositionHash": "ae8aace6e59a2da6",
+    "totalFrames": 2274
+   },
+   "processing_recipe": "hyperframes@0.8.46 render index.html frames [0,2274) at 1280x720 (quality standard) -> qa/s20.mp4; R79 build_r79.py: trim=start_frame=0:end_frame=2274,setpts=N/(24*TB),setsar=1,format=yuv420p, concat, libx264 re-encode. No scale/crop/color/overlay. 4K: npx --yes hyperframes@0.8.46 render <copy> --resolution landscape-4k (full composition = exactly the R79 range).",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r65-s20-economics/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r65-s20-economics/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r65-s19-s20-accepted/",
+    "acceptance event r65-owner-s20-lock-v1 (blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl)"
+   ],
+   "confidence": "high",
+   "notes": "index.html sha256 matches owner-acceptance pin; no project file modified after qa render. Composition embeds no video/image (render.log videoCount 0, imageCount 0); vector/text + GSAP + local woff2 fonts + narration.wav only, so 4K via deviceScaleFactor 3 is native-sharp. Feasibility probe rendered this leaf at landscape-4k with hyperframes@0.8.46 (low-memory mode): 2274 frames in 151 s; area-downscaled to 1280x720 vs R79 [21314,23588): SSIM mean 0.99739 / min 0.99542, PSNR mean 43.3 dB / min 39.7 dB; +1 frame shift drops SSIM (0.99487 on window 1000-1047), confirming alignment."
+  },
+  {
+   "r79_out_frames": [
+    23588,
+    25060
+   ],
+   "scene": "S21",
+   "part": "whole scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part",
+   "composition": "index.html (data-composition-id=ep007-r66-s21, data-duration=61.33333333333333)",
+   "leaf_frames": [
+    0,
+    1472
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46; qa/check.json 0.8.46; render.log prints no version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/public/fonts/boska-700.woff2",
+     "sha256": "f77e750b53ece9138eb12b6d35e97d832d332cd109600fd91452d9f9988f35c5",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/public/fonts/supreme-400.woff2",
+     "sha256": "ca2227b5145226ca24bb601053e609e96ddaedb59ebc14fa920065bf934a5dd5",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/public/fonts/supreme-500.woff2",
+     "sha256": "ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2",
+     "resolution": "vector font",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/public/vendor/gsap.min.js",
+     "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+     "resolution": "n/a (runtime lib)",
+     "fps": null,
+     "frame_count": null
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/public/audio/narration.wav",
+     "sha256": "03980a026a0ba9f6b7dc55d5690cf3a3b20e1d1f1ab2aa023f4c14f6b894a397",
+     "resolution": "audio only (not used for R79 picture)",
+     "fps": null,
+     "frame_count": null
+    }
+   ],
+   "native_media": null,
+   "processing_recipe": "HyperFrames 0.8.46 render of index.html, 24fps standard, 1 worker (render.log compositionHash 4303261bb1ff5f0f, totalFrames 1472, staticDuration 61.333, videoCount 0, imageCount 0) -> qa/s21.mp4 frames [0,1472) -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/qa/check.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r66-s21-hard-part/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r66-s21-hard-part/SOURCE-PINS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r66-s21-accepted/ACCEPTANCE-EVENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r66-owner-s21-lock-v1",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R66-S21-DIRECTION-AUDIT/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R66-S21-VISUAL-AUDIT/report.md",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "qa/s21.mp4 sha256 8c640655... matches SEGMENTS.json and r66-owner-s21-lock-v1. index.html sha 89cf3eeb... equals the owner-lock evidence pin; mtime 14:20:23 < mp4 14:20:46; public/ files 14:12, no post-render edits. Pure vector/text + GSAP, no raster media -> 4K safe. No COMMANDS record of the exact render CLI invocation; version inferred from package.json/check.json."
+  },
+  {
+   "r79_out_frames": [
+    25060,
+    25115
+   ],
+   "scene": "S22",
+   "part": "establishing / table return",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+   "composition": "index.html#ep007-r69-s22 <video id=\"table-return\"> (wrapper project; picture comes entirely from this media)",
+   "leaf_frames": [
+    108,
+    163
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46; qa/VERIFICATION.json runtime 0.8.46; check.json 0.8.46; render.log prints no version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/establishing.mp4",
+     "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c",
+     "resolution": [
+      1916,
+      1080
+     ],
+     "fps": 24,
+     "frame_count": 361
+    }
+   ],
+   "native_media": {
+    "resolution": [
+     1916,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 361,
+    "duration_s": 15.041667,
+    "codec": "h264 Main yuv420p, colour tags unknown",
+    "provider": "fal.ai fal-ai/kling-video/v3/pro/image-to-video, requestId 01a07b9e-19c4-7b43-a9dd-663ae1dc2ddd, 15s, resolution provider-default",
+    "origin": "byte-identical to blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-01.mp4 (= r6 public/media/shot-01.mp4; provider proof shot-01.mp4.response.json); copied via r67-s22-plan/public/media by build.py"
+   },
+   "processing_recipe": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/establishing.mp4 frames [108, 163] (data-start=0s data-duration=2.2916666666666665s data-media-start=4.5s, 1:1 retime, native 24fps) -> HyperFrames 0.8.46 <video class='clip film'> absolute inset:0 1280x720, CSS object-fit:cover (no object-position => centered): scale 1280/1916=0.66806 -> 1280x721.5, ~0.75px cropped top and bottom; no filter/opacity/transform/GSAP tween; black .back div underneath; SDR (no HDR sources), source colour tags unknown -> bt709 output; frames extracted by HyperFrames video_extract, drawelement capture, x264 'standard' -> qa/s22.mp4 frames [0, 55] -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/SELECTION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/EDIT-DECISION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/build.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/VERIFICATION-EVENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r69-owner-s22-lock-v1",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "SUB-4K: 1916x1080 Kling native; 4K cover requires ~2.004x upscale (3840x2164.5, ~2.25px crop top/bottom). render.log WARN: sparse keyframes (max GOP 13.75s) - seek risk in re-render; QC mapping RMSE ~3.3 at lag 0 confirms frame-exact [108,163). Drift check: qa/s22.mp4 sha c3352c53... matches SEGMENTS.json + r69-owner-s22-lock-v1; index.html sha 29350c54... equals lock pin (mtime 15:31:48 < mp4 15:32:55); all public media/audio hashes equal lock pins and predate render (render.log compositionHash d57b7c0ac3ff7daa, totalFrames 524, videoCount 4). Caveat: current index.html contains data-hf-id/data-fps attributes that direction/.../build.py does not emit, so re-running build.py would NOT reproduce the locked index.html - use the pinned index.html, not build.py. hyperframes.json media.autoProxy=true: 4K re-render must ensure originals (not proxies) are used. No colour grade/LUT/filter anywhere in chain."
+  },
+  {
+   "r79_out_frames": [
+    25115,
+    25223
+   ],
+   "scene": "S22",
+   "part": "buyer question",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+   "composition": "index.html#ep007-r69-s22 <video id=\"buyer-question\"> (wrapper project; picture comes entirely from this media)",
+   "leaf_frames": [
+    0,
+    108
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46; qa/VERIFICATION.json runtime 0.8.46; check.json 0.8.46; render.log prints no version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/question.mp4",
+     "sha256": "7326ee4b326ff4397ea5b7158174004c0c66a62a3c90f6e0edd1e2e44a893f7f",
+     "resolution": [
+      1916,
+      1080
+     ],
+     "fps": 24,
+     "frame_count": 193
+    }
+   ],
+   "native_media": {
+    "resolution": [
+     1916,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 193,
+    "duration_s": 8.041667,
+    "codec": "h264 Main yuv420p, colour tags unknown",
+    "provider": "fal.ai fal-ai/kling-video/v3/pro/image-to-video, 8s (r8 SHOT-B-PROMPT.md / shot-b.mp4.response.json)",
+    "origin": "byte-identical to blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/renders/candidates/shot-b.mp4 (= r8 public/media/shot-b.mp4); copied via r67-s22-plan/public/media"
+   },
+   "processing_recipe": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/question.mp4 frames [0, 108] (data-start=2.2916666666666665s data-duration=4.5s data-media-start=0s, 1:1 retime, native 24fps) -> HyperFrames 0.8.46 <video class='clip film'> absolute inset:0 1280x720, CSS object-fit:cover (no object-position => centered): scale 1280/1916=0.66806 -> 1280x721.5, ~0.75px cropped top and bottom; no filter/opacity/transform/GSAP tween; black .back div underneath; SDR (no HDR sources), source colour tags unknown -> bt709 output; frames extracted by HyperFrames video_extract, drawelement capture, x264 'standard' -> qa/s22.mp4 frames [55, 163] -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/SELECTION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/EDIT-DECISION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/build.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/VERIFICATION-EVENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r69-owner-s22-lock-v1",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "SUB-4K: 1916x1080 native. QC mapping lag 0 confirmed. Drift check: qa/s22.mp4 sha c3352c53... matches SEGMENTS.json + r69-owner-s22-lock-v1; index.html sha 29350c54... equals lock pin (mtime 15:31:48 < mp4 15:32:55); all public media/audio hashes equal lock pins and predate render (render.log compositionHash d57b7c0ac3ff7daa, totalFrames 524, videoCount 4). Caveat: current index.html contains data-hf-id/data-fps attributes that direction/.../build.py does not emit, so re-running build.py would NOT reproduce the locked index.html - use the pinned index.html, not build.py. hyperframes.json media.autoProxy=true: 4K re-render must ensure originals (not proxies) are used. No colour grade/LUT/filter anywhere in chain."
+  },
+  {
+   "r79_out_frames": [
+    25223,
+    25320
+   ],
+   "scene": "S22",
+   "part": "owner written-record insert (take A)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+   "composition": "index.html#ep007-r69-s22 <video id=\"owner-record\"> (wrapper project; picture comes entirely from this media)",
+   "leaf_frames": [
+    96,
+    193
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46; qa/VERIFICATION.json runtime 0.8.46; check.json 0.8.46; render.log prints no version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/take-a.mp4",
+     "sha256": "783efccd8a671383b49e2e1a88f9e7fb878935e6f2b4790bfa90314125fbf128",
+     "resolution": [
+      1916,
+      1080
+     ],
+     "fps": 24,
+     "frame_count": 193
+    }
+   ],
+   "native_media": {
+    "resolution": [
+     1916,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 193,
+    "duration_s": 8.041667,
+    "codec": "h264 yuv420p, colour tags unknown",
+    "provider": "fal.ai fal-ai/kling-video/v3/pro/image-to-video, request 01a0b0cc-480c-79e0-87a4-2ebb11ba3c4f",
+    "origin": "public/media/take-a.mp4 is a byte copy of blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-a/native.mp4 (same sha, both present)"
+   },
+   "processing_recipe": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/take-a.mp4 frames [96, 193] (data-start=6.791666666666667s data-duration=4.041666666666667s data-media-start=4.0s, 1:1 retime, native 24fps) -> HyperFrames 0.8.46 <video class='clip film'> absolute inset:0 1280x720, CSS object-fit:cover (no object-position => centered): scale 1280/1916=0.66806 -> 1280x721.5, ~0.75px cropped top and bottom; no filter/opacity/transform/GSAP tween; black .back div underneath; SDR (no HDR sources), source colour tags unknown -> bt709 output; frames extracted by HyperFrames video_extract, drawelement capture, x264 'standard' -> qa/s22.mp4 frames [163, 260] -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/SELECTION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/EDIT-DECISION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/build.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/VERIFICATION-EVENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r69-owner-s22-lock-v1",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "SUB-4K. Owner lock scope: A frames 96-192 inclusive only; opening frames 0-95 rejected (malformed extra folio). QC mapping lag 0. Drift check: qa/s22.mp4 sha c3352c53... matches SEGMENTS.json + r69-owner-s22-lock-v1; index.html sha 29350c54... equals lock pin (mtime 15:31:48 < mp4 15:32:55); all public media/audio hashes equal lock pins and predate render (render.log compositionHash d57b7c0ac3ff7daa, totalFrames 524, videoCount 4). Caveat: current index.html contains data-hf-id/data-fps attributes that direction/.../build.py does not emit, so re-running build.py would NOT reproduce the locked index.html - use the pinned index.html, not build.py. hyperframes.json media.autoProxy=true: 4K re-render must ensure originals (not proxies) are used. No colour grade/LUT/filter anywhere in chain."
+  },
+  {
+   "r79_out_frames": [
+    25320,
+    25584
+   ],
+   "scene": "S22",
+   "part": "buyer response (take B)",
+   "leaf_type": "media",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film",
+   "composition": "index.html#ep007-r69-s22 <video id=\"buyer-response\"> (wrapper project; picture comes entirely from this media)",
+   "leaf_frames": [
+    1,
+    265
+   ],
+   "hyperframes_version_pinned": "0.8.46 (package.json scripts hyperframes@0.8.46; qa/VERIFICATION.json runtime 0.8.46; check.json 0.8.46; render.log prints no version line)",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [
+    {
+     "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/take-b.mp4",
+     "sha256": "b7c5068677e25db2dbf74798398dfaad30aa77e4f3be6621e94750095df8d303",
+     "resolution": [
+      1916,
+      1080
+     ],
+     "fps": 24,
+     "frame_count": 265
+    }
+   ],
+   "native_media": {
+    "resolution": [
+     1916,
+     1080
+    ],
+    "fps": 24,
+    "frame_count": 265,
+    "duration_s": 11.041667,
+    "codec": "h264 yuv420p, colour tags unknown",
+    "provider": "fal.ai fal-ai/kling-video/v3/pro/image-to-video, request 01a0b0d6-b592-7b80-972a-883cdaaaf6fc, seeded from A last frame (SEED.json)",
+    "origin": "public/media/take-b.mp4 is a byte copy of blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-b/native.mp4"
+   },
+   "processing_recipe": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/public/media/take-b.mp4 frames [1, 265] (data-start=10.833333333333334s data-duration=11.0s data-media-start=0.041666666666666664s, 1:1 retime, native 24fps) -> HyperFrames 0.8.46 <video class='clip film'> absolute inset:0 1280x720, CSS object-fit:cover (no object-position => centered): scale 1280/1916=0.66806 -> 1280x721.5, ~0.75px cropped top and bottom; no filter/opacity/transform/GSAP tween; black .back div underneath; SDR (no HDR sources), source colour tags unknown -> bt709 output; frames extracted by HyperFrames video_extract, drawelement capture, x264 'standard' -> qa/s22.mp4 frames [260, 524] -> R79 assembly: blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/_tools/build_r79.py -> ffmpeg filter [i:v:0]trim=start_frame=A:end_frame=B,setpts=N/(24*TB),setsar=1,format=yuv420p -> concat -> libx264 crf16 high@4.0 yuv420p 24fps cfr, bt709 tags, tv range. No scale/crop/color filter at assembly; one extra lossy x264 generation.",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/index.html",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/qa/VERIFICATION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/hyperframes.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/SELECTION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/EDIT-DECISION.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/build.py",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-accepted/OWNER-ACCEPTANCE.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/VERIFICATION-EVENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl#r69-owner-s22-lock-v1",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json"
+   ],
+   "confidence": "high",
+   "notes": "SUB-4K. Frame 0 duplicates the A-last-frame seed and is excluded; uses 1-264 inclusive (all 264 remaining frames). QC mapping lag 0. Drift check: qa/s22.mp4 sha c3352c53... matches SEGMENTS.json + r69-owner-s22-lock-v1; index.html sha 29350c54... equals lock pin (mtime 15:31:48 < mp4 15:32:55); all public media/audio hashes equal lock pins and predate render (render.log compositionHash d57b7c0ac3ff7daa, totalFrames 524, videoCount 4). Caveat: current index.html contains data-hf-id/data-fps attributes that direction/.../build.py does not emit, so re-running build.py would NOT reproduce the locked index.html - use the pinned index.html, not build.py. hyperframes.json media.autoProxy=true: 4K re-render must ensure originals (not proxies) are used. No colour grade/LUT/filter anywhere in chain."
+  },
+  {
+   "r79_out_frames": [
+    25584,
+    25814
+   ],
+   "scene": "S23",
+   "part": "full scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff",
+   "composition": "index.html",
+   "composition_sha256": "04e59492d6da09c6ebc0e67446721b143379ff4515dfb4e425295135d37a15b2",
+   "leaf_frames": [
+    0,
+    230
+   ],
+   "hyperframes_version_pinned": "0.8.46",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [],
+   "native_media": null,
+   "qa_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff/qa/s23.mp4",
+    "sha256": "1997e7cafe1ffd05ce261b09be5950091727057093d631b9e6e8682a457178e5",
+    "render_log_compositionHash": "350b85c3e2a98093",
+    "totalFrames": 230
+   },
+   "processing_recipe": "hyperframes@0.8.46 render index.html frames [0,230) at 1280x720 (quality standard) -> qa/s23.mp4; R79 build_r79.py: trim=start_frame=0:end_frame=230,setpts=N/(24*TB),setsar=1,format=yuv420p, concat, libx264 re-encode. No scale/crop/color/overlay. 4K: npx --yes hyperframes@0.8.46 render <copy> --resolution landscape-4k (full composition = exactly the R79 range).",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r70-s23-accepted/",
+    "acceptance event r70-owner-s23-lock-v1 (blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl)"
+   ],
+   "confidence": "high",
+   "notes": "index.html sha256 matches owner-acceptance pin; no project file modified after qa render. Composition embeds no video/image (render.log videoCount 0, imageCount 0); vector/text + GSAP + local woff2 fonts + narration.wav only, so 4K via deviceScaleFactor 3 is native-sharp."
+  },
+  {
+   "r79_out_frames": [
+    25814,
+    26366
+   ],
+   "scene": "S24",
+   "part": "full scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict",
+   "composition": "index.html",
+   "composition_sha256": "a7727975f424cd0f4ef26eae363d4b55b16cedd1262ab3f869032c8ed9c94f05",
+   "leaf_frames": [
+    0,
+    552
+   ],
+   "hyperframes_version_pinned": "0.8.46",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [],
+   "native_media": null,
+   "qa_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/qa/s24.mp4",
+    "sha256": "c9945847aa4e4b281379e7331bb1fe097d3397530c08e97eea7c8551ae84a0a8",
+    "render_log_compositionHash": "3c147e4601b24f1e",
+    "totalFrames": 552
+   },
+   "processing_recipe": "hyperframes@0.8.46 render index.html frames [0,552) at 1280x720 (quality standard) -> qa/s24.mp4; R79 build_r79.py: trim=start_frame=0:end_frame=552,setpts=N/(24*TB),setsar=1,format=yuv420p, concat, libx264 re-encode. No scale/crop/color/overlay. 4K: npx --yes hyperframes@0.8.46 render <copy> --resolution landscape-4k (full composition = exactly the R79 range).",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r71-s24-accepted/",
+    "acceptance event r71-owner-s24-lock-v1 (blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl)"
+   ],
+   "confidence": "high",
+   "notes": "index.html sha256 matches owner-acceptance pin; no project file modified after qa render. Composition embeds no video/image (render.log videoCount 0, imageCount 0); vector/text + GSAP + local woff2 fonts + narration.wav only, so 4K via deviceScaleFactor 3 is native-sharp."
+  },
+  {
+   "r79_out_frames": [
+    26366,
+    27092
+   ],
+   "scene": "S25",
+   "part": "full scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action",
+   "composition": "index.html",
+   "composition_sha256": "999d7ed1762ef62692a4cf527a4bbed75176c807a1b867bf72bb77d8690390f8",
+   "leaf_frames": [
+    0,
+    726
+   ],
+   "hyperframes_version_pinned": "0.8.46",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [],
+   "native_media": null,
+   "qa_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/qa/s25.mp4",
+    "sha256": "c3a4a467b08743c99b98837b484c14e0895608fe2070ad25908d7a2159076233",
+    "render_log_compositionHash": "72c00e19dde6446f",
+    "totalFrames": 726
+   },
+   "processing_recipe": "hyperframes@0.8.46 render index.html frames [0,726) at 1280x720 (quality standard) -> qa/s25.mp4; R79 build_r79.py: trim=start_frame=0:end_frame=726,setpts=N/(24*TB),setsar=1,format=yuv420p, concat, libx264 re-encode. No scale/crop/color/overlay. 4K: npx --yes hyperframes@0.8.46 render <copy> --resolution landscape-4k (full composition = exactly the R79 range).",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r72-s25-accepted/",
+    "acceptance event r72-owner-s25-lock-v1 (blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl)"
+   ],
+   "confidence": "high",
+   "notes": "index.html sha256 matches owner-acceptance pin; no project file modified after qa render. Composition embeds no video/image (render.log videoCount 0, imageCount 0); vector/text + GSAP + local woff2 fonts + narration.wav only, so 4K via deviceScaleFactor 3 is native-sharp."
+  },
+  {
+   "r79_out_frames": [
+    27092,
+    27241
+   ],
+   "scene": "S26",
+   "part": "full scene",
+   "leaf_type": "hyperframes",
+   "project_dir": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r75-s26-boundary-close",
+   "composition": "index.html",
+   "composition_sha256": "c98e829fb12b421468367f91bcf02af3cef47e477a1bcc880de848afc2fba902",
+   "leaf_frames": [
+    0,
+    149
+   ],
+   "hyperframes_version_pinned": "0.8.46",
+   "composition_dimensions": [
+    1280,
+    720
+   ],
+   "embedded_media": [],
+   "native_media": null,
+   "qa_render": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r75-s26-boundary-close/qa/s26.mp4",
+    "sha256": "8fffcf3338e5b22f90a53387fbaa3474503fde8342fdcf53f68bf114ec09a170",
+    "render_log_compositionHash": "0aa5e47228160537",
+    "totalFrames": 149
+   },
+   "processing_recipe": "hyperframes@0.8.46 render index.html frames [0,149) at 1280x720 (quality standard) -> qa/s26.mp4; R79 build_r79.py: trim=start_frame=0:end_frame=149,setpts=N/(24*TB),setsar=1,format=yuv420p, concat, libx264 re-encode. No scale/crop/color/overlay. 4K: npx --yes hyperframes@0.8.46 render <copy> --resolution landscape-4k (full composition = exactly the R79 range).",
+   "evidence": [
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r75-s26-boundary-close/package.json",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r75-s26-boundary-close/qa/render.log",
+    "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r75-s26-accepted/",
+    "acceptance event r75-owner-s26-lock-v1 (blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl)"
+   ],
+   "confidence": "high",
+   "notes": "index.html sha256 matches owner-acceptance pin; no project file modified after qa render. Composition embeds no video/image (render.log videoCount 0, imageCount 0); vector/text + GSAP + local woff2 fonts + narration.wav only, so 4K via deviceScaleFactor 3 is native-sharp."
+  }
+ ]
+}

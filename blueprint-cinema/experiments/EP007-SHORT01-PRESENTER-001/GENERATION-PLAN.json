@@ -1,0 +1,43 @@
+{
+  "record_type": "ep007_short01_presenter_generation_plan_v1",
+  "at_utc": "2026-09-22T14:42:24Z",
+  "status": "estimated_and_ready_for_one_batch_submission",
+  "authority_event_id": "ep007-short01-through-video-generation-authorized-v15",
+  "input_manifest": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT01-PRESENTER-001/INPUT-MANIFEST.json",
+    "sha256": "4e23ba7df5d085628b5f8b8ea7c452a39760ea32072ba1c3e28636c6b436b894"
+  },
+  "direction": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT01-PRESENTER-001/DIRECTION.json",
+    "sha256": "70bab12796c8ec2c9b71d5ec42bc64b77529e52eff0c9210f8fee6848120bd71"
+  },
+  "provider": "higgsfield",
+  "model": "seedance_2_5",
+  "balance_before_credits": 446,
+  "payment_path": "credits",
+  "automatic_retries": 0,
+  "candidates_per_segment": 1,
+  "requests": [
+    {
+      "index": 0,
+      "segment": "a",
+      "duration_seconds": 22,
+      "estimated_credits": 264,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT01-PRESENTER-001/segment-a/PROMPT.txt",
+      "prompt_sha256": "27386b601cda8815b5c304ac53314d17c285be91694b82cfa616d19b17d01394",
+      "audio_media_id": "bffdfd44-0279-4ec8-9eac-ab76cffd5fee"
+    },
+    {
+      "index": 1,
+      "segment": "b",
+      "duration_seconds": 10,
+      "estimated_credits": 120,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT01-PRESENTER-001/segment-b/PROMPT.txt",
+      "prompt_sha256": "d0bb136ca071ba7024601ba80c4e37ce1d84dba9d306cd6f7d00cf894623840d",
+      "audio_media_id": "8285186a-4059-49af-8595-200c4e486b4d"
+    }
+  ],
+  "estimated_total_credits": 384,
+  "estimated_balance_after_credits": 62,
+  "submission_policy": "Submit both one-candidate requests once as a batch. Preserve returned job IDs. A partial result, timeout, or unknown submission outcome is not retry permission."
+}

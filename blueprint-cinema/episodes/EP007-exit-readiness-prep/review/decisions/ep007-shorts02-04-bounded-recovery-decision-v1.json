@@ -1,0 +1,37 @@
+{
+  "event_id": "ep007-shorts02-04-bounded-recovery-decision-v1",
+  "decision_id": "ep007-shorts02-04-private-production-recovery",
+  "event_type": "decision",
+  "tags": ["shorts", "narration", "avatar", "provider-recovery", "private-review"],
+  "data": {
+    "context": {
+      "narrative_job": "Complete the owner-locked EP007 net-new Shorts 02 through 04 for private phone review.",
+      "viewer_before": "Short 02 has a non-exact opening guide; Shorts 03 and 04 each lack one matching presenter shot.",
+      "viewer_after": "Each short has a complete exact sound-on review cut only if the bounded recovery calls and subsequent assembly checks succeed."
+    },
+    "choice": "Execute exactly one owner-approved replacement Google guide for Short 02 and exactly one owner-approved Higgsfield attempt each for the missing Short 03 return and Short 04 opening, then continue the existing private-review pipeline with no automatic further retries.",
+    "reason": "The failed guide changes locked words, and the two rejected avatar submissions returned no job IDs. The owner explicitly approved both narrow recovery actions after those failures were reported.",
+    "alternatives": [
+      {"choice": "Use the incorrect guide or unrelated speaking footage", "reason_not_selected": "It would violate exact locked copy or visible speech alignment."},
+      {"choice": "Use a missing-shot placeholder in a purported finished short", "reason_not_selected": "It would not deliver the approved avatar-to-screens-to-avatar private-review cut."}
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Only the three named EP007 recovery submissions and their exact locked inputs.",
+      "avoid_when": "A new paid attempt, script change, different model route, or release is needed."
+    },
+    "nuance": {
+      "source_basis": "current_owner_message_approved_against_two_explicit_recovery_requests",
+      "scope": "private_review_generation_and_local_postproduction_only",
+      "automatic_paid_retries": 0,
+      "publication": "not_authorized"
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-owner-approve-two-bounded-recovery-calls-20260923.json",
+      "sha256": "8aa69611a23acdfa7c76b5a5fbb0f89c688ab29dcc40fc19d1a9d7bbb3c7a64e",
+      "locator": "exact owner reply and bounded scope"
+    }
+  ]
+}

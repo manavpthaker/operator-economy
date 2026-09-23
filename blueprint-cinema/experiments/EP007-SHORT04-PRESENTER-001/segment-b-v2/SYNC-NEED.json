@@ -1,0 +1,20 @@
+{
+  "record_type": "ep007_fal_sync_v3_need_v1",
+  "short_id": "short-04-test-the-front-door",
+  "segment": "segment-b-return-v2",
+  "video_source_sha256": "f4a4bd273132b1b22b8f266cc320544ed04b4da242f95dafc7fdf635f90fad8e",
+  "status": "needed",
+  "reason": "The generated picture is still visibly articulating near source time 7.2 seconds, when the exact Original C slice has finished 'business' by relative 6.956 seconds. Local ASR places the native generated 'business' at 6.87-7.51 seconds, roughly half a second behind the final master; its own audio is not the final voice. The private proxy mux of this picture with the exact master therefore shows a closing-mouth timing mismatch that should be restored before the final sound-on Short.",
+  "reviewer": "Codex technical picture-plus-program-audio timing review, 2026-09-23 UTC",
+  "evidence": {
+    "native_asr_path": "segment-b-v2/qa/asr-native/transcript.json",
+    "native_asr_sha256": "d365f8281873d8c47960167c6ea60e3bcf1c5a6cf62cb7ea2c33454e82bc724a",
+    "sampled_frame_path": "segment-b-v2/qa/frame-7.2.png",
+    "program_audio_proxy_path": "segment-b-v2/qa/program-audio-proxy.mp4",
+    "native_final_word_asr_end_seconds": 7.51,
+    "original_c_final_word_end_relative_seconds": 6.956,
+    "approximate_native_lag_seconds": 0.55
+  },
+  "owner_acceptance": false,
+  "notes": "Local ASR and sampled-frame timing are technical evidence, not human audition. Human sound-on listening remains pending."
+}

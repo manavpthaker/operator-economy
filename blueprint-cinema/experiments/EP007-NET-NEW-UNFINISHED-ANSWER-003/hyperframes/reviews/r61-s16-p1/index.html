@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R61 S16 part 1 — What you sell first</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.row{font-family:Supreme,sans-serif;fill:#173530;font-size:23px;font-weight:400}
+.num{font-family:Supreme,sans-serif;fill:#586D74;font-size:21px;font-weight:500}
+.kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:20px;font-weight:500;letter-spacing:2px}
+.tag{font-family:Supreme,sans-serif;fill:#173530;font-size:22px;font-weight:500}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:22px;text-align:center;margin:0;font:700 58px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep007-r61-s16-p1" data-start="0" data-duration="36.5" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="An engagement card: one engagement, one business, fixed scope, fixed fee. Beside it, a scope boundary lists the work in seven rows, ending with two tags: what got fixed and what did not.">
+<!-- The engagement: what is sold. -->
+<g id="card"><rect x="60" y="130" width="360" height="540" rx="6" stroke="#173530" stroke-width="3" fill="#EDE5D6"/></g>
+<text id="c1" class="label hide" x="240" y="186" text-anchor="middle">One engagement</text>
+<g id="c2" class="hide"><image href="public/art/workshop.svg" x="120" y="220" width="240" height="180"/><text class="small" x="240" y="432" text-anchor="middle">One business</text></g>
+<g id="c3" class="hide"><rect x="100" y="476" width="280" height="64" rx="4" stroke="#173530" stroke-width="2.5" fill="#F5F0E6"/><text class="tag" x="240" y="516" text-anchor="middle">Fixed scope</text></g>
+<g id="c4" class="hide"><rect x="100" y="566" width="280" height="64" rx="4" stroke="#173530" stroke-width="2.5" fill="#F5F0E6"/><text class="tag" x="240" y="606" text-anchor="middle">Fixed fee</text></g>
+<!-- The scope: the work, one row per sentence. -->
+<rect id="scope" class="hide" x="460" y="130" width="780" height="540" rx="6" stroke="#586D74" stroke-width="2.5" fill="none" stroke-dasharray="12 9"/>
+<text id="scope-k" class="kicker hide" x="484" y="166">THE SCOPE</text>
+<g id="r1" class="hide"><text class="num" x="484" y="214">1</text><text class="row" x="516" y="214">A baseline reading against a published checklist</text></g>
+<g id="r2" class="hide"><text class="num" x="484" y="274">2</text><text class="row" x="516" y="274">Interview</text></g>
+<g id="r3" class="hide"><text class="num" x="484" y="334">3</text><text class="row" x="516" y="334">Write down how the work happens</text></g>
+<g id="r4" class="hide"><text class="num" x="484" y="394">4</text><text class="row" x="516" y="394">Clean up the records so a stranger can verify them</text></g>
+<g id="r5" class="hide"><text class="num" x="484" y="454">5</text><text class="row" x="516" y="454">Who the customers actually belong to</text></g>
+<g id="r6" class="hide"><text class="num" x="484" y="514">6</text><text class="row" x="516" y="514">What only the owner can do</text></g>
+<text id="r6b" class="row hide" x="816" y="514">→ move it or document it</text>
+<g id="r7" class="hide"><text class="num" x="484" y="574">7</text><text class="row" x="516" y="574">Assemble the package</text></g>
+<text id="r7b" class="row hide" x="770" y="574">→ walk her through it</text>
+<g id="t1" class="hide"><rect x="516" y="600" width="210" height="46" rx="4" stroke="#173530" stroke-width="2.5" fill="#EDE5D6"/><text class="tag" x="621" y="631" text-anchor="middle">What got fixed</text></g>
+<g id="t2" class="hide"><rect x="742" y="600" width="210" height="46" rx="4" stroke="#586D74" stroke-width="2.5" fill="none" stroke-dasharray="8 6"/><text class="tag" x="847" y="631" text-anchor="middle">What did not</text></g>
+</svg>
+<h1 id="head" class="head">What you sell first</h1>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="36.5" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 691.0 + cue. Word anchors from word-transcript.json.
+const C={"what":0.44,"engagement":4.10,"business":5.25,"scope":6.52,"fee":7.56,"baseline":8.86,"interview":12.08,"write":13.20,"clean":16.76,"customers":21.04,"only":24.96,"move":27.98,"assemble":30.25,"walk":32.92,"fixed":34.10,"didnot":35.24};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+const row=(sel,at)=>t.fromTo(sel,{autoAlpha:0,x:-14},{autoAlpha:1,x:0,duration:.4,ease:'power2.out'},at);
+// "What do you sell first." The empty card is already on screen.
+fade('#head',C.what);
+// "One engagement. One business. Fixed scope, fixed fee."
+fade('#c1',C.engagement,.35);
+fade('#c2',C.business,.4);
+row('#c3',C.scope);
+row('#c4',C.fee);
+// The work, each row on its sentence.
+fade('#scope',C.baseline-.4,.4); fade('#scope-k',C.baseline-.3,.4);
+[['#r1','baseline'],['#r2','interview'],['#r3','write'],['#r4','clean'],['#r5','customers'],['#r6','only'],['#r7','assemble']].forEach(([s,k])=>row(s,C[k]));
+fade('#r6b',C.move,.35);
+fade('#r7b',C.walk,.35);
+// "what got fixed and what did not": both are reported, not only the wins.
+t.fromTo('#t1',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:.35,ease:'power2.out'},C.fixed);
+t.fromTo('#t2',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:.35,ease:'power2.out'},C.didnot);
+window.__timelines['ep007-r61-s16-p1']=t;
+</script></body></html>
