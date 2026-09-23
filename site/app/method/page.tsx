@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { NewsletterBand } from '../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../components/SiteChrome';
+import { AI_DISCLOSURE, POSITIONING } from '../lib/brand';
 
 export const metadata: Metadata = {
   title: 'Method · The Operator Economy',
@@ -42,7 +43,7 @@ export default function MethodPage() {
         <section className="oe-trust oe-trust--mineral bl-shell" id="why" aria-labelledby="why-title">
           <p className="bl-chapter__number">Why this exists</p>
           <h2 id="why-title">AI made more businesses possible. It did not make them worth building.</h2>
-          <p>One person can now deliver work that once required a team. That changes the minimum viable size of a business, but it does not prove demand, defensibility, capacity, or economics. The Operator Canvas exists to test those questions before the story makes the opportunity feel inevitable.</p>
+          <p>{POSITIONING} One person can now deliver work that once required a team. That changes the minimum viable size of a business, but it does not prove demand, capacity or economics. The Operator Canvas exists to test those questions before the story makes the opportunity feel inevitable.</p>
         </section>
 
         <section className="oe-value bl-shell" id="decisions" aria-labelledby="decisions-title">
@@ -93,6 +94,7 @@ export default function MethodPage() {
             <li><span><strong>Lock the model.</strong> Material claims, assumptions, and disclosures are fixed before narration and production begin.</span></li>
             <li><span><strong>Publish the investigation.</strong> The episode tells the story. The Canvas lets the reader inspect and use the model.</span></li>
           </ol></div>
+          <aside className="bl-disclosure" style={{ marginTop: 'var(--bl-space-6)' }}><strong>AI disclosure</strong><span>{AI_DISCLOSURE}</span></aside>
         </section>
 
         <section className="oe-trust oe-trust--mineral bl-shell" id="standard" aria-labelledby="standard-title">
@@ -106,8 +108,8 @@ export default function MethodPage() {
             <p className="bl-chapter__number">How revisions work</p>
             <div><h2 id="versioning-title">The current model never erases the prior one.</h2><p>A material Canvas change creates a new dated revision. Its source, public data, and PDF each receive their own full hash. Earlier revisions remain available and clearly labeled.</p></div>
           </header>
-          <div className="bl-ledger-row"><span className="bl-ledger-row__name">Current library</span><p>The published businesses currently use the earlier Blueprint format. No V2 Canvas is represented as live.</p><span className="oe-class">Legacy</span></div>
-          <p style={{ marginTop: 'var(--bl-space-5)' }}><Link className="bl-text-link" href="/businesses">Browse businesses</Link></p>
+          <div className="bl-ledger-row"><span className="bl-ledger-row__name">Current library</span><p>One Operator Canvas: the Sale-Readiness Practice, locked before its episode was narrated.</p><span className="oe-class">Canvas</span></div>
+          <p style={{ marginTop: 'var(--bl-space-5)' }}><Link className="bl-text-link" href="/businesses/exit-readiness-prep">Open the current Canvas</Link></p>
         </section>
 
         <NewsletterBand />

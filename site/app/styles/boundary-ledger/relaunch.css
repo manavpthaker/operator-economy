@@ -1,0 +1,148 @@
+/* Relaunch 2026-10 additions. Boundary Ledger tokens only; no new colors. */
+
+/* Wordmark: small spaced "THE" + Boska "Operator Economy" (channel/brand-2026-09). */
+:where([data-oe-theme="boundary-ledger"]) .oe-wordmark {
+  gap: 0.6em;
+  align-items: baseline;
+  font-family: var(--bl-font-display);
+  letter-spacing: -0.01em;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-wordmark__the {
+  font-family: var(--bl-font-body);
+  font-weight: 500;
+  font-size: 0.42em;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bl-ink-soft);
+  transform: translateY(-0.18em);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-wordmark__name { white-space: nowrap; }
+
+/* Premiere state: an honest non-link where a watch action will appear. */
+:where([data-oe-theme="boundary-ledger"]) .oe-premiere {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bl-space-3);
+  padding: 0 var(--bl-space-4);
+  border: var(--bl-hairline) solid var(--bl-rule-strong);
+  border-radius: var(--bl-radius);
+  background: var(--bl-paper-raised);
+  color: var(--bl-ink);
+  font-family: var(--bl-font-data);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-premiere__dot {
+  inline-size: 0.55rem;
+  block-size: 0.55rem;
+  border-radius: 50%;
+  background: var(--bl-oxide);
+}
+
+/* Episode art: the 16:9 thumbnail shown whole, beside the docket. */
+:where([data-oe-theme="boundary-ledger"]) .oe-episode-art {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: var(--bl-mineral-deep);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-episode-art img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+  aspect-ratio: 16 / 9;
+  align-self: center;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-episode-art figcaption {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--bl-space-5);
+  padding: var(--bl-space-3) var(--bl-space-4);
+  border-top: var(--bl-hairline) solid var(--bl-rule);
+  background: var(--bl-paper-raised);
+  color: var(--bl-ink-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-episode-art figcaption span:last-child {
+  font-family: var(--bl-font-data);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-thumb-link { display: block; }
+:where([data-oe-theme="boundary-ledger"]) .oe-thumb-link:focus-visible { outline: 3px solid var(--bl-oxide-bright); outline-offset: -3px; }
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet--episode { align-items: center; }
+:where([data-oe-theme="boundary-ledger"]) .oe-operation-sheet--episode > .bl-docket { align-self: stretch; }
+
+/* Positioning band. */
+:where([data-oe-theme="boundary-ledger"]) .oe-disclosure-line {
+  font-size: 0.9rem;
+  opacity: 0.86;
+}
+
+/* Scope: included vs never included. */
+:where([data-oe-theme="boundary-ledger"]) .oe-scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--bl-space-7);
+  border-top: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-scope > div { padding: var(--bl-space-5) var(--bl-space-5) var(--bl-space-5) 0; }
+:where([data-oe-theme="boundary-ledger"]) .oe-scope > .oe-scope__out {
+  padding-left: var(--bl-space-5);
+  border-left: var(--bl-hairline) solid var(--bl-rule-strong);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-scope h3 {
+  margin: 0 0 var(--bl-space-3);
+  font-family: var(--bl-font-data);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bl-ink-muted);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-scope__out h3 { color: var(--bl-oxide-dark); }
+:where([data-oe-theme="boundary-ledger"]) .oe-scope ul { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--bl-space-2); }
+
+:where([data-oe-theme="boundary-ledger"]) .oe-media__watch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--bl-radius);
+  background: var(--bl-mineral);
+}
+
+:where([data-oe-theme="boundary-ledger"]) .oe-blueprint-form { margin-top: var(--bl-space-6); }
+
+/* Footer copy. */
+:where([data-oe-theme="boundary-ledger"]) .oe-footer-line { margin: var(--bl-space-2) 0 0; color: var(--bl-ink-soft); }
+:where([data-oe-theme="boundary-ledger"]) .oe-footer-disclosure { margin: var(--bl-space-2) 0 var(--bl-space-3); max-width: 60ch; }
+
+@media (max-width: 680px) {
+  :where([data-oe-theme="boundary-ledger"]) .oe-scope { grid-template-columns: 1fr; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-scope > div { padding-right: 0; }
+  :where([data-oe-theme="boundary-ledger"]) .oe-scope > .oe-scope__out { padding-left: 0; border-left: 0; border-top: var(--bl-hairline) solid var(--bl-rule-strong); }
+  :where([data-oe-theme="boundary-ledger"]) .oe-episode-art figcaption { grid-template-columns: 1fr; gap: var(--bl-space-1); }
+  :where([data-oe-theme="boundary-ledger"]) .oe-wordmark { font-size: 1.3rem; }
+}
+
+/* The positioning line is a sentence, not a headline: set it smaller than the trust-band default. */
+:where([data-oe-theme="boundary-ledger"]) .oe-positioning h2 {
+  max-width: 30ch;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.12;
+}
+
+/* Episode facts beside the video: two columns, not the three-column ledger. */
+:where([data-oe-theme="boundary-ledger"]) .oe-media .bl-ledger-row {
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--bl-space-5);
+}
+
+/* The episode title is longer than the old hero line; keep it to a few lines on phones. */
+@media (max-width: 680px) {
+  :where([data-oe-theme="boundary-ledger"]).oe-home .oe-hero h1 { font-size: 2.6rem; line-height: 1; }
+}

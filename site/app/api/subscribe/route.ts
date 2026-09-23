@@ -102,7 +102,7 @@ async function sendWelcome({
       {
         tag: tag as `blueprint:${string}`,
         episode: { number: ep.number, title: ep.title, slug: ep.slug },
-        pdfAvailable: ep.status === 'live',
+        pdfAvailable: ep.status === 'live' || ep.pdf_ready === true,
         siteUrl: baseUrlFromResend(),
       },
       unsubscribeUrl

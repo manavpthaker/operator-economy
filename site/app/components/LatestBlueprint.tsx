@@ -27,6 +27,8 @@ export type Episode = {
   read_minutes?: number;
   youtube_url?: string;
   pdf_href?: string;
+  /** Operator Canvas PDF is in public/blueprints/<slug>.pdf (legacy path) and may be emailed before the episode is live. */
+  pdf_ready?: boolean;
   episode_href?: string;
   sources?: EpisodeSource[];
 };
@@ -123,9 +125,9 @@ export function LatestBlueprint() {
 
   if (!latest) {
     return (
-      <aside className={`${s.panel} schematic-grid`} aria-label="No blueprint published yet">
+      <aside className={`${s.panel} schematic-grid`} aria-label="No Operator Canvas published yet">
         <div className={s.header}>
-          <span className={s.headerLabel}>The latest blueprint</span>
+          <span className={s.headerLabel}>The latest Operator Canvas</span>
           <span className={s.headerCadence}>ships every Monday</span>
         </div>
         <div className={s.stackWrap}>
@@ -144,7 +146,7 @@ export function LatestBlueprint() {
   return (
     <aside className={`${s.panel} schematic-grid`}>
       <div className={s.header}>
-        <span className={s.headerLabel}>The latest blueprint</span>
+        <span className={s.headerLabel}>The latest Operator Canvas</span>
         <span className={s.headerCadence}>
           <i className={`${s.pulseDot} oe-pulse`} />
           ships every Monday · next {nextShip}
@@ -153,7 +155,7 @@ export function LatestBlueprint() {
 
       <figure
         className={s.stackWrap}
-        aria-label={`Operator Blueprint No. ${num}: ${latest.title}. ${
+        aria-label={`Operator Canvas No. ${num}: ${latest.title}. ${
           latest.sources_verified ? `${latest.sources_verified} sources verified. ` : ''
         }${latest.honest_math ? `Honest math: ${latest.honest_math}.` : ''}`}
       >
@@ -172,7 +174,7 @@ export function LatestBlueprint() {
 
         <article className={s.doc} style={{ position: 'relative', zIndex: 1 }}>
           <div className={s.docHead}>
-            <span className={s.docNumber}>Operator Blueprint №{num}</span>
+            <span className={s.docNumber}>Operator Canvas №{num}</span>
             <span className={s.docRev}>
               {latest.rev ? `Rev ${latest.rev}` : ''}
               <b>· LIVE</b>
@@ -218,7 +220,7 @@ export function LatestBlueprint() {
             <Link
               href={`/episodes/${latest.slug}`}
               className={s.getBtn}
-              aria-label={`Get Operator Blueprint No. ${num}: ${latest.title}`}
+              aria-label={`Get Operator Canvas No. ${num}: ${latest.title}`}
             >
               Get №{num} →
             </Link>

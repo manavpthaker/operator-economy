@@ -145,7 +145,7 @@ export function LibraryClient({ episodes, channelUrl, queueDepth }: Props) {
                         href={`/episodes/${ep.slug}`}
                         className={s.cardLinkSecondary}
                       >
-                        Blueprint №{num}
+                        Operator Canvas №{num}
                       </Link>
                     </div>
                   </>

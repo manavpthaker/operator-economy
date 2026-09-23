@@ -16,20 +16,20 @@ export default function PrivacyPage() {
           <div className="bl-episode-feature__intro">
             <h1 id="privacy-title">Privacy, stated plainly.</h1>
             <p>The Operator Economy is an independent publication. This notice explains what the site collects, why it is used, and how to ask for deletion.</p>
-            <p className="oe-page-note">Effective September 3, 2026 · Privacy contact: <a href="mailto:hello@theoperatoreconomy.com">hello@theoperatoreconomy.com</a></p>
+            <p className="oe-page-note">Effective September 3, 2026 · Updated September 23, 2026 · Privacy contact: <a href="mailto:hello@theoperatoreconomy.com">hello@theoperatoreconomy.com</a></p>
           </div>
         </section>
 
         <section className="oe-section oe-band-inset bl-shell" aria-labelledby="notice-title">
           <div className="oe-privacy-copy">
             <h2 id="notice-title">What the site collects</h2>
-            <p>If you subscribe, the site collects the email address you submit and records that you requested the newsletter. The hosting and delivery providers may also process basic request, device, and delivery information needed to operate and secure the service.</p>
+            <p>If you subscribe or request an Operator Canvas PDF, the site collects the email address you submit and records which one you requested. The hosting and delivery providers may also process basic request, device, and delivery information needed to operate and secure the service.</p>
 
             <h2>How it is used</h2>
-            <p>Your email is used to send The Operator Economy newsletter, confirm or service that request, prevent abuse, and maintain unsubscribe or suppression records. It is not sold.</p>
+            <p>Your email is used to send The Operator Economy newsletter or the Operator Canvas PDF you asked for, confirm or service that request, prevent abuse, and maintain unsubscribe or suppression records. It is not sold.</p>
 
-            <h2>Downloads and consent</h2>
-            <p>Public Blueprint downloads do not require an email address and do not subscribe you. Newsletter signup is a separate action. Every marketing email includes an unsubscribe path.</p>
+            <h2>Canvas PDFs and consent</h2>
+            <p>The Operator Canvas on each business page is public and needs no email address. Its PDF edition is sent by email: requesting it does not subscribe you to the newsletter. Newsletter signup is a separate action. Every email includes an unsubscribe path.</p>
 
             <h2>Service providers</h2>
             <p>The site uses Vercel for hosting, Supabase for subscription records, and Resend for email delivery. Those providers process data under their own terms and may process it in the United States or other locations where they operate.</p>

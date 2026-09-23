@@ -32,4 +32,4 @@ The verdict is build, carefully enough to find out. Two findings would end it: o
 
 Watch the episode: {{EPISODE_URL}}
 
-The blueprint, free: the readiness checklist, the 30-day dependency map, the scope boundary, a stopwatch log for measuring your own hours, and the full model with every assumption editable. {{BLUEPRINT_URL}}
+The Operator Canvas, free: the scope boundary, the acceptance measure, the full model with every assumption shown, the risk register and the 30-day test plan. {{BLUEPRINT_URL}}

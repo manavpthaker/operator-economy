@@ -79,8 +79,8 @@ export function NewsletterBand() {
     <section className="bl-shell" id="newsletter" aria-labelledby="newsletter-title" style={{ paddingBottom: 'var(--bl-section-space)' }}>
       <aside className="bl-subscription-band">
         <div>
-          <h3 id="newsletter-title">Get the next business when it ships.</h3>
-          <p>One email with the episode and its working document. No drip campaign.</p>
+          <h3 id="newsletter-title">Get Monday&apos;s episode by email.</h3>
+          <p>One email when a new episode ships, with its Operator Canvas. No drip campaign.</p>
         </div>
         <NewsletterForm />
       </aside>

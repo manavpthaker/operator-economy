@@ -29,7 +29,7 @@ Fixing that takes years of lead time, and nobody in the room is paid to do it th
 ```
 The episode builds that missing job as a one-person, fixed-fee sale-readiness practice, including what it must not do and a modeled look at whether it pays: {{EPISODE_URL}}
 
-Free blueprint with the readiness checklist and the full model: {{BLUEPRINT_URL}}
+Free Operator Canvas with the scope boundary and the full model: {{BLUEPRINT_URL}}
 ```
 
 ---
@@ -49,7 +49,7 @@ A house sale has the same split: an agent is paid when it completes, and a surve
 ```
 The episode walks through the full scope boundary (no valuation, no buyer search, no negotiation, no transaction advice) and names no state on purpose: {{EPISODE_URL}}
 
-The blueprint has the scope sheet and the acceptance record: {{BLUEPRINT_URL}}
+The Operator Canvas has the scope boundary and the acceptance measure: {{BLUEPRINT_URL}}
 ```
 
 ---
@@ -71,5 +71,5 @@ That makes the first useful step unusually cheap: run the diagnostic once, for a
 ```
 The episode shows the full arithmetic and the two findings that would end this business (owners who agree and still defer, brokers who already do it free): {{EPISODE_URL}}
 
-The blueprint includes the model with editable inputs and a stopwatch log for your own hours: {{BLUEPRINT_URL}}
+The Operator Canvas has the full model with every assumption shown, and a 30-day test that includes recording your own hours: {{BLUEPRINT_URL}}
 ```

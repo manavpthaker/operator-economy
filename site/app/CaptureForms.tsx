@@ -58,7 +58,7 @@ export function BlueprintForm({
   return (
     <form className={s.captureCard} onSubmit={onSubmit} noValidate>
       <div className={s.captureHead}>
-        <span className={s.cardEpisode}>Operator Blueprint №{number}</span>
+        <span className={s.cardEpisode}>Operator Canvas №{number}</span>
         <span className={s.tag}>Rev {rev}</span>
       </div>
       <div className={s.captureName}>{title}</div>
@@ -105,7 +105,7 @@ export function BlueprintForm({
         className={s.submit}
         disabled={status.state === 'submitting'}
       >
-        {status.state === 'submitting' ? '…' : `Get Blueprint №${number}`}
+        {status.state === 'submitting' ? '…' : `Get Canvas №${number}`}
       </button>
       {status.state === 'success' && (
         <div
@@ -175,7 +175,7 @@ export function LedgerForm() {
         className={s.ledgerSubmit}
         disabled={status.state === 'submitting'}
       >
-        {status.state === 'submitting' ? '…' : 'Get the Blueprints'}
+        {status.state === 'submitting' ? '…' : 'Get each new Canvas'}
       </button>
       {status.state === 'success' && (
         <div

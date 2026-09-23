@@ -784,3 +784,36 @@
     grid-row: 3;
   }
 }
+
+/* Homepage: positioning leads; the newest episode is a record-style call to action. */
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta {
+  display: grid;
+  gap: var(--bl-space-2);
+  max-width: 34rem;
+  margin-top: var(--bl-space-6);
+  padding: var(--bl-space-5) var(--bl-space-6);
+  background: var(--bl-mineral);
+  color: var(--bl-paper-on-mineral);
+  border-left: 4px solid var(--bl-oxide);
+  text-decoration: none;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta__label {
+  font-family: var(--bl-font-data);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--bl-paper-on-mineral-muted);
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta__title {
+  font-family: var(--bl-font-heading);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.15;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta__go {
+  color: var(--bl-oxide-bright);
+  font-weight: 500;
+}
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta:hover .oe-hero-cta__go { text-decoration: underline; }
+:where([data-oe-theme="boundary-ledger"]) .oe-hero-cta:focus-visible { outline: 2px solid var(--bl-oxide); outline-offset: 3px; }
+:where([data-oe-theme="boundary-ledger"]) .oe-latest { padding-top: 0; margin-top: calc(var(--bl-space-8) * -1); }
+:where([data-oe-theme="boundary-ledger"]) .oe-latest h2 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.05; max-width: 22ch; }
+:where([data-oe-theme="boundary-ledger"]) .oe-latest .oe-operation-sheet { margin-top: var(--bl-space-8); }

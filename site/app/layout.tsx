@@ -5,12 +5,11 @@ import './styles/globals.css';
 export const metadata: Metadata = {
   title: 'The Operator Economy',
   description:
-    'Evidence-led business investigations and working documents for people deciding what to test, revise, or reject.',
+    'The Operator Economy shows experienced professionals how to build, own and operate a business of one using AI.',
   metadataBase: new URL('https://theoperatoreconomy.com'),
   openGraph: {
     title: 'The Operator Economy',
-    description:
-      "You can build it now. We show you what's worth building.",
+    description: 'Build, own and operate a business of one using AI. New episodes Mondays.',
     type: 'website',
   },
 };

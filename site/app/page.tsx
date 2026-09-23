@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { NewsletterBand } from './components/NewsletterForm';
 import { SiteFooter, SiteHeader } from './components/SiteChrome';
-import { OPERATIONS, padOperationNumber } from './lib/operations';
+import { EpisodeThumbnail, WatchAction, episodeStatus } from './components/WatchAction';
+import { AI_DISCLOSURE, POSITIONING } from './lib/brand';
+import { LATEST } from './lib/operations';
 
 export const metadata: Metadata = {
   title: 'The Operator Economy',
-  description: 'Choose an operation worth owning. Inspect the buyer, offer, economics, evidence, and first test before you commit.',
+  description: POSITIONING,
 };
 
 export default function Home() {
-  const latest = OPERATIONS[0];
-  const recent = OPERATIONS.slice(0, 2);
+  const latest = LATEST;
+  const canvasHref = `/businesses/${latest.slug}`;
 
   return (
     <div className="oe-home" data-oe-theme="boundary-ledger" id="top">
@@ -23,96 +24,98 @@ export default function Home() {
         <section className="bl-opening bl-shell" aria-labelledby="hero-title">
           <div className="oe-hero">
             <div className="bl-episode-feature__intro">
-              <h1 id="hero-title">You can build it now. We show you what&apos;s <em>worth</em> building.</h1>
+              <p className="bl-chapter__number">The Operator Economy</p>
+              <h1 id="hero-title">Build, own and operate a business of one using AI.</h1>
               <p>
-                Choose an operation worth owning. See who buys, what you would run, how the
-                numbers work, and the first test to make before you commit.
+                For experienced professionals. Each episode takes one business you could run
+                yourself: what it sells, who pays for it, what it can honestly charge, and where it
+                breaks. Then it walks through how to start it.
               </p>
+              <a className="oe-hero-cta" href="#latest">
+                <span className="oe-hero-cta__label">Newest episode · {episodeStatus(latest.slug)}</span>
+                <span className="oe-hero-cta__title">{latest.episodeTitle}</span>
+                <span className="oe-hero-cta__go">See the episode <span aria-hidden="true">→</span></span>
+              </a>
               <div className="oe-actions">
-                <a className="bl-action" href={latest.youtubeUrl} target="_blank" rel="noreferrer">
-                  Watch the latest episode<span className="oe-sr"> (opens in new tab)</span>
-                </a>
-                <Link className="bl-action" href="/businesses">Browse businesses</Link>
+                <a className="bl-text-link" href="#newsletter">Get new episodes by email</a>
               </div>
+              <p className="oe-disclosure-line">{AI_DISCLOSURE}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bl-shell oe-latest" id="latest" aria-labelledby="latest-episode-title">
+          <div className="bl-episode-feature__intro">
+            <p className="bl-chapter__number">Newest episode</p>
+            <h2 id="latest-episode-title">{latest.episodeTitle}</h2>
+            <p>
+              A one-person practice that gets owner-run businesses ready to be inspected by a
+              buyer, for a fixed fee. It prepares the business. It does not sell it.
+            </p>
+            <div className="oe-actions">
+              <WatchAction slug={latest.slug} label="Watch the newest episode" />
+              <Link className="bl-action" href={canvasHref}>Open the Operator Canvas</Link>
             </div>
           </div>
 
-          <article className="oe-operation-sheet" aria-labelledby="latest-title">
+          <article className="oe-operation-sheet oe-operation-sheet--episode" aria-labelledby="latest-title">
             <aside className="bl-docket">
               <div className="bl-docket__head">
                 <span>Latest operation</span>
-                <span className="bl-live">Live</span>
+                <span>{episodeStatus(latest.slug)}</span>
               </div>
               <div className="bl-docket__body">
-                <span className="bl-docket__identity">№{padOperationNumber(latest.number)} · {latest.audience}</span>
-                <h2 id="latest-title">{latest.name}</h2>
-                <p>Could one operator help independent hotels turn OTA guests into direct repeat customers?</p>
+                <span className="bl-docket__identity">{latest.audience}</span>
+                <h3 id="latest-title">{latest.name}</h3>
+                <p>{latest.summary}</p>
               </div>
               <dl className="bl-docket__rows">
                 <div className="bl-docket__row"><dt>Buyer</dt><dd>{latest.audience}</dd></div>
                 <div className="bl-docket__row"><dt>Offer</dt><dd>{latest.offer}</dd></div>
-                <div className="bl-docket__row"><dt>Episode</dt><dd>{latest.episodeTitle}</dd></div>
+                <div className="bl-docket__row"><dt>Not included</dt><dd>The sale, brokerage, any fee tied to a sale</dd></div>
               </dl>
             </aside>
 
-            <figure className="bl-working-model">
-              <Image
-                src="/illustration/episode-006/hotel-working-model.jpg"
-                alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
-                width="1536"
-                height="1024"
+            <figure className="oe-episode-art">
+              <EpisodeThumbnail
+                slug={latest.slug}
+                thumbnail={latest.thumbnail}
                 sizes="(max-width: 900px) calc(100vw - 3rem), (max-width: 1600px) 62vw, 58rem"
               />
               <figcaption>
-                <span>Working model for the operation</span>
-                <span>{latest.sources} sources · {latest.published}</span>
+                <span>Episode thumbnail. Everyone pictured is AI-generated.</span>
+                <span>{latest.published}</span>
               </figcaption>
             </figure>
           </article>
         </section>
 
+        <NewsletterBand />
+
         <section className="oe-value oe-band-raised bl-shell" id="canvas" aria-labelledby="canvas-title">
           <div className="oe-value__intro">
             <p className="bl-chapter__number">The Operator Canvas</p>
-            <h2 id="canvas-title">The story explains the opportunity. The Canvas helps you decide.</h2>
-            <p>Every investigation is reduced to three decisions. The evidence, assumptions, and open questions stay attached to the answer.</p>
-            <Link className="bl-action" href="/method">See how the Canvas works</Link>
+            <h2 id="canvas-title">The episode tells the story. The Canvas helps you decide.</h2>
+            <p>Every business is reduced to three decisions. The evidence, assumptions and open questions stay attached to each answer.</p>
+            <Link className="bl-action" href={canvasHref}>Open this episode&apos;s Canvas</Link>
           </div>
           <ol className="oe-decision-list" aria-label="Three decisions">
-            <li><span>01</span><div><strong>Is the problem worth solving?</strong><p>See the buyer, the costly problem, the offer, and the result being purchased.</p></div></li>
-            <li><span>02</span><div><strong>Can one operator deliver it?</strong><p>See the workflow, tools, human judgment, capacity, and economics.</p></div></li>
-            <li><span>03</span><div><strong>What should I test first?</strong><p>See the weakest assumption, the first 30-day test, and the conditions for stopping.</p></div></li>
+            <li><span>01</span><div><strong>Is the problem worth solving?</strong><p>The buyer, the costly problem, the offer and the result being purchased.</p></div></li>
+            <li><span>02</span><div><strong>Can one operator deliver it?</strong><p>The workflow, the tools, the human judgment, the capacity and the economics.</p></div></li>
+            <li><span>03</span><div><strong>What should I test first?</strong><p>The weakest assumption, the first 30-day test, and the conditions for stopping.</p></div></li>
           </ol>
         </section>
 
-        <section className="oe-section oe-band-inset bl-shell" id="library" aria-labelledby="library-title">
+        <section className="oe-section bl-shell" id="standard" aria-labelledby="trust-title">
           <header className="bl-chapter__head">
-            <p className="bl-chapter__number">Latest work</p>
+            <p className="bl-chapter__number">The standard</p>
             <div>
-              <h2 id="library-title">Start with a business.</h2>
-              <p>Each entry gives you the case for the opportunity, the operating model, the economics, and where the thesis could fail.</p>
+              <h2 id="trust-title">Evidence you can inspect. Assumptions you can challenge. Unknowns kept visible.</h2>
+              <p>No income promises and no course at the end of the funnel. A sourced number names its source. A modeled number shows its arithmetic. When nobody knows, the page says so.</p>
+              <p><Link className="bl-text-link" href="/method">Read the method</Link></p>
             </div>
           </header>
-          <div aria-label="Latest episodes">
-            {recent.map((operation) => (
-              <Link className="bl-library-row" href={`/businesses/${operation.slug}`} key={operation.slug}>
-                <span className="bl-library-row__number">№{padOperationNumber(operation.number)}</span>
-                <span><strong>{operation.name}</strong><small>{operation.summary}</small></span>
-                <span aria-hidden="true">View</span>
-              </Link>
-            ))}
-          </div>
-          <p style={{ marginTop: 'var(--bl-space-5)' }}><Link className="bl-text-link" href="/businesses">View all businesses</Link></p>
         </section>
-
-        <section className="oe-trust oe-trust--mineral bl-shell" id="about" aria-labelledby="trust-title">
-          <p className="bl-chapter__number">The standard</p>
-          <h2 id="trust-title">Evidence you can inspect. Assumptions you can challenge. Unknowns we keep visible.</h2>
-          <p>No income promises and no course at the end of the funnel. If a number is sourced, you can open the source. If it&apos;s modeled, you can inspect the arithmetic. If we don&apos;t know, we say so.</p>
-          <Link className="bl-text-link" href="/method">Read the method</Link>
-        </section>
-
-        <NewsletterBand />
       </main>
 
       <SiteFooter />

@@ -110,7 +110,7 @@ table set), per `blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deli
 Paste as written. Channel boilerplate is appended by Studio upload defaults; do not paste it again.
 
 ```
-The free blueprint for this episode, with the readiness checklist, the scope boundary and the full model: {{BLUEPRINT_URL}}
+The free Operator Canvas for this episode, with the scope boundary, the full model and the 30-day test plan: {{BLUEPRINT_URL}}
 
 Most small businesses that go up for sale never close. Work from the Exit Planning Institute puts the share that do at roughly three in ten. EPI trains and certifies exit planners, so treat that as directional. At the same time, in the IBBA and M&A Source Market Pulse survey for Q2 2026, almost nine in ten deals above five million dollars drew at least three offers. Those are advisers reporting their own closings, not an audited database.
 
@@ -149,9 +149,9 @@ Sources
 Exit Planning Institute, State of Owner Readiness research
 IBBA and M&A Source, Market Pulse Q2 2026
 Business Brokerage Press, state licensing resource
-Full source list with caveats is in the blueprint.
+Full source list with caveats is in the Operator Canvas.
 
-The narration is an AI voice clone of the host's own voice, and the presenter footage is AI-generated. The research, script and verdict are the host's.
+The narration is an AI voice clone of the host's own voice. The host avatar and every other person shown are AI-generated. The research, script and verdict are the host's.
 ```
 
 ### Chapter derivation
@@ -218,7 +218,7 @@ Search volume was not measurable at research time; none of these is a verified v
 ## Pinned comment
 
 ```
-The blueprint for this episode is free: the readiness checklist, the 30-day dependency map, the scope boundary (what this practice must never do), the stopwatch log, and the full model with every assumption shown. {{BLUEPRINT_URL}}
+The Operator Canvas for this episode is free: the scope boundary (what this practice must never do), the full model with every assumption shown, the risk register and the 30-day test plan. {{BLUEPRINT_URL}}
 
 The economics are a modeled scenario, not observed performance or an earnings forecast. The one number nobody has measured is delivery hours per engagement. If you run the diagnostic once and time it, that number is the finding.
 ```

@@ -359,3 +359,7 @@ Short 01 is now `The Four-Word Pause`. The existing project path, `studio/origin
 HyperFrames 0.8.51 strict checks pass with zero lint, runtime, layout, motion or contrast findings across all 260 transition samples. Fifteen final key frames and two `snapshots/final-v3/` contact sheets were captured and visually inspected. Independent final review found no remaining material claim, conversion or visual issue. No narration, captions, music, SFX, provider call, render or publication action occurred. This is not an owner-approved Short: exact copy, original narration, voice-timed composition, captions, Studio-preview approval, render verification and publication approval remain pending.
 
 YouTube's native Related Video is the primary full-episode path. The pinned comment is supplemental because Shorts comment and description URLs are not clickable. The eventual EP007 target must come from `studio/originate/exit-readiness-prep/launch/links.json`; that file is currently absent, so the upload/readback gate cannot yet pass.
+
+## Finishing and release (2026-09-23)
+
+R80 4K plates, Resolve conform, R81 cut, masters, packaging, channel/site/LinkedIn relaunch and renumbering to public №001 are indexed in `operator-blueprint-v2/episodes/EP007-exit-readiness-prep/RELEASE-RECORD.md`.

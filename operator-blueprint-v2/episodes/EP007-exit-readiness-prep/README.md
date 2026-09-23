@@ -20,3 +20,7 @@ This is the **first episode workspace created under Operator Blueprint V2**.
 Number assignment follows `../README.md`: Step 1 assigns the next number only after a current
 promotion record passes Gate E1. EP006 (`direct-booking-recovery`, published 2026-08-17) is the last
 assigned number in the series.
+
+## Release (2026-09-23 onward)
+
+Published as public №001. Full release index, decisions, costs and open items: `RELEASE-RECORD.md`.

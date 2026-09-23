@@ -193,7 +193,7 @@ Unsubscribe: ${unsubscribeUrl}`;
   if (vars.tag.startsWith('blueprint:')) {
     const v = vars as BlueprintVars;
     const num = pad(v.episode.number);
-    const subject = `Operator Blueprint №${num}: ${v.episode.title}`;
+    const subject = `Operator Canvas №${num}: ${v.episode.title}`;
     const pdfHref = `${v.siteUrl}/blueprints/${v.episode.slug}.pdf`;
     const cta = v.pdfAvailable
       ? ctaBlock(pdfHref, 'Download the PDF &rarr;')
@@ -201,10 +201,10 @@ Unsubscribe: ${unsubscribeUrl}`;
           'The PDF ships with the episode. I&rsquo;ll email you the moment it&rsquo;s ready.'
         );
     const rows = [
-      goldLabelRow(`Operator Blueprint &#8470;${num}`),
+      goldLabelRow(`Operator Canvas &#8470;${num}`),
       `<tr><td style="padding:6px 40px 8px 40px;"><div style="font-family:${SERIF};font-weight:700;font-size:26px;line-height:1.2;letter-spacing:-0.01em;color:${COLORS.ink};">${escapeHtml(v.episode.title)}.</div></td></tr>`,
       body(
-        'Here it is. Each published claim carries its source or estimate label so you can inspect it.'
+        'Here is the print edition of the Operator Canvas. Every material claim carries its evidence label, and every source is listed so you can inspect it.'
       ),
       cta,
       bodyMuted('This delivery does not subscribe you to the newsletter.'),
@@ -213,9 +213,9 @@ Unsubscribe: ${unsubscribeUrl}`;
     const pdfLine = v.pdfAvailable
       ? `Download the PDF: ${pdfHref}`
       : `The PDF ships with the episode. I'll email you the moment it's ready.`;
-    const text = `Operator Blueprint №${num}: ${v.episode.title}
+    const text = `Operator Canvas №${num}: ${v.episode.title}
 
-Here it is. Each published claim carries its source or estimate label so you can inspect it.
+Here is the print edition of the Operator Canvas. Every material claim carries its evidence label, and every source is listed so you can inspect it.
 
 ${pdfLine}
 

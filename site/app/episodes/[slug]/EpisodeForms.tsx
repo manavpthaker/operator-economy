@@ -34,7 +34,7 @@ export function NotifyForm({ slug, number, title }: NotifyProps) {
 
   return (
     <div className={s.notify}>
-      <div className={s.notifyHead}>Operator Blueprint №{number}</div>
+      <div className={s.notifyHead}>Operator Canvas №{number}</div>
       <div className={s.notifyTitle}>{title}</div>
       <form onSubmit={onSubmit} noValidate>
         <label className={s.inputLabel} htmlFor={`notify-${slug}`}>
@@ -107,7 +107,7 @@ export function BlueprintCaptureForm({ slug, number, title }: NotifyProps) {
 
   return (
     <div className={s.notify}>
-      <div className={s.notifyHead}>Operator Blueprint №{number}</div>
+      <div className={s.notifyHead}>Operator Canvas №{number}</div>
       <div className={s.notifyTitle}>{title}</div>
       <form onSubmit={onSubmit} noValidate>
         <label className={s.inputLabel} htmlFor={`bp-${slug}`}>
@@ -135,7 +135,7 @@ export function BlueprintCaptureForm({ slug, number, title }: NotifyProps) {
           className={s.submit}
           disabled={status.state === 'submitting'}
         >
-          {status.state === 'submitting' ? '…' : `Get Blueprint №${number}`}
+          {status.state === 'submitting' ? '…' : `Get Canvas №${number}`}
         </button>
         {status.state === 'success' && (
           <div className={s.captureStatus} role="status">
