@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from . import WORKFLOW_VERSION
+from .generate import check_look_lock, generate, lock_look
 from .hashes import sha256_file, write_json_atomic
 from .input_lock import build_input_lock, stage_locked_audio
 from .paths import (
@@ -442,6 +443,42 @@ def cmd_review(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_lock_look(args: argparse.Namespace) -> int:
+    episode = Path(args.episode_dir).resolve()
+    references = []
+    for value in args.ref:
+        path, separator, url = value.partition("=")
+        if not separator:
+            raise ValueError(f"--ref must be path=url: {value}")
+        references.append((Path(path).resolve(), url))
+    lock = lock_look(episode, references, args.location, args.outfit, args.locked_by, args.supersede)
+    print(f"Locked presenter look v{lock['version']}: {lock['location']} / {lock['outfit']}")
+    print(f"Lock: {episode / 'presenter' / 'LOOK-LOCK.json'}")
+    return 0
+
+
+def cmd_look_status(args: argparse.Namespace) -> int:
+    episode = Path(args.episode_dir).resolve()
+    lock = check_look_lock(episode, {})
+    print(f"Presenter look v{lock['version']} locked {lock['locked_at']} by {lock['locked_by']}")
+    print(f"{lock['location']} / {lock['outfit']} ({len(lock['references'])} reference(s), all hashes match)")
+    for old in lock.get("history", []):
+        print(f"Superseded v{old['version']}: {old['reason']} ({old['presenter_jobs_orphaned']} presenter job(s) orphaned)")
+    return 0
+
+
+def cmd_generate(args: argparse.Namespace) -> int:
+    episode = Path(args.episode_dir).resolve()
+    arguments = json.loads(Path(args.args[1:]).read_text() if args.args.startswith("@") else args.args)
+    out_dir = Path(args.out).resolve() if args.out else episode / args.lane / "generated"
+    result = generate(
+        episode, args.provider, args.model, arguments, args.lane, args.item, args.reason,
+        args.est_usd, out_dir, dry_run=args.dry_run,
+    )
+    print(json.dumps(result, indent=2))
+    return 0
+
+
 def cmd_test(_: argparse.Namespace) -> int:
     print(f"Blueprint root: {BLUEPRINT_ROOT}")
     command = [sys.executable, "-m", "pytest", "-q"]
@@ -492,6 +529,29 @@ def parser() -> argparse.ArgumentParser:
         command.add_argument("episode")
         command.add_argument("work_order_id")
         command.set_defaults(func=function)
+    look = sub.add_parser("lock-look", help="Owner locks the episode's presenter look before any presenter generation.")
+    look.add_argument("episode_dir")
+    look.add_argument("--ref", action="append", required=True, help="Local reference image and its hosted URL: path=url.")
+    look.add_argument("--location", required=True)
+    look.add_argument("--outfit", required=True)
+    look.add_argument("--locked-by", required=True)
+    look.add_argument("--supersede", help="Reason for replacing an existing lock. Orphaned presenter jobs are recorded.")
+    look.set_defaults(func=cmd_lock_look)
+    look_status = sub.add_parser("look-status")
+    look_status.add_argument("episode_dir")
+    look_status.set_defaults(func=cmd_look_status)
+    gen = sub.add_parser("generate", help="Run one gated, capped, ledgered Higgsfield or fal job.")
+    gen.add_argument("episode_dir")
+    gen.add_argument("--provider", required=True, choices=["higgsfield", "fal"])
+    gen.add_argument("--model", required=True, help="Provider endpoint, e.g. fal-ai/veo3.1/fast.")
+    gen.add_argument("--args", required=True, help="Provider arguments as JSON, or @file.json.")
+    gen.add_argument("--lane", required=True, help="presenter, film, thumbnail, ... presenter requires a look lock.")
+    gen.add_argument("--item", required=True, help="Stable output name, e.g. P03-take1.")
+    gen.add_argument("--reason", required=True)
+    gen.add_argument("--est-usd", type=float, required=True)
+    gen.add_argument("--out", help="Output folder. Default: <episode_dir>/<lane>/generated.")
+    gen.add_argument("--dry-run", action="store_true", help="Run the gates and cap check without spending.")
+    gen.set_defaults(func=cmd_generate)
     test = sub.add_parser("test")
     test.set_defaults(func=cmd_test)
     return root

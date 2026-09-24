@@ -108,6 +108,7 @@ locked script
   -> full-timeline visual plan
   -> direction bible and rhythm map
   -> look development and representative motion test
+  -> presenter look lock (owner gate, before any presenter generation)
   -> sequence treatments, shot boards, and scene directions
   -> whole-episode directed animatic in HyperFrames
   -> exact asset tickets, candidates, selects, and production
@@ -123,6 +124,21 @@ Voiceover is the timing authority. A beat is not automatically a shot. The visua
 Build a directed animatic of the entire episode before expensive generation or licensing. It uses the actual VO, real text, approved composition, truthful placeholder geometry, explicit camera and motion timing, and visible asset IDs. It must prove comprehension, rhythm, continuity, shot relationships, and the persistent operating model. It is intentionally unfinished, but it cannot be vague. Asset placeholders are exact tickets, not attractive stand-ins that can be mistaken for finished work.
 
 The final film is conformed and finished in Resolve. Resolve may refine editorial timing within approved intent, but changes to shot purpose, evidence timing, business state, object continuity, or transition meaning return to Blueprint Cinema for a direction revision. A Resolve timeline is never the only record of an approved creative change.
+
+## Presenter Look Lock
+
+Each episode gives the presenter a new location and outfit. The look is chosen as still images, before any presenter video is generated, and then locked. Changing it later means regenerating every presenter shot. EP009's look change after the fact cost 1,281.5 credits.
+
+1. Generate look candidates as stills only, from the accepted likeness references. They cost cents, so explore freely here.
+2. The owner picks one. Then run:
+   `blueprint-cinema/bin/oe-cinema lock-look <episode_dir> --ref <still>=<hosted url> --location "..." --outfit "..." --locked-by Manav`
+   This writes `presenter/LOOK-LOCK.json` with the reference hashes.
+3. `oe-cinema generate` refuses any `--lane presenter` job when the lock is missing, when a locked reference file has changed, or when the job sends an image reference that is not locked.
+4. Re-locking needs `--supersede "<reason>"`. The lock's history records the reason and how many presenter jobs the old look orphaned. Changing the look is allowed, but it has to be deliberate and its cost has to be on record.
+
+Only the behavior references and the performance recipe carry over between episodes.
+
+All paid Higgsfield and fal calls go through `oe-cinema generate`. It checks the lane's `<provider>_usd` cap in `ledger/SPEND-LEDGER.json` when one is set. It appends an intent row to `ledger/<lane>.jsonl` before submitting, and a done or failed row after, carrying the job ID, outputs and sha256. Use `--dry-run` to check the gates without spending. Neither provider reports a price for each job, so reconcile the estimates against the billing page.
 
 ## Cadence and Legibility
 
