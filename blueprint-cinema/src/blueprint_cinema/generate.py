@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .hashes import sha256_file, write_json_atomic
+from .paths import REPO_ROOT
 from .validation import ValidationFailure, load_json
 
 
@@ -198,10 +199,18 @@ def check_cap(episode_dir: Path, lane: str, provider: str, est_usd: float) -> st
 
 
 def _api_key(provider: str) -> str:
+    """Environment first, then the repo .env, where FAL_KEY already lives."""
+    env_file = REPO_ROOT / ".env"
+    file_values = {}
+    if env_file.is_file():
+        for line in env_file.read_text().splitlines():
+            name, separator, value = line.partition("=")
+            if separator:
+                file_values[name.strip()] = value.strip().strip("\"'")
     for name in PROVIDERS[provider]["env"]:
-        if os.environ.get(name):
-            return os.environ[name]
-    raise ValidationFailure("credentials", [f"set {' or '.join(PROVIDERS[provider]['env'])}"])
+        if os.environ.get(name) or file_values.get(name):
+            return os.environ.get(name) or file_values[name]
+    raise ValidationFailure("credentials", [f"set {' or '.join(PROVIDERS[provider]['env'])} in the environment or {env_file}"])
 
 
 def http_json(key: str) -> RequestJson:

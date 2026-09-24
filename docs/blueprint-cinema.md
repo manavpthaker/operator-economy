@@ -95,6 +95,18 @@ Use the evidence pattern:
 
 Every footage ticket has exactly one role: `human_context`, `market_force`, `proof`, `process`, or `outcome`. Prefer original capture for proof/process, permissioned or licensed company material for market forces, specific licensed stock for human context/outcomes, and generated plates only when reality cannot reasonably be captured.
 
+`studio/scripts/originate/source_footage.py` does the sourcing. `search` routes each ticket by role:
+
+- **human context and outcome:** Pexels, Pixabay, Storyblocks (subscription), and public-domain archives (Internet Archive, Wikimedia Commons).
+- **market force:** the public-domain archives only.
+- **proof and process:** never searched.
+
+`add` registers files downloaded by hand, with their page, rights holder and terms: company press-kit footage for market force, human context or outcome beats, and Storyblocks web downloads. They then go through the same review and `approve`.
+
+Storyblocks candidates are previews. Only an approved select spends a subscription download.
+
+Archive licenses are uploader-asserted. The search takes only items marked public domain from the Internet Archive, and only public domain, CC0 or CC BY from Commons. The license is still checked by a person at approval.
+
 AI renders are never evidence. Build one coherent rendered world per episode, normally with three or four purposeful sequences rather than a clip per sentence. Generate environmental plates; composite accurate text, interfaces, prices, documents, and brand marks afterward. Record synthetic status and required upload disclosure in the manifest.
 
 Every external asset must retain its canonical source, creator or rights holder, license and check date, download date, checksum, face/release review, in/out points, crop, focal position, timeline uses, and reconstruction/synthetic status. The edit references manifest IDs, never raw URLs or untracked downloads.
