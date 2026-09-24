@@ -7,6 +7,8 @@ earlier message. Each decision below must be given explicitly, naming the hash i
 
 ## Approval 1 — Step 3 v0.3 as a reversible governing process
 
+**Decided: approved by Manav, 2026-09-24.** Record: `PROCESS-APPROVAL-v0.3.md`.
+
 **What you are approving:** the method, not this episode's visuals. Six artifacts, gates V1–V7, the
 derived/selected/authored split, the establishment class, Boundary Ledger as pinned motion authority,
 the runtime exclusion.

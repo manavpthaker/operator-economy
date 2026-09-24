@@ -1,6 +1,6 @@
 # Operator Blueprint V2
 
-Status: Step 0.2 is canonical, amended by the approved Step 0.3 POV factor (2026-09-01). Step 1 v1.5 is approved editorial authority. Step 2 v0.5 is approved narration authority, locked 2026-09-01. Stages 3-5 remain boundary-only and non-authoritative; stages 6-8 have owner-approved v0.1 runbooks derived from EP007 (2026-09-24). The first candidate was promoted 2026-09-01; no episode number is assigned yet.
+Status: Step 0.2 is canonical, amended by the approved Step 0.3 POV factor (2026-09-01). Step 1 v1.5 is approved editorial authority. Step 2 v0.5 is approved narration authority, locked 2026-09-01. Step 3 v0.3 is approved as the governing process (2026-09-24, `03-visual-translation/PROCESS-APPROVAL-v0.3.md`), with no episode activated; stages 4-5 remain boundary-only and non-authoritative; stages 6-8 have owner-approved v0.1 runbooks derived from EP007 (2026-09-24). The first candidate was promoted 2026-09-01; no episode number is assigned yet.
 
 Operator Blueprint V2 is the planned end-to-end system for turning a validated business opportunity into an Operator Economy episode, an Operator Canvas, an audio edition, a finished video, an episode page, and distribution assets. The brand promise is to help a capable professional build, own, and operate a sustainable business of one using AI, without requiring venture-scale market share or promising income.
 
@@ -13,7 +13,7 @@ Operator Blueprint V2 is the planned end-to-end system for turning a validated b
 | `00-intake/` | Queue, opportunity research, scoring, Canvas feasibility, promotion | **Approved authority - Step 0.2, locked 2026-08-21** |
 | `01-editorial/` | Operator Canvas, pitch-deck coverage, Episode Investment Thesis, viewer promise, narrative architecture, editorial voice, script, script lock | **Approved authority - Step 1 v1.5, locked 2026-08-23** |
 | `02-narration-production/` | Perform the locked words, produce final narration, transcript, pause map, and narration lock | **Approved authority - Step 2 v0.5, locked 2026-09-01 (N3, N4A, N1 passed; N4B captured on EP007; N5-N7 open)** |
-| `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | Boundary only; scope boundary approved 2026-09-01, standard in progress |
+| `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | **Approved process - Step 3 v0.3, 2026-09-24** (`PROCESS-APPROVAL-v0.3.md`); no episode activated; v0.4 proposed |
 | `04-preproduction/` | Sequence treatments, shot boards, scene direction, motion test, animatic, asset plan | Boundary only |
 | `05-production/` | Source and produce approved footage, documents, graphics, and plates | Boundary only |
 | `06-resolve-finish/` | Editorial conform, picture lock, color, final mix, captions, masters | **Approved runbook v0.1 (2026-09-24):** `FINISH-RUNBOOK-v0.1-from-EP007.md` |
