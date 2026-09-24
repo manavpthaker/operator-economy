@@ -78,4 +78,4 @@ Decision log: `blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisi
 - [ ] Site: rebuild with the live link, owner preview, deploy
 - [ ] LinkedIn: episode post (Mon 11:00), Shorts posts (Tue–Fri 08:30), newsletter edition
 - [ ] Legal review of the licensing claim (open since research)
-- [ ] Owner approval of the four v0.1 runbooks
+- [x] Owner approval of the four v0.1 runbooks (2026-09-24)

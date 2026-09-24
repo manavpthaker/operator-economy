@@ -1,6 +1,6 @@
 # Operator Blueprint V2
 
-Status: Step 0.2 is canonical, amended by the approved Step 0.3 POV factor (2026-09-01). Step 1 v1.5 is approved editorial authority. Step 2 v0.5 is approved narration authority, locked 2026-09-01. Stages 3-8 remain boundary-only and non-authoritative. The first candidate was promoted 2026-09-01; no episode number is assigned yet.
+Status: Step 0.2 is canonical, amended by the approved Step 0.3 POV factor (2026-09-01). Step 1 v1.5 is approved editorial authority. Step 2 v0.5 is approved narration authority, locked 2026-09-01. Stages 3-5 remain boundary-only and non-authoritative; stages 6-8 have owner-approved v0.1 runbooks derived from EP007 (2026-09-24). The first candidate was promoted 2026-09-01; no episode number is assigned yet.
 
 Operator Blueprint V2 is the planned end-to-end system for turning a validated business opportunity into an Operator Economy episode, an Operator Canvas, an audio edition, a finished video, an episode page, and distribution assets. The brand promise is to help a capable professional build, own, and operate a sustainable business of one using AI, without requiring venture-scale market share or promising income.
 
@@ -16,9 +16,9 @@ Operator Blueprint V2 is the planned end-to-end system for turning a validated b
 | `03-visual-translation/` | Episode engine, persistent world, full-timeline visual plan, direction bible, rhythm map, look development | Boundary only; scope boundary approved 2026-09-01, standard in progress |
 | `04-preproduction/` | Sequence treatments, shot boards, scene direction, motion test, animatic, asset plan | Boundary only |
 | `05-production/` | Source and produce approved footage, documents, graphics, and plates | Boundary only |
-| `06-resolve-finish/` | Editorial conform, picture lock, color, final mix, captions, masters | Boundary only |
-| `07-publishing/` | Episode page, Operator Canvas delivery, packaging, upload handoff | Boundary only |
-| `08-distribution/` | Podcast, newsletter, LinkedIn, clips, and measured readback | Boundary only |
+| `06-resolve-finish/` | Editorial conform, picture lock, color, final mix, captions, masters | **Approved runbook v0.1 (2026-09-24):** `FINISH-RUNBOOK-v0.1-from-EP007.md` |
+| `07-publishing/` | Episode page, Operator Canvas delivery, packaging, upload handoff | **Approved runbook v0.1 (2026-09-24):** `PACKAGING-AND-LAUNCH-RUNBOOK-v0.1-from-EP007.md` |
+| `08-distribution/` | Podcast, newsletter, LinkedIn, clips, and measured readback | **Approved runbooks v0.1 (2026-09-24):** Shorts and LinkedIn (`*-RUNBOOK-v0.1-from-EP007.md`); podcast, newsletter and readback still boundary only |
 
 ## Episode workspaces
 

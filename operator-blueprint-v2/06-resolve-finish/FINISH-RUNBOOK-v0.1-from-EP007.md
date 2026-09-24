@@ -1,6 +1,6 @@
 # Step 6 runbook v0.1: from locked cut to delivery masters
 
-Status: **proposed, derived from EP007 (2026-09-23).** Not authoritative until the owner approves it.
+Status: **approved v0.1 (owner, 2026-09-24).** Derived from EP007 / public №001 and updated 2026-09-24 to point presenter work at `blueprint-cinema/references/PRESENTER-RECIPE.md`. Authoritative for its stage; a record still wins where it disagrees on EP007 facts.
 Every step below was done for EP007; the pointers are the record. Public number for EP007 is №001.
 
 Input: an owner-locked whole-episode reference (EP007: R79, 1280×720, 27,241 frames at 24 fps) plus

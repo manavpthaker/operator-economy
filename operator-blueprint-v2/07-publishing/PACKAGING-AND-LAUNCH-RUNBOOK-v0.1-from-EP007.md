@@ -1,7 +1,6 @@
 # Step 7 runbook v0.1: packaging, channel, site and YouTube launch
 
-Status: **proposed, derived from EP007 / public №001 (2026-09-23).** Not authoritative until owner
-approval. `content-os/flow.md` still owns release gating; this runbook covers the creative and
+Status: **approved v0.1 (owner, 2026-09-24).** Derived from EP007 / public №001 and updated 2026-09-24 to point presenter work at `blueprint-cinema/references/PRESENTER-RECIPE.md`. Authoritative for its stage; a record still wins where it disagrees on EP007 facts. `content-os/flow.md` still owns release gating; this runbook covers the creative and
 operational work that feeds it. Decision records: `blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/`.
 
 ## 1. Copy package (owner reviews every file)

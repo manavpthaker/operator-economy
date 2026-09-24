@@ -1,7 +1,6 @@
 # Shorts runbook v0.1 (derived from EP007)
 
-Status: **proposed.** Reconstructed on 2026-09-23 from the EP007 records listed under each step.
-Not authoritative until the owner approves it. Where this file and a record disagree, the record
+Status: **approved v0.1 (owner, 2026-09-24).** Reconstructed on 2026-09-23 from the EP007 records listed under each step. Where this file and a record disagree on EP007 facts, the record
 wins. Content OS (`../content-os/`) still owns voice, rubric, release gate and schedule.
 
 **Updated 2026-09-24:** presenter generation now follows `blueprint-cinema/references/PRESENTER-RECIPE.md`. Every look is locked per project, K01 + K08 are the standing behavior references, and every paid call goes through `oe-cinema generate` (or its `--dry-run` gate for connector calls). Where Steps 4, 5 and 9 below describe the EP007 specifics (the V5 look, the call-recording behavior clips, one-shot runners), treat them as history. The recipe is the current rule. A Short can now also be made without an episode: see "Standalone Short" at the end.
@@ -321,9 +320,9 @@ For a Short whose question isn't carried by a published episode. It's the same f
 
 Owner authorization for spend is still per batch (Step 9).
 
-## Open items before this becomes authoritative
+## Open items (the runbook is approved; these remain)
 
-- Owner approval of this runbook.
+- ~~Owner approval of this runbook.~~ Approved 2026-09-24.
 - A Content OS release adapter for Blueprint Cinema (V2) episodes.
 - A billing readback step for Fal and Google, and per-job Higgsfield charges.
 - Decide whether the 500 ms pad rule and one pre-approved retry per shot should be standing policy.

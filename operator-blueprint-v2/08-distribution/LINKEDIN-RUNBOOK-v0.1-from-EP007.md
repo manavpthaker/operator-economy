@@ -1,6 +1,6 @@
 # Step 8 runbook v0.1: LinkedIn OE page and newsletter
 
-Status: **proposed, derived from EP007 / public №001 (2026-09-23).** Page refresh done; post and
+Status: **approved v0.1 (owner, 2026-09-24).** Derived from EP007 / public №001 and updated 2026-09-24 to point presenter work at `blueprint-cinema/references/PRESENTER-RECIPE.md`. Authoritative for its stage; a record still wins where it disagrees on EP007 facts. Page refresh done; post and
 newsletter scheduling to be completed after the YouTube upload and recorded here.
 `content-os/flow.md` step 16 owns the scheduling order and composer gotchas; this adds the how-to.
 
