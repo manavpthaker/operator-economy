@@ -1,0 +1,95 @@
+{
+  "record_type": "presenter_reference_kit_ab_test",
+  "created_at": "2026-09-24",
+  "owner_request": "run the side-by-side test on P08, cap it at $10",
+  "scope": "P08 part a only (seg044 first half, 9 s at 1080p). Both parts would be 216 credits; the credit-to-USD rate on the Max plan is unconfirmed, so one part keeps the run clearly under the cap.",
+  "controlled": "Identical model, mode, duration, resolution, image reference (L3-chambray), audio reference and prompt, except the one sentence describing the video references.",
+  "arm_A_baseline": {
+    "source": "presenter-look-transfer/P08-corrected/REQUESTS.json requests[0]",
+    "job_id": "feb27500-6e4f-4ff6-a3e2-3c48112816f4",
+    "video_references": [
+      "d11ea443-81ae-4208-a651-b3807fd43ff3 (call-recording behavior clip)"
+    ]
+  },
+  "arm_B_kit": {
+    "video_references": [
+      {
+        "media_id": "b796a739-5036-4242-8fa9-cd61e9e19a0c",
+        "file": "refs/K01-9s.mp4",
+        "sha256": "e81283815886b2297f77d221d5a86ae501aff6a6dc9546c9a048e731c608ec9c"
+      },
+      {
+        "media_id": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4",
+        "file": "refs/K08-6s.mp4",
+        "sha256": "7563aa38a2f3e8abdb22bf8e13343b21c55c43d93062e1a54577abd309f63e33"
+      }
+    ],
+    "prompt_sentence_replaced": {
+      "from": "The VIDEO supplies connected public-facing articulation only. Do not copy its clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing.",
+      "to": "The first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing."
+    },
+    "params": {
+      "model": "seedance_2_5",
+      "mode": "omni_reference",
+      "duration": 9,
+      "resolution": "1080p",
+      "aspect_ratio": "16:9",
+      "generate_audio": true,
+      "count": 1,
+      "use_unlim": false,
+      "prompt": "One continuous nine-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 7.208333-second AUDIO reference: \"I spent ten years in hospitality, including Ace Hotel and Standard Hotels. I know this business from the inside out.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. Hands rest naturally on the table throughout. Hold still until the picture ends with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+      "medias": [
+        {
+          "role": "image",
+          "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+        },
+        {
+          "role": "audio",
+          "value": "20bfeb93-9d6f-401f-aca2-06592dda0c0a"
+        },
+        {
+          "role": "video",
+          "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+        },
+        {
+          "role": "video",
+          "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+        }
+      ]
+    }
+  },
+  "result": {
+    "at": "2026-09-24T15:43:53.832045+00:00",
+    "spend_credits": 108,
+    "arm_B_job_id": "d035d497-d943-4040-afb5-49c441b7af00",
+    "measured": {
+      "A-baseline": {
+        "words_matched": "21/21",
+        "raw_mean_abs_lag_s": 1.028,
+        "raw_max_abs_lag_s": 1.79,
+        "median_offset_s": 1.22,
+        "residual_after_median_trim": {
+          "mean_abs_s": 0.455,
+          "max_abs_s": 1.21,
+          "words_over_120ms": 17
+        },
+        "held_pose_runs": []
+      },
+      "B-kit": {
+        "words_matched": "21/21",
+        "raw_mean_abs_lag_s": 0.85,
+        "raw_max_abs_lag_s": 1.41,
+        "median_offset_s": 0.82,
+        "residual_after_median_trim": {
+          "mean_abs_s": 0.404,
+          "max_abs_s": 0.82,
+          "words_over_120ms": 17
+        },
+        "held_pose_runs": []
+      }
+    },
+    "visual": "Identity, glasses, wardrobe and room held in both arms. Kit arm mouth shapes are smaller and more conversational; baseline opens wider and reads more performed.",
+    "verdict": "Kit arm modestly better on timing (smaller offset, max residual 0.82 s vs 1.21 s) and more natural articulation; neither is lip-sync clean natively, so fal Sync restoration stays in the recipe. One sample per arm: directional, not conclusive.",
+    "owner_review": "pending: watch AB-baseline-then-kit.mp4"
+  }
+}
