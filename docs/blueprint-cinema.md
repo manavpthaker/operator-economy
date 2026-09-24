@@ -144,6 +144,19 @@ Build a directed animatic of the entire episode before expensive generation or l
 
 The final film is conformed and finished in Resolve. Resolve may refine editorial timing within approved intent, but changes to shot purpose, evidence timing, business state, object continuity, or transition meaning return to Blueprint Cinema for a direction revision. A Resolve timeline is never the only record of an approved creative change.
 
+## Review Board
+
+Review a whole cut on one page, not clip by clip. `oe-cinema board` writes an HTML page with the player and a timeline strip on one side and every segment on the other: its spoken words, planned form, scene job, what it must not imply, source take and hash, and review status. The row being played lights up and the current word is highlighted. It also writes a `.json` record with a board digest covering the build, plan, transcript, direction, video hash, owner locks and every segment's source hashes.
+
+```text
+blueprint-cinema/bin/oe-cinema board \
+  --build <assembly BUILD.json> --plan direction/SHOT-PLAN.json \
+  --transcript <word transcript timed to the build> --direction direction/DIRECTION-PLAN.md \
+  --lock <OWNER-LOCK.json> ... --out assembly/qa/<episode>-<rev>-board.html
+```
+
+Open the page on the machine that has the build, or serve its folder; the video path is relative. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the planned animatic and plates locks will bind.
+
 ## Presenter Look Lock
 
 Each episode gives the presenter a new location and outfit. The look is chosen as still images, before any presenter video is generated, and then locked. Changing it later means regenerating every presenter shot. EP009's look change after the fact cost 1,281.5 credits.

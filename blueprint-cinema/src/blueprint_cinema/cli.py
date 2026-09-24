@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from . import WORKFLOW_VERSION
+from .board import build_board
 from .generate import check_look_lock, generate, lock_look
 from .hashes import sha256_file, write_json_atomic
 from .input_lock import build_input_lock, stage_locked_audio
@@ -479,6 +480,18 @@ def cmd_generate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_board(args: argparse.Namespace) -> int:
+    board = build_board(
+        Path(args.build).resolve(), Path(args.plan).resolve(), Path(args.transcript).resolve(),
+        Path(args.direction).resolve(), [Path(p).resolve() for p in args.lock or []],
+        Path(args.out).resolve(), args.title,
+    )
+    states = {state: sum(1 for row in board["rows"] if row["state"] == state) for state in ("locked", "flagged", "unreviewed")}
+    print(f"Board: {Path(args.out).resolve()} ({len(board['rows'])} segments; {states})")
+    print(f"Board digest: {board['digest']}")
+    return 0
+
+
 def cmd_test(_: argparse.Namespace) -> int:
     print(f"Blueprint root: {BLUEPRINT_ROOT}")
     command = [sys.executable, "-m", "pytest", "-q"]
@@ -552,6 +565,15 @@ def parser() -> argparse.ArgumentParser:
     gen.add_argument("--out", help="Output folder. Default: <episode_dir>/<lane>/generated.")
     gen.add_argument("--dry-run", action="store_true", help="Run the gates and cap check without spending.")
     gen.set_defaults(func=cmd_generate)
+    board = sub.add_parser("board", help="Write one review page: the cut beside its plan, words, sources and status.")
+    board.add_argument("--build", required=True, help="Assembly BUILD.json with per-segment rows and the output video.")
+    board.add_argument("--plan", required=True, help="SHOT-PLAN.json.")
+    board.add_argument("--transcript", required=True, help="Word transcript timed to the build's output.")
+    board.add_argument("--direction", required=True, help="DIRECTION-PLAN.md with scene jobs and segment forms.")
+    board.add_argument("--lock", action="append", help="Owner lock JSON whose protected ranges the board marks. Repeatable.")
+    board.add_argument("--out", required=True, help="HTML path. A .json record with the digest is written beside it.")
+    board.add_argument("--title", default="Episode review board")
+    board.set_defaults(func=cmd_board)
     test = sub.add_parser("test")
     test.set_defaults(func=cmd_test)
     return root
