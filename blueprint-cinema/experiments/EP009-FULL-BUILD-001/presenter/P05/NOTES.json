@@ -1,0 +1,26 @@
+{
+  "status": "done",
+  "lip_sync_still_level": "Normal articulation.",
+  "gesture_vs_brief": "Hands rest, then both palms turn up near the end (\"just do it?\") and return. Matches brief.",
+  "likeness": "Matches V5.",
+  "issues": [
+    "Fal audio placement 22,667 samples (0.472 s); check sync at normal speed."
+  ],
+  "trim_decision": {
+    "trim_frames": 6,
+    "midpoint_offset_s": 0.245,
+    "max_frames": 37,
+    "residual_start_s": -0.09,
+    "residual_end_s": 0.08,
+    "onsets": {
+      "narration_onset": 0.2,
+      "native_onset": 0.36,
+      "onset_diff": 0.16,
+      "narration_end": 5.08,
+      "native_end": 5.41,
+      "end_diff": 0.33
+    },
+    "method": "trim at the midpoint of native-minus-narration speech onset and speech end differences, capped so the trimmed native still covers the excerpt; envelope three-window offsets are in NATIVE-OFFSETS.json (weak correlations on several takes, so onset/end were used)"
+  },
+  "review_limitations": "Still-level review only. Perceived lip sync, gesture timing against words and naturalness at normal speed were not judged and need human review with sound. Native Seedance speech ran longer than the narration, so body motion drifts relative to the words across the take (residuals listed)."
+}

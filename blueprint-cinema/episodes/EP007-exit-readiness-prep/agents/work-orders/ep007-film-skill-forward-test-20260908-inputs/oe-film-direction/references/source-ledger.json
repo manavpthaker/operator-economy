@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0.0",
+  "recordedOn": "2026-09-06",
+  "authority": "reference-only",
+  "hashAlgorithm": "sha256",
+  "policy": {
+    "oeAuthority": [
+      "design-system/boundary-ledger/",
+      "blueprint-cinema/",
+      ".agents/skills/oe-boundary-ledger/",
+      ".agents/skills/oe-film-direction/"
+    ],
+    "statement": "These sources inform independently expressed OE direction rules. They do not select a runtime, govern OE, or override locked editorial, evidence, design, or production contracts.",
+    "copyPolicy": "No upstream code, templates, or prose are copied into the OE skills package. Repository-specific tools, provider syntax, and universalized dramatic defaults are excluded."
+  },
+  "sources": [
+    {
+      "id": "openmontage",
+      "repository": "https://github.com/calesthio/OpenMontage",
+      "checkoutDirectory": "openmontage",
+      "commit": "08e2151fa02de28a5d6a312b3d575692bf147ad7",
+      "license": "AGPL-3.0",
+      "attribution": "OpenMontage by calesthio/OpenMontage",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+        },
+        {
+          "path": "skills/pipelines/documentary-montage/scene-director.md",
+          "sha256": "3ef13f5d1a00dd9bf96111a1b6b6fa8341aada35b102ec64b28d7817f05b2de5"
+        },
+        {
+          "path": "skills/pipelines/documentary-montage/edit-director.md",
+          "sha256": "33ba65f5fb403704be46d358e1f33e6a1d629959f8f2aa32b19c5d08c676aceb"
+        },
+        {
+          "path": "skills/pipelines/documentary-montage/compose-director.md",
+          "sha256": "265b9e08627b129d7cf3c1585080dc70df7c4c978430dc8ee39425548b65f1e3"
+        }
+      ],
+      "adoptedPrinciples": [
+        "Plan concrete visual slots against the narration rather than collecting generic coverage.",
+        "Treat editing as narrative selection: choose the strongest usable sub-window and cut before an action exhausts itself.",
+        "Keep transition vocabulary small and use it only when continuity has a real carrier."
+      ],
+      "excludedPrinciples": [
+        "OpenMontage's runtime, provider, agent-orchestration, and toolchain choices.",
+        "Wholesale reuse of AGPL code, templates, or prose.",
+        "Decorative transitions or automated scoring as substitutes for human narrative judgement."
+      ]
+    },
+    {
+      "id": "visual-skills",
+      "repository": "https://github.com/smixs/visual-skills",
+      "checkoutDirectory": "visual-skills",
+      "commit": "3c554715b5eb30f54de78fac3c0df4a7105e4955",
+      "license": "CC-BY-4.0",
+      "attribution": "Serge Shima — https://github.com/smixs/visual-skills",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+        },
+        {
+          "path": "NOTICE",
+          "sha256": "09dfa459fb45dbecc9f695c4fac13867e0c22384171431ddab1a6f49f41d2c3c"
+        },
+        {
+          "path": "video/SKILL.md",
+          "sha256": "67e01a68d4f89b148ce726a83da8d172db1af3d0c18c819aa1fd132ae71e5165"
+        },
+        {
+          "path": "video/references/dramaturgy.md",
+          "sha256": "63adc8998aa6e1b5cd78b59e36d25510cce5a28ba985c0a3cb97711d7eaf930a"
+        },
+        {
+          "path": "video/references/universal-rules.md",
+          "sha256": "f9d51fc2e456a37d7984a42378f1d072288a83df5bca2d4688c8eccba6f3ce3d"
+        },
+        {
+          "path": "video/references/role-modes.md",
+          "sha256": "64ca4691c6f89fdb8b1f44adf9b82aec5b865b0fd9e1bd176f028d2ae4270d6b"
+        }
+      ],
+      "adoptedPrinciples": [
+        "Give every shot a narrative job and express feeling through observable action, gaze, geometry, objects, and environmental pressure.",
+        "Motivate camera movement with an event or information change.",
+        "Direct toward a concrete final image rather than a stack of aesthetic adjectives."
+      ],
+      "excludedPrinciples": [
+        "A fixed dramatic formula or escalation curve for every OE documentary passage.",
+        "Provider-specific prompt syntax, model selection, dialogue, sound, or music defaults.",
+        "Stylistic flourish that conflicts with Boundary Ledger restraint or evidence discipline."
+      ]
+    },
+    {
+      "id": "ai-cinematic-pipeline",
+      "repository": "https://github.com/billpar/ai-cinematic-pipeline",
+      "checkoutDirectory": "ai-cinematic-pipeline",
+      "commit": "ed7e28652214b4f3b7fd147e2980596f02b8e2ca",
+      "license": "MIT",
+      "attribution": "ai-cinematic-pipeline by billpar",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685"
+        },
+        {
+          "path": "docs/03-prompt-writing-guide.md",
+          "sha256": "a3531f2f271f2c7daf5b8118d8667a8459cf9ca1b0624abac6d68c3650785dfa"
+        },
+        {
+          "path": "templates/prompt-template.md",
+          "sha256": "224cd0d85cc3c885c85e7d3b5ba55f447a05aa9acfcadbd8cee5d6ff8e5ee8db"
+        }
+      ],
+      "adoptedPrinciples": [
+        "Separate locked continuity from the one changing beat in a generated prompt.",
+        "Translate internal emotion into physical blocking, micro-action, and stillness that a camera can record.",
+        "Keep voiceover out of the generated performance and preserve explicit spatial positions."
+      ],
+      "excludedPrinciples": [
+        "Universal two-to-three-second timing, provider assumptions, or a required end-to-end character pipeline.",
+        "Dialogue-first coverage imposed without considering the scene context and actual soundtrack.",
+        "Any supplied template as an OE production contract."
+      ]
+    },
+    {
+      "id": "narrative-film-direction",
+      "repository": "https://github.com/Nagacash/narrative-film-direction",
+      "checkoutDirectory": "narrative-film-direction",
+      "commit": "4ee8b42484cb57407f4a7772216aa79e20b0971f",
+      "license": "Code MIT; documentation CC-BY-4.0",
+      "attribution": "Naga Codex (Maurice Holda) — https://github.com/Nagacash/narrative-film-direction",
+      "files": [
+        {
+          "path": "LICENSE",
+          "sha256": "99ab054b97b058f67e94827162035effe6c9c9cbac132ecc36f070e61fbf6a3a"
+        },
+        {
+          "path": "LICENSE-DOCS",
+          "sha256": "22a34d807b40d8b7f94f297986f2b46b0022b05d4b204ef50108e2d274cfec70"
+        },
+        {
+          "path": "README.md",
+          "sha256": "6e86d645e90f4fb4aad24dafebfc20d154ed7eace36bc1326bd9cd7a24095992"
+        },
+        {
+          "path": "skills/narrative-film-direction/SKILL.md",
+          "sha256": "13f1a3fb0c325d8f7b23109bfdbeda36ad95bffd3fdefc77ae51e21a930403a5"
+        },
+        {
+          "path": "skills/narrative-film-direction/references/coverage-protocol.md",
+          "sha256": "cd3672a3f555f85bb7bbbc63e5f5e8aef7268e880a4ae736b47bfb160a6adb7e"
+        },
+        {
+          "path": "skills/narrative-film-direction/references/screen-direction.md",
+          "sha256": "c176032e6ec52385966d601e7d5fda723c4b8bbf4bc553e6b994690df748dc78"
+        },
+        {
+          "path": "skills/narrative-film-direction/references/editing-grammar.md",
+          "sha256": "ee2826cb36eabcab5fd7c094f9734c51006e1ab8598aed5c86526f08932ffd36"
+        },
+        {
+          "path": "skills/narrative-film-direction/references/shot-grammar.md",
+          "sha256": "410cff4aaf399b3728a7fc0c906e3e8cd75d9c1f937d172666e80aa417ac53e5"
+        }
+      ],
+      "adoptedPrinciples": [
+        "Lock scene geography and a master before deriving closer setups.",
+        "Preserve the action line, screen direction, eyelines, and stable character positions across generated clips.",
+        "Use one primary action per clip and assemble and trim before color and sound polish.",
+        "Choose coverage and cut timing for the dramatic or informational turn; hold when the performance needs uninterrupted time."
+      ],
+      "excludedPrinciples": [
+        "Five-setup dialogue coverage as the default for narration-led OE scenes.",
+        "Dialogue, NLE, audio, camera, or timing values as universal OE requirements.",
+        "Coverage that depends on unavailable words for essential meaning; explicit narrated dramatization may use conversational coverage without claiming verbatim or synchronized speech."
+      ]
+    }
+  ]
+}

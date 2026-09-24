@@ -1,0 +1,39 @@
+{
+  "record_type": "ep007_short02_guide_runner_no_spend_verification",
+  "version": 1,
+  "at_utc": "2026-09-22T23:31:25Z",
+  "runner": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/capture_short02_guide.py",
+  "runner_sha256": "6c6a6de8664f0a9b49721886a83ecefc35083bd0226b9e04e7e2853d1cb01a71",
+  "tests": [
+    {
+      "command_suffix": "check",
+      "exit_code": 0,
+      "result": "locked_inputs_pass_no_authority_checked",
+      "script_sha256": "aee361d4542ed450365a50c70577f6b1bddd61c30de0571d770cbd91b0ed5542",
+      "google_request_sha256": "51d3d17749feaab1f9c9ccb1ddafe3dce81c90b92a17f23892c34a867a97c36e",
+      "operational_forecast_usd": 0.02224016129032258,
+      "operational_cap_usd": 0.05
+    },
+    {
+      "command_suffix": "preflight",
+      "exit_code": 1,
+      "result": "Missing fresh exact owner source record; no provider submission allowed"
+    },
+    {
+      "command_suffix": "submit",
+      "exit_code": 1,
+      "result": "Missing fresh exact owner source record; no provider submission allowed"
+    },
+    {
+      "command_suffix": "preflight with the historical four-Short owner source and v9 event",
+      "exit_code": 1,
+      "result": "Owner source does not bind the exact question already presented"
+    }
+  ],
+  "post_test_pre_record_v5_files": ["README.md", "capture_short02_guide.py"],
+  "short02_v5_work_directory_exists": false,
+  "google_submission_intent_exists": false,
+  "provider_call_made": false,
+  "provider_credit_or_usd_spend_in_this_test": 0,
+  "interpretation": "These local checks prove the current missing-authority path stops before credentials or network. They do not prove that a future authorized provider response or its QC will succeed."
+}

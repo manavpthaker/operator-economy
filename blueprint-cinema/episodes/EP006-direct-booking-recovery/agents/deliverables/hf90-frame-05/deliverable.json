@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-05",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/05-show-identity.md",
+      "sha256": "7b652c879ff25a58dda6f55ae45254e3baa3d28eddb7a9b41788545188011cd5"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-05/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-05/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four declared inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual bare-template timeline and keep-out self-check",
+      "outcome": "pass"
+    },
+    {
+      "command": "node inline agent-deliverable schema contract check",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI prohibited by isolated work order",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned 05-show-identity frame packet supplied the locked three-scene sequence and copy.",
+    "Hash-pinned frame.md supplied the paper grid palette typography hierarchy and hairline treatment.",
+    "Only checked-in local font files are referenced; no external media or generated assets are used."
+  ],
+  "assumptions": [
+    "The checked-in supreme-500.woff2 is locally aliased to the Fragment Mono token because the pinned project contains no Fragment Mono font file.",
+    "The checked-in boska-700.woff2 is locally assigned to the required Boska family at the token-specified CSS weight because no Boska 400 file is present."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

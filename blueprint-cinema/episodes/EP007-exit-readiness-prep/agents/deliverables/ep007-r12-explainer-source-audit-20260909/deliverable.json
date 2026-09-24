@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r12-explainer-source-audit-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/index.html","sha256":"0490a31c5ff597c2358efc21d688a756d21c2397150cb9396ba7eb6bcc2795ea"},
+    {"path":"operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json","sha256":"f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"},
+    {"path":"blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/404.mp4","sha256":"a0de31c36bde22219a1e067178b86cf750e7da1f11a69a775c370c82df6f29dd"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r12-explainer-source-audit-20260909/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r12-explainer-source-audit-20260909/deliverable.json"
+  ],
+  "checks": [
+    {"command":"Recompute pinned input SHA-256 before inspection and at completion","outcome":"pass"},
+    {"command":"Inspect prior R11 source audit, selected404/407 records, R11 pickup ranges and relevant local presenter/film manifests","outcome":"pass"},
+    {"command":"Read W000149-W000190 exact transcript and evaluate59.5-74.5 master boundaries with ffmpeg silencedetect=noise=-40dB:d=0.06","outcome":"pass"},
+    {"command":"Fresh ffprobe404/407 and master/prepared-WAV hash verification","outcome":"pass"},
+    {"command":"Validate deliverable.json against agent-deliverable.schema.json","outcome":"pass"},
+    {"command":"Normal-speed performance and phoneme review of a post-title presenter candidate","outcome":"not_run"}
+  ],
+  "sources_and_provenance": [
+    "Prior packet: agents/deliverables/ep007-r11-source-audit-20260909/report.md; read first as a routing and provenance reference, not current availability proof.",
+    "Existing local synthetic performance404/407, R11 records and presenter-test manifests inspected read-only; no new media created or adopted.",
+    "Original master narration hash d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9 verified; transcript unchanged.",
+    "New Seedance005/006 generation direction records inspected only to exclude silent workshop experiments from presenter availability. No provider was contacted."
+  ],
+  "assumptions": [
+    "Selected404 appearance and original narration remain required; historical Q/HeyGen appearance or mismatched speaking footage cannot satisfy the request.",
+    "Two post-title sentences through W000190 are the bounded useful explanation for this audit; the next content section remains outside scope."
+  ],
+  "unresolved_questions": [
+    "A matching post-title presenter pickup does not exist in inspected local records. Orchestrator must resolve the new15-second source/performance requirement without silently looping or retiming the12.041667-second404 source.",
+    "Fresh normal-speed and audio-alignment QA remain necessary for any newly generated candidate."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

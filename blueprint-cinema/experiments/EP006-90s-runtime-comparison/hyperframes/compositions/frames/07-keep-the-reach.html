@@ -1,0 +1,853 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    #root {
+      --07-keep-the-reach-paper: #F5F0E6;
+      --07-keep-the-reach-ink: #1A1A1A;
+      --07-keep-the-reach-brass: #856A2F;
+      --07-keep-the-reach-grid: rgba(176, 141, 62, 0.10);
+      --07-keep-the-reach-ink-faint: rgba(176, 141, 62, 0.18);
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: var(--07-keep-the-reach-ink);
+      font-family: "Supreme";
+    }
+
+    #root *,
+    #root *::before,
+    #root *::after {
+      box-sizing: border-box;
+    }
+
+    #root [class~="07-keep-the-reach-ground"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: var(--07-keep-the-reach-paper);
+      background-image:
+        linear-gradient(var(--07-keep-the-reach-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--07-keep-the-reach-grid) 1px, transparent 1px);
+      background-size: 2cqw 2cqw;
+    }
+
+    #root [class~="07-keep-the-reach-rule"] {
+      position: absolute;
+      left: 4cqw;
+      width: 92cqw;
+      height: 0.12cqw;
+      background: var(--07-keep-the-reach-ink);
+    }
+
+    #root [class~="07-keep-the-reach-rule-top"] {
+      top: 3cqw;
+    }
+
+    #root [class~="07-keep-the-reach-rule-bottom"] {
+      top: 45.35cqw;
+    }
+
+    #root [class~="07-keep-the-reach-chrome"] {
+      position: absolute;
+      top: 43.4cqw;
+      font-family: "Supreme";
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    #root [class~="07-keep-the-reach-chrome-left"] {
+      left: 4cqw;
+    }
+
+    #root [class~="07-keep-the-reach-chrome-right"] {
+      right: 4cqw;
+    }
+
+    #root [class~="07-keep-the-reach-stage"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    #root [id="07-keep-the-reach-world"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5760px;
+      height: 896px;
+      overflow: visible;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    #root [class~="07-keep-the-reach-kicker"],
+    #root [class~="07-keep-the-reach-station-label"],
+    #root [class~="07-keep-the-reach-route-label"],
+    #root [class~="07-keep-the-reach-ledger-meta"] {
+      font-family: "Supreme";
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    #root [class~="07-keep-the-reach-headline"] {
+      position: absolute;
+      left: 250px;
+      top: 132px;
+      width: 1120px;
+      height: 330px;
+    }
+
+    #root [class~="07-keep-the-reach-kicker"] {
+      margin-bottom: 24px;
+    }
+
+    #root [class~="07-keep-the-reach-headline-line"] {
+      font-family: "Boska";
+      font-size: 88px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 0.95;
+      white-space: nowrap;
+    }
+
+    #root [class~="07-keep-the-reach-swap-field"] {
+      position: relative;
+      width: 720px;
+      height: 180px;
+      margin-top: 8px;
+      overflow: visible;
+    }
+
+    #root [class~="07-keep-the-reach-swap-word"] {
+      position: absolute;
+      inset: 0 auto auto 0;
+      display: block;
+      width: 720px;
+      font-family: "Boska";
+      font-size: 196px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      line-height: 0.86;
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-route-solid"] {
+      position: absolute;
+      left: 320px;
+      top: 610px;
+      width: 2810px;
+      height: 8px;
+      background: var(--07-keep-the-reach-ink);
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-route-extension"] {
+      position: absolute;
+      left: 3040px;
+      top: 605px;
+      width: 1130px;
+      height: 14px;
+      border-top: 6px dashed var(--07-keep-the-reach-brass);
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-economic-link"] {
+      position: absolute;
+      left: 4335px;
+      top: 610px;
+      width: 620px;
+      height: 8px;
+      background: var(--07-keep-the-reach-ink);
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-route-label"] {
+      position: absolute;
+      top: 644px;
+      color: var(--07-keep-the-reach-ink);
+    }
+
+    #root [class~="07-keep-the-reach-route-label-one"] {
+      left: 550px;
+    }
+
+    #root [class~="07-keep-the-reach-route-label-two"] {
+      left: 2610px;
+    }
+
+    #root [class~="07-keep-the-reach-route-label-three"] {
+      left: 3530px;
+      color: var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-gate"] {
+      position: absolute;
+      left: 1010px;
+      top: 316px;
+      width: 250px;
+      height: 302px;
+    }
+
+    #root [class~="07-keep-the-reach-station-label"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 250px;
+      text-align: center;
+    }
+
+    #root [class~="07-keep-the-reach-gate-frame"] {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 250px;
+      height: 254px;
+      border: 7px solid var(--07-keep-the-reach-ink);
+      border-bottom: 0;
+    }
+
+    #root [class~="07-keep-the-reach-gate-door"] {
+      position: absolute;
+      bottom: 0;
+      width: 49%;
+      height: 198px;
+      background: var(--07-keep-the-reach-ink);
+      will-change: transform;
+    }
+
+    #root [class~="07-keep-the-reach-gate-door-left"] {
+      left: 0;
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-gate-door-right"] {
+      right: 0;
+      transform-origin: 100% 50%;
+    }
+
+    #root [class~="07-keep-the-reach-guest"] {
+      position: absolute;
+      left: 450px;
+      top: 530px;
+      width: 88px;
+      height: 88px;
+      border: 5px solid var(--07-keep-the-reach-paper);
+      background: var(--07-keep-the-reach-ink);
+      outline: 4px solid var(--07-keep-the-reach-ink);
+      will-change: transform;
+    }
+
+    #root [class~="07-keep-the-reach-guest-head"] {
+      position: absolute;
+      left: 30px;
+      top: 16px;
+      width: 20px;
+      height: 20px;
+      background: var(--07-keep-the-reach-paper);
+    }
+
+    #root [class~="07-keep-the-reach-guest-body"] {
+      position: absolute;
+      left: 20px;
+      top: 44px;
+      width: 40px;
+      height: 26px;
+      background: var(--07-keep-the-reach-paper);
+    }
+
+    #root [class~="07-keep-the-reach-inn"] {
+      position: absolute;
+      left: 2470px;
+      top: 268px;
+      width: 630px;
+      height: 350px;
+      border: 6px solid var(--07-keep-the-reach-ink);
+      background: var(--07-keep-the-reach-paper);
+    }
+
+    #root [class~="07-keep-the-reach-inn-roof"] {
+      position: absolute;
+      left: -6px;
+      top: -58px;
+      width: 630px;
+      height: 58px;
+      border: 6px solid var(--07-keep-the-reach-ink);
+      background:
+        linear-gradient(90deg,
+          var(--07-keep-the-reach-ink) 0 15%,
+          transparent 15% 25%,
+          var(--07-keep-the-reach-ink) 25% 45%,
+          transparent 45% 56%,
+          var(--07-keep-the-reach-ink) 56% 76%,
+          transparent 76% 86%,
+          var(--07-keep-the-reach-ink) 86% 100%);
+    }
+
+    #root [class~="07-keep-the-reach-inn-sign"] {
+      position: absolute;
+      left: 66px;
+      top: 44px;
+      width: 246px;
+      border-bottom: 4px solid var(--07-keep-the-reach-ink);
+      font-family: "Boska";
+      font-size: 76px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 1;
+    }
+
+    #root [class~="07-keep-the-reach-window"] {
+      position: absolute;
+      top: 172px;
+      width: 86px;
+      height: 92px;
+      border: 5px solid var(--07-keep-the-reach-ink);
+    }
+
+    #root [class~="07-keep-the-reach-window-one"] {
+      left: 72px;
+    }
+
+    #root [class~="07-keep-the-reach-window-two"] {
+      left: 194px;
+    }
+
+    #root [class~="07-keep-the-reach-inn-door"] {
+      position: absolute;
+      right: 74px;
+      bottom: 0;
+      width: 124px;
+      height: 194px;
+      background: var(--07-keep-the-reach-ink);
+    }
+
+    #root [class~="07-keep-the-reach-stay-state"] {
+      position: absolute;
+      left: 2515px;
+      top: 104px;
+      width: 680px;
+      height: 128px;
+      overflow: visible;
+    }
+
+    #root [class~="07-keep-the-reach-stay-word"] {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 680px;
+      font-family: "Boska";
+      font-size: 126px;
+      font-weight: 400;
+      letter-spacing: -0.008em;
+      line-height: 0.9;
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-key"] {
+      position: absolute;
+      left: 2840px;
+      top: 512px;
+      width: 128px;
+      height: 62px;
+      will-change: transform;
+    }
+
+    #root [class~="07-keep-the-reach-key-bow"] {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 52px;
+      height: 52px;
+      border: 13px solid var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-key-shaft"] {
+      position: absolute;
+      left: 48px;
+      top: 24px;
+      width: 78px;
+      height: 16px;
+      background: var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-key-tooth"] {
+      position: absolute;
+      top: 38px;
+      width: 15px;
+      height: 18px;
+      background: var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-key-tooth-one"] {
+      left: 91px;
+    }
+
+    #root [class~="07-keep-the-reach-key-tooth-two"] {
+      left: 112px;
+    }
+
+    #root [class~="07-keep-the-reach-intact"] {
+      position: absolute;
+      left: 2920px;
+      top: 686px;
+      width: 360px;
+      padding-top: 14px;
+      border-top: 3px solid var(--07-keep-the-reach-ink);
+      font-family: "Supreme";
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    #root [class~="07-keep-the-reach-direct"] {
+      position: absolute;
+      left: 4070px;
+      top: 278px;
+      width: 350px;
+      height: 340px;
+      color: var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-direct-title"] {
+      width: 350px;
+      font-family: "Boska";
+      font-size: 58px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 0.95;
+    }
+
+    #root [class~="07-keep-the-reach-direct-gate"] {
+      position: absolute;
+      left: 46px;
+      top: 110px;
+      width: 230px;
+      height: 230px;
+      border: 6px solid var(--07-keep-the-reach-brass);
+      border-bottom: 0;
+    }
+
+    #root [class~="07-keep-the-reach-direct-bar"] {
+      position: absolute;
+      top: 0;
+      width: 12px;
+      height: 224px;
+      background: var(--07-keep-the-reach-brass);
+    }
+
+    #root [class~="07-keep-the-reach-direct-bar-one"] {
+      left: 52px;
+    }
+
+    #root [class~="07-keep-the-reach-direct-bar-two"] {
+      left: 106px;
+    }
+
+    #root [class~="07-keep-the-reach-direct-bar-three"] {
+      left: 160px;
+    }
+
+    #root [class~="07-keep-the-reach-gated"] {
+      position: absolute;
+      left: 46px;
+      top: 194px;
+      width: 230px;
+      padding: 12px 8px;
+      border-top: 4px solid var(--07-keep-the-reach-brass);
+      border-bottom: 4px solid var(--07-keep-the-reach-brass);
+      background: var(--07-keep-the-reach-paper);
+      font-family: "Supreme";
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    #root [class~="07-keep-the-reach-ledger"] {
+      position: absolute;
+      left: 4930px;
+      top: 170px;
+      width: 720px;
+      height: 576px;
+      border-top: 7px solid var(--07-keep-the-reach-ink);
+      border-bottom: 7px solid var(--07-keep-the-reach-ink);
+      background: var(--07-keep-the-reach-paper);
+      will-change: transform;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-head"] {
+      display: grid;
+      grid-template-columns: 1fr 152px;
+      align-items: end;
+      min-height: 166px;
+      padding: 30px 28px 24px;
+      border-bottom: 4px solid var(--07-keep-the-reach-ink);
+    }
+
+    #root [class~="07-keep-the-reach-ledger-title"] {
+      max-width: 470px;
+      font-family: "Boska";
+      font-size: 59px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 0.95;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-meta"] {
+      padding-bottom: 7px;
+      text-align: right;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-columns"],
+    #root [class~="07-keep-the-reach-ledger-entry"] {
+      display: grid;
+      grid-template-columns: 86px 1fr 62px;
+      align-items: center;
+      width: 100%;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-columns"] {
+      height: 58px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--07-keep-the-reach-ink-faint);
+      font-family: "Supreme";
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-entry"] {
+      position: relative;
+      height: 118px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--07-keep-the-reach-ink-faint);
+      overflow: hidden;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-entry-fill"] {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 12px;
+      background: var(--07-keep-the-reach-ink);
+      transform-origin: 0 50%;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-index"],
+    #root [class~="07-keep-the-reach-ledger-minus"] {
+      font-family: "Supreme";
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-description"] {
+      font-family: "Boska";
+      font-size: 48px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 1;
+    }
+
+    #root [class~="07-keep-the-reach-ledger-minus"] {
+      font-size: 52px;
+      text-align: right;
+      transform-origin: 50% 50%;
+    }
+
+    #root [class~="07-keep-the-reach-deduction"] {
+      position: absolute;
+      right: 28px;
+      bottom: 36px;
+      width: 280px;
+      padding-top: 13px;
+      border-top: 4px solid var(--07-keep-the-reach-ink);
+      font-family: "Supreme";
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      line-height: 1;
+      text-align: right;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="07-keep-the-reach"
+    data-width="1920"
+    data-height="1080"
+    data-start="0"
+    data-duration="13.916"
+  >
+    <div
+      class="clip 07-keep-the-reach-ground"
+      data-start="0"
+      data-duration="13.916"
+      data-track-index="0"
+    >
+      <div class="07-keep-the-reach-rule 07-keep-the-reach-rule-top"></div>
+      <div class="07-keep-the-reach-rule 07-keep-the-reach-rule-bottom"></div>
+      <div class="07-keep-the-reach-chrome 07-keep-the-reach-chrome-left">ACQUISITION / SERVICE / ECONOMICS</div>
+      <div class="07-keep-the-reach-chrome 07-keep-the-reach-chrome-right">07</div>
+    </div>
+
+    <div
+      class="clip 07-keep-the-reach-stage"
+      data-start="0"
+      data-duration="13.916"
+      data-track-index="1"
+    >
+      <div id="07-keep-the-reach-world" class="07-keep-the-reach-world">
+        <div id="07-keep-the-reach-route-solid" class="07-keep-the-reach-route-solid"></div>
+        <div id="07-keep-the-reach-route-extension" class="07-keep-the-reach-route-extension"></div>
+        <div id="07-keep-the-reach-economic-link" class="07-keep-the-reach-economic-link"></div>
+        <div class="07-keep-the-reach-route-label 07-keep-the-reach-route-label-one">DISCOVERY</div>
+        <div class="07-keep-the-reach-route-label 07-keep-the-reach-route-label-two">FIRST BOOKING</div>
+        <div class="07-keep-the-reach-route-label 07-keep-the-reach-route-label-three">RETURN PATH</div>
+
+        <div id="07-keep-the-reach-headline" class="07-keep-the-reach-headline" data-layout-allow-overlap>
+          <div class="07-keep-the-reach-kicker">FIRST BOOKING</div>
+          <div class="07-keep-the-reach-headline-line">THE IDEA ISN'T TO</div>
+          <div class="07-keep-the-reach-swap-field">
+            <div id="07-keep-the-reach-replace" class="07-keep-the-reach-swap-word">REPLACE</div>
+            <div id="07-keep-the-reach-reach" class="07-keep-the-reach-swap-word">REACH</div>
+          </div>
+        </div>
+
+        <div class="07-keep-the-reach-gate">
+          <div class="07-keep-the-reach-station-label">OTA GATE</div>
+          <div class="07-keep-the-reach-gate-frame">
+            <div id="07-keep-the-reach-gate-left" class="07-keep-the-reach-gate-door 07-keep-the-reach-gate-door-left"></div>
+            <div id="07-keep-the-reach-gate-right" class="07-keep-the-reach-gate-door 07-keep-the-reach-gate-door-right"></div>
+          </div>
+        </div>
+
+        <div id="07-keep-the-reach-guest" class="07-keep-the-reach-guest">
+          <div class="07-keep-the-reach-guest-head"></div>
+          <div class="07-keep-the-reach-guest-body"></div>
+        </div>
+
+        <div class="07-keep-the-reach-stay-state">
+          <div id="07-keep-the-reach-stay" class="07-keep-the-reach-stay-word">STAY</div>
+          <div id="07-keep-the-reach-served" class="07-keep-the-reach-stay-word">SERVED</div>
+        </div>
+
+        <div class="07-keep-the-reach-inn">
+          <div class="07-keep-the-reach-inn-roof"></div>
+          <div class="07-keep-the-reach-inn-sign">INN</div>
+          <div class="07-keep-the-reach-window 07-keep-the-reach-window-one"></div>
+          <div class="07-keep-the-reach-window 07-keep-the-reach-window-two"></div>
+          <div class="07-keep-the-reach-inn-door"></div>
+        </div>
+
+        <div id="07-keep-the-reach-key" class="07-keep-the-reach-key">
+          <div class="07-keep-the-reach-key-bow"></div>
+          <div class="07-keep-the-reach-key-shaft"></div>
+          <div class="07-keep-the-reach-key-tooth 07-keep-the-reach-key-tooth-one"></div>
+          <div class="07-keep-the-reach-key-tooth 07-keep-the-reach-key-tooth-two"></div>
+        </div>
+
+        <div id="07-keep-the-reach-intact" class="07-keep-the-reach-intact">FIRST-BOOKING PATH INTACT</div>
+
+        <div id="07-keep-the-reach-direct" class="07-keep-the-reach-direct">
+          <div class="07-keep-the-reach-direct-title">DIRECT RETURN</div>
+          <div class="07-keep-the-reach-direct-gate">
+            <div class="07-keep-the-reach-direct-bar 07-keep-the-reach-direct-bar-one"></div>
+            <div class="07-keep-the-reach-direct-bar 07-keep-the-reach-direct-bar-two"></div>
+            <div class="07-keep-the-reach-direct-bar 07-keep-the-reach-direct-bar-three"></div>
+            <div id="07-keep-the-reach-gated" class="07-keep-the-reach-gated">GATED</div>
+          </div>
+        </div>
+
+        <div id="07-keep-the-reach-ledger" class="07-keep-the-reach-ledger">
+          <div class="07-keep-the-reach-ledger-head">
+            <div class="07-keep-the-reach-ledger-title">COMMISSION LEDGER</div>
+            <div class="07-keep-the-reach-ledger-meta">OPERATOR SIDE</div>
+          </div>
+          <div class="07-keep-the-reach-ledger-columns">
+            <span>ENTRY</span>
+            <span>DESCRIPTION</span>
+            <span>DELTA</span>
+          </div>
+          <div id="07-keep-the-reach-ledger-entry" class="07-keep-the-reach-ledger-entry">
+            <div id="07-keep-the-reach-ledger-entry-fill" class="07-keep-the-reach-ledger-entry-fill"></div>
+            <span class="07-keep-the-reach-ledger-index">001</span>
+            <span class="07-keep-the-reach-ledger-description">COMMISSION</span>
+            <span id="07-keep-the-reach-ledger-minus" class="07-keep-the-reach-ledger-minus">−</span>
+          </div>
+          <div id="07-keep-the-reach-deduction" class="07-keep-the-reach-deduction">ONE DEDUCTION</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const byId = (id) => document.getElementById(id);
+      const world = byId("07-keep-the-reach-world");
+      const headline = byId("07-keep-the-reach-headline");
+      const replaceWord = byId("07-keep-the-reach-replace");
+      const reachWord = byId("07-keep-the-reach-reach");
+      const gateLeft = byId("07-keep-the-reach-gate-left");
+      const gateRight = byId("07-keep-the-reach-gate-right");
+      const guest = byId("07-keep-the-reach-guest");
+      const stayWord = byId("07-keep-the-reach-stay");
+      const servedWord = byId("07-keep-the-reach-served");
+      const key = byId("07-keep-the-reach-key");
+      const routeExtension = byId("07-keep-the-reach-route-extension");
+      const intact = byId("07-keep-the-reach-intact");
+      const direct = byId("07-keep-the-reach-direct");
+      const gated = byId("07-keep-the-reach-gated");
+      const economicLink = byId("07-keep-the-reach-economic-link");
+      const ledger = byId("07-keep-the-reach-ledger");
+      const ledgerEntry = byId("07-keep-the-reach-ledger-entry");
+      const ledgerEntryFill = byId("07-keep-the-reach-ledger-entry-fill");
+      const ledgerMinus = byId("07-keep-the-reach-ledger-minus");
+      const deduction = byId("07-keep-the-reach-deduction");
+
+      const cam = { scale: 1, x: 0, y: 0 };
+      const applyCamera = () => {
+        world.style.transform = `translate(${cam.x}px, ${cam.y}px) scale(${cam.scale})`;
+      };
+      applyCamera();
+
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["07-keep-the-reach"] = tl;
+
+      tl.set([reachWord, servedWord, key, routeExtension, intact, direct, gated, economicLink, ledger, ledgerEntry, ledgerEntryFill, ledgerMinus, deduction], { autoAlpha: 0 }, 0);
+
+      tl.fromTo(headline,
+        { autoAlpha: 0, y: 54 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        0.04
+      );
+      tl.fromTo(guest,
+        { autoAlpha: 0, x: -80 },
+        { autoAlpha: 1, x: 0, duration: 0.44, ease: "power3.out" },
+        0.16
+      );
+      tl.fromTo(gateLeft,
+        { scaleX: 1 },
+        { scaleX: 0.08, duration: 0.78, ease: "power3.inOut" },
+        1.18
+      );
+      tl.fromTo(gateRight,
+        { scaleX: 1 },
+        { scaleX: 0.08, duration: 0.78, ease: "power3.inOut" },
+        1.18
+      );
+      tl.to(guest, { x: 840, duration: 1.92, ease: "power2.inOut" }, 1.02);
+
+      tl.to(replaceWord, { scale: 1.2, filter: "blur(10px)", duration: 0.2, ease: "power3.in" }, 1.54);
+      tl.to(replaceWord, { opacity: 0.15, duration: 0.2, ease: "none" }, 1.54);
+      tl.set(replaceWord, { autoAlpha: 0 }, 1.74);
+      tl.set(reachWord, { autoAlpha: 0.15, scale: 0.75, filter: "blur(10px)" }, 1.74);
+      tl.to(reachWord, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 1.74);
+
+      tl.to(cam, { x: -1920, duration: 1.72, ease: "power3.inOut", onUpdate: applyCamera }, 3.2);
+      tl.to(guest, { x: 2290, duration: 2.2, ease: "power2.inOut" }, 3.2);
+      tl.fromTo(key,
+        { autoAlpha: 0, x: 92, y: -26 },
+        { autoAlpha: 1, x: 0, y: 0, duration: 0.62, ease: "power3.out" },
+        4.92
+      );
+
+      tl.to(stayWord, { scale: 1.2, filter: "blur(10px)", duration: 0.2, ease: "power3.in" }, 5.72);
+      tl.to(stayWord, { opacity: 0.15, duration: 0.2, ease: "none" }, 5.72);
+      tl.set(stayWord, { autoAlpha: 0 }, 5.92);
+      tl.set(servedWord, { autoAlpha: 0.15, scale: 0.75, filter: "blur(10px)" }, 5.92);
+      tl.to(servedWord, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 5.92);
+
+      tl.to(cam, { x: -2880, duration: 1.36, ease: "power3.inOut", onUpdate: applyCamera }, 6.6);
+      tl.fromTo(routeExtension,
+        { autoAlpha: 1, scaleX: 0 },
+        { autoAlpha: 1, scaleX: 1, duration: 2.42, ease: "power2.inOut" },
+        6.72
+      );
+      tl.fromTo(intact,
+        { autoAlpha: 0, y: 34 },
+        { autoAlpha: 1, y: 0, duration: 0.58, ease: "power3.out" },
+        7.28
+      );
+      tl.fromTo(direct,
+        { autoAlpha: 0, x: 90 },
+        { autoAlpha: 0.42, x: 0, duration: 0.8, ease: "power3.out" },
+        8.02
+      );
+      tl.fromTo(gated,
+        { autoAlpha: 0, y: 28 },
+        { autoAlpha: 1, y: 0, duration: 0.46, ease: "power3.out" },
+        8.74
+      );
+
+      tl.to(cam, { x: -3840, duration: 1.06, ease: "power3.inOut", onUpdate: applyCamera }, 10.0);
+      tl.fromTo(economicLink,
+        { autoAlpha: 1, scaleX: 0 },
+        { autoAlpha: 1, scaleX: 1, duration: 1.18, ease: "power2.inOut" },
+        10.08
+      );
+      tl.fromTo(ledger,
+        { autoAlpha: 0, x: 360 },
+        { autoAlpha: 1, x: 0, duration: 1.0, ease: "power4.out" },
+        10.12
+      );
+      tl.fromTo(ledgerEntry,
+        { autoAlpha: 0, y: 44 },
+        { autoAlpha: 1, y: 0, duration: 0.56, ease: "power3.out" },
+        11.18
+      );
+      tl.fromTo(ledgerEntryFill,
+        { autoAlpha: 1, scaleX: 0 },
+        { autoAlpha: 1, scaleX: 1, duration: 0.76, ease: "power3.inOut" },
+        11.42
+      );
+      tl.fromTo(ledgerMinus,
+        { autoAlpha: 0, scale: 1.45 },
+        { autoAlpha: 1, scale: 1, duration: 0.52, ease: "expo.out" },
+        11.76
+      );
+      tl.fromTo(deduction,
+        { autoAlpha: 0, y: 24 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        12.26
+      );
+    })();
+  </script>
+</template>

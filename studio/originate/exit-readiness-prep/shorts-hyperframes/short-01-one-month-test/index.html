@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <title>EP007 Short 01 - The Question After the Numbers</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root, .scene-host { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <main
+      data-hf-id="hf-root-avatar-hook"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="20.25"
+      data-width="1080"
+      data-height="1920"
+      data-fps="24"
+    >
+      <div
+        data-hf-id="hf-host-avatar-hook"
+        id="avatar-hook-host"
+        class="clip scene-host"
+        data-composition-id="avatar-hook-v2"
+        data-composition-src="compositions/avatar-hook-v2.html"
+        data-start="0"
+        data-duration="20.25"
+        data-track-index="0"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+    </main>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#avatar-hook-host", { opacity: 1 }, 0);
+      window.__timelines.main = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

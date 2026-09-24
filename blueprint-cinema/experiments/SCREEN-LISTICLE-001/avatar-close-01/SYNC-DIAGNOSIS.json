@@ -1,0 +1,9 @@
+{
+  "at": "2026-09-15",
+  "owner_feedback": "the last avatar scene sync is all off.",
+  "placement_check": "Rendered context-v7 frame at 60.0s matches synced.mp4 at 8.45s (SSIM 0.959) versus 8.25s (0.918): data-start/data-media-start placement is correct; the fault is in the lip sync, not the edit.",
+  "cause": "Seedance native take re-timed the speech: native audio has pauses near 6.27s and 14.84s where the source audio is continuous (source words 'Most' at 6.36s, 'get.'/'Tell' at 14.52/15.18s). One Sync v3 silence-mode pass restored the audio but did not fully re-drive the lips across 19s.",
+  "attempt_2": {"model": "fal-ai/sync-lipsync/v2/pro", "sync_mode": "cut_off", "output": "media/synced-2pro.mp4", "sha256": "8f9784a2f7be9cd1308f3370d47cabef6cc31f217c7512eead827a9029408c0d"},
+  "review_file": "media/compare-v3-vs-2pro.mp4 (left v3, right 2-pro, exact close audio)",
+  "fallback": "Regenerate the close-up as two shorter Seedance takes split at a sentence break, then sync each."
+}

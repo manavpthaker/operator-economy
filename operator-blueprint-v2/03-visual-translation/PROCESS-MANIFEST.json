@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "kind": "process",
+  "purpose": "Immutable process manifest. Covers only what Step 3 v0.3 IS. Contains no episode record, so writing an episode approval cannot invalidate it.",
+  "algorithm": "sha256",
+  "controls": 54,
+  "documents": {
+    "SCOPE-BOUNDARY.md": "255ac7810bb8f5736309a1c851b319db3bc0f6f25af5c77c1b2fa36eff7d4ee5",
+    "VISUAL-TRANSLATION-STANDARD.md": "4a44366a223940f98ea8d02d40581597770c9f9eaf402ff19c3072f5ad09078d",
+    "STAGE-GATES.md": "3c2d564a271acfe130f87ef8769c8a3adf99ab11f9a62404ccc0f7d73449d1ce",
+    "AUTHORITY-MAP.md": "0cb648224f7cb93a39cc091e7702b5b04d1fc4f4b28fd051b66ce8873ce95333",
+    "PORTING-MANIFEST.md": "247ac31fd1e07a631a9801b9e2b5b587b719c8fad124a021fa522db386afdfbc"
+  },
+  "templates": {
+    "01-input-lock/INPUT-LOCK.template.md": "cf1bb506dec25d8fc7da9f6369d5601b878553a1fa12482dbd699ab93b77c2d5",
+    "02-engine/EPISODE-ENGINE.template.md": "944bdd3e21b0ee19b6d926a63b808ee56367de0f453c71fdf6b043015b7e1d8d",
+    "03-world/PERSISTENT-WORLD.template.md": "20264e7ee4bc81f5282b57b9239a51240c6b41013fe10b89ce517bb00078bd1d",
+    "04-visual-plan/VISUAL-PLAN.template.md": "f872eadbd814d69514c94caa0872959bf2a333314d06f0cb58c65c9db5f9e943",
+    "05-direction/DIRECTION-BIBLE.template.md": "9e9a041fd3ef1375f9eb7afb888d6782d3992f50820d27d1bf9d9fb3694171ed",
+    "05-direction/RHYTHM-MAP.template.md": "30081686e97ecc728ef5215bce6821570150549e8dddb4bdee7110afcb48c89b",
+    "06-look/LOOK-DEVELOPMENT.template.md": "93d30fc1bf0a44b04e3e32e7611d62ea1a924f9ed2515539eaed44c3ca5d3911",
+    "07-approval/VISUAL-TRANSLATION-LOCK.template.md": "3bfb59d8110517ea09d9bedb6799366386b8a43865a19338846ef27299e807b7"
+  },
+  "executable": {
+    "fixtures/validate.py": "fc1721583c49975991a4c69f09a572ffbee83d0107a16c1d794a3d6d02396470",
+    "fixture_tree_sha256": "ea50a923f1ac9afff790aaafb862eec05f92911852daa511af0fcac15d0c83cb",
+    "fixture_file_count": 299,
+    "fixture_tree_index": "FIXTURE-TREE.json",
+    "note": "Covers every fixture input and expected result, hashed in path order. Any change to a control, a base, or an expectation changes it. ACCEPTANCE-EVIDENCE.md is excluded as run output."
+  },
+  "boundary_ledger": {
+    "semantic-core.json": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "bindings/motion.json": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motion_binding_status": "provisional"
+  },
+  "status": "proposed; authority returned by owner 2026-09-02 and not re-granted"
+}

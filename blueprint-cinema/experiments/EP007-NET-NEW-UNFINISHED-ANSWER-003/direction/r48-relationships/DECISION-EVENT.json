@@ -1,0 +1,96 @@
+{
+  "event_id": "r48-relationships-model-v1",
+  "decision_id": "s08-relationships-example",
+  "event_type": "decision",
+  "tags": [
+    "animation",
+    "working-model",
+    "dependency",
+    "cut-timing",
+    "false-inference",
+    "next-scene"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Make the first of three failure shapes concrete: customer loyalty attaches to the owner, and retention after her departure is unknown.",
+      "viewer_before": "The viewer has the transfer test and expects three shapes.",
+      "viewer_after": "The viewer sees customers tied to her rather than the business and holds an open question about whether they stay."
+    },
+    "choice": "R46 world on entry; heading 'The relationships' on the word; three illustrative customers enter on 'Every significant customer'; ties draw to the owner on 'loyal'; owner leaves with the R46 motion on 'when she goes'; ties and customers stay unchanged, ending at an empty place.",
+    "reason": "The dependence is spatial (who the customers connect to), so a model shows it better than narration or presenter. Leaving ties and customers untouched after departure shows absence without resolving retention.",
+    "alternatives": [
+      {
+        "choice": "Ties break, fade or retract on departure",
+        "reason_not_selected": "Reads as customers lost; the script says nobody knows."
+      },
+      {
+        "choice": "Customers walk away or move toward the business",
+        "reason_not_selected": "Resolves the uncertainty in one direction."
+      },
+      {
+        "choice": "Question mark over customers",
+        "reason_not_selected": "Labels uncertainty that the empty endpoint already shows."
+      },
+      {
+        "choice": "Presenter carries the line",
+        "reason_not_selected": "R47 just returned to presenter; the relationship is spatial."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "An asset attaches to a person rather than the business and its survival after departure is unknown.",
+      "avoid_when": "Evidence supports a known retention outcome, or the connection is to a process rather than a person."
+    },
+    "nuance": {
+      "animation": {
+        "form": "Working Model in accepted R46 geometry",
+        "mark_style": "Boundary Ledger thin steel ties and existing person grammar",
+        "entry": "Business, owner, desk visible at cut",
+        "change": "Owner departs; ties now end at empty place",
+        "hold": "~0.7 s to outpoint",
+        "exit": "Concentration example can continue from this state"
+      },
+      "cut_cues": [
+        {
+          "cue_id": "relationships-model-in",
+          "phrase": "Sometimes it is the relationships",
+          "relation": "pause after outside",
+          "master_seconds": 301.5,
+          "review_seconds": 298.5,
+          "fps": 24,
+          "dependent_targets": [
+            "R47 presenter out",
+            "R48 model in"
+          ]
+        },
+        {
+          "cue_id": "relationships-model-out",
+          "phrase": "when she goes / Sometimes it is concentration",
+          "relation": "quiet window after goes, before next onset ~310.49",
+          "master_seconds": 310.4583333333333,
+          "review_seconds": 307.4583333333333,
+          "fps": 24,
+          "rounding": "frame floor before onset",
+          "dependent_targets": [
+            "R48 model out",
+            "concentration scene in"
+          ]
+        }
+      ],
+      "false_inference": "Customers leave, or three is a measured count, or loyalty is evidenced.",
+      "source_basis": "Agent direction under owner move-on to next scene; R47 proposal for following scene."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r48-relationships/DIRECTION.md",
+      "sha256": "f613302d2cc519d450c619bde7009330da177a6f94f5532824589c3466d3b9c6",
+      "locator": "Scene direction"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r48-relationships/CUES.json",
+      "sha256": "64bc54e98ce2531c5cf6a565923ca45062908df9b261ac745ba0167ba21c17aa",
+      "locator": "Word-bound cues and outpoint basis"
+    }
+  ]
+}

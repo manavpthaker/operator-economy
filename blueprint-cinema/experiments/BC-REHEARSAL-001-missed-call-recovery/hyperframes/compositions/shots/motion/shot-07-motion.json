@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "composition_id": "bc-rh-001-shot-07",
+  "local_duration_seconds": 5.361354,
+  "fps": 30,
+  "events": [
+    {
+      "at_seconds": 0,
+      "event": "hard_cut_with_persistent_dock",
+      "targets": [],
+      "root_action": "Preserve the root-owned tag, card, and source pin at the same screen positions used in Shot 06. Do not instantiate local copies."
+    },
+    {
+      "at_seconds": 1.06,
+      "event": "bounded_week_draws",
+      "targets": [
+        {
+          "selector": "#bc-rh-001-shot-07-week-bracket",
+          "properties": {"strokeDashoffset": 0, "duration": 0.72},
+          "ease": "power2.out"
+        },
+        {
+          "selector": ".bc-rh-001-shot-07-day-tick",
+          "properties": {"strokeDashoffset": 0, "duration_each": 0.38, "start_first": 1.2, "stagger_seconds": 0.09},
+          "ease": "power2.out"
+        }
+      ],
+      "notes": "Exactly seven equal, unlabeled day ticks are used; no count or rate is shown."
+    },
+    {
+      "at_seconds": 2.63,
+      "event": "measured_contact_registers",
+      "targets": [
+        {
+          "selector": "#bc-rh-001-shot-07-measured-contact",
+          "properties": {"opacity": 1, "scaleX": 1, "duration": 0.34},
+          "ease": "power3.out"
+        }
+      ],
+      "root_action": "Change the root-owned card to MEASURED without obscuring its state text or disclosure."
+    },
+    {
+      "complete_at_seconds": 3.45,
+      "event": "call_and_time_leader_reveal",
+      "targets": [
+        {
+          "selector": "#bc-rh-001-shot-07-call-label",
+          "properties": {"opacity": 1, "y_from": 10, "y_to": 0, "duration": 0.3, "starts_at": 3.15},
+          "ease": "power3.out"
+        },
+        {
+          "selector": "#bc-rh-001-shot-07-call-leader",
+          "properties": {"strokeDashoffset": 0, "duration": 0.3, "starts_at": 3.15},
+          "ease": "power2.out"
+        }
+      ],
+      "root_action": "The leader terminates at the root-owned tag's 20:47 field anchor."
+    },
+    {
+      "complete_at_seconds": 3.84,
+      "event": "reply_reveals",
+      "targets": [
+        {
+          "selector": "#bc-rh-001-shot-07-reply-label",
+          "properties": {"opacity": 1, "y_from": 10, "y_to": 0, "duration": 0.28, "starts_at": 3.56},
+          "ease": "power3.out"
+        }
+      ]
+    },
+    {
+      "complete_at_seconds": 4.22,
+      "event": "booked_appointment_and_bracket_close",
+      "targets": [
+        {
+          "selector": "#bc-rh-001-shot-07-booked-label",
+          "properties": {"opacity": 1, "y_from": 10, "y_to": 0, "duration": 0.28, "starts_at": 3.94},
+          "ease": "power3.out"
+        },
+        {
+          "selector": "#bc-rh-001-shot-07-bracket-close",
+          "properties": {"opacity": 1, "scaleY": 1, "duration": 0.28, "starts_at": 3.94},
+          "ease": "power3.out"
+        }
+      ],
+      "notes": "This is the final motion. The complete proof bench holds from 4.22 seconds."
+    }
+  ],
+  "persistent_anchors": [
+    {"selector": "#bc-rh-001-shot-07-tag-dock-anchor", "owner": "root", "role": "docked tag", "x": 1360, "y": 430, "visual_object_created": false},
+    {"selector": "#bc-rh-001-shot-07-tag-time-anchor", "owner": "root", "role": "20:47 tag field leader target", "x": 1328, "y": 454, "visual_object_created": false},
+    {"selector": "#bc-rh-001-shot-07-card-anchor", "owner": "root", "role": "work-order card", "x": 1410, "y": 250, "visual_object_created": false},
+    {"selector": "#bc-rh-001-shot-07-proof-anchor", "owner": "root", "role": "source pin fixed at frame right", "x": 1560, "y": 120, "visual_object_created": false}
+  ],
+  "measured_svg": [
+    {"selector": "#bc-rh-001-shot-07-week-bracket", "method": "getTotalLength", "attribute": "data-svg-path-draw=measured", "animated_property": "strokeDashoffset"},
+    {"selector": ".bc-rh-001-shot-07-day-tick", "count": 7, "method": "getTotalLength per path", "attribute": "data-svg-path-draw=measured", "animated_property": "strokeDashoffset"},
+    {"selector": "#bc-rh-001-shot-07-call-leader", "method": "getTotalLength", "attribute": "data-svg-path-draw=measured", "animated_property": "strokeDashoffset"}
+  ],
+  "camera_scale": {"present": false},
+  "no_motion_hold": {"start_seconds": 4.22, "end_seconds": 5.361354, "duration_seconds": 1.141354},
+  "warning": {
+    "selector": "#bc-rh-001-shot-07-warning",
+    "text": "SYNTHETIC TEST FIXTURE — NOT EVIDENCE",
+    "persistent_for_full_composition": true,
+    "thumbnail_readability_target": "480x270"
+  },
+  "negative_checks": [
+    {"check": "exactly three endpoint labels: CALL, REPLY, BOOKED APPT", "status": "pass"},
+    {"check": "exactly seven equal unlabeled day ticks", "status": "pass"},
+    {"check": "no count, rate, ROI, result, fourth endpoint, or fake outcome", "status": "pass"},
+    {"check": "no local call tag, work-order card, or proof pin", "status": "pass"},
+    {"check": "card state text remains unobscured", "status": "pass"},
+    {"check": "no network, clocks, random values, repeat, async, or layout tween", "status": "pass"},
+    {"check": "one synchronous paused timeline", "status": "pass"}
+  ]
+}

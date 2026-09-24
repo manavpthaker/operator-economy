@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-dynamic-direction-audit-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "schemas/scene-directions.schema.json", "sha256": "bdffaeebef149f9caa0a58d704a4ef22b4e168063f77d29ac29b6c44245f2f3c"},
+    {"path": "src/blueprint_cinema/validation.py", "sha256": "05d51c86cc792c9fc392caa3fa227b0ed94cdb490c004c18bd4bc592ce1c35a3"},
+    {"path": "src/blueprint_cinema/scene_prompts.py", "sha256": "8da0f093cd0a7e58f23362b4b47615dea550ca56c21053aec5f7e5a9453953fa"},
+    {"path": "tests/test_scene_prompts.py", "sha256": "a03859c72ea6c028d953b7e0a645f2418f59c35b792c60a0303660d640dc9438"}
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-dynamic-direction-audit-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-dynamic-direction-audit-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "shasum -a 256 all four exact work-order inputs; all match", "outcome": "pass"},
+    {"command": "Read schema, compiler, tests and relevant schema/scene semantic-validator ranges; map mode and authored-context dependencies", "outcome": "pass"},
+    {"command": "Inspect fixture strategy, deterministic compile checks and mode rejection cases", "outcome": "pass"},
+    {"command": "Direct validate_deliverable without canonical gate validation", "outcome": "pass"},
+    {"command": "Implementation test execution or canonical production approval", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Only four pinned local implementation files supplied task evidence; no external sources used",
+    "Report pointers refer to exact pinned pre-change line positions",
+    "No code, schema, template, test, policy, generated prompt, episode state or media mutation"
+  ],
+  "assumptions": [
+    "The new narrated-dramatization contract is distinct from narrated observation rather than a blanket relaxation",
+    "Authored scene context and shot-choice rationale must be enforced and passed through, not inferred from narration",
+    "Version 1.2.0 is a recommended compatibility boundary, not an implemented decision"
+  ],
+  "unresolved_questions": [
+    "Exact new enum values, context/rationale fields and mute-test semantics require the owning author's decision",
+    "External fixture providers, CLI callers, templates and historical authored scene files are outside this bounded audit",
+    "No tests were executed; findings are static dependency analysis",
+    "Canonical inputs_locked is unestablished and unchanged"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

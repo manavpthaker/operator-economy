@@ -1,0 +1,213 @@
+{
+  "record_type": "ep009_p01_original_speed_split_recovery",
+  "at": "2026-09-17T17:59:31.165931+00:00",
+  "status": "local_prefix_prepared_pending_restoration_and_review",
+  "owner_accepted": false,
+  "source_take": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4",
+    "sha256": "5f1200763aebbc87fb741b7523a56d14eb40f743a143d33cbdb35050117589ca"
+  },
+  "failed_whole_take_measurement": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/NATIVE-OFFSETS.json",
+    "sha256": "90b5e19347c144f68cfad489a7f660f7a63ed53f9eeda785a5f328cd01d03e1e"
+  },
+  "source_job_id": "5217b97d-fe3c-473d-91a9-3033df66a992",
+  "source_job": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/HIGGSFIELD-JOB-a4.json",
+    "sha256": "a454eec41adc0446763462aa17996efaeb2b3e57acdc052ef752a9140b54bea2"
+  },
+  "source_derivation": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/NATIVE-DERIVATION.json",
+    "sha256": "4fa37b712e27d2f370e04d4f54a09b5c668b8245523284d40f845bb9ef22cd0f"
+  },
+  "active_execution_plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r3.json",
+    "sha256": "9dff1b5ac61577c3c7d3a62ac031431a59c7a83a47e66b485f833aa883b79145"
+  },
+  "master": {
+    "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+    "sample_rate": 48000
+  },
+  "diagnosis": {
+    "whole_take_native_lags_s": [
+      0.25,
+      0.34,
+      1.17
+    ],
+    "whole_take_lag_spread_s": 0.92,
+    "correlations": [
+      0.828,
+      0.667,
+      0.343
+    ],
+    "reliability": "Early offset has a strong unique peak. Late 1.17 s is not a precise estimate because alternate lags have similar low correlations. Drift is independently supported by speech endpoint and identical words delivered with increasing delay.",
+    "native_speech_end_range_threshold_4_to_12_percent_s": [
+      10.5,
+      10.67
+    ],
+    "master_speech_end_range_threshold_4_to_12_percent_s": [
+      8.92,
+      8.95
+    ],
+    "global_constant_speed_scan": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/diagnostics-global-retime-scan.json",
+      "sha256": "b3fd6b0c40db9043a21a05c43bb803060b42529cb3ebe8472952469eb30da575"
+    },
+    "asr": {
+      "native": {
+        "record": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/diagnostics/P01-whisper-small-en-native.json",
+          "sha256": "a4141718463b3a9dbd898b49466b8871bc984f9feec958014293ca54caca6a3b"
+        },
+        "text": " I couldn't find anyone selling it who'd done that arithmetic. So what did that second stay actually cost her, and who gets paid to stop it?"
+      },
+      "narration": {
+        "record": {
+          "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/diagnostics/P01-whisper-small-en-narration.json",
+          "sha256": "52f5b4a859f99a0c974b8c85706c74e71d7215b528deb5642e798c98bb9efa1b"
+        },
+        "text": " I couldn't find anyone selling it who'd done that arithmetic. So what did that second stay actually cost her, and who gets paid to stop it?"
+      }
+    },
+    "asr_limits": "Local whisper small.en establishes matching words and supports cadence diagnosis. Individual word timestamps are approximate; some collapse or place the first word in silence. They were not used as exact edit anchors."
+  },
+  "preserved_contract": {
+    "segment": "seg009",
+    "master_frames": [
+      1207,
+      1427
+    ],
+    "total_frames": 220,
+    "master_samples": [
+      2414000,
+      2854000
+    ],
+    "total_samples": 440000,
+    "audio_words_pauses_and_sample_order_unchanged": true
+  },
+  "split": {
+    "master_frame": 1306,
+    "master_seconds": 54.416666666666664,
+    "master_sample": 2612000,
+    "p01_relative_frame": 99,
+    "p01_relative_seconds": 4.125,
+    "word_transcript_gap_relative_seconds": [
+      3.678,
+      4.588
+    ],
+    "basis": "Nearest video frame to the midpoint of the recorded sentence gap after arithmetic. The waveform around this cut is quiet. Sentence boundary carries the turn from the search observation into its economic question."
+  },
+  "parts": [
+    {
+      "part_id": "P01a",
+      "method": "Original-speed first-sentence prefix reuse",
+      "words": "I couldn't find anyone selling it who'd done that arithmetic.",
+      "master_frames": [
+        1207,
+        1306
+      ],
+      "master_samples": [
+        2414000,
+        2612000
+      ],
+      "audio_frames": 99,
+      "audio_samples": 198000,
+      "audio_seconds": 4.125,
+      "native": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4",
+        "sha256": "36fc9c49ea5f9da6762a8afb42013117d7e9c347268e2c2c1d3a74dcc54dbfe9"
+      },
+      "narration": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/audio/narration.wav",
+        "sha256": "ed8b5e8002deb7999a806d478cc37fee6013f518b0a399d77b090095c2d3c8ea"
+      },
+      "source_frame_range": [
+        0,
+        108
+      ],
+      "source_seconds": [
+        0,
+        4.5
+      ],
+      "source_audio_notes": "Source native speech has decayed by about3.90s; the next sentence begins about4.80s. Selected4.50s end is inside that pause. These envelope observations are approximate; source-word boundaries and the .25s offset provide independent support.",
+      "prefix_windows": [
+        {
+          "narration_window_s": [
+            0.49,
+            1.5
+          ],
+          "native_minus_narration_s": 0.25,
+          "envelope_corr": 0.781
+        },
+        {
+          "narration_window_s": [
+            1.5,
+            2.51
+          ],
+          "native_minus_narration_s": 0.25,
+          "envelope_corr": 0.945
+        },
+        {
+          "narration_window_s": [
+            2.51,
+            3.52
+          ],
+          "native_minus_narration_s": 0.25,
+          "envelope_corr": 0.833
+        }
+      ],
+      "lag_spread_s": 0.0,
+      "recommended_head_trim_frames": 6,
+      "recommended_head_trim_seconds": 0.25,
+      "expected_trimmed_frames": 102,
+      "expected_trimmed_seconds": 4.25,
+      "handle_after_narration_s": 0.125,
+      "playback_rate": 1.0,
+      "new_generation_credits": 0,
+      "crop": "W"
+    },
+    {
+      "part_id": "P01b",
+      "method": "New short second-sentence generation, pending its independent native timing gate",
+      "words": "So what did that second stay actually cost her, and who gets paid to stop it?",
+      "master_frames": [
+        1306,
+        1427
+      ],
+      "master_samples": [
+        2612000,
+        2854000
+      ],
+      "audio_frames": 121,
+      "audio_samples": 242000,
+      "audio_seconds": 5.041666666666667,
+      "generation_seconds": 7,
+      "resolution": "720p",
+      "estimated_generation_credits": 45.5,
+      "crop": "M (active-plan selection by root)",
+      "cut_rationale": "The question tightens the attention from recalling an unsuccessful search to the economic test. The closer crop also separates independently generated takes; it does not prove continuity."
+    }
+  ],
+  "budget": {
+    "credit_cap": 1800,
+    "look_and_successful_diagnostics_credits": 74,
+    "all_base_generations_with_P11a_12s_override": 1678.5,
+    "extra_second_sentence_generation_credits": 45.5,
+    "projected_total_credits": 1798,
+    "projected_credit_headroom": 2,
+    "fal_cap_usd": 30,
+    "fal_notes": "Use selected source-window lengths, not the full failed take. P01a expected4.25s restoration at8USD/minute=0.5667USD. P01b maximum7s=0.9333USD before its trim. The two parts sum at most1.50USD compared with the original11s allowance1.4667USD, about0.0333USD extra. Actual accounting remains root ledger authority."
+  },
+  "next_steps": [
+    "Native/trim helper must use the selected active plan and preserve derived-source provenance.",
+    "Restore each part only after its unchanged three-window native gate passes.",
+    "Measure restored timing and conform to99+121frames, keeping the continuous original master soundtrack.",
+    "Review normal-speed audiovisual delivery, mouth sync, and W-to-M cut continuity before a creative recommendation."
+  ],
+  "limitations": [
+    "No normal-speed audiovisual or lip-sync verdict was made in this analysis.",
+    "Original wholeP01 remains drifted; its failed diagnostic was not overwritten or reclassified.",
+    "No nonlinear retiming, threshold change, paid call, or release approval was performed by this subtask.",
+    "First-sentence picture still needs creative review; passing waveform timing does not establish natural performance."
+  ]
+}

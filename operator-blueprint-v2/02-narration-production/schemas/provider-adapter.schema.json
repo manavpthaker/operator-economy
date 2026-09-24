@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://operatoreconomy.com/schemas/provider-adapter.schema.json",
+  "title": "Narration provider adapter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adapter_id",
+    "status",
+    "target",
+    "provider",
+    "performance_envelope",
+    "canonical_w",
+    "model_id",
+    "passages"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-provider-adapter-v1"},
+    "adapter_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "dry_run_frozen", "frozen"]},
+    "target": {"$ref": "#/$defs/target"},
+    "provider": {"enum": ["elevenlabs", "hume"]},
+    "performance_envelope": {"$ref": "#/$defs/pathHash"},
+    "canonical_w": {"$ref": "#/$defs/pathHash"},
+    "model_id": {"type": "string", "minLength": 1},
+    "voice_id": {"type": "string", "minLength": 1},
+    "clone_voice_id": {"type": "string", "minLength": 1},
+    "clone_state": {"type": "string", "minLength": 1},
+    "description_policy": {"type": "string", "minLength": 1},
+    "paragraph_separator": {"const": "\n\n"},
+    "exact_word_recovery": {"type": "string", "minLength": 1},
+    "tag_policy": {"type": "string", "minLength": 1},
+    "voice_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stability", "similarity_boost", "style"],
+      "properties": {
+        "stability": {"type": "number", "minimum": 0, "maximum": 1},
+        "similarity_boost": {"type": "number", "minimum": 0, "maximum": 1},
+        "style": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "approved_tag_allowlist": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {"enum": ["[curious]", "[sarcastic]", "[excited]", "[pause]", "[warmly]"]}
+    },
+    "passages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"oneOf": [{"$ref": "#/$defs/elevenPassage"}, {"$ref": "#/$defs/humePassage"}]}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"provider": {"const": "elevenlabs"}}},
+      "then": {
+        "required": ["voice_id", "approved_tag_allowlist", "paragraph_separator", "exact_word_recovery", "tag_policy", "voice_settings"],
+        "properties": {
+          "model_id": {"const": "eleven_v3"},
+          "passages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/elevenPassage"}}
+        },
+        "not": {
+          "anyOf": [
+            {"required": ["clone_voice_id"]},
+            {"required": ["clone_state"]},
+            {"required": ["description_policy"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {"properties": {"provider": {"const": "hume"}}},
+      "then": {
+        "required": ["clone_voice_id", "clone_state", "description_policy"],
+        "properties": {
+          "model_id": {"const": "octave-1"},
+          "passages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/humePassage"}}
+        },
+        "not": {
+          "anyOf": [
+            {"required": ["voice_id"]},
+            {"required": ["approved_tag_allowlist"]},
+            {"required": ["paragraph_separator"]},
+            {"required": ["exact_word_recovery"]},
+            {"required": ["tag_policy"]},
+            {"required": ["voice_settings"]}
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "episode"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "tagInsertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["at_token", "tag"],
+      "properties": {
+        "at_token": {"type": "integer", "minimum": 0},
+        "tag": {"enum": ["[curious]", "[sarcastic]", "[excited]", "[pause]", "[warmly]"]}
+      }
+    },
+    "elevenPassage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passage_id", "tag_insertions"],
+      "properties": {
+        "passage_id": {"type": "string", "minLength": 1},
+        "tag_insertions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/tagInsertion"}}
+      }
+    },
+    "thoughtDirection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thought_id",
+        "direction",
+        "direction_sha256",
+        "emitted_description",
+        "emitted_description_sha256",
+        "trailing_silence"
+      ],
+      "properties": {
+        "thought_id": {"type": "string", "minLength": 1},
+        "direction": {"type": "string", "minLength": 1},
+        "direction_sha256": {"$ref": "#/$defs/sha256"},
+        "emitted_description": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "emitted_description_sha256": {"$ref": "#/$defs/sha256"},
+        "trailing_silence": {"type": "number", "minimum": 0, "maximum": 10}
+      }
+    },
+    "humePassage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passage_id",
+        "passage_description",
+        "passage_description_sha256",
+        "description_expansion_sha256",
+        "thought_directions"
+      ],
+      "properties": {
+        "passage_id": {"type": "string", "minLength": 1},
+        "passage_description": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "passage_description_sha256": {"$ref": "#/$defs/sha256"},
+        "description_expansion_sha256": {"$ref": "#/$defs/sha256"},
+        "thought_directions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/thoughtDirection"}}
+      }
+    }
+  }
+}

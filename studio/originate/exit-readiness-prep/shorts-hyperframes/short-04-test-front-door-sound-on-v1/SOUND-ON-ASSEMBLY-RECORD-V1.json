@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "short_id": "short-04-test-the-front-door",
+  "status": "private_review_candidate_unapproved",
+  "scope": "portrait-native first-pass sound-on assembly; no upload, publication, or live episode URL",
+  "derivation": {
+    "silent_project": "../short-04-test-front-door-v3",
+    "silent_index_sha256": "9d9970fca10bd7877f8eb73aea1817068a84ece9ac62bb75daf6ae3a20fa52b0",
+    "sound_on_plan": "../short-04-test-front-door-v3/sound-on-scaffold-v1/plan.json",
+    "sound_on_plan_sha256": "49739fd16f733ad12d1d84420493523f4e54ea190ed763dc2adf789892144843",
+    "caption_manifest_sha256": "d17128698705402e7ba2a1ffa494791e13557367d5fc3eae86f030ead202dfb5"
+  },
+  "runtime": {
+    "hyperframes_version": "0.8.63",
+    "pin_checked_against_latest": true,
+    "fps": 24,
+    "width": 1080,
+    "height": 1920,
+    "duration_seconds": 48.125,
+    "index_sha256": "e1e5420847944e0f0eb9c3c93d50be64487eea7563942777287479fbb29d9019"
+  },
+  "program_audio": {
+    "path": "assets/media/original-c.wav",
+    "sha256": "f25347fae0f78e5ecfaa4b16da55825640fdbc134eab9c5c9abde08ada2171df",
+    "duration_seconds": 46.114833,
+    "mode": "one continuous root-level Original C track at unity; both presenter videos muted",
+    "owner_listening_status": "pending"
+  },
+  "picture_sources": [
+    {
+      "role": "opening_presenter",
+      "path": "assets/media/opening-presenter-muted.mp4",
+      "sha256": "ace82af9d266e40ef6e7d5a7f21f4d7bbce515c2b91792f517153bac84249602",
+      "source_duration_seconds": 9.041667,
+      "timeline_seconds": [0, 8.615],
+      "technical_status": "1080x1920 H264 yuv420p 24fps zero audio streams full decode",
+      "performance_status": "human normal-speed lip/body-sync review pending"
+    },
+    {
+      "role": "return_presenter",
+      "path": "assets/media/return-presenter-muted.mp4",
+      "sha256": "0e90ad6f2f0c136f948c203fea6ffbb64248f39b644e38aae43c1e39ddc3bb10",
+      "source_duration_seconds": 8.041667,
+      "timeline_seconds": [38.684083, 46.125],
+      "technical_status": "1080x1920 H264 yuv420p 24fps zero audio streams full decode",
+      "performance_status": "owner review pending"
+    }
+  ],
+  "editorial_timing_seconds": [
+    ["opening_presenter", 0, 8.615],
+    ["preparation_screen", 8.615, 18.74],
+    ["broker_question_screen", 18.74, 23.9],
+    ["conditional_channel_screen", 23.9, 34.7],
+    ["possible_path_screen", 34.7, 38.684083],
+    ["closing_presenter", 38.684083, 46.125],
+    ["visual_only_episode_handoff", 46.125, 48.125]
+  ],
+  "captions": {
+    "path": "compositions/sound-on-captions.html",
+    "sha256": "7d4b752e44d1678e40355c1370685944b1186e27d39d24858a8f5466930bebe5",
+    "locked_words": 126,
+    "rail_words": 101,
+    "exact_scene_text_words": 25,
+    "dropped_words": 0,
+    "duplicated_words_in_caption_contract": 0,
+    "end_card_caption_policy": "none"
+  },
+  "verification": {
+    "strict_hyperframes_check": "pass: 0 lint, runtime, layout, motion, contrast findings after retimed cut review",
+    "cut_seams": "hard cuts; adjacent-frame snapshots reviewed; each incoming explanatory frame establishes its record immediately",
+    "animation_map": "reviewed; mapped dead zones include presenter video and intentional end-card hold",
+    "full_render": {
+      "path": "renders/short-04-test-front-door-sound-on-private-v1.mp4",
+      "sha256": "cd8360d30ae3ae8a2b65c9d1516ca3bcf30c0f4e6dc6d8abca5be27feb71ed2e",
+      "size_bytes": 18692524,
+      "duration_seconds": 48.125,
+      "video": "H.264 yuv420p 1080x1920 24fps 1155 frames",
+      "audio": "AAC stereo 48 kHz 48.125s; mono Original C copied to both channels",
+      "full_decode": "pass: ffmpeg video and audio decode to null without errors"
+    },
+    "decoded_audio_match": {
+      "source": "assets/media/original-c.wav",
+      "method": "FFmpeg decode to 4 kHz float PCM; compare source mono with rendered left channel over complete 46.114833s program",
+      "time_offset_ms": 0,
+      "correlation": 0.9998183,
+      "fitted_channel_gain": 0.99724,
+      "relative_residual_rms": 0.019062,
+      "end_card_rms_dbfs": -240,
+      "result": "pass: continuous Original C; 46.125-48.125s end card digital silence"
+    },
+    "encoded_visual_spotcheck": "pass: opening at 4s, return at 41s, and card at 47s visually inspected; opening face crop changed at all 17 half-second samples and return face crop at all 15 samples",
+    "poster": {
+      "path": "renders/poster-short04-3p5s.png",
+      "sha256": "24bd3333e95c37347a3584811c62b0185b95933c257c68bd44ce498e829dd7e4",
+      "time_seconds": 3.5,
+      "dimensions": "1080x1920",
+      "visual_review": "pass"
+    },
+    "phone_review": "pending"
+  },
+  "publication": "not_authorized"
+}

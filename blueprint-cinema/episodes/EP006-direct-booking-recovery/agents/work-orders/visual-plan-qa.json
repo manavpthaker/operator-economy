@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "visual-plan-qa",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "role": "qa_reviewer",
+  "objective": "Independently review the complete EP006 visual plan for exact timeline coverage, persistent-world continuity, meaningful cadence, narrative semantics, evidence and ticket integrity, and boundary behavior before root approval.",
+  "required_gate": "world_approved",
+  "inputs": [
+    {"path": "episodes/EP006-direct-booking-recovery/input-lock.json", "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"},
+    {"path": "episodes/EP006-direct-booking-recovery/episode-engine.json", "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"},
+    {"path": "episodes/EP006-direct-booking-recovery/world.json", "sha256": "cf55980b1930d2150a578f9e23663bfb4f7c6ed7157141c24c7496550cf249af"},
+    {"path": "episodes/EP006-direct-booking-recovery/visual-plan.json", "sha256": "eb8501b60dc72a158c69027622645290b7c4122502422bf8d870c2da9f6e313b"},
+    {"path": "episodes/EP006-direct-booking-recovery/asset-tickets.json", "sha256": "ee0f8e8490a4ed35ca2c7b3ea94c5e1db546aaec0c8f4de38ef68dc7718fb919"}
+  ],
+  "owned_output_paths": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/visual-plan-qa/deliverable.json",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/visual-plan-qa/visual-plan-qa.md"
+  ],
+  "forbidden_paths": [
+    "episodes/EP006-direct-booking-recovery/episode.json",
+    "episodes/EP006-direct-booking-recovery/input-lock.json",
+    "episodes/EP006-direct-booking-recovery/production-state.json",
+    "episodes/EP006-direct-booking-recovery/episode-engine.json",
+    "episodes/EP006-direct-booking-recovery/world.json",
+    "episodes/EP006-direct-booking-recovery/visual-plan.json",
+    "episodes/EP006-direct-booking-recovery/asset-tickets.json",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts"
+  ],
+  "dependencies": ["current world_approved gate", "schema-valid complete visual plan", "schema-valid asset tickets"],
+  "acceptance_checks": [
+    "Recompute exact coverage gaps overlaps timing bounds duration distribution and word-range continuity across all units",
+    "Check coherent persistent sequences carries state continuity cameras modes and boundary resets rather than sentence-card churn",
+    "Verify the first thirty seconds and every required consent qualification suppression judgment economics failure and outcome semantic",
+    "Verify every evidence and ticket reference and confirm placeholders cannot be mistaken for approved material",
+    "Return a schema-valid deliverable without claiming approval or changing production state"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop if any declared input hash is stale",
+    "Stop if review requires editing a canonical or forbidden path"
+  ],
+  "status": "closed"
+}

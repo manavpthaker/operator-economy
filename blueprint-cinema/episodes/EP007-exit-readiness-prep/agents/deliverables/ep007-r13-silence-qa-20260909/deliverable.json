@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r13-silence-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r12-logo-led/index.html",
+      "sha256": "146b3c747e5fa84f33ac9a90c7ef797a3362fa3e9c3fb14b2e3b5988ff5ea65a"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r13-silence-qa-20260909/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r13-silence-qa-20260909/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all three work-order inputs, before inspection and again at packet validation",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read-only PCM measurement: removed [45,48) samples all zero; both splice samples and four neighboring 10 ms regions all zero",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read-only transcript interval intersection: no words intersect [45,48)",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compute exact retained intervals: 2712000 samples at 48000 Hz, 56.5 seconds, 1356 frames at 24 fps",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare R12 identity/title timing and transcript against piecewise source-to-review mapping, identity narration 45.52 and title picture 53.041666667",
+      "outcome": "pass"
+    },
+    {
+      "command": "Schema validation, fresh source hashes, and owned-output existence",
+      "outcome": "pass"
+    },
+    {
+      "command": "Listening review and as-built R13 PCM or encoded-file verification",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Report SHA-256: eb9d6d74d6a474c3f58de8647aeffad3067c72d3eb96beb2e3e0ea8a29757293",
+    "Only the three pinned local inputs were used for the QA decision. Existing QA instructions and deliverable schema were read. No external source, provider call, credential read, upload, download, generation, or audio modification occurred.",
+    "Measurements used bundled Python wave and NumPy read-only PCM inspection. No diagnostic file or media derivative was created."
+  ],
+  "assumptions": [
+    "Cut intervals are zero-based and end-exclusive; no resampling, time stretch, gain change, normalization or crossfade is part of the proposed operation.",
+    "R12 identity starts at44.5 and title at56.041666667; the revised picture should follow the same source-to-review time mapping after the cut."
+  ],
+  "unresolved_questions": [
+    "Main integration must verify actual R13 PCM against the two retained source intervals and listen across the completed join.",
+    "Final visual pacing, new sketch comprehension, browser audio behavior and encoded output remain outside this targeted proposed-splice review."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

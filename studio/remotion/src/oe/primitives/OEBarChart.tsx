@@ -98,16 +98,16 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        gap: 40,
+        gap: 28,
       }}
     >
       {title && (
         <h2
           style={{
             fontFamily: TYPE.h2 >= 40 ? FONTS.display : FONTS.heading,
-            fontWeight: 700,
-            fontSize: 52,
-            lineHeight: 1.08,
+            fontWeight: 800,
+            fontSize: 72,
+            lineHeight: 1,
             letterSpacing: `${TRACK.heading}em`,
             color: strong,
             margin: 0,
@@ -123,7 +123,7 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
         style={{
           display: 'flex',
           alignItems: 'flex-end',
-          gap: 56,
+          gap: 72,
           height: chartHeight,
           borderBottom: `2px solid ${baseline}`,
           paddingBottom: 0,
@@ -182,8 +182,8 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
               <div
                 style={{
                   fontFamily: FONTS.mono,
-                  fontSize: 34,
-                  fontWeight: 400,
+                  fontSize: 48,
+                  fontWeight: 500,
                   color: isGold ? goldText : strong,
                   marginBottom: 16,
                   fontFeatureSettings: "'tnum' 1, 'zero' 1",
@@ -196,7 +196,7 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
               <div
                 style={{
                   width: '100%',
-                  maxWidth: 220,
+                  maxWidth: 300,
                   height: `${h}%`,
                   background: isGold ? goldColor : barColor,
                   minHeight: 3,
@@ -206,7 +206,7 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
           );
         })}
       </div>
-      <div style={{display: 'flex', gap: 56, marginTop: -14}}>
+      <div style={{display: 'flex', gap: 72, marginTop: -8}}>
         {data.map((d, i) => (
           <div
             key={i}
@@ -214,7 +214,7 @@ export const OEBarChart: React.FC<OEBarChartProps> = ({
               flex: 1,
               textAlign: 'center',
               fontFamily: FONTS.mono,
-              fontSize: TYPE.microLabel,
+              fontSize: TYPE.small,
               letterSpacing: `${TRACK.caps}em`,
               textTransform: 'uppercase',
               color: muted,

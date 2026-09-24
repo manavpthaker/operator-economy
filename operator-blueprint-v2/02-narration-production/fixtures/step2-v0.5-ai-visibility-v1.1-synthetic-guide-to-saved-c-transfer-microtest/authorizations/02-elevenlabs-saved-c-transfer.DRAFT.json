@@ -1,0 +1,87 @@
+{
+  "schema_version": "oe-voice-transfer-authorization-v1",
+  "authorization_id": "DRAFT-V1-ai-visibility-v1.1-p01-saved-c-transfer",
+  "status": "draft",
+  "approved": false,
+  "scope": "elevenlabs_voice_transfer",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "bindings": {
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"
+  },
+  "prerequisites": {
+    "selected_guide": {
+      "state": "pending"
+    },
+    "guide_qa": {
+      "state": "pending"
+    },
+    "owner_selection": {
+      "state": "pending"
+    },
+    "elevenlabs_data_use": {
+      "state": "pending"
+    },
+    "target_voice_rights": {
+      "state": "pending"
+    }
+  },
+  "action": {
+    "provider": "elevenlabs",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "method": "POST",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_multilingual_sts_v2",
+    "seed": 2026082501,
+    "query_policy": {
+      "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+      "output_format": "pcm_48000"
+    },
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "file_format": "other",
+    "primary_output_format": "pcm_48000",
+    "conditional_fallback_output_format": "mp3_44100_192",
+    "fallback_requires_documented_pcm_capability_rejection": true,
+    "no_retry": true,
+    "no_redirect": true,
+    "disclosure": "one_exact_owner_selected_google_guide_to_elevenlabs_voice_changer"
+  },
+  "authorized_limits": {
+    "max_calls": 0,
+    "max_outputs": 0,
+    "max_source_bytes": 0,
+    "max_source_duration_seconds": 0,
+    "max_submitted_seconds": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "calls_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": "authorizations/consumed/AUTH-V1-ai-visibility-v1.1-p01-saved-c-transfer.consumed.json"
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "no generated guide has passed lexical technical and owner performance review",
+    "the owner has not selected one exact original-provider WAV",
+    "ElevenLabs no-training or ZRM handling has not been verified for that exact upload",
+    "cross-provider disclosure and Original C transfer rights have not been rebound",
+    "the exact multipart body cannot be compiled before the source guide exists",
+    "a separate active 24-hour AUTH-V1 has not been issued"
+  ]
+}

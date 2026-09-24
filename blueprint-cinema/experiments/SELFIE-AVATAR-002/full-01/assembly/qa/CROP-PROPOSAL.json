@@ -1,0 +1,53 @@
+{
+  "status": "crop_values_approved_by_root_applied_upstream_to_restored_sources",
+  "reference": {
+    "path": "public/media/opening.mp4",
+    "sample_seconds": 4.0,
+    "sha256": "2d57c419cbe98efd5a4d1bbbba6143395622c0c7c41175860281b4c1655a5a9d"
+  },
+  "candidates": [
+    {
+      "section": "middle",
+      "native_path": "../media/middle-native.mp4",
+      "crop": {
+        "width": 630,
+        "height": 1120,
+        "x": 72,
+        "y": 100
+      },
+      "filter": "crop=630:1120:72:100,scale=720:1280:flags=lanczos",
+      "reviewed_seconds": [
+        0.5,
+        8,
+        15.5
+      ],
+      "visual_assessment": "Head size and top margin closely match accepted opening. Full head, shoulders and upper chest remain; no added motion or color treatment.",
+      "native_sha256": "250c26c13fdea78598194e725be338c3d02f55ddc9e96075e068925901f8fff9"
+    },
+    {
+      "section": "closing",
+      "native_path": "../media/closing-native.mp4",
+      "crop": {
+        "width": 540,
+        "height": 960,
+        "x": 72,
+        "y": 100
+      },
+      "filter": "crop=540:960:72:100,scale=720:1280:flags=lanczos",
+      "reviewed_seconds": [
+        0.5,
+        9,
+        16.8
+      ],
+      "visual_assessment": "Tighter static crop matches accepted head size and excludes visible phone, desk, lap and lower torso in reviewed samples. Full head and shoulders remain with slight right offset.",
+      "native_sha256": "65a25298a7086653445821dd216ae2ba12fcebc458cc09f7f53ca3ad1ea87084"
+    }
+  ],
+  "contact_sheet": "qa/crop-v1-before-after.png",
+  "limitations": [
+    "Framing assessed from early, middle and late native frames; restored outputs require final review.",
+    "These crops do not establish visual lip sync or identity acceptance.",
+    "No restored source edits or delivery render performed."
+  ],
+  "restored_final_review": "Sampled assembled and encoded frames reviewed; see reports/DELIVERY.json."
+}

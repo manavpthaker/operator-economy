@@ -1,0 +1,108 @@
+{
+  "record_type": "ep007_standalone_shorts_narration_capture_proposal",
+  "version": 1,
+  "status": "proposal_not_authorization_not_submitted",
+  "created_at_utc": "2026-09-22T01:28:06Z",
+  "script_authority": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+    "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c",
+    "copy_policy": "exact_locked_spoken_copy",
+    "script_count": 4,
+    "total_words": 423,
+    "total_spoken_copy_characters": 2499
+  },
+  "recommended_route": {
+    "configuration": "n3-two-stage-acted-guide-v2",
+    "reason": "This is the established EP007 channel voice route. Generic HeyGen or local Kokoro narration would not preserve the accepted Original C voice continuity.",
+    "guide": {
+      "provider": "Google Cloud Text-to-Speech",
+      "model": "gemini-2.5-pro-tts",
+      "voice": "Algieba",
+      "register": "candidate-C4",
+      "calls": 4,
+      "one_call_per_short": true
+    },
+    "identity_transfer": {
+      "provider": "ElevenLabs Voice Changer",
+      "model": "eleven_multilingual_sts_v2",
+      "target_voice": "Original C",
+      "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+      "calls": 4,
+      "one_call_per_short": true,
+      "settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.8,
+        "style": 0.0,
+        "use_speaker_boost": true,
+        "speed": 1.0,
+        "seed": 2026082501,
+        "remove_background_noise": false
+      }
+    },
+    "automatic_retries": 0,
+    "failure_policy": "stop_and_report_before_any_retry"
+  },
+  "per_short": [
+    {
+      "id": "short-01-thirty-day-map",
+      "words": 97,
+      "characters": 564,
+      "visual_timing_seconds": 39.8
+    },
+    {
+      "id": "short-02-operations-business",
+      "words": 103,
+      "characters": 640,
+      "visual_timing_seconds": 42.0
+    },
+    {
+      "id": "short-03-how-you-charge",
+      "words": 97,
+      "characters": 594,
+      "visual_timing_seconds": 40.5
+    },
+    {
+      "id": "short-04-test-the-front-door",
+      "words": 126,
+      "characters": 701,
+      "visual_timing_seconds": 48.0
+    }
+  ],
+  "current_rate_basis": {
+    "verified_on": "2026-09-21",
+    "google_source": "https://cloud.google.com/text-to-speech/pricing",
+    "google_gemini_2_5_pro_tts": {
+      "input_usd_per_million_text_tokens": 1.0,
+      "output_usd_per_million_audio_tokens": 20.0,
+      "audio_tokens_per_second": 25
+    },
+    "elevenlabs_source": "https://elevenlabs.io/pricing",
+    "elevenlabs_voice_changer_credits_per_minute": 1000,
+    "cash_equivalent": "account-plan dependent; credits are the auditable cap"
+  },
+  "proposed_cap": {
+    "visual_timing_upper_bound_seconds": 170.3,
+    "google_estimated_output_usd_at_visual_timing": 0.08515,
+    "google_total_spend_cap_usd": 0.15,
+    "elevenlabs_estimated_credits_at_visual_timing": 2839,
+    "elevenlabs_credit_cap": 3200,
+    "provider_calls_cap": 8,
+    "retries_in_cap": 0
+  },
+  "outputs_if_authorized": [
+    "four immutable Algieba guide WAVs with hashes",
+    "four immutable Original C transfer WAVs with hashes",
+    "one technical and perceptual QC record per Short",
+    "local word-timed transcripts for exact captions",
+    "re-timed HyperFrames scene boundaries derived from final audio"
+  ],
+  "separate_gates": {
+    "matching_portrait_avatar_generation": "not included",
+    "lip_sync": "not included",
+    "music_and_sfx": "not included",
+    "final_render": "not included",
+    "release": "not included",
+    "publication": "not included"
+  },
+  "authorization_required": "Explicit owner approval of this exact four-short, eight-call, no-retry cap is required before execution."
+}

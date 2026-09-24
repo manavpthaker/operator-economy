@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="assets/vendor/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+    body { font-family: Supreme, sans-serif; color: #f2eadc; }
+    #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+    .clip { position: absolute; }
+    .label { left: 92px; bottom: 86px; padding: 15px 20px 14px; background: #13243ef2; border-left: 6px solid #b69a63; font-size: 36px; font-weight: 500; letter-spacing: 0.07em; line-height: 1; text-transform: uppercase; }
+    .sub { display: block; margin-top: 10px; color: #f2eadc; font-size: 22px; font-weight: 400; letter-spacing: 0.09em; }
+    #permission { left: auto; right: 92px; }
+    #context { top: 86px; bottom: auto; }
+    #human { left: 92px; bottom: 86px; }
+    #suppression { inset: 0; background: #eee6d8; color: #13243e; }
+    #suppression .route { position: absolute; left: 410px; top: 528px; width: 720px; height: 7px; background: #274a75; transform-origin: left center; }
+    #suppression .stop { position: absolute; left: 1128px; top: 446px; width: 12px; height: 170px; background: #9c4a3e; }
+    #suppression .word { position: absolute; left: 1184px; top: 497px; font-size: 40px; font-weight: 500; letter-spacing: 0.1em; }
+    #direct-route { left: 1090px; top: 350px; width: 680px; height: 240px; }
+    #direct-route .line { position: absolute; left: 0; top: 108px; width: 540px; height: 5px; background: #b69a63; transform-origin: left center; }
+    #direct-route .dot { position: absolute; left: 526px; top: 95px; width: 31px; height: 31px; border-radius: 50%; background: #f2eadc; border: 5px solid #13243e; }
+    #direct-route .route-label { position: absolute; left: 0; top: 132px; color: #f2eadc; background: #13243ef2; padding: 12px 16px; font-size: 26px; letter-spacing: 0.08em; }
+    #keytag { left: 107px; bottom: 104px; width: 310px; height: 150px; }
+    #keytag .tag { position: absolute; width: 244px; height: 104px; background: #a9854c; clip-path: polygon(0 0, 90% 0, 100% 24%, 100% 100%, 0 100%); border: 4px solid #ead7ae; }
+    #keytag .hole { position: absolute; left: 23px; top: 33px; width: 28px; height: 28px; border-radius: 50%; background: transparent; border: 6px solid #5e4d33; }
+    #keytag .scratch { position: absolute; left: 165px; top: 17px; width: 3px; height: 68px; background: #6f5635; transform: rotate(2deg); }
+    #keytag .tag-label { position: absolute; left: 0; top: 118px; color: #f2eadc; background: #13243ef2; padding: 9px 13px; font-size: 22px; letter-spacing: 0.08em; }
+    #outcome { left: auto; right: 92px; bottom: 86px; max-width: 560px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="ep006-polish-002-graphics" data-start="0" data-duration="30.4" data-width="1920" data-height="1080" data-fps="30">
+    <audio id="locked-vo-reference" class="clip" data-start="0" data-duration="30.4" data-track-index="0" src="assets/audio/locked-return-loop.wav"></audio>
+    <div id="keytag" class="clip" data-start="3.067" data-duration="1.333" data-track-index="3">
+      <div class="tag"><span class="hole"></span><span class="scratch"></span></div><div class="tag-label">RETURN KEY · CONTINUITY OBJECT</div>
+    </div>
+    <div id="first-stay" class="clip label" data-start="4.4" data-duration="1.733" data-track-index="3">FIRST STAY / OTA<span class="sub">USEFUL ACQUISITION</span></div>
+    <div id="permission" class="clip label" data-start="8.333" data-duration="2.267" data-track-index="3">PERMISSION<span class="sub">OBTAINED BEFORE MEMORY</span></div>
+    <div id="context" class="clip label" data-start="10.6" data-duration="1.667" data-track-index="3">STAY CONTEXT<span class="sub">MINIMAL · RELEVANT</span></div>
+    <div id="suppression" class="clip" data-start="15.333" data-duration="1" data-track-index="3"><div class="route"></div><div class="stop"></div><div class="word">SUPPRESSED</div></div>
+    <div id="human" class="clip label" data-start="16.333" data-duration="1.767" data-track-index="3">HUMAN REVIEW<span class="sub">APPROPRIATE · TIMELY</span></div>
+    <div id="direct-route" class="clip" data-start="18.1" data-duration="5.033" data-track-index="3"><div class="line"></div><div class="dot"></div><div class="route-label">NEXT APPROPRIATE STAY / DIRECT</div></div>
+    <div id="outcome" class="clip label" data-start="25.133" data-duration="5.267" data-track-index="4">NEXT APPROPRIATE STAY / DIRECT<span class="sub">PRIVACY-SAFE CONFIRMATION</span></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({paused: true});
+    tl.fromTo("#keytag", {opacity: 0}, {opacity: 1, duration: 0.16, ease: "none"}, 3.067);
+    tl.fromTo("#first-stay", {opacity: 0}, {opacity: 1, duration: 0.16, ease: "none"}, 4.4);
+    tl.fromTo("#permission", {opacity: 0}, {opacity: 1, duration: 0.2, ease: "none"}, 8.333);
+    tl.fromTo("#context", {opacity: 0}, {opacity: 1, duration: 0.16, ease: "none"}, 10.6);
+    tl.fromTo("#suppression .route", {scaleX: 0}, {scaleX: 1, duration: 0.42, ease: "power1.out"}, 15.333);
+    tl.fromTo("#suppression .stop", {opacity: 0}, {opacity: 1, duration: 0.1, ease: "none"}, 15.71);
+    tl.fromTo("#suppression .word", {opacity: 0}, {opacity: 1, duration: 0.12, ease: "none"}, 15.78);
+    tl.fromTo("#human", {opacity: 0}, {opacity: 1, duration: 0.16, ease: "none"}, 16.333);
+    tl.fromTo("#direct-route .line", {scaleX: 0}, {scaleX: 1, duration: 0.46, ease: "power1.out"}, 18.18);
+    tl.fromTo("#direct-route .dot, #direct-route .route-label", {opacity: 0}, {opacity: 1, duration: 0.14, ease: "none"}, 18.58);
+    tl.fromTo("#outcome", {opacity: 0}, {opacity: 1, duration: 0.2, ease: "none"}, 25.133);
+    window.__timelines["ep006-polish-002-graphics"] = tl;
+  </script>
+</body>
+</html>

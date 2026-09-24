@@ -1,0 +1,58 @@
+{
+  "record_type": "ep007_owner_direction_source",
+  "episode": "EP007-exit-readiness-prep",
+  "captured_at_utc": "2026-09-22T05:25:59Z",
+  "owner_verbatim": "Approved",
+  "prompt_presented_for_approval": "Authorize this exact eight-call, no-retry Original C narration batch?",
+  "bounded_interpretation": "Authorize four Google gemini-2.5-pro-tts Algieba acted-guide calls followed by four ElevenLabs Voice Changer transfers to the saved Original C voice, with no automatic retries, no more than eight provider calls, a Google spend cap of 0.15 USD and an ElevenLabs cap of 3200 credits.",
+  "authorized": {
+    "locked_script_count": 4,
+    "google_guide_calls_max": 4,
+    "elevenlabs_transfer_calls_max": 4,
+    "provider_calls_max": 8,
+    "automatic_retries": 0,
+    "google_spend_cap_usd": 0.15,
+    "elevenlabs_credit_cap": 3200,
+    "guide_model": "gemini-2.5-pro-tts",
+    "guide_voice": "Algieba",
+    "transfer_model": "eleven_multilingual_sts_v2",
+    "transfer_voice": "Original C",
+    "transfer_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "outputs": [
+      "four immutable guide WAVs and receipts",
+      "four immutable Original C WAVs and receipts",
+      "exact-copy and technical QC records",
+      "local word-timed transcripts",
+      "audio-derived provisional scene retiming for phone review"
+    ]
+  },
+  "not_authorized": [
+    "automatic or manual retry without fresh owner authority",
+    "a fifth Google guide call",
+    "a fifth ElevenLabs transfer call",
+    "provider spend above either cap",
+    "matching portrait avatar generation",
+    "lip sync",
+    "music or sound effects",
+    "final render",
+    "Content OS release",
+    "release",
+    "publication"
+  ],
+  "valid_only_for": {
+    "proposal": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V1.json",
+      "sha256": "c8404afd3b31153558a83c66e6f32a0d6a44a60570f237b8584bddddeb44e100"
+    },
+    "script_authority": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+      "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c"
+    },
+    "production_manifest": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/PRODUCTION-MANIFEST-V2.json",
+      "sha256": "cc925469a415e7d0405a21c6874d63586635d5fbb1c4ac5b2d7f82ab0fd0d4ad"
+    },
+    "verification_event_id": "ep007-standalone-shorts-animatics-v8"
+  },
+  "failure_policy": "Stop and report after any uncertain or failed provider attempt. Do not retry and do not transfer a guide that fails exact-copy or technical validation."
+}

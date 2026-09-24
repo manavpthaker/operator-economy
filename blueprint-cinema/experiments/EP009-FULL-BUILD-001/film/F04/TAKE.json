@@ -1,0 +1,93 @@
+{
+  "take_id": "F04",
+  "segment_id": "seg007",
+  "status": "accepted",
+  "attempts": [
+    {
+      "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F04",
+      "request_id": "01a0acdf-2122-74b1-9a76-1d6f9631be6b",
+      "model": "fal-ai/kling-video/v3/pro/image-to-video",
+      "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F04/start.png",
+      "start_image_sha256": "bfd7af61301d77df6fb3caaf04d99b509cf49815de81bed917fee1a3e77253bb",
+      "start_image_source": "F03/raw.mp4 frame 190 (7.917 s), neutral expression; deviation from 'frame before typing' because every pre-typing F03 frame already shows her smiling, which would pre-empt the recognition beat",
+      "prompt": "Static camera. The camera is fixed on a tripod and never moves for the whole eight seconds: no pan, no truck, no dolly, no tilt, no zoom, no reframing, no cuts. The first frame and the last frame have exactly the same framing. Preserve the supplied starting frame exactly: the innkeeper seated behind the counter, dark hair tied back, olive-green cardigan over a cream shirt, her hands resting on the laptop keyboard; the counter, desk bell, daffodils, laptop with its screen facing her and never visible to camera, blank cards and pen, beige corded desk phone, printed pages, open guest book, key rack, entrance door at left, window and trail at right, daylight. She is alone; nobody else is in the room.\n\nFor the first second she stays as in the frame, looking at the laptop screen, expression neutral. Her hands stay still on the keyboard. She reads the screen, her eyes moving slightly, and then a small, quiet smile of recognition forms, as if she has seen a familiar name. The smile settles and she keeps looking at the screen.\n\nShe does not type, does not look at camera, no speaking, no lip movement, no big grin or laugh. The laptop screen is never visible to camera. No new person, prop, text, logo or sound. Real-time motion.",
+      "duration": "8",
+      "generate_audio": false,
+      "cfg_scale": 0.5,
+      "raw": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F04/raw.mp4",
+        "sha256": "88c142a513b1bfaef887a7982daf82765de4905ca865200f2ef080938872c948",
+        "frames": 193,
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24
+      },
+      "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F04/contact.jpg",
+      "cost_usd_listed": 0.896,
+      "regeneration_reason": null
+    }
+  ],
+  "cost_usd_listed_total": 0.896,
+  "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+  "honest_note": "Neutral reading, a small smile forms around source 4.5 s and opens into a broad smile by 5.75 s, landing in the pause after 'name.'. The final smile is bigger than 'small'; warm, not a laugh. Start frame deviates from 'before typing' (see TAKE.json).",
+  "action_performed": true,
+  "source_window": "source frames 72-161 (3.0-6.75 s)",
+  "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+  "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+  "agent_verdict_is_recommendation_only": true,
+  "final": {
+    "segment_id": "seg007",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F04/final/seg007.mp4",
+    "sha256": "acb88909ae3e0d601da9371096436de9b39d1e0d548bdbf676e2080086e63c79",
+    "frames_expected": 90,
+    "frames": 90,
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio": {
+      "sample_rate": 48000,
+      "channels": 2,
+      "master_samples": [
+        1744000,
+        1924000
+      ],
+      "pcm_intermediate_sample_exact": true,
+      "aac_corr_zero_lag_vs_master_excerpt": 0.99999
+    },
+    "uniform_frames": 0,
+    "source_window": {
+      "source_in_s": 3.0,
+      "source_out_s": 6.75,
+      "native_fps": 24.0,
+      "speed_change": false
+    },
+    "master_in": 36.333333,
+    "master_out": 40.083333,
+    "segment_frames": [
+      872,
+      962
+    ]
+  },
+  "checks": {
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio_pcm_sample_exact": true,
+    "audio_aac_corr": 0.99999,
+    "uniform_frames": 0,
+    "readable_text_or_logo": "none seen in used window",
+    "extra_people": "none",
+    "rude_or_ignoring_behaviour": "none seen"
+  },
+  "deviations": [
+    "Start frame is F03 frame 190 (neutral expression, hands on keys) instead of a pre-typing F03 frame, because every pre-typing F03 frame already shows her smiling, which would pre-empt the recognition."
+  ]
+}

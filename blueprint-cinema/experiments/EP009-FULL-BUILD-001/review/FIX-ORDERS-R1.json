@@ -1,0 +1,84 @@
+{
+  "record_type": "fix_orders",
+  "round": 1,
+  "sources": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/FINDINGS-A.json",
+      "sha256": "503ca4645e64ab3484d8703ddf3c3e96b6c985163c7494ba669627fc915d75fd"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/FINDINGS-B.json",
+      "sha256": "62a010c0522d2d57cdca6ef76699efb9db71681e63f8379987fbb7e8d7f4510b"
+    }
+  ],
+  "scope": "All blocking and should-fix findings except B-20 (needs paid regeneration) and B-25 (second-half rhythm needs restructuring). Notes are optional and only if trivial inside a project already being re-rendered.",
+  "assignments": {
+    "edit": [
+      "A-01",
+      "A-02",
+      "A-07",
+      "A-13",
+      "B-04",
+      "B-06",
+      "B-16",
+      "B-21",
+      "B-23"
+    ],
+    "act1": [
+      "A-04",
+      "A-06",
+      "A-09",
+      "A-10",
+      "A-11",
+      "A-12",
+      "A-14",
+      "A-15"
+    ],
+    "act2": [
+      "A-16",
+      "A-17",
+      "A-20",
+      "A-21",
+      "A-22",
+      "A-23",
+      "A-24",
+      "A-25"
+    ],
+    "act3": [
+      "B-01",
+      "B-02",
+      "B-03",
+      "B-07",
+      "B-08",
+      "B-09",
+      "B-10",
+      "B-24",
+      "B-26"
+    ],
+    "act4": [
+      "B-07",
+      "B-11",
+      "B-13",
+      "B-14",
+      "B-15",
+      "B-24",
+      "B-26"
+    ],
+    "deferred_to_owner": [
+      "B-20",
+      "B-25"
+    ]
+  },
+  "shared_findings": {
+    "B-07": "act3 fixes seg053 leaf; act4 fixes seg069 so both use the same non-chart leaf drawing",
+    "B-24": "act3 varies entrances for S13-S16; act4 for S17-S19; neither may reuse the blank-page centred-heading entry more than once in a row",
+    "B-26": "booking site drawn with the kit's full listing-cards variant everywhere it appears in S11, S15, S20"
+  },
+  "orchestrator_rulings": {
+    "A-21": "Claims map wins over DIRECTION-PLAN.md: headline reads 'more than $100 billion' each, as narrated; exact $186.1B and $119.6B only in the small receipt line.",
+    "B-13": "Remove numeric window edges, the 'too small' label over 20 and any tick implying known bounds; show a window with dashed, unlabeled edges and the words 'nobody knows how wide' only if the narration's wording supports it; 20 and 40 remain as the two property sizes the episode uses.",
+    "B-20": "Deferred: needs a paid presenter regeneration; carried to owner review.",
+    "B-25": "Deferred: second-half sag needs restructuring beyond a fix round; partially eased by B-01, B-02, B-11, B-14, B-24; carried to owner review."
+  },
+  "sequence": "edit runs in parallel with the act chain; act fixers run strictly act1 -> act2 -> act3 -> act4 because each act's first frame inherits the previous act's rendered last frame."
+}

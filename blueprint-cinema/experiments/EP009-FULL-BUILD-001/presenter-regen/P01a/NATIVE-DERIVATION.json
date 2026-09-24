@@ -1,0 +1,104 @@
+{
+  "record_type": "original_speed_provider_source_window",
+  "at": "2026-09-17T17:57:24.546817+00:00",
+  "parent_part": "P01",
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4",
+    "sha256": "5f1200763aebbc87fb741b7523a56d14eb40f743a143d33cbdb35050117589ca"
+  },
+  "source_job": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/HIGGSFIELD-JOB-a4.json",
+    "sha256": "a454eec41adc0446763462aa17996efaeb2b3e57acdc052ef752a9140b54bea2"
+  },
+  "source_result": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/HIGGSFIELD-RESULT-a4.json",
+    "sha256": "073cb6ed21986eeae00325d2fc299f2c29bc5e46d6e0c3402c9eb1023ada74bf"
+  },
+  "source_narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/audio/narration.wav",
+    "sha256": "0adbfc69684f8843a92b0d0bb532aa8bb2fd2f1f06ac62fb8db922853b884775"
+  },
+  "source_prompt": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/AVATAR-PROMPT-henry-only.txt",
+    "sha256": "8f4228cfa53521adce1fb5890680b398f1ab4f0d4afa5a3cdcbcbe081324ff02"
+  },
+  "job_id": "5217b97d-fe3c-473d-91a9-3033df66a992",
+  "source_frame_range": [
+    0,
+    108
+  ],
+  "source_seconds": [
+    0,
+    4.5
+  ],
+  "playback_rate": 1.0,
+  "method": "Frame-exact 24 fps prefix selection, original speed. Picture encoded H.264 CRF 10, native generated audio encoded AAC 48 kHz stereo. No new provider generation, audio guidance replacement, speed change or frame interpolation. This is a source-window recovery artifact, not an accepted presenter clip.",
+  "new_generation_credits": 0,
+  "native": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4",
+    "sha256": "36fc9c49ea5f9da6762a8afb42013117d7e9c347268e2c2c1d3a74dcc54dbfe9"
+  },
+  "commands": [
+    [
+      "ffmpeg",
+      "-n",
+      "-v",
+      "error",
+      "-i",
+      "/Users/brownmanbrain/GitHub/operator-economy/operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav",
+      "-af",
+      "atrim=start_sample=2414000:end_sample=2612000,asetpts=N/SR/TB",
+      "-ac",
+      "1",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/audio/narration.wav"
+    ],
+    [
+      "ffmpeg",
+      "-n",
+      "-v",
+      "error",
+      "-i",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/audio/narration.wav",
+      "-c:a",
+      "libmp3lame",
+      "-b:a",
+      "320k",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/audio/narration.mp3"
+    ],
+    [
+      "ffmpeg",
+      "-n",
+      "-v",
+      "error",
+      "-threads",
+      "2",
+      "-i",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/native.mp4",
+      "-vf",
+      "trim=start_frame=0:end_frame=108,setpts=PTS-STARTPTS",
+      "-af",
+      "atrim=start=0:end=4.5,asetpts=PTS-STARTPTS",
+      "-c:v",
+      "libx264",
+      "-threads",
+      "2",
+      "-crf",
+      "10",
+      "-preset",
+      "slow",
+      "-pix_fmt",
+      "yuv420p",
+      "-r",
+      "24",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "256k",
+      "-ar",
+      "48000",
+      "-ac",
+      "2",
+      "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01a/native.mp4"
+    ]
+  ]
+}

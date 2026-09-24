@@ -1,0 +1,50 @@
+{
+  "review_type": "Independent sampled exact-frame visual comparison of Q and S",
+  "source_sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+  "candidate_sha256": "49aa50566c093a9e2337a9e23c9b2d3c3e7f7cf46c2f5cb34d111228359356de",
+  "candidate_sha256_verified": true,
+  "verdict": "reject_visible_duplicate_silhouette_edges",
+  "reviewed_frames": [0, 15, 25, 50, 70, 100, 111, 125, 139],
+  "reviewed_times_seconds": [0.0, 0.6, 1.0, 2.0, 2.8, 4.0, 4.44, 5.0, 5.56],
+  "findings": [
+    {
+      "area": "Shoulder silhouette",
+      "severity": "blocking",
+      "observation": "Frames 0 and 15 show two distinct shoulder contours with a thin bright line between them, especially on the viewer-right shoulder. The defect is also visible around frame 100 and a smaller line remains at frame 111. This is visible at native crop size and is clearer in the enlarged shoulder evidence."
+    },
+    {
+      "area": "Hair silhouette",
+      "severity": "blocking_with_shoulder_defect",
+      "observation": "A faint displaced hair outline remains above/right of the current head at frames 0 and 15, and near frame 100. The actual decoded output therefore does contain old-silhouette remnants; the unresolved-edge count cannot be dismissed as harmless bookkeeping."
+    },
+    {
+      "area": "Shelf and room",
+      "severity": "no_clear_defect_in_samples",
+      "observation": "The shelf stays substantially straight in all nine reviewed pairs. The shelf-wave defect of the earlier unisolated R is not visible."
+    },
+    {
+      "area": "Neck and face",
+      "severity": "no_clear_internal_seam_in_samples",
+      "observation": "No obvious internal face tear or jaw-to-neck seam is visible in the sampled pairs. Neck proportions vary slightly through the spatial transition. Static samples do not establish natural motion or exact expression preservation."
+    },
+    {
+      "area": "Hands and lower torso",
+      "severity": "no_clear_change_in_samples",
+      "observation": "Separate bottom-frame comparisons at frames 0, 25, 111 and 139 show matching hand and forearm poses. This is a sampled visual comparison; parent owns exact technical equality checks."
+    }
+  ],
+  "recommendation": "Do not present current S as a clean result. Keep shoulder silhouettes unwarped and confine the neck transition to the interior neck/upper shirt; repair remaining original hair-edge remnants using verified observed background coverage. Recheck the same failure frames before playback review.",
+  "primary_evidence": [
+    "q-s-frame-000.png", "q-s-frame-015.png", "q-s-frame-100.png",
+    "q-s-frame-111.png", "q-s-onset-shoulder-defect.png", "q-s-hands-review.png"
+  ],
+  "limits": [
+    "Nine specified frames reviewed, not every output frame.",
+    "No full-speed playback performed by this reviewer.",
+    "Parent independently verifies source timing and audio."
+  ],
+  "owner_approval": false,
+  "productionGateAdvance": false,
+  "provider_calls": 0,
+  "source_changes": []
+}

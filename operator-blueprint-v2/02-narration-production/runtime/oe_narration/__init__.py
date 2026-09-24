@@ -1,0 +1,89 @@
+"""Operator Blueprint V2 Step 2 narration validation runtime."""
+
+from .retrieval import (
+    dry_run_metadata_inventory,
+    dry_run_named_sample_batch,
+    dry_run_retrieval,
+    execute_metadata_inventory,
+    execute_named_sample_batch,
+    execute_retrieval,
+)
+from .directed_bakeoff import (
+    execute_directed_bakeoff,
+    validate_directed_bakeoff_execution,
+)
+from .voice_remix import (
+    dry_run_voice_remix_preview,
+    dry_run_voice_remix_save,
+    execute_voice_remix_preview,
+    execute_voice_remix_save,
+    validate_voice_remix_preview_authorization,
+    validate_voice_remix_save_authorization,
+)
+from .performance_transfer import (
+    dry_run_synthetic_guide,
+    dry_run_voice_transfer,
+    execute_synthetic_guide,
+    validate_performance_transfer_plan,
+    validate_synthetic_guide_authorization,
+    validate_voice_transfer_authorization,
+)
+from .google_service_enablement import (
+    dry_run_google_service_enablement,
+    execute_google_service_enablement,
+    validate_google_service_enablement_authorization,
+)
+from .voice_transfer import (
+    dry_run_account_recovery,
+    dry_run_account_verification,
+    dry_run_recovery_evidence_voice_transfer,
+    dry_run_voice_transfer_execution,
+    execute_account_recovery,
+    execute_account_verification,
+    execute_recovery_evidence_voice_transfer,
+    execute_voice_transfer,
+    validate_account_recovery_authorization,
+    validate_account_verification_authorization,
+    validate_recovery_evidence_voice_transfer_authorization,
+    validate_voice_transfer_execution_authorization,
+)
+
+__version__ = "0.5.0"
+
+__all__ = [
+    "dry_run_metadata_inventory",
+    "dry_run_named_sample_batch",
+    "dry_run_retrieval",
+    "execute_metadata_inventory",
+    "execute_named_sample_batch",
+    "execute_retrieval",
+    "execute_directed_bakeoff",
+    "validate_directed_bakeoff_execution",
+    "dry_run_voice_remix_preview",
+    "dry_run_voice_remix_save",
+    "execute_voice_remix_preview",
+    "execute_voice_remix_save",
+    "validate_voice_remix_preview_authorization",
+    "validate_voice_remix_save_authorization",
+    "dry_run_synthetic_guide",
+    "dry_run_voice_transfer",
+    "execute_synthetic_guide",
+    "validate_performance_transfer_plan",
+    "validate_synthetic_guide_authorization",
+    "validate_voice_transfer_authorization",
+    "dry_run_google_service_enablement",
+    "execute_google_service_enablement",
+    "validate_google_service_enablement_authorization",
+    "dry_run_account_verification",
+    "dry_run_account_recovery",
+    "dry_run_recovery_evidence_voice_transfer",
+    "dry_run_voice_transfer_execution",
+    "execute_account_verification",
+    "execute_account_recovery",
+    "execute_recovery_evidence_voice_transfer",
+    "execute_voice_transfer",
+    "validate_account_verification_authorization",
+    "validate_account_recovery_authorization",
+    "validate_recovery_evidence_voice_transfer_authorization",
+    "validate_voice_transfer_execution_authorization",
+]

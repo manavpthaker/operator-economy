@@ -1,0 +1,19 @@
+{
+  "duration": 29.29,
+  "maxStaticSec": 4.0,
+  "assertions": [
+    {"kind":"appearsBy","selector":"#model-revenue-receipt","bySec":0.5},
+    {"kind":"appearsBy","selector":"#model-revenue-evidence-phrase","bySec":3.7},
+    {"kind":"appearsBy","selector":"#model-machine","bySec":5.7},
+    {"kind":"appearsBy","selector":"#model-owner-dependency","bySec":12.1},
+    {"kind":"appearsBy","selector":"#model-handover","bySec":16.4},
+    {"kind":"appearsBy","selector":"#model-final-thesis","bySec":23.0},
+    {"kind":"appearsBy","selector":"#model-final-route","bySec":26.5},
+    {"kind":"before","a":"#model-revenue-receipt","b":"#model-machine"},
+    {"kind":"before","a":"#model-machine","b":"#model-owner-dependency"},
+    {"kind":"before","a":"#model-owner-dependency","b":"#model-handover"},
+    {"kind":"before","a":"#model-handover","b":"#model-final-route"},
+    {"kind":"staysInFrame","selector":"#model-final-thesis"},
+    {"kind":"staysInFrame","selector":"#model-final-route"}
+  ]
+}

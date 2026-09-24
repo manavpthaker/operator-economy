@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Boska";
+          src: url("assets/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Zodiak";
+          src: url("assets/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+
+        .s03-paper {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+        }
+
+        .s03-margin-rule {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 58px;
+          width: 2px;
+          background: rgba(88, 109, 116, 0.26);
+        }
+
+        .s03-register {
+          position: absolute;
+          left: 43px;
+          width: 32px;
+          height: 2px;
+          background: #71868d;
+          opacity: 0.54;
+        }
+
+        .s03-register-top {
+          top: 114px;
+        }
+
+        .s03-register-bottom {
+          top: 1328px;
+        }
+
+        .s03-build-heading,
+        .s03-settled-heading {
+          position: absolute;
+          top: 174px;
+          left: 76px;
+          width: 800px;
+        }
+
+        .s03-build-kicker {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          color: #586d74;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+
+        .s03-build-kicker::before {
+          width: 46px;
+          height: 3px;
+          background: #71868d;
+          content: "";
+        }
+
+        .s03-build-title {
+          margin-top: 28px;
+          color: #173530;
+          font: 700 78px/0.92 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.035em;
+        }
+
+        .s03-settled-heading {
+          opacity: 0;
+        }
+
+        .s03-map-title {
+          color: #173530;
+          font: 700 88px/0.9 "BL Boska", Georgia, serif;
+          letter-spacing: -0.045em;
+        }
+
+        .s03-map-subtitle {
+          margin-top: 14px;
+          color: #566461;
+          font-size: 21px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .s03-column-label {
+          position: absolute;
+          top: 420px;
+          color: #586d74;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+
+        .s03-column-source {
+          left: 80px;
+        }
+
+        .s03-column-question {
+          left: 610px;
+        }
+
+        .s03-source-node {
+          position: absolute;
+          left: 80px;
+          width: 324px;
+          height: 148px;
+          padding: 28px 26px 22px;
+          border-top: 2px solid #c4b99e;
+          border-bottom: 2px solid #c4b99e;
+          background: #fbf8f1;
+          box-shadow: 0 16px 34px rgba(32, 68, 64, 0.05);
+        }
+
+        .s03-source-one {
+          top: 470px;
+        }
+
+        .s03-source-two {
+          top: 690px;
+        }
+
+        .s03-source-three {
+          top: 910px;
+        }
+
+        .s03-node-index {
+          color: #586d74;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+        }
+
+        .s03-node-value {
+          margin-top: 18px;
+          color: #173530;
+          font: 700 36px/1 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.018em;
+        }
+
+        .s03-question-node {
+          position: absolute;
+          left: 610px;
+          width: 390px;
+          height: 148px;
+          display: grid;
+          align-content: center;
+          padding: 22px 28px;
+          border: 3px solid #586d74;
+          background: #ede7d8;
+        }
+
+        .s03-question-who {
+          top: 470px;
+        }
+
+        .s03-question-needs {
+          top: 690px;
+        }
+
+        .s03-question-stops {
+          top: 910px;
+        }
+
+        .s03-question-title {
+          color: #33464c;
+          font: 700 40px/1 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.025em;
+        }
+
+        .s03-question-detail {
+          margin-top: 11px;
+          color: #566461;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+        }
+
+        .s03-route-layer {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: visible;
+          pointer-events: none;
+        }
+
+        .s03-route {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 7px;
+          stroke-linecap: square;
+          stroke-linejoin: miter;
+        }
+
+        .s03-route-light {
+          stroke: #71868d;
+          stroke-width: 5px;
+        }
+
+        .s03-junction {
+          fill: #33464c;
+          opacity: 0;
+        }
+
+        .s03-all-three-hub {
+          position: absolute;
+          z-index: 3;
+          left: 447px;
+          top: 700px;
+          width: 118px;
+          height: 128px;
+          display: grid;
+          place-content: center;
+          border: 4px solid #c4b99e;
+          background: #173530;
+          color: #f5f0e6;
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 1.08;
+          letter-spacing: 0.08em;
+          text-align: center;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+
+        .s03-all-three-hub strong {
+          display: block;
+          margin-top: 6px;
+          color: #fb8b69;
+          font: 700 38px/0.9 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.03em;
+        }
+
+        .s03-map-note {
+          position: absolute;
+          top: 1192px;
+          left: 80px;
+          width: 920px;
+          padding-top: 25px;
+          border-top: 2px solid #586d74;
+          color: #33464c;
+          font-size: 24px;
+          font-weight: 500;
+          letter-spacing: 0.055em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+
+        .s03-map-note strong {
+          color: #173530;
+          font-weight: 500;
+        }
+      </style>
+
+      <div
+        id="root"
+        data-composition-id="scene-03-dependency-map"
+        data-start="0"
+        data-duration="13.208333"
+        data-width="1080"
+        data-height="1920"
+        data-fps="24"
+      >
+        <div class="s03-paper" aria-hidden="true"></div>
+        <div class="s03-margin-rule" aria-hidden="true"></div>
+        <div class="s03-register s03-register-top" aria-hidden="true"></div>
+        <div class="s03-register s03-register-bottom" aria-hidden="true"></div>
+        <header id="s03-build-heading" class="s03-build-heading">
+          <div class="s03-build-kicker">Beside each circle</div>
+          <div class="s03-build-title">Write three things.</div>
+        </header>
+
+        <header id="s03-map-title" class="s03-settled-heading">
+          <div class="s03-map-title">First working map</div>
+          <div class="s03-map-subtitle">Owner dependencies → handoff questions</div>
+        </header>
+
+        <div class="s03-column-label s03-column-source">Every circled dependency</div>
+        <div class="s03-column-label s03-column-question">All three questions</div>
+
+        <article id="s03-source-customers" class="s03-source-node s03-source-one">
+          <div class="s03-node-index">CIRCLED 01 · RELATIONSHIP</div>
+          <div class="s03-node-value">Customer calls</div>
+        </article>
+        <article id="s03-source-exceptions" class="s03-source-node s03-source-two">
+          <div class="s03-node-index">CIRCLED 02 · DECISION</div>
+          <div class="s03-node-value">Exception approvals</div>
+        </article>
+        <article id="s03-source-records" class="s03-source-node s03-source-three">
+          <div class="s03-node-index">CIRCLED 03 · RECORD</div>
+          <div class="s03-node-value">Records location</div>
+        </article>
+
+        <article id="s03-question-who" class="s03-question-node s03-question-who">
+          <div class="s03-question-title">Who else?</div>
+          <div class="s03-question-detail">could act</div>
+        </article>
+        <article id="s03-question-needs" class="s03-question-node s03-question-needs">
+          <div class="s03-question-title">Needs what?</div>
+          <div class="s03-question-detail">to act</div>
+        </article>
+        <article id="s03-question-stops" class="s03-question-node s03-question-stops">
+          <div class="s03-question-title">What stops?</div>
+          <div class="s03-question-detail">without the owner</div>
+        </article>
+
+        <svg class="s03-route-layer" viewBox="0 0 1080 1920" aria-hidden="true">
+          <path id="s03-route-source-1" class="s03-route s03-route-light" d="M404 544 H506" />
+          <path id="s03-route-source-2" class="s03-route s03-route-light" d="M404 764 H506" />
+          <path id="s03-route-source-3" class="s03-route s03-route-light" d="M404 984 H506" />
+          <path id="s03-route-spine" class="s03-route" d="M506 544 V984" />
+          <path id="s03-route-who" class="s03-route" d="M506 544 H610" />
+          <path id="s03-route-needs" class="s03-route" d="M506 764 H610" />
+          <path id="s03-route-stops" class="s03-route" d="M506 984 H610" />
+          <circle id="s03-junction-1" class="s03-junction" cx="506" cy="544" r="11" />
+          <circle id="s03-junction-2" class="s03-junction" cx="506" cy="764" r="11" />
+          <circle id="s03-junction-3" class="s03-junction" cx="506" cy="984" r="11" />
+        </svg>
+
+        <div id="s03-all-three-hub" class="s03-all-three-hub">Ask<strong>all 3</strong></div>
+
+        <div id="s03-map-note" class="s03-map-note">
+          <strong>Repeat all three</strong> for every circle
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo(
+          "#s03-build-heading",
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.54, ease: "power3.out" },
+          0.08,
+        );
+        tl.fromTo(
+          ".s03-column-label",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.36, ease: "power1.out", stagger: 0.12 },
+          0.42,
+        );
+        tl.fromTo(
+          ".s03-source-node",
+          { opacity: 0, x: -26 },
+          { opacity: 1, x: 0, duration: 0.48, ease: "power3.out", stagger: 0.42 },
+          0.62,
+        );
+
+        const routeSourceOne = document.querySelector("#s03-route-source-1");
+        const routeSourceTwo = document.querySelector("#s03-route-source-2");
+        const routeSourceThree = document.querySelector("#s03-route-source-3");
+        const routeSpine = document.querySelector("#s03-route-spine");
+        const routeWho = document.querySelector("#s03-route-who");
+        const routeNeeds = document.querySelector("#s03-route-needs");
+        const routeStops = document.querySelector("#s03-route-stops");
+
+        const drawRoute = (target, start, duration) => {
+          const length = target.getTotalLength();
+          tl.fromTo(
+            target,
+            { opacity: 0, strokeDasharray: length, strokeDashoffset: length },
+            { opacity: 1, strokeDasharray: length, strokeDashoffset: 0, duration, ease: "power2.out" },
+            start,
+          );
+        };
+
+        drawRoute(routeSourceOne, 1.18, 0.5);
+        drawRoute(routeSourceTwo, 1.78, 0.5);
+        drawRoute(routeSourceThree, 2.38, 0.5);
+        drawRoute(routeSpine, 2.88, 0.82);
+        tl.fromTo(
+          "#s03-all-three-hub",
+          { opacity: 0, scale: 0.86 },
+          { opacity: 1, scale: 1, duration: 0.34, ease: "back.out(1.5)" },
+          3.42,
+        );
+
+        drawRoute(routeWho, 3.54, 0.46);
+        tl.fromTo(
+          "#s03-junction-1",
+          { opacity: 0, scale: 0, transformOrigin: "50% 50%" },
+          { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" },
+          3.72,
+        );
+        tl.fromTo(
+          "#s03-question-who",
+          { opacity: 0, x: 24 },
+          { opacity: 1, x: 0, duration: 0.44, ease: "power3.out" },
+          3.88,
+        );
+
+        drawRoute(routeNeeds, 4.48, 0.46);
+        tl.fromTo(
+          "#s03-junction-2",
+          { opacity: 0, scale: 0, transformOrigin: "50% 50%" },
+          { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" },
+          4.66,
+        );
+        tl.fromTo(
+          "#s03-question-needs",
+          { opacity: 0, x: 24 },
+          { opacity: 1, x: 0, duration: 0.44, ease: "power3.out" },
+          4.82,
+        );
+
+        drawRoute(routeStops, 5.42, 0.46);
+        tl.fromTo(
+          "#s03-junction-3",
+          { opacity: 0, scale: 0, transformOrigin: "50% 50%" },
+          { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.6)" },
+          5.6,
+        );
+        tl.fromTo(
+          "#s03-question-stops",
+          { opacity: 0, x: 24 },
+          { opacity: 1, x: 0, duration: 0.44, ease: "power3.out" },
+          5.76,
+        );
+
+        tl.fromTo(
+          "#s03-build-heading",
+          { opacity: 1, y: 0 },
+          { opacity: 0, y: -16, duration: 0.3, ease: "power2.in", immediateRender: false },
+          6.78,
+        );
+        tl.fromTo(
+          "#s03-map-title",
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.54, ease: "power3.out" },
+          7.04,
+        );
+        tl.fromTo(
+          "#s03-map-note",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" },
+          7.48,
+        );
+
+        window.__timelines["scene-03-dependency-map"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

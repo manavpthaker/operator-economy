@@ -1,0 +1,60 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "This tool provides an auto-updating generation widget for these jobs. Do not call job_display, show_generations, or show_generation_by_ids to display these jobs again, either before or after completion. If you need to await completion, use jobs_wait with timeout_seconds <= 15. Use job_display only if the user explicitly requests a separate re-display."
+    },
+    {
+      "type": "text",
+      "text": "Note: adjustments applied — medias[0].role: \"image\" → \"image_references\" (Seedance 2.5 backend expects schema-key media roles); medias[1].role: \"video\" → \"video_references\" (Seedance 2.5 backend expects schema-key media roles); medias[2].role: \"video\" → \"video_references\" (Seedance 2.5 backend expects schema-key media roles); medias[3].role: \"audio\" → \"audio_references\" (Seedance 2.5 backend expects schema-key media roles).\n\nSubmitted 1 job. If a widget is visible, it polls automatically — do not call job_status or show_generations as a follow-up poll. In text-only clients, use job_status with sync:true to poll for completion.\n- d4cc2070-5b18-4234-8546-50ae183e2c37  \"One continuous six-second eye-level, fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his exact identity, glasses, navy shirt, softly daylit study, lighting, and wider framing with both forearms and complete hands visible. This is an owner-authorized avatar of the person in both VIDEO references.\n\nThe first VIDEO supplies relaxed conversational facial settling, ordinary blinks, small asymmetric head-angle adjustments and comfortable stillness. The second VIDEO supplies clear public-facing articulation and brief emphasis that settles. They are complementary behavior references only. Do not copy their wardrobe, room, microphone, headphones, interview gaze, unrelated speech or mouth timing. The IMAGE owns appearance and setting; the AUDIO owns the actual delivery.\n\nSpeak only this exact five-second AUDIO reference, preserving its original voice, words, cadence and pauses: \"The default outcome of putting your business up for sale is that it does not sell.\"\n\nThis line is a calm, direct conclusion to the evidence just discussed. Begin with easy near-lens engagement and an unforced expression. Clear connected mouth shapes, no fixed teeth display, stretched jaw or held smile. Hands can accompany the whole thought with one small natural settling motion if useful; they need not gesture. Do not repeat rhythmic nods or prescribed choreography from previous takes.\n\nThrough \"is that it does not sell,\" keep attention on the listener. Let the face become quietly firm as the negative result lands, with the mouth distinctly forming each word. No dramatic frown, raised-brow warning, anger, head shake, glance away, chin thrust, emphatic lean or finger point. Keep the head and hands relatively settled through that final phrase so the editorial push can carry emphasis. Preserve ordinary blinks and small facial asymmetry, never a rigid stare. Finish \"sell\" fully, gently close the lips and settle. Do not slow or stress the audio differently, add silent syllables, or anticipate the next line.\n\nThe AUDIO lasts exactly five seconds, including its original lead and end silence. Complete it at its natural pace, then remain comfortably at rest through the end of the six-second picture. The camera stays fixed and wide throughout; the editor will add the close-up from this continuous source. No generated zoom, crop, cut, caption, title, logo, music, extra person or extra words.\n\""
+    }
+  ],
+  "structuredContent": {
+    "results": [
+      {
+        "id": "d4cc2070-5b18-4234-8546-50ae183e2c37",
+        "type": "video",
+        "status": "pending",
+        "model": "seedance_2_5",
+        "params": {
+          "prompt": "One continuous six-second eye-level, fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his exact identity, glasses, navy shirt, softly daylit study, lighting, and wider framing with both forearms and complete hands visible. This is an owner-authorized avatar of the person in both VIDEO references.\n\nThe first VIDEO supplies relaxed conversational facial settling, ordinary blinks, small asymmetric head-angle adjustments and comfortable stillness. The second VIDEO supplies clear public-facing articulation and brief emphasis that settles. They are complementary behavior references only. Do not copy their wardrobe, room, microphone, headphones, interview gaze, unrelated speech or mouth timing. The IMAGE owns appearance and setting; the AUDIO owns the actual delivery.\n\nSpeak only this exact five-second AUDIO reference, preserving its original voice, words, cadence and pauses: \"The default outcome of putting your business up for sale is that it does not sell.\"\n\nThis line is a calm, direct conclusion to the evidence just discussed. Begin with easy near-lens engagement and an unforced expression. Clear connected mouth shapes, no fixed teeth display, stretched jaw or held smile. Hands can accompany the whole thought with one small natural settling motion if useful; they need not gesture. Do not repeat rhythmic nods or prescribed choreography from previous takes.\n\nThrough \"is that it does not sell,\" keep attention on the listener. Let the face become quietly firm as the negative result lands, with the mouth distinctly forming each word. No dramatic frown, raised-brow warning, anger, head shake, glance away, chin thrust, emphatic lean or finger point. Keep the head and hands relatively settled through that final phrase so the editorial push can carry emphasis. Preserve ordinary blinks and small facial asymmetry, never a rigid stare. Finish \"sell\" fully, gently close the lips and settle. Do not slow or stress the audio differently, add silent syllables, or anticipate the next line.\n\nThe AUDIO lasts exactly five seconds, including its original lead and end silence. Complete it at its natural pace, then remain comfortably at rest through the end of the six-second picture. The camera stays fixed and wide throughout; the editor will add the close-up from this continuous source. No generated zoom, crop, cut, caption, title, logo, music, extra person or extra words.\n",
+          "aspect_ratio": "16:9",
+          "duration": 6,
+          "reference_images": [
+            "875a3997-b5c7-4410-9487-309a8c7740df",
+            "7dc478bc-0449-4867-a760-50670f4caccf",
+            "5ec537ee-b01c-4bb5-a343-636882e4b747",
+            "f64afa06-541c-4f9f-b583-efa2d164fb9f"
+          ],
+          "mode": "omni_reference",
+          "resolution": "1080p",
+          "bitrate_mode": "high",
+          "generate_audio": true
+        }
+      }
+    ],
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[2].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[3].role": {
+        "requested": "audio",
+        "used": "audio_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      }
+    }
+  },
+  "isError": false
+}

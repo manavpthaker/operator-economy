@@ -1,0 +1,64 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r37-s08-cues",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-cues/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-cues/cues.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute both issued input SHA256 hashes",
+      "outcome": "pass"
+    },
+    {
+      "command": "Extract S08 word sequence and neighboring S09 opening from exact locked transcript",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compute master/review/local clocks and test whether a24fps frame falls inside the S08/S09 transcript gap",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read S07/S08/S09 context and audit conditional owner-dependency versus actual company failure",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate standard agent deliverable schema",
+      "outcome": "pass"
+    },
+    {
+      "command": "Source PCM inspection, audiovisual review, or rendered-runtime review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Issued locked script S07/S08/S09 and word-transcript.json only; no external research or media was used.",
+    "Existing minus-three review map and local start250.625 are explicit work-order inputs."
+  ],
+  "assumptions": [
+    "Root will preserve original narration and independently verify a final24fps boundary against PCM."
+  ],
+  "unresolved_questions": [
+    "No frame boundary falls within the10ms transcript gap. Final S08 outpoint cannot be set safely without PCM/listening verification.",
+    "Actual scene comprehension and conditional-owner treatment require rendered audiovisual review."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

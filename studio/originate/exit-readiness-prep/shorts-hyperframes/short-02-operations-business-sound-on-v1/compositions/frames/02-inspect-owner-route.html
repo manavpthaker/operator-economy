@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .mineral-edge { display: none; }
+        .heading {
+          position: absolute;
+          top: 224px;
+          left: 58px;
+          width: 900px;
+          color: #173530;
+        }
+        .eyebrow { display: flex; align-items: center; gap: 14px; color: #586d74; font-size: 21px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .eyebrow::before { width: 54px; height: 4px; background: #b5482f; content: ""; }
+        .heading h1 { margin: 18px 0 0; font: 700 78px/0.9 "BL Zodiak", Georgia, serif; letter-spacing: -0.045em; }
+        .model-board {
+          position: absolute;
+          top: 408px;
+          left: 58px;
+          width: 900px;
+          height: 866px;
+          overflow: hidden;
+          border: 3px solid #204440;
+          background: #fbf8f1;
+          box-shadow: none;
+        }
+        .model-board::before,
+        .model-board::after {
+          position: absolute;
+          width: 78px;
+          height: 78px;
+          border-color: rgba(88, 109, 116, 0.44);
+          content: "";
+        }
+        .model-board::before { top: 18px; left: 18px; border-top: 2px solid; border-left: 2px solid; }
+        .model-board::after { right: 18px; bottom: 18px; border-right: 2px solid; border-bottom: 2px solid; }
+        .route-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .route-path { fill: none; stroke: #586d74; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+        .route-echo { fill: none; stroke: rgba(113, 134, 141, 0.44); stroke-width: 2; stroke-linecap: round; }
+        .node rect { fill: #f5f0e6; stroke: #586d74; stroke-width: 3; }
+        .node text { fill: #173530; font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; text-anchor: middle; }
+        .node .node-main { font-size: 26px; letter-spacing: 0.08em; }
+        .node .node-sub { fill: #33464c; font-size: 20px; letter-spacing: 0.05em; }
+        .owner-outline rect { fill: none; stroke: #71868d; stroke-width: 3; stroke-dasharray: 12 10; }
+        .owner-outline text { fill: #586d74; font-family: "BL Supreme", system-ui, sans-serif; font-size: 20px; font-weight: 500; letter-spacing: 0.07em; text-anchor: middle; }
+        .owner-card rect { fill: #204440; stroke: #173530; stroke-width: 3; }
+        .owner-card text { fill: #f5f0e6; font-family: "BL Zodiak", Georgia, serif; font-size: 29px; font-weight: 700; text-anchor: middle; }
+        .question-ring { fill: #fbf8f1; stroke: #b5482f; stroke-width: 7; }
+        .question-mark { fill: #87341f; font-family: "BL Boska", Georgia, serif; font-size: 64px; font-weight: 700; text-anchor: middle; }
+        .work-item rect { fill: #173530; stroke: #f5f0e6; stroke-width: 3; }
+        .work-item text { fill: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; font-size: 18px; font-weight: 500; letter-spacing: 0.08em; text-anchor: middle; }
+        .question-copy {
+          position: absolute;
+          left: 550px;
+          top: 692px;
+          width: 300px;
+          color: #173530;
+          opacity: 0;
+        }
+        .question-copy strong { display: block; color: #87341f; font: 700 44px/0.95 "BL Zodiak", Georgia, serif; letter-spacing: -0.03em; }
+        .question-copy span { display: block; margin-top: 12px; color: #586d74; font-size: 19px; font-weight: 500; letter-spacing: 0.09em; line-height: 1.25; text-transform: uppercase; }
+        .script-rail {
+          display: none;
+          position: absolute;
+          top: 1420px;
+          left: 58px;
+          width: 900px;
+          height: 250px;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: #19201f;
+        }
+        .guide-label { display: none; }
+        .guide-line {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          color: #19201f;
+          font-size: 46px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          line-height: 1.02;
+          opacity: 0;
+          text-wrap: balance;
+        }
+        .guide-line em { color: #87341f; font-style: normal; }
+      </style>
+
+      <section
+        id="root"
+        data-composition-id="short02-inspect"
+        data-start="0"
+        data-duration="8.305"
+        data-width="1080"
+        data-height="1920"
+        data-script-text="A buyer needs to know whether customers get served, decisions get made, and records can be found when the owner steps away."
+      >
+        <div class="mineral-edge" aria-hidden="true"></div>
+        <header id="s2-heading" class="heading">
+          <div class="eyebrow">The inspection question</div>
+          <h1>Does the operating route still work?</h1>
+        </header>
+
+        <div id="s2-board" class="model-board" role="img" aria-label="Three operating routes converge on an owner-held step, leaving an unresolved question when the owner steps away">
+          <svg class="route-svg" viewBox="0 0 900 866" aria-hidden="true">
+            <path class="route-echo" d="M 235 150 C 420 150, 505 358, 696 358" />
+            <path class="route-echo" d="M 235 358 L 696 358" />
+            <path class="route-echo" d="M 235 566 C 420 566, 505 358, 696 358" />
+            <path id="s2-route-customers" class="route-path" d="M 235 142 C 420 142, 505 350, 696 350" />
+            <path id="s2-route-decisions" class="route-path" d="M 235 350 L 696 350" />
+            <path id="s2-route-records" class="route-path" d="M 235 558 C 420 558, 505 350, 696 350" />
+
+            <g id="s2-node-customers" class="node" opacity="0">
+              <rect x="36" y="84" width="200" height="116" rx="8" />
+              <text class="node-main" x="136" y="128">CUSTOMERS</text>
+              <text class="node-sub" x="136" y="163">GET SERVED</text>
+            </g>
+            <g id="s2-node-decisions" class="node" opacity="0">
+              <rect x="36" y="292" width="200" height="116" rx="8" />
+              <text class="node-main" x="136" y="336">DECISIONS</text>
+              <text class="node-sub" x="136" y="371">GET MADE</text>
+            </g>
+            <g id="s2-node-records" class="node" opacity="0">
+              <rect x="36" y="500" width="200" height="116" rx="8" />
+              <text class="node-main" x="136" y="544">AND RECORDS</text>
+              <text class="node-sub" x="136" y="579">CAN BE FOUND</text>
+            </g>
+
+            <g id="s2-owner-outline" class="owner-outline" opacity="0">
+              <rect x="690" y="280" width="166" height="140" rx="8" />
+              <text x="773" y="449">OWNER-HELD STEP</text>
+            </g>
+            <g id="s2-owner-card" class="owner-card">
+              <rect x="690" y="280" width="166" height="140" rx="8" />
+              <text x="773" y="361">OWNER</text>
+            </g>
+            <g id="s2-question" opacity="0">
+              <circle class="question-ring" cx="686" cy="350" r="50" />
+              <text class="question-mark" x="686" y="372">?</text>
+            </g>
+            <g id="s2-token" class="work-item" opacity="0">
+              <rect x="248" y="104" width="136" height="76" rx="38" />
+              <text x="316" y="150">WORK ITEM</text>
+            </g>
+          </svg>
+          <div id="s2-question-copy" class="question-copy">
+            <strong>OWNER-ONLY?</strong>
+            <span>A question, not a finding</span>
+          </div>
+        </div>
+
+        <aside id="s2-script" class="script-rail" data-layout-allow-caption-zone aria-label="Provisional exact-script guide">
+          <div class="guide-label">Exact locked script · provisional timing</div>
+          <div id="s2-guide-a" class="guide-line">A buyer needs to know whether</div>
+          <div id="s2-guide-b" class="guide-line">when the <em>owner steps away.</em></div>
+        </aside>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        ["#s2-route-customers", "#s2-route-decisions", "#s2-route-records"].forEach((selector) => {
+          const path = document.querySelector(selector);
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = `${length}`;
+          path.style.strokeDashoffset = `${length}`;
+        });
+        tl.fromTo("#s2-heading", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 0.06);
+        tl.fromTo("#s2-guide-a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.16);
+        tl.to("#s2-node-customers", { opacity: 1, duration: 0.18, ease: "power1.out" }, 0.78);
+        tl.to("#s2-route-customers", { strokeDashoffset: 0, duration: 0.68, ease: "power2.out" }, 0.9);
+        tl.to("#s2-node-decisions", { opacity: 1, duration: 0.18, ease: "power1.out" }, 2.02);
+        tl.to("#s2-route-decisions", { strokeDashoffset: 0, duration: 0.58, ease: "power2.out" }, 2.14);
+        tl.to("#s2-node-records", { opacity: 1, duration: 0.18, ease: "power1.out" }, 3.28);
+        tl.to("#s2-route-records", { strokeDashoffset: 0, duration: 0.68, ease: "power2.out" }, 3.4);
+        tl.to("#s2-guide-a", { opacity: 0, y: -10, duration: 0.18, ease: "power2.in" }, 4.64);
+        tl.fromTo("#s2-guide-b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 4.78);
+        tl.to("#s2-owner-outline", { opacity: 1, duration: 0.18, ease: "power1.out" }, 5.22);
+        tl.to("#s2-owner-card", { x: 5, duration: 0.12, ease: "power3.in" }, 5.3);
+        tl.to("#s2-owner-card", { x: 36, duration: 0.1, ease: "none" }, 5.42);
+        tl.to("#s2-owner-card", { x: 52, duration: 0.36, ease: "power4.out" }, 5.52);
+        tl.to("#s2-token", { opacity: 1, duration: 0.12, ease: "power1.out" }, 5.72);
+        tl.to("#s2-token", { x: 280, y: 208, duration: 0.92, ease: "power2.inOut" }, 5.84);
+        tl.to("#s2-question", { opacity: 1, duration: 0.18, ease: "power1.out" }, 6.66);
+        tl.fromTo("#s2-question-copy", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 6.96);
+        tl.to("#s2-guide-b", { opacity: 0, y: -10, duration: 0.18, ease: "power2.in" }, 8.02);
+        window.__timelines["short02-inspect"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

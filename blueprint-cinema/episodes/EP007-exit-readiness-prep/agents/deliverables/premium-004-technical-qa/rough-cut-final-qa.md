@@ -1,0 +1,24 @@
+# EP007 final rough-cut technical QA
+
+**Pass for the delegated technical scope.** The corrected render removes the presenter edge defect and the 10.92-second pose jump. This is independent technical verification, not performance approval or a production gate.
+
+**Subsequent out-point finding:** the 59.866667-second test includes likely onset of the next word. The conservative private-preview out-point is **59.50 seconds**, after the intended sentence and before the next voiced region. The shortened output needs its own final hash/frame check; the measurements below remain bound to the earlier 59.866667-second render.
+
+Historical artifact, renamed after review: `blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/ep007-original-film-seedance-hyperframes.pre-outpoint-fix.mp4`. Its hash was rechecked after the rename. The original probe path in the JSON is retained as the path observed during that earlier check.
+
+SHA-256: `e0ae85ec0000acbcb2b5e2f1b562402fe76136c96995908ca26cf00b584db619`. Size: **34,645,919 bytes**. Picture: **1280 × 720, 30 fps, 1,796 decoded frames, 59.866667 seconds**. Full video/audio decode completed without errors.
+
+- Inspected cuts at frames **444, 631, 838, 1053 and 1456**, with adjacent outgoing and incoming frames. No blank frames or missing plates in these samples. Final frame **1795** contains the presenter and the sale-readiness title.
+- Inspected frames **326–329** at the former 10.92-second join. R6 now continues through the interval without the previous pose reset. R6's 10.5–14.75-second source samples were stable and provide sufficient coverage for the 14.77-second cut.
+- Confirmed that the colored bottom strip originated in **407's source**, not in the screenshot or renderer. It occupies the last four source rows, with slight filter bleed above. The top-anchored 724-pixel presenter inside a 720-pixel viewport removes it. Inspected full-width edge strips at frames **1620 and 1795** and scanned the bottom eight rows of **all 340 presenter output frames**. The noise is absent; maximum mean horizontal-neighbor difference is **2.0954/255**, compared with approximately 65–71 in the corrupt source rows.
+- Compared rendered audio with `opening-narration.wav` independently as 8 kHz mono PCM. Whole-track correlation is **0.99982490**, with **zero global lag**. All **104 active half-second windows** have zero lag; minimum correlation is **0.99890210**. The locked narration remains unchanged within codec differences. Container/codec padding accounts for the decoded tail beyond the 59.86-second WAV.
+
+The JSON receipt binds the final output, narration, current generation ledger, HyperFrames index/presenter/question sources, R6 establishing source and selected avatar with full hashes. The earlier candidate packet's ledger hash remains a historical snapshot; this final receipt records the ledger read for this verification.
+
+An additional ending check separates mouth movement from audio preservation. The actual locked identity WAV becomes quiet around **10.78–11.06 seconds**, then has renewed voiced energy from approximately **11.10–11.14 seconds through its 11.34-second end**. The final 40 ms has RMS **0.215** and periodic energy around **123 Hz**. Therefore, the parted mouth at 11.29 seconds is not occurring over a silent tail. The rounded mouth at 11.0 seconds falls within the short quiet interval and remains a perceptual review note; preparation for the following sound may explain part of it. The earlier last-word timing at master59.23seconds does not account for the later voiced region. This was waveform/periodicity measurement, not transcription or phoneme alignment, and does not prove perfect visual synchronization.
+
+The canonical v4 word transcript identifies `practice.` as W000148 at58.78–59.23seconds, followed by `One` (W000149) at59.86–60.05seconds. The measured renewed voiced energy before59.86most likely belongs to that next-word onset, with the forced-alignment boundary starting late. At **59.50 seconds**, the measured40ms RMS is **0.001049** and peak **0.002874**, securely inside the intervening quiet region. Trimming only the private preview to that point preserves the complete intended sentence and changes none of the locked audio, word map or provider source files.
+
+Evidence: `rough-cut-final-qa.json`, `contact-sheets/rough-cut-final-boundaries.jpg`, `contact-sheets/rough-cut-final-edge.jpg`. Earlier defect evidence remains in `contact-sheets/rough-cut-bottom-edge-diagnostic.jpg`, `contact-sheets/rough-cut-initial-boundaries.jpg` and the original report.
+
+Limits: root separately performs normal-speed playback and judges editorial rhythm and avatar performance. No files outside this owned QA packet were changed by the reviewer; no generation, paid call, source edit, or gate change was performed.

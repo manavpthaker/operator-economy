@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ep007-fresh-owner-absence",
+  "semanticCore": {
+    "path": "design-system/boundary-ledger/semantic-core.json",
+    "version": "2.0.0",
+    "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+  },
+  "sourceStill": {
+    "path": "working-model.svg",
+    "sha256": "6b83f800066064a18fe9b7583fd125f79b81fcf432fd20a2b3dcfac0177abced",
+    "preservedUnchanged": true
+  },
+  "format": {
+    "aspectRatio": "16:9",
+    "width": 1280,
+    "height": 720,
+    "adaptation": "authored-recomposition"
+  },
+  "persistentObjects": [
+    {
+      "id": "business",
+      "role": "humanContext",
+      "layerIds": [
+        "business"
+      ]
+    },
+    {
+      "id": "person",
+      "role": "humanContext",
+      "layerIds": [
+        "person"
+      ]
+    },
+    {
+      "id": "folder",
+      "role": "humanContext",
+      "layerIds": [
+        "folder"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "business",
+      "semanticRole": "humanContext",
+      "asset": {
+        "path": "model-layers/business.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a5e26946720ed4b5d19a5641af6b91ede46677601d70fa56b2e4110ac005245a"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "person",
+      "semanticRole": "humanContext",
+      "asset": {
+        "path": "model-layers/person.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "fae161bacc67014f9ba91a04ac2a5a75f4fc89a851bfdc0b00b32d7506a5e325"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "route",
+      "semanticRole": "externalDependency",
+      "asset": {
+        "path": "model-layers/route.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "68909d245583e38ea64f1cf85e064470e918086dcbc937bec9bc12acefa7ca42"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "folder",
+      "semanticRole": "humanContext",
+      "asset": {
+        "path": "model-layers/folder.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "ccec15721a553fed839c55382da124b3a602fcc56e79ca7a8c246535264afa99"
+      },
+      "authoredRoughness": true
+    }
+  ],
+  "routes": [
+    {
+      "id": "current-owner-route",
+      "semanticRole": "externalDependency",
+      "from": "business",
+      "to": "person",
+      "strokeLayerIds": [
+        "route"
+      ]
+    }
+  ],
+  "evidenceAnchors": [],
+  "review": {
+    "objectPermanence": true,
+    "roughnessAuthored": true,
+    "cropBased": false,
+    "reviewerRole": "independent agent graphic review; owner acceptance pending"
+  }
+}

@@ -233,9 +233,9 @@ def check_broll_and_sources(screens: list[dict]) -> Check:
 
     for s in screens:
         if s["layout"] == "broll":
-            query = ""
+            query = s.get("search_query") or ""
             reveals = s.get("reveals", [])
-            if reveals:
+            if not query and reveals:
                 # The broll screen's title/body carry the search query
                 query = (reveals[0].get("title") or "") + " " + (reveals[0].get("body") or "")
             query_lower = query.lower()

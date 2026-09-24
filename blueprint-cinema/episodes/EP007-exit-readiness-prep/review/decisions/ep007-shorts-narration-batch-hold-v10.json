@@ -1,0 +1,59 @@
+{
+  "event_id": "ep007-shorts-narration-batch-hold-v10",
+  "decision_id": "ep007-companion-shorts-platform-system",
+  "event_type": "verification",
+  "tags": [
+    "shorts",
+    "narration",
+    "google-tts",
+    "technical-qc",
+    "batch-hold",
+    "no-retry"
+  ],
+  "data": {
+    "decision_event_id": "ep007-standalone-shorts-production-v7",
+    "actor": "production-pipeline",
+    "authorization_event_id": "ep007-shorts-narration-authorized-v9",
+    "verdict": "hold",
+    "result": "fail",
+    "scope": "The authorized four-Short narration capture batch only. No avatar, lip-sync, music, render, release or publication state changes.",
+    "method": "Immutable provider intent and receipt, WAV probe with the pinned tail-energy rule, followed by local HyperFrames Whisper diagnostic transcription; no provider retry.",
+    "finding": "The first Short 1 Algieba guide returned HTTP 200 but measured tail energy 0.0357, above the pinned 0.02 guide-completeness threshold.",
+    "diagnostic": "Local Whisper recognized 97 words and the complete closing sentence. Its only lexical difference was the acoustically identical write/right homophone; ASR cannot prove the final phoneme was not clipped.",
+    "execution_state": "One Google guide call, zero retries, zero later guide calls and zero ElevenLabs transfers. Estimated Google cost is 0.0197845 USD.",
+    "policy_result": "The no-retry authorization stopped the batch. Fresh owner authority is required before any additional provider call or acceptance of the marginal guide.",
+    "limitations": "The local ASR diagnostic establishes that the closing sentence was recognized, but it cannot establish an unclipped final phoneme or replace owner listening. No claim is made about Shorts 2 through 4 because their provider calls were not submitted.",
+    "recommended_next_action": "Authorize one replacement Short 1 Google guide attempt; do not transfer the marginal guide without listening to its ending.",
+    "artifact_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/BATCH-HOLD.json",
+        "sha256": "39b2cf50d6b995f15c18282b633739888fe768c1cec25c75151a0ffc976e9cd8"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+        "sha256": "b0421bed901afde1571459868a38bc7579a3378fb0a86373599523406684734d"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/STATUS.json",
+        "sha256": "52c35fc3d402416eb6cb161e8ec94b023988c4acb8a254958dfcf16eed4e7c80"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/BATCH-HOLD.json",
+      "sha256": "39b2cf50d6b995f15c18282b633739888fe768c1cec25c75151a0ffc976e9cd8",
+      "locator": "bounded call counts, tail failure, local ASR diagnostic and fresh-authority options"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+      "sha256": "b0421bed901afde1571459868a38bc7579a3378fb0a86373599523406684734d",
+      "locator": "HTTP status, guide hash, duration, tail energy and estimated cost"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STATUS.json",
+      "sha256": "52c35fc3d402416eb6cb161e8ec94b023988c4acb8a254958dfcf16eed4e7c80",
+      "locator": "current EP007 Shorts production gate"
+    }
+  ]
+}

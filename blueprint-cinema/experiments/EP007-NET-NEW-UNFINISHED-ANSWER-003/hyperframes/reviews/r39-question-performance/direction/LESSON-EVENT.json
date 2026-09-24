@@ -1,0 +1,29 @@
+{
+  "event_id": "r39-contextual-callback-selection-lesson-v1",
+  "decision_id": "s08-owner-dependency",
+  "event_type": "lesson",
+  "tags": [
+    "narration-correction",
+    "contextual-pickup",
+    "source-selection"
+  ],
+  "data": {
+    "insight": "A contextual read in the original voice/performance recipe can supply a short corrected callback while leaving adjacent original narration intact. R39 selected only the complete first sentence from the longer source; it fit the existing43-frame slot without retiming.",
+    "applies_when": "Owner explicitly corrects a short spoken passage and a matching existing source is unavailable; isolated generation risks delivery drift. Retain source-to-selection provenance and review the actual seam.",
+    "avoid_when": "A suitable existing or human-recorded pickup is simpler, or the complete correction cannot fit naturally. Generated context is not authority to replace its unchanged lines.",
+    "confidence": "supported",
+    "status": "candidate"
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/CALLBACK-CONFORM.json",
+      "sha256": "5c91d1aa1c92fd64491036a9a0f70240f98dbce4f07adf5b32b63b670a7b1e4c",
+      "locator": "Exact replacement and preserved later PCM"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/direction/presenter-references.md",
+      "sha256": "cebf458435f5cd8e27cd8a26413ddfa95ffe21e48051aa9d1098ace6a0338606",
+      "locator": "Conditional correction method; perceived matching still pending"
+    }
+  ]
+}

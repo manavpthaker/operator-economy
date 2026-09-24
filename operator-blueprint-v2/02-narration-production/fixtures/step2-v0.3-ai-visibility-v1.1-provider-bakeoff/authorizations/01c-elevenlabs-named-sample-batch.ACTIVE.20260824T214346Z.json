@@ -1,0 +1,101 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "AUTH-01C-ai-visibility-v1.1-eleven-named-sample-batch-20260824T214346Z",
+  "status": "active",
+  "approved": true,
+  "scope": "elevenlabs_named_sample_batch_retrieval",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "provider": "elevenlabs",
+  "action": {
+    "kind": "read_only_named_sample_batch_retrieval",
+    "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+    "source_inventory_receipt_path": "receipts/elevenlabs/AUTH-01B-20260824T205837Z-sample-inventory.json",
+    "source_inventory_receipt_sha256": "fee1a15184e0bac1f628211dd70df9c109b1d374bcd66573703608f95852e199",
+    "samples": [
+      {
+        "sample_id": "rHrnt10vbIpD444OcGVZ",
+        "original_filename": "ivc_1.mp3",
+        "endpoint": "https://api.elevenlabs.io/v1/voices/yUXeTfC1IFOCSjGc96sQ/samples/rHrnt10vbIpD444OcGVZ/audio",
+        "destination": "local-media/elevenlabs/AUTH-01C-20260824T214346Z/ivc_1.mp3",
+        "receipt_destination": "receipts/elevenlabs/AUTH-01C-20260824T214346Z-ivc_1.json",
+        "expected_mime_type": "audio/mpeg",
+        "expected_size_bytes": 5760813,
+        "expected_provider_hash": "2cf6f7f07cdb931a5cf93490a1b7ebdb"
+      },
+      {
+        "sample_id": "snRkGS2XRR1nJW0hIGJP",
+        "original_filename": "ivc_3.mp3",
+        "endpoint": "https://api.elevenlabs.io/v1/voices/yUXeTfC1IFOCSjGc96sQ/samples/snRkGS2XRR1nJW0hIGJP/audio",
+        "destination": "local-media/elevenlabs/AUTH-01C-20260824T214346Z/ivc_3.mp3",
+        "receipt_destination": "receipts/elevenlabs/AUTH-01C-20260824T214346Z-ivc_3.json",
+        "expected_mime_type": "audio/mpeg",
+        "expected_size_bytes": 5592621,
+        "expected_provider_hash": "c1d33a8b23efcd92e5737d836e517adc"
+      },
+      {
+        "sample_id": "W8D70GbyW9cfeYGLRWQF",
+        "original_filename": "ivc_2.mp3",
+        "endpoint": "https://api.elevenlabs.io/v1/voices/yUXeTfC1IFOCSjGc96sQ/samples/W8D70GbyW9cfeYGLRWQF/audio",
+        "destination": "local-media/elevenlabs/AUTH-01C-20260824T214346Z/ivc_2.mp3",
+        "receipt_destination": "receipts/elevenlabs/AUTH-01C-20260824T214346Z-ivc_2.json",
+        "expected_mime_type": "audio/mpeg",
+        "expected_size_bytes": 5760813,
+        "expected_provider_hash": "cfc44b6050cacbbaac295f00a4cb79dd"
+      }
+    ],
+    "batch_receipt_destination": "receipts/elevenlabs/AUTH-01C-20260824T214346Z-batch.json",
+    "metadata_call_permitted": false,
+    "discovery_permitted": false,
+    "selection_permitted": false,
+    "retries_permitted": false,
+    "redirects_permitted": false,
+    "stop_on_first_failure": true,
+    "preserve_exact_returned_bytes": true,
+    "provenance_review_required": true,
+    "downstream_use_permitted": false,
+    "tts_generation_permitted": false,
+    "voice_mutation_permitted": false,
+    "hume_disclosure_permitted": false,
+    "hume_clone_creation_permitted": false,
+    "rights_and_consent": {
+      "voice_owner": "Manav Thaker",
+      "provider_disclosure_approved": true,
+      "record_path": "receipts/elevenlabs/AUTH-01C-20260824T214346Z-rights-and-consent.json",
+      "record_sha256": "740c851d6584aac4cce56d05fc7a8cb55813182315ae3ffbc8fb7a8d107d392b"
+    }
+  },
+  "purpose": "Retrieve exactly the three samples already recorded in the complete AUTH-01B inventory for owner-only local provenance listening. Preserve exact returned bytes and technical evidence. Do not discover or select additional samples, retry, generate speech, modify a voice, upload anything, disclose anything to Hume, or authorize downstream use.",
+  "bindings": {
+    "performance_envelope_sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d",
+    "provider_bakeoff_plan_sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333",
+    "compiled_dry_run_sha256": "1ab5b95edfeb223acc84540930a663d04b46b53af65933479b6b363d634dbda5",
+    "provider_adapter_sha256": "4ba00f41ab6abac49b7fdaa1ce9728b1d9ea12713c8259b0337deb0f1028ecdb"
+  },
+  "requested_limits": {
+    "max_metadata_calls": 0,
+    "max_sample_download_calls": 3,
+    "max_download_bytes": 20000000,
+    "max_spend_usd": 0
+  },
+  "authorized_limits": {
+    "max_calls": 3,
+    "max_downloads": 3,
+    "max_download_bytes": 20000000,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "unconsumed",
+    "calls_used": 0,
+    "downloads_used": 0,
+    "spend_used_usd": 0,
+    "record_path": "consumed/AUTH-01C-20260824T214346Z.consumed.json"
+  },
+  "approved_by": "Manav Thaker",
+  "approved_at": "2026-08-24T21:43:46Z",
+  "expires_at": "2026-08-25T21:20:00Z",
+  "execution_ready": true,
+  "blockers": []
+}

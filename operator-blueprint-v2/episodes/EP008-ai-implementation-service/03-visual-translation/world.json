@@ -1,0 +1,1072 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP008-ai-implementation-service",
+  "engine_sha256": "314c1a0d185e67c56cbbd6bbdef16f6cafd9fdcb9406df410ad0ab2ed9fef7c0",
+  "governing_rule": "Object permanence. Every intent, recurring ticket, rule set, record, person, vendor, action, control boundary, and route stays recognisable while its declared state changes. Policy state may narrow; identity, vendor provenance, role, and evidence status may not be swapped to suit a later unit.",
+  "representation_status": {
+    "current_observed_or_upstream_asserted": [
+      "the archetypal eleven-o'clock order-status ticket is handed to a human who is not there",
+      "the vendor guide's setup skeleton and current evidence boundaries",
+      "wizard residue, solo demand, measured lift, and measured delivery hours remain unresolved"
+    ],
+    "illustrative_future_only": [
+      "qualified or declined engagement decisions",
+      "written-consent, action-authorization, eligibility, payment, credit, delivery, signature, and acceptance templates or branches, each blocked where the engine records no faithful operation",
+      "configured, passed, live, returned, or measured states",
+      "any measured result or completed sandbox, unpaid, or paid engagement"
+    ],
+    "rule": "An illustrative state describes how the proposed workflow would behave if reached. It is not evidence that Manav or any operator sold, delivered, tested, passed, charged for, or completed an engagement."
+  },
+  "containment": {
+    "inside_engagement": [
+      "ticket-intent classification",
+      "baseline reading",
+      "operator-edited guidance",
+      "separate per-action authorization records",
+      "configured skills and deliberate handover",
+      "checked playground results and guidance revisions",
+      "one-channel routing",
+      "two-week tuning records",
+      "scoped access and admin return"
+    ],
+    "outside_engagement": [
+      "the vendor's product roadmap, pricing, threshold, and counting rule",
+      "the queue mix",
+      "the correctness of an answer unless a person reviews it",
+      "buyer demand and willingness to pay",
+      "consumer-protection advice",
+      "consent creation, action-register creation, per-action authorization, go-live eligibility opening, sandbox execution, report delivery, recommendation, signature, and paid-audit credit until the Boundary Ledger blockers are resolved",
+      "any recurring duty not separately proven and purchased"
+    ]
+  },
+  "zones": [
+    {
+      "id": "z.support",
+      "description": "The brand's support context: shoppers, two explicit recurring ticket examples, the configured agent, and the human team that receives handoffs.",
+      "camera": "cam.human"
+    },
+    {
+      "id": "z.policy",
+      "description": "The operator-controlled policy system: persistent intent lanes, written guidance, the never list, separate off-only action templates, checked playground results, and a closed eligibility condition.",
+      "camera": "cam.policy"
+    },
+    {
+      "id": "z.evidence",
+      "description": "The inspectable record: vendor baseline, tuning log, wrong-answer log, sandbox residue, and an illustrative report template. Containment and correctness stay separate.",
+      "camera": "cam.evidence"
+    },
+    {
+      "id": "z.ownership",
+      "description": "The bounded consent, access, payment, authorization, and handback roles. Buyer, payer, and founder-authorizer do not collapse into one actor.",
+      "camera": "cam.handoff"
+    },
+    {
+      "id": "z.external",
+      "description": "Things the engagement does not control: separate Gorgias and Zendesk systems, the brand's adviser, and whether the service opportunity survives its tests."
+    }
+  ],
+  "objects": [
+    {
+      "id": "intent.order-status",
+      "instance_of": "ticket-intent",
+      "material_form": "A persistent order-status intent record with its examples and policy history attached.",
+      "zone": "z.policy",
+      "states": ["unclassified", "safe", "conditional", "never"],
+      "allowed_transitions": [
+        {"from": "unclassified", "to": "safe", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "conditional", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "never", "triggered_by": "BO-001", "reversible": false},
+        {"from": "safe", "to": "conditional", "triggered_by": "BO-006", "reversible": false}
+      ],
+      "changed_by": ["BO-001", "BO-006"],
+      "carried_by": ["BO-007"],
+      "revealed_by": []
+    },
+    {
+      "id": "intent.returns",
+      "instance_of": "ticket-intent",
+      "material_form": "A persistent returns-and-exchanges intent record with the brand's conditions and revision history attached.",
+      "zone": "z.policy",
+      "states": ["unclassified", "safe", "conditional", "never"],
+      "allowed_transitions": [
+        {"from": "unclassified", "to": "safe", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "conditional", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "never", "triggered_by": "BO-001", "reversible": false},
+        {"from": "safe", "to": "conditional", "triggered_by": "BO-006", "reversible": false},
+        {"from": "conditional", "to": "never", "triggered_by": "BO-006", "reversible": false}
+      ],
+      "changed_by": ["BO-001", "BO-006"],
+      "carried_by": ["BO-007"],
+      "revealed_by": []
+    },
+    {
+      "id": "intent.cancellations",
+      "instance_of": "ticket-intent",
+      "material_form": "A persistent cancellation-and-edit intent record with money consequences and policy history attached.",
+      "zone": "z.policy",
+      "states": ["unclassified", "safe", "conditional", "never"],
+      "allowed_transitions": [
+        {"from": "unclassified", "to": "safe", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "conditional", "triggered_by": "BO-001", "reversible": false},
+        {"from": "unclassified", "to": "never", "triggered_by": "BO-001", "reversible": false},
+        {"from": "safe", "to": "conditional", "triggered_by": "BO-006", "reversible": false},
+        {"from": "conditional", "to": "never", "triggered_by": "BO-006", "reversible": false}
+      ],
+      "changed_by": ["BO-001", "BO-006"],
+      "carried_by": ["BO-007"],
+      "revealed_by": []
+    },
+    {
+      "id": "never-list",
+      "material_form": "A one-page policy record whose entries retain the intent identity and reason for exclusion.",
+      "zone": "z.policy",
+      "states": ["first-draft-exists-record-creation-blocked", "updated-after-error"],
+      "allowed_transitions": [
+        {"from": "first-draft-exists-record-creation-blocked", "to": "updated-after-error", "triggered_by": "BO-006", "reversible": false}
+      ],
+      "changed_by": ["BO-006"],
+      "carried_by": ["BO-001", "BO-024"],
+      "revealed_by": []
+    },
+    {
+      "id": "baseline-reading",
+      "material_form": "A dated baseline record bound to the relevant vendor report and the knowledge and handover settings found before change.",
+      "zone": "z.evidence",
+      "states": ["unrecorded", "illustrative-pinned-to-vendor-report"],
+      "allowed_transitions": [
+        {"from": "unrecorded", "to": "illustrative-pinned-to-vendor-report", "triggered_by": "BO-002", "reversible": false}
+      ],
+      "changed_by": ["BO-002"],
+      "carried_by": ["BO-020"],
+      "revealed_by": []
+    },
+    {
+      "id": "guidance-rule-set",
+      "material_form": "A written rule set with model draft, operator edits, error correction, and playground revision represented as distinct accountable versions.",
+      "zone": "z.policy",
+      "states": ["model-draft", "operator-edited", "revised-after-wrong-answer", "revised-for-new-playground-attempt"],
+      "allowed_transitions": [
+        {"from": "model-draft", "to": "operator-edited", "triggered_by": "BO-003", "reversible": false},
+        {"from": "operator-edited", "to": "revised-after-wrong-answer", "triggered_by": "BO-006", "reversible": false},
+        {"from": "operator-edited", "to": "revised-for-new-playground-attempt", "triggered_by": "BO-016", "reversible": false},
+        {"from": "revised-after-wrong-answer", "to": "revised-for-new-playground-attempt", "triggered_by": "BO-016", "reversible": false}
+      ],
+      "changed_by": ["BO-003", "BO-006", "BO-016"],
+      "carried_by": ["BO-005", "BO-023"],
+      "revealed_by": []
+    },
+    {
+      "id": "configured-agent",
+      "material_form": "The bundled agent as a persistent configuration record; it is not a custom-built system and no future configuration is represented as completed.",
+      "zone": "z.policy",
+      "states": ["defaults", "illustrative-top-three-skills-with-deliberate-handover", "illustrative-previous-configuration-restored"],
+      "allowed_transitions": [
+        {"from": "defaults", "to": "illustrative-top-three-skills-with-deliberate-handover", "triggered_by": "BO-004", "reversible": false},
+        {"from": "illustrative-top-three-skills-with-deliberate-handover", "to": "illustrative-previous-configuration-restored", "triggered_by": "route.handover-storm", "reversible": false, "boundary_ledger_blocker": "DSB-001"}
+      ],
+      "changed_by": ["BO-004"],
+      "carried_by": ["BO-005", "BO-007", "BO-008", "BO-016", "BO-023"],
+      "revealed_by": []
+    },
+    {
+      "id": "actions-register",
+      "material_form": "A roll-up register that points to each money-action instance without merging their authorization states.",
+      "zone": "z.policy",
+      "states": ["illustrative-template-only-operation-blocked"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "Creating the register is blocked by DSB-006. The template preserves separate action identities without claiming a record was created."
+    },
+    {
+      "id": "action.refund",
+      "instance_of": "money-action",
+      "material_form": "The refund action as its own authorization record.",
+      "zone": "z.policy",
+      "states": ["off-unless-individually-authorized"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The sourced default-off boundary is represented, but changing to authorized is blocked by DSB-006."
+    },
+    {
+      "id": "action.cancellation",
+      "instance_of": "money-action",
+      "material_form": "The cancellation action as its own authorization record.",
+      "zone": "z.policy",
+      "states": ["off-unless-individually-authorized"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The sourced default-off boundary is represented, but changing to authorized is blocked by DSB-006."
+    },
+    {
+      "id": "action.order-edit",
+      "instance_of": "money-action",
+      "material_form": "The order-edit action as its own authorization record.",
+      "zone": "z.policy",
+      "states": ["off-unless-individually-authorized"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The sourced default-off boundary is represented, but changing to authorized is blocked by DSB-006."
+    },
+    {
+      "id": "playground-test-record",
+      "material_form": "A versioned six-case attempt record. A failed attempt remains visible after its rule is revised, and a later attempt receives its own checked result.",
+      "zone": "z.policy",
+      "states": ["no-checked-result-attached", "illustrative-latest-result-rule-change-required", "illustrative-latest-result-passed"],
+      "allowed_transitions": [
+        {"from": "no-checked-result-attached", "to": "illustrative-latest-result-rule-change-required", "triggered_by": "BO-005", "reversible": false},
+        {"from": "no-checked-result-attached", "to": "illustrative-latest-result-passed", "triggered_by": "BO-005", "reversible": false},
+        {"from": "illustrative-latest-result-rule-change-required", "to": "illustrative-latest-result-rule-change-required", "triggered_by": "BO-005", "reversible": false},
+        {"from": "illustrative-latest-result-rule-change-required", "to": "illustrative-latest-result-passed", "triggered_by": "BO-005", "reversible": false}
+      ],
+      "changed_by": ["BO-005"],
+      "carried_by": ["BO-016"],
+      "revealed_by": []
+    },
+    {
+      "id": "go-live-eligibility",
+      "material_form": "A separate eligibility condition kept closed in the state model because no current Boundary Ledger operation can open it.",
+      "zone": "z.policy",
+      "states": ["closed-until-actual-pass-condition-operation-blocked"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-005", "BO-007", "BO-016"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "A pass may be checked and pinned, but opening eligibility is a separate state change blocked by DSB-007."
+    },
+    {
+      "id": "ticket-flow",
+      "material_form": "A persistent email route with current default handback, proposed agent-first handling, human handoff, and the sourced rollback route all legible.",
+      "zone": "z.support",
+      "states": ["agent-receives-after-hours", "current-default-handback-to-unavailable-human", "illustrative-email-agent-first-with-human-handoff", "illustrative-previous-configuration-restored"],
+      "allowed_transitions": [
+        {"from": "agent-receives-after-hours", "to": "current-default-handback-to-unavailable-human", "triggered_by": "BO-022", "reversible": false},
+        {"from": "current-default-handback-to-unavailable-human", "to": "illustrative-email-agent-first-with-human-handoff", "triggered_by": "BO-007", "reversible": false},
+        {"from": "illustrative-email-agent-first-with-human-handoff", "to": "illustrative-previous-configuration-restored", "triggered_by": "route.handover-storm", "reversible": false, "boundary_ledger_blocker": "DSB-001"}
+      ],
+      "changed_by": ["BO-007", "BO-022"],
+      "carried_by": [],
+      "revealed_by": ["EST-002"]
+    },
+    {
+      "id": "ticket.order-status-11pm",
+      "instance_of": "recurring-ticket",
+      "material_form": "The explicit archetypal 'where is my order' ticket recurring at eleven at night; it has no fabricated brand, shopper, metric, or observed outcome.",
+      "zone": "z.support",
+      "states": ["arrives-at-eleven", "current-handed-to-unavailable-human", "illustrative-answered-under-written-safe-rule"],
+      "allowed_transitions": [
+        {"from": "arrives-at-eleven", "to": "current-handed-to-unavailable-human", "triggered_by": "BO-022", "reversible": false},
+        {"from": "current-handed-to-unavailable-human", "to": "illustrative-answered-under-written-safe-rule", "triggered_by": "BO-023", "reversible": false}
+      ],
+      "changed_by": ["BO-022", "BO-023"],
+      "carried_by": [],
+      "revealed_by": ["EST-003"]
+    },
+    {
+      "id": "ticket.broken-item-refund",
+      "instance_of": "recurring-ticket",
+      "material_form": "The separate archetypal broken-item refund question; it is an illustrative policy case, not a documented ticket or completed refund.",
+      "zone": "z.support",
+      "states": ["joins-recurring-example", "illustrative-handed-to-human-under-never-rule"],
+      "allowed_transitions": [
+        {"from": "joins-recurring-example", "to": "illustrative-handed-to-human-under-never-rule", "triggered_by": "BO-024", "reversible": false}
+      ],
+      "changed_by": ["BO-024"],
+      "carried_by": [],
+      "revealed_by": ["EST-003"]
+    },
+    {
+      "id": "tuning-log",
+      "material_form": "A dated two-week record of reviewed tickets and guidance changes.",
+      "zone": "z.evidence",
+      "states": ["empty", "illustrative-two-week-review-recorded"],
+      "allowed_transitions": [
+        {"from": "empty", "to": "illustrative-two-week-review-recorded", "triggered_by": "BO-008", "reversible": false}
+      ],
+      "changed_by": ["BO-008"],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "wrong-answer-log",
+      "material_form": "A dated correctness record kept separate from either vendor's containment meter.",
+      "zone": "z.evidence",
+      "states": ["empty", "illustrative-reviewed-errors-recorded"],
+      "allowed_transitions": [
+        {"from": "empty", "to": "illustrative-reviewed-errors-recorded", "triggered_by": "BO-008", "reversible": false}
+      ],
+      "changed_by": ["BO-008"],
+      "carried_by": ["BO-006"],
+      "revealed_by": []
+    },
+    {
+      "id": "consent-record",
+      "material_form": "A written authorization to read thirty days of tickets; it is distinct from admin custody.",
+      "zone": "z.ownership",
+      "states": ["illustrative-required-authorization-template-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-012"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "Creating written consent is blocked by DSB-005. The object records the requirement without instantiating permission."
+    },
+    {
+      "id": "admin-control",
+      "material_form": "Scoped client-controlled admin access represented as accountable custody, never as personal possession.",
+      "zone": "z.ownership",
+      "states": ["existing-scoped-client-control-outside-operator-custody", "illustrative-scoped-client-controlled-operator-custody", "illustrative-returned-to-brand"],
+      "allowed_transitions": [
+        {"from": "existing-scoped-client-control-outside-operator-custody", "to": "illustrative-scoped-client-controlled-operator-custody", "triggered_by": "BO-012", "reversible": false},
+        {"from": "illustrative-scoped-client-controlled-operator-custody", "to": "illustrative-returned-to-brand", "triggered_by": "BO-009", "reversible": false}
+      ],
+      "changed_by": ["BO-012", "BO-009"],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "buyer-fit-record",
+      "material_form": "An illustrative screening template listing sourced decline reasons; it does not evidence a completed screen, qualified buyer, accepted offer, or sale.",
+      "zone": "z.ownership",
+      "states": ["illustrative-screening-template-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-013"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "BO-013 interrupts the proposed engagement, not the screening template. No qualified or completed-screen state is represented."
+    },
+    {
+      "id": "proposed-engagement",
+      "material_form": "The not-yet-purchased engagement path as a persistent opportunity that can stop at one of three sourced no-buy conditions.",
+      "zone": "z.ownership",
+      "states": ["screening-open-no-purchase", "interrupted-above-vendor-line", "interrupted-below-modeled-ticket-boundary", "interrupted-no-per-action-signoff"],
+      "allowed_transitions": [
+        {"from": "screening-open-no-purchase", "to": "interrupted-above-vendor-line", "triggered_by": "BO-013", "reversible": false},
+        {"from": "screening-open-no-purchase", "to": "interrupted-below-modeled-ticket-boundary", "triggered_by": "BO-013", "reversible": false},
+        {"from": "screening-open-no-purchase", "to": "interrupted-no-per-action-signoff", "triggered_by": "BO-013", "reversible": false}
+      ],
+      "changed_by": ["BO-013"],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "consumer-protection-question",
+      "material_form": "A persistent refund or automated-messaging question whose accountable destination changes without the operator answering it.",
+      "zone": "z.external",
+      "states": ["inside-operator-queue", "illustrative-routed-to-brand-adviser"],
+      "allowed_transitions": [
+        {"from": "inside-operator-queue", "to": "illustrative-routed-to-brand-adviser", "triggered_by": "BO-015", "reversible": false}
+      ],
+      "changed_by": ["BO-015"],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "sandbox-residue-record",
+      "material_form": "A future written record of the wizard run whose two possible results stay open until an actual sandbox test occurs.",
+      "zone": "z.evidence",
+      "states": ["no-observed-result-attached-residue-unknown", "illustrative-observed-material-human-work-result-pinned", "illustrative-observed-no-material-human-work-result-pinned"],
+      "allowed_transitions": [
+        {"from": "no-observed-result-attached-residue-unknown", "to": "illustrative-observed-material-human-work-result-pinned", "triggered_by": "BO-017", "reversible": false},
+        {"from": "no-observed-result-attached-residue-unknown", "to": "illustrative-observed-no-material-human-work-result-pinned", "triggered_by": "BO-017", "reversible": false}
+      ],
+      "changed_by": ["BO-017"],
+      "carried_by": ["BO-011"],
+      "revealed_by": []
+    },
+    {
+      "id": "practice-opportunity",
+      "material_form": "The proposed service opportunity under four explicit tests; it begins unresolved and is not represented as an established or durable gap.",
+      "zone": "z.external",
+      "states": ["validation-open-all-kill-conditions-unresolved", "interrupted-wizard-leaves-no-material-work", "interrupted-no-buyer-after-fifteen-qualified-conversations", "interrupted-measured-lift-under-ten-points", "interrupted-measured-hours-over-forty-five"],
+      "allowed_transitions": [
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-wizard-leaves-no-material-work", "triggered_by": "BO-011", "reversible": false},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-no-buyer-after-fifteen-qualified-conversations", "triggered_by": "BO-019", "reversible": false},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-measured-lift-under-ten-points", "triggered_by": "BO-020", "reversible": false},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-measured-hours-over-forty-five", "triggered_by": "BO-021", "reversible": false}
+      ],
+      "changed_by": ["BO-011", "BO-019", "BO-020", "BO-021"],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "acceptance-report",
+      "material_form": "An illustrative future template listing before-and-after measures, the never list, wrong-answer log, recommendation, admin return, and founder sign-off fields.",
+      "zone": "z.evidence",
+      "states": ["illustrative-template-only-operation-blocked"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "DSB-002 and DSB-003 block report delivery, recommendation creation, signature, and acceptance. A template may be inspectable but no state may imply an engagement occurred."
+    },
+    {
+      "id": "economic-buyer",
+      "material_form": "The founder, operations lead, or head of CX screened as economic buyer; this role is not automatically payer or signatory.",
+      "zone": "z.ownership",
+      "states": ["role-identifiable"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-003", "BO-013", "BO-019"],
+      "revealed_by": ["EST-001"],
+      "static": true,
+      "static_reason": "The proposed workflow screens but does not transform the economic buyer, and a buy is not represented."
+    },
+    {
+      "id": "brand-payer",
+      "material_form": "The brand-side payer role in proposed service and vendor-fee flows; payment status is not fused with buyer fit or founder authorization.",
+      "zone": "z.ownership",
+      "states": ["proposed-flow-role-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-009", "BO-012"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "No current engine operation faithfully represents purchase or credit; DSB-004 keeps this as a role only."
+    },
+    {
+      "id": "founder-authorizer",
+      "material_form": "The founder role that signs each money action separately and may later sign a handback; no signature is represented as completed.",
+      "zone": "z.ownership",
+      "states": ["accountable-role-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The action records may change; the human role does not. Report signature remains blocked by DSB-002."
+    },
+    {
+      "id": "support-team",
+      "material_form": "One to five support agents who inherit deliberate handoffs and remain visible as people, not removed capacity.",
+      "zone": "z.support",
+      "states": ["receives-handoffs"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-007", "BO-022", "BO-024"],
+      "revealed_by": ["EST-001"],
+      "static": true,
+      "static_reason": "The offer configures handoff; it does not replace, resize, or transform the support team."
+    },
+    {
+      "id": "shoppers",
+      "material_form": "Customers asking support questions, with no fabricated identity, product, metric, or outcome.",
+      "zone": "z.support",
+      "states": ["asks-for-help"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-007", "BO-022", "BO-023", "BO-024"],
+      "revealed_by": ["EST-002"],
+      "static": true,
+      "static_reason": "The engagement changes routing and rules, not the shopper or underlying need."
+    },
+    {
+      "id": "operator",
+      "material_form": "One accountable practitioner who reads, decides, configures, checks, reports, and gives control back.",
+      "zone": "z.policy",
+      "states": ["accountable"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-001", "BO-002", "BO-003", "BO-004", "BO-005", "BO-006", "BO-007", "BO-008", "BO-009", "BO-011", "BO-012", "BO-013", "BO-015", "BO-016", "BO-017", "BO-019", "BO-020", "BO-021"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The operator performs operations but is not an object those operations transform."
+    },
+    {
+      "id": "vendor.gorgias",
+      "instance_of": "vendor-platform",
+      "material_form": "Gorgias as a separate external vendor instance carrying its own guide, wizard, plan ladder, under-$3M boundary, and per-resolution mechanism without a supported dollar amount.",
+      "zone": "z.external",
+      "states": ["externally-controlled"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-002", "BO-004", "BO-011", "BO-017"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The engagement configures a customer account but does not change Gorgias, its roadmap, price, or rules."
+    },
+    {
+      "id": "vendor.zendesk",
+      "instance_of": "vendor-platform",
+      "material_form": "Zendesk as a separate external vendor instance carrying the published $1.50 figure and 72-hour definition, never transferred to Gorgias.",
+      "zone": "z.external",
+      "states": ["externally-controlled"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-002", "BO-004"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The engagement configures a customer account but does not change Zendesk, its roadmap, price, or rules."
+    },
+    {
+      "id": "brand-adviser",
+      "material_form": "The brand's own adviser outside the engagement boundary.",
+      "zone": "z.external",
+      "states": ["available-for-referral"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": ["BO-015"],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The question changes destination; the operator neither performs nor changes the adviser's work."
+    },
+    {
+      "id": "market-context-record",
+      "material_form": "A source-receipt surface for small-business AI adoption, paid-service use, planned customer-service use, and Shopify scale, with populations kept separate.",
+      "zone": "z.evidence",
+      "states": ["source-bounded-context"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "It carries upstream evidence labels and limits; the proposed engagement does not change these external observations."
+    },
+    {
+      "id": "enterprise-transfer-record",
+      "material_form": "A source-receipt surface holding the large-company GenAI finding beside the explicit small-brand hypothesis boundary.",
+      "zone": "z.evidence",
+      "states": ["enterprise-only-with-transfer-boundary"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The evidence population is external and fixed; the world may display but never upgrade it."
+    },
+    {
+      "id": "adjacent-market-record",
+      "material_form": "A source-receipt surface keeping vendor onboarding, certified agencies, specialist-shop offers, and the absence of observed solo economics distinct.",
+      "zone": "z.evidence",
+      "states": ["adjacent-layers-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "Observed adjacent operating layers do not become solo demand, price, or partner eligibility."
+    },
+    {
+      "id": "quality-tradeoff-record",
+      "material_form": "A source-receipt surface for Klarna's much-larger-company cost-versus-quality reversal.",
+      "zone": "z.evidence",
+      "states": ["large-company-tradeoff-only"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The example is context, not a small-brand outcome or demand signal."
+    },
+    {
+      "id": "operator-economics-model",
+      "material_form": "A transparent scenario record for fee, hours, capacity, costs, owner-compensation target, payback assumptions, and modeled buyer boundary.",
+      "zone": "z.evidence",
+      "states": ["modeled-scenario-not-performance"],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The model is an upstream scenario and no implementation or sale has occurred in this world."
+    }
+  ],
+  "object_classes": [
+    {
+      "id": "ticket-intent",
+      "instances": ["intent.order-status", "intent.returns", "intent.cancellations"],
+      "class_rule": "Each intent preserves its own examples, policy, and revision history. Safety may narrow after error; it may not widen without a separately sourced reauthorization operation."
+    },
+    {
+      "id": "money-action",
+      "instances": ["action.refund", "action.cancellation", "action.order-edit"],
+      "class_rule": "Each action remains independently off in the current model. DSB-006 blocks authorization-state creation; if later resolved, authorization of one action must never authorize another by implication."
+    },
+    {
+      "id": "vendor-platform",
+      "instances": ["vendor.gorgias", "vendor.zendesk"],
+      "class_rule": "Mechanism, price, threshold, counting rule, roadmap, and evidence remain attached to the named vendor instance."
+    },
+    {
+      "id": "recurring-ticket",
+      "instances": ["ticket.order-status-11pm", "ticket.broken-item-refund"],
+      "class_rule": "These are separate upstream archetypal examples. They recur for narrative comparison but never become fabricated customer evidence or merge into one ticket."
+    }
+  ],
+  "paths": [
+    {
+      "id": "path.qualification-no-buy",
+      "traveler": "proposed-engagement",
+      "description": "The not-yet-purchased engagement stops at a sourced no-buy condition; no positive branch creates a qualified buyer or sale.",
+      "edges": [
+        {"from": "screening-open-no-purchase", "to": "interrupted-above-vendor-line", "condition": "The vendor supplies human onboarding above the stated line.", "triggered_by": "BO-013"},
+        {"from": "screening-open-no-purchase", "to": "interrupted-below-modeled-ticket-boundary", "condition": "The brand is below the approximately 1,000-ticket modeled boundary.", "triggered_by": "BO-013"},
+        {"from": "screening-open-no-purchase", "to": "interrupted-no-per-action-signoff", "condition": "The founder refuses individual sign-off for money-moving actions.", "triggered_by": "BO-013"}
+      ]
+    },
+    {
+      "id": "path.intent-policy",
+      "traveler": "one named ticket-intent instance",
+      "description": "The accountable route from unclassified evidence into a policy lane, with only sourced narrowing after a wrong answer.",
+      "edges": [
+        {"from": "unclassified", "to": "safe", "condition": "The operator judges the intent safe from audited tickets and policy.", "triggered_by": "BO-001"},
+        {"from": "unclassified", "to": "conditional", "condition": "Written conditions determine whether automation is allowed.", "triggered_by": "BO-001"},
+        {"from": "unclassified", "to": "never", "condition": "The intent must stay with a human or lacks required authorization.", "triggered_by": "BO-001"},
+        {"from": "safe", "to": "conditional", "condition": "A wrong answer occurs on a safe intent and guidance is rewritten.", "triggered_by": "BO-006"},
+        {"from": "conditional", "to": "never", "condition": "A wrong answer touches a money question.", "triggered_by": "BO-006"}
+      ]
+    },
+    {
+      "id": "path.playground-retest",
+      "traveler": "playground-test-record",
+      "description": "A checked failure remains pinned, its identified guidance rule is revised separately, and only a newly checked attempt may later pin a pass. Go-live eligibility stays a separate blocked condition under DSB-007.",
+      "edges": [
+        {"from": "no-checked-result-attached", "to": "illustrative-latest-result-rule-change-required", "condition": "A real named case fails and BO-005 pins that checked result; this candidate shows the branch only.", "triggered_by": "BO-005"},
+        {"from": "no-checked-result-attached", "to": "illustrative-latest-result-passed", "condition": "A real attempt passes every named case and BO-005 pins that checked result; this candidate shows the branch only.", "triggered_by": "BO-005"},
+        {"from": "illustrative-latest-result-rule-change-required", "to": "illustrative-latest-result-rule-change-required", "condition": "After BO-016 revises the identified guidance rule, a separate later attempt is checked and still fails; the earlier failed attempt remains in history.", "triggered_by": "BO-005"},
+        {"from": "illustrative-latest-result-rule-change-required", "to": "illustrative-latest-result-passed", "condition": "After BO-016 revises the identified guidance rule, a separate later attempt is checked and passes; the earlier failed attempt remains in history.", "triggered_by": "BO-005"}
+      ]
+    },
+    {
+      "id": "path.eleven-oclock-order",
+      "traveler": "ticket.order-status-11pm",
+      "description": "The recurring order-status example moves from current unattended handback to a separately marked illustrative ending.",
+      "edges": [
+        {"from": "arrives-at-eleven", "to": "current-handed-to-unavailable-human", "condition": "The current default route hands the after-hours ticket to a person who is not there.", "triggered_by": "BO-022"},
+        {"from": "current-handed-to-unavailable-human", "to": "illustrative-answered-under-written-safe-rule", "condition": "The narrative returns to a future example under a written safe rule; no real outcome is claimed.", "triggered_by": "BO-023"}
+      ]
+    },
+    {
+      "id": "path.broken-item-refund",
+      "traveler": "ticket.broken-item-refund",
+      "description": "The separate refund example stays human under the never rule.",
+      "edges": [
+        {"from": "joins-recurring-example", "to": "illustrative-handed-to-human-under-never-rule", "condition": "The written policy records that this refund question must not be automated; no refund outcome is claimed.", "triggered_by": "BO-024"}
+      ]
+    },
+    {
+      "id": "path.admin-custody",
+      "traveler": "admin-control",
+      "description": "Client-controlled access enters temporary operator custody only after consent and returns to the brand at illustrative handoff.",
+      "edges": [
+        {"from": "existing-scoped-client-control-outside-operator-custody", "to": "illustrative-scoped-client-controlled-operator-custody", "condition": "Required consent already exists and the existing scoped client-controlled access is routed into temporary operator custody; consent creation remains blocked by DSB-005.", "triggered_by": "BO-012"},
+        {"from": "illustrative-scoped-client-controlled-operator-custody", "to": "illustrative-returned-to-brand", "condition": "The bounded work ends and no ongoing access remains.", "triggered_by": "BO-009"}
+      ]
+    },
+    {
+      "id": "path.consumer-protection-referral",
+      "traveler": "consumer-protection-question",
+      "description": "The question leaves the operator-controlled queue without the operator supplying advice.",
+      "edges": [
+        {"from": "inside-operator-queue", "to": "illustrative-routed-to-brand-adviser", "condition": "A refund or automated-messaging issue touches consumer-protection rules.", "triggered_by": "BO-015"}
+      ]
+    },
+    {
+      "id": "path.practice-tests",
+      "traveler": "practice-opportunity",
+      "description": "The proposed opportunity begins unresolved and stops at any narrated kill condition.",
+      "edges": [
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-wizard-leaves-no-material-work", "condition": "A recorded sandbox run shows no material human setup work remains.", "triggered_by": "BO-011"},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-no-buyer-after-fifteen-qualified-conversations", "condition": "Fifteen qualified conversations produce no buyer at the fee.", "triggered_by": "BO-019"},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-measured-lift-under-ten-points", "condition": "The unpaid implementation measures under ten points of lift.", "triggered_by": "BO-020"},
+        {"from": "validation-open-all-kill-conditions-unresolved", "to": "interrupted-measured-hours-over-forty-five", "condition": "The unpaid implementation takes more than forty-five hours.", "triggered_by": "BO-021"}
+      ]
+    }
+  ],
+  "claims_map": {
+    "source_artifact": "../01-editorial/claims-map.md",
+    "source_sha256": "a5d0693ed70115d2a5973c15ee1fb6d751c0d1ab9ed74c680631cfcf9a564e24"
+  },
+  "evidence_anchors": [
+    {
+      "id": "a01",
+      "claim_id": "C001",
+      "attaches_to": "market-context-record",
+      "label": "observed",
+      "meaning": "A government survey reports fewer than one in five US small businesses using AI and retail closer to one in seven.",
+      "attachment_note": "Keep government-survey attribution, US small-business population, retail subset, and May 2026 timing attached.",
+      "must_not_imply": "That most businesses use AI or that the rate measures customer-service use."
+    },
+    {
+      "id": "a02",
+      "claim_id": "C002",
+      "attaches_to": "market-context-record",
+      "label": "observed",
+      "meaning": "Bank transaction research reports about 17.7 percent of 4.6 million small businesses paying for AI services by end-2025.",
+      "attachment_note": "Keep the bank-transaction population and date attached; it is a separate measure from the government survey.",
+      "must_not_imply": "That the transactions measure spend on setup help."
+    },
+    {
+      "id": "a03",
+      "claim_id": "C003",
+      "attaches_to": "enterprise-transfer-record",
+      "label": "observed, enterprise, verified via secondary",
+      "meaning": "A large-company GenAI study reports a 95 percent no-measurable-P-and-L-impact finding and a bought-versus-built difference.",
+      "attachment_note": "The large-company population and the small-brand hypothesis boundary stay visible at first use.",
+      "must_not_imply": "A 95 percent small-business failure rate or that the enterprise result transfers directly to the buyer."
+    },
+    {
+      "id": "a04",
+      "claim_id": "C004",
+      "attaches_to": "configured-agent",
+      "label": "observed, vendor primary",
+      "meaning": "Gorgias's go-live guide names knowledge, skills, handover, playground testing, and manual ticket review as setup work.",
+      "attachment_note": "This supports the workflow skeleton only and remains attached to Gorgias and the guide.",
+      "must_not_imply": "That the wizard skips these steps or is inadequate; its residue is untested."
+    },
+    {
+      "id": "a05",
+      "claim_id": "C005",
+      "attaches_to": "vendor.gorgias",
+      "label": "observed, platform listing",
+      "meaning": "The time-stamped helpdesk plan ladder runs from $10 for 50 tickets to about $900 for 5,000 tickets.",
+      "attachment_note": "Keep 'as of when checked' and the platform-listing context attached.",
+      "must_not_imply": "Any per-agent price, the excluded $250 add-on figure, or that plan spend proves setup demand."
+    },
+    {
+      "id": "a06",
+      "claim_id": "C006",
+      "attaches_to": "flow.gorgias-resolution-fee",
+      "label": "observed, vendor primary, mechanism only",
+      "meaning": "Gorgias says its AI agent is on every plan and charges when it resolves a conversation.",
+      "attachment_note": "The evidence establishes mechanism only and stays attached to the Gorgias instance.",
+      "must_not_imply": "Any per-resolution dollar amount for Gorgias."
+    },
+    {
+      "id": "a07",
+      "claim_id": "C007",
+      "attaches_to": "flow.zendesk-resolution-fee",
+      "label": "observed, vendor primary",
+      "meaning": "Zendesk publishes $1.50 per automated resolution and a 72-hour quiet-period definition, announced in August 2024.",
+      "attachment_note": "Keep vendor, price, definition, and announcement date attached to Zendesk only.",
+      "must_not_imply": "That Gorgias charges the same amount or uses the same counting rule."
+    },
+    {
+      "id": "a08",
+      "claim_id": "C008",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed, vendor primary",
+      "meaning": "The vendor directory lists certified agencies selling setup, optimization, and AI integration, and names accepted organization types.",
+      "attachment_note": "This establishes an adjacent agency layer and directory program only.",
+      "must_not_imply": "That solo operators are admitted or refused, any service price, or solo demand."
+    },
+    {
+      "id": "a09",
+      "claim_id": "C009",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed, vendor primary",
+      "meaning": "Gorgias sells onboarding, a premium program, and professional AI Agent setup at a custom quote and publishes a sixty-day average launch time.",
+      "attachment_note": "Treat the fifty-in-fifty language as vendor pitch and the services as an adjacent layer.",
+      "must_not_imply": "That any brand achieves 50 percent automation or that the proposed solo practice has demand."
+    },
+    {
+      "id": "a10",
+      "claim_id": "C010",
+      "attaches_to": "sandbox-residue-record",
+      "label": "observed, vendor primary",
+      "meaning": "Gorgias shipped an AI Agent onboarding wizard in October 2024.",
+      "attachment_note": "Existence and release date only; the record remains untested until a real sandbox run.",
+      "must_not_imply": "What the wizard leaves undone or that it is inadequate."
+    },
+    {
+      "id": "a11",
+      "claim_id": "C011",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed, self-published seller",
+      "meaning": "A Gorgias partner shop publishes three implementation tiers and monthly optimization retainers with price on a call.",
+      "attachment_note": "This establishes seller-published offer shape and retainer existence, not verified outcomes or a market price.",
+      "must_not_imply": "Any price or the seller's greater-than-60-percent automation commitment as an outcome."
+    },
+    {
+      "id": "a12",
+      "claim_id": "C012",
+      "attaches_to": "vendor.gorgias",
+      "label": "observed, vendor primary",
+      "meaning": "Gorgias's plan guide says under-$3M brands use self-serve onboarding, $3M-to-$20M brands get one-to-one onboarding, and most brands go live within 48 hours using self-serve resources.",
+      "attachment_note": "Keep vendor attribution, revenue bands, self-serve language, and vendor-claim status attached.",
+      "must_not_imply": "That under-$3M brands cannot get help, that the 48-hour statement is an observed outcome, or any contract term."
+    },
+    {
+      "id": "a13",
+      "claim_id": "C013",
+      "attaches_to": "quality-tradeoff-record",
+      "label": "observed, trade press",
+      "meaning": "Klarna's AI handled two thirds of inquiries before its CEO later said cost had outweighed quality and the company returned to a hybrid model.",
+      "attachment_note": "Keep the far-larger-than-buyer scale boundary and use the example for the trade-off only.",
+      "must_not_imply": "Any Klarna number as a small-brand expectation, demand signal, or likely result."
+    },
+    {
+      "id": "a14",
+      "claim_id": "C014",
+      "attaches_to": "market-context-record",
+      "label": "observed via secondary",
+      "meaning": "A small-business survey reports customer service as a planned AI use for 9 percent.",
+      "attachment_note": "Keep survey attribution and the word 'planned' attached.",
+      "must_not_imply": "That 9 percent currently uses AI for customer service."
+    },
+    {
+      "id": "a15",
+      "claim_id": "C015",
+      "attaches_to": "market-context-record",
+      "label": "observed, SEC filing",
+      "meaning": "Shopify reports serving millions of merchants.",
+      "attachment_note": "Use only as broad platform-scale context with no exact count.",
+      "must_not_imply": "Any exact merchant count, Gorgias brand count, addressable market, or demand for the practice."
+    },
+    {
+      "id": "a16",
+      "claim_id": "C016",
+      "attaches_to": "operator-economics-model",
+      "label": "modeled",
+      "meaning": "The practice scenario uses a $4,000 fee, thirty hours with a forty-five-hour stress case, two implementations per month, and modeled cost inputs.",
+      "attachment_note": "Every number remains the author's transparent scenario and the no-observed-solo-fe boundary stays attached.",
+      "must_not_imply": "Observed performance, an earnings forecast, or that any input is typical, conservative, realistic, reasonable, or achievable."
+    },
+    {
+      "id": "a17",
+      "claim_id": "C017",
+      "attaches_to": "operator-economics-model",
+      "label": "modeled",
+      "meaning": "The base case does not clear a $120,000 owner-compensation target and would require more implementations than the cap or a higher fee.",
+      "attachment_note": "Keep the target, arithmetic, two stated alternatives, and capacity conflict together.",
+      "must_not_imply": "That either alternative is attainable or that the business automatically fails."
+    },
+    {
+      "id": "a18",
+      "claim_id": "C018",
+      "attaches_to": "flow.service-fee",
+      "label": "modeled with observed inputs",
+      "meaning": "The buyer-payback example combines a hypothesized lift, assumed minutes and labor cost, and Zendesk's published fee.",
+      "attachment_note": "Keep the lift as hypothesis, minutes and rate as guesses, and the $1.50 input attached to Zendesk.",
+      "must_not_imply": "That the lift is a result, payback is typical, or the calculation applies unchanged to Gorgias."
+    },
+    {
+      "id": "a19",
+      "claim_id": "C019",
+      "attaches_to": "buyer-fit-record",
+      "label": "modeled",
+      "meaning": "The roughly 1,000-ticket minimum buyer boundary is derived from the payback assumptions.",
+      "attachment_note": "Keep the modeled label and dependence on C018's assumptions attached to every use.",
+      "must_not_imply": "An observed market boundary or buyer demand."
+    },
+    {
+      "id": "a20",
+      "claim_id": "C020",
+      "attaches_to": "guidance-rule-set",
+      "label": "component capability",
+      "meaning": "A general model drafts from brand materials while the operator decides every money, shipping, and cancellation rule.",
+      "attachment_note": "Capability, not outcome; the human decision boundary stays attached to the rule set.",
+      "must_not_imply": "That the model produces the never list, judges correctness, or owns a money-action decision."
+    },
+    {
+      "id": "a21",
+      "claim_id": "C021",
+      "attaches_to": "wrong-answer-log",
+      "label": "observed boundary",
+      "meaning": "The verified-resolution meter counts containment, not correctness.",
+      "attachment_note": "The wrong-answer log remains separate because the meter cannot prove answer quality.",
+      "must_not_imply": "That a rising verified-resolution rate proves good or correct answers."
+    },
+    {
+      "id": "a22",
+      "claim_id": "C022",
+      "attaches_to": "practice-opportunity",
+      "label": "observed risk, synthesis",
+      "meaning": "The vendor can close the proposed gap because it sells setup, ships a wizard, and is paid per resolution.",
+      "attachment_note": "The components are observed; the gap-closing release is only a risk condition and the current gap remains unresolved.",
+      "must_not_imply": "That an auto-configuration release exists or is announced, or that a durable service gap currently exists."
+    },
+    {
+      "id": "a23",
+      "claim_id": "C023",
+      "attaches_to": "adjacent-market-record",
+      "label": "adjacent, observed layers",
+      "meaning": "The job is sold by the vendor and certified agencies while no solo operator was found at disclosed economics.",
+      "attachment_note": "This establishes adjacent operating layers and the no-observed-solo boundary, not the proposed solo market.",
+      "must_not_imply": "Any observed solo price or demand, or that individuals are admitted to or refused from the partner program."
+    }
+  ],
+  "failure_routes": [
+    {
+      "id": "route.rule-change",
+      "trigger": "A playground case does not pass.",
+      "destination": "guidance-rule-set",
+      "recovery_state": "the failed result remains pinned, BO-016 revises only the identified guidance rule, and a separate BO-005 check is required",
+      "visible_consequence": "The path cannot jump from failure or revision to pass."
+    },
+    {
+      "id": "route.handover-storm",
+      "trigger": "Handoffs spike on go-live day.",
+      "destination": "ticket-flow",
+      "recovery_state": "the one channel restores its previous configuration",
+      "visible_consequence": "The sourced rollback remains visible but has no selected Boundary Ledger operation; DSB-001 stays open.",
+      "boundary_ledger_blocker": "DSB-001"
+    },
+    {
+      "id": "route.money-error",
+      "trigger": "A wrong answer touches a money question.",
+      "destination": "never-list",
+      "recovery_state": "the intent narrows to never and guidance is rewritten",
+      "visible_consequence": "The policy may narrow only; no reverse transition exists without sourced reauthorization."
+    },
+    {
+      "id": "route.consumer-protection",
+      "trigger": "A refund or automated-messaging question touches consumer-protection rules.",
+      "destination": "consumer-protection-question",
+      "recovery_state": "illustrative-routed-to-brand-adviser",
+      "visible_consequence": "The question leaves the operator-controlled zone; the operator does not answer it."
+    }
+  ],
+  "money_flows": [
+    {
+      "id": "flow.service-fee",
+      "from": "brand-payer",
+      "to": "operator",
+      "kind": "proposed fixed fee entered through a paid audit credited against implementation",
+      "trigger": "A future brand purchases the bounded engagement; no purchase is evidenced here.",
+      "direction": "brand payer to operator",
+      "rule": "The $4,000 figure and payback are modeled. Payment and later credit are not represented as completed operations because DSB-004 is open.",
+      "representation": "illustrative future flow only; not a sale, invoice, payment, credit, or engagement record"
+    },
+    {
+      "id": "flow.gorgias-resolution-fee",
+      "from": "brand-payer",
+      "to": "vendor.gorgias",
+      "kind": "per-resolved-conversation mechanism",
+      "trigger": "Gorgias counts a resolved conversation under its own rules.",
+      "direction": "brand payer to Gorgias",
+      "rule": "Mechanism only. No source-confirmed Gorgias per-resolution dollar figure may appear."
+    },
+    {
+      "id": "flow.zendesk-resolution-fee",
+      "from": "brand-payer",
+      "to": "vendor.zendesk",
+      "kind": "$1.50 per automated resolution under Zendesk's published 72-hour definition",
+      "trigger": "Zendesk counts an automated resolution under its published definition.",
+      "direction": "brand payer to Zendesk",
+      "rule": "Observed Zendesk input only. It cannot be transferred to Gorgias or treated as proof of buyer payback."
+    }
+  ],
+  "human_judgement_gates": [
+    {
+      "id": "gate.qualification",
+      "decision": "Does the prospective brand pass the vendor line, modeled ticket boundary, and per-action sign-off requirement?",
+      "who": "operator",
+      "representation": "illustrative future decision; no buyer or engagement is evidenced",
+      "branches": {
+        "inside-stated-band": "May proceed to an offer, subject to all other requirements; this branch creates no sale.",
+        "not-qualified": "BO-013 stops the proposed engagement."
+      }
+    },
+    {
+      "id": "gate.intent-policy",
+      "decision": "Is this named intent safe, conditional, or never?",
+      "who": "operator",
+      "branches": {
+        "safe": "Eligible for agent-first handling only after later gates pass.",
+        "conditional": "Eligible only under written conditions and handoff rules.",
+        "never": "Remains with humans."
+      }
+    },
+    {
+      "id": "gate.money-action",
+      "decision": "May this specific money-moving action be enabled?",
+      "who": "founder-authorizer",
+      "representation": "illustrative future decision only; authorization-state creation is blocked by DSB-006 and no action has been signed or enabled",
+      "branches": {
+        "would-authorize-per-action": "Only this named action could be authorized after a faithful Boundary Ledger operation exists.",
+        "not-authorized": "This named action remains off."
+      }
+    },
+    {
+      "id": "gate.playground",
+      "decision": "Does the current attempt pass every named case?",
+      "who": "operator",
+      "representation": "illustrative future check; no test has run or passed",
+      "branches": {
+        "passed": "BO-005 pins the checked pass. Opening eligibility is a separate blocked state change under DSB-007.",
+        "rule-change-required": "BO-005 pins the failure; BO-016 revises only the rule; a separate later BO-005 check is required."
+      }
+    },
+    {
+      "id": "gate.correctness",
+      "decision": "Did a reviewed answer meet the brand's policy rather than only the vendor's resolution definition?",
+      "who": "operator",
+      "branches": {
+        "correct": "Record the review without treating containment as correctness.",
+        "wrong": "Log it, narrow the intent when required, and rewrite guidance; no widening path is implied."
+      }
+    },
+    {
+      "id": "gate.acceptance",
+      "decision": "Would a future report contain the before-and-after measures, never list, wrong-answer log, recommendation, admin return, and founder sign-off?",
+      "who": "founder-authorizer",
+      "representation": "illustrative template review only; delivery, recommendation, signature, and acceptance operations are blocked by DSB-002 and DSB-003",
+      "branches": {
+        "complete-template": "The illustrative template shows the required fields but cannot become signed or delivered in this model.",
+        "incomplete": "Do not substitute a lift claim for a missing field."
+      }
+    },
+    {
+      "id": "gate.practice-tests",
+      "decision": "Has any explicit company kill condition been observed?",
+      "who": "operator",
+      "representation": "all four conditions are unresolved at candidate time",
+      "branches": {
+        "none-observed-yet": "Validation stays open; this is not proof of viability.",
+        "wizard-no-work": "BO-011 interrupts the practice.",
+        "no-buyer-after-fifteen": "BO-019 interrupts the practice.",
+        "lift-under-ten": "BO-020 interrupts the practice.",
+        "hours-over-forty-five": "BO-021 interrupts the practice."
+      }
+    }
+  ],
+  "camera_anchors": [
+    {
+      "id": "cam.human",
+      "job": "Keep economic buyer, payer, founder-authorizer, shoppers, support agents, and operator legible as distinct roles affected by routing and handoff.",
+      "when_used": "Establishment, a judgment handoff, or the illustrative ownership return."
+    },
+    {
+      "id": "cam.policy",
+      "job": "Read one persistent intent, action, rule version, or eligibility record without implying an unsupported reverse transition.",
+      "when_used": "Classification, operator correction, per-action authorization, or playground branching."
+    },
+    {
+      "id": "cam.evidence",
+      "job": "Hold a source-bound metric or record still enough to inspect its label, vendor, population, and qualification.",
+      "when_used": "Baseline, source receipt, tuning record, sandbox residue, modeled arithmetic, or illustrative report template."
+    },
+    {
+      "id": "cam.handoff",
+      "job": "Show who holds control and where it would return without making access, payment, signature, or engagement look completed.",
+      "when_used": "Consent, scoped admin custody, per-action authorization, and illustrative handback."
+    }
+  ],
+  "prohibited_evidence": [
+    "Any legacy episode economics or visual authority.",
+    "Any automation-rate promise or vendor marketing rate used as an outcome.",
+    "Any small-business version of the enterprise 95 percent finding.",
+    "Any Gorgias per-resolution dollar amount or migration of a Zendesk fact to Gorgias.",
+    "Any claim about what the wizard leaves undone before a real sandbox residue is recorded.",
+    "Any observed solo price, demand, customer result, partner-program acceptance, or sustainable-livelihood claim.",
+    "Any future passed, paid, credited, authorized, live, returned, delivered, signed, or accepted state presented as a completed engagement.",
+    "Any implication that Manav has sold or delivered this service; upstream H004 explicitly says he has not.",
+    "Any safety widening or reversal without a separately sourced and Boundary-Ledger-bound reauthorization operation.",
+    "Any filled state for configuration rollback, report delivery, recommendation, signature, paid audit, credit, consent creation, action authorization, go-live eligibility opening, sandbox execution, or first-draft record creation while DSB-001 through DSB-009 remain open."
+  ]
+}

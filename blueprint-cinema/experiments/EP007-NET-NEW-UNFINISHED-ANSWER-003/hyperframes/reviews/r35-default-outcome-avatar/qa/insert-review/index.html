@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;width:1280px;height:720px;overflow:hidden}</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r35-default-outcome-root"
+     data-composition-id="r35-default-outcome" data-start="0" data-duration="5"
+     data-width="1280" data-height="720"
+     style="position:relative;width:1280px;height:720px;overflow:hidden;opacity:1">
+  <style>
+    .r35-default-outcome-fill{position:absolute;inset:0;background:#F5F0E6}
+    .r35-default-outcome-viewport{position:absolute;inset:0;width:1280px;height:720px;overflow:hidden}
+    .r35-default-outcome-framing{position:absolute;inset:0;width:1280px;height:720px;transform-origin:0 0}
+    .r35-default-outcome-media{position:absolute;inset:0;width:1280px;height:720px;object-fit:cover}
+  </style>
+  <div class="r35-default-outcome-fill"></div>
+  <div class="r35-default-outcome-viewport">
+    <div id="r35-default-outcome-framing" class="r35-default-outcome-framing" data-layout-allow-overflow="">
+      <video id="r35-default-outcome-speaking" class="clip r35-default-outcome-media"
+             src="public/media/default-outcome-r35-aligned.mp4"
+             data-start="0" data-duration="5" data-media-start="0" data-track-index="1"
+             muted playsinline
+             aria-label="Continuous V5 presenter delivering the default-outcome interpretation with original narration"></video>
+    </div>
+  </div>
+<audio id="original-default-outcome" class="clip" src="public/audio/listing-narration.wav" data-start="0" data-duration="5" data-media-start="37.625" data-track-index="100" data-volume="1"></audio>
+  <script>
+    window.__timelines=window.__timelines||{};
+    const defaultOutcomeTimeline=gsap.timeline({paused:true});
+    defaultOutcomeTimeline.set('#r35-default-outcome-framing',
+      {scale:1.12,x:-76.8,y:-9,transformOrigin:'0 0'},0);
+    defaultOutcomeTimeline.to('#r35-default-outcome-framing',
+      {scale:1.42,x:-268.8,y:-22,duration:8/24,ease:'power2.inOut'},3.75);
+    window.__timelines['r35-default-outcome']=defaultOutcomeTimeline;
+  </script>
+</div>
+</body></html>

@@ -1,0 +1,66 @@
+{
+  "record_type": "offline_pause_comparison_ready",
+  "status": "pending_independent_whole_A_and_onset_tail_review",
+  "plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/PLAN.json",
+    "sha256": "c55853fcc9030924db58a1b20b906c0406ec016daf8255bae769cb396378ba92"
+  },
+  "picture": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/picture.mp4",
+    "sha256": "ac900beee897c5218889bde5933aa2d534de83ccf5cb78a87a7d51ace6fcd3e5"
+  },
+  "source_frame_map": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/SOURCE-FRAME-MAP.json",
+    "sha256": "63bee3345b2a080b17ccf924125c0de4ddca823bf81a69976043c37e1ec3a067"
+  },
+  "exact_narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/audio/narration.wav",
+    "sha256": "a743f1e4c218b9d75ea4d2238c9a8e2a4b9878ad949480c5fd23d755a4e2e02c"
+  },
+  "preview": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/P08A-pause-r1-exact-master-review.mp4",
+    "sha256": "ecc68f44101cdbfaba37fe0cb8bbf0a26ee65d2a2e772fbcd73861f7db7ddf29"
+  },
+  "source_clock": "target24fpsframe0 corresponds to narration sample0; picture map explicitly modifies only the authorized new P08A performance",
+  "owner_accepted": false,
+  "full_P08_conform": false,
+  "provider_calls": 0,
+  "preview_command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/picture.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/audio/narration.wav",
+    "-map",
+    "0:v:0",
+    "-map",
+    "1:a:0",
+    "-vf",
+    "scale=1280:720:flags=lanczos",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "16",
+    "-preset",
+    "fast",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-pause-r1/P08r3a/P08A-pause-r1-exact-master-review.mp4"
+  ]
+}

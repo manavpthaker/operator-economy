@@ -1,0 +1,42 @@
+{
+  "record_type": "ep007_short01_derived_guide_tail_repair",
+  "at_utc": "2026-09-22T14:06:02Z",
+  "status": "pass_selected_source_preserved_and_mechanical_tail_gate_repaired",
+  "provider_call": false,
+  "owner_authority": {
+    "event_id": "ep007-short01-through-video-generation-authorized-v14",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-short01-through-video-generation-authorized-v14.json",
+    "sha256": "c4e4d77bc618a53f51960eb7601c95d1f116b5cd7d047e8abebe9251cd136901"
+  },
+  "source": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/media/guide.wav",
+    "sha256": "01d77e7d586e76d28fb4bb2143afa3cc2f50801f5ab23fbb1749092cd782c4c8",
+    "pcm_sha256": "0394d129083c610ecd5ed2ff66bd7fe47e5c6b0a4da6d4fd83cf9cf403f68637",
+    "sample_frames": 983303,
+    "duration_seconds": 40.970958333,
+    "tail_energy": 0.03611296
+  },
+  "operation": {
+    "type": "append_digital_silence_to_derived_copy",
+    "appended_frames": 12000,
+    "sample_rate_hz": 24000,
+    "appended_duration_seconds": 0.5,
+    "source_overwritten": false,
+    "provider_call": false
+  },
+  "derived": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/media/guide-derived-pad500ms.wav",
+    "sha256": "e1a43df65bc685e479c778adf80d18d5319008d28490f47ece50d9bac0277278",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "sample_frames": 995303,
+    "duration_seconds": 41.470958333,
+    "source_prefix_pcm_sha256": "0394d129083c610ecd5ed2ff66bd7fe47e5c6b0a4da6d4fd83cf9cf403f68637",
+    "appended_frames_all_zero": true,
+    "tail_energy": 0.0,
+    "tail_energy_threshold_exclusive": 0.02,
+    "ends_in_silence": true
+  },
+  "limitation": "This deterministic derivative repairs the mechanical tail-silence gate. It does not recreate a missing phoneme; the owner selected the source take after listening, and local ASR separately verifies the complete locked word sequence."
+}

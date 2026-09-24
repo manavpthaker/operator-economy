@@ -1,0 +1,80 @@
+{
+  "event_id": "r40-observable-owner-dependency-v4",
+  "decision_id": "s08-owner-dependency",
+  "event_type": "decision",
+  "supersedes": "r39-s08-media-integration-v3",
+  "tags": [
+    "animation",
+    "causal-staging",
+    "owner-dependency",
+    "short-movement-study"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Expose the difference between retained business assets and an operating decision that departs with the owner.",
+      "viewer_before": "Owner knows the business; diagrams currently assert dependence through headings.",
+      "viewer_after": "Viewer observes an employee complete work with an owner decision, then wait at a fresh decision when that owner is absent."
+    },
+    "choice": "Propose one fixed workshop action, tested first as a short movement study around the conditional passage. Worker offers alternatives, owner chooses, work finishes; owner exits; another task reaches a fresh choice and remains unfinished while employee and equipment stay. Simplify coverage elsewhere instead of illustrating each spoken noun.",
+    "reason": "R39 never shows the worker doing work or needing a decision. Making the causal intervention observable can let the viewer infer the dependence. Fewer labels or neater paths alone would preserve the failure.",
+    "alternatives": [
+      {
+        "choice": "Keep the existing tray/book diagram with fewer labels",
+        "reason_not_selected": "It would reduce clutter without establishing why the worker can or cannot complete the task."
+      },
+      {
+        "choice": "Use narration with a short departure and unfinished-work insert",
+        "reason_not_selected": "Retained as the simpler fallback if the short movement study cannot make the enabling decision and later absence legible."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "A claimed visual mechanism is carried mainly by its explanatory headings and an enabling action can be physically staged.",
+      "avoid_when": "The scene is attributable evidence or a relationship that needs labels; a mute/text-free diagnostic is not a universal publishing rule."
+    },
+    "nuance": {
+      "animation": {
+        "form": "One physical task and a missing decision in one fixed illustrated workspace",
+        "entry": "Establish employee, owner and the decision needed to complete work",
+        "change": "Owner leaves; a different task reaches a new decision without its answer",
+        "hold": "Employee and equipment remain with unfinished work and empty owner position",
+        "exit": "Exact exit and preceding coverage remain to be set after movement study"
+      },
+      "cut_cues": [
+        {
+          "cue_id": "conditional-owner-dependency",
+          "phrase": "And if that machine turns out to be her ... It does not survive the handover.",
+          "relation": "Proposed short action region; not frame-locked pending movement test",
+          "master_seconds": [
+            279.32,
+            289.48
+          ],
+          "review_seconds": [
+            276.32,
+            286.48
+          ]
+        }
+      ],
+      "performance": "The employee must visibly seek a fresh decision; simply forgetting an identical demonstrated step would imply incompetence.",
+      "false_inference": "This is an illustrative conditional, not evidence that the actual seller business fails or every dependency is a production task.",
+      "source_basis": "Current owner critique plus director diagnosis of R39 encoded frames, composition source and locked narration."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r40-animation-reset/OWNER-FEEDBACK.json",
+      "sha256": "a191145f12892ed2b9b0555184a1b5cbeb8ecff08aa7f7856231c417c0b8822b",
+      "locator": "Owner return"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r40-animation-reset/PROPOSED-DIRECTION.md",
+      "sha256": "8d47ad4685f47a6de0b1839927f0223db7cfb381ab45b4ae85a9fa50313573d5",
+      "locator": "Concrete sequence, script mapping, proposed diagnostic and limits"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/compositions/owner-dependency.html",
+      "sha256": "895b87737e8d1199d5817a07cee4e3c4717b375f017435704c51e3e44992afff",
+      "locator": "Six explanatory titles and no performed worker action"
+    }
+  ]
+}

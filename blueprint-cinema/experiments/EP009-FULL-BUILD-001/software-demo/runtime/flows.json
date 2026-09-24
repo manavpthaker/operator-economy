@@ -1,0 +1,372 @@
+[
+  {
+    "id": "ep009workflow",
+    "type": "tab",
+    "label": "EP009 · One guest, one thank-you",
+    "disabled": false,
+    "info": "A real, isolated test workflow using fictional Maya Chen at Alder House Inn. OpenAI drafts; Node-RED persists a date-based queue. Human edits and approves one draft, and confirms exclusion from seasonal marketing. No email/send node exists."
+  },
+  {
+    "id": "response",
+    "type": "http response",
+    "z": "ep009workflow",
+    "name": "Real result → operator form",
+    "x": 1190,
+    "y": 440,
+    "statusCode": "",
+    "headers": {},
+    "wires": []
+  },
+  {
+    "id": "page",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "GET /review",
+    "x": 170,
+    "y": 80,
+    "url": "/review",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "pagehtml"
+      ]
+    ]
+  },
+  {
+    "id": "pagehtml",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Working operator interface",
+    "x": 460,
+    "y": 80,
+    "func": "msg.payload=global.get('ep009').html(); msg.headers={'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'};return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "state",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "GET /api/state",
+    "x": 170,
+    "y": 140,
+    "url": "/api/state",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "getstate"
+      ]
+    ]
+  },
+  {
+    "id": "getstate",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Read persisted fixture + state",
+    "x": 480,
+    "y": 140,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.readPublic();msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};} msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "draft",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "POST /api/draft",
+    "x": 170,
+    "y": 240,
+    "url": "/api/draft",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "prepdraft"
+      ]
+    ]
+  },
+  {
+    "id": "prepdraft",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Fictional fixture → capped real request",
+    "x": 480,
+    "y": 240,
+    "func": "const demo=global.get('ep009');try{const r=demo.prepareDraft();msg.ep009Run=r.runId;msg.url=r.url;msg.method='POST';msg.headers={'Authorization':'Bearer '+env.get('OPENAI_API_KEY'),'Content-Type':'application/json'};msg.payload=r.body;return [msg,null];}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};msg.headers={'Content-Type':'application/json'};return [null,msg];}",
+    "outputs": 2,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "openai"
+      ],
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "openai",
+    "type": "http request",
+    "z": "ep009workflow",
+    "name": "OpenAI · genuine thank-you draft",
+    "x": 790,
+    "y": 240,
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "wires": [
+      [
+        "draftresult"
+      ]
+    ]
+  },
+  {
+    "id": "draftresult",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Bind output + retain usage",
+    "x": 1050,
+    "y": 240,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.finishDraft(msg.ep009Run,msg.payload,msg.statusCode||0);msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};}delete msg.ep009Run;msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "queue",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "POST /api/queue",
+    "x": 170,
+    "y": 360,
+    "url": "/api/queue",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "queuedate"
+      ]
+    ]
+  },
+  {
+    "id": "queuedate",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Checkout + one day → queued draft",
+    "x": 530,
+    "y": 360,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.queue();msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};} msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "review",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "POST /api/review",
+    "x": 170,
+    "y": 440,
+    "url": "/api/review",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "humanedit"
+      ]
+    ]
+  },
+  {
+    "id": "humanedit",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Human voice edit → save",
+    "x": 510,
+    "y": 440,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.saveReview(msg.payload||{});msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};} msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "approve",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "POST /api/approve",
+    "x": 170,
+    "y": 520,
+    "url": "/api/approve",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "humanapprove"
+      ]
+    ]
+  },
+  {
+    "id": "humanapprove",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Human approval · one draft only",
+    "x": 520,
+    "y": 520,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.approve();msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};} msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "exclude",
+    "type": "http in",
+    "z": "ep009workflow",
+    "name": "POST /api/exclude",
+    "x": 170,
+    "y": 600,
+    "url": "/api/exclude",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "wires": [
+      [
+        "humanexclude"
+      ]
+    ]
+  },
+  {
+    "id": "humanexclude",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Human confirms NO future promotion",
+    "x": 550,
+    "y": 600,
+    "func": "const demo=global.get('ep009');try{msg.payload=demo.exclude();msg.statusCode=200;}catch(e){msg.statusCode=e.statusCode||500;msg.payload={error:e.message};} msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "catch",
+    "type": "catch",
+    "z": "ep009workflow",
+    "name": "Transport failure",
+    "x": 800,
+    "y": 680,
+    "scope": [
+      "openai"
+    ],
+    "uncaught": false,
+    "wires": [
+      [
+        "failure"
+      ]
+    ]
+  },
+  {
+    "id": "failure",
+    "type": "function",
+    "z": "ep009workflow",
+    "name": "Retain failure · never auto-retry",
+    "x": 1050,
+    "y": 680,
+    "func": "global.get('ep009').failDraft(msg.ep009Run);msg.statusCode=502;msg.payload={error:'Provider transport failed. Attempt retained; no automatic retry.'};delete msg.error;delete msg.ep009Run;msg.headers={'Content-Type':'application/json','Cache-Control':'no-store'}; return msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "response"
+      ]
+    ]
+  },
+  {
+    "id": "note",
+    "type": "comment",
+    "z": "ep009workflow",
+    "name": "TEST WORKFLOW · FICTIONAL GUEST · NO SEND NODE",
+    "x": 570,
+    "y": 20,
+    "info": "The displayed form is purpose-built and genuinely executes this flow. Results persist under ignored .local state. External request cap2; disabled until root enables EP009_ALLOW_OPENAI=1. No simulated model output."
+  }
+]

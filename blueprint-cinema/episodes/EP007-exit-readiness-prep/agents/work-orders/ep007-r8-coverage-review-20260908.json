@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r8-coverage-review-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independent read-only review of the proposed isolated EP007 R8 coverage plan, not production dispatch. Check narrative chronology, exact source cues and frame math, question/answer performance logic, world continuity, generation brief consistency, avatar sync boundaries, and scope clarity. Required_gate is a schema routing label only: canonical episode inputs are not locked or approved by this work order.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/DIRECTION.md",
+      "sha256": "56e3158a5108c6bbfdc66b3e1daf9338001d3e710fd29ef1f4a85954ac1c4c48"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/GENERATION-BRIEFS.md",
+      "sha256": "b3687e0d407a4e47ee1452e59c1e0d4db4baf410ef748fec0337593b6522d43f"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/SOURCE-CUES.json",
+      "sha256": "c1f4d14e6eb542fa78cfd6408e55353210d80c87e242574fdcc037b9b656efcc"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r8-coverage-review-20260908/"
+  ],
+  "forbidden_paths": [
+    "src/",
+    "schemas/",
+    "templates/",
+    "experiments/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify all three frozen packet hashes, recompute source hashes and exact narration-cue agreement using repository-root paths in SOURCE-CUES.json. Check 24fps trial cut math and the conditional four-second full-opening offset.",
+    "Read the packet as a director: identify consequential ambiguity, chronology or continuity contradictions, premature emotional turns, unsupported implications, and missing handoff requirements. Return report.md plus schema-valid deliverable.json in your owned folder; no fixes or provider work."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop if pinned packet inputs are stale; do not repair or rewrite the plan.",
+    "No media generation, network or paid calls, canonical writes, approval claims, or edits outside the owned deliverable folder. Report unresolved decisions rather than selecting them for the owner."
+  ],
+  "status": "closed"
+}

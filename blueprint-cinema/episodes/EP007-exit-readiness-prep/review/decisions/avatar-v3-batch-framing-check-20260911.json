@@ -1,0 +1,54 @@
+{
+  "event_id": "avatar-v3-remaining-takes-framing-check-v2",
+  "decision_id": "avatar-v3-remaining-takes",
+  "event_type": "decision",
+  "supersedes": "avatar-v3-remaining-takes-prepared-v1",
+  "tags": [
+    "avatar",
+    "framing",
+    "reference",
+    "paid-preparation"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Keep natural presenter delivery consistent across remaining appearances.",
+      "viewer_before": "V3 delivery is accepted, but the concurrently authorized wider-framing test could change source composition.",
+      "viewer_after": "Remaining takes follow the settled delivery and framing choice without unnecessary duplicate generation."
+    },
+    "choice": "Keep the three medium-close takes prepared and the opening replacement available; hold their paid submission until the concurrent wider-framing test is resolved or the owner chooses to retain V3 framing.",
+    "reason": "The final log check found a later authorized hands-visible test in progress. Generating all remaining takes now could require repeating them after a near-term framing decision.",
+    "alternatives": [
+      {
+        "choice": "Generate all prepared medium-close takes immediately.",
+        "reason_not_selected": "Potential duplicate cost while the other current task tests the replacement composition."
+      },
+      {
+        "choice": "Treat the in-progress wider take as accepted.",
+        "reason_not_selected": "Its authorization covers testing; no output selection or acceptance is recorded."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "A current parallel test can change the visual inputs for an imminent paid batch.",
+      "avoid_when": "The owner explicitly chooses the existing frame or the test cannot affect this batch."
+    },
+    "nuance": {
+      "source_basis": "Final live episode log and source-task active-status check.",
+      "protected": "V3 delivery remains accepted; R29 editorial remains accepted; R30 hook is a checked partial preview.",
+      "user_question": "Optional framing preference requested; no new paid-call approval solicited while the source choice is unsettled.",
+      "generation": "No paid call or upload by this task. Source task has its own bounded test authorization."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/avatar-v4-wide-owner-request-20260911.json",
+      "sha256": "35ada3b39e9d99133639d3a5b460c3e8bc76226ad310c0437d699cfe8c979fea",
+      "locator": "newer explicit framing-test scope"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/INPUT-MANIFEST.json",
+      "sha256": "6c615763bb790a1aa4af0db328b6a94fd46b4610c0ac3738a80f8a5054ab5716",
+      "locator": "independent framing-test inputs"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+◆  Rendering s07-focused → /Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r36-buyer-demand/qa/s07-review.mp4
+   24fps · draft · 1 workers
+   GPU: browser GPU (auto-detect)
+
+[?25l│
+◇  Browser: cache
+[?25h
+  ✗ [compositions/buyer-demand.html] gsap_non_transform_motion: GSAP tween on "#s07-scope" uses motion that snaps to integer device pixels: fontSize. Layout and text-reflow properties snap during browser layout; roundProps rounds the tween value. Slow motion or an ease-out tail then stutters under the seek-by-frame capture engine — animate transforms (x/y/scale/opacity) instead.
+    Fix: do not animate fontSize (they reflow text and snap glyph positions): replace fontSize with scale (same visual, no reflow). Transforms interpolate sub-pixel and stay smooth at any speed.
+  ✗ [compositions/buyer-demand.html] gsap_non_transform_motion: GSAP tween on "#s07-stat87" uses motion that snaps to integer device pixels: fontSize. Layout and text-reflow properties snap during browser layout; roundProps rounds the tween value. Slow motion or an ease-out tail then stutters under the seek-by-frame capture engine — animate transforms (x/y/scale/opacity) instead.
+    Fix: do not animate fontSize (they reflow text and snap glyph positions): replace fontSize with scale (same visual, no reflow). Transforms interpolate sub-pixel and stay smooth at any speed.
+  ✗ [compositions/buyer-demand.html] gsap_non_transform_motion: GSAP tween on "#s07-three" uses motion that snaps to integer device pixels: left, top, fontSize. Layout and text-reflow properties snap during browser layout; roundProps rounds the tween value. Slow motion or an ease-out tail then stutters under the seek-by-frame capture engine — animate transforms (x/y/scale/opacity) instead.
+    Fix: replace left/top with the transform equivalent (x, y) — e.g. tl.fromTo("#s07-three", { x: -1300 }, { x: 0, ...yourAnimation }); do not animate fontSize (they reflow text and snap glyph positions): replace fontSize with scale (same visual, no reflow). Transforms interpolate sub-pixel and stay smooth at any speed.
+
+  Aborting render due to lint issues (--strict mode).
+

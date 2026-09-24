@@ -1,0 +1,410 @@
+{
+  "schema": "oe-boundary-ledger-narration-first-ab-v1",
+  "id": "EP007-BL-NARRATION-FIRST-001",
+  "reviewState": "review-cut-007-internal-owner-review",
+  "result": {
+    "direction": "variant-b-narration-first",
+    "currentVariantBShot1": "b6-review-candidate-exact-action-failed",
+    "currentVariantBShot2": "candidate-perceptual-review-required",
+    "currentExecutionCandidate": "review-cut-007-three-shot-causal-scene",
+    "currentExecutionStatus": "internal-owner-review-not-production-select",
+    "gateOrProductionApproval": false
+  },
+  "system": {
+    "name": "Boundary Ledger",
+    "version": "2.0.0",
+    "semanticCoreSha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "colorBindingSha256": "6b3e4727c3592b02fe23c34d2a865a85c47865c438d48526d1762b93e9a669c3",
+    "motionBindingSha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motionBindingStatus": "provisional",
+    "soundBindingSha256": "3c81a029d6fd98ea8fb88100ff6209cc86f6ba7c1558bdd194d73db1ac5d294b",
+    "soundBindingStatus": "provisional"
+  },
+  "testDesign": {
+    "document": "AB-TEST.md",
+    "documentSha256": "0b204122b1bf3c86933f9ae7611517bc6f699f2aeea6b02a0a2216402278bd04",
+    "directionPacket": "direction/DIRECTION-PACKET.md",
+    "directionPacketSha256": "90c978a31c4e0399a1d4d5721519f927a8d34deffa30319c1f3e706ee1f9c050",
+    "controlledVariables": [
+      "locked narration",
+      "7.74-second program interval",
+      "1920x1080 16:9",
+      "24 fps",
+      "no captions",
+      "no music",
+      "no sound effects",
+      "same portrayal and claim guardrails"
+    ],
+    "independentVariable": "footage-first editorial diagnosis versus narration-first shot direction locked before visual generation",
+    "cleanRoomDirection": true
+  },
+  "narration": {
+    "asset": "hyperframes/assets/audio/ep007-narration-247.660-255.400.wav",
+    "sha256": "42665f2c135689ce8fc896bd94ec0800d02544e2cd82ece6f9a7cacad370f8c2",
+    "durationSeconds": 7.74,
+    "sampleRate": 48000,
+    "channels": 1,
+    "sourceMasterSha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9",
+    "sourceRangeSeconds": [247.66, 255.4],
+    "wordRange": ["W000712", "W000736"],
+    "transcriptSha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7",
+    "pauseMapSha256": "0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa"
+  },
+  "variantA": {
+    "method": "clip-first",
+    "isolatedRender": {
+      "asset": "hyperframes/renders/EP007-A-CLIP-FIRST-011.mp4",
+      "sha256": "91ad051a88c9af0710df8d543854248d39c17a11ca0c3aedcfd88b9922cd38f4",
+      "bytes": 4771683,
+      "durationSeconds": 7.75,
+      "frames": 186
+    },
+    "contextRender": {
+      "asset": "hyperframes/renders/EP007-A-CLIP-FIRST-context-17.5-27.5.mp4",
+      "sha256": "bdd48db4efea9f129d43d23b0173185b00ef62aed943ad56db7b247549f9278a",
+      "bytes": 5000206,
+      "durationSeconds": 10.0,
+      "frames": 240
+    }
+  },
+  "variantB": {
+    "method": "narration-first",
+    "semanticRole": "humanContext",
+    "generatedStills": [
+      {
+        "id": "cast-environment-master",
+        "asset": "hyperframes/assets/images/cast-environment-anchor.generated.png",
+        "sha256": "98073d64c69a920eb5d6bb477a71fbb7fff57f75d4395fcccfff4dc73d24a35e",
+        "promptRecord": "direction/cast-environment-anchor.prompt.md",
+        "promptRecordSha256": "12b60efdb8f1ab701e3d703b7cba840f16612d3b1bb0b5ba1bb806c36571cb5e"
+      },
+      {
+        "id": "shot-01-end",
+        "asset": "hyperframes/assets/images/shot-01-end-keyframe.generated.png",
+        "sha256": "c77848e717155f38371759d0c39b1ed661de74e15e8d3e6b96598fc2f1e90f56",
+        "promptRecord": "direction/shot-01-end-keyframe.prompt.md",
+        "promptRecordSha256": "832dfa9f35da4093f62b4ef1d6060d4516f8d156b6f834973f99475ba41bdb15"
+      },
+      {
+        "id": "shot-02-start",
+        "asset": "hyperframes/assets/images/shot-02-ots-anchor.generated.png",
+        "sha256": "f41f788488860f174fd0c4d2d629561f5c864aaf5b847225c4fbb2212d92fb80",
+        "promptRecord": "direction/shot-02-first-frame-edit.prompt.md",
+        "promptRecordSha256": "213898510cc1782ae660ef1c38ed4cd86a8423d25d88d5a09d51f890876fb413"
+      },
+      {
+        "id": "shot-02-end",
+        "asset": "hyperframes/assets/images/shot-02-end-keyframe.generated.png",
+        "sha256": "ec237d3459b70c347c36f9a938bc99707e8ad0b814f015e0b6678a8ba7849ba1",
+        "promptRecord": "direction/shot-02-end-keyframe.prompt.md",
+        "promptRecordSha256": "88a1868d7c2bcecffeda330bfc3e1baf6a39e3fbdf376f177012fc3f88db3299"
+      }
+    ],
+    "selectedGeneratedSources": [
+      {
+        "id": "shot-01-relationship-master",
+        "asset": "hyperframes/assets/video/source/shot-01-master-keyframed.full-generated.mp4",
+        "sha256": "32e905add39f6ecbb9df58c7c8baa07cd56d5b361e3a9e9a26c96bacd4a573d4",
+        "responseRecord": "hyperframes/assets/video/source/shot-01-master-keyframed.full-generated.response.json",
+        "responseRecordSha256": "a078d11d133c10c165fd8767fb97756449e7071b56a5ff041e04a6aa7ab24066",
+        "requestId": "01a06f10-8122-7cc0-950f-203aa6f3a969",
+        "seed": 1528090608,
+        "generator": "fal.ai",
+        "model": "fal-ai/ltx-2.3-22b/image-to-video",
+        "sourceFrames": 129,
+        "sourceDurationSeconds": 5.375,
+        "timelineRangeSeconds": [0.0, 2.56],
+        "playbackRate": 1.0,
+        "status": "rejected-behavioral-failure"
+      },
+      {
+        "id": "shot-02-system-shift",
+        "asset": "hyperframes/assets/video/source/shot-02-ots-keyframed.full-generated.mp4",
+        "sha256": "6dc9ad37e0d5798d2c3389c90b5bdbe1a405c89bb03129e6ccb5ddab0e1f7516",
+        "responseRecord": "hyperframes/assets/video/source/shot-02-ots-keyframed.full-generated.response.json",
+        "responseRecordSha256": "6ac22736ba980d61a3c3788be653955b4d7ad8f0382dc351b6e2e21c15a73182",
+        "requestId": "01a06f10-81bc-7e13-a3e9-155e5d889124",
+        "seed": 732256289,
+        "generator": "fal.ai",
+        "model": "fal-ai/ltx-2.3-22b/image-to-video",
+        "sourceFrames": 129,
+        "sourceDurationSeconds": 5.375,
+        "timelineRangeSeconds": [2.56, 7.74],
+        "playbackRate": 1.0,
+        "status": "candidate-perceptual-review-required"
+      }
+    ],
+    "preservedRejectedMotionAttempts": [
+      {
+        "asset": "hyperframes/assets/video/source/shot-01-master.full-generated.mp4",
+        "sha256": "b1c1756bcdb567101dcc82da8c658f46248435ad5901416eabcde81529f567ec",
+        "reason": "buyer scrutiny did not move into the operation"
+      },
+      {
+        "asset": "hyperframes/assets/video/source/shot-01-master-r2.full-generated.mp4",
+        "sha256": "ef8f83b73fcf6e4b14a084550f90c585c7eb0ba7d30db5b1dc8da60adcfbdb46",
+        "reason": "owner looked down immediately and buyer did not execute the gaze action"
+      },
+      {
+        "asset": "hyperframes/assets/video/source/shot-02-ots.full-generated.mp4",
+        "sha256": "63c6ef0e3396c6add9337ec41989587cd07a7f3510fa27fbab8001a524ec10a3",
+        "reason": "focus landed ambiguously rather than on the operation"
+      },
+      {
+        "asset": "hyperframes/assets/video/source/shot-02-ots-r2.full-generated.mp4",
+        "sha256": "f49f0dd7779cb18ca72a50e7bdf619265b03e720233a39eb772c43188fa8ecc5",
+        "reason": "owner remained in focus and no meaningful focus shift occurred"
+      }
+    ],
+    "isolatedRender": {
+      "asset": "hyperframes/renders/EP007-BL-NARRATION-FIRST-001.mp4",
+      "sha256": "100994c4e207378edb1eaceeffcf3161e7eb9fdb7c96f798d804b5c8e315faad",
+      "bytes": 4138731,
+      "video": "H.264 High, 1920x1080, 24 fps CFR, 186 frames, 7.750 seconds",
+      "audio": "AAC-LC, 48 kHz stereo, 7.740 seconds",
+      "renderer": "direct ffmpeg frame-accurate conform",
+      "sourceRangesSeconds": [[0.0, 2.56], [0.0, 5.18]],
+      "speedChange": false,
+      "interpolation": false,
+      "postCameraMove": false,
+      "exactInvocationPersisted": false,
+      "provenanceLimitation": "The exact fallback invocation was not persisted at render time. Source ranges, inputs, encoded output, and hashes are bound; do not treat this as a production conform record."
+    },
+    "contextRender": {
+      "asset": "hyperframes/renders/EP007-B-NARRATION-FIRST-context-17.5-27.5.mp4",
+      "sha256": "f3a541d2b706901d17f81cd74f01d80f880fe26bbc170b37b31e99b227d1fb66",
+      "bytes": 4295741,
+      "durationSeconds": 10.0,
+      "frames": 240,
+      "sharedContextWithVariantA": true
+    },
+    "b6ReviewCandidate": {
+      "semanticRole": "humanContext",
+      "status": "editorial-review-candidate-exact-action-failed",
+      "source": {
+        "asset": "hyperframes/assets/video/source/shot-01-buyer-close-b6-veo-fast.full-generated.mp4",
+        "sha256": "17e8bbdc01de479ee3a227b063aa9a2eedf08c549e534b9f3408587fa56394c0",
+        "bytes": 703678,
+        "video": "H.264 High, 1280x720, 24 fps CFR, 96 frames, 4.000 seconds",
+        "generator": "fal.ai",
+        "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+        "requestId": "01a06f6a-5526-7ad1-bcf2-e53101562c0a",
+        "seed": 1528090608,
+        "promptRecord": "direction/shot-01-buyer-close-b6-veo-fast.prompt.md",
+        "promptRecordSha256": "efb26121f230eb1503cf91052fb7d6835c50abddc6bba7aa89b92d25f561b8e8",
+        "responseRecord": "hyperframes/assets/video/source/shot-01-buyer-close-b6-veo-fast.full-generated.response.json",
+        "responseRecordSha256": "9d7e65a27413de53336ce50ced0cb2a8c27ca2ce7d103217f6fe8f8f626b8d03",
+        "startReference": "hyperframes/assets/images/shot-01b-buyer-cut-in-start-b3.generated.png",
+        "startReferenceSha256": "0d1e68a9ed6f83c1e4b6318ea5a29fecff5dde7fc1aa41c21b9e720f5ec46430",
+        "endReference": "hyperframes/assets/images/shot-01b-buyer-cut-in-end-b3.composited.png",
+        "endReferenceSha256": "47acad223d893dda2985765eb347080b479ebba27d67b4d70531a14f124ee5a3"
+      },
+      "timelineSelection": {
+        "framesHalfOpen": [0, 62],
+        "secondsHalfOpen": [0.0, 2.583333],
+        "declaredCompositionSeconds": [0.0, 2.56],
+        "playbackRate": 1.0,
+        "speedChange": false,
+        "interpolation": false,
+        "postCameraMove": false
+      },
+      "actionAssessment": {
+        "holdsOwnerEyelineFrames0To30": true,
+        "eyesMoveBeforeHeadFrames31To40": false,
+        "chinTurnLimitedToFiveDegreesFrames41To52": false,
+        "settlesOnWorkshopFrames53To61": true,
+        "noSpeechOrJawArticulation": true,
+        "failure": "The buyer blinks and turns approximately 30–40 degrees instead of executing the specified eyes-first 3–5-degree microaction."
+      },
+      "isolatedRender": {
+        "asset": "hyperframes/renders/EP007-BL-NARRATION-FIRST-006.mp4",
+        "sha256": "09d71108708b630d55bb28b066d5013df499f0f7ef0e427bbd52ec2d861377e1",
+        "bytes": 9226153,
+        "video": "H.264 High, 1920x1080, 24 fps CFR, 186 frames, 7.750 seconds",
+        "audio": "AAC-LC, 48 kHz stereo, 7.744 seconds",
+        "renderer": "HyperFrames 0.8.28"
+      },
+      "contextRender": {
+        "asset": "hyperframes/renders/EP007-B6-NARRATION-FIRST-context-17.5-27.5.mp4",
+        "sha256": "5e778cb24c1caf897160f87a75fad037d594967ea75f8f16238a230423988f75",
+        "bytes": 6150440,
+        "durationSeconds": 10.0,
+        "frames": 240,
+        "sharedContextWithVariantA": true,
+        "audioCopiedFromVariantA": true,
+        "transformRecord": "hyperframes/scripts/build-b6-context.sh",
+        "transformRecordSha256": "2d96db82b6459c9fde5c5e495ceee519556b61a05d872c814b9997438b101134"
+      }
+    },
+    "reviewCut007": {
+      "name": "Review Cut 007",
+      "semanticRole": "humanContext",
+      "status": "internal-owner-review-candidate",
+      "method": "reference-led-three-shot-causal-scene",
+      "authorship": "authored-provisional",
+      "directionRecord": {
+        "asset": "direction/review-cut-007-shot-plan.md",
+        "sha256": "0a94afbf2d35981de6cc115c3b67e419d3bb460e94b1180574f13d950448ea67"
+      },
+      "storyboardRecord": {
+        "asset": "hyperframes/STORYBOARD.md",
+        "sha256": "10c1f460a7470a8d9c5646fc83f289950d8279293661997f1f6fa29c6c42d51b"
+      },
+      "selectedGeneratedSources": [
+        {
+          "id": "competence",
+          "asset": "hyperframes/assets/video/source/rc007-shot-01-competence.veo-fast.full-generated.mp4",
+          "sha256": "31d046648e08e73754a16d53fb8f35cb24c2384abd3df5048927ad75df34ff19",
+          "bytes": 1412221,
+          "generator": "fal.ai",
+          "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+          "requestId": "01a07259-0ce2-7311-8d46-c6412d58c6f7",
+          "seed": 1528090701,
+          "promptRecord": "direction/rc007-shot-01-film.prompt.md",
+          "promptRecordSha256": "907a48ac8e0826ee3197d79ecdb94dc6b6a432e69f697c6a27a1150ad679a2ac",
+          "responseRecord": "hyperframes/assets/video/source/rc007-shot-01-competence.veo-fast.full-generated.mp4.response.json",
+          "responseRecordSha256": "098addd6711ccd16eb33dbedcadb6c3ae5950c2c671ea28b727482ed56360115",
+          "sourceFrames": 96,
+          "sourceDurationSeconds": 4.0,
+          "sourceFramesHalfOpen": [34, 96],
+          "timelineFramesHalfOpen": [0, 62],
+          "playbackRate": 1.0
+        },
+        {
+          "id": "dependency-revealed",
+          "asset": "hyperframes/assets/video/source/rc007-shot-02-dependency-r2.veo-fast.full-generated.mp4",
+          "sha256": "e5075c151d16417769a55f97488bb4c4987fb5438450305d9fd131a6d6d37d33",
+          "bytes": 1131390,
+          "generator": "fal.ai",
+          "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+          "requestId": "01a0725c-a99e-73a3-abe2-a64a1421772e",
+          "seed": 1528090712,
+          "promptRecord": "direction/rc007-shot-02-film-r2.prompt.md",
+          "promptRecordSha256": "fe5e5eccda9fc7bfd2aeb33d1741703a7daa2fd23d994962cce758ce562cdb9e",
+          "responseRecord": "hyperframes/assets/video/source/rc007-shot-02-dependency-r2.veo-fast.full-generated.mp4.response.json",
+          "responseRecordSha256": "0da07e9e0db9d442b3a28a393985a43d6552c1488eff79fe7b918efe96b8d06d",
+          "sourceFrames": 96,
+          "sourceDurationSeconds": 4.0,
+          "sourceFramesHalfOpen": [20, 75],
+          "timelineFramesHalfOpen": [62, 117],
+          "playbackRate": 1.0
+        },
+        {
+          "id": "recognition",
+          "asset": "hyperframes/assets/video/source/rc007-shot-03-recognition-r2.veo-fast.full-generated.mp4",
+          "sha256": "edbafb5635203797d13e0eb9ae978fa9f76985d687c07ec1aecf3cd76cebb6ab",
+          "bytes": 1113808,
+          "generator": "fal.ai",
+          "model": "fal-ai/veo3.1/fast/first-last-frame-to-video",
+          "requestId": "01a0725c-a939-74c2-8d3b-ab6dd268ef60",
+          "seed": 1528090713,
+          "promptRecord": "direction/rc007-shot-03-film-r2.prompt.md",
+          "promptRecordSha256": "dfe595c2dcd89b105b673ab431a3501ede6fa8bff687bdbdcd44a5c6403c518b",
+          "responseRecord": "hyperframes/assets/video/source/rc007-shot-03-recognition-r2.veo-fast.full-generated.mp4.response.json",
+          "responseRecordSha256": "76a1966b57f4965ead3fd242f743413cd8417d140af659d6859c3a256b34a404",
+          "sourceFrames": 96,
+          "sourceDurationSeconds": 4.0,
+          "sourceFramesHalfOpen": [27, 96],
+          "timelineFramesHalfOpen": [117, 186],
+          "playbackRate": 1.0
+        }
+      ],
+      "isolatedRender": {
+        "asset": "hyperframes/renders/EP007-BL-NARRATION-FIRST-007.mp4",
+        "sha256": "e2ec1167e1efcbe8a8304cf20d4e75c2aba7b1fa239e06c76786ff1e27456aa0",
+        "bytes": 12043934,
+        "video": "H.264 High, 1920x1080, 24 fps CFR, 186 frames, 7.750 seconds",
+        "audio": "AAC-LC, 48 kHz stereo; locked narration source 7.740 seconds",
+        "renderer": "HyperFrames 0.8.28",
+        "speedChange": false,
+        "interpolation": false,
+        "postCameraMove": false
+      },
+      "contextRender": {
+        "asset": "hyperframes/renders/EP007-REVIEW-CUT-007-context-17.5-27.5.mp4",
+        "sha256": "852fb746248b60bf6f356cbe1f59d1a017e74787b8b1b547702a2ccc419b8df8",
+        "bytes": 7635294,
+        "durationSeconds": 10.0,
+        "frames": 240,
+        "sharedContextWithVariantA": true,
+        "audioCopiedFromVariantA": true,
+        "audioPacketSha256": "cf702e521c96e62d27f57be9ff82adcfa5e372381641bfd5694b3b1764011027",
+        "transformRecord": "hyperframes/scripts/build-review-cut-007-context.sh",
+        "transformRecordSha256": "9ad715a950e1063d81edf5e90b3d2975a34bf9d5b303df6fa7595b919de29feb"
+      },
+      "verification": {
+        "asset": "qa/REVIEW-CUT-007-VERIFICATION.md",
+        "sha256": "4850fc526018e7b0bd1d17edbec0e139dadf76be8db7aaec6e7fcf11be9dd3fb",
+        "encodedTechnicalStatus": "passed",
+        "storyPerformanceStatus": "passed-for-internal-test",
+        "ownerSelectionStatus": "awaiting-review",
+        "exactPromptActionStatus": "failed-final-look-exceeds-directed-angle"
+      },
+      "limitations": [
+        "The final owner turn is approximately 60 degrees rather than the prompted 8–12 degrees.",
+        "The buyer and staff member are similarly cast and dressed.",
+        "The low cue reads toward the held component more clearly than toward a specific jig or drawer.",
+        "Shot 1 is visibly brighter than the reverse angles."
+      ]
+    }
+  },
+  "implementation": {
+    "hyperframesSource": "hyperframes/index.html",
+    "hyperframesSourceSha256": "44cb50e3940de038f25db61447f2d8eb8ff18817b5ff4b20ccbc5662d8ed691c",
+    "hyperframesMotionRecord": "hyperframes/index.motion.json",
+    "hyperframesMotionRecordSha256": "1ad1e642ccecf49ef9037968b64f16f809c7e3829054d329b7129832af23ac81",
+    "hyperframesCheck": {
+      "version": "0.8.28",
+      "lintErrors": 0,
+      "lintWarnings": 0,
+      "runtimeErrors": 0,
+      "layoutIssues": 0,
+      "motionErrors": 0,
+      "passed": true
+    },
+    "hyperframesRender": {
+      "completed": true,
+      "asset": "hyperframes/renders/EP007-BL-NARRATION-FIRST-007.mp4",
+      "sha256": "e2ec1167e1efcbe8a8304cf20d4e75c2aba7b1fa239e06c76786ff1e27456aa0"
+    }
+  },
+  "reviews": {
+    "blindReview": {
+      "asset": "qa/BLIND-AB-REVIEW.md",
+      "sha256": "8aacdc7bb476f68dc0e8ea431a5c4dba23903518990918b21718046a64e7f5a5",
+      "reviewerSawVariantMapping": false,
+      "forcedChoice": "variant-b-narration-first",
+      "status": "directional-select-not-execution-lock"
+    },
+    "technicalReview": {
+      "asset": "qa/TECHNICAL-VERIFICATION.md",
+      "sha256": "b888a2e0c83dac2cfe049f3445192690fb6bf629bfac1206f50582f6fcea5f35",
+      "encodedTechnicalStatus": "passed",
+      "lockedPlanStatus": "failed-shot-01"
+    },
+    "b6Verification": {
+      "asset": "qa/B6-VERIFICATION.md",
+      "sha256": "1bdd959190410dbf18d09e11eccc67929f2c0743b0e80243f77d06e59a7d7962",
+      "encodedTechnicalStatus": "passed",
+      "exactActionStatus": "failed",
+      "editorialStatus": "awaiting-owner-comparison"
+    },
+    "reviewCut007Verification": {
+      "asset": "qa/REVIEW-CUT-007-VERIFICATION.md",
+      "sha256": "4850fc526018e7b0bd1d17edbec0e139dadf76be8db7aaec6e7fcf11be9dd3fb",
+      "encodedTechnicalStatus": "passed",
+      "storyPerformanceStatus": "passed-for-internal-test",
+      "ownerSelectionStatus": "awaiting-review"
+    },
+    "result": {
+      "asset": "AB-RESULT.md",
+      "sha256": "ff6de889b4f0b35aeb7345761c16f272114cfbfe1bb0023a8a53921142d003e1"
+    }
+  },
+  "boundaries": [
+    "This is one bounded 7.74-second directing-method comparison, not a full episode validation.",
+    "Generated live-action-style film is illustrative human context, not documentary evidence.",
+    "No V4, Step 4, production, publication, vertical, square, avatar, caption, music, sound-design, or final-loudness approval is implied.",
+    "Synthetic-media disclosure remains required in show notes, metadata, and the platform disclosure control."
+  ]
+}

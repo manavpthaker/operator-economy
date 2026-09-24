@@ -1,0 +1,46 @@
+{
+  "scope": "One guide plus one identity transfer, authorized selfie voice audition; canonical state unchanged",
+  "label": "R3",
+  "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money.",
+  "word_count": 23,
+  "text_sha256": "639c5637364e2717bc1239efb6df06eed9797ae5a9db9f79b8a50be2a8805874",
+  "style_sha256": "91b4cf1a283c7e1bfa38b36f33862b931041cf482039ba46375ab906f6e92c47",
+  "guide_request": {
+    "advancedVoiceOptions": {
+      "enableTextnorm": false
+    },
+    "audioConfig": {
+      "audioEncoding": "LINEAR16",
+      "sampleRateHertz": 24000
+    },
+    "input": {
+      "prompt": "Say the supplied words exactly, without adding, omitting, repeating or paraphrasing anything. You are sharing a thought with one familiar person through your phone's selfie camera. It is casual close conversation, alive and interested, with your ordinary unprojected voice. This take should move more briskly than a reflective narrator read: aim for roughly nine seconds total for these words, with connected everyday articulation and very little empty space inside clauses. Let the long first sentence flow as one unfolding thought. Move lightly through the connective words, then allow the meaningful detail about twenty five years to register through a natural change in pitch and a little rhythmic contrast, not a big pause. Give the voice clearly audible, believable ups and downs: curious lift, easy settling, a small return of energy as the thought develops. Avoid giving every phrase the same contour. Keep the changes spontaneous and uneven rather than patterned. After a short natural turn of thought, say the final short sentence like candid, faintly amused recognition, almost a wry aside. Let that tonal contrast be heard without turning it into an announcer punchline or adding a laugh. Sound alert and conversational, not restrained into a flat or sleepy voice. Stay close and comfortable rather than loud or projected. No sing-song delivery, theatrical character voice, fake stumbles, filler words, added breaths for effect, laughter, ambience or sound effects. Finish the last word completely and let it settle into a brief natural quiet ending. Do not speak these directions.",
+      "text": "A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money."
+    },
+    "voice": {
+      "languageCode": "en-US",
+      "modelName": "gemini-2.5-pro-tts",
+      "name": "Algieba"
+    }
+  },
+  "guide_source": "operator-blueprint-v2/02-narration-production/tools/capture_n4b.py",
+  "guide_source_sha256": "5e1093bc0f0113fa998bd5e99359f90b098342cc83c19997ed77ab0f02a15493",
+  "request_helper_sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00",
+  "transfer": {
+    "model": "eleven_multilingual_sts_v2",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "seed": 2026082501,
+    "output_format": "pcm_48000",
+    "remove_background_noise": false
+  },
+  "force_duration": false,
+  "max_guide_calls": 1,
+  "max_transfer_calls": 1
+}

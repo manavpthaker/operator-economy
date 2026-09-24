@@ -1,0 +1,49 @@
+{
+  "schema": "oe-reference-transport-v1",
+  "experiment": "EP007-HIGGSFIELD-FROM-PHASE2-002",
+  "reference_id": "identity_exact_narration_11_34",
+  "date": "2026-09-08",
+  "source": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/inputs/identity-11.34.wav",
+    "master_slice_seconds": [48.52, 59.86],
+    "master_slice_selection_provenance": "workflow_evidence agent staged exact excerpt; root supplied selection and PCM hash; this transport independently verified staged WAV bytes, audio parameters and PCM hash",
+    "wav_bytes": 1088684,
+    "wav_sha256": "8d80cbb01c89533cb5f3338887818aaae00107835b1f9c166071502e077ab0f7",
+    "pcm_sha256": "f918872e89c002e80629449152ecf5616488c23466a605c9a43c75706e8952bf",
+    "frames": 544320,
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "duration_seconds": 11.34
+  },
+  "transport": {
+    "environment": "Higgsfield remote sandbox",
+    "lossless_intermediate_path": "inputs/identity-11.34.flac",
+    "lossless_intermediate_bytes": 413258,
+    "lossless_intermediate_sha256": "196e6684dad8f3a9854af482123b5d5ce885f0954e6838333049130e94b021a8",
+    "method": "Read local FLAC base64 into private orchestration variable without output, transfer 51 ordered chunks with bounded sandbox commands, decode verified FLAC remotely to original 48kHz mono signed 16-bit PCM, reconstruct original WAV header using Python wave, verify original whole-file and PCM hashes before PUT",
+    "chunk_count": 51,
+    "base64_characters": 551012,
+    "wav_byte_identical_to_local_source": true,
+    "pcm_identical_to_local_source": true,
+    "audio_edited": false,
+    "public_local_server_used": false
+  },
+  "higgsfield": {
+    "media_id": "46f8dac1-6cc1-42da-8dbd-6d4a3b970222",
+    "requested_filename": "EP007-identity-11.34.wav",
+    "requested_content_type": "audio/wav",
+    "returned_signed_content_type": "audio/mpeg",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/46f8dac1-6cc1-42da-8dbd-6d4a3b970222.mp3",
+    "actual_payload": "RIFF/WAVE PCM",
+    "mime_extension_caveat": "Higgsfield media_upload returned an audio/mpeg signed upload slot and .mp3 URL despite WAV filename and audio/wav request. PUT used the required returned signed Content-Type header. Payload remains the exact original WAV bytes, verified again from permanent CDN after confirmation. Generation acceptance must be checked separately.",
+    "media_upload_called_before_file_creation": true,
+    "wav_created_and_put_in_same_sandbox_command": true,
+    "put_http_status": 200,
+    "confirm_status": "uploaded",
+    "confirmed_cdn_wav_bytes_match_source": true,
+    "confirmed_cdn_pcm_matches_source": true
+  },
+  "generation_submitted_by_transport": false,
+  "productionGateAdvance": false
+}

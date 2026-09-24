@@ -1,0 +1,3 @@
+# Existing EP007 Boundary Ledger binding
+
+1280×720 review, 24 fps, 16:9. Paper #F5F0E6, inset paper #EDE5D6, ink #173530, secondary ink #33464C, steel #586D74, one active oxide #B5482F. Boska 700 for chapter/critical figure; Supreme 400/500 for assumptions, labels and qualifying copy. Local fonts only. Flat field, no shadows or glow. 64px horizontal safe area; 32px header top. Figures about 68–86px; labels 24–28px; disclosure minimum 21px. Rough irregular model marks are limited to supporting drawn actors and model lines; numeric claims remain typeset. No drift, wobble or celebratory verification marks.

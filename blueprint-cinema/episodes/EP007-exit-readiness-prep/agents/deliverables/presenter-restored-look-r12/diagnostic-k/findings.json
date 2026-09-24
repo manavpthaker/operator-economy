@@ -1,0 +1,47 @@
+{
+  "task": "EP007 Test K second-sentence diagnostic against preferred Test F",
+  "status": "complete_read_only_diagnostic",
+  "source_range_video_local_seconds": [3.84, 5.52],
+  "source_audio_to_video_offset_seconds": 0.023020833,
+  "inputs": {
+    "K": "d674ec22ac9da9706fce8589498f4c42ffd493630a6841fb5b256cdede1523f6",
+    "F": "d5c590fb00f9d5fda21af2d175048b94de64fb96413aa87ef215148d89727bcb",
+    "exact_wav": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566"
+  },
+  "measurements": {
+    "method": "Existing native Vision FaceAlignment executable on twelve sampled frames per clip. Eye midpoint for 2D image translation, eye-line angle for in-plane roll. Displacement normalized by each clip's median eye separation.",
+    "K_max_sampled_eye_center_displacement_px": 70.219886,
+    "F_max_sampled_eye_center_displacement_px": 24.314336,
+    "K_normalized_displacement_eye_separations": 0.371907,
+    "F_normalized_displacement_eye_separations": 0.149094,
+    "K_to_F_normalized_displacement_ratio_approx": 2.495,
+    "K_sampled_eye_line_roll_span_degrees": 4.137911,
+    "F_sampled_eye_line_roll_span_degrees": 1.964509,
+    "interpretation": "K has substantially more sampled head-image movement than F in the second sentence. These are sparse 2D image measurements, not precise 3D pitch/yaw or dense motion tracking."
+  },
+  "mouth_observations": [
+    "Both clips have a broad opening around 4.00 seconds and a narrower mouth near 4.48 seconds during never.",
+    "Both have rounded mouth shapes near 4.64-4.80 seconds around the end of never and sold.",
+    "At 4.92 seconds K approaches a closed-lip pose; F is narrow/pursed. Both reopen by 4.96-5.00 seconds around business, whose transcript onset plus measured audio delay is 4.973 seconds.",
+    "No clean uniform second-sentence mouth offset can be established from these sampled frames. This does not override the owner's moving-playback rejection.",
+    "Never and sold do not require a full bilabial lip closure. The v contact in never needs lower-lip/upper-teeth inspection, and exact phoneme timing is not supplied by the word transcript."
+  ],
+  "settings_evidence": {
+    "K": "repair-r12/status.json records Avatar III and no exposed custom-motion control",
+    "F": "repair-r6/status.json records Avatar III on the original video look and no exposed motion/expressiveness controls",
+    "B": "repair-r2/status.json records Avatar IV, calm custom prompt and More Expressive off; owner liked emphasis and word flow but rejected wide mouth/expression",
+    "C": "repair-r3/status.json records compact-mouth/head-still prompt and no clear sampled movement reduction",
+    "new_parent_live_UI_observation_not_independently_verified": "AI Studio for candidate03 with Avatar III exposes Advanced Settings > Customize Motion > selected Saved Footage 30s, whose menu says Motion Engine Avatar IV",
+    "inference": "The saved motion plate is a plausible source of K's head movement. Exact causal attribution requires verifying the actual selected footage, not inferring it from the engine label alone."
+  },
+  "targeted_next_intervention": {
+    "target": "Candidate03's saved motion base",
+    "recommendation": "If the UI permits source replacement, select or create a genuinely minimal-motion source for the same approved candidate03 appearance, then apply Avatar III to the exact same WAV. Verify that the selected Saved Footage changes before submitting. This isolates the inherited-motion stage; do not repeat III with the unchanged saved IV plate.",
+    "limit": "Changing the motion base can target nodding; it does not guarantee better phoneme synchronization. If the UI exposes no source replacement or lipsync-only option, report that limitation rather than claim a hidden control exists."
+  },
+  "files": ["k-f-second-sentence.jpg", "head-motion-measurements.json", "frames/"],
+  "parent_experiment_files_changed": [],
+  "provider_calls_or_generations": 0,
+  "production_approval": false,
+  "gates_changed": []
+}

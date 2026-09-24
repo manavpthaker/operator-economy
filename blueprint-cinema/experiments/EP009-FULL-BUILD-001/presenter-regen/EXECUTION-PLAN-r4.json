@@ -1,0 +1,639 @@
+{
+  "record_type": "presenter_selected_execution_plan",
+  "episode": "EP009-direct-booking-recovery",
+  "source_contract": "direction/SHOT-PLAN.json presenter_takes (ranges and words unchanged)",
+  "look": {
+    "id": "L3-chambray",
+    "image_reference": "173ee5c5-012c-4313-8b8f-13f93db6255c",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+  },
+  "behavior_references": [
+    "d11ea443-81ae-4208-a651-b3807fd43ff3"
+  ],
+  "provider": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "aspect_ratio": "16:9",
+    "generate_audio": true,
+    "restoration": "fal-ai/sync-lipsync/v3 sync_mode silence on the median-offset-trimmed native"
+  },
+  "split_rule": "Retain all base-plan silence splits, plus P01 recovery split. New generations cap at12seconds; P11a12seconds overrides original13. P01a is reused original source, not a new generation.",
+  "split_method": "Candidate gaps from word-transcript.json word boundaries, confirmed on the master waveform as runs of 5 ms RMS blocks below -40 dBFS (breath and room tone sit between -40 and -55 dBFS in this master, so the -55 dBFS cut rule finds no gap in P02 or P08). Each cut is the 1/24 s frame nearest the run centre, preferring sentence ends over balance.",
+  "split_notes": {
+    "P02": "Only sentence gap: \"meet them again.\" / \"By the end\" (79.40 to 79.965, a breath at -41 to -47 dBFS). 6.125 + 8.167 s.",
+    "P03": "Cut after \"email.\" (0.38 s) rather than the more balanced \"back,\" (0.26 s, mid sentence). 6.083 + 10.333 s.",
+    "P07": "Both sentence gaps measure about 0.25 s (\"stops.\" 523.57 to 523.825; \"sites.\" 528.69 to 529.0 with a click at 528.92). Chose \"stops.\" for the clean run. 3.292 + 8.542 s. Gap is at the 0.25 s floor.",
+    "P08": "Three parts, not two: the only gap near the middle (\"manager,\" 678.685 to 678.98) leaves a 12.25 s first part, over the 11.5 s limit. Sentence ends \"ago.\" and \"anybody.\" give 9.458 + 5.0 + 8.417 s for 9 more credits than the two-part split. The middle part is the admission, which the r1 crop plan also isolated.",
+    "P11": "Cut after \"The parts are cheap.\" (1185.955 to 1186.375) gives 11.125 + 10.292 s; the SHOT-PLAN fallback after \"direct.\" would leave an 11.83 s second part.",
+    "P12": "Cut on the seg072/seg073 boundary (after \"day thirty.\", 0.67 s gap). 7.958 + 9.458 s.",
+    "P13": "Cut after \"their size.\" (1223.655 to 1224.035) gives 9.958 + 9.769 s; the seg074/seg075 boundary would leave a 12.0 s first part. seg075 continues part b.",
+    "P01": "Recovery split at masterframe1306/sample2612000, in measured silence after arithmetic. P01a retains original native frames0-107 at original speed; P01b regenerates question."
+  },
+  "expected_vs_actual_parts": {
+    "original_expected": 20,
+    "base_plan_parts": 21,
+    "active_parts": 22,
+    "difference": "P08 requires3parts; P01 now has retained prefixP01a and short-question recoveryP01b."
+  },
+  "parts": [
+    {
+      "part_id": "P01a",
+      "take_id": "P01",
+      "segment_ids": [
+        "seg009"
+      ],
+      "master_in": 50.291667,
+      "master_out": 54.416666666666664,
+      "samples": 198000,
+      "audio_seconds": 4.125,
+      "generation_seconds": 11,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 71.5,
+      "words": "I couldn't find anyone selling it who'd done that arithmetic.",
+      "gesture": {
+        "kind": "look-away",
+        "phrase": "I couldn't find anyone"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/AVATAR-PROMPT.txt",
+      "cut_in": null,
+      "source_reuse": {
+        "part_id": "P01",
+        "native_source_frames": [
+          0,
+          108
+        ],
+        "provider_generation_is_original_11s_job": true
+      }
+    },
+    {
+      "part_id": "P01b",
+      "take_id": "P01",
+      "segment_ids": [
+        "seg009"
+      ],
+      "master_in": 54.416666666666664,
+      "master_out": 59.458333,
+      "samples": 242000,
+      "audio_seconds": 5.041666666666667,
+      "generation_seconds": 7,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 45.5,
+      "words": "So what did that second stay actually cost her, and who gets paid to stop it?",
+      "gesture": {
+        "kind": "none",
+        "phrase": "question"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01b/AVATAR-PROMPT.txt",
+      "cut_in": "Measured silence after arithmetic; hard W-to-M crop cut."
+    },
+    {
+      "part_id": "P02a",
+      "take_id": "P02",
+      "segment_ids": [
+        "seg012"
+      ],
+      "master_in": 73.541667,
+      "master_out": 79.666667,
+      "samples": 294000,
+      "audio_seconds": 6.125,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 72,
+      "words": "It helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P02b",
+      "take_id": "P02",
+      "segment_ids": [
+        "seg012"
+      ],
+      "master_in": 79.666667,
+      "master_out": 87.833333,
+      "samples": 392000,
+      "audio_seconds": 8.166667,
+      "generation_seconds": 10,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 90,
+      "words": "By the end you'll be able to take four numbers from a small property and know what it can honestly pay for the job, and whether that's worth your time.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "four numbers"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P02b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 1912,
+        "master_seconds": 79.666667,
+        "silent_run_below_minus40_dbfs": [
+          79.4,
+          79.965
+        ]
+      }
+    },
+    {
+      "part_id": "P03a",
+      "take_id": "P03",
+      "segment_ids": [
+        "seg019"
+      ],
+      "master_in": 188.666667,
+      "master_out": 194.75,
+      "samples": 292000,
+      "audio_seconds": 6.083333,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 72,
+      "words": "Which brings us to the question. The site introduces the guest and keeps the guest's email.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "keeps the guest's email"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P03b",
+      "take_id": "P03",
+      "segment_ids": [
+        "seg019"
+      ],
+      "master_in": 194.75,
+      "master_out": 205.083333,
+      "samples": 496000,
+      "audio_seconds": 10.333333,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 108,
+      "words": "When that guest comes back, who at the inn is paid to make sure the second booking comes to the inn? And if the answer is nobody, can somebody from outside get paid to do it?",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P03b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 4674,
+        "master_seconds": 194.75,
+        "silent_run_below_minus40_dbfs": [
+          194.57,
+          194.95
+        ]
+      }
+    },
+    {
+      "part_id": "P04",
+      "take_id": "P04",
+      "segment_ids": [
+        "seg021"
+      ],
+      "master_in": 226.208333,
+      "master_out": 236.291667,
+      "samples": 484000,
+      "audio_seconds": 10.083333,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 108,
+      "words": "I think it can be sold from outside. But only for what it recovers, and what it recovers is a number. By the end you'll be able to compute it for any inn.",
+      "gesture": {
+        "kind": "flat-hand-lower",
+        "phrase": "is a number"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P04/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P05",
+      "take_id": "P05",
+      "segment_ids": [
+        "seg028"
+      ],
+      "master_in": 368.0,
+      "master_out": 373.375,
+      "samples": 258000,
+      "audio_seconds": 5.375,
+      "generation_seconds": 7,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 45.5,
+      "words": "Fair question here. If the parts to fix this are cheap, why doesn't the inn just do it?",
+      "gesture": {
+        "kind": "both-palms-up",
+        "phrase": "just do it"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P05/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P06",
+      "take_id": "P06",
+      "segment_ids": [
+        "seg035"
+      ],
+      "master_in": 469.291667,
+      "master_out": 480.041667,
+      "samples": 516000,
+      "audio_seconds": 10.75,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 108,
+      "words": "I could not find anyone selling it to the twenty room inn. It's that the inn can only pay what the job recovers, and nobody selling this has published what that is.",
+      "gesture": {
+        "kind": "hand-to-chest",
+        "phrase": "I could not find anyone"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P06/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P07a",
+      "take_id": "P07",
+      "segment_ids": [
+        "seg037"
+      ],
+      "master_in": 520.416667,
+      "master_out": 523.708333,
+      "samples": 158000,
+      "audio_seconds": 3.291667,
+      "generation_seconds": 5,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 32.5,
+      "words": "That's where the old version of this argument stops.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P07b",
+      "take_id": "P07",
+      "segment_ids": [
+        "seg037"
+      ],
+      "master_in": 523.708333,
+      "master_out": 532.25,
+      "samples": 410000,
+      "audio_seconds": 8.541667,
+      "generation_seconds": 10,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 65.0,
+      "words": "It's the wrong number, because the inn is never going to move all of it. It needs the sites. The real question is what a recovery service can shift.",
+      "gesture": {
+        "kind": "set-aside",
+        "phrase": "It's the wrong number"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P07b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 12569,
+        "master_seconds": 523.708333,
+        "silent_run_below_minus40_dbfs": [
+          523.57,
+          523.825
+        ]
+      }
+    },
+    {
+      "part_id": "P08a",
+      "take_id": "P08",
+      "segment_ids": [
+        "seg044"
+      ],
+      "master_in": 666.583333,
+      "master_out": 676.041667,
+      "samples": 454000,
+      "audio_seconds": 9.458333,
+      "generation_seconds": 11,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 99,
+      "words": "I spent two years in boutique hospitality as Director of Customer Experience at Coqui Coqui, four properties, on the property side of the booking sites, a decade ago.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "four properties"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P08b",
+      "take_id": "P08",
+      "segment_ids": [
+        "seg044"
+      ],
+      "master_in": 676.041667,
+      "master_out": 681.041667,
+      "samples": 240000,
+      "audio_seconds": 5.0,
+      "generation_seconds": 6,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 54,
+      "words": "I've never owned a hotel, I wasn't a revenue manager, and I haven't sold this service to anybody.",
+      "gesture": {
+        "kind": "look-away",
+        "phrase": "I've never owned a hotel"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 16225,
+        "master_seconds": 676.041667,
+        "silent_run_below_minus40_dbfs": [
+          675.91,
+          676.22
+        ]
+      }
+    },
+    {
+      "part_id": "P08c",
+      "take_id": "P08",
+      "segment_ids": [
+        "seg044"
+      ],
+      "master_in": 681.041667,
+      "master_out": 689.458333,
+      "samples": 404000,
+      "audio_seconds": 8.416667,
+      "generation_seconds": 10,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 90,
+      "words": "So I know the guest's path from inside a property. I don't know what a thirty room inn will pay to fix it. That's the test, not the pitch.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "That's the test"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P08c/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 16345,
+        "master_seconds": 681.041667,
+        "silent_run_below_minus40_dbfs": [
+          680.84,
+          681.23
+        ]
+      }
+    },
+    {
+      "part_id": "P09",
+      "take_id": "P09",
+      "segment_ids": [
+        "seg055"
+      ],
+      "master_in": 879.166667,
+      "master_out": 885.875,
+      "samples": 322000,
+      "audio_seconds": 6.708333,
+      "generation_seconds": 8,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 52.0,
+      "words": "Those are hypotheses, not a funnel, and I won't invent a conversion rate to make them look like one.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P09/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P10",
+      "take_id": "P10",
+      "segment_ids": [
+        "seg059"
+      ],
+      "master_in": 976.541667,
+      "master_out": 982.875,
+      "samples": 304000,
+      "audio_seconds": 6.333333,
+      "generation_seconds": 8,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 72,
+      "words": "That's a side income. It's a foothold. It is not a living. Up the band it becomes a business.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "Up the band"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P10/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P11a",
+      "take_id": "P11",
+      "segment_ids": [
+        "seg071"
+      ],
+      "master_in": 1175.041667,
+      "master_out": 1186.166667,
+      "samples": 534000,
+      "audio_seconds": 11.125,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 108,
+      "words": "My verdict is build. Bounded. The problem is real, documented from four directions. The buyer is direct. The parts are cheap.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11a/AVATAR-PROMPT-r2.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P11b",
+      "take_id": "P11",
+      "segment_ids": [
+        "seg071"
+      ],
+      "master_in": 1186.166667,
+      "master_out": 1196.458333,
+      "samples": 494000,
+      "audio_seconds": 10.291667,
+      "generation_seconds": 12,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 108,
+      "words": "And the arithmetic at the bottom of the band is thin, and I've told you so. So build the audit, because the audit is the test, and it costs you three properties and a month.",
+      "gesture": {
+        "kind": "flat-hand-lower",
+        "phrase": "the audit is the test"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P11b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 28468,
+        "master_seconds": 1186.166667,
+        "silent_run_below_minus40_dbfs": [
+          1185.955,
+          1186.375
+        ]
+      }
+    },
+    {
+      "part_id": "P12a",
+      "take_id": "P12",
+      "segment_ids": [
+        "seg072"
+      ],
+      "master_in": 1196.458333,
+      "master_out": 1204.416667,
+      "samples": 382000,
+      "audio_seconds": 7.958333,
+      "generation_seconds": 9,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 81,
+      "words": "What I'm not saying is that a twenty room inn will pay you. Nobody knows that yet, including me. You'll know by day thirty.",
+      "gesture": {
+        "kind": "hand-to-chest",
+        "phrase": "including me"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P12b",
+      "take_id": "P12",
+      "segment_ids": [
+        "seg073"
+      ],
+      "master_in": 1204.416667,
+      "master_out": 1213.875,
+      "samples": 454000,
+      "audio_seconds": 9.458333,
+      "generation_seconds": 11,
+      "resolution": "1080p",
+      "credits_per_second": 9,
+      "est_credits": 99,
+      "words": "The first move costs you an afternoon. Find one innkeeper you already know. Ask for four numbers. Run the ceiling.",
+      "gesture": {
+        "kind": "small-lift",
+        "phrase": "Ask for four numbers"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P12b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 28906,
+        "master_seconds": 1204.416667,
+        "silent_run_below_minus40_dbfs": [
+          1204.065,
+          1204.74
+        ]
+      }
+    },
+    {
+      "part_id": "P13a",
+      "take_id": "P13",
+      "segment_ids": [
+        "seg074"
+      ],
+      "master_in": 1213.875,
+      "master_out": 1223.833333,
+      "samples": 478000,
+      "audio_seconds": 9.958333,
+      "generation_seconds": 11,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 71.5,
+      "words": "Tell them what you found, and ask if they'd pay you to fix it. Not to close them. To find out, in one conversation, whether this business exists at their size.",
+      "gesture": {
+        "kind": "open-palm",
+        "phrase": "ask if they'd pay you"
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13a/AVATAR-PROMPT.txt",
+      "cut_in": null
+    },
+    {
+      "part_id": "P13b",
+      "take_id": "P13",
+      "segment_ids": [
+        "seg074",
+        "seg075"
+      ],
+      "master_in": 1223.833333,
+      "master_out": 1233.602,
+      "samples": 468896,
+      "audio_seconds": 9.768667,
+      "generation_seconds": 11,
+      "resolution": "720p",
+      "credits_per_second": 6.5,
+      "est_credits": 71.5,
+      "words": "Right now nobody knows. If you want more businesses worked all the way down to the number that decides them, leave a like, and subscribe for the next one.",
+      "gesture": {
+        "kind": "none",
+        "phrase": null
+      },
+      "prompt": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P13b/AVATAR-PROMPT.txt",
+      "cut_in": {
+        "frame": 29372,
+        "master_seconds": 1223.833333,
+        "silent_run_below_minus40_dbfs": [
+          1223.655,
+          1224.035
+        ]
+      }
+    }
+  ],
+  "totals": {
+    "parts": 22,
+    "provider_generation_seconds_including_consumed_whole_P01": 211,
+    "take_credits_including_consumed_whole_P01": 1724.0,
+    "look_and_completed_diagnostic_credits": 74,
+    "total_lane_credits": 1798,
+    "remaining20_credits": 1607,
+    "nominal_fal_input_seconds_before_trims": 204.5,
+    "est_fal_usd_nominal_before_trims": 27.2667,
+    "fal_cap_usd": 30,
+    "fal_estimate_limit": "Actual provider container durations and valid trims determine charges; enforce remaining30dollar cap at every submission."
+  },
+  "revision": "r4-reconciled-short-question-recovery",
+  "base_plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/TAKE-PLAN.json",
+    "sha256": "9af248b9766d8fd5d13c231bad21dbf1c5a90fee00ba1eafbf4ecee1ecd4a0c3"
+  },
+  "crop_overrides": {
+    "seg009": [
+      [
+        50.291667,
+        "W"
+      ],
+      [
+        54.416666666666664,
+        "M"
+      ]
+    ]
+  },
+  "recovery": {
+    "reason": "Whole P01 fails timing spread0.92s; original-speed sentence1 independently passes0.00s. Reuse prefix without retiming and generate only second sentence. Original plan and P01 retained.",
+    "native_prefix_frames": [
+      0,
+      108
+    ],
+    "master_split_sample": 2612000,
+    "remaining_paid_test_credits": 45.5,
+    "look_and_successful_diagnostics_credits": 74,
+    "total_take_credits": 1724.0,
+    "total_lane_credits_if_all_remaining_takes_succeed": 1798,
+    "credit_cap": 1800,
+    "remaining_contingency": 2,
+    "batch_gate": "Do not submit remaining20 until P01a/P01b native timing, restoration and review checks are evaluated.",
+    "owner_accepted": false
+  },
+  "previous_plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r3.json",
+    "sha256": "9dff1b5ac61577c3c7d3a62ac031431a59c7a83a47e66b485f833aa883b79145"
+  }
+}

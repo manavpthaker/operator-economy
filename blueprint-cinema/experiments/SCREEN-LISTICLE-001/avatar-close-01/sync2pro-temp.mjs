@@ -1,0 +1,20 @@
+// One lipsync-2-pro pass on the native close take with the exact close audio. No retries.
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
+import {createRequire} from 'node:module'; import {fileURLToPath} from 'node:url';
+const base=path.dirname(fileURLToPath(import.meta.url));
+const repo=path.resolve(base,'../../../../');
+const req=createRequire(path.join(repo,'blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/package.json'));
+const {fal}=req('@fal-ai/client');
+const line=fs.readFileSync(path.join(repo,'.env'),'utf8').split(/\r?\n/).find(x=>x.startsWith('FAL_KEY='));
+fal.config({credentials:line.slice(8).trim().replace(/^['"]|['"]$/g,'')});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const req0=JSON.parse(fs.readFileSync(path.join(base,'SYNC-REQUEST.json')));
+const input={video_url:req0.input.video_url,audio_url:req0.input.audio_url,sync_mode:'cut_off',temperature:Number(process.argv[3]||'0.3')};
+const model=process.argv[2]||'fal-ai/sync-lipsync/v2/pro';
+fs.writeFileSync(path.join(base,'SYNC2PRO-T'+process.argv[3]+'-REQUEST.json'),JSON.stringify({at:new Date().toISOString(),model,input},null,2)+'\n',{flag:'wx'});
+const result=await fal.subscribe(model,{input,logs:false});
+fs.writeFileSync(path.join(base,'SYNC2PRO-T'+process.argv[3]+'-RESULT.json'),JSON.stringify({at:new Date().toISOString(),request_id:result.requestId,data:result.data},null,2)+'\n',{flag:'wx'});
+const url=result.data?.video?.url; if(!url) throw Error('no video url');
+const out=Buffer.from(await (await fetch(url)).arrayBuffer());
+fs.writeFileSync(path.join(base,'media/synced-2pro-t'+process.argv[3]+'.mp4'),out,{flag:'wx'});
+console.log(JSON.stringify({model,url,sha256:sha(out),bytes:out.length}));

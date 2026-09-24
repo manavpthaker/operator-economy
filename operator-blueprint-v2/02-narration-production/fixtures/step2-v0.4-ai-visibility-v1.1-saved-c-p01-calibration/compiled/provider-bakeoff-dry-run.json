@@ -1,0 +1,452 @@
+{
+  "audio_files_created": 0,
+  "bindings": {
+    "canonical_w": {
+      "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+      "token_count": 3019
+    },
+    "performance_envelope": {
+      "sha256": "36cc45786d2d1b8819d4f74fc284ca75e8c8ef87fdce0d55bcd78c41e03984b9"
+    },
+    "provider_adapters": {
+      "elevenlabs": {
+        "sha256": "3834fbd860ff8275e68f227929b31e382a813e7ff010551899bd82f2c8b22cb2"
+      },
+      "hume": {
+        "sha256": "92f9fa382c36ed500dc886c9e34616541e3e86d2550a69db251b52c6b14923f4"
+      }
+    },
+    "provider_bakeoff_plan": {
+      "sha256": "eb4acd6bb70f5e5d5f654298aa3fd2b9060cf8e6ef5dc8497a614521c51a707f"
+    }
+  },
+  "compilation_id": "ai-visibility-v1.1-saved-c-p01-eleven-v3-calibration-v1-compiled",
+  "compiler_contract": {
+    "eleven_candidate_rule": "same_words_same_tags_paired_fixed_seeds_separate_generation",
+    "hume_candidate_rule": "same_request_num_generations_2",
+    "hume_clone_method": "manual_platform_ui_only_no_upload_api_asserted",
+    "hume_endpoint": "/v0/tts",
+    "hume_placeholder": "__HUME_CLONE_ID_PENDING__",
+    "hume_recompile_rule": "Bind a real clone/provenance receipt, then regenerate and rehash before authorization.",
+    "request_body_hash_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+    "token_ranges": "absolute_half_open_canonical_w"
+  },
+  "credentials_accessed": false,
+  "mode": "dry_run",
+  "network_called": false,
+  "notices": [
+    "No provider request was made.",
+    "No credential was read.",
+    "No voice sample was retrieved or uploaded.",
+    "No clone or audio was created.",
+    "Each external action requires its own active, unconsumed, hash-bound authorization."
+  ],
+  "provider_calls_made": 0,
+  "request_set_sha256": "70ae263d4a2d843df2ab072179af63916b50de6cb2b8864c2255204d30f7d75d",
+  "requests": [
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-C-A"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P01-S00/candidate-A.pcm"
+      ],
+      "end_token": 139,
+      "estimated_billable_character_count": 842,
+      "estimated_public_rate_cost_usd": 0.0842,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P01-S00/candidate-A.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 842,
+        "estimated_additional_public_rate_cost_usd": 0.0842,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "seed": 2026082401,
+          "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "b064e3c83188022ac8e6ae22ae2badc2f898f200ea626612e76dccf7de09a09b",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/scMbPZwQjr40V1MzL3Nj"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-saved-c",
+      "provider_text_character_count": 842,
+      "provider_text_sha256": "e957dfacc91f6acdffa4858223fc154cae193466e186621f4703e78316281b8b",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "seed": 2026082401,
+        "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "b064e3c83188022ac8e6ae22ae2badc2f898f200ea626612e76dccf7de09a09b",
+      "request_id": "EL-C-P01-A",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "tag_insertions": [
+        {
+          "at_token": 0,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 37,
+          "tag": "[sarcastic]"
+        },
+        {
+          "at_token": 78,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 135,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/scMbPZwQjr40V1MzL3Nj"
+    },
+    {
+      "blockers": [
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-C-B"
+      ],
+      "destinations": [
+        "outputs/raw/elevenlabs/P01-S00/candidate-B.pcm"
+      ],
+      "end_token": 139,
+      "estimated_billable_character_count": 842,
+      "estimated_public_rate_cost_usd": 0.0842,
+      "estimated_public_rate_usd_per_1000_characters": 0.1,
+      "execution_ready": false,
+      "fallback_request": {
+        "destination": "outputs/raw/elevenlabs/P01-S00/candidate-B.mp3",
+        "enabled": true,
+        "estimated_additional_billable_character_count": 842,
+        "estimated_additional_public_rate_cost_usd": 0.0842,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {
+          "output_format": "mp3_44100_192"
+        },
+        "request_body": {
+          "model_id": "eleven_v3",
+          "seed": 2026082402,
+          "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+          "voice_settings": {
+            "similarity_boost": 0.6,
+            "stability": 0.5,
+            "style": 0.1
+          }
+        },
+        "request_body_sha256": "71dd020fb07e50518baeb9a9acd2241868ea7c0dd1aa722c7fa54e66ca1ab56d",
+        "requires": [
+          "documented_pcm_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v1/text-to-speech/scMbPZwQjr40V1MzL3Nj"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 1,
+      "provider": "elevenlabs",
+      "provider_id": "elevenlabs-v3-manav-saved-c",
+      "provider_text_character_count": 842,
+      "provider_text_sha256": "e957dfacc91f6acdffa4858223fc154cae193466e186621f4703e78316281b8b",
+      "query": {
+        "output_format": "pcm_48000"
+      },
+      "request_body": {
+        "model_id": "eleven_v3",
+        "seed": 2026082402,
+        "text": "[curious] A customer has a meaningful decision to make.\n\nWhich software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call.\n\nSo they ask an AI.\n\nYour company is missing from the answer.\n\n[sarcastic] Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.\n\nYou open the search dashboard. Everything is green.\n\nAnd the dashboard may be right. It is just watching a different doorway.\n\n[excited] That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.\n\nBut before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee.\n\n[warmly] Let's work that out.",
+        "voice_settings": {
+          "similarity_boost": 0.6,
+          "stability": 0.5,
+          "style": 0.1
+        }
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "71dd020fb07e50518baeb9a9acd2241868ea7c0dd1aa722c7fa54e66ca1ab56d",
+      "request_id": "EL-C-P01-B",
+      "required_header_names": [
+        "Content-Type",
+        "xi-api-key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "tag_insertions": [
+        {
+          "at_token": 0,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 37,
+          "tag": "[sarcastic]"
+        },
+        {
+          "at_token": 78,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 135,
+          "tag": "[warmly]"
+        }
+      ],
+      "url_path": "/v1/text-to-speech/scMbPZwQjr40V1MzL3Nj"
+    },
+    {
+      "acting_description_sha256": "acd75031a89f5e4ef0f3bf38aca12c1d122c06d986837c8f3ac0ce4169af8c8a",
+      "blockers": [
+        "hume_clone_id_and_provenance_receipt_absent",
+        "hume_account_tier_unverified",
+        "hume_commercial_use_eligibility_unverified",
+        "separate_active_calibration_authorization_absent"
+      ],
+      "candidate_ids": [
+        "P01-HU-INERT-A",
+        "P01-HU-INERT-B"
+      ],
+      "destinations": [
+        "outputs/raw/hume/P01-S00/generation-0.wav",
+        "outputs/raw/hume/P01-S00/generation-1.wav"
+      ],
+      "dialogue_text_sha256": "6724b3c2ac5d4daf3cdbda409413012c42ad51a9849b4bc6e6ecf9a7229134f4",
+      "end_token": 139,
+      "estimated_billable_character_count": 1576,
+      "estimated_public_rate_cost_usd": 0.2364,
+      "estimated_public_rate_usd_per_1000_characters": 0.15,
+      "execution_ready": false,
+      "fallback_request": {
+        "destinations": [
+          "outputs/raw/hume/P01-S00/generation-0.mp3",
+          "outputs/raw/hume/P01-S00/generation-1.mp3"
+        ],
+        "enabled": true,
+        "estimated_additional_billable_character_count": 1576,
+        "estimated_additional_public_rate_cost_usd": 0.2364,
+        "execution_ready": false,
+        "method": "POST",
+        "planned_additional_call_count": 1,
+        "query": {},
+        "request_body": {
+          "format": {
+            "type": "mp3"
+          },
+          "num_generations": 2,
+          "split_utterances": false,
+          "strip_headers": true,
+          "utterances": [
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: A calm, experienced operator opening a serious question for one capable listener. Natural conversational pace. Alert, not dramatic.",
+              "text": "A customer has a meaningful decision to make. Which software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call. So they ask an AI.",
+              "trailing_silence": 0.45,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Understate the bad news. Dry disbelief, with the humor coming from the stale 2022 detail. Do not sound amused with the customer.",
+              "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Matter-of-fact recognition, then a small pause as the dashboard contradiction becomes clear.",
+              "text": "You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway.",
+              "trailing_silence": 0.5,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Warm strategic confidence. Make the business possibility legible without pitching or promising it.",
+              "text": "That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.",
+              "trailing_silence": 0.55,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            },
+            {
+              "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Candid skepticism. Leave the market question genuinely open, then invite the listener to work it out.",
+              "text": "But before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee. Let's work that out.",
+              "trailing_silence": 0.8,
+              "voice": {
+                "id": "__HUME_CLONE_ID_PENDING__"
+              }
+            }
+          ],
+          "version": "1"
+        },
+        "request_body_sha256": "2b66ad9185016394bcff46668ef080352054695ad5e9b3870794de4f62fe8aed",
+        "requires": [
+          "documented_lossless_capability_rejection_receipt",
+          "new_hash_bound_fallback_request",
+          "verified_actual_mp3_codec",
+          "verified_actual_bitrate_at_least_192000_bps",
+          "active_authorization_caps_include_fallback"
+        ],
+        "url_path": "/v0/tts"
+      },
+      "method": "POST",
+      "passage_id": "P01-S00",
+      "planned_call_count": 1,
+      "planned_output_count": 2,
+      "provider": "hume",
+      "provider_id": "hume-inert-schema-entry",
+      "query": {},
+      "request_body": {
+        "format": {
+          "type": "wav"
+        },
+        "num_generations": 2,
+        "split_utterances": false,
+        "strip_headers": true,
+        "utterances": [
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: A calm, experienced operator opening a serious question for one capable listener. Natural conversational pace. Alert, not dramatic.",
+            "text": "A customer has a meaningful decision to make. Which software belongs on the shortlist. Which firm seems qualified. Which provider looks trustworthy enough to call. So they ask an AI.",
+            "trailing_silence": 0.45,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Understate the bad news. Dry disbelief, with the humor coming from the stale 2022 detail. Do not sound amused with the customer.",
+            "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Matter-of-fact recognition, then a small pause as the dashboard contradiction becomes clear.",
+            "text": "You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway.",
+            "trailing_silence": 0.5,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Warm strategic confidence. Make the business possibility legible without pitching or promising it.",
+            "text": "That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action.",
+            "trailing_silence": 0.55,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          },
+          {
+            "description": "Experienced operator across the table. Camera-ready, alert, and personally engaged in the puzzle. Start with immediate consequence and quick forward movement. Let the absurdity register with dry irritation, then reveal the business possibility with curiosity. About eight out of ten energy. Never sound like a trailer, announcer, or motivational speaker. Thought direction: Candid skepticism. Leave the market question genuinely open, then invite the listener to work it out.",
+            "text": "But before you sell that, you need to know whether this is a real market opening or a new chart looking for a monthly fee. Let's work that out.",
+            "trailing_silence": 0.8,
+            "voice": {
+              "id": "__HUME_CLONE_ID_PENDING__"
+            }
+          }
+        ],
+        "version": "1"
+      },
+      "request_body_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+      "request_body_sha256": "14f2e0c7a31eb22048bf941719da59fbe1b16cec253b7652a182f1015600cef8",
+      "request_id": "HU-P01-INERT",
+      "required_header_names": [
+        "Content-Type",
+        "X-Hume-Api-Key"
+      ],
+      "spoken_text_sha256": "1e27c7c8793c6814935fcd74bbb41a87b2123ed0f19c53cd75b5835de9ec8454",
+      "start_token": 0,
+      "url_path": "/v0/tts"
+    }
+  ],
+  "schema_version": "oe-provider-bakeoff-dry-run-v1",
+  "status": "non_executable",
+  "totals": {
+    "by_provider": {
+      "elevenlabs": {
+        "execution_ready": false,
+        "maximum_with_one_fallback_per_request": {
+          "expected_output_count": 2,
+          "max_billable_character_count": 3368,
+          "max_call_count": 4,
+          "max_modeled_public_rate_cost_usd": 0.3368
+        },
+        "primary_lossless": {
+          "estimated_billable_character_count": 1684,
+          "estimated_public_rate_cost_usd": 0.1684,
+          "expected_output_count": 2,
+          "planned_call_count": 2
+        }
+      },
+      "hume": {
+        "execution_ready": false,
+        "maximum_with_one_fallback_per_request": {
+          "expected_output_count": 2,
+          "max_billable_character_count": 3152,
+          "max_call_count": 2,
+          "max_modeled_public_rate_cost_usd": 0.4728
+        },
+        "primary_lossless": {
+          "estimated_billable_character_count": 1576,
+          "estimated_public_rate_cost_usd": 0.2364,
+          "expected_output_count": 2,
+          "planned_call_count": 1
+        }
+      }
+    },
+    "maximum_with_one_fallback_per_request": {
+      "expected_output_count": 4,
+      "max_billable_character_count": 6520,
+      "max_call_count": 6,
+      "max_modeled_public_rate_cost_usd": 0.8096
+    },
+    "primary_lossless": {
+      "estimated_billable_character_count": 3260,
+      "estimated_public_rate_cost_usd": 0.4048,
+      "expected_output_count": 4,
+      "planned_call_count": 3
+    }
+  }
+}

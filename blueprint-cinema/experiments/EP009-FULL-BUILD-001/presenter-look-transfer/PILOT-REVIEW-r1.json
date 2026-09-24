@@ -1,0 +1,40 @@
+{
+  "at": "2026-09-17T23:31:51.139556+00:00",
+  "record_type": "scoped_pilot_review",
+  "status": "partial_stage_usable_full_look_pending",
+  "owner_accepted": false,
+  "kling": {
+    "candidate": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/pilot-seg074/kling-r1/native.mp4",
+      "sha256": "803c36ce8287a5fc3a998560e9cd15e915792931a84fb2486e5a4ba7b3025071"
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/pilot-seg074/kling-r1/source-left-edit-right.png",
+        "sha256": "eff4c851d90b782e06cb2b52ab1e4a6b120db230150006d1bec2369fde4c76ca"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/pilot-seg074/kling-r1/qa/PERFORMANCE-COMPARISON.json",
+        "sha256": "04609315dc8ce2fb9d1f8ae001868701f9d8b2b346e8c20adaa7c2dee2e759cd"
+      }
+    ],
+    "finding": "Wardrobe updated. Original room still present. Matching source/candidate frame0,144,287 retain gestures, head position, gaze and speaking/rest expressions. All288source positionscovered atsame24fps timestamps. One additional provider tail frame can be excluded without dropping originalcoverage.",
+    "eligibility": "Wardrobe stage only; full appearance not cleared."
+  },
+  "genjutsu": {
+    "candidate": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/pilot-seg074/genjutsu-r1/native.mp4",
+      "sha256": "c8d40368d07293eb2ef57a66631f9e09e3130b2feda7bf602d79ffab84559e74"
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/pilot-seg074/genjutsu-r1/source-left-edit-right.png",
+        "sha256": "f151fb9a75844078ab2bd35fc247b3704ae77af9646090f667c25552ab0b366c"
+      }
+    ],
+    "finding": "Target outfit and room appear, but raised source hand has been flattened/altered and mouth at6s differs. Only281frames vs288; no held-frame padding authorized.",
+    "eligibility": "Rejected for existing-performance replacements."
+  },
+  "next": "Separate room-only Kling pass on successful wardrobe pilot; job21facce7-28ce-45c6-b671-42c0b5fe19b1. All13other wardrobe-only jobs may proceed under bounded stage decision, but must be individually reviewed. No full integration until room/performance preserved.",
+  "limits": "Agent judgment from matching static frames plus all-frame tracking proxies; not owner acceptance or claim of pixel-identical skin/face. All originals and raw results retained."
+}

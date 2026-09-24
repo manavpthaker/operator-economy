@@ -1,0 +1,86 @@
+[
+  {
+    "event_id": "r53-owner-a-binder-return-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "film",
+      "false-inference"
+    ],
+    "data": {
+      "decision_event_id": "r53-s10-section-plan-v1",
+      "actor": "owner",
+      "verbatim": "The binder doesn\u2019t make sense because  the script is about prepping before",
+      "interpretation": "Part A's binder closing contradicts the narrated plan to prepare before selling.",
+      "verdict": "revise",
+      "scope": "Part A (master 343.125-350.958) only.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/qa/r53-a-owner-binder.mp4",
+          "sha256": "4856a2668682a7886676da5f4dd325a9a012c3e9eac33cabcf3f296cdc712098"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/OWNER-A-RETURN.json",
+        "sha256": "b05bf8fc317344171ce8fc5014c223c77501e35f77d2092d6e4d05d41d2c5ace",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r53-a-owner-plans-v2",
+    "decision_id": "s10-no-schedule",
+    "event_type": "decision",
+    "supersedes": "r53-s10-section-plan-v1",
+    "tags": [
+      "film",
+      "performance",
+      "false-inference",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show the owner's plan to prepare before selling, which the evidence then undercuts on timing.",
+        "viewer_before": "The buyer walked away.",
+        "viewer_after": "The owner intends to fix it; the narrator questions the plan's timing."
+      },
+      "choice": "Part A only: same start frame; she turns back to the table, draws the sheet toward her, picks up the pencil and starts writing an unreadable list, still writing through 'Here is the problem with that plan.' Parts B and C unchanged.",
+      "reason": "Owner: the script is about prepping before selling; closing the binder read as shelving it. Writing a list shows intent to prepare without resolving it.",
+      "alternatives": [
+        {
+          "choice": "Close the binder (v1)",
+          "reason_not_selected": "Owner returned: reads as giving up."
+        },
+        {
+          "choice": "Square the sheet on the binder for later",
+          "reason_not_selected": "Still reads as postponing, not preparing."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "Picture illustrates a character's stated intention that narration then challenges.",
+        "avoid_when": "The narration describes avoidance or refusal."
+      },
+      "nuance": {
+        "performance": "Determined, purposeful writing; unreadable marks; seated; locked camera.",
+        "false_inference": "That she has already solved the problem, or that the page contents are real.",
+        "source_basis": "Owner revision."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/OWNER-PLAN.request.json",
+        "sha256": "e9a92842a81294e3f64290633593f72bfd7d5c75693f57371f88acb93c0ad0c8",
+        "locator": "Prepared part A v2 request"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/OWNER-PLAN-PROMPT.txt",
+        "sha256": "d9398b6015e94a91a372bb1c2ed9b893baf7cf3418ac8c39fb61edccd7ca5472",
+        "locator": "Prompt"
+      }
+    ]
+  }
+]

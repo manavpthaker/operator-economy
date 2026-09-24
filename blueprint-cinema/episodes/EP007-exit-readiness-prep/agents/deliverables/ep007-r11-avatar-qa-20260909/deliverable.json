@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r11-avatar-qa-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/public/media/presenter-pickups.mp4",
+      "sha256": "6fb42c381d17d8dd2130e71a6986845f995f90d7e4f3c4a1a957b8973fbaf81f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/public/audio/presenter-pickups.wav",
+      "sha256": "a6259d08e382661f35d66961e0ecfe02ee65f3467a70def3c4acea69b63106fd"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/404.mp4",
+      "sha256": "a0de31c36bde22219a1e067178b86cf750e7da1f11a69a775c370c82df6f29dd"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/check-media.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/diagnostics/measurements.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/diagnostics/pickup-contact.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/diagnostics/source404-contact.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/diagnostics/pickup-face.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-avatar-qa-20260909/diagnostics/pickup-bottom.png"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 verify all three pinned source files before diagnostic runs",
+      "outcome": "pass"
+    },
+    {
+      "command": "check-media.py: ffprobe exact input media dimensions, rates, codecs and durations; confirm requested source ranges fit",
+      "outcome": "pass"
+    },
+    {
+      "command": "check-media.py: normalized waveform cross-correlation across five windows, lag search plus or minus 100 milliseconds",
+      "outcome": "pass"
+    },
+    {
+      "command": "check-media.py: ffmpeg -v error -xerror full downloaded pickup decode",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare 10 matched output and 404 frames, enlarged face sheet, and three enlarged bottom-edge strips",
+      "outcome": "pass"
+    },
+    {
+      "command": "Source bottom-edge artifact-free inspection",
+      "outcome": "fail"
+    },
+    {
+      "command": "Normal-speed audiovisual and phoneme review, actual composed crop and browser compatibility verification",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Validate deliverable.json with blueprint-cinema/schemas/agent-deliverable.schema.json and recompute all source hashes",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Report SHA-256: 09bc611aaeb499a147cb846911496be3e268b42f85a56c25e4f963ba00c3add2",
+    "Reproducible diagnostic script SHA-256: db07b59ea7794f5fdddf5913a487d97dd2e82062624023a2a54aa7b352537bbc",
+    "Only existing local synthetic media and exact pickup WAV were inspected. No external source, provider call, upload, download, credential read, or new synthetic generation occurred.",
+    "Diagnostic stills were extracted with FFmpeg from the pinned local source files. They remain within the owned ignored diagnostics folder.",
+    "Read-only reference: R10 check-sync.py methodology. No source code or experiment file was modified."
+  ],
+  "assumptions": [
+    "Final picture uses are source frames 0 through 96 and 160 through 265 at 24 fps, with exclusive out points 97 and 266.",
+    "The final soundtrack remains the continuous original narration master; concatenated provider pickup audio is measurement reference only.",
+    "Absent episode-level README.md, episode.json and input-lock.json mean this isolated review binds to explicit work-order hashes without claiming canonical state."
+  ],
+  "unresolved_questions": [
+    "The orchestrator must verify bottom-edge masking and 8-bit browser-safe derivative or runtime proxy in actual R11 preview.",
+    "Full-speed audiovisual and phoneme fidelity remain untested; zero audio lag does not prove mouth-sync quality.",
+    "Hands are mostly below the frame, limiting gesture-quality assessment."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "partial"
+}

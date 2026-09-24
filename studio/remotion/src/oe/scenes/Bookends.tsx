@@ -24,9 +24,9 @@ import {COLORS, FONTS, TRACK, TYPE} from '../theme';
  * that was missing: the thing they clicked is on screen at frame 0, and
  * they watch it become the diagram the rest of the episode is drawn in.
  *
- * TitleCard: Paper editorial print — episode № overline, Boska 900
- * title, thesis line below. The paper flash between two navy worlds
- * reads as a page-turn.
+ * TitleCard: screen-register title — episode № overline, heavy Supreme,
+ * thesis line below. The paper flash between two navy worlds reads as a
+ * page-turn without falling back into the document/editorial register.
  *
  * OutroCard: navy + grid, brand line + domain + CTA rows. Composition
  * keeps the lower-right clear-ish for YouTube end-screen overlays.
@@ -60,8 +60,8 @@ const StingType: React.FC<{
     <h1
       style={{
         fontFamily: FONTS.display,
-        fontWeight: 900,
-        fontSize: 118,
+        fontWeight: 800,
+        fontSize: 126,
         lineHeight: 1.02,
         letterSpacing: `${TRACK.display}em`,
         color: COLORS.onInk,
@@ -167,10 +167,10 @@ export const TitleCard: React.FC<{
         background: COLORS.paper,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        padding: '0 220px',
+        padding: '0 150px',
       }}
     >
-      <div style={{display: 'flex', flexDirection: 'column', gap: 40, maxWidth: 1480}}>
+      <div style={{display: 'flex', flexDirection: 'column', gap: 34, maxWidth: 1580}}>
         {overline && (
           <div style={{display: 'flex', alignItems: 'center', gap: 24, opacity: overT}}>
             <span
@@ -200,10 +200,10 @@ export const TitleCard: React.FC<{
         <h1
           style={{
             fontFamily: FONTS.display,
-            fontWeight: 900,
-            fontSize: title.length > 48 ? 104 : 124,
-            lineHeight: 1.04,
-            letterSpacing: `${TRACK.display}em`,
+            fontWeight: 800,
+            fontSize: title.length > 48 ? 128 : 148,
+            lineHeight: 0.96,
+            letterSpacing: '-0.045em',
             color: COLORS.ink900,
             margin: 0,
             opacity: titleT,
@@ -257,7 +257,7 @@ export const OutroCard: React.FC<{
         <h2
           style={{
             fontFamily: FONTS.display,
-            fontWeight: 900,
+            fontWeight: 800,
             fontSize: 96,
             lineHeight: 1.04,
             letterSpacing: `${TRACK.display}em`,

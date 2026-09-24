@@ -1,0 +1,123 @@
+{
+  "schema_version": "oe-google-service-success-and-synthetic-guide-readiness-v1",
+  "record_id": "G1R2-AIPLATFORM-SERVICE-SUCCESS-AND-GUIDE-READINESS-20260826T034027Z",
+  "status": "immutable_local_disposition_and_zero_authority_readiness",
+  "recorded_at": "2026-08-26T03:40:27Z",
+  "service_transaction_binding": {
+    "authorization_path": "authorizations/08-google-aiplatform-service-enablement-partial-response-repair.ACTIVE.20260826T033333Z.json",
+    "authorization_sha256": "c98d4ec1e12485fedda5f87df46e52b66bac99a916fb8a00632108efc3311d4b",
+    "authorization_commit": "f683ebd0b378213013cd87868d382f9338e5c144",
+    "runtime_commit": "5eb0ea924fac84ea6c231d7587ac560c5ee1f6d7",
+    "consumption_record_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.consumed.json",
+    "consumption_record_sha256": "45ee119e1ee5e258152226be72a435c1d0bd61e851295b4d311f5c24a20ee246",
+    "run_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-PARTIAL-REPAIR-20260826T033333Z.run.json",
+    "run_receipt_sha256": "a439c64c0b58f6bc7eee22ee15f21bfe5d77da5d0f88712797f7f9b0c2f98b60"
+  },
+  "service_outcome": {
+    "outcome": "success",
+    "authorization_consumed": true,
+    "calls": {
+      "pre_enable_state_readbacks": 1,
+      "enable_attempts": 1,
+      "operation_polls": 1,
+      "post_enable_state_readbacks": 1,
+      "http_calls_total": 4
+    },
+    "pre_enable_readback": {
+      "state": "DISABLED",
+      "response_bytes": 96,
+      "response_sha256": "cf1e8a8c0617d4de370d94f88053fb1aa813e63d730fbb6af88621d3cb6c6568"
+    },
+    "enable_operation": {
+      "done": false,
+      "response_bytes": 85,
+      "response_sha256": "e7089ee1147013bcf759b4949d2a5439d1fb1dc3451f3bbd514eb335f4eb7e02"
+    },
+    "operation_completion": {
+      "done": true,
+      "terminal_result": "success",
+      "poll_count": 1,
+      "response_bytes": 164613,
+      "response_sha256": "9e5ace264808e399f926f6d7fd39cc9d5ee94ec732229d6943df749e39c99013"
+    },
+    "post_enable_readback": {
+      "state": "ENABLED",
+      "response_bytes": 95,
+      "response_sha256": "b17a4c7922530aee09e401ded86d1a1f976212496462a6008115166762823d27"
+    },
+    "provider_response_bytes_total": 164889,
+    "mutation_attempted": true,
+    "service_state_resolution": "enabled_confirmed",
+    "enablement_may_have_completed": true,
+    "operation_may_still_be_running": false,
+    "manual_readback_required": false,
+    "retries_made": 0,
+    "redirects_followed": 0,
+    "raw_provider_responses_stored": false
+  },
+  "mutation_boundary": {
+    "exact_service_enabled": "aiplatform.googleapis.com",
+    "other_service_mutation_requested": false,
+    "service_disablement_requested": false,
+    "direct_iam_api_call_or_mutation_by_executor": false,
+    "provider_managed_service_agent_or_role_side_effects_observed": "unknown",
+    "billing_mutation_requested": false,
+    "project_hierarchy_mutation_requested": false,
+    "synthetic_guide_call_made": false
+  },
+  "synthetic_guide_readiness": {
+    "execution_semantics": "fresh_execution_of_original_two_candidate_plan_not_resumption_or_automatic_retry",
+    "service_prerequisite": "aiplatform.googleapis.com_enabled_confirmed",
+    "service_success_receipt_sha256": "a439c64c0b58f6bc7eee22ee15f21bfe5d77da5d0f88712797f7f9b0c2f98b60",
+    "performance_transfer_plan_path": "performance-transfer-plan.json",
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "compiled_synthetic_guide_path": "compiled/synthetic-guide-dry-run.json",
+    "compiled_synthetic_guide_sha256": "33fe792f4f9b858e9a3a388dc2480a1bd9d0a57ad3b0c2a74165feb6ac01cee9",
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "microtest_token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "acting_prompt_sha256": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416",
+    "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "request_body_bytes": 1440,
+    "request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba",
+    "request_count": 2,
+    "maximum_modeled_spend_usd": 0.66,
+    "safe_error_runtime": {
+      "path": "runtime/oe_narration/performance_transfer.py",
+      "sha256": "27cf742ac8c169c05474269f6a40af642091c8180e8412cc410d2b8ab72ae6d9"
+    },
+    "safe_error_tests": {
+      "path": "runtime/tests/test_performance_transfer.py",
+      "sha256": "a65be179d7bf16805458eb43e02ebe94713791615dbf8068b779d7da4bb09602",
+      "focused_tests_passed": 55,
+      "full_suite_tests_passed": 228
+    },
+    "cli": {
+      "path": "runtime/oe_narration/cli.py",
+      "sha256": "f72012acec35efc2c2d301c1a83db5931566f484c3eb140d3b8d4b60b111b0d4"
+    },
+    "machine_authorization_schema": {
+      "path": "schemas/synthetic-guide-authorization.schema.json",
+      "sha256": "54e084f134a942a826093fcdb90f09da9c085ebaabd8fda2a2ce96e55da4e715"
+    },
+    "service_evidence_commit_required": true,
+    "independent_service_evidence_audit_required": true,
+    "fresh_active_synthetic_guide_authorization_required": true,
+    "quota_project_hash_binding_required_at_activation": true
+  },
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "provider_action_authorized": false,
+    "synthetic_guide_generation_authorized": false,
+    "retry_authorized": false,
+    "service_enablement_authorized": false,
+    "service_disablement_authorized": false,
+    "iam_mutation_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

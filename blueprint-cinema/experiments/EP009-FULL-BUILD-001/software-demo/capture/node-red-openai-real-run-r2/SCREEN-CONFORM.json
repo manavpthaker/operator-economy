@@ -1,0 +1,163 @@
+{
+  "record_type": "ep009_software_demo_screen_conform",
+  "status": "conformed_for_review",
+  "at": "2026-09-19T10:16:36.455190+00:00",
+  "raw_capture": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/raw/ep009-real-run-20260919T0604EDT-raw.mp4",
+    "sha256": "3da3bc940f10f2400412370be000635cf1567eccd07d77efc61287da2f404d9e"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+    "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+  },
+  "output_frames": [
+    0,
+    706
+  ],
+  "output_decoded_frame_sequence_sha256": "5f2dc00037f7e8122a081eb372a7003be80f5e432e7893cd28ea887885058387",
+  "timeline": {
+    "declared": true,
+    "reason": "Real provider latency and idle time are elided to fit the locked 29.416667-second picture slot; no causal state is reordered or invented.",
+    "shown_raw_seconds": [
+      [
+        0.0,
+        4.417
+      ],
+      [
+        6.75,
+        10.417
+      ],
+      [
+        11.75,
+        16.75
+      ],
+      [
+        20.5,
+        24.667
+      ],
+      [
+        25.5,
+        29.667
+      ],
+      [
+        30.25,
+        38.25
+      ]
+    ],
+    "omitted_raw_seconds": [
+      [
+        4.417,
+        6.75
+      ],
+      [
+        10.417,
+        11.75
+      ],
+      [
+        16.75,
+        20.5
+      ],
+      [
+        24.667,
+        25.5
+      ],
+      [
+        29.667,
+        30.25
+      ]
+    ],
+    "shown_output_frames": [
+      {
+        "id": "fixture-and-request",
+        "frames": 106
+      },
+      {
+        "id": "returned-draft",
+        "frames": 88
+      },
+      {
+        "id": "queue-for-review",
+        "frames": 120
+      },
+      {
+        "id": "human-voice-edit",
+        "frames": 100
+      },
+      {
+        "id": "one-draft-approval",
+        "frames": 100
+      },
+      {
+        "id": "seasonal-exclusion-settle",
+        "frames": 192
+      }
+    ]
+  },
+  "operations": {
+    "source_vfr": true,
+    "presentation_cfr_fps": 24,
+    "cfr_sampling": "FFmpeg fps filter at a fixed 24fps clock; no optical-flow, generated, interpolated, or speed-ramped frames.",
+    "source_audio_discarded": true,
+    "respeed": false,
+    "raster_treatment": {
+      "crop": {
+        "x": 280,
+        "y": 140,
+        "width": 1620,
+        "height": 833,
+        "purpose": "Exclude Chrome controls, tab strips, user tab labels, and unused ScreenCaptureKit canvas."
+      },
+      "raster": {
+        "scale": [
+          1280,
+          658
+        ],
+        "pad": [
+          1280,
+          720,
+          0,
+          31
+        ],
+        "pad_color": "#101713",
+        "distortion": false
+      }
+    }
+  },
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-stats",
+    "-filter_complex_threads",
+    "2",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/raw/ep009-real-run-20260919T0604EDT-raw.mp4",
+    "-filter_complex",
+    "[0:v]trim=start=0.0:end=4.417,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=106,setpts=PTS-STARTPTS[s0];[0:v]trim=start=6.75:end=10.417,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=88,setpts=PTS-STARTPTS[s1];[0:v]trim=start=11.75:end=16.75,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=120,setpts=PTS-STARTPTS[s2];[0:v]trim=start=20.5:end=24.667,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=100,setpts=PTS-STARTPTS[s3];[0:v]trim=start=25.5:end=29.667,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=100,setpts=PTS-STARTPTS[s4];[0:v]trim=start=30.25:end=38.25,setpts=PTS-STARTPTS,crop=1620:833:280:140,scale=1280:658:flags=lanczos,pad=1280:720:0:31:color=0x101713,fps=fps=24:round=near,trim=end_frame=192,setpts=PTS-STARTPTS[s5];[s0][s1][s2][s3][s4][s5]concat=n=6:v=1:a=0,format=yuv420p[v]",
+    "-map",
+    "[v]",
+    "-an",
+    "-frames:v",
+    "706",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "16",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4"
+  ],
+  "provenance": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/CAPTURE-PROVENANCE.json",
+    "sha256": "68c231d21afef21b1b3286b981b9a61087ef0292532e1d5fb72877d97ff50977"
+  },
+  "limits": "The conform preserves ordering and elapsed time inside each declared span. It shortens the screen presentation only by the disclosed raw-time ellipses."
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r36-s07-existing-buyer-coverage",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/index.html",
+      "sha256": "cd147c157b1376ff4d8086b6847e41ab2bcc4e3fde77fcdd12575c34fdefb3c4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/public/media/buyer-reaction-r32.mp4",
+      "sha256": "d4a55bd74c2703930ef926ad70fb93b172f0936c122e28e48a08dd7f822b94a3"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/public/media/establishing.mp4",
+      "sha256": "e0b4067004d83f4ba00be589d72ffc43d8305319a63be2217f19d594d6d2521c"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-existing-buyer-coverage/buyer-reaction-r32-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-existing-buyer-coverage/establishing-candidate-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-existing-buyer-coverage/establishing-contact.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-existing-buyer-coverage/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-existing-buyer-coverage/selection.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify SHA-256 of all four work-order inputs against issued pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe both source media: dimensions, duration, frame rate, streams",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect sampled contact sheets for action, gaze, continuity, object visibility, and previous source usage",
+      "outcome": "pass"
+    },
+    {
+      "command": "Watch selected interval at speed with exact final S07 narration in root runtime",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Issued work order plus exact locked script and R35 source media; all four hashes verified.",
+    "OE film direction SKILL.md and context-and-coverage, picture-audio-modes, generated-plates references used as review guidance.",
+    "Contact sheets derived locally with ffmpeg; no new synthetic source created."
+  ],
+  "assumptions": [
+    "Final shot remains an illustrative callback to the same buyer-seller situation.",
+    "Root determines exact timeline cues from locked narration and preserves original audio."
+  ],
+  "unresolved_questions": [
+    "At-speed audiovisual performance and repetition assessment remain unverified."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

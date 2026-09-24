@@ -1,0 +1,70 @@
+{
+  "status": "private_diagnostic_only_not_conformed_for_assembly",
+  "preview": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4",
+    "sha256": "f1618fcf58cb9924656e226ce1a0d494fc545ca944890366e5de910fadb24307"
+  },
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/restored.mp4",
+    "sha256": "b6d1862bc8803ad04af67ce278361ae06ef7e696e992376f163d16c96834e8cb"
+  },
+  "alignment": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/ALIGNMENT.json",
+    "sha256": "e678ca4585b32c9443bb8db2b1df9e9953cd24f3166913bac7fdc31d21eb319a"
+  },
+  "selected_native_offsets": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-SELECTION.json",
+    "sha256": "a3f37ea4d9e3aef97832512e376198ecc173717651e69c3d2db1804f02f5af44"
+  },
+  "source_frames": [
+    2,
+    88
+  ],
+  "output_frames": [
+    0,
+    86
+  ],
+  "source_rate_and_output_rate": 24,
+  "padding_or_speed_change": false,
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "master_sample_range": [
+    0,
+    172000
+  ],
+  "command": [
+    "ffmpeg",
+    "-n",
+    "-v",
+    "error",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/restored.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "-filter_complex",
+    "[0:v]trim=start_frame=2:end_frame=88,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v];[1:a]atrim=start_sample=0:end_sample=172000,asetpts=N/SR/TB,pan=stereo|c0=c0|c1=c0[a]",
+    "-map",
+    "[v]",
+    "-map",
+    "[a]",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "16",
+    "-r",
+    "24",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-ar",
+    "48000",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/qa/opening-P00-private-review-r1.mp4"
+  ]
+}

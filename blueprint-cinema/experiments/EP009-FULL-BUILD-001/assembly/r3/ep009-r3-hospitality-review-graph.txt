@@ -1,0 +1,5 @@
+[0:v]trim=start_frame=1721:end_frame=1841,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v0];
+[1:v]trim=start_frame=0:end_frame=343,setpts=PTS-STARTPTS,scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,setsar=1,format=yuv420p,drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial.ttf':text='corrected narration · presenter pending':x=32:y=h-56:fontsize=22:fontcolor=white:box=1:boxcolor=black@0.72:boxborderw=9[v1];
+[2:v]trim=start_frame=0:end_frame=120,setpts=PTS-STARTPTS,scale=1280:720,setsar=1,format=yuv420p[v2];
+[v0][v1][v2]concat=n=3:v=1:a=0,fps=24[vout];
+[3:a]atrim=start_sample=31600000:end_sample=32766000,asetpts=N/SR/TB,pan=stereo|c0=c0|c1=c0,apad=whole_len=1166000,atrim=end_sample=1166000[aout]

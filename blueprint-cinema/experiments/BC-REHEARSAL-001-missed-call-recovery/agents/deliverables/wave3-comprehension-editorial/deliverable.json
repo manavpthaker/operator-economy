@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-comprehension-editorial",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "input-lock.json",
+      "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"
+    },
+    {
+      "path": "direction-lock.json",
+      "sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca"
+    },
+    {
+      "path": "direction/visual-plan.json",
+      "sha256": "572f00ae1e51225ea7b161811e356c361eb8734c6f06903642a30049bc0a259c"
+    },
+    {
+      "path": "hyperframes/index.html",
+      "sha256": "d4a7587b83b00c642255b6d41d39c4e6c0e80db22c2dd45e91b79724a2eb7c62"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic.mp4",
+      "sha256": "091e8be81d196a8e27e9322a5664201204cbc3ac644a17af558371b1e5cccca8"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet.jpg",
+      "sha256": "dd6cf528cf09d175d3ec5c6529bb09501722a130cdbd5b8c5faf9889d4baa6ef"
+    },
+    {
+      "path": "review/phone-legibility/contact-sheet-480.jpg",
+      "sha256": "33cc5d12bc60c40c1a0c68a7645780870cf5a6e0c327282443fef69ed58efc83"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave3-comprehension-editorial/review.md",
+      "sha256": "3688699d7b90ce228f2923bf1ec2441310c5630cfb44c3a695cd885304a67764"
+    }
+  ],
+  "findings_summary": {
+    "blocking": 0,
+    "major": 4,
+    "minor": 3,
+    "headline": "The persistent call tag and work-order card make the miss, leak, recovery, human hold, stop route, booking, and measurement chain understandable; four localized hierarchy and timing issues remain before creative approval.",
+    "recommendation": "Correct the opening time contradiction, slow the source-field extraction, make the human action primary at the gate, and lengthen the completed measurement hold; then repeat the same four independent editorial passes."
+  },
+  "acceptance_checks": [
+    {
+      "check": "recompute every pinned input hash before review",
+      "status": "pass",
+      "notes": "All seven issued SHA-256 pins were recomputed before the MP4 and contact sheets were reviewed, and every value matched exactly."
+    },
+    {
+      "check": "watch the rendered MP4 as an audience member without relying on production notes",
+      "status": "pass",
+      "notes": "The actual 61.433333-second MP4 was played from beginning to end before the locked visual-plan obligations were consulted."
+    },
+    {
+      "check": "run separate comprehension, rhythm, hierarchy, and phone-sized legibility passes",
+      "status": "pass",
+      "notes": "review.md records four separately executed passes; the phone pass replayed the MP4 at a 480x270 viewport and also inspected the pinned 480x270 contact sheet."
+    },
+    {
+      "check": "test whether the current path, leak, recovery route, human gate, stop path, booked outcome, and one-week measure are inferable",
+      "status": "pass",
+      "notes": "All seven required inferences are recoverable from the locked narration and rendered objects; qualified weaknesses are recorded for the continuation mark, human-gate hierarchy, and final measurement hold."
+    },
+    {
+      "check": "identify slide, dashboard, Prezi, decorative-motion, over-text, or competing-focus failures with timestamps",
+      "status": "pass",
+      "notes": "No systemic slide, dashboard, Prezi, or decorative-motion failure was observed. Timestamped density and competing-focus issues are reported at 27.80-32.25, 34.20-39.88, and 47.68-49.50."
+    },
+    {
+      "check": "return ranked blocking, major, and minor findings and distinguish creative judgment from technical validity",
+      "status": "pass",
+      "notes": "review.md records zero blocking, four major, and three minor editorial findings. The ffprobe observations are explicitly separated from creative judgment and do not claim a technical gate."
+    },
+    {
+      "check": "state explicitly that no gate approval or state change is claimed",
+      "status": "pass",
+      "notes": "The review and manifest state explicitly that packet completion is not creative or production approval and that no experiment or production state changed."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The locked narration and rendered audio are intended to be experienced together; comprehension findings therefore judge what an audience can infer from voice plus picture, not a silent-film test.",
+    "The conspicuous asset placeholders are intentional rehearsal material and were judged for editorial role and hierarchy rather than photographic finish.",
+    "The browser-native playback controls are not part of the render; their effect at 480x270 is used only to explain why the already-short final authored hold has little practical margin.",
+    "deliverable.json omits its own SHA-256 from outputs because a final file cannot truthfully contain its own final SHA-256; review.md is the independently hashable content output."
+  ],
+  "blockers": []
+}

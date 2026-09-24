@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex" />
+  <title>№002 · Voice Booking Operator · Legacy Blueprint</title>
+  <link rel="stylesheet" href="../../../../boundary-ledger/styles.css" />
+  <link rel="stylesheet" href="./site.css?v=episode-spacing-01" />
+  <style>
+    /* Legacy episode title: the episode-feature display face, set inside a chapter head
+       because a legacy record has no working model to attach a docket to. Tokens only. */
+    :where([data-oe-theme="boundary-ledger"]) .bl-chapter__head h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-family: var(--bl-font-display);
+      font-size: clamp(3rem, 6.4vw, 6.4rem);
+      font-weight: 700;
+      line-height: var(--bl-leading-display);
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+    }
+    @media (max-width: 480px) {
+      :where([data-oe-theme="boundary-ledger"]) .bl-chapter__head h1 {
+        font-size: clamp(2.8rem, 15vw, 4.1rem);
+      }
+    }
+  </style>
+</head>
+<body data-oe-theme="boundary-ledger" id="top">
+  <a class="bl-skip-link" href="#main">Skip to content</a>
+
+  <header class="bl-masthead">
+    <div class="bl-shell bl-masthead__inner oe-masthead__inner">
+      <a class="bl-wordmark" href="./homepage.html" aria-label="The Operator Economy, home">The Operator Economy</a>
+      <nav class="oe-nav" aria-label="Site">
+        <a href="./library.html">Businesses</a>
+        <a href="./method.html">Method</a>
+      </nav>
+      <a class="bl-action" href="#newsletter">Subscribe</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Opening: a legacy record has no working model, so the chapter head carries the title
+         and the docket stands beside the record note. -->
+    <section class="bl-opening oe-legacy-opening bl-shell" aria-labelledby="page-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">Legacy Blueprint · V1 standard · №002</p>
+        <div>
+          <h1 id="page-title">Voice Booking Operator</h1>
+          <p>
+            A retainer business built on answered phones: one person bundles a voice agent with
+            a phone number and a booking system and sells the outcome to local businesses.
+            This is the original record from 2026-07. It has not been re-scored under the current Canvas standard.
+          </p>
+          <div class="oe-actions">
+            <a class="bl-action" href="#blueprint">Get the Operator Blueprint</a>
+            <a class="bl-action" href="https://youtu.be/CFuVAwc2yzs" target="_blank" rel="noreferrer">Watch on YouTube<span class="oe-sr"> (opens in new tab)</span></a>
+          </div>
+        </div>
+      </header>
+
+      <aside class="bl-disclosure" aria-label="Legacy standard">
+        <strong>Legacy Blueprint · V1 standard</strong>
+        <span>
+          Published before the Canvas evidence standard. Sources are listed below; per-claim
+          evidence classes were not assigned.
+          <a href="./method.html#evidence-classes">How evidence classes work</a>
+        </span>
+      </aside>
+
+    </section>
+
+    <nav class="bl-anchor-nav bl-shell" aria-label="On this page">
+      <a href="#watch">01 · Watch</a>
+      <a href="#thesis">02 · Business model</a>
+      <a href="#math">03 · Economics</a>
+      <a href="#sources">04 · Sources</a>
+      <a href="#blueprint">05 · Download</a>
+    </nav>
+
+    <!-- 01 · Watch -->
+    <section class="bl-chapter oe-band-inset bl-shell" id="watch" aria-labelledby="watch-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">01 / Watch</p>
+        <div>
+          <h2 id="watch-title">Watch the investigation.</h2>
+          <p>The episode explains the opportunity. The sections below preserve the original business model, figures, and sources.</p>
+        </div>
+      </header>
+      <div class="oe-media">
+        <a class="oe-video" href="https://youtu.be/CFuVAwc2yzs" target="_blank" rel="noreferrer" aria-label="Watch episode №002 on YouTube, opens in new tab"><span>Watch №002 on YouTube</span></a>
+        <div>
+          <div class="bl-ledger-row"><span class="bl-ledger-row__name">Episode title</span><p>The voice-agent agency · live · 2026-07</p></div>
+          <div class="bl-ledger-row"><span class="bl-ledger-row__name">Model</span><p>Retainers</p></div>
+          <div class="bl-ledger-row"><span class="bl-ledger-row__name">Category</span><p>Services</p></div>
+          <div class="bl-ledger-row"><span class="bl-ledger-row__name">Read time</span><p>7 minutes for the Blueprint as published.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · The thesis -->
+    <section class="bl-chapter bl-shell" id="thesis" aria-labelledby="thesis-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">02 / Business model</p>
+        <div>
+          <h2 id="thesis-title">What this business sells.</h2>
+          <p>Answered phones and booked appointments, sold as a managed service.</p>
+        </div>
+      </header>
+      <div class="bl-split">
+        <div class="bl-prose">
+          <h3>The original thesis</h3>
+          <p>
+            Local businesses will pay a person, not a platform, to make their phones stop
+            bleeding. You bundle ElevenLabs or Retell with a phone number and a booking system,
+            and sell it as an outcome: missed calls captured, appointments booked, front-desk
+            time saved. Solo operators are already running these; the wedge is the industry you
+            already know.
+          </p>
+        </div>
+        <ul class="bl-rule-list" aria-label="What the thesis names">
+          <li><strong>Buyer.</strong> Local businesses whose phones go unanswered.</li>
+          <li><strong>Bundle.</strong> ElevenLabs or Retell, a phone number, a booking system.</li>
+          <li><strong>Sold as.</strong> An outcome: missed calls captured, appointments booked, front-desk time saved.</li>
+          <li><strong>Wedge.</strong> The industry you already know.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 · The honest math -->
+    <section class="bl-chapter oe-band-raised bl-shell" id="math" aria-labelledby="math-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">03 / Economics</p>
+        <div>
+          <h2 id="math-title">What the original Blueprint modeled.</h2>
+          <p>The revenue range is an estimate from the V1 Blueprint, not an observed operator result.</p>
+        </div>
+      </header>
+      <div aria-label="Recorded figures">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Stack</span>
+          <p>Voice agent, phone number, booking system. Public tool pricing at publication.</p>
+          <span class="bl-ledger-row__value">&lt; $150/mo</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Modeled range · yr 1</span>
+          <div>
+            <p>A first-year range modeled in the V1 Blueprint. Not an observed operator result and not an earnings forecast.</p>
+            <span class="oe-class">Estimate</span>
+          </div>
+          <span class="bl-ledger-row__value">$1.5–5K/mo</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Playbook</span>
+          <p>From first customer to a running retainer, as sequenced in the Blueprint.</p>
+          <span class="bl-ledger-row__value">weeks 1–month 2</span>
+        </div>
+      </div>
+      <aside class="bl-disclosure">
+        <strong>Economics boundary</strong>
+        <span>Modeled under the V1 standard. The range carries the binary estimate marker that V1 used; it wasn't classed per claim. A Canvas shows low, base, and high cases side by side, never blended.</span>
+      </aside>
+    </section>
+
+    <!-- 04 · Sources -->
+    <section class="bl-chapter bl-shell" id="sources" aria-labelledby="sources-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">04 / Sources</p>
+        <div>
+          <h2 id="sources-title">Sources used in the episode.</h2>
+          <p>The original record counted 11 sources. These are the two it named publicly.</p>
+        </div>
+      </header>
+      <div aria-label="Named sources">
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Source 01</span>
+          <p><a href="https://techcrunch.com/2026/02/04/elevenlabs-series-d/" target="_blank" rel="noreferrer">ElevenLabs $11B · TechCrunch Feb 2026<span class="oe-sr"> (opens in new tab)</span></a></p>
+          <span class="bl-ledger-row__value">Linked</span>
+        </div>
+        <div class="bl-ledger-row">
+          <span class="bl-ledger-row__name">Source 02</span>
+          <p>38%/62% missed calls · 411 Locals 2024 (vendor-adjacent)</p>
+          <span class="bl-ledger-row__value">No public link recorded</span>
+        </div>
+      </div>
+      <aside class="bl-evidence-receipt" style="margin-top: var(--bl-space-6);">
+        <span class="bl-evidence-receipt__source">V1 record · 2026-07</span>
+        <p>11 sources were verified for the episode at publication. Per-claim evidence classes weren't part of the V1 standard, so none are shown on this page.</p>
+        <span class="bl-evidence-receipt__count">11 verified</span>
+      </aside>
+    </section>
+
+    <!-- 05 · Operator Blueprint -->
+    <section class="bl-chapter oe-band-inset bl-shell" id="blueprint" aria-labelledby="blueprint-title">
+      <header class="bl-chapter__head">
+        <p class="bl-chapter__number">05 / Download</p>
+        <div>
+          <h2 id="blueprint-title">Download the original Blueprint.</h2>
+          <p>The PDF preserves the thesis, modeled range, playbook, and sources from the episode.</p>
+        </div>
+      </header>
+      <form class="oe-form" aria-label="Operator Blueprint PDF request">
+        <label for="pdf-email">Email for the PDF</label>
+        <input id="pdf-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button type="button">Email me the PDF</button>
+        <label class="oe-consent"><input type="checkbox" name="newsletter" /><span>Also send the newsletter. Optional, off by default, its own unsubscribe.</span></label>
+        <small>The PDF arrives by email. The newsletter is a separate choice.</small>
+      </form>
+    </section>
+
+    <!-- Subscription band: the one conversion surface -->
+    <section class="bl-shell" id="newsletter" aria-labelledby="newsletter-title" style="padding-bottom: var(--bl-section-space);">
+      <aside class="bl-subscription-band">
+        <div>
+          <h3 id="newsletter-title">Get the next business when it ships.</h3>
+          <p>No drip campaigns. Unsubscribe anytime.</p>
+        </div>
+        <form class="oe-form" aria-label="Newsletter signup">
+          <label for="news-email">Email</label>
+          <input id="news-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+          <button type="button">Subscribe</button>
+        </form>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bl-system-footer">
+    <div class="bl-shell bl-system-footer__inner">
+      <div>
+        <strong>The Operator Economy</strong>
+        <nav class="oe-footer-nav" aria-label="Footer">
+          <a href="https://www.youtube.com/@operatoreconomy" target="_blank" rel="noreferrer">YouTube<span class="oe-sr"> (opens in new tab)</span></a>
+          <a href="#newsletter">Newsletter</a>
+          <a href="./library.html">Businesses</a>
+          <a href="./method.html">Method</a>
+        </nav>
+      </div>
+      <span class="oe-mark">Build. Own. Operate. · Site rev 2026-09-01</span>
+    </div>
+  </footer>
+</body>
+</html>

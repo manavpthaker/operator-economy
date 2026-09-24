@@ -1,0 +1,26 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "patches": {
+    "engine.json": {
+      "business_operations": [
+        {
+          "id": "BO-001",
+          "upstream_state_id": "S001",
+          "state_before": "The returning guest is routed through the OTA relationship.",
+          "state_after": "The returning guest is routed through the hotel's direct relationship.",
+          "business_operation": "Make the guest loyal to the hotel.",
+          "label": "DERIVED",
+          "source_artifact": "canvas.json",
+          "source_sha256": "0f8941c2dd06a660e104d03ed3d4e63f858ae1f168a06180fb8f0d3bb5991816",
+          "source_locator": "state_changes.S001",
+          "boundary_ledger_semantic_role_id": "activeCommitment",
+          "boundary_ledger_operation_id": "return",
+          "selection_label": "SELECTED",
+          "mapping_rationale": "The return operation matches the change from a rented first-stay route to the hotel's declared owned return route.",
+          "acts_on": ["guest"]
+        }
+      ]
+    }
+  },
+  "expect_failures": ["V2"]
+}

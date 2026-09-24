@@ -1,0 +1,54 @@
+{
+  "work_order_id": "r26-broker-process-qa",
+  "episode": "EP007-exit-readiness-prep",
+  "role": "independent semantic and visual reviewer",
+  "status": "preliminary_review_material_revision",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r26-broker-process/index.html",
+      "sha256": "fab49d23057802757f48647ad37b793a8aaaab3ca4d0da22641529421e0fec4f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r26-broker-process/compositions/broker.html",
+      "sha256": "8d3cd0f0ab4611c21b8148f29af3603923fa007ee2fc4397353cb91033f37f16"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r26-broker-process/snapshots/contact-sheet.jpg",
+      "sha256": "6ec6f5b5fa14e0c547ace218973ccc9b04b533ec4e3e72ea868b727019fc4cd6"
+    }
+  ],
+  "files_created": ["report.md", "deliverable.json"],
+  "checks_run": [
+    "Runtime and source SHA256 hashes verified against the assigned values.",
+    "Rendered contact sheet visually inspected through view_image.",
+    "Read the composition's labels, conditional paths, persistence and timing declarations.",
+    "Calculated portrait-phone type scale at 390 pixels across the 1280-pixel source.",
+    "Checked conditional-fee and source-boundary implications against the locked narration."
+  ],
+  "findings": [
+    {
+      "severity": "major",
+      "scope": "portrait-phone legibility and hierarchy",
+      "summary": "Essential conditional and completed-work labels scale below nine pixels in a390-wide portrait player; clarify the condition hierarchy and reclaim redundant summary space.",
+      "actual_phone_playback_verified": false
+    }
+  ],
+  "semantic_blockers_found": false,
+  "external_sources_used": false,
+  "generated_media_used": false,
+  "paid_activity": false,
+  "gate_advanced": false,
+  "unresolved_questions": [
+    "Root's proposed first-four-second refinement was not part of the reviewed source.",
+    "Root must check actual mobile display, moving playback and narration synchronization.",
+    "A final modified composition requires its own hash-bound review record."
+  ]
+}

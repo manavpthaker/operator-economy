@@ -1,0 +1,89 @@
+{
+  "experiment_id": "EP006-POLISH-001-return-loop",
+  "classification": "internal visual-language and finishing control; not evidence; not approved production footage; not public",
+  "paid_service_used": false,
+  "authenticated_external_service_used": false,
+  "provider_probe": {
+    "media_use_doctor": "19 bundled SFX available; ffmpeg and ffprobe available; HeyGen CLI not found; HeyGen auth unavailable",
+    "decision": "Use Codex Desktop image generation for two synthetic fixtures and offline bundled/local audio only. No install, login, paid generation, stock service, or network media retrieval."
+  },
+  "assets": [
+    {
+      "id": "plate-scene-01-checkout-handoff",
+      "path": "assets/generated/scene-01-checkout-handoff.png",
+      "sha256": "38a700cab69d99969b13ec7393fcdce6bc632fa8d4d8571a149543acce71525c",
+      "dimensions": "1672x941",
+      "alpha": false,
+      "creator": "Codex Desktop built-in image generation capability",
+      "synthetic_status": "fully synthetic environmental and human-context still",
+      "fixture_status": "non-evidentiary; non-publishable; does not fulfill ticket-inn-reality",
+      "prompt": "Create a single high-resolution landscape 16:9 cinematic still for an internal editorial documentary visual-language test, not an advertisement and not evidence. Scene: one modest, specific independent inn checkout desk in late-morning natural window light, lived-in warm wood, cream linen, lightly worn brass details. Camera is locked, restrained 40mm documentary lens, waist/chest-level close observational framing, shallow but natural depth of field, soft contrast, no luxury gloss. The central recurring object is a distinctive physical brass hotel key tag resting at the center of the wooden desk, landscape-oriented rounded rectangle with one clipped/chamfered corner, a single circular hole near the left end, and one fine vertical scratch near the right third. A guest hand in a dark olive wool sleeve enters from frame left and is just finishing placing the tag down. An operator hand in a cream cotton shirt and deep navy apron enters from frame right and is receiving it. Hands anatomically plausible; partial bodies only; no prominent or identifiable faces. Leave the key tag clearly visible around the center region for a later match cut, with the desk running horizontally. No readable text anywhere, no logo, no screen, no reservation document, no receipt, no interface, no personal data, no platform branding, no decorative props competing for attention. Warm cream, ink, navy, muted wood, and authentic brass palette. Editorial documentary illustration with natural photographic texture, restrained and plausible.",
+      "visual_review": "Hands, desk, light, wardrobe, and brass tag inspected at original resolution. No readable data, interface, logo, prominent face, or evidence-like artifact observed.",
+      "timeline_use": "Scene 1 only; locked still with a restrained deterministic 1.008-to-1.016 scale and 14px motivated reframe; not generated video."
+    },
+    {
+      "id": "plate-scene-03-operator-judgment",
+      "path": "assets/generated/scene-03-operator-judgment.png",
+      "sha256": "92c11509e7882989a0571ac26784b0b2c414c5918ba9d17a8dcb2edcd46e506b",
+      "dimensions": "1672x941",
+      "alpha": false,
+      "creator": "Codex Desktop built-in image generation capability",
+      "synthetic_status": "fully synthetic environmental and human-context still derived with continuity reference",
+      "fixture_status": "non-evidentiary; non-publishable; does not fulfill ticket-human-review",
+      "reference_image": "plate-scene-01-checkout-handoff",
+      "prompt": "Using the referenced checkout image as strict continuity reference, create a second high-resolution landscape 16:9 cinematic still from the same modest independent inn, same warm wooden desk, same late-morning window light direction, same operator wardrobe (cream cotton shirt and deep navy apron), same restrained 40mm documentary lens and soft natural contrast, and exactly the same distinctive brass key tag: landscape rounded rectangle, one clipped/chamfered corner, one circular hole near the left end, and a fine vertical scratch near the right third. This is an internal visual-language fixture, not evidence. Frame over the operator's shoulder or as partial torso and hands only; no prominent or identifiable face. The operator is making a deliberate human judgment: one hand is placing the same brass key tag into a plain cream paper review tray on the wooden desk while the other hand steadies the tray. The tray is analog, unbranded, and has no readable writing, controls, screen, message, or interface. Make the physical placement visibly decisive and keep the key tag unobstructed near the center-left for a graphic HUMAN REVIEW overlay later. No guest data, no name, no document content, no logo, no phone, no laptop, no platform marks. Avoid luxury advertising and corporate-office styling. Editorial documentary illustration, plausible hands, natural texture, restrained composition with one visual priority: the human action causing the judgment.",
+      "visual_review": "Same desk, lighting direction, operator wardrobe, and brass-tag design inspected at original resolution. Analog tray is blank. No readable data, interface, logo, prominent face, or evidence-like artifact observed.",
+      "timeline_use": "Scene 3 human-judgment phase only; locked still with deterministic graphic overlay; not generated video."
+    },
+    {
+      "id": "locked-vo-slice",
+      "path": "audio/vo/locked-return-loop.wav",
+      "sha256": "84fdb18a1f7285f21cd70ae4f0c796386e698457bde5b5ebccdc6964af75ba3d",
+      "source": "studio/originate/direct-booking-recovery/vo/full-episode.mp3",
+      "source_sha256": "95e90a1ebb5dfbc6e13bc2efd12915cea9f15807199b0301cd3f63d59cb8e468",
+      "operation": "lossless decode of exact 849.517–879.922 window to stereo PCM 24-bit 48kHz; no rewrite, regeneration, time stretch, or replacement",
+      "duration_seconds": 30.405
+    },
+    {
+      "id": "sfx-derived-set",
+      "paths": [
+        "audio/sfx/key-tag-clack.wav",
+        "audio/sfx/paper-handoff.wav",
+        "audio/sfx/permission-resolve.wav",
+        "audio/sfx/suppression-stop.wav",
+        "audio/sfx/direct-route.wav",
+        "audio/sfx/outcome-confirm.wav"
+      ],
+      "source": "media-use bundled SFX set sourced from Pixabay",
+      "license": "Pixabay Content License; modification and use in derivative work permitted; attribution recorded in media-use audio/assets/sfx/CREDITS.md",
+      "operation": "offline ffmpeg pitch, filtering, level, duration, and fade derivations; each output registered through media-use",
+      "fixture_status": "audio design elements; not evidence"
+    },
+    {
+      "id": "inn-room-tone",
+      "path": "audio/ambience/inn-room-tone.wav",
+      "sha256": "cbe74fb9aec2334ab064a3274849ba9333c5f67b416ef4288ed871603d6ff0b3",
+      "source": "local ffmpeg anoisesrc pink-noise generator",
+      "operation": "30.405-second 48kHz stereo filtered room-tone fixture with fades",
+      "fixture_status": "synthetic ambience; not a location recording; not evidence"
+    },
+    {
+      "id": "oe-local-fonts",
+      "paths": [
+        "hyperframes/assets/fonts/boska-700.woff2",
+        "hyperframes/assets/fonts/zodiak-700.woff2",
+        "hyperframes/assets/fonts/supreme-400.woff2",
+        "hyperframes/assets/fonts/supreme-500.woff2"
+      ],
+      "source": "site/public/fonts in the canonical Operator Economy repository",
+      "operation": "copied into isolated HyperFrames project for deterministic local render"
+    },
+    {
+      "id": "gsap-runtime",
+      "path": "hyperframes/assets/vendor-gsap.min.js",
+      "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280",
+      "source": "npm package gsap@3.14.2",
+      "operation": "frozen locally to remove render-time CDN dependency"
+    }
+  ]
+}

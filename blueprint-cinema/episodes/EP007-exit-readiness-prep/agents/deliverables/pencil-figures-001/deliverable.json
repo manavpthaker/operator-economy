@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "pencil-figures-001",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-BL-MOTION-001/hyperframes/index.html",
+      "sha256": "0282f63fd9a14c0095c444af53adc2aaf2121464a7fb4e26dff92c27b2bcbe9d"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/pencil-figures-001/pencil-figure-geometry.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/pencil-figures-001/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 blueprint-cinema/experiments/EP007-BL-MOTION-001/hyperframes/index.html",
+      "outcome": "pass"
+    },
+    {
+      "command": "Node inline JSON parse plus selector existence, M/L-only geometry, hatch tone, width and opacity assertions: 13 replacements and 6 hatch groups",
+      "outcome": "pass"
+    },
+    {
+      "command": "Node inline coordinate-envelope comparison for #owner-figure and three customer groups: all proposed point envelopes contained by source control-point envelopes",
+      "outcome": "pass"
+    },
+    {
+      "command": "Rendered-frame comparison after orchestrator integration",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the pinned local baseline SVG and its local BRIEF.md/frame.md were used as creative source; no external source or generated bitmap was used.",
+    "Proposal contains hand-authored path data for owner head, torso, arms, desk and three customer heads/shoulders, plus sparse mineral cross-hatching.",
+    "No text, transform, animation, duration, color-token, audio, approval, or canonical file was changed."
+  ],
+  "assumptions": [
+    "The root integrator will convert replacement geometry to short overlapping variable-width strokes; this packet does not implement the stroke renderer.",
+    "A coordinate-envelope check preserves placement but is not a substitute for browser SVG bounding boxes or encoded-frame review.",
+    "This packet is an explicitly requested internal style-test proposal, not an episode production deliverable or gate approval."
+  ],
+  "unresolved_questions": [
+    "Sparse 1.2-1.8px mineral hatching needs final encoded comparison at presentation scale; remove it if compression makes the shading noisy or invisible."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

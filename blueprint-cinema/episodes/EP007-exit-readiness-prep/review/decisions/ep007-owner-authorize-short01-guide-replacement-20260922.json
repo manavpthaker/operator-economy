@@ -1,0 +1,78 @@
+{
+  "record_type": "ep007_owner_direction_source",
+  "episode": "EP007-exit-readiness-prep",
+  "captured_at_utc": "2026-09-22T07:19:18Z",
+  "owner_verbatim": "Approved",
+  "prompt_presented_for_approval": "Approve one replacement Google Algieba attempt for Short 1, preserving the rejected take and revising the maximum to 5 Google calls, 4 ElevenLabs calls, 9 total calls, zero additional retries, with the same estimated $0.15 Google and 3,200-credit ElevenLabs caps?",
+  "bounded_interpretation": "Authorize exactly one replacement Google gemini-2.5-pro-tts Algieba guide attempt for Short 1. Preserve and exclude the rejected first take from transfer. If the replacement passes the existing technical and exact-copy gates, continue the previously authorized Shorts 2 through 4 guide calls and four Original C transfers. Across the original and continuation runs, permit no more than five Google calls, four ElevenLabs calls and nine provider-generation calls, with zero additional retries, an aggregate estimated Google cap of 0.15 USD and an aggregate ElevenLabs cap of 3200 credits.",
+  "authorization_context": {
+    "prior_authorization_event_id": "ep007-shorts-narration-authorized-v9",
+    "hold_event_id": "ep007-shorts-narration-batch-hold-v10",
+    "already_consumed": {
+      "google_guide_calls": 1,
+      "elevenlabs_transfer_calls": 0,
+      "provider_generation_calls": 1,
+      "estimated_google_usd": 0.0197845
+    }
+  },
+  "authorized": {
+    "replacement_short_id": "short-01-thirty-day-map",
+    "replacement_google_guide_calls_max": 1,
+    "google_guide_calls_max_aggregate": 5,
+    "elevenlabs_transfer_calls_max_aggregate": 4,
+    "provider_calls_max_aggregate": 9,
+    "additional_retries": 0,
+    "automatic_retries": 0,
+    "google_spend_cap_usd_aggregate_estimate": 0.15,
+    "elevenlabs_credit_cap_aggregate": 3200,
+    "guide_model": "gemini-2.5-pro-tts",
+    "guide_voice": "Algieba",
+    "transfer_model": "eleven_multilingual_sts_v2",
+    "transfer_voice": "Original C",
+    "transfer_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "continuation_condition": "The replacement Short 1 guide must pass the existing tail-completeness and local exact-copy ASR gates before any later provider call.",
+    "failure_policy": "If the replacement attempt fails or has an uncertain outcome, stop the batch. No further retry is authorized."
+  },
+  "preserve_and_exclude": {
+    "rejected_short_1_guide": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/media/guide.wav",
+      "sha256": "e0f3b2dcbb1a6ec16f63268845be8151cd94f96612156a898bc559234507d089",
+      "disposition": "immutable rejected evidence; never submit to ElevenLabs"
+    },
+    "batch_hold": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/BATCH-HOLD.json",
+      "sha256": "39b2cf50d6b995f15c18282b633739888fe768c1cec25c75151a0ffc976e9cd8"
+    }
+  },
+  "valid_only_for": {
+    "proposal": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V1.json",
+      "sha256": "c8404afd3b31153558a83c66e6f32a0d6a44a60570f237b8584bddddeb44e100"
+    },
+    "script_authority": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+      "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c"
+    },
+    "production_manifest": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/PRODUCTION-MANIFEST-V2.json",
+      "sha256": "cc925469a415e7d0405a21c6874d63586635d5fbb1c4ac5b2d7f82ab0fd0d4ad"
+    },
+    "original_authorization_event_id": "ep007-shorts-narration-authorized-v9",
+    "batch_hold_event_id": "ep007-shorts-narration-batch-hold-v10"
+  },
+  "not_authorized": [
+    "a second replacement or any other retry",
+    "acceptance or transfer of the rejected Short 1 guide",
+    "more than five aggregate Google guide calls",
+    "more than four aggregate ElevenLabs transfer calls",
+    "more than nine aggregate provider-generation calls",
+    "provider spend above either aggregate cap",
+    "matching portrait avatar generation",
+    "lip sync",
+    "music or sound effects",
+    "final render",
+    "Content OS release",
+    "release",
+    "publication"
+  ]
+}

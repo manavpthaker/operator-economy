@@ -1,0 +1,24 @@
+{
+  "candidate_sha256": "80eb6c9a4bcb198444d28a94aecab159e609df6da5d0c958d98c14c218c84357",
+  "candidate_sha256_verified": true,
+  "verdict": "shoulder_defect_resolved_hair_fringe_cleanup_needed",
+  "reviewed_frames": [0, 15, 25, 100, 111],
+  "findings": {
+    "shoulders": "The previous long double-shoulder contours are removed in the reviewed frames.",
+    "shelf": "Shelf remains substantially straight with no visible recurrence of the earlier wave.",
+    "hair": "A faint arc above the relocated hair remains at onset and frame 15, also visible around frame 100. Enlarged comparison identifies this as original dark hair fringe retained outside the segmentation mask, not a natural edge of the relocated head.",
+    "neck": "Faint horizontal reconstruction bands remain near the viewer-right neck/upper shoulder at onset. These are weaker than the removed long shoulder contour. A small angular transition remains where the protected shoulder meets the moved neck."
+  },
+  "frame0_hair_fringe_examples": [
+    {"xy": [1000, 67], "Q_alpha_8bit": 0, "Q_RGB": [114, 92, 74], "S2_RGB": [117, 92, 73], "unmasked_Q25_background_RGB": [131, 106, 87]},
+    {"xy": [1005, 69], "Q_alpha_8bit": 0, "Q_RGB": [113, 95, 78], "S2_RGB": [116, 96, 78], "unmasked_Q25_background_RGB": [140, 116, 97]},
+    {"xy": [1010, 71], "Q_alpha_8bit": 0, "Q_RGB": [120, 97, 82], "S2_RGB": [120, 97, 82], "unmasked_Q25_background_RGB": [141, 117, 98]}
+  ],
+  "recommendation": "A narrow approximately 3px removal-support expansion confined to the head field is justified to prevent original zero-alpha hair fringe being force-preserved. Do not change the protected shoulders. Recheck the three listed pixel sites and onset enlargement before calling the edge clean.",
+  "evidence": ["q-s2-onset-edge-enlargement.png", "q-s2-frame-000.png", "q-s2-frame-015.png", "q-s2-frame-025.png", "q-s2-frame-100.png", "q-s2-frame-111.png", "s2-onset-fringe-pixels.json"],
+  "full_speed_playback_performed": false,
+  "owner_approval": false,
+  "productionGateAdvance": false,
+  "provider_calls": 0,
+  "source_changes": []
+}

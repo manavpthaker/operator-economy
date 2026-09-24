@@ -1,0 +1,35 @@
+{
+  "schema": "oe-generated-film-editorial-selection-v1",
+  "purpose": "Narration-directed EP007 coverage comparison; generated human context, not evidence",
+  "input": {
+    "asset": "assets/video/source/owner-closeup.full-generated.mp4",
+    "sha256": "dc466f416f26db266fa51b1e4c3310889fe45eaed4eb91b7eda5e3f80ee583ff",
+    "fps": 24,
+    "frameCount": 121,
+    "durationSeconds": 5.041667
+  },
+  "selection": {
+    "sourceFramesInclusive": [42, 98],
+    "sourceRangeHalfOpenSeconds": [1.75, 4.125],
+    "excludedSourceFrameRangesInclusive": [[0, 41], [99, 120]],
+    "appendedHoldFrames": 0,
+    "interpolation": false,
+    "speedChange": false,
+    "reason": "This 57-frame native-speed window begins and ends open-eyed, carries one restrained blink, and remains locked on the owner's screen-right eyeline. It lets the reaction shot hold the complete pause and phrase 'Back to her question, then' without inventing anxiety, speech, camera motion, or a second dramatic beat."
+  },
+  "command": "ffmpeg -hide_banner -loglevel error -y -i assets/video/source/owner-closeup.full-generated.mp4 -an -vf \"trim=start_frame=42:end_frame=99,setpts=PTS-STARTPTS,fps=24\" -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart assets/video/owner-closeup.directed.mp4",
+  "output": {
+    "asset": "assets/video/owner-closeup.directed.mp4",
+    "sha256": "5bc8d577483973983c2c6ca13e67100596997a7639edfa92600162cf5fc2ef3d",
+    "fps": 24,
+    "frameCount": 57,
+    "durationSeconds": 2.375,
+    "timelineDurationSeconds": 2.36,
+    "sceneTimelineRangeSeconds": [2.56, 4.92],
+    "masterTimelineRangeSeconds": [20.72, 23.08]
+  },
+  "contactSheet": {
+    "asset": "assets/video/owner-closeup.directed.contact-sheet.jpg",
+    "sha256": "bff1b7fe58bb9425e61e26da86266ef08b89a601a260c1f67acfc6836867abca"
+  }
+}

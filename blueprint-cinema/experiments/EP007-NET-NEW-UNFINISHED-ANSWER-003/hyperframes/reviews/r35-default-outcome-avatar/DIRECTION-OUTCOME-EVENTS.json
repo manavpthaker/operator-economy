@@ -1,0 +1,100 @@
+[
+  {
+    "event_id": "r35-default-outcome-built-and-verified-v1",
+    "event_type": "verification",
+    "decision_id": "s06-explanation-form",
+    "tags": [
+      "avatar",
+      "emphasis",
+      "original-audio",
+      "source-alignment",
+      "rendered-boundary",
+      "v5"
+    ],
+    "data": {
+      "decision_event_id": "r35-s06-presenter-conclusion-v3",
+      "result": "pass",
+      "scope": "Approved single V5 default-outcome take, exact-audio restoration, final5s continuous-source push and private R35 review.",
+      "method": "Input/output hashes; three independent waveform windows;43runtime pins; strict browser check; exact full24fps render frame inspection and final-sentence encoded audio correlation.",
+      "limitations": "Pass concerns measured provenance, timing and sampled output only. R35 performance and comprehension await owner review; no canonical/publication gate advancement.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/RUNTIME-PINS.json",
+          "sha256": "aa7dfc6110066d6c1c658128aa9fe10a55333a9dbc2fd85ef195a473d16683f8"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/VERIFICATION.json",
+          "sha256": "cb03303c848ae9f2d4ad002df3e7abec9d13c409e466a9998e4b5f9494a03ff0"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/provider/COST-RECONCILIATION.json",
+          "sha256": "a3176afddfef8da9e69042a2a1548a6b25662b5eab147d5691128b6d677d56ee"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/qa/full-render-boundaries.jpg",
+          "sha256": "622dd0c1a308fed800832f83fbe5bf0cab0b7bec716374509e52df69516b55bf"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/skill-snapshot/precedent-index.md",
+          "sha256": "2c425a51b7fe68cc48a5ca2994d87c003c3da51fa535721f5f2dc8a78ffeecd2"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/RUNTIME-PINS.json",
+        "sha256": "aa7dfc6110066d6c1c658128aa9fe10a55333a9dbc2fd85ef195a473d16683f8",
+        "locator": "43 runtime files, exact R35 candidate"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/VERIFICATION.json",
+        "sha256": "cb03303c848ae9f2d4ad002df3e7abec9d13c409e466a9998e4b5f9494a03ff0",
+        "locator": "Actual full24fps export, alignment and verification limits"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/provider/COST-RECONCILIATION.json",
+        "sha256": "a3176afddfef8da9e69042a2a1548a6b25662b5eab147d5691128b6d677d56ee",
+        "locator": "One generation and one restoration within approved caps"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/qa/full-render-boundaries.jpg",
+        "sha256": "622dd0c1a308fed800832f83fbe5bf0cab0b7bec716374509e52df69516b55bf",
+        "locator": "Encoded frames4682,4683,4684,4772,4773,4777,4781,4802"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/skill-snapshot/precedent-index.md",
+        "sha256": "2c425a51b7fe68cc48a5ca2994d87c003c3da51fa535721f5f2dc8a78ffeecd2",
+        "locator": "Updated contextual precedent and frame-clock diagnostic"
+      }
+    ]
+  },
+  {
+    "event_id": "r35-exact-export-frame-clock-lesson-v1",
+    "event_type": "lesson",
+    "decision_id": "s06-explanation-form",
+    "tags": [
+      "runtime",
+      "frame-clock",
+      "verification"
+    ],
+    "data": {
+      "insight": "Use frames extracted from an explicitly configured export to resolve exact-boundary disputes. In R35, a snapshot labeled195.125 still showed the outgoing model while actual24fps encoded frame4683 correctly showed the incoming presenter.",
+      "applies_when": "Diagnosing a frame-specific cut in this HyperFrames0.8.34 experiment or another runtime with unverified snapshot/export clock parity.",
+      "avoid_when": "Do not infer a creative timing change from a snapshot label alone, or generalize this runtime behavior to all versions.",
+      "confidence": "supported",
+      "status": "candidate"
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/qa/FRAME-CLOCK-DIAGNOSTIC.json",
+        "sha256": "cc419f999d014458c5e5611df288bc0faca50d1721ff2fa0087e24a367971714",
+        "locator": "Failed snapshot timing inference and authoritative full-export result"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r35-default-outcome-avatar/qa/full-render-boundaries.jpg",
+        "sha256": "622dd0c1a308fed800832f83fbe5bf0cab0b7bec716374509e52df69516b55bf",
+        "locator": "Actual encoded frames establish correct boundary"
+      }
+    ]
+  }
+]

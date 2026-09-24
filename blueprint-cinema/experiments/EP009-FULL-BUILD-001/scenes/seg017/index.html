@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>EP009 S03e three things changed</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#s03e-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6;color:#173530;font-family:Supreme,sans-serif}
+svg.stage{position:absolute;inset:0;width:1280px;height:720px}
+.head{position:absolute;left:0;right:0;top:22px;text-align:center;margin:0;font:700 62px/1.06 Boska,serif;color:#173530}
+.slot{position:absolute;top:150px;width:360px;height:470px;padding:22px 24px}
+.x{visibility:hidden;opacity:0}
+.kicker{font-size:19px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#33464C;line-height:1.3}
+.fig{font:700 64px/1 Boska,serif;margin-top:16px;white-space:nowrap}
+.stmt{font:700 36px/1.1 Boska,serif;margin-top:16px}
+.line{font:400 24px/1.3 Supreme,sans-serif;margin-top:12px}
+.qual{font:400 21px/1.3 Supreme,sans-serif;color:#33464C;margin-top:8px}
+.note{font:400 21px/1.3 Supreme,sans-serif;color:#173530;margin-top:18px;padding-top:10px;border-top:1.5px solid #586D74}
+.note strong{font-weight:500}
+.here{font:500 27px/1.2 Supreme,sans-serif;margin-top:18px}
+.receipt{position:absolute;left:24px;right:20px;bottom:16px;font:400 14px/1.3 Supreme,sans-serif;color:#586D74}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="s03e-root" data-composition-id="ep009-seg017" data-start="0" data-duration="33.666666666666664" data-width="1280" data-height="720" data-fps="24">
+<svg class="stage" viewBox="0 0 1280 720" aria-hidden="true">
+<rect id="o1" x="64" y="150" width="360" height="470" rx="4" stroke="#586D74" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+<rect id="o2" x="460" y="150" width="360" height="470" rx="4" stroke="#586D74" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+<rect id="o3" x="856" y="150" width="360" height="470" rx="4" stroke="#586D74" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+</svg>
+<h1 class="head">Three things changed</h1>
+<div id="sa" class="slot" style="left:64px">
+  <div id="a-k" class="kicker x">Cloudbeds · sells hotel software</div>
+  <div id="a-f" class="fig x">about 63%</div>
+  <div id="a-l" class="line x">of independent hotel reservations through the sites<span id="a-q" class="x" style="color:#33464C">, worldwide, 2025</span></div>
+  <div id="a-r" class="receipt x">Cloudbeds, 2026 State of Independent Hotels, press release 2026-03-25, about 90 million bookings, 63.4 percent, C001</div>
+</div>
+<div id="sb" class="slot" style="left:460px">
+  <div id="b-k" class="kicker x">Trade reporting · secondary</div>
+  <div id="b-s" class="stmt x">Genius placement changed<span id="b-q" class="x">, early 2026</span></div>
+  <div id="b-l" class="line x">the minimum discount no longer buys the visibility it used to</div>
+  <div id="b-r" class="receipt x">Houst, "Genius for hosts 2026", relevance-based visibility from early 2026, secondary, C006</div>
+</div>
+<div id="sc" class="slot" style="left:856px">
+  <div id="c-k" class="kicker x">HOTREC</div>
+  <div id="c-f" class="fig x">15,000+</div>
+  <div id="c-l" class="line x">hotels joined a damages claim over price parity clauses</div>
+  <div id="c-h" class="here x">Europe, not here</div>
+  <div id="c-r" class="receipt x">HOTREC 2025-08-28, 15,000-plus hotels registered; claim filed Amsterdam District Court 2026-01-30, 10,783 hotels; ECJ C-264/23 of 2024-09-19, C037</div>
+</div>
+<audio id="s03e-narration" src="public/audio/narration.wav" data-start="0" data-duration="33.666666666666664" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+const t=gsap.timeline({paused:true});
+// Master 140.625 + cue. Frame 0 matches seg016's end: heading and three empty slots.
+const C={"cloudbeds":0.475,"independent":4.415,"sixty":10.175,"worldwide":11.095,"booking":14.475,"changed":15.375,"minimum":18.095,"europe0":22.135,"damages":25.515,"europe":30.415};
+const rise=(sel,at)=>t.fromTo(sel,{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:8/24,ease:'power2.out'},at);
+const firm=(sel,at)=>t.set(sel,{attr:{'stroke-dasharray':'none'}},at);
+// 1. "Cloudbeds, which sells hotel software, reports the share ... to about sixty three percent worldwide."
+firm('#o1',C.cloudbeds);rise('#a-k',C.cloudbeds);rise('#a-r',C.cloudbeds);
+rise('#a-l',C.independent);rise('#a-f',C.sixty);t.fromTo('#a-q',{autoAlpha:0},{autoAlpha:1,duration:8/24},C.worldwide);
+// 2. "Booking dot com changed how Genius placement works, so the minimum discount no longer buys the visibility"
+t.to('#sa',{opacity:.4,duration:.4,ease:'power1.inOut'},C.booking-.2);firm('#o2',C.booking);rise('#b-k',C.booking);rise('#b-r',C.booking);rise('#b-s',C.changed);rise('#b-l',C.minimum);t.fromTo('#b-q',{autoAlpha:0},{autoAlpha:1,duration:8/24},C.changed+.4);
+// 3. "in Europe, more than fifteen thousand hotels have joined a damages claim ... That's Europe, not here"
+t.to('#sb',{opacity:.4,duration:.4,ease:'power1.inOut'},C.europe0-.2);firm('#o3',C.europe0);rise('#c-k',C.europe0);rise('#c-r',C.europe0);rise('#c-f',C.europe0+1.14);rise('#c-l',C.damages);rise('#c-h',C.europe);
+window.__timelines['ep009-seg017']=t;
+</script></body></html>

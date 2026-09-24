@@ -1,0 +1,27 @@
+<template>
+<style>
+@font-face{font-family:Zodiak;src:url('public/fonts/zodiak-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+#r14-bridge-root{position:absolute;inset:0;width:1280px;height:720px;pointer-events:none;color:#173530}
+#r14-bridge-labels{position:absolute;left:80px;top:512px;width:300px;height:128px}
+#r14-bridge-tenure{position:absolute;left:0;top:0;width:300px;height:78px;padding:6px 18px 10px;background:#F5F0E6;font-family:Zodiak,serif;font-size:48px;font-weight:700;line-height:62px;white-space:nowrap}
+#r14-bridge-profit{position:absolute;left:0;top:78px;width:202px;height:50px;padding:4px 18px 10px;background:#F5F0E6;font-family:Supreme,sans-serif;font-size:30px;font-weight:500;line-height:36px;white-space:nowrap}
+</style>
+<div data-hf-id="hf-5lsj" id="r14-bridge-root" data-composition-id="r14-opening-bridge" data-start="0" data-duration="5.166666666666667" data-width="1280" data-height="720">
+  <div data-hf-id="hf-0tet" id="r14-bridge-labels" aria-label="25 years. Profitable. Editorial summary of the narrated setup.">
+    <div data-hf-id="hf-mpxr" id="r14-bridge-tenure">25 years.</div>
+    <div data-hf-id="hf-cl7l" id="r14-bridge-profit">Profitable.</div>
+  </div>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const r14Bridge=gsap.timeline({paused:true});
+// The claim holds at fixed coordinates across the underlying avatar-to-film cut.
+r14Bridge.fromTo('#r14-bridge-tenure',{opacity:0},{opacity:1,duration:5/24,ease:'none'},0);
+// Review6.375: original narration begins "It makes money"; no invented metric.
+r14Bridge.fromTo('#r14-bridge-profit',{opacity:0},{opacity:1,duration:4/24,ease:'none'},93/24);
+// Clear on frame184, one frame before the accepted owner close-up.
+r14Bridge.fromTo('#r14-bridge-labels',{opacity:1},{opacity:0,duration:3/24,ease:'none'},121/24);
+window.__timelines['r14-opening-bridge']=r14Bridge;
+</script>
+</template>

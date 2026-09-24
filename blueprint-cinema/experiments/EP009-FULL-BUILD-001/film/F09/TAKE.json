@@ -1,0 +1,117 @@
+{
+ "take_id": "F09",
+ "segment_id": "seg067",
+ "status": "accepted",
+ "attempts": [
+  {
+   "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09",
+   "request_id": "01a0acd7-8bb7-76a0-a2d5-e00adc27a89b",
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/start.png",
+   "start_image_sha256": "c4dbed89bf85c628a5bfb7acfacb52d610d95869d913813becb6171d195e951d",
+   "start_image_source": "F08/raw.mp4 frame 192 (8.0 s), last frame of the F08 clean window",
+   "prompt": "Static camera. The camera is fixed on a tripod and never moves for the whole eight seconds: no pan, no truck, no dolly, no tilt, no zoom, no reframing, no cuts. The first and last frames have exactly the same framing.\n\nPreserve the supplied starting frame exactly: the guest standing at the counter at screen left, three-quarter back to camera, short brown hair, navy rain shell, daypack, pen in hand over a registration card; the innkeeper seated behind the counter, dark hair tied back, olive-green cardigan; the open cloth-bound guest book on the counter just beside him, the bell, daffodils, laptop with its screen facing her, desk phone, daylight.\n\nHe finishes the card, sets it aside, leans slightly to the open guest book beside him and signs it with the pen in one short stroke. Then he lifts the pen and straightens up, standing at the counter.\n\nHe stays at the counter and does not walk away. The innkeeper stays seated. No speaking, no lip movement. The book pages, card and signature are never readable. No new person, prop, text, logo or sound. Real-time motion.",
+   "duration": "8",
+   "generate_audio": false,
+   "cfg_scale": 0.5,
+   "raw": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/raw.mp4",
+    "sha256": "7227fc88023a418a0c04755c1aabaa45d088ee85ace8bf2a0eb024f97eee8c19",
+    "frames": 193,
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": 24
+   },
+   "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/contact.jpg",
+   "cost_usd_listed": 0.896,
+   "regeneration_reason": null
+  }
+ ],
+ "cost_usd_listed_total": 0.896,
+ "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+ "honest_note": "He steps to the open guest book, signs, lifts the pen and straightens and starts to turn. Camera moved around 3.5 to 4.2 s; window from 4.5 s is steady. A dark lamp-like object appears near his shoulder in the last frames; minor.",
+ "action_performed": true,
+ "source_window": "source frames 108-178 (4.5-7.458 s)",
+ "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+ "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+ "agent_verdict_is_recommendation_only": true,
+ "final": {
+  "segment_id": "seg067",
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/final/seg067.mp4",
+  "sha256": "e1376d3c69f1d0322d200a4d8ec96a7226593862d96b4458deed27659675b1fe",
+  "frames_expected": 71,
+  "frames": 71,
+  "frames_ok": true,
+  "size": [
+   1280,
+   720
+  ],
+  "fps": 24.0,
+  "audio": {
+   "sample_rate": 48000,
+   "channels": 2,
+   "master_samples": [
+    54358000,
+    54500000
+   ],
+   "pcm_intermediate_sample_exact": true,
+   "aac_corr_zero_lag_vs_master_excerpt": 0.99999
+  },
+  "uniform_frames": 0,
+  "source_window": {
+   "source_in_s": 4.5,
+   "source_out_s": 7.4583,
+   "native_fps": 24.0,
+   "speed_change": false
+  },
+  "master_in": 1132.458333,
+  "master_out": 1135.416667,
+  "segment_frames": [
+   27179,
+   27250
+  ]
+ },
+ "checks": {
+  "frames_ok": true,
+  "size": [
+   1280,
+   720
+  ],
+  "fps": 24.0,
+  "audio_pcm_sample_exact": true,
+  "audio_aac_corr": 0.99999,
+  "uniform_frames": 0,
+  "readable_text_or_logo": "none seen in used window",
+  "extra_people": "none",
+  "rude_or_ignoring_behaviour": "none seen"
+ },
+ "fix_round_1": {
+  "segments": {
+   "seg067": {
+    "findings": [
+     "B-16"
+    ],
+    "sha256": "851c8f6056e4f38fafbdb3191a185aa9c53a1600a53aba2e95d5a3dbf8aa864b",
+    "framing": "crop [1632, 918, 0, 60] for segment frames 0-70",
+    "edit_record": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/EDIT-R1-seg067.json",
+    "r0": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/qa/seg067.r0.mp4",
+    "checks": {
+     "frames_ok": true,
+     "audio_zero_lag_corr": [
+      0.99999,
+      0.99999
+     ],
+     "uniform_frames": 0,
+     "hyperframes_check": "not applicable: clip re-cut with ffmpeg, no HyperFrames project touched"
+    },
+    "stills": [
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/qa/stills-r1/seg067-f0000-m1132.458.png",
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/qa/stills-r1/seg067-f0035-m1133.917.png",
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F09/qa/stills-r1/seg067-f0070-m1135.375.png"
+    ]
+   }
+  }
+ }
+}

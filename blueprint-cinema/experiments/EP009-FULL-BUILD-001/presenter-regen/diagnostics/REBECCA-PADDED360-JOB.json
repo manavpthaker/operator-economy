@@ -1,0 +1,44 @@
+{
+  "hypothesis": "Rebecca's 340-pixel height or encoding may trigger provider ingest failure; not established by official docs.",
+  "media_id": "31597b02-252e-4416-8d86-a401ceadb76e",
+  "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/31597b02-252e-4416-8d86-a401ceadb76e.mp4",
+  "encoding": {
+    "exit_code": 0,
+    "stdout": "{\n    \"programs\": [\n\n    ],\n    \"streams\": [\n        {\n            \"width\": 640,\n            \"height\": 360,\n            \"r_frame_rate\": \"24/1\",\n            \"nb_frames\": \"192\"\n        }\n    ],\n    \"format\": {\n        \"duration\": \"8.000000\"\n    }\n}\n8a26a0b552c1bc32018c99a13a4b6e48deed98214660ec5c4d23d903985e55cc  /home/user/rebecca-padded.mp4\n200",
+    "stderr": ""
+  },
+  "generation": {
+    "results": [
+      {
+        "id": "fc54ffce-43bd-4589-8006-87751b83d163",
+        "type": "video",
+        "status": "pending",
+        "model": "seedance_2_5",
+        "params": {
+          "prompt": "The man in the IMAGE reference sits quietly at the wooden table in the inn breakfast room and blinks. The VIDEO reference supplies relaxed facial settling only. Preserve the IMAGE identity, chambray shirt, room and framing. Fixed camera. No speaking, no camera move.",
+          "aspect_ratio": "16:9",
+          "duration": 4,
+          "reference_images": [
+            "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30",
+            "31597b02-252e-4416-8d86-a401ceadb76e"
+          ],
+          "mode": "omni_reference",
+          "resolution": "480p",
+          "generate_audio": false
+        }
+      }
+    ],
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      }
+    }
+  }
+}

@@ -55,10 +55,12 @@ export const COLORS = {
 } as const;
 
 export const FONTS = {
-  // Boska — display ≥40px hard floor
-  display: "'Boska', Georgia, 'Times New Roman', serif",
-  // Zodiak — 18-44px workhorse, tracked -0.02em
-  heading: "'Zodiak', Georgia, 'Times New Roman', serif",
+  // Supreme is the screen-register voice: direct, heavy, and legible on
+  // phones and televisions. Editorial serif remains available only for
+  // document surfaces; it is not the default video heading treatment.
+  display: "'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif",
+  heading: "'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif",
+  editorial: "'Boska', Georgia, 'Times New Roman', serif",
   // Supreme — body/UI
   sans: "'Supreme', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif",
   // Fragment Mono — every number & citation, tabular, slashed zero
@@ -129,12 +131,12 @@ export const TYPE = {
   microLabel: 20, // annotation rail labels ("SOURCE:", "SHEET 02 OF 07")
   citation: 22, // citation chip body
   small: 26,
-  body: 30, // annotation-rail body lines
-  bodyLg: 36, // lead / thesis paragraph
-  h3: 44, // Zodiak
-  h2: 60, // Zodiak or Boska (>= 40 → Boska ok)
-  h1: 92, // Boska display
-  displayLg: 128, // hook display figure
+  body: 32, // annotation-rail body lines
+  bodyLg: 42, // lead / thesis paragraph
+  h3: 48,
+  h2: 72,
+  h1: 108,
+  displayLg: 144, // hook display figure
 } as const;
 
 // Tracking (em)

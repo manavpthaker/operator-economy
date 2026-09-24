@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R54 S11a — Not started, the retirement, who helps</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r54-root{position:relative;width:1280px;height:720px;overflow:hidden;color:#173530;font-family:Supreme,sans-serif;background:#F5F0E6}
+.panel{position:absolute;inset:0;visibility:hidden;opacity:0}
+.kicker{position:absolute;left:64px;top:42px;font-size:21px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#33464C}
+.h{position:absolute;left:64px;top:98px;font:700 62px/1.1 Boska,serif;margin:0}
+.rule{position:absolute;left:66px;right:65px;top:196px;height:2px;background:#586D74}
+.foot{position:absolute;left:65px;bottom:40px;font-size:21px;color:#33464C}
+/* Recap */
+#r54-recap .lines{position:absolute;left:64px;top:250px}
+#r54-recap .l{font:700 56px/1.3 Boska,serif;visibility:hidden;opacity:0}
+/* Stats */
+.stat{position:absolute;left:65px;width:1150px;display:flex;align-items:baseline;gap:34px;visibility:hidden;opacity:0}
+.stat .n{font:700 64px/1 Boska,serif;width:540px;white-space:nowrap}
+.stat .c{font:400 30px/1.3 Supreme,sans-serif}
+/* Retirement */
+#r54-own{position:absolute;left:96px;top:236px;width:640px;height:340px;border:2.5px solid #586D74}
+#r54-own-label{position:absolute;left:96px;top:196px;font-size:26px;font-weight:500}
+#r54-biz{position:absolute;left:112px;top:252px;width:510px;height:308px;object-fit:contain}
+#r54-rest{position:absolute;left:630px;top:252px;width:90px;height:308px;background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(88,109,116,.35) 9px 10.5px)}
+#r54-rest-label{position:absolute;left:600px;top:588px;width:150px;text-align:center;font-size:21px;color:#33464C}
+#r54-eq{position:absolute;left:790px;top:330px;font:700 64px/1.1 Boska,serif;visibility:hidden;opacity:0}
+#r54-eq small{display:block;font:400 28px/1.3 Supreme,sans-serif;margin-top:14px}
+#r54-majority{position:absolute;left:96px;top:588px;font-size:24px;font-weight:500;visibility:hidden;opacity:0}
+/* Question */
+#r54-q h1{position:absolute;left:0;right:0;top:300px;margin:0;text-align:center;font:700 92px/1.08 Boska,serif}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r54-root" data-composition-id="ep007-r54-s11a" data-start="0" data-duration="26.875" data-width="1280" data-height="720" data-fps="24">
+
+<div class="panel" id="r54-recap" role="img" aria-label="Put those together: an owner needs to get ready, cannot reliably choose when, and mostly has not started.">
+<div class="kicker">Put those together</div><h2 class="h">An owner</h2><div class="rule"></div>
+<div class="lines"><div class="l" id="l1">needs to get ready,</div><div class="l" id="l2">cannot reliably choose when,</div><div class="l" id="l3">and mostly has not started.</div></div>
+</div>
+
+<div class="panel" id="r54-stats" role="img" aria-label="Exit Planning Institute owner survey: over half intend to be out within five years; about a quarter have had a valuation; fewer than one in ten has an estate plan.">
+<div class="kicker">Owners' own answers</div><h2 class="h">Exit Planning Institute</h2><div class="rule"></div>
+<div class="stat" id="s1" style="top:262px"><div class="n">Over half</div><div class="c">intend to be out within five years</div></div>
+<div class="stat" id="s2" style="top:372px"><div class="n">About a quarter</div><div class="c">have had an actual valuation done</div></div>
+<div class="stat" id="s3" style="top:482px"><div class="n">Fewer than 1 in 10</div><div class="c">have an estate plan</div></div>
+<div class="foot">Self-reported owner survey · the institute trains and certifies exit planners</div>
+</div>
+
+<div class="panel" id="r54-ret" role="img" aria-label="Everything a typical owner owns: the business fills most of it. The business is the retirement. Survey average, not any one owner.">
+<div class="kicker">For most owners</div>
+<div id="r54-own-label">Everything they own</div>
+<div id="r54-own"></div>
+<img id="r54-biz" src="public/art/workshop.svg" alt="The business"/>
+<div id="r54-rest"></div>
+<div id="r54-rest-label">Everything else</div>
+<div id="r54-majority">The business: the large majority</div>
+<div id="r54-eq">= the retirement</div>
+<div class="foot">Exit Planning Institute survey · an average across owners, not any one owner</div>
+</div>
+
+<div class="panel" id="r54-q"><h1>So who helps?</h1></div>
+
+<audio id="r54-narration" src="public/audio/narration.wav" data-start="0" data-duration="26.875" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={"needs":1.93,"cannot":3.35,"mostly":5.55,"statsIn":7.5833,"half":7.71,"quarter":10.79,"fewer":14.15,"retIn":16.8333,"business":18.17,"isRet":20.51,"majority":22.63,"qIn":25.25,"q":25.37};
+const show=(sel,at,d=8/24)=>t.fromTo(sel,{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:d,ease:'power2.out'},at);
+// Recap: the three conditions from S08-S10 land on their words.
+t.set('#r54-recap',{autoAlpha:1},0);
+show('#l1',C.needs); show('#l2',C.cannot); show('#l3',C.mostly);
+// Owner survey: each figure on its word; source and interest note visible with the numbers.
+t.set('#r54-recap',{autoAlpha:0},C.statsIn); t.set('#r54-stats',{autoAlpha:1},C.statsIn);
+show('#s1',C.half); show('#s2',C.quarter); show('#s3',C.fewer);
+// Business inside everything they own; no percentage.
+t.set('#r54-stats',{autoAlpha:0},C.retIn); t.set('#r54-ret',{autoAlpha:1},C.retIn);
+t.fromTo(['#r54-biz'],{autoAlpha:.25},{autoAlpha:1,duration:.5,ease:'power1.out'},C.business);
+show('#r54-eq',C.isRet,10/24);
+show('#r54-majority',C.majority);
+// Question beat.
+t.set('#r54-ret',{autoAlpha:0},C.qIn); t.set('#r54-q',{autoAlpha:1},C.qIn);
+t.fromTo('#r54-q h1',{autoAlpha:.35},{autoAlpha:1,duration:7/24,ease:'power1.out'},C.qIn);
+window.__timelines['ep007-r54-s11a']=t;
+</script></body></html>

@@ -1,0 +1,89 @@
+{
+  "event_id": "ep007-short01-screen-led-render-verified-v21",
+  "decision_id": "ep007-companion-shorts-platform-system",
+  "event_type": "verification",
+  "tags": [
+    "shorts",
+    "short-01",
+    "screen-led",
+    "picture-coverage",
+    "hyperframes",
+    "render",
+    "phone-preview",
+    "verification"
+  ],
+  "data": {
+    "decision_event_id": "ep007-companion-shorts-short01-coverage-v20",
+    "authorization_event_id": "ep007-short01-through-video-generation-authorized-v15",
+    "actor": "production-pipeline",
+    "verdict": "pass",
+    "result": "pass",
+    "scope": "Technical implementation and verification of the owner-directed screen-led picture revision for EP007 Short 01. This does not approve the finished video, authorize Shorts 2 through 4 provider work, run the Content OS release gate, or authorize release, upload, publication, episode URL, or native Related Video binding.",
+    "method": "Ran HyperFrames 0.8.61 checks; reviewed 20 exact-time authored frames and the encoded-render contact sheet; generated the animation map; rendered, probed, and fully decoded the 1080x1920 MP4; verified the decoded Original C audio prefix is unchanged; checked the private HTTPS health and byte-range endpoints; hashed and fully decoded the HTTPS-served media; and loaded the candidate in the in-app browser with readyState 4, 43.541667-second duration, and 1080x1920 intrinsic dimensions.",
+    "finding": "The verified cut now uses presenter address only from 0.000000 to 7.000000 seconds and 32.583333 to 41.541667 seconds. The thirty-day question, circle-every-I diagnostic, and dependency map are full-screen from 7.000000 to 32.583333 seconds. Presenter visibility is 383 of 1045 frames, 15.958334 seconds, or 36.65 percent of the complete Short. The exact script, program audio, captions, duration, and approved two-second end bridge remain unchanged.",
+    "limitations": "Owner acceptance of the revised finished video remains pending. Generated presenter footage is not evidence. Content OS release review has not run. Release, upload, publication, canonical episode URL, and YouTube Related Video attachment remain unauthorized or unbound. Animation-map offscreen and degenerate samples are authored entry states or SVG sampling; the single skipped microtween and dead zones were reviewed as intentional.",
+    "owner_video_acceptance": false,
+    "provider_calls_made": 0,
+    "provider_credits_used": 0,
+    "artifact_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/index.html",
+        "sha256": "92d4f9d61469c8f10ab77e989463c38514f8259ac8eb7d6e9934f08f9c00641e"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/compositions/02-thirty-days.html",
+        "sha256": "0b9cae810c30eea39d723b1450ab64740bdfd0ea0716460c95b32137b4a564ce"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/compositions/03-circle-answers.html",
+        "sha256": "4c928af2f6bd9161b2a0c658db2e9401ca8d3d027ece91835135098472590efd"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-screen-led-v3.mp4",
+        "sha256": "57be79b5f12ebc75f34cde25760cffc2160e84297e4ab484245b211341224ce0"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/SCREEN-LED-V3-QA.json",
+        "sha256": "c23c7ef41d8eadb6de8a9aa64617c66591d97c3cb4dd264b9c91c06f6542e323"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/PRODUCTION-STATUS.json",
+        "sha256": "d6f104bf62c4cc8305f704a93915e3d2624bfac725bbe5f851c57c0cb54ace90"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/ASSET-PROVENANCE.json",
+        "sha256": "6c1c0803e2523c988fd9d54185dd73273b0c7397e3ca2d7e1917559cef1e8a16"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/PRODUCTION-MANIFEST-V4.json",
+        "sha256": "3bfd5b5832559950c79e7e7e993c3640ad90a0608f3764564092b5174b2f087b"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-net-new/STATUS.json",
+        "sha256": "2762d9c31545e91d7ca75c648378b1acede161e96488ae32e976e4c8f706d8eb"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/SCREEN-LED-V3-QA.json",
+      "sha256": "c23c7ef41d8eadb6de8a9aa64617c66591d97c3cb4dd264b9c91c06f6542e323",
+      "locator": "screen-led picture coverage, exact-time visual review, animation map, render probe and decode, audio-prefix equivalence, served-byte hash, and in-browser phone-preview verification"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-screen-led-v3.mp4",
+      "sha256": "57be79b5f12ebc75f34cde25760cffc2160e84297e4ab484245b211341224ce0",
+      "locator": "current technically verified screen-led review render and exact bytes served by the tailnet-private phone preview"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/PRODUCTION-STATUS.json",
+      "sha256": "d6f104bf62c4cc8305f704a93915e3d2624bfac725bbe5f851c57c0cb54ace90",
+      "locator": "current technical, owner, release, upload, publication, episode-link, and Related Video gates"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/ASSET-PROVENANCE.json",
+      "sha256": "6c1c0803e2523c988fd9d54185dd73273b0c7397e3ca2d7e1917559cef1e8a16",
+      "locator": "current render lineage, revised presenter usage, preserved prior candidates, and zero new provider calls"
+    }
+  ]
+}

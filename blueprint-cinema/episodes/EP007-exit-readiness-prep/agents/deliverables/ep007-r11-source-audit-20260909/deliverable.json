@@ -1,0 +1,47 @@
+{
+  "$schema": "../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r11-source-audit-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/RESULTS.md", "sha256": "e040faa5fa24ce8ec0ac7e37a6d81d43464fa9a54cfd0d9b142fa70545d78e72"},
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/seedance-selection-2026-09-09.json", "sha256": "7f6948c7665cb114a065e32dc46d2974d85c5581cca8a9b90548d531d996a156"},
+    {"path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/hyperframes/EDIT-MANIFEST.json", "sha256": "f055d24c39dea024050f47f39d77b7e3507c10595ff0b3ff312faebb7c4ed915"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-source-audit-20260909/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r11-source-audit-20260909/deliverable.json"
+  ],
+  "checks": [
+    {"command": "SHA-256 verification of all three pinned inputs before and after inspection", "outcome": "pass"},
+    {"command": "Read-only search of presenter001 and Higgsfield001-004 generation and review records for selected Seedance cold-open coverage", "outcome": "pass"},
+    {"command": "Fresh SHA-256 comparison of all six premium004 staged sources and selected404/407 source files", "outcome": "pass"},
+    {"command": "Fresh ffprobe of the original workshop sources and404/407 picture/audio streams", "outcome": "pass"},
+    {"command": "Reconcile prior R8 selects against premium004 edit-manifest source ranges and documented removed pose-jump join", "outcome": "pass"},
+    {"command": "Validate deliverable.json against blueprint-cinema/schemas/agent-deliverable.schema.json", "outcome": "pass"},
+    {"command": "New full-decode, waveform correlation rerun, or normal-speed visual playback", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Report SHA-256: c1468264cbcc9aba51c0b507ab3206228a8ba88c492671ef6dee697e89b988c7",
+    "Existing local experiment and prior independent QA records were inspected. No remote source, provider call, credential read, upload, download, or generation was performed.",
+    "Supplementary records: EP007-HIGGSFIELD-HYPERFRAMES-001/REVIEW.md and GENERATION-PACKET.md; EP007-HIGGSFIELD-FROM-PHASE2-002/REVIEW.md and PHASE2-HANDOFF.md; EP007-HIGGSFIELD-REVISION-003/FINAL-REVIEW.md; EP007-PREMIUM-CONTROLLED-004/GENERATION-RUN.json and hyperframes/STAGING-MANIFEST.json; EP007-PRESENTER-001/repair-r24/STATUS.md.",
+    "Prior independent reports: agents/deliverables/premium-004-direction-audit/AUDIT.md and premium-004-technical-qa/report.md. Their subjective and sampled findings are distinguished from this audit's fresh probes and hash checks.",
+    "All inspected video media were existing synthetic production tests, not factual case evidence. No media was newly selected or staged by this worker."
+  ],
+  "assumptions": [
+    "Work-order required_gate inputs_locked is a wave-zero schema placeholder only. Episode-level README.md, episode.json and input-lock.json are absent in this isolated agent workspace.",
+    "No existing selected cold-open take means none found within the specifically inspected local experiment records; provider-account-wide absence was not established."
+  ],
+  "unresolved_questions": [
+    "The requested presenter-first cold-open needs a new exact-speech source or an explicitly different editorial treatment;404/407 speak different words.",
+    "Normal-speed lower-face and phoneme-level review of407 remains separate from audio preservation and source continuity.",
+    "The orchestrator owns R11 shot selections and any authorization required for a new presenter take."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

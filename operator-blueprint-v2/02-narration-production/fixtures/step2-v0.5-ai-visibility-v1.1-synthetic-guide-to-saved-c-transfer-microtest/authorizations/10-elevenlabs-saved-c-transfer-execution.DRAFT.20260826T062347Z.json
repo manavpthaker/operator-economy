@@ -1,0 +1,137 @@
+{
+  "schema_version": "oe-voice-transfer-execution-authorization-v2",
+  "authorization_id": "DRAFT-V2-ai-visibility-v1.1-p01-saved-c-transfer-execution-20260826T062347Z",
+  "status": "draft",
+  "approved": false,
+  "scope": "elevenlabs_voice_transfer_execution",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "v1_lineage": {
+    "path": "authorizations/02-elevenlabs-saved-c-transfer.DRAFT.json",
+    "sha256": "1b6c431c9df420d44a2a8057c0a65605cbb0c584e392179d32c74d2f40431036",
+    "authorization_id": "DRAFT-V1-ai-visibility-v1.1-p01-saved-c-transfer",
+    "status": "draft",
+    "approved": false,
+    "max_calls": 0,
+    "max_spend_usd": 0
+  },
+  "bindings": {
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "selected_guide_sha256": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915",
+    "selected_guide_byte_count": 1646010,
+    "selected_guide_duration_seconds": 34.290958333333336,
+    "guide_run_receipt_sha256": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f",
+    "primary_multipart_body_sha256": "6b57da1e6d1dc62b8ec31d34b6629da087be15f51b59998a83109f25403931dc",
+    "primary_multipart_body_bytes": 1646839
+  },
+  "prerequisites": {
+    "selected_guide": {
+      "state": "pending"
+    },
+    "guide_qa": {
+      "state": "pending"
+    },
+    "owner_selection": {
+      "state": "pending"
+    },
+    "owner_audition_confirmation": {
+      "state": "pending"
+    },
+    "elevenlabs_data_use": {
+      "state": "pending"
+    },
+    "target_voice_rights": {
+      "state": "pending"
+    },
+    "credential_account_verification": {
+      "state": "pending"
+    },
+    "official_media_contract": {
+      "state": "pending"
+    }
+  },
+  "action": {
+    "provider": "elevenlabs",
+    "method": "POST",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_multilingual_sts_v2",
+    "seed": 2026082501,
+    "query": {
+      "enable_logging": "pending",
+      "output_format": "pcm_48000"
+    },
+    "voice_settings": {
+      "stability": 0.4,
+      "similarity_boost": 0.8,
+      "style": 0.0,
+      "speed": 1.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "file_format": "other",
+    "credential_header_name": "xi-api-key",
+    "accept": "application/octet-stream",
+    "accept_encoding": "identity",
+    "no_retry": true,
+    "no_redirect": true,
+    "no_fallback": true,
+    "disclosure": "one_private_exact_candidate_b_to_saved_original_c_voice_changer_test"
+  },
+  "credential_binding": {
+    "state": "pending",
+    "mechanism": "verified_environment_api_key",
+    "api_key_environment_variable": "ELEVENLABS_API_KEY"
+  },
+  "runtime_bindings": {
+    "state": "pending"
+  },
+  "authorized_limits": {
+    "max_account_get_calls": 0,
+    "max_generation_post_calls": 0,
+    "max_outputs": 0,
+    "max_source_bytes": 0,
+    "max_source_duration_seconds": 0,
+    "max_submitted_seconds": 0,
+    "max_request_body_bytes": 0,
+    "max_response_bytes": 0,
+    "min_output_duration_seconds": 0,
+    "max_output_duration_seconds": 0,
+    "min_output_to_source_duration_ratio": 0,
+    "max_output_to_source_duration_ratio": 0,
+    "max_error_response_bytes": 0,
+    "max_request_elapsed_seconds": 0,
+    "max_spend_usd": 0
+  },
+  "artifacts": {
+    "raw_output_path": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm",
+    "working_output_path": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer.wav",
+    "success_receipt_path": "receipts/elevenlabs/DRAFT-V2-ai-visibility-v1.1-p01-saved-c-transfer-execution-20260826T062347Z.run.json",
+    "failure_receipt_path": "receipts/elevenlabs/DRAFT-V2-ai-visibility-v1.1-p01-saved-c-transfer-execution-20260826T062347Z.failure.json",
+    "conversion_receipt_path": "receipts/elevenlabs/DRAFT-V2-ai-visibility-v1.1-p01-saved-c-transfer-execution-20260826T062347Z.conversion.json"
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "generation_post_calls_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-one-shot.voice-transfer-execution.consumed.json"
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "ElevenLabs Improve the models for everyone is currently ON; no post-update OFF evidence or official-doc exclusion basis is bound",
+    "the credential-to-account verification receipt is missing and account-to-key equality is not established",
+    "the final V2 runtime schema source hashes and committed runtime Git boundary are not frozen",
+    "the exact primary request content type logging mode and normalized HTTP request hash are pending the verified data-use mode and final runtime",
+    "the strict target-voice-rights receipt derived from the owner approval is not yet materialized",
+    "the existing guide QA owner selection and owner audition evidence have not yet been bound through the final V2 prerequisite wire",
+    "a fresh active one-call V2 execution authorization has not been issued"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-09",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/09-disconnected-work.md",
+      "sha256": "bd842d7c55a69f0849b397656d0489ecbc05c0aa8490d942d6b3b770165a1356"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-09/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-09/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "isolated HyperFrames bare-template structural self-check",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 standard-library contract validation against agent-deliverable.schema.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI per frame-worker isolation contract",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned 09-disconnected-work frame packet supplied every visible beat and timing window.",
+    "Hash-pinned frame.md supplied the paper, ink, grid, type, hairline, and square-surface system.",
+    "All visible diagrams are deterministic HTML and CSS inventions; no external media or vendor logo was used."
+  ],
+  "assumptions": [
+    "The project-supplied boska-700.woff2 file is the available local Boska source for the frame.md Boska family slot.",
+    "The full-bleed graph ground may continue below y=896 while every semantic element and frame-chrome mark stays above the keep-out cutoff."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

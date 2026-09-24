@@ -1,0 +1,28 @@
+{
+  "event_id": "evidence-audit-r48-r52-v1",
+  "decision_id": "s09-buyer-walkout",
+  "event_type": "verification",
+  "tags": [
+    "source-preservation"
+  ],
+  "data": {
+    "decision_event_id": "r52-quick-cut-proposal-v5",
+    "method": "decision_log.py validate --evidence after R52 lock; each stale expected hash searched in r52-walkout/superseded-v*/.",
+    "result": "pass",
+    "scope": "All 22 stale or unavailable evidence bindings in the EP007 log at this point.",
+    "limitations": "17 R52 bindings point to files revised in place; byte-identical copies exist in superseded-v1..v4 (see STALE-EVIDENCE-MAP.json). 3 have no copy and are already explained by earlier events: R49 lock files rewritten by a duplicate run (r49-acceptance-records-rewritten-v1), original R50 index.html lost (r50-records-source-rebuilt-v1), and pre-correction v4 DIRECTION.md (r52-v4-direction-text-corrected-v1). Future revisions should archive before overwriting, as R52 v2-v4 did.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/STALE-EVIDENCE-MAP.json",
+        "sha256": "d66ae7002bf83824e47f7eca8abdad142293cb70dba8541bf0375f001c0121bb"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/STALE-EVIDENCE-MAP.json",
+      "sha256": "d66ae7002bf83824e47f7eca8abdad142293cb70dba8541bf0375f001c0121bb",
+      "locator": "Stale binding to archived copy map"
+    }
+  ]
+}

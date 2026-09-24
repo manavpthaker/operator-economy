@@ -1,0 +1,99 @@
+{
+  "event_id": "r79-whole-episode-review-conform-verified-v2",
+  "decision_id": "ep007-whole-episode-conform",
+  "event_type": "verification",
+  "tags": [
+    "whole-episode",
+    "assembly",
+    "technical-verification",
+    "audio-metric-correction",
+    "owner-review-pending"
+  ],
+  "data": {
+    "decision_event_id": "r79-whole-episode-conform-plan-v2",
+    "corrects_event_id": "r79-whole-episode-review-conform-verified-v1",
+    "scope": "Uninterrupted R79 EP007 owner-review conform assembled only from hash-pinned accepted picture sources and the audited continuous audio plan.",
+    "result": "pass",
+    "method": "Source hash and range validation; 27,241-frame full decode; exact PCM sample and zero-tail checks; full-duration decoded mono 8 kHz zero-offset audio comparison; BT.709 metadata checks; loudness and true-peak measurement; every-frame 64x36 low-variance scan with exact source-frame comparison; midpoint, seam-boundary and sparse-frame contact-sheet review.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+        "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-audio-pcm.wav",
+        "sha256": "3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/VERIFICATION-V2.json",
+        "sha256": "fb276b27ddb2c7ea5c780356dae1eeb759308af80a2a4b9b059a5150fabc2c95"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+        "sha256": "5b4fbdfe694238423cc7a196cc341838959a706b5b43ebc8abb8effddae86496"
+      }
+    ],
+    "observations": {
+      "video_sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671",
+      "video_frames": 27241,
+      "duration_seconds": 1135.041667,
+      "fps": 24,
+      "dimensions": [1280, 720],
+      "pcm_sha256": "3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c",
+      "pcm_samples": 54482000,
+      "pcm_exact_zero_tail_samples": 1481,
+      "integrated_lufs": -16.72,
+      "true_peak_dbtp": -1.31,
+      "audio_compared_samples_at_8khz": 9080333,
+      "audio_zero_lag_correlation": 0.9999908096296728,
+      "audio_level_db_vs_pcm_reference": -0.003694074386828806,
+      "audio_snr_db_vs_pcm_reference": 47.315688878377955,
+      "low_variance_half_open_ranges": [
+        [426, 427],
+        [1068, 1073],
+        [1273, 1274],
+        [9749, 9752],
+        [10292, 10364],
+        [11089, 11095],
+        [13694, 13711],
+        [19059, 19064]
+      ],
+      "low_variance_classification": "All flagged frames match their exact pinned source frames after the expected CRF-16 conform transcode; representative review shows inherited sparse authored states and the documented source transition, not conform-introduced blanks.",
+      "automated_checks": "all pass",
+      "supersession_reason": "V1 used FFmpeg apsnr's reported 162 dB summary, which was implausible for the AAC review encode. V2 replaces only that diagnostic with an independently decoded full-duration correlation, level and SNR comparison. The video, PCM, frame scan, sheets and all other results are unchanged."
+    },
+    "limitations": "Technical and contact-sheet verification does not establish whole-episode owner acceptance, comprehension, perceptual audiovisual quality, caption completion, canonical Resolve finishing, release or publication approval. The R58 prefix retains the disclosed R39 and R47 verdict exceptions, which the whole-episode verdict must explicitly cover or reopen."
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/VERIFICATION-V2.json",
+      "sha256": "fb276b27ddb2c7ea5c780356dae1eeb759308af80a2a4b9b059a5150fabc2c95",
+      "locator": "Current R79 automated verification report with corrected decoded-audio metrics"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+      "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671",
+      "locator": "R79 uninterrupted whole-episode owner-review conform"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-audio-pcm.wav",
+      "sha256": "3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c",
+      "locator": "Exact audited 54,482,000-sample continuous PCM reference"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+      "sha256": "5b4fbdfe694238423cc7a196cc341838959a706b5b43ebc8abb8effddae86496",
+      "locator": "Complete frame-exact segment and audio map"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/boundary-sheet.jpg",
+      "sha256": "808e24930de96b7b5d77903f4ff06055928f2464fabdf4cd8aec5172a853ede8",
+      "locator": "Rendered before-and-after frames at every conform boundary"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/documented-low-variance-sheet.jpg",
+      "sha256": "a3be50d65f011d3b288904bfb0518d9cd715be87afb110a06cf43da1d5d8f368",
+      "locator": "Representative inherited sparse-frame review"
+    }
+  ]
+}

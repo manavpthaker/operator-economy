@@ -1,0 +1,20 @@
+<template>
+<div id="r28-presenter-question-root" data-composition-id="r28-presenter-question" data-start="0" data-duration="12.7916666667" data-width="1280" data-height="720" style="position:relative;width:1280px;height:720px;overflow:hidden;opacity:0">
+<style>
+.q-framing{position:absolute;inset:0;width:1280px;height:720px;transform-origin:0 0}
+.q-media{position:absolute;inset:0;width:1280px;height:720px;object-fit:cover}
+</style>
+<div id="q-framing" class="q-framing" data-layout-allow-overflow="">
+<video id="q-speaking" class="clip q-media" src="public/media/question-pensive-r32-with-pause.mp4" data-start="0" data-duration="12.7916666667" data-media-start="0" data-track-index="1" muted playsinline aria-label="New V5 pensive question take, aligned to original narration, continuous through the ending pause"></video>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const presenterQuestion=gsap.timeline({paused:true});
+presenterQuestion.set('#r28-presenter-question-root',{opacity:1},0);
+presenterQuestion.set('#q-framing',{scale:1,x:0,y:0,transformOrigin:'0 0'},0);
+presenterQuestion.addLabel('then-who',8.9583333333);
+presenterQuestion.set('#q-framing',{scale:1.42,x:-268.8,y:-22,transformOrigin:'0 0'},'then-who');
+window.__timelines['r28-presenter-question']=presenterQuestion;
+</script>
+</div>
+</template>

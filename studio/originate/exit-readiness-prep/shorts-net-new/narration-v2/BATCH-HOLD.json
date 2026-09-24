@@ -1,0 +1,72 @@
+{
+  "record_type": "ep007_shorts_narration_batch_hold",
+  "at_utc": "2026-09-22T06:15:08Z",
+  "status": "stopped_after_first_google_call_requires_fresh_owner_authority",
+  "authorization_event_id": "ep007-shorts-narration-authorized-v9",
+  "short_id": "short-01-thirty-day-map",
+  "provider_calls": {
+    "google_guide_calls": 1,
+    "elevenlabs_transfer_calls": 0,
+    "total": 1,
+    "retries": 0
+  },
+  "google_estimated_cost_usd": 0.0197845,
+  "failure": {
+    "gate": "guide_tail_completeness",
+    "duration_seconds": 36.531,
+    "tail_energy": 0.0357,
+    "required_tail_energy_below": 0.02,
+    "finding": "The returned guide did not decay into silence under the pinned guide completeness rule. It may be a hot final consonant or a clipped ending; the evidence does not resolve that safely.",
+    "policy_result": "Do not transfer this guide, do not submit another Short, and do not retry without fresh owner authority."
+  },
+  "local_diagnostic_asr": {
+    "provider_call": false,
+    "tool": "hyperframes@0.8.59",
+    "engine": "whisper",
+    "model": "small.en",
+    "recognized_words": 97,
+    "locked_normalized_words": 97,
+    "only_lexical_difference": {
+      "locked": "write",
+      "asr": "right",
+      "assessment": "acoustically identical homophones; this does not establish a spoken-copy deviation"
+    },
+    "last_recognized_word": "off.",
+    "last_word_end_seconds": 36.72,
+    "media_duration_seconds": 36.531,
+    "assessment": "The complete closing sentence was recognized, but ASR cannot prove that the final phoneme was not clipped."
+  },
+  "evidence": {
+    "google_intent": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/GOOGLE-SUBMISSION-INTENT.json",
+      "sha256": "5d86f0c216a25b1142fa55a7be767c2545e08cd00e3ed5ce57e25f7d1be62430"
+    },
+    "google_receipt": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+      "sha256": "b0421bed901afde1571459868a38bc7579a3378fb0a86373599523406684734d"
+    },
+    "guide_wav": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/media/guide.wav",
+      "sha256": "e0f3b2dcbb1a6ec16f63268845be8151cd94f96612156a898bc559234507d089"
+    },
+    "raw_google_response": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/media/google-response.bin",
+      "sha256": "7b2ff7b4b5544970e08f639f0fb1ce0b0245bdde0e55fdfa2af73f60c740c484"
+    },
+    "diagnostic_transcript": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v2/short-01-thirty-day-map/diagnostic-asr-guide/transcript.json",
+      "sha256": "be2f41374de2e69da05df01a5ce5dba95fa5c7a2decfbc4a36e8544a07521b81"
+    }
+  },
+  "unsubmitted": [
+    "short-02 Google guide",
+    "short-03 Google guide",
+    "short-04 Google guide",
+    "all four ElevenLabs Original C transfers"
+  ],
+  "fresh_authority_options": [
+    "one replacement Google guide attempt for Short 1, increasing the maximum Google call count from four to five and total call count from eight to nine",
+    "explicitly accept the marginal Short 1 guide for transfer despite the failed pinned guide-tail gate"
+  ],
+  "recommended_option": "Authorize one replacement Google guide attempt for Short 1. Do not accept the marginal guide without listening to its ending."
+}

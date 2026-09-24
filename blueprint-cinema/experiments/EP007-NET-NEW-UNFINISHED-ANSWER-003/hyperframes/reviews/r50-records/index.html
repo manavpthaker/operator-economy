@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R50 — The records</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r50-root{position:relative;width:1280px;height:720px;overflow:hidden}
+#r50-paper{position:absolute;inset:0;background:#F5F0E6}
+#r50-world{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tie{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round}
+.route{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.type{font-family:Supreme,sans-serif;fill:#173530;font-size:34px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.heading{position:absolute;left:65px;top:55px;width:1150px;margin:0;text-align:center;font:700 64px/1.08 Boska,serif;color:#173530}
+#r49-heading-new,#r49-c4,.new-tie,.route,.arrow,#r49-revenue-label{visibility:hidden;opacity:0}
+#r50-heading,#r50-receipts,#r50-past-label,#r50-stranger,#r50-look{visibility:hidden;opacity:0}
+#r50-receipts{position:absolute;left:632px;top:247px;width:229px;height:229px}
+#r50-past-label{position:absolute;left:592px;top:469px;width:310px;text-align:center;white-space:nowrap;font:500 27px/1.2 Supreme,sans-serif;color:#173530}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r50-root" data-composition-id="ep007-r50" data-start="0" data-duration="8.416666666666666" data-width="1280" data-height="720" data-fps="24">
+<div id="r50-paper"></div>
+<!-- Opens on the accepted R48 end state. -->
+<h1 id="r49-heading-old" class="heading">The relationships</h1>
+<h1 id="r49-heading-new" class="heading">Concentration</h1>
+<h1 id="r50-heading" class="heading">The records</h1>
+<svg id="r50-world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="The owner is still absent. Four customers send revenue into her business; two routes become much heavier. Ties then connect only those two customers back to the owner's empty place.">
+<defs><g id="r49-person">
+        <path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+        <path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<image href="public/art/workshop.svg" x="55" y="192" width="550" height="412.5"/>
+<text class="type" x="317" y="639" text-anchor="middle">Her business</text>
+<text class="type" x="925" y="183" text-anchor="middle">Owner</text>
+<g class="ink"><path d="m718 521 201-1m12 1 194-1m-390 10 1 64m365-65-1 63"/><path class="light" d="m735 525 131 1m105-2 117 1m-349 29 1 28m356-36-1 36"/></g>
+<!-- R48 ties, exact end-state geometry. -->
+<g id="r49-old-ties">
+<path class="tie" d="M1150 238Q1062 232 986 286"/>
+<path class="tie" d="M1150 368Q1066 360 990 322"/>
+<path class="tie" d="M1150 496Q1066 460 986 352"/>
+</g>
+<!-- Revenue routes into the business. Weight is illustrative; no share is stated. -->
+<path id="r49-route-1" class="route" d="M1150 236C1080 300 900 405 612 412"/>
+<path id="r49-route-2" class="route" d="M1150 331C1080 390 900 440 612 440"/>
+<path id="r49-route-3" class="route" d="M1150 424C1060 450 880 468 612 468"/>
+<path id="r49-route-4" class="route" d="M1150 516C1090 470 880 490 612 494"/>
+<g class="arrow" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M628 402L612 412L628 422"/><path d="M628 430L612 440L628 450"/><path d="M628 458L612 468L628 478"/><path d="M628 484L612 494L628 504"/></g>
+<text id="r49-revenue-label" class="small" x="632" y="384">Revenue</text>
+<!-- The two heavy clients tie back to the owner's empty place. -->
+<path id="r49-tie-1" class="tie new-tie" d="M1146 198Q1040 188 952 242"/>
+<path id="r49-tie-2" class="tie new-tie" d="M1146 294Q1050 256 960 280"/>
+<g id="r49-c1"><use href="#r49-person" transform="translate(1196,268) scale(.55)"/></g>
+<g id="r49-c2"><use href="#r49-person" transform="translate(1196,398) scale(.55)"/></g>
+<g id="r49-c3"><use href="#r49-person" transform="translate(1196,528) scale(.55)"/></g>
+<g id="r49-c4"><use href="#r49-person" transform="translate(1196,505) scale(.55)"/></g>
+<g id="r50-stranger"><use href="#r49-person" transform="translate(1150,380)"/></g>
+<g id="r50-look"><path d="M1082 346L890 357" fill="none" stroke="#586D74" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="14 10"/></g>
+</svg>
+<img id="r50-receipts" src="public/art/r38-receipts.svg" alt="Past receipts"/>
+<div id="r50-past-label">Past revenue</div>
+<audio id="r50-narration" src="public/audio/narration.wav" data-start="0" data-duration="8.416666666666666" data-media-start="0" data-track-index="100" data-volume="1"></audio></div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const r49=gsap.timeline({paused:true});
+const C49={"swap":0.70,"routes":2.08,"most":3.14,"ties":4.80};
+// New shape named on its word; relationship ties clear and customers regroup for the revenue view.
+r49.to('#r49-heading-old',{autoAlpha:0,duration:.35,ease:'power1.inOut'},C49.swap);
+r49.to('#r49-heading-new',{autoAlpha:1,duration:10/24,ease:'power2.out'},C49.swap+.2);
+r49.to('#r49-old-ties',{autoAlpha:0,duration:.35,ease:'power1.inOut'},C49.swap);
+r49.to('#r49-c1',{y:-48,duration:.6,ease:'power2.inOut'},C49.swap);
+r49.to('#r49-c2',{y:-83,duration:.6,ease:'power2.inOut'},C49.swap);
+r49.to('#r49-c3',{y:-118,duration:.6,ease:'power2.inOut'},C49.swap);
+r49.fromTo('#r49-c4',{autoAlpha:0,x:18},{autoAlpha:1,x:0,duration:.45,ease:'power2.out'},C49.swap+.35);
+// Every customer pays into the business at equal weight first.
+['#r49-route-1','#r49-route-2','#r49-route-3','#r49-route-4'].forEach((id,i)=>{const p=document.querySelector(id);const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;r49.set(id,{autoAlpha:1},C49.routes+i*.08);r49.to(id,{strokeDashoffset:0,duration:.75,ease:'power1.inOut'},C49.routes+i*.08)});
+r49.to(['.arrow','#r49-revenue-label'],{autoAlpha:1,duration:.3,ease:'power1.out'},C49.routes+.7);
+// On "most", two routes carry visibly more.
+r49.to(['#r49-route-1','#r49-route-2'],{strokeWidth:10,stroke:'#173530',duration:.5,ease:'power2.out'},C49.most);
+// Both heavy clients came in through her: ties return only for them, ending at her empty place.
+['#r49-tie-1','#r49-tie-2'].forEach((id,i)=>{const p=document.querySelector(id);const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;r49.set(id,{autoAlpha:1},C49.ties+i*.14);r49.to(id,{strokeDashoffset:0,duration:.7,ease:'power1.inOut'},C49.ties+i*.14)});
+window.__timelines['ep007-r50']=t;
+r49.progress(1);
+const C={"clear":0.07,"heading":1.43,"receipts":3.63,"stranger":5.73,"look":6.37};
+// Concentration layer clears on "And"; business, desk and Owner label stay.
+t.to(['#r49-c1','#r49-c2','#r49-c3','#r49-c4','.route','.arrow','.new-tie','#r49-revenue-label'],{autoAlpha:0,duration:.4,ease:'power1.inOut'},C.clear);
+t.to('#r49-heading-new',{autoAlpha:0,duration:.35,ease:'power1.inOut'},C.heading);
+t.to('#r50-heading',{autoAlpha:1,duration:10/24,ease:'power2.out'},C.heading+.2);
+// The accepted R46 past-revenue receipts: the business genuinely earns.
+t.fromTo(['#r50-receipts','#r50-past-label'],{autoAlpha:0,y:10},{autoAlpha:1,y:0,duration:.5,ease:'power2.out'},C.receipts);
+t.fromTo('#r50-stranger',{autoAlpha:0,x:18},{autoAlpha:1,x:0,duration:.45,ease:'power2.out'},C.stranger);
+// Inspection reaches toward the records and stops short.
+t.set('#r50-look',{autoAlpha:1,clipPath:'inset(0 0 0 100%)'},C.look);
+t.to('#r50-look',{clipPath:'inset(0 0 0 0%)',duration:.8,ease:'power1.out'},C.look);
+window.__timelines['ep007-r50']=t;
+</script></body></html>

@@ -1,0 +1,42 @@
+{
+  "contract": "read-only-helper-build-work-order-1",
+  "work_order_id": "ep007-decision-log-helper",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "renderer_implementer",
+  "objective": "Implement local append-only episode decision log storage and retrieval exactly from the skill record contract, with meaningful negative/positive tests.",
+  "required_gate": "none: authorized reusable skill tooling; does not execute canonical production",
+  "inputs": [
+    {
+      "path": ".agents/skills/oe-video-direction/references/decision-record.md",
+      "sha256": "98304bb5368bd20debf00f43c121e1040b5b5ac093161e3e24e463c346f6a776"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-decision-log-helper/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/src",
+    "blueprint-cinema/schemas",
+    "blueprint-cinema/experiments"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Append transaction rejects incomplete records, duplicate IDs, stale evidence and broken revision/feedback targets without modifying existing bytes",
+    "Hash chain detects tampering; status does not inherit old-version or reviewer acceptance",
+    "Query returns context/exception records from tags; no external or media actions"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Finish helper/tests/report under owned path only",
+    "Do not write any actual episode log; root will seed it"
+  ],
+  "status": "issued"
+}

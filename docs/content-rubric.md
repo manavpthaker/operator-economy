@@ -64,17 +64,17 @@ Retention benchmarks (directional): 70%+ at 0:30 = push signal; APV 40–55% hea
 
 | Criterion | Pts | Check |
 |---|---|---|
-| ONE soft blueprint mention at 55–75% runtime after a value peak, benefit-framed (mid-CTA beats end-only: only ~16% reach final 10s) | 5 | AUTO (position) + HUMAN (framing) |
+| ONE short subscribe prompt after the first major evidence payoff, plus a soft blueprint mention at 55–75% runtime (mid-CTA beats end-only: only ~16% reach final 10s) | 5 | AUTO (position) + HUMAN (framing) |
 | Blueprint link: description first line + pinned comment | 3 | HUMAN (publish checklist) |
-| End bridges to OUR next video (session contribution), never bare "subscribe" | 2 | AUTO (kill-phrases) + HUMAN |
+| End closes with the blueprint benefit and a benefit-framed subscribe prompt; never invents an unlocked next episode or uses a bare "subscribe" | 2 | AUTO (kill-phrases) + HUMAN |
 
 ## Kill list (any = no publish)
 
-"You won't believe"/SHOCKING/manufactured gaps · fake-shock or horror-bait thumbnails, starbursts, tilted text · "hey guys, welcome back" or channel-intro bumpers · keyword stuffing · monotone TTS over stock montage · generic stock imagery (businessman handshake) · end-only CTA as sole CTA · income promises in metadata · Shorts with TikTok watermarks, hashtag walls, or complete answers (cliffhanger Shorts convert 3–5x better) · duplicated title text on thumbnail.
+"You won't believe"/SHOCKING/manufactured gaps · fake-shock or horror-bait thumbnails, starbursts, tilted text · "hey guys, welcome back" or channel-intro bumpers · keyword stuffing · monotone TTS over stock montage · generic stock imagery (businessman handshake) · end-only CTA as sole CTA · income promises in metadata · Shorts with TikTok watermarks, hashtag walls, no cold-viewer context, or no standalone narrow payoff · duplicated title text on thumbnail.
 
 ## Shorts addendum
 
-Hook in 1–2 seconds, payoff-first-then-explanation, visible movement frame one. Pinned comment to the SPECIFIC long-form (top conversion tactic) + Related Video link. The long-form should open compatible with the Short's promise. Shorts ranked by a separate model — they no longer directly boost long-form; they're pure discovery.
+Hook in 1–2 seconds, orient a cold viewer to the topic immediately, visible movement frame one, and resolve one bounded promise inside the Short. The viewer must not need the caption, another Short, or the episode to understand the context or takeaway. A pinned comment and Related Video may offer broader, distinct depth; they cannot carry the missing conclusion. The long-form should open compatible with the Short's promise. Shorts are ranked by a separate model — they no longer directly boost long-form; they are a discovery surface that must also earn the view on its own.
 
 ## Post-publish validation (self-correcting loop)
 
@@ -117,4 +117,4 @@ Added 2026-07-03 alongside the storyboard-stage v2 rollout. Encodes `docs/facele
 
 ## Shorts derivative checks (Gate: after derive step)
 
-Every shorts brief must end on a cliffhanger (`cliffhanger_line`) — a complete-answer Short kills long-form conversion (kill-list item) — and carry a `pinned_comment` pointing to the full breakdown. AUTO in eval_package.py once `content/shorts_briefs.json` exists.
+Every new shorts brief must declare cold-viewer topic context (`cold_viewer_context`), exact spoken cut anchors (`hook_line`, `last_line`), a complete narrow answer (`standalone_payoff`), and a `pinned_comment` pointing to the long-form. `episode_extension` is optional; when present it must be additive and distinct rather than withholding the Short's answer. Net-new exact-copy manifests additionally bind an exact `payoff_line` and `closing_line`, with their order checked against `spoken_copy`. `cliffhanger_line` is retired and does not satisfy the gate. `studio/scripts/originate/shorts_contract.py` is the shared validator; `eval_package.py` calls it after derive, and net-new manifests invoke it directly. The pre-launch trailer remains an information-gap artifact governed by its separate checks.

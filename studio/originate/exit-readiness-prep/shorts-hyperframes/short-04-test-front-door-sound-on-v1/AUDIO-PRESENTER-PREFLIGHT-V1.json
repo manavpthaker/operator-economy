@@ -1,0 +1,141 @@
+{
+  "record_type": "ep007_short04_audio_presenter_preflight",
+  "version": 1,
+  "episode": "EP007-exit-readiness-prep",
+  "short_id": "short-04-test-the-front-door",
+  "recorded_at_utc": "2026-09-22T23:08:06Z",
+  "status": "no_spend_preflight_only_no_owner_media_approval",
+  "scope": "Plan exact-script narration, two matching portrait presenter passages, caption and audio QA for Short 04 without submitting any provider job or altering locked copy or the silent composition.",
+  "authority": {
+    "locked_script": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/STANDALONE-SCRIPTS-V3.json",
+      "sha256": "6be1ee7c13ba6fc607d215e9a61c74fda31cc3f60026632eff6fc029f903cf6c",
+      "script_id": "short-04-test-the-front-door",
+      "spoken_words": 126,
+      "copy_state": "owner_locked_exact_spoken_copy_no_rewrite_or_abridgment"
+    },
+    "local_exact_copy": {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-04-test-front-door-v3/SCRIPT.md",
+      "sha256": "0ea8d34704a0db345414be4e8a91c3c131e764244cd9530d20903fe63f4cdbf8",
+      "state": "verified_match_to_locked_spoken_copy_in_current_production_status"
+    },
+    "current_production_status": {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-04-test-front-door-v3/PRODUCTION-STATUS.json",
+      "sha256": "f0c6412d6c3b5fba7c9c1e9b4ed5bd633e172a6b2600202a3d9435aff4f97699",
+      "state": "strict_checked_silent_visual_candidate_not_owner_accepted_final_video"
+    },
+    "provisional_storyboard": {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-04-test-front-door-v3/STORYBOARD.md",
+      "sha256": "b2297153e0afe9b9343970aceeac987b8181b8eb2e315e37c0a7b67eebca22dd"
+    },
+    "source_composition": {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-04-test-front-door-v3/index.html",
+      "sha256": "9d9970fca10bd7877f8eb73aea1817068a84ece9ac62bb75daf6ae3a20fa52b0",
+      "state": "silent_visual_guide_only_no_audio_or_speaking_media"
+    }
+  },
+  "historical_workflow_precedent_not_execution_authority": {
+    "narration_proposal": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V1.json",
+      "sha256": "c8404afd3b31153558a83c66e6f32a0d6a44a60570f237b8584bddddeb44e100",
+      "route": "One acted Google gemini-2.5-pro-tts Algieba guide, then one ElevenLabs Voice Changer transfer to saved Original C, model eleven_multilingual_sts_v2."
+    },
+    "stopped_batch": {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-narration-batch-hold-v10.json",
+      "sha256": "638c10e27cdc462d759b1955043dea076f1925e41a79f8e11413965a19efb8e4",
+      "effect": "The prior eight-call authorization stopped after Short 01 guide QC. It cannot be resumed for Short 04; fresh bounded authority is required before even the first guide call."
+    },
+    "short01_accepted_media_scope": "Short 01 establishes a technical workflow precedent only. Its narration, footage, owner acceptance and provider authorization do not transfer to Short 04."
+  },
+  "provisional_timing_not_media_requests": {
+    "basis": "Current silent storyboard and production status; replace from the final exact narration and word timestamps before any presenter duration or scene timing is locked.",
+    "spoken_body_seconds": 48.0,
+    "visual_only_episode_handoff_seconds": 2.0,
+    "silent_guide_total_seconds": 50.0,
+    "host_slots": [
+      {
+        "slot": "opening",
+        "silent_guide_window_seconds": [0.0, 8.5],
+        "silent_guide_visible_seconds": 8.5,
+        "locked_copy_unit": "opening paragraph only",
+        "picture_audio_mode": "presenter_address_synchronous",
+        "current_media": "static_V5_identity_plate_not_speaking"
+      },
+      {
+        "slot": "return",
+        "silent_guide_window_seconds": [39.8, 48.0],
+        "silent_guide_visible_seconds": 8.2,
+        "locked_copy_unit": "closing paragraph only",
+        "picture_audio_mode": "presenter_address_synchronous",
+        "current_media": "static_V5_identity_plate_not_speaking"
+      }
+    ],
+    "screen_only_windows_seconds": [[8.5, 39.8]],
+    "presenter_visible_total_seconds": 16.7,
+    "generated_clip_duration_and_handles": "unknown_until_final_audio_word_alignment_and_per_clip_provider_preflight"
+  },
+  "proposed_media_sequence_if_separately_authorized": [
+    "Capture one acted exact-copy guide for all 126 locked words. Preserve the immutable provider intent, receipt and guide WAV hash.",
+    "Probe the guide WAV and listen to the final phoneme; enforce the previously pinned tail-completeness rule. Local ASR is a diagnostic, not proof that a clipped phoneme is intact.",
+    "Only after guide QC passes, transfer that exact guide to Original C. Preserve the transfer receipt, immutable WAV and hash; do not change or regenerate the script.",
+    "Verify the final Original C master against all locked words and the intended paragraph order. Check duration, channel/sample format, audible beginning and end, artifacts and intelligibility; owner listening remains separate from machine checks.",
+    "Derive word timestamps from the final master, not the provisional storyboard or Algieba guide. Retire the silent guide scene times and make verbatim captions for every spoken word, including the conditional IF branches and the access-versus-demand correction.",
+    "Preflight two separate portrait-native matching presenter passages against the exact opening and closing audio segments. Preserve accepted V5 identity/look as reference, but do not reuse its old speaking footage under Short 04 words.",
+    "If separately authorized and needed, restore lip sync for each accepted presenter passage. Mute generated clip audio and use the continuous Original C master as the sole program voice across host and screen-only scenes.",
+    "Check speech-picture sync, clean full-bleed edges, caption-safe placement, branch meaning, screen/host seams and the silent two-second episode handoff in a sound-on phone preview before seeking exact-cut owner approval."
+  ],
+  "quality_gates": {
+    "guide": "Exact 126-word locked copy; immutable guide and receipt; WAV probe; prior pinned tail-energy completeness threshold of 0.02 plus human ending listen; stop on any failure or uncertainty.",
+    "transfer": "Only from a passed guide; Original C identity and full exact copy; immutable receipt and WAV; no word loss, reordered branch, clipped ending or audible artifacts.",
+    "word_timing_and_captions": "Align every locked word to the final Original C master. Captions are verbatim and word-timed; scene-local summary text does not substitute for captions.",
+    "presenter": "Two new matching performances, opening and return, with lip motion synchronized to their own exact audio spans. Static V5 plates and Short 01 footage are placeholders or historical references, not final Short 04 speaking media.",
+    "program_audio": "One continuous Original C master under host and explanatory screens; generated presenter clip audio muted. The two-second end card has no new spoken CTA.",
+    "review": "Technical checks, sound-on phone playback and owner acceptance are separate gates. A successful provider response or silent HyperFrames pass is not owner video approval."
+  },
+  "broker_branch_claim_limits": {
+    "single_question": "Ask what happens to a business a broker cannot list because it is not ready.",
+    "branch_one": "IF the broker already does that work free, the referral channel MAY be blocked; do not depict this as an observed or universal outcome.",
+    "branch_two": "IF the broker turns it away or refers it elsewhere, ask what was missing and who handles it now; do not turn a hypothetical answer into a lead or paying client.",
+    "bounded_payoff": "The conversation can surface readiness problems and possible owner access; it does not establish volume, conversion, sale outcomes or market demand.",
+    "demand_boundary": "A referral proves access, not demand. An owner agreeing to pay begins to prove this business, but one payment would not validate the whole market.",
+    "forbidden_in_picture_or_audio": ["invented broker behavior", "referral metrics", "conversion funnel", "guaranteed owner introduction", "broker endorsement", "saleability or valuation improvement", "owner payment labeled market validation"]
+  },
+  "provider_and_credit_gate": {
+    "current_slate_preflight": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/SHORTS-02-04-PROVIDER-PREFLIGHT-V2.json",
+      "sha256": "ddece3e45eeb38e371a642243679386154751ede52045af709b1e5678bd78d7f"
+    },
+    "live_higgsfield_balance_observed_no_later_than_utc": "2026-09-22T23:08:06Z",
+    "live_higgsfield_credits_at_that_read": 62,
+    "read_only_seedance_2_5_omni_reference_9_16_1080p_quote": "20 seconds cost 240 credits, or 12 credits per second, at the checked same-mode settings; this is not an exact final Short 04 clip quote.",
+    "short04_provisional_visible_host_seconds": 16.7,
+    "short04_1080p_provisional_visible_time_rate_extrapolation_credits": 200.4,
+    "short04_1080p_two_clip_whole_second_rate_extrapolation_credits": 216,
+    "whole_second_extrapolation_basis": "Ceiling the two silent-guide host windows independently to 9 seconds each and applying the current 20-second quote's 12-credits-per-second rate, with zero added handles. This is planning math, not an exact 9-second provider quote; actual generated durations and cost may be higher after final word timing.",
+    "current_state": "no_go_for_same_1080p_presenter_route_with_62_credits_even_before_audio_or_sync_costs",
+    "fresh_authority_required": "Bind exact script hash, approved voice/identity references, final audio spans, each provider/model/input, maximum call count, Higgsfield credit cap, Google USD cap, ElevenLabs credit cap and fal dollar cap before submission. Obtain a current exact quote and balance immediately before each paid stage.",
+    "planning_maximum_calls_not_authority": {
+      "google_acted_guide": 1,
+      "elevenlabs_original_c_transfer": 1,
+      "higgsfield_matching_presenter": 2,
+      "fal_sync_restoration_if_needed": 2,
+      "total_max_if_all_stages_authorized": 6,
+      "automatic_retries": 0,
+      "manual_retries_without_new_owner_authority": 0
+    },
+    "stop_rule": "Any failed, uncertain, over-cap or unusable output stops the dependent sequence. Do not repeat an ambiguous submission or spend remaining credits as an audition without fresh authority.",
+    "credit_purchase_authorized": false,
+    "provider_jobs_submitted_by_this_packet": 0
+  },
+  "open_gates": [
+    "fresh bounded owner authority for each metered stage",
+    "sufficient current 1080p avatar credits or an owner-chosen alternate route",
+    "exact narration and word timing",
+    "two accepted matching portrait speaking passages and any needed sync restoration",
+    "complete verbatim captions",
+    "sound-on Studio and phone review",
+    "exact-cut owner acceptance",
+    "separate release and upload authorization plus canonical episode Related Video target"
+  ],
+  "release_boundary": "No final render, episode URL, Related Video target, upload, release or publication is authorized or asserted by this no-spend packet."
+}

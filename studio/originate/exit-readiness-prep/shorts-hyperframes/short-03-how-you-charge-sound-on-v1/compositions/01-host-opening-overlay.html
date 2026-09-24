@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short03-host-opening-overlay-v1 {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          pointer-events: none;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        #short03-host-opening-fee-token {
+          position: absolute;
+          left: 640px;
+          top: 1264px;
+          width: 340px;
+          height: 88px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fbf8f1;
+          background: #33464c;
+          border: 3px solid #71868d;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          opacity: 0;
+          will-change: transform;
+        }
+      </style>
+
+      <section
+        data-hf-id="hf-short03-host-opening-overlay-v1-root"
+        id="short03-host-opening-overlay-v1"
+        data-composition-id="short03-host-opening-overlay-v1"
+        data-start="0"
+        data-duration="8.56"
+        data-width="1080"
+        data-height="1920"
+        aria-label="Transparent Short 03 opening presenter overlay"
+      >
+        <div data-hf-id="hf-short03-host-opening-fee-token" id="short03-host-opening-fee-token">Fee tied to the sale</div>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#short03-host-opening-fee-token", { opacity: 1, y: 58 }, 7.018);
+        tl.to("#short03-host-opening-fee-token", { y: 0, duration: 0.18, ease: "power4.out" }, 7.018);
+        tl.to("#short03-host-opening-fee-token", { x: -3640, duration: 0.62, ease: "power4.in" }, 8.25);
+        window.__timelines["short03-host-opening-overlay-v1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

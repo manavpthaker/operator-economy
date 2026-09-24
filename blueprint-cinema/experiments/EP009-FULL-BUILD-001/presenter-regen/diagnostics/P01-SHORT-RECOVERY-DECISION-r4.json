@@ -1,0 +1,49 @@
+{
+  "event_id": "ep009-presenter-p01-short-question-recovery-r4",
+  "decision_id": "ep009-presenter-take-set",
+  "event_type": "decision",
+  "tags": [
+    "presenter",
+    "timing-recovery",
+    "original-audio",
+    "budget"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Recover exact opening presenter speech in owner-selected inn look.",
+      "viewer_before": "Whole new-look P01 drifts in sentence2 and has not been integrated.",
+      "viewer_after": "Original-speed first sentence plus separately generated short question, joined in an existing pause with W-to-M cut."
+    },
+    "choice": "Retain P01 native frames0-107 as P01a; generate only the5.041667s question as7s720p P01b. Preserve all master samples and segment boundaries. Apply existing owner12s cap correction to P11a.",
+    "reason": "First sentence offsets0.25/0.25/0.25s are stable; second sentence has a cadence failure. This reuses sound picture without nonlinear retiming and stays within1800credit allocation.",
+    "alternatives": [
+      {
+        "choice": "Restore entire drifted take.",
+        "reason_not_selected": "Would repeat the previous failure mode and violate the native gate."
+      },
+      {
+        "choice": "Regenerate complete11s take.",
+        "reason_not_selected": "71.5credits exceeds47.5remaining plan contingency."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "P01 prefix remains hash-bound and passes timing; master pause supports sentence split.",
+      "avoid_when": "Boundary cuts speech or short replacement fails timing."
+    },
+    "nuance": {
+      "budget": "1798credits total planned including50look+24successfuldiagnostics;2credits contingency. Failed tests are preserved; no additional or bulk generation if pilot fails.",
+      "approval": "Agent recovery choice inside current owner autonomy and budget; no owner creative acceptance.",
+      "protected": "Locked narration samples, look, all75segment boundaries; original artifacts retained.",
+      "metadata_reconciliation": "r3 retained stale21part/1687.5credit summary fields despite correctrecovery totals; r4 recomputes every summary from active22parts. No submitted request or picture/audio selection changes."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r4.json",
+      "sha256": "89d1c54f2211be6457564adfe00864cc1003882ba9599818526e0857eb1716f9",
+      "locator": "Reconciled selected execution plan,22parts,1798total lane credits"
+    }
+  ],
+  "supersedes": "ep009-presenter-p01-short-question-recovery-r3"
+}

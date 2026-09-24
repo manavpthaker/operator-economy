@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>EP007 Short 03 — How You Charge Changes the Job</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f5f0e6;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        color: #19201f;
+        background: #f5f0e6;
+        font-family: "BL Supreme", system-ui, sans-serif;
+      }
+      .root-field { position: absolute; inset: 0; z-index: 0; background: #f5f0e6; }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        z-index: 10;
+      }
+
+      #caption-layer {
+        position: absolute;
+        z-index: 90;
+        left: 58px;
+        right: 122px;
+        top: 1418px;
+        height: 320px;
+        pointer-events: none;
+      }
+      .caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 8px;
+        margin: 0;
+        padding: 24px 30px 27px;
+        color: #fbf8f1;
+        background: rgba(23, 53, 48, 0.97);
+        border-top: 5px solid #71868d;
+        font: 500 57px/1.02 "BL Supreme", system-ui, sans-serif;
+        letter-spacing: -0.035em;
+        opacity: 0;
+        text-wrap: balance;
+      }
+      .caption em { color: #fb8b69; font-style: normal; }
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-hf-id="ep007-short03-root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="42.5"
+      data-width="1080"
+      data-height="1920"
+      data-fps="24"
+    >
+      <div class="root-field" aria-hidden="true"></div>
+
+      <div id="scene-01-slot" class="clip" data-composition-id="scene-01-job-changes" data-composition-src="compositions/01-job-changes.html" data-start="0" data-duration="9.7" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-02-slot" class="clip" data-composition-id="scene-02-conditional-perimeter" data-composition-src="compositions/02-conditional-perimeter.html" data-start="9.7" data-duration="6.5" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-03-slot" class="clip" data-composition-id="scene-03-defined-preparation-scope" data-composition-src="compositions/03-defined-preparation-scope.html" data-start="16.2" data-duration="8.6" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-04-slot" class="clip" data-composition-id="scene-04-fixed-fee-model" data-composition-src="compositions/04-fixed-fee-model.html" data-start="24.8" data-duration="15.7" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-05-slot" class="clip" data-composition-id="scene-05-full-episode-handoff" data-composition-src="compositions/05-counsel-handoff.html" data-start="40.5" data-duration="2" data-track-index="1" data-width="1080" data-height="1920"></div>
+
+      <section id="caption-layer" data-layout-allow-caption-zone aria-label="Provisional locked-script caption overlay">
+        <p id="caption-01" class="caption">You can build a service helping owners prepare a business for sale.</p>
+        <p id="caption-02" class="caption">But how you charge changes what job you’re doing.</p>
+        <p id="caption-03" class="caption">A fee tied to the sale</p>
+
+        <p id="caption-08" class="caption">Keep the offer focused on preparation:</p>
+        <p id="caption-09" class="caption">map owner dependencies,</p>
+        <p id="caption-10" class="caption">organize records,</p>
+        <p id="caption-11" class="caption">document operations,</p>
+        <p id="caption-12" class="caption">and deliver a readiness plan.</p>
+
+        <p id="caption-13" class="caption">One bounded model is a fixed fee</p>
+        <p id="caption-14" class="caption">for that defined work,</p>
+        <p id="caption-15" class="caption">independent of whether a sale closes.</p>
+        <p id="caption-16" class="caption">Fixed-fee wording doesn’t settle every legal question,</p>
+        <p id="caption-17" class="caption">but it gives you a clear scope</p>
+        <p id="caption-18" class="caption">to take to <em>local counsel.</em></p>
+      </section>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const captionWindows = [
+        ["#caption-01", 0.18, 3.56],
+        ["#caption-02", 3.7, 7.18],
+        ["#caption-03", 7.46, 9.58],
+        ["#caption-08", 16.34, 18.24],
+        ["#caption-09", 18.32, 19.98],
+        ["#caption-10", 20.06, 21.42],
+        ["#caption-11", 21.5, 22.86],
+        ["#caption-12", 22.94, 24.68],
+        ["#caption-13", 24.94, 27.14],
+        ["#caption-14", 27.24, 29.2],
+        ["#caption-15", 29.3, 32.0],
+        ["#caption-16", 32.24, 35.54],
+        ["#caption-17", 35.64, 38.28],
+        ["#caption-18", 38.38, 40.46]
+      ];
+
+      captionWindows.forEach(([selector, start, end]) => {
+        tl.fromTo(selector, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, start);
+        tl.to(selector, { opacity: 0, y: -10, duration: 0.12, ease: "power2.in" }, end - 0.12);
+      });
+
+      window.__timelines["main"] = tl;
+      // <seams:auto>
+      // Provisional cuts are bound in ledger.json. Final narration and word-level alignment
+      // replace these estimates before any sound-on review or render approval.
+      // </seams:auto>
+      tl.seek(0);
+    </script>
+  </body>
+</html>

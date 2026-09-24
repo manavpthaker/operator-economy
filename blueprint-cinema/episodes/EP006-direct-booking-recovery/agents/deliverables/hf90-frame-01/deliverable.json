@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-01",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/01-same-guest.md",
+      "sha256": "6228cbaf3bfcf546f634eeacd5886dbf53f4bda77469ff3692d72c3fd2127e7b"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-01/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-01/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four declared inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual bare-template and frame-contract self-check",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual field and enum check against agent-deliverable.schema.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI prohibited by isolated worker dispatch",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet .hyperframes/frame-packets/01-same-guest.md",
+    "Hash-pinned worker contract .hyperframes/frame-packets/_role.md",
+    "Hash-pinned Cobalt Grid design truth frame.md",
+    "Hash-pinned EP006 input-lock.json"
+  ],
+  "assumptions": [
+    "The fragment will be integrated at the isolated HyperFrames project root, so repository-relative font URLs resolve from that document base.",
+    "The repository-provided boska-700.woff2 is registered as the available Boska display face because no Boska 400 file ships with the isolated project."
+  ],
+  "unresolved_questions": [
+    "Integration should confirm the repository-relative font files remain reachable from the assembled HyperFrames document."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-id="ep007-identity-title" data-composition-duration="15.36">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Boska OE";
+          src: url("public/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "Zodiak OE";
+          src: url("public/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "Supreme OE";
+          src: url("public/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #173530;
+        }
+
+        .identity-field,
+        .wordmark-field,
+        .title-field {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        }
+
+        .identity-field,
+        .wordmark-field {
+          background: #173530;
+        }
+
+        .wordmark-field {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #f5f0e6;
+        }
+
+        .wordmark {
+          display: flex;
+          align-items: baseline;
+          gap: 30px;
+          transform: translateY(-10px);
+        }
+
+        .wordmark-the {
+          font-family: "Supreme OE", Arial, sans-serif;
+          font-size: 38px;
+          font-weight: 500;
+          letter-spacing: 0.18em;
+        }
+
+        .wordmark-name {
+          font-family: "Boska OE", Georgia, serif;
+          font-size: 128px;
+          font-weight: 700;
+          line-height: 0.9;
+          letter-spacing: -0.035em;
+        }
+
+        .title-field {
+          display: grid;
+          grid-template-columns: 920px 1fr;
+          align-items: center;
+          gap: 72px;
+          padding: 92px 120px;
+          background: #f5f0e6;
+          color: #204440;
+        }
+
+        .working-model {
+          display: block;
+          width: 920px;
+          height: 620px;
+          object-fit: contain;
+        }
+
+        .title-copy {
+          max-width: 680px;
+          font-family: "Zodiak OE", Georgia, serif;
+          font-size: 102px;
+          font-weight: 700;
+          line-height: 0.94;
+          letter-spacing: -0.035em;
+        }
+
+        .title-copy span {
+          display: block;
+        }
+
+        .title-copy .accent {
+          color: #b5482f;
+        }
+      </style>
+
+      <div data-hf-id="hf-yfus" id="root" data-composition-id="ep007-identity-title" data-width="1920" data-height="1080" data-duration="15.36" data-fps="30">
+        <section data-hf-id="hf-iurt" id="identity-hold" class="clip identity-field" data-start="0" data-duration="4.02" data-track-index="0" aria-label="Quiet Operator Economy identity hold"></section>
+
+        <section data-hf-id="hf-uyb8" id="wordmark-field" class="clip wordmark-field" data-start="4.02" data-duration="7.52" data-track-index="0" aria-label="The Operator Economy">
+          <div data-hf-id="hf-1db5" id="oe-wordmark" class="wordmark">
+            <span data-hf-id="hf-szkj" class="wordmark-the">THE</span>
+            <span data-hf-id="hf-kuf2" class="wordmark-name">Operator Economy</span>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-hl9k" id="title-field" class="clip title-field" data-start="11.54" data-duration="3.82" data-track-index="0" aria-label="Sale-readiness practice">
+          <img data-hf-id="hf-zr0n" id="title-working-model" class="working-model" src="public/media/settled-opportunity-model.png" alt="">
+
+          <h1 data-hf-id="hf-3ere" id="episode-title" class="title-copy">
+            <span data-hf-id="hf-7axb">SALE-READINESS</span>
+            <span data-hf-id="hf-o4ji" class="accent">PRACTICE</span>
+          </h1>
+        </section>
+      </div>
+
+      <script>
+        (() => {
+          "use strict";
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(
+            "#oe-wordmark",
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.32, ease: "power2.out", immediateRender: false },
+            4.10,
+          );
+          tl.fromTo(
+            "#title-working-model",
+            { opacity: 0 },
+            { opacity: 1, duration: 0.18, ease: "none", immediateRender: false },
+            11.54,
+          );
+          tl.fromTo(
+            "#episode-title",
+            { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.32, ease: "power2.out", immediateRender: false },
+            11.72,
+          );
+          window.__timelines = window.__timelines || {};
+          window.__timelines["ep007-identity-title"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

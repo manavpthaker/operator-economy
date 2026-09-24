@@ -1,0 +1,179 @@
+{
+  "status": "verified_storage_only",
+  "plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/PLAN.json",
+    "sha256": "2a2939ca5ed11224b623a921f0970e18a171246dd7b7255a0c2479fe739d23ab"
+  },
+  "slices": [
+    {
+      "id": "seg059-wide",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "sha256": "ed8f11aba7404bd38a0f128d17d74890099f3a050fdc8c4031fef0a10b2d171f"
+      },
+      "source_download": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/DOWNLOAD.json",
+        "sha256": "2a8a40ab7289f880962253fa70b8cced89875557f26fb56e1acb6387014c024a"
+      },
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg059-wide-guarded.mov",
+        "sha256": "a811e6e43f3bfa111e6cdfe53b4b2f4feb2dd40a1cbbc12c247e218d7fe44c80"
+      },
+      "input_frames": 80,
+      "input_seconds": 3.3333333333333335,
+      "source_frames": [
+        0,
+        33
+      ],
+      "select_local_frames": [
+        0,
+        33
+      ],
+      "original_segment_frames": [
+        0,
+        33
+      ],
+      "guard_frames": [
+        33,
+        80
+      ],
+      "guard_derivation": "47 exact repeats of sourceframe32;94000zero audio samples.",
+      "retime": false,
+      "resize": false,
+      "decoded_frames_exact": true,
+      "decoded_source_audio_exact": true,
+      "conditioning_audio_f32le_sha256": "e6798847e3f90c328d411ea87cd252e2417e54aa787cc9006bd9f8e12edb377c",
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg059-wide-FRAME-HASHES.json",
+        "sha256": "c382c90041bf2714ba67433e73888a9407a462ec55bf92878923fb94029f0492"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "-filter_complex",
+        "[0:v]trim=end_frame=33,setpts=N/(24*TB),tpad=stop_mode=clone:stop=47[v];[0:a]atrim=end_sample=66000,asetpts=N/SR/TB,apad=whole_len=160000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg059-wide-guarded.mov"
+      ],
+      "fal_url": "https://v3b.fal.media/files/b/0aaada94/G_TJinqY_Jv3PO8RetizP_ep007-r32-a811e6e43f3bfa11.mov",
+      "upload_receipt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg059-wide/UPLOAD.json",
+        "sha256": "45b0e951896088d0199ae418721377a4954471a2ceaf40e78c8443c00cf5aa52"
+      }
+    },
+    {
+      "id": "seg019-close",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg019a/native.mp4",
+        "sha256": "e196d23e88fe15fd66ea1e96950896f2c5c6f165634ac8f410bfd13e3bf86a67"
+      },
+      "source_download": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg019a/DOWNLOAD.json",
+        "sha256": "c156d2103da491415610286ba58ed337b66a1e83735294bfc95891b61a1247e4"
+      },
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg019-close-guarded.mov",
+        "sha256": "dc15940f2cb1de061174927ea627117872f4245f6fe8e4600e7c9246b7eceb05"
+      },
+      "input_frames": 80,
+      "input_seconds": 3.3333333333333335,
+      "source_frames": [
+        0,
+        38
+      ],
+      "select_local_frames": [
+        0,
+        38
+      ],
+      "original_segment_frames": [
+        0,
+        38
+      ],
+      "guard_frames": [
+        38,
+        80
+      ],
+      "guard_derivation": "42 exact repeats of sourceframe37;84000zero audio samples.",
+      "retime": false,
+      "resize": false,
+      "decoded_frames_exact": true,
+      "decoded_source_audio_exact": true,
+      "conditioning_audio_f32le_sha256": "fe2398e7e5a74db3bc23a6f314bfbb19a02a7508e38ae603d183da22d3202b63",
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg019-close-FRAME-HASHES.json",
+        "sha256": "3487d41bbffabe1d85b6a2989e569513ce23600c12941d049efa1465d0de02fd"
+      },
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg019a/native.mp4",
+        "-filter_complex",
+        "[0:v]trim=end_frame=38,setpts=N/(24*TB),tpad=stop_mode=clone:stop=42[v];[0:a]atrim=end_sample=76000,asetpts=N/SR/TB,apad=whole_len=160000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg019-close-guarded.mov"
+      ],
+      "fal_url": "https://v3b.fal.media/files/b/0aaada94/2SAR7SU2sK3JaKGwg2pjW_ep007-r32-dc15940f2cb1de06.mov",
+      "upload_receipt": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/short-room-repairs-r3/seg019-close/UPLOAD.json",
+        "sha256": "f52d126cf95b4ee7f97a85acbf806ee56ad680f4e8cde8026b897f6975c18a00"
+      }
+    }
+  ]
+}

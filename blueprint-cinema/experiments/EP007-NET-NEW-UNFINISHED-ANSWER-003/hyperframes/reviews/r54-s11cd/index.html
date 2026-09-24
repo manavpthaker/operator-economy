@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R54 S11c-d — The phrase and the vacancy</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#cd-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.steel{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:21px;font-weight:500;letter-spacing:2px}
+.hide{visibility:hidden;opacity:0}
+#quote{position:absolute;left:0;right:0;top:250px;text-align:center;visibility:hidden;opacity:0}
+#quote-k{font:500 21px/1 Supreme,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#33464C;margin-bottom:28px;visibility:hidden;opacity:0}
+#quote-t{font:700 76px/1.1 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+#vac{position:absolute;left:0;right:0;top:22px;text-align:center;margin:0;font:700 64px/1.08 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="cd-root" data-composition-id="ep007-r54-s11cd" data-start="0" data-duration="23.875" data-width="1280" data-height="720" data-fps="24">
+<div id="world"><svg viewBox="0 0 1280 720" role="img" aria-label="Part B end state, then: The room around a small business sale: the owner at her table and four advisers. Each adviser's pay runs from a sale-closes point outside the room; the wealth adviser's from proceeds that do not exist yet. All pay converges on the transaction.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- The room: owner and advisers inside; the closing sits outside it, later. -->
+<g id="room"><path class="light" d="M92 128L736 124L740 664L90 668Z"/><text class="kicker" x="112" y="160">THE ROOM</text></g>
+<g id="owner"><use href="#person" transform="translate(250,392)"/>
+<g class="ink"><path d="m130 450 118-1m10 1 112-1m-230 10 1 58m222-59-1 57"/></g><text class="label" x="250" y="270" text-anchor="middle">Owner</text></g>
+<!-- Advisers: same neutral figure grammar; names only. -->
+<g id="a1"><use href="#person" transform="translate(600,236) scale(.6)"/><text class="label" x="530" y="232" text-anchor="end">Broker</text></g>
+<g id="a2"><use href="#person" transform="translate(600,360) scale(.6)"/><text class="label" x="530" y="356" text-anchor="end">Accountant</text></g>
+<g id="a3"><use href="#person" transform="translate(600,484) scale(.6)"/><text class="label" x="530" y="480" text-anchor="end">Lawyer</text></g>
+<g id="a4"><use href="#person" transform="translate(600,608) scale(.6)"/><text class="label" x="530" y="604" text-anchor="end">Wealth adviser</text></g>
+<!-- Sale closes: a point in time outside the room. -->
+<g id="close"><path class="ink" stroke-width="5" d="M1040 300L1041 480"/><text class="label" x="1040" y="520" text-anchor="middle">Sale closes</text></g>
+<path id="p1" class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 232C800 236 930 330 1036 380"/>
+<path id="p2" class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 356C800 360 930 380 1036 392"/>
+<path id="p3" class="pay" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" d="M644 480C800 478 930 420 1036 404"/>
+<g id="proc" opacity=".45"><path class="steel" stroke-dasharray="7 7" d="M1190 400L1191 560"/><text id="proc-label" class="label" x="1190" y="380" text-anchor="middle">Proceeds</text></g>
+<path id="p4" class="pay" opacity=".8" stroke="#173530" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="10 8" d="M644 604C900 612 1080 600 1186 530"/>
+<text id="notyet" class="small" x="1190" y="596" text-anchor="middle">not yet</text>
+<!-- D: the empty seat across the table and the unowned point three years out. -->
+<g id="chair" class="hide" stroke="#586D74" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-dasharray="11 8"><path d="M196 590L292 588M292 588L297 506M203 592L203 654M287 590L287 652"/></g>
+<g id="three" class="hide"><path class="steel" stroke-dasharray="7 7" d="M910 138L911 250"/><text class="label" x="910" y="124" text-anchor="middle">Three years out</text></g>
+</svg></div>
+<div id="quote"><div id="quote-k">A phrase you will hear</div><div id="quote-t">“We only get paid when you do.”</div></div>
+<h1 id="vac">The vacancy</h1>
+<audio id="cd-narration" src="public/audio/narration.wav" data-start="0" data-duration="23.875" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={"phrase":0.08,"quote":4.30,"toD":6.25,"otherHalf":9.62,"notOne":11.16,"sit":14.12,"three":14.98,"noOwner":19.29,"vacancy":22.74};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+// C: the room recedes; the phrase is presented as a common line, not a named firm's quote.
+t.set('#quote',{autoAlpha:1},0);
+t.to('#world',{autoAlpha:.07,duration:1.6,ease:'power1.inOut'},C.phrase);
+fade('#quote-k',C.phrase+.2);
+fade('#quote-t',C.quote,8/24);
+// D: back to the room.
+t.to('#quote',{autoAlpha:0,duration:.35,ease:'power1.inOut'},C.toD);
+t.to('#world',{autoAlpha:1,duration:.6,ease:'power1.inOut'},C.toD);
+// "Not one person in that room is paid to sit down with her": advisers and their pay recede.
+t.to(['#a1','#a2','#a3','#a4','.pay','#close','#proc','#notyet'],{autoAlpha:.35,duration:.6,ease:'power1.inOut'},C.notOne);
+fade('#chair',C.sit);
+fade('#three',C.three);
+// "No owner and no budget line": the empty seat takes the accent; nothing reaches three years out.
+t.to('#chair',{stroke:'#B5482F',duration:.4,ease:'power1.out'},C.noOwner);
+t.fromTo('#vac',{autoAlpha:0,y:6},{autoAlpha:1,y:0,duration:10/24,ease:'power2.out'},C.vacancy);
+window.__timelines['ep007-r54-s11cd']=t;
+</script></body></html>

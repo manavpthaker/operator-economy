@@ -1,0 +1,71 @@
+# Drift reconciliation — LP mockup → Rev C tokens
+
+> **Historical (2026-09-02).** This document reconciled the LP mockup onto Rev C tokens for
+> the B-series artboards. The site was then rebuilt on Boundary Ledger
+> (`artboards/boundary-ledger/`), which retires Rev C as forward authority. The value
+> mappings, typography decisions, and composition rules below describe the retained Rev C
+> artboards only. The non-regression behaviors at the end still apply to the new prototype.
+> Current visual authority: `design-system/boundary-ledger/README.md`.
+
+The committed LP mockup (`design-system/explorations/rev-d/operator-canvas-lp-mockup.html`,
+`24c4a024`) is harvested for structure and copy. Its self-declared `:root` is discarded
+wholesale; every artboard in this effort consumes the real token layer
+(`design-system/styles.css` or verbatim-inlined `design-system/tokens/*.css`) and may use
+only `var(--*)` references, `.oe-*` base helpers, and the `--type-*` role shorthands.
+
+## Value mappings (mockup → token)
+
+| Mockup value | Token replacement | Note |
+|---|---|---|
+| `--blue: #315f92` | `--drafting-blue: #1F3A5F` (text/accents on paper) or `--blue-500: #35608C` (hover/lighter accent) | Pick by role, not by nearest hex |
+| `--gold-deep: #765921` | `--gold-700: #7A5E24` | The AA-tuned gold text on paper (5.3:1) |
+| `--gold: #c4a45f` | `--gold-bright: #C4A45F` on navy/ink; `--gold-500: #B08D3E` for fills | Same hex, correct alias + surface rule |
+| `--navy: #14263e` / `--navy-deep: #0d1a2c` | `--surface-schematic: #14263E` (aliases `--blue-900`); the deep value is now carried as the **proposed token candidate `--blue-950: #0D1A2C`** (declared artboard-locally as `--blue-950-candidate`) | Owner review round 4: page-level canvas bands go deep so blue-900 components sit on them; adopting the token is the design-system owner's call |
+| SF Mono | Fragment Mono 400 | Mono means published; single weight, no synthetic bold |
+| `--shadow: 0 24px 60px rgba(13,26,44,.12)` | `--shadow-md` / `--shadow-lg` | Token shadows whisper; the 60px shadow is banned |
+| `--content: min(1380px, 100vw - 56px)` | `--container-wide: 1320px` + `--margin-page` | |
+| Hand-written on-ink opacities `rgba(245,240,230,…)` | `--text-on-ink-muted` (0.62) / `--text-on-ink-faint` (0.40) / `--border-ink` (0.16) | Also fixes the same drift in `site/app/page.module.css` when implemented |
+| `vendor-published + modeled` chip labels | The four canonical classes: `OBSERVED / PARALLEL / MODELED / UNKNOWN` | Per-claim; distinct from Model status |
+| Footer line "Human consequence. Operating clarity." | removed | Rev D internal working-direction line, not a tagline |
+
+## Typography (owner decision 2026-09-01, revised same day after artboard review)
+
+The initial decision dropped Boska from the site; the built artboards then read flat
+against the live homepage's 62px Boska hero, and the owner reverted it: **Boska returns
+as the site's display layer.** The full Rev C stack applies:
+
+- **Boska 700, display only** — one large display heading per page (hero H1, page H1),
+  never below the 40px floor. Desktop 60–62px (`--text-4xl` / the live site's 62px),
+  mobile 42–44px (`--text-3xl`), `--tracking-display`, leading ~1.0.
+- **Zodiak 700** — section headings 18–44px, `--tracking-heading`.
+- **Supreme 400/500** — body/UI. **Fragment Mono 400** — numbers, evidence, metadata.
+
+The one-italic-per-composition ration applies; the hero's single italic word is its
+budget. No Zodiak 900 or Supreme 700 on site surfaces (owner style rule; the site's
+self-hosted set omits them). `.site-display` in the artboards is the Boska display role:
+`var(--w-bold) var(--text-4xl)/var(--leading-tight) var(--font-display)`.
+
+## Composition rules re-imposed during the port
+
+- One accent + one gold arrow + max one italic **per sheet** (one section = one
+  composition; defined this way so a long Canvas scroll can comply mechanically).
+- Sentence case everywhere; UPPERCASE reserved for mono labels (`SOURCE:`, `SHEET 02 OF 05`,
+  `REV A · 2026-09-01`, evidence-class chips).
+- Radii ≤ 3px; `--radius-pill` for status dots only.
+- Motion: `--dur-fast/normal/slow` fades and slides only, gated by
+  `prefers-reduced-motion`. Decorative arrow drawing and pulsing are deferred until
+  comprehension testing passes (product contract §3).
+- Language on rendered surfaces: no em dashes (voice.md §3; comma, colon, mid-dot, or
+  rewrite), contractions always, and at most one two-beat antithetical construction per
+  viewport (§2e mirror-shell guard).
+
+## Non-regression behaviors (the mockup already does these; the new prototype must too)
+
+1. Keyboard-operable tabs and toggles (roving focus, arrow keys where tabs).
+2. URL history: guided steps and sheet anchors update the hash; back/forward restore state;
+   deep links land on the right sheet/step.
+3. `prefers-reduced-motion` disables all transitions.
+4. Mobile overflow: wide tables and equation blocks scroll inside their own containers;
+   the page body never scrolls horizontally at 320/375px.
+5. Escape closes the mobile nav panel; `aria-expanded` reflects state; touch targets ≥ 44px.
+6. Source disclosures operable by click/tap/focus — never hover-only.

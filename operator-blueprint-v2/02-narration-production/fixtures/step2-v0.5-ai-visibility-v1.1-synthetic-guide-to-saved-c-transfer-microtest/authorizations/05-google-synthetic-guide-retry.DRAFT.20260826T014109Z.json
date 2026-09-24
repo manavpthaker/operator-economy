@@ -1,0 +1,144 @@
+{
+  "schema_version": "oe-synthetic-guide-retry-authorization-draft-v1",
+  "authorization_id": "AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T014109Z",
+  "status": "draft",
+  "approved": false,
+  "scope": "fresh_execution_of_original_two_candidate_synthetic_guide_plan",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "runtime_contract_boundary": {
+    "record_class": "zero_authority_proposal_and_evidence_only",
+    "accepted_by_current_g1_machine_authorization_schema": false,
+    "may_be_activated_in_place": false,
+    "executable_under_current_g1_runtime": false,
+    "required_before_active_materialization": "materialize_a_separate_schema_valid_oe_synthetic_guide_authorization_v1_for_the_original_exact_plan_and_request_set_with_fresh_authorization_and_receipt_paths_then_bind_the_safe_error_runtime_in_the_owner_record"
+  },
+  "prerequisite_bindings": {
+    "diagnosis": {
+      "path": "evidence/G1R2-403-DIAGNOSIS.20260826T014109Z.json",
+      "sha256": "335c7d6e29052f179dac19f868acea2430d3c99fcaedd6baf2c69cff7f7496d0"
+    },
+    "aiplatform_service_enablement_draft": {
+      "path": "authorizations/04-google-aiplatform-service-enablement.DRAFT.20260826T014109Z.json",
+      "sha256": "cfed01b700270c1b9439b733048692f5645fdab20d0fe0c4931745297d43a6ef"
+    },
+    "aiplatform_service_enablement_success_receipt": {
+      "path": "pending_active_service_authorization_and_success_receipt",
+      "sha256": "pending"
+    },
+    "safe_error_capture_runtime": {
+      "path": "runtime/oe_narration/performance_transfer.py",
+      "sha256": "27cf742ac8c169c05474269f6a40af642091c8180e8412cc410d2b8ab72ae6d9"
+    },
+    "safe_error_capture_tests": {
+      "path": "runtime/tests/test_performance_transfer.py",
+      "sha256": "a65be179d7bf16805458eb43e02ebe94713791615dbf8068b779d7da4bb09602",
+      "focused_tests_passed": 55,
+      "full_tests_passed": 221,
+      "independent_acceptance": "PASS"
+    }
+  },
+  "frozen_content_bindings": {
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "microtest_token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "acting_prompt_sha256": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416",
+    "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "request_body_bytes": 1440,
+    "performance_transfer_plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+    "two_request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba"
+  },
+  "proposed_action": {
+    "provider": "google_cloud_text_to_speech",
+    "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+    "method": "POST",
+    "model_id": "gemini-2.5-pro-tts",
+    "voice_name": "Achird",
+    "language_code": "en-US",
+    "request_count": 2,
+    "identical_unseeded_requests": true,
+    "execution_semantics": "fresh_execution_of_original_two_candidate_plan_not_resumption_or_automatic_retry",
+    "candidate_a_first": true,
+    "candidate_b_only_after_candidate_a_success": true,
+    "stop_on_candidate_a_non_200": true,
+    "output_encoding": "LINEAR16",
+    "sample_rate_hz": 24000,
+    "no_retry": true,
+    "no_redirect": true,
+    "no_fallback": true,
+    "safe_error_capture_required": true,
+    "request_body_may_change": false,
+    "disclosure": "exact_locked_words_and_nonlexical_acting_prompt_to_google_cloud_tts"
+  },
+  "proposed_execution_paths": {
+    "consumption": "authorizations/consumed/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T014109Z.consumed.json",
+    "success_receipt": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T014109Z.run.json",
+    "failure_receipt": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T014109Z.failure.json",
+    "candidate_a": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+    "candidate_b": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"
+  },
+  "billing_project_binding": {
+    "required_for_active_authorization": true,
+    "raw_identifier_stored": false,
+    "quota_project_sha256": "pending_active_authorization",
+    "expected_project_sha256": "68a5cdeb9918bf84d3f59c3f428e8e12a40b33f1ab0d0eaee19276be6761c0f2",
+    "credential_source": "local_untracked_google_adc"
+  },
+  "prospective_active_limits": {
+    "max_calls": 2,
+    "max_outputs": 2,
+    "max_output_duration_seconds": 50,
+    "max_output_wav_bytes": 2500000,
+    "max_total_audio_bytes": 5000000,
+    "max_response_bytes_per_call": 4000000,
+    "max_request_body_bytes": 1440,
+    "max_total_request_bytes": 2880,
+    "max_spend_usd": 0.66
+  },
+  "authorized_limits": {
+    "max_calls": 0,
+    "max_outputs": 0,
+    "max_output_duration_seconds": 0,
+    "max_output_wav_bytes": 0,
+    "max_total_audio_bytes": 0,
+    "max_response_bytes_per_call": 0,
+    "max_request_body_bytes": 0,
+    "max_total_request_bytes": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "calls_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": "authorizations/consumed/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T014109Z.consumed.json"
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "aiplatform.googleapis.com enablement has not been separately authorized executed and read back as ENABLED",
+    "the exact service-enablement success receipt does not exist",
+    "this proposal record is not accepted by the current G1 machine-authorization schema and cannot activate or execute in place",
+    "an exact schema-valid active G1R2 machine authorization has not been materialized",
+    "the owner has not approved the final original-plan G1R2 hashes fresh receipt paths 24-hour window and ceilings",
+    "all proposed receipt and output destinations must still be proven absent and symlink-safe"
+  ],
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "provider_action_authorized": false,
+    "synthetic_guide_generation_authorized": false,
+    "retry_authorized": false,
+    "service_enablement_authorized": false,
+    "iam_mutation_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

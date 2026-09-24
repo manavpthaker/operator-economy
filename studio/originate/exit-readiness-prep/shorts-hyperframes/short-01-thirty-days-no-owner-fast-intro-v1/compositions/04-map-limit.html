@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EP007 Short 01 — Hold the boundary</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Boska";
+          src: url("assets/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Zodiak";
+          src: url("assets/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #19201f;
+          background: #f5f0e6;
+          font-family: "BL Supreme", Arial, sans-serif;
+        }
+
+        .paper-field {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(90deg, transparent 67px, rgba(88, 109, 116, 0.16) 68px, transparent 69px),
+            linear-gradient(0deg, rgba(88, 109, 116, 0.08) 1px, transparent 1px),
+            #f5f0e6;
+          background-size: auto, 100% 96px, auto;
+        }
+
+        .scene-title {
+          position: absolute;
+          left: 72px;
+          top: 152px;
+          width: 900px;
+          color: #173530;
+          font: 700 82px/0.92 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.045em;
+        }
+
+        .paired-field {
+          position: absolute;
+          left: 72px;
+          top: 300px;
+          width: 936px;
+          height: 660px;
+          display: block;
+        }
+
+        .avatar-card,
+        .map-card {
+          position: relative;
+          overflow: hidden;
+          background: #fbf8f1;
+          border: 3px solid #204440;
+        }
+
+        .avatar-card {
+          display: none;
+          background: #173530;
+        }
+
+        .avatar-card img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 50% 50%;
+        }
+
+        .avatar-card::after {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 142px;
+          background: linear-gradient(180deg, rgba(23, 53, 48, 0), rgba(23, 53, 48, 0.96));
+          content: "";
+        }
+
+        .identity-note {
+          position: absolute;
+          z-index: 2;
+          left: 20px;
+          right: 20px;
+          bottom: 22px;
+          color: #f5f0e6;
+          font-size: 17px;
+          font-weight: 500;
+          line-height: 1.25;
+          letter-spacing: 0.085em;
+          text-transform: uppercase;
+        }
+
+        .map-card {
+          width: 558px;
+          height: 660px;
+          margin: 0 auto;
+          padding: 24px 22px 26px;
+          border-color: #71868d;
+        }
+
+        .map-docket {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #586d74;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+
+        .map-docket span:last-child {
+          color: #33464c;
+        }
+
+        .map-body {
+          position: absolute;
+          left: 22px;
+          right: 22px;
+          top: 82px;
+          height: 486px;
+          background: #ede7d8;
+          border-top: 2px solid #71868d;
+          border-bottom: 2px solid #71868d;
+        }
+
+        .source-node {
+          position: absolute;
+          left: 20px;
+          width: 218px;
+          height: 82px;
+          display: flex;
+          align-items: center;
+          padding: 0 16px;
+          color: #33464c;
+          background: #fbf8f1;
+          border: 2px solid #71868d;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+        }
+
+        #relationship-node {
+          top: 58px;
+        }
+
+        #decision-node {
+          top: 194px;
+        }
+
+        #record-node {
+          top: 330px;
+        }
+
+        .route-map {
+          position: absolute;
+          inset: 0;
+          width: 514px;
+          height: 486px;
+          pointer-events: none;
+        }
+
+        .route-map path {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        .owner-node {
+          position: absolute;
+          right: 18px;
+          top: 126px;
+          width: 178px;
+          min-height: 166px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 18px 12px;
+          color: #f5f0e6;
+          background: #204440;
+          text-align: center;
+        }
+
+        .owner-node span {
+          color: #ede7d8;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+        }
+
+        .owner-node strong {
+          margin-top: 12px;
+          font: 700 33px/0.98 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.03em;
+        }
+
+        .handoff-state {
+          position: absolute;
+          right: 18px;
+          top: 330px;
+          width: 178px;
+          padding: 13px 8px 12px;
+          color: #33464c;
+          background: #fbf8f1;
+          border: 2px dashed #71868d;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.07em;
+          text-align: center;
+          text-transform: uppercase;
+        }
+
+        .model-note {
+          position: absolute;
+          left: 22px;
+          right: 22px;
+          bottom: 20px;
+          color: #566461;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .reading {
+          position: absolute;
+          left: 72px;
+          top: 1010px;
+          width: 936px;
+          min-height: 192px;
+          display: none;
+          grid-template-columns: 10px 1fr;
+          gap: 24px;
+          padding: 26px 32px 30px 0;
+          background: #fbf8f1;
+          border-top: 2px solid #204440;
+          border-bottom: 2px solid #204440;
+        }
+
+        .reading-rule {
+          width: 10px;
+          height: 100%;
+          min-height: 132px;
+          background: #b5482f;
+          transform-origin: 50% 0%;
+        }
+
+        .reading-copy {
+          color: #173530;
+          font: 700 52px/1.02 "BL Boska", Georgia, serif;
+          letter-spacing: -0.032em;
+        }
+
+        .reading-copy em {
+          display: inline;
+          color: #87341f;
+          font-style: normal;
+        }
+
+        .claim-boundary {
+          position: absolute;
+          left: 72px;
+          top: 1040px;
+          width: 936px;
+          height: 188px;
+          display: grid;
+          grid-template-columns: 182px 1fr;
+          align-items: center;
+          color: #f5f0e6;
+          background: #173530;
+          border-left: 12px solid #586d74;
+        }
+
+        .boundary-label {
+          padding-left: 24px;
+          color: #ede7d8;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.25;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+
+        .boundary-copy {
+          padding: 0 28px;
+          border-left: 1px solid rgba(245, 240, 230, 0.3);
+          font-size: 32px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: 0.02em;
+          text-transform: uppercase;
+        }
+
+        .caption-clear {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1390px;
+          bottom: 0;
+          pointer-events: none;
+        }
+      </style>
+
+      <div
+        id="root"
+        data-composition-id="scene-04-map-limit"
+        data-start="0"
+        data-duration="2.500000"
+        data-width="1080"
+        data-height="1920"
+        data-fps="24"
+      >
+        <div class="paper-field"></div>
+
+        <h1 id="scene-title" class="scene-title">First working map</h1>
+
+        <div class="paired-field">
+          <figure id="avatar-card" class="avatar-card" data-hidden>
+            <img
+              src="assets/media/ep007-avatar-v5-identity-hold.png"
+              alt="Manav in the accepted EP007 identity setup"
+            />
+            <figcaption class="identity-note">Accepted identity hold · not lip-sync</figcaption>
+          </figure>
+
+          <section id="map-card" class="map-card" aria-label="Settled first working dependency map">
+            <div class="map-docket">
+              <span>Current dependency</span>
+              <span>Working model</span>
+            </div>
+
+            <div class="map-body">
+              <div id="relationship-node" class="source-node">Relationships</div>
+              <div id="decision-node" class="source-node" data-layout-allow-occlusion>Decisions</div>
+              <div id="record-node" class="source-node" data-layout-allow-occlusion>Records</div>
+
+              <svg class="route-map" viewBox="0 0 514 486" aria-hidden="true">
+                <path d="M238 99 C282 99 282 182 322 194" />
+                <path d="M238 235 C282 235 285 226 322 220" />
+                <path d="M238 371 C282 371 282 260 322 246" />
+              </svg>
+
+              <div class="owner-node">
+                <span>Current route</span>
+                <strong>One person</strong>
+              </div>
+              <div class="handoff-state">No handoff yet</div>
+            </div>
+
+            <div class="model-note">First working map · not a validated diagnostic</div>
+          </section>
+        </div>
+
+        <section id="dependency-reading" class="reading">
+          <span id="reading-rule" class="reading-rule"></span>
+          <div class="reading-copy">
+            These are the places with <em>no handoff yet.</em> Now you know where to start.
+          </div>
+        </section>
+
+        <aside id="claim-boundary" class="claim-boundary">
+          <div class="boundary-label">Claim<br />boundary</div>
+          <div class="boundary-copy">Working map · not a prediction about the sale</div>
+        </aside>
+
+        <div class="caption-clear"></div>
+      </div>
+
+      <script>
+        (() => {
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(
+            "#avatar-card",
+            { opacity: 0, x: -30 },
+            { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" },
+            0,
+          );
+          tl.fromTo(
+            "#map-card",
+            { opacity: 1, x: 10 },
+            { opacity: 1, x: 0, duration: 0.24, ease: "power3.out" },
+            0,
+          );
+          tl.fromTo(
+            "#scene-title",
+            { opacity: 1, y: 8 },
+            { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" },
+            0,
+          );
+
+          tl.fromTo(
+            "#claim-boundary",
+            { opacity: 1, y: 12 },
+            { opacity: 1, y: 0, duration: 0.24, ease: "power3.out" },
+            0.04,
+          );
+
+          window.__timelines["scene-04-map-limit"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

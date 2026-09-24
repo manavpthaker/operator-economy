@@ -1,0 +1,133 @@
+{
+  "status": "proposed_not_produced_waiting_for_root_dispatch_and_upload_slots",
+  "source": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/media/revision-04/voice-r4.original-c.wav",
+    "sha256": "b2c10c8e5b3267a43f8aaa4b3aba2132f4b20d6df6cd22fbfdcf0dc831e7e3b3",
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "sample_count": 2536734,
+    "voice": "Original C",
+    "identity_route": "Gemini Algieba guide followed by eleven_multilingual_sts_v2 into Original C scMbPZwQjr40V1MzL3Nj; this edit does not synthesize or transfer voice again."
+  },
+  "timing_source": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-04/voice/R4/FINAL-WORD-TIMINGS.json",
+  "script_sha256": "3eb28bd243f2c169b5906852f3b055553d1bc0e0520a029082fa5bf41a36fbe3",
+  "tempo_factor": 0.9,
+  "description": "Reduce speaking rate by10 percent only over the two GTM Engine explanation sentences; duration increases by11.111 percent within that range.",
+  "proposed_sample_map": [
+    {
+      "operation": "copy_exact_pcm",
+      "source_samples": [
+        0,
+        534480
+      ],
+      "source_seconds": [
+        0,
+        11.135
+      ]
+    },
+    {
+      "operation": "pitch_preserving_tempo_0.90",
+      "source_samples": [
+        534480,
+        782640
+      ],
+      "source_seconds": [
+        11.135,
+        16.305
+      ]
+    },
+    {
+      "operation": "insert_pause",
+      "zero_samples": 5760,
+      "duration_seconds": 0.12,
+      "source_split_sample": 782640
+    },
+    {
+      "operation": "pitch_preserving_tempo_0.90",
+      "source_samples": [
+        782640,
+        955200
+      ],
+      "source_seconds": [
+        16.305,
+        19.9
+      ]
+    },
+    {
+      "operation": "copy_exact_pcm",
+      "source_samples": [
+        955200,
+        968000
+      ],
+      "source_seconds": [
+        19.9,
+        20.166666666666668
+      ]
+    },
+    {
+      "operation": "retain_for_later_integration_exact_pcm",
+      "source_samples": [
+        968000,
+        2536734
+      ],
+      "source_seconds": [
+        20.166666666666668,
+        52.848625
+      ]
+    }
+  ],
+  "join_evidence": {
+    "method": "Read-only RIFF PCM analysis in Higgsfield sandbox;10ms RMS windows; no edited audio produced.",
+    "before_So": {
+      "sample": 534480,
+      "time": 11.135,
+      "rms_10ms": 0.001921533860094604,
+      "dbfs": -54.32703916520858
+    },
+    "after_code": {
+      "sample": 782640,
+      "time": 16.305,
+      "rms_10ms": 0.0011964445921294903,
+      "dbfs": -58.44214817903176
+    },
+    "after_already": {
+      "sample": 955200,
+      "time": 19.9,
+      "rms_10ms": 0.0009701878390804014,
+      "dbfs": -60.26288346769687,
+      "adjacent_samples": [
+        0,
+        0
+      ]
+    },
+    "rule": "Retain complete words and natural source gaps. Verify rendered joins before delivery; if necessary use tiny endpoint taper inside transformed quiet material only, leaving copied PCM ranges untouched. Do not invent a clean perceptual join from RMS alone."
+  },
+  "preserved_motion_landmarks": {
+    "self_deprecating_line": [
+      3.96,
+      5.12
+    ],
+    "with_AI": [
+      5.64,
+      6.18
+    ],
+    "these_remain_unchanged": true
+  },
+  "projected": {
+    "duration_increase_seconds": 1.0938888888888894,
+    "first_section_unpadded_seconds": 21.260555555555555,
+    "full_voice_unpadded_seconds": 53.94251388888889,
+    "first_section_frame_ceiling_at24fps": 511,
+    "existing_code_then_asr_gap_seconds": 0.32,
+    "projected_code_then_gap_seconds": 0.47555555555555556,
+    "output_duration_note": "Projection only. Measure actual tempo-filter output sample count before selecting video duration or final padding; do not force speech into projected length."
+  },
+  "permissions": "Preparation only. Root controls dispatch and upload slots; no TTS or provider generation requested here.",
+  "limits": [
+    "ASR boundaries approximate acoustic word boundaries.",
+    "Pitch-preserving tempo processing can still affect naturalness; actual listening is required.",
+    "This edit changes explanation pacing. It does not itself correct the avatar smile timing or mouth sync."
+  ]
+}
+

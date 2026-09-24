@@ -1,0 +1,95 @@
+{
+  "status": "owner_review_pending",
+  "render": "renders/how-i-build-v2.mp4",
+  "sha256": "d5e2fc7288e18649f13dbe1a04f087fa7054b2769d4a91a3b3f3cca12e203e9b",
+  "format": "720x1280, 24 fps, 972 frames, 40.5s, HyperFrames 0.8.38, CRF 16",
+  "inputs": {
+    "hook": "../motion-test-01/media/synced-trimmed.mp4 (locked)",
+    "voice": "../voice-full/media/master.original-c.wav (locked)",
+    "matte": "assets/hook-matte.webm (hyperframes remove-background, CoreML)"
+  },
+  "structure": [
+    "0-8.2 hook: swivel clip, title behind speaker, over-video captions",
+    "8.2-15.4 commit history (Grapevines git log, Oct 2025); 01 My own problem lands on 'It started'",
+    "15.4-22.8 02 Talk to people: pivot-doc user feedback lines",
+    "22.8-26.3 03 Write the plan: Epic 2 PRD problem statement",
+    "26.3-30.6 04 Take things out: voice calibration removal decision + commit 611cbef",
+    "30.6-36.4 turn: countershift into sage field on 'Knowing' (positioning screen, sample participant)",
+    "36.4-40.5 Counterproof question card with signature"
+  ],
+  "screen_text_source": "grapevines repo: git log, docs/epic-overview-pedagogical-pivot.md, docs/prd-epic-2-the-daily-coach.md, docs/prd-voice-calibration-removal.md, frontend/public/videos/b2b/positioning.mp4 frame. Rendered as faithful text, not screen recordings; no numbers from goals or discovery counts shown.",
+  "captions": "18 burned phrase captions (none over turn/end text); captions.srt has all 22 phrases with exact script words",
+  "checks": "strict decode passed; voice onset 1.09s and hook/body gap match master; no caption overlaps after v2 fix; HyperFrames check layout flags intentional title-behind-matte occlusion only",
+  "v1": "renders/how-i-build.mp4 kept; caption phrases overlapped around 24s",
+  "publication_approved": false,
+  "v3": {
+    "render": "renders/how-i-build-v3.mp4",
+    "owner_feedback": "the script and the screens are mismatched",
+    "changes": [
+      "dev-team line: git show of 7c337b8 (Oct 7 2025) with Co-Authored-By: Claude highlighted on 'Now'",
+      "01 A problem I had: title only, pending owner-selected job-search doc",
+      "02 Talk to people: Customer Discovery Master Document header and overview (brown-man-content research; no names or statistics)",
+      "turn: PRD dated Mar 24 2026 beside commit 611cbef Mar 24 2026 ('Decided and shipped the same day'), then sage field with discovery doc callback"
+    ],
+    "pending": "01 screen: owner's own job-search doc; none from Sep-Oct 2025 found on disk; initial Grapevines README unusable (unsourced stats, fictional testimonial)"
+  },
+  "v4": {
+    "render": "renders/how-i-build-v4.mp4",
+    "sha256": "e96da5b5d3cbb1960932d0f61e8a1596aa996a70dc2de54a67e63677f04473fc",
+    "owner_direction": "you can use the resumes",
+    "change": "01 A problem I had: cropped resume card (name, headline, AI Product Manager at Lovingly Sep 2024 to Sep 2025); remaining lines blurred and rewritten to facts-cleared wording",
+    "excluded": "contact line (phone, email, address) and master-resume claims on the facts.md do-not-state list (15 years, Director of Product at Panso, 375K transactions/628 shops, 35% unit economics, 18 months runway)"
+  },
+  "v5": {
+    "render": "renders/how-i-build-v5.mp4",
+    "sha256": "787ba1631094f1921d690d64929eea2b6ce8d08f41b6bf571b156472cff556b1",
+    "owner_feedback": "it feels too produced can we make it look like these are on the computer taken from a phone",
+    "change": "All step scenes are phone-filmed laptop shots: documents mapped onto the MacBook reference photo screen with perspective, per-shot push-in and handheld drift, glare, vignette, grain. Step headers, cards, source tags and sage countershift removed; captions over footage throughout; turn swaps the laptop window from the same-day commit to the discovery doc on 'Knowing'. Hook and Counterproof end card unchanged.",
+    "provenance": "Illustrative screen footage: real document text and commit data rendered onto a photographed laptop, not a phone recording."
+  },
+  "v6": {
+    "render": "renders/how-i-build-v6.mp4",
+    "sha256": "71487229f6776f9bf01421048eada6b264662a304a47bdd067c21e31aed6c602",
+    "owner_direction": "resume as Google Docs; discovery master as markdown in Cursor; vary the others (chose Warp + Claude Code, GitHub rendered markdown, GitHub red diff)",
+    "windows": {
+      "dev_team": "Warp + Claude Code session committing 7c337b8 with Co-Authored-By: Claude (prompt text illustrative; commit, date and trailer real)",
+      "problem": "Google Docs view of the resume (cropped, facts-cleared lines; blurred body)",
+      "people": "Cursor markdown view of brown-man-content/research/grapevines/customer-discovery-master.md header and overview",
+      "plan": "GitHub rendered markdown of docs/prd-epic-2-the-daily-coach.md problem statement",
+      "remove": "GitHub commit 611cbef diff: real removed lines from backend/agents/coach_note_agent.py",
+      "turn": "GitHub commits list for Mar 24 2026 (13e854f, 611cbef, 8dbc50d), swapping to the Cursor discovery doc on 'Knowing'"
+    },
+    "note": "App interfaces are illustrative recreations with real content; no diff-stat numbers shown."
+  },
+  "context_v7": {
+    "render": "renders/context-v7.mp4",
+    "sha256": "fbcb76a3fd678fa3aee81deff25abef1d46c98b97beda37a41ccf39d2c66be65",
+    "format": "720x1280, 24 fps, 1791 frames, 74.6s, CRF 18",
+    "script": "content-os context-is-the-foundation-v13.md; voice voice-v13/media/master.original-c.wav",
+    "shots": {
+      "hook": "locked swivel",
+      "commit": "Warp + Claude Code commit 7c337b8",
+      "model": "Warp + Claude Code reading conversation_engine.py profile-signals block (real code; prompt text illustrative)",
+      "finder": "Finder with 'Manav Thaker - Resume.pdf' and Quick Look (cropped, facts-cleared lines, blurred body; file name illustrative)",
+      "upload": "Grapevines onboarding upload page recreated from frontend/app/onboarding/v2/page.tsx copy (login-gated, not captured), resume dragged into drop zone",
+      "summary": "'I've read through your materials' interstitial (real copy) then captured public demo My Read page (sample participant)",
+      "qa": "three cuts on captured public demo before-after card: question, answer, after (sample participant)",
+      "pv": "frame from Week 3 cleared Proof & Voice v3 video (synthetic fixture)",
+      "story": "Cursor view of Little Fables story.json format sample from its README (fictional hedgehog story)",
+      "inn": "Notes app 'Guest context \u00b7 Example Inn' synthetic questions (illustrative; no real property)",
+      "thin": "captured demo before-after card scrolling from BEFORE to AFTER",
+      "close": "avatar-close-01 Seedance 2.5 19s (job b5e3f7c0, 123.5 credits) + one Sync v3 pass",
+      "end": "Counterproof card: 'How does your app get context from people?' + signature"
+    },
+    "checks": "strict decode passed; voice onset 1.09s and hook gap match master; captions from exact v13 script words",
+    "publication_approved": false
+  },
+  "context_v8": {
+    "render": "renders/context-v8.mp4",
+    "sha256": "5235bd751da6ece9935a29cae09433a6cdf951ffdf9fb7f30b6fb2a601460e8f",
+    "duration_seconds": 74.25,
+    "change": "Close-up replaced by avatar-close-02 two shorter takes (A: 'Think about...write down.' Seedance f0b7b0a0; B: 'That's the context...comments' Seedance 8748f930), each with one Sync v3 pass; owner approved both ('both look good'). B has a static 1.08 punch-in at the cut (63.31s). End card moved to 70.05s.",
+    "checks": "strict decode passed; rendered frame at 60s matches take A at its mapped time (SSIM 0.959); lint 0 errors",
+    "superseded": "context-v7 close-up (avatar-close-01) lip sync rejected by owner"
+  }
+}

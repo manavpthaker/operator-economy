@@ -1,0 +1,33 @@
+{
+  "work_order": "EP007-AVATAR-V4-EDIT",
+  "source_sha256": "4729bf2cc362e68ef62ea5d095cd5fbe9e94521d35b862f19588c98f58083494",
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "frames": 505,
+  "cut_frame_zero_based": 429,
+  "cut_seconds": 17.875,
+  "crop_scale": 1.3,
+  "crop_origin": "50% 0%",
+  "source_video_start": 0,
+  "source_audio_start": 0,
+  "source_speed": 1,
+  "output_filename": "EP007-avatar-v4-wide-to-close-review.mp4",
+  "command": "npx --yes hyperframes@0.8.34 render --fps 24 --sdr --quality high --workers 2 --strict --output ../EP007-avatar-v4-hyperframes-premux.mp4",
+  "root_audio_placement_measurement": {
+    "offset_seconds": 0.04725,
+    "full_original_overlap_seconds": 20.9,
+    "correlation": 0.9983461822071354,
+    "note": "Insertion placement in container, not measured audiovisual sync"
+  },
+  "technical_checks_after_render": [
+    "ffprobe frame count, dimensions, rates, durations",
+    "full decode",
+    "inspect output frames 12,428,429,504"
+  ],
+  "qa_owner": "Root verifies original audio preservation, phone playback, and naturalness.",
+  "wide_scale": 1.004,
+  "wide_scale_reason": "Remove corrupted bottom rows already present in restored source; no browser causation",
+  "original_restored_authority_sha256": "19f57219ec8a75fe49880c560ad556006699e79ec4a2b9884ed5bae20f215f02",
+  "final_audio": "Original restored AAC copied after HyperFrames render; picture stream also copied during remux"
+}

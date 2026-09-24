@@ -1,0 +1,420 @@
+{
+  "topic": "direct booking recovery",
+  "revision": "rev-d-archive",
+  "working_title": "Hotels Pay 30% to Book Their Own Rooms",
+  "title_options": [
+    "Hotels Pay 30% to Book Their Own Rooms",
+    "Independent Hotels Lose $135K a Year",
+    "Hotels Still Pay an 18-30% Commission"
+  ],
+  "thumbnail_concepts": [
+    "Split-frame: left side a warm-lit hotel front desk at night with no queue; right side a stark bar chart draining from 'booked' down to 'kept,' with the commission percentage as a bold overlay number.",
+    "Overhead shot of a hotel key-card rack \u2014 one lit card labeled 'Direct' surrounded by dim cards stamped with generic OTA-style logos, evoking how rare a direct booking actually is."
+  ],
+  "thumbnail_text_options": [
+    "$130K Gone",
+    "One Missed Call"
+  ],
+  "description_draft": "Independent hotels lose about two thirds of their bookings to Booking.com and Expedia, paying 18\u201330% in all-in commission once loyalty programs like Genius and Accelerator are added (Cloudbeds, 2026 State of Independent Hotels, ~90M bookings analyzed: https://www.cloudbeds.com/online-travel-agencies/commissions/). Run the arithmetic on a 20-room, $180-ADR property at 70% occupancy and that's roughly $135,000 a year \u2014 an illustrative model with stated assumptions, not a universal figure.\n\nThe infrastructure to fix this just got heavily funded: Mews raised $300M at a $2.5B valuation in January 2026, the largest round in hospitality software history (PR Newswire: https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html). Cloudbeds has raised $250M including SoftBank and serves 27,000 properties.\n\nThis episode covers direct booking recovery: installing and running the rate-parity, booking-engine, missed-call, and past-guest re-book stack for independent hotels \u2014 priced against the commission saved, in a market where almost no provider publishes a price.\n\nFull sources, the tool stack, and the build plan are in the blueprint linked below.",
+  "sections": [
+    {
+      "id": "hook",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "Independent hotels hand about two thirds of their bookings to Booking.com and Expedia, and pay 18 to 30 percent commission to do it. On a 20-room hotel at 70 percent occupancy that is roughly $135,000 a year \u2014 my estimate, from their own published rates.",
+          "highlight_words": [
+            "two thirds",
+            "18 to 30 percent",
+            "my estimate"
+          ],
+          "asset_hint": "chart: booking split \u2014 63% OTA vs 37% direct, with commission range 18-30% called out",
+          "source": "Cloudbeds 2026 State of Independent Hotels report (~90M bookings), https://www.cloudbeds.com/online-travel-agencies/commissions/; $135,000 figure is an illustrative arithmetic model, not a vendor-reported number"
+        }
+      ]
+    },
+    {
+      "id": "thesis",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "This is The Operator Economy. This week, we're looking at direct booking recovery: installing and running the stack that gets a hotel's own website booking rooms instead of Booking.com or Expedia doing it for a cut. Rate parity monitoring, a real booking engine, a missed-call system, and a re-book flow to past guests. The plumbing one person can run for a dozen properties at once.",
+          "highlight_words": [
+            "direct booking recovery",
+            "a dozen properties"
+          ],
+          "asset_hint": "slide: 'Direct Booking Recovery' + 4 bullets (parity, booking engine, missed-call, re-book)",
+          "source": null
+        },
+        {
+          "beat": 2,
+          "vo_text": "It serves independent hotels in the ten-to-forty-room band \u2014 big enough that commission is real money, small enough that nobody on staff owns revenue management. Five years ago this required a channel-manager contract and a consultant on retainer. Now Mews, Cloudbeds, and SiteMinder run the parity checks, and a voice agent answers the phone the front desk can't get to.",
+          "highlight_words": [
+            "ten-to-forty-room",
+            "channel-manager contract",
+            "voice agent"
+          ],
+          "asset_hint": "logo row: Mews, Cloudbeds, SiteMinder",
+          "source": null
+        },
+        {
+          "beat": 3,
+          "vo_text": "Nobody on staff was watching that number, and it was not negligence. A small property leans on the OTAs for a reason: you do not have the manpower to take it all in, and you do not have the skillset to build direct. And direct booking is not a website. Build it and they will come is not true here. It is marketing \u2014 putting yourself out there, continuously. That is the job nobody had time for, and it is the job the agents are actually for. Not answering. Outreach, profile, follow-up. Your own growth engine rather than a better voicemail.",
+          "highlight_words": [
+            "manpower",
+            "skillset",
+            "growth engine"
+          ],
+          "asset_hint": "broll: operator at laptop reviewing a booking dashboard, split-screen with a hotel exterior",
+          "source": null
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "Cloudbeds \u2014 who sell the software that fixes this \u2014 looked at ninety million bookings for their 2026 State of Independent Hotels report and found that independents lose 63.4 percent of reservations to OTAs. Once you add Booking.com's Genius program and Visibility Booster, or Expedia's Accelerator, the real commission runs 18 to 30 percent, well above the 15-to-25 headline rate hotels think they're paying.",
+          "highlight_words": [
+            "ninety million bookings",
+            "63.4 percent",
+            "18 to 30 percent"
+          ],
+          "asset_hint": "chart: headline OTA rate (15-25%) vs all-in rate with loyalty programs added (18-30%)",
+          "source": "Cloudbeds 2026 State of Independent Hotels report, https://www.cloudbeds.com/online-travel-agencies/commissions/ \u2014 vendor-published, attribute aloud"
+        },
+        {
+          "beat": 2,
+          "vo_text": "Same dataset: OTA bookings cancel at 21.8 percent, almost double the 10.6 percent for direct. The commission does not just cost money \u2014 it buys a less reliable booking. Then the arithmetic, and it is an estimate rather than a reported figure: 20 rooms, $180 average rate, 70 percent occupancy books around $920,000 a year, and two thirds of that through OTAs at 22 percent all-in is about $135,000 gone.",
+          "highlight_words": [
+            "21.8 percent",
+            "it is an estimate",
+            "$135,000 gone"
+          ],
+          "asset_hint": "slide: illustrative model \u2014 20 rooms / $180 ADR / 70% occupancy / $135K commission, labeled 'estimate, assumptions stated'",
+          "source": "Cancellation rates: Cloudbeds 2026 report; $135,000 figure is an illustrative estimate built from those assumptions, not a company-reported number"
+        },
+        {
+          "beat": 3,
+          "vo_text": "At Coqui Coqui the first thing I did was get the brand and the site into good form. Then the harder part: making the whole flow hold together. Social to the website, the website to a call or a booking, the booking through to check-in \u2014 one continued conversation instead of four handoffs. I could do that because I had fifty people on property and the time to think about it. A B&B operator running the place alone cannot. That gap is the whole opportunity.",
+          "highlight_words": [
+            "one continued conversation",
+            "fifty people"
+          ],
+          "asset_hint": "broll: busy front-desk checkout queue, phone visibly ringing unanswered",
+          "source": null
+        },
+        {
+          "beat": 4,
+          "vo_text": "On the high end, Mews just raised $300 million in a Series D led by EQT Growth, valuing the company at $2.5 billion \u2014 the largest funding round hospitality software has ever seen. Announced January 2026. New investors Atomico and HarbourVest joined existing backers Kinnevik, Battery Ventures, and Tiger Global.",
+          "highlight_words": [
+            "$300 million",
+            "$2.5 billion",
+            "largest funding round"
+          ],
+          "asset_hint": "logo: Mews + slide: 'Series D \u2014 $300M \u2014 $2.5B valuation \u2014 Jan 2026'",
+          "source": "Mews press release via PR Newswire, https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html; Hotel Dive, https://www.hoteldive.com/news/mews-series-d-300-million-funding/810338/"
+        },
+        {
+          "beat": 5,
+          "vo_text": "Mews now moves $19.7 billion a year across 42 million bookings and 15,000 customers in 85 countries. Cloudbeds has raised $250 million, including SoftBank, and serves 27,000 properties. Mews earmarked this round for AI agents that automate hotel operations \u2014 but somebody still has to install that plumbing in a 20-room property that has never had a revenue manager.",
+          "highlight_words": [
+            "$19.7 billion",
+            "15,000 customers",
+            "$250 million"
+          ],
+          "asset_hint": "chart: Mews vs Cloudbeds scale \u2014 transaction volume, customer count, funding raised",
+          "source": "Mews figures: PR Newswire release + Hotel Dive (see prior beat); Cloudbeds figures: company reporting as compiled in research brief"
+        },
+        {
+          "beat": 6,
+          "vo_text": "The low end is thinner, and in the wrong unit. Freelance remote hotel revenue managers earn an average $129,482 a year, reported by ZipRecruiter \u2014 and that is a salary, not a price you charge a hotel. Which is the honest state of the evidence here: the demand side is documented and the pricing side is not.",
+          "highlight_words": [
+            "$129,482 a year",
+            "a salary",
+            "not a price"
+          ],
+          "asset_hint": "slide: 'What this isn't' \u2014 salary figure crossed against a price tag icon",
+          "source": "ZipRecruiter, https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management; consulting hourly range is a generic cross-industry benchmark, not hotel-specific, marked as estimate"
+        },
+        {
+          "beat": 7,
+          "vo_text": "Providers like TCRM, Revenuenaire and HotelMinder report 5 to 15 percent RevPAR uplift \u2014 their own numbers, unverified, and they are selling the service. What is checkable is that every one of them quotes privately. Nobody in this market publishes a price. That is not a hole in the research. That is the finding: a market where nobody prices in public is a market a published price can walk straight into.",
+          "highlight_words": [
+            "unverified",
+            "quotes privately",
+            "publishes a price"
+          ],
+          "asset_hint": "slide: outsourced revenue-management providers listed with 'price: on request' stamped across each",
+          "source": "Reported vendor claims (TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality) \u2014 private pricing observed on each site; no public per-property rate found, mark as reported gap"
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "The product is a standing task force that generates demand, and the software it runs on is assembled rather than bought. A booking engine does not generate demand on its own \u2014 it catches the guest who is already looking. Something has to keep pushing traffic toward it, every day, without a payroll line for a full-time marketing hire.",
+          "source": null,
+          "highlight_words": [
+            "a standing task force",
+            "assembled rather than bought",
+            "without a payroll line"
+          ]
+        },
+        {
+          "beat": 2,
+          "vo_text": "Underneath it are two boring pieces. Make or n8n means the outreach goes out on Tuesday whether or not anyone opens a laptop. Claude, or any model with an API, means every property sounds like itself instead of like a template. Neither is hospitality software. That is the point \u2014 this stack is assembled, not bought.",
+          "source": "Public tool pricing",
+          "highlight_words": [
+            "Make or n8n",
+            "sounds like itself",
+            "assembled, not bought"
+          ]
+        },
+        {
+          "beat": 3,
+          "vo_text": "Then the roles split across what actually decides whether a property gets found. Keeping the Google Business Profile current means it stops losing guests who searched for it by name. A re-book flow through Beehiiv or Resend means last year's guests book again without paying to reach them twice. A third prompts reviews after checkout. None of them is a receptionist.",
+          "source": "Public tool pricing",
+          "highlight_words": [
+            "Google Business Profile",
+            "book again",
+            "None of them is a receptionist"
+          ]
+        },
+        {
+          "beat": 4,
+          "vo_text": "Mews or Cloudbeds sits at the end of that, and it gets one line here on purpose: it is the destination, not the product being sold. The demand the task force generates has to land somewhere that takes a booking without a commission attached. Note what the free tier covers \u2014 the Google profile costs nothing, and it is where most independents are leaking discovery.",
+          "source": null,
+          "highlight_words": [
+            "the destination, not the product",
+            "without a commission attached",
+            "costs nothing"
+          ]
+        },
+        {
+          "beat": 5,
+          "vo_text": "Licensed together the software runs a few hundred dollars a month, by rough estimate \u2014 and that is not the real cost. Someone still has to direct these agents, read their output, correct the tone, and decide what the outreach says. That is the line operators underprice, and none of the four vendors most often named for this work \u2014 TCRM, Revenuenaire, Catala, HotelMinder \u2014 publish a price to compare it against.",
+          "source": "Estimate: aggregate SMB tool licensing; vendor pricing checked directly \u2014 none publish rates",
+          "highlight_words": [
+            "a few hundred dollars a month",
+            "operators underprice",
+            "publish a price"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "playbook",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "Standing this up starts with an audit, not a purchase. Where does a guest first find the property \u2014 organic search, an OTA listing, a friend's post, a review site \u2014 and at what point do they fall away instead of landing on a direct booking. That gap, mapped honestly, is what the task force gets built to close.",
+          "source": null,
+          "highlight_words": [
+            "an audit, not a purchase",
+            "fall away",
+            "the task force gets built to close"
+          ]
+        },
+        {
+          "beat": 2,
+          "vo_text": "Before any agent runs outreach, the destination has to hold up. Brand and website first, then the full path from a social post to the site to a phone call or booking to check-in has to read as one continuous conversation, not four disconnected systems.",
+          "source": "operator interview",
+          "highlight_words": [
+            "Brand and website first",
+            "one continuous conversation",
+            "a phone call or booking"
+          ]
+        },
+        {
+          "beat": 3,
+          "vo_text": "Then the roles get split. One agent maintains the property's profile \u2014 photos, descriptions, pricing signals \u2014 across every platform a guest might search. One runs outreach to past and lookalike guests. One manages guest engagement, prompting reviews and referrals. None of them is a receptionist.",
+          "source": null,
+          "highlight_words": [
+            "the roles get split",
+            "outreach to past and lookalike guests",
+            "None of them is a receptionist"
+          ]
+        },
+        {
+          "beat": 4,
+          "vo_text": "At Coqui Coqui I ran this flow myself, because there was a team of fifty on the property to lean on \u2014 someone always available to answer, post, and follow up. A single-operator bed-and-breakfast does not have that headcount. The agent task force is not a luxury add-on there. It is what stands in for the manpower a small property was never going to hire.",
+          "source": "operator interview",
+          "highlight_words": [
+            "a team of fifty",
+            "does not have that headcount",
+            "stands in for the manpower"
+          ]
+        },
+        {
+          "beat": 5,
+          "vo_text": "None of the four vendors most commonly named \u2014 TCRM, Revenuenaire, Catala, HotelMinder \u2014 post a price. Every one quotes privately, after a sales call. So do the thing none of them does: publish yours. In a market where nobody prices in public, a number on a website is not just pricing. It is the pitch.",
+          "source": "vendor pricing checked directly \u2014 none publish rates",
+          "highlight_words": [
+            "post a price",
+            "publish yours",
+            "a number on a website"
+          ]
+        },
+        {
+          "beat": 6,
+          "vo_text": "Weigh that against the commission line, not the sticker price of the software. Licensing runs a few hundred dollars a month, by rough estimate \u2014 cheap relative to what it's replacing. The commission it's meant to offset, on the illustrative twenty-room model at a hundred-eighty-dollar rate and seventy percent occupancy, runs about one hundred thirty-five thousand dollars a year. The gap between those two numbers is the argument.",
+          "source": "estimate; illustrative model (20 rooms, $180 ADR, 70% occupancy)",
+          "highlight_words": [
+            "a few hundred dollars a month",
+            "illustrative twenty-room model",
+            "one hundred thirty-five thousand dollars a year"
+          ]
+        },
+        {
+          "beat": 7,
+          "vo_text": "The pitch isn't to leave the OTAs \u2014 they still bring discovery no small property can buy on its own. It's to shift the mix: let the task force pull repeat and referred guests back to the direct channel, one booking at a time, where no commission gets taken.",
+          "source": null,
+          "highlight_words": [
+            "isn't to leave the OTAs",
+            "shift the mix",
+            "no commission gets taken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "economics",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "There's a full walkthrough of this audit, the pricing structure, and the outreach approach in the blueprint linked below, for anyone who'd rather start from a built checklist than piece one together.",
+          "highlight_words": [
+            "blueprint linked below",
+            "built checklist"
+          ],
+          "asset_hint": "slide: blueprint cover mockup \u2014 'Direct Booking Recovery: audit, pricing, outreach'",
+          "source": null
+        },
+        {
+          "beat": 2,
+          "vo_text": "On effort, not promise: running this for three or four properties as a side operation is realistic supplemental income. At ten or twelve clients the workload approaches the freelance revenue-management range of roughly $95,000 to $140,000 a year \u2014 reported salary data for a full-time equivalent, not what any single hotel pays you.",
+          "highlight_words": [
+            "not promise",
+            "reported salary data",
+            "not what any single hotel pays"
+          ],
+          "asset_hint": "chart: income range by number of client properties (3-4 vs 10-12)",
+          "source": "ZipRecruiter freelance revenue-management salary range, https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management, reframed as a full-time-equivalent workload estimate \u2014 this is salaried pay data, not a client rate"
+        },
+        {
+          "beat": 3,
+          "vo_text": "What it actually diversifies is skills and optionality more than a single income stream: revenue-management literacy, a channel-manager and voice-agent stack you can resell into other verticals, and a client roster that doesn't disappear if any one algorithm change wipes out a single OTA relationship.",
+          "highlight_words": [
+            "skills and optionality",
+            "client roster"
+          ],
+          "asset_hint": "slide: three icons \u2014 revenue literacy, resellable stack, diversified client base",
+          "source": null
+        },
+        {
+          "beat": 4,
+          "vo_text": "Costs stay real: software runs a few hundred dollars a month per property, on my estimate. And the failure mode is a hotel that signs, sees one good month, then does not renew because nobody proved the number moved. Whether the pricing model survives that renewal conversation is the actual test.",
+          "highlight_words": [
+            "on my estimate",
+            "does not renew",
+            "the actual test"
+          ],
+          "asset_hint": "slide: 'Failure mode' \u2014 one good month, no renewal, chart flatlining",
+          "source": "Estimate: cost and churn-risk reasoning based on typical SaaS/service retainer dynamics; not itemized in research brief"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "beats": [
+        {
+          "beat": 1,
+          "vo_text": "The full audit template, the pricing structure, and the outreach script are all in the direct-booking blueprint linked below \u2014 the same checklist used to build this episode. Subscribe for the next installment in this series: one person, one commission-heavy market, built out step by step.",
+          "highlight_words": [
+            "blueprint linked below",
+            "subscribe"
+          ],
+          "asset_hint": "slide: blueprint + subscribe end card",
+          "source": null
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "claim": "Independents lose 63.4% of bookings to OTAs; all-in commission 18-30% (Booking.com w/ Genius + Visibility Booster) and 17-23% (Expedia w/ Accelerator); OTA cancellation rate 21.8% vs 10.6% direct",
+      "source": "Cloudbeds, 2026 State of Independent Hotels report (~90M bookings analyzed), https://www.cloudbeds.com/online-travel-agencies/commissions/ \u2014 vendor-published, attributed aloud in script"
+    },
+    {
+      "claim": "$135,000/year commission-loss figure for a 20-room, $180 ADR, 70% occupancy property",
+      "source": "Estimate: illustrative arithmetic model built from Cloudbeds commission-rate data and stated assumptions, not a company-reported figure"
+    },
+    {
+      "claim": "Mews raised $300M Series D led by EQT Growth at a $2.5B valuation, announced January 22, 2026; new investors Atomico and HarbourVest; existing investors Kinnevik, Battery Ventures, Tiger Global",
+      "source": "Mews press release via PR Newswire, https://www.prnewswire.com/news-releases/mews-secures-300-million-investment-to-cement-position-as-worlds-leading-hospitality-operating-system-302668120.html; Hotel Dive, https://www.hoteldive.com/news/mews-series-d-300-million-funding/810338/"
+    },
+    {
+      "claim": "Mews 2025 scale: $19.7B transaction volume, 42M+ bookings, 15,000 customers, 85 countries, SaaS gross profit +55%",
+      "source": "Mews press release via PR Newswire and Hotel Dive (as above) \u2014 first-party figures, attributed to the company"
+    },
+    {
+      "claim": "Cloudbeds: $250M raised including SoftBank Vision Fund; 27,000 customers across 150 countries; ~$85M 2024 revenue",
+      "source": "Cloudbeds company reporting, as compiled in research brief"
+    },
+    {
+      "claim": "Freelance remote hotel revenue management averages $129,482/yr, most between $94,500 and $140,000",
+      "source": "ZipRecruiter, https://www.ziprecruiter.com/Jobs/Freelance-Remote-Hotel-Revenue-Management"
+    },
+    {
+      "claim": "Outsourced revenue managers reported to deliver 5-15% RevPAR uplift in 6-12 months",
+      "source": "Vendor claims from providers selling the service (TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality) \u2014 marked reported, not independently verified"
+    },
+    {
+      "claim": "No outsourced hotel revenue-management provider publishes per-property pricing",
+      "source": "Research-brief vendor scan of TCRM, Revenuenaire, Catala, HotelMinder, MS Hospitality \u2014 all quote privately; absence of public pricing is itself the finding"
+    }
+  ],
+  "blueprint_summary": {
+    "idea": "Build and run a standing agent task force that generates direct demand for independent hotels \u2014 profile upkeep where guests search, outreach to past and lookalike guests, review and referral prompting \u2014 and price it against the OTA commission it displaces, not the hours it takes. The booking engine is the destination the demand lands on, not the product being sold.",
+    "who_its_for": "Independent hotel owners with roughly 10-40 rooms who have no in-house revenue manager and are losing an estimated 18-30% of two-thirds of their bookings to OTA commission.",
+    "evidence_companies": [
+      "Mews",
+      "Cloudbeds",
+      "SiteMinder"
+    ],
+    "tool_stack": [
+      {
+        "tool": "Make or n8n",
+        "role": "The outreach goes out on Tuesday whether or not anyone opens a laptop",
+        "monthly_cost": "free tier to ~$50/mo (public pricing)"
+      },
+      {
+        "tool": "Claude (or any model with an API)",
+        "role": "Every property sounds like itself instead of like a template",
+        "monthly_cost": "usage-based (public pricing)"
+      },
+      {
+        "tool": "Google Business Profile",
+        "role": "The property stops losing guests who searched for it by name",
+        "monthly_cost": "free"
+      },
+      {
+        "tool": "Beehiiv or Resend",
+        "role": "Last year's guests book again without paying to reach them twice",
+        "monthly_cost": "free tier to ~$49/mo (public pricing)"
+      },
+      {
+        "tool": "Mews or Cloudbeds",
+        "role": "The booking lands somewhere that keeps all of it \u2014 the destination, not the product",
+        "monthly_cost": "$150-400/mo, property-dependent (estimate)"
+      }
+    ],
+    "first_customer_plan": "Audit the demand funnel before selling anything: where a guest first finds the property, and where they fall away instead of booking direct. Compute the property's annual commission exposure from its real OTA mix \u2014 that figure is the sales call. Get the destination holding up first (brand, site, and the path from a social post through to check-in as one continuous conversation), then stand up the agents one role at a time. Publish your price, which none of the named vendors do.",
+    "realistic_economics": "No public per-property price exists in this market, which is itself the opportunity. Software runs a few hundred dollars a month by rough estimate; the real cost is the labour to direct the agents \u2014 reading output, correcting tone, deciding what the outreach says \u2014 which is the line operators underprice. Running this for 10-12 properties tracks toward the freelance revenue-management range of roughly $95,000-$140,000/year (ZipRecruiter), though that figure is salaried pay data rather than a client rate."
+  },
+  "slug": "direct-booking-recovery"
+}

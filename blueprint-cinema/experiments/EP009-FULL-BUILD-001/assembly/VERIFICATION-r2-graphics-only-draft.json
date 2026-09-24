@@ -1,0 +1,1711 @@
+{
+  "record_type": "ep009_r2_technical_verification",
+  "mode": "graphics-only-draft",
+  "status": "technical_checks_passed_review_required",
+  "owner_accepted": false,
+  "delivery_master": false,
+  "created_at_utc": "2026-09-17T17:43:34.729020+00:00",
+  "build_manifest": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/BUILD-r2-graphics-only-draft.json",
+    "sha256": "04d16c5b7a3579f2638aeb84d2fb7745f44a63700e68e3bd96c529dd99588ccc"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-full-r2-graphics-only-draft.mp4",
+    "sha256": "9b279403e6b2c1ef365d086110b8be5b2621315cb98af6e07b257740601857e3",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "24/1",
+          "duration": "1233.625000",
+          "nb_read_packets": "29607"
+        },
+        {
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "duration": "1233.625000",
+          "nb_read_packets": "57828"
+        }
+      ],
+      "format": {
+        "duration": "1233.625000"
+      }
+    }
+  },
+  "video": {
+    "method": "Decode every encoded frame; uniform means full-frame Y, U, V spans each at most 4 code values.",
+    "decoded_frames": 29607,
+    "expected_frames": 29607,
+    "decode_exit_code": 0,
+    "uniform_frames": [
+      1427
+    ],
+    "unplanned_uniform_frames": [],
+    "planned_exception": {
+      "frame": 1427,
+      "segment": "seg010",
+      "basis": "Existing locked one-frame navy sting entry"
+    },
+    "limitation": "Blank-frame detection does not judge composition, legibility, motion, seams, or performance."
+  },
+  "audio": {
+    "method": "Full decoded audio in consecutive 10 s blocks, zero-lag normalized waveform correlation (no mean subtraction); per-channel RMS against mono master.",
+    "compared_master_samples": 59212920,
+    "uncompared_master_samples": 0,
+    "program_decoded_samples": 59214848,
+    "program_shortfall": false,
+    "decode_exit_codes": [
+      0,
+      0
+    ],
+    "full_corr": [
+      0.9999882699077985,
+      0.999988270522446
+    ],
+    "full_rms_minus_master_db": [
+      -0.00646963273505433,
+      -0.006469638961978754
+    ],
+    "min_non_silent_window_corr": 0.9999780350559438,
+    "max_abs_non_silent_window_rms_db": 0.009221145343972033,
+    "left_minus_right_max_abs": 0.001253463327884674,
+    "decoded_samples_after_master": 1928,
+    "tail_max_abs": 3.332287779045373e-09,
+    "windows": [
+      {
+        "start_seconds": 0.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999790944311822,
+          0.9999790944279064
+        ],
+        "rms_minus_master_db": [
+          -0.008388908134184948,
+          -0.00838890899101897
+        ]
+      },
+      {
+        "start_seconds": 10.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999891516595164,
+          0.9999891516595164
+        ],
+        "rms_minus_master_db": [
+          -0.006210076288540612,
+          -0.006210076288540612
+        ]
+      },
+      {
+        "start_seconds": 20.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999858548106715,
+          0.9999858548106715
+        ],
+        "rms_minus_master_db": [
+          -0.008991241638334934,
+          -0.008991241638334934
+        ]
+      },
+      {
+        "start_seconds": 30.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999897264654469,
+          0.9999897264654469
+        ],
+        "rms_minus_master_db": [
+          -0.005213177293515058,
+          -0.005213177293515058
+        ]
+      },
+      {
+        "start_seconds": 40.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999880892461589,
+          0.9999880892461589
+        ],
+        "rms_minus_master_db": [
+          -0.0072639998593954785,
+          -0.0072639998593954785
+        ]
+      },
+      {
+        "start_seconds": 50.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999871751778843,
+          0.9999871754138681
+        ],
+        "rms_minus_master_db": [
+          -0.006149347633585564,
+          -0.006149229953415484
+        ]
+      },
+      {
+        "start_seconds": 60.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999909017084537,
+          0.9999909017404831
+        ],
+        "rms_minus_master_db": [
+          -0.005118482728488639,
+          -0.005118477368251493
+        ]
+      },
+      {
+        "start_seconds": 70.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999904818051334,
+          0.9999904818060976
+        ],
+        "rms_minus_master_db": [
+          -0.006652440392641676,
+          -0.006652438763487239
+        ]
+      },
+      {
+        "start_seconds": 80.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999896764240112,
+          0.9999897421805944
+        ],
+        "rms_minus_master_db": [
+          -0.005817746303431275,
+          -0.005817228072489407
+        ]
+      },
+      {
+        "start_seconds": 90.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999848270320755,
+          0.9999848270320755
+        ],
+        "rms_minus_master_db": [
+          -0.006932419489117371,
+          -0.006932419489117371
+        ]
+      },
+      {
+        "start_seconds": 100.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999923280288993,
+          0.9999923280296399
+        ],
+        "rms_minus_master_db": [
+          -0.005359055896340097,
+          -0.005359052639309445
+        ]
+      },
+      {
+        "start_seconds": 110.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999865540868449,
+          0.9999865540868449
+        ],
+        "rms_minus_master_db": [
+          -0.004917942280410776,
+          -0.004917942280410776
+        ]
+      },
+      {
+        "start_seconds": 120.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999902922085143,
+          0.9999902922085143
+        ],
+        "rms_minus_master_db": [
+          -0.007098028034981052,
+          -0.007098028034981052
+        ]
+      },
+      {
+        "start_seconds": 130.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.99999100341094,
+          0.99999100341094
+        ],
+        "rms_minus_master_db": [
+          -0.005494447155250764,
+          -0.005494447155250764
+        ]
+      },
+      {
+        "start_seconds": 140.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999874390173834,
+          0.9999874390178758
+        ],
+        "rms_minus_master_db": [
+          -0.006151054223099552,
+          -0.0061510542111346
+        ]
+      },
+      {
+        "start_seconds": 150.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999917917618685,
+          0.9999917917618685
+        ],
+        "rms_minus_master_db": [
+          -0.005149173041679454,
+          -0.005149173041679454
+        ]
+      },
+      {
+        "start_seconds": 160.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999869231672311,
+          0.9999869231672311
+        ],
+        "rms_minus_master_db": [
+          -0.008330764611516567,
+          -0.008330764611516567
+        ]
+      },
+      {
+        "start_seconds": 170.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999927570028686,
+          0.9999927570028686
+        ],
+        "rms_minus_master_db": [
+          -0.00559864447465965,
+          -0.00559864447465965
+        ]
+      },
+      {
+        "start_seconds": 180.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999918294177385,
+          0.9999918294177385
+        ],
+        "rms_minus_master_db": [
+          -0.006254647781776557,
+          -0.006254647781776557
+        ]
+      },
+      {
+        "start_seconds": 190.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999918767694181,
+          0.9999918767702656
+        ],
+        "rms_minus_master_db": [
+          -0.004678447991140478,
+          -0.004678447314331433
+        ]
+      },
+      {
+        "start_seconds": 200.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999848742183531,
+          0.9999848742192383
+        ],
+        "rms_minus_master_db": [
+          -0.006931976288898965,
+          -0.006931976031188505
+        ]
+      },
+      {
+        "start_seconds": 210.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999815869475001,
+          0.9999815869475784
+        ],
+        "rms_minus_master_db": [
+          -0.007922331222278915,
+          -0.007922331347014425
+        ]
+      },
+      {
+        "start_seconds": 220.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999891711630183,
+          0.9999891711630183
+        ],
+        "rms_minus_master_db": [
+          -0.005942910955384607,
+          -0.005942910955384607
+        ]
+      },
+      {
+        "start_seconds": 230.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999878818030266,
+          0.9999878818120383
+        ],
+        "rms_minus_master_db": [
+          -0.006101199875515923,
+          -0.00610117584068197
+        ]
+      },
+      {
+        "start_seconds": 240.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999907458497103,
+          0.9999907458492793
+        ],
+        "rms_minus_master_db": [
+          -0.006366138013548213,
+          -0.006366138587259845
+        ]
+      },
+      {
+        "start_seconds": 250.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999851713261574,
+          0.9999851714090313
+        ],
+        "rms_minus_master_db": [
+          -0.0076069076307865155,
+          -0.007606931207392899
+        ]
+      },
+      {
+        "start_seconds": 260.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999985715913264,
+          0.9999857159342095
+        ],
+        "rms_minus_master_db": [
+          -0.0075333217072830715,
+          -0.007533315790679451
+        ]
+      },
+      {
+        "start_seconds": 270.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999872842650881,
+          0.9999872842471196
+        ],
+        "rms_minus_master_db": [
+          -0.005868312142788995,
+          -0.005868308318324342
+        ]
+      },
+      {
+        "start_seconds": 280.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999984852307871,
+          0.9999848523087649
+        ],
+        "rms_minus_master_db": [
+          -0.006737482645785133,
+          -0.0067374814687689195
+        ]
+      },
+      {
+        "start_seconds": 290.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999897302563941,
+          0.9999897302573433
+        ],
+        "rms_minus_master_db": [
+          -0.005934345824561856,
+          -0.005934345399256087
+        ]
+      },
+      {
+        "start_seconds": 300.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999888117822158,
+          0.9999888117824091
+        ],
+        "rms_minus_master_db": [
+          -0.005817149672481484,
+          -0.0058171496073248265
+        ]
+      },
+      {
+        "start_seconds": 310.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999880249875257,
+          0.9999880249875257
+        ],
+        "rms_minus_master_db": [
+          -0.004112768255539042,
+          -0.004112768255539042
+        ]
+      },
+      {
+        "start_seconds": 320.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999984667030098,
+          0.9999846670358041
+        ],
+        "rms_minus_master_db": [
+          -0.007405331983121368,
+          -0.007405327183454675
+        ]
+      },
+      {
+        "start_seconds": 330.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999881983360622,
+          0.9999881983360622
+        ],
+        "rms_minus_master_db": [
+          -0.006656314230582522,
+          -0.006656314230582522
+        ]
+      },
+      {
+        "start_seconds": 340.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999898165565526,
+          0.9999898165553172
+        ],
+        "rms_minus_master_db": [
+          -0.006273443992476387,
+          -0.006273442838744896
+        ]
+      },
+      {
+        "start_seconds": 350.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999904304579892,
+          0.9999904304579892
+        ],
+        "rms_minus_master_db": [
+          -0.006084036262121093,
+          -0.006084036262121093
+        ]
+      },
+      {
+        "start_seconds": 360.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999985247343729,
+          0.999985247343729
+        ],
+        "rms_minus_master_db": [
+          -0.00781591654833736,
+          -0.00781591654833736
+        ]
+      },
+      {
+        "start_seconds": 370.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999906668076843,
+          0.9999906668083093
+        ],
+        "rms_minus_master_db": [
+          -0.006736436844698622,
+          -0.0067364369495417605
+        ]
+      },
+      {
+        "start_seconds": 380.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999894324125095,
+          0.9999894324301067
+        ],
+        "rms_minus_master_db": [
+          -0.005039891952922584,
+          -0.00503985759032446
+        ]
+      },
+      {
+        "start_seconds": 390.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999906941850066,
+          0.9999906941852807
+        ],
+        "rms_minus_master_db": [
+          -0.0061883893988624525,
+          -0.006188389379900883
+        ]
+      },
+      {
+        "start_seconds": 400.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999837451181679,
+          0.9999837451181679
+        ],
+        "rms_minus_master_db": [
+          -0.008466030314427482,
+          -0.008466030314427482
+        ]
+      },
+      {
+        "start_seconds": 410.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999903228818636,
+          0.999990322881798
+        ],
+        "rms_minus_master_db": [
+          -0.004957958273360826,
+          -0.004957958294712736
+        ]
+      },
+      {
+        "start_seconds": 420.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.99998887480517,
+          0.9999888748058176
+        ],
+        "rms_minus_master_db": [
+          -0.006298215064669096,
+          -0.006298214803264672
+        ]
+      },
+      {
+        "start_seconds": 430.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999858615161805,
+          0.9999858615458576
+        ],
+        "rms_minus_master_db": [
+          -0.007803414871493845,
+          -0.007803379641490029
+        ]
+      },
+      {
+        "start_seconds": 440.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999804221178155,
+          0.9999804221208232
+        ],
+        "rms_minus_master_db": [
+          -0.008600937179690668,
+          -0.00860093566052503
+        ]
+      },
+      {
+        "start_seconds": 450.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999868038170794,
+          0.9999868038170732
+        ],
+        "rms_minus_master_db": [
+          -0.003860998283222567,
+          -0.0038609982705607856
+        ]
+      },
+      {
+        "start_seconds": 460.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999851242597009,
+          0.9999851242599659
+        ],
+        "rms_minus_master_db": [
+          -0.005798877270053901,
+          -0.005798876974572527
+        ]
+      },
+      {
+        "start_seconds": 470.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999889299581656,
+          0.99998892995832
+        ],
+        "rms_minus_master_db": [
+          -0.006309100696993657,
+          -0.0063091007525766934
+        ]
+      },
+      {
+        "start_seconds": 480.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999869029452797,
+          0.9999869029562843
+        ],
+        "rms_minus_master_db": [
+          -0.007336381848850241,
+          -0.007336353014423227
+        ]
+      },
+      {
+        "start_seconds": 490.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999898904856814,
+          0.999989890486489
+        ],
+        "rms_minus_master_db": [
+          -0.006613369324751278,
+          -0.006613368994196132
+        ]
+      },
+      {
+        "start_seconds": 500.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999869394500317,
+          0.9999869394500993
+        ],
+        "rms_minus_master_db": [
+          -0.00851288361578373,
+          -0.008512883553119077
+        ]
+      },
+      {
+        "start_seconds": 510.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999905054558416,
+          0.9999905054561135
+        ],
+        "rms_minus_master_db": [
+          -0.006996301188092294,
+          -0.006996300887211777
+        ]
+      },
+      {
+        "start_seconds": 520.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999907416658762,
+          0.9999907416658762
+        ],
+        "rms_minus_master_db": [
+          -0.004992325293703579,
+          -0.004992325293703579
+        ]
+      },
+      {
+        "start_seconds": 530.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999899709238523,
+          0.9999899709409849
+        ],
+        "rms_minus_master_db": [
+          -0.006327609228102444,
+          -0.006327612819826134
+        ]
+      },
+      {
+        "start_seconds": 540.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999848289694314,
+          0.9999848289702654
+        ],
+        "rms_minus_master_db": [
+          -0.00821537546712923,
+          -0.008215375576942222
+        ]
+      },
+      {
+        "start_seconds": 550.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.99998935725895,
+          0.99998935725895
+        ],
+        "rms_minus_master_db": [
+          -0.006765175967434089,
+          -0.006765175967434089
+        ]
+      },
+      {
+        "start_seconds": 560.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.99998687835283,
+          0.9999868783534888
+        ],
+        "rms_minus_master_db": [
+          -0.006011817490910218,
+          -0.0060118172134915725
+        ]
+      },
+      {
+        "start_seconds": 570.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999989926533926,
+          0.9999899265341671
+        ],
+        "rms_minus_master_db": [
+          -0.007311192243723098,
+          -0.00731119200630073
+        ]
+      },
+      {
+        "start_seconds": 580.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999921510298007,
+          0.9999921510298629
+        ],
+        "rms_minus_master_db": [
+          -0.00438590196687339,
+          -0.004385901835245798
+        ]
+      },
+      {
+        "start_seconds": 590.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999780350560304,
+          0.9999780350559438
+        ],
+        "rms_minus_master_db": [
+          -0.008963877231059864,
+          -0.008963876031058202
+        ]
+      },
+      {
+        "start_seconds": 600.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999896787189912,
+          0.9999896787307291
+        ],
+        "rms_minus_master_db": [
+          -0.005993558660323072,
+          -0.0059935477196633715
+        ]
+      },
+      {
+        "start_seconds": 610.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999917110081487,
+          0.9999917110081487
+        ],
+        "rms_minus_master_db": [
+          -0.006134372001301156,
+          -0.006134372001301156
+        ]
+      },
+      {
+        "start_seconds": 620.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999888704352374,
+          0.9999888704352374
+        ],
+        "rms_minus_master_db": [
+          -0.006761983089802796,
+          -0.006761983089802796
+        ]
+      },
+      {
+        "start_seconds": 630.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999983245262692,
+          0.9999832452630099
+        ],
+        "rms_minus_master_db": [
+          -0.007325131465532542,
+          -0.00732513125869832
+        ]
+      },
+      {
+        "start_seconds": 640.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999904656309007,
+          0.9999904657187288
+        ],
+        "rms_minus_master_db": [
+          -0.006580993356224314,
+          -0.0065809294470155644
+        ]
+      },
+      {
+        "start_seconds": 650.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999913603003011,
+          0.9999913603193488
+        ],
+        "rms_minus_master_db": [
+          -0.005626726716837573,
+          -0.005626727559298771
+        ]
+      },
+      {
+        "start_seconds": 660.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999987934331741,
+          0.9999879343426596
+        ],
+        "rms_minus_master_db": [
+          -0.006493969834290569,
+          -0.006493964667926414
+        ]
+      },
+      {
+        "start_seconds": 670.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999893673858636,
+          0.9999893673861575
+        ],
+        "rms_minus_master_db": [
+          -0.006979019811043009,
+          -0.006979019547703517
+        ]
+      },
+      {
+        "start_seconds": 680.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999854751794328,
+          0.9999854751992512
+        ],
+        "rms_minus_master_db": [
+          -0.007962868289501435,
+          -0.007962840876044226
+        ]
+      },
+      {
+        "start_seconds": 690.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999917678702789,
+          0.9999917678702789
+        ],
+        "rms_minus_master_db": [
+          -0.0057534483169774595,
+          -0.0057534483169774595
+        ]
+      },
+      {
+        "start_seconds": 700.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999890937629344,
+          0.999989093762558
+        ],
+        "rms_minus_master_db": [
+          -0.0067155713324053646,
+          -0.006715571499397053
+        ]
+      },
+      {
+        "start_seconds": 710.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999901502730139,
+          0.9999901502788052
+        ],
+        "rms_minus_master_db": [
+          -0.0056112709347660526,
+          -0.005611270173868459
+        ]
+      },
+      {
+        "start_seconds": 720.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999907866543896,
+          0.9999907866548361
+        ],
+        "rms_minus_master_db": [
+          -0.005251475196734189,
+          -0.005251475049933204
+        ]
+      },
+      {
+        "start_seconds": 730.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999849214892622,
+          0.9999849214892622
+        ],
+        "rms_minus_master_db": [
+          -0.009221145343972033,
+          -0.009221145343972033
+        ]
+      },
+      {
+        "start_seconds": 740.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999858630056755,
+          0.9999858630059786
+        ],
+        "rms_minus_master_db": [
+          -0.006064440681192999,
+          -0.006064440509124684
+        ]
+      },
+      {
+        "start_seconds": 750.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999889633129284,
+          0.9999889626117812
+        ],
+        "rms_minus_master_db": [
+          -0.006379774596917319,
+          -0.006381624061606885
+        ]
+      },
+      {
+        "start_seconds": 760.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999856908710997,
+          0.9999856908714556
+        ],
+        "rms_minus_master_db": [
+          -0.0049897531976996175,
+          -0.004989753020358669
+        ]
+      },
+      {
+        "start_seconds": 770.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999876944927938,
+          0.9999876943820147
+        ],
+        "rms_minus_master_db": [
+          -0.007584916368017402,
+          -0.007585481830453876
+        ]
+      },
+      {
+        "start_seconds": 780.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999897674862596,
+          0.9999897674862596
+        ],
+        "rms_minus_master_db": [
+          -0.0060723163177265616,
+          -0.0060723163177265616
+        ]
+      },
+      {
+        "start_seconds": 790.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999830369085632,
+          0.9999830369085632
+        ],
+        "rms_minus_master_db": [
+          -0.008734959579929286,
+          -0.008734959579929286
+        ]
+      },
+      {
+        "start_seconds": 800.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999846086604794,
+          0.9999846086607731
+        ],
+        "rms_minus_master_db": [
+          -0.008192047009500335,
+          -0.008192047356947995
+        ]
+      },
+      {
+        "start_seconds": 810.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999892854460242,
+          0.9999892854454333
+        ],
+        "rms_minus_master_db": [
+          -0.006421101299109454,
+          -0.006421101091576099
+        ]
+      },
+      {
+        "start_seconds": 820.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999860779975055,
+          0.9999860780028303
+        ],
+        "rms_minus_master_db": [
+          -0.008406446367265062,
+          -0.008406445913198411
+        ]
+      },
+      {
+        "start_seconds": 830.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999902832252341,
+          0.9999902832382523
+        ],
+        "rms_minus_master_db": [
+          -0.005851036742984765,
+          -0.005851035165244007
+        ]
+      },
+      {
+        "start_seconds": 840.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999924079449225,
+          0.9999924079502774
+        ],
+        "rms_minus_master_db": [
+          -0.005566452160166867,
+          -0.00556644553661813
+        ]
+      },
+      {
+        "start_seconds": 850.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999932025287406,
+          0.9999932025310064
+        ],
+        "rms_minus_master_db": [
+          -0.005278738251848346,
+          -0.005278735920281961
+        ]
+      },
+      {
+        "start_seconds": 860.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999933327214208,
+          0.9999933327307727
+        ],
+        "rms_minus_master_db": [
+          -0.0044262887398642545,
+          -0.004426272863834823
+        ]
+      },
+      {
+        "start_seconds": 870.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999866579354914,
+          0.9999866579385579
+        ],
+        "rms_minus_master_db": [
+          -0.006026636718291994,
+          -0.006026636455220759
+        ]
+      },
+      {
+        "start_seconds": 880.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999917007633865,
+          0.9999917007633865
+        ],
+        "rms_minus_master_db": [
+          -0.005997253998651943,
+          -0.005997253998651943
+        ]
+      },
+      {
+        "start_seconds": 890.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999991570155681,
+          0.9999915701558856
+        ],
+        "rms_minus_master_db": [
+          -0.0058081833112472,
+          -0.0058081831250161794
+        ]
+      },
+      {
+        "start_seconds": 900.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999881676564619,
+          0.9999881676592451
+        ],
+        "rms_minus_master_db": [
+          -0.005874349564963505,
+          -0.005874353358374384
+        ]
+      },
+      {
+        "start_seconds": 910.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999891927813936,
+          0.999989192781637
+        ],
+        "rms_minus_master_db": [
+          -0.006884600569974494,
+          -0.006884600505649843
+        ]
+      },
+      {
+        "start_seconds": 920.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999877226283067,
+          0.9999877226283067
+        ],
+        "rms_minus_master_db": [
+          -0.005912395840863958,
+          -0.005912395840863958
+        ]
+      },
+      {
+        "start_seconds": 930.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999894576729906,
+          0.9999894576677025
+        ],
+        "rms_minus_master_db": [
+          -0.006549077900913289,
+          -0.00654908281835021
+        ]
+      },
+      {
+        "start_seconds": 940.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999858188410224,
+          0.9999858188410224
+        ],
+        "rms_minus_master_db": [
+          -0.008356725542744085,
+          -0.008356725542744085
+        ]
+      },
+      {
+        "start_seconds": 950.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999860612919206,
+          0.9999860612978582
+        ],
+        "rms_minus_master_db": [
+          -0.007268853252905878,
+          -0.007268854459100903
+        ]
+      },
+      {
+        "start_seconds": 960.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999878572832157,
+          0.999987857306511
+        ],
+        "rms_minus_master_db": [
+          -0.007134531096760371,
+          -0.007134508750536202
+        ]
+      },
+      {
+        "start_seconds": 970.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999924418049868,
+          0.999992441824917
+        ],
+        "rms_minus_master_db": [
+          -0.005337683342175147,
+          -0.005337694895170081
+        ]
+      },
+      {
+        "start_seconds": 980.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999987956671024,
+          0.999987956671031
+        ],
+        "rms_minus_master_db": [
+          -0.006875502787546688,
+          -0.006875502777442875
+        ]
+      },
+      {
+        "start_seconds": 990.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999989855801714,
+          0.9999898557850369
+        ],
+        "rms_minus_master_db": [
+          -0.005730538394146651,
+          -0.005730509497848358
+        ]
+      },
+      {
+        "start_seconds": 1000.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999918118964036,
+          0.9999918118964036
+        ],
+        "rms_minus_master_db": [
+          -0.005977979162433085,
+          -0.005977979162433085
+        ]
+      },
+      {
+        "start_seconds": 1010.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999852105113566,
+          0.9999852105117552
+        ],
+        "rms_minus_master_db": [
+          -0.008035950652889643,
+          -0.008035950296475414
+        ]
+      },
+      {
+        "start_seconds": 1020.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999881147618421,
+          0.9999881147652955
+        ],
+        "rms_minus_master_db": [
+          -0.006467988929764624,
+          -0.006467987901143592
+        ]
+      },
+      {
+        "start_seconds": 1030.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999894834216921,
+          0.9999894834606642
+        ],
+        "rms_minus_master_db": [
+          -0.00699603145443819,
+          -0.006995898298363684
+        ]
+      },
+      {
+        "start_seconds": 1040.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999876384201073,
+          0.9999876384209112
+        ],
+        "rms_minus_master_db": [
+          -0.0070110372520485725,
+          -0.007011037535849875
+        ]
+      },
+      {
+        "start_seconds": 1050.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999905966074503,
+          0.9999905966371114
+        ],
+        "rms_minus_master_db": [
+          -0.0070523668759165815,
+          -0.007052363735776079
+        ]
+      },
+      {
+        "start_seconds": 1060.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999888298930631,
+          0.9999888298930621
+        ],
+        "rms_minus_master_db": [
+          -0.006367555099610711,
+          -0.0063675550979631545
+        ]
+      },
+      {
+        "start_seconds": 1070.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999828068335299,
+          0.9999828068693088
+        ],
+        "rms_minus_master_db": [
+          -0.008063829378237826,
+          -0.008063803294638386
+        ]
+      },
+      {
+        "start_seconds": 1080.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999881682660874,
+          0.9999881682663138
+        ],
+        "rms_minus_master_db": [
+          -0.007083510701221385,
+          -0.007083510273575211
+        ]
+      },
+      {
+        "start_seconds": 1090.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999896999766713,
+          0.9999897003916578
+        ],
+        "rms_minus_master_db": [
+          -0.006563235874619688,
+          -0.006562240533423982
+        ]
+      },
+      {
+        "start_seconds": 1100.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999866442331067,
+          0.9999866442435735
+        ],
+        "rms_minus_master_db": [
+          -0.007057370156945285,
+          -0.007057360167200431
+        ]
+      },
+      {
+        "start_seconds": 1110.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999917285506041,
+          0.9999917285512795
+        ],
+        "rms_minus_master_db": [
+          -0.005625238932987907,
+          -0.00562523973579835
+        ]
+      },
+      {
+        "start_seconds": 1120.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999888380124332,
+          0.9999888382855843
+        ],
+        "rms_minus_master_db": [
+          -0.0058725163956158555,
+          -0.005872603006176814
+        ]
+      },
+      {
+        "start_seconds": 1130.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.999987434476405,
+          0.9999874345060016
+        ],
+        "rms_minus_master_db": [
+          -0.007115429535248123,
+          -0.007115436730672011
+        ]
+      },
+      {
+        "start_seconds": 1140.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999844815350959,
+          0.9999844815350959
+        ],
+        "rms_minus_master_db": [
+          -0.007140178306194365,
+          -0.007140178306194365
+        ]
+      },
+      {
+        "start_seconds": 1150.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999835852083194,
+          0.9999835852176986
+        ],
+        "rms_minus_master_db": [
+          -0.007033069209927931,
+          -0.007033072348788683
+        ]
+      },
+      {
+        "start_seconds": 1160.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999880630260457,
+          0.999988063030012
+        ],
+        "rms_minus_master_db": [
+          -0.005480192371674534,
+          -0.00548019060817741
+        ]
+      },
+      {
+        "start_seconds": 1170.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999866773898796,
+          0.9999866773908387
+        ],
+        "rms_minus_master_db": [
+          -0.006061241433387684,
+          -0.0060612411460701345
+        ]
+      },
+      {
+        "start_seconds": 1180.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999839242815158,
+          0.9999839242816568
+        ],
+        "rms_minus_master_db": [
+          -0.0067009284247908155,
+          -0.006700928367232496
+        ]
+      },
+      {
+        "start_seconds": 1190.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999889086554998,
+          0.9999889086556724
+        ],
+        "rms_minus_master_db": [
+          -0.0061851113884988755,
+          -0.006185111150842073
+        ]
+      },
+      {
+        "start_seconds": 1200.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999877036901028,
+          0.9999877036907509
+        ],
+        "rms_minus_master_db": [
+          -0.006823683636660614,
+          -0.006823682903671599
+        ]
+      },
+      {
+        "start_seconds": 1210.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999936216485129,
+          0.9999936216488456
+        ],
+        "rms_minus_master_db": [
+          -0.0042597919427291835,
+          -0.004259791767374167
+        ]
+      },
+      {
+        "start_seconds": 1220.0,
+        "samples": 480000,
+        "zero_lag_normalized_corr": [
+          0.9999876236962048,
+          0.9999876236995606
+        ],
+        "rms_minus_master_db": [
+          -0.00612407408808425,
+          -0.006124074160732976
+        ]
+      },
+      {
+        "start_seconds": 1230.0,
+        "samples": 172920,
+        "zero_lag_normalized_corr": [
+          0.9999904113221622,
+          0.999990411322177
+        ],
+        "rms_minus_master_db": [
+          -0.006595747388922083,
+          -0.00659574738937359
+        ]
+      }
+    ],
+    "limitation": "Correct master audio placement does not establish lip sync of the image."
+  },
+  "loudness": {
+    "integrated_lufs": -19.5,
+    "loudness_range_lu": 3.7,
+    "true_peak_dbtp": -5.6,
+    "note": "Measured only; no normalization or final mix acceptance."
+  },
+  "pending_presenter_replacements": [
+    {
+      "segment": "seg009",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg012",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg019",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg021",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg028",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg035",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg037",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg044",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg055",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg059",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg071",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg072",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg073",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg074",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    },
+    {
+      "segment": "seg075",
+      "reasons": [
+        "regeneration index not done",
+        "regenerated clip absent",
+        "replacement frame contract absent or incorrect"
+      ]
+    }
+  ],
+  "flagged_presenter_parts": [],
+  "errors": [],
+  "warnings": [
+    "GRAPHICS-ONLY DRAFT: all 15 r1 presenter segments remain, regardless of replacement availability."
+  ],
+  "limitations": [
+    "Technical assembly is not creative acceptance or lip-sync verification.",
+    "This experimental review candidate is not a finished Resolve delivery master.",
+    "Source packet counts are a precheck; verify_r2.py decodes every encoded output frame.",
+    "No audiovisual watch-through or mouth-sync judgment was performed by this verifier."
+  ]
+}

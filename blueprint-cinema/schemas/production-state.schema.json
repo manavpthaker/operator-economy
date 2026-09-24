@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/production-state.schema.json",
+  "title": "Blueprint Cinema production state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "workflow_version", "episode_folder", "current_stage", "approvals"],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_folder": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "current_stage": {"$ref": "#/$defs/stage"},
+    "approvals": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/stage"},
+      "additionalProperties": {"$ref": "#/$defs/approval"}
+    }
+  },
+  "$defs": {
+    "stage": {"enum": ["initialized", "inputs_locked", "episode_engine_approved", "world_approved", "visual_plan_approved", "greybox_ready", "greybox_approved", "assets_ready", "rough_cut_approved", "fine_cut_approved", "delivery_validated"]},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approval": {
+      "type": "object", "additionalProperties": false, "required": ["stage", "approved_at", "artifact_hashes"],
+      "properties": {
+        "stage": {"$ref": "#/$defs/stage"},
+        "approved_at": {"type": "string", "format": "date-time"},
+        "artifact_hashes": {
+          "type": "object", "minProperties": 1,
+          "propertyNames": {"type": "string", "pattern": "^(episode|repo):.+"},
+          "additionalProperties": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    }
+  }
+}
+

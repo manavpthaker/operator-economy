@@ -1,0 +1,44 @@
+{
+  "contract": "read-only-scene-preparation-1",
+  "work_order_id": "r37-s08-semantic-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read current S08 direction and locked narration. Audit whether the two conditional states are clear, what remains stable, and any false actual-business failure or magical repair inference. Identify at most three material risks and concrete economical fixes. Do not edit runtime, narration, skills or log. Return report and standard manifest in owned path.",
+  "required_gate": "none: authorized local preparation for next scene",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r37-owner-dependency/direction/SCENE-DIRECTION.md",
+      "sha256": "4a0d9eab1163749065de30f5c3ce5d8ab73204c93486337f0dc00aaf313f110a"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r37-s08-semantic-review/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued input hash.",
+    "Return bounded evidence and distinguish inference from measured or visible findings.",
+    "Standard manifest and outputs remain inside owned path."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

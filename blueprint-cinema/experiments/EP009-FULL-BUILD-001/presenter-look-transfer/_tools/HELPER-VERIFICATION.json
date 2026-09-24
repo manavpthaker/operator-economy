@@ -1,0 +1,45 @@
+{
+  "status": "offline_helper_checks_passed",
+  "checked_at": "2026-09-17T23:21:02.016660+00:00",
+  "script": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/compare_performance.py",
+    "sha256": "dd0b4b1209bcaac639fcc5466981fb588f015615d5db20d5aa25f9beacc28d71"
+  },
+  "pure_checks": [
+    "timestamp pairing at24/25/30fps within half candidate frame",
+    "unmatched source tail remains unmatched",
+    "known five-frame candidate delay reported positive five",
+    "static signals return insufficient measurement"
+  ],
+  "actual_source_self_comparison": {
+    "report_path": "/private/tmp/ep009-performance-qa-source-self-20260917/PERFORMANCE-COMPARISON.json",
+    "report_sha256": "1925e3643247b2b37f4c0454e55b669779cd6d271b5b72b480f22efca661bbd6",
+    "source_sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9",
+    "source_frames": 288,
+    "paired_frames": 288,
+    "duration_difference_s": 0,
+    "all_landmark_geometry_errors_zero": true,
+    "mouth_best_lag_frames": 0,
+    "detected": {
+      "face": {
+        "source_detected_frames": 288,
+        "candidate_detected_native_frames": 288,
+        "paired_detected_frames": 288
+      },
+      "left_hand": {
+        "source_detected_frames": 288,
+        "candidate_detected_native_frames": 288,
+        "paired_detected_frames": 288
+      },
+      "right_hand": {
+        "source_detected_frames": 283,
+        "candidate_detected_native_frames": 283,
+        "paired_detected_frames": 283
+      }
+    },
+    "limitation": "Same file hash reuses identical extracted trajectories. This validates comparison mechanics and output generation, not independent detector repeatability or an edited candidate."
+  },
+  "candidate_tested": false,
+  "provider_calls": 0,
+  "source_mutations": 0
+}

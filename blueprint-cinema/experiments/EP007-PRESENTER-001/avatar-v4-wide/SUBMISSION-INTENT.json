@@ -1,0 +1,238 @@
+{
+  "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 21,
+    "resolution": "1080p",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "use_unlim": false,
+    "aspect_ratio": "16:9",
+    "count": 1,
+    "medias": [
+      {
+        "role": "image",
+        "value": "875a3997-b5c7-4410-9487-309a8c7740df"
+      },
+      {
+        "role": "video",
+        "value": "7dc478bc-0449-4867-a760-50670f4caccf"
+      },
+      {
+        "role": "video",
+        "value": "5ec537ee-b01c-4bb5-a343-636882e4b747"
+      },
+      {
+        "role": "audio",
+        "value": "3f69d21e-e7a3-498a-bd01-44e329479dd8"
+      }
+    ],
+    "prompt": "One continuous 21-second eye-level, fixed-camera seated medium shot showing both forearms and complete hands resting on the table of the man in the IMAGE reference, preserving that exact identity, navy shirt, glasses, softly daylit study, framing and lighting. This is an owner-authorized avatar of the person in both VIDEO references.\n\nThe first VIDEO (Rebecca conversation, tan jacket) supplies his relaxed facial settling, ordinary blinks, small asymmetric head-angle adjustments and comfortable stillness. The second VIDEO (Henry public interview, cap/headphones/microphone) supplies his more deliberate, clearly formed speaking articulation and concise emphasis that relaxes again. Blend these complementary qualities into one coherent person addressing an audience. Both videos are behavior references only. Use the IMAGE for all appearance and setting. Do not copy either video's clothing, headwear, headphones, microphone, room, screen layout, off-screen gaze, unrelated words or mouth timing.\n\nHe tells the opening story calmly to one person near the lens. His mouth forms clear, connected syllables without stretching his jaw into a broad smile. Brief natural tooth visibility during articulation is ordinary; no held grin or fixed teeth display. His eyebrows remain near rest and his chin stays comfortably level for most of the passage. A small unforced head-angle adjustment may accompany a change of thought and then settle; do not assign a nod or brow lift to every sentence or stressed word. Shoulders remain quiet. Both forearms are comfortably supported near the table and both complete hands stay visible. Begin with relaxed hands resting separately as in the IMAGE. During the explanation, allow one small, unhurried open-hand gesture just above the table, then return to a comfortable resting position. Keep the gesture modest and below the chest. Fingers remain naturally curved and anatomically consistent. Do not point, count on fingers, clasp or steeple the hands, fidget repeatedly, or gesture on every stressed word. The body remains settled, with a stable table contact and no sliding or merging fingers. Preserve natural breathing, blinks and subtle asymmetry rather than freezing him.\n\nThe opening description and the lines about making money are matter-of-fact, without a sales smile. During the supplied pause after \"one more question,\" his lips relax and his face settles before he asks the question directly. Let the supplied voice carry the question's emphasis; no theatrical worry, sustained brow arch, dramatic lean-in or prolonged chin lift. He remains the narrator throughout, not an actor switching between the buyer and the woman.\n\nSpeak only the supplied AUDIO reference, preserving its exact voice, words, rhythm and pauses from the beginning: \"A buyer is sitting across the table from a woman who has run the same business for twenty five years. It makes money. It has made money every year since she started it. He has already looked at the numbers and he likes them. Then he asks her one more question. What happens here if you are not around for a month.\"\n\nThe audio is 20.9 seconds including its original pauses and end silence. Lip and jaw movement follow this audio, not either muted video's speech timing. Keep the original cadence and complete the final word naturally, then close the lips gently and settle in the final silence through 21 seconds. No extra words, silent syllables or pursed-lip hold. The camera, background and light remain still. Preserve the IMAGE's wider framing for the entire take: no automatic crop toward the face and no hands cut off. Real-time motion, one shot, no captions, titles, logos, cutaways, zoom, music or additional people."
+  },
+  "estimated": {
+    "cost": {
+      "credits": 189,
+      "credits_exact": 189
+    },
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[2].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[3].role": {
+        "requested": "audio",
+        "used": "audio_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      }
+    }
+  },
+  "wide_image": {
+    "path": "media/wide-study-reference.png",
+    "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82",
+    "media_id": "875a3997-b5c7-4410-9487-309a8c7740df"
+  },
+  "balance_before": {
+    "credits": 2785.5,
+    "subscription_plan_type": "ultra",
+    "pricing_url": "https://higgsfield.ai/mcp-pricing",
+    "free_trial": {
+      "status": "pending",
+      "eligible": false,
+      "offered_kind": null,
+      "kind": "mcp",
+      "trial_credits": 100,
+      "ends_at": null,
+      "unlim_available": false,
+      "unlim_remaining": null,
+      "unlim_expires_at": null
+    },
+    "free_gens": [
+      {
+        "job_set_types": [
+          "hf_mult_motion_control",
+          "hf_mult_replace_object"
+        ],
+        "remaining": 1,
+        "parameters": {
+          "resolution": [
+            "480p",
+            "720p"
+          ]
+        },
+        "max_duration": 30
+      },
+      {
+        "job_set_types": [
+          "viral_hub_video"
+        ],
+        "remaining": 1,
+        "parameters": {},
+        "max_duration": null
+      }
+    ]
+  },
+  "model_constraints": {
+    "id": "seedance_2_5",
+    "name": "Seedance 2.5",
+    "provider_name": "Bytedance",
+    "description": "Seedance 2.5 text-to-video, multimodal omni-reference generation, video edit, and video extension",
+    "output_type": "video",
+    "parameters": [
+      {
+        "name": "mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Generation mode: 't2v' for prompt-only generation, 'omni_reference' for image, video, or audio references, 'video_edit' to edit one reference video (billed by that video's duration; 'duration' and 'aspect_ratio' are ignored), or 'video_extension' to extend a reference video ('aspect_ratio' is ignored \u2014 the output follows the extended video).",
+        "options": [
+          "t2v",
+          "omni_reference",
+          "video_edit",
+          "video_extension"
+        ],
+        "default": "t2v"
+      },
+      {
+        "name": "duration",
+        "required": "optional",
+        "type": "number",
+        "description": "Duration in seconds (4-30).",
+        "min": 4,
+        "max": 30,
+        "default": 5
+      },
+      {
+        "name": "resolution",
+        "required": "optional",
+        "type": "string",
+        "description": "Output resolution: 480p, 720p, or 1080p.",
+        "options": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      {
+        "name": "generate_audio",
+        "required": "optional",
+        "type": "bool",
+        "description": "Generate audio for the output video.",
+        "default": true
+      },
+      {
+        "name": "bitrate_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "'standard' = normal output bitrate; 'high' = higher bitrate output.",
+        "options": [
+          "standard",
+          "high"
+        ],
+        "default": "standard"
+      },
+      {
+        "name": "extension_mode",
+        "required": "optional",
+        "type": "string",
+        "description": "Extension direction; required for mode 'video_extension' and not allowed otherwise.",
+        "options": [
+          "backward",
+          "forward"
+        ],
+        "nullable": true
+      }
+    ],
+    "medias": [
+      {
+        "name": "medias",
+        "type": "image",
+        "roles": [
+          "start_image",
+          "end_image",
+          "image_references",
+          "video_references",
+          "audio_references"
+        ]
+      }
+    ],
+    "aspect_ratios": [
+      "auto",
+      "21:9",
+      "16:9",
+      "4:3",
+      "1:1",
+      "3:4",
+      "9:16"
+    ],
+    "tags": [
+      "text-to-video",
+      "reference",
+      "identity",
+      "audio-reference",
+      "video-reference",
+      "video-edit",
+      "video-extension",
+      "480p",
+      "720p",
+      "1080p"
+    ],
+    "free_gens": [
+      {
+        "job_set_types": [
+          "hf_mult_motion_control",
+          "hf_mult_replace_object"
+        ],
+        "remaining": 1,
+        "parameters": {
+          "resolution": [
+            "480p",
+            "720p"
+          ]
+        },
+        "max_duration": 30
+      },
+      {
+        "job_set_types": [
+          "viral_hub_video"
+        ],
+        "remaining": 1,
+        "parameters": {},
+        "max_duration": null
+      }
+    ]
+  },
+  "owner_authorization": "lets try that",
+  "status": "prepared_not_submitted",
+  "at_utc": "2026-09-11T10:35:21.707Z"
+}

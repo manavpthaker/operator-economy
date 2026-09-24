@@ -1,0 +1,90 @@
+{
+  "take_id": "F10",
+  "segment_id": "seg068",
+  "status": "accepted",
+  "attempts": [
+    {
+      "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F10",
+      "request_id": "01a0acdb-3bcc-7483-a50a-d934e9fccc6e",
+      "model": "fal-ai/kling-video/v3/pro/image-to-video",
+      "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F10/start.png",
+      "start_image_sha256": "fe0044a9320918754d404462268c71d80fb3f230ece3cb0715e8900edfe0f483",
+      "start_image_source": "F02-r2/raw.mp4 frame 192 (8.0 s), last frame of accepted F02 regeneration window",
+      "prompt": "Static camera. The camera is fixed on a tripod and never moves for the whole eight seconds: no pan, no truck, no dolly, no tilt, no zoom, no reframing, no cuts. The first frame and the last frame have exactly the same framing. Preserve the supplied starting frame exactly: the innkeeper seated behind the counter, dark hair tied back, olive-green cardigan over a cream shirt, a small brass key in her hand; the counter, desk bell, daffodils, laptop with its screen facing her and never visible to camera, blank cards and pen, beige corded desk phone, printed pages, open guest book, key rack, entrance door at left, window and trail at right, daylight. She is alone; nobody else is in the room.\n\nFor the first second she stays as in the frame. Then she sets the key down, takes one small blank card from the stack and the pen from the counter, sets the card in front of her, and writes a short note on it by hand, calmly, with a gentle expression. She keeps writing.\n\nShe does not use the laptop. No speaking, no lip movement. The handwriting is never readable. No new person, prop, text, logo or sound. Real-time motion.",
+      "duration": "8",
+      "generate_audio": false,
+      "cfg_scale": 0.5,
+      "raw": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F10/raw.mp4",
+        "sha256": "ff95d8a5f7403662342353be0cd34f6d7f1d9d33c163fe810f6b2a64ea7ef0fc",
+        "frames": 193,
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24
+      },
+      "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F10/contact.jpg",
+      "cost_usd_listed": 0.896,
+      "regeneration_reason": null
+    }
+  ],
+  "cost_usd_listed_total": 0.896,
+  "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+  "honest_note": "Alone at the counter she takes a blank card, sets it down, picks up the pen and writes by hand. Handwriting unreadable at 1920 zoom. Answers F03 visually.",
+  "action_performed": true,
+  "source_window": "source frames 95-191 (3.958-8.0 s)",
+  "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+  "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+  "agent_verdict_is_recommendation_only": true,
+  "final": {
+    "segment_id": "seg068",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F10/final/seg068.mp4",
+    "sha256": "dd62cdd838b23c930028a2121a3629aad15a332ce83ac26b128912a36a5d81ea",
+    "frames_expected": 97,
+    "frames": 97,
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio": {
+      "sample_rate": 48000,
+      "channels": 2,
+      "master_samples": [
+        54500000,
+        54694000
+      ],
+      "pcm_intermediate_sample_exact": true,
+      "aac_corr_zero_lag_vs_master_excerpt": 0.99999
+    },
+    "uniform_frames": 0,
+    "source_window": {
+      "source_in_s": 3.958333,
+      "source_out_s": 8.0,
+      "native_fps": 24.0,
+      "speed_change": false
+    },
+    "master_in": 1135.416667,
+    "master_out": 1139.458333,
+    "segment_frames": [
+      27250,
+      27347
+    ]
+  },
+  "checks": {
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio_pcm_sample_exact": true,
+    "audio_aac_corr": 0.99999,
+    "uniform_frames": 0,
+    "readable_text_or_logo": "none seen in used window",
+    "extra_people": "none",
+    "rude_or_ignoring_behaviour": "none seen"
+  }
+}

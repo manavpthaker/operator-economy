@@ -1,0 +1,518 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #1A1A1A;
+    }
+
+    #root [id="02-paid-introduction-ground"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      background-color: #F5F0E6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 1.5px, transparent 1.5px);
+      background-size: 2cqw 2cqw;
+    }
+
+    #root [data-hf-role="02-paid-introduction-hairline"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      z-index: 8;
+    }
+
+    #root [data-hf-position="02-paid-introduction-top"] {
+      top: 5.2cqh;
+    }
+
+    #root [data-hf-position="02-paid-introduction-bottom"] {
+      top: 79.2cqh;
+    }
+
+    #root [data-hf-role="02-paid-introduction-headline"] {
+      position: absolute;
+      top: 8.2cqh;
+      left: 4cqw;
+      width: 84cqw;
+      z-index: 6;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      line-height: 0.91;
+      text-transform: uppercase;
+    }
+
+    #root [data-hf-role="02-paid-introduction-headline-part"] {
+      display: block;
+      width: max-content;
+      max-width: 84cqw;
+    }
+
+    #root [data-hf-part="02-paid-introduction-independent"] {
+      font-size: 3.1cqw;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+
+    #root [data-hf-part="02-paid-introduction-reservations"] {
+      margin-top: 0.35cqh;
+      font-size: 4.6cqw;
+    }
+
+    #root [data-hf-role="02-paid-introduction-main-grid"] {
+      position: absolute;
+      top: 26cqh;
+      left: 4cqw;
+      right: 4cqw;
+      height: 43cqh;
+      display: grid;
+      grid-template-columns: 54cqw 34cqw;
+      column-gap: 4cqw;
+      z-index: 5;
+    }
+
+    #root [data-hf-role="02-paid-introduction-data-panel"] {
+      position: relative;
+      height: 100%;
+      border-top: 0.12cqw solid #1A1A1A;
+    }
+
+    #root [data-hf-role="02-paid-introduction-figure-tag"] {
+      position: absolute;
+      top: 1.4cqh;
+      left: 0;
+      font-size: 0.78cqw;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #root [id="02-paid-introduction-counter-wrap"] {
+      position: absolute;
+      top: 4.4cqh;
+      left: 0;
+      display: flex;
+      align-items: baseline;
+      width: 29cqw;
+      height: 13cqw;
+      white-space: nowrap;
+      transform-origin: left center;
+    }
+
+    #root [id="02-paid-introduction-counter"] {
+      display: inline-block;
+      min-width: 16cqw;
+      font-size: 12.5cqw;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: -0.015em;
+      line-height: 0.9;
+      transform-origin: left center;
+    }
+
+    #root [id="02-paid-introduction-suffix"] {
+      display: inline-block;
+      margin-left: 0.45cqw;
+      font-size: 5.7cqw;
+      font-weight: 400;
+      line-height: 1;
+      transform-origin: left bottom;
+    }
+
+    #root [id="02-paid-introduction-measure"] {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 5.7cqh;
+      height: 7.8cqh;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0.55cqw;
+      padding: 0.55cqw;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      transform-origin: left center;
+    }
+
+    #root [data-hf-role="02-paid-introduction-measure-cell"] {
+      position: relative;
+      min-width: 0;
+      border: 0.06cqw solid rgba(176, 141, 62, 0.18);
+      background: rgba(176, 141, 62, 0.10);
+      transform-origin: center bottom;
+    }
+
+    #root [data-hf-role="02-paid-introduction-active-cell"] {
+      position: absolute;
+      inset: 0;
+      background: #1A1A1A;
+      transform-origin: center bottom;
+    }
+
+    #root [id="02-paid-introduction-measure-plus"] {
+      position: absolute;
+      right: -1.65cqw;
+      top: 0.45cqh;
+      font-size: 2.1cqw;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    #root [id="02-paid-introduction-source-ticket"] {
+      position: absolute;
+      left: 28.5cqw;
+      bottom: 0.2cqh;
+      width: 25.5cqw;
+      padding: 0.75cqh 0 0.65cqh 0;
+      border-top: 0.12cqw solid #B08D3E;
+      border-bottom: 0.06cqw solid rgba(176, 141, 62, 0.18);
+      color: #B08D3E;
+      font-size: 0.82cqw;
+      font-weight: 400;
+      letter-spacing: 0.11em;
+      line-height: 1.25;
+      text-transform: uppercase;
+      transform-origin: left center;
+    }
+
+    #root [data-hf-role="02-paid-introduction-mechanism-panel"] {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      border-top: 0.12cqw solid #1A1A1A;
+      border-bottom: 0.06cqw solid rgba(176, 141, 62, 0.18);
+    }
+
+    #root [data-hf-role="02-paid-introduction-mechanism-label"] {
+      position: absolute;
+      top: 1.4cqh;
+      left: 0;
+      font-size: 0.78cqw;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #root [id="02-paid-introduction-mechanism-svg"] {
+      position: absolute;
+      left: 0;
+      top: 5cqh;
+      width: 34cqw;
+      height: 35cqh;
+      overflow: visible;
+    }
+
+    #root [data-hf-role="02-paid-introduction-draw-path"] {
+      fill: none;
+      stroke: #1A1A1A;
+      stroke-width: 3;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      stroke-dasharray: 1;
+      vector-effect: non-scaling-stroke;
+    }
+
+    #root [data-hf-role="02-paid-introduction-soft-path"] {
+      fill: none;
+      stroke: rgba(176, 141, 62, 0.18);
+      stroke-width: 2;
+      stroke-dasharray: 10 8;
+      vector-effect: non-scaling-stroke;
+    }
+
+    #root [data-hf-role="02-paid-introduction-svg-label"] {
+      fill: #1A1A1A;
+      font-size: 23px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-anchor: middle;
+    }
+
+    #root [id="02-paid-introduction-guest"] {
+      position: absolute;
+      left: 0.4cqw;
+      top: 25.5cqh;
+      width: 4.5cqw;
+      height: 4.2cqh;
+      display: grid;
+      place-items: center;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      font-size: 0.72cqw;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      line-height: 1;
+      text-transform: uppercase;
+      transform-origin: center center;
+      z-index: 7;
+    }
+
+    #root [id="02-paid-introduction-relationship-rule"] {
+      position: absolute;
+      left: 53.1cqw;
+      top: 50.7cqh;
+      width: 5.8cqw;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      transform-origin: left center;
+      z-index: 7;
+    }
+
+    #root [data-hf-role="02-paid-introduction-page-chrome"] {
+      position: absolute;
+      top: 74.9cqh;
+      z-index: 8;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    #root [data-hf-position="02-paid-introduction-page-left"] {
+      left: 4cqw;
+    }
+
+    #root [data-hf-position="02-paid-introduction-page-right"] {
+      right: 4cqw;
+    }
+  </style>
+
+  <div id="root" data-composition-id="02-paid-introduction">
+    <div
+      id="02-paid-introduction-ground"
+      class="clip"
+      data-start="0"
+      data-duration="7.524"
+      data-track-index="0"
+    >
+      <div data-hf-role="02-paid-introduction-hairline" data-hf-position="02-paid-introduction-top" aria-hidden="true"></div>
+      <div data-hf-role="02-paid-introduction-hairline" data-hf-position="02-paid-introduction-bottom" aria-hidden="true"></div>
+
+      <div data-hf-role="02-paid-introduction-headline" aria-label="Independent-hotel reservations">
+        <span data-hf-role="02-paid-introduction-headline-part" data-hf-part="02-paid-introduction-independent">Independent-hotel</span>
+        <span data-hf-role="02-paid-introduction-headline-part" data-hf-part="02-paid-introduction-reservations">Reservations</span>
+      </div>
+
+      <div data-hf-role="02-paid-introduction-main-grid">
+        <section data-hf-role="02-paid-introduction-data-panel" aria-label="Independent-hotel reservation share">
+          <div data-hf-role="02-paid-introduction-figure-tag">Share through OTAs</div>
+
+          <div id="02-paid-introduction-counter-wrap" aria-label="60 percent plus">
+            <span id="02-paid-introduction-counter">0</span>
+            <span id="02-paid-introduction-suffix">%+</span>
+          </div>
+
+          <div id="02-paid-introduction-measure" aria-label="Pixel-stack measure filled beyond sixty percent">
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"><i data-hf-role="02-paid-introduction-active-cell"></i></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"></span>
+            <span data-hf-role="02-paid-introduction-measure-cell"></span>
+            <b id="02-paid-introduction-measure-plus">+</b>
+          </div>
+
+          <div id="02-paid-introduction-source-ticket">Source ticket · verify before final</div>
+        </section>
+
+        <section data-hf-role="02-paid-introduction-mechanism-panel" aria-label="OTA gate leading to an inn">
+          <div data-hf-role="02-paid-introduction-mechanism-label">Useful entrance</div>
+          <svg id="02-paid-introduction-mechanism-svg" viewBox="0 0 680 410" role="img" aria-label="Guest path through an OTA gate toward an inn">
+            <path data-hf-role="02-paid-introduction-soft-path" d="M22 332 H642" />
+            <g data-hf-group="02-paid-introduction-gate">
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M70 332 V118 H224 V332" />
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M70 118 L147 66 L224 118" />
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M101 332 V164 H193 V332" />
+              <text data-hf-role="02-paid-introduction-svg-label" x="147" y="38">OTA GATE</text>
+            </g>
+            <g data-hf-group="02-paid-introduction-inn">
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M394 332 V151 H626 V332" />
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M367 151 L510 76 L653 151" />
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M472 332 V236 H548 V332" />
+              <path data-hf-role="02-paid-introduction-draw-path" pathLength="1" d="M420 192 H464 V228 H420 Z M556 192 H600 V228 H556 Z" />
+              <text data-hf-role="02-paid-introduction-svg-label" x="510" y="54">INN</text>
+            </g>
+          </svg>
+          <div id="02-paid-introduction-guest">Guest</div>
+        </section>
+      </div>
+
+      <div id="02-paid-introduction-relationship-rule" aria-hidden="true"></div>
+      <div data-hf-role="02-paid-introduction-page-chrome" data-hf-position="02-paid-introduction-page-left">Paid introduction / useful reach</div>
+      <div data-hf-role="02-paid-introduction-page-chrome" data-hf-position="02-paid-introduction-page-right">02</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const counter = document.getElementById("02-paid-introduction-counter");
+      const counterState = { value: 0 };
+      const headlineParts = document.querySelectorAll('[data-hf-role="02-paid-introduction-headline-part"]');
+      const measureCells = document.querySelectorAll('[data-hf-role="02-paid-introduction-measure-cell"]');
+      const activeCells = document.querySelectorAll('[data-hf-role="02-paid-introduction-active-cell"]');
+      const gatePaths = document.querySelectorAll('[data-hf-group="02-paid-introduction-gate"] [data-hf-role="02-paid-introduction-draw-path"]');
+      const innPaths = document.querySelectorAll('[data-hf-group="02-paid-introduction-inn"] [data-hf-role="02-paid-introduction-draw-path"]');
+      const gateLabel = document.querySelector('[data-hf-group="02-paid-introduction-gate"] [data-hf-role="02-paid-introduction-svg-label"]');
+      const innLabel = document.querySelector('[data-hf-group="02-paid-introduction-inn"] [data-hf-role="02-paid-introduction-svg-label"]');
+
+      tl.fromTo(
+        headlineParts[0],
+        { opacity: 0.001, y: 26 },
+        { opacity: 1, y: 0, duration: 0.52, ease: "power3.out" },
+        0.04
+      );
+      tl.fromTo(
+        headlineParts[1],
+        { opacity: 0.001, y: 34 },
+        { opacity: 1, y: 0, duration: 0.62, ease: "power3.out" },
+        0.42
+      );
+      tl.fromTo(
+        '[id="02-paid-introduction-measure"]',
+        { opacity: 0.001, scaleX: 0.18 },
+        { opacity: 1, scaleX: 1, duration: 0.72, ease: "power3.out" },
+        0.92
+      );
+      tl.fromTo(
+        measureCells,
+        { opacity: 0.001, scaleY: 0.24 },
+        { opacity: 1, scaleY: 1, duration: 0.38, ease: "power2.out", stagger: 0.075 },
+        1.18
+      );
+      tl.fromTo(
+        "[data-hf-role=\"02-paid-introduction-figure-tag\"]",
+        { opacity: 0.001, x: -18 },
+        { opacity: 1, x: 0, duration: 0.42, ease: "power2.out" },
+        1.72
+      );
+
+      tl.fromTo(
+        '[id="02-paid-introduction-counter-wrap"]',
+        { opacity: 0.001 },
+        { opacity: 1, duration: 0.18, ease: "power1.out" },
+        2.30
+      );
+      tl.to(
+        counterState,
+        {
+          value: 60,
+          duration: 1.76,
+          ease: "power3.out",
+          onUpdate: () => {
+            counter.textContent = Math.round(counterState.value).toLocaleString();
+          }
+        },
+        2.36
+      );
+      tl.fromTo(
+        counter,
+        { scale: 0.46 },
+        { scale: 1, duration: 1.76, ease: "power3.out" },
+        2.36
+      );
+      tl.fromTo(
+        activeCells,
+        { opacity: 0.001, scaleY: 0 },
+        { opacity: 1, scaleY: 1, duration: 1.36, ease: "power3.out", stagger: 0.08 },
+        2.38
+      );
+      tl.fromTo(
+        gatePaths,
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 1.18, ease: "power2.inOut", stagger: 0.08 },
+        2.46
+      );
+      tl.fromTo(
+        gateLabel,
+        { opacity: 0.001, y: 12 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" },
+        3.18
+      );
+      tl.fromTo(
+        "[data-hf-role=\"02-paid-introduction-mechanism-label\"]",
+        { opacity: 0.001, x: 18 },
+        { opacity: 1, x: 0, duration: 0.42, ease: "power2.out" },
+        3.42
+      );
+      tl.fromTo(
+        innPaths,
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 1.08, ease: "power2.inOut", stagger: 0.07 },
+        3.56
+      );
+      tl.fromTo(
+        innLabel,
+        { opacity: 0.001, y: 12 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" },
+        4.02
+      );
+      tl.fromTo(
+        '[id="02-paid-introduction-suffix"]',
+        { opacity: 0.001, y: 18, scale: 0.86 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.46, ease: "back.out(1.6)" },
+        4.14
+      );
+      tl.fromTo(
+        '[id="02-paid-introduction-measure-plus"]',
+        { opacity: 0.001, y: 10 },
+        { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" },
+        4.22
+      );
+      tl.fromTo(
+        '[id="02-paid-introduction-relationship-rule"]',
+        { opacity: 0.001, scaleX: 0 },
+        { opacity: 1, scaleX: 1, duration: 0.58, ease: "power2.inOut" },
+        4.52
+      );
+
+      tl.fromTo(
+        '[id="02-paid-introduction-guest"]',
+        { opacity: 0.001, x: "-1cqw", y: 8 },
+        { opacity: 1, x: "0cqw", y: 0, duration: 0.28, ease: "power2.out" },
+        5.22
+      );
+      tl.fromTo(
+        '[id="02-paid-introduction-source-ticket"]',
+        { opacity: 0.001, x: -22 },
+        { opacity: 1, x: 0, duration: 0.52, ease: "power3.out" },
+        5.34
+      );
+      tl.to(
+        '[id="02-paid-introduction-guest"]',
+        { x: "24cqw", duration: 1.68, ease: "power2.inOut" },
+        5.46
+      );
+      tl.fromTo(
+        '[data-hf-position="02-paid-introduction-page-left"]',
+        { opacity: 0.001, x: -18 },
+        { opacity: 1, x: 0, duration: 0.44, ease: "power2.out" },
+        6.18
+      );
+      tl.fromTo(
+        '[data-hf-position="02-paid-introduction-page-right"]',
+        { opacity: 0.001, x: 18 },
+        { opacity: 1, x: 0, duration: 0.44, ease: "power2.out" },
+        6.54
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["02-paid-introduction"] = tl;
+    })();
+  </script>
+</template>

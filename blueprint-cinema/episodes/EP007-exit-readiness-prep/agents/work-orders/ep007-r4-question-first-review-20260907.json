@@ -1,0 +1,71 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r4-question-first-review-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only semantic and visual review of the isolated r4 question-first trial. This is not production dispatch: inputs_locked is a schema-required production prerequisite, not a claim of an approved gate. Assess the trial only; report production authority as unestablished.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/DIRECTION.md",
+      "sha256": "721fd3cf735bb1c887913acc06c4bace5fab715be179cc3f960dd33a67a98435"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/frame.md",
+      "sha256": "86fdbd7abcaa6299fa8a46e4f089fda89b00ed329f454a62095392306f0542f2"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/EP007-BEAT-INTENT.md",
+      "sha256": "f1e1197d6ed0a49ca171eebf1b4ca437ef28087faa3c052b11fac51068333b0b"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/index.html",
+      "sha256": "ac4f2d49302e10c7d4af28d7c32e0deb271a9012ce92f5b19d718ef4981137e6"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/compositions/unanswered-equation.html",
+      "sha256": "5f6a8ac23f1efa140224a4400ba7f16f5f998ef321c820074f4ef723b5be8082"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r4-question-first/snapshots/final/frame-04-at-17s.png",
+      "sha256": "42c10b10b5d448f57abf49a711567ee250107fd5ce2d5ef4ae5e4e34e3a85c86"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r4-question-first-review-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute assigned input hashes; report drift and stop on mismatch.",
+    "Judge whether the final equation asks an unresolved month-away question without asserting business failure.",
+    "Review thin overlapping rule, readable hierarchy, word-cue timing and stillness; do not re-audit the full upstream process."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop any implementation or production dispatch if its prerequisite gate is unestablished; read-only trial observations only.",
+    "Do not rewrite narration, change model, spend, render or modify any files outside owned output paths."
+  ],
+  "status": "closed"
+}

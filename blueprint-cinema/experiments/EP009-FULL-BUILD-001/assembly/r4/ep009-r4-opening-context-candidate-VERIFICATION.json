@@ -1,0 +1,186 @@
+{
+  "record_type": "ep009_exact_P00_candidate_technical_verification",
+  "at": "2026-09-17T19:51:41.504702+00:00",
+  "status": "technical_checks_passed_lipsync_unresolved_review_candidate",
+  "build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-r4-opening-context-candidate-BUILD.json",
+    "sha256": "0cfe23fed1aadde735b30e0444913a7bd96eacde7806e6522825f4811a7d724d"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r4/ep009-r4-opening-context-candidate.mp4",
+    "sha256": "8c88fc8eef66767f2ed75dc453242d14a7c1dfc3594d2d73a6f9baa317ae7df1"
+  },
+  "candidate_instruction": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/P00-CANDIDATE-INSTRUCTION.json",
+    "sha256": "51b26118ce507b6ed25c95610e1637e8c47acf2f2eacd6866388499be77b6b2e"
+  },
+  "candidate_decision": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/P00-CANDIDATE-DECISION.json",
+    "sha256": "bdd2693ed60aeae2e00330666509ed1741e62e1012247cafe7b2fb3c2342c516"
+  },
+  "owner_scoped_lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/OWNER-LOCK.json",
+    "sha256": "bd909cde46ba8df22270af122e3f878edd1505d48c5ed3892cfe8525a0c351a7"
+  },
+  "candidate_flags_preserved": {
+    "no_qualifying_onsets": true,
+    "onset_result": "insufficient_measurement_0_of_0",
+    "narration_mouth_corr": 0.343,
+    "guide_voice_mouth_corr": 0.382,
+    "narration_over_generator": false
+  },
+  "sync_cleared": false,
+  "owner_accepted": false,
+  "bulk_cleared": false,
+  "mapping": {
+    "frames_compared": 252,
+    "changed_picture_frames": [
+      0,
+      86
+    ],
+    "other_source_assignments_identical": true
+  },
+  "protected_artifacts_unchanged": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen.py",
+      "sha256": "d358d9d1342c9e4ef50f353bdd406768c4e78c628ef37f8a8457223edb4f02e8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen_r5.py",
+      "sha256": "e2600b4ea9ae96a8689e7200b719d4b75dbd921b185ebb8827ac9132c8d55bcb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r5.json",
+      "sha256": "52c44179078515ff3957c0223734502707169c9d09b750e76ec2a52994742513"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/ACTIVE-PLAN.json",
+      "sha256": "936e2a089a30e3a5e83d92728c09227082fe79ba2a6f26a5186d198559e0542e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/final-r5/INDEX.json",
+      "sha256": "e47c4d65748c95057a6fe4b37eb6979d8417ea5cb6a55d9a08ef859ec1d3158a"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NOTES.json",
+      "sha256": "8dd7c22ee3adecb3975d49fb9c0d0558e39eef89c7fa729d6795b03e3f1cd295"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/SYNC-GATE.json",
+      "sha256": "9ea9d97fa78956469c814837e8fd6d1d55403f139c63d0e2b942de922fa3b106"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/_tools/build_r4.py",
+      "sha256": "82cb955e8f49cd3c6fb61e5d3af86de3a0b74549137c0e32e4db07cd55ef4b30"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/_tools/verify_r4.py",
+      "sha256": "ae53a96452ef6054417e6a0e720dc5da84705c1f09ff9f34aaf0fc37ce208428"
+    }
+  ],
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "252"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "493"
+      }
+    ],
+    "format": {
+      "duration": "10.500000"
+    }
+  },
+  "video": {
+    "method": "Decode every encoded frame; uniform means full-frame Y, U, V spans each at most 4 code values.",
+    "decoded_frames": 252,
+    "expected_frames": 252,
+    "decode_exit_code": 0,
+    "uniform_frames": [],
+    "unplanned_uniform_frames": [],
+    "limitation": "Blank-frame detection does not judge composition, legibility, motion, seams, or performance.",
+    "planned_uniform_frames": []
+  },
+  "audio": {
+    "method": "Complete mapped master excerpt, including planned final zero padding; channelwise unity comparison in5secondblocks.",
+    "expected_samples": 504000,
+    "compared_samples": 504000,
+    "decoded_samples": 504832,
+    "aac_padding_samples": 832,
+    "padding_peak_abs": 4.371551767690107e-05,
+    "decode_exit_codes": [
+      0,
+      0
+    ],
+    "full_corr": [
+      0.999979086433667,
+      0.9999790864304088
+    ],
+    "full_rms_delta_db": [
+      -0.008404993607577696,
+      -0.008404994458523997
+    ],
+    "min_voiced_window_corr": 0.9999701466963624,
+    "max_abs_voiced_window_rms_db": 0.010724979882912314,
+    "windows": [
+      {
+        "start_seconds": 0.0,
+        "samples": 240000,
+        "corr": [
+          0.99997014670306,
+          0.9999701466963624
+        ],
+        "rms_delta_db": [
+          -0.010135714965363479,
+          -0.01013571639616144
+        ]
+      },
+      {
+        "start_seconds": 5.0,
+        "samples": 240000,
+        "corr": [
+          0.9999896276976084,
+          0.9999896276983616
+        ],
+        "rms_delta_db": [
+          -0.00634260916982054,
+          -0.006342609354600281
+        ]
+      },
+      {
+        "start_seconds": 10.0,
+        "samples": 24000,
+        "corr": [
+          0.9999779688755541,
+          0.9999779688755541
+        ],
+        "rms_delta_db": [
+          -0.010724979882912314,
+          -0.010724979882912314
+        ]
+      }
+    ]
+  },
+  "loudness": {
+    "integrated_lufs": -19.0,
+    "loudness_range_lu": 2.3,
+    "true_peak_dbtp": -6.2,
+    "note": "Measured only; no normalization or final mix acceptance."
+  },
+  "errors": [],
+  "limits": [
+    "Complete decode/audio and source assignment checks only; P00 sync flags remain unresolved.",
+    "No normal-speed audiovisual perception, mouth-sync clearance, owner acceptance, bulk or release clearance.",
+    "Opening excerpt may have up to one AAC frame of codec ringing beyond its exact container duration."
+  ]
+}

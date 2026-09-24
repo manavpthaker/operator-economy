@@ -1,0 +1,129 @@
+{
+  "ok": false,
+  "strict": true,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_media_start_basis_ambiguous",
+        "severity": "warning",
+        "message": "<video id=\"r39-question-performance\"> has data-start=\"1.9583333333333333\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+        "selector": "#r39-question-performance",
+        "dataAttributes": {},
+        "sourceFile": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/compositions/owner-dependency.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep data-start=\"1.9583333333333333\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start."
+      }
+    ],
+    "filesScanned": 13
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 283,
+        "selector": "#s38-history",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 1025.97,
+          "top": 313,
+          "right": 1154.02,
+          "bottom": 341,
+          "width": 128.05,
+          "height": 28
+        },
+        "containerSelector": "#s38-routine > img:nth-of-type(1)",
+        "text": "Past revenue",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 0.37,
+        "dataAttributes": {},
+        "sourceFile": "compositions/owner-dependency.html",
+        "bbox": {
+          "x": 1025.97,
+          "y": 313,
+          "width": 128.05,
+          "height": 28
+        },
+        "firstSeen": 283,
+        "lastSeen": 283,
+        "occurrences": 1,
+        "heldMs": 0
+      }
+    ],
+    "duration": 293.625,
+    "samples": [
+      0,
+      247.625,
+      249.583,
+      252,
+      254.833,
+      254.875,
+      258,
+      270,
+      283
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 1,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      0,
+      249.583,
+      254.833,
+      258,
+      283
+    ],
+    "checked": 10,
+    "passed": 10
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "_meta": {
+    "version": "0.8.34",
+    "latestVersion": "0.8.35",
+    "updateAvailable": true
+  }
+}

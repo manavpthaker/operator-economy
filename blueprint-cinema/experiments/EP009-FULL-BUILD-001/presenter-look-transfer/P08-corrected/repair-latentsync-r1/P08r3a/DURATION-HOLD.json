@@ -1,0 +1,78 @@
+{
+  "record_type": "LatentSync_native_short_output_diagnostic",
+  "at": "2026-09-18T00:29:29.497716+00:00",
+  "raw_provider_output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-latentsync-r1/P08r3a/restored-native.mp4",
+    "sha256": "c92de0b44f6e52cb592f37bf1a806b444b780662b492e4a674a0d3095855cae7"
+  },
+  "narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-latentsync-r1/P08r3a/audio/narration.wav",
+    "sha256": "a743f1e4c218b9d75ea4d2238c9a8e2a4b9878ad949480c5fd23d755a4e2e02c"
+  },
+  "plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-latentsync-r1/PLAN.json",
+    "sha256": "0ea731700bc7a840dc56737ae9561dd4983ead191578ae47ae4fd77c4f85a7fd"
+  },
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "25/1",
+        "duration": "7.040000",
+        "nb_read_frames": "176"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "16000",
+        "channels": 1,
+        "r_frame_rate": "0/0",
+        "duration": "7.040000",
+        "nb_read_frames": "110"
+      }
+    ],
+    "format": {
+      "duration": "7.040000"
+    }
+  },
+  "interior_audio_alignment_windows": [
+    {
+      "narration_samples": [
+        12480,
+        110400
+      ],
+      "lag_samples": 50,
+      "correlation": 0.9989848743449014
+    },
+    {
+      "narration_samples": [
+        120000,
+        211200
+      ],
+      "lag_samples": 50,
+      "correlation": 0.9989536559001054
+    },
+    {
+      "narration_samples": [
+        232800,
+        328800
+      ],
+      "lag_samples": 50,
+      "correlation": 0.9987739098722034
+    }
+  ],
+  "native_decoded_audio_samples_at48k": 337920,
+  "required_samples": 346000,
+  "required_duration": 7.208333333333333,
+  "returned_video_duration": 7.04,
+  "video_shortfall_seconds": 0.168333333333333,
+  "complete_target_coverage": false,
+  "local_fps_conform_created": false,
+  "padding_or_hold_created": false,
+  "owner_accepted": false,
+  "status": "held_insufficient_duration",
+  "method_limit": "Correlation is waveform clock registration on available interior speech only, not complete audio retention or correct visual articulation."
+}

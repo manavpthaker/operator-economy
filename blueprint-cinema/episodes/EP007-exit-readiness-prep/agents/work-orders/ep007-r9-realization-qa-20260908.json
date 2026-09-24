@@ -1,0 +1,51 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r9-realization-qa-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Inspect the single generated R9 silent-realization shot D against its prompt and R8 owner continuity. Recommend a source in/out for 7.166666667 seconds after the existing R8 17 second sequence, and report actual performance, speaking/lip movements, identity, eyes, camera, continuity and generation anomalies. This is an isolated owner-authorized Studio trial; required_gate labels frozen test inputs only, not a canonical inputs_locked approval. Root is independently building the graphic.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/renders/candidates/shot-d.mp4",
+      "sha256": "c09986f249dcdfe365a9bbd56fef13b89760f71d0503b8a31e3745ff7715fa4c"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/SHOT-D-PROMPT.md",
+      "sha256": "17d01735e39b02fa6a12113e20e3b14409489d0f3e333059ec8786f965e0a7bb"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r9-realization-model/renders/candidates/shot-d.mp4.response.json",
+      "sha256": "5e6a1d8ce0e9b3ee1bde2fca5be580488d2e9022b0f86d2b74a6ba44ebc69b17"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r9-realization-qa-20260908/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute frozen input hashes. Read relevant film direction and QA rules. Use read-only source inspection and sampled decoded frames, optionally local video playback; put derived proof frames only in owned output directory. Compare retained R8 shot-c source 6.875 seconds. No competing preview server.",
+    "Return report.md and schema-valid deliverable.json. Clearly distinguish sampled frames from continuous playback and inspect prompt outcome without assuming it. No paid calls, no media selection mutation or claim of owner approval."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop if inputs differ from frozen hashes; report rather than repair.",
+    "Do not regenerate, alter prompts or source media, render a final composition, or advance a gate. Write only owned report/proof artifacts."
+  ],
+  "status": "closed"
+}

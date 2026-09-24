@@ -1,0 +1,221 @@
+{
+  "schema_version": "oe-offline-asr-diagnostic-v1",
+  "diagnostic_id": "G1R2-OFFLINE-ASR-DIAGNOSTIC-20260826T045358Z",
+  "status": "reproduced_credential_free_diagnostic_non_authorizing",
+  "recorded_at": "2026-08-26T04:53:58Z",
+  "source_binding": {
+    "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "microtest_token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "run_receipt_path": "receipts/google/AUTH-G1R2-ai-visibility-v1.1-p01-synthetic-guide-20260826T042506Z.run.json",
+    "run_receipt_sha256": "2898d5f26f6523de6691782e668ab45951f4710751b78414ca8caedeb9fe0a1f",
+    "candidate_a_path": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+    "candidate_a_sha256": "354194ccaddd606d6c45069a03f739e435977678e9f42d26591435b1cefabc9d",
+    "candidate_b_path": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+    "candidate_b_sha256": "04448e9fdd50c8de67912b454e8d396f5822eaa881daf18128b825260623c915"
+  },
+  "engine": {
+    "package": "whisper-cpp",
+    "package_version": "1.8.5",
+    "binary_invocation_path": "/opt/homebrew/bin/whisper-cli",
+    "binary_resolved_path": "/opt/homebrew/Cellar/whisper-cpp/1.8.5/bin/whisper-cli",
+    "binary_sha256": "3e07dcc911bbd7a0b0421c9b6455c2e063c7c5da35a0a76fb41eeb29845d0417",
+    "binary_format": "Mach-O arm64",
+    "linked_libwhisper_version": "1.8.5",
+    "linked_libwhisper_sha256": "b2a8e8516c4febc41b42bc711ca6de1598574cdf3151f040fb08e1a14f615537",
+    "linked_ggml_version": "0.13.1",
+    "runtime_backends": [
+      "BLAS",
+      "Metal",
+      "CPU Apple M4"
+    ],
+    "host": "macOS 26.2 arm64"
+  },
+  "model": {
+    "filename": "ggml-small.en.bin",
+    "local_untracked_path_stored": false,
+    "sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+  },
+  "execution": {
+    "sandbox_prefix": [
+      "/usr/bin/sandbox-exec",
+      "-p",
+      "(version 1)(allow default)(deny network*)"
+    ],
+    "network_denied": true,
+    "inputs_local_only": true,
+    "transcript_files_written": false,
+    "all_exit_codes": 0,
+    "common_whisper_arguments": [
+      "-m",
+      "<LOCAL_MODEL_PATH_BOUND_BY_SHA256>",
+      "-f",
+      "<LOCAL_AUDIO_PATH_BOUND_BY_SHA256>",
+      "-np",
+      "-nt",
+      "-nf"
+    ],
+    "beam_arguments": [
+      "-bs",
+      "5",
+      "-bo",
+      "5"
+    ],
+    "greedy_arguments": [
+      "-bs",
+      "1",
+      "-bo",
+      "1"
+    ],
+    "flag_meaning": {
+      "-np": "no extra prints",
+      "-nt": "no timestamps",
+      "-nf": "no temperature fallback",
+      "-bs": "beam size",
+      "-bo": "best of"
+    },
+    "package_defaults_not_overridden": {
+      "threads": 4,
+      "processors": 1,
+      "temperature": 0
+    },
+    "invocations": [
+      {
+        "candidate_id": "candidate-A",
+        "decoder": "beam",
+        "audio_path": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+        "decoder_arguments": [
+          "-bs",
+          "5",
+          "-bo",
+          "5"
+        ],
+        "exit_code": 0
+      },
+      {
+        "candidate_id": "candidate-A",
+        "decoder": "greedy",
+        "audio_path": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+        "decoder_arguments": [
+          "-bs",
+          "1",
+          "-bo",
+          "1"
+        ],
+        "exit_code": 0
+      },
+      {
+        "candidate_id": "candidate-B",
+        "decoder": "beam",
+        "audio_path": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+        "decoder_arguments": [
+          "-bs",
+          "5",
+          "-bo",
+          "5"
+        ],
+        "exit_code": 0
+      },
+      {
+        "candidate_id": "candidate-B",
+        "decoder": "greedy",
+        "audio_path": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+        "decoder_arguments": [
+          "-bs",
+          "1",
+          "-bo",
+          "1"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "comparison": {
+    "normalization_language": "Python",
+    "normalization_rule": "tokens = re.findall(r\"[a-z0-9]+\", text.lower()); normalized = ' '.join(tokens)",
+    "ascii_lowercase": true,
+    "punctuation_and_whitespace_discarded": true,
+    "digits_retained": true,
+    "number_word_mapping_performed": false,
+    "distance": "token_level_Levenshtein",
+    "insertion_cost": 1,
+    "deletion_cost": 1,
+    "substitution_cost": 1,
+    "target_token_count": 80,
+    "target_normalized_text": "your company is missing from the answer or worse it is there confidently described by someone who apparently met the company in 2022 and never checked back you open the search dashboard everything is green and the dashboard may be right it is just watching a different doorway that missing view is where this business starts one experienced operator can use ai to map the answers check the sources and give the buyer a clear call on what deserves action",
+    "target_normalized_sha256": "2546807af400c6f4a8ed2b7ce3d5ff857f224fef2a06787342472ca984c92f8a"
+  },
+  "results": [
+    {
+      "candidate_id": "candidate-A",
+      "beam_raw_transcript": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back. You open this search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources and give the buyer a clear call on what deserves action.",
+      "beam_raw_sha256": "b8a02737a61238f355ff78098f50a35c7e3d333d7348669b8c723f700210f1a1",
+      "greedy_raw_transcript": "Your company is missing from the answer or worse, it is there confidently described by someone who apparently met the company in 2022 and never checked back. You open this search dashboard. Everything is green and the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources and give the buyer a clear call on what deserves action.",
+      "greedy_raw_sha256": "86283e3504eb8ae9d1705cdd4ac1370c3f5ff876971f72cb58189ff50e923cf0",
+      "beam_normalized_text": "your company is missing from the answer or worse it is there confidently described by someone who apparently met the company in 2022 and never checked back you open this search dashboard everything is green and the dashboard may be right it is just watching a different doorway that missing view is where this business starts one experienced operator can use ai to map the answers check the sources and give the buyer a clear call on what deserves action",
+      "greedy_normalized_text": "your company is missing from the answer or worse it is there confidently described by someone who apparently met the company in 2022 and never checked back you open this search dashboard everything is green and the dashboard may be right it is just watching a different doorway that missing view is where this business starts one experienced operator can use ai to map the answers check the sources and give the buyer a clear call on what deserves action",
+      "beam_normalized_sha256": "1471cc542dbf932ed642e4b309bcacefdb52d326954273f4723382b91ca6515b",
+      "greedy_normalized_sha256": "1471cc542dbf932ed642e4b309bcacefdb52d326954273f4723382b91ca6515b",
+      "normalized_token_count": 80,
+      "edit_distance": 1,
+      "wer_percent": 1.25,
+      "edit_operations": [
+        {
+          "operation": "substitution",
+          "slice_relative_zero_based_token_index": 29,
+          "absolute_w_token_index": 59,
+          "target": "the",
+          "diagnostic_asr": "this"
+        }
+      ],
+      "prompt_or_tag_leakage_detected": false,
+      "lexeme_2022_retained": true,
+      "pronunciation_twenty_twenty_two_established": false,
+      "diagnostic_result": "lexical_exactness_not_established_fail_closed"
+    },
+    {
+      "candidate_id": "candidate-B",
+      "beam_raw_transcript": "Your company is missing from the answer, or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back. You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers. Check the sources and give the buyer a clear call on what deserves action.",
+      "beam_raw_sha256": "73647683ed66c31646c7fdd4d405414e5725018f91db8455a32e711578920aaf",
+      "greedy_raw_transcript": "Your company is missing from the answer or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back. You open the search dashboard, everything is green. And the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers. Check the sources and give the buyer a clear call on what deserves action.",
+      "greedy_raw_sha256": "10eabd4c0d0a350c04149ddc2c012bf060e638541f158a7d7c1cbe1119dd3432",
+      "beam_normalized_text": "your company is missing from the answer or worse it is there confidently described by someone who apparently met the company in 2022 and never checked back you open the search dashboard everything is green and the dashboard may be right it is just watching a different doorway that missing view is where this business starts one experienced operator can use ai to map the answers check the sources and give the buyer a clear call on what deserves action",
+      "greedy_normalized_text": "your company is missing from the answer or worse it is there confidently described by someone who apparently met the company in 2022 and never checked back you open the search dashboard everything is green and the dashboard may be right it is just watching a different doorway that missing view is where this business starts one experienced operator can use ai to map the answers check the sources and give the buyer a clear call on what deserves action",
+      "beam_normalized_sha256": "2546807af400c6f4a8ed2b7ce3d5ff857f224fef2a06787342472ca984c92f8a",
+      "greedy_normalized_sha256": "2546807af400c6f4a8ed2b7ce3d5ff857f224fef2a06787342472ca984c92f8a",
+      "normalized_token_count": 80,
+      "edit_distance": 0,
+      "wer_percent": 0,
+      "edit_operations": [],
+      "prompt_or_tag_leakage_detected": false,
+      "lexeme_2022_retained": true,
+      "pronunciation_twenty_twenty_two_established": false,
+      "diagnostic_result": "offline_lexical_match_for_private_owner_audition"
+    }
+  ],
+  "evidence_boundary": {
+    "offline_asr_is_diagnostic_only": true,
+    "same_engine_and_model_used_for_both_decoders": true,
+    "independent_model_corroboration_claimed": false,
+    "human_exact_word_review_completed": false,
+    "human_pronunciation_review_completed": false,
+    "creative_or_perceptual_review_completed": false,
+    "credentials_accessed": false,
+    "network_called": false,
+    "provider_called": false,
+    "cloud_state_mutated": false,
+    "audio_modified": false
+  },
+  "authority": {
+    "creative_approved": false,
+    "guide_selected": false,
+    "cross_provider_disclosure_authorized": false,
+    "elevenlabs_upload_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step2_lock_authorized": false,
+    "step3_authorized": false,
+    "external_sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

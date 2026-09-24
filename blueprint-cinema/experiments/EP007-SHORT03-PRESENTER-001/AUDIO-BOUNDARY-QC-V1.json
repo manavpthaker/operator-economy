@@ -1,0 +1,64 @@
+{
+  "record_type": "ep007_short03_presenter_audio_boundary_qc_v1",
+  "status": "pass_local_lossless_pcm_slices_and_expected_mp3_words",
+  "provider_calls_by_this_qc": 0,
+  "source_master": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/original-c.wav",
+    "sha256": "c62c09057d6cf1e91b895b485b0cc0114d52707e337b1970112811e9d48ccd83",
+    "sample_rate_hz": 48000,
+    "sample_width_bits": 16,
+    "channels": 1
+  },
+  "opening_out": {
+    "cue": "after aligned word w26 sale, before w27 can",
+    "sale_end_seconds": 8.506,
+    "next_can_start_seconds": 8.606,
+    "chosen_source_end_exclusive_seconds": 8.56,
+    "chosen_source_end_exclusive_frame": 410880,
+    "last_included_sample_signed_16bit": 16,
+    "first_excluded_sample_signed_16bit": 11,
+    "original_source_rms_full_scale_20ms_before": 0.00235516,
+    "original_source_rms_full_scale_20ms_after": 0.00092442,
+    "source_pcm_slice_sha256": "d7c4c14d49225183293f2b05197c56aaa3519b1622b4dd85847a91c074f08e39",
+    "selected_source_pcm_is_exact_prefix_of_wav": true,
+    "only_addition": "21120 digital-zero frames, 0.44 seconds, to reach 9-second request length",
+    "mp3_companion_asr": {
+      "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/qa/asr-mp3/transcript.json",
+      "sha256": "c36aa20cc64d6d658e1ff72a7a2a2180e453e8c8bec95b72287614430d2af768",
+      "normalized_expected_words": 27,
+      "exact_normalized_match": true,
+      "last_word": "sale",
+      "next_word_can_detected": false
+    }
+  },
+  "return_in": {
+    "cue": "after aligned w77 closes and before w78 Fixed; presenter settles before speaking",
+    "previous_closes_end_seconds": 30.804,
+    "chosen_source_start_seconds": 31.05,
+    "chosen_source_start_frame": 1490400,
+    "first_fixed_start_seconds": 31.605,
+    "leading_source_pause_seconds": 0.555,
+    "prior_sample_signed_16bit": 2,
+    "first_included_sample_signed_16bit": 2,
+    "original_source_rms_full_scale_20ms_before": 0.0010925,
+    "original_source_rms_full_scale_20ms_after": 0.00011609,
+    "source_pcm_slice_sha256": "5194822c00bd847e2edce0b999f381206ccb52c8fedadca8a7fb74069116295e",
+    "selected_source_pcm_is_exact_prefix_of_wav": true,
+    "only_addition": "20816 digital-zero frames, 0.433666667 seconds, after the full master tail to reach 7-second request length",
+    "mp3_companion_asr": {
+      "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/qa/asr-mp3/transcript.json",
+      "sha256": "cedfb7c225086d304a467376cb993bb5e7f98129a0e5a791d4df315340deea69",
+      "normalized_expected_words": 20,
+      "exact_normalized_match": true,
+      "first_word": "Fixed",
+      "last_word": "counsel.",
+      "preceding_closes_detected": false
+    }
+  },
+  "decoded_output_probe": {
+    "segment_a": {"wav_codec": "pcm_s16le", "wav_duration_seconds": 9, "mp3_codec": "mp3", "mp3_bitrate_bps": 192000, "mp3_duration_seconds": 9, "sample_rate_hz": 48000, "channels": 1},
+    "segment_b": {"wav_codec": "pcm_s16le", "wav_duration_seconds": 7, "mp3_codec": "mp3", "mp3_bitrate_bps": 192000, "mp3_duration_seconds": 7, "sample_rate_hz": 48000, "channels": 1}
+  },
+  "timing_boundary": "The forced-aligned final Original C master owns exact picture/caption sync. Short excerpt MP3 ASR confirms words only; its word timestamps are not promoted to the master clock. No listening or audiovisual sync verdict is asserted.",
+  "human_listening": "deferred_to_finished_private_review_not_passed"
+}

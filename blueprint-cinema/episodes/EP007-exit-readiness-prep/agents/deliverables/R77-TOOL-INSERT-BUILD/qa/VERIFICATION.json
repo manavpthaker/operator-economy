@@ -1,0 +1,117 @@
+{
+  "status": "technical_pass_owner_review_pending",
+  "scope": "Two isolated EP007 review-candidate scene replacements: S15 AI drafting and S16 checklist/records.",
+  "master_audio": "Locked master narration only; captured interface audio is muted.",
+  "capture_fixture": "Illustrative fictional cabinet-workshop workflow; no client case or real outcome is depicted.",
+  "source_selection": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/selected-captures.json",
+    "sha256": "08b4111eb070167adb324db4e4b9d08ac5884719af8bcce8f22d3a77eb7e24ec"
+  },
+  "render_tool": "HyperFrames 0.8.50",
+  "scenes": {
+    "S15": {
+      "master_insert_frame_interval": [
+        15824,
+        16108
+      ],
+      "master_insert_duration_frames": 284,
+      "candidate_scene_frames": 1368,
+      "candidate_output": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/qa/s15-review.mp4",
+      "candidate_output_sha256": "bf085f23aa54885235ba31dfb1d4b759f9f8c6e18ffbe55d5cf9e0243cfae4e1",
+      "candidate_video": {
+        "width": 1280,
+        "height": 720,
+        "fps": 24
+      },
+      "hyperframes_strict_check": {
+        "ok": true,
+        "strict": true
+      },
+      "audio_alignment": {
+        "reference_samples": 2736000,
+        "rendered_samples": 2736128,
+        "sample_rate": 48000,
+        "window_start_sample": 2376000,
+        "window_samples": 96000,
+        "candidate_relative_lag_samples": 0,
+        "candidate_relative_lag_frames": 0.0,
+        "correlation_at_zero_lag": 0.9997086771812896,
+        "correlation_at_best_lag": 0.9997086771812896,
+        "level_delta_db": -0.036877301011894896,
+        "verdict": "pass",
+        "note": "Positive lag means the rendered candidate is later than the staged master-audio slice."
+      },
+      "full_luma_blank_suspects": [],
+      "provenance": {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/PROVENANCE.json",
+        "sha256": "91e0af61d7f88a4ebc1c6b1443cd3052db7808c0048fcf19d028c1fdfc15ab28"
+      },
+      "one_frame_cross_source_seam_hold": {
+        "timeline_frame": 892,
+        "source": "s15p2",
+        "source_frame": 292,
+        "frames": 1,
+        "reason": "replace first-frame decoder blank with exact accepted source frame",
+        "asset": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s15/public/media/seam-hold.png",
+        "asset_sha256": "2ee43a817fb222c137777c9bc595331a0a0168ec84c15d47608b100535fd59ef"
+      }
+    },
+    "S16": {
+      "master_insert_frame_interval": [
+        16797,
+        17452
+      ],
+      "master_insert_duration_frames": 655,
+      "candidate_scene_frames": 1293,
+      "candidate_output": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/qa/s16-review.mp4",
+      "candidate_output_sha256": "80625be0a0f09f7b0d546a53082c849e4da529e8b58fcf07483afc23e83249c4",
+      "candidate_video": {
+        "width": 1280,
+        "height": 720,
+        "fps": 24
+      },
+      "hyperframes_strict_check": {
+        "ok": true,
+        "strict": true
+      },
+      "audio_alignment": {
+        "reference_samples": 2586000,
+        "rendered_samples": 2586624,
+        "sample_rate": 48000,
+        "window_start_sample": 1200000,
+        "window_samples": 96000,
+        "candidate_relative_lag_samples": 0,
+        "candidate_relative_lag_frames": 0.0,
+        "correlation_at_zero_lag": 0.9998437499011438,
+        "correlation_at_best_lag": 0.9998437499011438,
+        "level_delta_db": -0.03356528111077726,
+        "verdict": "pass",
+        "note": "Positive lag means the rendered candidate is later than the staged master-audio slice."
+      },
+      "full_luma_blank_suspects": [],
+      "provenance": {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/projects/s16/PROVENANCE.json",
+        "sha256": "b75d58c3f3f2c2fa16125f79e8c1c02169839df917c01f0823ae3d3aeba2798b"
+      }
+    }
+  },
+  "review_page": {
+    "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/index.html",
+    "sha256": "3faf69eca725d9e99c0d775a9041c20382403b3ea6e68884744cfd5dde21b20c"
+  },
+  "review_media": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/s15-ai-drafting-review.mp4",
+      "sha256": "bf085f23aa54885235ba31dfb1d4b759f9f8c6e18ffbe55d5cf9e0243cfae4e1"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r77-tool-inserts/s16-record-check-review.mp4",
+      "sha256": "80625be0a0f09f7b0d546a53082c849e4da529e8b58fcf07483afc23e83249c4"
+    }
+  ],
+  "limitations": [
+    "Candidate review only; no owner acceptance, full-episode integration, canonical conform, or release.",
+    "AAC output is lossy and includes encoder tail samples after the timed video; zero-lag correlation against the staged master slice passes for both candidates.",
+    "The S15 output uses a one-frame still derived from its accepted succeeding source frame solely to cover the source-video decoder blank at the cross-source cut."
+  ]
+}

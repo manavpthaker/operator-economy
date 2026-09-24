@@ -1,0 +1,105 @@
+[
+  {
+    "event_id": "r45-owner-context-review-request-v1",
+    "decision_id": "s08-owner-dependency",
+    "event_type": "feedback",
+    "tags": [
+      "animation",
+      "owner-feedback",
+      "context-review"
+    ],
+    "data": {
+      "decision_event_id": "r44-narrated-owner-checkbox-v9",
+      "actor": "owner",
+      "verbatim": "yea sounds good can i see it with the scene before",
+      "interpretation": "Owner gives a positive response to the narrated excerpt and requests preceding scene context.",
+      "verdict": "accept",
+      "scope": "Current R44 narrated excerpt only; no acceptance of the yet-unseen context assembly or retained earlier draft graphics.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r44-checkbox-narrated/qa/r44-checkbox-narrated.mp4",
+          "sha256": "ab048a248a62967dd6fe97ec2686930df0b2aa1f5472415ddf3adb1e226b7dbd"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r45-checkbox-context/OWNER-REQUEST.json",
+        "sha256": "8d54b649198282a190ec971fa3e1f988976eb88a1298cfdc8e5e104b9dafce13",
+        "locator": "Current wording and its review scope"
+      }
+    ]
+  },
+  {
+    "event_id": "r45-continuous-checkbox-context-v1",
+    "decision_id": "s08-context-review",
+    "event_type": "decision",
+    "tags": [
+      "context-review",
+      "source-preservation",
+      "cut-timing"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Let the owner assess how the buyer argument and presenter question lead into the checkbox mechanism.",
+        "viewer_before": "Only the20-second checkbox scene has been reviewed with narration.",
+        "viewer_after": "The preceding argument and the new scene are heard and seen continuously."
+      },
+      "choice": "Make a92.166667-second review from R39 review195.125–267.0 followed by R44 in full; use existing encoded picture and corresponding original edited soundtracks.",
+      "reason": "The default-outcome line gives the following buyer contrast a clear reference; source replay preserves preceding edits and corrected his-question audio.",
+      "alternatives": [
+        {
+          "choice": "Start at review200.125",
+          "reason_not_selected": "Hold that against opens without the default outcome it contrasts."
+        },
+        {
+          "choice": "Start at review231.25",
+          "reason_not_selected": "Valid shorter paragraph but omits much of the requested preceding buyer scene."
+        },
+        {
+          "choice": "Rebuild the previous draft graphic",
+          "reason_not_selected": "Owner requested context; redesign would change another variable before review."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "Assessing this scene transition with its actual preceding narration and edit.",
+        "avoid_when": "The review is mistaken for acceptance of every retained draft component."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "checkbox-entry",
+            "phrase": "Revenue is the evidence.",
+            "relation": "direct cut in the pause before phrase onset",
+            "master_seconds": 270,
+            "review_seconds": 267,
+            "local_seconds": 71.875,
+            "fps": 24,
+            "rounding": "exact frame1725 of context review",
+            "dependent_targets": [
+              "lead-video out",
+              "lead-audio out",
+              "checkbox-video in",
+              "checkbox-audio in"
+            ]
+          }
+        ],
+        "source_basis": "Current owner context request and inspected source ranges.",
+        "false_inference": "Retained draft graphics are context, not newly accepted work."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r45-checkbox-context/EDIT-PLAN.json",
+        "sha256": "490fc15abb554f7ec50b4d7602a2f850f3852bda82500244213c3c2109e33965",
+        "locator": "Exact source clips, clocks and unresolved context"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r45-checkbox-context/DIRECTION.md",
+        "sha256": "f4cdb26788b94ed22bc4096d893031e54f2dbdc5bd0959638a6a5bee6a6e4fd6",
+        "locator": "Bounded review purpose"
+      }
+    ]
+  }
+]

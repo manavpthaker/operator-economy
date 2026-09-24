@@ -1,0 +1,63 @@
+[
+  {
+    "event_id": "r53-owner-c-v2-cut-off-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "presenter-return",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r53-c-presenter-v2",
+      "actor": "owner",
+      "verbatim": "the retake in the cut seems off compared to the shorter clip",
+      "interpretation": "Reopens the just-locked part C v2: restored take in the cut reads off compared with the shorter (likely native) clip.",
+      "verdict": "reopen",
+      "scope": "S10 part C v2.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/qa/r53-c2-presenter.mp4",
+          "sha256": "fd3c69fcb8a046350a2a70d9bbc41bf18f402687c577092c9dd25492b6e0033c"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/OWNER-CUT-VS-SHORT.json",
+        "sha256": "dc490344966b42aa0366936bc6c8964b150ba75a610cb69b63df1679ba3b2952",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r53-native-voice-cadence-diagnostic-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "verification",
+    "tags": [
+      "presenter-return",
+      "performance",
+      "original-audio"
+    ],
+    "data": {
+      "decision_event_id": "r53-c-presenter-v2",
+      "method": "100 Hz loudness-envelope alignment of each native Seedance take's own audio against the original narration carve, globally and per quarter; Fal model pricing check.",
+      "result": "fail",
+      "scope": "Why native presenter clips look better than restored clips in the cut.",
+      "limitations": "Native takes carry a Seedance-generated voice whose cadence differs from the narration (R47 global corr 0.04, C v1 -0.02, C v2 0.31, A 0.54). Head and hand motion follow that voice; Sync v3 replaces only the mouth, placed at the narration offset (C v2 0.361 s) while the native voice sits near 0.97 s, so body motion lags the narration by roughly 0.6 s with \u00b10.5 s drift across quarters. The native clip cannot be used because its voice is not the owner's. Sync v3 ($8/min) is already Fal's strongest listed lipsync; v2 pro is $5/min. Heuristic envelope measure, not a perceptual verdict.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/native.mp4",
+          "sha256": "9cc9894996058b14164ca82701f875b52043bd0212b46789dee4c883e58cdfdd"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c-v2/ALIGNMENT.json",
+        "sha256": "8cf9407bac476c1c4fcb8fa0e2bcf3a50142b1fd6498911ce5556367d54c5c84",
+        "locator": "Restored placement"
+      }
+    ]
+  }
+]

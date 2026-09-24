@@ -1,0 +1,231 @@
+<template>
+  <div
+    id="root"
+    data-composition-id="05-show-identity"
+    data-start="0"
+    data-duration="4.825"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div
+      id="05-show-identity-ground"
+      class="clip"
+      data-start="0"
+      data-duration="4.825"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="05-show-identity-content"
+      class="clip"
+      data-start="0"
+      data-duration="4.825"
+      data-track-index="1"
+    >
+      <div id="05-show-identity-top-rule"></div>
+      <div id="05-show-identity-bottom-rule"></div>
+
+      <div id="05-show-identity-label">THIS IS</div>
+
+      <div id="05-show-identity-wordmark">
+        <div id="05-show-identity-line-one">THE OPERATOR</div>
+        <div id="05-show-identity-line-two">ECONOMY</div>
+      </div>
+
+      <div id="05-show-identity-slogan">BUILD. OWN. OPERATE.</div>
+      <div id="05-show-identity-page">005</div>
+    </div>
+  </div>
+
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("../../assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Fragment Mono";
+      src: url("../../assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #1a1a1a;
+    }
+
+    [id="05-show-identity-ground"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      container-type: size;
+      background-color: #f5f0e6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 1px, transparent 1px);
+      background-size: 2cqw 2cqw;
+      background-position: 0 0;
+    }
+
+    [id="05-show-identity-content"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    [id="05-show-identity-top-rule"],
+    [id="05-show-identity-bottom-rule"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1a1a1a;
+    }
+
+    [id="05-show-identity-top-rule"] {
+      top: 5.35cqh;
+    }
+
+    [id="05-show-identity-bottom-rule"] {
+      top: 82.7cqh;
+    }
+
+    [id="05-show-identity-label"] {
+      position: absolute;
+      top: 24.8cqh;
+      left: 8cqw;
+      color: #1a1a1a;
+      font-family: "Fragment Mono";
+      font-size: 1.4cqw;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
+      transform-origin: 0 50%;
+    }
+
+    [id="05-show-identity-wordmark"] {
+      position: absolute;
+      top: 31.2cqh;
+      left: 8cqw;
+      width: 80cqw;
+      color: #1a1a1a;
+      font-family: "Boska";
+      font-size: 9.2cqw;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 0.83;
+      letter-spacing: -0.008em;
+    }
+
+    [id="05-show-identity-line-one"],
+    [id="05-show-identity-line-two"] {
+      display: block;
+      width: max-content;
+      max-width: 80cqw;
+      transform-origin: 0 50%;
+      white-space: nowrap;
+    }
+
+    [id="05-show-identity-slogan"] {
+      position: absolute;
+      top: 70.4cqh;
+      left: 8cqw;
+      color: #1a1a1a;
+      font-family: "Fragment Mono";
+      font-size: 1.4cqw;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
+      transform-origin: 0 50%;
+    }
+
+    [id="05-show-identity-page"] {
+      position: absolute;
+      top: 79.8cqh;
+      right: 4cqw;
+      color: #1a1a1a;
+      font-family: "Fragment Mono";
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+  </style>
+
+  <script>
+    (() => {
+      const gsap = window.gsap;
+      if (!gsap) {
+        throw new Error("GSAP is required for 05-show-identity");
+      }
+
+      window.__timelines = window.__timelines || {};
+
+      const label = document.getElementById("05-show-identity-label");
+      const lineOne = document.getElementById("05-show-identity-line-one");
+      const lineTwo = document.getElementById("05-show-identity-line-two");
+      const slogan = document.getElementById("05-show-identity-slogan");
+      const tl = gsap.timeline({ paused: true });
+
+      window.__timelines["05-show-identity"] = tl;
+
+      tl.fromTo(
+        label,
+        { opacity: 0, y: -12 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" },
+        0.08,
+      );
+
+      tl.fromTo(
+        lineOne,
+        { opacity: 0, scale: 0.965, y: 16 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.62,
+          ease: "back.out(1.4)",
+        },
+        1.1,
+      );
+
+      tl.fromTo(
+        lineTwo,
+        { opacity: 0, scale: 0.965, y: 18 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.72,
+          ease: "back.out(1.4)",
+        },
+        1.56,
+      );
+
+      tl.fromTo(
+        slogan,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        3.0,
+      );
+    })();
+  </script>
+</template>

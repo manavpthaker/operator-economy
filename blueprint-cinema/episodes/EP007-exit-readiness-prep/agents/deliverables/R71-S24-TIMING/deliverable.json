@@ -1,0 +1,73 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r71-s24-timing",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-TIMING/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-TIMING/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-TIMING/endpoint-audio.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-TIMING/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute live script, transcript and master SHA256 and compare issued pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Extract all S24 words W003045\u2013W003109 and phrase ranges from locked transcript",
+      "outcome": "pass"
+    },
+    {
+      "command": "Measure original 48kHz PCM around master1101.5 and detect exact digital-zero run",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate 552-frame / 1104000-sample interval and final frame endpoint",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read S21 OR kill-condition wording and S24/S25 locked script context",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous normal-speed subjective listening",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "All three issued source pins match current files.",
+    "Word and phrase timings derive from locked word-transcript.json.",
+    "Source-audio cut evidence derives directly from the locked mono48kHz PCM16 master.",
+    "Meaning limits and OR condition wording derive from the same pinned script."
+  ],
+  "assumptions": [
+    "Owner-accepted S23 ends at1078.5 and source narration remains continuous.",
+    "Visual timings are recommendations only; root owns implementation and owner review."
+  ],
+  "unresolved_questions": [
+    "Final visual wording and reading load depend on root composition.",
+    "Continuous normal-speed listening is outside this timing-only audit."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

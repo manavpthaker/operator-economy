@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #scene-05-full-episode-handoff {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #173530;
+          color: #f5f0e6;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .s5-bracket { position: absolute; top: 962px; left: 80px; width: 30px; height: 358px; }
+        .s5-bracket-bar { position: absolute; display: block; background: #b5482f; }
+        .s5-bracket-left { top: 0; left: 0; width: 6px; height: 358px; }
+        .s5-bracket-top { top: 0; left: 0; width: 30px; height: 6px; }
+        .s5-bracket-middle { top: 182px; left: 0; width: 30px; height: 6px; }
+        .s5-bracket-bottom { bottom: 0; left: 0; width: 30px; height: 6px; }
+        .s5-copy { position: absolute; top: 758px; left: 150px; width: 720px; }
+        .s5-headline { margin: 0; color: #f5f0e6; font: 700 76px/1.04 "BL Boska", Georgia, serif; letter-spacing: -0.04em; }
+        .s5-headline span { display: block; }
+        .s5-support { margin: 34px 0 0; color: #c4b99e; font-size: 34px; font-weight: 500; line-height: 1; letter-spacing: 0.045em; white-space: nowrap; }
+        .s5-cta { margin: 58px 0 0; color: #f5f0e6; font-size: 38px; font-weight: 500; line-height: 1; letter-spacing: 0.075em; white-space: nowrap; }
+      </style>
+
+      <section id="scene-05-full-episode-handoff" data-composition-id="scene-05-full-episode-handoff" data-related-video-status="target-pending" data-start="0" data-duration="2" data-width="1080" data-height="1920" aria-label="Full episode handoff">
+        <div id="s5-bracket" class="s5-bracket" data-layout-ignore aria-hidden="true">
+          <span class="s5-bracket-bar s5-bracket-left"></span>
+          <span class="s5-bracket-bar s5-bracket-top"></span>
+          <span class="s5-bracket-bar s5-bracket-middle"></span>
+          <span class="s5-bracket-bar s5-bracket-bottom"></span>
+        </div>
+        <div class="s5-copy">
+          <h1 id="s5-headline" class="s5-headline"><span>BUILD THE FULL</span><span>PRACTICE</span></h1>
+          <p id="s5-support" class="s5-support">SCOPE IT · PRICE IT · TEST IT</p>
+          <p id="s5-cta" class="s5-cta">WATCH THE FULL EPISODE ↓</p>
+        </div>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to("#s5-bracket", { y: -230, duration: 0.291667, ease: "power3.out" }, 0.041667);
+        tl.to(".s5-bracket-bar", { backgroundColor: "#fb8b69", duration: 0.14, ease: "none" }, 0.08);
+        tl.fromTo("#s5-headline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.041667);
+        tl.fromTo("#s5-support", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.125);
+        tl.fromTo("#s5-cta", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.208333);
+
+        window.__timelines["scene-05-full-episode-handoff"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

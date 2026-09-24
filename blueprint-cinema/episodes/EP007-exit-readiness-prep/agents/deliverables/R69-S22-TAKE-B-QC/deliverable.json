@@ -1,0 +1,400 @@
+{
+  "schema": "oe-agent-deliverable/v1",
+  "work_order": "R69-S22-TAKE-B-QC",
+  "status": "source_qc_complete_pass_recommendation",
+  "prepared_at": "2026-09-17T19:30:38.274180+00:00",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/DIRECTION.md",
+      "sha256": "9150aed9526fe02240c91e9f6d5434e4e6760a61096a7ac25774447dd059a0f4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r69-s22-written-record-retry/TAKE-B.request.json",
+      "sha256": "f75cbe0a771f6df09d3baf73f460e0fc52d79338ffae2bef79b1e7703a681f30"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-a/qa/frame-192.png",
+      "sha256": "9da401f3dbda734bc3186ac8498b9a6a7f33f5b73e83029b8fa0fe3f31c261ca"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-A-QC/deliverable.json",
+      "sha256": "c7959cb890dcd36e0ae4b88f281253f46df86f093f1d76af7a44de863d73e3a1"
+    }
+  ],
+  "source_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r69-s22-film/provider/take-b/native.mp4",
+  "source_sha256": "b7c5068677e25db2dbf74798398dfaad30aa77e4f3be6621e94750095df8d303",
+  "source_inspected": true,
+  "expected_source_frames": 265,
+  "target_selected_frames": 264,
+  "fps": 24,
+  "earlier_request_slot_frames": 236,
+  "slot_authority": "Root current work order revised coverage after rejected A opening.",
+  "checklist": [
+    {
+      "id": "source_provenance",
+      "criterion": "Match supplied source hash and actual24fps dimensions/frame count. Expected11-second request yields about265frames; inspect rather than assume.",
+      "result": "pass",
+      "evidence": "Source hash matches;1916x1080,24fps,265frames,11.041667s,video only."
+    },
+    {
+      "id": "seed_continuity",
+      "criterion": "Continue verified A frame192: printed right page, blank left leaf, carrier/page geometry, owner hands clear, exact cast/sides/light/props. No return to failed opening or empty ruled forms.",
+      "result": "pass_sampled",
+      "evidence": "Sourceframe1 continues A192 stable open folio/printed right page and resting owner hands."
+    },
+    {
+      "id": "specific_point",
+      "criterion": "Buyer places one fingertip beside an actual printed passage, visibly studies it and does not merely rest his hand elsewhere or point into blank margin.",
+      "result": "pass_sampled",
+      "evidence": "Hand comes forward around30\u201360; fingertip rests beside real printed passage. Native144 confirms."
+    },
+    {
+      "id": "read_before_acknowledgment",
+      "criterion": "Inspection occurs before the response. An immediate greeting nod or unrelated glance does not meet causality.",
+      "result": "pass_sampled",
+      "evidence": "Sustained inspection through72\u2013186 precedes acknowledgment192\u2013222."
+    },
+    {
+      "id": "positive_response",
+      "criterion": "One perceptible small approving nod with a faint positive expression toward owner. Neutral stillness, a downward gaze change alone, or an imperceptible micro-motion is insufficient.",
+      "result": "pass_sampled",
+      "evidence": "Directed closed-mouth smile toward owner with small head dip/nod around216\u2013222; clear positive reaction at1280frame216."
+    },
+    {
+      "id": "return_to_record",
+      "criterion": "After acknowledgment buyer returns to the written record and continues attending; do not finish on a deal-like satisfied look.",
+      "result": "pass_sampled",
+      "evidence": "Returns gaze around228\u2013240, remains attentive to page through264."
+    },
+    {
+      "id": "print_and_hand_continuity",
+      "criterion": "Printed content persists in the same page region without morphing/disappearing or legible invented facts. Hands/fingers plausible; no collision, repeated tapping, new page, signature or handshake.",
+      "result": "pass_sampled",
+      "evidence": "Visible right-page print persists; no observed hand collision, changed carrier, page turn or material print loss."
+    },
+    {
+      "id": "owner_behavior",
+      "criterion": "Owner hands remain at rest; she does not point again, supply the buyer's inspection or introduce a reciprocal sale/conversation performance.",
+      "result": "pass_sampled",
+      "evidence": "Owner stays still with hands resting; no assisting point or reciprocal deal gesture."
+    },
+    {
+      "id": "selection",
+      "criterion": "Continuous264-frame24fps selection with complete causal sequence and settled ending, no retiming, freeze or loop. Root updated editorial allocation from the request's older236-frame field.",
+      "result": "pass_recommendation",
+      "evidence": "[1,265) gives264continuousframes/11s with causal sequence and returned-attention ending; no retiming required."
+    },
+    {
+      "id": "meaning",
+      "criterion": "Response concerns the written answer becoming inspectable. No offer/agreement/sale implication, celebration or role reversal.",
+      "result": "pass_source_level",
+      "evidence": "Response follows inspection of written answer; no handshake, signature, offer or transaction conclusion."
+    }
+  ],
+  "selected_frames_half_open": [
+    1,
+    265
+  ],
+  "source_review_recommendation": "PASS source frames1..264 inclusive. Printed-passage point and inspection precede clear positive acknowledgment, followed by return to record. Final narration/seam playback remains root check.",
+  "owner_acceptance": false,
+  "report": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/report.md",
+  "report_sha256": "562aab0f3d4c852562490e5cb9fa4394cd415716c968749d5ee2a0d00131eec8",
+  "shared_edits": false,
+  "provider_calls": 0,
+  "log_or_gate_changes": false,
+  "reviewed_at": "2026-09-17T19:35:38.276671+00:00",
+  "source_probe": {
+    "width": 1916,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 265,
+    "duration_seconds": 11.041667,
+    "streams": [
+      "video"
+    ]
+  },
+  "selected_frame_count": 264,
+  "selected_seconds_half_open": [
+    0.041666666666666664,
+    11.041666666666666
+  ],
+  "selected_duration_seconds": 11.0,
+  "observed_phase_frames": {
+    "point_entry_approx": [
+      30,
+      60
+    ],
+    "sustained_inspection_samples": [
+      72,
+      186
+    ],
+    "positive_acknowledgment_samples": [
+      192,
+      222
+    ],
+    "return_to_page_samples": [
+      228,
+      240
+    ],
+    "final_page_attention": [
+      240,
+      264
+    ]
+  },
+  "material_defects": [],
+  "inspected_full_size_frames": [
+    1,
+    144
+  ],
+  "inspected_1280_frames": [
+    144,
+    216,
+    264
+  ],
+  "dense_sample_frames": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    90,
+    96,
+    102,
+    108,
+    114,
+    120,
+    126,
+    132,
+    138,
+    144,
+    150,
+    156,
+    162,
+    168,
+    174,
+    180,
+    186,
+    192,
+    198,
+    204,
+    210,
+    216,
+    222,
+    228,
+    234,
+    240,
+    246,
+    252,
+    258,
+    264
+  ],
+  "acknowledgment_diagnostic_crop": {
+    "rect_xywh": [
+      980,
+      0,
+      680,
+      720
+    ],
+    "frames": [
+      180,
+      183,
+      186,
+      189,
+      192,
+      195,
+      198,
+      201,
+      204,
+      207,
+      210,
+      213,
+      216,
+      219,
+      222,
+      225,
+      228,
+      231,
+      234,
+      237,
+      240,
+      243,
+      246,
+      249,
+      252
+    ]
+  },
+  "normal_speed_audiovisual_review": false,
+  "qa_artifacts": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-001-full.png",
+      "frame": 1,
+      "size": "1916x1080",
+      "sha256": "1ab2908ff8eb48e36b388b789d497682a3d28eff74a80b274468428cb22d3639"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-072-full.png",
+      "frame": 72,
+      "size": "1916x1080",
+      "sha256": "3033277fed68825c2a3acb965d53a52e6516394823992f8eb64e3374e3c4393e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-144-full.png",
+      "frame": 144,
+      "size": "1916x1080",
+      "sha256": "cf40ab1c7095c9c1b6d5cc552a70a8a87349394b602b537b776ecca549fc61c3"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-192-full.png",
+      "frame": 192,
+      "size": "1916x1080",
+      "sha256": "331a122da01f5b6c96db0c0a74ce03310f85c0bd6f794854c268493a2c90c1f0"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-204-full.png",
+      "frame": 204,
+      "size": "1916x1080",
+      "sha256": "5aab3190d661b81e60c6fd9cb2e54b7a21e62270c8f05dec23fad3828a0baa0c"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-216-full.png",
+      "frame": 216,
+      "size": "1916x1080",
+      "sha256": "5023a5410090d34439a1636b595f07b9abae90e8a3f38ad419795a7a1c85d13f"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-228-full.png",
+      "frame": 228,
+      "size": "1916x1080",
+      "sha256": "5eb1168f3592faa88a18c75fd4176e788e90951d4d3150b4e6940177ce2b6f22"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-240-full.png",
+      "frame": 240,
+      "size": "1916x1080",
+      "sha256": "f55500ac75cdec5eadd52f97cc65dcfcb554aa7e3affb467bd1c6a7a5b60d95c"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-264-full.png",
+      "frame": 264,
+      "size": "1916x1080",
+      "sha256": "5e1168f79ac2841a1a31d873c06883e96f8943cefb3c793ade76a8ba1340cb5f"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-144-1280.png",
+      "frame": 144,
+      "size": "1280x720",
+      "sha256": "47ad6305e40b74eb2013481397610ee8d3dc0fabc1d6d6073108edb5feaf8aff"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-216-1280.png",
+      "frame": 216,
+      "size": "1280x720",
+      "sha256": "302b78f08e77e9437658a695d420c925c65b1e17da8f92c111f9d6f3b656b43b"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/frame-264-1280.png",
+      "frame": 264,
+      "size": "1280x720",
+      "sha256": "ce4f3a8c6d3d20f4682531fc77b3ac50d69f39e49745c2635d0f77ac5f58ae5f"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/motion-every6frames.png",
+      "frames": [
+        0,
+        6,
+        12,
+        18,
+        24,
+        30,
+        36,
+        42,
+        48,
+        54,
+        60,
+        66,
+        72,
+        78,
+        84,
+        90,
+        96,
+        102,
+        108,
+        114,
+        120,
+        126,
+        132,
+        138,
+        144,
+        150,
+        156,
+        162,
+        168,
+        174,
+        180,
+        186,
+        192,
+        198,
+        204,
+        210,
+        216,
+        222,
+        228,
+        234,
+        240,
+        246,
+        252,
+        258,
+        264
+      ],
+      "sha256": "2006ec070b9a8fcb42c32632e2ee66424794c43d5933c40456d34884e33b3294"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R69-S22-TAKE-B-QC/qa/acknowledgment-every3frames.png",
+      "frames": [
+        180,
+        183,
+        186,
+        189,
+        192,
+        195,
+        198,
+        201,
+        204,
+        207,
+        210,
+        213,
+        216,
+        219,
+        222,
+        225,
+        228,
+        231,
+        234,
+        237,
+        240,
+        243,
+        246,
+        249,
+        252
+      ],
+      "diagnostic_crop": [
+        980,
+        0,
+        680,
+        720
+      ],
+      "sha256": "c8b95051774447fdf4143c0a2e593e566dce5b121e69144ce0610f763f288e96"
+    }
+  ],
+  "canonical_gate_changed": false
+}

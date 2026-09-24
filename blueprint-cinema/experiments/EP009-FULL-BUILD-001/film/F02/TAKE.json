@@ -1,0 +1,118 @@
+{
+  "take_id": "F02",
+  "segment_id": "seg002",
+  "status": "accepted_after_regeneration",
+  "attempts": [
+    {
+      "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02",
+      "request_id": "01a0acd1-c19b-77c2-b845-f5cf203ee2d8",
+      "model": "fal-ai/kling-video/v3/pro/image-to-video",
+      "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02/start.png",
+      "start_image_sha256": "a5bad25aaff327ff8e1804c6422be346c9dd03267bf5ed87c9e2e2ef3ed7e5ef",
+      "start_image_source": "F01/raw.mp4 frame 191 (7.958 s), last usable frame of accepted F01 window, scaled 1920x1080",
+      "prompt": "One continuous eight-second locked-off tripod shot at the existing inn front desk. The camera does not move: no pan, tilt, zoom, drift or reframing, and no cuts. Preserve the supplied starting frame exactly: the innkeeper behind the counter, dark hair tied back, olive-green cardigan over a cream shirt; the counter, desk bell, daffodils, laptop with its screen facing her and never visible to camera, blank cards and pen, beige corded desk phone, printed pages, open guest book, key rack, entrance door at left, window and trail at right, daylight. The guest at screen left: short brown hair, navy rain shell, daypack.\n\nFor the first second both stay as in the frame. Then the guest turns away from the counter at a calm, normal walking pace and walks out of frame to the left through the entrance, relaxed and friendly. The innkeeper's gaze follows him as he leaves, then her eyes move to the window at screen right with the trail outside, and she holds that look with a faint, warm smile.\n\nShe stays behind the counter the whole time. No speaking, no lip movement, no waving. No new person, prop, text, logo or sound. Nothing on the laptop, cards or book is readable. Real-time motion.",
+      "duration": "8",
+      "generate_audio": false,
+      "cfg_scale": 0.5,
+      "raw": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02/raw.mp4",
+        "sha256": "40e455f116e9b24e0e0ffdfd00a3063cf44dbf4b15f58984025cfaadaea4c742",
+        "frames": 193,
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24
+      },
+      "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02/contact.jpg",
+      "cost_usd_listed": 0.896,
+      "regeneration_reason": null
+    },
+    {
+      "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02-r2",
+      "request_id": "01a0acd7-33b5-7aa0-8af1-7a3c0a9c395a",
+      "model": "fal-ai/kling-video/v3/pro/image-to-video",
+      "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02-r2/start.png",
+      "start_image_sha256": "a5bad25aaff327ff8e1804c6422be346c9dd03267bf5ed87c9e2e2ef3ed7e5ef",
+      "start_image_source": "same as F02: F01/raw.mp4 frame 191 (7.958 s), last usable frame of accepted F01",
+      "prompt": "Static camera. The camera is fixed on a tripod and never moves for the whole eight seconds: no pan, no truck, no dolly, no tilt, no zoom, no reframing, no cuts. The first frame and the last frame have exactly the same framing; the counter, key rack, entrance door at left and window at right stay in exactly the same place in the frame.\n\nPreserve the supplied starting frame exactly: the innkeeper seated behind the counter holding the brass key, dark hair tied back, olive-green cardigan over a cream shirt; the guest at screen left, navy rain shell, daypack; the counter, bell, daffodils, laptop with its screen facing her, blank cards and pen, beige desk phone, open guest book, daylight.\n\nThe guest turns and walks calmly out of frame to the left toward the entrance. The innkeeper stays seated in her place behind the counter the whole time. She watches him go, then turns her head to look out the window at screen right, and holds that look with a faint, warm smile, the key resting in her hand.\n\nShe does not stand up or walk. No speaking, no lip movement, no waving. No new person, prop, folder, text, logo or sound. Real-time motion.",
+      "duration": "8",
+      "generate_audio": false,
+      "cfg_scale": 0.5,
+      "raw": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02-r2/raw.mp4",
+        "sha256": "2bc90a71e738c190566cc58101ae6875951f484beccc689fe7cfd298255cb4a4",
+        "frames": 193,
+        "size": [
+          1920,
+          1080
+        ],
+        "fps": 24
+      },
+      "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02-r2/contact.jpg",
+      "cost_usd_listed": 0.896,
+      "regeneration_reason": "REGENERATION of F02: first take trucked the camera right from about 1.7 s and the innkeeper left the counter for the window (camera lock and geography failed; no usable 4.875 s window). New prompt leads with static camera and keeps her seated."
+    }
+  ],
+  "cost_usd_listed_total": 1.792,
+  "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+  "honest_note": "First take trucked the camera toward the window and walked her out from behind the counter (failed). Regeneration still drifted to a wider framing in its first 2.5 s; the window from 3.167 s is steady: guest already at the door walking out left, she watches him go and turns toward the window with a faint smile at the end. His turn from the counter is not in the window, so seg001 to seg002 is a cut to a slightly wider setup rather than a matched continuation.",
+  "action_performed": "partial",
+  "source_window": "source frames 76-192 (3.167-8.042 s)",
+  "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+  "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+  "agent_verdict_is_recommendation_only": true,
+  "final": {
+    "segment_id": "seg002",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F02-r2/final/seg002.mp4",
+    "sha256": "de15340b68638dd25add4975c2682ac9bc1198d6a890d591c600c5c2aa76758f",
+    "frames_expected": 117,
+    "frames": 117,
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio": {
+      "sample_rate": 48000,
+      "channels": 2,
+      "master_samples": [
+        270000,
+        504000
+      ],
+      "pcm_intermediate_sample_exact": true,
+      "aac_corr_zero_lag_vs_master_excerpt": 0.99995
+    },
+    "uniform_frames": 0,
+    "source_window": {
+      "source_in_s": 3.166667,
+      "source_out_s": 8.0417,
+      "native_fps": 24.0,
+      "speed_change": false
+    },
+    "master_in": 5.625,
+    "master_out": 10.5,
+    "segment_frames": [
+      135,
+      252
+    ]
+  },
+  "checks": {
+    "frames_ok": true,
+    "size": [
+      1280,
+      720
+    ],
+    "fps": 24.0,
+    "audio_pcm_sample_exact": true,
+    "audio_aac_corr": 0.99995,
+    "uniform_frames": 0,
+    "readable_text_or_logo": "none seen in used window",
+    "extra_people": "none",
+    "rude_or_ignoring_behaviour": "none seen"
+  },
+  "deviations": [
+    "Framing is wider than F01 (provider drift in the regeneration); later desk takes F03, F06, F07, F10 start from this wider frame, so the S00 to S20 desk setup is the wider one after seg001."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "oe-google-service-enablement-failure-disposition-v1",
+  "record_id": "G1R2-SERVICE-PRE-READ-FAILURE-DISPOSITION-20260826T030504Z",
+  "status": "immutable_local_disposition",
+  "recorded_at": "2026-08-26T03:05:04Z",
+  "attempt_binding": {
+    "authorization_path": "authorizations/06-google-aiplatform-service-enablement.ACTIVE.20260826T025746Z.json",
+    "authorization_sha256": "1b7f50bdf713426d49dd62a4f69a8b6494326ae29b4b0f883098b9fd52d72747",
+    "authorization_commit": "1c29c00a63ebc89e26098b19694f7b75dedf1cec",
+    "runtime_commit": "445964088a53d814361fe434277818603f276326",
+    "consumption_path": "authorizations/consumed/AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.consumed.json",
+    "consumption_sha256": "8b6111804bc43e5c994498052f6d26639f42136efffc3229a0dd64011ed856a5",
+    "failure_receipt_path": "receipts/google-service-usage/AUTH-SVC-G1R2-AIPLATFORM-20260826T025746Z.failure.json",
+    "failure_receipt_sha256": "7b37764ed391803d94e42797947f49b8db5735a939155124ce2e249e8126f7b8"
+  },
+  "observed_outcome": {
+    "authorization_consumed": true,
+    "outcome": "failed_closed",
+    "reason_code": "provider_response_byte_cap_exceeded",
+    "failed_phase": "pre_enable_readback",
+    "http_status": 200,
+    "calls": {
+      "pre_enable_state_readbacks": 1,
+      "enable_attempts": 0,
+      "operation_polls": 0,
+      "post_enable_state_readbacks": 0,
+      "http_calls_total": 1
+    },
+    "bounded_response_bytes_read": 1000001,
+    "captured_cap_plus_one_prefix_sha256": "5465996bb1ee858dd3fc2db43228fb6f6089353bc9d9361e5ae0d532a697ca79",
+    "provider_response_bytes_total_recorded": 1000001,
+    "raw_provider_response_stored": false,
+    "mutation_attempted": false,
+    "service_state_resolution": "not_attempted",
+    "enablement_may_have_completed": false,
+    "operation_may_still_be_running": false,
+    "manual_readback_required": false,
+    "retries_made": 0,
+    "redirects_followed": 0
+  },
+  "interpretation": {
+    "established": "the single HTTP 200 pre-enable response crossed the authorized 1000000-byte read ceiling and the runtime stopped after reading the sentinel byte at 1000001 bytes",
+    "full_provider_response_length_known": false,
+    "service_state_parsed_from_this_attempt": false,
+    "service_enable_request_sent": false,
+    "service_mutation_occurred": false,
+    "direct_iam_api_call_or_mutation_occurred": false,
+    "provider_managed_enablement_side_effect_possible_for_this_attempt": false,
+    "target_service_state_after_this_attempt": "unknown_from_this_attempt",
+    "cause_of_large_response": "unknown",
+    "safe_conclusion": "a response-handling limit failed before the authorized enablement mutation; this is not evidence that the service was enabled or that the provider response was exactly 1000001 bytes long"
+  },
+  "repair_gate": {
+    "repair_class": "bounded_partial_response_handling",
+    "execution_semantics": "fresh_transaction_after_zero_mutation_not_retry_or_resumption",
+    "new_runtime_and_adversarial_audit_required": true,
+    "prior_outcome_commit_required": true,
+    "new_active_authorization_required": true,
+    "automatic_retry_permitted": false,
+    "existing_authorization_reusable": false,
+    "g1r2_synthetic_guide_authorized": false
+  },
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "service_readback_authorized": false,
+    "service_enablement_authorized": false,
+    "service_disablement_authorized": false,
+    "other_service_mutation_authorized": false,
+    "iam_mutation_authorized": false,
+    "billing_mutation_authorized": false,
+    "project_hierarchy_mutation_authorized": false,
+    "synthetic_guide_generation_authorized": false,
+    "retry_authorized": false,
+    "voice_transfer_authorized": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

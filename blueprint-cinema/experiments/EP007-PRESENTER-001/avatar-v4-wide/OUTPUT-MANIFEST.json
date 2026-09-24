@@ -1,0 +1,65 @@
+{
+  "status": "ready_for_owner_review",
+  "at_utc": "2026-09-11T11:00:14.051723+00:00",
+  "episode": "EP007-exit-readiness-prep",
+  "artifacts": {
+    "edited": {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-with-question-crop.mp4",
+      "sha256": "f08a09bbd49ed8dd39a7686ad35470e9fc2dd5e421383779627327aac8904535",
+      "bytes": 16584474,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 505,
+      "pixel_format": "yuv420p",
+      "duration_seconds": 21.042
+    },
+    "wide": {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-phone-clean.mp4",
+      "sha256": "7680d7be1b0e04115fa5bf35fd5a05467a51e66ae88c001e565ea9386dba8a11",
+      "bytes": 5661526,
+      "width": 1920,
+      "height": 1080,
+      "fps": "24/1",
+      "frames": 505,
+      "pixel_format": "yuv420p",
+      "duration_seconds": 21.042
+    }
+  },
+  "reference_still": {
+    "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+    "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82",
+    "tool": "Built-in image_gen; identity-preserving edit of accepted portrait",
+    "prompt_path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/IMAGE-PROMPT.txt"
+  },
+  "recipe": {
+    "generation_request": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/SUBMISSION-INTENT.json",
+    "prompt": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/PROMPT.txt",
+    "restoration_request": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/SYNC-REQUEST.json",
+    "generation_job_id": "e048b142-f1ce-49f9-b0f5-9ff4dc0d57b5",
+    "restoration_request_id": "01a0900f-f031-78d3-be8e-98306cceec17",
+    "native_output": {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/generated-native.mp4",
+      "sha256": "74ea3bebd95321a39e7a6f1620574886ffe1f90964650096970375bf51ff273c"
+    },
+    "restored_source": {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/generated-original-audio.mp4",
+      "sha256": "19f57219ec8a75fe49880c560ad556006699e79ec4a2b9884ed5bae20f215f02"
+    }
+  },
+  "edit": {
+    "renderer": "HyperFrames 0.8.34",
+    "project_path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-EDIT/project",
+    "cut_frame_zero_based": 429,
+    "cut_seconds": 17.875,
+    "close_scale": 1.3,
+    "close_anchor": "top center",
+    "wide_scale": 1.004,
+    "source_edge_cleanup": "Tiny overscan removes a corrupted bottom strip present in the generated source. Full gesture and narration retained.",
+    "audio": "Original restored mono AAC copied into final rendered picture; no retime."
+  },
+  "review_url": "http://192.168.1.159:53833/",
+  "owner_accepted": false,
+  "accepted_baseline_remains": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/ACCEPTANCE.json",
+  "canonical_picture_audio_changed": false
+}

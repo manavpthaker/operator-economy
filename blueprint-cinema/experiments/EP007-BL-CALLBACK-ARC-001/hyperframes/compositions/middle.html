@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root, .stage {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #152f2c;
+        }
+        .film {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 1920px;
+          height: 1080px;
+          object-fit: cover;
+          object-position: 50% 50%;
+          background: #152f2c;
+        }
+      </style>
+
+      <div id="root" data-hf-id="callback-middle-root" data-composition-id="middle" data-start="0" data-duration="7.75" data-width="1920" data-height="1080" data-fps="24">
+        <div class="stage" data-hf-id="callback-middle-stage">
+          <video id="middle-reviewed-plate" class="film" data-hf-id="callback-middle-reviewed-plate" data-start="0" data-duration="7.75" data-track-index="0" data-playback-rate="1" src="assets/video/source/middle-review-cut-007.render-safe.mp4" muted playsinline preload="auto" aria-label="Generated illustrative context: competence, dependency revealed, and recognition"></video>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          window.__timelines = window.__timelines || {};
+          window.__timelines.middle = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

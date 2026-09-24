@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-composition-id="scene-02-permission" data-composition-duration="7.865">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #14263E;
+          color: #F5F0E6;
+          font-family: Supreme, system-ui, sans-serif;
+        }
+        .stage { position: absolute; inset: 0; overflow: hidden; }
+        .field-rule { position: absolute; left: 134px; right: 134px; top: 916px; height: 1px; background: rgba(245,240,230,.18); }
+        .history-label {
+          position: absolute;
+          left: 134px;
+          top: 832px;
+          font-size: 48px;
+          font-weight: 500;
+          letter-spacing: .08em;
+          color: rgba(245,240,230,.78);
+        }
+        .history-underline { position: absolute; left: 134px; top: 902px; width: 0; height: 3px; background: #C4A45F; }
+        .key-tag {
+          position: absolute;
+          left: 976px;
+          top: 515px;
+          width: 270px;
+          height: 126px;
+          transform-origin: 50% 50%;
+          z-index: 10;
+        }
+        .key-tag path { fill: #B08D3E; stroke: #C4A45F; stroke-width: 3; }
+        .key-tag circle { fill: #14263E; stroke: #F5F0E6; stroke-width: 2; }
+        .key-tag line { stroke: #7A5E24; stroke-width: 3; }
+        .gate-label {
+          position: absolute;
+          left: 1100px;
+          top: 155px;
+          width: 480px;
+          text-align: center;
+          font-size: 52px;
+          font-weight: 500;
+          letter-spacing: .12em;
+        }
+        .gate {
+          position: absolute;
+          left: 1280px;
+          top: 270px;
+          width: 160px;
+          height: 540px;
+        }
+        .post { position: absolute; top: 0; width: 12px; height: 540px; background: #F5F0E6; }
+        .post.left { left: 0; }
+        .post.right { right: 0; }
+        .bolt { position: absolute; left: 12px; top: 255px; width: 136px; height: 16px; background: #C4A45F; transform-origin: 100% 50%; }
+        .request-state {
+          position: absolute;
+          left: 1100px;
+          top: 742px;
+          width: 480px;
+          text-align: center;
+          font-family: Menlo, monospace;
+          font-size: 28px;
+          letter-spacing: .07em;
+          color: #C4A45F;
+          opacity: 0;
+        }
+        .resolved-dot { position: absolute; left: 1354px; top: 222px; width: 14px; height: 14px; background: #7B9E87; opacity: 0; }
+        .memory {
+          position: absolute;
+          left: 1450px;
+          top: 380px;
+          width: 330px;
+          height: 310px;
+          border: 2px solid #F5F0E6;
+          background: #F5F0E6;
+          color: #1A1A1A;
+          opacity: 0;
+        }
+        .memory-rule { position: absolute; left: 26px; right: 26px; top: 82px; height: 2px; background: #7A5E24; transform-origin: 0 50%; }
+        .memory-label { position: absolute; left: 26px; top: 100px; font-size: 44px; font-weight: 500; line-height: 1; letter-spacing: .06em; }
+        .memory-note { position: absolute; left: 26px; bottom: 32px; width: 260px; font-size: 28px; line-height: 1.35; color: #6B675E; }
+      </style>
+      <div id="root" data-composition-id="scene-02-permission" data-width="1920" data-height="1080" data-duration="7.865" data-fps="30">
+        <div id="scene-02-stage" class="stage clip" data-start="0" data-duration="7.865" data-track-index="0">
+          <div class="field-rule"></div>
+          <div class="history-label">FIRST STAY / OTA</div>
+          <div class="history-underline"></div>
+          <svg class="key-tag" viewBox="0 0 280 130" aria-label="Persistent brass completed-stay key tag">
+            <path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path>
+            <circle cx="43" cy="65" r="12"></circle>
+            <line x1="188" y1="30" x2="188" y2="100"></line>
+          </svg>
+          <div class="gate-label">PERMISSION</div>
+          <div class="gate">
+            <div class="post left"></div>
+            <div class="post right"></div>
+            <div class="bolt"></div>
+          </div>
+          <div class="request-state">REQUESTED · DOWNSTREAM CLOSED</div>
+          <div class="resolved-dot"></div>
+          <div class="memory">
+            <div class="memory-rule"></div>
+            <div class="memory-label">STAY<br />CONTEXT</div>
+            <div class="memory-note">CATEGORY ONLY<br />NO PERSONAL DATA</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="scene-02-permission"]');
+          const tag = root.querySelector(".key-tag");
+          const bolt = root.querySelector(".bolt");
+          const history = root.querySelector(".history-label");
+          const underline = root.querySelector(".history-underline");
+          const request = root.querySelector(".request-state");
+          const resolved = root.querySelector(".resolved-dot");
+          const memory = root.querySelector(".memory");
+          const memoryRule = root.querySelector(".memory-rule");
+          const tl = gsap.timeline({ paused: true });
+          tl.set(tag, { x: 0, y: 0, scale: 1, opacity: 1 }, 0);
+          tl.set(bolt, { x: 0, rotation: 0 }, 0);
+          tl.set([request, resolved, memory], { opacity: 0 }, 0);
+          tl.set(memoryRule, { scaleX: 0 }, 0);
+          tl.fromTo(tag, { x: 0 }, { x: 30, duration: .62, ease: "power3.out" }, .015);
+          tl.fromTo(underline, { width: 0 }, { width: 500, duration: .6, ease: "power2.out" }, .505);
+          tl.to(history, { opacity: .56, duration: .28, ease: "none" }, 1.665);
+          tl.fromTo(request, { opacity: 0 }, { opacity: 1, duration: .25, ease: "none" }, 1.758);
+          tl.fromTo(bolt, { x: 0, rotation: 0 }, { x: 96, rotation: 90, duration: .36, ease: "power3.inOut" }, 3.949);
+          tl.set(resolved, { opacity: 1 }, 4.309);
+          tl.to(request, { opacity: 0, duration: .2, ease: "none" }, 4.309);
+          tl.fromTo(tag, { x: 30, y: 0, scale: 1 }, { x: 430, y: -160, scale: .32, duration: .74, ease: "power3.inOut" }, 4.958);
+          tl.fromTo(memory, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .42, ease: "power2.out" }, 6.209);
+          tl.fromTo(memoryRule, { scaleX: 0 }, { scaleX: 1, duration: .44, ease: "power2.out" }, 6.209);
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["scene-02-permission"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-opening-presenter-readonly-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "experiments/EP007-PRESENTER-001/README.md", "sha256": "c693b7aa434d3f01ca6a126b71ac2b0009aa57458327120926e31e3c307206e1"},
+    {"path": "experiments/EP007-PRESENTER-001/study-composite-r10/BRIEF.md", "sha256": "cdf769ffc83aefaeeb2c9d1457c852cd9a4025a148e9302d3a3d929004293feb"},
+    {"path": "experiments/EP007-PRESENTER-001/repair-r10/README.md", "sha256": "18426a6f8b7644db4e2947f62b778bd275eef2272c36d7e430813dd918614ad3"},
+    {"path": "experiments/EP007-PRESENTER-001/repair-r10/status.json", "sha256": "8375b4e7515563f31072f528ec61812ac49700cc21bc00dcbb7e1dafc2bd5090"}
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-opening-presenter-readonly-20260908/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-opening-presenter-readonly-20260908/deliverable.json"
+  ],
+  "checks": [
+    {"command": "shasum -a 256 on all four pinned work-order inputs; all match", "outcome": "pass"},
+    {"command": "nl -ba and full reading of four pinned documents; existing scope versus proposed introduction distinction", "outcome": "pass"},
+    {"command": "Direct validate_work_order and validate_deliverable, without canonical gate validation", "outcome": "pass"},
+    {"command": "Media existence, actual playback, quality or exact output-hash verification", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Only the four exact local pinned documents were consulted as task evidence",
+    "Current J rendered status and preserved-performance claims are document assertions, not independently reverified media facts",
+    "No external sources, account inspection, media operations or generated media used"
+  ],
+  "assumptions": [
+    "A first-ten-second presenter placement requires synchronization to that exact locked narration rather than the existing scope passage",
+    "No first-ten-second take documented in these records is not a filesystem-wide proof of nonexistence"
+  ],
+  "unresolved_questions": [
+    "J continuous owner playback remains pending according to the pinned status",
+    "First-ten-second synchronized presenter footage is not established by the allowed records",
+    "Scope passage verbatim narration is not present in the four allowed records",
+    "Canonical inputs_locked remains unestablished; this packet does not validate or advance it"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

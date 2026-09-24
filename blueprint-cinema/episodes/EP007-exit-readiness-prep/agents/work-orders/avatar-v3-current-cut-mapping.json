@@ -1,0 +1,66 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "avatar-v3-current-cut-mapping",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "scene_director",
+  "objective": "Map every existing R29 presenter interval to narration and accepted V3 source availability. Prepare exact local audio excerpts and generation prompts for remaining words using accepted V3 references; preserve all approved cuts, framing and narration. Group contiguous post-title lines into one continuous source where valid. No generation or upload. Root is integrating the already accepted V3 hook; do not duplicate that edit.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r29-neutral-seller/index.html",
+      "sha256": "3b386dfe0b5bc7cdd4224e0992e9042500c137302320d95bb52456b6ae5e5742"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r29-neutral-seller/compositions/presenter-question.html",
+      "sha256": "1f33dce620c193a7133c9cf0983a43b912cde93163e0828e7954e260c59f89ae"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r29-neutral-seller/OWNER-ACCEPTANCE.json",
+      "sha256": "f2f77d3ca239d0ebf5e2e703df55fb012381335fe0a84849cd0c27d8b314cee0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/ACCEPTANCE.json",
+      "sha256": "5b6fa0fb68b5aeb470e681515ec49b4dcbbb00dcfe861666187bb918662b08dc"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/PROMPT.txt",
+      "sha256": "470ca2187ad6b8d375164a17bb00d4711a5b40b806900deeb7c470a040fd6a12"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/GENERATION-REQUEST.json",
+      "sha256": "716194132f4aafba3cc74da9966faacd0399a8d772361d179b34a47c6eebd6f2"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Inventory source/master/review clocks, exact words, any audio offset, picture holds and crop dependencies.",
+    "Retain both reference roles, exact narration, restrained articulation and settling. Wider hands framing is not selected.",
+    "Prepare prompts, extracted original WAVs and bounded request durations with source sample provenance. Never use V3 against different words.",
+    "Explain which exact current intervals require new source and which can reuse the locked opening."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Return report.md, mapping.json, prompt files, audio excerpts and standard deliverable.json in owned directory only.",
+    "No provider calls, browser changes, or current runtime edits."
+  ],
+  "status": "issued"
+}

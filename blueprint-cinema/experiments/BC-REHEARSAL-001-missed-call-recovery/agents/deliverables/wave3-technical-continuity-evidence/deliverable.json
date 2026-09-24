@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave3-technical-continuity-evidence",
+  "status": "complete",
+  "review_completed_at": "2026-08-20T20:41:21Z",
+  "input_hashes_verified": [
+    {
+      "path": "input-lock.json",
+      "expected_sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2",
+      "actual_sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2",
+      "status": "pass"
+    },
+    {
+      "path": "direction-lock.json",
+      "expected_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "actual_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "status": "pass"
+    },
+    {
+      "path": "direction/world.json",
+      "expected_sha256": "512775e52efd3466426aeada597532e6848335bca21ff38ae8834fd7efbd183b",
+      "actual_sha256": "512775e52efd3466426aeada597532e6848335bca21ff38ae8834fd7efbd183b",
+      "status": "pass"
+    },
+    {
+      "path": "direction/asset-tickets.json",
+      "expected_sha256": "598b8e01ffd760219005c416ffb71eb355228246340f0fa109af3c39bb37f05a",
+      "actual_sha256": "598b8e01ffd760219005c416ffb71eb355228246340f0fa109af3c39bb37f05a",
+      "status": "pass"
+    },
+    {
+      "path": "assets/fixtures/fixture-missed-call-log.csv",
+      "expected_sha256": "2ab69fcdd524f45d096fd1339447d484dc8e473a2630d07960226b2e485f40f4",
+      "actual_sha256": "2ab69fcdd524f45d096fd1339447d484dc8e473a2630d07960226b2e485f40f4",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/index.html",
+      "expected_sha256": "d4a7587b83b00c642255b6d41d39c4e6c0e80db22c2dd45e91b79724a2eb7c62",
+      "actual_sha256": "d4a7587b83b00c642255b6d41d39c4e6c0e80db22c2dd45e91b79724a2eb7c62",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-directed-animatic.mp4",
+      "expected_sha256": "091e8be81d196a8e27e9322a5664201204cbc3ac644a17af558371b1e5cccca8",
+      "actual_sha256": "091e8be81d196a8e27e9322a5664201204cbc3ac644a17af558371b1e5cccca8",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/renders/BC-REHEARSAL-001-contact-sheet.jpg",
+      "expected_sha256": "dd6cf528cf09d175d3ec5c6529bb09501722a130cdbd5b8c5faf9889d4baa6ef",
+      "actual_sha256": "dd6cf528cf09d175d3ec5c6529bb09501722a130cdbd5b8c5faf9889d4baa6ef",
+      "status": "pass"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave3-technical-continuity-evidence/review.md",
+      "sha256": "223fc3395645489c4a9cab0b279be6a48a62ece63bb9189d94ddedc346c0c133"
+    }
+  ],
+  "findings_summary": {
+    "blocking": 0,
+    "major": 3,
+    "minor": 3,
+    "headline": "The actual render preserves the causal route, persistent identities, human release, stop terminal, and synthetic-fixture warning, but the tag state lags at REVIEWED, Shot 06 drops its operator ticket identity, and the Resolve handoff needs an explicit subframe-boundary rounding policy."
+  },
+  "acceptance_checks": [
+    {
+      "check": "recompute every pinned input hash before review",
+      "status": "pass",
+      "notes": "All eight required SHA-256 values were recomputed before review; every value matched the work order exactly."
+    },
+    {
+      "check": "probe or independently inspect the MP4 duration, dimensions, frame rate, codec, and audio presence",
+      "status": "pass",
+      "notes": "The file is a 1920x1080, 30 fps, 1843-frame H.264/AAC MP4 with 61.433333-second video and 61.418000-second audio. Decoded audio matches the locked VO at 165.062 dB APSNR over the lock."
+    },
+    {
+      "check": "run separate continuity, motion-discipline, evidence-honesty, disclosure, and rendered-compression passes",
+      "status": "pass",
+      "notes": "Six distinct passes are recorded in review.md, including a separate Resolve-handoff-risk pass."
+    },
+    {
+      "check": "verify persistent call-tag and work-order-card identity and state progression across all seven shots",
+      "status": "pass",
+      "notes": "Identity persists and the card advances EMPTY to OFFERED to SCHEDULED to MEASURED at the directed causal contacts. Major finding M1 records that the tag's visible state remains REVIEWED instead of advancing to the world model's booked state."
+    },
+    {
+      "check": "verify fixture context, extracted field, system attachment, behavior change, persistent pin, and exact synthetic warning",
+      "status": "pass",
+      "notes": "Actual MP4 samples show context at 27.80, call_time highlight at 29.87, 20:47 extraction at 30.36, uncertain classification and human hold, and the exact warning continuously pinned from 33.60 through 61.40."
+    },
+    {
+      "check": "audit placeholders against exact asset-ticket IDs and flag anything that could be mistaken for evidence or finished material",
+      "status": "pass",
+      "notes": "AST-REALITY-001, AST-DISPATCH-002, AST-OPERATOR-003 in Shot 04, and AST-OUTCOME-004 are visibly identified. Major finding M2 flags Shot 06's unticketed OPERATOR HAND placeholder."
+    },
+    {
+      "check": "return ranked blocking, major, and minor findings and state Resolve-handoff risks without editing the handoff",
+      "status": "pass",
+      "notes": "review.md records zero blocking, three major, and three minor findings. It distinguishes actual render defects from frame-boundary, version-metadata, channel, alpha, and marker risks. No handoff file was edited or treated as a pinned authority."
+    },
+    {
+      "check": "write only the two owned deliverable files",
+      "status": "pass",
+      "notes": "Only review.md and deliverable.json were created under the work-order-owned deliverable directory."
+    },
+    {
+      "check": "state explicitly that no gate approval or state change is claimed",
+      "status": "pass",
+      "notes": "This manifest and review both limit complete to packet completion; approval_claimed and production_state_changed are false."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The hash-pinned MP4 and contact sheet are the render-review authority for this packet; concurrently assembled handoff files are outside the pinned review input set.",
+    "The actual rendered start frame for a subframe decimal shot boundary is the first 30 fps presentation timestamp at or after that boundary.",
+    "The review MP4 is an internal animatic reference, not a finishing master, alpha plate, mastered-VO source, public evidence object, or creative approval."
+  ],
+  "blockers": []
+}

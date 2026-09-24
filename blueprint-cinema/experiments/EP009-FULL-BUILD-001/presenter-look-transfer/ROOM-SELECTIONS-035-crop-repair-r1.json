@@ -1,0 +1,89 @@
+{
+  "record_type": "ep009_existing_performance_room_selections",
+  "status": "selected_for_private_review_conform",
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "look_reference": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+  },
+  "selections": [
+    {
+      "segment": "seg035",
+      "crop_repair_plan": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/CROP-REPAIR-PLAN.json",
+        "sha256": "6880da86781810bc44cdfcb782f2e247b6bc129e8c48d4d94a49cd97cab78634"
+      },
+      "pieces": [
+        {
+          "id": "seg035-close-r2",
+          "source": {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg035-close-r2/native.mp4",
+            "sha256": "8216c0b4c69b2e50e1eccc1df1c2e5072136892e955d10ff1a276a073304d528"
+          },
+          "source_frames": [
+            0,
+            100
+          ],
+          "original_frames": [
+            0,
+            100
+          ]
+        },
+        {
+          "id": "seg035-wide-r1",
+          "source": {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/native.mp4",
+            "sha256": "ca8220d1ab12e5f2233282cd25d18cde9c1442e584461ebd3271de2af5f91d0b"
+          },
+          "source_frames": [
+            100,
+            258
+          ],
+          "original_frames": [
+            100,
+            258
+          ]
+        }
+      ],
+      "scoped_review": {
+        "status": "complete",
+        "flagged": false,
+        "reviewer": "ep009_assembly_audit (close and seam), root (retained wide)",
+        "method": "Complete union of bound exact-interval reviews; new first100 close plus already reviewed wide100\u2013258, with seam98\u2013101 inspected.",
+        "limits": "Frame-based scoped review only; no normal-speed audiovisual or owner acceptance. Original timing/crops and inherited lip sync remain; original failed full-room close is excluded.",
+        "target_appearance_matches": true,
+        "identity_preserved": true,
+        "preserved": {
+          "hands": true,
+          "facial_expressions": true,
+          "head_and_body": true,
+          "camera_and_crops": true,
+          "timing": true
+        },
+        "change_scope_confirmed": "outfit_and_environment_only",
+        "evidence": [
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg035-close-r2/qa-selected/ROOM-REVIEW.json",
+            "sha256": "50cb790779fa23fa7e77f0af50c8aae200a4339bde692ec393d8d0e6e9510ca6"
+          },
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/qa-wide/ROOM-WIDE-REVIEW.json",
+            "sha256": "30cbc5a2be29ea841435aa1883d27a724c4a64b139c011150695f69f3b421114"
+          }
+        ]
+      }
+    }
+  ],
+  "at": "2026-09-18T01:13:40.688068+00:00"
+}

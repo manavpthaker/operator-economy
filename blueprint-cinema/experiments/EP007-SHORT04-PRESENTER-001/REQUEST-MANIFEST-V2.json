@@ -1,0 +1,73 @@
+{
+  "record_type": "ep007_short04_presenter_request_manifest_v2",
+  "at_utc": "2026-09-23T00:57:40Z",
+  "status": "corrected_local_request_packet_no_upload_or_generation",
+  "active_for_future_submissions": true,
+  "supersedes": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/REQUEST-MANIFEST.json",
+    "sha256": "70166e02dc4484e9ccf251945add49e63297a7c6a643496f9ab913a126438e9a",
+    "scope": "Replace only segment-b return audio, prompt, start time and request binding. The v1 segment-b was never uploaded or submitted by this task."
+  },
+  "inputs": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/INPUT-MANIFEST-V2.json",
+    "sha256": "a528039376d92a2a05bc57c36ad1c4eea1e464f2aba57a42bda6752a45b762e5"
+  },
+  "owner_authority": {
+    "event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope": "first-pass private review sound-on videos, no release"
+  },
+  "active_requests": [
+    {
+      "segment": "segment-a-opening",
+      "duration_seconds": 9,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/PROMPT.txt",
+      "prompt_sha256": "6e78d61b915f7feec4a78c0bdfd0639988d74ef5012333e2746a2bf05f1e932e",
+      "audio_upload_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/original-c-opening.mp3",
+      "audio_upload_sha256": "38120fa6462e7715fba73b192926ccd79d6e7f5978ad55fe49be138e484e69a6",
+      "audio_media_id": null,
+      "read_only_quote_credits": 108
+    },
+    {
+      "segment": "segment-b-return-v2",
+      "duration_seconds": 8,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/PROMPT.txt",
+      "prompt_sha256": "1ad664765d2092bb010bebe51ba04a7e7828a8d3e876e85dac2c0d5ee84ba00b",
+      "audio_upload_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/media/original-c-return-v2.mp3",
+      "audio_upload_sha256": "c01a7d5e163d6e5b9e9014cf8d601d085f3b0bec71fb432bc9ab729b1abba9e1",
+      "audio_media_id": null,
+      "read_only_quote_credits": 96
+    }
+  ],
+  "shared_provider_params_for_each_request": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "aspect_ratio": "9:16",
+    "resolution": "1080p",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias_order": [
+      {"role": "image", "historical_short01_media_id": "c1b2e523-a324-4f1e-8d71-d737cb6e937f"},
+      {"role": "video", "historical_short01_media_id": "bed3e517-4335-42d7-82bb-530a751b578a"},
+      {"role": "video", "historical_short01_media_id": "1023532b-c45f-4584-95a6-cbd57887610a"},
+      {"role": "audio", "media_id": null, "require_new_upload_and_confirmation": true}
+    ]
+  },
+  "same_mode_read_only_quote": {
+    "observed_no_later_than_utc": "2026-09-23T00:54:11Z",
+    "higgsfield_balance_credits": 4062,
+    "nine_second_credits": 108,
+    "eight_second_credits": 96,
+    "two_clip_total_credits": 204,
+    "qualification": "Quote used identical model, mode, 9:16, 1080p, high bitrate, generate_audio true and count 1, but not final prompts or media IDs. Revalidate after audio upload and against remaining Shorts 02–04 cap before submission."
+  },
+  "next_gate": "Upload and confirm only the active MP3s, verify reference media IDs, quote final requests, then save per-clip immutable intents. Never submit the superseded v1 return request.",
+  "max_generation_attempts_per_active_request": 1,
+  "automatic_retries": 0,
+  "provider_uploads_by_this_packet": 0,
+  "generation_jobs_submitted_by_this_packet": 0,
+  "owner_listening": "pending_finished_private_review_not_passed"
+}

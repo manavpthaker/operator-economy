@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #scene-03-defined-preparation-scope {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .s3-field { position: absolute; inset: 0; background: #f5f0e6; }
+        .s3-work-order {
+          position: absolute;
+          left: 58px;
+          top: 110px;
+          width: 900px;
+          height: 1270px;
+          padding: 42px 46px;
+          background: #fbf8f1;
+          border: 4px solid #586d74;
+          box-shadow: 14px 16px 0 #e2dccd;
+        }
+        .s3-doc-kicker {
+          margin: 0;
+          color: #33464c;
+          font-size: 19px;
+          font-weight: 500;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+        .s3-doc-title {
+          margin: 13px 0 0;
+          max-width: 740px;
+          color: #204440;
+          font: 700 62px/0.92 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.04em;
+        }
+        .s3-doc-rule {
+          position: absolute;
+          left: 46px;
+          right: 46px;
+          top: 188px;
+          height: 3px;
+          background: #71868d;
+        }
+        .s3-scope-grid {
+          position: absolute;
+          left: 46px;
+          right: 46px;
+          top: 244px;
+          height: 712px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          border: 3px solid #586d74;
+          background: #ede7d8;
+        }
+        .s3-scope-field {
+          position: relative;
+          padding: 34px 32px 30px;
+          opacity: 0;
+        }
+        .s3-scope-field:nth-child(odd) { border-right: 3px solid #71868d; }
+        .s3-scope-field:nth-child(-n+2) { border-bottom: 3px solid #71868d; }
+        .s3-field-verb {
+          color: #33464c;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+        .s3-field-title {
+          margin-top: 18px;
+          color: #204440;
+          font: 700 48px/0.94 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.035em;
+        }
+        .s3-field-rule {
+          position: absolute;
+          left: 32px;
+          right: 32px;
+          bottom: 34px;
+          height: 3px;
+          background: #71868d;
+          transform-origin: 0 50%;
+        }
+        .s3-open-check {
+          position: absolute;
+          left: 46px;
+          right: 46px;
+          top: 1016px;
+          min-height: 132px;
+          padding: 25px 28px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          color: #fbf8f1;
+          background: #173530;
+          border-left: 8px solid #71868d;
+          opacity: 0;
+        }
+        .s3-open-label {
+          color: #ede7d8;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+        .s3-open-action {
+          color: #fbf8f1;
+          font: 700 37px/0.98 "BL Zodiak", Georgia, serif;
+          text-align: right;
+        }
+      </style>
+
+      <section id="scene-03-defined-preparation-scope" data-composition-id="scene-03-defined-preparation-scope" data-start="0" data-duration="8.6" data-width="1080" data-height="1920">
+        <div class="s3-field" aria-hidden="true"></div>
+
+        <article class="s3-work-order" data-hf-id="preparation-work-order">
+          <p class="s3-doc-kicker">Sale-readiness work order</p>
+          <h1 class="s3-doc-title">DEFINED PREPARATION WORK</h1>
+          <div class="s3-doc-rule" aria-hidden="true"></div>
+
+          <div class="s3-scope-grid" aria-label="Defined preparation scope">
+            <section id="s3-field-01" class="s3-scope-field">
+              <div class="s3-field-verb">Map</div>
+              <div class="s3-field-title">OWNER DEPENDENCIES</div>
+              <div class="s3-field-rule" aria-hidden="true"></div>
+            </section>
+            <section id="s3-field-02" class="s3-scope-field">
+              <div class="s3-field-verb">Organize</div>
+              <div class="s3-field-title">RECORDS</div>
+              <div class="s3-field-rule" aria-hidden="true"></div>
+            </section>
+            <section id="s3-field-03" class="s3-scope-field">
+              <div class="s3-field-verb">Document</div>
+              <div class="s3-field-title">OPERATIONS</div>
+              <div class="s3-field-rule" aria-hidden="true"></div>
+            </section>
+            <section id="s3-field-04" class="s3-scope-field">
+              <div class="s3-field-verb">Deliver</div>
+              <div class="s3-field-title">READINESS PLAN</div>
+              <div class="s3-field-rule" aria-hidden="true"></div>
+            </section>
+          </div>
+
+          <div class="s3-open-check">
+            <div class="s3-open-label">Jurisdiction check remains open</div>
+            <div class="s3-open-action">VERIFY YOUR JURISDICTION</div>
+          </div>
+        </article>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const F = 1 / 24;
+        const fieldCues = [
+          ["#s3-field-01", 1.3, 70, 0.18],
+          ["#s3-field-02", 2.94, 48, 0.15],
+          ["#s3-field-03", 4.42, 48, 0.15],
+          ["#s3-field-04", 5.92, 70, 0.18]
+        ];
+
+        fieldCues.forEach(([selector, start, offset, duration], index) => {
+          tl.set(selector, { opacity: 1, y: offset }, start);
+          tl.to(selector, { y: 0, duration, ease: "power4.out" }, start);
+          tl.fromTo(`${selector} .s3-field-rule`, { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, start + duration + F);
+        });
+
+        tl.set(".s3-open-check", { opacity: 1, y: 54 }, 7.26);
+        tl.to(".s3-open-check", { y: 0, duration: 0.18, ease: "power4.out" }, 7.26);
+
+        window.__timelines["scene-03-defined-preparation-scope"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+# R32 question native: independent performance review
+
+2026-09-11. Exact native SHA-256: `3e85d2167751b9d305c8faf697bba82e990d61c6d08326b79e55a0113351ac4b`. All five issued input hashes verified. Root's existing metrics and two contact sheets were read without rerunning or overwriting QA.
+
+**Assessment:** the requested pensive progression is visible. No obvious identity, anatomy or source-framing blocker appears in the 21 sampled positions. Continue to the restored original-audio review, with expression intensity as the main editorial watchpoint.
+
+- **Progression:** the early face is relatively relaxed. Brows lift around source 7.83–9 seconds, then gather inward from about 10 seconds. Hands are already resting on the table during the later turn. The face changes across the thought rather than wearing the same expression throughout.
+- **Intensity — observation:** pronounced inner-brow gathering and some eye narrowing remain visible around 10–11.75 seconds. My reading is concerned/questioning, stronger than the prompt's very slight, quiet consideration. It does not clearly establish anger or accusation. The intended close crop will emphasize this feature, so judge its duration and tone in restored normal-speed context before treating it as acceptable or requiring revision. These samples alone do not establish excessive performance at speed.
+- **Gaze and articulation:** attention remains near the lens in the inspected positions, with ordinary blink samples and no observed upward/sideways gaze break. Mouth shapes vary; there is no constant teeth-visible pose. Native regenerated speech cannot establish matching to the original words, cadence or visemes.
+- **Framing/hands:** the navy shirt, glasses, facial appearance, study and fixed wide composition remain visually coherent. Both hands and forearms remain in frame; restrained hand activity appears near 5.2 seconds, with table rest through the later question. No obvious extra/fused hand or finger defect is visible at contact-sheet scale. Anatomy and motion between samples are not certified.
+- **Endpoint:** native lips are closed at 12.5 and 13 seconds, with hands resting. The expression eases relative to its peak. The new restored source still needs its own measured placement, complete final word and quiet endpoint check; no older offset or native ending time should be inherited.
+
+Root's pinned metrics report a clean full decode, 1920×1080 HEVC 10-bit, 313 frames at 24 fps, 13.041667 seconds, zero duplicate/backward timestamps and no exact adjacent repeated frames. These technical results were reviewed, not rerun. They do not prove natural motion or audiovisual synchronization.
+
+Evidence: [face progression](../r32-generated-performance-qa/question-pensive-native-face.jpg), [whole performance](../r32-generated-performance-qa/question-pensive-native-performance.jpg), [issued metrics](../r32-generated-performance-qa/question-pensive-native-metrics.json). Review was sequential sampled-position inspection, not uninterrupted audiovisual playback. No approval, provider action, runtime edit or history change is claimed.

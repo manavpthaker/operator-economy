@@ -1,0 +1,162 @@
+# Provider Bakeoff Results
+
+Status: `auth02_blocked_before_upload_on_hume_model_compatibility_and_external_gates`
+
+## Current result
+
+No provider comparison result exists. AUTH-01 stopped after finding multiple samples. AUTH-01B
+recorded a complete three-sample metadata inventory. AUTH-01C then attempted the separately
+authorized exact three-sample local review, but the first response did not match its inventory-
+bound byte count. The action stopped after that one call and preserved the response as blocked
+evidence for owner listening. The owner has since confirmed that exact SHA as his original human,
+single-speaker recording and approved one Hume upload/clone in principle. No upload occurred:
+current Hume documentation makes the frozen Octave 1 clone-plus-acting-description challenger
+unavailable, and the account, commercial-terms, source-content-rights, browser, and consumption
+gates remain open.
+
+| State | Result |
+| --- | --- |
+| Exact locked passage identities | runtime-validated against the 3,019-token canonical W |
+| Provider-neutral performance envelope | runtime-validated: 2 passages, 35 paragraph boundaries, 14 thought boundaries |
+| Provider adapters | runtime-validated: ElevenLabs and Hume each bind both passages |
+| Bakeoff plan | runtime-validated: 6 primary calls, 8 expected outputs, no external authority |
+| ElevenLabs dry-run compilation | CLI-generated and non-executable: 4 primary calls, 4 outputs |
+| Hume dry-run compilation | historical provisional Octave 1 compilation; current clone-plus-description method is incompatible and non-executable |
+| ElevenLabs read-only identity audit | AUTH-01 and AUTH-01B consumed; AUTH-01C consumed; first sample size mismatch; samples two and three untouched |
+| Hume UI upload/clone | owner consent recorded; AUTH-02 draft and blocked; not run |
+| ElevenLabs calibration | not authorized; not run |
+| Hume calibration | not authorized; not run |
+| Provider calls made | `3` cumulative read-only ElevenLabs calls: two metadata calls, then one sample-audio call |
+| Credentials accessed | environment-only for AUTH-01, AUTH-01B, and AUTH-01C; not persisted |
+| Samples retrieved or uploaded | one exact response preserved; owner provenance confirmed for its exact SHA; zero uploads |
+| Voices cloned | `0` |
+| Audio files produced | one provider response stored locally for review; zero narration or bakeoff candidates |
+| Blind scores | not available |
+| Long-form confirmation | not available |
+| Selected provider | none |
+| Owner creative decision | exact source confirmed; revised Hume test decision pending |
+
+## AUTH-01 execution result
+
+The single authorized metadata call returned multiple attached samples. The runner did not choose
+among them and did not make the permitted download call. The authorization was consumed before
+network access and cannot be retried. No local voice media exists, and Hume remains untouched.
+
+The failed-closed AUTH-01 receipt preserved the multiple-sample reason but not its inventory. That
+receipt defect was repaired before AUTH-01B. AUTH-01B then made one independently authorized
+metadata call and stored only the safe normalized inventory below. It made no selection and had no
+download path.
+
+## AUTH-01B inventory
+
+| Filename | Sample ID | MIME | Provider bytes | Provider provenance fields |
+| --- | --- | --- | ---: | --- |
+| `ivc_1.mp3` | `rHrnt10vbIpD444OcGVZ` | `audio/mpeg` | 5,760,813 | category/source/original/generated not exposed |
+| `ivc_3.mp3` | `snRkGS2XRR1nJW0hIGJP` | `audio/mpeg` | 5,592,621 | category/source/original/generated not exposed |
+| `ivc_2.mp3` | `W8D70GbyW9cfeYGLRWQF` | `audio/mpeg` | 5,760,813 | category/source/original/generated not exposed |
+
+The inventory is structurally complete: three well-formed entries, three unique IDs, and three
+filenames. It is not provenance proof. The generic filenames and absent provider provenance fields
+do not support choosing one sample. A later local-only download requires a new exact authorization;
+Hume remains untouched.
+
+## AUTH-01C execution result
+
+AUTH-01C was committed, consumed before network access, and limited to the three exact inventory
+entries. The first endpoint returned an 8,641,768-byte MP3 instead of the inventory-bound
+5,760,813-byte identity. The runner preserved those bytes as blocked evidence, wrote immutable
+receipts, and stopped with `sample_size_identity_mismatch`. It made no metadata call, redirect,
+retry, second-sample request, or third-sample request.
+
+The preserved response is a technically decodable six-minute, 44.1 kHz, mono, 192 kbps MP3. Its
+SHA-256 is `dd3f0887acb5bc4c623476eb053136d3f0ce7d6828168874911f8b0dcecd64f9`.
+Those technical properties alone did not clear identity or provenance. The owner subsequently
+confirmed the exact SHA as his original human recording containing only him, and approved one Hume
+upload/clone in principle. That owner disposition does not repair or resume AUTH-01C. Hume remains
+blocked on a separate active AUTH-02 and the current compatibility, account, terms, source-content,
+browser, and consumption gates.
+
+At the owner's explicit request, one 12-second AAC review proxy was published for mobile listening.
+Only that proxy is public. Its publication does not approve the sample, clear provenance, or expose
+the six-minute source.
+
+## AUTH-02 pre-upload result
+
+No Hume upload or clone occurred. The owner-source provenance record binds the exact local SHA and
+preserves the provider metadata discrepancy. Current official Hume documentation now says:
+
+- Hume directs instant voice cloning to Octave 2;
+- a voice created with Octave 2 cannot be used with Octave 1; and
+- the separate natural-language acting `description` remains available only in Octave 1.
+
+That prevents the frozen fixture from combining Manav identity with the acting-control method it
+was designed to test. Creating a clone anyway would consume the one approved upload/clone action
+without creating the planned challenger. AUTH-02 therefore remains draft and non-executable.
+
+## Planned comparison inventory
+
+| Passage | Eleven candidate A | Eleven candidate B | Hume candidate A | Hume candidate B |
+| --- | --- | --- | --- | --- |
+| `P01-S00` | planned | planned | blocked on clone receipt | blocked on clone receipt |
+| `P02-S11-S12` | planned | planned | blocked on clone receipt | blocked on clone receipt |
+
+## Runtime-derived request and character counts
+
+These numbers are dry-run planning values only. The compiled record is authoritative once present.
+
+| Provider | Primary calls | Expected outputs | Primary billable characters | Primary modeled cost | Maximum calls with one fallback per primary | Maximum repeated characters | Maximum modeled cost |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| ElevenLabs v3 | 4 | 4 | 6,540 | `$0.6540` | 8 | 13,080 | `$1.3080` |
+| Hume Octave 1 | 2 | 4 | 6,278 | `$0.9417` | 4 | 12,556 | `$1.8834` |
+| Combined | 6 | 8 | 12,818 | `$1.5957` | 12 | 25,636 | `$3.1914` |
+
+The maximum assumes exactly one separately bound fallback attempt for every failed primary request.
+A fallback is conditional, not a planned generation, and does not increase the expected eight
+candidate outputs. The two Eleven generations for a passage have identical text, paragraph
+separators, tags, bodies, and character counts. No estimate is an account quote, invoice
+prediction, authorization, or evidence of commercial-use eligibility.
+
+## Reproducible provider score
+
+Score all eight blinded clips. After the signed score sheets are frozen and the provider map is
+unblinded:
+
+1. The owner and one independent listener each score all eight clips. A clip's score is the
+   arithmetic mean of those two frozen totals.
+2. For each provider and passage, select its highest-scoring candidate that passed every hard
+   gate.
+3. A disqualified candidate cannot represent the provider, even if its preference score is high.
+   If neither generation passes one passage, that provider is ineligible.
+4. The provider short-form score is the arithmetic mean of its selected `P01-S00` score and its
+   selected `P02-S11-S12` score.
+5. Record the alternate candidate's failures and variance as operational evidence; do not average
+   it into or subtract it from the provider score.
+6. A provider must score at least 80 to remain eligible. The leader advances; a runner-up within
+   5.0 points also advances. A provider more than 5.0 points behind does not advance.
+7. Long-form continuity and the several-hours-later same-word pickup are pass/fail confirmation;
+   they never rescore or change the frozen short scores.
+8. Retain ElevenLabs when it remains eligible, passes confirmation, and its frozen short score
+   leads Hume or is within 5.0 points of Hume. Adopt Hume only when it scores at least 80, leads
+   ElevenLabs by more than 5.0 points, and passes confirmation. If neither reaches 80, the favored
+   path fails confirmation, or the comparison is unavailable, select neither.
+
+| Provider | Best passing P01 candidate /100 | Best passing P02 candidate /100 | Provider short-form score /100 | Within five points |
+| --- | ---: | ---: | ---: | --- |
+| ElevenLabs |  |  |  | yes / no |
+| Hume |  |  |  | yes / no |
+
+## Decision record
+
+- Blind review date:
+- Blind-map custodian:
+- Independent listener(s):
+- Owner listener:
+- Passage-level winner(s):
+- Long-form confirmation winner:
+- Selected acquisition path:
+- Rejected path and reason:
+- Caveats:
+- Owner signature/date:
+
+Do not mark a winner until every candidate passes lexical conformity and provenance, the scorer
+remains blind to provider identity, and the winning path passes the long-form confirmation.

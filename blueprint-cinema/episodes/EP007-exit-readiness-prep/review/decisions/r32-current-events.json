@@ -1,0 +1,99 @@
+[
+  {
+    "event_id": "r31-owner-performance-revision-v1",
+    "decision_id": "avatar-current-edit-update",
+    "event_type": "feedback",
+    "tags": [
+      "avatar",
+      "eyeline",
+      "cut-timing",
+      "buyer",
+      "sync"
+    ],
+    "data": {
+      "decision_event_id": "avatar-v5-question-seam-v4",
+      "actor": "owner",
+      "verbatim": "- i think we keep on my until after 25 years. we can zoom in for \"same business for 25 years\"\n- that cut to the buyer after \"that pause...\" needs to be a different angle. from the front off center like when they're talking and have him look down or look away.\n- the look away at \"one number\" is out of place.\n- the queston... clip im not sure the sync is accurate or it could be the c onnection choppy.\n- when im asking the question my expression should change into something more pensive",
+      "interpretation": "Keep V5 baseline; revise opening coverage, buyer angle, emphasis eyeline and question expression. Question sync concern is explicitly uncertain.",
+      "verdict": "revise",
+      "scope": "R31 presenter performance and buyer reaction choices; no acceptance of all new R31 takes.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/RUNTIME-PINS.json",
+          "sha256": "ca2dae1aa0a1c68b69f905e7ab543d3f968ff2135b2db8eb27c0f4aeb532d5aa"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/r32-owner-feedback.json",
+        "sha256": "e5c5bfd87da39e093bc92db4124f04d8368d77a23a26b9526141eafc6237da16",
+        "locator": "current owner message"
+      }
+    ]
+  },
+  {
+    "event_id": "r32-opening-and-performance-v5",
+    "decision_id": "avatar-current-edit-update",
+    "event_type": "decision",
+    "supersedes": "avatar-v5-question-seam-v4",
+    "tags": [
+      "avatar",
+      "eyeline",
+      "cut-timing",
+      "buyer",
+      "sync"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Keep the narrator accountable for the opening premise and question, with coverage that supports the precise thought.",
+        "viewer_before": "The introduction cuts away before years lands; a glance distracts from one number; question reads evenly.",
+        "viewer_after": "The first sentence completes on presenter, emphasis stays directed toward viewer, and the question visibly becomes considered."
+      },
+      "choice": "R32: extend accepted V5 opening through frame152, begin a12-frame push at frame77 on same business to scale1.32, then cut to workshop. Inspect alternative frontal buyer coverage. Prepare post-title replacement with lens-adjacent eye contact across one number and question replacement with a restrained pensive turn, while diagnosing existing question in a standalone file.",
+      "reason": "User specifically asks to complete the first sentence on presenter, replace the profile buyer angle, remove mistimed eye movement and give the question an intentional expressive progression.",
+      "alternatives": [
+        {
+          "choice": "Tighter crop to hide the look-away",
+          "reason_not_selected": "Cropping cannot correct eye direction."
+        },
+        {
+          "choice": "Assume the question is a connection problem",
+          "reason_not_selected": "Source and standalone playback must be compared before assigning cause."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "Spoken emphasis depends on direct address and a question asks the viewer to think.",
+        "avoid_when": "A look-away is itself motivated by thought or shared observation."
+      },
+      "nuance": {
+        "source_basis": "current explicit owner feedback",
+        "opening": {
+          "start_frame": 0,
+          "end_frame": 152,
+          "zoom_start_frame": 77,
+          "zoom_end_frame": 89,
+          "fps": 24,
+          "source_in_frames": 1,
+          "cut_seconds": 6.333333333333333,
+          "word_ids": [
+            "W000014",
+            "W000019"
+          ],
+          "next_shot": "workshop-wide",
+          "next_source_in": 6.333333333333333
+        },
+        "performance": "Glances remain available in V5; avoid at this promise. Pensive means hands settle, slight brow gathering and softer pace of expression while original speech cadence stays unchanged, no exaggerated frown or chin-on-hand pose.",
+        "paid_status": "No new provider authority inferred from consumed R31 batch. New jobs, if needed, require a prepared scoped cost approval."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/r32-owner-feedback.json",
+        "sha256": "e5c5bfd87da39e093bc92db4124f04d8368d77a23a26b9526141eafc6237da16",
+        "locator": "current owner message"
+      }
+    ]
+  }
+]

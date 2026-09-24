@@ -1,0 +1,144 @@
+{
+  "schema_version": "oe-elevenlabs-account-recovery-http-200-zero-body-failure-disposition-v1",
+  "record_id": "V1-ELEVENLABS-ACCOUNT-RECOVERY-HTTP-200-ZERO-BODY-FAILURE-DISPOSITION-20260826T135047Z",
+  "status": "immutable_local_disposition",
+  "recorded_at": "2026-08-26T13:50:47Z",
+  "provider": "elevenlabs",
+  "scope": "elevenlabs_account_recovery_verification",
+  "attempt_binding": {
+    "authorization_id": "AUTH-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T133955Z",
+    "authorization_path": "authorizations/14-elevenlabs-account-recovery.ACTIVE.20260826T133955Z.json",
+    "authorization_sha256": "e16537a274c9b4f54a9c50c248b1757f7510f05b8092eb6d10e78a07d7cf1eae",
+    "authorization_commit": "a40c2c49eae77f7c54376f11e9dca1ff93f42524",
+    "runtime_commit": "b3dc9bdd6701efeb19a99c61c7208e7dc41852ca",
+    "authorization_mode": "0600",
+    "authorization_current_uid": true,
+    "authorization_link_count": 1,
+    "credential_read_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-recovery-credential-read-one-shot.consumed.json",
+      "sha256": "4992d2a318584efc7d6bf483931d4a777f659e9c5d6e1f893ef61aa620c53157",
+      "status": "credential_read_attempt_consumed_before_dotenv_read",
+      "consumed_at": "2026-08-26T13:45:23.442797+00:00",
+      "mode": "0600",
+      "current_uid": true,
+      "link_count": 1
+    },
+    "provider_call_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-recovery-provider-one-shot.consumed.json",
+      "sha256": "dedb2de93b876fdc3a0ef6f36e68cefe7b8f99cad01b811eebe80caff6a378ca",
+      "status": "provider_get_authority_consumed_after_credential_readiness",
+      "consumed_at": "2026-08-26T13:45:24.055345+00:00",
+      "mode": "0600",
+      "current_uid": true,
+      "link_count": 1
+    },
+    "failure_receipt": {
+      "path": "receipts/elevenlabs-account/AUTH-ACCOUNT-RECOVERY-ai-visibility-v1.1-read-only-user-verification-20260826T133955Z.recovery-failure.json",
+      "sha256": "5340db5eabe90110479001ea4b0d3f697971978fc1d83f45f3e77cf0c1a7c654",
+      "started_at": "2026-08-26T13:45:24.353507+00:00",
+      "failed_at": "2026-08-26T13:45:24.582310+00:00",
+      "mode": "0600",
+      "current_uid": true,
+      "link_count": 1
+    }
+  },
+  "observed_outcome": {
+    "authorization_consumed": true,
+    "credential_read_authority_consumed": true,
+    "provider_get_authority_consumed": true,
+    "outcome": "failed_closed",
+    "failure_code": "provider_total_deadline_unenforceable",
+    "network_called": true,
+    "provider_response_received": true,
+    "http_status": 200,
+    "provider_get_attempts_consumed": 1,
+    "provider_post_attempts_consumed": 0,
+    "response_body_bytes_read": 0,
+    "response_mime_type": null,
+    "response_content_encoding": null,
+    "raw_response_stored": false,
+    "response_body_stored": false,
+    "response_hash_stored": false,
+    "account_settings_changed": false,
+    "audio_uploaded": false,
+    "spend_incurred": false
+  },
+  "interpretation": {
+    "established": "The single credential-bearing GET /v1/user received a confirmed HTTP 200 response. The runtime then failed closed before any response-body read because it could not enforce the remaining total response deadline.",
+    "zero_body_bytes_were_read": true,
+    "response_body_contents_state": "unknown_not_read",
+    "credential_authentication_inference": "supported_by_http_200_not_independently_verified",
+    "credential_authentication_inference_statement": "HTTP 200 supports, but does not independently prove, that the credential-bearing request was accepted at this endpoint.",
+    "key_verified_claimed": false,
+    "account_verified_claimed": false,
+    "account_payload_parsed": false,
+    "valid_user_id_observed": false,
+    "identity_observed": false,
+    "account_data_observed": false,
+    "account_linkage_strength": "contextual_non_cryptographic",
+    "exact_ui_api_account_equality_verified": false,
+    "ui_api_account_equality_state": "unknown",
+    "subscription_state_observed": false,
+    "target_voice_accessibility_observed_from_api": false,
+    "safe_conclusion": "HTTP 200 supports only the calibrated credential-authentication inference above. With zero response-body bytes read, this attempt establishes no specific user ID, account identity, account data, response schema or contents, subscription state, exact UI/API account equality, or target-voice accessibility."
+  },
+  "official_grounding": {
+    "authentication": {
+      "url": "https://elevenlabs.io/docs/api-reference/authentication",
+      "accessed_at": "2026-08-26",
+      "supported_proposition": "ElevenLabs API keys authenticate API requests and are sent in the xi-api-key header."
+    },
+    "get_user": {
+      "url": "https://elevenlabs.io/docs/api-reference/user/get",
+      "accessed_at": "2026-08-26",
+      "supported_proposition": "The documented Get user operation is GET /v1/user and documents HTTP 200 as Retrieved."
+    },
+    "grounding_limit": "These public API documents support only the calibrated authentication inference; the unread response body supports no user, account, subscription, equality, or voice-access conclusion."
+  },
+  "sensitive_material": {
+    "raw_key_stored": false,
+    "raw_key_suffix_stored": false,
+    "raw_user_identifier_stored": false,
+    "raw_account_data_stored": false,
+    "response_body_stored": false,
+    "raw_provider_identifier_stored": false,
+    "response_derived_hash_stored": false
+  },
+  "terminality": {
+    "existing_active_authorization_reusable": false,
+    "existing_active_authorization_deletable_for_recovery": false,
+    "credential_read_latch_reusable": false,
+    "credential_read_latch_deletable": false,
+    "provider_call_latch_reusable": false,
+    "provider_call_latch_deletable": false,
+    "automatic_retry_permitted": false,
+    "retry_or_resumption": false,
+    "this_record_authorizes_provider_action": false,
+    "future_action_requires_separately_reviewed_committed_transaction_basis": true
+  },
+  "preservation": {
+    "active_authorization_modified": false,
+    "credential_read_latch_modified": false,
+    "provider_call_latch_modified": false,
+    "failure_receipt_modified": false,
+    "source_artifact_deleted": false,
+    "source_artifact_overwritten": false
+  },
+  "authority": {
+    "credential_access_authorized": false,
+    "network_access_authorized": false,
+    "account_readback_authorized": false,
+    "provider_action_authorized": false,
+    "account_mutation_authorized": false,
+    "retry_authorized": false,
+    "audio_upload_authorized": false,
+    "spend_authorized": false,
+    "voice_changer_request_authorized": false,
+    "voice_transfer_authorized": false,
+    "creative_approved": false,
+    "step2_lock_authorized": false,
+    "step3_authorized": false,
+    "sharing_authorized": false,
+    "publication_authorized": false
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "record_type": "bounded_review_fix",
+  "finding_id": "B-R1-01",
+  "episode": "EP009-direct-booking-recovery",
+  "revision": "r2",
+  "reviewed_at_utc": "2026-09-17T17:32:08.126351+00:00",
+  "reviewer_role": "HyperFrames repair worker",
+  "recommendation": "resolved",
+  "owner_accepted": false,
+  "scope": {
+    "segments": [
+      "seg057",
+      "seg058"
+    ],
+    "master_in": 903.333333,
+    "master_out": 976.541667,
+    "reported_defect_range": [
+      926.5,
+      927.3
+    ]
+  },
+  "review_basis": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/review/RECHECK-B-R1.md",
+    "sha256": "180acf9a3f4609980394c97ade4f0f89eb81ff6a90609defbf8bab09fa6b1d36"
+  },
+  "decision": {
+    "viewer_effect": "The per-property note grows by clause without moving or garbling already visible text.",
+    "chosen": "One left-aligned SVG text node with independent append-only tspans.",
+    "alternative_considered": "Fade each complete string out before its replacement enters.",
+    "rationale": "Appending keeps established numbers readable continuously and retains the existing word cues. Sequential complete-string replacement would briefly remove useful context.",
+    "new_objects": [],
+    "changed_claims": [],
+    "changed_audio": false,
+    "changed_narration_timing": false,
+    "changed_segment_boundaries": false
+  },
+  "cues": [
+    {
+      "word_id": "W002566",
+      "local_time": 21.787,
+      "master_time": 925.120333,
+      "operation": "Append \u00b7 8 hours a month over the existing 0.25-second fade."
+    },
+    {
+      "word_id": "W002572",
+      "local_time": 23.487,
+      "master_time": 926.820333,
+      "operation": "Append \u00b7 audit 12 hours over the existing 0.25-second fade."
+    }
+  ],
+  "inputs": {
+    "operator-blueprint-v2/episodes/EP009-direct-booking-recovery/02-narration-production/master/narration-master.wav": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/public/audio/narration.wav": "9f66418dcf3d92ef3973948f99033d9268b0e683a601d9fa71a3439c868f6f88",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/package.json": "92704f45f88e46ec79005ef6a09a8d34af70bcb6f4d15642472581716b85485c",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/index.html": "d0858bd8118eaa077a748c2068ca5ac4b347d3d1d1f20811fc8fbe585da54db6",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/tools/build.py": "34e533ac3de13403298eea17d0797c1440e03f60b90d069c11d3ee8a20979cdb"
+  },
+  "previous_r1": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/s17ab.mp4",
+    "sha256": "c8a529b063dc169d2a75286d133a6772a7ba0cbf6be0c780850085b427f0d348",
+    "previous_sources": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/tools/index.r1.html",
+        "sha256": "56f66cd5169056c8538317d05630a1b567e57e178cf1dc0e6b0c05aa088fdd6e"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/tools/build.r1.py",
+        "sha256": "aea263e3ee073282463604b4e7114283f62e98a34616e68f6807a47ab8df74eb"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/BUILD.r1.json",
+        "sha256": "1d780e4ece808772cdd5db3c149602135d3f141f20da8844f4428fc811f70d46"
+      }
+    ]
+  },
+  "outputs": {
+    "scene_plate": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/s17ab.r2.mp4",
+      "sha256": "f628c449f0dc5a6901ef32d6b166e59cacfbf005b7a648825fa6312ee5342b21"
+    },
+    "review_clip": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/B-R1-01-review.mp4",
+      "sha256": "9022e1567a9f442e730238db93cf3c771368e56803b24217a8692d4be490ff4e"
+    },
+    "build": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/BUILD.json",
+      "sha256": "ea70482e4c771268bb48b17052fc94350e0662109d22827031612e762f5adc48"
+    },
+    "check": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/CHECK.json",
+      "sha256": "bbdc49c36c03b4a06a7f06c35126178174ba4ee4e810820da0582cdfb3541494"
+    },
+    "verification": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/VERIFY.json",
+      "sha256": "9bccba7a14fa11a820bcc3b0843dba4b859afcbc87a31ec3e6503d7badb54c37"
+    },
+    "source_html": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/index.html",
+      "sha256": "d0858bd8118eaa077a748c2068ca5ac4b347d3d1d1f20811fc8fbe585da54db6"
+    },
+    "source_generator": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/tools/build.py",
+      "sha256": "34e533ac3de13403298eea17d0797c1440e03f60b90d069c11d3ee8a20979cdb"
+    },
+    "verification_script": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/tools/verify_r2.py",
+      "sha256": "b42bce2b627f88f38e079419fa476a22a67065d455fa6d4aba096b7847724bc5"
+    }
+  },
+  "checks": {
+    "hyperframes_version": "0.8.36",
+    "pin_retained_reason": "EP009 BUILD-CONVENTIONS requires 0.8.36; worker instruction forbids a conflicting bump. The CLI reported 0.8.44 available.",
+    "strict_errors": 0,
+    "strict_warnings": 0,
+    "contrast_checked": 46,
+    "contrast_passed": 46,
+    "frames": 1757,
+    "expected_frames": 1757,
+    "format": "1280x720 24/1; stereo 48000 Hz",
+    "audio_corr_zero_lag": 0.9998334372735553,
+    "source_excerpt_vs_master_corr": 0.9999999999999998,
+    "trailing_encoder_samples": 368,
+    "uniform_frames": 0,
+    "all_frames_scanned": 1757,
+    "boundaries_vs_r1": {
+      "first": {
+        "max_channel_difference": 0,
+        "pixels_over_20": 0,
+        "mean_absolute_channel_difference": 0.0
+      },
+      "last": {
+        "max_channel_difference": 0,
+        "pixels_over_20": 0,
+        "mean_absolute_channel_difference": 0.0
+      }
+    },
+    "prefix_pixel_difference_max": 0
+  },
+  "pixel_review": {
+    "completed": true,
+    "display_environment": "Tool-rendered encoded-frame PNGs; full-size critical still and exact-frame strips.",
+    "read_every_frame_in_ranges": [
+      {
+        "local_frames": [
+          520,
+          532
+        ],
+        "master_time": [
+          925.0,
+          925.5
+        ]
+      },
+      {
+        "local_frames": [
+          556,
+          576
+        ],
+        "master_time": [
+          926.5,
+          927.333333
+        ]
+      }
+    ],
+    "read_artifacts": [
+      "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/eight-all-frames.png",
+      "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/twelve-all-frames.png",
+      "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/stills/0580-twelve.png",
+      "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/contact-r2.png"
+    ],
+    "finding": "Both clauses appear cleanly to the right of existing text. No duplicate glyphs, recentering, clipping or blank frames observed. The 32-cue contact sheet shows the inherited layout and downstream clearing remain intact.",
+    "question_answered": "Does the audit clause append without garbling the retained monthly fee and hours? Yes in every encoded frame across the affected interval."
+  },
+  "integration": {
+    "replacement_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/scenes/seg057__seg058/qa/r2/s17ab.r2.mp4",
+    "seg057_frame_range_inclusive": [
+      0,
+      1027
+    ],
+    "seg058_frame_range_inclusive": [
+      1028,
+      1756
+    ],
+    "master_frame_start": 21680,
+    "master_frame_end_exclusive": 23437,
+    "assembly_modified": false,
+    "decision_log_modified": false
+  },
+  "proposed_decision_record": {
+    "decision": "Revise the per-property note to a single stable line with clause-only reveals at W002566 and W002572.",
+    "verification": "Strict check passes; every frame of both reveals reviewed; 1757 frames with zero-lag narration correlation 0.9998334372735553; first and last encoded frames pixel-identical to r1.",
+    "recommendation": "Resolve B-R1-01 for the r2 scene plate; orchestrator to integrate and verify the new assembly."
+  },
+  "limits": [
+    "No normal-speed audiovisual playback or audio listening performed by this worker.",
+    "No whole-episode rhythm, presenter, continuity or release acceptance inferred.",
+    "Agent resolution is a recommendation; owner review remains pending."
+  ],
+  "external_sources_or_paid_generation_used": false,
+  "committed": false
+}

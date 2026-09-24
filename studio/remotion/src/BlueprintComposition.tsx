@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 
 import {useEnsureFontsLoaded} from './oe/fonts';
 import {COLORS, EASE, KEN_BURNS} from './oe/theme';
@@ -25,6 +25,8 @@ import {ArtifactScene, ArtifactNode} from './oe/scenes/ArtifactScene';
 import {ChapterReset} from './oe/scenes/ChapterReset';
 import {SourceCard} from './oe/scenes/SourceCard';
 import {CaseFile} from './oe/scenes/CaseFile';
+import {ApprovedEpisodeScene, isApprovedEpisodeScreen} from './oe/scenes/ApprovedEpisodeScene';
+import {CoverageScene} from './oe/scenes/CoverageScene';
 
 /**
  * BlueprintComposition v2 — "The Working Schematic Edition"
@@ -70,6 +72,13 @@ type AssetSpec = {
   unit?: string;
   source?: string;
   search_query?: string;
+  query_variants?: string[];
+  visual_exclusions?: string[];
+  source_video?: string;
+  source_in?: number;
+  source_out?: number;
+  crop?: string;
+  focal_position?: string;
   company?: string;
   caption?: string;
   tool?: string;
@@ -99,7 +108,10 @@ export type ScreenReveal = {
 };
 
 export type SfxCue = {cue: 'tick' | 'whoosh' | 'hit'; at: number};
-export type MusicCue = {intensity: 'calm' | 'build' | 'silence'; duck_db?: number};
+export type MusicCue = {
+  intensity: 'calm' | 'human' | 'constraint' | 'tension' | 'counter' | 'build' | 'resolve' | 'silence';
+  duck_db?: number;
+};
 
 /**
  * PaceEvent — a timed in-screen visual event authored by
@@ -215,8 +227,16 @@ export type Screen = {
     | 'artifact'
     | 'chapter_reset'
     | 'source_card'
-    | 'case_file';
+    | 'case_file'
+    | 'coverage';
   heading?: string;
+  narrative_state?: 'peril' | 'absurdity' | 'reversal' | 'build' | 'agency';
+  score_state?: MusicCue['intensity'];
+  footage_role?: 'human_context' | 'market_force' | 'proof' | 'process' | 'outcome' | 'evidence';
+  camera?: 'human' | 'system';
+  preview_eligible?: boolean;
+  visual_intent?: string;
+  search_query?: string;
   start: number;
   end: number;
   reveals: ScreenReveal[];
@@ -228,11 +248,23 @@ export type Screen = {
   custom?: ScreenCustom;
   /** Per-screen visual events from pace_storyboard.py. */
   events?: PaceEvent[];
+  coverage_asset_type?: string;
+  coverage_narration?: string;
+  coverage_purpose?: string;
+  coverage_asset_ids?: string[];
+  coverage_asset?: Record<string, any> | null;
+  coverage_media?: string | null;
+  coverage_index?: number;
+  coverage_total?: number;
 };
 
 export type Bookends = {
   brand_seconds: number;
   title_seconds: number;
+  thumbnail_lead_seconds?: number;
+  brand_at_seconds?: number;
+  overlay_on_content?: boolean;
+  sting_audio?: string;
   outro_seconds: number;
   j_cut_seconds?: number; // VO starts this long BEFORE the intro ends (under the title card)
   l_cut_seconds?: number; // outro card enters this long before the VO ends
@@ -332,7 +364,7 @@ function deriveStackNode(beat: Beat, i: number, appearFrame: number): SchematicN
 // extended by this much so the outgoing scene is still mounted underneath
 // while the incoming scene (rendered later in the tree, therefore on top)
 // eases in — a true cross-transition, never a hard cut or an ink flash.
-const XFADE_FRAMES = 14;
+const XFADE_FRAMES = 20;
 
 // DS motion spec: fades/slides only, eased. The incoming scene fades AND
 // settles upward ~24px with an ease-out — the "document sliding onto the
@@ -353,9 +385,21 @@ const FadeIn: React.FC<{frames?: number; hard?: boolean; children: React.ReactNo
     easing: Easing.out(Easing.cubic),
   });
   return (
-    <AbsoluteFill style={{opacity: p, transform: `translateY(${(1 - p) * 24}px)`}}>
+    <AbsoluteFill style={{opacity: p, transform: `translateY(${(1 - p) * 10}px)`}}>
       {children}
     </AbsoluteFill>
+  );
+};
+
+const ApprovedTitleExit: React.FC = () => {
+  const frame = useCurrentFrame();
+  const scaleX = interpolate(frame, [0, 17], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.cubic),
+  });
+  return (
+    <AbsoluteFill style={{background: COLORS.draftingBlue, transform: `scaleX(${scaleX})`, transformOrigin: 'left center'}} />
   );
 };
 
@@ -411,7 +455,18 @@ const BeatScene: React.FC<{
         />
       );
     case 'broll':
-      return <BRollScene searchQuery={beat.asset.search_query ?? '—'} caption={beat.asset.caption} startFrame={0} />;
+      return (
+        <BRollScene
+          searchQuery={beat.asset.search_query ?? '—'}
+          caption={beat.asset.caption}
+          startFrame={0}
+          sourceVideo={beat.asset.source_video}
+          sourceIn={beat.asset.source_in}
+          sourceOut={beat.asset.source_out}
+          crop={beat.asset.crop}
+          focalPosition={beat.asset.focal_position}
+        />
+      );
     case 'logo':
       return (
         <LogoScene
@@ -613,7 +668,8 @@ const ScreenLayer: React.FC<{
   screenIndex: number;
   totalScreens: number;
   fps: number;
-}> = ({screen, screenIndex, totalScreens, fps}) => {
+  approvedEpisodeSystem?: boolean;
+}> = ({screen, screenIndex, totalScreens, fps, approvedEpisodeSystem = false}) => {
   const from = Math.round(screen.start * fps);
   const dur = Math.max(1, Math.round((screen.end - screen.start) * fps)) + XFADE_FRAMES;
   const meta = SECTION_TITLES[screen.section];
@@ -630,6 +686,12 @@ const ScreenLayer: React.FC<{
   const focusEvents = localEvents(screen.events, 'focus', screen.start, fps);
 
   let content: React.ReactNode;
+
+  if (screen.layout === 'coverage') {
+    content = <CoverageScene screen={screen} />;
+  } else if (approvedEpisodeSystem && isApprovedEpisodeScreen(screen)) {
+    content = <ApprovedEpisodeScene screen={screen} />;
+  } else {
 
   switch (screen.layout) {
     case 'schematic': {
@@ -738,6 +800,20 @@ const ScreenLayer: React.FC<{
           searchQuery={first?.asset?.search_query ?? first?.title ?? ''}
           caption={first?.asset?.caption}
           startFrame={0}
+          sourceVideo={first?.asset?.source_video}
+          sourceIn={first?.asset?.source_in}
+          sourceOut={first?.asset?.source_out}
+          crop={first?.asset?.crop}
+          focalPosition={first?.asset?.focal_position}
+          playbackRate={(() => {
+            const sourceDuration = first?.asset?.source_out === undefined
+              ? undefined
+              : Math.max(0.01, first.asset.source_out - (first.asset.source_in ?? 0));
+            const screenDuration = Math.max(0.01, screen.end - screen.start);
+            return sourceDuration && sourceDuration < screenDuration
+              ? Math.max(0.72, sourceDuration / screenDuration)
+              : 1;
+          })()}
         />
       );
       break;
@@ -978,6 +1054,7 @@ const ScreenLayer: React.FC<{
     default:
       content = <AbsoluteFill style={{background: COLORS.ink}} />;
   }
+  }
 
   // Title-card screens (2026-07-05): the Operator Blueprint card now
   // lives IN content (bookend TitleCard retired) so it can span the
@@ -1078,7 +1155,12 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
   // before the VO ends and overlays the tail.
   const brandFrames = bookends ? Math.round(bookends.brand_seconds * fps) : 0;
   const titleFrames = bookends ? Math.round(bookends.title_seconds * fps) : 0;
-  const introFrames = brandFrames + titleFrames;
+  const thumbnailLeadFrames = bookends
+    ? Math.round((bookends.thumbnail_lead_seconds ?? 0) * fps)
+    : 0;
+  const overlayBookends = Boolean(bookends?.overlay_on_content);
+  const brandAtFrames = bookends ? Math.round((bookends.brand_at_seconds ?? 0) * fps) : 0;
+  const introFrames = overlayBookends ? 0 : brandFrames + titleFrames;
   const jCutFrames = bookends
     ? Math.min(Math.round((bookends.j_cut_seconds ?? bookends.title_seconds) * fps), titleFrames)
     : 0;
@@ -1116,6 +1198,7 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
               screenIndex={i}
               totalScreens={screens!.length}
               fps={fps}
+              approvedEpisodeSystem={renderData.slug === 'direct-booking-recovery'}
             />
           ))
         : sections.map((section, i) => (
@@ -1165,26 +1248,51 @@ export const BlueprintComposition: React.FC<BlueprintRenderData> = (renderData) 
       <Sequence from={contentFrom} durationInFrames={contentFrames}>
         {episode}
       </Sequence>
+      {bookends.cold_open_image && thumbnailLeadFrames > 0 && (
+        <Sequence from={0} durationInFrames={thumbnailLeadFrames}>
+          <AbsoluteFill style={{background: COLORS.ink}}>
+            <Img
+              src={staticFile(bookends.cold_open_image)}
+              style={{width: '100%', height: '100%', objectFit: 'cover'}}
+            />
+          </AbsoluteFill>
+        </Sequence>
+      )}
+      {bookends.sting_audio && brandFrames > 0 && (
+        <Sequence from={brandAtFrames} durationInFrames={brandFrames}>
+          <Audio src={staticFile(bookends.sting_audio)} />
+        </Sequence>
+      )}
       {brandFrames > 0 && (
-        <Sequence from={0} durationInFrames={brandFrames}>
+        <Sequence from={brandAtFrames} durationInFrames={brandFrames}>
           <BrandSting
             name={bookends.brand.name}
             tagline={bookends.brand.tagline}
-            image={bookends.cold_open_image}
           />
         </Sequence>
       )}
       {titleFrames > 0 && (
-        <Sequence from={brandFrames} durationInFrames={titleFrames}>
+        <Sequence from={brandAtFrames + brandFrames} durationInFrames={titleFrames}>
           <TitleCard
-            overline={
+            overline={renderData.slug === 'direct-booking-recovery' ? undefined : (
               bookends.episode_no
                 ? `Operator Blueprint · № ${String(bookends.episode_no).padStart(3, '0')}`
                 : 'Operator Blueprint'
-            }
-            title={bookends.title}
-            thesis={bookends.thesis}
+            )}
+            title={renderData.slug === 'direct-booking-recovery' ? 'Direct-booking recovery' : bookends.title}
+            thesis={renderData.slug === 'direct-booking-recovery'
+              ? 'AI and practical workflows for building a one-person business.'
+              : bookends.thesis}
           />
+        </Sequence>
+      )}
+      {renderData.slug === 'direct-booking-recovery' &&
+        (titleFrames > 18 || (titleFrames === 0 && brandFrames > 18)) && (
+        <Sequence
+          from={brandAtFrames + brandFrames + titleFrames - 18}
+          durationInFrames={18}
+        >
+          <ApprovedTitleExit />
         </Sequence>
       )}
       {outroFrames > 0 && (

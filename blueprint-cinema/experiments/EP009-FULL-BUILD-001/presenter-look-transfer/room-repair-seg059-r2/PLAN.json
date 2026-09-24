@@ -1,0 +1,228 @@
+{
+  "record_type": "ep009_seg059_bounded_room_repair_sources",
+  "created_at": "2026-09-18T00:42:11.450090+00:00",
+  "status": "verified_prepared_sources_only_no_generation",
+  "owner_accepted": false,
+  "authority": "Root instruction: prepare lossless wardrobe[33,161) selecting0..119 and if wide-prefix QA does not confirm, wardrobe[0,72) selecting0..33. Storage uploads only; parent owns paid production.",
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/prepare_seg059_room_repair_r2.py",
+    "sha256": "b2d4c023b9722f8ddd5d58d72945cd42922125cd7122f6cc297d16aa87f8a0b7"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "wardrobe_review": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/qa/WARDROBE-REVIEW.json",
+    "sha256": "21363ffa319b06a13c9d8d17dc39f26860050238fcadbaf38d6d15ab69c00611"
+  },
+  "failed_room_review": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg059/qa-selected-r1/ROOM-REVIEW.json",
+    "sha256": "1b66cfa776eea63f1c8e8d7c3045d555304d2b06343702f9c7b21086ddc068b0"
+  },
+  "wide_prefix_review": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg059/qa-selected-r1/WIDE-PREFIX-REVIEW.json",
+    "sha256": "7e219cc08b175afdc6777ed63f00ff1e2ab11bfc1eda41aca077b692992a35ba"
+  },
+  "source_download": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/DOWNLOAD.json",
+    "sha256": "2a8a40ab7289f880962253fa70b8cced89875557f26fb56e1acb6387014c024a"
+  },
+  "master_audio": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "source_frame_hashes": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/SOURCE-FRAME-HASHES.json",
+    "sha256": "e5831c02059ee258b4846b96d4ce21376288087e3cb9c5d9cf270c99a3f87a8f"
+  },
+  "slices": [
+    {
+      "id": "seg059-close",
+      "segment": "seg059",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "sha256": "ed8f11aba7404bd38a0f128d17d74890099f3a050fdc8c4031fef0a10b2d171f"
+      },
+      "source_frames": [
+        33,
+        161
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-close-source.mov",
+        "sha256": "7d35bdb2d219a170ca5adfb9b584b830900c9e1c54a17c72b1946fec8db2f316"
+      },
+      "input_frames": 128,
+      "input_duration_seconds": 5.333333333333333,
+      "select_local_frames": [
+        0,
+        119
+      ],
+      "original_segment_frames": [
+        33,
+        152
+      ],
+      "output_frames": [
+        23186,
+        23305
+      ],
+      "master_audio_samples": [
+        46372000,
+        46610000
+      ],
+      "discarded_provider_input_frames": [
+        119,
+        128
+      ],
+      "disposable_tail_kind": "existing returned terminal guard",
+      "original_payload_exact_decoded_frames": true,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-close-FRAME-HASHES.json",
+        "sha256": "054ed0197326fc62b37b3608d9e2d3e49b0357cf42f92d0f8a7e6d98f8abc4e7"
+      },
+      "source_audio_sample_count": 320512,
+      "audio_samples": 256000,
+      "source_audio_samples_retained": 254512,
+      "audio_zero_padding_samples": 1488,
+      "audio_f32le_stereo_sha256": "3ef6f686c68dd1b128bec78749549ea3e3dd8526abb8bef3a49c8810bf4ebbbb",
+      "audio_preservation": "Exact decoded source samples; any zero padding is after the entire eligible interval. Conditioning audio only; episode master never replaced.",
+      "retime": false,
+      "resize": false,
+      "input_bytes": 18048990,
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=33:end_frame=161,setpts=N/(24*TB)[v];[0:a]atrim=start_sample=66000:end_sample=322000,asetpts=N/SR/TB,apad=whole_len=256000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-close-source.mov"
+      ]
+    },
+    {
+      "id": "seg059-wide",
+      "segment": "seg059",
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "sha256": "ed8f11aba7404bd38a0f128d17d74890099f3a050fdc8c4031fef0a10b2d171f"
+      },
+      "source_frames": [
+        0,
+        72
+      ],
+      "input": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-wide-source.mov",
+        "sha256": "623562c36fdf604881cc150c796bcd314df5f9cb9c77a16c6093bb00d66cdfa3"
+      },
+      "input_frames": 72,
+      "input_duration_seconds": 3.0,
+      "select_local_frames": [
+        0,
+        33
+      ],
+      "original_segment_frames": [
+        0,
+        33
+      ],
+      "output_frames": [
+        23153,
+        23186
+      ],
+      "master_audio_samples": [
+        46306000,
+        46372000
+      ],
+      "discarded_provider_input_frames": [
+        33,
+        72
+      ],
+      "disposable_tail_kind": "following source context, including source cut at local33",
+      "original_payload_exact_decoded_frames": true,
+      "frame_hashes": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-wide-FRAME-HASHES.json",
+        "sha256": "3d86ee7e8cb3b99a9c61fb7ee526de42e56a2ff5e82adbb59f56f8f757387a84"
+      },
+      "source_audio_sample_count": 320512,
+      "audio_samples": 144000,
+      "source_audio_samples_retained": 144000,
+      "audio_zero_padding_samples": 0,
+      "audio_f32le_stereo_sha256": "93b21055efb4608124995fced733bec87d98c7fc386f7c05f7d07fca74d9d265",
+      "audio_preservation": "Exact decoded source samples; any zero padding is after the entire eligible interval. Conditioning audio only; episode master never replaced.",
+      "retime": false,
+      "resize": false,
+      "input_bytes": 10203108,
+      "encode_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg059/native.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=72,setpts=N/(24*TB)[v];[0:a]atrim=start_sample=0:end_sample=144000,asetpts=N/SR/TB,apad=whole_len=144000[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "0",
+        "-preset",
+        "medium",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-fps_mode",
+        "cfr",
+        "-c:a",
+        "pcm_f32le",
+        "-movflags",
+        "+faststart",
+        "-map_metadata",
+        "-1",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-repair-seg059-r2/seg059-wide-source.mov"
+      ]
+    }
+  ],
+  "restrictions": [
+    "No generated, reconstructed or retimed performance.",
+    "Only selected ranges may be conformed, preserving original cut33 and all152 frames.",
+    "Provider context and tail guards never enter final program.",
+    "Original failed room and all earlier artifacts remain unchanged.",
+    "The existing single-piece seg059 conform helper does not yet accept this two-piece repair; additive conform support required after new outputs are reviewed."
+  ]
+}

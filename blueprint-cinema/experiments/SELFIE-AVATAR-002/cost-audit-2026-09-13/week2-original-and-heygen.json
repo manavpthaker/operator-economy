@@ -1,0 +1,323 @@
+{
+  "audited_at": "2026-09-14T01:21:09.176360+00:00",
+  "scope": "SELFIE-AVATAR-002 Week 2 original Seedance plus Sync tests 01 and 02, common voice and reference stills; latest HeyGen test 03 listed separately. SELFIE-AVATAR-001 Week 3 excluded.",
+  "method": "Read-only local receipt and unique-ID audit; no account calls or mutations. Source hashes bind the retained evidence.",
+  "week2_original_subtotal": {
+    "unique_native_jobs": 2,
+    "unique_sync_jobs": 2,
+    "higgsfield_credits_observed": 91.0,
+    "higgsfield_balance_chain": [
+      122.38,
+      76.88,
+      31.38
+    ],
+    "fal_sync_recorded_estimate_usd": 1.88,
+    "fal_actual_usd": null,
+    "complete_actual_dollar_total": null,
+    "reason_complete_dollar_total_unknown": "Higgsfield credit purchase value and itemized Fal, voice, imagegen and sandbox billing are absent from retained records.",
+    "full_script_video_generated": false,
+    "crop_additional_generation_cost": 0
+  },
+  "original_video_jobs": [
+    {
+      "case": "test-01",
+      "higgsfield_native": {
+        "id": "52894f57-2286-494a-a368-cedb9f3505f3",
+        "model": "seedance_2_5",
+        "requested_seconds": 7,
+        "status": "completed",
+        "credits_preflight_and_observed_delta": 45.5,
+        "balance_before": 122.38,
+        "balance_after": 76.88,
+        "cost_evidence": "Retained delivery balance readbacks agree with exact request estimate; not an itemized invoice",
+        "dollar_conversion": null
+      },
+      "fal_sync": {
+        "id": "01a09c58-694c-7ec2-97bd-163405db6eda",
+        "model": "fal-ai/sync-lipsync/v3",
+        "status": "COMPLETED",
+        "estimate_usd": 0.94,
+        "actual_billed_usd": null,
+        "actual_billed_amount_returned": false
+      },
+      "evidence": [
+        {
+          "path": "test-01/REQUEST.json",
+          "sha256": "d9837e391bdd8a3d76759f430ac080a1b29ba6d7365ee7e0def2ab8a697a7dde"
+        },
+        {
+          "path": "test-01/SUBMISSION.json",
+          "sha256": "29ae44de722d773f423bcd49c29d2cd38e840ef599474e767131fca4318cfe83"
+        },
+        {
+          "path": "test-01/COMPLETION.json",
+          "sha256": "1ab115e14d9949e6a4b387d0793206e0233738d78745c6498af8654f63a3f2b1"
+        },
+        {
+          "path": "test-01/DELIVERY.json",
+          "sha256": "c9ab8d1884d053431733f46b2028b8df8773d61c056cbe9520c222fc91d4c16b"
+        },
+        {
+          "path": "test-01/SYNC-JOB.json",
+          "sha256": "ddd8fbf43f8508ffae3db9cbb0623729d1883284db9eed9763d393991b98648e"
+        },
+        {
+          "path": "test-01/SYNC-STATUS.json",
+          "sha256": "1f28be0bbe1fdbc05b0410f0651e4ef9821c17b7e10b28da3788bc351e5710d0"
+        }
+      ]
+    },
+    {
+      "case": "test-02",
+      "higgsfield_native": {
+        "id": "3f361099-d8c4-4821-8eac-c18b59dbdf66",
+        "model": "seedance_2_5",
+        "requested_seconds": 7,
+        "status": "completed",
+        "credits_preflight_and_observed_delta": 45.5,
+        "balance_before": 76.88,
+        "balance_after": 31.38,
+        "cost_evidence": "Retained delivery balance readbacks agree with exact request estimate; not an itemized invoice",
+        "dollar_conversion": null
+      },
+      "fal_sync": {
+        "id": "01a09c7f-7799-7e61-b75a-4b262c8c54b1",
+        "model": "fal-ai/sync-lipsync/v3",
+        "status": "COMPLETED",
+        "estimate_usd": 0.94,
+        "actual_billed_usd": null,
+        "actual_billed_amount_returned": false
+      },
+      "evidence": [
+        {
+          "path": "test-02/REQUEST.json",
+          "sha256": "9495d9b681db5bb75c61da9af0d51f886589cbc1a4bbab58e93594daee224d3d"
+        },
+        {
+          "path": "test-02/SUBMISSION.json",
+          "sha256": "2c98926e8aeb9ef9fb55dd6a797fefb5a1bce83f34e8c83812f152e8b5ff7f48"
+        },
+        {
+          "path": "test-02/COMPLETION.json",
+          "sha256": "f746dcc17f3661cd23b197b85e10ae6db271c199b65ca4fbdc3fae40b188148b"
+        },
+        {
+          "path": "test-02/DELIVERY.json",
+          "sha256": "55699c55bfc8a2cbc63a107a98caedf4a52cb9aed5c84e2360a8cf42dfed0c6a"
+        },
+        {
+          "path": "test-02/SYNC-JOB.json",
+          "sha256": "c1c010abcf0cc336c144e711fd492593f18fe7fa1c1145cba0d21de05b9f3532"
+        },
+        {
+          "path": "test-02/SYNC-STATUS.json",
+          "sha256": "71dbfa754d79ba9c6e6541f23e3d49a93e27bedfd2ec5f44a11e3d46219b02e9"
+        }
+      ]
+    }
+  ],
+  "common_voice": {
+    "calls": {
+      "google_guide": 2,
+      "elevenlabs_transfer": 1
+    },
+    "unique_successful_receipts": [
+      {
+        "at": "2026-09-13T17:25:42.921585+00:00",
+        "http_status": 200,
+        "raw_body_sha256": "f024ee8140dc9950382ea9f3a0925908c3bb880eab46257a2d7f92c518fe27fb",
+        "evidence": {
+          "path": "voice/W2/GUIDE-RECEIPT.json",
+          "sha256": "ed37744864ce2c06fbc700bf9d863f51f62a1e21d4a4e002a120c68f495ee863"
+        }
+      },
+      {
+        "at": "2026-09-13T17:30:38.059557+00:00",
+        "http_status": 200,
+        "raw_body_sha256": "a4a704c61e2791cda4ed8a43bcb1f31e8d04183e8fa4a3716271bc0293c86091",
+        "evidence": {
+          "path": "voice/W2B/GUIDE-RECEIPT.json",
+          "sha256": "bf7d6cf63e13985ed37cd621cf89941ceb70436d64c2dd26e35adccb6db5a232"
+        }
+      },
+      {
+        "at": "2026-09-13T17:31:39.232564+00:00",
+        "http_status": 200,
+        "raw_body_sha256": "8fcd218a44d57def217af986f28c91e2d7f027ed74a57bf99527cca368dc8de0",
+        "evidence": {
+          "path": "voice/W2B/TRANSFER-RECEIPT.json",
+          "sha256": "51097176917c4de11aeaa6e69347358f730d2b798cafef2f05a3a1f4d5fb4dee"
+        }
+      }
+    ],
+    "transport_retries": 0,
+    "final_seconds": 38.87020833333333,
+    "billed_amounts": null,
+    "route": "gemini-2.5-pro-tts Algieba -> eleven_multilingual_sts_v2 Original C",
+    "source_reused_for_both_7s_tests_and_HeyGen": true,
+    "new_voice_calls_for_test_cuts": 0,
+    "evidence": [
+      {
+        "path": "voice/FINAL-VOICE.json",
+        "sha256": "ad456f262638c2c4669fde8952aaa84856258b501934007c2a190e8b911ca040"
+      },
+      {
+        "path": "voice/README.md",
+        "sha256": "934a04d45d3c391f9190ab5ec76c697d87c3d3e946b5e6dce535ca6dc50544ba"
+      },
+      {
+        "path": "test-01/AUDIO-CUT.json",
+        "sha256": "132110fa43cacca170fe43644aa9d818f68accbb7b06d5e5d05eb60764981ed9"
+      }
+    ]
+  },
+  "reference_stills": {
+    "generator": "built-in image_gen",
+    "unique_saved_artifacts": 13,
+    "all_13_local_sha256_verified": true,
+    "artifacts": [
+      {
+        "label": "current",
+        "path": "media/reference/stone-polo-office-reference-v12.png",
+        "sha256": "4b0301ae71ce0a613e6d0d537191be0d0b1cd49dd9147ca13d4ef3a0d11362ad"
+      },
+      {
+        "label": "office_v11_still_selected_then_motion_rejected",
+        "path": "media/reference/stone-polo-office-reference-v11.png",
+        "sha256": "e8aa4f5b3d73f3341dbfa88a203a4decb8ee3c53cd890f6d9a3538a246d6412c"
+      },
+      {
+        "label": "office_v10_angle_accepted_posture_superseded",
+        "path": "media/reference/stone-polo-office-reference-v10.png",
+        "sha256": "0bb05defe912a3614481950364b90f8fcd301be6c0a883b9690499d0669a5a67"
+      },
+      {
+        "label": "office_v8_angle_retained_wardrobe_superseded",
+        "path": "media/reference/charcoal-office-reference-v8.png",
+        "sha256": "b2914b4790a82311aeb244ff5158ccb4d452415db08cd1ef8cb3bdae470cf6fc"
+      },
+      {
+        "label": "office_v9_polo_intermediate",
+        "path": "media/reference/stone-polo-office-reference-v9.png",
+        "sha256": "448977924a1b9742a2346f4a9f18a8372a02b769defbf7849f601df21759bf34"
+      },
+      {
+        "label": "office_v6_framing_retained_angle_superseded",
+        "path": "media/reference/charcoal-office-reference-v6.png",
+        "sha256": "b0104d3fac72ba452248531480fd27e60d74639908a9753ee5408903bebb8dc0"
+      },
+      {
+        "label": "office_v7_intermediate_composition_change",
+        "path": "media/reference/charcoal-office-reference-v7.png",
+        "sha256": "8dd2e1928c7f3127d25ebf1694758910dd8a49a8672b482468832dec16d70e52"
+      },
+      {
+        "label": "office_v4_direction_retained_framing_superseded",
+        "path": "media/reference/charcoal-office-reference-v4.png",
+        "sha256": "2e18fe8f7d995138fb6a0733cafc9a2b56ca2327f7fdb640f431527666d350cc"
+      },
+      {
+        "label": "rejected_office_v5_framing",
+        "path": "media/reference/charcoal-office-reference-v5.png",
+        "sha256": "0cf04338f048f1f59ddd63d472678712dada73688003c4878e0876de38773f68"
+      },
+      {
+        "label": "rejected_sofa_v3",
+        "path": "media/reference/charcoal-sofa-reference-v3.png",
+        "sha256": "3935c332f33b5490dd3f7c413de71b7554c793ffe349af5cf97e0e030c73c699"
+      },
+      {
+        "label": "rejected_desk_v2",
+        "path": "media/reference/charcoal-desk-reference-v2.png",
+        "sha256": "4ccff66476e647b3c226bafd1af87e572243b9460af87121a7cf383f9979a162"
+      },
+      {
+        "label": "rejected_desk_v1",
+        "path": "media/reference/charcoal-desk-reference.png",
+        "sha256": "af71b23f1604baeae71c02b0b857bc30d83ebffc965fc2b17f238e252a0a2cb4"
+      },
+      {
+        "label": "previous",
+        "path": "media/reference/charcoal-dining-reference.png",
+        "sha256": "6185d2d7d3c732eee11d678823de76e782801013a425aafcd4fe4b8bdea9bf83"
+      }
+    ],
+    "billed_amounts": null,
+    "higgsfield_model_credits_attributed": null,
+    "limit": "Artifact count is not a provider job or invoice count. Built-in image_gen outputs are not Higgsfield video generations; no itemized image-generation dollar charges retained.",
+    "evidence": {
+      "path": "reference/REFERENCE.json",
+      "sha256": "8d458315a036dfdbfcfdc0076d05e65ea4cb004f1b528fc358218a5d767b8049"
+    }
+  },
+  "sandbox_finishing": {
+    "usage_evidenced": true,
+    "activities": [
+      "Voice ASR verification",
+      "Native timing inspection",
+      "Fixed crop and encoding",
+      "Video QA"
+    ],
+    "itemized_billed_amount": null,
+    "limit": "Do not label unitemized usage a confirmed monetary charge. Fixed crop incurred no additional generative model job."
+  },
+  "heygen_separate": {
+    "unique_jobs": 1,
+    "video_id": "e90419bc8bc1a7dc2ee798178edbce38",
+    "duration_seconds": 7,
+    "billing_route": "Creator subscription through existing CLI OAuth",
+    "observed_subscription_credit_debit": 4,
+    "balance_before": 557,
+    "balance_after": 553,
+    "new_cash_purchase": false,
+    "api_cash_balance_used": false,
+    "per_video_invoice_amount": null,
+    "superseded_estimates_not_actual": {
+      "api_cash_usd": 0.35,
+      "subscription_credits_before_rounding": 1.8666666666666667
+    },
+    "audio_qa": {
+      "global_correlation": 0.9996660644992423,
+      "global_lag_seconds": 0.0,
+      "minimum_speech_window_correlation": 0.9995599548733946,
+      "all_speech_windows_zero_lag": true,
+      "interpretation": "Strong evidence that the underlying supplied recording and temporal placement survived encoding; not proof of bit identity, perceived identity, naturalness or visual lip sync.",
+      "limitations": "Pearson correlation ignores constant gain; mono16k analysis omits stereo and high-frequency detail. Visual presentation can affect perceived delivery. No fresh voice generation is recorded."
+    },
+    "evidence": [
+      {
+        "path": "test-03/heygen/DELIVERY.json",
+        "sha256": "179983e7ef409f52e8d899c76bef25d8a4932fd7364ef55c5e56ea091967ac44"
+      },
+      {
+        "path": "test-03/heygen/ACCOUNT-BEFORE.json",
+        "sha256": "b57bf1a5a333e7e437b4e558b0573d73c9d3a07e685f48f63a938b76dbe1148a"
+      },
+      {
+        "path": "test-03/heygen/ACCOUNT-AFTER-SUBMIT.json",
+        "sha256": "385d4d06bf9cd99f1a98454420a5d8c81c064d360e9e32d8c8e62193df6d0538"
+      },
+      {
+        "path": "test-03/heygen/AUDIO-QA.json",
+        "sha256": "4a252b2aa5d16238dfc04f00a302a7521792f633b3700fda2bec668544819454"
+      },
+      {
+        "path": "test-03/heygen/REQUEST.json",
+        "sha256": "52064fa3f112e2988797ec56d73e999f36f4f9f6c576e9ed2bae7a5aafd16491"
+      },
+      {
+        "path": "test-03/heygen/JOB.json",
+        "sha256": "54d8e8f3f50e77a47f548a6420389d9953515304834599785d8ef06f4887d2b8"
+      }
+    ]
+  },
+  "not_counted": [
+    "Repeated status/result reads for the same job",
+    "Upload and download copies of existing assets",
+    "Unsubmitted full-script Higgsfield estimates",
+    "Prepared but unsubmitted WaveSpeed helper",
+    "Shared original home identity image generated in SELFIE-AVATAR-001",
+    "Week 3 jobs audited separately by root"
+  ],
+  "billing_explanation": "Higgsfield model work was charged in credits per submitted generation, with separate Fal sync estimates and unitemized voice, imagegen and sandbox usage. There is no demonstrated per-chat billing unit. Keep Higgsfield credits, HeyGen subscription credits and USD estimates separate; they cannot be added as one currency."
+}

@@ -1,0 +1,32 @@
+{
+  "status": "sampled_review_candidate_not_approval",
+  "reviewer_role": "independent motion-analysis worker",
+  "earlier_review_inputs": "snapshot-review-inputs.json",
+  "earlier_review_scope": "Seven-frame parent contact sheet at 0,0.4,3.4,16.4,23.2,30.56,29.682 seconds, with 0s and 23.2s separately inspected full-size. These original files were subsequently overwritten by the parent; captured hashes are historical evidence only.",
+  "earlier_findings": [
+    {"severity": "major", "time_seconds": 0, "finding": "Thin bottom strip exposed around output y1065-1079 beneath shirt", "disposition": "Parent overscan correction; resolved in refreshed frame-zero still"},
+    {"severity": "observation", "finding": "No obvious generated face leakage, empty shoulder/collar holes, or triangular cut corners in the inspected samples"},
+    {"severity": "observation", "finding": "Fine temple/ear fringe and some shirt texture mismatch remain; no claim of complete moving-composite continuity"}
+  ],
+  "overscan_fix": {
+    "parent_inner_transform": "translateY(27.28px) scaleY(1.22)",
+    "inner_transform_origin_design_px": [836,941],
+    "motion_unchanged": true,
+    "all_frame_geometry_check": "overscan-qa.json",
+    "minimum_bottom_clearance_design_px": 4.145794527098815,
+    "minimum_frame": 0,
+    "refreshed_frame_path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r9/snapshots/frame-00-at-0s.png",
+    "refreshed_frame_sha256": "a0af23a8f4a9bda0803a9f0f1d3bb25f9a2d822a0bf70ffdcb1500e6d77cae33",
+    "refreshed_frame_mtime_local": "2026-09-07T22:21:59",
+    "visual_result": "Exposed bottom strip removed; shirt covers frame edge. No newly obvious collar/shoulder holes or generated face leakage in this still."
+  },
+  "limits": [
+    "No continuous playback verdict or production approval.",
+    "Full rendered-video source-RGB and audio QA remains with the parent.",
+    "Affine bottom geometry checks frame samples; receiving interpolation must preserve the measured trajectory.",
+    "Source shoulder pixels outside the original portrait remain unavailable. Synthetic extensions are explicitly synthetic."
+  ],
+  "parent_files_changed": false,
+  "approval_claimed": false,
+  "production_state_changed": false
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short01-build-map { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; color: #19201f; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s04-fill { position: absolute; inset: 0; background: #f5f0e6; }
+        .s04-margin { position: absolute; top: 150px; bottom: 0; left: 58px; width: 2px; background: rgba(88,109,116,0.28); }
+        .s04-heading { position: absolute; top: 198px; left: 80px; width: 850px; }
+        .s04-kicker { color: #586d74; font-size: 20px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .s04-title { margin: 18px 0 0; color: #173530; font: 700 80px/0.9 "BL Boska", Georgia, serif; letter-spacing: -0.045em; }
+        .s04-columns { position: absolute; top: 424px; left: 80px; width: 878px; display: flex; justify-content: space-between; color: #586d74; font-size: 17px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+        .s04-columns span:last-child { width: 342px; }
+        .s04-source { position: absolute; left: 80px; width: 314px; height: 146px; padding: 26px 22px; border-top: 2px solid #c4b99e; border-bottom: 2px solid #c4b99e; background: #fbf8f1; }
+        .s04-source-1 { top: 470px; }
+        .s04-source-2 { top: 700px; }
+        .s04-source-3 { top: 930px; }
+        .s04-source small { display: block; color: #586d74; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+        .s04-source strong { display: block; margin-top: 18px; color: #173530; font: 700 34px/1 "BL Zodiak", Georgia, serif; }
+        .s04-question { position: absolute; left: 616px; width: 342px; height: 146px; display: grid; align-content: center; padding: 22px 26px; border: 3px solid #586d74; background: #ede7d8; }
+        .s04-question-1 { top: 470px; }
+        .s04-question-2 { top: 700px; }
+        .s04-question-3 { top: 930px; }
+        .s04-question strong { color: #33464c; font: 700 40px/1 "BL Zodiak", Georgia, serif; }
+        .s04-question span { margin-top: 10px; color: #566461; font-size: 18px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; }
+        .s04-hub { position: absolute; z-index: 3; top: 700px; left: 442px; width: 130px; height: 146px; display: grid; place-content: center; border: 5px solid #b5482f; background: #173530; color: #f5f0e6; font-size: 18px; font-weight: 500; line-height: 1.08; letter-spacing: 0.08em; text-align: center; text-transform: uppercase; opacity: 0; }
+        .s04-hub strong { display: block; margin-top: 7px; color: #fb8b69; font: 700 30px/0.92 "BL Zodiak", Georgia, serif; }
+        .s04-routes { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; pointer-events: none; }
+        .s04-route { fill: none; stroke: #586d74; stroke-width: 7px; stroke-linecap: square; stroke-linejoin: miter; }
+        .s04-route-light { stroke: #71868d; stroke-width: 5px; }
+        .s04-junction { fill: #33464c; opacity: 0; }
+        .s04-payoff { position: absolute; top: 1228px; left: 80px; width: 878px; padding: 50px 44px 44px; border-top: 6px solid #b5482f; background: #173530; color: #f5f0e6; opacity: 0; }
+        .s04-payoff small { display: block; color: #c4b99e; font-size: 20px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .s04-payoff strong { display: block; margin-top: 18px; font: 700 82px/0.9 "BL Boska", Georgia, serif; letter-spacing: -0.045em; }
+        .s04-payoff p { margin: 24px 0 0; color: rgba(245,240,230,0.78); font-size: 24px; font-weight: 500; letter-spacing: 0.04em; line-height: 1.25; text-transform: uppercase; }
+      </style>
+      <section data-hf-id="hf-1jm9" id="short01-build-map" data-composition-id="short01-build-map" data-start="0" data-duration="11.083333" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-hw8m" class="s04-fill" aria-hidden="true"></div>
+        <div data-hf-id="hf-26on" class="s04-margin" aria-hidden="true"></div>
+        <header data-hf-id="hf-vsyy" id="s04-heading" class="s04-heading"><div data-hf-id="hf-ejyy" class="s04-kicker">Beside every circle</div><h1 data-hf-id="hf-u4kx" class="s04-title">Ask all three handoff questions.</h1></header>
+        <div data-hf-id="hf-9m4x" class="s04-columns"><span data-hf-id="hf-t6pm">Owner-held answer</span><span data-hf-id="hf-1813">Handoff question</span></div>
+        <article data-hf-id="hf-w67s" id="s04-source-1" class="s04-source s04-source-1"><small data-hf-id="hf-p3ug">01 · Relationship</small><strong data-hf-id="hf-xrfn">Customer calls</strong></article>
+        <article data-hf-id="hf-ctz0" id="s04-source-2" class="s04-source s04-source-2"><small data-hf-id="hf-s5gv">02 · Decision</small><strong data-hf-id="hf-spr6">Exception approval</strong></article>
+        <article data-hf-id="hf-o0zc" id="s04-source-3" class="s04-source s04-source-3"><small data-hf-id="hf-rn38">03 · Knowledge</small><strong data-hf-id="hf-ozmz">Records location</strong></article>
+        <article data-hf-id="hf-tz95" id="s04-question-1" class="s04-question s04-question-1"><strong data-hf-id="hf-ysrc">Who else?</strong><span data-hf-id="hf-5wn6">could act</span></article>
+        <article data-hf-id="hf-se7d" id="s04-question-2" class="s04-question s04-question-2"><strong data-hf-id="hf-64oc">Needs what?</strong><span data-hf-id="hf-1hu4">to act</span></article>
+        <article data-hf-id="hf-whux" id="s04-question-3" class="s04-question s04-question-3"><strong data-hf-id="hf-xvxm">What stops?</strong><span data-hf-id="hf-dzt7">if nobody can</span></article>
+        <div data-hf-id="hf-o9u4" id="s04-hub" class="s04-hub">For every<strong data-hf-id="hf-hk1u">circle</strong></div>
+        <svg data-hf-id="hf-3xpw" class="s04-routes" viewBox="0 0 1080 1920" aria-hidden="true">
+          <path data-hf-id="hf-h75a" id="s04-in-1" class="s04-route s04-route-light" d="M394 543 H507" />
+          <path data-hf-id="hf-5yqk" id="s04-in-2" class="s04-route s04-route-light" d="M394 773 H507" />
+          <path data-hf-id="hf-3270" id="s04-in-3" class="s04-route s04-route-light" d="M394 1003 H507" />
+          <path data-hf-id="hf-t05y" id="s04-spine" class="s04-route" d="M507 543 V1003" />
+          <path data-hf-id="hf-601g" id="s04-out-1" class="s04-route" d="M507 543 H616" />
+          <path data-hf-id="hf-wk0c" id="s04-out-2" class="s04-route" d="M507 773 H616" />
+          <path data-hf-id="hf-4x0i" id="s04-out-3" class="s04-route" d="M507 1003 H616" />
+          <circle data-hf-id="hf-qpf3" id="s04-dot-1" class="s04-junction" cx="507" cy="543" r="10" />
+          <circle data-hf-id="hf-61et" id="s04-dot-2" class="s04-junction" cx="507" cy="773" r="10" />
+          <circle data-hf-id="hf-3ihf" id="s04-dot-3" class="s04-junction" cx="507" cy="1003" r="10" />
+        </svg>
+        <section data-hf-id="hf-tfi6" id="s04-payoff" class="s04-payoff"><small data-hf-id="hf-y2mj">Completed narrow payoff</small><strong data-hf-id="hf-1577">First dependency map</strong><p data-hf-id="hf-hxrp">A working diagnostic · not a sale or valuation prediction</p></section>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s04-heading", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 0.34);
+        tl.fromTo(".s04-source", { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: 0.38, ease: "power3.out", stagger: 0.3 }, 0.82);
+        tl.fromTo("#s04-hub", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.34, ease: "power2.out" }, 1.72);
+        const draw = (selector, start, duration) => {
+          const path = document.querySelector(selector);
+          const length = path.getTotalLength();
+          tl.fromTo(path, { strokeDasharray: length, strokeDashoffset: length, opacity: 0 }, { strokeDasharray: length, strokeDashoffset: 0, opacity: 1, duration, ease: "power2.out" }, start);
+        };
+        draw("#s04-in-1", 1.9, 0.28); draw("#s04-in-2", 2.2, 0.28); draw("#s04-in-3", 2.5, 0.28); draw("#s04-spine", 2.78, 0.52);
+        tl.to(".s04-junction", { opacity: 1, duration: 0.16, stagger: 0.1, ease: "power1.out" }, 3.18);
+        draw("#s04-out-1", 2.12, 0.32); draw("#s04-out-2", 3.5, 0.32); draw("#s04-out-3", 4.86, 0.32);
+        tl.fromTo("#s04-question-1", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power3.out" }, 2.28);
+        tl.fromTo("#s04-question-2", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power3.out" }, 3.84);
+        tl.fromTo("#s04-question-3", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power3.out" }, 5.2);
+        tl.fromTo("#s04-payoff", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.48, ease: "power3.out" }, 8.14);
+        tl.fromTo("#s04-payoff strong", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 9.0);
+        window.__timelines["short01-build-map"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

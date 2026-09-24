@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>EP007 Avatar Hook V2</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #avatar-hook-v2 {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #f5f0e6;
+          background: #173530;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .stage { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; opacity: 0; }
+        .topline {
+          position: absolute;
+          z-index: 20;
+          left: 68px;
+          top: 64px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          color: #f5f0e6;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+        .topline::before { width: 11px; height: 36px; background: #fb8b69; content: ""; }
+        .caption-rail {
+          position: absolute;
+          z-index: 24;
+          left: 58px;
+          right: 122px;
+          bottom: 172px;
+          min-height: 320px;
+          display: flex;
+          align-items: flex-end;
+          padding: 42px 38px 44px;
+          overflow: hidden;
+          border-left: 8px solid #fb8b69;
+          background: rgba(23, 53, 48, 0.94);
+        }
+        .caption {
+          position: absolute;
+          left: 38px;
+          right: 34px;
+          bottom: 40px;
+          color: #f5f0e6;
+          font: 700 72px/0.93 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.035em;
+          text-wrap: balance;
+          opacity: 0;
+        }
+        .caption em { color: #fb8b69; font-style: normal; }
+
+        #opening-stage { background: #173530; }
+        #opening-stage::after {
+          position: absolute;
+          z-index: 6;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(23, 53, 48, 0.12) 0%, rgba(23, 53, 48, 0) 44%, rgba(23, 53, 48, 0.76) 74%, #173530 100%);
+          content: "";
+          pointer-events: none;
+        }
+        #opening-video {
+          position: absolute;
+          z-index: 2;
+          left: 52px;
+          top: 120px;
+          width: 976px;
+          height: 1220px;
+          object-fit: cover;
+          object-position: 50% 50%;
+          background: #e7e1d5;
+          border: 2px solid rgba(245, 240, 230, 0.44);
+        }
+        .opening-index {
+          position: absolute;
+          z-index: 8;
+          right: 62px;
+          top: 92px;
+          color: #a4c6b2;
+          font: 500 18px/1 "BL Supreme", system-ui, sans-serif;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+
+        #proof-stage {
+          color: #173530;
+          background:
+            linear-gradient(90deg, transparent 67px, rgba(88, 109, 116, 0.18) 68px, transparent 69px),
+            linear-gradient(0deg, rgba(196, 185, 158, 0.13) 1px, transparent 1px),
+            #f5f0e6;
+          background-size: auto, 100% 96px, auto;
+        }
+        .proof-kicker {
+          position: absolute;
+          left: 76px;
+          top: 82px;
+          color: #586d74;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+        }
+        .proof-title {
+          position: absolute;
+          left: 76px;
+          top: 144px;
+          width: 860px;
+          color: #173530;
+          font: 700 110px/0.85 "BL Boska", Georgia, serif;
+          letter-spacing: -0.045em;
+        }
+        .proof-model { position: absolute; left: 92px; top: 530px; width: 796px; height: 810px; }
+        .owner-node, .record-node {
+          position: absolute;
+          left: 86px;
+          width: 624px;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 3px solid #586d74;
+          background: #fbf8f1;
+          color: #33464c;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .owner-node { top: 0; }
+        .record-node { bottom: 0; color: #586d74; border-color: #c4b99e; }
+        .route-line { position: absolute; left: 395px; top: 150px; width: 6px; height: 510px; background: #71868d; transform-origin: 50% 0%; }
+        .word-mark { position: absolute; left: 322px; width: 152px; height: 34px; background: #33464c; opacity: 0; transform: translateY(-40px); }
+        #mark-1 { top: 226px; }
+        #mark-2 { top: 314px; width: 118px; }
+        #mark-3 { top: 402px; width: 142px; }
+        #mark-4 { top: 490px; width: 126px; }
+        .stop-bar { position: absolute; left: 274px; top: 566px; width: 248px; height: 18px; background: #b5482f; opacity: 0; transform: scaleX(0); transform-origin: 50% 50%; }
+        .proof-caption {
+          position: absolute;
+          left: 72px;
+          right: 120px;
+          bottom: 176px;
+          color: #173530;
+          font: 700 76px/0.94 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.035em;
+          text-wrap: balance;
+          opacity: 0;
+        }
+        .proof-disclosure { position: absolute; left: 76px; bottom: 84px; color: #586d74; font-size: 17px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+
+        #close-stage { background: #173530; }
+        #close-stage::after, #hold-stage::after {
+          position: absolute;
+          z-index: 8;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(23, 53, 48, 0.08) 0%, rgba(23, 53, 48, 0.08) 42%, rgba(23, 53, 48, 0.88) 79%, #173530 100%);
+          content: "";
+          pointer-events: none;
+        }
+        #close-video, #hold-image { position: absolute; z-index: 2; inset: 0; width: 1080px; height: 1920px; object-fit: cover; object-position: 50% 50%; background: #e7e1d5; }
+        #close-stage .caption-rail { min-height: 336px; }
+        #hold-stage { background: #173530; }
+        #hold-stage::after { background: rgba(23, 53, 48, 0.68); }
+        .loop-copy { position: absolute; z-index: 20; left: 68px; right: 128px; top: 880px; opacity: 0; }
+        .loop-kicker { margin-bottom: 28px; color: #a4c6b2; font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .loop-question { color: #f5f0e6; font: 700 98px/0.88 "BL Boska", Georgia, serif; letter-spacing: -0.048em; text-wrap: balance; }
+        .loop-question em { color: #fb8b69; font-style: normal; }
+        .episode-handoff {
+          position: absolute;
+          z-index: 20;
+          left: 68px;
+          right: 128px;
+          bottom: 178px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 28px;
+          color: #f5f0e6;
+          border-top: 2px solid rgba(245, 240, 230, 0.48);
+          opacity: 0;
+        }
+        .episode-handoff strong { font: 700 36px/1 "BL Zodiak", Georgia, serif; letter-spacing: -0.02em; }
+        .episode-handoff span { color: #a4c6b2; font-size: 18px; font-weight: 500; letter-spacing: 0.12em; text-align: right; text-transform: uppercase; }
+      </style>
+
+      <div id="avatar-hook-v2" data-hf-id="avatar-hook-v2-root" data-composition-id="avatar-hook-v2" data-start="0" data-duration="20.25" data-width="1080" data-height="1920">
+        <section id="opening-stage" class="stage" data-hf-id="opening-presenter-stage">
+          <video id="opening-video" data-hf-id="opening-presenter-video" src="assets/media/ep007-avatar-v5-opening-accepted.mp4" data-start="0" data-duration="9.166666667" data-media-start="11.25" data-playback-rate="1" data-track-index="1" muted playsinline preload="auto" aria-label="Manav introduces the one-month buyer question"></video>
+          <audio data-hf-id="hf-osge" id="opening-audio" src="assets/media/ep007-avatar-v5-opening-accepted.mp4" data-start="0" data-duration="9.166666667" data-media-start="11.25" data-playback-rate="1" data-track-index="100" data-volume="1" preload="auto"></audio>
+          <div data-hf-id="hf-eqsi" class="topline">The Operator Economy</div>
+          <div data-hf-id="hf-gudn" class="opening-index">EP007 · Buyer test</div>
+          <div class="caption-rail" data-hf-id="opening-caption-rail">
+            <div data-hf-id="hf-qa6o" id="opening-caption-1" class="caption">He has already looked at the numbers.</div>
+            <div data-hf-id="hf-cpt0" id="opening-caption-2" class="caption">And he <em data-hf-id="hf-nbsh">likes them.</em></div>
+            <div data-hf-id="hf-hmvp" id="opening-caption-3" class="caption">Then he asks her one more question.</div>
+            <div data-hf-id="hf-lk40" id="opening-caption-4" class="caption">What happens here if you are not around for a month?</div>
+          </div>
+        </section>
+
+        <section id="proof-stage" class="stage" data-hf-id="four-word-proof-stage">
+          <div data-hf-id="hf-vbw0" class="proof-kicker">The one-month test</div>
+          <div data-hf-id="hf-1gh9" class="proof-title">The answer<br data-hf-id="hf-x5px">doesn't arrive.</div>
+          <div id="proof-model" class="proof-model" data-hf-id="answer-trace">
+            <div data-hf-id="hf-2h23" class="owner-node">Owner-held answer</div>
+            <div data-hf-id="hf-w6ky" id="route-line" class="route-line"></div>
+            <div data-hf-id="hf-rlc1" id="mark-1" class="word-mark"></div>
+            <div data-hf-id="hf-vjg2" id="mark-2" class="word-mark"></div>
+            <div data-hf-id="hf-zhk3" id="mark-3" class="word-mark"></div>
+            <div data-hf-id="hf-c02k" id="mark-4" class="word-mark"></div>
+            <div data-hf-id="hf-muy6" id="stop-bar" class="stop-bar"></div>
+            <div data-hf-id="hf-be2w" class="record-node">Operating record</div>
+          </div>
+          <div data-hf-id="hf-dygq" id="proof-caption-1" class="proof-caption">She gets about four words in.</div>
+          <div data-hf-id="hf-wetf" id="proof-caption-2" class="proof-caption">And then she <span data-hf-id="hf-639u" style="color:#b5482f">stops.</span></div>
+          <div data-hf-id="hf-xtu3" class="proof-disclosure">Illustrative diagnostic · no sale outcome claimed</div>
+          <audio data-hf-id="hf-egkh" id="proof-audio" src="assets/media/ep007-narration-four-words-stop.wav" data-hf-media-start-basis="local" data-start="9.166666667" data-duration="3.4" data-media-start="0" data-playback-rate="1" data-track-index="100" data-volume="1" preload="auto"></audio>
+        </section>
+
+        <section id="close-stage" class="stage" data-hf-id="close-presenter-stage">
+          <video id="close-video" data-hf-id="close-presenter-video" src="assets/media/ep007-avatar-v5-opportunity-pickup.mp4" data-hf-media-start-basis="local" data-start="12.566666667" data-duration="4.75" data-media-start="6.666666667" data-playback-rate="1" data-track-index="2" muted playsinline preload="auto" aria-label="Manav reveals the business opportunity inside the pause"></video>
+          <audio data-hf-id="hf-rjoz" id="close-audio" src="assets/media/ep007-narration-business-hiding.wav" data-hf-media-start-basis="local" data-start="12.566666667" data-duration="4.42" data-media-start="0" data-playback-rate="1" data-track-index="100" data-volume="1" preload="auto"></audio>
+          <div data-hf-id="hf-asjq" class="topline">The Operator Economy</div>
+          <div class="caption-rail" data-hf-id="close-caption-rail">
+            <div data-hf-id="hf-h5ph" id="close-caption-1" class="caption">And there is a <em data-hf-id="hf-13hd">business</em></div>
+            <div data-hf-id="hf-kuz6" id="close-caption-2" class="caption">hiding inside it</div>
+            <div data-hf-id="hf-5hcu" id="close-caption-3" class="caption">that almost nobody is running.</div>
+          </div>
+        </section>
+
+        <section id="hold-stage" class="stage" data-hf-id="avatar-backed-open-loop">
+          <img data-hf-id="hf-35bz" id="hold-image" src="assets/media/ep007-avatar-v5-opportunity-hold.png" alt="Manav in the EP007 study">
+          <div data-hf-id="hf-b6ur" class="topline">The Operator Economy</div>
+          <div data-hf-id="hf-cvve" id="loop-copy" class="loop-copy">
+            <div data-hf-id="hf-2lrm" class="loop-kicker">The full episode answers</div>
+            <div data-hf-id="hf-9m9b" id="loop-question" class="loop-question">What business is hiding in that <em data-hf-id="hf-09t4">pause?</em></div>
+          </div>
+          <div data-hf-id="hf-zhzu" id="episode-handoff" class="episode-handoff">
+            <strong data-hf-id="hf-p1l4">EP007</strong>
+            <span data-hf-id="hf-6maw">Watch the related<br data-hf-id="hf-rsrt">full episode</span>
+          </div>
+        </section>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const captions = ["#opening-caption-1", "#opening-caption-2", "#opening-caption-3", "#opening-caption-4", "#proof-caption-1", "#proof-caption-2", "#close-caption-1", "#close-caption-2", "#close-caption-3"];
+        tl.set(["#opening-stage", "#proof-stage", "#close-stage", "#hold-stage"], { opacity: 0 }, 0);
+        tl.set(captions, { opacity: 0, y: 24 }, 0);
+        tl.set(["#mark-1", "#mark-2", "#mark-3", "#mark-4"], { opacity: 0, y: -40 }, 0);
+        tl.set("#stop-bar", { opacity: 0, scaleX: 0 }, 0);
+        tl.set(["#loop-copy", "#episode-handoff"], { opacity: 0 }, 0);
+
+        tl.set("#opening-stage", { opacity: 1 }, 0);
+        tl.to("#opening-caption-1", { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 0.03);
+        tl.to("#opening-caption-1", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 1.67);
+        tl.to("#opening-caption-2", { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 1.77);
+        tl.to("#opening-caption-2", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 3.47);
+        tl.to("#opening-caption-3", { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, 3.57);
+        tl.to("#opening-caption-3", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 5.47);
+        tl.to("#opening-caption-4", { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 6.7);
+
+        tl.set("#opening-stage", { opacity: 0 }, 9.166666667);
+        tl.set("#proof-stage", { opacity: 1 }, 9.166666667);
+        tl.to("#proof-caption-1", { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 9.2);
+        tl.to("#mark-1", { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 9.52);
+        tl.to("#mark-2", { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 9.88);
+        tl.to("#mark-3", { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 10.24);
+        tl.to("#mark-4", { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 10.6);
+        tl.to("#proof-caption-1", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 11.56);
+        tl.to("#proof-caption-2", { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 11.66);
+        tl.to("#stop-bar", { opacity: 1, scaleX: 1, duration: 0.16, ease: "power3.out" }, 11.92);
+
+        tl.set("#proof-stage", { opacity: 0 }, 12.566666667);
+        tl.set("#close-stage", { opacity: 1 }, 12.566666667);
+        tl.to("#close-caption-1", { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 12.62);
+        tl.to("#close-caption-1", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 13.92);
+        tl.to("#close-caption-2", { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 14.02);
+        tl.to("#close-caption-2", { opacity: 0, y: -18, duration: 0.1, ease: "power1.in" }, 15.48);
+        tl.to("#close-caption-3", { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 15.58);
+
+        tl.set("#close-stage", { opacity: 0 }, 17.316666667);
+        tl.set("#hold-stage", { opacity: 1 }, 17.316666667);
+        tl.to("#loop-copy", { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" }, 17.36);
+        tl.to("#episode-handoff", { opacity: 1, duration: 0.2, ease: "power1.out" }, 18.2);
+
+        window.__timelines["avatar-hook-v2"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

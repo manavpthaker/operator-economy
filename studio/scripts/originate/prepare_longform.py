@@ -18,6 +18,13 @@ import json
 import shutil
 from pathlib import Path
 
+try:
+    from footage_manifest import (resolve_entry, resolve_local_path,
+                                  validate_manifest)
+except ImportError:
+    from .footage_manifest import (resolve_entry, resolve_local_path,
+                                   validate_manifest)
+
 ROOT = Path(__file__).parent.parent.parent
 
 
@@ -64,6 +71,54 @@ def main():
     words = load_json(base / "vo" / "words.json")
     timeline = load_json(base / "vo" / "timeline.json")
     assets = load_json(base / "assets.json")
+    storyboard_path = base / "storyboard.json"
+    use_storyboard = storyboard_path.exists()
+    footage_path = base / "footage_manifest.json"
+    footage = load_json(footage_path) if footage_path.exists() else None
+    if footage is not None:
+        footage_errors = validate_manifest(footage, base, require_files=True)
+        if footage_errors:
+            raise SystemExit("FOOTAGE GATE: BLOCKED\n" +
+                             "\n".join(f"- {error}" for error in footage_errors))
+
+    public_footage = ROOT / "remotion" / "public" / "footage" / script["slug"]
+    staged_footage: dict[str, dict] = {}
+
+    def render_asset(section_id: str, beat: int, asset: dict,
+                     screen_id: str | None = None, force_broll: bool = False) -> dict:
+        """Resolve an approved manifest entry and stage it for Remotion."""
+        if asset.get("type") != "broll" and not force_broll:
+            return asset
+        asset = {**asset, "type": "broll"}
+        if footage is None:
+            raise SystemExit(
+                f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} requests b-roll "
+                f"but {footage_path.name} does not exist\n"
+                f"  run: python scripts/originate/footage_manifest.py init {script_path}")
+        entry = resolve_entry(footage, section_id, beat, asset, screen_id)
+        if entry is None:
+            raise SystemExit(
+                f"FOOTAGE GATE: BLOCKED\n- {section_id} beat {beat} has no matching "
+                "footage manifest entry")
+        source = resolve_local_path(entry, base)
+        assert source is not None  # validate_manifest proved it exists
+        public_footage.mkdir(parents=True, exist_ok=True)
+        staged = public_footage / f"{entry['id']}{source.suffix.lower()}"
+        shutil.copy2(source, staged)
+        resolved = {
+            **asset,
+            "manifest_id": entry["id"],
+            "footage_role": entry["role"],
+            "source_video": f"footage/{script['slug']}/{staged.name}",
+            "source_in": float(entry.get("source_in", 0)),
+            "source_out": entry.get("source_out"),
+            "crop": entry.get("crop", "cover"),
+            "focal_position": entry.get("focal_point", "center"),
+            "caption": entry.get("caption") or asset.get("caption"),
+            "preview_eligible": bool(entry.get("preview_eligible")),
+        }
+        staged_footage[entry["id"]] = {**entry, "asset": resolved}
+        return resolved
 
     r_cfg = config["render"]
     fps = r_cfg["fps"]
@@ -96,8 +151,14 @@ def main():
                 "beat": b["beat"],
                 "start": chunk[0]["start"],
                 "end": chunk[-1]["end"],
-                "asset": asset_index.get((s["id"], b["beat"]),
-                                         {"type": "slide", "title": "", "bullets": []}),
+                # `screens[]` is the preferred renderer. Do not require or
+                # stage a legacy beat asset that the final storyboard removed.
+                "asset": (asset_index.get((s["id"], b["beat"]),
+                                          {"type": "slide", "title": "", "bullets": []})
+                          if use_storyboard else render_asset(
+                              s["id"], b["beat"],
+                              asset_index.get((s["id"], b["beat"]),
+                                              {"type": "slide", "title": "", "bullets": []}))),
             })
         # TILE beats: each asset holds until the next beat starts; first beat
         # starts at section start, last holds to section end. Word-range
@@ -121,7 +182,6 @@ def main():
     # We reconcile each screen's beat numbers against the asset_index so
     # each reveal carries the plan_assets-authoritative title and body
     # (not the placeholder titles storyboard.py derived from asset_hint).
-    storyboard_path = base / "storyboard.json"
     screens_out: list[dict] | None = None
     if storyboard_path.exists():
         storyboard = load_json(storyboard_path)
@@ -144,7 +204,14 @@ def main():
                 if screen["layout"] == "sheet":
                     sheet_ordinal[sid] = sheet_ordinal.get(sid, 0) + 1
                     ordinal = sheet_ordinal[sid]
-                asset = asset_index.get((sid, r["beat"]), {})
+                planned_asset = asset_index.get((sid, r["beat"]), {})
+                # The final storyboard owns layout. A stale plan_assets b-roll
+                # hint must not resurrect footage after a screen was hand-tuned
+                # into an artifact/chart/etc.
+                asset = (render_asset(
+                    sid, r["beat"], planned_asset,
+                    screen_id=screen["id"], force_broll=True)
+                    if screen["layout"] == "broll" else planned_asset)
                 rng = beat_time.get((sid, r["beat"]))
                 # Prefer explicit reveal timings/titles from the
                 # storyboard (Manav's hand-tune) over the section-level
@@ -169,6 +236,16 @@ def main():
                 "id": screen["id"],
                 "section": sid,
                 "layout": screen["layout"],
+                "preview_role": screen.get("preview_role") or screen.get("footage_role"),
+                "narrative_state": screen.get("narrative_state"),
+                "score_state": screen.get("score_state"),
+                "footage_role": screen.get("footage_role"),
+                "camera": screen.get("camera"),
+                "preview_eligible": bool(screen.get("preview_eligible")),
+                "visual_intent": screen.get("visual_intent"),
+                "search_query": screen.get("search_query"),
+                "query_variants": screen.get("query_variants", []),
+                "visual_exclusions": screen.get("visual_exclusions", []),
                 "heading": screen.get("heading"),
                 "start": screen["start"],
                 "end": screen["end"],
@@ -191,6 +268,135 @@ def main():
                 "audio": next((s["audio"] for s in sections_out if s["id"] == sid), None),
             })
 
+    # VO-first coverage timeline. Once an episode has an approved coverage
+    # map, it is the visual source of truth: do not collapse 3–10 second
+    # transcript decisions back into the older one-screen-per-script-beat
+    # storyboard. Selected media is staged; unresolved media remains an
+    # explicit render blocker rather than silently becoming a generic slide.
+    coverage_path = base / "coverage_map.json"
+    asset_manifest_path = base / "asset_manifest.json"
+    if coverage_path.exists() and asset_manifest_path.exists():
+        coverage = load_json(coverage_path)
+        manifest = load_json(asset_manifest_path)
+        if coverage.get("status") == "approved":
+            assets_by_id = {entry["id"]: entry for entry in manifest.get("entries", [])}
+            public_coverage = ROOT / "remotion" / "public" / "coverage" / script["slug"]
+            public_coverage.mkdir(parents=True, exist_ok=True)
+            coverage_screens = []
+            for index, beat in enumerate(coverage.get("beats", []), 1):
+                asset_ids = beat.get("asset_ids", [])
+                selected = next((assets_by_id.get(asset_id) for asset_id in asset_ids
+                                 if assets_by_id.get(asset_id, {}).get("status") == "selected"), None)
+                primary = selected or next((assets_by_id.get(asset_id) for asset_id in asset_ids
+                                            if assets_by_id.get(asset_id)), None)
+                media_path = None
+                if selected and selected.get("local_path"):
+                    source = base / selected["local_path"]
+                    if source.exists():
+                        staged = public_coverage / f"{selected['id']}{source.suffix.lower()}"
+                        shutil.copy2(source, staged)
+                        media_path = f"coverage/{script['slug']}/{staged.name}"
+                # Editorial platform visuals may intentionally represent a
+                # set of captures rather than one manifest file. Use the
+                # approved logged-out Booking results capture as the visible
+                # representative; the manifest remains unresolved until the
+                # final Booking/Expedia sequence is cut.
+                if (media_path is None and beat.get("asset_type") == "platform_visual"
+                        and any(asset_id in {"A003", "A011"} for asset_id in asset_ids)):
+                    fallback = base / "source_captures" / "booking-results-merida-2026-10-12.png"
+                    if fallback.exists():
+                        staged = public_coverage / f"{asset_ids[0] if asset_ids else beat['id']}-booking-results.png"
+                        shutil.copy2(fallback, staged)
+                        media_path = f"coverage/{script['slug']}/{staged.name}"
+                coverage_screens.append({
+                    "id": beat["id"],
+                    "section": beat["section"],
+                    "layout": "coverage",
+                    "heading": beat.get("narration", ""),
+                    "start": beat["start"],
+                    "end": beat["end"],
+                    "reveals": [],
+                    "preview_role": beat.get("story_role"),
+                    "footage_role": beat.get("story_role"),
+                    "preview_eligible": bool(beat.get("preview_eligible")),
+                    "visual_intent": beat.get("intended_shot"),
+                    "coverage_asset_type": beat.get("asset_type"),
+                    "coverage_narration": beat.get("narration"),
+                    "coverage_purpose": beat.get("visual_purpose"),
+                    "coverage_asset_ids": asset_ids,
+                    "coverage_asset": primary,
+                    "coverage_media": media_path,
+                    "coverage_index": index,
+                    "coverage_total": len(coverage.get("beats", [])),
+                    "audio": next((s["audio"] for s in sections_out
+                                   if s["id"] == beat["section"]), None),
+                    "events": [],
+                    "sfx": [],
+                    "music": {"intensity": "calm", "duck_db": -16},
+                })
+            # Visuals hold through breaths and sentence gaps. Coverage beats
+            # mark narration decisions, not edit-black instructions.
+            section_ranges = {
+                section["id"]: (section["start"], section["start"] + section["duration"])
+                for section in sections_out
+            }
+            for section_id in section_ranges:
+                section_screens = [s for s in coverage_screens if s["section"] == section_id]
+                if not section_screens:
+                    continue
+                section_screens[0]["start"] = section_ranges[section_id][0]
+                for current, following in zip(section_screens, section_screens[1:]):
+                    current["end"] = following["start"]
+                section_screens[-1]["end"] = section_ranges[section_id][1]
+            screens_out = coverage_screens
+            print(f"✓ Coverage timeline → {len(screens_out)} screens "
+                  f"({sum(1 for s in screens_out if s['coverage_media'])} media staged)")
+
+
+    # Rev D preview-proof gate. A manifest opts the episode into the footage
+    # contract; both storyboard and legacy beat render paths are supported.
+    if footage and footage.get("enforce_preview_gate", True):
+        if screens_out is not None:
+            opening_ids = {
+                r["asset"].get("manifest_id")
+                for screen in screens_out if screen.get("start", 999) < 30
+                for r in screen.get("reveals", [])
+                if r.get("asset", {}).get("type") == "broll"
+            }
+        else:
+            opening_ids = {
+                b["asset"].get("manifest_id")
+                for section in sections_out
+                for b in section.get("beats", []) if b.get("start", 999) < 30
+                if b.get("asset", {}).get("type") == "broll"
+            }
+        opening_roles = {
+            staged_footage[mid]["role"] for mid in opening_ids
+            if mid in staged_footage and staged_footage[mid].get("preview_eligible")
+        }
+        if screens_out is not None:
+            for screen in screens_out:
+                if screen.get("start", 999) >= 30:
+                    continue
+                if screen.get("preview_role") in {"human_context", "market_force", "proof", "process", "outcome"}:
+                    opening_roles.add(screen["preview_role"])
+                elif screen.get("layout") in {"chart", "proof_card", "artifact", "source_card"}:
+                    opening_roles.add("proof")
+                elif screen.get("layout") in {"screen_rec", "schematic"}:
+                    opening_roles.add("process")
+        missing_groups = []
+        if "human_context" not in opening_roles:
+            missing_groups.append("human_context")
+        if not opening_roles.intersection({"market_force", "proof"}):
+            missing_groups.append("market_force|proof")
+        if not opening_roles.intersection({"process", "outcome"}):
+            missing_groups.append("process|outcome")
+        if missing_groups:
+            raise SystemExit(
+                "FOOTAGE PREVIEW GATE: BLOCKED\n"
+                f"- first 30 seconds lacks preview-eligible: {', '.join(missing_groups)}\n"
+                f"- observed roles: {', '.join(sorted(opening_roles)) or 'none'}")
+
     total = timeline["total_seconds"]
 
     # Bookends (2026-07-03): brand sting + title/thesis before the hook,
@@ -201,6 +407,12 @@ def main():
     bookends = {
         "brand_seconds": bk_cfg.get("brand_seconds", 1.8),
         "title_seconds": bk_cfg.get("title_seconds", 3.2),
+        "thumbnail_lead_seconds": bk_cfg.get("thumbnail_lead_seconds", 0.0),
+        "brand_at_seconds": bk_cfg.get("brand_at_seconds", 0.0),
+        "brand_after_section": bk_cfg.get("brand_after_section"),
+        "overlay_on_content": bk_cfg.get("overlay_on_content", False),
+        "pause_content_during_identity": bk_cfg.get("pause_content_during_identity", False),
+        "sting_audio": bk_cfg.get("sting_audio"),
         "outro_seconds": bk_cfg.get("outro_seconds", 6.0),
         # J/L-cuts (2026-07-03): VO runs under the title card and under
         # the outro card, so the bookends feel like edits, not slides.
@@ -220,6 +432,13 @@ def main():
         },
         "ctas": bk_cfg.get("outro_ctas", []),
     }
+    # EP006 names the episode inside the locked VO. The identity break is
+    # therefore the universal OE logo/sting only; a second silent title card
+    # before the spoken title duplicates and scrambles the opening hierarchy.
+    if script["slug"] == "direct-booking-recovery":
+        bookends["brand_seconds"] = 0.0
+        bookends["title_seconds"] = 0.0
+        bookends["sting_audio"] = None
 
     # Cold open (2026-08-12). The brand sting opens on the episode's OWN
     # thumbnail ground and dissolves it into the navy over its existing 1.8
@@ -277,7 +496,58 @@ def main():
     else:
         print("  note: no thumbnail ground found; brand sting opens on navy. "
               "Run generate_scene.py to give this episode a cold open.")
-    intro_s = bookends["brand_seconds"] + bookends["title_seconds"]
+
+    # Rev D identity break. The cold open runs as editorial content first; the
+    # brand sting and episode title then occupy their own time before the next
+    # section starts. Shift every downstream render-time event instead of
+    # letting narration continue invisibly under the logo.
+    insert_s = 0.0
+    if bookends["overlay_on_content"] and bookends["pause_content_during_identity"]:
+        after_id = bookends.get("brand_after_section")
+        anchor = next((s for s in sections_out if s["id"] == after_id), None)
+        if anchor is None:
+            raise SystemExit(f"bookends.brand_after_section={after_id!r} does not exist")
+        insert_at = anchor["start"] + anchor["duration"]
+        insert_s = bookends["brand_seconds"] + bookends["title_seconds"]
+        bookends["brand_at_seconds"] = insert_at
+
+        def shift_time(value):
+            return value + insert_s if value is not None and value >= insert_at - 0.001 else value
+
+        for section in sections_out:
+            if section["start"] >= insert_at - 0.001 and section["id"] != after_id:
+                section["start"] += insert_s
+            for beat in section["beats"]:
+                beat["start"] = shift_time(beat["start"])
+                beat["end"] = shift_time(beat["end"])
+        if screens_out is not None:
+            for screen in screens_out:
+                if screen["start"] >= insert_at - 0.001:
+                    screen["start"] += insert_s
+                    screen["end"] += insert_s
+                    for reveal in screen.get("reveals", []):
+                        reveal["at"] = shift_time(reveal.get("at"))
+                        reveal["end"] = shift_time(reveal.get("end"))
+                        anchor_range = reveal.get("word_anchor")
+                        if anchor_range:
+                            anchor_range["start"] = shift_time(anchor_range.get("start"))
+                            anchor_range["end"] = shift_time(anchor_range.get("end"))
+                    for event in screen.get("events", []):
+                        event["at"] = shift_time(event.get("at"))
+                    for cue in screen.get("sfx", []):
+                        cue["at"] = shift_time(cue.get("at"))
+        render_words = [
+            {**word, "start": shift_time(word["start"]), "end": shift_time(word["end"])}
+            for word in words
+        ]
+        total += insert_s
+        print(f"  identity break ← after {after_id} at {insert_at:.3f}s (+{insert_s:.1f}s)")
+    else:
+        render_words = words
+    # Rev D overlays identity on story motion after the cold open has begun.
+    # Legacy episodes still prepend their bookends.
+    intro_s = (0.0 if bookends["overlay_on_content"] else
+               bookends["brand_seconds"] + bookends["title_seconds"])
     overlap_s = bookends["j_cut_seconds"] + bookends["l_cut_seconds"]
 
     render_data = {
@@ -290,7 +560,7 @@ def main():
         "resolution": r_cfg["resolution"],
         "sections": sections_out,
         "captions": {
-            "groups": group_words(words, r_cfg["words_per_group"], highlights),
+            "groups": group_words(render_words, r_cfg["words_per_group"], highlights),
             "style": r_cfg["caption_style"],
             "words_per_group": r_cfg["words_per_group"],
         },

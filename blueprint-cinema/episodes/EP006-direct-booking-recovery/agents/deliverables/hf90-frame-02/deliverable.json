@@ -1,0 +1,60 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-02",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/02-paid-introduction.md",
+      "sha256": "ec2127198ec0347b873af2128c5b15f89703ee798ac5c349e02abb422f4b1d6d"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-02/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-02/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual HyperFrames isolated-fragment contract self-check",
+      "outcome": "pass"
+    },
+    {
+      "command": "agent-deliverable schema validation",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet 02-paid-introduction.md supplied by the work order.",
+    "Hash-pinned HyperFrames worker role and frame.md design truth supplied by the work order.",
+    "Hash-pinned EP006 input lock used only as declared upstream authority.",
+    "All visible mechanisms are packet-defined CSS, type, and inline SVG; no external media or vendor interface was used."
+  ],
+  "assumptions": [
+    "The assembler will provide the approved frame.md font assets globally because the isolated HyperFrames project contains no shipped font files and this worker may not stage shared assets.",
+    "OTA GATE, GUEST, and INN are generic packet-defined mechanism labels, not vendor marks or interface evidence."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

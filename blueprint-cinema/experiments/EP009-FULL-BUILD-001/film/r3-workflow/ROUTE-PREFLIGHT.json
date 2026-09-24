@@ -1,0 +1,547 @@
+{
+  "record_type": "read_only_workflow_route_preflight",
+  "at_utc": "2026-09-17T18:37:24.041Z",
+  "higgsfield_balance": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Credits: 1719 | Plan: max\nFree trial: pending\nFree generations: Higgsfield Genjutsu (hf_mult_motion_control, hf_mult_replace_object): 1 left — resolution: 480p, 720p; up to 30s\nFree generations: Viral presets (viral_hub_video): 1 left — resolution: 480p, 720p\nPlans and pricing info: https://higgsfield.ai/mcp-pricing"
+      }
+    ],
+    "structuredContent": {
+      "credits": 1719,
+      "subscription_plan_type": "max",
+      "pricing_url": "https://higgsfield.ai/mcp-pricing",
+      "free_trial": {
+        "status": "pending",
+        "eligible": false,
+        "offered_kind": null,
+        "kind": "mcp",
+        "trial_credits": 100,
+        "ends_at": null,
+        "unlim_available": false,
+        "unlim_remaining": null,
+        "unlim_expires_at": null
+      },
+      "free_gens": [
+        {
+          "job_set_types": [
+            "hf_mult_motion_control",
+            "hf_mult_replace_object"
+          ],
+          "remaining": 1,
+          "parameters": {
+            "resolution": [
+              "480p",
+              "720p"
+            ]
+          },
+          "max_duration": 30
+        },
+        {
+          "job_set_types": [
+            "viral_hub_video"
+          ],
+          "remaining": 1,
+          "parameters": {
+            "resolution": [
+              "480p",
+              "720p"
+            ]
+          },
+          "max_duration": null
+        }
+      ]
+    },
+    "isError": false
+  },
+  "model_catalog": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"items\":[{\"id\":\"kling2_6\",\"name\":\"Kling 2.6 Video\",\"provider_name\":\"Kling\",\"description\":\"Cinematic motion, advanced physics\",\"output_type\":\"video\",\"parameters\":[{\"name\":\"duration\",\"required\":\"optional\",\"type\":\"number\",\"description\":\"Video duration in seconds.\",\"options\":[5,10],\"default\":5},{\"name\":\"sound\",\"required\":\"optional\",\"type\":\"bool\",\"description\":\"Generate the video with native audio.\",\"default\":true}],\"medias\":[{\"name\":\"medias\",\"type\":\"image\",\"roles\":[\"start_image\"]}],\"aspect_ratios\":[\"16:9\",\"9:16\",\"1:1\"],\"tags\":[\"cinematic\",\"motion\",\"physics\",\"advanced\",\"audio\"]},{\"id\":\"kling3_0\",\"name\":\"Kling v3.0\",\"provider_name\":\"Kling\",\"description\":\"Multi-shot, audio sync, motion transfer\",\"output_type\":\"video\",\"parameters\":[{\"name\":\"duration\",\"required\":\"optional\",\"type\":\"number\",\"description\":\"Duration in seconds (3-15).\",\"min\":3,\"max\":15,\"default\":5},{\"name\":\"mode\",\"required\":\"optional\",\"type\":\"string\",\"description\":\"Generation mode: 'std' (standard), 'pro' (higher quality), or '4k' (4K resolution).\",\"options\":[\"std\",\"pro\",\"4k\"],\"default\":\"std\"},{\"name\":\"sound\",\"required\":\"optional\",\"type\":\"string\",\"description\":\"Generate audio. Use 'off' for silent video and lower credits.\",\"options\":[\"on\",\"off\"],\"default\":\"on\"}],\"medias\":[{\"name\":\"medias\",\"type\":\"image\",\"roles\":[\"start_image\",\"end_image\"]}],\"aspect_ratios\":[\"16:9\",\"9:16\",\"1:1\"],\"tags\":[\"multi-shot\",\"audio\",\"motion-transfer\",\"cinematic\",\"advanced\",\"unlim\"],\"supports_unlim\":true},{\"id\":\"kling3_0_turbo\",\"name\":\"Kling 3.0 Turbo\",\"provider_name\":\"Kling\",\"description\":\"Fast text-to-video and single start-frame animation\",\"output_type\":\"video\",\"parameters\":[{\"name\":\"resolution\",\"required\":\"optional\",\"type\":\"string\",\"description\":\"Output resolution.\",\"options\":[\"720p\",\"1080p\"],\"default\":\"720p\"},{\"name\":\"duration\",\"required\":\"optional\",\"type\":\"number\",\"description\":\"Duration in seconds (3-15).\",\"min\":3,\"max\":15,\"default\":5}],\"medias\":[{\"name\":\"medias\",\"type\":\"image\",\"roles\":[\"start_image\"]}],\"aspect_ratios\":[\"16:9\",\"9:16\",\"1:1\"],\"tags\":[\"fast\",\"turbo\",\"text-to-video\",\"image-to-video\",\"start-frame\",\"budget\",\"kling\"]},{\"id\":\"kling_video_edit\",\"name\":\"Kling 3.0 Omni Edit\",\"provider_name\":\"Kling\",\"description\":\"Edit a source video with text instructions and optional reference images\",\"output_type\":\"video\",\"parameters\":[{\"name\":\"mode\",\"required\":\"optional\",\"type\":\"string\",\"description\":\"Output quality: Standard, Pro, or 4K.\",\"options\":[\"std\",\"pro\",\"4k\"],\"default\":\"pro\"}],\"medias\":[{\"name\":\"medias\",\"type\":\"image\",\"roles\":[\"video_references\",\"image_references\"]}],\"aspect_ratios\":[],\"tags\":[\"video-edit\",\"reference\",\"4k\"]}],\"has_more\":false,\"free_gens\":[{\"job_set_types\":[\"hf_mult_motion_control\",\"hf_mult_replace_object\"],\"remaining\":1,\"parameters\":{\"resolution\":[\"480p\",\"720p\"]},\"max_duration\":30},{\"job_set_types\":[\"viral_hub_video\"],\"remaining\":1,\"parameters\":{\"resolution\":[\"480p\",\"720p\"]},\"max_duration\":null}]}"
+      },
+      {
+        "type": "text",
+        "text": "Free-trial unlim: not spendable right now. Passing use_unlim returns a typed rejection rather than a charge, so it is still the right thing to send when the user asks for their free generations.\n\nUnlim configs: none sent — coverage detail is unknown, which is not the same as 'nothing is covered'. Pass use_unlim when the user asks and let the backend answer.\n\nFree generations — one counter per line, shared by every model id on it; a run through any of them spends one. Pass use_free_gens: true on generate_video for Genjutsu or execute_preset for Viral when the user asks to use a free generation; a request outside the listed values is refused, never silently billed.\n- Higgsfield Genjutsu (hf_mult_motion_control, hf_mult_replace_object): 1 left — resolution: 480p, 720p; up to 30s\n- Viral presets (viral_hub_video): 1 left — resolution: 480p, 720p"
+      }
+    ],
+    "structuredContent": {
+      "items": [
+        {
+          "id": "kling2_6",
+          "name": "Kling 2.6 Video",
+          "provider_name": "Kling",
+          "description": "Cinematic motion, advanced physics",
+          "output_type": "video",
+          "parameters": [
+            {
+              "name": "duration",
+              "required": "optional",
+              "type": "number",
+              "description": "Video duration in seconds.",
+              "options": [
+                5,
+                10
+              ],
+              "default": 5
+            },
+            {
+              "name": "sound",
+              "required": "optional",
+              "type": "bool",
+              "description": "Generate the video with native audio.",
+              "default": true
+            }
+          ],
+          "medias": [
+            {
+              "name": "medias",
+              "type": "image",
+              "roles": [
+                "start_image"
+              ]
+            }
+          ],
+          "aspect_ratios": [
+            "16:9",
+            "9:16",
+            "1:1"
+          ],
+          "tags": [
+            "cinematic",
+            "motion",
+            "physics",
+            "advanced",
+            "audio"
+          ]
+        },
+        {
+          "id": "kling3_0",
+          "name": "Kling v3.0",
+          "provider_name": "Kling",
+          "description": "Multi-shot, audio sync, motion transfer",
+          "output_type": "video",
+          "parameters": [
+            {
+              "name": "duration",
+              "required": "optional",
+              "type": "number",
+              "description": "Duration in seconds (3-15).",
+              "min": 3,
+              "max": 15,
+              "default": 5
+            },
+            {
+              "name": "mode",
+              "required": "optional",
+              "type": "string",
+              "description": "Generation mode: 'std' (standard), 'pro' (higher quality), or '4k' (4K resolution).",
+              "options": [
+                "std",
+                "pro",
+                "4k"
+              ],
+              "default": "std"
+            },
+            {
+              "name": "sound",
+              "required": "optional",
+              "type": "string",
+              "description": "Generate audio. Use 'off' for silent video and lower credits.",
+              "options": [
+                "on",
+                "off"
+              ],
+              "default": "on"
+            }
+          ],
+          "medias": [
+            {
+              "name": "medias",
+              "type": "image",
+              "roles": [
+                "start_image",
+                "end_image"
+              ]
+            }
+          ],
+          "aspect_ratios": [
+            "16:9",
+            "9:16",
+            "1:1"
+          ],
+          "tags": [
+            "multi-shot",
+            "audio",
+            "motion-transfer",
+            "cinematic",
+            "advanced",
+            "unlim"
+          ],
+          "supports_unlim": true
+        },
+        {
+          "id": "kling3_0_turbo",
+          "name": "Kling 3.0 Turbo",
+          "provider_name": "Kling",
+          "description": "Fast text-to-video and single start-frame animation",
+          "output_type": "video",
+          "parameters": [
+            {
+              "name": "resolution",
+              "required": "optional",
+              "type": "string",
+              "description": "Output resolution.",
+              "options": [
+                "720p",
+                "1080p"
+              ],
+              "default": "720p"
+            },
+            {
+              "name": "duration",
+              "required": "optional",
+              "type": "number",
+              "description": "Duration in seconds (3-15).",
+              "min": 3,
+              "max": 15,
+              "default": 5
+            }
+          ],
+          "medias": [
+            {
+              "name": "medias",
+              "type": "image",
+              "roles": [
+                "start_image"
+              ]
+            }
+          ],
+          "aspect_ratios": [
+            "16:9",
+            "9:16",
+            "1:1"
+          ],
+          "tags": [
+            "fast",
+            "turbo",
+            "text-to-video",
+            "image-to-video",
+            "start-frame",
+            "budget",
+            "kling"
+          ]
+        },
+        {
+          "id": "kling_video_edit",
+          "name": "Kling 3.0 Omni Edit",
+          "provider_name": "Kling",
+          "description": "Edit a source video with text instructions and optional reference images",
+          "output_type": "video",
+          "parameters": [
+            {
+              "name": "mode",
+              "required": "optional",
+              "type": "string",
+              "description": "Output quality: Standard, Pro, or 4K.",
+              "options": [
+                "std",
+                "pro",
+                "4k"
+              ],
+              "default": "pro"
+            }
+          ],
+          "medias": [
+            {
+              "name": "medias",
+              "type": "image",
+              "roles": [
+                "video_references",
+                "image_references"
+              ]
+            }
+          ],
+          "aspect_ratios": [],
+          "tags": [
+            "video-edit",
+            "reference",
+            "4k"
+          ]
+        }
+      ],
+      "has_more": false,
+      "free_gens": [
+        {
+          "job_set_types": [
+            "hf_mult_motion_control",
+            "hf_mult_replace_object"
+          ],
+          "remaining": 1,
+          "parameters": {
+            "resolution": [
+              "480p",
+              "720p"
+            ]
+          },
+          "max_duration": 30
+        },
+        {
+          "job_set_types": [
+            "viral_hub_video"
+          ],
+          "remaining": 1,
+          "parameters": {
+            "resolution": [
+              "480p",
+              "720p"
+            ]
+          },
+          "max_duration": null
+        }
+      ]
+    },
+    "isError": false
+  },
+  "cost_estimates": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0",
+          "mode": "pro",
+          "sound": "off",
+          "duration": 8,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0: 14 credits (14 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 14,
+              "credits_exact": 14
+            }
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0",
+          "mode": "pro",
+          "sound": "off",
+          "duration": 10,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0: 17.5 credits (17.5 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 17.5,
+              "credits_exact": 17.5
+            }
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0",
+          "mode": "std",
+          "sound": "off",
+          "duration": 8,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0: 12 credits (12 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 12,
+              "credits_exact": 12
+            }
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0",
+          "mode": "std",
+          "sound": "off",
+          "duration": 10,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0: 15 credits (15 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 15,
+              "credits_exact": 15
+            }
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0_turbo",
+          "resolution": "720p",
+          "duration": 8,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0_turbo: 12 credits (12 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 12,
+              "credits_exact": 12
+            }
+          },
+          "isError": false
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "params": {
+          "model": "kling3_0_turbo",
+          "resolution": "720p",
+          "duration": 10,
+          "aspect_ratio": "16:9",
+          "count": 1,
+          "prompt": "One continuous locked-camera shot at the established inn counter. The innkeeper draws one printed report toward herself and reads it. Real-time action, no speaking, no visible readable text, no camera movement.",
+          "medias": [
+            {
+              "role": "start_image",
+              "value": "1eec6842-8fe5-450b-b186-e0f3f345503c"
+            }
+          ]
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Cost preflight for kling3_0_turbo: 15 credits (15 exact). No job submitted."
+            }
+          ],
+          "structuredContent": {
+            "cost": {
+              "credits": 15,
+              "credits_exact": 15
+            }
+          },
+          "isError": false
+        }
+      }
+    }
+  ],
+  "selected": {
+    "model": "kling3_0",
+    "mode": "pro",
+    "sound": "off",
+    "generation_seconds": [
+      8,
+      8,
+      8,
+      10,
+      8
+    ],
+    "expected_credits": 73.5,
+    "max_retry_count": 1,
+    "max_retry_seconds": 8,
+    "max_retry_credits": 14,
+    "max_new_higgsfield_credits": 97.5,
+    "presenter_credits_reserved": 1607
+  },
+  "fal": {
+    "status": "exhausted_balance",
+    "paid_attempts": 0,
+    "current_public_price_per_second_audio_off": 0.112,
+    "source": "https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video",
+    "caveat": "Account storage initiate is unavailable; no Fal generation permitted."
+  },
+  "setup_images": {
+    "provider": "built-in image_gen",
+    "count": 2,
+    "credit_debit": "not_exposed_by_tool_do_not_assume_higgsfield_debit"
+  }
+}

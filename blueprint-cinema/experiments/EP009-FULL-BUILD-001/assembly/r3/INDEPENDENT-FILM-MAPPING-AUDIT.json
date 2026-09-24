@@ -1,0 +1,227 @@
+{
+  "record_type": "ep009_r3_independent_film_mapping_audit",
+  "recorded_at_utc": "2026-09-17T19:07:50.107336+00:00",
+  "status": "pass_mapping_and_provenance",
+  "audit_scope": "Independent read-only source-frame, cue-preservation, emitted-filter-graph and new-film provenance audit; excludes encoded-output and perceptual acceptance.",
+  "auditor": "ep009_resume_audit",
+  "inputs": {
+    "film_selections": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/r3-workflow/FILM-SELECTS.json",
+      "sha256": "a8eb59af889ed138dc2ceefa1563d1b6889a86d8ac662c92c69e5cf021461512"
+    },
+    "emitted_graph": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-full-r3-review-draft-graph.txt",
+      "sha256": "c4082abf3baecd7b1b86ccd4785ea380e36f9c727fe6bee6610c07779351de3e"
+    },
+    "revision": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/REVISION.json",
+      "sha256": "eb478be37c4dbaae7d3ef6654cea78dc19e7e1bb1539d066c2995da640128ae6"
+    },
+    "master": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+    },
+    "owner_scoped_lock": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/OWNER-LOCK.json",
+      "sha256": "bd909cde46ba8df22270af122e3f878edd1505d48c5ed3892cfe8525a0c351a7"
+    },
+    "prepared_sources": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/SOURCES.json",
+      "sha256": "769a7bc961338eba83cf3181c28f7123c6947d2b23a09f96a13e9f999b5f85e8"
+    },
+    "timemap": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/TIMEMAP.json",
+      "sha256": "5427ecd19835ab60414291b8ec3cde474188c422e89ee9d0ad67090a586a4272"
+    }
+  },
+  "stable_mapping_payload": {
+    "build_keys": [
+      "source_spans",
+      "all_75_rows",
+      "master",
+      "owner_scoped_lock"
+    ],
+    "canonicalization": "UTF-8 JSON; sort_keys=true; separators=(comma,colon); ensure_ascii=false; allow_nan=false; no trailing newline",
+    "sha256": "148f832a9b47cc432c8aaa818484b9cd38d8d1d19fa4d88b9895c5bb84b5d778",
+    "component_sha256": {
+      "source_spans": "89099d89d1a4105c9bcb3036103a45e78080749de11760603b87e37dc9434fed",
+      "all_75_rows": "32f80c63f14163fd0a98e16705d89ac55ae48e01e284587cdf559dc4612df1f1",
+      "master": "1211b9f3a28476c5227acfa25d866ed0586909bbec7445360cbf99e30d19bae2",
+      "owner_scoped_lock": "6e7ef08688c5fa570cdf5690abaa35687c7308d1d1e692a20603b7ff28825675"
+    }
+  },
+  "build_carrier_at_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-full-r3-review-draft-BUILD.json",
+    "sha256": "8bc57464dbd1e69212179990ac34c8cb9555e4a70d1aca8404e44504cc10b858",
+    "status": "rendering",
+    "note": "The BUILD carrier was mutable during encoding; its final carrier hash is bound separately after verifying the stable mapping and other audited fields remain unchanged."
+  },
+  "final_build_carrier": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-full-r3-review-draft-BUILD.json",
+    "sha256": "806ec203069d994fb5928c61aaa1350c788b2faf5fa3e9d2663e593ab962aa12",
+    "status": "encoded_unverified_review_only",
+    "encode_exit_code": 0,
+    "output_path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r3/ep009-full-r3-review-draft.mp4",
+    "output_sha256_as_recorded_by_assembler": "16a065294110e0bbb86b49a2f3901cd2c605a919864fcd470f4af06c19bcc9b7",
+    "refreshed_at_utc": "2026-09-17T19:07:50.107336+00:00"
+  },
+  "final_carrier_refresh_status": "complete_mapping_unchanged",
+  "final_carrier_comparison": {
+    "stable_mapping_payload_unchanged": true,
+    "graph_and_film_select_bindings_unchanged": true,
+    "all_original_build_fields_unchanged_except_status": true,
+    "only_added_fields": [
+      "encode_exit_code",
+      "output_sha256"
+    ],
+    "method": "Reconstructed the exact rendering carrier by restoring status=rendering and removing the two encode-completion fields, serialized using the renderer format, and matched the full SHA-256 recorded during the completed independent audit. Canonical stable-payload hashes also matched. No full retest performed."
+  },
+  "checks": {
+    "all_29323_source_frame_assignments_independently_compared": true,
+    "exactly_six_intended_overrides": true,
+    "changed_picture_frames": 823,
+    "all_other_picture_source_frames_preserved": true,
+    "all_75_segment_and_cue_records_preserved": true,
+    "source_spans": 83,
+    "render_groups": 57,
+    "all_emitted_trim_select_ranges_and_input_indices_match": true,
+    "render_concat_order_and_24fps_setpts_match": true,
+    "grouped_brand_selection_exact": true,
+    "six_new_film_source_raw_prompt_take_review_hashes_current": true,
+    "six_independently_decoded_lengths_exact_at_24fps_1280x720": true,
+    "new_master_is_bound_audio_input": true,
+    "total_frames": 29323,
+    "final_audio_target_samples": 58646000,
+    "corrected_p08_uses_labeled_still": true,
+    "owner_accepted": false,
+    "delivery_master": false
+  },
+  "film_windows": [
+    {
+      "id": "WF00-F06",
+      "original_frames": [
+        9511,
+        9685
+      ],
+      "r3_output_frames": [
+        9433,
+        9607
+      ],
+      "raw_source_frames": [
+        12,
+        186
+      ],
+      "conformed_source_frames": [
+        0,
+        174
+      ],
+      "frames": 174
+    },
+    {
+      "id": "WF01-monthly",
+      "original_frames": [
+        14843,
+        14980
+      ],
+      "r3_output_frames": [
+        14765,
+        14902
+      ],
+      "raw_source_frames": [
+        36,
+        173
+      ],
+      "conformed_source_frames": [
+        0,
+        137
+      ],
+      "frames": 137
+    },
+    {
+      "id": "WF02-reports",
+      "original_frames": [
+        18105,
+        18200
+      ],
+      "r3_output_frames": [
+        17821,
+        17916
+      ],
+      "raw_source_frames": [
+        60,
+        155
+      ],
+      "conformed_source_frames": [
+        0,
+        95
+      ],
+      "frames": 95
+    },
+    {
+      "id": "WF03-phone",
+      "original_frames": [
+        18294,
+        18399
+      ],
+      "r3_output_frames": [
+        18010,
+        18115
+      ],
+      "raw_source_frames": [
+        6,
+        111
+      ],
+      "conformed_source_frames": [
+        0,
+        105
+      ],
+      "frames": 105
+    },
+    {
+      "id": "WF04-exception",
+      "original_frames": [
+        20491,
+        20682
+      ],
+      "r3_output_frames": [
+        20207,
+        20398
+      ],
+      "raw_source_frames": [
+        24,
+        215
+      ],
+      "conformed_source_frames": [
+        0,
+        191
+      ],
+      "frames": 191
+    },
+    {
+      "id": "WF05-answer",
+      "original_frames": [
+        25999,
+        26120
+      ],
+      "r3_output_frames": [
+        25715,
+        25836
+      ],
+      "raw_source_frames": [
+        54,
+        175
+      ],
+      "conformed_source_frames": [
+        0,
+        121
+      ],
+      "frames": 121
+    }
+  ],
+  "method": "Compared all frame-level source identities and offsets against prepared SOURCES.json plus six independently mapped original-timeline windows (minus 78 frames before P08 and 284 after P08). Compared all row fields except spans with the prepared rows. Expanded render-group ranges and independently parsed all 57 emitted trim/select branches and input paths. Checked new film artifact hashes against FILM-SELECTS and TAKE receipts and counted decoded video frames with ffprobe. No builder mapping helper imported.",
+  "limitations": [
+    "The full encoded output is not independently verified by this report; encoded carrier checks belong to final assembly verification. Its output hash here is explicitly the assembler-recorded value.",
+    "This is a technical mapping/provenance pass, not owner perceptual acceptance or permission to publish.",
+    "The final BUILD carrier differs from the audited rendering carrier only in encode-completion metadata, as confirmed by reconstructing and matching the previously recorded full-byte hash."
+  ]
+}

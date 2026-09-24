@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-09-22T15:48:45Z",
+  "candidate": "EP007 Short 01 - Thirty-day dependency map",
+  "authority": {
+    "decision": "ep007-short01-through-video-generation-authorized-v15",
+    "sha256": "7dbe6c3726017c4b2722f8678d5a6a8c96b97026e83b0e84f293ea3f667253b4",
+    "scope": "video generation and private review candidate only",
+    "release_upload_publication_authorized": false,
+    "owner_video_acceptance": false
+  },
+  "composition": {
+    "hyperframes_version": "0.8.60",
+    "index_sha256": "80d400a805bee88f77949064ef5d69b505a85ece00a238a98564b97896aa968b",
+    "motion_manifest_sha256": "cc4324c3f0892475db0f8c9a7082bf35b21060974b453ff276e52ffc480a9c2d",
+    "duration_seconds": 41.541667,
+    "fps": 24,
+    "frames": 997
+  },
+  "strict_check": {
+    "command": "npm run check -- --json --strict --at-transitions --samples 96 --snapshots --frame-check=\"severity=error;seek=.25,.5,.75;tol=2\" --no-browser-gpu",
+    "exit_code": 0,
+    "ok": true,
+    "lint": { "errors": 0, "warnings": 0 },
+    "runtime": { "errors": 0, "warnings": 0 },
+    "layout": { "errors": 0, "warnings": 0, "transition_samples_dropped": 0 },
+    "motion": { "errors": 0, "warnings": 0 },
+    "contrast": { "errors": 0, "warnings": 0, "checked": 50, "passed": 50 },
+    "frame_check": { "severity": "error", "seek_fractions": [0.25, 0.5, 0.75], "tolerance_pixels": 2, "findings": 0 }
+  },
+  "targeted_visual_review": {
+    "times_seconds": [0.8, 3.5, 6.2, 8.6, 11.5, 14.8, 18.7, 19.6, 20.8, 22.7, 24.4, 25.8, 27.5, 30.9, 33.7, 35.8, 37.4, 40.5],
+    "frames_reviewed": 18,
+    "result": "pass",
+    "contact_sheet_1_sha256": "d15025ad5d5a77d0516080c11ae8063e4dd651a2e83c76e02dd0871b177e54ed",
+    "contact_sheet_2_sha256": "3411a38cc560f6c8381943f08313854b579ec37e57ff7c40b5b33cafb7a795c2",
+    "render_contact_sheet_sha256": "5bc2d9da7ea43793ee903bb2cfb3b146502c688d333eabb09b7e357e35f4eed2"
+  },
+  "animation_map": {
+    "sha256": "e6c3cfbe63de47a6af14087ec33cac3545c59b3638d2059c1106ac21da1f9f14",
+    "tweens_mapped": 38,
+    "tweens_total": 38,
+    "skipped_micro_tweens": 0,
+    "degenerate_flags": 7,
+    "degenerate_explanation": "Expected zero-height or zero-width SVG route paths; the paths visibly draw and strict runtime/layout checks pass.",
+    "dead_zone_explanation": "Intentional reading, presenter-performance, and final-hold intervals."
+  },
+  "captions": {
+    "manifest_sha256": "de6d3480402c49d043e0bd7c9d7a817fae279c5b2ec832fc7020424aceea1e7d",
+    "overlay_sha256": "bce84f43ab48059118aaf92d32c5145770a1c189351e1fa00f2f98b3a0ed6a65",
+    "source_words": 97,
+    "rail_words": 88,
+    "embedded_peak_words": 9,
+    "dropped_words": 0
+  },
+  "render": {
+    "path": "renders/ep007-short01-thirty-day-map-final.mp4",
+    "sha256": "ca5833c0e5ef0bebb35187b5ff8f76a19cfff3487f8134b907aa155c2716c543",
+    "bytes": 19238772,
+    "video": {
+      "codec": "h264",
+      "profile": "High",
+      "pixel_format": "yuv420p",
+      "color": "bt709",
+      "width": 1080,
+      "height": 1920,
+      "fps": 24,
+      "frames": 997,
+      "duration_seconds": 41.541667
+    },
+    "audio": {
+      "stream_count": 1,
+      "codec": "aac",
+      "profile": "LC",
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "duration_seconds": 41.541,
+      "mean_volume_db": -16.9,
+      "max_volume_db": -1.6,
+      "program_source": "continuous Original C master only"
+    },
+    "full_decode": { "exit_code": 0, "errors": 0 },
+    "freeze_scan": {
+      "presenter_segments": "pass - no freezes of 0.5 seconds or longer detected",
+      "detected_intervals": "Only intentional static holds in the designed map scene from 24.166667 to 32.583333 seconds."
+    },
+    "renderer_note": "The renderer warned that presenter A had sparse source keyframes. It extracted the timed source frames successfully; presenter motion is present across the rendered contact sheet, no presenter freeze was detected, and the final MP4 fully decodes."
+  },
+  "private_phone_preview": {
+    "url": "https://mini.tail1c89f5.ts.net:3113/?build=ca5833c0e5ef",
+    "access": "tailnet-private",
+    "health_ready": true,
+    "https_root_verified": true,
+    "byte_range_verified": true,
+    "range_status": 206,
+    "https_stream_full_decode_exit_code": 0,
+    "cache_control": "no-store"
+  },
+  "release_state": "generated_sound_on_candidate_rendered_technically_verified_private_phone_review_ready_owner_video_acceptance_pending"
+}

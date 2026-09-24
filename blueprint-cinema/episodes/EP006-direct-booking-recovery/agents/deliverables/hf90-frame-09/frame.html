@@ -1,0 +1,641 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("/assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("/assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("/assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 600;
+      font-display: block;
+    }
+
+    #root {
+      --hf09-paper: #f5f0e6;
+      --hf09-ink: #1a1a1a;
+      --hf09-grid: rgba(176, 141, 62, 0.10);
+      --hf09-faint: rgba(176, 141, 62, 0.18);
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: var(--hf09-ink);
+      container-type: size;
+    }
+
+    #root,
+    #root * {
+      box-sizing: border-box;
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    [data-hf09-layer="ground"] {
+      overflow: hidden;
+      background-color: var(--hf09-paper);
+      background-image:
+        linear-gradient(var(--hf09-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--hf09-grid) 1px, transparent 1px);
+      background-size: 38.4px 38.4px;
+    }
+
+    [data-hf09-layer="content"] {
+      height: 896px;
+      overflow: hidden;
+      font-family: "Supreme";
+    }
+
+    [data-hf09-furniture="hairline"] {
+      position: absolute;
+      left: 76.8px;
+      width: 1766.4px;
+      height: 2px;
+      background: var(--hf09-ink);
+    }
+
+    [data-hf09-furniture="hairline"][data-edge="top"] {
+      top: 58px;
+    }
+
+    [data-hf09-furniture="hairline"][data-edge="bottom"] {
+      top: 860px;
+    }
+
+    [data-hf09-furniture="split-rule"] {
+      position: absolute;
+      top: 92px;
+      left: 1114px;
+      width: 1px;
+      height: 724px;
+      background: var(--hf09-faint);
+    }
+
+    [data-hf09-furniture="page-chrome"] {
+      position: absolute;
+      top: 825px;
+      font-family: "Supreme";
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    [data-hf09-furniture="page-chrome"][data-align="left"] {
+      left: 78px;
+    }
+
+    [data-hf09-furniture="page-chrome"][data-align="right"] {
+      right: 76px;
+    }
+
+    [data-hf09-copy="thesis"] {
+      position: absolute;
+      top: 126px;
+      left: 84px;
+      width: 884px;
+    }
+
+    [data-hf09-copy="kicker"] {
+      display: block;
+      margin: 0 0 34px;
+      font-family: "Supreme";
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    [data-hf09-copy="headline"] {
+      display: block;
+      width: 790px;
+      margin: 0;
+      font-family: "Boska";
+      font-size: 100px;
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: -0.008em;
+    }
+
+    [data-hf09-title-line] {
+      display: block;
+      width: 100%;
+    }
+
+    [data-hf09-operator] {
+      position: absolute;
+      top: 330px;
+      left: 1302px;
+      width: 220px;
+      height: 246px;
+      border: 2px solid var(--hf09-ink);
+      background: var(--hf09-paper);
+      transform-origin: 50% 50%;
+    }
+
+    [data-hf09-operator-label] {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      right: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--hf09-ink);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    [data-hf09-operator-glyph] {
+      position: absolute;
+      left: 50px;
+      top: 78px;
+      width: 116px;
+      height: 136px;
+    }
+
+    [data-hf09-operator-glyph] span {
+      position: absolute;
+      display: block;
+      background: var(--hf09-ink);
+    }
+
+    [data-hf09-operator-glyph="head"] {
+      top: 0;
+      left: 34px;
+      width: 48px;
+      height: 48px;
+    }
+
+    [data-hf09-operator-glyph="shoulders"] {
+      top: 64px;
+      left: 0;
+      width: 116px;
+      height: 18px;
+    }
+
+    [data-hf09-operator-glyph="body"] {
+      top: 64px;
+      left: 26px;
+      width: 64px;
+      height: 72px;
+    }
+
+    [data-hf09-card] {
+      position: absolute;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 20px 22px;
+      border: 2px solid var(--hf09-ink);
+      background: var(--hf09-paper);
+      transform-origin: 50% 50%;
+    }
+
+    [data-hf09-card]::after {
+      position: absolute;
+      display: block;
+      content: "";
+      background: var(--hf09-ink);
+    }
+
+    [data-hf09-card="google"] {
+      top: 106px;
+      left: 1272px;
+      width: 278px;
+      height: 152px;
+    }
+
+    [data-hf09-card="google"]::after {
+      left: 138px;
+      top: 150px;
+      width: 2px;
+      height: 34px;
+    }
+
+    [data-hf09-card="website"] {
+      top: 354px;
+      left: 956px;
+      width: 256px;
+      height: 156px;
+    }
+
+    [data-hf09-card="website"]::after {
+      left: 254px;
+      top: 76px;
+      width: 36px;
+      height: 2px;
+    }
+
+    [data-hf09-card="phone"] {
+      top: 348px;
+      left: 1622px;
+      width: 236px;
+      height: 176px;
+    }
+
+    [data-hf09-card="phone"]::after {
+      left: -38px;
+      top: 86px;
+      width: 38px;
+      height: 2px;
+    }
+
+    [data-hf09-card="booking"] {
+      top: 638px;
+      left: 1010px;
+      width: 298px;
+      height: 158px;
+    }
+
+    [data-hf09-card="booking"]::after {
+      left: 218px;
+      top: -35px;
+      width: 2px;
+      height: 35px;
+    }
+
+    [data-hf09-card="followup"] {
+      top: 638px;
+      left: 1416px;
+      width: 304px;
+      height: 158px;
+    }
+
+    [data-hf09-card="followup"]::after {
+      left: 82px;
+      top: -35px;
+      width: 2px;
+      height: 35px;
+    }
+
+    [data-hf09-card-heading] {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--hf09-faint);
+    }
+
+    [data-hf09-card-label] {
+      font-family: "Supreme";
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    [data-hf09-card-index] {
+      flex: none;
+      font-family: "Supreme";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.12em;
+    }
+
+    [data-hf09-work-mark] {
+      display: grid;
+      align-self: end;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      width: 100%;
+      height: 30px;
+      padding-top: 12px;
+    }
+
+    [data-hf09-work-mark] span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--hf09-ink);
+    }
+
+    [data-hf09-work-mark] span:nth-child(2),
+    [data-hf09-work-mark] span:nth-child(4) {
+      background: var(--hf09-faint);
+    }
+
+    [data-hf09-meter] {
+      position: relative;
+      align-self: end;
+      width: 100%;
+      height: 24px;
+      border: 2px solid var(--hf09-ink);
+    }
+
+    [data-hf09-meter-fill] {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--hf09-ink);
+      transform-origin: 0% 50%;
+    }
+
+    [data-hf09-guest] {
+      position: absolute;
+      top: 770px;
+      left: 1752px;
+      display: grid;
+      place-items: center;
+      width: 136px;
+      height: 82px;
+      border: 2px solid var(--hf09-ink);
+      background: var(--hf09-paper);
+      font-size: 27px;
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: 0.10em;
+      text-align: center;
+      text-transform: uppercase;
+      transform-origin: 50% 50%;
+    }
+
+    [data-hf09-guest] span {
+      display: block;
+    }
+
+    [data-hf09-ticket] {
+      position: absolute;
+      top: 736px;
+      left: 1530px;
+      display: grid;
+      place-items: center;
+      width: 156px;
+      height: 48px;
+      border: 2px solid var(--hf09-ink);
+      background: var(--hf09-ink);
+      color: var(--hf09-paper);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      transform-origin: 50% 50%;
+    }
+
+    [data-hf09-route] {
+      position: absolute;
+      top: 772px;
+      left: 1688px;
+      width: 86px;
+      height: 2px;
+      transform: rotate(10deg);
+      transform-origin: 0% 50%;
+    }
+
+    [data-hf09-route-line] {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--hf09-ink);
+      transform-origin: 100% 50%;
+    }
+
+    [data-hf09-route-stop] {
+      position: absolute;
+      top: 769px;
+      left: 1680px;
+      width: 8px;
+      height: 8px;
+      background: var(--hf09-ink);
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="09-disconnected-work"
+    data-start="0"
+    data-width="1920"
+    data-height="1080"
+    data-duration="22.943"
+  >
+    <div
+      id="09-disconnected-work-ground"
+      class="clip"
+      data-hf09-layer="ground"
+      data-start="0"
+      data-duration="22.943"
+      data-track-index="0"
+    >
+      <div data-hf09-furniture="hairline" data-edge="top"></div>
+      <div data-hf09-furniture="hairline" data-edge="bottom"></div>
+      <div data-hf09-furniture="split-rule"></div>
+      <div data-hf09-furniture="page-chrome" data-align="left">Ownership map</div>
+      <div data-hf09-furniture="page-chrome" data-align="right">009</div>
+    </div>
+
+    <section
+      id="09-disconnected-work-content"
+      class="clip"
+      data-hf09-layer="content"
+      data-start="0"
+      data-duration="22.943"
+      data-track-index="1"
+    >
+      <div data-hf09-copy="thesis">
+        <span id="09-disconnected-work-kicker" data-hf09-copy="kicker">10–40 room hotel</span>
+        <h1 id="09-disconnected-work-headline" data-hf09-copy="headline">
+          <span data-hf09-title-line>No one owns</span>
+          <span data-hf09-title-line>the whole</span>
+          <span data-hf09-title-line>journey</span>
+        </h1>
+      </div>
+
+      <div id="09-disconnected-work-operator" data-hf09-operator>
+        <div data-hf09-operator-label>Operator</div>
+        <div data-hf09-operator-glyph>
+          <span data-hf09-operator-glyph="head"></span>
+          <span data-hf09-operator-glyph="shoulders"></span>
+          <span data-hf09-operator-glyph="body"></span>
+        </div>
+      </div>
+
+      <div id="09-disconnected-work-card-google" data-hf09-card="google">
+        <div data-hf09-card-heading>
+          <span data-hf09-card-label>Google</span>
+          <span data-hf09-card-index>01</span>
+        </div>
+        <div data-hf09-work-mark><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div id="09-disconnected-work-card-website" data-hf09-card="website">
+        <div data-hf09-card-heading>
+          <span data-hf09-card-label>Website</span>
+          <span data-hf09-card-index>02</span>
+        </div>
+        <div data-hf09-work-mark><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div id="09-disconnected-work-card-phone" data-hf09-card="phone">
+        <div data-hf09-card-heading>
+          <span data-hf09-card-label>Phone</span>
+          <span data-hf09-card-index>03</span>
+        </div>
+        <div data-hf09-meter>
+          <span id="09-disconnected-work-phone-meter" data-hf09-meter-fill></span>
+        </div>
+      </div>
+
+      <div id="09-disconnected-work-card-booking" data-hf09-card="booking">
+        <div data-hf09-card-heading>
+          <span data-hf09-card-label>Booking system</span>
+          <span data-hf09-card-index>04</span>
+        </div>
+        <div data-hf09-work-mark><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div id="09-disconnected-work-card-followup" data-hf09-card="followup">
+        <div data-hf09-card-heading>
+          <span data-hf09-card-label>Follow-up</span>
+          <span data-hf09-card-index>05</span>
+        </div>
+        <div data-hf09-work-mark><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div id="09-disconnected-work-guest" data-hf09-guest>
+        <span>Returning</span>
+        <span>guest</span>
+      </div>
+
+      <div id="09-disconnected-work-unanswered" data-hf09-ticket>Unanswered</div>
+
+      <div id="09-disconnected-work-route" data-hf09-route>
+        <span id="09-disconnected-work-route-line" data-hf09-route-line></span>
+      </div>
+      <span id="09-disconnected-work-route-stop" data-hf09-route-stop></span>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      window.__timelines = window.__timelines || {};
+      const hf09Element = (suffix) => document.getElementById(`09-disconnected-work-${suffix}`);
+      const hf09Timeline = window.gsap.timeline({ paused: true });
+
+      hf09Timeline.fromTo(
+        hf09Element("kicker"),
+        { x: -36, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.56, ease: "power3.out" },
+        0.08,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("operator"),
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.48, ease: "power3.out" },
+        0.12,
+      );
+
+      Array.from(document.querySelectorAll("[data-hf09-title-line]")).forEach((line, index) => {
+        hf09Timeline.fromTo(
+          line,
+          { x: -52, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.72, ease: "power3.out" },
+          0.72 + index * 0.58,
+        );
+      });
+
+      hf09Timeline.fromTo(
+        hf09Element("guest"),
+        { x: 86, scale: 0, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.66, ease: "power3.out" },
+        3.18,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("card-google"),
+        { y: -164, scale: 0, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.68, ease: "power3.out" },
+        4.42,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("card-website"),
+        { x: -174, scale: 0, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.68, ease: "power3.out" },
+        6.92,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("card-phone"),
+        { x: 166, scale: 0, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.68, ease: "power3.out" },
+        9.22,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("phone-meter"),
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 0.68, opacity: 1, duration: 1.0, ease: "power3.out" },
+        10.42,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("card-booking"),
+        { x: -58, y: 166, scale: 0, opacity: 0 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.72, ease: "power3.out" },
+        13.52,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("card-followup"),
+        { x: 74, y: 166, scale: 0, opacity: 0 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 0.72, ease: "power3.out" },
+        16.12,
+      );
+
+      hf09Timeline.to(
+        "[data-hf09-card]",
+        { opacity: 0.24, duration: 0.9, ease: "power2.out" },
+        18.1,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("unanswered"),
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.58, ease: "power3.out" },
+        18.54,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("route-line"),
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 1.18, ease: "power2.out" },
+        19.28,
+      );
+
+      hf09Timeline.fromTo(
+        hf09Element("route-stop"),
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.28, ease: "power3.out" },
+        20.34,
+      );
+
+      window.__timelines["09-disconnected-work"] = hf09Timeline;
+    })();
+  </script>
+</template>

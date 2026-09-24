@@ -1,0 +1,23 @@
+// One Sync v3 silence-mode pass: native Seedance video + padded Original C hook audio. No retries.
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
+import {createRequire} from 'node:module'; import {fileURLToPath} from 'node:url';
+const base=path.dirname(fileURLToPath(import.meta.url));
+const repo=path.resolve(base,'../../../../');
+const req=createRequire(path.join(repo,'blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/package.json'));
+const {fal}=req('@fal-ai/client');
+const line=fs.readFileSync(path.join(repo,'.env'),'utf8').split(/\r?\n/).find(x=>x.startsWith('FAL_KEY='));
+if(!line) throw Error('FAL_KEY unavailable');
+fal.config({credentials:line.slice(8).trim().replace(/^['"]|['"]$/g,'')});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const save=(n,d)=>fs.writeFileSync(path.join(base,n),JSON.stringify(d,null,2)+'\n',{flag:'wx'});
+const video=fs.readFileSync(path.join(base,'media/native-b.mp4')), audio=fs.readFileSync(path.join(base,'media/take-b.wav'));
+const video_url=await fal.storage.upload(new File([video],'close02b-native-'+sha(video).slice(0,12)+'.mp4',{type:'video/mp4'}));
+const audio_url=await fal.storage.upload(new File([audio],'close02b-audio-'+sha(audio).slice(0,12)+'.wav',{type:'audio/wav'}));
+const input={video_url,audio_url,sync_mode:'silence'};
+save('SYNC-b-REQUEST.json',{at:new Date().toISOString(),model:'fal-ai/sync-lipsync/v3',input,video_sha256:sha(video),audio_sha256:sha(audio)});
+const result=await fal.subscribe('fal-ai/sync-lipsync/v3',{input,logs:false});
+save('SYNC-b-RESULT.json',{at:new Date().toISOString(),request_id:result.requestId,data:result.data});
+const url=result.data?.video?.url; if(!url) throw Error('no video url');
+const out=Buffer.from(await (await fetch(url)).arrayBuffer());
+fs.writeFileSync(path.join(base,'media/synced-b.mp4'),out,{flag:'wx'});
+console.log(JSON.stringify({url,sha256:sha(out),bytes:out.length}));

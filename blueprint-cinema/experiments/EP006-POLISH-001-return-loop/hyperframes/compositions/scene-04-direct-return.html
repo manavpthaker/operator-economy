@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-composition-id="scene-04-direct-return" data-composition-duration="4.763">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: Supreme; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        #root { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: #14263E; color: #F5F0E6; font-family: Supreme, system-ui, sans-serif; }
+        .stage { position: absolute; inset: 0; overflow: hidden; }
+        .hotel-mark { position: absolute; left: 820px; top: 390px; width: 300px; height: 240px; border-left: 4px solid #F5F0E6; border-bottom: 4px solid #F5F0E6; }
+        .hotel-label { position: absolute; left: 34px; bottom: 36px; font-size: 48px; font-weight: 500; letter-spacing: .08em; }
+        .key-tag { position: absolute; left: 840px; top: 430px; width: 240px; height: 112px; z-index: 10; }
+        .key-tag path { fill: #B08D3E; stroke: #C4A45F; stroke-width: 3; }
+        .key-tag circle { fill: #14263E; }
+        .key-tag line { stroke: #7A5E24; stroke-width: 4; }
+        .routes { position: absolute; inset: 0; }
+        .ota-route { fill: none; stroke: rgba(245,240,230,.42); stroke-width: 3; }
+        .direct-route { fill: none; stroke: #C4A45F; stroke-width: 6; stroke-linecap: square; }
+        .ota-label { position: absolute; left: 180px; top: 215px; width: 600px; font-size: 48px; font-weight: 500; letter-spacing: .07em; }
+        .ota-note { position: absolute; left: 180px; top: 292px; width: 600px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .05em; color: rgba(245,240,230,.64); }
+        .direct-label { position: absolute; left: 1060px; top: 785px; width: 720px; font-size: 48px; font-weight: 500; line-height: 1.14; letter-spacing: .05em; opacity: 0; }
+        .direct-rule { position: absolute; left: 1060px; top: 760px; width: 0; height: 4px; background: #C4A45F; }
+        .not-enemy { position: absolute; left: 180px; bottom: 90px; font-family: Menlo, monospace; font-size: 28px; letter-spacing: .05em; color: rgba(245,240,230,.68); }
+      </style>
+      <div id="root" data-composition-id="scene-04-direct-return" data-width="1920" data-height="1080" data-duration="4.763" data-fps="30">
+        <div id="scene-04-stage" class="stage clip" data-start="0" data-duration="4.763" data-track-index="0">
+          <svg class="routes" viewBox="0 0 1920 1080"><path class="ota-route" d="M180 350 C390 350 600 470 840 470"></path><path class="direct-route" d="M960 560 C1160 560 1270 660 1470 660 C1570 660 1640 700 1710 720"></path></svg>
+          <div class="hotel-mark"><div class="hotel-label">HOTEL</div></div>
+          <svg class="key-tag" viewBox="0 0 280 130"><path d="M22 8 H238 L272 34 V103 Q272 122 252 122 H22 Q8 122 8 106 V24 Q8 8 22 8 Z"></path><circle cx="43" cy="65" r="12"></circle><line x1="188" y1="30" x2="188" y2="100"></line></svg>
+          <div class="ota-label">FIRST STAY / OTA</div><div class="ota-note">USEFUL ACQUISITION</div>
+          <div class="direct-rule"></div><div class="direct-label">NEXT APPROPRIATE STAY<br />/ DIRECT</div>
+          <div class="not-enemy">THE INTRODUCTION REMAINS USEFUL</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="scene-04-direct-return"]');
+          const otaRoute = root.querySelector(".ota-route");
+          const otaLabel = root.querySelector(".ota-label");
+          const otaNote = root.querySelector(".ota-note");
+          const directRoute = root.querySelector(".direct-route");
+          const tag = root.querySelector(".key-tag");
+          const directLabel = root.querySelector(".direct-label");
+          const directRule = root.querySelector(".direct-rule");
+          const otaLength = otaRoute.getTotalLength();
+          const directLength = directRoute.getTotalLength();
+          const tl = gsap.timeline({ paused: true });
+          tl.set(otaRoute, { strokeDasharray: otaLength, strokeDashoffset: 0, opacity: 1 }, 0);
+          tl.set(directRoute, { strokeDasharray: directLength, strokeDashoffset: directLength }, 0);
+          tl.set([directLabel], { opacity: 0 }, 0);
+          tl.set(directRule, { width: 0 }, 0);
+          tl.to([otaRoute, otaLabel, otaNote], { opacity: .62, duration: .28, ease: "none" }, .500);
+          tl.fromTo(directRoute, { strokeDashoffset: directLength }, { strokeDashoffset: 0, duration: .92, ease: "sine.inOut" }, 2.808);
+          tl.fromTo(tag, { x: 0, y: 0, scale: 1 }, { x: 650, y: 190, scale: .72, duration: .92, ease: "power3.inOut" }, 2.808);
+          tl.fromTo(directRule, { width: 0 }, { width: 650, duration: .44, ease: "power2.out" }, 3.400);
+          tl.fromTo(directLabel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .36, ease: "power2.out" }, 3.630);
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["scene-04-direct-return"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

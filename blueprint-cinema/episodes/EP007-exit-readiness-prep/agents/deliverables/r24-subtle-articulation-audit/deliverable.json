@@ -1,0 +1,111 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r24-subtle-articulation-audit",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r22-continuous-closeups/public/media/post-title-b.mp4",
+      "sha256": "6bebb793f25e39b4c5577559f7e25b91a39270f904755bc6872586579935147a"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r22-continuous-closeups/public/media/post-title-a.mp4",
+      "sha256": "1c2273cab5354295a7e8fa8957c507de6d2bc4b2181a21cc5f076f662fc90531"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r22-continuous-closeups/public/audio/review-narration-extended.wav",
+      "sha256": "ec2a42a7f0e3e09c044ef50bead4b0a91a264bd918a300aa0c34f22950d59605"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/inputs/performance-b.mp4",
+      "sha256": "dae03d667c44b7faf29d3d8b13317a3939ef6997885b05c0efb5dbc66eb58cf4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/inputs/pickup-b.wav",
+      "sha256": "e37976fde23e50265e7e6dde1a034d873d8b39f87d89f074d4da19ae7ac49072"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/presenter-b-generated.mp4",
+      "sha256": "41a1a6a9fa66c60d41f77eb5d13ec4edbfed3931c24983b1823836cd72cbd823"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/provider/INPUTS.json",
+      "sha256": "9bf6a851197d20f45039c2c08f244130ab9835ea94195e0723b066e0fa775268"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r15-post-title/prepare-inputs.mjs",
+      "sha256": "fd0db575bd21dfa9d819d5d65699f7930f1f52eaa249cf7fedcadb5da444879a"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/INPUT-VERIFICATION.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/PROPOSED-REQUEST.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/performance-b-original.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/pickup-b-original.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/inputs/r22-post-title-b.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r24-subtle-articulation-audit/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 verifies all assigned R22 media and exact original R15 performance/audio pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Local packet media copies remain byte-identical to their source files",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe and ffmpeg -xerror decode verify both 206-frame 24-fps videos and original PCM audio",
+      "outcome": "pass"
+    },
+    {
+      "command": "Python wave comparison: pickup-b PCM exactly equals R22 narration samples [3164000,3576000)",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffmpeg encoded-stream SHA-256: R22 B equals original R15 generated B video stream",
+      "outcome": "pass"
+    },
+    {
+      "command": "git check-ignore -v --no-index confirms all prepared MP4/WAV media excluded",
+      "outcome": "pass"
+    },
+    {
+      "command": "Bounded rg -uu of EP007 review and controlled-source experiment metadata found proposals only, no reusable React-1 result",
+      "outcome": "pass"
+    },
+    {
+      "command": "Official Fal endpoint schema, model price, and Sync React documentation checked 2026-09-10",
+      "outcome": "pass"
+    },
+    {
+      "command": "New React generation, perceptual comparison, and owner acceptance",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "https://fal.ai/models/fal-ai/sync-lipsync/react-1/api checked 2026-09-10 UTC",
+    "https://sync.so/docs/models/react checked 2026-09-10 UTC",
+    "https://fal.ai/models/fal-ai/sync-lipsync/react-1 checked 2026-09-10 UTC; $10/minute",
+    "R15 INPUTS.json and prepare-inputs.mjs bind original B to raw404 source frames [83,289) and original audio [3164000,3576000)",
+    "Recorded R15 Sync 3 B submission/result and byte-identical R22 picture stream establish shared underlying performance lineage"
+  ],
+  "assumptions": [
+    "Original B is preferred over reprocessing Sync 3 lips; generation may still change pixels outside the intended region",
+    "Lips mode tests articulation only; subtle additional facial emotion is not promised",
+    "One B-only proposed trial is unapproved; all previous paid grants are consumed",
+    "Root owns any restored preview and newly requested closeup-cut adjustment; this packet changes no runtime"
+  ],
+  "unresolved_questions": [
+    "Whether a single React-1 lips result would improve natural articulation without degrading accepted likeness and performance",
+    "Billing rounding/account charges not audited; $2 is a proposed estimated ceiling, not a guaranteed invoice"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

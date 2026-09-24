@@ -2,6 +2,7 @@
 # studio working dirs
 studio/input/
 studio/output/
+studio/originate/*/footage_candidates/
 studio/originate/*/vo/
 studio/remotion/node_modules/
 studio/remotion/out/
@@ -27,6 +28,8 @@ studio/originate/*/*.mp4
 studio/originate/*/avatars/
 studio/remotion/public/vo/
 studio/remotion/public/thumbs/
+studio/remotion/public/footage/
+studio/originate/*/footage/
 # (site/public/blueprints/*.pdf IS committed — the deployed site serves it)
 
 # python virtualenv (uv-managed, CPython 3.12). Recreate with:
@@ -35,3 +38,56 @@ studio/remotion/public/thumbs/
 
 # simple-icons metadata cache (fetch_logos.py)
 studio/.cache/
+
+# scratch + machine-local tooling
+tmp/
+.agents/
+.gtm/
+
+# old takes and cleanup piles in episode folders (local only)
+studio/originate/*/_to_delete/
+studio/originate/*/vo.pre-*/
+studio/originate/*/vo-*-review/
+studio/originate/*/resolve_pilot/
+studio/remotion/public/coverage/
+
+# blueprint-cinema renders, stills and audio are regenerable; keep scripts, specs and json
+blueprint-cinema/**/*.png
+blueprint-cinema/**/*.jpg
+blueprint-cinema/**/*.jpeg
+blueprint-cinema/**/*.webp
+blueprint-cinema/**/*.mp4
+blueprint-cinema/**/*.mov
+blueprint-cinema/**/*.webm
+blueprint-cinema/**/*.mp3
+blueprint-cinema/**/*.wav
+blueprint-cinema/**/*.m4a
+blueprint-cinema/**/*.aac
+blueprint-cinema/**/*.drp
+blueprint-cinema/**/*.woff2
+blueprint-cinema/experiments/*/resolve/
+blueprint-cinema/**/node_modules/
+blueprint-cinema/**/build/
+blueprint-cinema/**/*.aiff
+
+# nested episode media under studio/originate and blueprint-cinema (renders, frames, audio,
+# provider payloads) — regenerable or stored under ~/Movies/OE; keep scripts, specs, json, md.
+studio/originate/**/*.mp4
+studio/originate/**/*.mov
+studio/originate/**/*.wav
+studio/originate/**/*.pcm
+studio/originate/**/*.s16le
+studio/originate/**/*.bin
+studio/originate/**/*.png
+studio/originate/**/*.jpg
+studio/originate/**/renders/work-*/
+!studio/originate/*/launch/*.png
+!studio/originate/*/launch/*.jpg
+blueprint-cinema/**/*.wav
+blueprint-cinema/**/*.pcm
+blueprint-cinema/**/*.s16le
+blueprint-cinema/**/*.bin
+
+# EP007 4K thumbnail master lives here locally only (8MB); the committed copy is thumbnail.jpg
+studio/originate/exit-readiness-prep/launch/thumbnail.png
+studio/originate/exit-readiness-prep/launch/thumbnail-source-1344.png

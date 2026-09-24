@@ -1,0 +1,76 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r70-s23-timing",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/intentional-pause-map.json",
+      "sha256": "0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/narration-spacing-decisions.json",
+      "sha256": "81778d8a99801d29e529bebdfa4b2663065ac5229dd6ea96da8105431c2e182f"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R70-S23-TIMING/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R70-S23-TIMING/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R70-S23-TIMING/endpoint-audio.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R70-S23-TIMING/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute issued script, word-transcript and master SHA256 pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Extract exact S23 W003016\u2013W003044 and adjacent S24\u2013S26 ranges",
+      "outcome": "pass"
+    },
+    {
+      "command": "Measure original PCM in24fps bins at section boundaries and sample end",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify recorded4.2-second pause before S26 and exact master tail",
+      "outcome": "pass"
+    },
+    {
+      "command": "Normal-speed subjective listening at proposed cuts",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Issued locked inputs match all three expected SHA256 hashes.",
+    "Timing comes directly from the exact locked word transcript and original mono48kHz PCM16 WAV.",
+    "The intentional pause map explicitly retains1127.64\u20131131.84 after W003165."
+  ],
+  "assumptions": [
+    "Owner-locked S22 endpoint remains frame25654 at1068.9166666666667.",
+    "All planning remains on the original master clock with no removed pauses or speech retiming."
+  ],
+  "unresolved_questions": [
+    "Normal-speed listening must confirm the near-zero S23/S24 boundary sounds natural.",
+    "S24\u2013S26 picture boundaries and final fractional-frame tail treatment are planning only."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

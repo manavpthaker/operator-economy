@@ -1,0 +1,3 @@
+
+> finish
+> ffmpeg -v error -n -i renders/week2-full02-hyperframes-audio.mp4 -i public/audio/original-c.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ac 1 -ar 48000 -movflags +faststart renders/week2-full02-uncaptioned.mp4

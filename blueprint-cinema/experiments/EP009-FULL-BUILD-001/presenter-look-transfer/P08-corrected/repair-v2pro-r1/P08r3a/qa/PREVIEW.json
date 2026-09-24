@@ -1,0 +1,63 @@
+{
+  "record_type": "P08A_v2pro_private_defect_review",
+  "status": "pending_independent_review",
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/qa/P08A-v2pro-exact-master-review.mp4",
+    "sha256": "9824050567329425c3ceb3d3ff89ef8121521cbcc05708c5bc9403ebc778e011"
+  },
+  "restored": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/restored.mp4",
+    "sha256": "aa3116b568c11ab29d591476cea8df1281d63000c7fce4b429aabe0b082302d2"
+  },
+  "narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/audio/narration.wav",
+    "sha256": "a743f1e4c218b9d75ea4d2238c9a8e2a4b9878ad949480c5fd23d755a4e2e02c"
+  },
+  "alignment": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/ALIGNMENT.json",
+    "sha256": "e24bbf66d8c96df0f5900ce482e71f69d7da780427b830f15e357891cb8d7a06"
+  },
+  "source_frames": [
+    0,
+    173
+  ],
+  "source_fps": 24,
+  "frame_count": 173,
+  "max_pts_error_s": 3.33333333379926e-07,
+  "audio_samples": 346000,
+  "owner_accepted": false,
+  "prior_flags_preserved": true,
+  "command": [
+    "ffmpeg",
+    "-n",
+    "-v",
+    "error",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/restored.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/audio/narration.wav",
+    "-map",
+    "0:v:0",
+    "-map",
+    "1:a:0",
+    "-vf",
+    "trim=start_frame=0:end_frame=173,setpts=N/(24*TB),scale=1280:720:flags=lanczos",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "16",
+    "-preset",
+    "fast",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/repair-v2pro-r1/P08r3a/qa/P08A-v2pro-exact-master-review.mp4"
+  ]
+}

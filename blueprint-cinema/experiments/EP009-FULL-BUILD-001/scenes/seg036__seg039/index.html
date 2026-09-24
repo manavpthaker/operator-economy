@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>EP009 S10 The ceiling</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg.stage{position:absolute;inset:0;width:1280px;height:720px}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ink{stroke:#173530;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dash{stroke:#586D74;stroke-width:2.5;fill:none;stroke-dasharray:10 8;stroke-linecap:round}
+.lab{font-family:Supreme,sans-serif;fill:#173530;font-weight:500}
+.sm{font-family:Supreme,sans-serif;fill:#33464C;font-weight:400}
+.st{font-family:Supreme,sans-serif;fill:#586D74;font-weight:400}
+.hide{visibility:hidden;opacity:0}
+#tl{position:absolute;left:40px;top:24px;font:400 21px/1 Supreme,sans-serif;color:#33464C;white-space:nowrap}
+#tl .k{font-weight:500;letter-spacing:2px}
+#rc{position:absolute;left:40px;bottom:16px;font:400 17px/1.2 Supreme,sans-serif;color:#33464C;white-space:nowrap}
+#hd{position:absolute;left:514px;top:112px;margin:0;font:700 36px/1 Boska,serif;color:#173530;white-space:nowrap}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep009-s10-ceiling" data-start="0" data-duration="109.833333" data-width="1280" data-height="720" data-fps="24">
+<svg id="s10-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<!-- KIT:DEFS:BEGIN -->
+<g id="kit-inn-mini" data-kit-desc="Same inn at half size with fine construction removed, for groups (six inns, a handful). Native 240x152."><path d="M10.0 38.0H230.0V150.0H10.0ZM5.0 38.0L40.0 9.0H200.0L235.0 38.0Z" fill="#F5F0E6" fill-opacity="0.58" stroke="none"/><path d="M5.9 37.8L38.5 11M40.4 8.7L118.3 8.7M124.3 8.5L199.9 9.1M200.7 10.9L235.4 38.8M4.4 37.6L103.8 38.2M107.6 37.9L236.7 38.2" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 40.5L35.9 17.6M48.4 12.2L90.5 12.4M150.6 12.1L191.9 12.3M206.3 16.2L231.3 34.9" stroke="#586D74" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M168.1 9.6L168.6 -1.1M168 -2.5L180.8 -1.7M181.8 -1.4L181.2 9.2" stroke="#173530" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.6 40.2L10.6 97.9M11.3 104.1L9.7 151M228.7 39.4L229.3 85.9M229.9 91L229.3 149.2M8.8 149.8L73.1 149.7M78.7 150.2L159.4 149.1M165.6 151.1L233.3 149.4" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.4 66.1L104.8 67.2M111.8 66.9L227.7 67M13 95.2L86 95M90.9 95.5L227.3 94.7M14.1 48.6L14.2 64.9M225.5 106L227.3 130.7" stroke="#586D74" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.4 43.8L30.5 43.8M30.8 43.8L31 58.1M30.4 58.2L20.7 58.2M18.7 58L19.2 44M40.3 43.7L51.9 43.8M52.3 44.1L51.7 57.1M52.5 57.7L40.2 57.7M40.2 58L40.1 44.9M59.8 44.1L73.2 44.2M73.3 44.4L72.9 58.9M72.9 57.8L62 57.8M61.2 57L61.1 44.2M80.3 43.7L94.4 43.8M94 44.3L93.8 56.9M94.7 58.1L82 58.2M81.7 57.7L82.1 44.7M102 44.2L115.6 44.3M115.3 43.3L115.3 58.8M115.2 57.9L104.2 57.8M102.7 57L102.9 44.7M124.4 43.9L136.8 44.3M136.3 44L135.7 58.5M135.7 57.8L123.9 57.8M123.9 57.7L123.7 45.2M144.2 44.1L157.7 44.1M156.7 44.3L157.2 57.1M157 57.9L143.8 57.7M144.8 58.1L145.2 44.8M166 44.3L177.3 43.9M178 44.3L177.9 59.2M178.7 58.2L166.3 58.3M166.2 58L166 44.7M186.6 43.8L198.4 43.7M199.2 43.3L199.1 57.5M199.1 57.7L188.1 58.1M186.8 57.8L186.9 46.6M208.1 43.9L221 43.8M219.7 44.1L219.8 56.9M219.7 58.1L209.4 57.8M207.8 58L207.7 44.1M19.6 72.2L29.9 71.7M30.9 72.4L30.8 85M31.6 86L19.1 86.1M19 85.7L19.3 74.1M40.1 71.8L51.9 72.1M51.7 71.4L51.9 85.7M52.5 85.8L39.6 85.7M39.8 86.5L40.2 73.6M61.2 71.7L72.6 71.8M73.3 73L72.7 86.4M72.8 86L61.4 86M60.7 86.2L60.9 72.7M81 71.8L95 72M94 72.1L93.9 86.6M93.5 85.9L81.7 86.2M81.9 86.1L81.8 72.1M103.5 71.8L114.7 72M115.1 73L114.9 86.7M114.4 86.2L102.5 86.2M103 86.3L103 74.1M123.8 72L136.2 71.7M136.1 71.9L136.1 86.9M135.8 85.7L123 86.2M123.9 85.4L123.9 72.8M145.6 72.1L158 72.3M156.9 72.1L156.9 84.6M156.8 86.2L145 85.8M144.7 85.2L145.3 72.4M165.9 71.7L177.1 72.2M178 72.9L178.2 84.9M178 86L167.5 86.1M166.3 85.3L166 72.7M186.9 72.2L197.9 72.1M199 72.4L198.7 85.6M199.2 86.2L187.2 85.7M187.1 84.9L186.9 73.2M207.7 71.7L220 72.3M220.2 71.1L219.7 86.7M219.5 85.7L207.5 86.3M207.9 85.9L207.9 72.4" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.0 102.0H126.0V148.0H28.0Z" fill="#F5F0E6" stroke="none"/><path d="M26 102.1L68.5 101.8M78.5 101.8L123.4 101.4M125.7 104.4L125.7 145.8M124.9 147.7L27.8 147.6M28.3 147.7L28.2 105.2" stroke="#173530" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M42.3 130.3L74.8 130.5M79 131.1L111.2 130.5M43.3 133.6L43.4 145.4M110.1 132.5L111 144.7" stroke="#173530" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M143 150.2L142.6 107.5M141.2 106L147.2 106.4M158.1 107.4L165.1 107.3M165.7 107.9L166.1 150.7M135.7 102.3L172.8 102.8" stroke="#173530" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-retainer-tag" data-kit-desc="A retainer tag with no price: small dog-eared label with a blank line. Always sits under a ceiling line. Native 96x45."><path d="M0 3L80 1L96 15L95 44L1 45Z" fill="#FBF8F1" stroke="none"/><path d="M0.5 3.8L79.1 0M97 15.6L94.4 44M93.1 45.5L1.2 45.1M0.5 41.5L-0.1 6.8" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 1L80 15L96 15" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 31L66 31" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-ceiling-line" data-kit-desc="The ceiling line. Stroke is currentColor: set color on the use (ink by default, oxide only when it is the one active accent). Native 360 wide, origin at left end."><path d="M0 0L172-1M180 0L360-1" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M0-8L0 8M360-9L361 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 4L118 4M232 3L300 3" stroke="#586D74" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-ceiling-line-ghost" data-kit-desc="Ghost ceiling for sensitivity (steel, 50%). Never replaces the solid line. Native 360 wide, origin at left end."><path d="M0 0L172-1M180 0L360-1M0-7L0 7M360-8L360 6" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/></g>
+<!-- KIT:DEFS:END -->
+<pattern id="h-ink" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(45)"><path d="M0 0V9" stroke="#173530" stroke-width="1.5"/></pattern>
+<pattern id="h-steel" patternUnits="userSpaceOnUse" width="11" height="11" patternTransform="rotate(-45)"><path d="M0 0V11" stroke="#586D74" stroke-width="1.1"/></pattern>
+<pattern id="h-light" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(45)"><path d="M0 0V14" stroke="#586D74" stroke-width="1.3"/></pattern>
+<clipPath id="c-col" clipPathUnits="userSpaceOnUse"><rect id="cr-col" x="400" y="180" width="160" height="0"/></clipPath>
+<clipPath id="c-slip" clipPathUnits="userSpaceOnUse"><rect id="cr-slip" x="1000" y="90" width="260" height="0"/></clipPath>
+<clipPath id="c-ceil" clipPathUnits="userSpaceOnUse"><rect id="cr-ceil" x="580" y="455" width="0" height="30"/></clipPath>
+<clipPath id="c-con" clipPathUnits="userSpaceOnUse"><rect id="cr-con" x="515" y="170" width="0" height="240"/></clipPath>
+<clipPath id="c-pan" clipPathUnits="userSpaceOnUse"><rect id="cr-pan" x="550" y="150" width="510" height="0"/></clipPath>
+<clipPath id="c-bar" clipPathUnits="userSpaceOnUse"><rect id="cr-bar" x="590" y="640" width="100" height="0"/></clipPath>
+</defs></svg>
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="Illustrative ceiling model for a made-up 20-room inn. A column of room revenue with the rented share shaded and a commission band. A dashed 10-point slice, labelled a hypothesis, is enlarged into a panel where one bar is built step by step: commission on the slice, minus direct channel cost, what is left, per month, and a ceiling line with a retainer tag under it. Ghost copies of the ceiling line rise to double for 40 rooms and drop to half for a 5-point shift.">
+<g id="shift" transform="translate(-60,0)">
+<!-- Build column (recedes to 30% when the panel opens; the dashed slice and its tag stay) -->
+<g id="colw">
+<g id="inn" class="hide"><use href="#kit-inn-mini" transform="translate(420,90) scale(.5)"/></g>
+<g clip-path="url(#c-col)"><g id="col">
+<rect id="col-fill" x="441" y="190" width="79" height="440" fill="#EDE5D6" class="hide"/>
+<rect id="rent" x="441" y="353" width="79" height="277" fill="url(#h-steel)" class="hide"/>
+<g id="band-in" class="hide"><rect x="441" y="353" width="79" height="50" fill="url(#h-ink)" opacity=".55"/><rect x="441" y="403" width="79" height="11" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M433 403L527 403"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M433 414L527 414"/></g>
+<path class="ink" d="M439.6 190.4L521 189.6M520.6 192.5L519.8 630.4M518 630.9L441.2 630.2M440.3 627.5L440.9 193.5"/>
+<path class="light" d="M437 196L437 620M444 186L512 186"/>
+<path id="rent-edge" class="ink hide" style="stroke-width:2" d="M436 353L525 353"/>
+</g></g>
+</g>
+<g id="slice5" class="hide"><rect x="449" y="356" width="63" height="22" fill="none" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/></g>
+<g id="slice" class="hide"><rect x="445" y="353" width="71" height="44" fill="none" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/></g>
+<!-- Column caption slot: one caption at a time, right aligned at x 420 -->
+<g text-anchor="end">
+<g id="l-rev" class="hide"><text class="sm" x="420" y="214" font-size="21">Room revenue</text><text class="lab" x="420" y="246" font-size="28">about $920,000</text></g>
+<g id="l-rent" class="hide"><text class="sm" x="420" y="470" font-size="21">Rented bookings</text><text class="lab" x="420" y="502" font-size="28">about $580,000</text></g>
+<text id="l-com1" class="lab hide" x="420" y="382" font-size="26">Commission 18% to 22%</text>
+<text id="l-com2" class="sm hide" x="420" y="410" font-size="18">my assumption from the reported bands</text>
+<text id="l-com3" class="lab hide" x="420" y="444" font-size="20">about $105,000 to $130,000 a year</text>
+<g id="tag1"><g id="tag1-a" class="hide"><rect id="tag1-box" x="176" y="358" width="250" height="34" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag1-t" class="lab" x="414" y="381" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text></g>
+<g id="tag2" class="hide"><rect id="tag2-box" x="176" y="358" width="250" height="62" rx="3" fill="#FBF8F1" stroke="#B5482F" stroke-width="2" stroke-dasharray="7 5"/><text id="tag2-t1" class="lab" x="414" y="381" font-size="19" style="fill:#B5482F">Say 10 points · hypothesis</text><text id="tag2-t2" class="lab" x="414" y="409" font-size="18" style="fill:#B5482F">nobody has measured</text></g></g>
+</g>
+<!-- Construction lines and the enlarged panel -->
+<g clip-path="url(#c-con)"><path id="con" class="light hide" style="stroke-width:1.4" d="M521 353L588 186M521 397L588 234"/></g>
+<g clip-path="url(#c-pan)"><g id="panel" class="hide">
+<path class="light" d="M571 161L1046 160M1047 164L1046 655M1043 656L572 656M570 652L571 165"/>
+<rect x="588" y="184" width="440" height="52" fill="#FBF8F1"/><rect x="588" y="184" width="440" height="52" fill="url(#h-steel)" opacity=".7"/><rect x="588" y="184" width="440" height="52" fill="none" stroke="#586D74" stroke-width="2.5" stroke-dasharray="10 8"/>
+<path class="ink" style="stroke-width:2" d="M592 640.5L700 639.5"/>
+</g></g>
+<g id="p-head" class="hide"><rect x="598" y="192" width="380" height="36" fill="#FBF8F1"/><text class="lab" x="608" y="218" font-size="21" font-weight="400">about $92,000 of revenue, if it moved</text></g>
+<!-- The one bar in the panel: commission on the slice, then the remainder (1K a year = 10 px) -->
+<g clip-path="url(#c-bar)"><g id="cbar" class="hide"><rect x="606" y="474" width="69" height="166" fill="url(#h-ink)" opacity=".55"/><rect x="606" y="438" width="69" height="36" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M599 474L682 474M605 474L605 640M676 474L676 640"/><path class="ink" style="stroke-width:2;stroke-dasharray:6 5" d="M599 438L682 438"/></g></g>
+<g id="cost" class="hide"><rect x="606" y="438" width="69" height="82" fill="#FBF8F1" opacity=".8"/><rect x="606" y="438" width="69" height="82" fill="url(#h-light)" stroke="#586D74" stroke-width="1.8" stroke-dasharray="5 4"/></g>
+<g id="rbar" class="hide"><rect x="606" y="520" width="69" height="120" fill="url(#h-ink)" opacity=".55"/><rect x="606" y="470" width="69" height="50" fill="url(#h-light)"/>
+<path class="ink" style="stroke-width:2" d="M599 520L682 520M605 470L605 640M676 470L676 640"/></g>
+<!-- Panel caption slot: the current step and its one result -->
+<text id="k-op1" class="sm hide" x="700" y="386" font-size="19">18% to 22% on that slice</text>
+<text id="k-q1" class="sm hide" x="700" y="444" font-size="16">my assumption from the reported bands</text>
+<text id="k-op2" class="sm hide" x="700" y="386" font-size="19">minus direct channel cost</text>
+<text id="k-op3" class="sm hide" x="700" y="386" font-size="19">What's left</text>
+<text id="k-op4" class="lab hide" x="700" y="390" font-size="27">Ceiling</text>
+<text id="k-r1" class="lab hide" x="700" y="418" font-size="23">about $16,500 to $20,000 a year</text>
+<text id="k-r2" class="lab hide" x="700" y="418" font-size="23">3.5% to 5%</text>
+<text id="k-q2" class="sm hide" x="700" y="444" font-size="16">low end: one vendor's own figure</text>
+<text id="k-r3" class="lab hide" x="700" y="418" font-size="23">about $12,000 to $17,000 a year</text>
+<text id="k-r4" class="lab hide" x="700" y="422" font-size="23">about $1,000 to $1,400 a month</text>
+<!-- The ceiling, its sub-label, the retainer under it, and the standing caveat (A-24) -->
+<g id="g40" class="hide"><use href="#kit-ceiling-line-ghost" transform="translate(592,470)"/></g>
+<g id="g5" class="hide"><use href="#kit-ceiling-line-ghost" transform="translate(592,470)"/></g>
+<g clip-path="url(#c-ceil)"><g id="ceil" style="color:#B5482F"><use href="#kit-ceiling-line" transform="translate(592,470)"/></g></g>
+<g id="ceil-s" class="hide"><text class="sm" x="812" y="500" font-size="16">the most this inn can</text><text class="sm" x="812" y="519" font-size="16">rationally pay for the job</text></g>
+<g id="ret" class="hide"><use href="#kit-retainer-tag" transform="translate(700,484)"/></g>
+<g id="cav" class="hide"><text class="st" x="700" y="616" font-size="15">after 3.5% to 5% direct cost</text><text class="st" x="700" y="634" font-size="15">low end: one vendor's own figure</text></g>
+<text id="g40-l" class="st hide" x="700" y="288" font-size="18">40 rooms: about $2,000 to $2,800 a month</text>
+<text id="g5-l" class="st hide" x="700" y="580" font-size="18">5 points: about $500 to $700 a month</text>
+</g>
+<!-- The ceiling slip (kit-ceiling-slip-filled, inline) -->
+<g clip-path="url(#c-slip)"><g id="slip" transform="translate(1012,100) scale(.75)">
+<path d="M4 6L262 2L298 36L296 436L2 438Z" fill="#FBF8F1" stroke="none"/><path d="M3.2 5.3L262.4 1.3M298.9 38.7L296.5 435.9M293.7 437.5L3.2 437.7M2 434.9L2.4 10.5" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M262 3L262 36L297 36" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="slip__title-line" d="M24 50L170 49" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="slip__box1" d="M21.9 92.4L278 92.6M276.3 94.9L275.7 143.6M276.2 144.6L24 143.5M23.6 142.5L24.7 95.1" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="slip__label1" x="26" y="82" font-family="Supreme, sans-serif" font-size="20" font-weight="400" fill="#33464C">Rooms</text>
+<text id="slip__value1" x="40" y="128" font-family="Supreme, sans-serif" font-size="28" font-weight="500" fill="#173530">20</text>
+<path id="slip__box2" d="M24.6 178.4L277.2 178.1M276.6 177.3L275.7 227.9M276.6 230.7L25.4 229.9M23.8 228L23.5 180" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="slip__label2" x="26" y="168" font-family="Supreme, sans-serif" font-size="20" font-weight="400" fill="#33464C">Rate</text>
+<text id="slip__value2" x="40" y="214" font-family="Supreme, sans-serif" font-size="28" font-weight="500" fill="#173530">$180 a night</text>
+<path id="slip__box3" d="M23.1 264.6L273.1 264.7M276.2 262.3L276.2 314.8M276.2 315.4L25.5 316.2M23.6 316.1L23.9 263.8" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="slip__label3" x="26" y="254" font-family="Supreme, sans-serif" font-size="20" font-weight="400" fill="#33464C">Occupancy</text>
+<text id="slip__value3" x="40" y="300" font-family="Supreme, sans-serif" font-size="28" font-weight="500" fill="#173530">70%</text>
+<path id="slip__box4" d="M25.1 350.6L274.4 349.5M275.4 351.9L276.6 399.8M275.6 402L25.9 401.6M23.6 403.5L24.2 349" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text id="slip__label4" x="26" y="340" font-family="Supreme, sans-serif" font-size="20" font-weight="400" fill="#33464C">Share through the sites</text>
+<text id="slip__value4" x="40" y="386" font-family="Supreme, sans-serif" font-size="28" font-weight="500" fill="#173530">63%</text>
+<path id="slip__line" d="M24.1 414.9L173.6 413.4M182.2 413.9L275.1 412.3" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect id="lit1" x="24" y="93" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit2" x="24" y="179" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit3" x="24" y="265" width="252" height="51" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/><rect id="lit4" x="24" y="350" width="252" height="52" fill="#EDE5D6" class="hide" style="mix-blend-mode:multiply"/>
+<text id="slip-title" class="lab hide" x="24" y="40" font-size="26">The ceiling</text>
+<g id="say" class="hide"><text class="st" x="102" y="386" font-size="20">say</text><path d="M101 392L134 392" stroke="#586D74" stroke-width="1.6" stroke-dasharray="4 3"/></g>
+<g id="g53" class="hide"><path class="light" style="stroke-width:1.8" d="M141 377L166 377M160 371L167 377L160 383"/><rect x="172" y="357" width="96" height="38" fill="#FBF8F1" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5"/><text class="st" x="186" y="386" font-size="26">53%</text></g>
+<g id="g40box" class="hide"><path class="light" style="stroke-width:1.8" d="M84 119L109 119M103 113L110 119L103 125"/><rect x="116" y="99" width="80" height="38" fill="#FBF8F1" stroke="#586D74" stroke-width="2" stroke-dasharray="6 5"/><text class="st" x="136" y="128" font-size="26">40</text></g>
+</g></g>
+<text id="cb" class="sm hide" x="1014" y="454" font-size="15">63%: the Cloudbeds figure, worldwide</text>
+</svg>
+<div id="tl"><span id="tl1" class="k">ILLUSTRATIVE MODEL</span><span id="tl2" class="hide"> · a made-up inn</span><span id="tl3" class="hide"> · swap in real inputs</span></div>
+<h1 id="hd" class="hide">Two things move it</h1>
+<div id="rc">the ceiling table with every input, "ILLUSTRATIVE MODEL", D-EDGE 3.5 percent 2025-02-24 for the low bound, C016 to C021</div>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="109.833333" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 480.041667 + cue. Word onsets from word-transcript.json (W001325 to W001648).
+const C={"compute": 0.828, "heres": 1.978, "illus": 3.398, "making": 4.598, "every": 6.258, "twenty": 10.638, "rate": 11.628, "seventy": 14.318, "thats1": 16.898, "say": 20.558, "sixty": 20.968, "cloudbeds": 23.778, "thats2": 25.458, "at": 29.498, "my": 33.078, "the": 35.558, "say2": 52.538, "from": 54.978, "fifty": 56.998, "thats3": 58.448, "commission": 62.218, "is": 65.358, "take": 68.838, "call": 71.378, "low": 73.558, "whats": 76.158, "a": 79.708, "ceiling": 82.308, "most": 84.058, "retainer": 87.838, "under": 88.798, "two": 89.818, "a40": 91.278, "doubles": 92.358, "a5": 96.098, "halves": 98.018, "the10": 100.818, "hyp": 101.818, "but": 103.938, "four": 105.478};
+const S038=52.208333, S039=89.5;
+const fade=(s,at,d=10/24)=>t.fromTo(s,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+const out=(s,at,d=.3)=>t.to(s,{autoAlpha:0,duration:d,ease:'power1.in'},at);
+const swap=(a,b,at)=>{out(a,at,.25); fade(b,at+.2,.35);};
+const rec=(s,at,o,d=.5)=>t.to(s,{opacity:o,duration:d,ease:'power1.inOut'},at);
+const wipeX=(r,at,w,d)=>t.fromTo(r,{attr:{width:0}},{attr:{width:w},duration:d,ease:'power1.inOut'},at);
+const wipeY=(r,at,h,d)=>t.fromTo(r,{attr:{height:0}},{attr:{height:h},duration:d,ease:'power1.inOut'},at);
+const growUp=(r,at,h,d)=>t.fromTo(r,{attr:{y:640,height:0}},{attr:{y:640-h,height:h},duration:d,ease:'power1.inOut'},at);
+const OX='#B5482F', INK='#173530', STEEL='#586D74';
+// seg036. The label "ILLUSTRATIVE MODEL" and the receipt are present from frame 0 (A-26).
+t.set('#col',{autoAlpha:1},0); wipeY('#cr-col',C.compute,470,.5); wipeY('#cr-slip',C.compute,360,.5);
+fade('#slip-title',C.heres);
+fade('#tl2',C.making); fade('#tl3',C.every);
+['#slip__value1','#slip__value2','#slip__value3','#slip__value4'].forEach(s=>t.set(s,{autoAlpha:0},0));
+fade('#slip__value1',C.twenty); fade('#inn',C.twenty,.45);
+fade('#slip__value2',C.rate); fade('#slip__value3',C.seventy);
+// "That's about nine hundred and twenty thousand dollars of room revenue."
+t.fromTo('#col-fill',{autoAlpha:1,scaleY:0,transformOrigin:'50% 100%'},{scaleY:1,duration:.7,ease:'power1.inOut'},C.thats1);
+fade('#l-rev',C.thats1+.3);
+// "Say sixty three percent of that comes through the sites, the Cloudbeds figure."
+fade('#slip__value4',C.say); fade('#say',C.say);
+fade('#rent',C.sixty,.5); fade('#rent-edge',C.sixty,.5);
+fade('#cb',C.cloudbeds);
+// Each caption replaces the one before it.
+swap('#l-rev','#l-rent',C.thats2);
+swap('#l-rent','#l-com1',C.at); fade('#band-in',C.at,.5);
+fade('#l-com2',C.my); fade('#l-com3',C.the);
+// seg037 (presenter) 40.375-52.208: the model holds exactly.
+// seg038. "Say it moves ten points of the mix": the commission total is set aside; the slice replaces it.
+out('#l-com1',C.say2,.3); out('#l-com2',C.say2,.3); out('#l-com3',C.say2,.3); out('#band-in',C.say2,.45);
+fade('#slice',C.say2+.1,.3); fade('#tag1-a',C.say2+.3);
+fade('#g53',C.fifty);
+// "That's about ninety two thousand dollars of revenue now booked direct": the slice is enlarged; the column recedes.
+rec('#colw',C.thats3,.3,.6);
+wipeX('#cr-con',C.thats3,75,.35); t.set('#con',{autoAlpha:1},C.thats3); wipeY('#cr-pan',C.thats3+.2,520,.5); t.set('#panel',{autoAlpha:1},C.thats3+.2);
+fade('#p-head',C.thats3+.6);
+// "Commission saved on that, at eighteen to twenty two percent, is about sixteen and a half to twenty thousand dollars a year."
+out('#p-head',C.commission,.3); t.set('#cbar',{autoAlpha:1},C.commission); growUp('#cr-bar',C.commission,210,.7);
+fade('#k-op1',C.commission+.2); fade('#k-q1',C.commission+.2); fade('#k-r1',C.is);
+// "Take off the cost of the direct channel itself, call it three and a half to five percent, the low end being one vendor's own figure."
+swap('#k-op1','#k-op2',C.take); out('#k-r1',C.take,.25); out('#k-q1',C.take,.25); fade('#cost',C.take+.2,.45);
+fade('#k-r2',C.call); fade('#k-q2',C.low);
+// "What's left is roughly twelve to seventeen thousand dollars a year." The cost strip lifts away; the caveat stays small (A-24).
+swap('#k-op2','#k-op3',C.whats); out('#k-r2',C.whats,.25); out('#k-q2',C.whats,.25);
+t.to('#cost',{x:70,autoAlpha:0,duration:.6,ease:'power1.in'},C.whats);
+out('#cbar',C.whats+.1,.35); fade('#rbar',C.whats+.1,.4);
+fade('#k-r3',C.whats+.35); fade('#cav',C.whats+.5,.4);
+// "A thousand to fourteen hundred dollars a month."
+swap('#k-r3','#k-r4',C.a);
+// "That's the ceiling." One oxide accent: the tag steps to ink while the line takes oxide.
+t.to('#tag1-box',{attr:{stroke:STEEL},duration:.3},C.ceiling); t.to('#tag1-t',{fill:INK,duration:.3},C.ceiling);
+wipeX('#cr-ceil',C.ceiling,375,.55); swap('#k-op3','#k-op4',C.ceiling);
+fade('#ceil-s',C.most);
+t.fromTo('#ret',{autoAlpha:0,x:34},{autoAlpha:1,x:0,duration:C.under-C.retainer,ease:'power2.out'},C.retainer);
+// seg039. "Two things move it."
+fade('#hd',C.two);
+// "A forty room property doubles it": a ghost of the ceiling line rises to double; one short label.
+fade('#g40box',C.a40);
+out('#hd',C.doubles,.3);
+t.set('#g40',{autoAlpha:1},C.doubles); t.fromTo('#g40',{y:0},{y:-170,duration:.8,ease:'power2.inOut'},C.doubles);
+fade('#g40-l',C.doubles+.7,.35);
+// "A five point shift instead of ten halves it": the 40-room ghost recedes; a second ghost drops to half.
+out('#g40-l',C.a5,.3); rec('#g40',C.a5,.2); rec('#g40box',C.a5,.3);
+fade('#slice5',C.a5+.2,.4);
+t.set('#g5',{autoAlpha:1},C.halves); t.fromTo('#g5',{y:0},{y:85,duration:.7,ease:'power2.inOut'},C.halves);
+fade('#g5-l',C.halves+.6,.35);
+// "The ten points is a hypothesis nobody has measured."
+out('#g5-l',C.the10,.3); rec('#g5',C.the10,.2); rec('#slice5',C.the10,.2);
+t.to('#ceil',{color:INK,duration:.3},C.the10);
+t.set('#tag1-a',{autoAlpha:0},C.hyp); t.set('#tag2',{autoAlpha:1},C.hyp); t.set('#tag2-t2',{autoAlpha:0},C.hyp); fade('#tag2-t2',C.hyp);
+// "But the ceiling tells you, in four numbers,"
+t.to('#tag2-box',{attr:{stroke:STEEL},duration:.3},C.but); t.to('#tag2 text',{fill:INK,duration:.3},C.but);
+t.to('#ceil',{color:OX,duration:.3},C.but);
+['#lit1','#lit2','#lit3','#lit4'].forEach((s,i)=>fade(s,C.four+i*.15,.2));
+window.__timelines['ep009-s10-ceiling']=t;
+</script></body></html>

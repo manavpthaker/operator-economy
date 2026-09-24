@@ -1,0 +1,147 @@
+[
+  {
+    "event_id": "r64b-s19-title-swap-v1",
+    "decision_id": "s19-first-customer",
+    "event_type": "decision",
+    "supersedes": "r64-s19-first-customer-v1",
+    "tags": [
+      "animation",
+      "cut-timing",
+      "technical-correction"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Preserve the S19 referral-channel and conditional-risk story while keeping its title transition readable.",
+        "viewer_before": "The broker question is held under Your first conversation.",
+        "viewer_after": "The risk title replaces the previous title at flag without competing text."
+      },
+      "choice": "At C.risk, hard-hide #h1 and hard-show #h2, retaining the quote fade. Change only the final-card item 1 color from #586D74 to the existing secondary ink #33464C. Preserve all other source content and timing.",
+      "reason": "Actual original context frames 895 and 902 show both headings superimposed. Explicit final-hold strict check also found 4.35:1 contrast on item 1. The two bounded corrections remove those defects without introducing a creative revision.",
+      "alternatives": [
+        {
+          "choice": "Retain overlapping title fades",
+          "reason_not_selected": "Both headings occupy the same coordinates and visibly collide."
+        },
+        {
+          "choice": "Separate both title fades with a gap",
+          "reason_not_selected": "The previous iteration already exposed near-blank frames; a deterministic swap retains a readable title."
+        }
+      ],
+      "reuse": {
+        "kind": "technical_invariant",
+        "applies_when": "Two mutually exclusive headings occupy the same frame position.",
+        "avoid_when": "Deliberate overlapping typography is itself the approved visual meaning."
+      },
+      "nuance": {
+        "source_basis": "Live audit of original R64 encoded context and source, then isolated technical correction under continuation work order. This is not owner acceptance.",
+        "cut_cues": [
+          {
+            "cue_id": "risk",
+            "phrase": "flag the risk",
+            "word_id": "W002459",
+            "master_seconds": 873.76,
+            "review_seconds": 37.26,
+            "standalone_seconds": 29.26,
+            "review_time_domain": "R64B qa/context.mp4, beginning at master 836.5",
+            "fps": 24,
+            "rounding": "First 24-fps sample at or after cue: frame 895 at 37.291666667.",
+            "relation": "#h1 off and #h2 on at same cue; #quote fades from that cue for 0.45 s.",
+            "dependent_targets": [
+              "#h1",
+              "#h2",
+              "#quote"
+            ]
+          }
+        ],
+        "runtime": {
+          "from": "0.8.36",
+          "to": "0.8.46",
+          "scope": "Isolated R64B project only",
+          "check_passed_before_bump": true,
+          "representative_comparison": "Five PNGs byte-identical across versions."
+        }
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r64-s19/index.html",
+        "sha256": "01f8f820489614904f009527c1748202446468ef874da3ed207924bf2e7a1f0f",
+        "locator": "Original title crossfade"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/stills/original-title-collision.png",
+        "sha256": "9ebba54a93b89009168bfa208dcc3c8ff57b427da10fd8aca2bb4addec7547c6",
+        "locator": "Original R64 context frame 895"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/REPORT.md",
+        "sha256": "affb0ed32590ab53827216746eee8d99f18b180400d37f72891e3958b2b928f1",
+        "locator": "Bounded corrections and review status"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/index.html",
+        "sha256": "e159c374a8a54ab21911ed1cc0e5a732eaab88836f4d3267e2c7f395052bad4c",
+        "locator": "Corrected source"
+      }
+    ]
+  },
+  {
+    "event_id": "r64b-s19-title-swap-verified-v1",
+    "decision_id": "s19-first-customer",
+    "event_type": "verification",
+    "tags": [
+      "animation",
+      "cut-timing",
+      "technical-correction"
+    ],
+    "data": {
+      "decision_event_id": "r64b-s19-title-swap-v1",
+      "method": "0.8.46 strict check: zero errors/warnings; exact 0.8.36 vs 0.8.46 representative PNG comparison; one-worker local render; dimensions/frame-count probes and strict decode; original S18 final 8 s and byte-exact master PCM context; encoded seam/final-card visual inspection; full-context uniform-frame scan; source diff limited to heading swap and approved secondary-ink correction; original input hashes rechecked.",
+      "result": "pass",
+      "scope": "Isolated corrected S19 (1116 frames) and S18-tail context (1308 frames), 1280x720 24 fps.",
+      "limitations": "Owner review pending. Four informational connector guesses inspected; no canonical or publication gate advanced. No episode log append performed by worker.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/context.mp4",
+          "sha256": "b9dca28df585b5702c7dee4513b0438908f2e02699eb0566bd84499e3eab7d4c"
+        },
+        {
+          "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/r64b-s19.mp4",
+          "sha256": "7307e09b0c1b86b39b7262d0771e39d6b67b70dcd2aaeed914f07e593dc6fdcb"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/index.html",
+        "sha256": "e159c374a8a54ab21911ed1cc0e5a732eaab88836f4d3267e2c7f395052bad4c",
+        "locator": "Candidate source"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/VERIFICATION.json",
+        "sha256": "3bf0f4f8ff1146b7ac2dcb012325ee7c4d2cdc5fbd4962a5e9b46f8c12c9c2f6",
+        "locator": "Decoded output and audio QA"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/logs/check-0.8.46-corrected.json",
+        "sha256": "d7040b4902aded228fd8095ff5780f0d374326bf39435e72aa41112bdabb6881",
+        "locator": "Strict check"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/runtime-comparison.json",
+        "sha256": "56ed23babf4e8dedc1ec96820092736044243eb24668fe009b240be3aa1a08cb",
+        "locator": "Version comparison"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/stills/title-seam-contact.png",
+        "sha256": "a91953d5f824b8c641541c5d50083bd867f400693ae428a98343b71df70c6777",
+        "locator": "Corrected title seam"
+      },
+      {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/stills/corrected-final-card.png",
+        "sha256": "9ef8abca7fbda12ed2729f8055ff0d941dd480b1e97abbbba7ce4ba37307ce13",
+        "locator": "Corrected final card"
+      }
+    ]
+  }
+]

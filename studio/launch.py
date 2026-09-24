@@ -47,11 +47,14 @@ def utc_iso(d: date, t: time) -> str:
         "%Y-%m-%dT%H:%M:%SZ")
 
 
-def run_upload(video: Path, title: str, desc: str, publish_at: str, go: bool) -> str:
+def run_upload(video: Path, title: str, desc: str, publish_at: str, go: bool,
+               tags: str = "") -> str:
     """Upload one video, return the youtu.be URL (placeholder on dry run)."""
     cmd = [sys.executable, str(STUDIO / "scripts/originate/upload_youtube.py"),
            str(video), "--title", title, "--privacy", "private",
            "--publish-at", publish_at, "--description", desc]
+    if tags:
+        cmd += ["--tags", tags]
     if not go:
         print(f"  DRY RUN: {video.name!r} → publishAt {publish_at}")
         return "[PENDING_UPLOAD]"
@@ -107,9 +110,12 @@ def main() -> None:
         iter(sorted(ep_dir.glob("ep*-final.mp4"))), None)
     if video is None or not video.exists():
         sys.exit("episode video not found — pass --video")
-    # Renders land in remotion/out/ (canonical output), fall back to originate/<slug>/shorts/.
+    # Episode-scoped shorts win. remotion/out/ is shared across episodes and can hold a
+    # previous episode's renders (EP006 files sat there during EP007 prep), so it is only
+    # a fallback for episodes that never staged originate/<slug>/shorts/.
     render_out = STUDIO / "remotion" / "out"
-    short_src = render_out if list(render_out.glob("short-*.mp4")) else (ep_dir / "shorts")
+    ep_shorts = ep_dir / "shorts"
+    short_src = ep_shorts if list(ep_shorts.glob("short-*.mp4")) else render_out
     shorts = sorted(short_src.glob("short-*.mp4"))
     # Idempotency: reuse anything already uploaded so re-runs never duplicate.
     links_path = ep_dir / "launch" / "links.json"
@@ -120,16 +126,32 @@ def main() -> None:
     briefs = json.loads((ep_dir / "content" / "shorts_briefs.json").read_text()) \
         if (ep_dir / "content" / "shorts_briefs.json").exists() else []
     desc_file = ep_dir / "content" / "youtube_description.txt"
+    # The reader-tool page (Operator Canvas for V2 episodes, legacy Blueprint for V1). One URL,
+    # two placeholder names: {{CANVAS_URL}} is current, {{BLUEPRINT_URL}} is the legacy alias.
+    canvas_url = f"https://theoperatoreconomy.com/episodes/{args.slug}"
     ep_desc = desc_file.read_text() if desc_file.exists() else ""
+    for ph in ("{{CANVAS_URL}}", "{{BLUEPRINT_URL}}"):
+        ep_desc = ep_desc.replace(ph, canvas_url)
+    tags_file = ep_dir / "content" / "youtube_tags.txt"
+    ep_tags = ",".join(t.strip() for t in tags_file.read_text().replace("\n", ",").split(",")
+                       if t.strip()) if tags_file.exists() else ""
+    if "{{" in ep_desc:
+        sys.exit("youtube_description.txt has an unresolved {{placeholder}} — fix before launch")
 
-    # ---- Blueprint PDF gate: it's what email signups receive ----
-    bp_pdf = next(iter(ep_dir.glob("Operator-Blueprint-*.pdf")), None)
+    # ---- Reader-tool PDF gate: it's what email signups receive ----
+    # Operator-Canvas-*.pdf (V2, rendered from the locked Canvas) wins; Operator-Blueprint-*.pdf is
+    # the legacy V1 name and is still accepted for older episodes.
+    bp_pdf = next(iter(sorted(ep_dir.glob("Operator-Canvas-*.pdf"))), None) or \
+        next(iter(sorted(ep_dir.glob("Operator-Blueprint-*.pdf"))), None)
     if bp_pdf is None:
-        print("⚠ No designed blueprint PDF found. The blueprint IS the lead magnet — render it:\n"
-              f"  python scripts/originate/render_blueprint.py originate/{args.slug}/script.json "
+        print("⚠ No reader-tool PDF found (Operator-Canvas-*.pdf or legacy Operator-Blueprint-*.pdf).\n"
+              f"  V2: python originate/{args.slug}/render_canvas.py   (renders the locked Canvas)\n"
+              f"  V1: python scripts/originate/render_blueprint.py originate/{args.slug}/script.json "
               "--hero '...' --hero-caption '...'")
         if args.go:
-            sys.exit("Refusing --go without the blueprint PDF (signups would get nothing).")
+            sys.exit("Refusing --go without the reader-tool PDF (signups would get nothing).")
+    else:
+        print(f"Reader-tool PDF: {bp_pdf.name}")
 
     # ---- Rubric gate before anything ships ----
     if args.rubric_waiver:
@@ -150,7 +172,7 @@ def main() -> None:
         print(f"  reusing already-uploaded episode: {existing_ep}")
         ep_url = existing_ep
     else:
-        ep_url = run_upload(video, args.title, ep_desc, ep_publish, args.go)
+        ep_url = run_upload(video, args.title, ep_desc, ep_publish, args.go, ep_tags)
 
     # ---- 2. Trailer (Sunday evening, episode link baked in) ----
     trailer_entry = None
@@ -186,8 +208,16 @@ def main() -> None:
         title = brief.get("title", sv.stem)[:95]
         pinned = brief.get("pinned_comment", "Full breakdown: [long-form link]") \
             .replace("[long-form link]", ep_url)
-        desc = (f"{pinned}\n\nThe Operator Blueprint (free): "
-                f"https://theoperatoreconomy.com/episodes/{args.slug}")
+        if brief.get("file") and brief["file"] != sv.name:
+            sys.exit(f"shorts_briefs.json[{i}] is for {brief['file']}, not {sv.name}")
+        if brief.get("description"):
+            # Approved per-short description (EP007+): episode link substituted, nothing appended.
+            desc = brief["description"].replace("[long-form link]", ep_url)
+        else:
+            desc = (f"{pinned}\n\nThe Operator Blueprint (free): "
+                    f"https://theoperatoreconomy.com/episodes/{args.slug}")
+        if "{{" in desc + pinned + title:
+            sys.exit(f"unresolved {{{{placeholder}}}} in short {sv.name} copy")
         if sv.name in existing_shorts:
             url = existing_shorts[sv.name]
             print(f"  reusing short {sv.name}: {url}")
@@ -206,9 +236,11 @@ def main() -> None:
     manifest = {
         "slug": args.slug, "monday": str(monday), "title": args.title,
         "episode_url": ep_url, "episode_publish_et": f"{monday} 11:00 ET",
-        "blueprint_url": f"https://theoperatoreconomy.com/episodes/{args.slug}",
+        "canvas_url": canvas_url if bp_pdf and bp_pdf.name.startswith("Operator-Canvas-") else None,
+        "blueprint_url": canvas_url,  # legacy key, read by content-os sync-episode/release_audit
         "carousel_pdf": next((str(p) for p in ep_dir.glob("carousel-*.pdf")), None),
-        "blueprint_pdf": str(bp_pdf) if bp_pdf else None,
+        "canvas_pdf": str(bp_pdf) if bp_pdf and bp_pdf.name.startswith("Operator-Canvas-") else None,
+        "blueprint_pdf": str(bp_pdf) if bp_pdf else None,  # legacy key: whichever reader-tool PDF exists
         "trailer": trailer_entry,
         "shorts": short_entries,
         "generated": datetime.now(ET).isoformat(),
@@ -238,7 +270,7 @@ Generated by launch.py ({'LIVE' if args.go else 'DRY RUN'}). Flow: docs/publishi
 - [ ] OE page shorts posts ×4 scheduled Tue–Fri 8:30 (native vertical video)
 
 ## Hour one — Monday 11:00–12:00
-- [ ] Sources comment under OE post (episode + blueprint links, confidence flags)
+- [ ] Sources comment under OE post (episode + {'Operator Canvas' if manifest['canvas_pdf'] else 'Blueprint'} links, confidence flags)
 - [ ] Newsletter send (content/newsletter.md)
 - [ ] Personal repost of OE carousel post + one-line analyst comment (rubric-gated)
 - [ ] Site flip: python scripts/originate/publish.py {args.slug}
@@ -253,7 +285,7 @@ Generated by launch.py ({'LIVE' if args.go else 'DRY RUN'}). Flow: docs/publishi
     dm = f"""# DM shortlist — {args.slug} ({monday})
 
 Register: friend who saw something relevant. No ask. Ever. One msg per person per episode.
-Episode: {ep_url} · Blueprint: {manifest['blueprint_url']}
+Episode: {ep_url} · {'Operator Canvas' if manifest['canvas_pdf'] else 'Blueprint'}: {manifest['blueprint_url']}
 
 ## Tier 1 — direct relevance (5–10)
 | Who | Why this episode is theirs | Draft | Sent |

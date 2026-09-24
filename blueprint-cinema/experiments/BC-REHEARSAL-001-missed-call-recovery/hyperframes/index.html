@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Boska Rehearsal"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "Supreme Rehearsal"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Supreme Rehearsal"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "IBM Plex Mono Rehearsal"; src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype"); font-weight: 700; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #14263e; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "Supreme Rehearsal", sans-serif; }
+      .scene-slot { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      .persistent-layer { position: absolute; inset: 0; width: 1920px; height: 1080px; pointer-events: none; }
+      #call-tag-red { position: absolute; left: 1210px; top: 342px; width: 300px; height: 176px; background: #9b3e2e; color: #f5f0e6; padding: 27px 31px; border-radius: 2px; font-family: "IBM Plex Mono Rehearsal", monospace; z-index: 30; }
+      #call-tag-red strong { display: block; font-size: 31px; line-height: 1; }
+      #call-tag-red .time { display: block; margin-top: 22px; font-size: 27px; line-height: 1; }
+      .tag-state-layer { position: absolute; left: 14px; top: 122px; width: 272px; min-height: 40px; border: 2px solid #c4a45f; background: #14263e; color: #c4a45f; padding: 7px 8px; text-align: center; font: 700 15px/1.05 "IBM Plex Mono Rehearsal", monospace; }
+      #tag-state-permission { color: #9b3e2e; border-color: #9b3e2e; background: #fbf8f1; }
+      #tag-state-unprioritized { color: #9b3e2e; border-color: #9b3e2e; background: #fbf8f1; }
+      #tag-state-reviewed { color: #b8cabb; border-color: #b8cabb; }
+      #tag-state-booked { color: #b8cabb; border-color: #b8cabb; }
+      #work-order-card { position: absolute; left: 1410px; top: 250px; width: 390px; height: 520px; border: 3px solid #1a1a1a; background: #fbf8f1; color: #1a1a1a; padding: 32px; z-index: 24; font-family: "IBM Plex Mono Rehearsal", monospace; }
+      #work-order-card .card-label { font-size: 25px; line-height: 1; }
+      #work-order-card .card-id { margin-top: 14px; font-size: 22px; line-height: 1; }
+      .work-state-layer { position: absolute; left: 32px; right: 32px; top: 185px; border-top: 4px solid currentColor; border-bottom: 4px solid currentColor; padding: 28px 0; font: 500 52px/1 "Supreme Rehearsal", sans-serif; }
+      #work-state-empty { color: #6b675e; }
+      #work-state-offered { color: #7a5e24; }
+      #work-state-scheduled, #work-state-measured { color: #5e7f6a; }
+      #work-order-card .card-disclosure { position: absolute; left: 32px; right: 32px; bottom: 28px; color: #9b3e2e; font-size: 18px; line-height: 1.18; }
+      #work-order-card .card-disclosure span { display: block; }
+      #proof-pin { position: absolute; left: 1560px; top: 120px; width: 335px; min-height: 122px; border: 3px solid #9b3e2e; background: #fbf8f1; color: #9b3e2e; padding: 18px 20px; z-index: 26; font: 700 20px/1.12 "IBM Plex Mono Rehearsal", monospace; }
+      .state-final { opacity: 1; }
+      .state-not-final { opacity: 0; }
+      audio { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-2dij" id="root" data-composition-id="main" data-start="0" data-duration="61.411354" data-width="1920" data-height="1080">
+      <audio data-hf-id="hf-falo" id="locked-vo" src="assets/audio/vo.wav" data-start="0" data-duration="61.411354" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-2lyu" id="slot-shot-01" class="clip scene-slot" data-composition-id="bc-rh-001-shot-01" data-composition-src="compositions/shots/shot-01.html" data-start="0" data-duration="13.64" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-8ftc" id="slot-shot-02" class="clip scene-slot" data-composition-id="bc-rh-001-shot-02" data-composition-src="compositions/shots/shot-02.html" data-start="13.64" data-duration="12.73" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-iq0s" id="slot-shot-03" class="clip scene-slot" data-composition-id="bc-rh-001-shot-03" data-composition-src="compositions/shots/shot-03.html" data-start="26.37" data-duration="7.83" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-rdjn" id="slot-shot-04" class="clip scene-slot" data-composition-id="bc-rh-001-shot-04" data-composition-src="compositions/shots/shot-04.html" data-start="34.2" data-duration="5.68" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-duzv" id="slot-shot-05" class="clip scene-slot" data-composition-id="bc-rh-001-shot-05" data-composition-src="compositions/shots/shot-05.html" data-start="39.88" data-duration="7.8" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-jd16" id="slot-shot-06" class="clip scene-slot" data-composition-id="bc-rh-001-shot-06" data-composition-src="compositions/shots/shot-06.html" data-start="47.68" data-duration="8.37" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-8ghf" id="slot-shot-07" class="clip scene-slot" data-composition-id="bc-rh-001-shot-07" data-composition-src="compositions/shots/shot-07.html" data-start="56.05" data-duration="5.361354" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div data-hf-id="hf-5y9b" class="persistent-layer">
+        <div data-hf-id="hf-9a98" id="work-order-card">
+          <div data-hf-id="hf-c4qi" class="card-label">WORK ORDER</div>
+          <div data-hf-id="hf-tahm" class="card-id">WO-R01</div>
+          <div data-hf-id="hf-l6h3" id="work-state-empty" class="work-state-layer state-not-final">EMPTY</div>
+          <div data-hf-id="hf-eizv" id="work-state-offered" class="work-state-layer state-not-final">OFFERED</div>
+          <div data-hf-id="hf-dh3f" id="work-state-scheduled" class="work-state-layer state-not-final">SCHEDULED</div>
+          <div data-hf-id="hf-uzlj" id="work-state-measured" class="work-state-layer state-final">MEASURED</div>
+          <div data-hf-id="hf-lkr8" class="card-disclosure"><span data-hf-id="hf-79mz">AST-OUTCOME-004</span><span data-hf-id="hf-c9yp">SYNTHETIC WORK ORDER — NOT EVIDENCE</span></div>
+        </div>
+        <div data-hf-id="hf-g6o8" id="call-tag-red">
+          <strong data-hf-id="hf-5hhi">CALL-R01</strong>
+          <span data-hf-id="hf-69w3" class="time">20:47</span>
+          <div data-hf-id="hf-y3xf" id="tag-state-permission" class="tag-state-layer state-not-final">PERMISSION TO RESPOND</div>
+          <div data-hf-id="hf-2cb3" id="tag-state-unprioritized" class="tag-state-layer state-not-final">UNPRIORITIZED</div>
+          <div data-hf-id="hf-qefj" id="tag-state-uncertain" class="tag-state-layer state-not-final">UNCERTAIN · FIELD MATCH</div>
+          <div data-hf-id="hf-90ax" id="tag-state-reviewed" class="tag-state-layer state-not-final">REVIEWED</div>
+          <div data-hf-id="hf-7bk2" id="tag-state-booked" class="tag-state-layer state-final">BOOKED</div>
+        </div>
+        <div data-hf-id="hf-1o9o" id="proof-pin" class="state-final">SYNTHETIC TEST FIXTURE — NOT EVIDENCE</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const tagStates = ["#tag-state-permission", "#tag-state-unprioritized", "#tag-state-uncertain", "#tag-state-reviewed", "#tag-state-booked"];
+      const workStates = ["#work-state-empty", "#work-state-offered", "#work-state-scheduled", "#work-state-measured"];
+
+      gsap.set("#call-tag-red", { x: -160, y: 88, autoAlpha: 0 });
+      gsap.set("#work-order-card", { x: 0, y: 50, autoAlpha: 1 });
+      gsap.set("#proof-pin", { autoAlpha: 0 });
+      gsap.set(tagStates, { autoAlpha: 0 });
+      gsap.set(workStates, { autoAlpha: 0 });
+      gsap.set("#work-state-empty", { autoAlpha: 1 });
+
+      tl.to("#call-tag-red", { autoAlpha: 1, duration: 0.15, ease: "power1.out" }, 2.63);
+      tl.to("#call-tag-red", { x: -450, y: 78, duration: 0.8, ease: "power2.out" }, 2.63);
+      tl.set("#tag-state-permission", { autoAlpha: 1 }, 10.98);
+
+      tl.set("#tag-state-permission", { autoAlpha: 0 }, 15.86);
+      tl.set("#tag-state-unprioritized", { autoAlpha: 1 }, 15.86);
+      tl.to("#call-tag-red", { x: -600, y: 278, duration: 0.8, ease: "power2.inOut" }, 15.86);
+
+      tl.set("#tag-state-unprioritized", { autoAlpha: 0 }, 26.37);
+      tl.to("#call-tag-red", { x: -580, y: 278, duration: 0.35, ease: "power2.out" }, 28.42);
+      tl.to("#call-tag-red", { x: -280, y: 278, duration: 0.55, ease: "power2.inOut" }, 31.34);
+      tl.set("#tag-state-uncertain", { autoAlpha: 1 }, 31.34);
+      tl.to("#call-tag-red", { x: -130, y: 278, duration: 0.5, ease: "power2.inOut" }, 32.25);
+      tl.to("#work-order-card", { x: -25, y: 300, duration: 0.35, ease: "power2.out" }, 26.37);
+      tl.to("#proof-pin", { autoAlpha: 1, duration: 0.18, ease: "power1.out" }, 33.6);
+
+      tl.set("#call-tag-red", { x: -450, y: 168 }, 34.2);
+      tl.set("#work-order-card", { x: -55, y: 50 }, 34.2);
+      tl.set("#tag-state-uncertain", { autoAlpha: 1 }, 34.2);
+      tl.set("#tag-state-uncertain", { autoAlpha: 0 }, 37.64);
+      tl.set("#tag-state-reviewed", { autoAlpha: 1 }, 37.64);
+      tl.to("#call-tag-red", { x: -90, y: 168, duration: 0.45, ease: "power2.out" }, 37.88);
+      tl.set("#work-state-empty", { autoAlpha: 0 }, 37.88);
+      tl.set("#work-state-offered", { autoAlpha: 1 }, 37.88);
+
+      tl.set("#call-tag-red", { x: -290, y: 88 }, 39.88);
+      tl.set("#work-order-card", { x: 0, y: 0 }, 39.88);
+      tl.to("#call-tag-red", { x: -110, y: 88, duration: 2.0, ease: "power2.inOut" }, 43.05);
+      tl.set("#tag-state-reviewed", { autoAlpha: 0 }, 45.11);
+      tl.set("#tag-state-booked", { autoAlpha: 1 }, 45.11);
+      tl.set("#work-state-offered", { autoAlpha: 0 }, 45.11);
+      tl.set("#work-state-scheduled", { autoAlpha: 1 }, 45.11);
+
+      tl.set("#work-state-scheduled", { autoAlpha: 0 }, 58.68);
+      tl.set("#work-state-measured", { autoAlpha: 1 }, 58.68);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "record_type": "ep007_short02_google_guide_local_qc",
+  "at_utc": "2026-09-23T00:28:14Z",
+  "status": "hold_exact_copy_failure_at_opening",
+  "provider_calls_by_this_qc": 0,
+  "guide": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-02-operations-business/media/guide.wav",
+    "sha256": "dd7d5de978d1bc0357c033befc73011ec5e09a58a2148426df2f65a96d1e3a23",
+    "duration_seconds": 44.731,
+    "format": "PCM signed 16-bit mono at 24000 Hz",
+    "technical_tail_energy_final_60ms_relative_to_peak": 0.0085,
+    "technical_tail_threshold": 0.02,
+    "technical_tail_pass": true
+  },
+  "locked_script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-02-operations-business/SCRIPT.txt",
+    "sha256": "aee361d4542ed450365a50c70577f6b1bddd61c30de0571d770cbd91b0ed5542",
+    "opening": "Helping owners get a business ready to sell sounds like M&A."
+  },
+  "submitted_request": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-02-operations-business/GOOGLE-REQUEST.json",
+    "sha256": "51d3d17749feaab1f9c9ccb1ddafe3dce81c90b92a17f23892c34a867a97c36e",
+    "input_text_equals_locked_script": true
+  },
+  "provider_receipt": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-02-operations-business/GOOGLE-RECEIPT.json",
+    "sha256": "968e53dc057931cbc3f0f0b059c66a1b6e55141558471c9bddd665006e1bf04a"
+  },
+  "local_asr": [
+    {
+      "engine": "HyperFrames 0.8.59 whisper",
+      "model": "small.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-02-operations-business/diagnostic-asr-guide/transcript.json",
+      "transcript_sha256": "4cec115f8b87da4b2a0c686286a25c5ebb607ed6d21e034d5b61a31643abd9f9",
+      "recognized_words": 100,
+      "recognized_opening": "Add a business ready to sell, sounds like M&A,",
+      "recognized_last_word": "engagement.",
+      "recognized_last_word_end_seconds": 44.72
+    },
+    {
+      "engine": "HyperFrames 0.8.59 whisper",
+      "model": "medium.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-02-operations-business/diagnostic-asr-guide-medium/transcript.json",
+      "transcript_sha256": "5dec0b4383b77236aa9559988320a61dbeb5c66ba592ea56bb74ad58a9e18c91",
+      "recognized_words": 100,
+      "recognized_opening": "Add a business ready to sell sounds like M&A,",
+      "recognized_last_word": "engagement.",
+      "recognized_last_word_start_seconds": 43.91,
+      "recognized_last_word_end_seconds": 44.48,
+      "word_timings_monotonic": true,
+      "word_timings_within_media_duration": true
+    }
+  ],
+  "normalized_word_comparison": {
+    "locked_token_count": 103,
+    "recognized_token_count": 101,
+    "only_edit": {
+      "operation": "replace",
+      "locked": ["helping", "owners", "get"],
+      "recognized": ["add"]
+    },
+    "remainder_matches": true,
+    "exact_copy_pass": false
+  },
+  "disposition": {
+    "transfer_to_original_c": "hold",
+    "avatar_or_lipsync_from_this_guide": "hold",
+    "raw_guide_and_provider_response": "preserve",
+    "automatic_retry": "none",
+    "owner_listening": "pending",
+    "reason": "Two local ASR model sizes independently identify a changed opening hook; this guide does not meet the locked exact-copy contract. ASR is a QC aid, not proof of the precise acoustics, so direct listening can confirm the failure before any replacement call."
+  }
+}

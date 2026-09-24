@@ -1,0 +1,20 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "note": "an operation acts on an object the world does not record in changed_by",
+  "patches": {
+    "world.json": {
+      "objects": [
+        {
+          "id": "guest",
+          "operation_bindings": [
+            "BO-001"
+          ],
+          "changed_by": []
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V3"
+  ]
+}

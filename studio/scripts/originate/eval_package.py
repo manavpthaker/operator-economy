@@ -210,16 +210,24 @@ def main():
             f"sections without artifacts: {missing_artifacts}" if missing_artifacts else "")
 
     # ---- CTA (auto: 7 of 10) ----
-    early_ids = [i for i in ("hook", "thesis", "evidence", "stack") if i in sections]
+    # The show now earns one subscribe prompt after the evidence payoff. Keep
+    # the cold open and thesis completely CTA-free, then require the prompt in
+    # evidence/stack rather than incorrectly kill-listing the whole first half.
+    early_ids = [i for i in ("hook", "thesis") if i in sections]
     early_text = " ".join(b["vo_text"].lower() for i in early_ids for b in sections[i]["beats"])
     # Word-boundary match, not substring (fixed 2026-07-31). The bare `in`
     # test fired on "multi-million-SUBSCRIBEr audience" and kill-listed an
     # episode that had no CTA anywhere before the payoff. For a channel that
     # covers audience businesses, "subscriber" is going to keep showing up.
     early_cta = bool(re.search(r"\b(?:subscribe|blueprint|link below|download)\b", early_text))
-    r.score("cta: nothing before first payoff (hook→stack clean)", 4 if not early_cta else 0, 4)
+    payoff_ids = [i for i in ("evidence", "stack") if i in sections]
+    payoff_text = " ".join(b["vo_text"].lower() for i in payoff_ids for b in sections[i]["beats"])
+    earned_subscribe = bool(re.search(r"\bsubscribe\b", payoff_text))
+    r.score("cta: no ask before payoff + one earned mid subscribe",
+            4 if not early_cta and earned_subscribe else 0, 4,
+            "" if earned_subscribe else "no subscribe prompt after evidence payoff")
     if early_cta:
-        r.kill("early CTA", "subscribe/blueprint mention before the payoff sections")
+        r.kill("early CTA", "subscribe/blueprint mention in the cold open or thesis")
     mid_ids = [i for i in ("playbook", "economics") if i in sections]
     mid_text = " ".join(b["vo_text"].lower() for i in mid_ids for b in sections[i]["beats"])
     r.score("cta: soft blueprint mention in 55–75% window", 3 if "blueprint" in mid_text else 0, 3,

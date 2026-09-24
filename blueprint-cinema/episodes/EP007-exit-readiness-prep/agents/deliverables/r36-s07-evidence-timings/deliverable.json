@@ -1,0 +1,86 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r36-s07-evidence-timings",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/ibba-industry-research.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/ibba-participation.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/ibba-q2-2026-highlights.pdf",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/ibba-quarterly-sales-tracker.xlsx",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/q2-2026-press-release.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/retrieved-source-manifest.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r36-s07-evidence-timings/tracker-text.txt"
+  ],
+  "checks": [
+    {
+      "command": "Recompute all three issued input SHA256 hashes",
+      "outcome": "pass"
+    },
+    {
+      "command": "Extract S07 exact word IDs/master-review timings and adjacent S08 first word",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read local CLM003 record and original Q2 announcement to verify87/33 reported offer thresholds",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect public IBBA research/highlights/participation/tracker sources for cohort and access limitations",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify nested threshold logic uses one shared denominator",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate standard deliverable schema",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect restricted full Q2 executive report and microdata",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Waveform inspection or rendered S07 review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Original Q2 release retrieved from PR Newswire; issued by Sell Your Way for IBBA/M&A Source, dated2026-08-25. Exact87%/33% figures directly inspected.",
+    "Original public IBBA highlights PDF, industry-research page, participation guide, and currently linked generic sales tracker retrieved; hashes and URLs retained in retrieved-source-manifest.json.",
+    "Local CLM-003 source row located and hashed. Its Quarterly executive summary locator resolves to the public release, not an inspected full report.",
+    "No restricted source, returned visual pilot, generated media, or paid service was accessed."
+  ],
+  "assumptions": [
+    "Review timing retains the existing minus-three-second master clock map.",
+    "Closed-deal restriction is preserved from approved C005 and the public transaction context; exact Q2 question-level filters remain unavailable."
+  ],
+  "unresolved_questions": [
+    "The full Q2 executive report and raw tables are participant-restricted; exact over-$5M subgroup sample, rounding, weighting and missing-response rules were not independently verified.",
+    "Proposed master250.625 outpoint requires root waveform/listening check."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

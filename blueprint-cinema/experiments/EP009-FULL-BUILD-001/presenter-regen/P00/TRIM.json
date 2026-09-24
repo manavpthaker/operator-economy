@@ -1,0 +1,30 @@
+{
+  "median_offset_s": 1.19,
+  "wanted_frames": 29,
+  "max_frames": 32,
+  "trim_frames": 29,
+  "trim_seconds": 1.2083333333333333,
+  "native_sha256": "acbacf1666ec49ed173d2c63ea8be8e4b4a36d3763196e04c47d52e55a4d974e",
+  "audio_sha256": "f5d6101bade6680108ddfd6893360c1da81b8bc8ed3961ce041f1763e60face9",
+  "offsets_sha256": "e6ffa579e2c764b284fb5f10b81d459cf79d22012e7bb3447769131ffc2641d2",
+  "method": "normalize picture to 24 fps first, then trim both picture and audio by the median of the three-window native-minus-narration offsets, rounded to 24 fps frames, clamped to [0, cover audio + 0.1 s]",
+  "native_trim": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/native-trim.mp4",
+    "sha256": "0001f92a99327689c441d6cd2cfcd15ce936a41cb095526fd41f548b3fc0ffbd",
+    "duration": 3.833333
+  },
+  "native_offset_selection": {
+    "selection": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-SELECTION.json",
+      "sha256": "a3f37ea4d9e3aef97832512e376198ecc173717651e69c3d2db1804f02f5af44"
+    },
+    "selected_offsets": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-lexically-anchored.json",
+      "sha256": "e6ffa579e2c764b284fb5f10b81d459cf79d22012e7bb3447769131ffc2641d2"
+    },
+    "independent_lexical_audit": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/LEXICAL-AUDIT.json",
+      "sha256": "d246460ca762e75aaf0625e130a4ef5cbf6136732d50c39693f0b6a781496d5c"
+    }
+  }
+}

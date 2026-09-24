@@ -1,7 +1,8 @@
 """
 Master VO through a bright+weighty broadcast-voice ffmpeg chain. No
-external API, no monthly fee, no watermark. Reads .raw.mp3 (the
-ElevenLabs original written by generate_vo.py) and writes
+external API, no monthly fee, no watermark. Uses the padded, room-toned
+clean master written by generate_vo.py (falling back to .raw.mp3 only
+for legacy batches) and writes
 .broadcast.mp3. --commit promotes to primary .mp3.
 
 The BROADCAST chain: hi-pass, cut the boxy 300-400 Hz mud, small bass
@@ -19,6 +20,7 @@ Usage:
 """
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -69,10 +71,19 @@ def process(raw: Path, chain: str) -> Path:
     if out.exists():
         print(f"  {section}: cached ({out.name})")
         return out
-    print(f"→ {section}: {chain} chain...")
+    # generate_vo.py's .raw.mp3 is captured by its first mastering pass before
+    # section_pad_s and room tone are added. Mastering that file used to remove
+    # every approved breath between sections while timeline.json retained the
+    # padding, creating cumulative caption/visual drift. The clean primary is
+    # the correct first-run source; after a promotion, .legacy.mp3 preserves it
+    # for deterministic remastering.
+    legacy = raw.parent / f"{section}.legacy.mp3"
+    primary = raw.parent / f"{section}.mp3"
+    source = legacy if legacy.exists() else primary if primary.exists() else raw
+    print(f"→ {section}: {chain} chain from {source.name}...")
     subprocess.run(
         ["ffmpeg", "-hide_banner", "-y", "-loglevel", "error",
-         "-i", str(raw), "-af", CHAINS[chain],
+         "-i", str(source), "-af", CHAINS[chain],
          "-ar", "44100", "-b:a", "192k", str(out)],
         check=True,
     )
@@ -95,6 +106,45 @@ def commit(vo_dir: Path, chain: str) -> int:
         print(f"  ✓ {section}: promoted (legacy kept at {legacy.name})")
         promoted += 1
     return promoted
+
+
+def media_duration(path: Path) -> float:
+    return float(subprocess.check_output(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(path)], text=True).strip())
+
+
+def reconcile_timeline(vo_dir: Path) -> None:
+    """Rebuild global offsets from promoted masters.
+
+    MP3 encoding and loudnorm can add or remove encoder padding, especially on
+    longer, pause-heavy v3 sections. The API alignment remains correct within
+    each section, but downstream section starts must use the duration of the
+    actual mastered file rather than the pre-master API duration.
+    """
+    timeline_path = vo_dir / "timeline.json"
+    if not timeline_path.exists():
+        return
+    old = json.loads(timeline_path.read_text())
+    sections, words, offset = [], [], 0.0
+    for entry in old["sections"]:
+        section = entry["section"]
+        audio = vo_dir / entry["audio"]
+        cache_path = vo_dir / f"words-{section}.json"
+        cache = json.loads(cache_path.read_text())
+        duration = media_duration(audio)
+        cache["duration"] = duration
+        cache_path.write_text(json.dumps(cache))
+        words.extend(dict(word, start=word["start"] + offset,
+                          end=word["end"] + offset, section=section)
+                     for word in cache["words"])
+        sections.append({"section": section, "start": offset,
+                         "duration": duration, "audio": entry["audio"]})
+        offset += duration
+    (vo_dir / "words.json").write_text(json.dumps(words, indent=2))
+    timeline_path.write_text(json.dumps(
+        {"total_seconds": offset, "sections": sections}, indent=2))
+    print(f"  ✓ reconciled mastered timeline: {offset:.3f}s")
 
 
 def main() -> None:
@@ -128,6 +178,7 @@ def main() -> None:
     if args.commit:
         print("\nCommitting to primary...")
         n = commit(args.vo_dir, args.chain)
+        reconcile_timeline(args.vo_dir)
         print(f"Promoted {n} section(s). Legacy masters kept as *.legacy.mp3.")
     else:
         print("\nA/B ready. Compare:")

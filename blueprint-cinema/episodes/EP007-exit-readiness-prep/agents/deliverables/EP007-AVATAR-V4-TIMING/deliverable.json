@@ -1,0 +1,104 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-avatar-v4-timing",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/accepted-avatar-v3-opening.mp4",
+      "sha256": "26244a1fe78efe606c81e45fbe1e99570c13280b85c915790f534635b2807b9b"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/approved-opening-00m00s-00m20.9s.wav",
+      "sha256": "cc7e6927c34baae9f998d65f3f9ab1274d3ab73e2acf5d3b7c18d0a2c05d529d"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/ACCEPTANCE.json",
+      "sha256": "5b6fa0fb68b5aeb470e681515ec49b4dcbbb00dcfe861666187bb918662b08dc"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/intentional-pause-map.json",
+      "sha256": "0176614eb0902d945165956af8fa7ef890906d5f2e15692d14c9e0d9d8b8bdaa"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/narration-lock.md",
+      "sha256": "61cfd940b9f8bfcb0e502e07f073a7a1457a671b9a4a35667e6ca08c2fafbbd5"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/03-visual-translation/input-lock.json",
+      "sha256": "9adde76470b05da2d635521e8711e4d55ed76353a1479db50ba430449899a384"
+    },
+    {
+      "path": "/Users/brownmanbrain/Downloads/avatar-naturalness-review/seedance-v3-opening/audio_qa.py",
+      "sha256": "bd62de76563dd17fd61f1fe8d38f01591f6c8233696f71ebfb3ebbc1eff427c2"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-TIMING/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-TIMING/cues.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-TIMING/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 recomputation of both assigned media, accepted manifest, transcript, pause map, narration lock, upstream input lock and read-only audio QA script",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read W000044-W000062 and compare transcript/pause hashes with narration-lock.md",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe accepted-avatar-v3-opening.mp4 for video/audio format and duration",
+      "outcome": "pass"
+    },
+    {
+      "command": "Import audio_qa.py read-only, override REFERENCE in memory to pinned WAV, run compare on accepted V3; 20.9s overlap, 0.9983461822071354 correlation, +0.04725s placement",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compute original-audio RMS/peak over 0.1s windows from 16.6 through 18.3 to characterize pause without treating forced alignment as phoneme truth",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compute 24fps zero-based cut frames with floor((17.96 + delta) * 24) - 3; delta0 =>428, delta0.04725 =>429",
+      "outcome": "pass"
+    },
+    {
+      "command": "Check existing manifest schema keywords with dependency-free validator; verify all eight hashes, owned output existence and cue arithmetic. Dedicated jsonschema package unavailable.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Owned-path side-effect inspection: importing audio_qa.py appears to have created Downloads/seedance-v3-opening/__pycache__/audio_qa.cpython-312.pyc outside the assigned packet.",
+      "outcome": "fail"
+    }
+  ],
+  "sources_and_provenance": [
+    "Existing owner-accepted synthetic V3 video and original WAV were read locally; no new generated media was created.",
+    "Locked upstream transcript and pause map supply exact stored word IDs/times; waveform windows supply pause-energy observations.",
+    "Owned folder preserves the uppercase display work order EP007-AVATAR-V4-TIMING; work_order_id is normalized lowercase for the existing schema.",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-TIMING/report.md SHA-256 cb75221908f53f9eb74af00fad5bceef428893e353d7134252872879b129f810",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V4-TIMING/cues.json SHA-256 e0d5c273765c00de82abbf35920265b50bf3c60995ae63d54f6c3b922c8946ff"
+  ],
+  "assumptions": [
+    "This isolated owner-authorized timing/framing test does not replace the canonical episode edit.",
+    "The new V4 take uses the same complete original master range 0-20.9 seconds and a 24fps review; actual V4 source placement/duration still require measurement.",
+    "The three-frame pre-word lead is an editorial recommendation requiring normal-speed review, not an exact phoneme-boundary claim.",
+    "The Blueprint Cinema episode lacks identity/input-lock files; relevant upstream narration lock and accepted V3 artifact govern this bounded report."
+  ],
+  "unresolved_questions": [
+    "V4 restored media is not available in this packet; its audio insertion offset, source duration, hand behavior, crop resolution and perceptual seam quality remain unmeasured.",
+    "No full normal-speed audiovisual playback was performed in this timing pass.",
+    "Incidental Python cache appears to have been created at /Users/brownmanbrain/Downloads/avatar-naturalness-review/seedance-v3-opening/__pycache__/audio_qa.cpython-312.pyc, 6106 bytes. No source/media changed. Parent notified; cache left in place under the no-delete rule. Timing proposal complete, packet partial pending disposition."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "partial"
+}

@@ -1,0 +1,114 @@
+{
+  "record_type": "ep007_short04_presenter_request_manifest_v1",
+  "at_utc": "2026-09-23T00:54:11Z",
+  "status": "local_packet_ready_audio_upload_and_live_provider_preflight_pending_no_submission",
+  "authority": {
+    "owner_event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope": "first-pass private sound-on video production only",
+    "higgsfield_new_avatar_clip_calls_max_across_shorts_02_to_04": 6,
+    "higgsfield_credit_quote_cap_across_shorts_02_to_04": 1200,
+    "automatic_retries": 0
+  },
+  "inputs": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/INPUT-MANIFEST.json",
+    "sha256": "ced321c6ea06384d8f337ce5d538b5f762ad3670bfbffe3ffd34ba0381ec6151"
+  },
+  "provider": "higgsfield",
+  "model": "seedance_2_5",
+  "mode": "omni_reference",
+  "generation_parameters_shared": {
+    "aspect_ratio": "9:16",
+    "resolution": "1080p",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "native_audio_disposition": "reference_only_never_program_audio"
+  },
+  "reference_media_roles": [
+    {
+      "role": "image",
+      "job": "accepted V5 identity and EP007 look",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/media/wide-study-reference.png",
+      "sha256": "5c282925447ff8227ea66dcafa60e5b9cf5913aa5cbb565037fb4e0a2d1cbb82",
+      "historical_short01_upload_id": "c1b2e523-a324-4f1e-8d71-d737cb6e937f"
+    },
+    {
+      "role": "video",
+      "job": "relaxed settling, natural blink and asymmetry; not room, wardrobe, words or lip timing",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/rebecca-behavior-muted.mp4",
+      "sha256": "42ff761aebffd5c0fdd53e6247d4ddcbeb0d560d8208971ea883e0e48faec724",
+      "historical_short01_upload_id": "bed3e517-4335-42d7-82bb-530a751b578a"
+    },
+    {
+      "role": "video",
+      "job": "connected articulation and brief emphasis that settles; not words or lip timing",
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v3-lock/media/henry-articulation-muted.mp4",
+      "sha256": "8bbb4820ac8a6f85242b7b323e7ce922d79f32ed2f5578b59aaa3bec502e9c59",
+      "historical_short01_upload_id": "1023532b-c45f-4584-95a6-cbd57887610a"
+    }
+  ],
+  "requests": [
+    {
+      "segment": "segment-a-opening",
+      "duration_seconds": 9,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/PROMPT.txt",
+      "prompt_sha256": "6e78d61b915f7feec4a78c0bdfd0639988d74ef5012333e2746a2bf05f1e932e",
+      "audio_upload_source": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/original-c-opening.mp3",
+      "audio_upload_source_sha256": "38120fa6462e7715fba73b192926ccd79d6e7f5978ad55fe49be138e484e69a6",
+      "audio_media_id": null,
+      "reference_order": ["identity image", "relaxed behavior video", "articulation behavior video", "segment-a audio"],
+      "estimated_credits_read_only": 108,
+      "max_generation_attempts": 1,
+      "final_picture_master_window_seconds": [0.0, 8.615],
+      "generation_only_silent_tail_seconds": 0.385
+    },
+    {
+      "segment": "segment-b-return",
+      "duration_seconds": 8,
+      "prompt_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b/PROMPT.txt",
+      "prompt_sha256": "b43bcddec330e51cac055911868a1f400be7b57324965856cfff011d1e9c9526",
+      "audio_upload_source": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b/media/original-c-return.mp3",
+      "audio_upload_source_sha256": "6dec5e129e95832f2c9771e4902511d9762253e44d96dcb6b037ca37f3ae4078",
+      "audio_media_id": null,
+      "reference_order": ["identity image", "relaxed behavior video", "articulation behavior video", "segment-b audio"],
+      "estimated_credits_read_only": 96,
+      "max_generation_attempts": 1,
+      "final_picture_master_window_seconds": [38.695, 46.114833333],
+      "generation_only_silent_tail_seconds": 0.580166667
+    }
+  ],
+  "live_read_only_estimate": {
+    "observed_no_later_than_utc": "2026-09-23T00:54:11Z",
+    "balance_credits": 4062,
+    "subscription_plan_type": "max",
+    "quote_inputs_per_request_except_duration": {
+      "model": "seedance_2_5",
+      "mode": "omni_reference",
+      "aspect_ratio": "9:16",
+      "resolution": "1080p",
+      "generate_audio": true,
+      "bitrate_mode": "high",
+      "count": 1,
+      "use_unlim": false
+    },
+    "duration_quotes": [
+      {"duration_seconds": 9, "credits": 108, "credits_exact": 108},
+      {"duration_seconds": 8, "credits": 96, "credits_exact": 96}
+    ],
+    "short04_two_clip_quote_total_credits": 204,
+    "quote_excludes": "The final prompt, reference IDs and new audio media IDs were not submitted to the estimator. It is a read-only same-mode quote, not proof that the generation request will validate or succeed."
+  },
+  "submission_preconditions": [
+    "Read back the current owner authority, locked script, master WAV, input manifest and prompt hashes.",
+    "Upload and confirm each exact new MP3, record returned media IDs, and verify the provider's bytes or decoded content against the local source.",
+    "Verify the three historical identity/behavior media IDs still resolve to the matching local hashes, or upload matching bytes and record replacements.",
+    "Requote both complete final requests against current credit balance; hold if cumulative Shorts 02–04 clip count or credit cap would be exceeded.",
+    "Persist immutable per-clip submission intents with prompt, reference IDs, audio media ID and exact quote before one no-retry generation call per clip."
+  ],
+  "generation_jobs_submitted_by_this_packet": 0,
+  "provider_uploads_by_this_packet": 0,
+  "release_or_owner_video_acceptance": false
+}

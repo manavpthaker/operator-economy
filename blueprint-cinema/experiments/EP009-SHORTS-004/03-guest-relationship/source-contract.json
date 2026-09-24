@@ -1,0 +1,111 @@
+{
+  "schema": "ep009-standalone-payoff-short-v1",
+  "revision": "EP009-SHORTS-004",
+  "supersedes": "blueprint-cinema/experiments/EP009-SHORTS-003/03-guest-relationship",
+  "status": "private_review_candidate",
+  "fps": 24,
+  "frame_count": 412,
+  "duration": 17.166666666666668,
+  "spoken_duration_frames": 380,
+  "spoken_duration": 15.833333333333334,
+  "audio": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85",
+    "frames": [
+      4510,
+      4890
+    ],
+    "sample_range": [
+      9020000,
+      9780000
+    ]
+  },
+  "transcript": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+    "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+  },
+  "lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+    "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+  },
+  "presenter_sources": [
+    {
+      "id": "wide",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019a/native.mp4",
+      "sha256": "bc8d1ead56826b31eb6aa2e39e0387aa7b168a5cc0304a2c24a7bc35f5c55c72",
+      "global_frames": [
+        4510,
+        4783
+      ],
+      "native_frames": [
+        60,
+        333
+      ],
+      "timeline_frames": [
+        0,
+        273
+      ],
+      "transform": "trim=start_frame=60:end_frame=333,setpts=N/(24*TB),crop=960:1080:360:0,scale=1080:1216,pad=1080:1920:0:200:color=0x173530,setsar=1"
+    },
+    {
+      "id": "close",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg019b/native.mp4",
+      "sha256": "55b83fc227fa446762a872a51534c0b48ceb3350278ff75f3f8fa17e772bdef0",
+      "global_frames": [
+        4783,
+        4844
+      ],
+      "native_frames": [
+        45,
+        106
+      ],
+      "timeline_frames": [
+        273,
+        334
+      ],
+      "transform": "trim=start_frame=45:end_frame=106,setpts=N/(24*TB),crop=608:1080:640:0,scale=1080:1920,setsar=1"
+    }
+  ],
+  "answer_beat": {
+    "words": [
+      "W000584",
+      "W000585",
+      "W000586",
+      "W000587",
+      "W000588"
+    ],
+    "text": "Nobody at the inn is.",
+    "master_frames": [
+      4844,
+      4890
+    ],
+    "timeline_frames": [
+      334,
+      380
+    ],
+    "picture": "designed answer card",
+    "picture_audio_mode": "silent_graphic",
+    "why_not_presenter": "seg019 look-transfer output coverage ends at frame 4844 and seg019b's native runs out at global 4851, so no lip-synced presenter picture exists for master 4851..4890. No performance was generated to fill it."
+  },
+  "recut": {
+    "changed": "cut extended from master f4844 to f4890 to include W000584..W000588",
+    "cut_in_silence": "out point f4890 measures -65.8 dBFS; the sentence ends at f4880.4 and the next word W000589 'And' begins at f4895.8",
+    "removed": "the end card 'Who owns the second booking?', which repeated the question the speech had just asked",
+    "picture_unchanged": "seg019a native 60..333 and seg019b native 45..106, same crops and the same plain mineral framing accepted in r3"
+  },
+  "on_screen_changes": [
+    "new hook line 'A small inn. A repeat guest.' (28 chars) at 0.000-1.792s",
+    "the booking-site cue moves from 0.083s to 1.833s so it lands on the spoken 'keeps the guest's email' instead of preceding it",
+    "end card replaced by an answer card: 'Nobody at the inn is.'"
+  ],
+  "caption_note": "The answer line is not railed while the answer card carries those exact words on screen; it is present in captions.srt and captions.vtt.",
+  "related_video": {
+    "required": true,
+    "attached": false,
+    "target_episode": "EP009 direct-booking-practice",
+    "url": null
+  },
+  "episode_url": "[EPISODE_URL]",
+  "owner_approved": false,
+  "published": false
+}

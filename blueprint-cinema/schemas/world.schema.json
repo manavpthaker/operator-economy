@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/world.schema.json",
+  "title": "Blueprint Cinema persistent world",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "workflow_version", "episode_number", "episode_code", "slug", "folder_name",
+    "coordinate_system", "objects", "edges", "claims", "parameters", "evidence", "cameras", "failures", "required_roles", "paths", "status"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "coordinate_system": {
+      "type": "object", "additionalProperties": false, "required": ["width", "height", "units"],
+      "properties": {"width": {"const": 1920}, "height": {"const": 1080}, "units": {"const": "pixels"}}
+    },
+    "objects": {"type": "array", "minItems": 18, "items": {"$ref": "#/$defs/object"}},
+    "edges": {"type": "array", "minItems": 16, "items": {"$ref": "#/$defs/edge"}},
+    "claims": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/claim"}},
+    "parameters": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/parameter"}},
+    "evidence": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/evidence"}},
+    "cameras": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/camera"}},
+    "failures": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/failure"}},
+    "required_roles": {"$ref": "#/$defs/required_roles"},
+    "paths": {
+      "type": "object", "additionalProperties": false,
+      "required": ["first_booking", "recovery", "suppressed", "failure_retry"],
+      "properties": {
+        "first_booking": {"$ref": "#/$defs/path"},
+        "recovery": {"$ref": "#/$defs/path"},
+        "suppressed": {"$ref": "#/$defs/path"},
+        "failure_retry": {"$ref": "#/$defs/path"}
+      }
+    },
+    "status": {"enum": ["draft", "ready_for_approval"]}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "minLength": 3},
+    "position": {
+      "type": "object", "additionalProperties": false, "required": ["x", "y"],
+      "properties": {"x": {"type": "number", "minimum": 0, "maximum": 1920}, "y": {"type": "number", "minimum": 0, "maximum": 1080}}
+    },
+    "state": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "label": {"type": "string", "minLength": 3}}
+    },
+    "object": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "label", "description", "zone_id", "position", "states", "initial_state"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["zone", "actor", "token", "gate", "node", "destination", "ledger", "outcome", "money_flow", "state_marker"]},
+        "label": {"type": "string", "minLength": 3},
+        "description": {"type": "string", "minLength": 18},
+        "zone_id": {"$ref": "#/$defs/id"},
+        "position": {"$ref": "#/$defs/position"},
+        "states": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/state"}},
+        "initial_state": {"$ref": "#/$defs/id"}
+      }
+    },
+    "edge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "from", "to", "kind", "label", "states", "initial_state"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "from": {"$ref": "#/$defs/id"}, "to": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["discovery", "booking", "handoff", "audit", "repair", "permission", "qualification", "suppression", "review", "outbound", "return", "money", "evidence", "failure", "retry", "escalation"]},
+        "label": {"type": "string", "minLength": 3},
+        "states": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/state"}},
+        "initial_state": {"$ref": "#/$defs/id"}
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "label", "target_ids", "claim_ids", "parameter_ids", "source_path", "source_sha256", "status"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "label": {"type": "string", "minLength": 8},
+        "target_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "claim_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "parameter_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "source_path": {"type": "string", "minLength": 8},
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "status": {"enum": ["locked_source", "ticket_required"]}
+      }
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "evidence_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"type": "string", "minLength": 16},
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "parameter": {
+      "type": "object", "additionalProperties": false, "required": ["id", "label", "evidence_id"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "label": {"type": "string", "minLength": 10},
+        "evidence_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "camera": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "label", "zone_id", "position", "target_contract", "target_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "label": {"type": "string", "minLength": 4}, "zone_id": {"$ref": "#/$defs/id"},
+        "position": {"$ref": "#/$defs/position"},
+        "target_contract": {"const": "representative_zone_anchors"},
+        "target_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "failure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "at_id", "failed_state", "retry_to_id", "escalation_to_id", "description"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "at_id": {"$ref": "#/$defs/id"}, "failed_state": {"$ref": "#/$defs/id"},
+        "retry_to_id": {"$ref": "#/$defs/id"}, "escalation_to_id": {"$ref": "#/$defs/id"},
+        "description": {"type": "string", "minLength": 24}
+      }
+    },
+    "required_roles": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "reality_zone", "system_zone", "proof_zone", "operator", "guest_token", "ota_gate", "hotel_node",
+        "audit_node", "repair_node", "permission_gate", "guest_memory", "qualification_gate", "suppression_node",
+        "human_review_gate", "relevant_follow_up", "direct_destination", "first_booking_money_flow", "return_booking_money_flow",
+        "settlement_ledger", "direct_confirmation", "relationship_leak_state", "recovered_loop_state"
+      ],
+      "properties": {
+        "reality_zone": {"$ref": "#/$defs/id"}, "system_zone": {"$ref": "#/$defs/id"}, "proof_zone": {"$ref": "#/$defs/id"},
+        "operator": {"$ref": "#/$defs/id"}, "guest_token": {"$ref": "#/$defs/id"}, "ota_gate": {"$ref": "#/$defs/id"},
+        "hotel_node": {"$ref": "#/$defs/id"}, "audit_node": {"$ref": "#/$defs/id"}, "repair_node": {"$ref": "#/$defs/id"},
+        "permission_gate": {"$ref": "#/$defs/id"}, "guest_memory": {"$ref": "#/$defs/id"}, "qualification_gate": {"$ref": "#/$defs/id"},
+        "suppression_node": {"$ref": "#/$defs/id"}, "human_review_gate": {"$ref": "#/$defs/id"}, "relevant_follow_up": {"$ref": "#/$defs/id"}, "direct_destination": {"$ref": "#/$defs/id"},
+        "first_booking_money_flow": {"$ref": "#/$defs/id"}, "return_booking_money_flow": {"$ref": "#/$defs/id"},
+        "settlement_ledger": {"$ref": "#/$defs/id"}, "direct_confirmation": {"$ref": "#/$defs/id"},
+        "relationship_leak_state": {"$ref": "#/$defs/id"}, "recovered_loop_state": {"$ref": "#/$defs/id"}
+      }
+    },
+    "path": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}
+  }
+}

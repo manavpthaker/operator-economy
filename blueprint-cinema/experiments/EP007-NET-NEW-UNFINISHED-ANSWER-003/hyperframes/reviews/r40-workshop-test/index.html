@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>R40 — Workshop movement test</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r40-root{position:relative;width:1280px;height:720px;overflow:hidden}
+#r40-paper{position:absolute;inset:0;background:#F5F0E6}
+#r40-drawing{position:absolute;inset:0;width:1280px;height:720px}
+.ink{fill:none;stroke:#173530;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pencil{fill:none;stroke:#586D74;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.paper{fill:#F5F0E6}.shirt{fill:#E7DFCF}.apron{fill:#DCE0D9}
+.arm-line{fill:none;stroke:#173530;stroke-width:25;stroke-linecap:round;stroke-linejoin:round}
+.arm-fill{fill:none;stroke:#E7DFCF;stroke-width:20;stroke-linecap:round;stroke-linejoin:round}
+#r40-hinge-small,#r40-hinge-large,#r40-choice{opacity:0;visibility:hidden}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r40-root" data-composition-id="ep007-r40" data-start="0" data-duration="12" data-width="1280" data-height="720" data-fps="24">
+<div id="r40-paper"></div>
+<svg id="r40-drawing" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Silent workshop action study">
+<image href="public/art/workspace.svg" width="1280" height="720"/>
+<!-- The owner's whole body remains one actor during departure. -->
+<g id="r40-owner" data-layout-allow-overflow="">
+ <g id="r40-owner-leg-left" class="ink paper"><path d="M899 514 L894 586 895 650 919 651 930 585 932 515"/><path class="pencil" d="M900 574l-2 63m25-88-6 64"/><path d="M895 648q-17 5-23 12l49 1 0-12"/></g>
+ <g id="r40-owner-leg-right" class="ink paper"><path d="M939 514 L944 584 963 647 986 641 971 580 968 515"/><path class="pencil" d="m951 548 11 50m8 13 5 24"/><path d="M962 646l9 14 48-1q-9-9-33-18"/></g>
+ <path class="ink shirt" d="M894 317q28-15 63 0l29 35 1 163-45 13-60-9-8-106 5-71"/>
+ <path class="pencil" d="m896 324 28 24 29-30m-30 31-5 122m-26-72 2 59m53-93 13 102m-70 32 52 4m-40-8 20 1"/>
+ <path class="ink" d="m958 341 34 56-11 83"/><path class="pencil" d="m963 345 27 57-9 56"/>
+ <path class="ink paper" d="m980 472-8 7 0 20 8 7 10-8 1-20z"/><path class="pencil" d="m976 481 1 14m7-12-2 13"/>
+ <g id="r40-owner-head">
+  <path class="ink paper" d="M899 308l0 22 25 15 23-24-5-29"/>
+  <path class="ink paper" d="M891 225q30-28 57-3l10 38-11 34-21 21-21-7-12-17-12-9 8-13-2-24z"/>
+  <path class="ink" fill="#BCC1B7" d="M887 249q-15-30 7-45 20-17 43-8 31 9 25 50l-9 26-9-2-2-43-23 3-18 22z"/>
+  <path class="pencil" d="m889 218 12-13m-2 25 18-23m-11 28 26-25m-9 18 23-10m-37 82 13 7m24-22-10 14"/>
+  <path class="ink" d="m897 259 13-2m-11 22 10 0m-2 17 14 1"/>
+  <circle cx="900" cy="266" r="2.8" fill="#173530"/>
+ </g>
+ <path class="r40-owner-arm arm-line" d="M889 344 Q875 397 915 457"/>
+ <path class="r40-owner-arm arm-fill" d="M889 344 Q875 397 915 457"/>
+ <g id="r40-owner-hand" class="ink paper"><path d="M2-8-12-10-17-7-34-6-36-1-15 1-24 8-19 12-7 9 5 5z"/><path class="pencil" d="m-17 0 6-1m-4 9 9-3"/></g>
+</g>
+<!-- Employee remains at the bench throughout. -->
+<g id="r40-worker-body">
+ <path class="ink shirt" d="M369 319q40-19 79 2l33 52-6 98-116-1-13-95z"/>
+ <path class="ink apron" d="m386 329 6 34 36 0 9-34 13 3 8 136-87 2 0-98 1-37"/>
+ <path class="pencil" d="m391 369 37 0m-41 7 2 76m-2-39 41 1 0 30-38-1m-24 11 0 10m67-75 2 35"/>
+ <g id="r40-worker-head">
+  <path class="ink paper" d="m390 290 2 38 22 16 23-21-8-32"/>
+  <path class="ink paper" d="M378 218q16-26 42-20l23 19 8 30 14 14-14 9-4 25-25 19-28-13-15-31-7-20z"/>
+  <path fill="#586D74" stroke="#173530" stroke-width="2.7" d="M374 250q-15-38 13-52 24-20 53-1l10 25-35-6-12 15-17-2-1 26z"/>
+  <path class="pencil" d="m380 212 16-13m-8 20 21-17m-3 18 20-11m-49 56 10 24m31 13 14-9"/>
+  <path id="r40-worker-brow" class="ink" d="m423 246 16-2"/>
+  <g id="r40-worker-eye"><circle cx="432" cy="254" r="3" fill="#173530"/></g>
+  <path class="ink" d="m428 283 14-1"/>
+ </g>
+</g>
+<!-- First project: an open drawer awaiting its pull. -->
+<g id="r40-project-one" class="ink paper">
+ <path d="m535 405 176-9 40 22-2 55-194 1-18-18z"/>
+ <path d="m538 408 21 17 187-5m-188 5-1 45m-13-58 161-6 25 12"/>
+ <path class="pencil" d="m567 434 174-3m-174 35 121-2m-143-39 0 20m25-10 7 0m143 0 8-1m-67-31 31-1"/>
+ <path d="m579 473 0 17 18-1 0-15m121-1 0 14 19 0-1-15"/>
+</g>
+<!-- Different second project, entering only after the first is finished. -->
+<g id="r40-project-two" class="ink paper">
+ <path d="m651 317 118-5 6 158-122 3z"/><path d="m665 330 89-3 3 128-91 3z"/>
+ <path class="pencil" d="m655 325 2 131m101-131 6 132m-90-124 68-2m-56 15 2 91m11-72 1 66m36-82 2 94"/>
+ <path d="m652 344 7 0m-6 83 7 0"/>
+</g>
+<path class="r40-worker-left arm-line" d="M375 341 Q403 401 493 439"/>
+<path class="r40-worker-left arm-fill" d="M375 341 Q403 401 493 439"/>
+<path class="r40-worker-right arm-line" d="M450 341 Q494 402 593 439"/>
+<path class="r40-worker-right arm-fill" d="M450 341 Q494 402 593 439"/>
+<g id="r40-worker-left-hand" class="ink paper"><path d="m-8 4 9-5 20-5 13 2 1 5-17 4 14 0-1 5-25 2-14-1z"/><path class="pencil" d="m10 7 16-1m-21 6 14 0"/></g>
+<g id="r40-worker-right-hand" class="ink paper"><path d="m-8 4 9-5 20-5 13 2 1 5-17 4 14 0-1 5-25 2-14-1z"/><path class="pencil" d="m10 7 16-1m-21 6 14 0"/></g>
+<g id="r40-knob" class="ink paper"><path d="m545 425 0 9 14 0 0-9"/><path d="M534 421q-1-14 18-15 21 1 20 16-2 11-18 12-16-1-20-12z"/><path class="pencil" d="m541 416 10-3m10 2 4 5"/></g>
+<g id="r40-pull" class="ink paper"><path d="m653 428 2-20q27-23 51-1l3 20-13 0-3-15q-13-9-25 0l-2 15z"/><path class="pencil" d="m659 404 14-6m13-1 13 7m-31 18 22 0"/></g>
+<g id="r40-hinge-small" class="ink paper"><path d="m536 417 15-1 1-9 9 0 1 10 17-1 0 30-16 2-1-8-9 0-1 8-17 0z"/><path d="m556 410 0 37"/><path class="pencil" d="m540 422 7-1m21 0 7 1m-33 15 6 1m19-1 7 0"/></g>
+<g id="r40-hinge-large" class="ink paper"><path d="m647 408 26-1 1-9 10 0 1 10 29 0-1 45-28 2-1-8-11 0-1 7-26 1z"/><path d="m679 401 0 51"/><path class="pencil" d="m653 415 12-1m26 1 14 1m-53 23 11 1m29 0 13 1"/></g>
+<path id="r40-choice" d="M642 369q37-18 73 0" fill="none" stroke="#B5482F" stroke-width="3.3" stroke-linecap="round"/>
+</svg>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={ask:.55,point:1.55,answer:2.15,fit:2.75,finish:3.65,leave:4.7,next:6.3,askAgain:7.2,look:8.45,settle:9.5};
+function arm(selector,path,hand,x,y,time,duration){t.to(selector,{attr:{d:path},duration,ease:'power2.inOut'},time);t.to(hand,{x,y,duration,ease:'power2.inOut'},time)}
+t.set('#r40-owner-hand',{x:915,y:457},0);
+t.set('#r40-project-two',{x:95},0);
+t.set('#r40-worker-left-hand',{x:493,y:439},0);t.set('#r40-worker-right-hand',{x:593,y:439},0);
+t.set('#r40-knob',{x:-45,y:14},0);t.set('#r40-pull',{x:-75,y:14},0);
+t.set('#r40-worker-head',{svgOrigin:'411 305'},0);t.set('#r40-owner-head',{svgOrigin:'926 317'},0);
+t.set('#r40-owner-leg-left',{svgOrigin:'921 517'},0);t.set('#r40-owner-leg-right',{svgOrigin:'955 517'},0);
+// Two samples are physically offered in the employee's hands.
+arm('.r40-worker-left','M375 341 Q431 383 539 389','#r40-worker-left-hand',539,389,C.ask,.65);
+arm('.r40-worker-right','M450 341 Q546 370 670 389','#r40-worker-right-hand',670,389,C.ask,.65);
+t.to('#r40-knob',{x:0,y:-42,duration:.65,ease:'power2.inOut'},C.ask);
+t.to('#r40-pull',{x:0,y:-42,duration:.65,ease:'power2.inOut'},C.ask);
+t.to('#r40-worker-head',{rotation:-7,duration:.4,ease:'power2.inOut'},C.ask+.1);
+// A brief weighing gesture makes these alternatives, not loose parts in use.
+arm('.r40-worker-left','M375 341 Q431 368 539 373','#r40-worker-left-hand',539,373,1.25,.2);
+t.to('#r40-knob',{y:-58,duration:.2,ease:'power2.inOut'},1.25);
+arm('.r40-worker-left','M375 341 Q431 383 539 389','#r40-worker-left-hand',539,389,1.47,.2);
+t.to('#r40-knob',{y:-42,duration:.2,ease:'power2.inOut'},1.47);
+// Owner's finger identifies one option before the employee uses it.
+arm('.r40-owner-arm','M889 344 Q812 365 716 375','#r40-owner-hand',716,375,C.point,.55);
+t.to('#r40-owner-head',{rotation:-6,duration:.45,ease:'power2.inOut'},C.point);
+t.set('#r40-choice',{autoAlpha:1},C.answer);t.set('#r40-choice',{autoAlpha:0},C.answer+.45);
+t.to('#r40-owner-head',{rotation:-1,duration:.28,ease:'power2.inOut'},C.answer);
+// The chosen pull moves with the working hand and attaches to the drawer.
+arm('.r40-worker-right','M450 341 Q527 394 625 458','#r40-worker-right-hand',625,458,C.fit,.65);
+t.to('#r40-pull',{x:-39,y:32,duration:.65,ease:'power2.inOut'},C.fit);
+arm('.r40-worker-left','M375 341 Q406 408 468 470','#r40-worker-left-hand',468,470,C.fit,.6);
+t.to('#r40-knob',{x:-77,y:45,duration:.6,ease:'power2.inOut'},C.fit);
+t.to('#r40-worker-head',{rotation:12,duration:.4,ease:'power2.inOut'},C.fit);
+t.to('#r40-worker-right-hand',{rotation:-13,duration:.16,repeat:1,yoyo:true,ease:'power1.inOut'},C.fit+.72);
+arm('.r40-owner-arm','M889 344 Q875 397 915 457','#r40-owner-hand',915,457,C.fit+.2,.65);
+// Completed drawer stays in the room; no success label is needed.
+t.to('#r40-project-one',{x:-225,duration:.72,ease:'power2.inOut'},C.finish);
+t.to('#r40-pull',{x:-264,duration:.72,ease:'power2.inOut'},C.finish);
+arm('.r40-worker-right','M450 341 Q455 406 406 458','#r40-worker-right-hand',406,458,C.finish,.72);
+t.to('#r40-worker-head',{rotation:0,duration:.5,ease:'power2.inOut'},C.finish+.5);
+// A finite walking action takes the owner out through the right side.
+t.to('#r40-owner',{x:440,duration:1.55,ease:'power1.inOut'},C.leave);
+t.to('#r40-owner-leg-left',{rotation:9,duration:.26,repeat:4,yoyo:true,ease:'power1.inOut'},C.leave);
+t.to('#r40-owner-leg-right',{rotation:-8,duration:.26,repeat:4,yoyo:true,ease:'power1.inOut'},C.leave);
+// A new door and new hardware pose a different decision.
+arm('.r40-worker-right','M450 341 Q580 422 756 455','#r40-worker-right-hand',756,455,C.next,.65);
+t.set(['#r40-hinge-small','#r40-hinge-large'],{autoAlpha:1,y:40},C.askAgain);
+arm('.r40-worker-left','M375 341 Q431 383 539 389','#r40-worker-left-hand',539,389,C.askAgain,.65);
+arm('.r40-worker-right','M450 341 Q546 370 670 389','#r40-worker-right-hand',670,389,C.askAgain,.65);
+t.to(['#r40-hinge-small','#r40-hinge-large'],{y:-42,duration:.65,ease:'power2.inOut'},C.askAgain);
+t.to('#r40-worker-head',{rotation:-7,duration:.45,ease:'power2.inOut'},C.askAgain);
+arm('.r40-worker-left','M375 341 Q431 368 539 373','#r40-worker-left-hand',539,373,7.88,.2);
+t.to('#r40-hinge-small',{y:-58,duration:.2,ease:'power2.inOut'},7.88);
+arm('.r40-worker-left','M375 341 Q431 383 539 389','#r40-worker-left-hand',539,389,8.12,.2);
+t.to('#r40-hinge-small',{y:-42,duration:.2,ease:'power2.inOut'},8.12);
+// The repeated appeal gets no answering gesture. The work stays unfinished.
+t.to('#r40-worker-eye',{x:3,duration:.2,ease:'power1.inOut'},C.look);
+t.to('#r40-worker-brow',{y:-4,rotation:-7,svgOrigin:'429 245',duration:.3,ease:'power2.inOut'},C.look);
+t.to('#r40-worker-head',{rotation:-13,duration:.4,ease:'power2.inOut'},C.look);
+// With no answer, both unused choices go down. Hands withdraw; the next job remains.
+t.to('#r40-hinge-small',{x:16,y:34,rotation:10,svgOrigin:'556 432',duration:.55,ease:'power2.inOut'},C.settle);
+t.to('#r40-hinge-large',{x:7,y:28,rotation:-8,svgOrigin:'679 430',duration:.55,ease:'power2.inOut'},C.settle);
+arm('.r40-worker-left','M375 341 Q420 424 548 468','#r40-worker-left-hand',548,468,C.settle,.55);
+arm('.r40-worker-right','M450 341 Q540 426 670 457','#r40-worker-right-hand',670,457,C.settle,.55);
+arm('.r40-worker-left','M375 341 Q376 404 394 453','#r40-worker-left-hand',394,453,10.15,.5);
+arm('.r40-worker-right','M450 341 Q451 408 470 453','#r40-worker-right-hand',470,453,10.15,.5);
+window.__timelines['ep007-r40']=t;
+</script></body></html>

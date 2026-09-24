@@ -1,0 +1,108 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-study-motion-r9",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r7/test-g-full-scope-avatar-iii-1080p.mp4",
+      "sha256": "6bfc0bd9190448e4a41d7ea694797ee48135d6ece85467a90bfb3e11926c749f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r8/study-shoulder-extension-reference.png",
+      "sha256": "2514fbe72d35436cca84468efe8bd5a97080aab41fc081ba39c79bf794713149"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/index.html",
+      "sha256": "95d0840047ee54254beda334c0ac8d25b4c34839e03890e1485a8274d7a8c70a"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/track_shirt.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/README.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/tracking.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/tracking-metrics.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/initial-tracking-metrics.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/motion-qa.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/overscan-qa.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/texture-review.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/snapshot-review-inputs.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/post-motion-snapshot-qa.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/media/motion-diagnostic.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/media/patch-contact-sheet.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/checksums.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-motion-r9/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "SHA-256 verification of source G and reference image against exact work order; R8 index hash frozen at read",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe source metadata and complete decoded-gray stream reshape: 765 frames, 25fps, 608x1080 source crop",
+      "outcome": "pass"
+    },
+    {
+      "command": "Initial patch matcher detected downward search saturation; one correction recorded in initial-tracking-metrics.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "Corrected direct-to-reference four-patch NCC and robust similarity fit: all 765 frames satisfy confidence/inlier criteria, no gaps or outliers",
+      "outcome": "pass"
+    },
+    {
+      "command": "motion-qa.json: exact reference identity at frame 10, contiguous frame/time sequence, finite transforms, plausible ranges and continuous steps",
+      "outcome": "pass"
+    },
+    {
+      "command": "Reference-space affine mapping and wrapper pivot derived from existing source-to-reference scale/translation; original RGB untouched",
+      "outcome": "pass"
+    },
+    {
+      "command": "overscan-qa.json: proposed lower edge remains below y941 for all765 frames over conservative full width x0..1672",
+      "outcome": "pass"
+    },
+    {
+      "command": "Post-motion contact sheet and 0s/23.2s full-size inspection; bottom strip found, parent overscan fix rechecked in refreshed frame0",
+      "outcome": "pass"
+    },
+    {
+      "command": "Independent static shirt texture/luminance comparison and conservative blur trial, limitations and missing pre-motion snapshot hash binding recorded",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous final composite performance review, final rendered-video RGB/audio QA and production approval",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Only the exact local G video, supplied static shoulder reference, read-only parent composition sources, and specifically requested local snapshots were consumed.",
+    "Existing G is the HeyGen Avatar III presenter output. This worker decoded and measured shirt motion; no source frame, audio or synthetic body content was generated or edited.",
+    "NumPy FFT normalized cross correlation over four shirt-only regions; direct matching to reference frame10 avoids accumulated drift. Nine-frame symmetric Gaussian smoothing; exact identity rebasing.",
+    "Parent supplied the synthetic reference image. The measured apparent shirt motion may include source-camera movement; it is not classified as a new gesture.",
+    "Independent read-only subagent reviewed clothing texture only, wrote no files, and explicitly reported unavailable pre-motion snapshot hash binding. Its quantitative method and qualified findings are retained in texture-review.json.",
+    "Post-motion historical snapshot hashes are retained separately from the corrected frame-zero hash. Parent may overwrite its own snapshot paths; no stale snapshot is claimed to be current.",
+    "All worker writes remained within the owned R9 deliverable directory. No provider/browser action, installation, download, canonical state mutation, or gate change occurred."
+  ],
+  "assumptions": [
+    "This is an isolated owner-authorized motion-analysis and candidate-review experiment.",
+    "Frame n maps to source G frame n at 25fps; source pivot is304,950 pixels in the608x1080 portrait crop.",
+    "The reference-space wrapper sits outside the parent's inner shirt transform. Decomposed transforms and CSS matrix are alternative representations, not cumulative effects.",
+    "Algorithmic correlation/confidence thresholds are engineering acceptance criteria, not a probability of true motion or visual approval.",
+    "Fitted scale/rotation/translation describe apparent cloth motion. Nonrigid folds remain imperfectly represented by a global similarity transform."
+  ],
+  "unresolved_questions": [
+    "Continuous composite playback is still required to determine whether the synthetic outer fabric follows the center naturally.",
+    "Fine hair/temple/ear fringe and some texture mismatch remain in sampled views.",
+    "Independent pre-motion R8/R9 texture snapshot review lacked contemporaneous hash capture; its findings are qualified and cannot approve later overwritten files.",
+    "Full rendered-video source-RGB and audio QA is assigned to the parent, not duplicated in this packet."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

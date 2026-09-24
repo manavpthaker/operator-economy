@@ -1,0 +1,47 @@
+{
+  "event_id": "r50-records-source-rebuilt-v1",
+  "decision_id": "s08-records-example",
+  "event_type": "verification",
+  "tags": [
+    "source-preservation",
+    "animation"
+  ],
+  "data": {
+    "decision_event_id": "r50-records-model-v1",
+    "method": "Rebuilt missing index.html from direction, cues, locked R49 source and original frames; strict check; render; per-frame luma diff vs original render; live playback of unchanged context render on port 3065.",
+    "result": "pass",
+    "scope": "R50 scene source only. Original scene and context renders unchanged and remain the review artifacts.",
+    "limitations": "Original index.html bytes (sha 4edc73e1\u2026) not recoverable, so r50-records-render-verified-v1 evidence stays unavailable. Rebuilt render differs from the original by final-hold mean 0.25/255 and up to 1.23/255 during the heading crossfade. Owner review of R50 still pending.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records/qa/r50-records.mp4",
+        "sha256": "a224cec16817719916722eceec323a8432aa5882615ffdfc423a85b8bc1b9c00"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records-context/qa/r50-records-context.mp4",
+        "sha256": "8911b4c8f8f4d912b46b30197eddb5d224d393069166bcc3ffbe8b3bb6f22614"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records/qa/rebuild/r50-records.mp4",
+        "sha256": "06992fb5a934b354754104c509184dea4b349b1d7079b0a34798d24677e93d9e"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records/index.html",
+      "sha256": "2afc2c02eba822eb6e60e8c517bee3cc0ee6dbe147188277a08b85af84856033",
+      "locator": "Rebuilt scene source"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records/qa/rebuild/DIFF-VS-ORIGINAL.json",
+      "sha256": "b021a48bd6cba9dcb52e82daa294ed803fde7a136cc9674735247ef922ff30ea",
+      "locator": "Pixel comparison"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r50-records/qa/rebuild/README.md",
+      "sha256": "fbc5f3c4fc96202787d7010384e6a6ee20e7374c71cba320abb905bfb516df4d",
+      "locator": "Rebuild note"
+    }
+  ]
+}

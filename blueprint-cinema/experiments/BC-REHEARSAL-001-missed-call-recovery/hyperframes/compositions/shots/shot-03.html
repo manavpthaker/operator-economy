@@ -1,0 +1,501 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska Rehearsal";
+      src: url("assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #f5f0e6;
+      font-family: "Supreme Rehearsal";
+      box-sizing: border-box;
+    }
+
+    .s03-background,
+    .s03-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .s03-background {
+      background: #14263e;
+    }
+
+    .s03-grid {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      opacity: 0.08;
+    }
+
+    .s03-rail-svg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: visible;
+    }
+
+    .s03-rail-base {
+      fill: none;
+      stroke: #1f3a5f;
+      stroke-width: 4;
+      stroke-linecap: square;
+    }
+
+    .s03-route-live {
+      fill: none;
+      stroke: #f5f0e6;
+      stroke-width: 6;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    .s03-node {
+      fill: #14263e;
+      stroke: #f5f0e6;
+      stroke-width: 4;
+    }
+
+    .s03-contact-mark {
+      position: absolute;
+      left: 611px;
+      top: 601px;
+      width: 38px;
+      height: 38px;
+      border: 4px solid #f5f0e6;
+      border-radius: 999px;
+      box-sizing: border-box;
+    }
+
+    .s03-contact-mark::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      width: 6px;
+      height: 6px;
+      background: #7a5e24;
+      border-radius: 999px;
+    }
+
+    .s03-verb {
+      position: absolute;
+      top: 820px;
+      height: 54px;
+      margin: 0;
+      color: #f5f0e6;
+      font-family: "Supreme Rehearsal";
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 54px;
+      letter-spacing: 0.035em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .s03-verb::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -30px;
+      width: 2px;
+      height: 18px;
+      margin-left: -1px;
+      background: #1f3a5f;
+    }
+
+    .s03-verb-capture {
+      left: 480px;
+      width: 300px;
+    }
+
+    .s03-verb-classify {
+      left: 780px;
+      width: 300px;
+    }
+
+    .s03-verb-acknowledge {
+      left: 1080px;
+      width: 300px;
+      font-size: 34px;
+    }
+
+    .s03-source-sheet {
+      position: absolute;
+      left: 1210px;
+      top: 120px;
+      width: 590px;
+      height: 430px;
+      overflow: hidden;
+      color: #1a1a1a;
+      background: #f5f0e6;
+      border: 2px solid #1a1a1a;
+      opacity: 0;
+      transform-origin: left top;
+      box-sizing: border-box;
+    }
+
+    #s03-call-time-row {
+      color: #f5f0e6;
+      background: #7a5e24;
+    }
+
+    #s03-call-time-row .s03-source-key {
+      color: #f5f0e6;
+    }
+
+    .s03-source-inner {
+      position: absolute;
+      inset: 0;
+      padding: 22px 24px;
+      box-sizing: border-box;
+    }
+
+    .s03-source-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 46px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #1a1a1a;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .s03-source-heading span:last-child {
+      color: #7a5e24;
+    }
+
+    .s03-source-fields {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 84px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .s03-source-row {
+      display: grid;
+      grid-template-columns: 188px 1fr;
+      align-items: center;
+      min-height: 58px;
+      padding: 0 12px;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.35);
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 34px;
+    }
+
+    .s03-source-key {
+      color: #1f3a5f;
+      font-size: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .s03-source-value {
+      text-align: right;
+    }
+
+    .s03-warning-full {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 18px;
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      color: #f5f0e6;
+      background: #1a1a1a;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 39px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .s03-verified-chip {
+      position: absolute;
+      left: 485px;
+      top: 590px;
+      width: 290px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5f0e6;
+      background: #7a5e24;
+      border: 2px solid #f5f0e6;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 34px;
+      white-space: nowrap;
+    }
+
+    .s03-registration {
+      position: absolute;
+      left: 838px;
+      top: 582px;
+      width: 184px;
+      height: 76px;
+      border: 2px dashed #9b3e2e;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .s03-registration::before,
+    .s03-registration::after {
+      content: "";
+      position: absolute;
+      top: 34px;
+      width: 18px;
+      height: 4px;
+      background: #9b3e2e;
+    }
+
+    .s03-registration::before {
+      left: -10px;
+    }
+
+    .s03-registration::after {
+      right: -10px;
+    }
+
+    .s03-ack-stamp {
+      position: absolute;
+      left: 1088px;
+      top: 860px;
+      width: 284px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5f0e6;
+      border-top: 2px solid #f5f0e6;
+      border-bottom: 2px solid #f5f0e6;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 32px;
+      letter-spacing: 0.035em;
+    }
+
+    .s03-pin-warning {
+      position: absolute;
+      left: 1420px;
+      top: 144px;
+      width: 382px;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      padding: 6px 10px 6px 14px;
+      color: #1a1a1a;
+      background: #f5f0e6;
+      border-top: 2px solid #1a1a1a;
+      border-bottom: 2px solid #1a1a1a;
+      border-left: 8px solid #7a5e24;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .s03-anchor {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-kse0" id="root" data-composition-id="bc-rh-001-shot-03" data-start="0" data-duration="7.83" data-width="1920" data-height="1080" data-fps="30">
+    <div data-hf-id="hf-1k62" id="s03-background" class="clip s03-background" data-start="0" data-duration="7.83" data-track-index="0">
+      <svg data-hf-id="hf-b2il" class="s03-grid" viewBox="0 0 1920 1080" aria-hidden="true">
+        <defs data-hf-id="hf-mh0t">
+          <pattern data-hf-id="hf-y4m0" id="s03-grid-pattern" width="48" height="48" patternUnits="userSpaceOnUse">
+            <line data-hf-id="hf-m4ms" x1="0" y1="0" x2="48" y2="0" stroke="#f5f0e6" stroke-width="2" />
+            <line data-hf-id="hf-zoq6" x1="0" y1="0" x2="0" y2="48" stroke="#f5f0e6" stroke-width="2" />
+          </pattern>
+        </defs>
+        <rect data-hf-id="hf-0xqv" width="1920" height="1080" fill="url(#s03-grid-pattern)" />
+      </svg>
+    </div>
+
+    <div data-hf-id="hf-kvxb" id="s03-scene" class="clip s03-scene" data-start="0" data-duration="7.83" data-track-index="1">
+      <svg data-hf-id="hf-kjm0" class="s03-rail-svg" viewBox="0 0 1920 1080" aria-hidden="true">
+        <line data-hf-id="hf-h3pm" class="s03-rail-base" x1="420" y1="620" x2="1380" y2="620" />
+        <polyline data-hf-id="hf-ap8c" class="s03-rail-base" points="1230,620 1440,620 1580,580" />
+        <path data-hf-id="hf-ofrd" id="s03-route-classify" class="s03-route-live" d="M 630 620 L 930 620" />
+        <path data-hf-id="hf-x2ny" id="s03-route-acknowledge" class="s03-route-live" d="M 930 620 L 1230 620" />
+        <circle data-hf-id="hf-551q" class="s03-node" cx="630" cy="620" r="12" />
+        <circle data-hf-id="hf-xgjh" class="s03-node" cx="930" cy="620" r="12" />
+        <circle data-hf-id="hf-f191" class="s03-node" cx="1230" cy="620" r="12" />
+      </svg>
+
+      <div data-hf-id="hf-n6i6" id="s03-capture-contact" class="s03-contact-mark" aria-hidden="true"></div>
+      <p data-hf-id="hf-8gqz" id="s03-capture-verb" class="s03-verb s03-verb-capture">CAPTURE</p>
+      <p data-hf-id="hf-qvrf" id="s03-classify-verb" class="s03-verb s03-verb-classify">CLASSIFY</p>
+      <p data-hf-id="hf-zvrh" id="s03-acknowledge-verb" class="s03-verb s03-verb-acknowledge">ACKNOWLEDGE</p>
+
+      <div data-hf-id="hf-rwp6" id="s03-source-sheet" class="s03-source-sheet">
+        <div data-hf-id="hf-9bfq" id="s03-source-inner" class="s03-source-inner">
+          <div data-hf-id="hf-8r8v" class="s03-source-heading">
+            <span data-hf-id="hf-r3bs">PINNED SOURCE FIELD</span>
+            <span data-hf-id="hf-t97z">FIXTURE 03</span>
+          </div>
+          <div data-hf-id="hf-f6zg" class="s03-source-fields">
+            <div data-hf-id="hf-1zeh" class="s03-source-row">
+              <span data-hf-id="hf-otlc" class="s03-source-key">source</span>
+              <span data-hf-id="hf-m4qh" class="s03-source-value">TEST_FIXTURE</span>
+            </div>
+            <div data-hf-id="hf-v4d3" id="s03-call-time-row" class="s03-source-row">
+              <span data-hf-id="hf-3wp7" class="s03-source-key">call_time</span>
+              <span data-hf-id="hf-o7og" class="s03-source-value">20:47</span>
+            </div>
+            <div data-hf-id="hf-ut71" class="s03-source-row">
+              <span data-hf-id="hf-nza1" class="s03-source-key">capture</span>
+              <span data-hf-id="hf-x73f" class="s03-source-value">MISSED_CALL</span>
+            </div>
+          </div>
+          <div data-hf-id="hf-x4re" id="s03-source-warning" class="s03-warning-full">SYNTHETIC TEST FIXTURE — NOT EVIDENCE</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-e949" id="s03-verified-chip" class="s03-verified-chip">20:47 VERIFIED</div>
+      <div data-hf-id="hf-b3ob" id="s03-uncertain-registration" class="s03-registration" aria-label="Root-owned uncertain state registration area"></div>
+      <div data-hf-id="hf-w1j3" id="s03-acknowledged-stamp" class="s03-ack-stamp">ACKNOWLEDGED</div>
+      <div data-hf-id="hf-a1hu" id="s03-source-pin-warning" class="s03-pin-warning">SYNTHETIC TEST FIXTURE — NOT EVIDENCE</div>
+    </div>
+
+    <div data-hf-id="hf-776u" id="s03-tag-entry-anchor" class="s03-anchor" data-anchor-x="610" data-anchor-y="620" style="left: 609px; top: 619px"></div>
+    <div data-hf-id="hf-ij85" id="s03-capture-anchor" class="s03-anchor" data-anchor-x="630" data-anchor-y="620" style="left: 629px; top: 619px"></div>
+    <div data-hf-id="hf-u0gp" id="s03-classify-anchor" class="s03-anchor" data-anchor-x="930" data-anchor-y="620" style="left: 929px; top: 619px"></div>
+    <div data-hf-id="hf-o1gp" id="s03-acknowledge-anchor" class="s03-anchor" data-anchor-x="1230" data-anchor-y="620" style="left: 1229px; top: 619px"></div>
+    <div data-hf-id="hf-8l6d" id="s03-card-anchor" class="s03-anchor" data-anchor-x="1580" data-anchor-y="580" style="left: 1579px; top: 579px"></div>
+    <div data-hf-id="hf-wpoz" id="s03-proof-anchor" class="s03-anchor" data-anchor-x="1560" data-anchor-y="120" style="left: 1559px; top: 119px"></div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const s03ClassifyRoute = document.querySelector("#s03-route-classify");
+      const s03AcknowledgeRoute = document.querySelector("#s03-route-acknowledge");
+      const s03MeasuredRoutes = [s03ClassifyRoute, s03AcknowledgeRoute];
+
+      s03MeasuredRoutes.forEach((route) => {
+        const measuredLength = route.getTotalLength();
+        route.style.strokeDasharray = `${measuredLength}`;
+        route.style.strokeDashoffset = `${measuredLength}`;
+      });
+
+      const s03ClassifyLength = s03ClassifyRoute.getTotalLength();
+      const s03AcknowledgeLength = s03AcknowledgeRoute.getTotalLength();
+      const s03Timeline = gsap.timeline({ paused: true });
+
+      s03Timeline.fromTo(
+        "#s03-source-sheet",
+        { opacity: 0, y: -12 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+        1.43
+      );
+      s03Timeline.fromTo(
+        "#s03-capture-contact",
+        { opacity: 0, scale: 0.72 },
+        { opacity: 1, scale: 1, duration: 0.24, ease: "power2.out" },
+        2.05
+      );
+      s03Timeline.fromTo(
+        "#s03-call-time-row",
+        { backgroundColor: "rgba(122,94,36,0)", color: "#1a1a1a" },
+        { backgroundColor: "#7a5e24", color: "#f5f0e6", duration: 0.3, ease: "power1.out" },
+        3.5
+      );
+      s03Timeline.fromTo(
+        "#s03-verified-chip",
+        { opacity: 0, x: 1030, y: -280 },
+        { opacity: 1, x: 0, y: 0, duration: 0.72, ease: "power2.out" },
+        3.99
+      );
+      s03Timeline.fromTo(
+        "#s03-route-classify",
+        { strokeDashoffset: s03ClassifyLength },
+        { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" },
+        4.97
+      );
+      s03Timeline.fromTo(
+        "#s03-uncertain-registration",
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" },
+        4.97
+      );
+      s03Timeline.fromTo(
+        "#s03-route-acknowledge",
+        { strokeDashoffset: s03AcknowledgeLength },
+        { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" },
+        5.88
+      );
+      s03Timeline.fromTo(
+        "#s03-acknowledged-stamp",
+        { opacity: 0, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" },
+        5.88
+      );
+      s03Timeline.fromTo(
+        "#s03-source-sheet",
+        { opacity: 1, x: 0, y: 0, scaleX: 1, scaleY: 1 },
+        { opacity: 0, x: 210, y: 0, scaleX: 0.68, scaleY: 0.24, duration: 0.4, ease: "power2.inOut", immediateRender: false },
+        6.83
+      );
+      gsap.set("#s03-source-pin-warning", { display: "none" });
+
+      window.__timelines["bc-rh-001-shot-03"] = s03Timeline;
+    </script>
+  </div>
+</template>

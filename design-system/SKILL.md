@@ -4,29 +4,66 @@ description: Use this skill to generate well-branded interfaces and assets for T
 user-invocable: true
 ---
 
-Read the README.md file within this skill, and explore the other available files.
+Read `README.md`, then read `boundary-ledger/README.md`,
+`boundary-ledger/cross-media-authority.md`, and `boundary-ledger/semantic-core.json` before creating
+new OE visual work.
+
+- For web or static episode identity, also read `boundary-ledger/illustration-language.md` and
+  `boundary-ledger/component-contracts.md`.
+- For scenes, animations, or motion graphics, also read `boundary-ledger/motion-language.md`,
+  `boundary-ledger/scene-contracts.md`, `../docs/blueprint-cinema.md`, and
+  `../blueprint-cinema/TOOLCHAIN.md`.
+- For audio-led or podcast clips, also read `boundary-ledger/audio-led-clips.md` and the caption
+  overlay doctrine. Use actual precomputed audio data; do not invent a visualizer.
 
 If creating visual artifacts (slides, mocks, throwaway prototypes, etc), copy assets out and create static HTML files for the user to view. If working on production code, you can copy assets and read the rules here to become an expert in designing with this brand.
 
 If the user invokes this skill without any other guidance, ask them what they want to build or design, ask some questions, and act as an expert designer who outputs HTML artifacts _or_ production code, depending on the need.
 
-## The one rule that matters most
+## Forward authority
 
-Every design decision answers: *would a 45-year-old VP of Product share this under their real name on LinkedIn?* Documentary rigor, never hustle. **Design like a blueprint, not like a publication — and make the blueprint feel alive**: cream editorial trust + the navy Working Schematic (drafting grid, wired nodes with real prices, live status) that looks like the business the viewer is going to build.
+**Boundary Ledger is the cross-media authority for new OE visual work.** The surface stays composed;
+the model stays provisional. Web keeps the page composed and model rough. Motion establishes a
+stable world and moves only the accountable change. Audio-first keeps the voice primary and marks
+the argument rather than the beat.
 
-## Fast start
-- Link `styles.css` (one file, pulls in all tokens + fonts).
-- Components live on `window.TheOperatorEconomyDesignSystem_bf951d` (load `_ds_bundle.js`).
-- Type: Boska 700 display (≥40px ONLY — hard floor), Zodiak 700 for 18–44px (−0.02em), Supreme body, Fragment Mono (single 400 weight) for EVERY number & citation.
-- Palette rule: any composition = Ink + Paper (or Navy #14263E) + ONE accent. Gold (#C4A45F on dark, #7A5E24 text on paper) is the dark-world accent; Drafting Blue the paper-world accent; sage = live/verified status only.
-- Signatures: citation chip on every figure · gold gap arrow ($5.9B → $2K) · engineering title block · margin annotation rail · the Schematic/SchematicNode panel (every node needs a REAL figure).
-- Italic ration: max ONE italic phrase per composition.
-- Hard bans: Instrument Serif/AI-startup default, emoji, neon, gradients, glassmorphism, income overlays, scarcity, placeholder nodes, radii >3px. See guidelines/Design System.html §05.
+The semantic core owns meaning. Step 3 selects approved operations, Blueprint Cinema directs their
+episode-specific use, HyperFrames implements deterministic designed scenes, and Resolve finishes
+and delivers. Do not author new semantic roles inside a runtime or episode plan.
+
+Rev C is retired as forward authority but remains a compatibility implementation for unmigrated
+consumers. Rev D is archived narrative research. Do not bring Rev C’s drafting grid or gold/blue
+identity, or Rev D’s cobalt/gold, sinkholes, glow, orbit, or generic node builds into new work.
+
+Every decision still answers: *would a skeptical experienced operator share this under their real
+name?* Documentary rigor, never hustle.
+
+## Boundary Ledger fast start
+
+- Link `boundary-ledger/styles.css` and scope the consumer with `data-oe-theme="boundary-ledger"`.
+- Use Boska for one display anchor at 40px or larger, Zodiak for 24–44px editorial headings,
+  Supreme for body/UI, and Fragment Mono only for accountable metadata and defensible figures.
+- Palette roles: warm ledger `#F5F0E6`; deep mineral `#204440`; core oxide `#B5482F`
+  (`#FB8B69` on mineral); perimeter steel `#586D74`; sage is status only.
+- Core contracts: `EpisodeFeature`, `AccountableDocket`, and `WorkingModel`.
+- Working Models are 3:2, tangible, complete, uncropped, and independently checked at 373px.
+- Keep handwriting inside the illustration. Keep page navigation and content typography typeset.
+- Hard bans: Signal Ledger teal, checkered page grids, generic node maps, vector-perfect drawings,
+  faux stationery, illustration-as-background, automatic crops, gradients, glass, pills, and dense
+  decorative metadata.
+- Motion operations are fixed: `establish`, `trace`, `route`, `interrupt`, `correct`, `return`,
+  `pin`, and `settle`. Do not invent synonyms as new semantic tokens.
+- Captions use `drop / rail / embed`. Kinetic thesis type is scarce and cannot duplicate the rail.
+- A 9:16, 1:1, or 16:9 model is an authored recomposition, never a crop of the 3:2 static master.
+- Run `node boundary-ledger/qa/validate-system.mjs` after changing the core, bindings, manifests, or
+  specimen evidence.
 
 ## Where things are
+- `boundary-ledger/` — cross-media semantic core, bindings, scoped web implementation, illustration
+  and scene contracts, motion/audio field manuals, manifests, specimens, and validation.
 - `guidelines/Design System.html` — the published system document (read this second, after README).
 - `README.md` — full brand + visual + content guide, and a file index.
 - `tokens/` — colors, typography, spacing, fonts, base helpers.
-- `surfaces/` — canonical comps: site hero, YouTube thumbnail, newsletter masthead, blueprint cover.
+- `surfaces/` — retained Rev C production references during migration.
 - `foundations/` — specimen cards. `components/` — Button, Badge, Card, Input, CitationChip, TitleBlock, Stat, SheetHeader, Annotation, GapFigure, Schematic, SchematicNode, DataTable, BarChart.
-- `ui_kits/` — interactive website/newsletter/blueprint screens (Rev-A layouts; surfaces/ is the canonical look).
+- `ui_kits/` — interactive website/newsletter/blueprint screens (Rev-A layouts; `surfaces/` is only the canonical Rev C compatibility look).

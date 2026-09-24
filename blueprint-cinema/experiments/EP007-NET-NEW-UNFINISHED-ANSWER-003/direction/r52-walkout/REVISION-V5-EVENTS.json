@@ -1,0 +1,122 @@
+[
+  {
+    "event_id": "r52-owner-quick-cut-direction-v1",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "film",
+      "cut-timing"
+    ],
+    "data": {
+      "decision_event_id": "r52-walkout-film-proposal-v4",
+      "actor": "owner",
+      "verbatim": "it can be a spike lee type quick cut. a handshake and a cut to walking away that mirrors the script.",
+      "interpretation": "Replace the continuous v4 shot with a handshake and a hard cut to walking away, mirroring 'discounts it, or he walks'. v4 was not submitted.",
+      "verdict": "revise",
+      "scope": "R52 v4 proposal (unsubmitted).",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/superseded-v4/WALKOUT.request.json",
+          "sha256": "bc6361ae6b95e1cd2e48659814e6e5b42e3cdcca50a4c3cd6a3f26dbd0d7c7f5"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/OWNER-REVISION-REQUEST-v5.json",
+        "sha256": "66239c4ae57d85268d9c0ddef635a290f63d5f0c32f37deafd5874b4f78f7c8f",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r52-quick-cut-proposal-v5",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "decision",
+    "supersedes": "r52-walkout-film-proposal-v4",
+    "tags": [
+      "film",
+      "cut-timing",
+      "performance",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show the buyer's two alternatives as picture: a discounted deal or leaving.",
+        "viewer_before": "The needed knowledge is in the absent owner's head.",
+        "viewer_after": "The viewer sees both options: shake on a lower price, or walk."
+      },
+      "choice": "Shot A: new seated handshake take held over 'He discounts it,'. Hard cut on 'or' to shot B: existing v2 walk-off frames 112-143.",
+      "reason": "Owner asked for a quick cut that mirrors the script. The cut on 'or' turns the narration's alternative into an edit, which also restores the R35 arc's intent that discount and departure read as alternatives. Reusing the v2 walk avoids new spend.",
+      "alternatives": [
+        {
+          "choice": "v4 continuous handshake then rise",
+          "reason_not_selected": "Owner preferred a quick cut."
+        },
+        {
+          "choice": "New walk-away take",
+          "reason_not_selected": "Existing v2 walk selection already fits the 32-frame slot."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "Narration offers two alternatives in one short line.",
+        "avoid_when": "The alternatives are sequential in reality, where a cut would imply one follows the other."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "handshake-in",
+            "phrase": "And a buyer cannot price",
+            "relation": "accepted R51 outpoint",
+            "master_seconds": 335.625,
+            "review_seconds": 332.625,
+            "fps": 24
+          },
+          {
+            "cue_id": "or-cut",
+            "phrase": "or he walks",
+            "relation": "hard cut one frame before or onset",
+            "master_seconds": 341.7916666666667,
+            "review_seconds": 338.7916666666667,
+            "fps": 24
+          },
+          {
+            "cue_id": "walk-out",
+            "phrase": "before Fine,",
+            "relation": "before S10 onset",
+            "master_seconds": 343.125,
+            "review_seconds": 340.125,
+            "fps": 24
+          }
+        ],
+        "performance": "Seated handshake, firm, serious and businesslike; nobody stands. Walk shot: back turned, walking out right.",
+        "false_inference": "That the handshake and walk-off are one sequence of events.",
+        "source_basis": "Owner direction; 'Spike Lee' interpreted as a punchy hard cut."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/DIRECTION.md",
+        "sha256": "63ee52fc8f3737a7acb845cfa96ce8501468c34f1ab652aa50f1274984def0d2",
+        "locator": "v5 direction"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/HANDSHAKE.request.json",
+        "sha256": "77cdf3f12aae6c696a5e44411655142c0761ffc0b96f3f5089dd7fc90b8df02f",
+        "locator": "Prepared handshake request"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/COST-PROPOSAL.json",
+        "sha256": "080a469916e6e768dcd0bc5a9a8cfd367f7f30e701f580af9e713d58024069f6",
+        "locator": "v5 cost"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/CUES.json",
+        "sha256": "801c1752f339913d79198ee7381f5b6336a398785ec9acbfe46c48f9ac7e607d",
+        "locator": "Two-shot cues"
+      }
+    ]
+  }
+]

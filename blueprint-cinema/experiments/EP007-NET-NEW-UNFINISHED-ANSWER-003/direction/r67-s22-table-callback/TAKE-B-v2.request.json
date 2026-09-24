@@ -1,0 +1,30 @@
+{
+  "status": "prepared_not_authorized_not_submitted",
+  "model": "fal-ai/kling-video/v3/pro/image-to-video",
+  "picture_audio_mode": "narrated_observation",
+  "input": {
+    "prompt": "One continuous eleven-second locked-off shot continuing the exact supplied frame and its settled binder position. Keep the same workshop, owner seated left in tan, buyer seated right in blue with glasses, daylight, table, green binder, original blank loose sheet, pencil and keys. Preserve the exact starting object positions and action line. Camera remains fixed: no movement, pan, zoom, orbit, reframing or cuts. Natural real-time motion.\n\nOne primary action: the buyer independently inspects the supplied green binder. Promptly lift its front cover once and open it toward his reading position in about the first second, then begin reading immediately. Inside is an already-prepared page with soft, indistinct rows of writing, visible as soon as the cover exposes it. Keep these existing rows stable, too small and oblique to read; no legible names, values, facts, prices or logos. Nothing is written or materialized in view. The original loose blank sheet stays untouched.\n\nAfter opening, he reads down the exposed record with small natural eye and head movements, breathing and occasional blinks. He continues studying different parts of the same page through the end. His hand can rest lightly on its edge to keep it open. The owner keeps both hands at rest and allows him to inspect without explaining. End while he is still inspecting, with no decision or verdict.\n\nNo speech, lip movement, conversational gestures, writing, separate pointing or tracing, page turn, repeated opening or closing, new loose page, duplicated paper, empty binder page, changing page contents, binder or hand morphing, nod, smile, handshake, signature, offer, celebration, head shake or glance back to the owner. No frozen body, repeated gesture, optical slow motion or closing beat.",
+    "duration": "11",
+    "generate_audio": false,
+    "cfg_scale": 0.5
+  },
+  "selection": {
+    "frames": 236,
+    "fps": 24,
+    "source_offset": "select only after actual playback; no speed change, freeze or loop"
+  },
+  "max_requests": 1,
+  "automatic_paid_retries": false,
+  "local_start_image": null,
+  "start_image_sha256": null,
+  "seed_dependency": {
+    "take": "A",
+    "condition": "A passes identity, binder mechanics, prompt response and 170 usable frames.",
+    "selection_rule": "Extract a settled frame after the closed green binder is within buyer reach and the owner has released it. Bind frame number, source and PNG hashes before upload/submission. Do not submit B if A fails.",
+    "permitted_operations": [
+      "frame extraction",
+      "editorial crop preserving buyer/page/hands; no synthesis"
+    ]
+  },
+  "revision": "v2_binder"
+}

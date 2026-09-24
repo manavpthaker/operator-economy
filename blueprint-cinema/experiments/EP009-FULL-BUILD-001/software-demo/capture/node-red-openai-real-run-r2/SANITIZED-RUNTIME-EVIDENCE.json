@@ -1,0 +1,150 @@
+{
+  "record_type": "ep009_software_demo_sanitized_runtime_evidence",
+  "status": "real_test_run_recorded",
+  "at": "2026-09-19T10:16:32.415485+00:00",
+  "fixture": {
+    "id": "alder-maya-20260918",
+    "fictional": true,
+    "guest": "Maya Chen",
+    "property": "Alder House Inn",
+    "checkout": "2026-09-18T10:00:00-04:00",
+    "timezone": "America/New_York",
+    "communication_preference": "One-off thank-you only. No future promotions.",
+    "one_off_thank_you": true,
+    "seasonal_campaign_eligible": false
+  },
+  "run": {
+    "id": "draft-2026-09-19T10-04-54-585Z-2037fb",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "source": "real_openai_response",
+    "mock": false,
+    "usage": {
+      "input_tokens": 207,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 51,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 258
+    },
+    "request_body_sha256": "c6fa20e53adcd531fd970d92127398e8b98cbceb083d21d5531c5e8371c39573",
+    "response_body_sha256": "21b54971fa87fea2ed3685aa55525fcab8fdf317ae39167a0c697cd5f2dd616c"
+  },
+  "persisted_state": {
+    "provider_attempts": 1,
+    "queue": {
+      "scheduled_for": "2026-09-19T10:00:00-04:00",
+      "status": "approved_draft_only",
+      "send_enabled": false
+    },
+    "review": {
+      "edited": true,
+      "approved": true,
+      "approval_scope": "one_off_thank_you_only"
+    },
+    "seasonal": {
+      "eligible": false,
+      "human_confirmed": true,
+      "reason": "One-off thank-you only. No future promotions."
+    },
+    "last_event_sha256": "f0ed8c4dcc487d87805901235a72f160dcb4f89b3223573b51796c2b25376c4b"
+  },
+  "event_chain": [
+    {
+      "type": "provider_request_intent",
+      "at": "2026-09-19T10:04:54.586Z",
+      "sha256": "db0687bc4f7dd0a0fa8272d37f00198f416b291539a1e0670b714ae484f466bf"
+    },
+    {
+      "type": "draft_created",
+      "at": "2026-09-19T10:04:57.363Z",
+      "sha256": "3e90052fdf88b25ee7179f5e63ad86fa918c0dec5a5a5e7bd97b3d1e083fa741"
+    },
+    {
+      "type": "draft_queued",
+      "at": "2026-09-19T10:05:02.760Z",
+      "sha256": "c97e55994396dca8f30e412254230fae79cac2c0953feef48d04b983f31e7125"
+    },
+    {
+      "type": "human_saved_edit",
+      "at": "2026-09-19T10:05:11.452Z",
+      "sha256": "0a0a74836388484faf059cf8665defdfe61b65fb5f1f1474d41e994ccde1c943"
+    },
+    {
+      "type": "human_approved_one_draft",
+      "at": "2026-09-19T10:05:17.503Z",
+      "sha256": "99113f9d42ea5940f0981d2f0483bdbe017f0e3b304d5e34978a32a55845778e"
+    },
+    {
+      "type": "human_confirmed_seasonal_exclusion",
+      "at": "2026-09-19T10:05:21.653Z",
+      "sha256": "f0ed8c4dcc487d87805901235a72f160dcb4f89b3223573b51796c2b25376c4b"
+    }
+  ],
+  "no_send_boundary": {
+    "email_sending_available": false,
+    "forbidden_node_types": [
+      "e-mail",
+      "email",
+      "send",
+      "smtp"
+    ],
+    "actual_flow_types": [
+      "catch",
+      "comment",
+      "function",
+      "http in",
+      "http request",
+      "http response",
+      "tab"
+    ]
+  },
+  "runtime_sources": {
+    "demo": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/src/demo.js",
+      "sha256": "664b16448fee0923dd969d4cea82c04eb62d62287f91604bb5cd2f80461f8157"
+    },
+    "flow_builder": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/build-flows.js",
+      "sha256": "95d9216a78c57839f115216ff00fb771009994147329ac5c9fe72d6f5a3ef97c"
+    },
+    "flows": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/flows.json",
+      "sha256": "ba23f5ace21a620b78bd3513991c1e039a6e063174a3cdfee5b326e9536f56df"
+    },
+    "settings": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/settings.js",
+      "sha256": "dce6d365ef09afe711a75a57c5a8236df4ffd399d089e8502de707e67b78e993"
+    },
+    "operator_form": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/src/review.html",
+      "sha256": "c099ef7902cdf7ef6cc66add09da00a508b5ce7ec058db8407f89b89770e821a"
+    },
+    "package_lock": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/package-lock.json",
+      "sha256": "1e3f3c3d40cf0f3677defc27fb6c303a35671b296fbdbf7b34fa9f33ec792be3"
+    }
+  },
+  "private_records": {
+    "state": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/.local/state.json",
+      "sha256": "aa77e13f0f488f88c662fdd928a49f6dd29e0510e1e85ea1b44231ad72df82ef"
+    },
+    "events": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/.local/events.jsonl",
+      "sha256": "0a25261901ef0d78af3e142606ec9d8f97ed052d973ac95da4bb8cc673988af6"
+    },
+    "request": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/.local/runs/draft-2026-09-19T10-04-54-585Z-2037fb/REQUEST.json",
+      "sha256": "bc3f85bd842a11c69254d993d7237cd2e8d61592f8e32623452ee6fbc6f97718"
+    },
+    "response": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/runtime/.local/runs/draft-2026-09-19T10-04-54-585Z-2037fb/RESPONSE.json",
+      "sha256": "c809673a0f75b37fdca04bee970a2bb3d6ed23d9e4c621ca0bfab4aa2b70bd66"
+    }
+  },
+  "limits": "Sanitized record: it retains hashes and public test-state facts, not the provider prompt, returned text, credentials, recipients, customer data, or email access."
+}

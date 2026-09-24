@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r77-tool-insert-build",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r77-tool-recordings/capture_window.swift","sha256":"dae805bd116aee0c0dfa2b5426979514ea5d1c7c0eb082d5dcefc598e9a22f9e"},
+    {"path":"blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-EP007-TOOL-DEMO-CONTENT/README.md","sha256":"9294a81b7c5f0631bfbbf94a032d79a466e2975a131537a62902e4e865f96e11"},
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p1/qa/r60-s15-p1.mp4","sha256":"bb4db674443198245947756b2137b10512c91e63339ba3dfd62e581d5e1339c5"},
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r60-s15-p2/qa/r60-s15-p2.mp4","sha256":"e755a68ff5b2520d533b4d11c26ee02b547e68a2f61f13a9b0dc383c41cb961c"},
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p1/qa/r61-s16-p1.mp4","sha256":"86eb1c1d80733e7cfb811e7ccef0b33656bac12241b9c5e78134600ad30d54d7"},
+    {"path":"blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r61-s16-p2/qa/r61-s16-p2.mp4","sha256":"1b5cbeb3b630dbba13afeecf940e5639447136a59ded6f270477f5266d1b6827"},
+    {"path":"operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav","sha256":"d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"},
+    {"path":"design-system/boundary-ledger/fonts/supreme-500.woff2","sha256":"ce86616b5f35f7e3a0cded1375b9811e34bf66bdeaa3ffabb5ce6ad7e01c66d2"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/SCENE-PLAN.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/README.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/prepare.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/composition.template.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/selection-template.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R77-TOOL-INSERT-BUILD/.gitignore"
+  ],
+  "checks": [
+    {"command":"Source clips ffprobe: 1280x720/24 fps; S15 600+768 frames, S16 876+417 frames","outcome":"pass"},
+    {"command":"SHA-256 verification of four accepted source clips, locked narration, capture helper, content packet and font","outcome":"pass"},
+    {"command":"python3 prepare.py --describe: gap-free edit intervals and unchanged scene duration","outcome":"pass"},
+    {"command":"Python AST syntax parse of prepare.py","outcome":"pass"},
+    {"command":"HyperFrames runtime, render and decoded output checks await root-selected capture files and ranges","outcome":"not_run"}
+  ],
+  "sources_and_provenance": [
+    "Accepted S15 R60 and S16 R61 source renders only; old source files remain untouched.",
+    "New visual media must be original actual ChatGPT and native Google Sheets recordings supplied and range-selected by root.",
+    "Capture helper records selected Chrome window at 24 fps with real cursor and no system or microphone audio.",
+    "Boundary Ledger paper/mineral values and Supreme font used; no legacy visual layout reused.",
+    "Uses the same explicit data-no-timeline static-wrapper mechanism as accepted R75, with framework-owned video timing; root must validate runtime against the selected capture."
+  ],
+  "assumptions": [
+    "Nearest-frame quantization of user-discussed word times is appropriate; shifts remain below 17 milliseconds.",
+    "Root can select enough normal-speed real capture for 284 and 655 frames without fabricated actions or synthesized holds.",
+    "Original master narration remains the uninterrupted audio authority."
+  ],
+  "unresolved_questions": [
+    "Actual source paths, hashes, in-points, internal cuts and optional pixel crops are root-owned and not yet supplied.",
+    "Final UI legibility, disclosure fit, source fidelity, action holds and encoded seams require inspection after preparation and render."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

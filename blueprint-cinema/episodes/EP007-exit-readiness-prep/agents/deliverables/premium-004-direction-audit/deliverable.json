@@ -1,0 +1,124 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "premium-004-direction-audit",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "../.agents/skills/oe-film-direction/SKILL.md",
+      "sha256": "0877dfb4945906048907d904214b8aadbd01f2c4b31ceced31f3155e190d0f43"
+    },
+    {
+      "path": "../.agents/skills/oe-film-direction/references/generated-plates.md",
+      "sha256": "f31c44591f85b4e640af1e49332cc69903412252abe98627dfee50625f980f0e"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/PHASE2-HANDOFF.md",
+      "sha256": "77c8cfbb65671ca58ac8ce4ac00c6a95d1a75d747bce166be6903eb09eea59a9"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/ASSET-MANIFEST.json",
+      "sha256": "5c0fc1409ee9f5c1360ca0970008c9e0c08906f2bfa2540fac23f9b9af694416"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/REVIEW.md",
+      "sha256": "f2066643462ec6818632fb035c61f3a7f7bdb602974fc5092c784f1b077d6ea0"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r10-film-to-presenter/REVIEW.md",
+      "sha256": "c0bc0f2d48849248d877c64f79f57779430c41d89614a77bb859dc94046cd48e"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-HYPERFRAMES-001/GENERATION-RUN.json",
+      "sha256": "2ced2bdba26b8508fc18c5ce5456d13a27839d0c209d0aa5b3b331b7bbada297"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-HYPERFRAMES-001/REVIEW.md",
+      "sha256": "14e915028acd7dd48142c74f8a13634d7e84c1c77291902fd53f241e4d24ae9a"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/GENERATION-RUN.json",
+      "sha256": "9a63a7ea6838365144bebcaf22fa65deeb73cea411055cc616cc08dcf9894c4c"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-REVISION-003/GENERATION-RUN.json",
+      "sha256": "17602b66b243c6d199e45162dc3220e2e0c63f3a8d63ad0f81a9ebf53bc21119"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r8-context-coverage/DIRECTION.md",
+      "sha256": "1a0493c94119ce08962593a923b0d8b74fb6c7118364d28d8e13e98c0da5ee1c"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/public/media/shot-c-start.png",
+      "sha256": "69c73fd62e2f13fe025361dbc21e062680346391a5897a3610ed2df9ae79e4ad"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/public/media/shot-c.mp4",
+      "sha256": "8293c4bcc201259cb4624c94673690c1ec1d34a0bcdfa63464eae0a91feda60e"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/inputs/avatar-candidate-03.webp",
+      "sha256": "59309d2925b85cfba8a6a411dce1ecea67a03607f8a05933f4a2f6cb6af27754"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/INPUT-MANIFEST.json",
+      "sha256": "da36ed61406d710cc36b35592ae05a4d6476b272f4bb5a9d872226c0f3f590e1"
+    },
+    {
+      "path": "experiments/EP007-HIGGSFIELD-FROM-PHASE2-002/inputs/avatar-transport.json",
+      "sha256": "b691a647fdfba2940b24c02e6b6342ccb330f172c988255384f78831fee303dd"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r8-context-coverage/SHOT-C-PROMPT.md",
+      "sha256": "b7d6d4f401acda23a672bd1109534be952f6c419d66dede74c29d0570dce9931"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/premium-004-direction-audit/AUDIT.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/premium-004-direction-audit/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Read exact local Phase 2 handoff, original Kling direction and generation records, and Higgsfield 001/002/003 requests and review records.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Recompute original R7/R8 PNG and MP4 hashes and compare original C start and video with pinned work-order hashes.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify all report links exist and record SHA-256 of the 17 cited input files.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify audit is within assigned agent packet and no experiment AUDIT.md remains after correcting initial output location.",
+      "outcome": "pass"
+    },
+    {
+      "command": "blueprint-cinema/.venv/bin/python: validate deliverable.json against agent-deliverable.schema.json and recheck all 17 input hashes; bundled and root Python lacked jsonschema, so project environment was used.",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Local source manifests, exact requests, prior review records and original generated media supplied the audit evidence; no new external source or generated media was produced.",
+    "Source motion findings are attributed to recorded reviews; this audit does not claim a fresh normal-speed audiovisual review.",
+    "An initial AUDIT.md was written to the experiment under the preceding work-order ownership instruction, then moved into this packet after the corrected output instruction; no experiment copy remains.",
+    "Source report SHA-256: a8af5a9251859ae9ac3c2df848fdd3a57d95f3a883c1d7dc04b1030900093e92"
+  ],
+  "assumptions": [
+    "The user means the earlier Kling film; their exact preferred R-number is unspecified.",
+    "Prior creative review candidates remain comparison controls, not canonical production approvals."
+  ],
+  "unresolved_questions": [
+    "How much of the preference comes from model versus cast, world, performance, prompt and edit remains unisolated.",
+    "The stronger current film model and audio-driven avatar route require controlled output review; this audit does not rank them.",
+    "The original compact prompt is a proposal; submitted requests are owned by the root."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

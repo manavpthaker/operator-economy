@@ -1,0 +1,88 @@
+{
+  "record_type": "ep007_short01_original_c_local_salvage_v1",
+  "status": "technical_salvage_created_pending_owner_listen_and_separate_timing_decision",
+  "created_at": "2026-09-21T11:04:33-04:00",
+  "processing": {
+    "tool": "ffmpeg",
+    "version": "8.1.1",
+    "paid_calls": 0,
+    "operation": "retain one contiguous source prefix and remove the repeated final 28-word passage",
+    "filters": "atrim=start_sample=0:end_sample=2768000,asetpts=N/SR/TB",
+    "no_other_processing": [
+      "no splice",
+      "no time stretch",
+      "no normalization",
+      "no EQ",
+      "no denoise",
+      "no fade",
+      "no sample-rate conversion"
+    ]
+  },
+  "authority": {
+    "locked_script_path": "../SCRIPT.txt",
+    "locked_script_sha256": "94988c28ca3aee85f14737e9214d63267c3aa1e7d91dc5deeb9e9a5d37dab2e2",
+    "lexical_evidence_path": "../VOICE-FIT-GATE.json",
+    "duplicate_passage_word_count": 28,
+    "duplicate_passage": "The bigger question is whether an owner would pay someone to clear that map before a buyer appears. The full episode shows you how to build the service."
+  },
+  "source": {
+    "path": "../media/short01-final-original-c.wav",
+    "sha256": "c90848bdfa3e0655eaa7cfa1595e351455a902e2df47456f5e898174e47bc851",
+    "bytes": 6495686,
+    "codec": "pcm_s16le",
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "bits_per_sample": 16,
+    "sample_count": 3247821,
+    "duration_seconds": 67.6629375
+  },
+  "cut": {
+    "kept_sample_range": "[0, 2768000)",
+    "end_sample_exclusive": 2768000,
+    "end_seconds_exact": 57.666666666666664,
+    "project_fps": 24,
+    "end_frame_exclusive": 1384,
+    "samples_per_frame": 2000,
+    "last_included_sample_peak_dbfs": -66.786908,
+    "first_excluded_sample_peak_dbfs": -67.386173,
+    "retained_tail_silence": {
+      "threshold_db": -30,
+      "minimum_duration_seconds": 0.08,
+      "start_seconds": 57.022917,
+      "end_seconds": 57.666667,
+      "duration_seconds": 0.64375
+    },
+    "source_duplicate_strong_onset_approximately_seconds": 58.09,
+    "removed_samples": 479821,
+    "removed_duration_seconds": 9.996270833333333
+  },
+  "output": {
+    "path": "short01-final-original-c-salvage-v1.wav",
+    "sha256": "b4ab3903255b5b425f2adc88f81372f7072efc58eb842830c6dd600dc188d61c",
+    "decoded_pcm_sha256": "1cb78be77ddbc69b6e4e6edf4b17b0b0b2d2cd3c4ca943cefbe7490084312ddd",
+    "bytes": 5536044,
+    "codec": "pcm_s16le",
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "bits_per_sample": 16,
+    "sample_count": 2768000,
+    "duration_seconds": 57.666666666666664,
+    "integrated_loudness_lufs": -15.87,
+    "true_peak_dbtp": -0.34,
+    "loudness_range_lu": 3.1
+  },
+  "verification": {
+    "strict_decode": "pass",
+    "source_trim_decoded_pcm_sha256": "1cb78be77ddbc69b6e4e6edf4b17b0b0b2d2cd3c4ca943cefbe7490084312ddd",
+    "output_decoded_pcm_sha256": "1cb78be77ddbc69b6e4e6edf4b17b0b0b2d2cd3c4ca943cefbe7490084312ddd",
+    "pcm_identity": "pass_exact_match",
+    "waveform_evidence": [
+      "source-boundary-waveform.png",
+      "salvage-full-waveform.png"
+    ],
+    "locked_animatic_modified": false,
+    "locked_animatic_duration_seconds": 43.84641,
+    "output_over_animatic_seconds": 13.820256666666666
+  },
+  "boundary": "This fixes only the duplicated ending. It does not make the natural read fit the locked animatic, does not authorize retiming, and is not owner acceptance or release approval."
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-narration-package-v1.json",
+  "title": "OE Step 2 narration package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "roots", "sources", "authority"],
+  "properties": {
+    "schema_version": {"const": "oe-narration-package-v1"},
+    "package_id": {"type": "string", "minLength": 1},
+    "fixture_only": {"type": "boolean"},
+    "roots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "root_id", "path", "sha256"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "root_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script_source_id", "spoken_identity"],
+      "properties": {
+        "script_source_id": {"type": "string", "minLength": 1},
+        "readthrough_source_id": {"type": "string", "minLength": 1},
+        "spoken_identity": {"$ref": "#/$defs/spokenIdentity"},
+        "block_count": {"type": "integer", "minimum": 1},
+        "block_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "derived_parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "start_token", "end_token", "sha256", "authority"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "start_token": {"type": "integer", "minimum": 0},
+          "end_token": {"type": "integer", "minimum": 1},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "authority": {"const": "subordinate_part"},
+          "purpose": {"enum": ["acoustic", "alignment", "calibration", "capture"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "spokenIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "token_count", "sha256"],
+      "properties": {
+        "schema_version": {"const": "oe-spoken-text-v1"},
+        "tokenization": {"const": "python-str-split-whitespace"},
+        "serialization": {"const": "utf8-one-token-per-lf-with-terminal-lf"},
+        "token_count": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

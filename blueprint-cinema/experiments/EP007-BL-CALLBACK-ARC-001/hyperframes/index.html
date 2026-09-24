@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP007 · Boundary Ledger callback arc</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #152f2c;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-hf-id="callback-arc-root" data-composition-id="main" data-start="0" data-duration="73.541667" data-width="1920" data-height="1080" data-fps="24">
+      <div id="opening-slot" class="clip" data-hf-id="callback-opening-slot" data-composition-id="opening" data-composition-src="compositions/opening.html" data-start="0" data-duration="44.5" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="middle-slot" class="clip" data-hf-id="callback-middle-slot" data-composition-id="middle" data-composition-src="compositions/middle.html" data-start="44.5" data-duration="7.75" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="ending-slot" class="clip" data-hf-id="callback-ending-slot" data-composition-id="ending" data-composition-src="compositions/ending.html" data-start="52.25" data-duration="21.291667" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <audio id="opening-narration" data-hf-id="callback-opening-narration" src="assets/audio/opening-000.000-044.500.wav" data-start="0" data-duration="44.5" data-track-index="10" data-volume="1"></audio>
+      <audio id="middle-narration" data-hf-id="callback-middle-narration" src="assets/audio/middle-247.660-255.400.wav" data-start="44.5" data-duration="7.74" data-track-index="10" data-volume="1"></audio>
+      <audio id="ending-narration" data-hf-id="callback-ending-narration" src="assets/audio/ending-1047.360-1068.620.wav" data-start="52.25" data-duration="21.26" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines.main = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
+

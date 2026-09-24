@@ -1,0 +1,907 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP008-ai-implementation-service",
+  "boundary_ledger_lock": {
+    "system_version": "2.0.0",
+    "semantic_core_path": "../../../../design-system/boundary-ledger/semantic-core.json",
+    "semantic_core_sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "motion_binding_path": "../../../../design-system/boundary-ledger/bindings/motion.json",
+    "motion_binding_sha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motion_binding_status": "provisional"
+  },
+  "derived": {
+    "operator": "An operations, CX, product or systems generalist who can read a ticket queue, write instructions a machine can follow, configure a SaaS product, and decide with a founder what must never be automated",
+    "customer": "The founder, ops lead, or head of CX at a Shopify DTC brand on Gorgias or Zendesk",
+    "beneficiary": "The brand's shoppers, who receive either a correct answer or a human handoff",
+    "constraint": "The bundled agent has little knowledge, no skills, and default handover rules, so it hands most tickets back and can answer a money question incorrectly",
+    "counter_system": "One fixed-scope, fixed-fee implementation of the bundled helpdesk agent, entered through a paid ticket audit credited against the build",
+    "owned_value": "A configured agent, a written rule set the brand owns, a measured change on the vendor's meter, and a written record of what remains human",
+    "outcome_object": "The before-and-after report delivered with the never list, wrong-answer log, and founder sign-off that admin ownership was returned"
+  },
+  "derived_provenance": {
+    "operator": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "1. Operator",
+      "source_quote": "Who could credibly run this business: An operations, CX, product or systems generalist who can read a ticket queue, write instructions a machine can follow, configure a SaaS product, and hold a conversation with a founder about which tickets must never be automated. `PARALLEL`: ANA-003; research \"Required skills or credentials.\""
+    },
+    "customer": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: The founder, ops lead, or head of CX at a Shopify DTC brand on Gorgias or Zendesk. `OBSERVED`: CLM-006 (ticket tiers), CLM-013 via AMD-01 (onboarding boundary)."
+    },
+    "beneficiary": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Ultimate beneficiary or customer: The brand's shoppers, who get a correct answer at eleven at night or a human when the question needs one."
+    },
+    "constraint": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "3. Costly problem",
+      "source_quote": "Current failure or friction: The AI agent is switched on with little knowledge, no skills and default handover rules, so it hands most tickets back and occasionally answers a money question wrong. The vendor's own guide says the agent needs at least one knowledge source, skills for the highest-volume intents, deliberate handover settings, playground testing and a week of ticket review. `OBSERVED`: CLM-005."
+    },
+    "counter_system": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "4. Offer",
+      "source_quote": "Plain-English offer: One fixed-scope, fixed-fee implementation of the AI agent already bundled in the brand's help desk, entered through a paid ticket audit credited against the build."
+    },
+    "owned_value": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "5. Buyer result",
+      "source_quote": "Result being purchased: A configured agent with a written rule set the brand owns, a measured change in verified resolutions on the vendor's own meter, and a written list of what was deliberately left to humans."
+    },
+    "outcome_object": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "5. Buyer result",
+      "source_quote": "**Primary acceptance measure:** the before-and-after report, delivered with the never list and the wrong-answer log, and the founder's sign-off that admin ownership has been handed back. The acceptance event is the report, not \"the AI works.\""
+    }
+  },
+  "business_operations": [
+    {
+      "id": "BO-001",
+      "upstream_state_id": "CANVAS-6.1",
+      "state_before": "Thirty days of tickets have not been classified into an accountable policy lane.",
+      "state_after": "Each audited ticket intent is routed into a safe, conditional, or never policy lane.",
+      "business_operation": "Route each audited ticket intent into its accountable policy lane.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "1. Audit: export or view thirty days of tickets; classify by intent and outcome; mark each intent safe, conditional, never. Owner: operator. Output: the intent map and the never list, first draft.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route requires a persistent object to change accountable state. Each existing ticket-intent instance moves from unclassified into one of three explicit policy lanes. Creating the first-draft never list is excluded under DSB-009.",
+      "acts_on": [
+        "ticket-intent"
+      ],
+      "carried": [
+        "operator",
+        "never-list"
+      ]
+    },
+    {
+      "id": "BO-002",
+      "upstream_state_id": "CANVAS-6.2",
+      "state_before": "The current verified-resolution rate, first-response time, knowledge sources, and handover settings are not recorded as the engagement baseline.",
+      "state_after": "A baseline reading is visibly bound to the vendor's report and the found configuration.",
+      "business_operation": "Record the baseline from the vendor's report and the configuration as found.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "2. Baseline: read the verified-resolution rate and first-response time off the vendor's report; confirm knowledge sources and handover settings as found. Owner: operator. Output: the baseline reading.",
+      "boundary_ledger_semantic_role_id": "accountableEvidence",
+      "boundary_ledger_operation_id": "pin",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Pin requires a claim to gain visible source context without an evidence upgrade. The baseline becomes accountable only when its measures are attached to the vendor report and the found settings.",
+      "acts_on": [
+        "baseline-reading"
+      ],
+      "carried": [
+        "vendor-platform",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-003",
+      "upstream_state_id": "CANVAS-6.3",
+      "state_before": "A general model has drafted knowledge and guidance from the brand's policies, macros, and help center, but the rules touching money, shipping promises, or cancellations have not been operator-reviewed.",
+      "state_after": "The operator has edited every drafted rule that touches money, shipping promises, or cancellations.",
+      "business_operation": "Edit the drafted knowledge and guidance at every money, shipping, and cancellation rule.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "3. Draft knowledge and guidance: a general model drafts from the brand's policies, macros and help center; the operator edits every rule that touches money, shipping promises or cancellations. Owner: AI drafts, operator decides. Output: the knowledge base and guidance.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct fits because operator judgment revises a visible model draft and replaces its operational consequence. Keeping the prior mark understandable is a visual application rule only; this operation does not claim the business retains a separate draft after editing.",
+      "acts_on": [
+        "guidance-rule-set"
+      ],
+      "carried": [
+        "operator",
+        "economic-buyer"
+      ]
+    },
+    {
+      "id": "BO-004",
+      "upstream_state_id": "CANVAS-6.4",
+      "state_before": "The agent has no deliberately built top-three skills and its handover triggers remain at defaults.",
+      "state_after": "The top-three skills and deliberate handover triggers are configured.",
+      "business_operation": "Replace default agent behavior with the top-three skills and deliberate handover rules.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "4. Build skills for the top three intents; set handover triggers deliberately; leave actions off unless the founder signs per action. Owner: operator, founder signs. Output: configured agent, actions register.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct fits only the change from default agent behavior to configured skills and deliberate handover. The Boundary Ledger representation keeps the defaults understandable; action-register creation and authorization are excluded under DSB-006 rather than folded into this operation.",
+      "acts_on": [
+        "configured-agent"
+      ],
+      "carried": [
+        "founder-authorizer",
+        "operator",
+        "vendor-platform",
+        "actions-register",
+        "money-action"
+      ]
+    },
+    {
+      "id": "BO-005",
+      "upstream_state_id": "CANVAS-6.5",
+      "state_before": "No checked result for the current ordinary, missing-order, duplicate, angry, out-of-policy, and not-in-knowledge playground attempt is attached to the test record.",
+      "state_after": "The test record visibly binds the current attempt to either a passing result or the specific rule change required.",
+      "business_operation": "Attach the checked playground result to the current attempt record.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "5. Test in the playground: ordinary, missing order, duplicate, angry, out-of-policy, not-in-knowledge. Owner: operator. Output: passing suite, or a rule change.",
+      "boundary_ledger_semantic_role_id": "verifiedStatus",
+      "boundary_ledger_operation_id": "pin",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Pin makes a checked result inspectable without upgrading it. It does not perform the test or open go-live eligibility. Both result branches are illustrative until a real attempt is checked; eligibility opening remains blocked by DSB-007.",
+      "acts_on": [
+        "playground-test-record"
+      ],
+      "carried": [
+        "configured-agent",
+        "guidance-rule-set",
+        "go-live-eligibility",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-006",
+      "upstream_state_id": "CANVAS-6.QUALITY",
+      "state_before": "A ticket intent is still marked safe or conditional under guidance that produced a wrong answer.",
+      "state_after": "The intent is narrowed to conditional or never and the guidance that produced the wrong answer is rewritten.",
+      "business_operation": "Narrow a misanswered intent and rewrite the guidance that produced the error.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Quality and exception handling",
+      "source_quote": "Failure route: A wrong answer on a safe intent moves that intent to conditional and rewrites the guidance; a wrong answer on a money question moves it to never; a handover storm on go-live day reverts to the previous configuration on that channel. Anything touching consumer-protection rules on refunds or automated messaging routes to the brand's own adviser.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct fits the sourced reclassification and rule rewrite after a wrong answer. Keeping the superseded mark understandable is a Boundary Ledger representation requirement, not an invented business-retention claim.",
+      "acts_on": [
+        "ticket-intent",
+        "guidance-rule-set",
+        "never-list"
+      ],
+      "carried": [
+        "wrong-answer-log",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-007",
+      "upstream_state_id": "CANVAS-6.6-ROUTE",
+      "state_before": "The configured agent is not yet the first route for incoming email tickets.",
+      "state_after": "Email tickets enter the configured agent first and hand back to humans under the deliberate policy boundary.",
+      "business_operation": "Route one channel through the configured agent first, with deliberate handoff to humans.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "6. Go live on email first; review at least ten tickets a week for two weeks; tune guidance; log every wrong handover and wrong answer. Owner: operator. Output: the tuning log.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route requires a persistent object to change queue or accountable state. Here the incoming email ticket changes its first queue while the human handoff remains explicit and reachable.",
+      "acts_on": [
+        "ticket-flow"
+      ],
+      "carried": [
+        "configured-agent",
+        "support-team",
+        "shoppers",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-008",
+      "upstream_state_id": "CANVAS-6.6-EVIDENCE",
+      "state_before": "The two-week review has not produced an inspectable record of wrong handovers and wrong answers.",
+      "state_after": "The reviewed tickets, wrong handovers, and wrong answers are attached to a tuning record without implying correctness from containment.",
+      "business_operation": "Log the reviewed tickets, wrong handovers, and wrong answers during the two-week tuning window.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "6. Go live on email first; review at least ten tickets a week for two weeks; tune guidance; log every wrong handover and wrong answer. Owner: operator. Output: the tuning log.",
+      "boundary_ledger_semantic_role_id": "accountableEvidence",
+      "boundary_ledger_operation_id": "pin",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Pin fits because observed tickets and errors gain inspectable source context in the tuning and wrong-answer logs; the evidence remains bounded and does not upgrade containment into correctness.",
+      "acts_on": [
+        "tuning-log",
+        "wrong-answer-log"
+      ],
+      "carried": [
+        "operator",
+        "configured-agent"
+      ]
+    },
+    {
+      "id": "BO-009",
+      "upstream_state_id": "CANVAS-6.7-RETURN",
+      "state_before": "The operator still holds scoped client-controlled admin access for the engagement.",
+      "state_after": "Admin ownership is returned to the brand and the operator retains no ongoing access.",
+      "business_operation": "Return admin ownership to the brand at handoff.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > After delivery",
+      "source_quote": "Handoff, reporting, support, or renewal: The report and the never list; admin returned; no ongoing access. A monthly ticket review is offered only if the founder asks and pays; it is outside the base case. A repeat implementation when the catalog, policies or the vendor's product change is scoped and priced separately.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "return",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Return requires the accountable object to move from a rented path to the declared owned path. Scoped admin control moves from the temporary operator path back to brand ownership with no ongoing access.",
+      "acts_on": [
+        "admin-control"
+      ],
+      "carried": [
+        "brand-payer",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-011",
+      "upstream_state_id": "CANVAS-11-VENDOR-RISK",
+      "state_before": "The wizard residue is untested, so whether material human setup work remains is unresolved.",
+      "state_after": "The practice is interrupted if a recorded sandbox run shows that the wizard leaves nothing for a person to do.",
+      "business_operation": "Interrupt the still-unproven practice when the sandbox record shows no material human setup work remains.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "11. Risks and failure modes",
+      "source_quote": "| The vendor closes the gap: wizard, auto-configuration, lower onboarding threshold | The business exists between the wizard and the implementation manager; the vendor controls both | A release note about auto-setup from store content; \"AI Agent 3.0\" queries; onboarding boundary moves down | Build the durable assets first (audit method, never list); stay vendor-agnostic across both help desks | The wizard, run on a sandbox, leaves nothing for a person to do | `OBSERVED` risk (CLM-010, CLM-011); residue `UNKNOWN` |",
+      "boundary_ledger_semantic_role_id": "actualRisk",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt fits the sourced negative branch only: a recorded no-human-work result stops the proposed practice. It does not assert that a gap currently exists or that the wizard is inadequate.",
+      "acts_on": [
+        "practice-opportunity"
+      ],
+      "carried": [
+        "vendor.gorgias",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-012",
+      "upstream_state_id": "CANVAS-6-BEFORE-ACCESS",
+      "state_before": "Scoped client-controlled admin access is not in temporary operator custody for the bounded work.",
+      "state_after": "Existing scoped client-controlled admin access is routed into temporary operator custody for the bounded work.",
+      "business_operation": "Route existing scoped admin control into temporary operator custody before delivery.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Before delivery",
+      "source_quote": "Required access, data, permissions, or integrations: Written consent to read thirty days of tickets; scoped, client-controlled admin access to the help desk; the connected Shopify store; the AI Agent subscription active. `OBSERVED`: CLM-005 prerequisites. Consent and scoped access are design requirements (promotion record).",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route fits only the existing admin-control object's change in accountable custody while it remains client-controlled. Creating written consent is an additive authorization state and is blocked under DSB-005 rather than reverse-fitted to route.",
+      "acts_on": [
+        "admin-control"
+      ],
+      "carried": [
+        "brand-payer",
+        "consent-record",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-013",
+      "upstream_state_id": "CANVAS-6-BEFORE-NO-BUY",
+      "state_before": "A prospective brand has not been screened against the vendor onboarding line, the modeled lower ticket boundary, and per-action sign-off requirement.",
+      "state_after": "The proposed engagement is interrupted when the brand is above the vendor line, below the modeled ticket boundary, or refuses per-action sign-off.",
+      "business_operation": "Stop the proposed engagement when a sourced no-buy condition is present.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Before delivery",
+      "source_quote": "Qualification and intake: Ask the vendor's own question: does the brand get a person or a wizard? Confirm the ticket band from the plan tier. Decline brands above the line, brands under roughly 1,000 tickets, and founders who want money moved without sign-off.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt faithfully represents only the sourced decline branches: the proposed engagement stops. It does not create or imply a qualified buyer, a sale, or an accepted offer.",
+      "acts_on": [
+        "proposed-engagement"
+      ],
+      "carried": [
+        "buyer-fit-record",
+        "economic-buyer",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-015",
+      "upstream_state_id": "CANVAS-6-QUALITY-ADVISER",
+      "state_before": "A refund or automated-messaging question touches consumer-protection rules inside the operator's work queue.",
+      "state_after": "The question is routed outside the engagement to the brand's own adviser.",
+      "business_operation": "Route consumer-protection questions to the brand's own adviser.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Quality and exception handling",
+      "source_quote": "Failure route: A wrong answer on a safe intent moves that intent to conditional and rewrites the guidance; a wrong answer on a money question moves it to never; a handover storm on go-live day reverts to the previous configuration on that channel. Anything touching consumer-protection rules on refunds or automated messaging routes to the brand's own adviser.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route fits because the persistent question leaves the operator-controlled queue and changes accountable destination to an external adviser; the operator does not answer or resolve it.",
+      "acts_on": [
+        "consumer-protection-question"
+      ],
+      "carried": [
+        "brand-adviser",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-016",
+      "upstream_state_id": "CANVAS-6.5-RULE-CHANGE",
+      "state_before": "A playground attempt identifies a rule change and go-live eligibility remains closed.",
+      "state_after": "The identified guidance rule is revised; the failed attempt remains intact and a separate new playground check is still required.",
+      "business_operation": "Revise the rule identified by a failed playground attempt and require a new check.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "5. Test in the playground: ordinary, missing order, duplicate, angry, out-of-policy, not-in-knowledge. Owner: operator. Output: passing suite, or a rule change.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct applies only to the sourced guidance-rule change after a failed attempt. The prior rule remains understandable while the revision replaces its consequence; the operation does not rewrite the test record, perform a retest, or open eligibility.",
+      "acts_on": [
+        "guidance-rule-set"
+      ],
+      "carried": [
+        "configured-agent",
+        "playground-test-record",
+        "go-live-eligibility",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-017",
+      "upstream_state_id": "CANVAS-12-SANDBOX-RESIDUE",
+      "state_before": "No observed sandbox-run result is attached to the residue record, so the wizard's human-work residue is unknown.",
+      "state_after": "The residue record visibly binds an observed sandbox-run result, including the possible result that no material human work remains.",
+      "business_operation": "Attach an observed sandbox-run result to the residue record without presupposing the result.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "12. First 30-day construction and validation plan",
+      "source_quote": "Smallest credible test inside that construction: The wizard run end to end on the sandbox with a written record of what it leaves undone; one unpaid implementation on a real brand with a stopwatch and the meter read before and after.",
+      "boundary_ledger_semantic_role_id": "accountableEvidence",
+      "boundary_ledger_operation_id": "pin",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Pin fits only the written evidence attachment: an observed sandbox result gains inspectable context without an evidence upgrade. It does not run the wizard. Both result branches remain open; sandbox execution itself is blocked under DSB-008.",
+      "acts_on": [
+        "sandbox-residue-record"
+      ],
+      "carried": [
+        "vendor.gorgias",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-019",
+      "upstream_state_id": "CANVAS-12-KILL-NO-BUYER",
+      "state_before": "Willingness to pay at the predeclared fee remains unknown while fewer than fifteen qualified conversations have been completed.",
+      "state_after": "The proposed practice is interrupted if fifteen qualified conversations produce no buyer at the fee.",
+      "business_operation": "Stop the proposed practice after fifteen qualified conversations produce no buyer.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "12. First 30-day construction and validation plan",
+      "source_quote": "Failure signal: The wizard configures knowledge, skills and handover adequately without a person; no brand in the band will pay after fifteen qualified conversations; lift under ten points; hours over 45; too few safe intents to justify the fee.",
+      "boundary_ledger_semantic_role_id": "actualRisk",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt fits the explicit company kill condition. It stops the proposed practice only after the stated observation threshold and does not imply that fifteen conversations or any purchase have occurred.",
+      "acts_on": [
+        "practice-opportunity"
+      ],
+      "carried": [
+        "economic-buyer",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-020",
+      "upstream_state_id": "CANVAS-12-KILL-LIFT",
+      "state_before": "The unpaid implementation's measured lift is not yet known.",
+      "state_after": "The proposed practice is interrupted if measured lift is under ten points.",
+      "business_operation": "Stop the proposed practice when the unpaid implementation measures under ten points of lift.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "12. First 30-day construction and validation plan",
+      "source_quote": "Failure signal: The wizard configures knowledge, skills and handover adequately without a person; no brand in the band will pay after fifteen qualified conversations; lift under ten points; hours over 45; too few safe intents to justify the fee.",
+      "boundary_ledger_semantic_role_id": "actualRisk",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt fits the explicit measured-lift kill condition. The transition is available only after an actual unpaid implementation; it does not turn the modeled ten-point threshold into an observed result.",
+      "acts_on": [
+        "practice-opportunity"
+      ],
+      "carried": [
+        "baseline-reading",
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-021",
+      "upstream_state_id": "CANVAS-12-KILL-HOURS",
+      "state_before": "The unpaid implementation's delivery hours are not yet known.",
+      "state_after": "The proposed practice is interrupted if measured delivery time exceeds forty-five hours.",
+      "business_operation": "Stop the proposed practice when the unpaid implementation takes more than forty-five hours.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "12. First 30-day construction and validation plan",
+      "source_quote": "Failure signal: The wizard configures knowledge, skills and handover adequately without a person; no brand in the band will pay after fifteen qualified conversations; lift under ten points; hours over 45; too few safe intents to justify the fee.",
+      "boundary_ledger_semantic_role_id": "actualRisk",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt fits the explicit delivery-hours kill condition. The state remains unknown until timed and the modeled forty-five-hour boundary is not represented as a completed implementation.",
+      "acts_on": [
+        "practice-opportunity"
+      ],
+      "carried": [
+        "operator"
+      ]
+    },
+    {
+      "id": "BO-022",
+      "upstream_state_id": "SPINE-ELEVEN-CURRENT",
+      "state_before": "An archetypal order-status ticket arrives at eleven at night inside the current default route.",
+      "state_after": "The current agent hands the ticket to a human who is not there.",
+      "business_operation": "Route the recurring eleven-o'clock order-status ticket into the unattended human queue.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/narrative-spine.md",
+      "source_sha256": "e57bb6cbd6ef2f93c19375be6c66fdc6eceb517d923e34164eef13e67a6478ee",
+      "source_locator": "Viewer movement",
+      "source_quote": "Recurring human situation, transaction, or buyer decision: **The eleven o'clock ticket.** A \"where is my order\" message arrives at a small online store at night; the agent hands it to a human who is not there. It recurs three times and changes each time: in the cold open (handed back, nobody there); mid-body, joined by the refund question, as the safe / conditional / never decision the operator makes; at the ending, answered at eleven because someone wrote the handbook, while the refund question is handed to a person because someone wrote down that it never should be automated.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route fits the sourced current failure: the persistent archetypal ticket changes queue from the agent to an unavailable human. The object is explicitly illustrative and recurring, not a documented customer incident.",
+      "acts_on": [
+        "ticket.order-status-11pm",
+        "ticket-flow"
+      ],
+      "carried": [
+        "support-team",
+        "shoppers"
+      ]
+    },
+    {
+      "id": "BO-023",
+      "upstream_state_id": "SPINE-ELEVEN-FUTURE-SAFE",
+      "state_before": "The recurring eleven-o'clock order-status example has not reached the illustrative ending under a written safe rule.",
+      "state_after": "In the illustrative ending, the order-status question is answered at eleven under the written handbook.",
+      "business_operation": "Route the recurring order-status example through the written safe rule at the illustrative ending.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/narrative-spine.md",
+      "source_sha256": "e57bb6cbd6ef2f93c19375be6c66fdc6eceb517d923e34164eef13e67a6478ee",
+      "source_locator": "Viewer movement",
+      "source_quote": "Recurring human situation, transaction, or buyer decision: **The eleven o'clock ticket.** A \"where is my order\" message arrives at a small online store at night; the agent hands it to a human who is not there. It recurs three times and changes each time: in the cold open (handed back, nobody there); mid-body, joined by the refund question, as the safe / conditional / never decision the operator makes; at the ending, answered at eleven because someone wrote the handbook, while the refund question is handed to a person because someone wrote down that it never should be automated.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route fits the authored ending's change of destination for the recurring archetypal order-status ticket. The state is explicitly illustrative future workflow, not evidence that an implementation passed or answered a real ticket.",
+      "acts_on": [
+        "ticket.order-status-11pm"
+      ],
+      "carried": [
+        "configured-agent",
+        "guidance-rule-set",
+        "shoppers"
+      ]
+    },
+    {
+      "id": "BO-024",
+      "upstream_state_id": "SPINE-ELEVEN-FUTURE-REFUND",
+      "state_before": "The recurring broken-item refund example has not reached the illustrative ending under the never rule.",
+      "state_after": "In the illustrative ending, the broken-item refund is handed to a person because it is recorded as never automated.",
+      "business_operation": "Route the recurring broken-item refund example to a person under the illustrative never rule.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/narrative-spine.md",
+      "source_sha256": "e57bb6cbd6ef2f93c19375be6c66fdc6eceb517d923e34164eef13e67a6478ee",
+      "source_locator": "Viewer movement",
+      "source_quote": "Recurring human situation, transaction, or buyer decision: **The eleven o'clock ticket.** A \"where is my order\" message arrives at a small online store at night; the agent hands it to a human who is not there. It recurs three times and changes each time: in the cold open (handed back, nobody there); mid-body, joined by the refund question, as the safe / conditional / never decision the operator makes; at the ending, answered at eleven because someone wrote the handbook, while the refund question is handed to a person because someone wrote down that it never should be automated.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route fits the authored ending's explicit human destination for the recurring archetypal refund question. The state is illustrative future workflow and does not claim a real refund, authorization, or engagement occurred.",
+      "acts_on": [
+        "ticket.broken-item-refund"
+      ],
+      "carried": [
+        "support-team",
+        "never-list",
+        "shoppers"
+      ]
+    }
+  ],
+  "design_system_blockers": [
+    {
+      "id": "DSB-001",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6-QUALITY-HANDOVER-STORM",
+      "blocked_state_change": "A handover storm on go-live day restores the previous configuration on that channel.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Quality and exception handling",
+      "source_quote": "Failure route: A wrong answer on a safe intent moves that intent to conditional and rewrites the guidance; a wrong answer on a money question moves it to never; a handover storm on go-live day reverts to the previous configuration on that channel. Anything touching consumer-protection rules on refunds or automated messaging routes to the brand's own adviser.",
+      "boundary_ledger_gap": "No permitted operation faithfully expresses configuration rollback. `return` is limited to movement from a rented path to an owned path; `correct` would require inventing a retained prior mark as business state; `settle` only holds an already-changed state.",
+      "required_resolution": "Boundary Ledger authority must define and bind a rollback operation, or Step 1 must restate the business change. Until then the world may record the sourced failure route but no selected engine operation may claim it.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-002",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-5-ACCEPTANCE",
+      "blocked_state_change": "Deliver the report and create the founder's signed acceptance event.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "5. Buyer result",
+      "source_quote": "**Primary acceptance measure:** the before-and-after report, delivered with the never list and the wrong-answer log, and the founder's sign-off that admin ownership has been handed back. The acceptance event is the report, not \"the AI works.\"",
+      "boundary_ledger_gap": "No permitted operation creates delivery or signature. `settle` can only hold an already-changed state and therefore cannot create `signed-and-delivered`; the former BO-010 reverse-fitted it.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing delivery or attestation operation, or Step 1 must change the state. The world keeps only an illustrative report template and acceptance gate.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-003",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6.7-RECOMMENDATION",
+      "blocked_state_change": "Record a recommendation to expand, hold, or turn off and have the founder accept the report.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "7. Report and hand back: before-and-after on the vendor's meter, the never list, the wrong-answer log, a recommendation to expand, hold, or turn off; admin ownership returned. Owner: operator, founder accepts. Output: the acceptance event.",
+      "boundary_ledger_gap": "The recommendation branch is a newly authored accountable decision, not an already-changed status that `settle` may hold. No other current operation expresses selecting and recording one branch.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing decision-record operation, or Step 1 must separate the branch into an existing semantic operation before it enters the engine.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-004",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-4-PAID-AUDIT",
+      "blocked_state_change": "Purchase a paid ticket audit and credit that payment against a later build.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "4. Offer",
+      "source_quote": "Plain-English offer: One fixed-scope, fixed-fee implementation of the AI agent already bundled in the brand's help desk, entered through a paid ticket audit credited against the build.",
+      "boundary_ledger_gap": "No permitted role/operation pair faithfully represents payment plus later credit. Treating a proposed transaction as `route`, `pin`, `correct`, or `settle` would invent the wrong semantic change.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing transaction/credit operation, or Step 1 must change the state. A proposed money flow may remain illustrative and cannot evidence a sale.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-005",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6-BEFORE-CONSENT",
+      "blocked_state_change": "Create written authorization to read thirty days of customer tickets.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Before delivery",
+      "source_quote": "Required access, data, permissions, or integrations: Written consent to read thirty days of tickets; scoped, client-controlled admin access to the help desk; the connected Shopify store; the AI Agent subscription active. `OBSERVED`: CLM-005 prerequisites. Consent and scoped access are design requirements (promotion record).",
+      "boundary_ledger_gap": "Creating written consent instantiates a new permissioned authorization. `route` can move existing admin control but cannot create consent; `pin` would only attach evidence to an already-existing claim.",
+      "required_resolution": "Boundary Ledger authority must define and bind an additive authorization operation, or Step 1 must restate the state. BO-012 is narrowed to admin custody only.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-006",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6.4-ACTION-AUTHORIZATION",
+      "blocked_state_change": "Create an actions register and change each money action from off to individually founder-authorized.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "4. Build skills for the top three intents; set handover triggers deliberately; leave actions off unless the founder signs per action. Owner: operator, founder signs. Output: configured agent, actions register.",
+      "boundary_ledger_gap": "`correct` can revise default agent behavior but cannot create a register or instantiate a founder authorization. No current permitted operation expresses additive record creation or per-action permission.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing record/authorization operation, or Step 1 must change the state. BO-004 is narrowed to skills and handover; separate action instances remain off-only templates.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-007",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6.5-GO-LIVE-ELIGIBILITY",
+      "blocked_state_change": "Open go-live eligibility after a playground suite passes.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "5. Test in the playground: ordinary, missing order, duplicate, angry, out-of-policy, not-in-knowledge. Owner: operator. Output: passing suite, or a rule change.",
+      "boundary_ledger_gap": "`pin` can attach the checked result to the attempt record but cannot open a separate eligibility state. `settle` cannot create that state and `correct` would misdescribe a pass as a revision.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing eligibility operation, or Step 1 must restate the state. BO-005 is narrowed to evidence attachment; future eligibility remains a conditional gate, not a changed object.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-008",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-12-SANDBOX-EXECUTION",
+      "blocked_state_change": "Run the wizard end to end on the sandbox as a material test operation.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "12. First 30-day construction and validation plan",
+      "source_quote": "Smallest credible test inside that construction: The wizard run end to end on the sandbox with a written record of what it leaves undone; one unpaid implementation on a real brand with a stopwatch and the meter read before and after.",
+      "boundary_ledger_gap": "`pin` can attach the written observed result but does not execute a sandbox test. No current operation expresses test execution without forcing it into evidence attachment.",
+      "required_resolution": "Boundary Ledger authority must define and bind a test-execution operation, or Step 1 must separate the action from its evidence. BO-017 represents only the written result attachment.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-009",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "CANVAS-6.1-NEVER-LIST-CREATION",
+      "blocked_state_change": "Create the first-draft intent map and never-list records from the classification work.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "1. Audit: export or view thirty days of tickets; classify by intent and outcome; mark each intent safe, conditional, never. Owner: operator. Output: the intent map and the never list, first draft.",
+      "boundary_ledger_gap": "`route` faithfully changes existing ticket-intent policy lanes but cannot instantiate the first-draft intent map or never-list records. No current operation expresses additive record creation.",
+      "required_resolution": "Boundary Ledger authority must define and bind the missing record-creation operation, or Step 1 must restate the state. BO-001 is narrowed to routing existing intent objects.",
+      "local_substitute_prohibited": true
+    }
+  ],
+  "excluded_operations": [
+    {
+      "id": "OUT-001",
+      "excluded_state_change": "The acceptance report becomes signed and delivered.",
+      "reason": "Withdrawn former BO-010. Boundary Ledger `settle` cannot create delivery or signature; see DSB-002. The future report remains an illustrative template, not evidence of an engagement."
+    },
+    {
+      "id": "OUT-002",
+      "excluded_state_change": "A recommendation to expand, hold, or turn off is created and accepted.",
+      "reason": "No current operation faithfully records the new branch decision; see DSB-003."
+    },
+    {
+      "id": "OUT-003",
+      "excluded_state_change": "A paid ticket audit is purchased and credited against a build.",
+      "reason": "No current operation faithfully represents payment plus credit; see DSB-004. The money flow remains proposed and illustrative only."
+    },
+    {
+      "id": "OUT-004",
+      "excluded_state_change": "A handover storm restores the previous configuration as a selected Boundary Ledger operation.",
+      "reason": "The source failure route is retained in the world, but no current operation faithfully represents rollback; see DSB-001."
+    },
+    {
+      "id": "OUT-005",
+      "excluded_state_change": "Written consent is created by routing admin control.",
+      "reason": "Consent creation is additive authorization, not route; see DSB-005."
+    },
+    {
+      "id": "OUT-006",
+      "excluded_state_change": "An actions register and per-action signatures are created by correcting agent defaults.",
+      "reason": "BO-004 is narrowed to configuration. Record creation and authorization remain blocked by DSB-006."
+    },
+    {
+      "id": "OUT-007",
+      "excluded_state_change": "A pinned playground result opens go-live eligibility.",
+      "reason": "Pin attaches the result but does not change eligibility; see DSB-007."
+    },
+    {
+      "id": "OUT-008",
+      "excluded_state_change": "Pinning a sandbox residue record performs the wizard test.",
+      "reason": "BO-017 is narrowed to the written observed result; sandbox execution remains blocked by DSB-008."
+    },
+    {
+      "id": "OUT-009",
+      "excluded_state_change": "Routing ticket intents creates the first-draft intent map and never list.",
+      "reason": "BO-001 is narrowed to existing ticket-intent lane changes; additive record creation remains blocked by DSB-009."
+    }
+  ],
+  "episode_visual_model": {
+    "name": "Policy lanes, recurring tickets, accountable handoff, and ownership return",
+    "label": "AUTHORED",
+    "business_operation_ids": [
+      "BO-001",
+      "BO-002",
+      "BO-003",
+      "BO-004",
+      "BO-005",
+      "BO-006",
+      "BO-007",
+      "BO-008",
+      "BO-009",
+      "BO-011",
+      "BO-012",
+      "BO-013",
+      "BO-015",
+      "BO-016",
+      "BO-017",
+      "BO-019",
+      "BO-020",
+      "BO-021",
+      "BO-022",
+      "BO-023",
+      "BO-024"
+    ],
+    "persistent_actors": [
+      {"id": "economic-buyer", "description": "The founder, operations lead, or CX lead whose fit is screened; this role is not automatically the payer or signatory."},
+      {"id": "brand-payer", "description": "The brand-side role in proposed payment flows; no payment is represented as having occurred."},
+      {"id": "founder-authorizer", "description": "The founder role that decides each money action and signs the handback; it is kept distinct from buyer and payer roles even when one person may hold all three."},
+      {"id": "support-team", "description": "The one-to-five agents who receive every handoff the configured agent cannot or must not complete."},
+      {"id": "shoppers", "description": "The beneficiaries sending tickets; never reduced to a metric."},
+      {"id": "operator", "description": "The accountable person who classifies, edits, configures, reviews, reports, and returns access."},
+      {"id": "vendor-platform", "description": "A class with separate Gorgias and Zendesk instances so one vendor's mechanism, threshold, price, or counting rule cannot migrate to the other."},
+      {"id": "ticket-intent", "description": "An object class whose named instances keep their identities while policy state changes."},
+      {"id": "recurring-ticket", "description": "An explicitly illustrative class with separate eleven-o'clock order-status and broken-item-refund instances."},
+      {"id": "money-action", "description": "A class whose refund, cancellation, and order-edit instances remain independently off; future authorization is a blocked illustrative branch, not a selected operation."},
+      {"id": "baseline-reading", "description": "The vendor-meter state before any intervention."},
+      {"id": "guidance-rule-set", "description": "The written rules whose revisions remain accountable."},
+      {"id": "admin-control", "description": "Temporary scoped control that must return to the brand."},
+      {"id": "acceptance-report", "description": "An illustrative future report template only; no current Boundary Ledger operation creates delivery or signature."}
+    ],
+    "zones_and_relationships": [
+      "Ticket intents move from an unclassified queue into safe, conditional, or never policy lanes. Safety may narrow after error but cannot widen again without a separately sourced reauthorization operation.",
+      "The recurring order-status and broken-item-refund tickets retain separate identities across the current failure and illustrative ending.",
+      "Gorgias and Zendesk remain separate vendor instances. Every money action remains a separate off-only template until DSB-006 supplies a faithful authorization operation; first-draft record creation remains blocked by DSB-009.",
+      "The vendor meter and the correctness record remain separate. A containment count never substitutes for the wrong-answer log.",
+      "A failed playground result remains pinned while BO-016 revises only the guidance rule and a later BO-005 pins a separate retest. Opening go-live eligibility remains blocked by DSB-007.",
+      "Email may route through the configured agent first in an illustrative future engagement, but conditional, never, and incomplete work remains connected to the human support team.",
+      "Scoped admin control may move into temporary client-controlled custody and then back to the brand. Report delivery, recommendation, signature, and paid-audit credit remain design-system blockers rather than fabricated operations.",
+      "The service opportunity begins with wizard residue, willingness to pay, measured lift, and measured hours unresolved; any stated kill result interrupts it."
+    ],
+    "mechanical_honesty": "The model separates observed current routing, untested business conditions, and illustrative future workflow. Passing, paid, authorized, returned, delivered, signed, and accepted states cannot be read as evidence of an engagement. The meter cannot become correctness, vendor facts cannot migrate between platforms, and a missing Boundary Ledger operation remains a blocker rather than a reverse-fitted selection.",
+    "establishment_ids": [
+      "EST-001",
+      "EST-002",
+      "EST-003"
+    ]
+  },
+  "reality_world": {
+    "people": [
+      "An economic buyer screened for fit",
+      "A brand-side payer in proposed transaction diagrams",
+      "A founder-authorizer deciding each money action and any future handback",
+      "One to five support agents receiving deliberate handoffs",
+      "Shoppers asking ordinary, angry, missing-order, duplicate, out-of-policy, and not-in-knowledge questions",
+      "One operator reading tickets, editing rules, and returning access",
+      "The brand's own adviser receiving consumer-protection questions"
+    ],
+    "places": [
+      "A small brand's support workspace",
+      "The operator's ticket-audit workspace",
+      "A future handback review between founder-authorizer and operator"
+    ],
+    "objects": [
+      "Ticket records with persistent intent identities",
+      "Separate recurring order-status and broken-item-refund examples",
+      "A written rule set and never list",
+      "A baseline reading, tuning log, and wrong-answer log",
+      "Separate off-only action templates plus blocked register, intent-map, and never-list creation",
+      "A blocked consent template and an existing scoped admin-control record",
+      "A playground result record, blocked go-live eligibility condition, and sandbox-residue result record",
+      "An illustrative before-and-after report template"
+    ],
+    "surfaces": [
+      "Separate Gorgias and Zendesk helpdesk and pricing evidence",
+      "Plain policy lanes and inspectable records",
+      "An illustrative future handback record, never proof of a signed engagement"
+    ]
+  },
+  "guardrails": [
+    "Never represent a higher verified-resolution count as proof of correct answers. The Canvas explicitly separates containment from correctness.",
+    "Never depict the modeled fee, hours, capacity, payback, lift, or owner-compensation arithmetic as observed, typical, conservative, achievable, or forecast performance.",
+    "Never imply that the vendor's wizard is inadequate or leaves specific work undone. Its residue is untested and remains open.",
+    "Never merge Gorgias and Zendesk or transfer one vendor's dollar figure, threshold, counting rule, or mechanism to the other. No per-resolution Gorgias dollar amount is supported.",
+    "Never collapse money actions into one authorization state. Each named action remains off unless the founder-authorizer signs that action individually.",
+    "Never depict the operator retaining admin ownership or customer data after handoff.",
+    "Never depict the support team as removed; conditional, never, and incomplete work returns to humans.",
+    "Never imply observed solo demand, an observed solo price, partner admission, a guaranteed lift, or a durable vendor gap.",
+    "Never imply that the company-level BUILD verdict overrides a client-level no-buy decision or any stated kill condition.",
+    "Never reverse a safe-to-conditional, conditional-to-never, never-list, action-authorization, or guidance-correction transition without a separately sourced reauthorization operation.",
+    "Never show future passing, paid, authorized, live, returned, delivered, signed, or accepted states as evidence that an engagement, test, purchase, action, handback, or result occurred.",
+    "Never upgrade an upstream evidence label or drop its population, date, hypothesis, assumption, or must-not-imply boundary."
+  ],
+  "establishment": [
+    {
+      "id": "EST-001",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer cannot yet identify the economic buyer or the day-to-day people receiving handoffs.",
+      "viewer_state_after": "The viewer can identify the founder, operations lead, or CX lead as economic buyer and the one-to-five support agents as day-to-day users.",
+      "reveals": [
+        "economic-buyer",
+        "support-team"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: The founder, ops lead, or head of CX at a Shopify DTC brand on Gorgias or Zendesk. `OBSERVED`: CLM-006 (ticket tiers), CLM-013 via AMD-01 (onboarding boundary). Day-to-day user: The brand's one to five support agents, who inherit what the agent hands back.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish changes only what the viewer can identify. The cited economic-buyer and support-agent roles already exist upstream; no business state, purchase, or engagement is invented or altered."
+    },
+    {
+      "id": "EST-002",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer has not yet connected support routing to the people who receive its consequence.",
+      "viewer_state_after": "The viewer can identify shoppers as beneficiaries and humans as the required destination when a question needs judgment.",
+      "reveals": [
+        "shoppers",
+        "ticket-flow"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Ultimate beneficiary or customer: The brand's shoppers, who get a correct answer at eleven at night or a human when the question needs one.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish is permitted for humanContext and makes the shopper-to-answer-or-human relationship identifiable without claiming that any ticket has yet changed route or outcome."
+    },
+    {
+      "id": "EST-003",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer has not yet recognized that the eleven-o'clock order-status ticket and broken-item refund are separate recurring illustrative examples.",
+      "viewer_state_after": "The viewer can identify both recurring examples and follow their different policy destinations without mistaking them for documented customer cases.",
+      "reveals": [
+        "recurring-ticket"
+      ],
+      "source_artifact": "../01-editorial/narrative-spine.md",
+      "source_sha256": "e57bb6cbd6ef2f93c19375be6c66fdc6eceb517d923e34164eef13e67a6478ee",
+      "source_locator": "Viewer movement",
+      "source_quote": "Recurring human situation, transaction, or buyer decision: **The eleven o'clock ticket.** A \"where is my order\" message arrives at a small online store at night; the agent hands it to a human who is not there. It recurs three times and changes each time: in the cold open (handed back, nobody there); mid-body, joined by the refund question, as the safe / conditional / never decision the operator makes; at the ending, answered at eleven because someone wrote the handbook, while the refund question is handed to a person because someone wrote down that it never should be automated.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish changes viewer knowledge only. It introduces the two recurring archetypal objects and their distinct destinations while preserving their explicit illustrative status."
+    }
+  ],
+  "input_lock": {
+    "editorial_lock": {"path": "../01-editorial/editorial-lock.md", "sha256": "76e41bfd02883e7f199d976440fe5e262e8b74d13f4a8e8b5f7b4750eac01874"},
+    "operator_canvas": {"path": "../01-editorial/operator-canvas.md", "sha256": "d5caa22c0114759247ca8084f3e2cf677f81f66fad5844d7fbc86c8fb963b209"},
+    "episode_investment_thesis": {"path": "../01-editorial/episode-investment-thesis.md", "sha256": "19ac4015597220d9567cb182b5852125bebc20642cdbbc27d668aef868b662a3"},
+    "narrative_spine": {"path": "../01-editorial/narrative-spine.md", "sha256": "e57bb6cbd6ef2f93c19375be6c66fdc6eceb517d923e34164eef13e67a6478ee"},
+    "episode_beat_sheet": {"path": "../01-editorial/episode-beat-sheet.md", "sha256": "18a1fc026fc551bbaa986affa4096d212dcd319fe003d8941547eb198250f542"},
+    "claims_map": {"path": "../01-editorial/claims-map.md", "sha256": "a5d0693ed70115d2a5973c15ee1fb6d751c0d1ab9ed74c680631cfcf9a564e24"},
+    "script": {"path": "../01-editorial/script.md", "sha256": "ca1dd86903b700c6fe41f9a22ae9e5862294808d9538f9a5a01f3a7d53a88373"},
+    "canonical_w": {"path": "../01-editorial/canonical-w.txt", "sha256": "ea3743bfcc6e881a96902556959d141f5a75a2288ecad713ccc6fa7ba787ca63"},
+    "spoken_identity": {"path": "../01-editorial/spoken-identity.json", "sha256": "8be1e30286b0018e8fd3d8b6359c6c478f79e9c700ace7c2c8299438ac17ba25"},
+    "narration_lock": {"path": "../02-narration-production/narration-lock.md", "sha256": "cb192c05231cf67196737835b5bcc858e7e4f1732cb09ac0afb508324071285f"},
+    "narration_master": {"path": "../02-narration-production/master/narration-master.wav", "sha256": "f3d749314141dc2ff158fa2860203cb3431aa6d052230dad9e89112d86ad571e"},
+    "word_transcript": {"path": "../02-narration-production/word-transcript.json", "sha256": "ad6d372e41d1a24ea0f8a93d64a66051c67426accfcb5a56774eec2b422c04ee"},
+    "intentional_pause_map": {"path": "../02-narration-production/intentional-pause-map.json", "sha256": "9e6bc05de75956f7c437aa7cb4ff02bb21b109a75e9d22c288dd785cbdd6120c"},
+    "narration_duration_seconds": 1223.556
+  }
+}

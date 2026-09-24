@@ -1,0 +1,101 @@
+{
+  "schema": "ep009-avatar-forward-short-qa-v1",
+  "status": "private_playable_review_ready",
+  "candidate": "EP009-SHORTS-003-03-guest-relationship",
+  "render": {
+    "path": "review/ep009-short03-avatar-forward-r3-review.mp4",
+    "sha256": "bc09d1ccc6cc65351b4dc5ef3d7ac1eb0cc25875d51d9d5b7fbf74be16b6cf65",
+    "duration_seconds": 16.166666666666668,
+    "width": 1080,
+    "height": 1920,
+    "fps": 24,
+    "frames": 388,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "strict_decode_exit": 0
+  },
+  "hyperframes": {
+    "version": "0.8.53",
+    "prior_pin": "0.8.51",
+    "check_pass": true,
+    "frame_check": true,
+    "motion_enabled": true,
+    "motion_samples": 300,
+    "errors": {
+      "lint": 0,
+      "runtime": 0,
+      "layout": 0,
+      "motion": 0,
+      "contrast": 0
+    },
+    "lint_warnings": 3,
+    "warning_description": "Three advisory nested-structure-needs-subcomposition warnings for simple graphic groups; no nested timed media.",
+    "check_file": "check-final-r4.json"
+  },
+  "audio": {
+    "comparison": "Decoded AAC vs exact r3 PCM excerpt, mono 8kHz, zero lag",
+    "sample_count": 111334,
+    "correlation": 0.9998458068223559,
+    "gain": 0.9973547462569103,
+    "source_cut_frames": [
+      4510,
+      4844
+    ],
+    "source_silent_end_region": [
+      201.48,
+      202.0
+    ],
+    "next_phrase_audible_onset_approx": 202.02,
+    "next_phrase_excluded": true
+  },
+  "visual_review": {
+    "method": "Inspected eight new encoded frames after plain-framing correction at 0.25,2,5,7,10,11.6667,13.3333,15 seconds; inspected the corrected source crop.",
+    "contact_sheet": "review/contact-sheet.jpg",
+    "findings": [
+      "Face leads every spoken thought; both hands and pointing gesture remain visible in the wide shot.",
+      "Original wider-to-closer source camera change retained for final question.",
+      "No regenerated or looping performance; voice and picture retain source timing.",
+      "Relationship cues clear face; captions clear the hands.",
+      "Source color retained; no grade or artificial room added.",
+      "Solid #173530 framing replaces the rejected stretched room/table strips.",
+      "Wide performance retains the identical crop (960x1080 at x360,y0), scale (1080x1216), placement (x0,y200), and source frames.",
+      "Cream captions remain legible on pine framing; both hands and pointing gesture visible."
+    ],
+    "limits": [
+      "Sampled encoded-frame inspection plus waveform/correlation validation; not an independent human audiovisual certification.",
+      "Portrait reframe trims outer elbow/room edges; original visible hand action remains in sampled frames.",
+      "Original accepted performance quality is inherited."
+    ]
+  },
+  "bindings": {
+    "index.html": "94a9a1bfc36b5caa7d9d684aedc11b2f319e4cddfeea41046dc3a21cb01a89da",
+    "index.motion.json": "fa1073ad75440e8e3df03ae2ae317a7a57b11310c6fd1b92cb6cfe64fe0b661d",
+    "build.py": "fc2b1cb9f9abd1d37bf892cda072ea2bccafa0afc565f541a69052a7576e5a60",
+    "source-contract.json": "6226d9ef1d12e16136cf11e9ce54555942389a5b57962f8b1d2ae7759b362d18",
+    "captions.json": "aa915be53917dfbedadb1f7128fcebb1d3a4fc6b3bad2fb532ffeab776cf2aa3",
+    "check-final-r4.json": "05db2b5e29a244b04efa990cf6e10392941c1bca87f6559f837dc2a0a0a8f3aa",
+    "qa/audio-boundary.json": "f5ac9da2bba5892e65c6b81782d40575a08a9d28906e5c4cc28c36e9fb5cddb3",
+    "assets/avatar-wide-r4.mp4": "9d013ba8f3b358acfc6b2082dfd381361ebfe89565af716e1a3c35af79806e39",
+    "assets/avatar-close.mp4": "ef95b410fa3016b2d6329ab4c3c60cfecb24c06300d20eadc3efde2c426abc4d",
+    "assets/voice-r2.wav": "389084f112687ab7c855ba000fa4f5d554f342f6ba1afb6709ddad576dee38c8",
+    "review/ep009-short03-avatar-forward-r3-review.mp4": "bc09d1ccc6cc65351b4dc5ef3d7ac1eb0cc25875d51d9d5b7fbf74be16b6cf65",
+    "review/contact-sheet.jpg": "5579b1ef89dabfb415333fb04797baab5f974e8ab77b00f1281e83a12e81b423",
+    "review/probe.json": "849abe2137dc9dcadb29e3bc9b8d5d612fde6f6d9e043652c140e8efc3bc027a"
+  },
+  "full_episode_lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+    "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+  },
+  "owner_review_accepted": false,
+  "publication_approved": false,
+  "related_video_attached": false,
+  "correction": {
+    "reason": "Root review rejected artificial stretched environment strips.",
+    "change": "Solid #173530 upper/lower framing only.",
+    "source_edl_unchanged": true,
+    "voice_sha_unchanged": true,
+    "captions_sha_unchanged": true,
+    "superseded_artifact": "review/ep009-short03-avatar-forward-r3-edge-extension-superseded.mp4",
+    "superseded_qa": "qa/QA-before-plain-framing.json"
+  }
+}

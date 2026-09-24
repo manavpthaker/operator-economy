@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+        }
+        .rough-model {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 1920px;
+          height: 1080px;
+          object-fit: cover;
+          object-position: 50% 50%;
+          background: #f5f0e6;
+          transform: scale(1.28);
+          transform-origin: 50% 50%;
+          filter: contrast(1.34) brightness(0.96) saturate(1.04);
+        }
+        .active-path {
+          position: absolute;
+          z-index: 2;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          pointer-events: none;
+        }
+        .active-path path {
+          fill: none;
+          stroke: #b5482f;
+          stroke-linecap: round;
+          stroke-linejoin: bevel;
+          opacity: 0;
+        }
+        .active-path .heavy { stroke-width: 4.1; }
+        .active-path .medium { stroke-width: 2.7; }
+        .active-path .light { stroke-width: 1.8; }
+      </style>
+
+      <div id="root" data-hf-id="callback-bridge-root" data-composition-id="callback-bridge" data-start="0" data-duration="12.25" data-width="1920" data-height="1080" data-fps="24">
+        <video id="rough-inspection-model" class="clip rough-model" data-hf-id="callback-rough-inspection-model" data-layout-allow-overflow data-start="0" data-duration="12.25" data-media-start="25.916666666666668" data-track-index="0" data-playback-rate="1" src="assets/video/source/rough-inspection-bl-mixed-011.mp4" muted playsinline preload="auto" aria-label="Boundary Ledger rough-pencil model: a buyer tests whether the operation is a business or a job attached to its owner"></video>
+
+        <svg id="dependency-active-path" class="active-path" data-hf-id="callback-dependency-active-path" viewBox="0 0 1920 1080" aria-hidden="true">
+          <path class="oxide-mark heavy" d="M 334 648 L 367 644" />
+          <path class="oxide-mark medium" d="M 360 651 L 392 646" />
+          <path class="oxide-mark heavy" d="M 386 647 L 421 651" />
+          <path class="oxide-mark light" d="M 413 645 L 448 649" />
+          <path class="oxide-mark heavy" d="M 440 652 L 473 646" />
+          <path class="oxide-mark medium" d="M 467 648 L 500 651" />
+          <path class="oxide-mark heavy" d="M 493 646 L 526 649" />
+          <path class="oxide-mark light" d="M 337 655 L 370 650" />
+          <path class="oxide-mark medium" d="M 366 654 L 398 650" />
+          <path class="oxide-mark light" d="M 394 652 L 426 656" />
+          <path class="oxide-mark medium" d="M 422 651 L 455 654" />
+          <path class="oxide-mark light" d="M 451 655 L 482 650" />
+          <path class="oxide-mark medium" d="M 478 652 L 509 654" />
+          <path class="oxide-mark heavy" d="M 507 636 L 527 649" />
+          <path class="oxide-mark medium" d="M 527 649 L 506 665" />
+        </svg>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.to("#dependency-active-path .oxide-mark", {
+          opacity: (index) => index % 3 === 0 ? 0.92 : index % 3 === 1 ? 0.72 : 0.54,
+          duration: 0.055,
+          stagger: 0.105,
+          ease: "none"
+        }, 10.38);
+        window.__timelines["callback-bridge"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

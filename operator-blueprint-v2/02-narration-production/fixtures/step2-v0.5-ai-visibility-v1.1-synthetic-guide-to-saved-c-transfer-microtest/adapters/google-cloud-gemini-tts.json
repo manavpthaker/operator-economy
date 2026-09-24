@@ -1,0 +1,44 @@
+{
+  "record_type": "credential_free_provider_adapter",
+  "status": "dry_run_only",
+  "provider": "google_cloud_text_to_speech",
+  "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+  "method": "POST",
+  "model_id": "gemini-2.5-pro-tts",
+  "voice": {
+    "name": "Achird",
+    "language_code": "en-US"
+  },
+  "dialogue": {
+    "canonical_range": "W[30,110)",
+    "token_count": 80,
+    "path": "../passages/P01-W0030-W0110.locked.txt",
+    "sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"
+  },
+  "acting_prompt": {
+    "utf8_bytes": 735,
+    "sha256": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416",
+    "location": "request_body.input.prompt"
+  },
+  "request": {
+    "canonical_serialization": "utf8-json-sort-keys-compact-ensure-ascii-false-no-terminal-lf",
+    "body_bytes": 1440,
+    "body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "count": 2,
+    "identical_unseeded_stochastic": true,
+    "retry": false,
+    "redirect": false,
+    "fallback": null
+  },
+  "output": {
+    "audio_encoding": "LINEAR16",
+    "container": "wav",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "preserve_original_bytes_for_qa_selection_and_transfer": true,
+    "listening_derivative_transfer_eligible": false
+  },
+  "credentials_accessed": false,
+  "network_called": false,
+  "audio_generated": false
+}

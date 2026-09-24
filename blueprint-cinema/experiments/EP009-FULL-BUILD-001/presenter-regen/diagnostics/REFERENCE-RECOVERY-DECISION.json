@@ -1,0 +1,47 @@
+{
+  "event_id": "ep009-presenter-reference-recovery-v2",
+  "decision_id": "ep009-presenter-reference-recovery",
+  "event_type": "decision",
+  "tags": [
+    "presenter",
+    "provider-recovery",
+    "performance"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Restore the narrator in the approved EP009 look with exact narration and quiet delivery.",
+      "viewer_before": "No new-look speaking takes exist; both-reference submissions repeatedly fail.",
+      "viewer_after": "Test one narration passage with the working articulation reference and the same explicit stillness direction."
+    },
+    "choice": "Quarantine Rebecca input after original, fresh-upload and normalized-container failures. Test P01 with approved Henry articulation reference, locked L3 identity and original audio; direct relaxed settling in text.",
+    "reason": "Henry-only diagnostic completes; Rebecca-only fails. More full-batch retries with the failing source would waste time without new evidence.",
+    "alternatives": [
+      {
+        "choice": "Continue submitting both references.",
+        "reason_not_selected": "Repeated terminal failures with no provider error explanation, including fresh byte-identical references."
+      },
+      {
+        "choice": "Drop all behavior references.",
+        "reason_not_selected": "Henry reference has a successful diagnostic and retains the accepted articulation role."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "This EP009 recovery pilot with current provider behavior.",
+      "avoid_when": "Both original references are working or the resulting performance fails review."
+    },
+    "nuance": {
+      "source_basis": "Current agent choice within owner-authorized autonomous full build and presenter regeneration allocation.",
+      "protected": "Locked look, words, original cadence, action and budget unchanged.",
+      "uncertainty": "Failure reason unknown; successful diagnostic does not prove speaking performance or sync.",
+      "batch_gate": "Review P01 native drift and restored sync before any bulk generation."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P01/AVATAR-PROMPT-henry-only.txt",
+      "sha256": "8f4228cfa53521adce1fb5890680b398f1ab4f0d4afa5a3cdcbcbe081324ff02",
+      "locator": "Pilot prompt"
+    }
+  ]
+}

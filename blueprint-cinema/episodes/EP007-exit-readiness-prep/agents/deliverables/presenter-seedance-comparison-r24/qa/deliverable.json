@@ -1,0 +1,60 @@
+{
+  "$schema": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-seedance-comparison-r24",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r24/seedance-01.json",
+      "sha256": "516085a6e93a534ee94ab93f517fe812a5892cf6fa1b14460d81b3a4f91780a5"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r24/owner-preference.json",
+      "sha256": "24b89a460bd087f4071b95a7994379357398fd7701220a97d7e0acad79b31a95"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r2/scope-two-sentences.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566"
+    }
+  ],
+  "files_produced": [
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-seedance-comparison-r24/qa/status.md",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-seedance-comparison-r24/qa/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Read saved Seedance 01 HTTP422/error fields and verify input artifact hashes.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Confirm expected seedance-01.mp4 and seedance-02.mp4 are absent; parent confirms no second request submitted.",
+      "outcome": "pass"
+    },
+    {
+      "command": "Native probe, full decode, audio correspondence, contact sheets and motion review: no Seedance media exists.",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Verify owned output paths, manifest structure, and all three bound input hashes.",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Saved parent-owned Seedance request result with HTTP422 and provider rejection reason; read-only verification.",
+    "Parent instructed immediate stop, confirmed no output and no second submission.",
+    "Existing InfiniteTalk preference record retained unchanged; source WAV retained unchanged."
+  ],
+  "assumptions": [
+    "Provider rejection is the parent's terminal outcome; this reviewer does not retry or reinterpret provider processing restrictions."
+  ],
+  "unresolved_questions": [
+    "Seedance output quality and exact-narration comparability cannot be assessed because no media was returned."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "blocked"
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-avatar-v5-viewer",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/review.html",
+      "sha256": "9f54d95194c6db1069a75f51897a3edd71c978404b819599d7367314568d0376"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v4-wide/review_server.py",
+      "sha256": "017f2525e15501d9c9d3186e2e18e06be2369cec38e4dd3cf9a04ebcbfb09c2a"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-VIEWER/review.html",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-VIEWER/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/EP007-AVATAR-V5-VIEWER/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Node vm execution with DOM stubs: syntax, pending/loaded/error states, exclusive playback, no healthy-player reload on refresh, retry and optional link visibility",
+      "outcome": "pass"
+    },
+    {
+      "command": "Review written copy for V5 candidate, V4 accepted-framing-only, and V3 accepted-delivery distinctions",
+      "outcome": "pass"
+    },
+    {
+      "command": "Browser and actual media playback; assigned to root after installation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Read existing local V4 viewer/server patterns; no media copied or generated.",
+    "review.html SHA-256 33fc6c969a11c8f0f4958f0ea64c3d1358ec6e5e20e0b10b7b84439e2df4b8ca",
+    "Work-order display ID EP007-AVATAR-V5-VIEWER; lowercase machine ID matches existing manifest schema."
+  ],
+  "assumptions": [
+    "Root adds /gestures.mp4 and gestures_available to the installed viewer server.",
+    "The provided V4 framing acceptance and V5 awaiting-review status are authoritative for this local comparison."
+  ],
+  "unresolved_questions": [
+    "Live route availability, phone display and actual media playback await root installation and verification."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

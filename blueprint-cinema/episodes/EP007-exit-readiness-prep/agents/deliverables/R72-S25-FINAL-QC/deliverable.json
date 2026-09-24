@@ -1,0 +1,99 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r72-s25-final-qc",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/index.html",
+      "sha256": "999d7ed1762ef62692a4cf527a4bbed75176c807a1b867bf72bb77d8690390f8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/qa/s25.mp4",
+      "sha256": "c3a4a467b08743c99b98837b484c14e0895608fe2070ad25908d7a2159076233"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-context/qa/context.mp4",
+      "sha256": "bd45de303216563dd180e8a854277513ecd1618ea578b8e05fabbe03cb87c364"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/index.html",
+      "sha256": "a7727975f424cd0f4ef26eae363d4b55b16cedd1262ab3f869032c8ed9c94f05"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/qa/s24.mp4",
+      "sha256": "c9945847aa4e4b281379e7331bb1fe097d3397530c08e97eea7c8551ae84a0a8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r72-s25-first-action/finish.py",
+      "sha256": "a58a6cbe97a94736a2c2cd15b68e2273fca02c2c7cc0e13410f6799907981de9"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r72-s25-first-action/public/audio/narration.wav",
+      "sha256": "a8277aa37c0d53090c107382fe237bf113c8a343d86b1db3e1e5858696e11f89"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/CHECK-PLAN.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/qc.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/seam-cues-and-ending.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/seam-cues-and-ending-index.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/final-report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R72-S25-FINAL-QC/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify current S24/S25 HTML and encoded source pins plus context supplied SHA256",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify actual726/926decoded frame counts,24fps,dimensions,durations,and1452000sample staged PCM equality",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare selected source and context lead/cue/end frames",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect encoded cue layout,finite button press,blank measurement record,and persistent scope caveat",
+      "outcome": "pass"
+    },
+    {
+      "command": "Measure encoded seam and retained4.11second end-pause against original master without universal correlation threshold",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify sampled settled ending remains unchanged and contains no invented result",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous normal-speed subjective listening",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Supplied final source hashes and accepted S24 hashes match actual files.",
+    "Staged scene audio matches original master bytes exactly.",
+    "Encoded cue,button and hold evidence comes from direct final-video extraction.",
+    "Seam and end-pause measurements compare actual encoded audio with original master."
+  ],
+  "assumptions": [
+    "The explicit4.2second gap is preserved across S25/S26, with4.11seconds owned by S25 picture.",
+    "Root owns the creative review and next-scene implementation."
+  ],
+  "unresolved_questions": [
+    "No continuous normal-speed listening verdict or owner acceptance is claimed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

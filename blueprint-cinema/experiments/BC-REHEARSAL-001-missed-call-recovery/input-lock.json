@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "status": "inputs_locked",
+  "locked_at": "2026-08-20T19:12:34Z",
+  "frame_rate": 30,
+  "duration_seconds": 61.411354,
+  "timing_authority": {
+    "audio_path": "inputs/vo.wav",
+    "word_table_path": "inputs/words.json",
+    "coverage": {
+      "word_count": 158,
+      "first_word_start": 0.01,
+      "last_word_end": 61.411354,
+      "beyond_audio_bounds": false,
+      "uniform_time_division_used": false
+    }
+  },
+  "generation": {
+    "tts_method": "macOS /usr/bin/say",
+    "tts_voice": "Samantha",
+    "tts_rate_words_per_minute": 150,
+    "audio_conversion": "ffmpeg 8.1.1; 48 kHz mono PCM s16le WAV",
+    "alignment_method": "whisper.cpp 1.8.5 small.en DTW attention alignment",
+    "alignment_flags": [
+      "--language en",
+      "--output-json-full",
+      "--split-on-word",
+      "--max-len 1",
+      "--dtw small.en",
+      "--no-flash-attn"
+    ],
+    "alignment_model_source": "/Users/brownmanbrain/whisper-models/ggml-small.en.bin",
+    "alignment_model_sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d",
+    "mismatch_report_path": "inputs/alignment-report.json",
+    "mismatch_status": "matched_with_declared_asr_corrections"
+  },
+  "artifacts": [
+    {
+      "path": "inputs/narration.txt",
+      "role": "exact_locked_synthetic_narration",
+      "sha256": "9285c4c4b2db987c34a3ca8bd9aa44e06db9ec15ef334352377b1d82a12c0127",
+      "size_bytes": 944
+    },
+    {
+      "path": "inputs/vo-samantha-150.aiff",
+      "role": "raw_local_system_voice_render",
+      "sha256": "4cc25f63e122809abfa41ac85ab02da5f73d27a3a0c7333c3daaf06237b8a73e",
+      "size_bytes": 2712336
+    },
+    {
+      "path": "inputs/vo.wav",
+      "role": "locked_rehearsal_vo_and_timing_authority",
+      "sha256": "af1ad4ebcf7cac540299ad048505ba67dd6eaa6f2396ad6f83238fa6658785df",
+      "size_bytes": 5895568,
+      "duration_seconds": 61.411354,
+      "sample_rate": 48000,
+      "channels": 1,
+      "codec": "pcm_s16le"
+    },
+    {
+      "path": "inputs/whisper-small-en-dtw.json",
+      "role": "raw_local_alignment_observation",
+      "sha256": "54d082d4aa74bd2a1d07dc5e5a04ac316d1f2afbd5dc8181f811f1b83d17c2ac",
+      "size_bytes": 82693
+    },
+    {
+      "path": "inputs/words.json",
+      "role": "locked_word_timing_table",
+      "sha256": "0400767dd914eb67cf68a716001b22ddb0c50597f251534685a8f35b96a79cf3",
+      "size_bytes": 39912
+    },
+    {
+      "path": "inputs/alignment-report.json",
+      "role": "alignment_mismatch_and_bound_report",
+      "sha256": "4fe059d53f8df289ad33d4cfabb3bc75f671bc3bc24eef8ed08ea53a473924b4",
+      "size_bytes": 1291
+    },
+    {
+      "path": "scripts/build_alignment.py",
+      "role": "fail_closed_alignment_adapter",
+      "sha256": "a68236ab97e9b03232dcaeae2bc53df9e388c41f9606211a4f8f1fbf6f4e1590",
+      "size_bytes": 8286
+    },
+    {
+      "path": "assets/fixtures/fixture-missed-call-log.csv",
+      "role": "synthetic_rehearsal_fixture_not_evidence",
+      "sha256": "2ab69fcdd524f45d096fd1339447d484dc8e473a2630d07960226b2e485f40f4",
+      "size_bytes": 529,
+      "public_evidence": false
+    }
+  ],
+  "prohibited_inputs_used": [],
+  "notes": [
+    "The exact user-provided narration was not rewritten.",
+    "The word table is derived from observed DTW token spans and explicit declared reconciliation; it is not based on uniform duration division.",
+    "The synthetic CSV fixture is not evidence and would block public delivery if represented as such."
+  ]
+}

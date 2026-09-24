@@ -1,0 +1,29 @@
+{
+  "status": "prepared_not_authorized_not_submitted",
+  "model": "fal-ai/kling-video/v3/pro/image-to-video",
+  "picture_audio_mode": "narrated_observation",
+  "input": {
+    "prompt": "One continuous eleven-second locked-off shot continuing the exact supplied frame and its settled paper position. Keep the same workshop, owner seated left in tan, buyer seated right in blue with glasses, daylight, table, green binder, pencil and keys. Preserve the existing single face-up prepared record exactly as shown. No new object or document, no new marks or text. The small oblique rows stay unreadable. Camera remains fixed: no movement, zoom, pan, orbit, reframing or cuts.\n\nOne sustained action: the buyer independently reads and checks the available record. His eyes work down the page with a small natural head adjustment. In the early portion he slowly follows one short part of the existing page with a finger once, then leaves that hand in place as he continues reading the lower part. Keep the motion restrained and at real speed, with natural breathing and occasional blinks. The owner watches quietly with both hands at rest, allowing him to use the record without her explanation. Maintain attentive inspection through the end; it is a process, not a finished decision.\n\nNo speech, lip movement, conversational gestures, question, answer, nod, smile, approval expression, handshake, signature, offer, celebration, head shake, looking back up to the owner, page turn, writing, repeated finger tracing, rhythmic gestures, frozen body, slow motion, paper duplication or object morphing. No sale verdict or closing gesture. Do not make the characters demonstrate success; simply show independent checking of the record.",
+    "duration": "11",
+    "generate_audio": false,
+    "cfg_scale": 0.5
+  },
+  "selection": {
+    "frames": 236,
+    "fps": 24,
+    "source_offset": "select only after actual playback; no speed change, freeze or loop"
+  },
+  "max_requests": 1,
+  "automatic_paid_retries": false,
+  "local_start_image": null,
+  "start_image_sha256": null,
+  "seed_dependency": {
+    "take": "A",
+    "condition": "A passes identity, single-sheet mechanics, prompt response and 170 usable frames",
+    "selection_rule": "Extract a settled frame after the sheet is face-up within buyer reach and the owner has released it. Bind frame number, source and PNG hashes before upload/submission. Do not submit B if A fails.",
+    "permitted_operations": [
+      "frame extraction",
+      "editorial crop preserving buyer/page/hands; no synthesis"
+    ]
+  }
+}

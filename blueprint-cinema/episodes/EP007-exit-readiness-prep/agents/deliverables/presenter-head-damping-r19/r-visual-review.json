@@ -1,0 +1,46 @@
+{
+  "review_type": "Independent exact-frame comparison of Q and R",
+  "verdict": "reject_current_R_background_integrity",
+  "source_sha256": "8675571508e53e3f57ecefe42994b71f9b710e7e3603f1ad1c9a454c66574950",
+  "candidate_sha256": "4fdb01e59b7d9af67d6f02d26c050c0c718b1956325f36f3c89b46f1ff9d27d1",
+  "candidate_sha256_verified": true,
+  "reviewed_frames": [17, 21, 25, 29, 33, 35],
+  "reviewed_times_seconds": [0.68, 0.84, 1.0, 1.16, 1.32, 1.4],
+  "evidence_files": [
+    "q-r-frame-017.png",
+    "q-r-frame-021.png",
+    "q-r-frame-025.png",
+    "q-r-frame-029.png",
+    "q-r-frame-033.png",
+    "q-r-frame-035.png",
+    "r-shelf-offset-check.json"
+  ],
+  "findings": [
+    {
+      "area": "Shelf",
+      "severity": "blocking_for_this_candidate",
+      "observation": "At 1.00 seconds the shelf bends upward directly beside both ears. The original shelf is substantially straight. The bend subsides at surrounding sampled frames, so the change is temporally varying deformation rather than a small rigid scene translation.",
+      "measurement": "Independent integer-offset matching of decoded shelf profiles at 1.00 seconds found approximately -13px at x1165, -10px at x1200, -5px at x1240 and 0px at x1290. At 0.84 and 1.16 seconds the near-head shift is approximately -2px; 0.68, 1.32 and 1.40 seconds are approximately zero."
+    },
+    {
+      "area": "Hair, ears, face and mouth",
+      "severity": "no_clear_artifact_in_sampled_frames",
+      "observation": "The face remains coherent and appears rigidly translated at the peak. No clear halo, doubling or local facial reshaping is visible in these six comparisons. This is a sampled-frame finding, not a full lip-sync or naturalness verdict."
+    },
+    {
+      "area": "Neck and collar",
+      "severity": "no_clear_seam_in_sampled_frames",
+      "observation": "No clear neck seam or abrupt collar discontinuity is visible in these six comparisons. Small stretching may remain; full-speed playback was not performed by this reviewer."
+    }
+  ],
+  "recommendation": "Do not pass R as-is. Preserving this amount of head correction while keeping the shelf intact requires foreground isolation and clean background restoration around the moved silhouette. A broader wall feather does not solve the observed deformation. Reducing strength reduces the shelf defect but also reduces the intended correction.",
+  "limitations": [
+    "Only the six requested frames were visually compared; no full-speed playback was performed.",
+    "Parent owns independent audio and timestamp validation.",
+    "No owner acceptance is inferred from this review."
+  ],
+  "productionGateAdvance": false,
+  "owner_approval": false,
+  "provider_calls": 0,
+  "canonical_files_changed": []
+}

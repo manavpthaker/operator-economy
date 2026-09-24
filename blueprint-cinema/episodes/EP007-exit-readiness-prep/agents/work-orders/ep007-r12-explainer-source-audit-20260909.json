@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r12-explainer-source-audit-20260909",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Audit existing local EP007 presenter assets for the selected Seedance404 appearance speaking the post-title explanation at master59.5–74.5. Report any exact available source or bounded missing pickup need. Main agent is independently extending the logo hold. No media generation or edits.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r11-presenter-first/index.html",
+      "sha256": "0490a31c5ff597c2358efc21d688a756d21c2397150cb9396ba7eb6bcc2795ea"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/review-media/404.mp4",
+      "sha256": "a0de31c36bde22219a1e067178b86cf750e7da1f11a69a775c370c82df6f29dd"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r12-explainer-source-audit-20260909/"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    ".agents/",
+    "design-system/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify hashes before inspection; original narration and word transcript are fixed.",
+    "Read prior r11 source-audit report and inspect relevant local presenter manifests/tests for same selected appearance plus exact59.5–74.5 words. Do not confuse Q look or identity passage with correct source.",
+    "Identify first useful sentence boundaries and source gaps. Return concise report.md and schema-valid deliverable.json. No provider calls, no external writes, no experiment writes, no invented availability."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on stale pinned inputs.",
+    "Do not repair or generate footage; report whether a new pickup is needed."
+  ],
+  "status": "closed"
+}

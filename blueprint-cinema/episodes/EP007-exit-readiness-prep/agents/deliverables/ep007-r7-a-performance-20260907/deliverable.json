@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r7-a-performance-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/DIRECTION.md", "sha256": "5a7447f8fb4db9af7f7ce03ead98595882269bbcd3ddf3ecd60c2a16995d1faf"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/SHOT-A-PROMPT.md", "sha256": "d7fc1ac732bf7198b026e5290106d37e2cebb0fd0bd3b1904f6d1a64d9afd118"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/renders/candidates/shot-a.mp4", "sha256": "ba60b4fc038b24c0e0ae90eca5825c6a56a27399ded077a44a3b7dbb6e2b0cb1"},
+    {"path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r7-rapport-pause/snapshots/shot-a-contact.png", "sha256": "23453d754fc22147cba4c27656c94306e57338d8975d8776cfd6c1c5aab9a239"}
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/deliverable.json",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/shot-a-2fps.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/owner-mouth-0-3s-6fps.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/buyer-mouth-4-8s-6fps.png",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r7-a-performance-20260907/buyer-mouth-8-11s-6fps.png"
+  ],
+  "checks": [
+    {"command": "shasum -a 256 on four exact work-order inputs; all match", "outcome": "pass"},
+    {"command": "ffprobe take A: 11.041667s, 1916x1080, H.264, 24fps, one video stream, no audio", "outcome": "pass"},
+    {"command": "Initial ffmpeg drawtext sheets; unavailable filter, no outputs produced", "outcome": "fail"},
+    {"command": "ffmpeg select every fourth/twelfth frame, crop/scale/tile into four owned QA sheets; inspect via view_image", "outcome": "pass"},
+    {"command": "Sampled strict closed-mouth instruction compliance", "outcome": "fail"},
+    {"command": "Direct validate_work_order and validate_deliverable without canonical gate validation", "outcome": "pass"},
+    {"command": "Full moving assembly playback with unchanged narration", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Pinned local generated take A and supplied contact sheet used solely as inspection inputs",
+    "Four owned QA sheets are ffmpeg frame-selection/crop/scale derivatives of the exact pinned MP4; no synthetic generation by this worker",
+    "No external source, upload, auth operation or provider call used"
+  ],
+  "assumptions": [
+    "Grid timestamps follow exact 24fps native frame selection as documented in report.md",
+    "Closed-mouth and nonverbal performance requirements are evaluated separately; an open mouth alone does not prove phoneme articulation"
+  ],
+  "unresolved_questions": [
+    "Full-speed moving-image naturalness and exact narration fit remain unreviewed by this packet",
+    "Word-shaped speech cannot be confirmed or ruled out by sequential still samples",
+    "Canonical inputs_locked remains unestablished; no production approval is inferred"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

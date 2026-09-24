@@ -1,0 +1,58 @@
+{
+  "record_type": "blocked_future_provider_adapter",
+  "status": "blocked_pending_exact_selected_guide_chain",
+  "provider": "elevenlabs",
+  "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+  "method": "POST",
+  "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+  "model_id": "eleven_multilingual_sts_v2",
+  "seed": 2026082501,
+  "query_policy": {
+    "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+    "output_format": "pcm_48000"
+  },
+  "multipart_fields": {
+    "audio": "__EXACT_SELECTED_ORIGINAL_PROVIDER_WAV_PENDING__",
+    "file_format": "other",
+    "model_id": "eleven_multilingual_sts_v2",
+    "remove_background_noise": false,
+    "seed": 2026082501,
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    }
+  },
+  "source_guide": {
+    "path": null,
+    "sha256": null,
+    "byte_count": null,
+    "duration_seconds": null,
+    "required_container": "wav",
+    "required_codec": "pcm_s16le",
+    "required_sample_rate_hz": 24000,
+    "required_channels": 1,
+    "must_be_original_provider_bytes": true
+  },
+  "conditional_fallback": {
+    "output_format": "mp3_44100_192",
+    "enabled": false,
+    "requires": "documented_unambiguous_pcm_capability_rejection_before_any_audio_is_accepted",
+    "forbidden_for_timeout_disconnect_dns_tls_authentication_408_429_5xx_malformed_or_ambiguous_outcome": true,
+    "comparison_eligible": false
+  },
+  "blockers": [
+    "exact selected original-provider guide absent",
+    "guide lexical technical and performance QA absent",
+    "owner guide selection absent",
+    "ElevenLabs no-training or ZRM evidence absent",
+    "cross-provider guide disclosure and target-voice rights absent",
+    "separate active AUTH-V1 absent"
+  ],
+  "request_compiled": false,
+  "network_authorized": false,
+  "network_called": false,
+  "audio_generated": false
+}

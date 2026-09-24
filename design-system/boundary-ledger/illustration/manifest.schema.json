@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/design-system/boundary-ledger/illustration/manifest.schema.json",
+  "title": "Boundary Ledger episode illustration manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "episode",
+    "status",
+    "asset",
+    "model",
+    "composition",
+    "accessibility",
+    "review"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "episode": { "type": "integer", "minimum": 1 },
+    "status": { "enum": ["draft", "in-review", "locked-reference", "approved"] },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "mediaType", "width", "height", "sha256"],
+      "properties": {
+        "file": { "type": "string" },
+        "mediaType": { "enum": ["image/jpeg", "image/png", "image/webp"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relationship", "currentPath", "ownedPath", "thesisBearingMark", "actors"],
+      "properties": {
+        "relationship": { "type": "string", "minLength": 1 },
+        "currentPath": { "type": "string", "minLength": 1 },
+        "ownedPath": { "type": "string", "minLength": 1 },
+        "thesisBearingMark": { "type": "string", "minLength": 1 },
+        "actors": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["aspectRatio", "crop", "objectFit", "topQuietZonePx", "mobileRedrawRule"],
+      "properties": {
+        "aspectRatio": { "const": "3:2" },
+        "crop": { "const": "forbidden" },
+        "objectFit": { "const": "contain" },
+        "topQuietZonePx": { "type": "integer", "minimum": 48 },
+        "mobileRedrawRule": { "type": "string", "minLength": 1 }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alt", "mobileMustRetain"],
+      "properties": {
+        "alt": { "type": "string", "minLength": 20 },
+        "mobileMustRetain": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roughnessAuthored",
+        "pageChromeBorrowed",
+        "mobileApproved",
+        "letteringReview",
+        "approvalScope",
+        "reviewerRole",
+        "approvedOn"
+      ],
+      "properties": {
+        "roughnessAuthored": { "const": true },
+        "pageChromeBorrowed": { "const": false },
+        "mobileApproved": { "type": "boolean" },
+        "letteringReview": { "enum": ["required-before-publication", "manually-verified"] },
+        "approvalScope": { "enum": ["visual-language-only", "publication-ready"] },
+        "reviewerRole": { "type": "string", "minLength": 1 },
+        "approvedOn": { "type": "string", "format": "date" }
+      }
+    }
+  }
+}

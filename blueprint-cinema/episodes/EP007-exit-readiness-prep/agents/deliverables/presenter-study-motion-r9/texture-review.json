@@ -1,0 +1,25 @@
+{
+  "reviewer": "Independent read-only shirt_treatment_review subagent",
+  "status": "technical_recommendation_not_approval",
+  "source_image": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r8/presenter-source-frame-0p4.png",
+  "reference_image": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r8/study-shoulder-extension-reference.png",
+  "tools": {"Pillow": "12.3.0", "NumPy": "2.3.5"},
+  "metric": "Population SD, ddof=0, of weighted RGB minus GaussianBlur(1.5) weighted RGB, weights [0.2126,0.7152,0.0722], gamma-encoded RGB on 0-255 scale. Crop first, then calculate high pass.",
+  "patches": [
+    {"image": "source", "side": "left", "rect_ltrb_exclusive": [20,970,120,1070], "highpass_sd": 0.88},
+    {"image": "source", "side": "right", "rect_ltrb_exclusive": [478,970,578,1070], "highpass_sd": 0.78},
+    {"image": "reference", "side": "left", "rect_ltrb_exclusive": [440,810,540,910], "highpass_sd": 10.11},
+    {"image": "reference", "side": "right", "rect_ltrb_exclusive": [1140,810,1240,910], "highpass_sd": 8.27}
+  ],
+  "blur_trial": {"native_reference_gaussian_radius_px": 1.6, "equivalent_at_width_1920_px": 1.84, "method": "Blur entire reference RGB in memory, then crop same reference patches and compute the stated high-pass metric. No image written.", "left_highpass_sd": 0.95, "right_highpass_sd": 1.05},
+  "brightness": {"reference_minus_source_left_mean_255": 4.2, "reference_minus_source_right_mean_255": 0.8, "recommendation": "Do not reduce overall exposure. Different folds and illumination prevent treating these patch means as a global correction target."},
+  "implementation_recommendation": "Treat static outer-shirt interior only; preserve silhouette alpha and mask-normalize blur to prevent background bleed. Exclude all face/neck and moving RGB. If still needed after blur, a local left reduction capped near 3/255 is a bounded trial.",
+  "pre_motion_r8_r9_comparison": {
+    "hash_binding": "Unavailable: reviewer did not capture hashes or mtimes during this earlier review. Do not associate these numbers with subsequently overwritten snapshots.",
+    "inspected_times_seconds": [0.4,23.2],
+    "left_snapshot_rect": [505,930,620,1045], "left_r8_highpass_sd": 7.016, "left_r9_highpass_sd": 4.888, "left_reduction_percent": 30.3,
+    "right_snapshot_rect": [1309,930,1424,1045], "right_r8_highpass_sd": 5.855, "right_r9_highpass_sd": 4.113, "right_reduction_percent": 29.8,
+    "mean_brightness_change_less_than_255": 0.06,
+    "visual_finding": "R9 improved cloth texture and pale fringe without obvious overblur or new notches. The extension remained sharper than the moving center; faint temple/ear fringe remained. Continuous motion was not assessed."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/design-system/boundary-ledger/retirement-manifest.schema.json",
+  "title": "Boundary Ledger legacy-consumer retirement manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "systemVersion", "policy", "consumers"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "1.0" },
+    "systemVersion": { "type": "string" },
+    "policy": { "type": "string", "minLength": 20 },
+    "consumers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "legacyAuthority",
+          "currentUse",
+          "replacementBinding",
+          "owner",
+          "status",
+          "exitGate",
+          "allowedForNewWork",
+          "preserveAsHistory"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "legacyAuthority": { "enum": ["rev-c", "rev-d-derived"] },
+          "currentUse": { "type": "string", "minLength": 8 },
+          "replacementBinding": { "type": "string", "minLength": 3 },
+          "owner": { "type": "string", "minLength": 2 },
+          "status": { "enum": ["blocked", "migrating", "verified", "historical"] },
+          "exitGate": { "type": "string", "minLength": 12 },
+          "verificationEvidence": { "type": ["string", "null"] },
+          "allowedForNewWork": { "const": false },
+          "preserveAsHistory": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

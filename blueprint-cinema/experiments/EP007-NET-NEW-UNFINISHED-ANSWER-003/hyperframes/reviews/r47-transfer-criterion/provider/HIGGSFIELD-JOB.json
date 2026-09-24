@@ -1,0 +1,64 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "This tool provides an auto-updating generation widget for these jobs. Do not call job_display, show_generations, or show_generation_by_ids to display these jobs again, either before or after completion, unless the user explicitly requests a separate display. If you need to await completion, use jobs_wait with timeout_seconds <= 15. Use job_display only if the user explicitly requests a separate re-display of one specific job."
+    },
+    {
+      "type": "text",
+      "text": "Note: adjustments applied — medias[0].role: \"image\" → \"image_references\" (Seedance 2.5 backend expects schema-key media roles); medias[1].role: \"video\" → \"video_references\" (Seedance 2.5 backend expects schema-key media roles); medias[2].role: \"video\" → \"video_references\" (Seedance 2.5 backend expects schema-key media roles); medias[3].role: \"audio\" → \"audio_references\" (Seedance 2.5 backend expects schema-key media roles).\n\nSubmitted 1 job. If a widget is visible, it polls automatically — do not call job_status or show_generations as a follow-up poll. In text-only clients, use job_status with sync:true to poll for completion.\n- a844d87a-78c7-4b6f-a121-54a7fe460229  \"One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, glasses, navy shirt, softly daylit study, lighting and framing with both forearms and complete hands visible.\n\nThe first VIDEO supplies relaxed conversational facial settling, ordinary blinks, small asymmetric head-angle adjustments and comfortable stillness. The second VIDEO supplies connected public-facing articulation and brief emphasis that settles. They are complementary behavior references only. Do not copy their clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 11.5-second AUDIO reference: \"Value only transfers if the business runs without the person selling it. That failure shows up in three shapes, and they look different from the outside.\"\n\nAddress one attentive viewer with a calm, clear explanation. Start comfortably near rest. On the first thought, \"Value only transfers,\" let one relaxed hand make a small outward opening near the tabletop. Keep the other hand mostly settled. Preserve the real pause after \"transfers\" without adding a nod or silent syllables. Let the open palm settle gradually during \"if the business runs without the person selling it.\" The gesture supports the whole condition rather than pointing at imaginary objects or marking every word.\n\nContinue into \"That failure shows up in three shapes, and they look different from the outside\" in the same shot with natural engagement. Hands settle comfortably; no three-finger count is needed. Do not enforce complete stillness: allow ordinary blinks, breathing and subtle asymmetry. Keep near-lens attention through the important condition. Do not schedule a look-away, repeated nod, side tilt or hand loop.\n\nForm changing, connected mouth shapes clearly with an easy jaw, brief natural tooth visibility and restrained emphasis. Avoid a fixed teeth display, held smile, exaggerated open mouth, raised-brow performance or theatrical concern. Finish \"outside\" fully at the source cadence and settle until the picture ends, with no extra words or silent speaking.\n\nKeep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects. Retain the exact original narration pauses.\n\""
+    },
+    {
+      "type": "text",
+      "text": "If the user requests a combined display of multiple generations, including jobs submitted through separate generate_* calls, collect all requested job IDs, wait for the complete set with jobs_wait, then call show_generation_by_ids with jobs: [{\"index\":0,\"job_id\":\"<first actual job ID>\"},{\"index\":1,\"job_id\":\"<second actual job ID>\"}, ...]. job_display accepts only one id: never pass ids to it or loop over it to show a group. Do not create an extra display when the existing generation widgets already satisfy the request."
+    }
+  ],
+  "structuredContent": {
+    "results": [
+      {
+        "id": "a844d87a-78c7-4b6f-a121-54a7fe460229",
+        "type": "video",
+        "status": "pending",
+        "model": "seedance_2_5",
+        "params": {
+          "prompt": "One continuous twelve-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, glasses, navy shirt, softly daylit study, lighting and framing with both forearms and complete hands visible.\n\nThe first VIDEO supplies relaxed conversational facial settling, ordinary blinks, small asymmetric head-angle adjustments and comfortable stillness. The second VIDEO supplies connected public-facing articulation and brief emphasis that settles. They are complementary behavior references only. Do not copy their clothing, room, microphone, headphones, screen-call gaze, unrelated speech or mouth timing. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 11.5-second AUDIO reference: \"Value only transfers if the business runs without the person selling it. That failure shows up in three shapes, and they look different from the outside.\"\n\nAddress one attentive viewer with a calm, clear explanation. Start comfortably near rest. On the first thought, \"Value only transfers,\" let one relaxed hand make a small outward opening near the tabletop. Keep the other hand mostly settled. Preserve the real pause after \"transfers\" without adding a nod or silent syllables. Let the open palm settle gradually during \"if the business runs without the person selling it.\" The gesture supports the whole condition rather than pointing at imaginary objects or marking every word.\n\nContinue into \"That failure shows up in three shapes, and they look different from the outside\" in the same shot with natural engagement. Hands settle comfortably; no three-finger count is needed. Do not enforce complete stillness: allow ordinary blinks, breathing and subtle asymmetry. Keep near-lens attention through the important condition. Do not schedule a look-away, repeated nod, side tilt or hand loop.\n\nForm changing, connected mouth shapes clearly with an easy jaw, brief natural tooth visibility and restrained emphasis. Avoid a fixed teeth display, held smile, exaggerated open mouth, raised-brow performance or theatrical concern. Finish \"outside\" fully at the source cadence and settle until the picture ends, with no extra words or silent speaking.\n\nKeep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects. Retain the exact original narration pauses.\n",
+          "aspect_ratio": "16:9",
+          "duration": 12,
+          "reference_images": [
+            "875a3997-b5c7-4410-9487-309a8c7740df",
+            "7dc478bc-0449-4867-a760-50670f4caccf",
+            "5ec537ee-b01c-4bb5-a343-636882e4b747",
+            "3e4932fa-7bc8-4fd0-87f8-c73f808e3538"
+          ],
+          "mode": "omni_reference",
+          "resolution": "1080p",
+          "bitrate_mode": "high",
+          "generate_audio": true
+        }
+      }
+    ],
+    "adjustments": {
+      "medias[0].role": {
+        "requested": "image",
+        "used": "image_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[1].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[2].role": {
+        "requested": "video",
+        "used": "video_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      },
+      "medias[3].role": {
+        "requested": "audio",
+        "used": "audio_references",
+        "reason": "Seedance 2.5 backend expects schema-key media roles"
+      }
+    }
+  },
+  "isError": false
+}

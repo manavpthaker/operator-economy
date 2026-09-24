@@ -1,0 +1,117 @@
+{
+ "take_id": "F03",
+ "segment_id": "seg003",
+ "status": "accepted_partial",
+ "attempts": [
+  {
+   "folder": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03",
+   "request_id": "01a0acdb-2dc8-7fd0-a236-a709318ae097",
+   "model": "fal-ai/kling-video/v3/pro/image-to-video",
+   "start_image": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/start.png",
+   "start_image_sha256": "fe0044a9320918754d404462268c71d80fb3f230ece3cb0715e8900edfe0f483",
+   "start_image_source": "F02-r2/raw.mp4 frame 192 (8.0 s), last frame of accepted F02 regeneration window",
+   "prompt": "Static camera. The camera is fixed on a tripod and never moves for the whole eight seconds: no pan, no truck, no dolly, no tilt, no zoom, no reframing, no cuts. The first frame and the last frame have exactly the same framing. Preserve the supplied starting frame exactly: the innkeeper seated behind the counter, dark hair tied back, olive-green cardigan over a cream shirt, a small brass key in her hand; the counter, desk bell, daffodils, laptop with its screen facing her and never visible to camera, blank cards and pen, beige corded desk phone, printed pages, open guest book, key rack, entrance door at left, window and trail at right, daylight. She is alone; nobody else is in the room.\n\nFor the first second she stays as in the frame. Then she sets the key down on the counter, turns to the open laptop in front of her, places her hands on the keyboard and types a few words. Then her hands stop and hover just above the keys, and she keeps looking at the screen with a neutral, attentive expression.\n\nShe stays seated behind the counter. No speaking, no lip movement, no frowning, no sighing. The laptop screen is never visible to camera. No new person, prop, text, logo or sound. Real-time motion.",
+   "duration": "8",
+   "generate_audio": false,
+   "cfg_scale": 0.5,
+   "raw": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/raw.mp4",
+    "sha256": "c050dcdebcb1b00716b66fbd7bf5c22b073b42f755a8f9b4bce2764953cfef38",
+    "frames": 193,
+    "size": [
+     1920,
+     1080
+    ],
+    "fps": 24
+   },
+   "contact": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/contact.jpg",
+   "cost_usd_listed": 0.896,
+   "regeneration_reason": null
+  }
+ ],
+ "cost_usd_listed_total": 0.896,
+ "cost_basis": "Fal listed $0.112/s x 8 s; account debit not returned by the API",
+ "honest_note": "She sets the key down by the bell, turns to the laptop and types. The typing never clearly stops and hovers; the stop the narration implies is not performed. Expression neutral and attentive, not upset. The take pushed in during its first 1.5 s; window starts after it.",
+ "action_performed": "partial",
+ "source_window": "source frames 36-187 (1.5-7.833 s)",
+ "audio_offset_windows": "not applicable: film takes carry no generated audio; audio is the sample-exact master excerpt",
+ "checks_scope": "Checked: frame count, 1280x720 24 fps, PCM intermediate audio sample-exact vs master excerpt, AAC corr at zero lag, uniform frames, 2 fps and 4 fps contact sheets of the raw take plus detail crops at the action. Not judged: playback at speed with the narration, full-resolution texture flicker, whether the viewer reads the intended inference.",
+ "agent_verdict_is_recommendation_only": true,
+ "final": {
+  "segment_id": "seg003",
+  "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/final/seg003.mp4",
+  "sha256": "9f79afd86fca1848cf594f2033dff3e714da9780863d8a0aa9fb8000ff039fee",
+  "frames_expected": 152,
+  "frames": 152,
+  "frames_ok": true,
+  "size": [
+   1280,
+   720
+  ],
+  "fps": 24.0,
+  "audio": {
+   "sample_rate": 48000,
+   "channels": 2,
+   "master_samples": [
+    504000,
+    808000
+   ],
+   "pcm_intermediate_sample_exact": true,
+   "aac_corr_zero_lag_vs_master_excerpt": 0.99999
+  },
+  "uniform_frames": 0,
+  "source_window": {
+   "source_in_s": 1.5,
+   "source_out_s": 7.8333,
+   "native_fps": 24.0,
+   "speed_change": false
+  },
+  "master_in": 10.5,
+  "master_out": 16.833333,
+  "segment_frames": [
+   252,
+   404
+  ]
+ },
+ "checks": {
+  "frames_ok": true,
+  "size": [
+   1280,
+   720
+  ],
+  "fps": 24.0,
+  "audio_pcm_sample_exact": true,
+  "audio_aac_corr": 0.99999,
+  "uniform_frames": 0,
+  "readable_text_or_logo": "none seen in used window",
+  "extra_people": "none",
+  "rude_or_ignoring_behaviour": "none seen"
+ },
+ "fix_round_1": {
+  "segments": {
+   "seg003": {
+    "findings": [
+     "A-02"
+    ],
+    "sha256": "26a4194672f3b3544b7d0d4057a9265ed83da7f2edd267fd61c44bc94a11eb85",
+    "framing": "full frame for segment frames 0-151",
+    "edit_record": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/EDIT-R1-seg003.json",
+    "r0": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/qa/seg003.r0.mp4",
+    "checks": {
+     "frames_ok": true,
+     "audio_zero_lag_corr": [
+      0.99999,
+      0.99999
+     ],
+     "uniform_frames": 0,
+     "hyperframes_check": "not applicable: clip re-cut with ffmpeg, no HyperFrames project touched"
+    },
+    "stills": [
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/qa/stills-r1/seg003-f0000-m10.500.png",
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/qa/stills-r1/seg003-f0076-m13.667.png",
+     "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/qa/stills-r1/seg003-f0151-m16.792.png"
+    ]
+   }
+  }
+ }
+}

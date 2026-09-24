@@ -1,0 +1,90 @@
+{
+  "event_id": "r39-s08-media-integration-v3",
+  "decision_id": "s08-owner-dependency",
+  "event_type": "decision",
+  "supersedes": "r38-s08-progressive-business-v2",
+  "tags": [
+    "presenter",
+    "original-audio",
+    "pronoun-correction",
+    "approved-generation",
+    "progressive-construction"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Carry the buyer question in direct presenter address before the operating test.",
+      "viewer_before": "R38 shows the staged visual but uses an explicitly temporary presenter still and incorrect original callback pronoun.",
+      "viewer_after": "The corrected buyer callback leads naturally into the V5 presenter question and then the progressive operating model."
+    },
+    "choice": "Replace the marked still with one new continuous V5 wide source and replace only the callback sentence with a matching Original C pickup; preserve R38 graphic construction.",
+    "reason": "The owner approved the exact media package. New matching speech is needed for the requested presenter shot and corrected question attribution.",
+    "alternatives": [
+      {
+        "choice": "Reuse an unrelated accepted V5 clip",
+        "reason_not_selected": "It would not match the words or delivery."
+      },
+      {
+        "choice": "Replace the full S08 narration with the generated contextual read",
+        "reason_not_selected": "Only the callback needs correction; the original question timing and voice performance are preserved."
+      },
+      {
+        "choice": "Force a longer pickup into the old slot",
+        "reason_not_selected": "Time compression risks unnatural voice; the approved plan allows a whole-frame extension of S08 only."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "Integrating this approved callback and V5 take.",
+      "avoid_when": "Other takes or retries require their own exact authorization."
+    },
+    "nuance": {
+      "cut_cues": [
+        {
+          "cue_id": "callback",
+          "phrase": "Back to his question, then.",
+          "relation": "Corrected pickup over continuous buyer film; natural duration measured before placement",
+          "review_seconds": 247.625
+        },
+        {
+          "cue_id": "presenter",
+          "phrase": "What happens here if you are not around for a month. That is not small talk.",
+          "relation": "One matching V5 wide source, from47/24 scene-local before any callback delta, through174/24; original audio preserved",
+          "master_seconds": 252.58333333333334,
+          "fps": 24
+        },
+        {
+          "cue_id": "heading",
+          "phrase": "That is the buyer checking",
+          "relation": "Preserve R38 heading-first cut and all later relative graphic cues; move them together only if pickup needs room",
+          "master_seconds": 257.875,
+          "fps": 24
+        }
+      ],
+      "performance": "Restrained pensive progression with near-viewer engagement, clear connected mouth shapes, quiet hands and natural final settle. No forced look-away or repeated head choreography.",
+      "source_basis": "Current owner Approved binds the exact R38 package; source and waveform measurements determine final placement.",
+      "false_inference": "Generation authorization is not final picture acceptance. A waveform match does not prove perceptual lip sync."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/GENERATION-AUTHORIZATION.json",
+      "sha256": "c31cf4ffa13015fe691c97183edca86ecb0458044bb24f07a5418d9d52af2e93",
+      "locator": "Current explicit spend authorization and caps"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/AVATAR-TAKE-PLAN.json",
+      "sha256": "04218222f870e3bfea45d45c7c21ba3e553fceee5a9c419a427aebbaa58ffd1b",
+      "locator": "Exact V5 references and source coverage"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/HIGGSFIELD-REQUEST.json",
+      "sha256": "3a9eb7be458d793e4d005cd1427c3b3327dd42e7a02ad3e1330d9d2d4c193a5f",
+      "locator": "Single submitted avatar request"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/CALLBACK-PICKUP-REQUEST.json",
+      "sha256": "69a5513d680ebee042285ff127bc1f5f1cd81a9f335af57b69cf3670095ab160",
+      "locator": "One contextual guide and transfer; callback-only integration"
+    }
+  ]
+}

@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>The Four-Word Pause</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Boska";
+          src: url("assets/fonts/boska-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Zodiak";
+          src: url("assets/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+        }
+        * {
+          box-sizing: border-box;
+        }
+        #one-month-test {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #173530;
+          background: #f5f0e6;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .stage {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          opacity: 0;
+          transform: translateY(1920px);
+        }
+        .paper-stage {
+          background:
+            linear-gradient(90deg, transparent 67px, rgba(88, 109, 116, 0.16) 68px, transparent 69px),
+            linear-gradient(0deg, rgba(196, 185, 158, 0.11) 1px, transparent 1px),
+            #f5f0e6;
+          background-size: auto, 100% 96px, auto;
+        }
+        .mineral-stage {
+          color: #f5f0e6;
+          background:
+            linear-gradient(90deg, transparent 67px, rgba(164, 198, 178, 0.18) 68px, transparent 69px),
+            #173530;
+        }
+        .stage-kicker {
+          position: absolute;
+          left: 80px;
+          top: 84px;
+          color: #586d74;
+          font-size: 21px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+        .critical-disclosure {
+          font-size: 28px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+        }
+        .mineral-stage .stage-kicker {
+          color: #a4c6b2;
+        }
+        .mono {
+          font-family: monospace;
+          font-variant-numeric: tabular-nums;
+        }
+
+        /* Hook */
+        #hook-stage {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .hook-prompt {
+          position: absolute;
+          left: 80px;
+          top: 136px;
+          width: 770px;
+          color: #586d74;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .hook-title {
+          position: absolute;
+          left: 80px;
+          top: 216px;
+          z-index: 10;
+          width: 900px;
+          font: 700 124px/0.84 "BL Boska", Georgia, serif;
+          letter-spacing: -0.045em;
+        }
+        .hook-title span {
+          display: block;
+          opacity: 0;
+        }
+        .hook-title .silence-line {
+          color: #b5482f;
+        }
+        .scene-sheet {
+          position: absolute;
+          left: 80px;
+          top: 600px;
+          width: 880px;
+          height: 900px;
+          overflow: hidden;
+          background: #fbf8f1;
+          border: 2px solid #c4b99e;
+        }
+        .scene-label {
+          position: absolute;
+          left: 30px;
+          top: 28px;
+          z-index: 5;
+          color: #586d74;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.11em;
+          text-transform: uppercase;
+        }
+        .human-scene {
+          position: absolute;
+          inset: 0;
+          width: 880px;
+          height: 900px;
+        }
+        .human-line {
+          fill: none;
+          stroke: #33464c;
+          stroke-width: 9;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .human-light {
+          fill: none;
+          stroke: #71868d;
+          stroke-width: 5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .table-line {
+          stroke: #204440;
+          stroke-width: 18;
+          stroke-linecap: square;
+        }
+        .role-label {
+          position: absolute;
+          top: 720px;
+          color: #586d74;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        .role-buyer {
+          left: 154px;
+        }
+        .role-owner {
+          right: 142px;
+        }
+        .answer-strip {
+          position: absolute;
+          left: 110px;
+          top: 260px;
+          width: 660px;
+          height: 210px;
+        }
+        .answer-trace {
+          position: absolute;
+          inset: 0;
+          width: 660px;
+          height: 210px;
+          overflow: visible;
+        }
+        .draw-path {
+          fill: none;
+          stroke: #71868d;
+          stroke-width: 7;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .answer-word {
+          position: absolute;
+          top: 91px;
+          width: 56px;
+          height: 25px;
+          background: #b5482f;
+          border-radius: 13px;
+          opacity: 0;
+        }
+        #word-1 {
+          left: 490px;
+          width: 64px;
+        }
+        #word-2 {
+          left: 408px;
+          width: 54px;
+        }
+        #word-3 {
+          left: 320px;
+          width: 62px;
+        }
+        #word-4 {
+          left: 234px;
+          width: 56px;
+        }
+        .answer-stop {
+          position: absolute;
+          left: 207px;
+          top: 66px;
+          width: 9px;
+          height: 76px;
+          background: #b5482f;
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: 50% 50%;
+        }
+        .stop-caption {
+          position: absolute;
+          left: 202px;
+          top: 458px;
+          width: 330px;
+          color: #33464c;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.1;
+          letter-spacing: 0.11em;
+          text-align: left;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+
+        /* Question */
+        .question-wrap {
+          position: absolute;
+          left: 80px;
+          top: 198px;
+          width: 900px;
+        }
+        #month-question {
+          width: 900px;
+          opacity: 0;
+        }
+        .question-line {
+          display: block;
+          color: #173530;
+          font: 700 91px/0.98 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.04em;
+          opacity: 0;
+        }
+        .question-line:last-child {
+          color: #b5482f;
+        }
+        .calendar-card {
+          position: absolute;
+          left: 80px;
+          top: 1010px;
+          width: 880px;
+          height: 520px;
+          padding: 46px 52px;
+          background: #fbf8f1;
+          border: 2px solid #c4b99e;
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        .calendar-label {
+          color: #586d74;
+          font-size: 19px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+        .day-window {
+          position: absolute;
+          left: 50px;
+          top: 108px;
+          width: 310px;
+          height: 228px;
+          overflow: hidden;
+          border: 2px solid #71868d;
+        }
+        .day-number {
+          position: absolute;
+          left: 0;
+          top: 24px;
+          width: 100%;
+          color: #173530;
+          font: 500 174px/1 monospace;
+          letter-spacing: -0.09em;
+          text-align: center;
+        }
+        #day-30 {
+          transform: translateY(238px);
+          opacity: 0;
+        }
+        .calendar-route {
+          position: absolute;
+          left: 390px;
+          top: 106px;
+          width: 240px;
+          height: 230px;
+        }
+        .calendar-route path {
+          fill: none;
+          stroke: #b5482f;
+          stroke-width: 9;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .month-result {
+          position: absolute;
+          right: 28px;
+          top: 128px;
+          width: 174px;
+          color: #173530;
+          font: 700 68px/0.9 "BL Boska", Georgia, serif;
+          letter-spacing: -0.04em;
+          opacity: 0;
+        }
+        .month-note {
+          position: absolute;
+          left: 52px;
+          bottom: 48px;
+          width: 750px;
+          color: #33464c;
+          font-size: 28px;
+          line-height: 1.25;
+        }
+
+        /* Mechanism */
+        .mechanism-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          width: 890px;
+          color: #173530;
+          font: 700 82px/0.94 "BL Boska", Georgia, serif;
+          letter-spacing: -0.04em;
+          opacity: 0;
+        }
+        #mechanism-board {
+          position: absolute;
+          left: 68px;
+          top: 390px;
+          width: 944px;
+          height: 1160px;
+          padding: 36px 32px;
+          background: #fbf8f1;
+          border-top: 3px solid #204440;
+          border-bottom: 3px solid #204440;
+        }
+        .board-note {
+          color: #586d74;
+          font-size: 27px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          line-height: 1.1;
+          text-transform: uppercase;
+        }
+        .mechanism-row {
+          position: absolute;
+          left: 32px;
+          width: 880px;
+          height: 335px;
+          background: #f5f0e6;
+          border: 2px solid #c4b99e;
+          opacity: 0;
+          transform: translateY(34px);
+        }
+        .present-row {
+          top: 96px;
+        }
+        .absent-row {
+          top: 468px;
+        }
+        .row-label {
+          position: absolute;
+          left: 24px;
+          top: 22px;
+          color: #586d74;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        .task-card,
+        .owner-node,
+        .outcome-card {
+          position: absolute;
+          top: 108px;
+          z-index: 4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 112px;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .task-card {
+          left: 20px;
+          width: 232px;
+          padding: 0 20px;
+          color: #173530;
+          background: #ede7d8;
+          border: 2px solid #71868d;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+        }
+        .owner-node {
+          left: 356px;
+          width: 168px;
+          color: #f5f0e6;
+          background: #204440;
+          border: 3px solid #204440;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+        }
+        .owner-node.empty {
+          color: #33464c;
+          background: transparent;
+          border-color: #71868d;
+          border-style: dashed;
+        }
+        .outcome-card {
+          right: 20px;
+          width: 226px;
+          color: #33464c;
+          background: #ede7d8;
+          border: 2px solid #71868d;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          opacity: 0.45;
+        }
+        .row-route {
+          position: absolute;
+          left: 0;
+          top: 76px;
+          z-index: 1;
+          width: 880px;
+          height: 180px;
+          overflow: visible;
+          pointer-events: none;
+        }
+        .row-route path {
+          fill: none;
+          stroke: #71868d;
+          stroke-width: 6;
+          stroke-linecap: round;
+        }
+        .route-token {
+          position: absolute;
+          left: 236px;
+          top: 149px;
+          z-index: 6;
+          width: 28px;
+          height: 28px;
+          background: #b5482f;
+          border: 5px solid #fbf8f1;
+          border-radius: 50%;
+          box-shadow: 0 0 0 2px #b5482f;
+          opacity: 0;
+        }
+        .wait-mark {
+          position: absolute;
+          left: 337px;
+          top: 134px;
+          z-index: 7;
+          width: 8px;
+          height: 58px;
+          background: #33464c;
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: 50% 50%;
+        }
+        .context-strip {
+          position: absolute;
+          left: 32px;
+          bottom: 62px;
+          display: flex;
+          gap: 12px;
+          width: 880px;
+        }
+        .context-chip {
+          flex: 1;
+          padding: 18px 12px;
+          color: #33464c;
+          background: #ede7d8;
+          border: 2px solid #c4b99e;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.07em;
+          text-align: center;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(18px);
+        }
+
+        /* Stakes */
+        .stakes-copy {
+          position: absolute;
+          left: 80px;
+          top: 250px;
+          width: 900px;
+        }
+        .stakes-word {
+          display: block;
+          font: 700 145px/0.86 "BL Boska", Georgia, serif;
+          letter-spacing: -0.05em;
+          opacity: 0;
+        }
+        .stakes-or {
+          display: block;
+          margin: 62px 0 54px 6px;
+          color: #586d74;
+          font-size: 27px;
+          font-weight: 500;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+        #owner-job-word {
+          color: #b5482f;
+        }
+        .stakes-rule {
+          width: 0;
+          height: 8px;
+          margin-top: 68px;
+          background: #71868d;
+        }
+        .stakes-finding {
+          position: absolute;
+          left: 80px;
+          top: 1250px;
+          width: 900px;
+          padding: 34px 36px;
+          color: #f5f0e6;
+          background: #204440;
+          font: 700 42px/1.02 "BL Zodiak", Georgia, serif;
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        .stakes-qualification {
+          position: absolute;
+          left: 80px;
+          top: 1436px;
+          width: 900px;
+          color: #586d74;
+          font-size: 27px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          line-height: 1.15;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+
+        /* Practice */
+        .practice-question {
+          position: absolute;
+          left: 80px;
+          top: 180px;
+          width: 900px;
+          color: #173530;
+          font: 700 93px/0.94 "BL Boska", Georgia, serif;
+          letter-spacing: -0.045em;
+          opacity: 0;
+        }
+        .practice-card {
+          position: absolute;
+          left: 80px;
+          top: 680px;
+          width: 880px;
+          height: 770px;
+          padding: 50px;
+          color: #f5f0e6;
+          background: #204440;
+          opacity: 0;
+          transform: translateY(42px);
+        }
+        .practice-card-label {
+          color: #a4c6b2;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+        .practice-card-title {
+          width: 700px;
+          margin-top: 36px;
+          font: 700 72px/0.92 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.035em;
+        }
+        .locked-tabs {
+          display: grid;
+          gap: 16px;
+          margin-top: 58px;
+        }
+        .locked-tab {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 92px;
+          padding: 0 28px;
+          color: #f5f0e6;
+          border: 2px solid #71868d;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.09em;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(34px);
+        }
+        .tab-question {
+          color: #fb8b69;
+          font: 500 42px/1 monospace;
+        }
+        .practice-stamp {
+          position: absolute;
+          left: 50px;
+          bottom: 44px;
+          color: #f5f0e6;
+          font-size: 23px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+
+        /* Missing number */
+        .number-copy {
+          position: absolute;
+          left: 80px;
+          top: 216px;
+          width: 880px;
+        }
+        #missing-hours {
+          opacity: 0;
+        }
+        .hours-question {
+          display: block;
+          color: #fb8b69;
+          font: 700 310px/0.74 "BL Boska", Georgia, serif;
+          letter-spacing: -0.08em;
+        }
+        .hours-word {
+          display: block;
+          margin-top: 26px;
+          color: #f5f0e6;
+          font: 700 176px/0.82 "BL Boska", Georgia, serif;
+          letter-spacing: -0.055em;
+        }
+        .number-rule {
+          width: 0;
+          height: 10px;
+          margin-top: 72px;
+          background: #fb8b69;
+        }
+        .unmeasured-pill {
+          display: inline-block;
+          margin-top: 46px;
+          padding: 18px 22px 16px;
+          color: #173530;
+          background: #ede7d8;
+          font-size: 26px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        .number-thesis {
+          width: 790px;
+          margin-top: 62px;
+          color: #f5f0e6;
+          font: 700 54px/1.02 "BL Zodiak", Georgia, serif;
+          opacity: 0;
+        }
+
+        /* End card */
+        .publisher {
+          position: absolute;
+          left: 80px;
+          top: 88px;
+          color: #a4c6b2;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+        .episode-docket {
+          position: absolute;
+          left: 80px;
+          top: 212px;
+          color: #fb8b69;
+          font: 500 40px/1 monospace;
+          letter-spacing: 0.04em;
+          opacity: 0;
+        }
+        .episode-title {
+          position: absolute;
+          left: 80px;
+          top: 330px;
+          width: 880px;
+          color: #f5f0e6;
+          font: 700 126px/0.84 "BL Boska", Georgia, serif;
+          letter-spacing: -0.052em;
+        }
+        .episode-title span {
+          display: block;
+          opacity: 0;
+        }
+        .episode-rule {
+          position: absolute;
+          left: 80px;
+          top: 1055px;
+          width: 0;
+          height: 8px;
+          background: #71868d;
+        }
+        .watch-line {
+          position: absolute;
+          left: 80px;
+          top: 1125px;
+          color: #a4c6b2;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+        #related-video-cta {
+          position: absolute;
+          left: 80px;
+          top: 1228px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 820px;
+          height: 150px;
+          padding: 26px 0;
+          color: #fb8b69;
+          background: transparent;
+          border-top: 2px solid #71868d;
+          border-bottom: 2px solid #71868d;
+          font-size: 25px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          line-height: 1.15;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(34px);
+        }
+        .cta-arrow {
+          font: 500 54px/1 monospace;
+        }
+        .related-note {
+          position: absolute;
+          left: 80px;
+          top: 1426px;
+          width: 760px;
+          color: #a4c6b2;
+          font-size: 23px;
+          line-height: 1.35;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-comp-pause" id="one-month-test" data-composition-id="one-month-test" data-start="0" data-duration="31.5" data-width="1080" data-height="1920" data-fps="24">
+        <section data-hf-id="hf-hook-stage" id="hook-stage" class="stage paper-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Illustrative buyer-owner pause">
+          <div data-hf-id="hf-hook-kicker" class="stage-kicker critical-disclosure" data-layout-allow-overlap="">Illustrative scenario</div>
+          <div data-hf-id="hf-hook-prompt" class="hook-prompt">A buyer asks one last question</div>
+          <h1 data-hf-id="hf-hook-title" class="hook-title">
+            <span data-hf-id="hf-hook-line-one" id="hook-line-1" data-layout-allow-overlap="">Four words.</span>
+            <span data-hf-id="hf-hook-line-two" id="hook-line-2" class="silence-line" data-layout-allow-overlap="">Then silence.</span>
+          </h1>
+          <div data-hf-id="hf-scene-sheet" class="scene-sheet">
+            <div data-hf-id="hf-scene-label" class="scene-label">Constructed from the approved episode cold open</div>
+            <svg data-hf-id="hf-human-scene" class="human-scene" viewBox="0 0 880 900" aria-hidden="true">
+              <path data-hf-id="hf-mmo1" class="human-line" d="M178 356 C146 322 147 264 183 235 C215 209 264 218 286 254 C309 291 295 342 260 363" />
+              <path data-hf-id="hf-7t1x" class="human-light" d="M132 620 C138 502 184 430 241 430 C296 430 334 500 340 620" />
+              <path data-hf-id="hf-ejov" class="human-line" d="M616 356 C588 319 592 267 626 236 C659 207 708 217 731 252 C755 289 742 340 707 364" />
+              <path data-hf-id="hf-1229" class="human-light" d="M573 620 C582 500 626 430 684 430 C742 430 783 503 790 620" />
+              <line data-hf-id="hf-x6mv" class="table-line" x1="94" y1="648" x2="790" y2="648" />
+              <path data-hf-id="hf-byyq" class="human-light" d="M190 648 L164 836 M698 648 L728 836" />
+            </svg>
+            <div data-hf-id="hf-role-buyer" class="role-label role-buyer">Buyer</div>
+            <div data-hf-id="hf-role-owner" class="role-label role-owner">Owner</div>
+            <div data-hf-id="hf-answer-strip" class="answer-strip" data-layout-allow-overlap="">
+              <svg data-hf-id="hf-answer-trace" class="answer-trace" viewBox="0 0 660 210" aria-hidden="true">
+                <path data-hf-id="hf-u1hy" id="answer-path" class="draw-path" d="M580 104 C520 65 466 140 410 101 C352 62 302 132 211 104" />
+              </svg>
+              <span data-hf-id="hf-word-one" id="word-1" class="answer-word" aria-label="First answer word"></span>
+              <span data-hf-id="hf-word-two" id="word-2" class="answer-word" aria-label="Second answer word"></span>
+              <span data-hf-id="hf-word-three" id="word-3" class="answer-word" aria-label="Third answer word"></span>
+              <span data-hf-id="hf-word-four" id="word-4" class="answer-word" aria-label="Fourth answer word"></span>
+              <span data-hf-id="hf-answer-stop" id="answer-stop" class="answer-stop" aria-label="Answer stops"></span>
+            </div>
+            <div data-hf-id="hf-stop-caption" id="stop-caption" class="stop-caption">Answer stops here</div>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-question-stage" id="question-stage" class="stage paper-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="The one-month question">
+          <div data-hf-id="hf-question-kicker" class="stage-kicker" data-layout-allow-overlap="">The question</div>
+          <div data-hf-id="hf-question-wrap" class="question-wrap">
+            <h2 data-hf-id="hf-month-question" id="month-question">
+              <span data-hf-id="hf-question-line-one" id="question-line-1" class="question-line" data-layout-allow-overlap="">What happens here</span>
+              <span data-hf-id="hf-question-line-two" id="question-line-2" class="question-line" data-layout-allow-overlap="">if you're gone</span>
+              <span data-hf-id="hf-question-line-three" id="question-line-3" class="question-line" data-layout-allow-overlap="">for a month?</span>
+            </h2>
+          </div>
+          <div data-hf-id="hf-calendar-card" id="calendar-card" class="calendar-card">
+            <div data-hf-id="hf-calendar-label" class="calendar-label">Same business, owner unavailable</div>
+            <div data-hf-id="hf-day-window" class="day-window" data-layout-allow-overlap="">
+              <span data-hf-id="hf-day-one" id="day-01" class="day-number" data-layout-allow-overlap="">01</span>
+              <span data-hf-id="hf-day-thirty" id="day-30" class="day-number" data-layout-allow-overlap="" data-layout-allow-overflow="">30</span>
+            </div>
+            <svg data-hf-id="hf-calendar-route" class="calendar-route" viewBox="0 0 240 230" aria-hidden="true">
+              <path data-hf-id="hf-b682" id="calendar-path" class="draw-path" d="M12 116 H192 M192 116 L150 74 M192 116 L150 158" />
+            </svg>
+            <div data-hf-id="hf-month-result" id="month-result" class="month-result">One month</div>
+            <div data-hf-id="hf-month-note" class="month-note">The question tests operating independence. It does not value the company.</div>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-mechanism-stage" id="mechanism-stage" class="stage paper-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Same operating task with owner present and absent">
+          <div data-hf-id="hf-mechanism-kicker" class="stage-kicker" data-layout-allow-overlap="">What the pause reveals</div>
+          <h2 data-hf-id="hf-mechanism-title" id="mechanism-title" class="mechanism-title" data-layout-allow-overlap="">Same task.<br data-hf-id="hf-x5px">Different outcome.</h2>
+          <div data-hf-id="hf-mechanism-board" id="mechanism-board">
+            <div data-hf-id="hf-board-note" class="board-note">Illustrative operating route</div>
+
+            <article data-hf-id="hf-present-row" id="present-row" class="mechanism-row present-row">
+              <div data-hf-id="hf-present-label" class="row-label">Owner present</div>
+              <div data-hf-id="hf-present-task" class="task-card">Operating decision</div>
+              <div data-hf-id="hf-present-owner" class="owner-node">Owner</div>
+              <div data-hf-id="hf-present-outcome" id="present-outcome" class="outcome-card">Advances</div>
+              <svg data-hf-id="hf-present-route" class="row-route" viewBox="0 0 880 180" aria-hidden="true">
+                <path data-hf-id="hf-vlpm" id="present-path" class="draw-path" d="M252 88 H634" />
+              </svg>
+              <span data-hf-id="hf-present-token" id="present-token" class="route-token" aria-label="Operating decision advances"></span>
+            </article>
+
+            <article data-hf-id="hf-absent-row" id="absent-row" class="mechanism-row absent-row">
+              <div data-hf-id="hf-absent-label" class="row-label">Owner absent</div>
+              <div data-hf-id="hf-absent-task" class="task-card">Operating decision</div>
+              <div data-hf-id="hf-absent-owner" class="owner-node empty">Missing</div>
+              <div data-hf-id="hf-absent-outcome" id="absent-outcome" class="outcome-card">Waits</div>
+              <svg data-hf-id="hf-absent-route" class="row-route" viewBox="0 0 880 180" aria-hidden="true">
+                <path data-hf-id="hf-lazo" id="absent-path" class="draw-path" d="M252 88 H356" />
+              </svg>
+              <span data-hf-id="hf-absent-token" id="absent-token" class="route-token" aria-label="Operating decision waits"></span>
+              <span data-hf-id="hf-wait-mark" id="wait-mark" class="wait-mark" aria-hidden="true"></span>
+            </article>
+
+            <div data-hf-id="hf-context-strip" class="context-strip">
+              <div data-hf-id="hf-context-business" class="context-chip">Business active</div>
+              <div data-hf-id="hf-context-customer" class="context-chip">Customer present</div>
+              <div data-hf-id="hf-context-colleague" class="context-chip">Colleague present</div>
+            </div>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-stakes-stage" id="stakes-stage" class="stage paper-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Business or owner's job">
+          <div data-hf-id="hf-stakes-kicker" class="stage-kicker" data-layout-allow-overlap="">The buyer's next question</div>
+          <div data-hf-id="hf-stakes-copy" class="stakes-copy">
+            <span data-hf-id="hf-business-word" id="business-word" class="stakes-word" data-layout-allow-overlap="">Business</span>
+            <span data-hf-id="hf-stakes-or" id="stakes-or" class="stakes-or">or</span>
+            <span data-hf-id="hf-owner-job-word" id="owner-job-word" class="stakes-word">Owner's job?</span>
+            <div data-hf-id="hf-stakes-rule" id="stakes-rule" class="stakes-rule"></div>
+          </div>
+          <div data-hf-id="hf-stakes-finding" id="stakes-finding" class="stakes-finding">Operating independence has not been demonstrated.</div>
+          <div data-hf-id="hf-stakes-qualification" id="stakes-qualification" class="stakes-qualification">Not a valuation · no buyer outcome claimed</div>
+        </section>
+
+        <section data-hf-id="hf-practice-stage" id="practice-stage" class="stage paper-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Possible sale-readiness practice">
+          <div data-hf-id="hf-practice-kicker" class="stage-kicker" data-layout-allow-overlap="">The larger question</div>
+          <h2 data-hf-id="hf-practice-question" id="practice-question" class="practice-question">Is there a practice hiding inside that pause?</h2>
+          <div data-hf-id="hf-practice-card" id="practice-card" class="practice-card">
+            <div data-hf-id="hf-practice-card-label" class="practice-card-label">Possible one-person service</div>
+            <div data-hf-id="hf-practice-card-title" class="practice-card-title">Sale-readiness practice?</div>
+            <div data-hf-id="hf-locked-tabs" class="locked-tabs">
+              <div data-hf-id="hf-tab-offer" id="tab-offer" class="locked-tab"><span data-hf-id="hf-w7m9">Offer</span><span data-hf-id="hf-7dc4" class="tab-question">?</span></div>
+              <div data-hf-id="hf-tab-boundary" id="tab-boundary" class="locked-tab"><span data-hf-id="hf-v1zn">Boundary</span><span data-hf-id="hf-zssc" class="tab-question">?</span></div>
+              <div data-hf-id="hf-tab-economics" id="tab-economics" class="locked-tab"><span data-hf-id="hf-f5zd">Economics</span><span data-hf-id="hf-ylv9" class="tab-question">?</span></div>
+            </div>
+            <div data-hf-id="hf-practice-stamp" id="practice-stamp" class="practice-stamp">Possible, not proven</div>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-number-stage" id="number-stage" class="stage mineral-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Unmeasured delivery hours">
+          <div data-hf-id="hf-number-kicker" class="stage-kicker" data-layout-allow-overlap="">The model turns on one number</div>
+          <div data-hf-id="hf-number-copy" class="number-copy">
+            <div data-hf-id="hf-missing-hours" id="missing-hours">
+              <span data-hf-id="hf-hours-question" id="hours-question" class="hours-question" data-layout-allow-overlap="">?</span>
+              <span data-hf-id="hf-hours-word" id="hours-word" class="hours-word" data-layout-allow-overlap="">Hours</span>
+            </div>
+            <div data-hf-id="hf-number-rule" id="number-rule" class="number-rule"></div>
+            <div data-hf-id="hf-unmeasured-pill" id="unmeasured-pill" class="unmeasured-pill">Unmeasured</div>
+            <div data-hf-id="hf-number-thesis" id="number-thesis" class="number-thesis">One missing number decides whether the practice works.</div>
+          </div>
+        </section>
+
+        <section data-hf-id="hf-end-stage" id="end-stage" class="stage mineral-stage" data-layout-allow-overlap="" data-layout-allow-overflow="" data-layout-allow-occlusion="" aria-label="Watch the full EP007 episode">
+          <div data-hf-id="hf-publisher" id="publisher" class="publisher">The Operator Economy</div>
+          <div data-hf-id="hf-episode-docket" id="episode-docket" class="episode-docket">EP007</div>
+          <h2 data-hf-id="hf-episode-title" class="episode-title">
+            <span data-hf-id="hf-episode-line-one" id="episode-line-1" data-layout-allow-overlap="">The practice</span>
+            <span data-hf-id="hf-episode-line-two" id="episode-line-2" data-layout-allow-overlap="">inside the</span>
+            <span data-hf-id="hf-episode-line-three" id="episode-line-3" data-layout-allow-overlap="">pause.</span>
+          </h2>
+          <div data-hf-id="hf-episode-rule" id="episode-rule" class="episode-rule"></div>
+          <div data-hf-id="hf-watch-line" id="watch-line" class="watch-line">Watch the full episode</div>
+          <div data-hf-id="hf-related-video-cta" id="related-video-cta">
+            <span data-hf-id="hf-xsj9">Tap EP007 under the channel name</span>
+            <span data-hf-id="hf-cta-arrow" class="cta-arrow">↓</span>
+          </div>
+          <div data-hf-id="hf-related-note" id="related-note" class="related-note">EP007 builds the offer, draws the boundary and shows how to measure the missing number.</div>
+        </section>
+      </div>
+
+      <script>
+        (() => {
+          const S = "#one-month-test";
+          const tl = gsap.timeline({ paused: true });
+
+          const panelEnter = (panel, previous, at) => {
+            tl.set(S + " " + panel, { opacity: 1, y: 1920 }, at);
+            tl.to(S + " " + panel, { y: 1728, duration: 0.12, ease: "power3.in" }, at);
+            tl.to(S + " " + panel, { y: 480, duration: 0.10, ease: "none" }, at + 0.12);
+            tl.to(S + " " + panel, { y: 0, duration: 0.35, ease: "power4.out" }, at + 0.22);
+            tl.set(S + " " + previous, { opacity: 0 }, at + 0.58);
+          };
+
+          const waterfall = (selector, at, distance, duration) => {
+            tl.set(S + " " + selector, { opacity: 1, y: distance }, at);
+            tl.to(S + " " + selector, { y: 0, duration, ease: "power4.out" }, at);
+          };
+
+          const paths = ["#answer-path", "#calendar-path", "#present-path", "#absent-path"];
+          paths.forEach((selector) => {
+            const path = document.querySelector(S + " " + selector);
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = `${length}`;
+            path.style.strokeDashoffset = `${length}`;
+          });
+
+          gsap.set(S + " #question-stage, " + S + " #mechanism-stage, " + S + " #stakes-stage, " + S + " #practice-stage, " + S + " #number-stage, " + S + " #end-stage", { opacity: 0, y: 1920 });
+          gsap.set(S + " #present-token, " + S + " #absent-token", { opacity: 0, x: 0 });
+
+          /* 0.0-2.7: four answer marks, then authored stillness. */
+          tl.to(S + " #answer-path", { strokeDashoffset: 0, duration: 0.82, ease: "none" }, 0.05);
+          waterfall("#word-1", 0.10, 44, 0.18);
+          waterfall("#word-2", 0.28, 42, 0.16);
+          waterfall("#word-3", 0.45, 40, 0.15);
+          waterfall("#word-4", 0.61, 38, 0.14);
+          tl.set(S + " #answer-stop", { opacity: 1 }, 0.80);
+          tl.to(S + " #answer-stop", { scaleY: 1, duration: 0.12, ease: "power4.out" }, 0.80);
+          waterfall("#hook-line-1", 0.96, 78, 0.19);
+          waterfall("#hook-line-2", 1.15, 66, 0.16);
+          tl.to(S + " #stop-caption", { opacity: 1, duration: 0.18, ease: "power1.out" }, 1.48);
+
+          /* 2.7-6.2: question and one-month calendar. */
+          panelEnter("#question-stage", "#hook-stage", 2.70);
+          tl.set(S + " #month-question", { opacity: 1 }, 3.28);
+          waterfall("#question-line-1", 3.28, 78, 0.19);
+          waterfall("#question-line-2", 3.47, 64, 0.16);
+          waterfall("#question-line-3", 3.62, 54, 0.14);
+          tl.to(S + " #calendar-card", { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 4.12);
+          tl.to(S + " #calendar-path", { strokeDashoffset: 0, duration: 0.52, ease: "power2.out" }, 4.48);
+          tl.to(S + " #day-01", { y: -238, opacity: 0, duration: 0.24, ease: "power2.in" }, 4.92);
+          tl.to(S + " #day-30", { y: 0, opacity: 1, duration: 0.24, ease: "power3.out" }, 4.96);
+          waterfall("#month-result", 5.16, 52, 0.18);
+
+          /* 6.2-12.9: the same task advances, then waits. */
+          panelEnter("#mechanism-stage", "#question-stage", 6.20);
+          waterfall("#mechanism-title", 6.82, 66, 0.18);
+          tl.to(S + " #present-row", { opacity: 1, y: 0, duration: 0.30, ease: "power3.out" }, 7.10);
+          tl.to(S + " #present-path", { strokeDashoffset: 0, duration: 0.52, ease: "none" }, 7.38);
+          tl.set(S + " #present-token", { opacity: 1 }, 7.54);
+          tl.to(S + " #present-token", { x: 370, duration: 0.88, ease: "power2.inOut" }, 7.54);
+          tl.to(S + " #present-outcome", { opacity: 1, backgroundColor: "#a4c6b2", borderColor: "#a4c6b2", duration: 0.20, ease: "none" }, 8.42);
+          tl.to(S + " #present-token", { backgroundColor: "#a4c6b2", boxShadow: "0 0 0 2px #a4c6b2", duration: 0.18, ease: "none" }, 8.42);
+
+          tl.to(S + " #absent-row", { opacity: 1, y: 0, duration: 0.30, ease: "power3.out" }, 9.08);
+          tl.to(S + " #absent-path", { strokeDashoffset: 0, duration: 0.46, ease: "none" }, 9.38);
+          tl.set(S + " #absent-token", { opacity: 1 }, 9.54);
+          tl.to(S + " #absent-token", { x: 90, duration: 0.86, ease: "power2.inOut" }, 9.54);
+          tl.set(S + " #wait-mark", { opacity: 1 }, 10.40);
+          tl.to(S + " #wait-mark", { scaleY: 1, duration: 0.13, ease: "power4.out" }, 10.40);
+          tl.to(S + " #absent-outcome", { opacity: 1, duration: 0.18, ease: "none" }, 10.53);
+          tl.to(S + " .context-chip", { opacity: 1, y: 0, duration: 0.24, stagger: 0.10, ease: "power3.out" }, 11.10);
+
+          /* 12.9-18.6: safe conclusion, unresolved buyer question. */
+          panelEnter("#stakes-stage", "#mechanism-stage", 12.90);
+          waterfall("#business-word", 13.54, 82, 0.20);
+          waterfall("#stakes-or", 13.88, 46, 0.14);
+          waterfall("#owner-job-word", 14.10, 76, 0.18);
+          tl.to(S + " #stakes-rule", { width: 620, duration: 0.42, ease: "power3.out" }, 14.72);
+          tl.to(S + " #stakes-finding", { opacity: 1, y: 0, duration: 0.34, ease: "power3.out" }, 16.00);
+          tl.to(S + " #stakes-qualification", { opacity: 1, duration: 0.24, ease: "power1.out" }, 16.52);
+
+          /* 18.6-23.0: name the possible practice, keep its three questions closed. */
+          panelEnter("#practice-stage", "#stakes-stage", 18.60);
+          waterfall("#practice-question", 19.22, 74, 0.19);
+          tl.to(S + " #practice-card", { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 19.68);
+          tl.to(S + " #tab-offer", { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 20.25);
+          tl.to(S + " #tab-boundary", { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 20.64);
+          tl.to(S + " #tab-economics", { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, 21.03);
+          tl.to(S + " #practice-stamp", { opacity: 1, duration: 0.22, ease: "power1.out" }, 21.48);
+
+          /* 23.0-27.3: one missing number. */
+          panelEnter("#number-stage", "#practice-stage", 23.00);
+          tl.set(S + " #missing-hours", { opacity: 1 }, 23.62);
+          waterfall("#hours-question", 23.62, 92, 0.20);
+          waterfall("#hours-word", 23.82, 72, 0.17);
+          tl.to(S + " #number-rule", { width: 650, duration: 0.40, ease: "power3.out" }, 24.20);
+          tl.to(S + " #unmeasured-pill", { opacity: 1, y: 0, duration: 0.24, ease: "power3.out" }, 24.58);
+          tl.to(S + " #number-thesis", { opacity: 1, duration: 0.25, ease: "power1.out" }, 25.05);
+
+          /* 27.3-31.5: native full-episode route, then a still hold. */
+          panelEnter("#end-stage", "#number-stage", 27.30);
+          tl.to(S + " #publisher, " + S + " #episode-docket", { opacity: 1, duration: 0.20, stagger: 0.08, ease: "power1.out" }, 27.94);
+          waterfall("#episode-line-1", 28.04, 76, 0.19);
+          waterfall("#episode-line-2", 28.23, 62, 0.16);
+          waterfall("#episode-line-3", 28.38, 54, 0.14);
+          tl.to(S + " #episode-rule", { width: 620, duration: 0.36, ease: "power3.out" }, 28.52);
+          tl.to(S + " #watch-line", { opacity: 1, duration: 0.20, ease: "power1.out" }, 28.62);
+          tl.to(S + " #related-video-cta", { opacity: 1, y: 0, duration: 0.26, ease: "power3.out" }, 28.76);
+          tl.to(S + " #related-note", { opacity: 1, duration: 0.22, ease: "power1.out" }, 29.06);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["one-month-test"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

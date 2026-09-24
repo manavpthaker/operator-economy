@@ -1,0 +1,34 @@
+{
+  "schema": "oe-generated-film-editorial-selection-v1",
+  "purpose": "Bounded EP007 mixed-media test; generated human context, not evidence",
+  "input": {
+    "asset": "assets/video/source/owner-buyer-inspection-action.full-generated.mp4",
+    "sha256": "324761c1c8d76b7eb929eb7448d9f9e9a688e71916bbdd3bef1154c0332eb240",
+    "fps": 24,
+    "frameCount": 121,
+    "durationSeconds": 5.041667
+  },
+  "selection": {
+    "sourceFramesInclusive": [0, 82],
+    "sourceRangeHalfOpenSeconds": [0.0, 3.458333],
+    "lastSafeSourceFrame": 82,
+    "appendedHoldFrames": 7,
+    "appendedHoldDurationSeconds": 0.291667,
+    "interpolation": false,
+    "speedChange": false,
+    "reason": "Frame 83 begins an unrelated synthetic page entering from frame right; frames 83–120 are excluded. The authored pencil trace begins during the short endpoint hold."
+  },
+  "command": "ffmpeg -hide_banner -loglevel error -y -i assets/video/source/owner-buyer-inspection-action.full-generated.mp4 -an -vf trim=start_frame=0:end_frame=83,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop_duration=0.291667,trim=duration=3.75,fps=24 -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart assets/video/owner-buyer-context-shot-02-inspection-r2.generated.mp4",
+  "output": {
+    "asset": "assets/video/owner-buyer-context-shot-02-inspection-r2.generated.mp4",
+    "sha256": "d5b0e31e6170e224b54c0ec82b36a5a5ce805d3513b6c8bac3647ad3fec01bcd",
+    "fps": 24,
+    "frameCount": 90,
+    "durationSeconds": 3.75,
+    "timelineDurationSeconds": 3.74
+  },
+  "contactSheet": {
+    "asset": "assets/video/owner-buyer-context-shot-02-inspection-r2.contact-sheet.jpg",
+    "sha256": "b78d1ede56d36619b2c1ea273afd81732eb45224fc41c20feb4fef8693de4383"
+  }
+}

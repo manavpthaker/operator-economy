@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short04-conditional-channel-gate { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f5f0e6; color: #173530; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s44-sheet { position: absolute; inset: 0; padding: 146px 122px 150px 74px; }
+        .s44-kicker { display: flex; align-items: center; gap: 18px; color: #586d74; font-size: 24px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .s44-kicker::before { width: 72px; height: 6px; background: #b5482f; content: ""; }
+        .s44-title { margin: 32px 0 0; color: #173530; font: 700 80px/0.95 "BL Boska", Georgia, serif; letter-spacing: -0.043em; }
+        .s44-question { position: absolute; top: 306px; left: 74px; width: 850px; min-height: 166px; padding: 22px 34px 24px; border: 3px solid #173530; background: #ede7d8; color: #173530; }
+        .s44-question small { display: block; color: #33464c; font-size: 18px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+        .s44-question span { display: block; width: 754px; margin-top: 11px; font-size: 26px; font-weight: 500; line-height: 1.17; }
+        .s44-spine { position: absolute; top: 472px; left: 116px; width: 6px; height: 1090px; background: #586d74; transform-origin: 50% 0; }
+        .s44-branch { position: absolute; left: 164px; width: 760px; padding: 34px 42px 38px; border-top: 3px solid #586d74; background: #ede7d8; opacity: 0; visibility: hidden; }
+        .s44-branch::before { position: absolute; top: -18px; left: -63px; width: 30px; height: 30px; border: 5px solid #586d74; background: #f5f0e6; content: ""; }
+        .s44-branch-a { top: 560px; min-height: 390px; }
+        .s44-branch-b { top: 1018px; min-height: 600px; }
+        .s44-active { position: absolute; top: 0; left: 0; width: 10px; height: 100%; background: #b5482f; transform-origin: 50% 0; }
+        .s44-if { display: inline-block; padding: 7px 12px; background: #173530; color: #f5f0e6; font-size: 22px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+        .s44-condition { width: 640px; margin: 28px 0 0; color: #173530; font: 700 47px/1.03 "BL Boska", Georgia, serif; letter-spacing: -0.025em; }
+        .s44-consequence { width: 620px; margin: 34px 0 0; color: #33464c; font-size: 34px; font-weight: 500; line-height: 1.12; }
+        .s44-prompts { margin-top: 30px; display: grid; gap: 16px; }
+        .s44-prompt { padding: 19px 22px; border-left: 6px solid #586d74; background: #f5f0e6; color: #173530; font-size: 28px; font-weight: 500; line-height: 1.08; text-transform: uppercase; opacity: 0; visibility: hidden; }
+      </style>
+      <section data-hf-id="hf-s44-root" id="short04-conditional-channel-gate" data-composition-id="short04-conditional-channel-gate" data-start="0" data-duration="14" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-s44-sheet" class="s44-sheet">
+          <div data-hf-id="hf-s44-kicker" id="s44-kicker" class="s44-kicker">Two possible answers</div>
+          <h1 data-hf-id="hf-s44-title" id="s44-title" class="s44-title">Follow the answer</h1>
+          <div data-hf-id="hf-s44-question" id="s44-question" class="s44-question"><small>Broker question</small><span>What happens to a business you can’t list because it isn’t ready?</span></div>
+          <div data-hf-id="hf-s44-spine" id="s44-spine" class="s44-spine" aria-hidden="true"></div>
+          <article data-hf-id="hf-s44-branch-1" id="s44-branch-1" class="s44-branch s44-branch-a">
+            <div data-hf-id="hf-s44-active-1" id="s44-active-1" class="s44-active" aria-hidden="true"></div>
+            <span data-hf-id="hf-s44-if-1" class="s44-if">If</span>
+            <p data-hf-id="hf-s44-condition-1" class="s44-condition">They already do that work for free</p>
+            <p data-hf-id="hf-s44-consequence-1" id="s44-consequence-1" class="s44-consequence">The referral channel may be blocked.</p>
+          </article>
+          <article data-hf-id="hf-s44-branch-2" id="s44-branch-2" class="s44-branch s44-branch-b">
+            <div data-hf-id="hf-s44-active-2" id="s44-active-2" class="s44-active" aria-hidden="true"></div>
+            <span data-hf-id="hf-s44-if-2" class="s44-if">If</span>
+            <p data-hf-id="hf-s44-condition-2" class="s44-condition">They turn it away or refer it elsewhere</p>
+            <div data-hf-id="hf-s44-prompts" class="s44-prompts">
+              <div data-hf-id="hf-s44-prompt-1" id="s44-prompt-1" class="s44-prompt">What was missing?</div>
+              <div data-hf-id="hf-s44-prompt-2" id="s44-prompt-2" class="s44-prompt">Who handles it now?</div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s44-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.06);
+        tl.fromTo("#s44-title", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+        tl.fromTo("#s44-question", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 0.54);
+        tl.fromTo("#s44-spine", { scaleY: 0 }, { scaleY: 1, duration: 8.2, ease: "power1.inOut" }, 0.86);
+        tl.set("#s44-branch-1", { autoAlpha: 1 }, 1.22);
+        tl.fromTo("#s44-branch-1", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 1.22);
+        tl.fromTo("#s44-active-1", { scaleY: 0 }, { scaleY: 1, duration: 0.34, ease: "power2.out" }, 1.44);
+        tl.fromTo("#s44-consequence-1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 3.12);
+        tl.to("#s44-active-1", { backgroundColor: "#586d74", duration: 0.2, ease: "none" }, 6.08);
+        tl.set("#s44-branch-2", { autoAlpha: 1 }, 6.22);
+        tl.fromTo("#s44-branch-2", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 6.22);
+        tl.fromTo("#s44-active-2", { scaleY: 0 }, { scaleY: 1, duration: 0.34, ease: "power2.out" }, 6.42);
+        tl.set("#s44-prompt-1", { autoAlpha: 1 }, 8.44);
+        tl.fromTo("#s44-prompt-1", { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, 8.44);
+        tl.set("#s44-prompt-2", { autoAlpha: 1 }, 10.04);
+        tl.fromTo("#s44-prompt-2", { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, 10.04);
+        tl.to("#s44-active-2", { backgroundColor: "#586d74", duration: 0.2, ease: "none" }, 12.1);
+        window.__timelines["short04-conditional-channel-gate"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+--- original-r64/index.html
++++ r64b/index.html
+@@ -59,7 +59,7 @@
+ <text id="door-l" class="small oxide hide" x="1040" y="478" text-anchor="middle">None, if that is true everywhere</text>
+ <g id="todo" class="hide"><rect x="70" y="520" width="1140" height="140" rx="6" stroke="#173530" stroke-width="3" fill="#EDE5D6"/>
+ <text class="kicker" x="96" y="556">WHAT TO DO</text>
+-<text class="small" x="96" y="598" style="fill:#586D74">1. The first thing, in a minute</text>
++<text class="small" x="96" y="598" style="fill:#33464C">1. The first thing, in a minute</text>
+ <text id="todo2" class="label" x="96" y="638">2. Find out what brokers already do</text></g>
+ </svg>
+ <div id="quote"><div id="quote-k">One question for a broker</div><div id="quote-t">“What do you do right now with the ones you have to say no to.”</div></div>
+@@ -101,8 +101,9 @@
+ fade('#quote-k',C.question,.35);
+ fade('#quote-t',C.what,.4);
+ // "And I have to flag the risk in that"
+-t.to(['#quote','#h1'],{autoAlpha:0,duration:.45,ease:'power1.inOut'},C.risk);
+-fade('#h2',C.risk-.2);
++t.set('#h1',{autoAlpha:0},C.risk);
++t.set('#h2',{autoAlpha:1},C.risk);
++t.to('#quote',{autoAlpha:0,duration:.45,ease:'power1.inOut'},C.risk);
+ // "It is possible brokers already do a version of this for free to win the listing."
+ fade('#m3',C.possible,.5);
+ t.fromTo('#free-l',{autoAlpha:0},{autoAlpha:1,duration:.4},C.free);

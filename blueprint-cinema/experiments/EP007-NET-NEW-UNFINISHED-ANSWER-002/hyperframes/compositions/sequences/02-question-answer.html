@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-id="ep007-question-answer" data-composition-duration="9.96">
+  <head>
+    <meta charset="UTF-8">
+    <script src="../../public/vendor/gsap.min.js"></script>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Supreme OE";
+          src: url("public/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #204440;
+        }
+
+        .question-field,
+        .answer-plate {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        }
+
+        .question-field {
+          display: flex;
+          align-items: center;
+          background: #f5f0e6;
+        }
+
+        .question {
+          width: 1480px;
+          margin-left: 188px;
+          font-family: "Supreme OE", Arial, sans-serif;
+          font-size: 102px;
+          font-weight: 500;
+          line-height: 1.04;
+          letter-spacing: -0.025em;
+          text-wrap: balance;
+        }
+
+        .answer-plate {
+          background: #173530;
+        }
+
+        .answer-plate img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      </style>
+
+      <div data-hf-id="hf-1ns3" id="root" data-composition-id="ep007-question-answer" data-width="1920" data-height="1080" data-duration="9.96" data-fps="30">
+        <section data-hf-id="hf-ogvq" id="question-field" class="clip question-field" data-start="0" data-duration="3.32" data-track-index="0" aria-label="The buyer's operating question">
+          <div data-hf-id="hf-tn6a" id="question-copy" class="question">
+            WHAT HAPPENS HERE<br data-hf-id="hf-x5px">
+            IF YOU ARE NOT AROUND<br data-hf-id="hf-rsrt">
+            FOR A MONTH?
+          </div>
+        </section>
+
+        <figure data-hf-id="hf-mxae" id="answer-plate" class="clip answer-plate" data-start="3.32" data-duration="6.64" data-track-index="0" aria-label="The owner's pencil begins an operating answer and then stops">
+          <img data-hf-id="hf-zcpy" src="public/media/writing-over-shoulder.png" alt="">
+        </figure>
+      </div>
+
+      <script>
+        (() => {
+          "use strict";
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(
+            "#question-copy",
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.28, ease: "power2.out", immediateRender: false },
+            0.10,
+          );
+          window.__timelines = window.__timelines || {};
+          window.__timelines["ep007-question-answer"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

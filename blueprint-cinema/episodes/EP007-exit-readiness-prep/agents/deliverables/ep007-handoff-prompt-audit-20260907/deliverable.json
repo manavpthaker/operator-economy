@@ -1,0 +1,106 @@
+{
+  "$schema": "../../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-handoff-prompt-audit-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/02-narration-production/06-approval/VISUAL-TRANSLATION-HANDOFF.template.md",
+      "sha256": "c2acbb52053d5a804cdb38adc299e460a9d7b23c0b8410bac51896d19d368b9c"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/narration-lock.md",
+      "sha256": "61cfd940b9f8bfcb0e502e07f073a7a1457a671b9a4a35667e6ca08c2fafbbd5"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/03-visual-translation/input-lock.json",
+      "sha256": "9adde76470b05da2d635521e8711e4d55ed76353a1479db50ba430449899a384"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-handoff-prompt-audit-20260907/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-handoff-prompt-audit-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "sha256sum the three assigned work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "recompute all 13 v0.4 V1 freeze hashes and all E6/N7 referenced artifact hashes",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 operator-blueprint-v2/03-visual-translation-v0.4/fixtures/validate.py --through V1 operator-blueprint-v2/episodes/EP007-exit-readiness-prep/03-visual-translation",
+      "outcome": "pass"
+    },
+    {
+      "command": "PYTHONPATH=operator-blueprint-v2/02-narration-production/runtime python3 -m oe_narration validate-transcript --transcript EP007-word-transcript --canonical-w EP007-canonical-w --master EP007-master-v4",
+      "outcome": "fail"
+    },
+    {
+      "command": "ffprobe EP007 narration-master.v4.wav for codec sample rate channels bit depth and duration",
+      "outcome": "pass"
+    },
+    {
+      "command": "node .agents/scripts/validate-oe-skills-lock.mjs",
+      "outcome": "pass"
+    },
+    {
+      "command": "node design-system/boundary-ledger/qa/validate-system.mjs",
+      "outcome": "pass"
+    },
+    {
+      "command": "node blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/verify-handoff.mjs",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema validate_work_order against current issued order",
+      "outcome": "fail"
+    },
+    {
+      "command": "Blueprint Cinema agent-work-order and agent-deliverable JSON schema validation",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema validate_deliverable against the invalid issued path namespace",
+      "outcome": "fail"
+    },
+    {
+      "command": "network provider generation render upload approval and production-state mutation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Assigned inputs match the work-order hashes recorded at work-order lines 35-47.",
+    "Current v0.4 input-lock lines 9-65 bind 13 Step 1 and Step 2 inputs; all match.",
+    "Editorial-lock lines 15-31 bind 13 E6 artifacts; all match.",
+    "Narration-lock lines 9-20 bind 8 N7 artifacts; all match.",
+    "Narration-lock lines 38-44 disclose the missing independent listen, while line 79 declares N7 passed.",
+    "Step 2 stage-gates lines 165-175 require the independent eyes-closed listen for N7.",
+    "Step 2 README line 121 and shared handoff template line 18 require a 48 kHz 24-bit mono master; EP007 lock line 26 and technical QC line 16 record 16-bit.",
+    "The additional performance reference has SHA-256 090ec58c14849b65f8b20c773e0c5cb66c0fd8049028c320d9a8a2472f50e5bc and is outside the frozen V1 E6 N7 route.",
+    "Step 3 process manifest line 7 says v0.4 is proposed and not authority; the episode manifest lines 17-26 keeps V1 candidate-only and V2-V7 unstarted.",
+    "The reviewed PROMPTS.md snapshot has SHA-256 9aa1faac090346bf65616dba3f776c5312080cbade6e46fd1bbcecda1d1c6a5a.",
+    "Blueprint Cinema paths.py lines 9-13 and validation.py lines 1186-1236 define a namespace that the issued work order does not satisfy."
+  ],
+  "assumptions": [
+    "Current source bytes and authority statements are evaluated as written; no implicit waiver, approval, migration, or grandfathering is inferred.",
+    "A hash match establishes identity only, not semantic completeness, current-schema conformity, creative quality, or gate approval.",
+    "The proposed prompt pack is evaluated as a review aid and not as a replacement for the frozen Step 2 or Step 3 process."
+  ],
+  "unresolved_questions": [
+    "Will the owner satisfy the independent-listen requirement or explicitly amend the governing N7 rule?",
+    "Will authority accept the 16-bit legacy master and transcript, require a controlled migration and relock, or define another explicit compatibility route?",
+    "Who receives and signs the complete Step 2 to Step 3 handoff, and how will the issued performance handoff enter the frozen route?",
+    "Does camera_anchor remain required in V4, or will v0.4 explicitly supersede the base requirement and update its template and validator?",
+    "How will repository-root upstream sources and canonical EP007 production state be represented under the Blueprint Cinema work-order runtime?"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "partial"
+}

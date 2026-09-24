@@ -1,0 +1,32 @@
+{
+  "record_type": "ep009_seg012_room_framing_rejection",
+  "created_at": "2026-09-18T00:51:43.854045+00:00",
+  "reviewer": "ep009_assembly_audit",
+  "status": "held_initial_close_crop_removed",
+  "source": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+    "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398"
+  },
+  "candidate": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/native.mp4",
+    "sha256": "ba86217b7373a2f4dc3e6e0f79f76af3b57d8b74377298f9f3851f7e4abe5007"
+  },
+  "source_frames": [
+    0,
+    343
+  ],
+  "blocking_defect": "Room edit normalizes original close[0,152) to wide. First four exact-time original/candidate pairs show hands/table introduced outside original crop.",
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/qa-selected-r1/metrics/contact-01.jpg",
+      "sha256": "0e5d1d619360b9a79c6939cd84af25e1818fb36de9206d0d7aca9215c18a1aad"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/qa-selected-r1/metrics/PERFORMANCE-COMPARISON.json",
+      "sha256": "58b61d10568a1de577996876f3e5cb717fd0a5e4e1b8fe25c7ab86c77c99a298"
+    }
+  ],
+  "proposed_recovery": "Separate exact original crop restoration first152frames, followed by renewed independent performance review. No assumption that crop repair restores expression.",
+  "owner_accepted": false,
+  "no_native_mutation": true
+}

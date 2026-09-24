@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP007 · Boundary Ledger mixed-media test</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f0e6;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-9z3v" id="root" data-composition-id="main" data-start="0" data-duration="67.44" data-width="1920" data-height="1080" data-fps="24">
+      <div id="el-evidence" class="clip" data-hf-id="main-evidence-slot" data-composition-id="evidence" data-composition-src="compositions/evidence.html" data-start="0" data-duration="18.16" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="el-reality" class="clip" data-hf-id="main-reality-slot" data-composition-id="reality" data-composition-src="compositions/reality.html" data-start="18.16" data-duration="7.74" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="el-inspection" class="clip" data-hf-id="main-inspection-slot" data-composition-id="inspection" data-composition-src="compositions/inspection.html" data-start="25.90" data-duration="12.25" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="el-model" class="clip" data-hf-id="main-model-slot" data-composition-id="model" data-composition-src="compositions/model.html" data-start="38.15" data-duration="29.29" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <audio id="ep007-locked-voice" data-hf-id="main-locked-voice" src="assets/audio/ep007-mixed-229.500-296.940.wav" data-start="0" data-duration="67.44" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines.main = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

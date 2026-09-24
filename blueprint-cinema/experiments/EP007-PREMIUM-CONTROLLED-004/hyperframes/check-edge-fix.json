@@ -1,0 +1,153 @@
+{
+  "ok": true,
+  "strict": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#question-person\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#question-person",
+        "dataAttributes": {},
+        "sourceFile": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/hyperframes/compositions/question.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to the destination vars of each future fromTo, or set a safe resting state with an earlier `tl.set(\"#question-person\", { ... }, 0)`. Pre-first-tween seeks must not inherit whichever fromTo call happened to author last."
+      },
+      {
+        "code": "gsap_repeated_fromto_without_baseline",
+        "severity": "warning",
+        "message": "2 tl.fromTo() calls target \"#question-route-b\" with no stable baseline. The last-authored fromTo \"from\" values become the element's resting state for any seek before the first tween actually runs, because GSAP applies fromTo from-values at authoring time (immediateRender), not at tween position.",
+        "selector": "#question-route-b",
+        "dataAttributes": {},
+        "sourceFile": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PREMIUM-CONTROLLED-004/hyperframes/compositions/question.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add `immediateRender: false` to the destination vars of each future fromTo, or set a safe resting state with an earlier `tl.set(\"#question-route-b\", { ... }, 0)`. Pre-first-tween seeks must not inherit whichever fromTo call happened to author last."
+      }
+    ],
+    "filesScanned": 8
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "warning",
+        "time": 54,
+        "selector": "#presenter-video",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 1280,
+          "bottom": 724,
+          "width": 1280,
+          "height": 724
+        },
+        "containerSelector": "#slot-presenter > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1280,
+          "bottom": 720,
+          "width": 1280,
+          "height": 720
+        },
+        "overflow": {
+          "bottom": 4
+        },
+        "dataAttributes": {
+          "data-hf-id": "hf-b43g",
+          "data-start": "0",
+          "data-duration": "11.3466666667",
+          "data-media-start": "0",
+          "data-track-index": "1",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/presenter.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 724
+        },
+        "firstSeen": 54,
+        "lastSeen": 54,
+        "occurrences": 1,
+        "heldMs": 0
+      }
+    ],
+    "duration": 59.8666666667,
+    "samples": [
+      54
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 1,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      54
+    ],
+    "checked": 1,
+    "passed": 1
+  },
+  "snapshots": {
+    "enabled": true,
+    "files": [
+      "snapshots/frame-00-at-54.0s.png"
+    ],
+    "times": [
+      54
+    ],
+    "findingFiles": []
+  },
+  "_meta": {
+    "version": "0.8.33",
+    "latestVersion": "0.8.33",
+    "updateAvailable": false
+  }
+}

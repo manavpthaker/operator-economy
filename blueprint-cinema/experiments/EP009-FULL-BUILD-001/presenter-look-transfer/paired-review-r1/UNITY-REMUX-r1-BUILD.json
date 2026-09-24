@@ -1,0 +1,1273 @@
+{
+  "record_type": "ep009_fourteen_presenter_paired_review_build",
+  "status": "encoded_unverified_private_comparison",
+  "at": "2026-09-18T01:18:40.795158+00:00",
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/paired_review_unity_remux.py",
+    "sha256": "d94bbdc2d0c8f434be2098e0d0f3ac01e9085f99715b2ccc270b88769e6fa747"
+  },
+  "layout": "Original left; updated right",
+  "dimensions": [
+    2560,
+    720
+  ],
+  "frames": 3589,
+  "fps": 24,
+  "duration_seconds": 149.54166666666666,
+  "program_samples": 7178000,
+  "entries": [
+    {
+      "segment": "seg009",
+      "frames": 220,
+      "reel_frames": [
+        0,
+        220
+      ],
+      "master_frames": [
+        1207,
+        1427
+      ],
+      "master_sample_range": [
+        2414000,
+        2854000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "sha256": "03a7ed6921b0cc8c2b93a6f55db8b577be7d2e5ee6e148862db02577c7bc948d"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg009.mp4",
+        "sha256": "07a54f33095888df437abbc426c34edef7d8b267e75a998d48a78040500f51f9"
+      },
+      "source_frames": [
+        0,
+        220
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg009-SELECTION.json",
+        "sha256": "003ab60256504daf92a732a1e658e9b0c1654d328ca159c941a93b70fc3a9334"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg009-VERIFICATION.json",
+        "sha256": "43c6c5771dfdb9b09e8c686cab3d209fd00ae9edbe7198c2f46c48bfcb2be036"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "23d9be22d7502828c5f3cb96b62fb9e7d79cf1060c4cf168de82a92045b7575b",
+        "updated": "46dc312798df68f4d5d35cb9ad8ddf9494072b94b25067b15b31d876ed411d78"
+      },
+      "master_pcm_sha256": "6169bbb80819315f7162ca0f3ff1b3214e3c6256b9557239a790ed50a8010efb",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg009.mp4",
+        "sha256": "af92e30dc8109ca73e16cd2aa759278514a92f8d13335036f0aa9d9be8873c4c"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P01/final/seg009.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg009.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=220,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=220,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg009.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg012",
+      "frames": 343,
+      "reel_frames": [
+        220,
+        563
+      ],
+      "master_frames": [
+        1687,
+        2030
+      ],
+      "master_sample_range": [
+        3374000,
+        4060000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+        "sha256": "4f89e687e36d71e894e345953370ee268499d967438602c2cd21e86be39ef398"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg012.mp4",
+        "sha256": "239e97e58cca158a03e6c4999171d222f7b3e5a294d36f97f377e9a87c8d7074"
+      },
+      "source_frames": [
+        0,
+        343
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg012-SELECTION.json",
+        "sha256": "1926dd84a245d830148174b0db43baf1b00a92ffa9b3ac505d3556c16e7239b0"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg012-VERIFICATION.json",
+        "sha256": "c93cb6f204c08ce063f2c020cf095290455c97b20833536656f4109ddc345b67"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "48b6fd92c925b265a610a7b1437511595c40fac3e695fe08bdcd9b1a0ab3f4fb",
+        "updated": "cc96e631404d183d3a8bea1520d9fea6cce525f5fb6552e5bb58646345ca40fd"
+      },
+      "master_pcm_sha256": "64f33d68cd29d121597441b6b243faab5371f88f284f184b0117bfc7c1eaa76e",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg012.mp4",
+        "sha256": "73e128d71f962d387610bdee1405db3d8859ae86f0123a8c149f81c1b0ed604d"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/final/seg012.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg012.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=343,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=343,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg012.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg019",
+      "frames": 394,
+      "reel_frames": [
+        563,
+        957
+      ],
+      "master_frames": [
+        4450,
+        4844
+      ],
+      "master_sample_range": [
+        8900000,
+        9688000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "sha256": "9a9f1e27faf7e2b421f37065ec4f7d05d8af9d461874d48ff3349a0f4cc411df"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg019.mp4",
+        "sha256": "6a3176137e14a0d2b6d3521ca9e6ef1002db166309d5235563e77fa73ce56e64"
+      },
+      "source_frames": [
+        0,
+        394
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg019-SELECTION.json",
+        "sha256": "8aaa79fa33eb217087546fcf04fbf07240fc1618ac3e4f0e5b648b76ccb3735c"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg019-VERIFICATION.json",
+        "sha256": "727db3e25cfa034a4cb4e0579a9ad0ff0ec45bb4e24e1d744037bc78f2c47b3a"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "2acad9c3011f3faa33534bb5093e463f3029c6bc567a1ec00a1dd0a36aff4acd",
+        "updated": "f06cf89fddbee138e6095f4a818509efe4ca98fc00b6535265e54335109baced"
+      },
+      "master_pcm_sha256": "523c94dcaef18f27fd1a1d91a2d534802fb18fba9731e3cd568b4b7dfbd28155",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg019.mp4",
+        "sha256": "3237551869a22d73201fcffe93ca8564dd59afa06fe08ee0ebd34f95a63d02be"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P03/final/seg019.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg019.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=394,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=394,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg019.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg021",
+      "frames": 242,
+      "reel_frames": [
+        957,
+        1199
+      ],
+      "master_frames": [
+        5351,
+        5593
+      ],
+      "master_sample_range": [
+        10702000,
+        11186000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "sha256": "f8beac3bda79e411ecfa6d3648cf91531c9293a619661dc02c8f10c3bb5106b5"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg021.mp4",
+        "sha256": "a64dfb484a51e246e2193c35a5b1afe3916978ffbf251f87a5436bb30446ce74"
+      },
+      "source_frames": [
+        0,
+        242
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg021-SELECTION.json",
+        "sha256": "b612bb96d29e318193bbec363cd30bc28daca451d13286dc543b0bf98b7326d4"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg021-VERIFICATION.json",
+        "sha256": "10129f3e9723c0248be54f978b79f2c87e1159390016c7689a97c3783e1fcaa1"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "d81ec53ee32387e6360fb94e67d158b54c19e90528ff7257a975819194f17548",
+        "updated": "83d84b2e8b036cdf09eaab55fbf9756ce67a8b793dd0eb9d9fcce92f757e7ece"
+      },
+      "master_pcm_sha256": "749fe6d40ec206f243f3989a4d93cd048295b7b0af5b3700d1f235cad2cf984b",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg021.mp4",
+        "sha256": "6c0ee5a0e43578b98b1cf0c730a53d231fff2bd7d04a441076cb3e58f774e425"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P04/final/seg021.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg021.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=242,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=242,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg021.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg028",
+      "frames": 129,
+      "reel_frames": [
+        1199,
+        1328
+      ],
+      "master_frames": [
+        8754,
+        8883
+      ],
+      "master_sample_range": [
+        17508000,
+        17766000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4",
+        "sha256": "a3a48057d60bbc0763bdcf7aa3bbc9b9986c01c7dca738d71ad8941e541a8c0b"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028.mp4",
+        "sha256": "bfe53221f392e0b5d6e40f3f229bd649e28cda45bf1fd561909fd89992737926"
+      },
+      "source_frames": [
+        0,
+        129
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-SELECTION.json",
+        "sha256": "6f00970f1440c01975f649c8b733f2c044b11825b7d80a3c5449889916050e0a"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028-VERIFICATION.json",
+        "sha256": "d4cc797f0b4d6b6b8531204b6d56dc2b0463312de3332a57c1bd56c620c7981e"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "a1907f5bfd7d1108f879d87fda895811099ad05e7ce3834dd1ac3c54e0d675a4",
+        "updated": "c29176147a8c8f30bb3723d7b7cdaa11c838be0451399e1c8d923e44a9192728"
+      },
+      "master_pcm_sha256": "508f916bf00fac09fecda11cdc246f2a78ae3e914b613123d8ce6e73dcfa69d2",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg028.mp4",
+        "sha256": "5dce459344edb0067f6e52244b5ee881ef60f6969a0a072c6575e51d8ef2d037"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P05/final/seg028.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg028.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=129,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=129,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg028.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg035",
+      "frames": 258,
+      "reel_frames": [
+        1328,
+        1586
+      ],
+      "master_frames": [
+        11185,
+        11443
+      ],
+      "master_sample_range": [
+        22370000,
+        22886000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg035.mp4",
+        "sha256": "21d539ba8b8c6e9b606262cf69c69dbf52f5a08a76d917adc51b63eb3cb7ef37"
+      },
+      "source_frames": [
+        0,
+        258
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg035-SELECTION.json",
+        "sha256": "2fbf8dd4cee93b0e1b0007dd058dc6faf49b18ba56dac3a0c7461a092801c1f7"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg035-VERIFICATION.json",
+        "sha256": "f3ebf6bcd7e4ee4bf926a7a845688e96e14bb4a52da4768fafa246f536b8e813"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "69e9534f362c3b368f6f6a161901e4f69809fdf6956d5411870b1db7a6a5aef6",
+        "updated": "55340531932e359861aec60d4e9329b37b26639fa0c41a13da390be600616f6a"
+      },
+      "master_pcm_sha256": "5a806045c645d250793b9c5bb72caa2845534c15a577140d46ae3454ecd82e03",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg035.mp4",
+        "sha256": "cd8465b872ec5157f77c477e75be1affcf74ec2dcd333abc59ccec82111208f6"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg035.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=258,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=258,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg035.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg037",
+      "frames": 284,
+      "reel_frames": [
+        1586,
+        1870
+      ],
+      "master_frames": [
+        12412,
+        12696
+      ],
+      "master_sample_range": [
+        24824000,
+        25392000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4",
+        "sha256": "6c45f3e7981cbcbf3b478255615bf04cf9b65b0ee74a7fef791b5b3ba16140f9"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg037.mp4",
+        "sha256": "25b48e5173569fba4829b58613cbbc5954b1b851e953e61f47addf46b50cb0df"
+      },
+      "source_frames": [
+        0,
+        284
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg037-SELECTION.json",
+        "sha256": "c2eb2227b036b8c3b9faf1bdd361f90c4e458a3c62a07b1f2bfcb54b76740121"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg037-VERIFICATION.json",
+        "sha256": "9ddff43322ef5c3726c10cc7c0a9617eae450bc0a1e7b1207cd494c3fc5c7cd3"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "59c1ff9cad3605d84f449397801c248b84be8e5897a06034937ee12baee96329",
+        "updated": "d3152e4e3205c294afdcf6920f8380b7bfa7da91e56b7feb7f044c5e4c764556"
+      },
+      "master_pcm_sha256": "586712936a9af768c6c6487944086c02e80ca8acff4a96a5d98dcb3c3e3ec673",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg037.mp4",
+        "sha256": "091b2749b37cb3197ec88b05b99f72b6ccff349bab9500887cb91c9e6d10cffb"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P07/final/seg037.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg037.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=284,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=284,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg037.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg055",
+      "frames": 161,
+      "reel_frames": [
+        1870,
+        2031
+      ],
+      "master_frames": [
+        20816,
+        20977
+      ],
+      "master_sample_range": [
+        41632000,
+        41954000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4",
+        "sha256": "f765c32281acc8a454b20ffbe2f1b1ba61dc69948461b02cb1022c62aa1c6396"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055.mp4",
+        "sha256": "558b39019c8eeafb28b662d1aa10ade6d1c1c7c28dc65cdc7b0b10b90f1cdadd"
+      },
+      "source_frames": [
+        0,
+        161
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055-SELECTION.json",
+        "sha256": "adfe7fb794633c3733c9e02f59289b8936900e85fdb4cdb71d6de91e0db631ea"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055-VERIFICATION.json",
+        "sha256": "dfd30e991462ef9e5557fbdad2b8e0f4b5bbaa26ff30bee59e0e953f7b134a28"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "9433cdaffb377dce66209e2164a337a922cf1bb23c28c4e7d6b289168e88e4e7",
+        "updated": "51188f2b16964a32595ebeedcae44a097fbe431c2920085d8c0010ee0cd73679"
+      },
+      "master_pcm_sha256": "387139b098245932d2887ced22c473d8804b5fd23efbb7e50260be843066409f",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg055.mp4",
+        "sha256": "8cad7817f5ee709600b9abac209b78f738ee7a25f28c9cadec5edee95ad94703"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P09/final/seg055.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=161,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=161,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg055.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg059",
+      "frames": 152,
+      "reel_frames": [
+        2031,
+        2183
+      ],
+      "master_frames": [
+        23153,
+        23305
+      ],
+      "master_sample_range": [
+        46306000,
+        46610000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4",
+        "sha256": "103bad4f502f1d7eee48df270d8073c93921a0a082a2c491e93543b7a0e5bb9c"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg059.mp4",
+        "sha256": "a62fdc7927320966b1d1478f24bda1afb7f3a92303b17a287657dbc78c75e57c"
+      },
+      "source_frames": [
+        0,
+        152
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg059-SELECTION.json",
+        "sha256": "1fb4076b7381fcd3f17aca0f92fcc0f637a190303be5f20d9680f9cb3b45601d"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg059-VERIFICATION.json",
+        "sha256": "39ee7b9900f4ba742377a4b337730aec34c7ab0e7e02710067f7b2ccb3ccbff6"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "b49bc2a08e54405c1be41540b9513e918ac4e421e116b0cefdab50b83951fe9c",
+        "updated": "47f8c04866315b33a1cf71556855c0a0a5989e8a5ad27582528700f9aea4d568"
+      },
+      "master_pcm_sha256": "8821326a12200e7dcaa86a6e58c87ebcaf01e866294d4994167db4e8201c8e7f",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg059.mp4",
+        "sha256": "52a20f568ebebe8b09e406d381945805cafca2dcd59840ff97d7a172d044025f"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P10/final/seg059.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg059.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=152,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=152,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg059.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg071",
+      "frames": 514,
+      "reel_frames": [
+        2183,
+        2697
+      ],
+      "master_frames": [
+        27917,
+        28431
+      ],
+      "master_sample_range": [
+        55834000,
+        56862000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg071.mp4",
+        "sha256": "5fd7d2597ba8fda69f430464ffea31ebda838d033232f3768f3af509b03fd4f2"
+      },
+      "source_frames": [
+        0,
+        514
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg071-SELECTION.json",
+        "sha256": "3cc6515e4549a16014f5431d145b76b2116496873e0b857c68e1c91b8047def1"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg071-VERIFICATION.json",
+        "sha256": "f21ad2ec840f009982dd4f13e483ee7f7358c212c69e3371f03c9d4af4a4e3d7"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "d4ffa34446d064bc0de12f7257dc96039cfe6bd328e371459de80307916e1e50",
+        "updated": "dd51f2b9907dd3b4883f10f4c4e976f6ae2b4e914c593a0e8091dd800d520530"
+      },
+      "master_pcm_sha256": "840d5722d7391da338bc1f50ee4acd4966d43b2985d066e8619fcb191b2b158b",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg071.mp4",
+        "sha256": "2dc6a5861b5c88d038ee4fdeb644bfde75ccf40088dce8dbbca7bf02821625cd"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg071.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=514,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=514,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg071.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg072",
+      "frames": 191,
+      "reel_frames": [
+        2697,
+        2888
+      ],
+      "master_frames": [
+        28431,
+        28622
+      ],
+      "master_sample_range": [
+        56862000,
+        57244000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "sha256": "e24bd7a4ded2c8d6c6139bc29f986a89d1185b6d097ad9cad0254db8300cef8b"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg072.mp4",
+        "sha256": "5b441789a580a6206f952a28ab1577dda56ea2c8f0df36155d3f3e66d071ad43"
+      },
+      "source_frames": [
+        0,
+        191
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg072-SELECTION.json",
+        "sha256": "d3b8a543dd83846a8e1104e63e2bb79c3f877c52bc017db3da353b249270dac2"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg072-VERIFICATION.json",
+        "sha256": "89a7b01787adeaf28441a7c187f96765ee3a55c2a5972501f0ef58ef56535194"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "3bdecf1a342f1ee1066bd18c9c104c861eab71537297742f77e03f4165a14a06",
+        "updated": "70f949b20ad288b7c331f86d521209a940a1456ae5e39daa00e997b37218ba5c"
+      },
+      "master_pcm_sha256": "90cd3e00fe5511950599d7f24c6b18fc7d74ec6f5d3ad0367c545740db803faf",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg072.mp4",
+        "sha256": "292b2c7f8be261b3e0617f1222e675d60a6b6674671a2f024fd2f80d68d0b139"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg072.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg072.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=191,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=191,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg072.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg073",
+      "frames": 227,
+      "reel_frames": [
+        2888,
+        3115
+      ],
+      "master_frames": [
+        28622,
+        28849
+      ],
+      "master_sample_range": [
+        57244000,
+        57698000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "sha256": "d821497e4dc94355579f15070c9f449f0c96047cfc92adbcb02a12ac5f82a62e"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg073.mp4",
+        "sha256": "3477c6cc16724510e270c748e444ed5f9d77167b4854ec3fe2675d1670bb1e72"
+      },
+      "source_frames": [
+        0,
+        227
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg073-SELECTION.json",
+        "sha256": "228b2358d754f931c78f2a2f4d7b81c895e9927674c90aeb2cda15da66d45c56"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg073-VERIFICATION.json",
+        "sha256": "8e06e18e3a74334515b1c2ee9e120c0f31b65f9832074756a6f264fcd49f9e82"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "52bb6323479c40e3f01c03d94e872b3cdfcce50ab6ad18a930bae5d154afc76e",
+        "updated": "a289613b09b58354c64d843abe350f381d68ec4854e7afe7736ca9164d322271"
+      },
+      "master_pcm_sha256": "b1ccfee095ee3b7596a516b008cfb0368158d900279158d2104ca6dfec5afba0",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg073.mp4",
+        "sha256": "1ea797b9ead438ff57676c666bbef920b23b9c92b663c8c2b9456b2def7bd744"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P12/final/seg073.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg073.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=227,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=227,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg073.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg074",
+      "frames": 288,
+      "reel_frames": [
+        3115,
+        3403
+      ],
+      "master_frames": [
+        28849,
+        29137
+      ],
+      "master_sample_range": [
+        57698000,
+        58274000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+        "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg074.mp4",
+        "sha256": "7bcf14fc30b302555452806cbc068db2214dd64c64eb287c3481bd7a9303c7c5"
+      },
+      "source_frames": [
+        0,
+        288
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg074-SELECTION.json",
+        "sha256": "ec6fc82cf5bda563db1eb14e0ee4bfa9734615e73623a4b9bc658090fea8f6f0"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg074-VERIFICATION.json",
+        "sha256": "5c9ec73d9095e00fcba9086a03b5ea6f6a113a84194c31f6884ae3823f45ebae"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "cba737f0d1135cf591d43ac4044076bcb66de044bedce8e51b9ba3f03f69bc83",
+        "updated": "4258b17b2cf6132ff7467eb8a66a2c187e77a9c164c214877875119ce8fb7aea"
+      },
+      "master_pcm_sha256": "6d4cd5d81f23c21deaeab4aadfb4b1038965c05127778c24f78d05451dd831b2",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg074.mp4",
+        "sha256": "d4c8bbf6d32ac76e2b9b418116a16d7b02713c3ce7229c99bcad1d0129129e37"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg074.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=288,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=288,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg074.mp4"
+      ],
+      "master_zero_padding_samples": 0
+    },
+    {
+      "segment": "seg075",
+      "frames": 186,
+      "reel_frames": [
+        3403,
+        3589
+      ],
+      "master_frames": [
+        29137,
+        29323
+      ],
+      "master_sample_range": [
+        58274000,
+        58646000
+      ],
+      "original_left": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "sha256": "615300d1df1465ce543593bc11442bf9877c95a53a091c754cf0ae712453548f"
+      },
+      "updated_right": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg075.mp4",
+        "sha256": "c1480013e70e7ae1c43a24578a7e9c141346c6945578cdc014778f259d8d3a34"
+      },
+      "source_frames": [
+        0,
+        186
+      ],
+      "selection": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg075-SELECTION.json",
+        "sha256": "4b81486b62e33888571cbeaa4a5a00540aa0d63588aeb1be82c73e84a5912c98"
+      },
+      "verification": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg075-VERIFICATION.json",
+        "sha256": "9a28d86f0b41b1433eaaca9bcfd44e9a63be1ee72187340abeeb13c71dfe307f"
+      },
+      "source_frame_sequence_sha256": {
+        "original": "ad0244261f2653c265b3651a204f0fed3cae5ed5c87731982685bd24efdb59dd",
+        "updated": "abe8ce5dae8a516d41a4fddd8f08a8bf1b6f54522a94e26fb8faa40274d138e8"
+      },
+      "master_pcm_sha256": "ccf34ffb5918a8ce9ae08646451a67ac36788e7809e886a1b771e988e641b802",
+      "source_review_flags_retained_in_verification": true,
+      "pair_chunk": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg075.mp4",
+        "sha256": "b2b3b86e254529e55ad7b02a7de1b9a85f33551e014bcee3caa68f15da1303ca"
+      },
+      "pair_command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-filter_complex_threads",
+        "1",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg075.mp4",
+        "-threads",
+        "1",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg075.mp4",
+        "-filter_complex",
+        "[0:v]trim=start_frame=0:end_frame=186,setpts=N/(24*TB),setsar=1,format=yuv420p[l];[1:v]trim=start_frame=0:end_frame=186,setpts=N/(24*TB),setsar=1,format=yuv420p[r];[l][r]hstack=inputs=2[v]",
+        "-map",
+        "[v]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "fast",
+        "-crf",
+        "18",
+        "-threads",
+        "2",
+        "-pix_fmt",
+        "yuv420p",
+        "-r",
+        "24",
+        "-movflags",
+        "+faststart",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/chunks/seg075.mp4"
+      ],
+      "master_zero_padding_samples": 1080
+    }
+  ],
+  "P00_included": false,
+  "P08_included": false,
+  "all_segment_frames_retained": true,
+  "speed_changed": false,
+  "provider_audio_used": false,
+  "owner_accepted": false,
+  "lip_sync_approved": false,
+  "release_approved": false,
+  "limits": [
+    "Paired private comparison only; original and updated images each retain their full frame and timing.",
+    "The two views use one locked narration track. Carrier identity does not prove preserved performance or lip sync.",
+    "Source review limits/flags remain bound. The reel does not accept or release any segment."
+  ],
+  "exact_narration": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/narration-exact-master.wav",
+    "sha256": "736073c9ed095b0995c64dd608e6bd8d42602dced57fb8d9b1dbe0451932d00f"
+  },
+  "program_pcm_sha256": "d824541b8d6fa3fa5dc38453100f211689c137f80cccfe63c93293f5dfc12cc4",
+  "concat": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/concat.txt",
+    "sha256": "1f46709b15b811b178a8193e450f2519fd7334038cdec5928356154f2d3a2094"
+  },
+  "mux_command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1.mp4",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/narration-exact-master.wav",
+    "-map",
+    "0:v:0",
+    "-map",
+    "1:a:0",
+    "-c:v",
+    "copy",
+    "-af",
+    "pan=stereo|c0=c0|c1=c0",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "256k",
+    "-ar",
+    "48000",
+    "-ac",
+    "2",
+    "-threads",
+    "2",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r5-look-transfer/ep009-presenter-comparison-r1.mp4"
+  ],
+  "source_render_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/BUILD.json",
+    "sha256": "200e90daf92a1ad96b4d7246c98b0c40d2d263495d63283fcedb3b42d8fbe2f7"
+  },
+  "preserved_level_failure": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/paired-review-r1/VERIFY.json",
+    "sha256": "92cb97e5b09f6e259b5503e3c2342db93d47f3ba62402eddedd0af47b4cb4928"
+  },
+  "repair": "Explicit unity dual-mono pan replaces FFmpeg default -3dB upmix. Picture packets copied; exact locked PCM unchanged.",
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r5-look-transfer/ep009-presenter-comparison-r1.mp4",
+    "sha256": "b3fe25392bb31e22e85f59db333d32edb652dea59c4bd3bef9d719651ee03587"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r32-question-sync-diagnosis",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/index.html",
+      "sha256": "8690bd5b6f8683dfc426328373b83c82e17abba4f6f12712ad46e48e749c5bcb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/compositions/presenter-question.html",
+      "sha256": "af45c4346df71e75eccb269c8f71d43e11a42c7f5b4522b949cac8359528f224"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/restored.mp4",
+      "sha256": "b4c423843acd8fae81e26c94cae2d57227f99be2a89017710366bec1c5ee4231"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/restored-qa.json",
+      "sha256": "3a4f8adab758749017ddb42461f9793edc791475f33e9dfaf4c95ea1126bc01c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/public/media/v5-question-with-pause.mp4",
+      "sha256": "e302dccd624a2251a52a47f195e90a86d5df3fce6c37e0664f5ba5a83c4ba623"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/public/audio/seller-market-narration.wav",
+      "sha256": "e0dc8ce54f0218d0297ed72a0b000c6faa61bf170125669005cef1f5c828a468"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/work-orders/r32-question-sync-diagnosis.json",
+      "sha256": "136f7bcbe21f7da82a7fb3ac114a57fea8db702e76c63310bed13d6f546d7685"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/QUESTION-SEAM-FIX.json",
+      "sha256": "4ed81d39ad3d42555f442b0b3b5cc4024a58d0e830061a7e1578c1aa1c47ec9c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/integrate_v5.py",
+      "sha256": "2b40d8e95887f4dec6026d6256458725e23741d821a7a007c897878e89f09145"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/deliverable.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/diagnose.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/evidence.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/question-local-r31-original-audio.mp4",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/question-original-exact.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/question-pause-end.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/question-viseme-early.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/question-viseme-late.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/resample_contacts.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/standalone-crop-and-end.jpg"
+  ],
+  "checks": [
+    {
+      "command": "All seven issued SHA-256 pins match; actual runtime audio also pinned",
+      "outcome": "pass"
+    },
+    {
+      "command": "Original master PCM equals actual R31 narration interval and decoded standalone ALAC audio",
+      "outcome": "pass"
+    },
+    {
+      "command": "Restored, selected and standalone probes; full decode; frame timestamps and repeat/near-static analysis",
+      "outcome": "pass"
+    },
+    {
+      "command": "Independent early/middle/late waveform insertion measurements; source-picture alignment comparison",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect explicit-frame visemes, existing pause and export close-crop transition/endpoint",
+      "outcome": "pass"
+    },
+    {
+      "command": "Generated MP4 and WAV remain Git-ignored; all artifacts confined to owned output",
+      "outcome": "pass"
+    },
+    {
+      "command": "Uninterrupted audiovisual playback or browser/network trace",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Owner acceptance, paid generation, runtime integration or production-state changes",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Exact issued R31 root, question composition, restored source, QA, selected picture, original master and transcript",
+    "Additional read-only R31 narration, seam-fix receipt and integration mapping; hashes recorded",
+    "Local FFmpeg probe/decode/encode/frame evidence and original PCM comparison; no external acquisition",
+    "Media-use local-operation and Blueprint Cinema finishing/review contracts; owned diagnostic packet substitutes for global asset registration"
+  ],
+  "assumptions": [
+    "The comparison reproduces the issued R31 selected picture and exact master interval, not a proposed corrected take",
+    "Integer-pixel diagnostic crop approximates CSS within one output pixel without changing frame order or timing",
+    "Word transcript onsets are not phoneme-level alignment targets",
+    "The 0.75-second final picture hold and inherited next-word boundary remain unchanged"
+  ],
+  "unresolved_questions": [
+    "Whether owner hears/sees the same mismatch in normal-speed local playback",
+    "Whether any browser-only choppiness is caused by network, decoding, scheduling or another runtime condition",
+    "Whether generated mouth transitions are perceptually aligned; waveform correlation and samples cannot decide this",
+    "Root owns the separately requested more-pensive performance proposal"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

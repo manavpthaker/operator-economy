@@ -1,0 +1,51 @@
+{
+  "schema_version": "oe-google-gemini-tts-style-instructions-v1",
+  "status": "proposed_manual_input_zero_authority",
+  "candidate_id": "candidate-C1",
+  "scope": "method_level_narrator_register",
+  "purpose": "replace_passage_specific_direction_with_a_passage_independent_register_and_remove_compression_pressure",
+  "supersedes": {
+    "candidate_id": "candidate-C",
+    "prompt_record": "../fixtures/step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest/prompts/P01-W0030-W0110.candidate-C.google-gemini-tts.style-instructions.json",
+    "style_instructions_sha256": "a4ebf75f58b36080e8580fba5918ea92db4d5765e9c5cd54ced3f547438724b2",
+    "reason": "Candidate C names \"missing\", \"Or worse\", \"Everything is green\" and \"2022\", which occur only in P01 W[30,110). Applied across an episode it delivers dangling references to absent text, and its general clauses are uniformly compressive. See N4A-RESULTS.md finding F5."
+  },
+  "n4a_evidence": {
+    "owner_decision": "M3 and M4 strong; M1 and M2 fast",
+    "m1_words_per_minute": 192,
+    "m2_words_per_minute": 151,
+    "m3_words_per_minute": 132,
+    "m4_words_per_minute": 150,
+    "observation": "M2 and M4 share pace (151 vs 150 wpm) but differ in room: M4 holds 0.61s mean pauses at 71% speech density, M2 holds 0.58s at 75%. The failure is room for the idea, not raw speed."
+  },
+  "changes_from_candidate_c": [
+    "removed every named phrase so the register applies to any passage",
+    "removed 'Keep phrases connected', which suppressed pauses",
+    "removed 'brief pauses only when the thought changes, never as a repeated cadence', which suppressed pauses a second way",
+    "added unhurried framing as situation rather than as a pace instruction",
+    "added explicit room for dense reasoning and numbers",
+    "energy seven of ten -> six of ten",
+    "moved pronunciation aliases out of the register; they attach per passage only where the display form actually occurs"
+  ],
+  "style_instructions": "An experienced operator is talking with one smart peer across a table, working through a real problem—not presenting or reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Begin as if the conversation is already underway. He is unhurried and would rather be understood than quick; he has thought about this before and is choosing how to explain it. Let each idea finish and settle before the next one starts. Give dense reasoning and numbers the room they need—move into them, rather than reading through them. Emphasize ideas, not individual words. Natural American conversation, grounded and lightly informal. Energy six of ten. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Do not vocalize these directions.",
+  "pronunciation_policy": {
+    "method": "append_only_applicable_aliases_per_passage",
+    "rationale": "Naming a token in the prompt raises its salience, which is what over-stressed the target word in the original candidate C audition. Aliases are therefore attached only when the display form occurs in that passage, and the composed prompt hash is recorded per chunk.",
+    "aliases": {
+      "2022": "twenty twenty-two",
+      "Airtable": "air table",
+      "EBITDA": "ee bit dah",
+      "GenAI": "Gen A.I.",
+      "Manav": "Mah-nuhv",
+      "MP": "Em Pee",
+      "SaaS": "sass",
+      "Zapier": "zappier",
+      "n8n": "en eight en"
+    }
+  },
+  "constraints": {
+    "locked_spoken_text_may_change": false,
+    "existing_candidates_may_be_overwritten": false,
+    "provider_call_authorized": false
+  }
+}

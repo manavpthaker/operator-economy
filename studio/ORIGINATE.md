@@ -1,6 +1,8 @@
 # Originate — blueprint video pipeline (The Operator Economy)
 
-Topic → researched script → POV/rigor pass → VO → assets → 16:9 long-form render → LinkedIn/Grapevines derivatives → shorts (via the existing pipeline).
+Topic → researched script → explicit script lock → edited VO → timed transcript coverage → asset manifest/selects → rough cut → visual lock → final mix/render → derivatives.
+
+`../docs/vo-first-production-flow.md` is authoritative after the research brief. The old one-command jump from script to VO, assets, storyboard, and music is disabled.
 
 One research run feeds five surfaces: YouTube long-form, Shorts, LinkedIn posts, newsletter, and the downloadable blueprint doc (email capture).
 
@@ -14,11 +16,16 @@ originate.py new "topic" --research brief.md
         ▼
    GATE 1 (you): replace every [POV: ...] token, edit voice, verify numbers
         │
-originate.py continue <slug>
-        │  generate_vo.py    → vo/*.mp3 + word timestamps (ElevenLabs)
-        │  plan_assets.py    → assets.json + assets_review.md
+originate.py lock-script <slug>
+        │  approved evals + SHA-256 lock in production_state.json
         ▼
-   GATE 2 (you): approve asset plan, record screen_rec shot list
+originate.py voice <slug>
+        │  generate_vo.py → edited/mastered VO + word timestamps
+        ▼
+   TRANSCRIPT COVERAGE: assign a visual job every 3–10 seconds
+        │  approve coverage → source/select assets → rough cut
+        ▼
+   VISUAL LOCK: second visual pass, final graphics and replacements
         │
 originate.py render <slug>
         │  prepare_longform.py → render_data/blueprint.json

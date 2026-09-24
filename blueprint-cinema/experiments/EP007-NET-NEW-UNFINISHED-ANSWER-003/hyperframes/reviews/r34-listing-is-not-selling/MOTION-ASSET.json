@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ep007-s06-listing",
+  "semanticCore": {
+    "path": "design-system/boundary-ledger/semantic-core.json",
+    "version": "2.0.0",
+    "sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e"
+  },
+  "sourceStill": {
+    "path": "public/art/workshop.svg",
+    "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55",
+    "preservedUnchanged": true
+  },
+  "format": {
+    "aspectRatio": "16:9",
+    "width": 1280,
+    "height": 720,
+    "adaptation": "authored-recomposition"
+  },
+  "persistentObjects": [
+    {
+      "id": "workshop",
+      "role": "humanContext",
+      "layerIds": [
+        "workshop",
+        "table"
+      ]
+    },
+    {
+      "id": "completed-sale-condition",
+      "role": "externalDependency",
+      "layerIds": [
+        "completion"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "workshop",
+      "semanticRole": "humanContext",
+      "asset": {
+        "path": "public/art/workshop.svg",
+        "mediaType": "image/svg+xml",
+        "width": 440,
+        "height": 330,
+        "sha256": "b2fd4ec2b24b001d4be94c11022a410ac2f50a9666fa42af5ed3069ec9b7ca55"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "table",
+      "semanticRole": "humanContext",
+      "asset": {
+        "path": "public/art/table-match.svg",
+        "mediaType": "image/svg+xml",
+        "width": 320,
+        "height": 180,
+        "sha256": "f3ca08317364b04d7ebf65506ea316125a04f0cf1b4d2e2dcddc84c7c75cd03c"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "completion",
+      "semanticRole": "externalDependency",
+      "asset": {
+        "path": "public/art/s06-completion.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "8964aa5b5d1483289aaff4ccb8000602697a9f0cfadf8812be004692a8f90d86"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "route",
+      "semanticRole": "externalDependency",
+      "asset": {
+        "path": "public/art/s06-route.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "efa25949a61872ade8d2414c118bf198df37f7ea5e98522a14bb1c9068029646"
+      },
+      "authoredRoughness": true
+    },
+    {
+      "id": "distinction",
+      "semanticRole": "activeCommitment",
+      "asset": {
+        "path": "public/art/s06-distinction.svg",
+        "mediaType": "image/svg+xml",
+        "width": 1280,
+        "height": 720,
+        "sha256": "edfa89ea60abd8235b3a86fa14e899a9e31de46a469fa8858040f39f47a07658"
+      },
+      "authoredRoughness": true
+    }
+  ],
+  "routes": [
+    {
+      "id": "listing-to-closing-not-automatic",
+      "semanticRole": "externalDependency",
+      "from": "workshop",
+      "to": "completed-sale-condition",
+      "strokeLayerIds": [
+        "route",
+        "distinction"
+      ]
+    }
+  ],
+  "evidenceAnchors": [
+    {
+      "id": "epi-estimate",
+      "objectId": "completed-sale-condition",
+      "claimId": "C001"
+    }
+  ],
+  "review": {
+    "objectPermanence": true,
+    "roughnessAuthored": true,
+    "cropBased": false,
+    "reviewerRole": "Root source and snapshot review; owner verdict pending"
+  }
+}

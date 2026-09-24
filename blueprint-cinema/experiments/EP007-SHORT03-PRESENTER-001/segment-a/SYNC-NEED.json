@@ -1,0 +1,19 @@
+{
+  "record_type": "ep007_fal_sync_v3_need_v1",
+  "short_id": "short-03-how-you-charge",
+  "segment": "segment-a-opening",
+  "video_source_sha256": "3ef860067ed7e2331967c2e6034b377c4957a765de0b135f091bc3ebf2993886",
+  "status": "needed",
+  "reason": "The generated clip's native speech diverges from the final program voice at the handoff: local ASR hears 'A fee tied on the sale' rather than the locked Original C 'A fee tied to the sale', and places its last word past the 9.05-second source duration. The master finishes 'sale' by 8.506 seconds. A private proxy mux of the generated picture with the exact Original C slice therefore has a nonmatching final mouth/word sequence; preserve the generated picture but restore lips to the exact master before any final composite.",
+  "reviewer": "Codex technical picture-plus-program-audio timing review, 2026-09-23 UTC",
+  "evidence": {
+    "native_asr_path": "segment-a/qa/asr-native/transcript.json",
+    "native_asr_sha256": "557cf3845bce8983349c52415149930d7d5b6193ddc58d33866e23bc62537c20",
+    "program_audio_proxy_path": "segment-a/qa/program-audio-proxy.mp4",
+    "native_final_word_asr_end_seconds": 10.32,
+    "source_video_duration_seconds": 9.041667,
+    "original_c_final_word_end_seconds": 8.506
+  },
+  "owner_acceptance": false,
+  "notes": "The ASR time past clip end is a diagnostic failure, not an exact phonetic measurement. Human sound-on listening remains pending; no claim that the native clip is accepted."
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r10-avatar-audit-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only isolated experiment audit: locate any generated exact EP007 introduction presenter take, verify audio identity and timing, and report the owner-accepted Test M recipe and any live parallel presenter work. This is wave-zero inspection; required_gate is a schema placeholder, not a claim that canonical visual gates are approved.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/presenter-manifest.json", "sha256": "9622f62e6fffbda822ac2dbdfda1715e787baaf20a0a07a9a138799dc2df92bf"},
+    {"path": "blueprint-cinema/experiments/EP007-PRESENTER-001/repair-r14/README.md", "sha256": "b7471acab7151844e95a97bab4c59795c7e09c41187c7b74dc7ecc8fb4ba6671"},
+    {"path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json", "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"}
+  ],
+  "owned_output_paths": ["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-avatar-audit-20260908/"],
+  "forbidden_paths": ["operator-blueprint-v2/", "design-system/", ".agents/", "blueprint-cinema/experiments/", "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"],
+  "dependencies": [],
+  "time_range": {"in": 48.52, "out": 74},
+  "acceptance_checks": ["Verify all pinned input hashes before reporting; stop if stale.", "Identify exact introduction take or explicitly report none; never substitute scope-test mouth motion.", "Report exact accepted recipe, input audio handles, available files, and active parallel generation without triggering new work.", "Return a schema-valid deliverable manifest and a concise report; no approval or gate-change claims."],
+  "permissions": {"external_writes": false, "paid_services": false, "synthetic_generation": false, "canonical_state_changes": false},
+  "retry_limit": 0,
+  "stopping_conditions": ["Stop if pinned source hashes have changed.", "Do not modify the presenter experiment, access credentials, generate media, or contact providers."],
+  "status": "closed"
+}

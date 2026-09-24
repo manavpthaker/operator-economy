@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #19201f;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .paper-edge { display: none; }
+        .logic-sheet {
+          position: absolute;
+          top: 170px;
+          left: 58px;
+          width: 900px;
+          height: 1190px;
+          padding: 42px 40px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #19201f;
+          box-shadow: none;
+        }
+        .logic-sheet::before { display: none; }
+        .logic-kicker { color: #586d74; font-size: 18px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+        .logic-sheet h1 { margin: 16px 0 42px; color: #173530; font: 700 76px/0.9 "BL Zodiak", Georgia, serif; letter-spacing: -0.04em; }
+        .step {
+          position: relative;
+          width: 100%;
+          padding: 28px 30px;
+          border: 3px solid #586d74;
+          background: #fbf8f1;
+          opacity: 0;
+        }
+        .step + .step { margin-top: 84px; }
+        .step-tag { color: #586d74; font-size: 16px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+        .step strong { display: block; margin-top: 10px; color: #173530; font-size: 39px; font-weight: 500; line-height: 1.08; }
+        .step small { display: block; margin-top: 9px; color: #586d74; font-size: 24px; font-weight: 500; letter-spacing: 0.05em; line-height: 1.18; text-transform: uppercase; }
+        .flow-line {
+          position: absolute;
+          left: 450px;
+          top: 350px;
+          width: 4px;
+          height: 64px;
+          background: #586d74;
+          transform-origin: 50% 0;
+        }
+        .flow-line::after {
+          position: absolute;
+          bottom: -2px;
+          left: -11px;
+          width: 26px;
+          height: 26px;
+          border-right: 5px solid #586d74;
+          border-bottom: 5px solid #586d74;
+          transform: rotate(45deg);
+          content: "";
+        }
+        .judgment-gate {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          top: 660px;
+          padding: 32px 30px 30px;
+          border: 4px solid #b5482f;
+          background: #ede7d8;
+          opacity: 0;
+        }
+        .judgment-gate .gate-label { color: #87341f; font-size: 16px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+        .judgment-gate strong { display: block; margin-top: 10px; color: #173530; font: 700 62px/0.92 "BL Zodiak", Georgia, serif; letter-spacing: -0.035em; }
+        .operator-line { margin-top: 24px; padding-top: 20px; border-top: 2px solid #586d74; color: #173530; font-size: 30px; font-weight: 500; line-height: 1.16; }
+        .boundary-note { position: absolute; left: 40px; right: 40px; bottom: 40px; color: #586d74; font-size: 19px; font-weight: 500; letter-spacing: 0.085em; line-height: 1.25; opacity: 0; text-transform: uppercase; }
+        .script-rail {
+          display: none;
+          position: absolute;
+          top: 1420px;
+          left: 58px;
+          width: 900px;
+          height: 250px;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: #19201f;
+        }
+        .guide-label { display: none; }
+        .guide-line { position: absolute; left: 0; right: 0; top: 0; color: #19201f; font-size: 46px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.03; opacity: 0; text-wrap: balance; }
+        .guide-line em { color: #87341f; font-style: normal; }
+      </style>
+
+      <section
+        id="root"
+        data-composition-id="short02-ai-judgment"
+        data-start="0"
+        data-duration="7.693333"
+        data-width="1080"
+        data-height="1920"
+        data-script-text="AI can organize interviews and draft procedures. It can’t decide which missing process a buyer will question."
+      >
+        <div class="paper-edge" aria-hidden="true"></div>
+        <article id="s4-sheet" class="logic-sheet" aria-label="AI organizes interview material and drafts while operator judgment remains human">
+          <div class="logic-kicker">Tool versus judgment</div>
+          <h1>Where AI stops.</h1>
+          <div id="s4-material" class="step">
+            <div class="step-tag">AI support</div>
+            <strong>Interview material</strong>
+            <small>Organize + draft procedures</small>
+          </div>
+          <div id="s4-draft" class="step">
+            <div class="step-tag">Mechanical output</div>
+            <strong>Draft procedure</strong>
+            <small>Input for operator review</small>
+          </div>
+          <div id="s4-gate" class="judgment-gate">
+            <div class="gate-label">Human decision gate</div>
+            <strong>What matters?</strong>
+            <div class="operator-line">Operator: interview + buyer-impact judgment</div>
+          </div>
+          <div id="s4-boundary" class="boundary-note">AI does not interview the owner or decide what a buyer will question.</div>
+        </article>
+
+        <aside id="s4-script" class="script-rail" data-layout-allow-caption-zone aria-label="Provisional exact-script guide">
+          <div class="guide-label">Exact locked script · provisional timing</div>
+          <div id="s4-guide-a" class="guide-line">AI can organize interviews and draft procedures.</div>
+          <div id="s4-guide-b" class="guide-line">It can’t decide which missing process a buyer will <em>question.</em></div>
+        </aside>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s4-sheet", { opacity: 0, x: 28 }, { opacity: 1, x: 0, duration: 0.38, ease: "power3.out" }, 0.08);
+        tl.fromTo("#s4-guide-a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.16);
+        tl.to("#s4-material", { opacity: 1, duration: 0.22, ease: "power1.out" }, 0.62);
+        tl.to("#s4-draft", { opacity: 1, duration: 0.22, ease: "power1.out" }, 2.1);
+        tl.to("#s4-guide-a", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 3.18);
+        tl.fromTo("#s4-guide-b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 3.32);
+        tl.fromTo("#s4-gate", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.34, ease: "power3.out" }, 4.0);
+        tl.to("#s4-material, #s4-draft", { borderColor: "#71868d", duration: 0.22, ease: "power1.out" }, 4.46);
+        tl.to("#s4-boundary", { opacity: 1, duration: 0.24, ease: "power1.out" }, 5.54);
+        tl.to("#s4-guide-b", { opacity: 0, y: -10, duration: 0.17, ease: "power2.in" }, 6.92);
+        window.__timelines["short02-ai-judgment"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

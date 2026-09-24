@@ -1,0 +1,117 @@
+{
+  "record_type": "ep007_shorts03_04_fal_sync_v3_one_shot_plan_v1",
+  "at_utc": "2026-09-23T01:12:11Z",
+  "status": "prepared_only_no_fal_submission",
+  "owner_authority": {
+    "event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope": "Fal lip-sync if needed for first-pass private-review Shorts 02 through 04; no public release",
+    "owner_fal_call_cap_across_shorts_02_to_04": 6,
+    "owner_fal_operational_spend_cap_usd_across_shorts_02_to_04": 15.0,
+    "automatic_retries": 0
+  },
+  "higgsfield_batch_source_of_truth": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/GENERATION-BATCH-RESULT-V1.json",
+    "sha256": "32b9e65addb6f033707032200596c4bc4c3190dc0f47dafc4d9c5bb941bdf688",
+    "result": "Only Short03 opening and Short04 corrected return received job IDs. Short03 return and Short04 opening were rejected before job creation; this Fal plan cannot turn those into video sources or retry them."
+  },
+  "model": "fal-ai/sync-lipsync/v3",
+  "submit_endpoint": "https://queue.fal.run/fal-ai/sync-lipsync/v3",
+  "sync_mode": "silence",
+  "published_price": {
+    "source_url": "https://fal.ai/models/fal-ai/sync-lipsync/v3",
+    "observed_at_utc": "2026-09-23T01:11:00Z",
+    "usd_per_minute": 8.0,
+    "forecast_method": "ceil_to_cent(max(actual_decoded_Higgs_video_seconds, exact_audio_seconds) * 8 / 60) per call",
+    "provider_enforced_spend_cap": false,
+    "actual_invoice_known_before_call": false
+  },
+  "media_url_contract": {
+    "audio_host": "d2ol7oe51mr4n9.cloudfront.net",
+    "video_host": "d8j0ntlcm91z4.cloudfront.net",
+    "account_path_prefix": "/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/",
+    "audio_url_rule": "https://<audio_host><account_path_prefix><confirmed-upload-media-id>.mp3",
+    "video_url_rule": "The HTTPS Higgsfield result_url from the exact completed job, on the approved video host and account path, with filename containing the matching job UUID. No redirect, credentials, query or fragment."
+  },
+  "runner_scope": {
+    "targets": 4,
+    "maximum_fal_submission_intents": 4,
+    "maximum_forecast_usd_including_all_prior_intents": 15.0,
+    "short02_fal_jobs_observed_at_plan_time": 0,
+    "source_review_required": "Each target needs a completed VIDEO-SOURCE.json bound to the exact Higgsfield batch job and local downloaded-video hash/probe, plus a SYNC-NEED.json stating the measured mismatch. Missing records are holds.",
+    "program_audio": "One continuous full-length Original C master per Short remains the sole delivered voice. Fal output audio and Higgsfield native audio are diagnostic/temporary only; final conform remuxes or overlays the exact master.",
+    "publication": "not_authorized"
+  },
+  "targets": [
+    {
+      "key": "short03-a",
+      "short_id": "short-03-how-you-charge",
+      "segment": "segment-a-opening",
+      "project_dir": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001",
+      "segment_dir": "segment-a",
+      "higgsfield_batch_index": 0,
+      "higgsfield_job_id": "7544da36-da33-4aba-8c5a-74a58ef275f2",
+      "batch_state": "submitted_pending_terminal_video_source",
+      "higgsfield_generation_intent_sha256": "f7fc81bc502bc79775000025d2759dadcb308fe3634eefb5b3f95ad4f5312ddd",
+      "audio_upload_receipt_sha256": "265781f9986de0aa288a71fb5fceedf65c242f1270b857fc52ec697d3b14ca9f",
+      "audio_media_id": "c0710119-9917-4106-bd53-7c8ee77664cf",
+      "audio_local_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/media/original-c-segment-a.mp3",
+      "audio_local_sha256": "4296bf1a2dd4dd1c90879d1271e60379b875c46be87a0662afd8e5874930e77f",
+      "audio_seconds": 9.0,
+      "requested_higgsfield_seconds": 9
+    },
+    {
+      "key": "short03-b",
+      "short_id": "short-03-how-you-charge",
+      "segment": "segment-b-return",
+      "project_dir": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001",
+      "segment_dir": "segment-b",
+      "higgsfield_batch_index": 1,
+      "higgsfield_job_id": null,
+      "batch_state": "submission_failed_no_job_no_fal_input",
+      "higgsfield_generation_intent_sha256": "030840110f0f10ab8bdaa031d35ed3904b5175830207e8c674d473657f129f19",
+      "audio_upload_receipt_sha256": "265781f9986de0aa288a71fb5fceedf65c242f1270b857fc52ec697d3b14ca9f",
+      "audio_media_id": "bf553cb5-8177-4b48-9b1f-5bf230e11dd1",
+      "audio_local_path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/original-c-segment-b.mp3",
+      "audio_local_sha256": "ec65257cd60f3b9748dd1f801c2bb74c06d423564ff737ff5ce48f68a7a6275b",
+      "audio_seconds": 7.0,
+      "requested_higgsfield_seconds": 7
+    },
+    {
+      "key": "short04-a",
+      "short_id": "short-04-test-the-front-door",
+      "segment": "segment-a-opening",
+      "project_dir": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001",
+      "segment_dir": "segment-a",
+      "higgsfield_batch_index": 2,
+      "higgsfield_job_id": null,
+      "batch_state": "submission_failed_no_job_no_fal_input",
+      "higgsfield_generation_intent_sha256": "5d76fb6fa9fcb6908622aebf79a7346e2f40ae91f2157341b273f73c67cd0d26",
+      "audio_upload_receipt_sha256": "38897a492b763f8875d5e9a581324b1e9de59a68186760b5492dd427ab87d353",
+      "audio_media_id": "5a58a74d-8977-40dc-86c0-c766fe4c221e",
+      "audio_local_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-a/media/original-c-opening.mp3",
+      "audio_local_sha256": "38120fa6462e7715fba73b192926ccd79d6e7f5978ad55fe49be138e484e69a6",
+      "audio_seconds": 9.0,
+      "requested_higgsfield_seconds": 9
+    },
+    {
+      "key": "short04-b",
+      "short_id": "short-04-test-the-front-door",
+      "segment": "segment-b-return-v2",
+      "project_dir": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001",
+      "segment_dir": "segment-b-v2",
+      "higgsfield_batch_index": 3,
+      "higgsfield_job_id": "da988cb1-cf4f-46f6-9a30-a1915b487bc4",
+      "batch_state": "submitted_pending_terminal_video_source",
+      "higgsfield_generation_intent_sha256": "ae8c952422bc6db98b5f29741d14398df04e8ac18e61a360e90e3378bf8d2211",
+      "audio_upload_receipt_sha256": "38897a492b763f8875d5e9a581324b1e9de59a68186760b5492dd427ab87d353",
+      "audio_media_id": "1fd799c2-d29d-4baf-84e4-77aeaba4a7c5",
+      "audio_local_path": "blueprint-cinema/experiments/EP007-SHORT04-PRESENTER-001/segment-b-v2/media/original-c-return-v2.mp3",
+      "audio_local_sha256": "c01a7d5e163d6e5b9e9014cf8d601d085f3b0bec71fb432bc9ab729b1abba9e1",
+      "audio_seconds": 8.0,
+      "requested_higgsfield_seconds": 8
+    }
+  ],
+  "fal_submission_calls_by_plan": 0
+}

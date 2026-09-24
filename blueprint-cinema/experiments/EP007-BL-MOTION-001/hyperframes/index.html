@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP007 · Boundary Ledger motion test 01</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "Working Hand"; src: url("assets/fonts/Caveat-700-latin.woff2") format("woff2"); font-weight: 700; }
+
+      :root {
+        --paper: #f5f0e6;
+        --paper-raised: #fbf8f1;
+        --paper-inset: #ede7d8;
+        --mineral: #204440;
+        --mineral-deep: #173530;
+        --oxide: #b5482f;
+        --steel: #586d74;
+        --steel-dark: #33464c;
+        --ink: #19201f;
+        --rule-strong: #c4b99e;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; margin: 0; overflow: hidden; background: var(--paper); }
+      body { color: var(--ink); font-family: "BL Supreme", sans-serif; }
+      #root, #model-clip { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #root { background: var(--paper); }
+      #model-clip { background: var(--paper); }
+
+      .identity-docket {
+        position: absolute; z-index: 20; top: 38px; left: 66px; right: 66px; height: 72px;
+        display: grid; grid-template-columns: 1fr .8fr 1fr; align-items: center;
+        border-top: 2px solid var(--steel); border-bottom: 2px solid var(--rule-strong);
+        color: var(--mineral); font-size: 22px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      }
+      .identity-docket span:nth-child(2) { text-align: center; }
+      .identity-docket span:last-child { text-align: right; color: var(--steel-dark); }
+      .model-title {
+        position: absolute; z-index: 4; left: 86px; top: 138px; color: var(--mineral);
+        font-family: "BL Zodiak", serif; font-size: 54px; font-weight: 700; letter-spacing: -.025em;
+      }
+      .model-subtitle {
+        position: absolute; z-index: 4; right: 86px; top: 153px; color: var(--steel-dark);
+        font-size: 22px; letter-spacing: .08em; text-transform: uppercase;
+      }
+      .model-svg { position: absolute; z-index: 2; inset: 198px 46px 46px; width: 1828px; height: 836px; overflow: visible; }
+
+      .rough { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .rough-mineral { stroke: var(--mineral); }
+      .rough-steel { stroke: var(--steel); }
+      .rough-steel-dark { stroke: var(--steel-dark); }
+      .rough-oxide { stroke: var(--oxide); }
+      .construction { fill: none; stroke: var(--rule-strong); stroke-linecap: round; opacity: .45; }
+      .hand { fill: var(--steel-dark); font-family: "Working Hand", cursive; font-size: 36px; font-weight: 700; }
+      .hand-small { fill: var(--steel); font-family: "Working Hand", cursive; font-size: 29px; font-weight: 700; }
+      .hand-oxide { fill: var(--oxide); font-family: "Working Hand", cursive; font-size: 36px; font-weight: 700; }
+      .typeset-label {
+        fill: var(--mineral-deep); font-family: "BL Supreme", sans-serif; font-size: 22px;
+        font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      }
+      .typeset-small {
+        fill: var(--steel-dark); font-family: "BL Supreme", sans-serif; font-size: 18px;
+        font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+      }
+      .record-fill { fill: var(--paper-raised); }
+      .mineral-fill { fill: var(--mineral); }
+      .paper-inset-fill { fill: var(--paper-inset); }
+
+      .gap-receipt {
+        position: absolute; z-index: 30; right: 82px; bottom: 58px; width: 360px; min-height: 92px;
+        padding: 17px 21px 16px; border: 2px solid var(--steel); background: var(--paper-raised);
+        color: var(--mineral-deep); font-size: 19px; line-height: 1.35; letter-spacing: .08em; text-transform: uppercase;
+      }
+      .gap-receipt strong { display: block; margin-bottom: 5px; color: var(--steel-dark); font-size: 15px; letter-spacing: .16em; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-vxpt" id="root" data-composition-id="ep007-bl-motion-001" data-start="0" data-duration="28" data-width="1920" data-height="1080" data-fps="30">
+      <section data-hf-id="hf-exoh" id="model-clip" class="clip" data-start="0" data-duration="28" data-track-index="1">
+        <header data-hf-id="hf-1rcb" class="identity-docket" aria-label="Episode identity">
+          <span data-hf-id="hf-wcus">EP007 · Exit readiness</span><span data-hf-id="hf-lwgx">Working model</span><span data-hf-id="hf-xaz2">Boundary Ledger · Test 01</span>
+        </header>
+        <div data-hf-id="hf-3dv4" class="model-title">What has to move off the owner?</div>
+        <div data-hf-id="hf-nuui" class="model-subtitle">Locked voice · 28 seconds · internal</div>
+
+        <svg data-hf-id="hf-qv5z" class="model-svg" viewBox="0 0 1828 836" role="img" aria-labelledby="model-description">
+          <title data-hf-id="hf-rpc5" id="model-description">A rough working model shows business knowledge moving from the owner into written support and an assembled diligence package, while one item remains open.</title>
+
+          <g data-hf-id="hf-ml16" id="field-construction" aria-hidden="true">
+            <path data-hf-id="hf-u0bz" class="construction" stroke-width="2" d="M 24 668 C 390 660, 706 672, 1030 664 S 1510 671, 1808 662" />
+            <path data-hf-id="hf-50w6" class="construction" stroke-width="2" d="M 676 36 C 670 228, 682 435, 674 660" />
+            <path data-hf-id="hf-vjgj" class="construction" stroke-width="1.5" d="M 1125 31 C 1119 246, 1131 448, 1122 660" />
+            <path data-hf-id="hf-l9ab" class="construction" stroke-width="1.5" d="M 75 30 C 510 38, 895 28, 1290 37 S 1630 26, 1772 34" />
+          </g>
+
+          <g data-hf-id="hf-doyj" id="owner-world">
+            <g data-hf-id="hf-uvex" id="owner-figure" transform="translate(78 122)">
+              <path data-hf-id="hf-5drd" class="rough rough-mineral" stroke-width="7" d="M 132 36 C 111 29, 91 47, 94 76 C 97 104, 116 117, 138 109 C 160 102, 169 80, 160 55 C 154 40, 145 34, 132 36" />
+              <path data-hf-id="hf-kd21" class="rough rough-mineral" stroke-width="3" opacity=".72" d="M 129 31 C 105 34, 88 55, 93 80 C 99 110, 121 120, 143 107" />
+              <path data-hf-id="hf-vm3u" class="rough rough-mineral" stroke-width="7" d="M 100 123 C 72 150, 66 188, 73 231 M 100 124 C 123 137, 150 138, 170 122 M 170 123 C 190 151, 194 189, 185 229" />
+              <path data-hf-id="hf-t8ns" class="rough rough-mineral" stroke-width="6" d="M 77 231 C 104 238, 145 237, 185 230 M 106 143 C 124 169, 136 197, 139 230" />
+              <path data-hf-id="hf-e4v6" class="rough rough-steel" stroke-width="4" d="M 69 177 C 44 190, 30 210, 18 243 M 181 175 C 202 191, 219 210, 228 242" />
+              <path data-hf-id="hf-ho3x" class="rough rough-mineral" stroke-width="6" d="M -5 250 C 95 244, 205 255, 308 246" />
+              <path data-hf-id="hf-tpoy" class="rough rough-mineral" stroke-width="3" opacity=".65" d="M 0 256 C 112 251, 205 261, 314 252" />
+              <text data-hf-id="hf-4lzj" class="hand" x="78" y="305" transform="rotate(-2 78 305)">owner</text>
+            </g>
+
+            <g data-hf-id="hf-olun" id="business-parts" transform="translate(324 95)">
+              <text data-hf-id="hf-4aeo" class="typeset-label" x="0" y="0">Business depends on</text>
+              <g data-hf-id="hf-suhs" id="pricing-part" transform="translate(0 38)">
+                <path data-hf-id="hf-f6hf" class="rough rough-mineral" stroke-width="5" d="M 2 10 L 282 3 L 286 72 M 281 82 L 8 87 L 1 19" />
+                <path data-hf-id="hf-nott" class="rough rough-steel" stroke-width="2.5" opacity=".65" d="M 7 5 L 287 8 M 288 15 L 291 76 M 276 89 L 15 92" />
+                <text data-hf-id="hf-q703" class="hand-small" x="28" y="58" transform="rotate(-1 28 58)">pricing judgment</text>
+              </g>
+              <g data-hf-id="hf-l9hu" id="process-part" transform="translate(0 145)">
+                <path data-hf-id="hf-io9r" class="rough rough-mineral" stroke-width="6" d="M 0 12 L 277 4 L 287 76 M 281 84 L 8 90 M 1 79 L 4 20" />
+                <path data-hf-id="hf-u6xp" class="rough rough-steel" stroke-width="2" opacity=".62" d="M 9 7 C 104 4, 190 10, 291 5 M 291 17 L 293 68" />
+                <text data-hf-id="hf-aivy" class="hand-small" x="28" y="60" transform="rotate(1 28 60)">how work happens</text>
+              </g>
+              <g data-hf-id="hf-638a" id="customer-part" transform="translate(0 252)">
+                <path data-hf-id="hf-inse" class="rough rough-mineral" stroke-width="5" d="M 3 8 L 286 5 M 290 13 L 286 78 L 14 88 M 3 78 L 1 20" />
+                <path data-hf-id="hf-b06o" class="rough rough-steel" stroke-width="2.5" opacity=".58" d="M 10 2 L 281 0 L 296 74 M 279 92 L 20 95" />
+                <text data-hf-id="hf-rlwv" class="hand-small" x="29" y="59" transform="rotate(-2 29 59)">customer ties</text>
+              </g>
+              <g data-hf-id="hf-zgym" id="key-part-origin" transform="translate(0 359)">
+                <g data-hf-id="hf-e3oi" id="key-part">
+                  <path data-hf-id="hf-favb" class="rough rough-mineral" stroke-width="6" d="M 0 14 L 280 4 L 291 69 M 286 82 L 7 90 L 1 24" />
+                  <path data-hf-id="hf-798t" class="rough rough-steel-dark" stroke-width="2.8" opacity=".62" d="M 8 7 L 288 8 M 293 17 L 296 75 M 279 94 L 13 96" />
+                  <path data-hf-id="hf-dq1l" class="rough rough-steel" stroke-width="3" d="M 222 22 L 246 45 L 224 69 M 238 24 L 261 46 L 238 68" />
+                  <text data-hf-id="hf-xln8" class="hand-small" x="28" y="60" transform="rotate(1.5 28 60)">only she can do</text>
+                </g>
+              </g>
+            </g>
+          </g>
+
+          <g data-hf-id="hf-vky0" id="dependency-trace">
+            <path data-hf-id="hf-tptl" id="dep-pricing" data-draw="" class="rough rough-steel" stroke-width="5" d="M 326 186 C 276 194, 254 236, 249 285" />
+            <path data-hf-id="hf-wvte" id="dep-process" data-draw="" class="rough rough-steel" stroke-width="6" d="M 326 294 C 276 304, 247 326, 246 365" />
+            <path data-hf-id="hf-mghw" id="dep-customer" data-draw="" class="rough rough-steel" stroke-width="4" d="M 326 401 C 287 407, 263 422, 247 452" />
+            <path data-hf-id="hf-6uot" id="dep-key" data-draw="" class="rough rough-steel-dark" stroke-width="7" d="M 326 506 C 286 505, 259 499, 232 484" />
+            <path data-hf-id="hf-odfm" class="rough rough-steel" stroke-width="3" d="M 319 180 L 338 185 L 322 196 M 319 286 L 338 293 L 321 304 M 319 395 L 338 400 L 321 413 M 319 499 L 338 506 L 319 516" />
+          </g>
+
+          <g data-hf-id="hf-p66q" transform="translate(724 68)">
+            <g data-hf-id="hf-vktw" id="checklist-card">
+              <path data-hf-id="hf-yzb9" class="record-fill" d="M 0 0 H 332 V 468 H 0 Z" />
+              <path data-hf-id="hf-jcw1" class="rough rough-mineral" stroke-width="5" d="M 1 12 L 326 3 L 332 448 M 323 463 L 10 468 L 0 28" />
+              <path data-hf-id="hf-ej4j" class="rough rough-steel" stroke-width="2.5" opacity=".52" d="M 8 5 L 337 8 M 337 19 L 339 442 M 319 472 L 16 475" />
+              <text data-hf-id="hf-e64n" class="typeset-label" x="31" y="53">Baseline / 01</text>
+              <path data-hf-id="hf-9eym" class="rough rough-steel" stroke-width="3" d="M 30 78 C 122 75, 238 82, 302 76" />
+              <g data-hf-id="hf-300s" id="check-row-1" transform="translate(32 115)"><path data-hf-id="hf-volv" class="rough rough-steel" stroke-width="4" d="M 0 2 L 23 0 L 25 25 M 20 29 L 1 27 L 0 8" /><path data-hf-id="hf-gbm7" class="rough rough-steel" stroke-width="3" d="M 43 9 C 104 5, 178 13, 270 8" /></g>
+              <g data-hf-id="hf-w748" id="check-row-2" transform="translate(32 176)"><path data-hf-id="hf-wo6p" class="rough rough-steel" stroke-width="4" d="M 2 0 L 25 2 L 24 26 M 17 29 L 0 25 L 1 8" /><path data-hf-id="hf-ioa7" class="rough rough-steel" stroke-width="3" d="M 44 8 C 129 13, 204 3, 272 10" /></g>
+              <g data-hf-id="hf-l0ov" id="check-row-3" transform="translate(32 237)"><path data-hf-id="hf-l6e0" class="rough rough-steel" stroke-width="4" d="M 1 3 L 24 0 L 27 23 M 22 29 L 0 27 L 0 9" /><path data-hf-id="hf-f48y" class="rough rough-steel" stroke-width="3" d="M 44 10 C 113 5, 182 14, 269 8" /></g>
+              <g data-hf-id="hf-4n3f" id="check-row-4" transform="translate(32 298)"><path data-hf-id="hf-qu7f" class="rough rough-steel" stroke-width="4" d="M 1 0 L 24 2 L 26 26 M 19 30 L 0 25 L 1 8" /><path data-hf-id="hf-pggj" class="rough rough-steel" stroke-width="3" d="M 44 9 C 125 12, 213 5, 272 10" /></g>
+              <g data-hf-id="hf-qbij" id="baseline-marks">
+                <path data-hf-id="hf-g1xi" id="baseline-mark-1" data-draw="" class="rough rough-mineral" stroke-width="5" d="M 38 129 L 47 139 L 65 119" />
+                <path data-hf-id="hf-wiaf" id="baseline-mark-2" data-draw="" class="rough rough-mineral" stroke-width="5" d="M 38 191 L 49 198 L 65 180" />
+                <path data-hf-id="hf-10j1" id="baseline-mark-3" data-draw="" class="rough rough-steel" stroke-width="5" d="M 38 252 L 61 273 M 61 250 L 39 272" />
+                <path data-hf-id="hf-w5x6" id="baseline-mark-4" data-draw="" class="rough rough-steel" stroke-width="5" d="M 38 313 L 61 335 M 62 313 L 38 334" />
+              </g>
+              <text data-hf-id="hf-se6k" class="hand-small" x="37" y="400" transform="rotate(-2 37 400)">read what is true now</text>
+            </g>
+          </g>
+
+          <g data-hf-id="hf-u74x" transform="translate(1147 69)">
+            <g data-hf-id="hf-k5ya" id="records-card">
+              <path data-hf-id="hf-k82r" class="record-fill" d="M 0 0 H 397 V 465 H 0 Z" />
+              <path data-hf-id="hf-oaxp" class="rough rough-mineral" stroke-width="5" d="M 1 11 L 389 2 L 398 447 M 387 461 L 11 468 L 0 27" />
+              <text data-hf-id="hf-hpeu" class="typeset-label" x="29" y="52">Records / source</text>
+              <path data-hf-id="hf-42on" class="rough rough-steel" stroke-width="3" d="M 29 78 C 132 74, 280 82, 366 76" />
+              <g data-hf-id="hf-5hnn" id="record-mess" transform="translate(30 106)">
+                <path data-hf-id="hf-9hnu" class="rough rough-steel" stroke-width="4" d="M 4 9 C 71 25, 140 -4, 212 18 S 303 4, 336 15" />
+                <path data-hf-id="hf-yh6u" class="rough rough-steel-dark" stroke-width="6" d="M 1 61 C 62 36, 127 80, 198 50 S 291 69, 340 45" />
+                <path data-hf-id="hf-d0w8" class="rough rough-steel" stroke-width="3" d="M 8 102 C 83 83, 142 125, 220 93 S 294 118, 333 92" />
+                <path data-hf-id="hf-8xwf" class="rough rough-steel-dark" stroke-width="5" d="M 17 146 L 310 125 M 52 119 L 289 158" />
+                <text data-hf-id="hf-i0oz" class="hand-small" x="8" y="204" transform="rotate(2 8 204)">which version?</text>
+              </g>
+              <g data-hf-id="hf-97jy" id="record-clean" transform="translate(28 101)">
+                <rect data-hf-id="hf-urh0" class="paper-inset-fill" x="0" y="0" width="339" height="268" />
+                <text data-hf-id="hf-sicx" class="typeset-small" x="22" y="38">Record</text><text data-hf-id="hf-zvus" class="typeset-small" x="207" y="38">Source</text>
+                <path data-hf-id="hf-3bq6" class="rough rough-mineral" stroke-width="3" d="M 20 58 L 319 56 M 20 104 L 319 107 M 20 153 L 319 150 M 20 198 L 319 201" />
+                <path data-hf-id="hf-pdep" class="rough rough-steel" stroke-width="4" d="M 24 82 L 151 79 M 210 81 L 312 84 M 24 129 L 149 132 M 210 128 L 310 126 M 24 178 L 149 175 M 211 177 L 312 180 M 24 226 L 151 224 M 210 224 L 310 227" />
+                <text data-hf-id="hf-cu3j" class="typeset-small" x="22" y="255">Inspectable · not verified</text>
+              </g>
+            </g>
+          </g>
+
+          <g data-hf-id="hf-uc9w" transform="translate(704 574)">
+            <g data-hf-id="hf-z2xb" id="written-process">
+              <path data-hf-id="hf-7zcg" class="record-fill" d="M 0 0 H 384 V 192 H 0 Z" />
+              <path data-hf-id="hf-jodq" class="rough rough-mineral" stroke-width="5" d="M 2 12 L 373 3 L 385 179 M 372 190 L 11 195 L 0 28" />
+              <text data-hf-id="hf-4n1g" class="typeset-label" x="28" y="48">Written support</text>
+              <path data-hf-id="hf-6uxg" data-draw="" id="process-line-1" class="rough rough-steel-dark" stroke-width="4" d="M 29 79 C 111 72, 215 87, 351 78" />
+              <path data-hf-id="hf-7epi" data-draw="" id="process-line-2" class="rough rough-steel" stroke-width="4" d="M 29 113 C 130 120, 237 103, 349 115" />
+              <path data-hf-id="hf-2mm4" data-draw="" id="process-line-3" class="rough rough-steel-dark" stroke-width="4" d="M 29 149 C 120 140, 237 154, 314 146" />
+            </g>
+          </g>
+
+          <g data-hf-id="hf-zaqh" transform="translate(1162 565)">
+            <g data-hf-id="hf-an0u" id="customer-map">
+              <g data-hf-id="hf-x1nn" id="customer-evidence">
+                <text data-hf-id="hf-rw4r" class="typeset-label" x="0" y="0">Who owns the relationship?</text>
+                <g data-hf-id="hf-vkv7" transform="translate(12 34)"><path data-hf-id="hf-qw5y" class="rough rough-mineral" stroke-width="5" d="M 42 31 C 26 24, 13 38, 16 57 C 18 75, 31 83, 48 78 C 65 72, 70 55, 64 41 C 59 31, 51 27, 42 31" /><path data-hf-id="hf-sv8v" class="rough rough-mineral" stroke-width="5" d="M 22 93 C 38 80, 58 80, 76 94" /></g>
+                <g data-hf-id="hf-l8b5" transform="translate(164 34)"><path data-hf-id="hf-u4ii" class="rough rough-mineral" stroke-width="5" d="M 42 30 C 25 26, 14 39, 16 58 C 18 76, 32 84, 48 79 C 64 73, 72 56, 65 41 C 60 31, 52 28, 42 30" /><path data-hf-id="hf-eexk" class="rough rough-mineral" stroke-width="5" d="M 21 94 C 39 81, 58 81, 77 95" /></g>
+                <g data-hf-id="hf-yb7g" transform="translate(316 34)"><path data-hf-id="hf-w84o" class="rough rough-mineral" stroke-width="5" d="M 42 32 C 26 25, 13 39, 16 57 C 18 75, 32 84, 48 79 C 65 72, 71 55, 64 40 C 58 31, 50 28, 42 32" /><path data-hf-id="hf-4j1d" class="rough rough-mineral" stroke-width="5" d="M 21 94 C 38 80, 59 82, 77 94" /></g>
+                <path data-hf-id="hf-4s13" id="customer-link-1" data-draw="" class="rough rough-steel" stroke-width="5" d="M 54 138 C 112 158, 172 156, 208 139" />
+                <path data-hf-id="hf-nnzk" id="customer-link-2" data-draw="" class="rough rough-steel" stroke-width="5" d="M 207 139 C 260 159, 326 156, 360 140" />
+                <text data-hf-id="hf-jgfw" id="customer-note" class="hand-small" x="102" y="188" transform="rotate(-1 102 188)">relationship is visible now</text>
+              </g>
+              <path data-hf-id="hf-2d0i" id="customer-owner-link" data-draw="" class="rough rough-steel-dark" stroke-width="6" d="M 55 147 C -156 204, -453 150, -641 -31" />
+            </g>
+          </g>
+
+          <g data-hf-id="hf-bzrq" id="decision-branch">
+            <path data-hf-id="hf-60ib" id="inactive-move-path" data-draw="" class="rough rough-steel" stroke-width="4" d="M 598 565 C 678 555, 712 535, 748 502" />
+            <text data-hf-id="hf-7u64" class="hand-small" x="675" y="534" transform="rotate(-3 675 534)">move</text>
+            <path data-hf-id="hf-u31e" id="active-document-path" data-draw="" class="rough rough-oxide" stroke-width="8" d="M 601 573 C 699 608, 759 651, 865 681" />
+            <path data-hf-id="hf-00gz" id="active-document-arrow" data-draw="" class="rough rough-oxide" stroke-width="7" d="M 842 657 L 871 683 L 834 691" />
+            <text data-hf-id="hf-arqg" class="hand-oxide" x="691" y="650" transform="rotate(2 691 650)">document</text>
+          </g>
+
+          <g data-hf-id="hf-h1fv" id="process-correction">
+            <path data-hf-id="hf-1ti6" data-draw="" class="rough rough-oxide" stroke-width="7" d="M 310 278 C 411 258, 523 266, 629 278" />
+            <path data-hf-id="hf-lnt1" data-draw="" class="rough rough-oxide" stroke-width="4" opacity=".72" d="M 321 286 C 430 270, 521 276, 620 286" />
+          </g>
+          <g data-hf-id="hf-57b4" id="records-correction">
+            <path data-hf-id="hf-pldq" data-draw="" class="rough rough-oxide" stroke-width="8" d="M 1178 295 L 1519 504" />
+            <path data-hf-id="hf-86au" data-draw="" class="rough rough-oxide" stroke-width="5" opacity=".72" d="M 1505 289 L 1186 510" />
+          </g>
+          <g data-hf-id="hf-h1zj" id="key-bracket">
+            <path data-hf-id="hf-z6pp" data-draw="" class="rough rough-oxide" stroke-width="7" d="M 302 470 C 285 479, 282 498, 288 527 M 290 539 C 286 566, 293 588, 310 597" />
+            <path data-hf-id="hf-1l1l" data-draw="" class="rough rough-oxide" stroke-width="6" d="M 622 466 C 639 478, 643 499, 638 523 M 637 538 C 641 562, 636 582, 620 595" />
+            <text data-hf-id="hf-9r37" class="hand-oxide" x="354" y="635" transform="rotate(-2 354 635)">only the owner?</text>
+          </g>
+
+          <g data-hf-id="hf-m8of" id="package" transform="translate(1255 90)">
+            <path data-hf-id="hf-14uq" class="rough rough-mineral" stroke-width="11" d="M 0 62 L 168 62 L 202 20 L 506 20 L 506 565 L 0 565 L 0 62" />
+            <path data-hf-id="hf-gqom" class="rough rough-steel" stroke-width="3" opacity=".7" d="M 9 68 L 174 69 L 208 29 L 497 27 M 498 39 L 499 552 M 487 558 L 12 557" />
+            <text data-hf-id="hf-uo3y" id="package-label" x="28" y="105" fill="#204440" font-family="BL Supreme" font-size="22" font-weight="500" letter-spacing="2.6">DILIGENCE PACKAGE</text>
+            <g data-hf-id="hf-rbv9" id="package-review" transform="translate(31 346)">
+              <rect data-hf-id="hf-w4ev" x="0" y="0" width="444" height="145" fill="#f5f0e6" />
+              <text data-hf-id="hf-xqf4" class="typeset-small" x="24" y="38">Walkthrough</text>
+              <path data-hf-id="hf-03ay" class="rough rough-mineral" stroke-width="3" d="M 22 57 C 145 53, 291 61, 421 56" />
+              <text data-hf-id="hf-ukk8" class="typeset-small" x="24" y="92">Fixed</text>
+              <path data-hf-id="hf-1ibk" id="fixed-line" data-draw="" class="rough rough-mineral" stroke-width="5" d="M 155 85 C 226 78, 302 91, 409 83" />
+              <text data-hf-id="hf-mrqn" class="typeset-small" x="24" y="127">Still open</text>
+              <path data-hf-id="hf-q96x" id="open-line" data-draw="" class="rough rough-steel" stroke-width="5" d="M 155 121 C 238 116, 329 126, 408 119" />
+            </g>
+          </g>
+
+          <g data-hf-id="hf-33gv" id="walkthrough-pointer">
+            <path data-hf-id="hf-f41f" data-draw="" class="rough rough-steel-dark" stroke-width="5" d="M 1134 725 C 1210 709, 1275 683, 1358 637" />
+            <path data-hf-id="hf-o556" data-draw="" class="rough rough-steel-dark" stroke-width="5" d="M 1331 632 L 1364 636 L 1345 661" />
+          </g>
+        </svg>
+
+        <div data-hf-id="hf-apa8" id="gap-receipt" class="gap-receipt"><strong data-hf-id="hf-fik0">Boundary Ledger operation</strong>Unbound · assemble</div>
+      </section>
+
+      <audio data-hf-id="hf-dv0n" id="locked-voice" class="clip" src=".media/audio/voice/voice_001.wav" data-start="0" data-duration="28" data-track-index="10" data-volume="1" preload="auto"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const drawPaths = Array.from(document.querySelectorAll("[data-draw]"));
+      for (const path of drawPaths) {
+        const length = Math.max(1, path.getTotalLength());
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+      }
+
+      gsap.set("#model-clip", { opacity: 1 });
+      gsap.set("#checklist-card", { opacity: 0, y: -36 });
+      gsap.set("#dependency-trace", { opacity: 0 });
+      gsap.set("#written-process", { opacity: 0, y: 24 });
+      gsap.set("#process-correction", { opacity: 0 });
+      gsap.set("#records-card", { opacity: 0, x: 24 });
+      gsap.set("#record-clean", { opacity: 0 });
+      gsap.set("#records-correction", { opacity: 0 });
+      gsap.set("#customer-map", { opacity: 0, y: 18 });
+      gsap.set("#key-bracket", { opacity: 0 });
+      gsap.set("#decision-branch", { opacity: 0 });
+      gsap.set("#package", { opacity: 0 });
+      gsap.set("#package-label", { opacity: 0 });
+      gsap.set("#package-review", { opacity: 0 });
+      gsap.set("#walkthrough-pointer", { opacity: 0 });
+      gsap.set("#gap-receipt", { opacity: 0, y: 22 });
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to("#checklist-card", { opacity: 1, y: 0, duration: .8, ease: "power3.out" }, .36);
+      tl.to("#baseline-mark-1", { strokeDashoffset: 0, duration: .25, ease: "power2.out" }, 1.25);
+      tl.to("#baseline-mark-2", { strokeDashoffset: 0, duration: .31, ease: "power1.out" }, 1.63);
+      tl.to("#baseline-mark-3", { strokeDashoffset: 0, duration: .23, ease: "power3.out" }, 2.08);
+      tl.to("#baseline-mark-4", { strokeDashoffset: 0, duration: .28, ease: "power1.out" }, 2.47);
+
+      tl.set("#dependency-trace", { opacity: 1 }, 3.58);
+      tl.to("#dependency-trace [data-draw]", { strokeDashoffset: 0, duration: .58, stagger: .04, ease: "power2.out" }, 3.58);
+
+      tl.set("#process-correction", { opacity: 1 }, 4.7);
+      tl.to("#process-correction [data-draw]", { strokeDashoffset: 0, duration: .42, stagger: .05, ease: "power3.out" }, 4.7);
+      tl.to("#written-process", { opacity: 1, y: 0, duration: .72, ease: "power2.out" }, 5.06);
+      tl.to("#written-process [data-draw]", { strokeDashoffset: 0, duration: .44, stagger: .12, ease: "power1.out" }, 5.74);
+      tl.to("#process-correction", { opacity: 0, duration: .22, ease: "power2.in" }, 7.18);
+
+      tl.to("#records-card", { opacity: 1, x: 0, duration: .66, ease: "power3.out" }, 8.26);
+      tl.set("#records-correction", { opacity: 1 }, 9.04);
+      tl.to("#records-correction [data-draw]", { strokeDashoffset: 0, duration: .45, stagger: .08, ease: "power2.out" }, 9.04);
+      tl.to("#record-mess", { opacity: .22, duration: .46, ease: "power2.inOut" }, 9.72);
+      tl.to("#record-clean", { opacity: 1, duration: .52, ease: "power3.out" }, 10.02);
+      tl.to("#records-correction", { opacity: 0, duration: .24, ease: "power2.in" }, 11.62);
+
+      tl.to("#customer-map", { opacity: 1, y: 0, duration: .68, ease: "power3.out" }, 12.54);
+      tl.to("#customer-map [data-draw]", { strokeDashoffset: 0, duration: .58, stagger: .1, ease: "power2.out" }, 13.22);
+
+      tl.set("#key-bracket", { opacity: 1 }, 16.46);
+      tl.to("#key-bracket [data-draw]", { strokeDashoffset: 0, duration: .44, stagger: .06, ease: "power3.out" }, 16.46);
+      tl.to("#business-parts > g:not(#key-part-origin)", { opacity: .38, duration: .34, ease: "power1.inOut" }, 17.02);
+
+      tl.to("#key-bracket", { opacity: 0, duration: .2, ease: "power2.in" }, 18.86);
+      tl.set("#decision-branch", { opacity: 1 }, 19.1);
+      tl.to("#inactive-move-path", { strokeDashoffset: 0, duration: .35, ease: "power1.out" }, 19.1);
+      tl.to("#active-document-path", { strokeDashoffset: 0, duration: .68, ease: "power3.out" }, 19.34);
+      tl.to("#active-document-arrow", { strokeDashoffset: 0, duration: .22, ease: "power2.out" }, 19.88);
+      tl.to("#decision-branch .hand-small", { opacity: 0, duration: .12, ease: "power1.in" }, 19.58);
+      tl.to("#decision-branch .hand-oxide", { opacity: 0, duration: .12, ease: "power1.in" }, 19.76);
+      tl.to("#key-part", { x: 400, y: 58, scale: .86, transformOrigin: "0 0", duration: .78, ease: "power2.inOut" }, 19.5);
+      tl.to("#business-parts > g:not(#key-part-origin)", { opacity: 1, duration: .28, ease: "power1.out" }, 20.38);
+      tl.to("#decision-branch", { opacity: 0, duration: .22, ease: "power2.in" }, 21.3);
+
+      tl.to("#package", { opacity: 1, duration: .36, ease: "power3.out" }, 21.75);
+      tl.to("#checklist-card .hand-small", { opacity: 0, duration: .15, ease: "power1.in" }, 21.8);
+      tl.to("#records-card .typeset-small", { opacity: 0, duration: .15, ease: "power1.in" }, 21.8);
+      tl.to("#checklist-card", { x: 561, y: 170, scale: .29, rotation: -1.4, transformOrigin: "0 0", duration: .62, ease: "power2.inOut" }, 22);
+      tl.to("#records-card", { x: 253, y: 169, scale: .28, rotation: 1.1, transformOrigin: "0 0", duration: .58, ease: "power2.inOut" }, 22.36);
+      tl.to("#customer-owner-link", { opacity: 0, duration: .2, ease: "power1.in" }, 22.52);
+      tl.to("#customer-evidence", { x: 360, y: -330, scale: .27, rotation: -.8, transformOrigin: "0 0", duration: .58, ease: "power2.inOut" }, 22.72);
+      tl.to("#package-label", { opacity: 1, duration: .28, ease: "power2.out" }, 23.12);
+      tl.to("#gap-receipt", { opacity: 1, y: 0, duration: .34, ease: "power3.out" }, 23.36);
+
+      tl.to("#package-review", { opacity: 1, duration: .42, ease: "power3.out" }, 24.02);
+      tl.set("#walkthrough-pointer", { opacity: 1 }, 24.3);
+      tl.to("#walkthrough-pointer [data-draw]", { strokeDashoffset: 0, duration: .55, stagger: .06, ease: "power2.out" }, 24.3);
+      tl.to("#fixed-line", { strokeDashoffset: 0, duration: .38, ease: "power3.out" }, 25.62);
+      tl.to("#open-line", { strokeDashoffset: 0, duration: .38, ease: "power1.out" }, 26.47);
+      tl.set("#model-clip", { opacity: 1 }, 28);
+
+      window.__timelines["ep007-bl-motion-001"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave1-art-motion-critic",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "input-lock.json",
+      "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"
+    },
+    {
+      "path": "direction/DIRECTION-BIBLE.md",
+      "sha256": "b0053bb949b929a2cdd4f2a09e3aeecb70fe1b76295b8ebb3d211f6b4db16d41"
+    },
+    {
+      "path": "direction/RHYTHM-MAP.md",
+      "sha256": "f31749a462afd6c4f878ee728ebb95448716a7b1f0fe94497a237e36567e1482"
+    },
+    {
+      "path": "direction/SEQUENCE-TREATMENT.md",
+      "sha256": "4cb885b03a082af82d9f61ca58c7d6375af7c639cb678bb87c4fe6808231fb7a"
+    },
+    {
+      "path": "direction/SEQUENCE-SHOT-DIRECTION.md",
+      "sha256": "b11739a7713e2756c25790f271684be499ba6ed7787ffb48d4552b007d4d161e"
+    },
+    {
+      "path": "hyperframes/style-frames/01-reality.png",
+      "sha256": "7ea494f161c54b165a4f20060f0f1039c95145f336af9c143ac3dfb73a458b23"
+    },
+    {
+      "path": "hyperframes/style-frames/02-system-proof.png",
+      "sha256": "cc9ca7d1812f1f992c8bcda619fa9246800b04193ee3df3039ed84fd3174ae43"
+    },
+    {
+      "path": "hyperframes/style-frames/03-gate-outcome.png",
+      "sha256": "9badc4382811e7dbc26865fd00060a0c5ae79d9d8aeb4f932348558c3a96cf8d"
+    },
+    {
+      "path": "hyperframes/shot-board/static-shot-board.png",
+      "sha256": "f10b80ece83d4ab91207899f1058ab193908da43131432195299aab358d434f0"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave1-art-motion-critic/review.md",
+      "sha256": "c1e46d1992f0b92c07ffcec7e35a402e0f797b17e6ad8419cd1dc687a77fbf69"
+    }
+  ],
+  "findings_summary": {
+    "blocking": 5,
+    "major": 5,
+    "minor": 2,
+    "headline": "The written object-led direction is stronger than the pinned art; the current references break persistent identity, exact evidence labeling, outcome-state language, handoff/cut continuity, and the anti-slide composition contract.",
+    "recommendation": "Hold the current art references for correction before implementation; preserve the canonical direction and simplify each composition to one physical cause-and-consequence relationship."
+  },
+  "acceptance_checks": [
+    {
+      "check": "recompute every pinned input hash before review",
+      "status": "pass",
+      "notes": "All nine required SHA-256 values were recomputed before any pinned review input was read or visually inspected; every value matched the work order."
+    },
+    {
+      "check": "inspect all three style-frame PNGs and the complete static shot board visually",
+      "status": "pass",
+      "notes": "All three 1920x1080 style frames and the complete 2400x3100 shot board were inspected at original detail; all seven shot panels were also isolated for a 480x270 review."
+    },
+    {
+      "check": "test one-primary-focus discipline, typography hierarchy, phone-size legibility, screen direction, cut logic, and the single designed handoff",
+      "status": "pass",
+      "notes": "The review action is complete. The pinned art failed each underlying visual criterion in at least one exact frame; results and shot references are recorded in review.md."
+    },
+    {
+      "check": "identify any frame that reads as a slide, dashboard, Prezi map, or beginner motion graphic",
+      "status": "pass",
+      "notes": "Blocking finding B5 identifies slide grammar in Shot 01, dashboard/workflow grammar in Shot 03, before/after diagram grammar in the gate/outcome style frame and Shot 05, Prezi/map grammar in Shot 06, and infographic grammar in Shot 07."
+    },
+    {
+      "check": "return ranked blocking, major, and minor findings with exact shot references",
+      "status": "pass",
+      "notes": "review.md contains five blocking, five major, and two minor findings with exact style-frame and shot-board references."
+    },
+    {
+      "check": "state explicitly that no gate approval or state change is claimed",
+      "status": "pass",
+      "notes": "The review and this manifest explicitly state that no gate approval is claimed and no experiment, production, release, or review state is changed."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The pinned PNGs are direction artifacts; no animation render, HyperFrames DOM, runtime timing, or implementation state was in review scope.",
+    "Phone-size testing means direct visual inspection of each 16:9 style frame and each shot-board panel scaled to 480x270 without modifying the pinned files.",
+    "Blocking, major, and minor ranks assess whether the current art references can safely direct next-stage implementation; they do not claim gate authority.",
+    "deliverable.json is the manifest and therefore omits its own SHA-256 from outputs; a file cannot truthfully contain the SHA-256 of its final self. The hashable content output is review.md."
+  ],
+  "blockers": []
+}

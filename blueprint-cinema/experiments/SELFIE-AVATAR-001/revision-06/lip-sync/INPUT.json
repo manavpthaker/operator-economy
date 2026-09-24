@@ -1,0 +1,61 @@
+{
+  "scope": "Three authorized R6 per-shot Sync v3 restorations with equal picture/audio durations to correct intermittent R5 lip sync",
+  "model": "fal-ai/sync-lipsync/v3",
+  "sync_mode": "cut_off",
+  "max_submission_calls": 3,
+  "max_calls_per_section": 1,
+  "source_audio": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/media/revision-04/voice-r4.original-c.wav",
+    "sha256": "b2c10c8e5b3267a43f8aaa4b3aba2132f4b20d6df6cd22fbfdcf0dc831e7e3b3",
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "sample_count": 2536734
+  },
+  "script": {
+    "local_path": "blueprint-cinema/experiments/SELFIE-AVATAR-001/revision-04/SCRIPT.txt",
+    "sha256": "3eb28bd243f2c169b5906852f3b055553d1bc0e0520a029082fa5bf41a36fbe3"
+  },
+  "picture": {
+    "width": 720,
+    "height": 1280,
+    "frame_rate": "24/1",
+    "audio_stream_count": 0
+  },
+  "sections": [
+    {
+      "index": 1,
+      "frame_count": 484,
+      "audio_sample_count": 968000,
+      "source_sample_range": [
+        0,
+        968000
+      ],
+      "tail_zero_samples": 0
+    },
+    {
+      "index": 2,
+      "frame_count": 378,
+      "audio_sample_count": 756000,
+      "source_sample_range": [
+        968000,
+        1724000
+      ],
+      "tail_zero_samples": 0
+    },
+    {
+      "index": 3,
+      "frame_count": 431,
+      "audio_sample_count": 862000,
+      "source_sample_range": [
+        1724000,
+        2536734
+      ],
+      "tail_zero_samples": 49266
+    }
+  ],
+  "authorization": "Owner reported intermittent inaccurate R5 lip sync. Root chose matched per-shot correction after manual mouth checks ruled out a global advance, and authorized one fresh request for each of the three existing picture sections after verified input dispatch.",
+  "preserve": "R5 immutable; unchanged R4 voice PCM in contiguous order; append exactly 49266 zero samples to section 3 only. No new TTS, speed processing, captions, canonical state, commit or publication.",
+  "subjective_quality": "Unverified. Source integrity and timing checks do not establish perceptual lip-sync acceptance."
+}
+

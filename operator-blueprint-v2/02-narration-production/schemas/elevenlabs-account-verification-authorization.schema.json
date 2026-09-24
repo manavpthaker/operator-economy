@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-elevenlabs-account-verification-authorization-v1.json",
+  "title": "OE private ElevenLabs API-key to account verification authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "owner_approval", "browser_readiness", "action", "credential_binding", "runtime_bindings", "authorized_limits",
+    "artifacts", "consumption", "approved_by", "approved_at", "expires_at",
+    "execution_ready", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-elevenlabs-account-verification-authorization-v1"},
+    "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {"const": "elevenlabs_account_verification"},
+    "target": {"$ref": "#/$defs/target"},
+    "owner_approval": {
+      "oneOf": [
+        {"$ref": "#/$defs/pending"},
+        {"$ref": "#/$defs/verifiedPath"}
+      ]
+    },
+    "browser_readiness": {
+      "oneOf": [
+        {"$ref": "#/$defs/pending"},
+        {"$ref": "#/$defs/verifiedPath"}
+      ]
+    },
+    "action": {"$ref": "#/$defs/action"},
+    "credential_binding": {
+      "oneOf": [
+        {"$ref": "#/$defs/pendingCredential"},
+        {"$ref": "#/$defs/verifiedCredential"}
+      ]
+    },
+    "runtime_bindings": {
+      "oneOf": [
+        {"$ref": "#/$defs/pendingRuntime"},
+        {"$ref": "#/$defs/verifiedRuntime"}
+      ]
+    },
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "artifacts": {"$ref": "#/$defs/artifacts"},
+    "consumption": {"$ref": "#/$defs/consumption"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "approved_by": {"const": ""},
+          "approved_at": {"const": ""},
+          "expires_at": {"const": ""},
+          "execution_ready": {"const": false},
+          "owner_approval": {"$ref": "#/$defs/pending"},
+          "browser_readiness": {"$ref": "#/$defs/pending"},
+          "credential_binding": {"$ref": "#/$defs/pendingCredential"},
+          "runtime_bindings": {"$ref": "#/$defs/pendingRuntime"},
+          "authorized_limits": {"$ref": "#/$defs/zeroLimits"},
+          "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "blockers": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "execution_ready": {"const": true},
+          "owner_approval": {"$ref": "#/$defs/verifiedPath"},
+          "browser_readiness": {"$ref": "#/$defs/verifiedPath"},
+          "credential_binding": {"$ref": "#/$defs/verifiedCredential"},
+          "runtime_bindings": {"$ref": "#/$defs/verifiedRuntime"},
+          "authorized_limits": {"$ref": "#/$defs/activeLimits"},
+          "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "blockers": {"maxItems": 0}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "pending": {
+      "type": "object", "additionalProperties": false, "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "verifiedPath": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"const": "fixture"},
+        "id": {"const": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "provider", "endpoint", "method", "credential_header_name", "accept",
+        "accept_encoding", "no_post", "no_mutation", "no_retry", "no_redirect",
+        "raw_response_storage_forbidden"
+      ],
+      "properties": {
+        "provider": {"const": "elevenlabs"},
+        "endpoint": {"const": "https://api.elevenlabs.io/v1/user"},
+        "method": {"const": "GET"},
+        "credential_header_name": {"const": "xi-api-key"},
+        "accept": {"const": "application/json"},
+        "accept_encoding": {"const": "identity"},
+        "no_post": {"const": true},
+        "no_mutation": {"const": true},
+        "no_retry": {"const": true},
+        "no_redirect": {"const": true},
+        "raw_response_storage_forbidden": {"const": true}
+      }
+    },
+    "pendingCredential": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "mechanism", "api_key_environment_variable"],
+      "properties": {
+        "state": {"const": "pending"},
+        "mechanism": {"const": "environment_api_key"},
+        "api_key_environment_variable": {"const": "ELEVENLABS_API_KEY"}
+      }
+    },
+    "verifiedCredential": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "state", "mechanism", "api_key_environment_variable",
+        "domain_separation"
+      ],
+      "properties": {
+        "state": {"const": "verified"},
+        "mechanism": {"const": "environment_api_key"},
+        "api_key_environment_variable": {"const": "ELEVENLABS_API_KEY"},
+        "domain_separation": {"const": "oe-elevenlabs-api-key-v1\u0000"}
+      }
+    },
+    "pendingRuntime": {
+      "type": "object", "additionalProperties": false, "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "verifiedRuntime": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "state", "git_commit", "voice_transfer_runtime_sha256",
+        "performance_transfer_runtime_sha256", "cli_runtime_sha256", "core_runtime_sha256",
+        "audio_runtime_sha256", "init_runtime_sha256", "account_schema_sha256",
+        "transfer_schema_sha256", "voice_transfer_tests_sha256", "audio_tests_sha256",
+        "git_binary_path", "git_binary_sha256", "git_version"
+      ],
+      "properties": {
+        "state": {"const": "verified"},
+        "git_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "voice_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "performance_transfer_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "cli_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "core_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "audio_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "init_runtime_sha256": {"$ref": "#/$defs/sha256"},
+        "account_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "transfer_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "voice_transfer_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "audio_tests_sha256": {"$ref": "#/$defs/sha256"},
+        "git_binary_path": {"const": "/usr/bin/git"},
+        "git_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "git_version": {
+          "type": "string",
+          "pattern": "^[0-9][A-Za-z0-9.+-]{0,63}$"
+        }
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "max_get_calls", "max_post_calls", "max_response_bytes", "max_error_response_bytes",
+        "max_request_elapsed_seconds", "max_spend_usd"
+      ],
+      "properties": {
+        "max_get_calls": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_post_calls": {"const": 0},
+        "max_response_bytes": {"type": "integer", "minimum": 0, "maximum": 1000000},
+        "max_error_response_bytes": {"type": "integer", "minimum": 0, "maximum": 65536},
+        "max_request_elapsed_seconds": {"type": "number", "minimum": 0, "maximum": 30},
+        "max_spend_usd": {"const": 0}
+      }
+    },
+    "zeroLimits": {
+      "allOf": [
+        {"$ref": "#/$defs/limits"},
+        {"properties": {
+          "max_get_calls": {"const": 0},
+          "max_response_bytes": {"const": 0},
+          "max_error_response_bytes": {"const": 0},
+          "max_request_elapsed_seconds": {"const": 0}
+        }}
+      ]
+    },
+    "activeLimits": {
+      "allOf": [
+        {"$ref": "#/$defs/limits"},
+        {"properties": {
+          "max_get_calls": {"const": 1},
+          "max_response_bytes": {"const": 1000000},
+          "max_error_response_bytes": {"const": 65536},
+          "max_request_elapsed_seconds": {"const": 30}
+        }}
+      ]
+    },
+    "artifacts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["success_receipt_path", "failure_receipt_path"],
+      "properties": {
+        "success_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs-account/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.run\\.json$"},
+        "failure_receipt_path": {"type": "string", "pattern": "^receipts/elevenlabs-account/[A-Za-z0-9][A-Za-z0-9._-]{0,159}\\.failure\\.json$"}
+      }
+    },
+    "consumption": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "get_calls_used", "post_calls_used", "record_path"],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "get_calls_used": {"const": 0},
+        "post_calls_used": {"const": 0},
+        "record_path": {"const": "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json"}
+      }
+    }
+  }
+}

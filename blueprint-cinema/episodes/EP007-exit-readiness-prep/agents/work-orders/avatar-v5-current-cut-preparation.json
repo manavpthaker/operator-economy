@@ -1,0 +1,82 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "avatar-v5-current-cut-preparation",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "scene_director",
+  "objective": "Adapt the three prepared later presenter passages to accepted V5 wide framing, hands and articulation. Prepare matching exact WAVs, V5-based prompts, 1080p request plans and proposed crop/gesture direction while root integrates accepted V5 hook and checks providers. Preserve all narration and scene boundaries. Use one continuous post-title take with wide-to-medium-to-close crops at current cues. Contextual hand movement, no fixed repeated gestures or scheduled glance. No generation, upload or runtime edits.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/ACCEPTANCE.json",
+      "sha256": "f86d47e5ace325068d3cb2384cf03933b80c30bca0866719b60c0f5e32fc224f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/PROMPT.txt",
+      "sha256": "f791f19a9f219afd5fe8dbdac3cd019748f968ad6b758a948bcbc32eb063984c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/PERFORMANCE-BASELINE.md",
+      "sha256": "d30f614f3f41fb3a64bb7ecba0e99a0da99613561e604f0581e9e0478f654e2f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/SUBMISSION-INTENT.json",
+      "sha256": "09597f20b0952f381294930db0b59f69ad855559122e5efc33a3a4c8f181a2b3"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/SYNC-REQUEST.json",
+      "sha256": "87d04525aa73624994b73a2d08fddac34e6e6d1507ace6903b45a6c044e7168d"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/mapping.json",
+      "sha256": "63ec6069303bec8b66444a1309dc7a165956f2f1e9a53f9574bcee0d5d09cb4e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/report.md",
+      "sha256": "9fb7a13bb26086006e68e7f1f89843bf46df2a35b7dd050a5a4bb2e7171edeb5"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v3-current-cut-mapping/deliverable.json",
+      "sha256": "22e7f818fbaa5d44408e984edc7fef8a7e2faa308e56da9944ede345cb6be1b0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/index.html",
+      "sha256": "231dee5c9902382c6dce1cb2cf7424f3230fb1803a0099a3694a585fefe97534"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r30-avatar-v3-hook/compositions/presenter-question.html",
+      "sha256": "1f33dce620c193a7133c9cf0983a43b912cde93163e0828e7954e260c59f89ae"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify V5 acceptance and actual source recipe hashes.",
+    "Prepare three exact original PCM slices using established intervals. Never substitute unrelated footage for later words.",
+    "Propose context-sensitive gesture directions and wide/medium/close framing at existing cues; final crop chosen from actual output. Keep generation fixed-camera wide.",
+    "Return mapping.json, report.md, WAVs, prompts, local request plans and standard deliverable.json. No approval, spending, uploads or runtime changes."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Return bounded complete local preparation packet without waiting on root.",
+    "Stop at any material source mismatch; no provider calls or shared edits."
+  ],
+  "status": "issued"
+}

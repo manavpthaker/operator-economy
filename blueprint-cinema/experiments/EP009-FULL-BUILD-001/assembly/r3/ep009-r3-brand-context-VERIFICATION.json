@@ -1,0 +1,123 @@
+{
+  "record_type": "ep009_r3_technical_verification",
+  "at": "2026-09-17T18:51:18.247518+00:00",
+  "status": "technical_checks_passed_review_required",
+  "owner_accepted": false,
+  "build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/ep009-r3-brand-context-BUILD.json",
+    "sha256": "3ae1a44a3d683e9d6575d5731f02276e536edfefea8b83763cd79f529a6af440"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r3/ep009-r3-brand-context.mp4",
+    "sha256": "304fd369c1752dd30d628f66a6c6e625a484373ad6fbd901b9eafd19171de8eb"
+  },
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "24/1",
+        "nb_read_frames": "296"
+      },
+      {
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0",
+        "nb_read_frames": "579"
+      }
+    ],
+    "format": {
+      "duration": "12.333333"
+    }
+  },
+  "video": {
+    "method": "Decode every encoded frame; uniform means full-frame Y, U, V spans each at most 4 code values.",
+    "decoded_frames": 296,
+    "expected_frames": 296,
+    "decode_exit_code": 0,
+    "uniform_frames": [
+      121
+    ],
+    "unplanned_uniform_frames": [],
+    "limitation": "Blank-frame detection does not judge composition, legibility, motion, seams, or performance.",
+    "planned_uniform_frames": [
+      121
+    ]
+  },
+  "audio": {
+    "method": "Complete mapped master excerpt, including planned final zero padding; channelwise unity comparison in5secondblocks.",
+    "expected_samples": 592000,
+    "compared_samples": 592000,
+    "decoded_samples": 592896,
+    "aac_padding_samples": 896,
+    "padding_peak_abs": 0.0004504531971178949,
+    "decode_exit_codes": [
+      0,
+      0
+    ],
+    "full_corr": [
+      0.999990106597338,
+      0.9999901066106
+    ],
+    "full_rms_delta_db": [
+      -0.006303818159484582,
+      -0.006303822237087504
+    ],
+    "min_voiced_window_corr": 0.9999874949823091,
+    "max_abs_voiced_window_rms_db": 0.007930529732399452,
+    "windows": [
+      {
+        "start_seconds": 0.0,
+        "samples": 240000,
+        "corr": [
+          0.9999874949823091,
+          0.9999874950273072
+        ],
+        "rms_delta_db": [
+          -0.007930515901650611,
+          -0.007930529732399452
+        ]
+      },
+      {
+        "start_seconds": 5.0,
+        "samples": 240000,
+        "corr": [
+          0.9999907122157312,
+          0.9999907122162073
+        ],
+        "rms_delta_db": [
+          -0.005896005457867869,
+          -0.005896005557245007
+        ]
+      },
+      {
+        "start_seconds": 10.0,
+        "samples": 112000,
+        "corr": [
+          0.999992451480009,
+          0.999992451480009
+        ],
+        "rms_delta_db": [
+          -0.0049495274509017,
+          -0.0049495274509017
+        ]
+      }
+    ],
+    "padding_policy": "At most one AAC frame of decoded encoder padding; an excerpt can end during source speech, so decoded padding may ring. Container duration remains exact."
+  },
+  "loudness": {
+    "integrated_lufs": -19.9,
+    "loudness_range_lu": 5.0,
+    "true_peak_dbtp": -6.8,
+    "note": "Measured only; no normalization or final mix acceptance."
+  },
+  "errors": [],
+  "limitations": [
+    "No normal-speed audiovisual watch-through, mouth-sync or final creative judgment.",
+    "Corrected P08 is an explicitly labeled still;14otherpresentersegments still use r1."
+  ]
+}

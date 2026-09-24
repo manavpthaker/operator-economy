@@ -1,0 +1,1233 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP009-direct-booking-recovery",
+  "candidate_status": "UNGATED_DRAFT",
+  "candidate_boundary": "V1 is not passed. This world is review material only and does not activate or pass V3.",
+  "governing_rule": "Object permanence. The owner, guest, front desk, booking paths, relay contact, consented record, audit inputs, ceiling, recommendation, post-stay work, and scorecard keep stable identities. Their allowed states may change; no object may become whichever capability or outcome a later treatment needs.",
+  "zones": [
+    {
+      "id": "z.property",
+      "description": "The owner-operated property: front desk, registration surface, phone, and owner conversation.",
+      "camera": "cam.front-desk"
+    },
+    {
+      "id": "z.current-route",
+      "description": "The current external discovery, booking, and relay-contact route. It is represented as useful rented reach with explicit terms and costs.",
+      "camera": "cam.routes"
+    },
+    {
+      "id": "z.owned-route",
+      "description": "The property's own findable, bookable, and consented relationship surfaces. Ownership is permissioned and never inferred from a platform record.",
+      "camera": "cam.routes"
+    },
+    {
+      "id": "z.audit",
+      "description": "The accountable decision surface: four inputs, baseline, ceiling, recommendation, scorecard, and diagnosis.",
+      "camera": "cam.audit"
+    },
+    {
+      "id": "z.outside",
+      "description": "What the practice cannot control: platform rules, guest booking choice, owner renewal choice, counsel, seasonality, and whether the market clears."
+    }
+  ],
+  "objects": [
+    {
+      "id": "property-owner",
+      "material_form": "The owner or owner-operator holding the property's reports and making the commercial decision.",
+      "zone": "z.property",
+      "states": [
+        "present"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [
+        "BO-003",
+        "BO-006",
+        "BO-008"
+      ],
+      "revealed_by": [
+        "EST-001"
+      ],
+      "static": true,
+      "static_reason": "The practice presents information and performs work for the owner; it does not change the owner."
+    },
+    {
+      "id": "returning-guest",
+      "material_form": "The same unnamed guest across stays, recognisable as one person rather than a conversion unit.",
+      "zone": "z.property",
+      "states": [
+        "chooses-independently"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-001"
+      ],
+      "static": true,
+      "static_reason": "Consent and booking choice belong to the guest. No engine operation changes the guest or guarantees the next booking."
+    },
+    {
+      "id": "front-desk",
+      "material_form": "A front-desk worker and the check-in surface where the consent question is carried.",
+      "zone": "z.property",
+      "states": [
+        "capacity-constrained"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-001"
+      ],
+      "static": true,
+      "static_reason": "The staffing constraint is context. The proposed service does not claim to add front-desk capacity or change the worker."
+    },
+    {
+      "id": "practice-operator",
+      "material_form": "The accountable generalist who reads reports, tests the path, writes, approves, reports, and can recommend no.",
+      "zone": "z.property",
+      "states": [
+        "accountable"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [
+        "BO-003",
+        "BO-005",
+        "BO-006",
+        "BO-008"
+      ],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The operator performs the operations and owns judgment; the operations do not transform the operator."
+    },
+    {
+      "id": "booking-platform",
+      "material_form": "The external discovery and checkout system with its own partner rules, programme terms, and commission mechanics.",
+      "zone": "z.current-route",
+      "states": [
+        "available-external-route"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-002"
+      ],
+      "static": true,
+      "static_reason": "The practice works around a valuable external route; it does not change the platform, its reach, or its rules."
+    },
+    {
+      "id": "booking-record.platform",
+      "instance_of": "booking-path",
+      "material_form": "A platform-sourced reservation record retaining its source, commission basis, and relay-contact field.",
+      "zone": "z.current-route",
+      "states": [
+        "platform-origin-record"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-002"
+      ],
+      "static": true,
+      "static_reason": "This platform-origin record is existing context. Establishment reveals it; no engine operation changes or transfers it."
+    },
+    {
+      "id": "booking-record.direct",
+      "instance_of": "booking-path",
+      "material_form": "A reservation record created by the property's own booking path, kept distinct from a platform record.",
+      "zone": "z.owned-route",
+      "states": [
+        "possible-not-promised"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-001"
+      ],
+      "static": true,
+      "static_reason": "A direct record defines the owned route but no engine operation is allowed to create a future direct booking."
+    },
+    {
+      "id": "relay-contact",
+      "material_form": "The platform relay alias on the reservation, retaining its platform identity and policy boundary.",
+      "zone": "z.current-route",
+      "states": [
+        "platform-relay-under-policy"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-002"
+      ],
+      "static": true,
+      "static_reason": "The platform relay remains on the external route and is never transferred into property ownership."
+    },
+    {
+      "id": "property-guest-record",
+      "material_form": "A separately consented property-side registration record with the guest's own contact, stated purpose, eligibility status, and revocation boundary; its creation is not depicted while DSB-001 remains open.",
+      "zone": "z.owned-route",
+      "states": [
+        "consented-property-held-and-eligible",
+        "revoked-and-owned-eligibility-closed"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "consented-property-held-and-eligible",
+          "to": "revoked-and-owned-eligibility-closed",
+          "triggered_by": "BO-009",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-009"
+      ],
+      "carried_by": [
+        "BO-005"
+      ],
+      "revealed_by": []
+    },
+    {
+      "id": "audit-input.booking-mix",
+      "instance_of": "audit-input",
+      "material_form": "The property's channel mix from its own reports.",
+      "zone": "z.audit",
+      "states": [
+        "provided-property-record"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The booking-mix record is a source input. DSB-003 blocks depicting its computation into the audit ceiling."
+    },
+    {
+      "id": "audit-input.commission-line",
+      "instance_of": "audit-input",
+      "material_form": "The property's actual commission line, separate from reported market bands.",
+      "zone": "z.audit",
+      "states": [
+        "provided-property-record"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The commission-line record is a source input. DSB-003 blocks depicting its computation into the audit ceiling."
+    },
+    {
+      "id": "audit-input.cancellation-by-channel",
+      "instance_of": "audit-input",
+      "material_form": "The property's cancellation record separated by booking channel.",
+      "zone": "z.audit",
+      "states": [
+        "provided-property-record"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The cancellation record is a source input. DSB-003 blocks depicting its computation into the audit ceiling."
+    },
+    {
+      "id": "audit-input.direct-path-findings",
+      "instance_of": "audit-input",
+      "material_form": "The guest-side test result for rate, mobile completion, policy readability, and phone response.",
+      "zone": "z.audit",
+      "states": [
+        "provided-property-record"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [
+        "BO-003"
+      ],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "BO-003 carries this source finding without changing it. DSB-003 blocks depicting its computation into the audit ceiling."
+    },
+    {
+      "id": "ceiling-record",
+      "material_form": "A property-specific calculation showing inputs, recoverable slice, and the maximum retainer those inputs could rationally support.",
+      "zone": "z.audit",
+      "states": [
+        "precomputed-modeled-ceiling"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The ceiling remains a qualified, precomputed model artifact. DSB-003 blocks depicting its calculation from the source inputs."
+    },
+    {
+      "id": "audit-bundle",
+      "material_form": "One property-specific audit container that keeps the four source inputs, computed ceiling, direct-path findings, and final written recommendation together without collapsing their identities.",
+      "zone": "z.audit",
+      "states": [
+        "stable-container-with-blocked-calculation-and-disposition"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "This stable container prevents input, ceiling, findings, and recommendation identities from morphing. DSB-002 and DSB-003 block its calculation and disposition transitions."
+    },
+    {
+      "id": "direct-stack-cost-recipient",
+      "material_form": "A labeled aggregate recipient for the modeled booking-engine, payment, and direct-stack costs deducted from gross avoided commission; it is not a named vendor or observed bill.",
+      "zone": "z.audit",
+      "states": [
+        "modeled-cost-recipient"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "This recipient preserves the ceiling's modeled outflow. The episode does not establish an actual vendor, bill, or paid amount."
+    },
+    {
+      "id": "direct-path.findability",
+      "instance_of": "direct-path-component",
+      "material_form": "The property's profile and eligible free official-site placement, retaining the connectivity-partner condition.",
+      "zone": "z.owned-route",
+      "states": [
+        "finding-recorded",
+        "fixed-in-scope",
+        "open-finding"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "finding-recorded",
+          "to": "fixed-in-scope",
+          "triggered_by": "BO-003",
+          "reversible": true
+        },
+        {
+          "from": "finding-recorded",
+          "to": "open-finding",
+          "triggered_by": "route.access-refused",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-003"
+      ],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ]
+    },
+    {
+      "id": "direct-path.mobile-booking",
+      "instance_of": "direct-path-component",
+      "material_form": "The property's own mobile booking flow as a guest encounters it.",
+      "zone": "z.owned-route",
+      "states": [
+        "test-scope-declared"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The component is part of the declared test scope. DSB-004 blocks depicting the test-to-finding transition, and Step 1 names no in-scope correction for this component."
+    },
+    {
+      "id": "direct-path.policy-readability",
+      "instance_of": "direct-path-component",
+      "material_form": "The direct cancellation and rate conditions the guest must be able to read before booking.",
+      "zone": "z.owned-route",
+      "states": [
+        "test-scope-declared"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The component is part of the declared test scope. DSB-004 blocks depicting the test-to-finding transition, and Step 1 names no in-scope correction for this component."
+    },
+    {
+      "id": "direct-path.phone-fallback",
+      "instance_of": "direct-path-component",
+      "material_form": "The property's response path when a guest calls at a busy hour.",
+      "zone": "z.owned-route",
+      "states": [
+        "test-scope-declared"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The component is part of the declared test scope. DSB-004 blocks depicting the test-to-finding transition, and Step 1 names no in-scope correction for this component."
+    },
+    {
+      "id": "post-stay-work-item",
+      "material_form": "One checkout-linked work item containing the thank-you, review request, seasonal return offer, and referral prompt as separately reviewable messages.",
+      "zone": "z.owned-route",
+      "states": [
+        "queued-consented-checkout",
+        "drafted-and-scheduled-awaiting-review",
+        "stopped-no-consent-or-revoked"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "queued-consented-checkout",
+          "to": "drafted-and-scheduled-awaiting-review",
+          "triggered_by": "BO-005",
+          "reversible": false
+        },
+        {
+          "from": "drafted-and-scheduled-awaiting-review",
+          "to": "stopped-no-consent-or-revoked",
+          "triggered_by": "BO-009",
+          "reversible": false
+        },
+        {
+          "from": "drafted-and-scheduled-awaiting-review",
+          "to": "stopped-no-consent-or-revoked",
+          "triggered_by": "route.no-consent",
+          "reversible": false
+        }
+      ],
+      "changed_by": [
+        "BO-005",
+        "BO-009"
+      ],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "direct-share-scorecard",
+      "material_form": "A monthly record with audit baseline, current direct share, and explanatory measures kept subordinate to the outcome number.",
+      "zone": "z.audit",
+      "states": [
+        "current-share-unpinned-to-baseline",
+        "current-share-pinned-to-baseline",
+        "no-movement-visible-without-diagnosis",
+        "no-movement-with-diagnosis"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "current-share-unpinned-to-baseline",
+          "to": "current-share-pinned-to-baseline",
+          "triggered_by": "BO-006",
+          "reversible": true
+        },
+        {
+          "from": "current-share-pinned-to-baseline",
+          "to": "no-movement-visible-without-diagnosis",
+          "triggered_by": "route.no-movement",
+          "reversible": false
+        },
+        {
+          "from": "no-movement-visible-without-diagnosis",
+          "to": "no-movement-with-diagnosis",
+          "triggered_by": "BO-008",
+          "reversible": true
+        }
+      ],
+      "changed_by": [
+        "BO-006",
+        "BO-008"
+      ],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "audit-recommendation",
+      "material_form": "The written audit recommendation form with exactly three named but not-yet-selected branches.",
+      "zone": "z.audit",
+      "states": [
+        "three-options-awaiting-human-disposition"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [
+        "EST-003"
+      ],
+      "static": true,
+      "static_reason": "The recommendation remains a declared outcome object, but DSB-002 blocks depicting creation or selection of its disposition."
+    },
+    {
+      "id": "diagnosis-record",
+      "material_form": "A written explanation that preserves the no-movement result and names seasonality, site promotion, broken direct path, or low consent capture only as diagnoses to test.",
+      "zone": "z.audit",
+      "states": [
+        "absent",
+        "recorded-with-uncertainty"
+      ],
+      "allowed_transitions": [
+        {
+          "from": "absent",
+          "to": "recorded-with-uncertainty",
+          "triggered_by": "BO-008",
+          "reversible": true
+        }
+      ],
+      "changed_by": [
+        "BO-008"
+      ],
+      "carried_by": [],
+      "revealed_by": []
+    },
+    {
+      "id": "consent-and-rules-boundary",
+      "material_form": "A stable written boundary: stated-purpose consent, no marketing to a masked address, on-platform communication where required, applicable email law, owner-controlled revocation.",
+      "zone": "z.owned-route",
+      "states": [
+        "binding"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [
+        "BO-005",
+        "BO-009"
+      ],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "This is a scope boundary every operation must obey; the episode does not change the law, contract, or consent rule."
+    },
+    {
+      "id": "adjacent-market-record",
+      "material_form": "A sourced comparison record for platform scale, quote-only revenue managers, and one agency's published entry price and scope.",
+      "zone": "z.audit",
+      "states": [
+        "qualified-parallel"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "Adjacent spend establishes that outside commercial help is bought at larger scales. It does not become demand evidence for the proposed band."
+    },
+    {
+      "id": "operator-capacity-model",
+      "material_form": "A labeled scenario holding price, property count, hours, tools, overhead, imputed labor, and band sensitivity.",
+      "zone": "z.audit",
+      "states": [
+        "modeled-not-observed"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The episode inspects this scenario but no engine operation turns modeled economics into performance."
+    },
+    {
+      "id": "validation-plan",
+      "material_form": "The bounded plan: build the audit, run three audits, make five calls, put a retainer under each ceiling, then continue, revise, return, or stop.",
+      "zone": "z.audit",
+      "states": [
+        "planned-not-proven"
+      ],
+      "allowed_transitions": [],
+      "changed_by": [],
+      "carried_by": [],
+      "revealed_by": [],
+      "static": true,
+      "static_reason": "The plan is the episode's bounded instruction, not evidence that any test succeeded."
+    }
+  ],
+  "evidence_anchors": [
+    {
+      "id": "a001",
+      "claim_id": "C001",
+      "attaches_to": "booking-record.platform",
+      "label": "observed (vendor), global",
+      "meaning": "A vendor reports OTA share of independent-hotel bookings rose in 2025 to 63.4 percent worldwide.",
+      "attachment_note": "Cloudbeds and worldwide remain visible; vendor interest and population limits remain attached.",
+      "must_not_imply": "That 63.4 percent describes US properties, the 20-to-40-room band, or this illustrative inn.",
+      "label_rule": "Carries the claims map's observed-vendor and global qualification without upgrade."
+    },
+    {
+      "id": "a002",
+      "claim_id": "C002",
+      "attaches_to": "booking-record.direct",
+      "label": "observed, Europe",
+      "meaning": "HOTREC reports direct channels carried about half of European overnight stays.",
+      "attachment_note": "HOTREC, Europe, and the study population remain visible.",
+      "must_not_imply": "That the European result applies to the US or the proposed room band.",
+      "label_rule": "Carries the claims map's observed Europe-specific qualification."
+    },
+    {
+      "id": "a003",
+      "claim_id": "C003",
+      "attaches_to": "booking-record.platform",
+      "label": "observed (vendor)",
+      "meaning": "The cited vendor dataset reports higher cancellation for OTA bookings than direct bookings.",
+      "attachment_note": "The comparison stays attached to the same Cloudbeds dataset.",
+      "must_not_imply": "That either cancellation rate is universal, US-band specific, or caused by this proposed practice.",
+      "label_rule": "Carries the vendor qualification unchanged."
+    },
+    {
+      "id": "a004",
+      "claim_id": "C004",
+      "attaches_to": "flow.platform-commission",
+      "label": "observed (primary)",
+      "meaning": "Partner help verifies that commission is charged as a percentage of the booking and can vary with programmes.",
+      "attachment_note": "Mechanics are primary; no base percentage is supplied by the platform source.",
+      "must_not_imply": "A platform-published base commission rate or the actual rate paid by any depicted property.",
+      "label_rule": "Primary only for mechanics, not for a percentage."
+    },
+    {
+      "id": "a005",
+      "claim_id": "C005",
+      "attaches_to": "flow.platform-commission",
+      "label": "secondary, reported European band",
+      "meaning": "Trade reporting puts base commission around 15 percent in most European markets and describes programme layers.",
+      "attachment_note": "Trade reporting and European scope remain visible; programme mechanics and numbers are not collapsed.",
+      "must_not_imply": "That the figures are the platform's own, apply to the US band, or equal this property's actual commission.",
+      "label_rule": "Secondary evidence stays secondary."
+    },
+    {
+      "id": "a006",
+      "claim_id": "C007",
+      "attaches_to": "relay-contact",
+      "label": "observed (primary)",
+      "meaning": "Partner help says private email is not shared, both sides see an alias, and partners are asked to keep communication on-platform.",
+      "attachment_note": "The policy is represented as a rule of the current route, not a motive claim.",
+      "must_not_imply": "That the platform sells the address, hides it for a stated commercial motive, or authorizes off-platform marketing.",
+      "label_rule": "Carries the primary policy wording without motive inference."
+    },
+    {
+      "id": "a007",
+      "claim_id": "C008",
+      "attaches_to": "relay-contact",
+      "label": "secondary; R001 open",
+      "meaning": "Trade press reports messaging-window durations after checkout.",
+      "attachment_note": "The window remains attributed to trade reporting and the open Step 0 request remains visible.",
+      "must_not_imply": "That the durations were verified in the platform's primary source or that the exact rule applies universally.",
+      "label_rule": "Secondary and open-R001 status may not be upgraded by treatment."
+    },
+    {
+      "id": "a008",
+      "claim_id": "C009",
+      "attaches_to": "direct-path.findability",
+      "label": "observed",
+      "meaning": "Google offers free booking links without a fee through an eligible Hotel Center or integration-partner route.",
+      "attachment_note": "The partner or eligibility condition remains attached to the free link.",
+      "must_not_imply": "That every property is eligible without a partner, has configured the link, or receives bookings from it.",
+      "label_rule": "Component availability is not outcome evidence."
+    },
+    {
+      "id": "a009",
+      "claim_id": "C010",
+      "attaches_to": "direct-path.mobile-booking",
+      "label": "public pricing; secondary source",
+      "meaning": "Reported small-property booking-engine prices range from roughly 29 to 109 dollars a month under different plans.",
+      "attachment_note": "The source limitation and plan differences remain visible.",
+      "must_not_imply": "Demand for the service, a guaranteed commission-free total cost, or that a booking engine produces direct bookings.",
+      "label_rule": "Public tool pricing remains component evidence only."
+    },
+    {
+      "id": "a010",
+      "claim_id": "C013",
+      "attaches_to": "front-desk",
+      "label": "observed survey",
+      "meaning": "About 65 percent of 282 surveyed hoteliers reported staffing shortages.",
+      "attachment_note": "The association, sample, and non-size-specific limitation remain attached.",
+      "must_not_imply": "That this specific property or the 20-to-40-room band has a measured staffing shortage.",
+      "label_rule": "Observed survey context is not a property diagnosis."
+    },
+    {
+      "id": "a011",
+      "claim_id": "C014",
+      "attaches_to": "booking-platform",
+      "label": "observed filings, blended",
+      "meaning": "Booking Holdings and Expedia Group each reported more than 100 billion dollars of 2025 gross bookings across their businesses.",
+      "attachment_note": "The figures remain separate and labeled as blended platform flows.",
+      "must_not_imply": "A hotel commission rate, demand for the proposed practice, or a combined market total.",
+      "label_rule": "Filed platform scale is context, not operator demand."
+    },
+    {
+      "id": "a012",
+      "claim_id": "C016",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED",
+      "meaning": "The 20-room, 180-dollar ADR, 70-percent occupancy inn is illustrative and made up.",
+      "attachment_note": "All four inputs and the word illustrative travel with the model.",
+      "must_not_imply": "A typical, documented, conservative, or observed property.",
+      "label_rule": "Modeled scenario remains modeled."
+    },
+    {
+      "id": "a013",
+      "claim_id": "C018",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED on secondary band",
+      "meaning": "The illustrative model assumes an 18-to-22-percent all-in commission from reported bands.",
+      "attachment_note": "The words assumption and reported bands remain attached.",
+      "must_not_imply": "That the platform published this rate or that a real property pays it.",
+      "label_rule": "A secondary input cannot be made observed by arithmetic."
+    },
+    {
+      "id": "a014",
+      "claim_id": "C019",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED hypothesis",
+      "meaning": "A ten-point mix shift is used to calculate moved revenue and gross commission avoided in the illustrative ceiling.",
+      "attachment_note": "The ten-point shift remains a hypothesis nobody has measured.",
+      "must_not_imply": "That the shift is achievable, typical, caused by the service, or an observed saving.",
+      "label_rule": "Hypothesis remains explicit at every use."
+    },
+    {
+      "id": "a015",
+      "claim_id": "C020",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED",
+      "meaning": "The modeled net recoverable is roughly 996 to 1,418 dollars a month after assumed direct cost.",
+      "attachment_note": "The vendor low bound, assumed range, and ceiling meaning remain visible.",
+      "must_not_imply": "Observed commission saved by the practice, an affordable retainer for every property, or expected performance.",
+      "label_rule": "The number is a rational ceiling on assumptions, not a result."
+    },
+    {
+      "id": "a016",
+      "claim_id": "C021",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED sensitivity",
+      "meaning": "A 40-room property doubles the modeled ceiling and a five-point shift halves it.",
+      "attachment_note": "The sensitivity inherits every upstream model qualification.",
+      "must_not_imply": "Observed room-band economics, willingness to pay, or an expected mix shift.",
+      "label_rule": "Sensitivity is not evidence."
+    },
+    {
+      "id": "a017",
+      "claim_id": "C022",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed absence",
+      "meaning": "No verified operator was found selling this exact audit-plus-retainer to the proposed band at disclosed economics.",
+      "attachment_note": "The finding is framed as what the research could not find.",
+      "must_not_imply": "That nobody offers it, that the gap proves demand, or that an unoccupied market exists.",
+      "label_rule": "Absence of found evidence is not proof of absence."
+    },
+    {
+      "id": "a018",
+      "claim_id": "C023",
+      "attaches_to": "post-stay-work-item",
+      "label": "component capability",
+      "meaning": "A language model can draft and an automation tool can schedule post-stay messages while the operator retains judgment.",
+      "attachment_note": "Recipient, consent, voice, offer, and sensitive-send approval remain human.",
+      "must_not_imply": "That software moves direct share, replaces operator judgment, or has permission to send to a masked address.",
+      "label_rule": "Capability is not outcome."
+    },
+    {
+      "id": "a019",
+      "claim_id": "C024",
+      "attaches_to": "audit-recommendation",
+      "label": "MODELED",
+      "meaning": "The audit is modeled at 1,200 dollars and about 12 hours.",
+      "attachment_note": "The words in the model remain attached.",
+      "must_not_imply": "A market price, accepted offer, typical duration, or observed margin.",
+      "label_rule": "Modeled price and hours remain assumptions."
+    },
+    {
+      "id": "a020",
+      "claim_id": "C025",
+      "attaches_to": "audit-recommendation",
+      "label": "MODELED sensitivity",
+      "meaning": "Base commission with low site share may yield a recoverable amount of only a few hundred dollars a month.",
+      "attachment_note": "This remains a sensitivity supporting a valid no branch.",
+      "must_not_imply": "That this profile is common or observed in the room band.",
+      "label_rule": "Modeled sensitivity remains modeled."
+    },
+    {
+      "id": "a021",
+      "claim_id": "C026",
+      "attaches_to": "consent-and-rules-boundary",
+      "label": "observed constraint",
+      "meaning": "Guest data is used only inside platform terms, applicable US email law, and European rules for European guests.",
+      "attachment_note": "No masked-address marketing and consent-first handling remain explicit.",
+      "must_not_imply": "Legal advice, universal jurisdictional treatment, or that compliance is automated.",
+      "label_rule": "Constraint remains a boundary, not a legal conclusion."
+    },
+    {
+      "id": "a022",
+      "claim_id": "C027",
+      "attaches_to": "validation-plan",
+      "label": "MODELED / UNKNOWN",
+      "meaning": "Associations, partner directories, and agency calls are acquisition hypotheses and a kill-condition test.",
+      "attachment_note": "The words hypotheses, not a funnel remain attached.",
+      "must_not_imply": "A conversion rate, reachable pipeline, referral channel, or agency gap in the proposed band.",
+      "label_rule": "A channel hypothesis is not traction."
+    },
+    {
+      "id": "a023",
+      "claim_id": "C028",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "The retainer scenario ranges from 600 dollars at 20 rooms to 1,000 or 1,250 dollars at 40 rooms, with an 800-dollar blend.",
+      "attachment_note": "The range is set under the modeled ceiling, not observed market pricing.",
+      "must_not_imply": "That owners pay these prices or that the blend is achievable.",
+      "label_rule": "Modeled price remains modeled."
+    },
+    {
+      "id": "a024",
+      "claim_id": "C029",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "The base capacity scenario uses six properties, eight hours a month each, and 12 hours per audit.",
+      "attachment_note": "All counts and hours remain estimates to replace with tracked delivery data.",
+      "must_not_imply": "Observed capacity, retained customers, or repeatable delivery time.",
+      "label_rule": "Capacity assumptions remain assumptions."
+    },
+    {
+      "id": "a025",
+      "claim_id": "C030",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "The base scenario calculates 64,800 dollars gross and 58,800 dollars before owner compensation and tax.",
+      "attachment_note": "Tools, acquisition, admin, and the before-owner-pay boundary remain visible.",
+      "must_not_imply": "Revenue earned, income expected, profit, or typical operator performance.",
+      "label_rule": "Scenario arithmetic is not earnings evidence."
+    },
+    {
+      "id": "a026",
+      "claim_id": "C031",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "At 60 dollars per imputed hour the base leaves about 20,000 dollars, while the stress case leaves about 2,600 dollars.",
+      "attachment_note": "Imputed cost, owner-compensation boundary, and stress case remain attached.",
+      "must_not_imply": "A wage, forecast, take-home income, or acceptable opportunity cost for every operator.",
+      "label_rule": "Modeled opportunity-cost comparison is not earnings."
+    },
+    {
+      "id": "a027",
+      "claim_id": "C032",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "Six 20-room properties at 600 dollars produce 43,200 dollars of annual retainer in the scenario.",
+      "attachment_note": "The Canvas calls the bottom-of-band case a foothold, not a living.",
+      "must_not_imply": "Six obtainable customers, earned revenue, livelihood, or room-band willingness to pay.",
+      "label_rule": "The foothold qualification is inseparable from the figure."
+    },
+    {
+      "id": "a028",
+      "claim_id": "C033",
+      "attaches_to": "operator-capacity-model",
+      "label": "MODELED",
+      "meaning": "Six 40-room properties at 1,250 dollars produce 90,000 dollars of annual retainer before costs in the scenario.",
+      "attachment_note": "Before costs and unproven 40-room willingness to pay remain attached.",
+      "must_not_imply": "An achievable customer set, revenue, profit, or observed band economics.",
+      "label_rule": "Top-of-band arithmetic remains a scenario."
+    },
+    {
+      "id": "a029",
+      "claim_id": "C034",
+      "attaches_to": "validation-plan",
+      "label": "MODELED plan",
+      "meaning": "No 600-dollar yes, agency ownership of the band, or repeated low recoverable triggers stop or redesign.",
+      "attachment_note": "The 40-to-80-room or audit-only redesign remains an unproven branch.",
+      "must_not_imply": "That the redesign works, the original band has failed, or agencies already own it.",
+      "label_rule": "A decision rule is not a measured result."
+    },
+    {
+      "id": "a030",
+      "claim_id": "C035",
+      "attaches_to": "validation-plan",
+      "label": "MODELED plan",
+      "meaning": "The first 30 days build the audit, run it at three properties, make five calls, and put a retainer under each ceiling.",
+      "attachment_note": "The plan is construction and testing, not proof.",
+      "must_not_imply": "A paid audit, owner yes, successful channel, or guaranteed day-30 decision.",
+      "label_rule": "Planned test remains planned."
+    },
+    {
+      "id": "a031",
+      "claim_id": "C036",
+      "attaches_to": "validation-plan",
+      "label": "editorial BUILD, bounded",
+      "meaning": "The editorial verdict authorizes building and testing the audit, bounded by explicit stop conditions.",
+      "attachment_note": "BUILD remains a recommendation, not evidence.",
+      "must_not_imply": "Proven demand, a viable company, expected income, or permission to skip the test.",
+      "label_rule": "Editorial judgment cannot be rendered as verified status."
+    },
+    {
+      "id": "a032",
+      "claim_id": "C037",
+      "attaches_to": "booking-platform",
+      "label": "observed, Europe",
+      "meaning": "More than 15,000 European hotels registered for a collective damages action concerning parity clauses.",
+      "attachment_note": "Europe, registration, dispute context, and the difference between registration and proved damages remain visible.",
+      "must_not_imply": "US behavior, proved damages, this property's experience, or demand for the practice.",
+      "label_rule": "Consequential European context remains bounded to its source."
+    },
+    {
+      "id": "a033",
+      "claim_id": "C006",
+      "attaches_to": "booking-platform",
+      "label": "secondary",
+      "meaning": "Secondary reporting says early-2026 Genius visibility became relevance-based, reducing guaranteed placement for the minimum discount.",
+      "attachment_note": "The programme change, secondary source, and absence of any numeric change remain visible.",
+      "must_not_imply": "That discounts increased, that a specific property lost placement, that the change applies beyond the reported programme, or that it proves demand for the practice.",
+      "label_rule": "The programme report remains secondary and non-numeric."
+    },
+    {
+      "id": "a034",
+      "claim_id": "C011",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed (self-published)",
+      "meaning": "One agency publishes a 1,500-dollar monthly entry price and lists past-guest email and direct-share reporting in its broader scope.",
+      "attachment_note": "One self-published agency price, its broader scope, and its named customer types remain attached.",
+      "must_not_imply": "That agencies serve the 20-to-40-room band, that owners in the band pay this amount, or that the agency delivers a measured outcome.",
+      "label_rule": "A self-published adjacent price is spend evidence, not band demand or outcome evidence."
+    },
+    {
+      "id": "a035",
+      "claim_id": "C012",
+      "attaches_to": "adjacent-market-record",
+      "label": "observed (absence)",
+      "meaning": "The reviewed outsourced revenue managers for independents mostly quote privately.",
+      "attachment_note": "This records the reviewed set's absence of public prices rather than supplying a price.",
+      "must_not_imply": "Any revenue-management price, uplift, room-band fit, market-wide practice, or demand for this proposed service.",
+      "label_rule": "Observed absence in the reviewed set is not proof of a universal market condition."
+    },
+    {
+      "id": "a036",
+      "claim_id": "C015",
+      "attaches_to": "validation-plan",
+      "label": "observed, context",
+      "meaning": "AHLA counts more than 33,200 small-business lodging properties, while no count for the proposed room band is established.",
+      "attachment_note": "The small-business definition and the missing room-band denominator remain inseparable.",
+      "must_not_imply": "A 20-to-40-room prospect count, reachable market, conversion denominator, or size-specific demand.",
+      "label_rule": "Population context cannot become a room-band market estimate."
+    },
+    {
+      "id": "a037",
+      "claim_id": "C017",
+      "attaches_to": "ceiling-record",
+      "label": "MODELED on observed vendor figure",
+      "meaning": "The illustrative inn applies the global vendor's 63.4-percent OTA-share figure to model about 583,153 dollars through booking sites.",
+      "attachment_note": "The illustrative inn, modeled transfer, Cloudbeds attribution, and global population limit remain visible.",
+      "must_not_imply": "That 63.4 percent describes a real inn, a US property, the proposed room band, or a typical booking mix.",
+      "label_rule": "An observed global input becomes modeled when transferred into the illustrative inn."
+    },
+    {
+      "id": "a038",
+      "claim_id": "C020",
+      "attaches_to": "flow.direct-stack-cost",
+      "label": "MODELED (vendor low bound)",
+      "meaning": "The ceiling deducts modeled direct-stack cost of 3.5 to 5 percent of moved revenue before calculating net recoverable value.",
+      "attachment_note": "The 3.5-percent vendor low bound, assumed 5-percent high bound, and modeled moved-revenue premise remain visible.",
+      "must_not_imply": "An actual vendor bill, a complete cost schedule for every property, observed commission saving, or a guaranteed net benefit.",
+      "label_rule": "A modeled cost flow remains an assumption inside the ceiling, not an observed payment."
+    }
+  ],
+  "prohibited_evidence": [
+    {
+      "id": "pe.vendor-uplift",
+      "reason": "Vendor uplift claims are excluded upstream. No object, state, anchor, or path may imply observed RevPAR, commission saving, direct-share gain, or rebooking outcome."
+    },
+    {
+      "id": "pe.band-generalization",
+      "reason": "Global vendor data, European evidence, and non-size-specific surveys may not be presented as facts about US properties with 20 to 40 rooms."
+    },
+    {
+      "id": "pe.r001-upgrade",
+      "reason": "Messaging-window durations remain secondary trade reporting under open Step 0 request R001. No treatment may present them as primary-verified policy."
+    },
+    {
+      "id": "pe-archetype-as-case",
+      "reason": "The unnamed inn and returning guest are an archetypal illustration. They may not receive a fabricated metric, quotation, identity, consent rate, direct-share result, or commission saving."
+    },
+    {
+      "id": "pe.consent-record-creation-blocked",
+      "reason": "No current Boundary Ledger operation faithfully represents additive creation of a separately consented property-held record while the platform relay remains intact. No object or path may depict that creation until DSB-001 is resolved and the Boundary Ledger hashes are repinned."
+    },
+    {
+      "id": "pe.gross-as-net",
+      "reason": "Gross avoided commission may never be shown as net recoverable value. The modeled 3.5-to-5-percent direct-stack outflow must remain present and qualified whenever the ceiling is represented as money movement."
+    }
+  ],
+  "failure_routes": [
+    {
+      "id": "route.no-consent",
+      "trigger": "The guest does not give stated-purpose consent, or no separately consented property-held contact record exists.",
+      "destination": "consent-and-rules-boundary",
+      "recovery_state": "no off-platform marketing send; communicate on-platform where permitted or do not send",
+      "visual_rule": "The post-stay work item stops. The relay remains on the external route and never becomes a property-owned address."
+    },
+    {
+      "id": "route.revocation",
+      "trigger": "A revocation request is made.",
+      "destination": "property-guest-record",
+      "recovery_state": "property record marked revoked, owned-contact eligibility closed, future use stopped, and pending post-stay work stopped",
+      "visual_rule": "The owned record remains recognisable but changes to revoked-and-closed; no re-consent or automatic reopening is implied."
+    },
+    {
+      "id": "route.low-ceiling",
+      "trigger": "The audit finds base commission and low site share, so the recoverable slice does not support the retainer.",
+      "destination": "gate.audit-disposition",
+      "recovery_state": "audit-only or not-this-property",
+      "visual_rule": "The qualified ceiling stays visible, but DSB-002 prevents the world from depicting the final recommendation being created or selected."
+    },
+    {
+      "id": "route.no-movement",
+      "trigger": "Monthly direct share does not move against the baseline.",
+      "destination": "direct-share-scorecard",
+      "recovery_state": "no-movement-visible-without-diagnosis; BO-008 may then add a bounded diagnosis without changing the result",
+      "visual_rule": "The scorecard first holds the unchanged number as the visible prior mark. BO-008 adds diagnosis beside it and never changes color or wording to imply improvement."
+    },
+    {
+      "id": "route.access-refused",
+      "trigger": "The owner does not grant required access to reports, accounts, booking path, or front-desk consent process.",
+      "destination": "gate.audit-disposition",
+      "recovery_state": "decline or not-this-property",
+      "visual_rule": "Work stops at the account boundary; the operator does not work around owner permission, and DSB-002 prevents depiction of the final recommendation transition."
+    },
+    {
+      "id": "route.legal-escalation",
+      "trigger": "A finding touches rate-parity contract terms, consumer law on rate display, or EU guest data beyond consent-first handling.",
+      "destination": "z.outside",
+      "recovery_state": "refer to the owner's own counsel",
+      "visual_rule": "The issue leaves the practice boundary. The operator does not resolve it or imply legal advice."
+    }
+  ],
+  "money_flows": [
+    {
+      "id": "flow.platform-commission",
+      "from": "property-owner",
+      "to": "booking-platform",
+      "direction": "property to platform",
+      "kind": "commission on a platform booking",
+      "trigger": "a booking completes through the external platform route",
+      "rule": "Shown as payment for reach and checkout, not theft. Mechanics may be sourced; any percentage remains property-specific or explicitly secondary and modeled."
+    },
+    {
+      "id": "flow.audit-fee",
+      "from": "property-owner",
+      "to": "practice-operator",
+      "direction": "property to operator",
+      "kind": "fixed audit fee",
+      "trigger": "the audit is delivered",
+      "rule": "The 1,200-dollar episode figure is modeled, not an observed market price or sale."
+    },
+    {
+      "id": "flow.retainer",
+      "from": "property-owner",
+      "to": "practice-operator",
+      "direction": "property to operator",
+      "kind": "flat monthly retainer below the property-specific ceiling",
+      "trigger": "the owner chooses the retainer branch and renews month by month",
+      "rule": "Never shown as earned, guaranteed, contingent on commission saved, or automatically renewed. The 600-to-1,250-dollar range is modeled."
+    },
+    {
+      "id": "flow.direct-stack-cost",
+      "from": "property-owner",
+      "to": "direct-stack-cost-recipient",
+      "direction": "property to direct-stack providers",
+      "kind": "modeled direct-booking cost on moved revenue",
+      "trigger": "the illustrative ceiling models revenue moving through the property-direct route",
+      "rule": "Deduct 3.5 to 5 percent from modeled moved revenue before net recoverable is stated. This is not an observed payment, a complete vendor bill, or evidence that revenue moves."
+    }
+  ],
+  "human_judgement_gates": [
+    {
+      "id": "gate.consent",
+      "question": "Does this guest choose stated-purpose consent for property-held contact?",
+      "non_delegable": true,
+      "decided_by": "returning guest; the front desk carries the question",
+      "branches": {
+        "consents": "The upstream workflow permits a separate property-held record, but DSB-001 prevents this Step 3 draft from encoding its creation until Boundary Ledger authority resolves the missing additive operation.",
+        "does-not-consent": "route.no-consent"
+      }
+    },
+    {
+      "id": "gate.message-approval",
+      "question": "Is this recipient consented, is the offer appropriate, and is the voice acceptable?",
+      "non_delegable": true,
+      "decided_by": "practice operator",
+      "branches": {
+        "approved": "the human decision may allow a later send, but BO-005 ends at awaiting review and this world encodes no automated approval transition",
+        "not-approved": "revise or stop; no sensitive send occurs"
+      }
+    },
+    {
+      "id": "gate.audit-disposition",
+      "question": "Do the property-specific ceiling, access, and findings support a retainer?",
+      "non_delegable": true,
+      "decided_by": "practice operator with the property owner",
+      "branches": {
+        "retainer": "the human decision supports the retainer branch, but DSB-002 blocks its recommendation-state transition",
+        "audit-only": "the human decision supports audit-only, but DSB-002 blocks its recommendation-state transition",
+        "not-this-property": "the human decision supports not-this-property, but DSB-002 blocks its recommendation-state transition"
+      }
+    },
+    {
+      "id": "gate.renewal",
+      "question": "Does the owner renew after reading the monthly scorecard and its diagnosis?",
+      "non_delegable": true,
+      "decided_by": "property owner",
+      "branches": {
+        "renews": "another month may be delivered",
+        "does-not-renew": "retainer stops; no failure is hidden"
+      }
+    },
+    {
+      "id": "gate.guest-choice",
+      "question": "Where does the returning guest choose to book the next stay?",
+      "non_delegable": true,
+      "decided_by": "returning guest",
+      "branches": {
+        "platform": "the platform route remains valid and may carry another commission",
+        "direct": "a property-direct booking record may exist, but the engine does not attribute the choice to the practice"
+      }
+    },
+    {
+      "id": "gate.redesign",
+      "question": "After the bounded tests, should the operator continue, sell audit-only, move the band, return, or stop?",
+      "non_delegable": true,
+      "decided_by": "practice operator",
+      "branches": {
+        "continue": "only after the paid-audit, retainer, and hours signals",
+        "audit-only": "retain the diagnostic product and omit the retainer",
+        "move-band": "test 40-to-80-room properties as a new unproven branch",
+        "return-or-stop": "do not decorate failed willingness-to-pay or economics"
+      }
+    }
+  ],
+  "camera_anchors": [
+    {
+      "id": "cam.front-desk",
+      "job": "Hold the human relationship: owner, guest, front desk, consent choice, and the practical cost of an unowned task."
+    },
+    {
+      "id": "cam.routes",
+      "job": "Keep the external platform route and the property-owned route simultaneously readable without implying one replaces the other."
+    },
+    {
+      "id": "cam.audit",
+      "job": "Show the four distinct inputs, the ceiling they support, and the three-branch recommendation without collapsing them into one number."
+    },
+    {
+      "id": "cam.evidence",
+      "job": "Hold a source, claim ID, evidence class, population, and must-not-imply boundary still enough to inspect."
+    },
+    {
+      "id": "cam.owner-decision",
+      "job": "Hold the accountable choice after the evidence: consent, message approval, audit disposition, renewal, or redesign."
+    }
+  ],
+  "engine_sha256": "f3c9a88d683dd7a99fe5dbd1239611fac723ab8b726d4c0a7b259733c4db6373",
+  "claims_map": {
+    "source_artifact": "../01-editorial/claims-map.md",
+    "source_sha256": "37f9f4727cde1b7e52fd75745117685336a28ec5f6756cf5f1be3dea1bb68798"
+  },
+  "object_classes": [
+    {
+      "id": "booking-path",
+      "description": "A reservation route. Platform and property-direct instances retain separate ownership, contact, cost, and evidence identities.",
+      "instances": [
+        "booking-record.platform",
+        "booking-record.direct"
+      ],
+      "note": "The direct instance may remain possible-not-promised for the whole episode; no operation is allowed to manufacture a direct booking."
+    },
+    {
+      "id": "audit-input",
+      "description": "One of the four property-specific records the audit binds to its baseline and ceiling.",
+      "instances": [
+        "audit-input.booking-mix",
+        "audit-input.commission-line",
+        "audit-input.cancellation-by-channel",
+        "audit-input.direct-path-findings"
+      ],
+      "note": "Every source input remains individually present and no input substitutes for another. DSB-003 blocks depicting their computation or binding into the ceiling."
+    },
+    {
+      "id": "direct-path-component",
+      "description": "A distinct guest-facing part of the property-owned booking path.",
+      "instances": [
+        "direct-path.findability",
+        "direct-path.mobile-booking",
+        "direct-path.policy-readability",
+        "direct-path.phone-fallback"
+      ],
+      "note": "All four instances remain distinct. Only findability carries an explicitly sourced correction transition; the other three remain declared test scope while DSB-004 blocks test-to-finding creation."
+    }
+  ],
+  "paths": [
+    {
+      "id": "path.direct-path-review",
+      "traveler": "the recorded direct-path.findability finding",
+      "description": "The pre-existing findability finding remains visible and ends fixed in scope or explicitly open; DSB-004 excludes the preceding test-to-finding change.",
+      "edges": [
+        {
+          "from": "finding-recorded",
+          "to": "fixed-in-scope",
+          "condition": "The finding can be corrected inside the approved scope and property-controlled account.",
+          "triggered_by": "BO-003"
+        },
+        {
+          "from": "finding-recorded",
+          "to": "open-finding",
+          "condition": "Owner permission required to correct the finding is unavailable, so the finding remains explicit.",
+          "triggered_by": "route.access-refused"
+        }
+      ],
+      "carries_evidence": [
+        "a008"
+      ]
+    },
+    {
+      "id": "path.post-stay-work",
+      "traveler": "one post-stay work item tied to a consented checkout",
+      "description": "Drafting and scheduling may be externalized; recipient, consent, voice, offer, and sensitive-send approval stay accountable to a person.",
+      "edges": [
+        {
+          "from": "queued-consented-checkout",
+          "to": "drafted-and-scheduled-awaiting-review",
+          "condition": "A separately consented property guest record already exists, remains eligible, and a checkout date exists; this edge does not depict creation of that record.",
+          "triggered_by": "BO-005"
+        },
+        {
+          "from": "drafted-and-scheduled-awaiting-review",
+          "to": "stopped-no-consent-or-revoked",
+          "condition": "Review finds that no valid separately consented property-held contact record exists.",
+          "triggered_by": "route.no-consent"
+        },
+        {
+          "from": "drafted-and-scheduled-awaiting-review",
+          "to": "stopped-no-consent-or-revoked",
+          "condition": "A revocation request immediately closes owned-contact eligibility and stops the pending item.",
+          "triggered_by": "BO-009"
+        }
+      ],
+      "carries_evidence": [
+        "a018",
+        "a021"
+      ]
+    }
+  ]
+}

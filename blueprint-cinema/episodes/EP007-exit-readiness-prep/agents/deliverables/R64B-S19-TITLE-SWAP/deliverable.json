@@ -1,0 +1,279 @@
+{
+  "schema": "oe-agent-deliverable/v1",
+  "work_order": "R64B-S19-TITLE-SWAP",
+  "status": "reviewable_candidate",
+  "owner_approval": false,
+  "writes_confined_to": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP",
+  "summary": "Corrected S19 risk title collision and final-card item 1 contrast. All other scene source content/timing unchanged. Existing R64 preserved.",
+  "runtime": {
+    "original": "0.8.36",
+    "candidate": "0.8.46",
+    "render_workers": 1,
+    "render_elapsed_seconds": 14.5,
+    "representative_pngs_identical": 5
+  },
+  "review_entry": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/review.html",
+  "context_mp4": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/context.mp4",
+  "standalone_mp4": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/r64b-s19.mp4",
+  "changes": [
+    {
+      "kind": "title transition",
+      "old": "overlapping fades over same coordinates",
+      "new": "deterministic hard title swap at C.risk; quote fade retained"
+    },
+    {
+      "kind": "contrast",
+      "old": "#586D74 on #EDE5D6, 4.35:1",
+      "new": "existing secondary ink #33464C, strict check passed"
+    },
+    {
+      "kind": "runtime",
+      "old": "0.8.36",
+      "new": "0.8.46 after read-only upgrade check, passing candidate check and representative comparison"
+    }
+  ],
+  "preserved": [
+    "Original R64 source/renders/server",
+    "All S19 narration and word cues",
+    "All S19 shapes/layout/text except permitted color",
+    "All other animation",
+    "Locked S18 preceding footage",
+    "Original master PCM",
+    "S19 pending owner approval"
+  ],
+  "validation": {
+    "status": "technical_review_candidate",
+    "owner_approval": false,
+    "original_inputs_unchanged": true,
+    "videos": {
+      "standalone": {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/r64b-s19.mp4",
+        "sha256": "7307e09b0c1b86b39b7262d0771e39d6b67b70dcd2aaeed914f07e593dc6fdcb",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "width": 1280,
+              "height": 720,
+              "r_frame_rate": "24/1",
+              "duration": "46.500000",
+              "nb_frames": "1116"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "sample_rate": "48000",
+              "channels": 2,
+              "r_frame_rate": "0/0",
+              "duration": "46.500000",
+              "nb_frames": "2181"
+            }
+          ],
+          "format": {
+            "duration": "46.500000",
+            "size": "1909275"
+          }
+        },
+        "strict_decode": "pass"
+      },
+      "context": {
+        "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/context.mp4",
+        "sha256": "b9dca28df585b5702c7dee4513b0438908f2e02699eb0566bd84499e3eab7d4c",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "width": 1280,
+              "height": 720,
+              "r_frame_rate": "24/1",
+              "duration": "54.500000",
+              "nb_frames": "1308"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "sample_rate": "48000",
+              "channels": 2,
+              "r_frame_rate": "0/0",
+              "duration": "54.500000",
+              "nb_frames": "2556"
+            }
+          ],
+          "format": {
+            "duration": "54.500000",
+            "size": "1886611"
+          }
+        },
+        "strict_decode": "pass"
+      }
+    },
+    "audio": {
+      "context_pcm_master_range": [
+        836.5,
+        891.0
+      ],
+      "context_pcm_bit_exact": true,
+      "context_encoded": {
+        "sample_rate_for_comparison": 8000,
+        "samples": 436000,
+        "zero_lag_correlation": 0.9998866965991754,
+        "left_channel_level_delta_dB": -0.014867817344312726,
+        "max_abs_error": 0.0350109338760376
+      },
+      "standalone_encoded": {
+        "sample_rate_for_comparison": 8000,
+        "samples": 372000,
+        "zero_lag_correlation": 0.9998236938667606,
+        "left_channel_level_delta_dB": -0.023047295165488375,
+        "max_abs_error": 0.042766839265823364
+      }
+    },
+    "picture_scan": {
+      "frames": 1308,
+      "uniform_frames": 0,
+      "minimum_scaled_gray_std": 4.692243377302185,
+      "title_seam_minimum_scaled_gray_std": 7.868670050228817,
+      "analysis_resolution": [
+        160,
+        90
+      ]
+    },
+    "unchanged_scene_comparison_to_original_encoded_render": [
+      {
+        "standalone_seconds": 0,
+        "mean_abs_rgb_error_0_255": 0.008564814814814815
+      },
+      {
+        "standalone_seconds": 9,
+        "mean_abs_rgb_error_0_255": 0.023825231481481482
+      },
+      {
+        "standalone_seconds": 18.8,
+        "mean_abs_rgb_error_0_255": 0.044398148148148145
+      },
+      {
+        "standalone_seconds": 23.4,
+        "mean_abs_rgb_error_0_255": 0.015474537037037037
+      },
+      {
+        "standalone_seconds": 28,
+        "mean_abs_rgb_error_0_255": 0.05955439814814815
+      },
+      {
+        "standalone_seconds": 30.5,
+        "mean_abs_rgb_error_0_255": 0.006261574074074074
+      },
+      {
+        "standalone_seconds": 38,
+        "mean_abs_rgb_error_0_255": 0.05953125
+      }
+    ],
+    "title_swap": {
+      "cue_master_seconds": 873.76,
+      "cue_standalone_seconds": 29.26,
+      "cue_context_seconds": 37.26,
+      "last_old_heading_frame": 894,
+      "first_new_heading_frame": 895,
+      "first_new_heading_frame_seconds": 37.291666666666664,
+      "quote_fade_seconds": [
+        37.26,
+        37.71
+      ]
+    },
+    "limitations": [
+      "Owner review pending.",
+      "Strict checker retains four informational connector endpoint guesses; rendered graph endpoints inspected.",
+      "Lossy encodes are compared numerically, not claimed byte-identical.",
+      "No canonical production or publication gate advanced."
+    ]
+  },
+  "artifact_hashes": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/index.html",
+      "sha256": "e159c374a8a54ab21911ed1cc0e5a732eaab88836f4d3267e2c7f395052bad4c",
+      "bytes": 10600
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/package.json",
+      "sha256": "10d940d6f3961a38f34faf30e434920b5921be6e64d3e7444653fc23e9c300c1",
+      "bytes": 292
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/review.html",
+      "sha256": "8f2d0e1a8905f52fa0809073ed953a70ca69aab0643fe5f7c8f77a1fd7bc48b5",
+      "bytes": 631
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/context.mp4",
+      "sha256": "b9dca28df585b5702c7dee4513b0438908f2e02699eb0566bd84499e3eab7d4c",
+      "bytes": 1886611
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/r64b-s19.mp4",
+      "sha256": "7307e09b0c1b86b39b7262d0771e39d6b67b70dcd2aaeed914f07e593dc6fdcb",
+      "bytes": 1909275
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/audio.wav",
+      "sha256": "e6d6e4eb02ebfa6934de153e94fa9398ff1fbce8311dfafe9dddad88310e9046",
+      "bytes": 5232078
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/VERIFICATION.json",
+      "sha256": "3bf0f4f8ff1146b7ac2dcb012325ee7c4d2cdc5fbd4962a5e9b46f8c12c9c2f6",
+      "bytes": 4280
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/stills/title-seam-contact.png",
+      "sha256": "a91953d5f824b8c641541c5d50083bd867f400693ae428a98343b71df70c6777",
+      "bytes": 112143
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/qa/stills/corrected-final-card.png",
+      "sha256": "9ef8abca7fbda12ed2729f8055ff0d941dd480b1e97abbbba7ce4ba37307ce13",
+      "bytes": 182382
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/REPORT.md",
+      "sha256": "affb0ed32590ab53827216746eee8d99f18b180400d37f72891e3958b2b928f1",
+      "bytes": 3861
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/COMMANDS.md",
+      "sha256": "e542d565c9d7d58cd4f9e58e1fa16032d1cd6273a6c67a66d4be025046361f7e",
+      "bytes": 2435
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/INPUTS.json",
+      "sha256": "072b488a2dc097c1fdf51605d20599fe9915ef0f5862aed6af4362928338b9a0",
+      "bytes": 1097
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/ASSETS.json",
+      "sha256": "6e3cb70385c337e6f3b08310a58a0a35164561a86a472f24ec921edde48ad3ff",
+      "bytes": 1828
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/PROPOSED-EVENTS.json",
+      "sha256": "92868f79cf8057641863975d28653d3f35c8050c325b5e0d0261ce4736e2a7a8",
+      "bytes": 7355
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/source-change.diff",
+      "sha256": "a9225860184b67271fe5b1c331ef297c8e1b91bd1c7a76c95bb4766008687477",
+      "bytes": 1388
+    }
+  ],
+  "proposed_events": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R64B-S19-TITLE-SWAP/PROPOSED-EVENTS.json",
+  "paid_calls": 0,
+  "servers_started_or_stopped": 0,
+  "canonical_changes": false,
+  "decision_log_appended": false,
+  "next_action": "Root may select this candidate, append proposed events and expose review; S19 still needs owner verdict."
+}

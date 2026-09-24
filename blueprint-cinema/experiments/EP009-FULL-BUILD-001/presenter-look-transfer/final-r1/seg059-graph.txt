@@ -1,0 +1,4 @@
+[0:v:0]trim=start_frame=0:end_frame=33,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v0];
+[1:v:0]trim=start_frame=0:end_frame=119,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1,format=yuv420p[v1];
+[v0][v1]concat=n=2:v=1:a=0,setpts=N/(24*TB)[vo];
+[2:a:0]atrim=start_sample=46306000:end_sample=46610000,asetpts=N/SR/TB,apad=whole_len=304000,atrim=end_sample=304000,pan=stereo|c0=c0|c1=c0[ao]

@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave1-evidence-continuity-critic",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "input-lock.json",
+      "sha256": "d5b7f0dc2b7c387bc0e32c3a74daacd4a575fd9f0fb0aa973db82f4f4290a3b2"
+    },
+    {
+      "path": "direction/episode-engine.json",
+      "sha256": "51ea6b46515f2140ab02716c2e108047120240ee3873d5ac5e2ed9c4fa5f7741"
+    },
+    {
+      "path": "direction/world.json",
+      "sha256": "512775e52efd3466426aeada597532e6848335bca21ff38ae8834fd7efbd183b"
+    },
+    {
+      "path": "direction/visual-plan.json",
+      "sha256": "56b79be213b2d7e8fb5bb2f07653aa85c2fed59cee2751aeb44ed4fb7b9c5148"
+    },
+    {
+      "path": "direction/SEQUENCE-SHOT-DIRECTION.md",
+      "sha256": "b11739a7713e2756c25790f271684be499ba6ed7787ffb48d4552b007d4d161e"
+    },
+    {
+      "path": "direction/asset-tickets.json",
+      "sha256": "598b8e01ffd760219005c416ffb71eb355228246340f0fa109af3c39bb37f05a"
+    },
+    {
+      "path": "hyperframes/shot-board/static-shot-board.png",
+      "sha256": "f10b80ece83d4ab91207899f1058ab193908da43131432195299aab358d434f0"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave1-evidence-continuity-critic/review.md",
+      "sha256": "4ec8ec32e1adec2284b3819e02b2ab221f5199d44c58b15574121b164a47a36e"
+    }
+  ],
+  "findings_summary": {
+    "blocking": 4,
+    "major": 5,
+    "minor": 3,
+    "topline": "The direction documents state the intended safeguards, but the pinned board does not make the human gate, evidence disclosure, persistent identities, and synthetic outcome provenance continuously observable."
+  },
+  "acceptance_checks": [
+    {
+      "check": "recompute every pinned input hash before review",
+      "status": "pass",
+      "notes": "All seven recomputed SHA-256 values exactly matched the work order before any pinned artifact was reviewed."
+    },
+    {
+      "check": "trace the call tag and work-order card through all seven shots without substituting identities",
+      "status": "fail",
+      "notes": "The tag's stable 20:47 field is replaced by state labels in Shots 04-06, WO-R01 is absent, card state vocabulary drifts, and the booked tag/card attachment is not retained through Shot 07."
+    },
+    {
+      "check": "verify uncertainty cannot reach slot offer before human release and decline terminates pursuit",
+      "status": "fail",
+      "notes": "The direction orders release before offer, but Shot 04's board shows an UNCERTAIN tag before the barrier while the card is already OFFERED. Shot 05's STOP box is terminal but disconnected from the same decision fork."
+    },
+    {
+      "check": "verify the synthetic fixture preserves source context, exact warning, field extraction, behavioral attachment, and persistent pin",
+      "status": "fail",
+      "notes": "Shot 03 has source context and the exact warning, but extraction is not behaviorally legible; the warning is abbreviated in Shot 04, absent in Shots 05-06, and recreated at a new position in Shot 07."
+    },
+    {
+      "check": "audit viewer inference, information density, shot-boundary responsibility, and avoidable text repetition",
+      "status": "pass",
+      "notes": "The audit is complete; the review identifies contradictory representative states, dense proof and close beats, broken handoffs, and redundant explanatory labels."
+    },
+    {
+      "check": "return ranked blocking, major, and minor findings with exact shot or artifact references",
+      "status": "pass",
+      "notes": "review.md contains four blocking, five major, and three minor findings with shot and pinned-artifact references."
+    },
+    {
+      "check": "state explicitly that no gate approval or state change is claimed",
+      "status": "pass",
+      "notes": "approval_claimed and production_state_changed are false; review.md states the same boundary explicitly."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "Each board panel is treated as the representative visual state for its shot; safe temporal intent in prose does not cure an internally contradictory representative panel.",
+    "Only hash-pinned inputs were reviewed; no runtime composition, non-pinned fixture file, sourced asset, or production render was inspected.",
+    "Status complete means the independent critique packet is complete, not that the direction or production gate is approved.",
+    "The manifest does not list a digest for itself because embedding deliverable.json's final SHA-256 inside the same file is self-referential; the substantive review output is hashed above."
+  ],
+  "blockers": [
+    "B1: Shot 04 visually combines a pre-release UNCERTAIN tag with an OFFERED work-order card.",
+    "B2: The exact synthetic-fixture warning and proof pin do not persist through Shots 03-07.",
+    "B3: Stable call-tag and work-order identities, states, and attachment relationships drift across shots and direction artifacts.",
+    "B4: The synthetic booked outcome card is not behaviorally attached to its required disclosure and fictional WO-R01 identity."
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-09",
+  "status": "blocked_seedance_portrait_policy",
+  "purpose": "Compare owner-preferred InfiniteTalk with exactly Seedance 2.5 using the same photo and source audio",
+  "authorization": "Owner requested Seedance 2.5 comparison; prior fal credential use and funding authorization persist. Two new sample outputs only.",
+  "endpoint": "bytedance/seedance-2.5/reference-to-video",
+  "max_new_successful_samples": 2,
+  "new_generations_submitted": 1,
+  "completed_renders": 0,
+  "inputs": {
+    "image": {
+      "path": "media/repair-r16/study-visible-hands-source.png",
+      "sha256": "2abb05079084198c21a33802e6e0aa6373027a65f2163ea5a9114f77c1c4da24"
+    },
+    "audio": {
+      "path": "media/repair-r2/scope-two-sentences.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "duration_seconds": 5.6
+    }
+  },
+  "input_urls": {
+    "image": "https://v3b.fal.media/files/b/0aa9ad0d/kHhiRKc51YkwbDmZRcqIT_image-2abb05079084.png",
+    "audio": "https://v3b.fal.media/files/b/0aa9acf6/uZB4MtpvWgRPcNY3sfgVT_audio-c565f1dfe8c2.wav"
+  },
+  "source_and_cdn_hashes_verified": true,
+  "baselines": {
+    "infinitalk-01": {
+      "sample": "infinitalk-01",
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r23/infinitalk-01.mp4",
+      "sha256": "01438b738bd53984650b46973737b3e3037d7355e5029b80f4524772ed56aea9",
+      "bytes": 1011608,
+      "model": "InfiniteTalk",
+      "endpoint": "fal-ai/infinitalk",
+      "request_id": "01a083fd-aaba-7623-8058-3d1cea2bca22",
+      "source_url": "https://v3b.fal.media/files/b/0aa9adcb/In7cxdPtfUNDc75YLSujw_GU73Dq4P.mp4",
+      "archived_at": "2026-09-09T02:48:53.819985+00:00",
+      "native_untouched": true,
+      "source_image_sha256": "2abb05079084198c21a33802e6e0aa6373027a65f2163ea5a9114f77c1c4da24",
+      "source_audio_sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "owner_accepted": false,
+      "full_speed_review": "pending"
+    },
+    "infinitalk-02": {
+      "sample": "infinitalk-02",
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r23/infinitalk-02.mp4",
+      "sha256": "49f21de2669f20dfd885a7b2471a46e01415b721a8f8252c3f8b4f18e57911bb",
+      "bytes": 1325220,
+      "model": "InfiniteTalk",
+      "endpoint": "fal-ai/infinitalk",
+      "request_id": "01a083fd-bb22-7f60-a726-f2cf54bb0ce9",
+      "source_url": "https://v3b.fal.media/files/b/0aa9addb/If0aPJJEJnnpzYoaeM5_c_O9nkfAU9.mp4",
+      "archived_at": "2026-09-09T02:52:45.798088+00:00",
+      "native_untouched": true,
+      "source_image_sha256": "2abb05079084198c21a33802e6e0aa6373027a65f2163ea5a9114f77c1c4da24",
+      "source_audio_sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+      "owner_accepted": false,
+      "full_speed_review": "pending"
+    }
+  },
+  "common_motion_prompt": "Locked-off, eye-level medium shot. He speaks matter-of-factly with natural blinks and tiny head adjustments; his forearms stay supported on the desk while his fingers make small, relaxed movements close to the tabletop.",
+  "seedance_prompt": "Use @Image1 as the exact reference for the presenter identity, clothing, study, lighting and framing. Animate his speaking performance to @Audio1, preserving its speaker voice, exact words, pace, syllable timing and pauses from the start of the clip. Locked-off, eye-level medium shot. He speaks matter-of-factly with natural blinks and tiny head adjustments; his forearms stay supported on the desk while his fingers make small, relaxed movements close to the tabletop. The supplied dialogue is: \"I will be straight with you about my own position. I have never sold a business.\" The spoken performance finishes with the supplied audio, followed by a quiet settled hold to the six-second end. One continuous fixed-camera shot, with only the supplied solo speech audible.",
+  "prompt_adapter_note": "Seedance requires @Image1/@Audio1 role references; added exact-audio identity/timing instructions and a six-second hold while retaining the common motion direction. This is not a byte-identical prompt comparison across models.",
+  "parameters": {
+    "duration": "6",
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "generate_audio": true,
+    "bitrate_mode": "high"
+  },
+  "seeds": {
+    "seedance-01": 42,
+    "seedance-02": 173
+  },
+  "pricing": {
+    "live_unit_price_usd": 0.0214,
+    "unit": "1000 tokens",
+    "published_approx_usd_per_second_720p": 0.473,
+    "estimated_pair_usd": 5.676,
+    "actual_charges_verified": false,
+    "source": "https://fal.ai/learn/tools/what-is-seedance-2-5"
+  },
+  "audio_test_requirement": "Seedance jointly generates audio. Same reference WAV does not prove same returned voice, cadence or waveform. Preserve and inspect native outputs before any soundtrack replacement. A materially altered or retimed narration is a failed exact-narration comparison.",
+  "stop_rules": [
+    "Stop on first access, content-policy or unsupported-input rejection; do not repeat or disguise the input.",
+    "No retries for artistic quality or new prompts within this two-sample comparison.",
+    "No new InfiniteTalk generations, image edits, voice replacements, head warps or episode integration."
+  ],
+  "productionGateAdvance": false,
+  "second_sample_submitted": false,
+  "blocker": {
+    "request_id": "01a08485-fbaf-7fc2-a78b-0ab972f86045",
+    "http_status": 422,
+    "type": "content_policy_violation",
+    "partner_reason": "partner_validation_failed",
+    "message": "The images or videos provided may contain likenesses of real people or other private information that cannot be processed.",
+    "artifact": "seedance-01.json"
+  },
+  "provider_uploads_this_round": 0,
+  "reused_existing_fal_cdn_inputs": true
+}

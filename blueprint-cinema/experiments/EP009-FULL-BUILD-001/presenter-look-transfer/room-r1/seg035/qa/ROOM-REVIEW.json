@@ -1,0 +1,42 @@
+{
+  "status": "held_lost_initial_close_and_changed_mouth_motion",
+  "reviewer": "root",
+  "owner_accepted": false,
+  "source": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P06/final/seg035.mp4",
+    "sha256": "75a0275e9cf896ae692287158a00981ee2423b1a207c9c4481cbc2bbe4ed5942"
+  },
+  "candidate": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/native.mp4",
+    "sha256": "ca8220d1ab12e5f2233282cd25d18cde9c1442e584461ebd3271de2af5f91d0b"
+  },
+  "performance_report": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg035/qa/PERFORMANCE-COMPARISON.json",
+    "sha256": "0f87c656dc3ed3bf2033e8e76fc710b64bafa27e99323b7da5fa088c80bc6eca"
+  },
+  "defect": {
+    "original_initial_close_frames": [
+      0,
+      100
+    ],
+    "returned": "entire clipwide; lostinitialclose",
+    "first_frame": "Original mouth open; returnednativeandrecroppedversion have closedmouth.",
+    "deterministic_crop_attempt": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-reframe-r1/seg035/REFRAME.json",
+      "sha256": "5ab61f4c5f6f1c53be1677cc4d17b4c7cb8e956405a3e3bd02263a2a2eb8555f"
+    },
+    "crop_metrics": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-reframe-r1/seg035/qa/PERFORMANCE-COMPARISON.json",
+      "sha256": "87d80aa94441fd7452200cb28e473d0202866537bad83da5e6c24bf56b4858d5"
+    },
+    "crop_result": "Original crop restored nominalshot scale but cannotrestorechangedmouthphase; whole258framemouthcorr0.797, visiblehorizontalfacepositiondifference. Do notusefirst100."
+  },
+  "remaining_wide_interval": {
+    "source_frames": [
+      100,
+      258
+    ],
+    "review_status": "sampledgesture_expression_tailmatches; selectedintervalmetricsrequired"
+  },
+  "limits": "Sampled/densepixels andallframemeasurements only. No normal-speedperceptualclaim."
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-study-blend-r10",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r9/test-i-landscape-study-refined-1080p.mp4",
+      "sha256": "b0e1f20c78091a61453a43c28aec1a9df0f6a04297912fdd6fdbcb5dd348d4f1"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r9/rendered-frame-0.png",
+      "sha256": "698ad7fc8882737b715d1b59cd336e670b1f712a38c1ca8c39966f10c357ae8b"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r9/rendered-frame-23p2.png",
+      "sha256": "44d4b667d97babc86bdae30f3b3c47499140cd7f91e10c81ec146e0b8b0a50c3"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r9/rendered-frame-final.png",
+      "sha256": "0d1a401d82570e1814372be4a2a0b23807548ecbdcdae85b68fb7f6ebd11d396"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r9/assets/study.png",
+      "sha256": "da3301d1c898f1f45ac3904d2695d2e1f4ca70ec5d0bc0dddb716f84fbc125c9"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r9/index.html",
+      "sha256": "5dc17a832a7da53887a2742824380e4c0b04e3cec98c99c1740e10a95eec12f6"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/prepare_diagnostic.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/diagnosis.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/input-evidence.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/media/test-i-contact-sheet.jpg",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify Test I MP4 SHA b0e1f20c78091a61453a43c28aec1a9df0f6a04297912fdd6fdbcb5dd348d4f1",
+      "outcome": "pass"
+    },
+    {
+      "command": "prepare_diagnostic.py: supplied first/middle/final PNG RGB exactly matches decoded video frames0,580,764",
+      "outcome": "pass"
+    },
+    {
+      "command": "Visual review of Test I early/middle/final frames, clean study room and read-only composition",
+      "outcome": "pass"
+    },
+    {
+      "command": "Independent read-only second opinion on focus, lighting, exposure/color and boundary mismatch",
+      "outcome": "pass"
+    },
+    {
+      "command": "Quantitative exposure/sharpness matching across unlike materials",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Apply candidate treatment, render comparison, continuous playback or production approval",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Exact local Test I MP4, its three verified encoded frame extracts, clean study image and R9 index were read. Hashes are recorded in input-evidence.json.",
+    "Existing synthetic presenter and generated room remain the parent's source assets. This worker performed no generative or retouching operation.",
+    "Only a labeled resized technical contact sheet was created from decoded source frames. No source raster or parent file was edited.",
+    "Independent shirt_treatment_review subagent supplied a bounded visual cross-check and wrote no files.",
+    "No browser/provider call, network download, package installation, paid service, canonical mutation or approval action occurred."
+  ],
+  "assumptions": [
+    "This is a bounded independent diagnosis within the owner-authorized blend refinement.",
+    "The successful face motion, narration, layout and measured shoulder transforms are constraints, not candidates for change.",
+    "The suggested two-pixel Gaussian-equivalent room softness is an untested perceptual starting point, not an asserted HyperFrames parameter mapping."
+  ],
+  "unresolved_questions": [
+    "Whether the proposed background-focus and localized edge treatment improves actual moving integration must be tested by the parent.",
+    "Physical light placement, camera optics and source white balance cannot be reconstructed confidently from these images.",
+    "Unlike surfaces do not support a defensible skin-to-wall exposure ratio or generic shared sharpness target.",
+    "Some outer-shirt material mismatch may remain even after room softening."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,34 @@
+{
+  "event_id": "r49-acceptance-records-rewritten-v1",
+  "decision_id": "s08-concentration-example",
+  "event_type": "verification",
+  "tags": [
+    "owner-acceptance",
+    "source-preservation"
+  ],
+  "data": {
+    "decision_event_id": "r49-concentration-model-v1",
+    "method": "Decision-log evidence validation after a duplicate handling of the same owner message.",
+    "result": "fail",
+    "scope": "R49 acceptance record files only; the owner verdict, statement and accepted media bytes are unchanged (index.html ae09\u2026/6af7\u2026 hashes match the verified render).",
+    "limitations": "A second agent run processed the same message ('okay lock this in and move onto records') after r49-owner-concentration-lock-v1 was appended and rewrote OWNER-REQUEST.json, OWNER-ACCEPTANCE.json and the frozen skill copy with new timestamps. Original bytes are not recoverable. Current files carry the same statement and scope; the lock event's evidence hashes are therefore stale. No creative verdict changes.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r49-concentration/qa/r49-concentration.mp4",
+        "sha256": "ae09e057610db422044d3fda423b6ade832a5101eec20683e1d830083bfb0686"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r49-concentration-accepted/OWNER-REQUEST.json",
+      "sha256": "166a2cb046a09a4dc8ba41e5e40d409beb5fb378a057c102dff02d8715ecf5e4",
+      "locator": "Rewritten owner statement snapshot"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r49-concentration/OWNER-ACCEPTANCE.json",
+      "sha256": "556775c57edf490c3a60a1d582178a6adba2d2df90f62e4b4db3b1c2a4db1d77",
+      "locator": "Rewritten scoped acceptance"
+    }
+  ]
+}

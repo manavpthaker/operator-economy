@@ -1,0 +1,92 @@
+{
+  "record_type": "ep007_short04_google_guide_local_qc",
+  "at_utc": "2026-09-23T00:36:13Z",
+  "status": "exact_copy_supported_but_original_tail_hold",
+  "provider_calls_by_this_qc": 0,
+  "original_guide": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/guide.wav",
+    "sha256": "e93628b53423ea375c8e6a00c5015b70e085bf00d666dc13f2d767df99d9d720",
+    "format": "PCM signed 16-bit mono at 24000 Hz",
+    "duration_seconds": 45.611,
+    "tail_energy_final_60ms_relative_to_peak_window": 0.0295,
+    "tail_threshold": 0.02,
+    "technical_tail_pass": false,
+    "last_pcm_sample_signed_16bit": 256,
+    "last_sample_fraction_of_full_scale": 0.0078125,
+    "preserved_unchanged": true
+  },
+  "locked_script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-04-test-the-front-door/SCRIPT.txt",
+    "sha256": "fb1021dc78cfb7c717aacdcef665d69a3651b6db8c0b9b129dab3e6c1b6ea60f",
+    "final_sentence": "But a referral proves access, not demand. Only an owner agreeing to pay begins to prove the business."
+  },
+  "submitted_request": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-04-test-the-front-door/GOOGLE-REQUEST.json",
+    "sha256": "b8e9bcf0a36eaec8420190264813ca4162fc8f2f55581a27b74a903c0dfe0eae",
+    "input_text_equals_locked_script": true
+  },
+  "provider_evidence": {
+    "intent_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/GOOGLE-SUBMISSION-INTENT.json",
+    "intent_sha256": "5e83af118141bb0f68d77ed91cfbe1909fe5270bfa2c6b8546445aff8b6db060",
+    "receipt_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/GOOGLE-RECEIPT.json",
+    "receipt_sha256": "21e1480440f78dfedb33c3dfb8e5f97d8f7ae2efdc07f60e320f4e1540c42f7d",
+    "hold_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/HOLD.json",
+    "hold_sha256": "cc6b7a3886b06ca88af9d8ffb028c18fdfa60a474e4cca92399aa69e6acb6eb6"
+  },
+  "local_asr": [
+    {
+      "engine": "HyperFrames 0.8.59 local Whisper",
+      "model": "small.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/diagnostic-asr-guide-small/transcript.json",
+      "transcript_sha256": "f525d041da3fda67c9903a067b2405513625d10742b8209dca3b4c3a9eb63561",
+      "recognized_tokens_normalized": 126,
+      "normalized_words_match_locked_script": true,
+      "recognized_final_words": "Only an owner agreeing to pay begins to prove the business.",
+      "last_word": "business.",
+      "last_word_end_seconds": 45.64,
+      "last_word_end_exceeds_media_by_seconds": 0.029
+    },
+    {
+      "engine": "HyperFrames 0.8.59 local Whisper",
+      "model": "medium.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/diagnostic-asr-guide-medium/transcript.json",
+      "transcript_sha256": "fb75a37f10e76498453e68376aa28bbeaedda526a469822a721ed0442bb6c9e3",
+      "recognized_tokens_normalized": 126,
+      "normalized_words_match_locked_script": true,
+      "recognized_final_words": "Only an owner agreeing to pay begins to prove the business.",
+      "last_word": "business.",
+      "last_word_end_seconds": 46.76,
+      "last_word_end_exceeds_media_by_seconds": 1.149
+    }
+  ],
+  "comparison_method": "Lowercase lexical-token comparison after normalizing curly apostrophes and removing punctuation; no locked-script prompt was supplied to either local ASR model.",
+  "completeness_assessment": {
+    "locked_token_count": 126,
+    "small_model_match": true,
+    "medium_model_match": true,
+    "final_locked_words_present_by_independent_asr": true,
+    "acoustic_completion_proven": false,
+    "reason": "Both models independently recognize every locked word through 'business', but their final-word timestamps extend beyond the actual file duration. ASR establishes strong lexical evidence, not a trustworthy final voice clock or proof the last phoneme resolves cleanly."
+  },
+  "half_second_silence_tail_repair_assessment": {
+    "technically_viable_as_separate_derived_candidate": true,
+    "zero_pcm_frames_at_24000_hz": 12000,
+    "would_change_existing_samples": false,
+    "would_extend_duration_to_seconds": 46.111,
+    "predicted_final_60ms_tail_energy": 0,
+    "would_satisfy_mechanical_tail_threshold": true,
+    "would_restore_missing_speech_if_any": false,
+    "possible_boundary_artifact": "The original final sample is nonzero (256/32768 full scale), so a direct jump to appended zeros may create a faint click or unnaturally abrupt end; audition a derived candidate before transfer.",
+    "derived_candidate_created_by_this_qc": false
+  },
+  "disposition": {
+    "original_guide": "remain_on_hold",
+    "transfer_to_original_c": "hold_pending_derived_candidate_and_direct_listening",
+    "avatar_or_lipsync_from_this_guide": "hold",
+    "automatic_padding": "none",
+    "automatic_retry": "none",
+    "owner_listening": "pending"
+  }
+}

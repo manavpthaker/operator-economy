@@ -1,0 +1,89 @@
+{
+  "record_type": "ep009_existing_performance_room_selections",
+  "status": "selected_for_private_review_conform",
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "look_reference": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+  },
+  "selections": [
+    {
+      "segment": "seg059",
+      "pieces": [
+        {
+          "id": "seg059-wide-r2",
+          "source": {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg059-wide-r2/native.mp4",
+            "sha256": "455ee5e826cf2f56c1926fcb151ab6dee09e59a00bc91e23241607c26e69ad67"
+          },
+          "source_frames": [
+            0,
+            33
+          ],
+          "original_frames": [
+            0,
+            33
+          ]
+        },
+        {
+          "id": "seg059-close-r2",
+          "source": {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg059-close-r2/native.mp4",
+            "sha256": "e0a0ac6ea1b155ba241803828b3b497a287c277bbd9a604617170c0c17daa9ba"
+          },
+          "source_frames": [
+            0,
+            119
+          ],
+          "original_frames": [
+            33,
+            152
+          ]
+        }
+      ],
+      "crop_repair_plan": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/CROP-REPAIR-PLAN.json",
+        "sha256": "6880da86781810bc44cdfcb782f2e247b6bc129e8c48d4d94a49cd97cab78634"
+      },
+      "scoped_review": {
+        "status": "complete",
+        "flagged": false,
+        "reviewer": "root and ep009_graphic_fix",
+        "method": "Per-piece original-to-repair all-frame timestamp/landmark comparison and sampled full-frame plus dense terminal pixel review; fixed original cut at frame33.",
+        "limits": "Frame-based comparison with descriptive detector proxies and sampled pixels. No continuous human audiovisual review or owner acceptance. Off-screen hands and small features have the limits in bound per-piece reports.",
+        "target_appearance_matches": true,
+        "identity_preserved": true,
+        "change_scope_confirmed": "outfit_and_environment_only",
+        "preserved": {
+          "hands": true,
+          "facial_expressions": true,
+          "head_and_body": true,
+          "camera_and_crops": true,
+          "timing": true
+        },
+        "evidence": [
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg059-wide-r2/qa-selected/ROOM-REVIEW.json",
+            "sha256": "7f695815f3daa73d8fc5c6db049ae286470258f98e8e4bc2eca7fada791d6230"
+          },
+          {
+            "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r2/seg059-close-r2/qa-selected/ROOM-REVIEW.json",
+            "sha256": "2ea99c9035e36bfd302c04b87470cbc9db7386dd584dd8c72c9b02f8b8d78038"
+          }
+        ]
+      }
+    }
+  ],
+  "at": "2026-09-18T01:09:09.398692+00:00"
+}

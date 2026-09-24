@@ -1,0 +1,35 @@
+{
+  "record_type": "ep007_short01_existing_audio_recut",
+  "source": {
+    "path": "assets/audio/short01-final-original-c-salvage-v1.wav",
+    "sha256": "b4ab3903255b5b425f2adc88f81372f7072efc58eb842830c6dd600dc188d61c",
+    "sample_rate": 48000,
+    "channels": 1
+  },
+  "output": {
+    "path": "assets/audio/short01-final-original-c-fast-intro-balanced-v2.wav",
+    "sha256": "c6a94b55b8cf223fdb9d75f08d9ff805ed4124d3c5ee21ab7a74e859eed27ad3",
+    "samples": 2048000,
+    "frames_at_24_fps": 1024,
+    "duration_seconds": 42.666667
+  },
+  "segments": [
+    {"source_samples":[1603,189511],"role":"conversational context"},
+    {"source_samples":[658910,867877],"role":"thirty-day test"},
+    {"source_samples":[315621,601404],"role":"authoritative business model"},
+    {"source_samples":[867877,967776],"role":"instruction"},
+    {"source_samples":[969145,1041600],"role":"one owner example"},
+    {"source_samples":[1228556,1330000],"role":"circle the I"},
+    {"source_samples":[1458000,2085600],"role":"three questions, map payoff, and claim boundary"},
+    {"source_samples":[2284165,2747858],"role":"commercial question and episode bridge"}
+  ],
+  "micro_crossfade": {
+    "between_roles": ["circle the I", "three questions, map payoff, and claim boundary"],
+    "duration_samples": 480,
+    "duration_seconds": 0.01,
+    "curve": "triangular equal-gain",
+    "reason": "remove one otherwise abrupt high-amplitude join without changing speech speed or pitch"
+  },
+  "tail_padding_samples": 731,
+  "method": "sample-exact PCM trims concatenated in the listed order with one 10 ms seam crossfade; no speed change, pitch shift, normalization, generated speech, or provider call"
+}

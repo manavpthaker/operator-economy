@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "id": "cf0dda4d-8749-4e6f-99e1-49c39b07c0fb",
+      "type": "video",
+      "status": "pending",
+      "model": "seedance_2_5",
+      "params": {
+        "prompt": "The man in the IMAGE reference sits quietly at the wooden table in the inn breakfast room and blinks. Both VIDEO references supply only his relaxed facial settling and comfortable stillness. Preserve the IMAGE identity, chambray shirt, room and framing. Fixed camera. No speaking, no camera move.",
+        "aspect_ratio": "16:9",
+        "duration": 4,
+        "reference_images": [
+          "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30",
+          "7dc478bc-0449-4867-a760-50670f4caccf",
+          "5ec537ee-b01c-4bb5-a343-636882e4b747"
+        ],
+        "mode": "omni_reference",
+        "resolution": "480p",
+        "generate_audio": false
+      }
+    }
+  ],
+  "adjustments": {
+    "medias[0].role": {
+      "requested": "image",
+      "used": "image_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    },
+    "medias[1].role": {
+      "requested": "video",
+      "used": "video_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    },
+    "medias[2].role": {
+      "requested": "video",
+      "used": "video_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "r32-buyer-generated-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independently review the new six-second silent buyer reaction against the selected reference and approved prompt. Probe/decode, sample actual eye/mouth/head progression, choose a five-second source window for review35.083333-40.083333 if it genuinely supplies front/off-center downward reaction. Protect face/wardrobe/geography and avoid invented verdict. Provide source-frame selection and visual contact evidence; standard manifest. No runtime/provider/history edits, no external calls, no acceptance claim. Exact work is authorized local QA only.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/provider/buyer-reaction/native.mp4",
+      "sha256": "5d7dc94601a5e5bec01cfbaffb9fa7d024a727797e8ae934c9d21e2ec0e25bfb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/provider-preparation/buyer-reaction.txt",
+      "sha256": "4ca28c0f39acc5d4de2f5889766b02c894219bbd17483cbde7c764b38655ab39"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-coverage-audit/shot-b-frame-0096-reference.png",
+      "sha256": "3f922127ae63510648ce5ed476a012442f3391bf55015567146752699d870926"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r32-performance-refinement/index.html",
+      "sha256": "39ec677570f7b3dca184ca7ff26436fefdd142bf6c1c09cb27417c47c9ebcd60"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-buyer-generated-review/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued input hash.",
+    "Return bounded evidence and distinguish inference from measured or visible findings.",
+    "Standard manifest and outputs remain inside owned path."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

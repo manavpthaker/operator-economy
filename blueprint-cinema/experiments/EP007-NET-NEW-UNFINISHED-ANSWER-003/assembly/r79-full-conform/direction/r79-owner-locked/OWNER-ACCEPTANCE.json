@@ -1,0 +1,63 @@
+{
+  "status": "owner_locked",
+  "owner_statement": "Lock R79, including the three inherited exceptions.",
+  "decision_event_id": "r79-whole-episode-conform-plan-v2",
+  "technical_verification_event_id": "r79-whole-episode-review-conform-verified-v2",
+  "owner_feedback_event_id": "r79-owner-whole-episode-lock-v1",
+  "review_url": "http://100.101.49.30:3111/",
+  "artifacts": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-full-review.mp4",
+      "sha256": "adff0911728de87f5388fbbdaee4d288a077e3b18530c6528d25465eb88e6671"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/qa/ep007-r79-audio-pcm.wav",
+      "sha256": "3d226b434552def6334b0a583df9ae40b02981df187e725b288286630ed1812c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/VERIFICATION-V2.json",
+      "sha256": "fb276b27ddb2c7ea5c780356dae1eeb759308af80a2a4b9b059a5150fabc2c95"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/assembly/r79-full-conform/SEGMENTS.json",
+      "sha256": "5b4fbdfe694238423cc7a196cc341838959a706b5b43ebc8abb8effddae86496"
+    }
+  ],
+  "episode": {
+    "frames": 27241,
+    "fps": 24,
+    "duration_seconds": 1135.041667,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "picture_audio_status": "owner_locked_conform_reference"
+  },
+  "accepted_scope": [
+    "The exact uninterrupted R79 picture and encoded audio are accepted as the whole-episode picture/audio lock and the conform reference for downstream finishing.",
+    "All scene assignments, cuts, retained takes, accepted seams, narration timing and the complete ending present in the hash-pinned R79 file are frozen unless the owner explicitly reopens R79.",
+    "The three inherited exceptions disclosed before review are explicitly accepted within the integrated R79 whole-episode result."
+  ],
+  "inherited_exceptions": [
+    {
+      "exception_id": "r39-callback-performance-no-scoped-verdict",
+      "prior_status": "No independent scoped owner verdict was recorded for the R39 callback/performance.",
+      "r79_disposition": "Accepted as it appears in the exact R79 whole-episode conform. The missing historical scene-level verdict remains part of the audit history."
+    },
+    {
+      "exception_id": "r39-animation-returned-04-17-875-to-04-30-000",
+      "prior_status": "The R39 animation at master 04:17.875 through 04:30.000 was previously returned.",
+      "r79_disposition": "Accepted as it appears in the exact R79 whole-episode conform. The prior return remains preserved and is not rewritten as an independent R39 acceptance."
+    },
+    {
+      "exception_id": "r47-performance-no-output-verdict-04-50-292-to-05-01-500",
+      "prior_status": "No independent output verdict was recorded for the R47 performance at master 04:50.292 through 05:01.500.",
+      "r79_disposition": "Accepted as it appears in the exact R79 whole-episode conform. The missing historical scene-level verdict remains part of the audit history."
+    }
+  ],
+  "scope_limits": [
+    "This lock does not retroactively convert the inherited R39 or R47 history into separate scene-level approvals; it accepts their exact integrated appearance only within the locked R79 bytes.",
+    "R79 is not represented as a canonical DaVinci Resolve finishing master. Resolve conform, final color, final mix, captions, online and delivery QC remain downstream gates.",
+    "No release, publication, upload, distribution, commit or push is authorized by this lock."
+  ]
+}

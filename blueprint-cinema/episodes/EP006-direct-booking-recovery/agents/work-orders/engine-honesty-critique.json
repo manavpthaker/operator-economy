@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "engine-honesty-critique",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "role": "engine_critic",
+  "objective": "Independently review the proposed EP006 engine for mechanical honesty, fair OTA framing, consent, qualification, suppression, human judgment, evidence integrity, and visual cliche risk.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/episode-engine.json",
+      "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/engine-honesty-critique/deliverable.json",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/engine-honesty-critique/engine-critique.md"
+  ],
+  "forbidden_paths": [
+    "episodes/EP006-direct-booking-recovery/episode.json",
+    "episodes/EP006-direct-booking-recovery/input-lock.json",
+    "episodes/EP006-direct-booking-recovery/production-state.json",
+    "episodes/EP006-direct-booking-recovery/episode-engine.json",
+    "episodes/EP006-direct-booking-recovery/world.json",
+    "episodes/EP006-direct-booking-recovery/visual-plan.json",
+    "episodes/EP006-direct-booking-recovery/asset-tickets.json",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts"
+  ],
+  "dependencies": [
+    "current inputs_locked approval",
+    "schema-valid proposed engine"
+  ],
+  "acceptance_checks": [
+    "Confirm the first OTA booking remains useful and no guest is assumed eligible merely because a stay completed",
+    "Trace audit and repair before outreach plus explicit consent qualification suppression and human review",
+    "Check the settlement ledger and direct confirmation perform separate proof and outcome jobs",
+    "Return a schema-valid deliverable without claiming approval or changing production state"
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop if either input hash differs from the work order",
+    "Stop if the critique would require changing any canonical or forbidden path"
+  ],
+  "status": "closed"
+}

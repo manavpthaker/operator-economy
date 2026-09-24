@@ -1,0 +1,52 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "r35-avatar-edit-qa",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only independent integration review. Inspect approved R35 take plan and R34 index/listing/presenter-question patterns. Produce precise proposed DOM and GSAP timing for adding one continuous 5-second presenter at review 195.125 through 200.125, push at 198.875 for 8/24 seconds, preserving original listing audio and all prefix runtime. Identify risks and minimal necessary rendered QA. Do not edit runtime, skills, log, or provider assets. Return report and standard manifest only.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r35-buyer-seller-arc/AVATAR-TAKE-PLAN.json",
+      "sha256": "d7c9bc86fece4fd386e2a22e37d47b5cb5e0a69118427de42f734b54af4a46dc"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/index.html",
+      "sha256": "90c3b343df919cb426e1e05036b0915adf2887ab68af698090999fce08eec5a3"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/compositions/listing.html",
+      "sha256": "c3791883e72edea4d8db5f85c63807609c0d97656ed9216b5d9d00cef6dbd2df"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/compositions/presenter-question.html",
+      "sha256": "6ef9eeb8406464d7c1a94ab9423c23fa88af5666c5322b369cff5c5b1afd1736"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r35-avatar-edit-qa/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued input hash.",
+    "Return bounded evidence and distinguish inference from measured or visible findings.",
+    "Standard manifest and outputs remain inside owned path."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

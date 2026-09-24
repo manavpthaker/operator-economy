@@ -1,0 +1,132 @@
+[
+  {
+    "event_id": "r54-s11a-blank-frames-fixed-v1",
+    "decision_id": "s11-vacancy",
+    "event_type": "verification",
+    "tags": [
+      "cut-timing"
+    ],
+    "data": {
+      "decision_event_id": "r54-s11-plan-and-part-a-v1",
+      "method": "Uniform-frame scan after change; re-render.",
+      "result": "pass",
+      "scope": "S11 part A question-card entry.",
+      "limitations": "'So who helps?' now starts at 35% opacity on the panel switch; previously 4 blank-paper frames. Part A owner review still pending.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11a/qa/r54-s11a.mp4",
+          "sha256": "b4bf192e319f446184bf95e282407e31fd3987e4324fda379c649b26adfa9442"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11a/index.html",
+        "sha256": "e1707a9600a9c1075e7a9883bf492e008f3a65b5583686fb60c95ba74166f2e0",
+        "locator": "Revised part A source"
+      }
+    ]
+  },
+  {
+    "event_id": "r54-s11b-room-model-v1",
+    "decision_id": "s11-vacancy",
+    "event_type": "decision",
+    "tags": [
+      "working-model",
+      "false-inference",
+      "cut-timing"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show who surrounds a small-business sale and that each is paid by the transaction.",
+        "viewer_before": "'So who helps?'",
+        "viewer_after": "The viewer sees every adviser's pay converging on the closing, and the wealth adviser's on proceeds that do not exist yet."
+      },
+      "choice": "'The room' outline with the owner at her table; broker, accountant, lawyer and wealth adviser enter on their names; each pay line draws to a 'Sale closes' marker outside the room on its pay phrase; wealth adviser's dashed line to 'Proceeds', dimmed with 'not yet'; lines firm up on 'compensated by the transaction'.",
+      "reason": "The incentive structure is a relationship in time, so it reads as lines from people inside the room to an event outside it.",
+      "alternatives": [
+        {
+          "choice": "Four text cards",
+          "reason_not_selected": "Loses the shared convergence on one event."
+        },
+        {
+          "choice": "Money icons or coins",
+          "reason_not_selected": "Implies amounts and a sales tone."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "Several roles share one payment trigger.",
+        "avoid_when": "Compensation structures differ materially and need attribution."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s11b-in",
+            "phrase": "Look at who is actually in that room",
+            "relation": "part A outpoint",
+            "master_seconds": 409.2083333333333,
+            "review_seconds": 406.2083333333333,
+            "fps": 24
+          },
+          {
+            "cue_id": "s11b-out",
+            "phrase": "before And there is a phrase",
+            "relation": "master silence",
+            "master_seconds": 430.5,
+            "review_seconds": 427.5,
+            "fps": 24
+          }
+        ],
+        "false_inference": "That any named firm or professional behaves improperly; neutral figures, names by role only (C014).",
+        "source_basis": "Plan approved to proceed under 'move on'."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b/index.html",
+        "sha256": "1a43bf0d93e27dbb5b387e84182044878ec0dfdbc3cc01b560c452db7f74f483",
+        "locator": "Part B source"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b/direction/CUES.json",
+        "sha256": "d63bf7d6fa0063ac5e2c6a4ac562b719b064965c5a9c0926730d028b6b7b055f",
+        "locator": "Cues"
+      }
+    ],
+    "supersedes": "r54-s11-plan-and-part-a-v1"
+  },
+  {
+    "event_id": "r54-s11b-verified-v1",
+    "decision_id": "s11-vacancy",
+    "event_type": "verification",
+    "tags": [
+      "working-model",
+      "original-audio"
+    ],
+    "data": {
+      "decision_event_id": "r54-s11b-room-model-v1",
+      "method": "Strict check; contact sheet and one layout fix (adviser line rerouted off the Sale closes label); blank-frame fix at entry; render; context assembly S10 through S11b; audio correlation S11a 0.99985, S11b 0.99977.",
+      "result": "pass",
+      "scope": "S11 part B (511 frames) in context.",
+      "limitations": "Owner review pending for parts A and B.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b/qa/r54-s11b.mp4",
+          "sha256": "c711034005acc2637556b2533295dd392c914f979f10442f6f26301ce55dae40"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b-context/qa/context.mp4",
+          "sha256": "f34d9f43605d2ea6e366990228c2dc225affdf207f8d9d004bb7956b7803aaa0"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r54-s11b/qa/CHECK.json",
+        "sha256": "64a535993f8a341bf5146a77a89008aa605c2c21a06d76dea7f11090af145660",
+        "locator": "Strict check"
+      }
+    ]
+  }
+]

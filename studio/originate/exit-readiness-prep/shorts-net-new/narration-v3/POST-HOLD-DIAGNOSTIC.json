@@ -1,0 +1,46 @@
+{
+  "record_type": "ep007_short01_replacement_post_hold_diagnostic",
+  "at_utc": "2026-09-22T07:43:50Z",
+  "provider_call": false,
+  "status": "full_script_recognized_but_tail_completeness_not_proven",
+  "short_id": "short-01-thirty-day-map",
+  "guide": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/media/guide.wav",
+    "sha256": "01d77e7d586e76d28fb4bb2143afa3cc2f50801f5ab23fbb1749092cd782c4c8",
+    "duration_seconds": 40.971,
+    "tail_energy": 0.0361,
+    "required_tail_energy_below": 0.02,
+    "format": "LINEAR16 WAV, 24000 Hz, mono, 16-bit"
+  },
+  "local_asr": {
+    "tool": "hyperframes@0.8.59",
+    "engine": "whisper",
+    "model": "small.en",
+    "language": "en",
+    "recognized_words": 97,
+    "locked_normalized_words": 97,
+    "exact_normalized_word_match": true,
+    "normalization": "Convert numeric 30 to thirty, normalize apostrophes, ignore punctuation and case.",
+    "last_recognized_word": "off.",
+    "last_word_start_seconds": 40.73,
+    "last_word_end_seconds": 41.21,
+    "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/diagnostic-asr-guide/transcript.json",
+    "transcript_sha256": "8a2f17dcfff3e5b7bb625618d4b227fe3af30099c4fcaf54730d8d47f4032338"
+  },
+  "assessment": "Whisper recognized all 97 normalized words and the full closing sentence. This supports that the spoken text is present, but it does not prove the final phoneme is unclipped because the recognized final-word timestamp extends 0.239 seconds beyond the 40.971-second media duration.",
+  "batch_effect": "None. The replacement failed the pinned tail-completeness gate, the no-retry hold remains controlling, and no later provider call is authorized.",
+  "evidence": {
+    "submission_intent": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/GOOGLE-SUBMISSION-INTENT.json",
+      "sha256": "a0efd87d13e73d82b905bd2d0ed7a35f53a95a8f26c3c1e2fef0ff9b3a000dc5"
+    },
+    "provider_receipt": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-01-thirty-day-map/GOOGLE-RECEIPT.json",
+      "sha256": "a7edc0ec268e709a070a93facc43010908252e2f709276359c170428a2beb015"
+    },
+    "batch_hold": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/BATCH-HOLD.json",
+      "sha256": "fb4cee5de2b86d7b9cd9044feee32a558b5a6785d13e82b7752cb8e46a532355"
+    }
+  }
+}

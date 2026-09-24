@@ -1,0 +1,587 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Boska";
+      src: url("assets/fonts/boska-700.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    @font-face {
+      font-family: "Supreme";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #1A1A1A;
+      isolation: isolate;
+    }
+
+    [class~="04-audit-first-ground"] {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      container-type: size;
+      background-color: #F5F0E6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 0.12cqw, transparent 0.12cqw),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 0.12cqw, transparent 0.12cqw);
+      background-size: 2cqw 2cqw;
+    }
+
+    [class~="04-audit-first-stage"] {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      container-type: size;
+      font-family: "Supreme";
+      font-weight: 400;
+    }
+
+    [class~="04-audit-first-hairline"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      z-index: 12;
+    }
+
+    [class~="04-audit-first-hairline-top"] {
+      top: 4cqh;
+    }
+
+    [class~="04-audit-first-hairline-bottom"] {
+      top: 80.5cqh;
+    }
+
+    [class~="04-audit-first-destination"] {
+      position: absolute;
+      left: 4cqw;
+      top: 13cqh;
+      width: 62cqw;
+      height: 56cqh;
+      box-sizing: border-box;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      z-index: 5;
+    }
+
+    [class~="04-audit-first-destination-header"] {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 11cqh;
+      box-sizing: border-box;
+      border-bottom: 0.12cqw solid #1A1A1A;
+    }
+
+    [class~="04-audit-first-title"] {
+      position: absolute;
+      left: 2.3cqw;
+      top: 1.8cqh;
+      max-width: 41cqw;
+      font-family: "Boska";
+      font-size: 3.8cqw;
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.005em;
+      white-space: nowrap;
+      transform-origin: left center;
+      will-change: transform, opacity;
+    }
+
+    [class~="04-audit-first-status"] {
+      position: absolute;
+      right: 2cqw;
+      top: 2.5cqh;
+      min-width: 12.8cqw;
+      box-sizing: border-box;
+      padding: 1.2cqh 0.8cqw 1cqh;
+      border: 0.12cqw solid #1A1A1A;
+      font-size: 1.05cqw;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    [class~="04-audit-first-destination-body"] {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 11cqh;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    [class~="04-audit-first-plane"] {
+      position: absolute;
+      left: 2.3cqw;
+      top: 4.7cqh;
+      width: 37.5cqw;
+      height: 31cqh;
+      border-top: 0.06cqw solid rgba(176, 141, 62, 0.18);
+      border-bottom: 0.06cqw solid rgba(176, 141, 62, 0.18);
+    }
+
+    [class~="04-audit-first-plane-line"] {
+      position: absolute;
+      left: 0;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      transform-origin: left center;
+      will-change: transform, opacity;
+    }
+
+    [class~="04-audit-first-plane-line-one"] {
+      top: 5cqh;
+      width: 31cqw;
+    }
+
+    [class~="04-audit-first-plane-line-two"] {
+      top: 11cqh;
+      width: 24cqw;
+    }
+
+    [class~="04-audit-first-plane-line-three"] {
+      top: 17cqh;
+      width: 33cqw;
+    }
+
+    [class~="04-audit-first-plane-line-four"] {
+      top: 23cqh;
+      width: 18cqw;
+    }
+
+    [class~="04-audit-first-ready-rule"] {
+      position: absolute;
+      left: 0;
+      top: 29cqh;
+      width: 37.5cqw;
+      height: 0.42cqw;
+      background: #1A1A1A;
+      transform-origin: left center;
+      will-change: transform, opacity;
+    }
+
+    [class~="04-audit-first-directly"] {
+      position: absolute;
+      left: 1.7cqw;
+      top: 7.2cqh;
+      width: 38cqw;
+      font-family: "Boska";
+      font-size: 9.4cqw;
+      font-weight: 400;
+      line-height: 0.96;
+      letter-spacing: -0.005em;
+      text-align: left;
+      white-space: nowrap;
+      transform-origin: left center;
+      will-change: transform, opacity;
+      z-index: 4;
+    }
+
+    [class~="04-audit-first-rail"] {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 18.5cqw;
+      height: 45cqh;
+      box-sizing: border-box;
+      border-left: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      z-index: 6;
+    }
+
+    [class~="04-audit-first-slot"] {
+      position: absolute;
+      left: 1.4cqw;
+      width: 15.6cqw;
+      height: 14.4cqh;
+      box-sizing: border-box;
+      border: 0.06cqw solid rgba(176, 141, 62, 0.18);
+    }
+
+    [class~="04-audit-first-slot-one"] {
+      top: 4.4cqh;
+    }
+
+    [class~="04-audit-first-slot-two"] {
+      top: 24cqh;
+    }
+
+    [class~="04-audit-first-strip"] {
+      position: absolute;
+      left: 1.4cqw;
+      width: 15.6cqw;
+      height: 14.4cqh;
+      box-sizing: border-box;
+      display: grid;
+      place-items: center;
+      border: 0.12cqw solid #1A1A1A;
+      background: #1A1A1A;
+      color: #F5F0E6;
+      font-size: 1.4cqw;
+      line-height: 1;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      z-index: 2;
+    }
+
+    [class~="04-audit-first-audit"] {
+      top: 4.4cqh;
+    }
+
+    [class~="04-audit-first-repair"] {
+      top: 24cqh;
+    }
+
+    [class~="04-audit-first-routes"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100cqw;
+      height: 83cqh;
+      overflow: visible;
+      z-index: 2;
+      will-change: opacity;
+    }
+
+    [class~="04-audit-first-route-base"],
+    [class~="04-audit-first-route-live"] {
+      fill: none;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      vector-effect: non-scaling-stroke;
+    }
+
+    [class~="04-audit-first-route-base"] {
+      stroke: rgba(176, 141, 62, 0.18);
+      stroke-width: 5;
+    }
+
+    [class~="04-audit-first-route-live"] {
+      stroke: #1A1A1A;
+      stroke-width: 8;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+
+    [class~="04-audit-first-gate"] {
+      position: absolute;
+      left: 70cqw;
+      width: 26cqw;
+      height: 21cqh;
+      box-sizing: border-box;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      transform-origin: left center;
+      will-change: transform, opacity;
+      z-index: 7;
+    }
+
+    [class~="04-audit-first-permission"] {
+      top: 18cqh;
+    }
+
+    [class~="04-audit-first-review"] {
+      top: 47cqh;
+    }
+
+    [class~="04-audit-first-gate-head"] {
+      position: absolute;
+      left: 1.5cqw;
+      top: 2.2cqh;
+      right: 1.5cqw;
+      padding-bottom: 1.2cqh;
+      border-bottom: 0.12cqw solid #1A1A1A;
+      font-size: 1.4cqw;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    [class~="04-audit-first-gate-state"] {
+      position: absolute;
+      left: 1.5cqw;
+      bottom: 2.2cqh;
+      font-size: 1.05cqw;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      will-change: transform, opacity;
+    }
+
+    [class~="04-audit-first-gate-bars"] {
+      position: absolute;
+      right: 1.5cqw;
+      bottom: 2cqh;
+      width: 8cqw;
+      height: 8cqh;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.62cqw;
+      padding: 0.72cqw;
+      box-sizing: border-box;
+      border: 0.12cqw solid #1A1A1A;
+    }
+
+    [class~="04-audit-first-gate-bars"] span {
+      display: block;
+      background: #1A1A1A;
+    }
+
+    [class~="04-audit-first-chrome"] {
+      position: absolute;
+      top: 76.8cqh;
+      z-index: 12;
+      font-size: 13px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    [class~="04-audit-first-chrome-left"] {
+      left: 4cqw;
+    }
+
+    [class~="04-audit-first-chrome-right"] {
+      right: 4cqw;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-audit-first">
+    <div
+      class="clip 04-audit-first-ground"
+      data-start="0"
+      data-duration="5.544"
+      data-track-index="0"
+    ></div>
+
+    <div
+      class="clip 04-audit-first-stage"
+      data-start="0"
+      data-duration="5.544"
+      data-track-index="1"
+    >
+      <svg
+        id="04-audit-first-routes"
+        class="04-audit-first-routes"
+        viewBox="0 0 1920 896"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path class="04-audit-first-route-base" d="M1267 443 H1304 L1344 308"></path>
+        <path class="04-audit-first-route-base" d="M1267 443 H1304 L1344 621"></path>
+        <path id="04-audit-first-route-permission" class="04-audit-first-route-live" pathLength="1" d="M1267 443 H1304 L1344 308"></path>
+        <path id="04-audit-first-route-review" class="04-audit-first-route-live" pathLength="1" d="M1267 443 H1304 L1344 621"></path>
+      </svg>
+
+      <section id="04-audit-first-destination" class="04-audit-first-destination" aria-label="Direct destination audit and repair card">
+        <header class="04-audit-first-destination-header">
+          <div id="04-audit-first-title" class="04-audit-first-title">Direct destination</div>
+          <div id="04-audit-first-status" class="04-audit-first-status">Not audited</div>
+        </header>
+
+        <div class="04-audit-first-destination-body">
+          <div class="04-audit-first-plane" aria-hidden="true">
+            <span class="04-audit-first-plane-line 04-audit-first-plane-line-one"></span>
+            <span class="04-audit-first-plane-line 04-audit-first-plane-line-two"></span>
+            <span class="04-audit-first-plane-line 04-audit-first-plane-line-three"></span>
+            <span class="04-audit-first-plane-line 04-audit-first-plane-line-four"></span>
+            <span id="04-audit-first-ready-rule" class="04-audit-first-ready-rule"></span>
+            <span id="04-audit-first-directly" class="04-audit-first-directly">Directly</span>
+          </div>
+
+          <aside class="04-audit-first-rail" aria-label="Audit and repair stages">
+            <div class="04-audit-first-slot 04-audit-first-slot-one" aria-hidden="true"></div>
+            <div class="04-audit-first-slot 04-audit-first-slot-two" aria-hidden="true"></div>
+            <div id="04-audit-first-audit" class="04-audit-first-strip 04-audit-first-audit">Audit</div>
+            <div id="04-audit-first-repair" class="04-audit-first-strip 04-audit-first-repair">Repair</div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="04-audit-first-permission" class="04-audit-first-gate 04-audit-first-permission" aria-label="Closed permission gate">
+        <div class="04-audit-first-gate-head">Permission</div>
+        <div class="04-audit-first-gate-state">Closed</div>
+        <div class="04-audit-first-gate-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </section>
+
+      <section id="04-audit-first-review" class="04-audit-first-gate 04-audit-first-review" aria-label="Closed human review gate">
+        <div class="04-audit-first-gate-head">Human review</div>
+        <div class="04-audit-first-gate-state">Closed</div>
+        <div class="04-audit-first-gate-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </section>
+
+      <div class="04-audit-first-hairline 04-audit-first-hairline-top" aria-hidden="true"></div>
+      <div class="04-audit-first-hairline 04-audit-first-hairline-bottom" aria-hidden="true"></div>
+      <div class="04-audit-first-chrome 04-audit-first-chrome-left">Audit before outreach</div>
+      <div class="04-audit-first-chrome 04-audit-first-chrome-right">04</div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="04-audit-first"]');
+      const destination = root.querySelector('[id="04-audit-first-destination"]');
+      const title = root.querySelector('[id="04-audit-first-title"]');
+      const status = root.querySelector('[id="04-audit-first-status"]');
+      const audit = root.querySelector('[id="04-audit-first-audit"]');
+      const repair = root.querySelector('[id="04-audit-first-repair"]');
+      const readyRule = root.querySelector('[id="04-audit-first-ready-rule"]');
+      const directly = root.querySelector('[id="04-audit-first-directly"]');
+      const routes = root.querySelector('[id="04-audit-first-routes"]');
+      const permission = root.querySelector('[id="04-audit-first-permission"]');
+      const review = root.querySelector('[id="04-audit-first-review"]');
+      const permissionRoute = root.querySelector('[id="04-audit-first-route-permission"]');
+      const reviewRoute = root.querySelector('[id="04-audit-first-route-review"]');
+      const planeLines = root.querySelectorAll('[class~="04-audit-first-plane-line"]');
+      const gateStates = root.querySelectorAll('[class~="04-audit-first-gate-state"]');
+
+      const timeline = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-audit-first"] = timeline;
+
+      const statusStates = [
+        { t: 0, text: "NOT AUDITED" },
+        { t: 1.72, text: "AUDIT" },
+        { t: 2.48, text: "REPAIR" },
+        { t: 3.28, text: "READY" }
+      ];
+
+      const statusAt = (time) => {
+        for (let index = statusStates.length - 1; index >= 0; index -= 1) {
+          if (time >= statusStates[index].t) return statusStates[index].text;
+        }
+        return statusStates[0].text;
+      };
+
+      const statusDriver = { t: 0 };
+      status.textContent = statusAt(0);
+      timeline.to(
+        statusDriver,
+        {
+          t: 5.544,
+          duration: 5.544,
+          ease: "none",
+          onUpdate: () => {
+            status.textContent = statusAt(statusDriver.t);
+          }
+        },
+        0
+      );
+
+      timeline.fromTo(
+        destination,
+        { x: -46, scale: 0.96, opacity: 0.001 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.52, ease: "power3.out" },
+        0.05
+      );
+      timeline.fromTo(
+        title,
+        { x: -22, opacity: 0.001 },
+        { x: 0, opacity: 1, duration: 0.46, ease: "power3.out" },
+        0.18
+      );
+      timeline.fromTo(
+        status,
+        { y: 18, opacity: 0.001 },
+        { y: 0, opacity: 1, duration: 0.42, ease: "power2.out" },
+        0.52
+      );
+      timeline.fromTo(
+        planeLines,
+        { scaleX: 0, opacity: 0.001 },
+        { scaleX: 1, opacity: 1, duration: 0.44, stagger: 0.10, ease: "power2.out" },
+        0.70
+      );
+
+      timeline.fromTo(
+        audit,
+        { x: 34, y: 20, scale: 0.82, opacity: 0.001 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" },
+        1.70
+      );
+      timeline.fromTo(
+        repair,
+        { x: -34, y: -20, scale: 0.82, opacity: 0.001 },
+        { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" },
+        2.34
+      );
+      timeline.fromTo(
+        readyRule,
+        { scaleX: 0, opacity: 0.001 },
+        { scaleX: 1, opacity: 1, duration: 0.62, ease: "power3.out" },
+        3.15
+      );
+
+      timeline.fromTo(
+        routes,
+        { opacity: 0.001 },
+        { opacity: 1, duration: 0.30, ease: "power1.out" },
+        3.72
+      );
+      timeline.fromTo(
+        permission,
+        { x: 30, scale: 0.90, opacity: 0.001 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.66, ease: "power3.out" },
+        3.80
+      );
+      timeline.fromTo(
+        review,
+        { x: 30, scale: 0.90, opacity: 0.001 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.66, ease: "power3.out" },
+        4.08
+      );
+      timeline.fromTo(
+        permissionRoute,
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" },
+        4.02
+      );
+      timeline.fromTo(
+        reviewRoute,
+        { strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" },
+        4.24
+      );
+      timeline.fromTo(
+        directly,
+        { y: 16, scale: 0.82, opacity: 0.001 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.76, ease: "expo.out" },
+        4.14
+      );
+      timeline.to(
+        title,
+        { opacity: 0.38, duration: 0.48, ease: "power2.out" },
+        4.22
+      );
+      timeline.fromTo(
+        gateStates,
+        { x: 16, opacity: 0.001 },
+        { x: 0, opacity: 1, duration: 0.34, stagger: 0.18, ease: "power2.out" },
+        4.38
+      );
+    })();
+  </script>
+</template>

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-voice-transfer-authorization-v1.json",
+  "title": "OE Step 2 exact selected-guide voice-transfer authorization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "authorization_id", "status", "approved", "scope", "target",
+    "bindings", "prerequisites", "action", "authorized_limits", "consumption",
+    "approved_by", "approved_at", "expires_at", "execution_ready", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-voice-transfer-authorization-v1"},
+    "authorization_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$"},
+    "status": {"enum": ["draft", "active"]},
+    "approved": {"type": "boolean"},
+    "scope": {"const": "elevenlabs_voice_transfer"},
+    "target": {"$ref": "#/$defs/target"},
+    "bindings": {"$ref": "#/$defs/bindings"},
+    "prerequisites": {"$ref": "#/$defs/prerequisites"},
+    "action": {"$ref": "#/$defs/action"},
+    "authorized_limits": {"$ref": "#/$defs/limits"},
+    "consumption": {"$ref": "#/$defs/consumption"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "expires_at": {"type": "string"},
+    "execution_ready": {"type": "boolean"},
+    "blockers": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "draft"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": false},
+          "execution_ready": {"const": false},
+          "bindings": {
+            "not": {
+              "anyOf": [
+                {"required": ["selected_guide_sha256"]},
+                {"required": ["primary_request_sha256"]},
+                {"required": ["primary_multipart_body_sha256"]},
+                {"required": ["primary_multipart_body_bytes"]},
+                {"required": ["conditional_fallback_request_sha256"]},
+                {"required": ["conditional_fallback_multipart_body_sha256"]},
+                {"required": ["conditional_fallback_multipart_body_bytes"]},
+                {"required": ["enable_logging"]}
+              ]
+            }
+          },
+          "prerequisites": {
+            "properties": {
+              "selected_guide": {"$ref": "#/$defs/pending"},
+              "guide_qa": {"$ref": "#/$defs/pending"},
+              "owner_selection": {"$ref": "#/$defs/pending"},
+              "elevenlabs_data_use": {"$ref": "#/$defs/pending"},
+              "target_voice_rights": {"$ref": "#/$defs/pending"}
+            }
+          },
+          "authorized_limits": {
+            "properties": {
+              "max_calls": {"const": 0},
+              "max_outputs": {"const": 0},
+              "max_source_bytes": {"const": 0},
+              "max_source_duration_seconds": {"const": 0},
+              "max_submitted_seconds": {"const": 0},
+              "max_spend_usd": {"const": 0}
+            }
+          },
+          "consumption": {"properties": {"status": {"const": "not_authorized"}}},
+          "blockers": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "active"}}},
+      "then": {
+        "properties": {
+          "approved": {"const": true},
+          "approved_by": {"type": "string", "minLength": 1},
+          "approved_at": {"type": "string", "minLength": 1},
+          "expires_at": {"type": "string", "minLength": 1},
+          "execution_ready": {"const": true},
+          "bindings": {
+            "required": [
+              "selected_guide_sha256", "primary_request_sha256", "primary_multipart_body_sha256",
+              "primary_multipart_body_bytes", "conditional_fallback_request_sha256",
+              "conditional_fallback_multipart_body_sha256", "conditional_fallback_multipart_body_bytes",
+              "enable_logging"
+            ]
+          },
+          "prerequisites": {
+            "properties": {
+              "selected_guide": {"$ref": "#/$defs/selectedGuide"},
+              "guide_qa": {"$ref": "#/$defs/verifiedPath"},
+              "owner_selection": {"$ref": "#/$defs/verifiedPath"},
+              "elevenlabs_data_use": {"$ref": "#/$defs/verifiedPath"},
+              "target_voice_rights": {"$ref": "#/$defs/verifiedPath"}
+            }
+          },
+          "authorized_limits": {
+            "properties": {
+              "max_calls": {"const": 2},
+              "max_outputs": {"const": 1},
+              "max_source_bytes": {"const": 50000000},
+              "max_source_duration_seconds": {"const": 50},
+              "max_submitted_seconds": {"const": 100},
+              "max_spend_usd": {"const": 0.24}
+            }
+          },
+          "consumption": {"properties": {"status": {"const": "unconsumed"}}},
+          "blockers": {"maxItems": 0}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "experiment"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "bindings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["performance_transfer_plan_sha256", "canonical_w_sha256", "spoken_text_sha256"],
+      "properties": {
+        "performance_transfer_plan_sha256": {"$ref": "#/$defs/sha256"},
+        "canonical_w_sha256": {"$ref": "#/$defs/sha256"},
+        "spoken_text_sha256": {"const": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"},
+        "selected_guide_sha256": {"$ref": "#/$defs/sha256"},
+        "primary_request_sha256": {"$ref": "#/$defs/sha256"},
+        "primary_multipart_body_sha256": {"$ref": "#/$defs/sha256"},
+        "primary_multipart_body_bytes": {"type": "integer", "minimum": 1},
+        "conditional_fallback_request_sha256": {"$ref": "#/$defs/sha256"},
+        "conditional_fallback_multipart_body_sha256": {"$ref": "#/$defs/sha256"},
+        "conditional_fallback_multipart_body_bytes": {"type": "integer", "minimum": 1},
+        "enable_logging": {"type": "boolean"}
+      }
+    },
+    "pending": {
+      "type": "object", "additionalProperties": false, "required": ["state"],
+      "properties": {"state": {"const": "pending"}}
+    },
+    "verifiedPath": {
+      "type": "object", "additionalProperties": false, "required": ["state", "path", "sha256"],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "selectedGuide": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "state", "path", "sha256", "byte_count", "duration_seconds", "container", "codec",
+        "sample_rate_hz", "channels", "guide_request_id", "guide_run_receipt_path", "guide_run_receipt_sha256"
+      ],
+      "properties": {
+        "state": {"const": "verified"},
+        "path": {"type": "string", "pattern": "^outputs/.+\\.wav$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "byte_count": {"type": "integer", "minimum": 45, "maximum": 50000000},
+        "duration_seconds": {"type": "number", "minimum": 20, "maximum": 50},
+        "container": {"const": "wav"},
+        "codec": {"const": "pcm_s16le"},
+        "sample_rate_hz": {"const": 24000},
+        "channels": {"const": 1},
+        "guide_request_id": {"enum": ["gemini-guide-01", "gemini-guide-02"]},
+        "guide_run_receipt_path": {"type": "string", "minLength": 1},
+        "guide_run_receipt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "prerequisites": {
+      "type": "object", "additionalProperties": false,
+      "required": ["selected_guide", "guide_qa", "owner_selection", "elevenlabs_data_use", "target_voice_rights"],
+      "properties": {
+        "selected_guide": {"oneOf": [{"$ref": "#/$defs/pending"}, {"$ref": "#/$defs/selectedGuide"}]},
+        "guide_qa": {"oneOf": [{"$ref": "#/$defs/pending"}, {"$ref": "#/$defs/verifiedPath"}]},
+        "owner_selection": {"oneOf": [{"$ref": "#/$defs/pending"}, {"$ref": "#/$defs/verifiedPath"}]},
+        "elevenlabs_data_use": {"oneOf": [{"$ref": "#/$defs/pending"}, {"$ref": "#/$defs/verifiedPath"}]},
+        "target_voice_rights": {"oneOf": [{"$ref": "#/$defs/pending"}, {"$ref": "#/$defs/verifiedPath"}]}
+      }
+    },
+    "voiceSettings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["stability", "similarity_boost", "style", "use_speaker_boost", "speed"],
+      "properties": {
+        "stability": {"const": 0.4},
+        "similarity_boost": {"const": 0.8},
+        "style": {"const": 0.0},
+        "use_speaker_boost": {"const": true},
+        "speed": {"const": 1.0}
+      }
+    },
+    "action": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "provider", "endpoint", "method", "target_voice_id", "model_id", "seed", "query_policy",
+        "voice_settings", "remove_background_noise", "file_format", "primary_output_format",
+        "conditional_fallback_output_format", "fallback_requires_documented_pcm_capability_rejection",
+        "no_retry", "no_redirect", "disclosure"
+      ],
+      "properties": {
+        "provider": {"const": "elevenlabs"},
+        "endpoint": {"const": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj"},
+        "method": {"const": "POST"},
+        "target_voice_id": {"const": "scMbPZwQjr40V1MzL3Nj"},
+        "model_id": {"const": "eleven_multilingual_sts_v2"},
+        "seed": {"const": 2026082501},
+        "query_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["enable_logging", "output_format"],
+          "properties": {
+            "enable_logging": {"const": "false_for_zrm_otherwise_true_only_with_account_training_opt_out"},
+            "output_format": {"const": "pcm_48000"}
+          }
+        },
+        "voice_settings": {"$ref": "#/$defs/voiceSettings"},
+        "remove_background_noise": {"const": false},
+        "file_format": {"const": "other"},
+        "primary_output_format": {"const": "pcm_48000"},
+        "conditional_fallback_output_format": {"const": "mp3_44100_192"},
+        "fallback_requires_documented_pcm_capability_rejection": {"const": true},
+        "no_retry": {"const": true},
+        "no_redirect": {"const": true},
+        "disclosure": {"const": "one_exact_owner_selected_google_guide_to_elevenlabs_voice_changer"}
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_calls", "max_outputs", "max_source_bytes", "max_source_duration_seconds", "max_submitted_seconds", "max_spend_usd"],
+      "properties": {
+        "max_calls": {"type": "integer", "minimum": 0, "maximum": 2},
+        "max_outputs": {"type": "integer", "minimum": 0, "maximum": 1},
+        "max_source_bytes": {"type": "integer", "minimum": 0, "maximum": 50000000},
+        "max_source_duration_seconds": {"type": "number", "minimum": 0, "maximum": 50},
+        "max_submitted_seconds": {"type": "number", "minimum": 0, "maximum": 100},
+        "max_spend_usd": {"type": "number", "minimum": 0, "maximum": 0.24}
+      }
+    },
+    "consumption": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "calls_used", "outputs_received", "spend_used_usd", "record_path"],
+      "properties": {
+        "status": {"enum": ["not_authorized", "unconsumed"]},
+        "calls_used": {"const": 0},
+        "outputs_received": {"const": 0},
+        "spend_used_usd": {"const": 0},
+        "record_path": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "record_type": "ep007_short03_presenter_generation_plan_v1",
+  "at_utc": "2026-09-23T01:05:40Z",
+  "status": "exact_quotes_observed_and_inputs_pinned_not_submitted",
+  "short_id": "short-03-how-you-charge",
+  "authority": {
+    "event_id": "ep007-shorts-02-04-full-private-production-authorized-v3",
+    "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/ep007-shorts-02-04-full-private-production-authorized-v3.json",
+    "sha256": "c1baa48b414d988a570cfc162bcbdc6886e9b21dbc15fe4c22dc4022b414c201",
+    "scope": "first-pass private-review sound-on production only; no upload, release, publication, or paid retry",
+    "higgsfield_new_avatar_clip_calls_max_across_shorts_02_to_04": 6,
+    "higgsfield_credit_quote_cap_across_shorts_02_to_04": 1200,
+    "automatic_retries": 0
+  },
+  "active_request_manifest": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/REQUEST-MANIFEST-V1.json",
+    "sha256": "93be9b9a9bf5796e0ab35ad054b53c54e66743182f6c1f8ad73275612ede9252",
+    "note": "The manifest's earlier not-uploaded and quote-pending state is preserved; this later plan binds the verified upload and live quote observations without changing it."
+  },
+  "upload_receipt": {
+    "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/UPLOAD-RECEIPT-V1.json",
+    "sha256": "265781f9986de0aa288a71fb5fceedf65c242f1270b857fc52ec697d3b14ca9f",
+    "reference_media_get_hash_verified": true,
+    "segment_audio_put_and_get_hash_verified": true,
+    "new_generation_jobs_submitted_at_receipt": 0
+  },
+  "provider": "higgsfield",
+  "model": "seedance_2_5",
+  "payment_path": "credits",
+  "common_client_params": {
+    "mode": "omni_reference",
+    "resolution": "1080p",
+    "aspect_ratio": "9:16",
+    "bitrate_mode": "high",
+    "generate_audio": true,
+    "use_unlim": false,
+    "count": 1
+  },
+  "media_role_contract": {
+    "client_submission_roles_in_order": ["image", "video", "video", "audio"],
+    "backend_quote_adjustments_in_order": ["image_references", "video_references", "video_references", "audio_references"],
+    "adjustment_reason": "Seedance 2.5 backend expects schema-key media roles",
+    "instruction": "Submit canonical client roles; the provider maps them to backend schema-key roles. No other quote adjustments were reported."
+  },
+  "live_read_only_quote_observation": {
+    "quote_approx_at_utc": "2026-09-23T01:02:30Z",
+    "balance_approx_at_utc": "2026-09-23T01:02:45Z",
+    "source": "root agent live Higgsfield estimator and balance readback, reported to this package; provider response not persisted in the repo",
+    "balance_before_credits_observed": 4062,
+    "free_trial_unlim_available": false,
+    "short03_exact_quote_total_credits": 192,
+    "four_clip_slate_exact_quote_total_credits_observed": 396,
+    "quote_caveat": "These are point-in-time readbacks, not a reserved balance or spend receipt."
+  },
+  "requests": [
+    {
+      "index": 0,
+      "shot_id": "segment-a-opening",
+      "duration_seconds": 9,
+      "exact_quote_credits": 108,
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/PROMPT.txt",
+        "sha256": "4d33d4b3170984f6dd95db9101fc3e18d338cab1b333a9af7266b346813c7905"
+      },
+      "uploaded_audio": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-a/media/original-c-segment-a.mp3",
+        "sha256": "4296bf1a2dd4dd1c90879d1271e60379b875c46be87a0662afd8e5874930e77f",
+        "media_id": "c0710119-9917-4106-bd53-7c8ee77664cf"
+      }
+    },
+    {
+      "index": 1,
+      "shot_id": "segment-b-return",
+      "duration_seconds": 7,
+      "exact_quote_credits": 84,
+      "prompt": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/PROMPT.txt",
+        "sha256": "a080be7f5149ad8632bf59f366c8ea354ce6f473ae0e3acbc0adcc48a51c9b66"
+      },
+      "uploaded_audio": {
+        "path": "blueprint-cinema/experiments/EP007-SHORT03-PRESENTER-001/segment-b/media/original-c-segment-b.mp3",
+        "sha256": "ec65257cd60f3b9748dd1f801c2bb74c06d423564ff737ff5ce48f68a7a6275b",
+        "media_id": "bf553cb5-8177-4b48-9b1f-5bf230e11dd1"
+      }
+    }
+  ],
+  "candidates_per_segment": 1,
+  "planned_new_generation_calls": 2,
+  "generation_calls_submitted_by_this_plan": 0,
+  "pre_submission_checks": [
+    "Verify both immutable submission intents still bind these exact prompt, upload, and request-manifest hashes and all four media IDs in each request.",
+    "Read back current provider balance and exact 9-second and 7-second quote with the same parameters; do not rely on the point-in-time observation as a reservation.",
+    "Account for every already-consumed avatar call and quoted credit across Shorts 02 through 04 before each submission; hold if six calls or 1200 quoted credits would be exceeded.",
+    "Submit one candidate per shot, once. Preserve returned job IDs. A partial response, timeout, unknown result, or failed job is not retry permission."
+  ],
+  "post_generation": "Inspect new footage and keep the continuous full-length Original C as final program voice. Owner listening and finished private phone review are deferred, not passed.",
+  "release_or_publication_authority": false
+}

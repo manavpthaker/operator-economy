@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selfie camera test</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#151715;color:#f2f0e9}
+body{max-width:1160px;margin:0 auto;padding:32px 24px 44px}h1{font-size:clamp(26px,4vw,40px);font-weight:600;letter-spacing:-.04em;margin:0 0 8px}p{color:#b2b9ad;line-height:1.5;margin:0 0 24px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}video{display:block;width:100%;aspect-ratio:9/16;background:#070807;border-radius:12px;object-fit:contain}h2{font-size:18px;font-weight:600;margin:12px 0 6px}a{color:#dce6c8;font-size:14px}footer{margin-top:30px;border-top:1px solid #343a31;padding-top:20px;font-size:14px}.note{margin-top:12px;font-size:14px}.baseline{margin:12px 0;max-width:520px}audio{width:100%}@media(max-width:680px){.grid{grid-template-columns:1fr;max-width:380px;margin:auto}body{padding:24px 16px}}
+</style>
+<h1>Selfie camera test</h1>
+<p>One avatar, one short passage, three settings. Voice previews use the original track; lip sync is unfinished.</p>
+<div class="grid">
+<section><video controls playsinline preload="metadata" src="media/voice-preview-home.mp4"></video><h2>At home</h2><a href="media/voice-preview-home.mp4" download>Download voice preview</a> · <a href="media/native-home.mp4">Native version</a></section>
+<section><video controls playsinline preload="metadata" src="media/voice-preview-outdoors.mp4"></video><h2>Outdoors</h2><a href="media/voice-preview-outdoors.mp4" download>Download voice preview</a> · <a href="media/native-outdoors.mp4">Native version</a></section>
+<section><video controls playsinline preload="metadata" src="media/voice-preview-cafe.mp4"></video><h2>Café</h2><a href="media/voice-preview-cafe.mp4" download>Download voice preview</a> · <a href="media/native-cafe.mp4">Native version</a></section>
+</div>
+<footer><strong>Original voice; lip sync unfinished</strong><p class="note">These previews place the existing V5 audio over the generated picture without changing its voice or pacing. Mouth timing has not been corrected: the usual lip-sync service is blocked by an exhausted fal balance. Use these to judge the look and sound in context. Native versions retain the generator's altered voice.</p><div class="baseline"><audio controls preload="metadata" src="media/original-voice.wav"></audio></div>
+<p class="note">Generated avatar and locations for private review. These scenes do not document real visits. The still previews and motion tests were generated separately from the accepted avatar reference. Final likeness, delivery and lip sync need normal-speed viewing.</p></footer>
+<script>const players=[...document.querySelectorAll('video,audio')];for(const p of players)p.addEventListener('play',()=>{for(const other of players)if(other!==p)other.pause()});</script>
+</html>

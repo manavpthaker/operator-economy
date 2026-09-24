@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "operator-economy-blueprint-cinema"
+version = "0.1.0"
+description = "Fail-closed Blueprint Cinema visual-production runtime"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.3,<9",
+]
+
+[project.scripts]
+oe-cinema = "blueprint_cinema.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/blueprint_cinema"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+

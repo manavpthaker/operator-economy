@@ -1,0 +1,51 @@
+{
+  "schema": "oe-boundary-ledger-motion-test-v1",
+  "id": "EP007-BL-MOTION-001",
+  "reviewState": "test-built-not-approved",
+  "system": {
+    "name": "Boundary Ledger",
+    "version": "2.0.0",
+    "semanticCoreSha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "colorBindingSha256": "6b3e4727c3592b02fe23c34d2a865a85c47865c438d48526d1762b93e9a669c3",
+    "motionBindingSha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motionBindingStatus": "provisional"
+  },
+  "surface": "designed-scene-motion-test",
+  "aspectRatio": "16:9",
+  "dimensions": [1920, 1080],
+  "durationSeconds": 28,
+  "fps": 30,
+  "primaryPersistentObject": "owner-held-capability",
+  "commitmentLocus": "decision-path-document",
+  "captionPolicy": "none-internal-motion-language-test",
+  "audio": {
+    "asset": ".media/audio/voice/voice_001.wav",
+    "derivedSha256": "ef2db81b42e512fde4820e72d07e716fa925368495df19820fe231da5e5eb67e",
+    "sourceMaster": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+    "sourceMasterSha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9",
+    "sourceRangeSeconds": [699.5, 727.5],
+    "transcriptSha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7",
+    "wordRange": ["W001960", "W002030"],
+    "spokenRangeSeconds": [699.86, 727.18]
+  },
+  "events": [
+    {"id":"baseline","start":0.36,"end":3.10,"operation":"establish","role":"humanContext","before":"world-present-unread","after":"baseline-readable"},
+    {"id":"interview","start":3.58,"end":4.21,"operation":"trace","role":"externalDependency","before":"owner-links-implicit","after":"owner-links-legible"},
+    {"id":"write-process","start":4.70,"end":7.48,"operation":"correct","role":"activeCommitment","status":"candidate","before":"process-spoken-only","after":"process-written"},
+    {"id":"clean-records","start":8.26,"end":12.48,"operation":"correct","role":"activeCommitment","status":"candidate","before":"records-hard-to-inspect","after":"records-inspectable"},
+    {"id":"customer-ownership","start":12.54,"end":16.40,"operation":"trace","role":"externalDependency","before":"customer-links-implicit","after":"customer-links-legible"},
+    {"id":"owner-only","start":16.46,"end":18.57,"operation":"trace","role":"externalDependency","before":"owner-held-capability-unisolated","after":"owner-held-capability-isolated"},
+    {"id":"document-capability","start":19.10,"end":21.08,"operation":"return","role":"activeCommitment","before":"capability-standing-on-owner","after":"capability-standing-on-documentation"},
+    {"id":"assemble-package","start":21.75,"end":23.98,"operation":null,"operationStatus":"unbound","role":"accountableEvidence","before":"records-distributed","after":"package-assembled"},
+    {"id":"walkthrough","start":24.02,"end":27.68,"operation":"correct","role":"accountableEvidence","status":"candidate","before":"package-unreviewed","after":"fixed-and-open-readable"},
+    {"id":"settle","start":27.20,"end":28.00,"operation":"settle","role":"humanContext","before":"walkthrough-active","after":"changed-relationship-held"}
+  ],
+  "prohibitions": [
+    "no-signed-checklist",
+    "no-completed-verification",
+    "no-sale-or-price-outcome",
+    "no-all-dependencies-fixed",
+    "no-runtime-operation-invention"
+  ],
+  "reducedMotionEndState": "Final package remains between the owner and reviewer with one FIXED row and one STILL OPEN row, the documented capability on business support, and the assembly gap receipt attached."
+}

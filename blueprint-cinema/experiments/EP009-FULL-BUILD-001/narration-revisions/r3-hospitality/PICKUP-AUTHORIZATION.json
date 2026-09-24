@@ -1,0 +1,74 @@
+{
+  "record_type": "scoped_owner_correction_pickup",
+  "at_utc": "2026-09-17T18:34:13.063484+00:00",
+  "owner_source": {
+    "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-17-owner-r2-feedback.json",
+    "sha256": "9bba1b4531f8c9524907e454d63cecf321308b75d18d5f329e681738fa75a707"
+  },
+  "authority": "Current owner correction to the hospitality passage, delegated by root for one contextual Algieba to Original C pickup; not reused N4B authorization.",
+  "paragraph": "I spent ten years in hospitality, including Ace Hotel and Standard Hotels. I know this business from the inside out. I haven't sold this particular service, though. What a thirty room inn will pay for it is still something I'd have to test.",
+  "context": "Start with properties you can drive to and owners you can sit across from.",
+  "context_use": "Generate in connected delivery; select paragraph only before context.",
+  "helper": {
+    "path": "operator-blueprint-v2/02-narration-production/tools/calibrate.py",
+    "sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00"
+  },
+  "register": {
+    "path": "operator-blueprint-v2/02-narration-production/prompts/NARRATOR-REGISTER.candidate-C4.google-gemini-tts.style-instructions.json",
+    "sha256": "b747d7b0afa4469b2be05c20eb16306a25bb5185b9fa8b12e2d4aa4ddd8d3efc"
+  },
+  "guide": {
+    "advancedVoiceOptions": {
+      "enableTextnorm": false
+    },
+    "audioConfig": {
+      "audioEncoding": "LINEAR16",
+      "sampleRateHertz": 24000
+    },
+    "input": {
+      "prompt": "An experienced operator is talking with one smart peer across a table, working through a real problem\u2014not presenting or reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Begin as if the conversation is already underway. Speak at a natural, easy conversational clip. Let unstressed words stay light and run together the way they do in real speech\u2014never clip, over-articulate, or give every word equal weight. Keep consecutive short sentences flowing as one continuous thought. Save real room for genuine turns in the argument, where the reasoning gets dense or a number has to matter\u2014not after every sentence. Vary those beats, and never fall into a repeated cadence. Emphasize ideas, not individual words. Natural American conversation, grounded and lightly informal. Energy seven of ten. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Do not vocalize these directions.",
+      "text": "I spent ten years in hospitality, including Ace Hotel and Standard Hotels. I know this business from the inside out. I haven't sold this particular service, though. What a thirty room inn will pay for it is still something I'd have to test.\n\nStart with properties you can drive to and owners you can sit across from."
+    },
+    "voice": {
+      "languageCode": "en-US",
+      "modelName": "gemini-2.5-pro-tts",
+      "name": "Algieba"
+    }
+  },
+  "transfer": {
+    "model": "eleven_multilingual_sts_v2",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "seed": 2026082501,
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "output_format": "pcm_48000"
+  },
+  "call_limits": {
+    "google": 1,
+    "elevenlabs": 1,
+    "automatic_retries": 0
+  },
+  "cost_plan": {
+    "google_budget_usd": 0.05,
+    "elevenlabs_credit_cap": 750,
+    "guide_estimated_seconds": [
+      20,
+      35
+    ],
+    "google_rate": "$1 per million input tokens plus $20 per million audio tokens; 25 audio tokens per second",
+    "elevenlabs_rate": "1000 credits per minute",
+    "verified_2026_09_17_sources": [
+      "https://cloud.google.com/text-to-speech/pricing",
+      "https://help.elevenlabs.io/hc/en-us/articles/24938328105873-How-much-does-Voice-Changer-cost"
+    ]
+  },
+  "preserve_original_master": true,
+  "canonical_master_plan_assembly_writes": false,
+  "retime": false
+}

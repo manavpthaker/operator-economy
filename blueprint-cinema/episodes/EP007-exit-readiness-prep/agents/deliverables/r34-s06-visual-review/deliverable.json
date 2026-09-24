@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r34-s06-visual-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/compositions/listing.html",
+      "sha256": "c3791883e72edea4d8db5f85c63807609c0d97656ed9216b5d9d00cef6dbd2df"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/qa-s06-final/contact-sheet-1.jpg",
+      "sha256": "36fc83de60bdb2620dc213c18ce6dc2e3df272ee59b161a37d5132b8412d89b4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r34-listing-is-not-selling/qa-s06-final/contact-sheet-2.jpg",
+      "sha256": "8657e585861c6bf63ec53875466b2aab996831c5c84abd47e35859bd8266330d"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r34-s06-visual-review/report.md"
+  ],
+  "checks": [
+    {
+      "command": "Recompute SHA256 for all four issued inputs against work order",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect both actual rendered contact sheets for overlap, attribution, directional qualification, and owner-specific failure",
+      "outcome": "pass"
+    },
+    {
+      "command": "Read current composition and compare meaning with C001 evidence limits",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate standard deliverable against agent-deliverable schema",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous audiovisual and final audio-cut playback review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Actual issued contact sheets and current listing.html inspected; no new render or synthetic generation.",
+    "Issued approved claims map C001 and neighboring C005 used for evidence limits.",
+    "Root-reported final audio trim was not independently verified in this visual work order."
+  ],
+  "assumptions": [
+    "Both contact sheets preserve the same final visual hold after the root-reported four-frame end trim."
+  ],
+  "unresolved_questions": [
+    "Continuous playback is needed to judge whether the approximately15-second source card holds attention or repeats narration unnecessarily.",
+    "Phone-scale encoded text legibility was not separately tested."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

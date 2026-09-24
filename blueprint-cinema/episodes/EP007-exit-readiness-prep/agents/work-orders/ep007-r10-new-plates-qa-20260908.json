@@ -1,0 +1,49 @@
+{
+  "$schema": "../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r10-new-plates-qa-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only isolated owner-requested R10 media QA. Review new aftermath E for resumed speech, gaze, quiet breath, prop/body continuity and usable window; review exact-introduction Test Q derivative for visible identity and performance consistency. Required gate is schema placeholder for experiment inspection, not canonical gate approval.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r10-film-to-presenter/public/media/shot-e.mp4",
+      "sha256": "36ddf54067fb28c2223a81ce8dcac31298112cdd5c6b862eeb6e772ae10598a2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r10-film-to-presenter/public/media/presenter-introduction-q.mp4",
+      "sha256": "22335eea36b67f440f233e091b059403a57902314a37d615ad87d00685d1e60f"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r10-new-plates-qa-20260908/"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2/",
+    "design-system/",
+    ".agents/",
+    "blueprint-cinema/experiments/",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/production-state.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute pinned input hashes and stop if stale.",
+    "Independently distinguish a single settling exhale from repeated speech in E; flag uncertainty and exact source times.",
+    "Inspect early middle late presenter frames, note synthetic continuity defects, and do not infer lip-sync from silence or stills.",
+    "Return schema-valid deliverable and report; no approval or canonical state changes."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Do not contact providers, generate, or access credentials.",
+    "Stop for stale hashes or media that cannot be read; report precise limitation."
+  ],
+  "status": "closed"
+}

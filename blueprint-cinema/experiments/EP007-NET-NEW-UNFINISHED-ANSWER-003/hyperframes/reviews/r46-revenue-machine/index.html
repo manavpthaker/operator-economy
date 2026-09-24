@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R46 — Revenue, then the revenue machine</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#r46-root{position:relative;width:1280px;height:720px;overflow:hidden}
+#r46-paper{position:absolute;inset:0;background:#F5F0E6}
+#r46-world{position:absolute;inset:0;width:1280px;height:720px;overflow:visible}
+.ink{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.steel{stroke:#586D74;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sheet{fill:#FBF8F1;stroke:#586D74;stroke-width:2;stroke-linejoin:round}
+.type{font-family:Supreme,sans-serif;fill:#173530;font-size:34px;font-weight:500}
+.doc{font-family:Supreme,sans-serif;fill:#173530;font-size:28px;font-weight:500}
+.choice{font-family:Supreme,sans-serif;fill:#173530;font-size:29px;font-weight:400}
+#r46-second,#r46-return-route{visibility:hidden;opacity:0}
+
+#r46-world,#r46-machine-heading{visibility:hidden;opacity:0}
+#r46-machine-heading{position:absolute;left:65px;top:55px;width:1150px;margin:0;text-align:center;font:700 64px/1.08 Boska,serif;color:#173530}
+#r46-revenue{position:absolute;inset:0;background:#F5F0E6;color:#173530}
+#r46-revenue h1{position:absolute;left:65px;top:78px;width:1150px;text-align:center;margin:0;font:700 64px/1.08 Boska,serif}
+#r46-revenue-kicker{position:absolute;left:65px;top:34px;font:500 20px Supreme,sans-serif;letter-spacing:1.8px;text-transform:uppercase;color:#33464C}
+#r46-revenue-business{position:absolute;left:214px;top:251px;width:330px;height:247.5px;transform:translate(-185px,-53px) scale(.66);transform-origin:center center}
+#r46-revenue-owner{position:absolute;left:740px;top:262px;width:300px;height:260px;transform:translate(205px,-56px) scale(.68);transform-origin:center center}
+#r46-receipts{position:absolute;left:536px;top:283px;width:220px;height:220px}
+#r46-past-label{position:absolute;left:490px;top:537px;width:310px;white-space:nowrap;text-align:center;font:500 27px/1.2 Supreme,sans-serif}
+#r46-revenue-mark{position:absolute;inset:0;width:1280px;height:720px}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="r46-root" data-composition-id="ep007-r46" data-start="0" data-duration="20.291666666666668" data-width="1280" data-height="720" data-fps="24">
+<div id="r46-paper"></div>
+<h1 id="r46-machine-heading">The revenue machine</h1>
+<div id="r46-revenue" role="img" aria-label="Past receipts stay visible while the workshop and owner recede. An underline beneath the receipts draws attention to the record of past results.">
+<div id="r46-revenue-kicker">The buyer’s question</div>
+<h1 id="r46-revenue-title">A business, or a job?</h1>
+<img id="r46-revenue-business" src="public/art/workshop.svg" alt="The same business"/>
+<img id="r46-revenue-owner" src="public/art/r38-owner.svg" alt="The same owner"/>
+<img id="r46-receipts" src="public/art/r38-receipts.svg" alt="Past receipts"/>
+<div id="r46-past-label">Past revenue</div>
+<svg id="r46-revenue-mark" viewBox="0 0 1280 720" aria-hidden="true"><path id="r46-receipt-underline" d="M567 498Q644 495 724 497" fill="none" stroke="#586D74" stroke-width="2.5" stroke-linecap="round"/></svg>
+</div>
+<svg id="r46-world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="The workshop stays present. The owner chooses Use for a material change, then is absent when a new customer exception needs a decision.">
+<defs><g id="r46-person">
+        <path class="m-ink" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+        <path class="m-light" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<image id="r46-business" href="public/art/workshop.svg" x="55" y="192" width="550" height="412.5"/>
+<text class="type" x="317" y="639" text-anchor="middle">Her business</text>
+<text class="type" x="925" y="183" text-anchor="middle">Owner</text>
+<!-- Same compact role figure and desk grammar as the accepted market scene. -->
+<g id="r46-desk" class="ink"><path d="m718 521 201-1m12 1 194-1m-390 10 1 64m365-65-1 63"/><path class="light" d="m735 525 131 1m105-2 117 1m-349 29 1 28m356-36-1 36"/></g>
+<g id="r46-request-route" class="steel"><path d="M586 411C634 408 675 411 712 410M696 400L712 410L698 420"/></g>
+<g id="r46-return-route" class="steel"><path d="M727 569C674 591 623 578 571 557M586 556L571 557L578 571"/></g>
+<g id="r46-first" data-layout-allow-overflow="">
+<path class="sheet" d="m759 371 263-3 68 31-3 110-330 3z"/><path class="light" d="m1022 370-1 30 66-1m-321 110 84-1m-87-126-1 43"/>
+<text class="doc" x="785" y="421">Material change</text>
+<path class="light" d="m786 439 112 1m18-1 79 1"/>
+<path class="ink" stroke-width="2" d="m787 458 24 1-1 25-23-1zm184 1 24-1 1 25-24 0z"/>
+<text class="choice" x="824" y="481">Use</text><text class="choice" x="1008" y="481">Hold</text>
+<path id="r46-choice-mark" d="m790 470 8 9 17-25" fill="none" stroke="#B5482F" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="r46-second" data-layout-allow-overflow="">
+<path class="sheet" d="m759 371 263-3 68 31-3 110-330 3z"/><path class="light" d="m1022 370-1 30 66-1m-321 110 84-1m-87-126-1 43"/>
+<text class="doc" x="785" y="421">Customer exception</text>
+<path class="light" d="m786 439 92 1m18-1 62 1"/>
+<path class="ink" stroke-width="2" d="m787 458 24 1-1 25-23-1zm184 1 24-1 1 25-24 0z"/>
+<text class="choice" x="824" y="481">Allow</text><text class="choice" x="1008" y="481">Hold</text>
+</g>
+<g id="r46-owner" data-layout-allow-overflow=""><use href="#r46-person" transform="translate(925,325)"/>
+<g transform="translate(982 353)"><g id="r46-pen"><path d="m0 0 5-3 40-62-6-4z" fill="#FBF8F1" stroke="#173530" stroke-width="2"/><path d="m0 0-2 9 7-12m31-57 6 3" class="light"/></g></g></g>
+</svg><audio id="r46-narration" src="public/audio/narration.wav" data-start="0" data-duration="20.291666666666668" data-media-start="0" data-track-index="100" data-volume="1"></audio></div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const revenueMark=document.querySelector('#r46-receipt-underline');const revenueLength=revenueMark.getTotalLength();revenueMark.style.strokeDasharray=revenueLength;revenueMark.style.strokeDashoffset=revenueLength;
+// Hold the inherited receipts state through the entire evidence sentence.
+t.to(['#r46-revenue-business','#r46-revenue-owner'],{opacity:.45,duration:12/24,ease:'power2.inOut'},4/24);
+t.to(['#r46-revenue-title','#r46-revenue-kicker'],{opacity:.42,duration:12/24,ease:'power2.inOut'},4/24);
+t.to('#r46-receipt-underline',{strokeDashoffset:0,duration:12/24,ease:'power1.out'},32/24);
+// Enter the named mechanism on the next sentence; all operating cues stay at their original master times.
+t.set('#r46-revenue',{autoAlpha:0},69/24);
+t.set(['#r46-world','#r46-machine-heading'],{autoAlpha:1},69/24);
+const C={"master_start":270,"master_end":290.2916666666667,"duration":20.291666666666668,"fps":24,"choose":3.625,"mark":4.416666666666667,"return":5.583333333333333,"return_duration":1.0416666666666667,"leave":7.666666666666667,"leave_duration":0.7083333333333334,"next":12.458333333333334,"arrive":13.708333333333334,"first_handover_line":[285.7,287.04],"second_handover_line":[287.52,289.48]};
+const choice=document.querySelector('#r46-choice-mark');const length=choice.getTotalLength();choice.style.strokeDasharray=length;choice.style.strokeDashoffset=length;
+// The pen belongs to the owner figure; its contact and the chosen mark share one cue.
+t.to('#r46-pen',{x:-190,y:109,duration:C.mark-C.choose,ease:'power2.inOut'},C.choose);
+t.to('#r46-pen',{x:-182,y:118,duration:.16,ease:'none'},C.mark);
+t.to('#r46-pen',{x:-165,y:93,duration:.30,ease:'none'},C.mark+.16);
+t.to('#r46-choice-mark',{strokeDashoffset:0,duration:.46,ease:'none'},C.mark);
+t.to('#r46-pen',{x:0,y:0,duration:.55,ease:'power2.inOut'},C.mark+.6);
+// One resolved choice returns to the existing business. It stays visible there.
+t.set('#r46-return-route',{autoAlpha:1},C.return);
+t.to('#r46-choice-mark',{stroke:'#173530',duration:.15,ease:'none'},C.return);
+t.to('#r46-first',{x:-15,y:360,scale:.33,svgOrigin:'0 0',duration:C.return_duration,ease:'power2.inOut'},C.return);
+// Remove the role figure, leaving the same desk and role label behind.
+t.to('#r46-owner',{x:105,y:-18,autoAlpha:0,duration:C.leave_duration,ease:'power2.inOut'},C.leave);
+// A different operating question arrives from the same business. Both choices stay blank.
+t.set('#r46-second',{x:20,y:308,scale:.33,svgOrigin:'0 0',autoAlpha:1},C.next);
+t.to('#r46-second',{x:0,y:0,scale:1,duration:C.arrive-C.next,ease:'power2.inOut'},C.next);
+// The unanswered choice is the final state. The stable heading names the model; the unanswered choice carries its consequence.
+window.__timelines['ep007-r46']=t;
+</script></body></html>

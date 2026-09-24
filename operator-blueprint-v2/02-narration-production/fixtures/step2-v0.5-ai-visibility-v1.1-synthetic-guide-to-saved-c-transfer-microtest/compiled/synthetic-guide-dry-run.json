@@ -1,0 +1,101 @@
+{
+  "audio_files_created": 0,
+  "canonical_w_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+  "credentials_accessed": false,
+  "execution_transport_available": false,
+  "fallback": null,
+  "maximum": {
+    "calls": 2,
+    "modeled_spend_usd": 0.66,
+    "output_duration_seconds": 50,
+    "output_wav_bytes": 2500000,
+    "outputs": 2,
+    "response_bytes_per_call": 4000000,
+    "total_audio_bytes": 5000000,
+    "total_request_bytes": 2880
+  },
+  "microtest": {
+    "end_token": 110,
+    "passage_id": "P01",
+    "spoken_text_character_count": 465,
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "start_token": 30,
+    "token_count": 80,
+    "token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a"
+  },
+  "network_authorized": false,
+  "network_called": false,
+  "plan_sha256": "f73f42e1221753d394ba5de31550094a9aa98e950987e415cb4b0f0c85365f53",
+  "provider_action_authorized": false,
+  "request_set_sha256": "ed1aa73a04db602b8ed2611731346e3f0bfae9d48d55a4f94bb5110da85c0cba",
+  "requests": [
+    {
+      "destination": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+      "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+      "generation_index": 0,
+      "method": "POST",
+      "provider": "google_cloud_text_to_speech",
+      "request_body": {
+        "advancedVoiceOptions": {
+          "enableTextnorm": false
+        },
+        "audioConfig": {
+          "audioEncoding": "LINEAR16",
+          "sampleRateHertz": 24000
+        },
+        "input": {
+          "prompt": "An experienced operator sits across a table from one smart peer. He is camera-ready, personally engaged, and working through a real puzzle, not reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Start with the consequence. Let \"Or worse\" carry dry, knowing irritation; make \"Everything is green\" briefly deadpan; then turn at \"That missing view\" into genuine curiosity and practical excitement. Keep forward momentum, with thought-space at each turn. Energy eight of ten. Natural American conversation; emphasis follows meaning. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Pronounce \"2022\" as \"twenty twenty-two.\" Do not vocalize these directions.",
+          "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back. You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action."
+        },
+        "voice": {
+          "languageCode": "en-US",
+          "modelName": "gemini-2.5-pro-tts",
+          "name": "Achird"
+        }
+      },
+      "request_body_bytes": 1440,
+      "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+      "request_id": "gemini-guide-01",
+      "required_header_names": [
+        "Authorization",
+        "Content-Type",
+        "X-Goog-User-Project"
+      ]
+    },
+    {
+      "destination": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav",
+      "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+      "generation_index": 1,
+      "method": "POST",
+      "provider": "google_cloud_text_to_speech",
+      "request_body": {
+        "advancedVoiceOptions": {
+          "enableTextnorm": false
+        },
+        "audioConfig": {
+          "audioEncoding": "LINEAR16",
+          "sampleRateHertz": 24000
+        },
+        "input": {
+          "prompt": "An experienced operator sits across a table from one smart peer. He is camera-ready, personally engaged, and working through a real puzzle, not reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Start with the consequence. Let \"Or worse\" carry dry, knowing irritation; make \"Everything is green\" briefly deadpan; then turn at \"That missing view\" into genuine curiosity and practical excitement. Keep forward momentum, with thought-space at each turn. Energy eight of ten. Natural American conversation; emphasis follows meaning. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Pronounce \"2022\" as \"twenty twenty-two.\" Do not vocalize these directions.",
+          "text": "Your company is missing from the answer. Or worse, it is there, confidently described by someone who apparently met the company in 2022 and never checked back. You open the search dashboard. Everything is green. And the dashboard may be right. It is just watching a different doorway. That missing view is where this business starts. One experienced operator can use AI to map the answers, check the sources, and give the buyer a clear call on what deserves action."
+        },
+        "voice": {
+          "languageCode": "en-US",
+          "modelName": "gemini-2.5-pro-tts",
+          "name": "Achird"
+        }
+      },
+      "request_body_bytes": 1440,
+      "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+      "request_id": "gemini-guide-02",
+      "required_header_names": [
+        "Authorization",
+        "Content-Type",
+        "X-Goog-User-Project"
+      ]
+    }
+  ],
+  "schema_version": "oe-synthetic-guide-dry-run-v1",
+  "valid": true
+}

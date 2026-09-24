@@ -1,0 +1,25 @@
+{
+  "base": "../../positive/boundary-ledger-derived",
+  "note": "a path edge that states no condition",
+  "patches": {
+    "world.json": {
+      "paths": [
+        {
+          "id": "path.default",
+          "traveler": "fixture object",
+          "description": "Synthetic route.",
+          "edges": [
+            {
+              "from": "start",
+              "to": "end",
+              "triggered_by": "BO-001"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V3"
+  ]
+}

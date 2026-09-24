@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Boska Rehearsal"; src: url("../assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "Supreme Rehearsal"; src: url("../assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: #1A1A1A; font-family: "Supreme Rehearsal", sans-serif; }
+      .fill { position: absolute; inset: 0; background: #F5F0E6; }
+      .system { position: absolute; inset: 0; background-color: #14263E; background-image: linear-gradient(rgba(245,240,230,.08) 2px, rgba(245,240,230,0) 2px), linear-gradient(90deg, rgba(245,240,230,.08) 2px, rgba(245,240,230,0) 2px); background-size: 48px 48px; }
+      .rail { position: absolute; left: 170px; right: 160px; top: 525px; height: 5px; background: rgba(245,240,230,.72); }
+      .tag { position: absolute; left: 650px; top: 440px; width: 330px; height: 184px; background: #9B3E2E; color: #F5F0E6; padding: 28px 32px; z-index: 6; }
+      .tag strong, .tag span { display: block; font: 700 29px/1 "IBM Plex Mono", monospace; }
+      .tag span { margin-top: 25px; }
+      .tag-state { position:absolute; left:682px; top:622px; width:266px; border:3px solid #C4A45F; color:#C4A45F; padding:13px; text-align:center; font:700 23px/1 "IBM Plex Mono",monospace; z-index:7; }
+      .gate { position: absolute; left: 1010px; top: 330px; width: 38px; height: 390px; background: #F5F0E6; }
+      .hold { position: absolute; left: 934px; top: 255px; border: 3px solid #C4A45F; padding: 18px 32px; font: 700 28px/1 "IBM Plex Mono", monospace; color: #C4A45F; }
+      .hand { position: absolute; left: 860px; top: 650px; width: 380px; height: 280px; background: #E4E9F0; border: 3px dashed #F5F0E6; padding: 28px; font-size: 34px; line-height: 1.05; color: #1F3A5F; transform:rotate(-4deg); transform-origin:50% 0; }
+      .hand::before { content:""; position:absolute; left:148px; top:-150px; width:72px; height:170px; background:#E4E9F0; border:3px dashed #F5F0E6; border-bottom:0; }
+      .hand span { display: block; margin-top: 82px; font: 700 22px/1 "IBM Plex Mono", monospace; }
+      .card { position: absolute; right: -55px; top: 305px; width: 430px; height: 610px; border: 4px solid #1A1A1A; background: #FBF8F1; padding: 36px; }
+      .card .meta { font: 700 27px/1 "IBM Plex Mono", monospace; }
+      .card .state { margin-top: 150px; color: #6B675E; border-top: 5px solid #6B675E; border-bottom: 5px solid #6B675E; padding: 28px 0; font-size: 58px; }
+      .card .fixture { position: absolute; left: 34px; right: 34px; bottom: 34px; font: 700 22px/1.25 "IBM Plex Mono", monospace; color: #9B3E2E; }
+      .source-pin { position:absolute; right:55px; top:55px; width:510px; border:3px solid #9B3E2E; background:#FBF8F1; color:#9B3E2E; padding:18px 22px; font:700 25px/1.08 "IBM Plex Mono",monospace; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-p6zq" id="root" data-composition-id="style-gate-outcome" data-start="0" data-duration="1" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-4qej" class="fill"></div><div data-hf-id="hf-ofgb" class="system"></div><div data-hf-id="hf-qzq8" class="rail"></div>
+      <div data-hf-id="hf-og20" class="tag"><strong data-hf-id="hf-5hhi">CALL-R01</strong><span data-hf-id="hf-1r06">20:47</span></div><div data-hf-id="hf-2sfb" class="tag-state">UNCERTAIN</div><div data-hf-id="hf-ld91" class="gate"></div><div data-hf-id="hf-qhla" class="hold">HOLD</div>
+      <div data-hf-id="hf-kke8" class="hand">Human review plate<span data-hf-id="hf-hwae">AST-OPERATOR-003</span></div>
+      <aside data-hf-id="hf-1p5p" class="card"><div data-hf-id="hf-vl4r" class="meta">WORK ORDER · WO-R01</div><div data-hf-id="hf-bcbo" class="state">EMPTY</div><div data-hf-id="hf-7qkl" class="fixture">AST-OUTCOME-004 · SYNTHETIC WORK ORDER · NOT EVIDENCE</div></aside>
+      <div data-hf-id="hf-gzft" class="source-pin">SYNTHETIC TEST FIXTURE — NOT EVIDENCE</div>
+    </div>
+    <script>window.__timelines = window.__timelines || {}; window.__timelines["style-gate-outcome"] = gsap.timeline({paused:true});</script>
+  </body>
+</html>

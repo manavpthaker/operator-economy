@@ -1,0 +1,109 @@
+[
+  {
+    "event_id": "r52-owner-walkout-v3-return-v1",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "film",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r52-walkout-film-proposal-v3",
+      "actor": "owner",
+      "verbatim": "i think we have to make it less rude. he can shake her hand and then get up to walk away but we can cut it as hes getting up or getting ready to leave to the next scene",
+      "interpretation": "v3 departure reads as rude. Wants a handshake, then rising, cut before the walk-off.",
+      "verdict": "revise",
+      "scope": "R52 v3 take in context.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r52-walkout-v3-context/qa/r52-v3-context.mp4",
+          "sha256": "509f749530c413136fa8b45590ab74ac4963bedef7572e7238d41c51073e2f7e"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/OWNER-REVISION-REQUEST-v4.json",
+        "sha256": "6035973a2a966985f418845da6f6f6a2e9ad66db7427876ae4b27122dade766c",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r52-walkout-film-proposal-v4",
+    "decision_id": "s09-buyer-walkout",
+    "event_type": "decision",
+    "supersedes": "r52-walkout-film-proposal-v3",
+    "tags": [
+      "film",
+      "performance",
+      "cut-timing",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Show the buyer declining this business courteously after the inspection problem.",
+        "viewer_before": "The needed knowledge is in the absent owner's head.",
+        "viewer_after": "The buyer politely ends the meeting and is about to leave."
+      },
+      "choice": "One continuous 180-frame shot from the accepted two-shot: seated hold, brief handshake around 'So he does one of two things', he begins to rise through 'or he walks', cut mid-rise into S10.",
+      "reason": "Owner judged the head-shaking walk-off rude; a handshake keeps courtesy while the rise and narration carry the departure. Cutting mid-rise avoids model walk-off problems.",
+      "alternatives": [
+        {
+          "choice": "v3 head-shaking walk-off",
+          "reason_not_selected": "Owner: too rude; take also missed chair push and pace."
+        },
+        {
+          "choice": "No handshake, polite nod only",
+          "reason_not_selected": "Owner asked for the handshake."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "EP007 S09 ending.",
+        "avoid_when": "Any other passage."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "walkout-in",
+            "phrase": "And a buyer cannot price",
+            "relation": "accepted R51 outpoint",
+            "master_seconds": 335.625,
+            "review_seconds": 332.625,
+            "fps": 24
+          },
+          {
+            "cue_id": "walkout-out",
+            "phrase": "before Fine,",
+            "relation": "cut mid-rise before S10 onset",
+            "master_seconds": 343.125,
+            "review_seconds": 340.125,
+            "fps": 24
+          }
+        ],
+        "performance": "Polite nod, one brief handshake across the table, regretful not pleased; slow push back and rise; owner seated, eyes follow; locked-off camera.",
+        "false_inference": "A deal agreed or a sale closed.",
+        "source_basis": "Owner revision; handshake overrides the R35 arc for this shot."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/DIRECTION.md",
+        "sha256": "6a50c524fd6d6e3cd781f32911f55e5e916f18359ca4545955838a3497358370",
+        "locator": "v4 direction"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/WALKOUT.request.json",
+        "sha256": "bc6361ae6b95e1cd2e48659814e6e5b42e3cdcca50a4c3cd6a3f26dbd0d7c7f5",
+        "locator": "Prepared v4 request"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/COST-PROPOSAL.json",
+        "sha256": "8935248d5fdcc94cafbb20f86be2b6f7b424a74608f490ef0c0d4f479f12892a",
+        "locator": "v4 cost"
+      }
+    ]
+  }
+]

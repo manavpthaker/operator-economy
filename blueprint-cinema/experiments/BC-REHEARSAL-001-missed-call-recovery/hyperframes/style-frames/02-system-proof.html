@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Supreme Rehearsal"; src: url("../assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; color: #F5F0E6; font-family: "Supreme Rehearsal", sans-serif; }
+      .fill { position: absolute; inset: 0; background-color: #14263E; background-image: linear-gradient(rgba(245,240,230,.08) 2px, rgba(245,240,230,0) 2px), linear-gradient(90deg, rgba(245,240,230,.08) 2px, rgba(245,240,230,0) 2px); background-size: 48px 48px; }
+      .rail { position: absolute; left: 150px; width: 1000px; top: 610px; height: 4px; background: #F5F0E6; opacity: .72; }
+      .node { position: absolute; top: 660px; width: 270px; height: 120px; border-top: 3px solid rgba(245,240,230,.45); padding-top: 22px; }
+      .node h2 { margin: 0; font-size: 40px; line-height: 1; }
+      .node p { margin: 18px 0 0; font: 700 20px/1 "IBM Plex Mono", monospace; color: #C4A45F; }
+      .capture { left: 150px; }
+      .classify { left: 515px; }
+      .ack { left: 880px; }
+      .tag { position: absolute; left: 620px; top: 476px; width: 350px; height: 196px; background: #9B3E2E; color: #F5F0E6; padding: 30px 36px; z-index: 8; }
+      .tag strong, .tag span { display: block; font: 700 28px/1 "IBM Plex Mono", monospace; }
+      .tag span { margin-top: 24px; }
+      .state { position: absolute; left: 660px; top: 672px; width: 270px; border: 3px solid #C4A45F; padding: 12px; text-align: center; font: 700 23px/1 "IBM Plex Mono", monospace; color: #C4A45F; z-index: 9; }
+      .source { position: absolute; right: 45px; top: 150px; width: 520px; height: 650px; background: #FBF8F1; color: #1A1A1A; border: 4px solid #1A1A1A; padding: 28px; }
+      .warning { background: #1A1A1A; color: #F5F0E6; padding: 18px 20px; font-size: 30px; line-height: 1.02; }
+      .source .name { margin-top: 22px; font: 700 25px/1 "IBM Plex Mono", monospace; }
+      .row { display: grid; grid-template-columns: 185px minmax(0, 1fr); column-gap: 12px; border-bottom: 2px solid #C4B99E; padding: 20px 8px; font: 700 19px/1 "IBM Plex Mono", monospace; }
+      .row.highlight { margin-top: 18px; border: 4px solid #7A5E24; background: #EFE6CF; color: #7A5E24; }
+      .extract { position: absolute; right: 505px; top: 395px; background: #7A5E24; color: #FBF8F1; padding: 15px 22px; font: 700 24px/1 "IBM Plex Mono", monospace; z-index: 10; }
+      .card-peek { position: absolute; right: -170px; top: 720px; width: 360px; height: 300px; border: 3px solid #F5F0E6; padding: 26px; font: 700 20px/1 "IBM Plex Mono", monospace; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-xq1q" id="root" data-composition-id="style-system-proof" data-start="0" data-duration="1" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-4qej" class="fill"></div>
+      <div data-hf-id="hf-qzq8" class="rail"></div>
+      <section data-hf-id="hf-kebq" class="node capture"><h2 data-hf-id="hf-d9fb">CAPTURE</h2><p data-hf-id="hf-q0fy">CALLER + TIME</p></section>
+      <section data-hf-id="hf-7vra" class="node classify"><h2 data-hf-id="hf-ubjt">CLASSIFY</h2><p data-hf-id="hf-uhx2">CONTEXT</p></section>
+      <section data-hf-id="hf-em23" class="node ack"><h2 data-hf-id="hf-22up">ACKNOWLEDGE</h2><p data-hf-id="hf-tq0o">BOUNDED REPLY</p></section>
+      <div data-hf-id="hf-og20" class="tag"><strong data-hf-id="hf-5hhi">CALL-R01</strong><span data-hf-id="hf-1r06">20:47</span></div>
+      <div data-hf-id="hf-w72q" class="state">UNCERTAIN</div>
+      <aside data-hf-id="hf-v8a8" class="source"><div data-hf-id="hf-hn42" class="warning">SYNTHETIC TEST FIXTURE — NOT EVIDENCE</div><div data-hf-id="hf-l576" class="name">fixture-missed-call-log.csv</div><div data-hf-id="hf-thy4" class="row"><span data-hf-id="hf-qzf5">fixture_call_id</span><span data-hf-id="hf-gjq9">CALL-R01</span></div><div data-hf-id="hf-q0y4" class="row highlight"><span data-hf-id="hf-41qf">call_time</span><span data-hf-id="hf-hqai">20:47</span></div><div data-hf-id="hf-lt04" class="row"><span data-hf-id="hf-dvmt">classification</span><span data-hf-id="hf-gh74">uncertain</span></div><div data-hf-id="hf-km31" class="row"><span data-hf-id="hf-s6z7">human_review</span><span data-hf-id="hf-kwho">required</span></div></aside>
+      <div data-hf-id="hf-lewg" class="extract">20:47</div>
+      <div data-hf-id="hf-p2sx" class="card-peek">WORK ORDER · WO-R01<br data-hf-id="hf-x5px"><br data-hf-id="hf-rsrt">EMPTY</div>
+    </div>
+    <script>window.__timelines = window.__timelines || {}; window.__timelines["style-system-proof"] = gsap.timeline({paused:true});</script>
+  </body>
+</html>

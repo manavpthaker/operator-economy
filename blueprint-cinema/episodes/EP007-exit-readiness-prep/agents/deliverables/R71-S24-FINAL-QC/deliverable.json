@@ -1,0 +1,97 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r71-s24-final-qc",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/index.html",
+      "sha256": "a7727975f424cd0f4ef26eae363d4b55b16cedd1262ab3f869032c8ed9c94f05"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/qa/s24.mp4",
+      "sha256": "c9945847aa4e4b281379e7331bb1fe097d3397530c08e97eea7c8551ae84a0a8"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-context/qa/context.mp4",
+      "sha256": "1d2cb8332856467934365f516178d25cca0e1f45f1ec8094b9955184366fef32"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r71-s24-verdict/finish.py",
+      "sha256": "51cfa4008f7f2a200c1e10ca10dbbd1c1ee4efd48aed5285af33eff6dbcc40e1"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r71-s24-verdict/public/audio/narration.wav",
+      "sha256": "4954bf81649162934e0629194be2c9909efc0d3f0dcc3c018eaadf40f388f410"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r70-s23-payoff/qa/s23.mp4",
+      "sha256": "1997e7cafe1ffd05ce261b09be5950091727057093d631b9e6e8682a457178e5"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/CHECK-PLAN.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/qc.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/technical-qc.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/initial-context-seam-diagnostic.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/seam-and-cues.png",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/seam-and-cues-index.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/final-report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R71-S24-FINAL-QC/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Verify issued final index, scene and context SHA256 pins",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify decoded552/744frame counts,24fps,durations,and staged1104000sample PCM equality",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare selected scene and lead-in encoded frames to their expected context positions",
+      "outcome": "pass"
+    },
+    {
+      "command": "Inspect actual encoded seam/reveal/switch/final frames for layout and meaning boundaries",
+      "outcome": "pass"
+    },
+    {
+      "command": "Initial generic seam-window zero-lag correlation greater than0.999",
+      "outcome": "fail"
+    },
+    {
+      "command": "Characterize seam residual,level,and best tested sample offset without asserting subjective quality",
+      "outcome": "pass"
+    },
+    {
+      "command": "Continuous normal-speed subjective listening",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hashes bind the actual scene and744frame context, not the unbuilt782frame proposal.",
+    "Source trim arithmetic derives from pinned finish.py.",
+    "PCM equality and seam diagnostics derive directly from original master and final encoded media.",
+    "Visual checks use extracted frames from the actual context and final scene."
+  ],
+  "assumptions": [
+    "Owner acceptance is recorded by root; this audit itself grants none.",
+    "The exact8second lead-in remains the actual reviewed wrapper."
+  ],
+  "unresolved_questions": [
+    "No subjective listening verdict; seam-window correlation fell below the initial generic0.999 threshold.",
+    "The isolated context opening clips60ms of aligned work; complete-episode continuity is unaffected."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

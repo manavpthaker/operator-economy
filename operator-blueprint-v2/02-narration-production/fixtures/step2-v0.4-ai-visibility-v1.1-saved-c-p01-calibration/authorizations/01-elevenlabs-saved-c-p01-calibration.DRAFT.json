@@ -1,0 +1,72 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "DRAFT-ai-visibility-v1.1-saved-c-p01-calibration",
+  "status": "draft",
+  "approved": false,
+  "scope": "elevenlabs_calibration",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.4-ai-visibility-v1.1-saved-c-p01-calibration"
+  },
+  "provider": "elevenlabs",
+  "action": {
+    "kind": "bounded_tts_calibration",
+    "voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_v3",
+    "request_ids": [
+      "EL-C-P01-A",
+      "EL-C-P01-B"
+    ],
+    "preferred_output_format": "pcm_48000",
+    "only_permitted_fallback": "mp3_44100_192",
+    "fallback_reason_required": "pcm_capability_unavailable",
+    "fallback_requires_capability_rejection_receipt": true,
+    "fallback_requires_actual_codec_bitrate_verification": true,
+    "fallback_request_call_ceiling": 2
+  },
+  "purpose": "Generate exactly two saved-C P01 candidates with identical locked words, paragraph structure, tags, voice, model, and settings; only fixed seed differs.",
+  "bindings": {
+    "script_sha256": "74048b55ed15ed6ed679abb5a6c892def8a8a40e75e7cebeafdfde319dd67efa",
+    "spoken_text_sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "performance_envelope_sha256": "36cc45786d2d1b8819d4f74fc284ca75e8c8ef87fdce0d55bcd78c41e03984b9",
+    "provider_bakeoff_plan_sha256": "eb4acd6bb70f5e5d5f654298aa3fd2b9060cf8e6ef5dc8497a614521c51a707f",
+    "compiled_dry_run_sha256": "a7001dfd6e6e47c4790fee0208d3e01592cc068dfac4135128e53ba333b8a0dc",
+    "provider_adapter_sha256": "3834fbd860ff8275e68f227929b31e382a813e7ff010551899bd82f2c8b22cb2"
+  },
+  "requested_limits": {
+    "primary_lossless_calls": 2,
+    "primary_lossless_characters": 1684,
+    "primary_lossless_outputs": 2,
+    "primary_modeled_public_rate_cost_usd": 0.1684,
+    "max_calls": 4,
+    "max_characters": 3368,
+    "max_outputs": 2,
+    "max_spend_usd": 0.3368
+  },
+  "authorized_limits": {
+    "max_calls": 0,
+    "max_characters": 0,
+    "max_outputs": 0,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "not_authorized",
+    "calls_used": 0,
+    "characters_used": 0,
+    "outputs_received": 0,
+    "spend_used_usd": 0,
+    "record_path": ""
+  },
+  "approved_by": "",
+  "approved_at": "",
+  "expires_at": "",
+  "execution_ready": false,
+  "blockers": [
+    "exact_saved_c_p01_tts_calibration_authorization_absent",
+    "calibration_rights_receipt_absent",
+    "saved_remix_selection_save_and_rights_chain_not_bound",
+    "owner_approval_absent",
+    "bounded_active_spend_cap_not_set",
+    "expiration_not_set"
+  ]
+}

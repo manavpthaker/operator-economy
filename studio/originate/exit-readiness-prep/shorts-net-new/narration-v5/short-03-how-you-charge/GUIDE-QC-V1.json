@@ -1,0 +1,98 @@
+{
+  "record_type": "ep007_short03_google_guide_local_qc",
+  "at_utc": "2026-09-23T00:36:30Z",
+  "status": "hold_technical_tail_despite_asr_supported_complete_copy",
+  "provider_calls_by_this_qc": 0,
+  "source_guide": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/media/guide.wav",
+    "sha256": "91b6658fca45a6ccb9e834d2a806b338d073bf8bafe856c7ec4850a9842035a0",
+    "duration_seconds": 37.091,
+    "format": "PCM signed 16-bit mono at 24000 Hz",
+    "technical_tail_energy_final_60ms_relative_to_peak": 0.0594,
+    "technical_tail_threshold": 0.02,
+    "technical_tail_pass": false,
+    "last_50ms_rms_relative_to_peak": 0.0479,
+    "last_5ms_rms_full_scale": 0.0059,
+    "last_1ms_rms_full_scale": 0.0018,
+    "last_sample_signed_16bit": 64
+  },
+  "locked_script": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-03-how-you-charge/SCRIPT.txt",
+    "sha256": "2a56beffef964667fbd09c934130d53171da605e23f876e75a4cb715a03efc3b",
+    "normalized_token_count": 98,
+    "closing": "Fixed-fee wording doesn’t settle every legal question, but it gives you a clear scope to take to local counsel."
+  },
+  "submitted_request": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v3/short-03-how-you-charge/GOOGLE-REQUEST.json",
+    "sha256": "b6d22f29b829d3c80bab7595316df85ace329c70367e379440c315f49fea4983",
+    "input_text_equals_locked_script": true
+  },
+  "provider_receipt": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/GOOGLE-RECEIPT.json",
+    "sha256": "a54d20ba8ffd9f9ca85d53dc19d61f55da12bbfa6900bee9fc0f5d8f1acb4d16"
+  },
+  "local_asr": [
+    {
+      "engine": "HyperFrames 0.8.59 whisper",
+      "model": "small.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-guide-small/transcript.json",
+      "transcript_sha256": "d96a4dae176c0989bc6889522bbdd9b125abc7138fb85a51dc5dd70e55ccbcfe",
+      "normalized_token_count": 98,
+      "exact_normalized_word_match": true,
+      "final_word": "counsel.",
+      "final_word_start_seconds": 36.56,
+      "final_word_end_seconds": 37.08,
+      "timings_monotonic_and_within_media": true
+    },
+    {
+      "engine": "HyperFrames 0.8.59 whisper",
+      "model": "medium.en",
+      "language": "en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-03-how-you-charge/diagnostic-asr-guide-medium/transcript.json",
+      "transcript_sha256": "3a82000c30d2725550fe6d8a085d413fdf2cdcfaf2991effa0091445be313233",
+      "normalized_token_count": 98,
+      "only_word_disagreement": {
+        "locked": "organize",
+        "recognized": "organized"
+      },
+      "final_word": "counsel.",
+      "final_word_start_seconds": 36.8,
+      "final_word_end_seconds": 37.44,
+      "timings_within_media": false,
+      "interpretation": "Its word-specific spelling and out-of-bounds end timing are not reliable proof of a changed or incomplete source."
+    },
+    {
+      "engine": "faster-whisper 1.2.1 / CTranslate2 int8 CPU",
+      "model": "cached Systran/faster-whisper-small",
+      "language": "en",
+      "beam_size": 5,
+      "condition_on_previous_text": false,
+      "normalized_token_count": 98,
+      "exact_normalized_word_match": true,
+      "ambiguous_word": "organize",
+      "ambiguous_word_start_seconds": 19.82,
+      "ambiguous_word_end_seconds": 20.24,
+      "following_word": "records,",
+      "following_word_start_seconds": 20.24,
+      "following_word_end_seconds": 20.74,
+      "final_word": "counsel.",
+      "final_word_start_seconds": 36.62,
+      "final_word_end_seconds": 37.0
+    }
+  ],
+  "assessment": {
+    "spoken_copy": "asr_supported_exact_copy_but_owner_listening_pending",
+    "ending": "Both Whisper small.en and independent faster-whisper recognize the full final word. The waveform decays toward near-zero at its final sample, but the current 60 ms energy gate fails. ASR and waveform measurements alone cannot prove the final phoneme sounds complete.",
+    "derived_silence_tail_repair": "mechanically_viable_not_yet_performed",
+    "repair_conditions": [
+      "Owner or direct audio listening confirms the final syllable is complete and no audible cut exists.",
+      "Preserve the original WAV and raw provider response unchanged.",
+      "Append about 500 ms digital zero to a separately named derived copy only; do not crop, time-stretch, or synthesize replacement speech.",
+      "Re-probe the derived copy, rerun exact-copy and timing QC, and bind its hash before any transfer."
+    ],
+    "transfer_to_original_c": "hold_until_derived_repair_and_listening_qc",
+    "avatar_or_lipsync_from_current_guide": "hold",
+    "automatic_retry": "none"
+  }
+}

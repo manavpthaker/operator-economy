@@ -1,0 +1,60 @@
+{
+  "contract": "bounded-authorized-media-production-1",
+  "work_order_id": "r39-callback-production",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "asset_producer",
+  "objective": "Execute only the approved contextual Algieba Google read and Original C ElevenLabs transfer for Back to his question, then. Return native media, receipts, exact cost reconciliation and recommended clean callback cut. No retries.",
+  "required_gate": "Current owner Approved bound in GENERATION-AUTHORIZATION.json",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/GENERATION-AUTHORIZATION.json",
+      "sha256": "c31cf4ffa13015fe691c97183edca86ecb0458044bb24f07a5418d9d52af2e93"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/CALLBACK-PICKUP-REQUEST.json",
+      "sha256": "69a5513d680ebee042285ff127bc1f5f1cd81a9f335af57b69cf3670095ab160"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/GOOGLE-CALLBACK-GUIDE-BODY.json",
+      "sha256": "7bf5880454133e3ef9aa58109a912f3bbb2f4b44d8382cecdfeed35cd51b0ee4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/ADDITIONAL-COSTS.json",
+      "sha256": "b9874feb5926deb06b9cbc1fb7eae5f9133589a8fba04569fc390f132a2a06c4"
+    },
+    {
+      "path": "operator-blueprint-v2/02-narration-production/tools/calibrate.py",
+      "sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/"
+  ],
+  "forbidden_paths": [
+    "operator-blueprint-v2",
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify all input hashes and authorization caps",
+    "At most one Google contextual generation under$0.05 and one ElevenLabs transfer under250credits; no paid retries",
+    "Read back actual selected voice multiplier and duration before transfer; preserve receipts without credentials",
+    "Create standard deliverable.json",
+    "Never edit original narration or claim owner acceptance"
+  ],
+  "permissions": {
+    "external_writes": true,
+    "paid_services": true,
+    "synthetic_generation": true,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Any ambiguous paid submission is terminal for this attempt; no retry",
+    "Actual proposed request over cap must not submit",
+    "Return existing achieved output if provider access fails"
+  ],
+  "status": "issued"
+}

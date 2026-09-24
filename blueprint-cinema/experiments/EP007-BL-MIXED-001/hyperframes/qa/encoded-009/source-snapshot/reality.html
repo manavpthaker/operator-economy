@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #173530;
+        }
+
+        .stage {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #173530;
+        }
+
+        .generated-film {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 1920px;
+          height: 1080px;
+          object-fit: cover;
+          object-position: 50% 50%;
+          background: #173530;
+        }
+
+        .film-falloff {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          background:
+            linear-gradient(180deg, rgba(23, 53, 48, 0.04) 0%, transparent 24%, transparent 76%, rgba(23, 53, 48, 0.11) 100%),
+            linear-gradient(90deg, rgba(23, 53, 48, 0.06) 0%, transparent 15%, transparent 85%, rgba(23, 53, 48, 0.06) 100%);
+        }
+
+        .rough-trace {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          display: block;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .rough-trace path {
+          fill: none;
+          stroke: #33464c;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          vector-effect: non-scaling-stroke;
+        }
+
+        .rough-trace .trace-a { stroke-width: 2.2; opacity: 0.76; }
+        .rough-trace .trace-b { stroke-width: 3.4; opacity: 0.88; }
+        .rough-trace .trace-c { stroke-width: 1.6; opacity: 0.56; }
+
+      </style>
+
+      <div data-hf-id="hf-igj7" id="root" data-composition-id="reality" data-start="0" data-duration="7.74" data-width="1920" data-height="1080" data-fps="24">
+        <div id="reality-stage" class="stage" data-hf-id="reality-human-context-stage">
+          <video id="reality-shot-01" class="generated-film" data-hf-id="reality-generated-film-two-shot" data-start="0" data-duration="4.00" data-track-index="0" data-playback-rate="1" src="assets/video/owner-buyer-context-shot-01.generated.mp4" muted playsinline preload="auto" aria-label="Generated live-action narrative context: a business owner and an inspecting buyer across a worktable"></video>
+
+          <video id="reality-shot-02" class="generated-film" data-hf-id="reality-generated-film-inspection-insert" data-start="4.00" data-duration="3.74" data-track-index="0" data-playback-rate="1" src="assets/video/owner-buyer-context-shot-02-inspection-r2.generated.mp4" muted playsinline preload="auto" aria-label="Generated live-action narrative context: a buyer marks and inspects an unlabeled operating checklist across from a competent owner"></video>
+
+          <div data-hf-id="hf-djk2" class="film-falloff" aria-hidden="true"></div>
+
+          <svg id="reality-rough-trace" class="rough-trace" data-hf-id="reality-to-model-pencil-overtrace" viewBox="0 0 1920 1080" aria-hidden="true">
+            <path data-hf-id="hf-eqm3" id="reality-trace-left-a" class="trace-a" d="M180 758 L246 757 L310 761 M322 759 L390 756 L456 760 M468 759 L535 758 L604 761 M618 760 L682 758 L748 760" pathLength="500" />
+            <path data-hf-id="hf-jic2" id="reality-trace-left-b" class="trace-c" d="M184 764 L254 761 L321 763 M334 764 L402 761 L470 764 M482 763 L550 760 L619 764 M632 762 L696 764 L764 761" pathLength="510" />
+            <path data-hf-id="hf-wbzb" id="reality-trace-mid" class="trace-b" d="M742 761 L810 758 L878 761 M890 760 L958 757 L1027 761 M1039 760 L1108 758 L1177 761" pathLength="530" />
+            <path data-hf-id="hf-zuai" id="reality-trace-right-a" class="trace-a" d="M1158 759 L1226 757 L1295 761 M1308 760 L1376 757 L1446 761 M1458 760 L1527 758 L1596 761 M1608 759 L1675 761 L1740 759" pathLength="540" />
+            <path data-hf-id="hf-m82x" id="reality-trace-right-b" class="trace-c" d="M1170 764 L1238 761 L1308 765 M1320 763 L1388 761 L1457 764 M1469 762 L1538 760 L1607 764 M1619 762 L1681 764 L1738 761" pathLength="520" />
+          </svg>
+
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          "use strict";
+
+          const root = document.querySelector('[data-composition-id="reality"]');
+          const trace = root.querySelector("#reality-rough-trace");
+          const tracePaths = root.querySelectorAll("#reality-rough-trace path");
+          const tl = gsap.timeline({ paused: true });
+
+          tl.addLabel("film-established", 0);
+          tl.addLabel("inspection-insert", 4.00);
+
+          tl.set(trace, { opacity: 1 }, 6.96);
+          tracePaths.forEach((path, index) => {
+            const length = Number(path.getAttribute("pathLength"));
+            tl.fromTo(
+              path,
+              { strokeDasharray: length, strokeDashoffset: length },
+              { strokeDashoffset: 0, duration: 0.50 + index * 0.025, ease: "power1.inOut", immediateRender: false },
+              6.96 + index * 0.025
+            );
+          });
+          tl.addLabel("table-edge-ready", 7.66);
+
+          tl.seek(0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines.reality = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

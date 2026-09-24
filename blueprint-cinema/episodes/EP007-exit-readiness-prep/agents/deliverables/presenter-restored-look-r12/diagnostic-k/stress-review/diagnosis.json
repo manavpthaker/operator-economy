@@ -1,0 +1,119 @@
+{
+  "status": "read_only_diagnosis_complete_visual_scope_confirmed",
+  "inputs": {
+    "M": {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r14/test-m-direct-study-image-steady-head-1080p.mp4",
+      "sha256": "dc6d9f8e6421fda85f56ddbb6c08e588695dce8ae434c0bf18855b4c59d3e526"
+    },
+    "O": {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r16/test-o-visible-hands-relaxed-delivery-1080p.mp4",
+      "sha256": "fcf62c12179cf9f8a4ee53ceeddaf979df48ae87cce2376877abfb4c176e7b38"
+    }
+  },
+  "source_audio": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r2/scope-two-sentences.wav",
+    "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566",
+    "samples": 268800,
+    "rate": 48000
+  },
+  "method": "Native Vision face landmarks; inner-mouth height measured perpendicular to eye line and normalized by eye-centroid separation. Eye position/roll measured independently per word. All samples at same local video frame indices.",
+  "M_O_summary": {
+    "O": {
+      "straight": {
+        "max_inner_mouth_height_over_eye_separation": 0.23423724779280242,
+        "max_mouth_frame": 25,
+        "max_mouth_time": 1,
+        "median_inner_mouth_height_over_eye_separation": 0.048052492660578,
+        "max_outer_lip_height_over_eye_separation": 0.5747715154541007,
+        "eye_center_displacement_over_eye_separation": 0.2564044298147757,
+        "roll_range_degrees": 5.691665355163915,
+        "brow_height_range_over_eye_separation": 0.08031227759706461
+      },
+      "never": {
+        "max_inner_mouth_height_over_eye_separation": 0.06469362541373705,
+        "max_mouth_frame": 111,
+        "max_mouth_time": 4.44,
+        "median_inner_mouth_height_over_eye_separation": 0.031756473393843604,
+        "max_outer_lip_height_over_eye_separation": 0.4293573945848184,
+        "eye_center_displacement_over_eye_separation": 0.10567322637974853,
+        "roll_range_degrees": 0.6697278890722043,
+        "brow_height_range_over_eye_separation": 0.1432666776054296
+      }
+    },
+    "M": {
+      "straight": {
+        "max_inner_mouth_height_over_eye_separation": 0.238830922607479,
+        "max_mouth_frame": 26,
+        "max_mouth_time": 1.04,
+        "median_inner_mouth_height_over_eye_separation": 0.057618501368123215,
+        "max_outer_lip_height_over_eye_separation": 0.5556563308444403,
+        "eye_center_displacement_over_eye_separation": 0.25080345013316196,
+        "roll_range_degrees": 1.3711393214515084,
+        "brow_height_range_over_eye_separation": 0.020181149125526265
+      },
+      "never": {
+        "max_inner_mouth_height_over_eye_separation": 0.07213621240144781,
+        "max_mouth_frame": 111,
+        "max_mouth_time": 4.44,
+        "median_inner_mouth_height_over_eye_separation": 0.06477959345146794,
+        "max_outer_lip_height_over_eye_separation": 0.4172156225837956,
+        "eye_center_displacement_over_eye_separation": 0.09027079027968603,
+        "roll_range_degrees": 1.197525714702869,
+        "brow_height_range_over_eye_separation": 0.0858163821600042
+      }
+    }
+  },
+  "diagnosis": "O does not have a clearly larger sampled peak inner-mouth opening than M. Added hand/eyebrow/head accents are a stronger explanation for perceived emphasis than mouth width alone. Different source framing makes unnormalized comparisons misleading.",
+  "independent_visual_review": "O combines word shapes with a rising right hand and raised brows around straight, then lifted chin/partly lowered eyelids and hand accent around never. M also moves its chin but lacks visible hand beats.",
+  "audio_analysis_only": {
+    "not_applied": true,
+    "reason": "Owner confirmed visual mouth/head problem; narration remains unchanged.",
+    "optional_gain_proposal_if_future_audio_scope_authorized": {
+      "straight_db_points": [
+        [
+          0.92,
+          0
+        ],
+        [
+          0.98,
+          -2
+        ],
+        [
+          1.14,
+          -2
+        ],
+        [
+          1.2,
+          0
+        ]
+      ],
+      "never_db_points": [
+        [
+          4.26,
+          0
+        ],
+        [
+          4.31,
+          -2
+        ],
+        [
+          4.54,
+          -2
+        ],
+        [
+          4.62,
+          0
+        ]
+      ],
+      "interpolation": "Smooth raised-cosine ramps in dB; unchanged sample count and timing.",
+      "limits": "Only moderates loudness. It cannot remove pitch/duration stress or guarantee different generated movement."
+    }
+  },
+  "limits": [
+    "Vision inner-lip landmarks estimate a 2D contour, not true 3D jaw excursion; teeth, facial hair, pose and generation can bias it.",
+    "Sparse samples may miss word maxima or brief gestures.",
+    "Head metrics measure eye-center displacement and 2D roll, not pitch/yaw.",
+    "Face-normalized sheets remove apparent head scale/translation for mouth comparison; head motion must be judged separately.",
+    "These measurements support review, not automated acceptance or rejection. M remains the owner-accepted baseline."
+  ]
+}

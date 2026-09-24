@@ -1,0 +1,71 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r5-rough-question-review-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r5-rough-question/DIRECTION.md",
+      "sha256": "fa3a8b9c21969e656645b6151e595fce3825960b704bdd6a79eae931502efc52"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/prompt-handoff-review/EP007-BEAT-INTENT.md",
+      "sha256": "f1e1197d6ed0a49ca171eebf1b4ca437ef28087faa3c052b11fac51068333b0b"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r5-rough-question-review-20260907/report.md",
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r5-rough-question-review-20260907/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on both issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "bounded semantic review of the conditional empty-chair direction against the pinned beat intent",
+      "outcome": "pass"
+    },
+    {
+      "command": "visual review of supplied cue frames and final contact sheet for hierarchy and Boundary Ledger mark language",
+      "outcome": "pass"
+    },
+    {
+      "command": "hash comparison of final valid-frame captures at 13.8s, 16.606s, and 17.1s",
+      "outcome": "pass"
+    },
+    {
+      "command": "independent full-motion playback and narration listen",
+      "outcome": "not_run"
+    },
+    {
+      "command": "encoded delivery and phone playback review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "The two hash-pinned inputs named by the issued work order were the assigned inputs; both matched.",
+    "Current supplemental source index.html was observed at SHA-256 c7492a6874291acd934f5848d0749f9c88562c9728d5090d070a85a711d64c08.",
+    "Current supplemental source compositions/rough-question.html was observed at SHA-256 5df3087c10636e97a981dd6f46737b8e37f565bde9d45b17c7ce91324f387589.",
+    "The final contact sheet and supplied cue-state snapshots were inspected as supplemental visual evidence.",
+    "Locked local HyperFrames and Boundary Ledger instructions governed the bounded review; they did not supply episode truth or production authority.",
+    "No browser mutation, network source, generation, render, production dispatch, approval, or external write was performed."
+  ],
+  "assumptions": [
+    "The empty chair is interpreted with the already-visible conditional text rather than in isolation.",
+    "Viewer interpretation of contextual props and the reused gesture is visual judgment, not proof of fictional business state.",
+    "Identical supplied final-frame hashes prove the sampled visible states match, not encoded-frame or audio behavior."
+  ],
+  "unresolved_questions": [
+    "The reused c03 gesture remains provisional and may solicit an unheard explanation under narration.",
+    "Independent full-motion/audio review, encoded delivery, and phone-scale playback remain unverified.",
+    "Production authority and the schema-required prerequisite gate remain unestablished; no approval is claimed."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,57 @@
+# Conditional precedents
+
+Start with the current episode's decision log. The first retrospective is
+[`EP007 decision history`](../../../../blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decision-history/DECISION-HISTORY.md):
+31 documented states, 27 cases, and 77 source messages from the reviewed production thread.
+R1/R2 are not identified; some rejected intermediate runtimes were overwritten. The catalog says
+where only feedback survives. This is a sourced reconstruction, not a new audiovisual review.
+
+[`cases.json`](../../../../blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decision-history/cases.json)
+contains compact retrieval cards. Each card points to the full nuanced case with exact source
+hashes, owner message references, alternatives, cue clocks and exceptions. The independent
+historical packets remain intact. Read a card's source details before using its exact edit values.
+The running log is
+[`events.jsonl`](../../../../blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisions/events.jsonl).
+
+| Decision being made | Cases to retrieve | Important distinction |
+| --- | --- | --- |
+| Working Model drawing language | early-01 | Thin overlapping authored marks; style and explanatory value are separate. |
+| Whether animation earns time | early-02, early-10, EP007-P01, EP007-P02, market-01-animation-added-value | Correcting scope did not make a short funnel useful; unfamiliar process order can still justify a literal diagram. |
+| What a metaphor refers to | early-06, EP007-P01 | Identify the actual business/opportunity and affected scope before choosing objects. |
+| Hypothetical dependency | early-08, EP007-P01 | Establish a functioning relationship, remove the relevant support, retain unaffected objects; do not invent collapse. |
+| Film context and performance mode | early-03, early-04, market-07-performance-fit-and-trim | Rapport, an attempted answer, and fee explanation need different actions; neutral is not a universal face rule. |
+| Cuts, recipient reactions and holds | early-05, early-07, EP007-P04, market-04-human-cuts-with-jobs | Transfer dramatic or explanatory responsibility; no fixed shot count or interval. |
+| Identity and promise | early-09, EP007-P03 | Preserve accepted wording, including Build. Own. Operate.; remove only verified empty waiting. |
+| Presenter emphasis and articulation | EP007-P05, EP007-P07, EP007-P08, EP007-P09 | Voice stress, crop, lips, expression and head motion are different controls. Exact “and” timing belongs to that take. |
+| Film-to-model continuity and widening | market-02-persistent-world-and-scale, market-03-spatial-match-not-photo-inset | Same business changes representation; a photo inset creates a different relationship and can be useful in another context. |
+| Reveal timing and missing paid work | market-05-question-answer-and-sync-contract, market-06-gap-causal-clarity | Let the question remain open; show the missing role between intact structures, then the payment condition. |
+| Runtime repair | EP007-P06, market-08-visible-coverage-and-repair | Decoder handoff and hidden layer timing can break an editorially sound cut; a passing structure check is insufficient. |
+
+These case conclusions are conditional agent interpretations unless they cite an existing owner
+standard. A local acceptance does not adopt its layout, timings, provider, or expression for every
+episode. In particular, the accepted R29 prefix does not make every earlier experiment accepted.
+
+To extend the library, append current decisions and outcomes to the new episode's own log. Add a
+small indexed lesson only when the outcome teaches something portable. Do not rewrite the frozen
+EP007 feedback snapshot or copy new-episode events into it. Search across episode logs when useful;
+retain episode identity, conditions and source provenance in any retrieved case.
+
+## Later presenter decisions
+
+The running log now also contains `avatar-v3-opening-dual-reference-v1` and its exact owner
+acceptance. V3 established the complementary Rebecca and Henry reference roles; the later
+[V5 source lock](../../../../blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/ACCEPTANCE.json)
+is now the selected baseline, including wider framing, contextual hand activity and brief natural
+eye movement. The prior V4 framing proposal led to a separate test; its authorization did not
+itself accept V5. See [presenter-references.md](presenter-references.md) for the current recipe,
+crop choices and review limits. These records extend the frozen 31-state retrospective; do not
+rewrite older feedback or imply the earlier cut already used the later sources.
+
+## Buyer/seller arc under discussion
+
+`r35-buyer-seller-arc-v1` records the current proposed sequence: scrutiny at S07/S08, a possible
+departure on S09's "or he walks," and independent inspection of the supplied record in S22. The
+handshake alternative was not selected by the director because this callback establishes
+inspectability, not sale completion. This is a planning precedent, not owner acceptance of film
+outputs. `r35-s06-presenter-conclusion-v3` separately prepares the owner-requested avatar return
+and push on "does not sell"; its source has not yet been generated.

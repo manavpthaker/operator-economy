@@ -1,0 +1,62 @@
+{
+  "record_type": "ep009_software_demo_selections",
+  "status": "selected_for_review",
+  "at": "2026-09-19T10:16:39.163458+00:00",
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r5-look-transfer/ep009-r5-look-transfer-review-r1-BUILD.json",
+    "sha256": "1e6148a71302c5b1d7cf553d1fb7664576c481b661d3f2d1d072a29197d9e298"
+  },
+  "timing_contract": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/TIMING-CONTRACT.json",
+    "sha256": "59f284bdf9de77bcf021eabca2e6f146d842da74d88dea24013e819880334db4"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "direction": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/SELECTED-PICTURE-DIRECTION.json",
+    "sha256": "028b180df5e5dac5cbe6938ef343faa6f4224d6973e475c7549204b12278df5c"
+  },
+  "inserts": [
+    {
+      "id": "f03-illustrative-establish",
+      "kind": "existing_film",
+      "output_frames": [
+        16704,
+        16752
+      ],
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/film/F03/final/seg003.mp4",
+        "sha256": "26a4194672f3b3544b7d0d4057a9265ed83da7f2edd267fd61c44bc94a11eb85"
+      },
+      "source_start_frame": 96,
+      "source_total_frames": 152,
+      "decoded_frame_sequence_sha256": "17fde8bd1aa7cf518cbb89c9cdf30128698916472d16301bd9a8510e441b8559",
+      "review": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/F03-ESTABLISH-REVIEW.json",
+        "sha256": "0fd0b195baa40902b32a5299aa93c4249119458c48428cbd38480f2bfc68bc1b"
+      }
+    },
+    {
+      "id": "real-node-red-openai-workflow",
+      "kind": "real_software_capture",
+      "output_frames": [
+        16752,
+        17458
+      ],
+      "source": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_start_frame": 0,
+      "source_total_frames": 706,
+      "decoded_frame_sequence_sha256": "5f2dc00037f7e8122a081eb372a7003be80f5e432e7893cd28ea887885058387",
+      "review": {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/SCREEN-REVIEW.json",
+        "sha256": "9baaf56afcf641401f55171fa70d06fed0db3a05fec361f2931573e2ff42d8af"
+      }
+    }
+  ],
+  "limits": "Prepared private-review source selection. It changes only the locked S13 picture interval and does not accept/publish the episode."
+}

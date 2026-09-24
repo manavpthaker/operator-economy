@@ -1,0 +1,184 @@
+{
+  "schema_version": "oe-elevenlabs-recovery-evidence-voice-transfer-http-200-reap-failure-disposition-v1",
+  "record_id": "V1-ELEVENLABS-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-HTTP-200-REAP-FAILURE-DISPOSITION-20260826T211102Z",
+  "status": "consumed_ambiguous_provider_outcome_non_authorizing",
+  "provider": "elevenlabs",
+  "recorded_at": "2026-08-26T21:11:02Z",
+  "materialized_by": "Codex",
+  "transaction_basis_id": "V1-CANDIDATE-B-TO-ORIGINAL-C-RECOVERY-EVIDENCE-TRANSFER-POST-READ-REPAIR",
+  "source_chain": {
+    "runtime_commit": "1c0c6e9b8ccb6cb3dfa4cdb2b64e2d4693a61c6e",
+    "evidence_commit": "9215a85de1f0dc1538603757d5770de71d5ce213",
+    "active_commit": "4cb329731f7f43d42cb1d1ff4731840e651dd3b3",
+    "active_authorization": {
+      "path": "authorizations/18-elevenlabs-recovery-evidence-voice-transfer-post-read-repair.ACTIVE.authorization.json",
+      "sha256": "d59d9444ca826853ce9704b9cf74d4bac2ec8606f3427ae872f24b7733b0dff9"
+    },
+    "consumption_latch": {
+      "path": "authorizations/consumed/elevenlabs-candidate-b-to-original-c-post-read-repair-one-shot.voice-transfer-execution.consumed.json",
+      "sha256": "5f3fbcebd551960fb58d824aa04065712af2ec233bf0dc01d44025e878ed38ba"
+    },
+    "failure_receipt": {
+      "path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.failure.json",
+      "sha256": "5fb7470cc8f32e27816a715fbdd5425496613ba9e160391f780ff287bd7bbaaf"
+    },
+    "active_authorization_committed_exactly": true,
+    "consumption_latch_preserved_unchanged": true,
+    "failure_receipt_preserved_unchanged": true
+  },
+  "chronology": {
+    "active_materialized_at": "2026-08-26T20:55:36Z",
+    "active_committed_at": "2026-08-26T20:59:01Z",
+    "latch_consumed_at": "2026-08-26T21:02:23.076602+00:00",
+    "request_started_at": "2026-08-26T21:02:23.694660+00:00",
+    "failure_recorded_at": "2026-08-26T21:03:35.750675+00:00",
+    "exact_local_sample_observed_at": "2026-08-26T21:06:06.682Z",
+    "process_and_fd_recheck_started_at": "2026-08-26T21:10:01Z",
+    "process_and_fd_recheck_completed_at": "2026-08-26T21:10:01Z",
+    "disposition_recorded_at": "2026-08-26T21:11:02Z",
+    "ordered": true
+  },
+  "credential_handling": {
+    "credential_descriptor_read_attempts": 1,
+    "credential_access_state": "held_and_verified",
+    "credential_accessed": true,
+    "raw_credential_persisted_in_evidence": false,
+    "raw_credential_present_in_worker_argv": false,
+    "raw_credential_inherited_through_worker_environment": false,
+    "raw_credential_persisted_in_output_files": false,
+    "process_memory_erasure_verified": false,
+    "credential_residual_process_memory_state": "unverified_until_pid_absent",
+    "safe_conclusion": "Exactly one fixed-dotenv descriptor read produced a held and verified credential for this consumed transaction. No raw credential was persisted in evidence, worker argv, the worker environment, or output files. Because PID 45882 remains resident, credential-residual process memory absence and process-memory erasure are unverified until that PID is confirmed absent."
+  },
+  "observed_transaction": {
+    "go_released": true,
+    "account_get_calls_made": 0,
+    "application_http_attempt_limit": 1,
+    "application_http_attempts": 1,
+    "method": "POST",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "application_retries_made": 0,
+    "application_redirects_followed": 0,
+    "application_fallbacks_used": 0,
+    "network_call_state": "application_request_started",
+    "provider_request_state": "response_confirmed",
+    "provider_response_received": true,
+    "http_status": 200,
+    "provider_response_state": "headers_confirmed",
+    "validated_application_response_body_bytes": 0,
+    "provider_response_body_hash": null,
+    "raw_provider_body_stored": false,
+    "provider_response_body_contents_state": "unknown_not_validated_or_stored",
+    "provider_returned_no_body_claimed": false,
+    "provider_returned_no_output_claimed": false,
+    "provider_incurred_no_charge_claimed": false
+  },
+  "provider_uncertainty": {
+    "provider_mutation_state": "potentially_ambiguous",
+    "provider_output_state": "potentially_ambiguous",
+    "provider_spend_state": "potentially_incurred",
+    "modeled_spend_ceiling_usd": 0.12,
+    "provider_usage_observed": false,
+    "provider_identifiers_observed": false,
+    "reconciliation_required": true,
+    "reconciliation_completed": false,
+    "safe_conclusion": "HTTP 200 response headers confirm a response to the sole application POST attempt. Zero application response-body bytes were validated and no provider body or body hash was stored. These facts do not establish that the provider returned no body, created no output, made no mutation, or incurred no charge. Provider mutation and output remain ambiguous, and spend remains potentially incurred."
+  },
+  "local_artifact_outcome": {
+    "raw_output": {
+      "path": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.pcm",
+      "created": false
+    },
+    "working_output": {
+      "path": "outputs/working/elevenlabs/P01-W0030-W0110/saved-c-transfer-post-read-repair.wav",
+      "created": false
+    },
+    "run_receipt": {
+      "path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.run.json",
+      "created": false
+    },
+    "conversion_receipt": {
+      "path": "receipts/elevenlabs/AUTH-RECOVERY-EVIDENCE-VOICE-TRANSFER-POST-READ-REPAIR-ai-visibility-v1.1-p01.conversion.json",
+      "created": false
+    },
+    "outputs_received_locally": 0,
+    "local_absence_does_not_resolve_provider_outcome": true
+  },
+  "local_process_containment": {
+    "observation_scope": "point_in_time_local_only",
+    "sigkill_sent": true,
+    "worker_reap_confirmed": false,
+    "process_terminal_or_absent_confirmed": false,
+    "containment_confirmed": false,
+    "pid": 45882,
+    "process_group_id": 45882,
+    "parent_process_id": 1,
+    "ps_state": "UEs",
+    "process_present_at_recheck": true,
+    "exact_timestamped_sample": {
+      "observed_at": "2026-08-26T21:06:06.682Z",
+      "samples_total": 785,
+      "samples_in_py_finalize_to_kernel_close": 785
+    },
+    "independent_acceptance_sample": {
+      "observed_at": null,
+      "timestamp_state": "unavailable",
+      "samples_total": 786,
+      "samples_in_py_finalize_to_kernel_close": 786
+    },
+    "fd_recheck": {
+      "observed_at": "2026-08-26T21:10:01Z",
+      "tcp_fds_observed": 0,
+      "udp_fds_observed": 0,
+      "pipe_fds_observed": 3,
+      "unix_fds_observed": 1,
+      "current_fd_state_does_not_resolve_prior_provider_outcome": true
+    },
+    "python_request_logic_observed_executing": false,
+    "calibrated_conclusion": "The point-in-time process state, both complete samples in Py_FinalizeEx through kernel close, and the absence of TCP or UDP descriptors provide strong evidence that PID 45882 was stuck exiting and was not executing Python request logic at the observation times. They do not establish that the process was reaped or absent, confirm containment, verify credential-residual process-memory erasure, or resolve provider mutation, output, or spend."
+  },
+  "terminality": {
+    "transaction_consumed": true,
+    "active_authorization_reusable": false,
+    "consumption_latch_reusable": false,
+    "consumption_latch_deletion_authorized": false,
+    "failure_receipt_deletion_authorized": false,
+    "retry_permitted": false,
+    "replay_permitted": false,
+    "resumption_permitted": false,
+    "automatic_retry_permitted": false,
+    "future_provider_action_requires_fresh_reviewed_committed_transaction_basis": true,
+    "future_provider_action_requires_separate_active_authorization": true
+  },
+  "reconciliation_boundary": {
+    "reconciliation_required": true,
+    "reconciliation_completed": false,
+    "this_record_authorizes_reconciliation": false,
+    "provider_reconciliation_read_authorized": false,
+    "browser_reconciliation_authorized": false,
+    "account_read_authorized": false,
+    "network_reconciliation_authorized": false,
+    "reconciliation_requires_separately_reviewed_committed_authority": true
+  },
+  "authority": {
+    "account_get_authorized": false,
+    "account_mutation_authorized": false,
+    "audio_upload_authorized": false,
+    "browser_action_authorized": false,
+    "creative_approval_conferred": false,
+    "credential_access_authorized": false,
+    "generation_post_authorized": false,
+    "latch_or_receipt_deletion_authorized": false,
+    "local_process_action_authorized": false,
+    "network_authorized": false,
+    "process_kill_authorized": false,
+    "provider_reconciliation_authorized": false,
+    "publication_authorized": false,
+    "sharing_authorized": false,
+    "spend_authorized": false,
+    "step2_lock_authorized": false,
+    "step3_authorized": false,
+    "this_record_authorizes_provider_action": false,
+    "voice_transfer_authorized": false
+  }
+}

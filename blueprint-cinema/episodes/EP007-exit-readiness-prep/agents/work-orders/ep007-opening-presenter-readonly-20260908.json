@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-opening-presenter-readonly-20260908",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Read-only wave-0 inspection of current EP007 presenter study for discussion of opening placement. No production dispatch; inputs_locked unestablished. Identify what already exists versus needs new synchronized presenter footage, without proposing generation or changing the study.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-PRESENTER-001/README.md",
+      "sha256": "c693b7aa434d3f01ca6a126b71ac2b0009aa57458327120926e31e3c307206e1"
+    },
+    {
+      "path": "experiments/EP007-PRESENTER-001/study-composite-r10/BRIEF.md",
+      "sha256": "cdf769ffc83aefaeeb2c9d1457c852cd9a4025a148e9302d3a3d929004293feb"
+    },
+    {
+      "path": "experiments/EP007-PRESENTER-001/repair-r10/README.md",
+      "sha256": "18426a6f8b7644db4e2947f62b778bd275eef2272c36d7e430813dd918614ad3"
+    },
+    {
+      "path": "experiments/EP007-PRESENTER-001/repair-r10/status.json",
+      "sha256": "8375b4e7515563f31072f528ec61812ac49700cc21bc00dcbb7e1dafc2bd5090"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-opening-presenter-readonly-20260908/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify pins; read current presenter README and R10 brief/status/readme. Answer: working look/performance route, existing actual audio passage, candidate introduction timing, remaining quality limitations, and whether first-10-second intro footage already exists. Do not assume an opening from a scope test.",
+    "Return concise findings with exact file line pointers. Only report and deliverable; no media operations or additional source exploration."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No generation, paid calls, auth, external writes, edits outside owned outputs, approval or gate changes.",
+    "Do not write narration, revise policy, build timeline or inspect private account IDs beyond pinned docs."
+  ],
+  "status": "issued"
+}

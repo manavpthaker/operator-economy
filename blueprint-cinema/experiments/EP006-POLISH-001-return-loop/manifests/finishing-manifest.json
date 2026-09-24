@@ -1,0 +1,184 @@
+{
+  "experiment_id": "EP006-POLISH-001-return-loop",
+  "title": "EP006 Polished Control 001 — The Return Loop",
+  "result": "PASS",
+  "classification": [
+    "internal visual-language and finishing control",
+    "not evidence",
+    "not approved production footage",
+    "not public",
+    "not an EP006 gate advancement"
+  ],
+  "authority": {
+    "canonical_manifest": "manifests/canonical-inputs.json",
+    "canonical_hashes_unchanged_after_production": true,
+    "ep006_state_before_and_after": "greybox_ready",
+    "canonical_files_edited": false
+  },
+  "locked_audio": {
+    "source_window_seconds": [849.517, 879.922],
+    "source_duration_seconds": 30.405,
+    "timeline_picture_duration_seconds": 30.4,
+    "timeline_frames": 912,
+    "frame_quantization_difference_seconds": -0.005,
+    "intentional_lead_handle_seconds": 0.146,
+    "handle_word": "Now",
+    "operation": "lossless decode to 24-bit 48 kHz WAV; no rewrite, regeneration, time stretch, or replacement"
+  },
+  "hyperframes": {
+    "workflow": "general-video",
+    "version": "0.8.5",
+    "runtime": "local GSAP 3.14.2",
+    "project": "hyperframes/index.html",
+    "root_duration_seconds": 30.405,
+    "subcompositions": 5,
+    "final_check": {
+      "command": "npm run check -- --at-transitions --max-issues=120 --strict",
+      "passed": true,
+      "lint": "0 errors, 0 warnings",
+      "runtime": "0 errors, 0 warnings",
+      "layout": "0 issues across 216 samples",
+      "motion": "0 errors, 0 warnings",
+      "contrast": "14 of 14 checks pass WCAG AA"
+    },
+    "render_time_media": "all authored media, fonts, voice, SFX, imagery, and GSAP runtime are local",
+    "remote_runtime_dependencies": false,
+    "directed_reference": {
+      "path": "resolve/handoff/hyperframes-directed-reference.mp4",
+      "sha256": "8318264b735df2b2fddee503c40b2ee9ba1510048733fcf226633d61a45d44a2",
+      "video": "H.264 High, 1920x1080, 30 fps, 913 frames, bt709",
+      "audio": "AAC stereo 48 kHz"
+    },
+    "plates": [
+      {"path": "resolve/handoff/plates/scene-01-return-to-opening.mov", "sha256": "f5d943e4e1bd44de105b0abb3356894019bb1a9c00b71dc0e207a59b6305ec68", "frames": 132, "alpha": false},
+      {"path": "resolve/handoff/plates/scene-02-permission-memory.mov", "sha256": "9dfda1fd431ca758438cd463cd06cc3ac33c17ef4b3cc03dc0113aa429a3611b", "frames": 236, "alpha": false},
+      {"path": "resolve/handoff/plates/scene-03-qualification-judgment.mov", "sha256": "548eb1eb692ebe2fb7dda5e107ae04e5afd69f6efb82fd5158e8a2942623e1bf", "frames": 243, "alpha": false},
+      {"path": "resolve/handoff/plates/scene-04-direct-return.mov", "sha256": "d98490a568e4652530657f701ce8adce8aac02ff67342b501682f19243178de3", "frames": 143, "alpha": false},
+      {"path": "resolve/handoff/plates/scene-05-resolved-outcome.mov", "sha256": "f60aba2570496fddb4c8dc2a9b998bd1fdf526b3a5cebd19b640580edc154b8b", "frames": 159, "alpha": false}
+    ],
+    "plate_format": "ProRes 422 HQ, yuv422p10le, 1920x1080, 30 fps, bt709, opaque"
+  },
+  "resolve": {
+    "application": "/Applications/DaVinci Resolve/DaVinci Resolve.app",
+    "api_product_name": "DaVinci Resolve",
+    "version": "21.0.4.5",
+    "edition_note": "The scripting API does not distinguish the Studio edition in its product string.",
+    "external_script_handle_available": false,
+    "automation": "minimum UI operation opened the internal Lua console; conform, settings, grade, markers, render, save, and export were executed inside Resolve",
+    "project": "EP006_POLISH_001_RETURN_LOOP",
+    "authoritative_timeline": "RETURN_LOOP_CONTROL_001_FINAL",
+    "rejected_timeline": "RETURN_LOOP_CONTROL_001__QC_REJECTED_BLACK_FLASH",
+    "timeline": {
+      "resolution": "1920x1080",
+      "fps": 30,
+      "audio_sample_rate_hz": 48000,
+      "drop_frame": false,
+      "start_timecode": "01:00:00:00",
+      "picture_frames": 912,
+      "video_tracks": 5,
+      "audio_tracks": 4,
+      "subtitle_tracks": 1,
+      "gaps": 0,
+      "overlaps": 0
+    },
+    "color_management": {
+      "mode": "DaVinci YRGB Color Managed v2",
+      "preset": "Custom",
+      "automatic": false,
+      "project_input": "Rec.709 / Gamma 2.4",
+      "timeline": "Rec.709 / Gamma 2.4",
+      "output": "Rec.709 / Gamma 2.4",
+      "imported_plate_property": "Rec.709 (Scene)",
+      "source_assignment_note": "Resolve exposes this actual property for all five picture sources and rejects scripting writes to the property; the explicit project default input is Rec.709/Gamma 2.4.",
+      "grade": "five shot-specific CDL primary corrections",
+      "lut_used": false
+    },
+    "audio": {
+      "tracks_used": ["A1 locked VO", "A2 motivated SFX", "A3 synthetic inn ambience"],
+      "music_used": false,
+      "dialogue_first": true,
+      "integrated_lufs": -16.4,
+      "loudness_range_lu": 2.0,
+      "true_peak_dbfs": -5.2,
+      "silence_detection": "no segment at or below -50 dB lasting 0.75 seconds or longer",
+      "clip_gain_note": "sources were pre-leveled locally; Resolve conformed and summed them, while its timeline-item scripting API rejected clip-level property writes"
+    },
+    "captions": {
+      "format": "SRT sidecar",
+      "path": "resolve/handoff/return-loop.srt",
+      "sha256": "003ed17a9a7e85f0f4b0d793050de3c200f4fba3c5d2181e0b8ef147b906d2fb",
+      "cues": 8,
+      "switchable": true,
+      "burned_in": false
+    },
+    "markers": "resolve/handoff/timeline-markers.json",
+    "track_map": "resolve/handoff/TRACK-MAP.md"
+  },
+  "deliveries": {
+    "master": {
+      "path": "delivery/EP006_POLISH_001_RETURN_LOOP_MASTER_FINAL_PCM.mov",
+      "sha256": "1f41ba8936e02710a9f0d0e77cd3c33f1fb2232edec0558ed9c039163a8b222c",
+      "bytes": 265844627,
+      "video": "Apple ProRes 422 HQ, yuv422p10le, 1920x1080, 30 fps, 912 frames, tv range, bt709 matrix and primaries",
+      "audio": "24-bit LPCM stereo, 48 kHz",
+      "duration_seconds": 30.4,
+      "encoder": "Blackmagic Design DaVinci Resolve"
+    },
+    "review": {
+      "path": "delivery/EP006_POLISH_001_RETURN_LOOP_REVIEW_FINAL.mp4",
+      "sha256": "95ec2e46ac135d7fd57866e90410f86071efcdd4361cfa33ddef116441fe28d4",
+      "bytes": 20855191,
+      "video": "H.264 High, yuv420p, 1920x1080, 30 fps, 912 frames, tv range, bt709 matrix and primaries",
+      "audio": "AAC-LC stereo, 48 kHz",
+      "picture_duration_seconds": 30.4,
+      "container_duration_seconds": 30.464,
+      "duration_note": "64 ms AAC encoder padding; picture and mixed program end at 30.400 seconds",
+      "encoder": "Blackmagic Design DaVinci Resolve"
+    },
+    "project": {
+      "path": "resolve/project/EP006_POLISH_001_RETURN_LOOP_FINAL.drp",
+      "sha256": "73a154e80e363131f0be1da80e21fa5e9297b9e1bbc3441eb0f2c1275ca38cf5"
+    },
+    "otio": {
+      "path": "resolve/interchange/EP006_POLISH_001_RETURN_LOOP_FINAL.otio",
+      "sha256": "1ec797c28b0ca0470eb7de6198b1cae616f43f90e37ae098df8114fc16522324"
+    },
+    "fcpxml": {
+      "path": "resolve/interchange/EP006_POLISH_001_RETURN_LOOP_FINAL.fcpxml/Info.fcpxml",
+      "sha256": "9ee3bdd8c83237f71f3314aa4ce56f187b2c43d99162cc543e7ba7af993a4661"
+    },
+    "contact_sheet": {
+      "path": "qa/contact-sheets/resolve-finished-contact-sheet-final.png",
+      "sha256": "b0dabbd294ee98c9119cdab963539a7dc05f937a0dd6d8ecdf7952a85e782dec"
+    },
+    "legibility_sheet": {
+      "path": "qa/contact-sheets/resolve-legibility-480x270-final.png",
+      "sha256": "2d2101a1f8317add8ee222a5174d8c3cfe8bb285eb9b005eb47ae48cf8179cd7"
+    }
+  },
+  "encoded_media_probe": {
+    "master_has_picture_and_audio": true,
+    "review_has_picture_and_audio": true,
+    "black_frames": 0,
+    "unintended_silence": 0,
+    "resolution_verified": true,
+    "fps_verified": true,
+    "rec709_matrix_and_primaries_verified": true,
+    "gamma_note": "Resolve accepted Gamma 2.4 render configuration; FFmpeg reports transfer characteristic as unspecified rather than enumerating Gamma 2.4."
+  },
+  "fixtures": {
+    "generated_environmental_plates": "fully synthetic, non-evidentiary, non-publishable stills; animated with restrained deterministic motion, not generated video",
+    "room_tone": "offline synthetic ambience, not a location recording",
+    "outcome": "DIRECT RETURN / VISUAL TEST; non-publishable fixture; not evidence"
+  },
+  "services": {
+    "paid_service_used": false,
+    "authenticated_external_service_used": false,
+    "image_provider": "Codex Desktop built-in image generation capability",
+    "media_sources": "local OE assets, bundled licensed SFX, and offline generated room tone"
+  },
+  "rejected_outputs": [
+    {"paths": ["delivery/EP006_POLISH_001_RETURN_LOOP_MASTER.mov", "delivery/EP006_POLISH_001_RETURN_LOOP_REVIEW.mp4"], "reason": "first conform contained four one-frame black flashes; retained only for audit"},
+    {"path": "delivery/EP006_POLISH_001_RETURN_LOOP_MASTER_FINAL.mov", "reason": "corrected picture but AAC audio; superseded by the explicit 24-bit LPCM master"}
+  ]
+}

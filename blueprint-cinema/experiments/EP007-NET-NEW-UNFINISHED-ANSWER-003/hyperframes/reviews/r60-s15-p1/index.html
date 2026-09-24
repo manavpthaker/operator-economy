@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R60 S15 part 1 — Documentation</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#p-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.blk{font-family:Supreme,sans-serif;fill:#173530;font-size:25px;font-weight:500}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:24px;text-align:center;margin:0;font:700 60px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="p-root" data-composition-id="ep007-r60-s15-p1" data-start="0" data-duration="25" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="The practice and one person. Three heavy documentation blocks: interviewing an owner, writing up how the work happens, assembling the records. A team joins the one person, a long bar of billable hours runs under the blocks, and the fee is a short bar that leaves most of it uncovered.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g></defs>
+<!-- Left: the practice and who could run it. -->
+<g id="practice"><rect x="80" y="170" width="140" height="160" rx="4" stroke="#173530" stroke-width="3.5" fill="#EDE5D6"/>
+<path class="light" d="M104 206L196 206M104 234L196 234M104 262L174 262"/><text class="label" x="150" y="372" text-anchor="middle">The practice</text></g>
+<g id="one"><g id="one-fig" class="hide"><use href="#person" transform="translate(410,290) scale(.7)"/></g>
+<text id="one-l" class="small hide" x="410" y="372" text-anchor="middle">One person</text></g>
+<g id="team" class="hide">
+<use href="#person" transform="translate(300,520) scale(.42)"/><use href="#person" transform="translate(370,520) scale(.42)"/>
+<use href="#person" transform="translate(440,520) scale(.42)"/><use href="#person" transform="translate(510,520) scale(.42)"/>
+<text class="small" x="405" y="584" text-anchor="middle">A team of people</text></g>
+<!-- Right: the documentation work, heavy. -->
+<g id="b1" class="hide"><rect x="630" y="140" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text class="blk" x="660" y="200">Interviewing an owner</text></g>
+<g id="b2" class="hide"><rect x="630" y="256" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text class="blk" x="660" y="316">Writing up how the work happens</text></g>
+<g id="b3" class="hide"><rect x="630" y="372" width="570" height="100" rx="4" stroke="#173530" stroke-width="3" fill="#EDE5D6"/><text class="blk" x="660" y="432">Assembling the records</text></g>
+<path id="hours" class="hide" stroke="#173530" stroke-width="12" fill="none" stroke-linecap="butt" d="M630 530L1200 530"/>
+<text id="hours-l" class="small hide" x="630" y="508">Months of billable hours</text>
+<path id="fee" class="hide" stroke="#586D74" stroke-width="12" fill="none" stroke-linecap="butt" d="M630 590L760 590"/>
+<text id="fee-l" class="small hide" x="630" y="630">The fee at this size</text>
+<path id="gap" class="hide" stroke="#B5482F" stroke-width="3" fill="none" stroke-dasharray="9 8" d="M766 590L1200 590"/>
+</svg>
+<h1 id="head" class="head">Documentation</h1>
+<audio id="p-narration" src="public/audio/narration.wav" data-start="0" data-duration="25" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 634.0 + cue. Word anchors from word-transcript.json.
+const C={"practice":0.30,"notpossible":3.74,"oneperson":4.72,"documentation":6.98,"interviewing":8.38,"writing":9.80,"assembling":12.72,"team":18.14,"months":19.88,"fee":22.64,"never":23.36};
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+// "For a long time this practice has been possible."
+// "It has not been possible for one person."
+fade('#one-fig',C.notpossible,.45);
+fade('#one-l',C.oneperson);
+// "The reason is documentation": the work arrives on its words, heavy.
+fade('#head',C.documentation);
+[['#b1',C.interviewing],['#b2',C.writing],['#b3',C.assembling]].forEach(([s,at])=>t.fromTo(s,{autoAlpha:0,x:24},{autoAlpha:1,x:0,duration:.45,ease:'power2.out'},at));
+// "That used to be a team of people and months of billable hours"
+t.fromTo('#team',{autoAlpha:0,y:10},{autoAlpha:1,y:0,duration:.45,ease:'power2.out'},C.team);
+fade('#hours-l',C.months-.1,.35);
+draw('#hours',C.months,1.0);
+// "which is exactly why the fee never worked at this size"
+draw('#fee',C.fee,.35);
+fade('#fee-l',C.fee+.1,.35);
+draw('#gap',C.never,.8);
+window.__timelines['ep007-r60-s15-p1']=t;
+</script></body></html>

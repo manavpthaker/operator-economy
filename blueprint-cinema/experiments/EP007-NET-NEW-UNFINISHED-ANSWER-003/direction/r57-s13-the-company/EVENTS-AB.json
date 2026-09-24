@@ -1,0 +1,143 @@
+[
+  {
+    "event_id": "r57-s13ab-company-in-gap-v1",
+    "decision_id": "s13-the-company",
+    "event_type": "decision",
+    "tags": [
+      "animation",
+      "world-continuity"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Name the missing company by filling the vacancy the viewer already saw, then state its one job.",
+        "viewer_before": "S12 ends on 'The constraint'; S11 established the room with an empty seat.",
+        "viewer_after": "A practice sits in the empty seat, and her business can be inspected by a buyer."
+      },
+      "choice": "Return to the S11 room end state; outline the empty seat on 'belongs in that gap'; advisers leave on 'Not a broker'/'Not an adviser' without strikes; the practice fills the seat labelled 'A practice'/'One job'; the practice connects to her business outside the room, and a buyer's inspection line reaches it and holds on 'inspected'.",
+      "reason": "Reuses the locked vacancy geometry so the gap is literal; inspection holds without a verdict because the script claims inspectability, not a sale.",
+      "alternatives": [
+        {
+          "choice": "Strike through broker and adviser",
+          "reason_not_selected": "Reads as criticism of those roles."
+        },
+        {
+          "choice": "Check mark after inspection",
+          "reason_not_selected": "Implies a sale outcome the script does not claim."
+        },
+        {
+          "choice": "Presenter for the whole section",
+          "reason_not_selected": "Descriptive build suits the ledger world; presenter reserved for the first-person bridge into S14."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A script introduces the thing that fills a previously shown absence.",
+        "avoid_when": "The absence was never shown on screen."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "belongs",
+            "phrase": "belongs in that gap",
+            "relation": "dashed outline forms around the empty seat",
+            "master_seconds": 524.56,
+            "review_seconds": 521.56,
+            "fps": 24,
+            "dependent_targets": [
+              "r57-s13ab"
+            ]
+          },
+          {
+            "cue_id": "broker",
+            "phrase": "Not a broker",
+            "relation": "broker and pay line leave",
+            "master_seconds": 526.6,
+            "review_seconds": 523.6,
+            "fps": 24,
+            "dependent_targets": [
+              "r57-s13ab"
+            ]
+          },
+          {
+            "cue_id": "adviser",
+            "phrase": "Not an adviser",
+            "relation": "other advisers, pay and sale point leave",
+            "master_seconds": 527.67,
+            "review_seconds": 524.67,
+            "fps": 24,
+            "dependent_targets": [
+              "r57-s13ab"
+            ]
+          },
+          {
+            "cue_id": "practice",
+            "phrase": "A practice",
+            "relation": "practice fills the seat; red chair goes",
+            "master_seconds": 529.06,
+            "review_seconds": 526.06,
+            "fps": 24,
+            "dependent_targets": [
+              "r57-s13ab"
+            ]
+          },
+          {
+            "cue_id": "inspected",
+            "phrase": "inspected",
+            "relation": "buyer inspection line reaches the business and holds",
+            "master_seconds": 534.74,
+            "review_seconds": 531.74,
+            "fps": 24,
+            "dependent_targets": [
+              "r57-s13ab"
+            ]
+          }
+        ],
+        "source_basis": "Word transcript; S11 D locked geometry; script S13 (claims: none)."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r57-s13-the-company/DIRECTION.md",
+        "sha256": "783172ef85fa2ccf30af8643faa34f66e8af47526c69f7fedb3ae4dd856c5909",
+        "locator": "Part A\u2013B"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r57-s13-the-company/OWNER-MOVE-TO-S13.json",
+        "sha256": "28a8dbf4fa49ec7d60e7723f902458b6178697bbd09c1032cafe41cc32596a1e",
+        "locator": "Owner instruction"
+      }
+    ]
+  },
+  {
+    "event_id": "r57-s13ab-verified-v1",
+    "decision_id": "s13-the-company",
+    "event_type": "verification",
+    "tags": [
+      "animation"
+    ],
+    "data": {
+      "decision_event_id": "r57-s13ab-company-in-gap-v1",
+      "method": "hyperframes check --strict (0 errors); stills reviewed, line/label overlaps fixed; render audio vs master 522.958-535.875 zero lag 0.99981; review clip S13 part zero lag 0.99981; 550 frames, no uniform frames.",
+      "result": "pass",
+      "scope": "S13 A-B (310 frames) plus 10 s S12 tail.",
+      "limitations": "Owner review pending; C and D not built.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r57-s13ab/qa/r57-s13ab.mp4",
+          "sha256": "5d0ee50edab7f3364a6e7dd842dac95ec83991d1156e9b8a98544f5727be47c5"
+        },
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r57-s13ab-context/qa/context.mp4",
+          "sha256": "7b69cc742753d2f20d4165830a596a60d3cf4f83b5a2ba63c9f675f6d33a0794"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r57-s13ab/index.html",
+        "sha256": "f6c8fe903d5b0a491abeb24c5859e53f1f32721a6e258129560128090d528f7d",
+        "locator": "Composition"
+      }
+    ]
+  }
+]

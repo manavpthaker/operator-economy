@@ -1,0 +1,57 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "avatar-v5-post-title-output-review",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Independently inspect new V5 post-title native take for identity, framing, hand anatomy, useful variation and rest. Inspect one-number passage near source11s and ending. Native audio is not final. Return bounded read-only report, contact evidence and standard manifest.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/ACCEPTANCE.json",
+      "sha256": "f86d47e5ace325068d3cb2384cf03933b80c30bca0866719b60c0f5e32fc224f"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/avatar-v5-gestures/media/gesture-review.mp4",
+      "sha256": "b896fcd06c0b2b15dfd16dad18e80f9aa1971e916b5a9b06d52ee09874f3f918"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-post-title-continuous/native.mp4",
+      "sha256": "59545503f50bebe693d0f6c10032c6b1170983241208ca1bfc45f2d6c23706f6"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-post-title-continuous/native-qa.json",
+      "sha256": "4774a601ea169ef6675c7d3848de180ff37a887f6f916826f3d4721b5dc5df25"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-current-cut-preparation/prompts/v5-post-title-continuous.txt",
+      "sha256": "6ba7f2b912557f4b44b34098143c0af9e8772813f8eb4781c65f85c9e1429ed2"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/avatar-v5-post-title-output-review/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued hash and source probe.",
+    "Inspect representative early/middle/late moving positions and endpoint frames; distinguish actual observation from guesses about full-speed lip sync.",
+    "Identify any material identity, anatomy, gesture or future crop concern; accepted V5 middle gesture concern is resolved for that exact baseline and is not a new prohibition.",
+    "Return report and standard manifest under owned directory only."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

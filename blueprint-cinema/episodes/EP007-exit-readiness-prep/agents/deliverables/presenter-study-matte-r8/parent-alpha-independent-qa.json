@@ -1,0 +1,156 @@
+{
+  "review_status": "candidate_review_not_approval",
+  "inputs": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r7/test-g-full-scope-avatar-iii-1080p.mp4",
+      "sha256": "6bfc0bd9190448e4a41d7ea694797ee48135d6ece85467a90bfb3e11926c749f",
+      "size_bytes": 14119022
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/assets/performance-alpha.webm",
+      "sha256": "2cdb15c587a7aef1b077af50d766d9e0fa96eb37078e3eb48b92f99a74459618",
+      "size_bytes": 149957300
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/snapshots/frame-00-at-0.4s.png",
+      "sha256": "c2a0694dbf6ab7ae48e5b58d44ec0674542f6156d67228d2fa8a8567c6ca3244",
+      "size_bytes": 2004853
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/snapshots/frame-01-at-23.2s.png",
+      "sha256": "88c233809062584dfd2ee3f203eeff0a2999527490df3ffe875684f16f87882d",
+      "size_bytes": 2016907
+    }
+  ],
+  "source_crop": {
+    "x": 656,
+    "y": 0,
+    "width": 608,
+    "height": 1080
+  },
+  "alpha_decoder": "libvpx-vp9",
+  "comparisons": {
+    "yuv420p": {
+      "source_frames": 765,
+      "alpha_frames": 765,
+      "both_765_frames": true,
+      "source_pts_are_0_through_764": true,
+      "alpha_pts_are_0_through_764": true,
+      "matching_frame_records": 765,
+      "different_frame_indices_first_20": [],
+      "all_decoded_pixels_and_frame_order_identical": true,
+      "source_ordered_frame_record_sha256": "735e10b43fead7625f64b5393db2379b0a291e2226aa9e972c542bc40c588ce0",
+      "alpha_ordered_frame_record_sha256": "735e10b43fead7625f64b5393db2379b0a291e2226aa9e972c542bc40c588ce0",
+      "source_command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-xerror",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r7/test-g-full-scope-avatar-iii-1080p.mp4",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-vf",
+        "crop=608:1080:656:0,format=yuv420p",
+        "-f",
+        "framemd5",
+        "-"
+      ],
+      "alpha_command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-xerror",
+        "-c:v",
+        "libvpx-vp9",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/assets/performance-alpha.webm",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-vf",
+        "format=yuv420p",
+        "-f",
+        "framemd5",
+        "-"
+      ]
+    },
+    "rgb24": {
+      "source_frames": 765,
+      "alpha_frames": 765,
+      "both_765_frames": true,
+      "source_pts_are_0_through_764": true,
+      "alpha_pts_are_0_through_764": true,
+      "matching_frame_records": 765,
+      "different_frame_indices_first_20": [],
+      "all_decoded_pixels_and_frame_order_identical": true,
+      "source_ordered_frame_record_sha256": "3d5685d74c81c85de281593c9d778fd5c2d2adad9375c41aa1d69027d3ff8e65",
+      "alpha_ordered_frame_record_sha256": "3d5685d74c81c85de281593c9d778fd5c2d2adad9375c41aa1d69027d3ff8e65",
+      "source_command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-xerror",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/media/repair-r7/test-g-full-scope-avatar-iii-1080p.mp4",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-vf",
+        "crop=608:1080:656:0,format=rgb24",
+        "-f",
+        "framemd5",
+        "-"
+      ],
+      "alpha_command": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-xerror",
+        "-c:v",
+        "libvpx-vp9",
+        "-i",
+        "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r8/assets/performance-alpha.webm",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-vf",
+        "format=rgb24",
+        "-f",
+        "framemd5",
+        "-"
+      ]
+    }
+  },
+  "alpha_plane_full_decode_exit": 0,
+  "snapshot_findings": [
+    {
+      "severity": "observation",
+      "snapshots": "both, latest 21:41 revision",
+      "location": "upper shoulders",
+      "finding": "The earlier pointed triangular joins are removed in the revised snapshots."
+    },
+    {
+      "severity": "observation",
+      "snapshots": "both, latest 21:41 revision",
+      "location": "center shirt to static outer shoulders and chest",
+      "finding": "A softer texture and clarity mismatch remains across the blend; continuous playback is needed to assess whether static clothing motion is conspicuous."
+    },
+    {
+      "severity": "observation",
+      "snapshots": "both, latest 21:41 revision",
+      "location": "head and glasses",
+      "finding": "No obvious duplicate face visible in these two stills. Fine hair/glasses edge fringe remains."
+    }
+  ],
+  "limits": [
+    "This tests the alpha video and two static scene snapshots, not the subsequent encoded full composite.",
+    "Lossless content verification does not approve lip sync, expressions, clothing seam, or continuous playback.",
+    "Alpha-edge feathering is expected to differ from the original Vision mask; this report verifies underlying image content and frame order."
+  ],
+  "external_writes": false,
+  "production_state_changed": false,
+  "approval_claimed": false,
+  "review_sequence_note": "Initial snapshots had hard triangular shoulder joins; parent revised the SVG clipping mask. Final visual findings apply only to the current snapshot hashes recorded here. Pixel comparison applies to unchanged performance-alpha.webm."
+}

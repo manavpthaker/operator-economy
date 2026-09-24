@@ -1,0 +1,76 @@
+{
+  "event_id": "r52-walkout-film-proposal-v1",
+  "decision_id": "s09-buyer-walkout",
+  "event_type": "decision",
+  "tags": [
+    "film",
+    "cut-timing",
+    "false-inference",
+    "paid-generation",
+    "next-scene"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Show departure as one of two alternatives after the inspection problem.",
+      "viewer_before": "The needed knowledge is in the absent owner's head.",
+      "viewer_after": "A buyer can simply leave; the discount remains the other alternative."
+    },
+    "choice": "Owner-selected film: cut on 'or' into a wide R7-world departure already under way, buyer exiting right, seller seated; 32 frames from a 5 s silent take generated from an owner-reviewed start frame.",
+    "reason": "The R35 arc reserved this beat for film; the owner chose film over the unpaid model alternative.",
+    "alternatives": [
+      {
+        "choice": "Unpaid model: stranger's price lowers, then he leaves",
+        "reason_not_selected": "Owner selected film."
+      },
+      {
+        "choice": "Lower offer then walking in one shot",
+        "reason_not_selected": "R35 arc: keep discount and departure as alternatives, not a sequence."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "EP007 S09 walk-out.",
+      "avoid_when": "Any other passage."
+    },
+    "nuance": {
+      "cut_cues": [
+        {
+          "cue_id": "walkout-in",
+          "phrase": "or he walks",
+          "relation": "one frame before or onset",
+          "master_seconds": 341.7916666666667,
+          "review_seconds": 338.7916666666667,
+          "fps": 24
+        },
+        {
+          "cue_id": "walkout-out",
+          "phrase": "before Fine,",
+          "relation": "before S10 onset",
+          "master_seconds": 343.125,
+          "review_seconds": 340.125,
+          "fps": 24
+        }
+      ],
+      "performance": "Ordinary walking pace, buyer turned away; seller seated, gaze following; no anger or price gesture.",
+      "false_inference": "A documented failed sale, hostility, or that discount led to walking.",
+      "source_basis": "R35 arc plan plus current owner selection; costs are listed prices, not invoices."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/DIRECTION.md",
+      "sha256": "45d93deca6fbbde4e708e758639afc2523ae12196d6d9207717e6cc891d11cd9",
+      "locator": "Proposal"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/COST-PROPOSAL.json",
+      "sha256": "37db7daee3d01018f9cf1882dbc916e198f93456a6b3c244a6ac4b20142171a6",
+      "locator": "Prices and caps"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r52-walkout/CUES.json",
+      "sha256": "dba418e0235bf8e91c6ab49659708bfdf924fc52cc2dbd795361c622511be570",
+      "locator": "Cut window"
+    }
+  ]
+}

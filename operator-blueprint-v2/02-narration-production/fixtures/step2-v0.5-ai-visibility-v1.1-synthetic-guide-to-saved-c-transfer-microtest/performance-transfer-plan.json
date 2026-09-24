@@ -1,0 +1,107 @@
+{
+  "schema_version": "oe-performance-transfer-plan-v1",
+  "plan_id": "ai-visibility-v1.1-p01-synthetic-guide-to-saved-c-transfer-microtest-v1",
+  "status": "dry_run_only",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.5-ai-visibility-v1.1-synthetic-guide-to-saved-c-transfer-microtest"
+  },
+  "canonical_w": {
+    "path": "../step2-v0.2-ai-visibility-v1.1/identity/canonical-w.txt",
+    "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a",
+    "token_count": 3019
+  },
+  "microtest": {
+    "passage_id": "P01",
+    "start_token": 30,
+    "end_token": 110,
+    "token_count": 80,
+    "token_slice_sha256": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a",
+    "spoken_text_sha256": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb",
+    "spoken_text_character_count": 465
+  },
+  "performance_envelope": {
+    "path": "performance-envelope.json",
+    "sha256": "3621352c6772404938f0701eb7db242c9113153f3755da520e0a6d3a6e668b88"
+  },
+  "provider_adapters": {
+    "google": {
+      "path": "adapters/google-cloud-gemini-tts.json",
+      "sha256": "6bdbc3f230bbac84307dee466eb713f3a000e9d37d0ff7163faba40ef3180fc1"
+    },
+    "elevenlabs_voice_changer": {
+      "path": "adapters/elevenlabs-voice-changer-saved-c.BLOCKED.json",
+      "sha256": "118c9fc82ca31266e26c1c105e30c9d1d262c38956e35ea14f3a2d0f999d5301"
+    }
+  },
+  "guide": {
+    "provider": "google_cloud_text_to_speech",
+    "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+    "method": "POST",
+    "model_id": "gemini-2.5-pro-tts",
+    "voice_name": "Achird",
+    "language_code": "en-US",
+    "acting_prompt": "An experienced operator sits across a table from one smart peer. He is camera-ready, personally engaged, and working through a real puzzle, not reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Start with the consequence. Let \"Or worse\" carry dry, knowing irritation; make \"Everything is green\" briefly deadpan; then turn at \"That missing view\" into genuine curiosity and practical excitement. Keep forward momentum, with thought-space at each turn. Energy eight of ten. Natural American conversation; emphasis follows meaning. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Pronounce \"2022\" as \"twenty twenty-two.\" Do not vocalize these directions.",
+    "acting_prompt_sha256": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416",
+    "request_body_sha256": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53",
+    "request_body_bytes": 1440,
+    "request_count": 2,
+    "identical_unseeded_requests": true,
+    "input_limits": {
+      "combined_utf8_bytes": 5000,
+      "prompt_utf8_bytes": 4000,
+      "text_utf8_bytes": 4000
+    },
+    "format": {
+      "audio_encoding": "LINEAR16",
+      "sample_rate_hz": 24000,
+      "container": "wav",
+      "channels": 1
+    },
+    "destinations": [
+      "outputs/raw/google/P01-W0030-W0110/candidate-A.wav",
+      "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"
+    ]
+  },
+  "voice_transfer": {
+    "provider": "elevenlabs",
+    "status": "blocked_pending_selected_guide",
+    "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+    "method": "POST",
+    "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+    "model_id": "eleven_multilingual_sts_v2",
+    "seed": 2026082501,
+    "query_policy": {
+      "enable_logging": "false_for_zrm_otherwise_true_only_with_account_training_opt_out",
+      "output_format": "pcm_48000"
+    },
+    "voice_settings": {
+      "similarity_boost": 0.8,
+      "speed": 1.0,
+      "stability": 0.4,
+      "style": 0.0,
+      "use_speaker_boost": true
+    },
+    "remove_background_noise": false,
+    "file_format": "other",
+    "preferred_output_format": "pcm_48000",
+    "conditional_fallback_output_format": "mp3_44100_192",
+    "source_limits": {
+      "max_bytes": 50000000,
+      "max_duration_seconds": 300
+    },
+    "destination": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"
+  },
+  "authority": {
+    "guide_authorization_required": true,
+    "voice_transfer_authorization_required": true,
+    "joint_authorization_forbidden": true,
+    "guide_must_be_selected_and_pass_qa": true,
+    "external_action_authorized": false,
+    "credentials_may_be_accessed": false,
+    "audio_may_be_generated": false,
+    "full_capture_authorized": false,
+    "step3_authorized": false,
+    "publication_authorized": false
+  }
+}

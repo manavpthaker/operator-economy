@@ -1,0 +1,77 @@
+{
+  "event_id": "ep007-short01-end-bridge-render-verified-v18",
+  "decision_id": "ep007-short01-full-episode-handoff",
+  "event_type": "verification",
+  "tags": [
+    "shorts",
+    "short-01",
+    "channel-bridge",
+    "end-card",
+    "hyperframes",
+    "render",
+    "phone-preview",
+    "verification"
+  ],
+  "data": {
+    "decision_event_id": "ep007-short01-full-episode-handoff-v16",
+    "authorization_event_id": "ep007-short01-full-episode-handoff-copy-correction-v17",
+    "actor": "production-pipeline",
+    "verdict": "pass",
+    "result": "pass",
+    "scope": "Technical implementation and verification of the approved two-second visual-only full-episode handoff for EP007 Short 01. This does not approve the finished video, release, upload, publication, episode URL, or native Related Video binding.",
+    "method": "Ran HyperFrames 0.8.61 checks; reviewed exact seam, motion, settled, and final frames; probed and fully decoded the rendered MP4; compared the decoded original audio prefix; verified the silent bridge tail; checked the tailnet-private health and byte-range endpoints; hashed the complete HTTPS-served media; and loaded the candidate in the in-app browser at 1080x1920 with readyState 4.",
+    "finding": "The current 43.541667-second, 1045-frame, 1080x1920 candidate preserves the complete standalone payoff and appends the exact approved copy BUILD THE FULL PRACTICE / SCOPE IT · PRICE IT · TEST IT / WATCH THE FULL EPISODE ↓. The new bridge introduces no caption leakage, white flash, narration change, provider call, or burned URL.",
+    "limitations": "Owner acceptance of the revised finished video remains pending. Content OS release review has not run. Release, upload, publication, canonical episode URL, and YouTube Related Video attachment remain unauthorized or unbound. The rerender preserves editorial timing and decoded audio but is not claimed to be pixel-identical to the superseded baseline.",
+    "owner_video_acceptance": false,
+    "provider_calls_made": 0,
+    "provider_credits_used": 0,
+    "artifact_hashes": [
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/index.html",
+        "sha256": "032d6bc3dce309aa08a6e587305795c7bf312c91b52a4f5940213d9b8abe8ce8"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/compositions/07-full-episode-route.html",
+        "sha256": "af568114f829da025a8c33d98b2cbd5825798991e7619300831090fe1b720b88"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-end-bridge-v2-final.mp4",
+        "sha256": "6b84fd472522265bb5c0cde75f7c5692f2d02678f1c53c9cea91f3771bb46465"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/END-BRIDGE-V2-QA.json",
+        "sha256": "1eef0015d8bf53e5e7f622bee124338d55d80f3652747ac2a00c1f128238bcaa"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/PRODUCTION-STATUS.json",
+        "sha256": "2a7865944088341793177c6287cfc1d46294a2ea8fc2aa0099f700b3262432f4"
+      },
+      {
+        "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/ASSET-PROVENANCE.json",
+        "sha256": "fdd0e57a5c4574fb8a850b0890cba667449429899e91b3081afea12786259c23"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/qa/END-BRIDGE-V2-QA.json",
+      "sha256": "1eef0015d8bf53e5e7f622bee124338d55d80f3652747ac2a00c1f128238bcaa",
+      "locator": "frame-exact seam, render, audio-preservation, silent-tail and live private-preview verification"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/renders/ep007-short01-thirty-day-map-end-bridge-v2-final.mp4",
+      "sha256": "6b84fd472522265bb5c0cde75f7c5692f2d02678f1c53c9cea91f3771bb46465",
+      "locator": "current technically verified review render and exact bytes served by the tailnet-private phone preview"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/PRODUCTION-STATUS.json",
+      "sha256": "2a7865944088341793177c6287cfc1d46294a2ea8fc2aa0099f700b3262432f4",
+      "locator": "current technical, owner, release, upload, publication and link gates"
+    },
+    {
+      "path": "studio/originate/exit-readiness-prep/shorts-hyperframes/short-01-thirty-day-map-v3/ASSET-PROVENANCE.json",
+      "sha256": "fdd0e57a5c4574fb8a850b0890cba667449429899e91b3081afea12786259c23",
+      "locator": "current render and QA lineage, superseded baseline labels and zero new end-bridge provider calls"
+    }
+  ]
+}

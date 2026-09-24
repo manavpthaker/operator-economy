@@ -1,0 +1,13 @@
+# R4 full GTM Engine selfie video
+
+[Watch the finished 53.875-second video](https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/fe6157f5-81ef-433a-8254-d3945a64368c.mp4).
+
+The owner supplied the full script in the current conversation. This standalone private review carries that script through the current home/olive selfie format, with the working R3 direction for brisk varied delivery and responsive eyes and cheeks. It is not an accepted canonical avatar, episode conform, editorial pass or publication approval.
+
+The text in SCRIPT.txt is preserved exactly. One coherent Algieba guide supplied the read. Independent transcription detected a possible missing contracted d in the closing question; one contextual pickup corrected only the last sentence. The earlier guide PCM is unchanged through 47.4999167 seconds, and the zero-valued join required no fade or retiming. One full Original C transfer followed. Final ASR supports all 184 source words, including you’d built, with ordinary gotta/got to and wanna/want to transcription equivalence documented. The source lasts 52.848625 seconds, brisker than the requested 65–70-second direction; preferred pace and vocal naturalness remain for owner listening.
+
+Three generated pictures use the same identity/room/wardrobe reference and exact contiguous voice sections. Two sentence-pause picture cuts occur at frames 484 and 862. The 1293-frame assembly was globally synchronized once against the original full voice. Its decoded soundtrack matches that voice at 0.999810 correlation with a uniform +0.342125-second insertion offset and no measured drift across four windows. The final word maps to approximately 52.642–52.842 seconds, and the final half-second is silent.
+
+The phone version is a lossless video-first faststart remux. Decoded audio/video hashes and stream timing match the raw synchronized result. Independent remote readback matches the 53,512,019-byte file and SHA-256 3aa4356f48c0e96fc9ab50da9897a22be88b897a9fa7af6c0ef75c440584c236. HTTP 200 and byte-range 206 passed. Browser playback completed at normal speed without a media error, at 405×720 display size for the 720×1280 source. Native/restored frame comparison preserves upper-face variation, clothing, glasses, room and both picture joins; the last frame shows a closed-mouth settle. These checks do not constitute a perceptual lip-sync or owner acceptance verdict.
+
+Provider requests, estimates, source mappings and outputs are retained in voice/, video/, lip-sync/ and mobile-delivery/. Detailed visual findings are in visual-QA.md. Large media stays ignored under ../media/revision-04/. Existing takes and unrelated repository work are preserved. No push, publishing or canonical episode state change was performed.

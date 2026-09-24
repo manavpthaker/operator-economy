@@ -1,0 +1,108 @@
+[
+  {
+    "event_id": "r53-owner-c-reopen-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "presenter-return",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r53-s10-section-plan-v1",
+      "actor": "owner",
+      "verbatim": "wait before the avatar after 2:55 \"half the time\"  is odd. the head movmenets and the hand movemenet dont match up to the conversation and the lip syncing is a bit off",
+      "interpretation": "Reopens the locked S10 part C: movement does not match the conversation and lip sync is slightly off. Parts A and B lock unaffected.",
+      "verdict": "reopen",
+      "scope": "S10 part C presenter take (master 373.708-382.333).",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/qa/r53-c-presenter.mp4",
+          "sha256": "ff6c89c328fec0e2ee937265a3494e960589809cbf5820125cad59fe9d29cb3f"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/presenter-c/OWNER-REOPEN.json",
+        "sha256": "681aa63355cbf824c4049cf9d62cad1f5b0ceb1fc3f3fbb29b2e79282dc721fd",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r53-c-sync-diagnostic-v1",
+    "decision_id": "s10-no-schedule",
+    "event_type": "verification",
+    "tags": [
+      "presenter-return",
+      "performance"
+    ],
+    "data": {
+      "decision_event_id": "r53-s10-section-plan-v1",
+      "method": "Mouth-region openness and motion versus narration envelope, lags -10..+10 frames, for part A, part C (native and restored) and accepted R47; frame inspection of gesture timing.",
+      "result": "fail",
+      "scope": "Whether a picture offset or skipping restoration could repair part C.",
+      "limitations": "Correlations are weak and inconsistent across takes (C restored best 0.195 at -2 frames, native 0.165; A 0.37; R47 0.28), so no reliable offset fix. The open-hand gesture lands around 'about half the time' rather than 'not yours to pick'. Heuristic only; not a perceptual verdict.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r53-s10/provider/presenter-c/restoration/restored.mp4",
+          "sha256": "fdea926e1d04477d528dbb9a193fcef224ce65985d9a52a05f33e3aa32b6ca78"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/presenter-c/AVATAR-PROMPT-v2.txt",
+        "sha256": "58f2834f53a0be537addf7f5a392ca92a39ea62a47ae5fa745a9c6252ba3a24c",
+        "locator": "Revised prompt"
+      }
+    ]
+  },
+  {
+    "event_id": "r53-c-presenter-v2",
+    "decision_id": "s10-no-schedule",
+    "event_type": "decision",
+    "supersedes": "r53-a-presenter-v3",
+    "tags": [
+      "presenter-return",
+      "performance",
+      "paid-generation"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Deliver the S10 conclusion to the viewer.",
+        "viewer_before": "Five Ds on the evidence card.",
+        "viewer_after": "The viewer accepts that exit timing is not the owner's."
+      },
+      "choice": "Regenerate part C with lip sync prioritized, steady head, hands at rest until 'not yours to pick', one small palm-up then rest; same audio media and references; one 90-credit take plus one Fal restoration.",
+      "reason": "Owner reopened: movement mismatched and sync off; diagnostics show no offset fix.",
+      "alternatives": [
+        {
+          "choice": "Shift picture frames",
+          "reason_not_selected": "No consistent lag found."
+        },
+        {
+          "choice": "Use native take without restoration",
+          "reason_not_selected": "Native mouth correlation no better."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A generated presenter take reads mistimed.",
+        "avoid_when": "A measured constant offset explains the mismatch."
+      },
+      "nuance": {
+        "performance": "Steady head; gesture only on 'not yours to pick'; stillness after.",
+        "source_basis": "Owner reopen."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r53-s10-schedule/presenter-c/AVATAR-TAKE-PLAN-v2.json",
+        "sha256": "63575a671408563a99764da287e3ee338170f4c697d58a014d889946792062ab",
+        "locator": "v2 take plan and cost"
+      }
+    ]
+  }
+]

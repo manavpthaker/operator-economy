@@ -1,0 +1,52 @@
+{
+  "schema_version": "oe-provider-action-authorization-v1",
+  "authorization_id": "AUTH-01B-ai-visibility-v1.1-eleven-metadata-inventory-20260824T205837Z",
+  "status": "active",
+  "approved": true,
+  "scope": "elevenlabs_sample_metadata_inventory",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "provider": "elevenlabs",
+  "action": {
+    "kind": "read_only_voice_metadata_inventory",
+    "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+    "metadata_endpoint": "https://api.elevenlabs.io/v1/voices/yUXeTfC1IFOCSjGc96sQ",
+    "metadata_receipt_destination": "receipts/elevenlabs/AUTH-01B-20260824T205837Z-sample-inventory.json",
+    "selection_permitted": false,
+    "download_permitted": false,
+    "raw_payload_storage_permitted": false
+  },
+  "purpose": "Make one read-only ElevenLabs metadata request for the bound Manav voice and record only a safe normalized inventory of attached sample IDs and filenames for owner selection. Do not select or download a sample, preserve the raw response, generate speech, modify the voice, or contact Hume.",
+  "bindings": {
+    "performance_envelope_sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d",
+    "provider_bakeoff_plan_sha256": "e61d45adb15d9d83ca17210ec2592dc22f9ff3c46f24dd64b7d531b35fc01333",
+    "compiled_dry_run_sha256": "1ab5b95edfeb223acc84540930a663d04b46b53af65933479b6b363d634dbda5",
+    "provider_adapter_sha256": "4ba00f41ab6abac49b7fdaa1ce9728b1d9ea12713c8259b0337deb0f1028ecdb"
+  },
+  "requested_limits": {
+    "max_metadata_calls": 1,
+    "max_sample_download_calls": 0,
+    "max_metadata_response_bytes": 2000000,
+    "max_spend_usd": 0
+  },
+  "authorized_limits": {
+    "max_calls": 1,
+    "max_downloads": 0,
+    "max_metadata_response_bytes": 2000000,
+    "max_spend_usd": 0
+  },
+  "consumption": {
+    "status": "unconsumed",
+    "calls_used": 0,
+    "downloads_used": 0,
+    "spend_used_usd": 0,
+    "record_path": "consumed/AUTH-01B-20260824T205837Z.consumed.json"
+  },
+  "approved_by": "Manav Thaker",
+  "approved_at": "2026-08-24T20:58:37Z",
+  "expires_at": "2026-08-25T20:58:37Z",
+  "execution_ready": true,
+  "blockers": []
+}

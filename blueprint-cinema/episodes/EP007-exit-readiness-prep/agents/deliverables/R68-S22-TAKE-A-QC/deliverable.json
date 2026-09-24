@@ -1,0 +1,247 @@
+{
+  "schema": "oe-agent-deliverable/v1",
+  "work_order": "R68-S22-TAKE-A-QC",
+  "status": "source_review_complete_fail_missing_prepared_content",
+  "prepared_at": "2026-09-17T19:05:09.964271+00:00",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/DIRECTION.md",
+      "sha256": "ea3bd4c72c5070cf4603e382d04646ba07d0e6af3af8da53b269800c01d2aea3"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r68-s22-buyer-response/TAKE-A.request.json",
+      "sha256": "4189ed6d5a4b7e37992b4c5622af2e01182a6decdff48c3fd5eb44bfee1b9f23"
+    }
+  ],
+  "expected_source_path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r68-s22-film/provider/take-a/native.mp4",
+  "source_sha256": "02ce890b5b467558223477f1cd5ca5114481a563fb137f6a502903c26c03ffe7",
+  "source_inspected": true,
+  "checklist": [
+    {
+      "id": "source_identity",
+      "criterion": "Verify root-supplied source SHA; probe true duration, dimensions, rate and frame count. Direction and request pins must match.",
+      "result": "pass",
+      "evidence": "Source SHA matches root pin;193frames,24fps,1916x1080,8.041667s."
+    },
+    {
+      "id": "prepared_content",
+      "criterion": "When first exposed the binder page clearly contains existing dark rows, rules and completed marks at final review size. No blank reveal, writing-in-view, materializing print, legible invented facts or later erasure.",
+      "result": "fail",
+      "evidence": "Exposed pages have empty ruled body rows with a repeated check-mark strip. No visibly written answer at full or1280 review size."
+    },
+    {
+      "id": "binder_physics",
+      "criterion": "One coherent cover opening on a stable spine. Cover and page remain distinct; plausible hinge, contact, occlusion and hand movement. No replacement sheet, paper duplication, binder stretch, teleportation or passing through props.",
+      "result": "limited_observation",
+      "evidence": "Broad lift/reorientation/open/settle sequence visible in6-frame samples; differs from strict in-place direction. Continuous real-time mechanics not certified."
+    },
+    {
+      "id": "causal_point",
+      "criterion": "After reveal, owner places one index finger beside a specific populated row. Point is visually identifiable, brief and directed to content; not merely palm resting on the page or aimless gesture.",
+      "result": "partial",
+      "evidence": "Clear index-finger point is present, but its target row is empty, not a populated answer."
+    },
+    {
+      "id": "withdrawal",
+      "criterion": "Owner withdraws her pointing hand fully clear of the target row and leaves the open binder stable. Buyer follows visually without a hand collision; enough stable tail remains for a B seed and cut.",
+      "result": "pass_sampled",
+      "evidence": "Hand withdraws near180 and is resting clear at192."
+    },
+    {
+      "id": "continuity",
+      "criterion": "Same accepted owner left in tan and buyer right in blue with glasses, faces and roles; workshop daylight, table and action line; original loose blank sheet, pencil and keys remain distinct and unchanged. Camera stays fixed.",
+      "result": "pass_sampled",
+      "evidence": "Cast, sides, wardrobe, room and separate loose sheet/pencil/keys recognizable in sampled frames; not full per-frame certification."
+    },
+    {
+      "id": "performance",
+      "criterion": "Prompt opening without hesitation or new speech; buyer attention follows the indicated row. No extra turns, repeated taps, writing, handshake or sale conclusion. A need not supply the positive nod assigned to B.",
+      "result": "limited_observation",
+      "evidence": "Prompt presentation and attention visible. Source reaction in B not judged from A. No normal-speed speech/mouth or timing audit."
+    },
+    {
+      "id": "selection",
+      "criterion": "Find a continuous unretimed 170-frame interval preserving opening, populated reveal, clear point, withdrawal and settled tail. No loops, freezes or speed change. Revealed content is readable as populated by the selected-slot offset 5.48 seconds, at the latest.",
+      "result": "fail",
+      "evidence": "No compliant170-frame interval can avoid empty-record defect while retaining required reveal and point."
+    },
+    {
+      "id": "seed",
+      "criterion": "Recommend exact source frame only after a successful reveal and withdrawal, with stable visible populated page, no blur/occlusion, stable identity and coherent geometry. It must match the selected A out state; bind source and extracted seed hashes. No seed can repair failed motion.",
+      "result": "fail",
+      "evidence": "No seed recommended. Hand-clear finalframe192 retains empty-body-page defect."
+    }
+  ],
+  "selected_frames_half_open": null,
+  "potential_b_seed_frame": null,
+  "source_review_recommendation": "FAIL. Do not use Take A for corrected payoff or seed Take B: ruled forms remain empty of body text.",
+  "owner_acceptance": false,
+  "report": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/report.md",
+  "report_sha256": "efdd4571b9cf0cf5ff9c98bfa518ad1ced1c4a0ca48920b637d79a3e0cf70e7d",
+  "shared_edits": false,
+  "provider_calls": 0,
+  "log_or_gate_changes": false,
+  "reviewed_at": "2026-09-17T19:10:34.094787+00:00",
+  "source_probe": {
+    "width": 1916,
+    "height": 1080,
+    "fps": "24/1",
+    "frames": 193,
+    "duration_seconds": 8.041667
+  },
+  "material_defects": [
+    {
+      "id": "missing_written_answer",
+      "severity": "blocking_for_this_source",
+      "frames": [
+        96,
+        144,
+        168,
+        180,
+        192
+      ],
+      "finding": "Empty ruled body rows with repeated check marks; no visible prepared written record; owner points to empty row."
+    }
+  ],
+  "inspected_full_size_frames": [
+    96,
+    144,
+    168,
+    192
+  ],
+  "inspected_1280_frames": [
+    180
+  ],
+  "dense_sample_frames": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    90,
+    96,
+    102,
+    108,
+    114,
+    120,
+    126,
+    132,
+    138,
+    144,
+    150,
+    156,
+    162,
+    168,
+    174,
+    180,
+    186,
+    192
+  ],
+  "normal_speed_audiovisual_review": false,
+  "qa_artifacts": [
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-096-full.png",
+      "frame": 96,
+      "size": "1916x1080",
+      "sha256": "9314ee3b4f56239e0d7ac17a710f62f51eff1b4f4b5a92f133c808c6c0c2e5a2"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-120-full.png",
+      "frame": 120,
+      "size": "1916x1080",
+      "sha256": "ef52b1d00b5aa3d0ee73d8cd454fef56f128f8dfdbe4a91fc3a7bcdb8aecc91b"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-144-full.png",
+      "frame": 144,
+      "size": "1916x1080",
+      "sha256": "da70a75d95c1e509ddcd1b39229b3e87919ad37779c4030cc255eb1c3df4bd5e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-168-full.png",
+      "frame": 168,
+      "size": "1916x1080",
+      "sha256": "624e8150422e7a68561f4a85abad564f502d51ae1eb80ce6148320b4bf457865"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-180-full.png",
+      "frame": 180,
+      "size": "1916x1080",
+      "sha256": "76cb539a400992ccfde1b827d5b0c7064a4bd46b0c44d2721e098abf6a1db302"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-192-full.png",
+      "frame": 192,
+      "size": "1916x1080",
+      "sha256": "5928b1c8035b7c7709a01a4dce43921558ad58d7c36e8d0945a6700f87793300"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-144-1280.png",
+      "frame": 144,
+      "size": "1280x720",
+      "sha256": "b7a8e4953815a57e6bd51abea7f9aee28aca62c0049bc40e412b694500321016"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-180-1280.png",
+      "frame": 180,
+      "size": "1280x720",
+      "sha256": "000cf718fbc7a4bc8765849d8c58a7fb32dc894945ae8f1dc98b061c6ab91c9e"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/frame-192-1280.png",
+      "frame": 192,
+      "size": "1280x720",
+      "sha256": "b3ed91d2a52f79fda546b09738fa34d46f4ad39f66fcbfebe59ff888f6360530"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/R68-S22-TAKE-A-QC/qa/motion-every6frames.png",
+      "frames": [
+        0,
+        6,
+        12,
+        18,
+        24,
+        30,
+        36,
+        42,
+        48,
+        54,
+        60,
+        66,
+        72,
+        78,
+        84,
+        90,
+        96,
+        102,
+        108,
+        114,
+        120,
+        126,
+        132,
+        138,
+        144,
+        150,
+        156,
+        162,
+        168,
+        174,
+        180,
+        186,
+        192
+      ],
+      "sha256": "efb4701d9db69a0e32e18f1ae0e629c9eb3379832746cd7bfe10547a487d8c6c"
+    }
+  ],
+  "canonical_gate_changed": false
+}

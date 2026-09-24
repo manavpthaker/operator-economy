@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep007-r6-later-shots-qa-20260907",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Bounded independent QA of R6 second generated shot and replacement close-up reference. Previous shot-03 reference was rejected; this is a new exact-pinned alternative, not an accepted cleanup. Not production dispatch; inputs_locked remains unestablished.",
+  "required_gate": "inputs_locked",
+  "inputs": [
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/DIRECTION.md",
+      "sha256": "5bcefc7f86b29128f5d16d7c739d0cbf3ed66d94f30bab5378820cd59d24b2d5"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-02-start.png",
+      "sha256": "9338ba62ae205b63aa6a7613d1fa8b8bd1c7451a3c5849f82c63fc77d69e1875"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/public/media/shot-03-start-v2.png",
+      "sha256": "0ed81e07b12747f5b5ed39152e995030496e095556b61841b51455daab06d57a"
+    },
+    {
+      "path": "experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r6-character-first/renders/candidates/shot-02.mp4",
+      "sha256": "72e5f3d49350740968fe630e7469525a9d91e9a43a2507adc597b8c18b91f2af"
+    }
+  ],
+  "owned_output_paths": [
+    "episodes/EP007-exit-readiness-prep/agents/deliverables/ep007-r6-later-shots-qa-20260907/"
+  ],
+  "forbidden_paths": [
+    "experiments/",
+    "src/",
+    "schemas/",
+    "renderer/src/Root.tsx",
+    "renderer/src/index.ts",
+    "episodes/EP007-exit-readiness-prep/episode.json",
+    "episodes/EP007-exit-readiness-prep/input-lock.json",
+    "episodes/EP007-exit-readiness-prep/production-state.json",
+    "episodes/EP007-exit-readiness-prep/episode-engine.json",
+    "episodes/EP007-exit-readiness-prep/world.json",
+    "episodes/EP007-exit-readiness-prep/visual-plan.json",
+    "episodes/EP007-exit-readiness-prep/asset-tickets.json"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify all input pins; inspect actual shot02 at dense motion/mouth/action samples. Planned record 15–30s; narration question17.96–20.34, answer attempt21.28–22.55, four words23.4–25.74, stops25.76–26.8, arithmetic27.92 onward.",
+    "Judge whether owner hesitation is legible and causally fits; flag meaningful drift, phantom dialogue or repeated gesture. Replacement still: check if shirt/skin pattern is resolved and same cast survives; compare to assigned shot02 start.",
+    "Return exact findings promptly, write short report/deliverable only within owned dir. No creative approval, generation, canonical mutations. Later shot03 video requires separate pin before review."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "No generation, spend, auth change, input edits, render or upstream audit.",
+    "Report what is actually visible; do not call fixed solely because prompt asked for it."
+  ],
+  "status": "issued"
+}

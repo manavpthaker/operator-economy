@@ -1,0 +1,385 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-400.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Supreme Rehearsal";
+      src: url("assets/fonts/supreme-500.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    @font-face {
+      font-family: "IBM Plex Mono";
+      src: url("assets/fonts/ibm-plex-mono-700.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #f5f0e6;
+      font-family: "Supreme Rehearsal";
+      box-sizing: border-box;
+    }
+
+    .s04-background,
+    .s04-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .s04-background {
+      background: #f5f0e6;
+    }
+
+    .s04-navy-plane {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1068px;
+      height: 1080px;
+      background: #14263e;
+    }
+
+    .s04-grid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1068px;
+      height: 1080px;
+      opacity: 0.08;
+    }
+
+    .s04-boundary-rule {
+      position: absolute;
+      left: 1066px;
+      top: 0;
+      width: 2px;
+      height: 1080px;
+      background: #1a1a1a;
+    }
+
+    .s04-rail-left,
+    .s04-rail-right {
+      position: absolute;
+      top: 508px;
+      height: 4px;
+    }
+
+    .s04-rail-left {
+      left: 104px;
+      width: 936px;
+      background: #1f3a5f;
+    }
+
+    .s04-rail-right {
+      left: 1068px;
+      width: 748px;
+      background: #1a1a1a;
+    }
+
+    .s04-held-stop {
+      position: absolute;
+      left: 868px;
+      top: 498px;
+      width: 24px;
+      height: 24px;
+      border: 4px solid #9b3e2e;
+      border-radius: 999px;
+      opacity: 0;
+      box-sizing: border-box;
+    }
+
+    .s04-hold-plate {
+      position: absolute;
+      left: 852px;
+      top: 360px;
+      width: 188px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1a1a;
+      background: #f5f0e6;
+      border-top: 4px solid #9b3e2e;
+      border-bottom: 4px solid #9b3e2e;
+      opacity: 0;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: 0.08em;
+    }
+
+    .s04-context-plate {
+      position: absolute;
+      left: 820px;
+      top: 472px;
+      width: 220px;
+      height: 76px;
+      border: 2px dashed #f5f0e6;
+      transform-origin: right center;
+      box-sizing: border-box;
+    }
+
+    .s04-context-plate::before {
+      content: "HUMAN CHECK";
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      color: #f5f0e6;
+      font-family: "IBM Plex Mono";
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      letter-spacing: 0.04em;
+    }
+
+    .s04-barrier-piece {
+      position: absolute;
+      left: 1040px;
+      width: 28px;
+      height: 255px;
+      background: #9b3e2e;
+      border-left: 2px solid #1a1a1a;
+      border-right: 2px solid #1a1a1a;
+      box-sizing: border-box;
+    }
+
+    .s04-barrier-upper {
+      top: 130px;
+      transform-origin: center bottom;
+    }
+
+    .s04-barrier-lower {
+      top: 625px;
+      transform-origin: center top;
+    }
+
+    .s04-human-placeholder {
+      position: absolute;
+      left: 760px;
+      top: 390px;
+      width: 340px;
+      height: 330px;
+      pointer-events: none;
+    }
+
+    .s04-hand-svg {
+      display: block;
+      width: 340px;
+      height: 255px;
+      overflow: visible;
+    }
+
+    .s04-hand-label {
+      position: absolute;
+      left: -300px;
+      top: 220px;
+      width: 264px;
+      min-height: 54px;
+      padding: 8px 10px;
+      color: #f5f0e6;
+      background: #9b3e2e;
+      border: 2px dashed #f5f0e6;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      letter-spacing: 0.025em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .s04-release-stamp {
+      position: absolute;
+      left: 1088px;
+      top: 352px;
+      width: 232px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5e7f6a;
+      border-top: 4px solid #5e7f6a;
+      border-bottom: 4px solid #5e7f6a;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 40px;
+      letter-spacing: 0.05em;
+    }
+
+    .s04-slot-tab {
+      position: absolute;
+      left: 1068px;
+      top: 454px;
+      width: 430px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 28px;
+      color: #1a1a1a;
+      background: #f5f0e6;
+      border-top: 3px solid #1a1a1a;
+      border-right: 3px solid #1a1a1a;
+      border-bottom: 3px solid #1a1a1a;
+      transform-origin: left center;
+      box-sizing: border-box;
+      font-family: "Supreme Rehearsal";
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 44px;
+      letter-spacing: 0.02em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .s04-source-warning {
+      display: none;
+      position: absolute;
+      left: 1328px;
+      top: 104px;
+      width: 488px;
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px 8px 16px;
+      color: #1a1a1a;
+      background: #f5f0e6;
+      border-top: 2px solid #1a1a1a;
+      border-bottom: 2px solid #1a1a1a;
+      border-left: 8px solid #7a5e24;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono";
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+    }
+
+    .s04-anchor {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-rcf2" id="root" data-composition-id="bc-rh-001-shot-04" data-start="0" data-duration="5.68" data-width="1920" data-height="1080" data-fps="30">
+    <div data-hf-id="hf-uccj" id="s04-background" class="clip s04-background" data-start="0" data-duration="5.68" data-track-index="0">
+      <div data-hf-id="hf-aahl" class="s04-navy-plane">
+        <svg data-hf-id="hf-345n" class="s04-grid" viewBox="0 0 1068 1080" aria-hidden="true">
+          <defs data-hf-id="hf-mh0t">
+            <pattern data-hf-id="hf-narn" id="s04-grid-pattern" width="48" height="48" patternUnits="userSpaceOnUse">
+              <line data-hf-id="hf-m4ms" x1="0" y1="0" x2="48" y2="0" stroke="#f5f0e6" stroke-width="2" />
+              <line data-hf-id="hf-zoq6" x1="0" y1="0" x2="0" y2="48" stroke="#f5f0e6" stroke-width="2" />
+            </pattern>
+          </defs>
+          <rect data-hf-id="hf-oviz" width="1068" height="1080" fill="url(#s04-grid-pattern)" />
+        </svg>
+      </div>
+      <div data-hf-id="hf-ewqt" class="s04-boundary-rule"></div>
+    </div>
+
+    <div data-hf-id="hf-h6ie" id="s04-scene" class="clip s04-scene" data-start="0" data-duration="5.68" data-track-index="1">
+      <div data-hf-id="hf-6r2q" class="s04-rail-left"></div>
+      <div data-hf-id="hf-l7k1" class="s04-rail-right"></div>
+      <div data-hf-id="hf-7uqj" id="s04-held-stop" class="s04-held-stop" aria-hidden="true"></div>
+      <div data-hf-id="hf-uv7j" id="s04-hold-plate" class="s04-hold-plate">HOLD</div>
+      <div data-hf-id="hf-cer3" id="s04-context-inspection-plate" class="s04-context-plate"></div>
+      <div data-hf-id="hf-6c8m" id="s04-barrier-upper" class="s04-barrier-piece s04-barrier-upper"></div>
+      <div data-hf-id="hf-u404" id="s04-barrier-lower" class="s04-barrier-piece s04-barrier-lower"></div>
+
+      <div data-hf-id="hf-6p27" id="s04-human-placeholder" class="s04-human-placeholder" aria-label="Conspicuous hand-shaped synthetic operator placeholder">
+        <svg data-hf-id="hf-cwa2" class="s04-hand-svg" viewBox="0 0 240 180" aria-hidden="true">
+          <path data-hf-id="hf-ffj3" id="s04-human-hand-shape" d="M 40 60 L 96 60 L 96 43 Q 96 30 109 30 Q 122 30 122 43 L 122 52 L 130 52 L 130 29 Q 130 16 143 16 Q 156 16 156 29 L 156 52 L 164 52 L 164 37 Q 164 24 177 24 Q 190 24 190 37 L 190 57 L 200 57 Q 216 57 220 71 Q 222 82 212 91 L 187 112 Q 173 124 163 145 L 158 158 L 72 158 L 68 145 Q 62 127 49 112 L 30 91 Q 21 81 25 71 Q 29 60 40 60 Z" fill="#f5f0e6" stroke="#9b3e2e" stroke-width="4" stroke-dasharray="10 8" stroke-linejoin="miter" />
+        </svg>
+        <div data-hf-id="hf-6v1c" class="s04-hand-label" data-layout-allow-overflow="">AST-OPERATOR-003</div>
+      </div>
+
+      <div data-hf-id="hf-nck1" id="s04-release-stamp" class="s04-release-stamp">RELEASE</div>
+      <div data-hf-id="hf-thhg" id="s04-slot-tab" class="s04-slot-tab">NEXT AVAILABLE SLOT</div>
+    </div>
+
+    <div data-hf-id="hf-1y56" id="s04-tag-entry-anchor" class="s04-anchor" data-anchor-x="880" data-anchor-y="510" style="left: 879px; top: 509px"></div>
+    <div data-hf-id="hf-ztc3" id="s04-tag-held-anchor" class="s04-anchor" data-anchor-x="880" data-anchor-y="510" style="left: 879px; top: 509px"></div>
+    <div data-hf-id="hf-4mfh" id="s04-tag-released-anchor" class="s04-anchor" data-anchor-x="1250" data-anchor-y="510" style="left: 1249px; top: 509px"></div>
+    <div data-hf-id="hf-9tge" id="s04-card-anchor" class="s04-anchor" data-anchor-x="1550" data-anchor-y="300" style="left: 1549px; top: 299px"></div>
+    <div data-hf-id="hf-jpy5" id="s04-proof-anchor" class="s04-anchor" data-anchor-x="1560" data-anchor-y="120" style="left: 1559px; top: 119px"></div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const s04Timeline = gsap.timeline({ paused: true });
+
+      s04Timeline.fromTo(
+        "#s04-human-placeholder",
+        { x: 48, y: 64, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 0.38, ease: "power2.out" },
+        2.14
+      );
+      s04Timeline.fromTo(
+        "#s04-context-inspection-plate",
+        { rotation: 0 },
+        { rotation: 4, duration: 0.18, ease: "power1.out" },
+        2.36
+      );
+      s04Timeline.fromTo(
+        "#s04-context-inspection-plate",
+        { rotation: 4 },
+        { rotation: 0, duration: 0.18, ease: "power1.inOut", immediateRender: false },
+        2.54
+      );
+      s04Timeline.fromTo(
+        "#s04-release-stamp",
+        { opacity: 0, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" },
+        3.44
+      );
+      s04Timeline.fromTo(
+        "#s04-hold-plate, #s04-held-stop",
+        { opacity: 1 },
+        { opacity: 0, duration: 0.15, ease: "power1.out" },
+        3.44
+      );
+      s04Timeline.fromTo(
+        "#s04-barrier-upper",
+        { y: 120 },
+        { y: 0, duration: 0.35, ease: "power2.inOut" },
+        3.44
+      );
+      s04Timeline.fromTo(
+        "#s04-barrier-lower",
+        { y: -120 },
+        { y: 0, duration: 0.35, ease: "power2.inOut" },
+        3.44
+      );
+      s04Timeline.fromTo(
+        "#s04-slot-tab",
+        { opacity: 0, scaleX: 0.02 },
+        { opacity: 1, scaleX: 1, duration: 0.45, ease: "power2.out" },
+        3.68
+      );
+
+      window.__timelines["bc-rh-001-shot-04"] = s04Timeline;
+    </script>
+  </div>
+</template>

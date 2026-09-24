@@ -1,0 +1,554 @@
+{
+  "contract_version": "0.3",
+  "episode": "EP009-direct-booking-recovery",
+  "candidate_status": "UNGATED_DRAFT",
+  "candidate_boundary": "V1 is not passed. This document is review material only and does not activate V2, approve an episode engine, or authorize later production.",
+  "input_lock_record": {
+    "path": "V1-INPUT-LOCK.md",
+    "sha256": "fa71e0b0b7a3ea05bba3815184975acaa4268c78ff6079a9f988689ae85d014f",
+    "status": "NOT_PASSED"
+  },
+  "process_snapshot": {
+    "path": "../../../03-visual-translation/PROCESS-MANIFEST.json",
+    "sha256": "4f830d71d677efa8915429dfe35628012289c28ac988cb74f77261331519690c",
+    "status": "proposed; authority returned by owner 2026-09-02 and not re-granted"
+  },
+  "derived": {
+    "operator": "A marketing-and-operations generalist with hospitality judgment",
+    "customer": "The owner or owner-operator of a US independent lodging property of roughly 20 to 40 rooms with no marketing or revenue hire",
+    "beneficiary": "The returning guest, with the front desk as the day-to-day user",
+    "constraint": "Most reservations arrive through booking sites with commission attached; the guest contact is held behind an alias; the front desk has no time to build a first-party list",
+    "counter_system": "A paid direct-booking audit followed, where suitable, by a flat monthly retainer for findable, bookable, and remembered work, with direct share reported monthly",
+    "owned_value": "A documented baseline, a tested and fixed direct path, a consented first-party guest list that grows monthly, and one number the owner can act on",
+    "outcome_object": "The audit recommendation and the monthly direct-share scorecard"
+  },
+  "boundary_ledger_lock": {
+    "system_version": "2.0.0",
+    "semantic_core_path": "../../../../design-system/boundary-ledger/semantic-core.json",
+    "semantic_core_sha256": "30a316f79bc94e017705de0823a0af5b85747a20938eb0a2723d39a1a298978e",
+    "motion_binding_path": "../../../../design-system/boundary-ledger/bindings/motion.json",
+    "motion_binding_sha256": "b2ca3e3295ef2f1dd676732b6b9c7bdefbcfbf55ff642cdf1ab90dc9c84fb450",
+    "motion_binding_status": "provisional"
+  },
+  "business_operations": [
+    {
+      "id": "BO-003",
+      "upstream_state_id": "canvas-6-core-workflow-3",
+      "state_before": "A recorded findability finding remains visible and the property-controlled placement still carries its unresolved consequence.",
+      "state_after": "The recorded finding remains visible while corrected property-controlled placement replaces the in-scope defect's consequence.",
+      "business_operation": "Correct an in-scope findability defect inside the property's own accounts.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "3. Fix findability: Google Business Profile, free booking links through the connectivity partner, photos, offers. Owner: operator inside the property's accounts. Output: live direct placement.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct preserves the recorded finding while an in-scope revision inside the property's account replaces its consequence. The row is deliberately limited to findability, the only direct-path fix named as an upstream workflow step; testing and creation of the finding remain excluded under DSB-004.",
+      "acts_on": [
+        "direct-path.findability"
+      ],
+      "carried": [
+        "property-owner",
+        "practice-operator",
+        "audit-input.direct-path-findings"
+      ]
+    },
+    {
+      "id": "BO-005",
+      "upstream_state_id": "canvas-6-core-workflow-5",
+      "state_before": "A checkout-linked work item from an already eligible, separately consented property record is queued with no messages prepared.",
+      "state_after": "The thank-you, review request, seasonal return offer, and referral prompt are drafted and scheduled, with voice and every sensitive send held for operator approval.",
+      "business_operation": "Route a consented checkout into an operator-reviewed post-stay sequence.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "5. Build the post-stay sequence. A language model drafts, an automation tool schedules off checkout dates, the operator approves voice and every sensitive send. Output: thank-you, review request, seasonal return offer, referral prompt.",
+      "boundary_ledger_semantic_role_id": "externalDependency",
+      "boundary_ledger_operation_id": "route",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Route moves an existing checkout-linked work item from its queue into drafted and scheduled material awaiting review. External tools carry the route, but the operator retains approval; the eligible guest record is only carried, not created, transferred, approved, or altered.",
+      "acts_on": [
+        "post-stay-work-item"
+      ],
+      "carried": [
+        "property-guest-record",
+        "practice-operator",
+        "consent-and-rules-boundary"
+      ]
+    },
+    {
+      "id": "BO-006",
+      "upstream_state_id": "canvas-5-monthly-baseline-comparison",
+      "state_before": "The current direct-share measure and the audit baseline remain separate evidence records.",
+      "state_after": "The monthly comparison attaches current direct share to the audit baseline without changing either source record.",
+      "business_operation": "Attach current direct-share evidence to the audit baseline for monthly comparison.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "5. Buyer result",
+      "source_quote": "How the result is measured: direct share of bookings, monthly, against the audit baseline.",
+      "boundary_ledger_semantic_role_id": "accountableEvidence",
+      "boundary_ledger_operation_id": "pin",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Pin attaches the current property report to the audit baseline as visible source context without creating the scorecard or treating movement as caused, typical, or guaranteed. The pre-existing scorecard remains inspectable and carries explanation separately from the outcome number.",
+      "acts_on": [
+        "direct-share-scorecard"
+      ],
+      "carried": [
+        "property-owner",
+        "practice-operator"
+      ]
+    },
+    {
+      "id": "BO-008",
+      "upstream_state_id": "canvas-6-no-movement-diagnosis",
+      "state_before": "Direct share has not moved and the unchanged result has no recorded diagnosis.",
+      "state_after": "The scorecard still says direct share did not move and records a bounded diagnosis rather than implying success.",
+      "business_operation": "Keep a no-movement result visible and add a bounded diagnosis.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Quality and exception handling",
+      "source_quote": "Failure route: if direct share does not move, the scorecard says so and the operator diagnoses (seasonality, site promotion, broken direct path, low consent capture) rather than decorating the report. If the audit shows base commission and low site share, the recommendation is audit-only or not this property.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "correct",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Correct leaves the prior no-movement mark readable while diagnosis changes the operating consequence. It does not recolor failure as progress, assign causality without evidence, or promise that a subsequent adjustment will move the number.",
+      "acts_on": [
+        "direct-share-scorecard",
+        "diagnosis-record"
+      ],
+      "carried": [
+        "property-owner",
+        "practice-operator"
+      ]
+    },
+    {
+      "id": "BO-009",
+      "upstream_state_id": "canvas-6-after-delivery-revocation",
+      "state_before": "A consented property-held record remains eligible for future use, and a related post-stay work item may be awaiting human review.",
+      "state_after": "A revocation request immediately closes the record's owned-contact eligibility, stops future use, and stops any pending post-stay work.",
+      "business_operation": "Interrupt future use of a property-held guest record and its pending post-stay work immediately on revocation.",
+      "label": "DERIVED",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > After delivery",
+      "source_quote": "Handoff, reporting, support, or renewal: the scorecard on the first of each month. Renewal depends on the number moving. The property owns every account, every list, and every message template. Revocation is immediate on request. `MODELED`.",
+      "boundary_ledger_semantic_role_id": "activeCommitment",
+      "boundary_ledger_operation_id": "interrupt",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Interrupt requires an active operation or route to stop or become unavailable. Immediate revocation stops future owned-record use and pending post-stay work; it does not delete the record, transfer the platform relay, or imply re-consent.",
+      "acts_on": [
+        "property-guest-record",
+        "post-stay-work-item"
+      ],
+      "carried": [
+        "consent-and-rules-boundary"
+      ]
+    }
+  ],
+  "episode_visual_model": {
+    "name": "The direct-path review, held approval, revocation boundary, and ceiling",
+    "label": "AUTHORED",
+    "business_operation_ids": [
+      "BO-003",
+      "BO-005",
+      "BO-006",
+      "BO-008",
+      "BO-009"
+    ],
+    "establishment_ids": [
+      "EST-001",
+      "EST-002",
+      "EST-003"
+    ],
+    "persistent_actors": [
+      {
+        "id": "property-owner",
+        "description": "The owner or owner-operator who buys the audit, grants access, sees the ceiling, and decides whether the retainer fits."
+      },
+      {
+        "id": "returning-guest",
+        "description": "The same guest across two stays. The guest chooses whether to consent and where to book; the engagement never controls that choice."
+      },
+      {
+        "id": "front-desk",
+        "description": "The day-to-day user who carries consent capture at check-in while already operating under a staffing constraint."
+      },
+      {
+        "id": "practice-operator",
+        "description": "The accountable operator who audits, computes, tests, writes, approves, reports, and can recommend no."
+      },
+      {
+        "id": "booking-platform",
+        "description": "The external discovery and checkout system. It provides valuable reach, charges per booking, and retains its own communication rules."
+      },
+      {
+        "id": "booking-path",
+        "description": "An object class with distinct platform and property-direct instances. The two paths remain recognisable and may be in different states."
+      },
+      {
+        "id": "audit-input",
+        "description": "An object class with four distinct property-specific inputs. No input may stand in for another."
+      },
+      {
+        "id": "direct-path-component",
+        "description": "An object class with separate findability, booking-flow, policy, and phone-fallback instances. A generic component may not change identity to satisfy a different job."
+      },
+      {
+        "id": "ceiling-record",
+        "description": "The property-specific ceiling computed from explicit inputs and kept visibly modeled where assumptions remain."
+      },
+      {
+        "id": "audit-bundle",
+        "description": "The stable property-specific container that keeps the four inputs, ceiling, findings, and final recommendation together without turning one into another."
+      },
+      {
+        "id": "direct-stack-cost-recipient",
+        "description": "The modeled aggregate recipient of booking-engine, payment, and related direct-stack cost; it keeps gross avoided commission distinct from net recoverable value without inventing a vendor."
+      },
+      {
+        "id": "property-guest-record",
+        "description": "A property-held record that, when present, originated from the guest's own stated-purpose consent. Its creation is not represented while design-system blocker DSB-001 remains open."
+      },
+      {
+        "id": "direct-share-scorecard",
+        "description": "The monthly record that compares direct share with the audit baseline and reports no movement honestly."
+      }
+    ],
+    "zones_and_relationships": [
+      "The platform path and the property-direct path are separate, persistent routes. The current platform route is shown fairly before the property-owned route is considered.",
+      "The returning guest may move between booking paths by their own choice; no operator action is permitted to depict a guaranteed direct booking.",
+      "The relay contact belongs to the platform route. A separately consented property guest record, when present, belongs to the property; one never transforms into the other, and the current engine cannot depict the record's creation while DSB-001 is open.",
+      "The four audit inputs, precomputed ceiling, audit bundle, direct-stack cost recipient, and three-option recommendation remain individually attributable. Their computation, binding, and final disposition are not depicted while DSB-002 and DSB-003 remain open.",
+      "The scorecard compares measured direct share with the audit baseline. Seasonality, site promotions, missed calls, and list size may explain the number but cannot replace it.",
+      "Human decisions remain explicit at consent, message approval, audit disposition, renewal, and guest booking choice."
+    ],
+    "mechanical_honesty": "The model depicts only mapped business changes: correction of a recorded in-scope findability finding, routing of an existing checkout work item into drafts awaiting human approval, attachment of current direct-share evidence to a baseline, bounded diagnosis after a visible no-movement mark, and what revocation stops. Creation of the separate consented record, testing and creation of direct-path findings, calculation or assembly of the audit ceiling, and creation or settlement of the owner recommendation remain explicit design-system blockers because no current Boundary Ledger operation faithfully represents them. The model cannot depict those blocked changes, human approval as automated, direct-share gain, commission saved, a returning guest booking direct, a retainer sale, six retained properties, or a viable room band as delivered outcomes.",
+    "upstream_dependencies": [
+      "The room band is UNKNOWN, not an observed segment boundary.",
+      "The ceiling uses property-specific inputs; episode figures remain illustrative and modeled.",
+      "Messaging-window durations remain secondary trade reporting under open Step 0 request R001.",
+      "Any future direct booking remains the guest's choice and cannot be attributed to the service without observed evidence.",
+      "Boundary Ledger 2.0 contains no operation for creating an additional permissioned owned relationship while retaining the external relationship; DSB-001 blocks that state change.",
+      "Boundary Ledger 2.0 contains no inspection or finding-creation operation; DSB-004 blocks the test-to-finding transition and BO-003 begins only after a finding is recorded."
+    ]
+  },
+  "reality_world": {
+    "label": "AUTHORED",
+    "people": [
+      "An owner or owner-operator at the property",
+      "A returning guest at check-in",
+      "A front-desk worker carrying the consent question",
+      "The accountable practice operator in an owner conversation"
+    ],
+    "places": [
+      "The property's front desk",
+      "A room where the owner opens the property's reports",
+      "The property's own direct booking path as used by a guest"
+    ],
+    "objects": [
+      "A reservation record carrying a platform relay address",
+      "A registration card with a stated-purpose consent field",
+      "The four audit inputs, kept separate",
+      "A written audit recommendation",
+      "A monthly direct-share scorecard"
+    ],
+    "surfaces": [
+      "The property's own reports and account surfaces",
+      "A phone used to test the direct path as a guest",
+      "The front-desk registration surface",
+      "A flat, attributable evidence surface for claims and modeled arithmetic"
+    ]
+  },
+  "guardrails": [
+    "Never portray the booking platforms as villains or imply the property should leave them. The current system is a fair trade for reach and remains part of the world.",
+    "Never depict a platform relay address becoming a property-owned private email. The property record exists only through separate, stated-purpose consent.",
+    "Never depict a separate consented property-held record appearing until DSB-001 is resolved by an approved Boundary Ledger operation and the hashes are repinned.",
+    "Never depict a direct booking, direct-share increase, commission saving, renewal, or six-property business as an observed result.",
+    "Never turn the illustrative 20-room inn, its inputs, or its ten-point shift into a documented case or typical property.",
+    "Never apply global vendor data, European data, or an association survey to the 20-to-40-room US band without its recorded qualification.",
+    "Never imply that free placement or inexpensive tools produce bookings. Components establish capability, not outcome.",
+    "Never show gross commission avoided as net recoverable. The modeled direct-stack cost must remain visible between gross avoided commission and the ceiling.",
+    "Never let automation choose recipients, consent, voice, offers, or sensitive sends. Those decisions remain human.",
+    "Never market to a masked platform address or portray platform rules, email law, or consent as optional.",
+    "Never depict the audit's retainer recommendation as the only successful branch. Audit-only and not-this-property are valid results.",
+    "Never hide a flat or falling direct-share result. The unchanged number remains visible while diagnosis is added.",
+    "Never present the room band, operator price, hours, renewal, acquisition channels, or willingness to pay as observed.",
+    "Never use a polished model or sourced receipt to upgrade MODELED, PARALLEL, secondary, UNKNOWN, or open-R001 evidence."
+  ],
+  "derived_provenance": {
+    "operator": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "1. Operator",
+      "source_quote": "Who could credibly run this business: a marketing-and-operations generalist with hospitality judgment who can read a booking-mix report, work a booking engine and a Google Business Profile, write a guest message an innkeeper would be proud to send, handle consent and email-law hygiene, and hold a money conversation with an owner. `PARALLEL`: research brief, \"Required skills or credentials\"."
+    },
+    "customer": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: the owner or owner-operator of a US independent lodging property of roughly 20 to 40 rooms with no marketing or revenue hire. `OBSERVED` for the buyer relationship, `UNKNOWN` for band size: CLM-012 (AHLA counts 33,200-plus small-business properties, not a room band)."
+    },
+    "beneficiary": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Day-to-day user: the front desk, which carries the consent capture at check-in.\n\nUltimate beneficiary: the returning guest, who books direct at a rate the property sets."
+    },
+    "constraint": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "3. Costly problem",
+      "source_quote": "Current failure or friction: most reservations arrive through the sites with a commission attached. The site hides the guest's email behind an alias and asks partners to keep communication on-platform. The desk has no time to build a first-party list. So the property pays the same introduction fee for the same guest's next stay. `OBSERVED`: CLM-001 (63.4 percent OTA share of independent bookings in 2025, global, vendor), CLM-002 (direct channels 50.9 percent of European overnight stays, HOTREC), CLM-008 (alias policy, primary via amendment 01), CLM-012 (65 percent of surveyed hotels report staffing shortages)."
+    },
+    "counter_system": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "4. Offer",
+      "source_quote": "Plain-English offer: a paid direct-booking audit, then a flat monthly retainer covering three jobs (findable, bookable, remembered), with one number reported monthly, direct share of bookings before and after."
+    },
+    "owned_value": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "5. Buyer result",
+      "source_quote": "Result being purchased: a documented baseline, a tested and fixed direct path, a consented first-party guest list that grows monthly, and one number the owner can act on."
+    },
+    "outcome_object": {
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "5. Buyer result",
+      "source_quote": "Primary acceptance measure: the audit is accepted when the owner holds the four inputs, the ceiling, the direct-path findings, and the written recommendation. The retainer is accepted month by month on the delivered scorecard."
+    }
+  },
+  "establishment": [
+    {
+      "id": "EST-001",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer cannot yet identify who pays, who carries the daily work, who benefits, or that the guest may independently choose the property's direct route.",
+      "viewer_state_after": "The viewer can identify the owner as buyer, the front desk as day-to-day user, the returning guest as beneficiary, and a property-direct booking as the guest's possible choice rather than an attributed result.",
+      "reveals": [
+        "property-owner",
+        "front-desk",
+        "returning-guest",
+        "booking-record.direct"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "2. Buyer and beneficiary",
+      "source_quote": "Economic buyer: the owner or owner-operator of a US independent lodging property of roughly 20 to 40 rooms with no marketing or revenue hire. `OBSERVED` for the buyer relationship, `UNKNOWN` for band size: CLM-012 (AHLA counts 33,200-plus small-business properties, not a room band).\n\nDay-to-day user: the front desk, which carries the consent capture at check-in.\n\nUltimate beneficiary: the returning guest, who books direct at a rate the property sets.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish changes only what the viewer can identify. The cited section names the buyer, day-to-day user, beneficiary, and possible direct booking; no business object changes, no direct choice is attributed to the practice, and the UNKNOWN room-band qualification remains visible."
+    },
+    {
+      "id": "EST-002",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer cannot yet identify the current paid booking route, its platform relay, or the staffing constraint beside it.",
+      "viewer_state_after": "The viewer can identify the booking platform, its platform-origin reservation record, its relay contact, and the constrained front desk as the current external relationship.",
+      "reveals": [
+        "booking-platform",
+        "booking-record.platform",
+        "relay-contact"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "3. Costly problem",
+      "source_quote": "Current failure or friction: most reservations arrive through the sites with a commission attached. The site hides the guest's email behind an alias and asks partners to keep communication on-platform. The desk has no time to build a first-party list. So the property pays the same introduction fee for the same guest's next stay. `OBSERVED`: CLM-001 (63.4 percent OTA share of independent bookings in 2025, global, vendor), CLM-002 (direct channels 50.9 percent of European overnight stays, HOTREC), CLM-008 (alias policy, primary via amendment 01), CLM-012 (65 percent of surveyed hotels report staffing shortages).",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish changes only viewer knowledge. The cited section supports the current paid site route, alias, and constrained desk; it does not claim the dependency itself changed."
+    },
+    {
+      "id": "EST-003",
+      "label": "AUTHORED",
+      "viewer_state_before": "The viewer cannot yet identify which records and decision artifacts belong to the audit.",
+      "viewer_state_after": "The viewer can identify the four source inputs, four distinct direct-path test components, ceiling, stable audit bundle, and three-option recommendation form without seeing blocked testing, calculation, or disposition occur.",
+      "reveals": [
+        "audit-input.booking-mix",
+        "audit-input.commission-line",
+        "audit-input.cancellation-by-channel",
+        "audit-input.direct-path-findings",
+        "direct-path.findability",
+        "direct-path.mobile-booking",
+        "direct-path.policy-readability",
+        "direct-path.phone-fallback",
+        "ceiling-record",
+        "audit-bundle",
+        "audit-recommendation"
+      ],
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "4. Offer",
+      "source_quote": "What is included, audit: booking mix, commission line, cancellation by channel, the ceiling on real inputs, a direct-path test as a guest (rate versus the site, mobile booking completion, cancellation-policy readability, phone at a busy hour), and a check of whether the registration card captures the guest's own email. A written recommendation: retainer, audit-only, or not this property.",
+      "boundary_ledger_semantic_role_id": "humanContext",
+      "boundary_ledger_operation_id": "establish",
+      "selection_label": "SELECTED",
+      "mapping_rationale": "Establish changes only viewer knowledge. The cited offer names the audit records, four direct-path test components, and three recommendation branches; the row reveals their stable identities but does not depict testing, calculation, binding, or human disposition."
+    }
+  ],
+  "input_lock": {
+    "editorial_lock": {
+      "path": "../01-editorial/editorial-lock.md",
+      "sha256": "246330740a5c7447e455f967b7a8597a3a8352fa417ff1f241e730c448da2d20"
+    },
+    "operator_canvas": {
+      "path": "../01-editorial/operator-canvas.md",
+      "sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35"
+    },
+    "episode_investment_thesis": {
+      "path": "../01-editorial/episode-investment-thesis.md",
+      "sha256": "f5210eec2bd8edfcaec25f612a82cf6420ff43f4859731d844a91c53f76c6c93"
+    },
+    "narrative_spine": {
+      "path": "../01-editorial/narrative-spine.md",
+      "sha256": "b1383559042fbabef276e52a1af1e24d389501de5280ca9d6332d23924819548"
+    },
+    "episode_beat_sheet": {
+      "path": "../01-editorial/episode-beat-sheet.md",
+      "sha256": "ae3e89c3b4c366000a574504b71f629ca0e7a4fa3de3773a746a37cc8b7f2578"
+    },
+    "claims_map": {
+      "path": "../01-editorial/claims-map.md",
+      "sha256": "37f9f4727cde1b7e52fd75745117685336a28ec5f6756cf5f1be3dea1bb68798"
+    },
+    "script": {
+      "path": "../01-editorial/script.md",
+      "sha256": "cbe74c03e021998cafc1d11a8b0dff50e6dfaa4d0109fc223c958a6ecc37993c"
+    },
+    "canonical_w": {
+      "path": "../01-editorial/canonical-w.txt",
+      "sha256": "7b9d18bfb2820a124f96308568cbb5509eef792a38150a5e78c3643ced9e191e"
+    },
+    "spoken_identity": {
+      "path": "../01-editorial/spoken-identity.json",
+      "sha256": "85475673b31cd8335aa56ba79eb2e36e59f605ee5fdd23f814e4f2b73b790f67"
+    },
+    "narration_lock": {
+      "path": "../02-narration-production/narration-lock.md",
+      "sha256": "fe522d418e2f5bd37b195c55fdf7db7b2e784db0a4ae65154b98c508c2178ae5"
+    },
+    "narration_master": {
+      "path": "../02-narration-production/master/narration-master.wav",
+      "sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944"
+    },
+    "word_transcript": {
+      "path": "../02-narration-production/word-transcript.json",
+      "sha256": "3c28411effaea94c4dffaac51e114f333f386170fe4716fa96b30d24e41384aa"
+    },
+    "intentional_pause_map": {
+      "path": "../02-narration-production/intentional-pause-map.json",
+      "sha256": "62811b5f0ae93359d520f7adfec06ebf46404e8e146cedf274b1f327f9a5cd84"
+    },
+    "narration_duration_seconds": 1233.602
+  },
+  "design_system_blockers": [
+    {
+      "id": "DSB-001",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "canvas-6-core-workflow-4",
+      "blocked_state_change": "Create a new permissioned property-held guest record from independently supplied stated-purpose consent while the platform relay remains intact and external.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "4. Design consent capture at check-in and on wifi. The registration card asks for the guest's own email with a stated purpose. Owner: operator designs, front desk runs. Output: a growing consented list. `OBSERVED` constraint: CLM-008.",
+      "boundary_ledger_gap": "No operation in the pinned semantic core represents additive creation of a permissioned owned relationship. `return` requires the accountable object to move from a rented path to the owned path; `route` moves an existing object; `pin` attaches evidence; none may be reverse-fitted to record creation.",
+      "required_resolution": "Boundary Ledger authority must define and approve the missing additive operation, or Step 1 must change the business state. Then V1 must repin the semantic-core and motion-binding hashes before the state change can re-enter the engine or world.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-002",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "canvas-4-written-recommendation",
+      "blocked_state_change": "Create and record the owner-facing audit disposition as retainer, audit-only, or not this property.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "4. Offer",
+      "source_quote": "A written recommendation: retainer, audit-only, or not this property.",
+      "boundary_ledger_gap": "No operation in the pinned semantic core makes and records a human recommendation. `settle` only holds an already-changed state; `correct` revises a prior model; `route` moves an existing object and is not permitted for activeCommitment. None may be used to create the disposition.",
+      "required_resolution": "Boundary Ledger authority must approve a reusable human-decision or acceptance operation, or Step 1 must separate an existing mapped change from the act of recommendation. Repin both Boundary Ledger hashes before adding the transition.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-003",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "canvas-6-core-workflow-1",
+      "blocked_state_change": "Compute the property-specific commission line, baseline, and ceiling from permissioned reports and bind them into the audit bundle.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Core workflow",
+      "source_quote": "1. Pull extranet and property-system reports. Compute the commission line and the ceiling on real inputs. Owner: operator. Output: baseline and ceiling.",
+      "boundary_ledger_gap": "No operation in the pinned semantic core computes or derives a new accountable calculation from source records. `pin` may attach evidence to an existing claim but cannot calculate the ceiling; `route` may move inputs but cannot transform them into a computed result.",
+      "required_resolution": "Boundary Ledger authority must approve a reusable calculation or derivation operation, or Step 1 must lock a distinct evidence-attachment change that can honestly use `pin`. Repin both Boundary Ledger hashes before the computation enters the engine or world.",
+      "local_substitute_prohibited": true
+    },
+    {
+      "id": "DSB-004",
+      "status": "OPEN",
+      "blocked_upstream_state_id": "canvas-6-core-workflow-2",
+      "blocked_state_change": "Test the direct path as a guest and create the attributable findings and fix list.",
+      "source_artifact": "../01-editorial/operator-canvas.md",
+      "source_sha256": "c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35",
+      "source_locator": "6. Delivery system > Core workflow, item 2",
+      "source_quote": "2. Test the direct path as a guest on a phone. Owner: operator. Output: findings and fix list.",
+      "boundary_ledger_gap": "No operation in the pinned semantic core represents inspection that creates an attributable finding. `trace` exposes an existing dependency without changing it; `pin` attaches a source to an existing claim; `correct` requires a visible prior mark and therefore cannot create the finding it revises.",
+      "required_resolution": "Boundary Ledger authority must approve an inspection or finding-creation operation, or Step 1 must lock a different existing-state change. Repin both Boundary Ledger hashes before the test-to-finding transition enters the engine or world.",
+      "local_substitute_prohibited": true
+    }
+  ],
+  "excluded_operations": [
+    {
+      "id": "OUT-001",
+      "excluded_state_change": "The returning guest books direct on the next stay.",
+      "reason": "The guest's choice is outside the engagement and no direct-share outcome has been observed. The ending may retain the upstream archetypal illustration but the engine may not encode it as a delivered business operation."
+    },
+    {
+      "id": "OUT-002",
+      "excluded_state_change": "Commission is saved or direct share increases.",
+      "reason": "Both are modeled or unknown until measured. The scorecard may report movement; it cannot attribute movement to the practice without evidence."
+    },
+    {
+      "id": "OUT-003",
+      "excluded_state_change": "The 20-to-40-room band becomes a viable market or six properties retain the operator.",
+      "reason": "Band dependence, willingness to pay, renewal, hours, and reachable customers remain unproven. BUILD is bounded to the audit and three-owner test."
+    },
+    {
+      "id": "OUT-004",
+      "excluded_state_change": "The consent-capture workflow creates a separate permissioned property-held guest record.",
+      "reason": "This business change is supported upstream but blocked locally by DSB-001. The former BO-004 reverse-fitted Boundary Ledger `return`, which requires movement from rented to owned; no current operation faithfully represents additive record creation."
+    },
+    {
+      "id": "OUT-005",
+      "excluded_state_change": "The current platform route and relay become legible as though the business itself changed.",
+      "reason": "Legibility changes viewer knowledge, not business state. The supported actors and relationships are now split across EST-001 and EST-002 with exact source quotes."
+    },
+    {
+      "id": "OUT-006",
+      "excluded_state_change": "The audit findings become a completed owner-facing recommendation through Boundary Ledger `settle`.",
+      "reason": "The former BO-007 reverse-fitted `settle`, which holds an already-changed state but does not make or record a decision. DSB-002 blocks the recommendation transition."
+    },
+    {
+      "id": "OUT-007",
+      "excluded_state_change": "The four audit inputs become a computed ceiling through Boundary Ledger `pin`.",
+      "reason": "The former BO-002 combined evidence attachment with calculation. `pin` cannot compute a new ceiling, and Step 1 does not lock a separate attachment-only business change. DSB-003 blocks calculation and bundle assembly."
+    },
+    {
+      "id": "OUT-008",
+      "excluded_state_change": "Testing the direct path creates findings and a fix list through Boundary Ledger `correct`.",
+      "reason": "`correct` requires a visible prior mark; it cannot also create the finding being revised. DSB-004 blocks the test-to-finding transition, while BO-003 is narrowed to the explicitly sourced findability correction after a finding exists."
+    }
+  ],
+  "narration_caveats": {
+    "working_master": true,
+    "master_sha256": "e433c0fd6d7dd522efb9f6593986f930f9ccc54b2be5132dec50c20ff3c1f944",
+    "marginal_chunk": "c05 tail energy 0.024; accepted at N6/N7 with full-length final word and matching transfer length",
+    "independent_listen": "not performed",
+    "generic_validator_compatibility": "The current generic narration transcript/state validators reject this episode's bespoke schema and 16-bit frozen format. The package verifier passes, and the mismatch is not treated as hash drift, a Step 2 change request, or an independent V1 blocker because the proposed V1 criteria do not name those generic checks. The shared process still needs to classify them as separate diagnostics or supply an approved adapter before process approval.",
+    "host_local_media": "The exact master is present and hash-verifiable on this host but is ignored and absent from HEAD; another host needs a separately transferred hash-matched media package."
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "record_type": "ep009_independent_presenter_adapter_preparation_audit",
+  "at": "2026-09-17T19:40:06.301157+00:00",
+  "status": "passed_no_blocking_defect_found",
+  "reviewer": "ep009_assembly_audit",
+  "method": "Independent source review and read-only execution of exact frozen helper; no provider calls or media mutations.",
+  "plan": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/EXECUTION-PLAN-r5.json",
+    "sha256": "52c44179078515ff3957c0223734502707169c9d09b750e76ec2a52994742513"
+  },
+  "adapter": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen_r5.py",
+    "sha256": "e2600b4ea9ae96a8689e7200b719d4b75dbd921b185ebb8827ac9132c8d55bcb"
+  },
+  "base_helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/_tools/regen.py",
+    "sha256": "d358d9d1342c9e4ef50f353bdd406768c4e78c628ef37f8a8457223edb4f02e8"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "owner_scoped_lock": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/OWNER-LOCK.json",
+    "sha256": "bd909cde46ba8df22270af122e3f878edd1505d48c5ed3892cfe8525a0c351a7"
+  },
+  "positive_input_check": {
+    "status": "offline_inputs_verified",
+    "parts": 22,
+    "new_generation_parts": 19,
+    "master": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+    },
+    "projected_credits": 1749.5,
+    "active": false
+  },
+  "negative_checks": [
+    {
+      "command": [
+        "native",
+        "P02a"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "trim",
+        "P02a"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "fal-submit",
+        "P02a"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "conform",
+        "seg044"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "verify",
+        "seg044"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "take",
+        "P02a"
+      ],
+      "result": "rejected",
+      "reason": "r5 is prepared but not activated; root must bind ACTIVE-PLAN"
+    },
+    {
+      "command": [
+        "native",
+        "P00"
+      ],
+      "result": "rejected",
+      "reason": "Preserve existing diagnostic; use bound result or prepare a new revision"
+    },
+    {
+      "command": [
+        "check_part",
+        "P08a"
+      ],
+      "result": "rejected",
+      "reason": "Unknown or retired r5 part: P08a"
+    },
+    {
+      "command": [
+        "base.native_gate",
+        "P00",
+        "original_failed_offsets"
+      ],
+      "result": "rejected",
+      "reason": "P00: native timing drift exceeds 0.30 s; no paid Sync submission"
+    }
+  ],
+  "selected_native_offsets": {
+    "selection": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-SELECTION.json",
+      "sha256": "a3f37ea4d9e3aef97832512e376198ecc173717651e69c3d2db1804f02f5af44"
+    },
+    "selected_offsets": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS-lexically-anchored.json",
+      "sha256": "e6ffa579e2c764b284fb5f10b81d459cf79d22012e7bb3447769131ffc2641d2"
+    },
+    "independent_lexical_audit": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/opening-first-sentence/P00/lexical-audit/LEXICAL-AUDIT.json",
+      "sha256": "d246460ca762e75aaf0625e130a4ef5cbf6136732d50c39693f0b6a781496d5c"
+    },
+    "preserved_original": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/P00/NATIVE-OFFSETS.json",
+      "sha256": "9d07b4e9af1b07524f31145e21bdadde7ac691220b22003303e32eae6737e6e4"
+    },
+    "recomputed_offsets_seconds": [
+      1.19,
+      1.09,
+      1.27
+    ],
+    "recomputed_median_seconds": 1.19,
+    "recomputed_spread_seconds": 0.17999999999999994,
+    "unchanged_drift_threshold_seconds": 0.3,
+    "same_base_gate_passed": true
+  },
+  "index_compatibility": {
+    "schema_compatible_with_r4": true,
+    "plan_hash_current": true,
+    "master_current": true,
+    "opening_observed_status": "pending",
+    "separate_opening_insert": true,
+    "r4_rejects_pending_or_flagged": true
+  },
+  "preservation_review": {
+    "existing_diagnostics_refused": true,
+    "new_media_refuses_overwrite": true,
+    "take_r5_separate_from_historical_take": true,
+    "new_finals_separate_directory": true,
+    "retired_P08_parts_excluded": true
+  },
+  "limits": [
+    "This audits current plan/adapter and exact input provenance, not provider reliability, lip sync or performance.",
+    "P00 conformed selection and encoded assembly require their own current technical and scoped review evidence.",
+    "Technical review readiness confers no owner acceptance or final release approval.",
+    "Bulk remains inactive and blocked; this audit does not supply clearance."
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "experiment_id": "BC-REHEARSAL-001",
+  "work_order_id": "wave2-builder-b",
+  "status": "complete",
+  "input_hashes_verified": [
+    {
+      "path": "direction-lock.json",
+      "expected_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "actual_sha256": "287b1c1ae2f9389905ce3a1149380b311703fa089d8f7bf8927eeb5c0ef0c9ca",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/frame.md",
+      "expected_sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5",
+      "actual_sha256": "f9b1423089a47fd2517cb36ed6496dd5984f61030ee2a020033ceebb1a0232c5",
+      "status": "pass"
+    },
+    {
+      "path": "direction/build-packets/wave2-builder-b-shots-03-04.md",
+      "expected_sha256": "383040788e4085c1d969e52eb8e5fcb804ffec3af57e2d3f6561bbdac11b560a",
+      "actual_sha256": "383040788e4085c1d969e52eb8e5fcb804ffec3af57e2d3f6561bbdac11b560a",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/ibm-plex-mono-700.ttf",
+      "expected_sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea",
+      "actual_sha256": "dbd2a2fb024579438d6400a84e57579bfd2dbe67c306c8fd9fde92a61e4f2eea",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/IBM-Plex-Mono-OFL.txt",
+      "expected_sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f",
+      "actual_sha256": "0fc74640fdcd67c036e1fced58d7e4478897a333cd92b981115a3e324337577f",
+      "status": "pass"
+    },
+    {
+      "path": "hyperframes/assets/fonts/PROVENANCE.md",
+      "expected_sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f",
+      "actual_sha256": "3e19f526c36483094e1db54e17d5405b658600a4ac1c79dc8f0158e14cfd6f5f",
+      "status": "pass"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "agents/deliverables/wave2-builder-b/shot-03.html",
+      "sha256": "06c5102b921abd09f1df0ea41332886dededf07b8df267d9de2770c86ec86d58"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-b/shot-04.html",
+      "sha256": "12f8127b187fc579885a904646521e0dbec18c6fe511d8b19da62f5e13368a83"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-b/shot-03-motion.json",
+      "sha256": "3ba4a1dc8d20ea7ac4571db5eecbb62394d54c26b0165704dafeb232af9882db"
+    },
+    {
+      "path": "agents/deliverables/wave2-builder-b/shot-04-motion.json",
+      "sha256": "21b224635db72287b3cf6034832db1c13ed7b877bf888eedac5ac9779a4b97e5"
+    }
+  ],
+  "findings_summary": "Built two packet-compliant transported HyperFrames sub-compositions and their complete motion maps. Shot 03 performs source-context verification, measured capture-to-classify-to-acknowledge routing, and a warning-preserving source collapse without duplicating the persistent tag, card, or proof object. Shot 04 keeps the root tag held at a closed barrier until the conspicuous human placeholder acts, clears HOLD, opens the barrier, and reveals the neutral slot only after RELEASE. Isolated HTML, JavaScript, JSON, font-resolution, anchor, timing, determinism, and negative-object checks passed; the canonical HyperFrames CLI was not run.",
+  "acceptance_checks": [
+    {
+      "check": "verify every pinned input hash",
+      "status": "pass",
+      "notes": "All six revised pins, including IBM Plex Mono, OFL license, and provenance, match exactly."
+    },
+    {
+      "check": "obey the complete build packet",
+      "status": "pass",
+      "notes": "All required Shot 03 and Shot 04 geometry, choreography, warnings, root anchors, review states, holds, and negative constraints are represented."
+    },
+    {
+      "check": "two valid transported sub-compositions with exact IDs and durations",
+      "status": "pass",
+      "notes": "Bare templates register bc-rh-001-shot-03 at 7.83 seconds and bc-rh-001-shot-04 at 5.68 seconds, both at 1920x1080 and 30 fps."
+    },
+    {
+      "check": "measured SVG paths only",
+      "status": "pass",
+      "notes": "Both animated Shot 03 route paths use synchronous getTotalLength measurements for dasharray and dashoffset. Shot 04 contains no animated SVG route path; its static hand silhouette moves only through the wrapper transform."
+    },
+    {
+      "check": "exact persistent fixture warning",
+      "status": "pass",
+      "notes": "The exact warning is present at 39px in the full Shot 03 source, 28px in its collapsed source state, and 28px on the Shot 04 right-edge source warning."
+    },
+    {
+      "check": "no persistent-object duplicate",
+      "status": "pass",
+      "notes": "No call-tag-red, work-order-card, or proof-pin object is created. Only prefixed invisible root anchors are authored for persistent identities."
+    },
+    {
+      "check": "no network or non-determinism",
+      "status": "pass",
+      "notes": "No fetches, clocks, randomness, async construction, event-driven UI, infinite loops, or layout-property tweens are present; all fonts are local."
+    },
+    {
+      "check": "one paused timeline per composition",
+      "status": "pass",
+      "notes": "Isolated JavaScript execution confirmed one synchronous paused timeline and the exact registration key for each composition."
+    },
+    {
+      "check": "write only owned packet files",
+      "status": "pass",
+      "notes": "Exactly the five work-order-owned files exist under agents/deliverables/wave2-builder-b/."
+    },
+    {
+      "check": "claim no approval/state change",
+      "status": "pass",
+      "notes": "Completion means packet compliance only; approval and production state remain unchanged."
+    }
+  ],
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "assumptions": [
+    "The root supplies GSAP for HyperFrames 0.8.4 exactly as the pinned build packet states; no network or local duplicate runtime loader is included.",
+    "The root overlays and moves the persistent call tag, work-order card, and proof identity at the authored exact-coordinate anchors; these sub-compositions do not attempt cross-boundary animation.",
+    "The static Shot 04 hand silhouette is not an SVG path-draw event; the measured-path rule applies to animated connector and route strokes.",
+    "Validation is intentionally isolated to the owned files because the work order prohibits running HyperFrames CLI against the canonical project."
+  ],
+  "history": [
+    {
+      "status": "blocked_before_write",
+      "reason": "The initial work order required IBM Plex Mono 700 but the project-local font asset was absent, triggering the explicit technical-contract stop condition. No output files were written in that attempt."
+    },
+    {
+      "status": "resolved",
+      "reason": "The revised work order pinned a local IBM Plex Mono 700 file, OFL license, provenance record, and project-root font URL clarification. All revised pins matched before authoring began."
+    }
+  ],
+  "blockers": []
+}

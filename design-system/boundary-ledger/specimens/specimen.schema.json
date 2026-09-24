@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/design-system/boundary-ledger/specimens/specimen.schema.json",
+  "title": "Boundary Ledger motion and audio specimen",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "status",
+    "systemVersion",
+    "sourceAudio",
+    "timingData",
+    "formats",
+    "treatments",
+    "semanticEvents",
+    "captions",
+    "voiceTrace",
+    "review"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "status": { "enum": ["draft", "browser-reference", "encoded-review", "verified-reference"] },
+    "systemVersion": { "type": "string" },
+    "sourceAudio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "durationSeconds", "provenance", "sourceMaster", "derivation"],
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "durationSeconds": { "type": "number", "exclusiveMinimum": 0 },
+        "provenance": { "type": "string", "minLength": 12 },
+        "sourceMaster": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "durationSeconds", "mediaType"],
+          "properties": {
+            "path": { "type": "string" },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+            "durationSeconds": { "type": "number", "exclusiveMinimum": 0 },
+            "mediaType": { "const": "audio/wav" }
+          }
+        },
+        "derivation": { "type": "string", "minLength": 12 }
+      }
+    },
+    "timingData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "formats": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "aspectRatio", "adaptation", "cropBased", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "aspectRatio": { "enum": ["16:9", "9:16", "1:1"] },
+          "adaptation": { "type": "string", "minLength": 8 },
+          "cropBased": { "const": false },
+          "status": { "enum": ["browser-reference", "encoded-review", "verified"] }
+        }
+      }
+    },
+    "treatments": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "purpose"],
+        "properties": {
+          "id": { "enum": ["model-led", "text-led", "voice-trace"] },
+          "purpose": { "type": "string", "minLength": 12 }
+        }
+      }
+    },
+    "semanticEvents": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "start", "end", "operation", "role", "stateBefore", "stateAfter", "purpose", "commitmentLocus"],
+        "properties": {
+          "id": { "type": "string" },
+          "start": { "type": "number", "minimum": 0 },
+          "end": { "type": "number", "exclusiveMinimum": 0 },
+          "operation": { "type": "string" },
+          "role": { "type": "string" },
+          "stateBefore": { "type": "string", "minLength": 3 },
+          "stateAfter": { "type": "string", "minLength": 3 },
+          "purpose": { "type": "string", "minLength": 8 },
+          "commitmentLocus": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "captions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "cues", "embeddedPhrase"],
+      "properties": {
+        "policy": { "const": "drop-rail-embed" },
+        "cues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["start", "end", "text"],
+            "properties": {
+              "start": { "type": "number", "minimum": 0 },
+              "end": { "type": "number", "exclusiveMinimum": 0 },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "embeddedPhrase": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text", "start", "end", "captionDuplicateVisible"],
+          "properties": {
+            "text": { "type": "string" },
+            "start": { "type": "number" },
+            "end": { "type": "number" },
+            "captionDuplicateVisible": { "const": false }
+          }
+        }
+      }
+    },
+    "voiceTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data", "sha256", "actualPcm", "runtimeWebAudio", "purpose"],
+      "properties": {
+        "data": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "actualPcm": { "const": true },
+        "runtimeWebAudio": { "const": false },
+        "purpose": { "type": "string", "minLength": 12 }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "browserChecked", "encodedMediaChecked", "motionReadyModelProven"],
+      "properties": {
+        "scope": { "enum": ["browser-reference-only", "encoded-reference"] },
+        "browserChecked": { "type": "boolean" },
+        "encodedMediaChecked": { "type": "boolean" },
+        "motionReadyModelProven": { "type": "boolean" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

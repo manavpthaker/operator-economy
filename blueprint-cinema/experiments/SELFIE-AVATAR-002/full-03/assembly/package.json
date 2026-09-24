@@ -1,0 +1,12 @@
+{
+  "name": "selfie-week2-full03-assembly",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.38 preview",
+    "lint": "npx --yes hyperframes@0.8.38 lint",
+    "check": "npx --yes hyperframes@0.8.38 check",
+    "render": "npx --yes hyperframes@0.8.38 render --fps 24 --workers 1 --quality high --crf 16 --output renders/week2-full03-hyperframes-audio.mp4",
+    "finish": "ffmpeg -v error -n -i renders/week2-full03-hyperframes-audio.mp4 -i public/audio/original-c.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ac 1 -ar 48000 -movflags +faststart renders/week2-full03-uncaptioned.mp4"
+  }
+}

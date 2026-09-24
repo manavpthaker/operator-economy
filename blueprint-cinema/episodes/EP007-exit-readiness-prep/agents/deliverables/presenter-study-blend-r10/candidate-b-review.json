@@ -1,0 +1,65 @@
+{
+  "work_order": "EP007 presenter study blend R10 Candidate B",
+  "role": "independent bounded visual reviewer",
+  "status": "complete",
+  "decision": "ready_to_render_review_candidate",
+  "production_approval": false,
+  "review_method": "Visual comparison of both four-frame contact sheets at 0.4, 16.4, 30.56 and 29.682 seconds, plus both full-size 0.4-second PNGs. No new quantitative analysis.",
+  "reviewed_inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r10/snapshots/treatment-before/contact-sheet.jpg",
+      "sha256": "5a60c2c145fade481a03e629cc96424710065f7e13c59b1defb37d849879c634"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r10/snapshots/treatment-b/contact-sheet.jpg",
+      "sha256": "7b573bff30cba0d641db9b306e82e13de5d1224fb04a8ca15b6c6a82d0063929"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r10/snapshots/treatment-before/frame-00-at-0.4s.png",
+      "sha256": "ad459ff14fe08ceccbf0ce59b9a60cb8d9cb9798480d9458fc075a5ffbeaeb6b"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-PRESENTER-001/study-composite-r10/snapshots/treatment-b/frame-00-at-0.4s.png",
+      "sha256": "bc1371843c1a9dfa2356993126598e4aa88299c974a18ce85c1d06166eb56bf4"
+    }
+  ],
+  "parent_reported_changes_not_independently_reverified_here": {
+    "room_plate": "Same study layout edited to diffuse daylight",
+    "room_treatment": {"blur": 0.28, "contrast": -0.04, "highlights": -0.08},
+    "alpha": "Original Vision mask, three one-pixel erosions and sigma 0.85 blur; R9 used two erosions and sigma 0.6",
+    "preserved": "Foreground RGB and timestamps match all 765 G frames; shirt-motion.js is byte-identical to R9; skin and outer-shirt grades unchanged"
+  },
+  "findings": [
+    {
+      "rank": 1,
+      "topic": "light integration",
+      "judgment": "Clear improvement",
+      "observation": "The strong angled sunlight on the left wall and shelf is removed. Broad diffuse room light now fits the presenter's broadly lit face more plausibly. The room remains directional enough to read as window-lit."
+    },
+    {
+      "rank": 2,
+      "topic": "focus and depth",
+      "judgment": "Improved but not completely matched",
+      "observation": "Softer window, shelf and book detail competes less with the face. The original facial image remains soft, and the synthetic outer shirt still has more visible texture than the central collar. No further blanket skin warming or brightening is justified by these stills."
+    },
+    {
+      "rank": 3,
+      "topic": "edge integration",
+      "judgment": "No new blocking defect seen",
+      "observation": "Full-size 0.4-second inspection shows intact glasses, recognizable hair silhouette and ears. No conspicuous new bright outline, transparent hole or duplicated face is visible. A faint localized temple/ear contour remains. Fine hair preservation cannot be established from these sampled stills."
+    },
+    {
+      "rank": 4,
+      "topic": "layout",
+      "judgment": "No material visible layout drift",
+      "observation": "Window, shelf bowl, central wall, bookcase and vase retain their composition. Presenter scale, position and sampled poses remain consistent. This is visual correspondence, not a claim that the generated room plate is pixel-identical."
+    }
+  ],
+  "recommendation": "Render Candidate B for owner review without another treatment change. In the encoded motion review, check temporal hair/ear edges and shoulder-to-collar integration.",
+  "limits": [
+    "This is a sampled still review, not a full-motion or final encoded-video review.",
+    "Temporal matte shimmer, all-frame clipping and audio/performance synchronization were not assessed in this pass.",
+    "Readiness to render a review candidate does not advance an editorial or production approval gate."
+  ],
+  "writes": ["blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-study-blend-r10/candidate-b-review.json"]
+}

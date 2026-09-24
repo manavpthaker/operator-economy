@@ -1,0 +1,44 @@
+{
+  "event_id": "r51-underlying-render-verified-v1",
+  "decision_id": "s09-underlying-problem",
+  "event_type": "verification",
+  "tags": [
+    "animation",
+    "cut-timing",
+    "original-audio"
+  ],
+  "data": {
+    "decision_event_id": "r51-underlying-model-v1",
+    "method": "HyperFrames 0.8.36 strict check at 7 samples; contact sheets across two layout corrections; render; decoded audio vs master PCM; join frames 3060/3061; live playback.",
+    "result": "pass",
+    "scope": "R51 scene (239 frames) and R50-context + R51 assembly (3300 frames, join at 127.542 s).",
+    "limitations": "Scene audio correlation 0.99948, context tail 0.99946 at zero lag. R51 starts from the rebuilt R50 source end state, which matches the accepted render within anti-aliasing. Checks do not establish comprehension or owner acceptance. No paid calls; no canonical gate.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying/qa/r51-underlying.mp4",
+        "sha256": "8609744f96f48ab93c10bc66546b62c478c55ada9b8e7b017c9dfac1df7dd9d8"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying-context/qa/r51-underlying-context.mp4",
+        "sha256": "ac7cc05745039e4e909ec508394d63c104f47561107ca0844fb6e314b10a9615"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying/index.html",
+      "sha256": "0d7d46ea1a5ae73de3f4aec2ce6faf6df53c4fddecc7c8e47c2f2048d7420a88",
+      "locator": "Scene source"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying/qa/CHECK.json",
+      "sha256": "a6ea95b4c773f1a04208873d01ce2327bceef919afed9bf84b54fccacd108e25",
+      "locator": "Strict check"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r51-underlying-context/qa/join-sheet.png",
+      "sha256": "aef752dbbfc152578ae085a8edd7d78d1267f30e22e2a3515f21290c89e97506",
+      "locator": "Join and key frames"
+    }
+  ]
+}

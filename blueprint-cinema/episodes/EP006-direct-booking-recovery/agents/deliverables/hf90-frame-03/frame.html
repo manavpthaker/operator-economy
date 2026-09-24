@@ -1,0 +1,508 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #1A1A1A;
+    }
+
+    [class~="03-loop-back-ground"] {
+      position: absolute;
+      inset: 0;
+      container-type: size;
+      background-color: #F5F0E6;
+      background-image:
+        linear-gradient(rgba(176, 141, 62, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(176, 141, 62, 0.10) 1px, transparent 1px);
+      background-size: 2cqw 2cqw;
+    }
+
+    [class~="03-loop-back-stage"] {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    [class~="03-loop-back-world"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 300cqw;
+      height: 83cqh;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    [class~="03-loop-back-route"] {
+      position: absolute;
+      inset: 0;
+      width: 300cqw;
+      height: 83cqh;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    [class~="03-loop-back-route-path"],
+    [class~="03-loop-back-check-path"],
+    [class~="03-loop-back-repeat-path"] {
+      fill: none;
+      stroke: #1A1A1A;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    [class~="03-loop-back-route-path"] {
+      stroke-width: 4;
+    }
+
+    [class~="03-loop-back-station"] {
+      position: absolute;
+      top: 14cqh;
+      width: 22cqw;
+      height: 56cqh;
+      z-index: 2;
+    }
+
+    [class~="03-loop-back-station-one"] {
+      left: 39cqw;
+    }
+
+    [class~="03-loop-back-station-two"] {
+      left: 139cqw;
+    }
+
+    [class~="03-loop-back-station-three"] {
+      top: 11cqh;
+      left: 236cqw;
+      width: 28cqw;
+      height: 61cqh;
+    }
+
+    [class~="03-loop-back-station-icon"] {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    [class~="03-loop-back-station-icon"] path,
+    [class~="03-loop-back-station-icon"] rect,
+    [class~="03-loop-back-station-icon"] polyline {
+      vector-effect: non-scaling-stroke;
+    }
+
+    [class~="03-loop-back-gate-line"],
+    [class~="03-loop-back-inn-line"] {
+      fill: #F5F0E6;
+      stroke: #1A1A1A;
+      stroke-width: 4;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    [class~="03-loop-back-gate-fill"],
+    [class~="03-loop-back-inn-fill"] {
+      fill: #1A1A1A;
+    }
+
+    [class~="03-loop-back-barrier"] {
+      position: absolute;
+      left: 15%;
+      top: 54%;
+      width: 70%;
+      height: 1.1cqw;
+      background: #1A1A1A;
+      transform-origin: 0 50%;
+      z-index: 3;
+    }
+
+    [class~="03-loop-back-key-tag"] {
+      position: absolute;
+      top: 3cqh;
+      right: -0.5cqw;
+      width: 7.2cqw;
+      height: 10.8cqw;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+      clip-path: polygon(0 0, 72% 0, 100% 21%, 100% 100%, 0 100%);
+      transform-origin: 50% 50%;
+      transform-style: preserve-3d;
+      z-index: 4;
+    }
+
+    [class~="03-loop-back-key-tag"]::before {
+      content: "";
+      position: absolute;
+      top: 1.05cqw;
+      right: 1.05cqw;
+      width: 0.9cqw;
+      height: 0.9cqw;
+      border: 0.12cqw solid #1A1A1A;
+      background: #F5F0E6;
+    }
+
+    [class~="03-loop-back-key-check"] {
+      position: absolute;
+      left: 1.25cqw;
+      top: 3.25cqw;
+      width: 4.8cqw;
+      height: 4.2cqw;
+    }
+
+    [class~="03-loop-back-check-path"] {
+      stroke-width: 10;
+    }
+
+    [class~="03-loop-back-key-pixels"] {
+      position: absolute;
+      left: 1.25cqw;
+      bottom: 1.05cqw;
+      display: grid;
+      grid-template-columns: repeat(4, 0.72cqw);
+      gap: 0.48cqw;
+    }
+
+    [class~="03-loop-back-key-pixels"] span {
+      width: 0.72cqw;
+      height: 0.72cqw;
+      background: #1A1A1A;
+    }
+
+    [class~="03-loop-back-token-carrier"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      z-index: 5;
+      will-change: transform;
+    }
+
+    [class~="03-loop-back-token"] {
+      position: absolute;
+      left: -0.92cqw;
+      top: -0.92cqw;
+      width: 1.84cqw;
+      height: 1.84cqw;
+      box-sizing: border-box;
+      border: 0.18cqw solid #1A1A1A;
+      background: #F5F0E6;
+    }
+
+    [class~="03-loop-back-token"]::before,
+    [class~="03-loop-back-token"]::after {
+      content: "";
+      position: absolute;
+      background: #1A1A1A;
+    }
+
+    [class~="03-loop-back-token"]::before {
+      left: 0.36cqw;
+      top: 0.36cqw;
+      width: 0.36cqw;
+      height: 0.36cqw;
+    }
+
+    [class~="03-loop-back-token"]::after {
+      right: 0.36cqw;
+      bottom: 0.36cqw;
+      width: 0.36cqw;
+      height: 0.36cqw;
+    }
+
+    [class~="03-loop-back-repeat-mark"] {
+      position: absolute;
+      left: 2.5cqw;
+      top: -1.5cqh;
+      width: 23cqw;
+      height: 12cqh;
+      z-index: 4;
+    }
+
+    [class~="03-loop-back-repeat-path"] {
+      stroke-width: 5;
+    }
+
+    [class~="03-loop-back-final-core"] {
+      transform-origin: 50% 50%;
+    }
+
+    [class~="03-loop-back-hairline"] {
+      position: absolute;
+      left: 4cqw;
+      right: 4cqw;
+      height: 0.12cqw;
+      background: #1A1A1A;
+      z-index: 7;
+    }
+
+    [class~="03-loop-back-hairline-top"] {
+      top: 3cqw;
+    }
+
+    [class~="03-loop-back-hairline-bottom"] {
+      top: calc(83cqh - 3cqw);
+    }
+
+    [class~="03-loop-back-chrome-left"],
+    [class~="03-loop-back-chrome-right"] {
+      position: absolute;
+      top: calc(83cqh - 5.2cqw);
+      display: flex;
+      gap: 0.42cqw;
+      z-index: 7;
+    }
+
+    [class~="03-loop-back-chrome-left"] {
+      left: 4cqw;
+    }
+
+    [class~="03-loop-back-chrome-right"] {
+      right: 4cqw;
+    }
+
+    [class~="03-loop-back-chrome-left"] span,
+    [class~="03-loop-back-chrome-right"] span {
+      display: block;
+      width: 0.62cqw;
+      height: 0.62cqw;
+      background: #1A1A1A;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-loop-back">
+    <div
+      class="clip 03-loop-back-ground"
+      data-start="0"
+      data-duration="6.381"
+      data-track-index="0"
+    ></div>
+
+    <div
+      class="clip 03-loop-back-stage"
+      data-start="0"
+      data-duration="6.381"
+      data-track-index="1"
+    >
+      <div id="03-loop-back-world" class="03-loop-back-world">
+        <svg
+          class="03-loop-back-route"
+          viewBox="0 0 5760 896"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            id="03-loop-back-route-outbound"
+            class="03-loop-back-route-path"
+            d="M 960 460 C 1390 460 1810 460 2240 460 S 2660 460 2880 460"
+          ></path>
+          <path
+            id="03-loop-back-route-return"
+            class="03-loop-back-route-path"
+            d="M 2880 460 C 3260 460 3400 238 3840 238 C 4290 238 4440 460 4800 460"
+          ></path>
+        </svg>
+
+        <div class="03-loop-back-station 03-loop-back-station-one" role="img" aria-label="Paid booking gate">
+          <svg class="03-loop-back-station-icon" viewBox="0 0 420 600" aria-hidden="true">
+            <rect class="03-loop-back-gate-line" x="52" y="54" width="316" height="462"></rect>
+            <rect class="03-loop-back-gate-fill" x="52" y="54" width="316" height="74"></rect>
+            <rect class="03-loop-back-gate-fill" x="52" y="474" width="316" height="42"></rect>
+            <rect class="03-loop-back-gate-fill" x="72" y="128" width="58" height="346"></rect>
+            <rect class="03-loop-back-gate-fill" x="290" y="128" width="58" height="346"></rect>
+            <rect class="03-loop-back-gate-line" x="158" y="164" width="104" height="78"></rect>
+            <rect class="03-loop-back-gate-fill" x="176" y="182" width="18" height="18"></rect>
+            <rect class="03-loop-back-gate-fill" x="201" y="182" width="18" height="18"></rect>
+            <rect class="03-loop-back-gate-fill" x="226" y="182" width="18" height="18"></rect>
+          </svg>
+          <div id="03-loop-back-barrier" class="03-loop-back-barrier" aria-hidden="true"></div>
+        </div>
+
+        <div class="03-loop-back-station 03-loop-back-station-two" role="img" aria-label="Independent inn and completed stay key tag">
+          <svg class="03-loop-back-station-icon" viewBox="0 0 420 600" aria-hidden="true">
+            <polyline class="03-loop-back-inn-line" points="36,238 210,78 384,238"></polyline>
+            <rect class="03-loop-back-inn-line" x="70" y="222" width="280" height="298"></rect>
+            <rect class="03-loop-back-inn-fill" x="174" y="340" width="72" height="180"></rect>
+            <rect class="03-loop-back-inn-fill" x="108" y="278" width="48" height="48"></rect>
+            <rect class="03-loop-back-inn-fill" x="264" y="278" width="48" height="48"></rect>
+            <rect class="03-loop-back-inn-fill" x="70" y="458" width="280" height="62"></rect>
+          </svg>
+
+          <div id="03-loop-back-key-tag" class="03-loop-back-key-tag" aria-hidden="true">
+            <svg class="03-loop-back-key-check" viewBox="0 0 120 100" aria-hidden="true">
+              <path id="03-loop-back-key-check-path" class="03-loop-back-check-path" d="M 10 54 L 43 84 L 110 14"></path>
+            </svg>
+            <div class="03-loop-back-key-pixels">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="03-loop-back-station 03-loop-back-station-three" role="img" aria-label="Paid booking gate again">
+          <svg id="03-loop-back-final-core" class="03-loop-back-station-icon 03-loop-back-final-core" viewBox="0 0 500 650" aria-hidden="true">
+            <rect class="03-loop-back-gate-line" x="52" y="58" width="396" height="514"></rect>
+            <rect class="03-loop-back-gate-fill" x="52" y="58" width="396" height="92"></rect>
+            <rect class="03-loop-back-gate-fill" x="52" y="522" width="396" height="50"></rect>
+            <rect class="03-loop-back-gate-fill" x="76" y="150" width="74" height="372"></rect>
+            <rect class="03-loop-back-gate-fill" x="350" y="150" width="74" height="372"></rect>
+            <rect class="03-loop-back-gate-line" x="185" y="198" width="130" height="92"></rect>
+            <rect class="03-loop-back-gate-fill" x="206" y="220" width="22" height="22"></rect>
+            <rect class="03-loop-back-gate-fill" x="239" y="220" width="22" height="22"></rect>
+            <rect class="03-loop-back-gate-fill" x="272" y="220" width="22" height="22"></rect>
+            <rect class="03-loop-back-gate-fill" x="196" y="410" width="108" height="112"></rect>
+          </svg>
+          <svg class="03-loop-back-repeat-mark" viewBox="0 0 500 120" aria-hidden="true">
+            <path id="03-loop-back-repeat-path" class="03-loop-back-repeat-path" d="M 30 86 L 30 30 L 436 30 L 388 2 M 436 30 L 388 58"></path>
+          </svg>
+        </div>
+
+        <div id="03-loop-back-token-carrier" class="03-loop-back-token-carrier" aria-hidden="true">
+          <div id="03-loop-back-token" class="03-loop-back-token"></div>
+        </div>
+      </div>
+
+      <div class="03-loop-back-hairline 03-loop-back-hairline-top" aria-hidden="true"></div>
+      <div class="03-loop-back-hairline 03-loop-back-hairline-bottom" aria-hidden="true"></div>
+      <div class="03-loop-back-chrome-left" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="03-loop-back-chrome-right" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.querySelector('[data-composition-id="03-loop-back"]');
+      const world = document.getElementById("03-loop-back-world");
+      const outboundPath = document.getElementById("03-loop-back-route-outbound");
+      const returnPath = document.getElementById("03-loop-back-route-return");
+      const checkPath = document.getElementById("03-loop-back-key-check-path");
+      const repeatPath = document.getElementById("03-loop-back-repeat-path");
+      const tokenCarrier = document.getElementById("03-loop-back-token-carrier");
+      const token = document.getElementById("03-loop-back-token");
+      const barrier = document.getElementById("03-loop-back-barrier");
+      const keyTag = document.getElementById("03-loop-back-key-tag");
+      const finalGate = document.getElementById("03-loop-back-final-core");
+
+      const timeline = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-loop-back"] = timeline;
+
+      const viewportWidth = root.clientWidth || 1920;
+      const cam = { scale: 1, x: 0, y: 0 };
+      const applyCamera = () => {
+        world.style.transform = `translate(${cam.x}px, ${cam.y}px) scale(${cam.scale})`;
+      };
+      applyCamera();
+
+      const prepareDraw = (path) => {
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+        return length;
+      };
+
+      prepareDraw(outboundPath);
+      prepareDraw(returnPath);
+      prepareDraw(checkPath);
+      prepareDraw(repeatPath);
+
+      const placeToken = (path, progress) => {
+        const length = path.getTotalLength();
+        const point = path.getPointAtLength(length * progress);
+        tokenCarrier.style.transform = `translate(${point.x}px, ${point.y}px)`;
+      };
+
+      const outboundDriver = { progress: 0 };
+      const returnDriver = { progress: 0 };
+      placeToken(outboundPath, 0);
+
+      timeline.fromTo(
+        barrier,
+        { y: -64, rotation: -12 },
+        { y: 0, rotation: 0, duration: 0.45, ease: "power2.out" },
+        0.05
+      );
+      timeline.fromTo(
+        token,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.30, ease: "power1.out" },
+        0.12
+      );
+      timeline.to(
+        outboundPath,
+        { strokeDashoffset: 0, duration: 2.65, ease: "none" },
+        0.35
+      );
+      timeline.to(
+        outboundDriver,
+        {
+          progress: 1,
+          duration: 2.70,
+          ease: "none",
+          onUpdate: () => placeToken(outboundPath, outboundDriver.progress)
+        },
+        0.65
+      );
+
+      timeline.to(
+        cam,
+        {
+          x: -viewportWidth,
+          duration: 1.40,
+          ease: "power3.inOut",
+          onUpdate: applyCamera
+        },
+        2.00
+      );
+      timeline.fromTo(
+        keyTag,
+        { opacity: 0, rotationY: -90 },
+        { opacity: 1, rotationY: 0, duration: 0.55, ease: "power2.out" },
+        3.18
+      );
+      timeline.to(
+        checkPath,
+        { strokeDashoffset: 0, duration: 0.48, ease: "power2.out" },
+        3.48
+      );
+
+      timeline.to(
+        returnPath,
+        { strokeDashoffset: 0, duration: 1.52, ease: "none" },
+        4.20
+      );
+      timeline.to(
+        returnDriver,
+        {
+          progress: 1,
+          duration: 1.55,
+          ease: "power2.inOut",
+          onUpdate: () => placeToken(returnPath, returnDriver.progress)
+        },
+        4.20
+      );
+      timeline.to(
+        cam,
+        {
+          x: -2 * viewportWidth,
+          duration: 1.55,
+          ease: "power2.inOut",
+          onUpdate: applyCamera
+        },
+        4.20
+      );
+      timeline.fromTo(
+        finalGate,
+        { opacity: 0.22, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 0.65, ease: "power2.out" },
+        5.08
+      );
+      timeline.to(
+        repeatPath,
+        { strokeDashoffset: 0, duration: 0.72, ease: "power2.out" },
+        5.05
+      );
+    })();
+  </script>
+</template>

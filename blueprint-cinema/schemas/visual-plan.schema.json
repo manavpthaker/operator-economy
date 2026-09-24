@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/blueprint-cinema/visual-plan.schema.json",
+  "title": "Blueprint Cinema full-timeline visual plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "workflow_version", "episode_number", "episode_code", "slug", "folder_name",
+    "input_lock_sha256", "episode_engine_sha256", "world_sha256", "audio_duration_seconds", "units", "status"
+  ],
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "schema_version": {"const": "1.0.0"},
+    "workflow_version": {"const": "blueprint-cinema-1.0"},
+    "episode_number": {"type": "integer", "minimum": 1, "maximum": 999},
+    "episode_code": {"type": "string", "pattern": "^EP[0-9]{3}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "folder_name": {"type": "string", "pattern": "^EP[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "input_lock_sha256": {"$ref": "#/$defs/sha256"},
+    "episode_engine_sha256": {"$ref": "#/$defs/sha256"},
+    "world_sha256": {"$ref": "#/$defs/sha256"},
+    "audio_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+    "units": {"type": "array", "minItems": 50, "items": {"$ref": "#/$defs/unit"}},
+    "status": {"enum": ["draft", "ready_for_approval"]}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "minLength": 3},
+    "narration_anchor": {
+      "type": "object", "additionalProperties": false, "required": ["word_start", "word_end", "quote"],
+      "properties": {
+        "word_start": {"type": "integer", "minimum": 0},
+        "word_end": {"type": "integer", "minimum": 0},
+        "quote": {"type": "string", "minLength": 1}
+      }
+    },
+    "world_state": {
+      "type": "object", "additionalProperties": false, "required": ["object_id", "state"],
+      "properties": {"object_id": {"$ref": "#/$defs/id"}, "state": {"$ref": "#/$defs/id"}}
+    },
+    "audio_state": {
+      "type": "object", "additionalProperties": false, "required": ["narration", "music", "sound_design"],
+      "properties": {"narration": {"const": true}, "music": {"const": false}, "sound_design": {"const": false}}
+    },
+    "unit": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "id", "in", "out", "narration_anchor", "sequence_id", "narrative_state", "mode", "action", "motion_verb", "carry", "focus",
+        "world_state_before", "world_state_after", "camera_anchor", "evidence_ids", "asset_ticket_ids", "audio_state", "status"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^unit-[0-9]{3}$"},
+        "in": {"type": "number", "minimum": 0},
+        "out": {"type": "number", "exclusiveMinimum": 0},
+        "narration_anchor": {"$ref": "#/$defs/narration_anchor"},
+        "sequence_id": {"type": "string", "pattern": "^sequence-[a-z0-9-]+-[0-9]{2}$"},
+        "narrative_state": {"enum": ["tension", "current_machine", "proof", "counter_system", "economics", "stress_test", "installation", "agency"]},
+        "mode": {"enum": ["reality", "system", "proof", "reset"]},
+        "action": {"type": "string", "minLength": 18},
+        "motion_verb": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$", "minLength": 3},
+        "carry": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "focus": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "world_state_before": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/world_state"}},
+        "world_state_after": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/world_state"}},
+        "camera_anchor": {"$ref": "#/$defs/id"},
+        "evidence_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "asset_ticket_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "audio_state": {"$ref": "#/$defs/audio_state"},
+        "status": {"const": "greybox"}
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+# Accepted geometry
+
+Inherit R22's1280×720 composition and three presenter framing levels. A single untimed promise-framing wrapper begins atx0,y0,scale1. The fresh presenter clip begins at56.5 and plays15seconds fromsource0. At62.916667 setscale1.25,x−160,y−24. At67.916667 setscale1.4,x−256,y−42. Transform origin0,0. The last two states retain1600×905 and1792×1013.6 displayed boxes. The returned source is1280×704; only the new clip uses object-fit:cover to preserve its aspect ratio inside the accepted1280×724 box, cropping approximately18px from each scaled side rather than stretching the face. No easing, ambient camera movement or source-time change. Confirm the new face remains inside both closer framings before handing off a preview.

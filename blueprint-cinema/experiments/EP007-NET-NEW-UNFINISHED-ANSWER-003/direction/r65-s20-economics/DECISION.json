@@ -1,0 +1,72 @@
+{
+  "event_id": "r65-s20-economics-v1",
+  "decision_id": "s20-economics",
+  "event_type": "decision",
+  "tags": [
+    "animation",
+    "economics",
+    "modeled-scenario",
+    "capacity"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Test proposed practice economics and expose delivery-time uncertainty.",
+      "viewer_before": "A scoped service and a possible referral route.",
+      "viewer_after": "Base scenario misses the target; more clients consume assumed capacity; delivery time remains unmeasured."
+    },
+    "choice": "Persistent disclosed ledger, money shortfall, capacity with explicit ~900-hour assumption, two conditional alternatives, and unmeasured 85-hour input with unchanged owner meeting.",
+    "reason": "The viewer can inspect assumptions and consequences without memorizing arithmetic; uncertainty remains visible.",
+    "alternatives": [
+      {
+        "choice": "One static equation",
+        "reason_not_selected": "Prematurely reveals later results and loses the shift from money to time."
+      },
+      {
+        "choice": "Presenter only",
+        "reason_not_selected": "Cannot retain inspectable simultaneous comparisons; no new paid take needed."
+      }
+    ],
+    "reuse": {
+      "kind": "episode_specific",
+      "applies_when": "These exact locked modeled inputs and narration.",
+      "avoid_when": "Any value is observed or a different capacity denominator applies."
+    },
+    "nuance": {
+      "source_basis": "Current user continue request; locked script S20 and Canvas section10. No owner acceptance inferred.",
+      "cut_cues": [
+        {
+          "cue_id": "S20-entry",
+          "phrase": "Time to do the arithmetic",
+          "master_seconds": 891,
+          "review_seconds": 8,
+          "fps": 24,
+          "dependent_targets": [
+            "r65-s20-economics",
+            "r65-s20-context"
+          ],
+          "relation": "Cut in source silence; retain all speech"
+        },
+        {
+          "cue_id": "S20-exit",
+          "phrase": "That one.",
+          "master_seconds": 985.75,
+          "review_seconds": 102.75,
+          "fps": 24,
+          "dependent_targets": [
+            "r65-s20-economics",
+            "r65-s20-context"
+          ],
+          "relation": "Cut in source silence; retain all speech"
+        }
+      ],
+      "false_inference": "No earnings forecast, no universal900-hour work year, no observed85-hour delivery, no proven higher fee."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r65-s20-economics/DIRECTION.md",
+      "sha256": "7bc7133a5c6513fb7c0ee9640265546da880b04bc90530203f7531946c0a04c0",
+      "locator": "Direction before implementation"
+    }
+  ]
+}

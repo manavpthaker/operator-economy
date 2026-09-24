@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R59 S14d — Different jobs</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#d-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg{position:absolute;inset:0;width:1280px;height:720px}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:22px;font-weight:400}
+.kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:20px;font-weight:500;letter-spacing:2px}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;top:26px;text-align:center;margin:0;font:700 60px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+#foot{position:absolute;left:0;right:0;bottom:26px;text-align:center;font:400 21px/1.3 Supreme,sans-serif;color:#33464C;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script></head><body>
+<div id="d-root" data-composition-id="ep007-r59-s14d" data-start="0" data-duration="12" data-width="1280" data-height="720" data-fps="24">
+<svg viewBox="0 0 1280 720" role="img" aria-label="Two jobs side by side: preparing a business, with an open path, and selling one, where a regulated boundary stands in the way. A divider separates them and the heading reads Different jobs.">
+<defs><g id="person">
+<path stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31"/>
+<path stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39"/></g>
+<marker id="arr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M1 1L10 6L1 11" fill="none" stroke="#586D74" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<!-- Left: preparing a business. The practice box the viewer already knows. -->
+<g id="prep"><text class="kicker" x="80" y="196">PREPARE A BUSINESS</text>
+<rect x="80" y="240" width="150" height="170" rx="4" stroke="#173530" stroke-width="3.5" fill="#EDE5D6"/>
+<path class="light" d="M106 278L204 278M106 308L204 308M106 338L180 338"/></g>
+<path id="prep-path" class="hide" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arr)" d="M240 326C330 326 420 326 500 326"/>
+<g id="prep-end" class="hide"><rect x="512" y="268" width="96" height="116" rx="4" stroke="#173530" stroke-width="3" fill="none"/><path class="light" d="M534 300L586 300M534 326L586 326M534 352L568 352"/><text class="small" x="560" y="414" text-anchor="middle">Ready</text></g>
+<text id="prep-open" class="small hide" fill="#173530" x="336" y="300" text-anchor="middle">No licence needed</text>
+<!-- Right: selling one. The sale point and the regulated boundary from S11 and S12. -->
+<g id="sell" class="hide"><text class="kicker" x="700" y="196">SELL A BUSINESS</text>
+<use href="#person" transform="translate(772,330) scale(.6)"/></g>
+<path id="sell-path" class="hide" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arr)" d="M826 330C900 330 960 330 1010 330"/>
+<g id="close" class="hide"><path stroke="#173530" stroke-width="5" fill="none" stroke-linecap="round" d="M1160 250L1161 410"/><text class="label" x="1160" y="452" text-anchor="middle">Sale closes</text></g>
+<g id="gate" class="hide"><path stroke="#B5482F" stroke-width="5" fill="none" stroke-linecap="round" d="M1046 236L1047 424"/><text class="label" fill="#B5482F" x="1046" y="506" text-anchor="middle">Licence</text></g>
+<path id="divider" class="hide" stroke="#586D74" stroke-width="2" fill="none" stroke-dasharray="10 9" d="M648 150L648 560"/>
+</svg>
+<h1 id="head" class="head">Different jobs</h1>
+<div id="foot">Directional: the rule varies from place to place. Check your own.</div>
+<audio id="d-narration" src="public/audio/narration.wav" data-start="0" data-duration="12" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+// Master 622.0 + cue. Word anchors from word-transcript.json.
+const C={"country":3.08,"licence":4.79,"prepare":6.54,"preparing":8.64,"selling":9.86,"jobs":11.22};
+const draw=(sel,at,d)=>{const p=document.querySelector(sel);const L=p.getTotalLength();t.set(sel,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(sel,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at)};
+const fade=(sel,at,d=10/24)=>t.fromTo(sel,{autoAlpha:0},{autoAlpha:1,duration:d,ease:'power1.out'},at);
+// "In a large part of the country": the hedge is on screen before the rule.
+fade('#foot',C.country,.5);
+// "you do not need a licence to prepare a business for sale": the preparing path is open.
+
+fade('#prep-open',C.licence+.3,.4);
+draw('#prep-path',C.prepare,.7);
+fade('#prep-end',C.prepare+.5,.4);
+// "Preparing a business and selling one are treated as different jobs."
+fade('#sell',C.preparing+.4,.45);
+draw('#sell-path',C.selling,.5);
+fade('#close',C.selling+.1,.4);
+fade('#gate',C.selling+.45,.4);
+draw('#divider',C.jobs-.35,.6);
+fade('#head',C.jobs);
+window.__timelines['ep007-r59-s14d']=t;
+</script></body></html>

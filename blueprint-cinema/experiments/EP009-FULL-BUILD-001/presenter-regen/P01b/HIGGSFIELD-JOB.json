@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "id": "0f68d221-5876-4ee7-9f2d-cc7d1cfc7198",
+      "type": "video",
+      "status": "pending",
+      "model": "seedance_2_5",
+      "params": {
+        "prompt": "One continuous seven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray shirt with sleeves rolled to the forearm, the small inn breakfast room, wooden tables and chairs, soft daylight, and both complete hands resting on the table. His shoulders are easy and relaxed.\n\nThe IMAGE controls identity, clothing, room and framing. The VIDEO supplies connected articulation only; do not copy its room, clothing or unrelated speech. The AUDIO controls every word, syllable, pause and the exact speaking speed.\n\nSpeak this exact 5.04-second AUDIO reference: \"So what did that second stay actually cost her, and who gets paid to stop it?\" Follow its recorded timing exactly, including the short opening silence. Finish the question when the reference audio finishes; do not slow it down to fill seven seconds. Hold silent with mouth closed through the remaining picture.\n\nLip sync comes first. Face the lens with a steady head and ordinary blinks. Hands remain comfortably at rest. Deliver the question quietly with only a slight gathering of the inner brows. No nod, head shake, finger point, smile, theatrical surprise or raised-brow emphasis. No camera movement, zoom, cut, captions, titles, logo, music or extra people.",
+        "aspect_ratio": "16:9",
+        "duration": 7,
+        "reference_images": [
+          "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30",
+          "d11ea443-81ae-4208-a651-b3807fd43ff3",
+          "9b9c6651-c486-4742-ac48-c15013461b7c"
+        ],
+        "mode": "omni_reference",
+        "resolution": "720p",
+        "generate_audio": true
+      }
+    }
+  ],
+  "adjustments": {
+    "medias[0].role": {
+      "requested": "image",
+      "used": "image_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    },
+    "medias[1].role": {
+      "requested": "video",
+      "used": "video_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    },
+    "medias[2].role": {
+      "requested": "audio",
+      "used": "audio_references",
+      "reason": "Seedance 2.5 backend expects schema-key media roles"
+    }
+  }
+}

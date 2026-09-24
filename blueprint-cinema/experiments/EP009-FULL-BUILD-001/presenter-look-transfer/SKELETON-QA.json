@@ -1,0 +1,75 @@
+{
+  "record_type": "ep009_look_transfer_builder_preparation",
+  "status": "prepared_no_render",
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/build_review.py",
+    "sha256": "8a5192b797e7d2632401104c970638512ff397474f6a42698b3e40d154ab73f9"
+  },
+  "base_build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r4/ep009-full-r4-opening-candidate-BUILD.json",
+    "sha256": "fad999994483aa029f045a4b1ac6286ca42e7aef91b43fcb454822e5363bec02"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "syntax_parsed": true,
+  "full_inventory_exactly_15": true,
+  "pilot_inventory_exactly_one": true,
+  "negative_checks": [
+    {
+      "case": "missing_full",
+      "result": "rejected",
+      "reason": "Full mode requires exactly all 15 replacements; no fallback"
+    },
+    {
+      "case": "duplicate",
+      "result": "rejected",
+      "reason": "Duplicate or unknown selection; P00/film replacements are prohibited"
+    },
+    {
+      "case": "P00_prohibited",
+      "result": "rejected",
+      "reason": "Duplicate or unknown selection; P00/film replacements are prohibited"
+    },
+    {
+      "case": "changed_master",
+      "result": "rejected",
+      "reason": "Manifest must bind exact current base, inventory and unchanged master"
+    },
+    {
+      "case": "wrong_look",
+      "result": "rejected",
+      "reason": "Manifest must bind the exact P00/L3 target appearance"
+    },
+    {
+      "case": "pilot_cannot_include_bulk",
+      "result": "rejected",
+      "reason": "Pilot requires exactly one existing moving presenter selection"
+    },
+    {
+      "case": "full_cannot_select_one",
+      "result": "rejected",
+      "reason": "Full mode requires exactly all 15 replacements; no fallback"
+    }
+  ],
+  "sample_read_only_hash_check": {
+    "segment": "seg074",
+    "source": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P13/final/seg074.mp4",
+      "sha256": "ecbb6bffad1094fde360fb3d64bf36aff224df5463f410fd3537467b4146adb9"
+    },
+    "decoded_frames": 288,
+    "frame_sequence_sha256": "cba737f0d1135cf591d43ac4044076bcb66de044bedce8e51b9ba3f03f69bc83",
+    "master_sample_range": [
+      57698000,
+      58274000
+    ],
+    "master_pcm_sha256": "6d4cd5d81f23c21deaeab4aadfb4b1038965c05127778c24f78d05451dd831b2"
+  },
+  "limits": [
+    "No replacement media exists yet; complete entry validation and output encode/QA await actual verified candidates.",
+    "No render, provider call, current media/plan mutation or commit.",
+    "These schema checks do not establish motion preservation."
+  ]
+}

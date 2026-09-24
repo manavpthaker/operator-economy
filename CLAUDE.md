@@ -6,8 +6,12 @@
 >
 > Superseded here: this file's voice/rubric guidance (-> `content-os/voice.md`, `content-os/rubric.md`),
 > `docs/post-rubric.md` (-> `content-os/rubric.md`, the `operator-economy` register profile), and
-> `docs/publishing-flow.md` phases 1-4 (-> `content-os/flow.md`). Phase 0 and `docs/pipeline.md`
-> remain authoritative -- they are the production chain, which content-os does not own.
+> `docs/publishing-flow.md` phases 1-4 (-> `content-os/flow.md`). Phase 0 remains authoritative.
+> For long-form visual production after VO lock, `docs/blueprint-cinema.md` supersedes the
+> screen-by-screen storyboard model in `docs/pipeline.md` and `docs/storyboard-stage.md`.
+> Within Blueprint Cinema, HyperFrames is canonical for new motion, designed scenes, directed
+> animatics, and render plates; DaVinci Resolve is canonical for final editorial, conform, Fusion,
+> color, Fairlight, captions, online, and delivery. Remotion is retained historical compatibility.
 >
 > Only `studio/originate/<slug>/launch/links.json` may state an episode URL. Prose references it.
 
@@ -20,7 +24,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Content operations for **The Operator Economy** — a YouTube channel + newsletter + blueprint library. Two things live here:
 
 1. **Editorial / strategy docs** (repo root) — positioning, brand, topic queue, kill criteria, research, per-video logs. Markdown, no build step.
-2. **`design-system/`** — the visual design system (**Rev C**, imported 2026-07-02 from Claude Design; "The Working Schematic" direction). **This directory is the single source of truth for all brand visuals.** Token layer (`tokens/*.css` linked via `styles.css`), React components (`components/{core,brand,data}/`), published system doc (`guidelines/Design System.html`), canonical reference comps (`surfaces/`: hero, thumbnail, masthead, cover). `ui_kits/` are Rev-A layouts (token-migrated, layout-superseded — `surfaces/` is canonical). Read `design-system/README.md` first. `brand/design-system.md` is the superseded v1 strategy rationale; `studio/config/brand.json` is derived from the Rev C tokens (reconciled 2026-07-02).
+2. **`design-system/`** — the brand source of truth. **Boundary Ledger 2.0** in
+   `design-system/boundary-ledger/` is the cross-media semantic authority for new web, static,
+   episode-identity, scene, motion-graphic, and audio-led work. Read its `README.md`, semantic core,
+   and the applicable medium binding first. Root Rev C files remain compatibility implementation for
+   unmigrated consumers. Rev D is archived narrative research. `studio/config/brand.json` remains
+   Rev-C-derived compatibility data until migrated.
 3. **`studio/`** — a Python + Remotion production engine. Two entry points:
    - `studio/originate.py` — originates a long-form blueprint video from a research brief (topic → script → VO → assets → render data + LinkedIn/newsletter/blueprint derivatives).
    - `studio/pipeline.py` — cuts short-form clips from a rendered long-form (or any raw recording).

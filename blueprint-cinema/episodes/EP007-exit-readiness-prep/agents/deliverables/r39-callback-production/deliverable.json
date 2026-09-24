@@ -1,0 +1,119 @@
+{
+  "$schema": "./authorized-media-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r39-callback-production",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/GENERATION-AUTHORIZATION.json",
+      "sha256": "c31cf4ffa13015fe691c97183edca86ecb0458044bb24f07a5418d9d52af2e93"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/CALLBACK-PICKUP-REQUEST.json",
+      "sha256": "69a5513d680ebee042285ff127bc1f5f1cd81a9f335af57b69cf3670095ab160"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/GOOGLE-CALLBACK-GUIDE-BODY.json",
+      "sha256": "7bf5880454133e3ef9aa58109a912f3bbb2f4b44d8382cecdfeed35cd51b0ee4"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r39-question-performance/provider/ADDITIONAL-COSTS.json",
+      "sha256": "b9874feb5926deb06b9cbc1fb7eae5f9133589a8fba04569fc390f132a2a06c4"
+    },
+    {
+      "path": "operator-blueprint-v2/02-narration-production/tools/calibrate.py",
+      "sha256": "d59303278dbb79bef6fe0080f1d2b6c1e701e9228e95c7b3cdea4f3eec78cc00"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/work-orders/r39-callback-production.json",
+      "sha256": "8f7a42b4b9df69993271006fbbf86fae6040697bacf815b11a2ac4c064b7f105"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/context-guide.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/callback-only.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/GOOGLE-RECEIPT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/LOCAL-ASR-PROVENANCE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-SUBMISSION-INTENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ggml-tiny.en.bin",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/callback-level-matched.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/SCHEMA-EXCEPTION.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/execute.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/context-original-c.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-VOICE-PREFLIGHT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-ACCOUNT-BEFORE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/finalize.py",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/callback-asr-16k.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/WHISPER-LOG.txt",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-ACCOUNT-IMMEDIATE-BEFORE.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/COST-RECONCILIATION.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/.gitignore",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/callback-transcript.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/GOOGLE-SUBMISSION-INTENT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/CALLBACK-CUT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/context-asr-16k.wav",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/TRANSFER-COST-DECISION.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/authorized-media-deliverable.schema.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/context-transcript.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-ACCOUNT-AFTER.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/ELEVEN-RECEIPT.json",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r39-callback-production/WHISPER-CALLBACK-LOG.txt"
+  ],
+  "checks": [
+    {
+      "command": "Verify every issued input pin and current authorization caps",
+      "outcome": "pass"
+    },
+    {
+      "command": "Exactly one Google guide and one ElevenLabs transfer; no paid retries",
+      "outcome": "pass"
+    },
+    {
+      "command": "Live account/voice preflight and actual duration before transfer; conservative estimate168credits <=250",
+      "outcome": "pass"
+    },
+    {
+      "command": "HTTP200 receipts; ElevenLabs character-cost122 <=250; Google conservative computed cost0.0060845 <=0.05",
+      "outcome": "pass"
+    },
+    {
+      "command": "Exact PCM callback extraction and independent local ASR wording check",
+      "outcome": "pass"
+    },
+    {
+      "command": "Native-speed listening against original adjacent narration",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Base standard schema boolean constants for authorized production",
+      "outcome": "fail"
+    },
+    {
+      "command": "Local authorization-compatible schema and all remaining base-schema fields",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Authorized exact request packet and Original C transfer settings.",
+    "Live Google and ElevenLabs provider receipts; credentials never logged.",
+    "Official ElevenLabs documentation for shared voice multipliers.",
+    "Open Whisper tiny.en model downloaded for local transcription; no external audio upload beyond authorized Google/ElevenLabs production."
+  ],
+  "assumptions": [
+    "Response character-cost is stronger request-specific billing evidence than immediate account usage delta.",
+    "Gated RMS level matching is a starting point for seam listening, not perceptual certification."
+  ],
+  "unresolved_questions": [
+    "Root must listen to the level-matched callback in surrounding original narration before final selection.",
+    "Google cost is computed from rates; no invoice was returned.",
+    "Shared agent schema does not support paid worker actions despite issued authorization; local exception is recorded."
+  ],
+  "external_writes": true,
+  "paid_services": true,
+  "synthetic_generation": true,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

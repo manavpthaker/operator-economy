@@ -1,0 +1,73 @@
+{
+  "id": "seg071a",
+  "method": "Lossless diagnostic selection only; source diagnostic freshly checked against full original. No retime/shift/crop/resize.",
+  "original_segment": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P11/final/seg071.mp4",
+    "sha256": "b8afa8379f3505004cfa0928dca2caa6efe2bf237add0813e7d89fda09a09fb8"
+  },
+  "selected_original_segment_frames": [
+    0,
+    97
+  ],
+  "selected_provider_frames": [
+    0,
+    97
+  ],
+  "selected_frames": 97,
+  "candidate_total_frames": 129,
+  "context_frames_excluded": [],
+  "terminal_frames_excluded": [
+    97,
+    129
+  ],
+  "source_diagnostic": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg071a/qa-selected-r1/source-selected-lossless.mp4",
+    "sha256": "e50fbdaf067756926087dc744cea5be0f3838517b6baa5ba734b101bf7eb55ef"
+  },
+  "source_exact_original_decoded_pixels": true,
+  "source_frame_sequence_sha256": "4b6624616c3e395a6d723f2e3b1d0210fa37b479edf1b6ac42906dace6711a21",
+  "candidate": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg071a/native.mp4",
+    "sha256": "98cbed27acd5b15e6227e64e4f6fc580739afeef357882f398933ee26738dae8"
+  },
+  "candidate_diagnostic": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg071a/qa-selected-r1/candidate-selected-lossless.mp4",
+    "sha256": "0e372a4ab338a8fc0d1eb11607369cc15774b0c384c030efa1b040207ce4f5e1"
+  },
+  "candidate_exact_native_decoded_pixels": true,
+  "candidate_frame_sequence_sha256": "5ab00f5d861e997dbaecc597b9f81baa8d5ffcf060a080764eb1d92d68b46255",
+  "download": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg071a/DOWNLOAD.json",
+    "sha256": "76f7c076bedc946d3081c99d526c999b67cca8aafee5b9194c3ba24b2cc09d0d"
+  },
+  "prior_input_binding": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/wardrobe-guarded-r2/seg071a/qa-selected-r1/INPUTS.json",
+    "sha256": "ca26774481c2bf7ab9032355a79ca056564935db3eeb844c3d06cf8342aaeee7"
+  },
+  "candidate_trim_command": [
+    "ffmpeg",
+    "-nostdin",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg071a/native.mp4",
+    "-vf",
+    "trim=start_frame=0:end_frame=97,setpts=PTS-STARTPTS",
+    "-an",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "0",
+    "-preset",
+    "medium",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-fps_mode",
+    "passthrough",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg071a/qa-selected-r1/candidate-selected-lossless.mp4"
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theoperatoreconomy.com/schemas/oe-performance-transfer-plan-v1.json",
+  "title": "OE Step 2 synthetic-guide to saved-voice transfer plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "plan_id", "status", "target", "canonical_w", "microtest",
+    "performance_envelope", "provider_adapters", "guide", "voice_transfer", "authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "oe-performance-transfer-plan-v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "status": {"const": "dry_run_only"},
+    "target": {"$ref": "#/$defs/target"},
+    "canonical_w": {"$ref": "#/$defs/canonicalW"},
+    "microtest": {"$ref": "#/$defs/microtest"},
+    "performance_envelope": {"$ref": "#/$defs/pathHash"},
+    "provider_adapters": {
+      "type": "object", "additionalProperties": false,
+      "required": ["google", "elevenlabs_voice_changer"],
+      "properties": {
+        "google": {"$ref": "#/$defs/pathHash"},
+        "elevenlabs_voice_changer": {"$ref": "#/$defs/pathHash"}
+      }
+    },
+    "guide": {"$ref": "#/$defs/guide"},
+    "voice_transfer": {"$ref": "#/$defs/voiceTransfer"},
+    "authority": {"$ref": "#/$defs/authority"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["fixture", "experiment"]},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "pathHash": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "canonicalW": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "token_count"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "token_count": {"type": "integer", "minimum": 110}
+      }
+    },
+    "microtest": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "passage_id", "start_token", "end_token", "token_count", "token_slice_sha256",
+        "spoken_text_sha256", "spoken_text_character_count"
+      ],
+      "properties": {
+        "passage_id": {"const": "P01"},
+        "start_token": {"const": 30},
+        "end_token": {"const": 110},
+        "token_count": {"const": 80},
+        "token_slice_sha256": {"const": "790a8176c5085968bd24c8572dacc5539b4e686f6b9b269cba2fd330c08d4a4a"},
+        "spoken_text_sha256": {"const": "db3ccbb400f6bde4099f08b79b4402c374577cae4e622b0087649482e4f7d1cb"},
+        "spoken_text_character_count": {"const": 465}
+      }
+    },
+    "guide": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "provider", "endpoint", "method", "model_id", "voice_name", "language_code",
+        "acting_prompt", "acting_prompt_sha256", "request_body_sha256", "request_body_bytes",
+        "request_count", "identical_unseeded_requests", "input_limits", "format", "destinations"
+      ],
+      "properties": {
+        "provider": {"const": "google_cloud_text_to_speech"},
+        "endpoint": {"const": "https://us-texttospeech.googleapis.com/v1/text:synthesize"},
+        "method": {"const": "POST"},
+        "model_id": {"const": "gemini-2.5-pro-tts"},
+        "voice_name": {"const": "Achird"},
+        "language_code": {"const": "en-US"},
+        "acting_prompt": {"const": "An experienced operator sits across a table from one smart peer. He is camera-ready, personally engaged, and working through a real puzzle, not reading copy. Speak the text exactly as written: add, omit, repeat, or paraphrase nothing. Start with the consequence. Let \"Or worse\" carry dry, knowing irritation; make \"Everything is green\" briefly deadpan; then turn at \"That missing view\" into genuine curiosity and practical excitement. Keep forward momentum, with thought-space at each turn. Energy eight of ten. Natural American conversation; emphasis follows meaning. Never sound like an announcer, trailer, podcast host, stage pitch, or motivational speaker. Pronounce \"2022\" as \"twenty twenty-two.\" Do not vocalize these directions."},
+        "acting_prompt_sha256": {"const": "8cfe0391324bce56cb6bf6d83ef0e781479de14c08a7861716e9716f9017b416"},
+        "request_body_sha256": {"const": "4acd99a738125e942fc1a6c2e4ef8df9c819397c9a2627fb494e73d63d004c53"},
+        "request_body_bytes": {"const": 1440},
+        "request_count": {"const": 2},
+        "identical_unseeded_requests": {"const": true},
+        "input_limits": {
+          "type": "object", "additionalProperties": false,
+          "required": ["combined_utf8_bytes", "prompt_utf8_bytes", "text_utf8_bytes"],
+          "properties": {
+            "combined_utf8_bytes": {"const": 5000},
+            "prompt_utf8_bytes": {"const": 4000},
+            "text_utf8_bytes": {"const": 4000}
+          }
+        },
+        "format": {
+          "type": "object", "additionalProperties": false,
+          "required": ["audio_encoding", "sample_rate_hz", "container", "channels"],
+          "properties": {
+            "audio_encoding": {"const": "LINEAR16"},
+            "sample_rate_hz": {"const": 24000},
+            "container": {"const": "wav"},
+            "channels": {"const": 1}
+          }
+        },
+        "destinations": {
+          "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+          "prefixItems": [
+            {"const": "outputs/raw/google/P01-W0030-W0110/candidate-A.wav"},
+            {"const": "outputs/raw/google/P01-W0030-W0110/candidate-B.wav"}
+          ],
+          "items": false
+        }
+      }
+    },
+    "voiceSettings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["stability", "similarity_boost", "style", "use_speaker_boost", "speed"],
+      "properties": {
+        "stability": {"const": 0.4},
+        "similarity_boost": {"const": 0.8},
+        "style": {"const": 0.0},
+        "use_speaker_boost": {"const": true},
+        "speed": {"const": 1.0}
+      }
+    },
+    "voiceTransfer": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "provider", "status", "endpoint", "method", "target_voice_id", "model_id", "seed",
+        "query_policy", "voice_settings", "remove_background_noise", "file_format",
+        "preferred_output_format", "conditional_fallback_output_format", "source_limits", "destination"
+      ],
+      "properties": {
+        "provider": {"const": "elevenlabs"},
+        "status": {"const": "blocked_pending_selected_guide"},
+        "endpoint": {"const": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj"},
+        "method": {"const": "POST"},
+        "target_voice_id": {"const": "scMbPZwQjr40V1MzL3Nj"},
+        "model_id": {"const": "eleven_multilingual_sts_v2"},
+        "seed": {"const": 2026082501},
+        "query_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["enable_logging", "output_format"],
+          "properties": {
+            "enable_logging": {"const": "false_for_zrm_otherwise_true_only_with_account_training_opt_out"},
+            "output_format": {"const": "pcm_48000"}
+          }
+        },
+        "voice_settings": {"$ref": "#/$defs/voiceSettings"},
+        "remove_background_noise": {"const": false},
+        "file_format": {"const": "other"},
+        "preferred_output_format": {"const": "pcm_48000"},
+        "conditional_fallback_output_format": {"const": "mp3_44100_192"},
+        "source_limits": {
+          "type": "object", "additionalProperties": false,
+          "required": ["max_bytes", "max_duration_seconds"],
+          "properties": {
+            "max_bytes": {"const": 50000000},
+            "max_duration_seconds": {"const": 300}
+          }
+        },
+        "destination": {"const": "outputs/raw/elevenlabs/P01-W0030-W0110/saved-c-transfer.pcm"}
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "guide_authorization_required", "voice_transfer_authorization_required",
+        "joint_authorization_forbidden", "guide_must_be_selected_and_pass_qa",
+        "external_action_authorized", "credentials_may_be_accessed", "audio_may_be_generated",
+        "full_capture_authorized", "step3_authorized", "publication_authorized"
+      ],
+      "properties": {
+        "guide_authorization_required": {"const": true},
+        "voice_transfer_authorization_required": {"const": true},
+        "joint_authorization_forbidden": {"const": true},
+        "guide_must_be_selected_and_pass_qa": {"const": true},
+        "external_action_authorized": {"const": false},
+        "credentials_may_be_accessed": {"const": false},
+        "audio_may_be_generated": {"const": false},
+        "full_capture_authorized": {"const": false},
+        "step3_authorized": {"const": false},
+        "publication_authorized": {"const": false}
+      }
+    }
+  }
+}

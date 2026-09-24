@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "r34-s06-evidence-cues",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/script.md",
+      "sha256": "e56bbb80c1b3a21679a17459402130d820be285ee389fc2978ef8216d6487db0"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/01-editorial/claims-map.md",
+      "sha256": "0c4f715d71f816fb8190c5fc3777e61cfdabd3c2cc5f26a2aee7a89d0f5fe4e1"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r34-s06-evidence-cues/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r34-s06-evidence-cues/cue-map.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute SHA256 of every issued input and compare with work order",
+      "outcome": "pass"
+    },
+    {
+      "command": "Derive S06 and S07 word ranges and review times directly from locked transcript",
+      "outcome": "pass"
+    },
+    {
+      "command": "Audit proposed state distinction and approximate evidence mark against C001 and C005 limitations",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate agent-deliverable against schema with jsonschema Draft202012Validator",
+      "outcome": "pass"
+    },
+    {
+      "command": "Original audio and rendered runtime review",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Locked script S05-S07 and approved claims map C001/C005; no new public claims or independent source verification.",
+    "Locked word-transcript.json provides exact token IDs and timestamp boundaries.",
+    "Repository and Blueprint Cinema governance read for bounded worker scope. No returned visual pilot inspected."
+  ],
+  "assumptions": [
+    "The retained prefix uses review=master-3 after master48 seconds, as specified by the work order.",
+    "Root agent is editing an isolated experiment and owns runtime, decision history, acceptance, and canonical-state boundaries."
+  ],
+  "unresolved_questions": [
+    "Proposed 24fps cut at review200.291666667 requires waveform or original-audio verification because transcript-only gap is60ms.",
+    "Actual source attribution, approximation, and directional qualifier legibility require rendered-scene review."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

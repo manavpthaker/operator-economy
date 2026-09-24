@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=720, height=1280" />
+    <title>Week 2 — What is worth leaving manual?</title>
+    <script src="public/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 720px;
+        height: 1280px;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      #root {
+        position: relative;
+        width: 720px;
+        height: 1280px;
+        overflow: hidden;
+      }
+      video.clip {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 720px;
+        height: 1280px;
+        object-fit: contain;
+      }
+      #selfie-base { z-index: 0; }
+      .broll { z-index: 1; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="selfie-week2-full04"
+      data-start="0"
+      data-duration="38.875"
+      data-width="720"
+      data-height="1280"
+    >
+      <!-- Exact full-03 source runs continuously behind the inserts: [0,933). -->
+      <video id="selfie-base" class="clip" src="public/media/selfie-base.mp4"
+        data-start="0" data-duration="38.875" data-media-start="0"
+        data-track-index="0" muted playsinline></video>
+      <!-- Generated phone-filming-MacBook B-roll: [304,534), then [684,746). -->
+      <!-- Native-sized prepared media, hard boundaries, no extra transforms or effects. -->
+      <video id="broll-main" class="clip broll" src="public/media/broll-main.mp4"
+        data-start="12.666666666666666" data-duration="9.583333333333334" data-media-start="0"
+        data-track-index="1" muted playsinline></video>
+      <video id="broll-manual" class="clip broll" src="public/media/broll-manual.mp4"
+        data-start="28.5" data-duration="2.5833333333333335" data-media-start="0"
+        data-track-index="1" muted playsinline></video>
+      <!-- Original C is one continuous master; native/generated clip audio is never used. -->
+      <audio id="original-c" class="clip" src="public/audio/original-c.wav"
+        data-start="0" data-duration="38.87020833333333" data-media-start="0"
+        data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["selfie-week2-full04"] = tl;
+    </script>
+  </body>
+</html>

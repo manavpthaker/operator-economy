@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #173530; }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #173530;
+        color: #f5f0e6;
+        font-family: "BL Supreme", system-ui, sans-serif;
+      }
+      #root > [data-composition-src] { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+
+      .identity-docket {
+        position: absolute;
+        z-index: 80;
+        top: 48px;
+        left: 58px;
+        right: 122px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+      .identity-rail {
+        position: absolute;
+        z-index: 79;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: #173530;
+        border-bottom: 2px solid rgba(196, 185, 158, 0.34);
+        pointer-events: none;
+      }
+      .series-label {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #f5f0e6;
+        font-size: 25px;
+        font-weight: 500;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.72);
+      }
+      .series-label::before { width: 10px; height: 34px; background: #c4b99e; content: ""; }
+      .prototype-label {
+        max-width: 330px;
+        color: rgba(245, 240, 230, 0.86);
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 1.22;
+        letter-spacing: 0.09em;
+        text-align: right;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.8);
+      }
+      .mode-label {
+        position: absolute;
+        z-index: 81;
+        top: 100px;
+        left: 82px;
+        font: 500 24px/1 "BL Supreme", system-ui, sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(23, 53, 48, 0.76);
+        pointer-events: none;
+      }
+      #test-mode { color: #c4b99e; }
+      #work-mode { color: #fb8b69; opacity: 0; }
+
+      #caption-shade {
+        position: absolute;
+        z-index: 70;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 560px;
+        background: linear-gradient(to bottom, rgba(23, 53, 48, 0), rgba(23, 53, 48, 0.9) 42%, #173530 72%);
+        pointer-events: none;
+      }
+      #caption-band {
+        position: absolute;
+        z-index: 82;
+        left: 58px;
+        right: 122px;
+        top: 1418px;
+        height: 320px;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      #caption-band::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 6px;
+        background: #b5482f;
+        content: "";
+      }
+      .caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 18px;
+        color: #f5f0e6;
+        font: 500 66px/0.98 "BL Supreme", system-ui, sans-serif;
+        letter-spacing: -0.035em;
+        opacity: 0;
+        text-wrap: balance;
+      }
+      .caption em { color: #fb8b69; font-style: normal; }
+
+      .footer-meta {
+        position: absolute;
+        z-index: 84;
+        left: 58px;
+        right: 122px;
+        bottom: 62px;
+        display: flex;
+        justify-content: space-between;
+        color: rgba(245, 240, 230, 0.62);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-hf-id="ep007-short01-root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="43.846410"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="scene-01-slot" data-composition-id="scene-01-no-owner" data-composition-src="compositions/01-no-owner.html" data-start="0" data-duration="12.749637" data-track-index="1"></div>
+      <div id="scene-02-slot" data-composition-id="scene-02-circle-owner" data-composition-src="compositions/02-circle-owner.html" data-start="12.749637" data-duration="7.227833" data-track-index="1"></div>
+      <div id="scene-03-slot" data-composition-id="scene-03-dependency-map" data-composition-src="compositions/03-dependency-map.html" data-start="19.977470" data-duration="10.919354" data-track-index="1"></div>
+      <div id="scene-04-slot" data-composition-id="scene-04-map-limit" data-composition-src="compositions/04-map-limit.html" data-start="30.896824" data-duration="5.606479" data-track-index="1"></div>
+      <div id="scene-05-slot" data-composition-id="scene-05-commercial-question" data-composition-src="compositions/05-commercial-question.html" data-start="36.503303" data-duration="7.343107" data-track-index="1"></div>
+
+      <audio id="scratch-voice-01" src="assets/audio/authority-v4-beat-01.wav" data-start="0" data-duration="12.499637" data-track-index="100" data-volume="1"></audio>
+      <audio id="scratch-voice-02" src="assets/audio/conversation-v3-beat-02.wav" data-start="12.749637" data-duration="6.977833" data-track-index="100" data-volume="1"></audio>
+      <audio id="scratch-voice-03" src="assets/audio/conversation-v3-beat-03.wav" data-start="19.977470" data-duration="5.841375" data-track-index="100" data-volume="1"></audio>
+      <audio id="scratch-voice-04" src="assets/audio/conversation-v3-beat-04.wav" data-start="26.068845" data-duration="4.577979" data-track-index="100" data-volume="1"></audio>
+      <audio id="scratch-voice-05" src="assets/audio/conversation-v3-beat-05.wav" data-start="30.896824" data-duration="5.356479" data-track-index="100" data-volume="1"></audio>
+      <audio id="scratch-voice-06" src="assets/audio/authority-v4-beat-06.wav" data-start="36.503303" data-duration="7.093107" data-track-index="100" data-volume="1"></audio>
+
+      <div class="identity-rail" aria-hidden="true"></div>
+      <div class="identity-docket" data-hf-id="channel-identity-docket">
+        <div id="series-label" class="series-label">The Operator Economy</div>
+        <div class="prototype-label">Structure test · scratch VO · final portrait performance pending</div>
+      </div>
+      <div id="test-mode" class="mode-label">Business under test</div>
+      <div id="work-mode" class="mode-label">The work</div>
+
+      <div id="caption-shade" aria-hidden="true"></div>
+      <section id="caption-band" data-layout-allow-caption-zone aria-label="Scratch captions">
+        <p id="caption-01-question" class="caption">How do you help someone get their business <em>ready to sell?</em></p>
+        <p id="caption-01-before" class="caption">You start <em>before they even have a buyer.</em></p>
+        <p id="caption-01-opportunity" class="caption">You can build a business around that preparation:</p>
+        <p id="caption-01-practice" class="caption">a <em>sale-readiness practice.</em></p>
+        <p id="caption-01-test" class="caption"><em>First question:</em> could the business run for thirty days without its owner?</p>
+        <p id="caption-02-answer" class="caption">Try answering without saying <em>“I.”</em></p>
+        <p id="caption-02-examples" class="caption">“I call the customers. I approve the exceptions. I know where the records are.”</p>
+        <p id="caption-02-circle" class="caption"><em>Circle every “I.”</em></p>
+        <p id="caption-03" class="caption">Then ask <em>three things</em> about every circle:</p>
+        <p id="caption-04" class="caption">Who else could act? What would they need?</p>
+        <p id="caption-05" class="caption">What stops without the owner?</p>
+        <p id="caption-06" class="caption">Do that for each one, and you’ve got a <em>first working map</em></p>
+        <p id="caption-07" class="caption">of the business’s dependencies.</p>
+        <p id="caption-08" class="caption">It isn’t a prediction about the sale.</p>
+        <p id="caption-09" class="caption">It shows where there’s <em>no handoff yet,</em></p>
+        <p id="caption-10" class="caption">so you know where to start.</p>
+        <p id="caption-11" class="caption">The bigger question is whether</p>
+        <p id="caption-12" class="caption">an owner would pay someone to clear that map <em>before a buyer appears.</em></p>
+        <p id="caption-13" class="caption">The full episode shows you <em>how to build the service.</em></p>
+      </section>
+
+      <div class="footer-meta">
+        <span>Illustrative working diagnostic</span>
+        <span>EP007 · Short 01</span>
+      </div>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const captionWindows = [
+        ["#caption-01-question", 0.12, 2.66],
+        ["#caption-01-before", 2.86, 4.59],
+        ["#caption-01-opportunity", 4.78, 7.03],
+        ["#caption-01-practice", 7.2, 8.66],
+        ["#caption-01-test", 8.88, 12.35],
+        ["#caption-02-answer", 12.82747, 14.54747],
+        ["#caption-02-examples", 14.58747, 17.84747],
+        ["#caption-02-circle", 17.88747, 19.74747],
+        ["#caption-03", 20.09747, 22.49747],
+        ["#caption-04", 22.54747, 24.49747],
+        ["#caption-05", 24.54747, 25.69747],
+        ["#caption-06", 26.14747, 28.74747],
+        ["#caption-07", 28.79747, 30.39747],
+        ["#caption-08", 30.99747, 33.14747],
+        ["#caption-09", 33.24747, 34.84747],
+        ["#caption-10", 34.89747, 36.29747],
+        ["#caption-11", 36.603303, 37.683303],
+        ["#caption-12", 37.723303, 40.863303],
+        ["#caption-13", 41.083303, 43.81]
+      ];
+      captionWindows.forEach(([selector, start, end]) => {
+        tl.fromTo(selector, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, start);
+        tl.to(selector, { opacity: 0, y: -10, duration: 0.12, ease: "power2.in" }, end - 0.12);
+      });
+      tl.to("#test-mode", { opacity: 0, x: 14, duration: 0.2, ease: "power2.in" }, 27.19747);
+      tl.fromTo("#work-mode", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, 27.47747);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

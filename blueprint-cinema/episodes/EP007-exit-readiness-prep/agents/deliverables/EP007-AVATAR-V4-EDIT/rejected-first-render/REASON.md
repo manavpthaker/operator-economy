@@ -1,0 +1,1 @@
+Held from review: thin corrupted final rows are present in the provider-restored source and survive the first HyperFrames export. FFmpeg source extraction confirms this is a source-edge defect, not a browser-decoder defect. Corrected by 1.004x top-anchored overscan during the wide view; the question crop remains 1.30x. Original source is retained.

@@ -1,0 +1,120 @@
+[
+  {
+    "event_id": "r55-owner-start-abrupt-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "feedback",
+    "tags": [
+      "owner-feedback",
+      "cut-timing",
+      "presenter-return"
+    ],
+    "data": {
+      "decision_event_id": "r55-s12d-constraint-v1",
+      "actor": "owner",
+      "verbatim": "the start is a bit abrupt",
+      "interpretation": "Entry into S12 presenter is abrupt.",
+      "verdict": "revise",
+      "scope": "S11 D outpoint / S12 A inpoint.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12a/qa/r55-s12a-presenter.mp4",
+          "sha256": "c7bcfa94759c4df16a0d21280ed9e6c89bdac50f783f0dcec98d2c0f50b38fcc"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/OWNER-START-ABRUPT.json",
+        "sha256": "28a4c7addb35e2705084d268465c7779a1ddb35eb846bcb305b3c4c4f4cbcb8c",
+        "locator": "Owner wording"
+      }
+    ]
+  },
+  {
+    "event_id": "r55-s11-s12-cut-earlier-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "decision",
+    "supersedes": "r55-s12d-constraint-v1",
+    "tags": [
+      "cut-timing",
+      "presenter-return"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Give the presenter a settled beat before the objection.",
+        "viewer_before": "'The vacancy' heading has just landed.",
+        "viewer_after": "The presenter appears at rest, then raises the objection."
+      },
+      "choice": "Move the S11/S12 cut from master 454.375 to 454.0 (9 frames earlier, inside digital silence). S11 D keeps its first 564 frames (0.76 s hold after 'The vacancy' lands); the presenter uses restored frames 0-262 so it appears 0.375 s before 'Fair'.",
+      "reason": "The locked narration cannot move; the take contains rest frames before speech, and the silence allows the earlier cut without changing audio.",
+      "alternatives": [
+        {
+          "choice": "Cross-dissolve",
+          "reason_not_selected": "The episode's accepted grammar uses hard cuts; the timing fix addresses the cause."
+        },
+        {
+          "choice": "Hold 'The vacancy' longer",
+          "reason_not_selected": "Would require moving narration."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A presenter cut lands immediately on speech after a section break.",
+        "avoid_when": "No silence or no rest frames exist before the first word."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s11-s12-cut",
+            "phrase": "before Fair objection",
+            "relation": "0.375 s into master silence before Fair",
+            "master_seconds": 454.0,
+            "review_seconds": 451.0,
+            "fps": 24,
+            "dependent_targets": [
+              "S11 D outpoint (was 454.375)",
+              "S12 A inpoint and restored source frame 0"
+            ]
+          }
+        ],
+        "source_basis": "Owner feedback. Adjusts the locked S11 D by 9 trailing hold frames; no narration change."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12a/qa/r55-s12a-presenter-lead.mp4",
+        "sha256": "3b0b79d1bc43cbddd0cc4c99987ee432d8b1326d32569d5c1c08b2cb4f998270",
+        "locator": "Presenter with lead frames"
+      }
+    ]
+  },
+  {
+    "event_id": "r55-s11-s12-cut-earlier-verified-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "verification",
+    "tags": [
+      "cut-timing",
+      "original-audio"
+    ],
+    "data": {
+      "decision_event_id": "r55-s11-s12-cut-earlier-v1",
+      "method": "Master RMS 454.0-454.375 = 0.0; lead frames inspected (at rest); rebuilt S12 context; audio correlation S11 tail 0.99985, A 0.99997, D 0.99972 at zero lag; no uniform frames.",
+      "result": "pass",
+      "scope": "S12 context with the earlier cut (2219 frames).",
+      "limitations": "Owner review pending.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v2-context/qa/context.mp4",
+          "sha256": "eb43861b56d42a784fa0d2338cba92344db416c1e8caf97bc608127d7a131e98"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v2-context/index.html",
+        "sha256": "8fd3afe6142260dca041c762032cc6f7cbf7eb0f215b6a7a02d317dbc5583b05",
+        "locator": "Review page"
+      }
+    ]
+  }
+]

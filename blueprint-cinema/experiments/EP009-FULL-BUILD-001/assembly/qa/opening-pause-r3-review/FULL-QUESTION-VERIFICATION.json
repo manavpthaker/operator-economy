@@ -1,0 +1,95 @@
+{
+  "at": "2026-09-17T18:32:17.713704+00:00",
+  "channel_method": "Decode stereo as2channels and compare each independently with mono master; do not downmix. Prior CLIP-VERIFICATION used FFmpeg mono downmix and its +3dB RMS figure is a measurement normalization effect, not a clip gain change.",
+  "render_format": "1280x72024fps48kHzstereo",
+  "review_status": "candidate_not_owner_accepted",
+  "before": {
+    "file": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/opening-pause-r3-review/before-full-question.mp4",
+      "sha256": "a1dd8ece63b263039c40052d49c12d53f310e051956e752545962c57b64fa3f3"
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "24/1",
+          "nb_read_frames": "374"
+        },
+        {
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "nb_read_frames": "731"
+        }
+      ],
+      "format": {
+        "duration": "15.583008"
+      }
+    },
+    "expected_frames": 374,
+    "program_samples": 748000,
+    "decoded_samples": 748544,
+    "audio_channels": [
+      {
+        "channel": 0,
+        "zero_lag_correlation": 0.9999901901835794,
+        "rms_delta_db": -0.006458391339670518
+      },
+      {
+        "channel": 1,
+        "zero_lag_correlation": 0.999990190196958,
+        "rms_delta_db": -0.006458394986282253
+      }
+    ]
+  },
+  "after": {
+    "file": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/opening-pause-r3-review/after-full-question.mp4",
+      "sha256": "47584b437787b88fbffc0564f8cd8ef039d60bcd606fbe383183e09e2009c6c7"
+    },
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "24/1",
+          "nb_read_frames": "296"
+        },
+        {
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "nb_read_frames": "579"
+        }
+      ],
+      "format": {
+        "duration": "12.333008"
+      }
+    },
+    "expected_frames": 296,
+    "program_samples": 592000,
+    "decoded_samples": 592896,
+    "audio_channels": [
+      {
+        "channel": 0,
+        "zero_lag_correlation": 0.9999901065973777,
+        "rms_delta_db": -0.006303818159799019
+      },
+      {
+        "channel": 1,
+        "zero_lag_correlation": 0.9999901066106379,
+        "rms_delta_db": -0.006303822237395696
+      }
+    ]
+  },
+  "limits": "Twelve actual encoded-source stills inspected. Frame counts, exact zero-sample removal and channelwise audio mapping checked. No normal-speed audiovisual playback verdict; this is a proposed pacing choice for owner review."
+}

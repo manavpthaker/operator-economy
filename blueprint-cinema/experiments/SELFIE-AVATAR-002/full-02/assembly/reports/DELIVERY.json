@@ -1,0 +1,121 @@
+{
+  "status": "technical_checks_passed_pending_owner_review",
+  "path": "renders/week2-full02-uncaptioned.mp4",
+  "sha256": "adf61f3bb7790ce2039d4bffadf8992d3eaba9039a593232502407c0adc28677",
+  "bytes": 28514919,
+  "dimensions": [
+    720,
+    1280
+  ],
+  "fps": 24,
+  "frames": 933,
+  "picture_duration_seconds": 38.875,
+  "audio_source_sha256": "0ad39c68a67b6c0f11edcbbe952380fc616716a59788dc049e2613313e4091e0",
+  "audio_finishing": "Direct Original C mono 48 kHz AAC at 192 kb/s; same picture bitstream; no filters, gain, normalization or retiming.",
+  "hyperframes_version": "0.8.38",
+  "hyperframes_check_passed": true,
+  "strict_decode_passed": true,
+  "video_packets_identical_after_audio_finishing": true,
+  "packet_count": 933,
+  "protected_prior_media_unchanged": true,
+  "protected_prior_media_count": 5,
+  "frame_contract": {
+    "opening": [
+      0,
+      524
+    ],
+    "closing": [
+      524,
+      933
+    ],
+    "source_change_at_frame146": false,
+    "prepared_opening_sha256": "a36b6644b44d867cc8b570d9d72bce4bf8922b69619f5c6084baf0102931fc33",
+    "retained_closing_sha256": "6b3d72f4a997c3faaa06d84631b82a97388cf9be6484d95d8cc6838de4251004"
+  },
+  "picture_qa": {
+    "inspected_encoded_frames": [
+      0,
+      72,
+      145,
+      146,
+      336,
+      523,
+      524,
+      720,
+      932
+    ],
+    "source_frame_comparisons": [
+      {
+        "output_frame": 0,
+        "source": "opening-continuous",
+        "source_frame": 0,
+        "rmse": 3.3351044014594593,
+        "psnr_db": 37.66861493797218
+      },
+      {
+        "output_frame": 145,
+        "source": "opening-continuous",
+        "source_frame": 145,
+        "rmse": 3.4679906159095983,
+        "psnr_db": 37.32924533584936
+      },
+      {
+        "output_frame": 146,
+        "source": "opening-continuous",
+        "source_frame": 146,
+        "rmse": 3.466059339746439,
+        "psnr_db": 37.334083735386386
+      },
+      {
+        "output_frame": 523,
+        "source": "opening-continuous",
+        "source_frame": 523,
+        "rmse": 3.453037905303526,
+        "psnr_db": 37.36677669286986
+      },
+      {
+        "output_frame": 524,
+        "source": "closing",
+        "source_frame": 0,
+        "rmse": 3.421782459005724,
+        "psnr_db": 37.445755695439765
+      },
+      {
+        "output_frame": 932,
+        "source": "closing",
+        "source_frame": 408,
+        "rmse": 3.529608865612869,
+        "psnr_db": 37.17627197637658
+      }
+    ],
+    "former_cut_frame145_to146_mean_abs_difference": 1.1581145109953703,
+    "contact_sheet": "qa/encoded-contact.png",
+    "assessment": "Frames 145 and 146 are successive frames of the same opening source; no source switch or pose/framing reset at But. At frame 524 the intended retained closing source begins. Full head remains; no phone, desk, lap, graphics or end card in inspected frames; frame 932 is present and clean."
+  },
+  "audio_qa": {
+    "report": "reports/AUDIO-FINISHING.json",
+    "fullband_rms_difference_db": -0.004032637034990725,
+    "fullband_peak": 0.9212974905967712,
+    "global_zero_lag_correlation": 0.9999884668497832,
+    "root_39_window_qa": {
+      "status": "passed",
+      "window_count": 39,
+      "global_and_window_lag_samples": 0,
+      "minimum_correlation": 0.999935,
+      "level_delta_db": -0.003957,
+      "decoded_peak": 0.9125,
+      "note": "Root full-window measurement; assembly fullband48k measurements remain separately recorded.",
+      "source": "../FINAL-AUDIO-QA.json"
+    }
+  },
+  "limits": [
+    "Sampled frame comparison does not establish human perceptual lip-sync approval.",
+    "Owner review remains pending; root delivery is recorded separately."
+  ],
+  "render_command": "HYPERFRAMES_RUN_ID=selfie-week2-full02 npm run render",
+  "finishing_command": "ffmpeg -v error -n -i renders/week2-full02-hyperframes-audio.mp4 -i public/audio/original-c.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ac 1 -ar 48000 -movflags +faststart renders/week2-full02-uncaptioned.mp4",
+  "publication_approved": false,
+  "provider_calls": 0,
+  "uploads": 0,
+  "commits": 0
+}

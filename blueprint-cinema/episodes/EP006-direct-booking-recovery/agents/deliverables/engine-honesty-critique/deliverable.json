@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "engine-honesty-critique",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "episodes/EP006-direct-booking-recovery/episode-engine.json",
+      "sha256": "e07ed63476684bc3e3a2757e1e30c651322859a9f27b4f25bc7a08d15ddc4b36"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/engine-honesty-critique/engine-critique.md",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/engine-honesty-critique/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 input-lock.json episode-engine.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-engine EP006-direct-booking-recovery",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-work-order EP006-direct-booking-recovery engine-honesty-critique",
+      "outcome": "pass"
+    },
+    {
+      "command": "manual acceptance trace against engine-honesty-critique work order",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-deliverable EP006-direct-booking-recovery engine-honesty-critique",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned Blueprint Cinema input lock supplied by the work order.",
+    "Hash-pinned canonical proposed episode engine supplied by the work order.",
+    "No internet, legacy visual input, external source, or generated media was used."
+  ],
+  "assumptions": [
+    "The engine review assesses authored operating logic; actual evidence pins are deferred to world and plan validation.",
+    "Human review in eligible_return_customer is treated as mandatory for every outbound follow-up path.",
+    "Consent means an affirmative recorded state, not merely that permission was requested."
+  ],
+  "unresolved_questions": [
+    "Which hash-pinned claim and source records will back each future settlement or commission parameter?"
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

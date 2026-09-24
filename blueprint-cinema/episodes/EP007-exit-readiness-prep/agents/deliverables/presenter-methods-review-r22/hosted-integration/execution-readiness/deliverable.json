@@ -1,0 +1,56 @@
+{
+  "$schema": "https://theoperatoreconomy.com/schemas/blueprint-cinema/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "presenter-methods-review-r22-execution-readiness",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "input_hashes_used": [
+    {"path": "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/report.md", "sha256": "521c15786c70b7ea9a9de8ce55753469a342b9417a0387c95dce1432bd98e27a"}
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/execution-readiness/report.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/execution-readiness/duration-check.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/execution-readiness/billing-error-check.md",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-methods-review-r22/hosted-integration/execution-readiness/deliverable.json"
+  ],
+  "checks": [
+    {"command": "Search official fal-domain public entries for Hedra and Character 3", "outcome": "pass"},
+    {"command": "Read fal InfiniteTalk photo schema, linked live OpenAPI, and current model-page price", "outcome": "pass"},
+    {"command": "Read official queue/CDN documentation and fal-js storage.ts/config.ts", "outcome": "pass"},
+    {"command": "Inspect official InfiniteTalk audio-embedding sequence, 4n+1 frame guidance, and 25 fps save function", "outcome": "pass"},
+    {"command": "Read official fal FAQ and error reference for HTTP 422 billing and balance lock behavior", "outcome": "pass"},
+    {"command": "Authenticated catalog query or inference request", "outcome": "not_run"}
+  ],
+  "sources_and_provenance": [
+    "Public official sources checked 2026-09-08; all source URLs appear adjacent to supported claims in report.md.",
+    "https://fal.ai/models/fal-ai/infinitalk/api",
+    "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=fal-ai/infinitalk",
+    "https://fal.ai/models/fal-ai/infinitalk",
+    "https://fal.ai/docs/documentation/model-apis/inference/queue",
+    "https://fal.ai/docs/documentation/model-apis/fal-cdn",
+    "https://github.com/fal-ai/fal-js/blob/main/libs/client/src/storage.ts",
+    "https://github.com/fal-ai/fal-js/blob/main/libs/client/src/config.ts",
+    "https://github.com/MeiGen-AI/InfiniteTalk/blob/main/generate_infinitetalk.py",
+    "https://github.com/MeiGen-AI/InfiniteTalk/blob/main/wan/utils/multitalk_utils.py",
+    "https://fal.ai/docs/documentation/model-apis/faq",
+    "https://fal.ai/docs/documentation/model-apis/errors",
+    "https://fal.ai/docs/documentation/model-apis/pricing",
+    "https://fal.ai/docs/documentation/setting-up/accounts-and-identity",
+    "https://fal.ai/docs/documentation/model-apis/support"
+  ],
+  "assumptions": [
+    "Root owns all authorized authenticated preflight, upload, job submission, and any model-substitution decision.",
+    "Initial InfiniteTalk details were contingency research; root subsequently relayed explicit user approval for two InfiniteTalk slots. This worker still performed no execution."
+  ],
+  "unresolved_questions": [
+    "Public search found no fal Hedra entry; absence is not a conclusive authenticated catalog result.",
+    "Hosted InfiniteTalk frame count versus short audio duration and final billed units need actual preflight/output verification.",
+    "Actual charges and remaining balance after the parent's reported OmniHuman HTTP 422 require authenticated usage reconciliation; public docs do not establish reservation-release or refund timing."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

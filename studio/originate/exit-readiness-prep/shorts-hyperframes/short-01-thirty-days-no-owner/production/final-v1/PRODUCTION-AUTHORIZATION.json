@@ -1,0 +1,65 @@
+{
+  "record_type": "ep007_short01_final_production_authority",
+  "status": "explicit_paid_generation_authority_received",
+  "captured_at": "2026-09-21T10:18:00-04:00",
+  "paid_generation_authorized_at": "2026-09-21T14:46:00-04:00",
+  "authority": {
+    "owner_verbatim": "this is gooid lets finalize",
+    "owner_paid_generation_verbatim": "approved",
+    "decision_event_id": "ep007-short01-authoritative-business-accepted-v4",
+    "scope": "The owner first authorized finalization of the exact Short 01 creative blueprint, then explicitly approved the separately presented priced provider batch: one Google guide call capped at $0.10, one ElevenLabs transfer capped at 1,000 credits, two Higgsfield Seedance calls totaling at most 396 credits, and two Fal Sync calls capped at $4.40, with zero automatic retries and a stop before avatar spend if the natural narration does not fit the authorized windows."
+  },
+  "locked_inputs": [
+    {
+      "path": "production/final-v1/SCRIPT.txt",
+      "sha256": "94988c28ca3aee85f14737e9214d63267c3aa1e7d91dc5deeb9e9a5d37dab2e2"
+    },
+    {
+      "path": "production/final-v1/VOICE-STYLE.json",
+      "sha256": "41a9ec82b906a974729827a3ab66897f42e8832d842fd17729b1d788b283e123"
+    },
+    {
+      "path": "index.html",
+      "sha256": "857723990ec48d6743dd2ea4e44b9456bfd8ece02851b8494b350a8e2833bdaa"
+    }
+  ],
+  "provider_limits": {
+    "google_guide": {
+      "model": "gemini-2.5-pro-tts",
+      "voice": "Algieba",
+      "max_calls": 1,
+      "cap_usd": 0.10
+    },
+    "elevenlabs_transfer": {
+      "model": "eleven_multilingual_sts_v2",
+      "voice_id": "scMbPZwQjr40V1MzL3Nj",
+      "voice_name": "OE Narrator Manav C Base v1",
+      "max_calls": 1,
+      "cap_credits": 1000
+    },
+    "higgsfield_presenter": {
+      "model": "seedance_2_5",
+      "max_calls": 2,
+      "durations_seconds": [20, 13],
+      "estimated_credits": [240, 156],
+      "total_cap_credits": 396,
+      "live_balance_before": 446,
+      "retries": 0
+    },
+    "fal_lipsync": {
+      "model": "fal-ai/sync-lipsync/v3",
+      "max_calls": 2,
+      "maximum_total_input_seconds": 33,
+      "published_rate_usd_per_minute": 8,
+      "cap_usd": 4.40,
+      "retries": 0
+    }
+  },
+  "review_boundary": "If separately authorized, generation creates a candidate, not acceptance. Identity, hands, anatomy, expression, connected articulation, gestures, eye line, lip sync, crop, captions, audio and phone playback require fresh review.",
+  "excluded": [
+    "No publication or upload to a channel.",
+    "No Related Video URL may be invented.",
+    "No retry or alternate take without new authority.",
+    "No change to EP007 R79 or its three inherited exceptions."
+  ]
+}

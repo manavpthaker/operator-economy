@@ -1,0 +1,22 @@
+{
+  "base": "../../positive/establishment-class",
+  "note": "a world object claims to be revealed by an establishment row that does not exist",
+  "patches": {
+    "world.json": {
+      "objects": [
+        {
+          "id": "guest",
+          "operation_bindings": [
+            "BO-001"
+          ],
+          "revealed_by": [
+            "EST-999"
+          ]
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V3"
+  ]
+}

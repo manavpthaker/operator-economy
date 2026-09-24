@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Zodiak"; src: url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          margin: 0;
+          overflow: hidden;
+          background: #173530;
+          color: #f5f0e6;
+          font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .paper-edge { display: none; }
+        .register-line { display: none; }
+        .copy-zone { display: none; }
+        .kicker { color: #c4b99e; font-size: 22px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+        .ma {
+          margin: 34px 0 0;
+          color: #71868d;
+          font: 700 164px/0.82 "BL Boska", Georgia, serif;
+          letter-spacing: -0.065em;
+        }
+        .sounds { margin-top: 58px; color: rgba(245, 240, 230, 0.72); font-size: 27px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+        .redirect { width: 356px; height: 150px; margin-top: 30px; overflow: visible; }
+        .redirect path { fill: none; stroke: #586d74; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+        .operations {
+          margin-top: 18px;
+          color: #f5f0e6;
+          font: 700 94px/1.12 "BL Boska", Georgia, serif;
+          letter-spacing: -0.055em;
+        }
+        .operations span { display: block; opacity: 0; }
+        .operations .active { margin-top: 8px; color: #fb8b69; font-size: 122px; }
+        .portrait-shell {
+          position: absolute;
+          z-index: 2;
+          top: 0;
+          left: 0;
+          width: 1080px;
+          height: 1920px;
+          margin: 0;
+          overflow: hidden;
+          border: 0;
+          background: #ede7d8;
+        }
+        .portrait-shell img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
+        .portrait-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(23, 53, 48, 0.14) 0%, rgba(23, 53, 48, 0.04) 42%, rgba(23, 53, 48, 0.92) 80%, #173530 100%); }
+        .source-chip {
+          position: absolute;
+          top: 72px;
+          right: 58px;
+          max-width: 316px;
+          padding: 10px 13px;
+          border: 1px solid rgba(245, 240, 230, 0.66);
+          background: rgba(23, 53, 48, 0.92);
+          color: #f5f0e6;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.09em;
+          line-height: 1.18;
+          text-align: right;
+          text-transform: uppercase;
+        }
+        .script-rail {
+          position: absolute;
+          z-index: 8;
+          top: 1410px;
+          left: 58px;
+          width: 900px;
+          height: 350px;
+          padding: 0;
+          background: transparent;
+          color: #f5f0e6;
+        }
+        .guide-label { display: none; }
+        .guide-line {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          color: #f5f0e6;
+          font-size: 60px;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          line-height: 1.03;
+          opacity: 0;
+          text-wrap: balance;
+        }
+        .guide-line em { color: #fb8b69; font-style: normal; }
+      </style>
+
+      <section
+        id="root"
+        data-composition-id="short02-reframe"
+        data-start="0"
+        data-duration="8.2"
+        data-width="1080"
+        data-height="1920"
+        data-script-text="Helping owners get a business ready to sell sounds like M&amp;A. But the service before the deal is really operations work."
+      >
+        <div class="paper-edge" aria-hidden="true"></div>
+        <div id="s1-register" class="register-line" aria-hidden="true"></div>
+
+        <div class="copy-zone">
+          <div id="s1-kicker" class="kicker">Before the deal</div>
+          <h1 id="s1-ma" class="ma">M&amp;A?</h1>
+          <div id="s1-sounds" class="sounds">Sounds like</div>
+          <svg class="redirect" viewBox="0 0 356 150" role="img" aria-label="The category redirects from M and A to operations work">
+            <path id="s1-route" d="M 10 28 C 126 28, 126 116, 282 116 L 332 116" />
+            <path id="s1-arrow" d="M 309 94 L 334 116 L 309 138" />
+          </svg>
+          <h2 id="s1-operations" class="operations"><span>Operations</span><span class="active">work.</span></h2>
+        </div>
+
+        <figure id="s1-portrait" class="portrait-shell">
+          <img src="assets/media/ep007-avatar-v5-identity-hold.png" alt="Static identity reference of Manav in the accepted EP007 study look" />
+          <div class="portrait-shade" aria-hidden="true"></div>
+          <figcaption class="source-chip">Static V5 identity hold · not lip-synced</figcaption>
+        </figure>
+
+        <aside id="s1-script" class="script-rail" data-layout-allow-caption-zone aria-label="Provisional exact-script guide">
+          <div class="guide-label">Exact locked script · provisional timing</div>
+          <div id="s1-guide-a" class="guide-line">Helping owners get a business ready to sell <em>sounds like M&amp;A.</em></div>
+          <div id="s1-guide-b" class="guide-line">But the service before the deal is really <em>operations work.</em></div>
+        </aside>
+      </section>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#s1-portrait", { opacity: 1 }, 0);
+        tl.fromTo("#s1-guide-a", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.22);
+        tl.to("#s1-guide-a", { opacity: 0, y: -10, duration: 0.18, ease: "power2.in" }, 3.02);
+        tl.fromTo("#s1-guide-b", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 3.12);
+        tl.to("#s1-guide-b", { opacity: 0, y: -10, duration: 0.18, ease: "power2.in" }, 7.5);
+        window.__timelines["short02-reframe"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

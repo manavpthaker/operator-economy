@@ -1,0 +1,98 @@
+{
+  "schema_version": "oe-elevenlabs-account-verification-recovery-owner-approval-evidence-v1",
+  "provider": "elevenlabs",
+  "source": "current_codex_thread_contextual_assent",
+  "recorded_by": "Codex",
+  "recorded_at": "2026-08-26T11:55:16Z",
+  "owner": "Manav Thaker",
+  "approval_basis": {
+    "assistant_confirmation_prompt": "To continue, I need fresh approval for a new transaction that will:\n\n1. Privately load only `ELEVENLABS_API_KEY` from that `.env` and verify readiness in memory.\n2. Create a new immutable safety latch.\n3. Re-read and match the same key.\n4. Make exactly one read-only `GET /v1/user`.\n5. Store no raw key, key suffix, user ID, account data, or response body.\n6. Make no POST, setting change, retry, redirect, audio upload, paid call, or Voice Changer request.\n\nReply exactly:\n\n**Approved for one fresh recovery account check.**",
+    "requested_exact_reply": "Approved for one fresh recovery account check.",
+    "owner_reply": "Approved. Let’s not ask for any more approval until this is set",
+    "owner_reply_matches_requested_exact_reply": false,
+    "contextual_assent_accepted": true,
+    "contextual_assent_interpretation": "The leading ‘Approved.’ contextually assents to the exact bounded recovery transaction in the immediately preceding prompt even though the literal reply does not match the requested exact phrase. The second sentence directs persistence without further approval prompts only within that exact recovery transaction; it does not expand the approved actions or limits.",
+    "approval_event_timestamp_available": false,
+    "record_materialization_time_is_not_claimed_as_message_time": true
+  },
+  "prior_zero_network_failure_chain": {
+    "outcome_commit": "dc8fb34730c8751d3eafd0c2e86ba83db883e409",
+    "active_authorization": {
+      "path": "authorizations/12-elevenlabs-account-verification.ACTIVE.20260826T105051Z.json",
+      "sha256": "328c14036caabbceb07b9516679c1518ca0689e9c6c68e974cb29c32755626a8",
+      "reusable": false
+    },
+    "consumption_latch": {
+      "path": "authorizations/consumed/elevenlabs-account-verification-one-shot.consumed.json",
+      "sha256": "359bad8d5821fe45ff20febc2b06cc81df16b043404cddc7f1d46ed5bc9f2b91",
+      "remains_immutable": true,
+      "reusable": false,
+      "deletable_for_recovery": false
+    },
+    "failure_receipt": {
+      "path": "receipts/elevenlabs-account/AUTH-ACCOUNT-ai-visibility-v1.1-read-only-user-verification-20260826T105051Z.failure.json",
+      "sha256": "f3b2c461a803d1f32d58ec5b112adb1081dd1175dc6f071122b303abe7ea8deb"
+    },
+    "failure_disposition": {
+      "path": "evidence/V1-ELEVENLABS-ACCOUNT-ZERO-NETWORK-FAILURE-DISPOSITION.20260826T110834Z.json",
+      "sha256": "fe840ec4f510c5b261b6579c22f1a88749de7fa72de21b02d9e3a5d16d2f3d9a"
+    }
+  },
+  "contextually_approved_recovery_scope": {
+    "transaction_semantics": "fresh_account_verification_transaction_not_retry_or_resumption",
+    "credential_preflight": {
+      "environment_variable": "ELEVENLABS_API_KEY",
+      "load_only_named_variable_from_owner_identified_dotenv": true,
+      "readiness_verified_in_memory_before_latch": true,
+      "prompt_described_second_read_and_match": true,
+      "runtime_may_narrow_to_single_pre_latch_read_held_in_memory": true,
+      "second_credential_read_required": false,
+      "second_credential_read_authorized": false
+    },
+    "action": {
+      "provider": "elevenlabs",
+      "endpoint": "https://api.elevenlabs.io/v1/user",
+      "method": "GET",
+      "read_only": true,
+      "new_immutable_recovery_latch_required": true,
+      "no_post": true,
+      "no_mutation": true,
+      "no_retry": true,
+      "no_redirect": true,
+      "no_audio_upload": true,
+      "no_paid_call": true,
+      "no_voice_changer_request": true,
+      "raw_response_storage_forbidden": true,
+      "raw_key_storage_forbidden": true,
+      "key_suffix_storage_forbidden": true,
+      "user_id_storage_forbidden": true,
+      "account_data_storage_forbidden": true
+    },
+    "limits": {
+      "max_credential_preflight_reads": 1,
+      "max_execution_credential_reads": 0,
+      "max_get_calls": 1,
+      "max_post_calls": 0,
+      "max_provider_mutations": 0,
+      "max_audio_uploads": 0,
+      "max_voice_changer_requests": 0,
+      "max_spend_usd": 0
+    },
+    "persistence_without_further_owner_approval_prompts_within_exact_scope": true,
+    "persistence_directive_expands_scope": false
+  },
+  "execution_gate": {
+    "this_record_is_an_active_provider_authorization": false,
+    "credentials_may_be_accessed_from_this_record": false,
+    "credential_preflight_may_run_from_this_record": false,
+    "network_may_be_called_from_this_record": false,
+    "recovery_latch_may_be_created_from_this_record": false,
+    "separate_recovery_authorization_required": true,
+    "fresh_browser_processed_off_readback_required": true,
+    "runtime_freeze_required": true,
+    "independent_acceptance_pass_required": true,
+    "voice_transfer_authorized": false,
+    "audio_upload_authorized": false,
+    "publication_authorized": false
+  }
+}

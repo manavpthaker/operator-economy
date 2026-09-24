@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>S18 the hard parts</title>
+<style>
+@font-face{font-family:Boska;src:url('public/fonts/boska-700.woff2');font-weight:700}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-400.woff2');font-weight:400}
+@font-face{font-family:Supreme;src:url('public/fonts/supreme-500.woff2');font-weight:500}
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:720px;overflow:hidden}
+#s18-root{position:relative;width:1280px;height:720px;overflow:hidden;background:#F5F0E6}
+svg.stage{position:absolute;inset:0;width:1280px;height:720px;overflow:hidden}
+.kit-route{stroke:#586D74;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.kit-route-dashed{stroke:#586D74;stroke-width:2.5;stroke-dasharray:10 8;fill:none;stroke-linecap:round}
+.kit-pay{stroke:#173530;stroke-width:4;fill:none;stroke-linecap:round}
+.light{stroke:#586D74;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.inkl{stroke:#173530;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.steel{stroke:#586D74;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dash{stroke:#586D74;stroke-width:2;stroke-dasharray:9 7;fill:none;stroke-linecap:round}
+.label{font-family:Supreme,sans-serif;fill:#173530;font-size:27px;font-weight:500}
+.lab{font-family:Supreme,sans-serif;fill:#173530;font-size:22px;font-weight:500}
+.small{font-family:Supreme,sans-serif;fill:#33464C;font-size:20px;font-weight:400}
+.tiny{font-family:Supreme,sans-serif;fill:#33464C;font-size:17px;font-weight:400}
+.kicker{font-family:Supreme,sans-serif;fill:#33464C;font-size:18px;font-weight:500;letter-spacing:2px}
+.fig{font-family:Boska,serif;fill:#173530;font-size:40px;font-weight:700}
+.hide{visibility:hidden;opacity:0}
+.head{position:absolute;left:0;right:0;text-align:center;margin:0;font:700 50px/1.06 Boska,serif;color:#173530;visibility:hidden;opacity:0}
+</style><script src="public/vendor/gsap.min.js"></script><style>#band{visibility:visible;opacity:1}#ul1{visibility:visible;opacity:1}#ul2{visibility:visible;opacity:1}#head{visibility:visible;opacity:1}#inns{visibility:visible;opacity:1}#sixl{visibility:visible;opacity:1}#ev{visibility:visible;opacity:1}#evfig{visibility:visible;opacity:1}#evline{visibility:visible;opacity:1}#evq{visibility:visible;opacity:1}#rcpt{visibility:visible;opacity:1}#nc{visibility:visible;opacity:1}#you{visibility:visible;opacity:1}#route{visibility:visible;opacity:1}#illus{visibility:visible;opacity:1}#s16{visibility:hidden;opacity:0}#inns{transform:translate(-270px,110px)}</style></head><body>
+<div id="s18-root" data-composition-id="ep009-s18" data-start="0" data-duration="56.0" data-width="1280" data-height="720" data-fps="24">
+<svg class="stage" viewBox="0 0 1280 720" role="img" aria-label="S18 the hard parts">
+<defs>
+<g id="kit-phone" data-kit-desc="Drawn phone. Screen area x 8-68, y 16-116 for steps drawn by the builder; no UI text or logos. Native 76x136."><path d="M8 0H68C74 0 76 2 76 8V128C76 134 74 136 68 136H8C2 136 0 134 0 128V8C0 2 2 0 8 0Z" fill="#FBF8F1" stroke="none"/><path d="M8 1L66 0M75 8L76 126M68 136L10 136M1 128L0 10M1 6C2 2 4 1 8 1M70 0C74 1 75 3 75 6M76 130C75 134 73 136 69 136M6 136C2 135 1 133 1 130" stroke="#173530" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.1 16.3L68.8 15.7M68.1 13.5L68 116.7M69 115.8L9.2 115.8M7.8 115.7L8.2 18.8" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 126L44 126" stroke="#173530" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-practice-figure" data-kit-desc="The practice figure (A direct-booking practice / You): kit-person holding the EP007 practice card. Not the presenter's likeness."><use href="#kit-person"/><path d="M46-8L76-10L77 30L47 31Z" fill="#EDE5D6" stroke="none"/><path d="M46-8L75-10M77-7L77 29M74 31L47 31M46 28L46-5" stroke="#173530" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M52 2L70 1M52 10L70 10M52 18L64 18" stroke="#586D74" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-inn-mini" data-kit-desc="Same inn at half size with fine construction removed, for groups (six inns, a handful). Native 240x152."><path d="M10.0 38.0H230.0V150.0H10.0ZM5.0 38.0L40.0 9.0H200.0L235.0 38.0Z" fill="#F5F0E6" fill-opacity="0.58" stroke="none"/><path d="M5.9 37.8L38.5 11M40.4 8.7L118.3 8.7M124.3 8.5L199.9 9.1M200.7 10.9L235.4 38.8M4.4 37.6L103.8 38.2M107.6 37.9L236.7 38.2" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 40.5L35.9 17.6M48.4 12.2L90.5 12.4M150.6 12.1L191.9 12.3M206.3 16.2L231.3 34.9" stroke="#586D74" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M168.1 9.6L168.6 -1.1M168 -2.5L180.8 -1.7M181.8 -1.4L181.2 9.2" stroke="#173530" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.6 40.2L10.6 97.9M11.3 104.1L9.7 151M228.7 39.4L229.3 85.9M229.9 91L229.3 149.2M8.8 149.8L73.1 149.7M78.7 150.2L159.4 149.1M165.6 151.1L233.3 149.4" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.4 66.1L104.8 67.2M111.8 66.9L227.7 67M13 95.2L86 95M90.9 95.5L227.3 94.7M14.1 48.6L14.2 64.9M225.5 106L227.3 130.7" stroke="#586D74" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.4 43.8L30.5 43.8M30.8 43.8L31 58.1M30.4 58.2L20.7 58.2M18.7 58L19.2 44M40.3 43.7L51.9 43.8M52.3 44.1L51.7 57.1M52.5 57.7L40.2 57.7M40.2 58L40.1 44.9M59.8 44.1L73.2 44.2M73.3 44.4L72.9 58.9M72.9 57.8L62 57.8M61.2 57L61.1 44.2M80.3 43.7L94.4 43.8M94 44.3L93.8 56.9M94.7 58.1L82 58.2M81.7 57.7L82.1 44.7M102 44.2L115.6 44.3M115.3 43.3L115.3 58.8M115.2 57.9L104.2 57.8M102.7 57L102.9 44.7M124.4 43.9L136.8 44.3M136.3 44L135.7 58.5M135.7 57.8L123.9 57.8M123.9 57.7L123.7 45.2M144.2 44.1L157.7 44.1M156.7 44.3L157.2 57.1M157 57.9L143.8 57.7M144.8 58.1L145.2 44.8M166 44.3L177.3 43.9M178 44.3L177.9 59.2M178.7 58.2L166.3 58.3M166.2 58L166 44.7M186.6 43.8L198.4 43.7M199.2 43.3L199.1 57.5M199.1 57.7L188.1 58.1M186.8 57.8L186.9 46.6M208.1 43.9L221 43.8M219.7 44.1L219.8 56.9M219.7 58.1L209.4 57.8M207.8 58L207.7 44.1M19.6 72.2L29.9 71.7M30.9 72.4L30.8 85M31.6 86L19.1 86.1M19 85.7L19.3 74.1M40.1 71.8L51.9 72.1M51.7 71.4L51.9 85.7M52.5 85.8L39.6 85.7M39.8 86.5L40.2 73.6M61.2 71.7L72.6 71.8M73.3 73L72.7 86.4M72.8 86L61.4 86M60.7 86.2L60.9 72.7M81 71.8L95 72M94 72.1L93.9 86.6M93.5 85.9L81.7 86.2M81.9 86.1L81.8 72.1M103.5 71.8L114.7 72M115.1 73L114.9 86.7M114.4 86.2L102.5 86.2M103 86.3L103 74.1M123.8 72L136.2 71.7M136.1 71.9L136.1 86.9M135.8 85.7L123 86.2M123.9 85.4L123.9 72.8M145.6 72.1L158 72.3M156.9 72.1L156.9 84.6M156.8 86.2L145 85.8M144.7 85.2L145.3 72.4M165.9 71.7L177.1 72.2M178 72.9L178.2 84.9M178 86L167.5 86.1M166.3 85.3L166 72.7M186.9 72.2L197.9 72.1M199 72.4L198.7 85.6M199.2 86.2L187.2 85.7M187.1 84.9L186.9 73.2M207.7 71.7L220 72.3M220.2 71.1L219.7 86.7M219.5 85.7L207.5 86.3M207.9 85.9L207.9 72.4" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.0 102.0H126.0V148.0H28.0Z" fill="#F5F0E6" stroke="none"/><path d="M26 102.1L68.5 101.8M78.5 101.8L123.4 101.4M125.7 104.4L125.7 145.8M124.9 147.7L27.8 147.6M28.3 147.7L28.2 105.2" stroke="#173530" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M42.3 130.3L74.8 130.5M79 131.1L111.2 130.5M43.3 133.6L43.4 145.4M110.1 132.5L111 144.7" stroke="#173530" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M143 150.2L142.6 107.5M141.2 106L147.2 106.4M158.1 107.4L165.1 107.3M165.7 107.9L166.1 150.7M135.7 102.3L172.8 102.8" stroke="#173530" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-person" data-kit-desc="Generic person. Verbatim EP007 R54/R57/R60 #person geometry."><path d="M-25-51C-39-78-27-103-4-105C22-108 37-87 27-64C23-52 14-43 0-43C-12-42-20-46-25-51M-58 33L-55-5C-47-29-27-31-20-33M18-33C45-34 59-14 61 17L61 32M-36 5L-36 33M36 3L36 31" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-29-85C-19-108 11-112 28-94M-60 39L-13 39M22 39L64 39" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-retainer-tag" data-kit-desc="A retainer tag with no price: small dog-eared label with a blank line. Always sits under a ceiling line. Native 96x45."><path d="M0 3L80 1L96 15L95 44L1 45Z" fill="#FBF8F1" stroke="none"/><path d="M0.5 3.8L79.1 0M97 15.6L94.4 44M93.1 45.5L1.2 45.1M0.5 41.5L-0.1 6.8" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 1L80 15L96 15" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 31L66 31" stroke="#586D74" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-calendar-leaf" data-kit-desc="Calendar leaf ('A year later', S18 renewal calendar). Native 120x132."><path d="M0 10L118 8L120 130L2 132Z" fill="#FBF8F1" stroke="none"/><path d="M1.6 9.5L118 8.7M119.5 8.9L119 131.8M118 130.4L-0 131.3M0.1 131.1L-0.2 11.3" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.4 36.4L118.2 35.2" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 2L30 18M88 2L88 18" stroke="#173530" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.1 58.2L27.6 58.3M38.1 58.1L50.3 57.9M60.2 58.1L71.7 58.2M82.1 58.3L94.3 58.1M16.1 78.3L27.7 77.7M38.1 78.1L50.4 78.2M60 78.3L71.7 77.8M82.4 78.2L94.1 78M15.7 97.9L27.8 97.8M38 97.7L50.3 97.7M59.6 98L71.8 97.8M82.2 98.1L94.3 98.4" stroke="#586D74" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-sheet" data-kit-desc="Generic paper sheet. Verbatim EP007 R46 decision sheet. Native 331x144. Use for audit card, email tool card, credential card, newsletter card, report pages."><path d="m0 3 263-3 68 31-3 110-330 3z" stroke="#586D74" stroke-width="2" fill="#FBF8F1" stroke-linecap="round" stroke-linejoin="round"/><path d="m263 1-1 30 66-1m-321 110 84-1m-87-126-1 43" stroke="#586D74" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g id="kit-table" data-kit-desc="Small table. Verbatim EP007 R54 S11b table. Origin at left end of the top."><path d="m0 0 118-1m10 1 112-1m-230 10 1 58m222-59-1 57" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+</defs>
+<g id="prev"><g id="s16">
+<g id="a3-phone" ><use href="#kit-phone" transform="translate(70,520)"/></g>
+<g id="a3-cond" ><rect x="260" y="130" width="760" height="170" rx="4" class="a3-cardw"/>
+<text class="a3-kicker" x="292" y="172">IF</text>
+<text id="a3-c1" class="a3-blk" x="292" y="218" font-size="27">Agencies already retain 30-room inns at $1,500 a month</text>
+<text id="a3-c2" class="a3-blk" x="292" y="266" font-size="27">and owners prefer it</text></g>
+<g id="a3-route" >
+<use href="#kit-practice-figure" transform="translate(330,440) scale(.7)"/>
+<text class="a3-small" x="330" y="352" text-anchor="middle" fill="#173530">You</text>
+<path class="a3-kit-route" d="M400 420C500 414 600 414 700 418"/>
+<path class="a3-gap" d="M706 386L748 386L748 450L706 450Z"/>
+<use href="#kit-inn-mini" transform="translate(770,362) scale(.55)"/>
+<text class="a3-small" x="700" y="500" text-anchor="middle">then: no front door at this size</text></g>
+<g id="a3-call" >
+<path id="a3-call1" class="a3-kit-route" d="M148 560C220 548 280 566 318 590"/>
+<path id="a3-call2" class="a3-kit-route" d="M148 572C260 560 400 566 468 590"/>
+<use href="#kit-person" transform="translate(340,640) scale(.42)"/><use href="#kit-person" transform="translate(490,640) scale(.42)"/>
+<text class="a3-tiny" x="340" y="686" text-anchor="middle">agency</text><text class="a3-tiny" x="490" y="686" text-anchor="middle">agency</text></g>
+<g id="a3-ans" ><text class="a3-blk" x="620" y="624" font-size="25">smallest retained property:</text>
+<path d="M948 594L1210 593M1211 596L1210 646M1208 648L950 648M947 645L948 598" stroke="#173530" stroke-width="2.2" fill="#FBF8F1" stroke-linecap="round"/></g>
+</g>
+
+<g id="band" class="hide"><rect x="0" y="0" width="1280" height="40" fill="#EDE5D6"/><path d="M0 40.5L1280 40.5" stroke="#586D74" stroke-width="1.3"/><text x="640" y="27" text-anchor="middle"><tspan class="kicker">MODELED SCENARIO</tspan><tspan class="small" style="font-size:19px"> · Modeled scenario, not observed performance or an earnings forecast.</tspan></text></g>
+<path id="ul1" class="hide" d="M242 34L614 34" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round"/><path id="ul2" class="hide" d="M622 34L1040 34" stroke="#173530" stroke-width="2" fill="none" stroke-linecap="round"/>
+<text id="foot" class="hide tiny" x="1252" y="711" text-anchor="end" style="font-size:15px">C024, C028 to C033 · Canvas section 10</text>
+<text id="head" class="hide fig" x="640" y="94" text-anchor="middle" style="font-size:44px">Your side of the arithmetic</text>
+<g id="p1" class="hide"><path d="M30 128L306 128L320 142L320 174L30 174Z" fill="#FBF8F1" stroke="none"/><path d="M30.1 127.3L172.60608685311752 128.1M178.7060868531175 127.9L305.7 129.0M319.3 142.6L320.1 173.6M319.6 173.8L153.98053329477432 173.8M148.38053329477432 174.4L31.0 174.8M29.5 173.9L30.9 128.1" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M306 128L306 142L320 142" class="light"/><text class="lab" x="46" y="159">Audit $1,200</text></g>
+<g id="p2" class="hide"><path d="M30 186L306 186L320 200L320 246L30 246Z" fill="#FBF8F1" stroke="none"/><path d="M30.3 187.2L185.59788082355843 185.8M192.19788082355842 185.7L306.6 184.9M319.7 199.2L320.7 246.7M319.0 246.4L193.054375518562 245.4M186.75437551856203 245.7L29.0 245.2M29.0 245.6L30.3 188.1" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M306 186L306 200L320 200" class="light"/><text class="lab" x="46" y="213">Retainer $600 a month</text><text class="tiny" x="46" y="236">20 rooms</text></g>
+<g id="p3" class="hide"><path d="M30 258L306 258L320 272L320 318L30 318Z" fill="#FBF8F1" stroke="none"/><path d="M30.3 258.3L183.28589063151358 257.8M189.28589063151355 258.2L305.5 258.4M320.5 272.1L320.9 318.5M318.3 317.2L188.98858324212534 317.5M183.58858324212537 318.3L29.1 319.0M30.0 316.4L30.0 258.3" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M306 258L306 272L320 272" class="light"/><text class="lab" x="46" y="285">$1,000 or $1,250</text><text class="tiny" x="46" y="308">40 rooms</text></g>
+<g id="p4" class="hide"><path d="M30 330L306 330L320 344L320 376L30 376Z" fill="#FBF8F1" stroke="none"/><path d="M30.4 330.9L151.00503148538908 330.3M156.60503148538908 329.6L304.8 330.5M319.8 344.9L319.9 376.2M319.3 375.3L172.53022053402114 375.6M166.23022053402113 376.3L30.4 375.7M29.2 374.7L30.1 331.8" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M306 330L306 344L320 344" class="light"/><text class="lab" x="46" y="361">Blend $800</text></g>
+<g id="p5" class="hide"><path d="M30 398L306 398L320 412L320 458L30 458Z" fill="#FBF8F1" stroke="none"/><path d="M30.5 397.4L154.14750583286138 397.5M160.14750583286136 398.6L307.1 398.2M321.1 412.9L320.3 457.0M318.9 458.3L190.28408678237048 457.5M184.08408678237046 457.5L29.5 459.0M29.9 456.2L29.2 397.9" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M306 398L306 412L320 412" class="light"/><text class="lab" x="46" y="425">Your time: $60 an hour</text></g>
+<text id="p5n" class="hide tiny" x="46" y="448">the model's number</text>
+<path id="p23" class="hide light" d="M44 246L44 258"/>
+<g id="inns" class="hide">
+<g class="inn"><path d="M364 172L398 171.5M403 172L436 171.5M364 166L364 178M436 165L436 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(364,182) scale(.75)"/><text class="tiny" x="396" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(364,232) scale(.3)"/></g>
+<g class="inn"><path d="M442 172L476 171.5M481 172L514 171.5M442 166L442 178M514 165L514 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(442,182) scale(.75)"/><text class="tiny" x="474" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(442,232) scale(.3)"/></g>
+<g class="inn"><path d="M520 172L554 171.5M559 172L592 171.5M520 166L520 178M592 165L592 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(520,182) scale(.75)"/><text class="tiny" x="552" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(520,232) scale(.3)"/></g>
+<g class="inn"><path d="M598 172L632 171.5M637 172L670 171.5M598 166L598 178M670 165L670 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(598,182) scale(.75)"/><text class="tiny" x="630" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(598,232) scale(.3)"/></g>
+<g class="inn"><path d="M676 172L710 171.5M715 172L748 171.5M676 166L676 178M748 165L748 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(676,182) scale(.75)"/><text class="tiny" x="708" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(676,232) scale(.3)"/></g>
+<g class="inn"><path d="M754 172L788 171.5M793 172L826 171.5M754 166L754 178M826 165L826 177" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/><use href="#kit-retainer-tag" transform="translate(754,182) scale(.75)"/><text class="tiny" x="786" y="202" text-anchor="middle" style="font-weight:500;fill:#173530">$800</text><use href="#kit-inn-mini" transform="translate(754,232) scale(.3)"/></g>
+</g>
+<g id="hrs8" class="hide"><text class="small" x="400" y="306" text-anchor="middle">8 h</text><text class="small" x="478" y="306" text-anchor="middle">8 h</text><text class="small" x="556" y="306" text-anchor="middle">8 h</text><text class="small" x="634" y="306" text-anchor="middle">8 h</text><text class="small" x="712" y="306" text-anchor="middle">8 h</text><text class="small" x="790" y="306" text-anchor="middle">8 h</text></g>
+<text id="cap8" class="hide small" x="598" y="340" text-anchor="end">a month each</text>
+<text id="capa" class="hide small" x="604" y="340">· audit 12 h each</text>
+<text id="l1" class="hide lab" x="884" y="176" style="font-size:21px">6 × $800 × 12 = $57,600 a year</text>
+<text id="l2" class="hide lab" x="884" y="216" style="font-size:21px">+ 6 audits at $1,200: $64,800 gross</text>
+<text id="l3" class="hide lab" x="884" y="256" style="font-size:21px">− tools and overhead, about $6,000</text>
+<text id="l4" class="hide lab" x="884" y="304" style="font-size:21px">= $58,800 before you pay yourself</text>
+<text id="l5" class="hide lab" x="884" y="352" style="font-size:21px">650 h × $60 = about $39,000</text>
+<path id="l4rule" class="hide" d="M884 274L1054 273.5M1060 274L1234 273.5" stroke="#173530" stroke-width="1.6" fill="none"/>
+<g id="colb" class="hide"><path d="M359.7 404.0L556.0815482951334 403.9M561.5815482951334 403.7L779.3 403.9M779.2 405.4L780.6 510.4273841832685M780.5 517.0273841832685L780.9 591.5M778.7 592.4L560.5102743229394 592.2M554.5102743229394 591.5L359.8 592.8M359.3 589.0L360.3 499.9606904677738M360.1 494.2606904677738L360.7 405.6" class="steel"/><text class="lab" x="380" y="440">Base: 8 h a property</text></g>
+<g id="cols" class="hide"><path id="cols-dash" d="M831.0 404.2L1058.5907997434197 403.7M1064.4907997434195 403.5L1249.2 404.4M1251.0 407.1L1250.3 510.986594457952M1249.6 516.586594457952L1248.8 591.7M1247.0 591.4L1030.995910787675 591.7M1025.0959107876752 591.9L829.5 591.9M829.3 590.0L830.3 494.0662806787711M830.5 488.0662806787711L830.9 404.0" class="dash"/><path id="cols-solid" d="M829.7 403.5L1047.8858974821476 403.9M1053.7858974821477 404.6L1250.5 405.2M1249.9 407.0L1250.3 495.2942614815997M1250.3 501.39426148159964L1249.8 591.9M1247.1 592.7L1071.5584310385063 591.8M1066.4584310385064 591.5L830.2 591.4M830.1 590.0L829.4 486.2293295738071M829.6 480.62932957380707L830.0 406.0" class="steel" style="opacity:0"/><text class="lab" x="850" y="440">Stress: 12 h a property</text></g>
+<text id="stag" class="hide tiny" x="1232" y="438" text-anchor="end">the stress case</text>
+<path id="barb" class="hide" d="M380 474L640 474" stroke="#173530" stroke-width="12" fill="none"/>
+<text id="barbl" class="hide small" x="380" y="508">about 650 hours</text>
+<path id="bars" class="hide" d="M850 474L1226 474" stroke="#173530" stroke-width="12" fill="none"/>
+<text id="figb" class="hide fig" x="380" y="556">about $20,000 left</text>
+<text id="figbx" class="hide tiny" x="380" y="580">in the model: $19,920</text>
+<text id="figs" class="hide fig" x="850" y="556">about $2,500 left</text>
+<text id="figsx" class="hide tiny" x="850" y="580">in the model: $2,640</text>
+<g id="row20" class="hide"><path d="M30 606L614 606L630 622L630 690L30 690Z" fill="#FBF8F1" stroke="none"/><path d="M30.8 605.2L288.5775987892834 606.3M294.7775987892834 606.0L613.3 605.3M630.8 623.1L630.2 689.6M629.5 689.4L320.82853311022285 689.7M314.52853311022284 689.6L29.8 688.9M29.2 688.8L30.5 607.2" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M614 606L614 622L630 622" class="light"/><text class="small" x="50" y="636">6 × 20-room inns × $600 × 12</text><text class="fig" style="font-size:32px" x="50" y="676">$43,200 a year of retainer</text></g>
+<g id="row40" class="hide"><path d="M650 606L1234 606L1250 622L1250 690L650 690Z" fill="#FBF8F1" stroke="none"/><path d="M649.2 605.0L967.2430078226753 606.3M972.4430078226753 606.1L1233.5 605.1M1249.6 622.4L1249.2 690.7M1249.3 689.5L909.2688867948867 689.6M903.7688867948868 689.4L650.0 689.5M649.0 688.4L651.2 607.1" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M1234 606L1234 622L1250 622" class="light"/><text class="small" x="670" y="636">6 × 40-room properties × $1,250 × 12</text><text class="fig" style="font-size:32px" x="670" y="676">$90,000 a year of retainer</text><text class="lab" x="1062" y="676">before costs</text></g>
+<text id="sixl" class="hide lab" x="355" y="258" text-anchor="middle">six properties</text>
+<g id="ev" class="hide"><path d="M700 150L1250 150L1250 412L700 412Z" fill="#FBF8F1"/><path d="M701.2 150.5L971.9198517955301 149.9M977.6198517955302 149.9L1251.0 148.9M1251.1 150.9L1250.5 301.4580899886917M1249.6 307.5580899886917L1250.5 412.3M1247.7 411.9L949.0927280971785 411.8M942.4927280971784 412.6L699.4 412.5M699.1 410.1L699.5 289.30492583217836M700.2 283.70492583217833L700.7 152.1" class="steel"/><text class="kicker" x="728" y="192">AMERICAN HOTEL &amp; LODGING ASSOCIATION</text><path d="M728 208L1222 208" class="light"/></g>
+<text id="evfig" class="hide fig" x="728" y="282" style="font-size:64px">33,200+</text>
+<text id="evline" class="hide lab" x="728" y="328" style="font-size:25px">small-business lodging properties</text>
+<text id="evq" class="hide small" x="728" y="376">AHLA definition, not a room band</text>
+<g id="nc" class="hide"><path d="M699.5 448.3L964.4491575678467 448.4M970.5491575678467 448.6L1250.2 449.0M1249.6 449.3L1250.5 521.0M1247.7 521.2L949.6228782107434 522.1M943.4228782107434 521.8L699.0 521.1M699.8 521.0L701.2 448.8" class="dash"/><text class="lab" x="975.0" y="494" text-anchor="middle">in this band: not counted</text></g>
+<text id="rcpt" class="hide tiny" x="700" y="552" style="font-size:15px"><tspan x="700">AHLA "Our industry", 64,000-plus properties,</tspan><tspan x="700" dy="20">33,200-plus small-business properties, undated, C015</tspan></text>
+<path id="route" class="hide kit-route" d="M126 404C170 414 230 398 283 406C335 414 390 398 440 406C490 413 540 400 590 410C640 424 560 470 470 505C430 520 400 532 380 548"/>
+<g id="you-old" class="hide"><use href="#kit-practice-figure" transform="translate(350,622) scale(.6)"/><text class="lab" x="350" y="700" text-anchor="middle">You</text></g>
+<text id="illus" class="hide small" x="420" y="612">a route you can drive · illustrative</text></g>
+<g id="you2"><use href="#kit-practice-figure" transform="translate(350,622) scale(.6)"/></g>
+<text id="youl" class="lab" x="350" y="700" text-anchor="middle">You</text>
+<text id="h18" class="hide fig" x="640" y="70" text-anchor="middle" style="font-size:50px">What's genuinely hard</text>
+<path id="slot1" class="hide" d="M40.0 100.0L247.4070403882603 100.5M254.2070403882603 100.6L419.0 99.4M420.4 102.5L419.6 250.99343475734835M419.5 257.4934347573483L421.0 399.7M418.1 400.0L243.87063734009607 399.6M237.17063734009605 400.5L40.1 399.1M39.3 397.6L39.9 262.75948969979305M40.1 256.859489699793L40.8 101.9" stroke="#586D74" stroke-width="1.6" stroke-dasharray="8 7" fill="none"/>
+<path id="slot2" class="hide" d="M450.7 99.5L658.590684131052 100.4M664.4906841310519 100.3L830.1 101.2M829.8 102.6L829.8 254.33270773555844M830.6 260.03270773555846L830.1 399.3M829.0 399.8L650.36074064599 400.5M643.66074064599 400.2L449.4 400.7M449.7 398.4L450.3 240.83190175779882M450.3 234.73190175779882L450.7 100.2" stroke="#586D74" stroke-width="1.6" stroke-dasharray="8 7" fill="none"/>
+<path id="slot3" class="hide" d="M859.8 100.2L1035.5387841688653 99.8M1041.5387841688653 99.6L1238.9 101.1M1239.3 103.1L1240.1 232.07762226199648M1239.8 238.3776222619965L1240.8 399.8M1238.0 400.6L1046.1104667936117 399.5M1040.3104667936118 399.8L860.5 400.7M859.5 397.7L859.9 235.51262199231527M860.1 229.01262199231527L859.4 101.9" stroke="#586D74" stroke-width="1.6" stroke-dasharray="8 7" fill="none"/>
+<text id="t1" class="hide lab" x="62" y="136">The ceiling</text>
+<text id="t2" class="hide lab" x="472" y="136">Renewal</text>
+<text id="t3" class="hide lab" x="882" y="136">Access</text>
+<g id="s1inn" class="hide"><use href="#kit-inn-mini" transform="translate(70,300) scale(.45)"/></g>
+<g id="s1line" class="hide"><path d="M64 282L150 281.5M156 282L240 281.5M64 275L64 289M240 274L240 288" stroke="#173530" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+<g id="s1tag" class="hide"><use href="#kit-retainer-tag" transform="translate(110,232) scale(.8)"/></g>
+<text id="s1few" class="hide small" x="252" y="276"><tspan x="252">a few hundred</tspan><tspan x="252" dy="24">a month</tspan></text>
+<g id="cal" class="hide"><use href="#kit-calendar-leaf" transform="translate(480,170)"/></g>
+<text id="summer" class="hide small" x="540" y="332" text-anchor="middle">a good summer</text>
+<text id="slow" class="hide tiny" x="540" y="362" text-anchor="middle">first slow month</text>
+<g id="folder" class="hide"><path d="M650 212L700 212L712 224L806 224L806 312L650 312Z" fill="#EDE5D6"/><path d="M649.3 211.5L699.6 212.0M712.4 224.4L806.5 222.9M806.7 224.8L806.4 310.9M804.8 312.2L720.3611410430035 312.5M713.8611410430035 312.4L650.3 312.0M649.9 310.9L649.7 212.1M700 212L712 224" stroke="#173530" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+<g id="base"><g id="basein" class="hide"><use href="#kit-sheet" transform="translate(664,236) scale(.4)"/><text class="tiny" x="680" y="266">baseline</text></g></g>
+<text id="keep" class="hide small" x="728" y="346" text-anchor="middle">kept</text>
+<g id="desk3" class="hide"><use href="#kit-table" transform="translate(890,330) scale(.8)"/><use href="#kit-person" transform="translate(986,284) scale(.8)"/><use href="#kit-sheet" transform="translate(1030,292) scale(.26)"/><text class="tiny" x="986" y="385" text-anchor="middle">owner</text></g>
+<text id="acct" class="hide tiny" x="1066" y="318" text-anchor="middle" style="font-size:14px">accounts</text>
+<text id="guest" class="hide small" x="1170" y="428" text-anchor="middle">You're a guest</text>
+<g id="axis" class="hide"><path d="M78.9 619.5L450.65798380215915 620.5M456.15798380215915 620.1L861.2 621.0" stroke="#173530" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M260 612L260 628M620 612L620 628" stroke="#173530" stroke-width="2" fill="none"/><text class="tiny" x="260" y="650" text-anchor="middle">20</text><text class="tiny" x="620" y="650" text-anchor="middle">40</text><text class="tiny" x="40" y="626" text-anchor="middle">rooms</text></g>
+<path id="wl" class="hide" d="M330 560L330 640" stroke="#586D74" stroke-width="2.5" stroke-dasharray="8 6" fill="none"/>
+<text id="small" class="hide small" x="190" y="596" text-anchor="middle">too small</text>
+<path id="wr" class="hide" d="M560 560L560 640" stroke="#586D74" stroke-width="2.5" stroke-dasharray="8 6" fill="none"/>
+<g id="agy" class="hide"><use href="#kit-person" transform="translate(700,578) scale(.34)"/><use href="#kit-person" transform="translate(770,578) scale(.34)"/><text class="small" x="735" y="532" text-anchor="middle">already served by an agency</text></g>
+<g id="unk" class="hide"><path d="M340 672L550 672" stroke="#586D74" stroke-width="1.6" stroke-dasharray="6 5" fill="none"/><path d="M348 666L340 672L348 678M542 666L550 672L542 678" stroke="#586D74" stroke-width="1.6" fill="none"/><text class="small" x="445" y="700" text-anchor="middle">width unknown</text></g>
+<g id="f1" class="hide"><path d="M40 424L356 424L370 438L370 476L40 476Z" fill="#FBF8F1" stroke="none"/><path d="M39.2 425.1L207.63242797798168 424.3M213.9324279779817 424.0L355.9 423.0M369.4 438.2L369.7 475.5M368.1 477.1L202.41566006431756 476.2M196.7156600643176 476.4L40.1 475.1M40.4 475.8L39.7 425.7" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M356 424L356 438L370 438" class="light"/><text class="small" x="56" y="457">no owner funds $600 a month</text></g>
+<g id="f2" class="hide"><path d="M390 424L646 424L660 438L660 476L390 476Z" fill="#FBF8F1" stroke="none"/><path d="M389.4 424.5L503.6943960037421 424.4M509.3943960037421 423.7L646.0 424.1M660.6 437.2L659.4 475.2M660.0 475.4L529.8342846175882 475.7M523.7342846175882 475.5L389.7 476.4M391.0 475.6L390.9 425.8" stroke="#586D74" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M646 424L646 438L660 438" class="light"/><text class="small" x="406" y="457">agencies own the band</text></g>
+<g id="stop" class="hide"><path d="M672 450L760 450M762 436L762 464" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round"/><text class="lab" x="776" y="459">stop</text></g>
+<g id="up" class="hide"><path d="M876 450L1030 450M1020 441L1031 450L1020 459" stroke="#586D74" stroke-width="2.5" fill="none" stroke-linecap="round"/><text class="small" x="852" y="458" text-anchor="middle">or</text><text class="lab" x="1042" y="459">move up</text></g>
+<g id="ext"><path id="extl" class="hide" d="M866 620L1230 620" stroke="#173530" stroke-width="2.6" stroke-dasharray="12 8" fill="none"/><g id="extt" class="hide"><path d="M1180 612L1180 628" stroke="#173530" stroke-width="2" fill="none"/><text class="tiny" x="1180" y="650" text-anchor="middle">80</text><text class="small" x="925" y="700" text-anchor="middle">40 to 80 rooms: the redesign</text></g></g>
+<g id="ground" class="hide"><path d="M640 604L1230 604" stroke="#586D74" stroke-width="1.3" fill="none"/><text class="tiny" x="1230" y="596" text-anchor="end">their ground</text></g>
+</svg>
+<audio id="s18-root-narration" src="public/audio/narration.wav" data-start="0" data-duration="56.0" data-media-start="0" data-track-index="100" data-volume="1"></audio>
+</div>
+<script>
+window.__timelines=window.__timelines||{};
+const t=gsap.timeline({paused:true});
+const C={"six": 0.467, "whats": 2.407, "genuinely": 2.737, "three": 4.817, "ceiling": 6.307, "few": 12.547, "walk": 13.897, "viable": 15.727, "too": 17.927, "served": 19.847, "how": 23.067, "renewal": 25.167, "good": 26.407, "keep": 30.827, "first": 33.287, "access": 35.246, "owners": 38.527, "youre": 40.867, "if_": 42.487, "already": 46.267, "stop": 47.727, "move": 48.467, "forty": 49.787, "their": 55.027};
+const draw=(sel,at,d)=>{document.querySelectorAll(sel).forEach(p=>{const L=p.getTotalLength();t.set(p,{autoAlpha:1,strokeDasharray:L,strokeDashoffset:L},at);t.to(p,{strokeDashoffset:0,duration:d,ease:'power1.inOut'},at);});};
+t.to('#prev',{autoAlpha:0,duration:0.45,ease:'power1.inOut'},2.307);
+t.to('#youl',{autoAlpha:0,duration:0.45,ease:'power1.inOut'},2.307);
+t.fromTo('#h18',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},2.737);
+t.fromTo('#slot1,#slot2,#slot3',{autoAlpha:0},{autoAlpha:1,duration:.35,stagger:.12},4.817);
+t.fromTo('#t1',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},6.307);
+t.to('#you2',{x:-70,y:-262,duration:0.9,ease:'power2.inOut'},6.307);
+t.fromTo('#s1inn',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},6.807);
+t.fromTo('#s1line',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},7.207000000000001);
+t.fromTo('#s1tag',{autoAlpha:0,y:-8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},7.607);
+t.fromTo('#s1few',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},12.547);
+t.to('#you2',{x:-10,y:-262,opacity:.4,duration:1.0,ease:'power1.inOut'},13.897);
+t.fromTo('#axis',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},15.727);
+t.fromTo('#wl',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},17.927);
+t.fromTo('#small',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},17.927);
+t.fromTo('#wr',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},19.847);
+t.fromTo('#agy',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},19.847);
+t.fromTo('#unk',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},23.067);
+t.fromTo('#t2',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},25.167);
+t.fromTo('#cal',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},26.407);
+t.fromTo('#summer',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},26.707);
+t.fromTo('#folder',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},30.627000000000002);
+t.fromTo('#basein',{autoAlpha:0,y:-40},{autoAlpha:1,y:0,duration:.6,ease:'power2.out'},30.827);
+t.fromTo('#keep',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},31.327);
+t.fromTo('#slow',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},33.287);
+t.fromTo('#t3',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},35.246);
+t.fromTo('#desk3',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},38.327);
+t.fromTo('#acct',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},38.727000000000004);
+t.to('#you2',{x:820,y:-252,opacity:1,duration:1.0,ease:'power1.inOut'},38.327);
+t.fromTo('#guest',{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:0.417,ease:'power1.out'},40.867);
+t.fromTo('#f1',{autoAlpha:0,x:0},{autoAlpha:1,x:0,duration:0.45,ease:'power2.out'},42.487);
+t.fromTo('#f2',{autoAlpha:0,x:0},{autoAlpha:1,x:0,duration:0.45,ease:'power2.out'},46.267);
+t.fromTo('#stop',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},47.727);
+t.fromTo('#up',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},48.467);
+t.fromTo('#extl',{autoAlpha:0},{autoAlpha:1,duration:0.500,ease:'power1.out'},49.787);
+t.fromTo('#extt',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},50.187);
+t.fromTo('#ground',{autoAlpha:0},{autoAlpha:1,duration:0.417,ease:'power1.out'},55.027);
+t.set({},{},56.0);
+window.__timelines['ep009-s18']=t;
+</script></body></html>

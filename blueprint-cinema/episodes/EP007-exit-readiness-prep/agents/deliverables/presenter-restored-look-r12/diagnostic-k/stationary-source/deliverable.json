@@ -1,0 +1,97 @@
+{
+  "work_order": "EP007 stationary candidate03 source plate for Precision Lipsync",
+  "status": "rendered_verified_frozen_for_parent_upload",
+  "scope": "source plate only; no generated mouth or head motion",
+  "runtime": "HyperFrames0.8.31 installed pin; no upgrade",
+  "source_inputs": [
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/stationary-source/assets/study.webp",
+      "sha256": "59309d2925b85cfba8a6a411dce1ecea67a03607f8a05933f4a2f6cb6af27754"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/stationary-source/assets/narration.wav",
+      "sha256": "c565f1dfe8c218f156e9d0b76d0515a264be26cc1d0cea7d1ea8977a3c565566"
+    },
+    {
+      "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/stationary-source/assets/gsap.min.js",
+      "sha256": "c174bfce53a729418d57a8ad8625e7247c793a22fef8e2851e3cfa3de9cd8280"
+    }
+  ],
+  "composition_sha256": "67586523e3d091e68f645ca101e45a89408fbea75fc353eb855b57b317ca2917",
+  "artifact": {
+    "path": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/presenter-restored-look-r12/diagnostic-k/stationary-source/renders/stationary-study-source.mp4",
+    "sha256": "30d6252f6aa4b15fd66906814197abff81349dc994c1c8903de1c0eebec74a27",
+    "bytes": 857450,
+    "frozen": true
+  },
+  "picture": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "frames": 140,
+    "duration_seconds": 5.6,
+    "start_seconds": 0,
+    "all_decoded_frames_identical": true,
+    "unique_frame_hashes": 1,
+    "codec": "H264 High 4:4:4 Predictive lossless",
+    "source_photo_file_unchanged": true,
+    "fit": "Fixed center cover; source2752x1536 scales to1935x1080, cropping7.5 output pixels per side; no facial, wardrobe, background or color edit"
+  },
+  "audio": {
+    "input_duration_seconds": 5.6,
+    "stream_duration_seconds": 5.6,
+    "stream_start_seconds": 0,
+    "codec": "AAC-LC 48kHz stereo",
+    "timing_or_speed_changes": false,
+    "independent_lag": {
+      "source_window_seconds": [
+        0.25,
+        5.35
+      ],
+      "lag_samples": 0,
+      "lag_ms": 0.0,
+      "aligned_pearson": 0.999741622859853,
+      "search_lag_samples": [
+        -12000,
+        12000
+      ],
+      "best_lag_at_search_boundary": false
+    },
+    "whole_available_overlap_pearson": 0.9997000322776376,
+    "decoded_sample_count": 269312,
+    "encoding_limit": "AAC is not sample-exact WAV PCM; original WAV remains the separately supplied provider driving audio"
+  },
+  "checks": {
+    "hyperframes_check_ok": true,
+    "sampled_at_seconds": [
+      2.8
+    ],
+    "static_check_rationale": "A single unchanged still is the specified source; all140 decoded frames were separately proven identical",
+    "full_ffmpeg_decode_pass": true,
+    "frame_count_exact": true,
+    "first_frame_visual_review": "Candidate03 likeness, navy shirt and study retained; image fills frame with no black bands; naturalness is not tested by a stationary source"
+  },
+  "files_created": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "hyperframes.json",
+    "index.html",
+    "meta.json",
+    "package.json",
+    "BRIEF.md",
+    ".gitignore",
+    "assets/",
+    "logs/",
+    "renders/",
+    "deliverable.json"
+  ],
+  "tool_side_effects": "Initial blank-scaffold check logged caching of unused default Inter/JetBrains fonts; removed those font families before final check/render. No provider generation, external media upload or skill upgrade performed.",
+  "limitations": [
+    "Still source may be rejected by the downstream lip-sync service or produce unnatural static delivery",
+    "This does not predict lip-sync quality or naturalness of the separately generated result",
+    "Lossless H264 source profile may have narrower client playback support than Main/High; local full decode verified"
+  ],
+  "canonical_changes": [],
+  "production_approval": false,
+  "gate_changes": []
+}

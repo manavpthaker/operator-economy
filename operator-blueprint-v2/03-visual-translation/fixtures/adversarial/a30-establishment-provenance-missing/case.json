@@ -1,0 +1,29 @@
+{
+  "base": "../../positive/establishment-class",
+  "note": "an establishment row with no verbatim upstream quote",
+  "patches": {
+    "engine.json": {
+      "establishment": [
+        {
+          "id": "EST-001",
+          "label": "AUTHORED",
+          "viewer_state_before": "The viewer cannot identify the operator, the guest, or the relationship between them.",
+          "viewer_state_after": "The viewer can identify the operator, the guest, and the routing relationship that connects them.",
+          "reveals": [
+            "guest"
+          ],
+          "source_artifact": "canvas.md",
+          "source_sha256": "d42fa10b5fc8a610bbd7532b18b00bb48235fffb61b6ed5ad6ad12c430e850ae",
+          "source_locator": "1. Operator",
+          "boundary_ledger_semantic_role_id": "humanContext",
+          "boundary_ledger_operation_id": "establish",
+          "selection_label": "SELECTED",
+          "mapping_rationale": "Establish is the only operation whose required change is that the viewer can identify the world and its primary relationship. The actors are cited upstream; only the viewer's knowledge of them is authored."
+        }
+      ]
+    }
+  },
+  "expect_failures": [
+    "V2"
+  ]
+}

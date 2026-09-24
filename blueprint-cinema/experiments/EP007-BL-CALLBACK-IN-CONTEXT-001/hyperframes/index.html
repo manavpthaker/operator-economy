@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>EP007 · Callback in context</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #173530;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #173530;
+      }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-hf-id="callback-context-root" data-composition-id="main" data-start="0" data-duration="37.916666666666664" data-width="1920" data-height="1080" data-fps="24">
+      <div id="opening-slot" class="clip" data-hf-id="callback-opening-slot" data-composition-id="callback-opening" data-composition-src="compositions/opening.html" data-start="0" data-duration="12.25" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="bridge-slot" class="clip" data-hf-id="callback-bridge-slot" data-composition-id="callback-bridge" data-composition-src="compositions/bridge.html" data-start="12.25" data-duration="12.25" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="ending-slot" class="clip" data-hf-id="callback-ending-slot" data-composition-id="callback-ending" data-composition-src="compositions/ending.html" data-start="24.5" data-duration="13.416666666666666" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <audio id="opening-voice" data-hf-id="callback-opening-voice" src="assets/audio/opening-14.750-27.000.wav" data-start="0" data-duration="12.25" data-track-index="10" data-volume="1"></audio>
+      <audio id="bridge-voice" data-hf-id="callback-bridge-voice" src="assets/audio/bridge-255.400-267.650.wav" data-start="12.25" data-duration="12.25" data-track-index="10" data-volume="1"></audio>
+      <audio id="ending-voice" data-hf-id="callback-ending-voice" src="assets/audio/ending-1047.360-1060.760.wav" data-start="24.5" data-duration="13.4" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines.main = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

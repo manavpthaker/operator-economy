@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #scene-01-no-owner {
+          position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden;
+          background: #173530; color: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif;
+        }
+        .s1-paper-edge { position: absolute; top: 0; bottom: 0; left: 0; width: 24px; background: #f5f0e6; }
+        .s1-register { position: absolute; top: 170px; left: 58px; width: 964px; height: 2px; background: rgba(245, 240, 230, 0.24); }
+        .s1-portrait-wrap { position: absolute; left: 58px; top: 194px; width: 964px; height: 1080px; overflow: hidden; border: 2px solid rgba(245, 240, 230, 0.38); background: #ede7d8; }
+        .s1-portrait { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; will-change: transform; }
+        .s1-portrait-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(23, 53, 48, 0.02) 42%, rgba(23, 53, 48, 0.18) 64%, #173530 100%); }
+        .s1-source { position: absolute; top: 24px; right: 26px; padding: 10px 14px; border: 1px solid rgba(245, 240, 230, 0.52); background: rgba(23, 53, 48, 0.82); color: #f5f0e6; font-size: 20px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+        .s1-question-title { position: absolute; left: 64px; right: 118px; top: 796px; z-index: 4; color: #f5f0e6; font: 700 108px/0.88 "BL Boska", Georgia, serif; letter-spacing: -0.055em; text-shadow: 0 6px 30px rgba(23, 53, 48, 0.86); transform-origin: 0 100%; opacity: 1; will-change: transform, opacity; }
+        .s1-question-title span { display: block; }
+        .s1-question-title .s1-sell { margin-top: 8px; color: #fb8b69; font-size: 130px; }
+        .s1-test-title { position: absolute; left: 64px; right: 118px; top: 858px; z-index: 4; color: #f5f0e6; font: 700 164px/0.82 "BL Boska", Georgia, serif; letter-spacing: -0.065em; text-shadow: 0 6px 30px rgba(23, 53, 48, 0.86); transform-origin: 0 100%; opacity: 1; will-change: transform; }
+        .s1-test-title span { display: block; }
+        .s1-test-title .s1-no-owner { color: #fb8b69; }
+        .s1-context {
+          position: absolute; z-index: 5; left: 58px; right: 122px; top: 1194px; min-height: 184px;
+          padding: 17px 24px 20px 28px; border-left: 8px solid #b5482f;
+          background: rgba(23, 53, 48, 0.94); box-shadow: 0 12px 34px rgba(12, 31, 28, 0.32);
+          will-change: transform, opacity;
+        }
+        .s1-context-kicker { color: #c4b99e; font-size: 20px; font-weight: 500; letter-spacing: 0.16em; line-height: 1; text-transform: uppercase; }
+        .s1-context-name { margin-top: 9px; color: #f5f0e6; font-size: 36px; font-weight: 500; letter-spacing: 0.035em; line-height: 1; text-transform: uppercase; }
+        .s1-context-definition { margin-top: 12px; color: rgba(245, 240, 230, 0.82); font-size: 26px; font-weight: 400; line-height: 1.12; }
+      </style>
+      <section id="scene-01-no-owner" data-composition-id="scene-01-no-owner" data-start="0" data-duration="14.250000" data-width="1080" data-height="1920">
+        <div class="s1-paper-edge" aria-hidden="true"></div>
+        <div class="s1-register" aria-hidden="true"></div>
+        <div class="s1-portrait-wrap" data-hf-id="s1-approved-identity-hold">
+          <img class="s1-portrait" data-layout-allow-overflow src="assets/media/ep007-avatar-v5-identity-hold.png" alt="Manav in the accepted EP007 study look" />
+          <div class="s1-portrait-shade" aria-hidden="true"></div>
+          <div class="s1-source">Animatic identity hold · not lip-synced</div>
+        </div>
+        <h1 class="s1-question-title" data-hf-id="s1-question-title" data-layout-allow-overlap><span data-layout-allow-overlap>HOW DO YOU GET A BUSINESS</span><span class="s1-sell" data-layout-allow-overlap>READY TO SELL?</span></h1>
+        <h2 class="s1-test-title" data-hf-id="s1-test-title" data-layout-allow-overlap><span data-layout-allow-overlap>30 DAYS.</span><span class="s1-no-owner" data-layout-allow-overlap>NO OWNER.</span></h2>
+        <div class="s1-context" data-hf-id="s1-project-context" data-layout-allow-overlap>
+          <div class="s1-context-kicker">A business you can build</div>
+          <div class="s1-context-name">A sale-readiness practice</div>
+          <div class="s1-context-definition">Help an owner prepare before a buyer appears.</div>
+        </div>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo(".s1-question-title", { scale: 1.035, y: 12 }, { scale: 1, y: 0, duration: 0.38, ease: "power3.out" }, 0);
+        tl.fromTo(".s1-register", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.04);
+        tl.fromTo(".s1-source", { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: 0.28, ease: "power2.out" }, 0.12);
+        tl.to(".s1-question-title", { opacity: 0, y: -18, duration: 0.22, ease: "power2.in" }, 3.68);
+        tl.fromTo(".s1-test-title", { opacity: 0, scale: 1.08, y: 22 }, { opacity: 1, scale: 1, y: 0, duration: 0.36, ease: "power3.out" }, 3.90);
+        tl.to(".s1-test-title", { opacity: 0, y: -16, duration: 0.22, ease: "power2.in" }, 8.02);
+        tl.fromTo(".s1-context", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 8.24);
+        tl.fromTo(".s1-portrait", { scale: 1.035 }, { scale: 1, duration: 14.25, ease: "power1.out" }, 0);
+        window.__timelines["scene-01-no-owner"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

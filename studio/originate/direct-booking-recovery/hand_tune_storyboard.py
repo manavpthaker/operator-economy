@@ -84,21 +84,38 @@ C, N, P, R, T = ["claim"], ["number"], ["process"], ["risk"], ["tool"]
 PLAN: list[dict] = [
   # ---- HOOK: five reveals inside 24.8s. The rubric wants >=4 in the
   # first 30s for a 4-8s visual cadence; the generated cut had 1.
-  dict(id="hook-01", layout="chart", section="hook", donor="hook-01",
-       heading="The gap", beats=[
+  dict(id="hook-01", layout="broll", section="hook", donor="hook-01",
+       heading="Independent hotels", beats=[
     ("Independent hotels hand about two thirds",
      "Two thirds of bookings go to the OTAs", "Booking.com · Expedia", C + N),
+  ]),
+  dict(id="hook-02", layout="chart", section="hook", donor="hook-01",
+       heading="The gap", beats=[
     ("And they pay eighteen to thirty percent commission",
      "18 to 30 percent commission to do it", "on every one of them", N),
     ("On a twenty room hotel",
      "20 rooms · 70 percent occupancy", "their own published rates", N),
+  ]),
+  dict(id="hook-03", layout="proof_card", section="hook", donor="hook-01",
+       heading="The annual consequence",
+       custom={"proof": {"value": 135000, "prefix": "$",
+                          "label": "Estimated annual OTA commission",
+                          "contrast": "20 rooms · $180 · 70% occupancy",
+                          "estimate": True}}, beats=[
     ("that's roughly a hundred thirty five thousand dollars a year",
      "About $135,000 a year", "commission, gone", N),
-    ("My estimate",
-     "My estimate", "built from published rates, not reported", C),
   ]),
+  dict(id="hook-04", layout="quote", section="hook",
+       anchor="My estimate", quote="My estimate — built from published rates.",
+       heading="The caveat", accent="My estimate"),
 
   # ---- THESIS
+  dict(id="thesis-00", layout="chapter_reset", section="thesis",
+       heading="Direct booking recovery",
+       beats=[("This is The Operator Economy", "Direct booking recovery",
+               "This week", [])],
+       custom={"chapter": {"kicker": "This is The Operator Economy · This week",
+                            "heading": "Direct booking recovery"}}),
   dict(id="thesis-01", layout="sheet", section="thesis", donor="thesis-01",
        heading="The thesis", beats=[
     ("Okay so this is direct booking recovery",
@@ -570,6 +587,107 @@ PLAN: list[dict] = [
   ]),
 ]
 
+# Rev D is authored as a narrative/production contract, not a list of slide
+# templates. Every screen names the emotional state, camera distance, score
+# state, and footage job. `layout` overrides deliberately create conspicuous
+# render blockers until reviewed media is attached.
+SECTION_STATE = {
+    "hook": ("peril", "constraint"),
+    "thesis": ("reversal", "counter"),
+    "evidence": ("absurdity", "tension"),
+    "stack": ("build", "build"),
+    "playbook": ("build", "build"),
+    "economics": ("agency", "human"),
+    "cta": ("agency", "resolve"),
+}
+
+REV_D_SCREEN: dict[str, dict] = {
+    "hook-01": dict(layout="broll", role="outcome", camera="human",
+                    preview_eligible=True,
+                    intent="Innkeeper places a physical room key in a guest's hand; tactile, daylight, no generic lobby glamour.",
+                    query="independent hotel innkeeper handing room key to guest close up",
+                    queries=["independent hotel innkeeper handing room key to guest close up", "boutique hotel owner gives key to couple", "small hotel reception key handoff guest"],
+                    exclude=["face masks", "passport paperwork", "corporate chain lobby"]),
+    "hook-02": dict(role="market_force", camera="system", preview_eligible=True,
+                    intent="The human booking collapses into the OTA share and commission mechanism; branded surfaces are evidence, not decoration."),
+    "hook-03": dict(role="proof", camera="system", preview_eligible=True,
+                    intent="Make the annual commission loss physically legible before explaining the arithmetic."),
+    "hook-04": dict(role="human_context", camera="human", preview_eligible=True,
+                    state="reversal", score="silence",
+                    intent="Hold the estimate caveat cleanly, then let silence make room for the thesis."),
+    "thesis-02": dict(layout="broll", role="human_context", camera="human",
+                      intent="A real 10–40 room independent property: one operator moving between desk, phone, keys, and guests.",
+                      query="smiling boutique hotel host welcoming couple daylight",
+                      queries=["smiling boutique hotel host welcoming couple daylight", "small hotel owner carrying linens greeting guests", "independent inn host serving breakfast guests"],
+                      exclude=["face masks", "pandemic-era reception", "corporate chain lobby", "generic business meeting"]),
+    "evidence-03": dict(layout="broll", role="human_context", camera="human",
+                        intent="Coqui Coqui memory as warm tropical resort life: palms, courtyards, water, texture, guests and staff moving through the property. Sensory and lived-in, not a reception transaction or an empty luxury beauty reel.",
+                        query="tropical boutique resort guests walking palm courtyard",
+                        queries=["tropical boutique resort guests walking palm courtyard", "jungle resort staff welcoming couple outdoors", "Mexico tropical resort guests hospitality"],
+                        exclude=["face masks", "front desk transaction", "empty drone reel", "corporate beach resort"]),
+    "evidence-04": dict(layout="broll", role="human_context", camera="human",
+                        intent="Quaint, rustic, residential B&B life: timber, cottage rooms, breakfast, garden, linens, and the intimacy of a home being run as hospitality. No business, office, or front-desk aesthetic.",
+                        query="cozy rustic bed and breakfast cottage interior",
+                        queries=["cozy rustic bed and breakfast cottage interior", "country inn breakfast table fireplace", "quaint cottage host serving breakfast guests"],
+                        exclude=["face masks", "office", "business desk", "corporate hotel lobby", "modern coworking"]),
+    "evidence-08": dict(role="proof", camera="system",
+                        intent="Live capture of vendor pricing pages where the absent public price is itself the evidence."),
+    "stack-03": dict(role="process", camera="system", state="build", score="build",
+                     intent="Gold counter-system expands from orchestration to drafting; logos label capabilities only after the flow is understood."),
+    "stack-04": dict(layout="screen_rec", role="process", camera="system",
+                     intent="Show the three agents performing real actions: profile update, re-book message, post-stay review request."),
+    "stack-05": dict(layout="screen_rec", role="process", camera="system",
+                     intent="End the workflow inside the booking engine; the platform is the destination, not the hero."),
+    "playbook-01": dict(layout="broll", role="process", camera="human",
+                        intent="Operator audits the guest journey on a real property surface: map listing, site, booking path, and notes.",
+                        query="innkeeper reviewing booking website laptop kitchen table",
+                        queries=["innkeeper reviewing booking website laptop kitchen table", "small hotel owner mapping guest journey notebook", "boutique hotel owner reviewing reservations laptop at home"],
+                        exclude=["face masks", "generic corporate meeting", "white office boardroom"]),
+    "playbook-03": dict(layout="broll", role="human_context", camera="human",
+                        intent="Contrast a staffed property with the solo operator using observable work, not an abstract headcount card.",
+                        query="small hotel owner multitasking reception housekeeping phone",
+                        queries=["couple talking to woman at small hotel front desk"],
+                        exclude=["face masks"]),
+    "playbook-04": dict(layout="screen_rec", role="proof", camera="system",
+                        intent="Screen capture the four vendor sites and the missing public price, then reveal the published offer."),
+    "playbook-06": dict(layout="broll", role="outcome", camera="human", state="agency", score="counter",
+                        intent="A returning guest books directly; gold path resolves in a human welcome and a physical key.",
+                        query="smiling innkeeper welcomes couple boutique hotel",
+                        queries=["smiling innkeeper welcomes couple boutique hotel", "hotel host hands room key to smiling guests", "returning guests greeted at rustic inn"],
+                        exclude=["face masks", "passport paperwork", "corporate chain lobby"]),
+    "economics-03": dict(layout="broll", role="outcome", camera="human", state="agency", score="human",
+                         intent="Operator reviews a small portfolio calmly; agency is visible as manageable work, not lifestyle fantasy.",
+                         query="hotel owner advisor reviewing reservations laptop terrace",
+                         queries=["hotel owner advisor reviewing reservations laptop terrace", "boutique hotel manager reviewing performance laptop cafe", "small hotel owner looking at booking dashboard"],
+                         exclude=["face masks", "generic corporate boardroom", "legal meeting", "financial advisor office"]),
+    "cta-01": dict(layout="broll", role="outcome", camera="human", state="agency", score="resolve",
+                   intent="Return to the innkeeper and direct guest relationship; blueprint appears as the next practical move.",
+                   query="smiling innkeeper welcoming couple rustic hotel",
+                   queries=["smiling innkeeper welcoming couple rustic hotel", "boutique hotel host gives room key to guests", "returning couple greeted at cozy country inn"],
+                   exclude=["face masks", "passport paperwork", "corporate hotel lobby"]),
+}
+
+
+def rev_d_fields(entry: dict, layout: str) -> dict:
+    directive = REV_D_SCREEN.get(entry["id"], {})
+    state, score = SECTION_STATE[entry["section"]]
+    role = directive.get("role")
+    if not role:
+        role = ("proof" if layout in {"chart", "proof_card", "artifact", "source_card"}
+                else "process" if layout in {"schematic", "screen_rec"}
+                else "human_context" if layout == "broll" else "evidence")
+    return {
+        "narrative_state": directive.get("state", state),
+        "score_state": directive.get("score", score),
+        "footage_role": role,
+        "camera": directive.get("camera", "system"),
+        "preview_eligible": bool(directive.get("preview_eligible", False)),
+        "visual_intent": directive.get("intent", "Advance the argument with one legible visual job; no decorative motion."),
+        "search_query": directive.get("query"),
+        "query_variants": directive.get("queries") or ([directive["query"]] if directive.get("query") else []),
+        "visual_exclusions": directive.get("exclude", []),
+    }
+
 
 # --------------------------------------------------------------- assemble
 def build() -> dict:
@@ -600,8 +718,10 @@ def build() -> dict:
         start = e["_at"]
         end = PLAN[i + 1]["_at"] if i + 1 < len(PLAN) else TOTAL
         donor = DONORS.get(e.get("donor", ""), {})
+        layout = REV_D_SCREEN.get(e["id"], {}).get("layout", e["layout"])
+        rev_d = rev_d_fields(e, layout)
 
-        if e["layout"] == "quote":
+        if layout == "quote":
             # impact frame: hold only as long as the line takes to land, so
             # it hard-cuts back to the argument instead of becoming a title
             # slide (rubric wants 1.2-4s).
@@ -619,6 +739,7 @@ def build() -> dict:
                 "music": {"intensity": "silence", "duck_db": 0},
                 "custom": {"quote": e["quote"], "accentPhrase": e["accent"],
                            "ground": "navy"},
+                **rev_d,
             })
             continue
 
@@ -642,20 +763,23 @@ def build() -> dict:
         # a tick on each beat boundary after the first — the audible half of
         # a composition that assembles rather than sits
         sfx = [{"cue": "tick", "at": r["at"]} for r in reveals[1:]]
-        if e["layout"] in ("proof_card", "risk_card"):
+        if layout in ("proof_card", "risk_card"):
             sfx.insert(0, {"cue": "hit", "at": round(start, 3)})
 
         screens.append({
-            "id": e["id"], "section": e["section"], "layout": e["layout"],
+            "id": e["id"], "section": e["section"], "layout": layout,
             "heading": e["heading"], "start": round(start, 3),
             "end": round(end, 3), "reveals": reveals,
             "figure": donor.get("figure"), "source": donor.get("source"),
             "sfx": sfx,
-            "music": donor.get("music") or {"intensity": "calm", "duck_db": -16},
+            "music": {"intensity": rev_d["score_state"], "duck_db": -16},
             "custom": e.get("custom") or donor.get("custom"),
+            **rev_d,
         })
 
-    return {"slug": GEN["slug"], "total_seconds": TOTAL, "screens": screens}
+    return {"slug": GEN["slug"], "storyboard_version": "rev-d-1",
+            "narrative_waveform": ["peril", "absurdity", "reversal", "build", "agency"],
+            "total_seconds": TOTAL, "screens": screens}
 
 
 if __name__ == "__main__":

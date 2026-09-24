@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "hf90-frame-06",
+  "episode_folder": "EP006-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "episodes/EP006-direct-booking-recovery/input-lock.json",
+      "sha256": "e99b847c5b5a767d74ad4208738374ac191da3d9d4c3e3654098a6c08e725691"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/frame.md",
+      "sha256": "47ff1980d56db086ab853f1870d69417e897974cf1ae2417bb21c518ed19fb87"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/_role.md",
+      "sha256": "77fe0b832963442962c4fa138c5eb3d26178c67d0fdfcd7850a61ebd6cbe4353"
+    },
+    {
+      "path": "experiments/EP006-90s-runtime-comparison/hyperframes/.hyperframes/frame-packets/06-episode-title.md",
+      "sha256": "43ad7fc53bd6194b134433dae2ee8eaa671db199c10e03455f644ce846b6c390"
+    }
+  ],
+  "files_produced": [
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-06/frame.html",
+    "episodes/EP006-direct-booking-recovery/agents/deliverables/hf90-frame-06/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all four work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "read-only production-state greybox_ready gate check",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 isolated frame structural audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "node agent-deliverable schema and owned-file audit",
+      "outcome": "pass"
+    },
+    {
+      "command": "HyperFrames CLI assembled-project validation",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "Hash-pinned frame packet 06-episode-title.md supplied the three scene phases, 7.532-second duration, titlecard-reveal blueprint, and discrete-text-sequence recipe.",
+    "Hash-pinned frame.md supplied the paper, ink, brass, permanent grid, hairlines, typography, spacing, and declarative-frame geometry.",
+    "The frame uses deterministic inline CSS, SVG, and text only; it references no external media, vendor logo, interface evidence, or network resource."
+  ],
+  "assumptions": [
+    "The assembled HyperFrames root supplies the GSAP global used by the required paused timeline contract.",
+    "The project-provided boska-700.woff2 and supreme-500.woff2 files are registered at the frame.md display and micro weights because no Boska 400 or Supreme 600 files are present.",
+    "Supreme is used for page chrome because the comparison project contains no Fragment Mono font file."
+  ],
+  "unresolved_questions": [],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

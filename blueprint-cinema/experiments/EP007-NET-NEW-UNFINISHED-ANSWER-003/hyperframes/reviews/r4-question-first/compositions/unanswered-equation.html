@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-id="ep007-unanswered-equation" data-composition-duration="7.16">
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Supreme OE"; src: url("public/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+        @font-face { font-family: "Zodiak OE"; src: url("public/fonts/zodiak-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        #root { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; background: #f5f0e6; color: #204440; }
+        .equation { position: absolute; left: 236px; top: 270px; width: 1448px; }
+        .business { margin: 0; font: 500 80px/1.12 "Supreme OE", Arial, sans-serif; letter-spacing: -0.025em; white-space: nowrap; }
+        .owner { margin: 36px 0 0; font: 500 88px/1.12 "Supreme OE", Arial, sans-serif; letter-spacing: -0.025em; white-space: nowrap; opacity: 0; }
+        .subtract { color: #586d74; }
+        .rule { display: block; width: 1230px; height: 38px; margin-top: 27px; overflow: visible; opacity: 0; }
+        .result { margin: 26px 0 0; font: 700 160px/1 "Zodiak OE", Georgia, serif; letter-spacing: -0.04em; opacity: 0; }
+        .rough { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+        .mineral { stroke: #204440; }
+        .mineral-deep { stroke: #173530; }
+        .w1 { stroke-width: 1px; } .w2 { stroke-width: 1.45px; } .w3 { stroke-width: 2px; }
+        .firm { opacity: 0.92; } .soft { opacity: 0.64; } .faint { opacity: 0.34; }
+      </style>
+      <div data-hf-id="hf-w7h1" id="root" data-composition-id="ep007-unanswered-equation" data-duration="7.16" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-49uq" class="equation">
+          <p data-hf-id="hf-8oqa" id="equation-business" class="business">BUSINESS AS IT RUNS TODAY</p>
+          <p data-hf-id="hf-dcgg" id="equation-owner" class="owner"><span data-hf-id="hf-720h" class="subtract">−</span> OWNER FOR 30 DAYS</p>
+          <svg data-hf-id="hf-7bha" id="equation-rule" class="rule" viewBox="0 0 1060 32" aria-hidden="true">
+            <path data-hf-id="hf-ra1k" class="rough mineral-deep w3 firm" d="M4 15 L128 12 L219 13 M234 12 L387 10 M411 11 L565 12" />
+            <path data-hf-id="hf-mmxf" class="rough mineral-deep w2 firm" d="M543 14 L677 10 L753 11 M776 10 L927 8 L1047 9" />
+            <path data-hf-id="hf-onzx" class="rough mineral w2 soft" d="M16 19 L119 16 M145 17 L284 14 L330 16 M359 15 L481 17" />
+            <path data-hf-id="hf-7abr" class="rough mineral w1 soft" d="M507 18 L637 15 M663 14 L794 16 L866 12 M902 14 L1060 11" />
+            <path data-hf-id="hf-3l6u" class="rough mineral-deep w1 faint" d="M0 12 L89 10 M208 17 L346 19 M698 7 L818 8 M969 6 L1037 5" />
+            <path data-hf-id="hf-5gd2" class="rough mineral-deep w3 soft" d="M73 14 L155 12 M466 12 L525 11 M817 10 L879 9" />
+          </svg>
+          <p data-hf-id="hf-7ikk" id="equation-result" class="result">= ?</p>
+        </div>
+      </div>
+      <script>
+        (() => {
+          // Finite, explicit endpoints: arbitrary seeks and reverse seeks produce the same state.
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#equation-owner", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 1);
+          // Hide zero-length rounded dash caps before establishment; preserve each path's pressure opacity.
+          tl.fromTo("#equation-rule", { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none" }, 2.04);
+          document.querySelectorAll("#equation-rule path").forEach((path, index) => {
+            const length = path.getTotalLength();
+            tl.fromTo(path,
+              { strokeDasharray: length, strokeDashoffset: length },
+              { strokeDasharray: length, strokeDashoffset: 0, duration: 0.34, ease: "none" },
+              2.04 + index * 0.02);
+          });
+          tl.fromTo("#equation-result", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, 3.30);
+          // 3.52–7.16 intentionally still. The equation remains unanswered through the locked pause.
+          window.__timelines = window.__timelines || {};
+          window.__timelines["ep007-unanswered-equation"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

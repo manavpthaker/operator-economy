@@ -1,0 +1,64 @@
+{
+  "contract": "read-only-avatar-integration-preparation-1",
+  "work_order_id": "r32-question-sync-diagnosis",
+  "episode_folder": "EP007-exit-readiness-prep",
+  "role": "qa_reviewer",
+  "objective": "Diagnose the owner-reported question lip sync versus choppy connection. Inspect source and actual R31 mapping, decode/frame timing and any frame repeats. Make one compact standalone local MP4 of the existing question with the exact original narration, matching R31 selected picture and close crop/pause if practical, under owned output folder. No alteration of original speech, no paid models. Inspect sampled visemes around useful words and state exactly what is and is not established. Return standard deliverable manifest and useful final report. Root handles requested more-pensive replacement planning.",
+  "required_gate": "none: owner-directed local preparation for current avatar update",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/index.html",
+      "sha256": "8690bd5b6f8683dfc426328373b83c82e17abba4f6f12712ad46e48e749c5bcb"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/compositions/presenter-question.html",
+      "sha256": "af45c4346df71e75eccb269c8f71d43e11a42c7f5b4522b949cac8359528f224"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/restored.mp4",
+      "sha256": "b4c423843acd8fae81e26c94cae2d57227f99be2a89017710366bec1c5ee4231"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/provider/v5-question/restored-qa.json",
+      "sha256": "3a4f8adab758749017ddb42461f9793edc791475f33e9dfaf4c95ea1126bc01c"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r31-avatar-v5-wide/public/media/v5-question-with-pause.mp4",
+      "sha256": "e302dccd624a2251a52a47f195e90a86d5df3fce6c37e0664f5ba5a83c4ba623"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/master/narration-master.v4.wav",
+      "sha256": "d8f7cb9630ae12ad427dca2c7bd1f29611f56c7985ce900ea312df3b9fec8da9"
+    },
+    {
+      "path": "operator-blueprint-v2/episodes/EP007-exit-readiness-prep/02-narration-production/word-transcript.json",
+      "sha256": "f5decf2102d6cd565b89823e6fae38b2f4838c0984f7fce67f36c03cfa0f0ef7"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/agents/deliverables/r32-question-sync-diagnosis/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "blueprint-cinema/experiments",
+    "blueprint-cinema/episodes/EP007-exit-readiness-prep/review",
+    "operator-blueprint-v2"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Verify every issued input hash.",
+    "Return bounded evidence and distinguish inference from measured or visible findings.",
+    "Standard manifest and outputs remain inside owned path."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "stopping_conditions": [
+    "Bounded review only; no provider calls, actual edits or approval claims."
+  ],
+  "status": "issued"
+}

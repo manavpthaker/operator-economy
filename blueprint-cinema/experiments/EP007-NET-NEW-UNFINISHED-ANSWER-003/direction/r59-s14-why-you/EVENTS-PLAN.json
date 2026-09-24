@@ -1,0 +1,174 @@
+[
+  {
+    "event_id": "r59-s14-plan-v1",
+    "decision_id": "s14-why-you",
+    "event_type": "decision",
+    "tags": [
+      "animation",
+      "presenter-return",
+      "paid-plan",
+      "claims"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Answer the deal-experience objection, name the skill the work needs, disclose the narrator's own position, and separate preparing from selling.",
+        "viewer_before": "S13 ends on 'You'.",
+        "viewer_after": "The viewer knows what the job needs, what the narrator has and has not done, and that preparing is a different job from selling."
+      },
+      "choice": "A, C1 and C3 on the presenter (objection and first-person disclosure, as accepted in S10 and S12 A); B, C2 and D unpaid animation. D shows the licence boundary only in front of selling, with an on-screen note that the rule varies and no state named (C007), and preparing shown as its own job (C008).",
+      "reason": "The script's first-person passages carry more on camera; the model passages are clearer drawn. Splitting C keeps the presenter on the personal lines and hands the model to the picture, which the owner chose in S10.",
+      "alternatives": [
+        {
+          "choice": "All of S14 on the presenter",
+          "reason_not_selected": "About 74 s of generated take; the model passages read better drawn."
+        },
+        {
+          "choice": "All animation",
+          "reason_not_selected": "The disclosure is personal and belongs on camera."
+        },
+        {
+          "choice": "A map of licensing",
+          "reason_not_selected": "C007 forbids naming a state and the claim is directional."
+        }
+      ],
+      "reuse": {
+        "kind": "conditional_precedent",
+        "applies_when": "A section mixes a first-person disclosure with a model the viewer must see.",
+        "avoid_when": "The whole passage is impersonal."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "skill",
+            "phrase": "The skill it actually needs",
+            "relation": "practitioner walks in; work nodes converge on one person",
+            "master_seconds": 574.34,
+            "review_seconds": 571.34,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "one",
+            "phrase": "depends on one person",
+            "relation": "converging lines marked in oxide",
+            "master_seconds": 579.48,
+            "review_seconds": 576.48,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "finance",
+            "phrase": "not a finance skill",
+            "relation": "finance card set aside, dashed",
+            "master_seconds": 581.72,
+            "review_seconds": 578.72,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "learn",
+            "phrase": "running something / rebuilding something",
+            "relation": "two paths back into the figure",
+            "master_seconds": 583.58,
+            "review_seconds": 580.58,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "single",
+            "phrase": "the single point of failure",
+            "relation": "the same marked person, named Me",
+            "master_seconds": 604.82,
+            "review_seconds": 601.82,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "removes",
+            "phrase": "this practice removes",
+            "relation": "practice connects; the mark comes off the lines",
+            "master_seconds": 609.48,
+            "review_seconds": 606.48,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "licence",
+            "phrase": "you do not need a licence to prepare",
+            "relation": "open path on the preparing side",
+            "master_seconds": 626.79,
+            "review_seconds": 623.79,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          },
+          {
+            "cue_id": "jobs",
+            "phrase": "treated as different jobs",
+            "relation": "divider and heading Different jobs",
+            "master_seconds": 633.22,
+            "review_seconds": 630.22,
+            "fps": 24,
+            "dependent_targets": [
+              "r59 parts"
+            ]
+          }
+        ],
+        "source_basis": "Word transcript; claims map C007 (directional, no state named) and C008."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/DIRECTION.md",
+        "sha256": "c6fb6bb3ece9081789f3045c760ff93a50308ed5dfea629170531aa22ebd0931",
+        "locator": "Parts"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r59-s14-why-you/presenter/PRESENTER-PLAN.json",
+        "sha256": "0937a5b3b53f7e6fc86efd86c6cabf3c57ae041e4d52c9a619bad53a71bc7bdb",
+        "locator": "Costs, pending approval"
+      }
+    ]
+  },
+  {
+    "event_id": "r59-s14-animation-verified-v1",
+    "decision_id": "s14-why-you",
+    "event_type": "verification",
+    "tags": [
+      "animation"
+    ],
+    "data": {
+      "decision_event_id": "r59-s14-plan-v1",
+      "method": "hyperframes check --strict 0 errors on B, C2 and D; stills reviewed and overlaps fixed; animation-only clip audio vs master zero lag 0.99983 / 0.99983 / 0.99977 and level -0.02 to -0.03 dB per channel; 903 frames, no uniform frames after removing D's blank opening.",
+      "result": "pass",
+      "scope": "S14 B (408 frames), C2 (207), D (288). Presenter parts not generated.",
+      "limitations": "Not continuous narration: the three presenter passages are missing. Owner review and spend approval pending.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14-animation-context/qa/context.mp4",
+          "sha256": "8a711f7c107b1fefce5b8fe3a3d265d326b12be5fdd209bfe1cb22ab6a44a8de"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r59-s14d/index.html",
+        "sha256": "49f644d766f761332d92074fd22430cb5b072e93ca2be1e2931a9ceb52ffeefc",
+        "locator": "Part D composition"
+      }
+    ]
+  }
+]

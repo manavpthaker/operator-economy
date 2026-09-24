@@ -1,0 +1,44 @@
+{
+  "schema_version": "oe-elevenlabs-account-verification-owner-approval-evidence-v1",
+  "provider": "elevenlabs",
+  "source": "current_codex_thread_contextual_assent",
+  "recorded_by": "Codex",
+  "recorded_at": "2026-08-26T10:47:09Z",
+  "owner": "Manav Thaker",
+  "approval_basis": {
+    "assistant_confirmation_prompt": "To avoid ambiguity, please confirm both together: **(1)** turn OFF ‘Improve the models for everyone’ and save it; **(2)** make exactly one read-only `GET /v1/user` using the existing key. No upload or paid call happens in either step.",
+    "owner_reply": "Approved for both",
+    "approval_event_timestamp_available": false,
+    "record_materialization_time_is_not_claimed_as_message_time": true
+  },
+  "approved_scope": {
+    "action": {
+      "provider": "elevenlabs",
+      "endpoint": "https://api.elevenlabs.io/v1/user",
+      "method": "GET",
+      "credential_header_name": "xi-api-key",
+      "accept": "application/json",
+      "accept_encoding": "identity",
+      "no_post": true,
+      "no_mutation": true,
+      "no_retry": true,
+      "no_redirect": true,
+      "raw_response_storage_forbidden": true
+    },
+    "authorized_limits": {
+      "max_get_calls": 1,
+      "max_post_calls": 0,
+      "max_response_bytes": 1000000,
+      "max_error_response_bytes": 65536,
+      "max_request_elapsed_seconds": 30,
+      "max_spend_usd": 0
+    }
+  },
+  "execution_gate": {
+    "this_record_is_an_active_provider_authorization": false,
+    "credentials_may_be_accessed_from_this_record": false,
+    "network_may_be_called_from_this_record": false,
+    "separate_active_authorization_required": true,
+    "voice_transfer_authorized": false
+  }
+}

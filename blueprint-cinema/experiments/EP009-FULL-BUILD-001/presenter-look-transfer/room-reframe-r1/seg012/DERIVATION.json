@@ -1,0 +1,117 @@
+{
+  "record_type": "ep009_seg012_original_crop_restoration",
+  "created_at": "2026-09-18T00:51:05.978351+00:00",
+  "status": "mechanically_verified_not_performance_reviewed",
+  "authority": "Root authorized deterministic original crop1280x720x304x0 for first152, retaining wide152..345. No native change.",
+  "source": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/native.mp4",
+    "sha256": "ba86217b7373a2f4dc3e6e0f79f76af3b57d8b74377298f9f3851f7e4abe5007"
+  },
+  "source_download": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/DOWNLOAD.json",
+    "sha256": "1276510303e1e79157c6aee027a7ae181ae608e73eb50913d320ff704a567063"
+  },
+  "output": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-reframe-r1/seg012/reframed.mp4",
+    "sha256": "2b6c111b72cfcb035811e923d2c76c88dac79e7fe0b4ab876ad54024b5a30477"
+  },
+  "source_audit": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/SOURCE-AUDIT.json",
+    "sha256": "77d1300b3f52841209013af3523124bbca9568061f6cac35fb6026de0184224d"
+  },
+  "crop_authority": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/P02/EDIT-R1-seg012.json",
+    "sha256": "0072374c12dfa77e634e8f41e02ac21a49f617e2a4892a7a75604c72f1226953"
+  },
+  "parts": [
+    {
+      "frames": [
+        0,
+        152
+      ],
+      "crop_w_h_x_y": [
+        1280,
+        720,
+        304,
+        0
+      ]
+    },
+    {
+      "frames": [
+        152,
+        345
+      ],
+      "scale_w_h": [
+        1280,
+        720
+      ],
+      "filter": "lanczos"
+    }
+  ],
+  "frames": 345,
+  "eligible_frames": [
+    0,
+    343
+  ],
+  "discarded_guard_frames": [
+    343,
+    345
+  ],
+  "fps": 24,
+  "retime": false,
+  "decoded_frame_hashes": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-reframe-r1/seg012/FRAME-HASHES.json",
+    "sha256": "0c96e050748748ffbbae9b8c2a0aca3b26da5d3c8c8d6eb939d035833148afd7"
+  },
+  "all_transformed_frames_exact": true,
+  "conditioning_audio_decoded_unchanged": true,
+  "conditioning_audio_f32le_sha256": "3786c69f7d24d3960741d9725969123fe947956be2ac927cc6f12ede97a3971f",
+  "helper": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/_tools/reframe_seg012_r1.py",
+    "sha256": "4086614bcf914d5ac3efda1833d284ed3403b31cf79038ea0f05b097ad2b68f0"
+  },
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-filter_complex_threads",
+    "1",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-r1/seg012/native.mp4",
+    "-filter_complex",
+    "[0:v]split=2[a][b];[a]trim=end_frame=152,setpts=N/(24*TB),crop=1280:720:304:0,setsar=1[c];[b]trim=start_frame=152:end_frame=345,setpts=N/(24*TB),scale=1280:720:flags=lanczos,setsar=1[w];[c][w]concat=n=2:v=1:a=0,format=yuv420p[v]",
+    "-map",
+    "[v]",
+    "-map",
+    "0:a:0",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "0",
+    "-preset",
+    "medium",
+    "-threads",
+    "2",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-fps_mode",
+    "cfr",
+    "-c:a",
+    "copy",
+    "-movflags",
+    "+faststart",
+    "-map_metadata",
+    "-1",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/room-reframe-r1/seg012/reframed.mp4"
+  ],
+  "limits": [
+    "Restoring original crop is mechanical, not evidence of performance preservation. Independent pixel/landmark review still required.",
+    "Original room edit remains unchanged and rejected for its lost close shot.",
+    "Final conform uses locked master, never this conditioning audio."
+  ]
+}

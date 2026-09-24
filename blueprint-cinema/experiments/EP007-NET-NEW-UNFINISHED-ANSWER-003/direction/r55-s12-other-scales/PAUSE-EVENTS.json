@@ -1,0 +1,88 @@
+[
+  {
+    "event_id": "r55-fair-objection-pause-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "decision",
+    "supersedes": "r55-s11-s12-cut-earlier-v1",
+    "tags": [
+      "original-audio",
+      "cut-timing"
+    ],
+    "data": {
+      "context": {
+        "narrative_job": "Give 'Fair objection' room after 'The vacancy'.",
+        "viewer_before": "'The vacancy' lands.",
+        "viewer_after": "A beat, then the presenter raises the objection."
+      },
+      "choice": "Owner-chosen option 3: insert 0.5 s of digital silence at master 454.0 while holding the S11 end frame; cut to the presenter afterwards, whose alignment is unchanged. Option 1 (re-voice) held as fallback.",
+      "reason": "Free, keeps the actual recording and the synced presenter; the words themselves stay the same speed.",
+      "alternatives": [
+        {
+          "choice": "Re-voice the phrase",
+          "reason_not_selected": "Owner fallback if the pause does not solve it."
+        },
+        {
+          "choice": "Time-stretch the phrase",
+          "reason_not_selected": "Owner did not choose it."
+        }
+      ],
+      "reuse": {
+        "kind": "episode_specific",
+        "applies_when": "EP007 S11/S12 boundary.",
+        "avoid_when": "Other sections."
+      },
+      "nuance": {
+        "cut_cues": [
+          {
+            "cue_id": "s11-s12-pause",
+            "phrase": "before Fair objection",
+            "relation": "0.5 s silence inserted at master 454.0, then cut",
+            "master_seconds": 454.0,
+            "review_seconds": 451.0,
+            "fps": 24,
+            "dependent_targets": [
+              "All later assembly times +0.5 s"
+            ]
+          }
+        ],
+        "source_basis": "Owner choice; changes the locked narration timing at assembly level pending acceptance."
+      }
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r55-s12-other-scales/NARRATION-PAUSE-EDIT.json",
+        "sha256": "762537e4da77dfac117bd1d0f01e3354a4cc51293582e41feb1bb8e78c5aa1c1",
+        "locator": "Edit record"
+      }
+    ]
+  },
+  {
+    "event_id": "r55-fair-objection-pause-verified-v1",
+    "decision_id": "s12-other-scales",
+    "event_type": "verification",
+    "tags": [
+      "original-audio",
+      "cut-timing"
+    ],
+    "data": {
+      "decision_event_id": "r55-fair-objection-pause-v1",
+      "method": "Rebuilt context with 12 held frames and 24000 zero samples; inserted gap RMS 0.0; audio S11 tail 0.99985, presenter 0.99998, D 0.99972 at zero lag; no uniform frames.",
+      "result": "pass",
+      "scope": "S12 context with the pause (2231 frames).",
+      "limitations": "Owner review pending; narration master file itself not modified.",
+      "artifact_hashes": [
+        {
+          "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v3-pause-context/qa/context.mp4",
+          "sha256": "8aa4bba59a8e08f2735cf69ba7af905f8a36dc5c8c31ef6130cef21f433fed99"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "path": "blueprint-cinema/experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/hyperframes/reviews/r55-s12-v3-pause-context/index.html",
+        "sha256": "5d700e23f5a204b6f062f437f98c19fa9c6298630350a8c49eb28025639fa137",
+        "locator": "Review page"
+      }
+    ]
+  }
+]

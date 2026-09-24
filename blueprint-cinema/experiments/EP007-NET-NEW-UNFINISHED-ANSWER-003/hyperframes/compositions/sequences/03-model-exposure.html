@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-id="ep007-model-exposure" data-composition-duration="20.60">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Supreme OE";
+          src: url("public/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-style: normal;
+        }
+
+        @font-face {
+          font-family: "Zodiak OE";
+          src: url("public/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+          color: #173530;
+        }
+
+        .working-sheet {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #f5f0e6;
+        }
+
+        .model-plane {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 50% 50%;
+          will-change: transform;
+        }
+
+        .evidence-line {
+          position: absolute;
+          top: 70px;
+          left: 130px;
+          font-family: "Supreme OE", Arial, sans-serif;
+          font-size: 32px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          color: #586d74;
+          opacity: 0;
+        }
+
+        .equation {
+          position: absolute;
+          top: 126px;
+          left: 130px;
+          width: 1660px;
+          font-family: "Supreme OE", Arial, sans-serif;
+          font-weight: 500;
+        }
+
+        .equation-line {
+          display: flex;
+          align-items: baseline;
+          min-height: 84px;
+          opacity: 0;
+        }
+
+        .business-line {
+          font-size: 66px;
+          letter-spacing: -0.018em;
+        }
+
+        .owner-line {
+          margin-top: 8px;
+          font-size: 78px;
+          letter-spacing: -0.022em;
+        }
+
+        .minus {
+          width: 92px;
+          color: #586d74;
+        }
+
+        .equation-rule {
+          position: relative;
+          width: 1060px;
+          height: 32px;
+          margin: 6px 0 0 0;
+        }
+
+        .equation-rule svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        .result-line {
+          margin-top: -2px;
+          font-family: "Zodiak OE", Georgia, serif;
+          font-size: 116px;
+          line-height: 0.92;
+          letter-spacing: -0.025em;
+        }
+
+        .question-mark {
+          margin-left: 34px;
+        }
+
+        .model {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+
+        .model text {
+          font-family: "Supreme OE", Arial, sans-serif;
+          font-weight: 500;
+          fill: #204440;
+        }
+
+        .dependency-label {
+          font-size: 34px;
+          letter-spacing: 0.02em;
+          opacity: 0;
+        }
+
+        .owner-label {
+          font-size: 32px;
+          letter-spacing: 0.12em;
+          fill: #173530 !important;
+          opacity: 0;
+        }
+
+        .absence-label {
+          font-size: 26px;
+          letter-spacing: 0.12em;
+          fill: #586d74 !important;
+          opacity: 0;
+        }
+
+        .rough {
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          vector-effect: non-scaling-stroke;
+        }
+
+        .mineral { stroke: #204440; }
+        .mineral-deep { stroke: #173530; }
+        .steel { stroke: #586d74; }
+        .steel-dark { stroke: #33464c; }
+        .oxide { stroke: #b5482f; }
+        .paper-fill { fill: #f5f0e6; }
+        .steel-fill { fill: #586d74; stroke: #586d74; }
+        .w1 { stroke-width: 2.2; }
+        .w2 { stroke-width: 3.4; }
+        .w3 { stroke-width: 5.0; }
+        .w4 { stroke-width: 6.4; }
+        .faint { opacity: 0.31; }
+        .soft { opacity: 0.58; }
+        .firm { opacity: 0.88; }
+
+        .match-carrier {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 57% 50%;
+          pointer-events: none;
+        }
+
+      </style>
+
+      <div data-hf-id="hf-1e27" id="root" data-composition-id="ep007-model-exposure" data-width="1920" data-height="1080" data-duration="20.60" data-fps="30">
+        <section data-hf-id="hf-pmne" id="ep007-model-working-sheet" class="clip working-sheet" data-start="0" data-duration="20.60" data-track-index="0" aria-label="A rough Working Model makes the owner's arithmetic explicit. The business minus the owner for thirty days remains an unanswered question because relationships, process, and records route through her.">
+          <div data-hf-id="hf-jqc2" id="model-plane" class="model-plane">
+            <!-- Exact incoming carrier from the physical page. One mark survives the cut. -->
+            <svg data-hf-id="hf-nr1i" id="model-match-carrier" class="match-carrier" viewBox="0 0 1920 1080" aria-hidden="true">
+              <g data-hf-id="hf-vera">
+                <path data-hf-id="hf-wqkb" class="rough steel-dark w4 firm" d="M706 474 C744 465 781 470 824 461" />
+                <path data-hf-id="hf-khro" class="rough steel w2 soft" d="M699 484 C696 516 703 544 699 570" />
+                <path data-hf-id="hf-5jtl" class="rough steel-dark w4 firm" d="M704 578 C743 571 784 577 829 568" />
+                <path data-hf-id="hf-ndib" class="rough steel w2 soft" d="M831 468 C826 499 833 533 828 558" />
+                <path data-hf-id="hf-e4fq" class="rough steel w1 faint" d="M718 490 C750 485 780 488 812 481" />
+                <path data-hf-id="hf-gykf" class="rough steel w1 faint" d="M711 570 L733 548 M729 574 L754 548" />
+                <path data-hf-id="hf-jr02" class="rough steel w2 soft" d="M836 520 C881 505 921 493 963 483" />
+                <path data-hf-id="hf-1jti" class="rough steel w1 faint" d="M842 527 C886 513 925 500 963 492" />
+                <path data-hf-id="hf-5x6r" class="rough steel-dark w4 firm" d="M958 481 C967 470 982 469 992 477 M992 479 C1002 490 999 506 989 514 M987 515 C976 522 961 517 955 507 M954 504 C950 494 952 487 958 481" />
+                <path data-hf-id="hf-z39h" class="rough steel-dark w4 firm" d="M965 461 C969 450 983 446 992 452 M992 452 C1003 460 1003 474 994 482 M994 482 C985 490 970 486 965 476 M965 476 C962 470 962 466 965 461" />
+                <path data-hf-id="hf-qkll" class="rough steel w2 soft" d="M971 490 C966 500 963 511 962 521 M989 490 C997 500 1000 510 1002 521" />
+                <path data-hf-id="hf-3hi9" class="rough steel w1 faint" d="M968 497 C977 493 988 494 997 500" />
+                <path data-hf-id="hf-moum" class="rough steel-dark w4 firm" d="M999 497 C1034 501 1062 507 1088 516" />
+                <path data-hf-id="hf-dhqr" class="rough steel w1 faint" d="M1001 505 C1035 509 1058 514 1077 521" />
+              </g>
+            </svg>
+
+            <div data-hf-id="hf-xuee" id="model-evidence" class="evidence-line">25 YEARS · MADE MONEY EVERY YEAR</div>
+
+          <div data-hf-id="hf-77md" class="equation" aria-label="Business as it runs today minus owner for thirty days equals an unresolved question">
+            <div data-hf-id="hf-tdfr" id="equation-business" class="equation-line business-line">BUSINESS AS IT RUNS TODAY</div>
+            <div data-hf-id="hf-8jox" id="equation-owner" class="equation-line owner-line">
+              <span data-hf-id="hf-3s1r" class="minus">−</span>
+              <span data-hf-id="hf-ri3d">OWNER FOR 30 DAYS</span>
+            </div>
+            <div data-hf-id="hf-jzgd" class="equation-rule">
+              <svg data-hf-id="hf-efno" viewBox="0 0 1060 32" aria-hidden="true">
+                <path data-hf-id="hf-e1wr" id="equation-rule-a" class="rough mineral-deep w4 firm" d="M5 13 C222 7 438 15 645 9 M660 10 C803 5 925 12 1050 7" />
+                <path data-hf-id="hf-vlvs" id="equation-rule-b" class="rough mineral w2 soft" d="M18 23 C251 17 444 24 634 18 M671 19 C811 14 927 20 1039 16" />
+              </svg>
+            </div>
+            <div data-hf-id="hf-6qan" id="equation-result" class="equation-line result-line">
+              <span data-hf-id="hf-dt04">=</span><span data-hf-id="hf-jv3e" class="question-mark">?</span>
+            </div>
+          </div>
+
+          <svg data-hf-id="hf-dqro" class="model" viewBox="0 0 1920 1080" role="img" aria-label="Three owner-dependent conditions route to a single owner checkpoint. The owner moves beyond a thirty-day boundary and one work item stops at the empty checkpoint.">
+            <!-- Source-supported conditions, drawn as recognizable rough marks rather than boxes. -->
+            <g data-hf-id="hf-unhe" id="node-relationships" class="dependency-node">
+              <path data-hf-id="hf-twx3" class="rough mineral-deep w3 firm" d="M164 632 C170 606 197 595 220 606 M219 606 C244 617 251 647 239 670 M236 671 C223 690 194 695 175 681 M174 680 C157 668 153 647 161 631" />
+              <path data-hf-id="hf-y6c6" class="rough mineral w2 soft" d="M300 633 C307 607 332 598 354 608 M355 609 C378 621 385 648 373 669 M371 671 C358 690 333 694 313 682 M312 680 C295 668 291 648 298 633" />
+              <path data-hf-id="hf-jtgz" class="rough mineral-deep w3 firm" d="M236 648 C255 640 274 640 298 649" />
+              <path data-hf-id="hf-lype" class="rough mineral w1 faint" d="M233 658 C255 650 277 650 299 658" />
+              <path data-hf-id="hf-4jzl" class="rough mineral w2 soft" d="M176 694 C193 683 220 681 238 693 M301 694 C319 683 349 683 370 696" />
+              <path data-hf-id="hf-dzll" class="rough mineral w1 faint" d="M185 704 L207 683 M319 706 L341 684" />
+            </g>
+            <text data-hf-id="hf-xq2b" id="label-relationships" class="dependency-label" x="410" y="665">OWNER-HELD RELATIONSHIPS</text>
+
+            <g data-hf-id="hf-c6x4" id="node-process" class="dependency-node">
+              <path data-hf-id="hf-8ti3" class="rough mineral-deep w3 firm" d="M156 779 C183 759 213 755 242 768" />
+              <path data-hf-id="hf-38wg" class="rough mineral w2 soft" d="M239 768 C256 777 269 789 278 806" />
+              <path data-hf-id="hf-2nfm" class="rough mineral-deep w3 firm" d="M272 793 L280 808 L262 811" />
+              <path data-hf-id="hf-9qhg" class="rough mineral-deep w3 firm" d="M278 828 C252 849 219 854 189 841" />
+              <path data-hf-id="hf-9x64" class="rough mineral w2 soft" d="M191 841 C173 833 159 819 150 801" />
+              <path data-hf-id="hf-s838" class="rough mineral-deep w3 firm" d="M156 815 L149 800 L167 798" />
+              <path data-hf-id="hf-xw5z" class="rough mineral w1 faint" d="M178 777 C199 766 223 765 244 774 M251 835 C231 846 207 847 186 837" />
+            </g>
+            <text data-hf-id="hf-j9xo" id="label-process" class="dependency-label" x="410" y="813">UNDOCUMENTED PROCESS</text>
+
+            <g data-hf-id="hf-w38x" id="node-records" class="dependency-node">
+              <path data-hf-id="hf-lgyb" class="rough mineral-deep w3 firm" d="M167 852 C198 845 230 850 267 843" />
+              <path data-hf-id="hf-zmuo" class="rough mineral w2 soft" d="M162 862 C158 900 164 929 160 964" />
+              <path data-hf-id="hf-mk04" class="rough mineral-deep w3 firm" d="M164 970 C199 964 234 971 273 963" />
+              <path data-hf-id="hf-pokm" class="rough mineral w2 soft" d="M272 849 C267 886 274 920 270 953" />
+              <path data-hf-id="hf-tbt8" class="rough mineral w1 faint" d="M184 884 C211 878 237 883 255 878 M183 909 C215 903 239 908 255 903 M183 936 C207 930 230 935 248 930" />
+              <path data-hf-id="hf-oufy" class="rough mineral w2 faint" d="M169 960 L191 938 M190 965 L215 939" />
+            </g>
+            <text data-hf-id="hf-onm7" id="label-records" class="dependency-label" x="410" y="923">RECORDS A BUYER CANNOT VERIFY</text>
+
+            <!-- Three conditions feed one operating route; they do not compete as three lines. -->
+            <g data-hf-id="hf-o4z4" id="route-relationships" class="dependency-route">
+              <path data-hf-id="hf-rtk2" class="rough steel w3 firm" d="M1040 650 C1076 651 1102 681 1128 738" />
+              <path data-hf-id="hf-aor9" class="rough steel w1 faint" d="M1042 660 C1078 661 1097 690 1118 740" />
+            </g>
+            <g data-hf-id="hf-xsq6" id="route-process" class="dependency-route">
+              <path data-hf-id="hf-nmep" class="rough steel w3 firm" d="M1040 800 C1074 799 1104 796 1132 793" />
+              <path data-hf-id="hf-yofe" class="rough steel w1 faint" d="M1044 810 C1078 808 1107 805 1132 802" />
+            </g>
+            <g data-hf-id="hf-qpev" id="route-records" class="dependency-route">
+              <path data-hf-id="hf-o8mq" class="rough steel w3 firm" d="M1040 914 C1077 906 1103 878 1129 843" />
+              <path data-hf-id="hf-9s2j" class="rough steel w1 faint" d="M1043 924 C1081 915 1110 887 1139 846" />
+            </g>
+            <g data-hf-id="hf-1grr" id="route-trunk" class="dependency-route">
+              <path data-hf-id="hf-7i5p" class="rough steel-dark w4 firm" d="M1128 738 C1142 769 1141 812 1129 843" />
+              <path data-hf-id="hf-bmfi" class="rough steel w2 soft" d="M1132 793 C1210 790 1298 793 1390 789" />
+              <path data-hf-id="hf-bz1v" class="rough steel w1 faint" d="M1140 802 C1218 800 1302 803 1381 798" />
+            </g>
+
+            <!-- A rough rectangular socket stays behind when the owner leaves the interval.
+                 Its form is deliberately unlike the circular person mark. -->
+            <g data-hf-id="hf-kgv4" id="owner-gate" class="owner-gate">
+              <path data-hf-id="hf-va7q" class="rough steel-dark w4 firm" d="M1397 730 C1424 724 1449 729 1477 722 M1488 724 C1498 723 1505 725 1510 724" />
+              <path data-hf-id="hf-xnxk" class="rough steel w3 soft" d="M1394 736 C1389 760 1392 785 1389 817" />
+              <path data-hf-id="hf-ip08" class="rough steel-dark w4 firm" d="M1390 827 C1418 821 1448 828 1474 820 M1486 822 C1497 820 1504 823 1511 819" />
+              <path data-hf-id="hf-koos" class="rough steel w3 soft" d="M1509 731 C1505 756 1511 787 1507 814" />
+              <path data-hf-id="hf-an7h" class="rough steel w1 faint" d="M1404 742 C1427 736 1449 741 1472 735 M1402 814 C1428 808 1450 814 1474 807" />
+            </g>
+            <text data-hf-id="hf-2y02" id="label-owner" class="owner-label" x="1381" y="690">OWNER</text>
+
+            <g data-hf-id="hf-gygg" id="owner-person" class="owner-person">
+              <path data-hf-id="hf-gfm7" class="rough mineral-deep w3 firm" d="M1426 754 C1434 738 1453 733 1468 741" />
+              <path data-hf-id="hf-5z2q" class="rough mineral-deep w4 firm" d="M1468 741 C1484 750 1488 770 1479 785" />
+              <path data-hf-id="hf-zib5" class="rough mineral-deep w3 firm" d="M1478 785 C1468 799 1449 802 1435 793" />
+              <path data-hf-id="hf-w47a" class="rough mineral-deep w4 firm" d="M1435 793 C1422 785 1419 768 1426 754" />
+              <path data-hf-id="hf-pt0q" class="rough mineral w2 soft" d="M1434 803 C1422 810 1414 819 1408 830 M1477 802 C1489 809 1497 819 1502 830" />
+            </g>
+
+            <g data-hf-id="hf-rkng" id="absence-bracket" class="absence-bracket">
+              <path data-hf-id="hf-xzwd" class="rough steel w3 firm" d="M1347 585 C1434 579 1511 586 1597 580" />
+              <path data-hf-id="hf-x5pd" class="rough steel w2 soft" d="M1346 584 C1338 599 1336 616 1337 635" />
+              <path data-hf-id="hf-ho1f" class="rough steel w2 soft" d="M1598 581 C1607 597 1609 616 1607 635" />
+              <path data-hf-id="hf-ie4u" class="rough steel w1 faint" d="M1359 594 C1444 588 1514 595 1585 590" />
+            </g>
+            <text data-hf-id="hf-rq4l" id="label-absence" class="absence-label" x="1387" y="618">ONE MONTH</text>
+
+            <g data-hf-id="hf-ecas" id="work-token" class="work-token">
+              <path data-hf-id="hf-kruy" class="rough steel-dark w4 firm paper-fill" d="M1124 761 C1142 758 1160 763 1178 758" />
+              <path data-hf-id="hf-5gyq" class="rough steel w3 soft" d="M1119 768 C1116 787 1121 805 1118 820" />
+              <path data-hf-id="hf-on77" class="rough steel-dark w4 firm" d="M1123 826 C1142 822 1161 827 1181 822" />
+              <path data-hf-id="hf-uvfz" class="rough steel w3 soft" d="M1180 764 C1177 784 1182 802 1179 817" />
+              <path data-hf-id="hf-zmum" class="rough steel w1 faint" d="M1134 783 C1149 780 1162 783 1173 779 M1134 802 C1147 799 1160 802 1171 798" />
+            </g>
+
+            <g data-hf-id="hf-udlg" id="stop-mark" class="stop-mark">
+              <path data-hf-id="hf-hphg" id="stop-primary" class="rough steel-dark w4 firm" d="M1382 748 C1384 774 1380 801 1383 829" />
+              <path data-hf-id="hf-gz11" class="rough steel w3 soft" d="M1392 752 C1394 777 1390 802 1393 826" />
+              <path data-hf-id="hf-9pnz" class="rough steel w1 faint" d="M1374 756 L1400 748 M1375 824 L1400 817" />
+            </g>
+
+            <!-- The wider business appears around the understood dependency, not instead of it. -->
+            <g data-hf-id="hf-vkge" id="business-envelope" class="business-envelope">
+              <path data-hf-id="hf-1js2" id="envelope-primary" class="rough mineral-deep w4 firm" d="M104 540 C393 528 682 539 943 530 M964 531 C1240 522 1517 534 1808 526" />
+              <path data-hf-id="hf-kyki" class="rough mineral w2 soft" d="M118 552 C407 541 689 550 933 543 M976 543 C1253 534 1518 546 1792 538" />
+              <path data-hf-id="hf-g88w" class="rough mineral-deep w4 firm" d="M101 552 C94 691 101 845 96 1000" />
+              <path data-hf-id="hf-yddi" class="rough mineral w2 soft" d="M114 565 C108 699 114 846 109 987" />
+              <path data-hf-id="hf-cikd" class="rough mineral-deep w4 firm" d="M1808 539 C1801 684 1811 844 1804 1000" />
+              <path data-hf-id="hf-om9t" class="rough mineral w2 soft" d="M1795 553 C1789 692 1798 849 1791 986" />
+              <path data-hf-id="hf-d5qx" class="rough mineral-deep w4 firm" d="M96 1000 C380 992 659 1003 934 993 M957 994 C1237 986 1513 997 1804 990" />
+              <path data-hf-id="hf-wmdt" class="rough mineral w2 soft" d="M110 1012 C394 1005 670 1015 925 1006 M969 1007 C1245 999 1514 1010 1789 1003" />
+            </g>
+
+            <!-- One thesis path begins during silence and deliberately stops unfinished. -->
+            <g data-hf-id="hf-aw54" id="oxide-path" class="oxide-path">
+              <path data-hf-id="hf-5yac" id="oxide-primary" class="rough oxide w4 firm" d="M1398 831 C1451 865 1511 888 1573 904" />
+              <path data-hf-id="hf-gip5" class="rough oxide w3 soft" d="M1575 904 C1624 918 1665 927 1704 930" />
+              <path data-hf-id="hf-3lqk" class="rough oxide w4 firm" d="M1706 930 C1732 933 1750 931 1768 925" />
+              <path data-hf-id="hf-ghs8" class="rough oxide w2 soft" d="M1404 840 C1458 873 1518 897 1580 913 M1584 914 C1631 928 1668 936 1697 939" />
+            </g>
+            </svg>
+          </div>
+        </section>
+      </div>
+
+      <script>
+        (() => {
+          "use strict";
+          const root = document.querySelector('[data-composition-id="ep007-model-exposure"]');
+          const tl = gsap.timeline({ paused: true });
+
+          const prepare = (selector) => {
+            const marks = Array.from(root.querySelectorAll(selector));
+            marks.forEach((mark) => {
+              const length = mark.getTotalLength();
+              mark.style.strokeDasharray = `${length}`;
+              mark.style.strokeDashoffset = `${length}`;
+              mark.style.opacity = "0";
+            });
+            return marks;
+          };
+
+          const draw = (marks, start, duration, step) => {
+            marks.forEach((mark, index) => {
+              const at = start + index * step;
+              tl.set(mark, { opacity: 1 }, at);
+              tl.to(mark, { strokeDashoffset: 0, duration, ease: "power2.out" }, at);
+            });
+          };
+
+          const rule = prepare(".equation-rule path");
+          const nodes = prepare(".dependency-node path");
+          const routes = prepare(".dependency-route path");
+          const gate = prepare("#owner-gate path");
+          const person = prepare("#owner-person path");
+          const bracket = prepare("#absence-bracket path");
+          const token = prepare("#work-token path");
+          const stop = prepare("#stop-mark path");
+          const envelope = prepare("#business-envelope path");
+          const oxide = prepare("#oxide-path path");
+
+          // One recognizable mark survives the hard cut and continues the same inward move.
+          tl.fromTo(
+            "#model-match-carrier",
+            { scale: 2.30 },
+            { scale: 2.35, duration: 0.20, ease: "power3.out", immediateRender: false },
+            0,
+          );
+          tl.to("#model-match-carrier", { opacity: 0, duration: 0.24, ease: "power1.out" }, 0.44);
+
+          // Page-plane match cut lands on the same warm material, then the arithmetic resolves.
+          tl.fromTo(
+            "#model-evidence",
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.22, ease: "power2.out", immediateRender: false },
+            0.08,
+          );
+          tl.fromTo(
+            "#equation-business",
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.26, ease: "power2.out", immediateRender: false },
+            0.24,
+          );
+          tl.fromTo(
+            "#equation-owner",
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.26, ease: "power2.out", immediateRender: false },
+            1.22,
+          );
+          draw(rule, 1.90, 0.34, 0.10);
+          tl.fromTo(
+            "#equation-result",
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.22, ease: "power2.out", immediateRender: false },
+            2.38,
+          );
+
+          // The second half of the sentence explains why the result is unresolved.
+          draw(nodes, 3.12, 0.22, 0.035);
+          [
+            ["#label-relationships", 3.24],
+            ["#label-process", 3.54],
+            ["#label-records", 3.84],
+            ["#label-owner", 4.02],
+          ].forEach(([selector, at]) => {
+            tl.fromTo(
+              selector,
+              { opacity: 0, x: -8 },
+              { opacity: 1, x: 0, duration: 0.18, ease: "power2.out", immediateRender: false },
+              at,
+            );
+          });
+          draw(gate, 3.68, 0.22, 0.055);
+          draw(person, 3.94, 0.22, 0.045);
+          draw(routes, 4.04, 0.34, 0.055);
+
+          // One month moves the person, not the business. The gate and dependencies remain.
+          draw(bracket, 4.42, 0.22, 0.06);
+          tl.fromTo(
+            "#label-absence",
+            { opacity: 0 },
+            { opacity: 1, duration: 0.16, ease: "power1.out", immediateRender: false },
+            4.46,
+          );
+          tl.to(
+            "#owner-person",
+            { x: 260, y: -4, duration: 0.34, ease: "power3.inOut" },
+            4.72,
+          );
+
+          // One persistent work item reaches the now-empty checkpoint and stops.
+          draw(token, 4.62, 0.18, 0.035);
+          tl.to(
+            "#work-token",
+            { x: 204, y: -1, duration: 0.82, ease: "power2.inOut" },
+            4.86,
+          );
+          draw(stop, 5.42, 0.20, 0.08);
+
+          // 33.62–40.08: the unresolved state is held. Stillness is the consequence.
+
+          // On “a business hiding inside it,” the perimeter expands around the same objects.
+          draw(envelope, 12.16, 0.36, 0.09);
+
+          // During deliberate quiet, core oxide marks one incomplete practice path—nothing more.
+          draw(oxide, 16.58, 0.52, 0.38);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["ep007-model-exposure"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

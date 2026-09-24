@@ -1,0 +1,83 @@
+{
+  "schema_version": "oe-provider-adapter-v1",
+  "adapter_id": "ai-visibility-v1.1-elevenlabs-v3-adapter-v1",
+  "status": "dry_run_frozen",
+  "provider": "elevenlabs",
+  "target": {
+    "kind": "fixture",
+    "id": "step2-v0.3-ai-visibility-v1.1-provider-bakeoff"
+  },
+  "performance_envelope": {
+    "path": "../performance-envelope.json",
+    "sha256": "62e8aa42e9ec354b58d71bc27c262808eb214ca6f8a001ef9433fcf456332d5d"
+  },
+  "canonical_w": {
+    "path": "../../step2-v0.2-ai-visibility-v1.1/identity/canonical-w.txt",
+    "sha256": "096329c04c9ce0ce9964e67279657be9fbd488772ae7df8893a28f76083d283a"
+  },
+  "model_id": "eleven_v3",
+  "voice_id": "yUXeTfC1IFOCSjGc96sQ",
+  "voice_settings": {
+    "stability": 0.5,
+    "similarity_boost": 0.6,
+    "style": 0.1
+  },
+  "paragraph_separator": "\n\n",
+  "approved_tag_allowlist": [
+    "[curious]",
+    "[sarcastic]",
+    "[excited]",
+    "[pause]",
+    "[warmly]"
+  ],
+  "tag_policy": "Only allowlisted tags at the exact absolute W anchors below may be inserted. Both candidates for one passage use identical compiled text. A spoken tag is a lexical hard fail.",
+  "exact_word_recovery": "Remove only allowlisted tags, split all remaining text on whitespace, and require exact equality with the canonical W slice.",
+  "passages": [
+    {
+      "passage_id": "P01-S00",
+      "tag_insertions": [
+        {
+          "at_token": 0,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 37,
+          "tag": "[sarcastic]"
+        },
+        {
+          "at_token": 78,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 135,
+          "tag": "[warmly]"
+        }
+      ]
+    },
+    {
+      "passage_id": "P02-S11-S12",
+      "tag_insertions": [
+        {
+          "at_token": 2627,
+          "tag": "[curious]"
+        },
+        {
+          "at_token": 2746,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 2861,
+          "tag": "[excited]"
+        },
+        {
+          "at_token": 2968,
+          "tag": "[pause]"
+        },
+        {
+          "at_token": 3001,
+          "tag": "[warmly]"
+        }
+      ]
+    }
+  ]
+}

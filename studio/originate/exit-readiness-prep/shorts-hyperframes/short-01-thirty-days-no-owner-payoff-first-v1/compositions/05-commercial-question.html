@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EP007 Short 01 — Commercial question</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Zodiak";
+          src: url("assets/fonts/zodiak-700.woff2") format("woff2");
+          font-weight: 700;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          color: #f5f0e6;
+          background: #173530;
+          font-family: "BL Supreme", Arial, sans-serif;
+        }
+
+        .mineral-field {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(90deg, transparent 67px, rgba(113, 134, 141, 0.19) 68px, transparent 69px),
+            #173530;
+        }
+
+        .accent-rail {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 18px;
+          height: 1390px;
+          background: #b5482f;
+          transform-origin: 50% 0%;
+        }
+
+        .avatar-frame {
+          position: absolute;
+          left: 58px;
+          top: 150px;
+          width: 964px;
+          height: 724px;
+          overflow: hidden;
+          background: #ede7d8;
+          border: 3px solid rgba(245, 240, 230, 0.78);
+        }
+
+        .avatar-frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 50% 48%;
+        }
+
+        .identity-note {
+          position: absolute;
+          left: 18px;
+          bottom: 18px;
+          padding: 10px 14px 9px;
+          color: #f5f0e6;
+          background: #173530;
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .question-panel {
+          position: absolute;
+          left: 58px;
+          top: 914px;
+          width: 964px;
+          height: 370px;
+          padding: 38px 38px 34px 46px;
+          background: #204440;
+          border-left: 10px solid #b5482f;
+        }
+
+        .question-kicker {
+          color: #ede7d8;
+          font-size: 18px;
+          font-weight: 500;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+
+        .question {
+          margin: 20px 0 0;
+          width: 840px;
+          color: #f5f0e6;
+          font: 700 64px/0.96 "BL Zodiak", Georgia, serif;
+          letter-spacing: -0.04em;
+          text-transform: uppercase;
+        }
+
+        .question .oxide {
+          display: inline;
+          color: #fb8b69;
+        }
+
+        .related-video {
+          position: absolute;
+          left: 58px;
+          top: 1288px;
+          width: 964px;
+          height: 72px;
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: center;
+          padding: 0 26px;
+          color: #173530;
+          background: #f5f0e6;
+          border: 2px solid #f5f0e6;
+          font-size: 28px;
+          font-weight: 500;
+          letter-spacing: 0.085em;
+          text-transform: uppercase;
+        }
+
+        .related-video span:last-child {
+          color: #586d74;
+          font-size: 16px;
+          letter-spacing: 0.09em;
+        }
+
+        .caption-clear {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1390px;
+          bottom: 0;
+          pointer-events: none;
+        }
+      </style>
+
+      <div
+        id="root"
+        data-composition-id="scene-05-commercial-question"
+        data-start="0"
+        data-duration="10.083334"
+        data-width="1080"
+        data-height="1920"
+        data-fps="24"
+      >
+        <div class="mineral-field"></div>
+        <div id="accent-rail" class="accent-rail"></div>
+
+        <figure id="avatar-frame" class="avatar-frame">
+          <img
+            src="assets/media/ep007-avatar-v5-identity-hold.png"
+            alt="Manav in the accepted EP007 identity setup"
+          />
+          <figcaption class="identity-note">Non-speaking identity hold</figcaption>
+        </figure>
+
+        <section id="question-panel" class="question-panel">
+          <div class="question-kicker">The business question</div>
+          <h1 id="commercial-question" class="question">
+            Would an owner pay to clear the map <span class="oxide">before a buyer appears?</span>
+          </h1>
+        </section>
+
+        <div class="caption-clear"></div>
+      </div>
+
+      <script>
+        (() => {
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(
+            "#accent-rail",
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.28, ease: "power3.out" },
+            0,
+          );
+          tl.fromTo(
+            "#avatar-frame",
+            { opacity: 0, y: -20 },
+            { opacity: 1, y: 0, duration: 0.32, ease: "power3.out" },
+            0.02,
+          );
+          tl.fromTo(
+            "#question-panel",
+            { opacity: 0, x: 28 },
+            { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" },
+            0.24,
+          );
+          tl.fromTo(
+            "#commercial-question",
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" },
+            0.46,
+          );
+          window.__timelines["scene-05-commercial-question"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

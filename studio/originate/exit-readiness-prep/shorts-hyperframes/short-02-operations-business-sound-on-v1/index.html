@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "BL Supreme";
+        src: url("assets/fonts/supreme-400.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "BL Supreme";
+        src: url("assets/fonts/supreme-500.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #173530;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #173530;
+        color: #f5f0e6;
+        font-family: "BL Supreme", system-ui, sans-serif;
+      }
+      #root > [data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      .avatar-clip { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; background: #173530; }
+    </style>
+  </head>
+  <body>
+    <main id="root" data-hf-id="ep007-short02-root" data-composition-id="main" data-start="0" data-duration="45.375" data-width="1080" data-height="1920" data-fps="24" aria-label="EP007 Short 02 private sound-on candidate">
+      <video data-hf-id="hf-short02-host-open" id="slot-01" class="clip avatar-clip" src="assets/media/presenter-opening.mp4" data-start="0" data-media-start="0.125" data-duration="8.375" data-track-index="1" muted playsinline></video>
+      <div data-hf-id="hf-jjf1" id="slot-02" class="clip scene-slot" data-composition-id="short02-inspect" data-composition-src="compositions/frames/02-inspect-owner-route.html" data-start="8.375" data-duration="8.305" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-v3bn" id="slot-03" class="clip scene-slot" data-composition-id="short02-trace" data-composition-src="compositions/frames/03-trace-and-document.html" data-start="16.68" data-duration="5.96" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-imid" id="slot-04" class="clip scene-slot" data-composition-id="short02-ai-judgment" data-composition-src="compositions/frames/04-ai-support-human-judgment.html" data-start="22.64" data-duration="7.693333" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <video data-hf-id="hf-short02-host-return" id="slot-05" class="clip avatar-clip" src="assets/media/presenter-return.mp4" data-start="30.333333" data-media-start="1.125" data-duration="7.666667" data-track-index="1" muted playsinline></video>
+      <div data-hf-id="hf-short02-scope" id="slot-06" class="clip scene-slot" data-composition-id="short02-engagement-boundary" data-composition-src="compositions/frames/06-engagement-boundary.html" data-start="38" data-duration="5.375" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-short02-end-route" id="slot-07" class="clip scene-slot" data-composition-id="short02-full-episode-route" data-composition-src="compositions/frames/06-full-episode-route.html" data-start="43.375" data-duration="2" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-short02-captions" id="slot-captions" class="clip scene-slot" data-composition-id="short02-captions-sound-on-v1" data-composition-src="sound-on-scaffold-v1/compositions/captions.html" data-start="0" data-duration="43.375" data-track-index="60" data-width="1080" data-height="1920"></div>
+      <audio data-hf-id="hf-short02-voice" id="program-voice" src="assets/media/original-c.wav" data-start="0" data-duration="43.375" data-track-index="70" data-volume="1"></audio>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+{
+  "record_type": "ep007_short04_original_c_final_voice_qc_v1",
+  "at_utc": "2026-09-23T00:48:12Z",
+  "status": "pass_machine_exact_copy_and_technical_tail_pending_owner_listening",
+  "short_id": "short-04-test-the-front-door",
+  "source_and_transfer": {
+    "selected_guide": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/guide-derived-pad500ms.wav",
+      "sha256": "82f681fd784e1b13ef6482a453b19edd5c532aa71b89db219065525776aa8dd2"
+    },
+    "transfer_receipt": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/ELEVEN-RECEIPT.json",
+      "sha256": "5fe8ed37d2393f8fd80d3393effd76c1fd30c902ca7e7fbe2c7dca59d36d01e5",
+      "http_status": 200,
+      "calls": 1,
+      "retries": 0,
+      "actual_credit_cost": 559
+    },
+    "raw_provider_pcm": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/elevenlabs-response.pcm",
+      "sha256": "3ba71360eddddbcffc7affeac204b7bd80911916f8870a545be2c775e214df51",
+      "bytes": 4427024
+    },
+    "master_wav": {
+      "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/media/original-c.wav",
+      "sha256": "f25347fae0f78e5ecfaa4b16da55825640fdbc134eab9c5c9abde08ada2171df",
+      "pcm_bytes_match_raw_provider_response": true,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "sample_width_bits": 16,
+      "sample_frames": 2213512,
+      "duration_seconds_exact": 46.114833333,
+      "tail_energy": 0.0,
+      "ends_in_silence": true
+    }
+  },
+  "independent_local_exact_copy_checks": [
+    {
+      "engine_model": "whisper_small.en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/diagnostic-asr-final-small/transcript.json",
+      "transcript_sha256": "572e5bcb6467c8bf5fb5715e60bae0d97a81665338f049c1d210c7bd622a84a2",
+      "normalized_recognized_words": 126,
+      "normalized_locked_words": 126,
+      "exact_word_order_match": true,
+      "monotonic_word_timing": true,
+      "all_word_ends_within_master": true,
+      "final_word": "business.",
+      "final_word_end_seconds": 45.64
+    },
+    {
+      "engine_model": "whisper_medium.en",
+      "transcript_path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/diagnostic-asr-final-medium/transcript.json",
+      "transcript_sha256": "d15dbd6ebdda24d44f40d28e5effac35799b347960b240cc80eab57b0ab24527",
+      "normalized_recognized_words": 126,
+      "normalized_locked_words": 126,
+      "exact_word_order_match": true,
+      "monotonic_word_timing": true,
+      "all_word_ends_within_master": true,
+      "final_word": "business.",
+      "final_word_end_seconds": 45.82,
+      "timing_caution": "Last-word end extends into a near-silent region; lexical corroboration is stronger than this model's final boundary."
+    }
+  ],
+  "ending_signal_inspection": {
+    "derived_guide_boundary_time_seconds": 45.611,
+    "master_sample_at_boundary_signed_16bit": -1069,
+    "master_step_at_boundary_signed_16bit": 6,
+    "maximum_step_in_45_58_to_45_70_seconds_signed_16bit": 461,
+    "rms_45_565_to_45_615_signed_16bit": 726.33,
+    "rms_45_615_to_45_665_signed_16bit": 37.09,
+    "rms_45_665_to_45_715_signed_16bit": 1.09,
+    "last_nonzero_sample_time_seconds": 46.092042,
+    "last_nonzero_sample_signed_16bit": 1,
+    "trailing_exact_zero_seconds": 0.022771,
+    "measurement_interpretation": "The converted voice decays to near silence after the last word; no anomalous sample jump was measured at the guide boundary. This cannot rule out a perceptual click or an awkward phoneme by listening."
+  },
+  "word_timing_record": {
+    "path": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v5/short-04-test-the-front-door/FINAL-WORD-TIMINGS-V1.json",
+    "sha256": "9f93484650bca2655f42e7031d704ea117290548c19a7e949e4b17c1e4d357e4"
+  },
+  "ready_for_avatar_segment_planning": true,
+  "avatar_clip_submission_authorized_by_this_qc": false,
+  "owner_listening": "pending_finished_private_review_not_passed",
+  "remaining_gates": "Confirm voice naturalness and end-word integrity in the sound-on private video, align captions and presenter lip motion, and obtain exact-cut owner acceptance before any release."
+}

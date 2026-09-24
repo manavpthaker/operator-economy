@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Boska"; src: url("assets/fonts/boska-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight: 500; }
+        * { box-sizing: border-box; }
+        #short01-full-episode-route { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #173530; color: #f5f0e6; font-family: "BL Supreme", system-ui, sans-serif; }
+        .s07-bracket { position: absolute; top: 962px; left: 80px; width: 30px; height: 358px; }
+        .s07-bracket-bar { position: absolute; display: block; background: #b5482f; }
+        .s07-bracket-left { top: 0; left: 0; width: 6px; height: 358px; }
+        .s07-bracket-top { top: 0; left: 0; width: 30px; height: 6px; }
+        .s07-bracket-middle { top: 182px; left: 0; width: 30px; height: 6px; }
+        .s07-bracket-bottom { bottom: 0; left: 0; width: 30px; height: 6px; }
+        .s07-copy { position: absolute; top: 758px; left: 150px; width: 720px; }
+        .s07-headline { margin: 0; color: #f5f0e6; font: 700 76px/1.04 "BL Boska", Georgia, serif; letter-spacing: -0.04em; }
+        .s07-headline span { display: block; }
+        .s07-support { margin: 34px 0 0; color: #c4b99e; font-size: 34px; font-weight: 500; line-height: 1; letter-spacing: 0.045em; white-space: nowrap; }
+        .s07-cta { margin: 58px 0 0; color: #f5f0e6; font-size: 38px; font-weight: 500; line-height: 1; letter-spacing: 0.075em; white-space: nowrap; }
+      </style>
+      <section data-hf-id="hf-s07-root" id="short01-full-episode-route" data-composition-id="short01-full-episode-route" data-start="0" data-duration="2" data-width="1080" data-height="1920" aria-label="Full episode handoff">
+        <div data-hf-id="hf-s07-bracket" id="s07-bracket" class="s07-bracket" data-layout-ignore aria-hidden="true">
+          <span data-hf-id="hf-s07-bracket-left" class="s07-bracket-bar s07-bracket-left"></span>
+          <span data-hf-id="hf-s07-bracket-top" class="s07-bracket-bar s07-bracket-top"></span>
+          <span data-hf-id="hf-s07-bracket-middle" class="s07-bracket-bar s07-bracket-middle"></span>
+          <span data-hf-id="hf-s07-bracket-bottom" class="s07-bracket-bar s07-bracket-bottom"></span>
+        </div>
+        <div data-hf-id="hf-s07-copy" class="s07-copy">
+          <h1 data-hf-id="hf-s07-headline" id="s07-headline" class="s07-headline"><span data-hf-id="hf-s07-headline-a">BUILD THE FULL</span><span data-hf-id="hf-s07-headline-b">PRACTICE</span></h1>
+          <p data-hf-id="hf-s07-support" id="s07-support" class="s07-support">SCOPE IT · PRICE IT · TEST IT</p>
+          <p data-hf-id="hf-s07-cta" id="s07-cta" class="s07-cta">WATCH THE FULL EPISODE ↓</p>
+        </div>
+      </section>
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        tl.to("#s07-bracket", { y: -230, duration: 0.291667, ease: "power3.out" }, 0.041667);
+        tl.to(".s07-bracket-bar", { backgroundColor: "#fb8b69", duration: 0.14, ease: "none" }, 0.08);
+        tl.fromTo("#s07-headline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.041667);
+        tl.fromTo("#s07-support", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.125);
+        tl.fromTo("#s07-cta", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.208333);
+        window.__timelines["short01-full-episode-route"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

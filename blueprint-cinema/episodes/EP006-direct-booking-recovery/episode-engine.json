@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schemas/episode-engine.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "episode_number": 6,
+  "episode_code": "EP006",
+  "slug": "direct-booking-recovery",
+  "folder_name": "EP006-direct-booking-recovery",
+  "operator": {
+    "id": "independent-hotel-operator",
+    "description": "The owner or general manager of a ten-to-forty-room independent hotel who is accountable for demand, guest experience, consent, exceptions, and repeat revenue without a dedicated revenue-management team."
+  },
+  "input_customer": {
+    "id": "ota-acquired-stay-guest",
+    "description": "A guest who completed an OTA-acquired stay at the property; completion of that stay alone does not imply permission to contact them, qualification for outreach, or a reason to return."
+  },
+  "eligible_return_customer": {
+    "id": "permissioned-qualified-returning-guest",
+    "description": "The appropriate, permissioned subset of prior guests who later has a relevant reason to return, is not suppressed or sensitive, and passes a human-reviewed qualification decision."
+  },
+  "owned_value": "A permissioned, recognized guest relationship that preserves useful stay context, supports better service, and may help an appropriate returning guest choose the hotel's direct path.",
+  "constraint": "The OTA can provide useful discovery and a trustworthy first checkout, but disconnected post-stay handoffs can leave the hotel without a permissioned memory, a working direct destination, or an accountable return path.",
+  "counter_system": "The recovery loop begins with an audit and repair of the hotel's direct booking destination before outreach. It then requests permission, creates a restrained guest-memory record only after consent, qualifies relevance, suppresses ineligible or sensitive cases, sends judgment-dependent work through human review, follows up only when appropriate, routes a return to the repaired direct destination, confirms the booking, and measures the result without claiming that every return was caused by the service.",
+  "outcome_object": "A visible direct booking confirmation for a known, permissioned returning guest, connected to the prior stay and separately measurable by the hotel without presenting it as guaranteed attribution.",
+  "visual_mechanic": {
+    "name": "relationship leak and recovery loop",
+    "behavior": "A guest discovers and completes a first stay through a useful OTA gate. The physical stay token either leaks back toward the paid gate or, only after destination audit, repair, consent, qualification, suppression checks, and human review, enters a permissioned return loop owned by the hotel.",
+    "why_honest": "The machine never treats all prior guests as return prospects and never frames the OTA as a villain. It preserves the useful first booking, exposes the operator-side settlement consequence, makes disqualification and exceptions visible, and represents success only as an appropriate direct return confirmed by the property.",
+    "before": "The first OTA discovery and booking work, but the direct destination may be broken, the stay context is not permissioned memory, and an eligible returning guest can fall back through the same paid gate.",
+    "after": "The OTA remains a useful first-booking route while a repaired direct destination, explicit permission, qualification, suppression, human judgment, relevant follow-up, and measurement create a bounded recovery path for the appropriate subset."
+  },
+  "motion_verbs": [
+    "discover",
+    "route",
+    "book",
+    "welcome",
+    "audit",
+    "compare",
+    "repair",
+    "request_permission",
+    "recognize",
+    "remember",
+    "qualify",
+    "suppress",
+    "review",
+    "approve",
+    "escalate",
+    "follow_up",
+    "retry",
+    "fail",
+    "recover",
+    "confirm",
+    "measure"
+  ],
+  "reality_world": {
+    "environment": "A bright, specific independent inn with a modest lobby, guestroom threshold, breakfast or courtyard detail, and a small operator workspace embedded in the property rather than a corporate office.",
+    "people": "One recurring innkeeper and one recurring guest appear as capable adults making reasonable choices inside an incomplete system; neither is a caricature, victim, platform villain, or claimed factual case study.",
+    "lens": "Natural 35-to-50-millimeter observational framing for human interactions, with restrained close details for the physical key tag, operator ledger, phone, and confirmation.",
+    "lighting": "Bright natural morning and late-afternoon light with soft contrast, lived-in warmth, and no generic luxury-ad gloss, noir mood, or dark cyberpunk treatment.",
+    "palette": "Warm cream, wood, linen, green, and daylight neutrals, oriented by the existing OE ink, schematic navy, drafting blue, ledger gold, and status sage roles.",
+    "texture": "Tactile paper, a physical key tag, wood, fabric, and lightly printed operator-ledger marks; texture supports continuity and never disguises a placeholder as evidence.",
+    "camera": "Human views remain mostly locked or follow a physical handoff. System views move only to trace work, expose a failure, inspect evidence, or reveal accumulated state; screen direction is preserved from OTA entry through hotel and return.",
+    "motif": "The physical key tag represents only the completed stay. At the explicit consent handoff it resolves into a restrained permissioned guest-memory record; an operator-side settlement statement shows commission consequence, while a separate direct booking confirmation remains the outcome object.",
+    "forbidden": [
+      "masked hospitality staff",
+      "generic luxury resort wallpaper",
+      "corporate front-desk business imagery",
+      "melodramatic peril or platform villain framing",
+      "faceless mannequin people",
+      "dark cyberpunk or generic AI imagery",
+      "generated platform interfaces, text, logos, or evidence",
+      "guest-facing receipts presented as hotel commission proof"
+    ]
+  },
+  "guardrails": [
+    "The first OTA booking remains useful acquisition; only a later appropriate booking is a recovery opportunity.",
+    "A completed OTA-acquired stay is the input, not an assumption that the guest already wants to return.",
+    "The direct booking destination is audited and repaired before any guest outreach activates.",
+    "Permission is requested explicitly and never replaced by the shorthand capture.",
+    "Qualification, suppression, human review, and sensitive-case exceptions remain visible stages.",
+    "The physical key tag becomes guest memory only after the consent handoff.",
+    "An operator settlement statement or commission ledger shows economic consequence; the guest confirmation does not.",
+    "A direct booking confirmation is the visible outcome, not a guaranteed attribution or income promise.",
+    "Evidence enters as a sourced parameter attached to what it supports, never as decorative or synthetic proof.",
+    "No stock guest, generated person, platform reconstruction, or prior visual assignment is represented as a factual case."
+  ],
+  "status": "ready_for_approval"
+}
