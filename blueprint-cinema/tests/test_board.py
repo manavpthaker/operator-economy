@@ -111,3 +111,17 @@ def test_digest_changes_when_any_source_changes(tmp_path: Path):
     again = board.build_board(**_inputs(tmp_path, _rows()))["digest"]
     after = board.build_board(**_inputs(tmp_path, _rows(sha3="d" * 64)))["digest"]
     assert before == again != after
+
+
+def test_thumbnails_written_when_ffmpeg_and_video_exist(tmp_path: Path, monkeypatch):
+    fake = tmp_path / "ffmpeg"
+    fake.write_text('#!/bin/sh\nfor last; do :; done\nprintf jpg > "$last"\n')
+    fake.chmod(0o755)
+    monkeypatch.setenv("OE_FFMPEG", str(fake))
+    inputs = _inputs(tmp_path, _rows())
+    assert board.build_board(**inputs, thumbs=True)["thumbs_made"] == 0
+    (tmp_path / "cut.mp4").write_bytes(b"video")
+    result = board.build_board(**inputs, thumbs=True)
+    assert result["thumbs_made"] == 3
+    assert result["rows"][0]["thumb"] == "board-thumbs/seg001.jpg"
+    assert (tmp_path / "qa" / "board-thumbs" / "seg001.jpg").read_text() == "jpg"

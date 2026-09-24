@@ -484,10 +484,11 @@ def cmd_board(args: argparse.Namespace) -> int:
     board = build_board(
         Path(args.build).resolve(), Path(args.plan).resolve(), Path(args.transcript).resolve(),
         Path(args.direction).resolve(), [Path(p).resolve() for p in args.lock or []],
-        Path(args.out).resolve(), args.title,
+        Path(args.out).resolve(), args.title, thumbs=not args.no_thumbs,
     )
     states = {state: sum(1 for row in board["rows"] if row["state"] == state) for state in ("locked", "flagged", "unreviewed")}
     print(f"Board: {Path(args.out).resolve()} ({len(board['rows'])} segments; {states})")
+    print(f"Thumbnails: {board['thumbs_made']} of {len(board['rows'])} (needs ffmpeg and the video on this machine)")
     print(f"Board digest: {board['digest']}")
     return 0
 
@@ -573,6 +574,7 @@ def parser() -> argparse.ArgumentParser:
     board.add_argument("--lock", action="append", help="Owner lock JSON whose protected ranges the board marks. Repeatable.")
     board.add_argument("--out", required=True, help="HTML path. A .json record with the digest is written beside it.")
     board.add_argument("--title", default="Episode review board")
+    board.add_argument("--no-thumbs", action="store_true", help="Skip the per-segment JPEG thumbnails.")
     board.set_defaults(func=cmd_board)
     test = sub.add_parser("test")
     test.set_defaults(func=cmd_test)

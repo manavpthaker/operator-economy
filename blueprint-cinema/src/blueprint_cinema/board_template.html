@@ -66,15 +66,24 @@ body.no-video .novideo { display: block; }
 .src { font-size: 12px; color: var(--muted); word-break: break-all; }
 .keys { font-size: 12px; color: var(--muted); margin-top: 10px; }
 kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font: 11px ui-monospace, monospace; }
-.scene { position: sticky; top: 0; z-index: 3; background: var(--bg); padding: 12px 0 6px; border-bottom: 1px solid var(--line); margin-top: 6px; }
+.scene { position: sticky; top: var(--sticky-top, 0px); z-index: 3; background: var(--bg); padding: 12px 0 6px; border-bottom: 1px solid var(--line); margin-top: 6px; }
 .scene b { font-size: 13.5px; }
-.scene div { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.scene div { color: var(--muted); font-size: 12.5px; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .row { display: grid; grid-template-columns: 144px minmax(0, 1fr); gap: 12px; padding: 9px 8px; border-radius: 6px; cursor: pointer; border-left: 3px solid transparent; }
 .row:hover { background: var(--hover); }
 .row.cur { background: var(--active); border-left-color: var(--active-line); }
-.row.hidden, .scene.hidden { display: none; }
+.row.hidden, .group.hidden { display: none; }
 .thumb { width: 144px; aspect-ratio: 16 / 9; border-radius: 4px; background: var(--line); display: block; position: relative; overflow: hidden; }
-.thumb canvas { width: 100%; height: 100%; display: block; }
+.thumb canvas, .thumb img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.nav { display: flex; gap: 6px; margin: 6px 0 2px; }
+.nav button { flex: 1; min-height: 36px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 6px; font-size: 13px; cursor: pointer; }
+.nav button[aria-pressed="true"] { border-color: var(--ink); font-weight: 600; }
+.nowbar { display: none; font-size: 13px; line-height: 1.4; margin-top: 4px; }
+.nowbar .meta { color: var(--muted); font-size: 12px; }
+.nowbar .line span.on { background: var(--word); color: #1d1c1a; border-radius: 3px; }
+.nowbar .line span.past { color: var(--muted); }
+.notes-toggle { display: none; margin-top: 10px; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 6px; padding: 6px 10px; font-size: 13px; }
+.row { scroll-margin-top: calc(var(--sticky-top, 0px) + 48px); }
 .thumb .lane { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
 .top { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: 12px; color: var(--muted); }
 .top .id { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -85,10 +94,22 @@ kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3p
 footer { padding: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 footer code { word-break: break-all; color: var(--ink); }
 @media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
-  .left { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-  .player { position: sticky; top: 0; z-index: 5; background: var(--bg); padding-bottom: 4px; }
-  .row { grid-template-columns: 104px minmax(0, 1fr); gap: 10px; }
+  header { padding: 10px 12px 8px; }
+  header h1 { font-size: 15px; }
+  .layout { display: block; }
+  .left { display: contents; }
+  .player { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 12px 4px; border-bottom: 1px solid var(--line); }
+  .strip { height: 22px; margin: 6px 0 2px; }
+  .legend, .controls, .card { margin-left: 12px; margin-right: 12px; }
+  .controls { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .chip { flex: none; min-height: 32px; }
+  .card { padding: 10px 12px; }
+  .card .notes { display: none; }
+  .card.open .notes { display: block; }
+  .notes-toggle { display: inline-block; }
+  .nowbar { display: block; }
+  .right { padding: 0 12px 40px; }
+  .row { grid-template-columns: 104px minmax(0, 1fr); gap: 10px; padding: 8px 6px; }
   .thumb { width: 104px; }
   .keys { display: none; }
 }
@@ -106,6 +127,8 @@ footer code { word-break: break-all; color: var(--ink); }
       <video id="video" controls preload="metadata" playsinline></video>
       <div class="novideo" id="novideo"></div>
       <div class="strip" id="strip" title="Click to jump"></div>
+      <div class="nav"><button id="prev">‹ Prev</button><button id="play">Play</button><button id="next">Next ›</button><button id="loop" aria-pressed="false">Loop</button></div>
+      <div class="nowbar"><div class="meta" id="nowmeta"></div><div class="line" id="nowline"></div></div>
     </div>
     <div class="legend" id="legend"></div>
     <div class="controls" id="filters"></div>
@@ -174,18 +197,19 @@ rows.forEach((r, i) => {
   if (r.scene !== lastScene) {
     lastScene = r.scene;
     const s = B.scenes[r.scene] || {};
-    const h = document.createElement('div');
-    h.className = 'scene';
-    h.innerHTML = `<b>${esc(r.scene)} ${esc(s.title || '')}</b>${s.job ? `<div>${esc(s.job)}</div>` : ''}`;
-    list.appendChild(h); sceneEls[r.scene] = h;
+    const g = document.createElement('section');
+    g.className = 'group';
+    g.innerHTML = `<div class="scene"><b>${esc(r.scene)} ${esc(s.title || '')}</b>${s.job ? `<div>${esc(s.job)}</div>` : ''}</div>`;
+    list.appendChild(g); sceneEls[r.scene] = g;
   }
   const el = document.createElement('div');
   el.className = 'row';
-  el.innerHTML = `<div class="thumb"><canvas width="256" height="144"></canvas><span class="lane" style="background:${laneColor(r.lane)}"></span></div>
+  el.innerHTML = `<div class="thumb">${r.thumb ? `<img src="${esc(r.thumb)}" loading="lazy" alt="">` : '<canvas width="256" height="144"></canvas>'}<span class="lane" style="background:${laneColor(r.lane)}"></span></div>
     <div><div class="top"><span class="id">${fmt(r.start)}</span><span>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)}</span><span class="state ${r.state}">${esc(STATES[r.state])}</span></div>
     <div class="form">${esc(r.form)}</div><div class="said">“${esc(r.words.map((w) => w[0]).join(' '))}”</div></div>`;
-  el.onclick = () => { seek(r.start + 0.001); video.play().catch(() => {}); };
-  list.appendChild(el); rowEls.push(el);
+  el.onclick = () => { seek(r.start + 0.001, true); };
+  sceneEls[r.scene].appendChild(el); rowEls.push(el);
+  if (r.thumb) return;
   const ctx = el.querySelector('canvas').getContext('2d');
   ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--line'); ctx.fillRect(0, 0, 256, 144);
   ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted'); ctx.font = '600 22px sans-serif'; ctx.fillText(r.id, 16, 80);
@@ -207,13 +231,15 @@ function renderNow(i) {
   const r = rows[i]; const s = B.scenes[r.scene] || {};
   const block = (label, text, cls = '') => text ? `<h3>${label}</h3><p class="${cls}">${esc(text)}</p>` : '';
   $('now').innerHTML = `<h2>${esc(r.scene)} ${esc(s.title || '')}</h2>`
-    + block('Scene job', s.job)
+    + `<div class="notes">${block('Scene job', s.job)}`
     + (s.before ? `<h3>Viewer before → after</h3><p>${esc(s.before)} → ${esc(s.after)}</p>` : '')
-    + block('Must not imply', s.must_not_imply, 'avoid')
-    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)}</h3><p>${esc(r.form)}</p>`
+    + block('Must not imply', s.must_not_imply, 'avoid') + '</div>'
+    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)} · <span class="state ${r.state}">${esc(STATES[r.state])}</span></h3><p>${esc(r.form)}</p>`
     + `<h3>Said</h3><p class="words" id="words">${r.words.map((w, k) => `<span data-k="${k}">${esc(w[0])}</span>`).join(' ')}</p>`
-    + `<h3>Status</h3><p><span class="state ${r.state}">${esc(STATES[r.state])}</span>${r.note ? ' · ' + esc(r.note) : ''}</p>`
-    + `<h3>Source</h3>${r.sources.map((x) => `<p class="src">${esc(x.path)}<br>${esc(x.sha256.slice(0, 16))}…</p>`).join('') || '<p class="src">none recorded</p>'}`;
+    + `<div class="notes">${r.note ? `<h3>Status</h3><p>${esc(r.note)}</p>` : ''}`
+    + `<h3>Source</h3>${r.sources.map((x) => `<p class="src">${esc(x.path)}<br>${esc(x.sha256.slice(0, 16))}…</p>`).join('') || '<p class="src">none recorded</p>'}</div>`
+    + `<button class="notes-toggle" id="notes-toggle">${$('now').classList.contains('open') ? 'Hide' : 'Show'} scene notes and source</button>`;
+  $('notes-toggle').onclick = () => { $('now').classList.toggle('open'); renderNow(cur); };
 }
 
 function indexAt(t) {
@@ -226,20 +252,42 @@ function setCurrent(i, scroll) {
   if (cur >= 0) { rowEls[cur].classList.remove('cur'); strip.children[cur].classList.remove('cur'); }
   cur = i; rowEls[i].classList.add('cur'); strip.children[i].classList.add('cur');
   renderNow(i);
+  requestAnimationFrame(stickyTop);
   if (scroll && follow) rowEls[i].scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 let fakeTime = 0;
 const now = () => document.body.classList.contains('no-video') ? fakeTime : video.currentTime;
-function seek(t) {
+let pending = null;
+function seek(t, play) {
   t = Math.max(0, Math.min(total - 0.001, t));
-  if (document.body.classList.contains('no-video')) { fakeTime = t; tick(true); } else video.currentTime = t;
+  if (document.body.classList.contains('no-video')) { fakeTime = t; tick(true); return; }
+  if (video.readyState >= 1) video.currentTime = t; else pending = t;
+  if (play) video.play().catch(() => {});
 }
+video.addEventListener('loadedmetadata', () => { if (pending !== null) { video.currentTime = pending; pending = null; } });
+const syncPlay = () => { $('play').textContent = video.paused ? 'Play' : 'Pause'; };
+video.addEventListener('play', syncPlay); video.addEventListener('pause', syncPlay);
+$('play').onclick = () => { video.paused ? video.play().catch(() => {}) : video.pause(); };
+$('prev').onclick = () => seek(rows[Math.max(0, cur - 1)].start + 0.001, !video.paused);
+$('next').onclick = () => seek(rows[Math.min(rows.length - 1, cur + 1)].start + 0.001, !video.paused);
+$('loop').onclick = () => { loop = !loop; $('loop').setAttribute('aria-pressed', loop); };
+function stickyTop() {
+  const mobile = matchMedia('(max-width: 900px)').matches;
+  document.documentElement.style.setProperty('--sticky-top', mobile ? document.querySelector('.player').offsetHeight + 'px' : '0px');
+}
+addEventListener('resize', stickyTop); video.addEventListener('loadedmetadata', stickyTop);
 function tick(scroll) {
   const t = now();
   const i = indexAt(t);
   if (loop && cur >= 0 && i !== cur && !video.paused) { video.currentTime = rows[cur].start; return; }
   setCurrent(i, scroll);
   head.style.left = (t / total * 100) + '%';
+  const r = rows[cur];
+  const k = r.words.findIndex((x) => t < x[2]);
+  const at = k < 0 ? r.words.length : k;
+  const from = Math.max(0, Math.min(at - 5, r.words.length - 14));
+  $('nowmeta').innerHTML = `${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · <span class="state ${r.state}">${esc(STATES[r.state])}</span>`;
+  $('nowline').innerHTML = r.words.length ? (from > 0 ? '… ' : '') + r.words.slice(from, from + 14).map((x) => `<span class="${t >= x[1] && t < x[2] ? 'on' : (t >= x[2] ? 'past' : '')}">${esc(x[0])}</span>`).join(' ') + (from + 14 < r.words.length ? ' …' : '') : '<span class="past">(no narration)</span>';
   const w = document.getElementById('words');
   if (w) w.querySelectorAll('span').forEach((s) => {
     const x = rows[cur].words[+s.dataset.k];
@@ -256,7 +304,7 @@ document.addEventListener('keydown', (e) => {
   if (k === ' ') { e.preventDefault(); video.paused ? video.play().catch(() => {}) : video.pause(); }
   else if (k === 'j' || k === 'arrowdown') { e.preventDefault(); seek(rows[Math.min(rows.length - 1, cur + 1)].start + 0.001); }
   else if (k === 'k' || k === 'arrowup') { e.preventDefault(); seek(rows[Math.max(0, cur - 1)].start + 0.001); }
-  else if (k === 'l') { loop = !loop; }
+  else if (k === 'l') { $('loop').click(); }
   else if (k === 'f') { follow = !follow; }
 });
 
@@ -284,14 +332,15 @@ video.addEventListener('error', () => {
   $('novideo').innerHTML = `<b>No video at this path.</b><br>The board still reads as a plan: click any segment.<br><br>Expected: <code>${esc(B.video_src)}</code><br>sha256 <code>${esc(B.inputs.video.sha256)}</code><br><br>Open this page on the machine that has the build, or serve its folder.`;
   tick(false);
 });
-if (B.video_src) { video.src = B.video_src; thumbs.src = B.video_src; } else video.dispatchEvent(new Event('error'));
-rowEls.forEach((el) => io.observe(el));
+if (B.video_src) { video.src = B.video_src; if (rows.some((r) => !r.thumb)) thumbs.src = B.video_src; } else video.dispatchEvent(new Event('error'));
+rowEls.forEach((el, i) => { if (!rows[i].thumb) io.observe(el); });
 
 $('footer').innerHTML = `<b>Board digest</b> <code>${esc(B.digest)}</code><br>This digest covers the build, plan, transcript, direction, video hash, owner locks and every segment's source hashes. Any change produces a new digest.`
   + (B.limits.length ? `<br><br><b>Build limits</b><br>${B.limits.map(esc).join('<br>')}` : '')
   + `<br><br><b>Owner locks shown</b><br>${B.locks.map((l) => `${esc(l.scope)} <code>${esc(l.path)}</code>`).join('<br>') || 'none'}`;
 applyFilters();
 setCurrent(0, false);
+stickyTop();
 </script>
 </body>
 </html>

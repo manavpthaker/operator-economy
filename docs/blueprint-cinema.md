@@ -155,7 +155,7 @@ blueprint-cinema/bin/oe-cinema board \
   --lock <OWNER-LOCK.json> ... --out assembly/qa/<episode>-<rev>-board.html
 ```
 
-Open the page on the machine that has the build, or serve its folder; the video path is relative. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the planned animatic and plates locks will bind.
+Build the page on the machine that has the cut and ffmpeg: it then writes one JPEG thumbnail per segment into `<page>-thumbs/` (gitignored), which phones need. Open it there, or on a phone through the private Tailscale Serve on port 3071, which serves `assembly/qa/` from the byte-range server on 3070: `https://mini.tail1c89f5.ts.net:3071/<page>.html`. The video path is relative, so the cut must sit where the build record says. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the planned animatic and plates locks will bind.
 
 ## Presenter Look Lock
 

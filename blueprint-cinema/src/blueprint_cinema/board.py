@@ -10,6 +10,8 @@ import html
 import json
 import os
 import re
+import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -185,6 +187,7 @@ def build_board(
     lock_paths: list[Path],
     out_path: Path,
     title: str,
+    thumbs: bool = True,
 ) -> dict:
     build = _load(build_path)
     plan = _load(plan_path)
@@ -268,8 +271,34 @@ def build_board(
         "limits": build.get("limits", []),
         "rows": rows,
     }
+    board["thumbs_made"] = write_thumbs(board, video_path, out_path) if thumbs and video_path else 0
     write_board(board, out_path)
     return board
+
+
+def thumb_time(row: dict) -> float:
+    return min(row["end"] - 0.05, row["start"] + min(1.5, (row["end"] - row["start"]) / 2))
+
+
+def write_thumbs(board: dict, video: Path, out_path: Path) -> int:
+    """One small JPEG per segment, so phones get thumbnails without decoding the cut in the page."""
+    ffmpeg = os.environ.get("OE_FFMPEG") or shutil.which("ffmpeg")
+    if not ffmpeg or not video.is_file():
+        return 0
+    folder = out_path.with_name(out_path.stem + "-thumbs")
+    folder.mkdir(parents=True, exist_ok=True)
+    made = 0
+    for row in board["rows"]:
+        target = folder / f"{row['id']}.jpg"
+        result = subprocess.run(
+            [ffmpeg, "-nostdin", "-v", "error", "-y", "-ss", f"{thumb_time(row):.3f}", "-i", str(video),
+             "-frames:v", "1", "-vf", "scale=320:-2", "-q:v", "5", str(target)],
+            check=False,
+        )
+        if result.returncode == 0 and target.is_file():
+            row["thumb"] = f"{folder.name}/{target.name}"
+            made += 1
+    return made
 
 
 def write_board(board: dict, out_path: Path) -> None:
