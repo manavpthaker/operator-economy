@@ -1,0 +1,50 @@
+{
+  "record_type": "broll_model_ab",
+  "at": "2026-09-24T16:56:46.779095+00:00",
+  "question": "Can Veo 3.1 Fast (fal) replace or supplement Kling 3.0 Pro for generated film shots?",
+  "method": "Same start frame, prompt and 8 s duration as EP009 F01, F05, F07 (Kling 3.0 Pro raw takes). Veo at 1080p, no audio, through oe-cinema generate.",
+  "jobs": [
+    {
+      "item": "F01-veo",
+      "status": "failed",
+      "job_id": null,
+      "seconds": null,
+      "error": [
+        "GET https://queue.fal.run/fal-ai/veo3.1/requests/01a0d450-7d09-7323-8c4e-7635025c9170 -> 422: {\"detail\":[{\"loc\":[\"body\",\"prompt\"],\"msg\":\"The content could not be processed because it contained material flagged by a content checker.\",\"type\":\"content_policy_violation\",\"url\":\"https://docs.fal.ai/errors#content_policy_violation\",\"input\":{\"prompt\":\"One continuous eight-second locked-off tripod shot at the existing inn front desk. The camera does not move: no pan, tilt, zoom, drift or reframing, and no cuts. Preserve the supplied starting frame exactly: the guest at screen left, three-quarter "
+      ]
+    },
+    {
+      "item": "F05-veo",
+      "status": "done",
+      "job_id": "01a0d452-1046-7e33-9ff9-a9c43cb275ce",
+      "seconds": 149.9,
+      "error": null
+    },
+    {
+      "item": "F07-veo",
+      "status": "done",
+      "job_id": "01a0d454-5a4a-7b62-ab00-6022c159e4f0",
+      "seconds": 124.0,
+      "error": null
+    },
+    {
+      "item": "F01-veo-r2",
+      "status": "done",
+      "job_id": "01a0d456-96dc-71d2-9adc-c0e8a1901d65",
+      "seconds": 129.5,
+      "error": null
+    }
+  ],
+  "spend": {
+    "veo_est_usd_committed": 4.8,
+    "note": "fal returns no per-job price; the F01 content-checker reject is normally not billed. Reconcile on the fal billing page.",
+    "kling_reference_usd_per_shot": 0.896
+  },
+  "findings": {
+    "F01": "Original prompt rejected by Veo's content checker; passed after removing the people's physical descriptions. Key handoff performed in both; comparable.",
+    "F05": "Comparable. Both hold identity, phone screen hidden, no camera move.",
+    "F07": "Veo clearly better: camera stays locked-off as asked. Kling's raw pushed in to a hand close-up and needed an edit (EDIT-R1-seg049). Veo's card stays blank."
+  },
+  "verdict": "Veo 3.1 Fast is a viable second b-roll model: it held camera instructions better on the prop close-up, rendered in about 2-2.5 minutes, and costs roughly the same per shot. Its content filter is stricter, so prompts should describe action and props, not people's appearance. Keep Kling as default for multi-person shots; try Veo first for locked-off prop/detail shots.",
+  "owner_review": "pending: watch kling-left-veo-right.mp4"
+}
