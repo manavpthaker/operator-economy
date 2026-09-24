@@ -107,6 +107,13 @@ Storyblocks candidates are previews. Only an approved select spends a subscripti
 
 Archive licenses are uploader-asserted. The search takes only items marked public domain from the Internet Archive, and only public domain, CC0 or CC BY from Commons. The license is still checked by a person at approval.
 
+Generated film has two models, both run through `oe-cinema generate` on fal. The split was decided 2026-09-24 from the EP009 A/B in `blueprint-cinema/experiments/EP009-FULL-BUILD-001/veo-test/RESULT.json`:
+
+- **Kling 3.0 Pro** (`fal-ai/kling-video/v3/pro/image-to-video`) is the default, and the model for shots with more than one person or with people interacting.
+- **Veo 3.1 Fast** (`fal-ai/veo3.1/fast/image-to-video`, 1080p, audio off) comes first for locked-off prop, detail and hands shots. It held the fixed camera where Kling pushed in and needed an edit. Its content filter is stricter, so describe actions and props, not people's appearance. If a prompt is rejected, strip the physical descriptions before changing anything else.
+
+Either model can be retried on the other when a take fails. Record both attempts in the lane ledger.
+
 AI renders are never evidence. Build one coherent rendered world per episode, normally with three or four purposeful sequences rather than a clip per sentence. Generate environmental plates; composite accurate text, interfaces, prices, documents, and brand marks afterward. Record synthetic status and required upload disclosure in the manifest.
 
 Every external asset must retain its canonical source, creator or rights holder, license and check date, download date, checksum, face/release review, in/out points, crop, focal position, timeline uses, and reconstruction/synthetic status. The edit references manifest IDs, never raw URLs or untracked downloads.
