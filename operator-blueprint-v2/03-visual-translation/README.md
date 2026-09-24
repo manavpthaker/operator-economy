@@ -1,8 +1,10 @@
 # Step 3: visual translation
 
-Status: **boundary only; not authoritative.** Scope boundary approved 2026-09-01. Boundary Ledger
-derivation correction proposed as Step 3 v0.3 on 2026-09-02. The standard, gates, templates,
-authority map, and acceptance set exist but remain proposed until approved.
+Status: **Step 3 v0.3 approved as the governing process, 2026-09-24** (`PROCESS-APPROVAL-v0.3.md`,
+bound to `PROCESS-MANIFEST.json` `4f830d71…690c`). Scope boundary approved 2026-09-01. The status
+lines inside the hashed documents still read "proposed"; they are left unedited so the approved
+hash holds, and the approval record wins. No episode's Step 3 records are activated, and Step 4 is
+not authorized.
 
 Step 3 receives an episode whose words are locked and whose narration is timed, and produces a
 visual language complete enough that Step 4 can direct shots from it without re-deciding what the
