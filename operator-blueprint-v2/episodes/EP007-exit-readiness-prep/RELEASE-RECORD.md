@@ -67,7 +67,13 @@ Decision log: `blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisi
 
 ## Still to do (update this file as each lands)
 
-- [ ] YouTube uploads + schedule (fresh quota day), thumbnail, captions, playlists → `launch/links.json`
+- [x] YouTube uploads + schedule, thumbnail, captions, playlists (2026-09-24) → `launch/links.json`, `launch/UPLOAD-VERIFICATION-2026-09-24.md`, event `ep007-youtube-upload-verified-v1`
+  - Episode https://youtu.be/7juZ1KXdd04 · private, publishAt Mon 2026-10-05 11:00 ET (15:00Z)
+  - Short 01 https://youtu.be/Hc9j4B9nnk8 · Tue 2026-10-06 08:30 ET (12:30Z)
+  - Short 02 https://youtu.be/mpGtH0WC1OA · Wed 2026-10-07 08:30 ET
+  - Short 03 https://youtu.be/EtkyEqmKzUY · Thu 2026-10-08 08:30 ET
+  - Short 04 https://youtu.be/UWI-v4M78do · Fri 2026-10-09 08:30 ET
+  - Playlists (public): Episodes `PLCmSnXQWzHxo`, Shorts `PLdu7PeWE3s2M`
 - [ ] Studio: avatar, pinned comments, end screen, altered-content check
 - [ ] Site: rebuild with the live link, owner preview, deploy
 - [ ] LinkedIn: episode post (Mon 11:00), Shorts posts (Tue–Fri 08:30), newsletter edition

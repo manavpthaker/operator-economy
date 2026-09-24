@@ -1,7 +1,7 @@
 # DM shortlist — exit-readiness-prep (2026-10-05)
 
 Register: friend who saw something relevant. No ask. Ever. One msg per person per episode.
-Episode: [PENDING_UPLOAD] · Operator Canvas: https://theoperatoreconomy.com/episodes/exit-readiness-prep
+Episode: https://youtu.be/7juZ1KXdd04 · Operator Canvas: https://theoperatoreconomy.com/episodes/exit-readiness-prep
 
 ## Tier 1 — direct relevance (5–10)
 | Who | Why this episode is theirs | Draft | Sent |
