@@ -12,6 +12,7 @@ research -> claims -> approved script -> final VO -> word timings
   -> full-timeline visual plan
   -> direction bible and rhythm map
   -> look development and representative motion test
+  -> presenter look lock (owner gate; references/PRESENTER-RECIPE.md)
   -> sequence treatments, shot boards, and scene directions
   -> HyperFrames whole-episode directed animatic
   -> exact asset candidates, selects, and production

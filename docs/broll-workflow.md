@@ -2,6 +2,8 @@
 
 ## Current state
 
+> **2026-09-24:** long-form sourcing now runs through `studio/scripts/originate/source_footage.py`. It searches Pexels, Pixabay, Storyblocks and public-domain archives by footage role, and registers press-kit files by hand. Routing and rights rules are in `docs/blueprint-cinema.md` (Evidence, Footage, and Synthetic Media). The Pexels-only statements below describe the earlier state.
+
 The Shorts pipeline has an operational B-roll path: clip selection proposes timestamped queries, `fetch_broll.py` searches Pexels, `broll.json` supports approve/reject/swap review, `prepare_render.py` remaps timings, and `BRollOverlay.tsx` inserts muted full-frame footage.
 
 Long-form now resolves approved `footage_manifest.json` entries, stages their media in Remotion public assets, and renders frame-accurate in/out points through `BRollScene.tsx`. Missing media is a conspicuous render blocker and `prepare_longform.py` stops before render when a requested manifest entry is absent or invalid. Pexels is currently the only automated contextual-footage provider, and `PEXELS_API_KEY` is not currently available in the loaded repository environment.

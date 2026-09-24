@@ -58,6 +58,8 @@ Permitted upstream inputs and prohibited legacy visual inputs are defined in `PO
 
 Keep the existing Higgsfield connection for Seedance avatar generation, with fal.ai for narration restoration when needed. The owner's later instruction, "lets keep the existing connetion," supersedes the earlier fal-only direction for this workflow. Preserve existing provider receipts and media provenance.
 
+Since 2026-09-24, presenter work follows `references/PRESENTER-RECIPE.md`: a per-project look lock (`oe-cinema lock-look`), K01 + K08 as the standing behavior references, and paid calls through `oe-cinema generate`. Connector calls use its `--dry-run` gate plus the lane ledger. Generated film follows the Kling / Veo split in `docs/blueprint-cinema.md`.
+
 ## Canonical tool rule
 
 - HyperFrames is the only authorized implementation target for new Blueprint Cinema motion, designed scenes, directed animatics, and render plates.

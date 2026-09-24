@@ -4,6 +4,8 @@ Status: **proposed.** Reconstructed on 2026-09-23 from the EP007 records listed 
 Not authoritative until the owner approves it. Where this file and a record disagree, the record
 wins. Content OS (`../content-os/`) still owns voice, rubric, release gate and schedule.
 
+**Updated 2026-09-24:** presenter generation now follows `blueprint-cinema/references/PRESENTER-RECIPE.md`. Every look is locked per project, K01 + K08 are the standing behavior references, and every paid call goes through `oe-cinema generate` (or its `--dry-run` gate for connector calls). Where Steps 4, 5 and 9 below describe the EP007 specifics (the V5 look, the call-recording behavior clips, one-shot runners), treat them as history. The recipe is the current rule. A Short can now also be made without an episode: see "Standalone Short" at the end.
+
 What it covers: how The Operator Economy made EP007's four net-new, 9:16, avatar-led companion
 Shorts, from the rejected crop plan (2026-09-19) to four owner-accepted sound-on cuts (2026-09-23)
 and their approved publication copy. Every step lists the EP007 example and where the evidence is.
@@ -122,8 +124,9 @@ Short 02 `NN/narration-v6/short-02-operations-business/media/original-c.wav`.
 Rule set (from `DEC/ep007-owner-start-shorts-production-20260921.json` and
 `DEC/ep007-shorts-02-04-avatar-route-owner-choice-20260922.json`):
 
-- Keep the accepted **EP007 V5** identity and look (navy shirt, glasses, soft daylit study, direct
-  lens, complete hands). The owner's "Keep the avatar" chose this over real-camera footage.
+- Current rule: the Short uses its episode's locked look (`presenter/LOOK-LOCK.json`). A standalone
+  Short locks its own (see `PRESENTER-RECIPE.md` §1). EP007 used the V5 look (navy shirt, glasses,
+  soft daylit study); that was EP007's look, not a standing one.
 - **New speech per Short.** Never put old speaking footage (episode or another Short) under new
   words. Accepting the V5 look does not accept any new take.
 - Two presenter shots per Short: an opening and a return. Screens carry the middle.
@@ -144,7 +147,8 @@ Procedure:
 3. **Request.** `seedance_2_5`, mode `omni_reference`, 9:16, 1080p, bitrate high,
    `generate_audio: true`, `use_unlim: false`, count 1. Reference roles in order: V5 identity
    image, relaxed-behavior video, public-articulation video, exact segment MP3. Bind prompts and
-   hashes in `REQUEST-MANIFEST-V1.json`.
+   hashes in `REQUEST-MANIFEST-V1.json`. *Current:* the reference roles are the locked look still,
+   K01, K08 and the exact segment MP3, with the reference sentence from `PRESENTER-RECIPE.md` §3.
 4. **Quote and balance readback immediately before submitting.** Record both. Stop if the quote
    plus prior use exceeds the cap.
 5. **Submit once.** Record every item, including rejected ones. A rejection without a job ID is a
@@ -304,6 +308,18 @@ machine form `content/shorts_briefs.json` (passes `shorts_contract.py --mode der
 Cap headroom used for Shorts 02-04: ElevenLabs 1,540 of 3,200; Higgsfield 612 of 1,200 quoted;
 Fal $4.44 of $15 forecast. Zero automatic retries. Elapsed time: 2026-09-19 (crop slate dropped)
 to 2026-09-23 (all four accepted). Rendered durations: 43.5 s, 45.4 s, 39.6 s, 48.1 s.
+
+## Standalone Short (no episode)
+
+For a Short whose question isn't carried by a published episode. It's the same film standard (cold-viewer opening, one mechanism, answer inside the Short), with these differences:
+
+1. **Claims.** There's no episode evidence to inherit. Every number and factual claim needs its own source cleared in Content OS `facts.md` before the script locks.
+2. **Script.** It must pass `shorts_contract.py` in direct mode. `pinned_comment` and `episode_bridge_line` are optional. The end card routes to the channel, a playlist or the newsletter instead of an episode, and that target is written into the script lock.
+3. **Look.** Lock one with `oe-cinema lock-look` in the Short's own project folder (`PRESENTER-RECIPE.md` §1). Reusing the latest episode's look is allowed only if the owner says so at lock time.
+4. **Voice, presenter, screens.** Steps 3 to 6 above, with the presenter per `PRESENTER-RECIPE.md` and paid calls through `oe-cinema generate`. Screens are built from the Short's own cleared sources. Generated film follows the Kling / Veo split in `docs/blueprint-cinema.md`, and stock footage comes from `source_footage.py`.
+5. **Review, schedule.** Steps 7, 8 and 10. The publication copy links the end-card target, not an episode.
+
+Owner authorization for spend is still per batch (Step 9).
 
 ## Open items before this becomes authoritative
 

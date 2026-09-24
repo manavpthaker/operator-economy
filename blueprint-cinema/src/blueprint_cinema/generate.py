@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -33,6 +34,7 @@ from .validation import ValidationFailure, load_json
 LOOK_LOCK = Path("presenter") / "LOOK-LOCK.json"
 SPEND_LEDGER = Path("ledger") / "SPEND-LEDGER.json"
 IMAGE_SUFFIXES = (".png", ".jpg", ".jpeg", ".webp")
+MEDIA_ID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 MEDIA_SUFFIXES = IMAGE_SUFFIXES + (".mp4", ".mov", ".webm", ".mp3", ".wav", ".m4a")
 
 PROVIDERS = {
@@ -72,7 +74,11 @@ def lock_look(
     if not references:
         raise ValidationFailure("look_lock", ["at least one --ref path=url is required"])
     errors = [f"reference file is missing: {path}" for path, _ in references if not path.is_file()]
-    errors += [f"reference URL must be http(s): {url}" for _, url in references if not url.startswith("http")]
+    errors += [
+        f"reference must be an http(s) URL or a Higgsfield media ID: {url}"
+        for _, url in references
+        if not (url.startswith("http") or MEDIA_ID.fullmatch(url))
+    ]
     if errors:
         raise ValidationFailure("look_lock", errors)
 
@@ -147,6 +153,11 @@ def check_look_lock(episode_dir: Path, arguments: Any) -> dict:
     for url in _urls(arguments):
         if urllib.parse.urlparse(url).path.lower().endswith(IMAGE_SUFFIXES) and url not in locked_urls:
             errors.append(f"image reference is not part of the locked look: {url}")
+    # Higgsfield connector requests name references by media ID and role instead of URL.
+    medias = arguments.get("medias", []) if isinstance(arguments, dict) else []
+    for media in medias:
+        if "image" in str(media.get("role", "")) and media.get("value") not in locked_urls:
+            errors.append(f"image reference is not part of the locked look: {media.get('value')}")
     if errors:
         raise ValidationFailure("look_lock", errors)
     return lock

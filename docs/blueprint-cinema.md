@@ -155,7 +155,7 @@ Each episode gives the presenter a new location and outfit. The look is chosen a
 3. `oe-cinema generate` refuses any `--lane presenter` job when the lock is missing, when a locked reference file has changed, or when the job sends an image reference that is not locked.
 4. Re-locking needs `--supersede "<reason>"`. The lock's history records the reason and how many presenter jobs the old look orphaned. Changing the look is allowed, but it has to be deliberate and its cost has to be on record.
 
-Only the behavior references and the performance recipe carry over between episodes.
+Only the behavior references and the performance recipe carry over between episodes. Both are in `blueprint-cinema/references/PRESENTER-RECIPE.md`, the single source for presenter generation across long-form, Shorts and Content OS signed videos.
 
 All paid Higgsfield and fal calls go through `oe-cinema generate`. It checks the lane's `<provider>_usd` cap in `ledger/SPEND-LEDGER.json` when one is set. It appends an intent row to `ledger/<lane>.jsonl` before submitting, and a done or failed row after, carrying the job ID, outputs and sha256. Use `--dry-run` to check the gates without spending. Neither provider reports a price for each job, so reconcile the estimates against the billing page.
 

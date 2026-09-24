@@ -57,6 +57,16 @@ def test_presenter_job_rejects_unlocked_image(episode: Path) -> None:
         )
 
 
+def test_connector_media_ids_are_checked_against_lock(episode: Path) -> None:
+    locked_id = "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+    gen.lock_look(episode, [(episode / "presenter" / "look-a.png", locked_id)], "inn", "chambray", "Manav")
+    ok = {"medias": [{"role": "image_references", "value": locked_id}, {"role": "video_references", "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"}]}
+    gen.check_look_lock(episode, ok)
+    bad = {"medias": [{"role": "image_references", "value": "11111111-2222-3333-4444-555555555555"}]}
+    with pytest.raises(ValidationFailure, match="not part of the locked look"):
+        gen.check_look_lock(episode, bad)
+
+
 def test_presenter_job_blocked_when_reference_changes(episode: Path) -> None:
     _lock(episode)
     (episode / "presenter" / "look-a.png").write_bytes(b"edited")

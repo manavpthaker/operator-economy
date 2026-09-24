@@ -26,7 +26,7 @@ Rules the owner set (memory: `thumbnail-and-title-approach`):
 1. The thumbnail shows the episode's **own cold-open cast and set**, so the first seconds pay off
    the click. Generate from real episode frames as references (Higgsfield `gpt_image_2_5`,
    ~0.25–0.5 credits per image at medium).
-2. The presenter (current avatar look) is in frame for authenticity, as a **smaller guide
+2. The presenter (the episode's locked look, `presenter/LOOK-LOCK.json`) is in frame for authenticity, as a **smaller guide
    (~⅓ frame), serious, not smiley**, pointing at the story behind.
 3. Text = the **episode-specific action the viewer learns** (EP007: `HELP HER SELL`), never a line
    that would fit any episode. Keep claims boundaries (help her sell ≠ sell her business).
