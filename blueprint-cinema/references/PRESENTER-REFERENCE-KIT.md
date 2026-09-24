@@ -1,5 +1,21 @@
 # Presenter Reference Kit
 
+## Standing references (adopted 2026-09-24)
+
+Manav adopted the kit after the EP009 P08 A/B test (`blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-kit-test/TEST.json`). Every presenter generation uses these as its `video_references` instead of the old call-recording clip:
+
+| Order | Clip | Higgsfield media ID | Local file | sha256 |
+|---|---|---|---|---|
+| 1 | K01 neutral delivery, first 9 s | `b796a739-5036-4242-8fa9-cd61e9e19a0c` | `experiments/EP009-FULL-BUILD-001/presenter-kit-test/refs/K01-9s.mp4` | `e8128381…08ec9c` |
+| 2 | K08 listening, first 6 s | `0f63cbdf-7579-46f9-aab5-ba7af28c85e4` | `experiments/EP009-FULL-BUILD-001/presenter-kit-test/refs/K08-6s.mp4` | `7563aa38…f63e33` |
+
+The references total 15 s. Put this sentence in the prompt where the old one described its video reference:
+
+> The first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing.
+
+The IMAGE (the episode's locked look) and the AUDIO (locked narration) still control identity, setting, words and timing. Keep the fal Sync lip-sync repair step: neither arm of the test was lip-sync clean straight out of the model. If a media ID stops resolving, re-upload the local file, and check its sha256 first.
+
+
 A set of short clips of Manav, shot on purpose, that teach the presenter model how he moves. They replace the two behavior clips the EP009 recipe borrowed from call recordings (`presenter/PRESENTER-PLAN.json` `reference_media.video_references`). The prompt had to tell the model to ignore those clips' headphones, microphone, screen-call gaze and unrelated speech. Clips shot for the job need no such exclusions.
 
 What the kit is for:
