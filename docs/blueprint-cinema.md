@@ -155,7 +155,17 @@ blueprint-cinema/bin/oe-cinema board \
   --lock <OWNER-LOCK.json> ... --out assembly/qa/<episode>-<rev>-board.html
 ```
 
-Build the page on the machine that has the cut and ffmpeg: it then writes one JPEG thumbnail per segment into `<page>-thumbs/` (gitignored), which phones need. Open it there, or on a phone through the private Tailscale Serve on port 3071, which serves `assembly/qa/` from the byte-range server on 3070: `https://mini.tail1c89f5.ts.net:3071/<page>.html`. The video path is relative, so the cut must sit where the build record says. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the planned animatic and plates locks will bind.
+Build the page on the machine that has the cut and ffmpeg: it then writes one JPEG thumbnail per segment into `<page>-thumbs/` (gitignored), which phones need. Open it there, or on a phone through the private Tailscale Serve on port 3071, which serves `assembly/qa/` from the byte-range server on 3070: `https://mini.tail1c89f5.ts.net:3071/<page>.html`. The video path is relative, so the cut must sit where the build record says. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the animatic and plates locks bind.
+
+The owner approves or returns the whole cut, scenes, lanes or single segments from the board. On a phone, "Select to approve or return" copies a decision line to paste to Claude; on the Mac, record it directly:
+
+```text
+blueprint-cinema/bin/oe-cinema board-review <page>.html --verdict approve|return \
+  --scope all|S13|S22-S24|lane:presenter|seg044[,...] --by Manav --note "..." --verbatim "..."
+blueprint-cinema/bin/oe-cinema board-check <page>.html --scope <scope>
+```
+
+Each review appends to a hash-chained `board-reviews.jsonl` beside the page, bound to every segment's current source hashes. A rebuilt board shows each segment as approved, returned, changed since approval, or revised since return. `board-check` fails unless every segment in scope is approved against its current sources: run it on the animatic board before generation or licensing, and on the plates board before the Resolve conform. Log the owner's words as feedback in the episode decision log too.
 
 ## Presenter Look Lock
 

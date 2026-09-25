@@ -15,6 +15,8 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from datetime import datetime, timezone
+
 from .hashes import sha256_file, sha256_json
 from .paths import REPO_ROOT
 
@@ -188,6 +190,7 @@ def build_board(
     out_path: Path,
     title: str,
     thumbs: bool = True,
+    reviews_path: Path | None = None,
 ) -> dict:
     build = _load(build_path)
     plan = _load(plan_path)
@@ -272,8 +275,126 @@ def build_board(
         "rows": rows,
     }
     board["thumbs_made"] = write_thumbs(board, video_path, out_path) if thumbs and video_path else 0
+    board["reviews_path"] = _rel(reviews_path or default_reviews(out_path))
+    apply_reviews(board, load_reviews(reviews_path or default_reviews(out_path)))
     write_board(board, out_path)
     return board
+
+
+# Owner review: approve or return the whole cut, scenes, lanes or segments against exact sources.
+
+VERDICTS = {"approve", "return"}
+
+
+def default_reviews(out_path: Path) -> Path:
+    return out_path.parent / "board-reviews.jsonl"
+
+
+def load_reviews(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    entries, previous = [], None
+    for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        entry = json.loads(line)
+        body = {k: v for k, v in entry.items() if k != "entry_hash"}
+        if entry.get("previous_hash") != previous or sha256_json(body) != entry.get("entry_hash"):
+            raise ValueError(f"{path}:{number} breaks the review hash chain")
+        previous = entry["entry_hash"]
+        entries.append(entry)
+    return entries
+
+
+def resolve_scope(rows: list[dict], scope: str) -> list[str]:
+    """`all`, or a comma list of scenes (S13, S22-S24), lanes (lane:presenter) and segments (seg044)."""
+    chosen: list[str] = []
+    for part in [p.strip() for p in scope.split(",") if p.strip()]:
+        if part == "all":
+            match = rows
+        elif part.startswith("lane:"):
+            match = [r for r in rows if r["lane"] == part[5:]]
+        elif re.fullmatch(r"S\d\d-S\d\d", part):
+            low, high = (int(x[1:]) for x in part.split("-"))
+            match = [r for r in rows if low <= int(r["scene"][1:]) <= high]
+        elif re.fullmatch(r"S\d\d", part):
+            match = [r for r in rows if r["scene"] == part]
+        else:
+            match = [r for r in rows if r["id"] == part]
+        if not match:
+            raise ValueError(f"scope part matches no segment: {part}")
+        chosen += [r["id"] for r in match if r["id"] not in chosen]
+    if not chosen:
+        raise ValueError("empty scope")
+    return chosen
+
+
+def apply_reviews(board: dict, reviews: list[dict]) -> None:
+    latest: dict[str, tuple[dict, list]] = {}
+    for entry in reviews:
+        for row in entry["rows"]:
+            latest[row["id"]] = (entry, row["sources"])
+    for row in board["rows"]:
+        found = latest.get(row["id"])
+        if not found:
+            row["review"] = None
+            continue
+        entry, sources = found
+        same = sources == row["sources"]
+        state = {("approve", True): "approved", ("approve", False): "changed",
+                 ("return", True): "returned", ("return", False): "revised"}[(entry["verdict"], same)]
+        row["review"] = {"state": state, "verdict": entry["verdict"], "note": entry.get("note", ""),
+                         "by": entry["by"], "at": entry["at"], "board": entry["board"]["build_version"]}
+
+
+def read_page_board(page: Path) -> dict:
+    match = re.search(r'<script id="board" type="application/json">(.*?)</script>', page.read_text(encoding="utf-8"), re.S)
+    if not match:
+        raise ValueError(f"{page} is not a review board page")
+    return json.loads(match.group(1).replace("<\\/", "</"))
+
+
+def record_review(page: Path, verdict: str, scope: str, by: str, note: str, verbatim: str,
+                  reviews_path: Path | None = None) -> dict:
+    """Append one owner review bound to the exact sources on the board, then refresh the page."""
+    if verdict not in VERDICTS:
+        raise ValueError(f"verdict must be one of {sorted(VERDICTS)}")
+    if verdict == "return" and not note.strip():
+        raise ValueError("a return needs a note saying what to change")
+    board = read_page_board(page)
+    path = reviews_path or default_reviews(page)
+    reviews = load_reviews(path)
+    ids = resolve_scope(board["rows"], scope)
+    by_id = {r["id"]: r for r in board["rows"]}
+    entry = {
+        "record_type": "board_review",
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "verdict": verdict,
+        "scope": scope,
+        "by": by,
+        "note": note,
+        "verbatim": verbatim,
+        "board": {"page": _rel(page), "digest": board["digest"], "build_version": board.get("build_version", "")},
+        "rows": [{"id": i, "sources": by_id[i]["sources"]} for i in ids],
+        "previous_hash": reviews[-1]["entry_hash"] if reviews else None,
+    }
+    entry["entry_hash"] = sha256_json(entry)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n")
+    apply_reviews(board, reviews + [entry])
+    write_board(board, page)
+    return entry
+
+
+def check_approved(page: Path, scope: str = "all", reviews_path: Path | None = None) -> list[dict]:
+    """Rows in scope that are not approved against their current sources. Empty means the gate passes."""
+    board = read_page_board(page)
+    apply_reviews(board, load_reviews(reviews_path or default_reviews(page)))
+    wanted = set(resolve_scope(board["rows"], scope))
+    return [
+        {"id": r["id"], "scene": r["scene"], "review": (r["review"] or {}).get("state", "not reviewed")}
+        for r in board["rows"]
+        if r["id"] in wanted and (r["review"] or {}).get("state") != "approved"
+    ]
 
 
 def thumb_time(row: dict) -> float:
@@ -309,5 +430,9 @@ def write_board(board: dict, out_path: Path) -> None:
     out_path.write_text(page, encoding="utf-8")
     record = {k: v for k, v in board.items() if k not in {"rows", "scenes"}}
     record["page"] = {"path": out_path.name, "sha256": sha256_file(out_path)}
-    record["rows"] = [{"id": r["id"], "frames": r["frames"], "state": r["state"], "sources": r["sources"]} for r in board["rows"]]
+    record["rows"] = [
+        {"id": r["id"], "scene": r["scene"], "lane": r["lane"], "frames": r["frames"], "state": r["state"],
+         "review": (r.get("review") or {}).get("state"), "sources": r["sources"]}
+        for r in board["rows"]
+    ]
     out_path.with_suffix(".json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from . import WORKFLOW_VERSION
-from .board import build_board
+from .board import build_board, check_approved, record_review
 from .generate import check_look_lock, generate, lock_look
 from .hashes import sha256_file, write_json_atomic
 from .input_lock import build_input_lock, stage_locked_audio
@@ -485,11 +485,32 @@ def cmd_board(args: argparse.Namespace) -> int:
         Path(args.build).resolve(), Path(args.plan).resolve(), Path(args.transcript).resolve(),
         Path(args.direction).resolve(), [Path(p).resolve() for p in args.lock or []],
         Path(args.out).resolve(), args.title, thumbs=not args.no_thumbs,
+        reviews_path=Path(args.reviews).resolve() if args.reviews else None,
     )
     states = {state: sum(1 for row in board["rows"] if row["state"] == state) for state in ("locked", "flagged", "unreviewed")}
     print(f"Board: {Path(args.out).resolve()} ({len(board['rows'])} segments; {states})")
     print(f"Thumbnails: {board['thumbs_made']} of {len(board['rows'])} (needs ffmpeg and the video on this machine)")
     print(f"Board digest: {board['digest']}")
+    return 0
+
+
+def cmd_board_review(args: argparse.Namespace) -> int:
+    entry = record_review(
+        Path(args.page).resolve(), args.verdict, args.scope, args.by, args.note or "", args.verbatim or "",
+        Path(args.reviews).resolve() if args.reviews else None,
+    )
+    print(f"Recorded {entry['verdict']} for {len(entry['rows'])} segment(s) on {entry['board']['build_version']}")
+    print(f"Review hash: {entry['entry_hash']}")
+    return 0
+
+
+def cmd_board_check(args: argparse.Namespace) -> int:
+    open_rows = check_approved(Path(args.page).resolve(), args.scope, Path(args.reviews).resolve() if args.reviews else None)
+    if open_rows:
+        for row in open_rows:
+            print(f"{row['id']} {row['scene']}: {row['review']}")
+        raise ValidationFailure("board_approved", [f"{len(open_rows)} segment(s) in scope are not approved against current sources"])
+    print(f"All segments in scope '{args.scope}' are approved against their current sources")
     return 0
 
 
@@ -575,7 +596,22 @@ def parser() -> argparse.ArgumentParser:
     board.add_argument("--out", required=True, help="HTML path. A .json record with the digest is written beside it.")
     board.add_argument("--title", default="Episode review board")
     board.add_argument("--no-thumbs", action="store_true", help="Skip the per-segment JPEG thumbnails.")
+    board.add_argument("--reviews", help="Review log. Default: board-reviews.jsonl beside the page.")
     board.set_defaults(func=cmd_board)
+    review = sub.add_parser("board-review", help="Owner approves or returns segments on a board, bound to their exact sources.")
+    review.add_argument("page", help="The board HTML page.")
+    review.add_argument("--verdict", required=True, choices=["approve", "return"])
+    review.add_argument("--scope", required=True, help="all, S13, S22-S24, lane:presenter, seg044, or a comma list.")
+    review.add_argument("--by", required=True)
+    review.add_argument("--note", help="What to change. Required for a return.")
+    review.add_argument("--verbatim", help="The owner's own words.")
+    review.add_argument("--reviews", help="Review log. Default: board-reviews.jsonl beside the page.")
+    review.set_defaults(func=cmd_board_review)
+    check = sub.add_parser("board-check", help="Fail unless every segment in scope is approved against its current sources.")
+    check.add_argument("page")
+    check.add_argument("--scope", default="all")
+    check.add_argument("--reviews")
+    check.set_defaults(func=cmd_board_check)
     test = sub.add_parser("test")
     test.set_defaults(func=cmd_test)
     return root

@@ -8,7 +8,7 @@
 :root {
   --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1c1a; --muted: #6b6860; --line: #e2dfd6; --hover: #efede6;
   --active: #fff4d6; --active-line: #d9a520; --word: #d9a520;
-  --locked: #2f7d4f; --flagged: #c0392b; --unreviewed: #8a867c;
+  --locked: #2f7d4f; --flagged: #c0392b; --unreviewed: #8a867c; --changed: #b07a10;
   --film: #3f6fb5; --presenter: #b5553f; --model: #6b8e3f; --evidence: #8e5fb5; --screen: #2f8f8f; --sting: #9a8a5a;
   color-scheme: light;
 }
@@ -16,7 +16,7 @@
   :root:not([data-theme="light"]) {
     --bg: #151513; --panel: #1f1e1b; --ink: #eceae3; --muted: #9c988d; --line: #33312c; --hover: #2a2925;
     --active: #3a321c; --active-line: #e0b440; --word: #e0b440;
-    --locked: #56b07c; --flagged: #e5675a; --unreviewed: #8a867c;
+    --locked: #56b07c; --flagged: #e5675a; --unreviewed: #8a867c; --changed: #e0a83a;
     --film: #6f9ae0; --presenter: #e0826b; --model: #98bd66; --evidence: #b58ee0; --screen: #5cc0c0; --sting: #c4b280;
     color-scheme: dark;
   }
@@ -24,7 +24,7 @@
 :root[data-theme="dark"] {
   --bg: #151513; --panel: #1f1e1b; --ink: #eceae3; --muted: #9c988d; --line: #33312c; --hover: #2a2925;
   --active: #3a321c; --active-line: #e0b440; --word: #e0b440;
-  --locked: #56b07c; --flagged: #e5675a; --unreviewed: #8a867c;
+  --locked: #56b07c; --flagged: #e5675a; --unreviewed: #8a867c; --changed: #e0a83a;
   --film: #6f9ae0; --presenter: #e0826b; --model: #98bd66; --evidence: #b58ee0; --screen: #5cc0c0; --sting: #c4b280;
   color-scheme: dark;
 }
@@ -88,7 +88,22 @@ kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3p
 .top { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: 12px; color: var(--muted); }
 .top .id { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .state { font-size: 11.5px; font-weight: 600; }
-.state.locked { color: var(--locked); } .state.flagged { color: var(--flagged); } .state.unreviewed { color: var(--unreviewed); }
+.state.locked, .state.approved { color: var(--locked); } .state.flagged, .state.returned { color: var(--flagged); } .state.unreviewed { color: var(--unreviewed); }
+.state.changed, .state.revised { color: var(--changed); }
+.rnote { margin-top: 3px; font-size: 12.5px; color: var(--flagged); }
+.row.sel { outline: 2px solid var(--ink); outline-offset: -2px; }
+body.selecting .row { cursor: copy; }
+body.selecting .scene { cursor: copy; }
+.actbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: none; gap: 8px; align-items: center; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--panel); border-top: 1px solid var(--line); box-shadow: 0 -4px 16px rgba(0,0,0,.08); }
+body.selecting .actbar { display: flex; }
+.actbar .n { flex: 1; font-size: 13px; color: var(--muted); }
+.actbar button { min-height: 38px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-size: 14px; font-weight: 600; }
+.actbar .ok { background: var(--locked); color: #fff; border-color: transparent; }
+.actbar .no { background: var(--flagged); color: #fff; border-color: transparent; }
+.copybox { position: fixed; left: 12px; right: 12px; bottom: 80px; z-index: 11; display: none; background: var(--panel); border: 1px solid var(--ink); border-radius: 8px; padding: 12px; font-size: 13px; }
+.copybox.show { display: block; }
+.copybox textarea { width: 100%; min-height: 90px; font: 13px/1.4 ui-monospace, monospace; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 6px; }
+body.selecting { padding-bottom: 70px; }
 .form { margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .said { margin-top: 3px; color: var(--muted); font-size: 12.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 footer { padding: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
@@ -138,6 +153,8 @@ footer code { word-break: break-all; color: var(--ink); }
   <section class="right" id="list"></section>
 </div>
 <footer id="footer"></footer>
+<div class="actbar"><span class="n" id="seln">0 selected</span><button class="ok" id="approve">Approve</button><button class="no" id="return">Return</button><button id="done">Done</button></div>
+<div class="copybox" id="copybox"><b>Copied. Paste this to Claude to record it.</b><textarea id="copytext" readonly></textarea><button id="copyclose" class="chip">Close</button></div>
 <video id="thumbsrc" muted preload="auto" playsinline style="display:none"></video>
 <script id="board" type="application/json">__BOARD_JSON__</script>
 <script>
@@ -146,7 +163,9 @@ const B = JSON.parse(document.getElementById('board').textContent);
 const $ = (id) => document.getElementById(id);
 const video = $('video');
 const LANES = { film: 'Film', presenter: 'Presenter', model: 'Model', evidence: 'Evidence', screen: 'Screen', sting: 'Sting' };
-const STATES = { locked: 'Owner lock applies', flagged: 'Flagged', unreviewed: 'Not owner reviewed' };
+const STATES = { approved: 'Approved', returned: 'Returned', changed: 'Changed since approval', revised: 'Revised, review again', locked: 'Owner lock applies', flagged: 'Flagged', unreviewed: 'Not owner reviewed' };
+const st = (r) => r.review ? r.review.state : r.state;
+const rnote = (r) => r.review && r.review.note ? `<div class="rnote">${esc(r.review.verdict === 'return' ? 'Returned: ' : 'Note: ')}${esc(r.review.note)}</div>` : '';
 const total = B.total_frames / B.fps;
 const rows = B.rows;
 let cur = -1, loop = false, follow = true;
@@ -159,8 +178,8 @@ const laneColor = (lane) => `var(--${LANES[lane] ? lane : 'sting'})`;
 $('title').textContent = B.title;
 document.title = B.title;
 $('meta').textContent = `${B.build_version || 'build'} · ${rows.length} segments · ${fmt(total)} · ${B.owner_accepted ? 'owner accepted' : 'not owner accepted'}`;
-const count = (k) => rows.filter((r) => r.state === k).length;
-$('counts').innerHTML = Object.entries(STATES).map(([k, v]) => `<span><span class="dot" style="background:var(--${k})"></span>${count(k)} ${esc(v.toLowerCase())}</span>`).join('');
+const count = (k) => rows.filter((r) => st(r) === k).length;
+$('counts').innerHTML = Object.entries(STATES).filter(([k]) => count(k)).map(([k, v]) => `<span><span class="dot" style="background:var(--${k})"></span>${count(k)} ${esc(v.toLowerCase())}</span>`).join('');
 $('legend').innerHTML = Object.entries(LANES).filter(([k]) => rows.some((r) => r.lane === k)).map(([k, v]) => `<span><span class="dot" style="background:${laneColor(k)}"></span>${v}</span>`).join('')
   + `<span><span class="dot" style="background:var(--locked);border-radius:1px;height:4px"></span>owner lock</span><span><span class="dot" style="background:var(--flagged)"></span>flagged</span>`;
 
@@ -199,15 +218,16 @@ rows.forEach((r, i) => {
     const s = B.scenes[r.scene] || {};
     const g = document.createElement('section');
     g.className = 'group';
+    g.dataset.scene = r.scene;
     g.innerHTML = `<div class="scene"><b>${esc(r.scene)} ${esc(s.title || '')}</b>${s.job ? `<div>${esc(s.job)}</div>` : ''}</div>`;
     list.appendChild(g); sceneEls[r.scene] = g;
   }
   const el = document.createElement('div');
   el.className = 'row';
   el.innerHTML = `<div class="thumb">${r.thumb ? `<img src="${esc(r.thumb)}" loading="lazy" alt="">` : '<canvas width="256" height="144"></canvas>'}<span class="lane" style="background:${laneColor(r.lane)}"></span></div>
-    <div><div class="top"><span class="id">${fmt(r.start)}</span><span>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)}</span><span class="state ${r.state}">${esc(STATES[r.state])}</span></div>
-    <div class="form">${esc(r.form)}</div><div class="said">“${esc(r.words.map((w) => w[0]).join(' '))}”</div></div>`;
-  el.onclick = () => { seek(r.start + 0.001, true); };
+    <div><div class="top"><span class="id">${fmt(r.start)}</span><span>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)}</span><span class="state ${st(r)}">${esc(STATES[st(r)])}</span></div>
+    <div class="form">${esc(r.form)}</div>${rnote(r)}<div class="said">“${esc(r.words.map((w) => w[0]).join(' '))}”</div></div>`;
+  el.onclick = () => { if (selecting) { toggleSel([i]); } else seek(r.start + 0.001, true); };
   sceneEls[r.scene].appendChild(el); rowEls.push(el);
   if (r.thumb) return;
   const ctx = el.querySelector('canvas').getContext('2d');
@@ -218,7 +238,7 @@ rows.forEach((r, i) => {
 function applyFilters() {
   const visibleScenes = new Set();
   rows.forEach((r, i) => {
-    const ok = shown.lane[r.lane] !== false && shown.state[r.state] !== false;
+    const ok = shown.lane[r.lane] !== false && shown.state[st(r)] !== false;
     rowEls[i].classList.toggle('hidden', !ok);
     strip.children[i].classList.toggle('dim', !ok);
     if (ok) visibleScenes.add(r.scene);
@@ -234,7 +254,7 @@ function renderNow(i) {
     + `<div class="notes">${block('Scene job', s.job)}`
     + (s.before ? `<h3>Viewer before → after</h3><p>${esc(s.before)} → ${esc(s.after)}</p>` : '')
     + block('Must not imply', s.must_not_imply, 'avoid') + '</div>'
-    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)} · <span class="state ${r.state}">${esc(STATES[r.state])}</span></h3><p>${esc(r.form)}</p>`
+    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)} · <span class="state ${st(r)}">${esc(STATES[st(r)])}</span></h3><p>${esc(r.form)}</p>${rnote(r)}`
     + `<h3>Said</h3><p class="words" id="words">${r.words.map((w, k) => `<span data-k="${k}">${esc(w[0])}</span>`).join(' ')}</p>`
     + `<div class="notes">${r.note ? `<h3>Status</h3><p>${esc(r.note)}</p>` : ''}`
     + `<h3>Source</h3>${r.sources.map((x) => `<p class="src">${esc(x.path)}<br>${esc(x.sha256.slice(0, 16))}…</p>`).join('') || '<p class="src">none recorded</p>'}</div>`
@@ -286,7 +306,7 @@ function tick(scroll) {
   const k = r.words.findIndex((x) => t < x[2]);
   const at = k < 0 ? r.words.length : k;
   const from = Math.max(0, Math.min(at - 5, r.words.length - 14));
-  $('nowmeta').innerHTML = `${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · <span class="state ${r.state}">${esc(STATES[r.state])}</span>`;
+  $('nowmeta').innerHTML = `${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · <span class="state ${st(r)}">${esc(STATES[st(r)])}</span>`;
   $('nowline').innerHTML = r.words.length ? (from > 0 ? '… ' : '') + r.words.slice(from, from + 14).map((x) => `<span class="${t >= x[1] && t < x[2] ? 'on' : (t >= x[2] ? 'past' : '')}">${esc(x[0])}</span>`).join(' ') + (from + 14 < r.words.length ? ' …' : '') : '<span class="past">(no narration)</span>';
   const w = document.getElementById('words');
   if (w) w.querySelectorAll('span').forEach((s) => {
@@ -338,6 +358,51 @@ rowEls.forEach((el, i) => { if (!rows[i].thumb) io.observe(el); });
 $('footer').innerHTML = `<b>Board digest</b> <code>${esc(B.digest)}</code><br>This digest covers the build, plan, transcript, direction, video hash, owner locks and every segment's source hashes. Any change produces a new digest.`
   + (B.limits.length ? `<br><br><b>Build limits</b><br>${B.limits.map(esc).join('<br>')}` : '')
   + `<br><br><b>Owner locks shown</b><br>${B.locks.map((l) => `${esc(l.scope)} <code>${esc(l.path)}</code>`).join('<br>') || 'none'}`;
+// Select segments or whole scenes, then approve or return them. The page cannot write to the Mac,
+// so it copies a decision line to paste to Claude, who records it with oe-cinema board-review.
+let selecting = false; const sel = new Set();
+function renderSel() {
+  rowEls.forEach((el, i) => el.classList.toggle('sel', sel.has(i)));
+  $('seln').textContent = `${sel.size} selected`;
+}
+function toggleSel(ids) {
+  const all = ids.every((i) => sel.has(i));
+  ids.forEach((i) => all ? sel.delete(i) : sel.add(i)); renderSel();
+}
+Object.values(sceneEls).forEach((g) => g.querySelector('.scene').addEventListener('click', () => {
+  if (!selecting) return;
+  toggleSel(rows.map((r, i) => r.scene === g.dataset.scene && !rowEls[i].classList.contains('hidden') ? i : -1).filter((i) => i >= 0));
+}));
+const selBtn = document.createElement('button');
+selBtn.className = 'chip toggle'; selBtn.setAttribute('aria-pressed', 'false'); selBtn.textContent = 'Select to approve or return';
+selBtn.onclick = () => { selecting = !selecting; selBtn.setAttribute('aria-pressed', selecting); document.body.classList.toggle('selecting', selecting); };
+filters.prepend(selBtn);
+$('done').onclick = () => { selecting = false; sel.clear(); renderSel(); selBtn.setAttribute('aria-pressed', 'false'); document.body.classList.remove('selecting'); };
+function scopeText() {
+  const picked = [...sel].sort((a, b) => a - b).map((i) => rows[i]);
+  if (picked.length === rows.length) return 'all';
+  const parts = [];
+  for (const scene of [...new Set(picked.map((r) => r.scene))]) {
+    const inScene = rows.filter((r) => r.scene === scene);
+    const got = picked.filter((r) => r.scene === scene);
+    if (got.length === inScene.length) parts.push(scene); else parts.push(...got.map((r) => r.id));
+  }
+  return parts.join(', ');
+}
+function decide(verdict) {
+  if (!sel.size) return;
+  let note = '';
+  if (verdict === 'return') { note = prompt('What needs to change?') || ''; if (!note.trim()) return; }
+  else note = prompt('Optional note (leave blank for none)') || '';
+  const text = `Board review · ${B.title} · ${B.build_version} · digest ${B.digest.slice(0, 12)}\n${verdict.toUpperCase()}: ${scopeText()}` + (note.trim() ? `\nNote: ${note.trim()}` : '');
+  $('copytext').value = text; $('copybox').classList.add('show');
+  if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+  $('copytext').select();
+}
+$('approve').onclick = () => decide('approve');
+$('return').onclick = () => decide('return');
+$('copyclose').onclick = () => $('copybox').classList.remove('show');
+
 applyFilters();
 setCurrent(0, false);
 stickyTop();

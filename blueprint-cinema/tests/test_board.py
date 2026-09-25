@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from blueprint_cinema import board
 
 DIRECTION = """# Plan
@@ -125,3 +127,37 @@ def test_thumbnails_written_when_ffmpeg_and_video_exist(tmp_path: Path, monkeypa
     assert result["thumbs_made"] == 3
     assert result["rows"][0]["thumb"] == "board-thumbs/seg001.jpg"
     assert (tmp_path / "qa" / "board-thumbs" / "seg001.jpg").read_text() == "jpg"
+
+
+def test_review_binds_sources_and_flags_later_changes(tmp_path: Path):
+    inputs = _inputs(tmp_path, _rows())
+    board.build_board(**inputs)
+    page = inputs["out_path"]
+    board.record_review(page, "approve", "S01", "Manav", "", "S01 is good")
+    board.record_review(page, "return", "seg001", "Manav", "punch in on the key", "zoom in")
+    states = {r["id"]: r["review"]["state"] for r in board.read_page_board(page)["rows"]}
+    assert states == {"seg001": "returned", "seg002": "approved", "seg003": "approved"}
+    assert [r["id"] for r in board.check_approved(page, "all")] == ["seg001"]
+    assert board.check_approved(page, "S01") == []
+
+    changed = _inputs(tmp_path, _rows(sha3="d" * 64))
+    board.build_board(**changed)
+    rows = {r["id"]: r["review"]["state"] for r in board.read_page_board(page)["rows"]}
+    assert rows["seg003"] == "changed" and rows["seg002"] == "approved"
+    assert [r["id"] for r in board.check_approved(page, "S01")] == ["seg003"]
+
+
+def test_review_scope_and_chain_are_enforced(tmp_path: Path):
+    inputs = _inputs(tmp_path, _rows())
+    board.build_board(**inputs)
+    page = inputs["out_path"]
+    assert board.resolve_scope(board.read_page_board(page)["rows"], "lane:presenter,S00") == ["seg003", "seg001"]
+    with pytest.raises(ValueError):
+        board.record_review(page, "return", "seg002", "Manav", "", "")
+    with pytest.raises(ValueError):
+        board.record_review(page, "approve", "S09", "Manav", "", "")
+    board.record_review(page, "approve", "all", "Manav", "", "")
+    log = page.parent / "board-reviews.jsonl"
+    log.write_text(log.read_text().replace('"approve"', '"return"'))
+    with pytest.raises(ValueError):
+        board.load_reviews(log)
