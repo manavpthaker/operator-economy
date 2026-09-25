@@ -144,6 +144,31 @@ Build a directed animatic of the entire episode before expensive generation or l
 
 The final film is conformed and finished in Resolve. Resolve may refine editorial timing within approved intent, but changes to shot purpose, evidence timing, business state, object continuity, or transition meaning return to Blueprint Cinema for a direction revision. A Resolve timeline is never the only record of an approved creative change.
 
+## Review Board
+
+Review a whole cut on one page, not clip by clip. `oe-cinema board` writes an HTML page with the player and a timeline strip on one side and every segment on the other: its spoken words, planned form, scene job, what it must not imply, source take and hash, and review status. The row being played lights up and the current word is highlighted. It also writes a `.json` record with a board digest covering the build, plan, transcript, direction, video hash, owner locks and every segment's source hashes.
+
+```text
+blueprint-cinema/bin/oe-cinema board \
+  --build <assembly BUILD.json> --plan direction/SHOT-PLAN.json \
+  --transcript <word transcript timed to the build> --direction direction/DIRECTION-PLAN.md \
+  --lock <OWNER-LOCK.json> ... --out assembly/qa/<episode>-<rev>-board.html
+```
+
+Build the page on the machine that has the cut and ffmpeg: it then writes one JPEG thumbnail per segment into `<page>-thumbs/` (gitignored), which phones need. Open it there, or on a phone through the private Tailscale Serve on port 3071, which serves `assembly/qa/` from the byte-range server on 3070: `https://mini.tail1c89f5.ts.net:3071/<page>.html`. The video path is relative, so the cut must sit where the build record says. EP009 r6 is the first board: `blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r6-board.html`. The digest is what the animatic and plates locks bind.
+
+The owner approves or returns the whole cut, scenes, lanes or single segments from the board. On a phone, "Select to approve or return" copies a decision line to paste to Claude; on the Mac, record it directly:
+
+```text
+blueprint-cinema/bin/oe-cinema board-review <page>.html --verdict approve|return \
+  --scope all|S13|S22-S24|lane:presenter|seg044[,...] --by Manav --note "..." --verbatim "..."
+blueprint-cinema/bin/oe-cinema board-check <page>.html --scope <scope>
+```
+
+While watching, "+ Note" pauses and stamps the segment and time; notes stay in that browser until "Copy to send" hands them over as one paste, recorded with `oe-cinema board-notes <page>.html --by Manav --text-file <pasted.txt>`. A note never changes a segment's review state.
+
+Each review or note appends to a hash-chained `board-reviews.jsonl` beside the page, bound to every segment's current source hashes. A rebuilt board shows each segment as approved, returned, changed since approval, or revised since return. `board-check` fails unless every segment in scope is approved against its current sources: run it on the animatic board before generation or licensing, and on the plates board before the Resolve conform. Log the owner's words as feedback in the episode decision log too.
+
 ## Presenter Look Lock
 
 Each episode gives the presenter a new location and outfit. The look is chosen as still images, before any presenter video is generated, and then locked. Changing it later means regenerating every presenter shot. EP009's look change after the fact cost 1,281.5 credits.
