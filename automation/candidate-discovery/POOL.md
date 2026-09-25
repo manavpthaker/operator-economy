@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-23 ET (candidate scout, Wednesday; adds one lead, `DISC-2026-09-23-008`, and
-shortlists it as the first lead in the pool with a buyer-paid signal for the named residual. One lead
-rejected. Held leads unchanged.)
+Updated: 2026-09-25 ET (candidate scout, Sunday slot; adds one held lead, `DISC-2026-09-25-009`,
+adds procurement evidence to shortlisted lead `DISC-2026-09-23-008`, rejects one lead. Shortlist
+unchanged.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -17,7 +17,7 @@ from engineering firms under qualifications-based procurement, leaving no door f
 operator?
 
 - Status: `shortlisted`
-- First seen / last checked: 2026-09-23 / 2026-09-23 ET
+- First seen / last checked: 2026-09-23 / 2026-09-25 ET
 - Exact question or change: every US community water system must resolve service lines whose material
   is recorded as "unknown". Under the Lead and Copper Rule Improvements, published 2024-10-30, a
   baseline inventory and, where lead, galvanized-requiring-replacement or unknown lines remain, a
@@ -50,6 +50,17 @@ operator?
     lead service line".
   - AWWA v. EPA, D.C. Circuit; oral argument reported for 2026-09-30 (secondary):
     <https://www.nrdc.org/court-battles/american-water-works-association-et-v-epa-lead-and-copper-rule-improvements>
+  - Added 2026-09-25 — Arlington, Vermont Water Department RFP, posted 2023-04-17, town site: records
+    review, customer survey, building-inlet inspection, state template entry, replacement plan if
+    needed; asks how the firm is qualified, **no engineering licence required on the page**; priced per
+    project or per line; DWSRF-funded. Winner and price unknown:
+    <https://arlingtonvermont.org/rfp-for-service-line-inventory-arlington-water-department/>
+  - Added 2026-09-25 — Village of Romeo, Michigan, "Water Service Line Verification Program", about
+    200 services, 2024-11-12 (aggregator listing, document not attached):
+    <https://starbridge.ai/rfp/water-service-line-verification-program>
+  - Added 2026-09-25 — counter-example: Kingsport, Tennessee, LCRI inventory-update request for
+    qualifications, due 2026-07-30 (search snippet only):
+    <https://www.kingsporttn.gov/Uploads/LCRI%20RFQ%20Combined.pdf>
 - Signal types: regulation, operating change, buyer spend (disclosed engagements), question signal.
 - Who appears to care / decision: small municipal utilities, water districts, and privately owned
   community systems such as mobile-home parks, deciding how to clear unknowns before 2027-11-01 without
@@ -90,6 +101,9 @@ operator?
 - Strongest invalidating question: do small systems procure this only as engineering services
   (qualifications-based selection) or bundled with software, so that a non-engineer operator cannot be
   hired, and does the D.C. Circuit ruling after the 2026-09-30 argument remove the deadline?
+  (2026-09-25: partly answered — Arlington, Vermont bought the residual through an open RFP with no
+  licence requirement, while Kingsport used a qualifications route. No payment to a non-engineering
+  provider observed yet. Argument date confirmed.)
 - Evidence still needed: the primary minutes or packet for O'Fallon or Ladd; one state's procurement
   treatment of inventory field work; whether any non-engineering provider has been paid for it; the
   outcome of the D.C. Circuit argument (the LCRR initial-inventory obligation and state laws such as
@@ -452,6 +466,83 @@ None.
   permission or revocation review that a small accountable operator can deliver within a bounded
   security scope. Recheck 2026-10-18. Step 0 candidate ID: none.
 
+### `DISC-2026-09-25-009` — manual complex-document remediation for small public entities
+
+- Status: `held`
+- First seen / last checked: 2026-09-25 / 2026-09-25 ET
+- Exact question or change: under the DOJ Title II web rule, as extended by the interim final rule at
+  91 FR 20902 (2026-04-20), counties, cities, and special districts must make web content and the
+  documents they post conform to WCAG 2.1 AA by 2027-04-26 (population 50,000+) or 2028-04-26 (smaller
+  entities and special districts). Automated PDF remediation is now cheap; the documents it cannot fix
+  — tables, fillable forms, scans — are not.
+- Sources and observations (2026-09-25):
+  - DOJ interim final rule, primary (already in the pool under lead 004):
+    <https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web>
+  - Tuscaloosa, Alabama, 2026-03-11, secondary civic summary: $37,720 over 24 months to CivicPlus Doc
+    Access to convert city PDFs; automated or manual not stated:
+    <https://citizenportal.ai/articles/7788570/Alabama/Tuscaloosa-County/Tuscaloosa-City/City-approves-Doc-Access-contract-to-make-municipal-PDFs-accessible-under-ADA>
+  - Cole County, Missouri, 2026-03-24, two secondary civic summaries: conditional approval of CivicPlus
+    remediation — $3,000 integration, about $700 per seat, five seats — plus a separately priced
+    **outsourcing option for complex pages**, given as $150 per complex page in one summary and "about
+    $1.50 per sheet" in the other. Price unverified:
+    <https://citizenportal.ai/articles/9427399/Missouri/Cole-County/Commission-conditionally-approves-purchase-of-ADA-documentremediation-subscription-pending-contract-review>
+    <https://citizenportal.ai/articles/7895862/Missouri/Cole-County/Cole-County-approves-preliminary-purchase-for-documentremediation-software-amid-staffing-concerns>
+  - Fort Smith, Arkansas, 2026-04-17, about $35,000 for 600+ pages and about 6,500 documents (under
+    lead 004).
+  - Counter-signal: Jurupa Valley, California staff report, 2026-04-16, $74,380 over three years,
+    described in the search snippet as using automated tools to avoid large-scale manual remediation
+    (PDF not read):
+    <https://jurupavalley.org/DocumentCenter/View/5335/26-0416-Staff-Report-CivicPlus-for-Website?bidId=>
+  - Google autocomplete, 2026-09-25 (no volume inferred): "ada title ii pdf requirements", "pdf
+    remediation for accessibility", "ada compliance for municipal websites", "ada compliance for city
+    websites", "title ii ada website accessibility requirements".
+- Signal types: regulation (dated deadline), buyer spend, substitute pricing, question signal.
+- Who appears to care / decision: clerks and IT or communications staff at counties, small cities,
+  and special districts deciding which posted documents to fix, archive, or remove, and whether
+  platform software is enough.
+- Buyer / costly problem: a small public entity with thousands of posted PDFs, no accessibility
+  staff, a fixed federal date, and a software seat that handles simple documents but not the agendas,
+  budgets, forms, and scanned records residents actually use.
+- Potential offer / observable outcome: a fixed-scope complex-document remediation and triage
+  engagement. Outcome: a document inventory classified fix / archive / remove, each fixed document
+  passing a named manual check, and a before-and-after count the clerk can show.
+- Delivery mechanism hypothesis: crawl and inventory posted documents; run automated remediation on
+  the simple ones; manually tag tables, forms, reading order, and alt text on the rest; convert where
+  HTML is better; verify with a screen reader; hand the entity a record of what was fixed and what it
+  chose to archive. Whether a document falls under an exception is the entity's decision, not the
+  operator's.
+- Why now: the extended dates are fixed, and entities are appropriating money in 2026.
+- Strongest existing answer / gap: platform vendors (CivicPlus Doc Access) and automated remediation
+  (advertised from $0.30 per page) sell to the same buyer. Coverage is vendor-written; nothing
+  observed addresses the leftover manual work as a small-operator business.
+- Possible OE point of view: automation made the easy 80% cheap and left the hard 20% — the documents
+  residents need most — to the same understaffed clerk. The operator business, if real, is that
+  leftover labor.
+- **Delivery boundary: passes.** No licence or credential is needed to remediate a document or test it
+  with a screen reader. Residual in one sentence: an unlicensed operator manually remediates and
+  verifies the posted documents automated tools fail on, and prepares the fix / archive / remove
+  inventory for the entity to decide.
+- **Automated or productised substitute:** automated per-page remediation (from $0.30 per page,
+  vendor page) and CivicPlus Doc Access seats. The same incumbent quoting a separate outsourced price
+  for complex pages indicates the residual is not what the software outputs.
+- **Willingness-to-pay signal: none accepted yet.** Nearest: CivicPlus quoting Cole County a separate
+  outsourced complex-page tier — but the county bought seats, the tier is an offer rather than an
+  observed purchase, and the price conflicts between sources.
+- Strongest invalidating question: do small entities keep this work inside the website vendor's
+  bundle and staff seats — or archive most documents under the rule's exceptions — leaving nothing an
+  outside operator is paid for?
+- Evidence still needed: primary minutes or contract for one purchase of manual complex-document
+  remediation by a small entity (county, city under 50,000, or special district), with scope and
+  price; the rule's exception language checked against current guidance; delivery hours per complex
+  page; whether CivicPlus's outsourced tier is human.
+- Semantic deduplication: related to held lead `DISC-2026-09-20-004`, which recorded public-entity
+  spend as a possible re-aim for the bench. Filed separately because buyer (public entity vs agency or
+  ecommerce), deliverable (documents vs web journeys), and substitute differ. The bench may merge them.
+  No other match in the repository.
+- Disposition / reopening condition: held until one accepted willingness-to-pay signal exists — a
+  disclosed purchase of manual complex-document remediation by a small public entity. Recheck
+  2026-10-18 alongside lead 004. Step 0 candidate ID: none.
+
 ## Admitted to Step 0
 
 ### `DISC-2026-09-21-006` — cross-border duty and landed-cost system for small importers
@@ -648,4 +739,11 @@ None.
   already output. Reopen only with an accepted willingness-to-pay signal for a service-charge-to-tip
   pricing decision that software does not make.
 
-Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`.
+- 2026-09-25 — EU PPWR obligations for non-EU small sellers: live since 2026-08-12, but the core role
+  (an EU authorised representative for EPR in each member state) must be EU-established, the remaining
+  packaging-data work is bundled by those representative services, and exiting the EU market is a
+  self-serve alternative. Reopen only with an accepted willingness-to-pay signal for SKU packaging-data
+  work bought separately from the representative.
+
+Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
+`runs/2026-09-25.md`.
