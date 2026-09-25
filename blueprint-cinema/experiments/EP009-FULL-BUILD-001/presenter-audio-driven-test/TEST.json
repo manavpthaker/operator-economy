@@ -1,0 +1,75 @@
+{
+ "record_type": "presenter_audio_driven_ab_test",
+ "created_at": "2026-09-25",
+ "owner_request": "go ahead with the P08 test (approved about 180 credits and $3)",
+ "why": "Owner returned every r6 presenter segment: lip sync exaggerated, looks fake. presenter-kit-test/TEST.json already showed Seedance 2.5's own mouth lags 0.8 s and misses 17 of 21 words even with the K01+K08 kit, so the fix has to be a model that drives the mouth from the audio. Wan 2.7 and Grok Video 1.5 are the only Higgsfield models that take an audio reference with a start image.",
+ "controlled": "Same locked L3-chambray start image, same exact 7.208 s P08 part-a audio (media 20bfeb93), same prompt, 8 s, 1080p, 16:9. W1 and W2 are two samples of the same Wan request to see run-to-run variance.",
+ "comparison": {
+  "seedance_kit_take": "d035d497-d943-4040-afb5-49c441b7af00 (presenter-kit-test, already paid)"
+ },
+ "look_lock": "presenter/LOOK-LOCK.json",
+ "audio": {
+  "media_id": "20bfeb93-9d6f-401f-aca2-06592dda0c0a",
+  "source": "presenter-look-transfer/P08-corrected/P08r3a/audio/AUDIO.json",
+  "seconds": 7.208333
+ },
+ "quotes_credits": {
+  "W1": 20,
+  "W2": 20,
+  "G1": 64
+ },
+ "total_quote_credits": 104,
+ "arms": [
+  {
+   "arm": "W1",
+   "model": "wan2_7",
+   "quote_credits": 20,
+   "args": "W1-args.json"
+  },
+  {
+   "arm": "W2",
+   "model": "wan2_7",
+   "quote_credits": 20,
+   "args": "W2-args.json"
+  },
+  {
+   "arm": "G1",
+   "model": "grok_video_v15",
+   "quote_credits": 64,
+   "args": "G1-args.json"
+  }
+ ],
+ "result": {
+  "at": "2026-09-25T01:37:37+00:00",
+  "spend_credits": 40,
+  "balance_after": 353,
+  "arms": {
+   "W1": {
+    "job_id": "d0d32954-a9b9-4b67-815c-8acc89be2db7",
+    "sha256": "22a533079dccff46c820a603653fa0881a8e44817d10cf9c62d468c2198b1e9d",
+    "output": "1914x1082, 30 fps, 8.03 s, H.264"
+   },
+   "W2": {
+    "job_id": "7cdaac1b-dd0b-4a99-b213-d8bb9c0801dc",
+    "sha256": "da3a75a744d85a517c75913c0e3fd9673d1831d562702e4f3c0cced3e2e1e3ae",
+    "output": "1914x1082, 30 fps, 8.03 s, H.264"
+   },
+   "G1": {
+    "status": "rejected_before_job",
+    "credits": 0,
+    "reason": "Grok Video 1.5 needs image_references (not start_image) with audio, and 720p maximum with reference media. Held per PRESENTER-RECIPE until the owner decides."
+   }
+  },
+  "measured": {
+   "audio": "Both Wan outputs carry the supplied narration unchanged: envelope cross-correlation 1.000 at 0.00 s offset. The mouth was driven by the real narration in place, so no offset or sync repair step is needed. The Seedance kit take d035d497 carries its own generated voice (correlation 0.18) and a measured 0.82 s median mouth lag (presenter-kit-test/TEST.json).",
+   "identity": "1 fps face sheets of W1 and W2: identity, clear glasses, chambray shirt, room and hands hold for all 8 s; no cuts or extra people. After the last word (7.2 s) the mouth rests slightly open rather than fully closed.",
+   "frame": "Wan renders 1914x1082 at 30 fps; a conform to 1920x1080/24 is needed before editorial."
+  },
+  "not_measured": "Perceptual lip-sync naturalness is an owner judgment; no automated score was run on mouth shape.",
+  "comparison_video": {
+   "sha256": "45ec3a41effaefdb236461ee6567267a52e79ac37a854c2cfcea77383ae1d297",
+   "layout": "A Seedance kit take shifted 0.82 s; B Wan W1; C Wan W2; each full frame plus face crop; audio is the narration slice",
+   "location": "sent to owner in the session; not in git (video)"
+  }
+ }
+}
