@@ -2,7 +2,7 @@
  "record_type": "ep009_r7_react1_presenters_review_build",
  "status": "encoded_unverified_review_only",
  "version": "r7-react1-presenters",
- "at": "2026-09-25T03:14:43.223746+00:00",
+ "at": "2026-09-25T14:53:14.351536+00:00",
  "base_build": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r6-software-demo/ep009-r6-software-demo-review-r1-BUILD.json",
   "sha256": "e163c43a57cfddcbd141b584c665310ac337f7c1a7adb9fcaacf6002f383b452"
@@ -14461,24 +14461,16 @@
     {
      "kind": "video",
      "source": {
-      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055.mp4",
-      "sha256": "558b39019c8eeafb28b662d1aa10ade6d1c1c7c28dc65cdc7b0b10b90f1cdadd"
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg055/final.mp4",
+      "sha256": "8283494b4720466ce6ce1d6ce3aad1d8e349bc79373323887c176196be6d0558"
      },
      "source_start_frame": 0,
-     "original_frames": [
-      21100,
-      21261
-     ],
      "output_frames": [
       20816,
       20977
      ],
      "frames": 161,
-     "look_transfer_segment": "seg055",
-     "verification": {
-      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/final-r1/seg055-VERIFICATION.json",
-      "sha256": "dfd30e991462ef9e5557fbdad2b8e0f4b5bbaa26ff30bee59e0e953f7b134a28"
-     }
+     "react1_take": "seg055"
     }
    ]
   },
@@ -16597,13 +16589,13 @@
  "limits": [
   "Private review revision; no publication or owner acceptance inferred.",
   "Picture is the r6 review encode with presenter takes overlaid at their master frames; the locked r3 narration master is the only audio.",
-  "Held takes keep their r6 picture: seg055"
+  "Held takes keep their r6 picture: none"
  ],
  "review_label": null,
  "output": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r7-react1-presenters/ep009-r7-react1-presenters-review-r1.mp4",
  "graph": {
   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r7-react1-presenters/ep009-r7-react1-presenters-review-r1-graph.txt",
-  "sha256": "4667af0ae816456a48f6fd4a2bae2f22f0431e54380985a1666d38ae56292db1"
+  "sha256": "205506372ded228daffe152950a701311efa71c8afb2c65e3b42ef08c3b420d6"
  },
  "command": [
   "ffmpeg",
@@ -16637,6 +16629,8 @@
   "-i",
   "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg044b/final.mp4",
   "-i",
+  "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg055/final.mp4",
+  "-i",
   "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg059/final.mp4",
   "-i",
   "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg071a/final.mp4",
@@ -16651,7 +16645,7 @@
   "-i",
   "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg075/final.mp4",
   "-filter_complex",
-  "[2:v]trim=end_frame=220,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1207/(24*TB)[p2];[0:v][p2]overlay=eof_action=pass:enable='between(n,1207,1426)'[v2];[3:v]trim=end_frame=81,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1687/(24*TB)[p3];[v2][p3]overlay=eof_action=pass:enable='between(n,1687,1767)'[v3];[4:v]trim=end_frame=262,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1768/(24*TB)[p4];[v3][p4]overlay=eof_action=pass:enable='between(n,1768,2029)'[v4];[5:v]trim=end_frame=285,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+4450/(24*TB)[p5];[v4][p5]overlay=eof_action=pass:enable='between(n,4450,4734)'[v5];[6:v]trim=end_frame=109,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+4735/(24*TB)[p6];[v5][p6]overlay=eof_action=pass:enable='between(n,4735,4843)'[v6];[7:v]trim=end_frame=242,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+5351/(24*TB)[p7];[v6][p7]overlay=eof_action=pass:enable='between(n,5351,5592)'[v7];[8:v]trim=end_frame=129,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+8754/(24*TB)[p8];[v7][p8]overlay=eof_action=pass:enable='between(n,8754,8882)'[v8];[9:v]trim=end_frame=258,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+11185/(24*TB)[p9];[v8][p9]overlay=eof_action=pass:enable='between(n,11185,11442)'[v9];[10:v]trim=end_frame=284,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+12412/(24*TB)[p10];[v9][p10]overlay=eof_action=pass:enable='between(n,12412,12695)'[v10];[11:v]trim=end_frame=173,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+15920/(24*TB)[p11];[v10][p11]overlay=eof_action=pass:enable='between(n,15920,16092)'[v11];[12:v]trim=end_frame=170,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+16093/(24*TB)[p12];[v11][p12]overlay=eof_action=pass:enable='between(n,16093,16262)'[v12];[13:v]trim=end_frame=152,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+23153/(24*TB)[p13];[v12][p13]overlay=eof_action=pass:enable='between(n,23153,23304)'[v13];[14:v]trim=end_frame=230,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+27917/(24*TB)[p14];[v13][p14]overlay=eof_action=pass:enable='between(n,27917,28146)'[v14];[15:v]trim=end_frame=284,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28147/(24*TB)[p15];[v14][p15]overlay=eof_action=pass:enable='between(n,28147,28430)'[v15];[16:v]trim=end_frame=191,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28431/(24*TB)[p16];[v15][p16]overlay=eof_action=pass:enable='between(n,28431,28621)'[v16];[17:v]trim=end_frame=227,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28622/(24*TB)[p17];[v16][p17]overlay=eof_action=pass:enable='between(n,28622,28848)'[v17];[18:v]trim=end_frame=288,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28849/(24*TB)[p18];[v17][p18]overlay=eof_action=pass:enable='between(n,28849,29136)'[v18];[19:v]trim=end_frame=186,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+29137/(24*TB)[p19];[v18][p19]overlay=eof_action=pass:enable='between(n,29137,29322)'[v19];[v19]null[vout]",
+  "[2:v]trim=end_frame=220,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1207/(24*TB)[p2];[0:v][p2]overlay=eof_action=pass:enable='between(n,1207,1426)'[v2];[3:v]trim=end_frame=81,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1687/(24*TB)[p3];[v2][p3]overlay=eof_action=pass:enable='between(n,1687,1767)'[v3];[4:v]trim=end_frame=262,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+1768/(24*TB)[p4];[v3][p4]overlay=eof_action=pass:enable='between(n,1768,2029)'[v4];[5:v]trim=end_frame=285,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+4450/(24*TB)[p5];[v4][p5]overlay=eof_action=pass:enable='between(n,4450,4734)'[v5];[6:v]trim=end_frame=109,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+4735/(24*TB)[p6];[v5][p6]overlay=eof_action=pass:enable='between(n,4735,4843)'[v6];[7:v]trim=end_frame=242,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+5351/(24*TB)[p7];[v6][p7]overlay=eof_action=pass:enable='between(n,5351,5592)'[v7];[8:v]trim=end_frame=129,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+8754/(24*TB)[p8];[v7][p8]overlay=eof_action=pass:enable='between(n,8754,8882)'[v8];[9:v]trim=end_frame=258,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+11185/(24*TB)[p9];[v8][p9]overlay=eof_action=pass:enable='between(n,11185,11442)'[v9];[10:v]trim=end_frame=284,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+12412/(24*TB)[p10];[v9][p10]overlay=eof_action=pass:enable='between(n,12412,12695)'[v10];[11:v]trim=end_frame=173,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+15920/(24*TB)[p11];[v10][p11]overlay=eof_action=pass:enable='between(n,15920,16092)'[v11];[12:v]trim=end_frame=170,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+16093/(24*TB)[p12];[v11][p12]overlay=eof_action=pass:enable='between(n,16093,16262)'[v12];[13:v]trim=end_frame=161,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+20816/(24*TB)[p13];[v12][p13]overlay=eof_action=pass:enable='between(n,20816,20976)'[v13];[14:v]trim=end_frame=152,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+23153/(24*TB)[p14];[v13][p14]overlay=eof_action=pass:enable='between(n,23153,23304)'[v14];[15:v]trim=end_frame=230,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+27917/(24*TB)[p15];[v14][p15]overlay=eof_action=pass:enable='between(n,27917,28146)'[v15];[16:v]trim=end_frame=284,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28147/(24*TB)[p16];[v15][p16]overlay=eof_action=pass:enable='between(n,28147,28430)'[v16];[17:v]trim=end_frame=191,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28431/(24*TB)[p17];[v16][p17]overlay=eof_action=pass:enable='between(n,28431,28621)'[v17];[18:v]trim=end_frame=227,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28622/(24*TB)[p18];[v17][p18]overlay=eof_action=pass:enable='between(n,28622,28848)'[v18];[19:v]trim=end_frame=288,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+28849/(24*TB)[p19];[v18][p19]overlay=eof_action=pass:enable='between(n,28849,29136)'[v19];[20:v]trim=end_frame=186,scale=1280:720:flags=lanczos,setsar=1,setpts=PTS-STARTPTS+29137/(24*TB)[p20];[v19][p20]overlay=eof_action=pass:enable='between(n,29137,29322)'[v20];[v20]null[vout]",
   "-map",
   "[vout]",
   "-map",
@@ -16676,7 +16670,7 @@
   "+faststart",
   "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r7-react1-presenters/ep009-r7-react1-presenters-review-r1.mp4"
  ],
- "output_sha256": "e6a738471accda71634a3d25488e3a9d096a84b2988903cb3966be41f53964ec",
+ "output_sha256": "afc981b5563c1f3492d8d07a3ed17d86f49c152ae54cb775dfbd2ed3da179616",
  "presenter_route": "presenter-regen/react1-r7: Seedance 2.5 kit take + fal react-1 lips/neutral/0.5, no restyle (PRESENTER-RECIPE.md section 6)",
  "placed": [
   {
@@ -16790,6 +16784,16 @@
    "sha256": "3fd6671c433666bdb5401524f76f3d2c89085e22334ea062429340de21dc55f3"
   },
   {
+   "take": "seg055",
+   "segment": "seg055",
+   "output_frames": [
+    20816,
+    20977
+   ],
+   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/seg055/final.mp4",
+   "sha256": "8283494b4720466ce6ce1d6ce3aad1d8e349bc79373323887c176196be6d0558"
+  },
+  {
    "take": "seg059",
    "segment": "seg059",
    "output_frames": [
@@ -16860,7 +16864,5 @@
    "sha256": "3768f0f11b08157cbb1e4d62da4dae268e29ea6a794696f5a524d51e62e9c125"
   }
  ],
- "held": [
-  "seg055"
- ]
+ "held": []
 }
