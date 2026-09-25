@@ -1,0 +1,42 @@
+{
+ "record_type": "presenter_audio_driven_ab_test",
+ "created_at": "2026-09-25",
+ "owner_request": "go ahead with the P08 test (approved about 180 credits and $3)",
+ "why": "Owner returned every r6 presenter segment: lip sync exaggerated, looks fake. presenter-kit-test/TEST.json already showed Seedance 2.5's own mouth lags 0.8 s and misses 17 of 21 words even with the K01+K08 kit, so the fix has to be a model that drives the mouth from the audio. Wan 2.7 and Grok Video 1.5 are the only Higgsfield models that take an audio reference with a start image.",
+ "controlled": "Same locked L3-chambray start image, same exact 7.208 s P08 part-a audio (media 20bfeb93), same prompt, 8 s, 1080p, 16:9. W1 and W2 are two samples of the same Wan request to see run-to-run variance.",
+ "comparison": {
+  "seedance_kit_take": "d035d497-d943-4040-afb5-49c441b7af00 (presenter-kit-test, already paid)"
+ },
+ "look_lock": "presenter/LOOK-LOCK.json",
+ "audio": {
+  "media_id": "20bfeb93-9d6f-401f-aca2-06592dda0c0a",
+  "source": "presenter-look-transfer/P08-corrected/P08r3a/audio/AUDIO.json",
+  "seconds": 7.208333
+ },
+ "quotes_credits": {
+  "W1": 20,
+  "W2": 20,
+  "G1": 64
+ },
+ "total_quote_credits": 104,
+ "arms": [
+  {
+   "arm": "W1",
+   "model": "wan2_7",
+   "quote_credits": 20,
+   "args": "W1-args.json"
+  },
+  {
+   "arm": "W2",
+   "model": "wan2_7",
+   "quote_credits": 20,
+   "args": "W2-args.json"
+  },
+  {
+   "arm": "G1",
+   "model": "grok_video_v15",
+   "quote_credits": 64,
+   "args": "G1-args.json"
+  }
+ ]
+}
