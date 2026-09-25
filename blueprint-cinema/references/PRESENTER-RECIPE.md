@@ -64,7 +64,8 @@ Download it, probe it, do a full decode, and review a 1 fps contact sheet: ident
 The model's own audio is never delivered. The locked narration is the only program audio; picture is placed over it.
 
 - **Offset only** when the native mouth timing already reads right. Measure where speech starts in the native clip and start the picture at that offset.
-- **Otherwise run fal Sync:** `fal-ai/sync-lipsync/v3`, `sync_mode: silence`, with the generated video plus the exact audio slice. It goes through `oe-cinema generate --lane presenter`. First write a one-line `SYNC-NEED` naming the observed timing error.
+- **Otherwise run fal Sync:** `fal-ai/sync-lipsync/react-1` with `model_mode: lips`, `emotion: neutral`, `temperature: 0.5`, `lipsync_mode: cut_off`, the generated video and the exact audio slice (both 15 s or under). It goes through `oe-cinema generate --lane presenter`. First write a one-line `SYNC-NEED` naming the observed timing error. The owner picked this on 2026-09-24 over `sync-lipsync/v3` (slightly over-expressive, less accurate) and react-1 at 0.3 on the same EP009 P08 kit take (`experiments/EP009-FULL-BUILD-001/presenter-audio-driven-test/P08a-react1-VERDICT.json`). v3 ignores `temperature`.
+- **No restyle pass after sync.** A Kling (or any) look-transfer edit on a synced take is what made the EP009 r6 mouths read exaggerated. The look comes from the locked still at generation time, never from a later edit.
 - **Make it browser-safe:** H.264 High, yuv420p, 24 fps, audio stripped, not retimed or recropped. Full-decode and hash the result.
 
 ## 7. Disclosure
