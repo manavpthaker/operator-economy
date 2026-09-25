@@ -283,7 +283,7 @@ def build_board(
 
 # Owner review: approve or return the whole cut, scenes, lanes or segments against exact sources.
 
-VERDICTS = {"approve", "return"}
+VERDICTS = {"approve", "return", "note"}
 
 
 def default_reviews(out_path: Path) -> Path:
@@ -329,10 +329,17 @@ def resolve_scope(rows: list[dict], scope: str) -> list[str]:
 
 def apply_reviews(board: dict, reviews: list[dict]) -> None:
     latest: dict[str, tuple[dict, list]] = {}
+    notes: dict[str, list] = {}
     for entry in reviews:
         for row in entry["rows"]:
-            latest[row["id"]] = (entry, row["sources"])
+            if entry["verdict"] == "note":
+                notes.setdefault(row["id"], []).append(
+                    {"text": entry["note"], "by": entry["by"], "at": entry["at"], "t": entry.get("time"),
+                     "board": entry["board"]["build_version"]})
+            else:
+                latest[row["id"]] = (entry, row["sources"])
     for row in board["rows"]:
+        row["notes"] = notes.get(row["id"], [])
         found = latest.get(row["id"])
         if not found:
             row["review"] = None
@@ -353,12 +360,15 @@ def read_page_board(page: Path) -> dict:
 
 
 def record_review(page: Path, verdict: str, scope: str, by: str, note: str, verbatim: str,
-                  reviews_path: Path | None = None) -> dict:
-    """Append one owner review bound to the exact sources on the board, then refresh the page."""
+                  reviews_path: Path | None = None, time: float | None = None, refresh: bool = True) -> dict:
+    """Append one owner review or note bound to the exact sources on the board, then refresh the page.
+
+    A note records what the owner saw at a moment; it never changes a segment's review state.
+    """
     if verdict not in VERDICTS:
         raise ValueError(f"verdict must be one of {sorted(VERDICTS)}")
-    if verdict == "return" and not note.strip():
-        raise ValueError("a return needs a note saying what to change")
+    if verdict in {"return", "note"} and not note.strip():
+        raise ValueError(f"a {verdict} needs note text")
     board = read_page_board(page)
     path = reviews_path or default_reviews(page)
     reviews = load_reviews(path)
@@ -376,13 +386,36 @@ def record_review(page: Path, verdict: str, scope: str, by: str, note: str, verb
         "rows": [{"id": i, "sources": by_id[i]["sources"]} for i in ids],
         "previous_hash": reviews[-1]["entry_hash"] if reviews else None,
     }
+    if time is not None:
+        entry["time"] = round(float(time), 2)
     entry["entry_hash"] = sha256_json(entry)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n")
-    apply_reviews(board, reviews + [entry])
-    write_board(board, page)
+    if refresh:
+        apply_reviews(board, reviews + [entry])
+        write_board(board, page)
     return entry
+
+
+NOTE_LINE = re.compile(r"^\s*\[?(seg\d{3})\s+@?(\d+):(\d{2}(?:\.\d+)?)\]?\s*[-—:]?\s*(.+?)\s*$")
+
+
+def import_notes(page: Path, text: str, by: str, reviews_path: Path | None = None) -> list[dict]:
+    """Record every `[seg044 11:03.4] what I saw` line pasted from the board's Send notes button."""
+    found = [NOTE_LINE.match(line) for line in text.splitlines()]
+    found = [m for m in found if m]
+    if not found:
+        raise ValueError("no note lines found; expected lines like [seg044 11:03.4] text")
+    entries = [
+        record_review(page, "note", m.group(1), by, m.group(4), m.group(4), reviews_path,
+                      time=int(m.group(2)) * 60 + float(m.group(3)), refresh=False)
+        for m in found
+    ]
+    board = read_page_board(page)
+    apply_reviews(board, load_reviews(reviews_path or default_reviews(page)))
+    write_board(board, page)
+    return entries
 
 
 def check_approved(page: Path, scope: str = "all", reviews_path: Path | None = None) -> list[dict]:

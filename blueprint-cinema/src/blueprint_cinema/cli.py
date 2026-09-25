@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from . import WORKFLOW_VERSION
-from .board import build_board, check_approved, record_review
+from .board import build_board, check_approved, import_notes, record_review
 from .generate import check_look_lock, generate, lock_look
 from .hashes import sha256_file, write_json_atomic
 from .input_lock import build_input_lock, stage_locked_audio
@@ -504,6 +504,15 @@ def cmd_board_review(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_board_notes(args: argparse.Namespace) -> int:
+    text = Path(args.text_file).read_text(encoding="utf-8") if args.text_file != "-" else sys.stdin.read()
+    entries = import_notes(Path(args.page).resolve(), text, args.by, Path(args.reviews).resolve() if args.reviews else None)
+    for entry in entries:
+        print(f"{entry['rows'][0]['id']} @{entry.get('time')}: {entry['note']}")
+    print(f"Recorded {len(entries)} note(s)")
+    return 0
+
+
 def cmd_board_check(args: argparse.Namespace) -> int:
     open_rows = check_approved(Path(args.page).resolve(), args.scope, Path(args.reviews).resolve() if args.reviews else None)
     if open_rows:
@@ -600,13 +609,19 @@ def parser() -> argparse.ArgumentParser:
     board.set_defaults(func=cmd_board)
     review = sub.add_parser("board-review", help="Owner approves or returns segments on a board, bound to their exact sources.")
     review.add_argument("page", help="The board HTML page.")
-    review.add_argument("--verdict", required=True, choices=["approve", "return"])
+    review.add_argument("--verdict", required=True, choices=["approve", "return", "note"])
     review.add_argument("--scope", required=True, help="all, S13, S22-S24, lane:presenter, seg044, or a comma list.")
     review.add_argument("--by", required=True)
     review.add_argument("--note", help="What to change. Required for a return.")
     review.add_argument("--verbatim", help="The owner's own words.")
     review.add_argument("--reviews", help="Review log. Default: board-reviews.jsonl beside the page.")
     review.set_defaults(func=cmd_board_review)
+    notes = sub.add_parser("board-notes", help="Record notes pasted from the board's Send notes button.")
+    notes.add_argument("page")
+    notes.add_argument("--by", required=True)
+    notes.add_argument("--text-file", required=True, help="File with the pasted notes, or - for stdin.")
+    notes.add_argument("--reviews")
+    notes.set_defaults(func=cmd_board_notes)
     check = sub.add_parser("board-check", help="Fail unless every segment in scope is approved against its current sources.")
     check.add_argument("page")
     check.add_argument("--scope", default="all")

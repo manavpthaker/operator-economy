@@ -165,7 +165,9 @@ blueprint-cinema/bin/oe-cinema board-review <page>.html --verdict approve|return
 blueprint-cinema/bin/oe-cinema board-check <page>.html --scope <scope>
 ```
 
-Each review appends to a hash-chained `board-reviews.jsonl` beside the page, bound to every segment's current source hashes. A rebuilt board shows each segment as approved, returned, changed since approval, or revised since return. `board-check` fails unless every segment in scope is approved against its current sources: run it on the animatic board before generation or licensing, and on the plates board before the Resolve conform. Log the owner's words as feedback in the episode decision log too.
+While watching, "+ Note" pauses and stamps the segment and time; notes stay in that browser until "Copy to send" hands them over as one paste, recorded with `oe-cinema board-notes <page>.html --by Manav --text-file <pasted.txt>`. A note never changes a segment's review state.
+
+Each review or note appends to a hash-chained `board-reviews.jsonl` beside the page, bound to every segment's current source hashes. A rebuilt board shows each segment as approved, returned, changed since approval, or revised since return. `board-check` fails unless every segment in scope is approved against its current sources: run it on the animatic board before generation or licensing, and on the plates board before the Resolve conform. Log the owner's words as feedback in the episode decision log too.
 
 ## Presenter Look Lock
 

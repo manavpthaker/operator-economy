@@ -161,3 +161,19 @@ def test_review_scope_and_chain_are_enforced(tmp_path: Path):
     log.write_text(log.read_text().replace('"approve"', '"return"'))
     with pytest.raises(ValueError):
         board.load_reviews(log)
+
+
+def test_pasted_notes_attach_to_segments_without_changing_review_state(tmp_path: Path):
+    inputs = _inputs(tmp_path, _rows())
+    board.build_board(**inputs)
+    page = inputs["out_path"]
+    board.record_review(page, "approve", "seg002", "Manav", "", "")
+    pasted = "Board notes · Test board · r1 · digest abc\n[seg002 0:02.5] logo too small\n[seg003 0:04.1] mouth too big\nnot a note line"
+    entries = board.import_notes(page, pasted, "Manav")
+    assert [e["rows"][0]["id"] for e in entries] == ["seg002", "seg003"]
+    rows = {r["id"]: r for r in board.read_page_board(page)["rows"]}
+    assert rows["seg002"]["review"]["state"] == "approved"
+    assert rows["seg002"]["notes"][0]["text"] == "logo too small" and rows["seg002"]["notes"][0]["t"] == 2.5
+    assert rows["seg003"]["review"] is None and rows["seg003"]["notes"][0]["text"] == "mouth too big"
+    with pytest.raises(ValueError):
+        board.import_notes(page, "nothing here", "Manav")

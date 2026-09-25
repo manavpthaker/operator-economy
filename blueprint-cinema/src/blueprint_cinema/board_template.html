@@ -91,6 +91,17 @@ kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3p
 .state.locked, .state.approved { color: var(--locked); } .state.flagged, .state.returned { color: var(--flagged); } .state.unreviewed { color: var(--unreviewed); }
 .state.changed, .state.revised { color: var(--changed); }
 .rnote { margin-top: 3px; font-size: 12.5px; color: var(--flagged); }
+.onote { margin-top: 3px; font-size: 12.5px; color: var(--muted); }
+.onote.unsent { color: var(--changed); }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 12; display: none; background: var(--panel); border-top: 1px solid var(--ink); padding: 12px 12px calc(12px + env(safe-area-inset-bottom)); box-shadow: 0 -6px 20px rgba(0,0,0,.15); }
+.sheet.show { display: block; }
+.sheet .where { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+.sheet textarea { width: 100%; min-height: 84px; font: 16px/1.4 inherit; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+.sheet .btns { display: flex; gap: 8px; margin-top: 8px; }
+.sheet .btns button { flex: 1; min-height: 40px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-size: 14px; font-weight: 600; }
+.sheet .btns .ok { background: var(--ink); color: var(--bg); border-color: transparent; }
+.sheet ol { margin: 0 0 4px; padding-left: 20px; max-height: 40vh; overflow: auto; font-size: 13.5px; }
+.sheet li { margin: 4px 0; }
 .row.sel { outline: 2px solid var(--ink); outline-offset: -2px; }
 body.selecting .row { cursor: copy; }
 body.selecting .scene { cursor: copy; }
@@ -142,7 +153,7 @@ footer code { word-break: break-all; color: var(--ink); }
       <video id="video" controls preload="metadata" playsinline></video>
       <div class="novideo" id="novideo"></div>
       <div class="strip" id="strip" title="Click to jump"></div>
-      <div class="nav"><button id="prev">‹ Prev</button><button id="play">Play</button><button id="next">Next ›</button><button id="loop" aria-pressed="false">Loop</button></div>
+      <div class="nav"><button id="prev">‹ Prev</button><button id="play">Play</button><button id="next">Next ›</button><button id="loop" aria-pressed="false">Loop</button><button id="note">+ Note</button></div>
       <div class="nowbar"><div class="meta" id="nowmeta"></div><div class="line" id="nowline"></div></div>
     </div>
     <div class="legend" id="legend"></div>
@@ -154,6 +165,8 @@ footer code { word-break: break-all; color: var(--ink); }
 </div>
 <footer id="footer"></footer>
 <div class="actbar"><span class="n" id="seln">0 selected</span><button class="ok" id="approve">Approve</button><button class="no" id="return">Return</button><button id="done">Done</button></div>
+<div class="sheet" id="notesheet"><div class="where" id="notewhere"></div><textarea id="notetext" placeholder="What do you see? It saves on this phone until you send it."></textarea><div class="btns"><button id="notecancel">Cancel</button><button class="ok" id="notesave">Save note</button></div></div>
+<div class="sheet" id="sendsheet"><b id="sendtitle"></b><ol id="sendlist"></ol><div class="btns"><button id="sendclose">Close</button><button id="sendclear">Clear sent</button><button class="ok" id="sendcopy">Copy to send</button></div></div>
 <div class="copybox" id="copybox"><b>Copied. Paste this to Claude to record it.</b><textarea id="copytext" readonly></textarea><button id="copyclose" class="chip">Close</button></div>
 <video id="thumbsrc" muted preload="auto" playsinline style="display:none"></video>
 <script id="board" type="application/json">__BOARD_JSON__</script>
@@ -165,6 +178,7 @@ const video = $('video');
 const LANES = { film: 'Film', presenter: 'Presenter', model: 'Model', evidence: 'Evidence', screen: 'Screen', sting: 'Sting' };
 const STATES = { approved: 'Approved', returned: 'Returned', changed: 'Changed since approval', revised: 'Revised, review again', locked: 'Owner lock applies', flagged: 'Flagged', unreviewed: 'Not owner reviewed' };
 const st = (r) => r.review ? r.review.state : r.state;
+const onotes = (r) => (r.notes || []).map((n) => `<div class="onote">Note${n.t != null ? ' ' + fmt(n.t) : ''}: ${esc(n.text)}</div>`).join('');
 const rnote = (r) => r.review && r.review.note ? `<div class="rnote">${esc(r.review.verdict === 'return' ? 'Returned: ' : 'Note: ')}${esc(r.review.note)}</div>` : '';
 const total = B.total_frames / B.fps;
 const rows = B.rows;
@@ -226,7 +240,7 @@ rows.forEach((r, i) => {
   el.className = 'row';
   el.innerHTML = `<div class="thumb">${r.thumb ? `<img src="${esc(r.thumb)}" loading="lazy" alt="">` : '<canvas width="256" height="144"></canvas>'}<span class="lane" style="background:${laneColor(r.lane)}"></span></div>
     <div><div class="top"><span class="id">${fmt(r.start)}</span><span>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)}</span><span class="state ${st(r)}">${esc(STATES[st(r)])}</span></div>
-    <div class="form">${esc(r.form)}</div>${rnote(r)}<div class="said">“${esc(r.words.map((w) => w[0]).join(' '))}”</div></div>`;
+    <div class="form">${esc(r.form)}</div>${rnote(r)}${onotes(r)}<div class="pending"></div><div class="said">“${esc(r.words.map((w) => w[0]).join(' '))}”</div></div>`;
   el.onclick = () => { if (selecting) { toggleSel([i]); } else seek(r.start + 0.001, true); };
   sceneEls[r.scene].appendChild(el); rowEls.push(el);
   if (r.thumb) return;
@@ -254,7 +268,7 @@ function renderNow(i) {
     + `<div class="notes">${block('Scene job', s.job)}`
     + (s.before ? `<h3>Viewer before → after</h3><p>${esc(s.before)} → ${esc(s.after)}</p>` : '')
     + block('Must not imply', s.must_not_imply, 'avoid') + '</div>'
-    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)} · <span class="state ${st(r)}">${esc(STATES[st(r)])}</span></h3><p>${esc(r.form)}</p>${rnote(r)}`
+    + `<h3>${esc(r.id)}${r.take ? ' · ' + esc(r.take) : ''} · ${esc(LANES[r.lane] || r.lane)} · ${fmt(r.start)}–${fmt(r.end)} · <span class="state ${st(r)}">${esc(STATES[st(r)])}</span></h3><p>${esc(r.form)}</p>${rnote(r)}${onotes(r)}`
     + `<h3>Said</h3><p class="words" id="words">${r.words.map((w, k) => `<span data-k="${k}">${esc(w[0])}</span>`).join(' ')}</p>`
     + `<div class="notes">${r.note ? `<h3>Status</h3><p>${esc(r.note)}</p>` : ''}`
     + `<h3>Source</h3>${r.sources.map((x) => `<p class="src">${esc(x.path)}<br>${esc(x.sha256.slice(0, 16))}…</p>`).join('') || '<p class="src">none recorded</p>'}</div>`
@@ -402,6 +416,57 @@ function decide(verdict) {
 $('approve').onclick = () => decide('approve');
 $('return').onclick = () => decide('return');
 $('copyclose').onclick = () => $('copybox').classList.remove('show');
+
+// Notes while watching. Saved in this browser at once, sent to Claude as one paste, recorded with
+// `oe-cinema board-notes`, after which they show on the rebuilt board under their segment.
+const NOTE_KEY = 'oe-board-notes:' + B.title;
+function loadNotes() { try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '[]'); } catch (_) { return []; } }
+function saveNotes(list) { try { localStorage.setItem(NOTE_KEY, JSON.stringify(list)); } catch (_) {} }
+let pendingNotes = loadNotes(); let noteAt = null; let resume = false;
+function renderPending() {
+  rowEls.forEach((el, i) => {
+    const mine = pendingNotes.filter((n) => n.id === rows[i].id);
+    el.querySelector('.pending').innerHTML = mine.map((n) => `<div class="onote unsent">${n.sent ? 'Sent' : 'Unsent'} note ${fmt(n.t)}: ${esc(n.text)}</div>`).join('');
+  });
+  const unsent = pendingNotes.filter((n) => !n.sent).length;
+  notesBtn.textContent = `Notes (${unsent} to send)`;
+  notesBtn.style.display = pendingNotes.length ? '' : 'none';
+}
+$('note').onclick = () => {
+  resume = !video.paused; video.pause();
+  const t = now(); const r = rows[indexAt(t)];
+  noteAt = { id: r.id, t };
+  $('notewhere').textContent = `${r.id}${r.take ? ' · ' + r.take : ''} · ${r.scene} · at ${fmt(t)}`;
+  $('notetext').value = ''; $('notesheet').classList.add('show'); $('notetext').focus();
+};
+$('notecancel').onclick = () => { $('notesheet').classList.remove('show'); if (resume) video.play().catch(() => {}); };
+$('notesave').onclick = () => {
+  const text = $('notetext').value.trim();
+  if (text) { pendingNotes.push({ ...noteAt, text: text.replace(/\s+/g, ' '), made: new Date().toISOString() }); saveNotes(pendingNotes); renderPending(); }
+  $('notesheet').classList.remove('show'); if (resume) video.play().catch(() => {});
+};
+const notesBtn = document.createElement('button');
+notesBtn.className = 'chip toggle'; notesBtn.setAttribute('aria-pressed', 'true');
+notesBtn.onclick = () => {
+  const unsent = pendingNotes.filter((n) => !n.sent);
+  $('sendtitle').textContent = `${unsent.length} note(s) to send, ${pendingNotes.length - unsent.length} already sent`;
+  $('sendlist').innerHTML = pendingNotes.map((n) => `<li>${n.sent ? '<s>' : ''}[${esc(n.id)} ${fmt(n.t)}] ${esc(n.text)}${n.sent ? '</s>' : ''}</li>`).join('');
+  $('sendsheet').classList.add('show');
+};
+filters.prepend(notesBtn);
+$('sendclose').onclick = () => $('sendsheet').classList.remove('show');
+$('sendcopy').onclick = () => {
+  const unsent = pendingNotes.filter((n) => !n.sent);
+  if (!unsent.length) return;
+  const text = `Board notes · ${B.title} · ${B.build_version} · digest ${B.digest.slice(0, 12)}\n` + unsent.map((n) => `[${n.id} ${fmt(n.t)}] ${n.text}`).join('\n');
+  unsent.forEach((n) => { n.sent = true; }); saveNotes(pendingNotes); renderPending();
+  $('sendsheet').classList.remove('show');
+  $('copytext').value = text; $('copybox').classList.add('show');
+  if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+  $('copytext').select();
+};
+$('sendclear').onclick = () => { pendingNotes = pendingNotes.filter((n) => !n.sent); saveNotes(pendingNotes); renderPending(); $('sendsheet').classList.remove('show'); };
+renderPending();
 
 applyFilters();
 setCurrent(0, false);
