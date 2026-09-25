@@ -41,6 +41,10 @@ The prompt describes the look and frame from the locked still: identity, glasses
 
 Then say that the IMAGE controls identity and setting, and the AUDIO controls words, voice, cadence and pauses. Quote the exact words, lip sync as the priority, one or two earned gestures at most, then a hold after the last word with no extra speech. Head motion can't be prompted away (measured 2026-09-23); fix it in selection and framing. EP009 P08 (`experiments/EP009-FULL-BUILD-001/presenter-kit-test/TEST.json`) is a worked example.
 
+**Face still, body alive.** The face and head wording stays exactly as in the approved kit prompt ("Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face" and "Keep the head steady and facing the lens..."). Add body movement below the neck only: "Below the neck the body is alive and conversational: breathing visible in the chest and shoulders, small shoulder shifts with emphasis, and the hands lift slightly off the table for one or two small natural gestures on stressed words, then settle again." Never write "hands rest on the table throughout" or "hold still" for the whole take: the body freezes. Loosening the face wording too, or dropping K08, costs the face (owner, 2026-09-25). The approved prompt is arm L3 in `experiments/EP009-FULL-BUILD-001/presenter-regen/react1-r7/body-test/TEST.json` (L3b passed).
+
+If Higgsfield's content filter rejects a take, replace the quoted words with "Speak only the exact N-second AUDIO reference, word for word." The audio still carries the words.
+
 ## 4. Gate, quote, submit, ledger
 
 Every paid call is gated, capped and ledgered before money moves.
