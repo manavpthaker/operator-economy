@@ -443,9 +443,31 @@ None.
   spend as a possible re-aim for the bench. Filed separately because buyer (public entity vs agency or
   ecommerce), deliverable (documents vs web journeys), and substitute differ. The bench may merge them.
   No other match in the repository.
-- Disposition / reopening condition: held until one accepted willingness-to-pay signal exists — a
-  disclosed purchase of manual complex-document remediation by a small public entity. Recheck
-  2026-10-18 alongside lead 004. Step 0 candidate ID: none.
+- **Deep dive, 2026-09-25 (run 3, owner request) — lead weakened.** Full ledger in
+  `runs/2026-09-25.md`, run 3. In short:
+  - The main substitute, CivicPlus DocAccess, says complex pages get human review by accessibility
+    specialists "at no extra cost", including scans, handwritten records and multi-column documents.
+    The residual as first stated is largely what the substitute already delivers.
+  - Observed towns buy the AI tool and do the rest in-house: Bellingham, WA (manual remediation of a
+    sample cost over $1,100 in staff time vs $134 in DocAccess), Palm Desert, CA (6,500+ PDFs, all but
+    about 300 fixed in-house), Teller County, CO (staff with CommonLook tools). Steuben County, NY
+    ($29,932) and Tuscaloosa, AL ($37,720) bought DocAccess. The AI saving goes to the software vendor,
+    not an outside operator.
+  - Outside-service requests seen are from large buyers: League City, TX RFP #26-008 (population over
+    100,000), Utah County (amounts not disclosed), Washington State DES. None is a small entity.
+  - Two cracks remain. (1) DocAccess produces an HTML transcript, which the DOJ rule treats as a
+    "conforming alternate version", allowed "only when there is a technical or legal limitation"
+    (ADA.gov fact sheet). Whether transcripts satisfy the rule is disputed and is a legal question, not
+    the scout's to decide. (2) Fillable PDF forms: a read-only transcript is not a working form
+    (Bellingham alone lists 140+ online PDF forms). Converting forms into accessible web forms is a
+    narrower residual that the transcript approach does not appear to cover.
+- **Willingness-to-pay test (run 3): still not met.** No small entity was seen paying an independent
+  provider for manual remediation.
+- Disposition / reopening condition: held. Reopen on either (a) a disclosed purchase by a small public
+  entity of manual remediation or PDF-form-to-web-form conversion from a non-platform provider, or
+  (b) DOJ guidance or an enforcement action saying HTML transcripts do not satisfy the rule. Next run:
+  test the form-conversion re-aim before anything else. Recheck 2026-10-18 alongside lead 004. Step 0
+  candidate ID: none.
 
 ## Admitted to Step 0
 
