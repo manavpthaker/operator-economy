@@ -143,8 +143,14 @@ To become `shortlisted`, a lead must have:
 5. a path to honest, showable evidence that does not depend on a guest;
 6. enough accessible evidence for the Monday bench to decide whether formal Step 0 research is
    warranted;
-7. a **stated delivery boundary** that survives the licensing test below; and
-8. at least one **willingness-to-pay signal** of an accepted type below.
+7. a **stated delivery boundary** that survives the licensing test below;
+8. at least one **willingness-to-pay signal** of an accepted type below; and
+9. an **AI-change test**: AI must be what makes the business newly possible or newly economic for a
+   small operator — it does the bulk of the work, collapses the cost or time, or opens a job that
+   used to need a firm. Name what AI does in one sentence and what the business looked like before
+   it. If the business would work the same way without AI, or AI is only a minor helper (sorting
+   photos, drafting emails), reject for thesis fit. Added 2026-09-25 by owner decision, after the
+   service-line verification lead was shortlisted with AI as a side note.
 
 ### The delivery-boundary test
 
