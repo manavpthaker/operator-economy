@@ -1,8 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET (merge of the owner-requested 2026-09-27 crash-report research,
-`DISC-2026-09-27-009`, held, with the local 2026-09-25 scout runs). 2026-09-25 run 2: owner decision
-added the AI-change test and rejected `DISC-2026-09-23-008`. 2026-09-25 run 1 held `DISC-2026-09-25-009`.
+Updated: 2026-09-27 ET, scout run 2 (Sunday slot): adds held lead `DISC-2026-09-27-011`
+(public-records request processing for small agencies); form-conversion re-aim of
+`DISC-2026-09-25-009` tested, no buyer found, still held; AI minutes for small boards rejected.
+Shortlist still empty. Run 1 the same day merged the owner-requested crash-report research
+(`DISC-2026-09-27-009`, held). 2026-09-25 run 2: owner decision added the AI-change test.
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -17,6 +19,68 @@ test; see the rejected index.)
 None.
 
 ## Held
+
+### `DISC-2026-09-27-011` — public-records request processing for small agencies
+
+- Status: `held`
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: records-request volume is rising sharply at small agencies, partly
+  because AI services file requests at scale, while each agency still has one records officer and
+  statutory deadlines. Who does the overflow work, and does anyone pay a non-lawyer to do it?
+- Sources and observations (2026-09-27; full ledger in `runs/2026-09-27.md`, run 2):
+  - Longview School District, WA, board meeting 2026-09-14 (Citizen Portal AI-written summary): 151
+    requests in the first eight months of 2026 vs 53 in 2025; $96,556.58 outside legal support for
+    records processing through 2026-08-31; added "a dedicated contractor" (scope and cost not
+    disclosed). The district is also under a public investigation, so the surge may be event-driven:
+    <https://citizenportal.ai/articles/10078311/washington/school-districts/longview-school-district/interim-superintendent-public-records-requests-nearly-tripled-and-legal-review-costs-spiked>
+  - GovTech 2024-08-14: Pennsylvania counties flooded by an AI request service, adopted
+    anonymous-request bans:
+    <https://www.govtech.com/artificial-intelligence/governments-adjust-policies-amid-flood-of-ai-record-requests>
+  - Michigan FOIA, MCL 15.234 (primary): an agency with no employee able to separate exempt material
+    may use "contracted labor", capped at six times minimum wage, naming the "contracted person or
+    firm" on the fee itemization: <https://legislature.mi.gov/Laws/MCL?objectName=mcl-15-234>
+- Signal types: operating change (volume surge), buyer spend (outside legal), regulation (contracted
+  labor provision).
+- Who appears to care / decision: records officers and superintendents or clerks at school districts,
+  townships and small cities deciding between overtime, counsel, software, fee and request-policy
+  changes.
+- Buyer / costly problem: one records officer, a tripled request load, statutory response deadlines
+  with penalties (WA RCW 42.56.550), and counsel bills rising tenfold.
+- Potential offer / observable outcome: overflow records processing under the agency's records
+  officer. Outcome: backlog count and days-to-installment before and after, counsel hours per request.
+- Delivery mechanism hypothesis: collect and de-duplicate responsive email and files, AI
+  responsiveness review and first-pass redaction, installment packaging and a draft exemption log;
+  the records officer and counsel approve every release and denial.
+- Why now: AI-filed requests raise volume; AI review tools make one person able to process much more.
+- **AI-change test: plausibly passes.** AI does the bulk reading for responsiveness and exempt content,
+  which used to take paralegal or attorney hours; that is what lets one operator serve several
+  agencies. Not verified: hours per request with and without AI.
+- Strongest existing answer / gap: portals (GovQA, NextRequest, JustFOIA) and AI redaction or review
+  software (CaseGuard, Logikcull, Polimorphic) are sold to staff; coverage is requester rights and
+  agency policy. Nothing observed treats the overflow labor as a small-operator business.
+- Possible OE point of view: AI made asking nearly free and left the cost on the one clerk who
+  answers; who is accountable for AI-processed releases is the real question. Earned only with a
+  buyer record.
+- **Delivery boundary: passes, with a named line.** Exemption decisions and denials stay with the
+  records officer and counsel. Residual in one sentence: an unlicensed operator gathers, de-duplicates,
+  AI-reviews and pre-redacts responsive records and drafts the installment and exemption log for the
+  records officer and counsel to approve. Scope out police records (CJIS); school records need a
+  FERPA school-official designation.
+- **Automated or productised substitute:** the portals and redaction tools above; prices not
+  collected yet. They are staff tools; the residual is labor.
+- **Willingness-to-pay signal: none accepted.** Longview's contractor is disclosed but without scope
+  or price, in a secondary AI-written summary; its $96,556 is legal work, not the residual.
+- Strongest invalidating question: do agencies absorb the surge with fees, anonymous-request bans,
+  portal software and counsel, leaving no paid non-lawyer processing work — and is the surge durable
+  or event-driven?
+- Evidence still needed: a primary board packet, contract, or Michigan fee itemization naming a
+  non-law contractor paid for records processing, with scope and rate; more small agencies reporting
+  surges with numbers; substitute prices.
+- Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
+  `DISC-2026-09-25-009`; different deliverable and substitute.
+- Disposition / reopening condition: held. Reopen when one primary record shows a small agency paying
+  a non-law contractor for records processing, with scope and price. Recheck 2026-10-25. Step 0
+  candidate ID: none.
 
 ### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
 
@@ -84,6 +148,9 @@ None.
   $2,500 statutory damages per violation.
 - **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
   found this run.
+- **AI-change test (scout note, 2026-09-27 run 2): plausibly passes, unverified.** AI reads and scores
+  scanned crash reports for injury and fault; before, mail houses mailed every report because reading
+  them cost too much. Needed: scoring accuracy against signed cases.
 - **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
   paying private data brokers for crash reports used for mailers. That shows firms pay for the data
   and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
@@ -447,7 +514,9 @@ None.
 ### `DISC-2026-09-25-009` — manual complex-document remediation for small public entities
 
 - Status: `held`
-- First seen / last checked: 2026-09-25 / 2026-09-25 ET
+- First seen / last checked: 2026-09-25 / 2026-09-27 ET (2026-09-27: form-conversion re-aim tested;
+  SimpliGov and CivicPlus Form Center cover it; Bluff, UT and Harvard, IL bought platform tools only,
+  Bluff discussed keeping just three years of records. No outside buyer found. Still held.)
 - Exact question or change: under the DOJ Title II web rule, as extended by the interim final rule at
   91 FR 20902 (2026-04-20), counties, cities, and special districts must make web content and the
   documents they post conform to WCAG 2.1 AA by 2027-04-26 (population 50,000+) or 2028-04-26 (smaller
@@ -546,7 +615,7 @@ None.
 - Disposition / reopening condition: held. Reopen on either (a) a disclosed purchase by a small public
   entity of manual remediation or PDF-form-to-web-form conversion from a non-platform provider, or
   (b) DOJ guidance or an enforcement action saying HTML transcripts do not satisfy the rule. Next run:
-  test the form-conversion re-aim before anything else. Recheck 2026-10-18 alongside lead 004. Step 0
+  form-conversion re-aim tested 2026-09-27, no buyer found. Recheck 2026-10-18 alongside lead 004. Step 0
   candidate ID: none.
 
 ## Admitted to Step 0
@@ -764,6 +833,12 @@ None.
   year, reported) already reads them; the only buyer rate found was Sacramento County's $25.47/hr for
   appointed-counsel paralegals. Reopen only with a private defense attorney paying an outside provider
   per case for discovery review.
+
+- 2026-09-27 (scout run 2) — AI-drafted minutes for small public boards: the AI change is real, but
+  ClerkMinutes offers free AI minutes to clerks and reports 400+ municipalities using it; the
+  residual (checking the AI draft) is what the clerk now does. Towns pay only employees (part-time
+  board secretaries). Reopen only with a town or district paying an outside, non-employee provider
+  per meeting for verified minutes.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`.
