@@ -1,28 +1,18 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET, scout run 2 (Sunday slot): adds held lead `DISC-2026-09-27-011`
-(public-records request processing for small agencies); form-conversion re-aim of
-`DISC-2026-09-25-009` tested, no buyer found, still held; AI minutes for small boards rejected.
-Shortlist still empty. Run 1 the same day merged the owner-requested crash-report research
-(`DISC-2026-09-27-009`, held). 2026-09-25 run 2: owner decision added the AI-change test.
+Updated: 2026-09-27 ET, run 3 (owner decision: willingness-to-pay test revised to accept
+`old-way spend`; spend-first discovery lane and Trends / Quora surfaces added. Re-screen shortlists
+`DISC-2026-09-27-011`; other held leads stay held). Run 2 (scout, Sunday) added `DISC-2026-09-27-011`
+as held and rejected AI minutes. Run 1 merged the owner's crash-report research (`DISC-2026-09-27-009`).
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-None. (2026-09-25 run 2: `DISC-2026-09-23-008` rejected by owner decision on the new AI-change
-test; see the rejected index.)
-
-## New
-
-None.
-
-## Held
-
 ### `DISC-2026-09-27-011` — public-records request processing for small agencies
 
-- Status: `held`
+- Status: `shortlisted` (2026-09-27 run 3; priority 1 of 1)
 - First seen / last checked: 2026-09-27 / 2026-09-27 ET
 - Exact question or change: records-request volume is rising sharply at small agencies, partly
   because AI services file requests at scale, while each agency still has one records officer and
@@ -68,8 +58,22 @@ None.
   FERPA school-official designation.
 - **Automated or productised substitute:** the portals and redaction tools above; prices not
   collected yet. They are staff tools; the residual is labor.
-- **Willingness-to-pay signal: none accepted.** Longview's contractor is disclosed but without scope
-  or price, in a secondary AI-written summary; its $96,556 is legal work, not the residual.
+- **Willingness-to-pay signal: passes as `old-way spend` (re-screen 2026-09-27, run 3).** Longview
+  School District reported $96,556.58 in outside legal support "for records processing" through
+  2026-08-31, plus a dedicated contractor and overtime (secondary, AI-written summary of the
+  2026-09-14 board meeting; bench must confirm in the primary board packet). Albuquerque added 15
+  records staff to cut its backlog (Yahoo News, large city, context only):
+  <https://www.yahoo.com/news/city-albuquerque-public-records-backlog-050000411.html>. No `residual`
+  signal yet: Longview's contractor has no disclosed scope or price.
+- **Switching question (bench question 1):** why would a records officer move overflow spend from
+  counsel and overtime to an outside non-lawyer operator, rather than buying review software for its
+  own staff? Longview already bought a tracking system and still paid counsel and a contractor, which
+  suggests software alone did not absorb the work.
+- Audience / question signal added in run 3: `site:quora.com` titles show requesters stuck on
+  unresponsive agencies, e.g. "if a government agency is not responding (literally ignoring you) to a
+  public records request, what's the most effective way to get their attention?"
+  <https://www.quora.com/In-the-U-S-if-a-government-agency-is-not-responding-literally-ignoring-you-to-a-public-records-request-whats-the-most-effective-way-to-get-their-attention>
+  (SERP title only; answers not read).
 - Strongest invalidating question: do agencies absorb the surge with fees, anonymous-request bans,
   portal software and counsel, leaving no paid non-lawyer processing work — and is the surge durable
   or event-driven?
@@ -78,9 +82,17 @@ None.
   surges with numbers; substitute prices.
 - Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
   `DISC-2026-09-25-009`; different deliverable and substitute.
-- Disposition / reopening condition: held. Reopen when one primary record shows a small agency paying
-  a non-law contractor for records processing, with scope and price. Recheck 2026-10-25. Step 0
-  candidate ID: none.
+- Disposition: shortlisted 2026-09-27 (run 3) under the revised payment test. Decisive reason: a
+  dated, costed surge at a small buyer, a licence-free residual, and AI doing the bulk of the review.
+  Main risks: the only cost figure is secondary, and Longview's surge may be event-driven. Recheck
+  2026-10-25. Step 0 candidate ID: none.
+
+
+## New
+
+None.
+
+## Held
 
 ### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
 
@@ -162,6 +174,11 @@ None.
   State map done for 24 states (2026-09-27).
 - Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
   `research/`, parked or rejected work, or the pool.
+- **Re-screen 2026-09-27 (run 3, revised payment test):** payment passes as `old-way spend` — Garey
+  shows firms paying brokers for the reports that feed their mail. Switching question: would a firm
+  pay a scoring operator instead of, or on top of, its broker and mail house? Still held on test 1:
+  no dated operating change and no independent question signal from firms; search found only
+  mail-house marketing and victim-side questions ("why do I receive letters from lawyers").
 - Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
   Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
   signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: none.
@@ -612,6 +629,9 @@ None.
     narrower residual that the transcript approach does not appear to cover.
 - **Willingness-to-pay test (run 3): still not met.** No small entity was seen paying an independent
   provider for manual remediation.
+- **Re-screen 2026-09-27 (run 3, revised payment test):** `old-way spend` exists (Bellingham: over
+  $1,100 of staff time for a manual sample), but the substitute check still holds it — towns move
+  that spend to DocAccess seats with human review included, not to an operator.
 - Disposition / reopening condition: held. Reopen on either (a) a disclosed purchase by a small public
   entity of manual remediation or PDF-form-to-web-form conversion from a non-platform provider, or
   (b) DOJ guidance or an enforcement action saying HTML transcripts do not satisfy the rule. Next run:

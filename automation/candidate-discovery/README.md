@@ -52,8 +52,11 @@ Every lead must preserve:
   and, if any part requires a licence or credential, what concretely remains for an unlicensed
   operator once every regulated task is removed;
 - **automated or productised substitute** and its published price, when one exists;
-- **willingness-to-pay signal** for the residual named in the delivery boundary, recorded with its
-  type and source, or an explicit statement that none was found;
+- **willingness-to-pay signal**, labelled `residual` (buyer pays an independent provider for the
+  residual) or `old-way spend` (buyer pays today for the same job done the pre-AI way), recorded with
+  its evidence type and source, or an explicit statement that none was found;
+- for an `old-way spend` signal, the **switching question**: why this buyer would move that spend to
+  an outside operator rather than to software or its own staff using software;
 - expiry or recheck date;
 - status, disposition reason, and exact reopening condition when held or rejected; and
 - Step 0 candidate ID only after a later Monday-bench admission.
@@ -63,7 +66,7 @@ Reddit and other community activity supplies qualitative language and recurrence
 proof of demand, willingness to pay, or market size. A source-access failure is an evidence limit,
 not a negative market finding.
 
-## The two tests added 2026-09-21
+## The two tests added 2026-09-21 (willingness to pay revised 2026-09-27)
 
 Owner decision, 2026-09-21, after four consecutive leads and two Step 0 candidates failed on the same
 axis: a regulation-triggered service whose delivery boundary requires a licensed professional, whose
@@ -76,13 +79,18 @@ residual is the offer. If it cannot be stated, the lead is `held` with "delivery
 not `shortlisted`. If the residual is substantially what an automated substitute already outputs,
 hold or reject.
 
-**Willingness to pay.** At least one signal that the target buyer pays an independent provider for
-the residual. Accepted: a buyer describing a payment with identifiable scope; a service request,
-brief, or job posting carrying a budget; a disclosed engagement, invoice, contract, or first-party
-result; an observed marketplace transaction; or an incumbent visibly charging a named buyer for that
-specific residual. Not accepted in any combination: vendor or agency pricing pages, directory rate
-cards, cost-explainer content marketing, seller guidance published to win adjacent work, loss or
-fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
+**Willingness to pay (revised 2026-09-27).** At least one signal of either kind: `residual`, the
+target buyer paying an independent provider for the residual; or `old-way spend`, the target buyer
+paying today for the same job done the pre-AI way (staff or overtime, contract hires, law firms,
+agencies, bundled services), with an amount or rate and enough scope to see it is the same job.
+Accepted evidence: a buyer describing a payment with identifiable scope; a service request, brief, or
+job posting carrying a budget, wage, or rate; a disclosed engagement, invoice, contract, or budget
+line; an observed marketplace transaction; or an incumbent visibly charging a named buyer. Not
+accepted in any combination: vendor or agency pricing pages, directory rate cards, cost-explainer
+content marketing, seller guidance published to win adjacent work, aggregator salary averages, loss
+or fraud statistics, category size, funding, a deadline, or the volume of coverage a change
+attracts. An `old-way spend` lead carries its switching question to the Monday bench as the first
+research question. The revision replaced a residual-only rule that contradicted the AI-change test.
 
 Holding is the expected outcome for a fresh regulatory trigger. A held lead costs nothing; a
 shortlisted one consumes a Monday bench run.
