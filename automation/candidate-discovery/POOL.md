@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-23 ET (candidate scout, Wednesday; adds one lead, `DISC-2026-09-23-008`, and
-shortlists it as the first lead in the pool with a buyer-paid signal for the named residual. One lead
-rejected. Held leads unchanged.)
+Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, police-report and discovery
+analysis for defense attorneys, added as held: software substitute already covers the residual and
+no private-attorney payment signal found. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -106,6 +106,95 @@ operator?
 None.
 
 ## Held
+
+### `DISC-2026-09-27-009` — police-report and discovery analysis for criminal defense attorneys
+
+- Status: `held`
+- Origin: owner-proposed 2026-09-27, not a scout find. Owner's premise: defense attorneys have
+  assistants and paralegals working through county documents by hand, and those documents are public
+  records.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- **Premise correction, load-bearing.** Court dockets are public. The police report in a pending case
+  usually is not freely public: states withhold active investigative material (Florida exempts
+  "active" criminal investigative information while a prosecution or appeal is pending; California
+  allows delay of up to a year during an active investigation). Defense counsel gets the full report,
+  body-camera video, CAD logs and witness statements through criminal discovery, often under a
+  protective order. So the work is discovery review of confidential client material, not public-records
+  research. That moves the operator inside the lawyer's confidentiality duty: ABA Model Rule 1.6, Rule
+  5.3 supervision of nonlawyer assistants, and ABA Formal Opinion 512 (2024) on third-party and AI
+  tools. This was not verified state by state.
+- Exact question or change: can an operator sell done-for-you police-report and discovery analysis
+  (timeline, officer-by-officer inconsistencies across report, body-camera transcript and CAD log,
+  missing-item list for a discovery demand) to criminal defense attorneys who today do it by hand?
+- Sources and observations (2026-09-27):
+  - Florida Attorney General opinion on active police cases:
+    <http://www.myfloridalegal.com/ago.nsf/Opinions/53E88E381F0705428525658D004D9AD2>
+  - Reporters Committee, investigatory-records exemptions by state:
+    <https://www.rcfp.org/open-government-sections/4-investigatory-records/>
+  - ABA Formal Opinion 512, 2024-07-29:
+    <https://www.americanbar.org/content/dam/aba/administrative/professional_responsibility/ethics-opinions/aba-formal-opinion-512.pdf>
+  - JusticeText, first-party update 2025-12-23: $4.0M ARR, 4,100+ attorneys, 7 of 22 statewide public
+    defender systems, about 400 private defense attorneys against a stated 70,000 to 100,000 target;
+    product expanded from body-camera video to police reports, witness statements, medical records and
+    written discovery: <https://justicetext.substack.com/p/justicetext-update-122325-expanding>
+  - Cumberland County, Pennsylvania, secondary civic report: one-year grant-funded $17,300 JusticeText
+    contract for the public defender:
+    <https://citizenportal.ai/articles/6146769/pennsylvania/cumberland-county/public-defender-to-pilot-justicetext-discovery-review-software-under-grant-funding>
+  - Sacramento County Conflict Criminal Defenders, primary county page: appointed-counsel paralegals
+    paid $25.47/hr for cases appointed on or after 2025-07-01:
+    <https://conflictcriminaldefenders.saccounty.gov/us/en/attorney-and-paralegal-compensation.html>
+  - UC Berkeley Criminal Law and Justice Center list of existing defense AI tools:
+    <https://www.law.berkeley.edu/research/criminal-law-and-justice-center/our-work/ai-for-public-defenders/existing-ai-tools/>
+- Signal types: workflow, buyer spend (software), adoption, professional-rule constraint.
+- Who appears to care / decision: solo and small-firm private criminal defense attorneys and
+  court-appointed panel attorneys deciding whether to review discovery themselves, give it to a
+  paralegal, buy software, or send it out.
+- Buyer / costly problem: discovery volume per case has grown with body cameras (several officers,
+  hours of video per arrest) while the flat fee or appointed rate per case has not. Unreviewed
+  discovery is missed suppression issues and weaker plea leverage.
+- Potential offer / observable outcome: a per-case discovery brief delivered in a fixed turnaround:
+  a sourced timeline, a table of statements by officer and witness with contradictions flagged to the
+  exact page or timestamp, and a list of items referenced but not produced, for the attorney to use in
+  a discovery demand or motion.
+- Delivery mechanism hypothesis: attorney uploads discovery to a tool the attorney's firm controls;
+  operator runs transcription and extraction, checks every flag against the source, and writes the
+  brief. Operator gives no legal advice, files nothing, never contacts the client, witnesses or
+  prosecution, and works under a signed confidentiality and Rule 5.3 supervision agreement.
+- Why now: body-camera volume, and a funded software category (JusticeText) that just expanded from
+  video into police reports and written discovery.
+- Strongest existing answer / gap: JusticeText and Reduct already transcribe and analyse body-camera
+  video for public defenders; JusticeText now covers police reports too. Its private-bar reach is
+  small (about 400 attorneys), which is the only visible gap: solo private attorneys who will not
+  learn software but would pay for a finished brief.
+- Possible OE point of view: none supplied. Do not claim owner experience with defense work, discovery
+  review, or any defense client.
+- **Delivery boundary:** the attorney owns every legal judgment, including what is a suppression
+  issue, what to demand, and what to tell the client. Paralegal-level factual review under attorney
+  supervision needs no licence in most states. Residual in one sentence: a nonlawyer operator, under
+  a supervising attorney's confidentiality agreement, turns a case's produced discovery into a sourced
+  timeline, contradiction table and missing-items list that the attorney then evaluates.
+- **Automated or productised substitute:** JusticeText, $1,200 per attorney per year as reported by
+  The Indiana Lawyer (not first-party), now covering police reports and written discovery; Reduct for
+  video; general legal AI tools. The residual is substantially what JusticeText already outputs. What
+  it does not output is the verified, finished brief for an attorney who will not operate the tool.
+- **Willingness-to-pay signal: weak, and it prices the work low.** The only buyer-side rate found is
+  Sacramento's published $25.47/hr for appointed-counsel paralegals. That confirms a buyer pays for
+  outside paralegal time, and it caps the court-appointed segment near that rate. No signal found of a
+  private defense attorney paying an independent provider for a discovery brief. Vendor pricing and the
+  JusticeText contracts are software spend, not accepted evidence for the service residual.
+- Strongest invalidating question: at $1,200 per attorney per year for software that already reads the
+  police report, and $25/hr for appointed-case paralegal time, is there a private defense attorney who
+  pays an outside operator a per-case price that covers verified review hours?
+- Evidence still needed: one private defense attorney or firm paying an outside provider per case for
+  discovery review, with scope and price; typical discovery hours per misdemeanor and felony case;
+  whether protective orders in the target state allow sharing with a nonlawyer contractor; one state's
+  bar guidance on outsourcing discovery review; whether JusticeText's private-bar push closes the gap.
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- Disposition / reopening condition: held on willingness to pay and on the substitute. Reopen when one
+  accepted signal shows a private criminal defense attorney paying an independent provider per case
+  for discovery review, at a price that clears the review hours. Recheck 2026-10-27. Step 0 candidate
+  ID: none.
 
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
