@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
 Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, crash-report lead generation
-and mailers for personal-injury attorneys, added as held: brokers and mail houses already do the pull
-and mailing, and state rules are unmapped. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
+and mailers for personal-injury attorneys, held: brokers and mail houses already do the pull and
+mailing. 24-state rules map added in `runs/2026-09-27.md`. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -127,8 +127,9 @@ None.
     violated that Act; solicitation is not a permitted use of DMV data:
     <https://supreme.justia.com/cases/federal/us/570/48/>
   - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
-    Florida, New York, New Jersey and Texas are reported to require a 30-day wait; letters must be
-    marked as advertising. North Carolina State Bar on targeted mail:
+    The wait is not universal: the 2026-09-27 state map found none in Pennsylvania, Illinois, Ohio,
+    North Carolina, New Jersey, Virginia, Washington, Arizona or California, and New York removed
+    its wait on 2026-06-01. Most states still require an advertising label. North Carolina State Bar on targeted mail:
     <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
   - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
     <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
@@ -162,11 +163,14 @@ None.
   Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
   obtains lawfully available crash reports, scores them for likely injury claims, and mails the
   attorney's approved letter after the waiting period.
-- **Legal risk, load-bearing:** the rules are state by state. Some states limit who may get a crash
-  report (Florida keeps them from the public for 60 days) or ban using them for solicitation. Outside
-  the Fourth Circuit, whether the Driver's Privacy Protection Act reaches crash-report data is not
-  settled, and it carries $2,500 statutory damages per violation, so a 1,000-letter campaign that
-  loses that argument is a class action. Not verified state by state.
+- **Legal risk, load-bearing:** state rules decide the business. Of 24 states researched
+  2026-09-27 (`runs/2026-09-27.md`), 6 are open (Ohio, New Jersey, Indiana, Missouri, Nevada,
+  Massachusetts at low confidence), 9 restricted, and 9 closed, including California and
+  Pennsylvania. Maryland makes it a crime for a nonlawyer to access reports to solicit, and several
+  states release reports only to attorneys or on a sworn statement, so the firm must be the
+  requester and the operator only processes what the firm obtains. Outside the Fourth Circuit,
+  whether the Driver's Privacy Protection Act reaches crash-report data is not settled; it carries
+  $2,500 statutory damages per violation.
 - **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
   found this run.
 - **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
@@ -176,13 +180,13 @@ None.
   letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
   enough to cover it?
 - Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
-  and mail-house prices; the list of states that ban crash-report solicitation or restrict access;
-  any post-Garey Driver's Privacy Protection Act rulings in other circuits.
+  and mail-house prices; any post-Garey Driver's Privacy Protection Act rulings in other circuits.
+  State map done for 24 states (2026-09-27).
 - Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
   `research/`, parked or rejected work, or the pool.
-- Disposition / reopening condition: held. Reopen when one source shows a firm's per-letter cost and
-  signed-case rate, and one state is confirmed where crash reports are lawfully available for
-  solicitation. Recheck 2026-10-27. Step 0 candidate ID: none.
+- Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
+  Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
+  signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
