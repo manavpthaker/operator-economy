@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-23 ET (candidate scout, Wednesday; adds one lead, `DISC-2026-09-23-008`, and
-shortlists it as the first lead in the pool with a buyer-paid signal for the named residual. One lead
-rejected. Held leads unchanged.)
+Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, crash-report lead generation
+and mailers for personal-injury attorneys, added as held: brokers and mail houses already do the pull
+and mailing, and state rules are unmapped. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -106,6 +106,83 @@ operator?
 None.
 
 ## Held
+
+### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
+
+- Status: `held`
+- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
+  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
+  personal-injury firms. The defense-attorney version is recorded in the rejected index.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
+  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
+  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
+- Sources and observations (2026-09-27):
+  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
+    got crash reports from police agencies and from private data brokers they subscribed to, then
+    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
+    because the data did not come from the DMV. Scope: Fourth Circuit only.
+    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
+  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
+    violated that Act; solicitation is not a permitted use of DMV data:
+    <https://supreme.justia.com/cases/federal/us/570/48/>
+  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
+    Florida, New York, New Jersey and Texas are reported to require a 30-day wait; letters must be
+    marked as advertising. North Carolina State Bar on targeted mail:
+    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
+  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
+    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
+  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
+    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
+    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
+  - Law-firm mail houses advertising this service:
+    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
+    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
+- Signal types: buyer spend, workflow, regulation, litigation.
+- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
+  on crash-report mail versus search ads and bought leads.
+- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
+  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
+  reports are fender-benders with no injury, and every firm in town mails the same people on the
+  same day.
+- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
+  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
+  first lawful day, and a report of calls and signed cases per 1,000 letters.
+- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
+  report and scores it for injury and fault; the attorney approves one letter template; a print
+  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
+  person and never pays for referrals.
+- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
+  practical where mail houses mail everything.
+- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
+  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
+  scoring which reports are likely cases.
+- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
+- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
+  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
+  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
+  attorney's approved letter after the waiting period.
+- **Legal risk, load-bearing:** the rules are state by state. Some states limit who may get a crash
+  report (Florida keeps them from the public for 60 days) or ban using them for solicitation. Outside
+  the Fourth Circuit, whether the Driver's Privacy Protection Act reaches crash-report data is not
+  settled, and it carries $2,500 statutory damages per violation, so a 1,000-letter campaign that
+  loses that argument is a class action. Not verified state by state.
+- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
+  found this run.
+- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
+  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
+  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
+- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
+  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
+  enough to cover it?
+- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
+  and mail-house prices; the list of states that ban crash-report solicitation or restrict access;
+  any post-Garey Driver's Privacy Protection Act rulings in other circuits.
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- Disposition / reopening condition: held. Reopen when one source shows a firm's per-letter cost and
+  signed-case rate, and one state is confirmed where crash reports are lawfully available for
+  solicitation. Recheck 2026-10-27. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
@@ -647,5 +724,12 @@ None.
   substantially what payroll providers (Gusto) and a productised tool (TipCompliance, $79–$149/mo)
   already output. Reopen only with an accepted willingness-to-pay signal for a service-charge-to-tip
   pricing decision that software does not make.
+
+- 2026-09-27 — Police-report and discovery review for criminal defense attorneys: a misreading of the
+  owner's crash-report idea, researched before the correction. Police reports in pending criminal
+  cases reach the defense through discovery, not public records; JusticeText ($1,200 per attorney per
+  year, reported) already reads them; the only buyer rate found was Sacramento County's $25.47/hr for
+  appointed-counsel paralegals. Reopen only with a private defense attorney paying an outside provider
+  per case for discovery review.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`.
