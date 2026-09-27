@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, police-report and discovery
-analysis for defense attorneys, added as held: software substitute already covers the residual and
-no private-attorney payment signal found. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
+Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, crash-report lead generation
+and mailers for personal-injury attorneys, added as held: brokers and mail houses already do the pull
+and mailing, and state rules are unmapped. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -107,94 +107,82 @@ None.
 
 ## Held
 
-### `DISC-2026-09-27-009` — police-report and discovery analysis for criminal defense attorneys
+### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
 
 - Status: `held`
-- Origin: owner-proposed 2026-09-27, not a scout find. Owner's premise: defense attorneys have
-  assistants and paralegals working through county documents by hand, and those documents are public
-  records.
+- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
+  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
+  personal-injury firms. The defense-attorney version is recorded in the rejected index.
 - First seen / last checked: 2026-09-27 / 2026-09-27 ET
-- **Premise correction, load-bearing.** Court dockets are public. The police report in a pending case
-  usually is not freely public: states withhold active investigative material (Florida exempts
-  "active" criminal investigative information while a prosecution or appeal is pending; California
-  allows delay of up to a year during an active investigation). Defense counsel gets the full report,
-  body-camera video, CAD logs and witness statements through criminal discovery, often under a
-  protective order. So the work is discovery review of confidential client material, not public-records
-  research. That moves the operator inside the lawyer's confidentiality duty: ABA Model Rule 1.6, Rule
-  5.3 supervision of nonlawyer assistants, and ABA Formal Opinion 512 (2024) on third-party and AI
-  tools. This was not verified state by state.
-- Exact question or change: can an operator sell done-for-you police-report and discovery analysis
-  (timeline, officer-by-officer inconsistencies across report, body-camera transcript and CAD log,
-  missing-item list for a discovery demand) to criminal defense attorneys who today do it by hand?
+- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
+  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
+  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
 - Sources and observations (2026-09-27):
-  - Florida Attorney General opinion on active police cases:
-    <http://www.myfloridalegal.com/ago.nsf/Opinions/53E88E381F0705428525658D004D9AD2>
-  - Reporters Committee, investigatory-records exemptions by state:
-    <https://www.rcfp.org/open-government-sections/4-investigatory-records/>
-  - ABA Formal Opinion 512, 2024-07-29:
-    <https://www.americanbar.org/content/dam/aba/administrative/professional_responsibility/ethics-opinions/aba-formal-opinion-512.pdf>
-  - JusticeText, first-party update 2025-12-23: $4.0M ARR, 4,100+ attorneys, 7 of 22 statewide public
-    defender systems, about 400 private defense attorneys against a stated 70,000 to 100,000 target;
-    product expanded from body-camera video to police reports, witness statements, medical records and
-    written discovery: <https://justicetext.substack.com/p/justicetext-update-122325-expanding>
-  - Cumberland County, Pennsylvania, secondary civic report: one-year grant-funded $17,300 JusticeText
-    contract for the public defender:
-    <https://citizenportal.ai/articles/6146769/pennsylvania/cumberland-county/public-defender-to-pilot-justicetext-discovery-review-software-under-grant-funding>
-  - Sacramento County Conflict Criminal Defenders, primary county page: appointed-counsel paralegals
-    paid $25.47/hr for cases appointed on or after 2025-07-01:
-    <https://conflictcriminaldefenders.saccounty.gov/us/en/attorney-and-paralegal-compensation.html>
-  - UC Berkeley Criminal Law and Justice Center list of existing defense AI tools:
-    <https://www.law.berkeley.edu/research/criminal-law-and-justice-center/our-work/ai-for-public-defenders/existing-ai-tools/>
-- Signal types: workflow, buyer spend (software), adoption, professional-rule constraint.
-- Who appears to care / decision: solo and small-firm private criminal defense attorneys and
-  court-appointed panel attorneys deciding whether to review discovery themselves, give it to a
-  paralegal, buy software, or send it out.
-- Buyer / costly problem: discovery volume per case has grown with body cameras (several officers,
-  hours of video per arrest) while the flat fee or appointed rate per case has not. Unreviewed
-  discovery is missed suppression issues and weaker plea leverage.
-- Potential offer / observable outcome: a per-case discovery brief delivered in a fixed turnaround:
-  a sourced timeline, a table of statements by officer and witness with contradictions flagged to the
-  exact page or timestamp, and a list of items referenced but not produced, for the attorney to use in
-  a discovery demand or motion.
-- Delivery mechanism hypothesis: attorney uploads discovery to a tool the attorney's firm controls;
-  operator runs transcription and extraction, checks every flag against the source, and writes the
-  brief. Operator gives no legal advice, files nothing, never contacts the client, witnesses or
-  prosecution, and works under a signed confidentiality and Rule 5.3 supervision agreement.
-- Why now: body-camera volume, and a funded software category (JusticeText) that just expanded from
-  video into police reports and written discovery.
-- Strongest existing answer / gap: JusticeText and Reduct already transcribe and analyse body-camera
-  video for public defenders; JusticeText now covers police reports too. Its private-bar reach is
-  small (about 400 attorneys), which is the only visible gap: solo private attorneys who will not
-  learn software but would pay for a finished brief.
-- Possible OE point of view: none supplied. Do not claim owner experience with defense work, discovery
-  review, or any defense client.
-- **Delivery boundary:** the attorney owns every legal judgment, including what is a suppression
-  issue, what to demand, and what to tell the client. Paralegal-level factual review under attorney
-  supervision needs no licence in most states. Residual in one sentence: a nonlawyer operator, under
-  a supervising attorney's confidentiality agreement, turns a case's produced discovery into a sourced
-  timeline, contradiction table and missing-items list that the attorney then evaluates.
-- **Automated or productised substitute:** JusticeText, $1,200 per attorney per year as reported by
-  The Indiana Lawyer (not first-party), now covering police reports and written discovery; Reduct for
-  video; general legal AI tools. The residual is substantially what JusticeText already outputs. What
-  it does not output is the verified, finished brief for an attorney who will not operate the tool.
-- **Willingness-to-pay signal: weak, and it prices the work low.** The only buyer-side rate found is
-  Sacramento's published $25.47/hr for appointed-counsel paralegals. That confirms a buyer pays for
-  outside paralegal time, and it caps the court-appointed segment near that rate. No signal found of a
-  private defense attorney paying an independent provider for a discovery brief. Vendor pricing and the
-  JusticeText contracts are software spend, not accepted evidence for the service residual.
-- Strongest invalidating question: at $1,200 per attorney per year for software that already reads the
-  police report, and $25/hr for appointed-case paralegal time, is there a private defense attorney who
-  pays an outside operator a per-case price that covers verified review hours?
-- Evidence still needed: one private defense attorney or firm paying an outside provider per case for
-  discovery review, with scope and price; typical discovery hours per misdemeanor and felony case;
-  whether protective orders in the target state allow sharing with a nonlawyer contractor; one state's
-  bar guidance on outsourcing discovery review; whether JusticeText's private-bar push closes the gap.
+  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
+    got crash reports from police agencies and from private data brokers they subscribed to, then
+    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
+    because the data did not come from the DMV. Scope: Fourth Circuit only.
+    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
+  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
+    violated that Act; solicitation is not a permitted use of DMV data:
+    <https://supreme.justia.com/cases/federal/us/570/48/>
+  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
+    Florida, New York, New Jersey and Texas are reported to require a 30-day wait; letters must be
+    marked as advertising. North Carolina State Bar on targeted mail:
+    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
+  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
+    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
+  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
+    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
+    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
+  - Law-firm mail houses advertising this service:
+    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
+    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
+- Signal types: buyer spend, workflow, regulation, litigation.
+- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
+  on crash-report mail versus search ads and bought leads.
+- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
+  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
+  reports are fender-benders with no injury, and every firm in town mails the same people on the
+  same day.
+- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
+  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
+  first lawful day, and a report of calls and signed cases per 1,000 letters.
+- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
+  report and scores it for injury and fault; the attorney approves one letter template; a print
+  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
+  person and never pays for referrals.
+- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
+  practical where mail houses mail everything.
+- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
+  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
+  scoring which reports are likely cases.
+- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
+- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
+  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
+  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
+  attorney's approved letter after the waiting period.
+- **Legal risk, load-bearing:** the rules are state by state. Some states limit who may get a crash
+  report (Florida keeps them from the public for 60 days) or ban using them for solicitation. Outside
+  the Fourth Circuit, whether the Driver's Privacy Protection Act reaches crash-report data is not
+  settled, and it carries $2,500 statutory damages per violation, so a 1,000-letter campaign that
+  loses that argument is a class action. Not verified state by state.
+- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
+  found this run.
+- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
+  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
+  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
+- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
+  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
+  enough to cover it?
+- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
+  and mail-house prices; the list of states that ban crash-report solicitation or restrict access;
+  any post-Garey Driver's Privacy Protection Act rulings in other circuits.
 - Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
   `research/`, parked or rejected work, or the pool.
-- Disposition / reopening condition: held on willingness to pay and on the substitute. Reopen when one
-  accepted signal shows a private criminal defense attorney paying an independent provider per case
-  for discovery review, at a price that clears the review hours. Recheck 2026-10-27. Step 0 candidate
-  ID: none.
+- Disposition / reopening condition: held. Reopen when one source shows a firm's per-letter cost and
+  signed-case rate, and one state is confirmed where crash reports are lawfully available for
+  solicitation. Recheck 2026-10-27. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
@@ -736,5 +724,12 @@ None.
   substantially what payroll providers (Gusto) and a productised tool (TipCompliance, $79–$149/mo)
   already output. Reopen only with an accepted willingness-to-pay signal for a service-charge-to-tip
   pricing decision that software does not make.
+
+- 2026-09-27 — Police-report and discovery review for criminal defense attorneys: a misreading of the
+  owner's crash-report idea, researched before the correction. Police reports in pending criminal
+  cases reach the defense through discovery, not public records; JusticeText ($1,200 per attorney per
+  year, reported) already reads them; the only buyer rate found was Sacramento County's $25.47/hr for
+  appointed-counsel paralegals. Reopen only with a private defense attorney paying an outside provider
+  per case for discovery review.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`.
