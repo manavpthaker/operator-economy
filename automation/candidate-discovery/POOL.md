@@ -1,8 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, crash-report lead generation
-and mailers for personal-injury attorneys, held: brokers and mail houses already do the pull and
-mailing. 24-state rules map added in `runs/2026-09-27.md`. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
+Updated: 2026-09-28 ET (owner-proposed lead `DISC-2026-09-28-010`, admissions and enrollment
+analysis for small private schools, held: no buyer-paid signal. 2026-09-27: `DISC-2026-09-27-009`
+crash-report mailers, held, with a 24-state map in `runs/2026-09-27.md`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -106,6 +106,78 @@ operator?
 None.
 
 ## Held
+
+### `DISC-2026-09-28-010` — admissions and enrollment analysis for small private schools
+
+- Status: `held`
+- Origin: owner-proposed 2026-09-28 as "private school admissions analysis", not a scout find. The
+  owner did not name the buyer. Filed on the school side (the school pays to understand its own
+  admissions funnel). The family side, consultants helping parents get a child admitted, is a
+  saturated consulting market with only seller price pages as evidence; reopen it separately if that
+  was the intent.
+- First seen / last checked: 2026-09-28 / 2026-09-28 ET
+- Exact question or change: can an operator sell a small private school a fixed-scope analysis of its
+  own admissions data (inquiry to application to enrollment, yield, re-enrollment, aid) that tells it
+  where it loses families and what to change, now that school-choice money is changing who applies?
+- Sources and observations (2026-09-28):
+  - Texas Education Freedom Accounts: $1 billion first year, up to 90,000 students, up to $10,474
+    per student, starting 2026-27; nearly 800 private schools registered. Fort Worth Catholic diocese
+    reported 400 to 600 new students (secondary report):
+    <https://www.cbsnews.com/texas/news/texas-education-freedom-accounts-private-school-growth-8-11-2026/>
+    · <https://communityimpact.com/austin/south-central-austin/texas-legislature/2026/01/12/over-700-texas-private-schools-pre-k-providers-approved-for-education-savings-account-program/>
+  - Federal Tax Credit Scholarship (P.L. 119-21, July 2025) starts 2027-01-01; up to $1,700 credit per
+    donor; families under 300% of area median income eligible; 31 states planned to opt in as of May
+    2026: <https://www.congress.gov/crs-product/R48724> ·
+    <https://www.edweek.org/policy-politics/federal-program-will-bring-private-school-choice-to-at-least-4-new-states/2026/01>
+  - Demand side: births fell about 16% from 2007 to 2024; a 13% private-school enrollment decline is
+    projected 2024 to 2031 (search summary, source not opened). NAIS reports member enrollment stable
+    since 2019 and average aid of $19,589 per aided student in 2025-26:
+    <https://www.k12dive.com/news/a-snapshot-of-private-school-trends-in-4-charts/821686/>
+  - Existing providers of enrollment audits: ISM, Carney Sandoe, The Gowan Group (seller pages):
+    <https://www.isminc.com/consulting/onsite-consulting/admission-enrollment-management> ·
+    <https://thegowangroup.com/school-consulting/enrollment>
+  - Enrollment Management Association on schools' weak funnel data:
+    <https://www.enrollment.org/articles/save-the-funnel-independent-schools-quest-for-better-data>
+- Signal types: regulation (school-choice funding), demographic change, workflow.
+- Who appears to care / decision: heads of small private and religious schools, often with one
+  part-time admissions person, deciding whether to add seats, change tuition relative to the voucher
+  amount, or change how they follow up with inquiries.
+- Buyer / costly problem: each lost family is a year of tuition, often $10,000 or more, and most
+  small schools cannot say where in the funnel families drop out or why.
+- Potential offer / observable outcome: a fixed-fee funnel analysis: a cleaned multi-year dataset
+  from the school's own records, conversion and yield by stage, grade and source, a re-enrollment
+  risk list, a tuition-versus-voucher comparison, and three changes to test next cycle.
+- Delivery mechanism hypothesis: export from the school's admissions system (Blackbaud, Finalsite,
+  Veracross, or spreadsheets); AI cleans and matches records; operator builds the funnel and writes
+  the findings. Family records are handled under a data agreement; nothing is shared outside the school.
+- Why now: Texas money arriving in the 2026-27 year and the federal credit in 2027 bring new
+  applicant groups to schools that have never had them, while the birth decline shrinks the base.
+- Strongest existing answer / gap: enrollment consulting firms (ISM, Carney Sandoe, Gowan) and the
+  admissions systems' own reports. The firms are priced and staffed for larger independent schools;
+  the gap, if any, is small religious and micro schools newly on the voucher lists.
+- Possible OE point of view: none supplied. Do not claim owner experience in school admissions.
+- **Delivery boundary:** no licence is needed for data analysis. Student records may fall under
+  FERPA only where a school takes federal funds; most private schools do not, but state student-privacy
+  laws and the voucher programs' own rules may apply. Residual in one sentence: an operator turns a
+  school's own admissions records into a funnel analysis and a short list of changes, which the
+  school decides whether to make.
+- **Automated or productised substitute:** reporting inside Blackbaud, Finalsite and Veracross;
+  Enrollment Management Association benchmarks. Prices not published. None writes the findings for
+  the school.
+- **Willingness-to-pay signal: none found.** Consulting firms advertise enrollment audits, but that
+  is seller copy. No school was found describing a paid engagement, and private schools do not
+  publish contracts the way public bodies do.
+- Strongest invalidating question: will a small school with a tight budget pay an outside operator
+  for analysis when its admissions system already has reports and new voucher families are arriving
+  anyway?
+- Evidence still needed: one school or diocese describing a paid enrollment analysis with scope and
+  price; how many Texas voucher-list schools have fewer than 200 students; what data those schools
+  actually keep; the source for the 13% projection.
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- Disposition / reopening condition: held on willingness to pay. Reopen when one school, diocese or
+  school network is found paying an outside provider for admissions or enrollment analysis, with
+  scope. Recheck 2026-10-28. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
 
