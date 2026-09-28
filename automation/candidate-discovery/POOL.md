@@ -1,9 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET, run 3 (owner decision: willingness-to-pay test revised to accept
-`old-way spend`; spend-first discovery lane and Trends / Quora surfaces added. Re-screen shortlists
-`DISC-2026-09-27-011`; other held leads stay held). Run 2 (scout, Sunday) added `DISC-2026-09-27-011`
-as held and rejected AI minutes. Run 1 merged the owner's crash-report research (`DISC-2026-09-27-009`).
+Updated: 2026-09-27 ET, run 4 (scout rerun under revised rules): adds and shortlists
+`DISC-2026-09-27-012` (Medicare WISeR prior-auth desk); strengthens `DISC-2026-09-27-011` with
+Methacton SD and Evergreen; rejects PI medical chronologies and truck dispatch. Run 3 revised the
+payment test to accept `old-way spend`. Runs 1–2: crash-report research merged; records lead added.
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -82,11 +82,74 @@ lead into formal Operator Blueprint V2 Step 0.
   surges with numbers; substitute prices.
 - Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
   `DISC-2026-09-25-009`; different deliverable and substitute.
+- Run 4 additions (2026-09-27): Methacton School District, PA, 2025–26 (meeting 2026-07-22): 64
+  requests; Right-to-Know specialist $70,119, assistant superintendent $24,872, legal $31,635,
+  total $126,626.60, about $2,000 a request:
+  <https://citizenportal.ai/articles/9813637/Pennsylvania/School-Districts/Methacton-SD/Superintendent-details-Right-to-Know-workload-and-costs-for-202526>.
+  Evergreen Public Schools, WA: requests up about 52% (snippet). Lawrence, KS district ordered to pay
+  $113,000 for violating the open records law (title). Longview primary packet still not found.
 - Disposition: shortlisted 2026-09-27 (run 3) under the revised payment test. Decisive reason: a
   dated, costed surge at a small buyer, a licence-free residual, and AI doing the bulk of the review.
   Main risks: the only cost figure is secondary, and Longview's surge may be event-driven. Recheck
   2026-10-25. Step 0 candidate ID: none.
 
+
+### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
+
+- Status: `shortlisted` (2026-09-27 run 4; priority 2 of 2)
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
+  authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
+  for procedures including epidural steroid injections, nerve stimulators, lumbar decompression and
+  skin substitutes. Records released 2026-09 show thousands of denials. Who handles the new
+  paperwork for small practices?
+- Sources: DLA Piper 2026-01 <https://www.dlapiper.com/en/insights/publications/2026/01/cms-wiser-model>;
+  CMS FAQ <https://www.cms.gov/priorities/innovation/files/document/wiser-model-frequently-asked-questions>;
+  Medicare Rights Center 2026-09-24 <https://www.medicarerights.org/medicare-watch/2026/09/24/new-records-show-medicare-wiser-ai-prior-authorization-model-causing-inappropriate-denials-of-care>;
+  Stateline 2025-12-04 (title); DxTx Pain & Spine posting
+  <https://painpointhealth.applytojob.com/apply/ZSBbYFRzAs/Prior-Authorization-Coordinator>; Google
+  Trends 2026-09-27 ("prior authorization appeal" peaked spring–summer 2026, about a third of peak by
+  September). Full ledger: `runs/2026-09-27.md`, run 4.
+- Signal types: regulation (federal payment model), operating change, buyer spend, search direction.
+- Who appears to care / decision: independent pain, spine and orthopaedic practices in the six
+  states deciding how to staff new Medicare prior auth and appeals.
+- Buyer / costly problem: procedures that needed no approval now do; denials, week-long peer-to-peer
+  delays, postponed procedures and lost revenue.
+- Potential offer / observable outcome: a WISeR prior-auth and first-level appeal desk; approval
+  rate, days to decision and denials overturned, before and after.
+- Delivery mechanism hypothesis: AI reads the chart against each service's published coverage
+  criteria, flags gaps, drafts request and appeal; operator submits and tracks; physician signs and
+  handles peer-to-peer.
+- Why now: live since 2026-01-01; denial records just released; expansion to oncology or cardiac
+  care reported (paywalled, unverified).
+- **AI-change test: passes, to verify.** AI does the chart-to-criteria reading and drafting a
+  $19–21/hr coordinator does by hand, so one operator can serve several practices. Needed: minutes per
+  request with and without AI.
+- Strongest existing answer / gap: explainers from law firms and vendors; nothing on a WISeR-specific
+  small-operator desk.
+- Possible OE point of view: the payer's AI denies and is paid to; the practice can answer with AI,
+  but someone accountable must stand behind each submission. Showable with a synthetic chart against
+  public criteria; no guest needed.
+- **Delivery boundary: passes.** Unlicensed staff do prior-auth and appeal preparation today;
+  clinical judgment and peer-to-peer stay with the physician; HIPAA business associate agreement
+  required. Residual: an unlicensed operator prepares, submits and tracks WISeR requests and
+  first-level appeals for the physician to sign.
+- **Automated or productised substitute:** practice-management organisations (DxTx), billing and
+  revenue-cycle companies, offshore prior-auth staffing, provider-side auth software; prices not
+  collected. No free tool does the whole job.
+- **Willingness-to-pay signal: `old-way spend`.** DxTx Pain & Spine, a support organisation for
+  independent pain physicians, posts a remote Prior Authorization Coordinator at $19–21/hr
+  (first-party careers page). No `residual` signal.
+- **Switching question (bench question 1):** why would a practice move this work from its
+  coordinator, billing company or offshore staff to a small operator?
+- Strongest invalidating question: will offshore staffing and billing companies absorb the volume
+  more cheaply, and will gold-carding or model changes remove the burden?
+- Evidence still needed: approval and overturn rates by service; a practice's staff-hour cost of
+  WISeR; substitute prices.
+- Semantic deduplication: no match in the repository or pool.
+- Disposition: shortlisted. Decisive reason: a dated federal change with fresh public records, a
+  licence-free residual, and a first-party wage for the old way. Recheck 2026-10-25; expires
+  2027-01-01 unless expansion is confirmed. Step 0 candidate ID: none.
 
 ## New
 
@@ -859,6 +922,13 @@ None.
   residual (checking the AI draft) is what the clerk now does. Towns pay only employees (part-time
   board secretaries). Reopen only with a town or district paying an outside, non-employee provider
   per meeting for verified minutes.
+
+- 2026-09-27 (run 4) — Medical-record chronologies for personal-injury firms: old-way spend exists,
+  but AI vendors (EvenUp, Eve, Supio), case software (CasePeer) and offshore firms already sell the
+  job. Reopen only with a buyer showing those options fail for a named case type.
+
+- 2026-09-27 (run 4) — Owner-operator truck dispatch: AI dispatch software already sells the job
+  at a flat fee. Reopen only with evidence carriers pay a human for something that software drops.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`.
