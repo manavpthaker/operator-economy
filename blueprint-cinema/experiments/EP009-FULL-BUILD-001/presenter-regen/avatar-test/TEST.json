@@ -72,5 +72,54 @@
   "at": "2026-09-28",
   "verbatim": "The lips and mouth are off and need to be the baseline. But c is good hand and chest",
   "reading": "Mouth and lips in A, B and C fail; the r8 (L3b + react-1 0.5) mouth is the baseline to keep. C (OmniHuman 1.5 + react-1) has the right hand and chest movement."
+ },
+ "round2": {
+  "at": "2026-09-28",
+  "owner_approval": "Yes (to running C2, C3, C4)",
+  "C2": {
+   "model": "fal-ai/sync-lipsync/react-1",
+   "on": "A",
+   "args": {
+    "video_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/b67be2a6-d1ff-473d-8195-02592b9ff8c1.mp4",
+    "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/20bfeb93-9d6f-401f-aca2-06592dda0c0a.mp3",
+    "model_mode": "lips",
+    "emotion": "neutral",
+    "lipsync_mode": "cut_off",
+    "temperature": 0.3
+   }
+  },
+  "C3": {
+   "model": "fal-ai/sync-lipsync/react-1",
+   "on": "A",
+   "args": {
+    "video_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/b67be2a6-d1ff-473d-8195-02592b9ff8c1.mp4",
+    "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/20bfeb93-9d6f-401f-aca2-06592dda0c0a.mp3",
+    "model_mode": "face",
+    "emotion": "neutral",
+    "lipsync_mode": "cut_off",
+    "temperature": 0.5
+   }
+  },
+  "C4a": {
+   "model": "fal-ai/bytedance/omnihuman/v1.5",
+   "args": {
+    "image_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/a31716b3-cf81-4788-837f-abdd97a0f2c2.png",
+    "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/20bfeb93-9d6f-401f-aca2-06592dda0c0a.mp3",
+    "prompt": "The man speaks directly to the camera, seated at the wooden table, relaxed and engaged like a real conversation. His face stays calm: relaxed jaw, small understated mouth movements, lips close gently between phrases, no wide mouth opening. Natural eye contact with the lens, lively eyes with ordinary blinks. Natural head movement with emphasis, breathing visible in the chest and shoulders, small shoulder shifts, and one or two small natural hand gestures that lift off the table and settle again. Fixed camera, same wide framing. No exaggerated expressions, no finger pointing.",
+    "resolution": "1080p"
+   }
+  },
+  "C4": {
+   "model": "fal-ai/sync-lipsync/react-1",
+   "on": "C4a (re-hosted)",
+   "args": {
+    "model_mode": "lips",
+    "emotion": "neutral",
+    "lipsync_mode": "cut_off",
+    "temperature": 0.5,
+    "video_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/a7b16b3a-d4f1-447c-a96d-d9a77a14f739.mp4"
+   }
+  },
+  "comparison_video": "sent to owner: top-left r8 L3b, top-right C2, bottom-left C3, bottom-right C4; narration audio; not in git"
  }
 }
