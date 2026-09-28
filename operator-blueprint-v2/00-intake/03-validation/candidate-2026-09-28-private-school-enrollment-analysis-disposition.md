@@ -102,3 +102,16 @@ Episode number: unassigned
 This record is not a promotion record and cannot create an active queue row. If the candidate
 re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the
 decision history.
+
+## Addendum 2026-09-28: archived by owner decision
+
+Owner decision, same day, after reviewing the research: "drop the private school." Decision changed
+from `continue research` to **archived**. Nothing above is changed; the research stays on file as
+evidence.
+
+Reasons on record: no price anchor anywhere, the schools' own admissions software already reports
+the funnel, the likelier buyer is the diocese rather than the school, and Texas limits sharing
+voucher-student information.
+
+Re-entry allowed: only by a new owner decision with a new candidate brief and current research.
+Destination: archive.
