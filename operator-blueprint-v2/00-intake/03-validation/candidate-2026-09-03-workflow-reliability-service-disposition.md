@@ -88,3 +88,13 @@ Decision: **continue research** (re-score after a price revision; not ready for 
 Reason: The desk gaps named on 2026-09-03 are now mostly closed. The first observed price evidence is adverse to the modeled base price. The consequence mechanism is stronger, from primary platform documentation and an independent law-firm intake study, but automation-failure frequency and cost for the bounded buyer are still unmeasured. If the re-score of the revised package lands below 65 again, the next step is park.
 
 Editorial development authorized: no. This addendum is not a promotion record.
+
+## Addendum 2026-09-28 (2): re-score and park
+
+- Price reset: `../02-research/candidate-2026-09-03-workflow-reliability-service-amendment-02.md` / `068b7a3f96ee87f3389b23829bb857a1ad63d0755ff6528f987a7de6ef4f97e2`. The $3,500 sprint does not survive observed prices; viability rests on an unevidenced $300–$500/month retainer.
+- Reviewer A re-score: **69** (`candidate-2026-09-03-workflow-reliability-service-scorecard-02.md` / `733156713358bfc8d37bbaa7070bb58630a5133d2175616af9390d1eaba16049`). Recommends against owner override.
+- Reviewer B re-score: **62** (`candidate-2026-09-03-workflow-reliability-service-reviewer-b-adversarial-02.md` / `a34e67ff73b75f271056394970b55580c885f347847e01a8644e540483eba469`). Recommends park: near-duplicate of EP008's structure, commodity fix market, tool-plus-fix substitute wins below ~2 incidents a month, AI does no part of the delivery.
+- Both reviews were written by separate AI agents working independently; neither is an independent human review.
+- Per the first 2026-09-28 addendum, Reviewer B below 65 triggers park. Current decision: **parked**.
+
+Re-entry (desk evidence only): a buyer-posted budget or disclosed payment for ongoing automation maintenance or monitoring; evidence of failure frequency for one buyer segment; and a reframe in which AI does a material part of the delivery. The analogy map, Canvas gate and editorial review must be reissued against the current offer before any re-score.
