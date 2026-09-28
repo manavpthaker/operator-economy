@@ -1,6 +1,6 @@
 # Operator Economy candidate scout
 
-Run this workflow every Wednesday and Sunday at 17:00 America/New_York in
+Run this workflow every day at 17:00 America/New_York in
 `/Users/brownmanbrain/GitHub/operator-economy`.
 
 Your objective is to maintain a small, current, evidence-led pool of potential Operator Economy
@@ -77,20 +77,30 @@ access limits.
   eBay, marketplace and payment providers) are a distinct and often better source than a forum,
   because a dated policy change is a primary operating signal. Use only what is publicly accessible
   and attributable.
-- **Google Trends:** unreliable in this environment. It failed outright on 2026-09-20 and on
-  2026-09-21 rendered without exposing readable values. Attempt it when a direction claim would
-  change a decision, and otherwise skip it rather than spending a run on it. When it does work,
-  compare useful windows such as 7 days, 90 days, and 12 months and inspect rising and related
-  queries and regional differences. Treat the index as relative direction, never exact monthly search
-  volume.
+- **Google Trends:** use it every run for the one or two phrases a lead turns on. Tested
+  2026-09-27: the explore page renders in the built-in browser pane and the interest-over-time chart
+  is readable from a screenshot (page-text extraction returns no values); `curl` to the explore API
+  returns HTTP 429, and the autocomplete API returns 200. Compare 90-day, 12-month, and 5-year windows
+  and read the rising and related queries, which are often a better source of buyer phrasing than
+  the chart. Treat the index as relative direction, never monthly volume. Record the exact terms,
+  geography, and window.
+- **Quora and other question sites:** Quora pages return HTTP 403 to `curl` and WebFetch
+  (2026-09-27), but a Google search with `site:quora.com` returns question titles. Treat those titles
+  as SERP observations, as with Reddit: cite the title and URL, never an answer that was not visible.
+  Also search reachable question surfaces directly: Stack Exchange (including Personal Finance,
+  Freelancing, and Law), BiggerPockets forums, ContractorTalk and other trade forums, Shopify
+  Community, and vendor-hosted Discourse forums (all returned 200 or 202 on 2026-09-27). The most
+  useful questions are buyers asking **who to hire** for a job, **how much to pay**, or **how to stop
+  spending time** on it.
 
 Do not force every surface into every run. Choose the surfaces relevant to the observed question and
 record unavailable or blocked access honestly.
 
-Because Reddit is no longer readable, most runs will qualify a lead through the operating-change
+Because Reddit is no longer readable, many runs will qualify a lead through the operating-change
 route in the qualification list — one material operating change plus one independent
 audience/question signal — rather than through recurrence across two conversation surfaces. That is
-expected, not a lowered bar. It raises the burden on the market and operating-signal lane below: the
+expected, not a lowered bar. Google Trends, `site:quora.com` titles, and the reachable forums above
+count as independent audience/question signals. It raises the burden on the market and operating-signal lane below: the
 change must be dated, primary where possible, and attached to a cost the buyer is already carrying.
 Do not compensate for a lost surface by treating seller marketing, vendor guidance, or a press
 release as an audience signal.
@@ -109,6 +119,30 @@ Search current primary or otherwise credible sources for:
 
 Seller claims, directories, social chatter, search movement, and press coverage have different
 evidentiary weight. Preserve those differences.
+
+## Discovery lane 3: spend already happening
+
+Added 2026-09-27 by owner decision, because starting from new rules pulled the pool toward
+compliance work that licensed professionals or software vendors absorb. Start from money a buyer
+already spends on a job, then ask whether AI now lets one accountable operator do that job for much
+less. Aim for at least half of each run's new leads to come from this lane, and for mostly
+private-sector buyers.
+
+Search for:
+
+- job postings and contract-role postings (part-time, per-project, per-meeting) for work that is
+  mostly reading, writing, sorting, checking, reconciling, or answering;
+- freelance-marketplace briefs and budgets as far as search results render them (Upwork returns 403
+  directly);
+- agency, bookkeeper, law-firm, and consultant service lines billed by the hour for high-volume,
+  repeatable work;
+- public board packets, invoices, and contracts showing what an entity paid outsiders;
+- buyers asking in forums or on question sites who to hire for a job or how to stop doing it
+  themselves; and
+- overtime, backlog, or staffing complaints tied to a named job.
+
+A lead from this lane still needs every qualification test below. The payment evidence it produces
+is usually an old-way spend signal (see the problem-value test).
 
 ## Translate signals into leads
 
@@ -141,10 +175,17 @@ To become `shortlisted`, a lead must have:
 3. a meaningful unresolved tension or coverage gap;
 4. a plausible buyer, costly problem, observable outcome, and delivery mechanism to investigate;
 5. a path to honest, showable evidence that does not depend on a guest;
-6. enough accessible evidence for the Monday bench to decide whether formal Step 0 research is
+6. enough accessible evidence for the research bench to decide whether formal Step 0 research is
    warranted;
-7. a **stated delivery boundary** that survives the licensing test below; and
-8. at least one **willingness-to-pay signal** of an accepted type below.
+7. a **stated delivery boundary** that survives the licensing test below;
+8. at least one **problem-value signal** under the test below — evidence that the problem is costly
+   or valuable to the buyer. Payment evidence is recorded when found but is not required; and
+9. an **AI-change test**: AI must be what makes the business newly possible or newly economic for a
+   small operator — it does the bulk of the work, collapses the cost or time, or opens a job that
+   used to need a firm. Name what AI does in one sentence and what the business looked like before
+   it. If the business would work the same way without AI, or AI is only a minor helper (sorting
+   photos, drafting emails), reject for thesis fit. Added 2026-09-25 by owner decision, after the
+   service-line verification lead was shortlisted with AI as a side note.
 
 ### The delivery-boundary test
 
@@ -167,32 +208,52 @@ Also name the **automated or productised substitute** and its published price wh
 the residual is substantially what the substitute already outputs, hold or reject; do not shortlist
 a lead whose remaining work is a software output sold as labor.
 
-### The willingness-to-pay test
+### The problem-value test
 
-At least one signal that the target buyer pays an independent provider for **the residual**, not for
-the regulated or automated work around it. Accepted signals:
+Revised 2026-09-28 by owner decision, replacing the willingness-to-pay test. Operator Economy
+coaches: an episode gives viewers a researched foundation to go and test a business themselves. When
+AI makes a business new, nobody can know yet whether buyers will pay for it, so requiring payment
+evidence before shortlisting held back exactly the leads the channel exists to cover. Whether buyers
+pay is now the viewer's first test, not a scout gate.
 
-- a buyer describing a payment they made, with enough detail to identify the scope;
-- a service request, brief, or job posting carrying a budget for that scope;
-- a disclosed engagement, invoice, contract, or first-party result;
-- an observed marketplace transaction; or
-- an incumbent visibly charging a named buyer for that specific residual.
+A lead passes with at least one sourced signal that the problem is **costly or valuable to the
+target buyer**. Label each signal with its type:
 
-**Not accepted, in any combination:** vendor or agency pricing pages, directory rate cards, "how much
-does X cost" content-marketing posts, seller guidance published to win adjacent work, general loss or
-fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
-Several weak sources repeating a number do not become one strong source.
+- **`residual`** — the buyer already pays an independent provider for the residual itself (the
+  strongest signal; record it whenever found).
+- **`old-way spend`** — the buyer pays today for the same job done the pre-AI way (staff, overtime,
+  contractors, law firms, agencies, bundled services), with an amount or rate and enough scope to
+  see it is the same job.
+- **`problem cost`** — peripheral evidence the problem is expensive or consequential for this buyer:
+  documented losses, penalties or fines, time spent, backlog or delay, lost revenue, churn, failed
+  audits, litigation, or a buyer describing the pain in their own words with a consequence.
+- **`adjacent spend`** — buyers of this type visibly spend on a neighbouring job, tool, or service
+  that shows budget exists for the category.
+- **`demand signal`** — buyers asking who to hire, how to fix it, or what it costs, recurring across
+  independent surfaces.
 
-If no accepted signal exists, the lead is `held` with the exact missing signal named. This is the
-common case for a fresh regulatory trigger, and holding is the correct outcome — a held lead costs
-nothing, while a shortlisted one consumes a Monday bench run.
+Vendor or agency pricing pages, directory rate cards, cost-explainer content marketing, category
+size, funding, loss statistics, and deadlines may now be recorded as **context** for a problem-value
+signal, labelled as what they are. They never count as evidence that buyers pay, and several weak
+sources repeating a number do not become one strong source. A lead whose only signal is coverage
+volume or a trend is still rejected as trend-only.
+
+Record for every lead:
+
+- the problem-value signals found, typed and sourced;
+- **payment evidence:** `found` (with type and source) or `unknown — viewer's first test`;
+- for an `old-way spend` signal, the **switching question** — why this buyer would move the spend to
+  an outside operator rather than to software or its own staff using software. The substitute check
+  under the delivery-boundary test still applies.
+
+If no sourced problem-value signal exists, the lead is `held` with the missing signal named.
 
 ### Transition
 
-Leads shortlisted before 2026-09-21 were screened without tests 7 and 8. Re-screen every existing
-`shortlisted` lead against both on the next scout run and re-disposition it honestly, before adding
-any new lead. Until a lead records both results, it is not eligible for admission by the Monday
-bench.
+Leads held between 2026-09-21 and 2026-09-28 solely on the old willingness-to-pay test are
+re-screened against the problem-value test on the next scout run, before any new lead is added. Keep
+every other hold reason (delivery boundary, AI-change test, substitute) as it was. Leads shortlisted
+before 2026-09-21 were screened without tests 7 and 8 and still need both before admission.
 
 Reject generic, duplicative, evidence-free, guest-dependent, non-showable, hype-led, or trend-only
 ideas early. Hold a plausible lead when one named missing condition could change the decision, and
@@ -203,7 +264,7 @@ Do not assign a numeric score. Order shortlisted leads by editorial priority and
 reason in plain language. Keep no more than five shortlisted leads and add no more than three
 materially new leads in one run.
 
-Five is a ceiling, not a target. Under the delivery-boundary and willingness-to-pay tests an empty or
+Five is a ceiling, not a target. Under the delivery-boundary, problem-value, and AI-change tests an empty or
 one-lead shortlist is a normal and acceptable result. Do not relax either test to fill the pool, and
 do not shortlist a lead in order to have something for the Monday bench to admit — the bench is
 required to record `NO_QUALIFYING_SHORTLIST` and stop, and that is a cheaper outcome than a Step 0

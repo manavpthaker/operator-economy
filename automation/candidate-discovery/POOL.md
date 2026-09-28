@@ -1,192 +1,89 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET (owner-proposed lead `DISC-2026-09-27-009`, crash-report lead generation
-and mailers for personal-injury attorneys, held: brokers and mail houses already do the pull and
-mailing. 24-state rules map added in `runs/2026-09-27.md`. Earlier: 2026-09-23 scout added `DISC-2026-09-23-008`.)
+Updated: 2026-09-28 ET, owner decisions: merged owner-proposed `DISC-2026-09-28-010` from the
+remote branch; owner admission recorded for `DISC-2026-09-27-009` and `DISC-2026-09-28-010`.
+Earlier 2026-09-28, Monday bench: admitted `DISC-2026-09-27-011` as
+`candidate-2026-09-28-records-request-overflow`; added a recheck note to `DISC-2026-09-27-012`.
+Previous: 2026-09-27 ET, run 4 (scout rerun under revised rules): adds and shortlists
+`DISC-2026-09-27-012` (Medicare WISeR prior-auth desk); strengthens `DISC-2026-09-27-011` with
+Methacton SD and Evergreen; rejects PI medical chronologies and truck dispatch. Run 3 revised the
+payment test to accept `old-way spend`. Runs 1–2: crash-report research merged; records lead added.
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-### 1. `DISC-2026-09-23-008` — unknown service-line verification for small water systems
+### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-Decisive reason: the only lead in the pool where the named buyer is visibly paying an outside provider
-for the named residual. Strongest invalidating question: do small water systems buy this work only
-from engineering firms under qualifications-based procurement, leaving no door for a non-engineer
-operator?
-
-- Status: `shortlisted`
-- First seen / last checked: 2026-09-23 / 2026-09-23 ET
-- Exact question or change: every US community water system must resolve service lines whose material
-  is recorded as "unknown". Under the Lead and Copper Rule Improvements, published 2024-10-30, a
-  baseline inventory and, where lead, galvanized-requiring-replacement or unknown lines remain, a
-  replacement plan are due 2027-11-01, followed by replacement within ten years. Small systems that
-  filed an initial inventory in 2024 from records and age assumptions still carry blocks of unknowns
-  that must be physically verified.
-- Sources and observations (2026-09-23):
-  - EPA LCRI page, primary, last updated 2025-12-29; states the ten-year identify-and-replace
-    requirement and points to the Federal Register notice for dates:
-    <https://www.epa.gov/ground-water-and-drinking-water/lead-and-copper-rule-improvements>
-  - Federal Register LCRI notice (cited for the 2027-11-01 date; not read in full this run):
-    <https://www.federalregister.gov/documents/2024/10/30/2024-23549/national-primary-drinking-water-regulations-for-lead-and-copper-improvements-lcri>
-  - City of Victoria, Texas, primary city news release: RJN Group contracted 2023-06-20 to review
-    records and physically inspect meter boxes to determine service-line material, no excavation;
-    about one-third of lines needed field inspection after records review. No amount stated.
-    <https://www.victoriatx.gov/m/newsflash/Archive/Item/1601?arcId=3340>
-  - O'Fallon, Illinois, secondary civic-meeting report of the 2025-07-29 Public Works Committee:
-    $62,850 agreement with WHKS to physically inspect about 500 "unknown" lines, homeowner access
-    first, potholing at the meter pit only where needed (roughly $126 per line, scout arithmetic,
-    estimate):
-    <https://citizenportal.ai/articles/6152921/Illinois/St-Clair-County/OFallon-City/Council-committee-approves-contract-to-inspect-500-unknown-water-service-lines-under-Illinois-EPA-inventory>
-  - Ladd, Illinois, secondary civic-meeting report of the 2025-11-25 village board: $5,000 to Chamlin
-    Engineering to update the inventory; fall potholing cut unknowns from 185 to 30:
-    <https://citizenportal.ai/articles/8997021/illinois/bureau-county/ladd/village-approves-5000-contract-for-lead-service-line-inventory>
-  - Utah DEQ step-by-step inventory guidance: firsthand observations from staff, plumbers, operators
-    and contractors are accepted, with a service-line material certification form:
-    <https://deq.utah.gov/ddw/lead-service-line-inventory-guidance>
-  - Google autocomplete, observed 2026-09-23 (no volume inferred): "lead service line inventory
-    deadline", "… requirements", "… template", "… guidance", "… grant"; "how do i know if i have a
-    lead service line".
-  - AWWA v. EPA, D.C. Circuit; oral argument reported for 2026-09-30 (secondary):
-    <https://www.nrdc.org/court-battles/american-water-works-association-et-v-epa-lead-and-copper-rule-improvements>
-- Signal types: regulation, operating change, buyer spend (disclosed engagements), question signal.
-- Who appears to care / decision: small municipal utilities, water districts, and privately owned
-  community systems such as mobile-home parks, deciding how to clear unknowns before 2027-11-01 without
-  a large engineering contract.
-- Buyer / costly problem: a small system with a few hundred unknowns and no spare staff; every
-  unresolved unknown is treated like a lead line for notification and replacement planning, which
-  inflates the plan and the customer notices.
-- Potential offer / observable outcome: a fixed-scope unknown-line verification sprint. Outcome: a
-  count of unknowns reduced, each resolved line backed by a dated photo or inspection record, and an
-  inventory file ready for the system's certified operator to submit.
-- Delivery mechanism hypothesis: records reconciliation; resident photo self-identification campaign;
-  in-home and meter-pit visual inspection; potholing subcontracted; inventory data prepared on the
-  state template. AI helps with photo triage and record matching, not with classification sign-off.
-- Why now: 2027-11-01 baseline inventory and plan deadline; EPA released implementation tools in
-  June 2026; systems are appropriating money for unknowns now.
-- Strongest existing answer / gap: engineering firms (RJN, WHKS, Chamlin), inventory software
-  (120Water) and predictive modelling (BlueConduit). Coverage for would-be operators is absent;
-  coverage for utilities is vendor-written.
-- Possible OE point of view: a federal mandate created a long tail of small, physical, record-keeping
-  labor that large firms price for large cities. The small-operator advantage, if real, is local
-  presence and low overhead on jobs of a few hundred lines.
-- **Delivery boundary:** the water system, through its certified operator, is accountable for and
-  submits the inventory; state guidance reviewed (Utah) accepts material observations by staff,
-  plumbers, operators and contractors. Excavation stays with a licensed contractor and any engineering
-  judgment with an engineer. Residual in one sentence: an unlicensed operator verifies and documents
-  the material of unknown service lines through records reconciliation, resident photo intake, and
-  non-excavation visual inspection, and prepares the inventory data for the system's certified operator
-  to certify and submit. State-by-state variation is not yet mapped.
-- **Automated or productised substitute:** 120Water inventory and outreach software (price not
-  published; a Dublin, Georgia contract renewal was seen in a secondary report) and BlueConduit
-  predictive modelling. Both prioritise or record; neither performs the physical verification, so the
-  residual is not a software output.
-- **Willingness-to-pay signal: found, accepted type "disclosed engagement".** Victoria, Texas (primary
-  city source) paid a contractor for records review plus non-excavation meter-box inspection — the
-  residual — though no amount is stated. O'Fallon ($62,850 for about 500 unknowns) and Ladd ($5,000)
-  are secondary civic reports of disclosed contracts for the same scope. Caveat: every observed payee
-  is an engineering or consulting firm.
-- Strongest invalidating question: do small systems procure this only as engineering services
-  (qualifications-based selection) or bundled with software, so that a non-engineer operator cannot be
-  hired, and does the D.C. Circuit ruling after the 2026-09-30 argument remove the deadline?
-- Evidence still needed: the primary minutes or packet for O'Fallon or Ladd; one state's procurement
-  treatment of inventory field work; whether any non-engineering provider has been paid for it; the
-  outcome of the D.C. Circuit argument (the LCRR initial-inventory obligation and state laws such as
-  Illinois's replacement act would likely survive a vacatur, but that is unverified); count of small
-  systems with open unknowns; delivery hours per line.
-- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
-  `research/`, parked or rejected work, or the pool. Distinct from the accessibility lead (also a
-  public-entity mandate, but software and web testing, not field verification).
-- Recheck / expiry: recheck 2026-10-07 for the D.C. Circuit argument outcome; expires 2027-11-01.
-  Step 0 candidate ID: none.
+- Status: `shortlisted` (2026-09-27 run 4; priority 2 of 2; now the only shortlisted lead)
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
+  authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
+  for procedures including epidural steroid injections, nerve stimulators, lumbar decompression and
+  skin substitutes. Records released 2026-09 show thousands of denials. Who handles the new
+  paperwork for small practices?
+- Sources: DLA Piper 2026-01 <https://www.dlapiper.com/en/insights/publications/2026/01/cms-wiser-model>;
+  CMS FAQ <https://www.cms.gov/priorities/innovation/files/document/wiser-model-frequently-asked-questions>;
+  Medicare Rights Center 2026-09-24 <https://www.medicarerights.org/medicare-watch/2026/09/24/new-records-show-medicare-wiser-ai-prior-authorization-model-causing-inappropriate-denials-of-care>;
+  Stateline 2025-12-04 (title); DxTx Pain & Spine posting
+  <https://painpointhealth.applytojob.com/apply/ZSBbYFRzAs/Prior-Authorization-Coordinator>; Google
+  Trends 2026-09-27 ("prior authorization appeal" peaked spring–summer 2026, about a third of peak by
+  September). Full ledger: `runs/2026-09-27.md`, run 4.
+- Signal types: regulation (federal payment model), operating change, buyer spend, search direction.
+- Who appears to care / decision: independent pain, spine and orthopaedic practices in the six
+  states deciding how to staff new Medicare prior auth and appeals.
+- Buyer / costly problem: procedures that needed no approval now do; denials, week-long peer-to-peer
+  delays, postponed procedures and lost revenue.
+- Potential offer / observable outcome: a WISeR prior-auth and first-level appeal desk; approval
+  rate, days to decision and denials overturned, before and after.
+- Delivery mechanism hypothesis: AI reads the chart against each service's published coverage
+  criteria, flags gaps, drafts request and appeal; operator submits and tracks; physician signs and
+  handles peer-to-peer.
+- Why now: live since 2026-01-01; denial records just released; expansion to oncology or cardiac
+  care reported (paywalled, unverified).
+- **AI-change test: passes, to verify.** AI does the chart-to-criteria reading and drafting a
+  $19–21/hr coordinator does by hand, so one operator can serve several practices. Needed: minutes per
+  request with and without AI.
+- Strongest existing answer / gap: explainers from law firms and vendors; nothing on a WISeR-specific
+  small-operator desk.
+- Possible OE point of view: the payer's AI denies and is paid to; the practice can answer with AI,
+  but someone accountable must stand behind each submission. Showable with a synthetic chart against
+  public criteria; no guest needed.
+- **Delivery boundary: passes.** Unlicensed staff do prior-auth and appeal preparation today;
+  clinical judgment and peer-to-peer stay with the physician; HIPAA business associate agreement
+  required. Residual: an unlicensed operator prepares, submits and tracks WISeR requests and
+  first-level appeals for the physician to sign.
+- **Automated or productised substitute:** practice-management organisations (DxTx), billing and
+  revenue-cycle companies, offshore prior-auth staffing, provider-side auth software; prices not
+  collected. No free tool does the whole job.
+- **Willingness-to-pay signal: `old-way spend`.** DxTx Pain & Spine, a support organisation for
+  independent pain physicians, posts a remote Prior Authorization Coordinator at $19–21/hr
+  (first-party careers page). No `residual` signal.
+- **Switching question (bench question 1):** why would a practice move this work from its
+  coordinator, billing company or offshore staff to a small operator?
+- Strongest invalidating question: will offshore staffing and billing companies absorb the volume
+  more cheaply, and will gold-carding or model changes remove the burden?
+- Evidence still needed: approval and overturn rates by service; a practice's staff-hour cost of
+  WISeR; substitute prices.
+- Semantic deduplication: no match in the repository or pool.
+- Bench recheck 2026-09-28 (Monday bench; status unchanged, returned to the scout for re-screening):
+  (1) the DxTx/PainPoint posting URL now returns HTTP 410; the $19–21/hr wage survives only in search
+  snippets and a third-party job mirror, so the lead's sole willingness-to-pay signal is no longer
+  first-party accessible; (2) the House Appropriations Committee advanced language on 2026-06-09 to
+  block funding for WISeR (Becker's Payer Issues headline; DelBene FY27 letter, 2026-03-27), and
+  FY2027 runs on a continuing resolution to 2026-12-11 (P.L. 119-103), so the model's survival past
+  that date is an open political question; (3) CMS's FAQ says WISeR plans a gold-carding exemption in
+  2026 and lets providers opt for pre-payment review instead. Not admitted this run.
+- Disposition: shortlisted. Decisive reason: a dated federal change with fresh public records, a
+  licence-free residual, and a first-party wage for the old way. Recheck 2026-10-25; expires
+  2027-01-01 unless expansion is confirmed. Step 0 candidate ID: none.
 
 ## New
 
 None.
 
 ## Held
-
-### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
-
-- Status: `held`
-- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
-  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
-  personal-injury firms. The defense-attorney version is recorded in the rejected index.
-- First seen / last checked: 2026-09-27 / 2026-09-27 ET
-- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
-  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
-  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
-- Sources and observations (2026-09-27):
-  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
-    got crash reports from police agencies and from private data brokers they subscribed to, then
-    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
-    because the data did not come from the DMV. Scope: Fourth Circuit only.
-    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
-  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
-    violated that Act; solicitation is not a permitted use of DMV data:
-    <https://supreme.justia.com/cases/federal/us/570/48/>
-  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
-    The wait is not universal: the 2026-09-27 state map found none in Pennsylvania, Illinois, Ohio,
-    North Carolina, New Jersey, Virginia, Washington, Arizona or California, and New York removed
-    its wait on 2026-06-01. Most states still require an advertising label. North Carolina State Bar on targeted mail:
-    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
-  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
-    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
-  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
-    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
-    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
-  - Law-firm mail houses advertising this service:
-    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
-    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
-- Signal types: buyer spend, workflow, regulation, litigation.
-- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
-  on crash-report mail versus search ads and bought leads.
-- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
-  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
-  reports are fender-benders with no injury, and every firm in town mails the same people on the
-  same day.
-- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
-  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
-  first lawful day, and a report of calls and signed cases per 1,000 letters.
-- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
-  report and scores it for injury and fault; the attorney approves one letter template; a print
-  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
-  person and never pays for referrals.
-- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
-  practical where mail houses mail everything.
-- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
-  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
-  scoring which reports are likely cases.
-- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
-- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
-  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
-  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
-  attorney's approved letter after the waiting period.
-- **Legal risk, load-bearing:** state rules decide the business. Of 24 states researched
-  2026-09-27 (`runs/2026-09-27.md`), 6 are open (Ohio, New Jersey, Indiana, Missouri, Nevada,
-  Massachusetts at low confidence), 9 restricted, and 9 closed, including California and
-  Pennsylvania. Maryland makes it a crime for a nonlawyer to access reports to solicit, and several
-  states release reports only to attorneys or on a sworn statement, so the firm must be the
-  requester and the operator only processes what the firm obtains. Outside the Fourth Circuit,
-  whether the Driver's Privacy Protection Act reaches crash-report data is not settled; it carries
-  $2,500 statutory damages per violation.
-- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
-  found this run.
-- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
-  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
-  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
-- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
-  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
-  enough to cover it?
-- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
-  and mail-house prices; any post-Garey Driver's Privacy Protection Act rulings in other circuits.
-  State map done for 24 states (2026-09-27).
-- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
-  `research/`, parked or rejected work, or the pool.
-- Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
-  Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
-  signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
@@ -533,7 +430,370 @@ None.
   permission or revocation review that a small accountable operator can deliver within a bounded
   security scope. Recheck 2026-10-18. Step 0 candidate ID: none.
 
+### `DISC-2026-09-25-009` — manual complex-document remediation for small public entities
+
+- Status: `held`
+- First seen / last checked: 2026-09-25 / 2026-09-27 ET (2026-09-27: form-conversion re-aim tested;
+  SimpliGov and CivicPlus Form Center cover it; Bluff, UT and Harvard, IL bought platform tools only,
+  Bluff discussed keeping just three years of records. No outside buyer found. Still held.)
+- Exact question or change: under the DOJ Title II web rule, as extended by the interim final rule at
+  91 FR 20902 (2026-04-20), counties, cities, and special districts must make web content and the
+  documents they post conform to WCAG 2.1 AA by 2027-04-26 (population 50,000+) or 2028-04-26 (smaller
+  entities and special districts). Automated PDF remediation is now cheap; the documents it cannot fix
+  — tables, fillable forms, scans — are not.
+- Sources and observations (2026-09-25):
+  - DOJ interim final rule, primary (already in the pool under lead 004):
+    <https://www.federalregister.gov/documents/2026/04/20/2026-07663/extension-of-compliance-dates-for-nondiscrimination-on-the-basis-of-disability-accessibility-of-web>
+  - Tuscaloosa, Alabama, 2026-03-11, secondary civic summary: $37,720 over 24 months to CivicPlus Doc
+    Access to convert city PDFs; automated or manual not stated:
+    <https://citizenportal.ai/articles/7788570/Alabama/Tuscaloosa-County/Tuscaloosa-City/City-approves-Doc-Access-contract-to-make-municipal-PDFs-accessible-under-ADA>
+  - Cole County, Missouri, 2026-03-24, two secondary civic summaries: conditional approval of CivicPlus
+    remediation — $3,000 integration, about $700 per seat, five seats — plus a separately priced
+    **outsourcing option for complex pages**, given as $150 per complex page in one summary and "about
+    $1.50 per sheet" in the other. Price unverified:
+    <https://citizenportal.ai/articles/9427399/Missouri/Cole-County/Commission-conditionally-approves-purchase-of-ADA-documentremediation-subscription-pending-contract-review>
+    <https://citizenportal.ai/articles/7895862/Missouri/Cole-County/Cole-County-approves-preliminary-purchase-for-documentremediation-software-amid-staffing-concerns>
+  - Fort Smith, Arkansas, 2026-04-17, about $35,000 for 600+ pages and about 6,500 documents (under
+    lead 004).
+  - Counter-signal: Jurupa Valley, California staff report, 2026-04-16, $74,380 over three years,
+    described in the search snippet as using automated tools to avoid large-scale manual remediation
+    (PDF not read):
+    <https://jurupavalley.org/DocumentCenter/View/5335/26-0416-Staff-Report-CivicPlus-for-Website?bidId=>
+  - Google autocomplete, 2026-09-25 (no volume inferred): "ada title ii pdf requirements", "pdf
+    remediation for accessibility", "ada compliance for municipal websites", "ada compliance for city
+    websites", "title ii ada website accessibility requirements".
+- Signal types: regulation (dated deadline), buyer spend, substitute pricing, question signal.
+- Who appears to care / decision: clerks and IT or communications staff at counties, small cities,
+  and special districts deciding which posted documents to fix, archive, or remove, and whether
+  platform software is enough.
+- Buyer / costly problem: a small public entity with thousands of posted PDFs, no accessibility
+  staff, a fixed federal date, and a software seat that handles simple documents but not the agendas,
+  budgets, forms, and scanned records residents actually use.
+- Potential offer / observable outcome: a fixed-scope complex-document remediation and triage
+  engagement. Outcome: a document inventory classified fix / archive / remove, each fixed document
+  passing a named manual check, and a before-and-after count the clerk can show.
+- Delivery mechanism hypothesis: crawl and inventory posted documents; run automated remediation on
+  the simple ones; manually tag tables, forms, reading order, and alt text on the rest; convert where
+  HTML is better; verify with a screen reader; hand the entity a record of what was fixed and what it
+  chose to archive. Whether a document falls under an exception is the entity's decision, not the
+  operator's.
+- Why now: the extended dates are fixed, and entities are appropriating money in 2026.
+- Strongest existing answer / gap: platform vendors (CivicPlus Doc Access) and automated remediation
+  (advertised from $0.30 per page) sell to the same buyer. Coverage is vendor-written; nothing
+  observed addresses the leftover manual work as a small-operator business.
+- Possible OE point of view: automation made the easy 80% cheap and left the hard 20% — the documents
+  residents need most — to the same understaffed clerk. The operator business, if real, is that
+  leftover labor.
+- **Delivery boundary: passes.** No licence or credential is needed to remediate a document or test it
+  with a screen reader. Residual in one sentence: an unlicensed operator manually remediates and
+  verifies the posted documents automated tools fail on, and prepares the fix / archive / remove
+  inventory for the entity to decide.
+- **Automated or productised substitute:** automated per-page remediation (from $0.30 per page,
+  vendor page) and CivicPlus Doc Access seats. The same incumbent quoting a separate outsourced price
+  for complex pages indicates the residual is not what the software outputs.
+- **Willingness-to-pay signal: none accepted yet.** Nearest: CivicPlus quoting Cole County a separate
+  outsourced complex-page tier — but the county bought seats, the tier is an offer rather than an
+  observed purchase, and the price conflicts between sources.
+- **AI-change test (added 2026-09-25):** plausibly passes, not yet verified. AI remediation has made
+  simple documents nearly free, and AI-assisted tagging of tables, forms and scans may let one person
+  clear a town's backlog that used to need a remediation firm. Needed: hours per complex page with and
+  without AI assistance.
+- Owner note, 2026-09-25: the owner called this a good lead. That does not replace the
+  willingness-to-pay test; it sets it as the first lead to work on the next run.
+- Strongest invalidating question: do small entities keep this work inside the website vendor's
+  bundle and staff seats — or archive most documents under the rule's exceptions — leaving nothing an
+  outside operator is paid for?
+- Evidence still needed: primary minutes or contract for one purchase of manual complex-document
+  remediation by a small entity (county, city under 50,000, or special district), with scope and
+  price; the rule's exception language checked against current guidance; delivery hours per complex
+  page; whether CivicPlus's outsourced tier is human.
+- Semantic deduplication: related to held lead `DISC-2026-09-20-004`, which recorded public-entity
+  spend as a possible re-aim for the bench. Filed separately because buyer (public entity vs agency or
+  ecommerce), deliverable (documents vs web journeys), and substitute differ. The bench may merge them.
+  No other match in the repository.
+- **Deep dive, 2026-09-25 (run 3, owner request) — lead weakened.** Full ledger in
+  `runs/2026-09-25.md`, run 3. In short:
+  - The main substitute, CivicPlus DocAccess, says complex pages get human review by accessibility
+    specialists "at no extra cost", including scans, handwritten records and multi-column documents.
+    The residual as first stated is largely what the substitute already delivers.
+  - Observed towns buy the AI tool and do the rest in-house: Bellingham, WA (manual remediation of a
+    sample cost over $1,100 in staff time vs $134 in DocAccess), Palm Desert, CA (6,500+ PDFs, all but
+    about 300 fixed in-house), Teller County, CO (staff with CommonLook tools). Steuben County, NY
+    ($29,932) and Tuscaloosa, AL ($37,720) bought DocAccess. The AI saving goes to the software vendor,
+    not an outside operator.
+  - Outside-service requests seen are from large buyers: League City, TX RFP #26-008 (population over
+    100,000), Utah County (amounts not disclosed), Washington State DES. None is a small entity.
+  - Two cracks remain. (1) DocAccess produces an HTML transcript, which the DOJ rule treats as a
+    "conforming alternate version", allowed "only when there is a technical or legal limitation"
+    (ADA.gov fact sheet). Whether transcripts satisfy the rule is disputed and is a legal question, not
+    the scout's to decide. (2) Fillable PDF forms: a read-only transcript is not a working form
+    (Bellingham alone lists 140+ online PDF forms). Converting forms into accessible web forms is a
+    narrower residual that the transcript approach does not appear to cover.
+- **Willingness-to-pay test (run 3): still not met.** No small entity was seen paying an independent
+  provider for manual remediation.
+- **Re-screen 2026-09-27 (run 3, revised payment test):** `old-way spend` exists (Bellingham: over
+  $1,100 of staff time for a manual sample), but the substitute check still holds it — towns move
+  that spend to DocAccess seats with human review included, not to an operator.
+- Disposition / reopening condition: held. Reopen on either (a) a disclosed purchase by a small public
+  entity of manual remediation or PDF-form-to-web-form conversion from a non-platform provider, or
+  (b) DOJ guidance or an enforcement action saying HTML transcripts do not satisfy the rule. Next run:
+  form-conversion re-aim tested 2026-09-27, no buyer found. Recheck 2026-10-18 alongside lead 004. Step 0
+  candidate ID: none.
+
 ## Admitted to Step 0
+
+### `DISC-2026-09-28-010` — admissions and enrollment analysis for small private schools
+
+- Status: `admitted` (owner admission 2026-09-28; was `held`)
+- Step 0 candidate ID: `candidate-2026-09-28-private-school-enrollment-analysis` (decision: continue research). Admission is not eligibility or promotion.
+- Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
+  `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`).
+- Origin: owner-proposed 2026-09-28 as "private school admissions analysis", not a scout find. The
+  owner did not name the buyer. Filed on the school side (the school pays to understand its own
+  admissions funnel). The family side, consultants helping parents get a child admitted, is a
+  saturated consulting market with only seller price pages as evidence; reopen it separately if that
+  was the intent.
+- First seen / last checked: 2026-09-28 / 2026-09-28 ET
+- Exact question or change: can an operator sell a small private school a fixed-scope analysis of its
+  own admissions data (inquiry to application to enrollment, yield, re-enrollment, aid) that tells it
+  where it loses families and what to change, now that school-choice money is changing who applies?
+- Sources and observations (2026-09-28):
+  - Texas Education Freedom Accounts: $1 billion first year, up to 90,000 students, up to $10,474
+    per student, starting 2026-27; nearly 800 private schools registered. Fort Worth Catholic diocese
+    reported 400 to 600 new students (secondary report):
+    <https://www.cbsnews.com/texas/news/texas-education-freedom-accounts-private-school-growth-8-11-2026/>
+    · <https://communityimpact.com/austin/south-central-austin/texas-legislature/2026/01/12/over-700-texas-private-schools-pre-k-providers-approved-for-education-savings-account-program/>
+  - Federal Tax Credit Scholarship (P.L. 119-21, July 2025) starts 2027-01-01; up to $1,700 credit per
+    donor; families under 300% of area median income eligible; 31 states planned to opt in as of May
+    2026: <https://www.congress.gov/crs-product/R48724> ·
+    <https://www.edweek.org/policy-politics/federal-program-will-bring-private-school-choice-to-at-least-4-new-states/2026/01>
+  - Demand side: births fell about 16% from 2007 to 2024; a 13% private-school enrollment decline is
+    projected 2024 to 2031 (search summary, source not opened). NAIS reports member enrollment stable
+    since 2019 and average aid of $19,589 per aided student in 2025-26:
+    <https://www.k12dive.com/news/a-snapshot-of-private-school-trends-in-4-charts/821686/>
+  - Existing providers of enrollment audits: ISM, Carney Sandoe, The Gowan Group (seller pages):
+    <https://www.isminc.com/consulting/onsite-consulting/admission-enrollment-management> ·
+    <https://thegowangroup.com/school-consulting/enrollment>
+  - Enrollment Management Association on schools' weak funnel data:
+    <https://www.enrollment.org/articles/save-the-funnel-independent-schools-quest-for-better-data>
+- Signal types: regulation (school-choice funding), demographic change, workflow.
+- Who appears to care / decision: heads of small private and religious schools, often with one
+  part-time admissions person, deciding whether to add seats, change tuition relative to the voucher
+  amount, or change how they follow up with inquiries.
+- Buyer / costly problem: each lost family is a year of tuition, often $10,000 or more, and most
+  small schools cannot say where in the funnel families drop out or why.
+- Potential offer / observable outcome: a fixed-fee funnel analysis: a cleaned multi-year dataset
+  from the school's own records, conversion and yield by stage, grade and source, a re-enrollment
+  risk list, a tuition-versus-voucher comparison, and three changes to test next cycle.
+- Delivery mechanism hypothesis: export from the school's admissions system (Blackbaud, Finalsite,
+  Veracross, or spreadsheets); AI cleans and matches records; operator builds the funnel and writes
+  the findings. Family records are handled under a data agreement; nothing is shared outside the school.
+- Why now: Texas money arriving in the 2026-27 year and the federal credit in 2027 bring new
+  applicant groups to schools that have never had them, while the birth decline shrinks the base.
+- Strongest existing answer / gap: enrollment consulting firms (ISM, Carney Sandoe, Gowan) and the
+  admissions systems' own reports. The firms are priced and staffed for larger independent schools;
+  the gap, if any, is small religious and micro schools newly on the voucher lists.
+- Possible OE point of view: none supplied. Do not claim owner experience in school admissions.
+- **Delivery boundary:** no licence is needed for data analysis. Student records may fall under
+  FERPA only where a school takes federal funds; most private schools do not, but state student-privacy
+  laws and the voucher programs' own rules may apply. Residual in one sentence: an operator turns a
+  school's own admissions records into a funnel analysis and a short list of changes, which the
+  school decides whether to make.
+- **Automated or productised substitute:** reporting inside Blackbaud, Finalsite and Veracross;
+  Enrollment Management Association benchmarks. Prices not published. None writes the findings for
+  the school.
+- **Willingness-to-pay signal: none found.** Consulting firms advertise enrollment audits, but that
+  is seller copy. No school was found describing a paid engagement, and private schools do not
+  publish contracts the way public bodies do.
+- Strongest invalidating question: will a small school with a tight budget pay an outside operator
+  for analysis when its admissions system already has reports and new voucher families are arriving
+  anyway?
+- Evidence still needed: one school or diocese describing a paid enrollment analysis with scope and
+  price; how many Texas voucher-list schools have fewer than 200 students; what data those schools
+  actually keep; the source for the 13% projection.
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- Disposition / reopening condition: held on willingness to pay. Reopen when one school, diocese or
+  school network is found paying an outside provider for admissions or enrollment analysis, with
+  scope. Recheck 2026-10-28. Step 0 candidate ID: `candidate-2026-09-28-private-school-enrollment-analysis` (admitted 2026-09-28).
+
+### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
+
+- Status: `admitted` (owner admission 2026-09-28; was `held`)
+- Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (decision: continue research). Admission is not eligibility or promotion.
+- Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
+  `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`).
+- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
+  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
+  personal-injury firms. The defense-attorney version is recorded in the rejected index.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
+  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
+  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
+- Sources and observations (2026-09-27):
+  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
+    got crash reports from police agencies and from private data brokers they subscribed to, then
+    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
+    because the data did not come from the DMV. Scope: Fourth Circuit only.
+    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
+  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
+    violated that Act; solicitation is not a permitted use of DMV data:
+    <https://supreme.justia.com/cases/federal/us/570/48/>
+  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
+    The wait is not universal: the 2026-09-27 state map found none in Pennsylvania, Illinois, Ohio,
+    North Carolina, New Jersey, Virginia, Washington, Arizona or California, and New York removed
+    its wait on 2026-06-01. Most states still require an advertising label. North Carolina State Bar on targeted mail:
+    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
+  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
+    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
+  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
+    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
+    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
+  - Law-firm mail houses advertising this service:
+    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
+    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
+- Signal types: buyer spend, workflow, regulation, litigation.
+- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
+  on crash-report mail versus search ads and bought leads.
+- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
+  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
+  reports are fender-benders with no injury, and every firm in town mails the same people on the
+  same day.
+- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
+  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
+  first lawful day, and a report of calls and signed cases per 1,000 letters.
+- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
+  report and scores it for injury and fault; the attorney approves one letter template; a print
+  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
+  person and never pays for referrals.
+- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
+  practical where mail houses mail everything.
+- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
+  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
+  scoring which reports are likely cases.
+- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
+- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
+  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
+  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
+  attorney's approved letter after the waiting period.
+- **Legal risk, load-bearing:** state rules decide the business. Of 24 states researched
+  2026-09-27 (`runs/2026-09-27.md`), 6 are open (Ohio, New Jersey, Indiana, Missouri, Nevada,
+  Massachusetts at low confidence), 9 restricted, and 9 closed, including California and
+  Pennsylvania. Maryland makes it a crime for a nonlawyer to access reports to solicit, and several
+  states release reports only to attorneys or on a sworn statement, so the firm must be the
+  requester and the operator only processes what the firm obtains. Outside the Fourth Circuit,
+  whether the Driver's Privacy Protection Act reaches crash-report data is not settled; it carries
+  $2,500 statutory damages per violation.
+- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
+  found this run.
+- **AI-change test (scout note, 2026-09-27 run 2): plausibly passes, unverified.** AI reads and scores
+  scanned crash reports for injury and fault; before, mail houses mailed every report because reading
+  them cost too much. Needed: scoring accuracy against signed cases.
+- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
+  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
+  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
+- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
+  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
+  enough to cover it?
+- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
+  and mail-house prices; any post-Garey Driver's Privacy Protection Act rulings in other circuits.
+  State map done for 24 states (2026-09-27).
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- **Re-screen 2026-09-27 (run 3, revised payment test):** payment passes as `old-way spend` — Garey
+  shows firms paying brokers for the reports that feed their mail. Switching question: would a firm
+  pay a scoring operator instead of, or on top of, its broker and mail house? Still held on test 1:
+  no dated operating change and no independent question signal from firms; search found only
+  mail-house marketing and victim-side questions ("why do I receive letters from lawyers").
+- Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
+  Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
+  signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (admitted 2026-09-28).
+
+### `DISC-2026-09-27-011` — public-records request processing for small agencies
+
+- Status: `admitted` (Monday bench 2026-09-28; was `shortlisted`, 2026-09-27 run 3, priority 1)
+- Step 0 candidate ID: `candidate-2026-09-28-records-request-overflow` (decision: continue research;
+  see `automation/runs/oe-weekly-research/2026-09-28.md`). Admission is not eligibility or promotion.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: records-request volume is rising sharply at small agencies, partly
+  because AI services file requests at scale, while each agency still has one records officer and
+  statutory deadlines. Who does the overflow work, and does anyone pay a non-lawyer to do it?
+- Sources and observations (2026-09-27; full ledger in `runs/2026-09-27.md`, run 2):
+  - Longview School District, WA, board meeting 2026-09-14 (Citizen Portal AI-written summary): 151
+    requests in the first eight months of 2026 vs 53 in 2025; $96,556.58 outside legal support for
+    records processing through 2026-08-31; added "a dedicated contractor" (scope and cost not
+    disclosed). The district is also under a public investigation, so the surge may be event-driven:
+    <https://citizenportal.ai/articles/10078311/washington/school-districts/longview-school-district/interim-superintendent-public-records-requests-nearly-tripled-and-legal-review-costs-spiked>
+  - GovTech 2024-08-14: Pennsylvania counties flooded by an AI request service, adopted
+    anonymous-request bans:
+    <https://www.govtech.com/artificial-intelligence/governments-adjust-policies-amid-flood-of-ai-record-requests>
+  - Michigan FOIA, MCL 15.234 (primary): an agency with no employee able to separate exempt material
+    may use "contracted labor", capped at six times minimum wage, naming the "contracted person or
+    firm" on the fee itemization: <https://legislature.mi.gov/Laws/MCL?objectName=mcl-15-234>
+- Signal types: operating change (volume surge), buyer spend (outside legal), regulation (contracted
+  labor provision).
+- Who appears to care / decision: records officers and superintendents or clerks at school districts,
+  townships and small cities deciding between overtime, counsel, software, fee and request-policy
+  changes.
+- Buyer / costly problem: one records officer, a tripled request load, statutory response deadlines
+  with penalties (WA RCW 42.56.550), and counsel bills rising tenfold.
+- Potential offer / observable outcome: overflow records processing under the agency's records
+  officer. Outcome: backlog count and days-to-installment before and after, counsel hours per request.
+- Delivery mechanism hypothesis: collect and de-duplicate responsive email and files, AI
+  responsiveness review and first-pass redaction, installment packaging and a draft exemption log;
+  the records officer and counsel approve every release and denial.
+- Why now: AI-filed requests raise volume; AI review tools make one person able to process much more.
+- **AI-change test: plausibly passes.** AI does the bulk reading for responsiveness and exempt content,
+  which used to take paralegal or attorney hours; that is what lets one operator serve several
+  agencies. Not verified: hours per request with and without AI.
+- Strongest existing answer / gap: portals (GovQA, NextRequest, JustFOIA) and AI redaction or review
+  software (CaseGuard, Logikcull, Polimorphic) are sold to staff; coverage is requester rights and
+  agency policy. Nothing observed treats the overflow labor as a small-operator business.
+- Possible OE point of view: AI made asking nearly free and left the cost on the one clerk who
+  answers; who is accountable for AI-processed releases is the real question. Earned only with a
+  buyer record.
+- **Delivery boundary: passes, with a named line.** Exemption decisions and denials stay with the
+  records officer and counsel. Residual in one sentence: an unlicensed operator gathers, de-duplicates,
+  AI-reviews and pre-redacts responsive records and drafts the installment and exemption log for the
+  records officer and counsel to approve. Scope out police records (CJIS); school records need a
+  FERPA school-official designation.
+- **Automated or productised substitute:** the portals and redaction tools above; prices not
+  collected yet. They are staff tools; the residual is labor.
+- **Willingness-to-pay signal: passes as `old-way spend` (re-screen 2026-09-27, run 3).** Longview
+  School District reported $96,556.58 in outside legal support "for records processing" through
+  2026-08-31, plus a dedicated contractor and overtime (secondary, AI-written summary of the
+  2026-09-14 board meeting; bench must confirm in the primary board packet). Albuquerque added 15
+  records staff to cut its backlog (Yahoo News, large city, context only):
+  <https://www.yahoo.com/news/city-albuquerque-public-records-backlog-050000411.html>. No `residual`
+  signal yet: Longview's contractor has no disclosed scope or price.
+- **Switching question (bench question 1):** why would a records officer move overflow spend from
+  counsel and overtime to an outside non-lawyer operator, rather than buying review software for its
+  own staff? Longview already bought a tracking system and still paid counsel and a contractor, which
+  suggests software alone did not absorb the work.
+- Audience / question signal added in run 3: `site:quora.com` titles show requesters stuck on
+  unresponsive agencies, e.g. "if a government agency is not responding (literally ignoring you) to a
+  public records request, what's the most effective way to get their attention?"
+  <https://www.quora.com/In-the-U-S-if-a-government-agency-is-not-responding-literally-ignoring-you-to-a-public-records-request-whats-the-most-effective-way-to-get-their-attention>
+  (SERP title only; answers not read).
+- Strongest invalidating question: do agencies absorb the surge with fees, anonymous-request bans,
+  portal software and counsel, leaving no paid non-lawyer processing work — and is the surge durable
+  or event-driven?
+- Evidence still needed: a primary board packet, contract, or Michigan fee itemization naming a
+  non-law contractor paid for records processing, with scope and rate; more small agencies reporting
+  surges with numbers; substitute prices.
+- Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
+  `DISC-2026-09-25-009`; different deliverable and substitute.
+- Run 4 additions (2026-09-27): Methacton School District, PA, 2025–26 (meeting 2026-07-22): 64
+  requests; Right-to-Know specialist $70,119, assistant superintendent $24,872, legal $31,635,
+  total $126,626.60, about $2,000 a request:
+  <https://citizenportal.ai/articles/9813637/Pennsylvania/School-Districts/Methacton-SD/Superintendent-details-Right-to-Know-workload-and-costs-for-202526>.
+  Evergreen Public Schools, WA: requests up about 52% (snippet). Lawrence, KS district ordered to pay
+  $113,000 for violating the open records law (title). Longview primary packet still not found.
+- Disposition: shortlisted 2026-09-27 (run 3) under the revised payment test. Decisive reason: a
+  dated, costed surge at a small buyer, a licence-free residual, and AI doing the bulk of the review.
+  Main risks: the only cost figure is secondary, and Longview's surge may be event-driven. Recheck
+  2026-10-25. Step 0 candidate ID: `candidate-2026-09-28-records-request-overflow` (admitted
+  2026-09-28).
 
 ### `DISC-2026-09-21-006` — cross-border duty and landed-cost system for small importers
 
@@ -729,6 +989,19 @@ None.
   already output. Reopen only with an accepted willingness-to-pay signal for a service-charge-to-tip
   pricing decision that software does not make.
 
+- 2026-09-25 — EU PPWR obligations for non-EU small sellers: live since 2026-08-12, but the core role
+  (an EU authorised representative for EPR in each member state) must be EU-established, the remaining
+  packaging-data work is bundled by those representative services, and exiting the EU market is a
+  self-serve alternative. Reopen only with an accepted willingness-to-pay signal for SKU packaging-data
+  work bought separately from the representative.
+
+- 2026-09-25 (run 2) — `DISC-2026-09-23-008` unknown service-line verification for small water
+  systems: rejected by owner decision on the AI-change test. The business is pipe inspection and
+  record-keeping; AI appeared only as photo triage, and the work would run the same without it.
+  Evidence (LCRI deadline, Victoria / O'Fallon / Ladd / Arlington engagements) is preserved in
+  `runs/2026-09-23.md` and `runs/2026-09-25.md`. Reopen only if AI demonstrably changes who can
+  deliver it or what it costs.
+
 - 2026-09-27 — Police-report and discovery review for criminal defense attorneys: a misreading of the
   owner's crash-report idea, researched before the correction. Police reports in pending criminal
   cases reach the defense through discovery, not public records; JusticeText ($1,200 per attorney per
@@ -736,4 +1009,18 @@ None.
   appointed-counsel paralegals. Reopen only with a private defense attorney paying an outside provider
   per case for discovery review.
 
-Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`.
+- 2026-09-27 (scout run 2) — AI-drafted minutes for small public boards: the AI change is real, but
+  ClerkMinutes offers free AI minutes to clerks and reports 400+ municipalities using it; the
+  residual (checking the AI draft) is what the clerk now does. Towns pay only employees (part-time
+  board secretaries). Reopen only with a town or district paying an outside, non-employee provider
+  per meeting for verified minutes.
+
+- 2026-09-27 (run 4) — Medical-record chronologies for personal-injury firms: old-way spend exists,
+  but AI vendors (EvenUp, Eve, Supio), case software (CasePeer) and offshore firms already sell the
+  job. Reopen only with a buyer showing those options fail for a named case type.
+
+- 2026-09-27 (run 4) — Owner-operator truck dispatch: AI dispatch software already sells the job
+  at a flat fee. Reopen only with evidence carriers pay a human for something that software drops.
+
+Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
+`runs/2026-09-25.md`, `runs/2026-09-27.md`.
