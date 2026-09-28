@@ -1,6 +1,7 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-28 ET, scout run (17:05): adds and shortlists `DISC-2026-09-28-013` (CAM
+Updated: 2026-09-28 ET, owner-proposed lead `DISC-2026-09-28-015` (family-side private-school
+admissions help) screened and held. Earlier, scout run (17:05): adds and shortlists `DISC-2026-09-28-013` (CAM
 reconciliation review, priority 1); re-screens `DISC-2026-09-27-012` under the problem-value test (stays
 shortlisted, priority 2); adds `DISC-2026-09-28-014` (I-9 self-audit) as held; rejects `DISC-2026-09-20-002`
 and `DISC-2026-09-20-004` on the AI-change test; rejects utility-bill audits. Full record: `runs/2026-09-28.md`.
@@ -142,6 +143,48 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-09-28-015` — AI-assisted private-school admissions help for families (owner-proposed)
+
+- Status: `held`
+- Origin: owner-proposed 2026-09-28 ("private school consultants or admissions AI help"), after the
+  school-side candidate was archived. This is the family side that `DISC-2026-09-28-010` set aside.
+- First seen / last checked: 2026-09-28 / 2026-09-28 ET
+- Idea: a consultant who uses AI to do what an $8,500–$12,000 admissions consultant does (school list,
+  deadlines, applications, interview prep) at a fraction of the price, or an AI-first help service.
+- Sources (2026-09-28): NYC consultant packages $12,000 and $8,500 late-application (seller pages,
+  context) <https://www.privateschoolconsultants.com/>; Parents League includes advisory with membership
+  <https://www.parentsleague.org/advisory-services>; DCUM "Is a private school consultant worth it?"
+  <https://www.dcurbanmom.com/jforum/posts/list/1020635.page> — most parents say "Waste of money" /
+  "Save the money" and applied on their own; one found it "helpful for my foreign spouse"; DCUM hourly
+  thread 2023-10-12 quotes $120 to "$1,000 - $1,400/Hr"; Texas TEFA 274,000+ applications, 102,000+
+  awarded, ~145,000 waitlisted (late June 2026)
+  <https://comptroller.texas.gov/about/media-center/news/20260610-texas-education-freedom-accounts-pass-100000-student-milestone-1781032778918>.
+- Buyer / problem: (a) affluent families in competitive markets (NYC, DC); (b) first-time private-school
+  families arriving through Texas TEFA (2026-27) and the federal tax-credit scholarship (2027).
+- **AI-change test: plausibly passes.** AI collapses the research, tracking and prep hours that justify
+  a $10k package, so one person could sell a low-price version. Not verified.
+- **Delivery boundary: passes.** No licence. Line: do not write the child's essays; schools are adding
+  AI and authenticity rules.
+- **Problem-value signals:** `residual` — DCUM parents describe paying consultants (mixed verdicts);
+  `demand signal` — recurring DCUM threads on whether to hire one. Payment evidence: found (residual,
+  buyer accounts), but buyers largely report low value.
+- **Substitute:** ChatGPT used by the parent directly (free); schools' own admissions staff; Parents
+  League membership; the state TEFA school finder.
+- Why held: (1) substitute — for group (a), parents say DIY works and AI makes DIY easier still; the
+  residual looks like chatbot output sold as labor; (2) for group (b), the bottleneck is the TEFA
+  lottery and waitlist, not the application, and schools help voucher families for free because they
+  want the enrollment.
+- Strongest invalidating question: what does a family get from this operator that ChatGPT plus the
+  school's admissions office does not give them free?
+- Possible narrower re-aims (not screened): families relocating from abroad (the one positive DCUM
+  account); special-needs placements (TEFA up to $30,000, therapies an eligible expense).
+- Reopening condition: one re-aim shown with a buyer group that finds DIY and free help insufficient,
+  with a sourced problem-value signal. The owner may also admit it directly (2026-09-28 decision).
+  Recheck 2026-10-28.
+- Semantic deduplication: family side of archived `candidate-2026-09-28-private-school-enrollment-analysis`
+  (disposition: "Family side: considered … and not adopted; seller price pages only"). Different buyer
+  and offer; no other match.
 
 ### `DISC-2026-09-28-014` — I-9 self-audit and correction for small employers
 
