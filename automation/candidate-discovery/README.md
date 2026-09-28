@@ -21,7 +21,7 @@ candidate template.
 | State | Meaning |
 |---|---|
 | `new` | A sourced signal worth screening, but not yet qualified for the Monday bench. |
-| `shortlisted` | Passed every scout filter, including the delivery-boundary and willingness-to-pay tests, and may be considered for formal Step 0 admission. |
+| `shortlisted` | Passed every scout filter, including the delivery-boundary, problem-value, and AI-change tests, and may be considered for formal Step 0 admission. |
 | `held` | Plausible, but blocked on a named missing signal, source, access, or timing condition. |
 | `rejected` | Generic, duplicate, evidence-free, guest-dependent, non-showable, outside the thesis, or otherwise not worth reopening without a stated material change. |
 | `admitted` | The Monday bench created a formal Step 0 candidate and recorded its ID. The scout may not set this state. |
@@ -52,21 +52,21 @@ Every lead must preserve:
   and, if any part requires a licence or credential, what concretely remains for an unlicensed
   operator once every regulated task is removed;
 - **automated or productised substitute** and its published price, when one exists;
-- **willingness-to-pay signal**, labelled `residual` (buyer pays an independent provider for the
-  residual) or `old-way spend` (buyer pays today for the same job done the pre-AI way), recorded with
-  its evidence type and source, or an explicit statement that none was found;
+- **problem-value signals**, each typed (`residual`, `old-way spend`, `problem cost`,
+  `adjacent spend`, or `demand signal`) and sourced;
+- **payment evidence:** `found` (type and source) or `unknown — viewer's first test`;
 - for an `old-way spend` signal, the **switching question**: why this buyer would move that spend to
   an outside operator rather than to software or its own staff using software;
 - expiry or recheck date;
 - status, disposition reason, and exact reopening condition when held or rejected; and
-- Step 0 candidate ID only after a later Monday-bench admission.
+- Step 0 candidate ID only after a later research-bench admission.
 
 Google Trends supplies relative direction and related-query evidence, not exact monthly volume.
 Reddit and other community activity supplies qualitative language and recurrence evidence, not
 proof of demand, willingness to pay, or market size. A source-access failure is an evidence limit,
 not a negative market finding.
 
-## The two tests added 2026-09-21 (willingness to pay revised 2026-09-27)
+## The two tests added 2026-09-21 (pay test replaced by problem value 2026-09-28)
 
 Owner decision, 2026-09-21, after four consecutive leads and two Step 0 candidates failed on the same
 axis: a regulation-triggered service whose delivery boundary requires a licensed professional, whose
@@ -79,21 +79,21 @@ residual is the offer. If it cannot be stated, the lead is `held` with "delivery
 not `shortlisted`. If the residual is substantially what an automated substitute already outputs,
 hold or reject.
 
-**Willingness to pay (revised 2026-09-27).** At least one signal of either kind: `residual`, the
-target buyer paying an independent provider for the residual; or `old-way spend`, the target buyer
-paying today for the same job done the pre-AI way (staff or overtime, contract hires, law firms,
-agencies, bundled services), with an amount or rate and enough scope to see it is the same job.
-Accepted evidence: a buyer describing a payment with identifiable scope; a service request, brief, or
-job posting carrying a budget, wage, or rate; a disclosed engagement, invoice, contract, or budget
-line; an observed marketplace transaction; or an incumbent visibly charging a named buyer. Not
-accepted in any combination: vendor or agency pricing pages, directory rate cards, cost-explainer
-content marketing, seller guidance published to win adjacent work, aggregator salary averages, loss
-or fraud statistics, category size, funding, a deadline, or the volume of coverage a change
-attracts. An `old-way spend` lead carries its switching question to the Monday bench as the first
-research question. The revision replaced a residual-only rule that contradicted the AI-change test.
+**Problem value (replaced the willingness-to-pay test 2026-09-28).** Owner decision: OE coaches,
+and when AI makes a business new nobody can yet know whether buyers will pay, so payment is the
+viewer's first test rather than a scout gate. A lead needs at least one sourced signal that the
+problem is costly or valuable to the target buyer, typed as `residual` (buyer already pays an
+independent provider for it), `old-way spend` (buyer pays for the same job done the pre-AI way),
+`problem cost` (documented losses, penalties, time, backlog, lost revenue, or the buyer's own account
+of the pain with a consequence), `adjacent spend` (budget visibly exists for a neighbouring job), or
+`demand signal` (buyers asking who to hire or how to fix it, recurring across independent surfaces).
+Payment evidence is recorded as `found` or `unknown — viewer's first test`. Vendor pricing pages,
+rate cards, cost explainers, category size, funding, loss statistics, and deadlines may be recorded
+as labelled context but never as evidence that buyers pay. An `old-way spend` lead still carries its
+switching question to the bench. Trend-only leads are still rejected.
 
 Holding is the expected outcome for a fresh regulatory trigger. A held lead costs nothing; a
-shortlisted one consumes a Monday bench run.
+shortlisted one consumes a research-bench run.
 
 The full test wording, including the transition rule for leads shortlisted before 2026-09-21, is in
 `../prompts/oe-candidate-scout.md` under "Qualification and disposition".

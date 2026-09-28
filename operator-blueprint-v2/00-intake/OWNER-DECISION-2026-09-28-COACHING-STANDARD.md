@@ -54,6 +54,13 @@ delivery rehearsals before a candidate could move. This decision corrects that r
   and `DISC-2026-09-28-010` (admissions and enrollment analysis for small private schools) into
   Step 0 despite their `held` status.
 - Research bench cadence: Monday and Thursday. Scout cadence: daily.
+- Scout pay test loosened (owner, later the same day: "we can try to find peripheral evidence that
+  it's a valuable problem, but if it's something new we won't know if people will pay"). The
+  willingness-to-pay shortlist gate is replaced by a problem-value test: a lead needs sourced
+  evidence the problem is costly or valuable; payment evidence is recorded as found or as the
+  viewer's first test. Wording in `automation/prompts/oe-candidate-scout.md` and
+  `automation/candidate-discovery/README.md`. Leads held solely on the old pay test are re-screened
+  on the next scout run.
 
 ## Affected records
 

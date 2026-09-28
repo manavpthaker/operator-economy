@@ -142,7 +142,7 @@ Search for:
 - overtime, backlog, or staffing complaints tied to a named job.
 
 A lead from this lane still needs every qualification test below. The payment evidence it produces
-is usually an old-way spend signal (see the willingness-to-pay test).
+is usually an old-way spend signal (see the problem-value test).
 
 ## Translate signals into leads
 
@@ -175,11 +175,11 @@ To become `shortlisted`, a lead must have:
 3. a meaningful unresolved tension or coverage gap;
 4. a plausible buyer, costly problem, observable outcome, and delivery mechanism to investigate;
 5. a path to honest, showable evidence that does not depend on a guest;
-6. enough accessible evidence for the Monday bench to decide whether formal Step 0 research is
+6. enough accessible evidence for the research bench to decide whether formal Step 0 research is
    warranted;
 7. a **stated delivery boundary** that survives the licensing test below;
-8. at least one **willingness-to-pay signal** of an accepted type below, labelled `residual` or
-   `old-way spend`; and
+8. at least one **problem-value signal** under the test below — evidence that the problem is costly
+   or valuable to the buyer. Payment evidence is recorded when found but is not required; and
 9. an **AI-change test**: AI must be what makes the business newly possible or newly economic for a
    small operator — it does the bulk of the work, collapses the cost or time, or opens a job that
    used to need a firm. Name what AI does in one sentence and what the business looked like before
@@ -208,51 +208,52 @@ Also name the **automated or productised substitute** and its published price wh
 the residual is substantially what the substitute already outputs, hold or reject; do not shortlist
 a lead whose remaining work is a software output sold as labor.
 
-### The willingness-to-pay test
+### The problem-value test
 
-Revised 2026-09-27 by owner decision. The earlier version accepted only payment for the exact
-residual, which contradicted the AI-change test: a business AI has just made possible rarely has
-buyers paying for it yet. Between 2026-09-21 and 2026-09-27, seven of eight held leads were held on
-this test alone.
+Revised 2026-09-28 by owner decision, replacing the willingness-to-pay test. Operator Economy
+coaches: an episode gives viewers a researched foundation to go and test a business themselves. When
+AI makes a business new, nobody can know yet whether buyers will pay for it, so requiring payment
+evidence before shortlisting held back exactly the leads the channel exists to cover. Whether buyers
+pay is now the viewer's first test, not a scout gate.
 
-A lead passes with at least one signal of either kind:
+A lead passes with at least one sourced signal that the problem is **costly or valuable to the
+target buyer**. Label each signal with its type:
 
-- **`residual`** — the target buyer pays an independent provider for the residual itself.
-- **`old-way spend`** — the target buyer pays today for the same job done the pre-AI way, whoever
-  does it: staff time or overtime, part-time or contract hires, law firms, agencies, consultants, or
-  bundled services. The signal must show the amount (or a rate and volume) and enough scope to see it
-  covers the job the operator would take over. Example: a school district reporting $96,556 in
-  outside legal spend on records processing is old-way spend for a records-processing lead, even
-  though lawyers did the work.
+- **`residual`** — the buyer already pays an independent provider for the residual itself (the
+  strongest signal; record it whenever found).
+- **`old-way spend`** — the buyer pays today for the same job done the pre-AI way (staff, overtime,
+  contractors, law firms, agencies, bundled services), with an amount or rate and enough scope to
+  see it is the same job.
+- **`problem cost`** — peripheral evidence the problem is expensive or consequential for this buyer:
+  documented losses, penalties or fines, time spent, backlog or delay, lost revenue, churn, failed
+  audits, litigation, or a buyer describing the pain in their own words with a consequence.
+- **`adjacent spend`** — buyers of this type visibly spend on a neighbouring job, tool, or service
+  that shows budget exists for the category.
+- **`demand signal`** — buyers asking who to hire, how to fix it, or what it costs, recurring across
+  independent surfaces.
 
-Accepted evidence for either kind:
+Vendor or agency pricing pages, directory rate cards, cost-explainer content marketing, category
+size, funding, loss statistics, and deadlines may now be recorded as **context** for a problem-value
+signal, labelled as what they are. They never count as evidence that buyers pay, and several weak
+sources repeating a number do not become one strong source. A lead whose only signal is coverage
+volume or a trend is still rejected as trend-only.
 
-- a buyer describing a payment they made, with enough detail to identify the scope;
-- a service request, brief, or job posting carrying a budget, wage, or rate for that scope;
-- a disclosed engagement, invoice, contract, budget line, or first-party result;
-- an observed marketplace transaction; or
-- an incumbent visibly charging a named buyer for that job.
+Record for every lead:
 
-**Not accepted, in any combination:** vendor or agency pricing pages, directory rate cards, "how much
-does X cost" content-marketing posts, seller guidance published to win adjacent work, national salary
-averages from job aggregators, general loss or fraud statistics, category size, funding, a deadline,
-or the volume of coverage a change attracts. Several weak sources repeating a number do not become
-one strong source.
+- the problem-value signals found, typed and sourced;
+- **payment evidence:** `found` (with type and source) or `unknown — viewer's first test`;
+- for an `old-way spend` signal, the **switching question** — why this buyer would move the spend to
+  an outside operator rather than to software or its own staff using software. The substitute check
+  under the delivery-boundary test still applies.
 
-An `old-way spend` lead is not proof that the buyer would switch. Record the switching question
-explicitly — why this buyer would move the spend to an outside operator rather than to software or
-staff using software — and make it the Monday bench's first research question. The substitute check
-under the delivery-boundary test still applies: if a free or cheap tool lets the buyer's own staff
-do the job, the old spend is going to the tool, not to an operator, so hold or reject.
-
-If no accepted signal of either kind exists, the lead is `held` with the exact missing signal named.
+If no sourced problem-value signal exists, the lead is `held` with the missing signal named.
 
 ### Transition
 
-Leads shortlisted before 2026-09-21 were screened without tests 7 and 8. Re-screen every existing
-`shortlisted` lead against both on the next scout run and re-disposition it honestly, before adding
-any new lead. Until a lead records both results, it is not eligible for admission by the Monday
-bench.
+Leads held between 2026-09-21 and 2026-09-28 solely on the old willingness-to-pay test are
+re-screened against the problem-value test on the next scout run, before any new lead is added. Keep
+every other hold reason (delivery boundary, AI-change test, substitute) as it was. Leads shortlisted
+before 2026-09-21 were screened without tests 7 and 8 and still need both before admission.
 
 Reject generic, duplicative, evidence-free, guest-dependent, non-showable, hype-led, or trend-only
 ideas early. Hold a plausible lead when one named missing condition could change the decision, and
@@ -263,7 +264,7 @@ Do not assign a numeric score. Order shortlisted leads by editorial priority and
 reason in plain language. Keep no more than five shortlisted leads and add no more than three
 materially new leads in one run.
 
-Five is a ceiling, not a target. Under the delivery-boundary and willingness-to-pay tests an empty or
+Five is a ceiling, not a target. Under the delivery-boundary, problem-value, and AI-change tests an empty or
 one-lead shortlist is a normal and acceptable result. Do not relax either test to fill the pool, and
 do not shortlist a lead in order to have something for the Monday bench to admit — the bench is
 required to record `NO_QUALIFYING_SHORTLIST` and stop, and that is a cheaper outcome than a Step 0
