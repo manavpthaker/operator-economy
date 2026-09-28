@@ -1,6 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-27 ET, run 4 (scout rerun under revised rules): adds and shortlists
+Updated: 2026-09-28 ET, Monday bench: admitted `DISC-2026-09-27-011` as
+`candidate-2026-09-28-records-request-overflow`; added a recheck note to `DISC-2026-09-27-012`.
+Previous: 2026-09-27 ET, run 4 (scout rerun under revised rules): adds and shortlists
 `DISC-2026-09-27-012` (Medicare WISeR prior-auth desk); strengthens `DISC-2026-09-27-011` with
 Methacton SD and Evergreen; rejects PI medical chronologies and truck dispatch. Run 3 revised the
 payment test to accept `old-way spend`. Runs 1–2: crash-report research merged; records lead added.
@@ -10,93 +12,9 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
-### `DISC-2026-09-27-011` — public-records request processing for small agencies
-
-- Status: `shortlisted` (2026-09-27 run 3; priority 1 of 1)
-- First seen / last checked: 2026-09-27 / 2026-09-27 ET
-- Exact question or change: records-request volume is rising sharply at small agencies, partly
-  because AI services file requests at scale, while each agency still has one records officer and
-  statutory deadlines. Who does the overflow work, and does anyone pay a non-lawyer to do it?
-- Sources and observations (2026-09-27; full ledger in `runs/2026-09-27.md`, run 2):
-  - Longview School District, WA, board meeting 2026-09-14 (Citizen Portal AI-written summary): 151
-    requests in the first eight months of 2026 vs 53 in 2025; $96,556.58 outside legal support for
-    records processing through 2026-08-31; added "a dedicated contractor" (scope and cost not
-    disclosed). The district is also under a public investigation, so the surge may be event-driven:
-    <https://citizenportal.ai/articles/10078311/washington/school-districts/longview-school-district/interim-superintendent-public-records-requests-nearly-tripled-and-legal-review-costs-spiked>
-  - GovTech 2024-08-14: Pennsylvania counties flooded by an AI request service, adopted
-    anonymous-request bans:
-    <https://www.govtech.com/artificial-intelligence/governments-adjust-policies-amid-flood-of-ai-record-requests>
-  - Michigan FOIA, MCL 15.234 (primary): an agency with no employee able to separate exempt material
-    may use "contracted labor", capped at six times minimum wage, naming the "contracted person or
-    firm" on the fee itemization: <https://legislature.mi.gov/Laws/MCL?objectName=mcl-15-234>
-- Signal types: operating change (volume surge), buyer spend (outside legal), regulation (contracted
-  labor provision).
-- Who appears to care / decision: records officers and superintendents or clerks at school districts,
-  townships and small cities deciding between overtime, counsel, software, fee and request-policy
-  changes.
-- Buyer / costly problem: one records officer, a tripled request load, statutory response deadlines
-  with penalties (WA RCW 42.56.550), and counsel bills rising tenfold.
-- Potential offer / observable outcome: overflow records processing under the agency's records
-  officer. Outcome: backlog count and days-to-installment before and after, counsel hours per request.
-- Delivery mechanism hypothesis: collect and de-duplicate responsive email and files, AI
-  responsiveness review and first-pass redaction, installment packaging and a draft exemption log;
-  the records officer and counsel approve every release and denial.
-- Why now: AI-filed requests raise volume; AI review tools make one person able to process much more.
-- **AI-change test: plausibly passes.** AI does the bulk reading for responsiveness and exempt content,
-  which used to take paralegal or attorney hours; that is what lets one operator serve several
-  agencies. Not verified: hours per request with and without AI.
-- Strongest existing answer / gap: portals (GovQA, NextRequest, JustFOIA) and AI redaction or review
-  software (CaseGuard, Logikcull, Polimorphic) are sold to staff; coverage is requester rights and
-  agency policy. Nothing observed treats the overflow labor as a small-operator business.
-- Possible OE point of view: AI made asking nearly free and left the cost on the one clerk who
-  answers; who is accountable for AI-processed releases is the real question. Earned only with a
-  buyer record.
-- **Delivery boundary: passes, with a named line.** Exemption decisions and denials stay with the
-  records officer and counsel. Residual in one sentence: an unlicensed operator gathers, de-duplicates,
-  AI-reviews and pre-redacts responsive records and drafts the installment and exemption log for the
-  records officer and counsel to approve. Scope out police records (CJIS); school records need a
-  FERPA school-official designation.
-- **Automated or productised substitute:** the portals and redaction tools above; prices not
-  collected yet. They are staff tools; the residual is labor.
-- **Willingness-to-pay signal: passes as `old-way spend` (re-screen 2026-09-27, run 3).** Longview
-  School District reported $96,556.58 in outside legal support "for records processing" through
-  2026-08-31, plus a dedicated contractor and overtime (secondary, AI-written summary of the
-  2026-09-14 board meeting; bench must confirm in the primary board packet). Albuquerque added 15
-  records staff to cut its backlog (Yahoo News, large city, context only):
-  <https://www.yahoo.com/news/city-albuquerque-public-records-backlog-050000411.html>. No `residual`
-  signal yet: Longview's contractor has no disclosed scope or price.
-- **Switching question (bench question 1):** why would a records officer move overflow spend from
-  counsel and overtime to an outside non-lawyer operator, rather than buying review software for its
-  own staff? Longview already bought a tracking system and still paid counsel and a contractor, which
-  suggests software alone did not absorb the work.
-- Audience / question signal added in run 3: `site:quora.com` titles show requesters stuck on
-  unresponsive agencies, e.g. "if a government agency is not responding (literally ignoring you) to a
-  public records request, what's the most effective way to get their attention?"
-  <https://www.quora.com/In-the-U-S-if-a-government-agency-is-not-responding-literally-ignoring-you-to-a-public-records-request-whats-the-most-effective-way-to-get-their-attention>
-  (SERP title only; answers not read).
-- Strongest invalidating question: do agencies absorb the surge with fees, anonymous-request bans,
-  portal software and counsel, leaving no paid non-lawyer processing work — and is the surge durable
-  or event-driven?
-- Evidence still needed: a primary board packet, contract, or Michigan fee itemization naming a
-  non-law contractor paid for records processing, with scope and rate; more small agencies reporting
-  surges with numbers; substitute prices.
-- Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
-  `DISC-2026-09-25-009`; different deliverable and substitute.
-- Run 4 additions (2026-09-27): Methacton School District, PA, 2025–26 (meeting 2026-07-22): 64
-  requests; Right-to-Know specialist $70,119, assistant superintendent $24,872, legal $31,635,
-  total $126,626.60, about $2,000 a request:
-  <https://citizenportal.ai/articles/9813637/Pennsylvania/School-Districts/Methacton-SD/Superintendent-details-Right-to-Know-workload-and-costs-for-202526>.
-  Evergreen Public Schools, WA: requests up about 52% (snippet). Lawrence, KS district ordered to pay
-  $113,000 for violating the open records law (title). Longview primary packet still not found.
-- Disposition: shortlisted 2026-09-27 (run 3) under the revised payment test. Decisive reason: a
-  dated, costed surge at a small buyer, a licence-free residual, and AI doing the bulk of the review.
-  Main risks: the only cost figure is secondary, and Longview's surge may be event-driven. Recheck
-  2026-10-25. Step 0 candidate ID: none.
-
-
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; priority 2 of 2)
+- Status: `shortlisted` (2026-09-27 run 4; priority 2 of 2; now the only shortlisted lead)
 - First seen / last checked: 2026-09-27 / 2026-09-27 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
   authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
@@ -147,6 +65,14 @@ lead into formal Operator Blueprint V2 Step 0.
 - Evidence still needed: approval and overturn rates by service; a practice's staff-hour cost of
   WISeR; substitute prices.
 - Semantic deduplication: no match in the repository or pool.
+- Bench recheck 2026-09-28 (Monday bench; status unchanged, returned to the scout for re-screening):
+  (1) the DxTx/PainPoint posting URL now returns HTTP 410; the $19–21/hr wage survives only in search
+  snippets and a third-party job mirror, so the lead's sole willingness-to-pay signal is no longer
+  first-party accessible; (2) the House Appropriations Committee advanced language on 2026-06-09 to
+  block funding for WISeR (Becker's Payer Issues headline; DelBene FY27 letter, 2026-03-27), and
+  FY2027 runs on a continuing resolution to 2026-12-11 (P.L. 119-103), so the model's survival past
+  that date is an open political question; (3) CMS's FAQ says WISeR plans a gold-carding exemption in
+  2026 and lets providers opt for pre-payment review instead. Not admitted this run.
 - Disposition: shortlisted. Decisive reason: a dated federal change with fresh public records, a
   licence-free residual, and a first-party wage for the old way. Recheck 2026-10-25; expires
   2027-01-01 unless expansion is confirmed. Step 0 candidate ID: none.
@@ -702,6 +628,92 @@ None.
   candidate ID: none.
 
 ## Admitted to Step 0
+
+### `DISC-2026-09-27-011` — public-records request processing for small agencies
+
+- Status: `admitted` (Monday bench 2026-09-28; was `shortlisted`, 2026-09-27 run 3, priority 1)
+- Step 0 candidate ID: `candidate-2026-09-28-records-request-overflow` (decision: continue research;
+  see `automation/runs/oe-weekly-research/2026-09-28.md`). Admission is not eligibility or promotion.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: records-request volume is rising sharply at small agencies, partly
+  because AI services file requests at scale, while each agency still has one records officer and
+  statutory deadlines. Who does the overflow work, and does anyone pay a non-lawyer to do it?
+- Sources and observations (2026-09-27; full ledger in `runs/2026-09-27.md`, run 2):
+  - Longview School District, WA, board meeting 2026-09-14 (Citizen Portal AI-written summary): 151
+    requests in the first eight months of 2026 vs 53 in 2025; $96,556.58 outside legal support for
+    records processing through 2026-08-31; added "a dedicated contractor" (scope and cost not
+    disclosed). The district is also under a public investigation, so the surge may be event-driven:
+    <https://citizenportal.ai/articles/10078311/washington/school-districts/longview-school-district/interim-superintendent-public-records-requests-nearly-tripled-and-legal-review-costs-spiked>
+  - GovTech 2024-08-14: Pennsylvania counties flooded by an AI request service, adopted
+    anonymous-request bans:
+    <https://www.govtech.com/artificial-intelligence/governments-adjust-policies-amid-flood-of-ai-record-requests>
+  - Michigan FOIA, MCL 15.234 (primary): an agency with no employee able to separate exempt material
+    may use "contracted labor", capped at six times minimum wage, naming the "contracted person or
+    firm" on the fee itemization: <https://legislature.mi.gov/Laws/MCL?objectName=mcl-15-234>
+- Signal types: operating change (volume surge), buyer spend (outside legal), regulation (contracted
+  labor provision).
+- Who appears to care / decision: records officers and superintendents or clerks at school districts,
+  townships and small cities deciding between overtime, counsel, software, fee and request-policy
+  changes.
+- Buyer / costly problem: one records officer, a tripled request load, statutory response deadlines
+  with penalties (WA RCW 42.56.550), and counsel bills rising tenfold.
+- Potential offer / observable outcome: overflow records processing under the agency's records
+  officer. Outcome: backlog count and days-to-installment before and after, counsel hours per request.
+- Delivery mechanism hypothesis: collect and de-duplicate responsive email and files, AI
+  responsiveness review and first-pass redaction, installment packaging and a draft exemption log;
+  the records officer and counsel approve every release and denial.
+- Why now: AI-filed requests raise volume; AI review tools make one person able to process much more.
+- **AI-change test: plausibly passes.** AI does the bulk reading for responsiveness and exempt content,
+  which used to take paralegal or attorney hours; that is what lets one operator serve several
+  agencies. Not verified: hours per request with and without AI.
+- Strongest existing answer / gap: portals (GovQA, NextRequest, JustFOIA) and AI redaction or review
+  software (CaseGuard, Logikcull, Polimorphic) are sold to staff; coverage is requester rights and
+  agency policy. Nothing observed treats the overflow labor as a small-operator business.
+- Possible OE point of view: AI made asking nearly free and left the cost on the one clerk who
+  answers; who is accountable for AI-processed releases is the real question. Earned only with a
+  buyer record.
+- **Delivery boundary: passes, with a named line.** Exemption decisions and denials stay with the
+  records officer and counsel. Residual in one sentence: an unlicensed operator gathers, de-duplicates,
+  AI-reviews and pre-redacts responsive records and drafts the installment and exemption log for the
+  records officer and counsel to approve. Scope out police records (CJIS); school records need a
+  FERPA school-official designation.
+- **Automated or productised substitute:** the portals and redaction tools above; prices not
+  collected yet. They are staff tools; the residual is labor.
+- **Willingness-to-pay signal: passes as `old-way spend` (re-screen 2026-09-27, run 3).** Longview
+  School District reported $96,556.58 in outside legal support "for records processing" through
+  2026-08-31, plus a dedicated contractor and overtime (secondary, AI-written summary of the
+  2026-09-14 board meeting; bench must confirm in the primary board packet). Albuquerque added 15
+  records staff to cut its backlog (Yahoo News, large city, context only):
+  <https://www.yahoo.com/news/city-albuquerque-public-records-backlog-050000411.html>. No `residual`
+  signal yet: Longview's contractor has no disclosed scope or price.
+- **Switching question (bench question 1):** why would a records officer move overflow spend from
+  counsel and overtime to an outside non-lawyer operator, rather than buying review software for its
+  own staff? Longview already bought a tracking system and still paid counsel and a contractor, which
+  suggests software alone did not absorb the work.
+- Audience / question signal added in run 3: `site:quora.com` titles show requesters stuck on
+  unresponsive agencies, e.g. "if a government agency is not responding (literally ignoring you) to a
+  public records request, what's the most effective way to get their attention?"
+  <https://www.quora.com/In-the-U-S-if-a-government-agency-is-not-responding-literally-ignoring-you-to-a-public-records-request-whats-the-most-effective-way-to-get-their-attention>
+  (SERP title only; answers not read).
+- Strongest invalidating question: do agencies absorb the surge with fees, anonymous-request bans,
+  portal software and counsel, leaving no paid non-lawyer processing work — and is the surge durable
+  or event-driven?
+- Evidence still needed: a primary board packet, contract, or Michigan fee itemization naming a
+  non-law contractor paid for records processing, with scope and rate; more small agencies reporting
+  surges with numbers; substitute prices.
+- Semantic deduplication: no match in the repository. Shares the small-public-entity buyer with
+  `DISC-2026-09-25-009`; different deliverable and substitute.
+- Run 4 additions (2026-09-27): Methacton School District, PA, 2025–26 (meeting 2026-07-22): 64
+  requests; Right-to-Know specialist $70,119, assistant superintendent $24,872, legal $31,635,
+  total $126,626.60, about $2,000 a request:
+  <https://citizenportal.ai/articles/9813637/Pennsylvania/School-Districts/Methacton-SD/Superintendent-details-Right-to-Know-workload-and-costs-for-202526>.
+  Evergreen Public Schools, WA: requests up about 52% (snippet). Lawrence, KS district ordered to pay
+  $113,000 for violating the open records law (title). Longview primary packet still not found.
+- Disposition: shortlisted 2026-09-27 (run 3) under the revised payment test. Decisive reason: a
+  dated, costed surge at a small buyer, a licence-free residual, and AI doing the bulk of the review.
+  Main risks: the only cost figure is secondary, and Longview's surge may be event-driven. Recheck
+  2026-10-25. Step 0 candidate ID: `candidate-2026-09-28-records-request-overflow` (admitted
+  2026-09-28).
 
 ### `DISC-2026-09-21-006` — cross-border duty and landed-cost system for small importers
 
