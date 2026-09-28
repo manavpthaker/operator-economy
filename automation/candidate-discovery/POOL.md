@@ -160,98 +160,6 @@ None.
   school network is found paying an outside provider for admissions or enrollment analysis, with
   scope. Recheck 2026-10-28. Step 0 candidate ID: none.
 
-### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
-
-- Status: `held`
-- Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
-  `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`). Status stays
-  `held` until the Step 0 candidate artifact is written and committed.
-- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
-  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
-  personal-injury firms. The defense-attorney version is recorded in the rejected index.
-- First seen / last checked: 2026-09-27 / 2026-09-27 ET
-- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
-  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
-  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
-- Sources and observations (2026-09-27):
-  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
-    got crash reports from police agencies and from private data brokers they subscribed to, then
-    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
-    because the data did not come from the DMV. Scope: Fourth Circuit only.
-    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
-  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
-    violated that Act; solicitation is not a permitted use of DMV data:
-    <https://supreme.justia.com/cases/federal/us/570/48/>
-  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
-    The wait is not universal: the 2026-09-27 state map found none in Pennsylvania, Illinois, Ohio,
-    North Carolina, New Jersey, Virginia, Washington, Arizona or California, and New York removed
-    its wait on 2026-06-01. Most states still require an advertising label. North Carolina State Bar on targeted mail:
-    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
-  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
-    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
-  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
-    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
-    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
-  - Law-firm mail houses advertising this service:
-    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
-    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
-- Signal types: buyer spend, workflow, regulation, litigation.
-- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
-  on crash-report mail versus search ads and bought leads.
-- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
-  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
-  reports are fender-benders with no injury, and every firm in town mails the same people on the
-  same day.
-- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
-  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
-  first lawful day, and a report of calls and signed cases per 1,000 letters.
-- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
-  report and scores it for injury and fault; the attorney approves one letter template; a print
-  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
-  person and never pays for referrals.
-- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
-  practical where mail houses mail everything.
-- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
-  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
-  scoring which reports are likely cases.
-- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
-- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
-  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
-  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
-  attorney's approved letter after the waiting period.
-- **Legal risk, load-bearing:** state rules decide the business. Of 24 states researched
-  2026-09-27 (`runs/2026-09-27.md`), 6 are open (Ohio, New Jersey, Indiana, Missouri, Nevada,
-  Massachusetts at low confidence), 9 restricted, and 9 closed, including California and
-  Pennsylvania. Maryland makes it a crime for a nonlawyer to access reports to solicit, and several
-  states release reports only to attorneys or on a sworn statement, so the firm must be the
-  requester and the operator only processes what the firm obtains. Outside the Fourth Circuit,
-  whether the Driver's Privacy Protection Act reaches crash-report data is not settled; it carries
-  $2,500 statutory damages per violation.
-- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
-  found this run.
-- **AI-change test (scout note, 2026-09-27 run 2): plausibly passes, unverified.** AI reads and scores
-  scanned crash reports for injury and fault; before, mail houses mailed every report because reading
-  them cost too much. Needed: scoring accuracy against signed cases.
-- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
-  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
-  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
-- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
-  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
-  enough to cover it?
-- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
-  and mail-house prices; any post-Garey Driver's Privacy Protection Act rulings in other circuits.
-  State map done for 24 states (2026-09-27).
-- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
-  `research/`, parked or rejected work, or the pool.
-- **Re-screen 2026-09-27 (run 3, revised payment test):** payment passes as `old-way spend` — Garey
-  shows firms paying brokers for the reports that feed their mail. Switching question: would a firm
-  pay a scoring operator instead of, or on top of, its broker and mail house? Still held on test 1:
-  no dated operating change and no independent question signal from firms; search found only
-  mail-house marketing and victim-side questions ("why do I receive letters from lawyers").
-- Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
-  Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
-  signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: none.
-
 ### `DISC-2026-09-21-007` — card acceptance cost and surcharging decision install
 
 - Status: `held`
@@ -708,6 +616,99 @@ None.
   candidate ID: none.
 
 ## Admitted to Step 0
+
+### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
+
+- Status: `admitted` (owner admission 2026-09-28; was `held`)
+- Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (decision: continue research). Admission is not eligibility or promotion.
+- Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
+  `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`). Status stays
+  `held` until the Step 0 candidate artifact is written and committed.
+- Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report
+  review for criminal defense attorneys, which was a misreading; the owner meant crash reports and
+  personal-injury firms. The defense-attorney version is recorded in the rejected index.
+- First seen / last checked: 2026-09-27 / 2026-09-27 ET
+- Exact question or change: can an operator sell personal-injury firms a system that pulls new crash
+  reports, picks the ones likely to become cases, and sends compliant letters to the people involved
+  once the state's waiting period ends, faster and better targeted than the mail houses doing it now?
+- Sources and observations (2026-09-27):
+  - Garey v. James S. Farrin, P.C., 4th Cir. No. 21-1478, 2022-06-03: North Carolina injury firms
+    got crash reports from police agencies and from private data brokers they subscribed to, then
+    mailed the drivers. The court held the federal Driver's Privacy Protection Act did not apply,
+    because the data did not come from the DMV. Scope: Fourth Circuit only.
+    <https://law.justia.com/cases/federal/appellate-courts/ca4/21-1478/21-1478-2022-06-03.html>
+  - Maracich v. Spears, 570 U.S. 48 (2013): lawyers who pulled DMV records to mail 34,000 people
+    violated that Act; solicitation is not a permitted use of DMV data:
+    <https://supreme.justia.com/cases/federal/us/570/48/>
+  - Florida Bar v. Went For It (1995) upheld a 30-day ban on targeted mail after an accident.
+    The wait is not universal: the 2026-09-27 state map found none in Pennsylvania, Illinois, Ohio,
+    North Carolina, New Jersey, Virginia, Washington, Arizona or California, and New York removed
+    its wait on 2026-06-01. Most states still require an advertising label. North Carolina State Bar on targeted mail:
+    <https://www.ncbar.gov/for-lawyers/ethics/ethics-articles/youve-got-mail/>
+  - Reflector (Greenville, NC) on access to crash reports shrinking after the litigation:
+    <https://www.reflector.com/news/local/information-on-crashes-limited-as-access-to-reports-shrinks/article_9ca5eb2f-a3af-5dc5-b156-9d25e9a1eac0.html>
+  - Seller-published car-accident lead prices, $200 to $400 per exclusive lead, $35 to $90 for shared
+    crash-data leads (not accepted as willingness-to-pay evidence under the pool rules; context only):
+    <https://www.masstortmarketingagency.com/blogs/motor-vehicle-accident-leads-guide>
+  - Law-firm mail houses advertising this service:
+    <https://www.mailpro.org/post/direct-mail-advertising-for-law-firms/>
+    <https://directmk.com/personal-injury-attorney-direct-mail-how-to-reach-accident-victims-before-the-insurance-adjuster-do/>
+- Signal types: buyer spend, workflow, regulation, litigation.
+- Who appears to care / decision: small and mid-size personal-injury firms deciding how much to spend
+  on crash-report mail versus search ads and bought leads.
+- Buyer / costly problem: a car-accident case is worth thousands in fees, and bought leads run
+  hundreds of dollars each. Mail from crash reports is cheaper per contact but untargeted: most
+  reports are fender-benders with no injury, and every firm in town mails the same people on the
+  same day.
+- Potential offer / observable outcome: a monthly service. The firm gets a filtered list (injury
+  noted, other driver at fault, commercial vehicle, inside the firm's area), letters mailed on the
+  first lawful day, and a report of calls and signed cases per 1,000 letters.
+- Delivery mechanism hypothesis: buy or request reports where the state allows it; AI reads each
+  report and scores it for injury and fault; the attorney approves one letter template; a print
+  vendor mails it; calls are tracked by number. The operator never contacts anyone by phone or in
+  person and never pays for referrals.
+- Why now: AI can read scanned crash-report forms cheaply, which makes scoring every report
+  practical where mail houses mail everything.
+- Strongest existing answer / gap: crash-data brokers and law-firm mail houses already do the pull
+  and the mailing (Garey shows firms subscribing to brokers). The only visible gap is targeting:
+  scoring which reports are likely cases.
+- Possible OE point of view: none supplied. Do not claim owner experience in legal marketing.
+- **Delivery boundary:** the attorney owns the letter, its bar compliance and every client contact.
+  Data handling, scoring and mailing need no licence. Residual in one sentence: a nonlawyer operator
+  obtains lawfully available crash reports, scores them for likely injury claims, and mails the
+  attorney's approved letter after the waiting period.
+- **Legal risk, load-bearing:** state rules decide the business. Of 24 states researched
+  2026-09-27 (`runs/2026-09-27.md`), 6 are open (Ohio, New Jersey, Indiana, Missouri, Nevada,
+  Massachusetts at low confidence), 9 restricted, and 9 closed, including California and
+  Pennsylvania. Maryland makes it a crime for a nonlawyer to access reports to solicit, and several
+  states release reports only to attorneys or on a sworn statement, so the firm must be the
+  requester and the operator only processes what the firm obtains. Outside the Fourth Circuit,
+  whether the Driver's Privacy Protection Act reaches crash-report data is not settled; it carries
+  $2,500 statutory damages per violation.
+- **Automated or productised substitute:** crash-data brokers and mail houses; published prices not
+  found this run.
+- **AI-change test (scout note, 2026-09-27 run 2): plausibly passes, unverified.** AI reads and scores
+  scanned crash reports for injury and fault; before, mail houses mailed every report because reading
+  them cost too much. Needed: scoring accuracy against signed cases.
+- **Willingness-to-pay signal: found, court record.** Garey records North Carolina injury firms
+  paying private data brokers for crash reports used for mailers. That shows firms pay for the data
+  and mailing. No signal yet that a firm pays extra for scoring, which is the operator's only edge.
+- Strongest invalidating question: if brokers and mail houses already deliver the reports and the
+  letters, will a firm pay more for scoring, and does scoring raise signed cases per 1,000 letters
+  enough to cover it?
+- Evidence still needed: one firm's cost and signed-case rate per 1,000 crash-report letters; broker
+  and mail-house prices; any post-Garey Driver's Privacy Protection Act rulings in other circuits.
+  State map done for 24 states (2026-09-27).
+- Semantic deduplication: no match in candidates, queue, episodes, `studio/originate/`, `topics/`,
+  `research/`, parked or rejected work, or the pool.
+- **Re-screen 2026-09-27 (run 3, revised payment test):** payment passes as `old-way spend` — Garey
+  shows firms paying brokers for the reports that feed their mail. Switching question: would a firm
+  pay a scoring operator instead of, or on top of, its broker and mail house? Still held on test 1:
+  no dated operating change and no independent question signal from firms; search found only
+  mail-house marketing and victim-side questions ("why do I receive letters from lawyers").
+- Disposition / reopening condition: held. The state condition is met (Ohio, New Jersey, Indiana,
+  Missouri and Nevada are open). Reopen when one source shows a firm's per-letter cost and
+  signed-case rate, and that the firm would pay for scoring. Recheck 2026-10-27. Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (admitted 2026-09-28).
 
 ### `DISC-2026-09-27-011` — public-records request processing for small agencies
 
