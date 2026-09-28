@@ -1,6 +1,6 @@
 # Operator Economy weekly research bench
 
-Run this workflow every Monday at 09:00 America/New_York in
+Run this workflow every Monday and Thursday at 09:00 America/New_York in
 `/Users/brownmanbrain/GitHub/operator-economy`.
 
 Your objective is to maintain a small, evidence-led bench of potential Operator Economy episodes:
@@ -25,7 +25,8 @@ Read these before acting:
    `../content-os/strategy/editorial-system.md`, `../content-os/facts.md`, and the relevant current
    voice/rubric files if drafting public or spoken language.
 3. `operator-blueprint-v2/00-intake/AUTHORITY-MAP.md`, `README.md`,
-   `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`, and every current template or gate used in
+   `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`,
+   `OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`, and every current template or gate used in
    the run.
 4. `automation/candidate-discovery/README.md`, `POOL.md`, and the current dated scout records for
    the upstream lead contract and evidence.
@@ -39,6 +40,15 @@ history, not the current intake authority. Do not select from the legacy queue a
 `originate.py new`. When prose summaries disagree with current dated decision records, hashes, or
 live artifacts, report the drift and follow the higher authority. Never silently repair a frozen
 standard, fixture, approval, or historical artifact.
+
+## Coaching standard (owner decision 2026-09-28)
+
+Operator Economy coaches. Episodes give the audience a research foundation to go and do the work;
+they are not proof. Never make owner field work (buyer interviews, paid-pilot asks, outreach tests,
+owner delivery rehearsals) a re-entry condition, blocker, or owner input. A question only field work
+can answer goes into the validation plan as the viewer's first test, with a success signal and a kill
+condition. Missing desk evidence is still a reason to continue research. Scores, hard gates, and
+owner promotion are unchanged.
 
 ## Preflight
 
@@ -69,7 +79,7 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
 
 1. Read the discovery pool and full evidence for its `shortlisted` leads. Do not conduct broad topic
    discovery in this job and do not admit a `new`, `held`, `rejected`, expired, or already-admitted
-   lead. If no defensible shortlisted lead exists, record `NO_QUALIFYING_SHORTLIST` and stop rather
+   lead, except a lead whose pool entry records an explicit owner admission decision. If no defensible shortlisted lead exists, record `NO_QUALIFYING_SHORTLIST` and stop rather
    than inventing one.
 2. Recheck source access, recency, semantic duplication, audience fit, showability, and the strongest
    invalidating question. Choose at most one lead. The discovery ordering informs this decision but

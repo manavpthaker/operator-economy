@@ -1,6 +1,6 @@
 # Operator Economy candidate scout
 
-Run this workflow every Wednesday and Sunday at 17:00 America/New_York in
+Run this workflow every day at 17:00 America/New_York in
 `/Users/brownmanbrain/GitHub/operator-economy`.
 
 Your objective is to maintain a small, current, evidence-led pool of potential Operator Economy

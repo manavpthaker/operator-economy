@@ -106,7 +106,8 @@ The full test wording, including the transition rule for leads shortlisted befor
 - Add no more than three materially new leads per scout run.
 - Continue or refresh existing leads before expanding the pool.
 - Do not keep a lead live merely because it is fashionable. Expire, hold, or reject stale signals.
-- Only the Monday research bench may admit one shortlisted lead into formal Step 0.
+- Only the research bench (Monday and Thursday) may admit one shortlisted lead into formal Step 0,
+  or the owner may admit a held lead directly (owner decision 2026-09-28).
 
 ## Prohibited actions
 

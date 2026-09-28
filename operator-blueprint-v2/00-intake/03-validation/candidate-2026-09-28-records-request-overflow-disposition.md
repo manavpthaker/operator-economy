@@ -85,3 +85,11 @@ Episode number: unassigned
 This record is not a promotion record and cannot create an active queue row. If the candidate
 re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the
 decision history.
+
+## Addendum 2026-09-28: re-entry under the coaching standard
+
+Written the same day, after owner decision `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`.
+Re-entry items 3 (records-officer interviews) and 4 (synthetic rehearsal) move to the validation
+plan as the **viewer's first test**; they no longer gate this candidate. Items 1 and 2 (Ithaca RFP
+and award; Los Alamos amendment and Methacton packet) are desk work and are now sufficient on their
+own: completing both advances the candidate to an analogy map and scorecard.

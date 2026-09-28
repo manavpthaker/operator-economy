@@ -65,3 +65,22 @@ Opportunity-readiness score: not issued
 Owner promotion review: not requested
 
 This record is not a promotion record and cannot create an active queue row. If the candidate re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the decision history.
+
+## Addendum 2026-09-28: re-entry under the coaching standard
+
+Owner decision `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md` removes owner field work as a
+re-entry condition. The decision above (`continue research`) and its reasoning stand; only the
+re-entry path changes.
+
+- Items 1 (paid pilot), 3 (delivery rehearsal), and 4 (buyer interviews) move to the research
+  brief's validation plan as the **viewer's first test**. They no longer gate this candidate.
+- Item 2 (qualified payments/compliance and insurance boundary review) becomes desk work: document
+  the delivery boundary from Nacha's published Phase 2 guidance, bank-published originator
+  agreements, and insurer social-engineering-fraud endorsements, and state what a viewer must have a
+  qualified reviewer confirm before selling.
+- New re-entry condition: a research amendment that (a) documents that boundary from primary
+  sources, (b) finds buyer-side price or spend evidence of an accepted type (a posted request with a
+  budget, a disclosed engagement, or old-way spend), and (c) converts the four field items into a
+  viewer's test with success and kill signals. Then complete the analogy map and scorecard.
+
+Destination: remain in research. Queued for the next bench run with capacity.
