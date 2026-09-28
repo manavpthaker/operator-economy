@@ -1,9 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-28 ET (owner-proposed leads: `DISC-2026-09-28-011`, AI-assisted private-school
-admissions prep for families, shortlisted on one buyer-paid signal; `DISC-2026-09-28-010`,
-admissions analysis for schools, held. 2026-09-27: `DISC-2026-09-27-009` crash-report mailers,
-held, with a 24-state map in `runs/2026-09-27.md`.)
+Updated: 2026-09-28 ET (owner-proposed leads, both held: `DISC-2026-09-28-011`, AI prep backend
+sold to private-school admissions consultants, no consultant-paid signal yet; `DISC-2026-09-28-010`,
+admissions analysis for schools. 2026-09-27: `DISC-2026-09-27-009` crash-report mailers, held, with
+a 24-state map in `runs/2026-09-27.md`.)
 
 Authority: noncanonical. See `README.md`. Only the Monday research bench may admit a shortlisted
 lead into formal Operator Blueprint V2 Step 0.
@@ -102,90 +102,80 @@ operator?
 - Recheck / expiry: recheck 2026-10-07 for the D.C. Circuit argument outcome; expires 2027-11-01.
   Step 0 candidate ID: none.
 
-### 2. `DISC-2026-09-28-011` — AI-assisted private-school admissions prep for families
-
-Decisive reason: a family is on record paying an outside provider for the exact residual (a
-school list and admissions plan), and the price ladder from a $99 course to a $15,000 consultant
-leaves a wide middle. Strongest invalidating question: why would a parent pay an operator for this
-rather than ask a general chatbot for free, when the human consultant's value is local insider
-knowledge that an AI does not have?
-
-- Status: `shortlisted`
-- Origin: owner-proposed 2026-09-28, not a scout find: "AI private school admissions prep, instead
-  of paying a consultant thousands of dollars". Family-side companion to the school-side lead
-  `DISC-2026-09-28-010`. Shortlisted on one secondary buyer signal; the Monday bench should treat
-  that signal as thin.
-- First seen / last checked: 2026-09-28 / 2026-09-28 ET
-- Exact question or change: can an operator sell parents applying to private K-12 schools an
-  AI-assisted admissions plan (school list, timeline, essay and interview coaching, parent statement
-  review) for a few hundred dollars, in the gap between $99 self-serve courses and consultants who
-  charge thousands?
-- Sources and observations (2026-09-28):
-  - Moneywise via AOL, 2025-12-31: New York parents paid "$560 and two hours on a Zoom call with a
-    consultant" for a curated high-school list and called it "money well spent"; consultants in
-    competitive markets charge up to $15,000:
-    <https://www.aol.com/finance/parents-dishing-thousands-kids-good-113000527.html>
-  - Test Innovators Admissions Assist: three self-paced courses (interview, essays, parent role),
-    $40 each or $99 for all three, 12-month licence, versions for grades 5 to 8 and 9 to 12:
-    <https://iseepracticetest.com/admissions-assist/>
-  - AI-branded test prep and essay coaching already sold: <https://privateschooltestprep.ai/>
-  - NYC consultant packages (seller pages, context only): <https://www.privateschoolconsultants.com/>
-    · <https://www.theadmissionsplan.com/comprehensive-program>
-  - Cycle timing: most NYC (ISAAGNY) deadlines mid-November to mid-December; notification early
-    February: <https://www.bright-kids.com/post/nyc-private-school-admissions-guide>
-  - Annual SSAT and ISEE test-taker counts are not published; the ISEE is accepted by more than
-    1,200 schools: <https://www.erblearn.org/families/isee-by-erb/>
-- Signal types: buyer spend (family payment), pricing gap, capability (AI coaching).
-- Who appears to care / decision: parents applying to private or independent schools for
-  kindergarten, middle or high school entry, deciding whether to hire a consultant, buy a course,
-  or go it alone.
-- Buyer / costly problem: tuition runs $30,000 a year or more in the markets where competition is
-  sharpest; parents do not know which schools fit, how to present the child, or what the interview
-  and parent statement are for, and full-service help costs thousands.
-- Potential offer / observable outcome: a fixed-price package per child: a ranked school list with
-  reasons, a dated application calendar, coached drafts of the student essay and parent statement
-  with the child's and parent's own words kept, and mock interviews with feedback.
-- Delivery mechanism hypothesis: intake questionnaire; AI builds a first school list from public
-  school data and the family's criteria; operator reviews it with local knowledge; AI runs practice
-  interviews and gives essay feedback; operator does one live call. The operator never writes the
-  child's essay.
-- Why now: capable AI makes interview practice and essay feedback cheap to deliver; school-choice
-  money (Texas from 2026-27, the federal credit from 2027) brings first-time private-school families
-  who have no consultant network.
-- Strongest existing answer / gap: human consultants at $560 to $15,000; Test Innovators at $99;
-  AI test-prep sites; general chatbots for free. The gap is personal fit and local school knowledge
-  at a mid price.
-- Possible OE point of view: none supplied. Do not claim owner experience in school admissions or
-  as an applying parent.
-- **Delivery boundary:** no licence required. Ethical boundary: schools read the student essay and
-  parent statement for authenticity, and the SSAT and ISEE writing samples are proctored, so the
-  offer must coach rather than ghostwrite. Residual in one sentence: an operator, using AI for the
-  heavy lifting, gives a family a personal school list, calendar, essay and interview coaching, and
-  one expert review, without writing the child's work.
-- **Automated or productised substitute:** Test Innovators Admissions Assist, $99; general chatbots,
-  free. Neither produces a school list tied to the family's location and criteria or an expert
-  review.
-- **Willingness-to-pay signal: found, accepted type "buyer describing a payment with identifiable
-  scope".** The McCarthy family paid $560 for a two-hour consultation producing a school list
-  (secondary report via Moneywise). One signal only, and it paid for a human, not an AI-assisted
-  service.
-- Strongest invalidating question: will parents trust an AI-assisted operator with a decision this
-  personal, and does the operator's local knowledge, not the AI, carry the value, capping it at one
-  city?
-- Evidence still needed: a second buyer-paid signal, ideally for a mid-price package; applicant
-  counts for one metro market; conversion from free chatbot use to paid help; how many applicants
-  are first-time families brought in by school-choice money.
-- Semantic deduplication: related to `DISC-2026-09-28-010` (same domain, school as buyer); distinct
-  buyer, offer and evidence. No other match in candidates, queue, episodes, `studio/originate/`,
-  `topics/`, `research/`, parked or rejected work.
-- Recheck / expiry: recheck 2026-10-28; the application season closes mid-December, so a live test
-  must start before then or wait a year. Step 0 candidate ID: none.
-
 ## New
 
 None.
 
 ## Held
+
+### `DISC-2026-09-28-011` — AI prep backend for private-school admissions consultants
+
+- Status: `held`
+- Origin: owner-proposed 2026-09-28, not a scout find. First filed the same day as an AI prep package
+  sold to families and shortlisted on a family-paid signal. The owner then set the buyer: sell it to
+  admissions consultants as a backend. That buyer has no paid signal yet, so the lead moved from
+  shortlisted to held. Family-side companion of the school-side lead `DISC-2026-09-28-010`.
+- First seen / last checked: 2026-09-28 / 2026-09-28 ET
+- Exact question or change: will independent consultants who guide families into private K-12
+  schools pay an operator to do the repeatable part of each client's file (first school list,
+  application calendar, essay and parent-statement feedback, mock interviews) so they can take more
+  families at the same fee?
+- Sources and observations (2026-09-28):
+  - Moneywise via AOL, 2025-12-31: a New York family paid "$560 and two hours on a Zoom call with a
+    consultant" for a school list; consultants in competitive markets charge up to $15,000. This is
+    the end client paying the consultant, not the consultant paying a backend:
+    <https://www.aol.com/finance/parents-dishing-thousands-kids-good-113000527.html>
+  - Consultants already pay for practice software: CounselMore from $35/month plus $19 to $39 per
+    extra seat; CollegePlannerPro from $64/month (aggregator listing). Both are client management
+    for college counseling; no AI prep features found:
+    <https://www.counselmore.com/plans> · <https://www.softwaresuggest.com/collegeplannerpro>
+  - Test Innovators Admissions Assist: interview, essay and parent-role courses, $99 for all three:
+    <https://iseepracticetest.com/admissions-assist/>
+  - IECA has about 2,800 member consultants, most focused on college; the K-12 private-school share
+    is not published: <https://www.iecaonline.com/news-publications/ieca-news-center/background-information-on-ieca/>
+  - Cycle: NYC deadlines mid-November to mid-December, decisions early February:
+    <https://www.bright-kids.com/post/nyc-private-school-admissions-guide>
+- Signal types: buyer spend (adjacent), capability, workflow.
+- Who appears to care / decision: solo and small-firm consultants for private day and boarding
+  school entry, deciding whether to take more families in peak season or turn them away.
+- Buyer / costly problem: a consultant's capacity caps revenue. Much of each file is repeatable work
+  (list building, calendars, first-pass essay feedback, interview drills) that takes hours the
+  consultant could spend on the judgment families pay for.
+- Potential offer / observable outcome: done-for-you fulfilment per client, white-labelled: the
+  consultant sends an intake, the operator returns a draft school list with reasons, a dated
+  calendar, essay and parent-statement feedback, and recorded mock interviews with notes, for the
+  consultant to review and deliver under their own name.
+- Delivery mechanism hypothesis: AI does the first pass from public school data and the intake;
+  the operator checks and formats it; the consultant adds local knowledge and owns the client.
+  Priced per client, so it scales with the consultant's season. Software sold by subscription is
+  the weaker version: it competes with CounselMore and CollegePlannerPro, which could add AI.
+- Why now: capable AI makes the repeatable part cheap; school-choice money (Texas from 2026-27, the
+  federal credit from 2027) may add first-time applicant families.
+- Strongest existing answer / gap: consultants doing it themselves, with general chatbots or junior
+  staff; practice software without AI prep. No white-label prep service for K-12 consultants found.
+- Possible OE point of view: none supplied. Do not claim owner experience in admissions.
+- **Delivery boundary:** no licence required. The consultant owns the client and the advice; the
+  work must coach rather than ghostwrite, since schools read essays and parent statements for
+  authenticity. Residual in one sentence: an operator produces the repeatable first draft of each
+  client's admissions plan and practice materials for a consultant to review and deliver.
+- **Automated or productised substitute:** general chatbots used by the consultant directly, free or
+  about $20/month; Test Innovators at $99 per family. The substitute risk is high: a consultant
+  comfortable with a chatbot does not need the operator.
+- **Willingness-to-pay signal: none found for this buyer.** Consultants pay $35 to $64 a month for
+  client-management software, which is a different residual. The $560 family payment shows the end
+  market pays consultants, not that consultants pay for outsourced prep.
+- Strongest invalidating question: why would a consultant pay per client for work a chatbot does in
+  minutes, and are there enough K-12 private-school consultants (a slice of about 2,800 IECA members)
+  to support more than a small business?
+- Evidence still needed: one consultant paying a subcontractor or service for prep work, with price;
+  the number of consultants focused on K-12 private-school entry; hours per client spent on the
+  repeatable parts; whether college admissions consultants, a larger group, would buy the same thing.
+- Semantic deduplication: related to `DISC-2026-09-28-010` (same domain, school as buyer). No other
+  match in candidates, queue, episodes, `studio/originate/`, `topics/`, `research/`, parked or
+  rejected work.
+- Disposition / reopening condition: held. Reopen when one consultant is found paying an outside
+  provider for per-client prep work, with scope and price. The season closes mid-December, so a live
+  test with one consultant must start before then. Recheck 2026-10-28. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-28-010` — admissions and enrollment analysis for small private schools
 
