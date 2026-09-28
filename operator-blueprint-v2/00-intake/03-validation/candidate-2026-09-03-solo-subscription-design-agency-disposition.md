@@ -67,3 +67,26 @@ Editorial development authorized: no
 Episode number: unassigned. The published V1 episode keeps its historical number; a V2 rescript would receive a new number only after a valid promotion.
 
 This record is not a promotion record and cannot create an active queue row. If the candidate re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the decision history. A parked or research-stage score is not preserved on re-entry.
+
+## Addendum 2026-09-28: restart under the coaching standard
+
+Governing decision: `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`. Nothing above this addendum is changed.
+
+Evidence amendment: `../02-research/candidate-2026-09-03-solo-subscription-design-agency-amendment-01.md` / `68af77ea1d3f63b19a6c2029c84a4dcfb56c2fa765ef318b45cd30bf5c2ab5ba`
+
+What changed:
+
+- Re-entry item 1 (owner demo-first outreach to 30 startups) is withdrawn as a condition. It is now the viewer's first test, set out in the amendment with success signals and kill conditions.
+- Re-entry item 3 (park if the owner test is not run by 2026-12-03) no longer applies. The 2026-12-03 date remains a research refresh date for prices, tool facts and platform metrics only.
+- Re-entry item 2 (retention evidence with a stated method) was searched on 2026-09-28 and **not met**. Acquisition evidence improved only slightly: six buyer-posted monthly design budgets on Contra (June 2025, anonymous buyers, not identified as seed-stage software companies).
+- Scores are unchanged: Reviewer A 66, Reviewer B 57. No re-score was run. The amendment names the factors new evidence could move (Buyer, Audience, Go-to-market, each +0 to +1) and finds that neither score would reach 70.
+
+Current decision: **parked**. Owner promotion review is not recommended. Promotion still requires a passing score, all hard gates, and an owner promotion record naming the package hashes.
+
+Re-entry conditions (desk evidence only; no owner field work):
+
+1. A source giving churn, tenure or renewal for productized or subscription design with a stated method (sample, period, and how churn is counted), such as a vendor or founder disclosure with cohort data, a payment-verified dashboard showing subscriber history for a design subscription, a filing, or a survey that isolates design subscriptions.
+2. Or: at least 10 current (last 90 days) buyer-posted budgets for ongoing marketing or web design from software companies at $2,000/month or more, read at source.
+3. Or: a new dated, independent measurement of marketing-designer output with current AI tools that changes the capacity model.
+
+On re-entry, issue a new reviewed package or a re-score record. Do not overwrite this disposition.
