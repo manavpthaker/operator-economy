@@ -545,7 +545,8 @@ None.
 ### `DISC-2026-09-28-010` — admissions and enrollment analysis for small private schools
 
 - Status: `admitted` (owner admission 2026-09-28; was `held`)
-- Step 0 candidate ID: `candidate-2026-09-28-private-school-enrollment-analysis` (decision: continue research). Admission is not eligibility or promotion.
+- Step 0 candidate ID: `candidate-2026-09-28-private-school-enrollment-analysis` (decision: continue
+  research, then **archived by owner decision 2026-09-28** — "drop the private school"). Do not re-screen. Admission is not eligibility or promotion.
 - Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
   `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`).
 - Origin: owner-proposed 2026-09-28 as "private school admissions analysis", not a scout find. The
