@@ -1,6 +1,11 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-28 ET, owner-proposed lead `DISC-2026-09-28-015` (family-side private-school
+Updated: 2026-09-29 ET, scout run: ten spend-first ideas screened, all rejected on the substitute or
+AI-change test; no lead added; shortlist unchanged. **Reconciliation needed:** `origin/main` carries
+owner-proposed `DISC-2026-09-28-011` (AI prep backend for admissions consultants, held) and an older
+held `010`, not merged here; the owner should decide whether local `015` supersedes upstream `011`.
+Full record: `runs/2026-09-29.md`.
+Previous: 2026-09-28 ET, owner-proposed lead `DISC-2026-09-28-015` (family-side private-school
 admissions help) screened and held. Earlier, scout run (17:05): adds and shortlists `DISC-2026-09-28-013` (CAM
 reconciliation review, priority 1); re-screens `DISC-2026-09-27-012` under the problem-value test (stays
 shortlisted, priority 2); adds `DISC-2026-09-28-014` (I-9 self-audit) as held; rejects `DISC-2026-09-20-002`
@@ -972,5 +977,12 @@ None.
   real, but contingency auditors and energy brokers (free audits) already sell the job to small accounts,
   and a capacity price is not a billing error. Reopen only with evidence small accounts are refused.
 
+- 2026-09-29 (scout) — Ten spend-first ideas, all rejected: construction takeoffs, insurance
+  credentialing, agency policy checking, workers' comp audit disputes, roofing supplements, payer
+  underpayment recovery, CPG distributor deductions, IEEPA tariff refunds, HazCom SDS updates, permit
+  expediting. Common reason: AI software or AI-backed services already sell the job to the small buyer,
+  or AI is not the work (tariff refunds, underpayments). Per-idea reopening conditions in
+  `runs/2026-09-29.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
-`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`.
+`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`.
