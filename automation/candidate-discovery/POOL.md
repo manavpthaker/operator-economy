@@ -1,9 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-29 ET, scout run: ten spend-first ideas screened, all rejected on the substitute or
-AI-change test; no lead added; shortlist unchanged. **Reconciliation needed:** `origin/main` carries
-owner-proposed `DISC-2026-09-28-011` (AI prep backend for admissions consultants, held) and an older
-held `010`, not merged here; the owner should decide whether local `015` supersedes upstream `011`.
+Updated: 2026-09-30 ET, scout run: adds and shortlists `DISC-2026-09-30-016` (AI-leveraged IEP
+advocacy for parents, priority 2); WISeR lead moves to priority 3; freight claims rejected. Upstream
+pool divergence (`origin/main` lead `DISC-2026-09-28-011`) still awaits owner reconciliation. Full
+record: `runs/2026-09-30.md`.
+Previous: 2026-09-29 ET, scout run: ten spend-first ideas screened, all rejected; shortlist unchanged.
 Full record: `runs/2026-09-29.md`.
 Previous: 2026-09-28 ET, owner-proposed lead `DISC-2026-09-28-015` (family-side private-school
 admissions help) screened and held. Earlier, scout run (17:05): adds and shortlists `DISC-2026-09-28-013` (CAM
@@ -26,7 +27,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
-- Status: `shortlisted` (2026-09-28 scout; priority 1 of 2)
+- Status: `shortlisted` (2026-09-28 scout; priority 1 of 3)
 - First seen / last checked: 2026-09-28 / 2026-09-28 ET
 - Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
   often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
@@ -72,9 +73,66 @@ lead into formal Operator Blueprint V2 Step 0.
 - Disposition: shortlisted. Decisive reason: private-sector buyer, AI plainly changes the economics,
   two independent conversation surfaces. Recheck 2026-10-28; expires 2027-03-31. Step 0 candidate ID: none.
 
+### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
+
+- Status: `shortlisted` (2026-09-30 scout; priority 2 of 3)
+- First seen / last checked: 2026-09-30 / 2026-09-30 ET
+- Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
+  HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
+  <https://www.k12dive.com/news/education-department-transfers-key-special-ed-civil-rights-functions/823022/>),
+  after the October 2025 cuts to OSERS/OSEP staff. With federal oversight thinner, the IEP meeting is
+  where services are decided. Parents ask whether they need an advocate and what one costs; advocates
+  bill $1,500–$3,500 a case, mostly for reading records. Can an AI-equipped advocate do it for ~$500?
+- Sources: DCUM "Cost of Educational Advocate" (read)
+  <https://www.dcurbanmom.com/jforum/posts/list/15/943570.page>; DCUM "Think twice before hiring an
+  advocate…" (read) <https://www.dcurbanmom.com/jforum/posts/list/1157881.page>; Quora titles (SERP
+  only) incl. "How much does a special education advocate charge?"; Google Trends US 5y; IEP
+  Advocate.ai <https://iepadvocate.ai/>; My IEP Hero <https://peerpush.com/p/my-iep-hero>. Full ledger:
+  `runs/2026-09-30.md`.
+- Signal types: regulation/operating change, conversation, buyer spend, capability.
+- Who cares / decision: parents of public-school children with IEPs (or seeking one) deciding whether to
+  go alone, use a free parent centre, or pay an advocate before the annual meeting.
+- Buyer / costly problem: an IEP whose services depend on who pushes (DCUM: 60 vs 150 minutes of
+  reading intervention for similar children), dozens of pages of evaluations to read, and a meeting
+  the district runs.
+- Offer / outcome: fixed fee per IEP cycle: records request and review, written parent concerns and
+  requests, meeting attendance, follow-up letter; outcome is services and minutes in the signed IEP,
+  before and after.
+- Mechanism: AI reads evaluations, prior IEPs and progress data against state rules and drafts the
+  concerns letter; the advocate checks it, attends, and follows up.
+- Why now: federal oversight moved and thinned in 2026; parent-facing AI tools now read IEPs.
+- **AI-change test: plausibly passes, to verify.** AI does the records review billed today at
+  $80–$250/hr (directory context), so one advocate can serve many more families at a low fixed fee.
+  To verify: hours split prep vs meetings.
+- **Delivery boundary: passes.** Parents may bring people with knowledge of the child (34 CFR
+  300.321(a)(6)); non-attorney advocates practise widely; due process and litigation stay with counsel.
+  Residual: an unlicensed advocate requests and reviews the child's records, prepares the parent's
+  written requests, and attends IEP meetings; disputes past the IEP table go to counsel.
+- **Substitute:** IEP Advocate.ai ($30/mo; no human, no school contact); ProIEP (free); free parent
+  training centres; My IEP Hero (AI plus advocate marketplace, 4% advocate fee — a channel more than a
+  substitute). The accountable person at the table is not software output.
+- **Problem-value signals:** `residual` (DCUM buyers paid $2,000 and $3,500 for review plus meetings,
+  mostly "worth it", 2021); `problem cost` (unequal minutes by who pushes, DCUM 2023); `demand signal`
+  (DCUM and Quora questions; Trends seasonal, 2025–26 peaks at or above earlier years).
+- **Payment evidence:** found — `residual`, buyer accounts (2021).
+- Switching question: why pay an operator ~$500 rather than a $30/mo tool alone or a $2,000+ advocate?
+- Strongest invalidating question: will parents with a $30/mo AI tool go alone, and do districts dig in
+  against advocates enough that a low fee still isn't worth it?
+- Evidence still needed: a 2025–26 buyer account; prep vs meeting hours; state lay-advocate rules;
+  My IEP Hero advocate rates and whether they attend.
+- Possible OE point of view: the district writes the plan and holds the records, and federal
+  enforcement just left the building; AI makes the reading cheap, but someone accountable still sits at
+  the table. Showable with a synthetic evaluation and draft IEP; no guest.
+- Semantic deduplication: no match; distinct from held `DISC-2026-09-28-015` (private-school admissions)
+  in buyer, counterparty, and buyer verdicts.
+- Disposition: shortlisted. Decisive reason: dated federal change plus independent parent questions,
+  buyer accounts of paying for this residual, a licence-free boundary, and AI cutting the costly part.
+  Recheck 2026-10-28; expires 2027-06-30. Step 0 candidate ID: none.
+
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 2 of 2)
+- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 3 of 3 since
+  2026-09-30, below the IEP lead because WISeR's survival past 2026-12-11 is uncertain)
 - First seen / last checked: 2026-09-27 / 2026-09-28 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
   authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
@@ -984,5 +1042,9 @@ None.
   or AI is not the work (tariff refunds, underpayments). Per-idea reopening conditions in
   `runs/2026-09-29.md`.
 
+- 2026-09-30 (scout) — LTL freight damage claims for small shippers: brokers file claims free and AI
+  claim agents (Freehand) and per-claim RPA (iNymbus) sell the job. Reopen only if small shippers are
+  shown unserved by both. Record in `runs/2026-09-30.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
-`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`.
+`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`.
