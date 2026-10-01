@@ -93,3 +93,30 @@ Re-entry items 3 (records-officer interviews) and 4 (synthetic rehearsal) move t
 plan as the **viewer's first test**; they no longer gate this candidate. Items 1 and 2 (Ithaca RFP
 and award; Los Alamos amendment and Methacton packet) are desk work and are now sufficient on their
 own: completing both advances the candidate to an analogy map and scorecard.
+
+## Addendum 2026-10-01: desk re-entry check (Thursday bench)
+
+Evidence: `../02-research/candidate-2026-09-28-records-request-overflow-amendment-01.md` / `f8f0cc737a749b033c173093124133c25125bef35f71782fdab9a086d31a8a54`
+
+Decision unchanged: **continue research**. Neither desk item is complete.
+
+- Item 1, partial: the Ithaca RFP is now primary (individuals eligible; hourly cost proposal;
+  second-review scope; indemnity and insurance). No award or winner is public.
+- Item 2, partial: the Los Alamos Amendment 1 staff report and IPRA progress sheet show the first
+  $350,000 was records-request work, used in under a year, dominated by one request of about a
+  million documents. The Methacton packet was not found.
+- New disconfirming evidence: both primary buyers bought to clear a one-time backlog (a platform
+  migration; a mega-request), and Ithaca now clears requests in-house on new software. The evidence
+  fits a backlog-clearance offer better than a standing overflow desk (hypothesis H-REFRAME-01 in
+  the amendment).
+
+Revised desk re-entry (both required to advance to an analogy map and scorecard):
+
+1. Any primary record of who won the Ithaca RFP and at what rate, or another primary award of
+   records-review work to an individual or firm under five people.
+2. One more primary small-agency record (packet, contract, or invoice) showing records-review spend
+   by a non-law outside reviewer, ideally recurring rather than one-off. The Methacton packet, if it
+   surfaces, counts toward the cost picture but not toward this item.
+
+If a further bench run finds neither after a bounded search, park with these as the reopening
+condition rather than continuing to spend runs on it.
