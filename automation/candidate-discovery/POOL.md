@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-09-30 ET, scout run: adds and shortlists `DISC-2026-09-30-016` (AI-leveraged IEP
+Updated: 2026-10-01 ET, scout run: six new ideas screened, all rejected; IEP lead (`016`) gains
+licensing and rate evidence; shortlist unchanged. Upstream pool divergence still awaits owner
+reconciliation. Full record: `runs/2026-10-01.md`.
+Previous: 2026-09-30 ET, scout run: adds and shortlists `DISC-2026-09-30-016` (AI-leveraged IEP
 advocacy for parents, priority 2); WISeR lead moves to priority 3; freight claims rejected. Upstream
 pool divergence (`origin/main` lead `DISC-2026-09-28-011`) still awaits owner reconciliation. Full
 record: `runs/2026-09-30.md`.
@@ -76,7 +79,7 @@ lead into formal Operator Blueprint V2 Step 0.
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
 - Status: `shortlisted` (2026-09-30 scout; priority 2 of 3)
-- First seen / last checked: 2026-09-30 / 2026-09-30 ET
+- First seen / last checked: 2026-09-30 / 2026-10-01 ET
 - Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
   HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
   <https://www.k12dive.com/news/education-department-transfers-key-special-ed-civil-rights-functions/823022/>),
@@ -120,6 +123,12 @@ lead into formal Operator Blueprint V2 Step 0.
   against advocates enough that a low fee still isn't worth it?
 - Evidence still needed: a 2025–26 buyer account; prep vs meeting hours; state lay-advocate rules;
   My IEP Hero advocate rates and whether they attend.
+- Added 2026-10-01: secondary sources say no state licenses advocates; New Jersey requires a
+  non-attorney at a due process hearing to certify expertise and take no fee (fits the boundary).
+  Highlighter sells advocates practice software at $59/mo (a paid solo-advocate population exists).
+  2026 rate pages (seller copy): $100–$300/hr, records review plus prep ~$950. Trends US 90d: sparse,
+  low steady band from mid-September. Still missing: a dated 2025–26 buyer account; prep vs meeting
+  hours. Record: `runs/2026-10-01.md`.
 - Possible OE point of view: the district writes the plan and holds the records, and federal
   enforcement just left the building; AI makes the reading cheap, but someone accountable still sits at
   the table. Showable with a synthetic evaluation and draft IEP; no guest.
@@ -1046,5 +1055,13 @@ None.
   claim agents (Freehand) and per-claim RPA (iNymbus) sell the job. Reopen only if small shippers are
   shown unserved by both. Record in `runs/2026-09-30.md`.
 
+- 2026-10-01 (scout) — Six ideas rejected: nursing-home Medicaid look-back applications (planning advice is
+  unauthorized practice in several states; facilities do it free), college financial-aid appeals after the
+  Parent PLUS cap (free SwiftStudent; buyers distrust consultants), patient insurance appeals (free SHIP and
+  consumer programs), tariff escalation claims for subs (no buyer voice; close to counsel), FMCSA DataQs
+  challenges (already sold at $25–$40), MFP refund reconciliation for pharmacies (data matching; co-ops
+  bundle it). Reopening conditions in `runs/2026-10-01.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
-`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`.
+`runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
+`runs/2026-10-01.md`.
