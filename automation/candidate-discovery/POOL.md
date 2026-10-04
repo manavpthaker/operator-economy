@@ -1,6 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-03 ET, scout run: five ideas screened, all rejected (guardian court accountings,
+Updated: 2026-10-04 ET, scout run: adds `DISC-2026-10-04-018` (E-rate filing help for small schools
+and libraries) as held; rejects homeowner draw review, contractor-bid comparison, franchisee
+marketing-fund audits, and outsourced security questionnaires; shortlist unchanged. Full record:
+`runs/2026-10-04.md`.
+Previous: 2026-10-03 ET, scout run: five ideas screened, all rejected (guardian court accountings,
 subcontractor submittals, total-loss contents inventories, title abstracts, autumn marketplace policy
 changes); shortlist unchanged; upstream pool divergence still awaits owner reconciliation. Full
 record: `runs/2026-10-03.md`.
@@ -222,6 +226,35 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-04-018` — E-rate filing help for small schools and libraries
+
+- Status: `held` (2026-10-04 scout)
+- First seen / last checked: 2026-10-04 / 2026-10-04 ET
+- Change: FCC E-Rate NPRM/FNPRM adopted 2026-06-25 (WC Docket 26-133 et al.), published 2026-08-14;
+  comments due 2026-10-13, replies 2026-11-12. Proposes consultant registration, annual Form 5654
+  certification, and a ban on percentage-of-funding consultant fees, inside a top-to-bottom program
+  review. Sources: Cooley 2026-07-02 (read); CRS IF13289 2026-08-17 (SERP). Ledger: `runs/2026-10-04.md`.
+- Buyer / problem: small applicants (1–5 sites: rural libraries, small private and charter schools)
+  that file alone and lose funding; percentage-fee consultants skip or overcharge tiny applicants.
+- Offer / mechanism: flat-fee filing desk — AI drafts Form 470 scope, builds the bid-evaluation
+  matrix, reads bids and contracts, and answers PIA questions; operator tracks deadlines; the
+  applicant certifies.
+- AI-change test: plausibly passes (AI does the reading and drafting a percentage-fee consultant was
+  paid for, making a one-building applicant economic).
+- Delivery boundary: no licence; registration and certification if the rule is adopted.
+- Substitute: Funds for Learning Form 471 Wizard / E-rate Manager (software); established consultants.
+- Problem-value signals: `problem cost` — small independent filers 52.3% commitment rate vs 75.4%
+  with a consultant; only 27.5% of small entities use one (Funds for Learning 2025-05-21, read).
+  `old-way spend` — consultants named on small private schools' and libraries' FY2027 Form 470s
+  (USAC, SERP); fee levels not found. Payment evidence: unknown — viewer's first test. Switching
+  question: why a flat-fee operator rather than the free wizard or a staff member using AI?
+- Hold reasons: (1) program scope and funding under review, so the why-now may reverse; (2) buyers
+  mostly public, against the private-buyer preference; (3) no buyer voice on filing burden.
+- Reopen when: the FCC acts after 2026-11-12 without cutting small applicants, and one small private
+  school or library asks for or pays a flat fee for filing help. Recheck 2026-11-22; expires
+  2027-03-31.
+- Semantic deduplication: no match in repository or pool; distinct from `011` and `009`.
 
 ### `DISC-2026-10-02-017` — condo financeability readiness for small self-managed associations
 
@@ -1097,7 +1130,7 @@ None.
   Parent PLUS cap (free SwiftStudent; buyers distrust consultants), patient insurance appeals (free SHIP and
   consumer programs), tariff escalation claims for subs (no buyer voice; close to counsel), FMCSA DataQs
   challenges (already sold at $25–$40), MFP refund reconciliation for pharmacies (data matching; co-ops
-  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`.
+  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`.
 
 - 2026-10-02 (scout) — Three ideas rejected: buyer-side condo/HOA document review (free AI analyzers
   such as GoverningDocs already output it), non-attorney SSDI representation (business exists unchanged;
@@ -1110,6 +1143,12 @@ None.
   public adjusting), title abstracts and runsheets (RecordsOnline, TitleLab, Enverus AI sell it), Amazon
   insurance-requirement change (not an AI job). Reopening conditions in `runs/2026-10-03.md`.
 
+- 2026-10-04 (scout) — Four ideas rejected: homeowner custom-build draw review (lenders review
+  draws; Built and River AI draw agents sell to lenders), contractor-bid comparison (free AI tools such
+  as BidCompareAI and RemodelerIQ output it), franchisee marketing-fund audits (CPA attest work), and
+  outsourced security questionnaires (Vanta, Conveyor, SecurityPal sell it). Reopening conditions in
+  `runs/2026-10-04.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
-`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`.
+`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`.
