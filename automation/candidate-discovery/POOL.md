@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-04 ET, scout run: adds `DISC-2026-10-04-018` (E-rate filing help for small schools
+Updated: 2026-10-05 ET, scout run: adds `DISC-2026-10-05-019` (ownership screening for small
+exporters under the BIS Affiliates Rule) as held; rejects SBA loan packaging and EcoVadis
+questionnaires; shortlist unchanged. Full record: `runs/2026-10-05.md`.
+Previous: 2026-10-04 ET, scout run: adds `DISC-2026-10-04-018` (E-rate filing help for small schools
 and libraries) as held; rejects homeowner draw review, contractor-bid comparison, franchisee
 marketing-fund audits, and outsourced security questionnaires; shortlist unchanged. Full record:
 `runs/2026-10-04.md`.
@@ -226,6 +229,36 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-05-019` — ownership screening for small exporters under the BIS Affiliates Rule
+
+- Status: `held` (2026-10-05 scout)
+- First seen / last checked: 2026-10-05 / 2026-10-05 ET
+- Change: BIS Affiliates Rule (adopted 2025-09-29) extends Entity List / MEU List restrictions to
+  foreign entities 50%+ owned, directly or in aggregate, by listed parties; suspended from 2025-11-10
+  for one year, ending 2026-11-09 absent further action (Willkie 2026-09-21, read). Exporters become
+  affirmatively responsible for counterparties' ownership. Ledger: `runs/2026-10-05.md`.
+- Buyer / problem: small US manufacturers and distributors selling to foreign customers without a
+  trade-compliance department; free name-only screening cannot see ownership chains.
+- Offer / mechanism: per-counterparty ownership file — AI reads foreign-language registries and
+  filings, traces chains, aggregates stakes against listed parties; operator verifies and documents
+  gaps; exporter and counsel decide licensing.
+- AI-change test: plausibly passes (foreign-registry ownership research was law-firm or
+  enterprise-data work, priced out of small exporters).
+- Delivery boundary: no licence; licence determinations and disclosures stay with the exporter and
+  counsel.
+- Substitute: Descartes, Kharon (via e2open), Castellum.AI ownership screening; no published prices.
+- Problem-value signals: `problem cost` — penalties up to ~$374k per violation or 2x transaction
+  value (statutory, restated in vendor content; context). `old-way spend` — trade counsel and
+  enterprise screening subscriptions; no rate found. Payment evidence: unknown — viewer's first test.
+  Switching question: why an operator per file rather than a subscription or contract ownership
+  certifications?
+- Hold reasons: (1) no independent buyer voice (rule 1 not met); (2) substitute pricing unknown;
+  (3) suspension could be extended before 2026-11-09.
+- Reopen when: the rule takes effect 2026-11-10, one small exporter or question surface asks how to
+  check ownership or who to hire, and vendor pricing is shown to leave small exporters out. Recheck
+  2026-11-12; expires 2027-05-31.
+- Semantic deduplication: no match in repository or pool; distinct from parked import lead `006`.
 
 ### `DISC-2026-10-04-018` — E-rate filing help for small schools and libraries
 
@@ -1130,7 +1163,7 @@ None.
   Parent PLUS cap (free SwiftStudent; buyers distrust consultants), patient insurance appeals (free SHIP and
   consumer programs), tariff escalation claims for subs (no buyer voice; close to counsel), FMCSA DataQs
   challenges (already sold at $25–$40), MFP refund reconciliation for pharmacies (data matching; co-ops
-  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`.
+  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`.
 
 - 2026-10-02 (scout) — Three ideas rejected: buyer-side condo/HOA document review (free AI analyzers
   such as GoverningDocs already output it), non-attorney SSDI representation (business exists unchanged;
@@ -1149,6 +1182,11 @@ None.
   outsourced security questionnaires (Vanta, Conveyor, SecurityPal sell it). Reopening conditions in
   `runs/2026-10-04.md`.
 
+- 2026-10-05 (scout) — Two ideas rejected: SBA 7(a) loan packaging for borrowers (lenders package
+  for a capped fee and AI origination platforms such as Casca already sell the job to lenders) and
+  EcoVadis questionnaires for small suppliers (Sunhat AI and accredited consultants already sell it).
+  Reopening conditions in `runs/2026-10-05.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
-`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`.
+`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`.
