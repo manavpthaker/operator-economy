@@ -697,7 +697,7 @@ None.
 ### `DISC-2026-09-27-009` — crash-report lead generation and compliant mailers for personal-injury attorneys
 
 - Status: `admitted` (owner admission 2026-09-28; was `held`)
-- Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (decision: continue research). Admission is not eligibility or promotion.
+- Step 0 candidate ID: `candidate-2026-09-28-crash-report-mailers` (decision: continue research 2026-09-28; **parked** 2026-10-05 by the Monday bench: Ohio's report already codes injury and the at-fault unit, and an Ohio vendor already sells crash data scored by injury and fault; see the disposition addendum and parked register). Admission is not eligibility or promotion.
 - Owner admission decision 2026-09-28: owner directed this held lead into Step 0 (see
   `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`).
 - Origin: owner-proposed 2026-09-27, not a scout find. First filed the same day as police-report

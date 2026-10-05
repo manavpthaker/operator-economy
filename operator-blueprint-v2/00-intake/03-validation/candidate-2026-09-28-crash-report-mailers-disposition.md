@@ -98,3 +98,39 @@ Episode number: unassigned
 This record is not a promotion record and cannot create an active queue row. If the candidate
 re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the
 decision history.
+
+## Addendum 2026-10-05: desk item 1 answered; parked (Monday bench)
+
+Evidence: `../02-research/candidate-2026-09-28-crash-report-mailers-amendment-01.md` / `fe448c9c07c00f2607cacba52a8326d251cb1f2737d0ae7158731dcc9dd920a7`
+
+Decision: **parked**. Decision stage: research. This replaces "continue research" above; the
+original record is preserved.
+
+- Item 1 (required) is answered, and the answer is the one this record said leads to redesign or
+  park. Ohio's report codes both the person's injury level and the "unit in error" (the driver the
+  officer judged most at fault) (CLM-022). An Ohio vendor already sells crash data to law firms,
+  scored by injury severity and fault, within hours (CLM-023, seller). Missouri's state patrol lets
+  anyone filter injury crashes by severity for free (CLM-024).
+- The AI step in the offer (reading reports for injury and fault) is a column filter in Ohio and
+  already a product. What is left for AI is turning scanned PDFs into fields, which a vendor does at
+  state scale. The offer fails the pool's AI-change test as framed.
+- Items 2 and 3 were not worked; neither could change this result.
+- No redesign was adopted. The only plausible one (a compliance and exclusion-log service for
+  firms that mail) has no evidence that anyone pays for it, and would be a different candidate.
+- Not archived: the buyer-paid old way (CLM-001), the legal map, and the ethics finding remain
+  sound and reusable.
+
+Unblock condition (desk; either one reopens research, not validation):
+
+1. An open state where injury and fault are **not** coded fields on the report a firm receives, and
+   no vendor already sells that state's reports filtered by injury or fault.
+2. Primary or independent evidence that law firms pay an outside party for the compliance layer
+   alone (exclusion list, lawful-day timing, suppression log), separate from data and mail.
+
+Field-only questions stay the viewer's first test and are not unblock conditions.
+
+Review trigger: either condition met, or 2026-12-31 (state law and pending bills), or the Georgia
+Supreme Court ruling in CLM-011.
+
+Destination: parked register
+(`../04-queue/parked/candidate-2026-09-28-crash-report-mailers.md`).
