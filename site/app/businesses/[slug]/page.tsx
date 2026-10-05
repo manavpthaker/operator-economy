@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { NewsletterBand } from '../../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome';
-import { getOperation, OPERATIONS, padOperationNumber } from '../../lib/operations';
+import { ARCHIVED_NOTE, getOperation, OPERATIONS, padOperationNumber } from '../../lib/operations';
 import { DirectBookingPage } from './DirectBookingPage';
+import { SaleReadinessPage } from './SaleReadinessPage';
 
 export function generateStaticParams() {
   return OPERATIONS.map(({ slug }) => ({ slug }));
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BusinessPage({ params }: { params: Promise<{ slug: string }> }) {
   const operation = getOperation((await params).slug);
   if (!operation) notFound();
+  if (operation.slug === 'exit-readiness-prep') return <SaleReadinessPage operation={operation} />;
   if (operation.slug === 'direct-booking-recovery') return <DirectBookingPage operation={operation} />;
 
   return (
@@ -46,8 +48,8 @@ export default async function BusinessPage({ params }: { params: Promise<{ slug:
         </section>
 
         <section className="bl-chapter bl-shell" aria-labelledby="watch-title">
-          <header className="bl-chapter__head"><p className="bl-chapter__number">Investigation</p><div><h2 id="watch-title">Watch the episode.</h2><p>The episode carries the original V1 argument and evidence package.</p></div></header>
-          <div className="oe-media"><a className="oe-video" href={operation.youtubeUrl} target="_blank" rel="noreferrer"><span>Watch №{padOperationNumber(operation.number)} on YouTube</span></a><div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Sources</span><p>{operation.sources} in the published package</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Published</span><p>{operation.published}</p></div></div></div>
+          <header className="bl-chapter__head"><p className="bl-chapter__number">Investigation</p><div><h2 id="watch-title">The episode.</h2><p>The episode carried the original V1 argument and evidence package.</p></div></header>
+          <div className="oe-media"><p className="oe-page-note">{ARCHIVED_NOTE}</p><div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Sources</span><p>{operation.sources} in the published package</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Published</span><p>{operation.published}</p></div></div></div>
         </section>
 
         <section className="bl-chapter oe-band-raised bl-shell" aria-labelledby="download-title">

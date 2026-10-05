@@ -15,11 +15,11 @@ export function BusinessList({ operations }: { operations: Operation[] }) {
 
   return (
     <>
-      <div className="oe-filters" role="group" aria-label="Filter businesses">
+      {new Set(operations.map((operation) => operation.artifact)).size > 1 && <div className="oe-filters" role="group" aria-label="Filter businesses">
         <button type="button" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>All</button>
         <button type="button" aria-pressed={filter === 'canvas'} onClick={() => setFilter('canvas')}>Canvases</button>
         <button type="button" aria-pressed={filter === 'legacy_blueprint'} onClick={() => setFilter('legacy_blueprint')}>Legacy</button>
-      </div>
+      </div>}
 
       <p className="bl-chapter__number oe-library-count" aria-live="polite">
         {visible.length} {visible.length === 1 ? 'business' : 'businesses'}
@@ -35,7 +35,7 @@ export function BusinessList({ operations }: { operations: Operation[] }) {
                 <small>
                   {operation.summary}
                   <span className="oe-record">
-                    Episode + Legacy Blueprint · {operation.sources} sources · {operation.published}
+                    {operation.artifact === 'canvas' ? `Episode + Operator Canvas · ${operation.published}` : `Episode + Legacy Blueprint · ${operation.sources} sources · ${operation.published}`}
                   </span>
                 </small>
               </span>

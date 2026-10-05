@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { NewsletterBand } from './components/NewsletterForm';
 import { SiteFooter, SiteHeader } from './components/SiteChrome';
-import { OPERATIONS, padOperationNumber } from './lib/operations';
+import { EpisodeThumbnail, WatchAction, episodeStatus } from './components/WatchAction';
+import { LIVE_OPERATIONS, padOperationNumber } from './lib/operations';
 
 export const metadata: Metadata = {
   title: 'The Operator Economy',
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const latest = OPERATIONS[0];
-  const recent = OPERATIONS.slice(0, 2);
+  const latest = LIVE_OPERATIONS[0];
+  const recent = LIVE_OPERATIONS.slice(0, 2);
 
   return (
     <div className="oe-home" data-oe-theme="boundary-ledger" id="top">
@@ -29,24 +29,22 @@ export default function Home() {
                 numbers work, and the first test to make before you commit.
               </p>
               <div className="oe-actions">
-                <a className="bl-action" href={latest.youtubeUrl} target="_blank" rel="noreferrer">
-                  Watch the latest episode<span className="oe-sr"> (opens in new tab)</span>
-                </a>
-                <Link className="bl-action" href="/businesses">Browse businesses</Link>
+                <WatchAction slug={latest.slug} label="Watch the latest episode" />
+                <Link className="bl-action" href={`/businesses/${latest.slug}`}>Open the Operator Canvas</Link>
               </div>
             </div>
           </div>
 
-          <article className="oe-operation-sheet" aria-labelledby="latest-title">
+          <article className="oe-operation-sheet oe-operation-sheet--episode" aria-labelledby="latest-title">
             <aside className="bl-docket">
               <div className="bl-docket__head">
                 <span>Latest operation</span>
-                <span className="bl-live">Live</span>
+                <span>{episodeStatus(latest.slug)}</span>
               </div>
               <div className="bl-docket__body">
                 <span className="bl-docket__identity">№{padOperationNumber(latest.number)} · {latest.audience}</span>
                 <h2 id="latest-title">{latest.name}</h2>
-                <p>Could one operator help independent hotels turn OTA guests into direct repeat customers?</p>
+                <p>{latest.question}</p>
               </div>
               <dl className="bl-docket__rows">
                 <div className="bl-docket__row"><dt>Buyer</dt><dd>{latest.audience}</dd></div>
@@ -55,17 +53,16 @@ export default function Home() {
               </dl>
             </aside>
 
-            <figure className="bl-working-model">
-              <Image
-                src="/illustration/episode-006/hotel-working-model.jpg"
-                alt="A rough hand-drawn working model showing a guest's first hotel stay routed through an OTA toll booth and the second stay returning directly to the hotel."
-                width="1536"
-                height="1024"
+            <figure className="oe-episode-art">
+              <EpisodeThumbnail
+                slug={latest.slug}
+                thumbnail={latest.thumbnail!}
                 sizes="(max-width: 900px) calc(100vw - 3rem), (max-width: 1600px) 62vw, 58rem"
+                priority
               />
               <figcaption>
-                <span>Working model for the operation</span>
-                <span>{latest.sources} sources · {latest.published}</span>
+                <span>Episode thumbnail. Everyone pictured is AI-generated.</span>
+                <span>{latest.published}</span>
               </figcaption>
             </figure>
           </article>

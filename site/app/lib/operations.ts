@@ -1,5 +1,8 @@
 export type OperationArtifact = 'canvas' | 'legacy_blueprint';
 
+// The 2026-10 relaunch starts the public count again: internal EP007 is public №001. The earlier
+// series is archived: its videos are private, so it is unlisted and its pages carry no watch link.
+// A live operation's watch link comes only from launch/links.json (lib/episode-links.ts), never from here.
 export type Operation = {
   number: number;
   slug: string;
@@ -8,14 +11,39 @@ export type Operation = {
   offer: string;
   summary: string;
   episodeTitle: string;
-  youtubeUrl: string;
-  sources: number;
+  /** Earlier series only; the video is now private and the URL is kept for the record. */
+  youtubeUrl?: string;
+  sources?: number;
   published: string;
   pdfUrl: string;
   artifact: OperationArtifact;
+  archived?: boolean;
+  /** Homepage docket question. */
+  question?: string;
+  thumbnail?: { src: string; width: number; height: number; alt: string };
 };
 
 export const OPERATIONS: Operation[] = [
+  {
+    number: 1,
+    slug: 'exit-readiness-prep',
+    name: 'Sale-Readiness Practice',
+    audience: 'Owner-run businesses',
+    offer: 'Fixed-fee readiness engagement',
+    summary:
+      'Get owner-run businesses ready to be inspected by a buyer, for a fixed fee that never depends on a sale.',
+    episodeTitle: 'The One-Person Business That Gets Companies Ready for a Sale',
+    published: 'Oct 2026',
+    pdfUrl: '/blueprints/exit-readiness-prep.pdf',
+    artifact: 'canvas',
+    question: 'Could one operator get a business ready for a buyer, and be paid a fixed fee for it?',
+    thumbnail: {
+      src: '/episodes/exit-readiness-prep/thumbnail.jpg',
+      width: 1920,
+      height: 1080,
+      alt: 'Episode thumbnail. A business owner sits across a workshop table from a buyer holding a pen over a blank sheet, while the presenter points back at her. Headline: Help her sell.',
+    },
+  },
   {
     number: 6,
     slug: 'direct-booking-recovery',
@@ -29,6 +57,7 @@ export const OPERATIONS: Operation[] = [
     published: 'Aug 2026',
     pdfUrl: '/blueprints/direct-booking-recovery.pdf',
     artifact: 'legacy_blueprint',
+    archived: true,
   },
   {
     number: 4,
@@ -43,6 +72,7 @@ export const OPERATIONS: Operation[] = [
     published: 'Aug 2026',
     pdfUrl: '/blueprints/solo-design-agency.pdf',
     artifact: 'legacy_blueprint',
+    archived: true,
   },
   {
     number: 3,
@@ -57,6 +87,7 @@ export const OPERATIONS: Operation[] = [
     published: 'Jul 2026',
     pdfUrl: '/blueprints/boring-automation-agency.pdf',
     artifact: 'legacy_blueprint',
+    archived: true,
   },
   {
     number: 2,
@@ -71,6 +102,7 @@ export const OPERATIONS: Operation[] = [
     published: 'Jul 2026',
     pdfUrl: '/blueprints/voice-agent-agency.pdf',
     artifact: 'legacy_blueprint',
+    archived: true,
   },
   {
     number: 1,
@@ -85,8 +117,15 @@ export const OPERATIONS: Operation[] = [
     published: 'Jul 2026',
     pdfUrl: '/blueprints/ai-implementation-consulting.pdf',
     artifact: 'legacy_blueprint',
+    archived: true,
   },
 ];
+
+export const ARCHIVED_NOTE =
+  'This episode belongs to the earlier series and is no longer public on YouTube. The working document below remains available.';
+
+/** The current series: listed, featured and in the sitemap. */
+export const LIVE_OPERATIONS = OPERATIONS.filter((operation) => !operation.archived);
 
 export function getOperation(slug: string): Operation | undefined {
   return OPERATIONS.find((operation) => operation.slug === slug);

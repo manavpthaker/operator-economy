@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BusinessList } from '../components/BusinessList';
 import { NewsletterBand } from '../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../components/SiteChrome';
-import { OPERATIONS } from '../lib/operations';
+import { LIVE_OPERATIONS } from '../lib/operations';
 
 export const metadata: Metadata = {
   title: 'Businesses · The Operator Economy',
@@ -28,15 +28,15 @@ export default function BusinessesPage() {
         <section className="oe-section oe-band-inset bl-shell" aria-labelledby="businesses-title">
           <header className="bl-chapter__head">
             <p className="bl-chapter__number">Published work</p>
-            <div><h2 id="businesses-title">Start with a business.</h2><p>Open an entry for the business case, its episode, the earlier Blueprint, and what remains unproven.</p></div>
+            <div><h2 id="businesses-title">Start with a business.</h2><p>Open an entry for the business case, its episode, its Operator Canvas, and what remains unproven.</p></div>
           </header>
-          <BusinessList operations={OPERATIONS} />
+          <BusinessList operations={LIVE_OPERATIONS} />
         </section>
 
         <section className="oe-trust oe-trust--mineral bl-shell" aria-labelledby="formats-title">
-          <p className="bl-chapter__number">Two formats</p>
-          <h2 id="formats-title">Blueprints document the earlier episodes. Canvases are the new decision tool.</h2>
-          <p>Legacy Blueprints remain available and labeled. A Canvas will appear here only after its V2 model, evidence, and publication state are locked.</p>
+          <p className="bl-chapter__number">The format</p>
+          <h2 id="formats-title">Every episode now ships with an Operator Canvas.</h2>
+          <p>Each Canvas is built from the episode&apos;s locked model, evidence, and open questions. The earlier series used Blueprints; it is archived and no longer listed here.</p>
         </section>
 
         <NewsletterBand />

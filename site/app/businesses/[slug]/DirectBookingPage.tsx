@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { GuideToggle } from '../../components/GuideToggle';
 import { NewsletterBand } from '../../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome';
-import { type Operation, padOperationNumber } from '../../lib/operations';
+import { ARCHIVED_NOTE, type Operation, padOperationNumber } from '../../lib/operations';
 
 const capabilities = [
   ['01 · Find', 'Approve what is true and current', 'Google Business Profile · OTA listings', 'Inconsistent or stale promises', 'Keep discovery accurate'],
@@ -153,9 +153,9 @@ export function DirectBookingPage({ operation }: { operation: Operation }) {
         </div>
 
         <section className="bl-chapter oe-band-inset bl-shell" id="episode" aria-labelledby="episode-title">
-          <header className="bl-chapter__head"><p className="bl-chapter__number">Supporting material</p><div><h2 id="episode-title">Watch the investigation.</h2></div></header>
+          <header className="bl-chapter__head"><p className="bl-chapter__number">Supporting material</p><div><h2 id="episode-title">The investigation.</h2></div></header>
           <div className="oe-media">
-            <a className="oe-video" href={operation.youtubeUrl} target="_blank" rel="noreferrer"><span>Watch №006 on YouTube<span className="oe-sr"> (opens in new tab)</span></span></a>
+            <p className="oe-page-note">{ARCHIVED_NOTE}</p>
             <div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Episode</span><p>{operation.episodeTitle} · live · Aug 2026</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Format</span><p>Published under the earlier V1 Blueprint regime.</p></div><div className="bl-ledger-row"><span className="bl-ledger-row__name">Transcript</span><p>Captions are available on YouTube.</p></div></div>
           </div>
         </section>
