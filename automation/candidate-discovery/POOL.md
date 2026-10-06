@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-05 ET, scout run: adds `DISC-2026-10-05-019` (ownership screening for small
+Updated: 2026-10-06 ET, scout run: three ideas screened, all rejected (municipal continuing-disclosure
+filing, TSCA PFAS reporting, school-based Medicaid billing); shortlist unchanged. Full record:
+`runs/2026-10-06.md`.
+Previous: 2026-10-05 ET, scout run: adds `DISC-2026-10-05-019` (ownership screening for small
 exporters under the BIS Affiliates Rule) as held; rejects SBA loan packaging and EcoVadis
 questionnaires; shortlist unchanged. Full record: `runs/2026-10-05.md`.
 Previous: 2026-10-04 ET, scout run: adds `DISC-2026-10-04-018` (E-rate filing help for small schools
@@ -1163,7 +1166,8 @@ None.
   Parent PLUS cap (free SwiftStudent; buyers distrust consultants), patient insurance appeals (free SHIP and
   consumer programs), tariff escalation claims for subs (no buyer voice; close to counsel), FMCSA DataQs
   challenges (already sold at $25–$40), MFP refund reconciliation for pharmacies (data matching; co-ops
-  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`.
+  bundle it). Reopening conditions in `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
+`runs/2026-10-06.md`.
 
 - 2026-10-02 (scout) — Three ideas rejected: buyer-side condo/HOA document review (free AI analyzers
   such as GoverningDocs already output it), non-attorney SSDI representation (business exists unchanged;
@@ -1186,6 +1190,13 @@ None.
   for a capped fee and AI origination platforms such as Casca already sell the job to lenders) and
   EcoVadis questionnaires for small suppliers (Sunhat AI and accredited consultants already sell it).
   Reopening conditions in `runs/2026-10-05.md`.
+
+- 2026-10-06 (scout) — Three ideas rejected: continuing-disclosure (EMMA) filing for small bond
+  issuers (cheap ministerial upload bundled by advisors at $1,250–$1,500 per class; no FDTA compliance
+  date; fails AI-change), TSCA 8(a)(7) PFAS reporting (window delayed to no later than 2027-01-31 and
+  proposed exemptions remove small article importers), school-based Medicaid billing (contingency
+  vendors such as Paradigm at up to 7% already serve small districts; AI is not the work).
+  Reopening conditions in `runs/2026-10-06.md`.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
