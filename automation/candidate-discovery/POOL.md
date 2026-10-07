@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-06 ET, scout run: three ideas screened, all rejected (municipal continuing-disclosure
+Updated: 2026-10-07 ET, scout run: adds `DISC-2026-10-07-020` (catch-up reconciliation to
+audit-ready for small towns and special districts) as held — strong spend, no independent buyer
+question signal; shortlist unchanged. Full record: `runs/2026-10-07.md`.
+Previous: 2026-10-06 ET, scout run: three ideas screened, all rejected (municipal continuing-disclosure
 filing, TSCA PFAS reporting, school-based Medicaid billing); shortlist unchanged. Full record:
 `runs/2026-10-06.md`.
 Previous: 2026-10-05 ET, scout run: adds `DISC-2026-10-05-019` (ownership screening for small
@@ -232,6 +235,60 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-07-020` — catch-up reconciliation to audit-ready for small towns and special districts
+
+- Status: `held` (2026-10-07 scout)
+- First seen / last checked: 2026-10-06 (side signal) / 2026-10-07 ET
+- Exact question or change: small towns fall years behind on bank reconciliations after a clerk or
+  treasurer leaves; states now withhold money or reject budgets until audits are filed. NY
+  comptroller (September 2026): 159 of 933 towns had not filed 2025 reports by June 30. Can one
+  AI-equipped operator rebuild the books to audit-ready for far less than a CPA firm at $175–$295/hr?
+- Sources: FingerLakes1 2026-10-02 (read)
+  <https://www.fingerlakes1.com/2026/10/02/state-report-finds-gaps-in-town-financial-reporting-including-sodus/>;
+  Carroll County Observer 2026-08-28, Hollow Rock TN (read) <https://carrollobserver.com/?p=6414>;
+  The Ark 2026-08-12, Tiburon CA (read); La Marque TX, Scottsdale AZ, New Hartford NY, Watervliet
+  NY council items; TN comptroller / Jackson (WBBJ 2026-09-01); Oregon, SC, CO delinquent lists (SERP).
+  Full ledger: `runs/2026-10-07.md`.
+- Signal types: operating change (state enforcement), buyer spend, capability.
+- Who cares / decision: town boards, clerks and treasurers of small towns and special districts
+  deciding whether to pay a CPA firm, pay clerk overtime, or wait.
+- Buyer / costly problem: unreconciled cash and fund records block the audit; consequences are
+  withheld state revenue, rejected budgets, frozen borrowing, possible district dissolution.
+- Offer / outcome: fixed fee per month or per year reconstructed; outcome is reconciled cash and
+  fund balances the auditor accepts and an audit filed.
+- Mechanism: AI reads bank statements, check images, deposits and the ledger export and proposes
+  matches and fund corrections; the operator resolves exceptions and documents each adjustment for
+  board approval.
+- Why now: dated state enforcement in 2025–26 (NY, TN, OR, SC, CO); AI reconciliation now reads
+  statements and paper at scale.
+- **AI-change test: plausibly passes, to verify.** AI does the reconstruction that was CPA-firm hours.
+  To verify: hours per reconciled month with and without AI.
+- **Delivery boundary: passes on paper.** Bookkeeping and reconciliation are unlicensed; audit,
+  review and compilation are CPA attest work, and Yellow Book independence keeps the auditor from
+  doing the books. Residual: an unlicensed operator reconstructs and reconciles a small town's cash
+  and fund records to the point its independent auditor can start, documenting each adjustment for
+  board approval. Some procurements ask for CPA firms.
+- **Substitute:** CPA outsourced accounting ($175–$375/hr); fund-accounting software vendors;
+  state technical assistance; clerk overtime. Small-business AI bookkeeping is not fund accounting.
+- **Problem-value signals:** `residual` (La Marque $146,250 at $175–$295/hr; Scottsdale $210/hr;
+  New Hartford $9,200/mo; Hollow Rock quote $1,000–$2,000/mo); `problem cost` (withheld revenue,
+  rejected budget, dissolution risk).
+- **Payment evidence:** found — `residual`.
+- Switching question: why a solo operator rather than the auditor's affiliated firm, the software
+  vendor, or clerk overtime?
+- Strongest invalidating question: will auditors and procurement accept records rebuilt by a non-CPA,
+  or does the backlog wait on the auditor's calendar and staff turnover rather than labor?
+- Missing condition (why held): no independent audience/question signal from buyers (qualification
+  1). Public-sector buyer, against the lane-3 private-sector preference.
+- Reopening condition: one buyer-side question signal (clerk/treasurer forum or listserv thread,
+  `site:quora.com` title, or buyer-phrased Trends movement). Then: an auditor or state office
+  accepting third-party reconstructed records; the current Yellow Book prohibited list.
+- Possible OE point of view: a town's books depend on one part-time clerk; AI makes retyping bank
+  statements nearly free, leaving an accountable person who signs each adjustment. Showable with a
+  synthetic town ledger.
+- Semantic deduplication: no match in the repository or pool.
+- Disposition: held. Recheck 2026-10-21; expires 2027-03-31. Step 0 candidate ID: none.
 
 ### `DISC-2026-10-05-019` — ownership screening for small exporters under the BIS Affiliates Rule
 
@@ -1200,4 +1257,5 @@ None.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
-`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`.
+`runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
+`runs/2026-10-06.md`, `runs/2026-10-07.md`.
