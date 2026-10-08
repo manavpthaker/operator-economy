@@ -32,7 +32,7 @@ export default function PrivacyPage() {
             <p>Public Blueprint downloads do not require an email address and do not subscribe you. Newsletter signup is a separate action. Every marketing email includes an unsubscribe path.</p>
 
             <h2>Service providers</h2>
-            <p>The site uses Vercel for hosting, Supabase for subscription records, and Resend for email delivery. Those providers process data under their own terms and may process it in the United States or other locations where they operate.</p>
+            <p>The site uses Vercel for hosting, Supabase and Resend for subscription records, and Resend for email delivery. Those providers process data under their own terms and may process it in the United States or other locations where they operate.</p>
 
             <h2>Retention and deletion</h2>
             <p>Subscription data is retained while the subscription is active and for the limited period needed to honor suppression, security, and legal obligations. To request access, correction, or deletion, email <a href="mailto:hello@theoperatoreconomy.com">hello@theoperatoreconomy.com</a>. Some suppression information may be retained so an unsubscribe request is not accidentally reversed.</p>

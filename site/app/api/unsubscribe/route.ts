@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { Resend } from 'resend';
+import { syncNewsletterContact } from '../../lib/resend-contacts';
 
 export const runtime = 'nodejs';
 
@@ -40,6 +42,13 @@ export async function GET(req: Request) {
       'That link has already been used or is invalid. If you keep receiving mail, reply STOP to any message.',
       { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } }
     );
+  }
+
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey) {
+    for (const row of data) {
+      if (row.tag === 'newsletter') await syncNewsletterContact(new Resend(resendKey), row.email, true);
+    }
   }
 
   return new NextResponse(
