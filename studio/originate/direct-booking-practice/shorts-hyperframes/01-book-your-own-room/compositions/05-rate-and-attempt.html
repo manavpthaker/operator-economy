@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 5, compare the rate and try the booking. f673-793, 5.0s. silent_graphic.
+         Roles: externalDependency (steel rate), activeCommitment (oxide rate, then the
+         attempt followed through). Motion: return, settle.
+         No figures: no claim supports a rate for any property, and the instruction is to
+         go and find out. The attempt's outcome is left open for the same reason, so
+         verifiedStatus (sage) is deliberately NOT used: it "neverMeans optimism,
+         availability, motion, or decorative success". -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+          overflow: hidden;
+        }
+        /* SHARED GEOMETRY v2, frames 2 to 5. Composed for portrait across the whole
+           safe area: bottom 300px and right 180px stay clear for platform UI.
+           v1 put everything in the top 45% and left the lower half empty. */
+        .stage {
+          position: absolute;
+          left: 80px;
+          top: 196px;
+          width: 800px;
+          height: 466px;
+        }
+        .band-rule {
+          position: absolute;
+          left: 80px;
+          top: 716px;
+          height: 2px;
+          width: 300px;
+          background: #c4b99e;
+        }
+        .band {
+          position: absolute;
+          left: 80px;
+          top: 738px;
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 34px;
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          color: #566461;
+        }
+        .routes {
+          position: absolute;
+          left: 80px;
+          top: 860px;
+          width: 800px;
+          height: 440px;
+        }
+        .panel {
+          position: absolute;
+          left: 80px;
+          top: 1352px;
+          width: 800px;
+        }
+
+        .inn,
+        .routefield {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        .inn [data-ink] {
+          fill: none;
+          stroke: #19201f;
+          stroke-width: 3.2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .inn [data-sill] {
+          fill: none;
+          stroke: #566461;
+          stroke-width: 2.4;
+          stroke-linecap: round;
+        }
+        .routefield [data-steel] {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 4;
+          stroke-linecap: round;
+        }
+        .routefield [data-steel-node] {
+          fill: #f5f0e6;
+          stroke: #586d74;
+          stroke-width: 4;
+        }
+        .routefield [data-mark] {
+          fill: #566461;
+          stroke: none;
+        }
+        .routefield [data-oxide] {
+          fill: none;
+          stroke: #b5482f;
+          stroke-width: 5;
+          stroke-linecap: round;
+        }
+        .routefield [data-oxide-node] {
+          fill: #f5f0e6;
+          stroke: #b5482f;
+          stroke-width: 5;
+        }
+        .bar-steel {
+          fill: #586d74;
+        }
+        .bar-oxide {
+          fill: #b5482f;
+        }
+        .cap {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          fill: #566461;
+        }
+        .cap-oxide {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          fill: #87341f;
+        }
+        .askwrap {
+          margin-top: 30px;
+        }
+        .ask {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 40px;
+          line-height: 1.32;
+          color: #19201f;
+          opacity: 0;
+        }
+        .bars {
+          opacity: 0;
+        }
+        .bar-row + .bar-row {
+          margin-top: 34px;
+        }
+        .bar-k {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          margin-bottom: 14px;
+        }
+        .bar-k.site {
+          color: #566461;
+        }
+        .bar-k.direct {
+          color: #87341f;
+        }
+        .bar {
+          height: 30px;
+          width: 0;
+        }
+        .bar.site {
+          background: #586d74;
+        }
+        .bar.direct {
+          background: #b5482f;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f05-rate-and-attempt" data-width="1080" data-height="1920">
+        <div class="stage">
+          <svg class="inn" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+            <path data-ink d="M 24 352 L 696 350" />
+            <path data-ink d="M 92 352 L 92 150 L 360 96 L 628 150 L 628 352" />
+            <path data-ink d="M 78 156 L 360 100 L 642 156" />
+            <path data-ink d="M 336 352 L 336 268 L 384 268 L 384 352" />
+            <g>
+              <path data-sill d="M 136 212 L 196 212" />
+              <path data-sill d="M 232 206 L 292 206" />
+              <path data-sill d="M 328 202 L 388 202" />
+              <path data-sill d="M 424 206 L 484 206" />
+              <path data-sill d="M 520 212 L 580 212" />
+              <path data-sill d="M 136 286 L 196 286" />
+              <path data-sill d="M 232 286 L 292 286" />
+              <path data-sill d="M 424 286 L 484 286" />
+              <path data-sill d="M 520 286 L 580 286" />
+            </g>
+          </svg>
+        </div>
+        <div class="band-rule"></div>
+        <div class="band">20 to 40 rooms</div>
+
+        <div class="routes">
+          <svg class="routefield" viewBox="0 0 720 396" xmlns="http://www.w3.org/2000/svg">
+            <!-- both routes carried over from frame 4, standing -->
+                        <g id="f05-world">
+              <text class="cap" x="34" y="30">guest</text>
+              <circle data-mark cx="60" cy="62" r="13" />
+              <path data-steel d="M 84 62 L 300 62" />
+              <rect data-steel-node x="300" y="24" width="152" height="76" rx="6" />
+              <text class="cap" x="312" y="70">the site</text>
+              <path data-steel d="M 452 62 L 668 62" />
+              <path data-steel d="M 668 62 L 668 0" />
+              <path data-oxide d="M 60 88 L 60 250 L 560 250" />
+              <rect data-oxide-node x="560" y="212" width="108" height="76" rx="6" />
+              <text class="cap-oxide" x="60" y="300">the inn's own site</text>
+              <path data-oxide d="M 668 250 L 668 330" />
+            </g>
+            <!-- the attempt: the owned route is followed to its end and left open -->
+            <path data-oxide id="f05-follow" d="M 668 330 L 668 384" opacity="0" />
+            <g id="f05-open" opacity="0">
+              <path data-oxide d="M 640 384 L 696 384" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="panel">
+          <div class="bars" id="f05-bars">
+            <div class="bar-row">
+              <div class="bar-k site">What the site asks</div>
+              <div class="bar site" id="f05-bar-site"></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-k direct">What the inn asks direct</div>
+              <div class="bar direct" id="f05-bar-direct"></div>
+            </div>
+          </div>
+          <div class="askwrap">
+            <div class="ask" id="f05-ask">Finish it yourself. Whatever stops you is the finding.</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="f05-rate-and-attempt"]');
+          root.querySelectorAll("#f05-follow").forEach((p) => {
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            p.style.strokeDashoffset = `${len}`;
+          });
+
+          // Narration-relative, frame starts at 28.042s absolute.
+          //  0.04-1.72  "Compare the direct rate to the site's."
+          //  2.31-4.14  "Try to finish a direct booking yourself."
+
+          // The two quantities arrive together and are read against each other.
+          // Relative widths only, and the direct one is not drawn as a win: it is
+          // simply a different number the viewer has to go and look up.
+          tl.to("#f05-bars", { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.25);
+          tl.to("#f05-bar-site", { width: 800, duration: 0.7, ease: "power2.out" }, 0.4);
+          tl.to("#f05-bar-direct", { width: 674, duration: 0.7, ease: "power2.out" }, 0.62);
+
+          // return: the owned path is followed through to its end, and stops open.
+          tl.to("#f05-follow", { opacity: 1, duration: 0.01 }, 2.35);
+          tl.to("#f05-follow", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 2.36);
+          tl.to("#f05-open", { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.95);
+          tl.fromTo(
+            "#f05-ask",
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+            3.1,
+          );
+          // settle: ~1.4s held. The outcome is the viewer's, so nothing resolves here.
+          window.__timelines["f05-rate-and-attempt"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

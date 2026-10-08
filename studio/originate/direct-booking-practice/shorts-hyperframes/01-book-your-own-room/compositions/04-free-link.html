@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 4, does the free link appear. f422-673, 10.458s. silent_graphic.
+         The only claim-bearing frame. Claim C009.
+         Roles: externalDependency (steel, holds), activeCommitment (one oxide path),
+         accountableEvidence (mineral record that pins and holds).
+         Motion: steel route holds -> oxide interrupts -> evidence pins -> settle.
+         U-01: one oxide path active at a time.
+         C009 constraint: must show a property CONNECTED THROUGH A PARTNER.
+         Never imply universal eligibility. The condition holds as long as the claim does. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+          overflow: hidden;
+        }
+        /* SHARED GEOMETRY v2, frames 2 to 5. Composed for portrait across the whole
+           safe area: bottom 300px and right 180px stay clear for platform UI.
+           v1 put everything in the top 45% and left the lower half empty. */
+        .stage {
+          position: absolute;
+          left: 80px;
+          top: 196px;
+          width: 800px;
+          height: 466px;
+        }
+        .band-rule {
+          position: absolute;
+          left: 80px;
+          top: 716px;
+          height: 2px;
+          width: 300px;
+          background: #c4b99e;
+        }
+        .band {
+          position: absolute;
+          left: 80px;
+          top: 738px;
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 34px;
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          color: #566461;
+        }
+        .routes {
+          position: absolute;
+          left: 80px;
+          top: 860px;
+          width: 800px;
+          height: 440px;
+        }
+        .panel {
+          position: absolute;
+          left: 80px;
+          top: 1352px;
+          width: 800px;
+        }
+
+        .inn,
+        .routefield {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        .inn [data-ink] {
+          fill: none;
+          stroke: #19201f;
+          stroke-width: 3.2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .inn [data-sill] {
+          fill: none;
+          stroke: #566461;
+          stroke-width: 2.4;
+          stroke-linecap: round;
+        }
+        .routefield [data-steel] {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 4;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .routefield [data-steel-node] {
+          fill: #f5f0e6;
+          stroke: #586d74;
+          stroke-width: 4;
+        }
+        .routefield [data-mark] {
+          fill: #566461;
+          stroke: none;
+        }
+        /* Core oxide: one owned path. */
+        .routefield [data-oxide] {
+          fill: none;
+          stroke: #b5482f;
+          stroke-width: 5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .routefield [data-oxide-node] {
+          fill: #f5f0e6;
+          stroke: #b5482f;
+          stroke-width: 5;
+        }
+        .cap {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          fill: #566461;
+        }
+        .cap-oxide {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          fill: #87341f;
+        }
+        /* accountableEvidence: deep mineral record, typeset, attached and held.
+           The Ledger's translation of the 16px docket: it enters once, attaches to its
+           subject, and holds. It is not a footnote that flashes. */
+        .record {
+          background: #204440;
+          padding: 34px 38px 36px;
+          opacity: 0;
+        }
+        .record-k {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 23px;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          color: rgba(245, 240, 230, 0.56);
+        }
+        .record-v {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 40px;
+          line-height: 1.3;
+          color: #f5f0e6;
+          margin-top: 12px;
+        }
+        .record-src {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 22px;
+          letter-spacing: 0.1em;
+          color: rgba(245, 240, 230, 0.72);
+          margin-top: 18px;
+          padding-top: 16px;
+          border-top: 1px solid rgba(245, 240, 230, 0.22);
+        }
+      </style>
+
+      <div id="root" data-composition-id="f04-free-link" data-width="1080" data-height="1920">
+        <div class="stage">
+          <svg class="inn" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+            <path data-ink d="M 24 352 L 696 350" />
+            <path data-ink d="M 92 352 L 92 150 L 360 96 L 628 150 L 628 352" />
+            <path data-ink d="M 78 156 L 360 100 L 642 156" />
+            <path data-ink d="M 336 352 L 336 268 L 384 268 L 384 352" />
+            <g>
+              <path data-sill d="M 136 212 L 196 212" />
+              <path data-sill d="M 232 206 L 292 206" />
+              <path data-sill d="M 328 202 L 388 202" />
+              <path data-sill d="M 424 206 L 484 206" />
+              <path data-sill d="M 520 212 L 580 212" />
+              <path data-sill d="M 136 286 L 196 286" />
+              <path data-sill d="M 232 286 L 292 286" />
+              <path data-sill d="M 424 286 L 484 286" />
+              <path data-sill d="M 520 286 L 580 286" />
+            </g>
+          </svg>
+        </div>
+        <div class="band-rule"></div>
+        <div class="band">20 to 40 rooms</div>
+
+        <div class="routes">
+          <svg class="routefield" viewBox="0 0 720 396" xmlns="http://www.w3.org/2000/svg">
+            <!-- the current route, carried over from frame 3, standing and fair -->
+                        <g id="f04-current">
+              <text class="cap" x="34" y="30">guest</text>
+              <circle data-mark cx="60" cy="62" r="13" />
+              <path data-steel d="M 84 62 L 300 62" />
+              <rect data-steel-node x="300" y="24" width="152" height="76" rx="6" />
+              <text class="cap" x="312" y="70">the site</text>
+              <path data-steel d="M 452 62 L 668 62" />
+              <path data-steel d="M 668 62 L 668 0" />
+            </g>
+            <!-- the owned route: the inn's own site, reached directly. One oxide path. -->
+            <path data-oxide id="f04-own" d="M 60 88 L 60 250 L 560 250" />
+            <g id="f04-own-node" opacity="0">
+              <rect data-oxide-node x="560" y="212" width="108" height="76" rx="6" />
+              <path data-oxide d="M 668 250 L 668 330" />
+            </g>
+            <text class="cap-oxide" id="f04-own-label" x="60" y="300" opacity="0">
+              the inn's own site
+            </text>
+            <!-- no fee, stated on the owned route only once it exists -->
+            <text class="cap-oxide" id="f04-nofee" x="60" y="348" opacity="0">no fee</text>
+          </svg>
+        </div>
+
+        <!-- The claim's condition. Enters once, attaches, holds for the rest of the frame. -->
+        <div class="panel"><div class="record" id="f04-record">
+          <div class="record-k">condition</div>
+          <div class="record-v">Shown for a property connected through a partner.</div>
+          <div class="record-src">Google free booking links · C009</div>
+        </div></div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="f04-free-link"]');
+          root.querySelectorAll("#f04-own, #f04-own-node path").forEach((p) => {
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            p.style.strokeDashoffset = `${len}`;
+          });
+
+          // Narration-relative, frame starts at 17.583s absolute.
+          //  0.02-3.90  "Does a free link to the hotel's own site show up beside the site rates?"
+          //  4.66-7.60  "Google shows one for a property connected through a partner,"
+          //  8.36-10.0  "and charges nothing for it."
+
+          // interrupt: the owned route is drawn while the current route holds, unchanged.
+          tl.to("#f04-own", { strokeDashoffset: 0, duration: 1.5, ease: "none" }, 0.5);
+          tl.to("#f04-own-node", { opacity: 1, duration: 0.3, ease: "power2.out" }, 1.95);
+          tl.to("#f04-own-node path", { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 2.1);
+          tl.to("#f04-own-label", { opacity: 1, duration: 0.4, ease: "power2.out" }, 2.5);
+          // The question's second half lands with both routes standing side by side.
+          // Nothing moves from 3.0 to 4.6: stillness is an authored state (U-10).
+
+          // pin: the condition arrives decisively on "connected through a partner" and stays.
+          tl.fromTo(
+            "#f04-record",
+            { opacity: 0, y: 26 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+            6.3,
+          );
+          // "charges nothing for it" lands on the owned route, after the condition, never before.
+          tl.to("#f04-nofee", { opacity: 1, duration: 0.4, ease: "power2.out" }, 8.5);
+          // settle: ~1.5s held with the claim and its condition on screen together.
+          window.__timelines["f04-free-link"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

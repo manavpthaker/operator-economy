@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
+    <title>EP009 Short 01 — Book Your Own Room</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       * {
@@ -16,40 +17,146 @@
         width: 1080px;
         height: 1920px;
         overflow: hidden;
-        background: #0a0a0a;
+        background: #f5f0e6;
       }
       #root {
+        position: relative;
         width: 100%;
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        overflow: hidden;
       }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
+      .clip {
+        position: absolute;
+        inset: 0;
       }
     </style>
   </head>
   <body>
+    <!--
+      EP009 companion Short 01. 1080x1920, 24 fps, 1088 frames, 45.333s.
+
+      Three movements and a bridge, per the owner-ruled EP007 clean-frame grammar:
+      presenter opens, full-screen designed proof owns the mechanism, presenter returns
+      to land the conclusion, then a 2.0s silent episode bridge.
+
+      Every boundary is measured against the owner-accepted narration, not chosen:
+      see BEAT-TIMING-V1.json and assets/data/internal-cuts.json. Each cut lands on a
+      24 fps frame at the incoming word's onset, so no outgoing word is clipped.
+
+      Frames 1 and 6 are placeholders. Presenter generation is paid provider work and is
+      not authorized.
+
+      Audio is the owner-accepted Original C narration, sha256 dccf637f..., 43.328s.
+      LOCKED: do not retime, trim or re-voice it. Picture is cut to this audio.
+    -->
     <div
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
       data-width="1080"
       data-height="1920"
+      data-duration="45.333333"
     >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+      <!-- the language carrier, continuous under every frame -->
+      <audio
+        id="narration"
+        src="assets/audio/narration.wav"
+        data-start="0"
+        data-duration="43.328"
+        data-track-index="0"
+      ></audio>
+
+      <!-- movement 1: presenter opens. f0-279 -->
+      <div
+        class="clip"
+        id="clip-f01-presenter-open"
+        data-composition-id="f01-presenter-open"
+        data-composition-src="compositions/01-presenter-open.html"
+        data-start="0"
+        data-duration="11.625"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- movement 2: screens. f279-793 -->
+      <div
+        class="clip"
+        id="clip-f02-the-subject"
+        data-composition-id="f02-the-subject"
+        data-composition-src="compositions/02-the-subject.html"
+        data-start="11.625"
+        data-duration="3.875"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f03-guest-position"
+        data-composition-id="f03-guest-position"
+        data-composition-src="compositions/03-guest-position.html"
+        data-start="15.5"
+        data-duration="2.083333"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f04-free-link"
+        data-composition-id="f04-free-link"
+        data-composition-src="compositions/04-free-link.html"
+        data-start="17.583333"
+        data-duration="10.458334"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f05-rate-and-attempt"
+        data-composition-id="f05-rate-and-attempt"
+        data-composition-src="compositions/05-rate-and-attempt.html"
+        data-start="28.041667"
+        data-duration="5"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- movement 3: presenter returns. f793-1040 -->
+      <div
+        class="clip"
+        id="clip-f06-presenter-close"
+        data-composition-id="f06-presenter-close"
+        data-composition-src="compositions/06-presenter-close.html"
+        data-start="33.041667"
+        data-duration="10.291666"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- bridge: f1040-1088, silent -->
+      <div
+        class="clip"
+        id="clip-f07-episode-bridge"
+        data-composition-id="f07-episode-bridge"
+        data-composition-src="compositions/07-episode-bridge.html"
+        data-start="43.333333"
+        data-duration="2"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
     </div>
+
     <script>
+      // The root carries no motion of its own: every frame owns its timeline, and the
+      // boundaries are hard cuts. A root tween here would animate across a cut.
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
       window.__timelines["main"] = tl;
-      tl.seek(0);
     </script>
   </body>
 </html>

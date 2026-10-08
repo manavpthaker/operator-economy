@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- PLACEHOLDER. No presenter footage exists: that generation is paid provider
+         work and is not authorized. Deliberately not avatar-shaped. A presenter-shaped
+         stand-in would invite review of a performance that does not exist. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #173530;
+          overflow: hidden;
+        }
+        .hold {
+          position: absolute;
+          left: 90px;
+          top: 150px;
+          width: 720px;
+        }
+        .kicker {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          color: rgba(245, 240, 230, 0.56);
+        }
+        .what {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 44px;
+          line-height: 1.34;
+          color: #f5f0e6;
+          margin-top: 22px;
+        }
+        .pending {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 24px;
+          letter-spacing: 0.1em;
+          color: rgba(245, 240, 230, 0.72);
+          margin-top: 34px;
+          padding-top: 18px;
+          border-top: 1px solid rgba(245, 240, 230, 0.22);
+        }
+      </style>
+      <div id="root" data-composition-id="f06-presenter-close" data-width="1080" data-height="1920">
+        <div class="hold">
+          <div class="kicker">PRESENTER RETURNS</div>
+          <div class="what">Manav returns beside the settled graphic and names what ten minutes bought.</div>
+          <div class="pending">Placeholder. Matched presenter performance not yet authorized.</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          tl.from(".kicker", { opacity: 0, duration: 0.4, ease: "power2.out" }, 0.1);
+          window.__timelines["f06-presenter-close"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

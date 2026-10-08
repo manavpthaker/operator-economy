@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 2, the subject. f279-372, 3.875s. silent_graphic.
+         Role: humanContext (paper). Motion binding: establish, settle. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+          overflow: hidden;
+        }
+        /* U-08: composed for portrait, not cropped from landscape.
+           Social binding: right 180px and bottom 300px stay clear. */
+        /* SHARED GEOMETRY v2, frames 2 to 5. Composed for portrait across the whole
+           safe area: bottom 300px and right 180px stay clear for platform UI.
+           v1 put everything in the top 45% and left the lower half empty. */
+        .stage {
+          position: absolute;
+          left: 80px;
+          top: 196px;
+          width: 800px;
+          height: 466px;
+        }
+        .band-rule {
+          position: absolute;
+          left: 80px;
+          top: 716px;
+          height: 2px;
+          width: 300px;
+          background: #c4b99e;
+        }
+        .band {
+          position: absolute;
+          left: 80px;
+          top: 738px;
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 34px;
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          color: #566461;
+        }
+        .routes {
+          position: absolute;
+          left: 80px;
+          top: 860px;
+          width: 800px;
+          height: 440px;
+        }
+        .panel {
+          position: absolute;
+          left: 80px;
+          top: 1352px;
+          width: 800px;
+        }
+
+        .inn {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        /* Rough model: ink lines on paper, authored irregularity, no wobble filter. */
+        .inn [data-ink] {
+          fill: none;
+          stroke: #19201f;
+          stroke-width: 3.2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .inn [data-sill] {
+          fill: none;
+          stroke: #566461;
+          stroke-width: 2.4;
+          stroke-linecap: round;
+        }
+        /* U-03: typeset institution. The rule is the label's attachment, not decoration. */
+      </style>
+
+      <div id="root" data-composition-id="f02-the-subject" data-width="1080" data-height="1920">
+        <div class="stage">
+          <svg class="inn" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- ground line: the place the inn stands in -->
+            <path data-ink id="s-ground" d="M 24 352 L 696 350" />
+            <!-- the building: a long low independent property -->
+            <path data-ink id="s-shell" d="M 92 352 L 92 150 L 360 96 L 628 150 L 628 352" />
+            <path data-ink id="s-eave" d="M 78 156 L 360 100 L 642 156" />
+            <!-- door: where a guest actually arrives -->
+            <path data-ink id="s-door" d="M 336 352 L 336 268 L 384 268 L 384 352" />
+            <!-- two rows of rooms, drawn as sills, not filled windows -->
+            <g id="s-rooms">
+              <path data-sill d="M 136 212 L 196 212" />
+              <path data-sill d="M 232 206 L 292 206" />
+              <path data-sill d="M 328 202 L 388 202" />
+              <path data-sill d="M 424 206 L 484 206" />
+              <path data-sill d="M 520 212 L 580 212" />
+              <path data-sill d="M 136 286 L 196 286" />
+              <path data-sill d="M 232 286 L 292 286" />
+              <path data-sill d="M 424 286 L 484 286" />
+              <path data-sill d="M 520 286 L 580 286" />
+            </g>
+          </svg>
+        </div>
+        <div class="band-rule" id="f02-rule"></div>
+        <div class="band" id="f02-band">20 to 40 rooms</div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="f02-the-subject"]');
+          const draw = (sel) =>
+            root.querySelectorAll(sel).forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = `${len}`;
+              p.style.strokeDashoffset = `${len}`;
+            });
+          draw("#s-ground, #s-shell, #s-eave, #s-door");
+          draw("#s-rooms path");
+
+          // establish: the place, then the building, then the door a guest uses.
+          tl.to("#s-ground", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 0.0);
+          tl.to("#s-shell", { strokeDashoffset: 0, duration: 0.85, ease: "power2.out" }, 0.28);
+          tl.to("#s-eave", { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 0.9);
+          // waterfall-entry: the rooms settle in sequence, reading as a count.
+          tl.to(
+            "#s-rooms path",
+            { strokeDashoffset: 0, duration: 0.3, ease: "power1.out", stagger: 0.07 },
+            1.15,
+          );
+          tl.to("#s-door", { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 1.95);
+          // the typeset band attaches to the model and holds. No pulse (U-05, U-10).
+          tl.to("#f02-rule", { width: 300, duration: 0.5, ease: "power2.inOut" }, 2.35);
+          tl.from("#f02-band", { opacity: 0, y: 10, duration: 0.45, ease: "power2.out" }, 2.55);
+          // settle: 0.9s of authored stillness into the cut.
+          window.__timelines["f02-the-subject"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
