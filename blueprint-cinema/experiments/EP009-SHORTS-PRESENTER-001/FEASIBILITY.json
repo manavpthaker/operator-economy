@@ -1,0 +1,137 @@
+{
+ "schema": "oe-presenter-feasibility-v1",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "episode": "EP009",
+ "surface": "four companion Shorts, native 1080x1920",
+ "question": "Can the owner-locked presenter look be generated as native 9:16 portrait, and what does the full set cost?",
+ "draft_test": {
+  "purpose": "Prove the locked look survives recomposition from its landscape reference into portrait before committing a large spend.",
+  "job_id": "890e0e5b-729b-4edf-b689-51e55178d281",
+  "model": "seedance_2_5",
+  "mode": "omni_reference",
+  "aspect_ratio": "9:16",
+  "resolution_requested": "1080p with draft true",
+  "delivered": "480x854, 24fps, 145 frames, 6.042s",
+  "credits_charged": 18,
+  "balance_before": 805,
+  "balance_after": 787,
+  "reference": {
+   "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/look/L3-chambray.png",
+   "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5",
+   "matches_look_lock": true,
+   "reference_aspect": "2688x1520 landscape"
+  },
+  "media": {
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/draft-test/draft-portrait-test.mp4",
+   "sha256": "34f88d0a44817604a0c74369705989b5495bf488274b55e0fc908f3dc2ed2248"
+  },
+  "preset_declined": "24bae836-2c4a-48e0-89b6-49fcc0b21612 IN THE DARK, declined because a preset look would override the owner-locked look",
+  "result": "pass",
+  "observed": [
+   "native 9:16 portrait, no crop from landscape",
+   "light blue chambray button-down, sleeves rolled to the forearm",
+   "seated at the wooden table in the inn breakfast room, window light from the left",
+   "likeness consistent with the locked still",
+   "recomposed so head and shoulders sit in the upper half, table edge below",
+   "hands resting on the table, camera locked off",
+   "natural interior, no studio lighting, no on-screen text"
+  ],
+  "limitation": "A 6 second 480p draft establishes that the look and framing survive. It does not establish lip-sync drift over a long take, nor voice match, nor that any take is acceptable."
+ },
+ "hard_constraint": {
+  "finding": "The full presenter set cannot be generated at 1080p on the current balance.",
+  "full_set_1080p_credits": 996,
+  "full_set_720p_credits": 581,
+  "full_set_480p_draft_credits": 249,
+  "balance": 787,
+  "measured_rates_credits_per_second": {
+   "1080p": 12,
+   "720p": 7,
+   "480p_draft": 3
+  },
+  "note": "Rates are measured by preflight on a 6 second 9:16 omni_reference call, not assumed. The earlier 9 credits per second figure came from the landscape long-form work and does not apply to portrait."
+ },
+ "span_plan_720p": [
+  {
+   "short": "01",
+   "span": "open",
+   "seconds": 11.625,
+   "billed_seconds": 12,
+   "credits": 84
+  },
+  {
+   "short": "01",
+   "span": "close",
+   "seconds": 10.292,
+   "billed_seconds": 11,
+   "credits": 77
+  },
+  {
+   "short": "02",
+   "span": "open",
+   "seconds": 10.375,
+   "billed_seconds": 11,
+   "credits": 77
+  },
+  {
+   "short": "02",
+   "span": "close",
+   "seconds": 9.833,
+   "billed_seconds": 10,
+   "credits": 70
+  },
+  {
+   "short": "03",
+   "span": "open",
+   "seconds": 6.542,
+   "billed_seconds": 7,
+   "credits": 49
+  },
+  {
+   "short": "03",
+   "span": "close",
+   "seconds": 7.333,
+   "billed_seconds": 8,
+   "credits": 56
+  },
+  {
+   "short": "04",
+   "span": "open",
+   "seconds": 6.125,
+   "billed_seconds": 7,
+   "credits": 49
+  },
+  {
+   "short": "04",
+   "span": "closea",
+   "seconds": 9.0,
+   "billed_seconds": 9,
+   "credits": 63
+  },
+  {
+   "short": "04",
+   "span": "closeb",
+   "seconds": 8.0,
+   "billed_seconds": 8,
+   "credits": 56
+  }
+ ],
+ "short_04_split": {
+  "reason": "Short 04's presenter close is 17.0s, inside the 16 to 24 second band that produced up to 1.5s of lip-sync drift on this episode's long form. Splitting it keeps every take inside the band that worked.",
+  "split_at_seconds": 42.08,
+  "split_at_word": "Some",
+  "parts": [
+   "30.792 to 42.08, 11.3s",
+   "42.08 to 47.787, 5.7s"
+  ],
+  "grammar_check": "The owner-ruled grammar requires the presenter to return and land the conclusion. It does not require one take, and an internal cut inside the presenter movement is not a fourth movement.",
+  "status": "agent decision, stated for the record"
+ },
+ "still_unruled": "The beat assignment that defines all eight spans remains an agent reading, recorded in ep009-shorts-picture-grammar-v1. The owner ruled the three-movement grammar, not which paragraph sits in which movement.",
+ "not_authorized": [
+  "the full presenter set at any resolution",
+  "lip sync, about 10.55 USD via Sync v3 for 1.32 minutes",
+  "any retake",
+  "render, release, upload or publication"
+ ]
+}
