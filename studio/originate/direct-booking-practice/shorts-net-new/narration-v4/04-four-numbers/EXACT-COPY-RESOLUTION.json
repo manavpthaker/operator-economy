@@ -1,0 +1,74 @@
+{
+ "schema": "oe-transfer-source-exact-copy-resolution-v1",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "short": "04",
+ "transfer_source": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/04-four-numbers/media/guide.wav",
+ "transfer_source_sha256": "57e9b56729b82cc4b0973583a0b72e7fbf6cacaeb73231420300dd3213f604e8",
+ "why_no_single_model_pass": "The two local ASR models fail on different single tokens of the same bytes, so neither produces a clean read on its own. That is the limit of the automated gate, not a finding about the audio.",
+ "reads": {
+  "small.en": {
+   "tokens": "134/135",
+   "declared": [
+    "homophone",
+    "currency_symbol",
+    "percent_symbol",
+    "currency_symbol",
+    "currency_symbol"
+   ],
+   "undeclared": [
+    [
+     [
+      "band"
+     ],
+     [
+      "ban"
+     ]
+    ]
+   ],
+   "record": "SOURCE-ASR.small.en.json"
+  },
+  "medium.en": {
+   "tokens": "134/134",
+   "declared": [
+    "homophone",
+    "currency_symbol"
+   ],
+   "undeclared": [
+    [
+     [
+      "percent"
+     ],
+     []
+    ]
+   ],
+   "record": "SOURCE-ASR.medium.en.json"
+  }
+ },
+ "token_by_token_resolution": [
+  {
+   "token": "band",
+   "at_seconds": 15.62,
+   "small_en": "read as 'ban', one final consonant",
+   "medium_en": "read correctly as 'band'",
+   "resolved_by": "owner listening to the full sentence",
+   "owner_verbatim": "the sentence file is good",
+   "owner_record": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-10-08-owner-resolve-04-band.json",
+   "decision_event": "ep009-shorts-04-exact-copy-resolved-v1",
+   "strength": "human ear on the exact disputed span"
+  },
+  {
+   "token": "percent",
+   "at_seconds": 17.0,
+   "small_en": "heard and written as the % symbol, which the declared percent_symbol allowance covers",
+   "medium_en": "dropped entirely",
+   "resolved_by": "cross-model attestation only",
+   "strength": "weaker than the band resolution. The owner did not listen to this token; it rests on small.en hearing it where medium.en did not. The two models never agree that a token is absent, and no token in this script is unattested by both.",
+   "flagged": true
+  }
+ ],
+ "conclusion": "Every expected token of the 04 transfer source is attested. 'band' is settled by the owner's ear; 'percent' by small.en alone. Treated as sufficient to transfer, because the transfer preserves words rather than deciding them and the resulting Original C audio still faces owner listening before anything is built from it.",
+ "if_wrong": "If 'seventy percent' is in fact missing from the audio it will be audible in the Original C result, and the short would need a new guide, a fresh Google call under fresh authority. Nothing downstream of the transfer is authorized, so the cost of being wrong is one transfer's credits.",
+ "limitations": "ASR cannot prove an unclipped final phoneme. Nothing here establishes voice match, performance or register.",
+ "accepted": true,
+ "accepted_basis": "owner_listening_plus_cross_model_attestation"
+}

@@ -1,0 +1,35 @@
+{
+ "record_type": "owner_feedback_source",
+ "episode": "EP009-direct-booking-recovery",
+ "captured_at_utc": "2026-10-08T00:00:00Z",
+ "source": "current Claude Code session, owner reply to the second narration hold",
+ "surface": "studio/originate/direct-booking-practice/shorts-net-new/narration-v2/BATCH-HOLD.json",
+ "verbatim": "run 03 again",
+ "bounded_interpretation": "Authorize exactly one more Google Algieba guide call for Short 03, whose second attempt returned HTTP 502 with no audio. Aggregate Google calls become seven; the 0.20 USD aggregate spend cap is unchanged. narration-v1 and narration-v2 are preserved untouched.",
+ "authorized": {
+  "google_guide_calls_this_run": 1,
+  "shorts": [
+   "03"
+  ],
+  "aggregate_google_guide_calls_max": 7,
+  "aggregate_google_spend_cap_usd": 0.2,
+  "elevenlabs_transfer_calls": 0,
+  "automatic_retries": 0
+ },
+ "not_inferred": [
+  "This does not authorize any ElevenLabs transfer.",
+  "This does not decide Short 02's marginal tail or Short 04's exact-copy question; both remain open.",
+  "This does not accept any resulting audio; owner listening remains the check.",
+  "This does not authorize a further attempt at 03 if this one also fails.",
+  "This does not change the pinned 0.02 tail threshold.",
+  "This does not authorize presenter generation, lip sync, render, release, upload or publication."
+ ],
+ "valid_only_for": {
+  "proposal_path": "studio/originate/direct-booking-practice/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V3.json",
+  "proposal_sha256": "bd514615678b31a3eb1b2e744b8f9092626601f152ab5ebdb606ada467a66ab1",
+  "spoken_text_path": "studio/originate/direct-booking-practice/shorts-net-new/SPOKEN-TEXT-V1.json",
+  "spoken_text_sha256": "2cab291e05e4aa2b4816a76399b72b1fb165d37bda8033102087fe98f60188f8",
+  "prior_hold_event": "ep009-shorts-narration-batch-hold-v2"
+ },
+ "failure_policy": "Stop and report after any uncertain or failed outcome. Do not retry."
+}

@@ -1,0 +1,70 @@
+{
+ "at_utc": "2026-10-08T16:08:01Z",
+ "stage": "elevenlabs_voice_transfer",
+ "owner_authority": {
+  "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-10-08-owner-repair-02-and-transfer.json",
+  "sha256": "1ab651b97cdc7cefdac4c499c78654b5a6b15dca57286d8890e2a3289c5325b6",
+  "verbatim": "02 sounds fine, run the repair and the transfers"
+ },
+ "target_voice": "Original C",
+ "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+ "model_id": "eleven_multilingual_sts_v2",
+ "seed": "2026082501",
+ "output_format": "pcm_48000",
+ "credit_cap": 3400,
+ "estimated_credits_total": 2948,
+ "automatic_retries": 0,
+ "order": [
+  "01",
+  "02",
+  "03",
+  "04"
+ ],
+ "sources": [
+  {
+   "short_id": "01",
+   "slug": "01-book-your-own-room",
+   "source_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/01-book-your-own-room/media/guide.wav",
+   "source_sha256": "402652f8c65a0eab773d7736d7754ae627bca0e761ac22b9cc8180ef98a0bcd4",
+   "basis": "native tail pass 0.0002",
+   "duration_seconds": 43.291,
+   "tail_energy": 0.0002,
+   "ends_in_silence": true,
+   "estimated_credits": 722
+  },
+  {
+   "short_id": "02",
+   "slug": "02-sounds-like-marketing",
+   "source_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v4/02-sounds-like-marketing/media/guide-derived-pad500ms.wav",
+   "source_sha256": "45a90786afcd89d570dfe36f81e34c802c7f393acbd655d528aa135371b51a99",
+   "basis": "append-silence repair of narration-v2, source tail 0.0224",
+   "duration_seconds": 42.191,
+   "tail_energy": 0.0,
+   "ends_in_silence": true,
+   "estimated_credits": 704
+  },
+  {
+   "short_id": "03",
+   "slug": "03-the-guest-book",
+   "source_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v3/03-the-guest-book/media/guide-derived-pad500ms.wav",
+   "source_sha256": "1840b520adf3604d70483e1be222fa287b3679cba236a4a7183530c67edffb4d",
+   "basis": "append-silence repair of narration-v3, source tail 0.1626",
+   "duration_seconds": 43.471,
+   "tail_energy": 0.0,
+   "ends_in_silence": true,
+   "estimated_credits": 725
+  },
+  {
+   "short_id": "04",
+   "slug": "04-four-numbers",
+   "source_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/04-four-numbers/media/guide.wav",
+   "source_sha256": "57e9b56729b82cc4b0973583a0b72e7fbf6cacaeb73231420300dd3213f604e8",
+   "basis": "native tail pass 0.0116",
+   "duration_seconds": 47.771,
+   "tail_energy": 0.0116,
+   "ends_in_silence": true,
+   "estimated_credits": 797
+  }
+ ],
+ "note": "Two sources are append-silence derivatives and two are raw guides. Every one ends in digital silence, which is the condition the tail gate tests."
+}

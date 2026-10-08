@@ -1,0 +1,112 @@
+{
+ "at_utc": "2026-10-08T14:47:31Z",
+ "media_sha256": "57e9b56729b82cc4b0973583a0b72e7fbf6cacaeb73231420300dd3213f604e8",
+ "script_sha256": "75199d7b3db7ee6e9fcfe01abdab35be28cd5cad29e8e0b9e487d010f93877d6",
+ "asr_intent_sha256": "41740e92cf32f77e9af8b4c44dead7e7af8f2c1e747156ad0e840f71b3da63ee",
+ "transcript_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/04-four-numbers/media/transcript.json",
+ "transcript_sha256": "42cfd42ee0452a0e271aeb4bf0f49dd60de964bb090917389cf7a1e2d47dc911",
+ "expected_token_count": 134,
+ "actual_token_count": 135,
+ "exact_match": false,
+ "first_divergence_index": 44,
+ "declared_orthography_differences": [
+  {
+   "op": "replace",
+   "expected_index": 103,
+   "expected": [
+    "inn"
+   ],
+   "actual": [
+    "in"
+   ],
+   "declared": true,
+   "kind": "homophone"
+  },
+  {
+   "op": "insert",
+   "expected_index": 105,
+   "expected": [],
+   "actual": [
+    "$"
+   ],
+   "declared": true,
+   "kind": "currency_symbol"
+  },
+  {
+   "op": "replace",
+   "expected_index": 110,
+   "expected": [
+    "percent"
+   ],
+   "actual": [
+    "%"
+   ],
+   "declared": true,
+   "kind": "percent_symbol"
+  },
+  {
+   "op": "insert",
+   "expected_index": 117,
+   "expected": [],
+   "actual": [
+    "$"
+   ],
+   "declared": true,
+   "kind": "currency_symbol"
+  },
+  {
+   "op": "delete",
+   "expected_index": 118,
+   "expected": [
+    "dollars"
+   ],
+   "actual": [],
+   "declared": true,
+   "kind": "currency_symbol"
+  }
+ ],
+ "undeclared_differences": [
+  {
+   "op": "replace",
+   "expected_index": 44,
+   "expected": [
+    "band"
+   ],
+   "actual": [
+    "ban"
+   ],
+   "declared": false,
+   "kind": null
+  }
+ ],
+ "allowances": {
+  "number_form": "spoken number words and ASR digits normalize to the same integer value",
+  "currency_symbol": "ASR writes '$' where the narrator spoke 'dollars'",
+  "percent_symbol": "ASR writes '%' where the narrator spoke 'percent'",
+  "homophone": "acoustically identical pairs the transcriber cannot distinguish: inn/in",
+  "limitation": "a homophone allowance means ASR cannot decide the token. It is not evidence the audio is correct, and owner listening remains the check."
+ },
+ "expected_around": [
+  "apply",
+  "a",
+  "commission",
+  "band",
+  "and",
+  "you",
+  "have"
+ ],
+ "actual_around": [
+  "apply",
+  "a",
+  "commission",
+  "ban",
+  "and",
+  "you",
+  "have"
+ ],
+ "accepted": false,
+ "word_count_from_asr": 133,
+ "first_word_start_s": 0.09,
+ "last_word_end_s": 47.68,
+ "limitations": "ASR cannot prove an unclipped final phoneme and does not replace owner listening."
+}

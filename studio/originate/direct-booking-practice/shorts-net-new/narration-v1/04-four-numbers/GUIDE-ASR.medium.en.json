@@ -1,0 +1,81 @@
+{
+ "at_utc": "2026-10-08T14:49:49Z",
+ "media_sha256": "57e9b56729b82cc4b0973583a0b72e7fbf6cacaeb73231420300dd3213f604e8",
+ "script_sha256": "75199d7b3db7ee6e9fcfe01abdab35be28cd5cad29e8e0b9e487d010f93877d6",
+ "asr_intent_sha256": "55b771236172b7fa92de1a5adad02ecdc8dd85e8672c61d9e441da59ae985456",
+ "asr_model": "medium.en",
+ "pinned_model": "small.en",
+ "escalated_from_pinned_model": true,
+ "transcript_path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/04-four-numbers/media/transcript.json",
+ "transcript_sha256": "70b7bb3efe7c79d92a88dd323199310765b06ea22f4d5b320281ff8598b45bf5",
+ "expected_token_count": 134,
+ "actual_token_count": 134,
+ "exact_match": false,
+ "first_divergence_index": 110,
+ "declared_orthography_differences": [
+  {
+   "op": "replace",
+   "expected_index": 103,
+   "expected": [
+    "inn"
+   ],
+   "actual": [
+    "in"
+   ],
+   "declared": true,
+   "kind": "homophone"
+  },
+  {
+   "op": "insert",
+   "expected_index": 105,
+   "expected": [],
+   "actual": [
+    "$"
+   ],
+   "declared": true,
+   "kind": "currency_symbol"
+  }
+ ],
+ "undeclared_differences": [
+  {
+   "op": "delete",
+   "expected_index": 110,
+   "expected": [
+    "percent"
+   ],
+   "actual": [],
+   "declared": false,
+   "kind": null
+  }
+ ],
+ "allowances": {
+  "number_form": "spoken number words and ASR digits normalize to the same integer value",
+  "currency_symbol": "ASR writes '$' where the narrator spoke 'dollars'",
+  "percent_symbol": "ASR writes '%' where the narrator spoke 'percent'",
+  "homophone": "acoustically identical pairs the transcriber cannot distinguish: inn/in",
+  "limitation": "a homophone allowance means ASR cannot decide the token. It is not evidence the audio is correct, and owner listening remains the check."
+ },
+ "expected_around": [
+  "night",
+  "and",
+  "('#', 70)",
+  "percent",
+  "occupancy",
+  "it",
+  "lands"
+ ],
+ "actual_around": [
+  "a",
+  "night",
+  "and",
+  "('#', 70)",
+  "occupancy",
+  "it",
+  "lands"
+ ],
+ "accepted": false,
+ "word_count_from_asr": 135,
+ "first_word_start_s": 0.09,
+ "last_word_end_s": 47.6,
+ "limitations": "ASR cannot prove an unclipped final phoneme and does not replace owner listening."
+}
